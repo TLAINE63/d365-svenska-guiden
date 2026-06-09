@@ -14,6 +14,7 @@ import energiImg from "@/assets/industries/energi.webp";
 import konsultImg from "@/assets/industries/konsultforetag.webp";
 import finansImg from "@/assets/industries/finans-forsakring.webp";
 import offentligImg from "@/assets/industries/offentlig-sektor.webp";
+import lifeScienceImg from "@/assets/industries/lakemedel-life-science.webp";
 
 export interface BlogArticleAuthor {
   name: string;
@@ -3547,6 +3548,236 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Läs mer och jämför partners:{" "}
           <a href="/branscher/offentlig-sektor/">d365.se/branscher/offentlig-sektor</a>
+        </p>
+      </>
+    ),
+  },
+  {
+    slug: "dynamics-365-life-science-medtech",
+    title: "Dynamics 365 för Life Science & Medtech",
+    metaTitle: "Branschguide: Life Science & Medtech i Dynamics 365 | d365.se",
+    metaDescription:
+      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk Life Science- och Medtech-bransch.",
+    summary:
+      "Branschguide för Life Science & Medtech: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+    category: "Branschguide",
+    tags: ["life science", "medtech", "läkemedel", "dynamics365", "business central", "finance scm", "gxp", "mdr", "udi", "validering"],
+    products: [
+      "Business Central",
+      "Finance & SCM",
+      "Sales",
+      "Customer Service",
+      "Field Service",
+      "Customer Insights",
+    ],
+    publishedAt: "2026-06-09",
+    author: THOMAS_LAINE,
+    heroImage: lifeScienceImg,
+    readingTimeMinutes: 12,
+    content: (
+      <>
+        <p className="!text-sm uppercase tracking-wider !text-primary !font-semibold !mb-2">
+          Kunskapscenter &nbsp;|&nbsp; Branschguide
+        </p>
+        <p className="!text-xs uppercase tracking-wider text-muted-foreground !mb-6">
+          Life Science &amp; Medtech
+        </p>
+        <p className="italic text-foreground/85 !mb-8">
+          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+        </p>
+
+        <h2>Branschens verklighet</h2>
+        <p>
+          Life Science och Medtech är en av de mest krävande branscherna för
+          affärssystemsval. Det är inte primärt processernas komplexitet som
+          gör det svårt — det är de regulatoriska kraven som omgärdar dem.
+          MDR, IVDR, ISO 13485, GxP, FDA 21 CFR Part 11: alla ställer krav på
+          fullständig spårbarhet, audit trails, kontrollerad dokumenthantering
+          och i många fall validering av systemförändringar. Det innebär att
+          ett systemval i Life Science inte bara handlar om funktionalitet
+          utan om förmågan att validera och underhålla regelefterlevnad över
+          tid.
+        </p>
+        <p>
+          Svenska Life Science-företag spänner över ett brett spektrum — från
+          globala läkemedelsbolag med komplexa tillverkningsprocesser och
+          internationella leveranskedjor till nischade Medtech-startups som
+          säljer medicinteknisk utrustning som kräver service, kalibrering och
+          Post-Market Surveillance. Systembehoven ser fundamentalt olika ut
+          beroende på var i detta spektrum man befinner sig, vilket gör
+          partnervalet lika viktigt som systemvalet.
+        </p>
+        <p>
+          Microsoft Dynamics 365 används i branschen både som ERP-kärna för
+          ekonomi, supply chain och produktion, och som plattform för CRM och
+          fältservice. Systemet kan valideras för regulatoriska krav och
+          integreras med specialiserade QMS-system via öppna API:er. Flera
+          partners i listan har utvecklat branschspecifika tillägg och
+          förkonfigurerade lösningar som signifikant reducerar
+          valideringsarbetet och implementationstiden.
+        </p>
+
+        <h2>Centrala arbetsprocesser och systemstöd</h2>
+
+        <h3>Finance &amp; Supply Chain Management: Spårbarhet, produktion och global logistik</h3>
+        <p>
+          F&amp;SCM är relevant för medelstora till större Life Science- och
+          Medtech-företag med komplexa krav på batch/serienummerspårbarhet,
+          produktionsplanering och global supply chain. Systemet hanterar hela
+          kedjan från inköp av råvaror och komponenter till produktion,
+          lagerhantering med utgångsdatum, och distribution — med full
+          spårbarhet för UDI-krav och återkallningsprocesser.
+        </p>
+        <ul>
+          <li>Avancerad lagerhantering med batch- och serienummerspårning från leverantör till kund</li>
+          <li>Spårbarhet enligt UDI (Unique Device Identification) genom hela värdekedjan</li>
+          <li>Produktionsplanering för medicintekniska tillverkare med kvalitetskontrollpunkter</li>
+          <li>Global supply chain-hantering med tullhantering, temperaturkontroll och leverantörsgodkännanden</li>
+          <li>Finansiell styrning och projektredovisning för FoU-projekt och kliniska studier</li>
+          <li>Stöd för återkallningsprocesser med fullständig spårning och myndighetsdokumentation</li>
+        </ul>
+
+        <h3>Business Central: ERP för SMB i Life Science</h3>
+        <p>
+          Business Central passar små till medelstora Life Science-företag och
+          Medtech-bolag som behöver ett sammanhållet system för ekonomi, lager
+          och logistik utan F&amp;SCM:s komplexitet. Med rätt branschspecifika
+          tillägg — exempelvis för batchhantering, kvalitetssäkring och UDI —
+          kan BC möta branschkraven för de flesta SMB-aktörer i sektorn.
+        </p>
+        <ul>
+          <li>Ekonomi, inköp och lagerstyrning i ett sammanhållet flöde</li>
+          <li>Batchhantering och spårbarhet via branschspecifika tillägg</li>
+          <li>Integration mot externa QMS-system via öppna API:er</li>
+          <li>Projekthantering för FoU och kliniska studier i mindre skala</li>
+        </ul>
+
+        <h3>Field Service: Medicinteknisk utrustning i fält</h3>
+        <p>
+          För Medtech-företag som säljer utrustning som kräver installation,
+          kalibrering och löpande underhåll är Field Service kritiskt — och i
+          en regulatorisk kontext är det inte valfritt. Servicehistorik,
+          kalibreringsprotokoll och underhållsdokumentation är en del av
+          regelefterlevnaden, och Field Service tillhandahåller det digitala
+          spåret som krävs vid inspektion.
+        </p>
+        <ul>
+          <li>Servicekontrakt och förebyggande underhållsscheman för medicinteknisk utrustning</li>
+          <li>Digital dokumentation av kalibrering och serviceåtgärder med fullständig spårbarhet</li>
+          <li>Mobil åtkomst för fälttekniker med tillgång till servicehistorik och instruktioner</li>
+          <li>Koppling till kvalitetssystem för avvikelsehantering och Post-Market Surveillance</li>
+        </ul>
+
+        <h3>Customer Service &amp; Sales: Kommersiell sida och Post-Market Surveillance</h3>
+        <p>
+          Försäljning i Life Science är komplex: långa säljcykler mot sjukhus
+          och regioner, upphandlingsprocesser och avtalsstyrning kräver ett
+          strukturerat CRM-stöd. Customer Service hanterar därtill
+          reklamationer och avvikelser som en del av Post-Market Surveillance
+          — en regulatorisk skyldighet som kräver systematisk insamling och
+          dokumentation av produktfeedback från fält.
+        </p>
+
+        <h2>Listade partners inom Life Science &amp; Medtech</h2>
+        <p>
+          Fyra partners är listade för branschen på d365.se. Nedan presenteras
+          de i den ordning de förekommer på branschsidan.
+        </p>
+
+        <h3>COSMO CONSULT</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Sales, Customer Insights
+        </p>
+        <p>
+          COSMO CONSULT är en global Microsoft-partner med specialiserade
+          branschlösningar för Life Science och Medtech byggda på Business
+          Central. De har egenutvecklade tilläggsmoduler specifikt för
+          branschen: COSMO UDI för spårbarhet och UDI-hantering enligt MDR,
+          och COSMO Quality Assurance för kvalitetstesthantering i BC.
+          Kombinationen av global räckvidd (1 600+ medarbetare i 21 länder)
+          och lokal närvaro (40 kollegor på 4 orter i Sverige) med djup
+          BC-kompetens och branschspecifika tillägg gör dem till ett av de
+          mest specialiserade alternativen i listan för SMB-segmentet i Life
+          Science.
+        </p>
+
+        <h3>Navet AB</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Sales, Customer Insights, Customer Service, Field Service, Contact Center | AI Integration Partner
+        </p>
+        <p>
+          Navet AB kombinerar BC med branschspecifika tillägg för Life Science
+          — däribland Yaveon 365 Lot Management för avancerad batchhantering,
+          spårbarhet och lagerflöden. De täcker också kundrelationssidan med
+          Sales, Customer Service och Field Service, vilket gör dem relevanta
+          för Medtech-bolag som hanterar både supply chain och
+          serviceorganisation. Sedan 2023 ingår Navet i Aderian Group med ett
+          bredare nordiskt IT-erbjudande. Som AI Integration Partner arbetar
+          de aktivt med AI i sina leveranser.
+        </p>
+
+        <h3>Cegeka</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Finance, Supply Chain Management, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations, Human Resources | AI Advanced
+        </p>
+        <p>
+          Cegeka är den mest branschspecialiserade partnern i listan för Life
+          Science och Medtech. Deras förkonfigurerade lösning Cegeka Pharma
+          &amp; Life Sciences for Dynamics 365 innehåller över 660
+          fördefinierade processer, varav mer än 200 är GxP-processer, och har
+          stöd för Computer System Validation (CSV) enligt GAMP5 samt
+          efterlevnad av 21 CFR Part 11, 21 CFR Part 820 och EudraLex. De har
+          även en Quality Impact Recall Agent för strukturerade
+          återkallningsprocesser med full spårbarhet. År 2025 utsågs Cegeka
+          till global vinnare av Microsoft Dynamics 365 Supply Chain Partner
+          of the Year. Deras AI Advanced-status och djupa branschfokus gör
+          dem till det starkaste alternativet för Life Science-bolag med
+          komplexa regulatoriska krav och internationell verksamhet.
+        </p>
+
+        <h3>Implema AB</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Finance, Supply Chain Management, Project Operations, Commerce, Human Resources
+        </p>
+        <p>
+          Implema är en F&amp;SCM-specialist med fokus på ekonomi, supply
+          chain, projekthantering och handel. För Life Science-bolag som
+          behöver stöd för komplexa logistikkedjor, projektstyrning av FoU och
+          ekonomisk kontroll i en reglerad miljö erbjuder de gedigen
+          F&amp;SCM-kompetens. Deras profil är mer generalist än
+          branschspecialist inom Life Science — de saknar dedikerade Life
+          Science-tillägg — men är ett relevant alternativ för organisationer
+          vars primära behov är avancerad supply chain och projektredovisning
+          snarare än regulatorisk valideringsstöd.
+        </p>
+
+        <h2>Att välja rätt partner för din organisation</h2>
+        <p>
+          Life Science och Medtech är den bransch på d365.se där skillnaden
+          mellan partners är som störst. Cegeka erbjuder en förkonfigurerad
+          branschlösning med inbyggd GxP-compliance och valideringsstöd —
+          vilket är fundamentalt annorlunda än en standardimplementation med
+          branschanpassning. Det reducerar implementationsrisk och
+          valideringsbörda markant, men är sannolikt dimensionerat för
+          medelstora till stora aktörer snarare än startups.
+        </p>
+        <p>
+          COSMO CONSULT och Navet AB erbjuder BC med branschspecifika tillägg
+          för UDI, batchhantering och kvalitetssäkring — relevant för
+          SMB-segmentet. Implema har djup F&amp;SCM-kompetens men utan
+          dedikerade Life Science-tillägg.
+        </p>
+        <p>
+          En central fråga i er partnerutvärdering bör vara: hur hanterar
+          partnern systemvalidering, och kan de uppvisa referenskunder som
+          framgångsrikt genomfört en CSV-process för en Dynamics
+          365-implementation i en GxP-reglerad miljö? Det är den frågan som
+          tydligast separerar Life Science-specialister från
+          generalistkompetens.
+        </p>
+        <p>
+          Läs mer och jämför partners:{" "}
+          <a href="/branscher/life-science-medtech/">d365.se/branscher/life-science-medtech</a>
         </p>
       </>
     ),
