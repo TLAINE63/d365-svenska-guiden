@@ -1098,11 +1098,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "dynamics-365-retail-ehandel",
     title: "Dynamics 365 för Retail & e-handel",
-    metaTitle: "Branschguide: retail & e-handel i Dynamics 365 | d365.se",
+    metaTitle: "Dynamics 365 för retail & e-handel – guide & partners",
     metaDescription:
-      "Arbetsprocesser, systemstöd i Dynamics 365 och en objektiv genomgång av listade partners för svensk retail och e-handel.",
+      "Hur Dynamics 365 stödjer retail & e-handel: POS, lager, omnikanal, kunddata. Jämför listade partners i Sverige och se kostnad, vanliga problem och alternativ.",
     summary:
-      "Branschguide för retail och e-handel: arbetsprocesser, systemstöd i Dynamics 365 och en objektiv genomgång av listade partners på d365.se.",
+      "Dynamics 365 (BC, F&SCM och Commerce) fungerar som back-office för retail- och e-handelsbolag — ekonomi, lager, kund och kanal i samma plattform. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["retail", "e-handel", "dynamics365", "business central", "commerce", "customer insights"],
     products: [
@@ -1423,11 +1423,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "dynamics-365-tillverkningsindustri",
     title: "Dynamics 365 för tillverkningsindustrin",
-    metaTitle: "Branschguide: tillverkningsindustri i Dynamics 365 | d365.se",
+    metaTitle: "Dynamics 365 för tillverkningsindustri – guide & partners",
     metaDescription:
-      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk tillverkningsindustri.",
+      "Hur Dynamics 365 stödjer tillverkningsindustrin: MRP, BOM, kvalitet, spårbarhet och MES-integration. Jämför listade partners i Sverige med kostnad och vanliga fallgropar.",
     summary:
-      "Branschguide för tillverkningsindustrin: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 (F&SCM eller BC Premium) är ryggraden för svenska tillverkningsbolag — planering, inköp, lager, kvalitet och ekonomi i en plattform, kompletterad med MES och PLM. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["tillverkning", "industri", "dynamics365", "business central", "finance scm", "field service"],
     products: [
@@ -1837,11 +1837,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "dynamics-365-livsmedel-processindustri",
     title: "Dynamics 365 för livsmedel & processindustri",
-    metaTitle: "Branschguide: livsmedel & processindustri i Dynamics 365 | d365.se",
+    metaTitle: "Dynamics 365 för livsmedel & processindustri – guide",
     metaDescription:
-      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk livsmedels- och processindustri.",
+      "Hur Dynamics 365 hanterar batch, recept, HACCP och spårbarhet i livsmedel & processindustri. Jämför listade partners i Sverige med kostnad, ISV-tillägg och alternativ.",
     summary:
-      "Branschguide för livsmedel & processindustri: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 (F&SCM eller BC Premium med livsmedelstillägg) stödjer batch, recept, hållbarhet, HACCP och spårbarhet från råvara till färdig produkt. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["livsmedel", "processindustri", "dynamics365", "business central", "finance scm", "spårbarhet"],
     products: [
@@ -2111,11 +2111,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "dynamics-365-grossist-distribution",
     title: "Dynamics 365 för grossist & distribution",
-    metaTitle: "Branschguide: grossist & distribution i Dynamics 365 | d365.se",
+    metaTitle: "Dynamics 365 för grossist & distribution – guide & partners",
     metaDescription:
-      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk grossist- och distributionshandel.",
+      "Hur Dynamics 365 stödjer grossist & distribution: lager, WMS, priser, rabatter och EDI. Jämför listade partners i Sverige med kostnad, vanliga problem och alternativ.",
     summary:
-      "Branschguide för grossist & distribution: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 (BC Premium eller F&SCM) är en stark ryggrad för svenska grossister och distributörer — ekonomi, lager, prislogik, EDI och kund i samma plattform. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["grossist", "distribution", "dynamics365", "business central", "finance scm", "wms"],
     products: [
@@ -2445,11 +2445,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "dynamics-365-jordbruk-skogsbruk",
     title: "Dynamics 365 för jordbruk & skogsbruk",
-    metaTitle: "Branschguide: jordbruk & skogsbruk i Dynamics 365 | d365.se",
+    metaTitle: "Dynamics 365 för jordbruk & skogsbruk – guide & partners",
     metaDescription:
-      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk jordbruks- och skogsbrukssektor.",
+      "Hur Dynamics 365 stödjer jordbruk & skogsbruk: säsong, maskinpark, lager, fältservice och avräkning. Jämför listade partners i Sverige med kostnad och alternativ.",
     summary:
-      "Branschguide för jordbruk & skogsbruk: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 fungerar som back-office för svenska jord- och skogsbruksbolag — ekonomi, anläggningsregister, fältservice och kund, integrerat med branschens specialistsystem. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["jordbruk", "skogsbruk", "dynamics365", "business central", "finance scm", "field service"],
     products: [
@@ -2648,11 +2648,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "dynamics-365-bygg-entreprenad",
     title: "Dynamics 365 för bygg & entreprenad",
-    metaTitle: "Branschguide: bygg & entreprenad i Dynamics 365 | d365.se",
+    metaTitle: "Dynamics 365 för bygg & entreprenad – guide & partners",
     metaDescription:
-      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk bygg- och entreprenadbransch.",
+      "Hur Dynamics 365 stödjer bygg & entreprenad: projektredovisning, ÄTA, underentreprenörer och tidrapportering. Jämför listade partners i Sverige med kostnad och alternativ.",
     summary:
-      "Branschguide för bygg & entreprenad: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 (Project Operations + BC Premium eller F&SCM) stödjer projektredovisning, ÄTA, underentreprenörer och kostnadskontroll för svenska bygg- och entreprenadbolag. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["bygg", "entreprenad", "dynamics365", "business central", "finance scm", "field service", "projektredovisning"],
     products: [
@@ -2905,11 +2905,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "dynamics-365-energi-utilities",
     title: "Dynamics 365 för energi & utilities",
-    metaTitle: "Branschguide: energi & utilities i Dynamics 365 | d365.se",
+    metaTitle: "Dynamics 365 för energi & utilities – guide & partners",
     metaDescription:
-      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk energi- och utilitysektor.",
+      "Hur Dynamics 365 stödjer energi & utilities: fältservice, ärenden, projekt och kund med CIS/MDM-integration. Jämför listade partners i Sverige med kostnad och alternativ.",
     summary:
-      "Branschguide för energi & utilities: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 fungerar som plattform för svenska energi- och utilitiesbolag — ekonomi, projekt, fältservice och kund, integrerat med CIS/MDM och GIS/NIS. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["energi", "utilities", "el", "fjärrvärme", "vatten", "dynamics365", "business central", "finance scm", "field service"],
     products: [
@@ -3119,11 +3119,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "dynamics-365-konsultbolag-tjansteforetag",
     title: "Dynamics 365 för konsultbolag & tjänsteföretag",
-    metaTitle: "Branschguide: konsultbolag & tjänsteföretag i Dynamics 365 | d365.se",
+    metaTitle: "Dynamics 365 för konsultbolag & tjänsteföretag – guide",
     metaDescription:
-      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svenska konsult- och tjänsteföretag.",
+      "Hur Dynamics 365 (Project Operations + BC) stödjer konsult- och tjänsteföretag: tid, projekt, prognoser, sälj och ekonomi. Jämför listade partners i Sverige med kostnad.",
     summary:
-      "Branschguide för konsultbolag & tjänsteföretag: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 (Project Operations + BC eller F&SCM) är en stark plattform för svenska konsult- och tjänsteföretag — tid, projekt, prognoser, sälj och ekonomi i samma datamiljö. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["konsult", "tjänsteföretag", "projekt", "dynamics365", "business central", "finance scm", "sales", "progressus"],
     products: [
@@ -3370,11 +3370,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "dynamics-365-finans-forsakring",
     title: "Dynamics 365 för finans & försäkring",
-    metaTitle: "Branschguide: finans & försäkring i Dynamics 365 | d365.se",
+    metaTitle: "Dynamics 365 för finans & försäkring – guide & partners",
     metaDescription:
-      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk finans- och försäkringsbransch.",
+      "Hur Dynamics 365 stödjer finans & försäkring: distribution, CRM, kundtjänst och Customer Insights med integration mot kärnsystem. Jämför listade partners i Sverige.",
     summary:
-      "Branschguide för finans & försäkring: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 stödjer svenska finans- och försäkringsbolag på CRM-sidan — distribution, kundtjänst, Customer Insights och compliance — med integration mot bank- och försäkringskärnsystem. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["finans", "försäkring", "bank", "dynamics365", "business central", "finance scm", "customer insights", "compliance"],
     products: [
@@ -3599,11 +3599,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "dynamics-365-offentlig-sektor",
     title: "Dynamics 365 för offentlig sektor",
-    metaTitle: "Branschguide: offentlig sektor i Dynamics 365 | d365.se",
+    metaTitle: "Dynamics 365 för offentlig sektor – guide & partners",
     metaDescription:
-      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk offentlig sektor.",
+      "Hur Dynamics 365 stödjer offentlig sektor: ärenden, fältservice, projekt och medborgarkontakt med integration mot diarier och e-arkiv. Jämför listade partners i Sverige.",
     summary:
-      "Branschguide för offentlig sektor: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 är en plattform för svenska kommuner, regioner och myndigheter — ärendehantering, fältservice, projekt och medborgarkontakt, integrerat med diariesystem och ekonomi. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["offentlig sektor", "kommun", "myndighet", "dynamics365", "business central", "finance scm", "customer service", "lou"],
     products: [
@@ -3833,11 +3833,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "dynamics-365-life-science-medtech",
     title: "Dynamics 365 för Life Science & Medtech",
-    metaTitle: "Branschguide: Life Science & Medtech i Dynamics 365 | d365.se",
+    metaTitle: "Dynamics 365 för Life Science & Medtech – guide & partners",
     metaDescription:
-      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk Life Science- och Medtech-bransch.",
+      "Hur Dynamics 365 stödjer Life Science & Medtech: GxP, validering, spårbarhet och kvalitetsstyrning med ISV-tillägg. Jämför listade partners i Sverige med kostnad.",
     summary:
-      "Branschguide för Life Science & Medtech: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 (F&SCM eller BC Premium med life science-tillägg) hanterar GxP, validering, spårbarhet och kvalitetsstyrning för svenska life science- och medtech-bolag. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["life science", "medtech", "läkemedel", "dynamics365", "business central", "finance scm", "gxp", "mdr", "udi", "validering"],
     products: [
@@ -4090,11 +4090,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "dynamics-365-telekom-it-tjanster",
     title: "Dynamics 365 för telekom & IT-tjänster",
-    metaTitle: "Branschguide: Telekom & IT-tjänster i Dynamics 365 | d365.se",
+    metaTitle: "Dynamics 365 för telekom & IT-tjänster – guide & partners",
     metaDescription:
-      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk telekom- och IT-tjänstebransch.",
+      "Hur Dynamics 365 stödjer telekom & IT-tjänster: abonnemang, CPQ, ärenden och SLA med fakturasystem-integration. Jämför listade partners i Sverige med kostnad.",
     summary:
-      "Branschguide för Telekom & IT-tjänster: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 fungerar som ryggrad för svenska telekom- och IT-tjänsteföretag — sälj, leverans, ärenden, SLA och ekonomi, integrerat med abonnemangs- och faktureringssystem. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["telekom", "it-tjänster", "prenumeration", "arr", "dynamics365", "business central", "finance scm", "project operations", "ifrs15"],
     products: [
@@ -4316,11 +4316,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "dynamics-365-uthyrning",
     title: "Dynamics 365 för uthyrningsverksamhet",
-    metaTitle: "Branschguide: Uthyrning i Dynamics 365 | d365.se",
+    metaTitle: "Dynamics 365 för uthyrningsverksamhet – guide & partners",
     metaDescription:
-      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk uthyrningsverksamhet.",
+      "Hur Dynamics 365 stödjer uthyrning: hyresavtal, beläggning, underhåll och fältservice med branschtillägg. Jämför listade partners i Sverige med kostnad och alternativ.",
     summary:
-      "Branschguide för Uthyrning: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 (BC eller F&SCM med uthyrningstillägg) stödjer hyresavtal, beläggning, underhåll och fältservice för svenska uthyrningsbolag — maskiner, fordon, verktyg och event. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["uthyrning", "rental", "eqm 365", "dynamics365", "business central", "field service", "tillgångshantering"],
     products: [
@@ -4526,11 +4526,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "dynamics-365-mode-sport-textil",
     title: "Dynamics 365 för mode, sport & textil",
-    metaTitle: "Branschguide: Mode, sport & textil i Dynamics 365 | d365.se",
+    metaTitle: "Dynamics 365 för mode, sport & textil – guide & partners",
     metaDescription:
-      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk mode-, sport- och textilbransch.",
+      "Hur Dynamics 365 hanterar storlek/färg-matriser, säsong, kollektion och kanal i mode, sport & textil. Jämför listade partners i Sverige med kostnad och ISV-tillägg.",
     summary:
-      "Branschguide för Mode, sport & textil: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 med modetillägg (Bisqo, K3 Pebblestone, LS Retail Fashion) hanterar storlek/färg-matriser, säsong, kollektion och kanal för svenska mode-, sport- och textilbolag. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["mode", "sport", "textil", "fashion", "dynamics365", "business central", "commerce", "omnichannel", "sku"],
     products: [
@@ -4722,11 +4722,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "dynamics-365-fastighet-forvaltning",
     title: "Dynamics 365 för fastighet & förvaltning",
-    metaTitle: "Branschguide: Fastighet & Förvaltning i Dynamics 365 | d365.se",
+    metaTitle: "Dynamics 365 för fastighet & förvaltning – guide & partners",
     metaDescription:
-      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk fastighets- och förvaltningsbransch.",
+      "Hur Dynamics 365 stödjer fastighet & förvaltning: ekonomi, anläggningsregister, fältservice och hyresgästkontakt. Jämför listade partners i Sverige med kostnad.",
     summary:
-      "Branschguide för Fastighet & Förvaltning: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 (BC eller F&SCM + Field Service) hanterar ekonomi, anläggningsregister, underhåll och hyresgästkontakt för svenska fastighets- och förvaltningsbolag — integrerat med specialiserade hyresadministrationssystem. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["fastighet", "förvaltning", "proptech", "dynamics365", "business central", "finance scm", "field service", "hyresadministration"],
     products: [
@@ -4926,11 +4926,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "dynamics-365-transport-logistik",
     title: "Dynamics 365 för transport & logistik",
-    metaTitle: "Branschguide: Transport & Logistik i Dynamics 365 | d365.se",
+    metaTitle: "Dynamics 365 för transport & logistik – guide & partners",
     metaDescription:
-      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk transport- och logistikbransch.",
+      "Hur Dynamics 365 stödjer transport & logistik: WMS, uppdragsekonomi, fakturering och TMS-integration. Jämför listade partners i Sverige med kostnad och alternativ.",
     summary:
-      "Branschguide för Transport & Logistik: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 (F&SCM eller BC) är ekonomi- och operativt nav för svenska transport- och logistikbolag — WMS, uppdragsekonomi, fakturering och fältservice, integrerat med specialiserade TMS-system. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["transport", "logistik", "tms", "wms", "dynamics365", "business central", "finance scm", "supply chain"],
     products: [
@@ -5145,11 +5145,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "dynamics-365-medlemsorganisationer",
     title: "Dynamics 365 för medlemsorganisationer",
-    metaTitle: "Branschguide: Medlemsorganisationer i Dynamics 365 | d365.se",
+    metaTitle: "Dynamics 365 för medlemsorganisationer – guide & partners",
     metaDescription:
-      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svenska medlemsorganisationer, fackförbund och branschföreningar.",
+      "Hur Dynamics 365 stödjer medlemsorganisationer: medlemsresa, segmentering, kommunikation och avgiftshantering. Jämför listade partners i Sverige med kostnad och alternativ.",
     summary:
-      "Branschguide för Medlemsorganisationer: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 (Sales + Customer Insights + Customer Service, ev. BC för avgifter) hanterar medlemsresan, segmentering, kommunikation och service för svenska fackförbund, branschorganisationer och föreningar. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["medlemsorganisationer", "fackförbund", "branschorganisationer", "dynamics365", "sales", "customer insights", "customer service", "business central"],
     products: [
