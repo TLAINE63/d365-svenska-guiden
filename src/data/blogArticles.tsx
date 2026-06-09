@@ -5,6 +5,7 @@ import ownedIntelligenceHero from "@/assets/articles/owned-intelligence-hero.jpg
 import ownedIntelligenceSkiljelinje from "@/assets/articles/owned-intelligence-skiljelinje.jpg";
 import releaseWave1Hero from "@/assets/articles/d365-release-wave-1-2026-hero.jpg";
 import detaljhandelImg from "@/assets/industries/detaljhandel.webp";
+import tillverkningImg from "@/assets/industries/tillverkning.webp";
 
 export interface BlogArticleAuthor {
   name: string;
@@ -1371,6 +1372,394 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Läs mer och jämför partners:{" "}
           <a href="/branscher/retail-ehandel/">d365.se/branscher/retail-ehandel</a>
+        </p>
+      </>
+    ),
+  },
+  {
+    slug: "dynamics-365-tillverkningsindustri",
+    title: "Dynamics 365 för tillverkningsindustrin",
+    metaTitle: "Branschguide: tillverkningsindustri i Dynamics 365 | d365.se",
+    metaDescription:
+      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk tillverkningsindustri.",
+    summary:
+      "Branschguide för tillverkningsindustrin: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+    category: "Branschguide",
+    tags: ["tillverkning", "industri", "dynamics365", "business central", "finance scm", "field service"],
+    products: [
+      "Business Central",
+      "Finance & SCM",
+      "Field Service",
+      "Sales",
+      "Customer Insights",
+    ],
+    publishedAt: "2026-06-09",
+    author: THOMAS_LAINE,
+    heroImage: tillverkningImg,
+    readingTimeMinutes: 11,
+    content: (
+      <>
+        <p className="!text-sm uppercase tracking-wider !text-primary !font-semibold !mb-2">
+          Kunskapscenter &nbsp;|&nbsp; Branschguide
+        </p>
+        <p className="!text-xs uppercase tracking-wider text-muted-foreground !mb-6">
+          Tillverkningsindustri
+        </p>
+        <p className="italic text-foreground/85 !mb-8">
+          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+        </p>
+
+        <h2>Branschens verklighet</h2>
+        <p>
+          Svensk tillverkningsindustri är bred — diskret produktion,
+          processtillverkning, projektbaserad tillverkning, make-to-order,
+          engineer-to-order. Det som är gemensamt är att komplexiteten är hög
+          och att konsekvenserna av ett affärssystem som inte håller måttet
+          syns direkt: i felaktiga kalkyler, produktionsstopp, leveransförseningar
+          och bundet kapital.
+        </p>
+        <p>
+          Branschen befinner sig mitt i en strukturell omvandling. Industri 4.0
+          är inte längre ett framtidsbegrepp utan ett konkurrenskrav. Uppkopplade
+          produktionsmiljöer, realtidsdata från golvet, integration mot MES och
+          SCADA — det ställer helt andra krav på affärssystemet än vad som
+          gällde för tio år sedan. Samtidigt pressas marginaler av volatila
+          råvarupriser och störningar i leverantörskedjor, vilket kräver
+          snabbare beslut och bättre prognoser.
+        </p>
+        <p>
+          Microsoft Dynamics 365 används av tillverkande företag i hela spannet —
+          från medelstora verkstadsföretag på Business Central till stora
+          internationella koncerner på Finance &amp; Supply Chain Management.
+          Plattformen täcker hela värdekedjan från inköp och produktionsplanering
+          till eftermarknad och service, med möjlighet att integrera mot externa
+          system via öppna API:er.
+        </p>
+
+        <h2>Centrala arbetsprocesser och systemstöd</h2>
+        <p>
+          Nedan beskrivs de arbetsprocesser som bär störst vikt i branschen,
+          och vilket systemstöd Dynamics 365 erbjuder per produktområde.
+        </p>
+
+        <h3>Finance &amp; Supply Chain Management: Produktionsplanering, logistik och ekonomistyrning</h3>
+        <p>
+          F&amp;SCM är standardvalet för medelstora till stora tillverkande
+          företag med komplexa krav. Systemet hanterar hela produktionsflödet
+          med hög precision och stödjer alla vanliga tillverkningsprinciper.
+        </p>
+        <ul>
+          <li>Produktionsplanering med MRP/MPS — materialbehovsplanering och kapacitetsplanering i ett sammanhållet flöde</li>
+          <li>Avancerad lagerhantering (WMS) med stöd för serienummer- och batchspårbarhet genom hela kedjan</li>
+          <li>Kvalitetskontroll med obligatoriska kontrollpunkter, avvikelsehantering och karantänlager</li>
+          <li>Produktkonfiguration för komplexa varianter (Configure-to-Order) och korrekta för- och efterkalkyler</li>
+          <li>Ekonomistyrning med produkter i arbete (PIA), projektredovisning och konsoliderad finansiell rapportering</li>
+          <li>Integration mot MES och SCADA via standardiserade API:er för realtidsdata från produktionsgolvet</li>
+        </ul>
+
+        <h3>Business Central: ERP för mindre och medelstora tillverkare</h3>
+        <p>
+          Business Central passar tillverkande SMB-företag som behöver ett
+          brett och hanterbart system utan F&amp;SCM:s komplexitet och
+          kostnadsnivå. Systemet täcker hela flödet från inköp till produktion
+          och leverans.
+        </p>
+        <ul>
+          <li>Produktionsorder, stycklistor (BOM) och enkla till medelkomplexa produktionsflöden</li>
+          <li>Lagerstyrning med realtidssynlighet och grundläggande spårbarhet</li>
+          <li>Inköpsprocessen från behov till betalning med leverantörshantering</li>
+          <li>Ekonomi, fakturering och grundläggande projektredovisning i ett system</li>
+        </ul>
+
+        <h3>Field Service: Eftermarknad och serviceaffär</h3>
+        <p>
+          För tillverkande företag som vill växa sin serviceaffär — serviceavtal,
+          förebyggande underhåll, fältservicetekniker, reservdelshantering — är
+          Field Service det naturliga valet. Systemet hanterar hela serviceflödet
+          från ärendeskapande till fakturering.
+        </p>
+        <ul>
+          <li>Schemaläggning och optimering av fältservicetekniker</li>
+          <li>Serviceavtal och förebyggande underhåll med automatiserade triggers</li>
+          <li>Reservdelshantering kopplad till lager och inköp</li>
+          <li>Mobil åtkomst för tekniker i fält med realtidsinformation om kund och utrustning</li>
+        </ul>
+
+        <h3>Sales &amp; Customer Insights: Komplex B2B-försäljning och kunddata</h3>
+        <p>
+          Tillverkande företag med långa säljcykler, konfigurerbara produkter
+          och nyckelkundsrelationer behöver mer än ett enkelt CRM. Dynamics 365
+          Sales hanterar pipeline, offerthantering (CPQ) och KAM-relationer.
+          Customer Insights samlar kunddata för segmentering och
+          marknadskommunikation.
+        </p>
+        <ul>
+          <li>Offerthantering med produktkonfigurator (CPQ — Configure, Price, Quote)</li>
+          <li>Pipeline-hantering och aktivitetsuppföljning för långa säljcykler</li>
+          <li>Kunddata aggregerad från flera källor för segmentering och riktad kommunikation</li>
+        </ul>
+
+        <h2>Listade partners inom Tillverkningsindustri</h2>
+        <p>
+          Nedan presenteras de 19 partners som är listade för branschen på
+          d365.se, i den ordning de förekommer i partnerkatalogen.
+          Avtalspartners markeras särskilt.
+        </p>
+
+        <h3>Avtalspartners</h3>
+
+        <p>
+          <strong>BE-terna</strong><br />
+          <em>Finance, Supply Chain Management, Commerce</em>
+        </p>
+        <p>
+          BE-terna har F&amp;SCM som kärnkompetens och är en av de partners i
+          listan med tydligast fokus på tung tillverknings-ERP. Deras styrka
+          ligger i komplexa produktionsflöden, avancerad lagerstyrning och
+          ekonomistyrning för medelstora till stora tillverkande företag.
+          Commerce-kompetensen är relevant för tillverkare som även hanterar
+          direktförsäljning.
+        </p>
+
+        <p>
+          <strong>Fellowmind</strong><br />
+          <em>Business Central, Finance, Supply Chain Management, Sales, Customer Insights</em>
+        </p>
+        <p>
+          Fellowmind täcker hela spannet från BC till F&amp;SCM och kombinerar
+          ERP-kompetens med CRM. För tillverkande företag som vill ha en enda
+          partner för hela plattformen — inklusive sälj och kundinsikt — är
+          Fellowmind ett relevant alternativ. Styrkan är bred portfölj och
+          europeisk leveranskapacitet.
+        </p>
+
+        <p>
+          <strong>Goodfellows</strong><br />
+          <em>Business Central</em>
+        </p>
+        <p>
+          Goodfellows profilerar sig på trygg och förutsägbar BC-leverans med
+          djup branschförståelse för tillverkning, produktion och distribution.
+          Rätt val för medelstora tillverkare som prioriterar en partner som
+          tar tydligt ägandeskap för att lösningen fungerar i praktiken.
+        </p>
+
+        <p>
+          <strong>NAB Solutions</strong><br />
+          <em>Business Central, Sales, Customer Insights, Customer Service, Field Service, Contact Center</em>
+        </p>
+        <p>
+          NAB Solutions kombinerar BC med ett brett CRM- och serviceuttag.
+          För tillverkare med en växande serviceaffär och behov av att koppla
+          samman ERP med kundservice och fältservice är NAB Solutions ett av få
+          alternativ i listan som täcker hela den kombinationen.
+        </p>
+
+        <p>
+          <strong>Nexer</strong><br />
+          <em>BC, Finance, SCM, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations</em>
+        </p>
+        <p>
+          Nexer har den bredaste kompetensportföljen bland avtalspartnerna och
+          täcker samtliga relevanta Dynamics 365-applikationer för branschen.
+          För tillverkande organisationer som planerar en ambitiös
+          plattformssatsning — där ERP, eftermarknad och CRM ska hänga samman —
+          erbjuder Nexer kapacitet att hålla ihop hela arkitekturen. AI
+          Integration Partner-certifieringen indikerar ett aktivt fokus på
+          nästa generations systemleveranser.
+        </p>
+
+        <p>
+          <strong>Sherpas Group AB</strong><br />
+          <em>Business Central, Finance, Supply Chain Management</em>
+        </p>
+        <p>
+          Sherpas Group täcker hela ERP-spannet från BC till F&amp;SCM med
+          fokus på tillverkning, energi och bygg. För tillverkande företag som
+          värderar en partner med gedigen ERP-erfarenhet och tydlig
+          branschorientering är Sherpas ett relevant alternativ, särskilt i
+          segment med komplexa logistik- och ekonomiflöden.
+        </p>
+
+        <p>
+          <strong>Sirocco Group</strong><br />
+          <em>Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations</em>
+        </p>
+        <p>
+          Sirocco Group är den tydligaste CRM- och servicespecialisten bland
+          avtalspartnerna. För tillverkande företag som hanterar komplex
+          B2B-försäljning, eftermarknadsservice och projektbaserade leveranser
+          — och som redan har eller planerar ett separat ERP — är Sirocco ett
+          relevant val för CRM- och servicesidan av plattformen.
+        </p>
+
+        <p>
+          <strong>Yellow Solution AB</strong><br />
+          <em>Business Central</em>
+        </p>
+        <p>
+          Yellow Solution är en BC-fokuserad partner med erfarenhet från
+          tillverkning. Passar mindre till medelstora tillverkare som söker en
+          partner med tydlig BC-specialisering och utan behov av
+          F&amp;SCM-komplexitet.
+        </p>
+
+        <h3>Övriga listade partners</h3>
+
+        <p>
+          <strong>Bisqo AB</strong><br />
+          <em>Business Central</em>
+        </p>
+        <p>
+          Bisqo är en BC-partner med fokus på medelstora företag. Relevant för
+          tillverkare i SMB-segmentet som söker en hands-on partner med god
+          lokal närvaro.
+        </p>
+
+        <p>
+          <strong>Cegeka</strong><br />
+          <em>Finance, SCM, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations, Human Resources</em>
+        </p>
+        <p>
+          Cegeka har en av de bredaste kompetensportföljerna i listan och
+          täcker hela Dynamics 365-plattformen inklusive HR. Som internationell
+          partner med stark F&amp;SCM-kompetens är de relevanta för större
+          tillverkningskoncerner med komplexa krav på produktionsplanering,
+          supply chain och personalprocesser.
+        </p>
+
+        <p>
+          <strong>Cepheo</strong><br />
+          <em>Business Central, Finance, SCM, Sales, Customer Insights, Human Resources</em>
+        </p>
+        <p>
+          Cepheo är en av Nordens mest heltäckande Microsoft-partners med djup
+          erfarenhet av Industri 4.0-implementationer. Deras kompetens spänner
+          från BC och F&amp;SCM till CRM och HR, vilket gör dem relevanta för
+          tillverkande organisationer som planerar en bred plattformssatsning
+          med långsiktig förvaltning.
+        </p>
+
+        <p>
+          <strong>COSMO CONSULT</strong><br />
+          <em>Business Central, Sales, Customer Insights</em>
+        </p>
+        <p>
+          COSMO CONSULT kombinerar BC med CRM-funktionalitet och har
+          branschspecifika lösningar för tillverkning byggda ovanpå Dynamics
+          365. Relevant för tillverkare som söker ett system med inbyggd
+          branschlogik och inte vill bygga allt från standard.
+        </p>
+
+        <p>
+          <strong>Enqore AB</strong><br />
+          <em>Business Central, Finance, SCM, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations</em>
+        </p>
+        <p>
+          Enqore täcker hela Dynamics 365-plattformen och arbetar med
+          tillverkande företag i hela komplexitetsspannet. Relevant som
+          helhetsleverantör för organisationer som vill ha en partner med
+          kapacitet inom samtliga applikationsområden.
+        </p>
+
+        <p>
+          <strong>Evidi</strong><br />
+          <em>Business Central | AI Integration Partner</em>
+        </p>
+        <p>
+          Evidi är en BC-specialist med AI Integration Partner-certifiering.
+          Fokus på SMB-segmentet inom tillverkning med en tydlig profil kring
+          digitalisering och AI-integration i affärssystemet.
+        </p>
+
+        <p>
+          <strong>Implema AB</strong><br />
+          <em>Finance, Supply Chain Management, Project Operations, Commerce, Human Resources</em>
+        </p>
+        <p>
+          Implema har ett tydligt F&amp;SCM-fokus kompletterat med Project
+          Operations och HR — en kombination som passar tillverkande företag
+          med projektbaserade leveranser eller engineer-to-order-processer.
+          Deras motto "snabbt, säkert och redo för framtiden" speglar en
+          leveransmodell inriktad på standardnära implementationer.
+        </p>
+
+        <p>
+          <strong>InBiz</strong><br />
+          <em>Business Central</em>
+        </p>
+        <p>
+          InBiz är en BC-partner med erfarenhet från tillverkning och
+          distribution. Passar medelstora tillverkare som söker ett
+          kostnadseffektivt BC-upplägg med god processförståelse.
+        </p>
+
+        <p>
+          <strong>Knowit</strong><br />
+          <em>Finance, Supply Chain Management | AI Enabled</em>
+        </p>
+        <p>
+          Knowit har ett renodlat F&amp;SCM-fokus med djup ERP-kompetens för
+          tillverknings- och distributionsbranschen. Som AI Enabled-certifierad
+          partner kombinerar de klassisk ERP-kompetens med ett aktivt fokus på
+          AI-integration i produktionsprocesser. Relevant för medelstora till
+          stora tillverkare med komplexa supply chain-krav.
+        </p>
+
+        <p>
+          <strong>Navcite</strong><br />
+          <em>Business Central</em>
+        </p>
+        <p>
+          Navcite är en BC-specialist med bred branschräckvidd. Passar
+          tillverkande SMB-företag som vill ha en etablerad BC-partner med
+          lång erfarenhet av Dynamics-plattformen.
+        </p>
+
+        <p>
+          <strong>Navet AB</strong><br />
+          <em>Business Central, Sales, Customer Insights, Customer Service, Field Service, Contact Center</em>
+        </p>
+        <p>
+          Navet kombinerar BC med ett brett CRM- och serviceuttag och täcker
+          därmed både ERP och kundrelationssidan. Relevant för tillverkare som
+          vill samla affärssystem och kundservice hos en och samma partner.
+        </p>
+
+        <p>
+          <strong>Vivicta</strong><br />
+          <em>Business Central, Finance, SCM, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations, Human Resources</em>
+        </p>
+        <p>
+          Vivicta täcker hela Dynamics 365-plattformen inklusive HR och
+          Project Operations. Som internationellt verksam partner med bred
+          applikationsportfölj är de relevanta för tillverkande koncerner med
+          komplexa och tvärfunktionella krav.
+        </p>
+
+        <h2>Att välja rätt partner för din organisation</h2>
+        <p>
+          Tillverkningsindustrin är d365.se:s bransch med flest listade
+          partners — 19 totalt. Det speglar att branschen är komplex, bred och
+          har höga krav på systemstöd. Men fler alternativ innebär inte ett
+          enklare val.
+        </p>
+        <p>
+          Avgörande frågor att ställa: Vilken tillverkningsprincip är
+          dominerande i er verksamhet — diskret, process, projektbaserad? Hur
+          ser behovet av eftermarknad och service ut? Är ERP det primära
+          behovet eller behöver CRM och sälj hanteras parallellt? Hur många
+          juridiska entiteter och länder berörs?
+        </p>
+        <p>
+          Svaren på de frågorna styr valet av applikation — och därmed vilka
+          partners som är relevanta. En BC-implementation för ett medelstort
+          verkstadsföretag ställer helt andra krav än en F&amp;SCM-implementation
+          för en tillverkningskoncern med tio bolag i fyra länder.
+        </p>
+        <p>
+          Läs mer och jämför partners:{" "}
+          <a href="/branscher/tillverkning/">d365.se/branscher/tillverkning</a>
         </p>
       </>
     ),
