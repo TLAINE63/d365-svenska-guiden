@@ -11,7 +11,7 @@ import { findIndustryBySlug } from "@/data/standardIndustries";
 import { getIndustrySEO } from "@/data/industrySEO";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { ArrowRight, Briefcase, Users, AlertTriangle, Layers, HelpCircle, Filter, Building2 } from "lucide-react";
+import { ArrowRight, Briefcase, Users, AlertTriangle, Layers, HelpCircle, Filter, Building2, Sparkles } from "lucide-react";
 
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral.svg";
 import FinanceIcon from "@/assets/icons/Finance.svg";
@@ -229,6 +229,15 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
             <h1 className="text-xl md:text-2xl font-bold text-foreground mb-2 drop-shadow-sm">
               {seoDefaults?.h1 || industryName}
             </h1>
+            <div className="mb-3">
+              <span
+                title="Innehållet på denna branschsida är initialt genererat med AI och granskat redaktionellt. Partnerdata är manuellt kvalitetssäkrad."
+                className="inline-flex items-center gap-1.5 text-[11px] font-medium px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20"
+              >
+                <Sparkles className="w-3 h-3" />
+                AI-assisterat innehåll
+              </span>
+            </div>
             {page?.intro && (
               <p className="text-xs md:text-sm text-foreground/90 leading-relaxed max-w-3xl whitespace-pre-line">
                 {page.intro}
