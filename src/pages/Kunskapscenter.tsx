@@ -43,9 +43,9 @@ import {
 
 // ── Types ──────────────────────────────────────────────
 
-type CategoryFilter = "alla" | "event" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video" | "fordjupning";
+type CategoryFilter = "alla" | "event" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video" | "fordjupning" | "branscher";
 
-type FormatValue = "event" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video";
+type FormatValue = "event" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video" | "branscher";
 
 type ProductValue = "Business Central" | "Finance & SCM" | "Sales" | "Customer Insights" | "Customer Service" | "Field Service" | "Contact Center" | "AI/Copilot/Agents";
 
@@ -267,6 +267,7 @@ const STATIC_TOOLS: Array<{
 const CATEGORIES: { label: string; value: CategoryFilter }[] = [
   { label: "Alla", value: "alla" },
   { label: "Produktfördjupningar (Q&A)", value: "fordjupning" },
+  { label: "Branscher & Partners", value: "branscher" },
   { label: "Events", value: "event" },
   { label: "Guider & Behovsanalyser", value: "behovsanalys" },
   { label: "Kravspecifikationer", value: "kravspecifikation" },
@@ -276,6 +277,7 @@ const CATEGORIES: { label: string; value: CategoryFilter }[] = [
 
 const FORMAT_OPTIONS: { label: string; value: FormatValue }[] = [
   { label: "Event", value: "event" },
+  { label: "Branscher & Partners", value: "branscher" },
   { label: "Guide & Behovsanalys", value: "behovsanalys" },
   { label: "Kravspecifikation", value: "kravspecifikation" },
   { label: "Artikel", value: "artikel" },
@@ -474,7 +476,7 @@ const Kunskapscenter = () => {
     })),
     ...BLOG_ARTICLES.map((b) => ({
       id: `blog-${b.slug}`,
-      type: "artikel" as const,
+      type: (b.category === "Branschguide" ? "branscher" : "artikel") as FormatValue,
       title: b.title,
       description: b.summary,
       url: `/artiklar/${b.slug}`,
@@ -539,6 +541,8 @@ const Kunskapscenter = () => {
         return "bg-teal-600 text-white border-teal-600";
       case "video":
         return "bg-rose-600 text-white border-rose-600";
+      case "branscher":
+        return "bg-amber-600 text-white border-amber-600";
       default:
         return "bg-muted text-muted-foreground border-border";
     }
@@ -559,6 +563,7 @@ const Kunskapscenter = () => {
       case "artikel": return "Artikel";
       case "guide": return "Guide & Behovsanalys";
       case "video": return "Video";
+      case "branscher": return "Branscher & Partners";
       default: return type;
     }
   };
