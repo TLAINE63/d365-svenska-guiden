@@ -1507,7 +1507,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <h2>Listade partners inom Tillverkningsindustri</h2>
         <p>
-          Nedan presenteras de 19 partners som är listade för branschen på
+          Nedan presenteras de 20 partners som är listade för branschen på
           d365.se, i den ordning de förekommer i partnerkatalogen.
         </p>
 
