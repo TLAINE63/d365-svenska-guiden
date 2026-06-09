@@ -545,7 +545,7 @@ async function sendOne(supabase: any, partner: any, startIso: string | null, sit
 
   await supabase.from("email_send_log").insert({
     template_name: "partner-monthly-report",
-    recipient_email: recipient,
+    recipient_email: recipients.join(", "),
     subject,
     status: res.ok ? "sent" : "failed",
     error_message: res.ok ? null : (body?.message || JSON.stringify(body)),
@@ -553,6 +553,7 @@ async function sendOne(supabase: any, partner: any, startIso: string | null, sit
       partner_slug: partner.slug,
       partner_name: partner.name,
       period_start: effectiveStartIso,
+      recipients,
       profile_visits: stats.profileVisits,
       card_clicks: stats.cardClicks,
       website_clicks: stats.websiteClicks,
@@ -563,10 +564,12 @@ async function sendOne(supabase: any, partner: any, startIso: string | null, sit
     partner: partner.name,
     status: res.ok ? "sent" : "failed",
     recipient,
+    recipients,
     stats: { profileVisits: stats.profileVisits, cardClicks: stats.cardClicks, websiteClicks: stats.websiteClicks },
     error: res.ok ? undefined : body,
   };
 }
+
 
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
