@@ -1560,7 +1560,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           <em>BC, Finance, SCM, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations</em>
         </p>
         <p>
-          Nexer har den bredaste kompetensportföljen bland avtalspartnerna och
+          Nexer har en av de bredaste kompetensportföljerna i listan och
           täcker samtliga relevanta Dynamics 365-applikationer för branschen.
           För tillverkande organisationer som planerar en ambitiös
           plattformssatsning — där ERP, eftermarknad och CRM ska hänga samman —
