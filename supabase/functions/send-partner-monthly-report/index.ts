@@ -605,6 +605,7 @@ serve(async (req) => {
     const body = await req.json().catch(() => ({}));
     const {
       adminPassword,
+      token: adminToken,
       cronSecret,
       partnerSlug,        // optional: send to a single partner
       dryRun = false,     // if true: don't send, return preview HTML
