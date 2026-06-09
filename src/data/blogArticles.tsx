@@ -1507,7 +1507,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Avtalspartners markeras särskilt.
         </p>
 
-        <h3>Avtalspartners</h3>
+        
 
         <p>
           <strong>BE-terna</strong><br />
