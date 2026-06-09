@@ -4544,6 +4544,225 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       },
     ],
   },
+  {
+    slug: "dynamics-365-transport-logistik",
+    title: "Dynamics 365 för transport & logistik",
+    metaTitle: "Branschguide: Transport & Logistik i Dynamics 365 | d365.se",
+    metaDescription:
+      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk transport- och logistikbransch.",
+    summary:
+      "Branschguide för Transport & Logistik: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+    category: "Branschguide",
+    tags: ["transport", "logistik", "tms", "wms", "dynamics365", "business central", "finance scm", "supply chain"],
+    products: [
+      "Business Central",
+      "Finance & SCM",
+      "Sales",
+      "Customer Service",
+      "Field Service",
+      "Customer Insights",
+    ],
+    publishedAt: "2026-06-09",
+    author: THOMAS_LAINE,
+    heroImage: transportLogistikImg,
+    readingTimeMinutes: 11,
+    content: (
+      <>
+        <p className="!text-sm uppercase tracking-wider !text-primary !font-semibold !mb-2">
+          Kunskapscenter &nbsp;|&nbsp; Branschguide
+        </p>
+        <p className="!text-xs uppercase tracking-wider text-muted-foreground !mb-6">
+          Transport &amp; Logistik
+        </p>
+        <p className="italic text-foreground/85 !mb-8">
+          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+        </p>
+
+        <h2>Branschens verklighet</h2>
+        <p>
+          Transport- och logistikbranschen är en infrastrukturnäring som präglas
+          av hård prispress, tunna marginaler och ett konstant krav på operativ
+          effektivitet. Konkurrensen är global, kundförväntningarna på
+          transparens och leveransprecision ökar, och hållbarhetskraven — att
+          mäta och rapportera CO2 per transport — lägger ytterligare ett lager
+          av systemkrav ovanpå en redan komplex verksamhet.
+        </p>
+        <p>
+          Det vanligaste systemproblemet är fragmentering: transportplaneringen
+          lever i ett system, lagerstyrningen i ett annat, ekonomin i ett
+          tredje, och kundkommunikationen hanteras manuellt. Det skapar dålig
+          visibilitet i supply chain, sena insikter om uppdragsekonomin och
+          tidskrävande faktureringsprocesser. För att veta om ett enskilt
+          transportuppdrag är lönsamt behöver man kunna tagga intäkter och
+          kostnader — bränsle, vägtullar, förarlön, underleverantör — mot just
+          det uppdraget i realtid.
+        </p>
+        <p>
+          Microsoft Dynamics 365 fungerar som det ekonomiska och operativa
+          navet i ett logistikföretags systemlandskap. F&amp;SCM med WMS och
+          TMS-funktionalitet täcker avancerad lager- och transporthantering för
+          större aktörer. BC är relevant för medelstora transport- och
+          logistikföretag med mer standardiserade behov. Systemet integreras
+          mot specialiserade TMS-lösningar för ruttoptimering, fordonsdatorer,
+          GPS-system och tullhantering via öppna API:er.
+        </p>
+
+        <h2>Centrala arbetsprocesser och systemstöd</h2>
+
+        <h3>Finance &amp; Supply Chain Management: Lager, transport och uppdragsekonomi</h3>
+        <p>
+          F&amp;SCM är kärnan för större logistik- och transportföretag med
+          avancerade krav på lagerstyrning, transportplanering och finansiell
+          uppföljning per uppdrag. Systemets WMS-modul hanterar hela lagerflödet
+          från inleverans till utleverans, medan transportmodulen täcker
+          grundläggande frakthantering och kan integreras mot specialiserade
+          TMS-lösningar.
+        </p>
+        <ul>
+          <li>Avancerad lagerstyrning (WMS) med streckkod/RFID, plock och pack, zonhantering och pallhantering</li>
+          <li>Transportplanering och fraktdokumentation med integration mot externa TMS-lösningar för ruttoptimering</li>
+          <li>Dimensionsbaserad redovisning för lönsamhetsuppföljning per uppdrag, rutt, fordon och kund</li>
+          <li>Fakturering av komplexa prisavtal med bränsletillägg, volymbaserade priser och tilläggstjänster</li>
+          <li>Avräkning mot åkerier och underleverantörer med matchning mot utförda uppdrag</li>
+          <li>Tull- och regelefterlevnad för gränsöverskridande transporter via integrationer</li>
+        </ul>
+
+        <h3>Business Central: ERP för medelstora transport- och logistikföretag</h3>
+        <p>
+          BC passar medelstora transport- och logistikföretag med mer
+          standardiserade behov av ekonomi, orderhantering och enklare
+          lagerhantering. Systemet täcker grundläggande flöden och kan
+          integreras mot branschspecifika lösningar för transportplanering och
+          fordonsstyrning.
+        </p>
+        <ul>
+          <li>Ekonomi, fakturering och leverantörsreskontra med uppdragsbaserad kostnadsspårning</li>
+          <li>Order- och frakthantering med grundläggande dokumentation och kundkommunikation</li>
+          <li>Enklare lagerhantering för terminaler och distributionscentra</li>
+          <li>Integration mot fordonsdatorer, GPS och transportplaneringssystem</li>
+        </ul>
+
+        <h3>Sales &amp; Customer Service: Kundrelationer och ärendehantering</h3>
+        <p>
+          Sales stödjer säljprocessen av transport- och logistiktjänster med
+          pipeline-hantering och avtalsuppföljning mot nyckelkunder. Customer
+          Service hanterar reklamationer, leveransavvikelser och spårningsfrågor
+          med spårbarhet och en 360-gradersvy av kunden.
+        </p>
+        <ul>
+          <li>Pipelinehantering för försäljning av frakttjänster, ramavtal och nyckelkundsrelationer</li>
+          <li>Ärendehantering för reklamationer, skadeärenden och leveransavvikelser</li>
+          <li>360-gradersvy av kunden med avtalshistorik, fraktvolymer och kommunikation</li>
+        </ul>
+
+        <h3>Field Service: Mobila resurser och fordonsservice</h3>
+        <p>
+          Field Service kan användas för att schemalägga och hantera mobila
+          resurser — budbilsförare, installationstekniker eller servicepersonal
+          — och för fordonsunderhåll i företag med egna verkstäder.
+        </p>
+
+        <h2>Listade partners inom Transport &amp; Logistik</h2>
+        <p>
+          Tre partners är listade för branschen på d365.se. Nedan presenteras
+          de i den ordning de förekommer på branschsidan.
+        </p>
+
+        <h3>Enqore AB</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Finance, Supply Chain Management, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations
+        </p>
+        <p>
+          Enqore täcker hela plattformsspannet med ett tydligt fokus på
+          datadrivna och AI-stödda processer. I transport och logistik — där
+          stora datamängder finns men insikterna ofta kommer för sent — är
+          deras profil direkt relevant: de kopplar samman affärssystem med
+          analys och AI för att möjliggöra prediktiv verksamhetsstyrning. Det
+          innebär konkret att de kan hjälpa logistikföretag att gå från reaktiv
+          avvikelsehantering till proaktiv optimering av rutter, lager och
+          resurser. Relevant för transport- och logistikföretag som vill nyttja
+          sin operativa data mer aktivt för beslutsfattande.
+        </p>
+
+        <h3>Nexer</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Finance, Supply Chain Management, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations
+        </p>
+        <p>
+          Nexer är ett globalt techbolag med bred Dynamics 365-kompetens och
+          erfarenhet av komplexa ERP-implementationer för tillverknings- och
+          distributionsföretag. I transport och logistik täcker de hela
+          plattformsspannet från BC till F&amp;SCM med supply chain och WMS.
+          Deras kapacitet som ett större techbolag med global leveransförmåga
+          passar logistikföretag med internationell närvaro, komplexa
+          integrationskrav eller behov av ett bredare teknologierbjudande
+          utöver affärssystemet.
+        </p>
+
+        <h3>Vivicta</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Finance, Supply Chain Management, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations, Human Resources | AI Integration Partner
+        </p>
+        <p>
+          Vivicta erbjuder ett helhetsåtagande inom Dynamics 365 med ett brett
+          branschfokus som inkluderar handel och service. De täcker hela
+          plattformen — ERP, CRM, fältservice och HR — och kompletterar med
+          Power Platform och Azure-integrationer. Som AI Integration Partner
+          arbetar de aktivt med att bygga in AI i sina leveranser. Passar
+          logistikföretag som söker en partner med bred plattformskapacitet och
+          ett tydligt helhetsansvar från rådgivning till förvaltning.
+        </p>
+
+        <h2>Att välja rätt partner för din organisation</h2>
+        <p>
+          Transport och logistik är en bransch där systemets förmåga att
+          integrera mot externa TMS-, WMS- och fordonssystem är lika viktig som
+          dess interna funktionalitet. Ingen av de tre listade partnerna är en
+          renodlad transportspecialist — de är alla bredare Dynamics
+          365-partners som arbetar i branschen. Det innebär att frågan om
+          integrationskompetens och erfarenhet av branschspecifika
+          tredjepartssystem är central i en partnerutvärdering.
+        </p>
+        <p>
+          En relevant fråga att ställa varje partner: vilka TMS- och
+          WMS-integrationer har de genomfört, och mot vilka system? Och kan de
+          visa referenskunder i transport- och logistikbranschen med liknande
+          volym, geografisk räckvidd och systemkomplexitet som er verksamhet?
+        </p>
+        <p>
+          Läs mer och jämför partners:{" "}
+          <a href="/branscher/logistik-transport/">d365.se/branscher/logistik-transport</a>
+        </p>
+      </>
+    ),
+    bigFiveFaq: [
+      {
+        question: "Vad kostar Dynamics 365 för ett transport- och logistikföretag?",
+        answer:
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Essentials ligger på cirka 850 kr/användare/månad och Premium på cirka 1 215 kr/användare/månad. Finance kostar cirka 1 950 kr/användare/månad och Supply Chain Management cirka 2 050 kr/användare/månad — relevant för större logistikbolag med WMS- och uppdragsekonomi-behov. Field Service ligger på cirka 1 250 kr/användare/månad och Customer Service Enterprise på cirka 1 050 kr/användare/månad.\n\nImplementationskostnaden för ett medelstort transport- eller logistikföretag landar typiskt i intervallet 1 000 000 – 4 000 000 kr beroende på antal integrationer mot TMS, WMS, fordonsdatorer och tullsystem. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+      },
+      {
+        question: "Vilka problem stöter transport- och logistikföretag på i en Dynamics 365-implementation?",
+        answer:
+          "De vanligaste fallgroparna är (1) underskattad integration mot specialiserade TMS- och ruttoptimeringssystem; (2) otydlig modell för uppdragsekonomi — vilka kostnader (bränsle, vägtullar, förarlön, underentreprenör) ska taggas mot vilket uppdrag och i vilket system; (3) avräkning mot åkerier och underleverantörer som inte matchas mot utförda uppdrag i realtid; och (4) tull- och regelefterlevnad för gränsöverskridande transporter som ofta kräver branschspecifika tillägg.\n\nDet är också vanligt att data från fordonsdatorer och GPS hamnar i en separat silo istället för att triggas in i D365 som händelser för fakturering eller avvikelsehantering.",
+      },
+      {
+        question: "Dynamics 365 vs specialiserade TMS- och WMS-system — vad ska vi välja?",
+        answer:
+          "Det är inte ett antingen-eller. Specialiserade TMS- och WMS-system (t.ex. Memnon, Hogia Transport, Astro, Manhattan) har djup branschfunktionalitet för ruttoptimering, lagerlogik och fordonsstyrning som Dynamics 365 inte fullt ut levererar ur lådan. Dynamics 365 är en bredare affärsplattform för ekonomi, uppdragsekonomi, kundrelationer och fältservice.\n\nDen vanligaste arkitekturen i medelstora till större logistikbolag är att behålla specialistsystemen för transport- och lagerlogik och låta D365 vara back-office för ekonomi, uppdragslönsamhet och kund. För mindre eller mer standardiserade verksamheter kan Business Central med integration mot ett mindre TMS räcka. Frågan att ställa: hur mycket av den operativa transportlogiken klarar D365 utan kostsam särutveckling?",
+      },
+      {
+        question: "Vad säger andra transport- och logistikföretag som infört Dynamics 365?",
+        answer:
+          "Erfarenheterna varierar med scope. Bolag som använt D365 som ekonomi- och uppdragsplattform med integration mot ett specialiserat TMS rapporterar generellt god utväxling — särskilt på uppdragslönsamhet, automatiserad fakturering med komplexa prisavtal och avräkning mot underleverantörer. Bolag som försökt täcka all operativ transportlogik direkt i D365 utan branschtillägg har oftare stött på dyr särutveckling och förlängda projekt.\n\nEn återkommande lärdom är att tidigt definiera vilken systemkomponent som äger vilken process — och att be partnern uppvisa konkreta referenscase med liknande volym, geografisk räckvidd och integrationslandskap.",
+      },
+      {
+        question: "Vilken Dynamics 365-partner är bäst för transport & logistik?",
+        answer:
+          "På d365.se är Enqore, Nexer och Vivicta listade för branschen. Enqore har en tydlig profil mot data och AI och passar bolag som vill lyfta sin operativa data till prediktiv styrning. Nexer är ett större globalt techbolag som passar logistikföretag med internationell närvaro och komplexa integrationskrav. Vivicta erbjuder ett brett helhetsåtagande med AI-integration och passar bolag som söker en partner med totalansvar.\n\nIngen av dem är dock en renodlad transportspecialist. Vår rekommendation är att utvärdera 2–3 partners och be om: (1) konkreta referenscase i transport och logistik av jämförbar storlek, (2) vilka TMS- och WMS-integrationer de genomfört och mot vilka system, och (3) en tydlig avgränsning av vad D365 ska göra respektive vad specialistsystemen behåller.",
+      },
+    ],
+  },
 ];
 
 
