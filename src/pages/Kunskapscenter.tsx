@@ -476,7 +476,7 @@ const Kunskapscenter = () => {
     })),
     ...BLOG_ARTICLES.map((b) => ({
       id: `blog-${b.slug}`,
-      type: "artikel" as const,
+      type: (b.category === "Branschguide" ? "branscher" : "artikel") as FormatValue,
       title: b.title,
       description: b.summary,
       url: `/artiklar/${b.slug}`,
