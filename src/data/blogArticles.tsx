@@ -18,6 +18,7 @@ import lifeScienceImg from "@/assets/industries/lakemedel-life-science.webp";
 import itTechImg from "@/assets/industries/it-tech.webp";
 import uthyrningImg from "@/assets/industries/uthyrning.webp";
 import modeImg from "@/assets/industries/mode-sport-textil.webp";
+import fastighetImg from "@/assets/industries/fastigheter.webp";
 
 export interface BlogArticleAuthor {
   name: string;
@@ -4332,6 +4333,183 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Läs mer och jämför partners:{" "}
           <a href="/branscher/mode-sport-textil/">d365.se/branscher/mode-sport-textil</a>
+        </p>
+      </>
+    ),
+  },
+  {
+    slug: "dynamics-365-fastighet-forvaltning",
+    title: "Dynamics 365 för fastighet & förvaltning",
+    metaTitle: "Branschguide: Fastighet & Förvaltning i Dynamics 365 | d365.se",
+    metaDescription:
+      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk fastighets- och förvaltningsbransch.",
+    summary:
+      "Branschguide för Fastighet & Förvaltning: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+    category: "Branschguide",
+    tags: ["fastighet", "förvaltning", "proptech", "dynamics365", "business central", "finance scm", "field service", "hyresadministration"],
+    products: [
+      "Business Central",
+      "Finance & SCM",
+      "Sales",
+      "Customer Service",
+      "Field Service",
+      "Customer Insights",
+    ],
+    publishedAt: "2026-06-09",
+    author: THOMAS_LAINE,
+    heroImage: fastighetImg,
+    readingTimeMinutes: 11,
+    content: (
+      <>
+        <p className="!text-sm uppercase tracking-wider !text-primary !font-semibold !mb-2">
+          Kunskapscenter &nbsp;|&nbsp; Branschguide
+        </p>
+        <p className="!text-xs uppercase tracking-wider text-muted-foreground !mb-6">
+          Fastighet &amp; Förvaltning
+        </p>
+        <p className="italic text-foreground/85 !mb-8">
+          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+        </p>
+
+        <h2>Branschens verklighet</h2>
+        <p>
+          Fastighets- och förvaltningsbranschen arbetar med tillgångsstyrning i
+          en helt annan skala och tidshorisont än de flesta branscher.
+          Fastigheter är kapitalintensiva och långsiktiga investeringar, och
+          förvaltningens kvalitet är direkt kopplad till fastighetsvärdet. Det
+          ställer krav på systemstöd som kan hantera allt från hyresadministration
+          och underhållsplanering till investeringsprojekt och
+          hållbarhetsrapportering — ofta över en portfölj med många fastigheter
+          och olika ägarstrukturer.
+        </p>
+        <p>
+          Den typiska systemsmärtan i branschen är fragmentering: ett system
+          för ekonomi, ett för hyresadministration, ett för felanmälan och
+          arbetsorder, och ett separat för hyresgästkommunikation. Det skapar
+          informationssiloer, manuella flöden och bristande helhetsbild.
+          Proptech-utvecklingen — IoT, digitala nyckelhanteringssystem, smarta
+          mätare — driver på behovet av ett back-office system som kan ta emot
+          och agera på data från fastigheternas tekniska infrastruktur.
+        </p>
+        <p>
+          Microsoft Dynamics 365 kan fungera som det sammanhållande lagret för
+          ekonomistyrning, hyresadministration, underhåll, fältservice och
+          hyresgästkommunikation. Systemet integreras med branschspecifika
+          fastighetssystem via öppna API:er — det är inte en fullständig
+          ersättning för specialiserade hyresadministrationssystem utan en
+          plattform som kan samla data och processer i ett enhetligt
+          ekosystem.
+        </p>
+
+        <h2>Centrala arbetsprocesser och systemstöd</h2>
+
+        <h3>Finance &amp; Supply Chain Management: Ekonomistyrning och anläggningsregister</h3>
+        <p>
+          F&amp;SCM passar större fastighetsbolag och förvaltare med komplexa
+          krav på ekonomistyrning, koncernredovisning och anläggningsregister
+          för fastighetsportföljen. Systemet hanterar investeringsuppföljning
+          för nybyggnation och ombyggnadsprojekt, avskrivningar och
+          anläggningsvärdering.
+        </p>
+        <ul>
+          <li>Ekonomistyrning med konsoliderad redovisning för fastighetsportföljer med flera bolag</li>
+          <li>Anläggningsregister med avskrivningar, underhållshistorik och investeringsuppföljning per fastighet</li>
+          <li>Projektredovisning för nybyggnation, ombyggnad och större underhållsprojekt med budget och kostnadskontroll</li>
+          <li>Upphandlings- och inköpsprocesser för fastighets- och underhållstjänster</li>
+          <li>Hyresintäktsredovisning och periodisering för kommersiella fastigheter</li>
+        </ul>
+
+        <h3>Business Central: ERP för medelstora fastighetsbolag</h3>
+        <p>
+          Business Central passar medelstora fastighetsbolag och förvaltare som
+          behöver ett sammanhållet system för ekonomi, projekt och
+          grundläggande hyresadministration. Systemet täcker kärnbehoven och
+          kan integreras mot specialiserade fastighetssystem för mer avancerad
+          hyresadministration.
+        </p>
+        <ul>
+          <li>Ekonomi, fakturering och leverantörsreskontra i ett integrerat flöde</li>
+          <li>Hyresfakturering och enklare avtalshantering för bostads- och lokalfastigheter</li>
+          <li>Projekthantering för underhålls- och investeringsprojekt med budgetuppföljning</li>
+          <li>Integration mot externa fastighetssystem för hyresadministration och mätvärdeshantering</li>
+        </ul>
+
+        <h3>Field Service: Underhåll och driftservice</h3>
+        <p>
+          Field Service är centralt för fastighetsbolag med intern
+          driftorganisation eller egna tekniker. Systemet hanterar
+          felanmälningar från hyresgäster, skapar arbetsorder, schemalägger
+          tekniker och dokumenterar utfört arbete — och kopplar kostnaden
+          tillbaka till respektive fastighet i ekonomisystemet.
+        </p>
+        <ul>
+          <li>Felanmälningshantering från hyresgäster via portal, telefon eller app till automatisk arbetsordergenering</li>
+          <li>Planerat och förebyggande underhåll med servicescheman per fastighet och anläggning</li>
+          <li>Schemaläggning och optimering av drifttekniker och servicepersonal</li>
+          <li>Mobil åtkomst för tekniker med arbetsorder, ritningar och fastighetshistorik i fält</li>
+          <li>Koppling till ekonomi för kostnadsallokering per fastighet och uppdrag</li>
+        </ul>
+
+        <h3>Customer Service &amp; Sales: Hyresgästkommunikation och uthyrning</h3>
+        <p>
+          Customer Service strukturerar hyresgästkommunikation och
+          ärendehantering i ett enhetligt gränssnitt — oavsett om hyresgästen
+          kontaktar förvaltaren via telefon, e-post eller portal. Sales stödjer
+          uthyrningsprocessen med pipeline-hantering för vakanta lokaler och
+          hyresgästprospektering.
+        </p>
+        <ul>
+          <li>Enhetlig ärendehantering för felanmälningar, fakturaärenden och hyresgästfrågor</li>
+          <li>360-gradersvy av hyresgästen med avtalshistorik, serviceärenden och kommunikation</li>
+          <li>Uthyrningspipeline för vakanta bostäder och lokaler med hantering av intressenter och visningar</li>
+        </ul>
+
+        <h2>Listad partner inom Fastighet &amp; Förvaltning</h2>
+        <p>En partner är listad för branschen på d365.se.</p>
+
+        <h3>Fellowmind</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Finance, Supply Chain Management, Sales, Customer Insights
+        </p>
+        <p>
+          Fellowmind är en av de större europeiska Microsoft-partnerna med
+          närvaro i fem länder och över 2 500 kunder. De täcker hela
+          ERP-spannet från BC till F&amp;SCM och kombinerar det med Sales och
+          Customer Insights. Deras styrka är bred plattformskapacitet, djup
+          Microsoft-kompetens och förmåga att hantera komplexa implementationer
+          med europeisk leveranskapacitet. För fastighetsbolag som söker en
+          etablerad partner med bred D365-kompetens och kapacitet att växa med
+          organisationen är Fellowmind ett relevant alternativ.
+          Fastighetsverksamhet är ett av flera segment de arbetar i, snarare än
+          ett uttalat primärfokus.
+        </p>
+
+        <h2>Att välja rätt partner för din organisation</h2>
+        <p>
+          Fastighet och förvaltning är en bransch där specialiserade
+          fastighetssystem — Vitec Fastighet, MRI Software, Raindance och
+          liknande — traditionellt dominerat hyresadministrationen. Dynamics
+          365 konkurrerar i detta segment primärt som ett ekonomi- och
+          processystem som integrerar med dessa specialistsystem, snarare än
+          som en komplett fastighetslösning ur lådan.
+        </p>
+        <p>
+          Med en enda listad partner är urvalsprocessen på d365.se begränsad.
+          Fellowmind är ett välkänt alternativ med god plattformsbredd, men en
+          gedigen partnerutvärdering för ett fastighetsbolag bör inkludera
+          partners utanför listan — exempelvis aktörer med specifika
+          fastighetstillägg eller ISV-lösningar byggda på BC eller F&amp;SCM
+          för fastighetsförvaltning.
+        </p>
+        <p>
+          En central fråga att ställa: hur hanterar partnern integrationen mot
+          ert befintliga hyresadministrationssystem, och har de referenskunder
+          inom fastighetsförvaltning av liknande storlek och portföljtyp som er
+          organisation?
+        </p>
+        <p>
+          Läs mer och jämför partners:{" "}
+          <a href="/branscher/fastighet-forvaltning/">d365.se/branscher/fastighet-forvaltning</a>
         </p>
       </>
     ),
