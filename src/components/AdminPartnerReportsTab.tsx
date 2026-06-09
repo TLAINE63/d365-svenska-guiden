@@ -543,11 +543,8 @@ function MonthlyStatsReportCard({ token }: { token: string | null }) {
             <label className="text-xs font-medium block mb-1">Partner-slug (valfritt)</label>
             <Input value={partnerSlug} onChange={e => setPartnerSlug(e.target.value)} placeholder="lämna tomt = alla publicerade" className="w-72" />
           </div>
-          <div>
-            <label className="text-xs font-medium block mb-1">Admin-lösenord</label>
-            <Input type="password" value={adminPassword} onChange={e => setAdminPassword(e.target.value)} className="w-56" />
-          </div>
         </div>
+
 
         <div className="flex flex-wrap gap-2 pt-2">
           <Button onClick={() => invoke("dry", true)} disabled={isBusy} variant="outline" size="sm">
