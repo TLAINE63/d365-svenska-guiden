@@ -622,8 +622,11 @@ serve(async (req) => {
 
     const supabase = createClient(SUPABASE_URL, SERVICE_ROLE);
 
-    // Auth: either admin password (manual trigger) or cron secret stored in site_settings
-    const isAdmin = ADMIN_PASSWORD && adminPassword === ADMIN_PASSWORD;
+    // Auth: admin password, admin JWT token (from logged-in admin UI), or cron secret
+    let isAdmin = !!(ADMIN_PASSWORD && adminPassword === ADMIN_PASSWORD);
+    if (!isAdmin && adminToken) {
+      isAdmin = await verifyAdminJWT(adminToken);
+    }
     let isCron = false;
     if (!isAdmin && cronSecret) {
       const { data: secretRow } = await supabase
