@@ -517,6 +517,10 @@ const Kunskapscenter = () => {
       isExternal: false,
       icon: BookOpen,
       products: b.products,
+      partnerCount:
+        b.category === "Branschguide" && BRANSCHGUIDE_INDUSTRY_BY_SLUG[b.slug]
+          ? partnerCountByIndustry[BRANSCHGUIDE_INDUSTRY_BY_SLUG[b.slug]] ?? null
+          : null,
     })),
     ...articles
       .filter((a) => a.title?.trim() && a.url?.trim())
