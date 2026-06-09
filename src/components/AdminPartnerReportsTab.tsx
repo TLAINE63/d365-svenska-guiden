@@ -487,7 +487,7 @@ function MonthlyStatsReportCard({ token }: { token: string | null }) {
     if (dryRun) setPreviewHtml(null);
     const { data, error } = await supabase.functions.invoke("send-partner-monthly-report", {
       body: {
-        adminPassword,
+        token,
         dryRun,
         days,
         partnerSlug: partnerSlug.trim() || undefined,
