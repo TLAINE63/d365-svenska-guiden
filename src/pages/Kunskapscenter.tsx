@@ -896,6 +896,11 @@ const Kunskapscenter = () => {
                                     AI
                                   </span>
                                 )}
+                                {item.type === "branscher" && typeof item.partnerCount === "number" && item.partnerCount > 0 && (
+                                  <span className="absolute bottom-2 left-2 inline-flex items-center rounded-full bg-background/90 text-foreground text-[10px] font-semibold px-2 py-0.5 shadow-md backdrop-blur-sm border border-border/40">
+                                    {item.partnerCount} {item.partnerCount === 1 ? "partner" : "partners"} listade
+                                  </span>
+                                )}
                               </div>
                             ) : (
                               <div className="aspect-[2/1] overflow-hidden bg-gradient-to-br from-secondary to-muted flex items-center justify-center">
