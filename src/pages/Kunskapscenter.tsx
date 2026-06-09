@@ -43,9 +43,9 @@ import {
 
 // ── Types ──────────────────────────────────────────────
 
-type CategoryFilter = "alla" | "event" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video" | "fordjupning";
+type CategoryFilter = "alla" | "event" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video" | "fordjupning" | "branscher";
 
-type FormatValue = "event" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video";
+type FormatValue = "event" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video" | "branscher";
 
 type ProductValue = "Business Central" | "Finance & SCM" | "Sales" | "Customer Insights" | "Customer Service" | "Field Service" | "Contact Center" | "AI/Copilot/Agents";
 
