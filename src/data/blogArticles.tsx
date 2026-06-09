@@ -19,6 +19,7 @@ import itTechImg from "@/assets/industries/it-tech.webp";
 import uthyrningImg from "@/assets/industries/uthyrning.webp";
 import modeImg from "@/assets/industries/mode-sport-textil.webp";
 import fastighetImg from "@/assets/industries/fastigheter.webp";
+import transportLogistikImg from "@/assets/industries/transport-logistik.webp";
 
 export interface BlogArticleAuthor {
   name: string;
