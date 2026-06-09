@@ -1914,7 +1914,6 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           365-plattformen.
         </p>
 
-        <h3>Övriga listade partners</h3>
 
         <p>
           <strong>Cegeka</strong><br />
