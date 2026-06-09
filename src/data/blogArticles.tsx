@@ -8,6 +8,7 @@ import detaljhandelImg from "@/assets/industries/detaljhandel.webp";
 import tillverkningImg from "@/assets/industries/tillverkning.webp";
 import livsmedelImg from "@/assets/industries/livsmedel.webp";
 import grossistImg from "@/assets/industries/handel-distribution.webp";
+import jordbrukImg from "@/assets/industries/jordbruk-skogsbruk.webp";
 
 export interface BlogArticleAuthor {
   name: string;
@@ -2315,6 +2316,182 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Läs mer och jämför partners:{" "}
           <a href="/branscher/grossist-distribution/">d365.se/branscher/grossist-distribution</a>
+        </p>
+      </>
+    ),
+  },
+  {
+    slug: "dynamics-365-jordbruk-skogsbruk",
+    title: "Dynamics 365 för jordbruk & skogsbruk",
+    metaTitle: "Branschguide: jordbruk & skogsbruk i Dynamics 365 | d365.se",
+    metaDescription:
+      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk jordbruks- och skogsbrukssektor.",
+    summary:
+      "Branschguide för jordbruk & skogsbruk: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+    category: "Branschguide",
+    tags: ["jordbruk", "skogsbruk", "dynamics365", "business central", "finance scm", "field service"],
+    products: [
+      "Business Central",
+      "Finance & SCM",
+      "Field Service",
+      "Sales",
+      "Customer Insights",
+    ],
+    publishedAt: "2026-06-09",
+    author: THOMAS_LAINE,
+    heroImage: jordbrukImg,
+    readingTimeMinutes: 9,
+    content: (
+      <>
+        <p className="!text-sm uppercase tracking-wider !text-primary !font-semibold !mb-2">
+          Kunskapscenter &nbsp;|&nbsp; Branschguide
+        </p>
+        <p className="!text-xs uppercase tracking-wider text-muted-foreground !mb-6">
+          Jordbruk &amp; Skogsbruk
+        </p>
+        <p className="italic text-foreground/85 !mb-8">
+          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+        </p>
+
+        <h2>Branschens verklighet</h2>
+        <p>
+          Den svenska jordbruks- och skogsbrukssektorn är en bransch som
+          kombinerar tradition med ett växande behov av digitalisering.
+          Precisionsodling, skogsbruksplanering, maskinuppkoppling och krav på
+          spårbarhet från producent till konsument driver på behovet av modernare
+          systemstöd. Fragmenterade och isolerade system — ett för ekonomi, ett
+          för lager, ett för maskinuppföljning — skapar ineffektivitet och
+          bristande beslutsunderlag.
+        </p>
+        <p>
+          Branschen präglas av utmaningar som få andra segment delar:
+          väderberoende och säsongsvariationer som gör planering svår, volatila
+          priser på insatsvaror och slutprodukter, komplexa regelverk med
+          subventionssystem som kräver noggrann dokumentation, och ett
+          underhållsbehov för en kostsam maskinpark. Dessa faktorer ställer höga
+          krav på systemets flexibilitet och rapporteringsförmåga.
+        </p>
+        <p>
+          Microsoft Dynamics 365 erbjuder en integrerad plattform som kan samla
+          ekonomi, lager, inköp, försäljning och service i ett sammanhållet
+          system — och skalas från ett litet lantbruksföretag på Business Central
+          till en stor skogsbrukskoncern på Finance &amp; Supply Chain Management.
+          Plattformens öppenhet mot externa system möjliggör även integration av
+          IoT-data från maskiner och sensorer via anpassade lösningar.
+        </p>
+
+        <h2>Centrala arbetsprocesser och systemstöd</h2>
+
+        <h3>Business Central: Ekonomi, lager och grundläggande verksamhetsstyrning</h3>
+        <p>
+          Business Central passar små och medelstora företag inom jordbruk och
+          skogsbruk som behöver ett sammanhållet system för ekonomi, inköp, lager
+          och försäljning utan att investera i F&amp;SCM-komplexiteten.
+        </p>
+        <ul>
+          <li>Ekonomi och redovisning med hantering av intäkter, kostnader, fakturering och leverantörsreskontra</li>
+          <li>Lager- och inventariehantering för råvaror, förnödenheter och insatsvaror med spårbarhet</li>
+          <li>Inköpsprocess från behovsidentifiering till betalning med leverantörsstyrning</li>
+          <li>Försäljning och orderhantering för produkter som spannmål, virke, kött eller förädlade produkter</li>
+          <li>Grundläggande projekthantering för säsongsprojekt eller investeringsprojekt</li>
+        </ul>
+
+        <h3>Finance &amp; Supply Chain Management: Komplex logistik och finansiell styrning</h3>
+        <p>
+          F&amp;SCM är relevant för större jordbruks- och skogsbruksföretag med
+          komplexa krav på logistik, försörjningskedjestyrning och finansiell
+          rapportering över flera bolag eller enheter.
+        </p>
+        <ul>
+          <li>Avancerad supply chain-planering med hänsyn till säsongsvariationer och kapacitetsbegränsningar</li>
+          <li>Logistikhantering för transport av råvaror och färdiga produkter med spårbarhet i kedjan</li>
+          <li>Ekonomistyrning över flera juridiska entiteter med konsoliderad finansiell rapportering</li>
+          <li>Stöd för hantering av subventioner och EU-stöd via flexibla redovisnings- och rapporteringsfunktioner</li>
+        </ul>
+
+        <h3>Field Service: Maskinunderhåll och serviceorganisation</h3>
+        <p>
+          För jordbruks- och skogsbruksföretag med en intern eller extern
+          serviceorganisation för maskinpark och utrustning är Field Service ett
+          viktigt komplement. Systemet hanterar planerat och avhjälpande
+          underhåll, schemaläggning av tekniker och arbetsorder — och ger
+          fältpersonal tillgång till relevant information via mobila enheter.
+        </p>
+        <ul>
+          <li>Planering av förebyggande underhåll för lantbruksmaskiner och skogsbruksutrustning</li>
+          <li>Arbetsorderhantering från felanmälan till utförd åtgärd och fakturering</li>
+          <li>Mobil åtkomst till underhållsscheman, reservdelslistor och instruktioner i fält</li>
+          <li>Servicehistorik per maskin för bättre underhållsplanering och investeringsbeslut</li>
+        </ul>
+
+        <h3>Sales &amp; Customer Insights: Kundrelationer och försäljning</h3>
+        <p>
+          För jordbruks- och skogsbruksföretag med direktförsäljning till
+          industri, handel eller slutkonsument ger Dynamics 365 Sales stöd för
+          kundrelationshantering, offerthantering och säljuppföljning. Customer
+          Insights möjliggör segmentering och riktad kommunikation för
+          verksamheter med ett bredare kundregister.
+        </p>
+
+        <h2>Listade partners inom Jordbruk &amp; Skogsbruk</h2>
+        <p>
+          Två partners är listade för branschen på d365.se. Nedan presenteras de
+          i den ordning de förekommer på branschsidan.
+        </p>
+
+        <p>
+          <strong>Vivicta</strong><br />
+          <em>Business Central, Finance, Supply Chain Management, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations, Human Resources | AI Integration Partner</em>
+        </p>
+        <p>
+          Vivicta är en partner med ett helhetsåtagande inom Dynamics
+          365-plattformen och ett branschfokus som explicit inkluderar process-
+          och skogsindustri. De täcker hela applikationsportföljen — från BC och
+          F&amp;SCM för ekonomi och supply chain till Sales, Customer Service och
+          Field Service för kundrelationer och serviceorganisation, samt HR för
+          personalprocesser. Som AI Integration Partner arbetar de aktivt med att
+          integrera AI i sina leveranser. Deras erfarenhet av industri, process
+          och skog gör dem relevanta för jordbruks- och skogsbruksföretag som
+          söker en partner med bred plattformskapacitet och dokumenterad
+          förståelse för branschens specifika processer.
+        </p>
+
+        <p>
+          <strong>Navcite</strong><br />
+          <em>Business Central</em>
+        </p>
+        <p>
+          Navcite implementerar Business Central för företag inom distribution,
+          projektstyrning och tillverkning, och har lång erfarenhet av
+          Dynamics-plattformen. De arbetar med integration mot Microsofts övriga
+          ekosystem och erbjuder stöd från implementation till löpande
+          vidareutveckling och support. Passar mindre till medelstora jordbruks-
+          och skogsbruksföretag som söker en etablerad BC-partner med stabil
+          leveransmodell och god processförståelse för ekonomi, lager och inköp.
+        </p>
+
+        <h2>Att välja rätt partner för din organisation</h2>
+        <p>
+          Jordbruk och skogsbruk är en av de branscher på d365.se med färst
+          listade partners — vilket speglar att det är ett specialiserat segment
+          där få partners aktivt profilerar sig. Det begränsade antalet
+          alternativ innebär att urvalsprocessen ser annorlunda ut jämfört med
+          exempelvis tillverkning eller distribution.
+        </p>
+        <p>
+          Med bara två listade partners är den centrala frågan inte vilket av
+          dem man ska välja, utan snarare om de listade alternativen matchar er
+          komplexitet och era specifika processbehov. Vivicta erbjuder hela
+          plattformens bredd och ett uttalat branschfokus på skog och
+          processindustri. Navcite är en renodlad BC-specialist med lång
+          plattformserfarenhet. För organisationer med mer komplexa krav kan det
+          också vara värt att titta bredare på partners som är listade under
+          angränsande branscher som tillverkning eller livsmedel — och utvärdera
+          deras erfarenhet av jordbruks- och skogsbruksnära processer.
+        </p>
+        <p>
+          Läs mer och jämför partners:{" "}
+          <a href="/branscher/jordbruk-skogsbruk/">d365.se/branscher/jordbruk-skogsbruk</a>
         </p>
       </>
     ),
