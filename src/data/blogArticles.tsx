@@ -55,6 +55,8 @@ export interface BlogArticle {
   content: ReactNode;
   /** If true, lyfts som "Nytt i Kunskapscentret"-banner på startsidan */
   featured?: boolean;
+  /** Big 5 FAQ — visas som fast modul längst ner i branschartiklar */
+  bigFiveFaq?: { question: string; answer: string }[];
 }
 
 const THOMAS_LAINE: BlogArticleAuthor = {
@@ -4513,6 +4515,33 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
       </>
     ),
+    bigFiveFaq: [
+      {
+        question: "Vad kostar Dynamics 365 för ett fastighetsbolag?",
+        answer:
+          "Licenskostnaden styrs av val av plattform och antal användare. Business Central Essentials ligger på cirka 850 kr/användare/månad och Premium på cirka 1 215 kr/användare/månad. Finance kostar cirka 1 950 kr/användare/månad och Supply Chain Management cirka 2 050 kr/användare/månad — relevant för större fastighetsbolag med komplex ekonomi och investeringsprojekt. Field Service ligger på cirka 1 250 kr/användare/månad och Customer Service Enterprise på cirka 1 050 kr/användare/månad.\n\nTill licenserna tillkommer implementationskostnaden, som för ett medelstort fastighetsbolag typiskt landar i intervallet 800 000 – 3 000 000 kr beroende på omfattning, integrationer mot hyresadministration (Vitec, MRI, Raindance) och behov av branschspecifika tillägg. Räkna också med löpande förvaltningskostnad på 10–20 % av implementationen per år.",
+      },
+      {
+        question: "Vilka problem stöter fastighetsbolag på i en Dynamics 365-implementation?",
+        answer:
+          "De vanligaste fallgroparna är (1) underskattad integration mot befintligt hyresadministrationssystem — datamodeller och avtalslogik skiljer sig markant; (2) otydlig rolldelning mellan D365 och specialistsystem, vilket leder till dubbla register; (3) felanmälansflödet från hyresgäst till tekniker som inte kopplas hela vägen tillbaka till ekonomi för kostnadsallokering per fastighet; och (4) bristfällig hantering av anläggningsregister och avskrivningar när fastighetsportföljen växer eller omstruktureras.\n\nDet är också vanligt att proptech-data (IoT, smarta mätare) hamnar i en separat silo istället för att triggas in i D365 som automatiserade arbetsorder eller avvikelser.",
+      },
+      {
+        question: "Dynamics 365 vs Vitec, MRI Software och Raindance — vad ska vi välja?",
+        answer:
+          "Det är inte ett antingen-eller. Vitec, MRI och Raindance är specialiserade fastighetssystem som dominerar hyresadministrationen i Sverige med djup branschfunktionalitet ur lådan. Dynamics 365 är en bredare affärsplattform för ekonomi, projekt, fältservice och kundrelationer.\n\nDen vanligaste arkitekturen i större fastighetsbolag är att behålla specialistsystemet för hyresadministration och låta Dynamics 365 vara back-office för ekonomi, anläggningsregister, investeringsprojekt och servicelogik — med integration däremellan. För mindre bolag eller bolag med okomplicerad portfölj kan Business Central räcka som helhetslösning. Frågan att ställa: hur mycket av hyresadministrationens särlogik klarar en D365-implementation utan att bli kostsam särutveckling?",
+      },
+      {
+        question: "Vad säger andra fastighetsbolag som infört Dynamics 365?",
+        answer:
+          "Erfarenheterna varierar med scope. Bolag som använt D365 som ekonomi- och projektplattform med integration mot ett specialiserat fastighetssystem rapporterar generellt god utväxling — särskilt på investeringsuppföljning, koncernredovisning och fältservice. Bolag som försökt ersätta hela hyresadministrationen med D365 utan branschtillägg har oftare stött på dyr särutveckling och förlängda projekt.\n\nEn återkommande lärdom är att tidigt involvera både ekonomi-, förvaltnings- och driftorganisationen i kravarbetet, och att be partnern uppvisa konkreta referenscase med liknande portföljstorlek och systemlandskap.",
+      },
+      {
+        question: "Vilken Dynamics 365-partner är bäst för fastighet & förvaltning?",
+        answer:
+          "På d365.se är Fellowmind den enda listade partnern för branschen. De har bred plattformsbredd över BC, F&SCM, Sales och Customer Insights och stor europeisk leveranskapacitet, men fastighet är ett av flera segment snarare än uttalat primärfokus. För en gedigen utvärdering bör ni därför komplettera med partners utanför listan som har dokumenterade ISV-lösningar eller egna fastighetstillägg på BC eller F&SCM.\n\nVår rekommendation är att utvärdera 2–3 partners och be om: (1) konkreta referenscase i fastighetsförvaltning av jämförbar storlek, (2) integrationsmodell mot ert hyresadministrationssystem och (3) en tydlig avgränsning av vad D365 ska göra respektive vad specialistsystemet behåller.",
+      },
+    ],
   },
 ];
 
