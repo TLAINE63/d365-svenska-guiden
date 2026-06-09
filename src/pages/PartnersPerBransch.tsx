@@ -17,7 +17,7 @@ const PartnersPerBransch = () => {
   STANDARD_INDUSTRIES.forEach((i) => byIndustry.set(i.name, []));
 
   partners.forEach((p) => {
-    const inds = collectIndustries(p);
+    const inds = collectPartnerIndustries(p);
     inds.forEach((name) => {
       if (byIndustry.has(name)) byIndustry.get(name)!.push(p);
     });
