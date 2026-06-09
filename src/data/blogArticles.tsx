@@ -1392,6 +1392,33 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
       </>
     ),
+    bigFiveFaq: [
+      {
+        question: "Vad kostar Dynamics 365 för en retail- eller e-handelsverksamhet?",
+        answer:
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Essentials ligger på cirka 850 kr/användare/månad och Premium på cirka 1 215 kr/användare/månad. Finance kostar cirka 1 950 kr/användare/månad, Supply Chain Management cirka 2 050 kr/användare/månad och Commerce cirka 1 800 kr/användare/månad — relevant för retailkedjor med POS och omnikanal. Customer Insights ligger på cirka 1 950 kr/användare/månad.\n\nImplementationskostnaden för ett medelstort retail- eller e-handelsbolag landar typiskt i intervallet 800 000 – 4 000 000 kr beroende på POS-integrationer, antal butiker, e-handelsplattform och behov av branschtillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+      },
+      {
+        question: "Vilka problem stöter retail- och e-handelsbolag på i en Dynamics 365-implementation?",
+        answer:
+          "De vanligaste fallgroparna är (1) underskattad integration mot POS, e-handelsplattform (Shopify, Magento, Centra) och marknadsplatser; (2) lager- och prislogik som inte synkroniseras i realtid mellan kanaler vilket skapar översålda artiklar; (3) returflöden och lojalitetshantering som inte modelleras tidigt; och (4) att masterdata för artiklar, varianter och kampanjpriser hanteras i olika system.\n\nDet är också vanligt att man underskattar förändringsarbetet i butiksleden — kassapersonal behöver utbildning och tydliga processer för det nya systemet.",
+      },
+      {
+        question: "Dynamics 365 Commerce vs Shopify, Centra och specialiserade retail-system — vad ska vi välja?",
+        answer:
+          "Det är inte ett antingen-eller. Specialiserade e-handelsplattformar (Shopify, Centra, Litium) och retail-POS (LS Retail, K3, Tasklet) har djup branschfunktionalitet och kommer ofta snabbare i drift. Dynamics 365 Commerce är en bredare plattform som täcker hela kedjan från lager och ekonomi till POS, e-handel och CRM i ett gemensamt dataekosystem.\n\nDen vanligaste arkitekturen i medelstora retailbolag är att behålla en specialiserad e-handelsplattform och låta D365 (BC eller F&SCM) vara back-office för ekonomi, lager och kund — med integration däremellan. För större kedjor med många butiker och behov av enhetlig POS är D365 Commerce eller LS Central (BC-baserat) ofta motiverat. Frågan att ställa: hur mycket av kanalspecifik logik klarar D365 utan kostsam särutveckling?",
+      },
+      {
+        question: "Vad säger andra retail- och e-handelsbolag som infört Dynamics 365?",
+        answer:
+          "Erfarenheterna varierar med scope. Bolag som infört D365 som back-office med specialiserad e-handel och POS framför rapporterar generellt god utväxling — särskilt på lager, inköp, ekonomi och kunddata. Bolag som försökt täcka hela kedjan inklusive POS och e-handel direkt i D365 utan branschtillägg har oftare stött på dyr särutveckling och förlängda projekt.\n\nEn återkommande lärdom är att tidigt definiera vilken systemkomponent som äger artikeldata, pris och lager, och att be partnern uppvisa konkreta referenscase från retail eller e-handel med liknande volym, kanalmix och butiksantal.",
+      },
+      {
+        question: "Vilken Dynamics 365-partner är bäst för retail & e-handel?",
+        answer:
+          "Det beror på er kanalmix och storlek. På d365.se listar vi flera partners inom retail och e-handel — vissa är specialiserade på BC med LS Central för butikskedjor, andra arbetar med F&SCM och Commerce för större aktörer, och andra fokuserar på CRM och Customer Insights för att förstå kundbeteende över kanaler.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i retail eller e-handel av jämförbar storlek, (2) vilka POS- och e-handelsintegrationer de genomfört och mot vilka system, och (3) en tydlig arkitekturskiss över vad D365 ska göra respektive vad specialistsystemen behåller.",
+      },
+    ],
   },
   {
     slug: "dynamics-365-tillverkningsindustri",
@@ -1779,6 +1806,33 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
       </>
     ),
+    bigFiveFaq: [
+      {
+        question: "Vad kostar Dynamics 365 för ett tillverkningsföretag?",
+        answer:
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Premium (som inkluderar tillverkning) ligger på cirka 1 215 kr/användare/månad. Finance kostar cirka 1 950 kr/användare/månad och Supply Chain Management cirka 2 050 kr/användare/månad — relevant för större tillverkare med avancerad MES-, kvalitets- och spårbarhetslogik. Field Service ligger på cirka 1 250 kr/användare/månad.\n\nImplementationskostnaden för ett medelstort tillverkningsföretag landar typiskt i intervallet 1 200 000 – 5 000 000 kr beroende på antal anläggningar, integrationer mot MES, PLM och CAD samt behov av branschspecifika tillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+      },
+      {
+        question: "Vilka problem stöter tillverkningsföretag på i en Dynamics 365-implementation?",
+        answer:
+          "De vanligaste fallgroparna är (1) underskattad komplexitet i produktstrukturer (BOM) med varianter och konfigurationer; (2) integration mot MES, maskindata och PLM som lämnas till slutet av projektet; (3) kvalitets- och spårbarhetslogik som inte byggs in från start; och (4) planering i flera nivåer (MPS, MRP, capacity) som inte stöds av masterdata med tillräcklig kvalitet.\n\nDet är också vanligt att man underskattar förändringsarbetet i produktion — operatörer behöver enkla gränssnitt för rapportering, annars blir datakvaliteten lidande.",
+      },
+      {
+        question: "Dynamics 365 vs specialiserade MES- och PLM-system — vad ska vi välja?",
+        answer:
+          "Det är inte ett antingen-eller. Specialiserade MES-system (t.ex. Siemens Opcenter, Aptean) och PLM-system (PTC, Siemens Teamcenter) har djup verkstadsgolv- och produktdatafunktionalitet som Dynamics 365 inte fullt ut levererar ur lådan. Dynamics 365 (F&SCM eller BC Premium) är en bredare affärsplattform för ekonomi, planering, inköp, lager och kund.\n\nDen vanligaste arkitekturen i medelstora till större tillverkningsbolag är att behålla MES för maskindata och realtidsproduktion och låta D365 vara back-office för planering, ekonomi och supply chain — med integration däremellan. För mindre eller mer standardiserade tillverkare kan BC Premium med integration mot ett mindre MES räcka. Frågan att ställa: hur mycket av verkstadsgolvets realtidsstyrning klarar D365 utan kostsam särutveckling?",
+      },
+      {
+        question: "Vad säger andra tillverkningsföretag som infört Dynamics 365?",
+        answer:
+          "Erfarenheterna varierar med scope. Bolag som använt D365 som planerings- och ekonomiplattform med integration mot specialiserade MES- och PLM-system rapporterar generellt god utväxling — särskilt på MRP, leveransprecision och kostnadsuppföljning per order. Bolag som försökt täcka all verkstadsgolvslogik direkt i D365 utan branschtillägg har oftare stött på dyr särutveckling och förlängda projekt.\n\nEn återkommande lärdom är att börja med masterdata och planering, och att be partnern uppvisa konkreta referenscase med jämförbar produkttyp (diskret, process, varianter) och produktionsupplägg.",
+      },
+      {
+        question: "Vilken Dynamics 365-partner är bäst för tillverkningsindustri?",
+        answer:
+          "Det beror på er produkttyp och storlek. På d365.se listar vi flera partners med tillverkningsfokus — vissa är specialiserade på BC Premium för medelstora diskreta tillverkare, andra arbetar med F&SCM och avancerad supply chain för större aktörer, och andra har dokumenterade ISV-tillägg för specifika tillverkningsnischer.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i tillverkningsindustri med liknande produkt- och produktionsupplägg, (2) vilka MES- och PLM-integrationer de genomfört, och (3) en tydlig arkitekturskiss över vad D365 ska göra respektive vad specialistsystemen behåller.",
+      },
+    ],
   },
   {
     slug: "dynamics-365-livsmedel-processindustri",
@@ -2026,6 +2080,33 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
       </>
     ),
+    bigFiveFaq: [
+      {
+        question: "Vad kostar Dynamics 365 för ett livsmedels- eller processindustribolag?",
+        answer:
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Premium ligger på cirka 1 215 kr/användare/månad. Finance kostar cirka 1 950 kr/användare/månad och Supply Chain Management cirka 2 050 kr/användare/månad — i princip standardvalet för livsmedel och processindustri med batch-, spårbarhets- och HACCP-krav.\n\nImplementationskostnaden för ett medelstort livsmedels- eller processindustribolag landar typiskt i intervallet 1 500 000 – 6 000 000 kr beroende på antal anläggningar, integrationer mot vågsystem, MES och laboratorier samt behov av branschspecifika tillägg (t.ex. ToIncrease Food, Aptean, LS Central Food). Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+      },
+      {
+        question: "Vilka problem stöter livsmedels- och processindustribolag på i en Dynamics 365-implementation?",
+        answer:
+          "De vanligaste fallgroparna är (1) underskattad komplexitet i batch-, recept- och hållbarhetslogik; (2) spårbarhet (forward/backward) som inte byggs in i hela kedjan från råvara till färdig produkt; (3) HACCP, kvalitetstester och avvikelsehantering som lämnas i parallella system; och (4) integration mot vågsystem, MES, etiketteringssystem och kund-EDI som underskattas.\n\nDet är också vanligt att man underskattar regelefterlevnaden — märkning, allergener, ursprung och spårbarhet kräver att datamodellen byggs rätt från start.",
+      },
+      {
+        question: "Dynamics 365 vs specialiserade livsmedelssystem — vad ska vi välja?",
+        answer:
+          "Det är inte ett antingen-eller. Specialiserade livsmedelssystem (Aptean Process, CSB, Infor M3 Food) har djup branschfunktionalitet ur lådan. Dynamics 365 (F&SCM eller BC Premium med ToIncrease Food eller LS Central Food) är en bredare plattform som med rätt branschtillägg täcker batch, recept, spårbarhet och HACCP — och kompletteras med Microsofts ekosystem för analys, kund och AI.\n\nDen vanligaste vägen för medelstora till större livsmedelsbolag är att välja D365 + ISV-tillägg snarare än ett renodlat specialistsystem, för att få plattformsbredden. Frågan att ställa: vilket ISV-tillägg rekommenderar partnern, och vilka konkreta livsmedelsreferenser har de på just det tillägget?",
+      },
+      {
+        question: "Vad säger andra livsmedels- och processindustribolag som infört Dynamics 365?",
+        answer:
+          "Erfarenheterna varierar med val av ISV-tillägg och scope. Bolag som infört D365 + ett etablerat livsmedelstillägg rapporterar generellt god utväxling — särskilt på batch-spårbarhet, hållbarhetshantering och rapportering till myndigheter och kunder. Bolag som försökt täcka all branschspecifik logik med standard-D365 utan tillägg har oftare stött på dyr särutveckling och brister i spårbarhet.\n\nEn återkommande lärdom är att kravarbetet ska involvera både produktion, kvalitet, ekonomi och försäljning — och att tidigt validera branschtillägget mot verkliga processer, inte bara demo.",
+      },
+      {
+        question: "Vilken Dynamics 365-partner är bäst för livsmedel & processindustri?",
+        answer:
+          "Det beror på vilket ISV-tillägg ni väljer och er storlek. På d365.se listar vi flera partners med livsmedelsfokus — vissa är specialiserade på BC med LS Central Food eller ToIncrease Food, andra arbetar med F&SCM för större process- och livsmedelstillverkare.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i livsmedel eller processindustri med liknande produkttyp och spårbarhetskrav, (2) vilka livsmedelstillägg de arbetar med och varför, och (3) hur de hanterar batch, recept, hållbarhet och HACCP i sin lösning.",
+      },
+    ],
   },
   {
     slug: "dynamics-365-grossist-distribution",
@@ -2333,6 +2414,33 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
       </>
     ),
+    bigFiveFaq: [
+      {
+        question: "Vad kostar Dynamics 365 för ett grossist- och distributionsbolag?",
+        answer:
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Essentials ligger på cirka 850 kr/användare/månad och Premium på cirka 1 215 kr/användare/månad. Finance kostar cirka 1 950 kr/användare/månad och Supply Chain Management cirka 2 050 kr/användare/månad — relevant för större grossister med avancerad lager- (WMS) och prislogik.\n\nImplementationskostnaden för ett medelstort grossist- och distributionsbolag landar typiskt i intervallet 800 000 – 3 500 000 kr beroende på antal lager, EDI-integrationer mot kunder och leverantörer samt komplexitet i pris- och rabattlogik. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+      },
+      {
+        question: "Vilka problem stöter grossist- och distributionsbolag på i en Dynamics 365-implementation?",
+        answer:
+          "De vanligaste fallgroparna är (1) komplex pris- och rabattlogik (kundavtal, volym, kampanj) som inte modelleras tillräckligt; (2) WMS- och plocklogik som inte täcks av standard utan kräver tillägg eller integration; (3) EDI mot stora kunder och leverantörer som underskattas i tid och kostnad; och (4) artikelmaster med många leverantörer, varianter och prisstrukturer som inte städas inför migrering.\n\nDet är också vanligt att returflöden, kreditfakturor och kvalitetsavvikelser inte modelleras tidigt — vilket skapar manuella processer efter golive.",
+      },
+      {
+        question: "Dynamics 365 vs specialiserade WMS- och grossistsystem — vad ska vi välja?",
+        answer:
+          "Det är inte ett antingen-eller. Specialiserade WMS-system (Astro, Consafe Logistics, Manhattan) och grossistplattformar har djup branschfunktionalitet ur lådan. Dynamics 365 (F&SCM eller BC Premium) är en bredare plattform med solid funktionalitet för grossistlogik och WMS som ofta räcker — särskilt med rätt branschtillägg.\n\nDen vanligaste arkitekturen i medelstora grossister är att låta D365 vara hela ryggraden, kompletterad med tilläggsmoduler för WMS eller EDI. För större aktörer med komplexa flöden och hög volym kan ett separat WMS vara motiverat. Frågan att ställa: hur mycket av lager- och plocklogiken klarar D365 utan särutveckling eller separat WMS?",
+      },
+      {
+        question: "Vad säger andra grossist- och distributionsbolag som infört Dynamics 365?",
+        answer:
+          "Erfarenheterna är generellt positiva när scope hålls realistiskt. Bolag som använt D365 som hel ryggrad med BC Premium eller F&SCM rapporterar god utväxling — särskilt på orderhantering, lager, EDI och kunduppföljning. Bolag som inte städat masterdata (artiklar, kunder, leverantörer) inför migrering har oftare brottats med långa stabiliseringsfaser efter golive.\n\nEn återkommande lärdom är att lägga tid på masterdata- och prislogik tidigt, och att be partnern uppvisa konkreta referenscase i grossist- och distributionsbranschen med liknande volym, sortiment och kundstruktur.",
+      },
+      {
+        question: "Vilken Dynamics 365-partner är bäst för grossist & distribution?",
+        answer:
+          "Det beror på er storlek och komplexitet. På d365.se listar vi flera partners med grossist- och distributionsfokus — vissa är specialiserade på BC för medelstora aktörer, andra arbetar med F&SCM och avancerad supply chain för större distributörer, och andra har dokumenterade ISV-tillägg för WMS, EDI eller branschspecifika prislogiker.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i grossist eller distribution av jämförbar storlek, (2) hur de hanterar komplex pris- och rabattlogik samt EDI, och (3) en tydlig arkitekturskiss över vilka delar D365 äger respektive vad eventuella tilläggssystem behåller.",
+      },
+    ],
   },
   {
     slug: "dynamics-365-jordbruk-skogsbruk",
@@ -2509,6 +2617,33 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
       </>
     ),
+    bigFiveFaq: [
+      {
+        question: "Vad kostar Dynamics 365 för ett jordbruks- eller skogsbruksbolag?",
+        answer:
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Essentials ligger på cirka 850 kr/användare/månad och Premium på cirka 1 215 kr/användare/månad. Finance kostar cirka 1 950 kr/användare/månad och Supply Chain Management cirka 2 050 kr/användare/månad — relevant för större aktörer med komplex lager-, säsongs- och maskinparkslogik. Field Service ligger på cirka 1 250 kr/användare/månad.\n\nImplementationskostnaden för ett medelstort jordbruks- eller skogsbruksbolag landar typiskt i intervallet 700 000 – 3 000 000 kr beroende på integrationer mot maskinsystem, vägning, IoT-sensorer och branschspecifika tillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+      },
+      {
+        question: "Vilka problem stöter jordbruks- och skogsbruksbolag på i en Dynamics 365-implementation?",
+        answer:
+          "De vanligaste fallgroparna är (1) säsongs- och väderberoende processer som inte modelleras i standardlogiken; (2) maskinpark, fordon och utrustning vars underhåll och driftekonomi inte kopplas mot affärssystemet; (3) spårbarhet från jord/skog till leverans som kräver branschspecifika tillägg; och (4) integration mot vägning, terminalsystem och avräkning som underskattas.\n\nDet är också vanligt att man underskattar förändringsarbetet i fält — operatörer och förare behöver enkla mobila gränssnitt, annars blir datakvaliteten lidande.",
+      },
+      {
+        question: "Dynamics 365 vs specialiserade jordbruks- och skogsbrukssystem — vad ska vi välja?",
+        answer:
+          "Det är inte ett antingen-eller. Specialiserade system (Pyrocco, Dataväxt, Näsgård, skogsbrukets terminalsystem) har djup branschfunktionalitet för säsong, växtföljd, virkesmätning och avräkning. Dynamics 365 är en bredare affärsplattform för ekonomi, inköp, lager, fältservice och kund.\n\nDen vanligaste arkitekturen är att behålla specialistsystem för operativ branschlogik och låta D365 vara back-office för ekonomi, projekt, anläggningsregister och kund — med integration däremellan. Frågan att ställa: hur mycket av den specifika jord- eller skogsbrukslogiken klarar D365 utan kostsam särutveckling?",
+      },
+      {
+        question: "Vad säger andra jordbruks- och skogsbruksbolag som infört Dynamics 365?",
+        answer:
+          "Erfarenheterna varierar med scope. Bolag som använt D365 som ekonomi- och projektplattform med integration mot specialiserade branschsystem rapporterar generellt god utväxling — särskilt på ekonomistyrning, maskinparksunderhåll och kundhantering. Bolag som försökt täcka all operativ branschlogik direkt i D365 utan branschtillägg har oftare stött på dyr särutveckling.\n\nEn återkommande lärdom är att tidigt definiera vad D365 äger respektive vad specialistsystemet behåller — och att be partnern uppvisa konkreta referenscase i branschen med liknande verksamhetsprofil.",
+      },
+      {
+        question: "Vilken Dynamics 365-partner är bäst för jordbruk & skogsbruk?",
+        answer:
+          "Jordbruk och skogsbruk är ett nischsegment på d365.se med få listade partners. Vår rekommendation är att utvärdera de partners som finns listade på branschsidan och komplettera med partners utanför listan som har dokumenterad erfarenhet av branschens specifika system och processer.\n\nBe partnern uppvisa: (1) konkreta referenscase i jordbruk eller skogsbruk av jämförbar storlek, (2) hur de hanterar integration mot vägning, maskindata och avräkning, och (3) en tydlig avgränsning av vad D365 ska göra respektive vad eventuella specialistsystem behåller.",
+      },
+    ],
   },
   {
     slug: "dynamics-365-bygg-entreprenad",
@@ -2739,6 +2874,33 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
       </>
     ),
+    bigFiveFaq: [
+      {
+        question: "Vad kostar Dynamics 365 för ett bygg- och entreprenadbolag?",
+        answer:
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Premium ligger på cirka 1 215 kr/användare/månad. Finance kostar cirka 1 950 kr/användare/månad, Supply Chain Management cirka 2 050 kr/användare/månad och Project Operations cirka 1 800 kr/användare/månad — central för projektredovisning, ÄTA och underentreprenörer.\n\nImplementationskostnaden för ett medelstort bygg- och entreprenadbolag landar typiskt i intervallet 1 000 000 – 4 000 000 kr beroende på antal projekt parallellt, integrationer mot kalkyl- och tidrapporteringssystem samt branschspecifika tillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+      },
+      {
+        question: "Vilka problem stöter bygg- och entreprenadbolag på i en Dynamics 365-implementation?",
+        answer:
+          "De vanligaste fallgroparna är (1) projektredovisning och ÄTA-hantering som inte modelleras tillräckligt detaljerat; (2) underentreprenörshantering, avtal och avrop som lämnas i parallella system; (3) tidrapportering från fält som inte integreras hela vägen till löneunderlag och projektkostnad; och (4) integration mot kalkylsystem (Bidcon, Sterling, MAP) som underskattas.\n\nDet är också vanligt att man underskattar förändringsarbetet — platschefer och projektledare behöver enkla mobila gränssnitt och tydliga processer för att adoptera systemet.",
+      },
+      {
+        question: "Dynamics 365 vs specialiserade byggsystem — vad ska vi välja?",
+        answer:
+          "Det är inte ett antingen-eller. Specialiserade byggsystem (Vitec/Entré, Mercur, Hogia Bygg, Next) har djup branschfunktionalitet för svensk byggekonomi, ÄTA och underentreprenörer. Dynamics 365 (Project Operations + BC Premium eller F&SCM) är en bredare affärsplattform med stark projektredovisning som kompletteras med Microsofts ekosystem för CRM, fältservice och AI.\n\nDen vanligaste vägen för medelstora byggbolag är att utvärdera D365 + ISV-tillägg mot ett renodlat byggsystem. Frågan att ställa: vilken ISV eller branschanpassning rekommenderar partnern, och hur löser de underentreprenörshantering, ÄTA och förskottsfakturering i sin lösning?",
+      },
+      {
+        question: "Vad säger andra bygg- och entreprenadbolag som infört Dynamics 365?",
+        answer:
+          "Erfarenheterna varierar med scope och tilläggsval. Bolag som infört D365 med Project Operations och ett byggspecifikt tillägg rapporterar generellt god utväxling — särskilt på projektredovisning, kostnadskontroll och kundhantering. Bolag som försökt täcka all branschspecifik logik med standard-D365 har oftare stött på dyr särutveckling.\n\nEn återkommande lärdom är att tidigt involvera ekonomi, projektledning och inköp i kravarbetet, och att be partnern uppvisa konkreta referenscase i bygg och entreprenad med liknande projekttyp och storlek.",
+      },
+      {
+        question: "Vilken Dynamics 365-partner är bäst för bygg & entreprenad?",
+        answer:
+          "Det beror på er projektprofil och storlek. På d365.se listar vi flera partners med erfarenhet av bygg och entreprenad — vissa är specialiserade på Project Operations + BC, andra arbetar med F&SCM för större aktörer, och andra har dokumenterade ISV-tillägg för svensk byggekonomi.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i bygg eller entreprenad av jämförbar storlek, (2) hur de hanterar ÄTA, underentreprenörer och projektredovisning, och (3) vilka kalkyl- och tidrapporteringssystem de integrerat mot tidigare.",
+      },
+    ],
   },
   {
     slug: "dynamics-365-energi-utilities",
@@ -2926,6 +3088,33 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
       </>
     ),
+    bigFiveFaq: [
+      {
+        question: "Vad kostar Dynamics 365 för ett energi- eller utilitiesbolag?",
+        answer:
+          "Licenskostnaden styrs av plattformsval och antal användare. Finance kostar cirka 1 950 kr/användare/månad och Supply Chain Management cirka 2 050 kr/användare/månad — i princip standardvalet för större energi- och utilitiesbolag. Field Service ligger på cirka 1 250 kr/användare/månad och Customer Service Enterprise på cirka 1 050 kr/användare/månad.\n\nImplementationskostnaden för ett medelstort energi- eller utilitiesbolag landar typiskt i intervallet 1 500 000 – 6 000 000 kr beroende på integrationer mot mätvärdesinsamling (CIS/MDM), nätinformationssystem (GIS/NIS) och fakturering. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+      },
+      {
+        question: "Vilka problem stöter energi- och utilitiesbolag på i en Dynamics 365-implementation?",
+        answer:
+          "De vanligaste fallgroparna är (1) komplex faktureringslogik för energi, nät och tilläggstjänster som inte fullt ut täcks av standard utan branschtillägg; (2) integration mot mätvärdes- och nätinformationssystem som underskattas; (3) fältservice för nätunderhåll och anslutningsärenden som inte kopplas hela vägen till ekonomi och kund; och (4) regelefterlevnad mot Ei och elmarknadens roller som kräver att datamodellen byggs rätt.\n\nDet är också vanligt att man underskattar förändringsarbetet — fältpersonal och kundtjänst behöver enkla gränssnitt och tydliga processer för att adoptera systemet.",
+      },
+      {
+        question: "Dynamics 365 vs specialiserade energi- och utilitiessystem — vad ska vi välja?",
+        answer:
+          "Det är inte ett antingen-eller. Specialiserade energi- och utilitiessystem (CIS/MDM som Mecoms, Tieto/Tietoevry, Hansen) har djup branschfunktionalitet för mätvärdeshantering, avräkning och fakturering enligt elmarknadens regler. Dynamics 365 är en bredare affärsplattform för ekonomi, fältservice, kund och projekt.\n\nDen vanligaste arkitekturen är att behålla specialistsystem för mätvärden och fakturering och låta D365 vara back-office för ekonomi, fältservice, kund och projekt — med integration däremellan. Frågan att ställa: hur mycket av branschspecifik fakturerings- och avräkningslogik klarar D365 utan kostsam särutveckling?",
+      },
+      {
+        question: "Vad säger andra energi- och utilitiesbolag som infört Dynamics 365?",
+        answer:
+          "Erfarenheterna är generellt positiva när scope hålls realistiskt. Bolag som använt D365 som ekonomi-, fältservice- och kundplattform med integration mot specialiserade CIS/MDM rapporterar god utväxling — särskilt på fältservice, kundhantering och projektredovisning för investeringar i nät och produktion. Bolag som försökt täcka all branschspecifik fakturering direkt i D365 utan tillägg har oftare stött på dyr särutveckling.\n\nEn återkommande lärdom är att tidigt definiera vad D365 äger respektive vad branschsystemen behåller, och att be partnern uppvisa konkreta referenscase i energi- och utilitiesbranschen.",
+      },
+      {
+        question: "Vilken Dynamics 365-partner är bäst för energi & utilities?",
+        answer:
+          "Det beror på er roll i värdekedjan (produktion, nät, försäljning) och er storlek. På d365.se listar vi flera partners med erfarenhet av energi och utilities — vissa är specialiserade på Field Service och Customer Service för nät- och kundärenden, andra arbetar med F&SCM för större aktörer med komplex ekonomi och projektportfölj.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i energi eller utilities av jämförbar storlek, (2) vilka CIS/MDM- och GIS/NIS-integrationer de genomfört, och (3) hur de hanterar elmarknadens roller och regelefterlevnad.",
+      },
+    ],
   },
   {
     slug: "dynamics-365-konsultbolag-tjansteforetag",
@@ -3150,6 +3339,33 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
       </>
     ),
+    bigFiveFaq: [
+      {
+        question: "Vad kostar Dynamics 365 för ett konsult- eller tjänsteföretag?",
+        answer:
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Essentials ligger på cirka 850 kr/användare/månad och Premium på cirka 1 215 kr/användare/månad. Project Operations kostar cirka 1 800 kr/användare/månad och är central för tid-, projekt- och faktureringsstyrning. Sales Enterprise ligger på cirka 1 050 kr/användare/månad. Finance kostar cirka 1 950 kr/användare/månad — relevant för större konsultbolag.\n\nImplementationskostnaden för ett medelstort konsultbolag landar typiskt i intervallet 500 000 – 2 500 000 kr beroende på antal användare, integrationer mot lön/HR och komplexitet i prismodell och utlandsverksamhet. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+      },
+      {
+        question: "Vilka problem stöter konsult- och tjänsteföretag på i en Dynamics 365-implementation?",
+        answer:
+          "De vanligaste fallgroparna är (1) tidrapporterings- och godkännandeflöden som inte är friktionsfria för konsulterna; (2) komplexa prismodeller (fastpris, löpande, retainer, prenumeration) som inte modelleras tillräckligt; (3) projektprognoser och beläggning som inte uppdateras i realtid; och (4) integration mot HR/lön, expense management och kund-CRM som underskattas.\n\nDet är också vanligt att man underskattar förändringsarbetet — om tidrapporteringen är klumpig sker den för sent och projektekonomin blir oprecis.",
+      },
+      {
+        question: "Dynamics 365 vs Maconomy, Visma.net Project och Cinode — vad ska vi välja?",
+        answer:
+          "Det är inte ett antingen-eller. Specialiserade PSA-system (Maconomy, Visma.net Project, Certinia, Cinode för kompetenshantering) har djup branschfunktionalitet ur lådan och kommer ofta snabbare i drift. Dynamics 365 (Project Operations + BC eller F&SCM) är en bredare plattform med stark projekt- och tidlogik som kompletteras med Microsofts ekosystem för CRM, Office, Teams och AI.\n\nValet styrs av ambitionsnivå: behöver ni främst PSA är ett specialistsystem ofta tillräckligt. Behöver ni ett gemensamt dataekosystem där sälj, leverans, ekonomi och kund ligger i samma plattform — och där ni vill bygga vidare med automation och Copilot — är D365 motiverat. Frågan att ställa: hur mycket utöver PSA vill ni att plattformen ska göra de närmaste 3–5 åren?",
+      },
+      {
+        question: "Vad säger andra konsult- och tjänsteföretag som infört Dynamics 365?",
+        answer:
+          "Erfarenheterna är generellt positiva när scope hålls realistiskt. Bolag som infört Project Operations + BC eller F&SCM rapporterar god utväxling — särskilt på beläggning, projektprognoser, fakturering och kundhantering. Bolag som försökt ersätta även HR/lön och avancerad kompetenshantering med D365 direkt har oftare stött på begränsningar och kompletterat med specialistsystem i efterhand.\n\nEn återkommande lärdom är att börja med tid, projekt och fakturering, säkra adoption hos konsulterna, och därefter bygga ut med sälj, prognoser och AI-stöd.",
+      },
+      {
+        question: "Vilken Dynamics 365-partner är bäst för konsult- och tjänsteföretag?",
+        answer:
+          "Det beror på er storlek och prismodell. På d365.se listar vi flera partners med erfarenhet av konsultbolag — vissa är specialiserade på Project Operations + BC för medelstora aktörer, andra arbetar med F&SCM för större internationella konsultkoncerner, och andra har djup CRM- och Customer Insights-profil för säljdrivna konsultbolag.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i konsult- eller tjänsteföretag av jämförbar storlek, (2) hur de modellerar er prismodell (fastpris, löpande, retainer), och (3) hur de säkrar adoption av tidrapportering hos konsulterna.",
+      },
+    ],
   },
   {
     slug: "dynamics-365-finans-forsakring",
@@ -3352,6 +3568,33 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
       </>
     ),
+    bigFiveFaq: [
+      {
+        question: "Vad kostar Dynamics 365 för ett finans- eller försäkringsbolag?",
+        answer:
+          "Licenskostnaden styrs av plattformsval och antal användare. Sales Enterprise ligger på cirka 1 050 kr/användare/månad, Customer Service Enterprise på cirka 1 050 kr/användare/månad och Customer Insights (Data + Journeys) på cirka 1 950 kr/användare/månad. Finance kostar cirka 1 950 kr/användare/månad — relevant för intern ekonomistyrning. Contact Center kostar cirka 1 350 kr/användare/månad.\n\nImplementationskostnaden för ett medelstort finans- eller försäkringsbolag landar typiskt i intervallet 1 000 000 – 5 000 000 kr beroende på integrationer mot kärnsystem (försäkrings-/banksystem), KYC/AML-system samt regulatoriska rapporteringskrav. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+      },
+      {
+        question: "Vilka problem stöter finans- och försäkringsbolag på i en Dynamics 365-implementation?",
+        answer:
+          "De vanligaste fallgroparna är (1) compliance, KYC och AML som inte byggs in tidigt nog i kundprocesserna; (2) integration mot kärnsystem (försäkringssystem, banksystem) som underskattas; (3) regulatorisk rapportering till Finansinspektionen som inte modelleras i datamodellen; och (4) data- och rollsegregation som krävs för att uppfylla GDPR och branschens säkerhetsregler.\n\nDet är också vanligt att man underskattar arkitekturkraven — finans och försäkring har högre krav på spårbarhet, åtkomstkontroll och dataskydd än de flesta branscher.",
+      },
+      {
+        question: "Dynamics 365 vs Salesforce Financial Services Cloud och specialiserade försäkringssystem — vad ska vi välja?",
+        answer:
+          "Det är inte ett antingen-eller. Specialiserade försäkrings- och bankkärnsystem hanterar produkthantering, försäkringsmatematik och regulatorisk logik. Dynamics 365 och Salesforce Financial Services Cloud är CRM-plattformar för kundhantering, distribution, säljstöd och kundtjänst.\n\nValet mellan D365 och Salesforce styrs ofta av integration mot övrig IT-miljö: är ni Microsoft-tunga med Azure, Microsoft 365 och Teams är D365 en naturlig matchning. Salesforce har starkare branschspecifika moduler men kräver ett separat ekosystem. Frågan att ställa: hur väl integrerar plattformen med vår befintliga arkitektur, och vilka regulatoriska krav uppfylls ur lådan?",
+      },
+      {
+        question: "Vad säger andra finans- och försäkringsbolag som infört Dynamics 365?",
+        answer:
+          "Erfarenheterna är generellt positiva när scope hålls till CRM, distribution och kundtjänst, med integration mot kärnsystemen. Bolag som infört D365 som distribution- och kundplattform rapporterar god utväxling — särskilt på distributionseffektivitet, kundservice och kampanjautomation. Bolag som försökt täcka även produkthantering eller försäkringsmatematik direkt i D365 har oftare stött på begränsningar.\n\nEn återkommande lärdom är att tidigt klargöra rollfördelningen mellan D365 och kärnsystemen, samt att involvera compliance och dataskydd från start i kravarbetet.",
+      },
+      {
+        question: "Vilken Dynamics 365-partner är bäst för finans & försäkring?",
+        answer:
+          "Det beror på er verksamhetstyp (bank, försäkring, fondförvaltning) och storlek. På d365.se listar vi flera partners med erfarenhet av finans och försäkring — vissa är specialiserade på CRM, distribution och Customer Insights, andra har bredare plattformskompetens med F&SCM för internationella aktörer.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i finans eller försäkring av jämförbar storlek, (2) hur de hanterar integration mot ert kärnsystem och compliance-krav, och (3) erfarenhet av regulatorisk rapportering och dataskydd.",
+      },
+    ],
   },
   {
     slug: "dynamics-365-offentlig-sektor",
@@ -3559,6 +3802,33 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
       </>
     ),
+    bigFiveFaq: [
+      {
+        question: "Vad kostar Dynamics 365 för en offentlig organisation?",
+        answer:
+          "Licenskostnaden styrs av plattformsval och antal användare. Finance kostar cirka 1 950 kr/användare/månad och Supply Chain Management cirka 2 050 kr/användare/månad — relevant för större offentliga organisationer med upphandlings- och anläggningsregister. Customer Service Enterprise ligger på cirka 1 050 kr/användare/månad, Field Service på cirka 1 250 kr/användare/månad och Customer Insights (Data + Journeys) på cirka 1 950 kr/användare/månad. Microsoft erbjuder särskild prissättning för offentlig sektor.\n\nImplementationskostnaden för en medelstor offentlig organisation landar typiskt i intervallet 1 000 000 – 5 000 000 kr beroende på integrationer mot diariesystem, ekonomisystem, e-arkiv och behov av branschspecifika tillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+      },
+      {
+        question: "Vilka problem stöter offentliga organisationer på i en Dynamics 365-implementation?",
+        answer:
+          "De vanligaste fallgroparna är (1) integration mot befintliga diariesystem (Public360, W3D3, Lex) och e-arkiv som underskattas; (2) krav på offentlighet, diarieföring och bevarande som inte byggs in tidigt; (3) upphandling enligt LOU som påverkar både inköp och leverantörshantering; och (4) GDPR och informationssäkerhet med särskilda krav på spårbarhet och åtkomstkontroll.\n\nDet är också vanligt att man underskattar förändringsarbetet — offentliga organisationer har ofta starka silos och formella processer som kräver tydligt mandat och stegvis införande.",
+      },
+      {
+        question: "Dynamics 365 vs UBW (Agresso), Public360 och specialiserade offentliga system — vad ska vi välja?",
+        answer:
+          "Det är inte ett antingen-eller. Specialiserade offentliga ekonomi- och diariesystem (UBW/Agresso, Public360, W3D3, Lex, Visma) har djup branschfunktionalitet för svensk offentlig förvaltning. Dynamics 365 är en bredare plattform med fokus på ärendehantering, fältservice, kund/medborgare och projekt.\n\nDen vanligaste arkitekturen i offentlig sektor är att behålla diarie- och ekonomisystem och låta D365 vara plattform för medborgar-/kundärenden, fältservice för förvaltningar (gata/park/fastighet) och projektportföljer — med integration däremellan. Frågan att ställa: hur väl integrerar partnern D365 med era befintliga diarier och ekonomisystem?",
+      },
+      {
+        question: "Vad säger andra offentliga organisationer som infört Dynamics 365?",
+        answer:
+          "Erfarenheterna är generellt positiva när scope hålls till medborgarärenden, fältservice och kundnära processer, med integration mot befintliga kärnsystem. Organisationer som infört D365 som ärende- och fältserviceplattform rapporterar god utväxling — särskilt på ärendeflöden, mobil tillgång för fältpersonal och spårbarhet. Organisationer som försökt täcka även diarieföring eller komplex offentlig ekonomi direkt i D365 har oftare stött på regulatoriska och funktionella begränsningar.\n\nEn återkommande lärdom är att tidigt involvera arkivansvarig, dataskyddsombud och verksamhetsledning i kravarbetet.",
+      },
+      {
+        question: "Vilken Dynamics 365-partner är bäst för offentlig sektor?",
+        answer:
+          "Det beror på er typ av organisation (kommun, region, myndighet, statligt bolag) och storlek. På d365.se listar vi flera partners med erfarenhet av offentlig sektor — vissa är specialiserade på ärende- och medborgarprocesser med Customer Service och Field Service, andra arbetar med F&SCM för större statliga aktörer med komplex ekonomi.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i offentlig sektor av jämförbar storlek, (2) hur de hanterar integration mot diariesystem, e-arkiv och ekonomisystem, och (3) erfarenhet av LOU-anpassade upphandlingsprocesser och offentlighetslagstiftning.",
+      },
+    ],
   },
   {
     slug: "dynamics-365-life-science-medtech",
@@ -3789,6 +4059,33 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
       </>
     ),
+    bigFiveFaq: [
+      {
+        question: "Vad kostar Dynamics 365 för ett life science- eller medtech-bolag?",
+        answer:
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Premium ligger på cirka 1 215 kr/användare/månad. Finance kostar cirka 1 950 kr/användare/månad och Supply Chain Management cirka 2 050 kr/användare/månad — i princip standardvalet för bolag med GxP-krav, spårbarhet och kvalitetsstyrning. Sales Enterprise ligger på cirka 1 050 kr/användare/månad och Field Service på cirka 1 250 kr/användare/månad.\n\nImplementationskostnaden för ett medelstort life science- eller medtech-bolag landar typiskt i intervallet 1 500 000 – 7 000 000 kr beroende på GxP-validering, integrationer mot LIMS/QMS samt branschspecifika tillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år samt revalideringskostnader.",
+      },
+      {
+        question: "Vilka problem stöter life science- och medtech-bolag på i en Dynamics 365-implementation?",
+        answer:
+          "De vanligaste fallgroparna är (1) underskattad valideringsinsats för GxP-miljöer (IQ/OQ/PQ) som påverkar både tidsplan och kostnad; (2) spårbarhet i hela kedjan från råvara till patient som inte byggs in från start; (3) integration mot LIMS, QMS och elektroniska signaturer som lämnas sent i projektet; och (4) regulatorisk rapportering till EMA, FDA och andra myndigheter som inte modelleras tidigt.\n\nDet är också vanligt att man underskattar dokumentationskraven — varje förändring i ett validerat system kräver formell change control.",
+      },
+      {
+        question: "Dynamics 365 vs SAP, Oracle och specialiserade life science-system — vad ska vi välja?",
+        answer:
+          "Det är inte ett antingen-eller. SAP, Oracle och specialiserade life science-system (Veeva, BatchMaster, Aptean) har djup branschfunktionalitet ur lådan och ett etablerat ekosystem av valideringsexpertis. Dynamics 365 (F&SCM eller BC Premium med life science-tillägg) är en bredare plattform som med rätt branschtillägg och valideringspartner täcker GxP-kraven.\n\nValet styrs ofta av storlek och internationell närvaro: globala läkemedelsbolag väljer ofta SAP, medan medtech-bolag och nordiska life science-aktörer alltmer väljer D365 + branschtillägg. Frågan att ställa: vilken erfarenhet har partnern av GxP-validering, och vilka konkreta referenser har de i life science eller medtech?",
+      },
+      {
+        question: "Vad säger andra life science- och medtech-bolag som infört Dynamics 365?",
+        answer:
+          "Erfarenheterna varierar med valideringsansats och scope. Bolag som infört D365 med rätt life science-tillägg och en erfaren valideringspartner rapporterar generellt god utväxling — särskilt på spårbarhet, kvalitetsstyrning och regulatorisk rapportering. Bolag som underskattat valideringsinsatsen har oftare stött på förlängda projekt och oväntade kostnader.\n\nEn återkommande lärdom är att tidigt involvera kvalitets- och regulatoriskt ansvarig i kravarbetet, och att be partnern uppvisa konkreta GxP-validerade referenscase i life science eller medtech.",
+      },
+      {
+        question: "Vilken Dynamics 365-partner är bäst för life science & medtech?",
+        answer:
+          "Det beror på er verksamhetstyp (läkemedel, medtech, diagnostik) och storlek. På d365.se listar vi flera partners med erfarenhet av life science och medtech — vissa är specialiserade på F&SCM med GxP-validering, andra arbetar med BC Premium + branschtillägg för mindre och medelstora bolag.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta GxP-validerade referenscase i life science eller medtech av jämförbar storlek, (2) hur de hanterar validering, spårbarhet och change control, och (3) vilka branschspecifika tillägg de arbetar med och varför.",
+      },
+    ],
   },
   {
     slug: "dynamics-365-telekom-it-tjanster",
@@ -3988,6 +4285,33 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
       </>
     ),
+    bigFiveFaq: [
+      {
+        question: "Vad kostar Dynamics 365 för ett telekom- eller IT-tjänsteföretag?",
+        answer:
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Essentials ligger på cirka 850 kr/användare/månad och Premium på cirka 1 215 kr/användare/månad. Project Operations kostar cirka 1 800 kr/användare/månad och Sales Enterprise cirka 1 050 kr/användare/månad. Customer Service Enterprise ligger på cirka 1 050 kr/användare/månad och Field Service på cirka 1 250 kr/användare/månad — central för installations- och fältarbete.\n\nImplementationskostnaden för ett medelstort telekom- eller IT-tjänsteföretag landar typiskt i intervallet 800 000 – 3 500 000 kr beroende på integrationer mot CPQ, faktureringssystem för abonnemang och ärendesystem. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+      },
+      {
+        question: "Vilka problem stöter telekom- och IT-tjänsteföretag på i en Dynamics 365-implementation?",
+        answer:
+          "De vanligaste fallgroparna är (1) komplex abonnemangs- och prenumerationslogik som inte modelleras tillräckligt (uppgraderingar, periodiseringar, terminering); (2) CPQ för paketerade erbjudanden med hårdvara, mjukvara och tjänster som lämnas i parallella system; (3) ärende- och SLA-hantering som inte kopplas till abonnemangs- och avtalsdata; och (4) integration mot Microsoft 365/Azure-marketplace, betalningstjänster och kund-portaler som underskattas.\n\nDet är också vanligt att man underskattar förändringsarbetet — säljare, leverans och kundtjänst behöver gemensam datamodell för att kunna agera på abonnemangshändelser.",
+      },
+      {
+        question: "Dynamics 365 vs Salesforce och specialiserade abonnemangssystem — vad ska vi välja?",
+        answer:
+          "Det är inte ett antingen-eller. Specialiserade abonnemangssystem (Zuora, Stripe Billing, Chargebee) har djup funktionalitet för komplex prenumerationsfakturering. Dynamics 365 (BC eller F&SCM + Sales + Customer Service) är en bredare plattform där prenumerationslogiken konfigureras eller hanteras via tillägg.\n\nDen vanligaste arkitekturen är att behålla ett specialiserat abonnemangssystem för fakturering och låta D365 vara ryggrad för sälj, leverans, ekonomi och kund. För mindre bolag med standardiserade prenumerationer kan D365 räcka som helhetslösning. Frågan att ställa: hur mycket av abonnemangslogiken klarar D365 utan kostsam särutveckling?",
+      },
+      {
+        question: "Vad säger andra telekom- och IT-tjänsteföretag som infört Dynamics 365?",
+        answer:
+          "Erfarenheterna är generellt positiva när scope hålls realistiskt. Bolag som infört D365 som ryggrad för sälj, leverans, ärendehantering och ekonomi — med integration mot ett specialiserat abonnemangssystem — rapporterar god utväxling. Bolag som försökt täcka all komplex abonnemangsfakturering direkt i D365 utan tillägg har oftare stött på dyr särutveckling.\n\nEn återkommande lärdom är att tidigt definiera datamodellen för kunder, abonnemang, avtal och ärenden, och att be partnern uppvisa konkreta referenscase i telekom eller IT-tjänster med liknande affärsmodell.",
+      },
+      {
+        question: "Vilken Dynamics 365-partner är bäst för telekom & IT-tjänster?",
+        answer:
+          "Det beror på er affärsmodell och storlek. På d365.se listar vi flera partners med erfarenhet av IT-tjänster och prenumerationsmodeller — vissa är specialiserade på Project Operations + BC för IT-konsultbolag, andra arbetar med F&SCM och Sales för större telekom- och MSP-aktörer.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och bredda sökningen till partners i Konsulttjänster — många har dokumenterad erfarenhet av IT-tjänstebolag och prenumerationsmodeller. Be om: (1) konkreta referenscase i telekom eller IT-tjänster av jämförbar storlek, (2) hur de hanterar abonnemangs- och CPQ-logik, och (3) integrationsstrategi mot ert faktureringssystem.",
+      },
+    ],
   },
   {
     slug: "dynamics-365-uthyrning",
@@ -4171,6 +4495,33 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
       </>
     ),
+    bigFiveFaq: [
+      {
+        question: "Vad kostar Dynamics 365 för en uthyrningsverksamhet?",
+        answer:
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Essentials ligger på cirka 850 kr/användare/månad och Premium på cirka 1 215 kr/användare/månad. Finance kostar cirka 1 950 kr/användare/månad och Supply Chain Management cirka 2 050 kr/användare/månad — relevant för större uthyrare med komplex hyresekonomi och underhållsplanering. Field Service ligger på cirka 1 250 kr/användare/månad och är central för fordon, maskiner och underhåll.\n\nImplementationskostnaden för ett medelstort uthyrningsbolag landar typiskt i intervallet 700 000 – 3 000 000 kr beroende på integrationer mot eventuella specialiserade uthyrningssystem och behov av branschspecifika tillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+      },
+      {
+        question: "Vilka problem stöter uthyrningsbolag på i en Dynamics 365-implementation?",
+        answer:
+          "De vanligaste fallgroparna är (1) hyresavtals- och beläggningslogik som inte fullt ut täcks av standard utan branschtillägg; (2) underhåll och kontroll av uthyrningsobjekt mellan uppdrag som inte modelleras tidigt; (3) komplex prissättning (dagshyra, dygnshyra, periodpris, försäkring, frakt) som lämnas till särutveckling; och (4) integration mot bokningsportaler, GPS/telematik och fakturering som underskattas.\n\nDet är också vanligt att retur- och skadehantering inte byggs in från start, vilket skapar manuella processer efter golive.",
+      },
+      {
+        question: "Dynamics 365 vs specialiserade uthyrningssystem — vad ska vi välja?",
+        answer:
+          "Det är inte ett antingen-eller. Specialiserade uthyrningssystem (Wynne Systems, MCS Rental Software, Hire Track, Husky Software) har djup branschfunktionalitet för beläggning, kontrollistor, prissättning och underhåll. Dynamics 365 är en bredare plattform där uthyrningslogik konfigureras eller hanteras via branschtillägg (t.ex. To-Increase, Dynaway).\n\nValet styrs av uthyrningsobjektets karaktär: maskiner och fordon med komplext underhåll matchar ofta specialistsystem bättre, medan event- och verktygsuthyrning ofta klaras med D365 + branschtillägg. Frågan att ställa: vilket branschtillägg rekommenderar partnern, och vilka konkreta uthyrningsreferenser har de på det?",
+      },
+      {
+        question: "Vad säger andra uthyrningsbolag som infört Dynamics 365?",
+        answer:
+          "Erfarenheterna varierar med val av branschtillägg och scope. Bolag som infört D365 med ett etablerat uthyrningstillägg rapporterar generellt god utväxling — särskilt på beläggning, prissättning och integrerad ekonomi. Bolag som försökt täcka uthyrningslogiken med standard-D365 utan tillägg har oftare stött på dyr särutveckling.\n\nEn återkommande lärdom är att kravarbetet ska involvera både uthyrning, verkstad/underhåll och ekonomi, och att be partnern uppvisa konkreta referenscase i samma typ av uthyrning som ni bedriver.",
+      },
+      {
+        question: "Vilken Dynamics 365-partner är bäst för uthyrningsverksamhet?",
+        answer:
+          "Uthyrning är ett nischsegment på d365.se med få listade partners. Vår rekommendation är att utvärdera de partners som finns på branschsidan och komplettera med utvärdering av specialiserade uthyrningssystem — beroende på vilken typ av uthyrning ni bedriver kan ett specialistsystem med D365-integration vara ett bättre alternativ än D365 som hel ryggrad.\n\nBe partnern uppvisa: (1) konkreta referenscase i uthyrning av samma typ (maskiner, fordon, verktyg, event) och storlek, (2) vilket uthyrningstillägg de arbetar med och varför, och (3) hur de hanterar beläggning, prissättning, kontrollistor och underhåll.",
+      },
+    ],
   },
   {
     slug: "dynamics-365-mode-sport-textil",
@@ -4340,6 +4691,33 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
       </>
     ),
+    bigFiveFaq: [
+      {
+        question: "Vad kostar Dynamics 365 för ett mode-, sport- eller textilbolag?",
+        answer:
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Premium ligger på cirka 1 215 kr/användare/månad. Finance kostar cirka 1 950 kr/användare/månad, Supply Chain Management cirka 2 050 kr/användare/månad och Commerce cirka 1 800 kr/användare/månad — relevant för aktörer med egna butiker, e-handel och POS.\n\nImplementationskostnaden för ett medelstort mode-, sport- eller textilbolag landar typiskt i intervallet 1 000 000 – 4 500 000 kr beroende på storlek på sortiment, säsongsplanering, integrationer mot PLM/leverantörsportaler och behov av branschspecifika tillägg (Bisqo, K3 Pebblestone, LS Retail Fashion). Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+      },
+      {
+        question: "Vilka problem stöter mode-, sport- och textilbolag på i en Dynamics 365-implementation?",
+        answer:
+          "De vanligaste fallgroparna är (1) storlek/färg-matriser (variantkomplexitet) som inte hanteras av standard utan branschtillägg; (2) säsongs-, kollektion- och inköpsplanering mot långa ledtider från globala leverantörer; (3) returflöden och nedmarkeringscykler som inte modelleras tidigt; och (4) integration mot PLM, designsystem och e-handel som underskattas.\n\nDet är också vanligt att masterdata för artiklar med säsong, kollektion, leverantör och variant inte städas inför migrering, vilket skapar långa stabiliseringsfaser efter golive.",
+      },
+      {
+        question: "Dynamics 365 vs specialiserade mode- och textilsystem — vad ska vi välja?",
+        answer:
+          "Det är inte ett antingen-eller. Specialiserade mode- och textilsystem (Centric PLM, Itera, Bsmart) och branschtillägg på D365 (K3 Pebblestone, Bisqo, LS Retail Fashion) hanterar variantkomplexitet, säsong och kollektion. Dynamics 365 utan branschtillägg räcker sällan för en renodlad modeverksamhet.\n\nDen vanligaste vägen är D365 + branschtillägg snarare än renodlat D365 eller helt fristående system. Frågan att ställa: vilket branschtillägg rekommenderar partnern, och har de konkreta referenser i mode, sport eller textil på just det tillägget?",
+      },
+      {
+        question: "Vad säger andra mode-, sport- och textilbolag som infört Dynamics 365?",
+        answer:
+          "Erfarenheterna varierar med val av branschtillägg och scope. Bolag som infört D365 + ett etablerat modetillägg (K3 Pebblestone, Bisqo, LS Retail Fashion) rapporterar generellt god utväxling — särskilt på variant- och säsongshantering, inköpsplanering och integrerad e-handel/POS. Bolag som försökt täcka modelogiken med standard-D365 har oftare stött på dyr särutveckling.\n\nEn återkommande lärdom är att kravarbetet ska involvera inköp, design, lager och försäljning, och att validera branschtillägget mot verkliga processer tidigt.",
+      },
+      {
+        question: "Vilken Dynamics 365-partner är bäst för mode, sport & textil?",
+        answer:
+          "Det beror på er storlek och kanalmix. På d365.se listar vi få partners specifikt inom mode, sport och textil — det kan vara värt att också titta på partners i Retail & E-handel-segmentet (t.ex. Cepheo och Bisqo) som arbetar med BC för handelsföretag och kan ha relevant erfarenhet av mode- och textilprocesser.\n\nVår rekommendation är att utvärdera 2–3 partners och be om: (1) konkreta referenscase i mode, sport eller textil av jämförbar storlek, (2) hur de hanterar storlek/färg-matriser och säsong, och (3) vilket branschtillägg de rekommenderar och varför.",
+      },
+    ],
   },
   {
     slug: "dynamics-365-fastighet-forvaltning",
