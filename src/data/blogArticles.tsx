@@ -16,6 +16,7 @@ import finansImg from "@/assets/industries/finans-forsakring.webp";
 import offentligImg from "@/assets/industries/offentlig-sektor.webp";
 import lifeScienceImg from "@/assets/industries/lakemedel-life-science.webp";
 import itTechImg from "@/assets/industries/it-tech.webp";
+import uthyrningImg from "@/assets/industries/uthyrning.webp";
 
 export interface BlogArticleAuthor {
   name: string;
@@ -3978,6 +3979,189 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Läs mer och jämför partners:{" "}
           <a href="/branscher/telekom-it-tjanster/">d365.se/branscher/telekom-it-tjanster</a>
+        </p>
+      </>
+    ),
+  },
+  {
+    slug: "dynamics-365-uthyrning",
+    title: "Dynamics 365 för uthyrningsverksamhet",
+    metaTitle: "Branschguide: Uthyrning i Dynamics 365 | d365.se",
+    metaDescription:
+      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk uthyrningsverksamhet.",
+    summary:
+      "Branschguide för Uthyrning: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+    category: "Branschguide",
+    tags: ["uthyrning", "rental", "eqm 365", "dynamics365", "business central", "field service", "tillgångshantering"],
+    products: [
+      "Business Central",
+      "Sales",
+      "Customer Service",
+      "Field Service",
+      "Customer Insights",
+      "Contact Center",
+    ],
+    publishedAt: "2026-06-09",
+    author: THOMAS_LAINE,
+    heroImage: uthyrningImg,
+    readingTimeMinutes: 10,
+    content: (
+      <>
+        <p className="!text-sm uppercase tracking-wider !text-primary !font-semibold !mb-2">
+          Kunskapscenter &nbsp;|&nbsp; Branschguide
+        </p>
+        <p className="!text-xs uppercase tracking-wider text-muted-foreground !mb-6">
+          Uthyrningsverksamhet
+        </p>
+        <p className="italic text-foreground/85 !mb-8">
+          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+        </p>
+
+        <h2>Branschens verklighet</h2>
+        <p>
+          Uthyrningsbranschen i Sverige växer, drivet av ökad efterfrågan på
+          flexibla lösningar och ett hållbarhetsperspektiv där företag väljer
+          att hyra istället för att äga. Maskiner, fordon, verktyg,
+          eventutrustning — gemensamt för alla uthyrningssegment är att
+          lönsamheten styrs av beläggningsgraden, och att beläggningsgraden
+          kräver realtidsöversikt över varje tillgångs status, var den befinner
+          sig och när den behöver service.
+        </p>
+        <p>
+          Det är en annan affärslogik än handel eller tillverkning. Systemet
+          måste hantera tillgångars livscykel som det centrala objektet — från
+          inköp och avskrivning via bokning, leverans och retur till service
+          och slutligen utrangering — och koppla det till ekonomi,
+          kundrelationer och fältservice i ett sammanhållet flöde. Manuella
+          processer för bokning, fakturering och underhållsplanering är de
+          vanligaste källorna till ineffektivitet och intäktsläckage.
+        </p>
+        <p>
+          Microsoft Dynamics 365 används av uthyrningsföretag som plattform för
+          att samla tillgångshantering, kundrelationer, service och ekonomi.
+          Standardfunktionaliteten i Business Central täcker grundläggande
+          ekonomi och lagerstyrning, men den specifika uthyrningslogiken —
+          bokningskalendrar, periodisk fakturering, tillgänglighetsstyrning och
+          returinspektion — kräver vanligen ett branschspecifikt tillägg för
+          att systemet ska fungera optimalt.
+        </p>
+
+        <h2>Centrala arbetsprocesser och systemstöd</h2>
+
+        <h3>Business Central med uthyrningslösning: Kärnan i systemstödet</h3>
+        <p>
+          BC är basen för de flesta uthyrningsföretag i SMB-segmentet. Systemet
+          täcker ekonomi, lager och grundläggande kundhantering, men behöver
+          kompletteras med ett uthyrningsspecifikt tillägg för att hantera
+          branschens kärnprocesser fullt ut. EQM 365 Rental är ett exempel på
+          ett sådant tillägg — en ISV-lösning byggd på BC som tillhandahåller
+          dedikerad funktionalitet för avtal, tillgänglighet, logistik, service
+          och fakturering inom uthyrning.
+        </p>
+        <ul>
+          <li>Boknings- och avtalshantering med visuell kalender för tillgänglighet per objekt och kategori</li>
+          <li>Tillgångsstyrning med full livscykelspårning per hyresobjekt: status, plats, servicehistorik och avskrivning</li>
+          <li>Periodisk fakturering för långtidshyra med automatiserade faktureringsplaner</li>
+          <li>Komplex prissättning med stafflade priser per hyreslängd, kundsegment och säsong</li>
+          <li>Logistikhantering för ut- och inleveranser med planering och ruttoptimering</li>
+          <li>Returhantering med inspektion och skadedokumentation</li>
+        </ul>
+
+        <h3>Field Service: Underhåll och service av uthyrningsobjekt</h3>
+        <p>
+          Förebyggande och avhjälpande underhåll av en tillgångsflotta är
+          direkt kopplat till beläggningsgrad och lönsamhet — ett objekt som är
+          på oplanerad reparation är ett objekt som inte genererar hyresintäkt.
+          Field Service hanterar underhållsscheman, serviceorder och
+          teknikerplanering, och kopplar servicehistoriken tillbaka till
+          tillgångsregistret i BC.
+        </p>
+        <ul>
+          <li>Förebyggande underhållsscheman per tillgång med automatisk generering av serviceorder vid servicegräns</li>
+          <li>Akut felavhjälpning med snabb mobilisering av tekniker och reservdelshantering</li>
+          <li>Mobil åtkomst för tekniker med servicehistorik, manualer och arbetsordrar i fält</li>
+          <li>Koppling till tillgångsregister för löpande dokumentation av servicehistorik och kostnader</li>
+        </ul>
+
+        <h3>Sales &amp; Customer Service: Kundrelationer och ärendehantering</h3>
+        <p>
+          Sales ger uthyrnings- och säljpersonal en samlad bild av kunden med
+          fullständig hyreshistorik, aktiva avtal och kommunikation — vilket
+          underlättar merförsäljning och avtalsförnyelse. Customer Service
+          hanterar inkommande ärenden kring skador, leveransavvikelser och
+          fakturaärenden.
+        </p>
+        <ul>
+          <li>360-gradersvy av kunden med hyreshistorik, aktiva avtal och serviceärenden</li>
+          <li>Offerthantering med koppling till tillgänglighetskalender för korrekt prissättning</li>
+          <li>Ärendehantering för skade- och leveransavvikelser med spårbarhet</li>
+        </ul>
+
+        <h2>Listade partners inom Uthyrningsverksamhet</h2>
+        <p>
+          Två partners är listade för branschen på d365.se. Nedan presenteras
+          de i den ordning de förekommer på branschsidan.
+        </p>
+
+        <h3>Navet AB</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Sales, Customer Insights, Customer Service, Field Service, Contact Center | AI Integration Partner
+        </p>
+        <p>
+          Navet AB är den partner i listan med ett konkret uthyrningsspecifikt
+          tillägg: EQM 365 Rental för Business Central, som hanterar avtal,
+          tillgänglighet, logistik, service och fakturering i ett sammanhållet
+          flöde. Det är en relevant distinktion — det innebär att Navet inte
+          enbart konfigurerar standard-BC för uthyrningslogik utan levererar
+          ett beprövat branschlager ovanpå plattformen. Navet ingår sedan 2023
+          i Aderian Group med ett bredare nordiskt IT-erbjudande. Som AI
+          Integration Partner arbetar de aktivt med att integrera AI i sina
+          leveranser.
+        </p>
+
+        <h3>NAB Solutions</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Sales, Customer Insights, Customer Service, Field Service, Contact Center
+        </p>
+        <p>
+          NAB Solutions har arbetat med Microsofts plattform sedan 2001 och
+          levererar BC kombinerat med CRM och fältservice för
+          uthyrningsföretag. Deras erfarenhet av att digitalisera tjänsteföretag
+          och koppla samman ekonomi med kundrelationer och fältservice är
+          relevant för uthyrningsbolag som vill ha ett sammanhållet ekosystem.
+          Deras profil är bredare och mindre branschspecifik än Navets för
+          uthyrning, men de täcker samma applikationsmix och har lång
+          Dynamics-erfarenhet.
+        </p>
+
+        <h2>Att välja rätt partner för din organisation</h2>
+        <p>
+          Den viktigaste frågan i ett partnerval för uthyrning är om partnern
+          har implementerat en dedikerad uthyrningslösning eller om de
+          konfigurerar standard-BC för uthyrningslogik. Det är en reell
+          skillnad i implementationsrisk, tid till go-live och systemets
+          förmåga att hantera branschspecifika flöden som bokningskalendrar,
+          returinspektion och periodisk fakturering.
+        </p>
+        <p>
+          Navet är tydlig med att de erbjuder EQM 365 Rental som branschlösning.
+          Det är ett konkret argument för att kontakta dem tidigt i en
+          utvärdering och be om referenskunder inom uthyrning som nyttjar den
+          lösningen. NAB Solutions är ett bredare Dynamics 365-alternativ med
+          lång erfarenhet och god plattformskapacitet.
+        </p>
+        <p>
+          Det begränsade antalet listade partners speglar att uthyrning är ett
+          nischsegment på d365.se. Beroende på vilken typ av uthyrning ni
+          bedriver — maskiner och fordon kräver annan systemlogik än
+          eventutrustning eller verktyg — kan det vara värt att titta bredare
+          och utvärdera om det finns specialiserade uthyrningssystem som
+          integrerar mot Dynamics 365 snarare än system som löser allt inom
+          samma plattform.
+        </p>
+        <p>
+          Läs mer och jämför partners:{" "}
+          <a href="/branscher/uthyrning/">d365.se/branscher/uthyrning</a>
         </p>
       </>
     ),
