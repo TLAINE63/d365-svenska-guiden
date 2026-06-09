@@ -41,6 +41,7 @@ import medlemsorganisationerImg from "@/assets/industries/medlemsorganisationer.
 import utbildningImg from "@/assets/industries/utbildning.webp";
 import offentligSektorImg from "@/assets/industries/offentlig-sektor.webp";
 import uthyrningImg from "@/assets/industries/uthyrning.webp";
+import { collectPartnerIndustries } from "@/lib/partnerIndustries";
 
 const INDUSTRY_IMAGES: Record<string, string> = {
   "tillverkning": tillverkningImg,
@@ -132,14 +133,17 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
       new Set(selected.map((k) => FILTER_TO_UNDERLYING[k])),
     );
     const filtered = partners.filter((p: any) => {
-      const pf = p.product_filters || {};
-      const productsToCheck: UnderlyingKey[] = underlyingSelected.length > 0
-        ? underlyingSelected
-        : (["bc", "fsc", "sales", "service"] as UnderlyingKey[]);
-      return productsToCheck.some((k) => {
-        const inds = pf[k]?.industries || [];
-        return inds.includes(industryName);
-      });
+      // Om produktfilter är valt: matcha bara branschen inom de valda produkterna
+      if (underlyingSelected.length > 0) {
+        const pf = p.product_filters || {};
+        return underlyingSelected.some((k) => {
+          const inds = pf[k]?.industries || [];
+          const sec = pf[k]?.secondaryIndustries || [];
+          return inds.includes(industryName) || sec.includes(industryName);
+        });
+      }
+      // Annars: matcha mot alla branschkällor (samma logik som översikten)
+      return collectPartnerIndustries(p).has(industryName);
     });
 
     const seed = hashString(`${slug}-${selected.join(",")}`);
