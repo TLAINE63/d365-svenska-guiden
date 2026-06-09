@@ -541,6 +541,8 @@ const Kunskapscenter = () => {
         return "bg-teal-600 text-white border-teal-600";
       case "video":
         return "bg-rose-600 text-white border-rose-600";
+      case "branscher":
+        return "bg-amber-600 text-white border-amber-600";
       default:
         return "bg-muted text-muted-foreground border-border";
     }
