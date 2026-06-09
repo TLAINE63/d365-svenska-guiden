@@ -1084,7 +1084,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     metaDescription:
       "Branschguide för svensk retail och e-handel: arbetsprocesser, systemstöd i Business Central, F&SCM, Commerce, Sales, Customer Insights och Customer Service – samt en genomgång av de listade Dynamics 365-partners.",
     summary:
-      "Branschguide för retail och e-handel: arbetsprocesser, systemstöd i Dynamics 365 och en köparsidig genomgång av de listade partners på d365.se för Retail & E-handel.",
+      "Branschguide för retail och e-handel: arbetsprocesser, systemstöd i Dynamics 365 och en objektiv genomgång av listade partners på d365.se.",
     category: "Branschguide",
     tags: ["retail", "e-handel", "dynamics365", "business central", "commerce", "customer insights"],
     products: [
