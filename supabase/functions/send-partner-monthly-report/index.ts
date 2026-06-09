@@ -467,11 +467,18 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string,
 }
 
 
-async function sendOne(supabase: any, partner: any, startIso: string | null, siteOrigin: string, dryRun: boolean, overrideRecipient?: string, reportLabel = "Månadsrapport", sinceBeginning = false) {
-  const recipient = overrideRecipient || partner.admin_contact_email || partner.email;
-  if (!recipient) {
+async function sendOne(supabase: any, partner: any, startIso: string | null, siteOrigin: string, dryRun: boolean, overrideRecipient?: string, reportLabel = "Månadsrapport", sinceBeginning = false, extraRecipients: string[] = []) {
+  const primary = overrideRecipient || partner.admin_contact_email || partner.email;
+  const recipients: string[] = [];
+  if (primary) recipients.push(primary);
+  for (const r of extraRecipients) {
+    const trimmed = String(r || "").trim();
+    if (trimmed && !recipients.includes(trimmed)) recipients.push(trimmed);
+  }
+  if (recipients.length === 0) {
     return { partner: partner.name, status: "skipped", reason: "no_recipient" };
   }
+  const recipient = recipients[0];
 
   // Compute per-partner start date when sinceBeginning is requested.
   // Priority: 1) partner.published_at (when the partner was first published),
@@ -514,7 +521,7 @@ async function sendOne(supabase: any, partner: any, startIso: string | null, sit
   const subject = `${reportLabel} för ${partner.name} – ${periodLabel}`;
 
   if (dryRun) {
-    return { partner: partner.name, status: "preview", recipient, stats, html };
+    return { partner: partner.name, status: "preview", recipient, recipients, stats, html };
   }
 
   const res = await fetch("https://api.resend.com/emails", {
@@ -525,13 +532,14 @@ async function sendOne(supabase: any, partner: any, startIso: string | null, sit
     },
     body: JSON.stringify({
       from: "D365 Guiden <info@d365.se>",
-      to: [recipient],
+      to: recipients,
       bcc: ["info@d365.se"],
       reply_to: "info@d365.se",
       subject,
       html,
     }),
   });
+
 
   const body = await res.json();
 
