@@ -54,7 +54,7 @@ const industryImages: Record<string, string> = {
   "Finans & Försäkring": finansForsakringImg,
   "Life Science / Medtech": lakemedelLifeScienceImg,
   "Telekom & IT-tjänster": itTechImg,
-  "Logistik & Transport": transportLogistikImg,
+  "Transport & Logistik": transportLogistikImg,
   "Media & Publishing": mediaPublishingImg,
   "Jordbruk & Skogsbruk": jordbrukSkogsbrukImg,
   "Hälsa- & sjukvård": halsaSjukvardImg,
