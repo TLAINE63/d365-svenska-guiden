@@ -39,6 +39,7 @@ import {
   ArrowRight,
   ChevronDown,
   Check,
+  Sparkles,
 } from "lucide-react";
 
 // ── Types ──────────────────────────────────────────────
