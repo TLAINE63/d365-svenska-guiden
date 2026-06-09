@@ -2916,6 +2916,230 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       </>
     ),
   },
+  {
+    slug: "dynamics-365-konsultbolag-tjansteforetag",
+    title: "Dynamics 365 för konsultbolag & tjänsteföretag",
+    metaTitle: "Branschguide: konsultbolag & tjänsteföretag i Dynamics 365 | d365.se",
+    metaDescription:
+      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svenska konsult- och tjänsteföretag.",
+    summary:
+      "Branschguide för konsultbolag & tjänsteföretag: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+    category: "Branschguide",
+    tags: ["konsult", "tjänsteföretag", "projekt", "dynamics365", "business central", "finance scm", "sales", "progressus"],
+    products: [
+      "Business Central",
+      "Finance & SCM",
+      "Sales",
+      "Customer Insights",
+    ],
+    publishedAt: "2026-06-09",
+    author: THOMAS_LAINE,
+    heroImage: konsultImg,
+    readingTimeMinutes: 11,
+    content: (
+      <>
+        <p className="!text-sm uppercase tracking-wider !text-primary !font-semibold !mb-2">
+          Kunskapscenter &nbsp;|&nbsp; Branschguide
+        </p>
+        <p className="!text-xs uppercase tracking-wider text-muted-foreground !mb-6">
+          Konsultbolag &amp; Tjänsteföretag
+        </p>
+        <p className="italic text-foreground/85 !mb-8">
+          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+        </p>
+
+        <h2>Branschens verklighet</h2>
+        <p>
+          Konsultbranschen är kunskapsintensiv och marginaldriven. Det som
+          avgör lönsamheten är inte produktionsvolym utan beläggningsgrad,
+          faktureringsprecision och förmågan att leverera projekt inom budget.
+          Det är en enkel ekvation i teorin — men komplex att styra i praktiken
+          när man hanterar dussintals projekt, hundratals konsulter och en
+          pipeline som ständigt förändras.
+        </p>
+        <p>
+          Det vanligaste problemet är fragmentering: tidrapportering i ett
+          system, projektplanering i ett annat, ekonomi i ett tredje och CRM i
+          ett fjärde. Informationsglapp mellan sälj och leverans leder till
+          felaktiga förväntningar och resursbrist. Utan realtidsinsikt i
+          projektens ekonomi är det svårt att identifiera avvikelser i tid. Och
+          komplexa faktureringsmodeller — fastpris, löpande räkning, a conto,
+          retainers — hanteras manuellt med alla de felkällor det innebär.
+        </p>
+        <p>
+          Microsoft Dynamics 365 används av svenska konsultföretag för att
+          koppla samman hela kedjan från första kundkontakt till slutfaktura i
+          ett sammanhållet system. Plattformen täcker CRM och säljstöd, resurs-
+          och kompetensplanering, projektledning, tid- och utläggsrapportering,
+          projektredovisning och fakturering — och kan kompletteras med
+          branschspecifika tillägg för djupare projekthanteringsfunktionalitet.
+        </p>
+
+        <h2>Centrala arbetsprocesser och systemstöd</h2>
+
+        <h3>Business Central: Projektledning, ekonomi och fakturering</h3>
+        <p>
+          Business Central är grunden för de flesta svenska konsultföretag i
+          SMB-segmentet. Systemet täcker hela projektflödet från budget och
+          resursplanering till tidrapportering, fakturering och ekonomisk
+          uppföljning. Kan kompletteras med tredjepartstillägg som Progressus
+          Advanced Projects för djupare projekthanteringsfunktionalitet.
+        </p>
+        <ul>
+          <li>Projekthantering med budget, faser och realtidsuppföljning av kostnader, intäkter och marginaler</li>
+          <li>Resurs- och kompetensplanering med visuell beläggningsöversikt och tillgänglighetshantering</li>
+          <li>Tid- och utläggsrapportering via webb och mobil, kopplad direkt till projekt och aktiviteter</li>
+          <li>Projektfakturering med stöd för fastpris, löpande räkning, a conto och retainermodeller</li>
+          <li>Intäktsavräkning och projektredovisning för korrekt finansiell rapportering</li>
+          <li>Avtalshantering för kundavtal, ramavtal och prissättningsvillkor</li>
+        </ul>
+
+        <h3>Finance &amp; Supply Chain Management: Komplex projektredovisning för större organisationer</h3>
+        <p>
+          F&amp;SCM passar större konsultorganisationer med komplexa krav på
+          finansiell styrning, koncernredovisning och detaljerad
+          projektredovisning. Systemet hanterar avancerad intäktsavräkning,
+          interndebitering och finansiell rapportering över flera juridiska
+          entiteter.
+        </p>
+        <ul>
+          <li>Avancerad projektredovisning med stöd för successiv vinstavräkning och projektbokföring</li>
+          <li>Ekonomistyrning över flera bolag och valutor med konsoliderad finansiell rapportering</li>
+          <li>Likviditetsprognoser baserade på pipeline och pågående projekt</li>
+          <li>Detaljerade analyser av projektlönsamhet, efterkalkyler och beläggningsnyckeltal</li>
+        </ul>
+
+        <h3>Sales: Pipeline, offerter och överlämning till leverans</h3>
+        <p>
+          Dynamics 365 Sales hanterar hela säljcykeln för konsultföretag —
+          från lead och offert till vunnet uppdrag och överlämning till
+          leveransorganisationen. En sömlös integration mellan sälj och projekt
+          minskar informationsglapp och säkerställer att rätt resurser är
+          bokade när projektet startar.
+        </p>
+        <ul>
+          <li>Pipeline-hantering med prognos för framtida intäkter och resursbehov</li>
+          <li>Offerthantering med resursestimat och prissättning kopplad till kompetensregister</li>
+          <li>Överlämningsprocess från vunnet kontrakt till projektstart med bibehållen kontextdata</li>
+          <li>360-gradersvy av kunden med kontakthistorik, projekthistorik och affärsmöjligheter</li>
+        </ul>
+
+        <h2>Listade partners inom Konsulttjänster</h2>
+        <p>
+          Sex partners är listade för branschen på d365.se. Nedan presenteras
+          de i den ordning de förekommer på branschsidan.
+        </p>
+
+        <h3>NAB Solutions</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Sales, Customer Insights, Customer Service, Field Service, Contact Center
+        </p>
+        <p>
+          NAB Solutions har arbetat med Microsoft Dynamics sedan 2001 och
+          kombinerar djup BC-kompetens med ett brett CRM- och serviceuttag.
+          För konsultföretag som vill koppla samman projektledning och ekonomi
+          med säljstöd, marknadsföring och kundservice i ett gemensamt
+          ekosystem är NAB Solutions ett av få partners i listan som täcker
+          hela den bredden. Deras långa erfarenhet av att digitalisera
+          tjänsteföretag ger dem god förståelse för de processer som är
+          specifika för konsultaffären.
+        </p>
+
+        <h3>Fellowmind</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Finance, Supply Chain Management, Sales, Customer Insights
+        </p>
+        <p>
+          Fellowmind täcker hela spannet från BC till F&amp;SCM och kombinerar
+          ERP-kompetens med CRM. För konsultorganisationer som växer i
+          komplexitet — fler enheter, internationell verksamhet, avancerade
+          krav på koncernredovisning — erbjuder Fellowmind kapacitet att följa
+          med. Deras europeiska leveranskapacitet och breda portfölj gör dem
+          till ett relevant alternativ för konsultföretag med ambitiösa
+          tillväxtplaner.
+        </p>
+
+        <h3>Sopra Steria</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Finance, Supply Chain Management | AI Enabled
+        </p>
+        <p>
+          Sopra Steria arbetar metodiskt och processorienterat och lyfter
+          explicit fram Progressus Advanced Projects som ett komplement till BC
+          för konsultföretag med komplexa projektbehov. Kombinationen av
+          ERP-kompetens med ett av Sveriges större CRM-team ger dem kapacitet
+          att täcka hela kundresan. Det globala nätverket med specialister
+          inom förändringsledning och analys är ett mervärde för konsultföretag
+          som driver ett större digitaliseringsprogram.
+        </p>
+
+        <h3>Goodfellows</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central | AI Integration Partner
+        </p>
+        <p>
+          Goodfellows har ett uttalat fokus på konsult- och projektbolag och
+          levererar BC förstärkt med Progressus Advanced Projects — ett
+          integrerat tillägg för djupare projekthantering från Pryme. Deras
+          erbjudande täcker tidrapportering, resursplanering, projektekonomi
+          och fakturering i ett sammanhållet flöde. Leveransmodellen är tydlig
+          och förutsägbar med bibehållna konsulter från förstudie till
+          förvaltning, vilket minskar riskerna i implementationen. För
+          konsultföretag där projekt är verksamhetens kärna är Goodfellows ett
+          av de mest specialiserade alternativen i listan.
+        </p>
+
+        <h3>Bisqo AB</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">Business Central</p>
+        <p>
+          Bisqo är en BC-specialist med erfarenhet från tjänsteföretag och
+          konsultverksamhet. Deras fokus ligger på att leverera anpassade
+          BC-lösningar som stödjer projektflöden, ekonomistyrning och
+          kundhantering för medelstora konsultföretag. Passar organisationer
+          som söker en hands-on BC-partner med god processförståelse och
+          tydligt leveransansvar.
+        </p>
+
+        <h3>InBiz</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">Business Central</p>
+        <p>
+          InBiz är en Uppsala-baserad BC-specialist, certifierad
+          Microsoft-partner sedan 2005, med erfarenhet av tjänsteföretag och
+          projektstyrning. De levererar heltäckande BC-lösningar där ekonomi,
+          projekthantering och kundrelationer hanteras i ett sammanhållet
+          system, och arbetar med egna tillägg för att möta specifika
+          verksamhetsbehov. Passar konsultföretag som söker en stabil och
+          erfaren BC-partner med tydligt leveransansvar och god lokal närvaro.
+        </p>
+
+        <h2>Att välja rätt partner för din organisation</h2>
+        <p>
+          Konsulttjänster är en bransch där valet mellan partners i hög grad
+          handlar om djup kontra bredd. Goodfellows och NAB Solutions har
+          tydliga profiler mot konsult- och tjänsteföretag. Fellowmind och
+          Sopra Steria erbjuder bredare plattformskapacitet med konsulttjänster
+          som ett av flera segment.
+        </p>
+        <p>
+          En central fråga för konsultföretag är om BC räcker som projektsystem,
+          eller om ni behöver ett dedikerat projekthanteringstillägg som
+          Progressus Advanced Projects. Goodfellows och Sopra Steria lyfter
+          båda fram detta alternativ — vilket är ett tecken på att de mött
+          konsultföretag vars projektbehov överskrider BC-standardens kapacitet.
+        </p>
+        <p>
+          En annan relevant fråga: hur viktig är kopplingen mellan sälj och
+          leverans? Om er pipeline direkt styr resursbeläggning och ni vill ha
+          ett sammanhållet flöde från offert till projektavslut är
+          Sales-kompetensen hos partnern lika viktig som ERP-kompetensen.
+        </p>
+        <p>
+          Läs mer och jämför partners:{" "}
+          <a href="/branscher/konsulttjanster/">d365.se/branscher/konsulttjanster</a>
+        </p>
+      </>
+    ),
+  },
 ];
 
 export const getBlogArticleBySlug = (slug: string): BlogArticle | undefined =>
