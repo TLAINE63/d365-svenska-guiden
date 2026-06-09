@@ -91,13 +91,17 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
   };
 
   const syncSnitcher = async () => {
+    if (!token) {
+      toast({ title: "Saknar admin-session", variant: "destructive" });
+      return;
+    }
     setBusy("sync");
-    const { data, error } = await supabase.functions.invoke("sync-snitcher-visits", { body: { daysBack: 35 } });
+    const { data, error } = await supabase.functions.invoke("sync-snitcher-visits", { body: { token, maxPages: 50 } });
     setBusy(null);
     if (error || data?.error) {
       toast({ title: "Snitcher-synk misslyckades", description: data?.error || error?.message, variant: "destructive" });
     } else {
-      toast({ title: "Snitcher synkad", description: `${data.sessionsUpserted} sessioner från ${data.orgsScanned} företag.` });
+      toast({ title: "Snitcher synkad", description: `${data.upserted} företag uppdaterade (${data.orgsWithPartnerVisit} med partnerbesök).` });
     }
   };
 
