@@ -1605,7 +1605,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           F&amp;SCM-komplexitet.
         </p>
 
-        <h3>Övriga listade partners</h3>
+        
 
         <p>
           <strong>Bisqo AB</strong><br />
