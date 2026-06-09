@@ -9,6 +9,7 @@ import tillverkningImg from "@/assets/industries/tillverkning.webp";
 import livsmedelImg from "@/assets/industries/livsmedel.webp";
 import grossistImg from "@/assets/industries/handel-distribution.webp";
 import jordbrukImg from "@/assets/industries/jordbruk-skogsbruk.webp";
+import byggImg from "@/assets/industries/bygg-entreprenad.webp";
 
 export interface BlogArticleAuthor {
   name: string;
@@ -2492,6 +2493,236 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Läs mer och jämför partners:{" "}
           <a href="/branscher/jordbruk-skogsbruk/">d365.se/branscher/jordbruk-skogsbruk</a>
+        </p>
+      </>
+    ),
+  },
+  {
+    slug: "dynamics-365-bygg-entreprenad",
+    title: "Dynamics 365 för bygg & entreprenad",
+    metaTitle: "Branschguide: bygg & entreprenad i Dynamics 365 | d365.se",
+    metaDescription:
+      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk bygg- och entreprenadbransch.",
+    summary:
+      "Branschguide för bygg & entreprenad: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+    category: "Branschguide",
+    tags: ["bygg", "entreprenad", "dynamics365", "business central", "finance scm", "field service", "projektredovisning"],
+    products: [
+      "Business Central",
+      "Finance & SCM",
+      "Field Service",
+      "Sales",
+    ],
+    publishedAt: "2026-06-09",
+    author: THOMAS_LAINE,
+    heroImage: byggImg,
+    readingTimeMinutes: 10,
+    content: (
+      <>
+        <p className="!text-sm uppercase tracking-wider !text-primary !font-semibold !mb-2">
+          Kunskapscenter &nbsp;|&nbsp; Branschguide
+        </p>
+        <p className="!text-xs uppercase tracking-wider text-muted-foreground !mb-6">
+          Bygg &amp; Entreprenad
+        </p>
+        <p className="italic text-foreground/85 !mb-8">
+          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+        </p>
+
+        <h2>Branschens verklighet</h2>
+        <p>
+          Bygg- och entreprenadbranschen är projektdriven till sin natur — och
+          det ställer helt andra krav på affärssystemet än vad som gäller för
+          produktions- eller handelsföretag. Varje projekt är unikt: eget scope,
+          egna resurser, egna leverantörer och sin egen ekonomi. Att hålla koll
+          på lönsamhet per projekt i realtid, hantera ändrings- och
+          tilläggsarbeten strukturerat och säkerställa korrekt projektredovisning
+          är centrala utmaningar som ett generellt affärssystem sällan löser
+          utan djupare konfiguration.
+        </p>
+        <p>
+          Branschen präglas av långa projektcykler, små marginaler och en
+          komplex intressentbild. Fragmenterad projektdata — kalkyl i ett
+          system, planering i ett annat, ekonomi i ett tredje — är en av de
+          vanligaste orsakerna till att projekt tappar kontrollen. Utan
+          realtidsöversikt av kostnader mot budget är det svårt att agera i
+          tid. Och i en bransch med ÄTA-hantering, underentreprenörer och
+          succesiv vinstavräkning är systemstödets precision direkt kopplad
+          till lönsamheten.
+        </p>
+        <p>
+          Microsoft Dynamics 365 används av svenska bygg- och
+          entreprenadföretag för att samla hela projektkedjan — från anbud och
+          kalkyl till projektuppföljning, inköp, resursstyrning och ekonomisk
+          rapportering — i ett gemensamt system. Plattformen kan kompletteras
+          med branschspecifika tillägg och integreras mot specialiserade
+          kalkylprogram och mätningssystem.
+        </p>
+
+        <h2>Centrala arbetsprocesser och systemstöd</h2>
+
+        <h3>Business Central: Projektledning och ekonomi för SMB-entreprenadet</h3>
+        <p>
+          Business Central är grunden för små och medelstora bygg- och
+          entreprenadföretag. Systemet täcker hela flödet från projektbudget
+          och inköp till ekonomiuppföljning och fakturering, och kan
+          kompletteras med branschspecifika tillägg för djupare
+          projekthanteringsfunktionalitet.
+        </p>
+        <ul>
+          <li>Projekthantering med budget, prognos och realtidsuppföljning av kostnader och intäkter per projekt</li>
+          <li>ÄTA-hantering för strukturerad dokumentation, prissättning och uppföljning av tilläggsarbeten</li>
+          <li>Inköp kopplat till specifika projekt med leverantörsfakturaattest och kostnadskontroll</li>
+          <li>Resurs- och maskinplanering för optimerad beläggning över parallella projekt</li>
+          <li>Successiv vinstavräkning för korrekt finansiell rapportering i långa projekt</li>
+          <li>Tidrapportering och attestflöden för personal och underentreprenörer, även via mobila enheter</li>
+        </ul>
+
+        <h3>Finance &amp; Supply Chain Management: Komplex projektredovisning och logistik</h3>
+        <p>
+          F&amp;SCM passar större entreprenadföretag med komplexa krav på
+          projektredovisning, logistikstyrning och ekonomisk styrning över
+          flera bolag. Systemet erbjuder avancerad projektmodul med stöd för
+          långa projekt, delfinansiering och koncernrapportering.
+        </p>
+        <ul>
+          <li>Avancerad projektredovisning med stöd för successiv vinstavräkning, projektkostnadspooler och interndebitering</li>
+          <li>Logistikstyrning för byggmaterial och maskiner med inköpsplanering kopplad till projektbehov</li>
+          <li>Ekonomistyrning över flera juridiska entiteter med konsoliderad finansiell rapportering</li>
+          <li>Budgetering, prognostisering och avvikelseanalys per projekt och affärsområde</li>
+        </ul>
+
+        <h3>Field Service: Service- och underhållsverksamhet</h3>
+        <p>
+          För bygg- och entreprenadföretag med en serviceaffär vid sidan av
+          nyproduktion — till exempel installations- eller teknikföretag med
+          serviceavtal — hanterar Field Service schemaläggning av tekniker,
+          serviceorder och förebyggande underhåll. Mobilapp för tekniker i
+          fält är inbyggd.
+        </p>
+        <ul>
+          <li>Serviceavtal och förebyggande underhåll med automatiserade triggers och arbetsorderhantering</li>
+          <li>Schemaläggning och optimering av serviceresurser över geografiska områden</li>
+          <li>Mobil åtkomst till arbetsorder, ritningar och instruktioner för tekniker på plats</li>
+        </ul>
+
+        <h3>Sales: Anbudsprocess och kundrelationer</h3>
+        <p>
+          Dynamics 365 Sales strukturerar anbudsprocessen och
+          kundrelationshanteringen för företag med komplex försäljning mot
+          offentliga beställare, bostadsutvecklare eller industriella kunder.
+          Systemet ger en samlad pipeline-vy och kopplar affärsmöjligheter
+          till projektstart när kontrakt tecknas.
+        </p>
+        <ul>
+          <li>Anbuds- och offerthantering med koppling till kalkyldata och projektbudget</li>
+          <li>Pipeline-hantering för uppföljning av affärsmöjligheter och vinstfrekvens</li>
+          <li>Kundrelationshantering för KAM-arbete mot återkommande beställare</li>
+        </ul>
+
+        <h2>Listade partners inom Bygg &amp; Entreprenad</h2>
+        <p>
+          Fem partners är listade för branschen på d365.se. Nedan presenteras
+          de i den ordning de förekommer på branschsidan.
+        </p>
+
+        <h3>4PS Construction Software AB</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">Business Central</p>
+        <p>
+          4PS är en specialiserad ERP-leverantör vars lösning 4PS Construct är
+          byggd direkt på Business Central och utvecklad specifikt för bygg-,
+          installations- och serviceföretag. Det gör dem unika i listan: i
+          stället för ett generellt BC som konfigureras för branschen levererar
+          de ett system med inbyggd branschlogik från start — projekthantering,
+          ÄTA, resursplanering, service och ekonomi i ett sammanhållet flöde
+          med realtidssynlighet per projekt. Rätt val för bygg- och
+          installationsföretag som prioriterar branschanpassad funktionalitet
+          utan att behöva bygga upp det från standard.
+        </p>
+
+        <h3>Enqore AB</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Finance, Supply Chain Management, Sales, Customer
+          Insights, Customer Service, Field Service, Contact Center, Project
+          Operations
+        </p>
+        <p>
+          Enqore täcker hela Dynamics 365-plattformen med ett tydligt fokus på
+          datadrivna och AI-stödda processer. För byggföretag innebär deras
+          profil — att koppla samman affärssystem med analys för att gå från
+          reaktiv till prediktiv drift — konkret värde i projektuppföljning
+          och avvikelsedetektering. De kombinerar ERP-kompetens med CRM och
+          fältservice, vilket gör dem relevanta för entreprenaföretag som
+          hanterar både projekt och en löpande serviceaffär.
+        </p>
+
+        <h3>Navcite</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">Business Central</p>
+        <p>
+          Navcite implementerar Business Central för företag inom projekt,
+          tillverkning och distribution och har lång erfarenhet av
+          Dynamics-plattformen. I bygg- och entreprenadbranschen fokuserar de
+          på projektstyrning, resursplanering och ekonomiuppföljning, och
+          arbetar med integration mot Microsofts övriga ekosystem för en
+          sammanhållen digital arbetsmiljö. De erbjuder stöd från
+          implementation till löpande vidareutveckling — ett stabilt alternativ
+          för SMB-entreprenadet som söker en erfaren BC-partner med tydligt
+          leveransansvar.
+        </p>
+
+        <h3>Yellow Solution AB</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">Business Central</p>
+        <p>
+          Yellow Solution är en BC-specialist med ett tydligt fokus på att
+          leverera konkret affärsnytta av systemsinvesteringen. Deras
+          leveransmodell kombinerar lång erfarenhet med personligt engagemang
+          och en ambition att systemet ska bidra aktivt till ökad effektivitet
+          och bättre beslut — inte bara stödja befintliga processer. Passar
+          medelstora bygg- och entreprenadföretag som söker en partner med
+          djup BC-kompetens, stabil leverans och ett hands-on förhållningssätt
+          till implementation och förvaltning.
+        </p>
+
+        <h3>Sherpas Group AB</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Finance, Supply Chain Management | AI Integration Partner
+        </p>
+        <p>
+          Sherpas Group täcker hela ERP-spannet från BC till F&amp;SCM och
+          kombinerar det med ett aktivt AI Integration Partner-fokus. I bygg-
+          och entreprenadbranschen arbetar de med projektstyrning,
+          resursallokering, ekonomiuppföljning och materiallogistik. Deras
+          kombination av bred ERP-kapacitet och AI-integration gör dem
+          relevanta för byggföretag som vill ha ett system som både hanterar
+          projektens komplexitet idag och kan växa med organisationens behov
+          av datadriven styrning framöver.
+        </p>
+
+        <h2>Att välja rätt partner för din organisation</h2>
+        <p>
+          Bygg och entreprenad är en bransch där systemets förmåga att hantera
+          projektlogik — ÄTA, successiv vinstavräkning, resursstyrning per
+          projekt, inköp kopplat till projektbudget — är avgörande. Det är en
+          annan typ av komplexitet än lager- eller produktionsstyrning, och
+          det kräver en partner som faktiskt förstår hur byggprojekt fungerar
+          i praktiken.
+        </p>
+        <p>
+          Det mest distinkta alternativet i listan är 4PS med sin
+          branschspecifika lösning byggd på BC. De övriga fyra partnerna
+          levererar BC eller F&amp;SCM med konfiguration och eventuella
+          tillägg för branschen. Valet handlar delvis om hur pass
+          branschanpassad lösningen behöver vara från start kontra hur mycket
+          standardnära implementation ni kan hantera med rätt konfiguration.
+        </p>
+        <p>
+          En relevant fråga att ställa varje partner: hur många bygg- och
+          entreprenadprojekt har ni genomfört, och kan ni visa referenskunder
+          med liknande projekttyper och komplexitetsnivå som er verksamhet?
+        </p>
+        <p>
+          Läs mer och jämför partners:{" "}
+          <a href="/branscher/bygg-entreprenad/">d365.se/branscher/bygg-entreprenad</a>
         </p>
       </>
     ),
