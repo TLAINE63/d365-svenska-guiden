@@ -460,29 +460,39 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
   );
 }
 
+const THOMAS_EMAIL = "thomas.laine@dynamicfactory.se";
+type SendMode = "partner" | "thomas" | "both";
+
 function MonthlyStatsReportCard() {
   const { toast } = useToast();
-  const [busy, setBusy] = useState<"dry" | "send" | null>(null);
+  const [busy, setBusy] = useState<"dry" | SendMode | null>(null);
   const [partnerSlug, setPartnerSlug] = useState("");
   const [days, setDays] = useState(30);
   const [adminPassword, setAdminPassword] = useState("");
   const [lastSummary, setLastSummary] = useState<any>(null);
+  const [lastResults, setLastResults] = useState<any[] | null>(null);
   const [previewHtml, setPreviewHtml] = useState<string | null>(null);
 
-  const run = async (dryRun: boolean) => {
+  const invoke = async (
+    busyKey: "dry" | SendMode,
+    dryRun: boolean,
+    extras: { overrideRecipient?: string; extraRecipients?: string[] } = {},
+  ) => {
     if (!adminPassword) {
       toast({ title: "Lösenord krävs", description: "Ange admin-lösenord för att köra.", variant: "destructive" });
       return;
     }
-    setBusy(dryRun ? "dry" : "send");
+    setBusy(busyKey);
     setLastSummary(null);
-    setPreviewHtml(null);
+    setLastResults(null);
+    if (dryRun) setPreviewHtml(null);
     const { data, error } = await supabase.functions.invoke("send-partner-monthly-report", {
       body: {
         adminPassword,
         dryRun,
         days,
         partnerSlug: partnerSlug.trim() || undefined,
+        ...extras,
       },
     });
     setBusy(null);
@@ -491,14 +501,28 @@ function MonthlyStatsReportCard() {
       return;
     }
     setLastSummary(data.summary);
+    setLastResults(data.results || null);
     if (dryRun && data.results?.[0]?.html) {
       setPreviewHtml(data.results[0].html);
     }
+    const recipientsLabel = !dryRun && data.results?.length
+      ? data.results.map((r: any) => (r.recipients || [r.recipient]).filter(Boolean).join(", ")).filter(Boolean).join(" · ")
+      : "";
     toast({
       title: dryRun ? "Förhandsgranskning klar" : "Rapport skickad",
-      description: `${data.summary.sent} skickade · ${data.summary.skipped} hoppades över · ${data.summary.failed} misslyckades`,
+      description: dryRun
+        ? `${data.summary.preview} förhandsgranskning(ar) · ${data.summary.skipped} hoppades över`
+        : `${data.summary.sent} skickade · ${data.summary.skipped} hoppades över · ${data.summary.failed} misslyckades${recipientsLabel ? ` → ${recipientsLabel}` : ""}`,
     });
   };
+
+  const sendTo = (mode: SendMode) => {
+    if (mode === "partner") return invoke("partner", false);
+    if (mode === "thomas") return invoke("thomas", false, { overrideRecipient: THOMAS_EMAIL });
+    return invoke("both", false, { extraRecipients: [THOMAS_EMAIL] });
+  };
+
+  const isBusy = busy !== null;
 
   return (
     <Card>
@@ -507,9 +531,9 @@ function MonthlyStatsReportCard() {
       </CardHeader>
       <CardContent className="space-y-4">
         <p className="text-sm text-muted-foreground">
-          Skickar en automatisk månadsöversikt med profilbesök, kortklick, klick till partnerns sajt
-          och topp-5 produktsidor som besökarna kom från. Schemaläggs månadsvis – men du kan trigga
-          manuellt eller förhandsgranska för en specifik partner här.
+          Skickar månadsöversikt med profilbesök, kortklick, klick till partnerns sajt, exponeringar och topp-5 produktsidor.
+          Skickas automatiskt 1:a varje månad till publicerade partners — här kan du även köra manuellt och välja mottagare.
+          Tomt slug-fält = alla publicerade partners.
         </p>
         <div className="flex flex-wrap items-end gap-3">
           <div>
@@ -518,27 +542,54 @@ function MonthlyStatsReportCard() {
           </div>
           <div>
             <label className="text-xs font-medium block mb-1">Partner-slug (valfritt)</label>
-            <Input value={partnerSlug} onChange={e => setPartnerSlug(e.target.value)} placeholder="lämna tomt = alla featured" className="w-72" />
+            <Input value={partnerSlug} onChange={e => setPartnerSlug(e.target.value)} placeholder="lämna tomt = alla publicerade" className="w-72" />
           </div>
           <div>
             <label className="text-xs font-medium block mb-1">Admin-lösenord</label>
             <Input type="password" value={adminPassword} onChange={e => setAdminPassword(e.target.value)} className="w-56" />
           </div>
-          <Button onClick={() => run(true)} disabled={!!busy} variant="outline" size="sm">
+        </div>
+
+        <div className="flex flex-wrap gap-2 pt-2">
+          <Button onClick={() => invoke("dry", true)} disabled={isBusy} variant="outline" size="sm">
             {busy === "dry" ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Eye className="h-4 w-4 mr-2" />}
-            Förhandsgranska (skickar inte)
+            Förhandsgranska
           </Button>
-          <Button onClick={() => run(false)} disabled={!!busy} size="sm">
-            {busy === "send" ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Send className="h-4 w-4 mr-2" />}
-            Skicka nu
+          <div className="w-full h-0" />
+          <Button onClick={() => sendTo("partner")} disabled={isBusy} size="sm">
+            {busy === "partner" ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Send className="h-4 w-4 mr-2" />}
+            Skicka till partner
+          </Button>
+          <Button onClick={() => sendTo("thomas")} disabled={isBusy} size="sm" variant="secondary">
+            {busy === "thomas" ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Send className="h-4 w-4 mr-2" />}
+            Skicka till Thomas
+          </Button>
+          <Button onClick={() => sendTo("both")} disabled={isBusy} size="sm" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white">
+            {busy === "both" ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Send className="h-4 w-4 mr-2" />}
+            Skicka till partner + Thomas
           </Button>
         </div>
+        <p className="text-xs text-muted-foreground">
+          "Partner" = partnerns admin-kontaktmejl (fallback: profilmejl). "Thomas" = {THOMAS_EMAIL}. info@d365.se BCC:as alltid.
+        </p>
+
         {lastSummary && (
           <div className="flex flex-wrap gap-2 pt-2">
             <Badge variant="default">Skickade: {lastSummary.sent}</Badge>
             <Badge variant="secondary">Hoppades över: {lastSummary.skipped}</Badge>
             {lastSummary.failed > 0 && <Badge variant="destructive">Misslyckades: {lastSummary.failed}</Badge>}
             {lastSummary.preview > 0 && <Badge variant="outline">Förhandsgranskningar: {lastSummary.preview}</Badge>}
+          </div>
+        )}
+        {lastResults && lastResults.length > 0 && (
+          <div className="text-xs text-muted-foreground space-y-1">
+            {lastResults.slice(0, 10).map((r, i) => (
+              <div key={i}>
+                <strong>{r.partner}</strong> — {r.status}
+                {r.recipients?.length ? ` → ${r.recipients.join(", ")}` : r.recipient ? ` → ${r.recipient}` : ""}
+                {r.reason ? ` (${r.reason})` : ""}
+              </div>
+            ))}
           </div>
         )}
         {previewHtml && (
@@ -551,3 +602,4 @@ function MonthlyStatsReportCard() {
     </Card>
   );
 }
+

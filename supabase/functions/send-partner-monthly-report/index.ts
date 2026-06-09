@@ -467,11 +467,18 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string,
 }
 
 
-async function sendOne(supabase: any, partner: any, startIso: string | null, siteOrigin: string, dryRun: boolean, overrideRecipient?: string, reportLabel = "Månadsrapport", sinceBeginning = false) {
-  const recipient = overrideRecipient || partner.admin_contact_email || partner.email;
-  if (!recipient) {
+async function sendOne(supabase: any, partner: any, startIso: string | null, siteOrigin: string, dryRun: boolean, overrideRecipient?: string, reportLabel = "Månadsrapport", sinceBeginning = false, extraRecipients: string[] = []) {
+  const primary = overrideRecipient || partner.admin_contact_email || partner.email;
+  const recipients: string[] = [];
+  if (primary) recipients.push(primary);
+  for (const r of extraRecipients) {
+    const trimmed = String(r || "").trim();
+    if (trimmed && !recipients.includes(trimmed)) recipients.push(trimmed);
+  }
+  if (recipients.length === 0) {
     return { partner: partner.name, status: "skipped", reason: "no_recipient" };
   }
+  const recipient = recipients[0];
 
   // Compute per-partner start date when sinceBeginning is requested.
   // Priority: 1) partner.published_at (when the partner was first published),
@@ -514,7 +521,7 @@ async function sendOne(supabase: any, partner: any, startIso: string | null, sit
   const subject = `${reportLabel} för ${partner.name} – ${periodLabel}`;
 
   if (dryRun) {
-    return { partner: partner.name, status: "preview", recipient, stats, html };
+    return { partner: partner.name, status: "preview", recipient, recipients, stats, html };
   }
 
   const res = await fetch("https://api.resend.com/emails", {
@@ -525,7 +532,7 @@ async function sendOne(supabase: any, partner: any, startIso: string | null, sit
     },
     body: JSON.stringify({
       from: "D365 Guiden <info@d365.se>",
-      to: [recipient],
+      to: recipients,
       bcc: ["info@d365.se"],
       reply_to: "info@d365.se",
       subject,
@@ -533,11 +540,12 @@ async function sendOne(supabase: any, partner: any, startIso: string | null, sit
     }),
   });
 
+
   const body = await res.json();
 
   await supabase.from("email_send_log").insert({
     template_name: "partner-monthly-report",
-    recipient_email: recipient,
+    recipient_email: recipients.join(", "),
     subject,
     status: res.ok ? "sent" : "failed",
     error_message: res.ok ? null : (body?.message || JSON.stringify(body)),
@@ -545,6 +553,7 @@ async function sendOne(supabase: any, partner: any, startIso: string | null, sit
       partner_slug: partner.slug,
       partner_name: partner.name,
       period_start: effectiveStartIso,
+      recipients,
       profile_visits: stats.profileVisits,
       card_clicks: stats.cardClicks,
       website_clicks: stats.websiteClicks,
@@ -555,10 +564,12 @@ async function sendOne(supabase: any, partner: any, startIso: string | null, sit
     partner: partner.name,
     status: res.ok ? "sent" : "failed",
     recipient,
+    recipients,
     stats: { profileVisits: stats.profileVisits, cardClicks: stats.cardClicks, websiteClicks: stats.websiteClicks },
     error: res.ok ? undefined : body,
   };
 }
+
 
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
@@ -575,7 +586,10 @@ serve(async (req) => {
       reportLabel: reportLabelOverride, // optional override (e.g. "Slutrapport")
       siteOrigin = "https://www.d365.se",
       overrideRecipient,  // optional: send to this email instead of partner's
+      extraRecipients,    // optional: array of additional emails to add as 'to'
     } = body || {};
+
+
 
 
     const supabase = createClient(SUPABASE_URL, SERVICE_ROLE);
@@ -622,7 +636,7 @@ serve(async (req) => {
     const results: any[] = [];
     for (const p of partners) {
       try {
-        results.push(await sendOne(supabase, p, startIso, siteOrigin, dryRun, overrideRecipient, reportLabel, sinceBeginning));
+        results.push(await sendOne(supabase, p, startIso, siteOrigin, dryRun, overrideRecipient, reportLabel, sinceBeginning, Array.isArray(extraRecipients) ? extraRecipients : []));
       } catch (e: any) {
         console.error("Partner failed:", p.slug, e);
         results.push({ partner: p.name, status: "error", error: e?.message });
