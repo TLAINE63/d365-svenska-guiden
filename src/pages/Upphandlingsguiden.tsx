@@ -120,7 +120,7 @@ const Upphandlingsguiden = () => {
         canonicalPath="/upphandlingsguiden"
       />
       <Navbar />
-      <main className="min-h-screen bg-background pt-16">
+      <main className="min-h-screen bg-background pt-16 lg:pt-28">
         {/* Hero */}
         <section className="relative overflow-hidden bg-gradient-to-br from-[hsl(195_45%_10%)] via-[hsl(190_40%_14%)] to-[hsl(20_55%_18%)]">
           <div className="absolute -top-32 -right-32 w-[28rem] h-[28rem] rounded-full bg-[hsl(var(--cta-orange))]/25 blur-3xl pointer-events-none" />
