@@ -14,6 +14,7 @@ import energiImg from "@/assets/industries/energi.webp";
 import konsultImg from "@/assets/industries/konsultforetag.webp";
 import finansImg from "@/assets/industries/finans-forsakring.webp";
 import offentligImg from "@/assets/industries/offentlig-sektor.webp";
+import lifeScienceImg from "@/assets/industries/lakemedel-life-science.webp";
 
 export interface BlogArticleAuthor {
   name: string;
