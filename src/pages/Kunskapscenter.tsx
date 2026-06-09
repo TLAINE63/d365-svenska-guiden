@@ -563,6 +563,7 @@ const Kunskapscenter = () => {
       case "artikel": return "Artikel";
       case "guide": return "Guide & Behovsanalys";
       case "video": return "Video";
+      case "branscher": return "Branscher & Partners";
       default: return type;
     }
   };
