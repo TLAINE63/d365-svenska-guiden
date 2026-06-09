@@ -1,13 +1,11 @@
 import { useMemo } from "react";
 import { usePartners } from "@/hooks/usePartners";
-
-const PRODUCT_KEYS = ["bc", "fsc", "sales", "service"] as const;
+import { collectPartnerIndustries } from "@/lib/partnerIndustries";
 
 /**
  * Returns the set of industry names that have at least one featured partner
- * profiled against them (via product_filters.*.industries).
- * Used to hide empty industries on /branscher and /branschlosningar while
- * keeping them available for partners to choose in admin.
+ * profiled against them. Uses the shared collectPartnerIndustries helper so
+ * the coverage matches /partners-per-bransch and /branscher exactly.
  */
 export const useCoveredIndustries = () => {
   const { data: partners, isLoading } = usePartners();
@@ -17,10 +15,7 @@ export const useCoveredIndustries = () => {
     (partners || [])
       .filter((p) => p.is_featured === true)
       .forEach((p) => {
-        PRODUCT_KEYS.forEach((k) => {
-          const inds = p.product_filters?.[k]?.industries || [];
-          inds.forEach((i: string) => set.add(i));
-        });
+        collectPartnerIndustries(p).forEach((i) => set.add(i));
       });
     return set;
   }, [partners]);

@@ -7,8 +7,7 @@ import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { ChevronRight } from "lucide-react";
 import { useCoveredIndustries } from "@/hooks/useCoveredIndustries";
 import { usePartners } from "@/hooks/usePartners";
-
-const PRODUCT_KEYS = ["bc", "fsc", "sales", "service"] as const;
+import { collectPartnerIndustries } from "@/lib/partnerIndustries";
 
 const INDUSTRY_CONTEXT: Record<string, string> = {
   "tillverkning": "MES, spårbarhet, kvalitet",
@@ -92,11 +91,7 @@ const Branscher = () => {
     (partners || [])
       .filter((p) => p.is_featured === true)
       .forEach((p) => {
-        const inds = new Set<string>();
-        PRODUCT_KEYS.forEach((k) => {
-          (p.product_filters?.[k]?.industries || []).forEach((i: string) => inds.add(i));
-        });
-        inds.forEach((name) => {
+        collectPartnerIndustries(p).forEach((name) => {
           counts[name] = (counts[name] || 0) + 1;
         });
       });
