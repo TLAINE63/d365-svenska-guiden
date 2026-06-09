@@ -132,13 +132,21 @@ const Branscher = () => {
                     className="group relative flex flex-col rounded-lg border border-border bg-card overflow-hidden hover:border-primary/40 hover:shadow-md transition-all"
                   >
                     {img && (
-                      <div className="aspect-[4/3] overflow-hidden bg-muted">
+                      <div className="aspect-[4/3] overflow-hidden bg-muted relative">
                         <img
                           src={img}
                           alt={ind.name}
                           loading="lazy"
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
+                        <span
+                          title="AI-assisterat branschinnehåll"
+                          aria-label="AI-assisterat branschinnehåll"
+                          className="absolute top-2 right-2 inline-flex items-center gap-1 rounded-full bg-cyan-500/95 text-white text-[10px] font-semibold px-2 py-0.5 shadow-md backdrop-blur-sm"
+                        >
+                          <Sparkles className="w-3 h-3" />
+                          AI
+                        </span>
                       </div>
                     )}
                     <div className="flex flex-col gap-1 p-3 pr-8">
