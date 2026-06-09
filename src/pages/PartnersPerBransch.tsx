@@ -133,16 +133,15 @@ const PartnersPerBransch = () => {
                                   <div className="w-10 h-10 rounded bg-muted shrink-0" />
                                 )}
                                 <div className="min-w-0 flex-1">
-                                  <div className="flex items-center gap-2">
-                                    <span className="font-medium text-foreground group-hover:text-primary truncate">
-                                      {p.name}
-                                    </span>
-                                    {p.agreement_signed && (
-                                      <Badge variant="secondary" className="text-[10px] px-1.5 py-0">
-                                        Avtal
-                                      </Badge>
-                                    )}
-                                  </div>
+                                  <span className="font-medium text-foreground group-hover:text-primary truncate block">
+                                    {p.name}
+                                  </span>
+                                  {p.applications?.length > 0 && (
+                                    <p className="text-xs text-muted-foreground truncate">
+                                      {p.applications.slice(0, 3).join(", ")}
+                                    </p>
+                                  )}
+                                </div>
                                   {p.applications?.length > 0 && (
                                     <p className="text-xs text-muted-foreground truncate">
                                       {p.applications.slice(0, 3).join(", ")}
