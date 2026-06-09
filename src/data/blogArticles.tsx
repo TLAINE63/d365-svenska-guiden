@@ -7,6 +7,7 @@ import releaseWave1Hero from "@/assets/articles/d365-release-wave-1-2026-hero.jp
 import detaljhandelImg from "@/assets/industries/detaljhandel.webp";
 import tillverkningImg from "@/assets/industries/tillverkning.webp";
 import livsmedelImg from "@/assets/industries/livsmedel.webp";
+import grossistImg from "@/assets/industries/handel-distribution.webp";
 
 export interface BlogArticleAuthor {
   name: string;
