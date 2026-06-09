@@ -32,6 +32,7 @@ const QA = lazy(() => import("./pages/QA"));
 const ContactUs = lazy(() => import("./pages/ContactUs"));
 const ValjPartner = lazy(() => import("./pages/ValjPartner"));
 const AllD365Partners = lazy(() => import("./pages/AllD365Partners"));
+const PartnersPerBransch = lazy(() => import("./pages/PartnersPerBransch"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const NeedsAnalysis = lazy(() => import("./pages/NeedsAnalysis"));
 
@@ -114,6 +115,7 @@ const AppShell = () => {
           <Route path="/valj-partner" element={<Navigate to="/valjdynamics365partner" replace />} />
           <Route path="/valj-partner/*" element={<Navigate to="/valjdynamics365partner" replace />} />
           <Route path="/alla-d365-partners" element={<AllD365Partners />} />
+          <Route path="/partners-per-bransch" element={<PartnersPerBransch />} />
           <Route path="/dataskydd" element={<PrivacyPolicy />} />
           <Route path="/ERPbehovsanalys" element={<NeedsAnalysis />} />
           <Route path="/behovsanalys" element={<Navigate to="/ERPbehovsanalys" replace />} />
