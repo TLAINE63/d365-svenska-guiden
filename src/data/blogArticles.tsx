@@ -2012,6 +2012,313 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       </>
     ),
   },
+  {
+    slug: "dynamics-365-grossist-distribution",
+    title: "Dynamics 365 för grossist & distribution",
+    metaTitle: "Branschguide: grossist & distribution i Dynamics 365 | d365.se",
+    metaDescription:
+      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk grossist- och distributionshandel.",
+    summary:
+      "Branschguide för grossist & distribution: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+    category: "Branschguide",
+    tags: ["grossist", "distribution", "dynamics365", "business central", "finance scm", "wms"],
+    products: [
+      "Business Central",
+      "Finance & SCM",
+      "Sales",
+      "Customer Insights",
+      "Customer Service",
+    ],
+    publishedAt: "2026-06-09",
+    author: THOMAS_LAINE,
+    heroImage: grossistImg,
+    readingTimeMinutes: 11,
+    content: (
+      <>
+        <p className="!text-sm uppercase tracking-wider !text-primary !font-semibold !mb-2">
+          Kunskapscenter &nbsp;|&nbsp; Branschguide
+        </p>
+        <p className="!text-xs uppercase tracking-wider text-muted-foreground !mb-6">
+          Grossist &amp; Distribution
+        </p>
+        <p className="italic text-foreground/85 !mb-8">
+          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+        </p>
+
+        <h2>Branschens verklighet</h2>
+        <p>
+          Grossist- och distributionshandeln binder samman producenter med
+          återförsäljare och slutkunder och är en bransch med konstant press på
+          marginalerna. Kundernas förväntningar på snabba, precisa och spårbara
+          leveranser är en hygienfaktor snarare än ett konkurrensmedel — det är
+          vad som krävs bara för att vara med i spelet.
+        </p>
+        <p>
+          Digitaliseringen har accelererat förändringen. B2B e-handel har
+          transformerat hur affärer görs och skapat nya krav på självservice,
+          realtidsdata och omnikanalsförsäljning. Manuella flöden och
+          silobaserade system bromsar tillväxt och lönsamhet. Affärssystemet är
+          ryggraden som håller ihop inköp, lager, logistik, orderhantering och
+          ekonomi — och i en distributionsverksamhet märks det direkt i
+          verksamheten när det brister.
+        </p>
+        <p>
+          Microsoft Dynamics 365 används av svenska grossist- och
+          distributionsföretag för att automatisera flöden, optimera lagernivåer
+          och fatta datadrivna beslut. Plattformen täcker hela kedjan från
+          inköpsplanering och WMS till kundrelationer och ekonomistyrning, i en
+          modulär struktur som gör det möjligt att börja med det mest akuta och
+          bygga vidare.
+        </p>
+
+        <h2>Centrala arbetsprocesser och systemstöd</h2>
+
+        <h3>Business Central: Komplett ERP för medelstora grossister</h3>
+        <p>
+          Business Central är standardvalet för svenska grossist- och
+          distributionsföretag i SMB-segmentet. Systemet samlar ekonomi, inköp,
+          lager och försäljning i ett flöde och ger full överblick från
+          orderläggning till fakturering.
+        </p>
+        <ul>
+          <li>Orderhantering med stöd för komplexa prislistor, kundspecifika rabattstrukturer och avtalsvillkor</li>
+          <li>Lagerhantering med realtidssynlighet, optimerade plockrundor och integration mot handdatorer</li>
+          <li>Inköpsplanering med automatiserade inköpsförslag baserade på historik, säkerhetslager och ledtider</li>
+          <li>Returhantering (RMA) från registrering och mottagande till kreditering</li>
+          <li>Ekonomi och reskontra med automatiserad fakturering, kreditkontroll och betalningsuppföljning</li>
+          <li>Integration mot transportadministrativa system och B2B e-handelsplattformar via öppna API:er</li>
+        </ul>
+
+        <h3>Finance &amp; Supply Chain Management: Avancerad WMS och supply chain</h3>
+        <p>
+          F&amp;SCM är rätt nivå för större och mer komplexa distributionsföretag
+          med avancerade krav på lagerstyrning, prognostisering och
+          internationella finanser. Systemet erbjuder marknadens mest avancerade
+          WMS-funktionalitet för Dynamics 365-plattformen.
+        </p>
+        <ul>
+          <li>Avancerad lagerhantering (WMS) med styrd inlagring, optimerade plockrundor och integration mot lagerautomatik</li>
+          <li>Efterfrågeprognoser och automatiserad lagerpåfyllnad med hänsyn till säsongsvariation och kampanjer</li>
+          <li>Transportplanering och integration mot TMS-system för effektiv last mile-hantering</li>
+          <li>Ekonomistyrning över flera bolag, valutor och länder med konsoliderad finansiell rapportering</li>
+          <li>Commerce-modul för grossister som hanterar direktförsäljning eller B2B-portaler</li>
+        </ul>
+
+        <h3>Sales &amp; Customer Insights: Kundrelationer och segmentering</h3>
+        <p>
+          Grossistföretag med ett komplext säljled — KAM-relationer,
+          avtalsförhandlingar, kategoriutveckling mot handelskedjor — drar nytta
+          av Dynamics 365 Sales för strukturerad pipeline- och kundhantering.
+          Customer Insights samlar kunddata för segmentering och personaliserade
+          kampanjer.
+        </p>
+        <ul>
+          <li>Pipeline- och säljmöjlighetshantering med koppling till orderhistorik och marginaldata</li>
+          <li>Offert- och avtalshantering med automatisk tillämpning av kundspecifika villkor</li>
+          <li>Kunddata aggregerad för segmentering, kampanjplanering och uppföljning av handelsaktiviteter</li>
+        </ul>
+
+        <h3>Customer Service: Ärende- och returhantering</h3>
+        <p>
+          Distributionsföretag med en aktiv kundtjänst — frågor om orderstatus,
+          leveransavvikelser och returer — behöver ett system som ger
+          kundtjänstteamet direkt åtkomst till order- och leveransinformation.
+          Customer Service hanterar ärenden från alla kanaler i ett enhetligt
+          flöde och kopplar dem till relevant ERP-data.
+        </p>
+
+        <h2>Listade partners inom Grossist &amp; Distribution</h2>
+        <p>
+          Tolv partners är listade för branschen på d365.se. Nedan presenteras de
+          i den ordning de förekommer på branschsidan.
+        </p>
+
+        <p>
+          <strong>BE-terna</strong><br />
+          <em>Finance, Supply Chain Management, Commerce</em>
+        </p>
+        <p>
+          BE-terna har F&amp;SCM som kärnkompetens och är ett av de tydligaste
+          alternativen för medelstora till stora distributionsföretag med
+          komplexa supply chain-krav. Deras erfarenhet av avancerad lagerstyrning,
+          transportflöden och finansiell styrning över flera entiteter gör dem
+          relevanta för grossister med höga krav på WMS-precision och ekonomisk
+          kontroll. Commerce-kompetensen tillkommer för bolag med
+          direktförsäljningskanaler.
+        </p>
+
+        <p>
+          <strong>Fellowmind</strong><br />
+          <em>Business Central, Finance, Supply Chain Management, Sales, Customer Insights</em>
+        </p>
+        <p>
+          Fellowmind täcker hela spannet från BC till F&amp;SCM och kombinerar
+          ERP-kompetens med CRM. För distributionsföretag som vill ha en enda
+          partner för hela plattformen — inklusive sälj och kundinsikt — är
+          Fellowmind ett relevant alternativ. Styrkan är bred portfölj,
+          dokumenterad erfarenhet från grossist och distribution, och europeisk
+          leveranskapacitet för bolag med internationell verksamhet.
+        </p>
+
+        <p>
+          <strong>Goodfellows</strong><br />
+          <em>Business Central | AI Integration Partner</em>
+        </p>
+        <p>
+          Goodfellows är en BC-specialist med djup erfarenhet från handel,
+          distribution och produktion. Deras profil är tydlig: förutsägbar
+          leverans, nära samarbete med kundens team och fokus på att lösningen
+          fungerar i praktiken — inte bara i projektplanen. För medelstora
+          grossister med komplexa lagerflöden, avancerad prissättning och krav
+          på leveranssäkerhet är Goodfellows ett starkt alternativ bland
+          BC-partnerna.
+        </p>
+
+        <p>
+          <strong>NAB Solutions</strong><br />
+          <em>Business Central, Sales, Customer Insights, Customer Service, Field Service, Contact Center</em>
+        </p>
+        <p>
+          NAB Solutions kombinerar BC med ett brett CRM- och serviceuttag och har
+          ett uttalat fokus på processindustri och grossistverksamhet. För
+          distributionsföretag som vill koppla samman ERP med kundservice,
+          fältservice och kontaktcenter i ett sammanhållet ekosystem är NAB
+          Solutions ett av få partners i listan som täcker hela den
+          kombinationen.
+        </p>
+
+        <p>
+          <strong>Nexer</strong><br />
+          <em>Business Central, Finance, Supply Chain Management, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations</em>
+        </p>
+        <p>
+          Nexer har en av de bredaste kompetensportföljerna i listan och täcker
+          samtliga relevanta Dynamics 365-applikationer för branschen. För
+          distributionsorganisationer som planerar en ambitiös plattformssatsning
+          — där ERP, kundservice och CRM ska hänga samman i realtid — erbjuder
+          Nexer kapacitet att hålla ihop hela arkitekturen. AI Integration
+          Partner-certifieringen pekar mot ett aktivt fokus på nästa generations
+          systemleveranser.
+        </p>
+
+        <p>
+          <strong>Yellow Solution AB</strong><br />
+          <em>Business Central</em>
+        </p>
+        <p>
+          Yellow Solution är en BC-specialist med ett tydligt fokus på att
+          maximera affärsnyttan av affärssystemsinvesteringen. Deras
+          leveransmodell kombinerar lång erfarenhet med personligt engagemang och
+          en ambition att BC inte bara ska stödja verksamheten utan aktivt bidra
+          till ökad effektivitet. Passar medelstora grossist- och
+          distributionsföretag som söker en partner med djup BC-kompetens och
+          stark lokal närvaro.
+        </p>
+
+        <p>
+          <strong>Bisqo AB</strong><br />
+          <em>Business Central</em>
+        </p>
+        <p>
+          Bisqo är en BC-partner med erfarenhet från grossist och distribution.
+          Deras fokus ligger på att leverera anpassade BC-lösningar som möter de
+          operativa krav som präglar distributionsverksamheter — lagerflöden,
+          orderhantering och prissättning. Relevant för medelstora
+          distributionsföretag i SMB-segmentet som söker en hands-on BC-partner
+          med god branschförståelse.
+        </p>
+
+        <p>
+          <strong>Evidi</strong><br />
+          <em>Business Central | AI Integration Partner</em>
+        </p>
+        <p>
+          Evidi är en BC-specialist med AI Integration Partner-certifiering och
+          ett tydligt fokus på standardnära implementationer med integrerade
+          AI-funktioner. För grossist- och distributionsföretag som vill
+          kombinera en solid BC-implementation med ett aktivt fokus på AI-driven
+          automation och beslutstöd är Evidi ett relevant alternativ i
+          SMB-segmentet.
+        </p>
+
+        <p>
+          <strong>Implema AB</strong><br />
+          <em>Finance, Supply Chain Management, Project Operations, Commerce, Human Resources</em>
+        </p>
+        <p>
+          Implema har ett renodlat F&amp;SCM-fokus och arbetar med standardnära
+          implementationer under mottot "snabbt, säkert och redo för framtiden".
+          För distributionsföretag med avancerade supply chain-krav och behov av
+          snabb men robust leverans av ett komplext ERP är Implema ett relevant
+          alternativ. Commerce-kompetensen är ett mervärde för grossister som
+          hanterar direktförsäljning parallellt.
+        </p>
+
+        <p>
+          <strong>InBiz</strong><br />
+          <em>Business Central</em>
+        </p>
+        <p>
+          InBiz är en Uppsala-baserad BC-specialist, certifierad Microsoft-partner
+          sedan 2005, med lång erfarenhet av distribution och lagerhantering.
+          Deras lösningar täcker hela flödet från inköp och lageroptimering till
+          försäljning och fakturering, och de arbetar med egna tillägg för att
+          möta specifika distributionsbehov. Passar medelstora grossistföretag
+          som söker en stabil och erfaren BC-partner med tydligt ägandeskap för
+          leveransen.
+        </p>
+
+        <p>
+          <strong>Knowit</strong><br />
+          <em>Finance, Supply Chain Management | AI Enabled</em>
+        </p>
+        <p>
+          Knowit har ett renodlat F&amp;SCM-fokus med djup ERP-kompetens för
+          grossist och distribution. Deras leveransmodell integrerar ERP med
+          data, AI och intelligenta arbetsflöden — med målet att koppla samman
+          affärssystem och analys för bättre beslut och effektivare processer.
+          AI Enabled-certifieringen understryker att de aktivt arbetar med
+          AI-integration i sina leveranser. Relevant för medelstora till stora
+          distributörer med komplexa supply chain-krav.
+        </p>
+
+        <p>
+          <strong>Navcite</strong><br />
+          <em>Business Central</em>
+        </p>
+        <p>
+          Navcite implementerar Business Central för företag inom distribution,
+          projektstyrning och tillverkning och har lång erfarenhet av
+          Dynamics-plattformen. De arbetar med att integrera BC mot Microsofts
+          övriga ekosystem och erbjuder stöd från implementation till löpande
+          vidareutveckling och support. Passar grossist- och distributionsföretag
+          som söker en etablerad BC-partner med bred plattformserfarenhet och
+          stabil leveransmodell.
+        </p>
+
+        <h2>Att välja rätt partner för din organisation</h2>
+        <p>
+          Grossist och distribution är en bransch där affärssystemet är direkt
+          kopplat till verksamhetens lönsamhet — fel lagernivåer, bristande
+          leveransprecision eller manuella flöden syns omedelbart på marginalen.
+          Det ställer höga krav på att partnern förstår distributionslogik: hur
+          inköpsplanering, WMS, prissättning och orderflöden hänger samman.
+        </p>
+        <p>
+          Med tolv listade partners spänner urvalet brett — från renodlade
+          BC-specialister för SMB-segmentet till partners med F&amp;SCM-kapacitet
+          för komplexa distributionskoncerner. En central fråga är om BC räcker
+          för er komplexitet, eller om ni behöver F&amp;SCM:s avancerade WMS och
+          supply chain-funktionalitet. Svaret på den frågan styr vilka partners
+          som är relevanta att gå vidare med.
+        </p>
+        <p>
+          Läs mer och jämför partners:{" "}
+          <a href="/branscher/grossist-distribution/">d365.se/branscher/grossist-distribution</a>
+        </p>
+      </>
+    ),
+  },
 ];
 
 export const getBlogArticleBySlug = (slug: string): BlogArticle | undefined =>
