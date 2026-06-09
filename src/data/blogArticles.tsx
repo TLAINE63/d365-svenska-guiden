@@ -1077,6 +1077,304 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       </>
     ),
   },
+  {
+    slug: "dynamics-365-retail-ehandel",
+    title: "Dynamics 365 för Retail & e-handel",
+    metaTitle: "Dynamics 365 för retail & e-handel: arbetsprocesser & partners | d365.se",
+    metaDescription:
+      "Branschguide för svensk retail och e-handel: arbetsprocesser, systemstöd i Business Central, F&SCM, Commerce, Sales, Customer Insights och Customer Service – samt en genomgång av de listade Dynamics 365-partners.",
+    summary:
+      "Branschguide för retail och e-handel: arbetsprocesser, systemstöd i Dynamics 365 och en köparsidig genomgång av de listade partners på d365.se för Retail & E-handel.",
+    category: "Branschguide",
+    tags: ["retail", "e-handel", "dynamics365", "business central", "commerce", "customer insights"],
+    products: [
+      "Business Central",
+      "Finance & SCM",
+      "Sales",
+      "Customer Insights",
+      "Customer Service",
+      "Contact Center",
+    ],
+    publishedAt: "2026-06-09",
+    author: THOMAS_LAINE,
+    heroImage: detaljhandelImg,
+    readingTimeMinutes: 9,
+    content: (
+      <>
+        <p className="!text-sm uppercase tracking-wider !text-primary !font-semibold !mb-2">
+          Kunskapscenter &nbsp;|&nbsp; Branschguide
+        </p>
+        <p className="!text-xs uppercase tracking-wider text-muted-foreground !mb-6">
+          Retail & E-handel
+        </p>
+        <p className="italic text-foreground/85 !mb-8">
+          Arbetsprocesser, systemstöd och vägledning om listade partners.
+        </p>
+
+        <h2>Branschens verklighet</h2>
+        <p>
+          Svensk detaljhandel och e-handel befinner sig mitt i en strukturell
+          omvandling. Gränsen mellan fysisk butik och digital kanal suddas ut,
+          och kundernas förväntningar sätter press på hela värdekedjan. Snabba
+          leveranser, rätt lagersaldo i realtid, personaliserade erbjudanden och
+          en konsekvent upplevelse oavsett kanal — det är inte längre
+          differentiering utan ett grundkrav.
+        </p>
+        <p>
+          Den tekniska komplexiteten ökar i takt med ambitionerna. Äldre system
+          klarar inte av att hantera den mängd kanaler, dataflöden och
+          integrationer som en modern handelsverksamhet kräver. Det är i det
+          gapet som behovet av ett modernt affärssystem uppstår.
+        </p>
+        <p>
+          Microsoft Dynamics 365 används av svenska retail- och
+          e-handelsföretag som vill samla ERP och CRM i en gemensam plattform —
+          från inköp och lager till försäljning, kundservice och marknadsföring.
+          Systemet är modulärt, vilket innebär att organisationen kan börja med
+          det mest akuta behovet och bygga ut successivt.
+        </p>
+
+        <h2>Centrala arbetsprocesser och systemstöd</h2>
+        <p>
+          Nedan beskrivs de arbetsprocesser som är mest relevanta för branschen,
+          och vilket systemstöd Dynamics 365 erbjuder.
+        </p>
+
+        <h3>Business Central: Ekonomi, lager och grundläggande handelsflöden</h3>
+        <p>
+          Dynamics 365 Business Central är det naturliga valet för små och
+          medelstora handelsföretag som behöver ett sammanhållet system för
+          ekonomi, inköp, lagerstyrning och försäljning. Systemet hanterar hela
+          ordercykeln — från inköpsorder och inleverans till fakturering och
+          bokföring — i ett och samma flöde.
+        </p>
+        <ul>
+          <li>Orderhantering från flera kanaler med koppling till lager och ekonomi</li>
+          <li>Lagerstyrning med realtidssynlighet över flera lagerställen</li>
+          <li>Kampanj- och prishantering integrerat med försäljningsflödet</li>
+          <li>Ekonomisk rapportering och marginalkontroll per kanal eller produktkategori</li>
+        </ul>
+        <p>
+          BC passar handelsföretag som vill ha ett brett allt-i-ett-system utan
+          att investera i den komplexitet som en F&amp;SCM-implementation
+          innebär.
+        </p>
+
+        <h3>Finance &amp; Supply Chain Management: Avancerad logistik och ekonomistyrning</h3>
+        <p>
+          För större retail-kedjor med komplexa logistikflöden, flera bolag och
+          höga krav på prognosticering och lagerstyrning är Dynamics 365
+          Finance &amp; Supply Chain Management rätt nivå. Systemet hanterar
+          hela supply chain-kedjan med precision.
+        </p>
+        <ul>
+          <li>Efterfrågeprognoser och automatiserad lagerpåfyllnad</li>
+          <li>Avancerad lagerhantering med WMS-funktionalitet</li>
+          <li>Ekonomistyrning över flera bolag och valutor</li>
+          <li>Commerce-modul med stöd för kassasystem (POS) och omnichannel-flöden</li>
+        </ul>
+        <p>
+          F&amp;SCM och Commerce-modulen är det naturliga valet för kedjor som
+          vill samla fysisk butik och e-handel i ett gemensamt systemlandskap,
+          med realtidsdata om lager, kund och kampanj i varje kassamiljö.
+        </p>
+
+        <h3>Sales &amp; Customer Insights: Kunddata, segmentering och personalisering</h3>
+        <p>
+          Retail och e-handel är branscher där kunddata är en strategisk
+          tillgång. Dynamics 365 Customer Insights aggregerar kunddata från
+          butik, webb och kundtjänst till en enhetlig kundprofil. Det möjliggör
+          segmentering, lojalitetsprogram och riktade kampanjer baserade på
+          faktiskt beteende — inte antaganden.
+        </p>
+        <ul>
+          <li>Samling av kunddata från alla kanaler till en enhetlig profil</li>
+          <li>Segmentering och personaliserade erbjudanden baserade på köphistorik</li>
+          <li>Kampanjautomation och mätning av marknadsföringseffekt</li>
+        </ul>
+        <p>
+          Dynamics 365 Sales används av handelsföretag med en mer komplex
+          B2B-försäljning — till exempel grossister eller varumärken som säljer
+          direkt till återförsäljare — där pipeline-hantering och
+          relationsuppföljning är centralt.
+        </p>
+
+        <h3>Customer Service &amp; Contact Center: Ärenden, returer och kundlojalitet</h3>
+        <p>
+          En välhanterad kundservice är i detaljhandeln direkt kopplad till
+          lojalitet och återköp. Dynamics 365 Customer Service och Contact
+          Center ger kundtjänstteamet en samlad bild av kundens historia oavsett
+          kontaktväg — telefon, e-post, chatt eller sociala medier.
+        </p>
+        <ul>
+          <li>Ärendehantering med koppling till kundprofil och orderhistorik</li>
+          <li>Returhantering (RMA) integrerat med lager och ekonomi</li>
+          <li>Intelligent dirigering av kontakter vid hög ärendevolym</li>
+        </ul>
+        <p>
+          Returhantering är en av de mest kostnadsdrivande processerna inom
+          e-handel. Partners med djup erfarenhet av att konfigurera RMA-flöden
+          och integrera dessa med lagerprocesser skapar påvisbar operativ
+          besparing.
+        </p>
+
+        <h2>Listade partners inom Retail &amp; E-handel</h2>
+        <p>
+          Nedan presenteras de sju partners som är listade för branschen på
+          d365.se, med en kort beskrivning av deras profil och vad de framförallt
+          är kända för inom det aktuella produktområdet.
+        </p>
+
+        <h3>Business Central</h3>
+
+        <p>
+          <strong>adbriq</strong><br />
+          <em>Spetskompetens: Business Central | Fokus: mode, sport och textil</em>
+        </p>
+        <p>
+          adbriq är en nischad partner med djup förståelse för handelsföretag
+          inom mode, sport och textil. Deras styrka är att kombinera
+          branschspecifik proceskunskap med Business Central-implementationer
+          som faktiskt matchar hur handelsföretag inom dessa segment arbetar —
+          sortimentslogik, säsongsvariationer och leverantörsrelationer
+          inkluderade.
+        </p>
+
+        <p>
+          <strong>Evidi</strong><br />
+          <em>Spetskompetens: Business Central | AI Integration Partner</em>
+        </p>
+        <p>
+          Evidi levererar Business Central-lösningar till retail- och
+          e-handelsföretag med fokus på optimerad kundupplevelse och
+          digitaliserade processer. Som certifierad AI Integration Partner har
+          de en tydlig profil kring hur AI-funktionalitet integreras i
+          affärssystemet för att stödja beslutsfattande och automation.
+        </p>
+
+        <p>
+          <strong>Goodfellows</strong><br />
+          <em>
+            Spetskompetens: Business Central | AI Integration Partner | Fokus:
+            förutsägbar leverans
+          </em>
+        </p>
+        <p>
+          Goodfellows profilerar sig på trygghet och kontroll i leveransen.
+          Deras erfarenhet från handel, produktion och distribution gör dem till
+          ett relevant val för handelsföretag som prioriterar en partner som tar
+          tydligt ansvar för att lösningen fungerar i praktiken — inte enbart i
+          projektplanen.
+        </p>
+
+        <h3>Finance &amp; Supply Chain Management</h3>
+
+        <p>
+          <strong>BE-terna</strong><br />
+          <em>Spetskompetens: Finance, Supply Chain Management, Commerce</em>
+        </p>
+        <p>
+          BE-terna är en av de partners i listan som tydligast kombinerar
+          F&amp;SCM med Commerce-modulen. Deras fokus på detaljhandel och
+          e-handel inkluderar lösningar för kedjor som vill samla kassasystem
+          och back-office i ett gemensamt Microsoft-ekosystem. Rätt val för
+          organisationer med komplex logistik och krav på realtidsdata i
+          butiksmiljö.
+        </p>
+
+        <p>
+          <strong>Sopra Steria</strong><br />
+          <em>
+            Spetskompetens: Business Central, Finance, Supply Chain Management |
+            AI Enabled
+          </em>
+        </p>
+        <p>
+          Sopra Steria arbetar process- och effektorienterat snarare än
+          systeminriktat. Deras styrka ligger i att förstå kundens verksamhet i
+          sin helhet och säkerställa att systemlösningen faktiskt speglar hur
+          arbetet utförs. AI Enabled-certifieringen indikerar att de aktivt
+          integrerar AI-funktionalitet i sina leveranser.
+        </p>
+
+        <h3>Breda partners med kompetens inom flera produktområden</h3>
+
+        <p>
+          <strong>Fellowmind</strong><br />
+          <em>Spetskompetens: Business Central, Finance, SCM, Sales, Customer Insights</em>
+        </p>
+        <p>
+          Fellowmind är en av de större europeiska Microsoft-partnerna och en
+          av få i listan som täcker hela spektret från ERP till CRM. För
+          retail-organisationer som vill ha en enda partner med kapacitet att
+          hantera hela plattformen — inklusive marknadsföring och försäljning —
+          är Fellowmind ett relevant alternativ. Styrkan ligger i bredd och
+          geografisk täckning.
+        </p>
+
+        <p>
+          <strong>Nexer</strong><br />
+          <em>
+            Spetskompetens: BC, Finance, SCM, Sales, Customer Insights, Customer
+            Service, Contact Center | AI Integration Partner
+          </em>
+        </p>
+        <p>
+          Nexer har den bredaste kompetensportföljen av de listade partners och
+          täcker samtliga relevanta Dynamics 365-applikationer för branschen.
+          För retail-organisationer som planerar en mer ambitiös
+          plattformssatsning — där ERP, CRM och kontaktcenter ska hänga samman —
+          erbjuder Nexer kapacitet att hålla ihop hela arkitekturen. Som AI
+          Integration Partner har de även ett tydligt fokus på nästa generations
+          systemleveranser.
+        </p>
+
+        <p>
+          <strong>Cepheo</strong><br />
+          <em>
+            Spetskompetens: BC, Finance, SCM, Sales, Customer Insights, Customer
+            Service, Field Service, Contact Center, HR
+          </em>
+        </p>
+        <p>
+          Cepheo är en av Nordens mest heltäckande Microsoft Dynamics
+          365-partners och täcker samtliga relevanta produktområden för retail
+          och e-handel. Deras specifika erfarenhet av omnichannel-integrationer
+          — där e-handel, fysisk butik och back-office ska hänga samman i
+          realtid — gör dem relevanta för kedjor med komplex kanalstruktur. Med
+          hela bredden av applikationer i portföljen är Cepheo ett naturligt
+          alternativ när organisationen planerar en plattform som ska växa över
+          tid.
+        </p>
+
+        <h2>Att välja rätt partner för din organisation</h2>
+        <p>
+          Dynamics 365 är en bred plattform och alla listade partners har en
+          relevant grundkompetens. Det som skiljer dem åt är djupet inom
+          specifika produktområden, branscherfarenhet och leveransmodell.
+        </p>
+        <p>
+          En BC-implementation för ett medelstort handelsbolag med 50 miljoner
+          i omsättning ställer andra krav på partner än en F&amp;SCM-
+          implementation med Commerce för en kedja med 30 butiker och ett
+          centrallager. Frågan är inte bara vilket system — utan vilken partner
+          som faktiskt har gjort det du planerar att göra, i en organisation som
+          liknar din.
+        </p>
+        <p>
+          På d365.se kan du filtrera partners per produktområde, läsa deras
+          branschbeskrivningar och jämföra kompetenser sida vid sida.
+          Plattformen är köparsidig — vägledningen är skriven utifrån köparens
+          perspektiv och inga partners betalar för att synas högre eller
+          beskrivas mer fördelaktigt.
+        </p>
+        <p>
+          Läs mer och jämför partners:{" "}
+          <a href="/branscher/retail-ehandel/">d365.se/branscher/retail-ehandel</a>
+        </p>
+      </>
+    ),
+  },
 ];
 
 export const getBlogArticleBySlug = (slug: string): BlogArticle | undefined =>
