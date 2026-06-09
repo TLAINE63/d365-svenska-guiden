@@ -2728,6 +2728,193 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       </>
     ),
   },
+  {
+    slug: "dynamics-365-energi-utilities",
+    title: "Dynamics 365 för energi & utilities",
+    metaTitle: "Branschguide: energi & utilities i Dynamics 365 | d365.se",
+    metaDescription:
+      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk energi- och utilitysektor.",
+    summary:
+      "Branschguide för energi & utilities: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+    category: "Branschguide",
+    tags: ["energi", "utilities", "el", "fjärrvärme", "vatten", "dynamics365", "business central", "finance scm", "field service"],
+    products: [
+      "Business Central",
+      "Finance & SCM",
+      "Field Service",
+      "Customer Service",
+      "Contact Center",
+    ],
+    publishedAt: "2026-06-09",
+    author: THOMAS_LAINE,
+    heroImage: energiImg,
+    readingTimeMinutes: 10,
+    content: (
+      <>
+        <p className="!text-sm uppercase tracking-wider !text-primary !font-semibold !mb-2">
+          Kunskapscenter &nbsp;|&nbsp; Branschguide
+        </p>
+        <p className="!text-xs uppercase tracking-wider text-muted-foreground !mb-6">
+          Energi &amp; Utilities
+        </p>
+        <p className="italic text-foreground/85 !mb-8">
+          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+        </p>
+
+        <h2>Branschens verklighet</h2>
+        <p>
+          Svensk energisektor befinner sig i en fundamental omställning.
+          Elektrifiering av industri och transporter, övergången till förnybar
+          produktion och ökad fokus på försörjningstrygghet skapar ett nytt
+          marknadslandskap för el-, fjärrvärme-, vatten- och återvinningsbolag.
+          Kraven på systemstöd har förändrats i grunden: det räcker inte längre
+          med ett ekonomisystem och ett underhållssystem som pratar dåligt med
+          varandra.
+        </p>
+        <p>
+          Branschen hanterar kritisk infrastruktur med höga krav på
+          driftsäkerhet, och kombinerar tunga tillgångsinvesteringar med löpande
+          underhåll, komplexa regulatoriska rapporteringskrav och ett
+          kundgränssnitt som förväntas vara digitalt och proaktivt. Det som
+          tidigare var separata system för drift (OT) och administration (IT)
+          behöver i allt högre grad kopplas samman för att möjliggöra
+          prediktivt underhåll, bättre kapacitetsplanering och faktabaserade
+          investeringsbeslut.
+        </p>
+        <p>
+          Microsoft Dynamics 365 används av svenska energibolag som vill samla
+          ekonomistyrning, anläggningsförvaltning, projektstyrning, fältservice
+          och kundservice i en gemensam plattform. Systemet integrerar med
+          branschspecifika ISV-lösningar för mätvärdeshantering och avräkning,
+          samt med GIS- och SCADA-system via öppna API:er.
+        </p>
+
+        <h2>Centrala arbetsprocesser och systemstöd</h2>
+
+        <h3>Finance &amp; Supply Chain Management: Anläggningsförvaltning och ekonomistyrning</h3>
+        <p>
+          F&amp;SCM är kärnan för större energibolag med komplexa krav på
+          anläggningsregister, projektredovisning och ekonomistyrning. Systemet
+          hanterar hela livscykeln för tillgångar från investering till
+          avyttring, och ger underlag för de myndighetskrav på rapportering som
+          präglar reglerade verksamheter.
+        </p>
+        <ul>
+          <li>Anläggningsregister med full tillgångsspårning, avskrivningar och underhållshistorik</li>
+          <li>Projektredovisning för infrastrukturinvesteringar med budget, prognos och kostnadskontroll</li>
+          <li>Ekonomistyrning med stöd för att separera reglerad och avreglerad verksamhet via finansiella dimensioner</li>
+          <li>Regelefterlevnad och rapportering till myndigheter som Energimarknadsinspektionen</li>
+          <li>Inköp och logistik för material till underhåll och nyanslutningar</li>
+        </ul>
+
+        <h3>Business Central: ERP för medelstora energibolag och tjänsteföretag</h3>
+        <p>
+          Business Central passar medelstora energibolag och specialiserade
+          tjänsteföretag som behöver ett sammanhållet system för ekonomi,
+          projekt och service utan F&amp;SCM:s komplexitet. Systemet täcker
+          grundläggande behov av finansiell styrning, projektuppföljning och
+          inköp i ett hanterbart format.
+        </p>
+        <ul>
+          <li>Ekonomi, fakturering och reskontra i ett integrerat flöde</li>
+          <li>Projektstyrning för nät- och anläggningsprojekt med budgetuppföljning</li>
+          <li>Inköp och leverantörshantering för material och tjänster</li>
+          <li>Integration mot Microsofts ekosystem för analys och rapportering via Power BI</li>
+        </ul>
+
+        <h3>Field Service: Fältservice och underhållsoptimering</h3>
+        <p>
+          Field Service är kritiskt för energibolag med en geografiskt spridd
+          teknikerstyrka som hanterar underhåll, akuta reparationer och
+          nyanslutningar. Systemet optimerar schemaläggning och ruttplanering,
+          ger tekniker mobil åtkomst till arbetsordrar och anläggningsinformation,
+          och stänger slingan tillbaka till ekonomi och anläggningsregister när
+          arbetet är utfört.
+        </p>
+        <ul>
+          <li>Automatisk schemaläggning av förebyggande underhåll baserat på anläggningsdata och intervaller</li>
+          <li>Optimering av teknikerrutter för minimerade körningar och kortare svarstider vid avbrott</li>
+          <li>Mobil åtkomst till arbetsordrar, ritningar och historik för tekniker i fält</li>
+          <li>Integration mot SCADA för automatisk skapande av arbetsorder vid larm och avvikelser</li>
+        </ul>
+
+        <h3>Customer Service &amp; Contact Center: Kundärenden och driftstörningskommunikation</h3>
+        <p>
+          Energibolag med direktkundkontakt behöver ett system som ger
+          kundtjänst en 360-gradersvy av kunden — avtalsstatus, mätdata,
+          fakturahistorik och pågående ärenden. Customer Service och Contact
+          Center hanterar ärenden från alla kanaler och möjliggör proaktiv
+          kommunikation vid planerade och oplanerade driftstörningar.
+        </p>
+        <ul>
+          <li>Enhetlig ärendehantering för avtalsfrågor, flytt, fakturafrågor och driftstörningar</li>
+          <li>Intelligent dirigering av inkommande kontakter baserat på ärendetyp och kundsegment</li>
+          <li>AI-stöd för agenter med förslag på svar och tillgång till relevant kunddata i realtid</li>
+        </ul>
+
+        <h2>Listade partners inom Energi &amp; Utilities</h2>
+        <p>
+          Två partners är listade för branschen på d365.se. Nedan presenteras
+          de i den ordning de förekommer på branschsidan.
+        </p>
+
+        <h3>Sherpas Group AB</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Finance, Supply Chain Management | AI Integration Partner
+        </p>
+        <p>
+          Sherpas Group bistår energibolag inom el, fjärrvärme, vatten och
+          återvinning med implementering av Dynamics 365 Business Central och
+          F&amp;SCM. Deras fokus ligger på finansiell styrning, logistik och
+          försörjningskedjor, och de arbetar med systemstöd för att hantera de
+          processer som är specifika för tillgångstunga, reglerade verksamheter.
+          Som AI Integration Partner arbetar de aktivt med att integrera AI i
+          sina leveranser — relevant för energibolag som vill nyttja driftsdata
+          för prediktivt underhåll och bättre kapacitetsplanering.
+        </p>
+
+        <h3>Sopra Steria</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Finance, Supply Chain Management | AI Enabled
+        </p>
+        <p>
+          Sopra Steria är en etablerad partner med erfarenhet av komplexa
+          implementationsprojekt i energisektorn. Deras styrka är förmågan att
+          se verksamheten ur ett process- och effektperspektiv och arbeta
+          metodiskt för att säkerställa affärsnytta — inte bara teknisk
+          leverans. Kombinationen av BC/F&amp;SCM-kompetens med ett av Sveriges
+          större CRM-team ger dem kapacitet att täcka hela kundresan, från
+          back-office till kundservice. Det globala nätverket med
+          specialistkompetens inom förändringsledning och analys är ett
+          mervärde vid större digitaliseringsprogram.
+        </p>
+
+        <h2>Att välja rätt partner för din organisation</h2>
+        <p>
+          Energi och utilities är en av de mer specialiserade branscherna på
+          d365.se, och med bara två listade partners är urvalet begränsat.
+          Båda täcker samma ERP-applikationer (BC och F&amp;SCM), men
+          profilerna är tydligt åtskilda: Sherpas Group med ett aktivt AI
+          Integration-fokus och branscherfarenhet från energiinfrastruktur,
+          Sopra Steria med ett mer processorienterat och metoddrivet
+          angreppssätt och ett bredare tjänsteutbud mot kundservice och CRM.
+        </p>
+        <p>
+          För energibolag med komplexa krav kan det också vara värt att titta
+          på partners listade under angränsande branscher — exempelvis Vivicta
+          under Jordbruk &amp; Skogsbruk, som explicit nämner process- och
+          skogsindustri som branschfokus. Frågan att ställa till varje partner
+          är hur många energibolag av liknande typ och storlek de har
+          implementerat hos, och om de kan visa på konkreta referenskunder i
+          branschen.
+        </p>
+        <p>
+          Läs mer och jämför partners:{" "}
+          <a href="/branscher/energi-utilities/">d365.se/branscher/energi-utilities</a>
+        </p>
+      </>
+    ),
+  },
 ];
 
 export const getBlogArticleBySlug = (slug: string): BlogArticle | undefined =>
