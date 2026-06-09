@@ -39,6 +39,7 @@ import {
   ArrowRight,
   ChevronDown,
   Check,
+  Sparkles,
 } from "lucide-react";
 
 // ── Types ──────────────────────────────────────────────
@@ -852,6 +853,16 @@ const Kunskapscenter = () => {
                                       </div>
                                     )}
                                   </>
+                                )}
+                                {item.type === "branscher" && (
+                                  <span
+                                    title="AI-assisterat branschinnehåll"
+                                    aria-label="AI-assisterat branschinnehåll"
+                                    className="absolute top-2 right-2 inline-flex items-center gap-1 rounded-full bg-cyan-500/95 text-white text-[10px] font-semibold px-2 py-0.5 shadow-md backdrop-blur-sm"
+                                  >
+                                    <Sparkles className="w-3 h-3" />
+                                    AI
+                                  </span>
                                 )}
                               </div>
                             ) : (
