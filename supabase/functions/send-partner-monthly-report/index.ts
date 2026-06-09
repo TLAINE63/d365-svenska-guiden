@@ -636,7 +636,7 @@ serve(async (req) => {
     const results: any[] = [];
     for (const p of partners) {
       try {
-        results.push(await sendOne(supabase, p, startIso, siteOrigin, dryRun, overrideRecipient, reportLabel, sinceBeginning));
+        results.push(await sendOne(supabase, p, startIso, siteOrigin, dryRun, overrideRecipient, reportLabel, sinceBeginning, Array.isArray(extraRecipients) ? extraRecipients : []));
       } catch (e: any) {
         console.error("Partner failed:", p.slug, e);
         results.push({ partner: p.name, status: "error", error: e?.message });
