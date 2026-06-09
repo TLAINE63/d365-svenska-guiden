@@ -12,6 +12,7 @@ import jordbrukImg from "@/assets/industries/jordbruk-skogsbruk.webp";
 import byggImg from "@/assets/industries/bygg-entreprenad.webp";
 import energiImg from "@/assets/industries/energi.webp";
 import konsultImg from "@/assets/industries/konsultforetag.webp";
+import finansImg from "@/assets/industries/finans-forsakring.webp";
 
 export interface BlogArticleAuthor {
   name: string;
