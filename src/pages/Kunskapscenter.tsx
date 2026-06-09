@@ -399,6 +399,19 @@ const Kunskapscenter = () => {
   const [articles, setArticles] = useState<KnowledgeArticle[]>([]);
   const [events, setEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const { data: partnersForCounts } = usePartners();
+
+  const partnerCountByIndustry = (() => {
+    const counts: Record<string, number> = {};
+    (partnersForCounts || [])
+      .filter((p) => p.is_featured === true)
+      .forEach((p) => {
+        collectPartnerIndustries(p).forEach((name) => {
+          counts[name] = (counts[name] || 0) + 1;
+        });
+      });
+    return counts;
+  })();
 
   useEffect(() => {
     const fetchData = async () => {
