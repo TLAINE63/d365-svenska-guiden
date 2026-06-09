@@ -142,12 +142,6 @@ const PartnersPerBransch = () => {
                                     </p>
                                   )}
                                 </div>
-                                  {p.applications?.length > 0 && (
-                                    <p className="text-xs text-muted-foreground truncate">
-                                      {p.applications.slice(0, 3).join(", ")}
-                                    </p>
-                                  )}
-                                </div>
                               </Link>
                             </li>
                           ))}
