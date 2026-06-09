@@ -2628,7 +2628,7 @@
         "industries": [
           "Tillverkningsindustri",
           "Grossist & Distribution",
-          "Logistik & Transport"
+          "Transport & Logistik"
         ],
         "companySize": [],
         "contactName": "Mikael Carle",
@@ -2815,7 +2815,7 @@
       {
         "text": "Nexer erbjuder lösningar baserade på Microsoft Dynamics 365 för att stödja logistik- och transportföretag i deras digitalisering. De har erfarenhet av att implementera Dynamics 365 Finance och Supply Chain Management, vilket kan underlätta hanteringen av finansiella flöden och optimera leveranskedjor. För företag med behov av att hantera kundrelationer och försäljning kan Dynamics 365 Sales och Customer Service vara relevanta. De arbetar även med Dynamics 365 Business Central som en lösning för mindre och medelstora företag som söker en integrerad plattform. Tjänster för Field Service och Project Operations kompletterar erbjudandet. Nexer har kompetens att anpassa Dynamics 365 för att möta specifika krav inom transportplanering, lageroptimering och spårbarhet. Deras arbete omfattar även integrationer med befintliga system och datadrivna insikter för förbättrad beslutsfattande, vilket kan bidra till ökad effektivitet och transparens genom hela logistikkedjan.",
         "product": null,
-        "industry": "Logistik & Transport",
+        "industry": "Transport & Logistik",
         "edited_by": "admin-bulk",
         "generated_at": "2026-05-17T08:35:30Z"
       },
@@ -3274,7 +3274,7 @@
           "Norden"
         ],
         "industries": [
-          "Logistik & Transport",
+          "Transport & Logistik",
           "Telekom & IT-tjänster",
           "Tillverkningsindustri"
         ],
@@ -3314,7 +3314,7 @@
         "industries": [
           "Tillverkningsindustri",
           "Jordbruk & Skogsbruk",
-          "Logistik & Transport"
+          "Transport & Logistik"
         ],
         "contactName": "Peter Andersson",
         "contactEmail": "peter.b.andersson@vivicta.com",
@@ -3365,7 +3365,7 @@
         ],
         "industries": [
           "Tillverkningsindustri",
-          "Logistik & Transport",
+          "Transport & Logistik",
           "Offentlig sektor"
         ],
         "contactName": "Peter Andersson",
@@ -3408,7 +3408,7 @@
         "industries": [
           "Tillverkningsindustri",
           "Jordbruk & Skogsbruk",
-          "Logistik & Transport"
+          "Transport & Logistik"
         ],
         "contactName": "Peter Andersson",
         "contactEmail": "peter.b.andersson@vivicta.com",
@@ -3447,7 +3447,7 @@
       {
         "url": "https://marketplace.microsoft.com/en-us/product/PUBID.evryswedenab1667310970025%7CAID.transport-admin%7CPAPPID.bfb79ee4-4660-43a2-afd2-7c3128125887?tab=Overview",
         "name": "Transport administration ",
-        "industry": "Logistik & Transport",
+        "industry": "Transport & Logistik",
         "application": "Business Central",
         "description": "Transport Administration offers key features to streamline settlement and deduction processes for transportation and logistics companies.  With robust API integration multiple TMS can synchronize order information, ensuring data accuracy and reducing manual data entries."
       },
@@ -3487,7 +3487,7 @@
       {
         "text": "Vivicta erbjuder stöd i digitaliseringen av logistik- och transportsektorn med lösningar baserade på Microsoft Dynamics 365. De levererar helhetslösningar inom ERP och CRM, inklusive implementering, vidareutveckling och förvaltning, med fokus på Dynamics 365 Business Central, Finance och Supply Chain Management. \n\nVivicta har erfarenhet av branschspecifika lösningar såsom Transport Administration för Business Central, som bidrar till att effektivisera avräkningsprocesser och förbättra datakvaliteten genom API-integrationer med befintliga transportsystem. Lösningarna kompletteras med Power Platform och Azure-integrationer för att hantera digitala flöden inom transport och supply chain. Deras erbjudande syftar till att leverera skalbara lösningar som möter kraven på effektivitet och anpassningsförmåga inom branschen.",
         "product": null,
-        "industry": "Logistik & Transport",
+        "industry": "Transport & Logistik",
         "edited_by": "admin-bulk",
         "generated_at": "2026-05-17T08:36:27Z"
       },
