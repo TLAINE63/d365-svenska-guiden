@@ -13,6 +13,7 @@ import byggImg from "@/assets/industries/bygg-entreprenad.webp";
 import energiImg from "@/assets/industries/energi.webp";
 import konsultImg from "@/assets/industries/konsultforetag.webp";
 import finansImg from "@/assets/industries/finans-forsakring.webp";
+import offentligImg from "@/assets/industries/offentlig-sektor.webp";
 
 export interface BlogArticleAuthor {
   name: string;
