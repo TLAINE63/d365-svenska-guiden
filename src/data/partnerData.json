@@ -1422,8 +1422,6 @@
     "phone": "0103333399",
     "applications": [
       "Business Central",
-      "Finance",
-      "Supply Chain Management",
       "Sales",
       "Customer Insights (Marketing)"
     ],
@@ -1438,88 +1436,53 @@
           "500-999 MSEK",
           "25-99 MSEK"
         ],
-        "geography": [],
+        "geography": [
+          "Sverige",
+          "Norden",
+          "Europa",
+          "Övriga världen"
+        ],
         "industries": [
           "Grossist & Distribution",
           "Konsulttjänster",
           "Retail & E-handel"
         ],
-        "companySize": [
-          "100-249",
-          "250-999",
-          "50-99"
-        ],
-        "contactName": "",
-        "contactEmail": "",
+        "companySize": [],
+        "contactName": "Caroline Rasmussen",
+        "contactEmail": "caroline.rasmussen@fellowmind.se",
         "contactPhone": "",
         "swedenCities": [],
         "swedenRegions": [],
-        "aiCapabilities": [],
+        "aiCapabilities": [
+          "ai-standard",
+          "ai-partner"
+        ],
         "aiOtherPartner": "",
         "aiProjectCount": "",
         "hasBuiltAgents": false,
+        "landingPageUrl": "https://www.fellowmind.com/sv-se/losningar/business-applications-erp/dynamics-365-business-central/",
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
-        "contactPhotoUrl": "",
+        "contactPhotoUrl": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/fellowmind-contact-bc.jpg?t=1781010173933",
         "aiBusinessImpact": "",
-        "customerExamples": [],
+        "customerExamples": [
+          "ViaCon",
+          "Klättermusen",
+          "MU",
+          "IsaDora",
+          "Specsavers",
+          "Scandinavian Photo",
+          "String",
+          "RFSU",
+          "Beijer Byggmaterial"
+        ],
         "aiCaseDescription": "",
-        "customerCaseLinks": [],
-        "productDescription": "",
+        "customerCaseLinks": [
+          "https://www.fellowmind.com/sv-se/cases/viacon/"
+        ],
+        "productDescription": "Vi vet att det inte bara är systemet du köper, utan metoden. Och Fellowmind har lång erfarenhet av stora som små framgångsrika BC-projekt, såväl i Sverige som internationellt. ",
         "aiPredictiveDetails": [],
         "secondaryIndustries": [],
-        "aiSegmentationDetails": []
-      },
-      "fsc": {
-        "ranking": 1,
-        "revenue": [
-          "100-499 MSEK",
-          "500-999 MSEK",
-          "1.000-4.999 MSEK"
-        ],
-        "geography": [
-          "Övriga världen",
-          "Europa",
-          "Norden",
-          "Sverige"
-        ],
-        "industries": [
-          "Tillverkningsindustri",
-          "Grossist & Distribution"
-        ],
-        "companySize": [
-          "100-249",
-          "250-999",
-          "1.000-4.999"
-        ],
-        "contactName": "",
-        "contactEmail": "",
-        "contactPhone": "",
-        "swedenCities": [],
-        "swedenRegions": [
-          "Storstockholm / Mälardalen",
-          "Syd / Sydväst",
-          "Väst",
-          "Sydost",
-          "Mellansverige"
-        ],
-        "aiCapabilities": [],
-        "aiOtherPartner": "",
-        "aiProjectCount": "",
-        "hasBuiltAgents": null,
-        "landingPageUrl": "",
-        "aiOtherAdvanced": "",
-        "contactPhotoUrl": "",
-        "aiBusinessImpact": "",
-        "customerExamples": [],
-        "aiCaseDescription": "",
-        "customerCaseLinks": [],
-        "productDescription": "Fellowmind levererar D365 Finance & Supply Chain‑lösningar med stark branschfokusering inom tillverkning, automotive, återvinning, handel och logistik. Vi hjälper organisationer effektivisera ekonomi och supply chain med automatisering, realtidsinsikter och sömlös integration i Microsoft‑ekosystemet – för en skalbar, datadriven och framtidssäkrad verksamhet.",
-        "aiPredictiveDetails": [],
-        "secondaryIndustries": [
-          "Grossist & Distribution",
-          "Retail & E-handel"
-        ],
         "aiSegmentationDetails": []
       },
       "sales": {
@@ -1595,7 +1558,7 @@
     "legal_name": "Fellowmind Sweden AB",
     "youtube_video_id": null,
     "created_at": "2026-01-12T20:38:52.813808+00:00",
-    "updated_at": "2026-06-09T12:36:49.61815+00:00",
+    "updated_at": "2026-06-09T13:07:51.570996+00:00",
     "industry_pitches": [
       {
         "text": "Fellowmind erbjuder lösningar baserade på Microsoft Dynamics 365 för grossist- och distributionsbranschen. Med inriktning på att optimera leveranskedjor och finansiella processer, implementerar Fellowmind Dynamics 365 Finance och Supply Chain Management. Deras expertis omfattar att stödja företag i att hantera komplexa logistikflöden, förbättra lagereffektiviteten och säkerställa transparenta ekonomiska transaktioner. Fellowmind arbetar med att anpassa Microsoft-plattformen för att möta specifika krav gällande priskonfigurationer, integration med tredjepartslogistik (3PL) och optimering av order-till-leveransprocesser. De strävar efter att leverera hållbara lösningar som bidrar till ökad operativ effektivitet och datadrivna beslutsunderlag.",
