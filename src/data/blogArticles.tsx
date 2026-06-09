@@ -1560,7 +1560,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           <em>BC, Finance, SCM, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations</em>
         </p>
         <p>
-          Nexer har den bredaste kompetensportföljen bland avtalspartnerna och
+          Nexer har en av de bredaste kompetensportföljerna i listan och
           täcker samtliga relevanta Dynamics 365-applikationer för branschen.
           För tillverkande organisationer som planerar en ambitiös
           plattformssatsning — där ERP, eftermarknad och CRM ska hänga samman —
@@ -1586,8 +1586,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           <em>Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations</em>
         </p>
         <p>
-          Sirocco Group är den tydligaste CRM- och servicespecialisten bland
-          avtalspartnerna. För tillverkande företag som hanterar komplex
+          Sirocco Group är en tydlig CRM- och servicespecialist i listan.
+          För tillverkande företag som hanterar komplex
           B2B-försäljning, eftermarknadsservice och projektbaserade leveranser
           — och som redan har eller planerar ett separat ERP — är Sirocco ett
           relevant val för CRM- och servicesidan av plattformen.

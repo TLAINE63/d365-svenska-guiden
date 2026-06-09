@@ -62,9 +62,8 @@ const PartnersPerBransch = () => {
               Dynamics 365-partners per bransch
             </h1>
             <p className="text-muted-foreground mt-3 max-w-3xl">
-              Alla listade partners grupperade efter bransch. Avtalspartners visas först
-              i varje lista. Klicka på en partner för att se profil, referenscase och
-              kontaktväg.
+              Alla listade partners grupperade efter bransch. Klicka på en partner
+              för att se profil, referenscase och kontaktväg.
             </p>
           </div>
         </section>

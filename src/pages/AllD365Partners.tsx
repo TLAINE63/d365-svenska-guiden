@@ -48,7 +48,7 @@ export default function AllD365Partners() {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Alla Dynamics 365-partners i Sverige | d365.se"
-        description="Översikt över Dynamics 365-partners i Sverige – både profilerade avtalspartners på d365.se och övriga aktörer på marknaden."
+        description="Översikt över Dynamics 365-partners i Sverige – både profilerade partners på d365.se och övriga aktörer på marknaden."
         canonicalPath="/alla-d365-partners"
       />
       <BreadcrumbSchema items={breadcrumbs} />
