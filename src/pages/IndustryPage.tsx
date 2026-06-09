@@ -202,7 +202,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
       )}
 
       <Navbar />
-      <main className="min-h-screen bg-background pt-16">
+      <main className="min-h-screen bg-background pt-16 lg:pt-28">
         {/* Hero med bakgrundsbild */}
         <section className="relative border-b border-border overflow-hidden min-h-[320px] md:min-h-[420px] flex items-center">
           {heroImage ? (
