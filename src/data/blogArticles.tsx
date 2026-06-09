@@ -1507,7 +1507,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Avtalspartners markeras särskilt.
         </p>
 
-        <h3>Avtalspartners</h3>
+        
 
         <p>
           <strong>BE-terna</strong><br />
@@ -1605,7 +1605,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           F&amp;SCM-komplexitet.
         </p>
 
-        <h3>Övriga listade partners</h3>
+        
 
         <p>
           <strong>Bisqo AB</strong><br />
@@ -1886,7 +1886,6 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           markerade.
         </p>
 
-        <h3>Avtalspartners</h3>
 
         <p>
           <strong>BE-terna</strong><br />
@@ -1914,7 +1913,6 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           365-plattformen.
         </p>
 
-        <h3>Övriga listade partners</h3>
 
         <p>
           <strong>Cegeka</strong><br />
