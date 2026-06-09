@@ -106,6 +106,7 @@ const BRANSCHGUIDE_INDUSTRY_BY_SLUG: Record<string, string> = {
   "dynamics-365-konsultbolag-tjansteforetag": "Konsulttjänster",
   "dynamics-365-finans-forsakring": "Finans & Försäkring",
   "dynamics-365-offentlig-sektor": "Offentlig sektor",
+  "dynamics-365-life-science-medtech": "Life Science / Medtech",
 };
 
 // ── Static content ─────────────────────────────────────
