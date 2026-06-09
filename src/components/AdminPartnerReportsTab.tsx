@@ -574,7 +574,6 @@ function MonthlyStatsReportCard({ token }: { token: string | null }) {
         </div>
 
 
-        </div>
 
 
         <div className="flex flex-wrap gap-2 pt-2">
