@@ -104,6 +104,7 @@ const BRANSCHGUIDE_INDUSTRY_BY_SLUG: Record<string, string> = {
   "dynamics-365-bygg-entreprenad": "Bygg & Entreprenad",
   "dynamics-365-energi-utilities": "Energi & Utilities",
   "dynamics-365-konsultbolag-tjansteforetag": "Konsulttjänster",
+  "dynamics-365-finans-forsakring": "Finans & Försäkring",
 };
 
 // ── Static content ─────────────────────────────────────
