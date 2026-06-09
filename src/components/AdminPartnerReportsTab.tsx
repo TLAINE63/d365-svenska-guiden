@@ -463,12 +463,11 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
 const THOMAS_EMAIL = "thomas.laine@dynamicfactory.se";
 type SendMode = "partner" | "thomas" | "both";
 
-function MonthlyStatsReportCard() {
+function MonthlyStatsReportCard({ token }: { token: string | null }) {
   const { toast } = useToast();
   const [busy, setBusy] = useState<"dry" | SendMode | null>(null);
   const [partnerSlug, setPartnerSlug] = useState("");
   const [days, setDays] = useState(30);
-  const [adminPassword, setAdminPassword] = useState("");
   const [lastSummary, setLastSummary] = useState<any>(null);
   const [lastResults, setLastResults] = useState<any[] | null>(null);
   const [previewHtml, setPreviewHtml] = useState<string | null>(null);
@@ -478,8 +477,8 @@ function MonthlyStatsReportCard() {
     dryRun: boolean,
     extras: { overrideRecipient?: string; extraRecipients?: string[] } = {},
   ) => {
-    if (!adminPassword) {
-      toast({ title: "Lösenord krävs", description: "Ange admin-lösenord för att köra.", variant: "destructive" });
+    if (!token) {
+      toast({ title: "Inloggning krävs", description: "Logga in som admin för att köra rapport.", variant: "destructive" });
       return;
     }
     setBusy(busyKey);
