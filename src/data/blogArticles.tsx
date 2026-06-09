@@ -1881,8 +1881,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h2>Listade partners inom Livsmedel &amp; Processindustri</h2>
         <p>
           Åtta partners är listade för branschen på d365.se. Nedan presenteras de
-          i den ordning de förekommer på branschsidan, med avtalspartners
-          markerade.
+          i den ordning de förekommer på branschsidan.
         </p>
 
 
