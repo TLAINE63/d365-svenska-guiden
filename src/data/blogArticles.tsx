@@ -1764,6 +1764,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
       </>
     ),
+  },
   {
     slug: "dynamics-365-livsmedel-processindustri",
     title: "Dynamics 365 för livsmedel & processindustri",
