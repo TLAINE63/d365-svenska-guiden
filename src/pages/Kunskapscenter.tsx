@@ -27,6 +27,8 @@ import ProductQASection from "@/components/ProductQASection";
 import { PRODUCT_QA_DATA } from "@/data/productQA";
 import { ALL_DEEP_DIVE_ARTICLES } from "@/data/bcArticles";
 import { BLOG_ARTICLES } from "@/data/blogArticles";
+import { usePartners } from "@/hooks/usePartners";
+import { collectPartnerIndustries } from "@/lib/partnerIndustries";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Calendar,
@@ -89,7 +91,20 @@ interface UnifiedItem {
   isExternal: boolean;
   icon: typeof CalendarDays;
   products: string[];
+  partnerCount?: number | null;
 }
+
+// Map BLOG_ARTICLES slug → industry name (used to count listed partners per industry).
+const BRANSCHGUIDE_INDUSTRY_BY_SLUG: Record<string, string> = {
+  "dynamics-365-retail-ehandel": "Retail & E-handel",
+  "dynamics-365-tillverkningsindustri": "Tillverkningsindustri",
+  "dynamics-365-livsmedel-processindustri": "Livsmedel & Processindustri",
+  "dynamics-365-grossist-distribution": "Grossist & Distribution",
+  "dynamics-365-jordbruk-skogsbruk": "Jordbruk & Skogsbruk",
+  "dynamics-365-bygg-entreprenad": "Bygg & Entreprenad",
+  "dynamics-365-energi-utilities": "Energi & Utilities",
+  "dynamics-365-konsultbolag-tjansteforetag": "Konsulttjänster",
+};
 
 // ── Static content ─────────────────────────────────────
 
@@ -386,6 +401,19 @@ const Kunskapscenter = () => {
   const [articles, setArticles] = useState<KnowledgeArticle[]>([]);
   const [events, setEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const { data: partnersForCounts } = usePartners();
+
+  const partnerCountByIndustry = (() => {
+    const counts: Record<string, number> = {};
+    (partnersForCounts || [])
+      .filter((p) => p.is_featured === true)
+      .forEach((p) => {
+        collectPartnerIndustries(p).forEach((name) => {
+          counts[name] = (counts[name] || 0) + 1;
+        });
+      });
+    return counts;
+  })();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -489,6 +517,10 @@ const Kunskapscenter = () => {
       isExternal: false,
       icon: BookOpen,
       products: b.products,
+      partnerCount:
+        b.category === "Branschguide" && BRANSCHGUIDE_INDUSTRY_BY_SLUG[b.slug]
+          ? partnerCountByIndustry[BRANSCHGUIDE_INDUSTRY_BY_SLUG[b.slug]] ?? null
+          : null,
     })),
     ...articles
       .filter((a) => a.title?.trim() && a.url?.trim())
@@ -862,6 +894,11 @@ const Kunskapscenter = () => {
                                   >
                                     <Sparkles className="w-3 h-3" />
                                     AI
+                                  </span>
+                                )}
+                                {item.type === "branscher" && typeof item.partnerCount === "number" && item.partnerCount > 0 && (
+                                  <span className="absolute bottom-2 left-2 inline-flex items-center rounded-full bg-background/90 text-foreground text-[10px] font-semibold px-2 py-0.5 shadow-md backdrop-blur-sm border border-border/40">
+                                    {item.partnerCount} {item.partnerCount === 1 ? "partner" : "partners"} listade
                                   </span>
                                 )}
                               </div>
