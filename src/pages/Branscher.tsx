@@ -7,8 +7,7 @@ import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { ChevronRight } from "lucide-react";
 import { useCoveredIndustries } from "@/hooks/useCoveredIndustries";
 import { usePartners } from "@/hooks/usePartners";
-
-const PRODUCT_KEYS = ["bc", "fsc", "sales", "service"] as const;
+import { collectPartnerIndustries } from "@/lib/partnerIndustries";
 
 const INDUSTRY_CONTEXT: Record<string, string> = {
   "tillverkning": "MES, spårbarhet, kvalitet",
