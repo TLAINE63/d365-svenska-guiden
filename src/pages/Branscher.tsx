@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Sparkles } from "lucide-react";
 import { useCoveredIndustries } from "@/hooks/useCoveredIndustries";
 import { usePartners } from "@/hooks/usePartners";
 import { collectPartnerIndustries } from "@/lib/partnerIndustries";
