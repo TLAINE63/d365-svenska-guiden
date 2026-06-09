@@ -13,6 +13,7 @@ import byggImg from "@/assets/industries/bygg-entreprenad.webp";
 import energiImg from "@/assets/industries/energi.webp";
 import konsultImg from "@/assets/industries/konsultforetag.webp";
 import finansImg from "@/assets/industries/finans-forsakring.webp";
+import offentligImg from "@/assets/industries/offentlig-sektor.webp";
 
 export interface BlogArticleAuthor {
   name: string;
@@ -3339,6 +3340,213 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Läs mer och jämför partners:{" "}
           <a href="/branscher/finans-forsakring/">d365.se/branscher/finans-forsakring</a>
+        </p>
+      </>
+    ),
+  },
+  {
+    slug: "dynamics-365-offentlig-sektor",
+    title: "Dynamics 365 för offentlig sektor",
+    metaTitle: "Branschguide: offentlig sektor i Dynamics 365 | d365.se",
+    metaDescription:
+      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk offentlig sektor.",
+    summary:
+      "Branschguide för offentlig sektor: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+    category: "Branschguide",
+    tags: ["offentlig sektor", "kommun", "myndighet", "dynamics365", "business central", "finance scm", "customer service", "lou"],
+    products: [
+      "Business Central",
+      "Finance & SCM",
+      "Customer Service",
+      "Contact Center",
+      "Field Service",
+    ],
+    publishedAt: "2026-06-09",
+    author: THOMAS_LAINE,
+    heroImage: offentligImg,
+    readingTimeMinutes: 11,
+    content: (
+      <>
+        <p className="!text-sm uppercase tracking-wider !text-primary !font-semibold !mb-2">
+          Kunskapscenter &nbsp;|&nbsp; Branschguide
+        </p>
+        <p className="!text-xs uppercase tracking-wider text-muted-foreground !mb-6">
+          Offentlig sektor
+        </p>
+        <p className="italic text-foreground/85 !mb-8">
+          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+        </p>
+
+        <h2>Branschens verklighet</h2>
+        <p>
+          Offentlig sektor i Sverige befinner sig mitt i en digital
+          transformation som drivs av två parallella krafter: ökade
+          medborgarförväntningar på tillgänglighet och effektivitet, och ett
+          konstant krav på ansvarsfull förvaltning av skattemedel. Det gör
+          it-investeringar i offentlig sektor fundamentalt annorlunda än i
+          privat: det räcker inte att ett system är effektivt — det måste också
+          vara rättssäkert, spårbart och upphandlat i enlighet med LOU.
+        </p>
+        <p>
+          De vanligaste problemen är välkända: ärendehantering och ekonomi i
+          separata system utan koppling, silobaserad information som försvårar
+          helhetsbild och samarbete mellan förvaltningar, och ett
+          systemlandskap med inbyggd komplexitet som härstammar från decennier
+          av punktlösningar. Därtill hanterar kommuner och myndigheter ofta
+          parallella logiker i samma organisation — skattefinansierad
+          kärnverksamhet och avgiftsfinansierade tjänster som VA, renhållning
+          och barnomsorg — vilket ställer krav på systemets flexibilitet.
+        </p>
+        <p>
+          Microsoft Dynamics 365 används av offentliga aktörer som vill samla
+          ekonomistyrning, ärendehantering, medborgardialog och fältservice i
+          en sammanhållen plattform. Systemet kan integreras med nationell
+          infrastruktur via öppna API:er och kompletteras med Power Platform
+          för lågkod-anpassningar som möter specifika verksamhetsbehov utan att
+          kompromissa med uppgraderbarhet.
+        </p>
+
+        <h2>Centrala arbetsprocesser och systemstöd</h2>
+
+        <h3>Finance &amp; Supply Chain Management: Ekonomistyrning och offentlig upphandling</h3>
+        <p>
+          F&amp;SCM är relevant för kommuner och myndigheter med komplexa krav
+          på budgetering, redovisning, uppföljning och offentlig upphandling.
+          Systemet hanterar hela flödet från anslags- och budgethantering till
+          leverantörsfaktura och rapportering, och kan separera
+          skattefinansierad och avgiftsfinansierad verksamhet via finansiella
+          dimensioner.
+        </p>
+        <ul>
+          <li>Budgetering och anslagsfördelning med uppföljning mot utfall per förvaltning och kostnadsställe</li>
+          <li>Ekonomisk rapportering anpassad för offentlig redovisning och externa krav</li>
+          <li>Upphandlings- och inköpsprocess från behovsanalys till avtalshantering och fakturaattest</li>
+          <li>Separering av skattefinansierad och avgiftsfinansierad verksamhet i samma system</li>
+          <li>Anläggningsregister och investeringsuppföljning för infrastruktur och fastigheter</li>
+        </ul>
+
+        <h3>Business Central: ERP för kommunala bolag och mindre myndigheter</h3>
+        <p>
+          Business Central passar kommunala bolag, mindre myndigheter och
+          specialiserade verksamheter som behöver ett sammanhållet system för
+          ekonomi, projekt och inköp utan F&amp;SCM:s komplexitet. Systemet
+          täcker grundläggande behov i ett hanterbart format med god
+          integrationspotential mot kommunens övriga system.
+        </p>
+
+        <h3>Customer Service &amp; Contact Center: Ärendehantering och medborgardialog</h3>
+        <p>
+          Customer Service ger handläggare ett strukturerat stöd för
+          ärendehantering med spårbarhet från inkommen handling till beslut och
+          arkivering. Contact Center optimerar dirigeringen av inkommande
+          medborgarfrågor och felanmälningar oavsett kanal — telefon, e-post,
+          webb eller sociala medier — och kopplar ärendet till rätt funktion i
+          organisationen.
+        </p>
+        <ul>
+          <li>Ärendehantering med konfigurerbara handläggningsflöden per ärendetyp och förvaltning</li>
+          <li>Spårbarhet och dokumentation för rättssäker handläggning och revisionslogg</li>
+          <li>Medborgare kan följa sina ärenden via självserviceportal</li>
+          <li>Intelligent dirigering av inkommande kontakter med AI-stöd till handläggare</li>
+          <li>Flerkanalsstöd för telefon, e-post, webb och sociala medier i ett sammanhållet system</li>
+        </ul>
+
+        <h3>Field Service: Teknisk förvaltning och fältservice</h3>
+        <p>
+          För tekniska förvaltningar med fältpersonal inom gata, park, VA och
+          fastighet optimerar Field Service planering och utförande av
+          underhålls- och serviceuppdrag. Systemet hanterar arbetsorder,
+          schemaläggning och mobilåtkomst för fältpersonal, och stänger
+          slingan tillbaka till ekonomi och anläggningsregister när arbetet är
+          utfört.
+        </p>
+        <ul>
+          <li>Planerat och avhjälpande underhåll för offentlig infrastruktur och fastigheter</li>
+          <li>Optimering av fältpersonalens rutter och scheman</li>
+          <li>Mobil åtkomst till arbetsorder, ritningar och historik för tekniker i fält</li>
+          <li>Felanmälningshantering med automatisk ärendegenerering och statusuppdatering</li>
+        </ul>
+
+        <h2>Listade partners inom Offentlig sektor</h2>
+        <p>
+          Tre partners är listade för branschen på d365.se. Nedan presenteras
+          de i den ordning de förekommer på branschsidan.
+        </p>
+
+        <h3>Sopra Steria</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Finance, Supply Chain Management | AI Enabled
+        </p>
+        <p>
+          Sopra Steria kombinerar ERP-kompetens med ett av Sveriges större
+          CRM-team och arbetar processorienterat med fokus på mätbar
+          affärsnytta. I offentlig sektor bidrar de med kartläggning av
+          verksamhetsprocesser och anpassning av systemstödet mot krav på
+          rättssäkerhet, transparens och tillgänglighet. Det globala nätverket
+          med specialister inom förändringsledning och analys ger kapacitet att
+          hantera komplexa transformationsprogram — vilket ofta är verkligheten
+          när offentliga organisationer byter ut sina kärnsystem.
+        </p>
+
+        <h3>Vivicta</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Finance, Supply Chain Management, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations, Human Resources | AI Integration Partner
+        </p>
+        <p>
+          Vivicta täcker hela Dynamics 365-plattformen med ett helhetsåtagande
+          från rådgivning och lösningsdesign till implementering och
+          förvaltning. Offentlig sektor är ett av deras uttalade
+          fokusområden, och de kombinerar bred applikationskapacitet — ERP,
+          CRM, kundservice, fältservice och HR — med Power Platform och
+          Azure-integrationer för automatisering och koppling mot befintliga
+          system. Som AI Integration Partner arbetar de aktivt med att
+          integrera AI i sina leveranser. Passar offentliga organisationer som
+          söker en partner med brett plattformsdjup och uttalad
+          sektorsförståelse.
+        </p>
+
+        <h3>Enqore AB</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Finance, Supply Chain Management, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations
+        </p>
+        <p>
+          Enqore täcker hela plattformsspannet med ett tydligt fokus på
+          datadrivna och AI-stödda processer. Deras profil — att koppla samman
+          affärssystem med analys och AI för att gå från reaktiv till prediktiv
+          verksamhetsstyrning — är relevant för offentliga organisationer som
+          vill nyttja sin data mer aktivt för resursoptimering, ärendeanalys
+          och proaktiv service. Relevant för organisationer som vill kombinera
+          Dynamics 365 med ett starkare analyslager.
+        </p>
+
+        <h2>Att välja rätt partner för din organisation</h2>
+        <p>
+          Offentlig sektor ställer ett antal krav som inte är självklara i en
+          partnerutvärdering: erfarenhet av LOU-upphandlad it, förståelse för
+          den rättsliga kontexten kring ärendehantering och OSL, och förmågan
+          att hantera integrationer mot nationell infrastruktur och befintliga
+          verksamhetssystem. Dessa frågor bör stå högt på agendan i en
+          partner-RFI oavsett vilket av de tre alternativen ni utvärderar.
+        </p>
+        <p>
+          Vivicta är den partner med bredast applikationstäckning och ett
+          uttalat branschfokus på offentlig sektor. Sopra Steria erbjuder
+          processmognad och global specialistkompetens för komplexa
+          transformationer. Enqore för in ett datadrivet perspektiv som är
+          differentierat men kräver att organisationen är redo att investera i
+          analyslager utöver systemet självt.
+        </p>
+        <p>
+          Det begränsade antalet listade partners speglar att offentlig sektor
+          är ett specialiserat segment där relativt få Dynamics 365-partners
+          aktivt profilerar sig. Det är ett argument för att bredda
+          urvalsprocessen och titta på referenskunder hos respektive partner —
+          konkret: vilka kommuner eller myndigheter har de implementerat hos,
+          och med vilket resultat?
+        </p>
+        <p>
+          Läs mer och jämför partners:{" "}
+          <a href="/branscher/offentlig-sektor/">d365.se/branscher/offentlig-sektor</a>
         </p>
       </>
     ),
