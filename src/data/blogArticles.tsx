@@ -1227,7 +1227,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <h2>Listade partners inom Retail &amp; E-handel</h2>
         <p>
-          Nedan presenteras de sju partners som är listade för branschen på
+          Nedan presenteras de åtta partners som är listade för branschen på
           d365.se, med en kort beskrivning av deras profil och vad de framförallt
           är kända för inom det aktuella produktområdet.
         </p>
