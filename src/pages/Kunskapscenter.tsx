@@ -109,6 +109,7 @@ const BRANSCHGUIDE_INDUSTRY_BY_SLUG: Record<string, string> = {
   "dynamics-365-life-science-medtech": "Life Science / Medtech",
   "dynamics-365-telekom-it-tjanster": "Telekom & IT-tjänster",
   "dynamics-365-uthyrning": "Uthyrningsverksamhet",
+  "dynamics-365-mode-sport-textil": "Mode, Sport & Textil",
 };
 
 // ── Static content ─────────────────────────────────────
