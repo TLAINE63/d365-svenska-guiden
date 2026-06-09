@@ -17,6 +17,7 @@ import offentligImg from "@/assets/industries/offentlig-sektor.webp";
 import lifeScienceImg from "@/assets/industries/lakemedel-life-science.webp";
 import itTechImg from "@/assets/industries/it-tech.webp";
 import uthyrningImg from "@/assets/industries/uthyrning.webp";
+import modeImg from "@/assets/industries/mode-sport-textil.webp";
 
 export interface BlogArticleAuthor {
   name: string;
@@ -4162,6 +4163,175 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Läs mer och jämför partners:{" "}
           <a href="/branscher/uthyrning/">d365.se/branscher/uthyrning</a>
+        </p>
+      </>
+    ),
+  },
+  {
+    slug: "dynamics-365-mode-sport-textil",
+    title: "Dynamics 365 för mode, sport & textil",
+    metaTitle: "Branschguide: Mode, sport & textil i Dynamics 365 | d365.se",
+    metaDescription:
+      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk mode-, sport- och textilbransch.",
+    summary:
+      "Branschguide för Mode, sport & textil: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+    category: "Branschguide",
+    tags: ["mode", "sport", "textil", "fashion", "dynamics365", "business central", "commerce", "omnichannel", "sku"],
+    products: [
+      "Business Central",
+      "Commerce",
+      "Finance & SCM",
+      "Sales",
+      "Customer Insights",
+    ],
+    publishedAt: "2026-06-09",
+    author: THOMAS_LAINE,
+    heroImage: modeImg,
+    readingTimeMinutes: 11,
+    content: (
+      <>
+        <p className="!text-sm uppercase tracking-wider !text-primary !font-semibold !mb-2">
+          Kunskapscenter &nbsp;|&nbsp; Branschguide
+        </p>
+        <p className="!text-xs uppercase tracking-wider text-muted-foreground !mb-6">
+          Mode, sport &amp; textil
+        </p>
+        <p className="italic text-foreground/85 !mb-8">
+          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+        </p>
+
+        <h2>Branschens verklighet</h2>
+        <p>
+          Mode, sport och textil är en bransch med ett systemlandskap som
+          ställer helt egna krav. Variantkomplexiteten — varje artikel i
+          storlek, färg och modell — skapar en SKU-flora som generella
+          affärssystem inte hanterar väl ur lådan. Lägg till säsongslogik,
+          kollektion- och inköpsplanering mot globala leverantörer med långa
+          ledtider, snabba markdowns när säsongen vänder, och omnichannel-krav
+          där lager, priser och kampanjer behöver vara konsekventa oavsett om
+          kunden köper i butik, via e-handel eller på marketplace — och det är
+          tydligt varför branschspecifik konfiguration är ett minimum, och ett
+          branschspecifikt tillägg ofta nödvändigt.
+        </p>
+        <p>
+          Svenska mode- och sportbolag i SMB-segmentet har historiskt haft ett
+          smalt utbud av relevanta affärssystemslösningar. Dynamics 365
+          Business Central med branschanpassningar är ett alternativ som
+          används av en del aktörer, men konkurrensen om plattformsval är hård
+          — specialiserade modeERP-system utmanar. Det avgörande valet är inte
+          bara vilket system utan vilken partner som faktiskt förstår
+          branschens processer: inköpsplanering per kollektion, allokering per
+          butik, retur- och cirkulationsflöden och integration mot Shopify,
+          Centra eller Magento.
+        </p>
+        <p>
+          Dynamics 365 Commerce är den mer kompletta Microsoft-lösningen för
+          butikskedjor och omnichannel-aktörer med integrerat POS,
+          lojalitetsprogram och unified commerce. Business Central är mer
+          relevant för renodlade grossister, importörer och varumärken utan
+          egen butikskedja.
+        </p>
+
+        <h2>Centrala arbetsprocesser och systemstöd</h2>
+
+        <h3>Business Central med mode-/textilanpassning: Kärnan för SMB</h3>
+        <p>
+          BC täcker ekonomi, inköp, lager och grundläggande försäljning, men
+          behöver branschspecifik konfiguration och vanligen tillägg för att
+          hantera mode- och textillogikens kärnkrav på ett ändamålsenligt sätt.
+        </p>
+        <ul>
+          <li>Style/SKU-hantering med storlek- och färgmatriser per artikel, inklusive separata lagersaldon, streckkoder och priser per variant</li>
+          <li>Kollektions- och inköpsplanering per säsong med budgetering mot historik och marginalmål</li>
+          <li>Inköpsorder mot globala leverantörer med ledtidshantering, prognoser och kvalitetskontroll</li>
+          <li>Lager- och butiksallokering med stöd för omfördelning av varor mellan butiker och e-handel</li>
+          <li>Kampanjer, reor och planerade markdowns per kanal, kundgrupp och period</li>
+          <li>Returhantering för e-handel och butik med bedömning, kreditering och åter till sortiment</li>
+        </ul>
+
+        <h3>Dynamics 365 Commerce: Omnichannel för butikskedjor</h3>
+        <p>
+          Commerce är Microsoft Dynamics-svaret på omnichannel retail — en
+          plattform som integrerar POS, e-handel, lojalitetsprogram,
+          lagerstyrning och kunddata i ett ekosystem. Relevant för modeaktörer
+          med egna butikskedjor som vill ha en enhetlig plattform snarare än
+          att integrera separata POS- och e-handelssystem mot ett back-office
+          ERP.
+        </p>
+        <ul>
+          <li>Integrerat POS för butik med mobil kassa och clienteling</li>
+          <li>E-handelsstorefronts med gemensamma priser, kampanjer och lagerinformation</li>
+          <li>Lojalitetsprogram och kundklubbar med köphistorik från alla kanaler</li>
+          <li>Centralstyrda kampanjer och markdowns som rullas ut till alla kanaler simultant</li>
+          <li>Orderhantering med stöd för click-and-collect, leverans från butik och ship-from-store</li>
+        </ul>
+
+        <h3>Finance &amp; Supply Chain: Större kedjor med komplex global sourcing</h3>
+        <p>
+          F&amp;SCM är relevant för större modeaktörer med internationell
+          närvaro, komplex global supply chain och avancerade krav på
+          finansiell styrning och logistik. Systemet hanterar inköp från
+          leverantörer i flera länder, multi-currency, konsoliderad redovisning
+          och avancerad lagerstyrning i ett sammanhållet flöde.
+        </p>
+
+        <h3>Customer Insights &amp; Sales: Kunddata och B2B</h3>
+        <p>
+          Customer Insights samlar köpdata från e-handel, POS och lojalitet
+          till enhetliga kundprofiler för segmentering, personalisering och
+          riktad kommunikation. Sales är relevant för modevarumärken med
+          B2B-försäljning mot återförsäljare, agents och nyckelkunder.
+        </p>
+
+        <h2>Listad partner inom Mode, Sport &amp; Textil</h2>
+        <p>En partner är listad för branschen på d365.se.</p>
+
+        <h3>adbriq</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central
+        </p>
+        <p>
+          adbriq är en BC-specialist med ett uttalat och exklusivt branschfokus
+          på mode, sport och textil — det är inte ett av flera segment utan
+          deras primära marknad. De arbetar med digitalisering av
+          informationsflöden och affärsprocesser för bolag i branschen, med
+          specifik kompetens inom produktlivscykelhantering, kollektionshantering,
+          lageroptimering, distributionskedja och integration mot
+          e-handelsplattformar och logistikpartners. För ett mode- eller
+          sportbolag som väljer BC som systemplattform är adbriq det enda
+          alternativet i listan med den kombinationen av branschdjup och
+          plattformsspecialisering. Att de är den enda listade partnern för
+          branschen gör dem till det naturliga första samtalet — men det
+          innebär också att en bred partnerutvärdering bör inkludera aktörer
+          utanför d365.se:s lista.
+        </p>
+
+        <h2>Att välja rätt partner för din organisation</h2>
+        <p>
+          Mode, sport och textil är den bransch på d365.se med minst listade
+          partners — en partner. Det är ett utpräglat nischsegment där
+          relativt få Dynamics 365-partners aktivt profilerar sig, och där
+          konkurrensen om systemplattformsval är bredare: specialiserade
+          modeERP-system som Apparel21, Infor M3, Futura och liknande är
+          etablerade alternativ som används av svenska modeföretag.
+        </p>
+        <p>
+          Valet att gå på Dynamics 365 Business Central för ett modeföretag är
+          ett aktivt val som kräver en partner med genuin branschkompetens.
+          adbriq har den profilen och är ett naturligt startläge för en
+          BC-utvärdering. Utöver dem kan det vara värt att titta på partners i
+          Retail &amp; E-handel-segmentet på d365.se — flera av dem, som
+          Cepheo och Bisqo, arbetar med BC för handelsföretag och kan ha
+          relevant erfarenhet av mode- och textilprocesser.
+        </p>
+        <p>
+          En central fråga att ställa varje partner oavsett val: hur hanterar
+          de storlek/färg-matriser, och vilka branschspecifika tillägg
+          rekommenderar de för att täcka mode- och textillogikens krav?
+        </p>
+        <p>
+          Läs mer och jämför partners:{" "}
+          <a href="/branscher/mode-sport-textil/">d365.se/branscher/mode-sport-textil</a>
         </p>
       </>
     ),
