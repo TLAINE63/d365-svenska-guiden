@@ -111,6 +111,7 @@ const BRANSCHGUIDE_INDUSTRY_BY_SLUG: Record<string, string> = {
   "dynamics-365-uthyrning": "Uthyrningsverksamhet",
   "dynamics-365-mode-sport-textil": "Mode, Sport & Textil",
   "dynamics-365-fastighet-forvaltning": "Fastighet & Förvaltning",
+  "dynamics-365-transport-logistik": "Transport & Logistik",
 };
 
 // ── Static content ─────────────────────────────────────
