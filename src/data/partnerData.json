@@ -2803,7 +2803,7 @@
     "legal_name": "Nexer Enterprise Applications AB",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-06-05T09:59:23.450683+00:00",
+    "updated_at": "2026-06-09T08:36:35.695855+00:00",
     "industry_pitches": [
       {
         "text": "Nexer levererar affärssystemslösningar baserade på Microsoft Dynamics 365 till företag inom grossist- och distributionsbranschen. Med fokus på applikationer som Business Central, Finance och Supply Chain Management stödjer de kunder i att optimera processer som orderhantering, lagerstyrning och logistik. Deras erbjudande omfattar även stöd för kundrelationer genom Dynamics 365 Sales och Customer Service, vilket kan bidra till förbättrad kundkommunikation och service. Nexer har erfarenhet av att implementera system för hantering av globala leveranskedjor och kan bistå med integrationer för att möta krav på spårbarhet och effektivitet i en konkurrensutsatt marknad. De arbetar för att hjälpa företag att hantera marginalpress och möta höga förväntningar på leveransprecision.",
@@ -2815,7 +2815,7 @@
       {
         "text": "Nexer erbjuder lösningar baserade på Microsoft Dynamics 365 för att stödja logistik- och transportföretag i deras digitalisering. De har erfarenhet av att implementera Dynamics 365 Finance och Supply Chain Management, vilket kan underlätta hanteringen av finansiella flöden och optimera leveranskedjor. För företag med behov av att hantera kundrelationer och försäljning kan Dynamics 365 Sales och Customer Service vara relevanta. De arbetar även med Dynamics 365 Business Central som en lösning för mindre och medelstora företag som söker en integrerad plattform. Tjänster för Field Service och Project Operations kompletterar erbjudandet. Nexer har kompetens att anpassa Dynamics 365 för att möta specifika krav inom transportplanering, lageroptimering och spårbarhet. Deras arbete omfattar även integrationer med befintliga system och datadrivna insikter för förbättrad beslutsfattande, vilket kan bidra till ökad effektivitet och transparens genom hela logistikkedjan.",
         "product": null,
-        "industry": "Transport & Logistik",
+        "industry": "Logistik & Transport",
         "edited_by": "admin-bulk",
         "generated_at": "2026-05-17T08:35:30Z"
       },
@@ -3447,7 +3447,7 @@
       {
         "url": "https://marketplace.microsoft.com/en-us/product/PUBID.evryswedenab1667310970025%7CAID.transport-admin%7CPAPPID.bfb79ee4-4660-43a2-afd2-7c3128125887?tab=Overview",
         "name": "Transport administration ",
-        "industry": "Transport & Logistik",
+        "industry": "Logistik & Transport",
         "application": "Business Central",
         "description": "Transport Administration offers key features to streamline settlement and deduction processes for transportation and logistics companies.  With robust API integration multiple TMS can synchronize order information, ensuring data accuracy and reducing manual data entries."
       },
@@ -3475,7 +3475,7 @@
     "legal_name": "Vivicta AB",
     "youtube_video_id": null,
     "created_at": "2026-03-19T08:57:20.19097+00:00",
-    "updated_at": "2026-06-05T09:59:23.450683+00:00",
+    "updated_at": "2026-06-09T08:36:35.695855+00:00",
     "industry_pitches": [
       {
         "text": "Vivicta bistår aktörer inom jordbruk och skogsbruk med implementering och förvaltning av Microsoft Dynamics 365-lösningar. De fokuserar på att leverera skalbara affärssystem som kan stödja verksamhetens processer, från rådgivning till driftsättning. Vivictas erbjudande omfattar Dynamics 365 Finance och Supply Chain Management, vilka kan användas för att hantera finansiella processer, logistik och försörjningskedjor.\n\nFör mindre verksamheter kan Dynamics 365 Business Central vara aktuellt. De har även kompetens inom att integrera lösningar med Power Platform och Azure, vilket kan bidra till automatiserade flöden och utökad analyskapacitet. Vivictas tjänster sträcker sig från initial rådgivning och lösningsdesign till implementering och kontinuerlig förvaltning. Deras expertis omfattar även CRM-applikationer genom Dynamics 365 Customer Engagement.",
@@ -3487,7 +3487,7 @@
       {
         "text": "Vivicta erbjuder stöd i digitaliseringen av logistik- och transportsektorn med lösningar baserade på Microsoft Dynamics 365. De levererar helhetslösningar inom ERP och CRM, inklusive implementering, vidareutveckling och förvaltning, med fokus på Dynamics 365 Business Central, Finance och Supply Chain Management. \n\nVivicta har erfarenhet av branschspecifika lösningar såsom Transport Administration för Business Central, som bidrar till att effektivisera avräkningsprocesser och förbättra datakvaliteten genom API-integrationer med befintliga transportsystem. Lösningarna kompletteras med Power Platform och Azure-integrationer för att hantera digitala flöden inom transport och supply chain. Deras erbjudande syftar till att leverera skalbara lösningar som möter kraven på effektivitet och anpassningsförmåga inom branschen.",
         "product": null,
-        "industry": "Transport & Logistik",
+        "industry": "Logistik & Transport",
         "edited_by": "admin-bulk",
         "generated_at": "2026-05-17T08:36:27Z"
       },

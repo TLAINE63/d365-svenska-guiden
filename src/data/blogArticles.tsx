@@ -6,6 +6,7 @@ import ownedIntelligenceSkiljelinje from "@/assets/articles/owned-intelligence-s
 import releaseWave1Hero from "@/assets/articles/d365-release-wave-1-2026-hero.jpg";
 import detaljhandelImg from "@/assets/industries/detaljhandel.webp";
 import tillverkningImg from "@/assets/industries/tillverkning.webp";
+import livsmedelImg from "@/assets/industries/livsmedel.webp";
 
 export interface BlogArticleAuthor {
   name: string;
@@ -1760,6 +1761,256 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Läs mer och jämför partners:{" "}
           <a href="/branscher/tillverkning/">d365.se/branscher/tillverkning</a>
+        </p>
+      </>
+    ),
+  },
+  {
+    slug: "dynamics-365-livsmedel-processindustri",
+    title: "Dynamics 365 för livsmedel & processindustri",
+    metaTitle: "Branschguide: livsmedel & processindustri i Dynamics 365 | d365.se",
+    metaDescription:
+      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk livsmedels- och processindustri.",
+    summary:
+      "Branschguide för livsmedel & processindustri: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+    category: "Branschguide",
+    tags: ["livsmedel", "processindustri", "dynamics365", "business central", "finance scm", "spårbarhet"],
+    products: [
+      "Business Central",
+      "Finance & SCM",
+      "Sales",
+      "Customer Service",
+      "Field Service",
+    ],
+    publishedAt: "2026-06-09",
+    author: THOMAS_LAINE,
+    heroImage: livsmedelImg,
+    readingTimeMinutes: 10,
+    content: (
+      <>
+        <p className="!text-sm uppercase tracking-wider !text-primary !font-semibold !mb-2">
+          Kunskapscenter &nbsp;|&nbsp; Branschguide
+        </p>
+        <p className="!text-xs uppercase tracking-wider text-muted-foreground !mb-6">
+          Livsmedel &amp; Processindustri
+        </p>
+        <p className="italic text-foreground/85 !mb-8">
+          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+        </p>
+
+        <h2>Branschens verklighet</h2>
+        <p>
+          Svensk livsmedels- och processindustri verkar i en av de mest reglerade
+          och konkurrensutsatta branscherna. Marginalerna pressas av volatila
+          råvarupriser och internationell konkurrens, samtidigt som konsumenternas
+          krav på transparens, lokalt producerade varor och hållbarhet ständigt
+          ökar. Att hantera allt detta kräver systemstöd som är byggt för
+          branschens verklighet — inte ett generellt affärssystem med påklistrade
+          anpassningar.
+        </p>
+        <p>
+          Det som skiljer processflöden från diskret tillverkning är fundamentalt:
+          recept snarare än stycklistor, batchhantering snarare än serienummer,
+          hållbarhetstider som styr lagerlogiken, och produktionsplanering som tar
+          hänsyn till sanitering och allergenhantering. En återkallelse måste kunna
+          hanteras inom timmar — med full spårbarhet från råvara till slutkund.
+        </p>
+        <p>
+          Microsoft Dynamics 365 används av svenska livsmedels- och processföretag
+          som vill samla ERP, kvalitet, supply chain och kundrelationer i en
+          gemensam plattform. Modulerna Finance &amp; Supply Chain Management och
+          Business Central täcker olika komplexitetsnivåer i branschen, och kan
+          kompletteras med CRM och serviceapplikationer för en heltäckande lösning.
+        </p>
+
+        <h2>Centrala arbetsprocesser och systemstöd</h2>
+
+        <h3>Finance &amp; Supply Chain Management: Processtillverkning, spårbarhet och kvalitet</h3>
+        <p>
+          F&amp;SCM är kärnan för större livsmedels- och processföretag med
+          avancerade krav. Systemet hanterar hela produktionsflödet med den
+          precision som branschen kräver och som myndigheter och
+          certifieringsstandarder ställer.
+        </p>
+        <ul>
+          <li>Recept- och formelhantering med versionskontroll, skalning och stöd för råvaruvarianter</li>
+          <li>Full batchspårbarhet från inleverans av råvara, genom alla produktionssteg, till utleverans och slutkund</li>
+          <li>Kvalitetskontroller med obligatoriska kontrollpunkter vid ankomst, under produktion och på färdigvaror</li>
+          <li>Lagerstyrning med hållbarhetstider och FEFO-plockstrategi (First-Expired, First-Out)</li>
+          <li>Produktionsplanering med hänsyn till kapacitet, materialtillgång och saniterings- eller rengöringsintervall</li>
+          <li>Kalkylering med stöd för viktsvinn, utbyte och processvariation — grunden för korrekt marginalanalys</li>
+          <li>Integration mot produktionsutrustning (MES/SCADA) via standardiserade API:er för realtidsdata</li>
+        </ul>
+
+        <h3>Business Central: ERP för mindre och medelstora aktörer</h3>
+        <p>
+          Business Central passar livsmedels- och processföretag i SMB-segmentet.
+          Systemet täcker ekonomi, tillverkning, lager och försäljning i ett och
+          kan kompletteras med branschspecifika tillägg från partners för djupare
+          processtöd.
+        </p>
+        <ul>
+          <li>Produktionsorder med recepthantering och grundläggande batchspårbarhet</li>
+          <li>Lagerstyrning med hållbarhetsdatum och FEFO-stöd</li>
+          <li>Inköp, leverantörshantering och ekonomi i ett sammanhållet system</li>
+          <li>Möjlighet att bygga på med branschspecifika tillägg för djupare livsmedelsfunktionalitet</li>
+        </ul>
+
+        <h3>Sales: B2B-relationer mot handelskedjor och grossister</h3>
+        <p>
+          Livsmedelsföretag med komplex försäljning mot dagligvarukedjor,
+          restauranger eller grossister behöver systemstöd för avtalshantering,
+          prissättning och kampanjuppföljning. Dynamics 365 Sales hanterar dessa
+          relationer och ger säljorganisationen ett sammanhållet verktyg för
+          pipeline och kunduppföljning.
+        </p>
+        <ul>
+          <li>Avtals- och prishantering mot stora kedjekunder</li>
+          <li>Pipeline-hantering för nya produktlanseringar och kundpenetrering</li>
+          <li>Kampanjplanering och uppföljning av handelsaktiviteter</li>
+        </ul>
+
+        <h3>Field Service &amp; Customer Service: Underhåll och kundrelationer</h3>
+        <p>
+          För livsmedelsföretag som tillverkar och underhåller processutrustning
+          hos kunder, eller som behöver strukturerad ärendehantering mot sin
+          kundtjänst, är Field Service och Customer Service relevanta komplement.
+          Field Service hanterar schemaläggning av servicetekniker och förebyggande
+          underhåll; Customer Service samlar kundärenden i ett enhetligt flöde.
+        </p>
+
+        <h2>Listade partners inom Livsmedel &amp; Processindustri</h2>
+        <p>
+          Åtta partners är listade för branschen på d365.se. Nedan presenteras de
+          i den ordning de förekommer på branschsidan, med avtalspartners
+          markerade.
+        </p>
+
+        <h3>Avtalspartners</h3>
+
+        <p>
+          <strong>BE-terna</strong><br />
+          <em>Finance, Supply Chain Management, Commerce</em>
+        </p>
+        <p>
+          BE-terna har F&amp;SCM som kärnkompetens och är ett av de tydligaste
+          alternativen för livsmedels- och processföretag med komplexa
+          produktionsflöden och avancerade supply chain-krav. Deras erfarenhet av
+          processtillverkning och distribution gör dem relevanta för medelstora
+          till stora aktörer i branschen. Commerce-kompetensen tillkommer för
+          bolag med direktförsäljningskanaler.
+        </p>
+
+        <p>
+          <strong>Sirocco Group</strong><br />
+          <em>Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations</em>
+        </p>
+        <p>
+          Sirocco Group är en renodlad CRM- och servicespecialist. För
+          livsmedelsföretag med komplex B2B-försäljning mot handelskedjor,
+          distributörer eller restauranger — och som söker en partner med djup
+          CRM-kompetens snarare än ERP — är Sirocco ett relevant alternativ. De
+          hanterar kundrelationer, fältservice och kontaktcenter på Dynamics
+          365-plattformen.
+        </p>
+
+        <h3>Övriga listade partners</h3>
+
+        <p>
+          <strong>Cegeka</strong><br />
+          <em>Finance, Supply Chain Management, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations, Human Resources</em>
+        </p>
+        <p>
+          Cegeka har ett uttalat fokus på processindustri och livsmedel och täcker
+          hela Dynamics 365-plattformen. För medelstora till stora
+          livsmedelskoncerner med komplexa krav på produktion, kvalitet, supply
+          chain och personalhantering är Cegeka ett av de mest heltäckande
+          alternativen i listan.
+        </p>
+
+        <p>
+          <strong>Cepheo</strong><br />
+          <em>Business Central, Finance, Supply Chain Management, Sales, Customer Insights, Human Resources</em>
+        </p>
+        <p>
+          Cepheo täcker hela ERP-spannet från BC till F&amp;SCM och kombinerar det
+          med CRM och HR. Som en av Nordens större Microsoft-partners har de
+          kapacitet för komplexa implementationer och långsiktig förvaltning,
+          vilket är relevant för livsmedelsföretag som planerar en bred
+          plattformssatsning.
+        </p>
+
+        <p>
+          <strong>COSMO CONSULT</strong><br />
+          <em>Business Central, Sales, Customer Insights</em>
+        </p>
+        <p>
+          COSMO CONSULT kombinerar BC med CRM och erbjuder branschspecifika
+          lösningar för processindustri och livsmedel. För SMB-aktörer som söker
+          ett system med inbyggd branschlogik — snarare än ett generiskt BC som
+          kräver anpassning — är COSMO CONSULT ett relevant alternativ.
+        </p>
+
+        <p>
+          <strong>Enqore AB</strong><br />
+          <em>Business Central, Finance, Supply Chain Management, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations</em>
+        </p>
+        <p>
+          Enqore täcker hela Dynamics 365-plattformen med ett tydligt fokus på
+          datadrivna och AI-stödda processer. Deras profil — att koppla ihop
+          affärssystem med analys för att gå från reaktiv till prediktiv drift —
+          är direkt relevant för livsmedelsföretag som vill nyttja produktionsdata
+          för bättre beslut kring planering, spårbarhet och kvalitet.
+        </p>
+
+        <p>
+          <strong>Implema AB</strong><br />
+          <em>Finance, Supply Chain Management, Project Operations, Commerce, Human Resources</em>
+        </p>
+        <p>
+          Implema har ett renodlat F&amp;SCM-fokus med standardnära
+          implementationsmetodik. För livsmedels- och processföretag med komplexa
+          supply chain-krav och behov av snabb men robust leverans är Implema ett
+          relevant alternativ. Project Operations-kompetensen passar bolag med
+          projektbaserade processer vid exempelvis nya produktionslinjer eller
+          anläggningar.
+        </p>
+
+        <p>
+          <strong>InBiz</strong><br />
+          <em>Business Central</em>
+        </p>
+        <p>
+          InBiz är en Uppsala-baserad BC-specialist med lång erfarenhet av
+          Dynamics-plattformen, certifierad Microsoft-partner sedan 2005. De
+          levererar heltäckande BC-lösningar där hela flödet från inköp och
+          produktion till lagerhantering och fakturering hanteras i ett system.
+          För livsmedels- och processföretag i SMB-segmentet som söker en
+          hands-on partner med tydligt ägandeskap för leveransen är InBiz ett
+          relevant alternativ.
+        </p>
+
+        <h2>Att välja rätt partner för din organisation</h2>
+        <p>
+          Livsmedels- och processindustrin är en bransch där partnerns
+          branscherfarenhet väger tyngre än i de flesta andra segment. Krav på
+          spårbarhet, FEFO-styrning, kvalitetsdokumentation och certifieringsstöd
+          (BRC, IFS) är inte standardfunktioner i alla system — de kräver antingen
+          djupare konfiguration eller branschspecifika tillägg som partnern måste
+          behärska.
+        </p>
+        <p>
+          Med åtta listade partners är urvalet mer avgränsat jämfört med exempelvis
+          tillverkning. Skillnaderna mellan dem är tydliga: några har
+          processtillverkning som kärnkompetens, andra är breda plattformspartners
+          med livsmedelserfarenhet som ett av flera segment. En relevant fråga att
+          ställa till varje partner är hur många livsmedelsimplementationer de
+          genomfört — och om de kan visa referenskunder med liknande produktionsform
+          och komplexitet.
+        </p>
+        <p>
+          Läs mer och jämför partners:{" "}
+          <a href="/branscher/livsmedel-processindustri/">d365.se/branscher/livsmedel-processindustri</a>
         </p>
       </>
     ),
