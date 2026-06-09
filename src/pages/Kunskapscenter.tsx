@@ -267,6 +267,7 @@ const STATIC_TOOLS: Array<{
 const CATEGORIES: { label: string; value: CategoryFilter }[] = [
   { label: "Alla", value: "alla" },
   { label: "Produktfördjupningar (Q&A)", value: "fordjupning" },
+  { label: "Branscher & Partners", value: "branscher" },
   { label: "Events", value: "event" },
   { label: "Guider & Behovsanalyser", value: "behovsanalys" },
   { label: "Kravspecifikationer", value: "kravspecifikation" },
@@ -276,6 +277,7 @@ const CATEGORIES: { label: string; value: CategoryFilter }[] = [
 
 const FORMAT_OPTIONS: { label: string; value: FormatValue }[] = [
   { label: "Event", value: "event" },
+  { label: "Branscher & Partners", value: "branscher" },
   { label: "Guide & Behovsanalys", value: "behovsanalys" },
   { label: "Kravspecifikation", value: "kravspecifikation" },
   { label: "Artikel", value: "artikel" },
