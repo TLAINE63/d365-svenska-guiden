@@ -587,8 +587,8 @@ serve(async (req) => {
       siteOrigin = "https://www.d365.se",
       overrideRecipient,  // optional: send to this email instead of partner's
       extraRecipients,    // optional: array of additional emails to add as 'to'
-      skipPartner = false, // optional: when true, do not auto-add partner's own email
     } = body || {};
+
 
 
 
