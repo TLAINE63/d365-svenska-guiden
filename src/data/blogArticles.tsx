@@ -55,6 +55,8 @@ export interface BlogArticle {
   content: ReactNode;
   /** If true, lyfts som "Nytt i Kunskapscentret"-banner på startsidan */
   featured?: boolean;
+  /** Big 5 FAQ — visas som fast modul längst ner i branschartiklar */
+  bigFiveFaq?: { question: string; answer: string }[];
 }
 
 const THOMAS_LAINE: BlogArticleAuthor = {
