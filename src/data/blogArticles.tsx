@@ -12,6 +12,7 @@ import jordbrukImg from "@/assets/industries/jordbruk-skogsbruk.webp";
 import byggImg from "@/assets/industries/bygg-entreprenad.webp";
 import energiImg from "@/assets/industries/energi.webp";
 import konsultImg from "@/assets/industries/konsultforetag.webp";
+import finansImg from "@/assets/industries/finans-forsakring.webp";
 
 export interface BlogArticleAuthor {
   name: string;
@@ -3140,7 +3141,210 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       </>
     ),
   },
+  {
+    slug: "dynamics-365-finans-forsakring",
+    title: "Dynamics 365 för finans & försäkring",
+    metaTitle: "Branschguide: finans & försäkring i Dynamics 365 | d365.se",
+    metaDescription:
+      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk finans- och försäkringsbransch.",
+    summary:
+      "Branschguide för finans & försäkring: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+    category: "Branschguide",
+    tags: ["finans", "försäkring", "bank", "dynamics365", "business central", "finance scm", "customer insights", "compliance"],
+    products: [
+      "Business Central",
+      "Finance & SCM",
+      "Sales",
+      "Customer Service",
+      "Customer Insights",
+      "Contact Center",
+    ],
+    publishedAt: "2026-06-09",
+    author: THOMAS_LAINE,
+    heroImage: finansImg,
+    readingTimeMinutes: 10,
+    content: (
+      <>
+        <p className="!text-sm uppercase tracking-wider !text-primary !font-semibold !mb-2">
+          Kunskapscenter &nbsp;|&nbsp; Branschguide
+        </p>
+        <p className="!text-xs uppercase tracking-wider text-muted-foreground !mb-6">
+          Finans &amp; Försäkring
+        </p>
+        <p className="italic text-foreground/85 !mb-8">
+          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+        </p>
+
+        <h2>Branschens verklighet</h2>
+        <p>
+          Finans- och försäkringsbranschen är hårt reglerad, dataintensiv och
+          under konstant transformationstryck. FinTech-utmanare, nya
+          kundförväntningar på digital service och ett regulatoriskt landskap
+          som kontinuerligt förändras — IFRS 17, Solvens II, MiFID II, AML —
+          ställer höga krav på systemstödets flexibilitet och spårbarhet.
+          Äldre, isolerade kärnsystem är en av de största bromsklossarna: de är
+          kostsamma att underhålla, svåra att integrera och producerar inte den
+          realtidsdata som krävs för att styra verksamheten.
+        </p>
+        <p>
+          Utmaningen är inte att hitta ett system som löser allt — det finns
+          inget sådant. Dynamics 365 fungerar typiskt som ett övergripande skal
+          för CRM, ekonomistyrning och kundservice, integrerat med befintliga
+          kärnsystem för portföljhantering, skadehantering eller avräkning. Det
+          ger en enhetlig bild av kunden och automatiserade processer för
+          regelefterlevnad och rapportering, utan att kräva att hela
+          systemlandskapet byts ut på en gång.
+        </p>
+        <p>
+          För banker, försäkringsbolag och finansiella rådgivningsföretag är
+          den centrala affärsnyttan densamma: en 360-gradersvy av kunden,
+          automatiserade compliance-flöden, och ett kundservicesystem som ger
+          rätt information vid rätt tidpunkt — oavsett kanal.
+        </p>
+
+        <h2>Centrala arbetsprocesser och systemstöd</h2>
+
+        <h3>Finance &amp; Supply Chain Management: Regulatorisk rapportering och finansiell styrning</h3>
+        <p>
+          F&amp;SCM är relevant för finansbolag och försäkringsbolag med
+          komplexa krav på finansiell konsolidering, regulatorisk rapportering
+          och koncernredovisning. Systemet kan konfigureras för att stödja
+          specifika rapporteringsstandarder och separera reglerad från
+          avreglerad verksamhet via finansiella dimensioner.
+        </p>
+        <ul>
+          <li>Finansiell konsolidering och rapportering anpassad för branschspecifika standarder som IFRS och Solvens II</li>
+          <li>Separering av reglerad och avreglerad verksamhet inom samma system via finansiella dimensioner</li>
+          <li>Automatiserade avstämningar och revisionsloggar för intern kontroll och externa revisioner</li>
+          <li>Budgetering, prognostisering och likviditetsplanering med realtidsunderlag</li>
+        </ul>
+
+        <h3>Sales: Rådgivningsprocesser och komplex B2B/B2C-försäljning</h3>
+        <p>
+          Dynamics 365 Sales stödjer finansiella rådgivare och affärsutvecklare
+          med strukturerad pipeline-hantering, dokumentation av kunddialog och
+          spårbarhet i rådgivningsprocessen. I en bransch med strikta
+          dokumentationskrav är den automatiska loggningen av kundinteraktioner
+          ett direkt compliance-stöd.
+        </p>
+        <ul>
+          <li>Pipeline-hantering för komplexa produkter med långa säljcykler</li>
+          <li>Dokumentation av rådgivningstillfällen med spårbarhet för regelefterlevnad</li>
+          <li>360-gradersvy av kunden med innehav, historik och kommunikation</li>
+          <li>Offert- och avtalshantering för finansiella produkter och tjänster</li>
+        </ul>
+
+        <h3>Customer Service &amp; Contact Center: Skadehantering och kundservice</h3>
+        <p>
+          Customer Service ger kundtjänst och skadereglerare en enhetlig bild av
+          kunden och ärendet — oavsett vilken kanal kunden kontaktar bolaget
+          via. Contact Center optimerar dirigering av inkommande kontakter
+          baserat på ärendetyp och ger agenter AI-stöd i realtid. Tillsammans
+          skapar de ett kundserviceflöde som möter branschens krav på snabb,
+          korrekt och spårbar ärendehantering.
+        </p>
+        <ul>
+          <li>Ärendehantering för skadeanmälningar, avtalsfrågor och rådgivningsförfrågningar</li>
+          <li>Automatiserade arbetsflöden för skadehantering från registrering till reglering</li>
+          <li>Intelligent dirigering av inkommande kontakter baserat på ärendetyp och kundsegment</li>
+          <li>AI-stöd för agenter med förslag på svar och tillgång till relevant kunddata</li>
+        </ul>
+
+        <h3>Customer Insights: Kunddata och personalisering</h3>
+        <p>
+          I en bransch med stora datamängder men ofta fragmenterade kundbilder
+          är Customer Insights en strategisk komponent. Applikationen aggregerar
+          data från olika källor — transaktionssystem, CRM, kundservice — till
+          en enhetlig kundprofil som möjliggör segmentering, proaktiv service
+          och personaliserade erbjudanden.
+        </p>
+        <ul>
+          <li>Enhetlig kundprofil aggregerad från transaktionssystem, CRM och kundservice</li>
+          <li>Segmentering baserad på beteende, innehav och riskprofil</li>
+          <li>Proaktiv kommunikation vid livshändelser eller portföljförändringar</li>
+        </ul>
+
+        <h2>Listade partners inom Finans &amp; Försäkring</h2>
+        <p>
+          Tre partners är listade för branschen på d365.se. Nedan presenteras
+          de i den ordning de förekommer på branschsidan.
+        </p>
+
+        <h3>Sopra Steria</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Finance, Supply Chain Management | AI Enabled
+        </p>
+        <p>
+          Sopra Steria arbetar processorienterat och metoddrivet med ett
+          uttalat fokus på att varje implementation ska ge mätbar affärsnytta.
+          I finans- och försäkringsbranschen kombinerar de ERP-kompetens med
+          ett av Sveriges större CRM-team, vilket ger dem kapacitet att täcka
+          både back-office-processer och kundrelationssidan. Det globala
+          nätverket med specialister inom förändringsledning, analys och
+          compliance är ett mervärde för finansbolag som driver komplexa
+          moderniseringsprogram med höga regulatoriska krav.
+        </p>
+
+        <h3>NAB Solutions</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Sales, Customer Insights, Customer Service, Field Service, Contact Center
+        </p>
+        <p>
+          NAB Solutions har arbetat med Microsofts plattform sedan 2001 och
+          kombinerar BC med ett brett CRM- och serviceuttag. För finansbolag
+          och försäkringsförmedlare som prioriterar kundrelationer,
+          rådgivningsdokumentation och effektiv kundservice är NAB Solutions
+          ett relevant alternativ. Deras portfölj täcker hela kundresan — från
+          marknadsföring och försäljning till ärendehantering och kontaktcenter
+          — i ett sammanhållet Dynamics 365-ekosystem.
+        </p>
+
+        <h3>Enqore AB</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Finance, Supply Chain Management, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations
+        </p>
+        <p>
+          Enqore täcker hela Dynamics 365-plattformen med ett tydligt fokus på
+          datadrivna och AI-stödda processer. I finansbranschen — där stora
+          datamängder finns men insikterna ofta kommer för sent — är deras
+          profil direkt relevant: de kopplar samman affärssystem med analys och
+          AI för att möjliggöra prediktivt beslutsfattande snarare än reaktivt.
+          Relevant för finansbolag som vill nyttja sin data mer aktivt för
+          riskhantering, kundbearbetning och processautomation.
+        </p>
+
+        <h2>Att välja rätt partner för din organisation</h2>
+        <p>
+          Finans och försäkring är en bransch där systemval och partnerval
+          ställs inför ett komplext krav: kombinationen av strikta
+          regulatoriska krav, känslig kunddata och ett befintligt
+          systemlandskap av äldre kärnsystem som inte kan ersättas i ett svep.
+          Det ställer höga krav på partnerns förståelse för
+          integrationskomplexitet och compliance-aspekter.
+        </p>
+        <p>
+          Med tre listade partners är urvalet begränsat, och profilerna är
+          tydligt åtskilda: Sopra Steria med processorienterad metodstyrning
+          och global specialistkompetens, NAB Solutions med djup CRM- och
+          servicefokus, Enqore med datadrivet och AI-orienterat angreppssätt.
+          Ingen av dem är en renodlad finansspecialist — de är alla bredare
+          Dynamics 365-partners som arbetar i branschen.
+        </p>
+        <p>
+          En relevant fråga att ställa varje partner är hur de hanterar
+          integration mot befintliga kärnsystem, och om de har referenskunder i
+          finansbranschen med liknande regulatorisk komplexitet som er
+          verksamhet.
+        </p>
+        <p>
+          Läs mer och jämför partners:{" "}
+          <a href="/branscher/finans-forsakring/">d365.se/branscher/finans-forsakring</a>
+        </p>
+      </>
+    ),
+  },
 ];
+
 
 export const getBlogArticleBySlug = (slug: string): BlogArticle | undefined =>
   BLOG_ARTICLES.find((a) => a.slug === slug);
