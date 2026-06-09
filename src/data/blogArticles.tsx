@@ -15,6 +15,7 @@ import konsultImg from "@/assets/industries/konsultforetag.webp";
 import finansImg from "@/assets/industries/finans-forsakring.webp";
 import offentligImg from "@/assets/industries/offentlig-sektor.webp";
 import lifeScienceImg from "@/assets/industries/lakemedel-life-science.webp";
+import itTechImg from "@/assets/industries/it-tech.webp";
 
 export interface BlogArticleAuthor {
   name: string;
@@ -3778,6 +3779,205 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Läs mer och jämför partners:{" "}
           <a href="/branscher/life-science-medtech/">d365.se/branscher/life-science-medtech</a>
+        </p>
+      </>
+    ),
+  },
+  {
+    slug: "dynamics-365-telekom-it-tjanster",
+    title: "Dynamics 365 för telekom & IT-tjänster",
+    metaTitle: "Branschguide: Telekom & IT-tjänster i Dynamics 365 | d365.se",
+    metaDescription:
+      "Arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners för svensk telekom- och IT-tjänstebransch.",
+    summary:
+      "Branschguide för Telekom & IT-tjänster: arbetsprocesser, systemstöd i Dynamics 365 och en genomgång av listade partners — skriven ur köparens perspektiv.",
+    category: "Branschguide",
+    tags: ["telekom", "it-tjänster", "prenumeration", "arr", "dynamics365", "business central", "finance scm", "project operations", "ifrs15"],
+    products: [
+      "Business Central",
+      "Finance & SCM",
+      "Sales",
+      "Customer Service",
+      "Field Service",
+      "Project Operations",
+      "Contact Center",
+      "Customer Insights",
+    ],
+    publishedAt: "2026-06-09",
+    author: THOMAS_LAINE,
+    heroImage: itTechImg,
+    readingTimeMinutes: 11,
+    content: (
+      <>
+        <p className="!text-sm uppercase tracking-wider !text-primary !font-semibold !mb-2">
+          Kunskapscenter &nbsp;|&nbsp; Branschguide
+        </p>
+        <p className="!text-xs uppercase tracking-wider text-muted-foreground !mb-6">
+          Telekom &amp; IT-tjänster
+        </p>
+        <p className="italic text-foreground/85 !mb-8">
+          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+        </p>
+
+        <h2>Branschens verklighet</h2>
+        <p>
+          Telekom- och IT-tjänstebranschen har genomgått en strukturell
+          förändring i affärsmodellen: från engångsleveranser och projekttimmar
+          mot prenumerationsbaserade tjänster, managerade driftlösningar och
+          paketerade erbjudanden som kombinerar hårdvara, mjukvara, support och
+          konsulttjänster i ett abonnemang. Det ställer systemstödet inför en
+          ny typ av komplexitet — inte teknisk, utan kommersiell.
+        </p>
+        <p>
+          Att hantera en blandning av ARR-baserade prenumerationer, löpande
+          projekt, förbrukningsbaserade avgifter och engångsintäkter i samma
+          system, med korrekt intäktsperiodisering och automatiserad
+          fakturering, är en utmaning som de flesta generella affärssystem inte
+          löser utan konfiguration. Lägg därtill behovet av en enhetlig
+          kundbild som kopplar samman sälj, leverans, support och fakturering —
+          och man förstår varför fragmenterade system är branschens vanligaste
+          systemsmärta.
+        </p>
+        <p>
+          Microsoft Dynamics 365 används av telekom- och IT-tjänsteföretag för
+          att samla hela affärscykeln i en plattform: från offert och
+          kontraktshantering via projektleverans och resursplanering till
+          prenumerationsfakturering och ärendehantering. Systemets modulära
+          uppbyggnad gör det möjligt att kombinera ERP och CRM i ett ekosystem
+          och integrera mot branschspecifika system för provisionering och
+          övervakning via öppna API:er.
+        </p>
+
+        <h2>Centrala arbetsprocesser och systemstöd</h2>
+
+        <h3>Finance &amp; Supply Chain Management: Prenumerationsfakturering och intäktsredovisning</h3>
+        <p>
+          F&amp;SCM är relevant för telekom- och IT-tjänsteföretag med komplexa
+          krav på automatiserad prenumerationsfakturering, intäktsperiodisering
+          och finansiell rapportering. Systemet hanterar blandade
+          intäktsströmmar och säkerställer korrekt redovisning enligt IFRS 15 —
+          en central utmaning för bolag med fleråriga servicekontrakt och
+          paketerade erbjudanden.
+        </p>
+        <ul>
+          <li>Prenumerationsfakturering med automatisering för månads-, kvartals- och årsabonnemang</li>
+          <li>Intäktsperiodisering och redovisning av bundlade erbjudanden enligt IFRS 15</li>
+          <li>Hantering av prisjusteringar, uppgraderingar, nedgraderingar och avtalsförnyelser</li>
+          <li>Projektredovisning för leveransprojekt parallellt med löpande serviceintäkter</li>
+          <li>Finansiell rapportering med nyckeltal som ARR, MRR och kundlivstidsvärde</li>
+        </ul>
+
+        <h3>Business Central: ERP för medelstora IT-bolag</h3>
+        <p>
+          Business Central passar medelstora telekom- och IT-tjänsteföretag som
+          behöver ett sammanhållet system för ekonomi, projekthantering och
+          enklare prenumerationshantering utan F&amp;SCM:s komplexitet. Med
+          rätt konfiguration och eventuella tillägg täcker BC grundläggande
+          behov av fakturaautomatisering och projektuppföljning.
+        </p>
+
+        <h3>Project Operations: Från sälj till projektleverans</h3>
+        <p>
+          Project Operations kopplar samman säljpipeline, resursplanering och
+          projektleverans i ett sammanhållet flöde — en kritisk integration för
+          IT-konsultbolag och managerade tjänster där rätt resurs vid rätt
+          tidpunkt direkt påverkar lönsamheten. Systemet hanterar
+          tidrapportering, resursoptimering och projektekonomin från
+          budgeterat till fakturerat.
+        </p>
+        <ul>
+          <li>Resurs- och kompetensplanering med visuell beläggningsöversikt</li>
+          <li>Tidrapportering kopplad direkt till projekt och faktureringsunderlag</li>
+          <li>Projektbudget, prognos och realtidsuppföljning av marginaler</li>
+          <li>Sömlös överlämning från vunnet CRM-ärende till projektstart</li>
+        </ul>
+
+        <h3>Sales &amp; Customer Service: Komplexa offerter och SLA-styrning</h3>
+        <p>
+          Dynamics 365 Sales hanterar komplexa offertprocesser med paketerade
+          erbjudanden och långa säljcykler — relevant för IT-bolag som säljer
+          mot enterprise-kunder. Customer Service säkerställer SLA-efterlevnad
+          och ger supportteamet en 360-gradersvy av kunden med komplett
+          ärendehistorik, kontraktsstatus och faktureringsinformation.
+        </p>
+        <ul>
+          <li>CPQ-stöd för konfigurering av komplexa offerter med produkter, tjänster och licenser</li>
+          <li>Pipelinehantering med ARR-prognostisering och churnsignalering</li>
+          <li>SLA-styrning och ärendehantering med automatiserade eskaleringsregler</li>
+          <li>Enhetlig kundbild som kopplar samman kontrakt, ärenden och fakturahistorik</li>
+        </ul>
+
+        <h3>Field Service &amp; Contact Center: Fälttekniker och flerkanalssupport</h3>
+        <p>
+          För telekom- och IT-bolag med fältorganisation hanterar Field Service
+          schemaläggning och ruttoptimering för tekniker vid installation,
+          underhåll och felavhjälpning. Contact Center samlar inkommande
+          kontakter från alla kanaler i ett gränssnitt och ger agenterna
+          AI-stöd i realtid.
+        </p>
+
+        <h2>Listade partners inom Telekom &amp; IT-tjänster</h2>
+        <p>
+          Två partners är listade för branschen på d365.se. Nedan presenteras
+          de i den ordning de förekommer på branschsidan.
+        </p>
+
+        <h3>Vivicta</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Finance, Supply Chain Management, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations, Human Resources | AI Integration Partner
+        </p>
+        <p>
+          Vivicta täcker hela Dynamics 365-plattformen med ett helhetsåtagande
+          som explicit inkluderar telekom och IT-tjänster som branschfokus. De
+          hanterar prenumerationsbaserade affärsmodeller och paketerade
+          erbjudanden med hårdvara, mjukvara och konsulttjänster — och täcker
+          hela kedjan från ERP och projekthantering via CRM och kundservice
+          till HR och Power Platform-integrationer. Som AI Integration Partner
+          arbetar de aktivt med att bygga in AI i sina leveranser. Passar
+          IT-bolag som söker en partner med bred plattformskapacitet och
+          uttalad förståelse för branschens affärsmodellkomplexitet.
+        </p>
+
+        <h3>Sopra Steria</h3>
+        <p className="!text-sm text-muted-foreground !mb-2">
+          Business Central, Finance, Supply Chain Management | AI Enabled
+        </p>
+        <p>
+          Sopra Steria är en processorienterad partner med ett metoddrivet
+          angreppssätt och ett av Sveriges större CRM-team. I telekom och
+          IT-tjänster bidrar de med kompetens inom ekonomistyrning,
+          prenumerationshantering och kundrelationer. Det globala nätverket med
+          specialister inom förändringsledning och analys är ett mervärde för
+          IT-bolag som driver en bredare digital transformation — exempelvis en
+          övergång från projektbaserad till prenumerationsbaserad affärsmodell
+          som kräver processomstrukturering snarare än bara ett nytt system.
+        </p>
+
+        <h2>Att välja rätt partner för din organisation</h2>
+        <p>
+          Telekom och IT-tjänster är en av de branscher på d365.se med färst
+          listade partners, och de som finns är tydligt åtskilda i profil:
+          Vivicta med bred plattformstäckning och uttalat branschfokus, Sopra
+          Steria med processmognad och global specialistkompetens.
+        </p>
+        <p>
+          Den viktigaste vägledande frågan för er organisation är vilken del av
+          verksamheten som driver systembehovet. Om det primärt handlar om
+          prenumerationsfakturering och intäktsredovisning är F&amp;SCM-kompetensen
+          central. Om det handlar om att koppla samman sälj, projektleverans
+          och kundservice i ett sammanhållet flöde är CRM och Project
+          Operations lika viktiga. De flesta IT-bolag behöver egentligen båda —
+          och en partner som förstår hur de hänger samman.
+        </p>
+        <p>
+          Det begränsade urvalet är också ett argument för att bredda sökningen
+          och titta på partners listade i angränsande branscher som
+          Konsulttjänster — många av dem har dokumenterad erfarenhet av
+          IT-tjänstebolag och prenumerationsmodeller.
+        </p>
+        <p>
+          Läs mer och jämför partners:{" "}
+          <a href="/branscher/telekom-it-tjanster/">d365.se/branscher/telekom-it-tjanster</a>
         </p>
       </>
     ),
