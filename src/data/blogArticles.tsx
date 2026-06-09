@@ -10,6 +10,7 @@ import livsmedelImg from "@/assets/industries/livsmedel.webp";
 import grossistImg from "@/assets/industries/handel-distribution.webp";
 import jordbrukImg from "@/assets/industries/jordbruk-skogsbruk.webp";
 import byggImg from "@/assets/industries/bygg-entreprenad.webp";
+import energiImg from "@/assets/industries/energi.webp";
 
 export interface BlogArticleAuthor {
   name: string;
