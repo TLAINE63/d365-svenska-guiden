@@ -177,7 +177,7 @@ const BusinessCentral = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Dynamics 365 Business Central – pris, licens & partners | d365.se"
+        title="Dynamics 365 Business Central – pris & partners | d365.se"
         description="Business Central: Essentials 765 kr/mån, Premium 1 051 kr/mån. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
         canonicalPath="/businesscentral"
         keywords="business central, dynamics 365 business central, d365 bc, dynamics 365 bc, business central pris, business central licens, business central essentials, business central premium, business central partner sverige, business central implementering"

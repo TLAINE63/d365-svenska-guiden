@@ -22,7 +22,7 @@ const ContactUs = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Kontakt – Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner | d365.se"
+        title="Kontakt – köparsidig guide till Dynamics 365 | d365.se"
         description="Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner. Boka kostnadsfritt möte med Thomas Laine eller Michael Uhman för rådgivning utan säljpåverkan."
         canonicalPath="/kontakt"
         keywords="kontakt, Dynamics 365, rådgivning, konsult, Microsoft"
