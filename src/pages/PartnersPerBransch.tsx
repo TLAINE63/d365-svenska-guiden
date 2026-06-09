@@ -5,21 +5,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { usePartners, type DatabasePartner } from "@/hooks/usePartners";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
+import { collectPartnerIndustries } from "@/lib/partnerIndustries";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Building2 } from "lucide-react";
-
-function collectIndustries(p: DatabasePartner): Set<string> {
-  const set = new Set<string>();
-  (p.industries || []).forEach((i) => set.add(i));
-  (p.secondary_industries || []).forEach((i) => set.add(i));
-  const pf: any = p.product_filters || {};
-  ["bc", "fsc", "sales", "service", "crm"].forEach((k) => {
-    const inds = pf?.[k]?.industries || [];
-    const sec = pf?.[k]?.secondaryIndustries || [];
-    [...inds, ...sec].forEach((i: string) => set.add(i));
-  });
-  return set;
-}
 
 const PartnersPerBransch = () => {
   const { data: partners = [], isLoading } = usePartners();
