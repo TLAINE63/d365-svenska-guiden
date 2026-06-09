@@ -1080,9 +1080,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "dynamics-365-retail-ehandel",
     title: "Dynamics 365 för Retail & e-handel",
-    metaTitle: "Dynamics 365 för retail & e-handel: arbetsprocesser & partners | d365.se",
+    metaTitle: "Branschguide: retail & e-handel i Dynamics 365 | d365.se",
     metaDescription:
-      "Branschguide för svensk retail och e-handel: arbetsprocesser, systemstöd i Business Central, F&SCM, Commerce, Sales, Customer Insights och Customer Service – samt en genomgång av de listade Dynamics 365-partners.",
+      "Arbetsprocesser, systemstöd i Dynamics 365 och en objektiv genomgång av listade partners för svensk retail och e-handel.",
     summary:
       "Branschguide för retail och e-handel: arbetsprocesser, systemstöd i Dynamics 365 och en objektiv genomgång av listade partners på d365.se.",
     category: "Branschguide",
