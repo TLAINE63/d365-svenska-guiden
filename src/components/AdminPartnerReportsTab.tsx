@@ -10,6 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, RefreshCw, Send, Eye, Trash2, Sparkles } from "lucide-react";
 import PartnerStatsMatrix from "@/components/PartnerStatsMatrix";
+import { useAdminPartners } from "@/hooks/useAdminPartners";
 
 interface Draft {
   id: string;
@@ -472,6 +473,10 @@ function MonthlyStatsReportCard({ token }: { token: string | null }) {
   const [lastResults, setLastResults] = useState<any[] | null>(null);
   const [previewHtml, setPreviewHtml] = useState<string | null>(null);
 
+  const { data: partners = [] } = useAdminPartners(token);
+  const sortedPartners = [...partners].sort((a: any, b: any) => (a.name || "").localeCompare(b.name || "", "sv"));
+  const selectedPartner = sortedPartners.find((p: any) => p.slug === partnerSlug);
+
   const invoke = async (
     busyKey: "dry" | SendMode,
     dryRun: boolean,
@@ -522,6 +527,7 @@ function MonthlyStatsReportCard({ token }: { token: string | null }) {
   };
 
   const isBusy = busy !== null;
+  const singlePartnerMode = !!partnerSlug;
 
   return (
     <Card>
@@ -532,18 +538,42 @@ function MonthlyStatsReportCard({ token }: { token: string | null }) {
         <p className="text-sm text-muted-foreground">
           Skickar månadsöversikt med profilbesök, kortklick, klick till partnerns sajt, exponeringar och topp-5 produktsidor.
           Skickas automatiskt 1:a varje månad till publicerade partners — här kan du även köra manuellt och välja mottagare.
-          Tomt slug-fält = alla publicerade partners.
+          Välj en specifik partner nedan för att bara skicka till den (eller dig själv, eller båda). Lämna tomt för alla publicerade partners.
         </p>
         <div className="flex flex-wrap items-end gap-3">
           <div>
             <label className="text-xs font-medium block mb-1">Period (dagar)</label>
             <Input type="number" min={1} max={365} value={days} onChange={e => setDays(parseInt(e.target.value) || 30)} className="w-28" />
           </div>
-          <div>
-            <label className="text-xs font-medium block mb-1">Partner-slug (valfritt)</label>
-            <Input value={partnerSlug} onChange={e => setPartnerSlug(e.target.value)} placeholder="lämna tomt = alla publicerade" className="w-72" />
+          <div className="flex-1 min-w-[280px]">
+            <label className="text-xs font-medium block mb-1">Välj partner (valfritt)</label>
+            <div className="flex gap-2">
+              <select
+                value={partnerSlug}
+                onChange={e => setPartnerSlug(e.target.value)}
+                className="flex-1 h-9 rounded-md border border-input bg-background px-3 text-sm"
+              >
+                <option value="">— Alla publicerade partners —</option>
+                {sortedPartners.map((p: any) => (
+                  <option key={p.slug} value={p.slug}>
+                    {p.name}{p.is_featured ? "" : " (ej publicerad)"}
+                  </option>
+                ))}
+              </select>
+              {partnerSlug && (
+                <Button variant="ghost" size="sm" onClick={() => setPartnerSlug("")}>Rensa</Button>
+              )}
+            </div>
+            {selectedPartner && (
+              <p className="text-xs text-muted-foreground mt-1">
+                Slug: <code>{selectedPartner.slug}</code>
+                {selectedPartner.admin_contact_email && <> · admin: {selectedPartner.admin_contact_email}</>}
+              </p>
+            )}
           </div>
         </div>
+
+
 
 
         <div className="flex flex-wrap gap-2 pt-2">
