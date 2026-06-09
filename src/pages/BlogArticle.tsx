@@ -12,6 +12,7 @@ import { buildMetaTitle } from "@/lib/metaTitle";
 import { resolveOgImage } from "@/lib/ogImage";
 import SeoPreviewPanel from "@/components/SeoPreviewPanel";
 import { getRelatedArticles } from "@/lib/relatedArticles";
+import IndustryBig5FAQ from "@/components/IndustryBig5FAQ";
 
 const formatDateSv = (iso: string) => {
   const d = new Date(iso);
@@ -255,6 +256,13 @@ const BlogArticle = () => {
             >
               {article.content}
             </article>
+
+            {article.bigFiveFaq && article.bigFiveFaq.length > 0 && (
+              <IndustryBig5FAQ
+                items={article.bigFiveFaq}
+                industryLabel={article.category === "Branschguide" ? article.title.replace(/^Dynamics 365 för /i, "") : undefined}
+              />
+            )}
 
             {/* Tags */}
             {article.tags.length > 0 && (
