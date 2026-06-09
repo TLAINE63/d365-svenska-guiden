@@ -1472,7 +1472,11 @@
       },
       "fsc": {
         "ranking": 1,
-        "revenue": [],
+        "revenue": [
+          "100-499 MSEK",
+          "500-999 MSEK",
+          "1.000-4.999 MSEK"
+        ],
         "geography": [
           "Övriga världen",
           "Europa",
@@ -1483,7 +1487,11 @@
           "Tillverkningsindustri",
           "Grossist & Distribution"
         ],
-        "companySize": [],
+        "companySize": [
+          "100-249",
+          "250-999",
+          "1.000-4.999"
+        ],
         "contactName": "",
         "contactEmail": "",
         "contactPhone": "",
@@ -1587,7 +1595,7 @@
     "legal_name": "Fellowmind Sweden AB",
     "youtube_video_id": null,
     "created_at": "2026-01-12T20:38:52.813808+00:00",
-    "updated_at": "2026-06-08T12:12:29.172657+00:00",
+    "updated_at": "2026-06-09T12:36:49.61815+00:00",
     "industry_pitches": [
       {
         "text": "Fellowmind erbjuder lösningar baserade på Microsoft Dynamics 365 för grossist- och distributionsbranschen. Med inriktning på att optimera leveranskedjor och finansiella processer, implementerar Fellowmind Dynamics 365 Finance och Supply Chain Management. Deras expertis omfattar att stödja företag i att hantera komplexa logistikflöden, förbättra lagereffektiviteten och säkerställa transparenta ekonomiska transaktioner. Fellowmind arbetar med att anpassa Microsoft-plattformen för att möta specifika krav gällande priskonfigurationer, integration med tredjepartslogistik (3PL) och optimering av order-till-leveransprocesser. De strävar efter att leverera hållbara lösningar som bidrar till ökad operativ effektivitet och datadrivna beslutsunderlag.",
