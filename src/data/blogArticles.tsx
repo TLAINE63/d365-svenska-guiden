@@ -3991,12 +3991,12 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
           Life Science och Medtech är den bransch på d365.se där skillnaden
-          mellan partners är som störst. Cegeka erbjuder en förkonfigurerad
-          branschlösning med inbyggd GxP-compliance och valideringsstöd —
-          vilket är fundamentalt annorlunda än en standardimplementation med
-          branschanpassning. Det reducerar implementationsrisk och
-          valideringsbörda markant, men är sannolikt dimensionerat för
-          medelstora till stora aktörer snarare än startups.
+          mellan partners är som störst. Skillnaden mellan en förkonfigurerad
+          branschlösning med inbyggd GxP-compliance och valideringsstöd och en
+          standardimplementation med branschanpassning är fundamental — den
+          första reducerar implementationsrisk och valideringsbörda markant,
+          men är sannolikt dimensionerat för medelstora till stora aktörer
+          snarare än startups.
         </p>
         <p>
           COSMO CONSULT och Navet AB erbjuder BC med branschspecifika tillägg
