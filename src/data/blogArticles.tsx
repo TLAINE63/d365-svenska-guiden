@@ -4,6 +4,7 @@ import partnervaletAvgorHero from "@/assets/articles/partnervalet-avgor-hero.jpg
 import ownedIntelligenceHero from "@/assets/articles/owned-intelligence-hero.jpg";
 import ownedIntelligenceSkiljelinje from "@/assets/articles/owned-intelligence-skiljelinje.jpg";
 import releaseWave1Hero from "@/assets/articles/d365-release-wave-1-2026-hero.jpg";
+import aiSkiftetBuild2026Hero from "@/assets/articles/ai-skiftet-build-2026-hero.jpg";
 import detaljhandelImg from "@/assets/industries/detaljhandel.webp";
 import tillverkningImg from "@/assets/industries/tillverkning.webp";
 import livsmedelImg from "@/assets/industries/livsmedel.webp";
@@ -69,6 +70,251 @@ const THOMAS_LAINE: BlogArticleAuthor = {
 
 export const BLOG_ARTICLES: BlogArticle[] = [
   {
+    slug: "ai-skiftet-dynamics-365-build-2026",
+    title: "AI-skiftet i Dynamics 365 — vad ledningsgruppen behöver förstå efter Microsoft Build 2026",
+    metaTitle: "AI-skiftet i Dynamics 365 efter Microsoft Build 2026 | d365.se",
+    metaDescription:
+      "Microsoft Build 2026 markerar starten på en plattform där AI-agenter utför arbete i Dynamics 365. Vad ledningsgruppen behöver göra med data, styrning och partnerval nu.",
+    summary:
+      "Microsoft Build 2026 blev startskottet för en plattform där AI-agenter inte bara assisterar utan utför arbete i Dynamics 365. Här är vad ledningsgrupper bör göra med data, styrning och partnerval — i lugn och ro, men nu.",
+    category: "Strategi",
+    tags: ["dynamics365", "ai", "agenter", "copilot", "microsoft build", "ledning"],
+    products: [
+      "Business Central",
+      "Finance & SCM",
+      "Sales",
+      "Customer Service",
+      "AI/Copilot/Agents",
+    ],
+    publishedAt: "2026-06-10",
+    author: THOMAS_LAINE,
+    heroImage: aiSkiftetBuild2026Hero,
+    readingTimeMinutes: 7,
+    featured: true,
+    content: (
+      <>
+        <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] italic text-foreground/85 !mb-8">
+          I början av juni höll Microsoft sin årliga konferens Build.
+          Konferensen riktar sig till utvecklare, och mycket av det som
+          presenterades var tekniskt. Men bakom tekniken fanns ett besked som
+          varje ledningsgrupp med Dynamics 365, eller planer på att införa det,
+          bör ta på allvar.
+        </p>
+
+        <p>
+          Microsofts egen sammanfattning av konferensen finns här:{" "}
+          <a
+            href="https://blogs.microsoft.com/blog/2026/06/03/microsoft-build-2026-be-yourself-at-work/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary hover:underline"
+          >
+            Microsoft Build 2026: Be yourself at work
+          </a>{" "}
+          (Official Microsoft Blog).
+        </p>
+
+        <p>
+          Beskedet är detta: Microsoft bygger nu om sin plattform kring
+          AI-agenter. Inte assistenter som svarar på frågor, utan agenter som
+          utför arbete. Och för första gången gör Microsoft det med egna
+          AI-modeller, byggda från grunden, i stället för att hyra in teknik
+          från andra aktörer.
+        </p>
+        <p>
+          Vad betyder det för er? Inte i morgon, men de kommande åren. Det är
+          vad den här artikeln handlar om.
+        </p>
+
+        <h2>Från assistent till medarbetare</h2>
+        <p>
+          De senaste åren har AI i affärssystem mest handlat om Copilot: en
+          assistent som sammanfattar, föreslår och svarar på frågor. Användbart,
+          men passivt. Människan gör jobbet, AI:n hjälper till.
+        </p>
+        <p>
+          Det Microsoft nu bygger är något annat. Agenter som tar emot en
+          uppgift och genomför den: registrerar ordern, följer upp leveransen,
+          förbereder kundmötet, hanterar serviceärendet. Människan flyttas från
+          att utföra till att besluta och kontrollera.
+        </p>
+        <p>
+          Det är en större förändring än det låter som. Den påverkar hur era
+          processer ser ut, vilken kompetens ni behöver och hur ni mäter
+          effektivitet. Och den kommer inte som ett stort släpp en viss dag,
+          utan gradvis, funktion för funktion, in i det system ni redan
+          använder.
+        </p>
+
+        <h2>Tre saker som blir viktigare</h2>
+        <p>
+          Vår bedömning är att tre frågor nu klättrar snabbt i prioritet för
+          varje organisation som redan använder Dynamics 365 eller överväger
+          att göra det.
+        </p>
+
+        <h3>1. Er data avgör resultatet</h3>
+        <p>
+          En agent är aldrig bättre än den data den arbetar med. Om
+          kundregistret innehåller dubbletter, om artikeldata är inkonsekvent
+          eller om priser ligger i ett kalkylblad vid sidan av systemet, då
+          fattar agenten fel beslut. Snabbare och i större skala än en
+          människa skulle göra.
+        </p>
+        <p>
+          Datakvalitet har alltid stått på att-göra-listan. Skillnaden nu är
+          att kostnaden för att skjuta upp arbetet blir synlig: organisationer
+          med ordning på sin data kan låta agenter ta över rutinarbete, medan
+          andra får se investeringen ge betydligt mindre tillbaka.
+        </p>
+        <p>
+          Frågan till er egen organisation är enkel: skulle ni våga låta en ny
+          medarbetare fatta beslut enbart utifrån det som står i era system i
+          dag? Om svaret är nej har ni hittat ert första projekt.
+        </p>
+
+        <h3>2. Någon måste bestämma vad agenterna får göra</h3>
+        <p>
+          När programvara börjar agera självständigt uppstår frågor som ingen
+          IT-avdelning kan svara på ensam. Vilka beslut får en agent fatta utan
+          att en människa godkänner? Vem ansvarar när det blir fel? Hur
+          upptäcker vi om en agent gör fel saker, fast effektivt?
+        </p>
+        <p>
+          Det här är inte tekniska frågor. Det är lednings- och ansvarsfrågor.
+          Microsoft levererar verktygen för att övervaka och begränsa agenter,
+          men besluten om var gränserna ska gå måste er organisation fatta
+          själv.
+        </p>
+        <p>
+          Vårt råd: vänta inte tills den första agenten är i drift. De
+          organisationer som klarar det här bra har resonerat igenom ansvar
+          och gränser i förväg, på ledningsnivå, inte i efterhand när något
+          redan hänt.
+        </p>
+
+        <h3>3. Bindningen till plattformen blir djupare</h3>
+        <p>
+          En del av det Microsoft visade handlar om agenter som lär sig just
+          er verksamhet: era processer, era undantag, ert sätt att arbeta. Ju
+          längre de är i drift, desto bättre blir de på er vardag.
+        </p>
+        <p>
+          Det är värdefullt. Men det innebär också att den kunskapen inte
+          flyttar med om ni en dag byter plattform. Bindningen till Microsoft,
+          som redan är stark genom data och anpassningar, blir starkare.
+        </p>
+        <p>
+          Det är inget skäl att avstå. Men det är ett skäl att gå in med öppna
+          ögon, och att väga in det i avtal och arkitekturval redan nu, medan
+          handlingsutrymmet finns.
+        </p>
+
+        <h2>Vad det betyder för ert partnerval</h2>
+        <p>
+          Här ser vi kanske den största praktiska konsekvensen, och det är
+          också här många utvärderingar fortfarande ställer fel frågor.
+        </p>
+        <p>
+          När mer av det tekniska standardarbetet automatiseras flyttas en
+          implementationspartners värde till annat: att förstå vilka av era
+          processer som passar för agenter och vilka som inte gör det, att
+          hjälpa er få ordning på datagrunden, och att bygga styrning så att
+          agenterna gör rätt saker säkert.
+        </p>
+        <p>
+          Det betyder att klassiska urvalskriterier — antal konsulter, antal
+          genomförda projekt och certifieringar — säger allt mindre om vad ni
+          faktiskt får. De frågor som skiljer agnarna från vetet 2026 låter
+          snarare så här:
+        </p>
+        <ul>
+          <li>
+            Har ni satt agenter i produktion hos kunder, och vad blev
+            resultatet?
+          </li>
+          <li>
+            Hur arbetar ni med datakvalitet som förutsättning, inte som
+            efterhandskorrigering?
+          </li>
+          <li>
+            Hur hjälper ni kunden bestämma vad agenter får och inte får göra?
+          </li>
+        </ul>
+        <p>
+          En partner som svarar konkret på de frågorna har gjort jobbet. En
+          partner som svarar med en presentation om AI:s möjligheter har inte
+          det.
+        </p>
+
+        <h2>Vad ledningsgruppen bör göra nu</h2>
+        <p>
+          Inget av detta kräver snabba beslut. Men tre saker förtjänar en
+          plats på agendan under hösten.
+        </p>
+        <p>
+          <strong>Gör en ärlig bedömning av er datagrund.</strong> Inte en
+          teknisk genomgång, utan en verksamhetsfråga: litar vi på det som
+          står i våra system? Om inte, börja där. Allt annat bygger på det.
+        </p>
+        <p>
+          <strong>Bestäm hur ni vill styra agenter innan ni har några.</strong>{" "}
+          Vilka typer av beslut kan automatiseras, vilka kräver alltid en
+          människa? Ett kort principdokument från ledningen räcker långt och
+          sparar svåra diskussioner senare.
+        </p>
+        <p>
+          <strong>Uppdatera kraven på er partner.</strong> Oavsett om ni står
+          inför en upphandling eller har en etablerad leverantör: ställ
+          agentfrågorna. Svaren säger mycket om vem ni har att göra med.
+        </p>
+
+        <h2>Slutsats</h2>
+        <p>
+          Microsoft Build 2026 blev startskottet för en plattform där
+          AI-agenter utför arbete i era affärsprocesser, lär sig hur er
+          verksamhet fungerar och behöver styras mer som medarbetare än som
+          traditionell programvara. Förändringen kommer gradvis, men
+          riktningen är tydlig.
+        </p>
+        <p>
+          Det avgörande för er är inte tekniken i sig. Det är om er data
+          håller, om styrningen finns på plats och om er partner faktiskt
+          behärskar detta bortom presentationer och löften. De organisationer
+          som tar tag i de frågorna i lugn och ro nu har ett tydligt försprång
+          när AI-agenter blir en naturlig del av vardagen.
+        </p>
+        <p>
+          Står ni inför ett partnerval, eller vill ni pröva er nuvarande
+          leverantörs förmåga på området? Det är precis den typen av beslut
+          som d365.se hjälper er att strukturera.
+        </p>
+
+        <aside
+          aria-label="Källa"
+          className="mt-12 p-6 rounded-xl border border-border bg-secondary/30"
+        >
+          <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-3">
+            Källa
+          </p>
+          <ul className="!my-0 !pl-5 !space-y-2 text-sm text-muted-foreground list-disc">
+            <li>
+              <a
+                href="https://blogs.microsoft.com/blog/2026/06/03/microsoft-build-2026-be-yourself-at-work/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                Microsoft Build 2026: Be yourself at work
+              </a>{" "}
+              — The Official Microsoft Blog.
+            </li>
+          </ul>
+        </aside>
+      </>
+    ),
+  },
+  {
     slug: "dynamics-365-release-wave-1-2026",
     title: "Dynamics 365 Release Wave 1 2026 — vad som faktiskt kommer, per produkt",
     metaTitle: "Dynamics 365 Release Wave 1 2026: nyheter per produkt | d365.se",
@@ -92,7 +338,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     author: THOMAS_LAINE,
     heroImage: releaseWave1Hero,
     readingTimeMinutes: 10,
-    featured: true,
+    featured: false,
     content: (
       <>
         <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] italic text-foreground/85 !mb-8">
