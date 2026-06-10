@@ -93,7 +93,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     author: THOMAS_LAINE,
     heroImage: releaseWave1Hero,
     readingTimeMinutes: 10,
-    featured: true,
+    featured: false,
     content: (
       <>
         <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] italic text-foreground/85 !mb-8">
