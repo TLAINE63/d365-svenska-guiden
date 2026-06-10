@@ -4,6 +4,7 @@ import partnervaletAvgorHero from "@/assets/articles/partnervalet-avgor-hero.jpg
 import ownedIntelligenceHero from "@/assets/articles/owned-intelligence-hero.jpg";
 import ownedIntelligenceSkiljelinje from "@/assets/articles/owned-intelligence-skiljelinje.jpg";
 import releaseWave1Hero from "@/assets/articles/d365-release-wave-1-2026-hero.jpg";
+import aiSkiftetBuild2026Hero from "@/assets/articles/ai-skiftet-build-2026-hero.jpg";
 import detaljhandelImg from "@/assets/industries/detaljhandel.webp";
 import tillverkningImg from "@/assets/industries/tillverkning.webp";
 import livsmedelImg from "@/assets/industries/livsmedel.webp";
