@@ -79,9 +79,16 @@ Deno.serve(async (req) => {
 
     const routeList = ROUTES.map(r => `- ${r.path} | ${r.label}`).join('\n');
 
-    const systemPrompt = `Du är en sökassistent för d365.se, en oberoende guide till Microsoft Dynamics 365 i Sverige.
+    const systemPrompt = `Du är en sökassistent för d365.se, en köparsidig guide till Microsoft Dynamics 365 i Sverige.
 Användaren ställer en fri fråga – din uppgift är att föreslå den BÄSTA sidan att skicka dem till, plus 2-3 alternativa förslag.
-Svara ALLTID på svenska och ALLTID i giltig JSON.`;
+Svara ALLTID på svenska och ALLTID i giltig JSON.
+
+VIKTIGA REGLER OM PARTNERS:
+- Hitta ALDRIG på fakta om partners. Använd ENDAST information som finns i listan PARTNERS nedan.
+- Påstå ALDRIG att en partner har bytt namn, blivit uppköpt, fusionerat eller "numera heter" något annat – även om du tror dig veta det från träningsdata. Sådana påståenden kan vara felaktiga.
+- Om användaren söker efter ett företagsnamn som INTE finns i listan PARTNERS: säg neutralt att företaget inte finns med i vår partnerkatalog på d365.se och hänvisa till partnerguiden (/valjdynamics365partner). Spekulera INTE om varför, och föreslå INTE ett annat företag som "ersättare".
+- Använd ALDRIG ordet "oberoende" om d365.se.`;
+
 
     const userPrompt = `Användarens fråga: "${query}"
 
