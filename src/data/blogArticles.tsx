@@ -1659,17 +1659,6 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           lokal närvaro.
         </p>
 
-        <p>
-          <strong>Cegeka</strong><br />
-          <em>Finance, SCM, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations, Human Resources</em>
-        </p>
-        <p>
-          Cegeka har en av de bredaste kompetensportföljerna i listan och
-          täcker hela Dynamics 365-plattformen inklusive HR. Som internationell
-          partner med stark F&amp;SCM-kompetens är de relevanta för större
-          tillverkningskoncerner med komplexa krav på produktionsplanering,
-          supply chain och personalprocesser.
-        </p>
 
         <p>
           <strong>Cepheo</strong><br />
@@ -1981,18 +1970,6 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           365-plattformen.
         </p>
 
-
-        <p>
-          <strong>Cegeka</strong><br />
-          <em>Finance, Supply Chain Management, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations, Human Resources</em>
-        </p>
-        <p>
-          Cegeka har ett uttalat fokus på processindustri och livsmedel och täcker
-          hela Dynamics 365-plattformen. För medelstora till stora
-          livsmedelskoncerner med komplexa krav på produktion, kvalitet, supply
-          chain och personalhantering är Cegeka ett av de mest heltäckande
-          alternativen i listan.
-        </p>
 
         <p>
           <strong>Cepheo</strong><br />
@@ -3994,24 +3971,6 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           de aktivt med AI i sina leveranser.
         </p>
 
-        <h3>Cegeka</h3>
-        <p className="!text-sm text-muted-foreground !mb-2">
-          Finance, Supply Chain Management, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations, Human Resources | AI Advanced
-        </p>
-        <p>
-          Cegeka är den mest branschspecialiserade partnern i listan för Life
-          Science och Medtech. Deras förkonfigurerade lösning Cegeka Pharma
-          &amp; Life Sciences for Dynamics 365 innehåller över 660
-          fördefinierade processer, varav mer än 200 är GxP-processer, och har
-          stöd för Computer System Validation (CSV) enligt GAMP5 samt
-          efterlevnad av 21 CFR Part 11, 21 CFR Part 820 och EudraLex. De har
-          även en Quality Impact Recall Agent för strukturerade
-          återkallningsprocesser med full spårbarhet. År 2025 utsågs Cegeka
-          till global vinnare av Microsoft Dynamics 365 Supply Chain Partner
-          of the Year. Deras AI Advanced-status och djupa branschfokus gör
-          dem till det starkaste alternativet för Life Science-bolag med
-          komplexa regulatoriska krav och internationell verksamhet.
-        </p>
 
         <h3>Implema AB</h3>
         <p className="!text-sm text-muted-foreground !mb-2">
@@ -4032,12 +3991,12 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
           Life Science och Medtech är den bransch på d365.se där skillnaden
-          mellan partners är som störst. Cegeka erbjuder en förkonfigurerad
-          branschlösning med inbyggd GxP-compliance och valideringsstöd —
-          vilket är fundamentalt annorlunda än en standardimplementation med
-          branschanpassning. Det reducerar implementationsrisk och
-          valideringsbörda markant, men är sannolikt dimensionerat för
-          medelstora till stora aktörer snarare än startups.
+          mellan partners är som störst. Skillnaden mellan en förkonfigurerad
+          branschlösning med inbyggd GxP-compliance och valideringsstöd och en
+          standardimplementation med branschanpassning är fundamental — den
+          första reducerar implementationsrisk och valideringsbörda markant,
+          men är sannolikt dimensionerat för medelstora till stora aktörer
+          snarare än startups.
         </p>
         <p>
           COSMO CONSULT och Navet AB erbjuder BC med branschspecifika tillägg
