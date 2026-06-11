@@ -2277,7 +2277,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för livsmedel & processindustri",
     metaTitle: "Dynamics 365 för livsmedel & processindustri – guide",
     metaDescription:
-      "Hur Dynamics 365 hanterar batch, recept, HACCP och spårbarhet i livsmedel & processindustri. Jämför listade partners i Sverige med kostnad och tillägg.",
+      "Dynamics 365 för livsmedel & processindustri hanterar batch, recept, HACCP och spårbarhet från råvara till färdig produkt. Köparsidig guide med svenska partners.",
     summary:
       "Dynamics 365 (F&SCM eller BC Premium med livsmedelstillägg) stödjer batch, recept, hållbarhet, HACCP och spårbarhet från råvara till färdig produkt. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
