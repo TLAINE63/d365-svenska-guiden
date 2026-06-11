@@ -98,7 +98,7 @@ const D365Sales = () => {
       <FAQSchema faqs={salesFaqs} />
       <ServiceSchema 
         name="Microsoft Dynamics 365 Sales – CRM för Säljteam"
-        description="Molnbaserat CRM-system för moderna säljteam med inbyggd Copilot AI, förutsägande leadpoängsättning och sömlös Microsoft 365-integration. Licenspriser från 621 kr/användare/mån. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+        description={resolvePriceTokens("Molnbaserat CRM-system för moderna säljteam med inbyggd Copilot AI, förutsägande leadpoängsättning och sömlös Microsoft 365-integration. Licenspriser från {{price:sales-professional}}. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner.")}
       />
       <BreadcrumbSchema items={salesBreadcrumbs} />
       <Navbar />
