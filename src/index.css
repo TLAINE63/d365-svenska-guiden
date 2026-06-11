@@ -8,37 +8,44 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
+    /* ─── Senior advisory palette ───
+       Navy #0B1F33 (rubriker/foreground), Petrol #0E7C86 (primär accent + CTA),
+       Ice blue #EEF8FA (mjuk sektionsbakgrund), Off-white #F7F5F0 (alt sektioner),
+       Slate grey #4B5B68 (brödtext), Lila #6D5BD0 (sparsamt – AI/Copilot),
+       Amber #D89A2B (insikter/varningar).
+    */
     --background: 0 0% 100%;
-    --foreground: 0 0% 15%;
+    --foreground: 210 65% 12%;          /* Navy #0B1F33 – rubriker & primär text */
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 15%;
+    --card-foreground: 210 65% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 15%;
+    --popover-foreground: 210 65% 12%;
 
-    --primary: 180 85% 20%;
+    --primary: 185 81% 29%;             /* Petrol #0E7C86 */
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 180 75% 38%;
+    --primary-glow: 185 70% 40%;
 
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 15%;
+    --secondary: 190 55% 96%;           /* Ice blue #EEF8FA – mjuk sektion */
+    --secondary-foreground: 210 65% 12%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 200 9% 32%;
+    --muted: 43 30% 95%;                /* Off-white #F7F5F0 – alternativa sektioner */
+    --muted-foreground: 207 16% 35%;    /* Slate #4B5B68 – brödtext */
 
-    --accent: 180 75% 35%;
+    --accent: 185 81% 29%;              /* Petrol – samma som primary för enhetlig accent */
     --accent-foreground: 0 0% 100%;
-    
-    --success: 145 70% 38%;
+
+    --success: 165 60% 32%;
     --success-foreground: 0 0% 100%;
-    
-    --warning: 38 92% 38%;
-    --warning-foreground: 0 0% 10%;
-    
-    /* CTA orange – used for primary action buttons (AAA contrast on white text) */
-    --cta-orange: 13 94% 32%;
-    --cta-orange-hover: 13 94% 26%;
+
+    --warning: 38 69% 51%;              /* Amber #D89A2B – insikter/varningar */
+    --warning-foreground: 210 65% 12%;
+
+    /* CTA – petrol, samma token-namn bibehålls för bakåtkompatibilitet */
+    --cta-orange: 185 81% 29%;          /* Petrol #0E7C86 */
+    --cta-orange-hover: 185 85% 23%;    /* Mörkare petrol vid hover */
+
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
@@ -93,28 +100,28 @@ All colors MUST be HSL.
     --human-resources: 278 52% 48%;
     --human-resources-foreground: 0 0% 100%;
 
-    /* Copilot – blå-lila */
-    --copilot: 255 72% 58%;
+    /* Copilot – lila #6D5BD0 (används sparsamt, endast AI/Copilot-element) */
+    --copilot: 249 56% 59%;
     --copilot-foreground: 0 0% 100%;
     
     /* Agents – grön (behåll befintlig) */
     --agents: 145 75% 40%;
     --agents-foreground: 0 0% 100%;
 
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 180 75% 35%;
+    --border: 207 20% 88%;
+    --input: 207 20% 88%;
+    --ring: 185 81% 29%;
 
     --radius: 0.25rem;
-    
-    --gradient-primary: linear-gradient(135deg, hsl(180 75% 28%) 0%, hsl(180 75% 38%) 100%);
-    --gradient-hero: linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(180 75% 28%) 0%, hsl(180 75% 33%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(0 0% 96%) 0%, hsl(0 0% 98%) 100%);
-    --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
-    --shadow-hover: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
-    --shadow-accent: 0 4px 12px 0 rgba(0, 150, 150, 0.2);
-    --shadow-elegant: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+    --gradient-primary: linear-gradient(135deg, hsl(185 81% 24%) 0%, hsl(185 70% 38%) 100%);
+    --gradient-hero: linear-gradient(135deg, rgba(11,31,51,0.65) 0%, rgba(11,31,51,0.4) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(185 81% 26%) 0%, hsl(185 81% 32%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(190 55% 96%) 0%, hsl(43 30% 97%) 100%);
+    --shadow-card: 0 1px 3px 0 hsl(210 65% 12% / 0.06);
+    --shadow-hover: 0 6px 18px -4px hsl(210 65% 12% / 0.14);
+    --shadow-accent: 0 6px 18px -4px hsl(185 81% 29% / 0.25);
+    --shadow-elegant: 0 1px 2px 0 hsl(210 65% 12% / 0.05);
 
     --sidebar-background: 0 0% 98%;
 
@@ -143,34 +150,34 @@ All colors MUST be HSL.
     --popover: 0 0% 12%;
     --popover-foreground: 0 0% 96%;
 
-    --primary: 180 75% 45%;
+    --primary: 185 70% 45%;             /* Ljusare petrol för dark mode */
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 180 75% 55%;
+    --primary-glow: 185 70% 55%;
 
-    --secondary: 0 0% 18%;
+    --secondary: 210 30% 16%;
     --secondary-foreground: 0 0% 96%;
 
-    --muted: 0 0% 16%;
-    --muted-foreground: 0 0% 65%;
+    --muted: 210 25% 14%;
+    --muted-foreground: 207 16% 70%;
 
-    --accent: 180 75% 50%;
+    --accent: 185 70% 45%;
     --accent-foreground: 0 0% 100%;
-    
-    --success: 145 65% 45%;
+
+    --success: 165 55% 45%;
     --success-foreground: 0 0% 100%;
-    
-    --warning: 38 92% 50%;
+
+    --warning: 38 75% 55%;
     --warning-foreground: 0 0% 10%;
-    
-    --cta-orange: 25 90% 55%;
-    --cta-orange-hover: 25 90% 48%;
+
+    --cta-orange: 185 70% 45%;
+    --cta-orange-hover: 185 75% 38%;
 
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 18%;
-    --ring: 180 75% 50%;
+    --border: 210 20% 22%;
+    --input: 210 20% 20%;
+    --ring: 185 70% 45%;
 
     /* Dark mode produktfärger – något ljusare för kontrast */
     --business-central: 192 100% 42%;
@@ -185,16 +192,16 @@ All colors MUST be HSL.
     --contact-center: 200 82% 54%;
     --project-operations: 78 68% 48%;
     --human-resources: 278 52% 58%;
-    --copilot: 255 72% 68%;
-    --agents: 145 65% 48%;
-    
-    --gradient-primary: linear-gradient(135deg, hsl(180 75% 40%) 0%, hsl(180 75% 50%) 100%);
-    --gradient-hero: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(180 75% 45%) 0%, hsl(180 75% 50%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(0 0% 18%) 0%, hsl(0 0% 22%) 100%);
+    --copilot: 249 56% 68%;
+    --agents: 165 55% 48%;
+
+    --gradient-primary: linear-gradient(135deg, hsl(185 70% 38%) 0%, hsl(185 70% 48%) 100%);
+    --gradient-hero: linear-gradient(135deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.4) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(185 70% 42%) 0%, hsl(185 70% 48%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(210 30% 16%) 0%, hsl(210 25% 14%) 100%);
     --shadow-card: 0 2px 8px 0 rgba(0, 0, 0, 0.3);
     --shadow-hover: 0 6px 16px 0 rgba(0, 0, 0, 0.4);
-    --shadow-accent: 0 4px 16px 0 rgba(0, 150, 150, 0.3);
+    --shadow-accent: 0 4px 16px 0 hsl(185 70% 45% / 0.3);
     --shadow-elegant: 0 2px 6px 0 rgba(0, 0, 0, 0.25);
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -231,10 +238,10 @@ All colors MUST be HSL.
   /* Shadow pulse animation for CTA buttons */
   @keyframes shadow-pulse {
     0%, 100% {
-      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+      box-shadow: 0 0 0 0 hsl(185 81% 29% / 0.4);
     }
     50% {
-      box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+      box-shadow: 0 0 0 8px hsl(185 81% 29% / 0);
     }
   }
   
