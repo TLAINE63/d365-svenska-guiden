@@ -26,6 +26,7 @@ const RelatedPages = ({ heading = "Utforska vidare", pages }: RelatedPagesProps)
             <Link
               key={page.href}
               to={page.href}
+              aria-label={page.title}
               className="group flex flex-col gap-2 rounded-lg border border-border bg-card p-5 hover:border-primary/40 hover:shadow-md transition-all"
             >
               <span className="font-semibold text-foreground group-hover:text-primary transition-colors">
@@ -35,7 +36,7 @@ const RelatedPages = ({ heading = "Utforska vidare", pages }: RelatedPagesProps)
                 {page.description}
               </span>
               <span className="mt-auto flex items-center gap-1 text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity pt-2">
-                Läs mer <ArrowRight className="h-3.5 w-3.5" />
+                Till {page.title} <ArrowRight className="h-3.5 w-3.5" />
               </span>
             </Link>
           ))}

@@ -179,7 +179,7 @@ const DeepDiveArticle = () => {
                     ))}
                   </ul>
                   <p className="text-xs text-muted-foreground mt-3">
-                    Innehållet här är en oberoende sammanfattning. För fullständig och alltid uppdaterad dokumentation, se Microsofts officiella resurser ovan.
+                    Innehållet här är en redaktionell sammanfattning. För fullständig och alltid uppdaterad dokumentation, se Microsofts officiella resurser ovan.
                   </p>
                 </aside>
               );
