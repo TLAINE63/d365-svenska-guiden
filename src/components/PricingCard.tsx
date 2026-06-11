@@ -2,17 +2,31 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import { Link } from "react-router-dom";
+import { usePriceMap } from "@/hooks/usePriceMap";
+import { formatPriceByKey } from "@/lib/productPriceFormat";
 
 interface PricingCardProps {
   title: string;
   description: string;
-  price: string;
+  /** Hårdkodat pris – används bara om productKey saknas. */
+  price?: string;
   features: string[];
   popular?: boolean;
   priceUnit?: string;
+  /** Slå upp priset från det centrala prisregistret (product_prices). */
+  productKey?: string;
 }
 
-const PricingCard = ({ title, description, price, features, popular, priceUnit = "per användare/månad" }: PricingCardProps) => {
+const PricingCard = ({ title, description, price, features, popular, priceUnit, productKey }: PricingCardProps) => {
+  const map = usePriceMap();
+  const catalog = productKey ? map.get(productKey) : undefined;
+  const displayPrice = catalog
+    ? formatPriceByKey(productKey!, "amount-exact", map)
+    : price ?? "";
+  const displayUnit = catalog
+    ? catalog.price_unit
+    : priceUnit ?? "per användare/månad";
+
   return (
     <Card className={`relative transition-all duration-300 hover:shadow-[var(--shadow-hover)] flex flex-col ${popular ? 'border-primary shadow-[var(--shadow-card)]' : 'border-border'}`}>
       {popular && (
@@ -24,8 +38,8 @@ const PricingCard = ({ title, description, price, features, popular, priceUnit =
         <CardTitle className="text-lg sm:text-2xl text-card-foreground">{title}</CardTitle>
         <CardDescription className="text-xs sm:text-sm text-muted-foreground">{description}</CardDescription>
         <div className="pt-3 sm:pt-4">
-          <div className="text-xl sm:text-2xl font-bold text-primary">{price}</div>
-          <div className="text-xs text-muted-foreground mt-1">{priceUnit}</div>
+          <div className="text-xl sm:text-2xl font-bold text-primary">{displayPrice}</div>
+          <div className="text-xs text-muted-foreground mt-1">{displayUnit}</div>
         </div>
       </CardHeader>
       <CardContent className="space-y-3 sm:space-y-4 flex flex-col h-full px-4 sm:px-6">
