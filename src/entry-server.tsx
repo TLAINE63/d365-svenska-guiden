@@ -45,6 +45,9 @@ import RequirementsSpecCustomerService from './pages/RequirementsSpecCustomerSer
 import DeepDiveArticle from './pages/DeepDiveArticle';
 import BlogArticle from './pages/BlogArticle';
 import SmartSearch from './pages/SmartSearch';
+import ProductPartnersSverige from './pages/ProductPartnersSverige';
+import PartnersSitemap from './pages/PartnersSitemap';
+import { PRODUCT_PARTNERS_SVERIGE } from './data/productPartnersSverige';
 import { ALL_DEEP_DIVE_ARTICLES } from './data/bcArticles';
 import { BLOG_ARTICLES } from './data/blogArticles';
 import partnerRoutesData from './data/partnerRoutes.json';
@@ -152,6 +155,13 @@ export const routes: PrerenderRoute[] = [
   { path: '/kravspecifikation-sales', priority: '0.7', changefreq: 'monthly' },
   { path: '/kravspecifikation-marketing', priority: '0.7', changefreq: 'monthly' },
   { path: '/kravspecifikation-kundservice', priority: '0.7', changefreq: 'monthly' },
+  { path: '/partners-sitemap', priority: '0.6', changefreq: 'weekly' },
+  ...PRODUCT_PARTNERS_SVERIGE.map((c) => ({
+    path: `/${c.slug}`,
+    priority: '0.8',
+    changefreq: 'weekly' as const,
+    meta: { title: c.metaTitle, description: c.metaDescription },
+  })),
   // Deep-dive article routes (generated from data)
   ...ALL_DEEP_DIVE_ARTICLES.map((a) => ({
     path: `/kunskapscenter/${a.productSlug}/${a.slug}`,
@@ -275,6 +285,14 @@ export function render(url: string) {
               <Route path="/kravspecifikation-marketing" element={<RequirementsSpecMarketing />} />
               <Route path="/kravspecifikation-kundservice" element={<RequirementsSpecCustomerService />} />
               <Route path="/partner/:slug" element={<PartnerProfile initialData={mappedPartnerData as any} />} />
+              <Route path="/partners-sitemap" element={<PartnersSitemap />} />
+              {PRODUCT_PARTNERS_SVERIGE.map((c) => (
+                <Route
+                  key={c.slug}
+                  path={`/${c.slug}`}
+                  element={<ProductPartnersSverige configSlug={c.slug} />}
+                />
+              ))}
             </Routes>
           </StaticRouter>
         </TooltipProvider>
