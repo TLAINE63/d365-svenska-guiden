@@ -5336,7 +5336,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för transport & logistik",
     metaTitle: "Dynamics 365 för transport & logistik – guide & partners",
     metaDescription:
-      "Hur Dynamics 365 stödjer transport & logistik: WMS, uppdragsekonomi, fakturering och TMS-integration. Jämför listade partners i Sverige med kostnad och alternativ.",
+      "Dynamics 365 för transport & logistik stöttar WMS, uppdragsekonomi, fakturering och TMS-integration. Köparsidig guide med kostnad och svenska partners.",
     summary:
       "Dynamics 365 (F&SCM eller BC) är ekonomi- och operativt nav för svenska transport- och logistikbolag — WMS, uppdragsekonomi, fakturering och fältservice, integrerat med specialiserade TMS-system. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
