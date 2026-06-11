@@ -18,6 +18,7 @@ import PartnerCard from "@/components/PartnerCard";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import SEOHead from "@/components/SEOHead";
 import { FAQSchema, ServiceSchema, BreadcrumbSchema, ItemListSchema } from "@/components/StructuredData";
+import { resolvePriceTokens } from "@/lib/productPriceFormat";
 
 // Breadcrumb items
 const partnerBreadcrumbs = [
@@ -30,8 +31,8 @@ import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { useTrackFilterExposure } from "@/hooks/useTrackFilterExposure";
 import partnerMapSweden from "@/assets/partner-map-sweden.png";
 
-// Partner FAQs for schema
-const partnerFaqs = [
+// Partner FAQs for schema – priser hämtas från product_prices via resolvePriceTokens
+const partnerFaqsRaw = [
   {
     question: "Hur hittar jag rätt Dynamics 365 partner i Sverige?",
     answer: "Hitta rätt Dynamics 365 partner i Sverige genom att filtrera på din bransch, vald applikation (Business Central, Sales, Customer Service m.fl.) och geografisk täckning. Välj en partner med dokumenterad erfarenhet i din bransch, relevant referensuppdrag och Microsoft-certifiering (Solutions Partner). På d365.se kan du jämföra partners kostnadsfritt och begära matchning."
@@ -46,7 +47,7 @@ const partnerFaqs = [
   },
   {
     question: "Hur mycket kostar ett Dynamics 365-implementeringsprojekt?",
-    answer: "Implementeringskostnader varierar kraftigt: Business Central för SMB (10–50 användare) kostar typiskt 200 000–800 000 kr i konsulttid. Finance & Supply Chain för större företag kan kosta 1–5 MSEK. Faktorer som påverkar: antal användare, komplexitet av integrationer, befintliga system, branschspecifika krav och vald partner. Licenskostnaden tillkommer – Business Central från 765 kr/användare/mån."
+    answer: "Implementeringskostnader varierar kraftigt: Business Central för SMB (10–50 användare) kostar typiskt 200 000–800 000 kr i konsulttid. Finance & Supply Chain för större företag kan kosta 1–5 MSEK. Faktorer som påverkar: antal användare, komplexitet av integrationer, befintliga system, branschspecifika krav och vald partner. Licenskostnaden tillkommer – Business Central från {{price:bc-essentials}}."
   },
   {
     question: "Har partnern erfarenhet av vår bransch?",
@@ -65,6 +66,7 @@ const partnerFaqs = [
     answer: "Be om tydlig offert med alla kostnader specificerade – konsulttimmar, licenser, tredjepartslösningar och löpande support. Fråga specifikt hur de hanterar förändringar i projektomfattning (change requests) och om de erbjuder fast pris eller löpande räkning."
   },
 ];
+const partnerFaqs = partnerFaqsRaw.map((f) => ({ ...f, answer: resolvePriceTokens(f.answer) }));
 
 
 // All available Dynamics 365 applications for filtering

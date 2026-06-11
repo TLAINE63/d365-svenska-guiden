@@ -6,6 +6,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { BookOpen } from "lucide-react";
+import { resolvePriceTokens } from "@/lib/productPriceFormat";
 
 export interface QAItem {
   question: string;
@@ -117,7 +118,7 @@ const ProductQASection = ({ categories }: ProductQASectionProps) => {
                     <AccordionContent>
                       <div className="text-muted-foreground leading-relaxed prose prose-sm max-w-none">
                         {typeof item.answer === "string" ? (
-                          <p>{item.answer}</p>
+                          <p style={{ whiteSpace: "pre-wrap" }}>{resolvePriceTokens(item.answer)}</p>
                         ) : (
                           item.answer
                         )}

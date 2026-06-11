@@ -14,6 +14,7 @@ import FieldServiceIcon from "@/assets/icons/FieldService.svg";
 import { FS_ARTICLES } from "@/data/fsArticles";
 import SEOHead from "@/components/SEOHead";
 import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import { resolvePriceTokens } from "@/lib/productPriceFormat";
 
 // Breadcrumb items
 const fieldServiceBreadcrumbs = [
@@ -28,9 +29,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-// Field Service FAQs for schema
-const fieldServiceFaqs = [
-  { question: "Vad kostar Dynamics 365 Field Service?", answer: "Dynamics 365 Field Service kostar 1 003,70 kr per användare och månad (Microsofts officiella prislista). Priset inkluderar schemaläggning, mobilapp och IoT-grundfunktioner. Implementationskostnaden varierar från 200 000 kr för en enklare driftsättning upp till 1 800 000 kr för en fullständig IoT-integration med Resource Scheduling Optimization." },
+// Field Service FAQs for schema – priser hämtas från product_prices via resolvePriceTokens
+const fieldServiceFaqsRaw = [
+  { question: "Vad kostar Dynamics 365 Field Service?", answer: "Dynamics 365 Field Service kostar {{price:field-service:exact}} (Microsofts officiella prislista). Priset inkluderar schemaläggning, mobilapp och IoT-grundfunktioner. Implementationskostnaden varierar från 200 000 kr för en enklare driftsättning upp till 1 800 000 kr för en fullständig IoT-integration med Resource Scheduling Optimization." },
   { question: "Hur fungerar intelligent schemaläggning i Field Service?", answer: "Resource Scheduling Optimization (RSO) analyserar automatiskt teknikernas kompetens, geografisk position, restid, prioritet och SLA-krav för att skapa optimala scheman. Systemet kan omplanera i realtid vid akuta arbetsorder eller förseningar och maximerar antalet slutförda besök per dag – typiskt 15–25% fler serviceuppdrag." },
   { question: "Vad innebär IoT-integration i Field Service?", answer: "Med IoT Connected Field Service kan sensorer på maskiner och utrustning automatiskt rapportera status och skapa arbetsorder när något avviker. Detta möjliggör prediktivt underhåll – problem identifieras och åtgärdas innan de orsakar driftstopp. Resultatet är lägre underhållskostnader och nöjdare kunder." },
   { question: "Hur fungerar mobilappen för fälttekniker?", answer: "Field Service Mobile-appen ger tekniker tillgång till arbetsorder, kundinformation, utrustningshistorik, reservdelslagerstatus och kunskapsartiklar – även offline utan internetuppkoppling. De kan uppdatera arbetsstatus, ta bilder, inhämta kundsignaturer och registrera tid och material direkt i appen." },
@@ -39,6 +40,7 @@ const fieldServiceFaqs = [
   { question: "Vilket underhållshanteringssystem är bäst – Dynamics 365 Field Service eller IFS/SAP?", answer: "Dynamics 365 Field Service är optimalt för organisationer som redan använder Microsoft 365 och Dynamics 365. Det ger inbyggd integration med Teams, Outlook och Power BI. IFS är starkt inom tillverkning och försvar, SAP PM för tunga processindustrier. Dynamics 365 Field Service utmärker sig på AI-driven schemaläggning, mobil användarupplevelse och låg total ägandekostnad i Microsoft-miljöer." },
   { question: "Vilka branscher passar Dynamics 365 Field Service för?", answer: "Field Service passar särskilt väl för: serviceföretag med fälttekniker (hissar, ventilation, säkerhet), tillverkare med eftermarknadstjänster, energi- och nätbolag, medicinsk utrustning och life science, telekom och IT-infrastruktur samt fastighetsförvaltning. Alla branscher som behöver strukturerad schemaläggning, SLA-uppföljning och mobila fälttekniker gynnas av lösningen." },
 ];
+const fieldServiceFaqs = fieldServiceFaqsRaw.map((f) => ({ ...f, answer: resolvePriceTokens(f.answer) }));
 
 const D365FieldService = () => {
   useEffect(() => {
@@ -64,7 +66,7 @@ const D365FieldService = () => {
     <div className="min-h-screen">
       <SEOHead 
         title="Dynamics 365 Field Service – Priser & guide | d365.se"
-        description="Dynamics 365 Field Service från 1 004 kr/mån. Schemaläggning, IoT och mobilapp. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+        description={resolvePriceTokens("Dynamics 365 Field Service från {{price:field-service:short}}. Schemaläggning, IoT och mobilapp. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner.")}
         canonicalPath="/d365fieldservice"
         keywords="Dynamics 365 Field Service pris, fältservice system, underhållshantering Microsoft, Field Service mobilapp, IoT fältservice, schemaläggning fälttekniker, prediktivt underhåll, Microsoft Field Service Sverige, fältservicehantering, Resource Scheduling Optimization"
         ogImage="https://d365.se/og-field-service.png"
@@ -72,7 +74,7 @@ const D365FieldService = () => {
       <FAQSchema faqs={fieldServiceFaqs} />
       <ServiceSchema 
         name="Microsoft Dynamics 365 Field Service – Fältservice & Underhållshantering"
-        description="Molnbaserat fältservicesystem med intelligent schemaläggning (RSO), IoT-integration för prediktivt underhåll och mobilapp för fälttekniker. Licenspris från 1 004 kr per användare och månad. Implementationstid 2–12 månader beroende på komplexitet. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+        description={resolvePriceTokens("Molnbaserat fältservicesystem med intelligent schemaläggning (RSO), IoT-integration för prediktivt underhåll och mobilapp för fälttekniker. Licenspris från {{price:field-service}}. Implementationstid 2–12 månader beroende på komplexitet. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner.")}
       />
       <BreadcrumbSchema items={fieldServiceBreadcrumbs} />
       <Navbar />

@@ -14,6 +14,7 @@ import MarketingIcon from "@/assets/icons/Marketing.svg";
 import { CI_ARTICLES } from "@/data/ciArticles";
 import SEOHead from "@/components/SEOHead";
 import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import { resolvePriceTokens } from "@/lib/productPriceFormat";
 
 // Breadcrumb items
 const marketingBreadcrumbs = [
@@ -28,9 +29,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-// Customer Insights FAQs for schema
-const customerInsightsFaqs = [
-  { question: "Vad kostar Dynamics 365 Customer Insights (Marketing)?", answer: "Dynamics 365 Customer Insights kostar 16 249,60 kr per månad för grundlicensen (baserat på kontaktvolym, inte per användare). För företag med minst 10 befintliga Dynamics 365-licenser finns Attach-licensen för 9 558,60 kr/mån. Implementationskostnaden varierar från 150 000 kr för en grundläggande setup upp till 1 200 000 kr för en komplett lösning med integrationer." },
+// Customer Insights FAQs for schema – priser hämtas från product_prices via resolvePriceTokens
+const customerInsightsFaqsRaw = [
+  { question: "Vad kostar Dynamics 365 Customer Insights (Marketing)?", answer: "Dynamics 365 Customer Insights kostar {{price:customer-insights:exact}} för grundlicensen (baserat på kontaktvolym, inte per användare). För företag med minst 10 befintliga Dynamics 365-licenser finns Attach-licensen för {{price:customer-insights-attach:exact}}. Implementationskostnaden varierar från 150 000 kr för en grundläggande setup upp till 1 200 000 kr för en komplett lösning med integrationer." },
   { question: "Vad är skillnaden mellan Customer Insights och det gamla Dynamics 365 Marketing?", answer: "Dynamics 365 Customer Insights är nästa generation av Dynamics 365 Marketing och ersätter det helt. Customer Insights kombinerar marknadsföringsautomation (tidigare 'Journeys'-modulen) med avancerad kunddata-analys och AI-drivna insikter. Namnbytet skedde 2023. Befintliga Marketing-kunder migreras automatiskt till Customer Insights." },
   { question: "Dynamics 365 Customer Insights vs HubSpot – vilket ska jag välja?", answer: "Dynamics 365 Customer Insights är optimalt för företag som redan använder Microsoft 365 och Dynamics 365 Sales/Customer Service, eftersom det ger djup inbyggd integration och en gemensam dataplattform. HubSpot är starkare för SMB-marknaden och har en snabbare onboarding. Customer Insights utmärker sig på AI-driven personalisering, komplex segmentering och integration med ERP-data. För Microsoftmiljöer ger Customer Insights lägre total ägandekostnad." },
   { question: "Hur fungerar kundresor i Customer Insights?", answer: "Kundresor (Customer Journeys) i Customer Insights är visuella flöden som definierar hur och när du kommunicerar med kunder baserat på deras beteende och attribut. Du kan skapa triggers som startar resan (t.ex. webbformulär, e-postöppning, köphändelse), definiera villkor och grenar, och automatiskt skicka e-post, SMS eller push-notiser vid rätt tidpunkt. Copilot AI kan föreslå optimal timing och kanalval." },
@@ -39,6 +40,7 @@ const customerInsightsFaqs = [
   { question: "Hur länge tar en Customer Insights-implementation?", answer: "En grundläggande setup med e-postmarknadsföring tar 6–8 veckor. Med kundresor och automatisering 4–6 månader. En komplett implementation med dataintegrationer, avancerad segmentering och CDP (Customer Data Platform) tar 6–10 månader. Implementationstiden beror på antalet datakällor, befintliga system och kampanjkomplexitet." },
   { question: "Vad är Customer Insights Data (CDP) och behöver jag det?", answer: "Customer Insights Data är den Customer Data Platform-del av lösningen som samlar och förenar kunddata från alla källor (CRM, ERP, webbplats, butik m.fl.) till en enhetlig kundprofil. Det är särskilt värdefullt för B2C-företag med stora kundvolymer och komplexa datakällor. B2B-företag som primärt arbetar med Dynamics 365 Sales behöver ofta bara Journeys-modulen för marknadsföringsautomation." },
 ];
+const customerInsightsFaqs = customerInsightsFaqsRaw.map((f) => ({ ...f, answer: resolvePriceTokens(f.answer) }));
 
 const D365Marketing = () => {
   useEffect(() => {
@@ -74,7 +76,7 @@ const D365Marketing = () => {
     <div className="min-h-screen">
       <SEOHead 
         title="Dynamics 365 Marketing – Priser & HubSpot-alternativ | d365.se"
-        description="Customer Insights (Marketing) från 9 559 kr/mån. AI-kundresor, lead scoring och CDP. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+        description={resolvePriceTokens("Customer Insights (Marketing) från {{price:customer-insights-attach:amount}}/mån. AI-kundresor, lead scoring och CDP. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner.")}
         canonicalPath="/d365marketing"
         keywords="Dynamics 365 Customer Insights pris, marketing automation Microsoft, HubSpot alternativ, Marketo alternativ Sverige, Dynamics 365 Marketing pris, kundresor automation, CDP customer data platform, lead scoring CRM, marknadsföringsautomation Microsoft, Customer Insights Journeys"
         ogImage="https://d365.se/og-marketing.png"
@@ -82,7 +84,7 @@ const D365Marketing = () => {
       <FAQSchema faqs={customerInsightsFaqs} />
       <ServiceSchema 
         name="Microsoft Dynamics 365 Customer Insights – Marketing Automation & CDP"
-        description="Molnbaserad marknadsföringsautomation med AI-drivna kundresor, Customer Data Platform (CDP), lead scoring och omnikanalskampanjer. Grundlicens från 9 559 kr/mån (Attach). Implementationstid 6 veckor till 10 månader beroende på komplexitet. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+        description={resolvePriceTokens("Molnbaserad marknadsföringsautomation med AI-drivna kundresor, Customer Data Platform (CDP), lead scoring och omnikanalskampanjer. Grundlicens från {{price:customer-insights-attach:amount}}/mån (Attach). Implementationstid 6 veckor till 10 månader beroende på komplexitet. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner.")}
       />
       <BreadcrumbSchema items={marketingBreadcrumbs} />
       <Navbar />

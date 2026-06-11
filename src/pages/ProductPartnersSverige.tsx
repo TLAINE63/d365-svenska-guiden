@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
+import { resolvePriceTokens } from "@/lib/productPriceFormat";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MessageSquare, MapPin } from "lucide-react";
 import partnerDataJson from "@/data/partnerData.json";
@@ -72,7 +73,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
         canonicalPath={canonical}
       />
       <BreadcrumbSchema items={breadcrumbs} />
-      <FAQSchema faqs={cfg.faq.map((f) => ({ question: f.q, answer: f.a }))} />
+      <FAQSchema faqs={cfg.faq.map((f) => ({ question: f.q, answer: resolvePriceTokens(f.a) }))} />
       <Navbar />
 
       <main className="pt-20">
@@ -159,7 +160,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
                 {cfg.faq.map((f, i) => (
                   <div key={i}>
                     <h3 className="font-semibold text-foreground mb-2">{f.q}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{f.a}</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{resolvePriceTokens(f.a)}</p>
                   </div>
                 ))}
               </div>

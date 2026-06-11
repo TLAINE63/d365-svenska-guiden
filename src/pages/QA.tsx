@@ -5,6 +5,7 @@ import ContactFormDialog from "@/components/ContactFormDialog";
 
 import SEOHead from "@/components/SEOHead";
 import { FAQSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import { resolvePriceTokens } from "@/lib/productPriceFormat";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
@@ -91,7 +92,7 @@ const QA = () => {
     {
       id: "sales-appar",
       question: "Vad är skillnaden mellan olika Dynamics 365 Sales applikationer?",
-      answer: "Dynamics 365 Sales finns i flera olika versioner anpassade för olika behov och budgetar:\n\n📊 **Sales Professional**\n\nPris: 621 kr/användare/månad\n\nMålgrupp: Mindre företag och team som behöver grundläggande CRM-funktionalitet\n\nFunktioner: Leadhantering, kontakthantering, affärsmöjligheter, grundläggande rapporter och prognoser, mobil åtkomst, integration med Microsoft 365\n\nBegränsningar: Färre anpassningsmöjligheter, ingen avancerad AI eller automation\n\n🚀 **Sales Enterprise**\n\nPris: 1 003,70 kr/användare/månad\n\nMålgrupp: Medel- till stora företag med mer komplexa säljprocesser\n\nFunktioner: Allt i Professional plus avancerad anpassning, arbetsflöden och automation, avancerade prognoser och analyser, säljinsikter och AI-rekommendationer, integration med externa system och verktyg\n\nFördelar: Full flexibilitet för att anpassa systemet efter era behov\n\n⭐ **Sales Premium**\n\nPris: 1 433,80 kr/användare/månad\n\nMålgrupp: Stora organisationer med höga krav på automation och AI\n\nFunktioner: Allt i Enterprise plus avancerade Copilot AI-funktioner, konversationsintelligens, automatisk samtalsinspelning och analys, avancerad säljacceleration, predictive scoring och insights\n\nFördelar: Mest kraftfulla AI-verktygen för att maximera säljarnas effektivitet\n\n✅ **Vilken ska ni välja?**\n\nBörja med Professional om ni är ett mindre team med grundläggande behov. Välj Enterprise om ni behöver göra en del anpassningar, automation samt få inbyggd AI. Satsa på Premium om avancerad analys är kritiskt för er framgång.",
+      answer: "Dynamics 365 Sales finns i flera olika versioner anpassade för olika behov och budgetar:\n\n📊 **Sales Professional**\n\nPris: {{price:sales-professional:exact}}\n\nMålgrupp: Mindre företag och team som behöver grundläggande CRM-funktionalitet\n\nFunktioner: Leadhantering, kontakthantering, affärsmöjligheter, grundläggande rapporter och prognoser, mobil åtkomst, integration med Microsoft 365\n\nBegränsningar: Färre anpassningsmöjligheter, ingen avancerad AI eller automation\n\n🚀 **Sales Enterprise**\n\nPris: {{price:sales-enterprise:exact}}\n\nMålgrupp: Medel- till stora företag med mer komplexa säljprocesser\n\nFunktioner: Allt i Professional plus avancerad anpassning, arbetsflöden och automation, avancerade prognoser och analyser, säljinsikter och AI-rekommendationer, integration med externa system och verktyg\n\nFördelar: Full flexibilitet för att anpassa systemet efter era behov\n\n⭐ **Sales Premium**\n\nPris: {{price:sales-premium:exact}}\n\nMålgrupp: Stora organisationer med höga krav på automation och AI\n\nFunktioner: Allt i Enterprise plus avancerade Copilot AI-funktioner, konversationsintelligens, automatisk samtalsinspelning och analys, avancerad säljacceleration, predictive scoring och insights\n\nFördelar: Mest kraftfulla AI-verktygen för att maximera säljarnas effektivitet\n\n✅ **Vilken ska ni välja?**\n\nBörja med Professional om ni är ett mindre team med grundläggande behov. Välj Enterprise om ni behöver göra en del anpassningar, automation samt få inbyggd AI. Satsa på Premium om avancerad analys är kritiskt för er framgång.",
     },
     {
       id: "bc-vs-fsc",
@@ -119,7 +120,7 @@ const QA = () => {
         keywords="Dynamics 365 frågor, Business Central pris, Dynamics 365 licenskostnad, ERP implementering tid, CRM val Microsoft"
         ogImage="https://d365.se/og-qa.png"
       />
-      <FAQSchema faqs={faqs.map(f => ({ question: f.question, answer: f.answer.substring(0, 300) }))} />
+      <FAQSchema faqs={faqs.map(f => ({ question: f.question, answer: resolvePriceTokens(f.answer).substring(0, 300) }))} />
       <BreadcrumbSchema items={[
         { name: "Hem", url: "https://d365.se" },
         { name: "Vanliga frågor", url: "https://d365.se/qa" },
@@ -198,7 +199,7 @@ const QA = () => {
                     )}
                     
                     <div className="text-muted-foreground whitespace-pre-line">
-                      {faq.answer.split('\n').map((line, lineIndex) => {
+                      {(() => { const resolved = resolvePriceTokens(faq.answer); return resolved.split('\n').map((line, lineIndex) => {
                         const parts = line.split(/(\*\*.*?\*\*|\[.*?\]\(.*?\))/g);
                         return (
                           <span key={lineIndex}>
@@ -206,7 +207,6 @@ const QA = () => {
                               if (part.startsWith('**') && part.endsWith('**')) {
                                 return <strong key={partIndex}>{part.slice(2, -2)}</strong>;
                               }
-                              // Handle markdown links [text](url)
                               const linkMatch = part.match(/\[(.*?)\]\((.*?)\)/);
                               if (linkMatch) {
                                 return (
@@ -221,10 +221,10 @@ const QA = () => {
                               }
                               return part;
                             })}
-                            {lineIndex < faq.answer.split('\n').length - 1 && <br />}
+                            {lineIndex < resolved.split('\n').length - 1 && <br />}
                           </span>
                         );
-                      })}
+                      }); })()}
                     </div>
                   </AccordionContent>
                 </AccordionItem>
