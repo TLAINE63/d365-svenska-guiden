@@ -3547,7 +3547,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för konsultbolag & tjänsteföretag",
     metaTitle: "Dynamics 365 för konsultbolag & tjänsteföretag – guide",
     metaDescription:
-      "Hur Dynamics 365 (Project Operations + BC) stödjer konsultbolag: tid, projekt, prognoser, sälj och ekonomi. Jämför listade partners i Sverige.",
+      "Dynamics 365 för konsultbolag (Project Operations + BC) ger tid, projekt, prognoser, sälj och ekonomi i samma plattform. Köparsidig guide med svenska partners.",
     summary:
       "Dynamics 365 (Project Operations + BC eller F&SCM) är en stark plattform för svenska konsult- och tjänsteföretag — tid, projekt, prognoser, sälj och ekonomi i samma datamiljö. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
