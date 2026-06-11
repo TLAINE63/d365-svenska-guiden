@@ -194,7 +194,7 @@ export const WebSiteSchema = () => {
     "name": "D365 Guiden",
     "alternateName": ["d365.se", "Dynamics 365 Guiden Sverige"],
     "url": "https://d365.se",
-    "description": "Oberoende guide till Microsoft Dynamics 365 ERP och CRM i Sverige – priser, implementering och partnerval",
+    "description": "Hjälper svenska företag hitta rätt Microsoft Dynamics 365-partner utifrån behov, bransch och storlek.",
     "inLanguage": "sv-SE",
     "publisher": {
       "@type": "Organization",
