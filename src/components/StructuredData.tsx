@@ -357,6 +357,10 @@ interface ArticleSchemaProps {
   datePublished?: string;
   dateModified?: string;
   authorName?: string;
+  authorType?: "Person" | "Organization";
+  authorDescription?: string;
+  authorUrl?: string;
+  authorSameAs?: string[];
   section?: string;
 }
 
@@ -367,7 +371,11 @@ export const ArticleSchema = ({
   image,
   datePublished,
   dateModified,
-  authorName = "D365 Guiden",
+  authorName = "Thomas Laine",
+  authorType = "Person",
+  authorDescription = "Senior rådgivare med över 30 år i Microsoft Dynamics-ekosystemet – ERP, CRM och partnerlandskapet i Sverige.",
+  authorUrl = "https://d365.se/om-thomas-laine/",
+  authorSameAs = ["https://linkedin.com/in/thomaslaine"],
   section,
 }: ArticleSchemaProps) => {
   // Google Article rich result requires datePublished + image. Fall back to
@@ -377,6 +385,27 @@ export const ArticleSchema = ({
   const resolvedImage = image
     ? (image.startsWith("http") ? image : `https://d365.se${image}`)
     : "https://d365.se/d365guide-logo.png";
+
+  const author: Record<string, unknown> =
+    authorType === "Person"
+      ? {
+          "@type": "Person",
+          name: authorName,
+          description: authorDescription,
+          url: authorUrl,
+          ...(authorSameAs.length ? { sameAs: authorSameAs } : {}),
+          worksFor: {
+            "@type": "Organization",
+            name: "d365.se",
+            url: "https://d365.se",
+          },
+        }
+      : {
+          "@type": "Organization",
+          name: authorName,
+          url: "https://d365.se",
+        };
+
   const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -388,14 +417,10 @@ export const ArticleSchema = ({
     dateModified: dateModified || datePublished || fallbackPublished,
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
     inLanguage: "sv-SE",
-    author: {
-      "@type": "Organization",
-      name: authorName,
-      url: "https://d365.se",
-    },
+    author,
     publisher: {
       "@type": "Organization",
-      name: "Dynamic Factory",
+      name: "d365.se",
       url: "https://d365.se",
       logo: {
         "@type": "ImageObject",
@@ -404,6 +429,36 @@ export const ArticleSchema = ({
     },
   };
   if (section) schema.articleSection = section;
+
+  return (
+    <Helmet>
+      <script type="application/ld+json">{JSON.stringify(schema)}</script>
+    </Helmet>
+  );
+};
+
+// ItemList Schema – for partner listing / directory pages
+interface ItemListSchemaProps {
+  name?: string;
+  description?: string;
+  items: Array<{ name: string; url: string }>;
+}
+
+export const ItemListSchema = ({ name, description, items }: ItemListSchemaProps) => {
+  const schema: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListOrder: "https://schema.org/ItemListUnordered",
+    numberOfItems: items.length,
+    itemListElement: items.map((it, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: it.url,
+      name: it.name,
+    })),
+  };
+  if (name) schema.name = name;
+  if (description) schema.description = description;
 
   return (
     <Helmet>
