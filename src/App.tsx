@@ -35,6 +35,8 @@ const OmMichaelUhman = lazy(() => import("./pages/OmMichaelUhman"));
 const ValjPartner = lazy(() => import("./pages/ValjPartner"));
 const AllD365Partners = lazy(() => import("./pages/AllD365Partners"));
 const PartnersPerBransch = lazy(() => import("./pages/PartnersPerBransch"));
+const ProductPartnersSverige = lazy(() => import("./pages/ProductPartnersSverige"));
+const PartnersSitemap = lazy(() => import("./pages/PartnersSitemap"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const NeedsAnalysis = lazy(() => import("./pages/NeedsAnalysis"));
 
