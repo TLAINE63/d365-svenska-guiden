@@ -33,7 +33,8 @@ const REDIRECTS: Array<[oldPath: string, newPath: string]> = [
   ["/d365-field-service", "/d365fieldservice"],
   ["/d365-contact-center", "/d365contactcenter"],
   ["/valj-partner", "/valjdynamics365partner"],
-  ["/sok", "/AIsok"],
+  ["/sok", "/AI-sok"],
+  ["/AIsok", "/AI-sok"],
   ["/behovsanalys", "/ERPbehovsanalys"],
   ["/salj-marknad-behovsanalys", "/CRMbehovsanalys"],
 ];
@@ -63,7 +64,7 @@ const DESTINATION_H1: Record<
   "/d365fieldservice":     { file: "src/pages/D365FieldService.tsx",    expected: "Dynamics 365 Field Service",         h2: "Microsoft Dynamics 365 Field Service",               meta: "Dynamics 365 Field Service från 1 004 kr/mån" },
   "/d365contactcenter":    { file: "src/pages/D365ContactCenter.tsx",   expected: "Dynamics 365 Contact Center",        h2: "Microsoft Dynamics 365 Contact Center",              meta: "Dynamics 365 Contact Center från 1 051 kr/agent/mån" },
   "/valjdynamics365partner": { file: "src/pages/ValjPartner.tsx",       expected: "Det kritiska partnervalet",          h2: "Fem viktiga frågor vid val av implementationspartner", meta: "Jämför certifierade Dynamics 365-partners" },
-  "/AIsok":                { file: "src/pages/SmartSearch.tsx",         expected: "Vad letar du efter?",                h2: null,                                                 meta: "Beskriv ditt behov i naturligt språk" },
+  "/AI-sok":               { file: "src/pages/SmartSearch.tsx",         expected: "Vad letar du efter?",                h2: null,                                                 meta: "Beskriv ditt behov i naturligt språk" },
   "/ERPbehovsanalys":      { file: "src/pages/NeedsAnalysis.tsx",       expected: "Behovsanalys för Dynamics 365 ERP", h2: null,                                                 meta: "Kostnadsfri ERP-behovsanalys" },
   "/CRMbehovsanalys":      { file: "src/pages/SalesMarketingNeedsAnalysis.tsx", expected: "Behovsanalys Sälj & Marknad", h2: null,                                          meta: "Dynamics 365 Sales och Customer Insights" },
 };
