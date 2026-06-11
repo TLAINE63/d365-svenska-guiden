@@ -5,6 +5,7 @@ import ownedIntelligenceHero from "@/assets/articles/owned-intelligence-hero.jpg
 import ownedIntelligenceSkiljelinje from "@/assets/articles/owned-intelligence-skiljelinje.jpg";
 import releaseWave1Hero from "@/assets/articles/d365-release-wave-1-2026-hero.jpg";
 import aiSkiftetBuild2026Hero from "@/assets/articles/ai-skiftet-build-2026-hero.jpg";
+import frontierFirmHero from "@/assets/articles/frontier-firm-hero.jpg";
 import detaljhandelImg from "@/assets/industries/detaljhandel.webp";
 import tillverkningImg from "@/assets/industries/tillverkning.webp";
 import livsmedelImg from "@/assets/industries/livsmedel.webp";
@@ -70,6 +71,201 @@ const THOMAS_LAINE: BlogArticleAuthor = {
 
 export const BLOG_ARTICLES: BlogArticle[] = [
   {
+    slug: "frontier-firm-dynamics-365-erp-crm",
+    title:
+      "Frontier Firm: vad Microsoft menar — och vad du bör förstå inför valet av ERP eller CRM",
+    metaTitle:
+      "Frontier Firm och Dynamics 365 – vad Microsoft menar inför ERP- eller CRM-val | d365.se",
+    metaDescription:
+      "Frontier Firm är Microsofts nya begrepp för framtidens AI-drivna organisation. Läs vad det betyder, hur det påverkar Dynamics 365 och vilka frågor du bör ställa inför valet av ERP eller CRM.",
+    summary:
+      "Vad menar Microsoft egentligen med Frontier Firm — och varför spelar det roll inför ett ERP- eller CRM-val? Här går vi igenom begreppet, kopplingen till Dynamics 365 och vilka frågor du bör ställa till en partner.",
+    category: "Strategi",
+    tags: [
+      "frontier firm",
+      "microsoft",
+      "dynamics365",
+      "copilot",
+      "ai-agenter",
+      "erp",
+      "crm",
+      "work trend index",
+      "systemval",
+      "partnerval",
+    ],
+    products: [
+      "Business Central",
+      "Finance & SCM",
+      "Sales",
+      "Customer Service",
+      "AI/Copilot/Agents",
+    ],
+    publishedAt: "2026-06-11",
+    author: THOMAS_LAINE,
+    heroImage: frontierFirmHero,
+    readingTimeMinutes: 7,
+    featured: true,
+    content: (
+      <>
+        <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] italic text-foreground/85 !mb-8">
+          Begreppet Frontier Firm dyker nu upp allt oftare i Microsofts budskap
+          och i partnerdialoger kring Dynamics 365. För dig som står inför ett
+          ERP- eller CRM-beslut är det därför viktigt att förstå vad begreppet
+          faktiskt innebär, vad Microsofts egen forskning säger och vilka
+          frågor du bör ställa innan AI, Copilot och agenter blir en del av
+          lösningen.
+        </p>
+
+        <h2>Vad är en Frontier Firm?</h2>
+        <p>
+          Frontier Firm är Microsofts samlingsbegrepp för en ny typ av
+          organisation: en verksamhet som är byggd kring intelligens som
+          tjänst, där människor och AI-agenter arbetar sida vid sida i de
+          dagliga processerna. Begreppet introducerades i Microsofts{" "}
+          <em>Work Trend Index</em> och har sedan dess vuxit till en bredare
+          beskrivning av hur Microsoft ser på framtidens företag.
+        </p>
+        <p>
+          Det handlar inte om en specifik produkt. Det handlar om en
+          arbetsmodell där tre saker hänger ihop: tillgång till data av god
+          kvalitet, AI som kan agera inom tydliga ramar, och en ledning som
+          har bestämt vad maskiner får göra och vad människor ska äga.
+        </p>
+
+        <h2>Varför pratar Microsoft om det nu?</h2>
+        <p>
+          Microsofts plattformsstrategi rör sig snabbt från assistenter som
+          svarar på frågor till agenter som utför arbete. Frontier Firm är det
+          språk Microsoft använder för att beskriva den organisation som drar
+          mest nytta av den utvecklingen — och som därför också är den naturliga
+          målgruppen för Dynamics 365, Copilot och de nya agentfunktionerna.
+        </p>
+        <p>
+          För er som överväger ett system­byte är detta värt att notera.
+          Microsofts produktutveckling, partner­ekosystem och prissättning
+          formas av den här ambitionen. Den organisation som väljer Dynamics
+          365 i dag väljer också, på sikt, in sig i den riktningen.
+        </p>
+
+        <h2>Vad det betyder för valet av ERP eller CRM</h2>
+        <p>
+          Frontier Firm-tänkandet förändrar några av de frågor som länge har
+          dominerat ERP- och CRM-val. Tre förskjutningar är värda att lyfta.
+        </p>
+
+        <h3>1. Data blir en förutsättning, inte en bilaga</h3>
+        <p>
+          I en klassisk upphandling diskuteras data­migrering ofta sent i
+          projektet. I en Frontier Firm-logik är data­grunden själva poängen:
+          en agent som arbetar mot ett orent kundregister fattar dåliga beslut
+          snabbare än någon människa skulle göra. Datakvalitet flyttar därför
+          från IT-projektet till verksamhets­agendan.
+        </p>
+
+        <h3>2. Processfrågan blir “vad ska automatiseras — och hur långt?”</h3>
+        <p>
+          Tidigare handlade kravställningen om vilka funktioner systemet skulle
+          stödja. Nu tillkommer en ny fråga: vilka delar av processen vill ni
+          att en agent ska utföra själv, vilka ska den föreslå, och vilka ska
+          en människa alltid äga? Den frågan går inte att outsourca till
+          partnern — den måste ledningen själv ta ställning till.
+        </p>
+
+        <h3>3. Partnerns roll förskjuts</h3>
+        <p>
+          När mer av det tekniska standardarbetet automatiseras flyttas en
+          implementations­partners värde till annat: att förstå er verksamhet,
+          hjälpa er sätta ramar för agenter och bygga styrning som gör att rätt
+          saker händer säkert. Antal konsulter och certifieringar säger allt
+          mindre om vad ni faktiskt får ut.
+        </p>
+
+        <h2>Frågor att ställa till en partner</h2>
+        <p>
+          Innan ni låter Frontier Firm-retoriken styra ett ERP- eller CRM-val
+          är det rimligt att be partnern landa i konkretion. Några frågor som
+          brukar skilja:
+        </p>
+        <ul>
+          <li>
+            Hur ser en kund hos er ut som faktiskt arbetar i en Frontier
+            Firm-modell idag — vad gör agenterna, vad gör människorna?
+          </li>
+          <li>
+            Vilka delar av Dynamics 365 är mogna nog för agentdrift i vår
+            bransch, och vilka är ni ärliga med att vänta med?
+          </li>
+          <li>
+            Hur arbetar ni med datakvalitet och styrning som en del av
+            införandet, inte som efterhandsprojekt?
+          </li>
+          <li>
+            Hur säkerställer ni att vi behåller kontroll över processer som
+            agenter lär sig — även om vi en dag byter leverantör?
+          </li>
+        </ul>
+        <p>
+          En partner som svarar konkret på de frågorna har gjort jobbet. En
+          partner som svarar med en presentation om AI:s möjligheter har inte
+          det.
+        </p>
+
+        <h2>Vad ledningen bör göra nu</h2>
+        <p>
+          Frontier Firm är inget skäl att stressa fram ett systemval — men det
+          är ett skäl att höja blicken. Tre saker förtjänar en plats på
+          agendan innan en upphandling drar i gång:
+        </p>
+        <p>
+          <strong>Bedöm er egen mognad ärligt.</strong> Var står ni när det
+          gäller data, processer, styrning och förändringsförmåga? Ett ERP-
+          eller CRM-projekt som drivs i en omogen organisation blir sällan en
+          Frontier Firm — oavsett vilken plattform ni väljer.
+        </p>
+        <p>
+          <strong>Bestäm vilken roll AI ska ha hos er.</strong> Stödjande,
+          drivande eller verkställande? Svaret påverkar både kravbild,
+          partnerprofil och budget.
+        </p>
+        <p>
+          <strong>Använd valet som ett ledningsbeslut, inte ett IT-beslut.</strong>{" "}
+          Det är där Frontier Firm-tänkandet faktiskt landar — i hur ni leder,
+          inte i vilken licens ni tecknar.
+        </p>
+
+        <h2>Slutsats</h2>
+        <p>
+          Frontier Firm är Microsofts sätt att beskriva den organisation som
+          drar verklig nytta av AI i sina kärnprocesser. För er som står inför
+          ett ERP- eller CRM-val är begreppet användbart — men bara om ni
+          översätter det till era egna förutsättningar i stället för att köpa
+          det som färdig bild. Då blir Dynamics 365 ett möjligt verktyg, inte
+          ett självändamål, och partnerdialogen handlar om er verksamhet
+          snarare än om en plattformsvision.
+        </p>
+
+        <aside
+          aria-label="Relaterat innehåll"
+          className="mt-12 p-6 rounded-xl border border-border bg-secondary/30"
+        >
+          <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-3">
+            Relaterat innehåll
+          </p>
+          <p className="!my-0 text-sm text-muted-foreground">
+            <a
+              href="/beslutsmognadsindex/"
+              className="text-primary hover:underline"
+            >
+              Beslutsmognadsindex på d365.se
+            </a>{" "}
+            — en kostnadsfri självskattning för organisationer som vill bedöma
+            sin beredskap inför systemval och partnerval.
+          </p>
+        </aside>
+      </>
+    ),
+  },
+  {
     slug: "ai-skiftet-dynamics-365-build-2026",
     title: "AI-skiftet i Dynamics 365 — vad ledningsgruppen behöver förstå efter Microsoft Build 2026",
     metaTitle: "AI-skiftet i Dynamics 365 efter Microsoft Build 2026 | d365.se",
@@ -90,7 +286,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     author: THOMAS_LAINE,
     heroImage: aiSkiftetBuild2026Hero,
     readingTimeMinutes: 7,
-    featured: true,
+    featured: false,
     content: (
       <>
         <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] italic text-foreground/85 !mb-8">
