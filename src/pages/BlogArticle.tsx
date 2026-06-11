@@ -278,6 +278,27 @@ const BlogArticle = () => {
               />
             )}
 
+            {/* Branschguide → IndustryPage cross-link */}
+            {article.category === "Branschguide" && ARTICLE_TO_INDUSTRY_SLUG[article.slug] && (() => {
+              const industrySlug = ARTICLE_TO_INDUSTRY_SLUG[article.slug];
+              const industry = findIndustryBySlug(industrySlug);
+              if (!industry) return null;
+              return (
+                <div className="mt-8 p-5 rounded-xl border border-primary/20 bg-primary/5">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">
+                    Se partners för denna bransch
+                  </p>
+                  <Link
+                    to={`/branscher/${industrySlug}/`}
+                    className="text-base md:text-lg font-semibold text-foreground hover:text-primary inline-flex items-center gap-2"
+                  >
+                    Dynamics 365-partners för {industry.name} →
+                  </Link>
+                </div>
+              );
+            })()}
+
+
             {/* Tags */}
             {article.tags.length > 0 && (
               <div className="mt-10 pt-6 border-t border-border">
