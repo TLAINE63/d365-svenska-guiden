@@ -84,7 +84,7 @@ const D365Marketing = () => {
       <FAQSchema faqs={customerInsightsFaqs} />
       <ServiceSchema 
         name="Microsoft Dynamics 365 Customer Insights – Marketing Automation & CDP"
-        description="Molnbaserad marknadsföringsautomation med AI-drivna kundresor, Customer Data Platform (CDP), lead scoring och omnikanalskampanjer. Grundlicens från 9 559 kr/mån (Attach). Implementationstid 6 veckor till 10 månader beroende på komplexitet. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+        description={resolvePriceTokens("Molnbaserad marknadsföringsautomation med AI-drivna kundresor, Customer Data Platform (CDP), lead scoring och omnikanalskampanjer. Grundlicens från {{price:customer-insights-attach:amount}}/mån (Attach). Implementationstid 6 veckor till 10 månader beroende på komplexitet. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner.")}
       />
       <BreadcrumbSchema items={marketingBreadcrumbs} />
       <Navbar />
