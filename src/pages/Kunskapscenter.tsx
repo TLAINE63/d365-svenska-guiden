@@ -865,14 +865,15 @@ const Kunskapscenter = () => {
                 <div className="flex items-center justify-between mb-6">
                   <p className="text-sm text-muted-foreground">
                     {filteredItems.length} {filteredItems.length === 1 ? "resurs" : "resurser"}
+                    {loading && (
+                      <span className="ml-2 text-xs opacity-70 animate-pulse">
+                        (uppdaterar events &amp; artiklar…)
+                      </span>
+                    )}
                   </p>
                 </div>
 
-                {loading ? (
-                  <div className="text-center py-16 text-muted-foreground animate-pulse">
-                    Laddar innehåll...
-                  </div>
-                ) : filteredItems.length === 0 ? (
+                {filteredItems.length === 0 ? (
                   <div className="text-center py-16">
                     <p className="text-muted-foreground text-lg mb-4">
                       Inga resurser matchade dina filter.
