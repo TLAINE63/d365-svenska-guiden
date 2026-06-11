@@ -84,9 +84,10 @@ const BlogArticle = () => {
     mainEntityOfPage: { "@type": "WebPage", "@id": canonicalUrl },
     author: {
       "@type": "Person",
+      "@id": "https://d365.se/om-thomas-laine#thomas-laine",
       name: article.author.name,
       jobTitle: article.author.role,
-      ...(article.author.url ? { url: article.author.url } : {}),
+      url: "https://d365.se/om-thomas-laine",
     },
     publisher: {
       "@type": "Organization",
@@ -208,7 +209,13 @@ const BlogArticle = () => {
             <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
               <span className="flex items-center gap-1.5">
                 <User className="w-4 h-4" />
-                <span className="text-foreground font-medium">{article.author.name}</span>
+                <span className="text-muted-foreground">Av</span>
+                <Link
+                  to="/om-thomas-laine/"
+                  className="text-foreground font-medium hover:text-primary transition-colors"
+                >
+                  {article.author.name}
+                </Link>
                 <span className="text-muted-foreground">— {article.author.role}</span>
               </span>
               <span className="flex items-center gap-1.5">

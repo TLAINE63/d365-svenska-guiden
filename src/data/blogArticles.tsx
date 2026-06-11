@@ -69,8 +69,8 @@ export interface BlogArticle {
 
 const THOMAS_LAINE: BlogArticleAuthor = {
   name: "Thomas Laine",
-  role: "Senior rådgivare inom Microsoft Dynamics 365",
-  url: "https://d365.se/kontakt/",
+  role: "Grundare, d365.se",
+  url: "https://d365.se/om-thomas-laine/",
 };
 
 export const BLOG_ARTICLES: BlogArticle[] = [
