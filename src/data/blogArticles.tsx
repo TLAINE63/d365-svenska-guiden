@@ -39,6 +39,10 @@ export interface BlogArticle {
   metaTitle: string;
   /** SEO meta description */
   metaDescription: string;
+  /** Optional override för Open Graph / Twitter-titel (social delning) */
+  socialTitle?: string;
+  /** Optional override för Open Graph / Twitter-beskrivning (social delning) */
+  socialDescription?: string;
   /** Short summary used in cards */
   summary: string;
   /** Primary category (governance, AI, ERP, CRM…) */
@@ -268,9 +272,12 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "ai-skiftet-dynamics-365-build-2026",
     title: "AI-skiftet i Dynamics 365 — vad ledningsgruppen behöver förstå efter Microsoft Build 2026",
-    metaTitle: "AI-skiftet i Dynamics 365 efter Microsoft Build 2026 | d365.se",
+    metaTitle: "Dynamics 365 efter Build 2026: AI-agenter, data och partnerval",
     metaDescription:
-      "Microsoft Build 2026 markerar starten på en plattform där AI-agenter utför arbete i Dynamics 365. Vad ledningsgruppen behöver göra med data, styrning och partnerval nu.",
+      "Efter Microsoft Build 2026 blir AI-agenter en större del av Dynamics 365. Läs vad det betyder för data, styrning, affärsprocesser och val av partner.",
+    socialTitle: "Dynamics 365 efter Build 2026: vad AI-agenter betyder för företag",
+    socialDescription:
+      "Microsoft gör AI-agenter till en viktigare del av Dynamics 365. Artikeln visar vad företag behöver förstå om datakvalitet, styrning, affärsprocesser och partnerval efter Build 2026.",
     summary:
       "Microsoft Build 2026 blev startskottet för en plattform där AI-agenter inte bara assisterar utan utför arbete i Dynamics 365. Här är vad ledningsgrupper bör göra med data, styrning och partnerval — i lugn och ro, men nu.",
     category: "Strategi",
