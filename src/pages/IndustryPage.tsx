@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 import PartnerCard from "@/components/PartnerCard";
+import RelatedPages, { branschRelatedPages } from "@/components/RelatedPages";
 import { useIndustryPage } from "@/hooks/useIndustryPage";
 import { usePartners } from "@/hooks/usePartners";
 import { findIndustryBySlug, STANDARD_INDUSTRIES } from "@/data/standardIndustries";
