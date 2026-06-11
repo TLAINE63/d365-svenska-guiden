@@ -155,6 +155,12 @@ export const routes: PrerenderRoute[] = [
   { path: '/dataskydd', priority: '0.3', changefreq: 'yearly', sitemap: false },
   { path: '/kom-igang', priority: '0.8', changefreq: 'monthly' },
   { path: '/kunskapscenter', priority: '0.7', changefreq: 'weekly' },
+  ...KNOWLEDGE_HUBS.map((hub) => ({
+    path: `/kunskapscenter/${hub.slug}`,
+    priority: '0.7',
+    changefreq: 'weekly' as const,
+    meta: { title: hub.metaTitle, description: hub.metaDescription },
+  })),
   { path: '/kravspecifikation', priority: '0.7', changefreq: 'monthly' },
   { path: '/kravspecifikation-sales', priority: '0.7', changefreq: 'monthly' },
   { path: '/kravspecifikation-marketing', priority: '0.7', changefreq: 'monthly' },
