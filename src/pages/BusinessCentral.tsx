@@ -3,6 +3,8 @@ import { BC_ARTICLES } from "@/data/bcArticles";
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
+import { Price } from "@/components/Price";
+import { resolvePriceTokens } from "@/lib/productPriceFormat";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
