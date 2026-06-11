@@ -180,10 +180,11 @@ const AppShell = () => {
           <Route path="/aktuellt" element={<Navigate to="/events/" replace />} />
           <Route path="/aktuellt/*" element={<Navigate to="/events/" replace />} />
           <Route path="/projektpaket" element={<Navigate to="/" replace />} />
-          <Route path="/AIsok" element={<SmartSearch />} />
-          <Route path="/sok" element={<Navigate to="/AIsok" replace />} />
+          <Route path="/AI-sok" element={<SmartSearch />} />
+          <Route path="/AIsok" element={<Navigate to="/AI-sok" replace />} />
+          <Route path="/sok" element={<Navigate to="/AI-sok" replace />} />
           <Route path="/fraga-ai" element={<AskAi />} />
-          <Route path="/search" element={<Navigate to="/AIsok" replace />} />
+          <Route path="/search" element={<Navigate to="/AI-sok" replace />} />
           <Route path="/våratjänster" element={<Navigate to="/" replace />} />
           <Route path="/kunskapscenter" element={<Kunskapscenter />} />
           <Route path="/kunskapscenter/upphandlingsresan" element={<Upphandlingsresan />} />
