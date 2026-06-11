@@ -429,41 +429,41 @@ const Agents = () => {
                 Fördelar med Microsoft Agenter
               </h2>
               <p className="text-lg text-muted-foreground">
-                Varför bör ditt företag satsa på autonoma AI-agenter?
+                Varför kan det vara intressant att utvärdera autonoma AI-agenter? Effekten beror på processmognad, datakvalitet, integrationsgrad och förändringsledning – kvantifiera alltid i egen pilot.
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
               {[
                 {
-                  title: "Dramatiskt Ökad Produktivitet",
-                  description: "Agents arbetar 24/7 utan paus och kan hantera tusentals uppgifter samtidigt, vilket frigör dina medarbetare för värdeskapande arbete",
-                  stat: "10x snabbare"
+                  title: "Ökad produktivitet",
+                  description: "Agenter kan arbeta dygnet runt och hantera många parallella uppgifter, vilket frigör medarbetare för mer värdeskapande arbete.",
+                  stat: "Avlastar repetitivt arbete"
                 },
                 {
-                  title: "Minskade Kostnader",
-                  description: "Automatisering av rutinuppgifter och arbetsflöden reducerar operativa kostnader betydligt",
-                  stat: "40-60% besparingar"
+                  title: "Lägre operativ kostnad",
+                  description: "Automatisering av rutinuppgifter och arbetsflöden kan reducera operativa kostnader – storleken varierar med processen.",
+                  stat: "Effektivisering per process"
                 },
                 {
-                  title: "Förbättrad Noggrannhet",
-                  description: "AI-agenter eliminerar mänskliga fel och säkerställer konsekvent kvalitet i alla processer",
-                  stat: "99.9% noggrannhet"
+                  title: "Jämnare kvalitet",
+                  description: "Agenter minskar variationen i utförande och kan följa regler konsekvent, men kräver kontroll, loggning och tydliga eskaleringsvägar.",
+                  stat: "Konsekvent utförande"
                 },
                 {
-                  title: "Snabbare Time-to-Value",
-                  description: "Agents implementeras och börjar leverera värde mycket snabbare än traditionella lösningar",
-                  stat: "Dagar istället för månader"
+                  title: "Snabbare time-to-value",
+                  description: "Avgränsade agenter kan tas i bruk relativt snabbt jämfört med traditionella systemprojekt, särskilt på väldefinierade flöden.",
+                  stat: "Veckor till första värde"
                 },
                 {
                   title: "Skalbarhet",
-                  description: "Enkelt att skala upp eller ner baserat på affärsbehov utan att behöva anställa",
-                  stat: "Obegränsad skalning"
+                  description: "Enkelt att skala upp eller ner baserat på efterfrågan, utan att direkt behöva utöka bemanningen.",
+                  stat: "Flexibel kapacitet"
                 },
                 {
-                  title: "Bättre Kundupplevelse",
-                  description: "Snabbare respons, proaktiv service och personaliserade interaktioner förbättrar kundnöjdheten",
-                  stat: "30% högre CSAT"
+                  title: "Bättre kundupplevelse",
+                  description: "Snabbare respons, proaktiv service och mer personaliserade interaktioner kan stärka kundnöjdheten över tid.",
+                  stat: "Förbättrad service"
                 }
               ].map((benefit, index) => (
                 <div key={index} className="bg-card rounded-lg p-6 border border-border hover:shadow-lg transition-all">

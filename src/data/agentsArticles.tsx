@@ -402,7 +402,7 @@ export const AGENTS_ARTICLES: DeepDiveArticle[] = [
 
         <h2>ROI-kalkyl och värderealisering</h2>
         <p>
-          Agenter skapar värde längs tre dimensioner: kostnadsreduktion (färre FTE på repetitiva uppgifter), intäktsökning (fler leads bearbetade, kortare säljcykler) och kvalitetsförbättring (färre fel, snabbare svarstider). En typisk implementation i kundservice med 50 handläggare visar 40 % kostnadsminskning och 25 % CSAT-förbättring under 12 månader.
+          Agenter skapar värde längs tre dimensioner: kostnadsreduktion (färre manuella moment i repetitiva uppgifter), intäktsökning (fler leads bearbetade, kortare säljcykler) och kvalitetsförbättring (färre fel, snabbare svarstider). I vissa kundserviceprocesser har vi sett tydlig effektivisering och förbättrad kundnöjdhet under 12 månader, men effekten varierar kraftigt med ärendetyper, datakvalitet, integrationsgrad och hur väl organisationen förändrar arbetssättet. Kvantifiera alltid baseline och nyttoeffekter i en egen pilot innan ni extrapolerar.
         </p>
 
         <h2>Implementeringsmetodik: tre faser</h2>
