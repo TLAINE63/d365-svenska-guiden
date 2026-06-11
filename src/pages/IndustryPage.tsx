@@ -231,7 +231,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
               <span className="text-foreground">{industryName}</span>
             </nav>
             <h1 className="text-xl md:text-2xl font-bold text-foreground mb-2 drop-shadow-sm">
-              {seoDefaults?.h1 || industryName}
+              {seoDefaults?.h1 || `Dynamics 365 för ${industryName} – guide & partners i Sverige`}
             </h1>
             <div className="mb-3">
               <span
