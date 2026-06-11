@@ -285,6 +285,14 @@ export function render(url: string) {
               <Route path="/kravspecifikation-marketing" element={<RequirementsSpecMarketing />} />
               <Route path="/kravspecifikation-kundservice" element={<RequirementsSpecCustomerService />} />
               <Route path="/partner/:slug" element={<PartnerProfile initialData={mappedPartnerData as any} />} />
+              <Route path="/partners-sitemap" element={<PartnersSitemap />} />
+              {PRODUCT_PARTNERS_SVERIGE.map((c) => (
+                <Route
+                  key={c.slug}
+                  path={`/${c.slug}`}
+                  element={<ProductPartnersSverige configSlug={c.slug} />}
+                />
+              ))}
             </Routes>
           </StaticRouter>
         </TooltipProvider>
