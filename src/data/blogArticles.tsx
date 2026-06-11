@@ -2873,7 +2873,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för jordbruk & skogsbruk",
     metaTitle: "Dynamics 365 för jordbruk & skogsbruk – guide & partners",
     metaDescription:
-      "Hur Dynamics 365 stödjer jordbruk & skogsbruk: säsong, maskinpark, lager, fältservice och avräkning. Jämför listade partners i Sverige med kostnad och alternativ.",
+      "Dynamics 365 för jordbruk & skogsbruk täcker säsong, maskinpark, lager, fältservice och avräkning. Köparsidig guide med kostnad och svenska partners.",
     summary:
       "Dynamics 365 fungerar som back-office för svenska jord- och skogsbruksbolag — ekonomi, anläggningsregister, fältservice och kund, integrerat med branschens specialistsystem. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
