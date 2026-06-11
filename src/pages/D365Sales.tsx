@@ -29,17 +29,18 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-// Sales FAQs for schema
-const salesFaqs = [
-  { question: "Vad kostar Dynamics 365 Sales?", answer: "Dynamics 365 Sales finns i tre licensnivåer: Sales Professional kostar 621 kr/användare/mån, Sales Enterprise 1 004 kr/mån och Sales Premium 1 434 kr/mån. Implementeringskostnad för ett standardprojekt med 10–30 användare ligger typiskt på 150 000–400 000 kr." },
+// Sales FAQs for schema – priser hämtas från product_prices via resolvePriceTokens
+const salesFaqsRaw = [
+  { question: "Vad kostar Dynamics 365 Sales?", answer: "Dynamics 365 Sales finns i tre licensnivåer: Sales Professional kostar {{price:sales-professional:short}}, Sales Enterprise {{price:sales-enterprise:short}} och Sales Premium {{price:sales-premium:short}}. Implementeringskostnad för ett standardprojekt med 10–30 användare ligger typiskt på 150 000–400 000 kr." },
   { question: "Vad är Dynamics 365 Sales och vad används det till?", answer: "Microsoft Dynamics 365 Sales är ett molnbaserat CRM-system (Customer Relationship Management) för säljteam. Det hjälper företag hantera leads, affärsmöjligheter, kundkonton och prognoser – med inbyggd AI via Microsoft Copilot som rekommenderar nästa steg och analyserar kunddata i realtid." },
   { question: "Hur jämför sig Dynamics 365 Sales mot Salesforce?", answer: "Dynamics 365 Sales och Salesforce är de två ledande CRM-systemen. Dynamics 365 Sales sticker ut med djup Microsoft 365-integration (Outlook, Teams, Excel), inbyggd Copilot AI utan extrakostnad i Enterprise-planen, och möjligheten att koppla CRM direkt med Microsoft ERP-system som Business Central. Salesforce har ett bredare ekosystem av tredjepartsappar men kräver ofta mer anpassning och har högre total ägandekostnad." },
-  { question: "Vad är skillnaden mellan Sales Professional och Sales Enterprise?", answer: "Sales Professional (621 kr/mån) är grundlicensen med lead- och affärshantering, kontakthantering och Microsoft 365-integration. Sales Enterprise (1 004 kr/mån) lägger till inbyggd Copilot AI, förutsägande poängsättning av leads, avancerad försäljningsanalys och anpassningsbar automatisering via Power Automate." },
+  { question: "Vad är skillnaden mellan Sales Professional och Sales Enterprise?", answer: "Sales Professional ({{price:sales-professional:short}}) är grundlicensen med lead- och affärshantering, kontakthantering och Microsoft 365-integration. Sales Enterprise ({{price:sales-enterprise:short}}) lägger till inbyggd Copilot AI, förutsägande poängsättning av leads, avancerad försäljningsanalys och anpassningsbar automatisering via Power Automate." },
   { question: "Hur fungerar Microsoft Copilot AI i Dynamics 365 Sales?", answer: "Microsoft Copilot i Dynamics 365 Sales analyserar kunddata och ger realtidsrekommendationer för säljare. Det sammanfattar e-postkonversationer, föreslår nästa bästa åtgärd, prioriterar leads baserat på konverteringssannolikhet och kan skriva uppföljningsmail automatiskt. Copilot ingår i Sales Enterprise och Premium utan extra licensavgift." },
   { question: "Kan Dynamics 365 Sales integreras med vårt ERP-system?", answer: "Ja. Dynamics 365 Sales integreras nativt med Microsoft Business Central och Finance & Supply Chain Management, vilket ger säljarna tillgång till lagerdata, orderstatus och kundreskontro direkt i CRM-systemet. Integration med tredjepartsERP-system görs via Power Platform eller Microsofts standardkopplingar." },
   { question: "Hur lång tid tar det att implementera Dynamics 365 Sales?", answer: "En standardimplementering för 10–30 användare tar normalt 2–3 månader. Större implementeringar med anpassade säljprocesser, systemintegrationer och multipla säljteam tar 4–6 månader. Valet av erfaren Microsoft-partner är avgörande för att hålla tid och budget." },
   { question: "Behöver vi en Microsoft-partner för att implementera Dynamics 365 Sales?", answer: "Ja, Dynamics 365 Sales implementeras via certifierade Microsoft-partners med CRM-specialistkompetens. En bra partner tar fram rätt konfiguration, utbildar säljteamet och säkerställer adoption. På d365.se kan du filtrera och jämföra certifierade Dynamics 365 Sales-partners i Sverige." },
 ];
+const salesFaqs = salesFaqsRaw.map((f) => ({ ...f, answer: resolvePriceTokens(f.answer) }));
 
 const D365Sales = () => {
   useEffect(() => {
