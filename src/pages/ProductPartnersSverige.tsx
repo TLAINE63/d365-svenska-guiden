@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
+import { resolvePriceTokens } from "@/lib/productPriceFormat";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MessageSquare, MapPin } from "lucide-react";
 import partnerDataJson from "@/data/partnerData.json";
