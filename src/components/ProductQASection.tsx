@@ -6,6 +6,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { BookOpen } from "lucide-react";
+import { resolvePriceTokens } from "@/lib/productPriceFormat";
 
 export interface QAItem {
   question: string;
