@@ -158,6 +158,9 @@ export const routes: PrerenderRoute[] = [
   { path: '/kravspecifikation-marketing', priority: '0.7', changefreq: 'monthly' },
   { path: '/kravspecifikation-kundservice', priority: '0.7', changefreq: 'monthly' },
   { path: '/partners-sitemap', priority: '0.6', changefreq: 'weekly' },
+  { path: '/alla-d365-partners', priority: '0.6', changefreq: 'monthly' },
+  { path: '/partners-per-bransch', priority: '0.7', changefreq: 'weekly' },
+  { path: '/AIsok', priority: '0.3', changefreq: 'monthly', sitemap: false },
   ...PRODUCT_PARTNERS_SVERIGE.map((c) => ({
     path: `/${c.slug}`,
     priority: '0.8',
