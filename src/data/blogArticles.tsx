@@ -4500,7 +4500,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för telekom & IT-tjänster",
     metaTitle: "Dynamics 365 för telekom & IT-tjänster – guide & partners",
     metaDescription:
-      "Hur Dynamics 365 stödjer telekom & IT-tjänster: abonnemang, CPQ, ärenden och SLA med fakturasystem-integration. Jämför listade partners i Sverige med kostnad.",
+      "Dynamics 365 för telekom & IT-tjänster stöttar abonnemang, CPQ, ärenden och SLA mot fakturasystem. Köparsidig guide med kostnad och svenska partners.",
     summary:
       "Dynamics 365 fungerar som ryggrad för svenska telekom- och IT-tjänsteföretag — sälj, leverans, ärenden, SLA och ekonomi, integrerat med abonnemangs- och faktureringssystem. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
