@@ -924,6 +924,48 @@ export type Database = {
         }
         Relationships: []
       }
+      product_prices: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          is_quote: boolean
+          price_note: string | null
+          price_sek: number | null
+          price_unit: string
+          product_key: string
+          product_name: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          id?: string
+          is_quote?: boolean
+          price_note?: string | null
+          price_sek?: number | null
+          price_unit?: string
+          product_key: string
+          product_name: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          is_quote?: boolean
+          price_note?: string | null
+          price_sek?: number | null
+          price_unit?: string
+          product_key?: string
+          product_name?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       semrush_monthly_stats: {
         Row: {
           authority_score: number | null
