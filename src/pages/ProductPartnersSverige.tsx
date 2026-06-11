@@ -73,7 +73,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
         canonicalPath={canonical}
       />
       <BreadcrumbSchema items={breadcrumbs} />
-      <FAQSchema faqs={cfg.faq.map((f) => ({ question: f.q, answer: f.a }))} />
+      <FAQSchema faqs={cfg.faq.map((f) => ({ question: f.q, answer: resolvePriceTokens(f.a) }))} />
       <Navbar />
 
       <main className="pt-20">
