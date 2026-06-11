@@ -5555,7 +5555,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för medlemsorganisationer",
     metaTitle: "Dynamics 365 för medlemsorganisationer – guide & partners",
     metaDescription:
-      "Hur Dynamics 365 stödjer medlemsorganisationer: medlemsresa, segmentering, kommunikation och avgiftshantering. Jämför listade partners i Sverige.",
+      "Dynamics 365 för medlemsorganisationer stöttar medlemsresan, segmentering, kommunikation och avgiftshantering. Köparsidig guide med svenska partners.",
     summary:
       "Dynamics 365 (Sales + Customer Insights + Customer Service, ev. BC för avgifter) hanterar medlemsresan, segmentering, kommunikation och service för svenska fackförbund, branschorganisationer och föreningar. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
