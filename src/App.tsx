@@ -30,6 +30,7 @@ const AIOverview = lazy(() => import("./pages/AIOverview"));
 const AIReadiness = lazy(() => import("./pages/AIReadiness"));
 const QA = lazy(() => import("./pages/QA"));
 const ContactUs = lazy(() => import("./pages/ContactUs"));
+const OmThomasLaine = lazy(() => import("./pages/OmThomasLaine"));
 const ValjPartner = lazy(() => import("./pages/ValjPartner"));
 const AllD365Partners = lazy(() => import("./pages/AllD365Partners"));
 const PartnersPerBransch = lazy(() => import("./pages/PartnersPerBransch"));
@@ -110,6 +111,7 @@ const AppShell = () => {
           <Route path="/ai-readiness" element={<AIReadiness />} />
           <Route path="/qa" element={<QA />} />
           <Route path="/kontakt" element={<ContactUs />} />
+          <Route path="/om-thomas-laine" element={<OmThomasLaine />} />
           
           <Route path="/valjdynamics365partner" element={<ValjPartner />} />
           <Route path="/valj-partner" element={<Navigate to="/valjdynamics365partner" replace />} />
