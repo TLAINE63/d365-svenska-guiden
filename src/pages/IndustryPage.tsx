@@ -7,8 +7,9 @@ import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 import PartnerCard from "@/components/PartnerCard";
 import { useIndustryPage } from "@/hooks/useIndustryPage";
 import { usePartners } from "@/hooks/usePartners";
-import { findIndustryBySlug } from "@/data/standardIndustries";
+import { findIndustryBySlug, STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { getIndustrySEO } from "@/data/industrySEO";
+import { INDUSTRY_TO_ARTICLE_SLUG } from "@/data/branschguideIndustryMap";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ArrowRight, Briefcase, Users, AlertTriangle, Layers, HelpCircle, Filter, Building2, Sparkles } from "lucide-react";
@@ -231,7 +232,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
               <span className="text-foreground">{industryName}</span>
             </nav>
             <h1 className="text-xl md:text-2xl font-bold text-foreground mb-2 drop-shadow-sm">
-              {seoDefaults?.h1 || industryName}
+              {seoDefaults?.h1 || `Dynamics 365 för ${industryName} – guide & partners i Sverige`}
             </h1>
             <div className="mb-3">
               <span
@@ -449,6 +450,40 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
                 })}
               </div>
             )}
+          </div>
+        </section>
+
+        {/* Branschguide-artikel + andra branscher */}
+        <section className="py-10 border-b border-border">
+          <div className="container mx-auto px-4 max-w-5xl">
+            {slug && INDUSTRY_TO_ARTICLE_SLUG[slug] && (
+              <div className="mb-8 rounded-lg border border-primary/20 bg-primary/5 p-5">
+                <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">
+                  Fördjupande artikel
+                </p>
+                <Link
+                  to={`/artiklar/${INDUSTRY_TO_ARTICLE_SLUG[slug]}/`}
+                  className="text-base md:text-lg font-semibold text-foreground hover:text-primary inline-flex items-center gap-2"
+                >
+                  Dynamics 365 för {industryName} – branschguide
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            )}
+            <h2 className="text-base md:text-lg font-semibold text-foreground mb-4">
+              Utforska andra branscher
+            </h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+              {STANDARD_INDUSTRIES.filter((i) => i.slug !== slug).map((i) => (
+                <Link
+                  key={i.slug}
+                  to={`/branscher/${i.slug}/`}
+                  className="text-sm text-muted-foreground hover:text-primary hover:underline truncate"
+                >
+                  {i.name}
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
 

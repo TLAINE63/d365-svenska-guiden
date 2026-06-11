@@ -101,16 +101,16 @@ const Branscher = () => {
   return (
     <>
       <SEOHead
-        title="Branschöversikt – Microsoft Dynamics 365 i Sverige"
-        description="Branschguider för Dynamics 365: processer, roller och vilka applikationer som passar din bransch. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
-        canonicalPath="/branscher"
+        title="Dynamics 365 per bransch – branschguider & partners i Sverige"
+        description="Microsoft Dynamics 365 per bransch: processer, roller, applikationer och partners. Köparsidig branschguide för ERP- och CRM-val i Sverige."
+        canonicalPath="/branscher/"
       />
       <Navbar />
       <main className="min-h-screen bg-background pt-20">
         <section className="py-5 md:py-6 bg-gradient-to-b from-muted/30 to-background border-b border-border">
           <div className="container mx-auto px-4 max-w-6xl">
             <h1 className="text-xl md:text-2xl font-bold text-foreground mb-2">
-              Branschöversikt
+              Dynamics 365 per bransch – guide & partners i Sverige
             </h1>
             <p className="text-xs md:text-sm text-muted-foreground max-w-4xl">
               Upptäck hur Microsoft Dynamics 365 kan förändra din bransch – från smidigare affärsprocesser och tydligare roller till lösningar på de utmaningar som verkligen betyder något. Välj din bransch nedan för konkreta insikter, vägledning och rätt applikationer för att driva din verksamhet framåt.
