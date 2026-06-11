@@ -13,6 +13,8 @@ import { resolveOgImage } from "@/lib/ogImage";
 import SeoPreviewPanel from "@/components/SeoPreviewPanel";
 import { getRelatedArticles } from "@/lib/relatedArticles";
 import IndustryBig5FAQ from "@/components/IndustryBig5FAQ";
+import { ARTICLE_TO_INDUSTRY_SLUG } from "@/data/branschguideIndustryMap";
+import { findIndustryBySlug } from "@/data/standardIndustries";
 
 const formatDateSv = (iso: string) => {
   const d = new Date(iso);
