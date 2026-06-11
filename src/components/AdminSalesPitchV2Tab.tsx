@@ -53,7 +53,7 @@ Detta gäller:
 
 • 1 produktområde: 995 kr/mån
 
-• 2 produktområden: 1 695 kr/mån
+• 2 produktområden: 1 595 kr/mån
 
 • 3 produktområden: 1 995 kr/mån
 
@@ -99,7 +99,7 @@ Detta gäller:
 
 • 1 produktområde: 995 kr/mån
 
-• 2 produktområden: 1 695 kr/mån
+• 2 produktområden: 1 595 kr/mån
 
 • 3 produktområden: 1 995 kr/mån
 
