@@ -59,6 +59,7 @@ const RequirementsSpecSales = lazy(() => import("./pages/RequirementsSpecSales")
 const RequirementsSpecMarketing = lazy(() => import("./pages/RequirementsSpecMarketing"));
 const RequirementsSpecCustomerService = lazy(() => import("./pages/RequirementsSpecCustomerService"));
 const Kunskapscenter = lazy(() => import("./pages/Kunskapscenter"));
+const KunskapscenterHub = lazy(() => import("./pages/KunskapscenterHub"));
 const Upphandlingsresan = lazy(() => import("./pages/Upphandlingsresan"));
 const Upphandlingsguiden = lazy(() => import("./pages/Upphandlingsguiden"));
 const VideoLanding = lazy(() => import("./pages/VideoLanding"));
