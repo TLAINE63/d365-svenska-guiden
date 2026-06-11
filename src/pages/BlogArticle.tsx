@@ -4,8 +4,9 @@ import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ArrowLeft, Calendar, Clock, Tag, User } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, RefreshCw, Tag, User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { KNOWLEDGE_CENTER_LAST_REVIEWED } from "@/lib/contentFreshness";
 import { BLOG_ARTICLES, getBlogArticleBySlug } from "@/data/blogArticles";
 import { buildMetaDescriptionDetailed } from "@/lib/metaDescription";
 import { buildMetaTitle } from "@/lib/metaTitle";
@@ -79,7 +80,9 @@ const BlogArticle = () => {
     description: metaDescription,
     image: ogImage.url,
     datePublished: article.publishedAt,
-    dateModified: article.publishedAt,
+    dateModified: new Date(KNOWLEDGE_CENTER_LAST_REVIEWED) > new Date(article.publishedAt)
+      ? KNOWLEDGE_CENTER_LAST_REVIEWED
+      : article.publishedAt,
     inLanguage: "sv-SE",
     mainEntityOfPage: { "@type": "WebPage", "@id": canonicalUrl },
     author: {
@@ -132,7 +135,7 @@ const BlogArticle = () => {
         <meta name="author" content={article.author.name} />
         <meta property="article:author" content={article.author.name} />
         <meta property="article:published_time" content={article.publishedAt} />
-        <meta property="article:modified_time" content={article.publishedAt} />
+        <meta property="article:modified_time" content={new Date(KNOWLEDGE_CENTER_LAST_REVIEWED) > new Date(article.publishedAt) ? KNOWLEDGE_CENTER_LAST_REVIEWED : article.publishedAt} />
         <meta property="article:section" content={article.category} />
         {article.tags.map((tag) => (
           <meta key={tag} property="article:tag" content={tag} />
@@ -220,8 +223,14 @@ const BlogArticle = () => {
               </span>
               <span className="flex items-center gap-1.5">
                 <Calendar className="w-4 h-4" />
-                {formatDateSv(article.publishedAt)}
+                Publicerad {formatDateSv(article.publishedAt)}
               </span>
+              {new Date(KNOWLEDGE_CENTER_LAST_REVIEWED) > new Date(article.publishedAt) && (
+                <span className="flex items-center gap-1.5">
+                  <RefreshCw className="w-4 h-4" />
+                  Senast uppdaterad {formatDateSv(KNOWLEDGE_CENTER_LAST_REVIEWED)}
+                </span>
+              )}
               <span className="flex items-center gap-1.5">
                 <Clock className="w-4 h-4" />
                 {article.readingTimeMinutes} min läsning
