@@ -216,10 +216,10 @@
     "description": "B3 Elevate är ett specialistföretag inom B3 Consulting Group som lyfter kundupplevelser till nya höjder genom kraftfulla AI-baserade molnlösningar byggda på Dynamics 365 och Power BI.\nTack vare ett nära samarbete mellan teknik- och affärsexperter levererar B3 Elevate kundlösningar - från strategi, via systemutveckling, till förvaltade tjänster. \nVi är ett konsultföretag med hög kompetens och moderna arbetssätt.\nSom långvarig Microsoftpartner förstärker vi organisationers förmåga att hantera digital transformation med stöd av Microsoft Dynamics 365.",
     "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/b3-elevate.png",
     "logo_dark_bg": true,
-    "website": "https://b3.se",
+    "website": "https://b3.se/elevate",
     "email": "daniel.cato@b3.se",
     "contact_person": "Daniel Cato",
-    "contact_photo_url": null,
+    "contact_photo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/b3-elevate-contact-main.png?t=1781075023445",
     "phone": "0734082702",
     "applications": [
       "Sales",
@@ -287,7 +287,7 @@
     "legal_name": "B3 Elevate Consulting AB",
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-06-05T09:59:23.450683+00:00",
+    "updated_at": "2026-06-10T07:04:03.090768+00:00",
     "industry_pitches": [
       {
         "text": "För medlemsorganisationer kan B3 Elevate leverera lösningar baserade på Microsoft Dynamics 365, med fokus på att optimera medlemsresan och medvetenheten om organisationens värde. De har kompetens inom applikationer som Dynamics 365 Sales, Customer Insights (Marketing), Customer Service och Contact Center.\n\nGenom att arbeta med Dynamics 365 kan organisationer effektivisera medlemskommunikation, hantera medlemsregister och förbättra servicen. B3 Elevate bistår med att utveckla och implementera system för att underlätta dessa processer, från strategi till förvaltning. Deras expertis omfattar hur digitala verktyg kan anpassas för att möta medlemmarnas förväntningar och hantera enskilda medlemsärenden mer effektivt. De arbetar också med att integrera AI-baserade lösningar för att utveckla kundupplevelsen, vilket kan bidra till en ökad relevans för medlemmarna.",
@@ -489,7 +489,7 @@
     "legal_name": "Bisqo AB",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-06-05T09:59:23.450683+00:00",
+    "updated_at": "2026-06-10T11:19:17.136826+00:00",
     "industry_pitches": [
       {
         "text": "Bisqo AB erbjuder molnbaserade lösningar för grossist- och distributionsbranschen med fokus på Microsoft Dynamics 365 Business Central. Partnern har kompetens inom att effektivisera affärsprocesser som är centrala för branschen, inklusive lagerhantering, orderhantering och logistik. De arbetar med att implementera och optimera dessa system för att möta krav på snabba och precisa leveranser. Bisqo AB levererar även lösningar för kundrelationshantering (CRM) baserade på Power Platform samt analysverktyg med Power BI, vilka bidrar till förbättrad överblick och beslutsfattande i komplexa logistikkedjor. Deras arbetssätt syftar till att leverera snabba och förutsägbara implementationer som ger affärsvärde för distributionsföretag som strävar efter digitalisering och effektivisering av sina processer.",
@@ -520,7 +520,7 @@
         "generated_at": "2026-05-17T08:32:55Z"
       }
     ],
-    "agreement_signed": false,
+    "agreement_signed": true,
     "related_party": false
   },
   {
@@ -1179,6 +1179,8 @@
     "phone": "0103333399",
     "applications": [
       "Business Central",
+      "Finance",
+      "Supply Chain Management",
       "Sales",
       "Customer Insights (Marketing)"
     ],
@@ -1242,6 +1244,53 @@
         "secondaryIndustries": [],
         "aiSegmentationDetails": []
       },
+      "fsc": {
+        "ranking": 999,
+        "revenue": [
+          "100-499 MSEK",
+          "500-999 MSEK",
+          "1.000-4.999 MSEK"
+        ],
+        "geography": [
+          "Sverige",
+          "Norden",
+          "Europa",
+          "Övriga världen"
+        ],
+        "industries": [
+          "Tillverkningsindustri",
+          "Grossist & Distribution",
+          "Life Science / Medtech"
+        ],
+        "companySize": [],
+        "contactName": "Katarina Pärsson",
+        "contactEmail": "katarina.parsson@fellowmind.se",
+        "contactPhone": "076-001 98 78",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [],
+        "aiOtherPartner": "",
+        "aiProjectCount": "",
+        "hasBuiltAgents": null,
+        "landingPageUrl": "https://www.fellowmind.com/sv-se/losningar/business-applications-erp/dynamics-365-finance-and-supply-chain-management/",
+        "aiOtherAdvanced": "",
+        "contactPhotoUrl": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/fellowmind-contact-fsc.jpg?t=1781084585989",
+        "aiBusinessImpact": "",
+        "customerExamples": [
+          "Swecon",
+          "Stena Recycling",
+          "Ponsse"
+        ],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [
+          "https://www.fellowmind.com/sv-se/cases/swecon/",
+          "https://www.fellowmind.com/sv-se/cases/stena-recycling/",
+          "https://www.fellowmind.com/sv-se/cases/ponsse/"
+        ],
+        "productDescription": "Från ekonomi och produktion till supply chain och verksamhetsstyrning. Vi hjälper företag att skapa en datadriven och skalbar verksamhet med Dynamics 365.",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      },
       "sales": {
         "ranking": 999,
         "revenue": [
@@ -1277,7 +1326,7 @@
         "landingPageUrl": "https://www.fellowmind.com/sv-se/losningar/customer-engagement-crm/",
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
-        "contactPhotoUrl": "",
+        "contactPhotoUrl": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/fellowmind-contact-sales.jpeg?t=1781083909812",
         "aiBusinessImpact": "",
         "customerExamples": [
           "Lejonfastigheter",
@@ -1315,7 +1364,7 @@
     "legal_name": "Fellowmind Sweden AB",
     "youtube_video_id": null,
     "created_at": "2026-01-12T20:38:52.813808+00:00",
-    "updated_at": "2026-06-09T13:07:51.570996+00:00",
+    "updated_at": "2026-06-10T09:52:17.672956+00:00",
     "industry_pitches": [
       {
         "text": "Fellowmind erbjuder lösningar baserade på Microsoft Dynamics 365 för grossist- och distributionsbranschen. Med inriktning på att optimera leveranskedjor och finansiella processer, implementerar Fellowmind Dynamics 365 Finance och Supply Chain Management. Deras expertis omfattar att stödja företag i att hantera komplexa logistikflöden, förbättra lagereffektiviteten och säkerställa transparenta ekonomiska transaktioner. Fellowmind arbetar med att anpassa Microsoft-plattformen för att möta specifika krav gällande priskonfigurationer, integration med tredjepartslogistik (3PL) och optimering av order-till-leveransprocesser. De strävar efter att leverera hållbara lösningar som bidrar till ökad operativ effektivitet och datadrivna beslutsunderlag.",
@@ -1345,7 +1394,7 @@
     "website": "https://goodfellows.se",
     "email": "sebastian.birgersson@goodfellows.se",
     "contact_person": "Sebastian Birgersson",
-    "contact_photo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/goodfellows-contact-main.png?t=1780929656596",
+    "contact_photo_url": "",
     "phone": "+46 705091444",
     "applications": [
       "Business Central"
@@ -1362,9 +1411,9 @@
           "Norden"
         ],
         "industries": [
-          "Tillverkningsindustri",
           "Grossist & Distribution",
-          "Konsulttjänster"
+          "Konsulttjänster",
+          "Retail & E-handel"
         ],
         "companySize": [
           "1-49",
@@ -1412,7 +1461,7 @@
     "legal_name": "Goodfellows Business AB",
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-06-08T14:50:27.212766+00:00",
+    "updated_at": "2026-06-10T07:06:12.915197+00:00",
     "industry_pitches": [
       {
         "text": "Goodfellows levererar affärssystemlösningar med fokus på Microsoft Dynamics 365 Business Central. Partnern har erfarenhet av att arbeta med företag inom handel och distribution. De strävar efter att leverera lösningar som fungerar i praktiken och bidrar med affärsförståelse för att säkerställa relevanta vägval. Goodfellows kan erbjuda stöd för processer som rör omnikanalstrategier, kundresor, logistik och lagerhantering, vilka är centrala för aktörer inom retail och e-handel. De arbetar nära sina kunder för att implementera lösningar som skapar affärsnytta, med målet att systemet ska fungera utan oväntade utmaningar.",
