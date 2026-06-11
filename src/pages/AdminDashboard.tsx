@@ -97,6 +97,7 @@ import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminEmailLogTab from "@/components/AdminEmailLogTab";
 import AdminFeaturedArticleTab from "@/components/AdminFeaturedArticleTab";
 import AdminKnowledgeArticlesTab from "@/components/AdminKnowledgeArticlesTab";
+import AdminProductPricesTab from "@/components/AdminProductPricesTab";
 import AdminUnprofiledPartnersTab from "@/components/AdminUnprofiledPartnersTab";
 import AdminIndustryPagesTab from "@/components/AdminIndustryPagesTab";
 import AdminSeoRankingsTab from "@/components/AdminSeoRankingsTab";
@@ -258,7 +259,7 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
     id: "innehall",
     label: "Innehåll & Events",
     icon: CalendarDays,
-    tabs: ["events", "featured-article", "knowledge-articles", "industry-pages"],
+    tabs: ["events", "featured-article", "knowledge-articles", "industry-pages", "product-prices"],
   },
   {
     id: "salj",
@@ -2035,6 +2036,12 @@ Thomas`,
               </span>
               Branschsidor
             </TabsTrigger>
+            <TabsTrigger value="product-prices" className={`flex items-center gap-2 ${activeGroup === "innehall" ? "" : "hidden"}`}>
+              <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 ring-1 ring-emerald-400/20">
+                <FileText className="h-3.5 w-3.5 text-emerald-300" strokeWidth={1.75} />
+              </span>
+              Priser
+            </TabsTrigger>
             <TabsTrigger value="partner-dashboard" className={`flex items-center gap-2 ${activeGroup === "partnerportal" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-cyan-500/20 to-cyan-600/10 ring-1 ring-cyan-400/20">
                 <LayoutDashboard className="h-3.5 w-3.5 text-cyan-300" strokeWidth={1.75} />
@@ -3133,6 +3140,11 @@ Thomas`,
           <TabsContent value="industry-pages">
             <AdminIndustryPagesTab token={token || null} onSessionExpired={logout} />
           </TabsContent>
+
+          <TabsContent value="product-prices">
+            <AdminProductPricesTab token={token || null} onSessionExpired={logout} />
+          </TabsContent>
+
 
           <TabsContent value="partner-dashboard">
             <AdminPartnerDashboardTab token={token || null} />
