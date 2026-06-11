@@ -1874,7 +1874,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för tillverkningsindustrin",
     metaTitle: "Dynamics 365 för tillverkningsindustri – guide & partners",
     metaDescription:
-      "Hur Dynamics 365 stödjer tillverkning: MRP, BOM, kvalitet, spårbarhet och MES-integration. Jämför listade partners i Sverige med kostnad och fallgropar.",
+      "Dynamics 365 för tillverkning täcker MRP, BOM, kvalitet, spårbarhet och MES-integration. Köparsidig guide med kostnad, fallgropar och svenska partners.",
     summary:
       "Dynamics 365 (F&SCM eller BC Premium) är ryggraden för svenska tillverkningsbolag — planering, inköp, lager, kvalitet och ekonomi i en plattform, kompletterad med MES och PLM. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
