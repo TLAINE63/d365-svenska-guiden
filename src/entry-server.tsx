@@ -155,6 +155,13 @@ export const routes: PrerenderRoute[] = [
   { path: '/kravspecifikation-sales', priority: '0.7', changefreq: 'monthly' },
   { path: '/kravspecifikation-marketing', priority: '0.7', changefreq: 'monthly' },
   { path: '/kravspecifikation-kundservice', priority: '0.7', changefreq: 'monthly' },
+  { path: '/partners-sitemap', priority: '0.6', changefreq: 'weekly' },
+  ...PRODUCT_PARTNERS_SVERIGE.map((c) => ({
+    path: `/${c.slug}`,
+    priority: '0.8',
+    changefreq: 'weekly' as const,
+    meta: { title: c.metaTitle, description: c.metaDescription },
+  })),
   // Deep-dive article routes (generated from data)
   ...ALL_DEEP_DIVE_ARTICLES.map((a) => ({
     path: `/kunskapscenter/${a.productSlug}/${a.slug}`,
