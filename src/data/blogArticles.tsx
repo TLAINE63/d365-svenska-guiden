@@ -4027,7 +4027,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för offentlig sektor",
     metaTitle: "Dynamics 365 för offentlig sektor – guide & partners",
     metaDescription:
-      "Hur Dynamics 365 stödjer offentlig sektor: ärenden, fältservice, projekt och medborgarkontakt med diarie-integration. Jämför listade partners i Sverige.",
+      "Dynamics 365 för offentlig sektor stöttar ärenden, fältservice, projekt och medborgarkontakt med diarie-integration. Köparsidig guide med svenska partners.",
     summary:
       "Dynamics 365 är en plattform för svenska kommuner, regioner och myndigheter — ärendehantering, fältservice, projekt och medborgarkontakt, integrerat med diariesystem och ekonomi. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
