@@ -3,6 +3,8 @@ import { BC_ARTICLES } from "@/data/bcArticles";
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
+import { Price } from "@/components/Price";
+import { resolvePriceTokens } from "@/lib/productPriceFormat";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
@@ -38,11 +40,11 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-// Business Central FAQs for schema
-const bcFaqs = [
+// Business Central FAQs for schema – priser resolvas från product_prices via resolvePriceTokens
+const bcFaqsRaw = [
   {
     question: "Vad kostar Microsoft Dynamics 365 Business Central i Sverige?",
-    answer: "Business Central pris Sverige 2025: Team Member 76,50 kr/användare/mån, Essentials 764,70 kr/användare/mån och Premium 1 051,40 kr/användare/mån (Microsoft MSRP exkl. moms). Utöver licensen tillkommer implementeringskostnader som typiskt ligger på 150 000–800 000 kr beroende på projektets omfattning, antal användare och grad av anpassning. Kostnaden påverkas också av vald partner och supportavtal."
+    answer: "Business Central pris Sverige 2026: Team Member {{price:bc-team-members:exact}}, Essentials {{price:bc-essentials:exact}} och Premium {{price:bc-premium:exact}} (Microsofts officiella listpris exkl. moms). Utöver licensen tillkommer implementeringskostnader som typiskt ligger på 150 000–800 000 kr beroende på projektets omfattning, antal användare och grad av anpassning. Kostnaden påverkas också av vald partner och supportavtal."
   },
   {
     question: "Hur lång tid tar Business Central implementering i Sverige?",
@@ -54,7 +56,7 @@ const bcFaqs = [
   },
   {
     question: "Vad är skillnaden mellan Business Central Essentials och Premium?",
-    answer: "Business Central Essentials (765 kr/mån) inkluderar ekonomi, lager, försäljning, inköp och projekthantering. Premium-licensen (1 051 kr/mån) lägger till tillverkning (MRP, kapacitetsplanering) och servicehantering (serviceorder, servicekontrakt). De flesta företag börjar med Essentials och uppgraderar vid behov. Team Member (77 kr/mån) för användare som bara behöver läsbehörighet eller enkla godkännanden."
+    answer: "Business Central Essentials ({{price:bc-essentials}}) inkluderar ekonomi, lager, försäljning, inköp och projekthantering. Premium-licensen ({{price:bc-premium}}) lägger till tillverkning (MRP, kapacitetsplanering) och servicehantering (serviceorder, servicekontrakt). De flesta företag börjar med Essentials och uppgraderar vid behov. Team Member ({{price:bc-team-members}}) för användare som bara behöver läsbehörighet eller enkla godkännanden."
   },
   {
     question: "Business Central vs Fortnox – vilket ska jag välja?",
@@ -70,9 +72,10 @@ const bcFaqs = [
   },
   {
     question: "Kan Business Central hantera tillverkning och produktion?",
-    answer: "Ja, med Premium-licensen (1 051 kr/mån) ingår tillverkning med produktionsorder, MRP (Material Requirements Planning), kapacitetsplanering, versionskontroll och kvalitetsstyrning. Det finns dessutom ett rikt ekosystem av ISV-tillägg i Marketplace för avancerad WMS, batchhantering, maskinintegration (MES) och spårbarhet – vilket gör Business Central konkurrenskraftigt mot specialiserade tillverknings-ERP."
+    answer: "Ja, med Premium-licensen ({{price:bc-premium}}) ingår tillverkning med produktionsorder, MRP (Material Requirements Planning), kapacitetsplanering, versionskontroll och kvalitetsstyrning. Det finns dessutom ett rikt ekosystem av ISV-tillägg i Marketplace för avancerad WMS, batchhantering, maskinintegration (MES) och spårbarhet – vilket gör Business Central konkurrenskraftigt mot specialiserade tillverknings-ERP."
   },
 ];
+const bcFaqs = bcFaqsRaw.map((f) => ({ ...f, answer: resolvePriceTokens(f.answer) }));
 
 // Geography filter options
 const geographyFilters = [
@@ -141,7 +144,7 @@ const BusinessCentral = () => {
     {
       title: "Business Central Team Member",
       description: "För användare med begränsade behov",
-      price: "76,50 kr",
+      productKey: "bc-team-members",
       features: [
         "Läsbehörighet",
         "Grundläggande rapporter",
@@ -153,7 +156,7 @@ const BusinessCentral = () => {
     {
       title: "Business Central Essentials",
       description: "För mindre företag",
-      price: "764,70 kr",
+      productKey: "bc-essentials",
       features: [
         "Ekonomihantering",
         "Försäljning & Inköp",
@@ -165,7 +168,7 @@ const BusinessCentral = () => {
     {
       title: "Business Central Premium",
       description: "För växande företag",
-      price: "1 051,40 kr",
+      productKey: "bc-premium",
       features: [
         "Alla Essentials-funktioner",
         "Serviceorderhantering",
@@ -178,7 +181,7 @@ const BusinessCentral = () => {
     <div className="min-h-screen">
       <SEOHead 
         title="Dynamics 365 Business Central – pris & partners | d365.se"
-        description="Business Central: Essentials 765 kr/mån, Premium 1 051 kr/mån. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+        description={resolvePriceTokens("Business Central: Essentials {{price:bc-essentials:short}}, Premium {{price:bc-premium:short}}. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner.")}
         canonicalPath="/businesscentral"
         keywords="business central, dynamics 365 business central, d365 bc, dynamics 365 bc, business central pris, business central licens, business central essentials, business central premium, business central partner sverige, business central implementering"
         ogImage="https://d365.se/og-business-central.png"
@@ -240,10 +243,13 @@ const BusinessCentral = () => {
                   <div className="bg-secondary/50 rounded-lg p-4 mt-4">
                     <p className="font-semibold text-foreground mb-2">💰 Licenspriser (prenumeration):</p>
                     <ul className="space-y-1">
-                      <li>• Team Member: <strong className="text-foreground">76,50 kr/månad</strong></li>
-                      <li>• Essentials: <strong className="text-foreground">764,70 kr/månad</strong></li>
-                      <li>• Premium: <strong className="text-foreground">1 051,40 kr/månad</strong></li>
+                      <li>• Team Member: <strong className="text-foreground"><Price productKey="bc-team-members" mode="exact" /></strong></li>
+                      <li>• Essentials: <strong className="text-foreground"><Price productKey="bc-essentials" mode="exact" /></strong></li>
+                      <li>• Premium: <strong className="text-foreground"><Price productKey="bc-premium" mode="exact" /></strong></li>
                     </ul>
+                    <p className="text-xs text-muted-foreground mt-2 italic">
+                      Microsofts officiella listpris exkl. moms vid årsvis betalning. Källa: microsoft.com/sv-se.
+                    </p>
                   </div>
                   <p className="text-sm italic">
                     Till detta tillkommer implementeringskostnader som varierar beroende på omfattning, integrationer och anpassningsbehov.
