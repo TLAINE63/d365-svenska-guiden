@@ -90,7 +90,7 @@ const OmThomasLaine = () => {
             <div className="max-w-3xl mx-auto space-y-5 text-foreground/90 text-base sm:text-lg leading-relaxed">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground">Bakgrund</h2>
               <p>
-                Resan började på Damgaard, med produkter som XAL, Concorde och Axapta. Efter
+                Resan började på Damgaard, med produkter som Concorde XAL och Axapta. Efter
                 samgåendet mellan Damgaard och Navision följde 13 år på Microsoft Sverige, bland
                 annat som affärsområdeschef för Business Solutions och som partneransvarig för
                 Dynamics 365. Det innebär många år på insidan av det partnerlandskap som svenska
