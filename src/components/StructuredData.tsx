@@ -472,7 +472,7 @@ export const AdvisorsSchema = () => {
       <PersonSchema
         name="Thomas Laine"
         jobTitle="Senior rådgivare och medgrundare, d365.se"
-        description="Oberoende rådgivare med över 25 års erfarenhet av Microsoft Dynamics 365 ERP, CRM, partnerlandskap och affärssystemsbeslut i Sverige."
+        description="Senior rådgivare med över 30 år i Microsoft Dynamics-ekosystemet – ERP, CRM, partnerlandskap och affärssystemsbeslut i Sverige."
         image="/src/assets/thomas-laine-real.jpg"
         email="thomas.laine@dynamicfactory.se"
         telephone="+46-72-232-40-60"
