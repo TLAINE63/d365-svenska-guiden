@@ -14,6 +14,7 @@ import MarketingIcon from "@/assets/icons/Marketing.svg";
 import { CI_ARTICLES } from "@/data/ciArticles";
 import SEOHead from "@/components/SEOHead";
 import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import { resolvePriceTokens } from "@/lib/productPriceFormat";
 
 // Breadcrumb items
 const marketingBreadcrumbs = [
