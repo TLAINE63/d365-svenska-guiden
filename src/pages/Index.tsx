@@ -60,7 +60,7 @@ const homeFaqs = [
   },
   {
     question: "Hur fungerar Microsoft Copilot AI i Dynamics 365?",
-    answer: "Microsoft Copilot är inbyggt i alla Dynamics 365-appar utan extra licensavgift. I Business Central hjälper Copilot med produktbeskrivningar och bankavstämning. I Sales sammanfattar Copilot möten och skriver e-postutkast. I Customer Service föreslår Copilot svar och sammanfattar ärenden. I Finance & Supply Chain varnar Copilot för leveransrisker och avvikelser. Enligt Forresters TEI-studie (oktober 2024) kan Copilot ge 353% potentiell ROI över 3 år."
+    answer: "Microsoft Copilot ingår utan extra licensavgift i flera av Dynamics 365 Enterprise-licenserna (bland annat Business Central Premium, Sales Enterprise/Premium och Customer Service Enterprise). Vissa avancerade Copilot-funktioner och Copilot Studio-agenter kräver dock tilläggslicens – kontrollera Microsofts aktuella licensguide för din applikation. I Business Central hjälper Copilot med produktbeskrivningar och bankavstämning. I Sales sammanfattar Copilot möten och skriver e-postutkast. I Customer Service föreslår Copilot svar och sammanfattar ärenden. I Finance & Supply Chain kan Copilot flagga leveransrisker och avvikelser. Forresters TEI-studie (oktober 2024) indikerar potentiell ROI på upp till 353 % över 3 år för en sammansatt kund – faktisk effekt beror på processmognad, datakvalitet och förändringsledning."
   },
 ];
 
@@ -247,7 +247,7 @@ const Index = () => {
           { heading: "Hitta rätt Dynamics 365-partner i Sverige", text: "Att välja rätt implementeringspartner är avgörande för ett lyckat Dynamics 365-projekt. En bra partner bör ha dokumenterad branschkunskap inom din sektor, referenskunder av liknande storlek och djupkompetens på den specifika applikation du ska implementera." },
           { heading: "Hur lång tid tar en Dynamics 365-implementation?", text: "Tidsramen varierar beroende på lösning och komplexitet. Business Central startpaket tar normalt 2 till 4 månader. En fullständig Business Central-implementation tar 4 till 9 månader." },
           { heading: "Dynamics 365 jämfört med SAP, Salesforce och Fortnox", text: "Dynamics 365 Business Central är ett starkt alternativ till Fortnox, Visma och Monitor för små och medelstora företag – med bättre skalbarhet och djupare Microsoft-integration." },
-          { heading: "Microsoft Copilot AI i Dynamics 365", text: "Microsoft Copilot är inbyggt i alla Dynamics 365-applikationer utan extra licensavgift." },
+          { heading: "Microsoft Copilot AI i Dynamics 365", text: "Microsoft Copilot ingår utan extra licensavgift i flera Dynamics 365 Enterprise-licenser. Omfattningen varierar per app och licensnivå – vissa avancerade funktioner kräver tillägg." },
           { heading: "Kostnadsfri behovsanalys", text: "Gör vår kostnadsfria behovsanalys för att få en personlig rekommendation om vilken Dynamics 365-lösning som passar ditt företag bäst." },
         ]}
       />
@@ -965,7 +965,7 @@ const Index = () => {
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
                   <div className="space-y-3 text-muted-foreground">
-                    <p>Microsoft Copilot är inbyggt i alla Dynamics 365-appar <strong>utan extra licensavgift</strong>.</p>
+                    <p>Microsoft Copilot ingår <strong>utan extra licensavgift i flera Dynamics 365 Enterprise-licenser</strong> (t.ex. Business Central Premium, Sales Enterprise/Premium och Customer Service Enterprise). Vissa avancerade funktioner och Copilot Studio-agenter kräver tilläggslicens – kontrollera Microsofts licensguide för din applikation.</p>
                     <p>• <strong>Business Central:</strong> Produktbeskrivningar, bankavstämning och försäljningsrader.</p>
                     <p>• <strong>Sales:</strong> Mötessammanfattningar, e-postutkast och leadprioritering.</p>
                     <p>• <strong>Customer Service:</strong> Ärendesammanfattningar och svarsförslag.</p>
