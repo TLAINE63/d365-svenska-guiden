@@ -1549,7 +1549,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för Retail & e-handel",
     metaTitle: "Dynamics 365 för retail & e-handel – guide & partners",
     metaDescription:
-      "Hur Dynamics 365 stödjer retail & e-handel: POS, lager, omnikanal, kunddata. Jämför listade partners i Sverige och se kostnad, vanliga problem och alternativ.",
+      "Dynamics 365 för retail & e-handel ger POS, lager, omnikanal och kunddata i en plattform. Köparsidig guide med kostnad, fallgropar och svenska partners.",
     summary:
       "Dynamics 365 (BC, F&SCM och Commerce) fungerar som back-office för retail- och e-handelsbolag — ekonomi, lager, kund och kanal i samma plattform. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
