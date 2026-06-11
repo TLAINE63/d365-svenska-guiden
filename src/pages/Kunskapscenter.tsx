@@ -797,7 +797,9 @@ const Kunskapscenter = () => {
         {activeCategory === "fordjupning" ? (
           <section className="py-12">
             <div className="container mx-auto px-4">
-              {(() => {
+              {deepDiveView === "prices" ? (
+                <PriceListSection product={deepDiveProduct} />
+              ) : (() => {
                 const productColor = (product: string) => {
                   switch (product) {
                     case "Business Central":
