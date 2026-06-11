@@ -47,6 +47,8 @@ import BlogArticle from './pages/BlogArticle';
 import SmartSearch from './pages/SmartSearch';
 import ProductPartnersSverige from './pages/ProductPartnersSverige';
 import PartnersSitemap from './pages/PartnersSitemap';
+import AllD365Partners from './pages/AllD365Partners';
+import PartnersPerBransch from './pages/PartnersPerBransch';
 import { PRODUCT_PARTNERS_SVERIGE } from './data/productPartnersSverige';
 import { ALL_DEEP_DIVE_ARTICLES } from './data/bcArticles';
 import { BLOG_ARTICLES } from './data/blogArticles';
