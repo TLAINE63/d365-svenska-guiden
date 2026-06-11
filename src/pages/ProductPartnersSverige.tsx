@@ -160,7 +160,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
                 {cfg.faq.map((f, i) => (
                   <div key={i}>
                     <h3 className="font-semibold text-foreground mb-2">{f.q}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{f.a}</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{resolvePriceTokens(f.a)}</p>
                   </div>
                 ))}
               </div>
