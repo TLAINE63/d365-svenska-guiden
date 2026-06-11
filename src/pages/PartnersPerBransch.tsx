@@ -6,11 +6,21 @@ import Footer from "@/components/Footer";
 import { usePartners, type DatabasePartner } from "@/hooks/usePartners";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { collectPartnerIndustries } from "@/lib/partnerIndustries";
-import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Building2 } from "lucide-react";
+import partnerDataJson from "@/data/partnerData.json";
+
+// Static featured-partner snapshot bundled at build time. Used as the
+// source for the initial render (SSG/crawlers) so partnernamn, branscher
+// och länkar finns i HTML utan att kräva klient-side JavaScript.
+const STATIC_FEATURED = (partnerDataJson as any[]).filter(
+  (p) => p.is_featured !== false,
+) as unknown as DatabasePartner[];
 
 const PartnersPerBransch = () => {
-  const { data: partners = [], isLoading } = usePartners();
+  const { data: livePartners = [], isLoading } = usePartners();
+  // Use live DB data when available, otherwise the static snapshot so the
+  // prerendered HTML always contains the full partner-per-bransch grid.
+  const partners: DatabasePartner[] = livePartners.length > 0 ? livePartners : STATIC_FEATURED;
 
   // Build map: industry name -> partners[]
   const byIndustry = new Map<string, DatabasePartner[]>();
@@ -70,7 +80,7 @@ const PartnersPerBransch = () => {
 
         <section className="py-10">
           <div className="container mx-auto px-4 max-w-5xl">
-            {isLoading ? (
+            {isLoading && partners.length === 0 ? (
               <p className="text-muted-foreground">Laddar partners…</p>
             ) : (
               <div className="space-y-10">
