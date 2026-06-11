@@ -84,9 +84,10 @@ const BlogArticle = () => {
     mainEntityOfPage: { "@type": "WebPage", "@id": canonicalUrl },
     author: {
       "@type": "Person",
+      "@id": "https://d365.se/om-thomas-laine#thomas-laine",
       name: article.author.name,
       jobTitle: article.author.role,
-      ...(article.author.url ? { url: article.author.url } : {}),
+      url: "https://d365.se/om-thomas-laine",
     },
     publisher: {
       "@type": "Organization",
