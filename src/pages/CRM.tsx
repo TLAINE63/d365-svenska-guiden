@@ -156,7 +156,7 @@ const CRM = () => {
     <div className="min-h-screen">
       <SEOHead 
         title="CRM system Sverige – Dynamics 365 priser | d365.se"
-        description="Dynamics 365 Sales från 550 kr/mån, Customer Service från 660 kr/mån. Jämför mot Salesforce. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+        description="Dynamics 365 Sales från 550 kr/mån, Customer Service från 660 kr/mån. Jämför mot Salesforce – vi står på köparens sida vid partnerval."
         canonicalPath="/crm"
         keywords="CRM system Sverige pris, Dynamics 365 CRM Sverige, Microsoft CRM system, Dynamics 365 Sales pris, CRM jämförelse Sverige, Dynamics 365 vs Salesforce, Customer Service CRM, CRM implementering Sverige, Microsoft CRM partner certifierad"
         ogImage="https://d365.se/og-crm.png"
