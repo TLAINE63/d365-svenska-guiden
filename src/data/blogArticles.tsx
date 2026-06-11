@@ -3333,7 +3333,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för energi & utilities",
     metaTitle: "Dynamics 365 för energi & utilities – guide & partners",
     metaDescription:
-      "Hur Dynamics 365 stödjer energi & utilities: fältservice, ärenden, projekt och kund med CIS/MDM-integration. Jämför listade partners i Sverige.",
+      "Dynamics 365 för energi & utilities stöttar fältservice, ärenden, projekt och kund med CIS/MDM-integration. Köparsidig guide med svenska partners.",
     summary:
       "Dynamics 365 fungerar som plattform för svenska energi- och utilitiesbolag — ekonomi, projekt, fältservice och kund, integrerat med CIS/MDM och GIS/NIS. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
