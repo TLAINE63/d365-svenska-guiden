@@ -111,6 +111,7 @@ const AppShell = () => {
           <Route path="/ai-readiness" element={<AIReadiness />} />
           <Route path="/qa" element={<QA />} />
           <Route path="/kontakt" element={<ContactUs />} />
+          <Route path="/om-thomas-laine" element={<OmThomasLaine />} />
           
           <Route path="/valjdynamics365partner" element={<ValjPartner />} />
           <Route path="/valj-partner" element={<Navigate to="/valjdynamics365partner" replace />} />
