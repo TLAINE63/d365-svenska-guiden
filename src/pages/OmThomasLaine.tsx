@@ -121,8 +121,7 @@ const OmThomasLaine = () => {
               <p>
                 d365.se grundades tillsammans med Michael Uhman för att vara motvikten: en
                 plattform som inte säljer system, inte säljer implementation, och inte tar betalt
-                per lead. Partners betalar en fast listningsavgift, oavsett storlek. Det är
-                grunden för vårt oberoende.
+                per lead.
               </p>
             </div>
           </div>
