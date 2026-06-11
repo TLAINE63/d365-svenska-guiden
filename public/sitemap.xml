@@ -229,6 +229,18 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://d365.se/om-thomas-laine/</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/om-michael-uhman/</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://d365.se/branscher/jordbruk-skogsbruk/</loc>
     <lastmod>2026-06-11</lastmod>
     <changefreq>monthly</changefreq>
