@@ -4,7 +4,8 @@ import { BreadcrumbSchema, ArticleSchema } from "@/components/StructuredData";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ALL_DEEP_DIVE_ARTICLES } from "@/data/bcArticles";
-import { ArrowLeft, BookOpen } from "lucide-react";
+import { ArrowLeft, BookOpen, Calendar, RefreshCw } from "lucide-react";
+import { KNOWLEDGE_CENTER_LAST_REVIEWED, formatLongDateSv } from "@/lib/contentFreshness";
 
 const DeepDiveArticle = () => {
   const { productSlug, articleSlug } = useParams();
@@ -28,6 +29,7 @@ const DeepDiveArticle = () => {
   const articleUrl = `https://d365.se/kunskapscenter/${article.productSlug}/${article.slug}/`;
   const articleImage = article.bannerImage || article.image;
   const fallbackPublished = "2024-01-01T00:00:00+01:00";
+  const lastReviewed = KNOWLEDGE_CENTER_LAST_REVIEWED;
 
   return (
     <>
@@ -39,7 +41,7 @@ const DeepDiveArticle = () => {
         ogImage={articleImage || "https://d365.se/og-erp.png"}
         ogImageAlt={article.title}
         articlePublishedTime={fallbackPublished}
-        articleModifiedTime={fallbackPublished}
+        articleModifiedTime={lastReviewed}
         articleAuthor="Thomas Laine"
         articleSection={article.product}
       />
@@ -58,8 +60,9 @@ const DeepDiveArticle = () => {
         image={articleImage}
         section={article.product}
         datePublished={fallbackPublished}
-        dateModified={fallbackPublished}
+        dateModified={lastReviewed}
       />
+
 
       <Navbar />
       <main className="min-h-screen bg-background pt-16 lg:pt-28">
@@ -97,8 +100,19 @@ const DeepDiveArticle = () => {
             <p className="text-muted-foreground mt-2 max-w-2xl">
               {article.description}
             </p>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-4 text-xs text-muted-foreground">
+              <span className="flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5" />
+                Publicerad: <time dateTime={fallbackPublished}>{formatLongDateSv(fallbackPublished)}</time>
+              </span>
+              <span className="flex items-center gap-1.5">
+                <RefreshCw className="w-3.5 h-3.5" />
+                Senast uppdaterad: <time dateTime={lastReviewed} className="font-medium text-foreground">{formatLongDateSv(lastReviewed)}</time>
+              </span>
+            </div>
           </div>
         </section>
+
 
         {/* Banner image */}
         {(article.bannerImage || (article.image && !article.image.endsWith('.svg'))) && (
