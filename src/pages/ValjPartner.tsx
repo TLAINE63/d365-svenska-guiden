@@ -443,6 +443,14 @@ const ValjPartner = () => {
         description="Hjälp att välja rätt Microsoft Dynamics 365 implementeringspartner baserat på bransch, storlek och behov. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
       />
       <BreadcrumbSchema items={partnerBreadcrumbs} />
+      <ItemListSchema
+        name="Dynamics 365-partners i Sverige"
+        description="Lista över Microsoft-certifierade Dynamics 365-partners presenterade på d365.se."
+        items={partners.map((p) => ({
+          name: p.name,
+          url: `https://d365.se/partner/${p.slug}`,
+        }))}
+      />
       <Navbar />
       {/* Partner Guide Dialog */}
       <PartnerGuideDialog 
