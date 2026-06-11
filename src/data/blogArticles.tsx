@@ -3798,7 +3798,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för finans & försäkring",
     metaTitle: "Dynamics 365 för finans & försäkring – guide & partners",
     metaDescription:
-      "Hur Dynamics 365 stödjer finans & försäkring: distribution, CRM, kundtjänst och Customer Insights med integration mot kärnsystem. Jämför listade partners i Sverige.",
+      "Dynamics 365 för finans & försäkring stöttar distribution, CRM, kundtjänst och Customer Insights mot kärnsystem. Köparsidig guide med svenska partners.",
     summary:
       "Dynamics 365 stödjer svenska finans- och försäkringsbolag på CRM-sidan — distribution, kundtjänst, Customer Insights och compliance — med integration mot bank- och försäkringskärnsystem. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
