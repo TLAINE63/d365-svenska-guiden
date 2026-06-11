@@ -675,6 +675,34 @@ const Kunskapscenter = () => {
             </p>
           </div>
         </section>
+        {/* Topical hubs — crawl-friendly internal links */}
+        <section className="border-b border-border bg-muted/30">
+          <div className="container mx-auto px-4 py-6">
+            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+              Utforska efter ämne
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { slug: "business-central", label: "Business Central" },
+                { slug: "finance-supply-chain", label: "Finance & Supply Chain" },
+                { slug: "sales", label: "Sales & CRM" },
+                { slug: "customer-service", label: "Kundservice & Field Service" },
+                { slug: "copilot", label: "Copilot & AI" },
+                { slug: "upphandling", label: "Upphandling" },
+                { slug: "partners", label: "Partnerval" },
+              ].map((hub) => (
+                <Link
+                  key={hub.slug}
+                  to={`/kunskapscenter/${hub.slug}/`}
+                  className="px-3 py-1.5 rounded-full text-sm font-medium border border-border bg-card text-foreground hover:border-primary/50 hover:bg-primary/5 transition-colors"
+                >
+                  {hub.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
 
         {/* Filters */}
         <section className="border-b border-border sticky top-16 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">

@@ -38,6 +38,8 @@ import EventDetail from './pages/EventDetail';
 import QA from './pages/QA';
 import PartnerProfile from './pages/PartnerProfile';
 import Kunskapscenter from './pages/Kunskapscenter';
+import KunskapscenterHub from './pages/KunskapscenterHub';
+import { KNOWLEDGE_HUBS } from './data/knowledgeHubs';
 import RequirementsSpec from './pages/RequirementsSpec';
 import RequirementsSpecSales from './pages/RequirementsSpecSales';
 import RequirementsSpecMarketing from './pages/RequirementsSpecMarketing';
@@ -153,6 +155,12 @@ export const routes: PrerenderRoute[] = [
   { path: '/dataskydd', priority: '0.3', changefreq: 'yearly', sitemap: false },
   { path: '/kom-igang', priority: '0.8', changefreq: 'monthly' },
   { path: '/kunskapscenter', priority: '0.7', changefreq: 'weekly' },
+  ...KNOWLEDGE_HUBS.map((hub) => ({
+    path: `/kunskapscenter/${hub.slug}`,
+    priority: '0.7',
+    changefreq: 'weekly' as const,
+    meta: { title: hub.metaTitle, description: hub.metaDescription },
+  })),
   { path: '/kravspecifikation', priority: '0.7', changefreq: 'monthly' },
   { path: '/kravspecifikation-sales', priority: '0.7', changefreq: 'monthly' },
   { path: '/kravspecifikation-marketing', priority: '0.7', changefreq: 'monthly' },
@@ -283,6 +291,13 @@ export function render(url: string) {
               <Route path="/events/:eventId" element={<EventDetail />} />
               <Route path="/qa" element={<QA />} />
               <Route path="/kunskapscenter" element={<Kunskapscenter />} />
+              {KNOWLEDGE_HUBS.map((hub) => (
+                <Route
+                  key={hub.slug}
+                  path={`/kunskapscenter/${hub.slug}`}
+                  element={<KunskapscenterHub slug={hub.slug} />}
+                />
+              ))}
               <Route path="/kunskapscenter/:productSlug/:articleSlug" element={<DeepDiveArticle />} />
               <Route path="/artiklar/:slug" element={<BlogArticle />} />
               <Route path="/kravspecifikation" element={<RequirementsSpec />} />

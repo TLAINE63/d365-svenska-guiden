@@ -59,6 +59,7 @@ const RequirementsSpecSales = lazy(() => import("./pages/RequirementsSpecSales")
 const RequirementsSpecMarketing = lazy(() => import("./pages/RequirementsSpecMarketing"));
 const RequirementsSpecCustomerService = lazy(() => import("./pages/RequirementsSpecCustomerService"));
 const Kunskapscenter = lazy(() => import("./pages/Kunskapscenter"));
+const KunskapscenterHub = lazy(() => import("./pages/KunskapscenterHub"));
 const Upphandlingsresan = lazy(() => import("./pages/Upphandlingsresan"));
 const Upphandlingsguiden = lazy(() => import("./pages/Upphandlingsguiden"));
 const VideoLanding = lazy(() => import("./pages/VideoLanding"));
@@ -188,6 +189,14 @@ const AppShell = () => {
           <Route path="/kunskapscenter/upphandlingsresan" element={<Upphandlingsresan />} />
           <Route path="/upphandlingsguiden" element={<Upphandlingsguiden />} />
           <Route path="/kunskapscenter/video/:slug" element={<VideoLanding />} />
+          {/* Topical hubs — explicit slugs (registered before the generic 2-segment article route) */}
+          <Route path="/kunskapscenter/business-central" element={<KunskapscenterHub slug="business-central" />} />
+          <Route path="/kunskapscenter/finance-supply-chain" element={<KunskapscenterHub slug="finance-supply-chain" />} />
+          <Route path="/kunskapscenter/sales" element={<KunskapscenterHub slug="sales" />} />
+          <Route path="/kunskapscenter/customer-service" element={<KunskapscenterHub slug="customer-service" />} />
+          <Route path="/kunskapscenter/copilot" element={<KunskapscenterHub slug="copilot" />} />
+          <Route path="/kunskapscenter/upphandling" element={<KunskapscenterHub slug="upphandling" />} />
+          <Route path="/kunskapscenter/partners" element={<KunskapscenterHub slug="partners" />} />
           <Route path="/kunskapscenter/:productSlug/:articleSlug" element={<DeepDiveArticle />} />
           <Route path="/artiklar/:slug" element={<BlogArticle />} />
           <Route path="/events" element={<Events />} />
