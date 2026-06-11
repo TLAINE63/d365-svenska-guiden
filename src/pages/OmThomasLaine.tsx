@@ -97,7 +97,7 @@ const OmThomasLaine = () => {
                 företag idag ska navigera.
               </p>
               <p>
-                Sedan 2013 driver Thomas eget genom Cloud Ahead AB, med fokus på
+                Sedan 2015 driver Thomas eget genom Cloud Ahead AB, med fokus på
                 go-to-market-strategi och partnerstrategi i Dynamics-ekosystemet.
               </p>
             </div>
