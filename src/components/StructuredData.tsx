@@ -13,10 +13,10 @@ export const OrganizationSchema = () => {
       "url": "https://d365.se/d365guide-logo.png",
       "width": 2000,
       "height": 1620,
-      "caption": "d365.se – Oberoende guide till Microsoft Dynamics 365"
+      "caption": "d365.se – köparsidig guide till Microsoft Dynamics 365"
     },
     "image": "https://d365.se/d365guide-logo.png",
-    "description": "Oberoende guide och rådgivning för Microsoft Dynamics 365 ERP och CRM i Sverige. Hjälper företag välja rätt affärssystem och Microsoft-partner.",
+    "description": "Hjälper svenska företag hitta rätt Microsoft Dynamics 365-partner utifrån behov, bransch och storlek.",
     "foundingDate": "2020",
     "areaServed": {
       "@type": "Country",
@@ -194,7 +194,7 @@ export const WebSiteSchema = () => {
     "name": "D365 Guiden",
     "alternateName": ["d365.se", "Dynamics 365 Guiden Sverige"],
     "url": "https://d365.se",
-    "description": "Oberoende guide till Microsoft Dynamics 365 ERP och CRM i Sverige – priser, implementering och partnerval",
+    "description": "Hjälper svenska företag hitta rätt Microsoft Dynamics 365-partner utifrån behov, bransch och storlek.",
     "inLanguage": "sv-SE",
     "publisher": {
       "@type": "Organization",
@@ -357,6 +357,10 @@ interface ArticleSchemaProps {
   datePublished?: string;
   dateModified?: string;
   authorName?: string;
+  authorType?: "Person" | "Organization";
+  authorDescription?: string;
+  authorUrl?: string;
+  authorSameAs?: string[];
   section?: string;
 }
 
@@ -367,7 +371,11 @@ export const ArticleSchema = ({
   image,
   datePublished,
   dateModified,
-  authorName = "D365 Guiden",
+  authorName = "Thomas Laine",
+  authorType = "Person",
+  authorDescription = "Senior rådgivare med över 30 år i Microsoft Dynamics-ekosystemet – ERP, CRM och partnerlandskapet i Sverige.",
+  authorUrl = "https://d365.se/om-thomas-laine/",
+  authorSameAs = ["https://linkedin.com/in/thomaslaine"],
   section,
 }: ArticleSchemaProps) => {
   // Google Article rich result requires datePublished + image. Fall back to
@@ -377,6 +385,27 @@ export const ArticleSchema = ({
   const resolvedImage = image
     ? (image.startsWith("http") ? image : `https://d365.se${image}`)
     : "https://d365.se/d365guide-logo.png";
+
+  const author: Record<string, unknown> =
+    authorType === "Person"
+      ? {
+          "@type": "Person",
+          name: authorName,
+          description: authorDescription,
+          url: authorUrl,
+          ...(authorSameAs.length ? { sameAs: authorSameAs } : {}),
+          worksFor: {
+            "@type": "Organization",
+            name: "d365.se",
+            url: "https://d365.se",
+          },
+        }
+      : {
+          "@type": "Organization",
+          name: authorName,
+          url: "https://d365.se",
+        };
+
   const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -388,14 +417,10 @@ export const ArticleSchema = ({
     dateModified: dateModified || datePublished || fallbackPublished,
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
     inLanguage: "sv-SE",
-    author: {
-      "@type": "Organization",
-      name: authorName,
-      url: "https://d365.se",
-    },
+    author,
     publisher: {
       "@type": "Organization",
-      name: "Dynamic Factory",
+      name: "d365.se",
       url: "https://d365.se",
       logo: {
         "@type": "ImageObject",
@@ -404,6 +429,36 @@ export const ArticleSchema = ({
     },
   };
   if (section) schema.articleSection = section;
+
+  return (
+    <Helmet>
+      <script type="application/ld+json">{JSON.stringify(schema)}</script>
+    </Helmet>
+  );
+};
+
+// ItemList Schema – for partner listing / directory pages
+interface ItemListSchemaProps {
+  name?: string;
+  description?: string;
+  items: Array<{ name: string; url: string }>;
+}
+
+export const ItemListSchema = ({ name, description, items }: ItemListSchemaProps) => {
+  const schema: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListOrder: "https://schema.org/ItemListUnordered",
+    numberOfItems: items.length,
+    itemListElement: items.map((it, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: it.url,
+      name: it.name,
+    })),
+  };
+  if (name) schema.name = name;
+  if (description) schema.description = description;
 
   return (
     <Helmet>
@@ -472,7 +527,7 @@ export const AdvisorsSchema = () => {
       <PersonSchema
         name="Thomas Laine"
         jobTitle="Senior rådgivare och medgrundare, d365.se"
-        description="Oberoende rådgivare med över 25 års erfarenhet av Microsoft Dynamics 365 ERP, CRM, partnerlandskap och affärssystemsbeslut i Sverige."
+        description="Senior rådgivare med över 30 år i Microsoft Dynamics-ekosystemet – ERP, CRM, partnerlandskap och affärssystemsbeslut i Sverige."
         image="/src/assets/thomas-laine-real.jpg"
         email="thomas.laine@dynamicfactory.se"
         telephone="+46-72-232-40-60"
@@ -482,7 +537,7 @@ export const AdvisorsSchema = () => {
       <PersonSchema
         name="Michael Uhman"
         jobTitle="Senior rådgivare och medgrundare, d365.se"
-        description="Oberoende rådgivare med lång erfarenhet av affärssystem, verksamhetsutveckling, partnerlandskapet och Dynamics 365-relaterade beslut."
+        description="Senior rådgivare med lång erfarenhet av affärssystem, verksamhetsutveckling, partnerlandskapet och Dynamics 365-relaterade beslut."
         image="/src/assets/michael-uhman.jpg"
         email="michael.uhman@dynamicfactory.se"
         telephone="+46-70-574-88-50"
