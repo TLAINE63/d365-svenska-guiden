@@ -80,7 +80,7 @@ const PartnersPerBransch = () => {
 
         <section className="py-10">
           <div className="container mx-auto px-4 max-w-5xl">
-            {isLoading ? (
+            {isLoading && partners.length === 0 ? (
               <p className="text-muted-foreground">Laddar partners…</p>
             ) : (
               <div className="space-y-10">
