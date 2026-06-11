@@ -417,9 +417,6 @@ const Agents = () => {
               <VideoCard key={index} {...video} />
             ))}
           </div>
-          <p className="text-center text-sm text-muted-foreground mt-6 italic">
-            Lägg in YouTube video-ID för att visa videorna
-          </p>
         </div>
       </section>
 
