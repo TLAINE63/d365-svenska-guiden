@@ -38,6 +38,8 @@ import EventDetail from './pages/EventDetail';
 import QA from './pages/QA';
 import PartnerProfile from './pages/PartnerProfile';
 import Kunskapscenter from './pages/Kunskapscenter';
+import KunskapscenterHub from './pages/KunskapscenterHub';
+import { KNOWLEDGE_HUBS } from './data/knowledgeHubs';
 import RequirementsSpec from './pages/RequirementsSpec';
 import RequirementsSpecSales from './pages/RequirementsSpecSales';
 import RequirementsSpecMarketing from './pages/RequirementsSpecMarketing';
