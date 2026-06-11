@@ -24,7 +24,7 @@ const personSchema = {
   name: "Michael Uhman",
   jobTitle: "Medgrundare, d365.se",
   description:
-    "IT-entreprenör med 40 år i branschen och fokus på att hjälpa Microsoft-partners och kunder att accelerera sin Dynamics 365-affär. Medgrundare av d365.se och delägare i Dynamic Factory, Moveahead AB och Kokai Consulting.",
+    "Över 35 år i affärssystemsmarknaden. Tidigare VD för Damgaard Sverige och Navision Sverige, samt försäljningsdirektör på Microsoft Sverige med ansvar för SMB-marknaden och hela det svenska Dynamics-partnerledet. Medgrundare av d365.se.",
   url: "https://d365.se/om-michael-uhman",
   image: "https://d365.se/og-kontakt.png",
   sameAs: [LINKEDIN_URL],
@@ -35,6 +35,8 @@ const personSchema = {
   },
   alumniOf: [
     { "@type": "Organization", name: "Microsoft" },
+    { "@type": "Organization", name: "Navision" },
+    { "@type": "Organization", name: "Damgaard" },
     { "@type": "Organization", name: "1ClickFactory" },
   ],
 };
@@ -44,9 +46,9 @@ const OmMichaelUhman = () => {
     <div className="min-h-screen">
       <SEOHead
         title="Om Michael Uhman – medgrundare av d365.se"
-        description="Michael Uhman har 40 år i IT-branschen med fokus på Microsoft-partners och Dynamics 365. Medgrundare av d365.se och delägare i Dynamic Factory, Moveahead AB och Kokai Consulting."
+        description="Michael Uhman har arbetat med affärssystem och partnerkanaler i över 35 år. Tidigare VD för Damgaard Sverige och Navision Sverige, försäljningsdirektör på Microsoft Sverige, grundare av 1ClickFactory."
         canonicalPath="/om-michael-uhman/"
-        keywords="Michael Uhman, d365.se, Dynamics 365, NAV, Navision, AX, Axapta, Business Central, Dynamic Factory, Moveahead, 1ClickFactory, Kokai Consulting"
+        keywords="Michael Uhman, d365.se, Dynamics 365, Damgaard, Navision, Microsoft, 1ClickFactory, partnerkanal"
         ogImage="https://d365.se/og-kontakt.png"
       />
       <Helmet>
@@ -80,10 +82,9 @@ const OmMichaelUhman = () => {
                   Om Michael Uhman
                 </h1>
                 <p className="text-lg sm:text-xl text-foreground/90 leading-relaxed">
-                  IT-entreprenör med 40 år i branschen, varav drygt 30 i det som idag är
-                  Microsoft Dynamics 365. Michaels uppdrag har hela tiden handlat om en sak:
-                  att hjälpa Microsofts partners och deras kunder att lyckas bättre med
-                  affärssystem och CRM.
+                  Michael Uhman har arbetat med affärssystem och partnerkanaler i över 35 år,
+                  och har sett Dynamics-marknaden från varje tänkbar position: som leverantör,
+                  som Microsoft-chef och som tjänsteleverantör åt partnerledet.
                 </p>
               </div>
             </div>
@@ -96,65 +97,51 @@ const OmMichaelUhman = () => {
             <div className="max-w-3xl mx-auto space-y-5 text-foreground/90 text-base sm:text-lg leading-relaxed">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground">Bakgrund</h2>
               <p>
-                Michael har arbetat med CRM- och ERP-system i över 30 år. Större delen av
-                tiden har handlat om det som ursprungligen var Microsoft NAV (Navision),
-                AX (Axapta) och Microsoft CRM — och som idag samlas under Microsoft
-                Dynamics 365.
+                Michael grundade och ledde Damgaard Sverige, och blev senare VD för Navision
+                Sverige efter samgåendet mellan de två bolagen. När Microsoft förvärvade
+                Navision följde flera år som försäljningsdirektör på Microsoft Sverige, med
+                ansvar för SMB-marknaden, hela det svenska partnerledet och Dynamics-affären.
               </p>
               <p>
-                Han har en gedigen bakgrund från Microsoft och har under många år arbetat
-                med och genom partnerkanalen. Som tidigare VD för 1ClickFactory drev han
-                tjänster för Microsoft-partners internationellt, och har genom åren samarbetat
-                med hundratals partners i Norden och Europa — bland annat genom strategiska
-                samarbeten som det med NCG Group kring BizView.
+                2012 startade han 1ClickFactory i Sverige och Norge, ett bolag som under tio
+                år hjälpte Dynamics-partners med uppgraderingar, utveckling och modernisering
+                av kundlösningar. Det innebär en ovanlig erfarenhet: att ha arbetat åt
+                partners, inte bara med dem. Få vet lika väl hur svenska Dynamics-partners
+                faktiskt arbetar, var de är starka och var de brister.
               </p>
-              <p>
-                Sedan 2017 driver Michael <strong>Moveahead AB</strong> tillsammans med
-                Thomas Laine — en sparringpartner för Microsoft-partners som vill växa
-                snabbare och få ut mer av sitt partnerskap med Microsoft. Han är också
-                medgrundare av <strong>Dynamic Factory</strong>, som hjälpt över 100
-                partnerföretag på resan mot en framgångsrik Dynamics 365-affär, och sitter
-                som Board Member och Managing Partner i <strong>Kokai Consulting</strong>.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Vad Michael gör */}
-        <section className="py-12 sm:py-16 bg-secondary/20 border-y border-border">
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="max-w-3xl mx-auto space-y-5 text-foreground/90 text-base sm:text-lg leading-relaxed">
-              <h2 className="text-2xl sm:text-3xl font-bold text-foreground">Vad Michael arbetar med</h2>
-              <p>
-                Genom sina bolag arbetar Michael nära både Microsoft, partners och kunder.
-                Tjänsterna spänner över hela kedjan i Dynamics 365-affären:
-              </p>
-              <ul className="list-disc pl-6 space-y-2">
-                <li><strong>Partner-to-Partner (P2P)</strong> — uppsättning och koordinering av samarbeten mellan komplementära partners.</li>
-                <li><strong>Presales as a Service</strong> — stöd i komplexa säljprocesser och kunddemonstrationer.</li>
-                <li><strong>Säljträning</strong> för konsultorganisationer som vill växa sin Dynamics 365-affär.</li>
-                <li><strong>Go-to-market-coaching</strong> för partners som lanserar nya erbjudanden eller går in i nya segment.</li>
-                <li><strong>Rådgivning till slutkunder</strong> som överväger att investera i Microsoft Business Applications.</li>
-              </ul>
             </div>
           </div>
         </section>
 
         {/* Varför d365.se finns */}
-        <section className="py-12 sm:py-16">
+        <section className="py-12 sm:py-16 bg-secondary/20 border-y border-border">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl mx-auto space-y-5 text-foreground/90 text-base sm:text-lg leading-relaxed">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground">Varför d365.se finns</h2>
               <p>
-                Efter att i decennier ha sett upphandlingar och partnerval från insidan — både
-                från Microsoft, från partnerledet och som rådgivare — blev mönstret tydligt:
-                köparen saknade en plats där man kan förstå Dynamics 365, jämföra partners och
-                ställa rätt frågor utan att styras av den som vill sälja något.
+                Efter decennier på leverantörs- och partnersidan var mönstret tydligt för både
+                Michael och medgrundaren Thomas Laine: köparen är den enda parten i en ERP-
+                eller CRM-upphandling som saknar en oberoende röst vid bordet.
               </p>
               <p>
-                d365.se grundades tillsammans med Thomas Laine för att vara den platsen — en
-                plattform som inte säljer system, inte säljer implementation och inte tar
-                betalt per lead, utan står på köparens sida hela vägen genom valet.
+                d365.se byggdes för att vara den rösten. Plattformen säljer inga system och
+                ingen implementation. Partners betalar en fast listningsavgift, oavsett
+                storlek. Det är grunden för vårt oberoende.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Vad det betyder för dig */}
+        <section className="py-12 sm:py-16">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="max-w-3xl mx-auto space-y-5 text-foreground/90 text-base sm:text-lg leading-relaxed">
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground">Vad det betyder för dig</h2>
+              <p>
+                När Michael bedömer en partners metodik, kapacitet eller branschvana gör han
+                det med erfarenheten från att ha byggt, lett och servat partnerkanalen i över
+                tre decennier. Det är skillnaden mellan att läsa en partnerpresentation och
+                att veta vad som står mellan raderna.
               </p>
             </div>
           </div>
@@ -190,6 +177,11 @@ const OmMichaelUhman = () => {
                 >
                   <img src={linkedinLogo} alt="" className="w-4 h-4" /> Michael Uhman på LinkedIn
                 </a>
+              </div>
+              <div className="mt-6 pt-6 border-t border-border text-sm">
+                <Link to="/om-thomas-laine/" className="text-primary hover:underline font-medium">
+                  Läs även om medgrundaren Thomas Laine →
+                </Link>
               </div>
             </div>
           </div>
