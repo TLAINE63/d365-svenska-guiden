@@ -488,6 +488,9 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
           </div>
         </section>
 
+        {/* Relaterade pelarsidor – interna länkar för SEO/AIO */}
+        <RelatedPages heading="Utforska Dynamics 365" pages={branschRelatedPages} />
+
         {/* CTA */}
         <section className="py-12">
           <div className="container mx-auto px-4 max-w-4xl">
