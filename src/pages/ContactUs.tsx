@@ -192,6 +192,12 @@ const ContactUs = () => {
                           <Mail className="w-4 h-4 mr-2" />
                           Skicka e-post
                         </Button>
+                        <Link
+                          to="/om-michael-uhman/"
+                          className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-3 py-2 border border-border bg-card hover:bg-secondary text-card-foreground w-full"
+                        >
+                          Om Michael Uhman
+                        </Link>
                       </div>
                     </div>
                   </div>
