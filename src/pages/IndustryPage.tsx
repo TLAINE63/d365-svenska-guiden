@@ -452,6 +452,40 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
           </div>
         </section>
 
+        {/* Branschguide-artikel + andra branscher */}
+        <section className="py-10 border-b border-border">
+          <div className="container mx-auto px-4 max-w-5xl">
+            {slug && INDUSTRY_TO_ARTICLE_SLUG[slug] && (
+              <div className="mb-8 rounded-lg border border-primary/20 bg-primary/5 p-5">
+                <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">
+                  Fördjupande artikel
+                </p>
+                <Link
+                  to={`/artiklar/${INDUSTRY_TO_ARTICLE_SLUG[slug]}/`}
+                  className="text-base md:text-lg font-semibold text-foreground hover:text-primary inline-flex items-center gap-2"
+                >
+                  Dynamics 365 för {industryName} – branschguide
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            )}
+            <h2 className="text-base md:text-lg font-semibold text-foreground mb-4">
+              Utforska andra branscher
+            </h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+              {STANDARD_INDUSTRIES.filter((i) => i.slug !== slug).map((i) => (
+                <Link
+                  key={i.slug}
+                  to={`/branscher/${i.slug}/`}
+                  className="text-sm text-muted-foreground hover:text-primary hover:underline truncate"
+                >
+                  {i.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* CTA */}
         <section className="py-12">
           <div className="container mx-auto px-4 max-w-4xl">
