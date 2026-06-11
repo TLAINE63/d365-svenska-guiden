@@ -3076,7 +3076,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för bygg & entreprenad",
     metaTitle: "Dynamics 365 för bygg & entreprenad – guide & partners",
     metaDescription:
-      "Hur Dynamics 365 stödjer bygg & entreprenad: projektredovisning, ÄTA, underentreprenörer och tidrapportering. Jämför listade partners i Sverige.",
+      "Dynamics 365 för bygg & entreprenad stöttar projektredovisning, ÄTA, underentreprenörer och tidrapportering. Köparsidig guide med svenska partners.",
     summary:
       "Dynamics 365 (Project Operations + BC Premium eller F&SCM) stödjer projektredovisning, ÄTA, underentreprenörer och kostnadskontroll för svenska bygg- och entreprenadbolag. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
