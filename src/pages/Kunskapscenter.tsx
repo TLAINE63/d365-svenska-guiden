@@ -27,6 +27,7 @@ import ProductQASection from "@/components/ProductQASection";
 import { PRODUCT_QA_DATA } from "@/data/productQA";
 import { ALL_DEEP_DIVE_ARTICLES } from "@/data/bcArticles";
 import { BLOG_ARTICLES } from "@/data/blogArticles";
+import PriceListSection from "@/components/PriceListSection";
 import { usePartners } from "@/hooks/usePartners";
 import { collectPartnerIndustries } from "@/lib/partnerIndustries";
 import { Card, CardContent } from "@/components/ui/card";
@@ -407,6 +408,7 @@ const Kunskapscenter = () => {
   const [selectedFormats, setSelectedFormats] = useState<FormatValue[]>([]);
   const [selectedProducts, setSelectedProducts] = useState<ProductValue[]>([]);
   const [deepDiveProduct, setDeepDiveProduct] = useState<string | null>(null);
+  const [deepDiveView, setDeepDiveView] = useState<"articles" | "prices">("articles");
   const [articles, setArticles] = useState<KnowledgeArticle[]>([]);
   const [events, setEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -732,7 +734,35 @@ const Kunskapscenter = () => {
           const products = [...new Set(ALL_DEEP_DIVE_ARTICLES.map((a) => a.product))];
           return (
             <section className="border-b border-border bg-muted/30">
-              <div className="container mx-auto px-4 py-2.5">
+              <div className="container mx-auto px-4 py-2.5 space-y-2.5">
+                {/* View toggle: Artiklar / Prislista */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-xs uppercase tracking-wider text-muted-foreground mr-1">
+                    Visa:
+                  </span>
+                  <button
+                    onClick={() => setDeepDiveView("articles")}
+                    className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 border ${
+                      deepDiveView === "articles"
+                        ? "bg-primary text-primary-foreground border-primary shadow-md"
+                        : "bg-card text-foreground border-border hover:border-primary/50"
+                    }`}
+                  >
+                    Artiklar
+                  </button>
+                  <button
+                    onClick={() => setDeepDiveView("prices")}
+                    className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 border ${
+                      deepDiveView === "prices"
+                        ? "bg-primary text-primary-foreground border-primary shadow-md"
+                        : "bg-card text-foreground border-border hover:border-primary/50"
+                    }`}
+                  >
+                    Prislista
+                  </button>
+                </div>
+
+                {/* Product filter */}
                 <div className="flex flex-wrap items-center gap-2">
                   <button
                     onClick={() => setDeepDiveProduct(null)}
@@ -767,7 +797,9 @@ const Kunskapscenter = () => {
         {activeCategory === "fordjupning" ? (
           <section className="py-12">
             <div className="container mx-auto px-4">
-              {(() => {
+              {deepDiveView === "prices" ? (
+                <PriceListSection product={deepDiveProduct} />
+              ) : (() => {
                 const productColor = (product: string) => {
                   switch (product) {
                     case "Business Central":
