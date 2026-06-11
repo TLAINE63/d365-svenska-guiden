@@ -407,6 +407,7 @@ const Kunskapscenter = () => {
   const [selectedFormats, setSelectedFormats] = useState<FormatValue[]>([]);
   const [selectedProducts, setSelectedProducts] = useState<ProductValue[]>([]);
   const [deepDiveProduct, setDeepDiveProduct] = useState<string | null>(null);
+  const [deepDiveView, setDeepDiveView] = useState<"articles" | "prices">("articles");
   const [articles, setArticles] = useState<KnowledgeArticle[]>([]);
   const [events, setEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
