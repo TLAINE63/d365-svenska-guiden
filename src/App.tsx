@@ -122,6 +122,15 @@ const AppShell = () => {
           <Route path="/valj-partner/*" element={<Navigate to="/valjdynamics365partner" replace />} />
           <Route path="/alla-d365-partners" element={<AllD365Partners />} />
           <Route path="/partners-per-bransch" element={<PartnersPerBransch />} />
+          <Route path="/partners-sitemap" element={<PartnersSitemap />} />
+          <Route path="/business-central-partners-sverige" element={<ProductPartnersSverige configSlug="business-central-partners-sverige" />} />
+          <Route path="/finance-supply-chain-partners-sverige" element={<ProductPartnersSverige configSlug="finance-supply-chain-partners-sverige" />} />
+          <Route path="/dynamics-365-sales-partners-sverige" element={<ProductPartnersSverige configSlug="dynamics-365-sales-partners-sverige" />} />
+          <Route path="/dynamics-365-marketing-partners-sverige" element={<ProductPartnersSverige configSlug="dynamics-365-marketing-partners-sverige" />} />
+          <Route path="/dynamics-365-customer-service-partners-sverige" element={<ProductPartnersSverige configSlug="dynamics-365-customer-service-partners-sverige" />} />
+          <Route path="/dynamics-365-field-service-partners-sverige" element={<ProductPartnersSverige configSlug="dynamics-365-field-service-partners-sverige" />} />
+          <Route path="/dynamics-365-contact-center-partners-sverige" element={<ProductPartnersSverige configSlug="dynamics-365-contact-center-partners-sverige" />} />
+          <Route path="/dynamics-365-ai-copilot-partners-sverige" element={<ProductPartnersSverige configSlug="dynamics-365-ai-copilot-partners-sverige" />} />
           <Route path="/dataskydd" element={<PrivacyPolicy />} />
           <Route path="/ERPbehovsanalys" element={<NeedsAnalysis />} />
           <Route path="/behovsanalys" element={<Navigate to="/ERPbehovsanalys" replace />} />
