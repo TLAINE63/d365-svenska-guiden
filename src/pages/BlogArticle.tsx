@@ -134,6 +134,18 @@ const BlogArticle = () => {
         {article.tags.map((tag) => (
           <meta key={tag} property="article:tag" content={tag} />
         ))}
+        {article.socialTitle && !isFromKcBanner && (
+          <>
+            <meta property="og:title" content={article.socialTitle} />
+            <meta name="twitter:title" content={article.socialTitle} />
+          </>
+        )}
+        {article.socialDescription && (
+          <>
+            <meta property="og:description" content={article.socialDescription} />
+            <meta name="twitter:description" content={article.socialDescription} />
+          </>
+        )}
         {isFromKcBanner && (
           <>
             <meta property="og:title" content={bannerTitle} />
