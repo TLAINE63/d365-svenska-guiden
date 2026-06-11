@@ -14,6 +14,7 @@ import SalesIcon from "@/assets/icons/Sales.svg";
 import { SALES_ARTICLES } from "@/data/salesArticles";
 import SEOHead from "@/components/SEOHead";
 import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import { resolvePriceTokens } from "@/lib/productPriceFormat";
 
 // Breadcrumb items
 const salesBreadcrumbs = [
