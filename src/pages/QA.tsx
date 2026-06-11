@@ -199,7 +199,7 @@ const QA = () => {
                     )}
                     
                     <div className="text-muted-foreground whitespace-pre-line">
-                      {faq.answer.split('\n').map((line, lineIndex) => {
+                      {(() => { const resolved = resolvePriceTokens(faq.answer); return resolved.split('\n').map((line, lineIndex) => {
                         const parts = line.split(/(\*\*.*?\*\*|\[.*?\]\(.*?\))/g);
                         return (
                           <span key={lineIndex}>
@@ -207,7 +207,6 @@ const QA = () => {
                               if (part.startsWith('**') && part.endsWith('**')) {
                                 return <strong key={partIndex}>{part.slice(2, -2)}</strong>;
                               }
-                              // Handle markdown links [text](url)
                               const linkMatch = part.match(/\[(.*?)\]\((.*?)\)/);
                               if (linkMatch) {
                                 return (
@@ -222,10 +221,10 @@ const QA = () => {
                               }
                               return part;
                             })}
-                            {lineIndex < faq.answer.split('\n').length - 1 && <br />}
+                            {lineIndex < resolved.split('\n').length - 1 && <br />}
                           </span>
                         );
-                      })}
+                      }); })()}
                     </div>
                   </AccordionContent>
                 </AccordionItem>
