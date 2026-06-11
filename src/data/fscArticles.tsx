@@ -243,19 +243,10 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           <strong>Warehouse Management System i Dynamics 365 SCM ger fullständig kontroll över lagerprocesser</strong> — från mottagning och inlagring till plockning, packning och leverans. Varje pall och låda spåras i realtid.
         </p>
 
-        <div className="my-8 grid grid-cols-3 gap-4 text-center">
-          <div className="p-4 bg-secondary/50 rounded-lg border border-border">
-            <p className="text-2xl font-bold text-primary">99.9%</p>
-            <p className="text-sm text-muted-foreground">Lagernoggrannhet</p>
-          </div>
-          <div className="p-4 bg-secondary/50 rounded-lg border border-border">
-            <p className="text-2xl font-bold text-primary">+30%</p>
-            <p className="text-sm text-muted-foreground">Plockproduktivitet</p>
-          </div>
-          <div className="p-4 bg-secondary/50 rounded-lg border border-border">
-            <p className="text-2xl font-bold text-primary">-50%</p>
-            <p className="text-sm text-muted-foreground">Sökfeltid</p>
-          </div>
+        <div className="my-8 p-4 bg-secondary/50 rounded-lg border border-border">
+          <p className="text-sm text-muted-foreground">
+            <strong>Typiska effekter vid mogen WMS-användning:</strong> hög lagernoggrannhet, ökad plockproduktivitet och kortare sökfeltid. Faktiskt utfall beror på processmognad, märkning, plockstrategi och integrationsgrad – mät baseline före införande och utvärdera per lagerflöde.
+          </p>
         </div>
 
         <h2>Platsstyrd lagerhantering</h2>
