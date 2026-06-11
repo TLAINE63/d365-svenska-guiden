@@ -195,6 +195,12 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
         }
         canonicalPath={`/branscher/${slug}`}
         ogImage={heroImage}
+        ogImageAlt={`${industryName} – Microsoft Dynamics 365`}
+        ogType="article"
+        articlePublishedTime={(page as any)?.updated_at || "2024-01-01T00:00:00+01:00"}
+        articleModifiedTime={(page as any)?.updated_at || "2024-01-01T00:00:00+01:00"}
+        articleAuthor="Thomas Laine"
+        articleSection={industryName}
       />
       <BreadcrumbSchema
         items={[

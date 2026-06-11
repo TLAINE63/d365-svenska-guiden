@@ -25,27 +25,42 @@ const DeepDiveArticle = () => {
   const prevArticle = currentIndex > 0 ? siblings[currentIndex - 1] : null;
   const nextArticle = currentIndex < siblings.length - 1 ? siblings[currentIndex + 1] : null;
 
+  const articleUrl = `https://d365.se/kunskapscenter/${article.productSlug}/${article.slug}/`;
+  const articleImage = article.bannerImage || article.image;
+  const fallbackPublished = "2024-01-01T00:00:00+01:00";
+
   return (
     <>
       <SEOHead
         title={`${article.title} | d365.se`}
         description={article.description}
+        canonicalPath={`/kunskapscenter/${article.productSlug}/${article.slug}`}
+        ogType="article"
+        ogImage={articleImage || "https://d365.se/og-erp.png"}
+        ogImageAlt={article.title}
+        articlePublishedTime={fallbackPublished}
+        articleModifiedTime={fallbackPublished}
+        articleAuthor="Thomas Laine"
+        articleSection={article.product}
       />
       <BreadcrumbSchema
         items={[
           { name: "Hem", url: "https://d365.se/" },
           { name: "Kunskapscenter", url: "https://d365.se/kunskapscenter/" },
           { name: article.product, url: `https://d365.se/kunskapscenter/${article.productSlug}/` },
-          { name: article.title, url: `https://d365.se/kunskapscenter/${article.productSlug}/${article.slug}/` },
+          { name: article.title, url: articleUrl },
         ]}
       />
       <ArticleSchema
         headline={article.title}
         description={article.description}
-        url={`https://d365.se/kunskapscenter/${article.productSlug}/${article.slug}/`}
-        image={article.bannerImage || article.image}
+        url={articleUrl}
+        image={articleImage}
         section={article.product}
+        datePublished={fallbackPublished}
+        dateModified={fallbackPublished}
       />
+
       <Navbar />
       <main className="min-h-screen bg-background pt-16 lg:pt-28">
         {/* Header */}
