@@ -2539,7 +2539,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för grossist & distribution",
     metaTitle: "Dynamics 365 för grossist & distribution – guide & partners",
     metaDescription:
-      "Hur Dynamics 365 stödjer grossist & distribution: lager, WMS, prislogik och EDI. Jämför listade partners i Sverige med kostnad och vanliga problem.",
+      "Dynamics 365 för grossist & distribution stöttar lager, WMS, prislogik och EDI i en plattform. Köparsidig guide med kostnad, fallgropar och svenska partners.",
     summary:
       "Dynamics 365 (BC Premium eller F&SCM) är en stark ryggrad för svenska grossister och distributörer — ekonomi, lager, prislogik, EDI och kund i samma plattform. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
