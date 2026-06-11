@@ -232,7 +232,6 @@ const Index = () => {
         title="Dynamics 365-partner – välj på köparens sida | d365.se"
         description="Jämför certifierade Microsoftpartners per bransch, applikation och storlek. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
         canonicalPath="/"
-        keywords="Dynamics 365 partner Sverige, D365 partners, Microsoftpartners Dynamics 365, Microsoft partner Sverige, Dynamics 365 partners, certifierad Microsoft partner, välja Dynamics 365 partner, Dynamics 365 Sverige, d365.se"
         ogImage="https://d365.se/og-erp.png"
       />
       <OrganizationSchema />
