@@ -229,7 +229,7 @@ const Index = () => {
   } as const;
   return <div className="min-h-screen bg-secondary/30">
       <SEOHead 
-        title="På köparens sida – välj rätt Dynamics 365-partner | d365.se"
+        title="Dynamics 365-partner – välj på köparens sida | d365.se"
         description="Jämför certifierade Microsoftpartners per bransch, applikation och storlek. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
         canonicalPath="/"
         keywords="Dynamics 365 partner Sverige, D365 partners, Microsoftpartners Dynamics 365, Microsoft partner Sverige, Dynamics 365 partners, certifierad Microsoft partner, välja Dynamics 365 partner, Dynamics 365 Sverige, d365.se"
@@ -338,7 +338,7 @@ const Index = () => {
                 <div className="w-11 h-11 rounded-xl bg-white/10 flex items-center justify-center mb-4">
                   {step.icon}
                 </div>
-                <h3 className="text-lg sm:text-xl font-semibold text-white leading-snug mb-2">{step.title}</h3>
+                <h2 className="text-lg sm:text-xl font-semibold text-white leading-snug mb-2">{step.title}</h2>
                 <p className="text-[13.5px] text-white/65 leading-relaxed mb-5 flex-1">{step.desc}</p>
                 {step.to ? (
                   <Button
@@ -377,9 +377,9 @@ const Index = () => {
                     <span className="text-white/25">·</span>
                     <span className="text-[10.5px] uppercase tracking-[0.14em] text-white/45">Nytt för 2026</span>
                   </div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-white leading-snug">
+                  <h2 className="text-lg sm:text-xl font-semibold text-white leading-snug">
                     Mognadsindex — hur redo är ert beslutsunderlag?
-                  </h3>
+                  </h2>
                   <p className="text-[13.5px] text-white/60 leading-relaxed mt-1">
                     En diagnostik på 8–10 minuter. Få en personlig mognadsprofil, peer benchmark och tre konkreta rekommendationer.
                   </p>
@@ -568,9 +568,9 @@ const Index = () => {
                 Ett Dynamics 365-val handlar sällan bara om systemfunktioner. Det handlar om rätt omfattning, rätt vägval och framför allt rätt partner. d365.se är byggt för att hjälpa svenska företag komma in i den processen med bättre struktur — innan dialogen blir för bred, för teknisk eller för säljorienterad.
               </p>
               <div className="mt-8">
-                <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground mb-2">
+                <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground mb-2">
                   Vill du ha hjälp på vägen?
-                </h3>
+                </h2>
                 <p className="text-sm text-muted-foreground mb-5">
                   Boka en kostnadsfri rådgivning med våra experter – oberoende, konfidentiellt och utan fortsättningskrav.
                 </p>

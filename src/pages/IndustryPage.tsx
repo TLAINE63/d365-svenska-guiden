@@ -276,7 +276,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 pb-4">
                       {page.processes.map((p, i) => (
                         <div key={i} className="rounded-lg border border-border bg-background p-5">
-                          <h3 className="font-semibold text-foreground mb-2">{p.title}</h3>
+                          <h2 className="font-semibold text-foreground mb-2">{p.title}</h2>
                           <p className="text-sm text-muted-foreground">{p.description}</p>
                         </div>
                       ))}
@@ -298,7 +298,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 pb-4">
                       {page.challenges.map((c, i) => (
                         <div key={i} className="rounded-lg border border-border bg-background p-5">
-                          <h3 className="font-semibold text-foreground mb-2">{c.title}</h3>
+                          <h2 className="font-semibold text-foreground mb-2">{c.title}</h2>
                           <p className="text-sm text-muted-foreground">{c.description}</p>
                         </div>
                       ))}
@@ -319,7 +319,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 pb-4">
                       {page.roles.map((r, i) => (
                         <div key={i} className="rounded-lg border border-border bg-background p-5">
-                          <h3 className="font-semibold text-foreground mb-2">{r.role}</h3>
+                          <h2 className="font-semibold text-foreground mb-2">{r.role}</h2>
                           <p className="text-sm text-muted-foreground">{r.needs}</p>
                         </div>
                       ))}
