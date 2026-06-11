@@ -203,7 +203,7 @@ const D365Marketing = () => {
           </div>
           <div className="grid md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
             {customerInsightsPricing.map((plan, index) => (
-              <PricingCard key={index} {...plan} />
+              <PricingCard key={index} {...plan} priceUnit="per organisation & månad" />
             ))}
           </div>
           <p className="text-sm italic text-muted-foreground text-center mt-8 max-w-4xl mx-auto">

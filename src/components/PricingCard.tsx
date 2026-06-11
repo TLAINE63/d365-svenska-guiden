@@ -9,9 +9,10 @@ interface PricingCardProps {
   price: string;
   features: string[];
   popular?: boolean;
+  priceUnit?: string;
 }
 
-const PricingCard = ({ title, description, price, features, popular }: PricingCardProps) => {
+const PricingCard = ({ title, description, price, features, popular, priceUnit = "per användare/månad" }: PricingCardProps) => {
   return (
     <Card className={`relative transition-all duration-300 hover:shadow-[var(--shadow-hover)] flex flex-col ${popular ? 'border-primary shadow-[var(--shadow-card)]' : 'border-border'}`}>
       {popular && (
@@ -24,7 +25,7 @@ const PricingCard = ({ title, description, price, features, popular }: PricingCa
         <CardDescription className="text-xs sm:text-sm text-muted-foreground">{description}</CardDescription>
         <div className="pt-3 sm:pt-4">
           <div className="text-xl sm:text-2xl font-bold text-primary">{price}</div>
-          <div className="text-xs text-muted-foreground mt-1">per användare/månad</div>
+          <div className="text-xs text-muted-foreground mt-1">{priceUnit}</div>
         </div>
       </CardHeader>
       <CardContent className="space-y-3 sm:space-y-4 flex flex-col h-full px-4 sm:px-6">
