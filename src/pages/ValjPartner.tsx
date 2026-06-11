@@ -30,6 +30,7 @@ import { useCoveredIndustries } from "@/hooks/useCoveredIndustries";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { useTrackFilterExposure } from "@/hooks/useTrackFilterExposure";
 import partnerMapSweden from "@/assets/partner-map-sweden.png";
+import staticPartnerData from "@/data/partnerData.json";
 
 // Partner FAQs for schema – priser hämtas från product_prices via resolvePriceTokens
 const partnerFaqsRaw = [
@@ -869,7 +870,46 @@ const ValjPartner = () => {
         </div>
       </section>
 
+      {/* Statisk partnerlista för SEO/AI – renderas i HTML även utan JS */}
+      <section className="py-16 bg-background border-t border-border" aria-labelledby="alla-partners-rubrik">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <h2 id="alla-partners-rubrik" className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+              Alla profilerade Dynamics 365-partners
+            </h2>
+            <p className="text-muted-foreground mb-8">
+              Komplett lista i bokstavsordning över partners som har en profil på d365.se. Använd filtreringen ovan för att hitta rätt partner för din bransch och dina applikationer.
+            </p>
+            <ul className="grid gap-4 md:grid-cols-2">
+              {[...staticPartnerData]
+                .filter((p: any) => p.is_featured)
+                .sort((a: any, b: any) => a.name.localeCompare(b.name, "sv"))
+                .map((p: any) => (
+                  <li key={p.id} className="border border-border rounded-lg p-4 bg-card">
+                    <h3 className="text-base font-semibold text-foreground mb-1">
+                      <Link to={`/partner/${p.slug}/`} className="hover:text-primary transition-colors">
+                        {p.name}
+                      </Link>
+                    </h3>
+                    {Array.isArray(p.applications) && p.applications.length > 0 && (
+                      <p className="text-xs text-muted-foreground mb-2">
+                        {p.applications.join(" · ")}
+                      </p>
+                    )}
+                    {p.description && (
+                      <p className="text-sm text-muted-foreground line-clamp-3">
+                        {p.description}
+                      </p>
+                    )}
+                  </li>
+                ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
       <UnprofiledPartnersList variant="teaser" />
+
 
       {/* CTA Section */}
       <section className="py-20 bg-secondary/50">
