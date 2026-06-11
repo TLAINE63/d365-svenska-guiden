@@ -29,7 +29,7 @@ function getCorsHeaders(req: Request): Record<string, string> {
   };
 }
 
-// Renderar ett textstycke som HTML och framhäver prisrader (995/1 695/1 995 kr/mån)
+// Renderar ett textstycke som HTML och framhäver prisrader (995/1 595/1 995 kr/mån)
 // samt prisuppdateringar ("Ingångspriset är nu ... (tidigare ...)") med stor fetstil + callout box.
 function renderParagraph(trimmed: string): string {
   const withBr = trimmed.replace(/\n/g, "<br>");
