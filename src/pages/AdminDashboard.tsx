@@ -3141,6 +3141,11 @@ Thomas`,
             <AdminIndustryPagesTab token={token || null} onSessionExpired={logout} />
           </TabsContent>
 
+          <TabsContent value="product-prices">
+            <AdminProductPricesTab token={token || null} onSessionExpired={logout} />
+          </TabsContent>
+
+
           <TabsContent value="partner-dashboard">
             <AdminPartnerDashboardTab token={token || null} />
           </TabsContent>
