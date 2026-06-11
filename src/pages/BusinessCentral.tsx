@@ -40,11 +40,11 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-// Business Central FAQs for schema
-const bcFaqs = [
+// Business Central FAQs for schema – priser resolvas från product_prices via resolvePriceTokens
+const bcFaqsRaw = [
   {
     question: "Vad kostar Microsoft Dynamics 365 Business Central i Sverige?",
-    answer: "Business Central pris Sverige 2025: Team Member 76,50 kr/användare/mån, Essentials 764,70 kr/användare/mån och Premium 1 051,40 kr/användare/mån (Microsoft MSRP exkl. moms). Utöver licensen tillkommer implementeringskostnader som typiskt ligger på 150 000–800 000 kr beroende på projektets omfattning, antal användare och grad av anpassning. Kostnaden påverkas också av vald partner och supportavtal."
+    answer: "Business Central pris Sverige 2026: Team Member {{price:bc-team-members:exact}}, Essentials {{price:bc-essentials:exact}} och Premium {{price:bc-premium:exact}} (Microsofts officiella listpris exkl. moms). Utöver licensen tillkommer implementeringskostnader som typiskt ligger på 150 000–800 000 kr beroende på projektets omfattning, antal användare och grad av anpassning. Kostnaden påverkas också av vald partner och supportavtal."
   },
   {
     question: "Hur lång tid tar Business Central implementering i Sverige?",
@@ -56,7 +56,7 @@ const bcFaqs = [
   },
   {
     question: "Vad är skillnaden mellan Business Central Essentials och Premium?",
-    answer: "Business Central Essentials (765 kr/mån) inkluderar ekonomi, lager, försäljning, inköp och projekthantering. Premium-licensen (1 051 kr/mån) lägger till tillverkning (MRP, kapacitetsplanering) och servicehantering (serviceorder, servicekontrakt). De flesta företag börjar med Essentials och uppgraderar vid behov. Team Member (77 kr/mån) för användare som bara behöver läsbehörighet eller enkla godkännanden."
+    answer: "Business Central Essentials ({{price:bc-essentials}}) inkluderar ekonomi, lager, försäljning, inköp och projekthantering. Premium-licensen ({{price:bc-premium}}) lägger till tillverkning (MRP, kapacitetsplanering) och servicehantering (serviceorder, servicekontrakt). De flesta företag börjar med Essentials och uppgraderar vid behov. Team Member ({{price:bc-team-members}}) för användare som bara behöver läsbehörighet eller enkla godkännanden."
   },
   {
     question: "Business Central vs Fortnox – vilket ska jag välja?",
@@ -72,9 +72,10 @@ const bcFaqs = [
   },
   {
     question: "Kan Business Central hantera tillverkning och produktion?",
-    answer: "Ja, med Premium-licensen (1 051 kr/mån) ingår tillverkning med produktionsorder, MRP (Material Requirements Planning), kapacitetsplanering, versionskontroll och kvalitetsstyrning. Det finns dessutom ett rikt ekosystem av ISV-tillägg i Marketplace för avancerad WMS, batchhantering, maskinintegration (MES) och spårbarhet – vilket gör Business Central konkurrenskraftigt mot specialiserade tillverknings-ERP."
+    answer: "Ja, med Premium-licensen ({{price:bc-premium}}) ingår tillverkning med produktionsorder, MRP (Material Requirements Planning), kapacitetsplanering, versionskontroll och kvalitetsstyrning. Det finns dessutom ett rikt ekosystem av ISV-tillägg i Marketplace för avancerad WMS, batchhantering, maskinintegration (MES) och spårbarhet – vilket gör Business Central konkurrenskraftigt mot specialiserade tillverknings-ERP."
   },
 ];
+const bcFaqs = bcFaqsRaw.map((f) => ({ ...f, answer: resolvePriceTokens(f.answer) }));
 
 // Geography filter options
 const geographyFilters = [
@@ -143,7 +144,7 @@ const BusinessCentral = () => {
     {
       title: "Business Central Team Member",
       description: "För användare med begränsade behov",
-      price: "76,50 kr",
+      productKey: "bc-team-members",
       features: [
         "Läsbehörighet",
         "Grundläggande rapporter",
@@ -155,7 +156,7 @@ const BusinessCentral = () => {
     {
       title: "Business Central Essentials",
       description: "För mindre företag",
-      price: "764,70 kr",
+      productKey: "bc-essentials",
       features: [
         "Ekonomihantering",
         "Försäljning & Inköp",
@@ -167,7 +168,7 @@ const BusinessCentral = () => {
     {
       title: "Business Central Premium",
       description: "För växande företag",
-      price: "1 051,40 kr",
+      productKey: "bc-premium",
       features: [
         "Alla Essentials-funktioner",
         "Serviceorderhantering",
