@@ -120,7 +120,7 @@ const QA = () => {
         keywords="Dynamics 365 frågor, Business Central pris, Dynamics 365 licenskostnad, ERP implementering tid, CRM val Microsoft"
         ogImage="https://d365.se/og-qa.png"
       />
-      <FAQSchema faqs={faqs.map(f => ({ question: f.question, answer: f.answer.substring(0, 300) }))} />
+      <FAQSchema faqs={faqs.map(f => ({ question: f.question, answer: resolvePriceTokens(f.answer).substring(0, 300) }))} />
       <BreadcrumbSchema items={[
         { name: "Hem", url: "https://d365.se" },
         { name: "Vanliga frågor", url: "https://d365.se/qa" },
