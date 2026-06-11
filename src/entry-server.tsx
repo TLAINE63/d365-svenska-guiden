@@ -45,6 +45,9 @@ import RequirementsSpecCustomerService from './pages/RequirementsSpecCustomerSer
 import DeepDiveArticle from './pages/DeepDiveArticle';
 import BlogArticle from './pages/BlogArticle';
 import SmartSearch from './pages/SmartSearch';
+import ProductPartnersSverige from './pages/ProductPartnersSverige';
+import PartnersSitemap from './pages/PartnersSitemap';
+import { PRODUCT_PARTNERS_SVERIGE } from './data/productPartnersSverige';
 import { ALL_DEEP_DIVE_ARTICLES } from './data/bcArticles';
 import { BLOG_ARTICLES } from './data/blogArticles';
 import partnerRoutesData from './data/partnerRoutes.json';
