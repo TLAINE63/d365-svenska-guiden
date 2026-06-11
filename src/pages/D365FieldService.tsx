@@ -81,8 +81,7 @@ const D365FieldService = () => {
       <ProductHero
         icon={FieldServiceIcon}
         eyebrow="Dynamics 365 Field Service"
-        title="Field Service."
-        titleAccent="Schemaläggning, mobilitet och integration mot ERP - i den ordningen."
+        title="Dynamics 365 Field Service – planering, mobilitet och integration med ERP"
         subhead="Microsoft levererar plattformen och mobilappen. Partnern bygger schemaläggningsreglerna, kompetensmatchningen och IoT-integrationerna som kan höja andelen lösta ärenden vid första besök och sänker körtiden. Det är där fältprojekt vinns. Här jämför ni partners som faktiskt levererat Field Service i er bransch."
         primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-kundservice/", icon: FileText }}
         secondary={{
