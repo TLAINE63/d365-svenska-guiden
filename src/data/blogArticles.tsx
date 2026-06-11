@@ -4936,7 +4936,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för mode, sport & textil",
     metaTitle: "Dynamics 365 för mode, sport & textil – guide & partners",
     metaDescription:
-      "Hur Dynamics 365 hanterar storlek/färg-matriser, säsong, kollektion och kanal i mode, sport & textil. Jämför listade partners i Sverige med kostnad och ISV-tillägg.",
+      "Dynamics 365 för mode, sport & textil hanterar storlek/färg-matriser, säsong, kollektion och kanal med ISV-tillägg. Köparsidig guide med svenska partners.",
     summary:
       "Dynamics 365 med modetillägg (Bisqo, K3 Pebblestone, LS Retail Fashion) hanterar storlek/färg-matriser, säsong, kollektion och kanal för svenska mode-, sport- och textilbolag. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
