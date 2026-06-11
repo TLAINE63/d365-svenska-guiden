@@ -17,7 +17,7 @@ import UrgencyBadge from "@/components/UrgencyBadge";
 import PartnerCard from "@/components/PartnerCard";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import SEOHead from "@/components/SEOHead";
-import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import { FAQSchema, ServiceSchema, BreadcrumbSchema, ItemListSchema } from "@/components/StructuredData";
 
 // Breadcrumb items
 const partnerBreadcrumbs = [
