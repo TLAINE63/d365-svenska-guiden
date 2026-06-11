@@ -240,7 +240,7 @@ const Copilot = () => {
                   <div>
                     <h4 className="font-semibold text-card-foreground mb-2">Fördelar:</h4>
                     <ul className="space-y-2 text-muted-foreground">
-                      <li>• 40% snabbare dokumenthantering</li>
+                      <li>• Snabbare dokumenthantering</li>
                       <li>• Minskad administrativ börda</li>
                       <li>• Förbättrad datakvalitet</li>
                       <li>• Snabbare beslut</li>
@@ -277,7 +277,7 @@ const Copilot = () => {
                   <div>
                     <h4 className="font-semibold text-card-foreground mb-2">Fördelar:</h4>
                     <ul className="space-y-2 text-muted-foreground">
-                      <li>• 30% högre produktivitet</li>
+                      <li>• Högre säljproduktivitet</li>
                       <li>• Snabbare säljcykler</li>
                       <li>• Bättre kundengagemang</li>
                       <li>• Mer tid för försäljning</li>
@@ -314,7 +314,7 @@ const Copilot = () => {
                   <div>
                     <h4 className="font-semibold text-card-foreground mb-2">Fördelar:</h4>
                     <ul className="space-y-2 text-muted-foreground">
-                      <li>• 25% snabbare ärendehantering</li>
+                      <li>• Snabbare ärendehantering</li>
                       <li>• Högre kundnöjdhet (CSAT)</li>
                       <li>• Minskad handläggningstid</li>
                       <li>• Konsekvent servicekvalitet</li>
@@ -400,8 +400,19 @@ const Copilot = () => {
                   <p className="text-sm text-primary-foreground/80">Ökad medarbetarnöjdhet</p>
                 </div>
               </div>
-              <p className="text-xs text-primary-foreground/60 italic text-center mt-4">
-                Källa: Forrester Total Economic Impact™ studie beställd av Microsoft, oktober 2024
+              <p className="text-xs text-primary-foreground/80 text-center mt-4">
+                Exempel på rapporterad affärsnytta i Microsoft-/Forrester-studier. Utfallet varierar beroende på processmognad, datakvalitet, adoption och licensnivå.
+              </p>
+              <p className="text-xs text-primary-foreground/70 text-center mt-2">
+                Källa:{" "}
+                <a
+                  href="https://tools.totaleconomicimpact.com/go/microsoft/MicrosoftCopilotforSalesService/index.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-primary-foreground"
+                >
+                  Forrester Total Economic Impact™ studie beställd av Microsoft, oktober 2024
+                </a>
               </p>
             </div>
           </div>
