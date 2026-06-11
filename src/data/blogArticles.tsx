@@ -4726,7 +4726,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för uthyrningsverksamhet",
     metaTitle: "Dynamics 365 för uthyrningsverksamhet – guide & partners",
     metaDescription:
-      "Hur Dynamics 365 stödjer uthyrning: hyresavtal, beläggning, underhåll och fältservice med branschtillägg. Jämför listade partners i Sverige.",
+      "Dynamics 365 för uthyrning hanterar hyresavtal, beläggning, underhåll och fältservice med branschtillägg. Köparsidig guide med svenska partners.",
     summary:
       "Dynamics 365 (BC eller F&SCM med uthyrningstillägg) stödjer hyresavtal, beläggning, underhåll och fältservice för svenska uthyrningsbolag — maskiner, fordon, verktyg och event. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
