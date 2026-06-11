@@ -36,8 +36,8 @@ const PartnersPerBransch = () => {
   return (
     <>
       <SEOHead
-        title="Dynamics 365-partners per bransch | d365.se"
-        description="Översikt över Dynamics 365-partners grupperade per bransch – från tillverkning och retail till finans, offentlig sektor och hälsa & sjukvård."
+        title="Dynamics 365-partners per bransch – Sverige | d365.se"
+        description="Hitta Dynamics 365-partners per bransch i Sverige: tillverkning, retail, finans, offentlig sektor, hälsa & sjukvård m.fl. Köparsidig guide vid partnerval."
         canonicalPath="/partners-per-bransch/"
       />
       <BreadcrumbSchema
@@ -87,7 +87,12 @@ const PartnersPerBransch = () => {
                     <div key={industry.slug} id={industry.slug} className="scroll-mt-24">
                       <div className="flex items-center justify-between gap-4 mb-4 pb-2 border-b border-border">
                         <h2 className="text-xl md:text-2xl font-semibold text-foreground">
-                          {industry.name}
+                          <Link
+                            to={`/branscher/${industry.slug}/`}
+                            className="hover:text-primary transition-colors"
+                          >
+                            Dynamics 365-partners för {industry.name}
+                          </Link>
                           <span className="ml-2 text-sm font-normal text-muted-foreground">
                             ({list.length})
                           </span>
