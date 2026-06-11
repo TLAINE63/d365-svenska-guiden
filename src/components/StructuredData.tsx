@@ -482,7 +482,7 @@ export const AdvisorsSchema = () => {
       <PersonSchema
         name="Michael Uhman"
         jobTitle="Senior rådgivare och medgrundare, d365.se"
-        description="Oberoende rådgivare med lång erfarenhet av affärssystem, verksamhetsutveckling, partnerlandskapet och Dynamics 365-relaterade beslut."
+        description="Senior rådgivare med lång erfarenhet av affärssystem, verksamhetsutveckling, partnerlandskapet och Dynamics 365-relaterade beslut."
         image="/src/assets/michael-uhman.jpg"
         email="michael.uhman@dynamicfactory.se"
         telephone="+46-70-574-88-50"
