@@ -10,11 +10,20 @@ import { usePartners } from "@/hooks/usePartners";
 import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { useMemo } from "react";
+import partnerDataJson from "@/data/partnerData.json";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
   { name: "Alla D365-partners", url: "https://d365.se/alla-d365-partners" },
 ];
+
+// Static snapshot of featured partners (built into the bundle so the
+// prerendered HTML always lists every profiled partner without requiring
+// client-side JavaScript or a network round-trip).
+const STATIC_PROFILED = (partnerDataJson as any[])
+  .filter((p) => p.is_featured !== false)
+  .map((p) => ({ id: p.id as string, slug: p.slug as string, name: p.name as string }))
+  .sort((a, b) => a.name.localeCompare(b.name, "sv"));
 
 export default function AllD365Partners() {
   const { data: dbPartners } = usePartners();
@@ -22,9 +31,13 @@ export default function AllD365Partners() {
   const { data: allNames } = useAllPartnerNames();
 
   const profiled = useMemo(() => {
-    return (dbPartners || [])
+    // Prefer live DB data once loaded; otherwise fall back to the static
+    // snapshot so SSG/crawlers always see the full list.
+    const live = (dbPartners || [])
       .filter((p) => p.is_featured)
-      .sort((a, b) => a.name.localeCompare(b.name, "sv"));
+      .map((p) => ({ id: p.id, slug: p.slug, name: p.name }));
+    const source = live.length > 0 ? live : STATIC_PROFILED;
+    return [...source].sort((a, b) => a.name.localeCompare(b.name, "sv"));
   }, [dbPartners]);
 
   const others = useMemo(() => {
