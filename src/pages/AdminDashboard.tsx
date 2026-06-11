@@ -241,7 +241,7 @@ function calcMonthlyFee(productFilters: Record<string, any> | undefined): number
   if (bcActive) activeProducts++;
   if (fscActive) activeProducts++;
   if (salesActive || serviceActive) activeProducts++;
-  const priceTiers: Record<number, number> = { 0: 0, 1: 995, 2: 1595, 3: 1995 };
+  const priceTiers: Record<number, number> = { 0: 0, 1: 995, 2: 1695, 3: 1995 };
   return priceTiers[Math.min(activeProducts, 3)] ?? 1995;
 }
 
@@ -3615,7 +3615,7 @@ Thomas`,
                       if (fscActive) activeProducts++;
                       if (salesActive || serviceActive) activeProducts++;
                       
-                      const priceTiers: Record<number, number> = { 0: 0, 1: 995, 2: 1595, 3: 1995 };
+                      const priceTiers: Record<number, number> = { 0: 0, 1: 995, 2: 1695, 3: 1995 };
                       const totalFee = priceTiers[Math.min(activeProducts, 3)] ?? 1995;
                       const crmBundleBoth = salesActive && serviceActive;
                       
@@ -3626,7 +3626,7 @@ Thomas`,
                           </p>
                           <div className="text-xs text-muted-foreground mt-1 space-y-0.5">
                             <p>{activeProducts} produkt(er) = {totalFee.toLocaleString('sv-SE')} kr/mån</p>
-                            <p className="text-muted-foreground/70">1 prod: 995 kr · 2 prod: 1 595 kr · 3 prod: 1 995 kr</p>
+                            <p className="text-muted-foreground/70">1 prod: 995 kr · 2 prod: 1 695 kr · 3 prod: 1 995 kr</p>
                             {crmBundleBoth && (
                               <p className="text-primary italic">Sales + Service räknas som 1 produkt</p>
                             )}

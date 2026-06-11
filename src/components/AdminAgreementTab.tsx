@@ -40,7 +40,7 @@ interface Partner {
 }
 
 // Same pricing logic as the AdminDashboard partner form
-const PRICE_TIERS: Record<number, number> = { 0: 0, 1: 995, 2: 1595, 3: 1995 };
+const PRICE_TIERS: Record<number, number> = { 0: 0, 1: 995, 2: 1695, 3: 1995 };
 function computeMonthlyFee(p: Partner): number {
   // Manual override wins
   if (Number(p.monthly_fee) > 0) return Number(p.monthly_fee);
