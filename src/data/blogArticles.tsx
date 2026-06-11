@@ -4261,7 +4261,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för Life Science & Medtech",
     metaTitle: "Dynamics 365 för Life Science & Medtech – guide & partners",
     metaDescription:
-      "Hur Dynamics 365 stödjer Life Science & Medtech: GxP, validering, spårbarhet och kvalitetsstyrning med ISV-tillägg. Jämför listade partners i Sverige med kostnad.",
+      "Dynamics 365 för Life Science & Medtech hanterar GxP, validering, spårbarhet och kvalitetsstyrning med ISV-tillägg. Köparsidig guide med svenska partners.",
     summary:
       "Dynamics 365 (F&SCM eller BC Premium med life science-tillägg) hanterar GxP, validering, spårbarhet och kvalitetsstyrning för svenska life science- och medtech-bolag. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
