@@ -195,8 +195,7 @@ const BusinessCentral = () => {
       <ProductHero
         icon={BusinessCentralIcon}
         eyebrow="Business Central"
-        title="Dynamics 365 Business Central."
-        titleAccent="Så jämför ni partners och inriktning"
+        title="Dynamics 365 Business Central – pris, funktioner och rätt partner i Sverige"
         subhead="Microsoft levererar det kraftfulla affärssystemet. Partnern bygger processerna, väljer rätt branschspecifika tillägg och designar integrationerna mot era befintliga system. Det är nyckeln till framgångsrika BC-projekt. Här jämför ni partners som faktiskt levererat Business Central i er bransch."
         primary={{
           label: "Generera kravspecifikation",
