@@ -168,7 +168,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/partners-sitemap', priority: '0.6', changefreq: 'weekly' },
   { path: '/alla-d365-partners', priority: '0.6', changefreq: 'monthly' },
   { path: '/partners-per-bransch', priority: '0.7', changefreq: 'weekly' },
-  { path: '/AIsok', priority: '0.3', changefreq: 'monthly', sitemap: false },
+  { path: '/AI-sok', priority: '0.3', changefreq: 'monthly', sitemap: false },
   ...PRODUCT_PARTNERS_SVERIGE.map((c) => ({
     path: `/${c.slug}`,
     priority: '0.8',
@@ -264,8 +264,9 @@ export function render(url: string) {
               <Route path="/kontakt" element={<ContactUs />} />
               <Route path="/valjdynamics365partner" element={<ValjPartner />} />
               <Route path="/valj-partner" element={<Navigate to="/valjdynamics365partner" replace />} />
-              <Route path="/AIsok" element={<SmartSearch />} />
-              <Route path="/sok" element={<Navigate to="/AIsok" replace />} />
+              <Route path="/AI-sok" element={<SmartSearch />} />
+              <Route path="/AIsok" element={<Navigate to="/AI-sok" replace />} />
+              <Route path="/sok" element={<Navigate to="/AI-sok" replace />} />
               <Route path="/dataskydd" element={<PrivacyPolicy />} />
               <Route path="/ERPbehovsanalys" element={<NeedsAnalysis />} />
               <Route path="/behovsanalys" element={<Navigate to="/ERPbehovsanalys" replace />} />
