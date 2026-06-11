@@ -5132,7 +5132,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för fastighet & förvaltning",
     metaTitle: "Dynamics 365 för fastighet & förvaltning – guide & partners",
     metaDescription:
-      "Hur Dynamics 365 stödjer fastighet & förvaltning: ekonomi, anläggningsregister, fältservice och hyresgästkontakt. Jämför listade partners i Sverige med kostnad.",
+      "Dynamics 365 för fastighet & förvaltning täcker ekonomi, anläggningsregister, fältservice och hyresgästkontakt. Köparsidig guide med svenska partners.",
     summary:
       "Dynamics 365 (BC eller F&SCM + Field Service) hanterar ekonomi, anläggningsregister, underhåll och hyresgästkontakt för svenska fastighets- och förvaltningsbolag — integrerat med specialiserade hyresadministrationssystem. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
     category: "Branschguide",
