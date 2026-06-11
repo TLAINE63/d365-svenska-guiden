@@ -31,6 +31,94 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
+# AI search & training crawlers – explicitly allowed for AIO/LLM discovery
+User-agent: GPTBot
+Allow: /
+Disallow: /admin
+Disallow: /partner-admin
+Disallow: /lead-admin
+Disallow: /partner-update/
+Disallow: /partner-events/
+Disallow: /partnerstatistik
+Disallow: /partner-statistik
+Disallow: /avtalssida
+Disallow: /partner-avtal
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin
+Disallow: /partner-admin
+Disallow: /lead-admin
+Disallow: /partner-update/
+Disallow: /partner-events/
+Disallow: /partnerstatistik
+Disallow: /partner-statistik
+Disallow: /avtalssida
+Disallow: /partner-avtal
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin
+Disallow: /partner-admin
+Disallow: /lead-admin
+Disallow: /partner-update/
+Disallow: /partner-events/
+Disallow: /partnerstatistik
+Disallow: /partner-statistik
+Disallow: /avtalssida
+Disallow: /partner-avtal
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin
+Disallow: /partner-admin
+Disallow: /lead-admin
+Disallow: /partner-update/
+Disallow: /partner-events/
+Disallow: /partnerstatistik
+Disallow: /partner-statistik
+Disallow: /avtalssida
+Disallow: /partner-avtal
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /admin
+Disallow: /partner-admin
+Disallow: /lead-admin
+Disallow: /partner-update/
+Disallow: /partner-events/
+Disallow: /partnerstatistik
+Disallow: /partner-statistik
+Disallow: /avtalssida
+Disallow: /partner-avtal
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
 User-agent: *
 Allow: /
 Disallow: /admin
