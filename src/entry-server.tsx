@@ -47,6 +47,8 @@ import BlogArticle from './pages/BlogArticle';
 import SmartSearch from './pages/SmartSearch';
 import ProductPartnersSverige from './pages/ProductPartnersSverige';
 import PartnersSitemap from './pages/PartnersSitemap';
+import AllD365Partners from './pages/AllD365Partners';
+import PartnersPerBransch from './pages/PartnersPerBransch';
 import { PRODUCT_PARTNERS_SVERIGE } from './data/productPartnersSverige';
 import { ALL_DEEP_DIVE_ARTICLES } from './data/bcArticles';
 import { BLOG_ARTICLES } from './data/blogArticles';
@@ -156,6 +158,9 @@ export const routes: PrerenderRoute[] = [
   { path: '/kravspecifikation-marketing', priority: '0.7', changefreq: 'monthly' },
   { path: '/kravspecifikation-kundservice', priority: '0.7', changefreq: 'monthly' },
   { path: '/partners-sitemap', priority: '0.6', changefreq: 'weekly' },
+  { path: '/alla-d365-partners', priority: '0.6', changefreq: 'monthly' },
+  { path: '/partners-per-bransch', priority: '0.7', changefreq: 'weekly' },
+  { path: '/AIsok', priority: '0.3', changefreq: 'monthly', sitemap: false },
   ...PRODUCT_PARTNERS_SVERIGE.map((c) => ({
     path: `/${c.slug}`,
     priority: '0.8',
@@ -286,6 +291,8 @@ export function render(url: string) {
               <Route path="/kravspecifikation-kundservice" element={<RequirementsSpecCustomerService />} />
               <Route path="/partner/:slug" element={<PartnerProfile initialData={mappedPartnerData as any} />} />
               <Route path="/partners-sitemap" element={<PartnersSitemap />} />
+              <Route path="/alla-d365-partners" element={<AllD365Partners />} />
+              <Route path="/partners-per-bransch" element={<PartnersPerBransch />} />
               {PRODUCT_PARTNERS_SVERIGE.map((c) => (
                 <Route
                   key={c.slug}
