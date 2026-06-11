@@ -34,7 +34,7 @@ export const PRODUCT_PARTNERS_SVERIGE: ProductPartnersSverigeConfig[] = [
       },
       {
         q: "Vad kostar ett Business Central-projekt i Sverige?",
-        a: "Licenskostnaden börjar på 76,50 kr/användare/mån (Team Member) och 764,70 kr för Essentials. Implementationskostnaden ligger typiskt på 150 000–800 000 kr beroende på antal användare, integrationer och bransch-tillägg.",
+        a: "Licenskostnaden börjar på {{price:bc-team-members:exact}} (Team Member) och {{price:bc-essentials:amount-exact}} för Essentials. Implementationskostnaden ligger typiskt på 150 000–800 000 kr beroende på antal användare, integrationer och bransch-tillägg.",
       },
     ],
   },
