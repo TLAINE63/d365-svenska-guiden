@@ -283,6 +283,13 @@ export function render(url: string) {
               <Route path="/events/:eventId" element={<EventDetail />} />
               <Route path="/qa" element={<QA />} />
               <Route path="/kunskapscenter" element={<Kunskapscenter />} />
+              {KNOWLEDGE_HUBS.map((hub) => (
+                <Route
+                  key={hub.slug}
+                  path={`/kunskapscenter/${hub.slug}`}
+                  element={<KunskapscenterHub slug={hub.slug} />}
+                />
+              ))}
               <Route path="/kunskapscenter/:productSlug/:articleSlug" element={<DeepDiveArticle />} />
               <Route path="/artiklar/:slug" element={<BlogArticle />} />
               <Route path="/kravspecifikation" element={<RequirementsSpec />} />
