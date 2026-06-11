@@ -181,6 +181,11 @@ const OmThomasLaine = () => {
                   <img src={linkedinLogo} alt="" className="w-4 h-4" /> Thomas Laine på LinkedIn
                 </a>
               </div>
+              <div className="mt-6 pt-6 border-t border-border text-sm">
+                <Link to="/om-michael-uhman/" className="text-primary hover:underline font-medium">
+                  Läs även om medgrundaren Michael Uhman →
+                </Link>
+              </div>
             </div>
           </div>
         </section>
