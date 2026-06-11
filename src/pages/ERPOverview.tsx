@@ -11,6 +11,7 @@ import LeadCTA from "@/components/LeadCTA";
 import IndustryComparisonWidget from "@/components/IndustryComparisonWidget";
 import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
+import { resolvePriceTokens } from "@/lib/productPriceFormat";
 
 // Breadcrumb items
 const erpBreadcrumbs = [
