@@ -1,0 +1,1 @@
+UPDATE public.site_settings SET value = 'frontier-firm-dynamics-365-erp-crm', updated_at = now() WHERE key = 'featured_article_slug';
