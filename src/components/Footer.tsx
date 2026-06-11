@@ -94,7 +94,7 @@ const Footer = () => {
 
         <div className="border-t border-border pt-8 text-center text-muted-foreground">
           <img src={siteLogo} alt="d365.se logotyp" width="194" height="40" loading="lazy" decoding="async" className="h-10 w-auto mx-auto mb-4" />
-          <p className="mb-2">© 2025 Dynamic Factory</p>
+          <p className="mb-2">© {new Date().getFullYear()} Dynamic Factory</p>
           <p className="text-sm mb-3">
             Microsoft Business Applications Evangelister
           </p>
