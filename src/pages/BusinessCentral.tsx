@@ -240,10 +240,13 @@ const BusinessCentral = () => {
                   <div className="bg-secondary/50 rounded-lg p-4 mt-4">
                     <p className="font-semibold text-foreground mb-2">💰 Licenspriser (prenumeration):</p>
                     <ul className="space-y-1">
-                      <li>• Team Member: <strong className="text-foreground">76,50 kr/månad</strong></li>
-                      <li>• Essentials: <strong className="text-foreground">764,70 kr/månad</strong></li>
-                      <li>• Premium: <strong className="text-foreground">1 051,40 kr/månad</strong></li>
+                      <li>• Team Member: <strong className="text-foreground"><Price productKey="bc-team-members" mode="exact" /></strong></li>
+                      <li>• Essentials: <strong className="text-foreground"><Price productKey="bc-essentials" mode="exact" /></strong></li>
+                      <li>• Premium: <strong className="text-foreground"><Price productKey="bc-premium" mode="exact" /></strong></li>
                     </ul>
+                    <p className="text-xs text-muted-foreground mt-2 italic">
+                      Microsofts officiella listpris exkl. moms vid årsvis betalning. Källa: microsoft.com/sv-se.
+                    </p>
                   </div>
                   <p className="text-sm italic">
                     Till detta tillkommer implementeringskostnader som varierar beroende på omfattning, integrationer och anpassningsbehov.
