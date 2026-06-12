@@ -678,10 +678,10 @@ function lintSeo(html: string, path: string): SeoLint {
   const headMatch = html.match(/<head[^>]*>([\s\S]*?)<\/head>/i);
   const head = headMatch ? headMatch[1] : '';
 
-  const isNoIndex = /<meta\s+name=["']robots["']\s+content=["'][^"']*noindex/i.test(head);
+  const isNoIndex = /<meta\b(?=[^>]*\bname=["']robots["'])(?=[^>]*\bcontent=["'][^"']*noindex)[^>]*>/i.test(head);
 
   // <title>
-  const titleMatch = head.match(/<title>([^<]*)<\/title>/i);
+  const titleMatch = head.match(/<title\b[^>]*>([^<]*)<\/title>/i);
   const title = titleMatch ? titleMatch[1].trim() : '';
   if (!title) errors.push('Missing <title>');
   else {
@@ -690,7 +690,7 @@ function lintSeo(html: string, path: string): SeoLint {
   }
 
   // meta description
-  const descMatch = head.match(/<meta\s+name=["']description["']\s+content=["']([^"']*)["']/i);
+  const descMatch = head.match(/<meta\b(?=[^>]*\bname=["']description["'])(?=[^>]*\bcontent=["']([^"']*)["'])[^>]*>/i);
   const desc = descMatch ? descMatch[1].trim() : '';
   if (!desc) errors.push('Missing meta description');
   else {
@@ -700,7 +700,7 @@ function lintSeo(html: string, path: string): SeoLint {
 
   // canonical (skip on noindex)
   if (!isNoIndex) {
-    const canonMatch = head.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']/i);
+    const canonMatch = head.match(/<link\b(?=[^>]*\brel=["']canonical["'])(?=[^>]*\bhref=["']([^"']+)["'])[^>]*>/i);
     if (!canonMatch) errors.push('Missing canonical link');
     else if (!canonMatch[1].startsWith('https://d365.se')) {
       errors.push(`Canonical not absolute https://d365.se: ${canonMatch[1]}`);
@@ -710,13 +710,13 @@ function lintSeo(html: string, path: string): SeoLint {
   // Open Graph
   const ogRequired = ['og:title', 'og:description', 'og:url', 'og:type', 'og:image'];
   for (const prop of ogRequired) {
-    const re = new RegExp(`<meta\\s+property=["']${prop}["']\\s+content=["']([^"']*)["']`, 'i');
+    const re = new RegExp(`<meta\\b(?=[^>]*\\bproperty=["']${prop}["'])(?=[^>]*\\bcontent=["']([^"']*)["'])[^>]*>`, 'i');
     const m = head.match(re);
     if (!m || !m[1].trim()) warnings.push(`Missing/empty ${prop}`);
   }
 
   // Twitter card
-  if (!/<meta\s+name=["']twitter:card["']/i.test(head)) {
+  if (!/<meta\b(?=[^>]*\bname=["']twitter:card["'])[^>]*>/i.test(head)) {
     warnings.push('Missing twitter:card');
   }
 
