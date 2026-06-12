@@ -37,7 +37,7 @@ import {
 const crmFaqs = [
   {
     question: "Vad kostar CRM system i Sverige – Dynamics 365 jämförelse?",
-    answer: "CRM system pris Sverige 2025: Dynamics 365 Sales Professional ca 621 kr/användare/mån, Sales Enterprise ca 1 004 kr/mån. Customer Service Professional ca 478 kr/mån, Customer Service Enterprise ca 1 004 kr/mån. Customer Insights (Marketing) prissätts per tenant från ca 9 559 kr/mån. Implementeringskostnad: standardimplementering Sales/Customer Service från 100 000–250 000 kr, större projekt 4–6 månader och 500 000–2 MSEK."
+    answer: "CRM system pris Sverige 2026 (Microsofts listpris, exkl. moms): Dynamics 365 Sales Professional 621 kr/användare/mån, Sales Enterprise 1 004 kr/mån, Sales Premium 1 434 kr/mån. Customer Service Professional 478 kr/mån, Customer Service Enterprise 1 004 kr/mån, Customer Service Premium 1 864 kr/mån. Field Service 1 004 kr/mån. Contact Center (komplett) 1 051 kr/mån. Customer Insights prissätts per tenant från 16 250 kr/mån (attach-pris 9 559 kr/mån för bolag med minst 10 befintliga D365-licenser). Implementeringskostnad: standardimplementering Sales/Customer Service från 100 000–250 000 kr, större projekt 4–6 månader och 500 000–2 MSEK."
   },
   {
     question: "Dynamics 365 CRM vs Salesforce – vilket ska jag välja?",
@@ -156,7 +156,7 @@ const CRM = () => {
     <div className="min-h-screen">
       <SEOHead 
         title="CRM system Sverige – Dynamics 365 priser | d365.se"
-        description="Dynamics 365 Sales från 550 kr/mån, Customer Service från 660 kr/mån. Jämför mot Salesforce – vi står på köparens sida vid partnerval."
+        description="Dynamics 365 Sales från 621 kr/användare/mån, Customer Service från 478 kr/användare/mån (Microsofts listpris). Jämför mot Salesforce – vi står på köparens sida vid partnerval."
         canonicalPath="/crm"
         keywords="CRM system Sverige pris, Dynamics 365 CRM Sverige, Microsoft CRM system, Dynamics 365 Sales pris, CRM jämförelse Sverige, Dynamics 365 vs Salesforce, Customer Service CRM, CRM implementering Sverige, Microsoft CRM partner certifierad"
         ogImage="https://d365.se/og-crm.png"
@@ -258,9 +258,10 @@ const CRM = () => {
                   <p>Det finns inget enkelt svar på vad Dynamics 365 CE kostar, eftersom priset formas av just era unika förutsättningar. Vilka applikationer behöver ni? Hur många användare ska ha tillgång? Och hur komplex är er verksamhet? Nedan går vi igenom de viktigaste kostnadskomponenterna.</p>
                   <p><strong>Licenskostnad per användare</strong></p>
                   <p>Licenserna prissätts per användare och månad, och varierar beroende på vilken applikation och vilken nivå ni väljer. Som en riktlinje kan nämnas att:</p>
-                  <p>Customer Service Professional börjar från cirka 500 kr/användare/månad – ett bra alternativ för team som vill komma igång med strukturerad kundservice.</p>
-                  <p>Sales Premium, med fulla AI-funktioner och avancerade säljverktyg, ligger på upp till 1 500 kr/användare/månad.</p>
-                  <p>Mellan dessa ytterligheter finns flera nivåer och kombinationer, vilket gör det möjligt att sätta ihop ett licenspaket som matchar både behov och budget.</p>
+                  <p>Customer Service Professional börjar på 478 kr/användare/månad – ett bra alternativ för team som vill komma igång med strukturerad kundservice. Sales Professional ligger på 621 kr/användare/månad.</p>
+                  <p>Sales Enterprise och Customer Service Enterprise prissätts till 1 004 kr/användare/månad, medan Sales Premium (med fulla AI- och säljverktyg) ligger på 1 434 kr/användare/månad och Customer Service Premium på 1 864 kr/användare/månad. Field Service kostar 1 004 kr/användare/månad och Contact Center 1 051 kr/användare/månad (komplett).</p>
+                  <p>Customer Insights (marknadsföring &amp; kunddata) prissätts per tenant från 16 250 kr/månad – med ett lägre attach-pris på 9 559 kr/månad om ni redan har minst 10 Dynamics 365-licenser.</p>
+                  <p>Mellan dessa nivåer finns flera kombinationer, vilket gör det möjligt att sätta ihop ett licenspaket som matchar både behov och budget. Priserna är Microsofts listpris i SEK exkl. moms – faktiskt pris kan variera beroende på avtal (EA, CSP), volym och kampanjer. Se vår fullständiga <a href="/priser/" className="text-crm hover:underline font-medium">prislista</a>.</p>
                   <p><strong>Implementeringskostnader</strong></p>
                   <p>Utöver licenserna tillkommer kostnader för att implementera och konfigurera systemet. Här spelar &quot;scope&quot; en avgörande roll:</p>
                   <p>En enskild applikation – till exempel enbart Customer Service eller Sales – brukar kosta mellan 100 000 och 250 000 kr att implementera.</p>
