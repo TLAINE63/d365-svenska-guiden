@@ -36,21 +36,25 @@ const Copilot = () => {
       title: "Introduktion till Dynamics 365 Copilot",
       description: "Officiell Microsoft-video om hur Copilot fungerar i Dynamics 365",
       videoId: "GMwtXDx-JUI",
+      uploadDate: "2023-03-06",
     },
     {
       title: "Copilot i Customer Service",
       description: "Se hur Copilot accelererar ärendehantering och förbättrar produktivitet",
       videoId: "bZDvvLI4WRc",
+      uploadDate: "2023-11-09",
     },
     {
       title: "Copilot i Supply Chain Management",
       description: "Nya Copilot-funktioner för att förbättra produktivitet och hantera störningar",
       videoId: "XPZqmmzKgQU",
+      uploadDate: "2023-10-31",
     },
     {
       title: "Microsoft 365 Copilot - Översikt",
       description: "En rundtur i Microsoft 365 Copilot-appen",
       videoId: "W-FBOUh-S0o",
+      uploadDate: "2025-04-23",
     },
   ];
 
