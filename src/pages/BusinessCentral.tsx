@@ -122,21 +122,25 @@ const BusinessCentral = () => {
       title: "Business Central för Mindre och Medelstora Företag",
       description: "Komplett affärslösning för växande företag",
       videoId: "X7B99e3mNfI",
+      uploadDate: "2024-08-13",
     },
     {
       title: "Business Central - Höstrelease 2025",
       description: "Utforska funktioner och möjligheter",
       videoId: "UIL8ej7mSKQ",
+      uploadDate: "2025-09-16",
     },
     {
       title: "Business Central Demo",
       description: "Automatised orderhantering med Copilot",
       videoId: "7QJeTXzZaEk",
+      uploadDate: "2025-09-16",
     },
     {
       title: "Business Central Demo",
       description: "Exempel på Copilot",
       videoId: "ayXdXFyFEjY",
+      uploadDate: "2023-12-08",
     },
   ];
 
