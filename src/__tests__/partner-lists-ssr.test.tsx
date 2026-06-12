@@ -75,7 +75,9 @@ describe("Partner list SSR – SEO regression", () => {
 
     it("renders a bransch header for every standard industry", () => {
       for (const ind of STANDARD_INDUSTRIES) {
-        expect(html).toContain(`Dynamics 365-partners för ${ind.name}`);
+        // React escapes & as &amp; in server output
+        const escaped = ind.name.replace(/&/g, "&amp;");
+        expect(html).toContain(`Dynamics 365-partners för ${escaped}`);
         // anchor id used for deep-linking
         expect(html).toContain(`id="${ind.slug}"`);
       }
