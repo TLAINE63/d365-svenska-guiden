@@ -189,21 +189,30 @@ export default function prerenderPlugin(): Plugin {
               .filter(Boolean)
               .join('\n    ');
 
-            // For dynamic routes with custom meta (e.g. partner profiles),
-            // inject the meta directly if Helmet didn't produce useful tags
-            const helmetHasUsefulTitle = head.title && !head.title.includes('></title>') && head.title.includes('</title>');
-            if (route.meta && (!helmetHasUsefulTitle || !head.title.includes(route.meta.title))) {
+            // Helmet output is the source of truth. Fall back to
+            // route.meta only when Helmet didn't produce a usable
+            // <title> (e.g. partner pages where SEOHead can't run
+            // synchronously during SSR). Crucially, do NOT override
+            // when Helmet's title differs from route.meta.title –
+            // that would discard SEOHead's og:image, twitter:* and
+            // article:* tags on /artiklar/* and product routes.
+            const helmetHasUsefulTitle =
+              head.title && !head.title.includes('></title>') && head.title.includes('</title>');
+            if (route.meta && !helmetHasUsefulTitle) {
+              const trailing = route.path.endsWith('/') ? route.path : route.path + '/';
+              const isArticle = route.path.startsWith('/artiklar/') || route.path.startsWith('/kunskapscenter/');
               const customHead = [
                 `<title>${route.meta.title}</title>`,
                 `<meta name="description" content="${route.meta.description.replace(/"/g, '&quot;')}" />`,
-                `<link rel="canonical" href="https://d365.se${route.path.endsWith('/') ? route.path : route.path + '/'}" />`,
+                `<link rel="canonical" href="https://d365.se${trailing}" />`,
                 `<meta property="og:title" content="${route.meta.title}" />`,
                 `<meta property="og:description" content="${route.meta.description.replace(/"/g, '&quot;')}" />`,
-                `<meta property="og:url" content="https://d365.se${route.path.endsWith('/') ? route.path : route.path + '/'}" />`,
-                `<meta property="og:type" content="website" />`,
+                `<meta property="og:url" content="https://d365.se${trailing}" />`,
+                `<meta property="og:type" content="${isArticle ? 'article' : 'website'}" />`,
               ].join('\n    ');
               headTags = customHead;
             }
+
 
             if (headTags) {
               page = page.replace('</head>', `    ${headTags}\n  </head>`);
