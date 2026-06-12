@@ -189,15 +189,16 @@ export default function prerenderPlugin(): Plugin {
               .filter(Boolean)
               .join('\n    ');
 
-            // Helmet output is the source of truth. Only fall back to
-            // route.meta when Helmet produced nothing usable (empty
-            // <title></title> AND no meta tags) – otherwise we'd
-            // overwrite article-specific og:type, og:image, twitter:*
-            // and article:* tags that SEOHead / per-page <Helmet> emit.
+            // Helmet output is the source of truth. Fall back to
+            // route.meta only when Helmet didn't produce a usable
+            // <title> (e.g. partner pages where SEOHead can't run
+            // synchronously during SSR). Crucially, do NOT override
+            // when Helmet's title differs from route.meta.title –
+            // that would discard SEOHead's og:image, twitter:* and
+            // article:* tags on /artiklar/* and product routes.
             const helmetHasUsefulTitle =
               head.title && !head.title.includes('></title>') && head.title.includes('</title>');
-            const helmetHasMeta = head.meta && head.meta.trim().length > 0;
-            if (route.meta && !helmetHasUsefulTitle && !helmetHasMeta) {
+            if (route.meta && !helmetHasUsefulTitle) {
               const trailing = route.path.endsWith('/') ? route.path : route.path + '/';
               const isArticle = route.path.startsWith('/artiklar/') || route.path.startsWith('/kunskapscenter/');
               const customHead = [
