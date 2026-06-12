@@ -136,6 +136,7 @@ const D365CustomerService = () => {
               title="Customer Service och Support"
               description="Leverera exceptionell kundservice med AI-drivna insikter"
               videoId="ewtCAkM55Fc"
+              uploadDate="2025-02-06"
             />
           </div>
         </div>

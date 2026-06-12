@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Play } from "lucide-react";
 
@@ -6,17 +7,49 @@ interface VideoCardProps {
   title: string;
   description: string;
   videoId: string;
+  /** ISO 8601 upload/production date, e.g. "2025-01-23" or full datetime */
+  uploadDate?: string;
 }
 
-const VideoCard = ({ title, description, videoId }: VideoCardProps) => {
+const formatDateSv = (iso: string): string => {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return iso;
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}/${m}/${day}`;
+};
+
+const VideoCard = ({ title, description, videoId, uploadDate }: VideoCardProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const handleClick = () => {
     setIsLoaded(true);
   };
 
+  const videoSchema = uploadDate
+    ? {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        name: title,
+        description,
+        thumbnailUrl: [
+          `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+          `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+        ],
+        uploadDate,
+        contentUrl: `https://www.youtube.com/watch?v=${videoId}`,
+        embedUrl: `https://www.youtube-nocookie.com/embed/${videoId}`,
+      }
+    : null;
+
   return (
     <Card className="overflow-hidden transition-all duration-300 hover:shadow-[var(--shadow-hover)] border-border bg-card">
+      {videoSchema && (
+        <Helmet>
+          <script type="application/ld+json">{JSON.stringify(videoSchema)}</script>
+        </Helmet>
+      )}
       <CardHeader className="space-y-1.5 p-4 sm:p-5">
         <CardTitle className="text-base sm:text-lg text-card-foreground">{title}</CardTitle>
         <CardDescription className="text-sm text-muted-foreground">{description}</CardDescription>
@@ -60,6 +93,11 @@ const VideoCard = ({ title, description, videoId }: VideoCardProps) => {
             </button>
           )}
         </div>
+        {uploadDate && (
+          <p className="mt-3 text-xs text-muted-foreground">
+            Publicerad: <time dateTime={uploadDate}>{formatDateSv(uploadDate)}</time>
+          </p>
+        )}
       </CardContent>
     </Card>
   );

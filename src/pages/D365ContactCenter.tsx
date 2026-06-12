@@ -123,6 +123,7 @@ const D365ContactCenter = () => {
               title="Dynamics 365 Contact Center"
               description="Modern och innovativ kontaktcenterlösning med Omnichannel, AI och automation."
               videoId="MYl0lN5_-L8"
+              uploadDate="2025-08-07"
             />
           </div>
         </div>
