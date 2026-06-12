@@ -37,6 +37,9 @@ jobs:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
 
+      - name: SEO regression check (prerendered dist/)
+        run: bun run check:prerender-seo
+
       - uses: actions/configure-pages@v4
 
       - uses: actions/upload-pages-artifact@v3
