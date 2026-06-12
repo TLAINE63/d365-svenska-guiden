@@ -51,6 +51,10 @@ import ProductPartnersSverige from './pages/ProductPartnersSverige';
 import PartnersSitemap from './pages/PartnersSitemap';
 import AllD365Partners from './pages/AllD365Partners';
 import PartnersPerBransch from './pages/PartnersPerBransch';
+import OmThomasLaine from './pages/OmThomasLaine';
+import OmMichaelUhman from './pages/OmMichaelUhman';
+import OwnershipAndInterests from './pages/OwnershipAndInterests';
+import Priser from './pages/Priser';
 import { PRODUCT_PARTNERS_SVERIGE } from './data/productPartnersSverige';
 import { ALL_DEEP_DIVE_ARTICLES } from './data/bcArticles';
 import { BLOG_ARTICLES } from './data/blogArticles';
@@ -152,6 +156,10 @@ export const routes: PrerenderRoute[] = [
   { path: '/events', priority: '0.8', changefreq: 'weekly' },
   { path: '/qa', priority: '0.6', changefreq: 'monthly' },
   { path: '/kontakt', priority: '0.7', changefreq: 'monthly' },
+  { path: '/om-thomas-laine', priority: '0.6', changefreq: 'yearly' },
+  { path: '/om-michael-uhman', priority: '0.6', changefreq: 'yearly' },
+  { path: '/agande-och-intressen', priority: '0.5', changefreq: 'yearly' },
+  { path: '/priser', priority: '0.8', changefreq: 'monthly' },
   { path: '/dataskydd', priority: '0.3', changefreq: 'yearly', sitemap: false },
   { path: '/kom-igang', priority: '0.8', changefreq: 'monthly' },
   { path: '/kunskapscenter', priority: '0.7', changefreq: 'weekly' },
@@ -292,6 +300,10 @@ export function render(url: string) {
               <Route path="/events/:eventId" element={<EventDetail />} />
               <Route path="/qa" element={<QA />} />
               <Route path="/kunskapscenter" element={<Kunskapscenter />} />
+              <Route path="/priser" element={<Priser />} />
+              <Route path="/om-thomas-laine" element={<OmThomasLaine />} />
+              <Route path="/om-michael-uhman" element={<OmMichaelUhman />} />
+              <Route path="/agande-och-intressen" element={<OwnershipAndInterests />} />
               {KNOWLEDGE_HUBS.map((hub) => (
                 <Route
                   key={hub.slug}
