@@ -169,6 +169,8 @@ export const routes: PrerenderRoute[] = [
     changefreq: 'weekly' as const,
     meta: { title: hub.metaTitle, description: hub.metaDescription },
   })),
+  { path: '/kunskapscenter/upphandlingsresan', priority: '0.7', changefreq: 'monthly' },
+  { path: '/upphandlingsguiden', priority: '0.8', changefreq: 'monthly' },
   { path: '/kravspecifikation', priority: '0.7', changefreq: 'monthly' },
   { path: '/kravspecifikation-sales', priority: '0.7', changefreq: 'monthly' },
   { path: '/kravspecifikation-marketing', priority: '0.7', changefreq: 'monthly' },
