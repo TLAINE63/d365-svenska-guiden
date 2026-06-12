@@ -124,6 +124,7 @@ const D365FieldService = () => {
               title="Dynamics 365 Field Service"
               description="Optimera fältservice med intelligent schemaläggning och mobilitet."
               videoId="OujvbnyGqDY"
+              uploadDate="2024-08-09"
             />
           </div>
         </div>
