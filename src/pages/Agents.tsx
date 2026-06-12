@@ -55,11 +55,13 @@ const Agents = () => {
       title: "AI Agents i Dynamics 365 - Översikt",
       description: "En genomgång av hur AI-agenter fungerar i Dynamics 365-ekosystemet",
       videoId: "AhcO8ujdDXo",
+      uploadDate: "2025-12-09",
     },
     {
       title: "Building Effective Agents med Microsoft 365 Copilot",
       description: "Lär dig bygga effektiva agenter i Microsoft-ekosystemet",
       videoId: "mLK-sDL_8zQ",
+      uploadDate: "2025-05-22",
     },
   ];
 
