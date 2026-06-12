@@ -55,6 +55,8 @@ import OmThomasLaine from './pages/OmThomasLaine';
 import OmMichaelUhman from './pages/OmMichaelUhman';
 import OwnershipAndInterests from './pages/OwnershipAndInterests';
 import Priser from './pages/Priser';
+import Upphandlingsresan from './pages/Upphandlingsresan';
+import Upphandlingsguiden from './pages/Upphandlingsguiden';
 import { PRODUCT_PARTNERS_SVERIGE } from './data/productPartnersSverige';
 import { ALL_DEEP_DIVE_ARTICLES } from './data/bcArticles';
 import { BLOG_ARTICLES } from './data/blogArticles';
@@ -303,6 +305,8 @@ export function render(url: string) {
               <Route path="/qa" element={<QA />} />
               <Route path="/kunskapscenter" element={<Kunskapscenter />} />
               <Route path="/priser" element={<Priser />} />
+              <Route path="/kunskapscenter/upphandlingsresan" element={<Upphandlingsresan />} />
+              <Route path="/upphandlingsguiden" element={<Upphandlingsguiden />} />
               <Route path="/om-thomas-laine" element={<OmThomasLaine />} />
               <Route path="/om-michael-uhman" element={<OmMichaelUhman />} />
               <Route path="/agande-och-intressen" element={<OwnershipAndInterests />} />
