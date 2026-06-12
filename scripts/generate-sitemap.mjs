@@ -67,6 +67,7 @@ const STATIC_ROUTES = [
   { path: "/agande-och-intressen/", changefreq: "yearly", priority: "0.5" },
   { path: "/om-thomas-laine/", changefreq: "yearly", priority: "0.5" },
   { path: "/om-michael-uhman/", changefreq: "yearly", priority: "0.5" },
+  { path: "/priser/", changefreq: "monthly", priority: "0.8" },
 ];
 
 function readText(p) {
