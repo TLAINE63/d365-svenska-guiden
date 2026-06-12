@@ -12,6 +12,21 @@
     <link rel="apple-touch-icon" sizes="192x192" href="/favicon-192.png" />
     <title>Dynamics 365 Sverige – ERP & CRM guide | d365.se</title>
     <meta name="description" content="Beslutsstöd för Microsoft Dynamics 365: jämför ERP & CRM, hitta certifierade partners per bransch och gör en kostnadsfri behovsanalys." />
+    <script>
+      // Block indexing of all non-canonical hosts (preview/staging/lovable.app etc.).
+      // Only d365.se (and www.d365.se which 301:as till d365.se) ska få indexeras.
+      (function () {
+        try {
+          var host = location.hostname;
+          if (host !== 'd365.se' && host !== 'www.d365.se') {
+            var m = document.createElement('meta');
+            m.name = 'robots';
+            m.content = 'noindex, nofollow';
+            document.head.appendChild(m);
+          }
+        } catch (e) {}
+      })();
+    </script>
 
     <!-- Editorial fonts for /beslutsmognadsindex publication -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
