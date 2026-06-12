@@ -149,6 +149,7 @@ const D365Sales = () => {
               title="Dynamics 365 Sales"
               description="Maximera dina försäljningsresultat med intelligent CRM"
               videoId="TMdY77b1TTg"
+              uploadDate="2024-07-18"
             />
           </div>
         </div>
