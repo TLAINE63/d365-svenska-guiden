@@ -899,9 +899,9 @@ const Index = () => {
                 <AccordionContent className="pb-6">
                   <div className="space-y-3 text-muted-foreground">
                     <p>Kostnaden består av <strong>löpande licensavgifter</strong> och en engångs <strong>implementeringskostnad</strong>.</p>
-                    <p>• <strong>Business Central:</strong> Från ca 550 kr/mån (Essentials) till ca 780 kr/mån (Premium) per användare.</p>
-                    <p>• <strong>Finance & Supply Chain:</strong> Från ca 3 500 kr/mån per aktiv användare.</p>
-                    <p>• <strong>Sales & Customer Service:</strong> Från ca 800–1 100 kr/mån per användare.</p>
+                    <p>• <strong>Business Central:</strong> 765 kr/mån (Essentials) respektive 1 051 kr/mån (Premium) per användare (Microsofts listpris, exkl. moms).</p>
+                    <p>• <strong>Finance & Supply Chain:</strong> 2 007 kr/mån per användare (Premium-varianten 2 868 kr/mån).</p>
+                    <p>• <strong>Sales & Customer Service:</strong> Från 478 kr/mån (Customer Service Professional) och 621 kr/mån (Sales Professional), upp till 1 864 kr/mån för Customer Service Premium.</p>
                     <p>• <strong>Projektkostnad:</strong> Allt från 50 000–150 000 kr för ett BC-startpaket till flera miljoner för enterprise-projekt.</p>
                     <Suspense fallback={null}>
                     <ContactFormDialog>
