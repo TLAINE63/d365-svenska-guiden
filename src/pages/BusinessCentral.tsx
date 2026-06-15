@@ -684,14 +684,14 @@ const BusinessCentral = () => {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {bcPartners.map((partner, index) => {
                 // Build profile URL with filter context
-                const baseUrl = `/partner/${partner.slug}`;
+                const basePath = buildPartnerProductPath(partner.slug, "Business Central");
                 const params = new URLSearchParams();
-                params.set("product", "Business Central");
                 if (selectedIndustry) params.set("industry", selectedIndustry);
                 if (selectedGeography) params.set("geography", selectedGeography);
                 if (selectedCompanySize) params.set("companySize", selectedCompanySize);
                 if (selectedRevenue) params.set("revenue", selectedRevenue);
-                const profileUrl = `${baseUrl}?${params.toString()}`;
+                const qs = params.toString();
+                const profileUrl = qs ? `${basePath}?${qs}` : basePath;
                 
                 return (
                 <PartnerCard
