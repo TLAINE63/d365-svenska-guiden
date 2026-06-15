@@ -174,16 +174,12 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredPartners.map((partner, index) => {
             // Build profile URL with filter context
-            const baseUrl = `/partner/${partner.slug}`;
+            const basePath = buildPartnerProductPath(partner.slug, applicationFilter);
             const params = new URLSearchParams();
-            params.set("product", applicationFilter);
-            if (selectedIndustry) {
-              params.set("industry", selectedIndustry);
-            }
-            if (selectedGeography) {
-              params.set("geography", selectedGeography);
-            }
-            const profileUrl = `${baseUrl}?${params.toString()}`;
+            if (selectedIndustry) params.set("industry", selectedIndustry);
+            if (selectedGeography) params.set("geography", selectedGeography);
+            const qs = params.toString();
+            const profileUrl = qs ? `${basePath}?${qs}` : basePath;
             
             return (
               <PartnerCard
