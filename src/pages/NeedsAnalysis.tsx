@@ -2996,7 +2996,12 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       <div className="min-h-screen flex flex-col bg-background">
         <Navbar />
         <main className="flex-grow pt-28 pb-12">
-          <div className="container mx-auto px-4 max-w-4xl">
+  
+      <ShortAnswer>
+        En ERP-behovsanalys hjälper er klargöra vilka processer, integrationer och rapporter ert affärssystem ska stötta — innan ni pratar med leverantörer. Vår kostnadsfria analys ger en köparsidig rekommendation av lämplig D365-inriktning (Business Central eller Finance & Supply Chain Management) baserat på bransch, storlek och komplexitet.
+      </ShortAnswer>
+
+        <div className="container mx-auto px-4 max-w-4xl">
             {/* Success Message */}
             <Card className="text-center mb-8">
               <CardContent className="pt-8 pb-6">

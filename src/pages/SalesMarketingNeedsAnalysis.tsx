@@ -2982,7 +2982,12 @@ const SalesMarketingNeedsAnalysis = () => {
       <div className="min-h-screen bg-background">
         <Navbar />
         <main className="pt-28 pb-16">
-          <div className="container mx-auto px-4 max-w-4xl">
+  
+      <ShortAnswer>
+        En CRM-behovsanalys för sälj och marknad klargör hur er pipeline, leadshantering, kampanjer och kunddata ska fungera — innan ni jämför verktyg. Vår kostnadsfria analys ger en köparsidig rekommendation om Dynamics 365 Sales och Customer Insights baserat på er säljmodell, B2B/B2C-fokus och datamognad.
+      </ShortAnswer>
+
+        <div className="container mx-auto px-4 max-w-4xl">
             <Card className="border-2 border-crm/30">
               <CardHeader className="text-center bg-gradient-to-r from-crm/10 to-crm/5">
                 <div className="flex justify-center mb-4">

@@ -198,6 +198,11 @@ const RequirementsSpec = () => {
             </p>
           </div>
         </div>
+
+      <ShortAnswer>
+        En ERP-kravspecifikation är ett strukturerat dokument där ni beskriver verksamhetens behov, processer och KPI:er — innan ni väljer system och partner. Vår generator skapar ett systemneutralt underlag med branschspecifika krav som AI-berikar listan, så ni kan jämföra Business Central, Finance & Supply Chain Management och andra alternativ på lika villkor.
+      </ShortAnswer>
+
         <div className="container mx-auto px-4 max-w-4xl">
 
           {/* Progress */}

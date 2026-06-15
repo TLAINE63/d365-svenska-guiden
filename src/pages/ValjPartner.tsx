@@ -499,6 +499,11 @@ const ValjPartner = () => {
         </div>
       </header>
 
+      <ShortAnswer>
+        Rätt Dynamics 365-partner har bevisad erfarenhet av just er produkt (Business Central, Finance & Supply Chain, Sales m.fl.), er bransch och en storlek som matchar er. På d365.se kan ni jämföra Microsoft-certifierade partners på bransch, geografi och AI-mognad — och få 2–3 rekommendationer via vår köparsidiga partnerguide, utan att kontaktas direkt av säljare.
+      </ShortAnswer>
+
+
       {/* Fem viktiga frågor Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
         <div className="container mx-auto px-4 sm:px-6">
