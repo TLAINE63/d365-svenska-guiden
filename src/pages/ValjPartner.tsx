@@ -284,18 +284,16 @@ const ValjPartner = () => {
 
   // Helper to build partner profile URL with filter context
   const buildPartnerProfileUrl = (partnerSlug: string) => {
-    const baseUrl = `/partner/${partnerSlug}`;
+    const basePath = buildPartnerProductPath(
+      partnerSlug,
+      selectedApplications.length > 0 ? selectedApplications[0] : undefined,
+    );
     const params = new URLSearchParams();
-    
-    // Only pass the first selected application if any
-    if (selectedApplications.length > 0) {
-      params.set("product", selectedApplications[0]);
-    }
     if (selectedIndustry) {
       params.set("industry", selectedIndustry);
     }
-    
-    return params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
+    const qs = params.toString();
+    return qs ? `${basePath}?${qs}` : basePath;
   };
 
   // Filter and sort partners - only show featured partners from database
