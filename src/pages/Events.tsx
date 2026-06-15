@@ -55,8 +55,20 @@ const eventsBreadcrumbs = [
   { name: "Events & Webinars", url: "https://d365.se/events" },
 ];
 
-// FAQ items for schema
+// FAQ items for schema (and rendered visibly at the bottom of the page)
 const eventsFaqs = [
+  {
+    question: "Vilka Dynamics 365-event passar för företag som ska byta affärssystem?",
+    answer: "Företag som står inför ett byte av affärssystem har störst nytta av webinars och seminarier som går igenom Business Central och Finance & Supply Chain Management — gärna kombinerade med branschspecifika exempel (tillverkning, grossist, fastighet, tjänstebolag). Titta också efter event som tar upp datamigrering, integration och förändringsledning, eftersom det är där de flesta ERP-projekt fastnar. På d365.se markerar vi vilka event som är relevanta för ERP-beslut, och du kan kombinera dem med vår ERP-behovsanalys för att förbereda valet av partner."
+  },
+  {
+    question: "Finns det webinars om Business Central och Finance & Supply Chain?",
+    answer: "Ja. Svenska Microsoft-partners arrangerar regelbundet webinars om både Business Central (för små och medelstora bolag) och Finance & Supply Chain Management (för stora, internationella organisationer). Innehållet varierar från produktdemos och Release Wave-genomgångar till djupare sessioner om finansiella konsolideringar, lager- och produktionsstyrning, AP/AR-automation och Copilot. De flesta webinars är kostnadsfria och hålls online — du anmäler dig direkt via arrangörens länk på respektive event."
+  },
+  {
+    question: "Kan man få hjälp att välja rätt event eller partner?",
+    answer: "Ja. Vi på d365.se hjälper köparsidigt och kostnadsfritt — beskriv kort vad ni utvärderar så tipsar vi om relevanta event och 2–3 partners som matchar er bransch och storlek. Använd kontaktformuläret eller starta med vår partnerguide så vägleder vi er vidare utan säljpåverkan."
+  },
   {
     question: "Var hittar jag Microsoft Dynamics 365 events och webinars i Sverige?",
     answer: "På d365.se samlar vi kommande events, webinars och seminarier från Microsoft Dynamics 365-partners i Sverige. Eventen täcker Business Central, Finance & Supply Chain, Sales, Customer Service och AI/Copilot. De flesta events är kostnadsfria och hålls online – du anmäler dig direkt via arrangörens länk."
