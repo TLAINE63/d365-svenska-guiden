@@ -902,7 +902,11 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                   const partnerSlug = isDatabasePartner(partner) 
                     ? partner.slug 
                     : (partner.name || '').toLowerCase().replace(/[^a-z0-9]+/g, "-");
-                  const profileUrl = `/partner/${partnerSlug}${selectedApp ? `?product=${encodeURIComponent(selectedApp)}` : ""}${selectedIndustry ? `${selectedApp ? "&" : "?"}industry=${encodeURIComponent(selectedIndustry)}` : ""}`;
+                  const productSlugForUrl = selectedApp ? productNameToSlug(selectedApp) : null;
+                  const basePath = productSlugForUrl
+                    ? `/partner/${partnerSlug}/${productSlugForUrl}/`
+                    : `/partner/${partnerSlug}/`;
+                  const profileUrl = `${basePath}${selectedIndustry ? `?industry=${encodeURIComponent(selectedIndustry)}` : ""}`;
                   
                   const aiMatch = isDatabasePartner(partner) 
                     ? aiMatches.find(m => m.id === partner.id)
