@@ -421,6 +421,47 @@ const Events = () => {
         </div>
       </section>
 
+          </Tabs>
+        </div>
+      </section>
+
+      {/* Visible FAQ section (mirrors FAQSchema for AIO / search readiness) */}
+      <section className="py-12 sm:py-16 bg-secondary/40 border-t border-border">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
+            Vanliga frågor om Dynamics 365-event
+          </h2>
+          <div className="space-y-4">
+            {eventsFaqs.map((faq) => (
+              <details
+                key={faq.question}
+                className="group bg-card border border-border rounded-lg p-5 open:shadow-sm"
+              >
+                <summary className="cursor-pointer list-none font-semibold text-foreground flex items-start justify-between gap-4">
+                  <h3 className="text-base sm:text-lg leading-snug">{faq.question}</h3>
+                  <span
+                    aria-hidden="true"
+                    className="shrink-0 text-muted-foreground group-open:rotate-45 transition-transform text-xl leading-none mt-0.5"
+                  >
+                    +
+                  </span>
+                </summary>
+                <p className="mt-3 text-sm sm:text-base text-muted-foreground whitespace-pre-line">
+                  {faq.answer}
+                </p>
+              </details>
+            ))}
+          </div>
+          <div className="mt-8 text-center">
+            <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white">
+              <Link to="/kontakt/">
+                Få hjälp att välja rätt event eller partner
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );
