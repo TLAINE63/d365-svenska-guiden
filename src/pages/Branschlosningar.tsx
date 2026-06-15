@@ -197,15 +197,16 @@ const Branschlosningar = () => {
 
   // Helper to build partner profile URL with filter context
   const buildPartnerProfileUrl = (partnerSlug: string) => {
-    const baseUrl = `/partner/${partnerSlug}`;
+    const basePath = buildPartnerProductPath(
+      partnerSlug,
+      primaryFilter ? productShortLabelFor(primaryFilter) : undefined,
+    );
     const params = new URLSearchParams();
-    if (primaryFilter) {
-      params.set("product", productShortLabelFor(primaryFilter));
-    }
     if (selectedIndustry) {
       params.set("industry", selectedIndustry.name);
     }
-    return params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
+    const qs = params.toString();
+    return qs ? `${basePath}?${qs}` : basePath;
   };
 
   // Helper to get product key from filter
