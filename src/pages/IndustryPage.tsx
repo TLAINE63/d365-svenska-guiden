@@ -267,6 +267,15 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
           </div>
         </section>
 
+        <ShortAnswer>
+          För <strong>{industryName.toLowerCase()}</strong> är Microsoft Dynamics 365 en bred plattform där rätt
+          val av app (Business Central, Finance &amp; Supply Chain, Sales, Customer Service m.fl.) och
+          partner spelar större roll än produkten i sig. På d365.se hittar du {matchingPartners.length}{' '}
+          {matchingPartners.length === 1 ? 'partner' : 'partners'} med dokumenterad erfarenhet av{' '}
+          {industryName.toLowerCase()} — jämför kompetens, branschreferenser och geografisk närvaro
+          köparsidigt, utan att bli kontaktad förrän du själv väljer det.
+        </ShortAnswer>
+
         {/* Innehåll – full bredd */}
         <section className="pt-4 md:pt-6 pb-10 border-b border-border">
           <div className="container mx-auto px-4 max-w-5xl space-y-10">
