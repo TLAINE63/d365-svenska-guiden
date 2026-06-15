@@ -7,6 +7,28 @@ import { ALL_DEEP_DIVE_ARTICLES } from "@/data/bcArticles";
 import { ArrowLeft, BookOpen, Calendar, RefreshCw } from "lucide-react";
 import { KNOWLEDGE_CENTER_LAST_REVIEWED, formatLongDateSv } from "@/lib/contentFreshness";
 
+// Map legacy productSlugs (used in old indexed URLs) to current hub slugs
+const LEGACY_PRODUCT_SLUG_MAP: Record<string, string> = {
+  "d365-sales": "sales",
+  "d365-customer-service": "customer-service",
+  "d365-marketing": "sales",
+  "d365-field-service": "customer-service",
+  "d365-contact-center": "customer-service",
+  "d365-copilot": "copilot",
+  "business-central": "business-central",
+  "finance-supply-chain": "finance-supply-chain",
+};
+
+const KNOWN_HUB_SLUGS = new Set([
+  "business-central",
+  "finance-supply-chain",
+  "sales",
+  "customer-service",
+  "copilot",
+  "upphandling",
+  "partners",
+]);
+
 const DeepDiveArticle = () => {
   const { productSlug, articleSlug } = useParams();
 
@@ -15,7 +37,10 @@ const DeepDiveArticle = () => {
   );
 
   if (!article) {
-    return <Navigate to="/kunskapscenter/" replace />;
+    // 301-liknande redirect till närmaste relevanta hub (bevara ranking-signaler)
+    const mapped = productSlug ? LEGACY_PRODUCT_SLUG_MAP[productSlug] : undefined;
+    const hub = mapped ?? (productSlug && KNOWN_HUB_SLUGS.has(productSlug) ? productSlug : null);
+    return <Navigate to={hub ? `/kunskapscenter/${hub}/` : "/kunskapscenter/"} replace />;
   }
 
   // Find sibling articles for navigation
