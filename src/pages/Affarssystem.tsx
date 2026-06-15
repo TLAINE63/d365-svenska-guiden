@@ -101,7 +101,7 @@ const Affarssystem = () => {
       <ProductHero
         eyebrow="Pelarsida · Oberoende guide"
         title="Affärssystem — vad det är."
-        titleAccent="Och hur ni väljer rätt utan säljpåverkan."
+        titleAccent="Så väljer ni rätt utan säljpåverkan."
         subhead="Vad är ett affärssystem, vad kostar det, hur lång tid tar det att införa och vilka alternativ finns på den svenska marknaden? Här får ni svaren — utan säljpåverkan."
         primary={{ label: "Gör en kostnadsfri behovsanalys", to: "/ERPbehovsanalys/", icon: ClipboardList }}
         secondary={{ label: "Jämför Business Central vs Finance & Supply Chain Management", href: "#jamfor" }}
