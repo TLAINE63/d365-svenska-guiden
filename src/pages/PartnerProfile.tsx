@@ -414,7 +414,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
       <SEOHead
         title={seoTitle}
         description={seoDescription}
-        canonicalPath={`/partner/${partner.slug}`}
+        canonicalPath={buildPartnerProductPath(partner.slug, productFromPath ?? undefined)}
         keywords={[partner.name, "Dynamics 365", "Microsoft partner", ...(partner.applications || [])].join(", ")}
         ogImage={partner.logo_url || undefined}
         ogImageAlt={`${partner.name} – Microsoft Dynamics 365 Partner`}
