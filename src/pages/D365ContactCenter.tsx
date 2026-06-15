@@ -92,6 +92,10 @@ const D365ContactCenter = () => {
         }}
       />
 
+      <ShortAnswer>
+        Dynamics 365 Contact Center är Microsofts AI-drivna omnikanal-lösning för röst, chatt, e-post och sociala kanaler — fristående eller ovanpå befintligt CRM. Den passar organisationer som vill konsolidera kanaler, sänka samtalstid och utnyttja Copilot för agenter, men design av röstflöden och integrationer avgör utfallet.
+      </ShortAnswer>
+
 
       {/* Introduction Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-background">

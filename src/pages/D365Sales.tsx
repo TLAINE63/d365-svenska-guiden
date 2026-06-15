@@ -118,6 +118,10 @@ const D365Sales = () => {
         }}
       />
 
+      <ShortAnswer>
+        Dynamics 365 Sales är Microsofts CRM för B2B-säljorganisationer som vill standardisera pipeline, prognoser och säljaktiviteter — med djup integration mot Outlook, Teams och Copilot. Det blir riktigt vasst när partnern modellerar er specifika säljprocess; standardinstallationen ger sällan full effekt på egen hand.
+      </ShortAnswer>
+
 
       {/* Introduction Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-background">

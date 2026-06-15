@@ -93,6 +93,10 @@ const D365FieldService = () => {
         }}
       />
 
+      <ShortAnswer>
+        Dynamics 365 Field Service är Microsofts lösning för planering, schemaläggning och mobil arbetsledning av fälttekniker — med stöd för IoT, AI-driven dispatch och integration mot ERP. Den passar serviceorganisationer som vill höja andelen lösta ärenden vid första besök och sänka körtid, förutsatt att partnern bygger schemaläggningsregler och kompetensmatchning rätt.
+      </ShortAnswer>
+
 
       {/* Introduction Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-background">

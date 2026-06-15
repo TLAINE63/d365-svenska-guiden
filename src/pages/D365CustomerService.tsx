@@ -105,6 +105,10 @@ const D365CustomerService = () => {
         }}
       />
 
+      <ShortAnswer>
+        Dynamics 365 Customer Service är Microsofts plattform för ärendehantering, kunskapsbas, självservice och flerkanalig support. Den passar både volymdriven konsumentsupport och komplex B2B-service — men hur partnern designar ärendefördelning, SLA:er och Copilot-funktioner avgör om handläggningstiden faktiskt sjunker.
+      </ShortAnswer>
+
 
       {/* Introduction Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-background">
