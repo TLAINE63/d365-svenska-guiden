@@ -72,8 +72,8 @@ const ERPOverview = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="ERP – jämför Microsoft Dynamics 365 ERP-system | d365.se"
-        description={resolvePriceTokens("ERP-jämförelse: Business Central ({{price:bc-essentials:short}}) vs Finance & Supply Chain ({{price:finance:short}}). Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner.")}
+        title="ERP-system – jämför Business Central & Finance & Supply Chain"
+        description={resolvePriceTokens("Jämför Microsofts ERP-system: Business Central ({{price:bc-essentials:short}}) för SMB och Finance & Supply Chain ({{price:finance:short}}) för enterprise – funktioner, pris och rätt val.")}
         canonicalPath="/erp"
         keywords="erp, erp system, erp system sverige, microsoft erp, dynamics 365 erp, erp dynamics, business central vs finance scm, erp software, erp systems, dynamics 365 finance supply chain, microsoft affärssystem"
         ogImage="https://d365.se/og-erp.png"

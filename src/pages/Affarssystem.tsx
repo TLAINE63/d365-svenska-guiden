@@ -83,8 +83,8 @@ const Affarssystem = () => {
   return (
     <div className="min-h-screen">
       <SEOHead
-        title="Affärssystem – vad det är, vad det kostar & hur du väljer | d365.se"
-        description="Affärssystem 2026: vad det är, vad det kostar och hur du väljer rätt på den svenska marknaden. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+        title="Affärssystem 2026 – guide till pris, val & svenska leverantörer"
+        description="Vad ett affärssystem är, vad det kostar och hur du väljer rätt leverantör i Sverige 2026 – med fokus på Microsoft Dynamics 365 och svenska partners."
         canonicalPath="/affarssystem"
         keywords="affärssystem, vad är ett affärssystem, affärssystem sverige, affärssystem jämförelse, affärssystem pris, välja affärssystem, affärssystem för småföretag, affärssystem för medelstora företag, molnbaserade affärssystem"
         ogImage="https://d365.se/og-erp.png"
