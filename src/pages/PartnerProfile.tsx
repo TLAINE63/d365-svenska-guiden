@@ -29,6 +29,11 @@ import LeadCTA from "@/components/LeadCTA";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
 import { usePartner, DatabasePartner } from "@/hooks/usePartners";
 import { getCumulativeGeographyDisplay } from "@/data/partners";
+import {
+  slugToProductName,
+  productNameToSlug,
+  buildPartnerProductPath,
+} from "@/lib/partnerProductSlug";
 
 import SEOHead from "@/components/SEOHead";
 import { PartnerOrganizationSchema, BreadcrumbSchema } from "@/components/StructuredData";
