@@ -96,6 +96,7 @@ import businessCentralIcon from "@/assets/icons/BusinessCentral.svg";
 import financeIcon from "@/assets/icons/Finance.svg";
 import salesIcon from "@/assets/icons/Sales.svg";
 import customerServiceIcon from "@/assets/icons/CustomerService.svg";
+import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 
 type ProductFilter = "bc" | "fsc" | "crm-sales" | "crm-service" | null;
 
