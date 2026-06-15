@@ -177,6 +177,11 @@ const RequirementsSpecSales = () => {
         canonicalPath="/kravspecifikation-sales"
       />
       <BreadcrumbSchema items={breadcrumbs} />
+      <SoftwareApplicationSchema
+        name="Kravspecifikation CRM Sälj"
+        description="Webbaserat verktyg som skapar en kravspecifikation för CRM-system med fokus på sälj och Dynamics 365 Sales."
+        url="https://d365.se/kravspecifikation-sales"
+      />
       <Navbar />
       <main className="min-h-screen bg-background pb-16">
         <div className="relative bg-cover bg-center pt-24 pb-10 mb-8" style={{ backgroundImage: `url(${heroKravspecSales})` }}>

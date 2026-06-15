@@ -1758,6 +1758,11 @@ const CustomerServiceNeedsAnalysis = () => {
       />
       <ServiceSchema name="Kundservice Behovsanalys" description="Kostnadsfri behovsanalys för att hitta rätt Dynamics 365 lösning för kundservice och fältservice. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner." />
       <BreadcrumbSchema items={customerServiceBreadcrumbs} />
+      <SoftwareApplicationSchema
+        name="Behovsanalys Customer Service"
+        description="Webbaserat verktyg som kartlägger kundservicebehov och ger rekommendation för Dynamics 365 Customer Service, Contact Center och Field Service."
+        url="https://d365.se/CustomerServiceBehovsanalys"
+      />
       <Navbar />
       <main className="pb-16">
         <div className="relative bg-cover bg-center pt-28 pb-8 mb-4" style={{ backgroundImage: `url(${heroBehovsanalysKundservice})` }}>

@@ -180,6 +180,11 @@ const RequirementsSpec = () => {
         canonicalPath="/kravspecifikation"
       />
       <BreadcrumbSchema items={breadcrumbs} />
+      <SoftwareApplicationSchema
+        name="Kravspecifikation ERP/affärssystem"
+        description="Webbaserat verktyg som skapar en strukturerad kravspecifikation för affärssystem (ERP) med branschanpassade och AI-berikade krav."
+        url="https://d365.se/kravspecifikation"
+      />
       <Navbar />
       <main className="min-h-screen bg-background pb-16">
         <div className="relative bg-cover bg-center pt-24 pb-10 mb-8" style={{ backgroundImage: `url(${heroKravspecErp})` }}>

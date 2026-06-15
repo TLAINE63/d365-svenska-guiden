@@ -3272,6 +3272,11 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         description="Kostnadsfri behovsanalys för att hitta rätt Microsoft Dynamics 365 ERP-lösning för din verksamhet. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
       />
       <BreadcrumbSchema items={needsAnalysisBreadcrumbs} />
+      <SoftwareApplicationSchema
+        name="Behovsanalys ERP"
+        description="Webbaserat verktyg som kartlägger verksamhetens ERP-behov och ger en rekommendation mellan Microsoft Dynamics 365 Business Central och Finance & Supply Chain Management."
+        url="https://d365.se/ERPbehovsanalys"
+      />
       <Navbar />
       
       <main className="flex-grow pb-12">
