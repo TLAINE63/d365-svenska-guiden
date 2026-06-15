@@ -3,6 +3,7 @@ import RelatedPages, { erpRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
+import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { ArrowRight, ClipboardList } from "lucide-react";

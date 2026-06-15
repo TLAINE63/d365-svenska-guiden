@@ -6,6 +6,7 @@ import PricingCard from "@/components/PricingCard";
 import { Price } from "@/components/Price";
 import { resolvePriceTokens } from "@/lib/productPriceFormat";
 import Navbar from "@/components/Navbar";
+import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowLeft, ArrowRight, ExternalLink, FileText } from "lucide-react";

@@ -3,6 +3,7 @@ import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { useLocation } from "react-router-dom";
 import heroKravspecErp from "@/assets/hero-kravspec-erp.jpg";
 import Navbar from "@/components/Navbar";
+import ShortAnswer from "@/components/ShortAnswer";
 import RequirementsDisclaimer from "@/components/RequirementsDisclaimer";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
