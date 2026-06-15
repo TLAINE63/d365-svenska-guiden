@@ -421,10 +421,6 @@ const Events = () => {
         </div>
       </section>
 
-          </Tabs>
-        </div>
-      </section>
-
       {/* Visible FAQ section (mirrors FAQSchema for AIO / search readiness) */}
       <section className="py-12 sm:py-16 bg-secondary/40 border-t border-border">
         <div className="container mx-auto px-4 max-w-4xl">
