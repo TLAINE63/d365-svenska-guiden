@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
+import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import ApplicationPartners from "@/components/ApplicationPartners";
@@ -102,6 +103,10 @@ const D365Marketing = () => {
           onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
         }}
       />
+
+      <ShortAnswer>
+        Dynamics 365 Customer Insights kombinerar Data (kunddataplattform med segmentering och AI) och Journeys (kund- och marknadsföringsresor). Lösningen passar B2B- och B2C-organisationer som vill samla kunddata från flera källor och automatisera personaliserade resor, men datamodell och integrationer som partnern sätter upp är det som faktiskt avgör värdet.
+      </ShortAnswer>
 
 
       {/* Introduction Section */}

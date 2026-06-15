@@ -3,6 +3,7 @@ import RelatedPages, { erpRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
+import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { ArrowRight, ClipboardList } from "lucide-react";
@@ -94,6 +95,10 @@ const ERPOverview = () => {
         primary={{ label: "Gör en ERP-behovsanalys", to: "/ERPbehovsanalys/", icon: ClipboardList }}
         secondary={{ label: "Jämför Business Central vs Finance & Supply Chain Management", to: "/affarssystem/" }}
       />
+
+      <ShortAnswer>
+        Business Central passar mindre och medelstora bolag som vill ha ett modernt, snabbinfört affärssystem med stort apptillägg-ekosystem. Finance & Supply Chain Management passar större och internationella verksamheter med komplexa flerbolagsstrukturer, avancerad supply chain eller branschvertikala krav. Storleken ensam avgör inte — det är era processer som styr valet.
+      </ShortAnswer>
 
 
       {/* Introduction Section */}

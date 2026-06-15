@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
+import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import ApplicationPartners from "@/components/ApplicationPartners";
@@ -91,6 +92,10 @@ const D365FieldService = () => {
           onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
         }}
       />
+
+      <ShortAnswer>
+        Dynamics 365 Field Service är Microsofts lösning för planering, schemaläggning och mobil arbetsledning av fälttekniker — med stöd för IoT, AI-driven dispatch och integration mot ERP. Den passar serviceorganisationer som vill höja andelen lösta ärenden vid första besök och sänka körtid, förutsatt att partnern bygger schemaläggningsregler och kompetensmatchning rätt.
+      </ShortAnswer>
 
 
       {/* Introduction Section */}

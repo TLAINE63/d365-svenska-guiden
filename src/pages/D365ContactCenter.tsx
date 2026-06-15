@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
+import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import ApplicationPartners from "@/components/ApplicationPartners";
@@ -90,6 +91,10 @@ const D365ContactCenter = () => {
           onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
         }}
       />
+
+      <ShortAnswer>
+        Dynamics 365 Contact Center är Microsofts AI-drivna omnikanal-lösning för röst, chatt, e-post och sociala kanaler — fristående eller ovanpå befintligt CRM. Den passar organisationer som vill konsolidera kanaler, sänka samtalstid och utnyttja Copilot för agenter, men design av röstflöden och integrationer avgör utfallet.
+      </ShortAnswer>
 
 
       {/* Introduction Section */}

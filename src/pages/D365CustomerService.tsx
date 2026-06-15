@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
+import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import ApplicationPartners from "@/components/ApplicationPartners";
@@ -103,6 +104,10 @@ const D365CustomerService = () => {
           onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
         }}
       />
+
+      <ShortAnswer>
+        Dynamics 365 Customer Service är Microsofts plattform för ärendehantering, kunskapsbas, självservice och flerkanalig support. Den passar både volymdriven konsumentsupport och komplex B2B-service — men hur partnern designar ärendefördelning, SLA:er och Copilot-funktioner avgör om handläggningstiden faktiskt sjunker.
+      </ShortAnswer>
 
 
       {/* Introduction Section */}

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
+import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import ApplicationPartners from "@/components/ApplicationPartners";
@@ -116,6 +117,10 @@ const D365Sales = () => {
           onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
         }}
       />
+
+      <ShortAnswer>
+        Dynamics 365 Sales är Microsofts CRM för B2B-säljorganisationer som vill standardisera pipeline, prognoser och säljaktiviteter — med djup integration mot Outlook, Teams och Copilot. Det blir riktigt vasst när partnern modellerar er specifika säljprocess; standardinstallationen ger sällan full effekt på egen hand.
+      </ShortAnswer>
 
 
       {/* Introduction Section */}

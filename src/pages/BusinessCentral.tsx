@@ -6,6 +6,7 @@ import PricingCard from "@/components/PricingCard";
 import { Price } from "@/components/Price";
 import { resolvePriceTokens } from "@/lib/productPriceFormat";
 import Navbar from "@/components/Navbar";
+import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowLeft, ArrowRight, ExternalLink, FileText } from "lucide-react";
@@ -215,6 +216,10 @@ const BusinessCentral = () => {
           onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
         }}
       />
+
+      <ShortAnswer>
+        Dynamics 365 Business Central passar bäst för mindre och medelstora företag som vill samla ekonomi, inköp, lager, försäljning och enklare produktion i ett modernt affärssystem från Microsoft. För större, internationella eller mer komplexa verksamheter är Dynamics 365 Finance & Supply Chain Management ofta ett bättre val.
+      </ShortAnswer>
 
 
       {/* FAQ Section */}

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
+import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowLeft, ArrowRight, ExternalLink, FileText } from "lucide-react";
@@ -194,6 +195,10 @@ const FinanceSupplyChain = () => {
           onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
         }}
       />
+
+      <ShortAnswer>
+        Dynamics 365 Finance & Supply Chain Management är Microsofts affärssystem för större och internationella organisationer med komplex ekonomi, supply chain, flera bolag och hög grad av regelefterlevnad. För mindre och medelstora bolag är Business Central oftast snabbare att införa och billigare att äga.
+      </ShortAnswer>
 
 
       {/* FAQ Section */}
