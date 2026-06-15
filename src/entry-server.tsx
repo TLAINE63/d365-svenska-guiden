@@ -324,6 +324,7 @@ export function render(url: string) {
               <Route path="/kravspecifikation-marketing" element={<RequirementsSpecMarketing />} />
               <Route path="/kravspecifikation-kundservice" element={<RequirementsSpecCustomerService />} />
               <Route path="/partner/:slug" element={<PartnerProfile initialData={mappedPartnerData as any} />} />
+              <Route path="/partner/:slug/:productSlug" element={<PartnerProfile initialData={mappedPartnerData as any} />} />
               <Route path="/partners-sitemap" element={<PartnersSitemap />} />
               <Route path="/alla-d365-partners" element={<AllD365Partners />} />
               <Route path="/partners-per-bransch" element={<PartnersPerBransch />} />
