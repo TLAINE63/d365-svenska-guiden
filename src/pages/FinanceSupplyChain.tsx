@@ -24,6 +24,7 @@ import { usePartners } from "@/hooks/usePartners";
 import { filterAndSortPartners, getProductIndustries } from "@/hooks/usePartnerFilters";
 import SEOHead from "@/components/SEOHead";
 import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 
 // Breadcrumb items
 const fscBreadcrumbs = [
