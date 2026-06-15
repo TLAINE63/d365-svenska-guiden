@@ -31,6 +31,7 @@ import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { useTrackFilterExposure } from "@/hooks/useTrackFilterExposure";
 import partnerMapSweden from "@/assets/partner-map-sweden.png";
 import staticPartnerData from "@/data/partnerData.json";
+import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 
 // Partner FAQs for schema – priser hämtas från product_prices via resolvePriceTokens
 const partnerFaqsRaw = [
