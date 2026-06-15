@@ -7,7 +7,7 @@ import ShortAnswer from "@/components/ShortAnswer";
 import RequirementsDisclaimer from "@/components/RequirementsDisclaimer";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import { BreadcrumbSchema } from "@/components/StructuredData";
+import { BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -180,6 +180,11 @@ const RequirementsSpec = () => {
         canonicalPath="/kravspecifikation"
       />
       <BreadcrumbSchema items={breadcrumbs} />
+      <SoftwareApplicationSchema
+        name="Kravspecifikation ERP/affärssystem"
+        description="Webbaserat verktyg som skapar en strukturerad kravspecifikation för affärssystem (ERP) med branschanpassade och AI-berikade krav."
+        url="https://d365.se/kravspecifikation"
+      />
       <Navbar />
       <main className="min-h-screen bg-background pb-16">
         <div className="relative bg-cover bg-center pt-24 pb-10 mb-8" style={{ backgroundImage: `url(${heroKravspecErp})` }}>

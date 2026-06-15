@@ -18,7 +18,7 @@ import SelectionCard from "@/components/SelectionCard";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import SEOHead from "@/components/SEOHead";
-import { ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import { ServiceSchema, BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
 import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
 
 // Breadcrumb items
@@ -3063,6 +3063,11 @@ const SalesMarketingNeedsAnalysis = () => {
         description="Kostnadsfri behovsanalys för att hitta rätt Dynamics 365 CRM-lösning för sälj och marknadsföring. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
       />
       <BreadcrumbSchema items={salesMarketingBreadcrumbs} />
+      <SoftwareApplicationSchema
+        name="Behovsanalys CRM – Sälj & Marknad"
+        description="Webbaserat verktyg som kartlägger sälj- och marknadsprocesser och ger en rekommendation för Dynamics 365 Sales och Customer Insights (Marketing)."
+        url="https://d365.se/CRMbehovsanalys"
+      />
       <Navbar />
       <main className="pb-16">
         <div className="relative bg-cover bg-center pt-28 pb-8 mb-4" style={{ backgroundImage: `url(${heroBehovsanalysSalj})` }}>

@@ -547,3 +547,102 @@ export const AdvisorsSchema = () => {
     </>
   );
 };
+
+// Event Schema – emit only data that is visible on the page
+interface EventSchemaItem {
+  name: string;
+  description?: string;
+  startDate: string; // ISO 8601 (YYYY-MM-DD or full)
+  endDate?: string;
+  isOnline: boolean;
+  locationName?: string;
+  url: string;
+  image?: string;
+  organizerName?: string;
+  organizerUrl?: string;
+  status?: "EventScheduled" | "EventPostponed" | "EventRescheduled" | "EventCancelled" | "EventMovedOnline";
+}
+
+export const EventSchema = ({ events }: { events: EventSchemaItem[] }) => {
+  if (!events.length) return null;
+  const items = events.map((e) => {
+    const node: Record<string, unknown> = {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      name: e.name,
+      startDate: e.startDate,
+      eventAttendanceMode: e.isOnline
+        ? "https://schema.org/OnlineEventAttendanceMode"
+        : "https://schema.org/OfflineEventAttendanceMode",
+      eventStatus: `https://schema.org/${e.status || "EventScheduled"}`,
+      url: e.url,
+      location: e.isOnline
+        ? { "@type": "VirtualLocation", url: e.url }
+        : {
+            "@type": "Place",
+            name: e.locationName || "Sverige",
+            address: { "@type": "PostalAddress", addressCountry: "SE", ...(e.locationName ? { addressLocality: e.locationName } : {}) },
+          },
+    };
+    if (e.endDate) node.endDate = e.endDate;
+    if (e.description) node.description = e.description;
+    if (e.image) node.image = e.image.startsWith("http") ? e.image : `https://d365.se${e.image}`;
+    if (e.organizerName) {
+      node.organizer = {
+        "@type": "Organization",
+        name: e.organizerName,
+        ...(e.organizerUrl ? { url: e.organizerUrl } : {}),
+      };
+    }
+    return node;
+  });
+
+  return (
+    <Helmet>
+      <script type="application/ld+json">{JSON.stringify(items.length === 1 ? items[0] : items)}</script>
+    </Helmet>
+  );
+};
+
+// SoftwareApplication Schema – for interactive tools (analyses, requirement specs)
+interface SoftwareApplicationSchemaProps {
+  name: string;
+  description: string;
+  url: string;
+  applicationCategory?: string; // e.g. BusinessApplication
+}
+
+export const SoftwareApplicationSchema = ({
+  name,
+  description,
+  url,
+  applicationCategory = "BusinessApplication",
+}: SoftwareApplicationSchemaProps) => {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name,
+    description,
+    url,
+    applicationCategory,
+    operatingSystem: "Web",
+    inLanguage: "sv-SE",
+    isAccessibleForFree: true,
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "SEK",
+    },
+    provider: {
+      "@type": "Organization",
+      name: "d365.se",
+      url: "https://d365.se",
+    },
+  };
+  return (
+    <Helmet>
+      <script type="application/ld+json">{JSON.stringify(schema)}</script>
+    </Helmet>
+  );
+};
+

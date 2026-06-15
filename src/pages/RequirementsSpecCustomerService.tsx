@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import RequirementsDisclaimer from "@/components/RequirementsDisclaimer";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import { BreadcrumbSchema } from "@/components/StructuredData";
+import { BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -182,6 +182,11 @@ const RequirementsSpecCustomerService = () => {
         canonicalPath="/kravspecifikation-kundservice"
       />
       <BreadcrumbSchema items={breadcrumbs} />
+      <SoftwareApplicationSchema
+        name="Kravspecifikation Customer Service"
+        description="Webbaserat verktyg som skapar en kravspecifikation för kundservicesystem och Dynamics 365 Customer Service / Contact Center."
+        url="https://d365.se/kravspecifikation-customer-service"
+      />
       <Navbar />
       <main className="min-h-screen bg-background pb-16">
         <div className="relative bg-cover bg-center pt-24 pb-10 mb-8" style={{ backgroundImage: `url(${heroKravspecKundservice})` }}>

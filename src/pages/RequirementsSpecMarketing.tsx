@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import RequirementsDisclaimer from "@/components/RequirementsDisclaimer";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import { BreadcrumbSchema } from "@/components/StructuredData";
+import { BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -176,6 +176,11 @@ const RequirementsSpecMarketing = () => {
         canonicalPath="/kravspecifikation-marketing"
       />
       <BreadcrumbSchema items={breadcrumbs} />
+      <SoftwareApplicationSchema
+        name="Kravspecifikation Marketing Automation"
+        description="Webbaserat verktyg som skapar en kravspecifikation för marketing automation och Dynamics 365 Customer Insights (Marketing)."
+        url="https://d365.se/kravspecifikation-marketing"
+      />
       <Navbar />
       <main className="min-h-screen bg-background pb-16">
         <div className="relative bg-cover bg-center pt-24 pb-10 mb-8" style={{ backgroundImage: `url(${heroKravspecMarketing})` }}>

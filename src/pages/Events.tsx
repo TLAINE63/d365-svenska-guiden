@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import eventsHeroImage from "@/assets/events-hero.jpg";
 import SEOHead from "@/components/SEOHead";
-import { FAQSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import { FAQSchema, BreadcrumbSchema, EventSchema } from "@/components/StructuredData";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -192,6 +192,27 @@ const Events = () => {
       />
       <FAQSchema faqs={eventsFaqs} />
       <BreadcrumbSchema items={eventsBreadcrumbs} />
+      <EventSchema
+        events={[...upcomingEvents, ...pastEvents].map((e) => {
+          const startDate = e.event_time
+            ? `${e.event_date}T${e.event_time}`
+            : e.event_date;
+          const endDate = e.end_time ? `${e.event_date}T${e.end_time}` : undefined;
+          const eventUrl = e.registration_link || e.event_link || e.recording_url || "https://d365.se/events";
+          return {
+            name: e.title,
+            description: e.description || undefined,
+            startDate,
+            endDate,
+            isOnline: e.is_online,
+            locationName: e.location || undefined,
+            url: eventUrl,
+            image: e.image_url || undefined,
+            organizerName: e.partners?.name || "d365.se",
+            organizerUrl: e.partners?.slug ? `https://d365.se/partners/${e.partners.slug}` : "https://d365.se",
+          };
+        })}
+      />
 
       <Navbar />
 
