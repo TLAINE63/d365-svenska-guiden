@@ -55,8 +55,20 @@ const eventsBreadcrumbs = [
   { name: "Events & Webinars", url: "https://d365.se/events" },
 ];
 
-// FAQ items for schema
+// FAQ items for schema (and rendered visibly at the bottom of the page)
 const eventsFaqs = [
+  {
+    question: "Vilka Dynamics 365-event passar för företag som ska byta affärssystem?",
+    answer: "Företag som står inför ett byte av affärssystem har störst nytta av webinars och seminarier som går igenom Business Central och Finance & Supply Chain Management — gärna kombinerade med branschspecifika exempel (tillverkning, grossist, fastighet, tjänstebolag). Titta också efter event som tar upp datamigrering, integration och förändringsledning, eftersom det är där de flesta ERP-projekt fastnar. På d365.se markerar vi vilka event som är relevanta för ERP-beslut, och du kan kombinera dem med vår ERP-behovsanalys för att förbereda valet av partner."
+  },
+  {
+    question: "Finns det webinars om Business Central och Finance & Supply Chain?",
+    answer: "Ja. Svenska Microsoft-partners arrangerar regelbundet webinars om både Business Central (för små och medelstora bolag) och Finance & Supply Chain Management (för stora, internationella organisationer). Innehållet varierar från produktdemos och Release Wave-genomgångar till djupare sessioner om finansiella konsolideringar, lager- och produktionsstyrning, AP/AR-automation och Copilot. De flesta webinars är kostnadsfria och hålls online — du anmäler dig direkt via arrangörens länk på respektive event."
+  },
+  {
+    question: "Kan man få hjälp att välja rätt event eller partner?",
+    answer: "Ja. Vi på d365.se hjälper köparsidigt och kostnadsfritt — beskriv kort vad ni utvärderar så tipsar vi om relevanta event och 2–3 partners som matchar er bransch och storlek. Använd kontaktformuläret eller starta med vår partnerguide så vägleder vi er vidare utan säljpåverkan."
+  },
   {
     question: "Var hittar jag Microsoft Dynamics 365 events och webinars i Sverige?",
     answer: "På d365.se samlar vi kommande events, webinars och seminarier från Microsoft Dynamics 365-partners i Sverige. Eventen täcker Business Central, Finance & Supply Chain, Sales, Customer Service och AI/Copilot. De flesta events är kostnadsfria och hålls online – du anmäler dig direkt via arrangörens länk."
@@ -198,11 +210,13 @@ const Events = () => {
             Partner-events
           </Badge>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Events & Webinars
+            Dynamics 365-event, webinars och seminarier
           </h1>
-          <p className="text-lg text-white/80 max-w-2xl mx-auto">
-            Upptäck kommande events från Microsoft Dynamics 365-partners. 
-            Delta i webinars, seminarier och workshops.
+          <p className="text-lg text-white/85 max-w-3xl mx-auto">
+            Här samlar vi kommande och tidigare webinars och event om Microsoft Dynamics 365 —
+            Business Central, Finance &amp; Supply Chain, Sales, Customer Service, AI och Copilot.
+            Arrangeras av svenska Microsoft-partners och av d365.se. De flesta är kostnadsfria
+            och hålls online; du anmäler dig direkt via arrangörens länk.
           </p>
         </div>
       </section>
@@ -404,6 +418,43 @@ const Events = () => {
               )}
             </TabsContent>
           </Tabs>
+        </div>
+      </section>
+
+      {/* Visible FAQ section (mirrors FAQSchema for AIO / search readiness) */}
+      <section className="py-12 sm:py-16 bg-secondary/40 border-t border-border">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
+            Vanliga frågor om Dynamics 365-event
+          </h2>
+          <div className="space-y-4">
+            {eventsFaqs.map((faq) => (
+              <details
+                key={faq.question}
+                className="group bg-card border border-border rounded-lg p-5 open:shadow-sm"
+              >
+                <summary className="cursor-pointer list-none font-semibold text-foreground flex items-start justify-between gap-4">
+                  <h3 className="text-base sm:text-lg leading-snug">{faq.question}</h3>
+                  <span
+                    aria-hidden="true"
+                    className="shrink-0 text-muted-foreground group-open:rotate-45 transition-transform text-xl leading-none mt-0.5"
+                  >
+                    +
+                  </span>
+                </summary>
+                <p className="mt-3 text-sm sm:text-base text-muted-foreground whitespace-pre-line">
+                  {faq.answer}
+                </p>
+              </details>
+            ))}
+          </div>
+          <div className="mt-8 text-center">
+            <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white">
+              <Link to="/kontakt/">
+                Få hjälp att välja rätt event eller partner
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
 
