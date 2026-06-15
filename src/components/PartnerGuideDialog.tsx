@@ -59,6 +59,7 @@ import medlemsorganisationerImg from "@/assets/industries/medlemsorganisationer.
 import utbildningImg from "@/assets/industries/utbildning.webp";
 import offentligSektorImg from "@/assets/industries/offentlig-sektor.webp";
 import uthyrningImg from "@/assets/industries/uthyrning.webp";
+import { productNameToSlug } from "@/lib/partnerProductSlug";
 
 const industryImages: Record<string, string> = {
   "Tillverkningsindustri": tillverkningImg,
