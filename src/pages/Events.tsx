@@ -210,11 +210,13 @@ const Events = () => {
             Partner-events
           </Badge>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Events & Webinars
+            Dynamics 365-event, webinars och seminarier
           </h1>
-          <p className="text-lg text-white/80 max-w-2xl mx-auto">
-            Upptäck kommande events från Microsoft Dynamics 365-partners. 
-            Delta i webinars, seminarier och workshops.
+          <p className="text-lg text-white/85 max-w-3xl mx-auto">
+            Här samlar vi kommande och tidigare webinars och event om Microsoft Dynamics 365 —
+            Business Central, Finance &amp; Supply Chain, Sales, Customer Service, AI och Copilot.
+            Arrangeras av svenska Microsoft-partners och av d365.se. De flesta är kostnadsfria
+            och hålls online; du anmäler dig direkt via arrangörens länk.
           </p>
         </div>
       </section>
