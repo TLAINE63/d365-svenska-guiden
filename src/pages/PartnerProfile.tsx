@@ -375,22 +375,8 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   }
 
   if (!partner) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Navbar />
-        <div className="container mx-auto px-4 py-20 mt-16 text-center">
-          <h1 className="text-3xl font-bold mb-4">Partner hittades inte</h1>
-          <p className="text-muted-foreground mb-8">
-            Vi kunde inte hitta den partner du söker.
-          </p>
-          <Button onClick={() => window.history.back()}>
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Tillbaka till partnerlistan
-          </Button>
-        </div>
-        <Footer />
-      </div>
-    );
+    // 301-liknande redirect till partnerlistan för att undvika soft-404 i Google
+    return <Navigate to="/alla-d365-partners/" replace />;
   }
 
   const productCategories = getProductCategories();
