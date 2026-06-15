@@ -156,6 +156,7 @@ const AppShell = () => {
           <Route path="/d365contactcenter" element={<D365ContactCenter />} />
           <Route path="/d365-contact-center" element={<Navigate to="/d365contactcenter" replace />} />
           <Route path="/partner/:slug" element={<PartnerProfile />} />
+          <Route path="/partner/:slug/:productSlug" element={<PartnerProfile />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/partner-admin" element={<Navigate to="/admin" replace />} />
           <Route path="/lead-admin" element={<Navigate to="/admin" replace />} />

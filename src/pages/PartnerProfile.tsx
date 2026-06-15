@@ -29,6 +29,11 @@ import LeadCTA from "@/components/LeadCTA";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
 import { usePartner, DatabasePartner } from "@/hooks/usePartners";
 import { getCumulativeGeographyDisplay } from "@/data/partners";
+import {
+  slugToProductName,
+  productNameToSlug,
+  buildPartnerProductPath,
+} from "@/lib/partnerProductSlug";
 
 import SEOHead from "@/components/SEOHead";
 import { PartnerOrganizationSchema, BreadcrumbSchema } from "@/components/StructuredData";
@@ -135,21 +140,50 @@ interface PartnerProfileProps {
 }
 
 const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
-  const { slug } = useParams<{ slug: string }>();
+  const { slug, productSlug } = useParams<{ slug: string; productSlug?: string }>();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
-  // Filter context: prefer URL params, fall back to sessionStorage (set by PartnerCard)
-  // so URLs stay clean (/partner/<slug>) without losing the user's filter context.
+  // Produkt från URL-subpath (/partner/:slug/:productSlug/) har högsta prioritet.
+  const productFromPath = useMemo(
+    () => slugToProductName(productSlug),
+    [productSlug],
+  );
+
+  // Legacy: ?product=… → 301-liknande klient-redirect till nytt slug-format
+  // så SEO konsolideras till en (1) canonical URL per partner+produkt.
+  useEffect(() => {
+    if (productFromPath) return; // redan på nya URL:en
+    if (!slug) return;
+    const legacyProduct = searchParams.get("product");
+    if (!legacyProduct) return;
+    const productSlugFromLegacy = productNameToSlug(legacyProduct);
+    if (!productSlugFromLegacy) return;
+    // Behåll övriga query-params (industry, companySize, geography, revenue)
+    const rest = new URLSearchParams(searchParams);
+    rest.delete("product");
+    const restQs = rest.toString();
+    const target =
+      buildPartnerProductPath(slug, productSlugFromLegacy) +
+      (restQs ? `?${restQs}` : "");
+    navigate(target, { replace: true });
+  }, [productFromPath, slug, searchParams, navigate]);
+
+  // Filter context: URL subpath / URL query > sessionStorage (set by PartnerCard)
   const stashedParams = useMemo(() => {
     if (typeof window === "undefined" || !slug) return new URLSearchParams();
-    if (searchParams.toString()) return searchParams;
+    const base = new URLSearchParams(searchParams.toString());
+    if (productFromPath && !base.get("product")) {
+      base.set("product", productFromPath);
+    }
+    if (base.toString()) return base;
     try {
       const stashed = sessionStorage.getItem(`partner-context:${slug}`);
       return stashed ? new URLSearchParams(stashed) : new URLSearchParams();
     } catch {
       return new URLSearchParams();
     }
-  }, [slug, searchParams]);
+  }, [slug, searchParams, productFromPath]);
 
   const selectedProduct = stashedParams.get("product") || undefined;
   const selectedIndustry = stashedParams.get("industry") || undefined;
@@ -380,7 +414,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
       <SEOHead
         title={seoTitle}
         description={seoDescription}
-        canonicalPath={`/partner/${partner.slug}`}
+        canonicalPath={buildPartnerProductPath(partner.slug, productFromPath ?? undefined)}
         keywords={[partner.name, "Dynamics 365", "Microsoft partner", ...(partner.applications || [])].join(", ")}
         ogImage={partner.logo_url || undefined}
         ogImageAlt={`${partner.name} – Microsoft Dynamics 365 Partner`}

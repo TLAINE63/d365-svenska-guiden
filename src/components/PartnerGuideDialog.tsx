@@ -59,6 +59,7 @@ import medlemsorganisationerImg from "@/assets/industries/medlemsorganisationer.
 import utbildningImg from "@/assets/industries/utbildning.webp";
 import offentligSektorImg from "@/assets/industries/offentlig-sektor.webp";
 import uthyrningImg from "@/assets/industries/uthyrning.webp";
+import { productNameToSlug } from "@/lib/partnerProductSlug";
 
 const industryImages: Record<string, string> = {
   "Tillverkningsindustri": tillverkningImg,
@@ -902,7 +903,11 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                   const partnerSlug = isDatabasePartner(partner) 
                     ? partner.slug 
                     : (partner.name || '').toLowerCase().replace(/[^a-z0-9]+/g, "-");
-                  const profileUrl = `/partner/${partnerSlug}${selectedApp ? `?product=${encodeURIComponent(selectedApp)}` : ""}${selectedIndustry ? `${selectedApp ? "&" : "?"}industry=${encodeURIComponent(selectedIndustry)}` : ""}`;
+                  const productSlugForUrl = selectedApp ? productNameToSlug(selectedApp) : null;
+                  const basePath = productSlugForUrl
+                    ? `/partner/${partnerSlug}/${productSlugForUrl}/`
+                    : `/partner/${partnerSlug}/`;
+                  const profileUrl = `${basePath}${selectedIndustry ? `?industry=${encodeURIComponent(selectedIndustry)}` : ""}`;
                   
                   const aiMatch = isDatabasePartner(partner) 
                     ? aiMatches.find(m => m.id === partner.id)
