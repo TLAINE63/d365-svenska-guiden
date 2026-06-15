@@ -9,6 +9,7 @@ import PartnerCard from "@/components/PartnerCard";
 import { allIndustries } from "@/data/partners";
 import { usePartners } from "@/hooks/usePartners";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
+import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 
 // Geography filter options
 const geographyFilters = [
