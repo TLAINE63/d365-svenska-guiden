@@ -1762,7 +1762,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
     // ── Hämta köparsidig AI-tolkning (med fallback) ─────────────────────────
     let aiAnalysis: {
+      executiveSummary?: string;
       aiInterpretation: string;
+      valueHypothesis?: string;
       whyPoints: string[];
       risks: string[];
       partnerProfile: string;
