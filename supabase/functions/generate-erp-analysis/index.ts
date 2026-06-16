@@ -115,8 +115,11 @@ Deno.serve(async (req: Request): Promise<Response> => {
       "Du ger ALDRIG ett definitivt systemval. Du ger en preliminär tolkning som beslutsunderlag inför kravspec och partnerdialog.",
       "Undvik ordet 'oberoende'. Använd 'köparsidig'.",
       "Om underlaget är tunt – var explicit med osäkerhet och sätt confidence='Låg'.",
+      "AI-intresse, AI-mognad eller önskade AI-use cases får ALDRIG ensamt styra valet mellan Business Central och Finance & Supply Chain Management. AI ska påverka datakrav, automationspotential, prioriterade use cases, partnerprofil och nästa steg – inte plattformsindikationen.",
+      "Om aiMaturity är 'Låg': betona att data, processer och styrning behöver förbättras innan större AI-initiativ. Om 'Hög' eller 'Avancerad': föreslå konkreta use cases. Reflektera AI-mognaden i partnerProfile (t.ex. behov av Copilot/Power Platform/datakompetens, eller att partnern måste kunna hjälpa med masterdata och processkartläggning vid låg datamognad).",
       "Returnera ENDAST giltig JSON enligt schemat – ingen markdown, inga kodblock.",
     ].join(" ");
+
 
     const schemaHint = {
       aiInterpretation: "string (200-350 ord, sammanhängande prosa)",
