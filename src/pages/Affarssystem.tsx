@@ -220,7 +220,7 @@ const Affarssystem = () => {
                 </div>
                 <p className="text-muted-foreground mb-4">
                   Microsofts affärssystem för mindre och medelstora företag. Komplett, snabbt att införa och med
-                  ett ekosystem på över 7 000 tilläggsappar via AppSource.
+                  ett ekosystem på över 7 000 tilläggsappar via Marketplace.
                 </p>
                 <ul className="space-y-2 text-sm text-muted-foreground mb-6">
                   <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5 shrink-0" /> 5–300 användare, omsättning upp till ~1–2 miljarder</li>

@@ -232,7 +232,7 @@ const IndustryComparisonWidget = () => {
                 {showApps && entry.apps.length > 0 && (
                   <div className="mt-3 pt-3 border-t border-border">
                     <div className="text-xs text-muted-foreground leading-relaxed">
-                      <span className="font-semibold text-[hsl(210_60%_30%)] dark:text-[hsl(210_60%_70%)]">~{entry.apps.length} certifierade BC-appar</span> från Microsofts AppSource-marknadsplats krävs troligtvis för att täcka gapen i detta segment.
+                      <span className="font-semibold text-[hsl(210_60%_30%)] dark:text-[hsl(210_60%_70%)]">~{entry.apps.length} certifierade BC-appar</span> från Microsofts Marketplace-marknadsplats krävs troligtvis för att täcka gapen i detta segment.
                     </div>
                   </div>
                 )}

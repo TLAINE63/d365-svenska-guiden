@@ -560,7 +560,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Tredjepartsintegrationer och ISV-ekosystem</h2>
         <p>
-          AppSource-marknadsplatsen innehåller hundratals certifierade integrationslösningar 
+          Marketplace-marknadsplatsen innehåller hundratals certifierade integrationslösningar 
           för marknadsföring, e-handel och lojalitet.
         </p>
 
