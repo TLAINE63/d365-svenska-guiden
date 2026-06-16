@@ -757,9 +757,24 @@ const SalesMarketingNeedsAnalysis = () => {
 
     const pdfNormalizedInsights = (pdfInsightsScore / 45) * 100;
     const PDF_INSIGHTS_THRESHOLD = 20;
-    const pdfProduct = pdfNormalizedInsights >= PDF_INSIGHTS_THRESHOLD
+    const scoringProduct = pdfNormalizedInsights >= PDF_INSIGHTS_THRESHOLD
       ? "Dynamics 365 Sales + Customer Insights"
       : "Dynamics 365 Sales";
+
+    // Lösningsinriktning anpassad efter fokusområde (styr inte hårt produktvalet)
+    const focusKey = data.focusArea;
+    const pdfProduct = focusKey === "sales"
+      ? "Dynamics 365 Sales bör utvärderas"
+      : focusKey === "marketing"
+        ? (pdfNormalizedInsights >= PDF_INSIGHTS_THRESHOLD
+            ? "Customer Insights – Journeys och Customer Insights – Data bör utvärderas"
+            : "Customer Insights – Journeys bör utvärderas")
+        : focusKey === "both"
+          ? "Dynamics 365 Sales och Customer Insights bör utvärderas tillsammans"
+          : focusKey === "unsure"
+            ? "För tidigt att avgöra – preliminär riktning baseras på era utmaningar"
+            : scoringProduct;
+
 
     // Datakomplexitet
     const pdfDataComplexity = (() => {
