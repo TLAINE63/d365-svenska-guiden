@@ -378,6 +378,7 @@ const PartnerCard = ({
             );
             const pitch = matchOverride || matchDefault;
             if (!pitch?.text?.trim()) return null;
+            const isAi = (pitch as { edited_by?: string }).edited_by === "ai";
             return (
               <div className="mb-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary/60">
                 <p className="text-xs font-semibold text-primary mb-1 uppercase tracking-wider">
@@ -386,6 +387,15 @@ const PartnerCard = ({
                 <p className="text-sm text-foreground/90 leading-relaxed line-clamp-4">
                   {pitch.text}
                 </p>
+                {isAi && (
+                  <span
+                    className="mt-1.5 inline-flex items-center gap-1 text-[10px] font-medium text-muted-foreground/80 uppercase tracking-wide"
+                    title="AI-genererad text – baserad på partnerns övriga uppgifter"
+                  >
+                    <Sparkles className="w-3 h-3" aria-hidden="true" />
+                    AI-genererad
+                  </span>
+                )}
               </div>
             );
           })()}
