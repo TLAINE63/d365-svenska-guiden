@@ -2568,6 +2568,79 @@ const SalesMarketingNeedsAnalysis = () => {
                 ))}
               </div>
             </div>
+
+            {focus === "marketing" && (
+              <div className="space-y-6 pt-6 border-t border-border/60">
+                <p className="text-sm text-muted-foreground">
+                  Eftersom ni valt fokus på Marknad fördjupar vi oss i marknadsspecifika frågor.
+                </p>
+
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Arbetar ni med Account-Based Marketing (ABM)?</Label>
+                  <div className="grid grid-cols-1 gap-2">
+                    {[
+                      "Nej, vi kör generella kampanjer",
+                      "Delvis – riktade kampanjer mot nyckelsegment",
+                      "Ja – strukturerat ABM med dedikerade konton och 1-to-1-innehåll",
+                    ].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.marketingDeepABM === opt} onClick={() => setData({ ...data, marketingDeepABM: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Hur ser er content- och kampanjproduktion ut?</Label>
+                  <div className="grid grid-cols-1 gap-2">
+                    {[
+                      "Ad hoc, ofta i sista minuten",
+                      "Vi har en innehållskalender men begränsad produktionskapacitet",
+                      "Strukturerad content ops med planering, godkännanden och återanvändning",
+                    ].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.marketingDeepContentOps === opt} onClick={() => setData({ ...data, marketingDeepContentOps: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Hur hanterar ni samtycke (consent), preferenser och GDPR?</Label>
+                  <div className="grid grid-cols-1 gap-2">
+                    {[
+                      "Vi har grundläggande opt-out i utskick",
+                      "Vi har preferenscenter och samtyckeshantering per kanal",
+                      "Vi behöver avancerad consent- och preferenshantering med spårbarhet",
+                    ].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.marketingDeepConsent === opt} onClick={() => setData({ ...data, marketingDeepConsent: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Hur viktig är varumärkesstyrning över marknader/bolag?</Label>
+                  <div className="grid grid-cols-1 gap-2">
+                    {[
+                      "Inte relevant",
+                      "Viktigt – vi vill ha gemensamma mallar och tonalitet",
+                      "Kritiskt – central brand governance med lokal anpassning",
+                    ].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.marketingDeepBrand === opt} onClick={() => setData({ ...data, marketingDeepBrand: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Hur vill ni mäta marknadens bidrag till intäkt?</Label>
+                  <div className="grid grid-cols-1 gap-2">
+                    {[
+                      "Det räcker med leads och MQL",
+                      "Vi vill mäta pipeline-bidrag per kampanj",
+                      "Vi vill ha full multi-touch attribution till stängd affär",
+                    ].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.marketingDeepAttribution === opt} onClick={() => setData({ ...data, marketingDeepAttribution: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         );
 
