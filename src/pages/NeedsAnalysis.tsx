@@ -1904,6 +1904,59 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     });
     yPos += 8;
 
+    // ══════════════════════════════════════════════════════════════════════
+    // AI: PARTNERPROFIL, RISKER OCH NASTA STEG
+    // ══════════════════════════════════════════════════════════════════════
+    if (aiAnalysis?.partnerProfile) {
+      checkPage(30);
+      addSectionHeader("REKOMMENDERAD PARTNERPROFIL (KOPARSIDIGT)", 14, 124, 134);
+      pdf.setFontSize(9);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(40, 40, 40);
+      const profLines = pdf.splitTextToSize(aiAnalysis.partnerProfile, contentWidth);
+      profLines.forEach((line: string) => {
+        checkPage(6);
+        pdf.text(line, margin, yPos);
+        yPos += 5;
+      });
+      yPos += 4;
+    }
+
+    if (aiAnalysis?.risks?.length) {
+      checkPage(30);
+      addSectionHeader("RISKER OCH FRAGOR ATT UTREDA VIDARE", 180, 90, 30);
+      pdf.setFontSize(9);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(40, 40, 40);
+      aiAnalysis.risks.forEach((risk) => {
+        checkPage(10);
+        pdf.setFillColor(245, 158, 11);
+        pdf.circle(margin + 2, yPos - 1.5, 1, "F");
+        const lines = pdf.splitTextToSize(risk, contentWidth - 8);
+        pdf.text(lines, margin + 6, yPos);
+        yPos += lines.length * 5 + 2;
+      });
+      yPos += 4;
+    }
+
+    if (aiAnalysis?.nextSteps?.length) {
+      checkPage(30);
+      addSectionHeader("REKOMMENDERADE NASTA STEG", 14, 124, 134);
+      pdf.setFontSize(9);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(40, 40, 40);
+      aiAnalysis.nextSteps.forEach((step, i) => {
+        checkPage(10);
+        pdf.setFillColor(14, 124, 134);
+        pdf.circle(margin + 2, yPos - 1.5, 1, "F");
+        const lines = pdf.splitTextToSize(`${i + 1}. ${step}`, contentWidth - 8);
+        pdf.text(lines, margin + 6, yPos);
+        yPos += lines.length * 5 + 2;
+      });
+      yPos += 4;
+    }
+
+
     // ── APPENDIX ─────────────────────────────────────────────────────────────
     pdf.addPage();
     yPos = margin;
