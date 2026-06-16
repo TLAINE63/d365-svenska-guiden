@@ -209,7 +209,7 @@ export const COPILOT_ARTICLES: DeepDiveArticle[] = [
 
         <ul>
           <li>Automatisk RFQ-sammanfattning och jämförelse</li>
-          <li>Kontraktsavvikelse-detektering vid fakturamatchning</li>
+          <li>Kontraktsavvikelse-detektering vid orderregistrering</li>
           <li>Naturspråksbaserade MRP-förklaringar</li>
           <li>AI-assisterad transportplanering och ruttvärdering</li>
           <li>Copilot-stöd för tulldokumentation och compliance</li>

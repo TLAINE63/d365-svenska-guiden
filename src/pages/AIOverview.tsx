@@ -79,9 +79,9 @@ const goals = [
     color: "from-sky-600/20 to-blue-600/20 border-sky-500/30",
     scenario: {
       heading: "AI-automation i praktiken",
-      description: "Copilot och agenter kan ta över repetitiva uppgifter som fakturamatchning, datainmatning och ärendesortering – så att ditt team fokuserar på det som skapar värde.",
+      description: "Copilot och agenter kan ta över repetitiva uppgifter som orderregistrering, datainmatning och ärendesortering – så att ditt team fokuserar på det som skapar värde.",
       examples: [
-        "Automatisk kontering och fakturamatchning i Business Central",
+        "Automatisk kontering och orderregistrering i Business Central",
         "Agenter som kategoriserar och dirigerar supportärenden",
         "Copilot som skapar utkast till e-post och sammanfattningar",
       ],
