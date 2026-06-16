@@ -1819,18 +1819,69 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     const securityLevel: "Låg" | "Medel" | "Hög" =
       filledCount >= 11 ? "Hög" : filledCount >= 7 ? "Medel" : "Låg";
 
-    // ---- 4 utfall: BC / F&SCM / Båda / För tidigt ----
+    // ---- Add-on / fit-gap signals (gör att BC kan landa i "BC med tillägg") ----
+    const addonTriggers: string[] = [];
+    if (data.complexity.ediIntegration && data.complexity.ediIntegration !== "Inget EDI") {
+      addonTriggers.push("EDI mot kunder/leverantörer");
+    }
+    if (data.complexity.warehouseManagement === "avancerad") addonTriggers.push("Avancerad lagerstyrning / WMS");
+    if (data.complexity.batchTraceability && data.complexity.batchTraceability !== "Ej tillämpligt") {
+      addonTriggers.push("Batch-/serienummerspårning");
+    }
+    if (data.complexity.qualityAssurance === "Reglerad/spårbar") addonTriggers.push("Reglerad kvalitetskontroll");
+    if ((data.secondaryBusinessModels || []).some(s => /service|fält|eftermarknad/i.test(s))) {
+      addonTriggers.push("Service/eftermarknad");
+    }
+    if ((data.complexity as any).ecommercePlatform === "avancerad" || (data.complexity as any).ecommercePlatform === "enkel") {
+      addonTriggers.push("E-handel/PIM");
+    }
+    const integrationCnt = (data.integrationSystems || []).filter(s => s.system && s.system.trim()).length;
+    if (integrationCnt >= 3) addonTriggers.push("Flera integrationer / iPaaS");
+    if ((data.aiAmbitions || []).filter(a => a && a !== "Vi vet inte ännu, men vill förstå möjligheterna").length >= 2) {
+      addonTriggers.push("Automation / Power Platform / Copilot");
+    }
+
+    // ---- 5 utfall: BC / BC med tillägg / F&SCM / Båda / För tidigt ----
     const maxScore = Math.max(bcScore, fscScore);
     const minScore = Math.min(bcScore, fscScore);
-    let outcome: "Business Central" | "Finance & Supply Chain Management" | "Båda bör utvärderas" | "För tidigt att avgöra";
+    let outcome: "Business Central" | "Business Central med tillägg" | "Finance & Supply Chain Management" | "Båda bör utvärderas" | "För tidigt att avgöra";
     if (securityLevel === "Låg" || maxScore < 25) {
       outcome = "För tidigt att avgöra";
     } else if (isCloseCall && minScore >= 25) {
       outcome = "Båda bör utvärderas";
     } else if (isBC) {
-      outcome = "Business Central";
+      // BC vinner – men har vi tillägg-triggers?
+      outcome = addonTriggers.length >= 2 ? "Business Central med tillägg" : "Business Central";
     } else {
       outcome = "Finance & Supply Chain Management";
+    }
+
+    // ---- Indikationen bygger främst på (konkreta faktorer, inte produktnamn) ----
+    const indicationBasis: string[] = [];
+    if (data.complexity.legalEntities) {
+      const map: Record<string, string> = {
+        "1-2": "1–2 juridiska enheter",
+        "3-5": "3–5 juridiska enheter",
+        "6+": "6+ juridiska enheter",
+      };
+      if (map[data.complexity.legalEntities]) indicationBasis.push(map[data.complexity.legalEntities]);
+    }
+    if (data.complexity.consolidation === "ingen") indicationBasis.push("Inget konsolideringskrav");
+    else if (data.complexity.consolidation === "enkel") indicationBasis.push("Enkel konsolidering");
+    else if (data.complexity.consolidation === "komplex") indicationBasis.push("Komplex konsolidering");
+    if (data.geography) indicationBasis.push(`${data.geography} som geografisk räckvidd`);
+    if (data.complexity.warehouseManagement === "grundlaggande") indicationBasis.push("Grundläggande lagerstyrning");
+    else if (data.complexity.warehouseManagement === "avancerad") indicationBasis.push("Avancerad lagerstyrning / WMS-behov");
+    if (data.complexity.transactionVolume === "hog") indicationBasis.push("Hög transaktionsvolym");
+    else if (data.complexity.transactionVolume === "medel") indicationBasis.push("Medelhög transaktionsvolym");
+    if (integrationCnt >= 3) indicationBasis.push("Flera system som behöver integreras");
+    else if (integrationCnt >= 1) indicationBasis.push("Befintliga system att integrera");
+    if (data.businessModel) indicationBasis.push(`${data.businessModel}-modell som primär affär`);
+    if ((data.aiAmbitions || []).filter(a => a && a !== "Vi vet inte ännu, men vill förstå möjligheterna").length > 0) {
+      indicationBasis.push("Tydligt intresse för AI och automation");
+    }
+    if (/föråldrad|föråldrat|gammalt|hänger inte|risk/i.test(data.currentSituationReason || "")) {
+      indicationBasis.push("Behov av modernisering av nuvarande ERP");
     }
 
     return {
@@ -1845,6 +1896,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       riskLevel: complexity.riskLevel,
       isHighRisk: complexity.isHighRisk,
       criticalFactors: complexity.criticalFactors,
+      prioritizedFactors: (complexity as any).prioritizedFactors || [],
+      indicationBasis: Array.from(new Set(indicationBasis)).slice(0, 8),
+      addonTriggers: Array.from(new Set(addonTriggers)).slice(0, 8),
       bcScore,
       fscScore,
     };
