@@ -1054,7 +1054,7 @@ const CustomerServiceNeedsAnalysis = () => {
     pdf.setFillColor(245, 158, 11);
     pdf.roundedRect(margin + colW2 + 4, yPos, colW2, 8, 2, 2, 'F');
     pdf.setTextColor(255, 255, 255);
-    pdf.text("UTVECKLINGSOMRADEN", margin + colW2 + 8, yPos + 5.5);
+    pdf.text("UTVECKLINGSOMRÅDEN", margin + colW2 + 8, yPos + 5.5);
     yPos += 12;
 
     const maxItems = Math.max(tData.strengths.length, tData.gaps.length);
