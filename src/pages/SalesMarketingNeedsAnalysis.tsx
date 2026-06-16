@@ -110,6 +110,19 @@ interface SalesMarketingAnalysisData {
   contactName: string;
   phone: string;
   email: string;
+  // Sälj deep-dive (visas när focusArea === "sales")
+  salesDeepTerritory: string;
+  salesDeepEnablement: string;
+  salesDeepCoaching: string;
+  salesDeepCPQ: string;
+  salesDeepIncentives: string;
+  salesDeepRenewals: string;
+  // Marknad deep-dive (visas när focusArea === "marketing")
+  marketingDeepABM: string;
+  marketingDeepContentOps: string;
+  marketingDeepConsent: string;
+  marketingDeepBrand: string;
+  marketingDeepAttribution: string;
 }
 
 const initialData: SalesMarketingAnalysisData = {
