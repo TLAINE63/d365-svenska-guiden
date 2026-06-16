@@ -2813,7 +2813,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               </div>
               <div className="pt-2 border-t border-border">
                 <p className="text-xs text-muted-foreground font-medium mb-3 uppercase tracking-wide">
-                  Bakom kulisserna lutar det mot
+                  Indikationen bygger främst på
                 </p>
                 <div className="flex flex-wrap gap-2">
                   <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border bg-finance-supply/10 border-finance-supply/30 text-finance-supply`}>
