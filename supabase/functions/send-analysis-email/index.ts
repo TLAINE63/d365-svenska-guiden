@@ -227,56 +227,83 @@ serve(async (req: Request): Promise<Response> => {
     const safeEmail = sanitizeHtml(email.trim().slice(0, 255));
     const safeAnalysisType = sanitizeHtml(analysisType);
 
-    const recommendationHtml = recommendation 
+    const recommendationHtml = recommendation
       ? `
-        <h2>Rekommendation</h2>
-        <p><strong>Rekommenderad lösning:</strong> ${sanitizeHtml(String(recommendation.product).slice(0, 200))}</p>
-        <p><strong>Anledningar:</strong></p>
-        <ul>
-          ${(recommendation.reasons || []).slice(0, 10).map(r => `<li>${sanitizeHtml(String(r).slice(0, 500))}</li>`).join("")}
-        </ul>
+        <h2 style="color:#0E7C86;">Preliminär systemindikation</h2>
+        <p><strong>${sanitizeHtml(String(recommendation.product).slice(0, 200))}</strong></p>
+        <p style="color:#555;font-size:13px;">Detta är en preliminär indikation – inte ett definitivt systemval. Använd resultatet som diskussionsunderlag inför kravspecifikation och partnerdialog.</p>
+        ${(recommendation.reasons || []).length > 0 ? `
+          <p style="margin-top:12px;"><strong>Indikationen bygger främst på:</strong></p>
+          <ul>
+            ${(recommendation.reasons || []).slice(0, 6).map(r => `<li>${sanitizeHtml(String(r).slice(0, 500))}</li>`).join("")}
+          </ul>` : ""}
       `
       : "";
 
-    // Build email payload - send to customer with CC to admin
+    const renderList = (items: string[] | undefined, limit = 7) =>
+      Array.isArray(items) && items.length > 0
+        ? `<ul>${items.slice(0, limit).map(i => `<li>${sanitizeHtml(String(i).slice(0, 500))}</li>`).join("")}</ul>`
+        : "";
+
+    const aiHtml = aiAnalysis
+      ? `
+        ${aiAnalysis.aiInterpretation ? `
+          <h2 style="color:#0E7C86;">AI-tolkning av ert underlag</h2>
+          <p style="white-space:pre-line;">${sanitizeHtml(String(aiAnalysis.aiInterpretation).slice(0, 4000))}</p>
+          ${aiAnalysis.confidence ? `<p style="color:#666;font-size:12px;"><em>Säkerhet i analysen: ${sanitizeHtml(String(aiAnalysis.confidence))}</em></p>` : ""}
+        ` : ""}
+        ${(aiAnalysis.risks || []).length ? `<h3 style="color:#0E7C86;">Risker och frågor att utreda vidare</h3>${renderList(aiAnalysis.risks)}` : ""}
+        ${aiAnalysis.partnerProfile ? `<h3 style="color:#0E7C86;">Rekommenderad partnerprofil</h3><p>${sanitizeHtml(String(aiAnalysis.partnerProfile).slice(0, 1500))}</p>` : ""}
+        ${(aiAnalysis.nextSteps || []).length ? `<h3 style="color:#0E7C86;">Rekommenderade nästa steg</h3>${renderList(aiAnalysis.nextSteps)}` : ""}
+      `
+      : "";
+
+    const isErp = analysisType === "ERP";
+    const subject = isErp
+      ? "Din ERP Behovsanalys från d365.se"
+      : `Din Behovsanalys för ${analysisType} från D365.se`;
+
+    const intro = isErp
+      ? `<p>Hej ${safeContactName},</p>
+         <p>Tack för att du genomförde ERP Behovsanalysen på d365.se. Bifogat hittar du ert köparsidiga beslutsunderlag som PDF.</p>
+         <p>Analysen ger en <strong>preliminär systemindikation</strong> baserad på era svar – inte ett definitivt systemval. Använd den som diskussionsunderlag inför kravspecifikation och dialog med ERP-partner.</p>`
+      : `<p>Hej ${safeContactName},</p>
+         <p>Tack för att du genomförde vår behovsanalys. Här är en sammanfattning av dina svar och vår rekommendation.</p>`;
+
     const emailPayload: Record<string, unknown> = {
       from: "D365 Guiden <info@d365.se>",
-      to: [email], // Send to customer
-      cc: ["info@d365.se", "thomas.laine@dynamicfactory.se"], // Copy to admin
+      to: [email],
+      cc: ["info@d365.se", "thomas.laine@dynamicfactory.se"],
       reply_to: "info@d365.se",
-      subject: `Din Behovsanalys för ${analysisType} från D365.se`,
+      subject,
       html: `
-        <h1>Tack för din behovsanalys för ${safeAnalysisType}!</h1>
-        
-        <p>Hej ${safeContactName},</p>
-        
-        <p>Tack för att du genomförde vår behovsanalys. Här är en sammanfattning av dina svar och vår rekommendation.</p>
-        
-        <h2>Kontaktinformation</h2>
+        ${intro}
+
+        <h2 style="color:#0E7C86;">Kontaktinformation</h2>
         <p><strong>Företag:</strong> ${safeCompanyName}</p>
         <p><strong>Kontaktperson:</strong> ${safeContactName}</p>
         <p><strong>Telefon:</strong> ${safePhone}</p>
         <p><strong>E-post:</strong> ${safeEmail}</p>
-        
-        <h2>Analysresultat</h2>
-        ${formatAnalysisData(analysisData)}
-        
+
         ${recommendationHtml}
-        
-        <h2>Nästa steg</h2>
-        <p>Vi kontaktar dig inom kort för att diskutera hur vi kan hjälpa er vidare. Du är också välkommen att kontakta oss direkt:</p>
+        ${aiHtml}
+
+        ${!isErp ? `<h2>Analysresultat</h2>${formatAnalysisData(analysisData)}` : ""}
+
+        <h2 style="color:#0E7C86;">Vill du gå vidare?</h2>
+        <p>Du är välkommen att höra av dig om du vill ha hjälp med kravarbete eller partnerdialog:</p>
         <p>
           <strong>Thomas Laine</strong><br>
-          Senior Rådgivare inom Microsoft CRM- och Affärssystem<br>
+          Senior rådgivare – Microsoft Dynamics 365<br>
           E-post: <a href="mailto:info@d365.se">info@d365.se</a><br>
           Tel: 072-232 40 60
         </p>
-        
+
         <hr>
         <p style="color: #666; font-size: 12px;">
-          ${pdfBase64 ? "📎 PDF-analysen är bifogad i detta mail." : ""}
+          ${pdfBase64 ? "📎 PDF-rapporten är bifogad i detta mejl." : ""}
           <br>
-          Detta mail skickades från <a href="https://d365.se">d365.se</a>
+          d365.se – köparsidig vägledning för Microsoft Dynamics 365.
         </p>
       `,
     };
