@@ -306,6 +306,9 @@ export function render(url: string) {
               <Route path="/d365-field-service" element={<Navigate to="/d365fieldservice" replace />} />
               <Route path="/d365contactcenter" element={<D365ContactCenter />} />
               <Route path="/d365-contact-center" element={<Navigate to="/d365contactcenter" replace />} />
+              <Route path="/d365projectoperations" element={<D365ProjectOperations />} />
+              <Route path="/d365commerce" element={<D365Commerce />} />
+              <Route path="/d365humanresources" element={<D365HumanResources />} />
               <Route path="/events" element={<Events />} />
               <Route path="/events/:eventId" element={<EventDetail />} />
               <Route path="/qa" element={<QA />} />
