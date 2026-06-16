@@ -1326,6 +1326,86 @@ const SalesMarketingNeedsAnalysis = () => {
     });
     yPos += 8;
 
+    // ══════════════════════════════════════════════════════════════════════
+    // 7. REKOMMENDERADE NÄSTA STEG (anpassade efter fokusområde)
+    // ══════════════════════════════════════════════════════════════════════
+    const focusNextSteps: string[] = (() => {
+      if (focusKey === "sales") return [
+        "Kartlägg säljprocessen från lead till vunnen affär.",
+        "Definiera pipeline-steg, kvalificeringskriterier och forecast-modell.",
+        "Bedöm CRM-adoption och datakvalitet.",
+        "Gör en fit-gap mot Dynamics 365 Sales.",
+        "Identifiera AI- och automationsstöd för säljare och säljledning.",
+        "Bjud in relevanta Dynamics 365 Sales-partners till lösningsdialog.",
+      ];
+      if (focusKey === "marketing") return [
+        "Kartlägg kampanjprocess, kundresor och leadflöden.",
+        "Definiera segment, samtycken, lead scoring och överlämning till sälj.",
+        "Bedöm kunddata, datakvalitet och integrationsbehov.",
+        "Gör en fit-gap mot Customer Insights – Journeys och Customer Insights – Data.",
+        "Identifiera AI- och automationsuse cases inom kampanj, segmentering och analys.",
+        "Bjud in partners med erfarenhet av marketing automation och kunddata.",
+      ];
+      if (focusKey === "both") return [
+        "Kartlägg hela flödet från kampanj och lead till opportunity och affär.",
+        "Definiera MQL, SQL, lead scoring och ansvar mellan marknad och sälj.",
+        "Bedöm CRM-data, kunddata, samtycken och rapporteringsmodell.",
+        "Gör en fit-gap mot Dynamics 365 Sales och Customer Insights.",
+        "Identifiera integrationer mot webb, ERP, Power BI och övriga system.",
+        "Ta fram en gemensam kravspecifikation för sälj, marknad och kunddata.",
+      ];
+      if (focusKey === "unsure") {
+        const i = data.unsureIssues;
+        const steps: string[] = ["Kartlägg var problemen främst ligger: sälj, marknad, kunddata eller integrationer."];
+        if (i.some(x => /pipeline|forecast|följer inte upp|kvalificera|CRM används/i.test(x)))
+          steps.push("Inled med en säljdriven kartläggning av pipeline, lead-uppföljning och CRM-adoption.");
+        if (i.some(x => /Kampanjer|för få leads|automatisering/i.test(x)))
+          steps.push("Komplettera med en marknadsdriven analys av kampanjer, leadflöden och automation.");
+        if (i.some(x => /Kunddata|rapportering/i.test(x)))
+          steps.push("Bedöm kunddata, datakvalitet och rapporteringsbehov över sälj och marknad.");
+        if (i.some(x => /samordnat/i.test(x)))
+          steps.push("Definiera samspelet mellan sälj och marknad: MQL/SQL, ansvar och gemensamma KPI:er.");
+        steps.push("Ta fram en kort förstudie som ger underlag för fit-gap och partnerdialog.");
+        return steps;
+      }
+      return [];
+    })();
+
+    if (focusNextSteps.length) {
+      if (yPos > 220) { pdf.addPage(); yPos = margin; }
+      pdf.setFillColor(14, 124, 134);
+      pdf.roundedRect(margin, yPos, contentWidth, 10, 2, 2, 'F');
+      pdf.setTextColor(255, 255, 255);
+      pdf.setFontSize(10);
+      pdf.setFont("helvetica", "bold");
+      pdf.text("REKOMMENDERADE NÄSTA STEG", margin + 5, yPos + 7);
+      yPos += 14;
+      pdf.setTextColor(40, 40, 40);
+      pdf.setFontSize(9);
+      pdf.setFont("helvetica", "normal");
+      focusNextSteps.forEach((step, i) => {
+        if (yPos > 270) { pdf.addPage(); yPos = margin; }
+        pdf.setFillColor(14, 124, 134);
+        pdf.circle(margin + 2.5, yPos - 1.5, 1.2, "F");
+        const lines = pdf.splitTextToSize(`${i + 1}. ${step}`, contentWidth - 10);
+        pdf.text(lines, margin + 7, yPos);
+        yPos += lines.length * 5.2 + 3;
+      });
+      yPos += 6;
+
+      // Disclaimer: detta är en lösningshypotes
+      pdf.setFontSize(7.5);
+      pdf.setFont("helvetica", "italic");
+      pdf.setTextColor(110, 110, 110);
+      const discLines = pdf.splitTextToSize(
+        "Detta är en preliminär lösningshypotes baserad på era svar. Slutligt val av Dynamics 365 Sales, Customer Insights eller annan lösningsarkitektur bör föregås av en fördjupad fit-gap, kravspecifikation och partnerdialog.",
+        contentWidth
+      );
+      pdf.text(discLines, margin, yPos);
+      yPos += discLines.length * 4 + 6;
+    }
+
+
     // ── Helpers för frågeavsnitt ──────────────────────────────────────────
     const addSection = (title: string, content: string) => {
       if (yPos > 250) {
