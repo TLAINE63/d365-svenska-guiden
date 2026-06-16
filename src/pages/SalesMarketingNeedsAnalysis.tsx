@@ -1554,7 +1554,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
   const renderStep = () => {
     switch (currentStep) {
-      case 1:
+      case 2:
         return (
           <div className="space-y-6">
             <div>
@@ -1855,7 +1855,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 2:
+      case 3:
         return (
           <div className="space-y-6">
             <div>
@@ -1965,7 +1965,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 3:
+      case 4:
         return (
           <div className="space-y-6">
             {/* CRM-användning */}
@@ -2022,7 +2022,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 4:
+      case 5:
         return (
           <div className="space-y-6">
             {/* Enhetlig kundvy */}
@@ -2064,7 +2064,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 5:
+      case 6:
         return (
           <div className="space-y-6">
             {/* Nuvarande marknadsföring */}
@@ -2231,7 +2231,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 6:
+      case 7:
         return (
           <div className="space-y-6">
             {/* Integrationsbehov */}
@@ -2284,7 +2284,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 7: {
+      case 8: {
         const aiUseCaseOptions = [
           {
             label: "Predictive Lead & Opportunity Scoring",
@@ -2392,7 +2392,7 @@ const SalesMarketingNeedsAnalysis = () => {
         );
       }
 
-      case 8: {
+      case 9: {
         // ── POÄNGMOTOR ───────────────────────────────────────────────────
         // Signaler för D365 Sales
         // Baspoäng: de flesta organisationer har nytta av Sales
