@@ -1848,16 +1848,35 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     const checkPage = (needed = 20) => { if (yPos + needed > 270) { pdf.addPage(); yPos = margin; } };
 
     const addSectionHeader = (title: string, r: number, g: number, b: number) => {
-      checkPage(18);
+      checkPage(22);
+      yPos += 2;
       pdf.setFillColor(r, g, b);
       pdf.roundedRect(margin, yPos, contentWidth, 11, 2, 2, 'F');
       pdf.setTextColor(255, 255, 255);
       pdf.setFontSize(10);
       pdf.setFont("helvetica", "bold");
       pdf.text(title, margin + 5, yPos + 7.5);
-      yPos += 15;
+      yPos += 18;
       pdf.setTextColor(51, 51, 51);
       pdf.setFont("helvetica", "normal");
+    };
+
+    const addProse = (text: string, fontSize = 9, lineGap = 5.2) => {
+      pdf.setFontSize(fontSize);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(40, 40, 40);
+      // Split into paragraphs on double newlines or single newlines
+      const paragraphs = text.split(/\n\s*\n|\n/).map(p => p.trim()).filter(Boolean);
+      paragraphs.forEach((para, idx) => {
+        const lines = pdf.splitTextToSize(para, contentWidth);
+        lines.forEach((line: string) => {
+          checkPage(lineGap + 1);
+          pdf.text(line, margin, yPos);
+          yPos += lineGap;
+        });
+        if (idx < paragraphs.length - 1) yPos += 3;
+      });
+      yPos += 4;
     };
 
     const addTextBlock = (text: string, fontSize = 9) => {
@@ -1865,14 +1884,14 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       const lines = pdf.splitTextToSize(text || "Ej angivet", contentWidth);
       checkPage(lines.length * 5 + 4);
       pdf.text(lines, margin, yPos);
-      yPos += lines.length * 5 + 6;
+      yPos += lines.length * 5 + 8;
     };
 
     const addBulletList = (items: string[]) => {
       if (!items.length) return;
       pdf.setFontSize(9);
       items.forEach(item => { checkPage(7); pdf.text(`-  ${item}`, margin + 3, yPos); yPos += 6; });
-      yPos += 3;
+      yPos += 5;
     };
 
     const addKVRow = (label: string, value: string, shade: boolean) => {
