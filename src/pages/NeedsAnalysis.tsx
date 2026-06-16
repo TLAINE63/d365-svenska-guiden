@@ -1757,6 +1757,8 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
     const recommendation = getERPRecommendation();
     const complexity = getComplexityScores();
+    const aiMaturity = getAiMaturity();
+    const deterministicAiNextSteps = getAiNextSteps();
 
     // ── Hämta köparsidig AI-tolkning (med fallback) ─────────────────────────
     let aiAnalysis: {
@@ -1789,7 +1791,18 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         beslutstidslinje: data.decisionTimeline,
         integrationer: data.integrationSystems.filter(s => s.system.trim()),
         aiIntresse: data.aiInterest,
-        aiAnvandningsomraden: data.aiUseCases,
+        aiAmbitioner: data.aiAmbitions,
+        aiUseCases: data.aiUseCases,
+        aiDatakvalitet: data.aiDataQuality,
+        aiDataproblem: data.aiDataIssues,
+        aiProcessmognad: data.aiProcessMaturity,
+        aiGovernance: data.aiGovernance,
+        aiRisker: data.aiRisks,
+        aiKommentar: data.aiDetails,
+        aiMognadsniva: aiMaturity.level,
+        aiMognadDataScore: aiMaturity.dataScore,
+        aiMognadProcessScore: aiMaturity.processScore,
+        aiRekommenderadeNastaStegDeterministiska: deterministicAiNextSteps,
         onskelista: data.wishlist,
         ovrigInfo: data.additionalInfo,
       };
@@ -1806,6 +1819,11 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             isCloseCall: recommendation.isCloseCall,
             complexityLevel: complexity.complexityLevel,
             riskLevel: complexity.riskLevel,
+            aiMaturity: aiMaturity.level,
+            aiAmbitions: data.aiAmbitions,
+            aiUseCases: data.aiUseCases,
+            aiDataIssues: data.aiDataIssues,
+            aiRisks: data.aiRisks,
           },
         },
       });
