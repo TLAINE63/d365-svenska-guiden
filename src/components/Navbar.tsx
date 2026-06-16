@@ -64,7 +64,7 @@ const Navbar = () => {
               Kunskapscenter & Events
             </Link>
             <Link
-              to="/kontakt"
+              to="/kontakt/"
               className="font-medium text-muted-foreground hover:text-primary transition-colors"
             >
               Kontakt
