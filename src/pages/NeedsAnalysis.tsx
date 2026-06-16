@@ -1044,7 +1044,7 @@ const NeedsAnalysis = () => {
     "Geografi",
     "Situation",
     "Utmaningar",
-    "AI & Framtid",
+    "AI, automation och beslutsstöd",
     "Vägledande ERP-Analys",
   ];
 
