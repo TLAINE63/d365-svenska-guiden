@@ -222,7 +222,6 @@ const focusAreaOptions: { value: Exclude<FocusArea, "">; label: string; descript
   { value: "sales", label: "Sälj / CRM", description: "Säljprocess, pipeline, leadshantering, forecast, CRM-adoption och säljledning." },
   { value: "marketing", label: "Marknad / Marketing automation", description: "Kampanjer, kundresor, segmentering, lead scoring, e-post, events och kunddata." },
   { value: "both", label: "Både Sälj och Marknad", description: "Hela flödet från kampanj och lead till opportunity, affär och rapportering." },
-  { value: "unsure", label: "Osäkert – vi vill förstå behovet bättre", description: "Vi hjälper er identifiera om behovet främst är säljdrivet, marknadsdrivet eller datadrivet." },
 ];
 
 const unsureIssueOptions = [
