@@ -2775,7 +2775,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             <div className="border rounded-xl p-5 space-y-4 bg-background shadow-sm">
               <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
                 <span className="w-6 h-6 rounded-full bg-finance-supply text-finance-supply-foreground text-xs flex items-center justify-center font-bold">1</span>
-                Rekommenderad ERP-plattform
+                Preliminär systemindikation
               </h3>
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
                 <span className="text-3xl">{isBC ? "📗" : "📘"}</span>
