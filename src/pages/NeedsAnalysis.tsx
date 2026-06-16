@@ -2491,16 +2491,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     if (aiAnalysis?.partnerProfile) {
       checkPage(30);
       addSectionHeader("REKOMMENDERAD PARTNERPROFIL (KÖPARSIDIGT)", 14, 124, 134);
-      pdf.setFontSize(9);
-      pdf.setFont("helvetica", "normal");
-      pdf.setTextColor(40, 40, 40);
-      const profLines = pdf.splitTextToSize(aiAnalysis.partnerProfile, contentWidth);
-      profLines.forEach((line: string) => {
-        checkPage(6);
-        pdf.text(line, margin, yPos);
-        yPos += 5;
-      });
-      yPos += 4;
+      addProse(aiAnalysis.partnerProfile, 9, 5.4);
     }
 
     if (aiAnalysis?.risks?.length) {
@@ -2512,12 +2503,12 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       aiAnalysis.risks.forEach((risk) => {
         checkPage(10);
         pdf.setFillColor(245, 158, 11);
-        pdf.circle(margin + 2, yPos - 1.5, 1, "F");
-        const lines = pdf.splitTextToSize(risk, contentWidth - 8);
-        pdf.text(lines, margin + 6, yPos);
-        yPos += lines.length * 5 + 2;
+        pdf.circle(margin + 2.5, yPos - 1.5, 1.2, "F");
+        const lines = pdf.splitTextToSize(risk, contentWidth - 10);
+        pdf.text(lines, margin + 7, yPos);
+        yPos += lines.length * 5.2 + 3;
       });
-      yPos += 4;
+      yPos += 6;
     }
 
     // Slå samman AI-tolkningens nasta steg med deterministiska AI-rekommendationer
