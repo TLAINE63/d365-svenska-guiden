@@ -2600,6 +2600,26 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   <Label className="text-sm font-medium mb-2 block">Konsolideringskrav</Label>
                   {renderComplexityRadio("consolidation", complexityStructureOptions.consolidation)}
                 </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Antal valutor ni hanterar</Label>
+                  {renderComplexityRadio("currencies", complexityStructureOptions.currencies)}
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Antal språk som systemet behöver stödja</Label>
+                  {renderComplexityRadio("languages", complexityStructureOptions.languages)}
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">EDI-integration med kunder/leverantörer</Label>
+                  {renderComplexityRadio("ediIntegration", complexityStructureOptions.ediIntegration)}
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Kvalitetshantering / regelefterlevnad</Label>
+                  {renderComplexityRadio("qualityAssurance", complexityStructureOptions.qualityAssurance)}
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Batch- och spårbarhetskrav</Label>
+                  {renderComplexityRadio("batchTraceability", complexityStructureOptions.batchTraceability)}
+                </div>
               </div>
             </div>
 
