@@ -113,6 +113,8 @@ interface SalesMarketingAnalysisData {
 }
 
 const initialData: SalesMarketingAnalysisData = {
+  focusArea: "",
+  unsureIssues: [],
   commercialModel: "",
   b2bSalesCount: "",
   b2bStructuredPipeline: "",
