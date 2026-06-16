@@ -2417,6 +2417,33 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 </div>
               </div>
             )}
+            {data.businessModel && (
+              <div>
+                <h3 className="text-lg font-semibold mb-1">Har ni betydande sekundära verksamhetsmodeller?</h3>
+                <p className="text-sm text-muted-foreground mb-3">Valfritt – välj de som också utgör en väsentlig del av affären. Detta påverkar bedömningen av systemkomplexitet.</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {businessModelOptions
+                    .filter(o => o.value !== data.businessModel && o.value !== "Annat")
+                    .map((option) => {
+                      const isSelected = data.secondaryBusinessModels.includes(option.value);
+                      return (
+                        <SelectionCard
+                          key={option.value}
+                          label={option.label}
+                          selected={isSelected}
+                          onClick={() => {
+                            const next = isSelected
+                              ? data.secondaryBusinessModels.filter(v => v !== option.value)
+                              : [...data.secondaryBusinessModels, option.value];
+                            setData({ ...data, secondaryBusinessModels: next });
+                          }}
+                          type="checkbox"
+                        />
+                      );
+                    })}
+                </div>
+              </div>
+            )}
           </div>
         );
       }
