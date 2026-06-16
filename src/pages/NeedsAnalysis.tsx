@@ -2528,12 +2528,13 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       combinedNextSteps.forEach((step, i) => {
         checkPage(10);
         pdf.setFillColor(14, 124, 134);
-        pdf.circle(margin + 2, yPos - 1.5, 1, "F");
-        const lines = pdf.splitTextToSize(`${i + 1}. ${step}`, contentWidth - 8);
-        pdf.text(lines, margin + 6, yPos);
-        yPos += lines.length * 5 + 2;
+        pdf.circle(margin + 2.5, yPos - 1.5, 1.2, "F");
+        const lines = pdf.splitTextToSize(`${i + 1}. ${step}`, contentWidth - 10);
+        pdf.text(lines, margin + 7, yPos);
+        yPos += lines.length * 5.2 + 3;
       });
-      yPos += 4;
+      yPos += 6;
+    }
     }
 
 
