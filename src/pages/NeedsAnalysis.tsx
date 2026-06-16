@@ -2122,14 +2122,20 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     const c = data.complexity;
     const subLabel = data.businessModelSubs.length > 0 ? data.businessModelSubs.join(", ") : data.businessModelSub || "";
 
-    addAppendixSection("Steg 1 - Affarsmodell", [
-      ["Affarsmodell", bmLabel],
+    const secondaryLabels = data.secondaryBusinessModels
+      .map(v => businessModelOptions.find(o => o.value === v)?.label || v)
+      .join(", ");
+
+    addAppendixSection("Steg 1 - Verksamhetsmodell", [
+      ["Verksamhetsmodell", bmLabel],
       ["Typ", subLabel],
+      ["Sekundara modeller", secondaryLabels || "Inga"],
     ]);
 
     addAppendixSection("Steg 2 - Foretagsstorlek", [
       ["Anstallda", data.employees],
       ["Omsattning", data.revenue],
+      ["Anvandare i affarssystemet", data.erpUsers || "Ej angivet"],
     ]);
 
     addAppendixSection("Steg 3 - Bransch", [
