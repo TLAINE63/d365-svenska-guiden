@@ -1117,45 +1117,71 @@ const CustomerServiceNeedsAnalysis = () => {
     }
 
     // ══════════════════════════════════════════════════════════════════════
-    // 6. REKOMMENDERAD PARTNERTYP
+    // DATAMOGNAD FÖR AI OCH AGENTER
     // ══════════════════════════════════════════════════════════════════════
     checkPage(40);
-    addSectionHeader("REKOMMENDERAD PARTNERTYP", 30, 58, 138);
+    addSectionHeader("DATAMOGNAD FÖR AI OCH AGENTER", 99, 102, 241);
+    pdf.setFontSize(11);
+    pdf.setFont("helvetica", "bold");
+    pdf.setTextColor(51, 51, 51);
+    pdf.text(`Nivå: ${dataMat.level}`, margin, yPos);
+    yPos += 7;
+    addTextBlock(dataMat.description);
 
-    const pdfPartners: { label: string; description: string }[] = [];
-    if (recommendation.products.some(p => p.name.includes("Customer Service"))) {
-      if (data.serviceTeamSize === "51-100" || data.serviceTeamSize === "100+") {
-        pdfPartners.push({ label: "Enterprise Customer Service-arkitekt", description: "Partner med erfarenhet av stora kundserviceorganisationer och omnichannel-implementationer" });
-      } else {
-        pdfPartners.push({ label: "Customer Service-specialist", description: "Partner specialiserad pa Dynamics 365 Customer Service for tillvaxtbolag" });
-      }
-    }
-    if (recommendation.products.some(p => p.name.includes("Field Service"))) {
-      pdfPartners.push({ label: "Field Service-specialist", description: "Partner med kompetens inom schemalaggning, mobil teknikerstod och IoT-integration" });
-    }
-    if (recommendation.products.some(p => p.name.includes("Contact Center"))) {
-      pdfPartners.push({ label: "Contact Center-specialist", description: "Partner med erfarenhet av volymbaserad kundservice och omnichannel-losningar" });
-    }
-    if (pdfPartners.length === 0) {
-      pdfPartners.push({ label: "Kundservice-specialist", description: "Partner specialiserad pa Dynamics 365 kundservice-losningar" });
+    // AI-/AGENTPOTENTIAL
+    checkPage(40);
+    addSectionHeader("AI-, AUTOMATIONS- OCH AGENTPOTENTIAL", 124, 58, 237);
+    pdf.setFontSize(11);
+    pdf.setFont("helvetica", "bold");
+    pdf.setTextColor(51, 51, 51);
+    pdf.text(`Nivå: ${aiPot.level}`, margin, yPos);
+    yPos += 7;
+    addTextBlock(aiPot.description);
+
+    if (data.aiUseCases.length > 0 && dataMat.level === "Låg") {
+      addTextBlock("AI-intresset finns, men datamognaden är ännu inte tillräcklig för mer avancerade AI-agenter. Första steget bör vara att förbättra datakvalitet, datamodell, integrationer och dataägarskap.");
     }
 
-    pdfPartners.forEach((p) => {
+    // REKOMMENDERAD FÖRDJUPNING: AI ASSESSMENT
+    if (recommendAiAssessment) {
+      checkPage(40);
+      addSectionHeader("REKOMMENDERAD FÖRDJUPNING: AI ASSESSMENT", 168, 85, 247);
+      addTextBlock("Era svar visar att AI, automation eller agenter kan vara relevanta i den fortsatta lösningsdiskussionen. Samtidigt kräver AI och agenter god datakvalitet, tydliga processer, rätt behörigheter, integrationer och kontrollpunkter. Vi rekommenderar därför att ni genomför ett separat AI Assessment som nästa steg för att bedöma AI-mognad, datagrund, möjliga use cases och risker innan AI eller agenter byggs in i lösningen.");
+    } else if (data.aiUseCases.length === 0) {
       checkPage(20);
-      pdf.setFillColor(245, 248, 252);
-      pdf.roundedRect(margin, yPos, contentWidth, 16, 2, 2, 'F');
-      pdf.setFontSize(9.5);
-      pdf.setFont("helvetica", "bold");
-      pdf.setTextColor(30, 58, 138);
-      pdf.text(p.label, margin + 5, yPos + 6);
-      pdf.setFontSize(8);
-      pdf.setFont("helvetica", "normal");
-      pdf.setTextColor(100, 100, 100);
-      const pDescLines = pdf.splitTextToSize(p.description, contentWidth - 10);
-      pdf.text(pDescLines, margin + 5, yPos + 12);
-      yPos += 18 + (pDescLines.length - 1) * 4;
-    });
-    yPos += 8;
+      addTextBlock("AI och agenter kan bevakas som framtida möjlighet, men bör sannolikt inte vara första prioritet i nästa steg.");
+    }
+
+    // PRELIMINÄR LÖSNINGSINRIKTNING
+    checkPage(40);
+    addSectionHeader("PRELIMINÄR LÖSNINGSINRIKTNING", 30, 58, 138);
+    addTextBlock(focusCfg.solutionHypothesis);
+    addTextBlock("Detta är en preliminär lösningshypotes baserad på era svar. Ett slutligt val av Dynamics 365-applikationer, tillägg, AI-stöd och integrationsarkitektur bör föregås av en fördjupad fit-gap, kravspecifikation och partnerdialog.");
+
+    // ══════════════════════════════════════════════════════════════════════
+    // REKOMMENDERAD PARTNERPROFIL (focus-driven)
+    // ══════════════════════════════════════════════════════════════════════
+    checkPage(40);
+    addSectionHeader("REKOMMENDERAD PARTNERPROFIL", 30, 58, 138);
+    addTextBlock("Partnern bör ha erfarenhet av:");
+    addBulletList(focusCfg.partnerProfile);
+    if (recommendAiAssessment) {
+      addTextBlock("Partnern bör även kunna bedöma datamognad, AI-use cases, Copilot Studio, agentarkitektur, behörigheter, loggning och kontrollpunkter. Om datamognaden är låg bör partnern kunna hjälpa till med datakvalitet och processförberedelser innan mer avancerade AI-agenter införs.");
+    }
+
+    // REKOMMENDERADE NÄSTA STEG
+    checkPage(40);
+    addSectionHeader("REKOMMENDERADE NÄSTA STEG", 5, 150, 105);
+    const nextStepsList = [...focusCfg.nextSteps];
+    if (recommendAiAssessment) nextStepsList.push("Genomför AI Assessment innan AI/agenter byggs in i lösningen.");
+    addBulletList(nextStepsList);
+
+    // DISCLAIMER
+    checkPage(30);
+    addSectionHeader("DISCLAIMER", 120, 120, 120);
+    addTextBlock("Denna rapport är AI-genererad baserat på de svar som har lämnats i behovsanalysen. Rapporten ska ses som ett preliminärt beslutsunderlag och inte som en slutgiltig systemrekommendation. Val av Dynamics 365-applikationer, tillägg, AI-stöd, integrationslösningar och partner bör föregås av en fördjupad analys, kravspecifikation och partnerdialog. Om AI eller agenter ska användas bör datamognad, behörigheter, governance och kontrollpunkter bedömas särskilt, exempelvis genom ett separat AI Assessment.");
+
+
 
     // ── APPENDIX ─────────────────────────────────────────────────────────────
     pdf.addPage();
