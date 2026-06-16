@@ -61,6 +61,12 @@ interface ComplexityData {
   posIntegration: string;
   realtimeInventory: string;
   campaignPricing: string;
+  // Etapp 1b - additional dimensions
+  currencies: string;
+  languages: string;
+  ediIntegration: string;
+  qualityAssurance: string;
+  batchTraceability: string;
 }
 
 interface AnalysisData {
@@ -136,6 +142,11 @@ const initialComplexity: ComplexityData = {
   posIntegration: "",
   realtimeInventory: "",
   campaignPricing: "",
+  currencies: "",
+  languages: "",
+  ediIntegration: "",
+  qualityAssurance: "",
+  batchTraceability: "",
 };
 
 const businessModelOptions = [
@@ -280,6 +291,9 @@ const initialData: AnalysisData = {
     { system: "", importance: "" },
   ],
   currentSystems: [
+    { product: "", year: "" },
+    { product: "", year: "" },
+    { product: "", year: "" },
     { product: "", year: "" },
     { product: "", year: "" },
     { product: "", year: "" },
@@ -743,6 +757,31 @@ const complexityStructureOptions = {
     { value: "nej", label: "Inget konsolideringskrav" },
     { value: "enkel", label: "Enkel konsolidering" },
     { value: "komplex", label: "Komplex konsolidering (multi-GAAP, valutor)" },
+  ],
+  currencies: [
+    { value: "1", label: "1 valuta" },
+    { value: "2-5", label: "2–5 valutor" },
+    { value: "6+", label: "6+ valutor" },
+  ],
+  languages: [
+    { value: "1", label: "1 språk" },
+    { value: "2-3", label: "2–3 språk" },
+    { value: "4+", label: "4+ språk" },
+  ],
+  ediIntegration: [
+    { value: "nej", label: "Inget EDI-behov" },
+    { value: "viss", label: "Visst EDI med några partner" },
+    { value: "omfattande", label: "Omfattande EDI (>10 partner / hög volym)" },
+  ],
+  qualityAssurance: [
+    { value: "ingen", label: "Ingen formell kvalitetshantering" },
+    { value: "grundlaggande", label: "Grundläggande QA (avvikelser, dokumentation)" },
+    { value: "regulerad", label: "Reglerad/spårbar (ISO, GMP, FDA, livsmedel)" },
+  ],
+  batchTraceability: [
+    { value: "nej", label: "Ej tillämpligt" },
+    { value: "viss", label: "Viss batch-/serienummerhantering" },
+    { value: "full", label: "Full spårbarhet (lot, serie, hållbarhet)" },
   ],
 };
 
@@ -2563,6 +2602,26 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 <div>
                   <Label className="text-sm font-medium mb-2 block">Konsolideringskrav</Label>
                   {renderComplexityRadio("consolidation", complexityStructureOptions.consolidation)}
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Antal valutor ni hanterar</Label>
+                  {renderComplexityRadio("currencies", complexityStructureOptions.currencies)}
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Antal språk som systemet behöver stödja</Label>
+                  {renderComplexityRadio("languages", complexityStructureOptions.languages)}
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">EDI-integration med kunder/leverantörer</Label>
+                  {renderComplexityRadio("ediIntegration", complexityStructureOptions.ediIntegration)}
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Kvalitetshantering / regelefterlevnad</Label>
+                  {renderComplexityRadio("qualityAssurance", complexityStructureOptions.qualityAssurance)}
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Batch- och spårbarhetskrav</Label>
+                  {renderComplexityRadio("batchTraceability", complexityStructureOptions.batchTraceability)}
                 </div>
               </div>
             </div>
