@@ -1338,8 +1338,8 @@ const CustomerServiceNeedsAnalysis = () => {
           email: data.email,
           analysisData: {
             "Servicemodell": data.serviceModel,
-            "Servicemognad": `Niva ${transformationLevel} - ${transformationLabels[transformationLevel]}`,
-            "Anstallda": data.employees,
+            "Servicemognad": `Nivå ${transformationLevel} – ${transformationLabels[transformationLevel]}`,
+            "Anställda": data.employees,
             "Bransch": data.industry === "Annat" ? data.industryOther : data.industry,
             "Serviceteam": data.serviceTeamSize,
             "Rekommenderade produkter": recommendation.products.map(p => p.name).join(", "),
