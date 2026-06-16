@@ -500,7 +500,7 @@ const ValjPartner = () => {
         </div>
       </header>
 
-      <ShortAnswer>
+      <ShortAnswer title="Vad är en Dynamics 365-partner">
         Rätt Dynamics 365-partner har bevisad erfarenhet av just er produkt (Business Central, Finance & Supply Chain, Sales m.fl.), er bransch och en storlek som matchar er. På d365.se kan ni jämföra Microsoft-certifierade partners på bransch, geografi och AI-mognad — och få 2–3 rekommendationer via vår köparsidiga partnerguide, utan att kontaktas direkt av säljare.
       </ShortAnswer>
 
