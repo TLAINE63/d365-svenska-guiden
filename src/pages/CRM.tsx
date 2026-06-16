@@ -185,25 +185,10 @@ const CRM = () => {
       />
 
 
-      {/* Introduction Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-              Microsoft Dynamics 365 Customer Engagement
-            </h2>
-            <p className="text-xl sm:text-2xl text-foreground mb-4 sm:mb-6">
-              För smartare kundrelationer
-            </p>
-            <p className="text-lg sm:text-xl text-muted-foreground mb-4 sm:mb-6">
-              Skapa starkare kundupplevelser och effektivare service – allt i en integrerad plattform.
-            </p>
-            <p className="text-base sm:text-lg text-muted-foreground">
-              Microsoft Dynamics 365 Customer Engagement är en samling intelligenta affärsapplikationer som hjälper företag att bygga långsiktiga kundrelationer och leverera förstklassig service. Lösningen kombinerar CRM och kundtjänst i en modern, molnbaserad plattform.
-            </p>
-          </div>
-        </div>
-      </section>
+      <ShortAnswer title="Vad är Microsoft Dynamics 365 Customer Engagement (CRM)?">
+        Microsoft Dynamics 365 Customer Engagement — i dagligt tal Dynamics 365 CRM — är Microsofts samling av molnbaserade affärsapplikationer för försäljning, marknadsföring, kundservice, fältservice och kontaktcenter. Sviten omfattar Dynamics 365 Sales för pipeline- och offerthantering, Dynamics 365 Customer Service och Contact Center för ärendehantering och omnikanal-support, Dynamics 365 Field Service för planering och utförande av arbete ute hos kund, samt Customer Insights — Journeys och Data — för marknadsföring, kundresor och en enhetlig kundprofil. Alla applikationer delar samma datamodell via Dataverse och är djupt integrerade med Microsoft 365 (Outlook, Teams, Excel), Power BI, Power Automate och Azure, vilket ger en sammanhängande 360°-bild av kunden och eliminerar behovet av separata system för sälj, support och marknad. Inbyggd AI via Microsoft Copilot och nya autonoma agenter automatiserar repetitiva uppgifter — sammanfattning av ärenden, nästa-bästa-åtgärd i säljdialogen, automatisk dirigering av supportärenden och AI-genererade kundresor — direkt i de flöden där medarbetarna redan arbetar. Plattformen är tillgänglig globalt med stöd för flera språk, valutor och regelverk, och kan skalas från enstaka avdelningar till stora koncerner med tusentals användare.
+      </ShortAnswer>
+
 
       {/* FAQ Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
