@@ -205,6 +205,17 @@ const initialData: SalesMarketingAnalysisData = {
   contactName: "",
   phone: "",
   email: "",
+  salesDeepTerritory: "",
+  salesDeepEnablement: "",
+  salesDeepCoaching: "",
+  salesDeepCPQ: "",
+  salesDeepIncentives: "",
+  salesDeepRenewals: "",
+  marketingDeepABM: "",
+  marketingDeepContentOps: "",
+  marketingDeepConsent: "",
+  marketingDeepBrand: "",
+  marketingDeepAttribution: "",
 };
 
 const focusAreaOptions: { value: Exclude<FocusArea, "">; label: string; description: string }[] = [
