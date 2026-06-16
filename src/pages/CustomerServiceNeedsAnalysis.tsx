@@ -917,7 +917,7 @@ const CustomerServiceNeedsAnalysis = () => {
 
     pdf.setTextColor(180, 200, 255);
     pdf.setFontSize(9);
-    pdf.text("d365.se - Vagledning for Microsoft Dynamics 365-partner", pageWidth / 2, pageHeight - 28, { align: "center" });
+    pdf.text("d365.se – Köparsidig vägledning för val av Microsoft Dynamics 365-partner", pageWidth / 2, pageHeight - 28, { align: "center" });
     pdf.setTextColor(255, 255, 255);
     pdf.setFontSize(10);
     pdf.text(`Analysens datum: ${analysisDate}`, pageWidth / 2, pageHeight - 18, { align: "center" });
