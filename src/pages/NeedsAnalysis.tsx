@@ -1811,13 +1811,19 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     yPos += 8;
 
     // ══════════════════════════════════════════════════════════════════════
-    // 5. REKOMMENDERAD LOSNINGSINRIKTNING
+    // 5. PRELIMINAR SYSTEMINDIKATION
     // ══════════════════════════════════════════════════════════════════════
     checkPage(60);
-    addSectionHeader("REKOMMENDERAD LOSNINGSINRIKTNING", 0, 100, 130);
+    addSectionHeader("PRELIMINAR SYSTEMINDIKATION", 0, 100, 130);
 
     const isBC = recommendation.product === "Business Central";
-    const pdfProduct = `Dynamics 365 ${recommendation.product}`;
+    const outcomeLabelMap: Record<string, string> = {
+      "Business Central": "Dynamics 365 Business Central",
+      "Finance & Supply Chain Management": "Dynamics 365 Finance & Supply Chain Management",
+      "Båda bör utvärderas": "Båda plattformarna bör utvärderas",
+      "För tidigt att avgöra": "För tidigt att avgöra – kompletterande underlag behövs",
+    };
+    const pdfProduct = outcomeLabelMap[recommendation.outcome] || `Dynamics 365 ${recommendation.product}`;
 
     pdf.setFillColor(240, 248, 252);
     pdf.roundedRect(margin, yPos, contentWidth, 14, 2, 2, 'F');
@@ -1826,6 +1832,28 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.setFont("helvetica", "bold");
     pdf.text(pdfProduct, margin + 5, yPos + 10);
     yPos += 18;
+
+    // Säkerhet i analysen
+    const secColors: Record<string, [number, number, number]> = {
+      "Hög": [22, 163, 74],
+      "Medel": [217, 119, 6],
+      "Låg": [180, 50, 50],
+    };
+    const sc = secColors[recommendation.securityLevel] || [120, 120, 120];
+    pdf.setFillColor(245, 248, 252);
+    pdf.roundedRect(margin, yPos, contentWidth, 10, 2, 2, 'F');
+    pdf.setFontSize(8);
+    pdf.setFont("helvetica", "normal");
+    pdf.setTextColor(80, 80, 80);
+    pdf.text("Sakerhet i analysen:", margin + 5, yPos + 6.5);
+    pdf.setFont("helvetica", "bold");
+    pdf.setTextColor(sc[0], sc[1], sc[2]);
+    pdf.text(recommendation.securityLevel, margin + 42, yPos + 6.5);
+    pdf.setFont("helvetica", "normal");
+    pdf.setTextColor(120, 120, 120);
+    pdf.text("(preliminar indikation - ej definitivt systemval)", margin + 58, yPos + 6.5);
+    yPos += 14;
+
 
     if (recommendation.isCloseCall) {
       pdf.setFillColor(255, 248, 225);
