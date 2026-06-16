@@ -1230,6 +1230,11 @@ const CustomerServiceNeedsAnalysis = () => {
     yPos += 7;
     addTextBlock(aiPot.description);
 
+    // AI-genererad fördjupad analys av datamognad & AI-potential (paragrafer)
+    if (aiAnalysis?.dataAndAiAnalysis) {
+      addParagraphs(aiAnalysis.dataAndAiAnalysis, 9.5);
+    }
+
     if (data.aiUseCases.length > 0 && dataMat.level === "Låg") {
       addTextBlock("AI-intresset finns, men datamognaden är ännu inte tillräcklig för mer avancerade AI-agenter. Första steget bör vara att förbättra datakvalitet, datamodell, integrationer och dataägarskap.");
     }
@@ -1247,7 +1252,11 @@ const CustomerServiceNeedsAnalysis = () => {
     // PRELIMINÄR LÖSNINGSINRIKTNING
     checkPage(40);
     addSectionHeader("PRELIMINÄR LÖSNINGSINRIKTNING", 30, 58, 138);
-    addTextBlock(focusCfg.solutionHypothesis);
+    if (aiAnalysis?.solutionHypothesis) {
+      addParagraphs(aiAnalysis.solutionHypothesis, 9.5);
+    } else {
+      addTextBlock(focusCfg.solutionHypothesis);
+    }
     addTextBlock("Detta är en preliminär lösningshypotes baserad på era svar. Ett slutligt val av Dynamics 365-applikationer, tillägg, AI-stöd och integrationsarkitektur bör föregås av en fördjupad fit-gap, kravspecifikation och partnerdialog.");
 
     // ══════════════════════════════════════════════════════════════════════
@@ -1255,6 +1264,10 @@ const CustomerServiceNeedsAnalysis = () => {
     // ══════════════════════════════════════════════════════════════════════
     checkPage(40);
     addSectionHeader("REKOMMENDERAD PARTNERPROFIL", 30, 58, 138);
+    if (aiAnalysis?.partnerProfile) {
+      addParagraphs(aiAnalysis.partnerProfile, 9.5);
+      yPos += 2;
+    }
     addTextBlock("Partnern bör ha erfarenhet av:");
     addBulletList(focusCfg.partnerProfile);
     if (recommendAiAssessment) {
@@ -1264,9 +1277,19 @@ const CustomerServiceNeedsAnalysis = () => {
     // REKOMMENDERADE NÄSTA STEG
     checkPage(40);
     addSectionHeader("REKOMMENDERADE NÄSTA STEG", 5, 150, 105);
-    const nextStepsList = [...focusCfg.nextSteps];
-    if (recommendAiAssessment) nextStepsList.push("Genomför AI Assessment innan AI/agenter byggs in i lösningen.");
+    const aiNext = aiAnalysis?.nextSteps && aiAnalysis.nextSteps.length > 0 ? aiAnalysis.nextSteps : focusCfg.nextSteps;
+    const nextStepsList = [...aiNext];
+    if (recommendAiAssessment && !nextStepsList.some((s) => s.toLowerCase().includes("ai assessment"))) {
+      nextStepsList.push("Genomför AI Assessment innan AI/agenter byggs in i lösningen.");
+    }
     addBulletList(nextStepsList);
+
+    // RISKER & FRÅGOR ATT UTREDA
+    if (aiAnalysis?.risks && aiAnalysis.risks.length > 0) {
+      checkPage(40);
+      addSectionHeader("RISKER OCH FRÅGOR ATT UTREDA", 220, 90, 50);
+      addBulletList(aiAnalysis.risks);
+    }
 
     // DISCLAIMER
     checkPage(30);
