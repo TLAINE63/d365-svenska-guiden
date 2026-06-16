@@ -1642,6 +1642,25 @@ const SalesMarketingNeedsAnalysis = () => {
     if (data.aiDataMaturity) addSection("AI- och datamognad", data.aiDataMaturity);
     if (data.aiDetails) addSection("Beskriv hur AI skulle kunna hjälpa er verksamhet", data.aiDetails);
 
+    // ── DEEP DIVE: Sälj ─────────────────────────────────────────────────
+    if (focusKey === "sales") {
+      if (data.salesDeepTerritory) addSection("Säljfördjupning – Territory- och kontoplanering", data.salesDeepTerritory);
+      if (data.salesDeepEnablement) addSection("Säljfördjupning – Sales enablement", data.salesDeepEnablement);
+      if (data.salesDeepCoaching) addSection("Säljfördjupning – Datadriven coachning", data.salesDeepCoaching);
+      if (data.salesDeepCPQ) addSection("Säljfördjupning – Offert, prissättning och konfiguration (CPQ)", data.salesDeepCPQ);
+      if (data.salesDeepIncentives) addSection("Säljfördjupning – Incitament och provision", data.salesDeepIncentives);
+      if (data.salesDeepRenewals) addSection("Säljfördjupning – Förnyelser och merförsäljning", data.salesDeepRenewals);
+    }
+
+    // ── DEEP DIVE: Marknad ──────────────────────────────────────────────
+    if (focusKey === "marketing") {
+      if (data.marketingDeepABM) addSection("Marknadsfördjupning – Account-Based Marketing", data.marketingDeepABM);
+      if (data.marketingDeepContentOps) addSection("Marknadsfördjupning – Content ops", data.marketingDeepContentOps);
+      if (data.marketingDeepConsent) addSection("Marknadsfördjupning – Consent och GDPR", data.marketingDeepConsent);
+      if (data.marketingDeepBrand) addSection("Marknadsfördjupning – Brand governance", data.marketingDeepBrand);
+      if (data.marketingDeepAttribution) addSection("Marknadsfördjupning – Attribution till intäkt", data.marketingDeepAttribution);
+    }
+
     // ── ÖVRIGA NOTERINGAR ────────────────────────────────────────────────
     const hasOvrigt = data.wishlist?.trim() || data.decisionTimeline?.trim() || data.additionalInfo?.trim() || data.currentPartners?.trim();
     if (hasOvrigt) {
