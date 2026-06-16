@@ -79,6 +79,13 @@ interface CustomerServiceAnalysisData {
   aiInterest: string;
   aiUseCases: string[];
   aiDetails: string;
+  aiAutonomy: string;
+  aiControls: string[];
+  unsureIssues: string[];
+  dataMaturity: string;
+  dataOwnership: string;
+  dataAccessControls: string;
+  dataReliability: string;
   additionalInfo: string;
   currentPartners: string;
   companyName: string;
@@ -142,6 +149,13 @@ const initialData: CustomerServiceAnalysisData = {
   aiInterest: "",
   aiUseCases: [],
   aiDetails: "",
+  aiAutonomy: "",
+  aiControls: [],
+  unsureIssues: [],
+  dataMaturity: "",
+  dataOwnership: "",
+  dataAccessControls: "",
+  dataReliability: "",
   additionalInfo: "",
   currentPartners: "",
   companyName: "",
@@ -266,6 +280,233 @@ const aiUseCaseCategories = [
   { id: "voice-transcription", title: "Röstanalys och transkription", description: "AI transkriberar samtal automatiskt och extraherar nyckelinsikter.", benefit: "Affärsnytta: Mindre admin, bättre dokumentation, snabbare uppföljning." },
   { id: "copilot-assistant", title: "AI-assistent (Copilot-liknande funktioner)", description: "Fråga systemet på naturligt språk: \"Visa alla öppna ärenden för VIP-kunder\".", benefit: "Affärsnytta: Kundservice blir ett kraftfullt analysverktyg – inte bara ett ärendesystem." },
 ];
+
+// ───────────── Områdes-/diagnostikalternativ ─────────────
+const unsureIssueOptions = [
+  "Vi tappar kontroll på kundärenden",
+  "Vi har svårt att hålla SLA",
+  "Vi saknar gemensam kundhistorik",
+  "Vi har för många manuella handoffs",
+  "Telefoni, e-post och chatt är inte samordnade",
+  "Agenter/handläggare saknar rätt information",
+  "Teknikerplanering är ineffektiv",
+  "Serviceorder, reservdelar och fakturering hänger inte ihop",
+  "Vi saknar self-service eller kunskapsdatabas",
+  "Vi har svårt att följa upp kundnöjdhet",
+  "Vi vill använda AI-agenter eller Copilot",
+  "Vi saknar bra rapportering",
+];
+
+const dataMaturityOptions = ["Ja, till stor del", "Delvis", "Nej, inte idag", "Vet ej"];
+const dataOwnershipOptions = ["Ja, för de viktigaste datadomänerna", "Delvis", "Nej", "Vet ej"];
+const dataAccessControlOptions = ["Ja", "Delvis", "Nej", "Vet ej"];
+const dataReliabilityOptions = ["Bra", "Blandat", "Bristfälligt", "Vet ej"];
+
+const aiAutonomyOptions = [
+  "Endast ge förslag till användare",
+  "Skapa utkast som användare godkänner",
+  "Utföra enkla uppgifter automatiskt enligt regler",
+  "Hantera delar av processer med mänsklig kontrollpunkt",
+  "Agera självständigt inom definierade gränser",
+  "Vet ej / behöver rådgivning",
+];
+
+const aiControlOptions = [
+  "Mänskligt godkännande innan kundkommunikation",
+  "Mänskligt godkännande innan data ändras",
+  "Loggning av alla AI-/agentåtgärder",
+  "Begränsning per roll/behörighet",
+  "Tydliga eskaleringsregler",
+  "Testmiljö innan produktionssättning",
+  "Regelbunden kvalitetssäkring",
+  "Juridisk/GDPR-granskning",
+  "Spårbarhet till källor",
+  "Möjlighet att stänga av agenten snabbt",
+];
+
+type FocusKey = "customer_service" | "field_service" | "contact_center" | "multi";
+
+function getFocusKey(data: CustomerServiceAnalysisData): FocusKey {
+  // Primärt: serviceModel; sekundärt: unsureIssues-heuristik
+  switch (data.serviceModel) {
+    case "Ärendebaserad kundservice":
+      return "customer_service";
+    case "Volymbaserad kundservice / Contact Center":
+      return "contact_center";
+    case "Fältservice med tekniker":
+      return "field_service";
+    case "Kombination av flera":
+      return "multi";
+    case "Osäkert – vi vill förstå behovet bättre": {
+      const fs = ["Teknikerplanering är ineffektiv", "Serviceorder, reservdelar och fakturering hänger inte ihop"];
+      const cc = ["Telefoni, e-post och chatt är inte samordnade", "Vi har svårt att följa upp kundnöjdhet"];
+      const cs = ["Vi tappar kontroll på kundärenden", "Vi har svårt att hålla SLA", "Vi saknar gemensam kundhistorik", "Agenter/handläggare saknar rätt information", "Vi saknar self-service eller kunskapsdatabas"];
+      const fsCount = data.unsureIssues.filter((i) => fs.includes(i)).length;
+      const ccCount = data.unsureIssues.filter((i) => cc.includes(i)).length;
+      const csCount = data.unsureIssues.filter((i) => cs.includes(i)).length;
+      const total = fsCount + ccCount + csCount;
+      const distinct = [fsCount, ccCount, csCount].filter((n) => n > 0).length;
+      if (distinct >= 2 || total === 0) return "multi";
+      if (fsCount >= ccCount && fsCount >= csCount) return "field_service";
+      if (ccCount >= csCount) return "contact_center";
+      return "customer_service";
+    }
+    default:
+      return "customer_service";
+  }
+}
+
+const focusConfig: Record<FocusKey, {
+  pdfTitle: string;
+  pdfSubTitle: string;
+  emailAnalysisType: string;
+  maturityHeading: string;
+  partnerProfile: string[];
+  nextSteps: string[];
+  solutionHypothesis: string;
+}> = {
+  customer_service: {
+    pdfTitle: "BEHOVSANALYS",
+    pdfSubTitle: "Kundservice / Ärendehantering",
+    emailAnalysisType: "Kundservice / Ärendehantering",
+    maturityHeading: "KUNDSERVICEMOGNAD",
+    partnerProfile: [
+      "Dynamics 365 Customer Service",
+      "Ärendehantering, SLA och supportprocesser",
+      "Kunskapsdatabas och self-service",
+      "Integrationer mot CRM/ERP",
+      "Copilot och AI-stöd för handläggare",
+    ],
+    nextSteps: [
+      "Kartlägg ärendeprocessen från inkommande kontakt till löst ärende.",
+      "Definiera SLA, prioriteringar, köer och eskaleringsregler.",
+      "Bedöm behov av kunskapsdatabas och self-service.",
+      "Gör en fit-gap mot Dynamics 365 Customer Service.",
+      "Identifiera AI-use cases för handläggarstöd och ärendesammanfattning.",
+      "Bedöm datamognad för AI och agenter.",
+      "Bjud in relevanta partners till lösningsdialog.",
+    ],
+    solutionHypothesis:
+      "Utifrån era svar framstår Dynamics 365 Customer Service som en relevant lösningsväg att utvärdera vidare. Fokus bör ligga på ärendehantering, SLA, köstyrning, kunskapsdatabas, kundhistorik, self-service och integrationer mot övriga system.",
+  },
+  field_service: {
+    pdfTitle: "BEHOVSANALYS",
+    pdfSubTitle: "Fältservice",
+    emailAnalysisType: "Fältservice",
+    maturityHeading: "FÄLTSERVICEMOGNAD",
+    partnerProfile: [
+      "Dynamics 365 Field Service",
+      "Serviceorder och teknikerplanering",
+      "Mobil fältservice och installerad bas",
+      "Reservdelar, lager och serviceavtal",
+      "ERP- och faktureringsintegrationer",
+    ],
+    nextSteps: [
+      "Kartlägg serviceflödet från ärende till serviceorder, teknikerbesök och fakturering.",
+      "Definiera krav på teknikerplanering, mobilitet och installerad bas.",
+      "Bedöm reservdels-, lager- och ERP-integrationer.",
+      "Gör en fit-gap mot Dynamics 365 Field Service.",
+      "Identifiera AI- och automationsuse cases för planering och förebyggande underhåll.",
+      "Bedöm datamognad kring servicehistorik, installerad bas och reservdelar.",
+      "Bjud in partners med erfarenhet av fältservice och ERP-integrationer.",
+    ],
+    solutionHypothesis:
+      "Utifrån era svar finns tydliga behov inom fältservice, teknikerplanering och serviceuppdrag. Dynamics 365 Field Service bör därför ingå i den fortsatta utvärderingen, särskilt om ni behöver hantera serviceorder, schemaläggning, installerad bas, reservdelar och mobil åtkomst för tekniker.",
+  },
+  contact_center: {
+    pdfTitle: "BEHOVSANALYS",
+    pdfSubTitle: "Contact Center",
+    emailAnalysisType: "Contact Center",
+    maturityHeading: "CONTACT CENTER-MOGNAD",
+    partnerProfile: [
+      "Dynamics 365 Contact Center",
+      "Telefoni och omnichannel",
+      "Agent desktop, köer och routing",
+      "AI-agenter och samtalsanalys",
+      "Integration mellan contact center och CRM",
+    ],
+    nextSteps: [
+      "Kartlägg kanalflöden för telefoni, chatt, e-post och self-service.",
+      "Definiera krav på köer, routing, agentstöd och realtidsrapportering.",
+      "Bedöm integration mellan contact center, CRM och ärendehantering.",
+      "Gör en fit-gap mot Dynamics 365 Contact Center och Customer Service.",
+      "Identifiera AI-agent- och automationsuse cases.",
+      "Bedöm datamognad för kundhistorik, kunskapsartiklar, samtalsdata och ärendedata.",
+      "Bjud in partners med erfarenhet av contact center och CRM-integrationer.",
+    ],
+    solutionHypothesis:
+      "Utifrån era svar finns tydliga behov inom contact center, telefoni, chatt, routing och agentstöd. Dynamics 365 Contact Center och/eller Dynamics 365 Customer Service bör ingå i den fortsatta utvärderingen beroende på hur nära contact center-flödet behöver kopplas till ärendehantering, kundhistorik och övriga CRM-processer.",
+  },
+  multi: {
+    pdfTitle: "BEHOVSANALYS",
+    pdfSubTitle: "Kundservice, Contact Center och Fältservice",
+    emailAnalysisType: "Kundservice, Contact Center och Fältservice",
+    maturityHeading: "SERVICE- OCH KUNDUPPLEVELSEMOGNAD",
+    partnerProfile: [
+      "Dynamics 365 Customer Service, Field Service och Contact Center",
+      "Power Platform och Copilot Studio",
+      "Integrationer mot ERP, telefoni, lager, fakturering och kundportal",
+      "Datamodellering och rapportering (Power BI)",
+      "Förändringsledning över flera team",
+    ],
+    nextSteps: [
+      "Kartlägg hela flödet från kundkontakt till ärende, serviceuppdrag och uppföljning.",
+      "Definiera ansvar mellan contact center, kundservice och fältservice.",
+      "Bedöm integrationer mot ERP, telefoni, lager, fakturering och kundportal.",
+      "Gör en fit-gap mot Customer Service, Field Service och Contact Center.",
+      "Identifiera AI- och automationsuse cases och kontrollpunkter.",
+      "Bedöm datamognad och styrning för AI/agenter.",
+      "Ta fram en gemensam kravspecifikation för kundservice, contact center och fältservice.",
+    ],
+    solutionHypothesis:
+      "Utifrån era svar bör Customer Service, Contact Center och Field Service utvärderas som ett sammanhängande kundserviceflöde. Behovet verkar omfatta både ärendehantering, kanalhantering, kundhistorik, serviceuppdrag, teknikerplanering och integrationer mot ERP, lager och fakturering.",
+  },
+};
+
+function getDataMaturityLevel(d: CustomerServiceAnalysisData): { level: string; description: string } {
+  const score = (() => {
+    let s = 0;
+    if (d.dataMaturity === "Ja, till stor del") s += 3;
+    else if (d.dataMaturity === "Delvis") s += 2;
+    else if (d.dataMaturity === "Nej, inte idag") s += 0;
+    if (d.dataOwnership === "Ja, för de viktigaste datadomänerna") s += 2;
+    else if (d.dataOwnership === "Delvis") s += 1;
+    if (d.dataAccessControls === "Ja") s += 2;
+    else if (d.dataAccessControls === "Delvis") s += 1;
+    if (d.dataReliability === "Bra") s += 2;
+    else if (d.dataReliability === "Blandat") s += 1;
+    return s;
+  })();
+  if (score >= 8) return { level: "Avancerad", description: "Data, processer, behörigheter och styrning är tillräckligt mogna för att utvärdera mer autonoma agentflöden." };
+  if (score >= 5) return { level: "Hög", description: "Data är relativt strukturerad, tillförlitlig och åtkomlig. AI och styrda agenter kan utvärderas." };
+  if (score >= 2) return { level: "Medel", description: "Viss datagrund finns, men kvalitet, integrationer eller ägarskap behöver förbättras före mer avancerade agenter." };
+  return { level: "Låg", description: "Data är splittrad, bristfällig eller saknar tydligt ägarskap. AI bör främst användas försiktigt och assisterande." };
+}
+
+function getAiPotentialLevel(d: CustomerServiceAnalysisData): { level: string; description: string } {
+  const usesAutonomy = ["Hantera delar av processer med mänsklig kontrollpunkt", "Agera självständigt inom definierade gränser"].includes(d.aiAutonomy);
+  const usesAssisted = ["Skapa utkast som användare godkänner", "Utföra enkla uppgifter automatiskt enligt regler"].includes(d.aiAutonomy);
+  const dataLevel = getDataMaturityLevel(d).level;
+  if (usesAutonomy && (dataLevel === "Hög" || dataLevel === "Avancerad")) {
+    return { level: "Autonoma agenter med styrning", description: "Agenter kan utföra definierade uppgifter självständigt inom tydliga mandat, loggning och kontrollpunkter." };
+  }
+  if (usesAutonomy || (usesAssisted && (dataLevel === "Medel" || dataLevel === "Hög" || dataLevel === "Avancerad"))) {
+    return { level: "Styrd automation / assisterade agenter", description: "AI/agenter kan hantera delar av processer med mänsklig kontroll." };
+  }
+  if (d.aiUseCases.length > 0 || usesAssisted) {
+    return { level: "AI-assistans", description: "AI kan stödja användare med sammanfattningar, förslag och analys." };
+  }
+  return { level: "AI-intresse", description: "Organisationen är nyfiken, men data/processer är inte redo." };
+}
+
+function shouldRecommendAiAssessment(d: CustomerServiceAnalysisData): boolean {
+  const dataLevel = getDataMaturityLevel(d).level;
+  const highAiInterest = d.aiUseCases.length >= 3;
+  const wantsAgent = d.aiUseCases.includes("chatbot-virtual-agent") || ["Hantera delar av processer med mänsklig kontrollpunkt", "Agera självständigt inom definierade gränser"].includes(d.aiAutonomy);
+  const dataRisk = dataLevel === "Låg" || d.dataOwnership === "Nej" || d.dataOwnership === "Vet ej" || d.dataAccessControls === "Nej" || d.dataAccessControls === "Vet ej";
+  const heavyIntegration = d.systemDependencies.length >= 4;
+  return highAiInterest || wantsAgent || dataRisk || heavyIntegration;
+}
 
 const CustomerServiceNeedsAnalysis = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -560,6 +801,11 @@ const CustomerServiceNeedsAnalysis = () => {
   const generateDocument = async () => {
     if (!validateContactForm()) return;
     const recommendation = getRecommendation();
+    const focusKey = getFocusKey(data);
+    const focusCfg = focusConfig[focusKey];
+    const dataMat = getDataMaturityLevel(data);
+    const aiPot = getAiPotentialLevel(data);
+    const recommendAiAssessment = shouldRecommendAiAssessment(data);
     const { default: jsPDF } = await import("jspdf");
     const pdf = new jsPDF();
     const pageWidth = pdf.internal.pageSize.getWidth();
@@ -640,13 +886,17 @@ const CustomerServiceNeedsAnalysis = () => {
     pdf.setTextColor(255, 255, 255);
     pdf.setFontSize(28);
     pdf.setFont("helvetica", "bold");
-    pdf.text("BEHOVSANALYS", pageWidth / 2, 120, { align: "center" });
-    pdf.setFontSize(16);
+    pdf.text(focusCfg.pdfTitle, pageWidth / 2, 120, { align: "center" });
+    pdf.setFontSize(14);
     pdf.setFont("helvetica", "normal");
-    pdf.text("Kundservice", pageWidth / 2, 133, { align: "center" });
+    pdf.text(focusCfg.pdfSubTitle, pageWidth / 2, 133, { align: "center" });
+    pdf.setFontSize(10);
+    pdf.text("AI-genererat beslutsunderlag inför val av Dynamics 365-lösning", pageWidth / 2, 142, { align: "center" });
     pdf.setDrawColor(255, 255, 255);
     pdf.setLineWidth(0.5);
-    pdf.line(margin + 20, 142, pageWidth - margin - 20, 142);
+    pdf.line(margin + 20, 148, pageWidth - margin - 20, 148);
+
+
 
     pdf.setFontSize(14);
     pdf.setFont("helvetica", "bold");
@@ -867,45 +1117,71 @@ const CustomerServiceNeedsAnalysis = () => {
     }
 
     // ══════════════════════════════════════════════════════════════════════
-    // 6. REKOMMENDERAD PARTNERTYP
+    // DATAMOGNAD FÖR AI OCH AGENTER
     // ══════════════════════════════════════════════════════════════════════
     checkPage(40);
-    addSectionHeader("REKOMMENDERAD PARTNERTYP", 30, 58, 138);
+    addSectionHeader("DATAMOGNAD FÖR AI OCH AGENTER", 99, 102, 241);
+    pdf.setFontSize(11);
+    pdf.setFont("helvetica", "bold");
+    pdf.setTextColor(51, 51, 51);
+    pdf.text(`Nivå: ${dataMat.level}`, margin, yPos);
+    yPos += 7;
+    addTextBlock(dataMat.description);
 
-    const pdfPartners: { label: string; description: string }[] = [];
-    if (recommendation.products.some(p => p.name.includes("Customer Service"))) {
-      if (data.serviceTeamSize === "51-100" || data.serviceTeamSize === "100+") {
-        pdfPartners.push({ label: "Enterprise Customer Service-arkitekt", description: "Partner med erfarenhet av stora kundserviceorganisationer och omnichannel-implementationer" });
-      } else {
-        pdfPartners.push({ label: "Customer Service-specialist", description: "Partner specialiserad pa Dynamics 365 Customer Service for tillvaxtbolag" });
-      }
-    }
-    if (recommendation.products.some(p => p.name.includes("Field Service"))) {
-      pdfPartners.push({ label: "Field Service-specialist", description: "Partner med kompetens inom schemalaggning, mobil teknikerstod och IoT-integration" });
-    }
-    if (recommendation.products.some(p => p.name.includes("Contact Center"))) {
-      pdfPartners.push({ label: "Contact Center-specialist", description: "Partner med erfarenhet av volymbaserad kundservice och omnichannel-losningar" });
-    }
-    if (pdfPartners.length === 0) {
-      pdfPartners.push({ label: "Kundservice-specialist", description: "Partner specialiserad pa Dynamics 365 kundservice-losningar" });
+    // AI-/AGENTPOTENTIAL
+    checkPage(40);
+    addSectionHeader("AI-, AUTOMATIONS- OCH AGENTPOTENTIAL", 124, 58, 237);
+    pdf.setFontSize(11);
+    pdf.setFont("helvetica", "bold");
+    pdf.setTextColor(51, 51, 51);
+    pdf.text(`Nivå: ${aiPot.level}`, margin, yPos);
+    yPos += 7;
+    addTextBlock(aiPot.description);
+
+    if (data.aiUseCases.length > 0 && dataMat.level === "Låg") {
+      addTextBlock("AI-intresset finns, men datamognaden är ännu inte tillräcklig för mer avancerade AI-agenter. Första steget bör vara att förbättra datakvalitet, datamodell, integrationer och dataägarskap.");
     }
 
-    pdfPartners.forEach((p) => {
+    // REKOMMENDERAD FÖRDJUPNING: AI ASSESSMENT
+    if (recommendAiAssessment) {
+      checkPage(40);
+      addSectionHeader("REKOMMENDERAD FÖRDJUPNING: AI ASSESSMENT", 168, 85, 247);
+      addTextBlock("Era svar visar att AI, automation eller agenter kan vara relevanta i den fortsatta lösningsdiskussionen. Samtidigt kräver AI och agenter god datakvalitet, tydliga processer, rätt behörigheter, integrationer och kontrollpunkter. Vi rekommenderar därför att ni genomför ett separat AI Assessment som nästa steg för att bedöma AI-mognad, datagrund, möjliga use cases och risker innan AI eller agenter byggs in i lösningen.");
+    } else if (data.aiUseCases.length === 0) {
       checkPage(20);
-      pdf.setFillColor(245, 248, 252);
-      pdf.roundedRect(margin, yPos, contentWidth, 16, 2, 2, 'F');
-      pdf.setFontSize(9.5);
-      pdf.setFont("helvetica", "bold");
-      pdf.setTextColor(30, 58, 138);
-      pdf.text(p.label, margin + 5, yPos + 6);
-      pdf.setFontSize(8);
-      pdf.setFont("helvetica", "normal");
-      pdf.setTextColor(100, 100, 100);
-      const pDescLines = pdf.splitTextToSize(p.description, contentWidth - 10);
-      pdf.text(pDescLines, margin + 5, yPos + 12);
-      yPos += 18 + (pDescLines.length - 1) * 4;
-    });
-    yPos += 8;
+      addTextBlock("AI och agenter kan bevakas som framtida möjlighet, men bör sannolikt inte vara första prioritet i nästa steg.");
+    }
+
+    // PRELIMINÄR LÖSNINGSINRIKTNING
+    checkPage(40);
+    addSectionHeader("PRELIMINÄR LÖSNINGSINRIKTNING", 30, 58, 138);
+    addTextBlock(focusCfg.solutionHypothesis);
+    addTextBlock("Detta är en preliminär lösningshypotes baserad på era svar. Ett slutligt val av Dynamics 365-applikationer, tillägg, AI-stöd och integrationsarkitektur bör föregås av en fördjupad fit-gap, kravspecifikation och partnerdialog.");
+
+    // ══════════════════════════════════════════════════════════════════════
+    // REKOMMENDERAD PARTNERPROFIL (focus-driven)
+    // ══════════════════════════════════════════════════════════════════════
+    checkPage(40);
+    addSectionHeader("REKOMMENDERAD PARTNERPROFIL", 30, 58, 138);
+    addTextBlock("Partnern bör ha erfarenhet av:");
+    addBulletList(focusCfg.partnerProfile);
+    if (recommendAiAssessment) {
+      addTextBlock("Partnern bör även kunna bedöma datamognad, AI-use cases, Copilot Studio, agentarkitektur, behörigheter, loggning och kontrollpunkter. Om datamognaden är låg bör partnern kunna hjälpa till med datakvalitet och processförberedelser innan mer avancerade AI-agenter införs.");
+    }
+
+    // REKOMMENDERADE NÄSTA STEG
+    checkPage(40);
+    addSectionHeader("REKOMMENDERADE NÄSTA STEG", 5, 150, 105);
+    const nextStepsList = [...focusCfg.nextSteps];
+    if (recommendAiAssessment) nextStepsList.push("Genomför AI Assessment innan AI/agenter byggs in i lösningen.");
+    addBulletList(nextStepsList);
+
+    // DISCLAIMER
+    checkPage(30);
+    addSectionHeader("DISCLAIMER", 120, 120, 120);
+    addTextBlock("Denna rapport är AI-genererad baserat på de svar som har lämnats i behovsanalysen. Rapporten ska ses som ett preliminärt beslutsunderlag och inte som en slutgiltig systemrekommendation. Val av Dynamics 365-applikationer, tillägg, AI-stöd, integrationslösningar och partner bör föregås av en fördjupad analys, kravspecifikation och partnerdialog. Om AI eller agenter ska användas bör datamognad, behörigheter, governance och kontrollpunkter bedömas särskilt, exempelvis genom ett separat AI Assessment.");
+
+
 
     // ── APPENDIX ─────────────────────────────────────────────────────────────
     pdf.addPage();
@@ -1028,7 +1304,7 @@ const CustomerServiceNeedsAnalysis = () => {
     pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
     pdf.text("d365.se", pageWidth - margin - 55, yPos + 26);
 
-    const pdfFilename = `Behovsanalys_Kundservice_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}`;
+    const pdfFilename = `Behovsanalys_${focusCfg.pdfSubTitle.replace(/[^a-zA-ZåäöÅÄÖ0-9]+/g, "_")}_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}`;
     const pdfBase64 = pdf.output('datauristring').split(',')[1];
     pdf.save(`${pdfFilename}.pdf`);
 
@@ -1036,7 +1312,7 @@ const CustomerServiceNeedsAnalysis = () => {
     try {
       await supabase.functions.invoke("send-analysis-email", {
         body: {
-          analysisType: "Kundservice",
+          analysisType: focusCfg.emailAnalysisType,
           companyName: data.companyName,
           contactName: data.contactName,
           phone: data.phone || "",
@@ -1119,21 +1395,41 @@ const CustomerServiceNeedsAnalysis = () => {
         return (
           <div className="space-y-6">
             <div>
-              <Label className="text-base font-semibold mb-1 block">Hur levererar ni huvudsakligen kundservice?</Label>
-              <p className="text-sm text-muted-foreground mb-4">Ditt val styr vilka frågor och rekommendationer som är relevanta för er.</p>
+              <Label className="text-base font-semibold mb-1 block">Vilket område gäller behovsanalysen främst?</Label>
+              <p className="text-sm text-muted-foreground mb-4">Välj det område som bäst beskriver ert nuläge. Svaren styr vilka följdfrågor som visas och hur analysen tolkar er preliminära lösningsinriktning.</p>
               <div className="grid grid-cols-1 gap-3">
                 {[
-                  { value: "Ärendebaserad kundservice", label: "1️⃣ Ärendebaserad kundservice", description: "Kunder kontaktar er och ni hanterar ärenden" },
-                  { value: "Volymbaserad kundservice / Contact Center", label: "2️⃣ Volymbaserad kundservice / Contact Center", description: "Hög volym av inkommande kontakter via flera kanaler" },
-                  { value: "Fältservice med tekniker", label: "3️⃣ Fältservice med tekniker på plats", description: "Service utförs hos kund" },
-                  { value: "Kombination av flera", label: "4️⃣ Kombination av flera upplägg", description: "Ni arbetar med en mix av ärendehantering, contact center och/eller fältservice" },
+                  { value: "Ärendebaserad kundservice", label: "Kundservice / Ärendehantering", description: "Kunder kontaktar er och ni hanterar ärenden, SLA, kunskapsdatabas och eskaleringar" },
+                  { value: "Fältservice med tekniker", label: "Fältservice / Tekniker och serviceuppdrag", description: "Service utförs hos kund med teknikerplanering, installerad bas och reservdelar" },
+                  { value: "Volymbaserad kundservice / Contact Center", label: "Contact Center / Telefoni, chatt och omnichannel", description: "Hög volym av inkommande kontakter via flera kanaler, agentstöd och routing" },
+                  { value: "Kombination av flera", label: "Flera av områdena ovan", description: "Sammanhängande flöde mellan contact center, kundservice och/eller fältservice" },
+                  { value: "Osäkert – vi vill förstå behovet bättre", label: "Osäkert – vi vill förstå behovet bättre", description: "Vi vill att analysen hjälper oss förstå vilket område som behöver mest fokus" },
                 ].map((option) => (
                   <SelectionCard key={option.value} label={option.label} description={option.description} selected={data.serviceModel === option.value} onClick={() => setData({ ...data, serviceModel: option.value })} type="radio" />
                 ))}
               </div>
             </div>
+
+            {data.serviceModel === "Osäkert – vi vill förstå behovet bättre" && (
+              <div>
+                <Label className="text-base font-semibold mb-1 block">Var upplever ni störst problem idag?</Label>
+                <p className="text-sm text-muted-foreground mb-4">Välj alla som stämmer. Analysen använder svaren för att föreslå vilket område som verkar mest centralt.</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {unsureIssueOptions.map((opt) => (
+                    <SelectionCard
+                      key={opt}
+                      label={opt}
+                      selected={data.unsureIssues.includes(opt)}
+                      onClick={() => handleCheckboxChange("unsureIssues", opt)}
+                      type="checkbox"
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         );
+
 
       case 3: {
         const isDigital = data.serviceModel === "Ärendebaserad kundservice";
@@ -1304,28 +1600,71 @@ const CustomerServiceNeedsAnalysis = () => {
 
       case 6:
         return (
-          <div className="space-y-6">
+          <div className="space-y-8">
             <div>
-              <Label className="text-base font-semibold mb-3 block">Vilka systemberoenden har er kundservice? (välj alla som gäller)</Label>
+              <Label className="text-base font-semibold mb-1 block">Data, kundhistorik och integrationer</Label>
+              <p className="text-sm text-muted-foreground mb-4">AI, automation och en sammanhängande serviceupplevelse kräver att kunddata, ärendehistorik, serviceinformation och integrationer håller tillräcklig kvalitet.</p>
+              <Label className="text-sm font-medium mb-2 block">Vilka system behöver serviceflödet kopplas till? (välj alla som gäller)</Label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {[
-                  { id: "erp", label: "ERP (ekonomi/lager)" },
-                  { id: "iot", label: "IoT / sensordata" },
-                  { id: "product_register", label: "Produktregister" },
-                  { id: "lager", label: "Lagerhantering" },
+                  { id: "erp", label: "ERP / affärssystem" },
+                  { id: "crm_sales", label: "CRM" },
+                  { id: "telefoni", label: "Telefoni / Contact Center-plattform" },
+                  { id: "email", label: "E-post" },
+                  { id: "chat", label: "Chatt" },
+                  { id: "portal", label: "Webb / kundportal" },
+                  { id: "field_service_ext", label: "Field service / mobilapp" },
+                  { id: "lager", label: "Lager / reservdelar" },
                   { id: "fakturering", label: "Fakturering" },
-                  { id: "crm_sales", label: "CRM/Sälj" },
-                  { id: "field_service_ext", label: "Externt fältservice-system" },
-                  { id: "telefoni", label: "Telefoniplattform (PBX/UCaaS)" },
-                  { id: "e_handel", label: "E-handelsplattform" },
-                  { id: "hr", label: "HR-system" },
+                  { id: "e_handel", label: "E-handel" },
+                  { id: "iot", label: "IoT / uppkopplade produkter" },
+                  { id: "powerbi", label: "Power BI / rapportering" },
+                  { id: "datawarehouse", label: "Data warehouse / lakehouse" },
+                  { id: "sharepoint", label: "SharePoint / dokument" },
+                  { id: "knowledge", label: "Kunskapsdatabas" },
+                  { id: "annat", label: "Annat" },
                 ].map((opt) => (
                   <SelectionCard key={opt.id} label={opt.label} selected={data.systemDependencies.includes(opt.id)} onClick={() => handleCheckboxChange("systemDependencies", opt.id)} type="checkbox" />
                 ))}
               </div>
             </div>
+
+            <div className="border-t pt-6">
+              <Label className="text-base font-semibold mb-1 block">Datamognad för AI och agenter</Label>
+              <p className="text-sm text-muted-foreground mb-4">Bedömningen påverkar AI-/agentpotential, risknivå och rekommenderad partnerprofil.</p>
+
+              <Label className="text-sm font-medium mb-2 block">Har ni tillräcklig ordning på den data som AI eller agenter skulle behöva använda?</Label>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+                {dataMaturityOptions.map((opt) => (
+                  <SelectionCard key={opt} label={opt} selected={data.dataMaturity === opt} onClick={() => setData({ ...data, dataMaturity: opt })} type="radio" />
+                ))}
+              </div>
+
+              <Label className="text-sm font-medium mb-2 block">Hur tillförlitligt är ert underlag (kund-, ärende-, service-, kunskapsdata) idag?</Label>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+                {dataReliabilityOptions.map((opt) => (
+                  <SelectionCard key={opt} label={opt} selected={data.dataReliability === opt} onClick={() => setData({ ...data, dataReliability: opt })} type="radio" />
+                ))}
+              </div>
+
+              <Label className="text-sm font-medium mb-2 block">Finns tydligt dataägarskap?</Label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
+                {dataOwnershipOptions.map((opt) => (
+                  <SelectionCard key={opt} label={opt} selected={data.dataOwnership === opt} onClick={() => setData({ ...data, dataOwnership: opt })} type="radio" />
+                ))}
+              </div>
+
+              <Label className="text-sm font-medium mb-2 block">Finns tydliga behörigheter och åtkomstregler?</Label>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {dataAccessControlOptions.map((opt) => (
+                  <SelectionCard key={opt} label={opt} selected={data.dataAccessControls === opt} onClick={() => setData({ ...data, dataAccessControls: opt })} type="radio" />
+                ))}
+              </div>
+            </div>
           </div>
         );
+
+
 
       case 7:
         return (
@@ -1369,8 +1708,29 @@ const CustomerServiceNeedsAnalysis = () => {
                 ))}
               </div>
             </div>
+
+            <div className="border-t pt-6">
+              <Label className="text-base font-semibold mb-1 block">Hur långt vill ni att AI/agenter ska få agera?</Label>
+              <p className="text-sm text-muted-foreground mb-3">AI och agenter kan effektivisera serviceflöden, men nyttan beror på datakvalitet, processer, integrationer, behörigheter och kontrollpunkter.</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {aiAutonomyOptions.map((opt) => (
+                  <SelectionCard key={opt} label={opt} selected={data.aiAutonomy === opt} onClick={() => setData({ ...data, aiAutonomy: opt })} type="radio" />
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Vilka kontrollpunkter krävs? (välj alla som gäller)</Label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {aiControlOptions.map((opt) => (
+                  <SelectionCard key={opt} label={opt} selected={data.aiControls.includes(opt)} onClick={() => handleCheckboxChange("aiControls", opt)} type="checkbox" />
+                ))}
+              </div>
+            </div>
           </div>
         );
+
+
 
       case 8: {
         const rec = getRecommendation();
