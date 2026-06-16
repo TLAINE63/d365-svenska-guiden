@@ -2984,7 +2984,7 @@ const SalesMarketingNeedsAnalysis = () => {
         <Navbar />
         <main className="pt-28 pb-16">
   
-      <ShortAnswer>
+      <ShortAnswer title="Vad är en behovsanalys för Sales & Marketing">
         En CRM-behovsanalys för sälj och marknad klargör hur er pipeline, leadshantering, kampanjer och kunddata ska fungera — innan ni jämför verktyg. Vår kostnadsfria analys ger en köparsidig rekommendation om Dynamics 365 Sales och Customer Insights baserat på er säljmodell, B2B/B2C-fokus och datamognad.
       </ShortAnswer>
 
