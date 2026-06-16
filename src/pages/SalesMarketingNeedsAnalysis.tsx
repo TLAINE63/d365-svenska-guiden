@@ -2219,25 +2219,26 @@ const SalesMarketingNeedsAnalysis = () => {
       case 4:
         return (
           <div className="space-y-6">
-            {/* CRM-användning */}
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Använder ni något CRM-system idag?</Label>
-              <div className="grid grid-cols-1 gap-3">
-                {[
-                  "Nej",
-                  "Vi har ett enklare CRM-system som används av delar av organisationen",
-                  "Ja, vi har ett avancerat CRM-system",
-                ].map((opt) => (
-                  <SelectionCard
-                    key={opt}
-                    label={opt}
-                    selected={data.currentCrmUsage === opt}
-                    onClick={() => setData({ ...data, currentCrmUsage: opt })}
-                    type="radio"
-                  />
-                ))}
+            {focus !== "marketing" && (
+              <div>
+                <Label className="text-base font-semibold mb-3 block">Använder ni något CRM-system idag?</Label>
+                <div className="grid grid-cols-1 gap-3">
+                  {[
+                    "Nej",
+                    "Vi har ett enklare CRM-system som används av delar av organisationen",
+                    "Ja, vi har ett avancerat CRM-system",
+                  ].map((opt) => (
+                    <SelectionCard
+                      key={opt}
+                      label={opt}
+                      selected={data.currentCrmUsage === opt}
+                      onClick={() => setData({ ...data, currentCrmUsage: opt })}
+                      type="radio"
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Kunddata */}
             <div>
