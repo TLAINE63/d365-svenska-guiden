@@ -1433,10 +1433,15 @@ const CustomerServiceNeedsAnalysis = () => {
 
 
       case 3: {
-        const isDigital = data.serviceModel === "Ärendebaserad kundservice";
-        const isContactCenter = data.serviceModel === "Volymbaserad kundservice / Contact Center";
-        const isFieldService = data.serviceModel === "Fältservice med tekniker";
-        const isCombination = data.serviceModel === "Kombination av flera";
+        const fk = getFocusKey(data);
+        const showCs = fk === "customer_service" || fk === "multi";
+        const showCc = fk === "contact_center" || fk === "multi";
+        const showFs = fk === "field_service" || fk === "multi";
+        const focusLabel =
+          fk === "customer_service" ? "Kundservice / Ärendehantering"
+          : fk === "contact_center" ? "Contact Center"
+          : fk === "field_service" ? "Fältservice"
+          : "Kundservice, Contact Center och Fältservice";
 
         const makeRadioGroup = (field: keyof CustomerServiceAnalysisData, options: string[]) => (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1449,14 +1454,23 @@ const CustomerServiceNeedsAnalysis = () => {
         return (
           <div className="space-y-8">
             <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-              <p className="text-sm text-primary font-medium">📋 Frågorna nedan är anpassade för: <span className="font-bold">{data.serviceModel || "er valda service-modell"}</span></p>
+              <p className="text-sm text-primary font-medium">📋 Frågorna nedan är anpassade för: <span className="font-bold">{focusLabel}</span></p>
             </div>
 
-            {(isDigital || isCombination) && (
+            {showCs && (
               <>
                 <div>
                   <Label className="text-base font-semibold mb-3 block">Hur många ärenden hanterar ni per månad?</Label>
                   {makeRadioGroup("ticketsPerMonth", ["Färre än 100", "100–500", "500–2 000", "2 000–10 000", "Mer än 10 000"])}
+                </div>
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Vilka KPI:er är viktigast för kundservicen?</Label>
+                  <p className="text-sm text-muted-foreground mb-3">Välj de mått ni följer eller vill kunna följa.</p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {["SLA-uppfyllnad", "First Contact Resolution (FCR)", "Genomsnittlig hanteringstid (AHT)", "Backlog / öppna ärenden", "Kundnöjdhet (CSAT)", "NPS", "Återöppnade ärenden"].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={(data.csKpis || []).includes(opt)} onClick={() => handleCheckboxChange("csKpis", opt)} type="checkbox" />
+                    ))}
+                  </div>
                 </div>
                 <div>
                   <Label className="text-base font-semibold mb-3 block">Har ni SLA-krav eller avtalade svarstider?</Label>
@@ -1473,7 +1487,7 @@ const CustomerServiceNeedsAnalysis = () => {
               </>
             )}
 
-            {(isContactCenter || isCombination) && (
+            {showCc && (
               <>
                 <div>
                   <Label className="text-base font-semibold mb-3 block">Hur hög är er inkommande volym per dag?</Label>
@@ -1488,12 +1502,33 @@ const CustomerServiceNeedsAnalysis = () => {
                   </div>
                 </div>
                 <div>
+                  <Label className="text-base font-semibold mb-3 block">Vilka KPI:er är viktigast för ert contact center?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {["Service Level (% besvarade inom X sek)", "Average Speed of Answer (ASA)", "Abandonment rate", "Genomsnittlig hanteringstid (AHT)", "Occupancy / utnyttjandegrad", "Kundnöjdhet (CSAT)", "First Contact Resolution"].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={(data.ccKpis || []).includes(opt)} onClick={() => handleCheckboxChange("ccKpis", opt)} type="checkbox" />
+                    ))}
+                  </div>
+                </div>
+                <div>
                   <Label className="text-base font-semibold mb-3 block">Behöver ni realtidsstyrning och supervisor-dashboard?</Label>
                   {makeRadioGroup("realtimeManagement", ["Ja, kritiskt för oss", "Vore bra men inte krav", "Nej, vi behöver det inte"])}
                 </div>
               </>
             )}
 
+            {showFs && (
+              <>
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Vilka KPI:er är viktigast för fältservicen?</Label>
+                  <p className="text-sm text-muted-foreground mb-3">Detaljerade fältservice-frågor kommer i nästa steg.</p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {["First Time Fix Rate", "Mean Time To Repair (MTTR)", "Teknikerutnyttjande", "Jobb per tekniker och dag", "Restid vs arbetstid", "SLA på serviceavtal", "Kundnöjdhet efter besök"].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={(data.fsKpis || []).includes(opt)} onClick={() => handleCheckboxChange("fsKpis", opt)} type="checkbox" />
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
 
             <div>
               <Label className="text-base font-semibold mb-3 block">Verkar ni i flera länder?</Label>
