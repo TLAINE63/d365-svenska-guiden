@@ -160,9 +160,14 @@ Deno.serve(async (req) => {
                      req.headers.get("x-real-ip") ||
                      "unknown";
 
-    // Perform geo lookup before anonymizing
-    const geoData = clientIp !== "unknown" ? await getGeoData(clientIp) : null;
+    // Anonymize IP BEFORE any third-party lookup to avoid transmitting raw PII.
+    // Use the /24-zeroed IP for the geo lookup (preserves country/region/city accuracy
+    // for IPv4 in practice while never sending the full visitor IP off our infrastructure).
     const anonymizedIp = clientIp !== "unknown" ? anonymizeIp(clientIp) : "unknown";
+    const geoLookupIp = clientIp !== "unknown" && clientIp.includes(".")
+      ? clientIp.split(".").slice(0, 3).join(".") + ".0"
+      : null;
+    const geoData = geoLookupIp ? await getGeoData(geoLookupIp) : null;
 
     // Insert visitor record (only on initial page load)
     const { error } = await supabase.from("visitor_analytics").insert({
