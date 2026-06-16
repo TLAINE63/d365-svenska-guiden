@@ -54,7 +54,7 @@ interface GeoData {
 
 async function getGeoData(ip: string): Promise<GeoData | null> {
   try {
-    const response = await fetch(`http://ip-api.com/json/${ip}?fields=status,country,countryCode,regionName,city,org`);
+    const response = await fetch(`https://ip-api.com/json/${ip}?fields=status,country,countryCode,regionName,city,org`);
     const data = await response.json();
     
     if (data.status === "success") {
