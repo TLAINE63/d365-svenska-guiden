@@ -314,12 +314,14 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
   };
 
   return (
-    <section className="section-divider section-divider-dark bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] py-12 md:py-20 border-b border-white/10 relative overflow-hidden">
+    <>
+    {/* Dark full-width hero (matches Home pattern) */}
+    <section className="section-divider section-divider-dark bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] py-14 md:py-20 border-b border-white/10 relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)] pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--cta-orange)/0.10),transparent_55%)] pointer-events-none" />
+      <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
       <div className="relative container mx-auto px-4 sm:px-6 max-w-5xl">
-        {/* Header */}
-        <header className="mb-10 md:mb-14">
+        <header>
           <span className="inline-block mb-4 px-3 py-1 rounded-full bg-cta-orange/20 text-cta-orange text-[11px] font-semibold uppercase tracking-[0.16em] ring-1 ring-cta-orange/30">
             Nytt för 2026 · Beslutsmognadsindex
           </span>
@@ -360,6 +362,12 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
             </span>
           </div>
         </header>
+      </div>
+    </section>
+
+    {/* Light section: journey map + overview */}
+    <section className="bg-[#FAFAFA] py-12 md:py-20 border-b border-[#E5E5E8]">
+      <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
 
 
 
