@@ -802,6 +802,8 @@ export type Database = {
           created_at: string
           customer_examples: string[] | null
           description: string | null
+          description_ai_generated: boolean | null
+          description_generated_at: string | null
           email: string | null
           geography: string[] | null
           id: string
@@ -848,6 +850,8 @@ export type Database = {
           created_at?: string
           customer_examples?: string[] | null
           description?: string | null
+          description_ai_generated?: boolean | null
+          description_generated_at?: string | null
           email?: string | null
           geography?: string[] | null
           id?: string
@@ -894,6 +898,8 @@ export type Database = {
           created_at?: string
           customer_examples?: string[] | null
           description?: string | null
+          description_ai_generated?: boolean | null
+          description_generated_at?: string | null
           email?: string | null
           geography?: string[] | null
           id?: string

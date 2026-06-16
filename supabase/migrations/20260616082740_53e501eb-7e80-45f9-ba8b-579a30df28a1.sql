@@ -1,0 +1,1 @@
+ALTER TABLE public.partners ADD COLUMN IF NOT EXISTS description_ai_generated boolean DEFAULT false, ADD COLUMN IF NOT EXISTS description_generated_at timestamptz;
