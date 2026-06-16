@@ -109,6 +109,13 @@ interface AnalysisData {
   aiInterest: string;
   aiUseCases: string[];
   aiDetails: string;
+  // AI, automation och beslutsstöd (utbyggd)
+  aiAmbitions: string[];
+  aiDataQuality: Record<string, string>; // område -> Bra|Blandad|Bristfällig|Vet ej
+  aiDataIssues: string[];
+  aiProcessMaturity: Record<string, string>; // område -> Låg|Medel|Hög|Vet ej
+  aiGovernance: string;
+  aiRisks: string[];
   // Step 11
   additionalInfo: string;
   // Contact info
@@ -307,6 +314,12 @@ const initialData: AnalysisData = {
   aiInterest: "",
   aiUseCases: [],
   aiDetails: "",
+  aiAmbitions: [],
+  aiDataQuality: {},
+  aiDataIssues: [],
+  aiProcessMaturity: {},
+  aiGovernance: "",
+  aiRisks: [],
   additionalInfo: "",
   companyName: "",
   contactName: "",
@@ -735,7 +748,122 @@ const aiUseCaseCategories = [
   }
 ];
 
+// ============ AI, automation och beslutsstöd ============
+
+const aiAmbitionOptions = [
+  "Minska manuellt administrativt arbete",
+  "Förbättra prognoser och planering",
+  "Automatisera ekonomi- och fakturaprocesser",
+  "Förbättra inköp och leverantörsstyrning",
+  "Optimera lager och varuflöden",
+  "Förbättra produktion och kapacitetsplanering",
+  "Identifiera avvikelser och risker tidigare",
+  "Ge ledning och chefer bättre beslutsstöd",
+  "Förbättra kundservice och ärendehantering",
+  "Stärka sälj- och kundprioritering",
+  "Skapa bättre rapportering och analys",
+  "Vi vet inte ännu, men vill förstå möjligheterna",
+];
+
+const aiUseCaseDomains: { domain: string; items: string[] }[] = [
+  { domain: "Ekonomi", items: [
+    "Fakturatolkning och automatiserad bokföring",
+    "Avvikelseanalys i ekonomi",
+    "Cash flow-prognoser",
+    "Automatiserad periodisering eller uppföljning",
+  ]},
+  { domain: "Inköp och supply chain", items: [
+    "Förslag på inköpsbehov",
+    "Identifiera pris- eller leveransavvikelser",
+    "Leverantörsanalys",
+    "Prognoser för efterfrågan och inköp",
+  ]},
+  { domain: "Lager och logistik", items: [
+    "Lageroptimering",
+    "Identifiera bristvaror och överlager",
+    "Förbättrad leveransprecision",
+    "Avvikelseanalys i lagerflöden",
+  ]},
+  { domain: "Produktion", items: [
+    "Produktionsplanering",
+    "Kapacitetsrisker",
+    "Kvalitetsavvikelser",
+    "Prediktivt underhåll",
+  ]},
+  { domain: "Försäljning och kund", items: [
+    "Säljprognoser",
+    "Kundprioritering",
+    "Offertstöd",
+    "Nästa bästa aktivitet",
+  ]},
+  { domain: "Service", items: [
+    "Ärendesammanfattningar",
+    "Kunskapsförslag",
+    "Prediktivt underhåll (service)",
+    "Prioritering av serviceärenden",
+  ]},
+  { domain: "Ledning och analys", items: [
+    "Beslutsstöd i realtid",
+    "Naturligt språk mot rapporter och data",
+    "AI-genererade sammanfattningar",
+    "Identifiering av trender och avvikelser",
+  ]},
+];
+
+const aiDataAreas = [
+  "Artikeldata", "Kunddata", "Leverantörsdata", "Lagerdata", "Produktionsdata",
+  "Ekonomidata", "Försäljningsdata", "Historiska transaktioner", "Rapportering/BI",
+  "Data i Excel eller fristående system",
+];
+const aiDataQualityScale = ["Bra", "Blandad", "Bristfällig", "Vet ej"];
+
+const aiDataIssueOptions = [
+  "Data finns utspridd i flera system",
+  "Mycket data hanteras i Excel",
+  "Rapportering visar olika siffror beroende på källa",
+  "Artikeldata är inkonsekvent",
+  "Kund- eller leverantörsregister är svåra att lita på",
+  "Historisk data är ofullständig",
+  "Det saknas tydligt dataägarskap",
+  "Vi litar inte fullt ut på rapporterna",
+  "Inga större dataproblem idag",
+  "Vet ej",
+];
+
+const aiProcessAreas = [
+  "Processerna är dokumenterade",
+  "Processerna är standardiserade",
+  "Det finns tydliga processägare",
+  "Det finns tydliga godkännandeflöden",
+  "Det finns många manuella moment",
+  "Det finns många undantag och specialfall",
+  "Det är tydligt vilka moment som bör automatiseras",
+  "Verksamheten är redo att förändra arbetssätt",
+];
+const aiProcessScale = ["Låg", "Medel", "Hög", "Vet ej"];
+
+const aiGovernanceOptions = [
+  "Ja, vi har tydliga riktlinjer",
+  "Delvis, men de behöver utvecklas",
+  "Nej, inte idag",
+  "Vet ej",
+];
+
+const aiRiskOptions = [
+  "Dataskydd och GDPR",
+  "Behörigheter och åtkomst till känslig data",
+  "Spårbarhet i AI-genererade förslag",
+  "Risk för felaktiga AI-svar",
+  "Intern acceptans hos användare",
+  "Juridiska eller regulatoriska krav",
+  "Oklart ägarskap för AI internt",
+  "Säkerhet kring företagsdata",
+  "Vi ser inga större risker idag",
+  "Vet ej",
+];
+
 // ============ Complexity Assessment Options ============
+
 
 const complexityStructureOptions = {
   legalEntities: [
@@ -916,7 +1044,7 @@ const NeedsAnalysis = () => {
     "Geografi",
     "Situation",
     "Utmaningar",
-    "AI & Framtid",
+    "AI, automation och beslutsstöd",
     "Vägledande ERP-Analys",
   ];
 
@@ -950,7 +1078,107 @@ const NeedsAnalysis = () => {
     });
   };
 
+  const updateAiDataQuality = (area: string, value: string) => {
+    setData({ ...data, aiDataQuality: { ...data.aiDataQuality, [area]: value } });
+  };
+  const updateAiProcessMaturity = (area: string, value: string) => {
+    setData({ ...data, aiProcessMaturity: { ...data.aiProcessMaturity, [area]: value } });
+  };
+
+  // ============ AI Maturity Assessment ============
+  const getAiMaturity = (): {
+    level: "Låg" | "Medel" | "Hög" | "Avancerad";
+    dataScore: number; // 0-100
+    processScore: number; // 0-100
+    ambitionScore: number; // 0-100
+    governanceScore: number; // 0-100
+    manualHeavy: boolean;
+    summary: string;
+  } => {
+    // Data quality score
+    const dq = data.aiDataQuality || {};
+    const dqValues = Object.values(dq).filter(v => v && v !== "Vet ej");
+    let dataScore = 50;
+    if (dqValues.length > 0) {
+      const map: Record<string, number> = { "Bra": 100, "Blandad": 55, "Bristfällig": 15 };
+      dataScore = Math.round(dqValues.reduce((s, v) => s + (map[v] ?? 50), 0) / dqValues.length);
+    }
+    // Data issues penalty (except "Inga större dataproblem")
+    const negativeIssues = data.aiDataIssues.filter(i => i !== "Inga större dataproblem idag" && i !== "Vet ej");
+    dataScore = Math.max(0, dataScore - negativeIssues.length * 4);
+    if (data.aiDataIssues.includes("Inga större dataproblem idag")) dataScore = Math.min(100, dataScore + 10);
+
+    // Process maturity score
+    const pm = data.aiProcessMaturity || {};
+    const pmValues = Object.entries(pm).filter(([, v]) => v && v !== "Vet ej");
+    let processScore = 50;
+    if (pmValues.length > 0) {
+      const map: Record<string, number> = { "Låg": 20, "Medel": 60, "Hög": 95 };
+      // Negative-framed statements: "manuella moment" och "undantag och specialfall" — högre = sämre mognad
+      const negativeAreas = new Set(["Det finns många manuella moment", "Det finns många undantag och specialfall"]);
+      processScore = Math.round(
+        pmValues.reduce((s, [area, v]) => {
+          const base = map[v] ?? 50;
+          return s + (negativeAreas.has(area) ? 100 - base : base);
+        }, 0) / pmValues.length
+      );
+    }
+    const manualHeavy = pm["Det finns många manuella moment"] === "Hög";
+
+    // Ambition score: more ambitions => higher intent
+    const ambitions = data.aiAmbitions.filter(a => a !== "Vi vet inte ännu, men vill förstå möjligheterna");
+    const ambitionScore = Math.min(100, ambitions.length * 18);
+
+    // Governance score
+    const govMap: Record<string, number> = {
+      "Ja, vi har tydliga riktlinjer": 100,
+      "Delvis, men de behöver utvecklas": 55,
+      "Nej, inte idag": 15,
+      "Vet ej": 30,
+    };
+    const governanceScore = govMap[data.aiGovernance] ?? 30;
+
+    // Composite (data heaviest)
+    const composite = Math.round(
+      dataScore * 0.40 + processScore * 0.30 + ambitionScore * 0.20 + governanceScore * 0.10
+    );
+
+    let level: "Låg" | "Medel" | "Hög" | "Avancerad";
+    if (composite < 35) level = "Låg";
+    else if (composite < 60) level = "Medel";
+    else if (composite < 80) level = "Hög";
+    else level = "Avancerad";
+
+    const summary =
+      level === "Låg" ? "AI-intresse kan finnas, men data, processer eller styrning behöver först förbättras."
+      : level === "Medel" ? "Det finns tydliga möjligheter, men nyttan kräver bättre datakvalitet, processkartläggning eller prioritering av use cases."
+      : level === "Hög" ? "Verksamheten har tydliga mål, relativt god datagrund och identifierade processer där AI kan skapa affärsnytta."
+      : "AI kan bli en central del av framtida ERP, beslutsstöd och automation. Verksamheten har både datagrund, processmognad och tydliga användningsfall.";
+
+    return { level, dataScore, processScore, ambitionScore, governanceScore, manualHeavy, summary };
+  };
+
+  const getAiNextSteps = (): string[] => {
+    const m = getAiMaturity();
+    const steps: string[] = [];
+    const hasAmbition = data.aiAmbitions.length > 0 && !data.aiAmbitions.every(a => a === "Vi vet inte ännu, men vill förstå möjligheterna");
+    if (hasAmbition && m.dataScore < 50) {
+      steps.push("Prioritera datakvalitet, masterdata och rapporteringsstruktur innan större AI-initiativ startas.");
+    }
+    if (hasAmbition && m.dataScore >= 50) {
+      steps.push("Identifiera 2–3 konkreta AI-use cases som kan testas i samband med ERP-förstudie eller fit-gap.");
+    }
+    if (m.manualHeavy) {
+      steps.push("Kartlägg manuella moment och bedöm vilka som kan automatiseras med standardfunktionalitet, Power Automate, Copilot eller kompletterande lösningar.");
+    }
+    if (data.aiGovernance === "Nej, inte idag" || data.aiGovernance === "Vet ej") {
+      steps.push("Ta fram riktlinjer för AI-användning, dataskydd, behörigheter och ansvar innan AI-stöd införs brett.");
+    }
+    return steps;
+  };
+
   // ============ Complexity Scoring ============
+
   const getComplexityScores = () => {
     const c = data.complexity;
     
@@ -1529,6 +1757,8 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
     const recommendation = getERPRecommendation();
     const complexity = getComplexityScores();
+    const aiMaturity = getAiMaturity();
+    const deterministicAiNextSteps = getAiNextSteps();
 
     // ── Hämta köparsidig AI-tolkning (med fallback) ─────────────────────────
     let aiAnalysis: {
@@ -1561,7 +1791,18 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         beslutstidslinje: data.decisionTimeline,
         integrationer: data.integrationSystems.filter(s => s.system.trim()),
         aiIntresse: data.aiInterest,
-        aiAnvandningsomraden: data.aiUseCases,
+        aiAmbitioner: data.aiAmbitions,
+        aiUseCases: data.aiUseCases,
+        aiDatakvalitet: data.aiDataQuality,
+        aiDataproblem: data.aiDataIssues,
+        aiProcessmognad: data.aiProcessMaturity,
+        aiGovernance: data.aiGovernance,
+        aiRisker: data.aiRisks,
+        aiKommentar: data.aiDetails,
+        aiMognadsniva: aiMaturity.level,
+        aiMognadDataScore: aiMaturity.dataScore,
+        aiMognadProcessScore: aiMaturity.processScore,
+        aiRekommenderadeNastaStegDeterministiska: deterministicAiNextSteps,
         onskelista: data.wishlist,
         ovrigInfo: data.additionalInfo,
       };
@@ -1578,6 +1819,11 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             isCloseCall: recommendation.isCloseCall,
             complexityLevel: complexity.complexityLevel,
             riskLevel: complexity.riskLevel,
+            aiMaturity: aiMaturity.level,
+            aiAmbitions: data.aiAmbitions,
+            aiUseCases: data.aiUseCases,
+            aiDataIssues: data.aiDataIssues,
+            aiRisks: data.aiRisks,
           },
         },
       });
@@ -2079,6 +2325,136 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     yPos += 8;
 
     // ══════════════════════════════════════════════════════════════════════
+    // AI-MOGNAD OCH AUTOMATIONSPOTENTIAL
+    // ══════════════════════════════════════════════════════════════════════
+    {
+      checkPage(40);
+      addSectionHeader("AI-MOGNAD OCH AUTOMATIONSPOTENTIAL", 90, 60, 160);
+
+      // Mognadsbadge
+      const mc: Record<string, [number, number, number]> = {
+        "Låg": [180, 90, 30],
+        "Medel": [200, 150, 40],
+        "Hög": [40, 130, 90],
+        "Avancerad": [60, 90, 170],
+      };
+      const [mr, mg, mb] = mc[aiMaturity.level] || [120, 120, 120];
+      pdf.setFillColor(mr, mg, mb);
+      pdf.roundedRect(margin, yPos, 70, 9, 2, 2, "F");
+      pdf.setTextColor(255, 255, 255);
+      pdf.setFontSize(9);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(`AI-mognad: ${aiMaturity.level}`, margin + 4, yPos + 6);
+      yPos += 13;
+
+      pdf.setTextColor(40, 40, 40);
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(9);
+      const summaryLines = pdf.splitTextToSize(aiMaturity.summary, contentWidth);
+      summaryLines.forEach((l: string) => { checkPage(6); pdf.text(l, margin, yPos); yPos += 5; });
+      yPos += 3;
+
+      // Ambitioner
+      if (data.aiAmbitions.length) {
+        checkPage(12);
+        pdf.setFont("helvetica", "bold");
+        pdf.text("Vad ni vill uppna med AI:", margin, yPos); yPos += 5;
+        pdf.setFont("helvetica", "normal");
+        const amb = pdf.splitTextToSize("- " + data.aiAmbitions.join("\n- "), contentWidth - 4);
+        amb.forEach((l: string) => { checkPage(6); pdf.text(l, margin + 2, yPos); yPos += 5; });
+        yPos += 2;
+      }
+
+      // Prioriterade use cases
+      if (data.aiUseCases.length) {
+        checkPage(12);
+        pdf.setFont("helvetica", "bold");
+        pdf.text("Prioriterade AI-use cases:", margin, yPos); yPos += 5;
+        pdf.setFont("helvetica", "normal");
+        const uc = pdf.splitTextToSize("- " + data.aiUseCases.join("\n- "), contentWidth - 4);
+        uc.forEach((l: string) => { checkPage(6); pdf.text(l, margin + 2, yPos); yPos += 5; });
+        yPos += 2;
+      }
+
+      // Datamognad
+      const dqEntries = Object.entries(data.aiDataQuality || {}).filter(([, v]) => v);
+      if (dqEntries.length) {
+        checkPage(12);
+        pdf.setFont("helvetica", "bold");
+        pdf.text(`Datamognad (sammanvagd: ${aiMaturity.dataScore}/100):`, margin, yPos); yPos += 5;
+        pdf.setFont("helvetica", "normal");
+        dqEntries.forEach(([k, v]) => {
+          checkPage(5);
+          pdf.text(`- ${k}: ${v}`, margin + 2, yPos);
+          yPos += 5;
+        });
+        yPos += 2;
+      }
+      if (data.aiDataIssues.length) {
+        checkPage(12);
+        pdf.setFont("helvetica", "bold");
+        pdf.text("Identifierade dataproblem:", margin, yPos); yPos += 5;
+        pdf.setFont("helvetica", "normal");
+        const di = pdf.splitTextToSize("- " + data.aiDataIssues.join("\n- "), contentWidth - 4);
+        di.forEach((l: string) => { checkPage(6); pdf.text(l, margin + 2, yPos); yPos += 5; });
+        yPos += 2;
+      }
+
+      // Processmognad
+      const pmEntries = Object.entries(data.aiProcessMaturity || {}).filter(([, v]) => v);
+      if (pmEntries.length) {
+        checkPage(12);
+        pdf.setFont("helvetica", "bold");
+        pdf.text(`Processmognad (sammanvagd: ${aiMaturity.processScore}/100):`, margin, yPos); yPos += 5;
+        pdf.setFont("helvetica", "normal");
+        pmEntries.forEach(([k, v]) => {
+          checkPage(5);
+          pdf.text(`- ${k}: ${v}`, margin + 2, yPos);
+          yPos += 5;
+        });
+        yPos += 2;
+      }
+
+      // Governance & risker
+      if (data.aiGovernance) {
+        checkPage(8);
+        pdf.setFont("helvetica", "bold");
+        pdf.text("AI-governance:", margin, yPos);
+        pdf.setFont("helvetica", "normal");
+        pdf.text(data.aiGovernance, margin + 36, yPos);
+        yPos += 6;
+      }
+      if (data.aiRisks.length) {
+        checkPage(12);
+        pdf.setFont("helvetica", "bold");
+        pdf.text("Risker och fragor att hantera:", margin, yPos); yPos += 5;
+        pdf.setFont("helvetica", "normal");
+        const r = pdf.splitTextToSize("- " + data.aiRisks.join("\n- "), contentWidth - 4);
+        r.forEach((l: string) => { checkPage(6); pdf.text(l, margin + 2, yPos); yPos += 5; });
+        yPos += 2;
+      }
+
+      // Rekommenderade AI-nasta steg (deterministiska)
+      if (deterministicAiNextSteps.length) {
+        checkPage(14);
+        pdf.setFont("helvetica", "bold");
+        pdf.setTextColor(90, 60, 160);
+        pdf.text("Rekommenderade AI-nasta steg:", margin, yPos); yPos += 5;
+        pdf.setTextColor(40, 40, 40);
+        pdf.setFont("helvetica", "normal");
+        deterministicAiNextSteps.forEach((s, i) => {
+          checkPage(10);
+          pdf.setFillColor(90, 60, 160);
+          pdf.circle(margin + 2, yPos - 1.5, 1, "F");
+          const lines = pdf.splitTextToSize(`${i + 1}. ${s}`, contentWidth - 8);
+          pdf.text(lines, margin + 6, yPos);
+          yPos += lines.length * 5 + 2;
+        });
+      }
+      yPos += 6;
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
     // AI: PARTNERPROFIL, RISKER OCH NASTA STEG
     // ══════════════════════════════════════════════════════════════════════
     if (aiAnalysis?.partnerProfile) {
@@ -2113,13 +2489,21 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       yPos += 4;
     }
 
-    if (aiAnalysis?.nextSteps?.length) {
+    // Slå samman AI-tolkningens nasta steg med deterministiska AI-rekommendationer
+    const combinedNextSteps: string[] = [];
+    if (aiAnalysis?.nextSteps?.length) combinedNextSteps.push(...aiAnalysis.nextSteps);
+    deterministicAiNextSteps.forEach(s => {
+      if (!combinedNextSteps.some(x => x.toLowerCase().includes(s.toLowerCase().slice(0, 30)))) {
+        combinedNextSteps.push(s);
+      }
+    });
+    if (combinedNextSteps.length) {
       checkPage(30);
       addSectionHeader("REKOMMENDERADE NASTA STEG", 14, 124, 134);
       pdf.setFontSize(9);
       pdf.setFont("helvetica", "normal");
       pdf.setTextColor(40, 40, 40);
-      aiAnalysis.nextSteps.forEach((step, i) => {
+      combinedNextSteps.forEach((step, i) => {
         checkPage(10);
         pdf.setFillColor(14, 124, 134);
         pdf.circle(margin + 2, yPos - 1.5, 1, "F");
@@ -2129,6 +2513,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       });
       yPos += 4;
     }
+
 
 
     // ── APPENDIX ─────────────────────────────────────────────────────────────
@@ -2270,12 +2655,23 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     const filledIntegrations = data.integrationSystems.filter(s => s.system.trim());
     const integrationsStr = filledIntegrations.map(s => s.system).join(", ");
 
-    addAppendixSection("Steg 8 - AI & Framtid", [
+    const dqStr = Object.entries(data.aiDataQuality || {}).filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`).join("; ");
+    const pmStr = Object.entries(data.aiProcessMaturity || {}).filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`).join("; ");
+
+    addAppendixSection("Steg 8 - AI, automation och beslutsstod", [
       ["AI-intresse", data.aiInterest],
-      ["AI-anvandningsomraden", data.aiUseCases.join(", ")],
+      ["AI-mognadsniva", aiMaturity.level],
+      ["Ambitioner", data.aiAmbitions.join(", ")],
+      ["Prioriterade use cases", data.aiUseCases.join(", ")],
+      ["Datakvalitet", dqStr || "Ej angivet"],
+      ["Dataproblem", data.aiDataIssues.join(", ") || "Ej angivet"],
+      ["Processmognad", pmStr || "Ej angivet"],
+      ["AI-governance", data.aiGovernance || "Ej angivet"],
+      ["AI-risker", data.aiRisks.join(", ") || "Ej angivet"],
       ["AI - egna kommentarer", data.aiDetails || ""],
       ["Integrationer", integrationsStr],
     ]);
+
 
     // Övriga noteringar (free-text fields)
     const hasOvrigt = data.wishlist || data.additionalInfo;
@@ -2906,21 +3302,32 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       }
 
       case 8: {
-        const aiInterestOptions = [
-          { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
-          { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
-          { value: "Avvaktande", label: "Avvaktande - Vi vill se konkreta användningsfall först" }
-        ];
         const decisionTimelineOptions = [
           { value: "Under kommande halvår", label: "Under kommande halvår" },
           { value: "Inom 6-12 månader", label: "Inom 6-12 månader" },
           { value: "Under nästa 12-24 månader", label: "Under nästa 12-24 månader" },
           { value: "Inga planer just nu", label: "Inga planer just nu" },
         ];
+        const aiInterestOptions = [
+          { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
+          { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
+          { value: "Avvaktande", label: "Avvaktande - Vi vill se konkreta användningsfall först" },
+        ];
+        const pillBtn = (selected: boolean) =>
+          `px-3 py-1.5 rounded-full text-xs font-medium transition-all border ${
+            selected
+              ? "bg-primary text-primary-foreground border-primary shadow-sm"
+              : "bg-muted text-muted-foreground border-transparent hover:bg-accent hover:text-accent-foreground"
+          }`;
         return (
-          <div className="space-y-6">
+          <div className="space-y-8">
+            <p className="text-muted-foreground">
+              AI kan skapa stor nytta i ERP-processer, men värdet beror på tydliga mål, bra data, fungerande processer och rätt systemarkitektur. Svara på frågorna nedan för att bedöma var AI kan ge mest nytta och vad som behöver vara på plats först.
+            </p>
+
+            {/* Översiktligt intresse */}
             <div>
-              <h3 className="text-lg font-semibold mb-4">Hur intresserade är ni av AI i affärssystemet?</h3>
+              <h3 className="text-lg font-semibold mb-2">Hur intresserade är ni av AI i affärssystemet?</h3>
               <div className="grid grid-cols-1 gap-3">
                 {aiInterestOptions.map((option) => (
                   <SelectionCard
@@ -2933,51 +3340,151 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 ))}
               </div>
             </div>
+
+            {/* Fråga 1 - Ambitioner */}
             <div>
-              <h3 className="text-lg font-semibold mb-4">Vilka AI-användningsområden ser ni som mest intressanta?</h3>
-              <div className="grid grid-cols-1 gap-4">
-                {aiUseCaseCategories.map((category) => (
-                  <div
-                    key={category.id}
-                    onClick={() => handleCheckboxChange('aiUseCases', category.title)}
-                    className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                      data.aiUseCases.includes(category.title)
-                        ? 'border-primary bg-primary/5'
-                        : 'border-border hover:border-primary/50'
-                    }`}
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className={`mt-1 w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
-                        data.aiUseCases.includes(category.title)
-                          ? 'border-primary bg-primary'
-                          : 'border-muted-foreground'
-                      }`}>
-                        {data.aiUseCases.includes(category.title) && (
-                          <svg className="w-3 h-3 text-primary-foreground" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
-                        )}
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-bold text-foreground mb-2">{category.title}</h4>
-                        <p className="text-sm text-muted-foreground mb-2">{category.description}</p>
-                        <p className="text-sm font-medium text-primary">{category.benefit}</p>
-                      </div>
+              <h3 className="text-lg font-semibold mb-1">Vad vill ni främst uppnå med AI och automation?</h3>
+              <p className="text-sm text-muted-foreground mb-3">Flera val möjliga.</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {aiAmbitionOptions.map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={data.aiAmbitions.includes(opt)}
+                    onClick={() => handleCheckboxChange("aiAmbitions", opt)}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Fråga 2 - Prioriterade AI-use cases (grupperade) */}
+            <div>
+              <h3 className="text-lg font-semibold mb-1">Vilka AI-områden är mest intressanta för er?</h3>
+              <p className="text-sm text-muted-foreground mb-3">Flera val möjliga.</p>
+              <div className="space-y-5">
+                {aiUseCaseDomains.map((g) => (
+                  <div key={g.domain}>
+                    <h4 className="font-semibold text-sm mb-2 text-foreground/90">{g.domain}</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {g.items.map((it) => (
+                        <SelectionCard
+                          key={it}
+                          label={it}
+                          selected={data.aiUseCases.includes(it)}
+                          onClick={() => handleCheckboxChange("aiUseCases", it)}
+                        />
+                      ))}
                     </div>
                   </div>
                 ))}
               </div>
             </div>
+
+            {/* Fråga 3 - Datamognad */}
             <div>
-              <Label htmlFor="aiDetails">Beskriv hur AI skulle kunna hjälpa er verksamhet</Label>
+              <h3 className="text-lg font-semibold mb-1">Hur bedömer ni kvaliteten på er data idag?</h3>
+              <p className="text-sm text-muted-foreground mb-3">Sätt en nivå per område.</p>
+              <div className="space-y-3">
+                {aiDataAreas.map((area) => (
+                  <div key={area} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-3 rounded-lg border border-border/60 bg-card">
+                    <span className="text-sm font-medium">{area}</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {aiDataQualityScale.map((v) => (
+                        <button
+                          key={v}
+                          type="button"
+                          onClick={() => updateAiDataQuality(area, v)}
+                          className={pillBtn(data.aiDataQuality[area] === v)}
+                        >
+                          {v}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-5">
+                <h4 className="font-semibold text-sm mb-2">Vilka dataproblem upplever ni idag? <span className="text-xs font-normal text-muted-foreground">(flera val möjliga)</span></h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {aiDataIssueOptions.map((opt) => (
+                    <SelectionCard
+                      key={opt}
+                      label={opt}
+                      selected={data.aiDataIssues.includes(opt)}
+                      onClick={() => handleCheckboxChange("aiDataIssues", opt)}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Fråga 4 - Processmognad */}
+            <div>
+              <h3 className="text-lg font-semibold mb-1">Hur mogna är era processer för AI och automation?</h3>
+              <p className="text-sm text-muted-foreground mb-3">Bedöm varje påstående.</p>
+              <div className="space-y-3">
+                {aiProcessAreas.map((area) => (
+                  <div key={area} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-3 rounded-lg border border-border/60 bg-card">
+                    <span className="text-sm font-medium">{area}</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {aiProcessScale.map((v) => (
+                        <button
+                          key={v}
+                          type="button"
+                          onClick={() => updateAiProcessMaturity(area, v)}
+                          className={pillBtn(data.aiProcessMaturity[area] === v)}
+                        >
+                          {v}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Fråga 5 - Governance & risk */}
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Finns riktlinjer eller krav kopplade till AI-användning?</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {aiGovernanceOptions.map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={data.aiGovernance === opt}
+                    onClick={() => setData({ ...data, aiGovernance: opt })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+              <div className="mt-5">
+                <h4 className="font-semibold text-sm mb-2">Vilka AI-risker eller frågor behöver hanteras? <span className="text-xs font-normal text-muted-foreground">(flera val möjliga)</span></h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {aiRiskOptions.map((opt) => (
+                    <SelectionCard
+                      key={opt}
+                      label={opt}
+                      selected={data.aiRisks.includes(opt)}
+                      onClick={() => handleCheckboxChange("aiRisks", opt)}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Fri kommentar */}
+            <div>
+              <Label htmlFor="aiDetails">Egna kommentarer om AI i er verksamhet (valfritt)</Label>
               <Textarea
                 id="aiDetails"
-                placeholder="Beskriv era tankar om AI..."
+                placeholder="Beskriv era tankar, hinder eller önskemål kring AI..."
                 value={data.aiDetails}
                 onChange={(e) => setData({ ...data, aiDetails: e.target.value })}
                 className="mt-2"
               />
             </div>
+
+            {/* Beslutstidslinje */}
             <div>
               <h3 className="text-lg font-semibold mb-4">Vart skulle du säga att ni ligger i beslutsprocessen?</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -2995,6 +3502,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           </div>
         );
       }
+
 
       case 9: {
         const rec = getERPRecommendation();
