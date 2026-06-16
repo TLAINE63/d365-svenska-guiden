@@ -16,6 +16,9 @@ const Footer = () => {
               <li><Link to="/erp/" className="text-muted-foreground hover:text-foreground transition-colors">Business Central vs F&SCM</Link></li>
               <li><Link to="/businesscentral/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Business Central</Link></li>
               <li><Link to="/finance-supply-chain/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Finance & SCM</Link></li>
+              <li><Link to="/d365projectoperations/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Project Operations</Link></li>
+              <li><Link to="/d365commerce/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Commerce</Link></li>
+              <li><Link to="/d365humanresources/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Human Resources</Link></li>
               <li><Link to="/ERPbehovsanalys/" className="text-muted-foreground hover:text-foreground transition-colors">ERP Behovsanalys</Link></li>
             </ul>
           </div>
