@@ -64,13 +64,15 @@ interface ComplexityData {
 }
 
 interface AnalysisData {
-  // Step 1 - Business model
+  // Step 1 - Verksamhetsmodell
   businessModel: string;
   businessModelSub: string;
   businessModelSubs: string[];
+  secondaryBusinessModels: string[];
   // Step 2
   employees: string;
   revenue: string;
+  erpUsers: string;
   // Step 3
   industry: string;
   industryOther: string;
@@ -108,6 +110,7 @@ interface AnalysisData {
   contactName: string;
   phone: string;
   email: string;
+  consentToContact: boolean;
 }
 
 const initialComplexity: ComplexityData = {
