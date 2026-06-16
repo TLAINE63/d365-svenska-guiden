@@ -1312,7 +1312,7 @@ const CustomerServiceNeedsAnalysis = () => {
     try {
       await supabase.functions.invoke("send-analysis-email", {
         body: {
-          analysisType: "Kundservice",
+          analysisType: focusCfg.emailAnalysisType,
           companyName: data.companyName,
           contactName: data.contactName,
           phone: data.phone || "",
