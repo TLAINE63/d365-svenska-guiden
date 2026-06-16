@@ -1701,6 +1701,33 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     yPos += 6;
 
     // ══════════════════════════════════════════════════════════════════════
+    // AI-TOLKNING (köparsidig, från Lovable AI Gateway)
+    // ══════════════════════════════════════════════════════════════════════
+    if (aiAnalysis?.aiInterpretation) {
+      checkPage(40);
+      addSectionHeader("AI-TOLKNING AV ERT UNDERLAG", 14, 124, 134);
+      pdf.setFontSize(9);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(40, 40, 40);
+      const aiLines = pdf.splitTextToSize(aiAnalysis.aiInterpretation, contentWidth);
+      aiLines.forEach((line: string) => {
+        checkPage(6);
+        pdf.text(line, margin, yPos);
+        yPos += 5;
+      });
+      yPos += 2;
+      if (aiAnalysis.confidence) {
+        pdf.setFontSize(8);
+        pdf.setFont("helvetica", "italic");
+        pdf.setTextColor(120, 120, 120);
+        pdf.text(`Sakerhet i analysen: ${aiAnalysis.confidence}`, margin, yPos);
+        yPos += 6;
+      }
+      yPos += 4;
+    }
+
+
+    // ══════════════════════════════════════════════════════════════════════
     // 4. STYRKOR + UTVECKLINGSOMRADEN (side by side)
     // ══════════════════════════════════════════════════════════════════════
     checkPage(50);
