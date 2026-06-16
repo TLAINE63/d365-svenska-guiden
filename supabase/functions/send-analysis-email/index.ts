@@ -72,7 +72,15 @@ function isValidPhone(phone: string | undefined): boolean {
 }
 
 function isValidAnalysisType(type: string): boolean {
-  const validTypes = ["ERP", "CRM", "Kundservice", "Sälj & Marknad"];
+  const validTypes = [
+    "ERP",
+    "CRM",
+    "Kundservice",
+    "Sälj & Marknad",
+    "Sälj / CRM",
+    "Marknad / Marketing automation",
+    "Sälj, Marknad och Kunddata",
+  ];
   return validTypes.includes(type);
 }
 

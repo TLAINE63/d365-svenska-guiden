@@ -38,7 +38,11 @@ const contactFormSchema = z.object({
 
 type ContactFormErrors = Partial<Record<keyof z.infer<typeof contactFormSchema>, string>>;
 
+type FocusArea = "" | "sales" | "marketing" | "both" | "unsure";
+
 interface SalesMarketingAnalysisData {
+  focusArea: FocusArea;
+  unsureIssues: string[];
   commercialModel: string;
   b2bSalesCount: string;
   b2bStructuredPipeline: string;
@@ -109,6 +113,8 @@ interface SalesMarketingAnalysisData {
 }
 
 const initialData: SalesMarketingAnalysisData = {
+  focusArea: "",
+  unsureIssues: [],
   commercialModel: "",
   b2bSalesCount: "",
   b2bStructuredPipeline: "",
@@ -187,6 +193,42 @@ const initialData: SalesMarketingAnalysisData = {
   phone: "",
   email: "",
 };
+
+const focusAreaOptions: { value: Exclude<FocusArea, "">; label: string; description: string }[] = [
+  { value: "sales", label: "Sälj / CRM", description: "Säljprocess, pipeline, leadshantering, forecast, CRM-adoption och säljledning." },
+  { value: "marketing", label: "Marknad / Marketing automation", description: "Kampanjer, kundresor, segmentering, lead scoring, e-post, events och kunddata." },
+  { value: "both", label: "Både Sälj och Marknad", description: "Hela flödet från kampanj och lead till opportunity, affär och rapportering." },
+  { value: "unsure", label: "Osäkert – vi vill förstå behovet bättre", description: "Vi hjälper er identifiera om behovet främst är säljdrivet, marknadsdrivet eller datadrivet." },
+];
+
+const unsureIssueOptions = [
+  "Vi får in för få leads",
+  "Vi har svårt att kvalificera leads",
+  "Sälj följer inte upp leads tillräckligt bra",
+  "Vi saknar tydlig pipeline",
+  "Vi har svag forecast",
+  "Kampanjer går inte att mäta",
+  "Kunddata är utspridd",
+  "Marknad och sälj arbetar inte tillräckligt samordnat",
+  "CRM används inte konsekvent",
+  "Vi saknar automatisering",
+  "Vi saknar tydlig rapportering",
+];
+
+const focusAreaTitle: Record<Exclude<FocusArea, "">, string> = {
+  sales: "Behovsanalys för Sälj / CRM",
+  marketing: "Behovsanalys för Marknad / Marketing automation",
+  both: "Behovsanalys för Sälj & Marknad",
+  unsure: "Behovsanalys för Sälj, Marknad och Kunddata",
+};
+
+const focusAreaEmailType: Record<Exclude<FocusArea, "">, string> = {
+  sales: "Sälj / CRM",
+  marketing: "Marknad / Marketing automation",
+  both: "Sälj & Marknad",
+  unsure: "Sälj, Marknad och Kunddata",
+};
+
 
 const commercialModelOptions = [
   { value: "b2b_relational", label: "Relationsbaserad B2B-försäljning", emoji: "1️⃣", description: "Personlig bearbetning, långa kundrelationer, hög andel återkommande affärer" },
@@ -486,7 +528,7 @@ const SalesMarketingNeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 8;
+  const totalSteps = 9;
 
   useEffect(() => {
     trackFunnelEvent({ event_type: "analysis_start", event_name: "needs_analysis_sales_marketing" });
@@ -500,17 +542,33 @@ const SalesMarketingNeedsAnalysis = () => {
 
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Target, Building2, Target, Target, Megaphone, Target, Sparkles, FileText];
+  const stepIcons = [Target, Target, Building2, Target, Target, Megaphone, Target, Sparkles, FileText];
+
+  const focus = data.focusArea;
   const stepTitles = [
+    "Fokusområde",
     "Kommersiell modell",
     "Organisation",
-    "Arbetssätt & system",
-    "Data & kundbild",
-    "Customer Insights",
+    focus === "marketing" ? "Kampanjer & kundresor"
+      : focus === "both" ? "Från lead till affär"
+      : focus === "unsure" ? "Nuläge & utmaningar"
+      : "Säljprocess & system",
+    focus === "marketing" ? "Kunddata & segmentering"
+      : focus === "both" ? "Gemensam kunddata"
+      : "Data & kundbild",
+    focus === "sales" ? "Sälj & pipeline"
+      : focus === "unsure" ? "Marknads- och kundbild"
+      : "Customer Insights",
     "Integrationer",
-    "AI & framtid",
-    "Vägledande CRM-Analys",
+    focus === "sales" ? "AI för sälj"
+      : focus === "marketing" ? "AI för marknad"
+      : "AI & framtid",
+    focus === "marketing" ? "Vägledande marknadsanalys"
+      : focus === "both" ? "Vägledande Sälj- & Marknadsanalys"
+      : focus === "unsure" ? "Vägledande analys"
+      : "Vägledande CRM-Analys",
   ];
+
 
   const handleNext = () => {
     if (currentStep < totalSteps) {
@@ -699,9 +757,24 @@ const SalesMarketingNeedsAnalysis = () => {
 
     const pdfNormalizedInsights = (pdfInsightsScore / 45) * 100;
     const PDF_INSIGHTS_THRESHOLD = 20;
-    const pdfProduct = pdfNormalizedInsights >= PDF_INSIGHTS_THRESHOLD
+    const scoringProduct = pdfNormalizedInsights >= PDF_INSIGHTS_THRESHOLD
       ? "Dynamics 365 Sales + Customer Insights"
       : "Dynamics 365 Sales";
+
+    // Lösningsinriktning anpassad efter fokusområde (styr inte hårt produktvalet)
+    const focusKey = data.focusArea;
+    const pdfProduct = focusKey === "sales"
+      ? "Dynamics 365 Sales bör utvärderas"
+      : focusKey === "marketing"
+        ? (pdfNormalizedInsights >= PDF_INSIGHTS_THRESHOLD
+            ? "Customer Insights – Journeys och Customer Insights – Data bör utvärderas"
+            : "Customer Insights – Journeys bör utvärderas")
+        : focusKey === "both"
+          ? "Dynamics 365 Sales och Customer Insights bör utvärderas tillsammans"
+          : focusKey === "unsure"
+            ? "För tidigt att avgöra – preliminär riktning baseras på era utmaningar"
+            : scoringProduct;
+
 
     // Datakomplexitet
     const pdfDataComplexity = (() => {
@@ -845,7 +918,7 @@ const SalesMarketingNeedsAnalysis = () => {
     pdf.text("BEHOVSANALYS", pageWidth / 2, 120, { align: "center" });
     pdf.setFontSize(16);
     pdf.setFont("helvetica", "normal");
-    pdf.text("Dynamics 365 Sales & Marketing", pageWidth / 2, 133, { align: "center" });
+    pdf.text(focusKey ? focusAreaTitle[focusKey].replace("Behovsanalys för ", "") : "Dynamics 365 Sales & Marketing", pageWidth / 2, 133, { align: "center" });
 
     pdf.setDrawColor(255, 255, 255);
     pdf.setLineWidth(0.5);
@@ -1208,22 +1281,33 @@ const SalesMarketingNeedsAnalysis = () => {
     yPos += 14;
 
     const pdfPartners: { label: string; description: string }[] = [];
-    if (pdfProduct.includes("Sales")) {
-      if (["500+", "250-999 anställda"].includes(data.employees)) {
-        pdfPartners.push({ label: "Enterprise CRM-arkitekt", description: "Partner med erfarenhet av komplexa saljorganisationer och globala CRM-implementationer" });
-      } else {
-        pdfPartners.push({ label: "Sales-specialist", description: "Partner specialiserad pa effektiva Dynamics 365 Sales-implementationer for tillvaxtbolag" });
+    if (focusKey === "sales") {
+      pdfPartners.push({ label: "Säljprocess- och CRM-specialist", description: "Partner med dokumenterad erfarenhet av Dynamics 365 Sales, säljledning, pipeline och forecast, leadshantering, CRM-adoption och integrationer mot Outlook, Teams, LinkedIn, ERP och Power BI." });
+    } else if (focusKey === "marketing") {
+      pdfPartners.push({ label: "Marketing automation- och kunddata-specialist", description: "Partner med erfarenhet av Customer Insights – Journeys och Customer Insights – Data, segmentering, kundresor, samtycken/GDPR, kampanjuppföljning, datamodell och integrationer." });
+    } else if (focusKey === "both") {
+      pdfPartners.push({ label: "Sälj- och marknadssamverkanspartner", description: "Partner med kompetens i både CRM och marketing automation: lead management, CRM + Customer Insights, kunddata, rapportering från kampanj till pipeline, Power Platform, Copilot/AI och förändringsledning." });
+    } else if (focusKey === "unsure") {
+      pdfPartners.push({ label: "Köparsidig CRM- och kunddataguide", description: "Partner som kan kartlägga var problemen främst ligger (sälj, marknad, kunddata, integration) innan plattformsval och ge en stegvis väg framåt." });
+    } else {
+      if (pdfProduct.includes("Sales")) {
+        if (["500+", "250-999 anställda"].includes(data.employees)) {
+          pdfPartners.push({ label: "Enterprise CRM-arkitekt", description: "Partner med erfarenhet av komplexa säljorganisationer och globala CRM-implementationer." });
+        } else {
+          pdfPartners.push({ label: "Sales-specialist", description: "Partner specialiserad på effektiva Dynamics 365 Sales-implementationer för tillväxtbolag." });
+        }
+      }
+      if (pdfProduct.includes("Customer Insights")) {
+        pdfPartners.push({ label: "Customer Insights-specialist", description: "Partner med kompetens inom CDP, AI-segmentering och personaliserade kundresor." });
       }
     }
-    if (pdfProduct.includes("Customer Insights")) {
-      pdfPartners.push({ label: "Customer Insights-specialist", description: "Partner med kompetens inom CDP, AI-segmentering och personaliserade kundresor" });
-    }
     if ((data.integrationTypes || []).length >= 3 || data.integrationScope === "Omfattande och affärskritiskt") {
-      pdfPartners.push({ label: "Integrationsspecialist", description: "Partner med stark kompetens i systemintegrationer och dataarkitektur for komplexa CRM-projekt" });
+      pdfPartners.push({ label: "Integrationsspecialist", description: "Partner med stark kompetens i systemintegrationer och dataarkitektur för komplexa CRM-projekt." });
     }
     if (pdfPartners.length === 0) {
-      pdfPartners.push({ label: "CRM-specialist", description: "Partner specialiserad pa Dynamics 365 CRM-losningar for er affarsmodell" });
+      pdfPartners.push({ label: "CRM-specialist", description: "Partner specialiserad på Dynamics 365 CRM-lösningar för er affärsmodell." });
     }
+
 
     pdfPartners.forEach((p) => {
       if (yPos > 255) { pdf.addPage(); yPos = margin; }
@@ -1241,6 +1325,86 @@ const SalesMarketingNeedsAnalysis = () => {
       yPos += 18 + (pDescLines.length - 1) * 4;
     });
     yPos += 8;
+
+    // ══════════════════════════════════════════════════════════════════════
+    // 7. REKOMMENDERADE NÄSTA STEG (anpassade efter fokusområde)
+    // ══════════════════════════════════════════════════════════════════════
+    const focusNextSteps: string[] = (() => {
+      if (focusKey === "sales") return [
+        "Kartlägg säljprocessen från lead till vunnen affär.",
+        "Definiera pipeline-steg, kvalificeringskriterier och forecast-modell.",
+        "Bedöm CRM-adoption och datakvalitet.",
+        "Gör en fit-gap mot Dynamics 365 Sales.",
+        "Identifiera AI- och automationsstöd för säljare och säljledning.",
+        "Bjud in relevanta Dynamics 365 Sales-partners till lösningsdialog.",
+      ];
+      if (focusKey === "marketing") return [
+        "Kartlägg kampanjprocess, kundresor och leadflöden.",
+        "Definiera segment, samtycken, lead scoring och överlämning till sälj.",
+        "Bedöm kunddata, datakvalitet och integrationsbehov.",
+        "Gör en fit-gap mot Customer Insights – Journeys och Customer Insights – Data.",
+        "Identifiera AI- och automationsuse cases inom kampanj, segmentering och analys.",
+        "Bjud in partners med erfarenhet av marketing automation och kunddata.",
+      ];
+      if (focusKey === "both") return [
+        "Kartlägg hela flödet från kampanj och lead till opportunity och affär.",
+        "Definiera MQL, SQL, lead scoring och ansvar mellan marknad och sälj.",
+        "Bedöm CRM-data, kunddata, samtycken och rapporteringsmodell.",
+        "Gör en fit-gap mot Dynamics 365 Sales och Customer Insights.",
+        "Identifiera integrationer mot webb, ERP, Power BI och övriga system.",
+        "Ta fram en gemensam kravspecifikation för sälj, marknad och kunddata.",
+      ];
+      if (focusKey === "unsure") {
+        const i = data.unsureIssues;
+        const steps: string[] = ["Kartlägg var problemen främst ligger: sälj, marknad, kunddata eller integrationer."];
+        if (i.some(x => /pipeline|forecast|följer inte upp|kvalificera|CRM används/i.test(x)))
+          steps.push("Inled med en säljdriven kartläggning av pipeline, lead-uppföljning och CRM-adoption.");
+        if (i.some(x => /Kampanjer|för få leads|automatisering/i.test(x)))
+          steps.push("Komplettera med en marknadsdriven analys av kampanjer, leadflöden och automation.");
+        if (i.some(x => /Kunddata|rapportering/i.test(x)))
+          steps.push("Bedöm kunddata, datakvalitet och rapporteringsbehov över sälj och marknad.");
+        if (i.some(x => /samordnat/i.test(x)))
+          steps.push("Definiera samspelet mellan sälj och marknad: MQL/SQL, ansvar och gemensamma KPI:er.");
+        steps.push("Ta fram en kort förstudie som ger underlag för fit-gap och partnerdialog.");
+        return steps;
+      }
+      return [];
+    })();
+
+    if (focusNextSteps.length) {
+      if (yPos > 220) { pdf.addPage(); yPos = margin; }
+      pdf.setFillColor(14, 124, 134);
+      pdf.roundedRect(margin, yPos, contentWidth, 10, 2, 2, 'F');
+      pdf.setTextColor(255, 255, 255);
+      pdf.setFontSize(10);
+      pdf.setFont("helvetica", "bold");
+      pdf.text("REKOMMENDERADE NÄSTA STEG", margin + 5, yPos + 7);
+      yPos += 14;
+      pdf.setTextColor(40, 40, 40);
+      pdf.setFontSize(9);
+      pdf.setFont("helvetica", "normal");
+      focusNextSteps.forEach((step, i) => {
+        if (yPos > 270) { pdf.addPage(); yPos = margin; }
+        pdf.setFillColor(14, 124, 134);
+        pdf.circle(margin + 2.5, yPos - 1.5, 1.2, "F");
+        const lines = pdf.splitTextToSize(`${i + 1}. ${step}`, contentWidth - 10);
+        pdf.text(lines, margin + 7, yPos);
+        yPos += lines.length * 5.2 + 3;
+      });
+      yPos += 6;
+
+      // Disclaimer: detta är en lösningshypotes
+      pdf.setFontSize(7.5);
+      pdf.setFont("helvetica", "italic");
+      pdf.setTextColor(110, 110, 110);
+      const discLines = pdf.splitTextToSize(
+        "Detta är en preliminär lösningshypotes baserad på era svar. Slutligt val av Dynamics 365 Sales, Customer Insights eller annan lösningsarkitektur bör föregås av en fördjupad fit-gap, kravspecifikation och partnerdialog.",
+        contentWidth
+      );
+      pdf.text(discLines, margin, yPos);
+      yPos += discLines.length * 4 + 6;
+    }
+
 
     // ── Helpers för frågeavsnitt ──────────────────────────────────────────
     const addSection = (title: string, content: string) => {
@@ -1485,12 +1649,14 @@ const SalesMarketingNeedsAnalysis = () => {
     try {
       await supabase.functions.invoke("send-analysis-email", {
         body: {
-          analysisType: "Sälj & Marknad",
+          analysisType: focusKey ? focusAreaEmailType[focusKey] : "Sälj & Marknad",
           companyName: data.companyName,
           contactName: data.contactName,
           phone: data.phone || "",
           email: data.email,
           analysisData: {
+            "Fokusområde": focusKey ? focusAreaOptions.find(o => o.value === focusKey)?.label || focusKey : "Ej angivet",
+            ...(focusKey === "unsure" && data.unsureIssues.length ? { "Främsta problem (osäker)": data.unsureIssues.join("; ") } : {}),
             "Kommersiell modell": commercialModelOptions.find(o => o.value === data.commercialModel)?.label || data.commercialModel || "Ej angivet",
             ...(data.commercialModel === "b2b_relational" ? {
               "B2B – Antal säljare": data.b2bSalesCount || "Ej angivet",
@@ -1555,6 +1721,54 @@ const SalesMarketingNeedsAnalysis = () => {
   const renderStep = () => {
     switch (currentStep) {
       case 1:
+        return (
+          <div className="space-y-6">
+            <div>
+              <p className="text-muted-foreground mb-2">
+                <strong>Vilket område gäller behovsanalysen främst?</strong>
+              </p>
+              <p className="text-sm text-muted-foreground mb-6">
+                Välj det område som bäst beskriver ert nuläge. Svaren styr vilka följdfrågor som visas och hur analysen tolkar er preliminära lösningsinriktning.
+              </p>
+              <div className="grid grid-cols-1 gap-3">
+                {focusAreaOptions.map((option) => (
+                  <SelectionCard
+                    key={option.value}
+                    label={option.label}
+                    description={option.description}
+                    selected={data.focusArea === option.value}
+                    onClick={() => setData({ ...data, focusArea: option.value })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+            </div>
+
+            {data.focusArea === "unsure" && (
+              <div className="mt-6 space-y-3 border-l-4 border-primary/40 pl-5 animate-in slide-in-from-top-2 duration-300">
+                <Label className="text-sm font-semibold mb-1 block">
+                  Var upplever ni störst problem idag? (Flera val möjliga)
+                </Label>
+                <p className="text-xs text-muted-foreground mb-2">
+                  Svaren hjälper analysen att avgöra om behovet främst är säljdrivet, marknadsdrivet, datadrivet, integrationsdrivet eller gemensamt för sälj och marknad.
+                </p>
+                <div className="grid grid-cols-1 gap-2">
+                  {unsureIssueOptions.map((opt) => (
+                    <SelectionCard
+                      key={opt}
+                      label={opt}
+                      selected={data.unsureIssues.includes(opt)}
+                      onClick={() => handleCheckboxChange("unsureIssues", opt)}
+                      type="checkbox"
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        );
+
+      case 2:
         return (
           <div className="space-y-6">
             <div>
@@ -1855,7 +2069,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 2:
+      case 3:
         return (
           <div className="space-y-6">
             <div>
@@ -1965,7 +2179,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 3:
+      case 4:
         return (
           <div className="space-y-6">
             {/* CRM-användning */}
@@ -2022,7 +2236,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 4:
+      case 5:
         return (
           <div className="space-y-6">
             {/* Enhetlig kundvy */}
@@ -2064,7 +2278,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 5:
+      case 6:
         return (
           <div className="space-y-6">
             {/* Nuvarande marknadsföring */}
@@ -2231,7 +2445,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 6:
+      case 7:
         return (
           <div className="space-y-6">
             {/* Integrationsbehov */}
@@ -2284,7 +2498,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 7: {
+      case 8: {
         const aiUseCaseOptions = [
           {
             label: "Predictive Lead & Opportunity Scoring",
@@ -2392,7 +2606,7 @@ const SalesMarketingNeedsAnalysis = () => {
         );
       }
 
-      case 8: {
+      case 9: {
         // ── POÄNGMOTOR ───────────────────────────────────────────────────
         // Signaler för D365 Sales
         // Baspoäng: de flesta organisationer har nytta av Sales
