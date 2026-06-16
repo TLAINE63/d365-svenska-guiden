@@ -152,14 +152,15 @@ serve(async (req: Request): Promise<Response> => {
       );
     }
 
-    const { 
-      analysisType, 
-      companyName, 
-      contactName, 
-      phone, 
-      email, 
+    const {
+      analysisType,
+      companyName,
+      contactName,
+      phone,
+      email,
       analysisData,
       recommendation,
+      aiAnalysis,
       pdfBase64,
       pdfFilename
     } = body;
