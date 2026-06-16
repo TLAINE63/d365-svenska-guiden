@@ -2144,20 +2144,22 @@ const SalesMarketingNeedsAnalysis = () => {
                 />
               </div>
             </div>
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Storlek på säljteam</Label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {teamSizeOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.salesTeamSize === option}
-                    onClick={() => setData({ ...data, salesTeamSize: option })}
-                    type="radio"
-                  />
-                ))}
+            {focus !== "marketing" && (
+              <div>
+                <Label className="text-base font-semibold mb-3 block">Storlek på säljteam</Label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {teamSizeOptions.map((option) => (
+                    <SelectionCard
+                      key={option}
+                      label={option}
+                      selected={data.salesTeamSize === option}
+                      onClick={() => setData({ ...data, salesTeamSize: option })}
+                      type="radio"
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Internationell närvaro */}
             <div>
