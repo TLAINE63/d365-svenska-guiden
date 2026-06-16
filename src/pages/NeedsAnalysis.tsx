@@ -142,11 +142,12 @@ const businessModelOptions = [
   {
     value: "Produktion",
     label: "Produktion / Tillverkningsindustrin",
+    subQuestion: "Vilken typ av produktion?",
     subcategories: [
-      "Lagerstyrd produktion",
-      "Kundorderstyrd produktion",
-      "Projekt- eller konstruktionsdriven leverans",
-      "Reglerad eller receptbaserad produktion",
+      "Lagerstyrd produktion (MTS)",
+      "Kundorderstyrd produktion (MTO/ATO)",
+      "Projekt- eller konstruktionsdriven leverans (ETO)",
+      "Reglerad eller receptbaserad produktion (process/batch)",
     ],
     multiSelect: true,
   },
@@ -164,16 +165,9 @@ const businessModelOptions = [
     exclusiveGroup: ["Enkel (1–2 lager, lokal verksamhet)", "Flera lager inom Norden", "Flera lager internationellt"],
   },
   {
-    value: "Konsult",
-    label: "Konsult / Projektbaserad verksamhet",
-    subcategories: [
-      "Tjänsteproduktion",
-      "Projektleveranser",
-    ],
-  },
-  {
     value: "Retail",
-    label: "Retail",
+    label: "Retail / Handel",
+    subQuestion: "Hur ser er försäljningsmodell ut?",
     subcategories: [
       "Enbart fysisk butik",
       "Enbart e-handel",
@@ -182,7 +176,77 @@ const businessModelOptions = [
     ],
     multiSelect: true,
     exclusiveGroup: ["Enbart fysisk butik", "Enbart e-handel", "Kombination butik + e-handel"],
-    subQuestion: "Hur ser er försäljningsmodell ut?",
+  },
+  {
+    value: "Projekt",
+    label: "Projektverksamhet / Entreprenad",
+    subQuestion: "Hur ser era projekt ut?",
+    subcategories: [
+      "Korta uppdrag (< 3 mån)",
+      "Längre projekt (3–12 mån)",
+      "Fleråriga program / stora entreprenader",
+      "Internationella projekt med flera bolag",
+    ],
+    multiSelect: true,
+  },
+  {
+    value: "Konsult",
+    label: "Konsult / Tjänsteverksamhet",
+    subQuestion: "Hur tar ni betalt huvudsakligen?",
+    subcategories: [
+      "Löpande timdebitering",
+      "Fastpris per uppdrag",
+      "Abonnemang / retainer",
+      "Resultat- eller licensbaserat",
+    ],
+    multiSelect: true,
+  },
+  {
+    value: "Service",
+    label: "Service & Fältservice",
+    subQuestion: "Hur är servicen organiserad?",
+    subcategories: [
+      "Reaktiv service (felavhjälpande)",
+      "Planerat underhåll / avtalsservice",
+      "Installation och driftsättning",
+      "Fältservice med tekniker ute hos kund",
+    ],
+    multiSelect: true,
+  },
+  {
+    value: "Uthyrning",
+    label: "Uthyrning / Leasing",
+    subQuestion: "Vad hyr ni ut?",
+    subcategories: [
+      "Maskiner / fordon / utrustning",
+      "Lokaler / fastigheter",
+      "Personal / bemanning",
+      "Mjukvara / licenser",
+    ],
+    multiSelect: true,
+  },
+  {
+    value: "Abonnemang",
+    label: "Abonnemang / SaaS / Återkommande intäkter",
+    subQuestion: "Hur ser abonnemangsmodellen ut?",
+    subcategories: [
+      "Fast månads-/årsavgift",
+      "Användarbaserad debitering",
+      "Förbruknings-/transaktionsbaserad",
+      "Hybrid (fast + rörlig del)",
+    ],
+    multiSelect: true,
+  },
+  {
+    value: "Offentlig",
+    label: "Offentlig sektor / Ideell verksamhet",
+    subcategories: [
+      "Statlig myndighet",
+      "Kommun / region",
+      "Stiftelse / förbund",
+      "Medlemsorganisation",
+    ],
+    multiSelect: true,
   },
   {
     value: "Annat",
@@ -2058,14 +2122,20 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     const c = data.complexity;
     const subLabel = data.businessModelSubs.length > 0 ? data.businessModelSubs.join(", ") : data.businessModelSub || "";
 
-    addAppendixSection("Steg 1 - Affarsmodell", [
-      ["Affarsmodell", bmLabel],
+    const secondaryLabels = data.secondaryBusinessModels
+      .map(v => businessModelOptions.find(o => o.value === v)?.label || v)
+      .join(", ");
+
+    addAppendixSection("Steg 1 - Verksamhetsmodell", [
+      ["Verksamhetsmodell", bmLabel],
       ["Typ", subLabel],
+      ["Sekundara modeller", secondaryLabels || "Inga"],
     ]);
 
     addAppendixSection("Steg 2 - Foretagsstorlek", [
       ["Anstallda", data.employees],
       ["Omsattning", data.revenue],
+      ["Anvandare i affarssystemet", data.erpUsers || "Ej angivet"],
     ]);
 
     addAppendixSection("Steg 3 - Bransch", [
@@ -2350,6 +2420,33 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                       />
                     );
                   })}
+                </div>
+              </div>
+            )}
+            {data.businessModel && (
+              <div>
+                <h3 className="text-lg font-semibold mb-1">Har ni betydande sekundära verksamhetsmodeller?</h3>
+                <p className="text-sm text-muted-foreground mb-3">Valfritt – välj de som också utgör en väsentlig del av affären. Detta påverkar bedömningen av systemkomplexitet.</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {businessModelOptions
+                    .filter(o => o.value !== data.businessModel && o.value !== "Annat")
+                    .map((option) => {
+                      const isSelected = data.secondaryBusinessModels.includes(option.value);
+                      return (
+                        <SelectionCard
+                          key={option.value}
+                          label={option.label}
+                          selected={isSelected}
+                          onClick={() => {
+                            const next = isSelected
+                              ? data.secondaryBusinessModels.filter(v => v !== option.value)
+                              : [...data.secondaryBusinessModels, option.value];
+                            setData({ ...data, secondaryBusinessModels: next });
+                          }}
+                          type="checkbox"
+                        />
+                      );
+                    })}
                 </div>
               </div>
             )}
