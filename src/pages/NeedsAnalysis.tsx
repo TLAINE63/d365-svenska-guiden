@@ -1572,7 +1572,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.setFontSize(8);
     pdf.setFont("helvetica", "normal");
     pdf.setTextColor(120, 120, 120);
-    pdf.text("ERP Complexity Level", margin, yPos);
+    pdf.text("Bedömd ERP-komplexitet", margin, yPos);
     yPos += 6;
     for (let i = 1; i <= 4; i++) {
       if (i <= maturityLevel) pdf.setFillColor(5, 150, 105);
