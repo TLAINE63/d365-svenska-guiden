@@ -972,10 +972,12 @@ const NeedsAnalysis = () => {
   };
 
   // ============ ERP Recommendation Logic (rewritten) ============
-  const getERPRecommendation = (): { 
-    product: string; 
-    score: number; 
-    reasons: string[]; 
+  const getERPRecommendation = (): {
+    product: string;
+    outcome: "Business Central" | "Finance & Supply Chain Management" | "Båda bör utvärderas" | "För tidigt att avgöra";
+    securityLevel: "Låg" | "Medel" | "Hög";
+    score: number;
+    reasons: string[];
     description: string;
     isCloseCall: boolean;
     complexityLevel: number;
@@ -1363,8 +1365,47 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     const uniqueBcReasons = [...new Set(bcReasons)].slice(0, 5);
     const uniqueFscReasons = [...new Set(fscReasons)].slice(0, 5);
 
+    // ---- Säkerhetsnivå i analysen (hur komplett är underlaget?) ----
+    const c = data.complexity;
+    const completenessSignals = [
+      !!data.businessModel,
+      !!data.employees,
+      !!data.revenue,
+      !!data.erpUsers,
+      !!data.industry,
+      !!data.geography,
+      !!c.legalEntities,
+      !!c.countries,
+      !!c.productionType || !!c.warehouseCount || !!c.simultaneousProjects || !!c.storeCount,
+      !!c.itOrganization,
+      !!c.integrationPlatform,
+      !!data.currentSituationReason,
+      !!data.decisionTimeline,
+      data.currentSystems.some(s => s.product.trim()),
+      Object.values(data.situationChallenges).some(v => !!v) || data.challenges.length > 0,
+    ];
+    const filledCount = completenessSignals.filter(Boolean).length;
+    const securityLevel: "Låg" | "Medel" | "Hög" =
+      filledCount >= 11 ? "Hög" : filledCount >= 7 ? "Medel" : "Låg";
+
+    // ---- 4 utfall: BC / F&SCM / Båda / För tidigt ----
+    const maxScore = Math.max(bcScore, fscScore);
+    const minScore = Math.min(bcScore, fscScore);
+    let outcome: "Business Central" | "Finance & Supply Chain Management" | "Båda bör utvärderas" | "För tidigt att avgöra";
+    if (securityLevel === "Låg" || maxScore < 25) {
+      outcome = "För tidigt att avgöra";
+    } else if (isCloseCall && minScore >= 25) {
+      outcome = "Båda bör utvärderas";
+    } else if (isBC) {
+      outcome = "Business Central";
+    } else {
+      outcome = "Finance & Supply Chain Management";
+    }
+
     return {
       product: isBC ? "Business Central" : "Finance & Supply Chain Management",
+      outcome,
+      securityLevel,
       score: isBC ? bcScore : fscScore,
       reasons: isBC ? uniqueBcReasons : uniqueFscReasons,
       description: isBC ? bcDescription : fscDescription,
@@ -1428,6 +1469,8 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           summary: aiSummary,
           recommendation: {
             product: recommendation.product,
+            outcome: recommendation.outcome,
+            securityLevel: recommendation.securityLevel,
             reasons: recommendation.reasons,
             isCloseCall: recommendation.isCloseCall,
             complexityLevel: complexity.complexityLevel,
@@ -1770,13 +1813,19 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     yPos += 8;
 
     // ══════════════════════════════════════════════════════════════════════
-    // 5. REKOMMENDERAD LOSNINGSINRIKTNING
+    // 5. PRELIMINAR SYSTEMINDIKATION
     // ══════════════════════════════════════════════════════════════════════
     checkPage(60);
-    addSectionHeader("REKOMMENDERAD LOSNINGSINRIKTNING", 0, 100, 130);
+    addSectionHeader("PRELIMINAR SYSTEMINDIKATION", 0, 100, 130);
 
     const isBC = recommendation.product === "Business Central";
-    const pdfProduct = `Dynamics 365 ${recommendation.product}`;
+    const outcomeLabelMap: Record<string, string> = {
+      "Business Central": "Dynamics 365 Business Central",
+      "Finance & Supply Chain Management": "Dynamics 365 Finance & Supply Chain Management",
+      "Båda bör utvärderas": "Båda plattformarna bör utvärderas",
+      "För tidigt att avgöra": "För tidigt att avgöra – kompletterande underlag behövs",
+    };
+    const pdfProduct = outcomeLabelMap[recommendation.outcome] || `Dynamics 365 ${recommendation.product}`;
 
     pdf.setFillColor(240, 248, 252);
     pdf.roundedRect(margin, yPos, contentWidth, 14, 2, 2, 'F');
@@ -1785,6 +1834,28 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.setFont("helvetica", "bold");
     pdf.text(pdfProduct, margin + 5, yPos + 10);
     yPos += 18;
+
+    // Säkerhet i analysen
+    const secColors: Record<string, [number, number, number]> = {
+      "Hög": [22, 163, 74],
+      "Medel": [217, 119, 6],
+      "Låg": [180, 50, 50],
+    };
+    const sc = secColors[recommendation.securityLevel] || [120, 120, 120];
+    pdf.setFillColor(245, 248, 252);
+    pdf.roundedRect(margin, yPos, contentWidth, 10, 2, 2, 'F');
+    pdf.setFontSize(8);
+    pdf.setFont("helvetica", "normal");
+    pdf.setTextColor(80, 80, 80);
+    pdf.text("Sakerhet i analysen:", margin + 5, yPos + 6.5);
+    pdf.setFont("helvetica", "bold");
+    pdf.setTextColor(sc[0], sc[1], sc[2]);
+    pdf.text(recommendation.securityLevel, margin + 42, yPos + 6.5);
+    pdf.setFont("helvetica", "normal");
+    pdf.setTextColor(120, 120, 120);
+    pdf.text("(preliminar indikation - ej definitivt systemval)", margin + 58, yPos + 6.5);
+    yPos += 14;
+
 
     if (recommendation.isCloseCall) {
       pdf.setFillColor(255, 248, 225);
@@ -2146,10 +2217,11 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             "Komplexitetsniva": `${complexity.complexityLevel} av 4`,
             "Riskniva": complexity.riskLevel,
             "Integrationer": integrationsStr || "Ej angivet",
-            "Rekommendation": recommendation.product,
+            "Rekommendation": recommendation.outcome,
+            "Sakerhet": recommendation.securityLevel,
           },
           recommendation: {
-            product: recommendation.product,
+            product: recommendation.outcome,
             reasons: recommendation.reasons,
             isCloseCall: recommendation.isCloseCall,
             complexityLevel: complexity.complexityLevel,
