@@ -1413,7 +1413,7 @@ const SalesMarketingNeedsAnalysis = () => {
       if (data.marketingDeepAttribution?.includes("multi-touch")) focusNextSteps.push("Utvärdera multi-touch attribution kopplad från kampanj till stängd affär.");
     }
 
-    const dummyEnd = () => {
+    
 
     if (focusNextSteps.length) {
       if (yPos > 220) { pdf.addPage(); yPos = margin; }
