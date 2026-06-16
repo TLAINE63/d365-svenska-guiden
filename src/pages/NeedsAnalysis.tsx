@@ -806,7 +806,7 @@ const NeedsAnalysis = () => {
   ];
 
   const stepTitles = [
-    "Affärsmodell",
+    "Verksamhetsmodell",
     "Storlek",
     "Bransch",
     "Komplexitet",
