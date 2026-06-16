@@ -38,7 +38,11 @@ const contactFormSchema = z.object({
 
 type ContactFormErrors = Partial<Record<keyof z.infer<typeof contactFormSchema>, string>>;
 
+type FocusArea = "" | "sales" | "marketing" | "both" | "unsure";
+
 interface SalesMarketingAnalysisData {
+  focusArea: FocusArea;
+  unsureIssues: string[];
   commercialModel: string;
   b2bSalesCount: string;
   b2bStructuredPipeline: string;
