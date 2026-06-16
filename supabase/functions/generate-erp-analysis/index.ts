@@ -132,11 +132,13 @@ Deno.serve(async (req: Request): Promise<Response> => {
 
 
     const schemaHint = {
-      aiInterpretation: "string (200-350 ord, sammanhängande prosa)",
-      whyPoints: "string[] (3-6 punkter, varför analysen lutar åt indikationen)",
-      risks: "string[] (3-6 risker och frågor att utreda vidare)",
-      partnerProfile: "string (2-4 meningar om vilken partnerprofil som passar)",
-      nextSteps: "string[] (3-7 konkreta nästa steg för köparen)",
+      executiveSummary: "string (180-260 ord, sammanhållen ledningsorienterad sammanfattning som ramar in nuläge, drivkrafter och vad analysen primärt visar – ska kunna läsas fristående)",
+      aiInterpretation: "string (350-550 ord, sammanhängande prosa i 3-4 stycken som tolkar verksamhetens profil, komplexitet, geografi, datamognad och AI-mognad och kopplar detta till plattformsindikationen utan att låsa valet)",
+      valueHypothesis: "string (150-250 ord, beskriver var den största affärsnyttan sannolikt ligger på 1-3 års sikt – processeffektivitet, datadriven styrning, automation, Copilot/AI – och vilka förutsättningar som krävs)",
+      whyPoints: "string[] (4-6 punkter, konkreta skäl till varför analysen lutar åt indikationen, varje punkt 1-2 meningar)",
+      risks: "string[] (4-6 risker och frågor att utreda vidare, formulerade köparsidigt)",
+      partnerProfile: "string (4-7 meningar om vilken partnerprofil som passar, inklusive metodik, branscherfarenhet, AI/data-kompetens och förändringsledningskapacitet)",
+      nextSteps: "string[] (5-7 konkreta nästa steg för köparen, formulerade som handlingsbara åtgärder)",
       confidence: "Låg | Medel | Hög (säkerhet i analysen baserat på hur komplett underlaget är)",
     };
 
