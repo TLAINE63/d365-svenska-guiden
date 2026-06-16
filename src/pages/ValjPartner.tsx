@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
+import RelatedPages, { valjPartnerRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -963,6 +964,7 @@ const ValjPartner = () => {
         </div>
       </section>
 
+      <RelatedPages heading="Skapa underlag innan ni kontaktar partners" pages={valjPartnerRelatedPages} />
       <Footer />
     </div>
   );

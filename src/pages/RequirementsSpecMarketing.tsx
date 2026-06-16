@@ -5,6 +5,7 @@ import heroKravspecMarketing from "@/assets/hero-kravspec-marketing.jpg";
 import Navbar from "@/components/Navbar";
 import RequirementsDisclaimer from "@/components/RequirementsDisclaimer";
 import Footer from "@/components/Footer";
+import RelatedPages, { requirementsCrmRelatedPages } from "@/components/RelatedPages";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
@@ -469,6 +470,7 @@ const RequirementsSpecMarketing = () => {
           )}
         </div>
       </main>
+      <RelatedPages heading="Nästa steg i CRM-köpresan" pages={requirementsCrmRelatedPages} />
       <Footer />
     </>
   );

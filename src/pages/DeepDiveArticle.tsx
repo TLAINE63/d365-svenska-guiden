@@ -3,6 +3,7 @@ import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, ArticleSchema } from "@/components/StructuredData";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import RelatedPages, { articleRelatedPages } from "@/components/RelatedPages";
 import { ALL_DEEP_DIVE_ARTICLES } from "@/data/bcArticles";
 import { ArrowLeft, BookOpen, Calendar, RefreshCw } from "lucide-react";
 import { KNOWLEDGE_CENTER_LAST_REVIEWED, formatLongDateSv } from "@/lib/contentFreshness";
@@ -293,6 +294,7 @@ const DeepDiveArticle = () => {
           </div>
         </section>
       </main>
+      <RelatedPages heading="Utforska Dynamics 365" pages={articleRelatedPages} />
       <Footer />
     </>
   );

@@ -5,6 +5,7 @@ import { z } from "zod";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
+import RelatedPages, { needsAnalysisErpRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -3377,6 +3378,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         </div>
       </main>
 
+      <RelatedPages heading="Fortsätt utvärdera ert ERP" pages={needsAnalysisErpRelatedPages} />
       <Footer />
     </div>
   );

@@ -4,6 +4,7 @@ import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import RelatedPages, { articleRelatedPages } from "@/components/RelatedPages";
 import { ArrowLeft, Calendar, Clock, RefreshCw, Tag, User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { KNOWLEDGE_CENTER_LAST_REVIEWED } from "@/lib/contentFreshness";
@@ -408,6 +409,7 @@ const BlogArticle = () => {
           </section>
         )}
       </main>
+      <RelatedPages heading="Utforska Dynamics 365" pages={articleRelatedPages} />
       <Footer />
     </>
   );
