@@ -142,6 +142,11 @@ const initialComplexity: ComplexityData = {
   posIntegration: "",
   realtimeInventory: "",
   campaignPricing: "",
+  currencies: "",
+  languages: "",
+  ediIntegration: "",
+  qualityAssurance: "",
+  batchTraceability: "",
 };
 
 const businessModelOptions = [
