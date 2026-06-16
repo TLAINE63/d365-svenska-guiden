@@ -61,6 +61,12 @@ interface ComplexityData {
   posIntegration: string;
   realtimeInventory: string;
   campaignPricing: string;
+  // Etapp 1b - additional dimensions
+  currencies: string;
+  languages: string;
+  ediIntegration: string;
+  qualityAssurance: string;
+  batchTraceability: string;
 }
 
 interface AnalysisData {
