@@ -3134,21 +3134,32 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       }
 
       case 8: {
-        const aiInterestOptions = [
-          { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
-          { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
-          { value: "Avvaktande", label: "Avvaktande - Vi vill se konkreta användningsfall först" }
-        ];
         const decisionTimelineOptions = [
           { value: "Under kommande halvår", label: "Under kommande halvår" },
           { value: "Inom 6-12 månader", label: "Inom 6-12 månader" },
           { value: "Under nästa 12-24 månader", label: "Under nästa 12-24 månader" },
           { value: "Inga planer just nu", label: "Inga planer just nu" },
         ];
+        const aiInterestOptions = [
+          { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
+          { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
+          { value: "Avvaktande", label: "Avvaktande - Vi vill se konkreta användningsfall först" },
+        ];
+        const pillBtn = (selected: boolean) =>
+          `px-3 py-1.5 rounded-full text-xs font-medium transition-all border ${
+            selected
+              ? "bg-primary text-primary-foreground border-primary shadow-sm"
+              : "bg-muted text-muted-foreground border-transparent hover:bg-accent hover:text-accent-foreground"
+          }`;
         return (
-          <div className="space-y-6">
+          <div className="space-y-8">
+            <p className="text-muted-foreground">
+              AI kan skapa stor nytta i ERP-processer, men värdet beror på tydliga mål, bra data, fungerande processer och rätt systemarkitektur. Svara på frågorna nedan för att bedöma var AI kan ge mest nytta och vad som behöver vara på plats först.
+            </p>
+
+            {/* Översiktligt intresse */}
             <div>
-              <h3 className="text-lg font-semibold mb-4">Hur intresserade är ni av AI i affärssystemet?</h3>
+              <h3 className="text-lg font-semibold mb-2">Hur intresserade är ni av AI i affärssystemet?</h3>
               <div className="grid grid-cols-1 gap-3">
                 {aiInterestOptions.map((option) => (
                   <SelectionCard
@@ -3161,51 +3172,151 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 ))}
               </div>
             </div>
+
+            {/* Fråga 1 - Ambitioner */}
             <div>
-              <h3 className="text-lg font-semibold mb-4">Vilka AI-användningsområden ser ni som mest intressanta?</h3>
-              <div className="grid grid-cols-1 gap-4">
-                {aiUseCaseCategories.map((category) => (
-                  <div
-                    key={category.id}
-                    onClick={() => handleCheckboxChange('aiUseCases', category.title)}
-                    className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                      data.aiUseCases.includes(category.title)
-                        ? 'border-primary bg-primary/5'
-                        : 'border-border hover:border-primary/50'
-                    }`}
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className={`mt-1 w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
-                        data.aiUseCases.includes(category.title)
-                          ? 'border-primary bg-primary'
-                          : 'border-muted-foreground'
-                      }`}>
-                        {data.aiUseCases.includes(category.title) && (
-                          <svg className="w-3 h-3 text-primary-foreground" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
-                        )}
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-bold text-foreground mb-2">{category.title}</h4>
-                        <p className="text-sm text-muted-foreground mb-2">{category.description}</p>
-                        <p className="text-sm font-medium text-primary">{category.benefit}</p>
-                      </div>
+              <h3 className="text-lg font-semibold mb-1">Vad vill ni främst uppnå med AI och automation?</h3>
+              <p className="text-sm text-muted-foreground mb-3">Flera val möjliga.</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {aiAmbitionOptions.map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={data.aiAmbitions.includes(opt)}
+                    onClick={() => handleCheckboxChange("aiAmbitions", opt)}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Fråga 2 - Prioriterade AI-use cases (grupperade) */}
+            <div>
+              <h3 className="text-lg font-semibold mb-1">Vilka AI-områden är mest intressanta för er?</h3>
+              <p className="text-sm text-muted-foreground mb-3">Flera val möjliga.</p>
+              <div className="space-y-5">
+                {aiUseCaseDomains.map((g) => (
+                  <div key={g.domain}>
+                    <h4 className="font-semibold text-sm mb-2 text-foreground/90">{g.domain}</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {g.items.map((it) => (
+                        <SelectionCard
+                          key={it}
+                          label={it}
+                          selected={data.aiUseCases.includes(it)}
+                          onClick={() => handleCheckboxChange("aiUseCases", it)}
+                        />
+                      ))}
                     </div>
                   </div>
                 ))}
               </div>
             </div>
+
+            {/* Fråga 3 - Datamognad */}
             <div>
-              <Label htmlFor="aiDetails">Beskriv hur AI skulle kunna hjälpa er verksamhet</Label>
+              <h3 className="text-lg font-semibold mb-1">Hur bedömer ni kvaliteten på er data idag?</h3>
+              <p className="text-sm text-muted-foreground mb-3">Sätt en nivå per område.</p>
+              <div className="space-y-3">
+                {aiDataAreas.map((area) => (
+                  <div key={area} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-3 rounded-lg border border-border/60 bg-card">
+                    <span className="text-sm font-medium">{area}</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {aiDataQualityScale.map((v) => (
+                        <button
+                          key={v}
+                          type="button"
+                          onClick={() => updateAiDataQuality(area, v)}
+                          className={pillBtn(data.aiDataQuality[area] === v)}
+                        >
+                          {v}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-5">
+                <h4 className="font-semibold text-sm mb-2">Vilka dataproblem upplever ni idag? <span className="text-xs font-normal text-muted-foreground">(flera val möjliga)</span></h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {aiDataIssueOptions.map((opt) => (
+                    <SelectionCard
+                      key={opt}
+                      label={opt}
+                      selected={data.aiDataIssues.includes(opt)}
+                      onClick={() => handleCheckboxChange("aiDataIssues", opt)}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Fråga 4 - Processmognad */}
+            <div>
+              <h3 className="text-lg font-semibold mb-1">Hur mogna är era processer för AI och automation?</h3>
+              <p className="text-sm text-muted-foreground mb-3">Bedöm varje påstående.</p>
+              <div className="space-y-3">
+                {aiProcessAreas.map((area) => (
+                  <div key={area} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-3 rounded-lg border border-border/60 bg-card">
+                    <span className="text-sm font-medium">{area}</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {aiProcessScale.map((v) => (
+                        <button
+                          key={v}
+                          type="button"
+                          onClick={() => updateAiProcessMaturity(area, v)}
+                          className={pillBtn(data.aiProcessMaturity[area] === v)}
+                        >
+                          {v}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Fråga 5 - Governance & risk */}
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Finns riktlinjer eller krav kopplade till AI-användning?</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {aiGovernanceOptions.map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={data.aiGovernance === opt}
+                    onClick={() => setData({ ...data, aiGovernance: opt })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+              <div className="mt-5">
+                <h4 className="font-semibold text-sm mb-2">Vilka AI-risker eller frågor behöver hanteras? <span className="text-xs font-normal text-muted-foreground">(flera val möjliga)</span></h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {aiRiskOptions.map((opt) => (
+                    <SelectionCard
+                      key={opt}
+                      label={opt}
+                      selected={data.aiRisks.includes(opt)}
+                      onClick={() => handleCheckboxChange("aiRisks", opt)}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Fri kommentar */}
+            <div>
+              <Label htmlFor="aiDetails">Egna kommentarer om AI i er verksamhet (valfritt)</Label>
               <Textarea
                 id="aiDetails"
-                placeholder="Beskriv era tankar om AI..."
+                placeholder="Beskriv era tankar, hinder eller önskemål kring AI..."
                 value={data.aiDetails}
                 onChange={(e) => setData({ ...data, aiDetails: e.target.value })}
                 className="mt-2"
               />
             </div>
+
+            {/* Beslutstidslinje */}
             <div>
               <h3 className="text-lg font-semibold mb-4">Vart skulle du säga att ni ligger i beslutsprocessen?</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -3223,6 +3334,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           </div>
         );
       }
+
 
       case 9: {
         const rec = getERPRecommendation();
