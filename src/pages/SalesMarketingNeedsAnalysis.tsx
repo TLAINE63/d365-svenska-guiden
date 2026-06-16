@@ -2783,11 +2783,42 @@ const SalesMarketingNeedsAnalysis = () => {
           },
         ];
 
+        const salesLabels = new Set([
+          "Predictive Lead & Opportunity Scoring",
+          "Next Best Action / Next Best Offer",
+          "AI-baserad säljprognos (Forecasting)",
+          "Conversation Intelligence",
+          "Churn & Expansion Prediction (Account Intelligence)",
+        ]);
+        const marketingLabels = new Set([
+          "AI-driven segmentering",
+          "Predictive Nurturing & Timing",
+          "Personalisering i stor skala",
+          "Kampanjoptimering i realtid",
+          "Attribution & Revenue Intelligence",
+        ]);
+        // Copilot-assistenten är relevant för alla fokus
+        const visibleAiUseCases = aiUseCaseOptions.filter((o) => {
+          if (focus === "sales") return salesLabels.has(o.label) || o.label.startsWith("AI-assistent");
+          if (focus === "marketing") return marketingLabels.has(o.label) || o.label.startsWith("AI-assistent");
+          return true;
+        });
+
+        const aiInterestLabel =
+          focus === "sales" ? "Hur intresserade är ni av AI i säljarbetet?"
+          : focus === "marketing" ? "Hur intresserade är ni av AI i marknadsarbetet?"
+          : "Hur intresserade är ni av AI i CRM-systemet?";
+
+        const aiUseCaseLabel =
+          focus === "sales" ? "Vilka AI-användningsområden för sälj är mest intressanta?"
+          : focus === "marketing" ? "Vilka AI-användningsområden för marknad är mest intressanta?"
+          : "Vilka AI-användningsområden ser ni som mest intressanta?";
+
         return (
           <div className="space-y-6">
             {/* AI-intresse */}
             <div>
-              <Label className="text-base font-semibold mb-3 block">Hur intresserade är ni av AI i CRM-systemet?</Label>
+              <Label className="text-base font-semibold mb-3 block">{aiInterestLabel}</Label>
               <div className="grid grid-cols-1 gap-2">
                 {[
                   "Mycket intresserade – Vi vill vara i framkant",
@@ -2807,9 +2838,9 @@ const SalesMarketingNeedsAnalysis = () => {
 
             {/* AI-användningsområden */}
             <div>
-              <Label className="text-base font-semibold mb-3 block">Vilka AI-användningsområden ser ni som mest intressanta?</Label>
+              <Label className="text-base font-semibold mb-3 block">{aiUseCaseLabel}</Label>
               <div className="grid grid-cols-1 gap-2">
-                {aiUseCaseOptions.map((opt) => (
+                {visibleAiUseCases.map((opt) => (
                   <SelectionCard
                     key={opt.label}
                     label={opt.label}
