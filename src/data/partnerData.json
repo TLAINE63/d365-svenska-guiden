@@ -163,10 +163,12 @@
         "customerCaseLinks": [
           "https://www.adbriq.com/case/"
         ],
-        "productDescription": "Specialister inom mode, sport, skor och textil. ",
+        "productDescription": "adbriq har specialiserat sig på att leverera lösningar baserade på Microsoft Dynamics 365 Business Central primärt till företag inom nischerna mode, sport, skor och textil. De erbjuder integrationer och anpassningar för att möta specifika branschbehov, såsom hantering av säsongsproduktion, artikelvariationer och komplexa leveranskedjor. Partnern stöttar kunder genom hela implementeringsprocessen, från analys och design till driftsättning och support. Fokus ligger på att optimera affärsprocesser för att förbättra effektivitet och lagerhantering hos företag med behov av en skalbar affärssystemslösning. adbriq arbetar för att säkerställa att Business Central anpassas till kundens unika operativa krav.",
         "aiPredictiveDetails": [],
         "secondaryIndustries": [],
-        "aiSegmentationDetails": []
+        "aiSegmentationDetails": [],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       }
     },
     "industry_apps": [
@@ -195,7 +197,7 @@
     "legal_name": "adbriq AB",
     "youtube_video_id": null,
     "created_at": "2026-05-26T11:20:39.922112+00:00",
-    "updated_at": "2026-06-16T08:28:47.50639+00:00",
+    "updated_at": "2026-06-16T08:35:11.148498+00:00",
     "industry_pitches": [
       {
         "text": "adbriq erbjuder stöd för företag inom mode, sport och textil som använder Microsoft Dynamics 365 Business Central. De fokuserar på att optimera affärsprocesser kopplade till produktlivscykelhantering, lageroptimering och distributionskedjan. Med förståelse för branschens specifika krav, som exempelvis säsongsvariationer, kollektionshantering och flera försäljningskanaler, arbetar adbriq med att anpassa Business Central för en effektiv hantering av dessa flöden. De kan även bistå med integrationer mot externa e-handelsplattformar och logistikpartners för en sammanhållen IT-miljö. adbriq stödjer företag i att hantera data för bland annat artikelvariationer, kundordrar och returer i Business Central.",
@@ -253,8 +255,10 @@
         "swedenRegions": [],
         "customerExamples": [],
         "customerCaseLinks": [],
-        "productDescription": "Smartare sälj och datadriven marknadsföring med stöd av AI",
-        "secondaryIndustries": []
+        "productDescription": "B3 Elevate arbetar med att implementera och optimera Dynamics 365 Sales för att stödja organisationer i att effektivisera sina säljprocesser och utveckla datadriven marknadsföring, ofta med integration av AI-funktionalitet. Deras lösningar är utformade för att förbättra hanteringen av kundrelationer, automatisera säljuppgifter och ge insikter som kan driva försäljningstillväxt. Partnern tillhandahåller även expertis inom närliggande Dynamics 365-applikationer som Customer Insights (Marketing), Customer Service, Field Service och Contact Center, vilket möjliggör en integrerad kundresa. Detta stöder främst medelstora till stora företag som strävar efter att förvalta sin säljcykel från prospektering till affärsavslut på ett mer effektivt sätt.",
+        "secondaryIndustries": [],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       },
       "service": {
         "ranking": 999,
@@ -269,8 +273,10 @@
         "swedenRegions": [],
         "customerExamples": [],
         "customerCaseLinks": [],
-        "productDescription": "Specialister på intelligent kund- och medlemsservice med stöd av AI.",
-        "secondaryIndustries": []
+        "productDescription": "B3 Elevate är specialiserade på att implementera och optimera Dynamics 365 Customer Service för organisationer som önskar effektivisera sin kund- och medlemsservice. De fokuserar på lösningar som integrerar intelligenta funktioner, inklusive AI-stöd, för att förbättra serviceupplevelsen och automatisera processer. Detta inkluderar hantering av ärenden, kundinteraktioner och kunskapsdelning inom organisationen. Deras expertis sträcker sig till att koppla Dynamics 365 Customer Service med andra applikationer som Sales, Customer Insights och Field Service för en mer sammanhängande kundresa. De assisterar kunder med att designa och implementera skalbara serviceplattformar som kan anpassas efter varierande affärsbehov.",
+        "secondaryIndustries": [],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       }
     },
     "industry_apps": [],
@@ -295,7 +301,7 @@
     "legal_name": "B3 Elevate Consulting AB",
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-06-10T07:04:03.090768+00:00",
+    "updated_at": "2026-06-16T08:35:11.148498+00:00",
     "industry_pitches": [
       {
         "text": "För medlemsorganisationer kan B3 Elevate leverera lösningar baserade på Microsoft Dynamics 365, med fokus på att optimera medlemsresan och medvetenheten om organisationens värde. De har kompetens inom applikationer som Dynamics 365 Sales, Customer Insights (Marketing), Customer Service och Contact Center.\n\nGenom att arbeta med Dynamics 365 kan organisationer effektivisera medlemskommunikation, hantera medlemsregister och förbättra servicen. B3 Elevate bistår med att utveckla och implementera system för att underlätta dessa processer, från strategi till förvaltning. Deras expertis omfattar hur digitala verktyg kan anpassas för att möta medlemmarnas förväntningar och hantera enskilda medlemsärenden mer effektivt. De arbetar också med att integrera AI-baserade lösningar för att utveckla kundupplevelsen, vilket kan bidra till en ökad relevans för medlemmarna.",
@@ -592,9 +598,11 @@
         ],
         "aiCaseDescription": "",
         "customerCaseLinks": [],
-        "productDescription": "Experter på Business Central för bättre kontroll, enklare processer och tillväxt",
+        "productDescription": "Cepheo erbjuder implementering och optimering av Dynamics 365 Business Central för att effektivisera affärsprocesser och underlätta tillväxt för organisationer. Deras expertis omfattar att konfigurera lösningen för att hantera ekonomi, lager, projekt och försäljning, anpassat till specifika verksamhetsbehov. Partnern bistår företag med att integrera Business Central med andra Dynamics 365-applikationer som Finance, Supply Chain Management, Sales, Customer Insights (Marketing) och Human Resources för att skapa en enhetlig plattform. De stöder kunder genom hela implementeringsprocessen samt erbjuder löpande support från sina kontor i Malmö, Stockholm och Göteborg. Cepheo är verksamma inom flera branscher och anpassar lösningen för att möta diversifierade krav.",
         "aiPredictiveDetails": [],
-        "aiSegmentationDetails": []
+        "aiSegmentationDetails": [],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       },
       "fsc": {
         "ranking": 999,
@@ -630,9 +638,11 @@
         "customerCaseLinks": [
           "https://cepheo.se/vaara-kunder/modernt-erp-system-stoedjer-global-tillvaext-hos-hms-networks/"
         ],
-        "productDescription": "Experter på att optimera produktion, supply chain och finans i Dynamics 365",
+        "productDescription": "Cepheo erbjuder expertis inom Microsoft Dynamics 365 Finance & Supply Chain Management för att hjälpa organisationer optimera sina processer. Deras arbete omfattar implementering och anpassning för att effektivisera finansiell styrning, produktionsplanering och logistikflöden. De stöttar kunder i att utnyttja plattformens funktionalitet för att förbättra beslutsfattande och operativa prestanda. Typiska användningsområden inkluderar komplexa finansiella rapporteringsbehov, avancerad lagerhantering och optimering av globala leveranskedjor. Cepheo arbetar med företag som strävar efter att integrera och automatisera sina affärssystem för ökad effektivitet. Deras team finns representerat i Malmö, Stockholm och Göteborg.",
         "aiPredictiveDetails": [],
-        "aiSegmentationDetails": []
+        "aiSegmentationDetails": [],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       },
       "sales": {
         "ranking": 999,
@@ -663,9 +673,11 @@
         "customerCaseLinks": [
           "https://cepheo.se/vaara-kunder/aalborg-energie-technik-strukturerar-foersaeljningen-och-uppnaar-maetbara-resultat-med-microsoft-dynamics-365-sales/"
         ],
-        "productDescription": "Specialister på Dynamics 365 för sälj, pipeline och datadrivna kundinsikter",
+        "productDescription": "Cepheo erbjuder implementering och anpassning av Dynamics 365 Sales för att optimera säljprocesser, pipelinehantering och kundrelationer. Deras arbete omfattar att etablera en sammanhållen plattform som ger datadrivna insikter för att stödja kundengagemang och säljstrategier. Cepheos expertis inom Dynamics 365 Sales tillämpas för att säkerställa att företag kan effektivisera sina säljcykler och förbättra beslutsfattande genom tillgång till relevant kunddata. De stöder kunder i att integrera Dynamics 365 Sales med andra affärssystem som Business Central, Finance och Supply Chain Management, samt Customer Insights (Marketing) och Human Resources, för att skapa en heltäckande lösning. Partnern har kontor i Malmö, Stockholm och Göteborg och riktar sig till organisationer som söker att stärka sin försäljningsförmåga genom modern CRM-teknik.",
         "aiPredictiveDetails": [],
-        "aiSegmentationDetails": []
+        "aiSegmentationDetails": [],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       },
       "service": {
         "ranking": 999,
@@ -696,9 +708,11 @@
         "customerCaseLinks": [
           "https://cepheo.se/vaara-kunder/lindab-profil-staerker-och-effektiviserar-kundrelationerna-med-dynamics-365-customer-service/"
         ],
-        "productDescription": "Vi skapar effektiva serviceprocesser och bättre kundupplevelser med Dynamics 365",
+        "productDescription": "Cepheo utformar och implementerar lösningar baserade på Dynamics 365 Customer Service för att förbättra serviceprocesser och kundupplevelser. De assisterar med att konfigurera plattformen för att understödja organisationers kundtjänstfunktioner, från ärendehantering till self-service-portaler. Företagets expertis omfattar även integrationer med relaterade Dynamics 365-applikationer som Business Central, Finance, Supply Chain Management, Sales, Customer Insights (Marketing) och Human Resources, vilket möjliggör en sammanhängande processflöde för kunden. Detta erbjuds organisationer som har behov av att optimera sin kundservice. Cepheo har kontor i Malmö, Stockholm och Göteborg.",
         "aiPredictiveDetails": [],
-        "aiSegmentationDetails": []
+        "aiSegmentationDetails": [],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       }
     },
     "industry_apps": [],
@@ -715,7 +729,7 @@
     "legal_name": "Cepheo Sverige AB",
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-06-05T09:59:23.450683+00:00",
+    "updated_at": "2026-06-16T08:35:11.148498+00:00",
     "industry_pitches": [
       {
         "text": "Cepheo levererar Microsoft Dynamics 365-lösningar till företag inom livsmedels- och processindustrin. De arbetar med applikationer som Business Central, Finance och Supply Chain Management, vilka kan stödja processer från produktion till distribution. Cepheo har erfarenhet av att implementera system som hanterar komplexa värdekedjor, vilket är relevant för branschens krav på spårbarhet och effektivitet. Deras tjänster inkluderar även CRM-verktyg som Sales och Customer Insights, samt Human Resources, vilka kan användas för att förbättra kundrelationer och personalhantering inom industrin. Genom att integrera AI, BI och analytics syftar Cepheo till att ge företag bättre beslutsunderlag och möjlighet att optimera sin verksamhet i en konkurrensutsatt marknad.",
@@ -800,7 +814,9 @@
         "customerCaseLinks": [
           "https://www.cosmoconsult.com/se/insights/referenser-ett-urval/carglass"
         ],
-        "productDescription": "erfaren BC-partner med unika branschlösningar för tillverkande företag"
+        "productDescription": "COSMO CONSULT är en erfaren partner inom Dynamics 365 Business Central, med fokus på att leverera affärssystemlösningar som är anpassade för tillverkande företag. De erbjuder branschlösningar som kompletterar standardfunktionaliteten i Business Central, vilket möjliggör effektivisering av specifika processer inom produktion och relaterade områden. Företaget stöttar kunder med implementering, anpassning och support av Dynamics 365 Business Central, ofta i kombination med Dynamics 365 Sales och Customer Insights. Deras arbete riktar sig mot att hjälpa kunder att optimera sina verksamhetsprocesser och förbättra beslutsfattande genom integrerade affärssystem.",
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       },
       "sales": {
         "ranking": 999,
@@ -819,7 +835,9 @@
           "Kundexempel kan ges på förfrågan"
         ],
         "customerCaseLinks": [],
-        "productDescription": "D365 Sales och Marketing som nästa logiska steg till din BC-miljö"
+        "productDescription": "COSMO CONSULT erbjuder implementerings- och rådgivningstjänster för Dynamics 365 Sales (CRM), utformade för att integreras sömlöst med befintliga Business Central-miljöer. Detta omfattar lösningar för försäljningsstyrning, kundtjänst och marknadsföring, vilka kan anpassas för att förbättra kundrelationer och försäljningsprocesser. Företagets expertis sträcker sig till att stödja kunder genom hela implementeringsprocessen, från analys och design till drift och support, med fokus på att optimera er sälj- och marknadsföringsstrategi. De arbetar med ett brett spektrum av företag som söker en enhetlig plattform för sin kundhantering, och tillhandahåller även expertis inom Dynamics 365 Customer Insights (Marketing).",
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       }
     },
     "industry_apps": [
@@ -874,7 +892,7 @@
     "legal_name": "Cosmo Consult AB",
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-06-05T09:59:23.450683+00:00",
+    "updated_at": "2026-06-16T08:35:11.148498+00:00",
     "industry_pitches": [
       {
         "text": "COSMO CONSULT levererar affärslösningar baserade på Microsoft Dynamics 365 till företag inom Life Science- och MedTech-sektorn. Partnern erbjuder branschspecifika lösningar som stödjer tillverkare av medicintekniska produkter, bland annat genom COSMO Unique Device Identification (UDI) för att möta regulatoriska krav för bland annat spårbarhet. De tillhandahåller även COSMO Quality Assurance för hantering av kvalitetstester i Microsoft Dynamics 365 Business Central. Utöver detta implementerar COSMO CONSULT lösningar för sälj- och kundrelationshantering med Dynamics 365 Sales och marknadsföring via Customer Insights (Marketing). Deras erbjudande omfattar även standardlösningar som ExFlow och SweBase samt integration av Microsofts AI-lösningar, inklusive Copilot. Partnern har kontor på fyra orter i Sverige.",
@@ -1115,9 +1133,11 @@
           "https://www.evidi.com/se/aktuellt/urbanista-valjer-business-central-cloud-for-att-effektivisera-sin-verksamhet",
           "https://www.evidi.com/se/aktuellt/busnel-investerar-i-modernt-affarssystem-for-att-driva-global-expansion-och-forbattra-effektiviteten"
         ],
-        "productDescription": "Specialister inom retail, fashion och textil/konfektion.",
+        "productDescription": "Evidi, som är verksamma i Stockholm, Göteborg och Borås, har specialiserat sig på implementering och anpassning av Microsoft Dynamics 365 Business Central för företag i sektorer som detaljhandel, mode samt textil- och konfektionsindustrin. Genom att fokusera på dessa branscher har Evidi kunskap om de unika utmaningar och behov som finns inom exempelvis lagerhantering, POS-system och säsongsbetonade kollektioner. De stöder sina kunder i att effektivisera affärsprocesser genom att anpassa Business Central för att hantera hela värdekedjan, från inköp och produktion till försäljning och kundservice. Detta möjliggör för kunderna att optimera sin drift och få en mer integrerad översikt över sin verksamhet.",
         "aiPredictiveDetails": [],
-        "aiSegmentationDetails": []
+        "aiSegmentationDetails": [],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       }
     },
     "industry_apps": [
@@ -1164,7 +1184,7 @@
     "legal_name": "Evidi AB",
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-06-16T08:28:47.50639+00:00",
+    "updated_at": "2026-06-16T08:35:11.148498+00:00",
     "industry_pitches": [
       {
         "text": "Evidi erbjuder lösningar baserade på Microsoft Dynamics 365 Business Central anpassade för grossist- och distributionsbranschen. De bistår företag med att effektivisera processer inom bland annat inköp, lagerhantering och logistik. Genom att implementera och konfigurera standardfunktionalitet i Business Central hjälper Evidi sina kunder att möta krav på snabba och tillförlitliga leveranser samt förbättrad spårbarhet i distributionskedjan. De har erfarenhet av att arbeta med företag som verkar inom olika segment av grossist- och distributionshandeln. Evidi fokuserar på att leverera stabila och skalbara affärssystem som stödjer kundernas operationella behov och strategiska mål.",
@@ -1265,10 +1285,12 @@
         "customerCaseLinks": [
           "https://www.fellowmind.com/sv-se/cases/viacon/"
         ],
-        "productDescription": "Vi vet att det inte bara är systemet du köper, utan metoden. Och Fellowmind har lång erfarenhet av stora som små framgångsrika BC-projekt, såväl i Sverige som internationellt. ",
+        "productDescription": "Fellowmind har erfarenhet av att implementera, anpassa och uppgradera Microsoft Dynamics 365 Business Central-lösningar, med fokus på att optimera verksamhetsmetodik. De erbjuder stöd genom hela projektets livscykel, från analys till driftsättning och vidare support, för kunder i både Sverige och internationellt. Partnern arbetar med en bred kundbas och kan anpassa Business Central för en variation av processer, inklusive finans, försäljning, lagerhantering och projektstyrning. Deras kompetens sträcker sig även till integrationer med andra Dynamics 365-applikationer som Finance, Supply Chain Management, Sales och Customer Insights, för att skapa sammanhängande affärssystem. Fellowmind bistår företag med att effektivisera sin verksamhet genom att utnyttja Business Centrals funktionalitet för att stödja både mindre och större verksamheter.",
         "aiPredictiveDetails": [],
         "secondaryIndustries": [],
-        "aiSegmentationDetails": []
+        "aiSegmentationDetails": [],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       },
       "fsc": {
         "ranking": 999,
@@ -1313,9 +1335,11 @@
           "https://www.fellowmind.com/sv-se/cases/stena-recycling/",
           "https://www.fellowmind.com/sv-se/cases/ponsse/"
         ],
-        "productDescription": "Från ekonomi och produktion till supply chain och verksamhetsstyrning. Vi hjälper företag att skapa en datadriven och skalbar verksamhet med Dynamics 365.",
+        "productDescription": "Fellowmind assisterar företag med att implementera och optimera Microsoft Dynamics 365 Finance & Supply Chain Management för att uppnå datadriven verksamhetsstyrning. De tillhandahåller expertis inom områden som ekonomi, produktion, logistik och leveranskedja, och strävar efter att skapa skalbara lösningar som möter olika verksamhetsbehov. Genom att integrera data och processer i ett enhetligt system, kan organisationer optimera sin supply chain och fatta mer informerade beslut. Partnerns erbjudande täcker en bred funktionalitet, från finansiell planering till lagerhantering, och utgör en viktig del i att effektivisera affärsprocesser för deras kunder. Deras arbete omfattar implementering, anpassning och support för systemet.",
         "aiPredictiveDetails": [],
-        "aiSegmentationDetails": []
+        "aiSegmentationDetails": [],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       },
       "sales": {
         "ranking": 999,
@@ -1390,7 +1414,7 @@
     "legal_name": "Fellowmind Sweden AB",
     "youtube_video_id": null,
     "created_at": "2026-01-12T20:38:52.813808+00:00",
-    "updated_at": "2026-06-16T08:14:14.434257+00:00",
+    "updated_at": "2026-06-16T08:35:11.148498+00:00",
     "industry_pitches": [
       {
         "text": "Fellowmind erbjuder lösningar baserade på Microsoft Dynamics 365 för grossist- och distributionsbranschen. Med inriktning på att optimera leveranskedjor och finansiella processer, implementerar Fellowmind Dynamics 365 Finance och Supply Chain Management. Deras expertis omfattar att stödja företag i att hantera komplexa logistikflöden, förbättra lagereffektiviteten och säkerställa transparenta ekonomiska transaktioner. Fellowmind arbetar med att anpassa Microsoft-plattformen för att möta specifika krav gällande priskonfigurationer, integration med tredjepartslogistik (3PL) och optimering av order-till-leveransprocesser. De strävar efter att leverera hållbara lösningar som bidrar till ökad operativ effektivitet och datadrivna beslutsunderlag.",
@@ -1501,9 +1525,11 @@
         "customerCaseLinks": [
           "https://goodfellows.se/cases/"
         ],
-        "productDescription": "Lång erfarenhet från branscher som handel, produktion och distribution. Höga betyg från kunder avseende support och förvaltning",
+        "productDescription": "Goodfellows tillhandahåller expertis inom Dynamics 365 Business Central, med en etablerad erfarenhet av implementeringar och förvaltning inom sektorer som handel, produktion och distribution. De erbjuder lösningar som anpassas för att stödja kundernas affärsprocesser, från finansiell styrning till lagerhantering och logistik. Företaget fokuserar på att leverera både nya implementationer och kontinuerlig support för befintliga system, med syfte att optimera klienternas dagliga verksamhet. Klientfeedback indikerar en hög nöjdhet med den support och förvaltning som tillhandahålls.",
         "aiPredictiveDetails": [],
-        "aiSegmentationDetails": []
+        "aiSegmentationDetails": [],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       }
     },
     "industry_apps": [],
@@ -1519,7 +1545,7 @@
     "legal_name": "Goodfellows Business AB",
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-06-10T07:06:12.915197+00:00",
+    "updated_at": "2026-06-16T08:35:11.148498+00:00",
     "industry_pitches": [
       {
         "text": "Goodfellows levererar affärssystemlösningar med fokus på Microsoft Dynamics 365 Business Central. Partnern har erfarenhet av att arbeta med företag inom handel och distribution. De strävar efter att leverera lösningar som fungerar i praktiken och bidrar med affärsförståelse för att säkerställa relevanta vägval. Goodfellows kan erbjuda stöd för processer som rör omnikanalstrategier, kundresor, logistik och lagerhantering, vilka är centrala för aktörer inom retail och e-handel. De arbetar nära sina kunder för att implementera lösningar som skapar affärsnytta, med målet att systemet ska fungera utan oväntade utmaningar.",
@@ -2301,9 +2327,11 @@
         "customerCaseLinks": [
           "https://navet.se/project/ramirent/"
         ],
-        "productDescription": "Bred kompetens i grunden – med tydlig spets inom rental och life science",
+        "productDescription": "Navet AB besitter bred kompetens inom Dynamics 365 Business Central och erbjuder implementerings- och rådgivningstjänster för systemets kärnfunktionalitet. Företaget har utvecklat specifik expertis inom vertikala lösningar för branscherna rental och life science, vilket möjliggör anpassade lösningar för dessa sektorer. Genom att utnyttja Business Centrals förmåga att hantera företagsövergripande processer, inklusive finans, supply chain och projektledning, stödjer de företag i att optimera sina verksamheter. Navet AB:s arbete fokuserar på att leverera en stabil och funktionell plattform som kan anpassas till kundens unika affärskrav. De riktar sig till organisationer som söker en integrerad lösning för sin affärsstyrning, med särskild förmåga att adressera komplexa behov inom nämnda nischområden.",
         "aiPredictiveDetails": [],
-        "aiSegmentationDetails": []
+        "aiSegmentationDetails": [],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       },
       "sales": {
         "ranking": 999,
@@ -2329,9 +2357,11 @@
         "customerExamples": [],
         "aiCaseDescription": "",
         "customerCaseLinks": [],
-        "productDescription": "Fokus på tydlig integration till Business Central inom D365",
+        "productDescription": "Navet AB erbjuder tjänster inom Dynamics 365 Sales (CRM), med ett specifikt fokus på att säkerställa tydlig integration till Dynamics 365 Business Central. Deras expertis omfattar implementering och anpassning av systemet för att effektivisera säljprocesser, från leadshantering till orderläggning och kunduppföljning. De stöder kunder i behov av att samordna säljdata med ekonomiska och operativa processer för att skapa en enhetlig översikt över kundinteraktioner. Navet AB arbetar med kunder som efterfrågar en integrerad lösning för att optimera sina sälj- och affärsverksamheter.",
         "aiPredictiveDetails": [],
-        "aiSegmentationDetails": []
+        "aiSegmentationDetails": [],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       },
       "service": {
         "ranking": 999,
@@ -2357,9 +2387,11 @@
         "customerExamples": [],
         "aiCaseDescription": "",
         "customerCaseLinks": [],
-        "productDescription": "Fokus på tydlig integration till Business Central inom D365",
+        "productDescription": "Navet AB tillhandahåller expertis inom Dynamics 365 Customer Service med ett uttalat fokus på sömlös integration med Business Central inom Dynamics 365-plattformen. Denna integration möjliggör en enhetlig kundhantering och effektiviserar arbetsflöden för företag som önskar sammanlänka sälj, service och ekonomi. Partnern stöttar kunder i att optimera kundserviceprocesser, från ärendehantering till self-service-portaler, vilket bidrar till förbättrade kundrelationer och operativ effektivitet. Navet AB har kapacitet att implementera och anpassa lösningar för olika typer av organisationer som använder sig av Dynamics 365 Customer Service för att hantera sin kundinteraktion.",
         "aiPredictiveDetails": [],
-        "aiSegmentationDetails": []
+        "aiSegmentationDetails": [],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       }
     },
     "industry_apps": [
@@ -2392,7 +2424,7 @@
     "legal_name": "Navet AB",
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-06-05T09:59:23.450683+00:00",
+    "updated_at": "2026-06-16T08:35:11.148498+00:00",
     "industry_pitches": [
       {
         "text": "Navet AB erbjuder expertis inom Microsoft Dynamics 365 för Life Science- och Medtech-företag. De bistår med systemstöd för att hantera komplexa processer inom bland annat produktion, lagerhantering och spårbarhet. Med lösningar som Dynamics 365 Business Central, kompletterat med branschspecifika tillägg som Yaveon 365 Lot Management, kan Navet optimera hanteringen av batchdata, inklusive spårbarhet, status och lagerflöden. Detta säkerställer kontroll från produktion till leverans, vilket är avgörande inom branscher med höga krav på regelefterlevnad.\n\nPartnern tillhandahåller även stöd med Dynamics 365 Sales, Customer Insights, Customer Service och Field Service, för att förbättra kundrelationer och serviceprocesser. Navet AB:s breda kompetens inom Microsofts affärsplattform, och deras helhetslösningar från rådgivning till integration och support, syftar till att leverera kompletta IT-lösningar som stödjer digital transformation. Genom att integrera verksamhetsförståelse med teknisk expertis agerar Navet som en långsiktig partner.",
@@ -2480,10 +2512,12 @@
         "customerCaseLinks": [
           "https://nexergroup.com/uk/cases/agribusiness-microsoft-business-central/"
         ],
-        "productDescription": "Om du har vuxit ur ditt nuvarande redovisnings- eller försäljnings- och marknadsföringssystem erbjuder vi en snabb och kostnadseffektiv lösning. ",
+        "productDescription": "Nexer erbjuder implementering och anpassning av Microsoft Dynamics 365 Business Central för organisationer som söker ett mer integrerat affärssystem. Lösningen är avsedd för företag som har behov av ett system som hanterar redovisning, försäljning och marknadsföring, och som önskar en samlad plattform som kan skala i takt med verksamhetens utveckling. Med erfarenhet från flertalet Dynamics 365-applikationer, inklusive Finance och Supply Chain Management, kan Nexer stötta kunder i olika faser av sin digitaliseringsresa. Denna flexibla lösning kan bidra till effektivisering av administrativa processer och att underlätta beslutsfattande genom tillgång till enhetlig data inom organisationen. Nexer bistår med kunskap om systemets standardfunktionalitet och möjligheter till integration med andra applikationer inom Dynamics 365-sviten.",
         "aiPredictiveDetails": [],
         "secondaryIndustries": [],
-        "aiSegmentationDetails": []
+        "aiSegmentationDetails": [],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       },
       "fsc": {
         "ranking": 999,
@@ -2520,10 +2554,12 @@
         "customerCaseLinks": [
           "https://nexergroup.com/sv/cases/nornorm/?_gl=1*dewj9o*_up*MQ..*_ga*MTE2MjYzMTA1NC4xNzc1ODMwMDQx*_ga_JNM6SXM044*czE3NzU4MzAwNDAkbzEkZzAkdDE3NzU4MzAwNDAkajYwJGwwJGgw"
         ],
-        "productDescription": "Vi har lång erfarenhet av Dynamics 365 Finance och kan hjälpa dig och ditt företag med expertis inom själva plattformen, men också inom ekonomistyrning och alla tillhörande processer.",
+        "productDescription": "Nexer erbjuder expertis inom Dynamics 365 Finance & Supply Chain Management, med fokus på att stödja företag i implementering och optimering av plattformen. Företagets erfarenhet omfattar ekonomistyrning, logistik och därtill kopplade processer. De bistår kunder med att effektivisera finansiella operationer och hantera komplexa leverantörskedjor, från planering och inköp till produktion och distribution. Denna expertis sträcker sig över flera branscher, med syfte att anpassa lösningar för olika verksamhetsbehov. Nexers arbete fokuserar således på att säkerställa att Dynamics 365 Finance & Supply Chain Management stödjer kundens strategiska mål.",
         "aiPredictiveDetails": [],
         "secondaryIndustries": [],
-        "aiSegmentationDetails": []
+        "aiSegmentationDetails": [],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       },
       "sales": {
         "ranking": 3,
@@ -2578,12 +2614,14 @@
         "customerCaseLinks": [
           "https://nexergroup.com/sv/cases/case-holmen/?_gl=1*xzepdv*_up*MQ..*_ga*MTMxOTAxMTUwOS4xNzc1ODI3NjI3*_ga_JNM6SXM044*czE3NzU4Mjc2MjYkbzEkZzEkdDE3NzU4MjkwNTMkajUyJGwwJGgw"
         ],
-        "productDescription": "Nexer implementerar Dynamics 365 Customer Engagement förenar försäljning, service och marknadsföring i ett enda Microsoft-moln så att team kan agera utifrån en realtidsvy av kunden.",
+        "productDescription": "Nexer erbjuder implementering av Dynamics 365 Sales (CRM), en del av Microsoft Dynamics 365 Customer Engagement. Denna applikation syftar till att konsolidera försäljnings-, service- och marknadsföringsfunktioner inom en enhetlig molnplattform. Kunden kan därmed få en sammanhållen bild av sina kundinteraktioner och optimera relaterade processer. Lösningen är utformad för att hantera säljprocesser, kunddata och marknadsinsatser. Nexers expertis omfattar ett flertal Dynamics 365-applikationer utöver Sales, såsom Business Central, Finance och Supply Chain Management, vilket möjliggör integrationer och en helhetslösning baserad på Microsofts ekosystem. Partnern stöttar företag med att realisera potentialen i Dynamics 365 Sales, från initial analys till implementering och löpande förvaltning. Nexer har kontor på ett flertal orter i Sverige, inklusive Stockholm, Göteborg och Malmö.",
         "aiPredictiveDetails": [],
         "secondaryIndustries": [],
         "aiSegmentationDetails": [
           "ci-platform"
-        ]
+        ],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       },
       "service": {
         "ranking": 3,
@@ -2631,10 +2669,12 @@
         "customerExamples": [],
         "aiCaseDescription": "",
         "customerCaseLinks": [],
-        "productDescription": "Nexer hjälper dig att utvecklas från äldre ärendehantering till en omnikanalmodell som minskar hanteringstiden, höjer kundnöjdheten och förvandlar supportögonblick till lojalitetsögonblick.",
+        "productDescription": "Nexer bistår organisationer i övergången från traditionell ärendehantering till en omnikanalstrategi med Dynamics 365 Customer Service. Detta syftar till att effektivisera ärendeflöden, sänka hanteringstiden och öka kundnöjdheten genom att omvandla supportinteraktioner till positiva upplevelser. Deras arbete omfattar implementering och optimering av lösningar som stödjer kundtjänstfunktioner, inklusive hantering av ärenden, kundinteraktioner över olika kanaler samt kunskapsbaser. Partnern tillhandahåller expertis för att systemet ska kunna anpassas till kundens specifika processer och verksamhetsbehov, vilket kan förbättra servicekvalitet och bidra till kundlojalitet. Nexer arbetar med kunder som söker en moderniserad kundtjänstplattform för att hantera och utveckla sina kundrelationer effektivt. De integrerar ofta Customer Service med andra Dynamics 365-applikationer som Business Central, Finance, Supply Chain Management och Sales för att skapa en samlad affärsplattform.",
         "aiPredictiveDetails": [],
         "secondaryIndustries": [],
-        "aiSegmentationDetails": []
+        "aiSegmentationDetails": [],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       }
     },
     "industry_apps": [],
@@ -2666,7 +2706,7 @@
     "legal_name": "Nexer Enterprise Applications AB",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-06-16T08:14:34.866232+00:00",
+    "updated_at": "2026-06-16T08:35:11.148498+00:00",
     "industry_pitches": [
       {
         "text": "Nexer levererar affärssystemslösningar baserade på Microsoft Dynamics 365 till företag inom grossist- och distributionsbranschen. Med fokus på applikationer som Business Central, Finance och Supply Chain Management stödjer de kunder i att optimera processer som orderhantering, lagerstyrning och logistik. Deras erbjudande omfattar även stöd för kundrelationer genom Dynamics 365 Sales och Customer Service, vilket kan bidra till förbättrad kundkommunikation och service. Nexer har erfarenhet av att implementera system för hantering av globala leveranskedjor och kan bistå med integrationer för att möta krav på spårbarhet och effektivitet i en konkurrensutsatt marknad. De arbetar för att hjälpa företag att hantera marginalpress och möta höga förväntningar på leveransprecision.",
@@ -2812,9 +2852,11 @@
         "customerExamples": [],
         "aiCaseDescription": "",
         "customerCaseLinks": [],
-        "productDescription": "Experter på F&SCM samt underhåll i Dynamics",
+        "productDescription": "Sherpas Group AB tillhandahåller expertis inom Dynamics 365 Finance & Supply Chain Management (F&SCM), inklusive relaterad funktionalitet för underhållsprocesser. Partnern bistår organisationer med implementering, anpassning och support av F&SCM-lösningar för att optimera ekonomistyrning och logistikflöden. Tjänsterna kan omfatta områden som finansiell rapportering, budgetering, inköp, lagerhantering, produktion samt integrationer med andra system. Sherpas Group AB arbetar med företag inom flera branscher, och stöttar kunder från sina kontor i Skellefteå, Stockholm, Malmö, Göteborg och Västerås.",
         "aiPredictiveDetails": [],
-        "aiSegmentationDetails": []
+        "aiSegmentationDetails": [],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       }
     },
     "industry_apps": [],
@@ -2834,7 +2876,7 @@
     "legal_name": "Sherpas Group AB",
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-06-16T08:28:47.50639+00:00",
+    "updated_at": "2026-06-16T08:35:11.148498+00:00",
     "industry_pitches": [
       {
         "text": "Sherpas Group AB levererar lösningar baserade på Microsoft Dynamics 365, särskilt Business Central, Finance och Supply Chain Management, till företag inom bygg- och entreprenadbranschen. De bistår med system som kan hantera projektstyrning, resursallokering, ekonomiuppföljning och logistikflöden specifika för branschens behov. Fokus ligger på att optimera processer för tidrapportering, materialhantering och fakturering för att möta krav på effektivitet och lönsamhet.\n\nGenom att integrera funktioner för budgetering, prognostisering och avvikelseanalys i Dynamics 365 Finance kan Sherpas Group AB hjälpa byggföretag att få bättre kontroll över projektkostnader och intäkter. Dessutom kan Supply Chain Management användas för att effektivisera inköpsprocesser och lagerhantering av byggmaterial. Detta bidrar till ökad transparens och bättre beslutsunderlag i komplexa projekt.",
@@ -3236,9 +3278,11 @@
           "er-stories/2023/powering-sustainable-business-expansion-optimizing-wibaxs-supply-chains-and-resilient-operations/",
           "https://www.vivicta.com/se/nyhetsrum/alla-nyheter-och-pressmeddelanden/ovriga-nyheter/2023/sodra-valjer-tietoevry-som-strategisk-partner-for-affarssystemet-microsoft-dynamics-365/"
         ],
-        "productDescription": "Experter inom globala utrullning med avancerade försörjningskedjor med kunder med bas inom norra europa med kostnads effektiva leveranser.",
+        "productDescription": "Vivicta erbjuder expertis inom Microsoft Dynamics 365 Finance & Supply Chain Management och har omfattande erfarenhet av globala implementationer. De fokuserar på att stötta kunder i norra Europa med avancerade försörjningskedjor och strävar efter att leverera kostnadseffektiva lösningar. Partnern arbetar med hela sviten av Dynamics 365-applikationer, inklusive Business Central, Finance, Supply Chain Management, Sales, Customer Insights (Marketing), Customer Service, Field Service, Contact Center, Project Operations och Human Resources. Deras tjänster omfattar att effektivisera affärsprocesser, optimera ekonomistyrning samt förbättra lager- och logistikhantering för att möta kundernas specifika behov.",
         "aiPredictiveDetails": [],
-        "aiSegmentationDetails": []
+        "aiSegmentationDetails": [],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       },
       "sales": {
         "ranking": 999,
@@ -3278,9 +3322,11 @@
         "customerCaseLinks": [
           "https://www.vivicta.com/en/customer-stories/2023/powering-sustainable-business-expansion-optimizing-wibaxs-supply-chains-and-resilient-operations/https://www.vivicta.com/en/newsroom/all-news-and-releases/other-news/2024/komatsu-forest-chooses-tietoevry-tech-services-as-strategic-partner-for-dynamics-365/https://www.vivicta.com/en/newsroom/all-news-and-releases/press-releases/2024/caljan-and-tietoevry-tech-services-partner-to-drive-digital-transformation-with-microsoft-dynamics-36/"
         ],
-        "productDescription": "Experter inom globala utrullning med avancerade försörjningskedjor och inom offentlig sektor.",
+        "productDescription": "Vivicta erbjuder expertis inom implementering och optimering av Dynamics 365 Sales (CRM), särskilt anpassat för organisationer med globala verksamheter och komplexa försörjningskedjor. Partnern har även erfarenhet av att stödja aktörer inom offentlig sektor med att effektivisera sina säljprocesser och kundrelationer. Deras tjänster omfattar hela livscykeln från analys och design till implementering och support, med fokus på att anpassa Dynamics 365 Sales till specifika verksamhetskrav. Detta innefattar hantering av kunddata, säljprognoser och automatisering av säljflöden. Vivicta bistår kunder med att integrera lösningen med andra Dynamics 365-applikationer som Business Central, Finance och Supply Chain Management, vilket skapar en enhetlig plattform för affärsdrift.",
         "aiPredictiveDetails": [],
-        "aiSegmentationDetails": []
+        "aiSegmentationDetails": [],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       },
       "service": {
         "ranking": 999,
@@ -3321,9 +3367,11 @@
           "https://www.vivicta.com/en/newsroom/all-news-and-releases/press-releases/2026/vivicta-and-microsoft-elevate-customer-service-quality-and-efficiency-with-ai/https://www.vivicta.com/en/newsroom/all-news-and-releases/other-news/2024/komatsu-forest-chooses-tietoevry-tech-services-as-strategic-partner-for-dynamics-365/",
           "https://www.vivicta.com/se/nyhetsrum/alla-nyheter-och-pressmeddelanden/ovriga-nyheter/2024/tietoevry-tech-services-utsedd-till-strategisk-partner-inom-microsoft-dynamics-365-finance-och-supply-chain-management-for-piab-group/"
         ],
-        "productDescription": "Experter inom globala utrullning med avancerade försörjningskedjor med installerade \"baser\" eller fordon med tung fokus på eftermarknad",
+        "productDescription": "Vivicta har specialiserat sig på att implementera och förvalta Dynamics 365 Customer Service för att stödja organisationer med komplexa servicebehov. Partnerns expertis omfattar globala utrullningar, särskilt för företag med avancerade försörjningskedjor, installerade baser eller fordon, där eftermarknadsservice är av stor betydelse. De assisterar kunder med att optimera hanteringen av ärenden, kundinteraktioner och serviceprocesser för att uppnå effektivare kundsupport. Vivicta erbjuder lösningar för både proaktiv och reaktiv service, med fokus på att skapa en enhetlig kundupplevelse över olika kanaler. Genom att integrera Customer Service med andra Dynamics 365-applikationer, som bland annat Field Service och Supply Chain Management, strävar Vivicta efter att leverera heltäckande lösningar.",
         "aiPredictiveDetails": [],
-        "aiSegmentationDetails": []
+        "aiSegmentationDetails": [],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
       }
     },
     "industry_apps": [
@@ -3358,7 +3406,7 @@
     "legal_name": "Vivicta AB",
     "youtube_video_id": null,
     "created_at": "2026-03-19T08:57:20.19097+00:00",
-    "updated_at": "2026-06-16T08:14:34.866232+00:00",
+    "updated_at": "2026-06-16T08:35:11.148498+00:00",
     "industry_pitches": [
       {
         "text": "Vivicta bistår aktörer inom jordbruk och skogsbruk med implementering och förvaltning av Microsoft Dynamics 365-lösningar. De fokuserar på att leverera skalbara affärssystem som kan stödja verksamhetens processer, från rådgivning till driftsättning. Vivictas erbjudande omfattar Dynamics 365 Finance och Supply Chain Management, vilka kan användas för att hantera finansiella processer, logistik och försörjningskedjor.\n\nFör mindre verksamheter kan Dynamics 365 Business Central vara aktuellt. De har även kompetens inom att integrera lösningar med Power Platform och Azure, vilket kan bidra till automatiserade flöden och utökad analyskapacitet. Vivictas tjänster sträcker sig från initial rådgivning och lösningsdesign till implementering och kontinuerlig förvaltning. Deras expertis omfattar även CRM-applikationer genom Dynamics 365 Customer Engagement.",
