@@ -75,7 +75,7 @@ const D365ProjectOperations = () => {
         </div>
       </section>
 
-      <ApplicationPartners applicationFilter="Project Operations" pageSource="D365 Project Operations" />
+      <ApplicationPartners applicationFilter="Project Operations" pageSource="D365 Project Operations" filterMode="companySize" />
 
       <section className="py-12 sm:py-16 md:py-20 bg-finance">
         <div className="container mx-auto px-4 sm:px-6 text-center">

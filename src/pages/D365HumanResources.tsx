@@ -75,7 +75,7 @@ const D365HumanResources = () => {
         </div>
       </section>
 
-      <ApplicationPartners applicationFilter="Human Resources" pageSource="D365 Human Resources" />
+      <ApplicationPartners applicationFilter="Human Resources" pageSource="D365 Human Resources" filterMode="companySize" />
 
       <section className="py-12 sm:py-16 md:py-20 bg-finance">
         <div className="container mx-auto px-4 sm:px-6 text-center">
