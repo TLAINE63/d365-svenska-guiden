@@ -801,6 +801,11 @@ const CustomerServiceNeedsAnalysis = () => {
   const generateDocument = async () => {
     if (!validateContactForm()) return;
     const recommendation = getRecommendation();
+    const focusKey = getFocusKey(data);
+    const focusCfg = focusConfig[focusKey];
+    const dataMat = getDataMaturityLevel(data);
+    const aiPot = getAiPotentialLevel(data);
+    const recommendAiAssessment = shouldRecommendAiAssessment(data);
     const { default: jsPDF } = await import("jspdf");
     const pdf = new jsPDF();
     const pageWidth = pdf.internal.pageSize.getWidth();
