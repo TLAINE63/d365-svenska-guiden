@@ -2932,7 +2932,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <h3>Business Central: Ekonomi, lager och grundläggande verksamhetsstyrning</h3>
         <p>
-          Business Central passar små och medelstora företag inom jordbruk och
+          Business Central passar mindre och medelstora företag inom jordbruk och
           skogsbruk som behöver ett sammanhållet system för ekonomi, inköp, lager
           och försäljning utan att investera i F&amp;SCM-komplexiteten.
         </p>
@@ -3137,7 +3137,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <h3>Business Central: Projektledning och ekonomi för SMB-entreprenadet</h3>
         <p>
-          Business Central är grunden för små och medelstora bygg- och
+          Business Central är grunden för mindre och medelstora bygg- och
           entreprenadföretag. Systemet täcker hela flödet från projektbudget
           och inköp till ekonomiuppföljning och fakturering, och kan
           kompletteras med branschspecifika tillägg för djupare

@@ -129,7 +129,7 @@ const Affarssystem = () => {
             </p>
             <p className="text-lg text-muted-foreground">
               Microsoft erbjuder två affärssystem inom Dynamics 365-familjen:&nbsp;
-              <Link to="/businesscentral/" className="text-primary font-medium hover:underline">Business Central</Link> för små och medelstora bolag, och&nbsp;
+              <Link to="/businesscentral/" className="text-primary font-medium hover:underline">Business Central</Link> för mindre och medelstora bolag, och&nbsp;
               <Link to="/finance-supply-chain/" className="text-primary font-medium hover:underline">Finance &amp; Supply Chain Management</Link> för stora, internationella organisationer. Vill du se en teknisk sida-vid-sida-jämförelse av dem, läs vår&nbsp;
               <Link to="/erp/" className="text-primary font-medium hover:underline">jämförelse av Business Central och Finance &amp; SCM</Link>. Vilket som passar dig avgörs av storlek, komplexitet och ambitioner – inte av vilken licens partnern råkar sälja mest av.
             </p>
@@ -219,7 +219,7 @@ const Affarssystem = () => {
                   <h3 className="text-xl sm:text-2xl font-bold text-card-foreground">Business Central</h3>
                 </div>
                 <p className="text-muted-foreground mb-4">
-                  Microsofts affärssystem för små och medelstora företag. Komplett, snabbt att införa och med
+                  Microsofts affärssystem för mindre och medelstora företag. Komplett, snabbt att införa och med
                   ett ekosystem på över 7 000 tilläggsappar via AppSource.
                 </p>
                 <ul className="space-y-2 text-sm text-muted-foreground mb-6">

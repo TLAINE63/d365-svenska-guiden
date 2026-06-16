@@ -1321,7 +1321,7 @@ const NeedsAnalysis = () => {
     // Determine recommendation
     const isBC = bcScore > fscScore;
     
-    const bcDescription = `**Dynamics 365 Business Central** är Microsofts molnbaserade affärssystem för små och medelstora företag. Det erbjuder:
+    const bcDescription = `**Dynamics 365 Business Central** är Microsofts molnbaserade affärssystem för mindre och medelstora företag. Det erbjuder:
 
 • **Komplett ERP-lösning** – Ekonomi, försäljning, inköp, lager och projekt i ett system
 • **Smidig implementation** – Snabbare uppstart och lägre implementationskostnad

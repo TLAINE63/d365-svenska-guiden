@@ -218,7 +218,7 @@ const BusinessCentral = () => {
       />
 
       <ShortAnswer title="Vad är Microsoft Dynamics 365 Business Central">
-        Dynamics 365 Business Central är Microsofts moderna molnbaserade affärssystem för små och medelstora företag som vill samla ekonomi, inköp, lager, försäljning och enklare produktion i en plattform. Inbyggd AI via Microsoft Copilot och nya autonoma agenter automatiserar repetitiva uppgifter — från fakturamatchning och produktbeskrivningar till försäljnings- och kundtjänstflöden — direkt i systemet. Genom Microsoft AppSource finns dessutom över 7 000 certifierade tilläggsappar som ger djup branschanpassning utan kostsam specialutveckling, oavsett om ni är inom tillverkning, handel, tjänster eller bygg. Business Central är tillgängligt i över 160 länder med lokaliseringar från Microsoft och partners, vilket gör det till ett tryggt val även för bolag med internationella ambitioner.
+        Dynamics 365 Business Central är Microsofts moderna molnbaserade affärssystem för mindre och medelstora företag som vill samla ekonomi, inköp, lager, försäljning och enklare produktion i en plattform. Inbyggd AI via Microsoft Copilot och nya autonoma agenter automatiserar repetitiva uppgifter — från fakturamatchning och produktbeskrivningar till försäljnings- och kundtjänstflöden — direkt i systemet. Genom Microsoft AppSource finns dessutom över 7 000 certifierade tilläggsappar som ger djup branschanpassning utan kostsam specialutveckling, oavsett om ni är inom tillverkning, handel, tjänster eller bygg. Business Central är tillgängligt i över 160 länder med lokaliseringar från Microsoft och partners, vilket gör det till ett tryggt val även för bolag med internationella ambitioner.
       </ShortAnswer>
 
 
