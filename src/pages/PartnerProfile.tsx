@@ -295,11 +295,18 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
     return [];
   };
 
-  // Get product description for a specific product
-  const getProductDescriptionForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string | null => {
+  // Get product description for a specific product (with AI-generated flag)
+  const getProductDescriptionForProduct = (
+    category: 'bc' | 'fsc' | 'sales' | 'service',
+  ): { text: string; aiGenerated: boolean } | null => {
     const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
-    const dbProductFilters = partner?.product_filters as Record<string, { productDescription?: string }> | undefined;
-    return dbProductFilters?.[filterKey]?.productDescription || null;
+    const dbProductFilters = partner?.product_filters as
+      | Record<string, { productDescription?: string; productDescriptionAiGenerated?: boolean }>
+      | undefined;
+    const pf = dbProductFilters?.[filterKey] || dbProductFilters?.[category];
+    const text = pf?.productDescription?.trim();
+    if (!text) return null;
+    return { text, aiGenerated: !!pf?.productDescriptionAiGenerated };
   };
 
   // Get per-product sales contact
@@ -861,9 +868,26 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
                           {/* Product Description - above Customer Examples */}
                           {productDescription && (
-                            <p className="text-sm text-muted-foreground leading-relaxed border-l-2 border-primary/30 pl-3 italic">
-                              {productDescription}
-                            </p>
+                            <div className="border-l-2 border-primary/30 pl-3">
+                              <p className="text-sm text-muted-foreground leading-relaxed italic">
+                                {productDescription.text}
+                              </p>
+                              {productDescription.aiGenerated && (
+                                <TooltipProvider delayDuration={150}>
+                                  <Tooltip>
+                                    <TooltipTrigger asChild>
+                                      <span className="mt-1.5 inline-flex items-center gap-1 text-[10px] font-medium text-muted-foreground/80 uppercase tracking-wide cursor-help">
+                                        <Sparkles className="w-3 h-3" aria-hidden="true" />
+                                        AI-genererad text
+                                      </span>
+                                    </TooltipTrigger>
+                                    <TooltipContent side="bottom" className="max-w-xs text-xs z-[100]">
+                                      <p>Texten är ett AI-genererat förslag baserat på partnerns övriga uppgifter. Partnern kan när som helst ersätta den med en egen beskrivning.</p>
+                                    </TooltipContent>
+                                  </Tooltip>
+                                </TooltipProvider>
+                              )}
+                            </div>
                           )}
 
                           {/* Customer Examples with linked case studies */}
