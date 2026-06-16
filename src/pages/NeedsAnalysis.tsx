@@ -1382,9 +1382,67 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     if (!validateContactForm()) {
       return;
     }
-    
+
     const recommendation = getERPRecommendation();
     const complexity = getComplexityScores();
+
+    // ── Hämta köparsidig AI-tolkning (med fallback) ─────────────────────────
+    let aiAnalysis: {
+      aiInterpretation: string;
+      whyPoints: string[];
+      risks: string[];
+      partnerProfile: string;
+      nextSteps: string[];
+      confidence: string;
+    } | null = null;
+    try {
+      setIsSendingEmail(true);
+      const aiSummary = {
+        verksamhetsmodell: data.businessModel,
+        underkategorier: data.businessModelSubs,
+        sekundaraModeller: data.secondaryBusinessModels,
+        anstallda: data.employees,
+        omsattning: data.revenue,
+        erpAnvandare: data.erpUsers,
+        bransch: data.industry === "Annat" ? data.industryOther : data.industry,
+        geografi: data.geography,
+        geografiOvrigt: data.geographyOther,
+        komplexitet: data.complexity,
+        komplexitetsniva: complexity.complexityLevel,
+        riskniva: complexity.riskLevel,
+        nuvarandeSystem: data.currentSystems.filter(s => s.product.trim()),
+        ovrigaSystem: data.otherSystemsDetails,
+        situationOrsak: data.currentSituationReason,
+        utmaningar: data.situationChallenges,
+        beslutstidslinje: data.decisionTimeline,
+        integrationer: data.integrationSystems.filter(s => s.system.trim()),
+        aiIntresse: data.aiInterest,
+        aiAnvandningsomraden: data.aiUseCases,
+        onskelista: data.wishlist,
+        ovrigInfo: data.additionalInfo,
+      };
+      const { data: aiRes, error: aiErr } = await supabase.functions.invoke("generate-erp-analysis", {
+        body: {
+          companyName: data.companyName,
+          contactName: data.contactName,
+          summary: aiSummary,
+          recommendation: {
+            product: recommendation.product,
+            reasons: recommendation.reasons,
+            isCloseCall: recommendation.isCloseCall,
+            complexityLevel: complexity.complexityLevel,
+            riskLevel: complexity.riskLevel,
+          },
+        },
+      });
+      if (aiErr) console.error("AI-tolkning fel:", aiErr);
+      if (aiRes?.analysis) aiAnalysis = aiRes.analysis;
+    } catch (e) {
+      console.error("AI-tolkning misslyckades:", e);
+    } finally {
+      setIsSendingEmail(false);
+    }
+
     const { default: jsPDF } = await import("jspdf");
     const pdf = new jsPDF();
     const pageWidth = pdf.internal.pageSize.getWidth();
@@ -1643,6 +1701,33 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     yPos += 6;
 
     // ══════════════════════════════════════════════════════════════════════
+    // AI-TOLKNING (köparsidig, från Lovable AI Gateway)
+    // ══════════════════════════════════════════════════════════════════════
+    if (aiAnalysis?.aiInterpretation) {
+      checkPage(40);
+      addSectionHeader("AI-TOLKNING AV ERT UNDERLAG", 14, 124, 134);
+      pdf.setFontSize(9);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(40, 40, 40);
+      const aiLines = pdf.splitTextToSize(aiAnalysis.aiInterpretation, contentWidth);
+      aiLines.forEach((line: string) => {
+        checkPage(6);
+        pdf.text(line, margin, yPos);
+        yPos += 5;
+      });
+      yPos += 2;
+      if (aiAnalysis.confidence) {
+        pdf.setFontSize(8);
+        pdf.setFont("helvetica", "italic");
+        pdf.setTextColor(120, 120, 120);
+        pdf.text(`Sakerhet i analysen: ${aiAnalysis.confidence}`, margin, yPos);
+        yPos += 6;
+      }
+      yPos += 4;
+    }
+
+
+    // ══════════════════════════════════════════════════════════════════════
     // 4. STYRKOR + UTVECKLINGSOMRADEN (side by side)
     // ══════════════════════════════════════════════════════════════════════
     checkPage(50);
@@ -1818,6 +1903,59 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       yPos += 18 + (pDescLines.length - 1) * 4;
     });
     yPos += 8;
+
+    // ══════════════════════════════════════════════════════════════════════
+    // AI: PARTNERPROFIL, RISKER OCH NASTA STEG
+    // ══════════════════════════════════════════════════════════════════════
+    if (aiAnalysis?.partnerProfile) {
+      checkPage(30);
+      addSectionHeader("REKOMMENDERAD PARTNERPROFIL (KOPARSIDIGT)", 14, 124, 134);
+      pdf.setFontSize(9);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(40, 40, 40);
+      const profLines = pdf.splitTextToSize(aiAnalysis.partnerProfile, contentWidth);
+      profLines.forEach((line: string) => {
+        checkPage(6);
+        pdf.text(line, margin, yPos);
+        yPos += 5;
+      });
+      yPos += 4;
+    }
+
+    if (aiAnalysis?.risks?.length) {
+      checkPage(30);
+      addSectionHeader("RISKER OCH FRAGOR ATT UTREDA VIDARE", 180, 90, 30);
+      pdf.setFontSize(9);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(40, 40, 40);
+      aiAnalysis.risks.forEach((risk) => {
+        checkPage(10);
+        pdf.setFillColor(245, 158, 11);
+        pdf.circle(margin + 2, yPos - 1.5, 1, "F");
+        const lines = pdf.splitTextToSize(risk, contentWidth - 8);
+        pdf.text(lines, margin + 6, yPos);
+        yPos += lines.length * 5 + 2;
+      });
+      yPos += 4;
+    }
+
+    if (aiAnalysis?.nextSteps?.length) {
+      checkPage(30);
+      addSectionHeader("REKOMMENDERADE NASTA STEG", 14, 124, 134);
+      pdf.setFontSize(9);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(40, 40, 40);
+      aiAnalysis.nextSteps.forEach((step, i) => {
+        checkPage(10);
+        pdf.setFillColor(14, 124, 134);
+        pdf.circle(margin + 2, yPos - 1.5, 1, "F");
+        const lines = pdf.splitTextToSize(`${i + 1}. ${step}`, contentWidth - 8);
+        pdf.text(lines, margin + 6, yPos);
+        yPos += lines.length * 5 + 2;
+      });
+      yPos += 4;
+    }
+
 
     // ── APPENDIX ─────────────────────────────────────────────────────────────
     pdf.addPage();
@@ -2019,6 +2157,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           },
           pdfBase64: pdfBase64,
           pdfFilename: pdfFilename,
+          aiAnalysis: aiAnalysis || undefined,
         },
       });
 
