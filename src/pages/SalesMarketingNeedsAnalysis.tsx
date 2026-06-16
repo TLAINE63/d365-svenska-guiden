@@ -194,6 +194,42 @@ const initialData: SalesMarketingAnalysisData = {
   email: "",
 };
 
+const focusAreaOptions: { value: Exclude<FocusArea, "">; label: string; description: string }[] = [
+  { value: "sales", label: "Sälj / CRM", description: "Säljprocess, pipeline, leadshantering, forecast, CRM-adoption och säljledning." },
+  { value: "marketing", label: "Marknad / Marketing automation", description: "Kampanjer, kundresor, segmentering, lead scoring, e-post, events och kunddata." },
+  { value: "both", label: "Både Sälj och Marknad", description: "Hela flödet från kampanj och lead till opportunity, affär och rapportering." },
+  { value: "unsure", label: "Osäkert – vi vill förstå behovet bättre", description: "Vi hjälper er identifiera om behovet främst är säljdrivet, marknadsdrivet eller datadrivet." },
+];
+
+const unsureIssueOptions = [
+  "Vi får in för få leads",
+  "Vi har svårt att kvalificera leads",
+  "Sälj följer inte upp leads tillräckligt bra",
+  "Vi saknar tydlig pipeline",
+  "Vi har svag forecast",
+  "Kampanjer går inte att mäta",
+  "Kunddata är utspridd",
+  "Marknad och sälj arbetar inte tillräckligt samordnat",
+  "CRM används inte konsekvent",
+  "Vi saknar automatisering",
+  "Vi saknar tydlig rapportering",
+];
+
+const focusAreaTitle: Record<Exclude<FocusArea, "">, string> = {
+  sales: "Behovsanalys för Sälj / CRM",
+  marketing: "Behovsanalys för Marknad / Marketing automation",
+  both: "Behovsanalys för Sälj & Marknad",
+  unsure: "Behovsanalys för Sälj, Marknad och Kunddata",
+};
+
+const focusAreaEmailType: Record<Exclude<FocusArea, "">, string> = {
+  sales: "Sälj / CRM",
+  marketing: "Marknad / Marketing automation",
+  both: "Sälj & Marknad",
+  unsure: "Sälj, Marknad och Kunddata",
+};
+
+
 const commercialModelOptions = [
   { value: "b2b_relational", label: "Relationsbaserad B2B-försäljning", emoji: "1️⃣", description: "Personlig bearbetning, långa kundrelationer, hög andel återkommande affärer" },
   { value: "b2b_complex", label: "Komplex B2B med flera beslutsfattare", emoji: "2️⃣", description: "Långa affärscykler, RFP/upphandling, stakeholder management" },
