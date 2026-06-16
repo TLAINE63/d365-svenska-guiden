@@ -1078,7 +1078,107 @@ const NeedsAnalysis = () => {
     });
   };
 
+  const updateAiDataQuality = (area: string, value: string) => {
+    setData({ ...data, aiDataQuality: { ...data.aiDataQuality, [area]: value } });
+  };
+  const updateAiProcessMaturity = (area: string, value: string) => {
+    setData({ ...data, aiProcessMaturity: { ...data.aiProcessMaturity, [area]: value } });
+  };
+
+  // ============ AI Maturity Assessment ============
+  const getAiMaturity = (): {
+    level: "Låg" | "Medel" | "Hög" | "Avancerad";
+    dataScore: number; // 0-100
+    processScore: number; // 0-100
+    ambitionScore: number; // 0-100
+    governanceScore: number; // 0-100
+    manualHeavy: boolean;
+    summary: string;
+  } => {
+    // Data quality score
+    const dq = data.aiDataQuality || {};
+    const dqValues = Object.values(dq).filter(v => v && v !== "Vet ej");
+    let dataScore = 50;
+    if (dqValues.length > 0) {
+      const map: Record<string, number> = { "Bra": 100, "Blandad": 55, "Bristfällig": 15 };
+      dataScore = Math.round(dqValues.reduce((s, v) => s + (map[v] ?? 50), 0) / dqValues.length);
+    }
+    // Data issues penalty (except "Inga större dataproblem")
+    const negativeIssues = data.aiDataIssues.filter(i => i !== "Inga större dataproblem idag" && i !== "Vet ej");
+    dataScore = Math.max(0, dataScore - negativeIssues.length * 4);
+    if (data.aiDataIssues.includes("Inga större dataproblem idag")) dataScore = Math.min(100, dataScore + 10);
+
+    // Process maturity score
+    const pm = data.aiProcessMaturity || {};
+    const pmValues = Object.entries(pm).filter(([, v]) => v && v !== "Vet ej");
+    let processScore = 50;
+    if (pmValues.length > 0) {
+      const map: Record<string, number> = { "Låg": 20, "Medel": 60, "Hög": 95 };
+      // Negative-framed statements: "manuella moment" och "undantag och specialfall" — högre = sämre mognad
+      const negativeAreas = new Set(["Det finns många manuella moment", "Det finns många undantag och specialfall"]);
+      processScore = Math.round(
+        pmValues.reduce((s, [area, v]) => {
+          const base = map[v] ?? 50;
+          return s + (negativeAreas.has(area) ? 100 - base : base);
+        }, 0) / pmValues.length
+      );
+    }
+    const manualHeavy = pm["Det finns många manuella moment"] === "Hög";
+
+    // Ambition score: more ambitions => higher intent
+    const ambitions = data.aiAmbitions.filter(a => a !== "Vi vet inte ännu, men vill förstå möjligheterna");
+    const ambitionScore = Math.min(100, ambitions.length * 18);
+
+    // Governance score
+    const govMap: Record<string, number> = {
+      "Ja, vi har tydliga riktlinjer": 100,
+      "Delvis, men de behöver utvecklas": 55,
+      "Nej, inte idag": 15,
+      "Vet ej": 30,
+    };
+    const governanceScore = govMap[data.aiGovernance] ?? 30;
+
+    // Composite (data heaviest)
+    const composite = Math.round(
+      dataScore * 0.40 + processScore * 0.30 + ambitionScore * 0.20 + governanceScore * 0.10
+    );
+
+    let level: "Låg" | "Medel" | "Hög" | "Avancerad";
+    if (composite < 35) level = "Låg";
+    else if (composite < 60) level = "Medel";
+    else if (composite < 80) level = "Hög";
+    else level = "Avancerad";
+
+    const summary =
+      level === "Låg" ? "AI-intresse kan finnas, men data, processer eller styrning behöver först förbättras."
+      : level === "Medel" ? "Det finns tydliga möjligheter, men nyttan kräver bättre datakvalitet, processkartläggning eller prioritering av use cases."
+      : level === "Hög" ? "Verksamheten har tydliga mål, relativt god datagrund och identifierade processer där AI kan skapa affärsnytta."
+      : "AI kan bli en central del av framtida ERP, beslutsstöd och automation. Verksamheten har både datagrund, processmognad och tydliga användningsfall.";
+
+    return { level, dataScore, processScore, ambitionScore, governanceScore, manualHeavy, summary };
+  };
+
+  const getAiNextSteps = (): string[] => {
+    const m = getAiMaturity();
+    const steps: string[] = [];
+    const hasAmbition = data.aiAmbitions.length > 0 && !data.aiAmbitions.every(a => a === "Vi vet inte ännu, men vill förstå möjligheterna");
+    if (hasAmbition && m.dataScore < 50) {
+      steps.push("Prioritera datakvalitet, masterdata och rapporteringsstruktur innan större AI-initiativ startas.");
+    }
+    if (hasAmbition && m.dataScore >= 50) {
+      steps.push("Identifiera 2–3 konkreta AI-use cases som kan testas i samband med ERP-förstudie eller fit-gap.");
+    }
+    if (m.manualHeavy) {
+      steps.push("Kartlägg manuella moment och bedöm vilka som kan automatiseras med standardfunktionalitet, Power Automate, Copilot eller kompletterande lösningar.");
+    }
+    if (data.aiGovernance === "Nej, inte idag" || data.aiGovernance === "Vet ej") {
+      steps.push("Ta fram riktlinjer för AI-användning, dataskydd, behörigheter och ansvar innan AI-stöd införs brett.");
+    }
+    return steps;
+  };
+
   // ============ Complexity Scoring ============
+
   const getComplexityScores = () => {
     const c = data.complexity;
     
