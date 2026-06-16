@@ -20,6 +20,9 @@ const Navbar = () => {
     { label: "Business Central vs Finance & Supply Chain Management", path: "/erp" },
     { label: "Business Central", path: "/businesscentral" },
     { label: "Finance & Supply Chain Management", path: "/finance-supply-chain" },
+    { label: "Project Operations", path: "/d365projectoperations" },
+    { label: "Commerce", path: "/d365commerce" },
+    { label: "Human Resources", path: "/d365humanresources" },
   ];
 
   const aiItems = [

@@ -48,6 +48,9 @@ const D365Marketing = lazy(() => import("./pages/D365Marketing"));
 const D365CustomerService = lazy(() => import("./pages/D365CustomerService"));
 const D365FieldService = lazy(() => import("./pages/D365FieldService"));
 const D365ContactCenter = lazy(() => import("./pages/D365ContactCenter"));
+const D365ProjectOperations = lazy(() => import("./pages/D365ProjectOperations"));
+const D365Commerce = lazy(() => import("./pages/D365Commerce"));
+const D365HumanResources = lazy(() => import("./pages/D365HumanResources"));
 const PartnerProfile = lazy(() => import("./pages/PartnerProfile"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const PartnerUpdate = lazy(() => import("./pages/PartnerUpdate"));
@@ -107,6 +110,9 @@ const AppShell = () => {
           <Route path="/business-central" element={<Navigate to="/businesscentral" replace />} />
           <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
           <Route path="/erp" element={<ERPOverview />} />
+          <Route path="/d365projectoperations" element={<D365ProjectOperations />} />
+          <Route path="/d365commerce" element={<D365Commerce />} />
+          <Route path="/d365humanresources" element={<D365HumanResources />} />
           <Route path="/affarssystem" element={<Affarssystem />} />
           <Route path="/affarssystem/partners" element={<Navigate to="/business-central-partners-sverige/" replace />} />
           <Route path="/copilot" element={<Copilot />} />
