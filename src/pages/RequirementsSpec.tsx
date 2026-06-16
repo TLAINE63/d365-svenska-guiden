@@ -17,6 +17,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { generateRequirementsSpec, type RequirementsData } from "@/utils/generateRequirementsSpec";
 import { allIndustries } from "@/data/partners";
+import RelatedPages, { requirementsErpRelatedPages } from "@/components/RelatedPages";
 import {
   ArrowLeft, ArrowRight, FileText, Download,
   Calculator, Package, Factory, ShoppingCart, Boxes, Wrench,
