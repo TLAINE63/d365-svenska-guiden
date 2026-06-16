@@ -1673,8 +1673,29 @@ const CustomerServiceNeedsAnalysis = () => {
                 ))}
               </div>
             </div>
+
+            <div className="border-t pt-6">
+              <Label className="text-base font-semibold mb-1 block">Hur långt vill ni att AI/agenter ska få agera?</Label>
+              <p className="text-sm text-muted-foreground mb-3">AI och agenter kan effektivisera serviceflöden, men nyttan beror på datakvalitet, processer, integrationer, behörigheter och kontrollpunkter.</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {aiAutonomyOptions.map((opt) => (
+                  <SelectionCard key={opt} label={opt} selected={data.aiAutonomy === opt} onClick={() => setData({ ...data, aiAutonomy: opt })} type="radio" />
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Vilka kontrollpunkter krävs? (välj alla som gäller)</Label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {aiControlOptions.map((opt) => (
+                  <SelectionCard key={opt} label={opt} selected={data.aiControls.includes(opt)} onClick={() => handleCheckboxChange("aiControls", opt)} type="checkbox" />
+                ))}
+              </div>
+            </div>
           </div>
         );
+
+
 
       case 8: {
         const rec = getRecommendation();
