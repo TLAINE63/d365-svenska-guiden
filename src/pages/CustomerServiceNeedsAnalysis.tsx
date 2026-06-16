@@ -1064,6 +1064,11 @@ const CustomerServiceNeedsAnalysis = () => {
     });
     yPos += Math.ceil(profileRows.length / 2) * cellH + 8;
 
+    // AI-genererad ledningssammanfattning (paragrafer)
+    if (aiAnalysis?.executiveSummary) {
+      addParagraphs(aiAnalysis.executiveSummary, 9.5);
+    }
+
     // ══════════════════════════════════════════════════════════════════════
     // 2. SERVICEMOGNAD (dots)
     // ══════════════════════════════════════════════════════════════════════
