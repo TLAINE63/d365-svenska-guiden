@@ -2325,6 +2325,136 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     yPos += 8;
 
     // ══════════════════════════════════════════════════════════════════════
+    // AI-MOGNAD OCH AUTOMATIONSPOTENTIAL
+    // ══════════════════════════════════════════════════════════════════════
+    {
+      checkPage(40);
+      addSectionHeader("AI-MOGNAD OCH AUTOMATIONSPOTENTIAL", 90, 60, 160);
+
+      // Mognadsbadge
+      const mc: Record<string, [number, number, number]> = {
+        "Låg": [180, 90, 30],
+        "Medel": [200, 150, 40],
+        "Hög": [40, 130, 90],
+        "Avancerad": [60, 90, 170],
+      };
+      const [mr, mg, mb] = mc[aiMaturity.level] || [120, 120, 120];
+      pdf.setFillColor(mr, mg, mb);
+      pdf.roundedRect(margin, yPos, 70, 9, 2, 2, "F");
+      pdf.setTextColor(255, 255, 255);
+      pdf.setFontSize(9);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(`AI-mognad: ${aiMaturity.level}`, margin + 4, yPos + 6);
+      yPos += 13;
+
+      pdf.setTextColor(40, 40, 40);
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(9);
+      const summaryLines = pdf.splitTextToSize(aiMaturity.summary, contentWidth);
+      summaryLines.forEach((l: string) => { checkPage(6); pdf.text(l, margin, yPos); yPos += 5; });
+      yPos += 3;
+
+      // Ambitioner
+      if (data.aiAmbitions.length) {
+        checkPage(12);
+        pdf.setFont("helvetica", "bold");
+        pdf.text("Vad ni vill uppna med AI:", margin, yPos); yPos += 5;
+        pdf.setFont("helvetica", "normal");
+        const amb = pdf.splitTextToSize("- " + data.aiAmbitions.join("\n- "), contentWidth - 4);
+        amb.forEach((l: string) => { checkPage(6); pdf.text(l, margin + 2, yPos); yPos += 5; });
+        yPos += 2;
+      }
+
+      // Prioriterade use cases
+      if (data.aiUseCases.length) {
+        checkPage(12);
+        pdf.setFont("helvetica", "bold");
+        pdf.text("Prioriterade AI-use cases:", margin, yPos); yPos += 5;
+        pdf.setFont("helvetica", "normal");
+        const uc = pdf.splitTextToSize("- " + data.aiUseCases.join("\n- "), contentWidth - 4);
+        uc.forEach((l: string) => { checkPage(6); pdf.text(l, margin + 2, yPos); yPos += 5; });
+        yPos += 2;
+      }
+
+      // Datamognad
+      const dqEntries = Object.entries(data.aiDataQuality || {}).filter(([, v]) => v);
+      if (dqEntries.length) {
+        checkPage(12);
+        pdf.setFont("helvetica", "bold");
+        pdf.text(`Datamognad (sammanvagd: ${aiMaturity.dataScore}/100):`, margin, yPos); yPos += 5;
+        pdf.setFont("helvetica", "normal");
+        dqEntries.forEach(([k, v]) => {
+          checkPage(5);
+          pdf.text(`- ${k}: ${v}`, margin + 2, yPos);
+          yPos += 5;
+        });
+        yPos += 2;
+      }
+      if (data.aiDataIssues.length) {
+        checkPage(12);
+        pdf.setFont("helvetica", "bold");
+        pdf.text("Identifierade dataproblem:", margin, yPos); yPos += 5;
+        pdf.setFont("helvetica", "normal");
+        const di = pdf.splitTextToSize("- " + data.aiDataIssues.join("\n- "), contentWidth - 4);
+        di.forEach((l: string) => { checkPage(6); pdf.text(l, margin + 2, yPos); yPos += 5; });
+        yPos += 2;
+      }
+
+      // Processmognad
+      const pmEntries = Object.entries(data.aiProcessMaturity || {}).filter(([, v]) => v);
+      if (pmEntries.length) {
+        checkPage(12);
+        pdf.setFont("helvetica", "bold");
+        pdf.text(`Processmognad (sammanvagd: ${aiMaturity.processScore}/100):`, margin, yPos); yPos += 5;
+        pdf.setFont("helvetica", "normal");
+        pmEntries.forEach(([k, v]) => {
+          checkPage(5);
+          pdf.text(`- ${k}: ${v}`, margin + 2, yPos);
+          yPos += 5;
+        });
+        yPos += 2;
+      }
+
+      // Governance & risker
+      if (data.aiGovernance) {
+        checkPage(8);
+        pdf.setFont("helvetica", "bold");
+        pdf.text("AI-governance:", margin, yPos);
+        pdf.setFont("helvetica", "normal");
+        pdf.text(data.aiGovernance, margin + 36, yPos);
+        yPos += 6;
+      }
+      if (data.aiRisks.length) {
+        checkPage(12);
+        pdf.setFont("helvetica", "bold");
+        pdf.text("Risker och fragor att hantera:", margin, yPos); yPos += 5;
+        pdf.setFont("helvetica", "normal");
+        const r = pdf.splitTextToSize("- " + data.aiRisks.join("\n- "), contentWidth - 4);
+        r.forEach((l: string) => { checkPage(6); pdf.text(l, margin + 2, yPos); yPos += 5; });
+        yPos += 2;
+      }
+
+      // Rekommenderade AI-nasta steg (deterministiska)
+      if (deterministicAiNextSteps.length) {
+        checkPage(14);
+        pdf.setFont("helvetica", "bold");
+        pdf.setTextColor(90, 60, 160);
+        pdf.text("Rekommenderade AI-nasta steg:", margin, yPos); yPos += 5;
+        pdf.setTextColor(40, 40, 40);
+        pdf.setFont("helvetica", "normal");
+        deterministicAiNextSteps.forEach((s, i) => {
+          checkPage(10);
+          pdf.setFillColor(90, 60, 160);
+          pdf.circle(margin + 2, yPos - 1.5, 1, "F");
+          const lines = pdf.splitTextToSize(`${i + 1}. ${s}`, contentWidth - 8);
+          pdf.text(lines, margin + 6, yPos);
+          yPos += lines.length * 5 + 2;
+        });
+      }
+      yPos += 6;
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
     // AI: PARTNERPROFIL, RISKER OCH NASTA STEG
     // ══════════════════════════════════════════════════════════════════════
     if (aiAnalysis?.partnerProfile) {
@@ -2359,13 +2489,21 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       yPos += 4;
     }
 
-    if (aiAnalysis?.nextSteps?.length) {
+    // Slå samman AI-tolkningens nasta steg med deterministiska AI-rekommendationer
+    const combinedNextSteps: string[] = [];
+    if (aiAnalysis?.nextSteps?.length) combinedNextSteps.push(...aiAnalysis.nextSteps);
+    deterministicAiNextSteps.forEach(s => {
+      if (!combinedNextSteps.some(x => x.toLowerCase().includes(s.toLowerCase().slice(0, 30)))) {
+        combinedNextSteps.push(s);
+      }
+    });
+    if (combinedNextSteps.length) {
       checkPage(30);
       addSectionHeader("REKOMMENDERADE NASTA STEG", 14, 124, 134);
       pdf.setFontSize(9);
       pdf.setFont("helvetica", "normal");
       pdf.setTextColor(40, 40, 40);
-      aiAnalysis.nextSteps.forEach((step, i) => {
+      combinedNextSteps.forEach((step, i) => {
         checkPage(10);
         pdf.setFillColor(14, 124, 134);
         pdf.circle(margin + 2, yPos - 1.5, 1, "F");
@@ -2375,6 +2513,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       });
       yPos += 4;
     }
+
 
 
     // ── APPENDIX ─────────────────────────────────────────────────────────────
