@@ -2572,7 +2572,8 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     if (recommendation.addonTriggers.some(t => /WMS|lager/i.test(t)) || data.complexity.warehouseManagement) competenceAreas.push("lager- och orderflöden");
     if (recommendation.addonTriggers.some(t => /ISV|tillägg|PIM|e-handel/i.test(t)) || recommendation.outcome === "Business Central med tillägg") competenceAreas.push("ISV-/tilläggslösningar för Business Central");
     if (recommendation.addonTriggers.some(t => /Power|Copilot|Automation/i.test(t))) competenceAreas.push("Power Platform och Copilot");
-    if (recommendation.addonTriggers.some(t => /integration|iPaaS/i.test(t)) || integrationCnt >= 3) competenceAreas.push("integrationer och iPaaS");
+    const _integrationCnt = (data.integrationSystems || []).filter(s => s.system && s.system.trim()).length;
+    if (recommendation.addonTriggers.some(t => /integration|iPaaS/i.test(t)) || _integrationCnt >= 3) competenceAreas.push("integrationer och iPaaS");
     if (recommendation.addonTriggers.some(t => /service|fält|eftermarknad/i.test(t))) competenceAreas.push("service/eftermarknad och fältservice");
     competenceAreas.push("datamigrering och masterdata");
     competenceAreas.push("långsiktig förvaltning och förändringsledning");

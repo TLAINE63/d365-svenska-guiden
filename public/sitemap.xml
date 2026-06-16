@@ -151,6 +151,24 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://d365.se/d365projectoperations/</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/d365commerce/</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/d365humanresources/</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://d365.se/kunskapscenter/</loc>
     <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
