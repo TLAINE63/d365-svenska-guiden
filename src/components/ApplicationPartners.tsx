@@ -6,7 +6,7 @@ import { ArrowRight, Loader2 } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerCard from "@/components/PartnerCard";
-import { allIndustries } from "@/data/partners";
+import { allIndustries, companySizes } from "@/data/partners";
 import { usePartners } from "@/hooks/usePartners";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
@@ -22,12 +22,15 @@ const geographyFilters = [
 interface ApplicationPartnersProps {
   applicationFilter: string;
   pageSource: string;
+  /** "industry" (default) shows bransch-filter, "companySize" shows storleksfilter istället. */
+  filterMode?: "industry" | "companySize";
 }
 
-const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartnersProps) => {
+const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "industry" }: ApplicationPartnersProps) => {
   const { data: dbPartners, isLoading } = usePartners();
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
   const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
+  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
 
   // Filter to only show featured partners
   const partners = useMemo(() => {
@@ -62,6 +65,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
       const pf = partner.product_filters?.[productKey];
       if (!pf) return false;
       if (selectedIndustry && !pf.industries?.includes(selectedIndustry)) return false;
+      if (selectedCompanySize && !pf.companySize?.includes(selectedCompanySize)) return false;
       if (selectedGeography) {
         // Geography is now an array - check if partner covers the selected geography
         const partnerGeo = Array.isArray(pf.geography) ? pf.geography : (pf.geography ? [pf.geography] : ["Sverige"]);
@@ -101,7 +105,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
       ...seededShuffle(signed, sessionSeed),
       ...seededShuffle(unsigned, sessionSeed + 1),
     ];
-  }, [productKey, partners, selectedIndustry, selectedGeography, sessionSeed]);
+  }, [productKey, partners, selectedIndustry, selectedCompanySize, selectedGeography, sessionSeed]);
 
   // Show all 18 industries in the filter
   const availableIndustries = allIndustries;
@@ -124,20 +128,36 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
             Hitta rätt partner
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
-            Här är ett urval av partners som arbetar med {applicationFilter} i Sverige. 
-            Filtrera på bransch och företagsstorlek för att hitta partners som passar dig bäst.
+            Här är ett urval av partners som arbetar med {applicationFilter} i Sverige.
+            {filterMode === "companySize"
+              ? " Filtrera på er företagsstorlek och geografi för att hitta partners som passar dig bäst."
+              : " Filtrera på bransch och företagsstorlek för att hitta partners som passar dig bäst."}
           </p>
         </div>
 
-        {/* Industry Filter */}
-        <FilterButtons
-          title="Filtrera på bransch"
-          icon="industry"
-          options={availableIndustries.map(ind => ({ label: ind, value: ind }))}
-          selectedValue={selectedIndustry}
-          onSelect={setSelectedIndustry}
-          colorScheme="crm"
-        />
+        {/* Industry Filter — döljs när filterMode = companySize */}
+        {filterMode === "industry" && (
+          <FilterButtons
+            title="Filtrera på bransch"
+            icon="industry"
+            options={availableIndustries.map(ind => ({ label: ind, value: ind }))}
+            selectedValue={selectedIndustry}
+            onSelect={setSelectedIndustry}
+            colorScheme="crm"
+          />
+        )}
+
+        {/* Company size filter — visas när filterMode = companySize */}
+        {filterMode === "companySize" && (
+          <FilterButtons
+            title="Filtrera på er storlek – antal anställda"
+            icon="employees"
+            options={companySizes.map(s => ({ label: `${s} anställda`, value: s }))}
+            selectedValue={selectedCompanySize}
+            onSelect={setSelectedCompanySize}
+            colorScheme="crm"
+          />
+        )}
 
         {/* Geography Filter */}
         <FilterButtons
@@ -151,20 +171,22 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
 
 
         {/* Filter Results Summary */}
-        {(selectedIndustry || selectedGeography) && (
+        {(selectedIndustry || selectedGeography || selectedCompanySize) && (
           <div className="text-center mb-8">
             <p className="text-sm text-muted-foreground">
               Visar <span className="font-semibold text-foreground">{filteredPartners.length}</span> partners
               {selectedIndustry && <> inom <span className="font-semibold text-crm">{selectedIndustry}</span></>}
-              {(selectedIndustry && selectedGeography) && <> och</>}
+              {selectedCompanySize && <> för organisationer med <span className="font-semibold text-crm">{selectedCompanySize} anställda</span></>}
+              {((selectedIndustry || selectedCompanySize) && selectedGeography) && <> och</>}
               {selectedGeography && <> med täckning i <span className="font-semibold text-crm">{selectedGeography}</span></>}
             </p>
-            <Button 
-              variant="ghost" 
-              size="sm" 
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={() => {
                 setSelectedIndustry(null);
                 setSelectedGeography(null);
+                setSelectedCompanySize(null);
               }}
               className="mt-2 text-muted-foreground hover:text-foreground"
             >
