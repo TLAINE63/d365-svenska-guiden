@@ -191,6 +191,10 @@ const FinanceSupplyChain = () => {
         subhead="Microsoft levererar en kraftfull Enterpriseplattform. Partnern skapar branschmodellen, integrationerna mot era befintliga system och den förändringsledning som faktiskt ger användarnytta. Det är där F&SCM-projekt blir framgångsrika - eller missar målet. Här jämför ni partners som levererat F&SCM i er bransch."
         primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation/", icon: FileText }}
         secondary={{
+          label: "Matchar F&SCM era behov? (10 min)",
+          to: "/finance-supply-chain-management/matchningstest",
+        }}
+        tertiary={{
           label: "Jämför F&SCM-partners",
           onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
         }}
@@ -287,6 +291,45 @@ const FinanceSupplyChain = () => {
           </div>
         </div>
       </section>
+
+      {/* F&SCM Matchningstest CTA-sektion */}
+      <section className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="rounded-2xl border border-border bg-card p-6 sm:p-10 shadow-[var(--shadow-card)]">
+              <span className="text-xs uppercase tracking-[0.14em] text-muted-foreground font-semibold">
+                Behovsmatchning · cirka 10 minuter
+              </span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mt-3 mb-4">
+                Matchar F&amp;SCM era behov?
+              </h2>
+              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-6">
+                Ett funktionsorienterat test som tittar på vilka konkreta behov ni har – inte ett mognadsbetyg.
+                Testet är ärligt även när svaret är att F&amp;SCM är överdimensionerat för er. Då pekar vi i stället
+                på Business Central eller andra alternativ.
+              </p>
+              <ul className="grid sm:grid-cols-2 gap-3 mb-8 text-sm text-foreground/85">
+                <li className="flex gap-2"><span className="text-primary">●</span> Koncernkomplexitet och flerbolagsstruktur</li>
+                <li className="flex gap-2"><span className="text-primary">●</span> Supply chain, lager och tillverkning</li>
+                <li className="flex gap-2"><span className="text-primary">●</span> Projektförsäljning och resursplanering</li>
+                <li className="flex gap-2"><span className="text-primary">●</span> Handel, e-handel och omnikanal</li>
+              </ul>
+              <Button
+                asChild
+                size="lg"
+                className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
+              >
+                <Link to="/finance-supply-chain-management/matchningstest">
+                  Starta matchningstestet
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
 
 
       {/* Videos Section */}

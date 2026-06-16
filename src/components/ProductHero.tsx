@@ -22,8 +22,10 @@ interface ProductHeroProps {
   subhead: string;
   /** Primary CTA (orange). */
   primary: CTA;
-  /** Secondary CTA (ghost outline). Optional. Max 2 CTAs total. */
+  /** Secondary CTA (ghost outline). Optional. */
   secondary?: CTA;
+  /** Tertiary CTA (ghost outline). Optional. */
+  tertiary?: CTA;
   /** Optional right-side decorative photo (not full-bleed bg). */
   photo?: string;
   photoAlt?: string;
@@ -75,6 +77,7 @@ const ProductHero = ({
   subhead,
   primary,
   secondary,
+  tertiary,
   photo,
   photoAlt,
 }: ProductHeroProps) => {
@@ -117,9 +120,10 @@ const ProductHero = ({
               {subhead}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
               {renderCTA(primary, "primary")}
               {secondary && renderCTA(secondary, "secondary")}
+              {tertiary && renderCTA(tertiary, "secondary")}
             </div>
           </div>
 
