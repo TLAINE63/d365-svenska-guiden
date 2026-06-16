@@ -63,7 +63,7 @@ const eventsFaqs = [
   },
   {
     question: "Finns det webinars om Business Central och Finance & Supply Chain?",
-    answer: "Ja. Svenska Microsoft-partners arrangerar regelbundet webinars om både Business Central (för små och medelstora bolag) och Finance & Supply Chain Management (för stora, internationella organisationer). Innehållet varierar från produktdemos och Release Wave-genomgångar till djupare sessioner om finansiella konsolideringar, lager- och produktionsstyrning, AP/AR-automation och Copilot. De flesta webinars är kostnadsfria och hålls online — du anmäler dig direkt via arrangörens länk på respektive event."
+    answer: "Ja. Svenska Microsoft-partners arrangerar regelbundet webinars om både Business Central (för mindre och medelstora bolag) och Finance & Supply Chain Management (för stora, internationella organisationer). Innehållet varierar från produktdemos och Release Wave-genomgångar till djupare sessioner om finansiella konsolideringar, lager- och produktionsstyrning, AP/AR-automation och Copilot. De flesta webinars är kostnadsfria och hålls online — du anmäler dig direkt via arrangörens länk på respektive event."
   },
   {
     question: "Kan man få hjälp att välja rätt event eller partner?",
