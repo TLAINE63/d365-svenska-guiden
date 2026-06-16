@@ -104,7 +104,7 @@ const D365Marketing = () => {
         }}
       />
 
-      <ShortAnswer>
+      <ShortAnswer title="Vad är Dynamics 365 Customer Insights">
         Dynamics 365 Customer Insights kombinerar Data (kunddataplattform med segmentering och AI) och Journeys (kund- och marknadsföringsresor). Lösningen passar B2B- och B2C-organisationer som vill samla kunddata från flera källor och automatisera personaliserade resor, men datamodell och integrationer som partnern sätter upp är det som faktiskt avgör värdet.
       </ShortAnswer>
 
