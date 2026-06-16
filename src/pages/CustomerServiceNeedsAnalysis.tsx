@@ -813,6 +813,59 @@ const CustomerServiceNeedsAnalysis = () => {
     const dataMat = getDataMaturityLevel(data);
     const aiPot = getAiPotentialLevel(data);
     const recommendAiAssessment = shouldRecommendAiAssessment(data);
+
+    // Compute transformation level up-front so we can include it in the AI prompt.
+    let complexityScore0 = 0;
+    if (data.multiCountry === "Ja, globalt" || data.multiCountry === "Ja, Europa") complexityScore0 += 2;
+    else if (data.multiCountry === "Ja, Norden") complexityScore0 += 1;
+    if (data.multiLanguage?.includes("mer") || data.multiLanguage === "Ja, 3-5 sprak" || data.multiLanguage === "Ja, 3–5 språk") complexityScore0 += 2;
+    else if (data.multiLanguage?.includes("svenska + engelska")) complexityScore0 += 1;
+    if (data.customerPrioritization?.includes("komplexa")) complexityScore0 += 2;
+    else if (data.customerPrioritization?.includes("2-3") || data.customerPrioritization?.includes("2–3")) complexityScore0 += 1;
+    if (data.multipleProductLines?.includes("specialistkompetens") || data.multipleProductLines?.includes("mer")) complexityScore0 += 2;
+    else if (data.multipleProductLines?.includes("2-5") || data.multipleProductLines?.includes("2–5")) complexityScore0 += 1;
+    const transformationLevelEarly = complexityScore0 >= 9 ? 4 : complexityScore0 >= 6 ? 3 : complexityScore0 >= 3 ? 2 : 1;
+    const transformationLabelEarly = ["", "Initial service", "Strukturerad service", "Digitaliserad service", "Intelligent service"][transformationLevelEarly];
+
+    // Fetch AI-generated narrative analysis (paragraphs separated by \n\n).
+    setIsSendingEmail(true);
+    let aiAnalysis: {
+      executiveSummary: string;
+      serviceInterpretation: string;
+      solutionHypothesis: string;
+      dataAndAiAnalysis: string;
+      whyPoints: string[];
+      risks: string[];
+      partnerProfile: string;
+      nextSteps: string[];
+      confidence: string;
+    } | null = null;
+    try {
+      const aiRes = await supabase.functions.invoke("generate-customer-service-analysis", {
+        body: {
+          companyName: data.companyName,
+          contactName: data.contactName,
+          focusKey,
+          focusLabel: focusCfg.pdfSubTitle,
+          transformationLevel: transformationLevelEarly,
+          transformationLabel: transformationLabelEarly,
+          dataMaturityLevel: dataMat.level,
+          aiPotentialLevel: aiPot.level,
+          recommendAiAssessment,
+          summary: data,
+          recommendation: {
+            products: recommendation.products.map((p) => p.name),
+            reasons: recommendation.products.flatMap((p) => p.reasons).slice(0, 8),
+          },
+        },
+      });
+      aiAnalysis = aiRes?.data?.analysis ?? null;
+    } catch (err) {
+      console.warn("AI analysis fetch failed, continuing with static fallback", err);
+    } finally {
+      setIsSendingEmail(false);
+    }
+
     const { default: jsPDF } = await import("jspdf");
     const pdf = new jsPDF();
     const pageWidth = pdf.internal.pageSize.getWidth();
