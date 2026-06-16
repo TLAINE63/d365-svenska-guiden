@@ -2905,7 +2905,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               <div className="border rounded-xl p-5 bg-background shadow-sm space-y-4">
                 <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
                   <Download className="w-5 h-5 text-finance-supply" />
-                  Ladda ned din fullständiga ERP-analys
+                  Skicka PDF till min e-post
                 </h3>
                 <p className="text-sm text-muted-foreground">Fyll i kontaktuppgifter för att ladda ned en PDF med din analys och alla svar.</p>
                 {isComplete ? (
