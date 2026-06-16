@@ -2708,7 +2708,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 <h3 className="font-bold text-white text-sm tracking-wide">🟩 ERP-komplexitetsnivå</h3>
               </div>
               <div className="p-5 bg-background space-y-3">
-                <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">ERP Complexity Level</p>
+                <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">Bedömd ERP-komplexitet</p>
                 <div className="flex items-center gap-2">
                   {[1, 2, 3, 4].map(i => (
                     <span key={i} className={`text-2xl leading-none ${i <= maturityLevel ? "text-emerald-500" : "text-muted-foreground/30"}`}>⬤</span>
