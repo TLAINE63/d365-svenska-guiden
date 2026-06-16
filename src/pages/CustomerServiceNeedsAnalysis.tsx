@@ -528,7 +528,8 @@ const CustomerServiceNeedsAnalysis = () => {
     }
   }, [currentStep]);
 
-  const needsFieldServiceStep = data.serviceModel === "Fältservice med tekniker" || data.serviceModel === "Kombination av flera";
+  const focusKeyCurrent = getFocusKey(data);
+  const needsFieldServiceStep = focusKeyCurrent === "field_service" || focusKeyCurrent === "multi";
   const progress = (currentStep / totalSteps) * 100;
 
   const stepIcons = [Building2, Headphones, BarChart3, Truck, Building2, Wrench, Sparkles, CheckCircle2];
