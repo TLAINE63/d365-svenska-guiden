@@ -1612,6 +1612,54 @@ const SalesMarketingNeedsAnalysis = () => {
 
   const renderStep = () => {
     switch (currentStep) {
+      case 1:
+        return (
+          <div className="space-y-6">
+            <div>
+              <p className="text-muted-foreground mb-2">
+                <strong>Vilket område gäller behovsanalysen främst?</strong>
+              </p>
+              <p className="text-sm text-muted-foreground mb-6">
+                Välj det område som bäst beskriver ert nuläge. Svaren styr vilka följdfrågor som visas och hur analysen tolkar er preliminära lösningsinriktning.
+              </p>
+              <div className="grid grid-cols-1 gap-3">
+                {focusAreaOptions.map((option) => (
+                  <SelectionCard
+                    key={option.value}
+                    label={option.label}
+                    description={option.description}
+                    selected={data.focusArea === option.value}
+                    onClick={() => setData({ ...data, focusArea: option.value })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+            </div>
+
+            {data.focusArea === "unsure" && (
+              <div className="mt-6 space-y-3 border-l-4 border-primary/40 pl-5 animate-in slide-in-from-top-2 duration-300">
+                <Label className="text-sm font-semibold mb-1 block">
+                  Var upplever ni störst problem idag? (Flera val möjliga)
+                </Label>
+                <p className="text-xs text-muted-foreground mb-2">
+                  Svaren hjälper analysen att avgöra om behovet främst är säljdrivet, marknadsdrivet, datadrivet, integrationsdrivet eller gemensamt för sälj och marknad.
+                </p>
+                <div className="grid grid-cols-1 gap-2">
+                  {unsureIssueOptions.map((opt) => (
+                    <SelectionCard
+                      key={opt}
+                      label={opt}
+                      selected={data.unsureIssues.includes(opt)}
+                      onClick={() => handleCheckboxChange("unsureIssues", opt)}
+                      type="checkbox"
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        );
+
       case 2:
         return (
           <div className="space-y-6">
