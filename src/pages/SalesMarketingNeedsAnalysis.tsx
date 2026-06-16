@@ -2317,6 +2317,94 @@ const SalesMarketingNeedsAnalysis = () => {
         );
 
       case 6:
+        if (focus === "sales") {
+          // ── Sälj deep-dive (inga marknadsfrågor) ──
+          return (
+            <div className="space-y-6">
+              <p className="text-sm text-muted-foreground">
+                Eftersom ni valt fokus på Sälj går vi djupare i säljspecifika frågor och hoppar över marknadsfrågorna.
+              </p>
+
+              <div>
+                <Label className="text-base font-semibold mb-3 block">Hur arbetar ni med territory- och kontoplanering?</Label>
+                <div className="grid grid-cols-1 gap-2">
+                  {[
+                    "Ostrukturerat – säljarna bestämmer själva",
+                    "Geografisk eller branschvis fördelning",
+                    "Strukturerad account planning med målbilder per nyckelkund",
+                  ].map((opt) => (
+                    <SelectionCard key={opt} label={opt} selected={data.salesDeepTerritory === opt} onClick={() => setData({ ...data, salesDeepTerritory: opt })} type="radio" />
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <Label className="text-base font-semibold mb-3 block">Hur ser ert sales enablement ut idag?</Label>
+                <div className="grid grid-cols-1 gap-2">
+                  {[
+                    "Vi saknar strukturerat säljmaterial och playbooks",
+                    "Vi har material men det används ojämnt",
+                    "Vi har playbooks, content och processer integrerade i CRM",
+                  ].map((opt) => (
+                    <SelectionCard key={opt} label={opt} selected={data.salesDeepEnablement === opt} onClick={() => setData({ ...data, salesDeepEnablement: opt })} type="radio" />
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <Label className="text-base font-semibold mb-3 block">Behöver ni stöd för säljcoaching baserat på data?</Label>
+                <div className="grid grid-cols-1 gap-2">
+                  {[
+                    "Nej, coachning sker informellt",
+                    "Ja, vi vill kunna följa upp säljarnas aktiviteter och resultat",
+                    "Ja, vi vill ha AI-driven coaching utifrån mötes- och samtalsdata",
+                  ].map((opt) => (
+                    <SelectionCard key={opt} label={opt} selected={data.salesDeepCoaching === opt} onClick={() => setData({ ...data, salesDeepCoaching: opt })} type="radio" />
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <Label className="text-base font-semibold mb-3 block">Behöver ni stöd för offert, prissättning och konfiguration (CPQ)?</Label>
+                <div className="grid grid-cols-1 gap-2">
+                  {[
+                    "Nej, enkla offerter i Word/Excel räcker",
+                    "Ja, vi vill ha mallar och godkännandeflöden i CRM",
+                    "Ja, vi har konfigurerbara produkter/tjänster och behöver fullt CPQ-stöd",
+                  ].map((opt) => (
+                    <SelectionCard key={opt} label={opt} selected={data.salesDeepCPQ === opt} onClick={() => setData({ ...data, salesDeepCPQ: opt })} type="radio" />
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <Label className="text-base font-semibold mb-3 block">Hur hanterar ni säljincitament och provisioner?</Label>
+                <div className="grid grid-cols-1 gap-2">
+                  {[
+                    "Manuellt utanför CRM",
+                    "Delvis i CRM, kompletteras med Excel",
+                    "Vi vill ha incitament/provision integrerat med pipeline-data",
+                  ].map((opt) => (
+                    <SelectionCard key={opt} label={opt} selected={data.salesDeepIncentives === opt} onClick={() => setData({ ...data, salesDeepIncentives: opt })} type="radio" />
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <Label className="text-base font-semibold mb-3 block">Hur viktig är hantering av förnyelser, merförsäljning och kundutveckling?</Label>
+                <div className="grid grid-cols-1 gap-2">
+                  {[
+                    "Inte relevant – mestadels nyförsäljning",
+                    "Viktigt – vi vill bevaka förnyelser och uppgraderingar",
+                    "Kritiskt – återkommande intäkter är största delen av affären",
+                  ].map((opt) => (
+                    <SelectionCard key={opt} label={opt} selected={data.salesDeepRenewals === opt} onClick={() => setData({ ...data, salesDeepRenewals: opt })} type="radio" />
+                  ))}
+                </div>
+              </div>
+            </div>
+          );
+        }
         return (
           <div className="space-y-6">
             {/* Nuvarande marknadsföring */}
