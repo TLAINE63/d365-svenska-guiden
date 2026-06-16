@@ -918,7 +918,7 @@ const SalesMarketingNeedsAnalysis = () => {
     pdf.text("BEHOVSANALYS", pageWidth / 2, 120, { align: "center" });
     pdf.setFontSize(16);
     pdf.setFont("helvetica", "normal");
-    pdf.text("Dynamics 365 Sales & Marketing", pageWidth / 2, 133, { align: "center" });
+    pdf.text(focusKey ? focusAreaTitle[focusKey].replace("Behovsanalys för ", "") : "Dynamics 365 Sales & Marketing", pageWidth / 2, 133, { align: "center" });
 
     pdf.setDrawColor(255, 255, 255);
     pdf.setLineWidth(0.5);
