@@ -3071,13 +3071,13 @@ const SalesMarketingNeedsAnalysis = () => {
       />
       <Navbar />
       <main className="pb-16">
-        <div className="relative bg-cover bg-center pt-28 pb-8 mb-4" style={{ backgroundImage: `url(${heroBehovsanalysSalj})` }}>
+        <div className="relative bg-cover bg-center pt-36 pb-20 mb-8" style={{ backgroundImage: `url(${heroBehovsanalysSalj})` }}>
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative container mx-auto px-4 max-w-4xl text-center">
-            <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
               Behovsanalys Sälj & Marknad
             </h1>
-            <p className="text-sm text-white/80 max-w-2xl mx-auto">
+            <p className="text-white/85 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
               Svara på frågorna för att få en personlig rekommendation om Dynamics 365 Sales och Marketing (Customer Insights).
             </p>
           </div>

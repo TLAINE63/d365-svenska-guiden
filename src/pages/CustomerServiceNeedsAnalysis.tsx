@@ -1766,11 +1766,11 @@ const CustomerServiceNeedsAnalysis = () => {
       />
       <Navbar />
       <main className="pb-16">
-        <div className="relative bg-cover bg-center pt-28 pb-8 mb-4" style={{ backgroundImage: `url(${heroBehovsanalysKundservice})` }}>
+        <div className="relative bg-cover bg-center pt-36 pb-20 mb-8" style={{ backgroundImage: `url(${heroBehovsanalysKundservice})` }}>
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative container mx-auto px-4 max-w-4xl text-center">
-            <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Behovsanalys Kundservice</h1>
-            <p className="text-sm text-white/80 max-w-2xl mx-auto">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">Behovsanalys Kundservice</h1>
+            <p className="text-white/85 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
               Svara på frågorna för att få en personlig rekommendation om Dynamics 365 Customer Service, Field Service och Contact Center.
             </p>
           </div>
