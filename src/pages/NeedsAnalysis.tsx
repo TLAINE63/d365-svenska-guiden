@@ -327,10 +327,20 @@ const employeeOptions = [
 const revenueOptions = [
   "1-9 MSEK",
   "10-49 MSEK",
-  "50-499 MSEK",
+  "50-99 MSEK",
+  "100-249 MSEK",
+  "250-499 MSEK",
   "500-999 MSEK",
   "1.000-4.999 MSEK",
-  "> 5.000 MSEK",
+  "Mer än 5.000 MSEK",
+];
+
+const erpUsersOptions = [
+  "1-10 användare",
+  "11-25 användare",
+  "26-75 användare",
+  "76-200 användare",
+  "Mer än 200 användare",
 ];
 
 const industryOptions = [
