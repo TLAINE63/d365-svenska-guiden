@@ -1565,28 +1565,71 @@ const CustomerServiceNeedsAnalysis = () => {
 
       case 6:
         return (
-          <div className="space-y-6">
+          <div className="space-y-8">
             <div>
-              <Label className="text-base font-semibold mb-3 block">Vilka systemberoenden har er kundservice? (välj alla som gäller)</Label>
+              <Label className="text-base font-semibold mb-1 block">Data, kundhistorik och integrationer</Label>
+              <p className="text-sm text-muted-foreground mb-4">AI, automation och en sammanhängande serviceupplevelse kräver att kunddata, ärendehistorik, serviceinformation och integrationer håller tillräcklig kvalitet.</p>
+              <Label className="text-sm font-medium mb-2 block">Vilka system behöver serviceflödet kopplas till? (välj alla som gäller)</Label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {[
-                  { id: "erp", label: "ERP (ekonomi/lager)" },
-                  { id: "iot", label: "IoT / sensordata" },
-                  { id: "product_register", label: "Produktregister" },
-                  { id: "lager", label: "Lagerhantering" },
+                  { id: "erp", label: "ERP / affärssystem" },
+                  { id: "crm_sales", label: "CRM" },
+                  { id: "telefoni", label: "Telefoni / Contact Center-plattform" },
+                  { id: "email", label: "E-post" },
+                  { id: "chat", label: "Chatt" },
+                  { id: "portal", label: "Webb / kundportal" },
+                  { id: "field_service_ext", label: "Field service / mobilapp" },
+                  { id: "lager", label: "Lager / reservdelar" },
                   { id: "fakturering", label: "Fakturering" },
-                  { id: "crm_sales", label: "CRM/Sälj" },
-                  { id: "field_service_ext", label: "Externt fältservice-system" },
-                  { id: "telefoni", label: "Telefoniplattform (PBX/UCaaS)" },
-                  { id: "e_handel", label: "E-handelsplattform" },
-                  { id: "hr", label: "HR-system" },
+                  { id: "e_handel", label: "E-handel" },
+                  { id: "iot", label: "IoT / uppkopplade produkter" },
+                  { id: "powerbi", label: "Power BI / rapportering" },
+                  { id: "datawarehouse", label: "Data warehouse / lakehouse" },
+                  { id: "sharepoint", label: "SharePoint / dokument" },
+                  { id: "knowledge", label: "Kunskapsdatabas" },
+                  { id: "annat", label: "Annat" },
                 ].map((opt) => (
                   <SelectionCard key={opt.id} label={opt.label} selected={data.systemDependencies.includes(opt.id)} onClick={() => handleCheckboxChange("systemDependencies", opt.id)} type="checkbox" />
                 ))}
               </div>
             </div>
+
+            <div className="border-t pt-6">
+              <Label className="text-base font-semibold mb-1 block">Datamognad för AI och agenter</Label>
+              <p className="text-sm text-muted-foreground mb-4">Bedömningen påverkar AI-/agentpotential, risknivå och rekommenderad partnerprofil.</p>
+
+              <Label className="text-sm font-medium mb-2 block">Har ni tillräcklig ordning på den data som AI eller agenter skulle behöva använda?</Label>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+                {dataMaturityOptions.map((opt) => (
+                  <SelectionCard key={opt} label={opt} selected={data.dataMaturity === opt} onClick={() => setData({ ...data, dataMaturity: opt })} type="radio" />
+                ))}
+              </div>
+
+              <Label className="text-sm font-medium mb-2 block">Hur tillförlitligt är ert underlag (kund-, ärende-, service-, kunskapsdata) idag?</Label>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+                {dataReliabilityOptions.map((opt) => (
+                  <SelectionCard key={opt} label={opt} selected={data.dataReliability === opt} onClick={() => setData({ ...data, dataReliability: opt })} type="radio" />
+                ))}
+              </div>
+
+              <Label className="text-sm font-medium mb-2 block">Finns tydligt dataägarskap?</Label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
+                {dataOwnershipOptions.map((opt) => (
+                  <SelectionCard key={opt} label={opt} selected={data.dataOwnership === opt} onClick={() => setData({ ...data, dataOwnership: opt })} type="radio" />
+                ))}
+              </div>
+
+              <Label className="text-sm font-medium mb-2 block">Finns tydliga behörigheter och åtkomstregler?</Label>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {dataAccessControlOptions.map((opt) => (
+                  <SelectionCard key={opt} label={opt} selected={data.dataAccessControls === opt} onClick={() => setData({ ...data, dataAccessControls: opt })} type="radio" />
+                ))}
+              </div>
+            </div>
           </div>
         );
+
+
 
       case 7:
         return (
