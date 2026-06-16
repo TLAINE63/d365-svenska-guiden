@@ -182,3 +182,79 @@ export const indexRelatedPages: RelatedPage[] = [
   { title: "CRM-översikt", description: "Jämför alla CRM-applikationer i Dynamics 365", href: "/crm/" },
   { title: "Copilot i Microsoft Dynamics 365", description: "AI-assistenten som ingår i alla appar", href: "/copilot/" },
 ];
+
+// ── Kravspec / Behovsanalys / Partner-konvertering ────────────────
+// Trefoten: Kravspec ↔ Behovsanalys ↔ Hitta partner – binder ihop köpresan.
+
+export const requirementsErpRelatedPages: RelatedPage[] = [
+  { title: "Behovsanalys ERP", description: "Få rekommendation Business Central eller Finance & Supply Chain innan du skriver kravspec", href: "/ERPbehovsanalys/" },
+  { title: "Business Central", description: "ERP för SMB – funktioner, pris och paketering", href: "/businesscentral/" },
+  { title: "Finance & Supply Chain", description: "Enterprise-ERP för koncerner med global drift", href: "/finance-supply-chain/" },
+  { title: "Jämför BC och F&SCM", description: "Teknisk jämförelse av Microsofts två affärssystem", href: "/erp/" },
+  { title: "Hitta partner", description: "Matcha kravspecifikationen mot Microsoft-partners i Sverige", href: "/valjdynamics365partner/" },
+  { title: "Branschlösningar", description: "Branschspecifika krav för Dynamics 365", href: "/branscher/" },
+];
+
+export const requirementsCrmRelatedPages: RelatedPage[] = [
+  { title: "Behovsanalys CRM", description: "Få rekommendation för Sales och Customer Insights (Marketing)", href: "/CRMbehovsanalys/" },
+  { title: "Dynamics 365 Sales", description: "B2B-CRM för säljteam – pipeline, leads och Copilot", href: "/d365sales/" },
+  { title: "Customer Insights (Marketing)", description: "Marketing automation och Customer Data Platform", href: "/d365marketing/" },
+  { title: "CRM-översikt", description: "Jämför alla Dynamics 365 CRM-applikationer", href: "/crm/" },
+  { title: "Hitta CRM-partner", description: "Matcha kravspecifikationen mot CRM-partners i Sverige", href: "/valjdynamics365partner/" },
+];
+
+export const requirementsCsRelatedPages: RelatedPage[] = [
+  { title: "Behovsanalys Customer Service", description: "Få rekommendation för kundservice och kontaktcenter", href: "/kundservice-behovsanalys/" },
+  { title: "Customer Service", description: "Helpdesk och ärendehantering med omnikanal", href: "/d365customerservice/" },
+  { title: "Contact Center", description: "AI-drivet omnikanal-kontaktcenter", href: "/d365contactcenter/" },
+  { title: "Field Service", description: "Fältservicehantering med schemaläggning och IoT", href: "/d365fieldservice/" },
+  { title: "Hitta partner", description: "Matcha kravspecifikationen mot kundservice-partners", href: "/valjdynamics365partner/" },
+];
+
+export const needsAnalysisErpRelatedPages: RelatedPage[] = [
+  { title: "Kravspecifikation affärssystem", description: "Bygg vidare på rekommendationen med en strukturerad kravspec", href: "/kravspecifikation/" },
+  { title: "Business Central", description: "Produktdetaljer, pris och funktioner för SMB", href: "/businesscentral/" },
+  { title: "Finance & Supply Chain", description: "Produktdetaljer, pris och funktioner för enterprise", href: "/finance-supply-chain/" },
+  { title: "Jämför BC och F&SCM", description: "Teknisk MOFU-jämförelse av Microsofts ERP-system", href: "/erp/" },
+  { title: "Branschlösningar", description: "Branschpaketering av Dynamics 365 ERP", href: "/branscher/" },
+  { title: "Hitta partner", description: "Få offerter från Microsoft-partners i Sverige", href: "/valjdynamics365partner/" },
+];
+
+export const needsAnalysisCrmRelatedPages: RelatedPage[] = [
+  { title: "Kravspecifikation Sales", description: "Bygg en strukturerad kravspec för B2B-CRM", href: "/kravspecifikation-sales/" },
+  { title: "Kravspecifikation Marketing", description: "Bygg en kravspec för marketing automation / CDP", href: "/kravspecifikation-marketing/" },
+  { title: "Dynamics 365 Sales", description: "CRM för B2B-säljteam – pris och funktioner", href: "/d365sales/" },
+  { title: "Customer Insights", description: "Marketing automation och Customer Data Platform", href: "/d365marketing/" },
+  { title: "CRM-översikt", description: "Jämför alla Dynamics 365 CRM-applikationer", href: "/crm/" },
+  { title: "Hitta CRM-partner", description: "Matcha behovsbilden mot svenska CRM-partners", href: "/valjdynamics365partner/" },
+];
+
+export const needsAnalysisCsRelatedPages: RelatedPage[] = [
+  { title: "Kravspecifikation Customer Service", description: "Bygg en strukturerad kravspec för kundservice", href: "/kravspecifikation-customer-service/" },
+  { title: "Customer Service", description: "Helpdesk och ärendehantering – pris och funktioner", href: "/d365customerservice/" },
+  { title: "Contact Center", description: "AI-drivet omnikanal-kontaktcenter", href: "/d365contactcenter/" },
+  { title: "Field Service", description: "Fältservicehantering med schemaläggning och IoT", href: "/d365fieldservice/" },
+  { title: "Hitta partner", description: "Matcha behovsbilden mot kundservice-partners", href: "/valjdynamics365partner/" },
+];
+
+// Hitta partner-sidan – BOFU/konvertering. Stötta med behovsanalys + kravspec
+// så köpmogna besökare kan skapa underlag innan kontakt.
+export const valjPartnerRelatedPages: RelatedPage[] = [
+  { title: "Behovsanalys ERP", description: "Få rekommendation Business Central eller Finance & SCM", href: "/ERPbehovsanalys/" },
+  { title: "Behovsanalys CRM", description: "Kartlägg sälj- och marknadsbehov inför partnerval", href: "/CRMbehovsanalys/" },
+  { title: "Kravspecifikation affärssystem", description: "Skapa underlag innan ni begär offert från partner", href: "/kravspecifikation/" },
+  { title: "Business Central", description: "ERP för SMB – pris, funktioner och svenska partners", href: "/businesscentral/" },
+  { title: "Dynamics 365 Sales", description: "B2B-CRM för säljteam – pris och svenska partners", href: "/d365sales/" },
+  { title: "Branschlösningar", description: "Hitta partners med erfarenhet av just er bransch", href: "/branscher/" },
+];
+
+// Generella artikellänkar – binder ihop Kunskapscenter med produkt/partner.
+export const articleRelatedPages: RelatedPage[] = [
+  { title: "Business Central", description: "ERP för SMB – pris, funktioner och svenska partners", href: "/businesscentral/" },
+  { title: "Finance & Supply Chain", description: "Enterprise-ERP för globala koncerner", href: "/finance-supply-chain/" },
+  { title: "Dynamics 365 Sales", description: "B2B-CRM för säljteam – pipeline och Copilot", href: "/d365sales/" },
+  { title: "Customer Service", description: "Helpdesk och ärendehantering med omnikanal", href: "/d365customerservice/" },
+  { title: "Branschlösningar", description: "Dynamics 365 per bransch", href: "/branscher/" },
+  { title: "Hitta partner", description: "Jämför Microsoft-partners i Sverige", href: "/valjdynamics365partner/" },
+];
+

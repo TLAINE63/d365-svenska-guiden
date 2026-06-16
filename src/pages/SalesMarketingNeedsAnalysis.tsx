@@ -6,6 +6,7 @@ import { z } from "zod";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
+import RelatedPages, { needsAnalysisCrmRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -3161,6 +3162,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         </div>
       </main>
+      <RelatedPages heading="Fortsätt utvärdera ert CRM" pages={needsAnalysisCrmRelatedPages} />
       <Footer />
     </div>
   );
