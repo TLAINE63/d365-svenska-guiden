@@ -755,6 +755,31 @@ const complexityStructureOptions = {
     { value: "enkel", label: "Enkel konsolidering" },
     { value: "komplex", label: "Komplex konsolidering (multi-GAAP, valutor)" },
   ],
+  currencies: [
+    { value: "1", label: "1 valuta" },
+    { value: "2-5", label: "2–5 valutor" },
+    { value: "6+", label: "6+ valutor" },
+  ],
+  languages: [
+    { value: "1", label: "1 språk" },
+    { value: "2-3", label: "2–3 språk" },
+    { value: "4+", label: "4+ språk" },
+  ],
+  ediIntegration: [
+    { value: "nej", label: "Inget EDI-behov" },
+    { value: "viss", label: "Visst EDI med några partner" },
+    { value: "omfattande", label: "Omfattande EDI (>10 partner / hög volym)" },
+  ],
+  qualityAssurance: [
+    { value: "ingen", label: "Ingen formell kvalitetshantering" },
+    { value: "grundlaggande", label: "Grundläggande QA (avvikelser, dokumentation)" },
+    { value: "regulerad", label: "Reglerad/spårbar (ISO, GMP, FDA, livsmedel)" },
+  ],
+  batchTraceability: [
+    { value: "nej", label: "Ej tillämpligt" },
+    { value: "viss", label: "Viss batch-/serienummerhantering" },
+    { value: "full", label: "Full spårbarhet (lot, serie, hållbarhet)" },
+  ],
 };
 
 const complexityOperativeOptions = {
