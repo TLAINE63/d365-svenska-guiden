@@ -813,6 +813,59 @@ const CustomerServiceNeedsAnalysis = () => {
     const dataMat = getDataMaturityLevel(data);
     const aiPot = getAiPotentialLevel(data);
     const recommendAiAssessment = shouldRecommendAiAssessment(data);
+
+    // Compute transformation level up-front so we can include it in the AI prompt.
+    let complexityScore0 = 0;
+    if (data.multiCountry === "Ja, globalt" || data.multiCountry === "Ja, Europa") complexityScore0 += 2;
+    else if (data.multiCountry === "Ja, Norden") complexityScore0 += 1;
+    if (data.multiLanguage?.includes("mer") || data.multiLanguage === "Ja, 3-5 sprak" || data.multiLanguage === "Ja, 3–5 språk") complexityScore0 += 2;
+    else if (data.multiLanguage?.includes("svenska + engelska")) complexityScore0 += 1;
+    if (data.customerPrioritization?.includes("komplexa")) complexityScore0 += 2;
+    else if (data.customerPrioritization?.includes("2-3") || data.customerPrioritization?.includes("2–3")) complexityScore0 += 1;
+    if (data.multipleProductLines?.includes("specialistkompetens") || data.multipleProductLines?.includes("mer")) complexityScore0 += 2;
+    else if (data.multipleProductLines?.includes("2-5") || data.multipleProductLines?.includes("2–5")) complexityScore0 += 1;
+    const transformationLevelEarly = complexityScore0 >= 9 ? 4 : complexityScore0 >= 6 ? 3 : complexityScore0 >= 3 ? 2 : 1;
+    const transformationLabelEarly = ["", "Initial service", "Strukturerad service", "Digitaliserad service", "Intelligent service"][transformationLevelEarly];
+
+    // Fetch AI-generated narrative analysis (paragraphs separated by \n\n).
+    setIsSendingEmail(true);
+    let aiAnalysis: {
+      executiveSummary: string;
+      serviceInterpretation: string;
+      solutionHypothesis: string;
+      dataAndAiAnalysis: string;
+      whyPoints: string[];
+      risks: string[];
+      partnerProfile: string;
+      nextSteps: string[];
+      confidence: string;
+    } | null = null;
+    try {
+      const aiRes = await supabase.functions.invoke("generate-customer-service-analysis", {
+        body: {
+          companyName: data.companyName,
+          contactName: data.contactName,
+          focusKey,
+          focusLabel: focusCfg.pdfSubTitle,
+          transformationLevel: transformationLevelEarly,
+          transformationLabel: transformationLabelEarly,
+          dataMaturityLevel: dataMat.level,
+          aiPotentialLevel: aiPot.level,
+          recommendAiAssessment,
+          summary: data,
+          recommendation: {
+            products: recommendation.products.map((p) => p.name),
+            reasons: recommendation.products.flatMap((p) => p.reasons).slice(0, 8),
+          },
+        },
+      });
+      aiAnalysis = aiRes?.data?.analysis ?? null;
+    } catch (err) {
+      console.warn("AI analysis fetch failed, continuing with static fallback", err);
+    } finally {
+      setIsSendingEmail(false);
+    }
+
     const { default: jsPDF } = await import("jspdf");
     const pdf = new jsPDF();
     const pageWidth = pdf.internal.pageSize.getWidth();
@@ -842,6 +895,27 @@ const CustomerServiceNeedsAnalysis = () => {
       checkPage(lines.length * 5 + 4);
       pdf.text(lines, margin, yPos);
       yPos += lines.length * 5 + 6;
+    };
+
+    // Render multi-paragraph prose with proper spacing between paragraphs.
+    // Splits on \n\n (and falls back to single \n) so AI-generated text reads cleanly.
+    const addParagraphs = (text: string, fontSize = 9.5) => {
+      if (!text) return;
+      const paragraphs = String(text)
+        .replace(/\r\n/g, "\n")
+        .split(/\n{2,}/)
+        .map((p) => p.replace(/\s*\n\s*/g, " ").trim())
+        .filter(Boolean);
+      pdf.setFontSize(fontSize);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(51, 51, 51);
+      const lineHeight = fontSize * 0.5;
+      paragraphs.forEach((para, i) => {
+        const lines = pdf.splitTextToSize(para, contentWidth);
+        checkPage(lines.length * lineHeight + 4);
+        pdf.text(lines, margin, yPos);
+        yPos += lines.length * lineHeight + (i < paragraphs.length - 1 ? 4 : 6);
+      });
     };
 
     const addBulletList = (items: string[]) => {
@@ -990,6 +1064,11 @@ const CustomerServiceNeedsAnalysis = () => {
     });
     yPos += Math.ceil(profileRows.length / 2) * cellH + 8;
 
+    // AI-genererad ledningssammanfattning (paragrafer)
+    if (aiAnalysis?.executiveSummary) {
+      addParagraphs(aiAnalysis.executiveSummary, 9.5);
+    }
+
     // ══════════════════════════════════════════════════════════════════════
     // 2. SERVICEMOGNAD (dots)
     // ══════════════════════════════════════════════════════════════════════
@@ -1037,7 +1116,11 @@ const CustomerServiceNeedsAnalysis = () => {
     // ══════════════════════════════════════════════════════════════════════
     checkPage(40);
     addSectionHeader("BEDÖMNING", 80, 80, 100);
-    addTextBlock(tData.text);
+    if (aiAnalysis?.serviceInterpretation) {
+      addParagraphs(aiAnalysis.serviceInterpretation, 9.5);
+    } else {
+      addTextBlock(tData.text);
+    }
 
     // ══════════════════════════════════════════════════════════════════════
     // 4. STYRKOR + UTVECKLINGSOMRADEN (side by side)
@@ -1147,6 +1230,11 @@ const CustomerServiceNeedsAnalysis = () => {
     yPos += 7;
     addTextBlock(aiPot.description);
 
+    // AI-genererad fördjupad analys av datamognad & AI-potential (paragrafer)
+    if (aiAnalysis?.dataAndAiAnalysis) {
+      addParagraphs(aiAnalysis.dataAndAiAnalysis, 9.5);
+    }
+
     if (data.aiUseCases.length > 0 && dataMat.level === "Låg") {
       addTextBlock("AI-intresset finns, men datamognaden är ännu inte tillräcklig för mer avancerade AI-agenter. Första steget bör vara att förbättra datakvalitet, datamodell, integrationer och dataägarskap.");
     }
@@ -1164,7 +1252,11 @@ const CustomerServiceNeedsAnalysis = () => {
     // PRELIMINÄR LÖSNINGSINRIKTNING
     checkPage(40);
     addSectionHeader("PRELIMINÄR LÖSNINGSINRIKTNING", 30, 58, 138);
-    addTextBlock(focusCfg.solutionHypothesis);
+    if (aiAnalysis?.solutionHypothesis) {
+      addParagraphs(aiAnalysis.solutionHypothesis, 9.5);
+    } else {
+      addTextBlock(focusCfg.solutionHypothesis);
+    }
     addTextBlock("Detta är en preliminär lösningshypotes baserad på era svar. Ett slutligt val av Dynamics 365-applikationer, tillägg, AI-stöd och integrationsarkitektur bör föregås av en fördjupad fit-gap, kravspecifikation och partnerdialog.");
 
     // ══════════════════════════════════════════════════════════════════════
@@ -1172,6 +1264,10 @@ const CustomerServiceNeedsAnalysis = () => {
     // ══════════════════════════════════════════════════════════════════════
     checkPage(40);
     addSectionHeader("REKOMMENDERAD PARTNERPROFIL", 30, 58, 138);
+    if (aiAnalysis?.partnerProfile) {
+      addParagraphs(aiAnalysis.partnerProfile, 9.5);
+      yPos += 2;
+    }
     addTextBlock("Partnern bör ha erfarenhet av:");
     addBulletList(focusCfg.partnerProfile);
     if (recommendAiAssessment) {
@@ -1181,9 +1277,19 @@ const CustomerServiceNeedsAnalysis = () => {
     // REKOMMENDERADE NÄSTA STEG
     checkPage(40);
     addSectionHeader("REKOMMENDERADE NÄSTA STEG", 5, 150, 105);
-    const nextStepsList = [...focusCfg.nextSteps];
-    if (recommendAiAssessment) nextStepsList.push("Genomför AI Assessment innan AI/agenter byggs in i lösningen.");
+    const aiNext = aiAnalysis?.nextSteps && aiAnalysis.nextSteps.length > 0 ? aiAnalysis.nextSteps : focusCfg.nextSteps;
+    const nextStepsList = [...aiNext];
+    if (recommendAiAssessment && !nextStepsList.some((s) => s.toLowerCase().includes("ai assessment"))) {
+      nextStepsList.push("Genomför AI Assessment innan AI/agenter byggs in i lösningen.");
+    }
     addBulletList(nextStepsList);
+
+    // RISKER & FRÅGOR ATT UTREDA
+    if (aiAnalysis?.risks && aiAnalysis.risks.length > 0) {
+      checkPage(40);
+      addSectionHeader("RISKER OCH FRÅGOR ATT UTREDA", 220, 90, 50);
+      addBulletList(aiAnalysis.risks);
+    }
 
     // DISCLAIMER
     checkPage(30);
