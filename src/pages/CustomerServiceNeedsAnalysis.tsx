@@ -281,6 +281,233 @@ const aiUseCaseCategories = [
   { id: "copilot-assistant", title: "AI-assistent (Copilot-liknande funktioner)", description: "Fråga systemet på naturligt språk: \"Visa alla öppna ärenden för VIP-kunder\".", benefit: "Affärsnytta: Kundservice blir ett kraftfullt analysverktyg – inte bara ett ärendesystem." },
 ];
 
+// ───────────── Områdes-/diagnostikalternativ ─────────────
+const unsureIssueOptions = [
+  "Vi tappar kontroll på kundärenden",
+  "Vi har svårt att hålla SLA",
+  "Vi saknar gemensam kundhistorik",
+  "Vi har för många manuella handoffs",
+  "Telefoni, e-post och chatt är inte samordnade",
+  "Agenter/handläggare saknar rätt information",
+  "Teknikerplanering är ineffektiv",
+  "Serviceorder, reservdelar och fakturering hänger inte ihop",
+  "Vi saknar self-service eller kunskapsdatabas",
+  "Vi har svårt att följa upp kundnöjdhet",
+  "Vi vill använda AI-agenter eller Copilot",
+  "Vi saknar bra rapportering",
+];
+
+const dataMaturityOptions = ["Ja, till stor del", "Delvis", "Nej, inte idag", "Vet ej"];
+const dataOwnershipOptions = ["Ja, för de viktigaste datadomänerna", "Delvis", "Nej", "Vet ej"];
+const dataAccessControlOptions = ["Ja", "Delvis", "Nej", "Vet ej"];
+const dataReliabilityOptions = ["Bra", "Blandat", "Bristfälligt", "Vet ej"];
+
+const aiAutonomyOptions = [
+  "Endast ge förslag till användare",
+  "Skapa utkast som användare godkänner",
+  "Utföra enkla uppgifter automatiskt enligt regler",
+  "Hantera delar av processer med mänsklig kontrollpunkt",
+  "Agera självständigt inom definierade gränser",
+  "Vet ej / behöver rådgivning",
+];
+
+const aiControlOptions = [
+  "Mänskligt godkännande innan kundkommunikation",
+  "Mänskligt godkännande innan data ändras",
+  "Loggning av alla AI-/agentåtgärder",
+  "Begränsning per roll/behörighet",
+  "Tydliga eskaleringsregler",
+  "Testmiljö innan produktionssättning",
+  "Regelbunden kvalitetssäkring",
+  "Juridisk/GDPR-granskning",
+  "Spårbarhet till källor",
+  "Möjlighet att stänga av agenten snabbt",
+];
+
+type FocusKey = "customer_service" | "field_service" | "contact_center" | "multi";
+
+function getFocusKey(data: CustomerServiceAnalysisData): FocusKey {
+  // Primärt: serviceModel; sekundärt: unsureIssues-heuristik
+  switch (data.serviceModel) {
+    case "Ärendebaserad kundservice":
+      return "customer_service";
+    case "Volymbaserad kundservice / Contact Center":
+      return "contact_center";
+    case "Fältservice med tekniker":
+      return "field_service";
+    case "Kombination av flera":
+      return "multi";
+    case "Osäkert – vi vill förstå behovet bättre": {
+      const fs = ["Teknikerplanering är ineffektiv", "Serviceorder, reservdelar och fakturering hänger inte ihop"];
+      const cc = ["Telefoni, e-post och chatt är inte samordnade", "Vi har svårt att följa upp kundnöjdhet"];
+      const cs = ["Vi tappar kontroll på kundärenden", "Vi har svårt att hålla SLA", "Vi saknar gemensam kundhistorik", "Agenter/handläggare saknar rätt information", "Vi saknar self-service eller kunskapsdatabas"];
+      const fsCount = data.unsureIssues.filter((i) => fs.includes(i)).length;
+      const ccCount = data.unsureIssues.filter((i) => cc.includes(i)).length;
+      const csCount = data.unsureIssues.filter((i) => cs.includes(i)).length;
+      const total = fsCount + ccCount + csCount;
+      const distinct = [fsCount, ccCount, csCount].filter((n) => n > 0).length;
+      if (distinct >= 2 || total === 0) return "multi";
+      if (fsCount >= ccCount && fsCount >= csCount) return "field_service";
+      if (ccCount >= csCount) return "contact_center";
+      return "customer_service";
+    }
+    default:
+      return "customer_service";
+  }
+}
+
+const focusConfig: Record<FocusKey, {
+  pdfTitle: string;
+  pdfSubTitle: string;
+  emailAnalysisType: string;
+  maturityHeading: string;
+  partnerProfile: string[];
+  nextSteps: string[];
+  solutionHypothesis: string;
+}> = {
+  customer_service: {
+    pdfTitle: "BEHOVSANALYS",
+    pdfSubTitle: "Kundservice / Ärendehantering",
+    emailAnalysisType: "Kundservice / Ärendehantering",
+    maturityHeading: "KUNDSERVICEMOGNAD",
+    partnerProfile: [
+      "Dynamics 365 Customer Service",
+      "Ärendehantering, SLA och supportprocesser",
+      "Kunskapsdatabas och self-service",
+      "Integrationer mot CRM/ERP",
+      "Copilot och AI-stöd för handläggare",
+    ],
+    nextSteps: [
+      "Kartlägg ärendeprocessen från inkommande kontakt till löst ärende.",
+      "Definiera SLA, prioriteringar, köer och eskaleringsregler.",
+      "Bedöm behov av kunskapsdatabas och self-service.",
+      "Gör en fit-gap mot Dynamics 365 Customer Service.",
+      "Identifiera AI-use cases för handläggarstöd och ärendesammanfattning.",
+      "Bedöm datamognad för AI och agenter.",
+      "Bjud in relevanta partners till lösningsdialog.",
+    ],
+    solutionHypothesis:
+      "Utifrån era svar framstår Dynamics 365 Customer Service som en relevant lösningsväg att utvärdera vidare. Fokus bör ligga på ärendehantering, SLA, köstyrning, kunskapsdatabas, kundhistorik, self-service och integrationer mot övriga system.",
+  },
+  field_service: {
+    pdfTitle: "BEHOVSANALYS",
+    pdfSubTitle: "Fältservice",
+    emailAnalysisType: "Fältservice",
+    maturityHeading: "FÄLTSERVICEMOGNAD",
+    partnerProfile: [
+      "Dynamics 365 Field Service",
+      "Serviceorder och teknikerplanering",
+      "Mobil fältservice och installerad bas",
+      "Reservdelar, lager och serviceavtal",
+      "ERP- och faktureringsintegrationer",
+    ],
+    nextSteps: [
+      "Kartlägg serviceflödet från ärende till serviceorder, teknikerbesök och fakturering.",
+      "Definiera krav på teknikerplanering, mobilitet och installerad bas.",
+      "Bedöm reservdels-, lager- och ERP-integrationer.",
+      "Gör en fit-gap mot Dynamics 365 Field Service.",
+      "Identifiera AI- och automationsuse cases för planering och förebyggande underhåll.",
+      "Bedöm datamognad kring servicehistorik, installerad bas och reservdelar.",
+      "Bjud in partners med erfarenhet av fältservice och ERP-integrationer.",
+    ],
+    solutionHypothesis:
+      "Utifrån era svar finns tydliga behov inom fältservice, teknikerplanering och serviceuppdrag. Dynamics 365 Field Service bör därför ingå i den fortsatta utvärderingen, särskilt om ni behöver hantera serviceorder, schemaläggning, installerad bas, reservdelar och mobil åtkomst för tekniker.",
+  },
+  contact_center: {
+    pdfTitle: "BEHOVSANALYS",
+    pdfSubTitle: "Contact Center",
+    emailAnalysisType: "Contact Center",
+    maturityHeading: "CONTACT CENTER-MOGNAD",
+    partnerProfile: [
+      "Dynamics 365 Contact Center",
+      "Telefoni och omnichannel",
+      "Agent desktop, köer och routing",
+      "AI-agenter och samtalsanalys",
+      "Integration mellan contact center och CRM",
+    ],
+    nextSteps: [
+      "Kartlägg kanalflöden för telefoni, chatt, e-post och self-service.",
+      "Definiera krav på köer, routing, agentstöd och realtidsrapportering.",
+      "Bedöm integration mellan contact center, CRM och ärendehantering.",
+      "Gör en fit-gap mot Dynamics 365 Contact Center och Customer Service.",
+      "Identifiera AI-agent- och automationsuse cases.",
+      "Bedöm datamognad för kundhistorik, kunskapsartiklar, samtalsdata och ärendedata.",
+      "Bjud in partners med erfarenhet av contact center och CRM-integrationer.",
+    ],
+    solutionHypothesis:
+      "Utifrån era svar finns tydliga behov inom contact center, telefoni, chatt, routing och agentstöd. Dynamics 365 Contact Center och/eller Dynamics 365 Customer Service bör ingå i den fortsatta utvärderingen beroende på hur nära contact center-flödet behöver kopplas till ärendehantering, kundhistorik och övriga CRM-processer.",
+  },
+  multi: {
+    pdfTitle: "BEHOVSANALYS",
+    pdfSubTitle: "Kundservice, Contact Center och Fältservice",
+    emailAnalysisType: "Kundservice, Contact Center och Fältservice",
+    maturityHeading: "SERVICE- OCH KUNDUPPLEVELSEMOGNAD",
+    partnerProfile: [
+      "Dynamics 365 Customer Service, Field Service och Contact Center",
+      "Power Platform och Copilot Studio",
+      "Integrationer mot ERP, telefoni, lager, fakturering och kundportal",
+      "Datamodellering och rapportering (Power BI)",
+      "Förändringsledning över flera team",
+    ],
+    nextSteps: [
+      "Kartlägg hela flödet från kundkontakt till ärende, serviceuppdrag och uppföljning.",
+      "Definiera ansvar mellan contact center, kundservice och fältservice.",
+      "Bedöm integrationer mot ERP, telefoni, lager, fakturering och kundportal.",
+      "Gör en fit-gap mot Customer Service, Field Service och Contact Center.",
+      "Identifiera AI- och automationsuse cases och kontrollpunkter.",
+      "Bedöm datamognad och styrning för AI/agenter.",
+      "Ta fram en gemensam kravspecifikation för kundservice, contact center och fältservice.",
+    ],
+    solutionHypothesis:
+      "Utifrån era svar bör Customer Service, Contact Center och Field Service utvärderas som ett sammanhängande kundserviceflöde. Behovet verkar omfatta både ärendehantering, kanalhantering, kundhistorik, serviceuppdrag, teknikerplanering och integrationer mot ERP, lager och fakturering.",
+  },
+};
+
+function getDataMaturityLevel(d: CustomerServiceAnalysisData): { level: string; description: string } {
+  const score = (() => {
+    let s = 0;
+    if (d.dataMaturity === "Ja, till stor del") s += 3;
+    else if (d.dataMaturity === "Delvis") s += 2;
+    else if (d.dataMaturity === "Nej, inte idag") s += 0;
+    if (d.dataOwnership === "Ja, för de viktigaste datadomänerna") s += 2;
+    else if (d.dataOwnership === "Delvis") s += 1;
+    if (d.dataAccessControls === "Ja") s += 2;
+    else if (d.dataAccessControls === "Delvis") s += 1;
+    if (d.dataReliability === "Bra") s += 2;
+    else if (d.dataReliability === "Blandat") s += 1;
+    return s;
+  })();
+  if (score >= 8) return { level: "Avancerad", description: "Data, processer, behörigheter och styrning är tillräckligt mogna för att utvärdera mer autonoma agentflöden." };
+  if (score >= 5) return { level: "Hög", description: "Data är relativt strukturerad, tillförlitlig och åtkomlig. AI och styrda agenter kan utvärderas." };
+  if (score >= 2) return { level: "Medel", description: "Viss datagrund finns, men kvalitet, integrationer eller ägarskap behöver förbättras före mer avancerade agenter." };
+  return { level: "Låg", description: "Data är splittrad, bristfällig eller saknar tydligt ägarskap. AI bör främst användas försiktigt och assisterande." };
+}
+
+function getAiPotentialLevel(d: CustomerServiceAnalysisData): { level: string; description: string } {
+  const usesAutonomy = ["Hantera delar av processer med mänsklig kontrollpunkt", "Agera självständigt inom definierade gränser"].includes(d.aiAutonomy);
+  const usesAssisted = ["Skapa utkast som användare godkänner", "Utföra enkla uppgifter automatiskt enligt regler"].includes(d.aiAutonomy);
+  const dataLevel = getDataMaturityLevel(d).level;
+  if (usesAutonomy && (dataLevel === "Hög" || dataLevel === "Avancerad")) {
+    return { level: "Autonoma agenter med styrning", description: "Agenter kan utföra definierade uppgifter självständigt inom tydliga mandat, loggning och kontrollpunkter." };
+  }
+  if (usesAutonomy || (usesAssisted && (dataLevel === "Medel" || dataLevel === "Hög" || dataLevel === "Avancerad"))) {
+    return { level: "Styrd automation / assisterade agenter", description: "AI/agenter kan hantera delar av processer med mänsklig kontroll." };
+  }
+  if (d.aiUseCases.length > 0 || usesAssisted) {
+    return { level: "AI-assistans", description: "AI kan stödja användare med sammanfattningar, förslag och analys." };
+  }
+  return { level: "AI-intresse", description: "Organisationen är nyfiken, men data/processer är inte redo." };
+}
+
+function shouldRecommendAiAssessment(d: CustomerServiceAnalysisData): boolean {
+  const dataLevel = getDataMaturityLevel(d).level;
+  const highAiInterest = d.aiUseCases.length >= 3;
+  const wantsAgent = d.aiUseCases.includes("chatbot-virtual-agent") || ["Hantera delar av processer med mänsklig kontrollpunkt", "Agera självständigt inom definierade gränser"].includes(d.aiAutonomy);
+  const dataRisk = dataLevel === "Låg" || d.dataOwnership === "Nej" || d.dataOwnership === "Vet ej" || d.dataAccessControls === "Nej" || d.dataAccessControls === "Vet ej";
+  const heavyIntegration = d.systemDependencies.length >= 4;
+  return highAiInterest || wantsAgent || dataRisk || heavyIntegration;
+}
+
 const CustomerServiceNeedsAnalysis = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [data, setData] = useState<CustomerServiceAnalysisData>(initialData);
