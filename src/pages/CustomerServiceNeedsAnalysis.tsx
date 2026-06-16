@@ -1116,7 +1116,11 @@ const CustomerServiceNeedsAnalysis = () => {
     // ══════════════════════════════════════════════════════════════════════
     checkPage(40);
     addSectionHeader("BEDÖMNING", 80, 80, 100);
-    addTextBlock(tData.text);
+    if (aiAnalysis?.serviceInterpretation) {
+      addParagraphs(aiAnalysis.serviceInterpretation, 9.5);
+    } else {
+      addTextBlock(tData.text);
+    }
 
     // ══════════════════════════════════════════════════════════════════════
     // 4. STYRKOR + UTVECKLINGSOMRADEN (side by side)
