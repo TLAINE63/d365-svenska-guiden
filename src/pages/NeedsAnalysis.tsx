@@ -2704,7 +2704,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               </div>
               <div className="p-5 bg-background grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {[
-                  { label: "Affärsmodell", value: bmLabel },
+                  { label: "Verksamhetsmodell", value: bmLabel },
                   { label: "Organisation", value: sizeLabel },
                   { label: "Geografisk räckvidd", value: geoLabel },
                   { label: "Kritiska faktorer", value: complexity.criticalFactors.length > 0 ? `${complexity.criticalFactors.length} identifierade` : "Inga kritiska" },
