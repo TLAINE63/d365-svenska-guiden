@@ -281,13 +281,20 @@ serve(async (req: Request): Promise<Response> => {
 
       const { data: invitation, error: invError } = await supabase
         .from("partner_invitations")
-        .select("partner_id, expires_at")
+        .select("partner_id, expires_at, status")
         .eq("token", invToken)
         .single();
 
       if (invError || !invitation || !invitation.partner_id) {
         return new Response(
           JSON.stringify({ error: "Ogiltig länk" }),
+          { status: 403, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      if (new Date(invitation.expires_at) < new Date() && invitation.status === "pending") {
+        return new Response(
+          JSON.stringify({ error: "Inbjudan har gått ut" }),
           { status: 403, headers: { "Content-Type": "application/json", ...corsHeaders } }
         );
       }
