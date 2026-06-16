@@ -197,8 +197,11 @@ const PartnerCard = ({
 
   const productFilter = getProductFilter();
   
-  // Get product-specific description
+  // Get product-specific description (with AI-generated flag)
   const productDescription = productFilter?.productDescription || null;
+  const productDescriptionAi =
+    (productFilter as { productDescriptionAiGenerated?: boolean } | null | undefined)
+      ?.productDescriptionAiGenerated === true;
 
   // Get product-specific landing page URL
   const productLandingPageUrl = (productFilter as { landingPageUrl?: string } | null | undefined)?.landingPageUrl?.trim() || null;
@@ -398,6 +401,15 @@ const PartnerCard = ({
               <p className="text-sm text-muted-foreground italic leading-relaxed line-clamp-2">
                 {productDescription}
               </p>
+              {productDescriptionAi && (
+                <span
+                  className="mt-1 inline-flex items-center gap-1 text-[10px] font-medium text-muted-foreground/80 uppercase tracking-wide"
+                  title="AI-genererad text – baserad på partnerns övriga uppgifter"
+                >
+                  <Sparkles className="w-3 h-3" aria-hidden="true" />
+                  AI-genererad
+                </span>
+              )}
             </div>
           )}
           
