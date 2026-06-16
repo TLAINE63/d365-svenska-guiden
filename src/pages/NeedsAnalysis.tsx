@@ -1918,7 +1918,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.text("BEHOVSANALYS", pageWidth / 2, 120, { align: "center" });
     pdf.setFontSize(16);
     pdf.setFont("helvetica", "normal");
-    pdf.text("Dynamics 365 Affarssystem (ERP)", pageWidth / 2, 133, { align: "center" });
+    pdf.text("Dynamics 365 Affärssystem (ERP)", pageWidth / 2, 133, { align: "center" });
     pdf.setDrawColor(255, 255, 255);
     pdf.setLineWidth(0.5);
     pdf.line(margin + 20, 142, pageWidth - margin - 20, 142);
@@ -1934,7 +1934,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
     pdf.setTextColor(180, 230, 225);
     pdf.setFontSize(9);
-    pdf.text("d365.se - Vagledning for Microsoft Dynamics 365-partner", pageWidth / 2, pageHeight - 28, { align: "center" });
+    pdf.text("d365.se - Vägledning för Microsoft Dynamics 365-partner", pageWidth / 2, pageHeight - 28, { align: "center" });
     pdf.setTextColor(255, 255, 255);
     pdf.setFontSize(10);
     pdf.text(`Analysens datum: ${analysisDate}`, pageWidth / 2, pageHeight - 18, { align: "center" });
@@ -1963,9 +1963,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     const criticalCount = complexity.criticalFactors.length > 0 ? `${complexity.criticalFactors.length} identifierade` : "Inga kritiska";
 
     const profileRows = [
-      ["Affarsmodell", bmLabel],
+      ["Affärsmodell", bmLabel],
       ["Organisation", sizeLabel],
-      ["Geografisk rackvidd", geoLabel],
+      ["Geografisk räckvidd", geoLabel],
       ["Kritiska faktorer", criticalCount],
     ];
     const cellW = contentWidth / 2;
@@ -1992,33 +1992,33 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     // 2. ERP-MOGNAD (Complexity Level with dots)
     // ══════════════════════════════════════════════════════════════════════
     const maturityLevel = complexity.complexityLevel;
-    const maturityLabels = ["", "Grundlaggande ERP", "Strukturerat ERP", "Avancerat ERP", "Enterprise ERP"];
+    const maturityLabels = ["", "Grundläggande ERP", "Strukturerat ERP", "Avancerat ERP", "Enterprise ERP"];
     const maturityComments: Record<number, { text: string; strengths: string[]; gaps: string[] }> = {
       1: {
-        text: "Er organisation har relativt enkla ERP-behov med begransad komplexitet i struktur och processer. Det finns stor mojlighet att snabbt fa varde av ett modernt affarssystem.",
-        strengths: ["Enkel och snabb implementation", "Lag TCO och tydlig ROI", "Latthanterade processer", "Flexibilitet att vaxa"],
-        gaps: ["Begransat systemstod idag", "Manuella processer kan skalas bort", "Potential att standardisera mer"],
+        text: "Er organisation har relativt enkla ERP-behov med begränsad komplexitet i struktur och processer. Det finns stor möjlighet att snabbt få värde av ett modernt affärssystem.",
+        strengths: ["Enkel och snabb implementation", "Låg TCO och tydlig ROI", "Lätthanterade processer", "Flexibilitet att växa"],
+        gaps: ["Begränsat systemstöd idag", "Manuella processer kan skalas bort", "Potential att standardisera mer"],
       },
       2: {
-        text: "Er organisation har en mattlig komplexitet med etablerade affarsprocesser. Ratt ERP-plattform ger er mojlighet att effektivisera och automatisera utan onodig komplexitet.",
-        strengths: ["Etablerade affarsprocesser", "Viss systemerfarenhet", "Tydlig ansvarsfordelning"],
-        gaps: ["Begransad integrationskapacitet", "Manuell rapportering", "Processer ej fullt standardiserade"],
+        text: "Er organisation har en måttlig komplexitet med etablerade affärsprocesser. Rätt ERP-plattform ger er möjlighet att effektivisera och automatisera utan onödig komplexitet.",
+        strengths: ["Etablerade affärsprocesser", "Viss systemerfarenhet", "Tydlig ansvarsfördelning"],
+        gaps: ["Begränsad integrationskapacitet", "Manuell rapportering", "Processer ej fullt standardiserade"],
       },
       3: {
-        text: "Er organisation har en pataglig komplexitet i struktur eller operativa processer. Implementationsprojektet kraver noggrann forberedelse och en partner med dokumenterad erfarenhet.",
-        strengths: ["Tydliga processkrav", "IT-mognad pa plats", "Strukturerad styrmodell"],
-        gaps: ["Integrationsbehov kraver plan", "Forandringsledning viktigt", "Kraver branschanpassad partner"],
+        text: "Er organisation har en påtaglig komplexitet i struktur eller operativa processer. Implementationsprojektet kraver noggrann förberedelse och en partner med dokumenterad erfarenhet.",
+        strengths: ["Tydliga processkrav", "IT-mognad på plats", "Strukturerad styrmodell"],
+        gaps: ["Integrationsbehov kraver plan", "Förändringsledning viktigt", "Kräver branschanpassad partner"],
       },
       4: {
-        text: "Er organisation har hog komplexitet - multi-entity, globala floden eller avancerade operativa krav. Partnerurval och projektarkitektur ar avgorande for framgang.",
-        strengths: ["Stor intern IT-kapacitet", "Tydlig global styrmodell", "Avancerade systemkrav valdefinierade"],
-        gaps: ["Lang implementationstid att planera for", "Kraver enterprise-certifierad partner", "Change management kritiskt"],
+        text: "Er organisation har hog komplexitet - multi-entity, globala floden eller avancerade operativa krav. Partnerurval och projektarkitektur ar avgörande for framgang.",
+        strengths: ["Stor intern IT-kapacitet", "Tydlig global styrmodell", "Avancerade systemkrav väldefinierade"],
+        gaps: ["Lång implementationstid att planera för", "Kräver enterprise-certifierad partner", "Change management kritiskt"],
       },
     };
     const maturityData = maturityComments[maturityLevel];
 
     checkPage(40);
-    addSectionHeader("ERP-KOMPLEXITETSNIVA", 5, 150, 105);
+    addSectionHeader("ERP-KOMPLEXITETSNIVÅ", 5, 150, 105);
     pdf.setFontSize(8);
     pdf.setFont("helvetica", "normal");
     pdf.setTextColor(120, 120, 120);
@@ -2045,7 +2045,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     // 3. BEDOMNING (assessment text + critical factors)
     // ══════════════════════════════════════════════════════════════════════
     checkPage(40);
-    addSectionHeader("BEDOMNING", 80, 80, 100);
+    addSectionHeader("BEDÖMNING", 80, 80, 100);
     pdf.setTextColor(51, 51, 51);
     pdf.setFontSize(9);
     pdf.setFont("helvetica", "normal");
@@ -2061,7 +2061,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       pdf.setFont("helvetica", "bold");
       pdf.setTextColor(51, 51, 51);
       pdf.setFontSize(9);
-      pdf.text("Faktorer som driver bedomningen:", margin, yPos);
+      pdf.text("Faktorer som driver bedömningen:", margin, yPos);
       yPos += 6;
       pdf.setFont("helvetica", "normal");
       complexity.criticalFactors.forEach((factor) => {
@@ -2084,9 +2084,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       pdf.setTextColor(120, 80, 0);
       pdf.setFontSize(8);
       pdf.setFont("helvetica", "bold");
-      pdf.text("OBS: Hogriskprojekt", margin + 4, yPos + 6);
+      pdf.text("OBS: Högriskprojekt", margin + 4, yPos + 6);
       pdf.setFont("helvetica", "normal");
-      const warnLines = pdf.splitTextToSize("Hog komplexitet i kombination med lag IT-mognad. Partnerurval och projektstruktur blir avgorande.", contentWidth - 8);
+      const warnLines = pdf.splitTextToSize("Hög komplexitet i kombination med låg IT-mognad. Partnerurval och projektstruktur blir avgörande.", contentWidth - 8);
       pdf.text(warnLines, margin + 4, yPos + 11);
       yPos += 20 + (warnLines.length - 1) * 4;
     }
@@ -2135,7 +2135,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.setFillColor(245, 158, 11);
     pdf.roundedRect(margin + colW + 4, yPos, colW, 8, 2, 2, 'F');
     pdf.setTextColor(255, 255, 255);
-    pdf.text("UTVECKLINGSOMRADEN", margin + colW + 8, yPos + 5.5);
+    pdf.text("UTVECKLINGSOMRÅDEN", margin + colW + 8, yPos + 5.5);
     yPos += 12;
 
     const maxItems = Math.max(maturityData.strengths.length, maturityData.gaps.length);
@@ -2165,7 +2165,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     // 5. PRELIMINAR SYSTEMINDIKATION
     // ══════════════════════════════════════════════════════════════════════
     checkPage(60);
-    addSectionHeader("PRELIMINAR SYSTEMINDIKATION", 0, 100, 130);
+    addSectionHeader("PRELIMINÄR SYSTEMINDIKATION", 0, 100, 130);
 
     const isBC = recommendation.product === "Business Central";
     const outcomeLabelMap: Record<string, string> = {
@@ -2196,13 +2196,13 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.setFontSize(8);
     pdf.setFont("helvetica", "normal");
     pdf.setTextColor(80, 80, 80);
-    pdf.text("Sakerhet i analysen:", margin + 5, yPos + 6.5);
+    pdf.text("Säkerhet i analysen:", margin + 5, yPos + 6.5);
     pdf.setFont("helvetica", "bold");
     pdf.setTextColor(sc[0], sc[1], sc[2]);
     pdf.text(recommendation.securityLevel, margin + 42, yPos + 6.5);
     pdf.setFont("helvetica", "normal");
     pdf.setTextColor(120, 120, 120);
-    pdf.text("(preliminar indikation - ej definitivt systemval)", margin + 58, yPos + 6.5);
+    pdf.text("(preliminär indikation - ej definitivt systemval)", margin + 58, yPos + 6.5);
     yPos += 14;
 
 
@@ -2219,7 +2219,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.setTextColor(51, 51, 51);
     pdf.setFontSize(9);
     pdf.setFont("helvetica", "normal");
-    pdf.text("Baserat pa er ERP-profil rekommenderas en plattform med fokus pa:", margin, yPos);
+    pdf.text("Baserat på er ERP-profil rekommenderas en plattform med fokus på:", margin, yPos);
     yPos += 7;
 
     const pdfFocusMap: Record<string, string[]> = {
@@ -2227,14 +2227,14 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         "Ekonomi och redovisning i molnet",
         "Lagerstyrning och orderhantering",
         "Inbyggd BI och rapportering med Power BI",
-        "Copilot AI for okad produktivitet",
-        "Somlos integration med Microsoft 365",
+        "Copilot AI for ökad produktivitet",
+        "Sömlös integration med Microsoft 365",
       ],
       "Finance & Supply Chain Management": [
         "Avancerad koncernredovisning och multi-entity",
         "Global supply chain och multi-site lager",
         "Avancerad tillverkning och MRP/APS",
-        "Prediktiv analys och efterfrageprognoser",
+        "Prediktiv analys och efterfrågeprognoser",
         "Regulatorisk efterlevnad och compliance",
       ],
     };
@@ -2288,11 +2288,11 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     addSectionHeader("REKOMMENDERAD PARTNERTYP", 0, 100, 130);
 
     const pdfPartners: { label: string; description: string }[] = [];
-    if (maturityLevel >= 3 || complexity.riskLevel === "Hog" || complexity.riskLevel === "Medel-hog") {
+    if (maturityLevel >= 3 || complexity.riskLevel === "Hög" || complexity.riskLevel === "Medel-hog") {
       pdfPartners.push({ label: "Enterprise ERP-arkitekt", description: "Partner med dokumenterad erfarenhet av komplexa multi-entity eller globala implementationer" });
     }
     if (isBC && maturityLevel <= 2) {
-      pdfPartners.push({ label: "Business Central-specialist", description: "Partner specialiserad pa snabba och kostnadseffektiva BC-implementationer for tillvaxtbolag" });
+      pdfPartners.push({ label: "Business Central-specialist", description: "Partner specialiserad på snabba och kostnadseffektiva BC-implementationer för tillväxtbolag" });
     }
     if (!isBC) {
       pdfPartners.push({ label: "Auktoriserad partner inom Finance & Supply Chain", description: "Partner med certifiering och bevisad kompetens i Finance & Supply Chain Management" });
@@ -2304,7 +2304,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       pdfPartners.push({ label: `Branscherfarenhet: ${data.industry}`, description: `Partner med dokumenterade kundcase eller specialisering inom ${data.industry}` });
     }
     if (pdfPartners.length === 0) {
-      pdfPartners.push({ label: "ERP-specialist", description: "Partner specialiserad pa Dynamics 365 ERP-losningar" });
+      pdfPartners.push({ label: "ERP-specialist", description: "Partner specialiserad på Dynamics 365 ERP-lösningar" });
     }
 
     pdfPartners.forEach((p) => {
@@ -2358,7 +2358,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       if (data.aiAmbitions.length) {
         checkPage(12);
         pdf.setFont("helvetica", "bold");
-        pdf.text("Vad ni vill uppna med AI:", margin, yPos); yPos += 5;
+        pdf.text("Vad ni vill uppnå med AI:", margin, yPos); yPos += 5;
         pdf.setFont("helvetica", "normal");
         const amb = pdf.splitTextToSize("- " + data.aiAmbitions.join("\n- "), contentWidth - 4);
         amb.forEach((l: string) => { checkPage(6); pdf.text(l, margin + 2, yPos); yPos += 5; });
@@ -2427,7 +2427,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       if (data.aiRisks.length) {
         checkPage(12);
         pdf.setFont("helvetica", "bold");
-        pdf.text("Risker och fragor att hantera:", margin, yPos); yPos += 5;
+        pdf.text("Risker och frågor att hantera:", margin, yPos); yPos += 5;
         pdf.setFont("helvetica", "normal");
         const r = pdf.splitTextToSize("- " + data.aiRisks.join("\n- "), contentWidth - 4);
         r.forEach((l: string) => { checkPage(6); pdf.text(l, margin + 2, yPos); yPos += 5; });
@@ -2439,7 +2439,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         checkPage(14);
         pdf.setFont("helvetica", "bold");
         pdf.setTextColor(90, 60, 160);
-        pdf.text("Rekommenderade AI-nasta steg:", margin, yPos); yPos += 5;
+        pdf.text("Rekommenderade AI-nästa steg:", margin, yPos); yPos += 5;
         pdf.setTextColor(40, 40, 40);
         pdf.setFont("helvetica", "normal");
         deterministicAiNextSteps.forEach((s, i) => {
@@ -2459,7 +2459,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     // ══════════════════════════════════════════════════════════════════════
     if (aiAnalysis?.partnerProfile) {
       checkPage(30);
-      addSectionHeader("REKOMMENDERAD PARTNERPROFIL (KOPARSIDIGT)", 14, 124, 134);
+      addSectionHeader("REKOMMENDERAD PARTNERPROFIL (KÖPARSIDIGT)", 14, 124, 134);
       pdf.setFontSize(9);
       pdf.setFont("helvetica", "normal");
       pdf.setTextColor(40, 40, 40);
@@ -2474,7 +2474,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
     if (aiAnalysis?.risks?.length) {
       checkPage(30);
-      addSectionHeader("RISKER OCH FRAGOR ATT UTREDA VIDARE", 180, 90, 30);
+      addSectionHeader("RISKER OCH FRÅGOR ATT UTREDA VIDARE", 180, 90, 30);
       pdf.setFontSize(9);
       pdf.setFont("helvetica", "normal");
       pdf.setTextColor(40, 40, 40);
@@ -2499,7 +2499,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     });
     if (combinedNextSteps.length) {
       checkPage(30);
-      addSectionHeader("REKOMMENDERADE NASTA STEG", 14, 124, 134);
+      addSectionHeader("REKOMMENDERADE NÄSTA STEG", 14, 124, 134);
       pdf.setFontSize(9);
       pdf.setFont("helvetica", "normal");
       pdf.setTextColor(40, 40, 40);
@@ -2553,13 +2553,13 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     addAppendixSection("Steg 1 - Verksamhetsmodell", [
       ["Verksamhetsmodell", bmLabel],
       ["Typ", subLabel],
-      ["Sekundara modeller", secondaryLabels || "Inga"],
+      ["Sekundära modeller", secondaryLabels || "Inga"],
     ]);
 
-    addAppendixSection("Steg 2 - Foretagsstorlek", [
-      ["Anstallda", data.employees],
-      ["Omsattning", data.revenue],
-      ["Anvandare i affarssystemet", data.erpUsers || "Ej angivet"],
+    addAppendixSection("Steg 2 - Företagsstorlek", [
+      ["Anställda", data.employees],
+      ["Omsättning", data.revenue],
+      ["Användare i affarssystemet", data.erpUsers || "Ej angivet"],
     ]);
 
     addAppendixSection("Steg 3 - Bransch", [
@@ -2581,7 +2581,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
     addAppendixSection("Steg 4 - Komplexitet (struktur)", [
       ["Juridiska enheter", cxLabel("legalEntities")],
-      ["Antal lander", cxLabel("countries")],
+      ["Antal länder", cxLabel("countries")],
       ["Internhandel", cxLabel("intercompany")],
       ["Konsolidering", cxLabel("consolidation")],
     ]);
@@ -2626,7 +2626,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
     addAppendixSection("Steg 5 - Geografi", [
       ["Geografi", data.geography],
-      ["Specifika lander", data.geographyOther || ""],
+      ["Specifika länder", data.geographyOther || ""],
     ]);
 
     const filledSystems = data.currentSystems.filter(s => s.product.trim());
@@ -2639,7 +2639,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
     addAppendixSection("Steg 6 - Nuvarande situation", [
       ["Nuvarande system", systemsStr],
-      ["Ovriga system", data.otherSystemsDetails || ""],
+      ["Övriga system", data.otherSystemsDetails || ""],
       ["Situation", data.currentSituationReason || ""],
       ["Utmaningar", challengeStr || ""],
       ["Beslutstidslinje", data.decisionTimeline || ""],
@@ -2658,9 +2658,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     const dqStr = Object.entries(data.aiDataQuality || {}).filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`).join("; ");
     const pmStr = Object.entries(data.aiProcessMaturity || {}).filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`).join("; ");
 
-    addAppendixSection("Steg 8 - AI, automation och beslutsstod", [
+    addAppendixSection("Steg 8 - AI, automation och beslutsstöd", [
       ["AI-intresse", data.aiInterest],
-      ["AI-mognadsniva", aiMaturity.level],
+      ["AI-mognadsnivå", aiMaturity.level],
       ["Ambitioner", data.aiAmbitions.join(", ")],
       ["Prioriterade use cases", data.aiUseCases.join(", ")],
       ["Datakvalitet", dqStr || "Ej angivet"],
@@ -2676,9 +2676,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     // Övriga noteringar (free-text fields)
     const hasOvrigt = data.wishlist || data.additionalInfo;
     if (hasOvrigt) {
-      addAppendixSection("Ovriga noteringar", [
-        ["Onskelista", data.wishlist || ""],
-        ["Ovrig information", data.additionalInfo || ""],
+      addAppendixSection("Övriga noteringar", [
+        ["Önskelista", data.wishlist || ""],
+        ["Övrig information", data.additionalInfo || ""],
       ]);
     }
 
@@ -2693,7 +2693,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.text("Dynamic Factory", margin + 8, yPos + 10);
     pdf.setFont("helvetica", "normal");
     pdf.setFontSize(9);
-    pdf.text("Din kopar-sidiga guide till ratt Dynamics 365-losning", margin + 8, yPos + 18);
+    pdf.text("Din köpar-sidiga guide till rätt Dynamics 365-lösning", margin + 8, yPos + 18);
     pdf.text("+46 72 232 40 60", pageWidth - margin - 55, yPos + 10);
     pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
     pdf.text("d365.se", pageWidth - margin - 55, yPos + 26);
