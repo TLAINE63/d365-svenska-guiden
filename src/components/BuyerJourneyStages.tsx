@@ -662,6 +662,7 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
 
       </div>
     </section>
+    </>
   );
 };
 
