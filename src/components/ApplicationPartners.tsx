@@ -240,7 +240,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
         </div>
 
         {/* Lead CTA - shows when partners are filtered */}
-        {(selectedIndustry || selectedGeography) && (
+        {(selectedIndustry || selectedGeography || selectedCompanySize) && (
           <div className="max-w-xl mx-auto mt-12">
             {/* Premium Contact CTA Card - same design as PartnerProfile */}
             <article className="relative rounded-3xl overflow-hidden shadow-2xl">
@@ -280,6 +280,11 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
                     {selectedIndustry && (
                       <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 backdrop-blur-sm">
                         {selectedIndustry}
+                      </Badge>
+                    )}
+                    {selectedCompanySize && (
+                      <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 backdrop-blur-sm">
+                        {selectedCompanySize} anställda
                       </Badge>
                     )}
                     {selectedGeography && (

@@ -75,7 +75,7 @@ const D365Commerce = () => {
         </div>
       </section>
 
-      <ApplicationPartners applicationFilter="Commerce" pageSource="D365 Commerce" />
+      <ApplicationPartners applicationFilter="Commerce" pageSource="D365 Commerce" filterMode="companySize" />
 
       <section className="py-12 sm:py-16 md:py-20 bg-finance">
         <div className="container mx-auto px-4 sm:px-6 text-center">
