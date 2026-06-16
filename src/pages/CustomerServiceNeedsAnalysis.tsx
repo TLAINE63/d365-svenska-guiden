@@ -1085,12 +1085,12 @@ const CustomerServiceNeedsAnalysis = () => {
     // ══════════════════════════════════════════════════════════════════════
     if (recommendation.products.length > 0) {
       checkPage(60);
-      addSectionHeader("REKOMMENDERAD LOSNINGSINRIKTNING", 30, 58, 138);
+      addSectionHeader("REKOMMENDERAD LÖSNINGSINRIKTNING", 30, 58, 138);
 
       const focusMap: Record<string, string[]> = {
-        "Dynamics 365 Customer Service": ["Central arendehantering", "Omnichannel och kanalsamordning", "AI-assisterade kundservicemedarbetare och kunskapsbas"],
-        "Dynamics 365 Field Service": ["Schemalaggning och mobilt teknikerstod", "IoT och prediktivt underhall", "Arbetsorder och reservdelshantering"],
-        "Dynamics 365 Contact Center": ["Multikanalhantering och rostintegration", "Realtidsdashboard och supervisor-styrning", "AI-driven arenderouting och chattbot"],
+        "Dynamics 365 Customer Service": ["Central ärendehantering", "Omnichannel och kanalsamordning", "AI-assisterade kundservicemedarbetare och kunskapsbas"],
+        "Dynamics 365 Field Service": ["Schemaläggning och mobilt teknikerstöd", "IoT och prediktivt underhåll", "Arbetsorder och reservdelshantering"],
+        "Dynamics 365 Contact Center": ["Multikanalhantering och röstintegration", "Realtidsdashboard och supervisor-styrning", "AI-driven ärenderouting och chattbot"],
       };
       const seen = new Set<string>();
       const focuses = recommendation.products.slice(0, 3).flatMap(p => focusMap[p.name] || []).filter(f => { if (seen.has(f)) return false; seen.add(f); return true; }).slice(0, 5);
@@ -1098,7 +1098,7 @@ const CustomerServiceNeedsAnalysis = () => {
       pdf.setFontSize(9);
       pdf.setFont("helvetica", "italic");
       pdf.setTextColor(80, 80, 80);
-      pdf.text("Baserat pa er kundserviceprofil rekommenderas en losning med fokus pa:", margin, yPos);
+      pdf.text("Baserat på er kundserviceprofil rekommenderas en lösning med fokus på:", margin, yPos);
       yPos += 7;
 
       focuses.forEach((item) => {
