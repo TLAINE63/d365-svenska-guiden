@@ -271,9 +271,15 @@ serve(async (req: Request): Promise<Response> => {
       : "";
 
     const isErp = analysisType === "ERP";
+    const serviceSubjectMap: Record<string, string> = {
+      "Kundservice / Ärendehantering": "Din behovsanalys för Kundservice från d365.se",
+      "Fältservice": "Din behovsanalys för Fältservice från d365.se",
+      "Contact Center": "Din behovsanalys för Contact Center från d365.se",
+      "Kundservice, Contact Center och Fältservice": "Din behovsanalys för Kundservice, Contact Center och Fältservice från d365.se",
+    };
     const subject = isErp
       ? "Din ERP Behovsanalys från d365.se"
-      : `Din Behovsanalys för ${analysisType} från D365.se`;
+      : (serviceSubjectMap[analysisType] || `Din Behovsanalys för ${analysisType} från D365.se`);
 
     const intro = isErp
       ? `<p>Hej ${safeContactName},</p>
