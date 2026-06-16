@@ -2907,7 +2907,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   <Download className="w-5 h-5 text-finance-supply" />
                   Skicka PDF till min e-post
                 </h3>
-                <p className="text-sm text-muted-foreground">Fyll i kontaktuppgifter för att ladda ned en PDF med din analys och alla svar.</p>
+                <p className="text-sm text-muted-foreground">Fyll i dina kontaktuppgifter så skickar vi PDF-rapporten till din e-post.</p>
                 {isComplete ? (
                   <div className="flex items-center gap-3 p-4 rounded-lg border border-green-200 bg-green-50 dark:bg-green-950/30 dark:border-green-800">
                     <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0" />
