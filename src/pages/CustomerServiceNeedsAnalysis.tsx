@@ -82,6 +82,9 @@ interface CustomerServiceAnalysisData {
   aiAutonomy: string;
   aiControls: string[];
   unsureIssues: string[];
+  csKpis: string[];
+  ccKpis: string[];
+  fsKpis: string[];
   dataMaturity: string;
   dataOwnership: string;
   dataAccessControls: string;
