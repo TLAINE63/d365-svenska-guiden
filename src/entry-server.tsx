@@ -33,6 +33,9 @@ import D365Marketing from './pages/D365Marketing';
 import D365CustomerService from './pages/D365CustomerService';
 import D365FieldService from './pages/D365FieldService';
 import D365ContactCenter from './pages/D365ContactCenter';
+import D365ProjectOperations from './pages/D365ProjectOperations';
+import D365Commerce from './pages/D365Commerce';
+import D365HumanResources from './pages/D365HumanResources';
 import Events from './pages/Events';
 import EventDetail from './pages/EventDetail';
 import QA from './pages/QA';
@@ -148,6 +151,9 @@ export const routes: PrerenderRoute[] = [
   { path: '/d365customerservice', priority: '0.8', changefreq: 'monthly' },
   { path: '/d365fieldservice', priority: '0.8', changefreq: 'monthly' },
   { path: '/d365contactcenter', priority: '0.8', changefreq: 'monthly' },
+  { path: '/d365projectoperations', priority: '0.8', changefreq: 'monthly' },
+  { path: '/d365commerce', priority: '0.8', changefreq: 'monthly' },
+  { path: '/d365humanresources', priority: '0.8', changefreq: 'monthly' },
   { path: '/copilot', priority: '0.8', changefreq: 'monthly' },
   { path: '/agents', priority: '0.9', changefreq: 'monthly' },
   { path: '/aioversikt', priority: '0.7', changefreq: 'monthly' },
@@ -300,6 +306,9 @@ export function render(url: string) {
               <Route path="/d365-field-service" element={<Navigate to="/d365fieldservice" replace />} />
               <Route path="/d365contactcenter" element={<D365ContactCenter />} />
               <Route path="/d365-contact-center" element={<Navigate to="/d365contactcenter" replace />} />
+              <Route path="/d365projectoperations" element={<D365ProjectOperations />} />
+              <Route path="/d365commerce" element={<D365Commerce />} />
+              <Route path="/d365humanresources" element={<D365HumanResources />} />
               <Route path="/events" element={<Events />} />
               <Route path="/events/:eventId" element={<EventDetail />} />
               <Route path="/qa" element={<QA />} />
