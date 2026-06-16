@@ -2737,7 +2737,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           phone: data.phone,
           email: data.email,
           analysisData: {
-            "Affarsmodell": `${data.businessModel}${data.businessModelSubs.length > 0 ? ` - ${data.businessModelSubs.join(", ")}` : data.businessModelSub ? ` - ${data.businessModelSub}` : ''}` || "Ej angivet",
+            "Affärsmodell": `${data.businessModel}${data.businessModelSubs.length > 0 ? ` - ${data.businessModelSubs.join(", ")}` : data.businessModelSub ? ` - ${data.businessModelSub}` : ''}` || "Ej angivet",
             "Anställda": data.employees,
             "Omsättning": data.revenue,
             "Bransch": data.industry || "Ej angivet",
