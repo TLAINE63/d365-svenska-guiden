@@ -109,6 +109,13 @@ interface AnalysisData {
   aiInterest: string;
   aiUseCases: string[];
   aiDetails: string;
+  // AI, automation och beslutsstöd (utbyggd)
+  aiAmbitions: string[];
+  aiDataQuality: Record<string, string>; // område -> Bra|Blandad|Bristfällig|Vet ej
+  aiDataIssues: string[];
+  aiProcessMaturity: Record<string, string>; // område -> Låg|Medel|Hög|Vet ej
+  aiGovernance: string;
+  aiRisks: string[];
   // Step 11
   additionalInfo: string;
   // Contact info
