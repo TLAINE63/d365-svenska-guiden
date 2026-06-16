@@ -2978,6 +2978,15 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                         {contactErrors.email && <p className="text-sm text-destructive mt-1">{contactErrors.email}</p>}
                       </div>
                     </div>
+                    <label className="flex items-start gap-2 text-sm text-muted-foreground cursor-pointer select-none pt-1">
+                      <input
+                        type="checkbox"
+                        checked={data.consentToContact}
+                        onChange={(e) => setData({ ...data, consentToContact: e.target.checked })}
+                        className="mt-1 h-4 w-4 rounded border-border accent-finance-supply"
+                      />
+                      <span>Jag godkänner att d365.se får kontakta mig kring analysen.</span>
+                    </label>
                     <div className="flex flex-col sm:flex-row gap-3 pt-2">
                       <Button
                         onClick={generateDocument}
@@ -2985,7 +2994,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                         className="bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground flex-1"
                       >
                         <Download className="w-4 h-4 mr-2" />
-                        {isSendingEmail ? "Skickar..." : "Ladda ner & skicka analys"}
+                        {isSendingEmail ? "Skickar..." : "Skicka PDF till min e-post"}
                       </Button>
                       <Button variant="outline" onClick={() => window.print()} className="flex-shrink-0">
                         🖨️ Skriv ut
