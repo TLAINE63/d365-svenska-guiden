@@ -141,7 +141,7 @@ const Navbar = () => {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/kundservice-behovsanalys/" className="cursor-pointer">
-                    🎧 Kundservice & Field Service
+                    🎧 Kundservice, Fältservice &amp; Contact Center
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
@@ -272,7 +272,7 @@ const Navbar = () => {
                     📈 Sälj & Marknad (CRM)
                   </Link>
                   <Link to="/kundservice-behovsanalys/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
-                    🎧 Kundservice & Field Service
+                    🎧 Kundservice, Fältservice &amp; Contact Center
                   </Link>
                   <Link to="/ai-readiness/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
                     🤖 AI Readiness Assessment
