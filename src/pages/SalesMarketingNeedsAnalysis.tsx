@@ -528,7 +528,7 @@ const SalesMarketingNeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 8;
+  const totalSteps = 9;
 
   useEffect(() => {
     trackFunnelEvent({ event_type: "analysis_start", event_name: "needs_analysis_sales_marketing" });
@@ -542,17 +542,33 @@ const SalesMarketingNeedsAnalysis = () => {
 
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Target, Building2, Target, Target, Megaphone, Target, Sparkles, FileText];
+  const stepIcons = [Target, Target, Building2, Target, Target, Megaphone, Target, Sparkles, FileText];
+
+  const focus = data.focusArea;
   const stepTitles = [
+    "Fokusområde",
     "Kommersiell modell",
     "Organisation",
-    "Arbetssätt & system",
-    "Data & kundbild",
-    "Customer Insights",
+    focus === "marketing" ? "Kampanjer & kundresor"
+      : focus === "both" ? "Från lead till affär"
+      : focus === "unsure" ? "Nuläge & utmaningar"
+      : "Säljprocess & system",
+    focus === "marketing" ? "Kunddata & segmentering"
+      : focus === "both" ? "Gemensam kunddata"
+      : "Data & kundbild",
+    focus === "sales" ? "Sälj & pipeline"
+      : focus === "unsure" ? "Marknads- och kundbild"
+      : "Customer Insights",
     "Integrationer",
-    "AI & framtid",
-    "Vägledande CRM-Analys",
+    focus === "sales" ? "AI för sälj"
+      : focus === "marketing" ? "AI för marknad"
+      : "AI & framtid",
+    focus === "marketing" ? "Vägledande marknadsanalys"
+      : focus === "both" ? "Vägledande Sälj- & Marknadsanalys"
+      : focus === "unsure" ? "Vägledande analys"
+      : "Vägledande CRM-Analys",
   ];
+
 
   const handleNext = () => {
     if (currentStep < totalSteps) {
