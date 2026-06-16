@@ -478,9 +478,26 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
             </div>
             
             {/* Description */}
-            <p className="text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed font-light mb-4">
-              {partner.description}
-            </p>
+            <div className="max-w-3xl mb-4">
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-light">
+                {partner.description}
+              </p>
+              {(partner as any).description_ai_generated && (
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <span className="inline-flex items-center gap-1 mt-2 text-[11px] font-medium text-slate-500 cursor-help">
+                        <Sparkles className="w-3 h-3 text-[hsl(var(--cta-orange))]" />
+                        AI-genererad beskrivning
+                      </span>
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-xs">
+                      <p className="text-xs">Beskrivningen är genererad av d365.se utifrån partnerns angivna data. Partnern kan när som helst skriva en egen beskrivning som ersätter denna.</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              )}
+            </div>
 
             {/* AI-generated neutral summary */}
             {(partner as any).ai_summary && (
