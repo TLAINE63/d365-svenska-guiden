@@ -2197,21 +2197,22 @@ const SalesMarketingNeedsAnalysis = () => {
               </div>
             </div>
 
-            {/* Central eller lokal marknadsorganisation */}
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Central eller lokal marknadsorganisation?</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {["Centralt styrd", "Hybridmodell", "Lokalt styrd per marknad"].map((opt) => (
-                  <SelectionCard
-                    key={opt}
-                    label={opt}
-                    selected={data.marketingOrgStructure === opt}
-                    onClick={() => setData({ ...data, marketingOrgStructure: opt })}
-                    type="radio"
-                  />
-                ))}
+            {focus !== "sales" && (
+              <div>
+                <Label className="text-base font-semibold mb-3 block">Central eller lokal marknadsorganisation?</Label>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {["Centralt styrd", "Hybridmodell", "Lokalt styrd per marknad"].map((opt) => (
+                    <SelectionCard
+                      key={opt}
+                      label={opt}
+                      selected={data.marketingOrgStructure === opt}
+                      onClick={() => setData({ ...data, marketingOrgStructure: opt })}
+                      type="radio"
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         );
 
