@@ -488,6 +488,7 @@ const RequirementsSpec = () => {
           )}
         </div>
       </main>
+      <RelatedPages heading="Nästa steg i ERP-köpresan" pages={requirementsErpRelatedPages} />
       <Footer />
     </>
   );
