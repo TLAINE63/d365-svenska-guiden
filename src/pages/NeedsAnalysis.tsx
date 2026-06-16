@@ -748,7 +748,122 @@ const aiUseCaseCategories = [
   }
 ];
 
+// ============ AI, automation och beslutsstöd ============
+
+const aiAmbitionOptions = [
+  "Minska manuellt administrativt arbete",
+  "Förbättra prognoser och planering",
+  "Automatisera ekonomi- och fakturaprocesser",
+  "Förbättra inköp och leverantörsstyrning",
+  "Optimera lager och varuflöden",
+  "Förbättra produktion och kapacitetsplanering",
+  "Identifiera avvikelser och risker tidigare",
+  "Ge ledning och chefer bättre beslutsstöd",
+  "Förbättra kundservice och ärendehantering",
+  "Stärka sälj- och kundprioritering",
+  "Skapa bättre rapportering och analys",
+  "Vi vet inte ännu, men vill förstå möjligheterna",
+];
+
+const aiUseCaseDomains: { domain: string; items: string[] }[] = [
+  { domain: "Ekonomi", items: [
+    "Fakturatolkning och automatiserad bokföring",
+    "Avvikelseanalys i ekonomi",
+    "Cash flow-prognoser",
+    "Automatiserad periodisering eller uppföljning",
+  ]},
+  { domain: "Inköp och supply chain", items: [
+    "Förslag på inköpsbehov",
+    "Identifiera pris- eller leveransavvikelser",
+    "Leverantörsanalys",
+    "Prognoser för efterfrågan och inköp",
+  ]},
+  { domain: "Lager och logistik", items: [
+    "Lageroptimering",
+    "Identifiera bristvaror och överlager",
+    "Förbättrad leveransprecision",
+    "Avvikelseanalys i lagerflöden",
+  ]},
+  { domain: "Produktion", items: [
+    "Produktionsplanering",
+    "Kapacitetsrisker",
+    "Kvalitetsavvikelser",
+    "Prediktivt underhåll",
+  ]},
+  { domain: "Försäljning och kund", items: [
+    "Säljprognoser",
+    "Kundprioritering",
+    "Offertstöd",
+    "Nästa bästa aktivitet",
+  ]},
+  { domain: "Service", items: [
+    "Ärendesammanfattningar",
+    "Kunskapsförslag",
+    "Prediktivt underhåll (service)",
+    "Prioritering av serviceärenden",
+  ]},
+  { domain: "Ledning och analys", items: [
+    "Beslutsstöd i realtid",
+    "Naturligt språk mot rapporter och data",
+    "AI-genererade sammanfattningar",
+    "Identifiering av trender och avvikelser",
+  ]},
+];
+
+const aiDataAreas = [
+  "Artikeldata", "Kunddata", "Leverantörsdata", "Lagerdata", "Produktionsdata",
+  "Ekonomidata", "Försäljningsdata", "Historiska transaktioner", "Rapportering/BI",
+  "Data i Excel eller fristående system",
+];
+const aiDataQualityScale = ["Bra", "Blandad", "Bristfällig", "Vet ej"];
+
+const aiDataIssueOptions = [
+  "Data finns utspridd i flera system",
+  "Mycket data hanteras i Excel",
+  "Rapportering visar olika siffror beroende på källa",
+  "Artikeldata är inkonsekvent",
+  "Kund- eller leverantörsregister är svåra att lita på",
+  "Historisk data är ofullständig",
+  "Det saknas tydligt dataägarskap",
+  "Vi litar inte fullt ut på rapporterna",
+  "Inga större dataproblem idag",
+  "Vet ej",
+];
+
+const aiProcessAreas = [
+  "Processerna är dokumenterade",
+  "Processerna är standardiserade",
+  "Det finns tydliga processägare",
+  "Det finns tydliga godkännandeflöden",
+  "Det finns många manuella moment",
+  "Det finns många undantag och specialfall",
+  "Det är tydligt vilka moment som bör automatiseras",
+  "Verksamheten är redo att förändra arbetssätt",
+];
+const aiProcessScale = ["Låg", "Medel", "Hög", "Vet ej"];
+
+const aiGovernanceOptions = [
+  "Ja, vi har tydliga riktlinjer",
+  "Delvis, men de behöver utvecklas",
+  "Nej, inte idag",
+  "Vet ej",
+];
+
+const aiRiskOptions = [
+  "Dataskydd och GDPR",
+  "Behörigheter och åtkomst till känslig data",
+  "Spårbarhet i AI-genererade förslag",
+  "Risk för felaktiga AI-svar",
+  "Intern acceptans hos användare",
+  "Juridiska eller regulatoriska krav",
+  "Oklart ägarskap för AI internt",
+  "Säkerhet kring företagsdata",
+  "Vi ser inga större risker idag",
+  "Vet ej",
+];
+
 // ============ Complexity Assessment Options ============
+
 
 const complexityStructureOptions = {
   legalEntities: [
