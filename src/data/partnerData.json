@@ -195,7 +195,7 @@
     "legal_name": "adbriq AB",
     "youtube_video_id": null,
     "created_at": "2026-05-26T11:20:39.922112+00:00",
-    "updated_at": "2026-06-05T09:59:23.450683+00:00",
+    "updated_at": "2026-06-16T08:14:14.434257+00:00",
     "industry_pitches": [
       {
         "text": "adbriq erbjuder stöd för företag inom mode, sport och textil som använder Microsoft Dynamics 365 Business Central. De fokuserar på att optimera affärsprocesser kopplade till produktlivscykelhantering, lageroptimering och distributionskedjan. Med förståelse för branschens specifika krav, som exempelvis säsongsvariationer, kollektionshantering och flera försäljningskanaler, arbetar adbriq med att anpassa Business Central för en effektiv hantering av dessa flöden. De kan även bistå med integrationer mot externa e-handelsplattformar och logistikpartners för en sammanhållen IT-miljö. adbriq stödjer företag i att hantera data för bland annat artikelvariationer, kundordrar och returer i Business Central.",
@@ -204,6 +204,14 @@
         "edited_by": "admin",
         "updated_at": "2026-05-26T11:33:06.492Z",
         "generated_at": "2026-05-26T11:33:06.492Z"
+      },
+      {
+        "text": "adbriq fokuserar på att stötta företag inom Retail & E-handel med digitalisering av affärsprocesser och informationsflöden. De arbetar med Microsoft Dynamics 365 Business Central för att leverera systemstöd anpassat för branschens behov. Partnern har specifik kunskap och erfarenhet av verksamheter inom mode, sport och textil. adbriq lägger vikt vid att förstå kundens befintliga processer för att optimera verksamheten och möjliggöra en sammanhållen kundupplevelse, oberoende av kanal. Deras arbete omfattar implementering och anpassning av Business Central för att hantera områden som lagerhantering, orderhantering och affärsanalys.",
+        "product": null,
+        "industry": "Retail & E-handel",
+        "edited_by": "ai",
+        "updated_at": "2026-06-16T08:13:17.887Z",
+        "generated_at": "2026-06-16T08:13:17.887Z"
       }
     ],
     "agreement_signed": true,
@@ -382,7 +390,7 @@
     "legal_name": "BE-terna AB",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-06-16T08:03:59.913394+00:00",
+    "updated_at": "2026-06-16T08:14:14.434257+00:00",
     "industry_pitches": [
       {
         "text": "BE-terna har erfarenhet av leveranser av Microsoft Dynamics 365 till grossist- och distributionsbranschen. Med Dynamics 365 Finance och Supply Chain Management stödjer de företag i att hantera komplexa leveranskedjor och optimera sin distribution. Deras arbete omfattar implementering och förvaltning av dessa system, med fokus på att förbättra finansiell överblick och operativ effektivitet. De har även kompetens inom Dynamics 365 Commerce för företag som vill integrera sina säljkanaler. BE-terna tillämpar en strukturerad metodik för sitt arbete, med syftet att leverera långsiktig affärsnytta. De kombinerar lokal närvaro i tio europeiska länder med global leveransförmåga.",
@@ -407,6 +415,14 @@
         "edited_by": "admin",
         "updated_at": "2026-05-17T08:25:44.622Z",
         "generated_at": "2026-05-17T08:25:44.622Z"
+      },
+      {
+        "text": "BE-terna erbjuder sina tjänster till företag inom livsmedels- och processindustrin, med fokus på Microsoft Dynamics 365 Finance och Supply Chain Management. De har kompetens att implementera och hantera lösningar som adresserar branschens krav på spårbarhet, kvalitetskontroll och effektiv produktionsplanering. Genom att integrera Dynamics 365 Commerce kan de även stödja företag med affärsprocesser som rör försäljning och kundinteraktion. Partnern levererar end-to-end-lösningar och har en etablerad metodik för implementation och förvaltning, vilket syftar till långsiktig stabilitet för industriella verksamheter. De verkar internationellt med en kombination av lokal närvaro och global leveransförmåga.",
+        "product": null,
+        "industry": "Livsmedel & Processindustri",
+        "edited_by": "ai",
+        "updated_at": "2026-06-16T08:13:17.887Z",
+        "generated_at": "2026-06-16T08:13:17.887Z"
       }
     ],
     "agreement_signed": true,
@@ -1374,7 +1390,7 @@
     "legal_name": "Fellowmind Sweden AB",
     "youtube_video_id": null,
     "created_at": "2026-01-12T20:38:52.813808+00:00",
-    "updated_at": "2026-06-10T09:52:17.672956+00:00",
+    "updated_at": "2026-06-16T08:14:14.434257+00:00",
     "industry_pitches": [
       {
         "text": "Fellowmind erbjuder lösningar baserade på Microsoft Dynamics 365 för grossist- och distributionsbranschen. Med inriktning på att optimera leveranskedjor och finansiella processer, implementerar Fellowmind Dynamics 365 Finance och Supply Chain Management. Deras expertis omfattar att stödja företag i att hantera komplexa logistikflöden, förbättra lagereffektiviteten och säkerställa transparenta ekonomiska transaktioner. Fellowmind arbetar med att anpassa Microsoft-plattformen för att möta specifika krav gällande priskonfigurationer, integration med tredjepartslogistik (3PL) och optimering av order-till-leveransprocesser. De strävar efter att leverera hållbara lösningar som bidrar till ökad operativ effektivitet och datadrivna beslutsunderlag.",
@@ -1389,6 +1405,38 @@
         "industry": "Tillverkningsindustri",
         "edited_by": "admin-bulk",
         "generated_at": "2026-05-17T08:34:12Z"
+      },
+      {
+        "text": "Fellowmind är en europeisk Microsoft-partner som levererar lösningar baserade på Dynamics 365, inklusive Business Central, Finance, Supply Chain Management, Sales och Customer Insights. De har erfarenhet av att kombinera molnbaserad teknologi med kompetens inom Data & AI för att möta behoven inom fastighets- och förvaltningsbranschen. Partnern fokuserar på att stödja organisationer med att effektivisera fastighetsförvaltning, optimera resursanvändning och hantera kundrelationer. Fellowmind arbetar med den fullständiga Microsoft-plattformen och strävar efter långsiktiga samarbeten för att adressera de utmaningar och möjligheter som digitaliseringen innebär för fastighetssektorn. De kan bistå med integration av affärssystem för att förbättra beslutsfattande och operativa processer.",
+        "product": null,
+        "industry": "Fastighet & Förvaltning",
+        "edited_by": "ai",
+        "updated_at": "2026-06-16T08:13:17.887Z",
+        "generated_at": "2026-06-16T08:13:17.887Z"
+      },
+      {
+        "text": "Fellowmind levererar konsulttjänster avseende Microsoft Dynamics 365, med fokus på funktioner inom ekonomi, logistik och försäljning. De har kompetens inom Business Central, Finance, Supply Chain Management, Sales och Customer Insights (Marketing). Dessa applikationer kan anpassas för att stödja konsultföretagens kärnprocesser, inklusive projektstyrning, resursplanering och kundrelationer.\n\nPartnern har erfarenhet av att arbeta med organisationer som behöver effektiva system för hantering av personal, intäktsströmmar och leveranskedjor i en föränderlig marknad. Fellowmind kombinerar djup branschkunskap med teknisk expertis inom molnbaserade lösningar och Microsoft-plattformen. De har som mål att bistå konsultföretag i att optimera sin verksamhet för att hantera digitaliseringens och hållbarhetsomställningens krav. Partnern stödjer även utvecklingen av datadrivna insikter och AI-lösningar för att möta behovet av specialistkompetens. Deras tjänster riktar sig till kunder som söker långsiktiga partnerskap för att utveckla sina affärssystem.",
+        "product": null,
+        "industry": "Konsulttjänster",
+        "edited_by": "ai",
+        "updated_at": "2026-06-16T08:13:17.887Z",
+        "generated_at": "2026-06-16T08:13:17.887Z"
+      },
+      {
+        "text": "Fellowmind erbjuder stöd till Life Science- och Medtech-företag som använder Dynamics 365. De tillhandahåller expertis inom molnbaserad teknologi, Data & AI, samt hela Microsofts plattform. Partnern implementerar och förvaltar Dynamics 365-applikationer som Business Central, Finance och Supply Chain Management, vilket kan bidra till att optimera processer inom bland annat produktion, lagerhantering och regelefterlevnad. De arbetar även med Dynamics 365 Sales och Customer Insights (Marketing) för att stödja kundrelationer och marknadsföringsstrategier. Fellowmind har även erfarenhet av att hjälpa kunder att hantera komplexa datamängder och utnyttja AI för bättre beslutsfattande, vilket är relevant för branschens krav på spårbarhet och dataanalys. Deras verksamhet spänner över flera länder, vilket ger erfarenhet av att hantera internationella krav.",
+        "product": null,
+        "industry": "Life Science / Medtech",
+        "edited_by": "ai",
+        "updated_at": "2026-06-16T08:13:17.887Z",
+        "generated_at": "2026-06-16T08:13:17.887Z"
+      },
+      {
+        "text": "Fellowmind bistår företag inom Retail & E-handel med implementering och optimering av Microsoft Dynamics 365-lösningar. De har kompetens inom Business Central, Finance, Supply Chain Management, Sales och Customer Insights (Marketing), vilket möjliggör stöd för olika delar av retailverksamheten. Deras tjänster omfattar bland annat hantering av finansiella processer och logistikkedjor, samt kundrelationer och marknadsföring, för att underlätta en integrerad kundupplevelse. Partnern hjälper företag att effektivisera processer och utnyttja data för att möta krav från dagens kunder angående personalisering och kanaloberoende. Deras tillvägagångssätt fokuserar på att kombinera branschkunskap med Microsofts molnbaserade teknologi och AI-lösningar.",
+        "product": null,
+        "industry": "Retail & E-handel",
+        "edited_by": "ai",
+        "updated_at": "2026-06-16T08:13:17.887Z",
+        "generated_at": "2026-06-16T08:13:17.887Z"
       }
     ],
     "agreement_signed": true,
@@ -1593,7 +1641,7 @@
     "legal_name": "Implema Aktiebolag",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-06-16T08:03:40.732406+00:00",
+    "updated_at": "2026-06-16T08:14:14.434257+00:00",
     "industry_pitches": [
       {
         "text": "Implema AB erbjuder lösningar baserade på Microsoft Dynamics 365 för företag inom grossist- och distributionsbranschen. De har kompetens inom applikationer som Dynamics 365 Finance och Supply Chain Management, vilket stöder processer för ekonomistyrning, logistik och lagerhantering. Detta inkluderar funktionalitet för att optimera orderhantering, inköp, samt lager- och transportflöden, vilket är relevant för att möta efterfrågan på effektiva leveranskedjor och spårbarhet. \n\nFör att hantera kundinteraktioner och e-handel kan Commerce-funktionalitet implementeras. Implema kan även bistå med Dynamics 365 Project Operations för projektrelaterade processer och Human Resources för personalhantering. Deras angreppssätt fokuserar på att leverera lösningar som stödjer snabba och säkra affärsprocesser, anpassade för att möta de utmaningar som präglar den konkurrensutsatta grossist- och distributionsmarknaden. Implema har erfarenhet av att implementera affärssystem som främjar effektivitet och digitalisering.",
@@ -1615,6 +1663,14 @@
         "industry": "Tillverkningsindustri",
         "edited_by": "admin-bulk",
         "generated_at": "2026-05-17T08:34:28Z"
+      },
+      {
+        "text": "Implema AB erbjuder lösningar baserade på Microsoft Dynamics 365 för att stödja företag inom livsmedels- och processindustrin. De arbetar med applikationer som Dynamics 365 Finance och Supply Chain Management, vilket kan bidra till effektivisering av finansiella processer och logistikkedjor. Kompetens inom Project Operations syftar till att hantera komplexa projekt, medan Dynamics 365 Commerce kan användas för att optimera försäljningsprocesser. Dessutom med Human Resources-funktionalitet för personalhantering. Implema AB fokuserar på att leverera affärssystem som kan anpassas till branschens specifika krav på spårbarhet, kvalitetskontroll och produktionsoptimering. Deras målsättning är att hjälpa företag att öka sin effektivitet och flexibilitet i en konkurrensutsatt marknad.",
+        "product": null,
+        "industry": "Livsmedel & Processindustri",
+        "edited_by": "ai",
+        "updated_at": "2026-06-16T08:13:17.887Z",
+        "generated_at": "2026-06-16T08:13:17.887Z"
       }
     ],
     "agreement_signed": false,
@@ -2145,7 +2201,7 @@
     "legal_name": "Navcite Consulting AB",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-06-05T09:59:23.450683+00:00",
+    "updated_at": "2026-06-16T08:14:14.434257+00:00",
     "industry_pitches": [
       {
         "text": "Navcite levererar Microsoft Dynamics 365 Business Central till företag inom bygg- och entreprenadbranschen. De bistår med systemstöd för att hantera projektstyrning, resursplanering och ekonomi i komplexa byggprojekt, från anbud till slutförande. Partnern fokuserar på att effektivisera processer och integrera affärssystemet med Microsofts övriga ekosystem för att skapa en sammanhållen digital arbetsmiljö. Navcite erbjuder molnbaserade lösningar för att stödja skalbarhet och flexibilitet. Deras tjänster omfattar hela processen från initial implementation och anpassning till löpande support och vidareutveckling av systemet. De har erfarenhet av att arbeta med företag som verkar med långa projektcykler och många intressenter, och kan leverera lösningar som bidrar till förbättrad kostnadskontroll och projektöversikt.",
@@ -2167,6 +2223,22 @@
         "industry": "Tillverkningsindustri",
         "edited_by": "admin-bulk",
         "generated_at": "2026-05-17T08:35:06Z"
+      },
+      {
+        "text": "Navcite implementerar Microsoft Dynamics 365 Business Central för kunder inom jordbruk och skogsbruk. De har erfarenhet av att effektivisera processer och integrera affärssystem mot Microsofts ekosystem, vilket är relevant för företag som behöver hantera komplexa försörjningskedjor, optimera resursanvändning eller automatisera administrativa flöden. Navcite erbjuder molnbaserade lösningar för att stödja verksamheter med krav på skalbarhet och modern teknik. Deras arbete omfattar hela processen från införande till support och vidareutveckling, vilket kan vara värdefullt för företag som strävar efter att digitalisera och förbättra sin operativa effektivitet inom jordbruks- och skogsbrukssektorn.",
+        "product": null,
+        "industry": "Jordbruk & Skogsbruk",
+        "edited_by": "ai",
+        "updated_at": "2026-06-16T08:13:17.887Z",
+        "generated_at": "2026-06-16T08:13:17.887Z"
+      },
+      {
+        "text": "Navcite levererar Microsoft Dynamics 365 Business Central till företag inom Life Science och Medtech. Deras erfarenhet omfattar implementering av affärssystem för tillverkning och distribution, vilket är relevant för hantering av produktionsflöden, kvalitetskontroll och logistik inom branschen. Navcite fokuserar på att effektivisera processer, integrera system inom Microsofts ekosystem och skapa skalbara molnbaserade lösningar. De erbjuder stöd från implementering till vidareutveckling och löpande support, vilket kan underlätta för företag att anpassa sina system till gällande regelverk och branschkrav.",
+        "product": null,
+        "industry": "Life Science / Medtech",
+        "edited_by": "ai",
+        "updated_at": "2026-06-16T08:13:17.887Z",
+        "generated_at": "2026-06-16T08:13:17.887Z"
       }
     ],
     "agreement_signed": false,
@@ -2594,7 +2666,7 @@
     "legal_name": "Nexer Enterprise Applications AB",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-06-09T08:36:35.695855+00:00",
+    "updated_at": "2026-06-16T08:14:34.866232+00:00",
     "industry_pitches": [
       {
         "text": "Nexer levererar affärssystemslösningar baserade på Microsoft Dynamics 365 till företag inom grossist- och distributionsbranschen. Med fokus på applikationer som Business Central, Finance och Supply Chain Management stödjer de kunder i att optimera processer som orderhantering, lagerstyrning och logistik. Deras erbjudande omfattar även stöd för kundrelationer genom Dynamics 365 Sales och Customer Service, vilket kan bidra till förbättrad kundkommunikation och service. Nexer har erfarenhet av att implementera system för hantering av globala leveranskedjor och kan bistå med integrationer för att möta krav på spårbarhet och effektivitet i en konkurrensutsatt marknad. De arbetar för att hjälpa företag att hantera marginalpress och möta höga förväntningar på leveransprecision.",
@@ -2623,6 +2695,14 @@
         "industry": "Tillverkningsindustri",
         "edited_by": "admin-bulk",
         "generated_at": "2026-05-17T08:35:36Z"
+      },
+      {
+        "text": "Nexer har erfarenhet av att arbeta med företag inom transport och logistik, där de levererar lösningar baserade på Microsoft Dynamics 365. De kan stödja verksamheter med att strömlinjeforma processer för planering, utförande och uppföljning av logistikflöden.\n\nSpecifikt erbjuder Nexer implementation och anpassning av Dynamics 365 Supply Chain Management för optimering av lagerhantering, orderhantering och transportplanering. Med Dynamics 365 Finance kan företag inom branschen få stöd för hantering av komplexa ekonomiska processer, budgetering och finansiell rapportering. De arbetar även med Dynamics 365 Business Central, vilket är relevant för mindre och medelstora transport- och logistikföretag som söker en integrerad affärsplattform.\n\nFör att hantera kundrelationer och serviceleverans implementerar Nexer Dynamics 365 Sales och Customer Service. Detta kan omfatta hantering av fraktbokningar, kundförfrågningar och ärendehantering. Genom Dynamics 365 Customer Insights (Marketing) kan företag hantera kunddata och genomföra riktade marknadsaktiviteter. Dessutom kan Field Service nyttjas för att koordinera och optimera insatser för underhåll och service av fordon och utrustning, medan Project Operations adresserar projektbaserade åtaganden inom logistik. Nexer fokuserar på att skräddarsy lösningar som möter branschens krav på effektivitet och transparens.",
+        "product": null,
+        "industry": "Transport & Logistik",
+        "edited_by": "ai",
+        "updated_at": "2026-06-16T08:13:17.887Z",
+        "generated_at": "2026-06-16T08:13:17.887Z"
       }
     ],
     "agreement_signed": true,
@@ -3278,7 +3358,7 @@
     "legal_name": "Vivicta AB",
     "youtube_video_id": null,
     "created_at": "2026-03-19T08:57:20.19097+00:00",
-    "updated_at": "2026-06-09T14:46:49.85002+00:00",
+    "updated_at": "2026-06-16T08:14:34.866232+00:00",
     "industry_pitches": [
       {
         "text": "Vivicta bistår aktörer inom jordbruk och skogsbruk med implementering och förvaltning av Microsoft Dynamics 365-lösningar. De fokuserar på att leverera skalbara affärssystem som kan stödja verksamhetens processer, från rådgivning till driftsättning. Vivictas erbjudande omfattar Dynamics 365 Finance och Supply Chain Management, vilka kan användas för att hantera finansiella processer, logistik och försörjningskedjor.\n\nFör mindre verksamheter kan Dynamics 365 Business Central vara aktuellt. De har även kompetens inom att integrera lösningar med Power Platform och Azure, vilket kan bidra till automatiserade flöden och utökad analyskapacitet. Vivictas tjänster sträcker sig från initial rådgivning och lösningsdesign till implementering och kontinuerlig förvaltning. Deras expertis omfattar även CRM-applikationer genom Dynamics 365 Customer Engagement.",
@@ -3314,6 +3394,14 @@
         "industry": "Tillverkningsindustri",
         "edited_by": "admin-bulk",
         "generated_at": "2026-05-17T08:36:34Z"
+      },
+      {
+        "text": "Vivicta levererar helhetslösningar inom Microsoft Dynamics 365, från rådgivning och design till implementering och förvaltning, med fokus på transport och logistik. De hanterar lösningar baserade på D365 Finance och Supply Chain Management, vilket stöder hantering av ekonomiska flöden och logistikkedjor.\n\nVivicta erbjuder även D365 Business Central för mindre transport- och logistikföretag som behöver ett integrerat affärssystem. För att optimera kundrelationer och serviceärenden använder de D365 Sales, Customer Service och Field Service. Lösningarna kompletteras med Power Platform och Azure, vilket innebär möjligheter till anpassade integrationer och utökad funktionalitet. Deras erfarenhet sträcker sig till branscher som industri, tillverkning, samt handel och service, vilket ger dem insikt i komplexa logistikbehov och distributionskedjor. Vivicta erbjuder kontinuerlig utveckling och licensrådgivning för att stödja kundens affärsnytta över tid.",
+        "product": null,
+        "industry": "Transport & Logistik",
+        "edited_by": "ai",
+        "updated_at": "2026-06-16T08:13:17.887Z",
+        "generated_at": "2026-06-16T08:13:17.887Z"
       }
     ],
     "agreement_signed": true,
