@@ -2177,6 +2177,21 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 ))}
               </div>
             </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-1">Antal användare i affärssystemet</h3>
+              <p className="text-sm text-muted-foreground mb-4">Ungefär hur många användare arbetar i eller nära affärssystemet?</p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {erpUsersOptions.map((option) => (
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.erpUsers === option}
+                    onClick={() => setData({ ...data, erpUsers: option })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         );
 
