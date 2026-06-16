@@ -1396,6 +1396,25 @@ const SalesMarketingNeedsAnalysis = () => {
       return [];
     })();
 
+    // Dynamiska tillägg från deep-dive-svaren
+    if (focusKey === "sales") {
+      if (data.salesDeepTerritory?.startsWith("Ostrukturerat")) focusNextSteps.push("Inför strukturerad territory- och account planning för nyckelkunder.");
+      if (data.salesDeepEnablement?.includes("saknar")) focusNextSteps.push("Etablera sales enablement med playbooks och säljmaterial i CRM.");
+      if (data.salesDeepCoaching?.includes("AI-driven")) focusNextSteps.push("Utvärdera AI-driven säljcoachning (Conversation Intelligence) som del av CRM-lösningen.");
+      if (data.salesDeepCPQ?.includes("fullt CPQ")) focusNextSteps.push("Inkludera CPQ-funktionalitet i kravspecifikationen för komplex offerthantering.");
+      if (data.salesDeepIncentives?.startsWith("Manuellt")) focusNextSteps.push("Värdera lösning för provisions- och incitamentshantering kopplad till pipeline-data.");
+      if (data.salesDeepRenewals?.startsWith("Kritiskt")) focusNextSteps.push("Säkerställ stöd för förnyelser, merförsäljning och kundutvecklingsplaner.");
+    }
+    if (focusKey === "marketing") {
+      if (data.marketingDeepABM?.startsWith("Ja")) focusNextSteps.push("Definiera ABM-strategi och datamodell för nyckelkonton i kunddataplattformen.");
+      if (data.marketingDeepContentOps?.startsWith("Ad hoc")) focusNextSteps.push("Bygg upp en strukturerad content ops-process med planering och godkännanden.");
+      if (data.marketingDeepConsent?.startsWith("Vi behöver avancerad")) focusNextSteps.push("Säkerställ stöd för avancerad consent- och preferenshantering med spårbarhet (GDPR).");
+      if (data.marketingDeepBrand?.startsWith("Kritiskt")) focusNextSteps.push("Inför central brand governance med lokal anpassning i kampanjverktyget.");
+      if (data.marketingDeepAttribution?.includes("multi-touch")) focusNextSteps.push("Utvärdera multi-touch attribution kopplad från kampanj till stängd affär.");
+    }
+
+    const dummyEnd = () => {
+
     if (focusNextSteps.length) {
       if (yPos > 220) { pdf.addPage(); yPos = margin; }
       pdf.setFillColor(14, 124, 134);
