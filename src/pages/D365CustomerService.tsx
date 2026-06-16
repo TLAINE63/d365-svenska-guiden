@@ -106,7 +106,7 @@ const D365CustomerService = () => {
       />
 
       <ShortAnswer title="Vad är Dynamics 365 Customer Service">
-        Dynamics 365 Customer Service är Microsofts plattform för ärendehantering, kunskapsbas, självservice och flerkanalig support. Den passar både volymdriven konsumentsupport och komplex B2B-service — men hur partnern designar ärendefördelning, SLA:er och Copilot-funktioner avgör om handläggningstiden faktiskt sjunker.
+        Dynamics 365 Customer Service är Microsofts moderna plattform för kundservice och support — byggd för organisationer som vill leverera snabb, träffsäker och personlig hjälp oavsett om kunden hör av sig via telefon, chatt, e-post, webbformulär, sociala medier eller självbetjäningsportal. Plattformen samlar hela ärendelivscykeln på ett ställe: intelligent ärendefördelning baserad på kompetens och tillgänglighet, SLA- och rättighetsuppföljning, en gemensam kunskapsbas som både handläggare och kunder kan söka i, samt en 360°-vy av kundens hela historik från alla kanaler. Inbyggd Copilot och autonoma serviceagenter sammanfattar långa ärendetrådar på sekunder, föreslår svar baserat på kunskapsbasen, dirigerar enkla ärenden automatiskt och hjälper handläggaren att avsluta samtal snabbare med högre kvalitet — vilket frigör tid till de komplexa fallen där människan gör störst skillnad. Lösningen passar lika väl volymdriven konsumentsupport som komplex B2B-service med avtalsstyrning, och växer sömlöst tillsammans med Dynamics 365 Sales, Field Service och Contact Center i samma datamodell. Men hur partnern designar ärendeflöden, SLA:er, kunskapsstruktur och Copilot-funktioner avgör om handläggningstiden faktiskt sjunker och kundnöjdheten lyfter.
       </ShortAnswer>
 
 
