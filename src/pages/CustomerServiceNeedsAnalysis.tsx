@@ -1318,7 +1318,7 @@ const CustomerServiceNeedsAnalysis = () => {
     pdf.text("Dynamic Factory", margin + 8, yPos + 10);
     pdf.setFont("helvetica", "normal");
     pdf.setFontSize(9);
-    pdf.text("Din oberoende guide till ratt Dynamics 365-losning", margin + 8, yPos + 18);
+    pdf.text("Din köparsidiga vägledning till rätt Dynamics 365-lösning", margin + 8, yPos + 18);
     pdf.text("+46 72 232 40 60", pageWidth - margin - 55, yPos + 10);
     pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
     pdf.text("d365.se", pageWidth - margin - 55, yPos + 26);
