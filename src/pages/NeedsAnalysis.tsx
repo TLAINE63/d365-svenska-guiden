@@ -1264,21 +1264,113 @@ const NeedsAnalysis = () => {
     else if (c.integrationPlatform === "nagra") { maturityScore += 15; }
     
 
-    // Weighted total (0-100)
-    const weightedTotal = (structureScore * 0.3) + (operativeScore * 0.4) + (maturityScore * 0.3);
-    
-    // Complexity level 1-4
+
+    // ---- Growth, integration & operational pressure (höjer komplexiteten för medel-/storbolag) ----
+    let growthScore = 0;
+    const prioritizedFactors: string[] = [];
+
+    // Revenue
+    if (["250-499 MSEK", "500-999 MSEK"].includes(data.revenue)) {
+      growthScore += 14;
+      prioritizedFactors.push("Omsättning över 250 MSEK");
+    } else if (["1.000-4.999 MSEK", "> 5.000 MSEK"].includes(data.revenue)) {
+      growthScore += 20;
+      prioritizedFactors.push("Omsättning över 1 miljard");
+    }
+
+    // ERP users
+    const erpU = (data.erpUsers || "").toLowerCase();
+    if (/26[-–]75/.test(erpU)) { growthScore += 10; prioritizedFactors.push("26–75 ERP-användare"); }
+    else if (/76[-–]200/.test(erpU)) { growthScore += 14; prioritizedFactors.push("76–200 ERP-användare"); }
+    else if (/200|201\+|fler/.test(erpU) && /\b2\d\d|\b[3-9]\d\d|\b1\d{3,}/.test(erpU)) {
+      growthScore += 18; prioritizedFactors.push("Över 200 ERP-användare");
+    } else if (/201\+/.test(erpU)) { growthScore += 18; prioritizedFactors.push("Över 200 ERP-användare"); }
+
+    // Integrations count
+    const integrationCount = (data.integrationSystems || []).filter(s => s.system && s.system.trim()).length;
+    if (integrationCount >= 5) { growthScore += 14; prioritizedFactors.push("Omfattande integrationsbehov"); }
+    else if (integrationCount >= 3) { growthScore += 10; prioritizedFactors.push("Flera integrationsbehov"); }
+    else if (integrationCount >= 1) { growthScore += 4; }
+
+    // Multiple current systems / outdated
+    const currentSystemCount = (data.currentSystems || []).filter(s => s.product && s.product.trim()).length;
+    if (currentSystemCount >= 4) { growthScore += 8; prioritizedFactors.push("Flera parallella system att konsolidera"); }
+    const currentYear = new Date().getFullYear();
+    const hasOldSystem = (data.currentSystems || []).some(s => {
+      const y = parseInt(String(s.year || ""), 10);
+      return !isNaN(y) && y > 1900 && (currentYear - y) >= 10;
+    });
+    if (hasOldSystem) { growthScore += 10; prioritizedFactors.push("Föråldrat eller riskfyllt ERP"); }
+
+    // Operational inefficiency from 3-step situationChallenges
+    const sitCh = data.situationChallenges || {};
+    const significantIssues = Object.values(sitCh).filter(v => v === "Betydande problem" || v === "Betydande utmaning").length;
+    if (significantIssues >= 3) { growthScore += 14; prioritizedFactors.push("Operativ ineffektivitet på flera områden"); }
+    else if (significantIssues >= 1) { growthScore += 8; prioritizedFactors.push("Operativ ineffektivitet"); }
+
+    // Distribution/Grossist + EDI/lager
+    if (bm === "Distribution" || bm === "Grossist") {
+      if (c.ediIntegration && c.ediIntegration !== "Inget EDI") {
+        growthScore += 8; prioritizedFactors.push("EDI-flöden mot kunder/leverantörer");
+      }
+      if (c.warehouseCount && c.warehouseCount !== "1-2") {
+        growthScore += 5; prioritizedFactors.push("Lager-/orderflöden över flera enheter");
+      }
+      prioritizedFactors.push("Grossist-/distributionsmodell med lager- och orderflöden");
+    }
+
+    // Secondary business models
+    const secondary = data.secondaryBusinessModels || [];
+    if (secondary.some(s => /service|fält|eftermarknad/i.test(s))) {
+      growthScore += 8; prioritizedFactors.push("Service/eftermarknad som kompletterande verksamhet");
+    }
+    if (secondary.length >= 2) { growthScore += 4; }
+
+    // Transaction volume cross-tag
+    if (c.transactionVolume === "hog" || c.transactionVolume === "medel") {
+      prioritizedFactors.push(c.transactionVolume === "hog" ? "Hög transaktionsvolym" : "Medelhög transaktionsvolym");
+    }
+
+    // AI ambitions raise complexity slightly
+    const aiAmb = (data.aiAmbitions || []).filter(a => a && a !== "Vi vet inte ännu, men vill förstå möjligheterna");
+    if (aiAmb.length >= 3) { growthScore += 8; prioritizedFactors.push("Höga AI- och automationsambitioner"); }
+    else if (aiAmb.length >= 1) { growthScore += 4; prioritizedFactors.push("AI- och automationsambition"); }
+
+    // Data quality concerns
+    const dataIssues = (data.aiDataIssues || []).filter(i => i && i !== "Inga större dataproblem idag" && i !== "Vet ej");
+    if (dataIssues.length >= 2) { growthScore += 6; prioritizedFactors.push("Datakvalitet och masterdata att åtgärda"); }
+
+    // Outdated / risky narrative in situation reason
+    if (/föråldrad|föråldrat|gammalt|on[- ]?prem|risk|hänger inte/i.test(data.currentSituationReason || "")) {
+      if (!prioritizedFactors.includes("Föråldrat eller riskfyllt ERP")) {
+        growthScore += 8;
+        prioritizedFactors.push("Föråldrat eller riskfyllt nuläge");
+      }
+    }
+
+    // "Tillväxt och förändrad affär"-flagg från challenges
+    if (data.challenges.some(c => /tillväxt|internationali|ändrats|växer/i.test(c))) {
+      prioritizedFactors.push("Tillväxt och förändrad affär");
+    }
+
+    // Cap growthScore
+    growthScore = Math.min(100, growthScore);
+
+    // Weighted total (0-100) — growth/integration nu egen vikt
+    const weightedTotal = (structureScore * 0.25) + (operativeScore * 0.28) + (maturityScore * 0.17) + (growthScore * 0.30);
+
+    // Complexity level 1-4 — lägre tröskel för att undvika att medelstora bolag hamnar i nivå 1
     let complexityLevel: number;
-    if (weightedTotal < 20) complexityLevel = 1;
-    else if (weightedTotal < 40) complexityLevel = 2;
-    else if (weightedTotal < 65) complexityLevel = 3;
+    if (weightedTotal < 15) complexityLevel = 1;
+    else if (weightedTotal < 35) complexityLevel = 2;
+    else if (weightedTotal < 60) complexityLevel = 3;
     else complexityLevel = 4;
 
     // Risk assessment: high complexity + low IT maturity = high risk
-    const isHighComplexity = (structureScore + operativeScore) > 50;
+    const isHighComplexity = (structureScore + operativeScore + growthScore) > 60;
     const isLowMaturity = c.itOrganization === "ingen" || !c.itOrganization;
     const isHighRisk = isHighComplexity && isLowMaturity;
-    
+
     let riskLevel: string;
     if (isHighRisk) riskLevel = "Hög";
     else if (weightedTotal > 50) riskLevel = "Medel-hög";
@@ -1287,15 +1379,20 @@ const NeedsAnalysis = () => {
 
     const allCriticalFactors = [...structureFactors, ...operativeFactors, ...maturityFactors];
 
+    // Deduplicate prioritized factors while preserving order
+    const dedupedPrioritized = Array.from(new Set(prioritizedFactors));
+
     return {
       structureScore,
       operativeScore,
       maturityScore,
+      growthScore,
       weightedTotal,
       complexityLevel,
       riskLevel,
       isHighRisk,
       criticalFactors: allCriticalFactors.slice(0, 6),
+      prioritizedFactors: dedupedPrioritized.slice(0, 6),
       structureFactors,
       operativeFactors,
       maturityFactors,
