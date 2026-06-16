@@ -2363,27 +2363,45 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     yPos += 8;
 
     // ══════════════════════════════════════════════════════════════════════
-    // 5. PRELIMINAR SYSTEMINDIKATION
+    // 5. PRELIMINÄR LÖSNINGSINRIKTNING
     // ══════════════════════════════════════════════════════════════════════
     checkPage(60);
-    addSectionHeader("PRELIMINÄR SYSTEMINDIKATION", 0, 100, 130);
+    addSectionHeader("PRELIMINÄR LÖSNINGSINRIKTNING", 0, 100, 130);
 
     const isBC = recommendation.product === "Business Central";
-    const outcomeLabelMap: Record<string, string> = {
-      "Business Central": "Dynamics 365 Business Central",
-      "Finance & Supply Chain Management": "Dynamics 365 Finance & Supply Chain Management",
-      "Båda bör utvärderas": "Båda plattformarna bör utvärderas",
-      "För tidigt att avgöra": "För tidigt att avgöra – kompletterande underlag behövs",
+    const directionHeadingMap: Record<string, string> = {
+      "Business Central": "Business Central som relevant lösningsväg att utvärdera vidare",
+      "Business Central med tillägg": "Business Central med relevanta bransch-/tilläggslösningar bör utvärderas",
+      "Finance & Supply Chain Management": "Finance & Supply Chain Management bör ingå i den fortsatta utvärderingen",
+      "Båda bör utvärderas": "Både Business Central och Finance & Supply Chain Management bör utvärderas vidare",
+      "För tidigt att avgöra": "För tidigt att avgöra lösningsväg – kompletterande underlag behövs",
     };
-    const pdfProduct = outcomeLabelMap[recommendation.outcome] || `Dynamics 365 ${recommendation.product}`;
+    const directionLeadMap: Record<string, string> = {
+      "Business Central": "Utifrån era svar framstår Business Central som en relevant lösningsväg att utvärdera vidare. Detta är en lösningshypotes, inte ett slutligt systemval.",
+      "Business Central med tillägg": "Utifrån era svar framstår Business Central som en relevant lösningsväg att utvärdera vidare, sannolikt tillsammans med relevanta bransch- eller tilläggslösningar. Särskilt krav inom EDI, lager, service, rapportering och integrationer bör valideras i en fit-gap innan lösningsarkitektur beslutas.",
+      "Finance & Supply Chain Management": "Utifrån era svar bör Finance & Supply Chain Management ingå i den fortsatta utvärderingen. Detta är en lösningshypotes, inte ett slutligt systemval.",
+      "Båda bör utvärderas": "Utifrån era svar bör både Business Central (eventuellt med tillägg) och Finance & Supply Chain Management prövas i en fit-gap innan lösningsarkitektur beslutas.",
+      "För tidigt att avgöra": "Underlaget räcker inte för att peka ut en tydlig lösningsväg. Genomför en fördjupad nulägeskartläggning och kravspecifikation innan plattformsval övervägs.",
+    };
+    const directionTitle = directionHeadingMap[recommendation.outcome] || directionHeadingMap["Business Central"];
+    const directionLead = directionLeadMap[recommendation.outcome] || directionLeadMap["Business Central"];
 
+    // Headline bar
     pdf.setFillColor(240, 248, 252);
     pdf.roundedRect(margin, yPos, contentWidth, 14, 2, 2, 'F');
     pdf.setTextColor(0, 100, 130);
-    pdf.setFontSize(12);
+    pdf.setFontSize(11);
     pdf.setFont("helvetica", "bold");
-    pdf.text(pdfProduct, margin + 5, yPos + 10);
+    pdf.text(directionTitle, margin + 5, yPos + 9);
     yPos += 18;
+
+    // Lead text
+    pdf.setTextColor(40, 40, 40);
+    pdf.setFontSize(9);
+    pdf.setFont("helvetica", "normal");
+    const leadLines = pdf.splitTextToSize(directionLead, contentWidth);
+    leadLines.forEach((l: string) => { checkPage(6); pdf.text(l, margin, yPos); yPos += 5.4; });
+    yPos += 3;
 
     // Säkerhet i analysen
     const secColors: Record<string, [number, number, number]> = {
@@ -2403,9 +2421,23 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.text(recommendation.securityLevel, margin + 42, yPos + 6.5);
     pdf.setFont("helvetica", "normal");
     pdf.setTextColor(120, 120, 120);
-    pdf.text("(preliminär indikation - ej definitivt systemval)", margin + 58, yPos + 6.5);
-    yPos += 14;
+    pdf.text("(lösningshypotes – ej slutligt systemval)", margin + 58, yPos + 6.5);
+    yPos += 16;
 
+    // Lösningshypotes-disclaimer
+    pdf.setFillColor(252, 248, 235);
+    const disclaimerLines = pdf.splitTextToSize(
+      "Detta är en preliminär lösningshypotes baserad på era svar. Ett slutligt val mellan Business Central, Business Central med tillägg, Finance & Supply Chain Management eller annan lösningsarkitektur bör föregås av en fördjupad fit-gap, kravspecifikation och partnerdialog.",
+      contentWidth - 8,
+    );
+    const disclaimerH = disclaimerLines.length * 5.0 + 8;
+    pdf.roundedRect(margin, yPos, contentWidth, disclaimerH, 2, 2, 'F');
+    pdf.setTextColor(110, 80, 0);
+    pdf.setFontSize(8.5);
+    pdf.setFont("helvetica", "italic");
+    let dy = yPos + 6;
+    disclaimerLines.forEach((l: string) => { pdf.text(l, margin + 4, dy); dy += 5.0; });
+    yPos += disclaimerH + 6;
 
     if (recommendation.isCloseCall) {
       pdf.setFillColor(255, 248, 225);
@@ -2413,14 +2445,15 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       pdf.setTextColor(180, 130, 0);
       pdf.setFontSize(8);
       pdf.setFont("helvetica", "bold");
-      pdf.text(`Gransland: BC ${recommendation.bcScore}p - F&SC ${recommendation.fscScore}p. Partnerns arkitekturkompetens blir avgorande.`, margin + 5, yPos + 9);
+      pdf.text(`Gränsland: BC ${recommendation.bcScore}p – F&SCM ${recommendation.fscScore}p. Partnerns arkitekturkompetens blir avgörande.`, margin + 5, yPos + 9);
       yPos += 18;
     }
 
+    // Fokusområden
     pdf.setTextColor(51, 51, 51);
     pdf.setFontSize(9);
     pdf.setFont("helvetica", "normal");
-    pdf.text("Baserat på er ERP-profil rekommenderas en plattform med fokus på:", margin, yPos);
+    pdf.text("Lösningsvägen bör fokusera på:", margin, yPos);
     yPos += 7;
 
     const pdfFocusMap: Record<string, string[]> = {
@@ -2428,8 +2461,15 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         "Ekonomi och redovisning i molnet",
         "Lagerstyrning och orderhantering",
         "Inbyggd BI och rapportering med Power BI",
-        "Copilot AI for ökad produktivitet",
+        "Copilot AI för ökad produktivitet",
         "Sömlös integration med Microsoft 365",
+      ],
+      "Business Central med tillägg": [
+        "Business Central som ekonomi- och orderkärna",
+        "EDI, WMS, batch-/serienummerspårning vid behov",
+        "Service-/eftermarknad och fältservice via tillägg",
+        "E-handel, PIM och bransch-ISV där standard inte räcker",
+        "Power Platform och Copilot för automation och AI",
       ],
       "Finance & Supply Chain Management": [
         "Avancerad koncernredovisning och multi-entity",
@@ -2439,7 +2479,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         "Regulatorisk efterlevnad och compliance",
       ],
     };
-    const focusItems = pdfFocusMap[recommendation.product] || [];
+    const focusItems = pdfFocusMap[recommendation.outcome] || pdfFocusMap[recommendation.product] || [];
 
     focusItems.forEach((item) => {
       checkPage(10);
@@ -2451,77 +2491,113 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       pdf.text(`  ${item}`, margin + 5, yPos + 1);
       yPos += 9;
     });
-    yPos += 4;
-
-    // "Bakom kulisserna" pill
-    pdf.setFontSize(7);
-    pdf.setFont("helvetica", "normal");
-    pdf.setTextColor(120, 120, 120);
-    pdf.text("Indikationen bygger främst på:", margin, yPos);
-    yPos += 5;
-    pdf.setFillColor(230, 245, 242);
-    const pillW = pdf.getTextWidth(pdfProduct) + 12;
-    pdf.roundedRect(margin, yPos - 3.5, pillW, 8, 4, 4, 'F');
-    pdf.setFontSize(8);
-    pdf.setFont("helvetica", "bold");
-    pdf.setTextColor(0, 100, 130);
-    pdf.text(pdfProduct, margin + 6, yPos + 1);
-    yPos += 10;
-
-    // Key factor quote
-    if (recommendation.reasons[0]) {
-      pdf.setFontSize(7.5);
-      pdf.setFont("helvetica", "italic");
-      pdf.setTextColor(120, 120, 120);
-      pdf.setDrawColor(0, 143, 179);
-      pdf.setLineWidth(0.5);
-      pdf.line(margin + 2, yPos - 2, margin + 2, yPos + 4);
-      const quoteLine = pdf.splitTextToSize(`"${recommendation.reasons[0]}"`, contentWidth - 10);
-      pdf.text(quoteLine, margin + 6, yPos + 1);
-      yPos += quoteLine.length * 4 + 4;
-    }
     yPos += 6;
 
-    // ══════════════════════════════════════════════════════════════════════
-    // 6. REKOMMENDERAD PARTNERTYP
-    // ══════════════════════════════════════════════════════════════════════
-    checkPage(40);
-    addSectionHeader("REKOMMENDERAD PARTNERTYP", 0, 100, 130);
-
-    const pdfPartners: { label: string; description: string }[] = [];
-    if (maturityLevel >= 3 || complexity.riskLevel === "Hög" || complexity.riskLevel === "Medel-hog") {
-      pdfPartners.push({ label: "Enterprise ERP-arkitekt", description: "Partner med dokumenterad erfarenhet av komplexa multi-entity eller globala implementationer" });
-    }
-    if (isBC && maturityLevel <= 2) {
-      pdfPartners.push({ label: "Business Central-specialist", description: "Partner specialiserad på snabba och kostnadseffektiva BC-implementationer för tillväxtbolag" });
-    }
-    if (!isBC) {
-      pdfPartners.push({ label: "Auktoriserad partner inom Finance & Supply Chain", description: "Partner med certifiering och bevisad kompetens i Finance & Supply Chain Management" });
-    }
-    if (data.businessModel === "Produktion") {
-      pdfPartners.push({ label: "Tillverkningsspecialist", description: "Partner med djup kunskap om MRP, APS och produktionsprocesser i Dynamics 365" });
-    }
-    if (data.industry) {
-      pdfPartners.push({ label: `Branscherfarenhet: ${data.industry}`, description: `Partner med dokumenterade kundcase eller specialisering inom ${data.industry}` });
-    }
-    if (pdfPartners.length === 0) {
-      pdfPartners.push({ label: "ERP-specialist", description: "Partner specialiserad på Dynamics 365 ERP-lösningar" });
-    }
-
-    pdfPartners.forEach((p) => {
-      checkPage(20);
-      pdf.setFillColor(245, 248, 252);
-      pdf.roundedRect(margin, yPos, contentWidth, 16, 2, 2, 'F');
-      pdf.setFontSize(9.5);
+    // Tilläggsbehov (fit-gap-triggers) – visas bara om relevanta
+    if (recommendation.addonTriggers && recommendation.addonTriggers.length > 0) {
+      pdf.setFontSize(9);
       pdf.setFont("helvetica", "bold");
       pdf.setTextColor(0, 100, 130);
-      pdf.text(p.label, margin + 5, yPos + 6);
-      pdf.setFontSize(8);
+      pdf.text("Områden att validera i fit-gap (tillägg eller ISV kan behövas):", margin, yPos);
+      yPos += 6;
       pdf.setFont("helvetica", "normal");
-      pdf.setTextColor(100, 100, 100);
-      const pDescLines = pdf.splitTextToSize(p.description, contentWidth - 10);
-      pdf.text(pDescLines, margin + 5, yPos + 12);
-      yPos += 18 + (pDescLines.length - 1) * 4;
+      pdf.setTextColor(51, 51, 51);
+      pdf.setFontSize(9);
+      recommendation.addonTriggers.forEach((t) => {
+        checkPage(6);
+        pdf.setFillColor(217, 119, 6);
+        pdf.circle(margin + 2.5, yPos - 1.5, 1.2, "F");
+        const lines = pdf.splitTextToSize(t, contentWidth - 10);
+        pdf.text(lines, margin + 7, yPos);
+        yPos += lines.length * 5.2 + 1.5;
+      });
+      yPos += 6;
+    }
+
+    // Indikationen bygger främst på – nu konkreta faktorer, inte produktnamn
+    const basisItems = (recommendation.indicationBasis && recommendation.indicationBasis.length > 0)
+      ? recommendation.indicationBasis
+      : recommendation.reasons.slice(0, 6);
+
+    if (basisItems.length > 0) {
+      pdf.setFontSize(9);
+      pdf.setFont("helvetica", "bold");
+      pdf.setTextColor(80, 80, 80);
+      pdf.text("Indikationen bygger främst på:", margin, yPos);
+      yPos += 6;
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(9);
+      pdf.setTextColor(51, 51, 51);
+      basisItems.forEach((item) => {
+        checkPage(6);
+        pdf.setFillColor(0, 143, 179);
+        pdf.circle(margin + 2.5, yPos - 1.5, 1.2, "F");
+        const lines = pdf.splitTextToSize(item, contentWidth - 10);
+        pdf.text(lines, margin + 7, yPos);
+        yPos += lines.length * 5.2 + 1.5;
+      });
+      yPos += 6;
+    }
+
+    // Sekundära verksamhetsmodeller – kort förtydligande om service/eftermarknad markerats
+    const secondaryService = (data.secondaryBusinessModels || []).filter(s => /service|fält|eftermarknad/i.test(s));
+    if (secondaryService.length > 0) {
+      pdf.setFillColor(245, 248, 252);
+      const noteLines = pdf.splitTextToSize(
+        "Eftersom service/eftermarknad har markerats som kompletterande verksamhetsmodell bör ni klargöra om behovet rör enklare servicehantering, reservdelar och fakturering – eller mer avancerad fältservice med teknikerplanering, SLA och installerad bas.",
+        contentWidth - 8,
+      );
+      const noteH = noteLines.length * 5.0 + 8;
+      checkPage(noteH + 4);
+      pdf.roundedRect(margin, yPos, contentWidth, noteH, 2, 2, 'F');
+      pdf.setTextColor(0, 100, 130);
+      pdf.setFontSize(8.5);
+      pdf.setFont("helvetica", "italic");
+      let sy = yPos + 6;
+      noteLines.forEach((l: string) => { pdf.text(l, margin + 4, sy); sy += 5.0; });
+      yPos += noteH + 6;
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    // 6. PARTNERPROFIL – BESKRIVNING AV KOMPETENS
+    // ══════════════════════════════════════════════════════════════════════
+    checkPage(40);
+    addSectionHeader("PARTNERPROFIL – KOMPETENS ATT SÖKA", 0, 100, 130);
+
+    // Build a prose description based on triggers
+    const competenceAreas: string[] = [];
+    if (data.industry) competenceAreas.push(`branschkompetens inom ${data.industry.toLowerCase()}`);
+    if (data.businessModel === "Distribution" || data.businessModel === "Grossist") competenceAreas.push("grossist/distribution");
+    if (recommendation.addonTriggers.some(t => /EDI/i.test(t))) competenceAreas.push("EDI och kundintegrationer");
+    if (recommendation.addonTriggers.some(t => /WMS|lager/i.test(t)) || data.complexity.warehouseManagement) competenceAreas.push("lager- och orderflöden");
+    if (recommendation.addonTriggers.some(t => /ISV|tillägg|PIM|e-handel/i.test(t)) || recommendation.outcome === "Business Central med tillägg") competenceAreas.push("ISV-/tilläggslösningar för Business Central");
+    if (recommendation.addonTriggers.some(t => /Power|Copilot|Automation/i.test(t))) competenceAreas.push("Power Platform och Copilot");
+    if (recommendation.addonTriggers.some(t => /integration|iPaaS/i.test(t)) || integrationCnt >= 3) competenceAreas.push("integrationer och iPaaS");
+    if (recommendation.addonTriggers.some(t => /service|fält|eftermarknad/i.test(t))) competenceAreas.push("service/eftermarknad och fältservice");
+    competenceAreas.push("datamigrering och masterdata");
+    competenceAreas.push("långsiktig förvaltning och förändringsledning");
+
+    const partnerProse = isBC || recommendation.outcome === "Business Central med tillägg"
+      ? `Ni bör söka en Dynamics 365-partner med erfarenhet av ${competenceAreas.slice(0, 6).join(", ")} samt Business Central med relevanta tilläggslösningar. Partnern bör kunna genomföra en strukturerad fit-gap och bedöma när standardfunktionalitet räcker, när tillägg behövs och när Finance & Supply Chain Management bör övervägas.`
+      : `Ni bör söka en Dynamics 365-partner med erfarenhet av ${competenceAreas.slice(0, 6).join(", ")} samt Finance & Supply Chain Management i organisationer av er storlek. Partnern bör kombinera funktionell rådgivning med arkitekturkompetens och dokumenterad förmåga inom förändringsledning.`;
+
+    addProse(partnerProse, 9, 5.4);
+
+    // Kompetensområden som chips
+    pdf.setFontSize(8.5);
+    pdf.setFont("helvetica", "bold");
+    pdf.setTextColor(0, 100, 130);
+    pdf.text("Prioriterade kompetensområden:", margin, yPos);
+    yPos += 6;
+    pdf.setFont("helvetica", "normal");
+    pdf.setTextColor(51, 51, 51);
+    Array.from(new Set(competenceAreas)).forEach((area) => {
+      checkPage(6);
+      pdf.setFillColor(0, 143, 179);
+      pdf.circle(margin + 2.5, yPos - 1.5, 1.2, "F");
+      const lines = pdf.splitTextToSize(area.charAt(0).toUpperCase() + area.slice(1), contentWidth - 10);
+      pdf.text(lines, margin + 7, yPos);
+      yPos += lines.length * 5.2 + 1.5;
     });
     yPos += 8;
 
