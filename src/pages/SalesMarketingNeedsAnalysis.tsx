@@ -1655,6 +1655,8 @@ const SalesMarketingNeedsAnalysis = () => {
           phone: data.phone || "",
           email: data.email,
           analysisData: {
+            "Fokusområde": focusKey ? focusAreaOptions.find(o => o.value === focusKey)?.label || focusKey : "Ej angivet",
+            ...(focusKey === "unsure" && data.unsureIssues.length ? { "Främsta problem (osäker)": data.unsureIssues.join("; ") } : {}),
             "Kommersiell modell": commercialModelOptions.find(o => o.value === data.commercialModel)?.label || data.commercialModel || "Ej angivet",
             ...(data.commercialModel === "b2b_relational" ? {
               "B2B – Antal säljare": data.b2bSalesCount || "Ej angivet",
