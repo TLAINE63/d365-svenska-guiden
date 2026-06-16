@@ -93,7 +93,21 @@ const D365ContactCenter = () => {
       />
 
       <ShortAnswer title="Vad är Dynamics 365 Contact Center">
-        Dynamics 365 Contact Center är Microsofts AI-drivna omnikanal-plattform för moderna kundservicecenter — en fristående lösning som kan användas ovanpå ett befintligt CRM (Salesforce, ServiceNow eller Dynamics 365) eller som en del av en samlad Microsoft-värld. Plattformen samlar röst, chatt, SMS, e-post, sociala medier, WhatsApp och digital självbetjäning i en enda agentupplevelse, med inbyggd telefoni via Azure Communication Services och avancerad IVR där kunden kan beskriva sitt ärende i klartext istället för att navigera knappval. Hela plattformen är byggd för AI: Copilot och autonoma serviceagenter besvarar enkla frågor självständigt, kvalificerar inkommande samtal, transkriberar och sammanfattar pågående konversationer i realtid, föreslår nästa-bästa-åtgärd och kunskapsartiklar för handläggaren, samt analyserar sentiment och eskalerar smidigt till människa när det behövs. Realtidsdashboards och historiska analyser ger driftansvariga full kontroll på SLA, bemanning, första-svarstid och kundnöjdhet, medan integration med Microsoft 365, Teams, Dataverse och Power Platform gör det enkelt att bygga skräddarsydda flöden och rapporter. Lösningen passar både rena callcenter och bredare kundserviceorganisationer som vill konsolidera kanaler, sänka samtalstider och låta AI ta hand om den enkla volymen — men design av röstflöden, kunskapsbas och integrationer avgör hur stort lyftet faktiskt blir.
+        <p>
+          Dynamics 365 Contact Center är Microsofts AI-drivna omnikanal-plattform för moderna kundservicecenter — en fristående lösning som kan användas ovanpå ett befintligt CRM (Salesforce, ServiceNow eller Dynamics 365) eller som en del av en samlad Microsoft-värld.
+        </p>
+        <p>
+          Plattformen samlar röst, chatt, SMS, e-post, sociala medier, WhatsApp och digital självbetjäning i en enda agentupplevelse, med inbyggd telefoni via Azure Communication Services och avancerad IVR där kunden kan beskriva sitt ärende i klartext istället för att navigera knappval.
+        </p>
+        <p>
+          Hela plattformen är byggd för AI: Copilot och autonoma serviceagenter besvarar enkla frågor självständigt, kvalificerar inkommande samtal, transkriberar och sammanfattar pågående konversationer i realtid, föreslår nästa-bästa-åtgärd och kunskapsartiklar för handläggaren, samt analyserar sentiment och eskalerar smidigt till människa när det behövs.
+        </p>
+        <p>
+          Realtidsdashboards och historiska analyser ger driftansvariga full kontroll på SLA, bemanning, första-svarstid och kundnöjdhet, medan integration med Microsoft 365, Teams, Dataverse och Power Platform gör det enkelt att bygga skräddarsydda flöden och rapporter.
+        </p>
+        <p>
+          Lösningen passar både rena callcenter och bredare kundserviceorganisationer som vill konsolidera kanaler, sänka samtalstider och låta AI ta hand om den enkla volymen — men design av röstflöden, kunskapsbas och integrationer avgör hur stort lyftet faktiskt blir.
+        </p>
       </ShortAnswer>
 
 
