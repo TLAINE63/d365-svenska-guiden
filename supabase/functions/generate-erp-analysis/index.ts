@@ -204,14 +204,16 @@ Deno.serve(async (req: Request): Promise<Response> => {
     }
 
     const safe: AnalysisOutput = {
-      aiInterpretation: String(parsed.aiInterpretation || FALLBACK.aiInterpretation).slice(0, 4000),
+      executiveSummary: String(parsed.executiveSummary || FALLBACK.executiveSummary).slice(0, 3000),
+      aiInterpretation: String(parsed.aiInterpretation || FALLBACK.aiInterpretation).slice(0, 6000),
+      valueHypothesis: String(parsed.valueHypothesis || FALLBACK.valueHypothesis).slice(0, 3000),
       whyPoints: (Array.isArray(parsed.whyPoints) ? parsed.whyPoints : FALLBACK.whyPoints)
-        .slice(0, 6).map((s) => String(s).slice(0, 400)),
+        .slice(0, 6).map((s) => String(s).slice(0, 500)),
       risks: (Array.isArray(parsed.risks) ? parsed.risks : FALLBACK.risks)
-        .slice(0, 6).map((s) => String(s).slice(0, 400)),
-      partnerProfile: String(parsed.partnerProfile || FALLBACK.partnerProfile).slice(0, 1000),
+        .slice(0, 6).map((s) => String(s).slice(0, 500)),
+      partnerProfile: String(parsed.partnerProfile || FALLBACK.partnerProfile).slice(0, 2000),
       nextSteps: (Array.isArray(parsed.nextSteps) ? parsed.nextSteps : FALLBACK.nextSteps)
-        .slice(0, 7).map((s) => String(s).slice(0, 400)),
+        .slice(0, 7).map((s) => String(s).slice(0, 500)),
       confidence: ["Låg", "Medel", "Hög"].includes(String(parsed.confidence)) ? parsed.confidence : "Medel",
     };
 
