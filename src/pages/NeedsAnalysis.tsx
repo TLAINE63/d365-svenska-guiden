@@ -2798,7 +2798,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             <div className="border rounded-xl p-5 space-y-4 bg-background shadow-sm">
               <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
                 <span className="w-6 h-6 rounded-full bg-finance-supply text-finance-supply-foreground text-xs flex items-center justify-center font-bold">2</span>
-                Rekommenderad lösningsinriktning
+                Preliminär systemindikation
               </h3>
               <p className="text-sm font-medium text-foreground mb-3">
                 Baserat på er ERP-profil rekommenderas en plattform med fokus på:
