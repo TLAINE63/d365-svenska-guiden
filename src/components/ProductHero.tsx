@@ -77,6 +77,7 @@ const ProductHero = ({
   subhead,
   primary,
   secondary,
+  tertiary,
   photo,
   photoAlt,
 }: ProductHeroProps) => {
