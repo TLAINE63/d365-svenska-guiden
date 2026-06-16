@@ -191,6 +191,10 @@ const FinanceSupplyChain = () => {
         subhead="Microsoft levererar en kraftfull Enterpriseplattform. Partnern skapar branschmodellen, integrationerna mot era befintliga system och den förändringsledning som faktiskt ger användarnytta. Det är där F&SCM-projekt blir framgångsrika - eller missar målet. Här jämför ni partners som levererat F&SCM i er bransch."
         primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation/", icon: FileText }}
         secondary={{
+          label: "Matchar F&SCM era behov? (10 min)",
+          to: "/finance-supply-chain-management/matchningstest",
+        }}
+        tertiary={{
           label: "Jämför F&SCM-partners",
           onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
         }}
