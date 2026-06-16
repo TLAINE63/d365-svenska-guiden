@@ -886,13 +886,17 @@ const CustomerServiceNeedsAnalysis = () => {
     pdf.setTextColor(255, 255, 255);
     pdf.setFontSize(28);
     pdf.setFont("helvetica", "bold");
-    pdf.text("BEHOVSANALYS", pageWidth / 2, 120, { align: "center" });
-    pdf.setFontSize(16);
+    pdf.text(focusCfg.pdfTitle, pageWidth / 2, 120, { align: "center" });
+    pdf.setFontSize(14);
     pdf.setFont("helvetica", "normal");
-    pdf.text("Kundservice", pageWidth / 2, 133, { align: "center" });
+    pdf.text(focusCfg.pdfSubTitle, pageWidth / 2, 133, { align: "center" });
+    pdf.setFontSize(10);
+    pdf.text("AI-genererat beslutsunderlag inför val av Dynamics 365-lösning", pageWidth / 2, 142, { align: "center" });
     pdf.setDrawColor(255, 255, 255);
     pdf.setLineWidth(0.5);
-    pdf.line(margin + 20, 142, pageWidth - margin - 20, 142);
+    pdf.line(margin + 20, 148, pageWidth - margin - 20, 148);
+
+
 
     pdf.setFontSize(14);
     pdf.setFont("helvetica", "bold");
