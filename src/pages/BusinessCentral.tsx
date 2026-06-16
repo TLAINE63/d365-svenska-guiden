@@ -217,7 +217,7 @@ const BusinessCentral = () => {
         }}
       />
 
-      <ShortAnswer>
+      <ShortAnswer title="Vad är Microsoft Dynamics 365 Business Central">
         Dynamics 365 Business Central passar bäst för mindre och medelstora företag som vill samla ekonomi, inköp, lager, försäljning och enklare produktion i ett modernt affärssystem från Microsoft. För större, internationella eller mer komplexa verksamheter är Dynamics 365 Finance & Supply Chain Management ofta ett bättre val.
       </ShortAnswer>
 
