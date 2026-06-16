@@ -1254,6 +1254,10 @@ const CustomerServiceNeedsAnalysis = () => {
       ["Flersprakig kundservice", data.multiLanguage],
       ["Kundprioritering", data.customerPrioritization],
       ["Produktlinjer", data.multipleProductLines],
+      ["Kundservice-KPI:er", (data.csKpis || []).join(", ")],
+      ["Contact Center-KPI:er", (data.ccKpis || []).join(", ")],
+      ["Fältservice-KPI:er", (data.fsKpis || []).join(", ")],
+      ["Diagnostiska utmaningar (Osäkert)", (data.unsureIssues || []).join(", ")],
     ]);
 
     // Field Service section (only if relevant)
@@ -1273,15 +1277,21 @@ const CustomerServiceNeedsAnalysis = () => {
       ["Integration med salj/ERP", data.integratedWithSalesErp],
     ]);
 
-    addAppendixSection("Steg 5 - Systemintegration", [
+    addAppendixSection("Steg 5 - Data, integrationer & datamognad", [
       ["Systemkopplingar", integList.join(", ")],
+      ["Datamognad", data.dataMaturity],
+      ["Datatillforlitlighet", data.dataReliability],
+      ["Dataagarskap", data.dataOwnership],
+      ["Behorigheter/atkomst", data.dataAccessControls],
     ]);
 
-    addAppendixSection("Steg 6 - AI & Automation", [
+    addAppendixSection("Steg 6 - AI, automation & agenter", [
       ["AI-intresse", data.aiInterest || ""],
       ["AI-anvandningsomraden", data.aiUseCases?.join(", ")],
       ["AI - egna kommentarer", data.aiDetails || ""],
       ["AI-automationsfunktioner", data.aiAutomation?.join(", ")],
+      ["AI-/agentautonomi", data.aiAutonomy || ""],
+      ["Kontrollpunkter for AI/agenter", (data.aiControls || []).join(", ")],
     ]);
 
     // Övriga noteringar
