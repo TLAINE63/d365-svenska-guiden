@@ -844,6 +844,27 @@ const CustomerServiceNeedsAnalysis = () => {
       yPos += lines.length * 5 + 6;
     };
 
+    // Render multi-paragraph prose with proper spacing between paragraphs.
+    // Splits on \n\n (and falls back to single \n) so AI-generated text reads cleanly.
+    const addParagraphs = (text: string, fontSize = 9.5) => {
+      if (!text) return;
+      const paragraphs = String(text)
+        .replace(/\r\n/g, "\n")
+        .split(/\n{2,}/)
+        .map((p) => p.replace(/\s*\n\s*/g, " ").trim())
+        .filter(Boolean);
+      pdf.setFontSize(fontSize);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(51, 51, 51);
+      const lineHeight = fontSize * 0.5;
+      paragraphs.forEach((para, i) => {
+        const lines = pdf.splitTextToSize(para, contentWidth);
+        checkPage(lines.length * lineHeight + 4);
+        pdf.text(lines, margin, yPos);
+        yPos += lines.length * lineHeight + (i < paragraphs.length - 1 ? 4 : 6);
+      });
+    };
+
     const addBulletList = (items: string[]) => {
       if (!items.length) return;
       pdf.setFontSize(9);
