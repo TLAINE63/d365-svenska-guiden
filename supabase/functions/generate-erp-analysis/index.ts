@@ -36,7 +36,9 @@ interface Payload {
 }
 
 interface AnalysisOutput {
+  executiveSummary: string;
   aiInterpretation: string;
+  valueHypothesis: string;
   whyPoints: string[];
   risks: string[];
   partnerProfile: string;
@@ -45,9 +47,17 @@ interface AnalysisOutput {
 }
 
 const FALLBACK: AnalysisOutput = {
+  executiveSummary:
+    "Analysen ger en sammanhållen bild av verksamhetens nuläge, drivkrafter och systemmässiga utgångspunkter inför ett kommande ERP-val. " +
+    "Underlaget är tillräckligt för att rama in vilken typ av plattform och partnerprofil som bör utvärderas vidare, men det ersätter inte en kravspecifikation. " +
+    "Använd analysen som diskussionsunderlag internt och i dialog med 2–3 partners – inte som ett färdigt systembeslut.",
   aiInterpretation:
     "Underlaget räcker för en preliminär indikation men inte för ett definitivt systemval. " +
-    "Använd resultatet som diskussionsunderlag inför kravspecifikation och dialog med ERP-partner – inte som beslut.",
+    "Verksamhetens komplexitet, geografi, transaktionsvolymer och förändringsambition pekar tillsammans i en tydlig riktning, men flera frågor behöver fördjupas innan en plattform kan väljas. " +
+    "Använd resultatet som strukturerat diskussionsunderlag inför kravspecifikation, intern förankring och dialog med ERP-partner – inte som ett beslut i sig.",
+  valueHypothesis:
+    "Den största värdepotentialen ligger sannolikt i att lyfta bort manuella moment, skapa en enhetlig datamodell och ge ledningen tillgång till mer aktuella beslutsunderlag. " +
+    "På medellång sikt kan en modern plattform också möjliggöra automatisering, prediktiv analys och Copilot-stöd i de mest tidskrävande processerna – förutsatt att datakvalitet och processägarskap är på plats.",
   whyPoints: [
     "Verksamhetens komplexitet och geografi pekar i en tydlig riktning.",
     "Storlek och antal användare påverkar val av plattform och licensmodell.",
@@ -59,8 +69,8 @@ const FALLBACK: AnalysisOutput = {
     "Datakvalitet i nuvarande system bör kartläggas innan migrering.",
   ],
   partnerProfile:
-    "Köparsidigt rekommenderas en partner med dokumenterad branscherfarenhet, " +
-    "tydlig metodik för förstudie och kravarbete samt referenscase i motsvarande storleksklass.",
+    "Köparsidigt rekommenderas en partner med dokumenterad branscherfarenhet, tydlig metodik för förstudie och kravarbete samt referenscase i motsvarande storleksklass. " +
+    "Partnern bör kunna kombinera funktionell rådgivning med arkitekturkompetens och ha erfarenhet av förändringsledning i organisationer av er storlek.",
   nextSteps: [
     "Samla intern styrgrupp och utse processägare per huvudprocess.",
     "Genomför en kravworkshop och dokumentera nuläge vs. börläge.",
@@ -122,11 +132,13 @@ Deno.serve(async (req: Request): Promise<Response> => {
 
 
     const schemaHint = {
-      aiInterpretation: "string (200-350 ord, sammanhängande prosa)",
-      whyPoints: "string[] (3-6 punkter, varför analysen lutar åt indikationen)",
-      risks: "string[] (3-6 risker och frågor att utreda vidare)",
-      partnerProfile: "string (2-4 meningar om vilken partnerprofil som passar)",
-      nextSteps: "string[] (3-7 konkreta nästa steg för köparen)",
+      executiveSummary: "string (180-260 ord, sammanhållen ledningsorienterad sammanfattning som ramar in nuläge, drivkrafter och vad analysen primärt visar – ska kunna läsas fristående)",
+      aiInterpretation: "string (350-550 ord, sammanhängande prosa i 3-4 stycken som tolkar verksamhetens profil, komplexitet, geografi, datamognad och AI-mognad och kopplar detta till plattformsindikationen utan att låsa valet)",
+      valueHypothesis: "string (150-250 ord, beskriver var den största affärsnyttan sannolikt ligger på 1-3 års sikt – processeffektivitet, datadriven styrning, automation, Copilot/AI – och vilka förutsättningar som krävs)",
+      whyPoints: "string[] (4-6 punkter, konkreta skäl till varför analysen lutar åt indikationen, varje punkt 1-2 meningar)",
+      risks: "string[] (4-6 risker och frågor att utreda vidare, formulerade köparsidigt)",
+      partnerProfile: "string (4-7 meningar om vilken partnerprofil som passar, inklusive metodik, branscherfarenhet, AI/data-kompetens och förändringsledningskapacitet)",
+      nextSteps: "string[] (5-7 konkreta nästa steg för köparen, formulerade som handlingsbara åtgärder)",
       confidence: "Låg | Medel | Hög (säkerhet i analysen baserat på hur komplett underlaget är)",
     };
 
@@ -192,14 +204,16 @@ Deno.serve(async (req: Request): Promise<Response> => {
     }
 
     const safe: AnalysisOutput = {
-      aiInterpretation: String(parsed.aiInterpretation || FALLBACK.aiInterpretation).slice(0, 4000),
+      executiveSummary: String(parsed.executiveSummary || FALLBACK.executiveSummary).slice(0, 3000),
+      aiInterpretation: String(parsed.aiInterpretation || FALLBACK.aiInterpretation).slice(0, 6000),
+      valueHypothesis: String(parsed.valueHypothesis || FALLBACK.valueHypothesis).slice(0, 3000),
       whyPoints: (Array.isArray(parsed.whyPoints) ? parsed.whyPoints : FALLBACK.whyPoints)
-        .slice(0, 6).map((s) => String(s).slice(0, 400)),
+        .slice(0, 6).map((s) => String(s).slice(0, 500)),
       risks: (Array.isArray(parsed.risks) ? parsed.risks : FALLBACK.risks)
-        .slice(0, 6).map((s) => String(s).slice(0, 400)),
-      partnerProfile: String(parsed.partnerProfile || FALLBACK.partnerProfile).slice(0, 1000),
+        .slice(0, 6).map((s) => String(s).slice(0, 500)),
+      partnerProfile: String(parsed.partnerProfile || FALLBACK.partnerProfile).slice(0, 2000),
       nextSteps: (Array.isArray(parsed.nextSteps) ? parsed.nextSteps : FALLBACK.nextSteps)
-        .slice(0, 7).map((s) => String(s).slice(0, 400)),
+        .slice(0, 7).map((s) => String(s).slice(0, 500)),
       confidence: ["Låg", "Medel", "Hög"].includes(String(parsed.confidence)) ? parsed.confidence : "Medel",
     };
 
