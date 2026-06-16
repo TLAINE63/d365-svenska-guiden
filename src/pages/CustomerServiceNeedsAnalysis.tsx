@@ -1272,38 +1272,38 @@ const CustomerServiceNeedsAnalysis = () => {
       ]);
     }
 
-    addAppendixSection("Steg 4 - Organisation & styrning", [
+    addAppendixSection("Steg 4 – Organisation & styrning", [
       ["Org-struktur", data.orgStructure],
       ["Gemensam rapportering", data.sharedReporting],
       ["Realtidsrapportering", data.realtimeReporting],
-      ["Integration med salj/ERP", data.integratedWithSalesErp],
+      ["Integration med sälj/ERP", data.integratedWithSalesErp],
     ]);
 
-    addAppendixSection("Steg 5 - Data, integrationer & datamognad", [
+    addAppendixSection("Steg 5 – Data, integrationer & datamognad", [
       ["Systemkopplingar", integList.join(", ")],
       ["Datamognad", data.dataMaturity],
-      ["Datatillforlitlighet", data.dataReliability],
-      ["Dataagarskap", data.dataOwnership],
-      ["Behorigheter/atkomst", data.dataAccessControls],
+      ["Datatillförlitlighet", data.dataReliability],
+      ["Dataägarskap", data.dataOwnership],
+      ["Behörigheter/åtkomst", data.dataAccessControls],
     ]);
 
-    addAppendixSection("Steg 6 - AI, automation & agenter", [
+    addAppendixSection("Steg 6 – AI, automation & agenter", [
       ["AI-intresse", data.aiInterest || ""],
-      ["AI-anvandningsomraden", data.aiUseCases?.join(", ")],
-      ["AI - egna kommentarer", data.aiDetails || ""],
+      ["AI-användningsområden", data.aiUseCases?.join(", ")],
+      ["AI – egna kommentarer", data.aiDetails || ""],
       ["AI-automationsfunktioner", data.aiAutomation?.join(", ")],
       ["AI-/agentautonomi", data.aiAutonomy || ""],
-      ["Kontrollpunkter for AI/agenter", (data.aiControls || []).join(", ")],
+      ["Kontrollpunkter för AI/agenter", (data.aiControls || []).join(", ")],
     ]);
 
     // Övriga noteringar
     const csHasOvrigt = data.wishlist?.trim() || data.decisionTimeline?.trim() || data.additionalInfo?.trim() || data.currentPartners?.trim();
     if (csHasOvrigt) {
-      addAppendixSection("Ovriga noteringar", [
-        ["Onskelista", data.wishlist || ""],
+      addAppendixSection("Övriga noteringar", [
+        ["Önskelista", data.wishlist || ""],
         ["Beslutstidpunkt", data.decisionTimeline || ""],
         ["Nuvarande partners", data.currentPartners || ""],
-        ["Ovrig information", data.additionalInfo || ""],
+        ["Övrig information", data.additionalInfo || ""],
       ]);
     }
 
