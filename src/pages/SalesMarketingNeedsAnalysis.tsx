@@ -1396,6 +1396,25 @@ const SalesMarketingNeedsAnalysis = () => {
       return [];
     })();
 
+    // Dynamiska tillägg från deep-dive-svaren
+    if (focusKey === "sales") {
+      if (data.salesDeepTerritory?.startsWith("Ostrukturerat")) focusNextSteps.push("Inför strukturerad territory- och account planning för nyckelkunder.");
+      if (data.salesDeepEnablement?.includes("saknar")) focusNextSteps.push("Etablera sales enablement med playbooks och säljmaterial i CRM.");
+      if (data.salesDeepCoaching?.includes("AI-driven")) focusNextSteps.push("Utvärdera AI-driven säljcoachning (Conversation Intelligence) som del av CRM-lösningen.");
+      if (data.salesDeepCPQ?.includes("fullt CPQ")) focusNextSteps.push("Inkludera CPQ-funktionalitet i kravspecifikationen för komplex offerthantering.");
+      if (data.salesDeepIncentives?.startsWith("Manuellt")) focusNextSteps.push("Värdera lösning för provisions- och incitamentshantering kopplad till pipeline-data.");
+      if (data.salesDeepRenewals?.startsWith("Kritiskt")) focusNextSteps.push("Säkerställ stöd för förnyelser, merförsäljning och kundutvecklingsplaner.");
+    }
+    if (focusKey === "marketing") {
+      if (data.marketingDeepABM?.startsWith("Ja")) focusNextSteps.push("Definiera ABM-strategi och datamodell för nyckelkonton i kunddataplattformen.");
+      if (data.marketingDeepContentOps?.startsWith("Ad hoc")) focusNextSteps.push("Bygg upp en strukturerad content ops-process med planering och godkännanden.");
+      if (data.marketingDeepConsent?.startsWith("Vi behöver avancerad")) focusNextSteps.push("Säkerställ stöd för avancerad consent- och preferenshantering med spårbarhet (GDPR).");
+      if (data.marketingDeepBrand?.startsWith("Kritiskt")) focusNextSteps.push("Inför central brand governance med lokal anpassning i kampanjverktyget.");
+      if (data.marketingDeepAttribution?.includes("multi-touch")) focusNextSteps.push("Utvärdera multi-touch attribution kopplad från kampanj till stängd affär.");
+    }
+
+    
+
     if (focusNextSteps.length) {
       if (yPos > 220) { pdf.addPage(); yPos = margin; }
       pdf.setFillColor(14, 124, 134);
@@ -1622,6 +1641,25 @@ const SalesMarketingNeedsAnalysis = () => {
     if ((data.aiUseCases || []).length > 0) addBulletSection("Vilka AI-användningsområden är mest intressanta?", data.aiUseCases);
     if (data.aiDataMaturity) addSection("AI- och datamognad", data.aiDataMaturity);
     if (data.aiDetails) addSection("Beskriv hur AI skulle kunna hjälpa er verksamhet", data.aiDetails);
+
+    // ── DEEP DIVE: Sälj ─────────────────────────────────────────────────
+    if (focusKey === "sales") {
+      if (data.salesDeepTerritory) addSection("Säljfördjupning – Territory- och kontoplanering", data.salesDeepTerritory);
+      if (data.salesDeepEnablement) addSection("Säljfördjupning – Sales enablement", data.salesDeepEnablement);
+      if (data.salesDeepCoaching) addSection("Säljfördjupning – Datadriven coachning", data.salesDeepCoaching);
+      if (data.salesDeepCPQ) addSection("Säljfördjupning – Offert, prissättning och konfiguration (CPQ)", data.salesDeepCPQ);
+      if (data.salesDeepIncentives) addSection("Säljfördjupning – Incitament och provision", data.salesDeepIncentives);
+      if (data.salesDeepRenewals) addSection("Säljfördjupning – Förnyelser och merförsäljning", data.salesDeepRenewals);
+    }
+
+    // ── DEEP DIVE: Marknad ──────────────────────────────────────────────
+    if (focusKey === "marketing") {
+      if (data.marketingDeepABM) addSection("Marknadsfördjupning – Account-Based Marketing", data.marketingDeepABM);
+      if (data.marketingDeepContentOps) addSection("Marknadsfördjupning – Content ops", data.marketingDeepContentOps);
+      if (data.marketingDeepConsent) addSection("Marknadsfördjupning – Consent och GDPR", data.marketingDeepConsent);
+      if (data.marketingDeepBrand) addSection("Marknadsfördjupning – Brand governance", data.marketingDeepBrand);
+      if (data.marketingDeepAttribution) addSection("Marknadsfördjupning – Attribution till intäkt", data.marketingDeepAttribution);
+    }
 
     // ── ÖVRIGA NOTERINGAR ────────────────────────────────────────────────
     const hasOvrigt = data.wishlist?.trim() || data.decisionTimeline?.trim() || data.additionalInfo?.trim() || data.currentPartners?.trim();
