@@ -1281,22 +1281,33 @@ const SalesMarketingNeedsAnalysis = () => {
     yPos += 14;
 
     const pdfPartners: { label: string; description: string }[] = [];
-    if (pdfProduct.includes("Sales")) {
-      if (["500+", "250-999 anställda"].includes(data.employees)) {
-        pdfPartners.push({ label: "Enterprise CRM-arkitekt", description: "Partner med erfarenhet av komplexa saljorganisationer och globala CRM-implementationer" });
-      } else {
-        pdfPartners.push({ label: "Sales-specialist", description: "Partner specialiserad pa effektiva Dynamics 365 Sales-implementationer for tillvaxtbolag" });
+    if (focusKey === "sales") {
+      pdfPartners.push({ label: "Säljprocess- och CRM-specialist", description: "Partner med dokumenterad erfarenhet av Dynamics 365 Sales, säljledning, pipeline och forecast, leadshantering, CRM-adoption och integrationer mot Outlook, Teams, LinkedIn, ERP och Power BI." });
+    } else if (focusKey === "marketing") {
+      pdfPartners.push({ label: "Marketing automation- och kunddata-specialist", description: "Partner med erfarenhet av Customer Insights – Journeys och Customer Insights – Data, segmentering, kundresor, samtycken/GDPR, kampanjuppföljning, datamodell och integrationer." });
+    } else if (focusKey === "both") {
+      pdfPartners.push({ label: "Sälj- och marknadssamverkanspartner", description: "Partner med kompetens i både CRM och marketing automation: lead management, CRM + Customer Insights, kunddata, rapportering från kampanj till pipeline, Power Platform, Copilot/AI och förändringsledning." });
+    } else if (focusKey === "unsure") {
+      pdfPartners.push({ label: "Köparsidig CRM- och kunddataguide", description: "Partner som kan kartlägga var problemen främst ligger (sälj, marknad, kunddata, integration) innan plattformsval och ge en stegvis väg framåt." });
+    } else {
+      if (pdfProduct.includes("Sales")) {
+        if (["500+", "250-999 anställda"].includes(data.employees)) {
+          pdfPartners.push({ label: "Enterprise CRM-arkitekt", description: "Partner med erfarenhet av komplexa säljorganisationer och globala CRM-implementationer." });
+        } else {
+          pdfPartners.push({ label: "Sales-specialist", description: "Partner specialiserad på effektiva Dynamics 365 Sales-implementationer för tillväxtbolag." });
+        }
+      }
+      if (pdfProduct.includes("Customer Insights")) {
+        pdfPartners.push({ label: "Customer Insights-specialist", description: "Partner med kompetens inom CDP, AI-segmentering och personaliserade kundresor." });
       }
     }
-    if (pdfProduct.includes("Customer Insights")) {
-      pdfPartners.push({ label: "Customer Insights-specialist", description: "Partner med kompetens inom CDP, AI-segmentering och personaliserade kundresor" });
-    }
     if ((data.integrationTypes || []).length >= 3 || data.integrationScope === "Omfattande och affärskritiskt") {
-      pdfPartners.push({ label: "Integrationsspecialist", description: "Partner med stark kompetens i systemintegrationer och dataarkitektur for komplexa CRM-projekt" });
+      pdfPartners.push({ label: "Integrationsspecialist", description: "Partner med stark kompetens i systemintegrationer och dataarkitektur för komplexa CRM-projekt." });
     }
     if (pdfPartners.length === 0) {
-      pdfPartners.push({ label: "CRM-specialist", description: "Partner specialiserad pa Dynamics 365 CRM-losningar for er affarsmodell" });
+      pdfPartners.push({ label: "CRM-specialist", description: "Partner specialiserad på Dynamics 365 CRM-lösningar för er affärsmodell." });
     }
+
 
     pdfPartners.forEach((p) => {
       if (yPos > 255) { pdf.addPage(); yPos = margin; }
