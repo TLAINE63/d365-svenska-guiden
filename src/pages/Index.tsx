@@ -544,7 +544,11 @@ const Index = () => {
                     <p className="text-xs text-muted-foreground leading-snug">
                       Medgrundare, d365.se. Oberoende rådgivare inom Microsoft Dynamics 365, ERP, CRM och partnerlandskapet.
                     </p>
+                    <Link to="/om-thomas-laine/" className="inline-block mt-1 text-xs font-medium text-primary hover:underline">
+                      Om Thomas Laine →
+                    </Link>
                   </div>
+
                 </div>
                 <div className="flex items-start gap-3">
                   <img
