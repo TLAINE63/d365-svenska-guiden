@@ -1014,7 +1014,7 @@ const CustomerServiceNeedsAnalysis = () => {
     const tData = transformationComments[transformationLevel];
 
     checkPage(40);
-    addSectionHeader("SERVICEMOGNAD - SERVICE TRANSFORMATION LEVEL", 5, 150, 105);
+    addSectionHeader("SERVICEMOGNAD – SERVICE TRANSFORMATION LEVEL", 5, 150, 105);
     pdf.setFontSize(8);
     pdf.setFont("helvetica", "normal");
     pdf.setTextColor(120, 120, 120);
@@ -1029,14 +1029,14 @@ const CustomerServiceNeedsAnalysis = () => {
     pdf.setFontSize(13);
     pdf.setFont("helvetica", "bold");
     pdf.setTextColor(51, 51, 51);
-    pdf.text(`Niva ${transformationLevel} - ${transformationLabels[transformationLevel]}`, margin, yPos);
+    pdf.text(`Nivå ${transformationLevel} – ${transformationLabels[transformationLevel]}`, margin, yPos);
     yPos += 8;
 
     // ══════════════════════════════════════════════════════════════════════
     // 3. BEDOMNING
     // ══════════════════════════════════════════════════════════════════════
     checkPage(40);
-    addSectionHeader("BEDOMNING", 80, 80, 100);
+    addSectionHeader("BEDÖMNING", 80, 80, 100);
     addTextBlock(tData.text);
 
     // ══════════════════════════════════════════════════════════════════════
