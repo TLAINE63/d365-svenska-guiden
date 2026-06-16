@@ -110,6 +110,19 @@ interface SalesMarketingAnalysisData {
   contactName: string;
   phone: string;
   email: string;
+  // Sälj deep-dive (visas när focusArea === "sales")
+  salesDeepTerritory: string;
+  salesDeepEnablement: string;
+  salesDeepCoaching: string;
+  salesDeepCPQ: string;
+  salesDeepIncentives: string;
+  salesDeepRenewals: string;
+  // Marknad deep-dive (visas när focusArea === "marketing")
+  marketingDeepABM: string;
+  marketingDeepContentOps: string;
+  marketingDeepConsent: string;
+  marketingDeepBrand: string;
+  marketingDeepAttribution: string;
 }
 
 const initialData: SalesMarketingAnalysisData = {
@@ -192,6 +205,17 @@ const initialData: SalesMarketingAnalysisData = {
   contactName: "",
   phone: "",
   email: "",
+  salesDeepTerritory: "",
+  salesDeepEnablement: "",
+  salesDeepCoaching: "",
+  salesDeepCPQ: "",
+  salesDeepIncentives: "",
+  salesDeepRenewals: "",
+  marketingDeepABM: "",
+  marketingDeepContentOps: "",
+  marketingDeepConsent: "",
+  marketingDeepBrand: "",
+  marketingDeepAttribution: "",
 };
 
 const focusAreaOptions: { value: Exclude<FocusArea, "">; label: string; description: string }[] = [
@@ -556,7 +580,8 @@ const SalesMarketingNeedsAnalysis = () => {
     focus === "marketing" ? "Kunddata & segmentering"
       : focus === "both" ? "Gemensam kunddata"
       : "Data & kundbild",
-    focus === "sales" ? "Sälj & pipeline"
+    focus === "sales" ? "Säljfördjupning"
+      : focus === "marketing" ? "Marknadsfördjupning"
       : focus === "unsure" ? "Marknads- och kundbild"
       : "Customer Insights",
     "Integrationer",
@@ -1768,15 +1793,24 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 2:
+      case 2: {
+        const visibleCommercialModels = commercialModelOptions.filter((o) => {
+          if (focus === "sales") return ["b2b_relational", "b2b_complex", "partner_channel"].includes(o.value);
+          if (focus === "marketing") return ["digital_market", "b2c_volume"].includes(o.value);
+          return true;
+        });
         return (
           <div className="space-y-6">
             <div>
               <p className="text-muted-foreground mb-6">
-                Välj det alternativ som bäst beskriver hur er verksamhet primärt genererar affärer. Det hjälper oss att anpassa analysen till er situation.
+                {focus === "sales"
+                  ? "Välj den B2B-/partner-modell som bäst beskriver er försäljning. Marknadstunga modeller är dolda eftersom ni valt fokus på Sälj."
+                  : focus === "marketing"
+                  ? "Välj den marknads-/digitala modell som bäst beskriver er affär. Renodlade säljmodeller är dolda eftersom ni valt fokus på Marknad."
+                  : "Välj det alternativ som bäst beskriver hur er verksamhet primärt genererar affärer. Det hjälper oss att anpassa analysen till er situation."}
               </p>
               <div className="grid grid-cols-1 gap-3">
-                {commercialModelOptions.map((option) => (
+                {visibleCommercialModels.map((option) => (
                   <SelectionCard
                     key={option.value}
                     label={`${option.emoji} ${option.label}`}
@@ -2068,6 +2102,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
           </div>
         );
+      }
 
       case 3:
         return (
@@ -2110,20 +2145,22 @@ const SalesMarketingNeedsAnalysis = () => {
                 />
               </div>
             </div>
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Storlek på säljteam</Label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {teamSizeOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.salesTeamSize === option}
-                    onClick={() => setData({ ...data, salesTeamSize: option })}
-                    type="radio"
-                  />
-                ))}
+            {focus !== "marketing" && (
+              <div>
+                <Label className="text-base font-semibold mb-3 block">Storlek på säljteam</Label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {teamSizeOptions.map((option) => (
+                    <SelectionCard
+                      key={option}
+                      label={option}
+                      selected={data.salesTeamSize === option}
+                      onClick={() => setData({ ...data, salesTeamSize: option })}
+                      type="radio"
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Internationell närvaro */}
             <div>
@@ -2161,46 +2198,48 @@ const SalesMarketingNeedsAnalysis = () => {
               </div>
             </div>
 
-            {/* Central eller lokal marknadsorganisation */}
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Central eller lokal marknadsorganisation?</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {["Centralt styrd", "Hybridmodell", "Lokalt styrd per marknad"].map((opt) => (
-                  <SelectionCard
-                    key={opt}
-                    label={opt}
-                    selected={data.marketingOrgStructure === opt}
-                    onClick={() => setData({ ...data, marketingOrgStructure: opt })}
-                    type="radio"
-                  />
-                ))}
+            {focus !== "sales" && (
+              <div>
+                <Label className="text-base font-semibold mb-3 block">Central eller lokal marknadsorganisation?</Label>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {["Centralt styrd", "Hybridmodell", "Lokalt styrd per marknad"].map((opt) => (
+                    <SelectionCard
+                      key={opt}
+                      label={opt}
+                      selected={data.marketingOrgStructure === opt}
+                      onClick={() => setData({ ...data, marketingOrgStructure: opt })}
+                      type="radio"
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         );
 
       case 4:
         return (
           <div className="space-y-6">
-            {/* CRM-användning */}
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Använder ni något CRM-system idag?</Label>
-              <div className="grid grid-cols-1 gap-3">
-                {[
-                  "Nej",
-                  "Vi har ett enklare CRM-system som används av delar av organisationen",
-                  "Ja, vi har ett avancerat CRM-system",
-                ].map((opt) => (
-                  <SelectionCard
-                    key={opt}
-                    label={opt}
-                    selected={data.currentCrmUsage === opt}
-                    onClick={() => setData({ ...data, currentCrmUsage: opt })}
-                    type="radio"
-                  />
-                ))}
+            {focus !== "marketing" && (
+              <div>
+                <Label className="text-base font-semibold mb-3 block">Använder ni något CRM-system idag?</Label>
+                <div className="grid grid-cols-1 gap-3">
+                  {[
+                    "Nej",
+                    "Vi har ett enklare CRM-system som används av delar av organisationen",
+                    "Ja, vi har ett avancerat CRM-system",
+                  ].map((opt) => (
+                    <SelectionCard
+                      key={opt}
+                      label={opt}
+                      selected={data.currentCrmUsage === opt}
+                      onClick={() => setData({ ...data, currentCrmUsage: opt })}
+                      type="radio"
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Kunddata */}
             <div>
@@ -2279,6 +2318,94 @@ const SalesMarketingNeedsAnalysis = () => {
         );
 
       case 6:
+        if (focus === "sales") {
+          // ── Sälj deep-dive (inga marknadsfrågor) ──
+          return (
+            <div className="space-y-6">
+              <p className="text-sm text-muted-foreground">
+                Eftersom ni valt fokus på Sälj går vi djupare i säljspecifika frågor och hoppar över marknadsfrågorna.
+              </p>
+
+              <div>
+                <Label className="text-base font-semibold mb-3 block">Hur arbetar ni med territory- och kontoplanering?</Label>
+                <div className="grid grid-cols-1 gap-2">
+                  {[
+                    "Ostrukturerat – säljarna bestämmer själva",
+                    "Geografisk eller branschvis fördelning",
+                    "Strukturerad account planning med målbilder per nyckelkund",
+                  ].map((opt) => (
+                    <SelectionCard key={opt} label={opt} selected={data.salesDeepTerritory === opt} onClick={() => setData({ ...data, salesDeepTerritory: opt })} type="radio" />
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <Label className="text-base font-semibold mb-3 block">Hur ser ert sales enablement ut idag?</Label>
+                <div className="grid grid-cols-1 gap-2">
+                  {[
+                    "Vi saknar strukturerat säljmaterial och playbooks",
+                    "Vi har material men det används ojämnt",
+                    "Vi har playbooks, content och processer integrerade i CRM",
+                  ].map((opt) => (
+                    <SelectionCard key={opt} label={opt} selected={data.salesDeepEnablement === opt} onClick={() => setData({ ...data, salesDeepEnablement: opt })} type="radio" />
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <Label className="text-base font-semibold mb-3 block">Behöver ni stöd för säljcoaching baserat på data?</Label>
+                <div className="grid grid-cols-1 gap-2">
+                  {[
+                    "Nej, coachning sker informellt",
+                    "Ja, vi vill kunna följa upp säljarnas aktiviteter och resultat",
+                    "Ja, vi vill ha AI-driven coaching utifrån mötes- och samtalsdata",
+                  ].map((opt) => (
+                    <SelectionCard key={opt} label={opt} selected={data.salesDeepCoaching === opt} onClick={() => setData({ ...data, salesDeepCoaching: opt })} type="radio" />
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <Label className="text-base font-semibold mb-3 block">Behöver ni stöd för offert, prissättning och konfiguration (CPQ)?</Label>
+                <div className="grid grid-cols-1 gap-2">
+                  {[
+                    "Nej, enkla offerter i Word/Excel räcker",
+                    "Ja, vi vill ha mallar och godkännandeflöden i CRM",
+                    "Ja, vi har konfigurerbara produkter/tjänster och behöver fullt CPQ-stöd",
+                  ].map((opt) => (
+                    <SelectionCard key={opt} label={opt} selected={data.salesDeepCPQ === opt} onClick={() => setData({ ...data, salesDeepCPQ: opt })} type="radio" />
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <Label className="text-base font-semibold mb-3 block">Hur hanterar ni säljincitament och provisioner?</Label>
+                <div className="grid grid-cols-1 gap-2">
+                  {[
+                    "Manuellt utanför CRM",
+                    "Delvis i CRM, kompletteras med Excel",
+                    "Vi vill ha incitament/provision integrerat med pipeline-data",
+                  ].map((opt) => (
+                    <SelectionCard key={opt} label={opt} selected={data.salesDeepIncentives === opt} onClick={() => setData({ ...data, salesDeepIncentives: opt })} type="radio" />
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <Label className="text-base font-semibold mb-3 block">Hur viktig är hantering av förnyelser, merförsäljning och kundutveckling?</Label>
+                <div className="grid grid-cols-1 gap-2">
+                  {[
+                    "Inte relevant – mestadels nyförsäljning",
+                    "Viktigt – vi vill bevaka förnyelser och uppgraderingar",
+                    "Kritiskt – återkommande intäkter är största delen av affären",
+                  ].map((opt) => (
+                    <SelectionCard key={opt} label={opt} selected={data.salesDeepRenewals === opt} onClick={() => setData({ ...data, salesDeepRenewals: opt })} type="radio" />
+                  ))}
+                </div>
+              </div>
+            </div>
+          );
+        }
         return (
           <div className="space-y-6">
             {/* Nuvarande marknadsföring */}
@@ -2442,6 +2569,79 @@ const SalesMarketingNeedsAnalysis = () => {
                 ))}
               </div>
             </div>
+
+            {focus === "marketing" && (
+              <div className="space-y-6 pt-6 border-t border-border/60">
+                <p className="text-sm text-muted-foreground">
+                  Eftersom ni valt fokus på Marknad fördjupar vi oss i marknadsspecifika frågor.
+                </p>
+
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Arbetar ni med Account-Based Marketing (ABM)?</Label>
+                  <div className="grid grid-cols-1 gap-2">
+                    {[
+                      "Nej, vi kör generella kampanjer",
+                      "Delvis – riktade kampanjer mot nyckelsegment",
+                      "Ja – strukturerat ABM med dedikerade konton och 1-to-1-innehåll",
+                    ].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.marketingDeepABM === opt} onClick={() => setData({ ...data, marketingDeepABM: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Hur ser er content- och kampanjproduktion ut?</Label>
+                  <div className="grid grid-cols-1 gap-2">
+                    {[
+                      "Ad hoc, ofta i sista minuten",
+                      "Vi har en innehållskalender men begränsad produktionskapacitet",
+                      "Strukturerad content ops med planering, godkännanden och återanvändning",
+                    ].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.marketingDeepContentOps === opt} onClick={() => setData({ ...data, marketingDeepContentOps: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Hur hanterar ni samtycke (consent), preferenser och GDPR?</Label>
+                  <div className="grid grid-cols-1 gap-2">
+                    {[
+                      "Vi har grundläggande opt-out i utskick",
+                      "Vi har preferenscenter och samtyckeshantering per kanal",
+                      "Vi behöver avancerad consent- och preferenshantering med spårbarhet",
+                    ].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.marketingDeepConsent === opt} onClick={() => setData({ ...data, marketingDeepConsent: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Hur viktig är varumärkesstyrning över marknader/bolag?</Label>
+                  <div className="grid grid-cols-1 gap-2">
+                    {[
+                      "Inte relevant",
+                      "Viktigt – vi vill ha gemensamma mallar och tonalitet",
+                      "Kritiskt – central brand governance med lokal anpassning",
+                    ].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.marketingDeepBrand === opt} onClick={() => setData({ ...data, marketingDeepBrand: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Hur vill ni mäta marknadens bidrag till intäkt?</Label>
+                  <div className="grid grid-cols-1 gap-2">
+                    {[
+                      "Det räcker med leads och MQL",
+                      "Vi vill mäta pipeline-bidrag per kampanj",
+                      "Vi vill ha full multi-touch attribution till stängd affär",
+                    ].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.marketingDeepAttribution === opt} onClick={() => setData({ ...data, marketingDeepAttribution: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         );
 
