@@ -580,7 +580,8 @@ const SalesMarketingNeedsAnalysis = () => {
     focus === "marketing" ? "Kunddata & segmentering"
       : focus === "both" ? "Gemensam kunddata"
       : "Data & kundbild",
-    focus === "sales" ? "Sälj & pipeline"
+    focus === "sales" ? "Säljfördjupning"
+      : focus === "marketing" ? "Marknadsfördjupning"
       : focus === "unsure" ? "Marknads- och kundbild"
       : "Customer Insights",
     "Integrationer",
