@@ -38,6 +38,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
   const productKey: 'bc' | 'fsc' | 'sales' | 'service' | null = useMemo(() => {
     if (applicationFilter === "Business Central") return 'bc';
     if (applicationFilter === "Finance & SCM") return 'fsc';
+    if (["Commerce", "Human Resources"].includes(applicationFilter)) return 'fsc';
     if (["Sales", "Customer Insights (Marketing)"].includes(applicationFilter)) {
       return 'sales';
     }
