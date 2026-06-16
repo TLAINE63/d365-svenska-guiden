@@ -2135,13 +2135,16 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     const bmLabel = businessModelOptions.find(o => o.value === data.businessModel)?.label || data.businessModel || "Ej angivet";
     const geoLabel = data.geography || "Ej angivet";
     const sizeLabel = data.employees || "Ej angivet";
-    const criticalCount = complexity.criticalFactors.length > 0 ? `${complexity.criticalFactors.length} identifierade` : "Inga kritiska";
+    const prioritized = (complexity as any).prioritizedFactors as string[] || [];
+    const prioritizedCount = prioritized.length > 0
+      ? `${prioritized.length} områden`
+      : "Inga blockerande";
 
     const profileRows = [
       ["Affärsmodell", bmLabel],
       ["Organisation", sizeLabel],
       ["Geografisk räckvidd", geoLabel],
-      ["Kritiska faktorer", criticalCount],
+      ["Prioriterade faktorer", prioritizedCount],
     ];
     const cellW = contentWidth / 2;
     const cellH = 14;
