@@ -1649,7 +1649,7 @@ const SalesMarketingNeedsAnalysis = () => {
     try {
       await supabase.functions.invoke("send-analysis-email", {
         body: {
-          analysisType: "Sälj & Marknad",
+          analysisType: focusKey ? focusAreaEmailType[focusKey] : "Sälj & Marknad",
           companyName: data.companyName,
           contactName: data.contactName,
           phone: data.phone || "",
