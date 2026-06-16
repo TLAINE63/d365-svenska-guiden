@@ -70,7 +70,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 // Step 2: Product options
 const productOptions = [
-  { value: "Business Central", label: "Business Central", desc: "ERP för små och medelstora företag", icon: bcIcon },
+  { value: "Business Central", label: "Business Central", desc: "ERP för mindre och medelstora företag", icon: bcIcon },
   { value: "Finance & SCM", label: "Finance & Supply Chain", desc: "ERP för större organisationer", icon: financeIcon },
   { value: "Sales", label: "Sales", desc: "CRM för försäljning och pipeline", icon: salesIcon },
   { value: "Customer Insights (Marketing)", label: "Marketing", desc: "Marketing automation och kunddata", icon: marketingIcon },
