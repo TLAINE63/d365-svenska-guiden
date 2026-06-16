@@ -21,6 +21,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const CRM = lazy(() => import("./pages/CRM"));
 const BusinessCentral = lazy(() => import("./pages/BusinessCentral"));
 const FinanceSupplyChain = lazy(() => import("./pages/FinanceSupplyChain"));
+const FscmMatchningstest = lazy(() => import("./pages/FscmMatchningstest"));
 const ERPOverview = lazy(() => import("./pages/ERPOverview"));
 const Affarssystem = lazy(() => import("./pages/Affarssystem"));
 
