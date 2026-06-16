@@ -1751,7 +1751,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.setFontSize(7);
     pdf.setFont("helvetica", "normal");
     pdf.setTextColor(120, 120, 120);
-    pdf.text("Bakom kulisserna lutar det mot:", margin, yPos);
+    pdf.text("Indikationen bygger främst på:", margin, yPos);
     yPos += 5;
     pdf.setFillColor(230, 245, 242);
     const pillW = pdf.getTextWidth(pdfProduct) + 12;
