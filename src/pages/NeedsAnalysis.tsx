@@ -2086,7 +2086,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         const selectedModel = businessModelOptions.find(m => m.value === data.businessModel);
         return (
           <div className="space-y-6">
-            <p className="text-muted-foreground">Välj den affärsmodell som bäst beskriver er verksamhet. Detta hjälper oss anpassa analysen efter era förutsättningar.</p>
+            <p className="text-muted-foreground">Hur skapar ni huvudsakligen intäkter och levererar värde till era kunder? Valet hjälper oss att förstå vilka processer som är mest affärskritiska i ett ERP-projekt.</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {businessModelOptions.map((option) => (
                 <SelectionCard
