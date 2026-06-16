@@ -1219,18 +1219,18 @@ const CustomerServiceNeedsAnalysis = () => {
       yPos += 3;
     };
 
-    addAppendixSection("Steg 1 - Foretagsinformation", [
-      ["Antal anstallda", data.employees],
+    addAppendixSection("Steg 1 – Företagsinformation", [
+      ["Antal anställda", data.employees],
       ["Bransch", data.industry === "Annat" ? data.industryOther : data.industry],
       ["Serviceteam-storlek", data.serviceTeamSize],
       ["Antal agenter", data.numberOfAgents],
       ["Nuvarande system", data.currentSystems.filter(s => s.product.trim()).map(s => s.year ? `${s.product} (${s.year})` : s.product).join(", ")],
-      ["Ovriga system (detaljer)", data.otherSystemsDetails || ""],
+      ["Övriga system (detaljer)", data.otherSystemsDetails || ""],
     ]);
 
-    addAppendixSection("Steg 2 - Service-modell", [
+    addAppendixSection("Steg 2 – Service-modell", [
       ["Servicekanaler", (data.serviceChannels || []).join(", ")],
-      ["Serviceupp lagg", data.serviceModel],
+      ["Serviceupplägg", data.serviceModel],
     ]);
 
     const csChallengeStr = Object.entries(data.situationChallenges || {})
