@@ -1360,21 +1360,41 @@ const CustomerServiceNeedsAnalysis = () => {
         return (
           <div className="space-y-6">
             <div>
-              <Label className="text-base font-semibold mb-1 block">Hur levererar ni huvudsakligen kundservice?</Label>
-              <p className="text-sm text-muted-foreground mb-4">Ditt val styr vilka frågor och rekommendationer som är relevanta för er.</p>
+              <Label className="text-base font-semibold mb-1 block">Vilket område gäller behovsanalysen främst?</Label>
+              <p className="text-sm text-muted-foreground mb-4">Välj det område som bäst beskriver ert nuläge. Svaren styr vilka följdfrågor som visas och hur analysen tolkar er preliminära lösningsinriktning.</p>
               <div className="grid grid-cols-1 gap-3">
                 {[
-                  { value: "Ärendebaserad kundservice", label: "1️⃣ Ärendebaserad kundservice", description: "Kunder kontaktar er och ni hanterar ärenden" },
-                  { value: "Volymbaserad kundservice / Contact Center", label: "2️⃣ Volymbaserad kundservice / Contact Center", description: "Hög volym av inkommande kontakter via flera kanaler" },
-                  { value: "Fältservice med tekniker", label: "3️⃣ Fältservice med tekniker på plats", description: "Service utförs hos kund" },
-                  { value: "Kombination av flera", label: "4️⃣ Kombination av flera upplägg", description: "Ni arbetar med en mix av ärendehantering, contact center och/eller fältservice" },
+                  { value: "Ärendebaserad kundservice", label: "Kundservice / Ärendehantering", description: "Kunder kontaktar er och ni hanterar ärenden, SLA, kunskapsdatabas och eskaleringar" },
+                  { value: "Fältservice med tekniker", label: "Fältservice / Tekniker och serviceuppdrag", description: "Service utförs hos kund med teknikerplanering, installerad bas och reservdelar" },
+                  { value: "Volymbaserad kundservice / Contact Center", label: "Contact Center / Telefoni, chatt och omnichannel", description: "Hög volym av inkommande kontakter via flera kanaler, agentstöd och routing" },
+                  { value: "Kombination av flera", label: "Flera av områdena ovan", description: "Sammanhängande flöde mellan contact center, kundservice och/eller fältservice" },
+                  { value: "Osäkert – vi vill förstå behovet bättre", label: "Osäkert – vi vill förstå behovet bättre", description: "Vi vill att analysen hjälper oss förstå vilket område som behöver mest fokus" },
                 ].map((option) => (
                   <SelectionCard key={option.value} label={option.label} description={option.description} selected={data.serviceModel === option.value} onClick={() => setData({ ...data, serviceModel: option.value })} type="radio" />
                 ))}
               </div>
             </div>
+
+            {data.serviceModel === "Osäkert – vi vill förstå behovet bättre" && (
+              <div>
+                <Label className="text-base font-semibold mb-1 block">Var upplever ni störst problem idag?</Label>
+                <p className="text-sm text-muted-foreground mb-4">Välj alla som stämmer. Analysen använder svaren för att föreslå vilket område som verkar mest centralt.</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {unsureIssueOptions.map((opt) => (
+                    <SelectionCard
+                      key={opt}
+                      label={opt}
+                      selected={data.unsureIssues.includes(opt)}
+                      onClick={() => handleCheckboxChange("unsureIssues", opt)}
+                      type="checkbox"
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         );
+
 
       case 3: {
         const isDigital = data.serviceModel === "Ärendebaserad kundservice";
