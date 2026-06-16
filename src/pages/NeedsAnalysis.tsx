@@ -64,13 +64,15 @@ interface ComplexityData {
 }
 
 interface AnalysisData {
-  // Step 1 - Business model
+  // Step 1 - Verksamhetsmodell
   businessModel: string;
   businessModelSub: string;
   businessModelSubs: string[];
+  secondaryBusinessModels: string[];
   // Step 2
   employees: string;
   revenue: string;
+  erpUsers: string;
   // Step 3
   industry: string;
   industryOther: string;
@@ -108,6 +110,7 @@ interface AnalysisData {
   contactName: string;
   phone: string;
   email: string;
+  consentToContact: boolean;
 }
 
 const initialComplexity: ComplexityData = {
@@ -192,8 +195,10 @@ const initialData: AnalysisData = {
   businessModel: "",
   businessModelSub: "",
   businessModelSubs: [],
+  secondaryBusinessModels: [],
   employees: "",
   revenue: "",
+  erpUsers: "",
   industry: "",
   industryOther: "",
   complexity: { ...initialComplexity },
@@ -229,6 +234,7 @@ const initialData: AnalysisData = {
   contactName: "",
   phone: "",
   email: "",
+  consentToContact: false,
 };
 
 // Situation challenge categories for Step 6
@@ -321,10 +327,20 @@ const employeeOptions = [
 const revenueOptions = [
   "1-9 MSEK",
   "10-49 MSEK",
-  "50-499 MSEK",
+  "50-99 MSEK",
+  "100-249 MSEK",
+  "250-499 MSEK",
   "500-999 MSEK",
   "1.000-4.999 MSEK",
-  "> 5.000 MSEK",
+  "Mer än 5.000 MSEK",
+];
+
+const erpUsersOptions = [
+  "1-10 användare",
+  "11-25 användare",
+  "26-75 användare",
+  "76-200 användare",
+  "Mer än 200 användare",
 ];
 
 const industryOptions = [
@@ -790,7 +806,7 @@ const NeedsAnalysis = () => {
   ];
 
   const stepTitles = [
-    "Affärsmodell",
+    "Verksamhetsmodell",
     "Storlek",
     "Bransch",
     "Komplexitet",
@@ -1556,7 +1572,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.setFontSize(8);
     pdf.setFont("helvetica", "normal");
     pdf.setTextColor(120, 120, 120);
-    pdf.text("ERP Complexity Level", margin, yPos);
+    pdf.text("Bedömd ERP-komplexitet", margin, yPos);
     yPos += 6;
     for (let i = 1; i <= 4; i++) {
       if (i <= maturityLevel) pdf.setFillColor(5, 150, 105);
@@ -1735,7 +1751,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.setFontSize(7);
     pdf.setFont("helvetica", "normal");
     pdf.setTextColor(120, 120, 120);
-    pdf.text("Bakom kulisserna lutar det mot:", margin, yPos);
+    pdf.text("Indikationen bygger främst på:", margin, yPos);
     yPos += 5;
     pdf.setFillColor(230, 245, 242);
     const pillW = pdf.getTextWidth(pdfProduct) + 12;
@@ -2070,7 +2086,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         const selectedModel = businessModelOptions.find(m => m.value === data.businessModel);
         return (
           <div className="space-y-6">
-            <p className="text-muted-foreground">Välj den affärsmodell som bäst beskriver er verksamhet. Detta hjälper oss anpassa analysen efter era förutsättningar.</p>
+            <p className="text-muted-foreground">Hur skapar ni huvudsakligen intäkter och levererar värde till era kunder? Valet hjälper oss att förstå vilka processer som är mest affärskritiska i ett ERP-projekt.</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {businessModelOptions.map((option) => (
                 <SelectionCard
@@ -2156,6 +2172,21 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                     label={option}
                     selected={data.revenue === option}
                     onClick={() => setData({ ...data, revenue: option })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-1">Antal användare i affärssystemet</h3>
+              <p className="text-sm text-muted-foreground mb-4">Ungefär hur många användare arbetar i eller nära affärssystemet?</p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {erpUsersOptions.map((option) => (
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.erpUsers === option}
+                    onClick={() => setData({ ...data, erpUsers: option })}
                     type="radio"
                   />
                 ))}
@@ -2673,7 +2704,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               </div>
               <div className="p-5 bg-background grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {[
-                  { label: "Affärsmodell", value: bmLabel },
+                  { label: "Verksamhetsmodell", value: bmLabel },
                   { label: "Organisation", value: sizeLabel },
                   { label: "Geografisk räckvidd", value: geoLabel },
                   { label: "Kritiska faktorer", value: complexity.criticalFactors.length > 0 ? `${complexity.criticalFactors.length} identifierade` : "Inga kritiska" },
@@ -2692,7 +2723,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 <h3 className="font-bold text-white text-sm tracking-wide">🟩 ERP-komplexitetsnivå</h3>
               </div>
               <div className="p-5 bg-background space-y-3">
-                <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">ERP Complexity Level</p>
+                <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">Bedömd ERP-komplexitet</p>
                 <div className="flex items-center gap-2">
                   {[1, 2, 3, 4].map(i => (
                     <span key={i} className={`text-2xl leading-none ${i <= maturityLevel ? "text-emerald-500" : "text-muted-foreground/30"}`}>⬤</span>
@@ -2759,7 +2790,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             <div className="border rounded-xl p-5 space-y-4 bg-background shadow-sm">
               <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
                 <span className="w-6 h-6 rounded-full bg-finance-supply text-finance-supply-foreground text-xs flex items-center justify-center font-bold">1</span>
-                Rekommenderad ERP-plattform
+                Preliminär systemindikation
               </h3>
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
                 <span className="text-3xl">{isBC ? "📗" : "📘"}</span>
@@ -2782,7 +2813,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             <div className="border rounded-xl p-5 space-y-4 bg-background shadow-sm">
               <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
                 <span className="w-6 h-6 rounded-full bg-finance-supply text-finance-supply-foreground text-xs flex items-center justify-center font-bold">2</span>
-                Rekommenderad lösningsinriktning
+                Preliminär systemindikation
               </h3>
               <p className="text-sm font-medium text-foreground mb-3">
                 Baserat på er ERP-profil rekommenderas en plattform med fokus på:
@@ -2797,7 +2828,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               </div>
               <div className="pt-2 border-t border-border">
                 <p className="text-xs text-muted-foreground font-medium mb-3 uppercase tracking-wide">
-                  Bakom kulisserna lutar det mot
+                  Indikationen bygger främst på
                 </p>
                 <div className="flex flex-wrap gap-2">
                   <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border bg-finance-supply/10 border-finance-supply/30 text-finance-supply`}>
@@ -2889,9 +2920,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               <div className="border rounded-xl p-5 bg-background shadow-sm space-y-4">
                 <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
                   <Download className="w-5 h-5 text-finance-supply" />
-                  Ladda ned din fullständiga ERP-analys
+                  Skicka PDF till min e-post
                 </h3>
-                <p className="text-sm text-muted-foreground">Fyll i kontaktuppgifter för att ladda ned en PDF med din analys och alla svar.</p>
+                <p className="text-sm text-muted-foreground">Fyll i dina kontaktuppgifter så skickar vi PDF-rapporten till din e-post.</p>
                 {isComplete ? (
                   <div className="flex items-center gap-3 p-4 rounded-lg border border-green-200 bg-green-50 dark:bg-green-950/30 dark:border-green-800">
                     <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0" />
@@ -2962,6 +2993,15 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                         {contactErrors.email && <p className="text-sm text-destructive mt-1">{contactErrors.email}</p>}
                       </div>
                     </div>
+                    <label className="flex items-start gap-2 text-sm text-muted-foreground cursor-pointer select-none pt-1">
+                      <input
+                        type="checkbox"
+                        checked={data.consentToContact}
+                        onChange={(e) => setData({ ...data, consentToContact: e.target.checked })}
+                        className="mt-1 h-4 w-4 rounded border-border accent-finance-supply"
+                      />
+                      <span>Jag godkänner att d365.se får kontakta mig kring analysen.</span>
+                    </label>
                     <div className="flex flex-col sm:flex-row gap-3 pt-2">
                       <Button
                         onClick={generateDocument}
@@ -2969,7 +3009,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                         className="bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground flex-1"
                       >
                         <Download className="w-4 h-4 mr-2" />
-                        {isSendingEmail ? "Skickar..." : "Ladda ner & skicka analys"}
+                        {isSendingEmail ? "Skickar..." : "Skicka PDF till min e-post"}
                       </Button>
                       <Button variant="outline" onClick={() => window.print()} className="flex-shrink-0">
                         🖨️ Skriv ut
