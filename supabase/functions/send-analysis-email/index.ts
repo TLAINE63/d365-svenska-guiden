@@ -87,6 +87,15 @@ function isValidBase64(str: string): boolean {
   return base64Regex.test(str) && str.length > 0;
 }
 
+interface AiAnalysis {
+  aiInterpretation?: string;
+  whyPoints?: string[];
+  risks?: string[];
+  partnerProfile?: string;
+  nextSteps?: string[];
+  confidence?: string;
+}
+
 interface AnalysisEmailRequest {
   analysisType: string;
   companyName: string;
@@ -98,6 +107,7 @@ interface AnalysisEmailRequest {
     product: string;
     reasons: string[];
   };
+  aiAnalysis?: AiAnalysis;
   pdfBase64?: string;
   pdfFilename?: string;
 }
