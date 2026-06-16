@@ -80,7 +80,7 @@ const ERPOverview = () => {
       />
       <ServiceSchema 
         name="Microsoft Dynamics 365 ERP – jämförelse & rådgivning"
-        description="Köparsidig jämförelse av Microsoft Dynamics 365 ERP-system: Business Central för små och medelstora företag, Finance & Supply Chain Management för stora organisationer. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+        description="Köparsidig jämförelse av Microsoft Dynamics 365 ERP-system: Business Central för mindre och medelstora företag, Finance & Supply Chain Management för stora organisationer. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
       />
       <FAQSchema faqs={erpFaqs} />
       <BreadcrumbSchema items={erpBreadcrumbs} />
