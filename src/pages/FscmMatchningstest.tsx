@@ -134,7 +134,7 @@ const FscmMatchningstest = () => {
         consent: false,
         background: {},
         responses: answers,
-        dimension_scores: score as unknown as Record<string, unknown>,
+        dimension_scores: score as unknown as never,
         meta: { assessment_type: "fscm_matchningstest", version: 1 },
       },
     ]);
