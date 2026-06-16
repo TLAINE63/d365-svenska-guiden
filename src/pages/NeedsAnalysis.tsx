@@ -1382,9 +1382,67 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     if (!validateContactForm()) {
       return;
     }
-    
+
     const recommendation = getERPRecommendation();
     const complexity = getComplexityScores();
+
+    // ── Hämta köparsidig AI-tolkning (med fallback) ─────────────────────────
+    let aiAnalysis: {
+      aiInterpretation: string;
+      whyPoints: string[];
+      risks: string[];
+      partnerProfile: string;
+      nextSteps: string[];
+      confidence: string;
+    } | null = null;
+    try {
+      setIsSendingEmail(true);
+      const aiSummary = {
+        verksamhetsmodell: data.businessModel,
+        underkategorier: data.businessModelSubs,
+        sekundaraModeller: data.secondaryBusinessModels,
+        anstallda: data.employees,
+        omsattning: data.revenue,
+        erpAnvandare: data.erpUsers,
+        bransch: data.industry === "Annat" ? data.industryOther : data.industry,
+        geografi: data.geography,
+        geografiOvrigt: data.geographyOther,
+        komplexitet: data.complexity,
+        komplexitetsniva: complexity.complexityLevel,
+        riskniva: complexity.riskLevel,
+        nuvarandeSystem: data.currentSystems.filter(s => s.product.trim()),
+        ovrigaSystem: data.otherSystemsDetails,
+        situationOrsak: data.currentSituationReason,
+        utmaningar: data.situationChallenges,
+        beslutstidslinje: data.decisionTimeline,
+        integrationer: data.integrationSystems.filter(s => s.system.trim()),
+        aiIntresse: data.aiInterest,
+        aiAnvandningsomraden: data.aiUseCases,
+        onskelista: data.wishlist,
+        ovrigInfo: data.additionalInfo,
+      };
+      const { data: aiRes, error: aiErr } = await supabase.functions.invoke("generate-erp-analysis", {
+        body: {
+          companyName: data.companyName,
+          contactName: data.contactName,
+          summary: aiSummary,
+          recommendation: {
+            product: recommendation.product,
+            reasons: recommendation.reasons,
+            isCloseCall: recommendation.isCloseCall,
+            complexityLevel: complexity.complexityLevel,
+            riskLevel: complexity.riskLevel,
+          },
+        },
+      });
+      if (aiErr) console.error("AI-tolkning fel:", aiErr);
+      if (aiRes?.analysis) aiAnalysis = aiRes.analysis;
+    } catch (e) {
+      console.error("AI-tolkning misslyckades:", e);
+    } finally {
+      setIsSendingEmail(false);
+    }
+
     const { default: jsPDF } = await import("jspdf");
     const pdf = new jsPDF();
     const pageWidth = pdf.internal.pageSize.getWidth();
