@@ -940,9 +940,11 @@ const CustomerServiceNeedsAnalysis = () => {
     // ══════════════════════════════════════════════════════════════════════
     addSectionHeader("SAMMANFATTNING", 37, 99, 235);
     const profileMap: Record<string, string> = {
-      "Arendebaserad kundservice": "Arendebaserad service",
+      "Arendebaserad kundservice": "Ärendebaserad service",
+      "Ärendebaserad kundservice": "Ärendebaserad service",
       "Volymbaserad kundservice / Contact Center": "Contact Center",
-      "Faltservice med tekniker": "Faltservice",
+      "Faltservice med tekniker": "Fältservice",
+      "Fältservice med tekniker": "Fältservice",
       "Kombination av flera": "Hybrid service",
     };
     const geoLabel = data.multiCountry === "Ja, globalt" ? "Global" : data.multiCountry === "Ja, Europa" ? "Europa" : data.multiCountry === "Ja, Norden" ? "Norden" : "Sverige";
@@ -950,16 +952,16 @@ const CustomerServiceNeedsAnalysis = () => {
     const inboundMedium = ["100–500 kontakter/dag", "100-500 kontakter/dag"];
     const inboundLow = ["Färre än 100 kontakter/dag", "Farre an 100 kontakter/dag"];
     let volLabel: string;
-    if (data.ticketsPerMonth === "2 000-10 000" || data.ticketsPerMonth === "Mer an 10 000" || inboundHigh.includes(data.inboundVolume)) {
-      volLabel = "Hog";
+    if (data.ticketsPerMonth === "2 000-10 000" || data.ticketsPerMonth === "Mer an 10 000" || data.ticketsPerMonth === "Mer än 10 000" || inboundHigh.includes(data.inboundVolume)) {
+      volLabel = "Hög";
     } else if (data.ticketsPerMonth === "500-2 000" || inboundMedium.includes(data.inboundVolume)) {
       volLabel = "Medel";
     } else if (data.ticketsPerMonth || inboundLow.includes(data.inboundVolume)) {
-      volLabel = "Lag";
+      volLabel = "Låg";
     } else {
       volLabel = "Ej angivet";
     }
-    const sysIds: Record<string, string> = { erp: "ERP", iot: "IoT", product_register: "Produktregister", lager: "Lager", fakturering: "Fakturering", crm_sales: "CRM/Salj", field_service_ext: "Faltservice-system", telefoni: "Telefoni", e_handel: "E-handel", hr: "HR" };
+    const sysIds: Record<string, string> = { erp: "ERP", iot: "IoT", product_register: "Produktregister", lager: "Lager", fakturering: "Fakturering", crm_sales: "CRM/Sälj", field_service_ext: "Fältservice-system", telefoni: "Telefoni", e_handel: "E-handel", hr: "HR" };
     const integList = data.systemDependencies.map(id => sysIds[id] || id);
 
     const profileRows = [
