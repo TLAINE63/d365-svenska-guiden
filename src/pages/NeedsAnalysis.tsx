@@ -1402,7 +1402,7 @@ const NeedsAnalysis = () => {
   // ============ ERP Recommendation Logic (rewritten) ============
   const getERPRecommendation = (): {
     product: string;
-    outcome: "Business Central" | "Finance & Supply Chain Management" | "Båda bör utvärderas" | "För tidigt att avgöra";
+    outcome: "Business Central" | "Business Central med tillägg" | "Finance & Supply Chain Management" | "Båda bör utvärderas" | "För tidigt att avgöra";
     securityLevel: "Låg" | "Medel" | "Hög";
     score: number;
     reasons: string[];
@@ -1412,6 +1412,9 @@ const NeedsAnalysis = () => {
     riskLevel: string;
     isHighRisk: boolean;
     criticalFactors: string[];
+    prioritizedFactors: string[];
+    indicationBasis: string[];
+    addonTriggers: string[];
     bcScore: number;
     fscScore: number;
   } => {
