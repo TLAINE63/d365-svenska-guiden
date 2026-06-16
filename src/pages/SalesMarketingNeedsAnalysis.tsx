@@ -2101,6 +2101,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
           </div>
         );
+      }
 
       case 3:
         return (
