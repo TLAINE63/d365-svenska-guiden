@@ -166,7 +166,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Integration med transportlösningar</h2>
         <p>
-          Via tillägg i AppSource kan Business Central integreras med transportbolag som PostNord och nShift, vilket gör det möjligt att skapa fraktavier, boka upphämtning och spåra försändelser direkt från affärssystemet.
+          Via tillägg i Marketplace kan Business Central integreras med transportbolag som PostNord och nShift, vilket gör det möjligt att skapa fraktavier, boka upphämtning och spåra försändelser direkt från affärssystemet.
         </p>
 
         <h2>Montering och enkel produktion</h2>
