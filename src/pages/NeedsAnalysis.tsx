@@ -2170,25 +2170,25 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     // 2. ERP-MOGNAD (Complexity Level with dots)
     // ══════════════════════════════════════════════════════════════════════
     const maturityLevel = complexity.complexityLevel;
-    const maturityLabels = ["", "Grundläggande ERP", "Strukturerat ERP", "Avancerat ERP", "Enterprise ERP"];
+    const maturityLabels = ["", "Grundläggande ERP", "Standardiserat ERP med tillväxt- och integrationskrav", "Avancerat ERP", "Enterprise ERP"];
     const maturityComments: Record<number, { text: string; strengths: string[]; gaps: string[] }> = {
       1: {
-        text: "Er organisation har relativt enkla ERP-behov med begränsad komplexitet i struktur och processer. Det finns stor möjlighet att snabbt få värde av ett modernt affärssystem.",
+        text: "Er organisation har relativt enkla ERP-behov med begränsad komplexitet i struktur och processer. Det finns goda möjligheter att snabbt få värde av ett modernt affärssystem.",
         strengths: ["Enkel och snabb implementation", "Låg TCO och tydlig ROI", "Lätthanterade processer", "Flexibilitet att växa"],
         gaps: ["Begränsat systemstöd idag", "Manuella processer kan skalas bort", "Potential att standardisera mer"],
       },
       2: {
-        text: "Er organisation har en måttlig komplexitet med etablerade affärsprocesser. Rätt ERP-plattform ger er möjlighet att effektivisera och automatisera utan onödig komplexitet.",
+        text: "Er organisation har en standardiserad ERP-bas men tydliga tillväxt-, integrations- och effektiviseringsbehov. Rätt plattform behöver kunna stödja både dagens flöden och nästa skalningssteg utan onödig komplexitet.",
         strengths: ["Etablerade affärsprocesser", "Viss systemerfarenhet", "Tydlig ansvarsfördelning"],
-        gaps: ["Begränsad integrationskapacitet", "Manuell rapportering", "Processer ej fullt standardiserade"],
+        gaps: ["Integrationsbehov mellan flera system", "Manuell rapportering att automatisera", "Processer behöver standardiseras inför skalning"],
       },
       3: {
-        text: "Er organisation har en påtaglig komplexitet i struktur eller operativa processer. Implementationsprojektet kraver noggrann förberedelse och en partner med dokumenterad erfarenhet.",
+        text: "Er organisation har en påtaglig komplexitet i struktur, integrationer eller operativa processer. Implementationsprojektet kräver noggrann förberedelse, tydlig arkitektur och en partner med dokumenterad erfarenhet.",
         strengths: ["Tydliga processkrav", "IT-mognad på plats", "Strukturerad styrmodell"],
         gaps: ["Integrationsbehov kräver plan", "Förändringsledning viktigt", "Kräver branschanpassad partner"],
       },
       4: {
-        text: "Er organisation har hog komplexitet - multi-entity, globala floden eller avancerade operativa krav. Partnerurval och projektarkitektur ar avgörande for framgang.",
+        text: "Er organisation har hög komplexitet – multi-entity, globala flöden eller avancerade operativa krav. Partnerurval, arkitektur och förändringsledning blir avgörande för framgång.",
         strengths: ["Stor intern IT-kapacitet", "Tydlig global styrmodell", "Avancerade systemkrav väldefinierade"],
         gaps: ["Lång implementationstid att planera för", "Kräver enterprise-certifierad partner", "Change management kritiskt"],
       },
