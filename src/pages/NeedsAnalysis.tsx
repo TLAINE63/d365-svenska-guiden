@@ -2157,6 +2157,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           },
           pdfBase64: pdfBase64,
           pdfFilename: pdfFilename,
+          aiAnalysis: aiAnalysis || undefined,
         },
       });
 
