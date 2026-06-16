@@ -2655,12 +2655,23 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     const filledIntegrations = data.integrationSystems.filter(s => s.system.trim());
     const integrationsStr = filledIntegrations.map(s => s.system).join(", ");
 
-    addAppendixSection("Steg 8 - AI & Framtid", [
+    const dqStr = Object.entries(data.aiDataQuality || {}).filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`).join("; ");
+    const pmStr = Object.entries(data.aiProcessMaturity || {}).filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`).join("; ");
+
+    addAppendixSection("Steg 8 - AI, automation och beslutsstod", [
       ["AI-intresse", data.aiInterest],
-      ["AI-anvandningsomraden", data.aiUseCases.join(", ")],
+      ["AI-mognadsniva", aiMaturity.level],
+      ["Ambitioner", data.aiAmbitions.join(", ")],
+      ["Prioriterade use cases", data.aiUseCases.join(", ")],
+      ["Datakvalitet", dqStr || "Ej angivet"],
+      ["Dataproblem", data.aiDataIssues.join(", ") || "Ej angivet"],
+      ["Processmognad", pmStr || "Ej angivet"],
+      ["AI-governance", data.aiGovernance || "Ej angivet"],
+      ["AI-risker", data.aiRisks.join(", ") || "Ej angivet"],
       ["AI - egna kommentarer", data.aiDetails || ""],
       ["Integrationer", integrationsStr],
     ]);
+
 
     // Övriga noteringar (free-text fields)
     const hasOvrigt = data.wishlist || data.additionalInfo;
