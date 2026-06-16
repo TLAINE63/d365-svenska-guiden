@@ -2007,7 +2007,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       3: {
         text: "Er organisation har en påtaglig komplexitet i struktur eller operativa processer. Implementationsprojektet kraver noggrann förberedelse och en partner med dokumenterad erfarenhet.",
         strengths: ["Tydliga processkrav", "IT-mognad på plats", "Strukturerad styrmodell"],
-        gaps: ["Integrationsbehov kraver plan", "Förändringsledning viktigt", "Kräver branschanpassad partner"],
+        gaps: ["Integrationsbehov kräver plan", "Förändringsledning viktigt", "Kräver branschanpassad partner"],
       },
       4: {
         text: "Er organisation har hog komplexitet - multi-entity, globala floden eller avancerade operativa krav. Partnerurval och projektarkitektur ar avgörande for framgang.",
@@ -2033,12 +2033,12 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.setFontSize(13);
     pdf.setFont("helvetica", "bold");
     pdf.setTextColor(51, 51, 51);
-    pdf.text(`Niva ${maturityLevel} - ${maturityLabels[maturityLevel]}`, margin, yPos);
+    pdf.text(`Nivå ${maturityLevel} - ${maturityLabels[maturityLevel]}`, margin, yPos);
     yPos += 4;
     pdf.setFontSize(8);
     pdf.setFont("helvetica", "normal");
     pdf.setTextColor(120, 120, 120);
-    pdf.text(`Riskniva: ${complexity.riskLevel}`, margin, yPos);
+    pdf.text(`Risknivå: ${complexity.riskLevel}`, margin, yPos);
     yPos += 8;
 
     // ══════════════════════════════════════════════════════════════════════
@@ -2112,7 +2112,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         pdf.setFontSize(8);
         pdf.setFont("helvetica", "italic");
         pdf.setTextColor(120, 120, 120);
-        pdf.text(`Sakerhet i analysen: ${aiAnalysis.confidence}`, margin, yPos);
+        pdf.text(`Säkerhet i analysen: ${aiAnalysis.confidence}`, margin, yPos);
         yPos += 6;
       }
       yPos += 4;
@@ -2381,7 +2381,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       if (dqEntries.length) {
         checkPage(12);
         pdf.setFont("helvetica", "bold");
-        pdf.text(`Datamognad (sammanvagd: ${aiMaturity.dataScore}/100):`, margin, yPos); yPos += 5;
+        pdf.text(`Datamognad (sammanvägd: ${aiMaturity.dataScore}/100):`, margin, yPos); yPos += 5;
         pdf.setFont("helvetica", "normal");
         dqEntries.forEach(([k, v]) => {
           checkPage(5);
@@ -2405,7 +2405,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       if (pmEntries.length) {
         checkPage(12);
         pdf.setFont("helvetica", "bold");
-        pdf.text(`Processmognad (sammanvagd: ${aiMaturity.processScore}/100):`, margin, yPos); yPos += 5;
+        pdf.text(`Processmognad (sammanvägd: ${aiMaturity.processScore}/100):`, margin, yPos); yPos += 5;
         pdf.setFont("helvetica", "normal");
         pmEntries.forEach(([k, v]) => {
           checkPage(5);
@@ -2715,15 +2715,15 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           email: data.email,
           analysisData: {
             "Affarsmodell": `${data.businessModel}${data.businessModelSubs.length > 0 ? ` - ${data.businessModelSubs.join(", ")}` : data.businessModelSub ? ` - ${data.businessModelSub}` : ''}` || "Ej angivet",
-            "Anstallda": data.employees,
-            "Omsattning": data.revenue,
+            "Anställda": data.employees,
+            "Omsättning": data.revenue,
             "Bransch": data.industry || "Ej angivet",
             "Geografi": data.geography || "Ej angivet",
             "Komplexitetsniva": `${complexity.complexityLevel} av 4`,
-            "Riskniva": complexity.riskLevel,
+            "Risknivå": complexity.riskLevel,
             "Integrationer": integrationsStr || "Ej angivet",
             "Rekommendation": recommendation.outcome,
-            "Sakerhet": recommendation.securityLevel,
+            "Säkerhet": recommendation.securityLevel,
           },
           recommendation: {
             product: recommendation.outcome,
