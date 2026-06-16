@@ -1792,15 +1792,24 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 2:
+      case 2: {
+        const visibleCommercialModels = commercialModelOptions.filter((o) => {
+          if (focus === "sales") return ["b2b_relational", "b2b_complex", "partner_channel"].includes(o.value);
+          if (focus === "marketing") return ["digital_market", "b2c_volume"].includes(o.value);
+          return true;
+        });
         return (
           <div className="space-y-6">
             <div>
               <p className="text-muted-foreground mb-6">
-                Välj det alternativ som bäst beskriver hur er verksamhet primärt genererar affärer. Det hjälper oss att anpassa analysen till er situation.
+                {focus === "sales"
+                  ? "Välj den B2B-/partner-modell som bäst beskriver er försäljning. Marknadstunga modeller är dolda eftersom ni valt fokus på Sälj."
+                  : focus === "marketing"
+                  ? "Välj den marknads-/digitala modell som bäst beskriver er affär. Renodlade säljmodeller är dolda eftersom ni valt fokus på Marknad."
+                  : "Välj det alternativ som bäst beskriver hur er verksamhet primärt genererar affärer. Det hjälper oss att anpassa analysen till er situation."}
               </p>
               <div className="grid grid-cols-1 gap-3">
-                {commercialModelOptions.map((option) => (
+                {visibleCommercialModels.map((option) => (
                   <SelectionCard
                     key={option.value}
                     label={`${option.emoji} ${option.label}`}
