@@ -2760,12 +2760,36 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
     // Slå samman AI-tolkningens nasta steg med deterministiska AI-rekommendationer
     const combinedNextSteps: string[] = [];
+
+    // Deterministiska fit-gap-steg utifrån lösningsindikation
+    const productKey = recommendation.product || "";
+    const addonsList = (recommendation.addonTriggers || []).filter(Boolean);
+    if (/Business Central/i.test(productKey)) {
+      combinedNextSteps.push(
+        "Genomför en fit-gap mot Business Central standard och identifiera vilka behov som täcks av standardfunktionalitet, vilka som kräver tillägg eller ISV-lösningar och vilka som motiverar fortsatt utvärdering av Finance & Supply Chain Management."
+      );
+      if (addonsList.length) {
+        combinedNextSteps.push(
+          `Validera särskilt följande områden i fit-gap där tillägg eller branschlösningar kan behövas: ${addonsList.slice(0, 6).join(", ")}.`
+        );
+      }
+    } else if (/Finance|Supply Chain/i.test(productKey)) {
+      combinedNextSteps.push(
+        "Genomför en fit-gap mot Finance & Supply Chain Management och bedöm samtidigt om delar av verksamheten skulle kunna lösas enklare i Business Central med relevanta tillägg."
+      );
+    } else if (/utvärderas|tidigt/i.test(productKey)) {
+      combinedNextSteps.push(
+        "Genomför en jämförande fit-gap där både Business Central (med eventuella tillägg) och Finance & Supply Chain Management värderas mot era prioriterade processer och datakrav."
+      );
+    }
+
     if (aiAnalysis?.nextSteps?.length) combinedNextSteps.push(...aiAnalysis.nextSteps);
     deterministicAiNextSteps.forEach(s => {
       if (!combinedNextSteps.some(x => x.toLowerCase().includes(s.toLowerCase().slice(0, 30)))) {
         combinedNextSteps.push(s);
       }
     });
+
     if (combinedNextSteps.length) {
       checkPage(30);
       addSectionHeader("REKOMMENDERADE NÄSTA STEG", 14, 124, 134);
