@@ -68,12 +68,13 @@ const OmMichaelUhman = () => {
               <ArrowLeft className="w-4 h-4" /> Tillbaka till Kontakt
             </Link>
 
-            <div className="grid lg:grid-cols-[260px_1fr] gap-8 items-start max-w-5xl">
+            <div className="grid lg:grid-cols-[180px_1fr] gap-8 items-start max-w-5xl">
               <img
                 src={michaelUhmanPhoto}
                 alt="Michael Uhman – medgrundare av d365.se"
-                className="w-48 h-48 lg:w-64 lg:h-64 rounded-full object-cover border-4 border-primary/20 mx-auto lg:mx-0"
+                className="w-32 h-32 lg:w-44 lg:h-44 rounded-full object-cover border-4 border-primary/20 mx-auto lg:mx-0"
               />
+
               <div>
                 <p className="text-sm uppercase tracking-wider text-muted-foreground mb-2">
                   Medgrundare, d365.se
