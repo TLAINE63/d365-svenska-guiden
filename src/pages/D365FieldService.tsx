@@ -94,7 +94,18 @@ const D365FieldService = () => {
       />
 
       <ShortAnswer title="Vad är Dynamics 365 Field Service">
-        Dynamics 365 Field Service är Microsofts kompletta lösning för serviceorganisationer som har tekniker, montörer eller installatörer ute hos kund — från VVS, fastighet och energi till tillverkningsindustri, medicinteknik och telekom. Plattformen täcker hela kedjan: arbetsorderhantering, AI-driven schemaläggning och dispatch som matchar rätt tekniker med rätt kompetens till rätt jobb, optimerade körrutter, mobilapp för fält med offline-stöd, digitala checklistor och bildbevis, samt fjärrassistans via Dynamics 365 Remote Assist och HoloLens där en senior tekniker kan guida en juniorkollega i realtid. Med inbyggt IoT-stöd kan uppkopplade maskiner själva larma och boka in förebyggande service innan de havererar, och Copilot samt autonoma fältagenter sammanfattar ärenden, föreslår reservdelar och förbereder rapporter automatiskt. Field Service är djupt integrerat med Dynamics 365 Customer Service, Sales, Business Central och Finance & Supply Chain Management, vilket gör att fakturering, lager och kundhistorik hänger ihop utan dubbelregistrering. Resultatet är högre andel ärenden lösta vid första besöket, mindre körtid, lägre kostnad per ärende och en kundupplevelse som matchar det allra bästa i branschen — förutsatt att partnern bygger schemaläggningsregler, kompetensmatris och integrationer rätt från start.
+        <p>
+          Dynamics 365 Field Service är Microsofts kompletta lösning för serviceorganisationer som har tekniker, montörer eller installatörer ute hos kund — från VVS, fastighet och energi till tillverkningsindustri, medicinteknik och telekom.
+        </p>
+        <p>
+          Plattformen täcker hela kedjan: arbetsorderhantering, AI-driven schemaläggning och dispatch som matchar rätt tekniker med rätt kompetens till rätt jobb, optimerade körrutter, mobilapp för fält med offline-stöd, digitala checklistor och bildbevis, samt fjärrassistans via Dynamics 365 Remote Assist och HoloLens där en senior tekniker kan guida en juniorkollega i realtid.
+        </p>
+        <p>
+          Med inbyggt IoT-stöd kan uppkopplade maskiner själva larma och boka in förebyggande service innan de havererar, och Copilot samt autonoma fältagenter sammanfattar ärenden, föreslår reservdelar och förbereder rapporter automatiskt. Field Service är djupt integrerat med Dynamics 365 Customer Service, Sales, Business Central och Finance & Supply Chain Management, vilket gör att fakturering, lager och kundhistorik hänger ihop utan dubbelregistrering.
+        </p>
+        <p>
+          Resultatet är högre andel ärenden lösta vid första besöket, mindre körtid, lägre kostnad per ärende och en kundupplevelse som matchar det allra bästa i branschen — förutsatt att partnern bygger schemaläggningsregler, kompetensmatris och integrationer rätt från start.
+        </p>
       </ShortAnswer>
 
 
