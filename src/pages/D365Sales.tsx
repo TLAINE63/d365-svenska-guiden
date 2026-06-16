@@ -119,7 +119,7 @@ const D365Sales = () => {
       />
 
       <ShortAnswer title="Vad är Dynamics 365 Sales">
-        Dynamics 365 Sales är Microsofts CRM för B2B-säljorganisationer som vill standardisera pipeline, prognoser och säljaktiviteter — med djup integration mot Outlook, Teams och Copilot. Det blir riktigt vasst när partnern modellerar er specifika säljprocess; standardinstallationen ger sällan full effekt på egen hand.
+        Dynamics 365 Sales är Microsofts moderna CRM för B2B-säljorganisationer som vill lyfta sitt sälj från magkänsla och spridda Excel-listor till en gemensam, datadriven affärsprocess. Plattformen samlar leads, kontakter, affärsmöjligheter, offerter, order och prognoser i en strukturerad pipeline där varje säljare ser sina viktigaste affärer, nästa-bästa-åtgärd och realtidsinsikter om kundens engagemang. Genom djup integration med Outlook, Teams, Excel, SharePoint och LinkedIn Sales Navigator arbetar säljaren kvar i sina vana verktyg samtidigt som all aktivitet automatiskt loggas i CRM:et — inga dubbla registreringar, ingen administrativ friktion. Inbyggd AI via Microsoft Copilot och nya autonoma säljagenter sammanfattar mejlkonversationer, förbereder mötesunderlag, föreslår rätt budskap baserat på affärsläge och kan till och med kvalificera inkommande leads och boka in möten på egen hand. Resultatet är mer kvalitativ säljtid, snabbare offertprocesser, bättre prognosprecision och en pipeline som faktiskt speglar verkligheten. Det blir riktigt vasst när partnern modellerar er specifika säljprocess, era kvalificeringskriterier och era nyckeltal — standardinstallationen ger sällan full effekt på egen hand, men rätt konfigurerad blir Dynamics 365 Sales motorn som skalar hela er säljorganisation.
       </ShortAnswer>
 
 
