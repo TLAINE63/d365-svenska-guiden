@@ -126,16 +126,18 @@ const FscmMatchningstest = () => {
   useEffect(() => {
     if (!showResult || submitted || !score) return;
     setSubmitted(true);
-    void supabase.from("assessments").insert({
-      contact_name: "anonymous",
-      contact_email: "anonymous@d365.se",
-      company: "anonymous",
-      consent: false,
-      background: {},
-      responses: answers,
-      dimension_scores: score as unknown as Record<string, unknown>,
-      meta: { assessment_type: "fscm_matchningstest", version: 1 },
-    });
+    void supabase.from("assessments").insert([
+      {
+        contact_name: "anonymous",
+        contact_email: "anonymous@d365.se",
+        company: "anonymous",
+        consent: false,
+        background: {},
+        responses: answers,
+        dimension_scores: score as unknown as Record<string, unknown>,
+        meta: { assessment_type: "fscm_matchningstest", version: 1 },
+      },
+    ]);
   }, [showResult, submitted, score, answers]);
 
   const handlePick = (qid: string, value: string) => {
