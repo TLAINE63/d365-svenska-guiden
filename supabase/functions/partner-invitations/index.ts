@@ -302,27 +302,49 @@ serve(async (req: Request): Promise<Response> => {
               .eq("id", event.id)
               .eq("partner_id", partnerId);
           } else if (event.id) {
-            // Update existing event — must belong to this partner; never allow status escalation
-            const { id, _deleted, status: _ignoredStatus, partner_id: _ignoredPid, ...eventData } = event;
+            // Update existing event — must belong to this partner; use explicit allowlist
+            // to prevent partners from setting admin-only fields (status, admin_notes,
+            // reviewed_at, reviewed_by, recording_url, recording_available, etc.).
+            const eventData = {
+              title: event.title,
+              description: event.description,
+              event_date: event.event_date,
+              event_time: event.event_time,
+              end_time: event.end_time,
+              is_online: event.is_online,
+              location: event.location,
+              event_link: event.event_link,
+              registration_link: event.registration_link,
+              registration_deadline: event.registration_deadline,
+              image_url: event.image_url,
+              updated_at: new Date().toISOString(),
+            };
             await supabase
               .from("partner_events")
-              .update({
-                ...eventData,
-                updated_at: new Date().toISOString(),
-              })
-              .eq("id", id)
+              .update(eventData)
+              .eq("id", event.id)
               .eq("partner_id", partnerId);
           } else if (event.title && event.event_date) {
-            // Create new event — force pending status, ignore client-supplied partner_id/status
-            const { _deleted, status: _ignoredStatus, partner_id: _ignoredPid, id: _ignoredId, ...eventData } = event;
+            // Create new event — explicit allowlist; force pending status server-side
+            const eventData = {
+              title: event.title,
+              description: event.description,
+              event_date: event.event_date,
+              event_time: event.event_time,
+              end_time: event.end_time,
+              is_online: event.is_online,
+              location: event.location,
+              event_link: event.event_link,
+              registration_link: event.registration_link,
+              registration_deadline: event.registration_deadline,
+              image_url: event.image_url,
+              partner_id: partnerId,
+              invitation_token: token,
+              status: "pending",
+            };
             await supabase
               .from("partner_events")
-              .insert({
-                ...eventData,
-                partner_id: partnerId,
-                invitation_token: token,
-                status: "pending",
-              });
+              .insert(eventData);
           }
         }
       }
