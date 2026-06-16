@@ -36,7 +36,9 @@ interface Payload {
 }
 
 interface AnalysisOutput {
+  executiveSummary: string;
   aiInterpretation: string;
+  valueHypothesis: string;
   whyPoints: string[];
   risks: string[];
   partnerProfile: string;
@@ -45,9 +47,17 @@ interface AnalysisOutput {
 }
 
 const FALLBACK: AnalysisOutput = {
+  executiveSummary:
+    "Analysen ger en sammanhållen bild av verksamhetens nuläge, drivkrafter och systemmässiga utgångspunkter inför ett kommande ERP-val. " +
+    "Underlaget är tillräckligt för att rama in vilken typ av plattform och partnerprofil som bör utvärderas vidare, men det ersätter inte en kravspecifikation. " +
+    "Använd analysen som diskussionsunderlag internt och i dialog med 2–3 partners – inte som ett färdigt systembeslut.",
   aiInterpretation:
     "Underlaget räcker för en preliminär indikation men inte för ett definitivt systemval. " +
-    "Använd resultatet som diskussionsunderlag inför kravspecifikation och dialog med ERP-partner – inte som beslut.",
+    "Verksamhetens komplexitet, geografi, transaktionsvolymer och förändringsambition pekar tillsammans i en tydlig riktning, men flera frågor behöver fördjupas innan en plattform kan väljas. " +
+    "Använd resultatet som strukturerat diskussionsunderlag inför kravspecifikation, intern förankring och dialog med ERP-partner – inte som ett beslut i sig.",
+  valueHypothesis:
+    "Den största värdepotentialen ligger sannolikt i att lyfta bort manuella moment, skapa en enhetlig datamodell och ge ledningen tillgång till mer aktuella beslutsunderlag. " +
+    "På medellång sikt kan en modern plattform också möjliggöra automatisering, prediktiv analys och Copilot-stöd i de mest tidskrävande processerna – förutsatt att datakvalitet och processägarskap är på plats.",
   whyPoints: [
     "Verksamhetens komplexitet och geografi pekar i en tydlig riktning.",
     "Storlek och antal användare påverkar val av plattform och licensmodell.",
@@ -59,8 +69,8 @@ const FALLBACK: AnalysisOutput = {
     "Datakvalitet i nuvarande system bör kartläggas innan migrering.",
   ],
   partnerProfile:
-    "Köparsidigt rekommenderas en partner med dokumenterad branscherfarenhet, " +
-    "tydlig metodik för förstudie och kravarbete samt referenscase i motsvarande storleksklass.",
+    "Köparsidigt rekommenderas en partner med dokumenterad branscherfarenhet, tydlig metodik för förstudie och kravarbete samt referenscase i motsvarande storleksklass. " +
+    "Partnern bör kunna kombinera funktionell rådgivning med arkitekturkompetens och ha erfarenhet av förändringsledning i organisationer av er storlek.",
   nextSteps: [
     "Samla intern styrgrupp och utse processägare per huvudprocess.",
     "Genomför en kravworkshop och dokumentera nuläge vs. börläge.",
