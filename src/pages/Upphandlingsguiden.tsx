@@ -141,7 +141,7 @@ const Upphandlingsguiden = () => {
             <h1 className="text-[26px] sm:text-4xl md:text-[44px] font-bold text-white leading-[1.15] tracking-tight mb-5">
               Kvalitetssäkrad upphandling av{" "}
               <span className="whitespace-nowrap text-[hsl(var(--cta-orange))]">Dynamics&nbsp;365</span>
-              <span className="block text-white/90 mt-1">– från behov till avtal</span>
+              <span className="block text-white/90 mt-1">– från behov till val av Microsoftpartner</span>
             </h1>
             <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
               På d365.se får din verksamhet vägledning genom hela upphandlingsresan – från behovsanalys och hjälp att skriva kravspecifikation, till jämförelser av Dynamics 365-partners och fördjupade insikter i Dynamics 365-applikationerna. Allt samlat på ett ställe, så att ni kan fatta trygga beslut hela vägen fram till avtal och införande.
@@ -172,7 +172,7 @@ const Upphandlingsguiden = () => {
           <div className="container mx-auto max-w-5xl grid sm:grid-cols-3 gap-4">
             {[
               { icon: ShieldCheck, title: "Köparens sida", text: "Vi vägleder utan att sälja in en specifik partner." },
-              { icon: Check, title: "Strukturerad metodik", text: "Sex tydliga steg från behov till avtal." },
+              { icon: Check, title: "Strukturerad metodik", text: "Sex tydliga steg från behov till val av Microsoftpartner." },
               { icon: Sparkles, title: "AI-stödd matchning", text: "Datadriven rekommendation baserad på era behov." },
             ].map(({ icon: Icon, title, text }) => (
               <div key={title} className="flex items-start gap-3 p-4 rounded-xl bg-white border border-border shadow-sm">
