@@ -2235,22 +2235,35 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     });
     yPos += 3;
 
-    if (complexity.criticalFactors.length > 0) {
+    const factorsForPdf: string[] = prioritized.length > 0
+      ? prioritized
+      : complexity.criticalFactors;
+
+    if (factorsForPdf.length > 0) {
       pdf.setFont("helvetica", "bold");
       pdf.setTextColor(51, 51, 51);
       pdf.setFontSize(9);
-      pdf.text("Faktorer som driver bedömningen:", margin, yPos);
+      pdf.text("Prioriterade faktorer att hantera:", margin, yPos);
       yPos += 6;
       pdf.setFont("helvetica", "normal");
-      complexity.criticalFactors.forEach((factor) => {
+      factorsForPdf.forEach((factor) => {
         checkPage(7);
         pdf.setFillColor(0, 143, 179);
-        pdf.circle(margin + 2, yPos - 1.5, 1, "F");
-        const lines = pdf.splitTextToSize(factor, contentWidth - 8);
+        pdf.circle(margin + 2.5, yPos - 1.5, 1.2, "F");
+        const lines = pdf.splitTextToSize(factor, contentWidth - 10);
         pdf.setTextColor(51, 51, 51);
-        pdf.text(lines, margin + 6, yPos);
-        yPos += lines.length * 5 + 2;
+        pdf.text(lines, margin + 7, yPos);
+        yPos += lines.length * 5.2 + 2;
       });
+    } else {
+      pdf.setFont("helvetica", "italic");
+      pdf.setFontSize(9);
+      pdf.setTextColor(80, 80, 80);
+      const noBlockLines = pdf.splitTextToSize(
+        "Inga blockerande faktorer identifierade, men flera områden bör utredas vidare i en kravspecifikation och fit-gap.",
+        contentWidth,
+      );
+      noBlockLines.forEach((l: string) => { checkPage(6); pdf.text(l, margin, yPos); yPos += 5.2; });
     }
 
     // Risk warning
