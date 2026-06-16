@@ -446,7 +446,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
             {matchingPartners.length === 0 ? (
               <div className="text-center py-10 text-muted-foreground text-sm rounded-lg border border-dashed border-border bg-background">
                 <p className="mb-3">Inga matchande partners just nu.</p>
-                <Link to="/kontakt" className="text-primary hover:underline">
+                <Link to="/kontakt/" className="text-primary hover:underline">
                   Kontakta oss →
                 </Link>
               </div>

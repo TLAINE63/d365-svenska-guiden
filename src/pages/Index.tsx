@@ -582,7 +582,7 @@ const Index = () => {
                   Boka en kostnadsfri rådgivning med våra experter – oberoende, konfidentiellt och utan fortsättningskrav.
                 </p>
                 <Link
-                  to="/kontakt"
+                  to="/kontakt/"
                   className="inline-flex items-center justify-center rounded-xl bg-[hsl(var(--cta-orange))] text-white px-7 py-3.5 text-[15px] font-semibold shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all duration-200"
                 >
                   Boka en kostnadsfri rådgivning
