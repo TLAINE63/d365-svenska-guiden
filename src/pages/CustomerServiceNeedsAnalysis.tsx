@@ -79,6 +79,13 @@ interface CustomerServiceAnalysisData {
   aiInterest: string;
   aiUseCases: string[];
   aiDetails: string;
+  aiAutonomy: string;
+  aiControls: string[];
+  unsureIssues: string[];
+  dataMaturity: string;
+  dataOwnership: string;
+  dataAccessControls: string;
+  dataReliability: string;
   additionalInfo: string;
   currentPartners: string;
   companyName: string;
