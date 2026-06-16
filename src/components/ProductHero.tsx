@@ -22,8 +22,10 @@ interface ProductHeroProps {
   subhead: string;
   /** Primary CTA (orange). */
   primary: CTA;
-  /** Secondary CTA (ghost outline). Optional. Max 2 CTAs total. */
+  /** Secondary CTA (ghost outline). Optional. */
   secondary?: CTA;
+  /** Tertiary CTA (ghost outline). Optional. */
+  tertiary?: CTA;
   /** Optional right-side decorative photo (not full-bleed bg). */
   photo?: string;
   photoAlt?: string;
