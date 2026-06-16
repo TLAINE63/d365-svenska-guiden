@@ -234,6 +234,7 @@ const initialData: AnalysisData = {
   contactName: "",
   phone: "",
   email: "",
+  consentToContact: false,
 };
 
 // Situation challenge categories for Step 6
