@@ -2114,30 +2114,40 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     yPos += 6;
 
     // ══════════════════════════════════════════════════════════════════════
+    // EXECUTIVE SUMMARY (köparsidig AI-sammanfattning)
+    // ══════════════════════════════════════════════════════════════════════
+    if (aiAnalysis?.executiveSummary) {
+      checkPage(40);
+      addSectionHeader("SAMMANFATTNING FÖR LEDNINGEN", 14, 124, 134);
+      addProse(aiAnalysis.executiveSummary, 9, 5.4);
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
     // AI-TOLKNING (köparsidig, från Lovable AI Gateway)
     // ══════════════════════════════════════════════════════════════════════
     if (aiAnalysis?.aiInterpretation) {
       checkPage(40);
       addSectionHeader("AI-TOLKNING AV ERT UNDERLAG", 14, 124, 134);
-      pdf.setFontSize(9);
-      pdf.setFont("helvetica", "normal");
-      pdf.setTextColor(40, 40, 40);
-      const aiLines = pdf.splitTextToSize(aiAnalysis.aiInterpretation, contentWidth);
-      aiLines.forEach((line: string) => {
-        checkPage(6);
-        pdf.text(line, margin, yPos);
-        yPos += 5;
-      });
-      yPos += 2;
+      addProse(aiAnalysis.aiInterpretation, 9, 5.4);
       if (aiAnalysis.confidence) {
         pdf.setFontSize(8);
         pdf.setFont("helvetica", "italic");
         pdf.setTextColor(120, 120, 120);
         pdf.text(`Säkerhet i analysen: ${aiAnalysis.confidence}`, margin, yPos);
-        yPos += 6;
+        yPos += 8;
       }
       yPos += 4;
     }
+
+    // ══════════════════════════════════════════════════════════════════════
+    // VÄRDEHYPOTES (var ligger nyttan?)
+    // ══════════════════════════════════════════════════════════════════════
+    if (aiAnalysis?.valueHypothesis) {
+      checkPage(40);
+      addSectionHeader("VÄRDEHYPOTES OCH AFFÄRSNYTTA", 14, 124, 134);
+      addProse(aiAnalysis.valueHypothesis, 9, 5.4);
+    }
+
 
 
     // ══════════════════════════════════════════════════════════════════════
