@@ -267,7 +267,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
           </div>
         </section>
 
-        <ShortAnswer title={`Vad är Dynamics 365 för ${industryName.toLowerCase()}`}>
+        <ShortAnswer title={`Passar Dynamics 365 för ${industryName.toLowerCase()}`}>
           För <strong>{industryName.toLowerCase()}</strong> är Microsoft Dynamics 365 en bred plattform där rätt
           val av app (Business Central, Finance &amp; Supply Chain, Sales, Customer Service m.fl.) och
           partner spelar större roll än produkten i sig. På d365.se hittar du {matchingPartners.length}{' '}
