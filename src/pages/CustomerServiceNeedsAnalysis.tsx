@@ -1304,7 +1304,7 @@ const CustomerServiceNeedsAnalysis = () => {
     pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
     pdf.text("d365.se", pageWidth - margin - 55, yPos + 26);
 
-    const pdfFilename = `Behovsanalys_Kundservice_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}`;
+    const pdfFilename = `Behovsanalys_${focusCfg.pdfSubTitle.replace(/[^a-zA-ZåäöÅÄÖ0-9]+/g, "_")}_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}`;
     const pdfBase64 = pdf.output('datauristring').split(',')[1];
     pdf.save(`${pdfFilename}.pdf`);
 
