@@ -1238,10 +1238,10 @@ const CustomerServiceNeedsAnalysis = () => {
       .map(([k, v]) => `${k}: ${v}`)
       .join("; ");
 
-    addAppendixSection("Steg 3 - Situation & komplexitet", [
-      ["Anledning till nulage", data.currentSituationReason || ""],
-      ["Utmaningar i nulaget", csChallengeStr],
-      ["Arendevolym/man", data.ticketsPerMonth],
+    addAppendixSection("Steg 3 – Situation & komplexitet", [
+      ["Anledning till nuläge", data.currentSituationReason || ""],
+      ["Utmaningar i nuläget", csChallengeStr],
+      ["Ärendevolym/mån", data.ticketsPerMonth],
       ["SLA-krav", data.slaRequirements || data.serviceAgreements],
       ["Self-service portal", data.selfServicePortal],
       ["Kunskapsdatabas", data.knowledgeBase],
@@ -1249,11 +1249,11 @@ const CustomerServiceNeedsAnalysis = () => {
       ["Contact center-kanaler", data.contactCenterChannels?.join(", ")],
       ["Realtidsstyrning (CC)", data.realtimeManagement],
       ["Antal tekniker", data.numberOfTechnicians],
-      ["Schemalaggning", data.schedulingNeeds],
+      ["Schemaläggning", data.schedulingNeeds],
       ["Reservdelshantering", data.sparepartsManagement],
       ["Geografisk spridning", data.geographicSpread],
-      ["Verkar i flera lander", data.multiCountry],
-      ["Flersprakig kundservice", data.multiLanguage],
+      ["Verkar i flera länder", data.multiCountry],
+      ["Flerspråkig kundservice", data.multiLanguage],
       ["Kundprioritering", data.customerPrioritization],
       ["Produktlinjer", data.multipleProductLines],
       ["Kundservice-KPI:er", (data.csKpis || []).join(", ")],
@@ -1265,10 +1265,10 @@ const CustomerServiceNeedsAnalysis = () => {
     // Field Service section (only if relevant)
     if (data.hasFieldService || (data.fieldServiceNeeds || []).length > 0 || data.fieldServiceNeedsOther) {
       const fsNeeds = [...(data.fieldServiceNeeds || [])];
-      if (data.fieldServiceNeedsOther?.trim()) fsNeeds.push(`Ovriga: ${data.fieldServiceNeedsOther.trim()}`);
-      addAppendixSection("Steg 3b - Faltservice", [
-        ["Har ni faltservice?", data.hasFieldService || ""],
-        ["Faltservice-behov", fsNeeds.join(", ")],
+      if (data.fieldServiceNeedsOther?.trim()) fsNeeds.push(`Övriga: ${data.fieldServiceNeedsOther.trim()}`);
+      addAppendixSection("Steg 3b – Fältservice", [
+        ["Har ni fältservice?", data.hasFieldService || ""],
+        ["Fältservice-behov", fsNeeds.join(", ")],
       ]);
     }
 
