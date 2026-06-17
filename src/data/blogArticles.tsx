@@ -6,6 +6,7 @@ import ownedIntelligenceSkiljelinje from "@/assets/articles/owned-intelligence-s
 import releaseWave1Hero from "@/assets/articles/d365-release-wave-1-2026-hero.jpg";
 import aiSkiftetBuild2026Hero from "@/assets/articles/ai-skiftet-build-2026-hero.jpg";
 import frontierFirmHero from "@/assets/articles/frontier-firm-hero.jpg";
+import copilotCoworkHero from "@/assets/articles/copilot-cowork-hero.jpg";
 import detaljhandelImg from "@/assets/industries/detaljhandel.webp";
 import tillverkningImg from "@/assets/industries/tillverkning.webp";
 import livsmedelImg from "@/assets/industries/livsmedel.webp";
