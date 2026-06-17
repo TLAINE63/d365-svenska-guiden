@@ -374,6 +374,21 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           partner som kan hjälpa verksamheten att komma dit.
         </p>
 
+        <p className="text-sm text-muted-foreground !mt-8">
+          Källa:{" "}
+          <a
+            href="https://www.microsoft.com/en-us/microsoft-365/blog/2026/06/16/copilot-cowork-is-now-generally-available/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary hover:underline"
+          >
+            Copilot Cowork is now generally available
+          </a>{" "}
+          — Microsoft 365 Blog, 16 juni 2026.
+        </p>
+
+
+
         <aside
           aria-label="Relaterat innehåll"
           className="mt-12 p-6 rounded-xl border border-border bg-secondary/30"
