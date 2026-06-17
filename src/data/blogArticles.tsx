@@ -76,6 +76,326 @@ const THOMAS_LAINE: BlogArticleAuthor = {
 
 export const BLOG_ARTICLES: BlogArticle[] = [
   {
+    slug: "copilot-cowork-dynamics-365",
+    title:
+      "Copilot Cowork är här – vad betyder det för företag som använder Dynamics 365?",
+    metaTitle:
+      "Copilot Cowork och Dynamics 365 – vad GA-lanseringen betyder för CRM- och ERP-val | d365.se",
+    metaDescription:
+      "Copilot Cowork är nu allmänt tillgängligt. Här är vad det betyder för företag som använder Dynamics 365 – från AI-agenter och datakvalitet till integrationer, governance och valet av rätt partner.",
+    summary:
+      "Microsoft har gjort Copilot Cowork allmänt tillgängligt. För företag som använder eller utvärderar Dynamics 365 handlar det inte bara om ännu en AI-funktion, utan om ett skifte mot mer agentiska arbetssätt där data, processer, integrationer och governance blir avgörande för affärsvärdet.",
+    category: "AI & Copilot",
+    tags: [
+      "copilot cowork",
+      "copilot",
+      "ai-agenter",
+      "microsoft",
+      "dynamics365",
+      "erp",
+      "crm",
+      "governance",
+      "partnerval",
+    ],
+    products: [
+      "Business Central",
+      "Finance & SCM",
+      "Sales",
+      "Customer Service",
+      "Field Service",
+      "AI/Copilot/Agents",
+    ],
+    publishedAt: "2026-06-17",
+    author: THOMAS_LAINE,
+    heroImage: copilotCoworkHero,
+    readingTimeMinutes: 8,
+    featured: true,
+    content: (
+      <>
+        <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] italic text-foreground/85 !mb-8">
+          Microsoft har gjort Copilot Cowork allmänt tillgängligt. För företag
+          som använder eller utvärderar Dynamics 365 handlar det inte bara om
+          ännu en AI-funktion, utan om ett skifte mot mer agentiska arbetssätt
+          där data, processer, integrationer och governance blir avgörande för
+          affärsvärdet.
+        </p>
+
+        <p>
+          Microsoft har nu gjort Copilot Cowork allmänt tillgängligt. Det kan
+          låta som ännu en Copilot-lansering i mängden, men för företag som
+          använder, utvärderar eller står inför ett byte av CRM- eller
+          ERP-system är det här betydligt mer intressant än så.
+        </p>
+        <p>
+          Det handlar inte bara om att AI kan skriva ett utkast, sammanfatta
+          ett möte eller hjälpa en användare i ett formulär. Copilot Cowork
+          pekar mot nästa steg: AI som kan arbeta över flera system, hantera
+          längre arbetsuppgifter och leverera ett faktiskt resultat – inte
+          bara ett förslag.
+        </p>
+        <p>För Dynamics 365 innebär det ett tydligt skifte.</p>
+        <p>
+          Frågan är inte längre bara:{" "}
+          <strong>”Hur bra är Copilot i Dynamics 365?”</strong>
+        </p>
+        <p>
+          Den viktigare frågan blir:{" "}
+          <strong>
+            ”Är vår Dynamics 365-miljö, vår data och våra processer redo för
+            AI-agenter som faktiskt arbetar i verksamheten?”
+          </strong>
+        </p>
+
+        <h2>Från assistent till medarbetare i processen</h2>
+        <p>
+          De första åren med Copilot har till stor del handlat om
+          produktivitet. Hjälp att formulera e-post, sammanfatta Teams-möten,
+          ta fram PowerPoint-utkast eller analysera information i Excel.
+        </p>
+        <p>Det är värdefullt, men ofta ganska nära individens eget arbete.</p>
+        <p>
+          Copilot Cowork flyttar perspektivet mot mer verksamhetskritiska
+          processer. Microsoft beskriver det som ett sätt att hantera komplexa,
+          långvariga uppgifter över flera verktyg. Det innebär att AI inte bara
+          hjälper användaren att tänka, skriva eller söka, utan också kan ta
+          ett uppdrag, arbeta vidare och återkomma med ett färdigt resultat.
+        </p>
+        <p>Det är här kopplingen till Dynamics 365 blir intressant.</p>
+        <p>
+          Dynamics 365 innehåller ofta den information som faktiskt driver
+          verksamheten: kunder, affärsmöjligheter, order, avtal, ärenden,
+          produkter, leveranser, projekt, ekonomi och servicehistorik. När
+          AI-agenter börjar arbeta över Microsoft 365, Dynamics 365, Fabric
+          och andra system blir affärssystemet och CRM-systemet inte bara
+          systemstöd. De blir en del av den operativa AI-plattformen.
+        </p>
+
+        <h2>Vad kan det betyda i praktiken?</h2>
+        <p>
+          I en Dynamics 365 Sales-miljö kan en agent analysera pipeline,
+          identifiera affärer i riskzonen, gå igenom tidigare kommunikation,
+          hitta uppföljningar som tappats bort och föreslå nästa åtgärd för
+          varje kund.
+        </p>
+        <p>
+          Tänk en säljorganisation som arbetar i Dynamics 365 Sales, Outlook,
+          Teams och Power BI. En agent skulle kunna identifiera affärer som
+          riskerar att stanna av, analysera tidigare möten och e-post, se om
+          rätt beslutsfattare saknas i dialogen, föreslå nästa steg och
+          sammanställa ett prioriterat underlag till säljledaren. Då blir AI
+          inte bara ett skrivstöd – utan ett stöd i själva säljprocessen.
+        </p>
+        <p>
+          I Customer Service kan en agent analysera ärenden, hitta mönster,
+          föreslå nya kunskapsartiklar, identifiera återkommande problem och
+          hjälpa organisationen att minska inflödet av liknande ärenden.
+        </p>
+        <p>
+          I Field Service kan agentiska arbetsflöden koppla ihop
+          servicehistorik, teknikerplanering, reservdelar, kundavtal och
+          tidigare fel för att ge bättre prioritering och högre first-time-fix.
+        </p>
+        <p>
+          I ERP kan motsvarande logik användas för att analysera
+          orderavvikelser, lagerproblem, leveransrisker, fakturaflöden,
+          prognoser, inköpsbehov eller ekonomiska avvikelser. Inte som en
+          isolerad rapport, utan som ett arbetsflöde där agenten samlar in
+          information, tolkar samband och föreslår vad som behöver göras.
+        </p>
+        <p>
+          Det här är inte magi. Det bygger på något ganska jordnära: fungerande
+          data, tydliga processer och system som hänger ihop.
+        </p>
+
+        <h2>AI avslöjar snabbt brister i data och processer</h2>
+        <p>
+          Det är lätt att fastna i AI-funktionerna. Men den större frågan för
+          många företag är om den egna verksamheten är redo.
+        </p>
+        <p>
+          En AI-agent är inte bättre än den kontext den får arbeta med. Om
+          kunddata är bristfällig, roller är otydliga, processer är
+          inkonsekventa och affärsregler ligger i huvudet på enskilda personer
+          blir resultatet därefter.
+        </p>
+        <p>
+          Det är därför Copilot Cowork och liknande lösningar gör Dynamics
+          365-frågan mer strategisk. En implementation som bara fokuserar på
+          att ersätta dagens system riskerar att missa nästa nivå. Företag
+          behöver bygga en plattform där data, processer, säkerhet och
+          automation fungerar tillsammans.
+        </p>
+        <p>
+          Det gäller särskilt inom CRM och ERP, där informationen ofta är både
+          affärskritisk och tvärfunktionell.
+        </p>
+        <p>
+          Ett säljcase påverkar prognos, leveranskapacitet, avtal, fakturering
+          och kundrelation. Ett serviceärende kan påverka retention,
+          merförsäljning, produktkvalitet och supportkostnader. En
+          orderavvikelse kan bero på lager, inköp, masterdata, produktion,
+          transport eller ekonomi.
+        </p>
+        <p>Det är just sådana samband AI-agenter behöver kunna förstå.</p>
+
+        <h2>Governance och kostnad blir en ledningsfråga</h2>
+        <p>
+          En annan viktig del i Microsofts lansering är kostnadsstyrning.
+          Copilot Cowork bygger på användningsbaserad debitering via Copilot
+          Credits. Microsoft lyfter också fram funktioner för budgetar, spend
+          limits, användningsrapporter och kontroll på tenant-, grupp- och
+          användarnivå.
+        </p>
+        <p>Det är klokt, och nödvändigt.</p>
+        <p>
+          När AI går från enskilda prompts till längre agentiska arbetsflöden
+          blir kostnadsbilden mer dynamisk. En enkel sammanfattning är en sak.
+          En agent som arbetar över flera system, hämtar kontext, använder
+          verktyg och kör längre resonemang är något annat.
+        </p>
+        <p>
+          Det innebär att företag behöver styra AI på samma sätt som andra
+          verksamhetskritiska resurser: med policy, ansvar, uppföljning och
+          mätbar nytta.
+        </p>
+        <p>
+          Frågan är inte bara ”vad kostar Copilot?” utan snarare:
+        </p>
+        <ul>
+          <li>Vilka arbetsflöden är värda att automatisera?</li>
+          <li>Vilka roller ska ha tillgång?</li>
+          <li>Vilka uppgifter får AI utföra?</li>
+          <li>Hur följer vi upp värde, risk och kostnad?</li>
+          <li>Vem äger governance mellan IT, verksamhet och ledning?</li>
+        </ul>
+        <p>
+          Det här är frågor som bör komma tidigt i en Dynamics 365-strategi,
+          inte som ett efterhandsprojekt.
+        </p>
+
+        <h2>Vad bör företag tänka på inför ett Dynamics 365-val?</h2>
+        <p>
+          För företag som står inför att välja eller uppgradera CRM eller ERP
+          blir slutsatsen tydlig: systemvalet måste klara mer än dagens behov.
+        </p>
+        <p>
+          Det räcker inte att jämföra funktioner i traditionell mening. Man
+          behöver också bedöma hur väl lösningen stödjer framtida AI-drivna
+          arbetssätt.
+        </p>
+        <p>Några frågor blir särskilt viktiga:</p>
+
+        <h3>Har vi ordning på vår data?</h3>
+        <p>
+          Kunddata, produktdata, artikeldata, prislistor, avtal, order,
+          aktiviteter och ärenden måste vara tillräckligt strukturerade för
+          att AI ska kunna skapa värde.
+        </p>
+
+        <h3>Är processerna tydliga nog?</h3>
+        <p>
+          AI-agenter fungerar bäst när det finns definierade arbetssätt,
+          ansvar och affärsregler. Otydliga processer blir svåra att
+          automatisera.
+        </p>
+
+        <h3>Är systemen integrerade?</h3>
+        <p>
+          Värdet uppstår ofta mellan systemen – inte i ett enskilt formulär.
+          Dynamics 365, Microsoft 365, Power Platform, Fabric och
+          kringliggande system behöver hänga ihop.
+        </p>
+
+        <h3>Finns rätt säkerhet och styrning?</h3>
+        <p>
+          När AI får mer operativ roll krävs kontroll över behörigheter,
+          informationsklassning, datadelning, loggning och uppföljning.
+        </p>
+
+        <h3>
+          Har partnern erfarenhet av både verksamhetsprocesser och Microsofts
+          AI-plattform?
+        </h3>
+        <p>
+          Det räcker inte med teknisk implementation. Rätt partner behöver
+          förstå CRM, ERP, data, automation, förändringsledning och hur AI
+          faktiskt kan användas i affärsprocesser.
+        </p>
+
+        <h2>Valet av Dynamics 365-partner blir viktigare</h2>
+        <p>
+          Copilot Cowork förstärker en redan tydlig trend: Dynamics 365 är
+          inte längre bara ett CRM- eller ERP-val. Det är ett plattformsval.
+        </p>
+        <p>
+          Därför blir också partnerfrågan mer kritisk. En partner som bara
+          implementerar funktioner utifrån en kravlista riskerar att missa
+          den större möjligheten. En modern Dynamics 365-partner behöver
+          kunna hjälpa kunden att bygga en grund för AI-drivet arbete.
+        </p>
+        <p>
+          Det handlar om att förstå verksamheten, prioritera rätt processer,
+          skapa datamodeller som håller, bygga integrationer som fungerar och
+          samtidigt säkra adoption och governance.
+        </p>
+        <p>
+          Det är inte alltid den största partnern som är bäst. Inte heller den
+          som visar flest AI-demos. Det viktiga är att hitta en partner som
+          kan koppla ihop affärsnytta, systemarkitektur, data och
+          förändringsledning.
+        </p>
+
+        <h2>Slutsats</h2>
+        <p>
+          Copilot Cowork är en tydlig signal om vart Microsofts ekosystem är
+          på väg.
+        </p>
+        <p>
+          AI kommer inte att stanna vid att hjälpa användare skriva snabbare
+          eller sammanfatta information. Den kommer i allt högre grad att
+          arbeta över system, driva processer och ta fram beslutsunderlag som
+          tidigare krävde timmar eller dagar av manuellt arbete.
+        </p>
+        <p>
+          För Dynamics 365-kunder innebär det en stor möjlighet. Men bara om
+          grunden är rätt. Företag som har ordning på data, processer,
+          integrationer och styrning kommer snabbare kunna dra nytta av
+          AI-agenter. Företag som har röriga systemmiljöer, svag datakvalitet
+          och otydliga arbetssätt kommer först behöva ta tag i grunden.
+        </p>
+        <p>
+          Det gör behovsanalysen viktigare. Det gör kravställningen viktigare.
+          Och det gör valet av Dynamics 365-partner viktigare.
+        </p>
+        <p>
+          Därför räcker det inte längre att fråga vilken CRM- eller ERP-lösning
+          som har flest funktioner. Den viktigare frågan är vilken plattform
+          som ger bäst förutsättningar för AI-drivna arbetssätt – och vilken
+          partner som kan hjälpa verksamheten att komma dit.
+        </p>
+
+        <aside
+          aria-label="Relaterat innehåll"
+          className="mt-12 p-6 rounded-xl border border-border bg-secondary/30"
+        >
+          <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-3">
+            Relaterat innehåll
+          </p>
+          <p className="!my-0 text-sm text-muted-foreground">
+            <a
+              href="/beslutsmognadsindex/"
+              className="text-primary hover:underline"
+            >
+              Beslutsmognadsindex på d365.se
+            </a>{" "}
+            — en kostnadsfri självskattning som hjälper er bedöma om data,
+            processer och organisation är redo för AI-agenter i Dynamics 365.
+          </p>
+        </aside>
+      </>
+    ),
+  },
+  {
     slug: "frontier-firm-dynamics-365-erp-crm",
     title:
       "Frontier Firm: vad Microsoft menar — och vad du bör förstå inför valet av ERP eller CRM",
