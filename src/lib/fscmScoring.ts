@@ -69,7 +69,8 @@ const concernScore = (a: Answers): number => {
   return normalize(sum, 140);
 };
 
-const supplyChainScore = (a: Answers): number => {
+const supplyChainScore = (a: Answers): ProfileScore => {
+  if (isServicesOnly(a)) return "not_applicable";
   const warehousePart =
     a.q13_warehouse === "yes"
       ? pointsFor("q13_warehouse", a) + pointsFor("q14_warehouse_complexity", a)
@@ -93,7 +94,9 @@ const projectScore = (a: Answers): ProfileScore => {
 };
 
 const commerceScore = (a: Answers): ProfileScore => {
-  if (a.q22_ecommerce === "no" && a.q24_omnichannel === "no") return "not_applicable";
+  if (isServicesOnly(a)) return "not_applicable";
+  if (a.q22_ecommerce === "no" && (a.q24_omnichannel === "no" || a.q24_omnichannel === undefined))
+    return "not_applicable";
   const ecomPart =
     a.q22_ecommerce !== "no"
       ? pointsFor("q22_ecommerce", a) + pointsFor("q23_ecom_integration", a)
