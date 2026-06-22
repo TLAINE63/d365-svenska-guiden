@@ -199,6 +199,7 @@ export const QUESTIONS: Question[] = [
     block: 3,
     text: "Bedriver ni egen lagerverksamhet?",
     type: "yesno",
+    showIf: (a) => !isServicesOnly(a),
     options: [
       { value: "yes", label: "Ja", points: 10 },
       { value: "no", label: "Nej", points: 0 },
@@ -209,7 +210,7 @@ export const QUESTIONS: Question[] = [
     block: 3,
     text: "Hur komplex är er lagerstyrning?",
     type: "single",
-    showIf: (a) => a.q13_warehouse === "yes",
+    showIf: (a) => !isServicesOnly(a) && a.q13_warehouse === "yes",
     options: [
       { value: "simple", label: "Enkla in- och utleveranser", points: 5 },
       { value: "multi", label: "Flera lager eller zoner", points: 15 },
