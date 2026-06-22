@@ -3797,7 +3797,12 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
             {/* Fråga 5 - Governance & risk */}
             <div>
-              <h3 className="text-lg font-semibold mb-2">Finns riktlinjer eller krav kopplade till AI-användning?</h3>
+              <h3 className="text-lg font-semibold mb-1">Finns riktlinjer eller krav kopplade till AI-användning?</h3>
+              <p className="text-sm text-muted-foreground mb-3">
+                Många organisationer har ännu inte landat sin AI-policy. Vi vill veta var ni står idag
+                – inte för att döma, utan för att kunna föreslå en lagom ambitionsnivå för governance,
+                säkerhet och regelefterlevnad (t.ex. EU AI Act, GDPR, branschkrav).
+              </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {aiGovernanceOptions.map((opt) => (
                   <SelectionCard
