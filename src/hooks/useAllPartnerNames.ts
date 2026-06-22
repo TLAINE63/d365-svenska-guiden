@@ -13,17 +13,18 @@ export interface PartnerNameRow {
 /**
  * Fetches lightweight name/slug/status for ALL partners in the database
  * (both featured/published and unpublished). Used for marketplace overview lists.
+ *
+ * Uses a SECURITY DEFINER RPC (`get_all_partner_names`) because anon RLS on
+ * `partners` only exposes featured rows — the RPC returns only non-sensitive
+ * fields (name, slug, status flags) for every partner.
  */
 export function useAllPartnerNames() {
   return useQuery({
     queryKey: ["all-partner-names"],
     queryFn: async (): Promise<PartnerNameRow[]> => {
-      const { data, error } = await supabase
-        .from("partners_public")
-        .select("id, name, slug, is_featured, agreement_signed, product_filters")
-        .order("name");
+      const { data, error } = await (supabase as any).rpc("get_all_partner_names");
       if (error) throw error;
-      return (data || []).map((p: any) => ({
+      return ((data as any[]) || []).map((p: any) => ({
         id: p.id,
         name: p.name,
         slug: p.slug,

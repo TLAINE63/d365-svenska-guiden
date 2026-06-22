@@ -1387,7 +1387,17 @@ export type Database = {
       }
     }
     Functions: {
-      [_ in never]: never
+      get_all_partner_names: {
+        Args: never
+        Returns: {
+          agreement_signed: boolean
+          id: string
+          is_featured: boolean
+          name: string
+          product_filters: Json
+          slug: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
