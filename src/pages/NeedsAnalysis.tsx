@@ -3665,7 +3665,12 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             {/* Fråga 1 - Ambitioner */}
             <div>
               <h3 className="text-lg font-semibold mb-1">Vad vill ni främst uppnå med AI och automation?</h3>
-              <p className="text-sm text-muted-foreground mb-3">Flera val möjliga.</p>
+              <p className="text-sm text-muted-foreground mb-3">
+                Tänk på det affärsmässiga målet – inte tekniken. Vill ni kapa tid i repetitiva flöden,
+                få bättre beslutsunderlag, höja servicekvaliteten eller helt enkelt börja förstå vad
+                AI kan göra för er? Det går bra att välja flera; era svar styr hur Copilot- och
+                agentscenarier prioriteras längre fram. <em>Flera val möjliga.</em>
+              </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {aiAmbitionOptions.map((opt) => (
                   <SelectionCard
