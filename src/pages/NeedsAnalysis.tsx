@@ -1136,22 +1136,17 @@ const NeedsAnalysis = () => {
     dataScore = Math.max(0, dataScore - negativeIssues.length * 4);
     if (data.aiDataIssues.includes("Inga större dataproblem idag")) dataScore = Math.min(100, dataScore + 10);
 
-    // Process maturity score
+    // Process maturity score – alla påståenden är positivt formulerade
     const pm = data.aiProcessMaturity || {};
     const pmValues = Object.entries(pm).filter(([, v]) => v && v !== "Vet ej");
     let processScore = 50;
     if (pmValues.length > 0) {
-      const map: Record<string, number> = { "Låg": 20, "Medel": 60, "Hög": 95 };
-      // Negative-framed statements: "manuella moment" och "undantag och specialfall" — högre = sämre mognad
-      const negativeAreas = new Set(["Det finns många manuella moment", "Det finns många undantag och specialfall"]);
+      const map: Record<string, number> = { "Stämmer inte": 20, "Stämmer delvis": 60, "Stämmer helt": 95 };
       processScore = Math.round(
-        pmValues.reduce((s, [area, v]) => {
-          const base = map[v] ?? 50;
-          return s + (negativeAreas.has(area) ? 100 - base : base);
-        }, 0) / pmValues.length
+        pmValues.reduce((s, [, v]) => s + (map[v] ?? 50), 0) / pmValues.length
       );
     }
-    const manualHeavy = pm["Det finns många manuella moment"] === "Hög";
+    const manualHeavy = pm["Få manuella moment återstår i kärnflöden"] === "Stämmer inte";
 
     // Ambition score: more ambitions => higher intent
     const ambitions = data.aiAmbitions.filter(a => a !== "Vi vet inte ännu, men vill förstå möjligheterna");
