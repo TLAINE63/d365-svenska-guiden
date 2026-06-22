@@ -863,12 +863,12 @@ const aiProcessAreas = [
   "Processerna är standardiserade",
   "Det finns tydliga processägare",
   "Det finns tydliga godkännandeflöden",
-  "Det finns många manuella moment",
-  "Det finns många undantag och specialfall",
+  "Få manuella moment återstår i kärnflöden",
+  "Få undantag och specialfall i processerna",
   "Det är tydligt vilka moment som bör automatiseras",
   "Verksamheten är redo att förändra arbetssätt",
 ];
-const aiProcessScale = ["Låg", "Medel", "Hög", "Vet ej"];
+const aiProcessScale = ["Stämmer inte", "Stämmer delvis", "Stämmer helt", "Vet ej"];
 
 const aiGovernanceOptions = [
   "Ja, vi har tydliga riktlinjer",
