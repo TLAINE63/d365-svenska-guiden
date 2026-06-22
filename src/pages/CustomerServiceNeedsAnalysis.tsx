@@ -18,6 +18,7 @@ import { useToast } from "@/hooks/use-toast";
 import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
 import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
+import { isServicesIndustry } from "@/lib/industryFilters";
 
 const customerServiceBreadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
