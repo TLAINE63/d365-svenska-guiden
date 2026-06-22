@@ -17,6 +17,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { generateRequirementsSpec, type RequirementsData } from "@/utils/generateRequirementsSpec";
 import { allIndustries } from "@/data/partners";
+import { isServicesIndustry } from "@/lib/industryFilters";
 
 const serviceTeamSizes = ["1–5", "6–10", "11–20", "21–50", "51–100", "100+"];
 import {
@@ -279,7 +280,9 @@ const RequirementsSpecCustomerService = () => {
               <h2 className="text-xl font-semibold text-foreground">Vilka funktionsområden är relevanta?</h2>
               <p className="text-sm text-muted-foreground">Välj de områden du vill inkludera i kravspecifikationen.</p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {areaOptions.map((area) => {
+                {areaOptions
+                  .filter((area) => !(isServicesIndustry(industry) && (area.id === "field_service" || area.id === "scheduling")))
+                  .map((area) => {
                   const Icon = area.icon;
                   const isSelected = selectedAreas.includes(area.id);
                   return (

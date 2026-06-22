@@ -21,6 +21,7 @@ import { useToast } from "@/hooks/use-toast";
 import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
 import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
+import { isServicesIndustry } from "@/lib/industryFilters";
 
 // Breadcrumb items
 const salesMarketingBreadcrumbs = [
@@ -2705,7 +2706,9 @@ const SalesMarketingNeedsAnalysis = () => {
             <div>
               <Label className="text-base font-semibold mb-3 block">Vilka system behöver CRM samverka med? (välj alla som stämmer)</Label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {["ERP", "E-handel", "Marketing automation", "BI", "Supportsystem", "Partnerportal"].map((opt) => (
+                {["ERP", "E-handel", "Marketing automation", "BI", "Supportsystem", "Partnerportal"]
+                  .filter((opt) => !(isServicesIndustry(data.industry) && opt === "E-handel"))
+                  .map((opt) => (
                   <SelectionCard
                     key={opt}
                     label={opt}

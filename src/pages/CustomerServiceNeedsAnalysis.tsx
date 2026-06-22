@@ -18,6 +18,7 @@ import { useToast } from "@/hooks/use-toast";
 import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
 import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
+import { isServicesIndustry } from "@/lib/industryFilters";
 
 const customerServiceBreadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
@@ -1783,7 +1784,9 @@ const CustomerServiceNeedsAnalysis = () => {
                   { id: "sharepoint", label: "SharePoint / dokument" },
                   { id: "knowledge", label: "Kunskapsdatabas" },
                   { id: "annat", label: "Annat" },
-                ].map((opt) => (
+                ]
+                  .filter((opt) => !(isServicesIndustry(data.industry) && (opt.id === "lager" || opt.id === "e_handel" || opt.id === "iot")))
+                  .map((opt) => (
                   <SelectionCard key={opt.id} label={opt.label} selected={data.systemDependencies.includes(opt.id)} onClick={() => handleCheckboxChange("systemDependencies", opt.id)} type="checkbox" />
                 ))}
               </div>
