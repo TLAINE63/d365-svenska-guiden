@@ -3815,7 +3815,13 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 ))}
               </div>
               <div className="mt-5">
-                <h4 className="font-semibold text-sm mb-2">Vilka AI-risker eller frågor behöver hanteras? <span className="text-xs font-normal text-muted-foreground">(flera val möjliga)</span></h4>
+                <h4 className="font-semibold text-sm mb-1">Vilka AI-risker eller frågor behöver hanteras?</h4>
+                <p className="text-xs text-muted-foreground mb-2">
+                  AI öppnar nya möjligheter – men också nya frågor kring datasäkerhet, sekretess,
+                  ansvarsfördelning och hur medarbetare uppfattar förändringen. Markera de områden ni
+                  redan vet att ni behöver hantera, eller där ni vill ha extra stöd från en partner.
+                  <em> Flera val möjliga.</em>
+                </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {aiRiskOptions.map((opt) => (
                     <SelectionCard
