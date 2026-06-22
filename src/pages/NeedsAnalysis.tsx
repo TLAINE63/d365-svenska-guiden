@@ -3753,7 +3753,10 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             {/* Fråga 4 - Processmognad */}
             <div>
               <h3 className="text-lg font-semibold mb-1">Hur mogna är era processer för AI och automation?</h3>
-              <p className="text-sm text-muted-foreground mb-3">Bedöm varje påstående.</p>
+              <p className="text-sm text-muted-foreground mb-3">
+                Bedöm hur väl varje påstående stämmer för er idag. Alla påståenden är formulerade så att
+                <strong> "Stämmer helt" är den starkaste utgångspunkten för AI och automation</strong> – inga "trick"-frågor.
+              </p>
               <div className="space-y-3">
                 {aiProcessAreas.map((area) => (
                   <div key={area} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-3 rounded-lg border border-border/60 bg-card">
