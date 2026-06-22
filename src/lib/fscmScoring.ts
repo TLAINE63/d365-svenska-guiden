@@ -20,6 +20,8 @@ export interface ScoreResult {
   level: "strong" | "partial" | "oversized";
 }
 
+const isServicesOnly = (a: Answers): boolean => a.q3_industry === "tjanster";
+
 const PROFILE_LABEL: Record<ProfileKey, string> = {
   concern: "Koncernkomplexitet",
   supplyChain: "Supply chain-komplexitet",
