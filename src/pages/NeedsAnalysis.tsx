@@ -3709,7 +3709,18 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             {/* Fråga 3 - Datamognad */}
             <div>
               <h3 className="text-lg font-semibold mb-1">Hur bedömer ni kvaliteten på er data idag?</h3>
-              <p className="text-sm text-muted-foreground mb-3">Sätt en nivå per område.</p>
+              <p className="text-sm text-muted-foreground mb-2">
+                Bedöm varje område utifrån fyra kriterier: <strong>komplett</strong> (inga viktiga fält saknas),
+                <strong> korrekt</strong> (stämmer med verkligheten), <strong>uppdaterad</strong> (aktuell, inte gammal)
+                och <strong>fri från dubbletter</strong> (ingen post finns flera gånger). AI och Copilot blir bara
+                så bra som datan de bygger på – därför vill vi få en ärlig bild av nuläget.
+              </p>
+              <div className="text-xs text-muted-foreground mb-3 space-y-0.5">
+                <div><strong>Bra</strong> – mestadels komplett, korrekt och uppdaterad. Få dubbletter.</div>
+                <div><strong>Blandad</strong> – fungerar i vardagen men har kända luckor, fel eller dubbletter.</div>
+                <div><strong>Bristfällig</strong> – stora luckor, mycket manuell rättning eller låg tilltro till datan.</div>
+                <div><strong>Vet ej</strong> – området finns men ni har inte överblick över kvaliteten.</div>
+              </div>
               <div className="space-y-3">
                 {aiDataAreas.map((area) => (
                   <div key={area} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-3 rounded-lg border border-border/60 bg-card">
