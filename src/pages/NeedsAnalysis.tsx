@@ -3747,7 +3747,13 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 ))}
               </div>
               <div className="mt-5">
-                <h4 className="font-semibold text-sm mb-2">Vilka dataproblem upplever ni idag? <span className="text-xs font-normal text-muted-foreground">(flera val möjliga)</span></h4>
+                <h4 className="font-semibold text-sm mb-1">Vilka dataproblem upplever ni idag?</h4>
+                <p className="text-xs text-muted-foreground mb-2">
+                  Det här handlar inte om perfektion – de flesta verksamheter har någon form av dataskuld.
+                  Markera de problem som ni känner igen er i. Bilden hjälper oss att förstå vilka
+                  AI-scenarier som är realistiska att börja med och vilka som först kräver lite städning
+                  i grunddatan. <em>Flera val möjliga.</em>
+                </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {aiDataIssueOptions.map((opt) => (
                     <SelectionCard
