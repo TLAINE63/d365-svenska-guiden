@@ -63,6 +63,9 @@ const yn = (yesPts: number, unsurePts: number = Math.round(yesPts / 3)): Option[
   { value: "unsure", label: "Vet inte", points: unsurePts },
 ];
 
+/** Branscher där supply chain / produktion / omnikanal inte är relevant. */
+const isServicesOnly = (a: Answers): boolean => a.q3_industry === "tjanster";
+
 export const QUESTIONS: Question[] = [
   // ---- Block 1: Verksamhet och struktur ----
   {
@@ -196,6 +199,7 @@ export const QUESTIONS: Question[] = [
     block: 3,
     text: "Bedriver ni egen lagerverksamhet?",
     type: "yesno",
+    showIf: (a) => !isServicesOnly(a),
     options: [
       { value: "yes", label: "Ja", points: 10 },
       { value: "no", label: "Nej", points: 0 },
@@ -206,7 +210,7 @@ export const QUESTIONS: Question[] = [
     block: 3,
     text: "Hur komplex är er lagerstyrning?",
     type: "single",
-    showIf: (a) => a.q13_warehouse === "yes",
+    showIf: (a) => !isServicesOnly(a) && a.q13_warehouse === "yes",
     options: [
       { value: "simple", label: "Enkla in- och utleveranser", points: 5 },
       { value: "multi", label: "Flera lager eller zoner", points: 15 },
@@ -219,6 +223,7 @@ export const QUESTIONS: Question[] = [
     block: 3,
     text: "Hanterar ni produktion eller tillverkning?",
     type: "single",
+    showIf: (a) => !isServicesOnly(a),
     options: [
       { value: "no", label: "Nej", points: 0 },
       { value: "discrete", label: "Diskret tillverkning", points: 20 },
@@ -231,6 +236,7 @@ export const QUESTIONS: Question[] = [
     block: 3,
     text: "Hur sker er inköpsplanering idag?",
     type: "single",
+    showIf: (a) => !isServicesOnly(a),
     options: [
       { value: "manual", label: "Manuellt eller i Excel", points: 5 },
       { value: "simple", label: "Enklare system", points: 10 },
@@ -243,6 +249,7 @@ export const QUESTIONS: Question[] = [
     block: 3,
     text: "Har ni behov av avancerad efterfrågeplanering eller prognostisering baserat på historisk försäljning?",
     type: "yesno",
+    showIf: (a) => !isServicesOnly(a),
     options: yn(15, 5),
   },
   {
@@ -250,6 +257,7 @@ export const QUESTIONS: Question[] = [
     block: 3,
     text: "Hur viktig är fullständig spårbarhet i kedjan, från inköp till leverans, för er verksamhet (t.ex. för livsmedel, läkemedel eller andra reglerade branscher)?",
     type: "scale4",
+    showIf: (a) => !isServicesOnly(a),
     options: [
       { value: "1", label: "Inte viktigt", points: 0 },
       { value: "2", label: "Viktigt men inte kritiskt", points: 5 },
@@ -323,6 +331,7 @@ export const QUESTIONS: Question[] = [
     block: 5,
     text: "Hanterar ni omnikanalförsäljning (butik, e-handel, grossist) som idag kräver flera separata system?",
     type: "yesno",
+    showIf: (a) => !isServicesOnly(a),
     options: [
       { value: "yes", label: "Ja", points: 45 },
       { value: "no", label: "Nej", points: 0 },
