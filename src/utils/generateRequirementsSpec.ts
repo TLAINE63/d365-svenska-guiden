@@ -378,16 +378,32 @@ export const generateRequirementsSpec = async (
     addSectionTitle("Föreslagna KPI:er");
     
     for (const kpi of data.aiEnrichment.kpis) {
-      checkPageBreak(18);
+      checkPageBreak(22);
       doc.setFontSize(10);
       doc.setFont("helvetica", "bold");
       doc.setTextColor(darkColor.r, darkColor.g, darkColor.b);
-      doc.text(`${kpi.name}`, margin + 4, y + 3);
+      // Measure name width while bold to avoid overlap with target text
+      const nameWidth = doc.getTextWidth(kpi.name);
+      const targetText = `Mål: ${kpi.target}`;
+      doc.setFont("helvetica", "normal");
+      const targetWidth = doc.getTextWidth(targetText);
+      const gap = 4;
+      const fitsOnOneLine = nameWidth + gap + targetWidth <= contentWidth - 8;
+
+      doc.setFont("helvetica", "bold");
+      doc.text(kpi.name, margin + 4, y + 3);
+
       doc.setFont("helvetica", "normal");
       doc.setTextColor(primaryColor.r, primaryColor.g, primaryColor.b);
-      doc.text(`Mål: ${kpi.target}`, margin + 4 + doc.getTextWidth(kpi.name + "  "), y + 3);
-      y += 6;
-      
+      if (fitsOnOneLine) {
+        doc.text(targetText, margin + 4 + nameWidth + gap, y + 3);
+        y += 6;
+      } else {
+        y += 6;
+        doc.text(targetText, margin + 4, y + 3);
+        y += 6;
+      }
+
       doc.setFontSize(8);
       doc.setTextColor(mutedColor.r, mutedColor.g, mutedColor.b);
       const descLines = doc.splitTextToSize(kpi.description, contentWidth - 8);
