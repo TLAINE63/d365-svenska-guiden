@@ -331,6 +331,7 @@ export const QUESTIONS: Question[] = [
     block: 5,
     text: "Hanterar ni omnikanalförsäljning (butik, e-handel, grossist) som idag kräver flera separata system?",
     type: "yesno",
+    showIf: (a) => !isServicesOnly(a),
     options: [
       { value: "yes", label: "Ja", points: 45 },
       { value: "no", label: "Nej", points: 0 },
