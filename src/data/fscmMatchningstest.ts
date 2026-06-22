@@ -223,6 +223,7 @@ export const QUESTIONS: Question[] = [
     block: 3,
     text: "Hanterar ni produktion eller tillverkning?",
     type: "single",
+    showIf: (a) => !isServicesOnly(a),
     options: [
       { value: "no", label: "Nej", points: 0 },
       { value: "discrete", label: "Diskret tillverkning", points: 20 },
@@ -235,6 +236,7 @@ export const QUESTIONS: Question[] = [
     block: 3,
     text: "Hur sker er inköpsplanering idag?",
     type: "single",
+    showIf: (a) => !isServicesOnly(a),
     options: [
       { value: "manual", label: "Manuellt eller i Excel", points: 5 },
       { value: "simple", label: "Enklare system", points: 10 },
@@ -247,6 +249,7 @@ export const QUESTIONS: Question[] = [
     block: 3,
     text: "Har ni behov av avancerad efterfrågeplanering eller prognostisering baserat på historisk försäljning?",
     type: "yesno",
+    showIf: (a) => !isServicesOnly(a),
     options: yn(15, 5),
   },
   {
@@ -254,6 +257,7 @@ export const QUESTIONS: Question[] = [
     block: 3,
     text: "Hur viktig är fullständig spårbarhet i kedjan, från inköp till leverans, för er verksamhet (t.ex. för livsmedel, läkemedel eller andra reglerade branscher)?",
     type: "scale4",
+    showIf: (a) => !isServicesOnly(a),
     options: [
       { value: "1", label: "Inte viktigt", points: 0 },
       { value: "2", label: "Viktigt men inte kritiskt", points: 5 },
