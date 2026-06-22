@@ -19,6 +19,7 @@ import { useToast } from "@/hooks/use-toast";
 import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
 import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
+import { isServicesIndustry } from "@/lib/industryFilters";
 
 // Breadcrumb items
 const needsAnalysisBreadcrumbs = [
