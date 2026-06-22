@@ -63,6 +63,9 @@ const yn = (yesPts: number, unsurePts: number = Math.round(yesPts / 3)): Option[
   { value: "unsure", label: "Vet inte", points: unsurePts },
 ];
 
+/** Branscher där supply chain / produktion / omnikanal inte är relevant. */
+const isServicesOnly = (a: Answers): boolean => a.q3_industry === "tjanster";
+
 export const QUESTIONS: Question[] = [
   // ---- Block 1: Verksamhet och struktur ----
   {
