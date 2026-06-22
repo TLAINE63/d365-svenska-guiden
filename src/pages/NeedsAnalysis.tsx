@@ -3686,7 +3686,13 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             {/* Fråga 2 - Prioriterade AI-use cases (grupperade) */}
             <div>
               <h3 className="text-lg font-semibold mb-1">Vilka AI-områden är mest intressanta för er?</h3>
-              <p className="text-sm text-muted-foreground mb-3">Flera val möjliga.</p>
+              <p className="text-sm text-muted-foreground mb-3">
+                Områdena är grupperade per funktion i Dynamics 365 – från Ekonomi och Supply chain till
+                Marknad, Service och de nya <strong>Copilot</strong>- och <strong>autonoma agenter</strong> som
+                Microsoft släpper. Välj allt som ni redan idag ser ett konkret behov av, eller som ni vill
+                utforska närmare. Det är okej att kryssa brett – syftet är att fånga intresse, inte att
+                lova en investering. <em>Flera val möjliga.</em>
+              </p>
               <div className="space-y-5">
                 {aiUseCaseDomains.map((g) => (
                   <div key={g.domain}>
