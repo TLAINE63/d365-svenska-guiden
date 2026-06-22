@@ -1046,7 +1046,7 @@ const SalesMarketingNeedsAnalysis = () => {
       if (["AI-driven segmentering & personalisering", "Strategisk AI-satsning"].includes(data.aiAmbition)) score += 1;
       return Math.min(4, Math.max(1, Math.round(1 + (score / 7) * 3)));
     })();
-    const pdfMaturityLabels = ["", "Grundlaggande", "Utvecklande", "Avancerad", "Ledande"];
+    const pdfMaturityLabels = ["", "Grundläggande", "Utvecklande", "Avancerad", "Ledande"];
     const pdfMaturityComments: Record<number, { text: string; strengths: string[]; gaps: string[] }> = {
       1: {
         text: "Er kommersiella organisation ar i ett tidigt skede med begransad processstruktur och systemstod. Det finns stor potential att snabbt skapa ordning och effektivitet med ratt CRM-plattform.",
@@ -1071,22 +1071,20 @@ const SalesMarketingNeedsAnalysis = () => {
     };
     const pdfMaturityComment = pdfMaturityComments[pdfMaturityScore];
 
-    // Maturity dots
-    pdf.setFontSize(8);
-    pdf.setFont("helvetica", "normal");
-    pdf.setTextColor(120, 120, 120);
-    pdf.text("Commercial Maturity Level", margin, yPos);
-    yPos += 6;
+    // Maturity dots (larger, better spaced)
+    yPos += 2;
+    const dotRadius = 3.2;
+    const dotSpacing = 11;
     for (let i = 1; i <= 4; i++) {
       if (i <= pdfMaturityScore) pdf.setFillColor(16, 185, 80);
       else pdf.setFillColor(220, 220, 220);
-      pdf.circle(margin + (i - 1) * 10 + 3, yPos, 3, "F");
+      pdf.circle(margin + (i - 1) * dotSpacing + dotRadius, yPos, dotRadius, "F");
     }
-    yPos += 6;
+    yPos += dotRadius + 6;
     pdf.setFontSize(13);
     pdf.setFont("helvetica", "bold");
     pdf.setTextColor(51, 51, 51);
-    pdf.text(`Niva ${pdfMaturityScore} - ${pdfMaturityLabels[pdfMaturityScore]}`, margin, yPos);
+    pdf.text(`Nivå ${pdfMaturityScore} - ${pdfMaturityLabels[pdfMaturityScore]}`, margin, yPos);
     yPos += 8;
 
     // ══════════════════════════════════════════════════════════════════════
