@@ -863,12 +863,12 @@ const aiProcessAreas = [
   "Processerna är standardiserade",
   "Det finns tydliga processägare",
   "Det finns tydliga godkännandeflöden",
-  "Det finns många manuella moment",
-  "Det finns många undantag och specialfall",
+  "Få manuella moment återstår i kärnflöden",
+  "Få undantag och specialfall i processerna",
   "Det är tydligt vilka moment som bör automatiseras",
   "Verksamheten är redo att förändra arbetssätt",
 ];
-const aiProcessScale = ["Låg", "Medel", "Hög", "Vet ej"];
+const aiProcessScale = ["Stämmer inte", "Stämmer delvis", "Stämmer helt", "Vet ej"];
 
 const aiGovernanceOptions = [
   "Ja, vi har tydliga riktlinjer",
@@ -1136,22 +1136,17 @@ const NeedsAnalysis = () => {
     dataScore = Math.max(0, dataScore - negativeIssues.length * 4);
     if (data.aiDataIssues.includes("Inga större dataproblem idag")) dataScore = Math.min(100, dataScore + 10);
 
-    // Process maturity score
+    // Process maturity score – alla påståenden är positivt formulerade
     const pm = data.aiProcessMaturity || {};
     const pmValues = Object.entries(pm).filter(([, v]) => v && v !== "Vet ej");
     let processScore = 50;
     if (pmValues.length > 0) {
-      const map: Record<string, number> = { "Låg": 20, "Medel": 60, "Hög": 95 };
-      // Negative-framed statements: "manuella moment" och "undantag och specialfall" — högre = sämre mognad
-      const negativeAreas = new Set(["Det finns många manuella moment", "Det finns många undantag och specialfall"]);
+      const map: Record<string, number> = { "Stämmer inte": 20, "Stämmer delvis": 60, "Stämmer helt": 95 };
       processScore = Math.round(
-        pmValues.reduce((s, [area, v]) => {
-          const base = map[v] ?? 50;
-          return s + (negativeAreas.has(area) ? 100 - base : base);
-        }, 0) / pmValues.length
+        pmValues.reduce((s, [, v]) => s + (map[v] ?? 50), 0) / pmValues.length
       );
     }
-    const manualHeavy = pm["Det finns många manuella moment"] === "Hög";
+    const manualHeavy = pm["Få manuella moment återstår i kärnflöden"] === "Stämmer inte";
 
     // Ambition score: more ambitions => higher intent
     const ambitions = data.aiAmbitions.filter(a => a !== "Vi vet inte ännu, men vill förstå möjligheterna");
@@ -3758,7 +3753,10 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             {/* Fråga 4 - Processmognad */}
             <div>
               <h3 className="text-lg font-semibold mb-1">Hur mogna är era processer för AI och automation?</h3>
-              <p className="text-sm text-muted-foreground mb-3">Bedöm varje påstående.</p>
+              <p className="text-sm text-muted-foreground mb-3">
+                Bedöm hur väl varje påstående stämmer för er idag. Alla påståenden är formulerade så att
+                <strong> "Stämmer helt" är den starkaste utgångspunkten för AI och automation</strong> – inga "trick"-frågor.
+              </p>
               <div className="space-y-3">
                 {aiProcessAreas.map((area) => (
                   <div key={area} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-3 rounded-lg border border-border/60 bg-card">
