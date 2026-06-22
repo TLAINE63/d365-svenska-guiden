@@ -3568,9 +3568,11 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                       <p className="text-sm text-muted-foreground italic">{category.subtitle}</p>
                     </div>
                     <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
-                      {category.items.map((item, idx) => (
-                        <li key={idx}>{item}</li>
-                      ))}
+                      {category.items
+                        .filter((item) => !(isServicesIndustry(data.industry) && /lager|inköp, order/i.test(item)))
+                        .map((item, idx) => (
+                          <li key={idx}>{item}</li>
+                        ))}
                     </ul>
                     <div className="flex flex-wrap gap-2 pt-2">
                       {situationChallengeOptions.map((option) => (
