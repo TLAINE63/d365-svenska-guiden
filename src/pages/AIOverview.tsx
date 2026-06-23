@@ -25,7 +25,7 @@ const roles = [
  title: "Försäljningschef",
  focus: "Bättre pipeline, träffsäkrare prioritering, snabbare avslut",
  icon: BarChart3,
- color: "from-emerald-600/20 to-teal-600/20 border-emerald-500/30",
+ color: "from-emerald-600/20 to-emerald-700/20 border-emerald-500/30",
  link: "/d365sales",
  },
  {

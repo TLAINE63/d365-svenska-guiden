@@ -576,13 +576,13 @@ const Kunskapscenter = () => {
  case "event":
  return "bg-primary text-primary-foreground border-primary";
  case "behovsanalys":
- return "bg-teal-600 text-white border-teal-600";
- case "kravspecifikation":
- return "bg-indigo-600 text-white border-indigo-600";
- case "artikel":
- return "bg-slate-600 text-white border-slate-600";
- case "guide":
- return "bg-teal-600 text-white border-teal-600";
+  return "bg-[hsl(var(--primary))] text-white border-[hsl(var(--primary))]";
+  case "kravspecifikation":
+  return "bg-indigo-600 text-white border-indigo-600";
+  case "artikel":
+  return "bg-slate-600 text-white border-slate-600";
+  case "guide":
+  return "bg-[hsl(var(--primary))] text-white border-[hsl(var(--primary))]";
  case "video":
  return "bg-rose-600 text-white border-rose-600";
  case "branscher":

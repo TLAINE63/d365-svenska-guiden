@@ -815,11 +815,8 @@ const Index = () => {
  </section>
  */}
 
- {/* Block 11 — Slut-CTA (BOOKEND 2): mörk teal, speglar hero, en orange CTA */}
- <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] py-16 sm:py-20 relative overflow-hidden">
-
- <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
- <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--cta-orange)/0.10),transparent_55%)]" />
+  {/* Block 11 — Slut-CTA (BOOKEND 2): flat mörk bakgrund, speglar hero, en orange CTA */}
+  <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] py-16 sm:py-20 relative overflow-hidden">
  <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative text-center">
  <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-white tracking-tight mb-4 leading-[1.15]">
  Redo att komma igång?
