@@ -46,30 +46,30 @@ const Navbar = () => {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 bg-background"
+      className="fixed top-0 left-0 right-0 z-50 bg-[hsl(var(--hero-dark))]"
       style={{ borderBottom: "3px solid hsl(var(--signature))" }}
     >
 
       {/* Top utility bar (desktop only) */}
-      <div className="hidden lg:block border-b border-border/60 bg-background">
+      <div className="hidden lg:block border-b border-[hsl(var(--line-dark))] bg-[hsl(var(--hero-dark))]">
         <div className="container mx-auto px-4">
           <div className="flex h-9 items-center justify-end gap-5 text-sm">
             <Link
               to="/AI-sok/"
-              className="inline-flex items-center gap-1.5 font-medium text-primary hover:text-primary/80 transition-colors"
+              className="inline-flex items-center gap-1.5 font-medium text-[hsl(var(--signature))] hover:text-white transition-colors"
             >
               <Sparkles className="h-3.5 w-3.5" />
               AI-sök
             </Link>
             <Link
               to="/kunskapscenter"
-              className="font-medium text-muted-foreground hover:text-primary transition-colors"
+              className="font-medium text-white/70 hover:text-white transition-colors"
             >
               Kunskapscenter & Events
             </Link>
             <Link
               to="/kontakt/"
-              className="font-medium text-muted-foreground hover:text-primary transition-colors"
+              className="font-medium text-white/70 hover:text-white transition-colors"
             >
               Kontakt
             </Link>
