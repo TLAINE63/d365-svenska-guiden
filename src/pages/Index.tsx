@@ -210,12 +210,10 @@ const Index = () => {
  const [directionPicker, setDirectionPicker] = useState<null | "behovsanalys" | "kravspec">(null);
  const [aiQuery, setAiQuery] = useState("");
  const navigate = useNavigate();
- const aiExamples = [
-  "Vi är ett tillverkande bolag och behöver bättre koll på lager",
-  "Vad innehåller Dynamics 365 Sales?",
-  "Hitta partner inom fastighet",
-  "Skillnad mellan Business Central och Finance & SCM",
- ];
+  const aiExamples = [
+   "Vi är ett tillverkande bolag och behöver bättre koll på lager",
+   "Hitta partner inom fastighet",
+  ];
  const submitAiSearch = (q: string) => {
   const trimmed = q.trim();
   if (!trimmed) return;
