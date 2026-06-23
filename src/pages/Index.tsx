@@ -160,12 +160,12 @@ const situationCards = [
 
 
 const popularGuides = [
- { text: "Business Central vs Finance & SCM — vilket passar oss?", link: "/erp/", tag: "ERP" },
- { text: "Hur väljer man rätt Dynamics 365-partner?", link: "/valjdynamics365partner/", tag: "Partner" },
- { text: "Vad kostar Dynamics 365 — licens och projekt?", link: "/businesscentral/", tag: "Kostnad" },
- { text: "Hur lång tid tar en Dynamics 365-implementation?", link: "/kunskapscenter/", tag: "Tid" },
- { text: "Den typiska upphandlingsresan — 7 stadier", link: "/kunskapscenter/upphandlingsresan/", tag: "Process" },
- { text: "Är vi redo för AI och Copilot? Gör en AI-readiness", link: "/ai-readiness/", tag: "AI" },
+ { text: "Business Central vs Finance & SCM — vilket passar oss?", desc: "Jämför Microsofts två affärssystem på funktion, storlek och bransch.", link: "/erp/", tag: "ERP" },
+ { text: "Hur väljer man rätt Dynamics 365-partner?", desc: "Vad ni bör fråga, kräva och utvärdera innan ni skriver avtal.", link: "/valjdynamics365partner/", tag: "Partner" },
+ { text: "Vad kostar Dynamics 365 — licens och projekt?", desc: "Realistiska intervall för abonnemang, implementation och löpande kostnader.", link: "/kostnad/", tag: "Kostnad" },
+ { text: "Hur lång tid tar en Dynamics 365-implementation?", desc: "Tidplaner per storlek och vad som typiskt försenar projekt.", link: "/kunskapscenter/", tag: "Tid" },
+ { text: "Den typiska upphandlingsresan — 7 stadier", desc: "Från första behov till go-live: vad händer i varje fas och vem äger den.", link: "/kunskapscenter/upphandlingsresan/", tag: "Process" },
+ { text: "Är vi redo för AI och Copilot? Gör en AI-readiness", desc: "Snabb diagnostik som visar var ni står och vad ni bör göra först.", link: "/ai-readiness/", tag: "AI" },
 ];
 
 import partnerDataJson from "@/data/partnerData.json";
