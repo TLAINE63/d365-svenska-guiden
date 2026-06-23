@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import NoscriptSEO from "@/components/NoscriptSEO";
 import { OrganizationSchema, WebSiteSchema, FAQSchema, LocalBusinessSchema } from "@/components/StructuredData";
-import { Monitor, Users, Phone, HelpCircle, ArrowRight, BarChart3, Shield, Check, ChevronDown, Sparkles, BookOpen, Calendar, PlayCircle, ClipboardCheck, Search } from "lucide-react";
+import { Monitor, Users, Phone, HelpCircle, ArrowRight, BarChart3, Shield, Check, ChevronDown, Sparkles, BookOpen, Calendar, PlayCircle, ClipboardCheck, Search, Clock } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
 import selectorErp from "@/assets/selector/erp.jpg";
@@ -161,12 +161,12 @@ const situationCards = [
 
 
 const popularGuides = [
- { text: "Business Central vs Finance & SCM — vilket passar oss?", desc: "Jämför Microsofts två affärssystem på funktion, storlek och bransch.", link: "/erp/", tag: "ERP" },
- { text: "Hur väljer man rätt Dynamics 365-partner?", desc: "Vad ni bör fråga, kräva och utvärdera innan ni skriver avtal.", link: "/valjdynamics365partner/", tag: "Partner" },
- { text: "Vad kostar Dynamics 365 — licens och projekt?", desc: "Realistiska intervall för abonnemang, implementation och löpande kostnader.", link: "/kostnad/", tag: "Kostnad" },
- { text: "Hur lång tid tar en Dynamics 365-implementation?", desc: "Tidplaner per storlek och vad som typiskt försenar projekt.", link: "/kunskapscenter/", tag: "Tid" },
- { text: "Den typiska upphandlingsresan — 7 stadier", desc: "Från första behov till go-live: vad händer i varje fas och vem äger den.", link: "/kunskapscenter/upphandlingsresan/", tag: "Process" },
- { text: "Är vi redo för AI och Copilot? Gör en AI-readiness", desc: "Snabb diagnostik som visar var ni står och vad ni bör göra först.", link: "/ai-readiness/", tag: "AI" },
+ { text: "Business Central vs Finance & SCM — vilket passar oss?", desc: "Den fråga vi får mest — här är det ärliga svaret om funktion, storlek och bransch.", link: "/erp/", tag: "ERP", time: "12 min" },
+ { text: "Hur väljer man rätt Dynamics 365-partner?", desc: "Vad ni ska fråga, vad ni ska undvika och vilka signaler som varnar redan i pitchen.", link: "/valjdynamics365partner/", tag: "Partner", time: "10 min" },
+ { text: "Vad kostar Dynamics 365 — licens och projekt?", desc: "Realistiska intervall för abonnemang och implementation — inklusive det partners sällan nämner.", link: "/kostnad/", tag: "Kostnad", time: "9 min" },
+ { text: "Hur lång tid tar en Dynamics 365-implementation?", desc: "Tidplaner per storlek och de vanligaste orsakerna till att projekt drar över.", link: "/kunskapscenter/", tag: "Tid", time: "7 min" },
+ { text: "Den typiska upphandlingsresan — 7 stadier", desc: "Från första behov till go-live: vad händer i varje fas och vem som äger den.", link: "/kunskapscenter/upphandlingsresan/", tag: "Process", time: "11 min" },
+ { text: "Är vi redo för AI och Copilot? Gör en AI-readiness", desc: "Snabb diagnostik som visar var ni står idag och vad ni bör prioritera först.", link: "/ai-readiness/", tag: "AI", time: "8 min" },
 ];
 
 import partnerDataJson from "@/data/partnerData.json";
@@ -892,6 +892,10 @@ const Index = () => {
  <span className="text-[10px] font-semibold uppercase tracking-wider text-[hsl(var(--signature))] bg-primary/10 px-2 py-0.5 rounded whitespace-nowrap mt-0.5">{g.tag}</span>
  </div>
  <p className="text-[12.5px] text-muted-foreground leading-relaxed">{g.desc}</p>
+ <span className="inline-flex items-center gap-1 text-[11.5px] font-medium text-muted-foreground mt-1">
+  <Clock className="w-3 h-3" />
+  {g.time} läsning
+ </span>
  </Link>
  ))}
  </div>
