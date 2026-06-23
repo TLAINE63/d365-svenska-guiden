@@ -42,7 +42,7 @@ const faqs = [
   {
     question: "Vilka är de vanligaste misstagen vid val av affärssystem?",
     answer:
-      "1) Att låta licenspris styra mer än totalkostnad och processpassning. 2) Att hoppa över en oberoende behovsanalys och köpa det partnern råkar sälja mest av. 3) Att underskatta tiden för datatvätt och integration. 4) Att inte involvera nyckelanvändare tidigt. 5) Att välja partner enbart på pris istället för branscherfarenhet och referenser."
+      "1) Att låta licenspris styra mer än totalkostnad och processpassning. 2) Att hoppa över en köparsidig behovsanalys och köpa det partnern råkar sälja mest av. 3) Att underskatta tiden för datatvätt och integration. 4) Att inte involvera nyckelanvändare tidigt. 5) Att välja partner enbart på pris istället för branscherfarenhet och referenser."
   },
   {
     question: "Behöver jag en Microsoft-partner?",

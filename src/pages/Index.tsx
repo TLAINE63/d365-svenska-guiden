@@ -584,7 +584,7 @@ const Index = () => {
  </section>
 
 
- {/* Förtroendesektion: Oberoende rådgivare + E-bok + 3 pillars */}
+ {/* Förtroendesektion: Köparsidiga rådgivare + E-bok + 3 pillars */}
  <section className="section-divider px-4 sm:px-6 py-12 sm:py-16 bg-white border-b border-border">
 
  <div className="container mx-auto max-w-6xl">
