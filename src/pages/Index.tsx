@@ -342,7 +342,7 @@ const Index = () => {
  {step.to ? (
  <Button
  asChild
- className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 h-11 rounded-lg font-semibold w-full justify-center hover:-translate-y-0.5 transition-all"
+ className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 h-11 rounded font-semibold w-full justify-center hover:-translate-y-0.5 transition-all"
  >
  <Link to={step.to}>
  {step.cta}
@@ -352,7 +352,7 @@ const Index = () => {
  ) : (
  <Button
  onClick={step.onClick}
- className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 h-11 rounded-lg font-semibold w-full justify-center hover:-translate-y-0.5 transition-all"
+ className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 h-11 rounded font-semibold w-full justify-center hover:-translate-y-0.5 transition-all"
  >
  {step.cta}
  <ArrowRight className="w-4 h-4 ml-1.5" />
@@ -386,7 +386,7 @@ const Index = () => {
  <Button
  asChild
  size="lg"
- className="bg-white text-[hsl(192_48%_14%)] hover:bg-white/90 h-12 sm:h-14 px-6 rounded-lg font-bold w-full md:w-auto justify-center hover:-translate-y-0.5 transition-all flex-shrink-0"
+ className="bg-white text-[hsl(192_48%_14%)] hover:bg-white/90 h-12 sm:h-14 px-6 rounded font-bold w-full md:w-auto justify-center hover:-translate-y-0.5 transition-all flex-shrink-0"
  >
  <Link to="/beslutsmognad/">
  Starta Mognadsindex
@@ -620,7 +620,7 @@ const Index = () => {
  </p>
  <div className="space-y-4 mb-8">
  <div className="flex items-start gap-3">
- <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+ <div className="w-8 h-8 rounded bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
  <BarChart3 className="w-4 h-4 text-[hsl(var(--cta-orange))]" />
  </div>
  <div>
@@ -629,7 +629,7 @@ const Index = () => {
  </div>
  </div>
  <div className="flex items-start gap-3">
- <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+ <div className="w-8 h-8 rounded bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
  <Users className="w-4 h-4 text-[hsl(var(--cta-orange))]" />
  </div>
  <div>
@@ -638,7 +638,7 @@ const Index = () => {
  </div>
  </div>
  <div className="flex items-start gap-3">
- <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+ <div className="w-8 h-8 rounded bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
  <Check className="w-4 h-4 text-[hsl(var(--cta-orange))]" />
  </div>
  <div>
@@ -851,7 +851,7 @@ const Index = () => {
  <Suspense fallback={<div className="space-y-3 sm:space-y-4" />}>
  <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
  {/* Fråga 1 */}
- <AccordionItem value="item-1" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
+ <AccordionItem value="item-1" className="bg-card rounded px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
  <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
  <HelpCircle className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
@@ -871,7 +871,7 @@ const Index = () => {
  </AccordionItem>
 
  {/* Fråga 2 */}
- <AccordionItem value="item-2" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
+ <AccordionItem value="item-2" className="bg-card rounded px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
  <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
  <HelpCircle className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
@@ -893,7 +893,7 @@ const Index = () => {
  </AccordionItem>
 
  {/* Fråga 3 */}
- <AccordionItem value="item-3" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
+ <AccordionItem value="item-3" className="bg-card rounded px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
  <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
  <HelpCircle className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
@@ -919,7 +919,7 @@ const Index = () => {
  </AccordionItem>
 
  {/* Fråga 4 */}
- <AccordionItem value="item-4" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
+ <AccordionItem value="item-4" className="bg-card rounded px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
  <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
  <Users className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
@@ -942,7 +942,7 @@ const Index = () => {
  </AccordionItem>
 
  {/* Fråga 5 */}
- <AccordionItem value="item-5" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
+ <AccordionItem value="item-5" className="bg-card rounded px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
  <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
  <BarChart3 className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
@@ -960,7 +960,7 @@ const Index = () => {
  </AccordionItem>
 
  {/* Fråga 6 */}
- <AccordionItem value="item-6" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
+ <AccordionItem value="item-6" className="bg-card rounded px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
  <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
  <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
