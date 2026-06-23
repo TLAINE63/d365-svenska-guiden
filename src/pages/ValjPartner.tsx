@@ -481,12 +481,12 @@ const ValjPartner = () => {
  <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
  <Users className="h-10 w-10 sm:h-12 sm:w-12 text-white" />
  </div>
- <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
- Det kritiska partnervalet
- </h1>
- <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-6 sm:mb-8">
- Hitta rätt partner till ditt Dynamics 365-projekt
- </p>
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
+                Hitta 2–4 Dynamics 365-partners som matchar ert behov
+              </h1>
+              <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-6 sm:mb-8">
+                Använd filtret som en första shortlist, inte ett facit. Rätt partner handlar om applikation, bransch, metodik, team, kemi och ansvar efter go-live.
+              </p>
  <Button 
  size="lg" 
  className="bg-cta-orange hover:bg-cta-orange-hover text-white w-full sm:w-auto text-lg sm:text-xl h-16 sm:h-20 px-8 sm:px-12 font-bold transition-all rounded"
