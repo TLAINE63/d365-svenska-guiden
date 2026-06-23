@@ -43,6 +43,12 @@ import {
  ChevronDown,
  Check,
  Sparkles,
+ Compass,
+ Database,
+ Users,
+ ClipboardList,
+ Handshake,
+ X,
 } from "lucide-react";
 
 // ── Types ──────────────────────────────────────────────
