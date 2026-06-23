@@ -892,6 +892,10 @@ const Index = () => {
  <span className="text-[10px] font-semibold uppercase tracking-wider text-[hsl(var(--signature))] bg-primary/10 px-2 py-0.5 rounded whitespace-nowrap mt-0.5">{g.tag}</span>
  </div>
  <p className="text-[12.5px] text-muted-foreground leading-relaxed">{g.desc}</p>
+ <span className="inline-flex items-center gap-1 text-[11.5px] font-medium text-muted-foreground mt-1">
+  <Clock className="w-3 h-3" />
+  {g.time} läsning
+ </span>
  </Link>
  ))}
  </div>
