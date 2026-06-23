@@ -73,6 +73,7 @@ const STATIC_ROUTES = [
   { path: "/om-thomas-laine/", changefreq: "yearly", priority: "0.5" },
   { path: "/om-michael-uhman/", changefreq: "yearly", priority: "0.5" },
   { path: "/priser/", changefreq: "monthly", priority: "0.8" },
+  { path: "/kostnad/", changefreq: "monthly", priority: "0.8" },
   { path: "/partners-sitemap/", changefreq: "weekly", priority: "0.5" },
 ];
 

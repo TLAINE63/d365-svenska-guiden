@@ -82,6 +82,7 @@ const BeslutsmognadTack = lazy(() => import("./pages/BeslutsmognadTack"));
 const BeslutsmognadResultat = lazy(() => import("./pages/BeslutsmognadResultat"));
 const OwnershipAndInterests = lazy(() => import("./pages/OwnershipAndInterests"));
 const Priser = lazy(() => import("./pages/Priser"));
+const Kostnad = lazy(() => import("./pages/Kostnad"));
 const AiChatBubble = lazy(() => import("@/components/AiChatBubble"));
 
 const queryClient = new QueryClient();
@@ -199,6 +200,7 @@ const AppShell = () => {
           <Route path="/våratjänster" element={<Navigate to="/" replace />} />
           <Route path="/kunskapscenter" element={<Kunskapscenter />} />
           <Route path="/priser" element={<Priser />} />
+          <Route path="/kostnad" element={<Kostnad />} />
           <Route path="/kunskapscenter/upphandlingsresan" element={<Upphandlingsresan />} />
           <Route path="/upphandlingsguiden" element={<Upphandlingsguiden />} />
           <Route path="/kunskapscenter/video/:slug" element={<VideoLanding />} />

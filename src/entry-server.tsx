@@ -58,6 +58,7 @@ import OmThomasLaine from './pages/OmThomasLaine';
 import OmMichaelUhman from './pages/OmMichaelUhman';
 import OwnershipAndInterests from './pages/OwnershipAndInterests';
 import Priser from './pages/Priser';
+import Kostnad from './pages/Kostnad';
 import Upphandlingsresan from './pages/Upphandlingsresan';
 import Upphandlingsguiden from './pages/Upphandlingsguiden';
 import { PRODUCT_PARTNERS_SVERIGE } from './data/productPartnersSverige';
@@ -169,6 +170,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/om-michael-uhman', priority: '0.6', changefreq: 'yearly' },
   { path: '/agande-och-intressen', priority: '0.5', changefreq: 'yearly' },
   { path: '/priser', priority: '0.8', changefreq: 'monthly' },
+  { path: '/kostnad', priority: '0.8', changefreq: 'monthly' },
   { path: '/dataskydd', priority: '0.3', changefreq: 'yearly', sitemap: false },
   { path: '/kom-igang', priority: '0.8', changefreq: 'monthly' },
   { path: '/kunskapscenter', priority: '0.7', changefreq: 'weekly' },
@@ -315,6 +317,7 @@ export function render(url: string) {
               <Route path="/qa" element={<QA />} />
               <Route path="/kunskapscenter" element={<Kunskapscenter />} />
               <Route path="/priser" element={<Priser />} />
+              <Route path="/kostnad" element={<Kostnad />} />
               <Route path="/kunskapscenter/upphandlingsresan" element={<Upphandlingsresan />} />
               <Route path="/upphandlingsguiden" element={<Upphandlingsguiden />} />
               <Route path="/om-thomas-laine" element={<OmThomasLaine />} />
