@@ -53,12 +53,26 @@ All colors MUST be HSL.
     --signature-foreground: 0 0% 100%;
 
     /* Mörka zon-tokens (masthead, hero, footer, sidebar headers) */
-    --hero-dark: 30 14% 7%;             /* #161511 */
-    --petrol: 30 14% 7%;                /* alias → svart */
-    --card-dark: 30 14% 7%;
+    --hero-dark: 42 13% 8%;             /* #161511 */
+    --petrol: 42 13% 8%;                /* alias → svart */
+    --card-dark: 42 13% 8%;
     --line-dark: 30 9% 15%;             /* #2A2723 */
     --accent-light: 156 47% 92%;        /* #E3F4EE – ljus grön bg */
-    --muted-dark: 30 6% 58%;            /* #9A9490 – text på svart */
+    --muted-dark: 24 5% 58%;            /* #9A9490 – text på svart */
+
+    /* ─── Literal färg-aliases (för direkt användning i komponenter) ─── */
+    --color-masthead: #161511;
+    --color-bg: #F5F2EC;
+    --color-warm: #FBF8F2;
+    --color-white: #FFFFFF;
+    --color-ink: #181512;
+    --color-muted: #6F6A61;
+    --color-dark-muted: #9A9490;
+    --color-dark-border: #2A2723;
+    --color-line: #D8D1C6;
+    --color-accent: #D64A1F;
+    --color-cta: #006B55;
+    --color-cta-bg: #E3F4EE;
 
 
 
