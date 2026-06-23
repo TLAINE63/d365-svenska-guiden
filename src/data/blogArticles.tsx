@@ -1131,7 +1131,26 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     heroImage: ownedIntelligenceHero,
     readingTimeMinutes: 8,
     featured: false,
+    freshness: {
+      status: "older",
+      note: "Skriven i maj 2026 utifrån Microsofts Work Trend Index. Den bredare AI-bilden i Dynamics 365 har förtydligats genom Build 2026 och GA av Copilot Cowork — läs vidare där.",
+      newerArticles: [
+        {
+          slug: "ai-skiftet-dynamics-365-build-2026",
+          label: "AI-skiftet i Dynamics 365 efter Microsoft Build 2026",
+        },
+        {
+          slug: "copilot-cowork-dynamics-365",
+          label: "Copilot Cowork är här – vad betyder det för Dynamics 365?",
+        },
+        {
+          slug: "frontier-firm-dynamics-365-erp-crm",
+          label: "Frontier Firm — vad ERP- och CRM-köpare behöver göra nu",
+        },
+      ],
+    },
     content: (
+
       <>
         <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] italic text-foreground/85 !mb-8">
           I maj släppte Microsoft sin Work Trend Index 2026 — en omfattande
