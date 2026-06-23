@@ -207,6 +207,20 @@ const Index = () => {
  
  const [kravspecOpen, setKravspecOpen] = useState(false);
  const [directionPicker, setDirectionPicker] = useState<null | "behovsanalys" | "kravspec">(null);
+ const [aiQuery, setAiQuery] = useState("");
+ const navigate = useNavigate();
+ const aiExamples = [
+  "Vi är ett tillverkande bolag och behöver bättre koll på lager",
+  "Vilken CRM passar för 30 säljare?",
+  "Hitta partner inom fastighet",
+  "Skillnad mellan Business Central och Finance & SCM",
+ ];
+ const submitAiSearch = (q: string) => {
+  const trimmed = q.trim();
+  if (!trimmed) return;
+  navigate(`/AI-sok?q=${encodeURIComponent(trimmed)}`);
+ };
+
  const directionOptions = {
  behovsanalys: {
  title: "Vilken behovsanalys vill ni göra?",
