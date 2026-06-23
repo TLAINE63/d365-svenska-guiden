@@ -683,7 +683,7 @@ const Index = () => {
  Hur moget är ert beslutsunderlag?
  </h2>
  <p className="text-base sm:text-lg text-white/70 font-light leading-relaxed mb-6 max-w-xl">
- Innan ni investerar i affärssystem, CRM, marknadsföring eller kundservice — ta reda på hur redo ni faktiskt är. Beslutsmognadsindex ger er en personlig profil, en peer benchmark och tre konkreta rekommendationer.
+ Innan ni investerar i affärssystem, CRM, marknadsföring eller kundservice — ta reda på hur redo ni faktiskt är. Beslutsmognadsindex ger er en personlig profil, en peer benchmark och konkreta rekommendationer.
  </p>
  <div className="space-y-4 mb-8">
  <div className="flex items-start gap-3">
