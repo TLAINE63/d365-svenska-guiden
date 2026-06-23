@@ -254,8 +254,8 @@ const Index = () => {
  <LocalBusinessSchema />
  <FAQSchema faqs={homeFaqs} />
  <NoscriptSEO
- title="Dynamics 365 Sverige – Oberoende guide till ERP & CRM"
- description="d365.se är Sveriges oberoende guide till Microsoft Dynamics 365. Vi hjälper svenska företag att jämföra ERP- och CRM-lösningar, hitta rätt Microsoft-certifierad partner och göra kostnadsfria behovsanalyser. Business Central från 765 kr per användare och månad."
+ title="Dynamics 365 Sverige – köparsidig guide till ERP & CRM"
+ description="d365.se är Sveriges köparsidiga guide till Microsoft Dynamics 365. Vi står på köparens sida och hjälper svenska företag att jämföra ERP- och CRM-lösningar, hitta rätt Microsoft-certifierad partner och göra kostnadsfria behovsanalyser. Business Central från 765 kr per användare och månad."
  sections={[
  { heading: "Vad är Microsoft Dynamics 365?", text: "Microsoft Dynamics 365 är Microsofts molnbaserade plattform för affärssystem (ERP) och kundrelationshantering (CRM). Plattformen består av specialiserade affärsapplikationer: Business Central och Finance & Supply Chain Management för ERP, samt Sales, Customer Service, Field Service, Marketing och Customer Insights för CRM." },
  { heading: "Dynamics 365 Business Central – pris och licenser i Sverige", text: "Dynamics 365 Business Central kostar från 765 kr per användare och månad med Essentials-licens, eller 1 051 kr per månad med Premium-licens som inkluderar produktion och servicehantering." },
@@ -599,7 +599,7 @@ const Index = () => {
  <div className="flex items-start gap-3">
  <img
  src={thomasLaine}
- alt="Thomas Laine, oberoende rådgivare inom Microsoft Dynamics 365"
+ alt="Thomas Laine, köparsidig rådgivare inom Microsoft Dynamics 365"
  loading="lazy"
  width={80}
  height={80}
@@ -608,7 +608,7 @@ const Index = () => {
  <div className="pt-1">
  <p className="font-semibold text-foreground">Thomas Laine</p>
  <p className="text-xs text-muted-foreground leading-snug">
- Medgrundare, d365.se. Oberoende rådgivare inom Microsoft Dynamics 365, ERP, CRM och partnerlandskapet.
+ Medgrundare, d365.se. Köparsidig rådgivare inom Microsoft Dynamics 365, ERP, CRM och partnerlandskapet.
  </p>
  <Link to="/om-thomas-laine/" className="inline-block mt-1 text-xs font-medium text-primary hover:underline">
  Om Thomas Laine →
@@ -619,7 +619,7 @@ const Index = () => {
  <div className="flex items-start gap-3">
  <img
  src={michaelUhman}
- alt="Michael Uhman, oberoende rådgivare inom Microsoft Dynamics 365"
+ alt="Michael Uhman, köparsidig rådgivare inom Microsoft Dynamics 365"
  loading="lazy"
  width={80}
  height={80}
@@ -628,7 +628,7 @@ const Index = () => {
  <div className="pt-1">
  <p className="font-semibold text-foreground">Michael Uhman</p>
  <p className="text-xs text-muted-foreground leading-snug">
- Medgrundare, d365.se. Oberoende rådgivare med lång erfarenhet av affärssystem, verksamhetsutveckling och Dynamics 365-relaterade beslut.
+ Medgrundare, d365.se. Köparsidig rådgivare med lång erfarenhet av affärssystem, verksamhetsutveckling och Dynamics 365-relaterade beslut.
  </p>
  <Link to="/om-michael-uhman/" className="inline-block mt-1 text-xs font-medium text-primary hover:underline">
  Om Michael Uhman →
@@ -645,7 +645,7 @@ const Index = () => {
  Vill du ha hjälp på vägen?
  </h2>
  <p className="text-sm text-muted-foreground mb-5">
- Boka en kostnadsfri rådgivning med våra experter – oberoende, konfidentiellt och utan fortsättningskrav.
+ Boka en kostnadsfri rådgivning med våra experter – på köparens sida, konfidentiellt och utan fortsättningskrav.
  </p>
  <Link
  to="/kontakt/"

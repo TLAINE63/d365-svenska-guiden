@@ -55,7 +55,7 @@ export const resolveOgImage = (input: OgImageInput): OgImageData => {
   const altCandidate = (input.alt ?? "").trim() || (input.fallbackAlt ?? "").trim();
   const alt = altCandidate
     ? sanitizeAlt(altCandidate)
-    : "d365.se – oberoende kunskap om Microsoft Dynamics 365";
+    : "d365.se – köparsidig kunskap om Microsoft Dynamics 365";
 
   const width = Number.isFinite(input.width) && (input.width as number) > 0
     ? Math.round(input.width as number)

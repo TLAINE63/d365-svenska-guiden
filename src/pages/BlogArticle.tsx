@@ -438,7 +438,7 @@ const BlogArticle = () => {
               <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
                 Thomas Laine arbetar med både CRM och ERP, med särskilt fokus på Microsoft
                 Dynamics 365, och har över 30 års erfarenhet i branschen. Artiklarna
-                publiceras via d365.se, en oberoende kunskapsplattform om ERP, CRM och
+                publiceras via d365.se, en köparsidig kunskapsplattform om ERP, CRM och
                 partnerval.
               </p>
               <Link

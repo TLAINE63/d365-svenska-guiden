@@ -90,8 +90,8 @@ const Affarssystem = () => {
         ogImage="https://d365.se/og-erp.png"
       />
       <ServiceSchema
-        name="Affärssystem – oberoende guide"
-        description="Oberoende guide till affärssystem i Sverige. Förklarar vad ett affärssystem är, hur du väljer rätt och vilka alternativ som finns på marknaden. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+        name="Affärssystem – köparsidig guide"
+        description="Köparsidig guide till affärssystem i Sverige. Förklarar vad ett affärssystem är, hur du väljer rätt och vilka alternativ som finns på marknaden. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
       />
       <BreadcrumbSchema items={breadcrumbs} />
       <FAQSchema faqs={faqs} />
@@ -99,7 +99,7 @@ const Affarssystem = () => {
 
       {/* Hero */}
       <ProductHero
-        eyebrow="Pelarsida · Oberoende guide"
+        eyebrow="Pelarsida · Köparsidig guide"
         title="Affärssystem — vad det är."
         titleAccent="Så väljer ni rätt utan säljpåverkan."
         subhead="Vad är ett affärssystem, vad kostar det, hur lång tid tar det att införa och vilka alternativ finns på den svenska marknaden? Här får ni svaren — utan säljpåverkan."
@@ -178,7 +178,7 @@ const Affarssystem = () => {
                 },
                 {
                   icon: CheckCircle2,
-                  title: "Börja med en oberoende analys",
+                  title: "Börja med en köparsidig analys",
                   body: "En behovsanalys utan säljincitament tar några timmar och sparar ofta hundratusentals kronor i felval senare."
                 },
               ].map((item) => (

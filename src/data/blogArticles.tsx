@@ -868,9 +868,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 Release Wave 1 2026 — vad som faktiskt kommer, per produkt",
     metaTitle: "Dynamics 365 Release Wave 1 2026: nyheter per produkt | d365.se",
     metaDescription:
-      "Oberoende sammanställning av Microsofts Release Wave 1 2026 för Dynamics 365. Per produkt: vad som rullas ut april–september 2026, och vad som redan finns inom AI, Copilot och agenter.",
+      "Köparsidig sammanställning av Microsofts Release Wave 1 2026 för Dynamics 365. Per produkt: vad som rullas ut april–september 2026, och vad som redan finns inom AI, Copilot och agenter.",
     summary:
-      "Microsoft publicerade Release Wave 1 2026 den 18 mars. Här är d365.se:s oberoende genomgång — per produkt: vad som rullas ut mellan april och september, och vad som redan är på plats inom AI, Copilot och agenter.",
+      "Microsoft publicerade Release Wave 1 2026 den 18 mars. Här är d365.se:s köparsidiga genomgång — per produkt: vad som rullas ut mellan april och september, och vad som redan är på plats inom AI, Copilot och agenter.",
     category: "Produktnyheter",
     tags: ["dynamics365", "release wave", "ai", "copilot", "agenter", "roadmap"],
     products: [
@@ -908,7 +908,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] italic text-foreground/85 !mb-8">
           Microsoft publicerade Release Wave 1 2026 för Dynamics 365 den{" "}
           <strong>18 mars 2026</strong>. Planen omfattar uppdateringar som rullas
-          ut mellan 1 april och september 2026. Här är en oberoende
+          ut mellan 1 april och september 2026. Här är en köparsidig
           sammanställning per produkt — både det som kommer och det som redan
           finns inom AI, Copilot och agenter.
         </p>
@@ -1927,7 +1927,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           systemvalet. Det bör vara en central del av beslutet från början.
         </p>
         <p>
-          På d365.se erbjuder vi oberoende stöd för att strukturera valet av
+          På d365.se erbjuder vi köparsidigt stöd för att strukturera valet av
           Dynamics 365-partner – utifrån lösningsområde, bransch, erfarenhet och
           faktiskt leveransupplägg.
         </p>

@@ -43,7 +43,7 @@ export interface MetaDescriptionResult {
  */
 export const buildMetaDescriptionDetailed = (
   candidates: Array<string | undefined | null>,
-  fallback = "Oberoende kunskap om Microsoft Dynamics 365 — ERP, CRM och partnerval.",
+  fallback = "Köparsidig kunskap om Microsoft Dynamics 365 — ERP, CRM och partnerval.",
 ): MetaDescriptionResult => {
   const warnings: string[] = [];
   const cleaned = candidates
