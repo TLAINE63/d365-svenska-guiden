@@ -538,6 +538,8 @@ function MultiSelectDropdown<T extends string>({
 
 const Kunskapscenter = () => {
  const [activeCategory, setActiveCategory] = useState<CategoryFilter>("alla");
+ const [activeTrack, setActiveTrack] = useState<TrackValue | null>(null);
+ const tracksGridRef = useRef<HTMLDivElement>(null);
  const [selectedFormats, setSelectedFormats] = useState<FormatValue[]>([]);
  const [selectedProducts, setSelectedProducts] = useState<ProductValue[]>([]);
  const [deepDiveProduct, setDeepDiveProduct] = useState<string | null>(null);
