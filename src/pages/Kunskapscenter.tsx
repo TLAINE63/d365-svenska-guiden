@@ -542,6 +542,10 @@ const Kunskapscenter = () => {
  const tracksGridRef = useRef<HTMLDivElement>(null);
  const [selectedFormats, setSelectedFormats] = useState<FormatValue[]>([]);
  const [selectedProducts, setSelectedProducts] = useState<ProductValue[]>([]);
+ // Per page-load seed so that "Artiklar" + "Branscher & Partners" rotates
+ // which items appear first on every refresh, while keeping render order
+ // stable within a session (avoids reshuffles on filter changes).
+ const [shuffleSeed] = useState<number>(() => Math.floor(Math.random() * 0x7fffffff));
  const [deepDiveProduct, setDeepDiveProduct] = useState<string | null>(null);
  const [deepDiveView, setDeepDiveView] = useState<"articles" | "prices">("articles");
  const [articles, setArticles] = useState<KnowledgeArticle[]>([]);
