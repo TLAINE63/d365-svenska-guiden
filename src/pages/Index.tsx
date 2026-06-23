@@ -466,39 +466,61 @@ const Index = () => {
  ))}
  </div>
 
- {/* Full-width Mognadsindex CTA under the three steps */}
- <div className="relative rounded overflow-hidden border border-[hsl(var(--line-dark))] bg-white/[0.04] p-5 sm:p-7">
- <div className="relative flex flex-col md:flex-row md:items-center gap-5 md:gap-8">
- <div className="flex items-center gap-4 flex-1 min-w-0">
- <div className="w-12 h-12 rounded bg-white/10 border border-[hsl(var(--line-dark))] flex items-center justify-center flex-shrink-0">
- <BarChart3 className="w-5 h-5 text-[hsl(var(--signature))]" />
- </div>
- <div className="min-w-0">
- <div className="flex items-center gap-2 mb-1.5">
- <span className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-[hsl(var(--signature))]">Komplement</span>
- <span className="text-white/25">·</span>
- <span className="text-[10.5px] uppercase tracking-[0.14em] text-white/45">Nytt för 2026</span>
- </div>
- <h2 className="text-lg sm:text-xl font-semibold text-white leading-snug">
- Mognadsindex — hur redo är ert beslutsunderlag?
- </h2>
- <p className="text-[13.5px] text-white/60 leading-relaxed mt-1">
- En diagnostik på 8–10 minuter. Få en personlig mognadsprofil, peer benchmark och konkreta rekommendationer.
- </p>
- </div>
- </div>
- <Button
- asChild
- size="lg"
-  className="bg-transparent text-white hover:bg-white/10 hover:text-white h-12 sm:h-14 px-6 rounded font-bold w-full md:w-auto justify-center hover:-translate-y-0.5 transition-all flex-shrink-0"
-  style={{ border: "1px solid #D8D1C6" }}
- >
- <Link to="/beslutsmognad/">
- Starta Mognadsindex
- <ArrowRight className="w-4 h-4 ml-1.5" />
- </Link>
- </Button>
- </div>
+ {/* Mognadsindex — eget framträdande block */}
+ <div className="relative rounded overflow-hidden border border-[hsl(var(--line-dark))] bg-[#211F1A]">
+  {/* Signaturstreck */}
+  <div className="absolute left-0 top-0 bottom-0 w-1 bg-[hsl(var(--signature))]" />
+
+  <div className="p-6 sm:p-9">
+   <div className="flex flex-col lg:flex-row lg:items-start gap-8">
+    <div className="flex-1 min-w-0">
+     <div className="flex items-center gap-2 mb-3">
+      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[hsl(var(--signature))]/15 border border-[hsl(var(--signature))]/40 text-[10.5px] font-bold uppercase tracking-[0.14em] text-[hsl(var(--signature))]">
+       <BarChart3 className="w-3 h-3" />
+       Mognadsindex
+      </span>
+      <span className="text-[10.5px] uppercase tracking-[0.14em] text-white/45">Nytt för 2026</span>
+     </div>
+     <h2 className="text-2xl sm:text-3xl font-bold text-white leading-[1.15] tracking-tight mb-3">
+      Hur redo är ert beslutsunderlag — egentligen?
+     </h2>
+     <p className="text-[15px] sm:text-base text-white/75 leading-relaxed max-w-2xl">
+      En diagnostik på 8–10 minuter som visar var ni står innan ni går in i partnerdialog, kravspec eller upphandling. Använd det själva, eller dela med ledningsgruppen.
+     </p>
+    </div>
+
+    <div className="flex flex-col gap-2.5 lg:w-[260px] flex-shrink-0">
+     <Button
+      asChild
+      size="lg"
+      className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white h-12 px-6 rounded font-bold justify-center hover:-translate-y-0.5 transition-all"
+     >
+      <Link to="/beslutsmognad/">
+       Starta Mognadsindex
+       <ArrowRight className="w-4 h-4 ml-1.5" />
+      </Link>
+     </Button>
+     <p className="text-[12px] text-white/50 text-center">Kostnadsfritt · Ingen registrering</p>
+    </div>
+   </div>
+
+   {/* Tre leverabler */}
+   <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-7 pt-7 border-t border-[hsl(var(--line-dark))]">
+    {[
+     { n: "I", title: "Personlig mognadsprofil", desc: "Era styrkor och luckor mappade mot sex beslutsdimensioner — strategi, data, process, team, governance och teknik." },
+     { n: "II", title: "Peer benchmark", desc: "Hur ni står er mot jämförbara svenska bolag i samma fas — så ni vet vad som är normalt och vad som inte är det." },
+     { n: "III", title: "Konkreta rekommendationer", desc: "Prioriterade nästa steg ni kan ta redan denna vecka — inte en lista med generiska best practices." },
+    ].map((d) => (
+     <div key={d.n} className="bg-[#15130F] border border-[hsl(var(--line-dark))] rounded p-4">
+      <div className="flex items-center gap-2 mb-2">
+       <span className="text-[hsl(var(--signature))] font-bold text-[13px] tracking-wider">{d.n}.</span>
+       <h3 className="text-[14px] font-semibold text-white">{d.title}</h3>
+      </div>
+      <p className="text-[12.5px] text-white/65 leading-relaxed">{d.desc}</p>
+     </div>
+    ))}
+   </div>
+  </div>
  </div>
  </div>
  </section>
