@@ -678,7 +678,7 @@ const Kunskapscenter = () => {
  {/* Topical hubs — crawl-friendly internal links */}
  <section className="border-b border-border bg-muted/30">
  <div className="container mx-auto px-4 py-6">
- <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+ <h2 className="text-sm font-semibold text-[hsl(var(--signature))] uppercase tracking-wider mb-3">
  Utforska efter ämne
  </h2>
  <div className="flex flex-wrap gap-2">
@@ -765,7 +765,7 @@ const Kunskapscenter = () => {
  <div className="container mx-auto px-4 py-2.5 space-y-2.5">
  {/* View toggle: Artiklar / Prislista */}
  <div className="flex flex-wrap items-center gap-2">
- <span className="text-xs uppercase tracking-wider text-muted-foreground mr-1">
+ <span className="text-xs uppercase tracking-wider text-[hsl(var(--signature))] mr-1">
  Visa:
  </span>
  <button
