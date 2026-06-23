@@ -264,16 +264,12 @@ const Index = () => {
  <Sparkles className="w-3 h-3" />
  Upphandlingsguiden för Microsoft Dynamics 365
  </div>
- <h1 className="text-[26px] sm:text-[34px] md:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
- <span className="block sm:whitespace-nowrap">
- Kvalitetssäkrad upphandling av{" "}
- <span className="text-[hsl(var(--signature))] whitespace-nowrap">Dynamics&nbsp;365</span>
- </span>
- <span className="block text-white/90 mt-1">– från behov till val av Microsoftpartner</span>
- </h1>
- <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl">
- På d365.se får din verksamhet vägledning genom hela upphandlingsresan – från behovsanalys och hjälp att skriva kravspecifikation, till jämförelser av Dynamics 365-partners och fördjupade insikter i applikationerna. Allt samlat på ett ställe, så att ni kan fatta trygga beslut hela vägen fram till avtal och införande.
- </p>
+  <h1 className="text-[26px] sm:text-[34px] md:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
+  Välj inte <span className="text-[hsl(var(--signature))] whitespace-nowrap">Dynamics&nbsp;365</span>-partner på magkänsla
+  </h1>
+  <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl">
+  d365.se hjälper er förstå behovet, jämföra alternativen och hitta partners som matchar er verksamhet – med guider, analyser och verktyg skrivna från köparens perspektiv.
+  </p>
  <p className="mt-3 inline-flex items-center gap-2 text-[12.5px] sm:text-[13px] text-white/65">
  <Sparkles className="w-3.5 h-3.5 text-[hsl(var(--signature))]" />
  AI-assisterat innehåll, granskat av erfarna Dynamics 365-rådgivare
