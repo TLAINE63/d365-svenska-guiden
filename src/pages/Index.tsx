@@ -710,7 +710,7 @@ const Index = () => {
  to="/kunskapscenter/"
  className="group relative bg-card border border-border rounded p-6 hover:border-primary/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden"
  >
- <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-primary/60" />
+ <div className="absolute top-0 left-0 right-0 h-1 bg-primary" />
  <div className="w-11 h-11 rounded bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-colors">
  <BookOpen className="w-5 h-5 text-primary" />
  </div>
@@ -803,7 +803,7 @@ const Index = () => {
  <Link
  key={pill}
  to={`/branscher/${PILL_TO_SLUG[pill]}/`}
- className="group flex items-center justify-between gap-2 px-4 py-3.5 rounded border border-border bg-[#F4F8F8] hover:border-primary/50 hover:bg-primary/5 hover:-translate-y-0.5 transition-all duration-200"
+ className="group flex items-center justify-between gap-2 px-4 py-3.5 rounded border border-border bg-secondary hover:border-primary/50 hover:bg-primary/5 hover:-translate-y-0.5 transition-all duration-200"
  >
  <span className="text-[14px] font-medium text-foreground">{pill}</span>
  <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all flex-shrink-0" />
@@ -840,7 +840,7 @@ const Index = () => {
  </section>
 
  {/* Block 12 — Vanliga frågor */}
- <section id="questions" className="section-divider py-12 sm:py-16 bg-[#E8EFF1]">
+ <section id="questions" className="section-divider py-12 sm:py-16 bg-secondary">
 
  <div className="container mx-auto px-4 sm:px-6">
  <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold text-center mb-8 sm:mb-10 md:mb-12">
