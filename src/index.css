@@ -45,8 +45,8 @@ All colors MUST be HSL.
     --warning-foreground: 0 0% 100%;
 
     /* CTA – green #006B55. Token-namnet bibehålls för bakåtkompatibilitet. */
-    --cta-orange: 167 100% 21%;
-    --cta-orange-hover: 167 100% 16%;
+    --cta-orange: 168 100% 21%;
+    --cta-orange-hover: 168 100% 16%;
 
     /* Editorial signatur – Red #D64A1F. Endast text/tagg/eyebrow, aldrig bakgrund (utom röd rubrik-bar). */
     --signature: 14 75% 48%;
