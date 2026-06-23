@@ -211,7 +211,7 @@ const Index = () => {
  const navigate = useNavigate();
  const aiExamples = [
   "Vi är ett tillverkande bolag och behöver bättre koll på lager",
-  "Vilken CRM passar för 30 säljare?",
+  "Vad innehåller Dynamics 365 Sales?",
   "Hitta partner inom fastighet",
   "Skillnad mellan Business Central och Finance & SCM",
  ];
@@ -317,7 +317,7 @@ const Index = () => {
       type="search"
       value={aiQuery}
       onChange={(e) => setAiQuery(e.target.value)}
-      placeholder="T.ex. Vilken CRM passar för 30 säljare?"
+      placeholder="T.ex. Vad innehåller Dynamics 365 Sales?"
       className="w-full bg-[#15130F] border border-[#3A332A] focus:border-[hsl(var(--signature))] outline-none rounded pl-9 pr-3 py-3 text-[15px] text-white placeholder:text-white/40"
      />
     </div>
