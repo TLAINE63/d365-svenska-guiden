@@ -472,6 +472,7 @@ const Index = () => {
 
  <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
  <FeaturedArticleBanner />
+ <LatestArticlesStrip />
  </div>
  </section>
 
