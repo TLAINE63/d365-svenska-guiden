@@ -186,7 +186,7 @@ const FscmMatchningstest = () => {
  <Navbar />
 
  <main className="flex-1">
- <section className="bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] border-b border-primary/20">
+ <section className="bg-[hsl(var(--hero-dark))] border-b border-primary/20">
  <div className="container mx-auto px-4 sm:px-6 max-w-5xl pt-24 sm:pt-28 pb-8 sm:pb-10">
  <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/60">
  Finance & Supply Chain Management
