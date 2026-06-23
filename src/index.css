@@ -124,20 +124,22 @@ All colors MUST be HSL.
     --agents: 145 75% 40%;
     --agents-foreground: 0 0% 100%;
 
-    --border: 38 28% 87%;               /* Line #E7E0D4 – diskreta avdelare */
-    --input: 38 28% 87%;
-    --ring: 181 84% 35%;                /* Bright teal #0EA5A8 */
+    --border: 34 22% 81%;               /* Line #D8D1C6 – diskreta avdelare */
+    --input: 34 22% 81%;
+    --ring: 167 100% 21%;               /* Green #006B55 */
 
-    --radius: 0.25rem;
+    --radius: 0.25rem;                  /* max 4px – ingen SaaS-estetik */
 
-    --gradient-primary: linear-gradient(135deg, hsl(187 80% 14%) 0%, hsl(186 75% 17%) 100%);
-    --gradient-hero: linear-gradient(135deg, rgba(7,56,62,0.85) 0%, rgba(11,69,75,0.65) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(181 84% 35%) 0%, hsl(181 84% 30%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(36 30% 91%) 0%, hsl(38 33% 95%) 100%);
-    --shadow-card: 0 1px 3px 0 hsl(193 24% 12% / 0.06);
-    --shadow-hover: 0 6px 18px -4px hsl(193 24% 12% / 0.14);
-    --shadow-accent: 0 6px 18px -4px hsl(181 84% 35% / 0.25);
-    --shadow-elegant: 0 1px 2px 0 hsl(193 24% 12% / 0.05);
+    --gradient-primary: linear-gradient(135deg, hsl(30 14% 7%) 0%, hsl(30 14% 7%) 100%);
+    --gradient-hero: linear-gradient(135deg, rgba(22,21,17,0.92) 0%, rgba(22,21,17,0.75) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(167 100% 21%) 0%, hsl(167 100% 21%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(40 53% 97%) 0%, hsl(40 26% 94%) 100%);
+    /* Inga skuggor – behåll tokens som no-op för bakåtkompatibilitet */
+    --shadow-card: 0 0 0 0 transparent;
+    --shadow-hover: 0 0 0 0 transparent;
+    --shadow-accent: 0 0 0 0 transparent;
+    --shadow-elegant: 0 0 0 0 transparent;
+
 
 
     --sidebar-background: 0 0% 98%;
