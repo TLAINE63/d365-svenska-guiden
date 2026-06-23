@@ -254,10 +254,11 @@ All colors MUST be HSL.
   /* Shadow pulse animation for CTA buttons */
   @keyframes shadow-pulse {
     0%, 100% {
-      box-shadow: 0 0 0 0 hsl(185 81% 29% / 0.4);
+      box-shadow: 0 0 0 0 hsl(181 84% 35% / 0.4);
     }
     50% {
-      box-shadow: 0 0 0 8px hsl(185 81% 29% / 0);
+      box-shadow: 0 0 0 8px hsl(181 84% 35% / 0);
+
     }
   }
   
