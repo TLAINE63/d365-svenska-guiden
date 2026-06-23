@@ -888,7 +888,22 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     heroImage: releaseWave1Hero,
     readingTimeMinutes: 10,
     featured: false,
+    freshness: {
+      status: "older",
+      note: "Beskriver Release Wave 1 2026. För det större AI-skiftet i Dynamics 365 efter Microsoft Build 2026 och GA av Copilot Cowork, se de nyare artiklarna nedan.",
+      newerArticles: [
+        {
+          slug: "ai-skiftet-dynamics-365-build-2026",
+          label: "AI-skiftet i Dynamics 365 efter Microsoft Build 2026",
+        },
+        {
+          slug: "copilot-cowork-dynamics-365",
+          label: "Copilot Cowork är här – vad betyder det för Dynamics 365?",
+        },
+      ],
+    },
     content: (
+
       <>
         <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] italic text-foreground/85 !mb-8">
           Microsoft publicerade Release Wave 1 2026 för Dynamics 365 den{" "}
