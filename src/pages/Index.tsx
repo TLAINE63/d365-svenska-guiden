@@ -280,9 +280,9 @@ const Index = () => {
  <Sparkles className="w-3 h-3" />
  Upphandlingsguiden för Microsoft Dynamics 365
  </div>
-  <h1 className="text-[26px] sm:text-[34px] md:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
-  Hur hittar ni rätt <span className="text-[hsl(var(--signature))] whitespace-nowrap">Dynamics&nbsp;365</span>-partner – utan att chansa?
-  </h1>
+ <h1 className="text-[26px] sm:text-[34px] md:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
+ <span className="text-[hsl(var(--signature))] whitespace-nowrap">Dynamics&nbsp;365</span> — guider, jämförelser och partnerval på köparens villkor
+ </h1>
   <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl">
   d365.se hjälper er förstå behovet, jämföra alternativen och hitta partners som matchar er verksamhet – med guider, analyser och verktyg skrivna från köparens perspektiv.
   </p>
