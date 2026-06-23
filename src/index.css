@@ -8,57 +8,58 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* ─── Editorial petrol palette (d365.se v2) ───
-       Hero mörk bas #07383E, Petrol #0B454B (auktoritet),
-       Bright teal #0EA5A8 (primär CTA / AI),
-       Ljus accent #8FEFF2 (highlights på mörk yta),
-       Signatur #E85D2A (logo/eyebrow/tagg – aldrig som bakgrund),
-       Editorial #F7F4EF (sidbakgrund), Warm #EFE9DF (mellansektioner),
-       Ink #172326 (rubriker), Body #405057 (brödtext), Line #E7E0D4.
+    /* ─── d365.se Editorial palette v3 ───
+       Bakgrunder: Black #161511, Bg #F5F2EC, Warm #FBF8F2, White #FFFFFF
+       Text: Ink #181512, Muted #6F6A61, Dark muted #9A9490
+       Linjer: Line #D8D1C6, Dark border #2A2723
+       Accenter: Red #D64A1F (tags/eyebrows/logo), Green #006B55 (CTA/links),
+                 Green bg #E3F4EE (AI-label, active chips)
+       Regler: röd aldrig som löptext; radius max 4px; inga skuggor/gradienter.
     */
-    --background: 38 33% 95%;           /* Editorial #F7F4EF – sidbakgrund */
-    --foreground: 193 24% 12%;          /* Ink #172326 – rubriker & primärtext */
+    --background: 40 26% 94%;           /* #F5F2EC – sidbakgrund */
+    --foreground: 30 14% 8%;            /* #181512 – ink */
 
-    --card: 0 0% 100%;                  /* Vit – artikelkort, partnerkort */
-    --card-foreground: 193 24% 12%;
+    --card: 0 0% 100%;                  /* #FFFFFF – artikelkort */
+    --card-foreground: 30 14% 8%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 193 24% 12%;
+    --popover-foreground: 30 14% 8%;
 
-    --primary: 186 75% 17%;             /* Petrol #0B454B – huvudidentitet */
+    --primary: 167 100% 21%;            /* Green #006B55 – CTA/länk */
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 181 84% 35%;        /* Bright teal #0EA5A8 */
+    --primary-glow: 167 100% 26%;
 
-    --secondary: 36 30% 91%;            /* Warm #EFE9DF – mellansektion / faktarutor */
-    --secondary-foreground: 193 24% 12%;
+    --secondary: 40 53% 97%;            /* Warm #FBF8F2 – TAYA-band */
+    --secondary-foreground: 30 14% 8%;
 
-    --muted: 38 33% 95%;                /* Editorial #F7F4EF */
-    --muted-foreground: 199 15% 30%;    /* Body #405057 – brödtext */
+    --muted: 40 26% 94%;                /* #F5F2EC */
+    --muted-foreground: 35 7% 41%;      /* #6F6A61 – metadata */
 
-    --accent: 181 84% 35%;              /* Bright teal #0EA5A8 – CTA / AI */
-    --accent-foreground: 187 80% 14%;   /* Hero dark #07383E – text på teal-knapp */
+    --accent: 167 100% 21%;             /* Green – CTA/link accent */
+    --accent-foreground: 0 0% 100%;
 
-    --success: 165 60% 32%;
+    --success: 167 100% 21%;            /* Green */
     --success-foreground: 0 0% 100%;
 
-    --warning: 16 80% 54%;              /* Signatur #E85D2A – används som varning/insikt */
+    --warning: 14 75% 48%;              /* Red #D64A1F – insight/warning */
     --warning-foreground: 0 0% 100%;
 
-    /* CTA – bright teal #0EA5A8. Token-namnet bibehålls för bakåtkompatibilitet. */
-    --cta-orange: 181 84% 35%;          /* #0EA5A8 */
-    --cta-orange-hover: 186 75% 22%;    /* Mörk petrol vid hover */
+    /* CTA – green #006B55. Token-namnet bibehålls för bakåtkompatibilitet. */
+    --cta-orange: 167 100% 21%;
+    --cta-orange-hover: 167 100% 16%;
 
-    /* Editorial signatur – #E85D2A. Endast text/linje/accent, aldrig bakgrund. */
-    --signature: 16 80% 54%;
+    /* Editorial signatur – Red #D64A1F. Endast text/tagg/eyebrow, aldrig bakgrund (utom röd rubrik-bar). */
+    --signature: 14 75% 48%;
     --signature-foreground: 0 0% 100%;
 
-    /* Mörka zon-tokens (hero, masthead, bottom CTA) */
-    --hero-dark: 187 80% 14%;           /* #07383E */
-    --petrol: 186 75% 17%;              /* #0B454B */
-    --card-dark: 187 65% 20%;           /* #124F56 */
-    --line-dark: 186 60% 25%;           /* #1A6068 */
-    --accent-light: 182 78% 76%;        /* #8FEFF2 */
-    --muted-dark: 186 17% 62%;          /* #8AACB0 */
+    /* Mörka zon-tokens (masthead, hero, footer, sidebar headers) */
+    --hero-dark: 30 14% 7%;             /* #161511 */
+    --petrol: 30 14% 7%;                /* alias → svart */
+    --card-dark: 30 14% 7%;
+    --line-dark: 30 9% 15%;             /* #2A2723 */
+    --accent-light: 156 47% 92%;        /* #E3F4EE – ljus grön bg */
+    --muted-dark: 30 6% 58%;            /* #9A9490 – text på svart */
+
 
 
 
@@ -123,20 +124,22 @@ All colors MUST be HSL.
     --agents: 145 75% 40%;
     --agents-foreground: 0 0% 100%;
 
-    --border: 38 28% 87%;               /* Line #E7E0D4 – diskreta avdelare */
-    --input: 38 28% 87%;
-    --ring: 181 84% 35%;                /* Bright teal #0EA5A8 */
+    --border: 34 22% 81%;               /* Line #D8D1C6 – diskreta avdelare */
+    --input: 34 22% 81%;
+    --ring: 167 100% 21%;               /* Green #006B55 */
 
-    --radius: 0.25rem;
+    --radius: 0.25rem;                  /* max 4px – ingen SaaS-estetik */
 
-    --gradient-primary: linear-gradient(135deg, hsl(187 80% 14%) 0%, hsl(186 75% 17%) 100%);
-    --gradient-hero: linear-gradient(135deg, rgba(7,56,62,0.85) 0%, rgba(11,69,75,0.65) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(181 84% 35%) 0%, hsl(181 84% 30%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(36 30% 91%) 0%, hsl(38 33% 95%) 100%);
-    --shadow-card: 0 1px 3px 0 hsl(193 24% 12% / 0.06);
-    --shadow-hover: 0 6px 18px -4px hsl(193 24% 12% / 0.14);
-    --shadow-accent: 0 6px 18px -4px hsl(181 84% 35% / 0.25);
-    --shadow-elegant: 0 1px 2px 0 hsl(193 24% 12% / 0.05);
+    --gradient-primary: linear-gradient(135deg, hsl(30 14% 7%) 0%, hsl(30 14% 7%) 100%);
+    --gradient-hero: linear-gradient(135deg, rgba(22,21,17,0.92) 0%, rgba(22,21,17,0.75) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(167 100% 21%) 0%, hsl(167 100% 21%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(40 53% 97%) 0%, hsl(40 26% 94%) 100%);
+    /* Inga skuggor – behåll tokens som no-op för bakåtkompatibilitet */
+    --shadow-card: 0 0 0 0 transparent;
+    --shadow-hover: 0 0 0 0 transparent;
+    --shadow-accent: 0 0 0 0 transparent;
+    --shadow-elegant: 0 0 0 0 transparent;
+
 
 
     --sidebar-background: 0 0% 98%;
@@ -237,7 +240,16 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-weight: 400;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
   
   /* Mobile optimizations */
   @media (max-width: 768px) {
@@ -254,13 +266,13 @@ All colors MUST be HSL.
   /* Shadow pulse animation for CTA buttons */
   @keyframes shadow-pulse {
     0%, 100% {
-      box-shadow: 0 0 0 0 hsl(181 84% 35% / 0.4);
+      box-shadow: 0 0 0 0 hsl(167 100% 21% / 0.4);
     }
     50% {
-      box-shadow: 0 0 0 8px hsl(181 84% 35% / 0);
-
+      box-shadow: 0 0 0 8px hsl(167 100% 21% / 0);
     }
   }
+
   
   .animate-shadow-pulse {
     animation: shadow-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
