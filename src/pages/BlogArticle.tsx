@@ -258,6 +258,36 @@ const BlogArticle = () => {
         {/* Article content */}
         <section className="py-10">
           <div className="container mx-auto px-4 max-w-3xl">
+            {article.freshness?.status === "older" && (
+              <aside
+                aria-label="Artikelns aktualitet"
+                className="mb-8 border-l-4 border-[#D64A1F] bg-[#15130F] text-white p-5"
+              >
+                <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#D64A1F] mb-2">
+                  Äldre AI/Copilot-artikel · publicerad {formatDateSv(article.publishedAt)}
+                </p>
+                {article.freshness.note && (
+                  <p className="text-sm md:text-[0.95rem] leading-relaxed text-white/85 mb-3">
+                    {article.freshness.note}
+                  </p>
+                )}
+                <p className="text-xs font-semibold uppercase tracking-wider text-white/70 mb-2">
+                  Läs vidare på nyare 2026-sidor
+                </p>
+                <ul className="space-y-1.5">
+                  {article.freshness.newerArticles.map((n) => (
+                    <li key={n.slug}>
+                      <Link
+                        to={`/artiklar/${n.slug}/`}
+                        className="text-[0.95rem] font-semibold text-white hover:text-[#D64A1F] underline underline-offset-4 decoration-[#D64A1F]/60"
+                      >
+                        {n.label} →
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </aside>
+            )}
             {article.summary && (
               <aside
                 aria-label="Sammanfattning"
@@ -271,6 +301,7 @@ const BlogArticle = () => {
                 </p>
               </aside>
             )}
+
             <article
               className="
                 article-body max-w-none
