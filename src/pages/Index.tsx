@@ -307,7 +307,7 @@ const Index = () => {
     className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[hsl(var(--signature))] mb-3"
    >
     <Sparkles className="w-3.5 h-3.5" />
-    Fråga AI:n – få rätt sida direkt
+    Fråga AI:n – få snabba svar direkt
    </label>
    <div className="flex flex-col sm:flex-row gap-2">
     <div className="relative flex-1">
