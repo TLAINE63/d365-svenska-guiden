@@ -838,15 +838,18 @@ const Index = () => {
  <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
  <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-1">Mest lästa guider</h2>
  <p className="text-sm text-muted-foreground mb-5">Frågorna svenska företag söker svar på.</p>
- <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+ <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
  {popularGuides.map((g) => (
  <Link
  key={g.text}
  to={g.link}
- className="group flex items-center justify-between gap-3 bg-card border border-border rounded-[10px] px-4 py-3 text-[13px] font-medium text-foreground hover:border-primary/50 hover:text-primary hover:bg-primary/[0.03] hover:-translate-y-0.5 transition-all duration-200"
+ className="group flex flex-col gap-1.5 bg-card border border-border rounded-[10px] px-4 py-3.5 hover:border-primary/50 hover:bg-primary/[0.03] hover:-translate-y-0.5 transition-all duration-200"
  >
- <span className="flex-1">{g.text}</span>
- <span className="text-[10px] font-semibold uppercase tracking-wider text-[hsl(var(--signature))] bg-primary/10 px-2 py-0.5 rounded whitespace-nowrap">{g.tag}</span>
+ <div className="flex items-start justify-between gap-3">
+ <span className="flex-1 text-[14px] font-semibold text-foreground group-hover:text-primary leading-snug">{g.text}</span>
+ <span className="text-[10px] font-semibold uppercase tracking-wider text-[hsl(var(--signature))] bg-primary/10 px-2 py-0.5 rounded whitespace-nowrap mt-0.5">{g.tag}</span>
+ </div>
+ <p className="text-[12.5px] text-muted-foreground leading-relaxed">{g.desc}</p>
  </Link>
  ))}
  </div>
