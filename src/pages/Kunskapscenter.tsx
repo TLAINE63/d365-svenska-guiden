@@ -713,6 +713,30 @@ const Kunskapscenter = () => {
   return true;
  });
 
+ // Rotate the order of "Artiklar" and "Branscher & Partners" each page load
+ // so different items surface at the top on every refresh. Other types keep
+ // their natural order (events by date, tools curated, etc.).
+ {
+  const rotatable = filteredItems.filter((i) => i.type === "artikel" || i.type === "branscher");
+  const slots = filteredItems
+   .map((i, idx) => ({ i, idx }))
+   .filter(({ i }) => i.type === "artikel" || i.type === "branscher")
+   .map(({ idx }) => idx);
+  // Seeded Fisher-Yates
+  let s = shuffleSeed || 1;
+  const rand = () => {
+   s = (s * 1103515245 + 12345) & 0x7fffffff;
+   return s / 0x7fffffff;
+  };
+  for (let k = rotatable.length - 1; k > 0; k--) {
+   const j = Math.floor(rand() * (k + 1));
+   [rotatable[k], rotatable[j]] = [rotatable[j], rotatable[k]];
+  }
+  slots.forEach((pos, k) => {
+   filteredItems[pos] = rotatable[k];
+  });
+ }
+
  const trackCounts: Record<TrackValue, number> = TRACKS.reduce(
   (acc, t) => {
    acc[t.value] = allItems.filter(t.match).length;
