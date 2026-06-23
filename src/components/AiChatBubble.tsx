@@ -18,17 +18,17 @@ export default function AiChatBubble() {
       <button
         onClick={() => setOpen((o) => !o)}
         aria-label={open ? "Stäng AI-chat" : "Öppna AI-chat"}
-        className="fixed bottom-5 right-5 z-50 h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-lg hover:scale-105 transition-transform flex items-center justify-center group"
+        className="fixed bottom-5 right-5 z-50 h-14 w-14 rounded bg-primary text-primary-foreground  hover:scale-105 transition-transform flex items-center justify-center group"
       >
         {open ? <X className="h-6 w-6" /> : <MessageSquare className="h-6 w-6" />}
         {!open && (
-          <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-cta-orange animate-pulse" />
+          <span className="absolute -top-1 -right-1 h-3 w-3 rounded bg-cta-orange animate-pulse" />
         )}
       </button>
 
       {/* Panel */}
       {open && (
-        <div className="fixed bottom-24 right-5 z-50 w-[min(92vw,400px)] h-[min(70vh,560px)] rounded-2xl bg-background border border-border shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom-4 fade-in duration-200">
+        <div className="fixed bottom-24 right-5 z-50 w-[min(92vw,400px)] h-[min(70vh,560px)] rounded bg-background border border-border  flex flex-col overflow-hidden animate-in slide-in-from-bottom-4 fade-in duration-200">
           <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-gradient-to-r from-primary/10 to-transparent">
             <div>
               <p className="font-semibold text-sm">Fråga AI om Dynamics 365</p>

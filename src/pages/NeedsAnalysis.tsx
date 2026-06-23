@@ -3296,7 +3296,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               <div className="flex items-center gap-2">
                 <Building2 className="w-5 h-5 text-primary" />
                 <h3 className="text-lg font-semibold">Struktur</h3>
-                <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">30 % vikt</span>
+                <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded font-medium">30 % vikt</span>
               </div>
               
               <div className="space-y-4">
@@ -3346,7 +3346,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               <div className="flex items-center gap-2">
                 <Boxes className="w-5 h-5 text-primary" />
                 <h3 className="text-lg font-semibold">Operativ komplexitet</h3>
-                <span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded-full font-medium">40 % vikt – väger tyngst</span>
+                <span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded font-medium">40 % vikt – väger tyngst</span>
               </div>
               
               {data.businessModel === "Konsult" ? (
@@ -3434,7 +3434,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               <div className="flex items-center gap-2">
                 <Shield className="w-5 h-5 text-primary" />
                 <h3 className="text-lg font-semibold">Organisationsmognad</h3>
-                <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">30 % vikt</span>
+                <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded font-medium">30 % vikt</span>
               </div>
               
               <div className="space-y-4">
@@ -3604,9 +3604,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                           key={option}
                           type="button"
                           onClick={() => handleSituationChallengeChange(category.id, option)}
-                          className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                          className={`px-4 py-2 rounded text-sm font-medium transition-all ${
                             data.situationChallenges[category.id] === option
-                              ? "bg-primary text-primary-foreground shadow-md"
+                              ? "bg-primary text-primary-foreground "
                               : "bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                           }`}
                         >
@@ -3635,9 +3635,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           { value: "Avvaktande", label: "Avvaktande - Vi vill se konkreta användningsfall först" },
         ];
         const pillBtn = (selected: boolean) =>
-          `px-3 py-1.5 rounded-full text-xs font-medium transition-all border ${
+          `px-3 py-1.5 rounded text-xs font-medium transition-all border ${
             selected
-              ? "bg-primary text-primary-foreground border-primary shadow-sm"
+              ? "bg-primary text-primary-foreground border-primary "
               : "bg-muted text-muted-foreground border-transparent hover:bg-accent hover:text-accent-foreground"
           }`;
         return (
@@ -3936,7 +3936,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             <AnalysisDisclaimer />
 
             {/* Sammanfattning */}
-            <div className="border rounded-xl overflow-hidden shadow-sm">
+            <div className="border rounded overflow-hidden ">
               <div className="bg-blue-600 px-5 py-3">
                 <h3 className="font-bold text-white text-sm tracking-wide">📄 Sammanfattning</h3>
               </div>
@@ -3956,7 +3956,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             </div>
 
             {/* ERP-mognad */}
-            <div className="border rounded-xl overflow-hidden shadow-sm">
+            <div className="border rounded overflow-hidden ">
               <div className="bg-emerald-600 px-5 py-3">
                 <h3 className="font-bold text-white text-sm tracking-wide">🟩 ERP-komplexitetsnivå</h3>
               </div>
@@ -3973,7 +3973,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             </div>
 
             {/* Kommentar */}
-            <div className="border rounded-xl overflow-hidden shadow-sm">
+            <div className="border rounded overflow-hidden ">
               <div className="bg-slate-700 px-5 py-3">
                 <h3 className="font-bold text-white text-sm tracking-wide">🧠 Kommentar</h3>
               </div>
@@ -3984,7 +3984,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                     <p className="text-xs text-muted-foreground font-medium mb-2">Faktorer som driver bedömningen:</p>
                     <div className="flex flex-wrap gap-2">
                       {complexity.criticalFactors.map(f => (
-                        <span key={f} className="text-xs bg-finance-supply/10 border border-finance-supply/20 text-finance-supply rounded-full px-3 py-1">{f}</span>
+                        <span key={f} className="text-xs bg-finance-supply/10 border border-finance-supply/20 text-finance-supply rounded px-3 py-1">{f}</span>
                       ))}
                     </div>
                   </div>
@@ -3994,7 +3994,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
             {/* Styrkor + Utvecklingsområden */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="border rounded-xl overflow-hidden shadow-sm">
+              <div className="border rounded overflow-hidden ">
                 <div className="bg-green-600 px-5 py-3">
                   <h3 className="font-bold text-white text-sm tracking-wide">🟢 Möjligheter</h3>
                 </div>
@@ -4007,7 +4007,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   ))}
                 </ul>
               </div>
-              <div className="border rounded-xl overflow-hidden shadow-sm">
+              <div className="border rounded overflow-hidden ">
                 <div className="bg-amber-500 px-5 py-3">
                   <h3 className="font-bold text-white text-sm tracking-wide">🟡 Att tänka på</h3>
                 </div>
@@ -4025,9 +4025,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             <div className="border-t border-border pt-2" />
 
             {/* Rekommenderad plattform */}
-            <div className="border rounded-xl p-5 space-y-4 bg-background shadow-sm">
+            <div className="border rounded p-5 space-y-4 bg-background ">
               <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
-                <span className="w-6 h-6 rounded-full bg-finance-supply text-finance-supply-foreground text-xs flex items-center justify-center font-bold">1</span>
+                <span className="w-6 h-6 rounded bg-finance-supply text-finance-supply-foreground text-xs flex items-center justify-center font-bold">1</span>
                 Preliminär systemindikation
               </h3>
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
@@ -4048,9 +4048,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             </div>
 
             {/* Fokusområden */}
-            <div className="border rounded-xl p-5 space-y-4 bg-background shadow-sm">
+            <div className="border rounded p-5 space-y-4 bg-background ">
               <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
-                <span className="w-6 h-6 rounded-full bg-finance-supply text-finance-supply-foreground text-xs flex items-center justify-center font-bold">2</span>
+                <span className="w-6 h-6 rounded bg-finance-supply text-finance-supply-foreground text-xs flex items-center justify-center font-bold">2</span>
                 Preliminär systemindikation
               </h3>
               <p className="text-sm font-medium text-foreground mb-3">
@@ -4069,7 +4069,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   Indikationen bygger främst på
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border bg-finance-supply/10 border-finance-supply/30 text-finance-supply`}>
+                  <div className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-semibold border bg-finance-supply/10 border-finance-supply/30 text-finance-supply`}>
                     <span>{isBC ? "📗" : "📘"}</span>
                     <span>Dynamics 365 {rec.product}</span>
                   </div>
@@ -4083,9 +4083,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             </div>
 
             {/* Rekommenderad partnertyp */}
-            <div className="border rounded-xl p-5 space-y-3 bg-background shadow-sm">
+            <div className="border rounded p-5 space-y-3 bg-background ">
               <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
-                <span className="w-6 h-6 rounded-full bg-finance-supply text-finance-supply-foreground text-xs flex items-center justify-center font-bold">3</span>
+                <span className="w-6 h-6 rounded bg-finance-supply text-finance-supply-foreground text-xs flex items-center justify-center font-bold">3</span>
                 Rekommenderad partnertyp
               </h3>
               {(() => {
@@ -4155,7 +4155,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
             {/* Kontaktformulär */}
             <div className="border-t border-border pt-6 mt-2 print:hidden">
-              <div className="border rounded-xl p-5 bg-background shadow-sm space-y-4">
+              <div className="border rounded p-5 bg-background  space-y-4">
                 <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
                   <Download className="w-5 h-5 text-finance-supply" />
                   Skicka PDF till min e-post
@@ -4450,7 +4450,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                       if (line.startsWith('•')) {
                         return (
                           <div key={index} className="flex items-start gap-2">
-                            <span className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${isBC ? 'bg-business-central' : 'bg-finance-supply'}`} />
+                            <span className={`w-2 h-2 rounded mt-2 flex-shrink-0 ${isBC ? 'bg-business-central' : 'bg-finance-supply'}`} />
                             <span>{cleanLine.substring(2)}</span>
                           </div>
                         );
@@ -4485,7 +4485,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             <Card className="mb-8 border-2 border-finance-supply/30 bg-gradient-to-r from-finance-supply/5 to-finance-supply/10">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-lg">
-                  <div className="w-10 h-10 bg-finance-supply rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 bg-finance-supply rounded flex items-center justify-center flex-shrink-0">
                     <span className="text-primary-foreground font-bold text-sm">TL</span>
                   </div>
                   <div>
@@ -4602,7 +4602,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 <button
                   key={index}
                   onClick={() => setCurrentStep(stepNum)}
-                  className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                  className={`flex items-center gap-1 px-3 py-1.5 rounded text-xs font-medium transition-all ${
                     isActive
                       ? "bg-[#15363F] text-white"
                       : isCompleted

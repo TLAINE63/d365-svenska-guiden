@@ -178,7 +178,7 @@ const QA = () => {
                   key={index} 
                   value={faq.id}
                   id={faq.id}
-                  className="bg-card rounded-lg px-4 sm:px-6 md:px-8 shadow-[var(--shadow-card)] border border-border scroll-mt-24"
+                  className="bg-card rounded-lg px-4 sm:px-6 md:px-8  border border-border scroll-mt-24"
                 >
                   <AccordionTrigger className="text-lg sm:text-xl font-bold text-card-foreground hover:no-underline py-4 sm:py-6">
                     {faq.question}
@@ -201,7 +201,7 @@ const QA = () => {
                             { icon: "🔄", title: "Ingen teknisk skuld" },
                             { icon: "✨", title: "Moderna gränssnitt" },
                           ].map((advantage, idx) => (
-                            <div key={idx} className="bg-card p-4 rounded-lg border border-border hover:border-primary transition-all hover:shadow-md text-center">
+                            <div key={idx} className="bg-card p-4 rounded-lg border border-border hover:border-primary transition-all  text-center">
                               <div className="text-3xl mb-2">{advantage.icon}</div>
                               <div className="text-xs font-medium text-card-foreground">{advantage.title}</div>
                             </div>
@@ -257,7 +257,7 @@ const QA = () => {
               Kontakta oss så hjälper vi dig gärna
             </p>
             <ContactFormDialog>
-              <Button className="bg-accent hover:bg-accent/90 text-accent-foreground h-16 sm:h-20 text-lg sm:text-xl rounded-xl px-8 sm:px-12 font-bold shadow-lg hover:shadow-xl transition-all" size="lg">
+              <Button className="bg-accent hover:bg-accent/90 text-accent-foreground h-16 sm:h-20 text-lg sm:text-xl rounded px-8 sm:px-12 font-bold   transition-all" size="lg">
                 Boka in en kostnadsfri rådgivning
               </Button>
             </ContactFormDialog>

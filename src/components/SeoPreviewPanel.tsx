@@ -59,7 +59,7 @@ const SeoPreviewPanel = ({
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-[9999] w-[360px] max-w-[calc(100vw-2rem)] rounded-xl border border-border bg-card shadow-2xl text-foreground text-xs">
+    <div className="fixed bottom-4 right-4 z-[9999] w-[360px] max-w-[calc(100vw-2rem)] rounded border border-border bg-card  text-foreground text-xs">
       <div className="flex items-center justify-between px-3 py-2 border-b border-border bg-secondary/40 rounded-t-xl">
         <span className="font-semibold">SEO-förhandsvisning</span>
         <div className="flex items-center gap-2">

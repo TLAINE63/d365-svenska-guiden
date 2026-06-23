@@ -109,7 +109,7 @@ const Agents = () => {
               <ContactFormDialog>
                 <Button 
                   size="lg"
-                  className="bg-agents hover:bg-agents/90 text-agents-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
+                  className="bg-agents hover:bg-agents/90 text-agents-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded"
                 >
                   Boka in en kostnadsfri AI-rådgivning
                 </Button>
@@ -133,9 +133,9 @@ const Agents = () => {
             </div>
 
             {/* Main Concept */}
-            <div className="bg-gradient-to-br from-primary/10 via-accent/10 to-primary/5 rounded-2xl p-6 sm:p-8 md:p-10 mb-8 border border-primary/20">
+            <div className="bg-gradient-to-br from-primary/10 via-accent/10 to-primary/5 rounded p-6 sm:p-8 md:p-10 mb-8 border border-primary/20">
               <div className="flex items-start gap-4 mb-6">
-                <div className="bg-gradient-to-br from-primary to-accent w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0">
+                <div className="bg-gradient-to-br from-primary to-accent w-14 h-14 rounded flex items-center justify-center flex-shrink-0">
                   <Brain className="w-7 h-7 text-primary-foreground" />
                 </div>
                 <div>
@@ -154,7 +154,7 @@ const Agents = () => {
 
             {/* Comparison: Copilot vs Agents */}
             <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <div className="bg-card rounded-xl p-6 border border-border">
+              <div className="bg-card rounded p-6 border border-border">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="bg-secondary w-10 h-10 rounded-lg flex items-center justify-center">
                     <Users className="w-5 h-5 text-secondary-foreground" />
@@ -172,7 +172,7 @@ const Agents = () => {
                 </ul>
               </div>
 
-              <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl p-6 border-2 border-primary/30">
+              <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded p-6 border-2 border-primary/30">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="bg-gradient-to-br from-primary to-accent w-10 h-10 rounded-lg flex items-center justify-center">
                     <Zap className="w-5 h-5 text-primary-foreground" />
@@ -240,7 +240,7 @@ const Agents = () => {
                   description: "Identifierar möjligheter och problem proaktivt och agerar innan de blir kritiska"
                 }
               ].map((capability, index) => (
-                <div key={index} className="bg-card rounded-lg p-6 border border-border hover:shadow-lg transition-all">
+                <div key={index} className="bg-card rounded-lg p-6 border border-border  transition-all">
                   <div className="bg-gradient-to-br from-primary to-accent w-12 h-12 rounded-lg flex items-center justify-center text-primary-foreground mb-4">
                     {capability.icon}
                   </div>
@@ -268,7 +268,7 @@ const Agents = () => {
 
             <div className="space-y-6">
               {/* Sales Agent */}
-              <div className="bg-card rounded-xl p-6 sm:p-8 border border-border hover:shadow-lg transition-all">
+              <div className="bg-card rounded p-6 sm:p-8 border border-border  transition-all">
                 <div className="flex items-start gap-4">
                   <div className="bg-gradient-to-br from-primary to-accent w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
                     <span className="text-2xl">💼</span>
@@ -301,7 +301,7 @@ const Agents = () => {
               </div>
 
               {/* Customer Service Agent */}
-              <div className="bg-card rounded-xl p-6 sm:p-8 border border-border hover:shadow-lg transition-all">
+              <div className="bg-card rounded p-6 sm:p-8 border border-border  transition-all">
                 <div className="flex items-start gap-4">
                   <div className="bg-gradient-to-br from-primary to-accent w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
                     <span className="text-2xl">🎧</span>
@@ -334,7 +334,7 @@ const Agents = () => {
               </div>
 
               {/* Supply Chain Agent */}
-              <div className="bg-card rounded-xl p-6 sm:p-8 border border-border hover:shadow-lg transition-all">
+              <div className="bg-card rounded p-6 sm:p-8 border border-border  transition-all">
                 <div className="flex items-start gap-4">
                   <div className="bg-gradient-to-br from-primary to-accent w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
                     <span className="text-2xl">📦</span>
@@ -367,7 +367,7 @@ const Agents = () => {
               </div>
 
               {/* Finance Agent */}
-              <div className="bg-card rounded-xl p-6 sm:p-8 border border-border hover:shadow-lg transition-all">
+              <div className="bg-card rounded p-6 sm:p-8 border border-border  transition-all">
                 <div className="flex items-start gap-4">
                   <div className="bg-gradient-to-br from-primary to-accent w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
                     <span className="text-2xl">💰</span>
@@ -468,7 +468,7 @@ const Agents = () => {
                   stat: "Förbättrad service"
                 }
               ].map((benefit, index) => (
-                <div key={index} className="bg-card rounded-lg p-6 border border-border hover:shadow-lg transition-all">
+                <div key={index} className="bg-card rounded-lg p-6 border border-border  transition-all">
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-lg font-bold text-card-foreground">{benefit.title}</h3>
                     <span className="text-xs font-semibold text-primary bg-primary/10 px-2 py-1 rounded">
@@ -487,7 +487,7 @@ const Agents = () => {
       <section className="py-12 sm:py-16 md:py-20 bg-secondary/30">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-br from-primary/10 via-accent/10 to-primary/5 rounded-2xl p-8 border border-primary/20">
+            <div className="bg-gradient-to-br from-primary/10 via-accent/10 to-primary/5 rounded p-8 border border-primary/20">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4 text-center">
                 Agenter + Copilot = Perfekt Kombination
               </h2>
@@ -537,7 +537,7 @@ const Agents = () => {
               <Link
                 key={article.slug}
                 to={`/kunskapscenter/${article.productSlug}/${article.slug}/`}
-                className="group flex items-start gap-4 rounded-xl border bg-card p-4 shadow-sm hover:shadow-md transition-all hover:border-primary/30"
+                className="group flex items-start gap-4 rounded border bg-card p-4   transition-all hover:border-primary/30"
               >
                 <img
                   src={article.image}
@@ -570,7 +570,7 @@ const Agents = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <ContactFormDialog>
-                <Button size="lg" className="bg-agents hover:bg-agents/90 text-agents-foreground h-14 sm:h-16 rounded-xl">
+                <Button size="lg" className="bg-agents hover:bg-agents/90 text-agents-foreground h-14 sm:h-16 rounded">
                   Boka en kostnadsfri AI-rådgivning
                 </Button>
               </ContactFormDialog>

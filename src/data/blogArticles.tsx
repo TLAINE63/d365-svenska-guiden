@@ -391,7 +391,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <aside
           aria-label="Relaterat innehåll"
-          className="mt-12 p-6 rounded-xl border border-border bg-secondary/30"
+          className="mt-12 p-6 rounded border border-border bg-secondary/30"
         >
           <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-3">
             Relaterat innehåll
@@ -586,7 +586,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <aside
           aria-label="Relaterat innehåll"
-          className="mt-12 p-6 rounded-xl border border-border bg-secondary/30"
+          className="mt-12 p-6 rounded border border-border bg-secondary/30"
         >
           <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-3">
             Relaterat innehåll
@@ -831,7 +831,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <aside
           aria-label="Källa"
-          className="mt-12 p-6 rounded-xl border border-border bg-secondary/30"
+          className="mt-12 p-6 rounded border border-border bg-secondary/30"
         >
           <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-3">
             Källa
@@ -1264,7 +1264,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           <img
             src={ownedIntelligenceSkiljelinje}
             alt="Diagram som visar lager av eget, delvis eget och standard med etiketter Owned Intelligence, Implementation och Plattform"
-            className="w-full rounded-lg shadow-md"
+            className="w-full rounded-lg "
             loading="lazy"
           />
           <figcaption className="text-sm text-muted-foreground italic mt-3 text-center">
@@ -1405,7 +1405,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <aside
           aria-label="Källor"
-          className="mt-12 p-6 rounded-xl border border-border bg-secondary/30"
+          className="mt-12 p-6 rounded border border-border bg-secondary/30"
         >
           <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-3">
             Källor

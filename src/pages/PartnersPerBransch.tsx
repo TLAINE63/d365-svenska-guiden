@@ -129,7 +129,7 @@ const PartnersPerBransch = () => {
                             <li key={p.id}>
                               <Link
                                 to={`/partner/${p.slug}/`}
-                                className="group flex items-center gap-3 p-3 rounded-lg border border-border bg-card hover:border-primary/50 hover:shadow-sm transition-all"
+                                className="group flex items-center gap-3 p-3 rounded-lg border border-border bg-card hover:border-primary/50  transition-all"
                               >
                                 {p.logo_url ? (
                                   <img

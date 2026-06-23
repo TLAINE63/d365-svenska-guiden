@@ -575,7 +575,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
       <Card>
         <CardContent className="pt-6">
           <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            <div className="animate-spin rounded h-8 w-8 border-b-2 border-primary"></div>
           </div>
         </CardContent>
       </Card>
@@ -693,7 +693,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
                   return (
                     <div
                       key={i}
-                      className="rounded-lg border bg-card p-3 hover:shadow-md transition-shadow"
+                      className="rounded-lg border bg-card p-3  transition-shadow"
                     >
                       <div className="flex items-center gap-2 text-primary mb-1">
                         <Icon className="h-4 w-4" />

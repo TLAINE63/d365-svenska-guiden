@@ -55,7 +55,7 @@ const PriceListSection = ({ product }: PriceListSectionProps) => {
 
   return (
     <div className="space-y-10">
-      <div className="rounded-xl border border-border bg-secondary/30 p-5 text-sm text-muted-foreground">
+      <div className="rounded border border-border bg-secondary/30 p-5 text-sm text-muted-foreground">
         <p>
           Listpriser från Microsoft, exklusive moms och i SEK per användare/månad om inte annat anges.
           Faktiska priser kan variera beroende på avtal (EA, CSP), volym och kampanjer. Vi uppdaterar
@@ -68,7 +68,7 @@ const PriceListSection = ({ product }: PriceListSectionProps) => {
           <h3 className="text-lg font-bold text-foreground mb-4">
             {CATEGORY_LABEL[category] ?? category}
           </h3>
-          <div className="overflow-x-auto rounded-xl border border-border bg-card">
+          <div className="overflow-x-auto rounded border border-border bg-card">
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-muted/50 text-left">

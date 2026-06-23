@@ -72,7 +72,7 @@ const OmMichaelUhman = () => {
               <img
                 src={michaelUhmanPhoto}
                 alt="Michael Uhman – medgrundare av d365.se"
-                className="w-48 h-48 lg:w-64 lg:h-64 rounded-full object-cover border-4 border-primary/20 mx-auto lg:mx-0"
+                className="w-48 h-48 lg:w-64 lg:h-64 rounded object-cover border-4 border-primary/20 mx-auto lg:mx-0"
               />
 
 
@@ -152,7 +152,7 @@ const OmMichaelUhman = () => {
         {/* Kontakt */}
         <section className="py-12 sm:py-16 bg-secondary/20 border-t border-border">
           <div className="container mx-auto px-4 sm:px-6">
-            <div className="max-w-3xl mx-auto bg-card border border-border rounded-lg p-8 sm:p-10 shadow-[var(--shadow-card)]">
+            <div className="max-w-3xl mx-auto bg-card border border-border rounded-lg p-8 sm:p-10 ">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">Kontakt</h2>
               <p className="text-foreground/80 mb-6 leading-relaxed">
                 Hör gärna av dig direkt om du har en fråga om Dynamics 365, partnerval eller

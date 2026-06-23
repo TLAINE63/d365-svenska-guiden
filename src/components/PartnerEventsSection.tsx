@@ -71,7 +71,7 @@ const PartnerEventsSection = ({ partnerId, partnerName }: PartnerEventsSectionPr
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-3">
-        <div className="p-2.5 rounded-xl bg-gradient-to-br from-primary to-accent shadow-lg shadow-primary/25">
+        <div className="p-2.5 rounded bg-gradient-to-br from-primary to-accent  shadow-primary/25">
           <CalendarDays className="w-5 h-5 text-white" />
         </div>
         <h2 className="text-xl font-bold text-foreground tracking-tight">
@@ -88,7 +88,7 @@ const PartnerEventsSection = ({ partnerId, partnerName }: PartnerEventsSectionPr
             rel="noopener noreferrer"
             className="group block"
           >
-            <article className="relative rounded-xl overflow-hidden bg-card border border-border/50 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5">
+            <article className="relative rounded overflow-hidden bg-card border border-border/50   transition-all duration-300 hover:-translate-y-0.5">
               <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-accent" />
               
               <div className="p-4 flex items-center justify-between gap-4">

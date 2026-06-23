@@ -30,7 +30,7 @@ export default function RelatedPartyBadge({ size = "sm", className = "" }: Relat
         <TooltipTrigger asChild>
           <Link
             to="/agande-och-intressen/"
-            className={`inline-flex items-center rounded-full border border-amber-500/40 bg-amber-500/10 font-medium text-amber-700 dark:text-amber-300 hover:bg-amber-500/20 transition-colors ${sizing} ${className}`}
+            className={`inline-flex items-center rounded border border-amber-500/40 bg-amber-500/10 font-medium text-amber-700 dark:text-amber-300 hover:bg-amber-500/20 transition-colors ${sizing} ${className}`}
           >
             <Info className={size === "md" ? "h-3.5 w-3.5" : "h-3 w-3"} />
             Närstående bolag

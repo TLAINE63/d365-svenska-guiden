@@ -90,7 +90,7 @@ const D365Commerce = () => {
             Hitta din bransch och en partner med dokumenterad retail-erfarenhet.
           </p>
           <Link to="/branscher/">
-            <Button size="lg" className="bg-white text-finance hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded-xl">
+            <Button size="lg" className="bg-white text-finance hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded">
               Hitta din bransch och rätt partner
             </Button>
           </Link>

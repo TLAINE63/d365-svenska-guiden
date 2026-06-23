@@ -578,10 +578,10 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                 <button
                   key={app.value}
                   type="button"
-                  className={`flex flex-col items-center gap-2 p-4 rounded-xl border cursor-pointer transition-all duration-200 ${
+                  className={`flex flex-col items-center gap-2 p-4 rounded border cursor-pointer transition-all duration-200 ${
                     selectedApp === app.value
-                      ? "border-primary bg-primary/10 shadow-md"
-                      : "border-border hover:border-primary/50 hover:shadow-sm"
+                      ? "border-primary bg-primary/10 "
+                      : "border-border hover:border-primary/50 "
                   }`}
                   onClick={() => autoAdvance(setSelectedApp, app.value)}
                 >
@@ -638,10 +638,10 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                   <button
                     key={industry}
                     type="button"
-                    className={`group relative flex flex-col items-center rounded-xl overflow-hidden border cursor-pointer transition-all duration-200 ${
+                    className={`group relative flex flex-col items-center rounded overflow-hidden border cursor-pointer transition-all duration-200 ${
                       selectedIndustry === industry
-                        ? "border-primary ring-2 ring-primary/30 shadow-md"
-                        : "border-border hover:border-primary/50 hover:shadow-sm"
+                        ? "border-primary ring-2 ring-primary/30 "
+                        : "border-border hover:border-primary/50 "
                     }`}
                     onClick={() => autoAdvance(setSelectedIndustry, industry)}
                   >
@@ -684,10 +684,10 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                     <button
                       key={option.value}
                       type="button"
-                      className={`flex flex-col items-center gap-2 p-4 rounded-xl border cursor-pointer transition-all duration-200 ${
+                      className={`flex flex-col items-center gap-2 p-4 rounded border cursor-pointer transition-all duration-200 ${
                         isSelected
-                          ? "border-primary bg-primary/10 shadow-md"
-                          : "border-border hover:border-primary/50 hover:shadow-sm"
+                          ? "border-primary bg-primary/10 "
+                          : "border-border hover:border-primary/50 "
                       }`}
                       onClick={() => {
                         setSelectedAdditionalApps(prev =>
@@ -721,7 +721,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                   }`}
                   onClick={() => autoAdvance(setSelectedSize, option.value)}
                 >
-                  <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${selectedSize === option.value ? 'border-primary bg-primary' : 'border-muted-foreground/40'}`} />
+                  <div className={`w-4 h-4 rounded border-2 flex-shrink-0 ${selectedSize === option.value ? 'border-primary bg-primary' : 'border-muted-foreground/40'}`} />
                   <span className="text-base font-medium">{option.label}</span>
                 </button>
               ))}
@@ -747,7 +747,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                   }`}
                   onClick={() => autoAdvance(setSelectedLocalPreference, option.value)}
                 >
-                  <div className={`w-4 h-4 mt-0.5 rounded-full border-2 flex-shrink-0 ${selectedLocalPreference === option.value ? 'border-primary bg-primary' : 'border-muted-foreground/40'}`} />
+                  <div className={`w-4 h-4 mt-0.5 rounded border-2 flex-shrink-0 ${selectedLocalPreference === option.value ? 'border-primary bg-primary' : 'border-muted-foreground/40'}`} />
                   <div>
                     <span className="text-base font-medium">{option.label}</span>
                     <p className="text-sm text-muted-foreground mt-0.5">{option.description}</p>
@@ -772,10 +772,10 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                   <button
                     key={option.value}
                     type="button"
-                    className={`flex flex-col items-start gap-1 p-3 rounded-xl border cursor-pointer transition-all duration-200 text-left ${
+                    className={`flex flex-col items-start gap-1 p-3 rounded border cursor-pointer transition-all duration-200 text-left ${
                       isSelected
-                        ? "border-primary bg-primary/10 shadow-md"
-                        : "border-border hover:border-primary/50 hover:shadow-sm"
+                        ? "border-primary bg-primary/10 "
+                        : "border-border hover:border-primary/50 "
                     }`}
                     onClick={() => {
                       setSelectedPlatformNeeds(prev =>
@@ -818,7 +818,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                     findBestPartnersWithAi(option.value);
                   }}
                 >
-                  <div className={`w-4 h-4 mt-0.5 rounded-full border-2 flex-shrink-0 ${selectedAiInterest === option.value ? 'border-primary bg-primary' : 'border-muted-foreground/40'}`} />
+                  <div className={`w-4 h-4 mt-0.5 rounded border-2 flex-shrink-0 ${selectedAiInterest === option.value ? 'border-primary bg-primary' : 'border-muted-foreground/40'}`} />
                   <div>
                     <span className="text-base font-medium">{option.label}</span>
                     <p className="text-sm text-muted-foreground mt-0.5">{option.description}</p>
@@ -886,7 +886,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
             
             {suggestedPartners.length === 0 ? (
               <div className="text-center py-8 px-4">
-                <div className="mx-auto w-16 h-16 rounded-full bg-muted/50 flex items-center justify-center mb-4">
+                <div className="mx-auto w-16 h-16 rounded bg-muted/50 flex items-center justify-center mb-4">
                   <Search className="w-8 h-8 text-muted-foreground" />
                 </div>
                 <p className="text-muted-foreground mb-4">
@@ -916,7 +916,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                   return (
                     <Card 
                       key={index} 
-                      className="group relative overflow-hidden border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-card via-card to-muted/20"
+                      className="group relative overflow-hidden border border-border/50 hover:border-primary/30  transition-all duration-300 bg-gradient-to-br from-card via-card to-muted/20"
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                       
@@ -957,7 +957,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                                   <TooltipProvider delayDuration={100}>
                                     <Tooltip>
                                       <TooltipTrigger asChild>
-                                        <div className="w-4 h-4 rounded-full bg-muted flex items-center justify-center cursor-help flex-shrink-0">
+                                        <div className="w-4 h-4 rounded bg-muted flex items-center justify-center cursor-help flex-shrink-0">
                                           <Shuffle className="w-2.5 h-2.5 text-muted-foreground" />
                                         </div>
                                       </TooltipTrigger>

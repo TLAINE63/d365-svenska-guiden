@@ -106,9 +106,9 @@ const ToggleButtons = ({ options, value, onChange, label }: { options: { v: stri
         <button
           key={o.v}
           onClick={() => onChange(o.v)}
-          className={`px-5 py-2.5 text-sm rounded-xl border-2 transition-all whitespace-nowrap font-medium shadow-sm ${
+          className={`px-5 py-2.5 text-sm rounded border-2 transition-all whitespace-nowrap font-medium  ${
             value === o.v
-              ? "bg-primary text-primary-foreground border-primary shadow-md scale-[1.02]"
+              ? "bg-primary text-primary-foreground border-primary  scale-[1.02]"
               : "bg-card text-muted-foreground border-border hover:border-primary/40 hover:bg-primary/5 hover:shadow"
           }`}
         >
@@ -120,9 +120,9 @@ const ToggleButtons = ({ options, value, onChange, label }: { options: { v: stri
 );
 
 const CardItem = ({ title, desc, type }: { title: string; desc: string; type: "strength" | "limitation" }) => (
-  <div className="bg-card border border-border rounded-xl p-3.5 mb-2 hover:shadow-sm transition-shadow">
+  <div className="bg-card border border-border rounded p-3.5 mb-2  transition-shadow">
     <div className="flex items-start gap-2">
-      <span className={`mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
+      <span className={`mt-0.5 flex-shrink-0 w-5 h-5 rounded flex items-center justify-center text-[10px] font-bold ${
         type === "strength" ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
       }`}>
         {type === "strength" ? "+" : "−"}
@@ -157,12 +157,12 @@ const IndustryComparisonWidget = () => {
   return (
     <div className="space-y-6">
       {/* Sector select */}
-      <div className="bg-secondary/30 rounded-xl p-5 border border-border space-y-1">
+      <div className="bg-secondary/30 rounded p-5 border border-border space-y-1">
         <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Välj bransch</label>
         <select
           value={sec}
           onChange={e => setSec(e.target.value)}
-          className="h-11 w-full px-4 text-sm border-2 border-border rounded-xl bg-card text-card-foreground cursor-pointer font-medium focus:border-primary focus:outline-none transition-colors"
+          className="h-11 w-full px-4 text-sm border-2 border-border rounded bg-card text-card-foreground cursor-pointer font-medium focus:border-primary focus:outline-none transition-colors"
         >
           {SECTORS.map(g => (
             <optgroup key={g.group} label={g.group}>
@@ -174,16 +174,16 @@ const IndustryComparisonWidget = () => {
 
       {/* Size & Geo */}
       <div className="grid sm:grid-cols-2 gap-5">
-        <div className="bg-secondary/30 rounded-xl p-5 border border-border">
+        <div className="bg-secondary/30 rounded p-5 border border-border">
           <ToggleButtons options={SZ_OPTS} value={sz} onChange={setSz} label="Företagsstorlek" />
         </div>
-        <div className="bg-secondary/30 rounded-xl p-5 border border-border">
+        <div className="bg-secondary/30 rounded p-5 border border-border">
           <ToggleButtons options={GEO_OPTS} value={geo} onChange={setGeo} label="Geografisk räckvidd" />
         </div>
       </div>
 
       {/* Legal entities */}
-      <div className="bg-secondary/30 rounded-xl p-5 border border-border space-y-3">
+      <div className="bg-secondary/30 rounded p-5 border border-border space-y-3">
         <div>
           <div className="text-sm font-semibold text-card-foreground">Hur många juridiska bolag behöver systemet hantera?</div>
           <div className="text-xs text-muted-foreground mt-0.5">Inkluderar holdingbolag, dotterbolag och utländska enheter</div>
@@ -192,13 +192,13 @@ const IndustryComparisonWidget = () => {
       </div>
 
       {/* BC apps toggle */}
-      <div className="flex items-center gap-3 p-4 bg-[hsl(210_60%_97%)] dark:bg-[hsl(210_30%_15%)] border-2 border-[hsl(210_60%_85%)] dark:border-[hsl(210_30%_30%)] rounded-xl flex-wrap">
+      <div className="flex items-center gap-3 p-4 bg-[hsl(210_60%_97%)] dark:bg-[hsl(210_30%_15%)] border-2 border-[hsl(210_60%_85%)] dark:border-[hsl(210_30%_30%)] rounded flex-wrap">
         <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">BC-tillägg:</span>
         <button
           onClick={() => setShowApps(!showApps)}
-          className={`px-4 py-2 text-xs rounded-xl border-2 font-semibold transition-all ${
+          className={`px-4 py-2 text-xs rounded border-2 font-semibold transition-all ${
             showApps
-              ? "bg-[hsl(210_60%_50%)] text-white border-[hsl(210_60%_45%)] shadow-md"
+              ? "bg-[hsl(210_60%_50%)] text-white border-[hsl(210_60%_45%)] "
               : "bg-card text-muted-foreground border-border hover:border-[hsl(210_60%_60%)]"
           }`}
         >
@@ -212,8 +212,8 @@ const IndustryComparisonWidget = () => {
         <div className="space-y-4 pt-2">
           {/* Recommendation badge */}
           <div className="flex justify-center">
-            <span className={`inline-flex items-center gap-2 text-sm px-5 py-2 rounded-full font-semibold shadow-sm ${recColor}`}>
-              <span className="w-2 h-2 rounded-full bg-current opacity-60" />
+            <span className={`inline-flex items-center gap-2 text-sm px-5 py-2 rounded font-semibold  ${recColor}`}>
+              <span className="w-2 h-2 rounded bg-current opacity-60" />
               {recLabel}
             </span>
           </div>
@@ -221,7 +221,7 @@ const IndustryComparisonWidget = () => {
           {/* Comparison columns */}
           <div className="grid md:grid-cols-2 gap-4">
             {/* BC column */}
-            <div className="rounded-xl border-2 border-[hsl(210_60%_85%)] dark:border-[hsl(210_30%_35%)] overflow-hidden">
+            <div className="rounded border-2 border-[hsl(210_60%_85%)] dark:border-[hsl(210_30%_35%)] overflow-hidden">
               <div className="p-4 bg-gradient-to-br from-[hsl(210_60%_95%)] to-[hsl(210_60%_90%)] dark:from-[hsl(210_30%_18%)] dark:to-[hsl(210_30%_14%)]">
                 <div className="text-base font-bold text-[hsl(210_60%_25%)] dark:text-[hsl(210_60%_80%)]">Business Central</div>
                 <div className="text-xs mt-0.5 text-[hsl(210_60%_40%)] dark:text-[hsl(210_60%_60%)]">Dynamics 365 BC{showApps ? " + certifierade appar" : ""}</div>
@@ -240,7 +240,7 @@ const IndustryComparisonWidget = () => {
             </div>
 
             {/* F&SCM column */}
-            <div className="rounded-xl border-2 border-[hsl(250_50%_85%)] dark:border-[hsl(250_30%_35%)] overflow-hidden">
+            <div className="rounded border-2 border-[hsl(250_50%_85%)] dark:border-[hsl(250_30%_35%)] overflow-hidden">
               <div className="p-4 bg-gradient-to-br from-[hsl(250_50%_95%)] to-[hsl(250_50%_90%)] dark:from-[hsl(250_30%_18%)] dark:to-[hsl(250_30%_14%)]">
                 <div className="text-base font-bold text-[hsl(250_50%_25%)] dark:text-[hsl(250_50%_80%)]">Finance & SCM</div>
                 <div className="text-xs mt-0.5 text-[hsl(250_50%_40%)] dark:text-[hsl(250_50%_60%)]">Dynamics 365 Finance & Supply Chain</div>
@@ -253,19 +253,19 @@ const IndustryComparisonWidget = () => {
           </div>
 
           {/* Summary */}
-          <div className="bg-gradient-to-br from-secondary/60 to-secondary/30 border-2 border-border rounded-xl p-5">
+          <div className="bg-gradient-to-br from-secondary/60 to-secondary/30 border-2 border-border rounded p-5">
             <div className="text-sm font-bold text-card-foreground mb-1.5">{entry.h}</div>
             <div className="text-xs text-muted-foreground leading-relaxed">{entry.s}</div>
             <div className="flex flex-wrap gap-1.5 mt-4">
               {entry.pills.map(p => (
-                <span key={p} className="text-xs px-3 py-1 rounded-lg bg-card text-muted-foreground border border-border font-medium shadow-sm">{p}</span>
+                <span key={p} className="text-xs px-3 py-1 rounded-lg bg-card text-muted-foreground border border-border font-medium ">{p}</span>
               ))}
             </div>
           </div>
 
           {/* LE Note */}
           {note && (
-            <div className={`rounded-xl p-4 text-xs leading-relaxed border-2 ${
+            <div className={`rounded p-4 text-xs leading-relaxed border-2 ${
               note.type === "green" ? "bg-green-50 border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-800 dark:text-green-300" :
               note.type === "red" ? "bg-red-50 border-red-200 text-red-800 dark:bg-red-900/20 dark:border-red-800 dark:text-red-300" :
               "bg-amber-50 border-amber-200 text-amber-800 dark:bg-amber-900/20 dark:border-amber-800 dark:text-amber-300"
@@ -276,13 +276,13 @@ const IndustryComparisonWidget = () => {
 
           {/* CTA links */}
           <div className="flex flex-wrap gap-3 justify-center pt-3">
-            <a href="/businesscentral/" className="px-5 py-2.5 text-sm border-2 border-[hsl(210_60%_80%)] rounded-xl bg-[hsl(210_60%_97%)] text-[hsl(210_60%_30%)] font-medium hover:bg-[hsl(210_60%_93%)] hover:shadow-md transition-all dark:bg-[hsl(210_30%_15%)] dark:text-[hsl(210_60%_70%)] dark:border-[hsl(210_30%_35%)] dark:hover:bg-[hsl(210_30%_20%)]">
+            <a href="/businesscentral/" className="px-5 py-2.5 text-sm border-2 border-[hsl(210_60%_80%)] rounded bg-[hsl(210_60%_97%)] text-[hsl(210_60%_30%)] font-medium hover:bg-[hsl(210_60%_93%)]  transition-all dark:bg-[hsl(210_30%_15%)] dark:text-[hsl(210_60%_70%)] dark:border-[hsl(210_30%_35%)] dark:hover:bg-[hsl(210_30%_20%)]">
               Mer om Business Central
             </a>
-            <a href="/finance-supply-chain/" className="px-5 py-2.5 text-sm border-2 border-[hsl(250_50%_80%)] rounded-xl bg-[hsl(250_50%_97%)] text-[hsl(250_50%_30%)] font-medium hover:bg-[hsl(250_50%_93%)] hover:shadow-md transition-all dark:bg-[hsl(250_30%_15%)] dark:text-[hsl(250_50%_70%)] dark:border-[hsl(250_30%_35%)] dark:hover:bg-[hsl(250_30%_20%)]">
+            <a href="/finance-supply-chain/" className="px-5 py-2.5 text-sm border-2 border-[hsl(250_50%_80%)] rounded bg-[hsl(250_50%_97%)] text-[hsl(250_50%_30%)] font-medium hover:bg-[hsl(250_50%_93%)]  transition-all dark:bg-[hsl(250_30%_15%)] dark:text-[hsl(250_50%_70%)] dark:border-[hsl(250_30%_35%)] dark:hover:bg-[hsl(250_30%_20%)]">
               Mer om Finance & SCM
             </a>
-            <a href="/kontakta-oss/" className="px-5 py-2.5 text-sm border-2 border-primary rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-primary/90 hover:shadow-md transition-all">
+            <a href="/kontakta-oss/" className="px-5 py-2.5 text-sm border-2 border-primary rounded bg-primary text-primary-foreground font-semibold hover:bg-primary/90  transition-all">
               Kontakta oss ↗
             </a>
           </div>

@@ -274,9 +274,9 @@ const UpdateRoundSection = ({ token, partners, invitations, onSessionExpired, on
             </div>
 
             {/* Progress bar */}
-            <div className="w-full bg-muted rounded-full h-2">
+            <div className="w-full bg-muted rounded h-2">
               <div 
-                className="bg-emerald-500 h-2 rounded-full transition-all" 
+                className="bg-emerald-500 h-2 rounded transition-all" 
                 style={{ width: `${totalFeatured > 0 ? (updatedCount / totalFeatured) * 100 : 0}%` }}
               />
             </div>

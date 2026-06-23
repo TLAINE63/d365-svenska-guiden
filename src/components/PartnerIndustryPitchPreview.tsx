@@ -124,7 +124,7 @@ export function PartnerIndustryPitchPreview({
                 key={ind}
                 type="button"
                 onClick={() => setSelectedIndustry(ind)}
-                className={`text-xs px-2.5 py-1 rounded-full border transition-colors ${
+                className={`text-xs px-2.5 py-1 rounded border transition-colors ${
                   isActive
                     ? "bg-primary text-primary-foreground border-primary"
                     : "bg-background text-foreground border-border hover:bg-muted"
@@ -143,7 +143,7 @@ export function PartnerIndustryPitchPreview({
             <button
               type="button"
               onClick={() => setSelectedProduct(null)}
-              className={`text-xs px-2.5 py-1 rounded-full border transition-colors ${
+              className={`text-xs px-2.5 py-1 rounded border transition-colors ${
                 selectedProduct === null
                   ? "bg-foreground text-background border-foreground"
                   : "bg-background text-foreground border-border hover:bg-muted"
@@ -161,7 +161,7 @@ export function PartnerIndustryPitchPreview({
                   key={p}
                   type="button"
                   onClick={() => setSelectedProduct(p)}
-                  className={`text-xs px-2.5 py-1 rounded-full border transition-colors flex items-center gap-1 ${
+                  className={`text-xs px-2.5 py-1 rounded border transition-colors flex items-center gap-1 ${
                     isActive
                       ? "bg-foreground text-background border-foreground"
                       : "bg-background text-foreground border-border hover:bg-muted"
@@ -170,7 +170,7 @@ export function PartnerIndustryPitchPreview({
                   {p}
                   {hasOverride && (
                     <span
-                      className={`inline-block w-1.5 h-1.5 rounded-full ${
+                      className={`inline-block w-1.5 h-1.5 rounded ${
                         isActive ? "bg-background" : "bg-primary"
                       }`}
                       aria-hidden
@@ -185,7 +185,7 @@ export function PartnerIndustryPitchPreview({
 
       <div className="grid gap-4 md:grid-cols-2">
         {/* Sökresultat / partnerkort */}
-        <div className="rounded-xl border border-border bg-card p-4 shadow-sm">
+        <div className="rounded border border-border bg-card p-4 ">
           <div className="flex items-center gap-2 mb-3">
             <Search className="w-3.5 h-3.5 text-muted-foreground" />
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
@@ -224,7 +224,7 @@ export function PartnerIndustryPitchPreview({
         </div>
 
         {/* Stor partnerprofil */}
-        <div className="rounded-xl border border-border bg-card p-4 shadow-sm">
+        <div className="rounded border border-border bg-card p-4 ">
           <div className="flex items-center gap-2 mb-3">
             <IdCard className="w-3.5 h-3.5 text-muted-foreground" />
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">

@@ -317,7 +317,7 @@ const KomIgang = () => {
                     return (
                       <div
                         key={partner.id}
-                        className="relative rounded-xl border-2 p-5 transition-all border-border bg-card"
+                        className="relative rounded border-2 p-5 transition-all border-border bg-card"
                       >
 
                         <div className="flex items-start gap-4">
@@ -394,7 +394,7 @@ const KomIgang = () => {
                 const spec = selectedGoals.map(g => specMap[g]).find(Boolean);
                 if (!spec) return null;
                 return (
-                  <div className="mt-8 rounded-xl border-2 border-primary/20 bg-primary/5 p-5 text-center">
+                  <div className="mt-8 rounded border-2 border-primary/20 bg-primary/5 p-5 text-center">
                     <div className="flex items-center justify-center gap-2 mb-2">
                       <FileText className="h-5 w-5 text-primary" />
                       <h3 className="text-base font-semibold text-foreground">Vill du skapa en kravspecifikation baserat på dina svar?</h3>
@@ -470,7 +470,7 @@ const KomIgang = () => {
                   {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
                     <div
                       key={i}
-                      className={`w-2.5 h-2.5 rounded-full transition-colors ${
+                      className={`w-2.5 h-2.5 rounded transition-colors ${
                         i + 1 === step ? "bg-[#15363F]" : i + 1 < step ? "bg-[#15363F]/50" : "bg-border"
                       }`}
                     />
@@ -556,7 +556,7 @@ const KomIgang = () => {
                             isSelected ? "bg-[#15363F]/40" : "bg-black/45 group-hover:bg-black/35"
                           }`} />
                           {isSelected && (
-                            <div className="absolute top-1 right-1 w-5 h-5 rounded-full bg-[#15363F] flex items-center justify-center">
+                            <div className="absolute top-1 right-1 w-5 h-5 rounded bg-[#15363F] flex items-center justify-center">
                               <Check className="h-3 w-3 text-white" />
                             </div>
                           )}
@@ -584,7 +584,7 @@ const KomIgang = () => {
                         }}
                         className={`flex flex-col items-center justify-center text-center px-3 py-4 rounded-lg border-2 transition-all ${
                           isSelected
-                            ? "border-[#15363F] bg-[#15363F]/5 shadow-sm"
+                            ? "border-[#15363F] bg-[#15363F]/5 "
                             : "border-border bg-card hover:border-[#15363F]/40"
                         }`}
                       >
@@ -596,7 +596,7 @@ const KomIgang = () => {
                         <span className="text-sm font-semibold text-foreground leading-tight">{opt.label}</span>
                         <span className="text-[11px] text-muted-foreground mt-0.5 leading-tight">{opt.desc}</span>
                         {isSelected && (
-                          <div className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-[#15363F] flex items-center justify-center">
+                          <div className="absolute top-1.5 right-1.5 w-5 h-5 rounded bg-[#15363F] flex items-center justify-center">
                             <Check className="h-3 w-3 text-white" />
                           </div>
                         )}

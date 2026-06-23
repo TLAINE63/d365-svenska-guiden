@@ -72,7 +72,7 @@ export default function AiChatPanel({ suggestions = DEFAULT_SUGGESTIONS, classNa
                   key={s}
                   type="button"
                   onClick={() => send(s)}
-                  className="text-xs px-3 py-1.5 rounded-full border border-border hover:bg-accent hover:border-primary/40 transition text-left"
+                  className="text-xs px-3 py-1.5 rounded border border-border hover:bg-accent hover:border-primary/40 transition text-left"
                 >
                   {s}
                 </button>
@@ -84,7 +84,7 @@ export default function AiChatPanel({ suggestions = DEFAULT_SUGGESTIONS, classNa
         {messages.map((m: ChatMsg, i) => (
           <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
             <div
-              className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
+              className={`max-w-[85%] rounded px-3.5 py-2.5 text-sm leading-relaxed ${
                 m.role === "user"
                   ? "bg-primary text-primary-foreground"
                   : "bg-muted text-foreground"
@@ -133,7 +133,7 @@ export default function AiChatPanel({ suggestions = DEFAULT_SUGGESTIONS, classNa
 
         {loading && messages[messages.length - 1]?.role === "user" && (
           <div className="flex justify-start">
-            <div className="bg-muted rounded-2xl px-3.5 py-2.5 text-sm flex items-center gap-2 text-muted-foreground">
+            <div className="bg-muted rounded px-3.5 py-2.5 text-sm flex items-center gap-2 text-muted-foreground">
               <Loader2 className="h-3.5 w-3.5 animate-spin" /> tänker...
             </div>
           </div>

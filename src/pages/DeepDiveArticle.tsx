@@ -147,7 +147,7 @@ const DeepDiveArticle = () => {
               <img
                 src={article.bannerImage || article.image}
                 alt={article.title}
-                className="w-full rounded-lg shadow-md"
+                className="w-full rounded-lg "
                 loading="eager"
               />
             </div>
@@ -160,7 +160,7 @@ const DeepDiveArticle = () => {
             {article.description && (
               <aside
                 aria-label="Sammanfattning"
-                className="mb-8 p-5 rounded-xl border-l-4 border-primary bg-primary/5"
+                className="mb-8 p-5 rounded border-l-4 border-primary bg-primary/5"
               >
                 <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">
                   Sammanfattning
@@ -214,7 +214,7 @@ const DeepDiveArticle = () => {
               return (
                 <aside
                   aria-label="Officiella källor"
-                  className="mt-10 p-5 rounded-xl border border-border bg-secondary/30"
+                  className="mt-10 p-5 rounded border border-border bg-secondary/30"
                 >
                   <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-3">
                     Officiella källor från Microsoft
@@ -249,7 +249,7 @@ const DeepDiveArticle = () => {
               {prevArticle ? (
                 <Link
                   to={`/kunskapscenter/${prevArticle.productSlug}/${prevArticle.slug}/`}
-                  className="flex-1 group p-4 rounded-lg border border-border hover:border-primary/50 hover:shadow-md transition-all bg-card"
+                  className="flex-1 group p-4 rounded-lg border border-border hover:border-primary/50  transition-all bg-card"
                 >
                   <span className="text-xs text-muted-foreground">← Föregående</span>
                   <p className="text-sm font-medium text-foreground group-hover:text-primary mt-1 line-clamp-2">
@@ -262,7 +262,7 @@ const DeepDiveArticle = () => {
               {nextArticle ? (
                 <Link
                   to={`/kunskapscenter/${nextArticle.productSlug}/${nextArticle.slug}/`}
-                  className="flex-1 group p-4 rounded-lg border border-border hover:border-primary/50 hover:shadow-md transition-all bg-card text-right"
+                  className="flex-1 group p-4 rounded-lg border border-border hover:border-primary/50  transition-all bg-card text-right"
                 >
                   <span className="text-xs text-muted-foreground">Nästa →</span>
                   <p className="text-sm font-medium text-foreground group-hover:text-primary mt-1 line-clamp-2">

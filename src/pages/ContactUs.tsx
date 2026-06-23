@@ -79,13 +79,13 @@ const ContactUs = () => {
             <div className="mb-8 sm:mb-10 md:mb-12">
               <div className="grid lg:grid-cols-2 gap-6">
                 {/* Thomas Laine */}
-                <div className="bg-card rounded-lg p-6 md:p-8 border border-border shadow-[var(--shadow-card)]">
+                <div className="bg-card rounded-lg p-6 md:p-8 border border-border ">
                   <div className="flex flex-col items-center text-center">
                     <div className="flex-shrink-0 mb-4">
                       <img 
                         src={thomasLainePhoto} 
                         alt="Thomas Laine - Dynamics 365 Konsult" 
-                        className="w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border-4 border-primary/20"
+                        className="w-28 h-28 md:w-32 md:h-32 rounded object-cover border-4 border-primary/20"
                       />
                     </div>
                     
@@ -129,7 +129,7 @@ const ContactUs = () => {
                           href="https://outlook.office.com/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ismsaljsauthenabled&ep=mlink" 
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-3 py-2 bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white w-full"
+                          className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-3 py-2 bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)]  text-white w-full"
                         >
                           <Calendar className="w-4 h-4" />
                           Boka möte
@@ -146,13 +146,13 @@ const ContactUs = () => {
                 </div>
 
                 {/* Michael Uhman */}
-                <div className="bg-card rounded-lg p-6 md:p-8 border border-border shadow-[var(--shadow-card)]">
+                <div className="bg-card rounded-lg p-6 md:p-8 border border-border ">
                   <div className="flex flex-col items-center text-center">
                     <div className="flex-shrink-0 mb-4">
                       <img 
                         src={michaelUhmanPhoto} 
                         alt="Michael Uhman - Dynamics 365 Konsult" 
-                        className="w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border-4 border-primary/20"
+                        className="w-28 h-28 md:w-32 md:h-32 rounded object-cover border-4 border-primary/20"
                       />
                     </div>
                     
@@ -277,7 +277,7 @@ const ContactUs = () => {
               <ContactFormDialog>
                 <Button 
                   size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground h-14 sm:h-16 rounded-xl"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground h-14 sm:h-16 rounded"
                 >
                   Boka in en kostnadsfri rådgivning
                 </Button>

@@ -110,7 +110,7 @@ const Copilot = () => {
               <ContactFormDialog>
                 <Button 
                   size="lg"
-                  className="bg-copilot hover:bg-copilot/90 text-copilot-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
+                  className="bg-copilot hover:bg-copilot/90 text-copilot-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded"
                 >
                   Boka en kostnadsfri AI-rådgivning
                 </Button>
@@ -124,7 +124,7 @@ const Copilot = () => {
       <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-5xl mx-auto">
-            <div className="bg-card rounded-2xl p-6 sm:p-8 border-2 border-primary/20">
+            <div className="bg-card rounded p-6 sm:p-8 border-2 border-primary/20">
               <div className="flex items-start gap-4 mb-4">
                 <div className="bg-gradient-to-br from-primary to-accent w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
                   <img src={CopilotLogo} alt="Copilot" className="h-8 w-8" />
@@ -217,7 +217,7 @@ const Copilot = () => {
 
             <div className="space-y-6 sm:space-y-8">
               {/* Business Central */}
-              <div className="bg-card rounded-lg p-6 sm:p-8 border border-border shadow-[var(--shadow-card)]">
+              <div className="bg-card rounded-lg p-6 sm:p-8 border border-border ">
                 <div className="flex items-start gap-4 mb-4">
                   <div className="bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--accent))] w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
                     <svg className="w-6 h-6 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -254,7 +254,7 @@ const Copilot = () => {
               </div>
 
               {/* Sales */}
-              <div className="bg-card rounded-lg p-6 sm:p-8 border border-border shadow-[var(--shadow-card)]">
+              <div className="bg-card rounded-lg p-6 sm:p-8 border border-border ">
                 <div className="flex items-start gap-4 mb-4">
                   <div className="bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--accent))] w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
                     <svg className="w-6 h-6 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -291,7 +291,7 @@ const Copilot = () => {
               </div>
 
               {/* Customer Service */}
-              <div className="bg-card rounded-lg p-6 sm:p-8 border border-border shadow-[var(--shadow-card)]">
+              <div className="bg-card rounded-lg p-6 sm:p-8 border border-border ">
                 <div className="flex items-start gap-4 mb-4">
                   <div className="bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--accent))] w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
                     <svg className="w-6 h-6 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -328,7 +328,7 @@ const Copilot = () => {
               </div>
 
               {/* Finance & Supply Chain */}
-              <div className="bg-card rounded-lg p-6 sm:p-8 border border-border shadow-[var(--shadow-card)]">
+              <div className="bg-card rounded-lg p-6 sm:p-8 border border-border ">
                 <div className="flex items-start gap-4 mb-4">
                   <div className="bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--accent))] w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
                     <svg className="w-6 h-6 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -378,7 +378,7 @@ const Copilot = () => {
                   <Link
                     key={item.path}
                     to={item.path}
-                    className={`flex flex-col gap-1 p-4 rounded-xl border-2 bg-card transition-all duration-200 ${item.color}`}
+                    className={`flex flex-col gap-1 p-4 rounded border-2 bg-card transition-all duration-200 ${item.color}`}
                   >
                     <span className="font-semibold text-sm">{item.label}</span>
                     <span className="text-xs text-muted-foreground leading-snug">{item.desc}</span>
@@ -485,7 +485,7 @@ const Copilot = () => {
                   icon: "⚡"
                 }
               ].map((feature, index) => (
-                <div key={index} className="bg-card rounded-lg p-6 border border-border shadow-[var(--shadow-card)]">
+                <div key={index} className="bg-card rounded-lg p-6 border border-border ">
                   <div className="text-4xl mb-4">{feature.icon}</div>
                   <h3 className="text-xl font-bold text-card-foreground mb-3">{feature.title}</h3>
                   <p className="text-muted-foreground">{feature.description}</p>
@@ -527,7 +527,7 @@ const Copilot = () => {
               ].map((benefit, index) => (
                 <div key={index} className="flex gap-4">
                   <div className="flex-shrink-0">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--accent))] flex items-center justify-center text-primary-foreground font-bold">
+                    <div className="w-12 h-12 rounded bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--accent))] flex items-center justify-center text-primary-foreground font-bold">
                       {index + 1}
                     </div>
                   </div>
@@ -546,7 +546,7 @@ const Copilot = () => {
       <section className="py-20 bg-secondary/50">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
-            <div className="bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
+            <div className="bg-card rounded-lg p-8 border border-border ">
               <h2 className="text-2xl font-bold text-card-foreground mb-4">Prissättning</h2>
               <div className="space-y-4 mb-6">
                 <p className="text-muted-foreground text-sm">
@@ -577,7 +577,7 @@ const Copilot = () => {
               <Link
                 key={article.slug}
                 to={`/kunskapscenter/${article.productSlug}/${article.slug}/`}
-                className="group flex items-start gap-4 rounded-xl border bg-card p-4 shadow-sm hover:shadow-md transition-all hover:border-primary/30"
+                className="group flex items-start gap-4 rounded border bg-card p-4   transition-all hover:border-primary/30"
               >
                 <img
                   src={article.image}
@@ -609,7 +609,7 @@ const Copilot = () => {
               Kontakta oss för att lära dig mer om Copilot för Dynamics 365
             </p>
             <ContactFormDialog>
-              <Button className="bg-copilot hover:bg-copilot/90 text-copilot-foreground h-14 sm:h-16 rounded-xl" size="lg">
+              <Button className="bg-copilot hover:bg-copilot/90 text-copilot-foreground h-14 sm:h-16 rounded" size="lg">
                 Boka in en kostnadsfri rådgivning
               </Button>
             </ContactFormDialog>

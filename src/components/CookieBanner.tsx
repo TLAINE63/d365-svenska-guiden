@@ -110,7 +110,7 @@ const CookieBanner = () => {
     >
       <div className="container mx-auto max-w-4xl">
         <div
-          className="relative bg-card border border-border rounded-lg shadow-lg p-4 sm:p-6"
+          className="relative bg-card border border-border rounded-lg  p-4 sm:p-6"
           style={{ contentVisibility: "auto", containIntrinsicSize: "0 200px" }}
         >
           <div className="flex flex-col gap-4">

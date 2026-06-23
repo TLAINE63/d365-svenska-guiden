@@ -51,7 +51,7 @@ const FeaturedArticleBannerView = ({ article, preview = false }: Props) => {
 
   return (
     <article
-      className="group relative rounded-2xl border border-border bg-card hover:border-primary/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 overflow-hidden focus-within:ring-2 focus-within:ring-[hsl(var(--cta-orange))] focus-within:ring-offset-2 focus-within:ring-offset-background"
+      className="group relative rounded border border-border bg-card hover:border-primary/40  transition-all duration-300 hover:-translate-y-0.5 overflow-hidden focus-within:ring-2 focus-within:ring-[hsl(var(--cta-orange))] focus-within:ring-offset-2 focus-within:ring-offset-background"
     >
       <div className="flex flex-col sm:flex-row items-stretch">
         <div
@@ -83,7 +83,7 @@ const FeaturedArticleBannerView = ({ article, preview = false }: Props) => {
                 aria-label={`Nytt i Kunskapscentret: ${article.title} – läs artikeln`}
                 title={article.title}
                 tabIndex={-1}
-                className="before:absolute before:inset-0 before:content-[''] before:rounded-2xl outline-none"
+                className="before:absolute before:inset-0 before:content-[''] before:rounded outline-none"
               >
                 {article.title}
               </Link>
@@ -106,7 +106,7 @@ const FeaturedArticleBannerView = ({ article, preview = false }: Props) => {
               {...linkProps}
               aria-label={`Läs artikeln: ${article.title}`}
               data-cta="kc-banner"
-              className="relative z-10 inline-flex items-center gap-2 rounded-lg bg-[hsl(var(--cta-orange))] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:brightness-110 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--cta-orange))] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="relative z-10 inline-flex items-center gap-2 rounded-lg bg-[hsl(var(--cta-orange))] px-4 py-2.5 text-sm font-semibold text-white  transition-all hover:brightness-110  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--cta-orange))] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               Läs artikeln
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />

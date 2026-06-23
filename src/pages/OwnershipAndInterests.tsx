@@ -15,7 +15,7 @@ export default function OwnershipAndInterests() {
       <Navbar />
       <main className="flex-1 container mx-auto px-4 pt-28 pb-16 max-w-3xl">
         <div className="mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-primary/10 text-primary text-sm font-medium mb-4">
             <BookOpen className="h-4 w-4" /> Partnersamarbetet
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">

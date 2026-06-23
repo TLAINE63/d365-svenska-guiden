@@ -154,7 +154,7 @@ const AdminEmailLogTab = ({ token, onSessionExpired }: AdminEmailLogTabProps) =>
       </CardHeader>
       <CardContent>
         {/* Snabbfilterchips */}
-        <div className="flex flex-wrap items-center gap-1.5 p-2 mb-4 rounded-xl bg-slate-50 border border-slate-200">
+        <div className="flex flex-wrap items-center gap-1.5 p-2 mb-4 rounded bg-slate-50 border border-slate-200">
           <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 px-2">Snabbfilter</span>
           {[
             { key: 'all',   label: 'Alla',   count: logs.length, tone: 'slate' },
@@ -171,11 +171,11 @@ const AdminEmailLogTab = ({ token, onSessionExpired }: AdminEmailLogTabProps) =>
             };
             return (
               <button key={key} type="button" onClick={() => setDateRange(key as typeof dateRange)}
-                className={`inline-flex items-center gap-1.5 h-7 px-2.5 rounded-full border text-xs font-medium transition-all ${toneMap[tone]}`}>
+                className={`inline-flex items-center gap-1.5 h-7 px-2.5 rounded border text-xs font-medium transition-all ${toneMap[tone]}`}>
                 {key === 'today' && <Clock className="h-3 w-3" />}
                 {label}
                 {typeof count === 'number' && (
-                  <span className={`inline-flex items-center justify-center min-w-[1.25rem] h-4 px-1 rounded-full text-[10px] font-semibold ${active ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'}`}>{count}</span>
+                  <span className={`inline-flex items-center justify-center min-w-[1.25rem] h-4 px-1 rounded text-[10px] font-semibold ${active ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'}`}>{count}</span>
                 )}
               </button>
             );
@@ -194,12 +194,12 @@ const AdminEmailLogTab = ({ token, onSessionExpired }: AdminEmailLogTabProps) =>
             };
             return (
               <button key={key} type="button" onClick={() => { setStatusFilter(key); setPage(0); }}
-                className={`inline-flex items-center gap-1.5 h-7 px-2.5 rounded-full border text-xs font-medium transition-all ${toneMap[tone]}`}>
+                className={`inline-flex items-center gap-1.5 h-7 px-2.5 rounded border text-xs font-medium transition-all ${toneMap[tone]}`}>
                 {key === 'sent' && <CheckCircle2 className="h-3 w-3" />}
                 {key === 'failed' && <XCircle className="h-3 w-3" />}
                 {label}
                 {typeof count === 'number' && (
-                  <span className={`inline-flex items-center justify-center min-w-[1.25rem] h-4 px-1 rounded-full text-[10px] font-semibold ${active ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'}`}>{count}</span>
+                  <span className={`inline-flex items-center justify-center min-w-[1.25rem] h-4 px-1 rounded text-[10px] font-semibold ${active ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'}`}>{count}</span>
                 )}
               </button>
             );
