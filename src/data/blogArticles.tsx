@@ -1493,7 +1493,22 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     author: THOMAS_LAINE,
     heroImage: aiErpRiskbildHero,
     readingTimeMinutes: 6,
+    freshness: {
+      status: "older",
+      note: "Skriven i april 2026, innan Build 2026 och GA av Copilot Cowork. Resonemanget om riskbild och governance håller, men senare 2026-sidor ger en uppdaterad bild av hur AI-agenter nu landar i Dynamics 365.",
+      newerArticles: [
+        {
+          slug: "ai-skiftet-dynamics-365-build-2026",
+          label: "AI-skiftet i Dynamics 365 efter Microsoft Build 2026",
+        },
+        {
+          slug: "copilot-cowork-dynamics-365",
+          label: "Copilot Cowork är här – vad betyder det för Dynamics 365?",
+        },
+      ],
+    },
     content: (
+
       <>
         <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] italic text-foreground/85 !mb-8">
           AI i affärssystem är på väg att byta karaktär — från att svara på
