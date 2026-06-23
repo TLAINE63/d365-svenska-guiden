@@ -381,7 +381,7 @@ const PartnerCard = ({
  const isAi = (pitch as { edited_by?: string }).edited_by === "ai";
  return (
  <div className="mb-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary/60">
- <p className="text-xs font-semibold text-primary mb-1 uppercase tracking-wider">
+ <p className="text-xs font-semibold text-[hsl(var(--signature))] mb-1 uppercase tracking-wider">
  Inom {highlightedIndustry}
  </p>
  <p className="text-sm text-foreground/90 leading-relaxed line-clamp-4">

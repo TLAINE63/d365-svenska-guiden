@@ -199,7 +199,7 @@ export function PartnerIndustryPitchPreview({
             {/* Exakt samma markup som PartnerCard renderar */}
             {activePitch?.text?.trim() ? (
               <div className="p-3 rounded-lg bg-primary/5 border-l-2 border-primary/60">
-                <p className="text-xs font-semibold text-primary mb-1 uppercase tracking-wider">
+                <p className="text-xs font-semibold text-[hsl(var(--signature))] mb-1 uppercase tracking-wider">
                   Inom {selectedIndustry}
                 </p>
                 <p className="text-sm text-foreground/90 leading-relaxed line-clamp-4">
@@ -240,7 +240,7 @@ export function PartnerIndustryPitchPreview({
             )}
             {activePitch?.text?.trim() ? (
               <div className="p-3 rounded-lg bg-primary/5 border-l-2 border-primary/60">
-                <p className="text-xs font-semibold text-primary mb-1 uppercase tracking-wider">
+                <p className="text-xs font-semibold text-[hsl(var(--signature))] mb-1 uppercase tracking-wider">
                   Branschinriktning – {selectedIndustry}
                 </p>
                 <p className="text-sm text-foreground/90 leading-relaxed">
