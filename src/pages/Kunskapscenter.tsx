@@ -688,23 +688,49 @@ const Kunskapscenter = () => {
  ];
 
  // Apply filters
+ const activeTrackDef = activeTrack ? TRACKS.find((t) => t.value === activeTrack) ?? null : null;
  const filteredItems = allItems.filter((item) => {
- // Category pill filter (guide items grouped under behovsanalys)
- if (activeCategory !== "alla") {
- const itemCategory = item.type === "guide" ? "behovsanalys" : item.type;
- if (itemCategory !== activeCategory) return false;
- }
- // Format multi-select (guide items grouped under behovsanalys)
- if (selectedFormats.length > 0) {
- const itemFormat = item.type === "guide" ? "behovsanalys" : item.type;
- if (!selectedFormats.includes(itemFormat as FormatValue)) return false;
- }
- // Product filter
- if (selectedProducts.length > 0 && item.products.length > 0) {
- if (!selectedProducts.some((p) => item.products.includes(p))) return false;
- }
- return true;
+  // Innehållsspår (kuraterad delmängd)
+  if (activeTrackDef && !activeTrackDef.match(item)) return false;
+  // Category pill filter (guide items grouped under behovsanalys)
+  if (activeCategory !== "alla") {
+   const itemCategory = item.type === "guide" ? "behovsanalys" : item.type;
+   if (itemCategory !== activeCategory) return false;
+  }
+  // Format multi-select (guide items grouped under behovsanalys)
+  if (selectedFormats.length > 0) {
+   const itemFormat = item.type === "guide" ? "behovsanalys" : item.type;
+   if (!selectedFormats.includes(itemFormat as FormatValue)) return false;
+  }
+  // Product filter
+  if (selectedProducts.length > 0 && item.products.length > 0) {
+   if (!selectedProducts.some((p) => item.products.includes(p))) return false;
+  }
+  return true;
  });
+
+ const trackCounts: Record<TrackValue, number> = TRACKS.reduce(
+  (acc, t) => {
+   acc[t.value] = allItems.filter(t.match).length;
+   return acc;
+  },
+  {} as Record<TrackValue, number>,
+ );
+
+ const selectTrack = (value: TrackValue) => {
+  const next = activeTrack === value ? null : value;
+  setActiveTrack(next);
+  if (next) {
+   setActiveCategory("alla");
+   setSelectedFormats([]);
+   setSelectedProducts([]);
+   // Scroll to grid after state update
+   setTimeout(() => {
+    tracksGridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+   }, 50);
+  }
+ };
+
 
  const categoryBadgeColor = (type: string) => {
  switch (type) {
