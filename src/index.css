@@ -8,43 +8,58 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* ─── Senior advisory palette ───
-       Navy #0B1F33 (rubriker/foreground), Petrol #0E7C86 (primär accent + CTA),
-       Ice blue #EEF8FA (mjuk sektionsbakgrund), Off-white #F7F5F0 (alt sektioner),
-       Slate grey #4B5B68 (brödtext), Lila #6D5BD0 (sparsamt – AI/Copilot),
-       Amber #D89A2B (insikter/varningar).
+    /* ─── Editorial petrol palette (d365.se v2) ───
+       Hero mörk bas #07383E, Petrol #0B454B (auktoritet),
+       Bright teal #0EA5A8 (primär CTA / AI),
+       Ljus accent #8FEFF2 (highlights på mörk yta),
+       Signatur #E85D2A (logo/eyebrow/tagg – aldrig som bakgrund),
+       Editorial #F7F4EF (sidbakgrund), Warm #EFE9DF (mellansektioner),
+       Ink #172326 (rubriker), Body #405057 (brödtext), Line #E7E0D4.
     */
-    --background: 0 0% 100%;
-    --foreground: 210 65% 12%;          /* Navy #0B1F33 – rubriker & primär text */
+    --background: 38 33% 95%;           /* Editorial #F7F4EF – sidbakgrund */
+    --foreground: 193 24% 12%;          /* Ink #172326 – rubriker & primärtext */
 
-    --card: 0 0% 100%;
-    --card-foreground: 210 65% 12%;
+    --card: 0 0% 100%;                  /* Vit – artikelkort, partnerkort */
+    --card-foreground: 193 24% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 210 65% 12%;
+    --popover-foreground: 193 24% 12%;
 
-    --primary: 185 81% 29%;             /* Petrol #0E7C86 */
+    --primary: 186 75% 17%;             /* Petrol #0B454B – huvudidentitet */
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 185 70% 40%;
+    --primary-glow: 181 84% 35%;        /* Bright teal #0EA5A8 */
 
-    --secondary: 190 55% 96%;           /* Ice blue #EEF8FA – mjuk sektion */
-    --secondary-foreground: 210 65% 12%;
+    --secondary: 36 30% 91%;            /* Warm #EFE9DF – mellansektion / faktarutor */
+    --secondary-foreground: 193 24% 12%;
 
-    --muted: 43 30% 95%;                /* Off-white #F7F5F0 – alternativa sektioner */
-    --muted-foreground: 207 16% 35%;    /* Slate #4B5B68 – brödtext */
+    --muted: 38 33% 95%;                /* Editorial #F7F4EF */
+    --muted-foreground: 199 15% 30%;    /* Body #405057 – brödtext */
 
-    --accent: 185 81% 29%;              /* Petrol – samma som primary för enhetlig accent */
-    --accent-foreground: 0 0% 100%;
+    --accent: 181 84% 35%;              /* Bright teal #0EA5A8 – CTA / AI */
+    --accent-foreground: 187 80% 14%;   /* Hero dark #07383E – text på teal-knapp */
 
     --success: 165 60% 32%;
     --success-foreground: 0 0% 100%;
 
-    --warning: 38 69% 51%;              /* Amber #D89A2B – insikter/varningar */
-    --warning-foreground: 210 65% 12%;
+    --warning: 16 80% 54%;              /* Signatur #E85D2A – används som varning/insikt */
+    --warning-foreground: 0 0% 100%;
 
-    /* CTA – petrol, samma token-namn bibehålls för bakåtkompatibilitet */
-    --cta-orange: 185 81% 29%;          /* Petrol #0E7C86 */
-    --cta-orange-hover: 185 85% 23%;    /* Mörkare petrol vid hover */
+    /* CTA – bright teal #0EA5A8. Token-namnet bibehålls för bakåtkompatibilitet. */
+    --cta-orange: 181 84% 35%;          /* #0EA5A8 */
+    --cta-orange-hover: 186 75% 22%;    /* Mörk petrol vid hover */
+
+    /* Editorial signatur – #E85D2A. Endast text/linje/accent, aldrig bakgrund. */
+    --signature: 16 80% 54%;
+    --signature-foreground: 0 0% 100%;
+
+    /* Mörka zon-tokens (hero, masthead, bottom CTA) */
+    --hero-dark: 187 80% 14%;           /* #07383E */
+    --petrol: 186 75% 17%;              /* #0B454B */
+    --card-dark: 187 65% 20%;           /* #124F56 */
+    --line-dark: 186 60% 25%;           /* #1A6068 */
+    --accent-light: 182 78% 76%;        /* #8FEFF2 */
+    --muted-dark: 186 17% 62%;          /* #8AACB0 */
+
 
 
     --destructive: 0 84.2% 60.2%;
@@ -108,20 +123,21 @@ All colors MUST be HSL.
     --agents: 145 75% 40%;
     --agents-foreground: 0 0% 100%;
 
-    --border: 207 20% 88%;
-    --input: 207 20% 88%;
-    --ring: 185 81% 29%;
+    --border: 38 28% 87%;               /* Line #E7E0D4 – diskreta avdelare */
+    --input: 38 28% 87%;
+    --ring: 181 84% 35%;                /* Bright teal #0EA5A8 */
 
     --radius: 0.25rem;
 
-    --gradient-primary: linear-gradient(135deg, hsl(185 81% 24%) 0%, hsl(185 70% 38%) 100%);
-    --gradient-hero: linear-gradient(135deg, rgba(11,31,51,0.65) 0%, rgba(11,31,51,0.4) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(185 81% 26%) 0%, hsl(185 81% 32%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(190 55% 96%) 0%, hsl(43 30% 97%) 100%);
-    --shadow-card: 0 1px 3px 0 hsl(210 65% 12% / 0.06);
-    --shadow-hover: 0 6px 18px -4px hsl(210 65% 12% / 0.14);
-    --shadow-accent: 0 6px 18px -4px hsl(185 81% 29% / 0.25);
-    --shadow-elegant: 0 1px 2px 0 hsl(210 65% 12% / 0.05);
+    --gradient-primary: linear-gradient(135deg, hsl(187 80% 14%) 0%, hsl(186 75% 17%) 100%);
+    --gradient-hero: linear-gradient(135deg, rgba(7,56,62,0.85) 0%, rgba(11,69,75,0.65) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(181 84% 35%) 0%, hsl(181 84% 30%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(36 30% 91%) 0%, hsl(38 33% 95%) 100%);
+    --shadow-card: 0 1px 3px 0 hsl(193 24% 12% / 0.06);
+    --shadow-hover: 0 6px 18px -4px hsl(193 24% 12% / 0.14);
+    --shadow-accent: 0 6px 18px -4px hsl(181 84% 35% / 0.25);
+    --shadow-elegant: 0 1px 2px 0 hsl(193 24% 12% / 0.05);
+
 
     --sidebar-background: 0 0% 98%;
 
@@ -238,10 +254,11 @@ All colors MUST be HSL.
   /* Shadow pulse animation for CTA buttons */
   @keyframes shadow-pulse {
     0%, 100% {
-      box-shadow: 0 0 0 0 hsl(185 81% 29% / 0.4);
+      box-shadow: 0 0 0 0 hsl(181 84% 35% / 0.4);
     }
     50% {
-      box-shadow: 0 0 0 8px hsl(185 81% 29% / 0);
+      box-shadow: 0 0 0 8px hsl(181 84% 35% / 0);
+
     }
   }
   
