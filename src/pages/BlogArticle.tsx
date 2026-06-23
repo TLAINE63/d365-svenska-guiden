@@ -319,6 +319,31 @@ const BlogArticle = () => {
               {article.content}
             </article>
 
+            {/* Redaktionell not – för ämnen med snabb utveckling */}
+            {(() => {
+              const haystack = `${article.title} ${article.category} ${article.tags.join(" ")}`.toLowerCase();
+              const fastMoving = /(ai|copilot|agent|pris|kostnad|licens)/.test(haystack);
+              if (!fastMoving) return null;
+              const reviewDate = new Date(KNOWLEDGE_CENTER_LAST_REVIEWED) > new Date(article.publishedAt)
+                ? KNOWLEDGE_CENTER_LAST_REVIEWED
+                : article.publishedAt;
+              return (
+                <aside
+                  aria-label="Redaktionell not"
+                  className="mt-10 p-5 rounded border border-border bg-muted/40"
+                >
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground mb-2">
+                    Redaktionell not
+                  </p>
+                  <p className="text-sm leading-relaxed text-foreground/80">
+                    Dynamics 365-marknaden förändras snabbt — särskilt inom AI, Copilot, agenter och prissättning.
+                    Den här artikeln granskades senast {formatDateSv(reviewDate)}. Hittar ni en uppgift som inte
+                    längre stämmer? <Link to="/kontakt/" className="text-primary underline underline-offset-2 hover:text-primary/80">Hör av er</Link> så uppdaterar vi.
+                  </p>
+                </aside>
+              );
+            })()}
+
             {/* Stark CTA-sektion efter artikeln – nästa steg i köpresan */}
             <aside
               aria-label="Nästa steg"
