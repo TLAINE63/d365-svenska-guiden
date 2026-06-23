@@ -66,7 +66,17 @@ export interface BlogArticle {
   featured?: boolean;
   /** Big 5 FAQ — visas som fast modul längst ner i branschartiklar */
   bigFiveFaq?: { question: string; answer: string }[];
+  /**
+   * Aktualitetsstatus. Sätts på äldre AI/Copilot-artiklar för att markera att
+   * landskapet har förändrats och länka läsaren vidare till nyare 2026-sidor.
+   */
+  freshness?: {
+    status: "older";
+    note?: string;
+    newerArticles: { slug: string; label: string }[];
+  };
 }
+
 
 const THOMAS_LAINE: BlogArticleAuthor = {
   name: "Thomas Laine",
