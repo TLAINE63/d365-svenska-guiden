@@ -245,7 +245,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
             <div className="mb-3">
               <span
                 title="Innehållet på denna branschsida är initialt genererat med AI och granskat redaktionellt. Partnerdata är manuellt kvalitetssäkrad."
-                className="inline-flex items-center gap-1.5 text-[11px] font-medium px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20"
+                className="inline-flex items-center gap-1.5 text-[11px] font-medium px-2 py-0.5 rounded bg-primary/10 text-primary border border-primary/20"
               >
                 <Sparkles className="w-3 h-3" />
                 AI-assisterat innehåll
@@ -431,7 +431,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
                       }
                       className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium border transition-all ${
                         active
-                          ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                          ? "bg-primary text-primary-foreground border-primary "
                           : "bg-background text-foreground border-border hover:border-primary/50 hover:bg-muted/40"
                       }`}
                     >
@@ -510,7 +510,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
         {/* CTA */}
         <section className="py-12">
           <div className="container mx-auto px-4 max-w-4xl">
-            <div className="rounded-xl border border-border bg-card p-8 text-center">
+            <div className="rounded border border-border bg-card p-8 text-center">
               <h2 className="text-xl md:text-2xl font-bold mb-3">
                 Nästa steg för {industryName.toLowerCase()}
               </h2>

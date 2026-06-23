@@ -248,18 +248,18 @@ const PartnerCard = ({
 
   return (
     <article 
-      className={`group relative flex flex-col h-full rounded-2xl overflow-hidden
+      className={`group relative flex flex-col h-full rounded overflow-hidden
         bg-gradient-to-br from-card/80 via-card/90 to-card/70
         border border-white/20 dark:border-white/10
         backdrop-blur-xl backdrop-saturate-150
-        shadow-[0_8px_32px_-4px_rgba(0,0,0,0.1),inset_0_1px_0_0_rgba(255,255,255,0.1)]
-        hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.2),inset_0_1px_0_0_rgba(255,255,255,0.15)]
+        
+        
         ${colors.glow}
         transform transition-all duration-500 ease-out
         hover:-translate-y-2 hover:border-white/30 dark:hover:border-white/20`}
     >
       {/* Glassmorphism inner glow */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 via-transparent to-white/5 pointer-events-none" />
+      <div className="absolute inset-0 rounded bg-gradient-to-br from-white/5 via-transparent to-white/5 pointer-events-none" />
       
       {/* Premium gradient overlay */}
       <div className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
@@ -294,7 +294,7 @@ const PartnerCard = ({
               }`}
             />
           ) : (
-            <div className="w-[4.5rem] h-[4.5rem] rounded-lg bg-gradient-to-br from-muted/80 to-muted flex items-center justify-center shadow-inner">
+            <div className="w-[4.5rem] h-[4.5rem] rounded-lg bg-gradient-to-br from-muted/80 to-muted flex items-center justify-center ">
               <Building2 className="w-8 h-8 text-muted-foreground/60" />
             </div>
           )}
@@ -304,14 +304,14 @@ const PartnerCard = ({
             <TooltipProvider delayDuration={100}>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-background border border-border shadow-sm flex items-center justify-center cursor-help hover:bg-muted transition-colors">
+                  <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded bg-background border border-border  flex items-center justify-center cursor-help hover:bg-muted transition-colors">
                     <Shuffle className="w-3 h-3 text-muted-foreground" />
                   </div>
                 </TooltipTrigger>
                 <TooltipContent 
                   side="right" 
                   sideOffset={8}
-                  className="z-[100] text-xs max-w-[200px] bg-popover text-popover-foreground shadow-lg border"
+                  className="z-[100] text-xs max-w-[200px] bg-popover text-popover-foreground  border"
                 >
                   <p>Ordningen slumpas för rättvis exponering</p>
                 </TooltipContent>
@@ -340,7 +340,7 @@ const PartnerCard = ({
 
           {/* Highlighted search criteria */}
           {hasHighlights && (
-            <div className="relative mb-4 p-3 rounded-xl bg-gradient-to-br from-slate-100 to-slate-50 dark:from-slate-800/40 dark:to-slate-700/20 border border-slate-200 dark:border-slate-600/40">
+            <div className="relative mb-4 p-3 rounded bg-gradient-to-br from-slate-100 to-slate-50 dark:from-slate-800/40 dark:to-slate-700/20 border border-slate-200 dark:border-slate-600/40">
               <div className="flex items-center gap-1.5 mb-2">
                 <Sparkles className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
                 <span className="text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">Matchar din sökning</span>
@@ -426,7 +426,7 @@ const PartnerCard = ({
           {/* Applications / Competencies */}
           <div className="mb-3">
             <p className="text-xs font-semibold text-foreground/80 mb-2 uppercase tracking-wider flex items-center gap-1.5">
-              <span className="w-1 h-1 rounded-full bg-primary" />
+              <span className="w-1 h-1 rounded bg-primary" />
               Kompetenser
             </p>
             <div className="flex flex-wrap gap-1.5">
@@ -435,7 +435,7 @@ const PartnerCard = ({
                 return (
                   <Badge 
                     key={i} 
-                    className="text-xs bg-accent text-accent-foreground border-0 font-medium shadow-sm hover:shadow-md hover:bg-accent/90 transition-all"
+                    className="text-xs bg-accent text-accent-foreground border-0 font-medium   hover:bg-accent/90 transition-all"
                   >
                     {appIcon && (
                       <img src={appIcon} alt="" aria-hidden="true" width="16" height="16" loading="lazy" decoding="async" className="w-4 h-4 mr-1.5" />
@@ -507,7 +507,7 @@ const PartnerCard = ({
             )}
             <Button 
               asChild 
-              className="w-full relative overflow-hidden bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group/btn"
+              className="w-full relative overflow-hidden bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground font-semibold   transition-all duration-300 group/btn"
             >
               <Link to={cleanProfileUrl} onClick={handleCardClick} className="flex items-center justify-center gap-2">
                 <span className="relative z-10">Läs mer om denna partner</span>

@@ -220,7 +220,7 @@ const FinanceSupplyChain = () => {
             </div>
             
             <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
-              <AccordionItem value="item-1" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+              <AccordionItem value="item-1" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
                 <AccordionTrigger className="text-base sm:text-lg font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   <span className="flex items-start gap-3">
                     <span className="text-2xl">❓</span>
@@ -232,7 +232,7 @@ const FinanceSupplyChain = () => {
                 </AccordionContent>
               </AccordionItem>
               
-              <AccordionItem value="item-2" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+              <AccordionItem value="item-2" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   <span className="flex items-start gap-3">
                     <span className="text-2xl">❓</span>
@@ -244,7 +244,7 @@ const FinanceSupplyChain = () => {
                 </AccordionContent>
               </AccordionItem>
               
-              <AccordionItem value="item-3" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+              <AccordionItem value="item-3" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   <span className="flex items-start gap-3">
                     <span className="text-2xl">❓</span>
@@ -256,7 +256,7 @@ const FinanceSupplyChain = () => {
                 </AccordionContent>
               </AccordionItem>
               
-              <AccordionItem value="item-4" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+              <AccordionItem value="item-4" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   <span className="flex items-start gap-3">
                     <span className="text-2xl">❓</span>
@@ -268,7 +268,7 @@ const FinanceSupplyChain = () => {
                 </AccordionContent>
               </AccordionItem>
               
-              <AccordionItem value="item-5" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+              <AccordionItem value="item-5" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   <span className="flex items-start gap-3">
                     <span className="text-2xl">❓</span>
@@ -280,7 +280,7 @@ const FinanceSupplyChain = () => {
                 </AccordionContent>
               </AccordionItem>
               
-              <AccordionItem value="item-6" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+              <AccordionItem value="item-6" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   <span className="flex items-start gap-3">
                     <span className="text-2xl">❓</span>
@@ -300,7 +300,7 @@ const FinanceSupplyChain = () => {
       <section className="py-12 sm:py-16 md:py-20 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="rounded-2xl border border-border bg-card p-6 sm:p-10 shadow-[var(--shadow-card)]">
+            <div className="rounded border border-border bg-card p-6 sm:p-10 ">
               <span className="text-xs uppercase tracking-[0.14em] text-muted-foreground font-semibold">
                 Behovsmatchning · cirka 10 minuter
               </span>
@@ -371,7 +371,7 @@ const FinanceSupplyChain = () => {
 
             <div className="space-y-6">
               {/* Copilot Features */}
-              <div className="bg-card rounded-xl p-6 sm:p-8 border border-border">
+              <div className="bg-card rounded p-6 sm:p-8 border border-border">
                 <div className="flex items-start gap-4 mb-4">
                   <div className="bg-secondary w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0">
                     <span className="text-xl">👤</span>
@@ -404,7 +404,7 @@ const FinanceSupplyChain = () => {
               </div>
 
               {/* Agents Features */}
-              <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl p-6 sm:p-8 border-2 border-primary/30">
+              <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded p-6 sm:p-8 border-2 border-primary/30">
                 <div className="flex items-start gap-4 mb-4">
                   <div className="bg-gradient-to-br from-primary to-accent w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0">
                     <span className="text-xl">⚡</span>
@@ -525,7 +525,7 @@ const FinanceSupplyChain = () => {
 
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
-              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-4 sm:p-6 md:p-8 border border-border">
+              <div className="bg-card rounded-lg  p-4 sm:p-6 md:p-8 border border-border">
                 <h4 className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground mb-3 sm:mb-4">Mindre standardimplementationer</h4>
                 <p className="text-sm text-muted-foreground mb-3 sm:mb-4">Grundläggande uppsättning med standardfunktionalitet</p>
                 <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-4 sm:mb-6">1 500 000 - 3 000 000 kr</div>
@@ -538,7 +538,7 @@ const FinanceSupplyChain = () => {
                   <li>• 50-200 användare</li>
                 </ul>
               </div>
-              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-4 sm:p-6 md:p-8 border border-border">
+              <div className="bg-card rounded-lg  p-4 sm:p-6 md:p-8 border border-border">
                 <h4 className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground mb-3 sm:mb-4">Mer avancerade implementationer</h4>
                 <p className="text-sm text-muted-foreground mb-3 sm:mb-4">Globala implementationer med hög komplexitet</p>
                 <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-4 sm:mb-6">3 000 000 - 10 000 000+ kr</div>
@@ -556,7 +556,7 @@ const FinanceSupplyChain = () => {
 
           {/* Common Factors */}
           <div className="max-w-4xl mx-auto mt-10 sm:mt-12 md:mt-16">
-            <div className="bg-card rounded-lg p-6 sm:p-8 border border-border shadow-[var(--shadow-card)]">
+            <div className="bg-card rounded-lg p-6 sm:p-8 border border-border ">
               <h3 className="text-lg sm:text-xl font-bold text-card-foreground mb-4">Faktorer som påverkar kostnaden</h3>
               <ul className="grid sm:grid-cols-2 gap-3 text-sm text-muted-foreground">
                 <li className="flex items-start gap-2">
@@ -601,7 +601,7 @@ const FinanceSupplyChain = () => {
               <Link
                 key={article.slug}
                 to={`/kunskapscenter/${article.productSlug}/${article.slug}/`}
-                className="group flex items-start gap-3 p-4 rounded-lg border border-border bg-card hover:border-primary/50 hover:shadow-md transition-all"
+                className="group flex items-start gap-3 p-4 rounded-lg border border-border bg-card hover:border-primary/50  transition-all"
               >
                 {article.image && (
                   <img src={article.image} alt={article.title} className="w-16 h-16 rounded object-contain flex-shrink-0 bg-secondary/50 p-1" />
@@ -731,18 +731,18 @@ const FinanceSupplyChain = () => {
           {selectedIndustry && (
             <div className="max-w-xl mx-auto mt-12">
               {/* Premium Contact CTA Card - same design as PartnerProfile */}
-              <article className="relative rounded-3xl overflow-hidden shadow-2xl">
+              <article className="relative rounded overflow-hidden ">
                 {/* Gradient background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[hsl(210_20%_12%)] via-[hsl(210_18%_16%)] to-[hsl(210_20%_12%)]" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
                 
                 {/* Animated orb */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded-full blur-3xl animate-pulse" />
+                <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded  animate-pulse" />
                 
                 <div className="relative p-6 sm:p-8">
                   <div className="flex items-start gap-4 mb-6">
-                    <div className="p-3 rounded-2xl bg-gradient-to-br from-primary to-accent shadow-lg shadow-primary/30">
+                    <div className="p-3 rounded bg-gradient-to-br from-primary to-accent  shadow-primary/30">
                       <span className="text-xl">✨</span>
                     </div>
                     <div>
@@ -756,9 +756,9 @@ const FinanceSupplyChain = () => {
                   </div>
                   
                   {/* Filter context with glass effect */}
-                  <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
+                  <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded border border-white/20">
                     <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cta-orange animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded bg-cta-orange animate-pulse" />
                       Din sökning
                     </p>
                     <div className="flex flex-wrap gap-2">
@@ -813,7 +813,7 @@ const FinanceSupplyChain = () => {
               Kontakta oss för en kostnadsfri konsultation
             </p>
             <ContactFormDialog>
-              <Button className="bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground h-14 sm:h-16 rounded-xl" size="lg">
+              <Button className="bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground h-14 sm:h-16 rounded" size="lg">
                 Boka in en kostnadsfri rådgivning
               </Button>
             </ContactFormDialog>

@@ -194,7 +194,7 @@ const RequirementsSpecCustomerService = () => {
         <div className="relative bg-cover bg-center pt-24 pb-10 mb-8" style={{ backgroundImage: `url(${heroKravspecKundservice})` }}>
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative container mx-auto px-4 max-w-4xl text-center">
-            <div className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
+            <div className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded text-sm font-medium mb-4">
               <Headphones className="h-4 w-4" />
               Kravspecifikation – Kundservice
             </div>
@@ -342,7 +342,7 @@ const RequirementsSpecCustomerService = () => {
                         <ul className="space-y-1">
                           {section.items.map((item, i) => (
                             <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
-                              <span className="text-primary mt-1.5 block w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                              <span className="text-primary mt-1.5 block w-1.5 h-1.5 rounded bg-primary flex-shrink-0" />
                               {item}
                             </li>
                           ))}
@@ -372,7 +372,7 @@ const RequirementsSpecCustomerService = () => {
                         <ul className="space-y-1">
                           {req.items.map((item, j) => (
                             <li key={j} className="text-sm text-muted-foreground flex items-start gap-2">
-                              <span className="mt-1.5 block w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                              <span className="mt-1.5 block w-1.5 h-1.5 rounded bg-primary flex-shrink-0" />
                               {item}
                             </li>
                           ))}
@@ -408,7 +408,7 @@ const RequirementsSpecCustomerService = () => {
                 </Card>
               )}
 
-              <Card className="border-primary/30 bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 shadow-lg">
+              <Card className="border-primary/30 bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 ">
                 <CardContent className="p-6">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                     <div className="flex-1">

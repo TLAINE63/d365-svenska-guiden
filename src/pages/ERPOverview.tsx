@@ -112,7 +112,7 @@ const ERPOverview = () => {
             </p>
             
             {/* Industry Comparison Widget */}
-            <div id="branschjamforelse" className="bg-card rounded-xl p-6 sm:p-8 border border-border shadow-[var(--shadow-card)] mb-8 scroll-mt-24">
+            <div id="branschjamforelse" className="bg-card rounded p-6 sm:p-8 border border-border  mb-8 scroll-mt-24">
               <h3 className="text-xl font-semibold text-foreground mb-2 text-center">Branschjämförelse: Business Central vs Finance & Supply Chain Management</h3>
               <p className="text-sm text-muted-foreground text-center mb-4">Välj din bransch, storlek och geografi för att få en skräddarsydd rekommendation</p>
               <p className="text-xs text-muted-foreground leading-relaxed mb-6 max-w-3xl mx-auto">
@@ -121,7 +121,7 @@ const ERPOverview = () => {
               <IndustryComparisonWidget />
             </div>
 
-            <div className="bg-primary/10 rounded-xl p-6 sm:p-8 border border-primary/20">
+            <div className="bg-primary/10 rounded p-6 sm:p-8 border border-primary/20">
               <div className="flex items-center justify-center gap-2 mb-4">
                 <ClipboardList className="h-6 w-6 text-primary" />
                 <h3 className="text-xl font-semibold text-foreground">Osäker på valet?</h3>
@@ -156,7 +156,7 @@ const ERPOverview = () => {
             
             <div className="grid md:grid-cols-2 gap-8">
               {/* Business Central */}
-              <div className="bg-card rounded-lg p-6 sm:p-8 border border-border shadow-[var(--shadow-card)]">
+              <div className="bg-card rounded-lg p-6 sm:p-8 border border-border ">
                 <div className="flex items-center gap-3 mb-4">
                   <img src={BusinessCentralIcon} alt="Business Central" className="h-10 w-10" />
                   <h3 className="text-xl sm:text-2xl font-bold text-card-foreground">Business Central</h3>
@@ -203,7 +203,7 @@ const ERPOverview = () => {
               </div>
 
               {/* Finance & Supply Chain Management */}
-              <div className="bg-card rounded-lg p-6 sm:p-8 border border-border shadow-[var(--shadow-card)]">
+              <div className="bg-card rounded-lg p-6 sm:p-8 border border-border ">
                 <div className="flex items-center gap-3 mb-4">
                   <img src={FinanceIcon} alt="Finance" className="h-10 w-10" />
                   <img src={SupplyChainIcon} alt="Supply Chain" className="h-10 w-10" />
@@ -272,7 +272,7 @@ const ERPOverview = () => {
             <Link to="/ERPbehovsanalys/">
               <Button 
                 size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg h-14 sm:h-16 rounded-xl px-8"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg h-14 sm:h-16 rounded px-8"
               >
                 <ClipboardList className="mr-2 h-5 w-5" />
                 Starta ERP Behovsanalysen
@@ -282,18 +282,18 @@ const ERPOverview = () => {
           
           {/* Premium Contact CTA Card */}
           <div className="max-w-xl mx-auto">
-            <article className="relative rounded-3xl overflow-hidden shadow-2xl">
+            <article className="relative rounded overflow-hidden ">
               {/* Gradient background */}
               <div className="absolute inset-0 bg-gradient-to-br from-[hsl(210_20%_12%)] via-[hsl(210_18%_16%)] to-[hsl(210_20%_12%)]" />
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
               
               {/* Animated orb */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded-full blur-3xl animate-pulse" />
+              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded  animate-pulse" />
               
               <div className="relative p-6 sm:p-8">
                 <div className="flex items-start gap-4 mb-6">
-                  <div className="p-3 rounded-2xl bg-gradient-to-br from-primary to-accent shadow-lg shadow-primary/30">
+                  <div className="p-3 rounded bg-gradient-to-br from-primary to-accent  shadow-primary/30">
                     <span className="text-xl">✨</span>
                   </div>
                   <div>
@@ -307,9 +307,9 @@ const ERPOverview = () => {
                 </div>
                 
                 {/* Filter context with glass effect */}
-                <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
+                <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded border border-white/20">
                   <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-cta-orange animate-pulse" />
+                    <span className="w-1.5 h-1.5 rounded bg-cta-orange animate-pulse" />
                     Produktområde
                   </p>
                   <div className="flex flex-wrap gap-2">

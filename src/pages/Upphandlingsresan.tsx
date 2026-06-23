@@ -25,7 +25,7 @@ const Upphandlingsresan = () => {
           <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
 
           <div className="relative container mx-auto max-w-6xl px-4 sm:px-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6 backdrop-blur">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-white/10 border border-white/20 text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6 backdrop-blur">
               <Check className="w-3 h-3" />
               Steg 1 · Vad behöver ni?
             </div>
@@ -46,7 +46,7 @@ const Upphandlingsresan = () => {
                 <Link
                   key={spec.link}
                   to={spec.link}
-                  className="group/item flex items-center justify-between gap-2 px-4 py-3.5 rounded-xl bg-white/5 border border-white/15 backdrop-blur-sm text-[14px] font-semibold text-white transition-all hover:bg-white/[0.10] hover:border-white/30 hover:-translate-y-0.5"
+                  className="group/item flex items-center justify-between gap-2 px-4 py-3.5 rounded bg-white/5 border border-white/15 backdrop-blur-sm text-[14px] font-semibold text-white transition-all hover:bg-white/[0.10] hover:border-white/30 hover:-translate-y-0.5"
                 >
                   <span>{spec.label}</span>
                   <ArrowRight className="w-4 h-4 text-white/60 group-hover/item:text-white group-hover/item:translate-x-0.5 transition-all flex-shrink-0" />
@@ -62,13 +62,13 @@ const Upphandlingsresan = () => {
 
         {/* Steg 2: Partner-matchning */}
         <section className="section-divider section-divider-dark bg-gradient-to-br from-[hsl(195_45%_10%)] via-[hsl(190_40%_14%)] to-[hsl(20_55%_18%)] py-14 sm:py-20 relative overflow-hidden border-b border-[hsl(var(--cta-orange))]/20">
-          <div className="absolute -top-32 -right-32 w-[28rem] h-[28rem] rounded-full bg-[hsl(var(--cta-orange))]/25 blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-32 -left-20 w-96 h-96 rounded-full bg-primary/25 blur-3xl pointer-events-none" />
+          <div className="absolute -top-32 -right-32 w-[28rem] h-[28rem] rounded bg-[hsl(var(--cta-orange))]/25  pointer-events-none" />
+          <div className="absolute -bottom-32 -left-20 w-96 h-96 rounded bg-primary/25  pointer-events-none" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.08),transparent_55%)] pointer-events-none" />
           <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
 
           <div className="relative container mx-auto max-w-6xl px-4 sm:px-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[hsl(var(--cta-orange))] text-[10.5px] font-bold uppercase tracking-[0.14em] text-white shadow-lg shadow-[hsl(var(--cta-orange))]/40 mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-[hsl(var(--cta-orange))] text-[10.5px] font-bold uppercase tracking-[0.14em] text-white   mb-6">
               <Sparkles className="w-3 h-3" />
               Steg 2 · Vem ska ni prata med?
             </div>
@@ -96,7 +96,7 @@ const Upphandlingsresan = () => {
 
             <Button
               asChild
-              className="w-full sm:w-auto bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-[15px] font-semibold h-12 px-7 rounded-xl shadow-lg shadow-[hsl(var(--cta-orange))]/40 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/50 hover:-translate-y-0.5 transition-all group/btn"
+              className="w-full sm:w-auto bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-[15px] font-semibold h-12 px-7 rounded     hover:-translate-y-0.5 transition-all group/btn"
             >
               <Link to="/valjdynamics365partner/">
                 Starta partnermatchning

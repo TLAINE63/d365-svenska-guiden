@@ -63,23 +63,23 @@ const iconMap = {
 
 const colorSchemes = {
   primary: {
-    selected: "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/30",
+    selected: "bg-primary text-primary-foreground border-primary  shadow-primary/30",
     unselected: "bg-card border-border hover:border-primary/50 hover:bg-primary/5 text-foreground hover:text-foreground",
   },
   "business-central": {
-    selected: "bg-business-central text-white border-business-central shadow-lg shadow-business-central/30",
+    selected: "bg-business-central text-white border-business-central  shadow-business-central/30",
     unselected: "bg-card border-border hover:border-business-central/50 hover:bg-business-central/5 text-foreground hover:text-foreground",
   },
   crm: {
-    selected: "bg-crm text-white border-crm shadow-lg shadow-crm/30",
+    selected: "bg-crm text-white border-crm  shadow-crm/30",
     unselected: "bg-card border-border hover:border-crm/50 hover:bg-crm/5 text-foreground hover:text-foreground",
   },
   "finance-supply": {
-    selected: "bg-finance-supply text-white border-finance-supply shadow-lg shadow-finance-supply/30",
+    selected: "bg-finance-supply text-white border-finance-supply  shadow-finance-supply/30",
     unselected: "bg-card border-border hover:border-finance-supply/50 hover:bg-finance-supply/5 text-foreground hover:text-foreground",
   },
   amber: {
-    selected: "bg-amber-500 text-white border-amber-500 shadow-lg shadow-amber-500/30",
+    selected: "bg-amber-500 text-white border-amber-500  shadow-amber-500/30",
     unselected: "bg-card border-border hover:border-amber-400/50 hover:bg-amber-50 dark:hover:bg-amber-500/10 text-foreground hover:text-foreground",
   },
 };
@@ -99,7 +99,7 @@ export function FilterButtons({
   return (
     <div className="mb-8 sm:mb-10">
       <div className="flex items-center justify-center gap-2 mb-4">
-        <div className="flex items-center gap-2 bg-muted/50 px-4 py-2 rounded-full">
+        <div className="flex items-center gap-2 bg-muted/50 px-4 py-2 rounded">
           <Icon className="h-4 w-4 text-muted-foreground" />
           <span className="text-sm font-semibold text-foreground">{title}</span>
         </div>
@@ -153,7 +153,7 @@ export function MultiFilterButtons({
   return (
     <div className="mb-8 sm:mb-10">
       <div className="flex items-center justify-center gap-2 mb-4">
-        <div className="flex items-center gap-2 bg-muted/50 px-4 py-2 rounded-full">
+        <div className="flex items-center gap-2 bg-muted/50 px-4 py-2 rounded">
           <Icon className="h-4 w-4 text-muted-foreground" />
           <span className="text-sm font-semibold text-foreground">{title}</span>
         </div>

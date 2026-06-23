@@ -287,7 +287,7 @@ const EventDetail = () => {
       {/* Hero Section */}
       <section className="relative overflow-hidden mt-16 py-12 md:py-16 bg-gradient-to-br from-violet-600 via-purple-600 to-violet-700">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent" />
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-white/10 rounded " />
         
         <div className="relative container mx-auto px-4">
           <Link 
@@ -348,7 +348,7 @@ const EventDetail = () => {
                 <img 
                   src={event.image_url} 
                   alt={event.title}
-                  className="w-full rounded-xl shadow-lg object-cover max-h-96"
+                  className="w-full rounded  object-cover max-h-96"
                 />
               )}
 
@@ -379,7 +379,7 @@ const EventDetail = () => {
                   <div className="flex items-center gap-4">
                     {event.partners ? (
                       <Link to={`/partner/${event.partners.slug}`}>
-                        <div className={`w-16 h-16 rounded-xl flex items-center justify-center border ${
+                        <div className={`w-16 h-16 rounded flex items-center justify-center border ${
                           event.partners.logo_dark_bg ? 'bg-slate-700' : 'bg-white'
                         }`}>
                           {event.partners.logo_url ? (
@@ -394,7 +394,7 @@ const EventDetail = () => {
                         </div>
                       </Link>
                     ) : (
-                      <div className="w-16 h-16 rounded-xl flex items-center justify-center border bg-primary/10">
+                      <div className="w-16 h-16 rounded flex items-center justify-center border bg-primary/10">
                         <span className="text-lg font-bold text-primary">d365</span>
                       </div>
                     )}

@@ -1018,10 +1018,10 @@ const PartnerUpdate = () => {
                       <img
                         src={formData.contact_photo_url}
                         alt="Säljkontakt foto"
-                        className="h-20 w-20 object-cover rounded-full border-2 border-border shadow-sm"
+                        className="h-20 w-20 object-cover rounded border-2 border-border "
                       />
                     ) : (
-                      <div className="h-20 w-20 rounded-full border-2 border-dashed border-border bg-background flex items-center justify-center">
+                      <div className="h-20 w-20 rounded border-2 border-dashed border-border bg-background flex items-center justify-center">
                         <ImageIcon className="h-7 w-7 text-muted-foreground" />
                       </div>
                     )}
@@ -1191,7 +1191,7 @@ const PartnerUpdate = () => {
                         </div>
                       ) : (
                         <div className="flex flex-col items-center gap-3">
-                          <div className="rounded-full bg-muted p-3">
+                          <div className="rounded bg-muted p-3">
                             <ImageIcon className="h-8 w-8 text-muted-foreground" />
                           </div>
                           <div>
@@ -1366,10 +1366,10 @@ const PartnerUpdate = () => {
                               <img
                                 src={filter.contactPhotoUrl}
                                 alt="Säljkontakt foto"
-                                className="h-14 w-14 object-cover rounded-full border-2 border-border shadow-sm"
+                                className="h-14 w-14 object-cover rounded border-2 border-border "
                               />
                             ) : (
-                              <div className="h-14 w-14 rounded-full bg-muted flex items-center justify-center border-2 border-dashed border-border">
+                              <div className="h-14 w-14 rounded bg-muted flex items-center justify-center border-2 border-dashed border-border">
                                 <ImageIcon className="h-5 w-5 text-muted-foreground" />
                               </div>
                             )}
@@ -1929,7 +1929,7 @@ const PartnerUpdate = () => {
                         <div className="space-y-1">
                           <Label className="text-xs">Dynamics 365-applikation</Label>
                           <select
-                            className="w-full h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                            className="w-full h-9 rounded-md border border-input bg-background px-3 py-1 text-sm  transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                             value={app.application}
                             onChange={(e) => {
                               const updated = [...industryApps];
@@ -1950,7 +1950,7 @@ const PartnerUpdate = () => {
                         <div className="space-y-1">
                           <Label className="text-xs">Branschinriktning</Label>
                           <select
-                            className="w-full h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                            className="w-full h-9 rounded-md border border-input bg-background px-3 py-1 text-sm  transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                             value={app.industry}
                             onChange={(e) => {
                               const updated = [...industryApps];

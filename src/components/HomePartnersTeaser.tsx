@@ -151,7 +151,7 @@ export default function HomePartnersTeaser() {
   }, [allPartners, quick, industry, size, seed]);
 
   const baseChip =
-    "px-4 py-2 rounded-full text-[13px] font-semibold border transition-all whitespace-nowrap";
+    "px-4 py-2 rounded text-[13px] font-semibold border transition-all whitespace-nowrap";
   const activeChip = "bg-primary text-primary-foreground border-primary shadow";
   const inactiveChip =
     "bg-white/10 text-white/80 border-white/20 hover:border-white/40 hover:text-white";
@@ -172,7 +172,7 @@ export default function HomePartnersTeaser() {
 
           <Link
             to="/valjdynamics365partner/"
-            className="bg-[hsl(var(--cta-orange))] text-white font-semibold text-sm px-5 py-2.5 rounded-full inline-flex items-center gap-1.5 hover:brightness-110 transition-all shadow"
+            className="bg-[hsl(var(--cta-orange))] text-white font-semibold text-sm px-5 py-2.5 rounded inline-flex items-center gap-1.5 hover:brightness-110 transition-all shadow"
           >
             Se alla partners <ArrowRight className="w-4 h-4" />
           </Link>
@@ -228,7 +228,7 @@ export default function HomePartnersTeaser() {
 
         {/* Partner cards */}
         {filtered.length === 0 ? (
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-8 text-center text-sm text-white/60">
+          <div className="bg-white/5 border border-white/10 rounded p-8 text-center text-sm text-white/60">
             Inga partners matchar valet just nu.{" "}
             <Link to="/valjdynamics365partner/" className="text-[hsl(var(--cta-orange))] font-semibold hover:underline">
               Se alla partners

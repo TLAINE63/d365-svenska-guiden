@@ -23,7 +23,7 @@ const SelectionCard = ({ label, description, selected, onClick, type = "checkbox
         "relative flex items-center justify-between w-full px-4 py-3 rounded-lg border-2 transition-all duration-200 text-left group overflow-hidden",
         selected
           ? "shadow-sm"
-          : "border-border/70 bg-background hover:border-primary/40 hover:bg-muted/40 hover:shadow-sm",
+          : "border-border/70 bg-background hover:border-primary/40 hover:bg-muted/40 ",
         className
       )}
     >
@@ -60,7 +60,7 @@ const SelectionCard = ({ label, description, selected, onClick, type = "checkbox
         } : undefined}
         className={cn(
           "flex-shrink-0 flex items-center justify-center w-5 h-5 ml-3 transition-all duration-200",
-          type === "radio" ? "rounded-full border-2" : "rounded border-2",
+          type === "radio" ? "rounded border-2" : "rounded border-2",
           !selected && "border-muted-foreground/30 bg-background group-hover:border-primary/50"
         )}
       >

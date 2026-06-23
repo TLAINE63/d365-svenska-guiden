@@ -52,10 +52,10 @@ const ProductQASection = ({ categories }: ProductQASectionProps) => {
             <button
               key={cat.product}
               onClick={() => setActiveProduct(cat.product)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border ${
+              className={`px-4 py-2 rounded text-sm font-medium transition-all duration-200 border ${
                 activeProduct === cat.product
-                  ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/25"
-                  : "bg-card text-foreground border-border hover:border-primary/50 hover:shadow-md"
+                  ? "bg-primary text-primary-foreground border-primary  shadow-primary/25"
+                  : "bg-card text-foreground border-border hover:border-primary/50 "
               }`}
             >
               {cat.product}
@@ -92,7 +92,7 @@ const ProductQASection = ({ categories }: ProductQASectionProps) => {
                     <a
                       key={t.anchor}
                       href={`/qa#${t.anchor}`}
-                      className="px-3 py-1.5 rounded-full border border-border bg-background hover:border-primary hover:text-primary transition-colors text-foreground font-medium"
+                      className="px-3 py-1.5 rounded border border-border bg-background hover:border-primary hover:text-primary transition-colors text-foreground font-medium"
                     >
                       {t.label} →
                     </a>

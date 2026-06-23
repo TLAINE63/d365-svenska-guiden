@@ -28,9 +28,9 @@ const PricingCard = ({ title, description, price, features, popular, priceUnit, 
     : priceUnit ?? "per användare/månad";
 
   return (
-    <Card className={`relative transition-all duration-300 hover:shadow-[var(--shadow-hover)] flex flex-col ${popular ? 'border-primary shadow-[var(--shadow-card)]' : 'border-border'}`}>
+    <Card className={`relative transition-all duration-300  flex flex-col ${popular ? 'border-primary shadow-[var(--shadow-card)]' : 'border-border'}`}>
       {popular && (
-        <div className="absolute -top-3 sm:-top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--accent))] text-primary-foreground px-3 sm:px-4 py-1 rounded-full text-xs sm:text-sm font-semibold">
+        <div className="absolute -top-3 sm:-top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--accent))] text-primary-foreground px-3 sm:px-4 py-1 rounded text-xs sm:text-sm font-semibold">
           Populärast
         </div>
       )}

@@ -350,8 +350,8 @@ const Branschlosningar = () => {
           {/* Step indicator - only show before solution is selected */}
           {!selectedIndustry && !hasFilter && (
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mb-4">
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border-2 text-sm border-cta-orange bg-cta-orange/10 text-cta-orange font-medium">
-                <span className="flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold bg-cta-orange text-white">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded border-2 text-sm border-cta-orange bg-cta-orange/10 text-cta-orange font-medium">
+                <span className="flex items-center justify-center w-5 h-5 rounded text-xs font-bold bg-cta-orange text-white">
                   1
                 </span>
                 <span>Börja med att välja en eller flera Dynamics 365-lösningar</span>
@@ -374,14 +374,14 @@ const Branschlosningar = () => {
                   toggleFilter(option.value);
                   setSelectedIndustry(null);
                 }}
-                className={`group w-full text-xs sm:text-sm font-semibold px-3 sm:px-4 py-3 sm:py-4 min-h-[56px] rounded-xl transition-all duration-300 flex items-center justify-center gap-2 ${
+                className={`group w-full text-xs sm:text-sm font-semibold px-3 sm:px-4 py-3 sm:py-4 min-h-[56px] rounded transition-all duration-300 flex items-center justify-center gap-2 ${
                   selectedFilters.includes(option.value) 
                     ? option.value === "bc" 
-                      ? "bg-gradient-to-br from-business-central to-business-central/80 text-white shadow-lg shadow-business-central/25 scale-[1.02]"
+                      ? "bg-gradient-to-br from-business-central to-business-central/80 text-white  shadow-business-central/25 scale-[1.02]"
                       : option.value === "fsc"
-                        ? "bg-gradient-to-br from-finance-supply to-finance-supply/80 text-white shadow-lg shadow-finance-supply/25 scale-[1.02]"
-                        : "bg-gradient-to-br from-crm to-crm/80 text-white shadow-lg shadow-crm/25 scale-[1.02]"
-                    : "bg-card border border-border/50 hover:border-border shadow-sm hover:shadow-md"
+                        ? "bg-gradient-to-br from-finance-supply to-finance-supply/80 text-white  shadow-finance-supply/25 scale-[1.02]"
+                        : "bg-gradient-to-br from-crm to-crm/80 text-white  shadow-crm/25 scale-[1.02]"
+                    : "bg-card border border-border/50 hover:border-border  "
                 } ${
                   option.value === "bc" && !selectedFilters.includes(option.value) 
                     ? "hover:bg-business-central/5 hover:border-business-central/30" 
@@ -425,8 +425,8 @@ const Branschlosningar = () => {
           {hasFilter && !selectedIndustry && (
             <>
               <div className="flex justify-center mt-4">
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border-2 border-cta-orange bg-cta-orange/10 text-cta-orange font-medium text-sm">
-                  <span className="flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold bg-cta-orange text-white">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded border-2 border-cta-orange bg-cta-orange/10 text-cta-orange font-medium text-sm">
+                  <span className="flex items-center justify-center w-5 h-5 rounded text-xs font-bold bg-cta-orange text-white">
                     2
                   </span>
                   <span>Välj bransch nedan</span>
@@ -505,18 +505,18 @@ const Branschlosningar = () => {
             {/* Lead CTA */}
             <div className="mt-12">
               {/* Premium Contact CTA Card - same design as PartnerProfile */}
-              <article className="relative rounded-3xl overflow-hidden shadow-2xl">
+              <article className="relative rounded overflow-hidden ">
                 {/* Gradient background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[hsl(210_20%_12%)] via-[hsl(210_18%_16%)] to-[hsl(210_20%_12%)]" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
                 
                 {/* Animated orb */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded-full blur-3xl animate-pulse" />
+                <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded  animate-pulse" />
                 
                 <div className="relative p-6 sm:p-8">
                   <div className="flex items-start gap-4 mb-6">
-                    <div className="p-3 rounded-2xl bg-gradient-to-br from-primary to-accent shadow-lg shadow-primary/30">
+                    <div className="p-3 rounded bg-gradient-to-br from-primary to-accent  shadow-primary/30">
                       <span className="text-xl">✨</span>
                     </div>
                     <div>
@@ -530,9 +530,9 @@ const Branschlosningar = () => {
                   </div>
                   
                   {/* Filter context with glass effect */}
-                  <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
+                  <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded border border-white/20">
                     <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cta-orange animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded bg-cta-orange animate-pulse" />
                       Din sökning
                     </p>
                     <div className="flex flex-wrap gap-2">
@@ -578,7 +578,7 @@ const Branschlosningar = () => {
                         !hasFilter 
                           ? "cursor-pointer opacity-70 hover:opacity-90"
                           : hasPartners
-                            ? "cursor-pointer hover:scale-105 hover:shadow-xl ring-2 ring-primary/50"
+                            ? "cursor-pointer hover:scale-105  ring-2 ring-primary/50"
                             : "cursor-pointer opacity-40 grayscale hover:opacity-50"
                       }`}
                     >
@@ -651,9 +651,9 @@ const Branschlosningar = () => {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`group flex flex-col gap-2 p-5 rounded-xl border-2 bg-card transition-all duration-200 ${item.cta} border-border/50`}
+                  className={`group flex flex-col gap-2 p-5 rounded border-2 bg-card transition-all duration-200 ${item.cta} border-border/50`}
                 >
-                  <span className={`inline-block self-start text-xs font-bold px-2 py-0.5 rounded-full border ${item.badge}`}>
+                  <span className={`inline-block self-start text-xs font-bold px-2 py-0.5 rounded border ${item.badge}`}>
                     {item.label}
                   </span>
                   <p className="text-sm font-medium text-foreground leading-snug">{item.desc}</p>

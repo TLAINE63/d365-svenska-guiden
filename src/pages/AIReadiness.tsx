@@ -1592,7 +1592,7 @@ const AIReadiness = () => {
           <div className="relative bg-cover bg-center pt-28 pb-10 mb-8" style={{ backgroundImage: `url(${heroAiReadiness})` }}>
             <div className="absolute inset-0 bg-black/60" />
             <section className="relative max-w-2xl mx-auto text-center px-4">
-              <div className="inline-flex items-center gap-2 bg-white/20 text-white rounded-full px-4 py-1.5 text-sm font-medium mb-6">
+              <div className="inline-flex items-center gap-2 bg-white/20 text-white rounded px-4 py-1.5 text-sm font-medium mb-6">
                 <Brain className="h-4 w-4" />
                 AI Impact & Readiness Assessment
               </div>
@@ -1856,7 +1856,7 @@ const AIReadiness = () => {
           <AnalysisDisclaimer />
 
           {/* 1️⃣ AI Effect Potential – 3 dimensions */}
-          <div className="border rounded-xl overflow-hidden shadow-sm mt-8">
+          <div className="border rounded overflow-hidden  mt-8">
             <div className="bg-slate-800 px-5 py-3">
               <h3 className="font-bold text-white text-sm tracking-wide">🎯 AI-effektpotential</h3>
             </div>
@@ -1878,8 +1878,8 @@ const AIReadiness = () => {
                         {getImpactLabel(d.value)}
                       </span>
                     </div>
-                    <div className="w-full h-2.5 bg-muted rounded-full overflow-hidden">
-                      <div className={`h-full rounded-full transition-all duration-700 ${getLevelColor(d.value)}`} style={{ width: `${d.value}%` }} />
+                    <div className="w-full h-2.5 bg-muted rounded overflow-hidden">
+                      <div className={`h-full rounded transition-all duration-700 ${getLevelColor(d.value)}`} style={{ width: `${d.value}%` }} />
                     </div>
                   </div>
                 );
@@ -1895,8 +1895,8 @@ const AIReadiness = () => {
                       {getImpactLabel(scores.governance)}
                     </span>
                   </div>
-                  <div className="w-full h-2.5 bg-muted rounded-full overflow-hidden">
-                    <div className={`h-full rounded-full transition-all duration-700 ${getLevelColor(scores.governance)}`} style={{ width: `${scores.governance}%` }} />
+                  <div className="w-full h-2.5 bg-muted rounded overflow-hidden">
+                    <div className={`h-full rounded transition-all duration-700 ${getLevelColor(scores.governance)}`} style={{ width: `${scores.governance}%` }} />
                   </div>
                 </div>
               )}
@@ -1904,25 +1904,25 @@ const AIReadiness = () => {
           </div>
 
           {/* 2️⃣ ROI Estimate */}
-          <div className="border rounded-xl overflow-hidden shadow-sm mt-6">
+          <div className="border rounded overflow-hidden  mt-6">
             <div className="bg-emerald-700 px-5 py-3">
               <h3 className="font-bold text-white text-sm tracking-wide">💰 Uppskattad AI-effekt</h3>
             </div>
             <div className="p-5 bg-background">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-                <div className="text-center bg-muted/30 rounded-xl p-4 border border-border/50">
+                <div className="text-center bg-muted/30 rounded p-4 border border-border/50">
                   <Clock className="h-5 w-5 text-primary mx-auto mb-2" />
                   <p className="text-2xl font-bold text-foreground">~{roi.timeSavingPct}%</p>
                   <p className="text-xs text-muted-foreground">Tidsbesparing</p>
                 </div>
                 {roi.forecastImprovePct > 0 && (
-                  <div className="text-center bg-muted/30 rounded-xl p-4 border border-border/50">
+                  <div className="text-center bg-muted/30 rounded p-4 border border-border/50">
                     <TrendingUp className="h-5 w-5 text-primary mx-auto mb-2" />
                     <p className="text-2xl font-bold text-foreground">~{roi.forecastImprovePct}%</p>
                     <p className="text-xs text-muted-foreground">Förbättrad prognosprecision</p>
                   </div>
                 )}
-                <div className="text-center bg-emerald-50 rounded-xl p-4 border border-emerald-200">
+                <div className="text-center bg-emerald-50 rounded p-4 border border-emerald-200">
                   <DollarSign className="h-5 w-5 text-emerald-600 mx-auto mb-2" />
                   <p className="text-2xl font-bold text-emerald-700">~{formatSEK(roi.annualSavingSEK)}</p>
                   <p className="text-xs text-emerald-600">Uppskattad årlig besparing</p>
@@ -1956,7 +1956,7 @@ const AIReadiness = () => {
           </div>
 
           {/* 3️⃣ Role-specific AI Results */}
-          <div className="border rounded-xl overflow-hidden shadow-sm mt-6">
+          <div className="border rounded overflow-hidden  mt-6">
             <div className={`px-5 py-3 ${track!.headerBg}`}>
               <h3 className="font-bold text-white text-sm tracking-wide">⚡ AI-möjlighet inom {track!.label}</h3>
             </div>
@@ -1973,7 +1973,7 @@ const AIReadiness = () => {
                         <p className="text-sm font-semibold text-foreground">{ar.label}</p>
                         <p className="text-xs text-muted-foreground mt-0.5">{ar.description}</p>
                       </div>
-                      <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border whitespace-nowrap ${badge.color}`}>
+                      <span className={`text-xs font-semibold px-2.5 py-1 rounded border whitespace-nowrap ${badge.color}`}>
                         {badge.label}
                       </span>
                     </div>
@@ -1990,14 +1990,14 @@ const AIReadiness = () => {
           </div>
 
           {/* 4️⃣ System Recommendation */}
-          <div className="border rounded-xl overflow-hidden shadow-sm mt-6">
+          <div className="border rounded overflow-hidden  mt-6">
             <div className="bg-slate-700 px-5 py-3">
               <h3 className="font-bold text-white text-sm tracking-wide flex items-center gap-2">
                 <Lightbulb className="h-4 w-4" /> Systemrekommendation
               </h3>
             </div>
             <div className="p-5 bg-background">
-              <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-semibold mb-4 ${
+              <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded border text-xs font-semibold mb-4 ${
                 sysTrack === "optimization" ? "text-emerald-600 bg-emerald-50 border-emerald-200"
                 : sysTrack === "transformation" ? "text-blue-600 bg-blue-50 border-blue-200"
                 : "text-purple-600 bg-purple-50 border-purple-200"
@@ -2018,7 +2018,7 @@ const AIReadiness = () => {
 
           {/* Risk areas */}
           {activeRisks.length > 0 && (
-            <div className="border rounded-xl overflow-hidden shadow-sm mt-6">
+            <div className="border rounded overflow-hidden  mt-6">
               <div className="bg-red-600 px-5 py-3">
                 <h3 className="font-bold text-white text-sm tracking-wide">⚠️ Riskområden</h3>
               </div>
@@ -2034,12 +2034,12 @@ const AIReadiness = () => {
           )}
 
           {/* Recommended next step */}
-          <div className="border rounded-xl overflow-hidden shadow-sm mt-6">
+          <div className="border rounded overflow-hidden  mt-6">
             <div className="bg-emerald-600 px-5 py-3">
               <h3 className="font-bold text-white text-sm tracking-wide">🧭 Rekommenderat nästa steg</h3>
             </div>
             <div className="p-5 bg-background space-y-4">
-              <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border font-semibold text-sm ${
+              <div className={`inline-flex items-center gap-2 px-4 py-2 rounded border font-semibold text-sm ${
                 profile === "scaling" ? "text-emerald-600 bg-emerald-50 border-emerald-200"
                 : profile === "structurally_ready" ? "text-amber-600 bg-amber-50 border-amber-200"
                 : "text-red-600 bg-red-50 border-red-200"
@@ -2073,7 +2073,7 @@ const AIReadiness = () => {
           </div>
 
           {/* 12-month Roadmap */}
-          <div className="border rounded-xl overflow-hidden shadow-sm mt-6">
+          <div className="border rounded overflow-hidden  mt-6">
             <div className="bg-slate-700 px-5 py-3">
               <h3 className="font-bold text-white text-sm tracking-wide">🗓️ 12-månaders AI-roadmap – {track!.label}</h3>
             </div>
@@ -2101,7 +2101,7 @@ const AIReadiness = () => {
           </div>
 
           {/* Partner matching */}
-          <div className="border rounded-xl overflow-hidden shadow-sm mt-6">
+          <div className="border rounded overflow-hidden  mt-6">
             <div className="bg-primary px-5 py-3">
               <h3 className="font-bold text-primary-foreground text-sm tracking-wide">🤝 Rekommenderad partnertyp</h3>
             </div>

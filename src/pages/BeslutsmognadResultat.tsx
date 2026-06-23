@@ -47,7 +47,7 @@ const Bar = ({ label, code, score }: { label: string; code: string; score: numbe
           {pct}
         </p>
       </div>
-      <div className="h-[6px] bg-bm-rule rounded-full overflow-hidden">
+      <div className="h-[6px] bg-bm-rule rounded overflow-hidden">
         <div
           className="h-full bg-bm-accent-deep transition-all duration-700"
           style={{ width: `${pct}%` }}

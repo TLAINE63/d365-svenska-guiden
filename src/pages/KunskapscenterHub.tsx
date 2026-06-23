@@ -97,7 +97,7 @@ const KunskapscenterHub = ({ slug }: Props) => {
               </ol>
             </nav>
 
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-primary/10 text-primary text-xs font-medium mb-3">
               <Sparkles className="w-3.5 h-3.5" />
               Kunskapscenter
             </div>
@@ -135,7 +135,7 @@ const KunskapscenterHub = ({ slug }: Props) => {
                       : { to: r.url };
                     return (
                       <Wrapper key={r.id} {...props} className="group block">
-                        <Card className="h-full border-border/60 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200">
+                        <Card className="h-full border-border/60  hover:-translate-y-0.5 transition-all duration-200">
                           <CardContent className="p-5 flex flex-col gap-3 h-full">
                             <div className="flex items-center gap-2 flex-wrap">
                               <Badge

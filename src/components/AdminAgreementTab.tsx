@@ -493,7 +493,7 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
         <CardContent className="pt-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="rounded-full bg-emerald-100 p-2.5">
+              <div className="rounded bg-emerald-100 p-2.5">
                 <Award className="h-5 w-5 text-emerald-700" />
               </div>
               <div>

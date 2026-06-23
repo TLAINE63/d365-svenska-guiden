@@ -397,7 +397,7 @@ const ResultView = ({ score, onRestart, onBack }: ResultViewProps) => {
                   </span>
                 </div>
                 {p.value === "not_applicable" ? (
-                  <div className="h-2 rounded-full bg-secondary" />
+                  <div className="h-2 rounded bg-secondary" />
                 ) : (
                   <Progress value={p.value} className="h-2" />
                 )}
@@ -419,7 +419,7 @@ const ResultView = ({ score, onRestart, onBack }: ResultViewProps) => {
             <ul className="space-y-3">
               {tops.map((t) => (
                 <li key={t.key} className="flex gap-3">
-                  <span className="mt-1 w-2 h-2 rounded-full bg-primary shrink-0" />
+                  <span className="mt-1 w-2 h-2 rounded bg-primary shrink-0" />
                   <div>
                     <p className="font-medium text-foreground">{PROFILE_STRONG_COPY[t.key]}</p>
                     <p className="text-sm text-muted-foreground mt-1">{PROFILE_PARTNER_HINT[t.key]}</p>

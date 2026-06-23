@@ -1965,7 +1965,7 @@ const SalesMarketingNeedsAnalysis = () => {
                 </div>
 
                 {/* Recommendation hint */}
-                <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
+                <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded p-4">
                   <span className="text-xl mt-0.5">👉</span>
                   <div>
                     <p className="text-sm font-semibold text-primary">Stark lutning mot Dynamics 365 Sales</p>
@@ -2023,7 +2023,7 @@ const SalesMarketingNeedsAnalysis = () => {
                 </div>
 
                 {/* Recommendation hint */}
-                <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
+                <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded p-4">
                   <span className="text-xl mt-0.5">👉</span>
                   <div>
                     <p className="text-sm font-semibold text-primary">Tydlig lutning mot Dynamics 365 Customer Insights</p>
@@ -2071,7 +2071,7 @@ const SalesMarketingNeedsAnalysis = () => {
                 </div>
 
                 {/* Recommendation hint */}
-                <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
+                <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded p-4">
                   <span className="text-xl mt-0.5">👉</span>
                   <div>
                     <p className="text-sm font-semibold text-primary">Lutning mot Dynamics 365 Sales (partnerhantering)</p>
@@ -2124,7 +2124,7 @@ const SalesMarketingNeedsAnalysis = () => {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
+                <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded p-4">
                   <span className="text-xl mt-0.5">👉</span>
                   <div>
                     <p className="text-sm font-semibold text-primary">Lutning mot Dynamics 365 Customer Insights</p>
@@ -3188,7 +3188,7 @@ const SalesMarketingNeedsAnalysis = () => {
             <AnalysisDisclaimer />
 
             {/* Sammanfattning */}
-            <div className="border rounded-xl overflow-hidden shadow-sm">
+            <div className="border rounded overflow-hidden ">
               <div className="bg-blue-600 px-5 py-3">
                 <h3 className="font-bold text-white text-sm tracking-wide">📄 Sammanfattning</h3>
               </div>
@@ -3203,7 +3203,7 @@ const SalesMarketingNeedsAnalysis = () => {
             </div>
 
             {/* Kommersiell mognad */}
-            <div className="border rounded-xl overflow-hidden shadow-sm">
+            <div className="border rounded overflow-hidden ">
               <div className="bg-emerald-600 px-5 py-3">
                 <h3 className="font-bold text-white text-sm tracking-wide">🟩 Kommersiell mognad</h3>
               </div>
@@ -3219,7 +3219,7 @@ const SalesMarketingNeedsAnalysis = () => {
             </div>
 
             {/* Kommentar / Bedömning */}
-            <div className="border rounded-xl overflow-hidden shadow-sm">
+            <div className="border rounded overflow-hidden ">
               <div className="bg-slate-700 px-5 py-3">
                 <h3 className="font-bold text-white text-sm tracking-wide">🧠 Bedömning</h3>
               </div>
@@ -3230,7 +3230,7 @@ const SalesMarketingNeedsAnalysis = () => {
                   <ul className="space-y-2 pt-1">
                     {assessmentPoints.map((point) => (
                       <li key={point} className="flex items-center gap-2 text-sm text-foreground">
-                        <span className="w-1.5 h-1.5 rounded-full bg-crm flex-shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded bg-crm flex-shrink-0" />
                         {point}
                       </li>
                     ))}
@@ -3249,7 +3249,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
             {/* Styrkor + Utvecklingsområden */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="border rounded-xl overflow-hidden shadow-sm">
+              <div className="border rounded overflow-hidden ">
                 <div className="bg-green-600 px-5 py-3">
                   <h3 className="font-bold text-white text-sm tracking-wide">🟢 Styrkor</h3>
                 </div>
@@ -3262,7 +3262,7 @@ const SalesMarketingNeedsAnalysis = () => {
                   ))}
                 </ul>
               </div>
-              <div className="border rounded-xl overflow-hidden shadow-sm">
+              <div className="border rounded overflow-hidden ">
                 <div className="bg-amber-500 px-5 py-3">
                   <h3 className="font-bold text-white text-sm tracking-wide">🟡 Utvecklingsområden</h3>
                 </div>
@@ -3280,9 +3280,9 @@ const SalesMarketingNeedsAnalysis = () => {
             <div className="border-t border-border pt-2" />
 
             {/* Sammanställning av era svar */}
-            <div className="border rounded-xl p-5 space-y-4 bg-background shadow-sm">
+            <div className="border rounded p-5 space-y-4 bg-background ">
               <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
-                <span className="w-6 h-6 rounded-full bg-crm text-crm-foreground text-xs flex items-center justify-center font-bold">1</span>
+                <span className="w-6 h-6 rounded bg-crm text-crm-foreground text-xs flex items-center justify-center font-bold">1</span>
                 Sammanställning av era svar
               </h3>
               <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
@@ -3308,7 +3308,7 @@ const SalesMarketingNeedsAnalysis = () => {
                   Bakom kulisserna lutar det mot
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border bg-crm/10 border-crm/30 text-crm">
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded text-xs font-semibold border bg-crm/10 border-crm/30 text-crm">
                     <span>💼</span>
                     <span>{product}</span>
                   </div>
@@ -3325,9 +3325,9 @@ const SalesMarketingNeedsAnalysis = () => {
             </div>
 
             {/* Rekommenderad partnertyp */}
-            <div className="border rounded-xl p-5 space-y-3 bg-background shadow-sm">
+            <div className="border rounded p-5 space-y-3 bg-background ">
               <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
-                <span className="w-6 h-6 rounded-full bg-crm text-crm-foreground text-xs flex items-center justify-center font-bold">2</span>
+                <span className="w-6 h-6 rounded bg-crm text-crm-foreground text-xs flex items-center justify-center font-bold">2</span>
                 Rekommenderad partnertyp
               </h3>
               {(() => {
@@ -3362,7 +3362,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
             {/* Kontaktformulär */}
             <div className="border-t border-border pt-6 mt-2 print:hidden">
-              <div className="border rounded-xl p-5 bg-background shadow-sm space-y-4">
+              <div className="border rounded p-5 bg-background  space-y-4">
                 <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
                   <Download className="w-5 h-5 text-crm" />
                   Ladda ned din fullständiga Sälj & Marknad-analys
@@ -3475,7 +3475,7 @@ const SalesMarketingNeedsAnalysis = () => {
             <Card className="border-2 border-crm/30">
               <CardHeader className="text-center bg-gradient-to-r from-crm/10 to-crm/5">
                 <div className="flex justify-center mb-4">
-                  <div className="w-16 h-16 bg-crm rounded-full flex items-center justify-center">
+                  <div className="w-16 h-16 bg-crm rounded flex items-center justify-center">
                     <CheckCircle2 className="w-8 h-8 text-white" />
                   </div>
                 </div>
@@ -3596,7 +3596,7 @@ const SalesMarketingNeedsAnalysis = () => {
                   onClick={() => setCurrentStep(index + 1)}
                   className="flex flex-col items-center min-w-[70px] max-w-[100px] cursor-pointer hover:opacity-80 transition-opacity flex-1"
                 >
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-1.5 transition-colors ${
+                  <div className={`w-10 h-10 rounded flex items-center justify-center mb-1.5 transition-colors ${
                     isActive ? 'bg-[#15363F] text-white' : 
                     isCompleted ? 'bg-[#15363F]/20 text-[#15363F]' : 
                     'bg-muted text-muted-foreground'

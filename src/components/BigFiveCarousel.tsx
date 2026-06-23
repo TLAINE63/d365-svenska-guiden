@@ -77,7 +77,7 @@ const BigFiveCarousel = () => {
               {bigFiveItems.map((item, index) => (
                 <div key={index} className="min-w-full px-2 sm:px-4">
                   <Link to={item.link}>
-                    <div className="bg-card p-6 sm:p-8 md:p-12 rounded-lg border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300 cursor-pointer group">
+                    <div className="bg-card p-6 sm:p-8 md:p-12 rounded-lg border border-border  transition-all duration-300 cursor-pointer group">
                       <div className="flex flex-col items-center text-center">
                         <div className="bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--accent))] w-16 h-16 sm:w-20 sm:h-20 rounded-lg flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
                           <item.icon className="w-8 h-8 sm:w-10 sm:h-10 text-primary-foreground" />
@@ -121,7 +121,7 @@ const BigFiveCarousel = () => {
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-6 h-6 rounded-full transition-all duration-300 ${
+                className={`w-6 h-6 rounded transition-all duration-300 ${
                   index === currentIndex
                     ? "bg-primary w-12"
                     : "bg-muted-foreground/30 hover:bg-muted-foreground/50"

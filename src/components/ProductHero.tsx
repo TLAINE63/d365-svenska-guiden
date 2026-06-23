@@ -35,7 +35,7 @@ const renderCTA = (cta: CTA, variant: "primary" | "secondary") => {
   const Icon = cta.icon;
   const baseClasses =
     variant === "primary"
-      ? "bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5"
+      ? "bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90     hover:-translate-y-0.5"
       : "bg-transparent text-white border border-white/30 hover:bg-white/10 hover:border-white/50";
 
   const content = (
@@ -46,7 +46,7 @@ const renderCTA = (cta: CTA, variant: "primary" | "secondary") => {
     </>
   );
 
-  const className = `${baseClasses} text-base sm:text-lg h-14 sm:h-16 px-6 sm:px-8 rounded-xl font-bold w-full sm:w-auto justify-center transition-all`;
+  const className = `${baseClasses} text-base sm:text-lg h-14 sm:h-16 px-6 sm:px-8 rounded font-bold w-full sm:w-auto justify-center transition-all`;
 
   if (cta.to) {
     return (
@@ -130,11 +130,11 @@ const ProductHero = ({
 
           {photo && (
             <div className="hidden lg:block relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-black/40 to-transparent rounded-2xl z-10" />
+              <div className="absolute inset-0 bg-gradient-to-br from-black/40 to-transparent rounded z-10" />
               <img
                 src={photo}
                 alt={photoAlt ?? ""}
-                className="w-[320px] h-[320px] object-cover rounded-2xl border border-white/10 shadow-2xl"
+                className="w-[320px] h-[320px] object-cover rounded border border-white/10 "
                 loading="lazy"
               />
             </div>

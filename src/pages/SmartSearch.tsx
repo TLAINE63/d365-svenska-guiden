@@ -60,7 +60,7 @@ export default function SmartSearch() {
       <Navbar />
       <main className="container mx-auto px-4 pt-28 pb-16 max-w-3xl">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-primary/10 text-primary text-sm font-medium mb-4">
             <Sparkles className="h-4 w-4" /> AI-driven sökning
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-3">Vad letar du efter?</h1>
@@ -94,7 +94,7 @@ export default function SmartSearch() {
                 <button
                   key={ex}
                   onClick={() => { setQuery(ex); runSearch(ex); }}
-                  className="text-sm px-3 py-1.5 rounded-full border border-border hover:bg-accent hover:border-primary/40 transition"
+                  className="text-sm px-3 py-1.5 rounded border border-border hover:bg-accent hover:border-primary/40 transition"
                 >
                   {ex}
                 </button>

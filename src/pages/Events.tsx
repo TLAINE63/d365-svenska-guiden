@@ -277,13 +277,13 @@ const Events = () => {
                     rel="noopener noreferrer" 
                     className="block"
                   >
-                    <Card className="overflow-hidden hover:shadow-xl transition-shadow relative">
+                    <Card className="overflow-hidden  transition-shadow relative">
                       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-violet-500 to-purple-500" />
                       <CardContent className="p-6">
                         <div className="flex flex-col md:flex-row gap-6">
                           {/* Partner/d365.se Logo */}
                           <div className="shrink-0">
-                            <div className={`w-20 h-20 rounded-xl flex items-center justify-center border ${
+                            <div className={`w-20 h-20 rounded flex items-center justify-center border ${
                               event.partners?.logo_dark_bg ? 'bg-slate-700' : 'bg-white'
                             }`}>
                               {event.partners?.logo_url ? (
@@ -394,11 +394,11 @@ const Events = () => {
                       rel="noopener noreferrer" 
                       className="block"
                     >
-                      <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+                      <Card className="overflow-hidden  transition-shadow">
                         <CardContent className="p-5">
                           <div className="flex items-start gap-4">
                             {/* Partner/d365.se Logo */}
-                            <div className={`w-14 h-14 rounded-xl flex items-center justify-center border shrink-0 ${
+                            <div className={`w-14 h-14 rounded flex items-center justify-center border shrink-0 ${
                               event.partners?.logo_dark_bg ? 'bg-slate-700' : 'bg-white'
                             }`}>
                               {event.partners?.logo_url ? (

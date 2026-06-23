@@ -143,7 +143,7 @@ export default function PartnerStats() {
                     {boxes.map((b, i) => {
                       const Icon = b.icon;
                       return (
-                        <div key={i} className="rounded-lg border bg-card p-3 hover:shadow-md transition-shadow">
+                        <div key={i} className="rounded-lg border bg-card p-3  transition-shadow">
                           <div className="flex items-center gap-2 text-primary mb-1">
                             <Icon className="w-4 h-4" />
                             <span className="text-xs font-medium text-muted-foreground">{b.label}</span>

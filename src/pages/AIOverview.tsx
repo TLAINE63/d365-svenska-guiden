@@ -215,7 +215,7 @@ const AIOverview = () => {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--primary)/0.08),transparent_50%)]" />
           <section className="relative max-w-4xl mx-auto text-center px-4">
-            <div className="inline-flex items-center gap-2 bg-white/20 text-white rounded-full px-4 py-1.5 text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 bg-white/20 text-white rounded px-4 py-1.5 text-sm font-medium mb-6">
               <Sparkles className="h-4 w-4" />
               Microsoft AI i Dynamics 365
             </div>
@@ -629,7 +629,7 @@ const AIOverview = () => {
               <div className="space-y-5">
                 {crmScenarios.map((s) => (
                   <div key={s.num} className="flex gap-4">
-                    <span className="shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center text-sm">
+                    <span className="shrink-0 w-8 h-8 rounded bg-primary/10 text-primary font-bold flex items-center justify-center text-sm">
                       {s.num}
                     </span>
                     <div>
@@ -650,7 +650,7 @@ const AIOverview = () => {
               <div className="space-y-5">
                 {customerServiceScenarios.map((s) => (
                   <div key={s.num} className="flex gap-4">
-                    <span className="shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center text-sm">
+                    <span className="shrink-0 w-8 h-8 rounded bg-primary/10 text-primary font-bold flex items-center justify-center text-sm">
                       {s.num}
                     </span>
                     <div>
@@ -671,7 +671,7 @@ const AIOverview = () => {
               <div className="space-y-5">
                 {erpScenarios.map((s) => (
                   <div key={s.num} className="flex gap-4">
-                    <span className="shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center text-sm">
+                    <span className="shrink-0 w-8 h-8 rounded bg-primary/10 text-primary font-bold flex items-center justify-center text-sm">
                       {s.num}
                     </span>
                     <div>
@@ -726,7 +726,7 @@ const AIOverview = () => {
             ].map((s) => (
               <Card key={s.step} className="border bg-card text-center">
                 <CardContent className="p-6 sm:p-8">
-                  <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold text-lg mb-4">
+                  <span className="inline-flex items-center justify-center w-10 h-10 rounded bg-primary text-primary-foreground font-bold text-lg mb-4">
                     {s.step}
                   </span>
                   <h3 className="text-lg font-bold text-foreground mb-2">{s.title}</h3>
@@ -780,7 +780,7 @@ const AIOverview = () => {
               <Link
                 key={article.slug}
                 to={`/kunskapscenter/${article.productSlug}/${article.slug}/`}
-                className="group flex items-start gap-3 p-4 rounded-lg border border-border bg-card hover:border-primary/50 hover:shadow-md transition-all"
+                className="group flex items-start gap-3 p-4 rounded-lg border border-border bg-card hover:border-primary/50  transition-all"
               >
                 {article.image && (
                   <img src={article.image} alt={article.title} className="w-16 h-16 rounded object-contain flex-shrink-0 bg-secondary/50 p-1" />
@@ -811,7 +811,7 @@ const AIOverview = () => {
               <Link
                 key={article.slug}
                 to={`/kunskapscenter/${article.productSlug}/${article.slug}/`}
-                className="group flex items-start gap-3 p-4 rounded-lg border border-border bg-card hover:border-primary/50 hover:shadow-md transition-all"
+                className="group flex items-start gap-3 p-4 rounded-lg border border-border bg-card hover:border-primary/50  transition-all"
               >
                 {article.image && (
                   <img src={article.image} alt={article.title} className="w-16 h-16 rounded object-contain flex-shrink-0 bg-secondary/50 p-1" />

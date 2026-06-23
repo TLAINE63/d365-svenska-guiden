@@ -206,7 +206,7 @@ const Likert = ({
               key={n}
               onClick={() => onPick(n)}
               aria-label={`${n} av 5`}
-              className={`w-14 h-14 rounded-full border-2 transition-colors font-bm-display text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bm-accent-deep focus-visible:ring-offset-2 focus-visible:ring-offset-bm-paper ${
+              className={`w-14 h-14 rounded border-2 transition-colors font-bm-display text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bm-accent-deep focus-visible:ring-offset-2 focus-visible:ring-offset-bm-paper ${
                 sel
                   ? "border-bm-accent-deep bg-bm-accent-deep text-bm-paper"
                   : "border-bm-ink/40 bg-bm-paper text-bm-ink hover:border-bm-accent-deep hover:bg-bm-accent-soft"

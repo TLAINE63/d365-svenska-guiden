@@ -71,7 +71,7 @@ export default function AllD365Partners() {
         {/* Hero */}
         <section className="py-12 sm:py-16 bg-gradient-to-br from-secondary/60 to-background">
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-primary/10 text-primary text-xs font-semibold mb-4">
               <Users className="w-3.5 h-3.5" /> Marknadsöversikt
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
@@ -105,7 +105,7 @@ export default function AllD365Partners() {
                   <li key={p.id}>
                     <Link
                       to={`/partner/${p.slug}`}
-                      className="group flex items-center justify-between gap-2 p-4 rounded-lg border border-border bg-card hover:border-primary/50 hover:shadow-md transition-all"
+                      className="group flex items-center justify-between gap-2 p-4 rounded-lg border border-border bg-card hover:border-primary/50  transition-all"
                     >
                       <span className="font-semibold text-foreground group-hover:text-primary transition-colors">
                         {p.name}

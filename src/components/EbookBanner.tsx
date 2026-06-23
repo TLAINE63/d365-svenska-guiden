@@ -100,8 +100,8 @@ const EbookBanner = ({ variant = "full", sourcePage = "homepage" }: EbookBannerP
 
   if (variant === "compact") {
     return (
-      <Card className="bg-gradient-to-br from-primary/10 via-primary/5 to-accent/10 border-primary/30 p-5 rounded-2xl shadow-lg shadow-primary/10 overflow-hidden relative">
-        <div className="absolute -right-6 -top-6 w-28 h-28 bg-primary/5 rounded-full blur-2xl" />
+      <Card className="bg-gradient-to-br from-primary/10 via-primary/5 to-accent/10 border-primary/30 p-5 rounded  shadow-primary/10 overflow-hidden relative">
+        <div className="absolute -right-6 -top-6 w-28 h-28 bg-primary/5 rounded " />
         <div className="flex items-center gap-4 relative">
           <img
             src={ebookCover}
@@ -112,7 +112,7 @@ const EbookBanner = ({ variant = "full", sourcePage = "homepage" }: EbookBannerP
             height={100}
           />
           <div className="flex-1 min-w-0">
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-primary text-primary-foreground text-xs font-bold uppercase tracking-wide mb-1.5">
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded bg-primary text-primary-foreground text-xs font-bold uppercase tracking-wide mb-1.5">
               Gratis e-bok
             </span>
             <h3 className="font-semibold text-foreground text-sm mb-1">Det viktiga partnervalet</h3>
@@ -150,7 +150,7 @@ const EbookBanner = ({ variant = "full", sourcePage = "homepage" }: EbookBannerP
 
           {/* Content */}
           <div className="flex-1 text-center md:text-left">
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary text-primary-foreground text-sm font-bold uppercase tracking-wide mb-3">
+            <span className="inline-flex items-center px-3 py-1 rounded bg-primary text-primary-foreground text-sm font-bold uppercase tracking-wide mb-3">
               <BookOpen className="w-4 h-4 mr-1.5" />
               Gratis e-bok
             </span>

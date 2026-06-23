@@ -44,7 +44,7 @@ const VideoCard = ({ title, description, videoId, uploadDate }: VideoCardProps) 
     : null;
 
   return (
-    <Card className="overflow-hidden transition-all duration-300 hover:shadow-[var(--shadow-hover)] border-border bg-card">
+    <Card className="overflow-hidden transition-all duration-300  border-border bg-card">
       {videoSchema && (
         <Helmet>
           <script type="application/ld+json">{JSON.stringify(videoSchema)}</script>
@@ -86,7 +86,7 @@ const VideoCard = ({ title, description, videoId, uploadDate }: VideoCardProps) 
               />
 
               <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors flex items-center justify-center">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-destructive rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-destructive rounded flex items-center justify-center group-hover:scale-110 transition-transform ">
                   <Play className="w-8 h-8 sm:w-10 sm:h-10 text-destructive-foreground ml-1" fill="currentColor" />
                 </div>
               </div>

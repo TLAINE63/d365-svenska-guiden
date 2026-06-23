@@ -359,22 +359,22 @@ function MultiSelectDropdown<T extends string>({
     <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen(!open)}
-        className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border ${
+        className={`flex items-center gap-2 px-4 py-2 rounded text-sm font-medium transition-all duration-200 border ${
           selected.length > 0
-            ? "bg-primary text-primary-foreground border-primary shadow-md"
+            ? "bg-primary text-primary-foreground border-primary "
             : "bg-slate-700 text-white border-slate-600 hover:bg-slate-600 hover:border-slate-500"
         }`}
       >
         {label}
         {selected.length > 0 && (
-          <span className="bg-primary-foreground/20 text-primary-foreground rounded-full px-1.5 py-0.5 text-xs font-bold leading-none">
+          <span className="bg-primary-foreground/20 text-primary-foreground rounded px-1.5 py-0.5 text-xs font-bold leading-none">
             {selected.length}
           </span>
         )}
         <ChevronDown className={`w-3.5 h-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
       {open && (
-        <div className="absolute top-full mt-2 left-0 z-50 min-w-[200px] rounded-xl border border-border bg-card shadow-xl overflow-hidden">
+        <div className="absolute top-full mt-2 left-0 z-50 min-w-[200px] rounded border border-border bg-card  overflow-hidden">
           <div className="p-1">
             {normalized.map((opt) => (
               <button
@@ -694,7 +694,7 @@ const Kunskapscenter = () => {
                 <Link
                   key={hub.slug}
                   to={`/kunskapscenter/${hub.slug}/`}
-                  className="px-3 py-1.5 rounded-full text-sm font-medium border border-border bg-card text-foreground hover:border-primary/50 hover:bg-primary/5 transition-colors"
+                  className="px-3 py-1.5 rounded text-sm font-medium border border-border bg-card text-foreground hover:border-primary/50 hover:bg-primary/5 transition-colors"
                 >
                   {hub.label}
                 </Link>
@@ -705,7 +705,7 @@ const Kunskapscenter = () => {
 
 
         {/* Filters */}
-        <section className="border-b border-border sticky top-16 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
+        <section className="border-b border-border sticky top-16 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 ">
           <div className="container mx-auto px-4 py-3">
             <div className="flex flex-wrap items-center gap-3">
               {/* Category pills */}
@@ -714,10 +714,10 @@ const Kunskapscenter = () => {
                   <button
                     key={cat.value}
                     onClick={() => setActiveCategory(cat.value)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border ${
+                    className={`px-4 py-2 rounded text-sm font-medium transition-all duration-200 border ${
                       activeCategory === cat.value
-                        ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/25 scale-[1.02]"
-                        : "bg-card text-foreground border-border hover:border-primary/50 hover:shadow-md hover:scale-[1.01]"
+                        ? "bg-primary text-primary-foreground border-primary  shadow-primary/25 scale-[1.02]"
+                        : "bg-card text-foreground border-border hover:border-primary/50  hover:scale-[1.01]"
                     }`}
                   >
                     {cat.label}
@@ -770,9 +770,9 @@ const Kunskapscenter = () => {
                   </span>
                   <button
                     onClick={() => setDeepDiveView("articles")}
-                    className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 border ${
+                    className={`px-3 py-1.5 rounded text-xs font-semibold transition-all duration-200 border ${
                       deepDiveView === "articles"
-                        ? "bg-primary text-primary-foreground border-primary shadow-md"
+                        ? "bg-primary text-primary-foreground border-primary "
                         : "bg-card text-foreground border-border hover:border-primary/50"
                     }`}
                   >
@@ -780,9 +780,9 @@ const Kunskapscenter = () => {
                   </button>
                   <button
                     onClick={() => setDeepDiveView("prices")}
-                    className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 border ${
+                    className={`px-3 py-1.5 rounded text-xs font-semibold transition-all duration-200 border ${
                       deepDiveView === "prices"
-                        ? "bg-primary text-primary-foreground border-primary shadow-md"
+                        ? "bg-primary text-primary-foreground border-primary "
                         : "bg-card text-foreground border-border hover:border-primary/50"
                     }`}
                   >
@@ -794,9 +794,9 @@ const Kunskapscenter = () => {
                 <div className="flex flex-wrap items-center gap-2">
                   <button
                     onClick={() => setDeepDiveProduct(null)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 border ${
+                    className={`px-3 py-1.5 rounded text-xs font-medium transition-all duration-200 border ${
                       deepDiveProduct === null
-                        ? "bg-primary text-primary-foreground border-primary shadow-md"
+                        ? "bg-primary text-primary-foreground border-primary "
                         : "bg-card text-foreground border-border hover:border-primary/50"
                     }`}
                   >
@@ -806,9 +806,9 @@ const Kunskapscenter = () => {
                     <button
                       key={product}
                       onClick={() => setDeepDiveProduct(product)}
-                      className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 border ${
+                      className={`px-3 py-1.5 rounded text-xs font-medium transition-all duration-200 border ${
                         deepDiveProduct === product
-                          ? "bg-primary text-primary-foreground border-primary shadow-md"
+                          ? "bg-primary text-primary-foreground border-primary "
                           : "bg-card text-foreground border-border hover:border-primary/50"
                       }`}
                     >
@@ -864,7 +864,7 @@ const Kunskapscenter = () => {
                           <Link
                             key={article.slug}
                             to={`/kunskapscenter/${article.productSlug}/${article.slug}/`}
-                            className={`group block rounded-xl border overflow-hidden hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 ${productColor(product).border}`}
+                            className={`group block rounded border overflow-hidden  hover:-translate-y-0.5 transition-all duration-200 ${productColor(product).border}`}
                           >
                             <div className={`px-4 py-3 ${productColor(product).bg}`}>
                               <p className={`text-sm font-semibold leading-snug ${productColor(product).text}`}>
@@ -931,7 +931,7 @@ const Kunskapscenter = () => {
                           {...(linkProps as any)}
                           className="group block"
                         >
-                          <Card className="h-full overflow-hidden border-border/50 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                          <Card className="h-full overflow-hidden border-border/50  hover:-translate-y-1 transition-all duration-300">
                             {item.image_url ? (
                               <div className="aspect-[2/1] overflow-hidden bg-muted relative">
                                 <img
@@ -942,11 +942,11 @@ const Kunskapscenter = () => {
                                 />
                                 {item.type === "event" && (
                                   <>
-                                    <span className="absolute top-3 left-3 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full shadow-lg tracking-wide uppercase">
+                                    <span className="absolute top-3 left-3 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded  tracking-wide uppercase">
                                       Event
                                     </span>
                                     {item.partnerLogoUrl && (
-                                      <div className="absolute bottom-2 right-2 bg-white rounded-md shadow-md p-1.5">
+                                      <div className="absolute bottom-2 right-2 bg-white rounded-md  p-1.5">
                                         <img
                                           src={item.partnerLogoUrl}
                                           alt={item.partner || "Partner"}
@@ -960,14 +960,14 @@ const Kunskapscenter = () => {
                                   <span
                                     title="AI-assisterat branschinnehåll"
                                     aria-label="AI-assisterat branschinnehåll"
-                                    className="absolute top-2 right-2 inline-flex items-center gap-1 rounded-full bg-cyan-500/95 text-white text-[10px] font-semibold px-2 py-0.5 shadow-md backdrop-blur-sm"
+                                    className="absolute top-2 right-2 inline-flex items-center gap-1 rounded bg-cyan-500/95 text-white text-[10px] font-semibold px-2 py-0.5  backdrop-blur-sm"
                                   >
                                     <Sparkles className="w-3 h-3" />
                                     AI
                                   </span>
                                 )}
                                 {item.type === "branscher" && typeof item.partnerCount === "number" && item.partnerCount > 0 && (
-                                  <span className="absolute bottom-2 left-2 inline-flex items-center rounded-full bg-background/90 text-foreground text-[10px] font-semibold px-2 py-0.5 shadow-md backdrop-blur-sm border border-border/40">
+                                  <span className="absolute bottom-2 left-2 inline-flex items-center rounded bg-background/90 text-foreground text-[10px] font-semibold px-2 py-0.5  backdrop-blur-sm border border-border/40">
                                     {item.partnerCount} {item.partnerCount === 1 ? "partner" : "partners"} listade
                                   </span>
                                 )}

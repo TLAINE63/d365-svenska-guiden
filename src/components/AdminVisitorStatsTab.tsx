@@ -126,7 +126,7 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
       <Card>
         <CardContent className="pt-6">
           <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            <div className="animate-spin rounded h-8 w-8 border-b-2 border-primary"></div>
           </div>
         </CardContent>
       </Card>
@@ -350,7 +350,7 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
             {geographyData.map((geo) => (
               <div key={geo.label} className="flex items-center gap-3">
                 <div className="w-32 text-sm font-medium">{geo.label}</div>
-                <div className="flex-1 h-6 bg-muted rounded-full overflow-hidden">
+                <div className="flex-1 h-6 bg-muted rounded overflow-hidden">
                   <div
                     className={`h-full ${geo.color} transition-all duration-500`}
                     style={{ width: `${totalGeo > 0 ? (geo.value / totalGeo) * 100 : 0}%` }}

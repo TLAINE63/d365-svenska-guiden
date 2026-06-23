@@ -203,7 +203,7 @@ const CRM = () => {
             </h2>
             
             <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
-              <AccordionItem value="item-1" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+              <AccordionItem value="item-1" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Vad är Dynamics 365 Customer Engagement och vad ingår i det?
                 </AccordionTrigger>
@@ -220,7 +220,7 @@ const CRM = () => {
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-2" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+              <AccordionItem value="item-2" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Hur skiljer sig Dynamics 365 CE från andra CRM-system?
                 </AccordionTrigger>
@@ -240,7 +240,7 @@ const CRM = () => {
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-3" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+              <AccordionItem value="item-3" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Hur mycket kostar Dynamics 365 Customer Engagement – och vad påverkar priset?
                 </AccordionTrigger>
@@ -265,7 +265,7 @@ const CRM = () => {
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-4" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+              <AccordionItem value="item-4" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Hur snabbt kan vi komma igång med Dynamics 365 CE?
                 </AccordionTrigger>
@@ -286,7 +286,7 @@ const CRM = () => {
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-5" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+              <AccordionItem value="item-5" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Hur anpassningsbart är systemet för vår verksamhet?
                 </AccordionTrigger>
@@ -315,7 +315,7 @@ const CRM = () => {
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-6" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+              <AccordionItem value="item-6" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Vilken partner borde passa vår verksamhet bäst?
                 </AccordionTrigger>
@@ -430,18 +430,18 @@ const CRM = () => {
           {(selectedApplications.length > 0 || selectedIndustry || selectedGeography) && (
             <div className="max-w-xl mx-auto mt-12">
               {/* Premium Contact CTA Card - same design as PartnerProfile */}
-              <article className="relative rounded-3xl overflow-hidden shadow-2xl">
+              <article className="relative rounded overflow-hidden ">
                 {/* Gradient background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[hsl(210_20%_12%)] via-[hsl(210_18%_16%)] to-[hsl(210_20%_12%)]" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
                 
                 {/* Animated orb */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded-full blur-3xl animate-pulse" />
+                <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded  animate-pulse" />
                 
                 <div className="relative p-6 sm:p-8">
                   <div className="flex items-start gap-4 mb-6">
-                    <div className="p-3 rounded-2xl bg-gradient-to-br from-primary to-accent shadow-lg shadow-primary/30">
+                    <div className="p-3 rounded bg-gradient-to-br from-primary to-accent  shadow-primary/30">
                       <span className="text-xl">✨</span>
                     </div>
                     <div>
@@ -455,9 +455,9 @@ const CRM = () => {
                   </div>
                   
                   {/* Filter context with glass effect */}
-                  <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
+                  <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded border border-white/20">
                     <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cta-orange animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded bg-cta-orange animate-pulse" />
                       Din sökning
                     </p>
                     <div className="flex flex-wrap gap-2">
@@ -511,7 +511,7 @@ const CRM = () => {
               Kontakta oss för en kostnadsfri konsultation
             </p>
             <ContactFormDialog>
-              <Button className="bg-crm hover:bg-crm/90 text-crm-foreground h-14 sm:h-16 rounded-xl" size="lg">
+              <Button className="bg-crm hover:bg-crm/90 text-crm-foreground h-14 sm:h-16 rounded" size="lg">
                 Boka in en kostnadsfri rådgivning
               </Button>
             </ContactFormDialog>

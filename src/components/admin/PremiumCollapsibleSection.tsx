@@ -105,7 +105,7 @@ export const PremiumCollapsibleSection: React.FC<PremiumCollapsibleSectionProps>
     <div
       ref={sectionRef}
       className={cn(
-        "scroll-mt-4 rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden transition-all",
+        "scroll-mt-4 rounded border border-border/70 bg-card  overflow-hidden transition-all",
         open && "shadow-md ring-1",
         open && a.ring,
       )}
@@ -136,13 +136,13 @@ export const PremiumCollapsibleSection: React.FC<PremiumCollapsibleSectionProps>
           <div className="flex items-center gap-2 flex-wrap">
             <h3 className="text-base font-semibold text-foreground">{title}</h3>
             {status === "complete" && (
-              <span className="inline-flex items-center gap-1 text-xs font-medium text-green-600 bg-green-50 dark:bg-green-950/40 px-2 py-0.5 rounded-full">
+              <span className="inline-flex items-center gap-1 text-xs font-medium text-green-600 bg-green-50 dark:bg-green-950/40 px-2 py-0.5 rounded">
                 <CheckCircle2 className="h-3 w-3" />
                 Komplett
               </span>
             )}
             {status === "partial" && (
-              <span className="inline-flex items-center gap-1 text-xs font-medium text-amber-700 bg-amber-50 dark:bg-amber-950/40 px-2 py-0.5 rounded-full">
+              <span className="inline-flex items-center gap-1 text-xs font-medium text-amber-700 bg-amber-50 dark:bg-amber-950/40 px-2 py-0.5 rounded">
                 <Circle className="h-3 w-3 fill-amber-500 text-amber-500" />
                 Påbörjad
               </span>

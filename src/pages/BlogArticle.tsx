@@ -247,7 +247,7 @@ const BlogArticle = () => {
               <img
                 src={article.heroImage}
                 alt={article.title}
-                className="w-full rounded-xl shadow-md aspect-[2/1] object-cover"
+                className="w-full rounded  aspect-[2/1] object-cover"
                 loading="eager"
                 fetchPriority="high"
               />
@@ -261,7 +261,7 @@ const BlogArticle = () => {
             {article.summary && (
               <aside
                 aria-label="Sammanfattning"
-                className="mb-8 p-5 rounded-xl border-l-4 border-primary bg-primary/5"
+                className="mb-8 p-5 rounded border-l-4 border-primary bg-primary/5"
               >
                 <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">
                   Sammanfattning
@@ -301,7 +301,7 @@ const BlogArticle = () => {
               const industry = findIndustryBySlug(industrySlug);
               if (!industry) return null;
               return (
-                <div className="mt-8 p-5 rounded-xl border border-primary/20 bg-primary/5">
+                <div className="mt-8 p-5 rounded border border-primary/20 bg-primary/5">
                   <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">
                     Se partners för denna bransch
                   </p>
@@ -324,7 +324,7 @@ const BlogArticle = () => {
                   {article.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-xs px-2.5 py-1 rounded-full bg-muted text-muted-foreground border border-border"
+                      className="text-xs px-2.5 py-1 rounded bg-muted text-muted-foreground border border-border"
                     >
                       #{tag}
                     </span>
@@ -334,7 +334,7 @@ const BlogArticle = () => {
             )}
 
             {/* Author card */}
-            <div className="mt-10 p-6 rounded-xl border border-border bg-card">
+            <div className="mt-10 p-6 rounded border border-border bg-card">
               <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">
                 Om författaren
               </p>
@@ -372,7 +372,7 @@ const BlogArticle = () => {
                       key={r.slug}
                       to={`/artiklar/${r.slug}/`}
                       title={r.title}
-                      className="group flex flex-col p-4 rounded-lg border border-border bg-card hover:border-primary/50 hover:shadow-md transition-all"
+                      className="group flex flex-col p-4 rounded-lg border border-border bg-card hover:border-primary/50  transition-all"
                     >
                       <p className="text-xs text-primary font-semibold uppercase tracking-wider mb-2">
                         {r.category}
@@ -385,7 +385,7 @@ const BlogArticle = () => {
                           {tags.map((t) => (
                             <span
                               key={t}
-                              className="text-[10px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground border border-border"
+                              className="text-[10px] px-2 py-0.5 rounded bg-muted text-muted-foreground border border-border"
                             >
                               #{t}
                             </span>

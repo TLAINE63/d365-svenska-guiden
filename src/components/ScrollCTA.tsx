@@ -23,10 +23,10 @@ const ScrollCTA = () => {
 
   return (
     <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 z-50 animate-fade-in">
-      <div className="bg-card/95 backdrop-blur-md border border-border rounded-xl shadow-2xl p-4 sm:p-5 max-w-sm mx-auto sm:mx-0 relative">
+      <div className="bg-card/95 backdrop-blur-md border border-border rounded  p-4 sm:p-5 max-w-sm mx-auto sm:mx-0 relative">
         <button
           onClick={() => setIsDismissed(true)}
-          className="absolute top-2 right-2 p-1 rounded-full hover:bg-muted transition-colors"
+          className="absolute top-2 right-2 p-1 rounded hover:bg-muted transition-colors"
           aria-label="Stäng"
         >
           <X className="h-4 w-4 text-muted-foreground" />

@@ -489,7 +489,7 @@ const ValjPartner = () => {
               </p>
               <Button 
                 size="lg" 
-                className="bg-cta-orange hover:bg-cta-orange-hover text-white w-full sm:w-auto text-lg sm:text-xl h-16 sm:h-20 px-8 sm:px-12 font-bold shadow-lg hover:shadow-xl transition-all rounded-xl"
+                className="bg-cta-orange hover:bg-cta-orange-hover text-white w-full sm:w-auto text-lg sm:text-xl h-16 sm:h-20 px-8 sm:px-12 font-bold   transition-all rounded"
                 onClick={() => setGuideOpen(true)}
               >
                 <span>Få hjälp att välja rätt partner</span>
@@ -524,7 +524,7 @@ const ValjPartner = () => {
 
             <div className="space-y-6">
               {/* Fråga 1 */}
-              <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30 shadow-lg hover:shadow-xl transition-all">
+              <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30   transition-all">
                 <CardHeader>
                   <CardTitle className="flex items-start gap-3 text-lg sm:text-xl">
                     <span className="text-2xl">✅</span>
@@ -541,7 +541,7 @@ const ValjPartner = () => {
               </Card>
 
               {/* Fråga 2 */}
-              <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30 shadow-lg hover:shadow-xl transition-all">
+              <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30   transition-all">
                 <CardHeader>
                   <CardTitle className="flex items-start gap-3 text-lg sm:text-xl">
                     <span className="text-2xl">✅</span>
@@ -558,7 +558,7 @@ const ValjPartner = () => {
               </Card>
 
               {/* Fråga 3 */}
-              <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30 shadow-lg hover:shadow-xl transition-all">
+              <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30   transition-all">
                 <CardHeader>
                   <CardTitle className="flex items-start gap-3 text-lg sm:text-xl">
                     <span className="text-2xl">✅</span>
@@ -575,7 +575,7 @@ const ValjPartner = () => {
               </Card>
 
               {/* Fråga 4 */}
-              <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30 shadow-lg hover:shadow-xl transition-all">
+              <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30   transition-all">
                 <CardHeader>
                   <CardTitle className="flex items-start gap-3 text-lg sm:text-xl">
                     <span className="text-2xl">✅</span>
@@ -592,7 +592,7 @@ const ValjPartner = () => {
               </Card>
 
               {/* Fråga 5 */}
-              <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30 shadow-lg hover:shadow-xl transition-all">
+              <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30   transition-all">
                 <CardHeader>
                   <CardTitle className="flex items-start gap-3 text-lg sm:text-xl">
                     <span className="text-2xl">✅</span>
@@ -630,7 +630,7 @@ const ValjPartner = () => {
           <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10 mb-8 sm:mb-10 md:mb-12">
             {/* Partner Map */}
             <div className="shrink-0 w-48 md:w-56">
-              <div className="rounded-2xl overflow-hidden border border-border shadow-lg">
+              <div className="rounded overflow-hidden border border-border ">
                 <img
                   src={partnerMapSweden}
                   alt="Karta över Dynamics 365-partners kontor i Sverige"
@@ -654,9 +654,9 @@ const ValjPartner = () => {
           </div>
 
           {/* Advisory Box - How to use the matchmaking */}
-          <div className="mb-8 sm:mb-10 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 via-background to-accent/5 p-5 sm:p-6 md:p-7 shadow-sm">
+          <div className="mb-8 sm:mb-10 rounded border border-primary/20 bg-gradient-to-br from-primary/5 via-background to-accent/5 p-5 sm:p-6 md:p-7 ">
             <div className="flex items-start gap-3 sm:gap-4">
-              <div className="shrink-0 p-2.5 rounded-xl bg-primary/10 text-primary">
+              <div className="shrink-0 p-2.5 rounded bg-primary/10 text-primary">
                 <Target className="h-5 w-5" />
               </div>
               <div className="flex-1">
@@ -739,7 +739,7 @@ const ValjPartner = () => {
           )}
 
           {filteredPartners.length === 0 ? (
-            <div className="text-center py-6 bg-muted/30 rounded-xl border border-border/50">
+            <div className="text-center py-6 bg-muted/30 rounded border border-border/50">
               <Users className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-foreground mb-2">
                 Inga partner listas med denna filtrering?
@@ -806,18 +806,18 @@ const ValjPartner = () => {
           {/* Lead CTA with urgency badge */}
           <div className="max-w-xl mx-auto mt-12">
             {/* Premium Contact CTA Card - same design as PartnerProfile */}
-            <article className="relative rounded-3xl overflow-hidden shadow-2xl">
+            <article className="relative rounded overflow-hidden ">
               {/* Gradient background */}
               <div className="absolute inset-0 bg-gradient-to-br from-[hsl(210_20%_12%)] via-[hsl(210_18%_16%)] to-[hsl(210_20%_12%)]" />
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
               
               {/* Animated orb */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded-full blur-3xl animate-pulse" />
+              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded  animate-pulse" />
               
               <div className="relative p-6 sm:p-8">
                 <div className="flex items-start gap-4 mb-6">
-                  <div className="p-3 rounded-2xl bg-gradient-to-br from-primary to-accent shadow-lg shadow-primary/30">
+                  <div className="p-3 rounded bg-gradient-to-br from-primary to-accent  shadow-primary/30">
                     <span className="text-xl">✨</span>
                   </div>
                   <div>
@@ -832,9 +832,9 @@ const ValjPartner = () => {
                 
                 {/* Filter context with glass effect */}
                 {(selectedApplications.length > 0 || selectedIndustry || selectedCompanySize || selectedGeography) && (
-                  <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
+                  <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded border border-white/20">
                     <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cta-orange animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded bg-cta-orange animate-pulse" />
                       Din sökning
                     </p>
                     <div className="flex flex-wrap gap-2">
@@ -926,7 +926,7 @@ const ValjPartner = () => {
                 <img 
                   src={thomasLainePhoto} 
                   alt="Thomas Laine" 
-                  className="w-48 h-48 rounded-full object-cover object-[50%_15%] border-4 border-primary/20"
+                  className="w-48 h-48 rounded object-cover object-[50%_15%] border-4 border-primary/20"
                 />
               </div>
               <div className="text-center md:text-left">
@@ -939,7 +939,7 @@ const ValjPartner = () => {
               </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold shadow-lg hover:shadow-xl transition-all rounded-xl">
+              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold   transition-all rounded">
                 <Link to="/kontakt/">
                   <MessageSquare className="w-5 h-5 mr-2" />
                   Kontakta oss
@@ -947,13 +947,13 @@ const ValjPartner = () => {
               </Button>
               <Button 
                 size="lg" 
-                className="bg-primary hover:bg-primary/90 text-primary-foreground h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold shadow-lg hover:shadow-xl transition-all rounded-xl"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold   transition-all rounded"
                 onClick={() => window.open('https://outlook.office.com/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ep=mlink', '_blank')}
               >
                 <Calendar className="w-5 h-5 mr-2" />
                 Boka möte
               </Button>
-              <Button asChild size="lg" className="bg-muted hover:bg-muted/80 text-muted-foreground h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold shadow-lg hover:shadow-xl transition-all rounded-xl border border-border">
+              <Button asChild size="lg" className="bg-muted hover:bg-muted/80 text-muted-foreground h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold   transition-all rounded border border-border">
                 <a href="mailto:thomas.laine@dynamicfactory.se">
                   <Mail className="w-5 h-5 mr-2" />
                   Emaila mig

@@ -196,7 +196,7 @@ const OptionCard = ({
   <button
     type="button"
     onClick={onClick}
-    className={`group w-full text-left rounded-xl border border-[#E5E5E8] bg-white p-5 sm:p-6 transition-all duration-200 hover:bg-[#FFF0F6] hover:border-[#E5006D] hover:shadow-md ${focusRing}`}
+    className={`group w-full text-left rounded border border-[#E5E5E8] bg-white p-5 sm:p-6 transition-all duration-200 hover:bg-[#FFF0F6] hover:border-[#E5006D]  ${focusRing}`}
   >
     <span className="block text-[15px] sm:text-base font-medium text-[#0B0B0F] leading-snug">
       {label}
@@ -322,7 +322,7 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
       <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
       <div className="relative container mx-auto px-4 sm:px-6 max-w-5xl">
         <header>
-          <span className="inline-block mb-4 px-3 py-1 rounded-full bg-cta-orange/20 text-cta-orange text-[11px] font-semibold uppercase tracking-[0.16em] ring-1 ring-cta-orange/30">
+          <span className="inline-block mb-4 px-3 py-1 rounded bg-cta-orange/20 text-cta-orange text-[11px] font-semibold uppercase tracking-[0.16em] ring-1 ring-cta-orange/30">
             Nytt för 2026 · Beslutsmognadsindex
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white leading-tight mb-4 max-w-3xl">
@@ -341,7 +341,7 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
               { num: "II", title: "Peer benchmark", body: "Jämförelse mot andra svenska beslutsgrupper som genomfört diagnostiken." },
               { num: "III", title: "Tre konkreta rekommendationer", body: "Inriktade på där hävstången är störst i ert nuvarande skede — inte på era svagheter." },
             ].map((c) => (
-              <div key={c.num} className="rounded-xl border border-white/15 bg-white/5 backdrop-blur-sm p-5">
+              <div key={c.num} className="rounded border border-white/15 bg-white/5 backdrop-blur-sm p-5">
                 <div className="text-2xl font-serif italic text-cta-orange mb-2 leading-none">{c.num}</div>
                 <div className="text-sm font-semibold text-white mb-1.5">{c.title}</div>
                 <p className="text-[13px] text-white/70 leading-relaxed">{c.body}</p>
@@ -352,7 +352,7 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
           <div className="flex flex-col sm:flex-row sm:items-center gap-4">
             <a
               href="/beslutsmognad/"
-              className={`inline-flex items-center justify-center gap-3 rounded-lg bg-cta-orange px-8 py-5 text-base sm:text-lg font-semibold text-white shadow-lg hover:bg-cta-orange-hover hover:shadow-xl hover:-translate-y-0.5 transition-all ${focusRing}`}
+              className={`inline-flex items-center justify-center gap-3 rounded-lg bg-cta-orange px-8 py-5 text-base sm:text-lg font-semibold text-white  hover:bg-cta-orange-hover  hover:-translate-y-0.5 transition-all ${focusRing}`}
             >
               Starta Beslutsmognadsindex
               <span aria-hidden className="text-xl">→</span>
@@ -411,7 +411,7 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 gap-3">
             {STAGES.map((stage) => {
               const isActive = result === stage.id;
-              const cardClass = `group relative flex flex-col rounded-xl border bg-white p-4 pt-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md ${focusRing} ${
+              const cardClass = `group relative flex flex-col rounded border bg-white p-4 pt-5 text-left transition-all duration-200 hover:-translate-y-0.5  ${focusRing} ${
                 isActive
                   ? "border-[#E5006D] ring-2 ring-[#E5006D]/30 bg-[#FFF0F6]"
                   : "border-[#E5E5E8] hover:border-[#E5006D]"
@@ -420,7 +420,7 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
                 <>
                   <div className="flex justify-center mb-2">
                     <span
-                      className={`inline-flex h-7 w-7 items-center justify-center rounded-full border text-xs font-bold ${
+                      className={`inline-flex h-7 w-7 items-center justify-center rounded border text-xs font-bold ${
                         isActive
                           ? "border-[#E5006D] bg-[#E5006D] text-white"
                           : "border-[#E5006D] text-[#E5006D] group-hover:bg-[#E5006D] group-hover:text-white"
@@ -478,7 +478,7 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
           {resultStage && (
             <div
               key={`result-${resultStage.id}`}
-              className="rounded-xl border border-[#E5E5E8] bg-white p-6 md:p-8 transition-opacity duration-200"
+              className="rounded border border-[#E5E5E8] bg-white p-6 md:p-8 transition-opacity duration-200"
             >
               <PhaseTag phase={resultStage.phase} />
               <div className="mt-2 mb-3 text-sm font-semibold text-[#E5006D]">
@@ -497,7 +497,7 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
 
               <hr className="my-6 border-[#E5E5E8]" />
 
-              <div className="rounded-xl bg-[#FFF0F6] border border-[#E5006D]/30 p-5 sm:p-6">
+              <div className="rounded bg-[#FFF0F6] border border-[#E5006D]/30 p-5 sm:p-6">
                 <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#E5006D] mb-2">
                   Nästa steg
                 </div>
@@ -584,7 +584,7 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
                       <article
                         key={stage.id}
                         id={`steg-${stage.id}`}
-                        className="rounded-xl border border-[#E5E5E8] bg-white p-6 transition-shadow duration-200 hover:shadow-md flex flex-col scroll-mt-24"
+                        className="rounded border border-[#E5E5E8] bg-white p-6 transition-shadow duration-200  flex flex-col scroll-mt-24"
                       >
                         <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66] mb-2">
                           Stadie {stage.id}

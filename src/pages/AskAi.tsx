@@ -15,14 +15,14 @@ export default function AskAi() {
       <Navbar />
       <main className="flex-1 container mx-auto px-4 pt-28 pb-12 max-w-3xl w-full flex flex-col">
         <div className="text-center mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-primary/10 text-primary text-sm font-medium mb-3">
             <Sparkles className="h-4 w-4" /> AI-assistent
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-2">Fråga AI om Dynamics 365</h1>
           <p className="text-muted-foreground">Få neutrala, hjälpsamma svar om produkter, AI och partnerval.</p>
         </div>
 
-        <div className="flex-1 min-h-[60vh] rounded-xl border border-border bg-card overflow-hidden flex flex-col shadow-sm">
+        <div className="flex-1 min-h-[60vh] rounded border border-border bg-card overflow-hidden flex flex-col ">
           <AiChatPanel className="flex-1" />
         </div>
       </main>

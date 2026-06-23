@@ -1840,7 +1840,7 @@ const CustomerServiceNeedsAnalysis = () => {
                   <div
                     key={cat.id}
                     onClick={() => handleCheckboxChange("aiUseCases", cat.id)}
-                    className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${data.aiUseCases.includes(cat.id) ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"}`}
+                    className={`p-4 rounded border-2 cursor-pointer transition-all ${data.aiUseCases.includes(cat.id) ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"}`}
                   >
                     <div className="flex items-start gap-3">
                       <div className={`w-5 h-5 rounded flex-shrink-0 mt-0.5 border-2 flex items-center justify-center ${data.aiUseCases.includes(cat.id) ? "bg-primary border-primary" : "border-muted-foreground"}`}>
@@ -1969,7 +1969,7 @@ const CustomerServiceNeedsAnalysis = () => {
             <AnalysisDisclaimer />
 
             {/* SAMMANFATTNING */}
-            <div className="border rounded-xl overflow-hidden shadow-sm">
+            <div className="border rounded overflow-hidden ">
               <div className="bg-blue-600 px-5 py-3">
                 <h3 className="font-bold text-white text-sm tracking-wide">📄 Sammanfattning</h3>
               </div>
@@ -1989,7 +1989,7 @@ const CustomerServiceNeedsAnalysis = () => {
             </div>
 
             {/* SERVICE TRANSFORMATION LEVEL */}
-            <div className="border rounded-xl overflow-hidden shadow-sm">
+            <div className="border rounded overflow-hidden ">
               <div className="bg-emerald-600 px-5 py-3">
                 <h3 className="font-bold text-white text-sm tracking-wide">🟩 Servicemognad</h3>
               </div>
@@ -2005,7 +2005,7 @@ const CustomerServiceNeedsAnalysis = () => {
             </div>
 
             {/* KOMMENTAR */}
-            <div className="border rounded-xl overflow-hidden shadow-sm">
+            <div className="border rounded overflow-hidden ">
               <div className="bg-slate-700 px-5 py-3">
                 <h3 className="font-bold text-white text-sm tracking-wide">🧠 Kommentar</h3>
               </div>
@@ -2016,7 +2016,7 @@ const CustomerServiceNeedsAnalysis = () => {
 
             {/* STYRKOR + UTVECKLINGSOMRÅDEN */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="border rounded-xl overflow-hidden shadow-sm">
+              <div className="border rounded overflow-hidden ">
                 <div className="bg-green-600 px-5 py-3">
                   <h3 className="font-bold text-white text-sm tracking-wide">🟢 Styrkor</h3>
                 </div>
@@ -2028,7 +2028,7 @@ const CustomerServiceNeedsAnalysis = () => {
                   ))}
                 </ul>
               </div>
-              <div className="border rounded-xl overflow-hidden shadow-sm">
+              <div className="border rounded overflow-hidden ">
                 <div className="bg-amber-500 px-5 py-3">
                   <h3 className="font-bold text-white text-sm tracking-wide">🟡 Utvecklingsområden</h3>
                 </div>
@@ -2045,9 +2045,9 @@ const CustomerServiceNeedsAnalysis = () => {
             <div className="border-t border-border pt-2" />
 
             {/* Kundserviceprofil */}
-            <div className="border rounded-xl p-5 space-y-3 bg-background shadow-sm">
+            <div className="border rounded p-5 space-y-3 bg-background ">
               <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
-                <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold">1</span>Kundserviceprofil
+                <span className="w-6 h-6 rounded bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold">1</span>Kundserviceprofil
               </h3>
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
                 <span className="text-3xl">{profile.icon}</span>
@@ -2059,25 +2059,25 @@ const CustomerServiceNeedsAnalysis = () => {
             </div>
 
             {/* Servicekomplexitet */}
-            <div className="border rounded-xl p-5 space-y-3 bg-background shadow-sm">
+            <div className="border rounded p-5 space-y-3 bg-background ">
               <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
-                <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold">2</span>Servicekomplexitet
+                <span className="w-6 h-6 rounded bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold">2</span>Servicekomplexitet
               </h3>
-              <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border font-semibold text-sm ${complexityColor}`}>
+              <div className={`inline-flex items-center gap-2 px-4 py-2 rounded border font-semibold text-sm ${complexityColor}`}>
                 {complexityLevel === "Hög" ? "🔴" : complexityLevel === "Medel" ? "🟡" : "🟢"} {complexityLevel} komplexitet
               </div>
               <div className="space-y-1">
                 <div className="flex justify-between text-xs text-muted-foreground"><span>Låg</span><span>Medel</span><span>Hög</span></div>
-                <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
-                  <div className={`h-full rounded-full transition-all ${complexityLevel === "Hög" ? "bg-red-500" : complexityLevel === "Medel" ? "bg-amber-500" : "bg-green-500"}`} style={{ width: `${complexityBar}%` }} />
+                <div className="w-full h-2 bg-muted rounded overflow-hidden">
+                  <div className={`h-full rounded transition-all ${complexityLevel === "Hög" ? "bg-red-500" : complexityLevel === "Medel" ? "bg-amber-500" : "bg-green-500"}`} style={{ width: `${complexityBar}%` }} />
                 </div>
               </div>
             </div>
 
             {/* Rekommenderad lösningsinriktning */}
-            <div className="border rounded-xl p-5 space-y-4 bg-background shadow-sm">
+            <div className="border rounded p-5 space-y-4 bg-background ">
               <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
-                <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold">3</span>Rekommenderad lösningsinriktning
+                <span className="w-6 h-6 rounded bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold">3</span>Rekommenderad lösningsinriktning
               </h3>
               {rec.products.length > 0 ? (
                 <>
@@ -2104,7 +2104,7 @@ const CustomerServiceNeedsAnalysis = () => {
                     <p className="text-xs text-muted-foreground font-medium mb-3 uppercase tracking-wide">Bakom kulisserna lutar det mot</p>
                     <div className="flex flex-wrap gap-2">
                       {rec.products.slice(0, 3).map((product, i) => (
-                        <div key={product.name} className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border ${i === 0 ? "bg-primary/10 border-primary/30 text-primary" : "bg-muted border-border text-muted-foreground"}`}>
+                        <div key={product.name} className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-semibold border ${i === 0 ? "bg-primary/10 border-primary/30 text-primary" : "bg-muted border-border text-muted-foreground"}`}>
                           <span>{product.icon}</span><span>{product.name}</span>
                         </div>
                       ))}
@@ -2120,9 +2120,9 @@ const CustomerServiceNeedsAnalysis = () => {
             </div>
 
             {/* Rekommenderad partnertyp */}
-            <div className="border rounded-xl p-5 space-y-3 bg-background shadow-sm">
+            <div className="border rounded p-5 space-y-3 bg-background ">
               <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
-                <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold">4</span>Rekommenderad partnertyp
+                <span className="w-6 h-6 rounded bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold">4</span>Rekommenderad partnertyp
               </h3>
               <div className="grid grid-cols-1 gap-3">
                 {partnerTypes.map((pt) => (
@@ -2138,7 +2138,7 @@ const CustomerServiceNeedsAnalysis = () => {
             </div>
 
             {/* APPENDIX */}
-            <div className="border rounded-xl overflow-hidden shadow-sm">
+            <div className="border rounded overflow-hidden ">
               <div className="bg-muted px-5 py-3 border-b border-border">
                 <h3 className="font-bold text-foreground text-sm tracking-wide">📎 Appendix – Era svar</h3>
               </div>
@@ -2220,7 +2220,7 @@ const CustomerServiceNeedsAnalysis = () => {
             </div>
 
             {/* KONTAKTUPPGIFTER & LADDA NER */}
-            <div className="border-2 border-primary/30 rounded-xl overflow-hidden shadow-md">
+            <div className="border-2 border-primary/30 rounded overflow-hidden ">
               <div className="bg-primary px-5 py-4">
                 <h3 className="font-bold text-primary-foreground text-base tracking-wide">📥 Ladda ner din analys som PDF</h3>
                 <p className="text-primary-foreground/80 text-sm mt-1">Vi skickar PDF:en till din e-post och laddar även ner den direkt.</p>
@@ -2335,7 +2335,7 @@ const CustomerServiceNeedsAnalysis = () => {
               const isCompleted = currentStep > stepNum;
               return (
                 <button key={index} onClick={() => setCurrentStep(stepNum)} className="flex flex-col items-center min-w-[80px] cursor-pointer hover:opacity-80 transition-opacity">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 transition-colors ${isActive ? 'bg-[#15363F] text-white' : isCompleted ? 'bg-[#15363F]/20 text-[#15363F]' : 'bg-muted text-muted-foreground'}`}>
+                  <div className={`w-10 h-10 rounded flex items-center justify-center mb-2 transition-colors ${isActive ? 'bg-[#15363F] text-white' : isCompleted ? 'bg-[#15363F]/20 text-[#15363F]' : 'bg-muted text-muted-foreground'}`}>
                     <Icon className="w-5 h-5" />
                   </div>
                   <span className={`text-xs text-center ${isActive ? 'text-[#15363F] font-medium' : 'text-muted-foreground'}`}>{title}</span>

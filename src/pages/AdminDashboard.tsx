@@ -1778,13 +1778,13 @@ Thomas`,
           <div className="container mx-auto px-4 pt-14 pb-8 relative">
             <div className="flex items-center justify-between flex-wrap gap-4 mb-8">
               <div className="flex items-center gap-3">
-                <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center shadow-lg shadow-blue-900/40 ring-1 ring-white/10">
+                <div className="h-11 w-11 rounded bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center  shadow-blue-900/40 ring-1 ring-white/10">
                   <Award className="h-5 w-5 text-white" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
                     <h1 className="text-2xl font-bold text-white tracking-tight">Admin Dashboard</h1>
-                    <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/10 text-blue-200 border border-white/10">
+                    <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-white/10 text-blue-200 border border-white/10">
                       Premium
                     </span>
                   </div>
@@ -1814,13 +1814,13 @@ Thomas`,
 
             {/* Summary Cards - premium glass */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="group relative rounded-2xl bg-white/5 backdrop-blur border border-white/10 p-5 hover:bg-white/[0.07] hover:border-white/20 transition-all hover:-translate-y-0.5 shadow-xl shadow-black/20">
+              <div className="group relative rounded bg-white/5 backdrop-blur border border-white/10 p-5 hover:bg-white/[0.07] hover:border-white/20 transition-all hover:-translate-y-0.5  shadow-black/20">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-xs font-medium uppercase tracking-wider text-slate-400">Totalt antal leads</p>
                     <p className="text-3xl font-bold text-white mt-1">{leads.length}</p>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 ring-1 ring-blue-400/20">
+                  <div className="p-2.5 rounded bg-gradient-to-br from-blue-500/20 to-blue-600/10 ring-1 ring-blue-400/20">
                     <Inbox className="h-5 w-5 text-blue-300" strokeWidth={1.75} />
                   </div>
                 </div>
@@ -1829,39 +1829,39 @@ Thomas`,
                 </p>
               </div>
 
-              <div className="group relative rounded-2xl bg-white/5 backdrop-blur border border-white/10 p-5 hover:bg-white/[0.07] hover:border-white/20 transition-all hover:-translate-y-0.5 shadow-xl shadow-black/20">
+              <div className="group relative rounded bg-white/5 backdrop-blur border border-white/10 p-5 hover:bg-white/[0.07] hover:border-white/20 transition-all hover:-translate-y-0.5  shadow-black/20">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-xs font-medium uppercase tracking-wider text-slate-400">Klick denna månad</p>
                     <p className="text-3xl font-bold text-white mt-1">{clicksThisMonth}</p>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 ring-1 ring-emerald-400/20">
+                  <div className="p-2.5 rounded bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 ring-1 ring-emerald-400/20">
                     <MousePointerClick className="h-5 w-5 text-emerald-300" strokeWidth={1.75} />
                   </div>
                 </div>
                 <p className="text-xs text-slate-500 mt-3 capitalize">{currentMonthName}</p>
               </div>
 
-              <div className="group relative rounded-2xl bg-white/5 backdrop-blur border border-white/10 p-5 hover:bg-white/[0.07] hover:border-white/20 transition-all hover:-translate-y-0.5 shadow-xl shadow-black/20">
+              <div className="group relative rounded bg-white/5 backdrop-blur border border-white/10 p-5 hover:bg-white/[0.07] hover:border-white/20 transition-all hover:-translate-y-0.5  shadow-black/20">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-xs font-medium uppercase tracking-wider text-slate-400">Totalt antal klick</p>
                     <p className="text-3xl font-bold text-white mt-1">{totalClicks}</p>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-gradient-to-br from-sky-500/20 to-sky-600/10 ring-1 ring-sky-400/20">
+                  <div className="p-2.5 rounded bg-gradient-to-br from-sky-500/20 to-sky-600/10 ring-1 ring-sky-400/20">
                     <TrendingUp className="h-5 w-5 text-sky-300" strokeWidth={1.75} />
                   </div>
                 </div>
                 <p className="text-xs text-slate-500 mt-3">Sedan start</p>
               </div>
 
-              <div className="group relative rounded-2xl bg-white/5 backdrop-blur border border-white/10 p-5 hover:bg-white/[0.07] hover:border-white/20 transition-all hover:-translate-y-0.5 shadow-xl shadow-black/20">
+              <div className="group relative rounded bg-white/5 backdrop-blur border border-white/10 p-5 hover:bg-white/[0.07] hover:border-white/20 transition-all hover:-translate-y-0.5  shadow-black/20">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-xs font-medium uppercase tracking-wider text-slate-400">Partners i databasen</p>
                     <p className="text-3xl font-bold text-white mt-1">{fullPartners.length}</p>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-600/10 ring-1 ring-amber-400/20">
+                  <div className="p-2.5 rounded bg-gradient-to-br from-amber-500/20 to-amber-600/10 ring-1 ring-amber-400/20">
                     <Building2 className="h-5 w-5 text-amber-300" strokeWidth={1.75} />
                   </div>
                 </div>
@@ -1880,7 +1880,7 @@ Thomas`,
         </div>
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
           {/* Group selector */}
-          <div className="flex flex-wrap gap-2 p-2 rounded-2xl bg-slate-100 dark:bg-slate-800/50 border border-border">
+          <div className="flex flex-wrap gap-2 p-2 rounded bg-slate-100 dark:bg-slate-800/50 border border-border">
             {tabGroups.map((g) => {
               const isActive = activeGroup === g.id;
               return (
@@ -1891,9 +1891,9 @@ Thomas`,
                     setActiveGroup(g.id);
                     setActiveTab(g.tabs[0]);
                   }}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded text-sm font-medium transition-all ${
                     isActive
-                      ? "bg-slate-900 text-white shadow-md"
+                      ? "bg-slate-900 text-white "
                       : "text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-slate-700/60"
                   }`}
                 >
@@ -1903,7 +1903,7 @@ Thomas`,
               );
             })}
           </div>
-          <TabsList data-active-group={activeGroup} className="flex-wrap h-auto gap-1.5 bg-slate-900/95 p-2 rounded-2xl border border-slate-700/50 shadow-lg [&_[data-state=active]]:bg-white [&_[data-state=active]]:text-slate-900 [&_[data-state=active]]:shadow-md [&_[data-state=active]_.tab-icon]:bg-slate-900/10 [&_[data-state=active]_.tab-icon]:ring-slate-900/10 [&_[data-state=active]_.tab-icon_svg]:text-slate-900 [&>button]:text-slate-300 [&>button]:rounded-xl [&>button]:px-3 [&>button]:py-2 [&>button]:transition-all [&>button:hover]:text-white [&>button:hover]:bg-white/5">
+          <TabsList data-active-group={activeGroup} className="flex-wrap h-auto gap-1.5 bg-slate-900/95 p-2 rounded border border-slate-700/50  [&_[data-state=active]]:bg-white [&_[data-state=active]]:text-slate-900 [&_[data-state=active]]:shadow-md [&_[data-state=active]_.tab-icon]:bg-slate-900/10 [&_[data-state=active]_.tab-icon]:ring-slate-900/10 [&_[data-state=active]_.tab-icon_svg]:text-slate-900 [&>button]:text-slate-300 [&>button]:rounded [&>button]:px-3 [&>button]:py-2 [&>button]:transition-all [&>button:hover]:text-white [&>button:hover]:bg-white/5">
             <TabsTrigger value="leads" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-blue-500/20 to-blue-600/10 ring-1 ring-blue-400/20">
                 <Inbox className="h-3.5 w-3.5 text-blue-300" strokeWidth={1.75} />
@@ -2379,7 +2379,7 @@ Thomas`,
               <p className="text-sm text-muted-foreground">
                 {fullPartners.length} partners i databasen
               </p>
-              <div className="flex flex-wrap items-center gap-1.5 p-2 rounded-xl bg-slate-50 border border-slate-200">
+              <div className="flex flex-wrap items-center gap-1.5 p-2 rounded bg-slate-50 border border-slate-200">
                 <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 px-2">Snabbfilter</span>
                 {([
                   { key: 'all', label: 'Alla', count: fullPartners.length, tone: 'slate' },
@@ -2414,11 +2414,11 @@ Thomas`,
                       key={key}
                       type="button"
                       onClick={() => setPartnerStatusFilter(key as typeof partnerStatusFilter)}
-                      className={`group inline-flex items-center gap-1.5 h-7 px-2.5 rounded-full border text-xs font-medium transition-all ${active ? tones.active + ' shadow-sm' : tones.idle}`}
+                      className={`group inline-flex items-center gap-1.5 h-7 px-2.5 rounded border text-xs font-medium transition-all ${active ? tones.active + ' shadow-sm' : tones.idle}`}
                     >
                       {Icon && <Icon className="h-3 w-3" strokeWidth={2} />}
                       {label}
-                      <span className={`inline-flex items-center justify-center min-w-[1.25rem] h-4 px-1 rounded-full text-[10px] font-semibold ${tones.badge}`}>
+                      <span className={`inline-flex items-center justify-center min-w-[1.25rem] h-4 px-1 rounded text-[10px] font-semibold ${tones.badge}`}>
                         {count}
                       </span>
                     </button>
@@ -2547,7 +2547,7 @@ Thomas`,
                   <Card 
                     key={partner.id}
                     className={partner.is_featured 
-                      ? "border-2 border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40 shadow-md shadow-emerald-500/20" 
+                      ? "border-2 border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40  shadow-emerald-500/20" 
                       : "border border-border"
                     }
                   >
@@ -2915,7 +2915,7 @@ Thomas`,
                             <div key={industry} className="flex items-center justify-between">
                               <span className="text-sm">{industry}</span>
                               <div className="flex items-center gap-2">
-                                <div className="w-32 bg-muted rounded-full h-2 overflow-hidden">
+                                <div className="w-32 bg-muted rounded h-2 overflow-hidden">
                                   <div 
                                     className={`h-full ${product.colorClass}`}
                                     style={{ width: `${(count / partnersWithProduct) * 100}%` }}
@@ -2969,7 +2969,7 @@ Thomas`,
                               <span className="font-medium">{product}</span>
                             </div>
                             <div className="flex items-center gap-2">
-                              <div className="w-24 bg-muted rounded-full h-2 overflow-hidden">
+                              <div className="w-24 bg-muted rounded h-2 overflow-hidden">
                                 <div 
                                   className="h-full bg-purple-500"
                                   style={{ width: `${(count / Math.max(featuredPartners.length, 1)) * 100}%` }}
@@ -3336,7 +3336,7 @@ Thomas`,
                 variant="ghost" 
                 size="icon" 
                 onClick={() => setIsPartnerDialogOpen(false)}
-                className="h-8 w-8 rounded-full"
+                className="h-8 w-8 rounded"
               >
                 <span className="sr-only">Stäng</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
@@ -3919,10 +3919,10 @@ Thomas`,
                       <img
                         src={partnerFormData.contact_photo_url}
                         alt="Kundkontakt foto"
-                        className="h-20 w-20 object-cover rounded-full border-2 border-border shadow-sm"
+                        className="h-20 w-20 object-cover rounded border-2 border-border "
                       />
                     ) : (
-                      <div className="h-20 w-20 bg-muted rounded-full flex items-center justify-center border-2 border-dashed border-border">
+                      <div className="h-20 w-20 bg-muted rounded flex items-center justify-center border-2 border-dashed border-border">
                         <User className="h-8 w-8 text-muted-foreground" />
                       </div>
                     )}
@@ -4076,7 +4076,7 @@ Thomas`,
                     return (
                       <Card
                         key={section.key}
-                        className={`overflow-hidden transition-all ${isActive ? "ring-2 ring-offset-2 shadow-md" : "shadow-sm hover:shadow-md"}`}
+                        className={`overflow-hidden transition-all ${isActive ? "ring-2 ring-offset-2 " : "shadow-sm "}`}
                         style={{ borderColor: `hsl(var(--${section.key === 'bc' ? 'business-central' : section.key === 'fsc' ? 'finance-supply' : section.key === 'sales' ? 'crm' : 'customer-service'}))` }}
                       >
                         <button
@@ -4181,10 +4181,10 @@ Thomas`,
                                 <img
                                   src={filter.contactPhotoUrl}
                                   alt="Foto"
-                                  className="h-14 w-14 object-cover rounded-full border-2 border-border shadow-sm"
+                                  className="h-14 w-14 object-cover rounded border-2 border-border "
                                 />
                               ) : (
-                                <div className="h-14 w-14 bg-muted rounded-full flex items-center justify-center border-2 border-dashed border-border">
+                                <div className="h-14 w-14 bg-muted rounded flex items-center justify-center border-2 border-dashed border-border">
                                   <User className="h-5 w-5 text-muted-foreground" />
                                 </div>
                               )}
@@ -4836,7 +4836,7 @@ Thomas`,
                         <div className="space-y-1">
                           <Label className="text-xs">Dynamics 365-applikation</Label>
                           <select
-                            className="w-full h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                            className="w-full h-9 rounded-md border border-input bg-background px-3 py-1 text-sm  transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                             value={app.application}
                             onChange={(e) => {
                               const updated = [...industryApps];
@@ -4857,7 +4857,7 @@ Thomas`,
                         <div className="space-y-1">
                           <Label className="text-xs">Branschinriktning</Label>
                           <select
-                            className="w-full h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                            className="w-full h-9 rounded-md border border-input bg-background px-3 py-1 text-sm  transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                             value={app.industry}
                             onChange={(e) => {
                               const updated = [...industryApps];

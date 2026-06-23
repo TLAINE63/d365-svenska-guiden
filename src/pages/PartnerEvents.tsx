@@ -242,7 +242,7 @@ const PartnerEvents = () => {
           </div>
 
           {/* Content guidance */}
-          <div className="mb-6 p-4 rounded-xl border border-primary/20 bg-primary/5">
+          <div className="mb-6 p-4 rounded border border-primary/20 bg-primary/5">
             <h3 className="text-sm font-semibold text-foreground mb-1 flex items-center gap-2">
               <Calendar className="w-4 h-4 text-primary" />
               Vilka events kan publiceras?

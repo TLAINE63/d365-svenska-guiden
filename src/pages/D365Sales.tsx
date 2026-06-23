@@ -173,7 +173,7 @@ const D365Sales = () => {
             </h2>
             
             <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
-              <AccordionItem value="item-1" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+              <AccordionItem value="item-1" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Vad är skillnaden mellan Sales Professional och Sales Enterprise?
                 </AccordionTrigger>
@@ -182,7 +182,7 @@ const D365Sales = () => {
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-2" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+              <AccordionItem value="item-2" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Hur fungerar AI och Copilot i Dynamics 365 Sales?
                 </AccordionTrigger>
@@ -191,7 +191,7 @@ const D365Sales = () => {
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-3" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+              <AccordionItem value="item-3" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Kan Dynamics 365 Sales integreras med vårt befintliga ERP-system?
                 </AccordionTrigger>
@@ -200,7 +200,7 @@ const D365Sales = () => {
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-4" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+              <AccordionItem value="item-4" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Hur lång tid tar det att implementera Dynamics 365 Sales?
                 </AccordionTrigger>
@@ -245,7 +245,7 @@ const D365Sales = () => {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 sm:mb-8 text-center">
               Hur lång tid tar en implementation och vad ligger kostnaden på?
             </h2>
-            <div className="bg-card rounded-2xl p-6 sm:p-8 border border-border shadow-[var(--shadow-card)]">
+            <div className="bg-card rounded p-6 sm:p-8 border border-border ">
               <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
                 <div>
                   <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-3">⏱️ Tidsåtgång</h3>
@@ -290,7 +290,7 @@ const D365Sales = () => {
               <Link
                 key={article.slug}
                 to={`/kunskapscenter/${article.productSlug}/${article.slug}/`}
-                className="flex items-start gap-4 p-4 rounded-xl border border-border bg-card hover:shadow-md hover:border-primary/40 transition-all group"
+                className="flex items-start gap-4 p-4 rounded border border-border bg-card  hover:border-primary/40 transition-all group"
               >
                 <img
                   src={article.image}
@@ -323,7 +323,7 @@ const D365Sales = () => {
           </p>
           <Link to="/branscher/">
             <Button size="lg"
-              className="bg-white text-sales hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded-xl"
+              className="bg-white text-sales hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded"
             >
                     Hitta din bransch och rätt partner
                   </Button>

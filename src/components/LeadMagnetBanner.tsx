@@ -149,7 +149,7 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
   }
 
   return (
-    <Card ref={cardRef} className="bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 border-primary/30 p-4 sm:p-6 relative overflow-hidden rounded-2xl shadow-lg shadow-primary/10">
+    <Card ref={cardRef} className="bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 border-primary/30 p-4 sm:p-6 relative overflow-hidden rounded  shadow-primary/10">
       {onClose && (
         <button onClick={onClose} className="absolute top-2 right-2 text-muted-foreground hover:text-foreground z-10">
           <X className="h-4 w-4" />
@@ -157,7 +157,7 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
       )}
       
       {/* Decorative element */}
-      <div className="absolute -right-8 -top-8 w-32 h-32 bg-primary/5 rounded-full blur-2xl" />
+      <div className="absolute -right-8 -top-8 w-32 h-32 bg-primary/5 rounded " />
       
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 relative">
         <div className="flex items-center gap-3 flex-shrink-0">
@@ -168,7 +168,7 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
         
         <div className="flex-1 min-w-0">
           <h3 className="font-semibold text-lg mb-1 flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary text-primary-foreground text-sm font-bold uppercase tracking-wide">
+            <span className="inline-flex items-center px-3 py-1 rounded bg-primary text-primary-foreground text-sm font-bold uppercase tracking-wide">
               Gratis guide
             </span>
             <span className="text-foreground">Så väljer du rätt Dynamics 365-partner</span>
@@ -198,7 +198,7 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
             className="w-full sm:w-48 bg-background/80 border-emerald-500/50 focus:border-emerald-500 focus:ring-emerald-500/30"
             disabled={isSubmitting}
           />
-          <Button type="submit" disabled={isSubmitting} className="whitespace-nowrap bg-emerald-600 hover:bg-emerald-700 text-white transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-emerald-500/30">
+          <Button type="submit" disabled={isSubmitting} className="whitespace-nowrap bg-emerald-600 hover:bg-emerald-700 text-white transition-all duration-200 hover:scale-105  hover:shadow-emerald-500/30">
             {isSubmitting ? (
               "Skickar..."
             ) : (

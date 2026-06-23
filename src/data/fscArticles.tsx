@@ -75,7 +75,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           <li>Revisionsspår för alla justeringsposter</li>
         </ul>
 
-        <div className="my-10 p-8 bg-secondary/50 rounded-xl text-center border border-border">
+        <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
           <h3 className="text-xl font-bold text-foreground mb-2">Vill du veta mer om Dynamics 365 Finance?</h3>
           <p className="text-muted-foreground mb-4">
             Läs mer om licenspriser och hitta en certifierad partner.
@@ -144,7 +144,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           <li>ATP (Available to Promise) och CTP (Capable to Promise)</li>
         </ul>
 
-        <div className="my-10 p-8 bg-secondary/50 rounded-xl text-center border border-border">
+        <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
           <h3 className="text-xl font-bold text-foreground mb-2">Vill du veta mer om Supply Chain Management?</h3>
           <p className="text-muted-foreground mb-4">
             Läs mer om licenspriser och hitta en certifierad partner.
@@ -213,7 +213,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           <li>Komplett revisionsspår för alla åtgärder</li>
         </ul>
 
-        <div className="my-10 p-8 bg-secondary/50 rounded-xl text-center border border-border">
+        <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
           <h3 className="text-xl font-bold text-foreground mb-2">Vill du veta mer om Dynamics 365 Finance?</h3>
           <p className="text-muted-foreground mb-4">
             Läs mer om licenspriser och hitta en certifierad partner.
@@ -273,7 +273,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           <li>Fullständig integration med TMS (Transport Management)</li>
         </ul>
 
-        <div className="my-10 p-8 bg-secondary/50 rounded-xl text-center border border-border">
+        <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
           <h3 className="text-xl font-bold text-foreground mb-2">Vill du veta mer om Supply Chain Management?</h3>
           <p className="text-muted-foreground mb-4">
             Läs mer om licenspriser och hitta en certifierad partner.
@@ -342,7 +342,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           <li>Inbyggd SEO-optimering och A/B-testning</li>
         </ul>
 
-        <div className="my-10 p-8 bg-secondary/50 rounded-xl text-center border border-border">
+        <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
           <h3 className="text-xl font-bold text-foreground mb-2">Vill du veta mer om Dynamics 365 Commerce?</h3>
           <p className="text-muted-foreground mb-4">
             Läs mer om licenspriser och hitta en certifierad partner.
@@ -450,7 +450,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           <li>Avancerad people analytics med Power BI</li>
         </ul>
 
-        <div className="my-10 p-8 bg-secondary/50 rounded-xl text-center border border-border">
+        <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
           <h3 className="text-xl font-bold text-foreground mb-2">Vill du veta mer om Dynamics 365 Human Resources?</h3>
           <p className="text-muted-foreground mb-4">
             Läs mer om licenspriser och hitta en certifierad partner.
@@ -519,7 +519,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           <li>Digital signering av anställningsavtal</li>
         </ul>
 
-        <div className="my-10 p-8 bg-secondary/50 rounded-xl text-center border border-border">
+        <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
           <h3 className="text-xl font-bold text-foreground mb-2">Vill du veta mer om Dynamics 365 Human Resources?</h3>
           <p className="text-muted-foreground mb-4">
             Läs mer om licenspriser och hitta en certifierad partner.
@@ -585,7 +585,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           <li>Inbyggd integration med Microsoft Project</li>
         </ul>
 
-        <div className="my-10 p-8 bg-secondary/50 rounded-xl text-center border border-border">
+        <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
           <h3 className="text-xl font-bold text-foreground mb-2">Vill du veta mer om Project Operations?</h3>
           <p className="text-muted-foreground mb-4">
             Läs mer om licenspriser och hitta en certifierad partner.
@@ -654,7 +654,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           <li>Integration med LinkedIn och externa resurspooler</li>
         </ul>
 
-        <div className="my-10 p-8 bg-secondary/50 rounded-xl text-center border border-border">
+        <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
           <h3 className="text-xl font-bold text-foreground mb-2">Vill du veta mer om Project Operations?</h3>
           <p className="text-muted-foreground mb-4">
             Läs mer om licenspriser och hitta en certifierad partner.

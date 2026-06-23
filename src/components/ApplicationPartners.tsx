@@ -243,18 +243,18 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
         {(selectedIndustry || selectedGeography || selectedCompanySize) && (
           <div className="max-w-xl mx-auto mt-12">
             {/* Premium Contact CTA Card - same design as PartnerProfile */}
-            <article className="relative rounded-3xl overflow-hidden shadow-2xl">
+            <article className="relative rounded overflow-hidden ">
               {/* Gradient background */}
               <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
               
               {/* Animated orb */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded-full blur-3xl animate-pulse" />
+              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded  animate-pulse" />
               
               <div className="relative p-6 sm:p-8">
                 <div className="flex items-start gap-4 mb-6">
-                  <div className="p-3 rounded-2xl bg-gradient-to-br from-primary to-accent shadow-lg shadow-primary/30">
+                  <div className="p-3 rounded bg-gradient-to-br from-primary to-accent  shadow-primary/30">
                     <span className="text-xl">✨</span>
                   </div>
                   <div>
@@ -268,9 +268,9 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
                 </div>
                 
                 {/* Filter context with glass effect */}
-                <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
+                <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded border border-white/20">
                   <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                    <span className="w-1.5 h-1.5 rounded bg-amber-400 animate-pulse" />
                     Din sökning
                   </p>
                   <div className="flex flex-wrap gap-2">

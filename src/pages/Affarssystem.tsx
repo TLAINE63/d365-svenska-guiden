@@ -182,7 +182,7 @@ const Affarssystem = () => {
                   body: "En behovsanalys utan säljincitament tar några timmar och sparar ofta hundratusentals kronor i felval senare."
                 },
               ].map((item) => (
-                <div key={item.title} className="bg-card border border-border rounded-xl p-6 shadow-[var(--shadow-card)]">
+                <div key={item.title} className="bg-card border border-border rounded p-6 ">
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                       <item.icon className="h-5 w-5 text-primary" />
@@ -213,7 +213,7 @@ const Affarssystem = () => {
 
             <div className="grid md:grid-cols-2 gap-8">
               {/* BC */}
-              <div className="bg-card rounded-xl p-6 sm:p-8 border border-border shadow-[var(--shadow-card)]">
+              <div className="bg-card rounded p-6 sm:p-8 border border-border ">
                 <div className="flex items-center gap-3 mb-4">
                   <img src={BusinessCentralIcon} alt="Business Central" className="h-10 w-10" />
                   <h3 className="text-xl sm:text-2xl font-bold text-card-foreground">Business Central</h3>
@@ -237,7 +237,7 @@ const Affarssystem = () => {
               </div>
 
               {/* F&SCM */}
-              <div className="bg-card rounded-xl p-6 sm:p-8 border border-border shadow-[var(--shadow-card)]">
+              <div className="bg-card rounded p-6 sm:p-8 border border-border ">
                 <div className="flex items-center gap-3 mb-4">
                   <img src={FinanceIcon} alt="Finance" className="h-10 w-10" />
                   <img src={SupplyChainIcon} alt="Supply Chain" className="h-10 w-10" />
@@ -281,7 +281,7 @@ const Affarssystem = () => {
 
             <div className="space-y-10">
               {youtubeVideos.map((v) => (
-                <div key={v.id} className="grid md:grid-cols-2 gap-6 items-center bg-card border border-border rounded-xl p-4 sm:p-6 shadow-[var(--shadow-card)]">
+                <div key={v.id} className="grid md:grid-cols-2 gap-6 items-center bg-card border border-border rounded p-4 sm:p-6 ">
                   <div className="aspect-video w-full overflow-hidden rounded-lg bg-black">
                     <iframe
                       className="w-full h-full"
@@ -314,7 +314,7 @@ const Affarssystem = () => {
             </h2>
             <div className="space-y-4">
               {faqs.map((f) => (
-                <details key={f.question} className="group bg-card border border-border rounded-xl p-5">
+                <details key={f.question} className="group bg-card border border-border rounded p-5">
                   <summary className="cursor-pointer font-semibold text-card-foreground list-none flex justify-between items-center gap-4">
                     {f.question}
                     <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-open:rotate-90 shrink-0" />
@@ -340,13 +340,13 @@ const Affarssystem = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link to="/ERPbehovsanalys/">
-                <Button size="lg" className="bg-cta-orange hover:bg-cta-orange/90 text-white text-base sm:text-lg h-14 rounded-xl px-8">
+                <Button size="lg" className="bg-cta-orange hover:bg-cta-orange/90 text-white text-base sm:text-lg h-14 rounded px-8">
                   <ClipboardList className="mr-2 h-5 w-5" />
                   Starta behovsanalysen
                 </Button>
               </Link>
               <Link to="/business-central-partners-sverige/">
-                <Button size="lg" variant="outline" className="text-base sm:text-lg h-14 rounded-xl px-8">
+                <Button size="lg" variant="outline" className="text-base sm:text-lg h-14 rounded px-8">
                   Jämför affärssystem-partners
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>

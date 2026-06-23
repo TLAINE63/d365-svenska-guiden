@@ -123,8 +123,8 @@ const Upphandlingsguiden = () => {
       <main className="min-h-screen bg-background pt-16 lg:pt-28">
         {/* Hero */}
         <section className="relative overflow-hidden bg-gradient-to-br from-[hsl(195_45%_10%)] via-[hsl(190_40%_14%)] to-[hsl(20_55%_18%)]">
-          <div className="absolute -top-32 -right-32 w-[28rem] h-[28rem] rounded-full bg-[hsl(var(--cta-orange))]/25 blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-32 -left-20 w-[24rem] h-[24rem] rounded-full bg-primary/25 blur-3xl pointer-events-none" />
+          <div className="absolute -top-32 -right-32 w-[28rem] h-[28rem] rounded bg-[hsl(var(--cta-orange))]/25  pointer-events-none" />
+          <div className="absolute -bottom-32 -left-20 w-[24rem] h-[24rem] rounded bg-primary/25  pointer-events-none" />
           <div
             className="absolute inset-0 opacity-[0.05] pointer-events-none"
             style={{
@@ -134,7 +134,7 @@ const Upphandlingsguiden = () => {
             }}
           />
           <div className="relative container mx-auto px-4 sm:px-6 py-14 sm:py-20 max-w-5xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6 backdrop-blur">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-white/10 border border-white/20 text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6 backdrop-blur">
               <Sparkles className="w-3 h-3" />
               Upphandlingsguiden för Microsoft Dynamics 365
             </div>
@@ -149,7 +149,7 @@ const Upphandlingsguiden = () => {
             <div className="flex flex-col sm:flex-row gap-3">
               <Button
                 asChild
-                className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-[15px] font-semibold h-12 px-7 rounded-xl shadow-lg shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all"
+                className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-[15px] font-semibold h-12 px-7 rounded   hover:-translate-y-0.5 transition-all"
               >
                 <Link to="/valjdynamics365partner/">
                   Hitta rätt partner
@@ -159,7 +159,7 @@ const Upphandlingsguiden = () => {
               <Button
                 asChild
                 variant="outline"
-                className="bg-white/5 border-white/30 text-white hover:bg-white/15 hover:text-white text-[15px] font-semibold h-12 px-7 rounded-xl"
+                className="bg-white/5 border-white/30 text-white hover:bg-white/15 hover:text-white text-[15px] font-semibold h-12 px-7 rounded"
               >
                 <Link to="/ERPbehovsanalys/">Starta behovsanalys</Link>
               </Button>
@@ -175,7 +175,7 @@ const Upphandlingsguiden = () => {
               { icon: Check, title: "Strukturerad metodik", text: "Sex tydliga steg från behov till val av Microsoftpartner." },
               { icon: Sparkles, title: "AI-stödd matchning", text: "Datadriven rekommendation baserad på era behov." },
             ].map(({ icon: Icon, title, text }) => (
-              <div key={title} className="flex items-start gap-3 p-4 rounded-xl bg-white border border-border shadow-sm">
+              <div key={title} className="flex items-start gap-3 p-4 rounded bg-white border border-border ">
                 <div className="shrink-0 w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
                   <Icon className="w-4 h-4" />
                 </div>
@@ -207,7 +207,7 @@ const Upphandlingsguiden = () => {
                 return (
                   <article
                     key={step.num}
-                    className={`group relative overflow-hidden rounded-2xl border shadow-xl p-6 sm:p-8 ${
+                    className={`group relative overflow-hidden rounded border  p-6 sm:p-8 ${
                       isPrimary
                         ? "bg-gradient-to-br from-[hsl(195_45%_10%)] via-[hsl(190_40%_14%)] to-[hsl(20_55%_18%)] border-[hsl(var(--cta-orange))]/30"
                         : "bg-gradient-to-br from-white via-[hsl(40_30%_98%)] to-[hsl(180_25%_95%)] border-border"
@@ -215,8 +215,8 @@ const Upphandlingsguiden = () => {
                   >
                     {isPrimary ? (
                       <>
-                        <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-[hsl(var(--cta-orange))]/25 blur-3xl pointer-events-none" />
-                        <div className="absolute -bottom-24 -left-16 w-64 h-64 rounded-full bg-primary/25 blur-3xl pointer-events-none" />
+                        <div className="absolute -top-24 -right-24 w-72 h-72 rounded bg-[hsl(var(--cta-orange))]/25  pointer-events-none" />
+                        <div className="absolute -bottom-24 -left-16 w-64 h-64 rounded bg-primary/25  pointer-events-none" />
                       </>
                     ) : (
                       <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-primary via-primary/70 to-[hsl(var(--cta-orange))] pointer-events-none" />
@@ -224,9 +224,9 @@ const Upphandlingsguiden = () => {
 
                     <div className="relative grid lg:grid-cols-[auto_1fr] gap-5 lg:gap-8 items-start">
                       <div
-                        className={`shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center ${
+                        className={`shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded flex items-center justify-center ${
                           isPrimary
-                            ? "bg-[hsl(var(--cta-orange))] text-white shadow-lg shadow-[hsl(var(--cta-orange))]/40"
+                            ? "bg-[hsl(var(--cta-orange))] text-white  "
                             : "bg-primary/10 text-primary"
                         }`}
                       >
@@ -235,7 +235,7 @@ const Upphandlingsguiden = () => {
 
                       <div className="min-w-0">
                         <div
-                          className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10.5px] font-bold uppercase tracking-[0.12em] mb-4 ${
+                          className={`inline-flex items-center gap-2 px-3 py-1.5 rounded text-[10.5px] font-bold uppercase tracking-[0.12em] mb-4 ${
                             isPrimary
                               ? "bg-white/10 text-white border border-white/20"
                               : "bg-primary/10 text-primary border border-primary/30"
@@ -267,8 +267,8 @@ const Upphandlingsguiden = () => {
                               to={link.to}
                               className={`group/item inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-[13.5px] font-semibold transition-all hover:-translate-y-0.5 ${
                                 isPrimary
-                                  ? "bg-white text-foreground hover:bg-white/90 shadow-md"
-                                  : "bg-card border border-border text-foreground hover:bg-primary/5 hover:border-primary/40 hover:shadow-md"
+                                  ? "bg-white text-foreground hover:bg-white/90 "
+                                  : "bg-card border border-border text-foreground hover:bg-primary/5 hover:border-primary/40 "
                               }`}
                             >
                               {link.label}
@@ -289,8 +289,8 @@ const Upphandlingsguiden = () => {
         {/* Avslut CTA */}
         <section className="px-4 sm:px-6 py-12 sm:py-16 bg-background">
           <div className="container mx-auto max-w-5xl">
-            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[hsl(195_45%_10%)] via-[hsl(190_40%_14%)] to-[hsl(20_55%_18%)] border border-[hsl(var(--cta-orange))]/30 shadow-2xl p-8 sm:p-12 text-center">
-              <div className="absolute -top-32 -right-32 w-80 h-80 rounded-full bg-[hsl(var(--cta-orange))]/25 blur-3xl pointer-events-none" />
+            <div className="relative overflow-hidden rounded bg-gradient-to-br from-[hsl(195_45%_10%)] via-[hsl(190_40%_14%)] to-[hsl(20_55%_18%)] border border-[hsl(var(--cta-orange))]/30  p-8 sm:p-12 text-center">
+              <div className="absolute -top-32 -right-32 w-80 h-80 rounded bg-[hsl(var(--cta-orange))]/25  pointer-events-none" />
               <div className="relative">
                 <h2 className="text-2xl sm:text-3xl md:text-[34px] font-bold text-white leading-tight tracking-tight mb-4">
                   Redo att starta er upphandling?
@@ -301,7 +301,7 @@ const Upphandlingsguiden = () => {
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <Button
                     asChild
-                    className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-[15px] font-semibold h-12 px-7 rounded-xl shadow-lg shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all"
+                    className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-[15px] font-semibold h-12 px-7 rounded   hover:-translate-y-0.5 transition-all"
                   >
                     <Link to="/valjdynamics365partner/">
                       Starta partnermatchning
@@ -311,7 +311,7 @@ const Upphandlingsguiden = () => {
                   <Button
                     asChild
                     variant="outline"
-                    className="bg-white/5 border-white/30 text-white hover:bg-white/15 hover:text-white text-[15px] font-semibold h-12 px-7 rounded-xl"
+                    className="bg-white/5 border-white/30 text-white hover:bg-white/15 hover:text-white text-[15px] font-semibold h-12 px-7 rounded"
                   >
                     <Link to="/kontakt/">Kontakta en rådgivare</Link>
                   </Button>

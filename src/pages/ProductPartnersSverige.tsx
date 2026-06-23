@@ -124,7 +124,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
                     <li key={p.id}>
                       <Link
                         to={`/partner/${p.slug}/`}
-                        className="group flex flex-col gap-1 p-4 rounded-lg border border-border bg-card hover:border-primary/50 hover:shadow-md transition-all h-full"
+                        className="group flex flex-col gap-1 p-4 rounded-lg border border-border bg-card hover:border-primary/50  transition-all h-full"
                         aria-label={`${p.name} – ${cfg.productLabel}-partner`}
                       >
                         <div className="flex items-center justify-between gap-2">

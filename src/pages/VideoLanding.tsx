@@ -71,7 +71,7 @@ const VideoLanding = () => {
             </div>
 
             <div
-              className="relative w-full mb-8 rounded-xl overflow-hidden bg-black mx-auto"
+              className="relative w-full mb-8 rounded overflow-hidden bg-black mx-auto"
               style={{ maxWidth: "400px", aspectRatio: "9 / 16" }}
             >
               <iframe
