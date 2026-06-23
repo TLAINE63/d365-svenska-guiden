@@ -1076,7 +1076,7 @@ const AIReadiness = () => {
       doc.setFontSize(7.5);
       doc.setFont("helvetica", "normal");
       doc.setTextColor(slate400.r, slate400.g, slate400.b);
-      doc.text("d365.se – Oberoende guide till Dynamics 365 i Sverige", lm, ph - 12);
+      doc.text("d365.se – Köparsidig guide till Dynamics 365 i Sverige", lm, ph - 12);
       doc.text(`Sida ${pageNum}`, rm, ph - 12, { align: "right" });
     };
 
@@ -1236,7 +1236,7 @@ const AIReadiness = () => {
     doc.setFontSize(8);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(slate400.r, slate400.g, slate400.b);
-    doc.text("Oberoende guide till Dynamics 365 i Sverige", lm, ph - 19);
+    doc.text("Köparsidig guide till Dynamics 365 i Sverige", lm, ph - 19);
 
     // ═══ PAGE 1: Executive Summary ═══
     newPage("Executive Summary");

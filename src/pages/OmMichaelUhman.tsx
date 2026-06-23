@@ -123,12 +123,12 @@ const OmMichaelUhman = () => {
               <p>
                 Efter decennier på leverantörs- och partnersidan var mönstret tydligt för både
                 Michael och medgrundaren Thomas Laine: köparen är den enda parten i en ERP-
-                eller CRM-upphandling som saknar en oberoende röst vid bordet.
+                eller CRM-upphandling som saknar en köparsidig röst vid bordet.
               </p>
               <p>
                 d365.se byggdes för att vara den rösten. Plattformen säljer inga system och
                 ingen implementation. Partners betalar en fast listningsavgift, oavsett
-                storlek. Det är grunden för vårt oberoende.
+                storlek. Det är grunden för vår köparsidiga position.
               </p>
             </div>
           </div>

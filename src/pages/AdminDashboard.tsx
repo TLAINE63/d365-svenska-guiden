@@ -656,12 +656,12 @@ const AdminDashboard = () => {
  welcome: {
  label: "Välkomstmail (inbjudan)",
  subject: "Vem är kundens mest lämpade Dynamics 365-partner?",
- body: "Hej {{NAME}},\n\nDu har blivit inbjuden att skapa eller uppdatera er partnerprofil på D365.se – Sveriges oberoende guide för Microsoft Dynamics 365.\n\n{{INVITATION_LINK}}\n\nAllt Gott!\nThomas Laine & Michael Uhman\nd365.se",
+ body: "Hej {{NAME}},\n\nDu har blivit inbjuden att skapa eller uppdatera er partnerprofil på D365.se – Sveriges köparsidiga guide för Microsoft Dynamics 365.\n\n{{INVITATION_LINK}}\n\nAllt Gott!\nThomas Laine & Michael Uhman\nd365.se",
  },
  sales_pitch: {
  label: "Införsäljningsmail",
  subject: "Prova d365.se kostnadsfritt – kvalificerade D365-leads direkt till er",
- body: "Hej {{NAME}},\n\nJag vill presentera d365.se – en oberoende köpguide för företag som utvärderar Microsoft Dynamics 365.\n\n{{INVITATION_LINK}}\n\nMed vänlig hälsning,\n\nThomas Laine & Michael Uhman\nd365.se",
+ body: "Hej {{NAME}},\n\nJag vill presentera d365.se – en köparsidig köpguide för företag som utvärderar Microsoft Dynamics 365.\n\n{{INVITATION_LINK}}\n\nMed vänlig hälsning,\n\nThomas Laine & Michael Uhman\nd365.se",
  },
  profile_refresh: {
  label: "Profileringslänk (90 dgr)",

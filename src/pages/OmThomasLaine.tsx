@@ -115,7 +115,7 @@ const OmThomasLaine = () => {
                 på grund av fel funktionalitet. De misslyckas på grund av fel partner.
               </p>
               <p>
-                Samtidigt saknade svenska köpare en oberoende plats att utgå från. All
+                Samtidigt saknade svenska köpare en plats på köparens sida att utgå från. All
                 information kom från dem som ville sälja något.
               </p>
               <p>
