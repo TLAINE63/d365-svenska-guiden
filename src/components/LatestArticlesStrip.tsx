@@ -1,6 +1,7 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { BLOG_ARTICLES } from "@/data/blogArticles";
+import { BLOG_ARTICLES, type BlogArticle } from "@/data/blogArticles";
 
 const formatDate = (iso: string) => iso.replace(/-/g, "/");
 
@@ -10,16 +11,33 @@ interface Props {
   count?: number;
 }
 
+const getPool = (excludeSlug?: string) =>
+  BLOG_ARTICLES.filter(
+    (a) => a.category === "Branschguide" && a.slug !== excludeSlug,
+  );
+
+const shuffle = <T,>(arr: T[]): T[] => {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+
 /**
- * Compact strip showing the most recent blog articles to signal that the
- * site is actively maintained. Designed to sit directly below the featured
- * article banner on the homepage.
+ * Compact strip showing random "Branscher & Partners" (Branschguide) articles
+ * from the Knowledge Center. Re-randomizes on each page load.
  */
 const LatestArticlesStrip = ({ excludeSlug, count = 3 }: Props) => {
-  const latest = [...BLOG_ARTICLES]
-    .filter((a) => a.slug !== excludeSlug)
-    .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1))
-    .slice(0, count);
+  // Stable initial pick to avoid SSG/hydration mismatch; randomize after mount.
+  const [latest, setLatest] = useState<BlogArticle[]>(() =>
+    getPool(excludeSlug).slice(0, count),
+  );
+
+  useEffect(() => {
+    setLatest(shuffle(getPool(excludeSlug)).slice(0, count));
+  }, [excludeSlug, count]);
 
   if (latest.length === 0) return null;
 
