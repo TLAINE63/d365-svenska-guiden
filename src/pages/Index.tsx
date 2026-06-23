@@ -369,7 +369,7 @@ const Index = () => {
         onClick={() => setDirectionPicker("behovsanalys")}
         className="inline-flex items-center justify-between gap-2 bg-[#15130F] hover:bg-[#1d1b16] border border-[#3A332A] hover:border-[hsl(var(--signature))] rounded px-3 py-2.5 text-[13px] font-semibold text-white transition-colors text-left"
       >
-        <span>Nej – starta behovsanalys</span>
+        <span>Nja, men bra att starta med en behovsanalys</span>
         <ArrowRight className="w-4 h-4 text-[hsl(var(--signature))]" />
       </button>
       <Link
