@@ -56,20 +56,20 @@ const Navbar = () => {
           <div className="flex h-9 items-center justify-end gap-5 text-sm">
             <Link
               to="/AI-sok/"
-              className="inline-flex items-center gap-1.5 font-medium text-[hsl(var(--signature))] hover:text-white transition-colors"
+              className="inline-flex items-center gap-1.5 font-medium text-white/70 hover:text-[hsl(var(--signature))] transition-colors"
             >
               <Sparkles className="h-3.5 w-3.5" />
               AI-sök
             </Link>
             <Link
               to="/kunskapscenter"
-              className="font-medium text-white/70 hover:text-white transition-colors"
+              className="font-medium text-white/70 hover:text-[hsl(var(--signature))] transition-colors"
             >
               Kunskapscenter & Events
             </Link>
             <Link
               to="/kontakt/"
-              className="font-medium text-white/70 hover:text-white transition-colors"
+              className="font-medium text-white/70 hover:text-[hsl(var(--signature))] transition-colors"
             >
               Kontakt
             </Link>
@@ -233,62 +233,62 @@ const Navbar = () => {
           {/* Mobile Menu */}
           <Sheet>
             <SheetTrigger asChild className="lg:hidden">
-              <Button variant="ghost" size="icon" aria-label="Open navigation menu" className="text-white hover:text-[hsl(var(--signature))] hover:bg-white/10">
+              <Button variant="ghost" size="icon" aria-label="Open navigation menu" className="text-white hover:text-[hsl(var(--signature))]">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
             <SheetContent className="overflow-y-auto">
               <div className="flex flex-col gap-4 mt-8 pb-8">
-                <Link to="/AI-sok/" className="inline-flex items-center gap-2 text-lg font-medium text-primary hover:text-primary/80 transition-colors">
+                <Link to="/AI-sok/" className="inline-flex items-center gap-2 text-lg font-medium text-primary hover:text-[hsl(var(--signature))] transition-colors">
                   <Sparkles className="h-4 w-4" /> AI-sök
                 </Link>
                 <Link
                   to="/branscher/"
-                  className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+                  className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
                 >
                   Hitta din bransch & partner
                 </Link>
                 {/* Branschlösningar – dold tills vidare */}
                 <Link
                   to="/valjdynamics365partner/"
-                  className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+                  className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
                 >
                   Hitta Dynamics&nbsp;365-partner
                 </Link>
                 <Link
                   to="/partners-per-bransch/"
-                  className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+                  className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
                 >
                   🏭 Partners per bransch
                 </Link>
                 <Link
                   to="/upphandlingsguiden/"
-                  className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+                  className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
                 >
                   🗺️ Upphandlingsguiden
                 </Link>
                 <div className="flex flex-col gap-2 ml-4">
                   <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Börja med en behovsanalys</span>
-                  <Link to="/ERPbehovsanalys/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
+                  <Link to="/ERPbehovsanalys/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     📊 ERP (Affärssystem)
                   </Link>
-                  <Link to="/CRMbehovsanalys/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
+                  <Link to="/CRMbehovsanalys/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     📈 Sälj & Marknad (CRM)
                   </Link>
-                  <Link to="/kundservice-behovsanalys/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
+                  <Link to="/kundservice-behovsanalys/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     🎧 Kundservice (Ärendehantering), Fältservice & Contact Center
                   </Link>
-                  <Link to="/ai-readiness/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
+                  <Link to="/ai-readiness/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     🤖 AI Readiness Assessment
                   </Link>
-                  <Link to="/beslutsmognad/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
+                  <Link to="/beslutsmognad/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     📋 Beslutsmognadsindex
                   </Link>
-                  <Link to="/kunskapscenter/upphandlingsresan" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
+                  <Link to="/kunskapscenter/upphandlingsresan" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     🗺️ Upphandlingsresan
                   </Link>
                   <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide mt-2">Guide</span>
-                  <Link to="/valjdynamics365partner/?ai=1" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
+                  <Link to="/valjdynamics365partner/?ai=1" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     📘 Så väljer du rätt Dynamics&nbsp;365-partner
                   </Link>
                 </div>
@@ -299,7 +299,7 @@ const Navbar = () => {
                       <Link
                         key={item.path}
                         to={item.path}
-                        className="text-base font-medium text-muted-foreground hover:text-primary transition-colors"
+                        className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors"
                       >
                         {item.label}
                       </Link>
@@ -313,7 +313,7 @@ const Navbar = () => {
                       <Link
                         key={item.path}
                         to={item.path}
-                        className="text-base font-medium text-muted-foreground hover:text-primary transition-colors"
+                        className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors"
                       >
                         {item.label}
                       </Link>
@@ -327,7 +327,7 @@ const Navbar = () => {
                       <Link
                         key={item.path}
                         to={item.path}
-                        className="text-base font-medium text-muted-foreground hover:text-primary transition-colors"
+                        className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors"
                       >
                         {item.label}
                       </Link>
@@ -341,7 +341,7 @@ const Navbar = () => {
                       href={item.path}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+                      className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
                     >
                       {item.label}
                     </a>
@@ -349,7 +349,7 @@ const Navbar = () => {
                     <Link
                       key={item.path}
                       to={item.path}
-                      className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+                      className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
                     >
                       {item.label}
                     </Link>
