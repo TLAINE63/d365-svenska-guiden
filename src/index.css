@@ -59,6 +59,7 @@ All colors MUST be HSL.
     --line-dark: 30 9% 15%;             /* #2A2723 */
     --accent-light: 156 47% 92%;        /* #E3F4EE – ljus grön bg */
     --muted-dark: 24 5% 58%;            /* #9A9490 – text på svart */
+    --border-on-dark: 36 18% 81%;       /* #D8D1C6 – sekundär knapp på mörk bg */
 
     /* ─── Literal färg-aliases (för direkt användning i komponenter) ─── */
     --color-masthead: #161511;

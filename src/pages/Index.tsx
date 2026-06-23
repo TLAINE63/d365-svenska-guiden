@@ -386,7 +386,8 @@ const Index = () => {
  <Button
  asChild
  size="lg"
- className="bg-white text-[hsl(var(--hero-dark))] hover:bg-white/90 h-12 sm:h-14 px-6 rounded font-bold w-full md:w-auto justify-center hover:-translate-y-0.5 transition-all flex-shrink-0"
+  className="bg-transparent text-white hover:bg-white/10 hover:text-white h-12 sm:h-14 px-6 rounded font-bold w-full md:w-auto justify-center hover:-translate-y-0.5 transition-all flex-shrink-0"
+  style={{ border: "1px solid #D8D1C6" }}
  >
  <Link to="/beslutsmognad/">
  Starta Mognadsindex
@@ -459,7 +460,7 @@ const Index = () => {
  </div>
  <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
  <div className="text-center mb-10 sm:mb-12">
- <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-3">Hitta er ingång</span>
+ <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-[hsl(var(--signature))] mb-3">Hitta er ingång</span>
  <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-foreground tracking-tight mb-3">Vad stämmer bäst på er just nu?</h2>
  <p className="text-sm sm:text-base text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed">Välj situation — så guidar vi er till rätt verktyg, kunskap och partnerförslag utifrån var ni faktiskt befinner er.</p>
  </div>
@@ -524,7 +525,7 @@ const Index = () => {
  <div className="flex flex-col gap-12 lg:gap-16">
  {/* Left: Thomas Laine & Michael Uhman */}
  <div className="flex flex-col items-start">
- <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-3">Vem står bakom d365.se</span>
+ <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-[hsl(var(--signature))] mb-3">Vem står bakom d365.se</span>
  <h2 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight mb-6">
  Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner
  </h2>
@@ -779,7 +780,7 @@ const Index = () => {
  className="group flex items-center justify-between gap-3 bg-card border border-border rounded-[10px] px-4 py-3 text-[13px] font-medium text-foreground hover:border-primary/50 hover:text-primary hover:bg-primary/[0.03] hover:-translate-y-0.5 transition-all duration-200"
  >
  <span className="flex-1">{g.text}</span>
- <span className="text-[10px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-2 py-0.5 rounded whitespace-nowrap">{g.tag}</span>
+ <span className="text-[10px] font-semibold uppercase tracking-wider text-[hsl(var(--signature))] bg-primary/10 px-2 py-0.5 rounded whitespace-nowrap">{g.tag}</span>
  </Link>
  ))}
  </div>
@@ -792,7 +793,7 @@ const Index = () => {
  <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
  <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-8">
  <div>
- <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-2">Branschvägar</span>
+ <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-[hsl(var(--signature))] mb-2">Branschvägar</span>
  <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">Vägledning per bransch</h2>
  <p className="text-sm text-muted-foreground mt-2 max-w-xl">Olika branscher har olika krav på Dynamics 365 — välj er och se relevant innehåll och partners.</p>
  </div>

@@ -27,7 +27,7 @@ const ShortAnswer = ({ title = "Kort svar", children, className = "" }: ShortAns
           <div className="rounded border border-primary/20 bg-primary/[0.04] p-5 sm:p-7 ">
             <div className="flex items-center gap-2 mb-3">
               <Sparkles className="w-4 h-4 text-primary" aria-hidden="true" />
-              <h2 className="text-sm sm:text-base font-bold uppercase tracking-[0.12em] text-primary m-0">
+              <h2 className="text-sm sm:text-base font-bold uppercase tracking-[0.12em] text-[hsl(var(--signature))] m-0">
                 {title}
               </h2>
             </div>
