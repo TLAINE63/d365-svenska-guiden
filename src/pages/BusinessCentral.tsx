@@ -15,6 +15,7 @@ import { SizeFilters } from "@/components/SizeFilters";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerCard from "@/components/PartnerCard";
 import BuyerManual from "@/components/BuyerManual";
+import CostBreakdown from "@/components/CostBreakdown";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
@@ -616,6 +617,7 @@ const BusinessCentral = () => {
  </section>
 
       <BuyerManual product="business-central" />
+      <CostBreakdown product="business-central" />
 
       {/* Partners Section */}
       <section id="partners" className="py-12 sm:py-16 md:py-20 bg-secondary/50">
