@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ApplicationPartners from "@/components/ApplicationPartners";
+import BuyerManual from "@/components/BuyerManual";
 import { FileText } from "lucide-react";
 import { useEffect } from "react";
 import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
@@ -77,6 +78,8 @@ const D365ProjectOperations = () => {
           </div>
         </div>
       </section>
+
+      <BuyerManual product="project-operations" />
 
       <ApplicationPartners applicationFilter="Project Operations" pageSource="D365 Project Operations" filterMode="companySize" />
 

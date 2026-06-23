@@ -8,6 +8,7 @@ import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import ApplicationPartners from "@/components/ApplicationPartners";
+import BuyerManual from "@/components/BuyerManual";
 import { ArrowRight, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
@@ -345,6 +346,8 @@ const D365CustomerService = () => {
       </section>
 
       {/* Partners Section */}
+      <BuyerManual product="customer-service" />
+
       <ApplicationPartners applicationFilter="Customer Service" pageSource="D365 Customer Service" />
 
       {/* CTA Section */}
