@@ -256,9 +256,8 @@ const Index = () => {
       <main>
       
       {/* Hero — Upphandlingsguiden */}
-      <section className="section-divider section-divider-dark bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] pt-24 sm:pt-28 md:pt-32 pb-10 sm:pb-14 relative overflow-hidden border-b border-white/10">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--cta-orange)/0.10),transparent_55%)]" />
+      <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-24 sm:pt-28 md:pt-32 pb-10 sm:pb-14 relative overflow-hidden border-b border-[hsl(var(--line-dark))]">
+
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
           <div className="max-w-4xl mb-6 sm:mb-8">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6 backdrop-blur">
@@ -276,7 +275,7 @@ const Index = () => {
               På d365.se får din verksamhet vägledning genom hela upphandlingsresan – från behovsanalys och hjälp att skriva kravspecifikation, till jämförelser av Dynamics 365-partners och fördjupade insikter i applikationerna. Allt samlat på ett ställe, så att ni kan fatta trygga beslut hela vägen fram till avtal och införande.
             </p>
             <p className="mt-3 inline-flex items-center gap-2 text-[12.5px] sm:text-[13px] text-white/65">
-              <Sparkles className="w-3.5 h-3.5 text-[hsl(180_75%_65%)]" />
+              <Sparkles className="w-3.5 h-3.5 text-[hsl(var(--signature))]" />
               AI-assisterat innehåll, granskat av erfarna Dynamics 365-rådgivare
             </p>
           </div>
@@ -324,7 +323,7 @@ const Index = () => {
                     className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/15 border border-white/25 text-[12px] font-bold uppercase tracking-[0.14em] text-white backdrop-blur shadow-lg"
                     aria-label="AI-assisterat"
                   >
-                    <Sparkles className="w-4 h-4 text-[hsl(180_75%_65%)]" />
+                    <Sparkles className="w-4 h-4 text-[hsl(var(--signature))]" />
                     AI
                   </span>
                 )}
@@ -363,16 +362,15 @@ const Index = () => {
           </div>
 
           {/* Full-width Mognadsindex CTA under the three steps */}
-          <div className="relative rounded-2xl overflow-hidden border border-white/15 bg-gradient-to-r from-white/[0.08] via-white/[0.05] to-[hsl(var(--cta-orange))]/[0.12] backdrop-blur-sm p-5 sm:p-7">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_right,hsl(var(--cta-orange)/0.18),transparent_60%)] pointer-events-none" />
+          <div className="relative rounded overflow-hidden border border-[hsl(var(--line-dark))] bg-white/[0.04] p-5 sm:p-7">
             <div className="relative flex flex-col md:flex-row md:items-center gap-5 md:gap-8">
               <div className="flex items-center gap-4 flex-1 min-w-0">
-                <div className="w-12 h-12 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center flex-shrink-0">
-                  <BarChart3 className="w-5 h-5 text-[hsl(180_75%_65%)]" />
+                <div className="w-12 h-12 rounded bg-white/10 border border-[hsl(var(--line-dark))] flex items-center justify-center flex-shrink-0">
+                  <BarChart3 className="w-5 h-5 text-[hsl(var(--signature))]" />
                 </div>
                 <div className="min-w-0">
                   <div className="flex items-center gap-2 mb-1.5">
-                    <span className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-[hsl(180_75%_65%)]">Komplement</span>
+                    <span className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-[hsl(var(--signature))]">Komplement</span>
                     <span className="text-white/25">·</span>
                     <span className="text-[10.5px] uppercase tracking-[0.14em] text-white/45">Nytt för 2026</span>
                   </div>
@@ -450,7 +448,7 @@ const Index = () => {
 
 
       {/* Block 3 — Hitta er ingång: situationskort */}
-      <section className="section-divider pt-14 sm:pt-20 pb-14 sm:pb-20 bg-[#E8EFF1] border-b border-border relative overflow-hidden">
+      <section className="section-divider pt-14 sm:pt-20 pb-14 sm:pb-20 bg-secondary border-b border-border relative overflow-hidden">
 
 
         {/* Subtle ambient background */}
@@ -603,9 +601,8 @@ const Index = () => {
       <HomePartnersTeaser />
 
       {/* Block — Beslutsmognadsindex CTA */}
-      <section className="section-divider section-divider-dark bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] py-14 sm:py-20 relative overflow-hidden border-b border-white/10">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--cta-orange)/0.10),transparent_55%)]" />
+      <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] py-14 sm:py-20 relative overflow-hidden border-b border-[hsl(var(--line-dark))]">
+
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             {/* Left: Text */}
@@ -682,8 +679,6 @@ const Index = () => {
                   </div>
                 </div>
               </div>
-              <div className="absolute -top-8 -right-8 w-48 h-48 bg-[hsl(var(--cta-orange))]/10 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
             </div>
           </div>
         </div>
@@ -692,7 +687,7 @@ const Index = () => {
 
 
       {/* Block 7 — Lär dig mer */}
-      <section className="section-divider py-14 sm:py-20 bg-[#E8EFF1] border-t border-border/60">
+      <section className="section-divider py-14 sm:py-20 bg-secondary border-t border-border/60">
 
 
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
