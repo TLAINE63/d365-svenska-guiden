@@ -773,12 +773,14 @@ const Kunskapscenter = () => {
  }
  };
 
- const hasActiveFilters = selectedFormats.length > 0 || selectedProducts.length > 0;
+ const hasActiveFilters =
+  selectedFormats.length > 0 || selectedProducts.length > 0 || activeTrack !== null;
 
  const clearAllFilters = () => {
- setActiveCategory("alla");
- setSelectedFormats([]);
- setSelectedProducts([]);
+  setActiveCategory("alla");
+  setSelectedFormats([]);
+  setSelectedProducts([]);
+  setActiveTrack(null);
  };
 
  return (
