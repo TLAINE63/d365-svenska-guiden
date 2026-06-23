@@ -108,7 +108,7 @@ const Navbar = () => {
             {/* Branschlösningar – dold tills vidare */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] transition-colors px-0">
+                <Button variant="ghost" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] hover:bg-transparent transition-colors px-0">
                   Upphandlingsverktyg
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
@@ -178,7 +178,7 @@ const Navbar = () => {
             </DropdownMenu>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] transition-colors px-0">
+                <Button variant="ghost" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] hover:bg-transparent transition-colors px-0">
                   Affärssystem (ERP)
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
@@ -195,7 +195,7 @@ const Navbar = () => {
             </DropdownMenu>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] transition-colors px-0">
+                <Button variant="ghost" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] hover:bg-transparent transition-colors px-0">
                   Marknad, Sälj & Service
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
@@ -212,7 +212,7 @@ const Navbar = () => {
             </DropdownMenu>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] transition-colors px-0">
+                <Button variant="ghost" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] hover:bg-transparent transition-colors px-0">
                   Microsoft AI
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
@@ -233,7 +233,7 @@ const Navbar = () => {
           {/* Mobile Menu */}
           <Sheet>
             <SheetTrigger asChild className="lg:hidden">
-              <Button variant="ghost" size="icon" aria-label="Open navigation menu" className="text-white hover:text-[hsl(var(--signature))]">
+              <Button variant="ghost" size="icon" aria-label="Open navigation menu" className="text-white hover:text-[hsl(var(--signature))] hover:bg-transparent">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
