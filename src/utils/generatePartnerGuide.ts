@@ -27,7 +27,7 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
   let y = 20;
 
   // Brand colors
-  const primaryColor = { r: 16, g: 185, b: 129 }; // Emerald/teal
+  const primaryColor = { r: 0, g: 107, b: 85 }; // #006B55 brand primary
   const darkColor = { r: 30, g: 41, b: 59 }; // Slate-800
   const mutedColor = { r: 100, g: 116, b: 139 }; // Slate-500
 

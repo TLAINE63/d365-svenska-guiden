@@ -1965,8 +1965,8 @@ Thomas`,
  Funnel
  </TabsTrigger>
  <TabsTrigger value="summary" className={`flex items-center gap-2 ${activeGroup === "statistik" ? "" : "hidden"}`}>
- <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-teal-500/20 to-teal-600/10 ring-1 ring-teal-400/20">
- <LayoutDashboard className="h-3.5 w-3.5 text-teal-300" strokeWidth={1.75} />
+  <span className="tab-icon p-1.5 rounded bg-emerald-600/15 ring-1 ring-emerald-400/20">
+  <LayoutDashboard className="h-3.5 w-3.5 text-emerald-300" strokeWidth={1.75} />
  </span>
  Emailsammanfattning
  </TabsTrigger>

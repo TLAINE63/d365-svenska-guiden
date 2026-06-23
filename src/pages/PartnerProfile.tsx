@@ -436,12 +436,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  <header className="relative overflow-hidden mt-16 text-slate-900">
  {/* Always-light background regardless of theme */}
  <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-slate-100" />
- <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-teal-100/40 via-transparent to-transparent" />
- <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-sky-100/30 via-transparent to-transparent" />
- 
- {/* Subtle floating orbs */}
- <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-br from-teal-200/20 to-sky-200/10 rounded blur-[100px]" />
- <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-gradient-to-tr from-sky-200/15 to-teal-200/10 rounded blur-[80px]" />
+  {/* Flat secondary backdrop — no teal, no orbs */}
  
  {/* Subtle grid pattern overlay */}
  <div className="absolute inset-0 opacity-[0.04]" style={{ 
@@ -590,14 +585,14 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  return cities && cities.length > 0 ? (
  <div className="mt-5 flex flex-wrap justify-center items-center gap-x-3 gap-y-2">
  <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-500">
- <MapPin className="w-3.5 h-3.5 text-teal-600" />
- Kontor
- </span>
- <div className="flex flex-wrap justify-center gap-1.5">
- {cities.map((city) => (
- <span
- key={city}
- className="inline-flex items-center px-2.5 py-1 rounded bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:border-teal-300 hover:text-teal-700 transition-colors"
+  <MapPin className="w-3.5 h-3.5 text-[hsl(var(--primary))]" />
+  Kontor
+  </span>
+  <div className="flex flex-wrap justify-center gap-1.5">
+  {cities.map((city) => (
+  <span
+  key={city}
+  className="inline-flex items-center px-2.5 py-1 rounded bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:border-[hsl(var(--primary))] hover:text-[hsl(var(--primary))] transition-colors"
  >
  {city}
  </span>

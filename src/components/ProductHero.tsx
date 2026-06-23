@@ -16,7 +16,7 @@ interface ProductHeroProps {
   eyebrow?: string;
   /** First line of H1 — rendered in white. */
   title: string;
-  /** Second line of H1 — rendered in italic accent teal. Forced linebreak between. */
+  /** Second line of H1 — rendered in italic signature accent. Forced linebreak between. */
   titleAccent?: string;
   /** d365.se-voice subhead — independent perspective, not Microsoft blurb. */
   subhead: string;

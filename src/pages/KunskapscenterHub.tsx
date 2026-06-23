@@ -27,7 +27,7 @@ const TYPE_LABEL: Record<HubResourceCard["type"], string> = {
 const TYPE_BADGE: Record<HubResourceCard["type"], string> = {
   fordjupning: "bg-primary text-primary-foreground border-primary",
   artikel: "bg-slate-600 text-white border-slate-600",
-  verktyg: "bg-teal-600 text-white border-teal-600",
+  verktyg: "bg-[hsl(var(--primary))] text-white border-[hsl(var(--primary))]",
   guide: "bg-indigo-600 text-white border-indigo-600",
   video: "bg-rose-600 text-white border-rose-600",
 };
