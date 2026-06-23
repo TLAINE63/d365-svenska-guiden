@@ -82,9 +82,10 @@ const ProductHero = ({
   photoAlt,
 }: ProductHeroProps) => {
   return (
-    <section className="bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] border-b border-primary/20 relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--primary)/0.08),transparent_50%)]" />
+    <section
+      className="bg-[hsl(var(--hero-dark))] relative overflow-hidden"
+      style={{ borderBottom: "1px solid hsl(var(--line-dark))" }}
+    >
 
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl pt-28 sm:pt-32 md:pt-36 pb-10 sm:pb-14 md:pb-16 relative">
         <div className="grid lg:grid-cols-[1fr_auto] gap-8 lg:gap-12 items-center">
@@ -110,7 +111,7 @@ const ProductHero = ({
             <h1 className="text-[26px] sm:text-4xl md:text-[44px] font-semibold leading-[1.2] sm:leading-[1.25] tracking-tight text-white mb-6 sm:mb-12 max-w-3xl">
               <span className="block mb-2 sm:mb-6">{title}</span>
               {titleAccent && (
-                <span className="block text-[hsl(180_75%_65%)] font-normal italic">
+                <span className="block text-[hsl(var(--muted-dark))] font-normal italic">
                   {titleAccent}
                 </span>
               )}
