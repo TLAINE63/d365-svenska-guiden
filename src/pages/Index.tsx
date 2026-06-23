@@ -316,8 +316,8 @@ const Index = () => {
  ].map((step) => (
   <div
   key={step.n}
-  className="group relative bg-[#1E1C18] rounded p-5 sm:p-6 hover:bg-[#24221E] transition-all flex flex-col"
-  style={{ border: "0.5px solid #2A2723" }}
+  className="group relative bg-[#211F1A] rounded p-5 sm:p-6 hover:bg-[#2A2823] transition-all flex flex-col"
+  style={{ border: "0.5px solid #3A332A" }}
   >
  {step.aiPowered && (
  <span

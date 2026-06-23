@@ -11,8 +11,8 @@ All colors MUST be HSL.
     /* ─── d365.se Editorial palette v3 ───
        Bakgrunder: Black #161511, Bg #F5F2EC, Warm #FBF8F2, White #FFFFFF
        Text: Ink #181512, Muted #6F6A61, Dark muted #9A9490
-       Linjer: Line #D8D1C6, Dark border #2A2723
-       Accenter: Red #D64A1F (tags/eyebrows/logo), Green #006B55 (CTA/links),
+       Linjer: Line #D8D1C6, Dark border #3A332A
+       Accenter: Red #D64A1F (tags/eyebrows/logo), Green #007C68 (CTA/links),
                  Green bg #E3F4EE (AI-label, active chips)
        Regler: röd aldrig som löptext; radius max 4px; inga skuggor/gradienter.
     */
@@ -25,9 +25,9 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 30 14% 8%;
 
-    --primary: 168 100% 21%;            /* Green #006B55 – CTA/länk */
+    --primary: 170 100% 24%;            /* Green #007C68 – CTA/länk */
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 168 100% 26%;
+    --primary-glow: 170 100% 28%;
 
     --secondary: 40 53% 97%;            /* Warm #FBF8F2 – TAYA-band */
     --secondary-foreground: 30 14% 8%;
@@ -35,44 +35,44 @@ All colors MUST be HSL.
     --muted: 40 26% 94%;                /* #F5F2EC */
     --muted-foreground: 35 7% 41%;      /* #6F6A61 – metadata */
 
-    --accent: 167 100% 21%;             /* Green – CTA/link accent */
+    --accent: 170 100% 24%;             /* Green – CTA/link accent */
     --accent-foreground: 0 0% 100%;
 
-    --success: 167 100% 21%;            /* Green */
+    --success: 170 100% 24%;            /* Green */
     --success-foreground: 0 0% 100%;
 
     --warning: 14 75% 48%;              /* Red #D64A1F – insight/warning */
     --warning-foreground: 0 0% 100%;
 
-    /* CTA – green #006B55. Token-namnet bibehålls för bakåtkompatibilitet. */
-    --cta-orange: 168 100% 21%;
-    --cta-orange-hover: 168 100% 16%;
+    /* CTA – green #007C68. Token-namnet bibehålls för bakåtkompatibilitet. */
+    --cta-orange: 170 100% 24%;
+    --cta-orange-hover: 170 100% 19%;
 
     /* Editorial signatur – Red #D64A1F. Endast text/tagg/eyebrow, aldrig bakgrund (utom röd rubrik-bar). */
     --signature: 14 75% 48%;
     --signature-foreground: 0 0% 100%;
 
     /* Mörka zon-tokens (masthead, hero, footer, sidebar headers) */
-    --hero-dark: 42 13% 8%;             /* #161511 */
-    --petrol: 42 13% 8%;                /* alias → svart */
-    --card-dark: 42 13% 8%;
-    --line-dark: 30 9% 15%;             /* #2A2723 */
+    --hero-dark: 40 17% 7%;             /* #15130F */
+    --petrol: 40 17% 7%;                /* alias → svart */
+    --card-dark: 40 17% 7%;
+    --line-dark: 30 16% 20%;            /* #3A332A */
     --accent-light: 156 47% 92%;        /* #E3F4EE – ljus grön bg */
     --muted-dark: 24 5% 58%;            /* #9A9490 – text på svart */
     --border-on-dark: 36 18% 81%;       /* #D8D1C6 – sekundär knapp på mörk bg */
 
     /* ─── Literal färg-aliases (för direkt användning i komponenter) ─── */
-    --color-masthead: #161511;
+    --color-masthead: #15130F;
     --color-bg: #F5F2EC;
     --color-warm: #FBF8F2;
     --color-white: #FFFFFF;
     --color-ink: #181512;
     --color-muted: #6F6A61;
     --color-dark-muted: #9A9490;
-    --color-dark-border: #2A2723;
+    --color-dark-border: #3A332A;
     --color-line: #D8D1C6;
     --color-accent: #D64A1F;
-    --color-cta: #006B55;
+    --color-cta: #007C68;
     --color-cta-bg: #E3F4EE;
 
 
