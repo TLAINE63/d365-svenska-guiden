@@ -233,7 +233,7 @@ const Navbar = () => {
           {/* Mobile Menu */}
           <Sheet>
             <SheetTrigger asChild className="lg:hidden">
-              <Button variant="ghost" size="icon" aria-label="Open navigation menu">
+              <Button variant="ghost" size="icon" aria-label="Open navigation menu" className="text-white hover:text-[hsl(var(--signature))] hover:bg-white/10">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
