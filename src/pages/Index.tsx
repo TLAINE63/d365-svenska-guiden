@@ -445,7 +445,7 @@ const Index = () => {
  Mognadsindex — hur redo är ert beslutsunderlag?
  </h2>
  <p className="text-[13.5px] text-white/60 leading-relaxed mt-1">
- En diagnostik på 8–10 minuter. Få en personlig mognadsprofil, peer benchmark och tre konkreta rekommendationer.
+ En diagnostik på 8–10 minuter. Få en personlig mognadsprofil, peer benchmark och konkreta rekommendationer.
  </p>
  </div>
  </div>
