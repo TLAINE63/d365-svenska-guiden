@@ -161,6 +161,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/ERPbehovsanalys', priority: '0.8', changefreq: 'monthly' },
   { path: '/CRMbehovsanalys', priority: '0.7', changefreq: 'monthly' },
   { path: '/kundservice-behovsanalys', priority: '0.7', changefreq: 'monthly' },
+  { path: '/beslutsmognad', priority: '0.7', changefreq: 'monthly' },
   { path: '/events', priority: '0.8', changefreq: 'weekly' },
   { path: '/qa', priority: '0.6', changefreq: 'monthly' },
   { path: '/kontakt', priority: '0.7', changefreq: 'monthly' },
