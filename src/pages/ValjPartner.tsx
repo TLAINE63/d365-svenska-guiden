@@ -24,8 +24,8 @@ import { resolvePriceTokens } from "@/lib/productPriceFormat";
 
 // Breadcrumb items
 const partnerBreadcrumbs = [
-  { name: "Hem", url: "https://d365.se" },
-  { name: "Välj Partner", url: "https://d365.se/valjdynamics365partner" },
+ { name: "Hem", url: "https://d365.se" },
+ { name: "Välj Partner", url: "https://d365.se/valjdynamics365partner" },
 ];
 import { allIndustries } from "@/data/partners";
 import { useCoveredIndustries } from "@/hooks/useCoveredIndustries";
@@ -37,81 +37,81 @@ import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 
 // Partner FAQs for schema – priser hämtas från product_prices via resolvePriceTokens
 const partnerFaqsRaw = [
-  {
-    question: "Hur hittar jag rätt Dynamics 365 partner i Sverige?",
-    answer: "Hitta rätt Dynamics 365 partner i Sverige genom att filtrera på din bransch, vald applikation (Business Central, Sales, Customer Service m.fl.) och geografisk täckning. Välj en partner med dokumenterad erfarenhet i din bransch, relevant referensuppdrag och Microsoft-certifiering (Solutions Partner). På d365.se kan du jämföra partners kostnadsfritt och begära matchning."
-  },
-  {
-    question: "Vad är skillnaden mellan olika Dynamics 365 partners i Sverige?",
-    answer: "Business Central partner jämförelse: partners skiljer sig i storlek (10–500 konsulter), branschfokus, pris och certifieringsnivå. Stora partners som Stena/Systeam har bredare kapacitet men kan vara dyrare. Mellanstora nischade partners erbjuder ofta djupare branschkompetens och bättre tillgänglighet. Nyckelskillnader: antal certifierade konsulter, antal genomförda projekt, kundreferenser och supportmodell."
-  },
-  {
-    question: "Vad innebär Microsoft-certifiering för Dynamics 365 partners?",
-    answer: "Microsoft-certifierade partners (Solutions Partner) har genomgått Microsofts kvalitetsgranskning och uppfyller krav på antal certifierade konsulter, kundnöjdhet och genomförda projekt. Det finns fyra specialiseringar relevanta för Dynamics 365: Business Applications (ERP), Business Applications (CRM), Modern Work och Azure. En certifierad Microsoft partner ger högre trygghet vid implementering och ger kunden tillgång till Microsofts supportkanaler."
-  },
-  {
-    question: "Hur mycket kostar ett Dynamics 365-implementeringsprojekt?",
-    answer: "Implementeringskostnader varierar kraftigt: Business Central för SMB (10–50 användare) kostar typiskt 200 000–800 000 kr i konsulttid. Finance & Supply Chain för större företag kan kosta 1–5 MSEK. Faktorer som påverkar: antal användare, komplexitet av integrationer, befintliga system, branschspecifika krav och vald partner. Licenskostnaden tillkommer – Business Central från {{price:bc-essentials}}."
-  },
-  {
-    question: "Har partnern erfarenhet av vår bransch?",
-    answer: "Välj en partner med erfarenhet från liknande projekt och som förstår era specifika krav inom er bransch. Många partners har branschspecifika lösningar och acceleratorer som kortar implementationstiden. Be alltid om 2–3 referensuppdrag från liknande bolag i er bransch."
-  },
-  {
-    question: "Hur ser en bra Dynamics 365-implementationsmetodik ut?",
-    answer: "Bra partners arbetar enligt beprövade metoder som Microsofts Success by Design och erbjuder tydlig projektledning, förändringsledning och utbildning. Be partnern beskriva hur de hanterar scope creep, förseningar och ändrade krav – det avslöjar deras professionalism."
-  },
-  {
-    question: "Vilken support erbjuder Dynamics 365-partners efter implementationen?",
-    answer: "Kontrollera att det finns tydlig plan för support, uppgraderingar och vidareutveckling med dedikerad supportorganisation och SLA:er. Microsoft releases 2 release waves per år – fråga hur partnern hanterar uppgraderingar och om de ingår i supportavtalet."
-  },
-  {
-    question: "Hur transparenta är Dynamics 365-partners med kostnader?",
-    answer: "Be om tydlig offert med alla kostnader specificerade – konsulttimmar, licenser, tredjepartslösningar och löpande support. Fråga specifikt hur de hanterar förändringar i projektomfattning (change requests) och om de erbjuder fast pris eller löpande räkning."
-  },
+ {
+ question: "Hur hittar jag rätt Dynamics 365 partner i Sverige?",
+ answer: "Hitta rätt Dynamics 365 partner i Sverige genom att filtrera på din bransch, vald applikation (Business Central, Sales, Customer Service m.fl.) och geografisk täckning. Välj en partner med dokumenterad erfarenhet i din bransch, relevant referensuppdrag och Microsoft-certifiering (Solutions Partner). På d365.se kan du jämföra partners kostnadsfritt och begära matchning."
+ },
+ {
+ question: "Vad är skillnaden mellan olika Dynamics 365 partners i Sverige?",
+ answer: "Business Central partner jämförelse: partners skiljer sig i storlek (10–500 konsulter), branschfokus, pris och certifieringsnivå. Stora partners som Stena/Systeam har bredare kapacitet men kan vara dyrare. Mellanstora nischade partners erbjuder ofta djupare branschkompetens och bättre tillgänglighet. Nyckelskillnader: antal certifierade konsulter, antal genomförda projekt, kundreferenser och supportmodell."
+ },
+ {
+ question: "Vad innebär Microsoft-certifiering för Dynamics 365 partners?",
+ answer: "Microsoft-certifierade partners (Solutions Partner) har genomgått Microsofts kvalitetsgranskning och uppfyller krav på antal certifierade konsulter, kundnöjdhet och genomförda projekt. Det finns fyra specialiseringar relevanta för Dynamics 365: Business Applications (ERP), Business Applications (CRM), Modern Work och Azure. En certifierad Microsoft partner ger högre trygghet vid implementering och ger kunden tillgång till Microsofts supportkanaler."
+ },
+ {
+ question: "Hur mycket kostar ett Dynamics 365-implementeringsprojekt?",
+ answer: "Implementeringskostnader varierar kraftigt: Business Central för SMB (10–50 användare) kostar typiskt 200 000–800 000 kr i konsulttid. Finance & Supply Chain för större företag kan kosta 1–5 MSEK. Faktorer som påverkar: antal användare, komplexitet av integrationer, befintliga system, branschspecifika krav och vald partner. Licenskostnaden tillkommer – Business Central från {{price:bc-essentials}}."
+ },
+ {
+ question: "Har partnern erfarenhet av vår bransch?",
+ answer: "Välj en partner med erfarenhet från liknande projekt och som förstår era specifika krav inom er bransch. Många partners har branschspecifika lösningar och acceleratorer som kortar implementationstiden. Be alltid om 2–3 referensuppdrag från liknande bolag i er bransch."
+ },
+ {
+ question: "Hur ser en bra Dynamics 365-implementationsmetodik ut?",
+ answer: "Bra partners arbetar enligt beprövade metoder som Microsofts Success by Design och erbjuder tydlig projektledning, förändringsledning och utbildning. Be partnern beskriva hur de hanterar scope creep, förseningar och ändrade krav – det avslöjar deras professionalism."
+ },
+ {
+ question: "Vilken support erbjuder Dynamics 365-partners efter implementationen?",
+ answer: "Kontrollera att det finns tydlig plan för support, uppgraderingar och vidareutveckling med dedikerad supportorganisation och SLA:er. Microsoft releases 2 release waves per år – fråga hur partnern hanterar uppgraderingar och om de ingår i supportavtalet."
+ },
+ {
+ question: "Hur transparenta är Dynamics 365-partners med kostnader?",
+ answer: "Be om tydlig offert med alla kostnader specificerade – konsulttimmar, licenser, tredjepartslösningar och löpande support. Fråga specifikt hur de hanterar förändringar i projektomfattning (change requests) och om de erbjuder fast pris eller löpande räkning."
+ },
 ];
 const partnerFaqs = partnerFaqsRaw.map((f) => ({ ...f, answer: resolvePriceTokens(f.answer) }));
 
 
 // All available Dynamics 365 applications for filtering
 const allApplications = [
-  "Business Central",
-  "Finance & SCM",
-  "Sales",
-  "Customer Service",
-  "Customer Insights (Marketing)",
-  "Field Service",
-  "Contact Center",
-  "Project Operations",
-  "Commerce",
-  "Human Resources"
+ "Business Central",
+ "Finance & SCM",
+ "Sales",
+ "Customer Service",
+ "Customer Insights (Marketing)",
+ "Field Service",
+ "Contact Center",
+ "Project Operations",
+ "Commerce",
+ "Human Resources"
 ];
 
 // Geography filter options
 const geographyFilters = [
-  { label: "Sverige", value: "Sverige" },
-  { label: "Norden", value: "Norden" },
-  { label: "Europa", value: "Europa" },
-  { label: "Övriga världen", value: "Övriga världen" }
+ { label: "Sverige", value: "Sverige" },
+ { label: "Norden", value: "Norden" },
+ { label: "Europa", value: "Europa" },
+ { label: "Övriga världen", value: "Övriga världen" }
 ];
 
 // Helper function to convert company sizes to readable categories
 const getCompanySizeCategories = (sizes: string[]): string[] => {
-  const categories = new Set<string>();
-  
-  sizes.forEach(size => {
-    if (size === "1-49" || size === "50-99") {
-      categories.add("SMB (1-99 anställda)");
-    }
-    if (size === "100-249" || size === "250-999") {
-      categories.add("Mid-market (100-999)");
-    }
-    if (size === "1.000-4.999" || size === ">5.000") {
-      categories.add("Enterprise (1.000+)");
-    }
-  });
-  
-  return Array.from(categories);
+ const categories = new Set<string>();
+ 
+ sizes.forEach(size => {
+ if (size === "1-49" || size === "50-99") {
+ categories.add("SMB (1-99 anställda)");
+ }
+ if (size === "100-249" || size === "250-999") {
+ categories.add("Mid-market (100-999)");
+ }
+ if (size === "1.000-4.999" || size === ">5.000") {
+ categories.add("Enterprise (1.000+)");
+ }
+ });
+ 
+ return Array.from(categories);
 };
 
 // Product key type matching the database structure
@@ -119,27 +119,27 @@ type ProductKey = 'bc' | 'fsc' | 'sales' | 'service';
 
 // Map application names to product keys
 const getProductKeysForApp = (app: string): ProductKey[] => {
-  switch (app) {
-    case "Business Central":
-      return ['bc'];
-    case "Finance & SCM":
-      return ['fsc'];
-    case "Sales":
-      return ['sales'];
-    case "Customer Service":
-    case "Field Service":
-    case "Contact Center":
-      return ['service'];
-    case "Customer Insights (Marketing)":
-      return ['sales']; // Marketing is grouped with sales
-    // Specialty products - no product key mapping, filtered via applications array
-    case "Project Operations":
-    case "Commerce":
-    case "Human Resources":
-      return []; // These are standalone products
-    default:
-      return [];
-  }
+ switch (app) {
+ case "Business Central":
+ return ['bc'];
+ case "Finance & SCM":
+ return ['fsc'];
+ case "Sales":
+ return ['sales'];
+ case "Customer Service":
+ case "Field Service":
+ case "Contact Center":
+ return ['service'];
+ case "Customer Insights (Marketing)":
+ return ['sales']; // Marketing is grouped with sales
+ // Specialty products - no product key mapping, filtered via applications array
+ case "Project Operations":
+ case "Commerce":
+ case "Human Resources":
+ return []; // These are standalone products
+ default:
+ return [];
+ }
 };
 
 // Specialty products that are filtered via applications array, not product_filters
@@ -147,827 +147,827 @@ const specialtyProducts = ["Project Operations", "Commerce", "Human Resources"];
 
 // Helper to check if a database partner matches product filter criteria
 const matchesDbProductFilter = (
-  partner: DatabasePartner, 
-  productKey: ProductKey,
-  industry?: string,
-  companySize?: string,
-  geography?: string,
-  _regions?: unknown,
-  revenue?: string
+ partner: DatabasePartner, 
+ productKey: ProductKey,
+ industry?: string,
+ companySize?: string,
+ geography?: string,
+ _regions?: unknown,
+ revenue?: string
 ): boolean => {
-  const productFilter = partner.product_filters?.[productKey];
-  if (!productFilter) return false;
-  
-  // Check industry filter
-  if (industry && !productFilter.industries?.includes(industry)) {
-    return false;
-  }
-  
-  // Soft company size filter (empty target = match all)
-  if (companySize) {
-    const targets = productFilter.companySize || [];
-    if (targets.length > 0 && !targets.includes(companySize)) return false;
-  }
+ const productFilter = partner.product_filters?.[productKey];
+ if (!productFilter) return false;
+ 
+ // Check industry filter
+ if (industry && !productFilter.industries?.includes(industry)) {
+ return false;
+ }
+ 
+ // Soft company size filter (empty target = match all)
+ if (companySize) {
+ const targets = productFilter.companySize || [];
+ if (targets.length > 0 && !targets.includes(companySize)) return false;
+ }
 
-  // Soft revenue filter (empty target = match all)
-  if (revenue) {
-    const targets = productFilter.revenue || [];
-    if (targets.length > 0 && !targets.includes(revenue)) return false;
-  }
-  
-  // Check geography filter with hierarchy
-  if (geography) {
-    const partnerGeo = Array.isArray(productFilter.geography) ? productFilter.geography : (productFilter.geography ? [productFilter.geography] : ["Sverige"]);
-    const geographyHierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
-    const selectedGeoIndex = geographyHierarchy.indexOf(geography);
-    const maxPartnerGeoIndex = Math.max(...partnerGeo.map(g => geographyHierarchy.indexOf(g)));
-    if (maxPartnerGeoIndex < selectedGeoIndex) {
-      return false;
-    }
-  }
-  
-  return true;
+ // Soft revenue filter (empty target = match all)
+ if (revenue) {
+ const targets = productFilter.revenue || [];
+ if (targets.length > 0 && !targets.includes(revenue)) return false;
+ }
+ 
+ // Check geography filter with hierarchy
+ if (geography) {
+ const partnerGeo = Array.isArray(productFilter.geography) ? productFilter.geography : (productFilter.geography ? [productFilter.geography] : ["Sverige"]);
+ const geographyHierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
+ const selectedGeoIndex = geographyHierarchy.indexOf(geography);
+ const maxPartnerGeoIndex = Math.max(...partnerGeo.map(g => geographyHierarchy.indexOf(g)));
+ if (maxPartnerGeoIndex < selectedGeoIndex) {
+ return false;
+ }
+ }
+ 
+ return true;
 };
 
 // Helper to get product ranking from database partner
 const getDbProductRanking = (partner: DatabasePartner, productKey: ProductKey): number => {
-  return partner.product_filters?.[productKey]?.ranking ?? 999;
+ return partner.product_filters?.[productKey]?.ranking ?? 999;
 };
 
 const ValjPartner = () => {
-  const { data: dbPartners, isLoading } = usePartners();
-  const [searchParams] = useSearchParams();
-  const aiParam = searchParams.get("ai");
-  const [showLeadMagnet, setShowLeadMagnet] = useState(true);
-  const [guideOpen, setGuideOpen] = useState(!!aiParam);
+ const { data: dbPartners, isLoading } = usePartners();
+ const [searchParams] = useSearchParams();
+ const aiParam = searchParams.get("ai");
+ const [showLeadMagnet, setShowLeadMagnet] = useState(true);
+ const [guideOpen, setGuideOpen] = useState(!!aiParam);
 
-  // Re-open guide when navigating to /valjdynamics365partner/?ai=1 from elsewhere
-  // (e.g. Navbar "Så väljer du rätt Dynamics 365-partner" menu item).
-  // Strip the ?ai=1 query so the URL stays clean.
-  useEffect(() => {
-    if (aiParam) {
-      setGuideOpen(true);
-      if (typeof window !== "undefined") {
-        const clean = window.location.pathname + window.location.hash;
-        window.history.replaceState(null, "", clean);
-      }
-    }
-  }, [aiParam]);
-  const [selectedApplications, setSelectedApplications] = useState<string[]>([]);
-  const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
-  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
-  const [selectedRevenue, setSelectedRevenue] = useState<string | null>(null);
-  const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
+ // Re-open guide when navigating to /valjdynamics365partner/?ai=1 from elsewhere
+ // (e.g. Navbar "Så väljer du rätt Dynamics 365-partner" menu item).
+ // Strip the ?ai=1 query so the URL stays clean.
+ useEffect(() => {
+ if (aiParam) {
+ setGuideOpen(true);
+ if (typeof window !== "undefined") {
+ const clean = window.location.pathname + window.location.hash;
+ window.history.replaceState(null, "", clean);
+ }
+ }
+ }, [aiParam]);
+ const [selectedApplications, setSelectedApplications] = useState<string[]>([]);
+ const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
+ const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
+ const [selectedRevenue, setSelectedRevenue] = useState<string | null>(null);
+ const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
 
-  // Filter to only show featured partners from database
-  const partners = useMemo(() => {
-    return (dbPartners || []).filter(p => p.is_featured === true);
-  }, [dbPartners]);
+ // Filter to only show featured partners from database
+ const partners = useMemo(() => {
+ return (dbPartners || []).filter(p => p.is_featured === true);
+ }, [dbPartners]);
 
-  // Show only industries that have at least one featured partner profiled
-  // against them via product_filters (same source as /branscher).
-  const { covered: coveredIndustries } = useCoveredIndustries();
-  const availableIndustries = useMemo(
-    () => allIndustries.filter((ind) => coveredIndustries.has(ind)),
-    [coveredIndustries],
-  );
+ // Show only industries that have at least one featured partner profiled
+ // against them via product_filters (same source as /branscher).
+ const { covered: coveredIndustries } = useCoveredIndustries();
+ const availableIndustries = useMemo(
+ () => allIndustries.filter((ind) => coveredIndustries.has(ind)),
+ [coveredIndustries],
+ );
 
-  const toggleApplication = (app: string) => {
-    setSelectedApplications(prev => 
-      prev.includes(app) 
-        ? prev.filter(a => a !== app)
-        : [...prev, app]
-    );
-  };
+ const toggleApplication = (app: string) => {
+ setSelectedApplications(prev => 
+ prev.includes(app) 
+ ? prev.filter(a => a !== app)
+ : [...prev, app]
+ );
+ };
 
-  // Helper to get the lowest industry index for a partner (for sorting by industry priority)
-  const getIndustryPriority = (partner: DatabasePartner, industry: string | null): number => {
-    if (!industry) return 0;
-    for (let i = 0; i < (partner.industries || []).length; i++) {
-      if ((partner.industries || [])[i].toLowerCase().includes(industry.toLowerCase()) ||
-          industry.toLowerCase().includes((partner.industries || [])[i].toLowerCase())) {
-        return i;
-      }
-    }
-    return Infinity;
-  };
+ // Helper to get the lowest industry index for a partner (for sorting by industry priority)
+ const getIndustryPriority = (partner: DatabasePartner, industry: string | null): number => {
+ if (!industry) return 0;
+ for (let i = 0; i < (partner.industries || []).length; i++) {
+ if ((partner.industries || [])[i].toLowerCase().includes(industry.toLowerCase()) ||
+ industry.toLowerCase().includes((partner.industries || [])[i].toLowerCase())) {
+ return i;
+ }
+ }
+ return Infinity;
+ };
 
-  // Helper to determine which product ranking to use based on selected applications
-  const getProductRanking = (partner: DatabasePartner): number => {
-    // Determine which product type is primarily selected (excluding specialty products)
-    const hasBCApp = selectedApplications.includes("Business Central");
-    const hasFSCApp = selectedApplications.includes("Finance & SCM");
-    const hasSalesApp = selectedApplications.some(app => 
-      ["Sales", "Customer Insights (Marketing)"].includes(app)
-    );
-    const hasServiceApp = selectedApplications.some(app => 
-      ["Customer Service", "Field Service", "Contact Center"].includes(app)
-    );
-    
-    if (hasBCApp && !hasFSCApp && !hasSalesApp && !hasServiceApp) {
-      return getDbProductRanking(partner, 'bc');
-    }
-    if (hasFSCApp && !hasBCApp && !hasSalesApp && !hasServiceApp) {
-      return getDbProductRanking(partner, 'fsc');
-    }
-    if (hasSalesApp && !hasBCApp && !hasFSCApp && !hasServiceApp) {
-      return getDbProductRanking(partner, 'sales');
-    }
-    if (hasServiceApp && !hasBCApp && !hasFSCApp && !hasSalesApp) {
-      return getDbProductRanking(partner, 'service');
-    }
-    
-    // If mixed or no specific apps selected, return lowest ranking across all
-    const bcRank = getDbProductRanking(partner, 'bc');
-    const fscRank = getDbProductRanking(partner, 'fsc');
-    const salesRank = getDbProductRanking(partner, 'sales');
-    const serviceRank = getDbProductRanking(partner, 'service');
-    return Math.min(bcRank, fscRank, salesRank, serviceRank);
-  };
+ // Helper to determine which product ranking to use based on selected applications
+ const getProductRanking = (partner: DatabasePartner): number => {
+ // Determine which product type is primarily selected (excluding specialty products)
+ const hasBCApp = selectedApplications.includes("Business Central");
+ const hasFSCApp = selectedApplications.includes("Finance & SCM");
+ const hasSalesApp = selectedApplications.some(app => 
+ ["Sales", "Customer Insights (Marketing)"].includes(app)
+ );
+ const hasServiceApp = selectedApplications.some(app => 
+ ["Customer Service", "Field Service", "Contact Center"].includes(app)
+ );
+ 
+ if (hasBCApp && !hasFSCApp && !hasSalesApp && !hasServiceApp) {
+ return getDbProductRanking(partner, 'bc');
+ }
+ if (hasFSCApp && !hasBCApp && !hasSalesApp && !hasServiceApp) {
+ return getDbProductRanking(partner, 'fsc');
+ }
+ if (hasSalesApp && !hasBCApp && !hasFSCApp && !hasServiceApp) {
+ return getDbProductRanking(partner, 'sales');
+ }
+ if (hasServiceApp && !hasBCApp && !hasFSCApp && !hasSalesApp) {
+ return getDbProductRanking(partner, 'service');
+ }
+ 
+ // If mixed or no specific apps selected, return lowest ranking across all
+ const bcRank = getDbProductRanking(partner, 'bc');
+ const fscRank = getDbProductRanking(partner, 'fsc');
+ const salesRank = getDbProductRanking(partner, 'sales');
+ const serviceRank = getDbProductRanking(partner, 'service');
+ return Math.min(bcRank, fscRank, salesRank, serviceRank);
+ };
 
-  // Helper to build partner profile URL with filter context
-  const buildPartnerProfileUrl = (partnerSlug: string) => {
-    const basePath = buildPartnerProductPath(
-      partnerSlug,
-      selectedApplications.length > 0 ? selectedApplications[0] : undefined,
-    );
-    const params = new URLSearchParams();
-    if (selectedIndustry) {
-      params.set("industry", selectedIndustry);
-    }
-    const qs = params.toString();
-    return qs ? `${basePath}?${qs}` : basePath;
-  };
+ // Helper to build partner profile URL with filter context
+ const buildPartnerProfileUrl = (partnerSlug: string) => {
+ const basePath = buildPartnerProductPath(
+ partnerSlug,
+ selectedApplications.length > 0 ? selectedApplications[0] : undefined,
+ );
+ const params = new URLSearchParams();
+ if (selectedIndustry) {
+ params.set("industry", selectedIndustry);
+ }
+ const qs = params.toString();
+ return qs ? `${basePath}?${qs}` : basePath;
+ };
 
-  // Filter and sort partners - only show featured partners from database
-  const filteredPartners = useMemo(() => {
-    // Determine which product type is selected (excluding specialty products)
-    const hasBCApp = selectedApplications.includes("Business Central");
-    const hasFSCApp = selectedApplications.includes("Finance & SCM");
-    const hasSalesApp = selectedApplications.some(app => 
-      ["Sales", "Customer Insights (Marketing)"].includes(app)
-    );
-    const hasServiceApp = selectedApplications.some(app => 
-      ["Customer Service", "Field Service", "Contact Center"].includes(app)
-    );
-    
-    // Check for specialty products (filtered via applications array)
-    const selectedSpecialtyProducts = selectedApplications.filter(app => 
-      specialtyProducts.includes(app)
-    );
-    
-    let result: DatabasePartner[] = [];
-    
-    if (selectedApplications.length === 0) {
-      // No application selected - show all featured partners that have any productFilter
-      result = partners.filter(partner => 
-        partner.product_filters?.bc || partner.product_filters?.fsc || 
-        partner.product_filters?.sales || partner.product_filters?.service
-      );
-    } else if (selectedSpecialtyProducts.length > 0 && !hasBCApp && !hasFSCApp && !hasSalesApp && !hasServiceApp) {
-      // Only specialty products selected - filter by applications array
-      result = partners.filter(partner => 
-        selectedSpecialtyProducts.every(app => partner.applications?.includes(app))
-      );
-    } else {
-      // Filter based on selected applications (product_filters)
-      const matchingPartners = new Set<DatabasePartner>();
-      
-      partners.forEach(partner => {
-        let matchesProductFilter = false;
-        
-        if (hasBCApp && partner.product_filters?.bc) {
-          if (matchesDbProductFilter(partner, 'bc', selectedIndustry || undefined, selectedCompanySize || undefined, selectedGeography || undefined, undefined, selectedRevenue || undefined)) {
-            matchesProductFilter = true;
-          }
-        }
-        if (hasFSCApp && partner.product_filters?.fsc) {
-          if (matchesDbProductFilter(partner, 'fsc', selectedIndustry || undefined, selectedCompanySize || undefined, selectedGeography || undefined, undefined, selectedRevenue || undefined)) {
-            matchesProductFilter = true;
-          }
-        }
-        if (hasSalesApp && partner.product_filters?.sales) {
-          if (matchesDbProductFilter(partner, 'sales', selectedIndustry || undefined, selectedCompanySize || undefined, selectedGeography || undefined, undefined, selectedRevenue || undefined)) {
-            matchesProductFilter = true;
-          }
-        }
-        if (hasServiceApp && partner.product_filters?.service) {
-          if (matchesDbProductFilter(partner, 'service', selectedIndustry || undefined, selectedCompanySize || undefined, selectedGeography || undefined, undefined, selectedRevenue || undefined)) {
-            matchesProductFilter = true;
-          }
-        }
-        
-        // If specialty products are also selected, partner must have them in applications
-        const matchesSpecialtyProducts = selectedSpecialtyProducts.length === 0 || 
-          selectedSpecialtyProducts.every(app => partner.applications?.includes(app));
-        
-        if (matchesProductFilter && matchesSpecialtyProducts) {
-          matchingPartners.add(partner);
-        }
-      });
-      
-      result = Array.from(matchingPartners);
-    }
-    
-    // Apply additional filters for when no apps are selected
-    if (selectedApplications.length === 0) {
-      if (selectedIndustry) {
-        result = result.filter(partner => 
-          (partner.industries || []).some(ind => ind === selectedIndustry)
-        );
-      }
-      
-      if (selectedGeography) {
-        const geographyHierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
-        const selectedGeoIndex = geographyHierarchy.indexOf(selectedGeography);
-        result = result.filter(partner => {
-          // Check geography in any product filter - geography is now an array
-          const getMaxGeoIndex = (geo: string | string[] | undefined) => {
-            const geoArray = Array.isArray(geo) ? geo : (geo ? [geo] : ["Sverige"]);
-            return Math.max(...geoArray.map(g => geographyHierarchy.indexOf(g)));
-          };
-          const bcGeoIdx = getMaxGeoIndex(partner.product_filters?.bc?.geography);
-          const fscGeoIdx = getMaxGeoIndex(partner.product_filters?.fsc?.geography);
-          const salesGeoIdx = getMaxGeoIndex(partner.product_filters?.sales?.geography);
-          const serviceGeoIdx = getMaxGeoIndex(partner.product_filters?.service?.geography);
-          const maxGeoIndex = Math.max(bcGeoIdx, fscGeoIdx, salesGeoIdx, serviceGeoIdx);
-          return maxGeoIndex >= selectedGeoIndex;
-        });
-      }
-    }
-    
-    // Prioritera signerat avtal först, sedan slumpa inom respektive grupp (Fisher-Yates)
-    const shuffleArr = (arr: DatabasePartner[]) => {
-      const s = [...arr];
-      for (let i = s.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [s[i], s[j]] = [s[j], s[i]];
-      }
-      return s;
-    };
-    const signed = result.filter(p => p.agreement_signed);
-    const unsigned = result.filter(p => !p.agreement_signed);
-    return [...shuffleArr(signed), ...shuffleArr(unsigned)];
-  }, [partners, selectedApplications, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography]);
+ // Filter and sort partners - only show featured partners from database
+ const filteredPartners = useMemo(() => {
+ // Determine which product type is selected (excluding specialty products)
+ const hasBCApp = selectedApplications.includes("Business Central");
+ const hasFSCApp = selectedApplications.includes("Finance & SCM");
+ const hasSalesApp = selectedApplications.some(app => 
+ ["Sales", "Customer Insights (Marketing)"].includes(app)
+ );
+ const hasServiceApp = selectedApplications.some(app => 
+ ["Customer Service", "Field Service", "Contact Center"].includes(app)
+ );
+ 
+ // Check for specialty products (filtered via applications array)
+ const selectedSpecialtyProducts = selectedApplications.filter(app => 
+ specialtyProducts.includes(app)
+ );
+ 
+ let result: DatabasePartner[] = [];
+ 
+ if (selectedApplications.length === 0) {
+ // No application selected - show all featured partners that have any productFilter
+ result = partners.filter(partner => 
+ partner.product_filters?.bc || partner.product_filters?.fsc || 
+ partner.product_filters?.sales || partner.product_filters?.service
+ );
+ } else if (selectedSpecialtyProducts.length > 0 && !hasBCApp && !hasFSCApp && !hasSalesApp && !hasServiceApp) {
+ // Only specialty products selected - filter by applications array
+ result = partners.filter(partner => 
+ selectedSpecialtyProducts.every(app => partner.applications?.includes(app))
+ );
+ } else {
+ // Filter based on selected applications (product_filters)
+ const matchingPartners = new Set<DatabasePartner>();
+ 
+ partners.forEach(partner => {
+ let matchesProductFilter = false;
+ 
+ if (hasBCApp && partner.product_filters?.bc) {
+ if (matchesDbProductFilter(partner, 'bc', selectedIndustry || undefined, selectedCompanySize || undefined, selectedGeography || undefined, undefined, selectedRevenue || undefined)) {
+ matchesProductFilter = true;
+ }
+ }
+ if (hasFSCApp && partner.product_filters?.fsc) {
+ if (matchesDbProductFilter(partner, 'fsc', selectedIndustry || undefined, selectedCompanySize || undefined, selectedGeography || undefined, undefined, selectedRevenue || undefined)) {
+ matchesProductFilter = true;
+ }
+ }
+ if (hasSalesApp && partner.product_filters?.sales) {
+ if (matchesDbProductFilter(partner, 'sales', selectedIndustry || undefined, selectedCompanySize || undefined, selectedGeography || undefined, undefined, selectedRevenue || undefined)) {
+ matchesProductFilter = true;
+ }
+ }
+ if (hasServiceApp && partner.product_filters?.service) {
+ if (matchesDbProductFilter(partner, 'service', selectedIndustry || undefined, selectedCompanySize || undefined, selectedGeography || undefined, undefined, selectedRevenue || undefined)) {
+ matchesProductFilter = true;
+ }
+ }
+ 
+ // If specialty products are also selected, partner must have them in applications
+ const matchesSpecialtyProducts = selectedSpecialtyProducts.length === 0 || 
+ selectedSpecialtyProducts.every(app => partner.applications?.includes(app));
+ 
+ if (matchesProductFilter && matchesSpecialtyProducts) {
+ matchingPartners.add(partner);
+ }
+ });
+ 
+ result = Array.from(matchingPartners);
+ }
+ 
+ // Apply additional filters for when no apps are selected
+ if (selectedApplications.length === 0) {
+ if (selectedIndustry) {
+ result = result.filter(partner => 
+ (partner.industries || []).some(ind => ind === selectedIndustry)
+ );
+ }
+ 
+ if (selectedGeography) {
+ const geographyHierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
+ const selectedGeoIndex = geographyHierarchy.indexOf(selectedGeography);
+ result = result.filter(partner => {
+ // Check geography in any product filter - geography is now an array
+ const getMaxGeoIndex = (geo: string | string[] | undefined) => {
+ const geoArray = Array.isArray(geo) ? geo : (geo ? [geo] : ["Sverige"]);
+ return Math.max(...geoArray.map(g => geographyHierarchy.indexOf(g)));
+ };
+ const bcGeoIdx = getMaxGeoIndex(partner.product_filters?.bc?.geography);
+ const fscGeoIdx = getMaxGeoIndex(partner.product_filters?.fsc?.geography);
+ const salesGeoIdx = getMaxGeoIndex(partner.product_filters?.sales?.geography);
+ const serviceGeoIdx = getMaxGeoIndex(partner.product_filters?.service?.geography);
+ const maxGeoIndex = Math.max(bcGeoIdx, fscGeoIdx, salesGeoIdx, serviceGeoIdx);
+ return maxGeoIndex >= selectedGeoIndex;
+ });
+ }
+ }
+ 
+ // Prioritera signerat avtal först, sedan slumpa inom respektive grupp (Fisher-Yates)
+ const shuffleArr = (arr: DatabasePartner[]) => {
+ const s = [...arr];
+ for (let i = s.length - 1; i > 0; i--) {
+ const j = Math.floor(Math.random() * (i + 1));
+ [s[i], s[j]] = [s[j], s[i]];
+ }
+ return s;
+ };
+ const signed = result.filter(p => p.agreement_signed);
+ const unsigned = result.filter(p => !p.agreement_signed);
+ return [...shuffleArr(signed), ...shuffleArr(unsigned)];
+ }, [partners, selectedApplications, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography]);
 
-  // Track which partners get shown in filter results (admin sales summary)
-  // MUST be called before any early return to preserve hook order
-  useTrackFilterExposure({
-    partners: filteredPartners.map((p) => ({ slug: p.slug, id: p.id })),
-    pagePath: "/valjdynamics365partner",
-    filterContext: {
-      product: selectedApplications.join(", ") || null,
-      industry: selectedIndustry,
-      size: selectedCompanySize,
-      geography: selectedGeography,
-    },
-    enabled: !isLoading,
-  });
+ // Track which partners get shown in filter results (admin sales summary)
+ // MUST be called before any early return to preserve hook order
+ useTrackFilterExposure({
+ partners: filteredPartners.map((p) => ({ slug: p.slug, id: p.id })),
+ pagePath: "/valjdynamics365partner",
+ filterContext: {
+ product: selectedApplications.join(", ") || null,
+ industry: selectedIndustry,
+ size: selectedCompanySize,
+ geography: selectedGeography,
+ },
+ enabled: !isLoading,
+ });
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    );
-  }
+ if (isLoading) {
+ return (
+ <div className="min-h-screen bg-background flex items-center justify-center">
+ <Loader2 className="h-8 w-8 animate-spin text-primary" />
+ </div>
+ );
+ }
 
-  return (
-    <div className="min-h-screen bg-background">
-      <SEOHead 
-        title="Dynamics 365 Partner Sverige – jämför Microsoft-partners"
-        description="Hitta och jämför svenska Dynamics 365-partners inom Business Central, Finance, Sales, Customer Service, Field Service och Power Platform."
-        canonicalPath="/valjdynamics365partner"
-        keywords="hitta Dynamics 365 partner Sverige, Business Central partner jämförelse, Microsoft partner certifierad, Dynamics 365 implementering Sverige, ERP partner Sverige, CRM partner Sverige, Microsoft Solutions Partner, Business Central konsult"
-        ogImage="https://d365.se/og-partner.png"
-      />
-      <FAQSchema faqs={partnerFaqs} />
-      <ServiceSchema 
-        name="Dynamics 365 Partnerval"
-        description="Hjälp att välja rätt Microsoft Dynamics 365 implementeringspartner baserat på bransch, storlek och behov. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
-      />
-      <BreadcrumbSchema items={partnerBreadcrumbs} />
-      <ItemListSchema
-        name="Dynamics 365-partners i Sverige"
-        description="Lista över Microsoft-certifierade Dynamics 365-partners presenterade på d365.se."
-        items={partners.map((p) => ({
-          name: p.name,
-          url: `https://d365.se/partner/${p.slug}`,
-        }))}
-      />
-      <Navbar />
-      {/* Partner Guide Dialog */}
-      <PartnerGuideDialog 
-        open={guideOpen} 
-        onOpenChange={setGuideOpen} 
-        partners={partners}
-        initialAiInterest={aiParam || undefined}
-      />
-      
-      {/* Header */}
-      <header className="relative overflow-hidden mt-28 min-h-[420px] sm:h-[450px] md:h-[550px]">
-        <div className="absolute inset-0">
-          <img 
-            src={partnersComparisonImg} 
-            alt="Teamwork and partnership selection" 
-            className="w-full h-full object-cover object-top"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
-        </div>
-        
-        <div className="relative h-full flex items-center">
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="max-w-3xl">
-              <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-                <Users className="h-10 w-10 sm:h-12 sm:w-12 text-white" />
-              </div>
-              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
-                Det kritiska partnervalet
-              </h1>
-              <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-6 sm:mb-8">
-                Hitta rätt partner till ditt Dynamics 365-projekt
-              </p>
-              <Button 
-                size="lg" 
-                className="bg-cta-orange hover:bg-cta-orange-hover text-white w-full sm:w-auto text-lg sm:text-xl h-16 sm:h-20 px-8 sm:px-12 font-bold   transition-all rounded"
-                onClick={() => setGuideOpen(true)}
-              >
-                <span>Få hjälp att välja rätt partner</span>
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+ return (
+ <div className="min-h-screen bg-background">
+ <SEOHead 
+ title="Dynamics 365 Partner Sverige – jämför Microsoft-partners"
+ description="Hitta och jämför svenska Dynamics 365-partners inom Business Central, Finance, Sales, Customer Service, Field Service och Power Platform."
+ canonicalPath="/valjdynamics365partner"
+ keywords="hitta Dynamics 365 partner Sverige, Business Central partner jämförelse, Microsoft partner certifierad, Dynamics 365 implementering Sverige, ERP partner Sverige, CRM partner Sverige, Microsoft Solutions Partner, Business Central konsult"
+ ogImage="https://d365.se/og-partner.png"
+ />
+ <FAQSchema faqs={partnerFaqs} />
+ <ServiceSchema 
+ name="Dynamics 365 Partnerval"
+ description="Hjälp att välja rätt Microsoft Dynamics 365 implementeringspartner baserat på bransch, storlek och behov. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+ />
+ <BreadcrumbSchema items={partnerBreadcrumbs} />
+ <ItemListSchema
+ name="Dynamics 365-partners i Sverige"
+ description="Lista över Microsoft-certifierade Dynamics 365-partners presenterade på d365.se."
+ items={partners.map((p) => ({
+ name: p.name,
+ url: `https://d365.se/partner/${p.slug}`,
+ }))}
+ />
+ <Navbar />
+ {/* Partner Guide Dialog */}
+ <PartnerGuideDialog 
+ open={guideOpen} 
+ onOpenChange={setGuideOpen} 
+ partners={partners}
+ initialAiInterest={aiParam || undefined}
+ />
+ 
+ {/* Header */}
+ <header className="relative overflow-hidden mt-28 min-h-[420px] sm:h-[450px] md:h-[550px]">
+ <div className="absolute inset-0">
+ <img 
+ src={partnersComparisonImg} 
+ alt="Teamwork and partnership selection" 
+ className="w-full h-full object-cover object-top"
+ />
+ <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+ </div>
+ 
+ <div className="relative h-full flex items-center">
+ <div className="container mx-auto px-4 sm:px-6">
+ <div className="max-w-3xl">
+ <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+ <Users className="h-10 w-10 sm:h-12 sm:w-12 text-white" />
+ </div>
+ <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
+ Det kritiska partnervalet
+ </h1>
+ <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-6 sm:mb-8">
+ Hitta rätt partner till ditt Dynamics 365-projekt
+ </p>
+ <Button 
+ size="lg" 
+ className="bg-cta-orange hover:bg-cta-orange-hover text-white w-full sm:w-auto text-lg sm:text-xl h-16 sm:h-20 px-8 sm:px-12 font-bold transition-all rounded"
+ onClick={() => setGuideOpen(true)}
+ >
+ <span>Få hjälp att välja rätt partner</span>
+ <ArrowRight className="ml-2 h-5 w-5" />
+ </Button>
+ </div>
+ </div>
+ </div>
+ </header>
 
-      <ShortAnswer title="Vad är en Dynamics 365-partner">
-        Rätt Dynamics 365-partner har bevisad erfarenhet av respektive produktområde (Business Central, Finance & Supply Chain, Sales, Customer Service m.fl.), er bransch och en storlek som matchar er. På d365.se kan ni jämföra Microsoft-partners för er bransch, geografi och AI-mognad — och få rekommendationer via vår köparsidiga partnerguide.
-      </ShortAnswer>
-
-
-      {/* Fem viktiga frågor Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8 sm:mb-10 md:mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-                Fem viktiga frågor vid val av implementationspartner
-              </h2>
-              <p className="text-base sm:text-lg text-muted-foreground px-2 mb-4">
-                Valet av implementationspartner är ofta den viktigaste faktorn för en lyckad Dynamics 365-implementation. 
-                En bra partner kan vara skillnaden mellan ett framgångsrikt projekt och ett som kostar mer tid och pengar än planerat.
-              </p>
-              <p className="text-base sm:text-lg text-muted-foreground px-2">
-                Här är fem viktiga frågor du (eller din organisation) bör ställa er själva inför valet av implementationspartner för Dynamics 365
-              </p>
-            </div>
-
-            <div className="space-y-6">
-              {/* Fråga 1 */}
-              <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30   transition-all">
-                <CardHeader>
-                  <CardTitle className="flex items-start gap-3 text-lg sm:text-xl">
-                    <span className="text-2xl">✅</span>
-                    Har partnern erfarenhet av vår bransch och våra processer?
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li>• Har de genomfört liknande projekt tidigare?</li>
-                    <li>• Förstår de våra specifika krav inom t.ex. tillverkning, tjänster, handel eller offentlig sektor?</li>
-                    <li>• Har de kanske en branschspecifik lösning som passar vår verksamhet?</li>
-                  </ul>
-                </CardContent>
-              </Card>
-
-              {/* Fråga 2 */}
-              <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30   transition-all">
-                <CardHeader>
-                  <CardTitle className="flex items-start gap-3 text-lg sm:text-xl">
-                    <span className="text-2xl">✅</span>
-                    Hur ser deras implementationsmetodik ut?
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li>• Arbetar de enligt en beprövad metod (t.ex. Microsoft's Success by Design)?</li>
-                    <li>• Hur hanterar de projektledning, förändringsledning och utbildning?</li>
-                    <li>• Erbjuder de en snabbstart eller paketerad lösning?</li>
-                  </ul>
-                </CardContent>
-              </Card>
-
-              {/* Fråga 3 */}
-              <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30   transition-all">
-                <CardHeader>
-                  <CardTitle className="flex items-start gap-3 text-lg sm:text-xl">
-                    <span className="text-2xl">✅</span>
-                    Vilken typ av support och förvaltning erbjuder de efter implementationen?
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li>• Finns det en tydlig plan för support, uppgraderingar och vidareutveckling?</li>
-                    <li>• Har de en dedikerad supportorganisation?</li>
-                    <li>• Erbjuder de SLA:er och proaktiv förvaltning?</li>
-                  </ul>
-                </CardContent>
-              </Card>
-
-              {/* Fråga 4 */}
-              <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30   transition-all">
-                <CardHeader>
-                  <CardTitle className="flex items-start gap-3 text-lg sm:text-xl">
-                    <span className="text-2xl">✅</span>
-                    Hur transparenta är de med kostnader och tidsplan?
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li>• Får vi en tydlig offert med alla kostnader specificerade?</li>
-                    <li>• Hur hanterar de förändringar i omfattning?</li>
-                    <li>• Har de referensprojekt med liknande budget och tidsram?</li>
-                  </ul>
-                </CardContent>
-              </Card>
-
-              {/* Fråga 5 */}
-              <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30   transition-all">
-                <CardHeader>
-                  <CardTitle className="flex items-start gap-3 text-lg sm:text-xl">
-                    <span className="text-2xl">✅</span>
-                    Hur väl passar de vår organisationskultur och arbetssätt?
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li>• Är de lyhörda, pedagogiska och samarbetsvilliga?</li>
-                    <li>• Känns de som en långsiktig partner snarare än bara en leverantör?</li>
-                    <li>• Har vi god personkemi med deras team?</li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Lead Magnet Banner after Fem viktiga frågor */}
-      {showLeadMagnet && (
-        <section id="guide" className="px-4 py-8 bg-muted/30">
-          <div className="container mx-auto max-w-4xl">
-            <LeadMagnetBanner 
-              sourcePage="/valjdynamics365partner" 
-              onClose={() => setShowLeadMagnet(false)}
-            />
-          </div>
-        </section>
-      )}
+ <ShortAnswer title="Vad är en Dynamics 365-partner">
+ Rätt Dynamics 365-partner har bevisad erfarenhet av respektive produktområde (Business Central, Finance & Supply Chain, Sales, Customer Service m.fl.), er bransch och en storlek som matchar er. På d365.se kan ni jämföra Microsoft-partners för er bransch, geografi och AI-mognad — och få rekommendationer via vår köparsidiga partnerguide.
+ </ShortAnswer>
 
 
-      <section className="py-12 sm:py-16 md:py-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10 mb-8 sm:mb-10 md:mb-12">
-            {/* Partner Map */}
-            <div className="shrink-0 w-48 md:w-56">
-              <div className="rounded overflow-hidden border border-border ">
-                <img
-                  src={partnerMapSweden}
-                  alt="Karta över Dynamics 365-partners kontor i Sverige"
-                  className="w-full h-auto"
-                  loading="lazy"
-                />
-              </div>
-              <p className="text-xs text-muted-foreground text-center mt-2">
-                Kontorsplaceringar för partners i Sverige
-              </p>
-            </div>
+ {/* Fem viktiga frågor Section */}
+ <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+ <div className="container mx-auto px-4 sm:px-6">
+ <div className="max-w-4xl mx-auto">
+ <div className="text-center mb-8 sm:mb-10 md:mb-12">
+ <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+ Fem viktiga frågor vid val av implementationspartner
+ </h2>
+ <p className="text-base sm:text-lg text-muted-foreground px-2 mb-4">
+ Valet av implementationspartner är ofta den viktigaste faktorn för en lyckad Dynamics 365-implementation. 
+ En bra partner kan vara skillnaden mellan ett framgångsrikt projekt och ett som kostar mer tid och pengar än planerat.
+ </p>
+ <p className="text-base sm:text-lg text-muted-foreground px-2">
+ Här är fem viktiga frågor du (eller din organisation) bör ställa er själva inför valet av implementationspartner för Dynamics 365
+ </p>
+ </div>
 
-            <div className="text-center md:text-left flex-1">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-                Så hittar ni 2–4 relevanta partners att kontakta
-              </h2>
-              <p className="text-base sm:text-lg text-muted-foreground">
-                Använd filtreringen nedan för att ta fram en första shortlist av Microsoft Dynamics 365-partners som arbetar i Sverige och som har kontor på platserna kartan visar. Tänk på att rätt partner handlar om mer än bara filter – kompetens inom applikationsområdet, branschförståelse, metodik, team och kemi väger minst lika tungt.
-              </p>
-            </div>
-          </div>
+ <div className="space-y-6">
+ {/* Fråga 1 */}
+ <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30 transition-all">
+ <CardHeader>
+ <CardTitle className="flex items-start gap-3 text-lg sm:text-xl">
+ <span className="text-2xl">✅</span>
+ Har partnern erfarenhet av vår bransch och våra processer?
+ </CardTitle>
+ </CardHeader>
+ <CardContent>
+ <ul className="space-y-2 text-muted-foreground">
+ <li>• Har de genomfört liknande projekt tidigare?</li>
+ <li>• Förstår de våra specifika krav inom t.ex. tillverkning, tjänster, handel eller offentlig sektor?</li>
+ <li>• Har de kanske en branschspecifik lösning som passar vår verksamhet?</li>
+ </ul>
+ </CardContent>
+ </Card>
 
-          {/* Advisory Box - How to use the matchmaking */}
-          <div className="mb-8 sm:mb-10 rounded border border-primary/20 bg-gradient-to-br from-primary/5 via-background to-accent/5 p-5 sm:p-6 md:p-7 ">
-            <div className="flex items-start gap-3 sm:gap-4">
-              <div className="shrink-0 p-2.5 rounded bg-primary/10 text-primary">
-                <Target className="h-5 w-5" />
-              </div>
-              <div className="flex-1">
-                <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2">
-                  Så bör ni använda partnermatchningen
-                </h3>
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                  Välj produktområde, bransch och ungefärlig storlek. Använd resultatet som en <span className="font-semibold text-foreground">första shortlist</span> – inte som ett facit. Ett bra val handlar både om erfarenhet, metodik, team, kemi och hur väl partnern förstår er verksamhet.
-                </p>
-              </div>
-            </div>
-          </div>
+ {/* Fråga 2 */}
+ <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30 transition-all">
+ <CardHeader>
+ <CardTitle className="flex items-start gap-3 text-lg sm:text-xl">
+ <span className="text-2xl">✅</span>
+ Hur ser deras implementationsmetodik ut?
+ </CardTitle>
+ </CardHeader>
+ <CardContent>
+ <ul className="space-y-2 text-muted-foreground">
+ <li>• Arbetar de enligt en beprövad metod (t.ex. Microsoft's Success by Design)?</li>
+ <li>• Hur hanterar de projektledning, förändringsledning och utbildning?</li>
+ <li>• Erbjuder de en snabbstart eller paketerad lösning?</li>
+ </ul>
+ </CardContent>
+ </Card>
 
-          {/* Application Filter */}
-          <MultiFilterButtons
-            title="Filtrera på Dynamics 365 Applikation"
-            icon="application"
-            options={allApplications.map(app => ({ label: app, value: app }))}
-            selectedValues={selectedApplications}
-            onToggle={toggleApplication}
-            colorScheme="amber"
-            showApplicationIcons={true}
-          />
+ {/* Fråga 3 */}
+ <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30 transition-all">
+ <CardHeader>
+ <CardTitle className="flex items-start gap-3 text-lg sm:text-xl">
+ <span className="text-2xl">✅</span>
+ Vilken typ av support och förvaltning erbjuder de efter implementationen?
+ </CardTitle>
+ </CardHeader>
+ <CardContent>
+ <ul className="space-y-2 text-muted-foreground">
+ <li>• Finns det en tydlig plan för support, uppgraderingar och vidareutveckling?</li>
+ <li>• Har de en dedikerad supportorganisation?</li>
+ <li>• Erbjuder de SLA:er och proaktiv förvaltning?</li>
+ </ul>
+ </CardContent>
+ </Card>
 
-          {/* Industry Filter */}
-          <FilterButtons
-            title="Filtrera på bransch"
-            icon="industry"
-            options={availableIndustries.map(ind => ({ label: ind, value: ind }))}
-            selectedValue={selectedIndustry}
-            onSelect={setSelectedIndustry}
-            colorScheme="amber"
-          />
+ {/* Fråga 4 */}
+ <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30 transition-all">
+ <CardHeader>
+ <CardTitle className="flex items-start gap-3 text-lg sm:text-xl">
+ <span className="text-2xl">✅</span>
+ Hur transparenta är de med kostnader och tidsplan?
+ </CardTitle>
+ </CardHeader>
+ <CardContent>
+ <ul className="space-y-2 text-muted-foreground">
+ <li>• Får vi en tydlig offert med alla kostnader specificerade?</li>
+ <li>• Hur hanterar de förändringar i omfattning?</li>
+ <li>• Har de referensprojekt med liknande budget och tidsram?</li>
+ </ul>
+ </CardContent>
+ </Card>
 
-          {/* Geography Filter */}
-          <FilterButtons
-            title="Ange vart geografiskt ni har er verksamhet och som är relevant för denna lösning (organisation, kontor/personal)"
-            icon="geography"
-            options={geographyFilters.map(f => ({ label: f.label, value: f.value }))}
-            selectedValue={selectedGeography}
-            onSelect={setSelectedGeography}
-            colorScheme="amber"
-          />
+ {/* Fråga 5 */}
+ <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30 transition-all">
+ <CardHeader>
+ <CardTitle className="flex items-start gap-3 text-lg sm:text-xl">
+ <span className="text-2xl">✅</span>
+ Hur väl passar de vår organisationskultur och arbetssätt?
+ </CardTitle>
+ </CardHeader>
+ <CardContent>
+ <ul className="space-y-2 text-muted-foreground">
+ <li>• Är de lyhörda, pedagogiska och samarbetsvilliga?</li>
+ <li>• Känns de som en långsiktig partner snarare än bara en leverantör?</li>
+ <li>• Har vi god personkemi med deras team?</li>
+ </ul>
+ </CardContent>
+ </Card>
+ </div>
+ </div>
+ </div>
+ </section>
 
-          {/* Optional size filters */}
-          <SizeFilters
-            selectedCompanySize={selectedCompanySize}
-            selectedRevenue={selectedRevenue}
-            onCompanySizeChange={setSelectedCompanySize}
-            onRevenueChange={setSelectedRevenue}
-            colorScheme="amber"
-          />
-
-          {/* Filter Results Summary */}
-          {(selectedApplications.length > 0 || selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue) && (
-            <div className="text-center mb-8">
-              <p className="text-sm text-muted-foreground">
-                Visar <span className="font-semibold text-foreground">{filteredPartners.length}</span> partners
-                {selectedApplications.length > 0 && <> som levererar <span className="font-semibold text-primary">{selectedApplications.join(', ')}</span></>}
-                {selectedIndustry && <> inom <span className="font-semibold text-accent">{selectedIndustry}</span></>}
-                {selectedGeography && <> i <span className="font-semibold text-accent">{selectedGeography}</span></>}
-                {selectedCompanySize && <> · storlek <span className="font-semibold text-accent">{selectedCompanySize}</span></>}
-                {selectedRevenue && <> · omsättning <span className="font-semibold text-accent">{selectedRevenue}</span></>}
-              </p>
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                onClick={() => {
-                  setSelectedApplications([]);
-                  setSelectedIndustry(null);
-                  setSelectedGeography(null);
-                  setSelectedCompanySize(null);
-                  setSelectedRevenue(null);
-                }}
-                className="mt-2 text-muted-foreground hover:text-foreground"
-              >
-                Rensa alla filter
-              </Button>
-            </div>
-          )}
-
-          {filteredPartners.length === 0 ? (
-            <div className="text-center py-6 bg-muted/30 rounded border border-border/50">
-              <Users className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-foreground mb-2">
-                Inga partner listas med denna filtrering?
-              </h3>
-              <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-                Ingen fara, kontakta oss så hjälper vi dig att hitta en eller ett par partners som passar för din verksamhet.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  variant="outline"
-                  onClick={() => {
-                    setSelectedApplications([]);
-                    setSelectedIndustry(null);
-                    setSelectedGeography(null);
-                  }}
-                >
-                  Rensa alla filter
-                </Button>
-                <Button asChild className="bg-cta-orange hover:bg-cta-orange-hover text-white">
-                  <Link to="/kontakt/">
-                    <MessageSquare className="w-4 h-4 mr-2" />
-                    Kontakta oss för hjälp
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredPartners.map((partner, index) => {
-                // Determine which product key to use for this partner
-                const hasBCApp = selectedApplications.includes("Business Central");
-                const hasFSCApp = selectedApplications.includes("Finance & SCM");
-                const hasCRMApp = selectedApplications.some(app => 
-                  ["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service", "Contact Center", "Project Operations"].includes(app)
-                );
-                
-                let productKey: 'bc' | 'fsc' | 'crm' | null = null;
-                if (hasBCApp && partner.product_filters?.bc) productKey = 'bc';
-                else if (hasFSCApp && partner.product_filters?.fsc) productKey = 'fsc';
-                else if (hasCRMApp && (partner.product_filters?.crm || partner.product_filters?.sales || partner.product_filters?.service)) productKey = 'crm';
-                else if (partner.product_filters?.bc) productKey = 'bc';
-                else if (partner.product_filters?.fsc) productKey = 'fsc';
-                else if (partner.product_filters?.crm || partner.product_filters?.sales || partner.product_filters?.service) productKey = 'crm';
-
-                return (
-                  <PartnerCard
-                    key={index}
-                    partner={partner}
-                    profileUrl={buildPartnerProfileUrl(partner.slug)}
-                    colorScheme="amber"
-                    productKey={productKey}
-                    highlightedProduct={selectedApplications.length > 0 ? selectedApplications.join(", ") : undefined}
-                    highlightedIndustry={selectedIndustry || undefined}
-                    highlightedCompanySize={selectedCompanySize || undefined}
-                    highlightedRevenue={selectedRevenue || undefined}
-                    highlightedGeography={selectedGeography || undefined}
-                    showRandomIndicator={true}
-                  />
-                );
-              })}
-            </div>
-          )}
-
-          {/* Lead CTA with urgency badge */}
-          <div className="max-w-xl mx-auto mt-12">
-            {/* Premium Contact CTA Card - same design as PartnerProfile */}
-            <article className="relative rounded overflow-hidden ">
-              {/* Gradient background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[hsl(210_20%_12%)] via-[hsl(210_18%_16%)] to-[hsl(210_20%_12%)]" />
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
-              
-              {/* Animated orb */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded  animate-pulse" />
-              
-              <div className="relative p-6 sm:p-8">
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="p-3 rounded bg-gradient-to-br from-primary to-accent  shadow-primary/30">
-                    <span className="text-xl">✨</span>
-                  </div>
-                  <div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
-                      Låt oss hjälpa dig hitta rätt partner
-                    </h3>
-                    <p className="text-white/70 text-sm sm:text-base">
-                      Det här var ett första steg i rätt riktning. Låt oss hjälpa dig vidare – helt kostnadsfritt.
-                    </p>
-                  </div>
-                </div>
-                
-                {/* Filter context with glass effect */}
-                {(selectedApplications.length > 0 || selectedIndustry || selectedCompanySize || selectedGeography) && (
-                  <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded border border-white/20">
-                    <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded bg-cta-orange animate-pulse" />
-                      Din sökning
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedApplications.map(app => (
-                        <Badge key={app} className="bg-primary/40 text-white border-primary/50 py-1.5 px-3 backdrop-blur-sm">
-                          {app}
-                        </Badge>
-                      ))}
-                      {selectedIndustry && (
-                        <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 backdrop-blur-sm">
-                          {selectedIndustry}
-                        </Badge>
-                      )}
-                      {selectedCompanySize && (
-                        <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 backdrop-blur-sm">
-                          {selectedCompanySize}
-                        </Badge>
-                      )}
-                      {selectedGeography && (
-                        <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 backdrop-blur-sm">
-                          {selectedGeography}
-                        </Badge>
-                      )}
-                    </div>
-                  </div>
-                )}
-                
-                <LeadCTA
-                  sourcePage="/valjdynamics365partner"
-                  selectedProducts={selectedApplications.length > 0 ? selectedApplications : undefined}
-                  selectedIndustry={selectedIndustry || undefined}
-                  selectedCompanySize={selectedCompanySize || undefined}
-                  selectedGeography={selectedGeography || undefined}
-                  variant="inline"
-                />
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      {/* Statisk partnerlista för SEO/AI – renderas i HTML även utan JS */}
-      <section className="py-16 bg-background border-t border-border" aria-labelledby="alla-partners-rubrik">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <h2 id="alla-partners-rubrik" className="text-2xl md:text-3xl font-bold text-foreground mb-3">
-              Alla profilerade Dynamics 365-partners
-            </h2>
-            <p className="text-muted-foreground mb-8">
-              Komplett lista i bokstavsordning över partners som har en profil på d365.se. Använd filtreringen ovan för att hitta rätt partner för din bransch och dina applikationer.
-            </p>
-            <ul className="grid gap-4 md:grid-cols-2">
-              {[...staticPartnerData]
-                .filter((p: any) => p.is_featured)
-                .sort((a: any, b: any) => a.name.localeCompare(b.name, "sv"))
-                .map((p: any) => (
-                  <li key={p.id} className="border border-border rounded-lg p-4 bg-card">
-                    <h3 className="text-base font-semibold text-foreground mb-1">
-                      <Link to={`/partner/${p.slug}/`} className="hover:text-primary transition-colors">
-                        {p.name}
-                      </Link>
-                    </h3>
-                    {Array.isArray(p.applications) && p.applications.length > 0 && (
-                      <p className="text-xs text-muted-foreground mb-2">
-                        {p.applications.join(" · ")}
-                      </p>
-                    )}
-                    {p.description && (
-                      <p className="text-sm text-muted-foreground line-clamp-3">
-                        {p.description}
-                      </p>
-                    )}
-                  </li>
-                ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <UnprofiledPartnersList variant="teaser" />
+ {/* Lead Magnet Banner after Fem viktiga frågor */}
+ {showLeadMagnet && (
+ <section id="guide" className="px-4 py-8 bg-muted/30">
+ <div className="container mx-auto max-w-4xl">
+ <LeadMagnetBanner 
+ sourcePage="/valjdynamics365partner" 
+ onClose={() => setShowLeadMagnet(false)}
+ />
+ </div>
+ </section>
+ )}
 
 
-      {/* CTA Section */}
-      <section className="py-20 bg-secondary/50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <div className="flex flex-col md:flex-row gap-8 items-center mb-8">
-              <div className="flex-shrink-0">
-                <img 
-                  src={thomasLainePhoto} 
-                  alt="Thomas Laine" 
-                  className="w-48 h-48 rounded object-cover object-[50%_15%] border-4 border-primary/20"
-                />
-              </div>
-              <div className="text-center md:text-left">
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                  Behöver du vägledning?
-                </h2>
-                <p className="text-lg text-muted-foreground">
-                  Med vår breda erfarenhet av Dynamics 365-marknaden kan vi hjälpa dig att hitta rätt partner för just dina behov och förutsättningar.
-                </p>
-              </div>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold   transition-all rounded">
-                <Link to="/kontakt/">
-                  <MessageSquare className="w-5 h-5 mr-2" />
-                  Kontakta oss
-                </Link>
-              </Button>
-              <Button 
-                size="lg" 
-                className="bg-primary hover:bg-primary/90 text-primary-foreground h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold   transition-all rounded"
-                onClick={() => window.open('https://outlook.office.com/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ep=mlink', '_blank')}
-              >
-                <Calendar className="w-5 h-5 mr-2" />
-                Boka möte
-              </Button>
-              <Button asChild size="lg" className="bg-muted hover:bg-muted/80 text-muted-foreground h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold   transition-all rounded border border-border">
-                <a href="mailto:thomas.laine@dynamicfactory.se">
-                  <Mail className="w-5 h-5 mr-2" />
-                  Emaila mig
-                </a>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+ <section className="py-12 sm:py-16 md:py-20 bg-background">
+ <div className="container mx-auto px-4 sm:px-6">
+ <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10 mb-8 sm:mb-10 md:mb-12">
+ {/* Partner Map */}
+ <div className="shrink-0 w-48 md:w-56">
+ <div className="rounded overflow-hidden border border-border ">
+ <img
+ src={partnerMapSweden}
+ alt="Karta över Dynamics 365-partners kontor i Sverige"
+ className="w-full h-auto"
+ loading="lazy"
+ />
+ </div>
+ <p className="text-xs text-muted-foreground text-center mt-2">
+ Kontorsplaceringar för partners i Sverige
+ </p>
+ </div>
 
-      <RelatedPages heading="Skapa underlag innan ni kontaktar partners" pages={valjPartnerRelatedPages} />
-      <Footer />
-    </div>
-  );
+ <div className="text-center md:text-left flex-1">
+ <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+ Så hittar ni 2–4 relevanta partners att kontakta
+ </h2>
+ <p className="text-base sm:text-lg text-muted-foreground">
+ Använd filtreringen nedan för att ta fram en första shortlist av Microsoft Dynamics 365-partners som arbetar i Sverige och som har kontor på platserna kartan visar. Tänk på att rätt partner handlar om mer än bara filter – kompetens inom applikationsområdet, branschförståelse, metodik, team och kemi väger minst lika tungt.
+ </p>
+ </div>
+ </div>
+
+ {/* Advisory Box - How to use the matchmaking */}
+ <div className="mb-8 sm:mb-10 rounded border border-primary/20 bg-gradient-to-br from-primary/5 via-background to-accent/5 p-5 sm:p-6 md:p-7 ">
+ <div className="flex items-start gap-3 sm:gap-4">
+ <div className="shrink-0 p-2.5 rounded bg-primary/10 text-primary">
+ <Target className="h-5 w-5" />
+ </div>
+ <div className="flex-1">
+ <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2">
+ Så bör ni använda partnermatchningen
+ </h3>
+ <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+ Välj produktområde, bransch och ungefärlig storlek. Använd resultatet som en <span className="font-semibold text-foreground">första shortlist</span> – inte som ett facit. Ett bra val handlar både om erfarenhet, metodik, team, kemi och hur väl partnern förstår er verksamhet.
+ </p>
+ </div>
+ </div>
+ </div>
+
+ {/* Application Filter */}
+ <MultiFilterButtons
+ title="Filtrera på Dynamics 365 Applikation"
+ icon="application"
+ options={allApplications.map(app => ({ label: app, value: app }))}
+ selectedValues={selectedApplications}
+ onToggle={toggleApplication}
+ colorScheme="amber"
+ showApplicationIcons={true}
+ />
+
+ {/* Industry Filter */}
+ <FilterButtons
+ title="Filtrera på bransch"
+ icon="industry"
+ options={availableIndustries.map(ind => ({ label: ind, value: ind }))}
+ selectedValue={selectedIndustry}
+ onSelect={setSelectedIndustry}
+ colorScheme="amber"
+ />
+
+ {/* Geography Filter */}
+ <FilterButtons
+ title="Ange vart geografiskt ni har er verksamhet och som är relevant för denna lösning (organisation, kontor/personal)"
+ icon="geography"
+ options={geographyFilters.map(f => ({ label: f.label, value: f.value }))}
+ selectedValue={selectedGeography}
+ onSelect={setSelectedGeography}
+ colorScheme="amber"
+ />
+
+ {/* Optional size filters */}
+ <SizeFilters
+ selectedCompanySize={selectedCompanySize}
+ selectedRevenue={selectedRevenue}
+ onCompanySizeChange={setSelectedCompanySize}
+ onRevenueChange={setSelectedRevenue}
+ colorScheme="amber"
+ />
+
+ {/* Filter Results Summary */}
+ {(selectedApplications.length > 0 || selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue) && (
+ <div className="text-center mb-8">
+ <p className="text-sm text-muted-foreground">
+ Visar <span className="font-semibold text-foreground">{filteredPartners.length}</span> partners
+ {selectedApplications.length > 0 && <> som levererar <span className="font-semibold text-primary">{selectedApplications.join(', ')}</span></>}
+ {selectedIndustry && <> inom <span className="font-semibold text-accent">{selectedIndustry}</span></>}
+ {selectedGeography && <> i <span className="font-semibold text-accent">{selectedGeography}</span></>}
+ {selectedCompanySize && <> · storlek <span className="font-semibold text-accent">{selectedCompanySize}</span></>}
+ {selectedRevenue && <> · omsättning <span className="font-semibold text-accent">{selectedRevenue}</span></>}
+ </p>
+ <Button 
+ variant="ghost" 
+ size="sm" 
+ onClick={() => {
+ setSelectedApplications([]);
+ setSelectedIndustry(null);
+ setSelectedGeography(null);
+ setSelectedCompanySize(null);
+ setSelectedRevenue(null);
+ }}
+ className="mt-2 text-muted-foreground hover:text-foreground"
+ >
+ Rensa alla filter
+ </Button>
+ </div>
+ )}
+
+ {filteredPartners.length === 0 ? (
+ <div className="text-center py-6 bg-muted/30 rounded border border-border/50">
+ <Users className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+ <h3 className="text-xl font-semibold text-foreground mb-2">
+ Inga partner listas med denna filtrering?
+ </h3>
+ <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+ Ingen fara, kontakta oss så hjälper vi dig att hitta en eller ett par partners som passar för din verksamhet.
+ </p>
+ <div className="flex flex-col sm:flex-row gap-4 justify-center">
+ <Button 
+ variant="outline"
+ onClick={() => {
+ setSelectedApplications([]);
+ setSelectedIndustry(null);
+ setSelectedGeography(null);
+ }}
+ >
+ Rensa alla filter
+ </Button>
+ <Button asChild className="bg-cta-orange hover:bg-cta-orange-hover text-white">
+ <Link to="/kontakt/">
+ <MessageSquare className="w-4 h-4 mr-2" />
+ Kontakta oss för hjälp
+ </Link>
+ </Button>
+ </div>
+ </div>
+ ) : (
+ <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+ {filteredPartners.map((partner, index) => {
+ // Determine which product key to use for this partner
+ const hasBCApp = selectedApplications.includes("Business Central");
+ const hasFSCApp = selectedApplications.includes("Finance & SCM");
+ const hasCRMApp = selectedApplications.some(app => 
+ ["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service", "Contact Center", "Project Operations"].includes(app)
+ );
+ 
+ let productKey: 'bc' | 'fsc' | 'crm' | null = null;
+ if (hasBCApp && partner.product_filters?.bc) productKey = 'bc';
+ else if (hasFSCApp && partner.product_filters?.fsc) productKey = 'fsc';
+ else if (hasCRMApp && (partner.product_filters?.crm || partner.product_filters?.sales || partner.product_filters?.service)) productKey = 'crm';
+ else if (partner.product_filters?.bc) productKey = 'bc';
+ else if (partner.product_filters?.fsc) productKey = 'fsc';
+ else if (partner.product_filters?.crm || partner.product_filters?.sales || partner.product_filters?.service) productKey = 'crm';
+
+ return (
+ <PartnerCard
+ key={index}
+ partner={partner}
+ profileUrl={buildPartnerProfileUrl(partner.slug)}
+ colorScheme="amber"
+ productKey={productKey}
+ highlightedProduct={selectedApplications.length > 0 ? selectedApplications.join(", ") : undefined}
+ highlightedIndustry={selectedIndustry || undefined}
+ highlightedCompanySize={selectedCompanySize || undefined}
+ highlightedRevenue={selectedRevenue || undefined}
+ highlightedGeography={selectedGeography || undefined}
+ showRandomIndicator={true}
+ />
+ );
+ })}
+ </div>
+ )}
+
+ {/* Lead CTA with urgency badge */}
+ <div className="max-w-xl mx-auto mt-12">
+ {/* Premium Contact CTA Card - same design as PartnerProfile */}
+ <article className="relative rounded overflow-hidden ">
+ {/* Gradient background */}
+ <div className="absolute inset-0 bg-gradient-to-br from-[hsl(210_20%_12%)] via-[hsl(210_18%_16%)] to-[hsl(210_20%_12%)]" />
+ <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
+ <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
+ 
+ {/* Animated orb */}
+ <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded animate-pulse" />
+ 
+ <div className="relative p-6 sm:p-8">
+ <div className="flex items-start gap-4 mb-6">
+ <div className="p-3 rounded bg-gradient-to-br from-primary to-accent shadow-primary/30">
+ <span className="text-xl">✨</span>
+ </div>
+ <div>
+ <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
+ Låt oss hjälpa dig hitta rätt partner
+ </h3>
+ <p className="text-white/70 text-sm sm:text-base">
+ Det här var ett första steg i rätt riktning. Låt oss hjälpa dig vidare – helt kostnadsfritt.
+ </p>
+ </div>
+ </div>
+ 
+ {/* Filter context with glass effect */}
+ {(selectedApplications.length > 0 || selectedIndustry || selectedCompanySize || selectedGeography) && (
+ <div className="mb-6 p-4 bg-white/10 rounded border border-white/20">
+ <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
+ <span className="w-1.5 h-1.5 rounded bg-cta-orange animate-pulse" />
+ Din sökning
+ </p>
+ <div className="flex flex-wrap gap-2">
+ {selectedApplications.map(app => (
+ <Badge key={app} className="bg-primary/40 text-white border-primary/50 py-1.5 px-3 ">
+ {app}
+ </Badge>
+ ))}
+ {selectedIndustry && (
+ <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 ">
+ {selectedIndustry}
+ </Badge>
+ )}
+ {selectedCompanySize && (
+ <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 ">
+ {selectedCompanySize}
+ </Badge>
+ )}
+ {selectedGeography && (
+ <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 ">
+ {selectedGeography}
+ </Badge>
+ )}
+ </div>
+ </div>
+ )}
+ 
+ <LeadCTA
+ sourcePage="/valjdynamics365partner"
+ selectedProducts={selectedApplications.length > 0 ? selectedApplications : undefined}
+ selectedIndustry={selectedIndustry || undefined}
+ selectedCompanySize={selectedCompanySize || undefined}
+ selectedGeography={selectedGeography || undefined}
+ variant="inline"
+ />
+ </div>
+ </article>
+ </div>
+ </div>
+ </section>
+
+ {/* Statisk partnerlista för SEO/AI – renderas i HTML även utan JS */}
+ <section className="py-16 bg-background border-t border-border" aria-labelledby="alla-partners-rubrik">
+ <div className="container mx-auto px-4">
+ <div className="max-w-5xl mx-auto">
+ <h2 id="alla-partners-rubrik" className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+ Alla profilerade Dynamics 365-partners
+ </h2>
+ <p className="text-muted-foreground mb-8">
+ Komplett lista i bokstavsordning över partners som har en profil på d365.se. Använd filtreringen ovan för att hitta rätt partner för din bransch och dina applikationer.
+ </p>
+ <ul className="grid gap-4 md:grid-cols-2">
+ {[...staticPartnerData]
+ .filter((p: any) => p.is_featured)
+ .sort((a: any, b: any) => a.name.localeCompare(b.name, "sv"))
+ .map((p: any) => (
+ <li key={p.id} className="border border-border rounded-lg p-4 bg-card">
+ <h3 className="text-base font-semibold text-foreground mb-1">
+ <Link to={`/partner/${p.slug}/`} className="hover:text-primary transition-colors">
+ {p.name}
+ </Link>
+ </h3>
+ {Array.isArray(p.applications) && p.applications.length > 0 && (
+ <p className="text-xs text-muted-foreground mb-2">
+ {p.applications.join(" · ")}
+ </p>
+ )}
+ {p.description && (
+ <p className="text-sm text-muted-foreground line-clamp-3">
+ {p.description}
+ </p>
+ )}
+ </li>
+ ))}
+ </ul>
+ </div>
+ </div>
+ </section>
+
+ <UnprofiledPartnersList variant="teaser" />
+
+
+ {/* CTA Section */}
+ <section className="py-20 bg-secondary/50">
+ <div className="container mx-auto px-4">
+ <div className="max-w-3xl mx-auto">
+ <div className="flex flex-col md:flex-row gap-8 items-center mb-8">
+ <div className="flex-shrink-0">
+ <img 
+ src={thomasLainePhoto} 
+ alt="Thomas Laine" 
+ className="w-48 h-48 rounded object-cover object-[50%_15%] border-4 border-primary/20"
+ />
+ </div>
+ <div className="text-center md:text-left">
+ <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+ Behöver du vägledning?
+ </h2>
+ <p className="text-lg text-muted-foreground">
+ Med vår breda erfarenhet av Dynamics 365-marknaden kan vi hjälpa dig att hitta rätt partner för just dina behov och förutsättningar.
+ </p>
+ </div>
+ </div>
+ <div className="flex flex-col sm:flex-row gap-4 justify-center">
+ <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold transition-all rounded">
+ <Link to="/kontakt/">
+ <MessageSquare className="w-5 h-5 mr-2" />
+ Kontakta oss
+ </Link>
+ </Button>
+ <Button 
+ size="lg" 
+ className="bg-primary hover:bg-primary/90 text-primary-foreground h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold transition-all rounded"
+ onClick={() => window.open('https://outlook.office.com/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ep=mlink', '_blank')}
+ >
+ <Calendar className="w-5 h-5 mr-2" />
+ Boka möte
+ </Button>
+ <Button asChild size="lg" className="bg-muted hover:bg-muted/80 text-muted-foreground h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold transition-all rounded border border-border">
+ <a href="mailto:thomas.laine@dynamicfactory.se">
+ <Mail className="w-5 h-5 mr-2" />
+ Emaila mig
+ </a>
+ </Button>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <RelatedPages heading="Skapa underlag innan ni kontaktar partners" pages={valjPartnerRelatedPages} />
+ <Footer />
+ </div>
+ );
 };
 
 export default ValjPartner;
