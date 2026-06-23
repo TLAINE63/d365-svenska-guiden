@@ -838,12 +838,82 @@ const Kunskapscenter = () => {
  </p>
  </div>
  </section>
+
+ {/* Innehållsspår — kuraterade tracks genom kunskapscentret */}
+ <section className="border-b border-border bg-[hsl(var(--bg-card))]">
+  <div className="container mx-auto px-4 py-8">
+   <div className="flex items-baseline justify-between gap-4 mb-4">
+    <div>
+     <h2 className="text-sm font-semibold text-[hsl(var(--signature))] uppercase tracking-wider">
+      Innehållsspår
+     </h2>
+     <p className="text-sm text-muted-foreground mt-1">
+      Sex tydliga vägar genom materialet. Välj det spår som matchar var ni står just nu.
+     </p>
+    </div>
+    {activeTrack && (
+     <button
+      onClick={() => setActiveTrack(null)}
+      className="flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 underline underline-offset-2 shrink-0"
+     >
+      <X className="w-3.5 h-3.5" />
+      Avmarkera spår
+     </button>
+    )}
+   </div>
+   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+    {TRACKS.map((track) => {
+     const Icon = track.icon;
+     const isActive = activeTrack === track.value;
+     const count = trackCounts[track.value] ?? 0;
+     return (
+      <button
+       key={track.value}
+       onClick={() => selectTrack(track.value)}
+       aria-pressed={isActive}
+       className={`text-left p-4 rounded border transition-all duration-200 ${
+        isActive
+         ? "bg-primary/10 border-primary ring-1 ring-primary"
+         : "bg-card border-border hover:border-primary/50 hover:-translate-y-0.5"
+       }`}
+      >
+       <div className="flex items-start gap-3">
+        <span
+         className={`shrink-0 inline-flex items-center justify-center w-9 h-9 rounded border ${
+          isActive
+           ? "bg-primary text-primary-foreground border-primary"
+           : "bg-muted/40 text-[hsl(var(--signature))] border-border"
+         }`}
+        >
+         <Icon className="w-4.5 h-4.5" />
+        </span>
+        <div className="min-w-0">
+         <div className="flex items-center gap-2 mb-1">
+          <h3 className="text-sm font-semibold text-foreground">{track.title}</h3>
+          <span className="text-[10px] uppercase tracking-wider text-muted-foreground bg-muted/60 px-1.5 py-0.5 rounded">
+           {count}
+          </span>
+         </div>
+         <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">
+          {track.description}
+         </p>
+        </div>
+       </div>
+      </button>
+     );
+    })}
+   </div>
+  </div>
+ </section>
+
+ <div ref={tracksGridRef} />
+
  {/* Topical hubs — crawl-friendly internal links */}
  <section className="border-b border-border bg-muted/30">
- <div className="container mx-auto px-4 py-6">
- <h2 className="text-sm font-semibold text-[hsl(var(--signature))] uppercase tracking-wider mb-3">
- Utforska efter ämne
- </h2>
+  <div className="container mx-auto px-4 py-6">
+   <h2 className="text-sm font-semibold text-[hsl(var(--signature))] uppercase tracking-wider mb-3">
+    Utforska efter ämne
+   </h2>
  <div className="flex flex-wrap gap-2">
  {[
  { slug: "business-central", label: "Business Central" },
