@@ -327,6 +327,133 @@ const PRODUCT_OPTIONS: ProductValue[] = [
  "AI/Copilot/Agents",
 ];
 
+// ── Innehållsspår (curated tracks) ─────────────────────
+// Sex tydliga spår genom kunskapscentret. Varje spår plockar ut en kuraterad
+// delmängd av allItems via ett predikat. Användaren klickar ett spårkort för
+// att filtrera grid:en; klick igen avmarkerar.
+
+type TrackValue =
+ | "tidig-fas"
+ | "erp-val"
+ | "crm-val"
+ | "ai"
+ | "kravspec"
+ | "partnerurval";
+
+interface TrackDef {
+ value: TrackValue;
+ title: string;
+ description: string;
+ icon: typeof Compass;
+ // Predikat appliceras mot UnifiedItem
+ match: (item: UnifiedItem) => boolean;
+}
+
+const CRM_PRODUCTS = new Set<string>([
+ "Sales",
+ "Customer Insights",
+ "Customer Service",
+ "Field Service",
+ "Contact Center",
+]);
+
+const TRACKS: TrackDef[] = [
+ {
+  value: "tidig-fas",
+  title: "Tidig fas",
+  description:
+   "Var står ni? Filmer, beslutsmognad, upphandlingsresan och branschorientering – innan ni låser scopet.",
+  icon: Compass,
+  match: (i) =>
+   i.type === "video" ||
+   i.type === "branscher" ||
+   i.id === "tool-upphandlingsresan" ||
+   (i.url?.includes("/beslutsmognad") ?? false),
+ },
+ {
+  value: "erp-val",
+  title: "ERP-val",
+  description:
+   "Behovsanalys, kravspec och branschjämförelse för Business Central och Finance & Supply Chain Management.",
+  icon: Database,
+  match: (i) => {
+   if (
+    ["tool-behovsanalys-erp", "tool-kravspec-erp", "tool-branschjamforelse"].includes(i.id)
+   )
+    return true;
+   if (
+    i.products.length > 0 &&
+    i.products.length <= 4 &&
+    i.products.some((p) => p === "Business Central" || p === "Finance & SCM") &&
+    !i.products.some((p) => CRM_PRODUCTS.has(p))
+   )
+    return true;
+   return false;
+  },
+ },
+ {
+  value: "crm-val",
+  title: "CRM-val (Sälj, Marknad, Service)",
+  description:
+   "Behovsanalyser och kravspec för Sales, Customer Insights, Customer Service, Field Service och Contact Center.",
+  icon: Users,
+  match: (i) => {
+   if (
+    [
+     "tool-behovsanalys-salj",
+     "tool-behovsanalys-kundservice",
+     "tool-kravspec-sales",
+     "tool-kravspec-marketing",
+     "tool-kravspec-kundservice",
+    ].includes(i.id)
+   )
+    return true;
+   if (
+    i.products.length > 0 &&
+    i.products.length <= 5 &&
+    i.products.some((p) => CRM_PRODUCTS.has(p)) &&
+    !i.products.includes("Business Central") &&
+    !i.products.includes("Finance & SCM")
+   )
+    return true;
+   return false;
+  },
+ },
+ {
+  value: "ai",
+  title: "AI, Copilot & Agenter",
+  description:
+   "AI Readiness, Copilot-fördjupningar och agenter – från första piloten till hela organisationen.",
+  icon: Sparkles,
+  match: (i) =>
+   i.id === "tool-ai-readiness" ||
+   i.products.includes("AI/Copilot/Agents") &&
+    (i.products.length <= 3 ||
+     (i.url?.includes("/copilot") ?? false) ||
+     (i.url?.includes("/agents") ?? false) ||
+     (i.url?.includes("/ai-") ?? false)),
+ },
+ {
+  value: "kravspec",
+  title: "Kravspecifikation",
+  description:
+   "Skräddarsydda kravspecar för ERP, sälj, marknad och kundservice – som PDF, redo att skicka till partners.",
+  icon: ClipboardList,
+  match: (i) => i.type === "kravspecifikation",
+ },
+ {
+  value: "partnerurval",
+  title: "Partnerurval",
+  description:
+   "Guider, e-bok och film om hur ni utvärderar och väljer rätt Microsoft Dynamics 365-partner.",
+  icon: Handshake,
+  match: (i) =>
+   ["tool-guide-valj-partner", "tool-ebook-partnervalet", "video-partners-skillnader"].includes(
+    i.id,
+   ) || (i.url?.includes("/valjdynamics365partner") ?? false),
+ },
+];
+
 // ── Dropdown component ─────────────────────────────────
 
 function MultiSelectDropdown<T extends string>({
