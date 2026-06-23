@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ApplicationPartners from "@/components/ApplicationPartners";
+import BuyerManual from "@/components/BuyerManual";
 import { FileText } from "lucide-react";
 import { useEffect } from "react";
 import CommerceIcon from "@/assets/icons/Commerce.svg";
@@ -78,6 +79,8 @@ const D365Commerce = () => {
           </div>
         </div>
       </section>
+
+      <BuyerManual product="commerce" />
 
       <ApplicationPartners applicationFilter="Commerce" pageSource="D365 Commerce" filterMode="companySize" />
 

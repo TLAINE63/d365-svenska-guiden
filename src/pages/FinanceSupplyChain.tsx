@@ -13,6 +13,7 @@ import { FilterButtons } from "@/components/FilterButtons";
 import { SizeFilters } from "@/components/SizeFilters";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerCard from "@/components/PartnerCard";
+import BuyerManual from "@/components/BuyerManual";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
@@ -620,8 +621,10 @@ const FinanceSupplyChain = () => {
  </div>
  </section>
 
- {/* Partners Section */}
- <section id="partners" className="py-12 sm:py-16 md:py-20 bg-background">
+      <BuyerManual product="finance-scm" />
+
+      {/* Partners Section */}
+      <section id="partners" className="py-12 sm:py-16 md:py-20 bg-background">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="text-center mb-8 sm:mb-10 md:mb-12">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">

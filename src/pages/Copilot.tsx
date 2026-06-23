@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BuyerManual from "@/components/BuyerManual";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -597,6 +598,8 @@ const Copilot = () => {
           </div>
         </div>
       </section>
+
+      <BuyerManual product="copilot" />
 
       {/* CTA Section */}
       <section className="py-20 bg-background">

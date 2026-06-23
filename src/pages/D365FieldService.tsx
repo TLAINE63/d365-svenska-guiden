@@ -8,6 +8,7 @@ import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import ApplicationPartners from "@/components/ApplicationPartners";
+import BuyerManual from "@/components/BuyerManual";
 import { ArrowRight, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
@@ -294,6 +295,8 @@ const D365FieldService = () => {
       </section>
 
       {/* Partners Section */}
+      <BuyerManual product="field-service" />
+
       <ApplicationPartners applicationFilter="Field Service" pageSource="D365 Field Service" />
 
       {/* CTA Section */}

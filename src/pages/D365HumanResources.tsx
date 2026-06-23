@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ApplicationPartners from "@/components/ApplicationPartners";
+import BuyerManual from "@/components/BuyerManual";
 import { FileText } from "lucide-react";
 import { useEffect } from "react";
 import HumanResourcesIcon from "@/assets/icons/HumanResources.svg";
@@ -78,6 +79,8 @@ const D365HumanResources = () => {
           </div>
         </div>
       </section>
+
+      <BuyerManual product="human-resources" />
 
       <ApplicationPartners applicationFilter="Human Resources" pageSource="D365 Human Resources" filterMode="companySize" />
 

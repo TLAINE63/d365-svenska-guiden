@@ -8,6 +8,7 @@ import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import ApplicationPartners from "@/components/ApplicationPartners";
+import BuyerManual from "@/components/BuyerManual";
 import { ArrowRight, FileText } from "lucide-react";
 import { useEffect } from "react";
 import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
@@ -292,6 +293,8 @@ const D365ContactCenter = () => {
       </section>
 
       {/* Partners Section */}
+      <BuyerManual product="contact-center" />
+
       <ApplicationPartners applicationFilter="Contact Center" pageSource="D365 Contact Center" />
 
       {/* CTA Section */}
