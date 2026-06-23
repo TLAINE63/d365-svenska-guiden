@@ -123,20 +123,21 @@ All colors MUST be HSL.
     --agents: 145 75% 40%;
     --agents-foreground: 0 0% 100%;
 
-    --border: 207 20% 88%;
-    --input: 207 20% 88%;
-    --ring: 185 81% 29%;
+    --border: 38 28% 87%;               /* Line #E7E0D4 – diskreta avdelare */
+    --input: 38 28% 87%;
+    --ring: 181 84% 35%;                /* Bright teal #0EA5A8 */
 
     --radius: 0.25rem;
 
-    --gradient-primary: linear-gradient(135deg, hsl(185 81% 24%) 0%, hsl(185 70% 38%) 100%);
-    --gradient-hero: linear-gradient(135deg, rgba(11,31,51,0.65) 0%, rgba(11,31,51,0.4) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(185 81% 26%) 0%, hsl(185 81% 32%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(190 55% 96%) 0%, hsl(43 30% 97%) 100%);
-    --shadow-card: 0 1px 3px 0 hsl(210 65% 12% / 0.06);
-    --shadow-hover: 0 6px 18px -4px hsl(210 65% 12% / 0.14);
-    --shadow-accent: 0 6px 18px -4px hsl(185 81% 29% / 0.25);
-    --shadow-elegant: 0 1px 2px 0 hsl(210 65% 12% / 0.05);
+    --gradient-primary: linear-gradient(135deg, hsl(187 80% 14%) 0%, hsl(186 75% 17%) 100%);
+    --gradient-hero: linear-gradient(135deg, rgba(7,56,62,0.85) 0%, rgba(11,69,75,0.65) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(181 84% 35%) 0%, hsl(181 84% 30%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(36 30% 91%) 0%, hsl(38 33% 95%) 100%);
+    --shadow-card: 0 1px 3px 0 hsl(193 24% 12% / 0.06);
+    --shadow-hover: 0 6px 18px -4px hsl(193 24% 12% / 0.14);
+    --shadow-accent: 0 6px 18px -4px hsl(181 84% 35% / 0.25);
+    --shadow-elegant: 0 1px 2px 0 hsl(193 24% 12% / 0.05);
+
 
     --sidebar-background: 0 0% 98%;
 
