@@ -386,7 +386,8 @@ const Index = () => {
  <Button
  asChild
  size="lg"
- className="bg-white text-[hsl(var(--hero-dark))] hover:bg-white/90 h-12 sm:h-14 px-6 rounded font-bold w-full md:w-auto justify-center hover:-translate-y-0.5 transition-all flex-shrink-0"
+  className="bg-transparent text-white hover:bg-white/10 hover:text-white h-12 sm:h-14 px-6 rounded font-bold w-full md:w-auto justify-center hover:-translate-y-0.5 transition-all flex-shrink-0"
+  style={{ border: "1px solid #D8D1C6" }}
  >
  <Link to="/beslutsmognad/">
  Starta Mognadsindex
