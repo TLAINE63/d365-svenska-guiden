@@ -43,6 +43,12 @@ import {
  ChevronDown,
  Check,
  Sparkles,
+ Compass,
+ Database,
+ Users,
+ ClipboardList,
+ Handshake,
+ X,
 } from "lucide-react";
 
 // ── Types ──────────────────────────────────────────────
@@ -321,6 +327,133 @@ const PRODUCT_OPTIONS: ProductValue[] = [
  "AI/Copilot/Agents",
 ];
 
+// ── Innehållsspår (curated tracks) ─────────────────────
+// Sex tydliga spår genom kunskapscentret. Varje spår plockar ut en kuraterad
+// delmängd av allItems via ett predikat. Användaren klickar ett spårkort för
+// att filtrera grid:en; klick igen avmarkerar.
+
+type TrackValue =
+ | "tidig-fas"
+ | "erp-val"
+ | "crm-val"
+ | "ai"
+ | "kravspec"
+ | "partnerurval";
+
+interface TrackDef {
+ value: TrackValue;
+ title: string;
+ description: string;
+ icon: typeof Compass;
+ // Predikat appliceras mot UnifiedItem
+ match: (item: UnifiedItem) => boolean;
+}
+
+const CRM_PRODUCTS = new Set<string>([
+ "Sales",
+ "Customer Insights",
+ "Customer Service",
+ "Field Service",
+ "Contact Center",
+]);
+
+const TRACKS: TrackDef[] = [
+ {
+  value: "tidig-fas",
+  title: "Tidig fas",
+  description:
+   "Var står ni? Filmer, beslutsmognad, upphandlingsresan och branschorientering – innan ni låser scopet.",
+  icon: Compass,
+  match: (i) =>
+   i.type === "video" ||
+   i.type === "branscher" ||
+   i.id === "tool-upphandlingsresan" ||
+   (i.url?.includes("/beslutsmognad") ?? false),
+ },
+ {
+  value: "erp-val",
+  title: "ERP-val",
+  description:
+   "Behovsanalys, kravspec och branschjämförelse för Business Central och Finance & Supply Chain Management.",
+  icon: Database,
+  match: (i) => {
+   if (
+    ["tool-behovsanalys-erp", "tool-kravspec-erp", "tool-branschjamforelse"].includes(i.id)
+   )
+    return true;
+   if (
+    i.products.length > 0 &&
+    i.products.length <= 4 &&
+    i.products.some((p) => p === "Business Central" || p === "Finance & SCM") &&
+    !i.products.some((p) => CRM_PRODUCTS.has(p))
+   )
+    return true;
+   return false;
+  },
+ },
+ {
+  value: "crm-val",
+  title: "CRM-val (Sälj, Marknad, Service)",
+  description:
+   "Behovsanalyser och kravspec för Sales, Customer Insights, Customer Service, Field Service och Contact Center.",
+  icon: Users,
+  match: (i) => {
+   if (
+    [
+     "tool-behovsanalys-salj",
+     "tool-behovsanalys-kundservice",
+     "tool-kravspec-sales",
+     "tool-kravspec-marketing",
+     "tool-kravspec-kundservice",
+    ].includes(i.id)
+   )
+    return true;
+   if (
+    i.products.length > 0 &&
+    i.products.length <= 5 &&
+    i.products.some((p) => CRM_PRODUCTS.has(p)) &&
+    !i.products.includes("Business Central") &&
+    !i.products.includes("Finance & SCM")
+   )
+    return true;
+   return false;
+  },
+ },
+ {
+  value: "ai",
+  title: "AI, Copilot & Agenter",
+  description:
+   "AI Readiness, Copilot-fördjupningar och agenter – från första piloten till hela organisationen.",
+  icon: Sparkles,
+  match: (i) =>
+   i.id === "tool-ai-readiness" ||
+   i.products.includes("AI/Copilot/Agents") &&
+    (i.products.length <= 3 ||
+     (i.url?.includes("/copilot") ?? false) ||
+     (i.url?.includes("/agents") ?? false) ||
+     (i.url?.includes("/ai-") ?? false)),
+ },
+ {
+  value: "kravspec",
+  title: "Kravspecifikation",
+  description:
+   "Skräddarsydda kravspecar för ERP, sälj, marknad och kundservice – som PDF, redo att skicka till partners.",
+  icon: ClipboardList,
+  match: (i) => i.type === "kravspecifikation",
+ },
+ {
+  value: "partnerurval",
+  title: "Partnerurval",
+  description:
+   "Guider, e-bok och film om hur ni utvärderar och väljer rätt Microsoft Dynamics 365-partner.",
+  icon: Handshake,
+  match: (i) =>
+   ["tool-guide-valj-partner", "tool-ebook-partnervalet", "video-partners-skillnader"].includes(
+    i.id,
+   ) || (i.url?.includes("/valjdynamics365partner") ?? false),
+ },
+];
+
 // ── Dropdown component ─────────────────────────────────
 
 function MultiSelectDropdown<T extends string>({
@@ -405,6 +538,8 @@ function MultiSelectDropdown<T extends string>({
 
 const Kunskapscenter = () => {
  const [activeCategory, setActiveCategory] = useState<CategoryFilter>("alla");
+ const [activeTrack, setActiveTrack] = useState<TrackValue | null>(null);
+ const tracksGridRef = useRef<HTMLDivElement>(null);
  const [selectedFormats, setSelectedFormats] = useState<FormatValue[]>([]);
  const [selectedProducts, setSelectedProducts] = useState<ProductValue[]>([]);
  const [deepDiveProduct, setDeepDiveProduct] = useState<string | null>(null);
@@ -553,23 +688,49 @@ const Kunskapscenter = () => {
  ];
 
  // Apply filters
+ const activeTrackDef = activeTrack ? TRACKS.find((t) => t.value === activeTrack) ?? null : null;
  const filteredItems = allItems.filter((item) => {
- // Category pill filter (guide items grouped under behovsanalys)
- if (activeCategory !== "alla") {
- const itemCategory = item.type === "guide" ? "behovsanalys" : item.type;
- if (itemCategory !== activeCategory) return false;
- }
- // Format multi-select (guide items grouped under behovsanalys)
- if (selectedFormats.length > 0) {
- const itemFormat = item.type === "guide" ? "behovsanalys" : item.type;
- if (!selectedFormats.includes(itemFormat as FormatValue)) return false;
- }
- // Product filter
- if (selectedProducts.length > 0 && item.products.length > 0) {
- if (!selectedProducts.some((p) => item.products.includes(p))) return false;
- }
- return true;
+  // Innehållsspår (kuraterad delmängd)
+  if (activeTrackDef && !activeTrackDef.match(item)) return false;
+  // Category pill filter (guide items grouped under behovsanalys)
+  if (activeCategory !== "alla") {
+   const itemCategory = item.type === "guide" ? "behovsanalys" : item.type;
+   if (itemCategory !== activeCategory) return false;
+  }
+  // Format multi-select (guide items grouped under behovsanalys)
+  if (selectedFormats.length > 0) {
+   const itemFormat = item.type === "guide" ? "behovsanalys" : item.type;
+   if (!selectedFormats.includes(itemFormat as FormatValue)) return false;
+  }
+  // Product filter
+  if (selectedProducts.length > 0 && item.products.length > 0) {
+   if (!selectedProducts.some((p) => item.products.includes(p))) return false;
+  }
+  return true;
  });
+
+ const trackCounts: Record<TrackValue, number> = TRACKS.reduce(
+  (acc, t) => {
+   acc[t.value] = allItems.filter(t.match).length;
+   return acc;
+  },
+  {} as Record<TrackValue, number>,
+ );
+
+ const selectTrack = (value: TrackValue) => {
+  const next = activeTrack === value ? null : value;
+  setActiveTrack(next);
+  if (next) {
+   setActiveCategory("alla");
+   setSelectedFormats([]);
+   setSelectedProducts([]);
+   // Scroll to grid after state update
+   setTimeout(() => {
+    tracksGridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+   }, 50);
+  }
+ };
+
 
  const categoryBadgeColor = (type: string) => {
  switch (type) {
@@ -612,12 +773,14 @@ const Kunskapscenter = () => {
  }
  };
 
- const hasActiveFilters = selectedFormats.length > 0 || selectedProducts.length > 0;
+ const hasActiveFilters =
+  selectedFormats.length > 0 || selectedProducts.length > 0 || activeTrack !== null;
 
  const clearAllFilters = () => {
- setActiveCategory("alla");
- setSelectedFormats([]);
- setSelectedProducts([]);
+  setActiveCategory("alla");
+  setSelectedFormats([]);
+  setSelectedProducts([]);
+  setActiveTrack(null);
  };
 
  return (
@@ -675,12 +838,82 @@ const Kunskapscenter = () => {
  </p>
  </div>
  </section>
+
+ {/* Innehållsspår — kuraterade tracks genom kunskapscentret */}
+ <section className="border-b border-border bg-[hsl(var(--bg-card))]">
+  <div className="container mx-auto px-4 py-8">
+   <div className="flex items-baseline justify-between gap-4 mb-4">
+    <div>
+     <h2 className="text-sm font-semibold text-[hsl(var(--signature))] uppercase tracking-wider">
+      Innehållsspår
+     </h2>
+     <p className="text-sm text-muted-foreground mt-1">
+      Sex tydliga vägar genom materialet. Välj det spår som matchar var ni står just nu.
+     </p>
+    </div>
+    {activeTrack && (
+     <button
+      onClick={() => setActiveTrack(null)}
+      className="flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 underline underline-offset-2 shrink-0"
+     >
+      <X className="w-3.5 h-3.5" />
+      Avmarkera spår
+     </button>
+    )}
+   </div>
+   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+    {TRACKS.map((track) => {
+     const Icon = track.icon;
+     const isActive = activeTrack === track.value;
+     const count = trackCounts[track.value] ?? 0;
+     return (
+      <button
+       key={track.value}
+       onClick={() => selectTrack(track.value)}
+       aria-pressed={isActive}
+       className={`text-left p-4 rounded border transition-all duration-200 ${
+        isActive
+         ? "bg-primary/10 border-primary ring-1 ring-primary"
+         : "bg-card border-border hover:border-primary/50 hover:-translate-y-0.5"
+       }`}
+      >
+       <div className="flex items-start gap-3">
+        <span
+         className={`shrink-0 inline-flex items-center justify-center w-9 h-9 rounded border ${
+          isActive
+           ? "bg-primary text-primary-foreground border-primary"
+           : "bg-muted/40 text-[hsl(var(--signature))] border-border"
+         }`}
+        >
+         <Icon className="w-4.5 h-4.5" />
+        </span>
+        <div className="min-w-0">
+         <div className="flex items-center gap-2 mb-1">
+          <h3 className="text-sm font-semibold text-foreground">{track.title}</h3>
+          <span className="text-[10px] uppercase tracking-wider text-muted-foreground bg-muted/60 px-1.5 py-0.5 rounded">
+           {count}
+          </span>
+         </div>
+         <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">
+          {track.description}
+         </p>
+        </div>
+       </div>
+      </button>
+     );
+    })}
+   </div>
+  </div>
+ </section>
+
+ <div ref={tracksGridRef} />
+
  {/* Topical hubs — crawl-friendly internal links */}
  <section className="border-b border-border bg-muted/30">
- <div className="container mx-auto px-4 py-6">
- <h2 className="text-sm font-semibold text-[hsl(var(--signature))] uppercase tracking-wider mb-3">
- Utforska efter ämne
- </h2>
+  <div className="container mx-auto px-4 py-6">
+   <h2 className="text-sm font-semibold text-[hsl(var(--signature))] uppercase tracking-wider mb-3">
+    Utforska efter ämne
+   </h2>
  <div className="flex flex-wrap gap-2">
  {[
  { slug: "business-central", label: "Business Central" },
