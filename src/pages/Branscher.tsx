@@ -106,7 +106,7 @@ const Branscher = () => {
  canonicalPath="/branscher/"
  />
  <Navbar />
- <main className="min-h-screen bg-background pt-20">
+ <main className="min-h-screen bg-background pt-28 md:pt-36">
  <section className="py-5 md:py-6 bg-gradient-to-b from-muted/30 to-background border-b border-border">
  <div className="container mx-auto px-4 max-w-6xl">
  <h1 className="text-xl md:text-2xl font-bold text-foreground mb-2">
