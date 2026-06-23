@@ -509,27 +509,27 @@ const AIOverview = () => {
  Vilken roll har du? Utforska AI-möjligheter som är relevanta för just dig.
  </p>
 
- <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
- {roles.map((role) => (
- <Card key={role.title} className={`relative overflow-hidden border bg-gradient-to-br ${role.color} h-full`}>
- <CardContent className="p-6 sm:p-8 flex flex-col h-full">
- <div className="text-3xl mb-3">{role.emoji}</div>
- <h3 className="text-lg font-bold text-foreground mb-1">
- {role.title}
- </h3>
- <p className="text-sm text-muted-foreground mb-4 flex-1">
- {role.focus}
- </p>
- <Link
- to={role.link}
- className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline mt-auto"
- >
- Utforska <ArrowRight className="h-3.5 w-3.5" />
- </Link>
- </CardContent>
- </Card>
- ))}
- </div>
+  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  {roles.map((role) => (
+  <Card key={role.title} className="relative overflow-hidden bg-[#1E1C18] h-full" style={{ border: "0.5px solid #2A2723" }}>
+  <CardContent className="p-6 sm:p-8 flex flex-col h-full">
+  <div className="text-3xl mb-3">{role.emoji}</div>
+  <h3 className="text-lg font-bold text-white mb-1">
+  {role.title}
+  </h3>
+  <p className="text-sm text-white/70 mb-4 flex-1">
+  {role.focus}
+  </p>
+  <Link
+  to={role.link}
+  className="inline-flex items-center gap-1.5 text-sm font-medium text-[hsl(var(--signature))] hover:underline mt-auto"
+  >
+  Utforska <ArrowRight className="h-3.5 w-3.5" />
+  </Link>
+  </CardContent>
+  </Card>
+  ))}
+  </div>
  </section>
 
  {/* AI use-case explorer */}
@@ -553,26 +553,26 @@ const AIOverview = () => {
  onClick={() => setSelectedGoal(isActive ? null : goal.id)}
  className="text-left w-full"
  >
- <Card className={`group relative overflow-hidden border transition-all duration-300 h-full ${
- isActive
- ? `bg-gradient-to-br ${goal.color} ring-2 ring-primary/50 scale-[1.02]`
- : "bg-card hover:bg-muted/50 hover:scale-[1.01]"
- }`}>
- <CardContent className="p-5 sm:p-6">
- <div className="flex items-start gap-3">
- <span className="text-2xl shrink-0">{goal.emoji}</span>
- <div>
- <h3 className={`font-bold text-foreground mb-0.5 transition-colors ${isActive ? "text-primary" : "group-hover:text-primary"}`}>
- {goal.title}
- </h3>
- </div>
- {isActive && (
- <Check className="h-5 w-5 text-primary ml-auto shrink-0" />
- )}
- </div>
- </CardContent>
- </Card>
- </button>
+  <Card className={`group relative overflow-hidden transition-all duration-300 h-full bg-[#1E1C18] ${
+  isActive
+  ? "ring-2 ring-[hsl(var(--signature))] scale-[1.02]"
+  : "hover:scale-[1.01]"
+  }`} style={{ border: "0.5px solid #2A2723" }}>
+  <CardContent className="p-5 sm:p-6">
+  <div className="flex items-start gap-3">
+  <span className="text-2xl shrink-0">{goal.emoji}</span>
+  <div>
+  <h3 className={`font-bold mb-0.5 transition-colors ${isActive ? "text-[hsl(var(--signature))]" : "text-white group-hover:text-[hsl(var(--signature))]"}`}>
+  {goal.title}
+  </h3>
+  </div>
+  {isActive && (
+  <Check className="h-5 w-5 text-[hsl(var(--signature))] ml-auto shrink-0" />
+  )}
+  </div>
+  </CardContent>
+  </Card>
+  </button>
  );
  })}
  </div>
