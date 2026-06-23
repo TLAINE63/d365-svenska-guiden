@@ -62,15 +62,16 @@ export default function Beslutsmognadsindex() {
         <title>Beslutsmognadsindex — diagnostik inför partnerval | d365.se</title>
         <meta
           name="description"
-          content="En diagnostik för svenska beslutsgrupper: hur redo är ni inför en större ERP- eller CRM-investering? 8–10 minuter, 25 frågor, konfidentiell sammanställning."
+          content="Beslutsmognadsindex: diagnostik för svenska beslutsgrupper inför ERP- eller CRM-investering. 8–10 minuter, 25 frågor, konfidentiell sammanställning."
         />
-        <link rel="canonical" href="https://d365.se/beslutsmognad" />
-        <meta property="og:title" content="Beslutsmognadsindex — d365.se" />
+        <link rel="canonical" href="https://d365.se/beslutsmognad/" />
+        <meta property="og:title" content="Beslutsmognadsindex — diagnostik inför partnerval | d365.se" />
         <meta
           property="og:description"
-          content="En diagnostik för svenska beslutsgrupper: hur redo är ni inför en större ERP- eller CRM-investering?"
+          content="Diagnostik för svenska beslutsgrupper inför ERP- eller CRM-investering — 25 frågor, konfidentiell sammanställning."
         />
-        <meta property="og:url" content="https://d365.se/beslutsmognad" />
+        <meta property="og:url" content="https://d365.se/beslutsmognad/" />
+        <meta property="og:type" content="website" />
       </Helmet>
 
       <TopBar />
