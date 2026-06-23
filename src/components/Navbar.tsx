@@ -46,30 +46,30 @@ const Navbar = () => {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 bg-background"
+      className="fixed top-0 left-0 right-0 z-50 bg-[hsl(var(--hero-dark))]"
       style={{ borderBottom: "3px solid hsl(var(--signature))" }}
     >
 
       {/* Top utility bar (desktop only) */}
-      <div className="hidden lg:block border-b border-border/60 bg-background">
+      <div className="hidden lg:block border-b border-[hsl(var(--line-dark))] bg-[hsl(var(--hero-dark))]">
         <div className="container mx-auto px-4">
           <div className="flex h-9 items-center justify-end gap-5 text-sm">
             <Link
               to="/AI-sok/"
-              className="inline-flex items-center gap-1.5 font-medium text-primary hover:text-primary/80 transition-colors"
+              className="inline-flex items-center gap-1.5 font-medium text-[hsl(var(--signature))] hover:text-white transition-colors"
             >
               <Sparkles className="h-3.5 w-3.5" />
               AI-sök
             </Link>
             <Link
               to="/kunskapscenter"
-              className="font-medium text-muted-foreground hover:text-primary transition-colors"
+              className="font-medium text-white/70 hover:text-white transition-colors"
             >
               Kunskapscenter & Events
             </Link>
             <Link
               to="/kontakt/"
-              className="font-medium text-muted-foreground hover:text-primary transition-colors"
+              className="font-medium text-white/70 hover:text-white transition-colors"
             >
               Kontakt
             </Link>
@@ -101,14 +101,14 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-4 xl:gap-6">
             <Link
               to="/branscher/"
-              className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+              className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] transition-colors"
             >
               Hitta din bransch & partner
             </Link>
             {/* Branschlösningar – dold tills vidare */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
+                <Button variant="ghost" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] transition-colors px-0">
                   Upphandlingsverktyg
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
@@ -178,7 +178,7 @@ const Navbar = () => {
             </DropdownMenu>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
+                <Button variant="ghost" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] transition-colors px-0">
                   Affärssystem (ERP)
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
@@ -195,7 +195,7 @@ const Navbar = () => {
             </DropdownMenu>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
+                <Button variant="ghost" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] transition-colors px-0">
                   Marknad, Sälj & Service
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
@@ -212,7 +212,7 @@ const Navbar = () => {
             </DropdownMenu>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
+                <Button variant="ghost" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] transition-colors px-0">
                   Microsoft AI
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
@@ -233,7 +233,7 @@ const Navbar = () => {
           {/* Mobile Menu */}
           <Sheet>
             <SheetTrigger asChild className="lg:hidden">
-              <Button variant="ghost" size="icon" aria-label="Open navigation menu">
+              <Button variant="ghost" size="icon" aria-label="Open navigation menu" className="text-white hover:text-[hsl(var(--signature))] hover:bg-white/10">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>

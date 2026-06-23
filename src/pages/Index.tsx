@@ -72,7 +72,7 @@ const situationCards = [
  link: "/erp/",
  linkText: "Utforska ERP-vägen",
  image: selectorErp,
- accent: "from-blue-500/90 to-indigo-600/90",
+ accent: "from-[#161511]/85 to-[#161511]/85",
  glow: "rgba(59,130,246,0.35)",
  eyebrow: "ERP",
  },
@@ -83,7 +83,7 @@ const situationCards = [
  link: "/d365sales/",
  linkText: "Utforska säljprocessen",
  image: selectorCrm,
- accent: "from-pink-500/90 to-rose-600/90",
+ accent: "from-[#161511]/85 to-[#161511]/85",
  glow: "rgba(236,72,153,0.35)",
  eyebrow: "Försäljning",
  },
@@ -94,7 +94,7 @@ const situationCards = [
  link: "/d365marketing/",
  linkText: "Utforska marknadsbearbetning",
  image: selectorCrm,
- accent: "from-fuchsia-500/90 to-purple-600/90",
+ accent: "from-[#161511]/85 to-[#161511]/85",
  glow: "rgba(217,70,239,0.35)",
  eyebrow: "Marknad",
  },
@@ -105,7 +105,7 @@ const situationCards = [
  link: "/d365customerservice/",
  linkText: "Utforska kundservice",
  image: selectorService,
- accent: "from-teal-500/90 to-emerald-600/90",
+ accent: "from-[#161511]/85 to-[#161511]/85",
  glow: "rgba(20,184,166,0.35)",
  eyebrow: "Kundservice",
  },
@@ -116,7 +116,7 @@ const situationCards = [
  link: "/d365fieldservice/",
  linkText: "Utforska fältservice",
  image: selectorService,
- accent: "from-cyan-500/90 to-sky-600/90",
+ accent: "from-[#161511]/85 to-[#161511]/85",
  glow: "rgba(6,182,212,0.35)",
  eyebrow: "Fältservice",
  },
@@ -127,7 +127,7 @@ const situationCards = [
  link: "/d365contactcenter/",
  linkText: "Utforska contact center",
  image: selectorService,
- accent: "from-emerald-500/90 to-teal-700/90",
+ accent: "from-[#161511]/85 to-[#161511]/85",
  glow: "rgba(16,185,129,0.35)",
  eyebrow: "Contact Center",
  },
@@ -138,7 +138,7 @@ const situationCards = [
  link: "/aioversikt/",
  linkText: "Utforska AI i Dynamics 365",
  image: selectorErp,
- accent: "from-violet-500/90 to-indigo-600/90",
+ accent: "from-[#161511]/85 to-[#161511]/85",
  glow: "rgba(139,92,246,0.35)",
  eyebrow: "AI",
  },
@@ -149,7 +149,7 @@ const situationCards = [
  link: "/valjdynamics365partner/",
  linkText: "Starta partnermatchning",
  image: selectorService,
- accent: "from-orange-500/90 to-teal-600/90",
+ accent: "from-[#161511]/85 to-[#161511]/85",
  glow: "hsl(var(--cta-orange) / 0.35)",
  eyebrow: "Partner",
  },
@@ -314,10 +314,11 @@ const Index = () => {
  to: "/branscher/",
  },
  ].map((step) => (
- <div
- key={step.n}
- className="group relative bg-white/5 border border-white/10 rounded p-5 sm:p-6 hover:bg-white/[0.08] hover:border-white/20 transition-all flex flex-col"
- >
+  <div
+  key={step.n}
+  className="group relative bg-[#1E1C18] rounded p-5 sm:p-6 hover:bg-[#24221E] transition-all flex flex-col"
+  style={{ border: "0.5px solid #2A2723" }}
+  >
  {step.aiPowered && (
  <span
  className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-white/15 border border-white/25 text-[12px] font-bold uppercase tracking-[0.14em] text-white "
@@ -341,7 +342,7 @@ const Index = () => {
  {step.to ? (
  <Button
  asChild
- className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 h-11 rounded-lg font-semibold w-full justify-center hover:-translate-y-0.5 transition-all"
+ className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 h-11 rounded font-semibold w-full justify-center hover:-translate-y-0.5 transition-all"
  >
  <Link to={step.to}>
  {step.cta}
@@ -351,7 +352,7 @@ const Index = () => {
  ) : (
  <Button
  onClick={step.onClick}
- className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 h-11 rounded-lg font-semibold w-full justify-center hover:-translate-y-0.5 transition-all"
+ className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 h-11 rounded font-semibold w-full justify-center hover:-translate-y-0.5 transition-all"
  >
  {step.cta}
  <ArrowRight className="w-4 h-4 ml-1.5" />
@@ -385,7 +386,7 @@ const Index = () => {
  <Button
  asChild
  size="lg"
- className="bg-white text-[hsl(192_48%_14%)] hover:bg-white/90 h-12 sm:h-14 px-6 rounded-lg font-bold w-full md:w-auto justify-center hover:-translate-y-0.5 transition-all flex-shrink-0"
+ className="bg-white text-[hsl(var(--hero-dark))] hover:bg-white/90 h-12 sm:h-14 px-6 rounded font-bold w-full md:w-auto justify-center hover:-translate-y-0.5 transition-all flex-shrink-0"
  >
  <Link to="/beslutsmognad/">
  Starta Mognadsindex
@@ -619,7 +620,7 @@ const Index = () => {
  </p>
  <div className="space-y-4 mb-8">
  <div className="flex items-start gap-3">
- <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+ <div className="w-8 h-8 rounded bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
  <BarChart3 className="w-4 h-4 text-[hsl(var(--cta-orange))]" />
  </div>
  <div>
@@ -628,7 +629,7 @@ const Index = () => {
  </div>
  </div>
  <div className="flex items-start gap-3">
- <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+ <div className="w-8 h-8 rounded bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
  <Users className="w-4 h-4 text-[hsl(var(--cta-orange))]" />
  </div>
  <div>
@@ -637,7 +638,7 @@ const Index = () => {
  </div>
  </div>
  <div className="flex items-start gap-3">
- <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+ <div className="w-8 h-8 rounded bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
  <Check className="w-4 h-4 text-[hsl(var(--cta-orange))]" />
  </div>
  <div>
@@ -709,7 +710,7 @@ const Index = () => {
  to="/kunskapscenter/"
  className="group relative bg-card border border-border rounded p-6 hover:border-primary/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden"
  >
- <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-primary/60" />
+ <div className="absolute top-0 left-0 right-0 h-1 bg-primary" />
  <div className="w-11 h-11 rounded bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-colors">
  <BookOpen className="w-5 h-5 text-primary" />
  </div>
@@ -802,7 +803,7 @@ const Index = () => {
  <Link
  key={pill}
  to={`/branscher/${PILL_TO_SLUG[pill]}/`}
- className="group flex items-center justify-between gap-2 px-4 py-3.5 rounded border border-border bg-[#F4F8F8] hover:border-primary/50 hover:bg-primary/5 hover:-translate-y-0.5 transition-all duration-200"
+ className="group flex items-center justify-between gap-2 px-4 py-3.5 rounded border border-border bg-secondary hover:border-primary/50 hover:bg-primary/5 hover:-translate-y-0.5 transition-all duration-200"
  >
  <span className="text-[14px] font-medium text-foreground">{pill}</span>
  <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all flex-shrink-0" />
@@ -814,7 +815,7 @@ const Index = () => {
  */}
 
  {/* Block 11 — Slut-CTA (BOOKEND 2): mörk teal, speglar hero, en orange CTA */}
- <section className="section-divider section-divider-dark bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] py-16 sm:py-20 relative overflow-hidden">
+ <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] py-16 sm:py-20 relative overflow-hidden">
 
  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--cta-orange)/0.10),transparent_55%)]" />
@@ -839,7 +840,7 @@ const Index = () => {
  </section>
 
  {/* Block 12 — Vanliga frågor */}
- <section id="questions" className="section-divider py-12 sm:py-16 bg-[#E8EFF1]">
+ <section id="questions" className="section-divider py-12 sm:py-16 bg-secondary">
 
  <div className="container mx-auto px-4 sm:px-6">
  <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold text-center mb-8 sm:mb-10 md:mb-12">
@@ -850,7 +851,7 @@ const Index = () => {
  <Suspense fallback={<div className="space-y-3 sm:space-y-4" />}>
  <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
  {/* Fråga 1 */}
- <AccordionItem value="item-1" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
+ <AccordionItem value="item-1" className="bg-card rounded px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
  <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
  <HelpCircle className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
@@ -870,7 +871,7 @@ const Index = () => {
  </AccordionItem>
 
  {/* Fråga 2 */}
- <AccordionItem value="item-2" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
+ <AccordionItem value="item-2" className="bg-card rounded px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
  <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
  <HelpCircle className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
@@ -892,7 +893,7 @@ const Index = () => {
  </AccordionItem>
 
  {/* Fråga 3 */}
- <AccordionItem value="item-3" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
+ <AccordionItem value="item-3" className="bg-card rounded px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
  <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
  <HelpCircle className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
@@ -918,7 +919,7 @@ const Index = () => {
  </AccordionItem>
 
  {/* Fråga 4 */}
- <AccordionItem value="item-4" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
+ <AccordionItem value="item-4" className="bg-card rounded px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
  <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
  <Users className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
@@ -941,7 +942,7 @@ const Index = () => {
  </AccordionItem>
 
  {/* Fråga 5 */}
- <AccordionItem value="item-5" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
+ <AccordionItem value="item-5" className="bg-card rounded px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
  <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
  <BarChart3 className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
@@ -959,7 +960,7 @@ const Index = () => {
  </AccordionItem>
 
  {/* Fråga 6 */}
- <AccordionItem value="item-6" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
+ <AccordionItem value="item-6" className="bg-card rounded px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
  <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
  <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
