@@ -345,8 +345,45 @@ const Index = () => {
   </form>
  </div>
 
-
-
+{/* Börja här – enkel vägvisare för förstagångsbesökaren */}
+<div className="max-w-3xl mb-8 sm:mb-10">
+  <div className="bg-[#211F1A] border border-[#3A332A] rounded p-4 sm:p-5">
+    <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[hsl(var(--signature))] mb-2">
+      <HelpCircle className="w-3.5 h-3.5" />
+      Börja här
+    </div>
+    <p className="text-white text-[15px] sm:text-base font-semibold mb-1">
+      Vet ni redan vilket Dynamics 365-system ni behöver?
+    </p>
+    <p className="text-white/70 text-[13px] sm:text-[14px] mb-4">
+      Välj ingång nedan – vi guidar er rätt oavsett var ni står idag.
+    </p>
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+      <Link
+        to="/branscher/"
+        className="inline-flex items-center justify-between gap-2 bg-[#15130F] hover:bg-[#1d1b16] border border-[#3A332A] hover:border-[hsl(var(--signature))] rounded px-3 py-2.5 text-[13px] font-semibold text-white transition-colors"
+      >
+        <span>Ja – hitta partner</span>
+        <ArrowRight className="w-4 h-4 text-[hsl(var(--signature))]" />
+      </Link>
+      <button
+        type="button"
+        onClick={() => setDirectionPicker("behovsanalys")}
+        className="inline-flex items-center justify-between gap-2 bg-[#15130F] hover:bg-[#1d1b16] border border-[#3A332A] hover:border-[hsl(var(--signature))] rounded px-3 py-2.5 text-[13px] font-semibold text-white transition-colors text-left"
+      >
+        <span>Nej – starta behovsanalys</span>
+        <ArrowRight className="w-4 h-4 text-[hsl(var(--signature))]" />
+      </button>
+      <Link
+        to="/beslutsmognad/"
+        className="inline-flex items-center justify-between gap-2 bg-[#15130F] hover:bg-[#1d1b16] border border-[#3A332A] hover:border-[hsl(var(--signature))] rounded px-3 py-2.5 text-[13px] font-semibold text-white transition-colors"
+      >
+        <span>Osäker – testa beslutsmognad</span>
+        <ArrowRight className="w-4 h-4 text-[hsl(var(--signature))]" />
+      </Link>
+    </div>
+  </div>
+</div>
 
  {/* 3 step cards */}
  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 mb-5 sm:mb-6">
