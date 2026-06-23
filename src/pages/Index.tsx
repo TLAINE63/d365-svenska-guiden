@@ -291,6 +291,61 @@ const Index = () => {
  </p>
  </div>
 
+ {/* AI-sök – startsidesfunktion */}
+ <div className="max-w-3xl mb-8 sm:mb-10">
+  <form
+   onSubmit={(e) => {
+    e.preventDefault();
+    submitAiSearch(aiQuery);
+   }}
+   className="bg-[#211F1A] border border-[#3A332A] rounded p-4 sm:p-5"
+   role="search"
+   aria-label="AI-sök på d365.se"
+  >
+   <label
+    htmlFor="hero-ai-search"
+    className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[hsl(var(--signature))] mb-3"
+   >
+    <Sparkles className="w-3.5 h-3.5" />
+    Fråga AI:n – få rätt sida direkt
+   </label>
+   <div className="flex flex-col sm:flex-row gap-2">
+    <div className="relative flex-1">
+     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50" aria-hidden="true" />
+     <input
+      id="hero-ai-search"
+      type="search"
+      value={aiQuery}
+      onChange={(e) => setAiQuery(e.target.value)}
+      placeholder="T.ex. Vilken CRM passar för 30 säljare?"
+      className="w-full bg-[#15130F] border border-[#3A332A] focus:border-[hsl(var(--signature))] outline-none rounded pl-9 pr-3 py-3 text-[15px] text-white placeholder:text-white/40"
+     />
+    </div>
+    <button
+     type="submit"
+     className="inline-flex items-center justify-center gap-2 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white font-semibold text-[14px] px-5 py-3 rounded transition-colors"
+    >
+     Sök med AI
+     <ArrowRight className="w-4 h-4" />
+    </button>
+   </div>
+   <div className="mt-3 flex flex-wrap gap-2">
+    {aiExamples.map((ex) => (
+     <button
+      key={ex}
+      type="button"
+      onClick={() => submitAiSearch(ex)}
+      className="text-[12px] text-white/70 hover:text-white border border-[#3A332A] hover:border-[hsl(var(--signature))] rounded px-2.5 py-1 transition-colors"
+     >
+      {ex}
+     </button>
+    ))}
+   </div>
+  </form>
+ </div>
+
+
+
 
  {/* 3 step cards */}
  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 mb-5 sm:mb-6">
