@@ -157,6 +157,35 @@ const DeepDiveArticle = () => {
         {/* Article content */}
         <section className="py-10">
           <div className="container mx-auto px-4 max-w-4xl">
+            {article.productSlug === "copilot" && (
+              <aside
+                aria-label="Uppdateringsstatus"
+                className="mb-8 p-5 rounded border-l-4 border-[hsl(var(--signature))] bg-[hsl(var(--signature))]/5"
+              >
+                <p className="text-xs font-semibold uppercase tracking-wider text-[hsl(var(--signature))] mb-2">
+                  Uppdateringsstatus
+                </p>
+                <p className="text-sm md:text-base leading-relaxed text-foreground/90">
+                  Den här artikeln beskriver tidigare Copilot-funktioner i Dynamics 365. Copilot, agenter och AI-landskapet har förändrats snabbt sedan publicering. För en aktuell 2026-vy, se vår översikt om{" "}
+                  <Link to="/aioversikt/" className="text-[hsl(var(--signature))] font-semibold hover:underline">
+                    Copilot, agenter och AI i Dynamics 365
+                  </Link>
+                  {" "}– samt fördjupningarna{" "}
+                  <Link to="/kunskapscenter/copilot/ai-skiftet-dynamics-365-build-2026/" className="text-[hsl(var(--signature))] font-semibold hover:underline">
+                    AI-skiftet (Build 2026)
+                  </Link>
+                  ,{" "}
+                  <Link to="/kunskapscenter/copilot/copilot-cowork-dynamics-365/" className="text-[hsl(var(--signature))] font-semibold hover:underline">
+                    Copilot Cowork
+                  </Link>
+                  {" "}och{" "}
+                  <Link to="/agents/" className="text-[hsl(var(--signature))] font-semibold hover:underline">
+                    Microsoft Agenter
+                  </Link>
+                  .
+                </p>
+              </aside>
+            )}
             {article.description && (
               <aside
                 aria-label="Sammanfattning"
