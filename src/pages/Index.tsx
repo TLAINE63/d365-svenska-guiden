@@ -29,6 +29,7 @@ const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
 const EbookBanner = lazy(() => import("@/components/EbookBanner"));
 
 import FeaturedArticleBanner from "@/components/FeaturedArticleBanner";
+import LatestArticlesStrip from "@/components/LatestArticlesStrip";
 
 import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
 import HomePartnersTeaser from "@/components/HomePartnersTeaser";
@@ -160,12 +161,12 @@ const situationCards = [
 
 
 const popularGuides = [
- { text: "Business Central vs Finance & SCM — vilket passar oss?", link: "/erp/", tag: "ERP" },
- { text: "Hur väljer man rätt Dynamics 365-partner?", link: "/valjdynamics365partner/", tag: "Partner" },
- { text: "Vad kostar Dynamics 365 — licens och projekt?", link: "/businesscentral/", tag: "Kostnad" },
- { text: "Hur lång tid tar en Dynamics 365-implementation?", link: "/kunskapscenter/", tag: "Tid" },
- { text: "Den typiska upphandlingsresan — 7 stadier", link: "/kunskapscenter/upphandlingsresan/", tag: "Process" },
- { text: "Är vi redo för AI och Copilot? Gör en AI-readiness", link: "/ai-readiness/", tag: "AI" },
+ { text: "Business Central vs Finance & SCM — vilket passar oss?", desc: "Jämför Microsofts två affärssystem på funktion, storlek och bransch.", link: "/erp/", tag: "ERP" },
+ { text: "Hur väljer man rätt Dynamics 365-partner?", desc: "Vad ni bör fråga, kräva och utvärdera innan ni skriver avtal.", link: "/valjdynamics365partner/", tag: "Partner" },
+ { text: "Vad kostar Dynamics 365 — licens och projekt?", desc: "Realistiska intervall för abonnemang, implementation och löpande kostnader.", link: "/kostnad/", tag: "Kostnad" },
+ { text: "Hur lång tid tar en Dynamics 365-implementation?", desc: "Tidplaner per storlek och vad som typiskt försenar projekt.", link: "/kunskapscenter/", tag: "Tid" },
+ { text: "Den typiska upphandlingsresan — 7 stadier", desc: "Från första behov till go-live: vad händer i varje fas och vem äger den.", link: "/kunskapscenter/upphandlingsresan/", tag: "Process" },
+ { text: "Är vi redo för AI och Copilot? Gör en AI-readiness", desc: "Snabb diagnostik som visar var ni står och vad ni bör göra först.", link: "/ai-readiness/", tag: "AI" },
 ];
 
 import partnerDataJson from "@/data/partnerData.json";
@@ -280,7 +281,7 @@ const Index = () => {
  Upphandlingsguiden för Microsoft Dynamics 365
  </div>
   <h1 className="text-[26px] sm:text-[34px] md:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
-  Välj inte <span className="text-[hsl(var(--signature))] whitespace-nowrap">Dynamics&nbsp;365</span>-partner på magkänsla
+  Hur hittar vi rätt <span className="text-[hsl(var(--signature))] whitespace-nowrap">Dynamics&nbsp;365</span>-partner?
   </h1>
   <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl">
   d365.se hjälper er förstå behovet, jämföra alternativen och hitta partners som matchar er verksamhet – med guider, analyser och verktyg skrivna från köparens perspektiv.
@@ -472,6 +473,7 @@ const Index = () => {
 
  <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
  <FeaturedArticleBanner />
+ <LatestArticlesStrip />
  </div>
  </section>
 
@@ -838,15 +840,18 @@ const Index = () => {
  <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
  <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-1">Mest lästa guider</h2>
  <p className="text-sm text-muted-foreground mb-5">Frågorna svenska företag söker svar på.</p>
- <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+ <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
  {popularGuides.map((g) => (
  <Link
  key={g.text}
  to={g.link}
- className="group flex items-center justify-between gap-3 bg-card border border-border rounded-[10px] px-4 py-3 text-[13px] font-medium text-foreground hover:border-primary/50 hover:text-primary hover:bg-primary/[0.03] hover:-translate-y-0.5 transition-all duration-200"
+ className="group flex flex-col gap-1.5 bg-card border border-border rounded-[10px] px-4 py-3.5 hover:border-primary/50 hover:bg-primary/[0.03] hover:-translate-y-0.5 transition-all duration-200"
  >
- <span className="flex-1">{g.text}</span>
- <span className="text-[10px] font-semibold uppercase tracking-wider text-[hsl(var(--signature))] bg-primary/10 px-2 py-0.5 rounded whitespace-nowrap">{g.tag}</span>
+ <div className="flex items-start justify-between gap-3">
+ <span className="flex-1 text-[14px] font-semibold text-foreground group-hover:text-primary leading-snug">{g.text}</span>
+ <span className="text-[10px] font-semibold uppercase tracking-wider text-[hsl(var(--signature))] bg-primary/10 px-2 py-0.5 rounded whitespace-nowrap mt-0.5">{g.tag}</span>
+ </div>
+ <p className="text-[12.5px] text-muted-foreground leading-relaxed">{g.desc}</p>
  </Link>
  ))}
  </div>
