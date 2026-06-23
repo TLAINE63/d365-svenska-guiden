@@ -268,7 +268,7 @@ const Index = () => {
             <h1 className="text-[26px] sm:text-[34px] md:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
               <span className="block sm:whitespace-nowrap">
                 Kvalitetssäkrad upphandling av{" "}
-                <span className="text-[hsl(var(--cta-orange))] whitespace-nowrap">Dynamics&nbsp;365</span>
+                <span className="text-[hsl(var(--signature))] whitespace-nowrap">Dynamics&nbsp;365</span>
               </span>
               <span className="block text-white/90 mt-1">– från behov till val av Microsoftpartner</span>
             </h1>
