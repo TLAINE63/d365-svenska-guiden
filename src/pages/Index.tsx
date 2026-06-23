@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import NoscriptSEO from "@/components/NoscriptSEO";
 import { OrganizationSchema, WebSiteSchema, FAQSchema, LocalBusinessSchema } from "@/components/StructuredData";
-import { Monitor, Users, Phone, HelpCircle, ArrowRight, BarChart3, Shield, Check, ChevronDown, Sparkles, BookOpen, Calendar, PlayCircle, ClipboardCheck, Search } from "lucide-react";
+import { Monitor, Users, Phone, HelpCircle, ArrowRight, BarChart3, Shield, Check, ChevronDown, Sparkles, BookOpen, Calendar, PlayCircle, ClipboardCheck, Search, Clock } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
 import selectorErp from "@/assets/selector/erp.jpg";
