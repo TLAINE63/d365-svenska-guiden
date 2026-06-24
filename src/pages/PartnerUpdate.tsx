@@ -411,6 +411,9 @@ const PartnerUpdate = () => {
   }
   if (typeof ed.team_size_sweden === "string") setTeamSizeSweden(ed.team_size_sweden);
   if (typeof ed.implementations_done === "string") setImplementationsDone(ed.implementations_done);
+  if (ed.implementations_per_app && typeof ed.implementations_per_app === "object") {
+    setImplementationsPerApp(ed.implementations_per_app as Record<string, string>);
+  }
   if (Array.isArray(ed.not_a_fit)) setNotAFitInput(ed.not_a_fit.join("\n"));
  } else {
  setFormData(prev => ({
