@@ -1414,10 +1414,12 @@ export type Database = {
           contact_photo_url: string | null
           created_at: string | null
           customer_examples: string[] | null
+          delivery_profile: Json | null
           description: string | null
           email: string | null
           geography: string[] | null
           id: string | null
+          implementations_done: string | null
           industries: string[] | null
           industry_apps: Json | null
           industry_pitches: Json | null
@@ -1426,12 +1428,15 @@ export type Database = {
           logo_url: string | null
           map_url: string | null
           name: string | null
+          not_a_fit: string[] | null
           office_cities: string[] | null
           phone: string | null
+          positioning_statement: string | null
           product_filters: Json | null
           related_party: boolean | null
           secondary_industries: string[] | null
           slug: string | null
+          team_size_sweden: string | null
           updated_at: string | null
           website: string | null
           youtube_video_id: string | null
@@ -1443,10 +1448,12 @@ export type Database = {
           contact_photo_url?: string | null
           created_at?: string | null
           customer_examples?: string[] | null
+          delivery_profile?: Json | null
           description?: string | null
           email?: string | null
           geography?: string[] | null
           id?: string | null
+          implementations_done?: string | null
           industries?: string[] | null
           industry_apps?: Json | null
           industry_pitches?: Json | null
@@ -1455,12 +1462,15 @@ export type Database = {
           logo_url?: string | null
           map_url?: string | null
           name?: string | null
+          not_a_fit?: string[] | null
           office_cities?: string[] | null
           phone?: string | null
+          positioning_statement?: string | null
           product_filters?: Json | null
           related_party?: boolean | null
           secondary_industries?: string[] | null
           slug?: string | null
+          team_size_sweden?: string | null
           updated_at?: string | null
           website?: string | null
           youtube_video_id?: string | null
@@ -1472,10 +1482,12 @@ export type Database = {
           contact_photo_url?: string | null
           created_at?: string | null
           customer_examples?: string[] | null
+          delivery_profile?: Json | null
           description?: string | null
           email?: string | null
           geography?: string[] | null
           id?: string | null
+          implementations_done?: string | null
           industries?: string[] | null
           industry_apps?: Json | null
           industry_pitches?: Json | null
@@ -1484,12 +1496,15 @@ export type Database = {
           logo_url?: string | null
           map_url?: string | null
           name?: string | null
+          not_a_fit?: string[] | null
           office_cities?: string[] | null
           phone?: string | null
+          positioning_statement?: string | null
           product_filters?: Json | null
           related_party?: boolean | null
           secondary_industries?: string[] | null
           slug?: string | null
+          team_size_sweden?: string | null
           updated_at?: string | null
           website?: string | null
           youtube_video_id?: string | null
