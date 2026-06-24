@@ -745,7 +745,7 @@ const Index = () => {
  <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-3">
  Lär dig mer
  </span>
-  <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 tracking-tight">
+  <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 tracking-tight whitespace-nowrap">
   Välj inte Dynamics 365-partner på magkänsla. Läs på först.
   </h2>
   <p className="text-[15px] text-muted-foreground leading-relaxed">
