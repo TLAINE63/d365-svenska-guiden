@@ -6,6 +6,7 @@ import { ArrowRight, Loader2 } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerCard from "@/components/PartnerCard";
+import WhyTheseResults from "@/components/WhyTheseResults";
 import { allIndustries, companySizes } from "@/data/partners";
 import { usePartners } from "@/hooks/usePartners";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
@@ -195,7 +196,9 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  </div>
  )}
 
- <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  <WhyTheseResults className="mb-6 max-w-3xl mx-auto" />
+
+  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
  {filteredPartners.map((partner, index) => {
  // Build profile URL with filter context
  const basePath = buildPartnerProductPath(partner.slug, applicationFilter);
