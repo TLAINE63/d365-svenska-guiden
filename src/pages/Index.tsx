@@ -480,7 +480,7 @@ const Index = () => {
        <BarChart3 className="w-3 h-3" />
        Mognadsindex
       </span>
-      <span className="text-[10.5px] uppercase tracking-[0.14em] text-white/75">Nytt för 2026</span>
+      
      </div>
      <h2 className="text-2xl sm:text-3xl font-bold text-white leading-[1.15] tracking-tight mb-3">
       Hur redo är ert beslutsunderlag — egentligen?
