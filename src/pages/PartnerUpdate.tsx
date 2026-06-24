@@ -2341,7 +2341,7 @@ const PartnerUpdate = () => {
          />
        </div>
        <div>
-         <Label htmlFor="dp_engagement">Startmodell</Label>
+         <Label htmlFor="dp_engagement">Uppdragsform</Label>
          <Input
            id="dp_engagement"
            placeholder="t.ex. Förstudie, fast pris, T&M"

@@ -341,7 +341,7 @@ const ComparePartners = () => {
                         b={renderValue(B.length)}
                       />
                       <R
-                        label="Startmodell"
+                        label="Uppdragsform"
                         a={renderValue(A.engagement)}
                         b={renderValue(B.engagement)}
                       />

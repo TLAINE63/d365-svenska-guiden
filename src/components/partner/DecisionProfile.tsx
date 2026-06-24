@@ -114,7 +114,7 @@ const DecisionProfile = ({ partner }: Props) => {
               </div>
               <div>
                 <div className="text-xs font-semibold text-slate-500 mb-1.5 flex items-center gap-1.5">
-                  <Briefcase className="w-3.5 h-3.5" /> Startmodell
+                  <Briefcase className="w-3.5 h-3.5" /> Uppdragsform
                 </div>
                 <div className="text-slate-800">{delivery.engagement_model?.trim() || EMPTY}</div>
               </div>
