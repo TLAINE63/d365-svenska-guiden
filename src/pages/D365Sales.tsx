@@ -220,7 +220,7 @@ const D365Sales = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 sm:mb-16">
             <div className="flex justify-center items-center gap-3 mb-4">
-              <img src={SalesIcon} alt="Sales" className="h-12 w-12" />
+              <img src={SalesIcon} alt="Dynamics 365 Sales" className="h-12 w-12" />
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
                 Licenspriser
               </h2>

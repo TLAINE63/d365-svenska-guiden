@@ -239,7 +239,7 @@ const Affarssystem = () => {
               {/* F&SCM */}
               <div className="bg-card rounded p-6 sm:p-8 border border-border ">
                 <div className="flex items-center gap-3 mb-4">
-                  <img src={FinanceIcon} alt="Finance" className="h-10 w-10" />
+                  <img src={FinanceIcon} alt="Dynamics 365 Finance" className="h-10 w-10" />
                   <img src={SupplyChainIcon} alt="Supply Chain" className="h-10 w-10" />
                   <h3 className="text-xl sm:text-2xl font-bold text-card-foreground">Finance &amp; Supply Chain</h3>
                 </div>
