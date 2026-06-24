@@ -2323,7 +2323,7 @@ const PartnerUpdate = () => {
      </h4>
      <div className="grid sm:grid-cols-2 gap-4">
        <div className="sm:col-span-2">
-         <Label htmlFor="dp_roles">Typiska roller i teamet (kommaseparerade)</Label>
+         <Label htmlFor="dp_roles">Roller partnern bemannar (kommaseparerade)</Label>
          <Input
            id="dp_roles"
            placeholder="Lösningsarkitekt, Funktionskonsult, Utvecklare"
