@@ -135,7 +135,7 @@ const Branscher = () => {
  <div className="aspect-[4/3] overflow-hidden bg-muted relative">
  <img
  src={img}
- alt={ind.name}
+ alt={`Branschlösning för ${ind.name} i Microsoft Dynamics 365`}
  loading="lazy"
  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
  />
