@@ -83,6 +83,7 @@ const BeslutsmognadResultat = lazy(() => import("./pages/BeslutsmognadResultat")
 const OwnershipAndInterests = lazy(() => import("./pages/OwnershipAndInterests"));
 const Priser = lazy(() => import("./pages/Priser"));
 const Kostnad = lazy(() => import("./pages/Kostnad"));
+const ComparePartners = lazy(() => import("./pages/ComparePartners"));
 const AiChatBubble = lazy(() => import("@/components/AiChatBubble"));
 
 const queryClient = new QueryClient();
