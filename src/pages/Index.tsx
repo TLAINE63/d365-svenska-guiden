@@ -360,7 +360,7 @@ const Index = () => {
       value={aiQuery}
       onChange={(e) => setAiQuery(e.target.value)}
       placeholder="T.ex. Vad innehåller Dynamics 365 Sales?"
-      className="w-full bg-[#15130F] border border-[#3A332A] focus:border-[hsl(var(--signature))] outline-none rounded pl-9 pr-3 py-3 text-[15px] text-white placeholder:text-white/40"
+      className="w-full bg-[#15130F] border border-[#3A332A] focus:border-[hsl(var(--signature))] outline-none rounded pl-9 pr-3 py-3 text-[15px] text-white placeholder:text-white/70"
      />
     </div>
     <button
