@@ -275,6 +275,7 @@ interface AiMatchResult {
   id: string;
   score: number;
   matchReason: string;
+  bullets?: string[];
 }
 
 const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }: PartnerGuideDialogProps) => {
@@ -980,6 +981,18 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                                 <Sparkles className="w-3 h-3 mt-0.5 flex-shrink-0 text-primary/60" />
                                 {aiMatch.matchReason}
                               </p>
+                            )}
+
+                            {/* AI bullets – konkreta motiveringar */}
+                            {aiMatch?.bullets && aiMatch.bullets.length > 0 && !isAiLoading && (
+                              <ul className="mb-2 space-y-1">
+                                {aiMatch.bullets.map((b, i) => (
+                                  <li key={i} className="flex items-start gap-1.5 text-xs text-foreground">
+                                    <Check className="h-3 w-3 text-primary flex-shrink-0 mt-0.5" />
+                                    <span>{b}</span>
+                                  </li>
+                                ))}
+                              </ul>
                             )}
                             
                             <p className="text-sm text-muted-foreground line-clamp-2 mb-3">{partner.description}</p>
