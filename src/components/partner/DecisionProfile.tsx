@@ -143,7 +143,7 @@ const DecisionProfile = ({ partner }: Props) => {
                 ["Geografisk närvaro", offices > 0 ? `${offices} kontor` : null],
                 ["Branschfokus", (partner.industries || []).slice(0, 3).join(", ") || null],
                 ["AI-nivå", aiLevel.level !== "none" ? aiLevel.label : null],
-                ["Avtalspartner", partner.agreement_signed ? "Ja" : "Nej"],
+                
               ].map(([label, value]) => (
                 <div key={label as string} className="grid grid-cols-[1fr_auto] gap-4 py-2.5">
                   <dt className="text-slate-500">{label}</dt>
