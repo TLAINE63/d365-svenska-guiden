@@ -57,7 +57,7 @@ const DESTINATION_H1: Record<
   { file: string; expected: string; h2: string | null; meta: string }
 > = {
   "/businesscentral":      { file: "src/pages/BusinessCentral.tsx",     expected: "Dynamics 365",                       h2: "Vanliga frågor om Dynamics 365 Business Central",    meta: "Essentials 765 kr/mån" },
-  "/aioversikt":           { file: "src/pages/AIOverview.tsx",          expected: "Mer effekt, mindre manuellt arbete", h2: "Copilot vs Agenter",                                 meta: "Copilot och intelligenta agenter" },
+  "/aioversikt":           { file: "src/pages/AIOverview.tsx",          expected: "AI i Dynamics 365 kräver mer än Copilot-licenser", h2: "Copilot vs Agenter",                                 meta: "data, process och ansvar" },
   "/d365sales":            { file: "src/pages/D365Sales.tsx",           expected: "Dynamics 365 Sales",                 h2: "Microsoft Dynamics 365 Sales",                       meta: "Dynamics 365 Sales från 621 kr/mån" },
   "/d365marketing":        { file: "src/pages/D365Marketing.tsx",       expected: "Dynamics 365 Customer Insights",     h2: "Microsoft Dynamics 365 Customer Insights",           meta: "Customer Insights (Marketing)" },
   "/d365customerservice":  { file: "src/pages/D365CustomerService.tsx", expected: "Dynamics 365 Customer Service",      h2: "Microsoft Dynamics 365 Customer Service",            meta: "Dynamics 365 Customer Service från 478 kr/mån" },
