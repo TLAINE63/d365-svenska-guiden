@@ -833,8 +833,8 @@ const Kunskapscenter = () => {
  Kunskapscenter & Events
  </h1>
  <p className="text-sm md:text-base text-white/80 leading-relaxed max-w-2xl">
- Allt vi vet om Microsoft Dynamics 365 – behovsanalyser, kravspecifikationer,
- guider och kommande events. Samlat på ett ställe, utan formulär.
+ Guider, analyser, behovsanalyser och kravspecifikationer för er som vill
+ förstå Dynamics 365 innan partnerdialogen börjar.
  </p>
  </div>
  </section>
