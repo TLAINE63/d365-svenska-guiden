@@ -22,7 +22,8 @@ import {
  Mail,
  Phone,
  Package,
- Play
+ Play,
+ ArrowLeftRight
 } from "lucide-react";
 import PartnerVideoModal from "@/components/PartnerVideoModal";
 import { extractYouTubeId } from "@/lib/youtube";
