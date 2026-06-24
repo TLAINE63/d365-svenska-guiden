@@ -282,7 +282,7 @@ const Index = () => {
  <span className="text-[hsl(var(--signature))]">Microsoft Dynamics&nbsp;365</span> — guider, jämförelser och partnerval på köparens villkor
  </h1>
   <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl">
-  d365.se är den köparsidiga guiden till Microsoft Dynamics 365 i Sverige – förstå behovet, jämför ERP- och CRM-alternativen och hitta partners som matchar er bransch och storlek.
+   Dynamics 365 är inte ett systemval. Det är ett verksamhetsbeslut. d365.se hjälper er förstå behovet, jämföra ERP- och CRM-alternativen sakligt och välja partner utifrån bransch, komplexitet och ambitionsnivå — inte utifrån pitch.
   </p>
  <p className="mt-3 inline-flex items-center gap-2 text-[12.5px] sm:text-[13px] text-white/65">
  <Sparkles className="w-3.5 h-3.5 text-[hsl(var(--signature))]" />
@@ -299,10 +299,10 @@ const Index = () => {
           Börja här
         </div>
         <p className="text-white text-[15px] sm:text-base font-semibold mb-1">
-          Vet ni redan vilken Microsoft Dynamics 365-app ni behöver?
+          Var står ni i beslutsprocessen?
         </p>
         <p className="text-white/70 text-[13px] sm:text-[14px]">
-          Välj ingång – vi guidar er rätt oavsett var ni står idag.
+          Börja med behovet — inte med produktnamnet. Välj ingången som matchar er situation.
         </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 lg:flex-1">
@@ -349,7 +349,7 @@ const Index = () => {
     className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[hsl(var(--signature))] mb-3"
    >
     <Sparkles className="w-3.5 h-3.5" />
-    Fråga AI:n – få snabba svar direkt
+    Ställ frågan ni egentligen vill ha svar på
    </label>
    <div className="flex flex-col sm:flex-row gap-2">
     <div className="relative flex-1">
@@ -393,28 +393,28 @@ const Index = () => {
  n: 1,
  eyebrow: "Steg 1",
  icon: <ClipboardCheck className="w-5 h-5 text-white" />,
- title: "Behovsanalys",
- desc: "Kartlägg era behov inom ERP, CRM eller kundservice — och få en rekommendation som matchar er situation.",
- cta: "Starta behovsanalys",
- onClick: () => setDirectionPicker("behovsanalys"),
- aiPowered: true,
- },
- {
- n: 2,
- eyebrow: "Steg 2",
- icon: <BookOpen className="w-5 h-5 text-white" />,
- title: "Kravspecifikation",
- desc: "Bygg ett strukturerat underlag som matchar rätt Dynamics 365-applikation — redo att skicka till partners.",
- cta: "Bygg kravspec",
- onClick: () => setDirectionPicker("kravspec"),
- aiPowered: true,
- },
- {
- n: 3,
- eyebrow: "Steg 3",
- icon: <Users className="w-5 h-5 text-white" />,
- title: "Hitta rätt partner",
- desc: "Jämför Microsoft-partners utifrån bransch, applikation, storlek och geografi.",
+  title: "Behovsanalys",
+  desc: "Innan ni jämför system — ringar ni in vad verksamheten faktiskt behöver inom ERP, CRM eller kundservice.",
+  cta: "Starta behovsanalys",
+  onClick: () => setDirectionPicker("behovsanalys"),
+  aiPowered: true,
+  },
+  {
+  n: 2,
+  eyebrow: "Steg 2",
+  icon: <BookOpen className="w-5 h-5 text-white" />,
+  title: "Kravspecifikation",
+  desc: "Strukturerat beslutsunderlag som partners kan svara på — och som ni sedan kan jämföra på lika villkor.",
+  cta: "Bygg kravspec",
+  onClick: () => setDirectionPicker("kravspec"),
+  aiPowered: true,
+  },
+  {
+  n: 3,
+  eyebrow: "Steg 3",
+  icon: <Users className="w-5 h-5 text-white" />,
+  title: "Hitta rätt partner",
+  desc: "Rätt partner beror på bransch, komplexitet och ambitionsnivå. Jämför Microsoft-partners på samma underlag.",
  cta: "Öppna branschväljaren",
  to: "/branscher/",
  },
@@ -486,7 +486,7 @@ const Index = () => {
       Hur redo är ert beslutsunderlag — egentligen?
      </h2>
      <p className="text-[15px] sm:text-base text-white/75 leading-relaxed max-w-2xl">
-      En diagnostik på 8–10 minuter som visar var ni står innan ni går in i partnerdialog, kravspec eller upphandling. Använd det själva, eller dela med ledningsgruppen.
+      En diagnostik på 8–10 minuter som visar var ni står innan partnerdialogen börjar. Lika användbar för ledningsgrupp som för IT, ekonomi och verksamhet.
      </p>
     </div>
 
@@ -672,8 +672,8 @@ const Index = () => {
  <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
  <div className="text-center mb-10 sm:mb-12">
  <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-[hsl(var(--signature))] mb-3">Hitta er ingång</span>
- <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-foreground tracking-tight mb-3">Vad stämmer bäst på er just nu?</h2>
- <p className="text-sm sm:text-base text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed">Välj situation — så guidar vi er till rätt verktyg, kunskap och partnerförslag utifrån var ni faktiskt befinner er.</p>
+  <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-foreground tracking-tight mb-3">Vilket beslut står ni inför just nu?</h2>
+  <p className="text-sm sm:text-base text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed">Olika beslutssituationer kräver olika underlag. Välj utgångsläge — så pekar vi på det innehåll, de jämförelser och de partners som faktiskt är relevanta.</p>
  </div>
  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 items-stretch">
  {situationCards.map((card) => {
@@ -745,12 +745,12 @@ const Index = () => {
  <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-3">
  Lär dig mer
  </span>
- <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 tracking-tight">
- Inte redo att välja partner än? Läs på först.
- </h2>
- <p className="text-[15px] text-muted-foreground leading-relaxed">
- Fördjupa dig i Dynamics 365 i din egen takt — produktguider, branschevent och inspelade genomgångar.
- </p>
+  <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 tracking-tight">
+  Välj inte Dynamics 365-partner på magkänsla. Läs på först.
+  </h2>
+  <p className="text-[15px] text-muted-foreground leading-relaxed">
+  Produktguider, branschevent och inspelade genomgångar för er som vill förstå Dynamics 365 innan dialogen blir för säljorienterad.
+  </p>
  </div>
 
  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -818,8 +818,8 @@ const Index = () => {
  <section className="section-divider py-12 sm:py-16 bg-white">
 
  <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
- <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-1">Mest lästa guider</h2>
- <p className="text-sm text-muted-foreground mb-5">Frågorna svenska företag söker svar på.</p>
+  <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-1">Frågorna som avgör beslutet</h2>
+  <p className="text-sm text-muted-foreground mb-5">Det svenska köpare faktiskt vill veta innan de väljer system, partner och omfattning.</p>
  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
  {popularGuides.map((g) => (
  <Link
@@ -873,12 +873,12 @@ const Index = () => {
   {/* Block 11 — Slut-CTA (BOOKEND 2): flat mörk bakgrund, speglar hero, en orange CTA */}
   <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] py-16 sm:py-20 relative overflow-hidden">
  <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative text-center">
- <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-white tracking-tight mb-4 leading-[1.15]">
- Redo att komma igång?
- </h2>
- <p className="text-base sm:text-lg text-white/70 font-light leading-relaxed mb-8 max-w-xl mx-auto">
- Börja med er bransch — så guidar vi er till partners som faktiskt levererat det ni behöver. Kostnadsfritt, utan registrering.
- </p>
+  <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-white tracking-tight mb-4 leading-[1.15]">
+  Rätt partner beror på er bransch
+  </h2>
+  <p className="text-base sm:text-lg text-white/70 font-light leading-relaxed mb-8 max-w-xl mx-auto">
+  Börja med branschen — så ser ni vilka partners som faktiskt levererat det ni behöver, i bolag som liknar ert. Inga registreringskrav.
+  </p>
  <Button
  asChild
  size="lg"
