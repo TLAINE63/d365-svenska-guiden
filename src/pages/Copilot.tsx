@@ -100,7 +100,7 @@ const Copilot = () => {
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl">
               <div className="flex items-center mb-3 sm:mb-4">
-                <img src={CopilotLogo} alt="Copilot" className="h-10 w-10 sm:h-12 sm:w-12" />
+                <img src={CopilotLogo} alt="Microsoft Copilot" className="h-10 w-10 sm:h-12 sm:w-12" />
               </div>
               <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
                 Microsoft Copilot för Dynamics 365
@@ -129,7 +129,7 @@ const Copilot = () => {
             <div className="bg-card rounded p-6 sm:p-8 border-2 border-primary/20">
               <div className="flex items-start gap-4 mb-4">
                 <div className="bg-gradient-to-br from-primary to-accent w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <img src={CopilotLogo} alt="Copilot" className="h-8 w-8" />
+                  <img src={CopilotLogo} alt="Microsoft Copilot" className="h-8 w-8" />
                 </div>
                 <div>
                   <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-card-foreground mb-3">
@@ -145,7 +145,7 @@ const Copilot = () => {
               <div className="grid md:grid-cols-2 gap-4 text-sm">
                 <div className="bg-secondary/30 rounded-lg p-4">
                   <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
-                    <img src={CopilotLogo} alt="Copilot" className="h-5 w-5" /> Copilot
+                    <img src={CopilotLogo} alt="Microsoft Copilot" className="h-5 w-5" /> Copilot
                   </h4>
                   <ul className="space-y-1 text-muted-foreground">
                     <li>• Hjälper användaren med uppgifter</li>
