@@ -388,7 +388,8 @@ const ComparePartners = () => {
                     <section className="space-y-3">
                       <SectionTitle icon={Table2} title="Snabbfakta" />
                       <R
-                        label="Konsulter i Sverige"
+                        label="Lokal teamstorlek (Sverige)"
+                        help={TEAM_SIZE_HELP}
                         a={renderValue(A.teamSize)}
                         b={renderValue(B.teamSize)}
                       />
