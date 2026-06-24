@@ -233,6 +233,11 @@ const ComparePartners = () => {
   const A = get(a);
   const B = get(b);
   const hasBoth = !!a && !!b;
+  const aName = a?.name;
+  const bName = b?.name;
+  const R = (props: { label: string; a: React.ReactNode; b: React.ReactNode; warn?: boolean }) => (
+    <Row {...props} aName={aName} bName={bName} />
+  );
 
   return (
     <div className="min-h-screen bg-background">
