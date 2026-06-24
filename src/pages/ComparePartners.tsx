@@ -266,8 +266,8 @@ const ComparePartners = () => {
             ) : (
               <>
                 {/* Picker row */}
-                <div className="grid grid-cols-[180px_1fr_1fr] gap-3 mb-4">
-                  <div className="flex items-end pb-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[180px_1fr_1fr] gap-3 mb-4">
+                  <div className="order-last md:order-first flex md:items-end md:pb-1">
                     <Button
                       type="button"
                       variant="outline"
