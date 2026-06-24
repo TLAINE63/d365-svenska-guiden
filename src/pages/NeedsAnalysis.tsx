@@ -3296,7 +3296,6 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               <div className="flex items-center gap-2">
                 <Building2 className="w-5 h-5 text-primary" />
                 <h3 className="text-lg font-semibold">Struktur</h3>
-                <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded font-medium">30 % vikt</span>
               </div>
               
               <div className="space-y-4">
@@ -3346,7 +3345,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               <div className="flex items-center gap-2">
                 <Boxes className="w-5 h-5 text-primary" />
                 <h3 className="text-lg font-semibold">Operativ komplexitet</h3>
-                <span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded font-medium">40 % vikt – väger tyngst</span>
+                <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded font-medium">Väger tyngst</span>
               </div>
               
               {data.businessModel === "Konsult" ? (
@@ -3434,7 +3433,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               <div className="flex items-center gap-2">
                 <Shield className="w-5 h-5 text-primary" />
                 <h3 className="text-lg font-semibold">Organisationsmognad</h3>
-                <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded font-medium">30 % vikt</span>
+                
               </div>
               
               <div className="space-y-4">
