@@ -84,6 +84,10 @@ export default function AllD365Partners() {
           </div>
         </section>
 
+        <TrustBanner variant="compact" />
+
+
+
         {/* Profiled partners */}
         <section className="py-12 sm:py-16">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
