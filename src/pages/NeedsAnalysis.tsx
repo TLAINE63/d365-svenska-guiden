@@ -4563,10 +4563,10 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative container mx-auto px-4 max-w-4xl text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
-              Behovsanalys för ERP/Affärssystem
+              Ringa in behovet — innan partnerdialogen börjar
             </h1>
             <p className="text-white/85 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-              Svara på frågorna nedan för att få en personlig rekommendation och analys
+              En strukturerad behovsanalys för ERP/affärssystem som ger er ett systemneutralt underlag att jämföra partners och offerter på lika villkor.
             </p>
           </div>
         </div>

@@ -97,10 +97,10 @@ const Agents = () => {
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl">
               <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
-                Microsoft Agenter
+                AI-agenter kräver mer än licenser
               </h1>
               <p className="text-xl sm:text-2xl md:text-3xl text-white/95 mb-2">
-                Nästa generation av AI-automation
+                Det krävs data, processer och ett tydligt ägarskap
               </p>
               <p className="text-lg sm:text-xl text-white/90 mb-6 sm:mb-8">
                 Autonoma AI-agenter som arbetar självständigt för att lösa komplexa affärsuppgifter

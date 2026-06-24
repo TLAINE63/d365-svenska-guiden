@@ -1597,10 +1597,10 @@ const AIReadiness = () => {
                 AI Impact & Readiness Assessment
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
-                Hur stor effekt kan AI skapa?
+                Är er verksamhet redo för AI — egentligen?
               </h1>
               <p className="text-lg text-white/80 mb-3">
-                – och hur kan Dynamics 365 stödja er?
+                En diagnostik som visar var data, processer och organisation faktiskt står innan ni investerar i Copilot och agenter
               </p>
               <p className="text-white/70 mb-6 max-w-lg mx-auto">
                 Denna analys mäter tre AI-dimensioner i er verksamhet och ger konkreta svar på:
