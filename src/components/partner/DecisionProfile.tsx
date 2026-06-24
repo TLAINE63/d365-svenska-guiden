@@ -6,6 +6,12 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 const AI_LEVEL_HELP =
   "AI-nivå sammanfattar bredden i partnerns AI-erbjudande baserat på vilka AI-funktioner de jobbar med i sina D365-projekt. Skalan: AI Enabled (aktiverar Microsofts inbyggda Copilot) → AI Integration Partner (bygger egna AI-agenter och processer) → AI Advanced (kundunika lösningar, prediktiva modeller) → AI Transformation Partner (avancerade Azure AI-arkitekturer). Säger inget om hur många AI-projekt partnern levererat — be om referenser.";
 
+const ENGAGEMENT_HELP =
+  "Uppdragsform beskriver hur ett uppdrag startar och faktureras kommersiellt. Typiska värden: Fast pris (definierat scope och åtagande), Löpande / T&M (timdebitering), Workshop / förstudie först (betald discovery innan implementation), Pilot / Proof of Concept (avgränsad första leverans) eller Managed service / abonnemang (löpande förvaltning). Avgör om partnern matchar er inköpsform.";
+
+const METHODOLOGY_HELP =
+  "Projektmetodik är det ramverk partnern arbetar enligt — alltså hur projekt styrs, dokumenteras och följs upp. Vanliga: Microsoft Sure Step / Success by Design, Agile / Scrum, Vattenfall, Hybrid (fast förstudie + agil bygg), SAFe eller en egen paketerad metod. Säger något om PMO-mognad och dokumentationskrav, inte om vad som byggs.";
+
 type DeliveryProfile = {
   roles?: string[];
   typical_length?: string;
@@ -113,12 +119,28 @@ const DecisionProfile = ({ partner }: Props) => {
               <div>
                 <div className="text-xs font-semibold text-slate-500 mb-1.5 flex items-center gap-1.5">
                   <Briefcase className="w-3.5 h-3.5" /> Uppdragsform
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button type="button" className="inline-flex" aria-label="Vad är Uppdragsform?">
+                        <Info className="w-3.5 h-3.5 text-slate-400 hover:text-slate-600" />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-sm text-xs leading-relaxed">{ENGAGEMENT_HELP}</TooltipContent>
+                  </Tooltip>
                 </div>
                 <div className="text-slate-800">{delivery.engagement_model?.trim() || EMPTY}</div>
               </div>
               <div>
                 <div className="text-xs font-semibold text-slate-500 mb-1.5 flex items-center gap-1.5">
                   <Wrench className="w-3.5 h-3.5" /> Projektmetodik
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button type="button" className="inline-flex" aria-label="Vad är Projektmetodik?">
+                        <Info className="w-3.5 h-3.5 text-slate-400 hover:text-slate-600" />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-sm text-xs leading-relaxed">{METHODOLOGY_HELP}</TooltipContent>
+                  </Tooltip>
                 </div>
                 <div className="text-slate-800">{delivery.methodology?.trim() || EMPTY}</div>
               </div>

@@ -29,6 +29,12 @@ import { calculateAiScore, getAiLevel } from "@/utils/aiScoring";
 const AI_LEVEL_HELP =
   "AI-nivå sammanfattar bredden i partnerns AI-erbjudande baserat på vilka AI-funktioner de jobbar med i sina D365-projekt. Skalan: AI Enabled (aktiverar Microsofts inbyggda Copilot) → AI Integration Partner (bygger egna AI-agenter) → AI Advanced (kundunika lösningar, prediktiva modeller) → AI Transformation Partner (avancerade Azure AI-arkitekturer). Säger inget om hur många AI-projekt partnern levererat — be om referenser.";
 
+const ENGAGEMENT_HELP =
+  "Uppdragsform beskriver hur ett uppdrag startar och faktureras kommersiellt. Typiska värden: Fast pris (definierat scope och åtagande), Löpande / T&M (timdebitering), Workshop / förstudie först (betald discovery innan implementation), Pilot / Proof of Concept (avgränsad första leverans) eller Managed service / abonnemang (löpande förvaltning). Avgör om partnern matchar er inköpsform.";
+
+const METHODOLOGY_HELP =
+  "Projektmetodik är det ramverk partnern arbetar enligt — alltså hur projekt styrs, dokumenteras och följs upp. Vanliga: Microsoft Sure Step / Success by Design, Agile / Scrum, Vattenfall, Hybrid (fast förstudie + agil bygg), SAFe eller en egen paketerad metod. Säger något om PMO-mognad och dokumentationskrav, inte om vad som byggs.";
+
 type DeliveryProfile = {
   roles?: string[];
   typical_length?: string;
@@ -359,11 +365,13 @@ const ComparePartners = () => {
                       <R label="Roller partnern bemannar" a={renderList(A.roles)} b={renderList(B.roles)} />
                       <R
                         label="Uppdragsform"
+                        help={ENGAGEMENT_HELP}
                         a={renderValue(A.engagement)}
                         b={renderValue(B.engagement)}
                       />
                       <R
                         label="Projektmetodik"
+                        help={METHODOLOGY_HELP}
                         a={renderValue(A.methodology)}
                         b={renderValue(B.methodology)}
                       />
