@@ -236,7 +236,7 @@ const ComparePartners = () => {
   const aName = a?.name;
   const bName = b?.name;
   const R = (props: { label: string; a: React.ReactNode; b: React.ReactNode; warn?: boolean }) => (
-    <Row {...props} aName={aName} bName={bName} />
+    <R {...props} aName={aName} bName={bName} />
   );
 
   return (
@@ -334,7 +334,7 @@ const ComparePartners = () => {
                     {/* Leveransbild */}
                     <section className="space-y-3">
                       <SectionTitle icon={Package} title="Leveransbild" />
-                      <Row label="Typiska roller" a={renderList(A.roles)} b={renderList(B.roles)} />
+                      <R label="Typiska roller" a={renderList(A.roles)} b={renderList(B.roles)} />
                       <Row
                         label="Typisk projektlängd"
                         a={renderValue(A.length)}
@@ -375,7 +375,7 @@ const ComparePartners = () => {
                         a={renderList(A.industries)}
                         b={renderList(B.industries)}
                       />
-                      <Row label="AI-nivå" a={renderValue(A.aiLevel)} b={renderValue(B.aiLevel)} />
+                      <R label="AI-nivå" a={renderValue(A.aiLevel)} b={renderValue(B.aiLevel)} />
                       <Row
                         label="Avtalspartner"
                         a={renderValue(A.agreement)}
