@@ -299,7 +299,7 @@ const Index = () => {
           Börja här
         </div>
         <p className="text-white text-[15px] sm:text-base font-semibold mb-1">
-          Vet ni redan vilket Dynamics 365-system ni behöver?
+          Vet ni redan vilken Microsoft Dynamics 365-app ni behöver?
         </p>
         <p className="text-white/70 text-[13px] sm:text-[14px]">
           Välj ingång – vi guidar er rätt oavsett var ni står idag.
