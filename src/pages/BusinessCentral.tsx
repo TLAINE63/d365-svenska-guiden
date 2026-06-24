@@ -22,6 +22,8 @@ import { useEffect, useMemo, useState } from "react";
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import SEOHead from "@/components/SEOHead";
 import ProductHero from "@/components/ProductHero";
+import StandardProductSections from "@/components/product/StandardProductSections";
+import { PRODUCT_STANDARD_SECTIONS } from "@/data/productStandardSections";
 import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
 
 // Breadcrumb items
@@ -226,6 +228,8 @@ const BusinessCentral = () => {
  <p>Business Central är tillgängligt i över 160 länder med lokaliseringar från Microsoft och partners, vilket gör det till ett tryggt val även för bolag med internationella ambitioner eller dotterbolag i flera länder.</p>
  </ShortAnswer>
 
+
+ <StandardProductSections productName="Business Central" data={PRODUCT_STANDARD_SECTIONS["business-central"]} />
 
  {/* FAQ Section */}
  <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
