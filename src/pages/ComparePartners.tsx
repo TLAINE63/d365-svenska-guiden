@@ -394,9 +394,18 @@ const ComparePartners = () => {
                         b={renderValue(B.teamSize)}
                       />
                       <R
-                        label="Genomförda D365-impl."
-                        a={renderValue(A.implementations)}
-                        b={renderValue(B.implementations)}
+                        label="Genomförda implementationer"
+                        help="Antal genomförda D365-implementationer per applikation. Säger något om volym, inte om kvalitet eller branschpassning — be alltid om referenser i den bransch ni befinner er i."
+                        a={
+                          A.implementationsPerApp.length > 0
+                            ? renderList(A.implementationsPerApp.map((i) => `${i.app}: ${i.count}`))
+                            : renderValue(A.implementations)
+                        }
+                        b={
+                          B.implementationsPerApp.length > 0
+                            ? renderList(B.implementationsPerApp.map((i) => `${i.app}: ${i.count}`))
+                            : renderValue(B.implementations)
+                        }
                       />
                       <R
                         label="Geografisk närvaro"
