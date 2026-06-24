@@ -67,6 +67,7 @@ const industryImages: Record<string, string> = {
 
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { supabase } from "@/integrations/supabase/client";
+import WhyTheseResults from "@/components/WhyTheseResults";
 
 // Step 2: Product options
 const productOptions = [
