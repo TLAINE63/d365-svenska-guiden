@@ -68,6 +68,11 @@ export default function OwnershipAndInterests() {
             att kvalificera dina alternativ. Det slutliga valet, och kontakten, ligger alltid
             hos dig.
           </p>
+          <p className="text-muted-foreground leading-relaxed mt-3">
+            AI används inte för att välja bort partners. AI kan användas för att tolka
+            matchningssignaler, sammanfatta relevans och formulera förklaringar, men
+            grundurvalet bygger på strukturerade kriterier.
+          </p>
         </section>
 
         <section className="mb-10">
