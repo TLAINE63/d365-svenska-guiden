@@ -128,7 +128,10 @@ const Branscher = () => {
                 Två företag kan välja exakt samma Dynamics 365-produkt — och ändå hamna i två helt olika projekt. Implementationen, kravspecifikationen och vilken partnerprofil som faktiskt klarar uppdraget styrs i hög grad av branschens processer, terminologi och regelverk.
               </p>
               <p>
-                Inom flera branscher räcker inte standardfunktionaliteten i Dynamics 365. Då krävs tilläggsapplikationer (ISV-lösningar) för exempelvis batch-spårbarhet, hyresavtal, projektredovisning, MES-integration eller branschspecifik rapportering — och enbart vissa partners är certifierade för dessa.
+                I flera branscher avgörs Dynamics 365-valet inte bara av Microsofts standardfunktionalitet, utan av vilka branschlösningar som krävs runt plattformen. Det kan handla om allergen- och etikettkrav i livsmedel, GMP/GxP-validering i Life Science, hyreslogik i fastighet, rental fleet management, EDI mot retailkedjor eller mobil lagerhantering.
+              </p>
+              <p>
+                Därför är ISV-frågan också en partnerfråga. En partner som är stark på Business Central eller Finance & Supply Chain Management är inte automatiskt rätt om lösningen kräver en specifik branschapplikation, certifiering eller implementeringserfarenhet.
               </p>
               <p>
                 Att börja med branschen — innan ni jämför produkter eller partners — gör att utvärderingen sker på rätt grunder: era processer, era integrationsbehov och de partners som faktiskt har levererat i er typ av verksamhet tidigare.
