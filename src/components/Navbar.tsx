@@ -40,7 +40,7 @@ const Navbar = () => {
   ];
 
   const menuItems = [
-    { label: "Kunskapscenter & Events", path: "/kunskapscenter", external: false },
+    { label: "Kunskapscenter", path: "/kunskapscenter", external: false },
     { label: "Kontakt", path: "/kontakt", external: false },
   ];
 
@@ -65,7 +65,7 @@ const Navbar = () => {
               to="/kunskapscenter"
               className="font-medium text-white/70 hover:text-[hsl(var(--signature))] transition-colors"
             >
-              Kunskapscenter & Events
+              Kunskapscenter
             </Link>
             <Link
               to="/kontakt/"
@@ -103,13 +103,13 @@ const Navbar = () => {
               to="/branscher/"
               className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] transition-colors"
             >
-              Hitta din bransch & partner
+              Hitta bransch & partner
             </Link>
             {/* Branschlösningar – dold tills vidare */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] hover:bg-transparent transition-colors px-0">
-                  Upphandlingsverktyg
+                  Verktyg & guider
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -179,7 +179,7 @@ const Navbar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] hover:bg-transparent transition-colors px-0">
-                  Affärssystem (ERP)
+                  ERP / Affärssystem
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -246,7 +246,7 @@ const Navbar = () => {
                   to="/branscher/"
                   className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
                 >
-                  Hitta din bransch & partner
+                  Hitta bransch & partner
                 </Link>
                 {/* Branschlösningar – dold tills vidare */}
                 <Link
@@ -293,7 +293,7 @@ const Navbar = () => {
                   </Link>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <span className="text-lg font-semibold text-foreground">Affärssystem (ERP)</span>
+                  <span className="text-lg font-semibold text-foreground">ERP / Affärssystem</span>
                   <div className="flex flex-col gap-2 ml-4">
                     {erpItems.map((item) => (
                       <Link
