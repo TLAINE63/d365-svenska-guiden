@@ -108,12 +108,6 @@ const DecisionProfile = ({ partner }: Props) => {
               </div>
               <div>
                 <div className="text-xs font-semibold text-slate-500 mb-1.5 flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5" /> Typisk projektlängd
-                </div>
-                <div className="text-slate-800">{delivery.typical_length?.trim() || EMPTY}</div>
-              </div>
-              <div>
-                <div className="text-xs font-semibold text-slate-500 mb-1.5 flex items-center gap-1.5">
                   <Briefcase className="w-3.5 h-3.5" /> Uppdragsform
                 </div>
                 <div className="text-slate-800">{delivery.engagement_model?.trim() || EMPTY}</div>
@@ -125,6 +119,10 @@ const DecisionProfile = ({ partner }: Props) => {
                 <div className="text-slate-800">{delivery.methodology?.trim() || EMPTY}</div>
               </div>
             </div>
+            <p className="mt-4 text-xs text-slate-500 leading-relaxed border-t border-slate-100 pt-3">
+              <Calendar className="w-3.5 h-3.5 inline-block mr-1 -mt-0.5 text-slate-400" />
+              <span className="font-medium text-slate-600">Projektlängd:</span> varierar kraftigt med applikation, bolagsstorlek och scope. Be partnern om exempel från liknande projekt i din storlek.
+            </p>
           </article>
 
           {/* 3. Jämförbar faktatabell */}
