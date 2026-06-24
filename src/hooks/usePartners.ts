@@ -106,6 +106,17 @@ export interface DatabasePartner {
     edited_by?: string | null;
     updated_at?: string;
   }>;
+  // Decision profile fields
+  positioning_statement?: string | null;
+  delivery_profile?: {
+    roles?: string[];
+    typical_length?: string;
+    engagement_model?: string;
+    methodology?: string;
+  } | null;
+  team_size_sweden?: string | null;
+  implementations_done?: string | null;
+  not_a_fit?: string[] | null;
 }
 
 export interface PartnerInput {
@@ -189,7 +200,12 @@ export function usePartners() {
         agreement_signed: (p as any).agreement_signed ?? false,
         related_party: (p as any).related_party ?? false,
         youtube_video_id: (p as any).youtube_video_id || null,
-      }));
+        positioning_statement: (p as any).positioning_statement ?? null,
+        delivery_profile: ((p as any).delivery_profile ?? null) as DatabasePartner['delivery_profile'],
+        team_size_sweden: (p as any).team_size_sweden ?? null,
+        implementations_done: (p as any).implementations_done ?? null,
+        not_a_fit: ((p as any).not_a_fit ?? []) as string[],
+      })) as DatabasePartner[];
     },
   });
 }
@@ -237,7 +253,12 @@ export function usePartner(slug: string | undefined) {
         agreement_signed: (data as any).agreement_signed ?? false,
         related_party: (data as any).related_party ?? false,
         youtube_video_id: (data as any).youtube_video_id || null,
-      };
+        positioning_statement: (data as any).positioning_statement ?? null,
+        delivery_profile: ((data as any).delivery_profile ?? null) as DatabasePartner['delivery_profile'],
+        team_size_sweden: (data as any).team_size_sweden ?? null,
+        implementations_done: (data as any).implementations_done ?? null,
+        not_a_fit: ((data as any).not_a_fit ?? []) as string[],
+      } as DatabasePartner;
     },
     enabled: !!slug,
   });

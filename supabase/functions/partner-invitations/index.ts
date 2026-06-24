@@ -204,6 +204,8 @@ serve(async (req: Request): Promise<Response> => {
             geography, product_filters, industry_apps,
             is_featured, office_cities, map_url, customer_examples,
             industry_pitches,
+            positioning_statement, delivery_profile, team_size_sweden,
+            implementations_done, not_a_fit,
             created_at, updated_at
           `)
           .eq("id", invitation.partner_id)
@@ -287,6 +289,11 @@ serve(async (req: Request): Promise<Response> => {
           industry_apps: submissionData.industry_apps || [],
           office_cities: submissionData.office_cities || [],
           notes: submissionData.notes,
+          positioning_statement: submissionData.positioning_statement || null,
+          delivery_profile: submissionData.delivery_profile || {},
+          team_size_sweden: submissionData.team_size_sweden || null,
+          implementations_done: submissionData.implementations_done || null,
+          not_a_fit: submissionData.not_a_fit || [],
         });
 
       // Handle events if provided

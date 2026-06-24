@@ -10,7 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Loader2, CheckCircle2, AlertCircle, Building2, Upload, X, ImageIcon, Plus, Trash2, ExternalLink, CalendarDays, Clock, MapPin, Globe, Link, Layers, Package, MessageSquare, Sparkles } from "lucide-react";
+import { Loader2, CheckCircle2, AlertCircle, Building2, Upload, X, ImageIcon, Plus, Trash2, ExternalLink, CalendarDays, Clock, MapPin, Globe, Link, Layers, Package, MessageSquare, Sparkles, Target, AlertTriangle } from "lucide-react";
 import { PremiumCollapsibleSection } from "@/components/admin/PremiumCollapsibleSection";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -250,18 +250,32 @@ const PartnerUpdate = () => {
  const [productFilters, setProductFilters] = useState<ProductFilters>({});
  const [activeProducts, setActiveProducts] = useState<ProductKey[]>([]);
  const [selectedSpecialtyProducts, setSelectedSpecialtyProducts] = useState<SpecialtyProduct[]>([]);
- const [industryPitches, setIndustryPitches] = useState<IndustryPitch[]>([]);
+  const [industryPitches, setIndustryPitches] = useState<IndustryPitch[]>([]);
 
- type SectionKey = "basic" | "products" | "specialty" | "pitches" | "industryApps" | "events" | "notes";
- const [openSections, setOpenSections] = useState<Record<SectionKey, boolean>>({
- basic: true,
- products: true,
- specialty: false,
- pitches: false,
- industryApps: false,
- events: false,
- notes: false,
- });
+  // Decision profile state
+  const [positioningStatement, setPositioningStatement] = useState("");
+  const [deliveryProfile, setDeliveryProfile] = useState<{
+    roles: string[];
+    typical_length: string;
+    engagement_model: string;
+    methodology: string;
+  }>({ roles: [], typical_length: "", engagement_model: "", methodology: "" });
+  const [rolesInput, setRolesInput] = useState("");
+  const [teamSizeSweden, setTeamSizeSweden] = useState("");
+  const [implementationsDone, setImplementationsDone] = useState("");
+  const [notAFitInput, setNotAFitInput] = useState("");
+
+  type SectionKey = "basic" | "decision" | "products" | "specialty" | "pitches" | "industryApps" | "events" | "notes";
+  const [openSections, setOpenSections] = useState<Record<SectionKey, boolean>>({
+  basic: true,
+  decision: false,
+  products: true,
+  specialty: false,
+  pitches: false,
+  industryApps: false,
+  events: false,
+  notes: false,
+  });
  const [autoExpandApplied, setAutoExpandApplied] = useState(false);
  const toggleSection = (key: SectionKey) =>
  setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -275,15 +289,17 @@ const PartnerUpdate = () => {
  const industryAppsComplete = industryApps.some((a) => a.name?.trim() && a.url?.trim());
  const eventsComplete = partnerEvents.length > 0;
  const pitchesComplete = industryPitches.some((p) => p.text?.trim());
- setOpenSections({
- basic: !basicComplete,
- products: !productsComplete,
- specialty: !specialtyComplete && productsComplete,
- pitches: !pitchesComplete && productsComplete,
- industryApps: !industryAppsComplete && productsComplete,
- events: !eventsComplete && !!invitation?.partner_id,
- notes: false,
- });
+  const decisionComplete = !!(positioningStatement.trim() && notAFitInput.trim());
+  setOpenSections({
+  basic: !basicComplete,
+  decision: !decisionComplete && productsComplete,
+  products: !productsComplete,
+  specialty: !specialtyComplete && productsComplete,
+  pitches: !pitchesComplete && productsComplete,
+  industryApps: !industryAppsComplete && productsComplete,
+  events: !eventsComplete && !!invitation?.partner_id,
+  notes: false,
+  });
  setAutoExpandApplied(true);
  // eslint-disable-next-line react-hooks/exhaustive-deps
  }, [loading, invitation]);
@@ -374,10 +390,27 @@ const PartnerUpdate = () => {
  setIndustryApps(result.existingData.industry_apps);
  }
 
- // Pre-fill industry pitches if available
- if (result.existingData.industry_pitches && Array.isArray(result.existingData.industry_pitches)) {
- setIndustryPitches(result.existingData.industry_pitches);
- }
+  // Pre-fill industry pitches if available
+  if (result.existingData.industry_pitches && Array.isArray(result.existingData.industry_pitches)) {
+  setIndustryPitches(result.existingData.industry_pitches);
+  }
+
+  // Pre-fill decision profile fields
+  const ed: any = result.existingData;
+  if (typeof ed.positioning_statement === "string") setPositioningStatement(ed.positioning_statement);
+  if (ed.delivery_profile && typeof ed.delivery_profile === "object") {
+    const dp = ed.delivery_profile;
+    setDeliveryProfile({
+      roles: Array.isArray(dp.roles) ? dp.roles : [],
+      typical_length: dp.typical_length || "",
+      engagement_model: dp.engagement_model || "",
+      methodology: dp.methodology || "",
+    });
+    if (Array.isArray(dp.roles)) setRolesInput(dp.roles.join(", "));
+  }
+  if (typeof ed.team_size_sweden === "string") setTeamSizeSweden(ed.team_size_sweden);
+  if (typeof ed.implementations_done === "string") setImplementationsDone(ed.implementations_done);
+  if (Array.isArray(ed.not_a_fit)) setNotAFitInput(ed.not_a_fit.join("\n"));
  } else {
  setFormData(prev => ({
  ...prev,
@@ -819,6 +852,16 @@ const PartnerUpdate = () => {
  industry_apps: industryApps.filter(app => app.name.trim() && app.url.trim()),
  industry_pitches: industryPitches.filter(p => p.text?.trim()),
  office_cities: officeCities,
+ positioning_statement: positioningStatement.trim() || null,
+ delivery_profile: {
+   roles: rolesInput.split(",").map(s => s.trim()).filter(Boolean),
+   typical_length: deliveryProfile.typical_length.trim(),
+   engagement_model: deliveryProfile.engagement_model.trim(),
+   methodology: deliveryProfile.methodology.trim(),
+ },
+ team_size_sweden: teamSizeSweden || null,
+ implementations_done: implementationsDone || null,
+ not_a_fit: notAFitInput.split("\n").map(s => s.trim()).filter(Boolean),
  };
 
  const response = await fetch(
@@ -2209,6 +2252,133 @@ const PartnerUpdate = () => {
  </div>
  </PremiumCollapsibleSection>
  )}
+
+ {/* Decision profile */}
+ <PremiumCollapsibleSection
+ title="Beslutsprofil"
+ description="Hjälper köparen välja mellan partners. Visas högt upp på er profil."
+ icon={Target}
+ accent="primary"
+ status={
+   positioningStatement.trim() && notAFitInput.trim() && rolesInput.trim()
+     ? "complete"
+     : (positioningStatement.trim() || notAFitInput.trim() ? "partial" : "empty")
+ }
+ open={openSections.decision}
+ onOpenChange={() => toggleSection("decision")}
+ >
+ <div className="space-y-6">
+   <div>
+     <Label htmlFor="positioning_statement">Positionering — en mening</Label>
+     <p className="text-xs text-muted-foreground mb-2">
+       Börja gärna med "Vi är valet när …". Konkret om bransch, storlek eller utmaning.
+     </p>
+     <Textarea
+       id="positioning_statement"
+       rows={2}
+       maxLength={240}
+       placeholder="Vi är valet när medelstora tillverkande bolag i Sverige ska byta från äldre ERP till Business Central."
+       value={positioningStatement}
+       onChange={(e) => setPositioningStatement(e.target.value)}
+     />
+     <div className="text-[11px] text-muted-foreground mt-1">{positioningStatement.length}/240</div>
+   </div>
+
+   <div className="grid sm:grid-cols-2 gap-4">
+     <div>
+       <Label htmlFor="team_size_sweden">Antal D365-konsulter i Sverige</Label>
+       <select
+         id="team_size_sweden"
+         className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+         value={teamSizeSweden}
+         onChange={(e) => setTeamSizeSweden(e.target.value)}
+       >
+         <option value="">Välj intervall…</option>
+         <option value="1–10">1–10</option>
+         <option value="11–25">11–25</option>
+         <option value="26–50">26–50</option>
+         <option value="50+">50+</option>
+       </select>
+     </div>
+     <div>
+       <Label htmlFor="implementations_done">Antal genomförda D365-implementationer</Label>
+       <select
+         id="implementations_done"
+         className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+         value={implementationsDone}
+         onChange={(e) => setImplementationsDone(e.target.value)}
+       >
+         <option value="">Välj intervall…</option>
+         <option value="<10">Mindre än 10</option>
+         <option value="10–25">10–25</option>
+         <option value="25–100">25–100</option>
+         <option value="100+">100+</option>
+       </select>
+     </div>
+   </div>
+
+   <div className="border-t border-border pt-4">
+     <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
+       <Package className="w-4 h-4" /> Leveransbild
+     </h4>
+     <div className="grid sm:grid-cols-2 gap-4">
+       <div className="sm:col-span-2">
+         <Label htmlFor="dp_roles">Typiska roller i teamet (kommaseparerade)</Label>
+         <Input
+           id="dp_roles"
+           placeholder="Lösningsarkitekt, Funktionskonsult, Utvecklare"
+           value={rolesInput}
+           onChange={(e) => setRolesInput(e.target.value)}
+         />
+       </div>
+       <div>
+         <Label htmlFor="dp_length">Typisk projektlängd</Label>
+         <Input
+           id="dp_length"
+           placeholder="t.ex. 4–9 månader"
+           value={deliveryProfile.typical_length}
+           onChange={(e) => setDeliveryProfile({ ...deliveryProfile, typical_length: e.target.value })}
+         />
+       </div>
+       <div>
+         <Label htmlFor="dp_engagement">Startmodell</Label>
+         <Input
+           id="dp_engagement"
+           placeholder="t.ex. Förstudie, fast pris, T&M"
+           value={deliveryProfile.engagement_model}
+           onChange={(e) => setDeliveryProfile({ ...deliveryProfile, engagement_model: e.target.value })}
+         />
+       </div>
+       <div className="sm:col-span-2">
+         <Label htmlFor="dp_method">Metod / ramverk</Label>
+         <Input
+           id="dp_method"
+           placeholder="t.ex. Sure Step, egen agil metod"
+           value={deliveryProfile.methodology}
+           onChange={(e) => setDeliveryProfile({ ...deliveryProfile, methodology: e.target.value })}
+         />
+       </div>
+     </div>
+   </div>
+
+   <div className="border-t border-border pt-4">
+     <Label htmlFor="not_a_fit" className="flex items-center gap-2">
+       <AlertTriangle className="w-4 h-4 text-amber-600" />
+       När passar ni inte? (en punkt per rad)
+     </Label>
+     <p className="text-xs text-muted-foreground mb-2">
+       Obligatoriskt. Hjälper köparen avgöra snabbt om ni inte är rätt val. Var konkret.
+     </p>
+     <Textarea
+       id="not_a_fit"
+       rows={4}
+       placeholder={"Under 20 användare\nRen molnmigrering utan verksamhetsförändring\nOffentlig sektor"}
+       value={notAFitInput}
+       onChange={(e) => setNotAFitInput(e.target.value)}
+     />
+   </div>
+ </div>
+ </PremiumCollapsibleSection>
 
  {/* Notes */}
  <PremiumCollapsibleSection

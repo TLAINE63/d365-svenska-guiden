@@ -28,6 +28,7 @@ import PartnerVideoModal from "@/components/PartnerVideoModal";
 import { extractYouTubeId } from "@/lib/youtube";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
+import DecisionProfile from "@/components/partner/DecisionProfile";
 import { usePartner, DatabasePartner } from "@/hooks/usePartners";
 import { getCumulativeGeographyDisplay } from "@/data/partners";
 import {
@@ -710,6 +711,8 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  </header>
 
  <TrustBanner variant="compact" />
+
+ <DecisionProfile partner={partner} />
 
 
 

@@ -1,68 +1,72 @@
-# Standardiserad struktur för Dynamics 365-produktsidor
+# Partnerprofil som beslutsstöd
 
-## Mål
-Ge alla produktområdessidor samma 6-sektionersstruktur i en köparsidig, senior ton — utan att riva befintlig design, SEO eller funktionalitet.
+Idag är profilen mest en presentation. Vi gör om den så att den hjälper köparen välja mellan ett redan filtrerat urval. Fyra block ovanför fold på varje profil, samma struktur för alla partners.
 
-## Sidor som omfattas
-1. `src/pages/BusinessCentral.tsx`
-2. `src/pages/FinanceSupplyChain.tsx`
-3. `src/pages/D365Sales.tsx`
-4. `src/pages/D365Marketing.tsx` (Customer Insights)
-5. `src/pages/D365CustomerService.tsx`
-6. `src/pages/D365FieldService.tsx`
-7. `src/pages/D365ContactCenter.tsx`
-8. `src/pages/D365ProjectOperations.tsx`
+## Ny struktur (i ordning)
 
-(Lägger även till `D365Commerce`, `D365HumanResources` om du vill — säg till.)
+1. **Positioneringsrad** (direkt under namn/logo)
+   - En mening: "Vi är valet när …" — partnerns spetsläge i klartext.
+   - Tre nyckeltaggar: primär app, primär bransch, primär storlekssegment.
+   - Källa: ny fält `positioning_statement` + härledda taggar från `product_filters`.
 
-## Angreppssätt
-Sidorna är idag stora, individuellt uppbyggda filer med olika ordning av sektioner, partnerlistor, FAQ, video, prissektioner m.m. För att hålla designen oförändrad **flyttar/lägger jag till** sektioner snarare än att skriva om hela sidorna.
+2. **Leveransbild** (vad du faktiskt får)
+   - Typiska roller i teamet (t.ex. Lösningsarkitekt, Funktionskonsult, Utvecklare).
+   - Typisk projektlängd och startmodell (workshop, fast pris, T&M).
+   - Metod/ramverk i en mening (Sure Step, egen metodik, etc.).
+   - Källa: ny strukturerad fält `delivery_profile` (JSONB).
 
-### Återanvändbara komponenter (nya, frontend-only)
-Skapas under `src/components/product/`:
+3. **Jämförbar faktatabell** (samma rader för alla partners)
+   - Storlek på D365-team i Sverige
+   - Antal genomförda D365-implementationer (intervall)
+   - Geografisk närvaro (kontor)
+   - Branschfokus (max 3)
+   - AI-nivå (befintlig score)
+   - Avtalspartner ja/nej
+   - Källa: dels befintliga fält, dels nya intervallfält.
 
-- `TypicalBuyerNeeds.tsx` — punktlista över utvärderingssituationer (prop: `items: string[]`, `title?`)
-- `WhereThePartnerMatters.tsx` — 6 kort: processdesign, integrationer, datamodell, rapportering, förändringsledning, branschkunskap (prop: `items: {label, body}[]`)
-- `CommonPitfalls.tsx` — punktlista över fallgropar
-- `NextStepsBlock.tsx` — 3 CTA-kort: Behovsanalys → `/behovsanalys/`, Kravspec → `/kravspecifikation/`, Hitta partner → `/branscher/`
+4. **"När passar vi inte"** (obligatorisk)
+   - 2–4 punkter där partnern själv pekar ut fel matchning (t.ex. "under 20 användare", "ren molnmigrering utan verksamhetsförändring", "publik sektor").
+   - Visas alltid, även om kort. Tom = profilen flaggas som ofullständig i admin.
+   - Källa: nytt fält `not_a_fit` (text[]).
 
-Komponenterna använder befintliga design-tokens (`bg-card`, `border-border`, `--cta-orange`) — ingen ny visuell stil införs.
+Resten av profilen (kundcase, events, kontakt, video) ligger kvar nedanför men sekundärt.
 
-### Per sida
-Sektionerna **läggs in i denna ordning** direkt efter Hero-sektionen, före befintliga djupare moduler (BuyerManual, CostBreakdown, partnerlistor, FAQ, video):
+## Datamodell
 
-```text
-1. Hero                       (befintlig — minimal copy-justering om ingressen saknar "varför partnerval spelar roll")
-2. Typiska köparbehov         (NY)
-3. Vad Dynamics 365 löser     (NY — kort & saklig)
-4. Var partnern avgör         (NY — 6 områden)
-5. Vanliga fallgropar         (NY)
-6. Rekommenderat nästa steg   (NY — 3 CTA)
---- befintligt innehåll därunder oförändrat ---
-```
+Nya kolumner på `partners`:
 
-### Data per sida
-Innehållet skrivs per produkt i `src/data/productStandardSections.ts` som en map `{ [slug]: { buyerNeeds, whatItSolves, partnerMatters, pitfalls } }`. Det gör att copy kan iterera utan att röra sidkomponenterna igen.
+- `positioning_statement text`
+- `delivery_profile jsonb` — `{ roles: string[], typical_length: string, engagement_model: string, methodology: string }`
+- `team_size_sweden text` (intervall: "1–10", "11–25", "26–50", "50+")
+- `implementations_done text` (intervall: "<10", "10–25", "25–100", "100+")
+- `not_a_fit text[]`
 
-## Ton & innehåll
-- Inga "Microsoft är ledande..."-formuleringar.
-- Konkreta köparsituationer ("Vi har vuxit ur Visma/Fortnox", "Vi planerar att gå internationellt", "Vi behöver gemensam kunddata över Sales och Service").
-- Fallgropar uttryckta som observationer, inte varningar med utropstecken.
-- Nästa steg använder verifierade interna länkar (`/behovsanalys/`, `/kravspecifikation/`, `/branscher/`).
+Alla fält valfria i DB men obligatoriska i publicerings-flow (samma mönster som AI-fälten idag).
 
-## Vad som INTE ändras
-- Befintlig Hero-design, gradients, ikoner, layout
-- SEO-metadata (title/description/canonical) — redan optimerade
-- Partnerlistor, FAQ, video, BuyerManual, CostBreakdown
-- Routing, URL:er, prerendering
+## Admin
 
-## Leverans
-Föreslagen ordning:
-1. Skapa de 4 komponenterna + data-filen
-2. Hooka in i BusinessCentral och FinanceSupplyChain först (visa resultat)
-3. Efter ditt OK: rulla ut på återstående 6 sidor i ett svep
+Ny sektion "Beslutsprofil" i partner-editorn med fälten ovan. Validering vid publicering: positioning + minst 2 `not_a_fit`-punkter + delivery_profile ifyllt → annars varningsbadge på admin-listan (befintligt mönster).
 
-## Frågor innan jag börjar
-- **Commerce & HR**: ska jag ta dem också? (de listades inte men följer samma mönster)
-- **Hero-justering**: får jag finjustera ingressen där "varför partnerval spelar roll" saknas, eller ska Hero lämnas helt orört?
-- **Leverans i steg eller allt i ett svep?** Default = steg (BC + F&SCM först, sedan resten efter ditt OK).
+## Frontend
+
+- `src/pages/PartnerProfile.tsx`: byt ut nuvarande hero-block (rad 470+) mot fyra-block-strukturen. Behåll TrustBanner, SEO, kundcase, events.
+- Ny komponent `src/components/partner/DecisionProfile.tsx` som renderar block 1–4 i identisk layout för alla partners.
+- Faktatabell som CSS grid med fasta rader så två profiler i två flikar går att jämföra visuellt.
+- AI-genererad fallback (Lovable AI) för `positioning_statement` om tomt, markerad med befintlig "AI-genererad"-badge — samma mönster som industry_pitches idag.
+
+## Konsekvenser
+
+- PartnerCard rör vi inte (kortet är discovery, profilen är beslut).
+- Befintliga profiler utan nya fält visar tomma block med "Partner har inte fyllt i" tills admin uppdaterar — neutralt, ingen pitchig fyllnadstext.
+- Migration är additiv, ingen risk för befintlig data.
+
+## Tekniska detaljer
+
+- Migration: `ALTER TABLE public.partners ADD COLUMN ...` + GRANT redan på plats (oförändrat).
+- Types regenereras automatiskt av Lovable Cloud.
+- Edge function `match-partners` ändras inte — detta är ren profilförbättring, inte rankning.
+
+## Öppna frågor
+
+- Ska `not_a_fit` även visas på PartnerCard i resultatlistan (snabb diskvalificering) eller bara på profilen? Förslag: bara profilen i v1.
+- Vill du att jag AI-genererar förslag för befintliga partners på `positioning_statement` och `not_a_fit` baserat på deras nuvarande data, så admin bara godkänner?
