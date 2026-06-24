@@ -10,7 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Loader2, CheckCircle2, AlertCircle, Building2, Upload, X, ImageIcon, Plus, Trash2, ExternalLink, CalendarDays, Clock, MapPin, Globe, Link, Layers, Package, MessageSquare, Sparkles } from "lucide-react";
+import { Loader2, CheckCircle2, AlertCircle, Building2, Upload, X, ImageIcon, Plus, Trash2, ExternalLink, CalendarDays, Clock, MapPin, Globe, Link, Layers, Package, MessageSquare, Sparkles, Target, AlertTriangle } from "lucide-react";
 import { PremiumCollapsibleSection } from "@/components/admin/PremiumCollapsibleSection";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -265,16 +265,17 @@ const PartnerUpdate = () => {
   const [implementationsDone, setImplementationsDone] = useState("");
   const [notAFitInput, setNotAFitInput] = useState("");
 
- type SectionKey = "basic" | "products" | "specialty" | "pitches" | "industryApps" | "events" | "notes";
- const [openSections, setOpenSections] = useState<Record<SectionKey, boolean>>({
- basic: true,
- products: true,
- specialty: false,
- pitches: false,
- industryApps: false,
- events: false,
- notes: false,
- });
+  type SectionKey = "basic" | "decision" | "products" | "specialty" | "pitches" | "industryApps" | "events" | "notes";
+  const [openSections, setOpenSections] = useState<Record<SectionKey, boolean>>({
+  basic: true,
+  decision: false,
+  products: true,
+  specialty: false,
+  pitches: false,
+  industryApps: false,
+  events: false,
+  notes: false,
+  });
  const [autoExpandApplied, setAutoExpandApplied] = useState(false);
  const toggleSection = (key: SectionKey) =>
  setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
