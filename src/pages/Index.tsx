@@ -353,7 +353,7 @@ const Index = () => {
    </label>
    <div className="flex flex-col sm:flex-row gap-2">
     <div className="relative flex-1">
-     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50" aria-hidden="true" />
+     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/75" aria-hidden="true" />
      <input
       id="hero-ai-search"
       type="search"
@@ -437,7 +437,7 @@ const Index = () => {
  <span className="bg-[hsl(var(--cta-orange))] text-white text-[13px] font-bold w-7 h-7 rounded flex items-center justify-center ">
  {step.n}
  </span>
- <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/55">{step.eyebrow}</span>
+ <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/80">{step.eyebrow}</span>
  </div>
  <div className="w-11 h-11 rounded bg-white/10 flex items-center justify-center mb-4">
  {step.icon}
@@ -480,7 +480,7 @@ const Index = () => {
        <BarChart3 className="w-3 h-3" />
        Mognadsindex
       </span>
-      <span className="text-[10.5px] uppercase tracking-[0.14em] text-white/45">Nytt för 2026</span>
+      <span className="text-[10.5px] uppercase tracking-[0.14em] text-white/75">Nytt för 2026</span>
      </div>
      <h2 className="text-2xl sm:text-3xl font-bold text-white leading-[1.15] tracking-tight mb-3">
       Hur redo är ert beslutsunderlag — egentligen?
@@ -501,7 +501,7 @@ const Index = () => {
        <ArrowRight className="w-4 h-4 ml-1.5" />
       </Link>
      </Button>
-     <p className="text-[12px] text-white/50 text-center">Kostnadsfritt · Ingen registrering</p>
+     <p className="text-[12px] text-white/75 text-center">Kostnadsfritt · Ingen registrering</p>
     </div>
    </div>
 
@@ -757,7 +757,7 @@ const Index = () => {
  </div>
  <div>
  <p className="text-[15px] font-semibold text-white/90">I. En personlig mognadsprofil</p>
- <p className="text-sm text-white/55 leading-relaxed">Er position på fem dimensioner: behovsbild, intern samsyn, riskinsikt, partnermarknad, beslutsstruktur.</p>
+ <p className="text-sm text-white/80 leading-relaxed">Er position på fem dimensioner: behovsbild, intern samsyn, riskinsikt, partnermarknad, beslutsstruktur.</p>
  </div>
  </div>
  <div className="flex items-start gap-3">
@@ -766,7 +766,7 @@ const Index = () => {
  </div>
  <div>
  <p className="text-[15px] font-semibold text-white/90">II. En peer benchmark</p>
- <p className="text-sm text-white/55 leading-relaxed">Jämförelse mot andra svenska beslutsgrupper som genomfört diagnostiken.</p>
+ <p className="text-sm text-white/80 leading-relaxed">Jämförelse mot andra svenska beslutsgrupper som genomfört diagnostiken.</p>
  </div>
  </div>
  <div className="flex items-start gap-3">
@@ -775,7 +775,7 @@ const Index = () => {
  </div>
  <div>
  <p className="text-[15px] font-semibold text-white/90">III. Tre konkreta rekommendationer</p>
- <p className="text-sm text-white/55 leading-relaxed">Inriktade på där hävstången är störst i ert nuvarande skede — inte på era svagheter.</p>
+ <p className="text-sm text-white/80 leading-relaxed">Inriktade på där hävstången är störst i ert nuvarande skede — inte på era svagheter.</p>
  </div>
  </div>
  </div>
@@ -789,7 +789,7 @@ const Index = () => {
  <ArrowRight className="w-5 h-5 ml-2" />
  </Link>
  </Button>
- <p className="mt-4 text-[13px] text-white/50">
+ <p className="mt-4 text-[13px] text-white/75">
  8–10 minuter · 25 frågor · konfidentiell sammanställning · inga svar sparas innan ni skickar in
  </p>
  </div>
@@ -799,7 +799,7 @@ const Index = () => {
  <p className="font-light italic text-white/80 text-lg sm:text-xl leading-relaxed mb-6">
  "Var i systemlivscykeln står ni?"
  </p>
- <p className="text-white/50 text-sm leading-relaxed mb-8">
+ <p className="text-white/75 text-sm leading-relaxed mb-8">
  Beslutsmognadsindex är en diagnostik för svenska beslutsgrupper. Det låter er kartlägga era styrkor och luckor innan partnerdialogen börjar — så att ni går in i den med bättre underlag och tydligare frågor.
  </p>
  <div className="flex items-center gap-3 pt-6 border-t border-white/10">
