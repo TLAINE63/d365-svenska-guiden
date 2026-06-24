@@ -83,6 +83,7 @@ const BeslutsmognadResultat = lazy(() => import("./pages/BeslutsmognadResultat")
 const OwnershipAndInterests = lazy(() => import("./pages/OwnershipAndInterests"));
 const Priser = lazy(() => import("./pages/Priser"));
 const Kostnad = lazy(() => import("./pages/Kostnad"));
+const ComparePartners = lazy(() => import("./pages/ComparePartners"));
 const AiChatBubble = lazy(() => import("@/components/AiChatBubble"));
 
 const queryClient = new QueryClient();
@@ -236,6 +237,7 @@ const AppShell = () => {
           <Route path="/beslutsmognadsindex/tack" element={<Navigate to="/beslutsmognad/tack" replace />} />
           {/* Ägande- och intresseredovisning – transparenssida */}
           <Route path="/agande-och-intressen" element={<OwnershipAndInterests />} />
+          <Route path="/jamfor-partners" element={<ComparePartners />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
