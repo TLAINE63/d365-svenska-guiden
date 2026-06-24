@@ -89,9 +89,9 @@ const ERPOverview = () => {
  {/* Header */}
  <ProductHero
  eyebrow="ERP"
- title="Två ERP. Två olika inriktningar."
- titleAccent="Vi guidar er rätt — innan ni väljer partner."
- subhead="Båda är fullvärdiga affärssystem. Båda heter Dynamics 365. Där börjar nyansen. Business Central är byggt för snabbare implementationer och har ett ekosystem på 7 000+ tilläggsappar som lyfter funktionaliteten långt utöver &quot;SMB-system&quot;. F&SCM är byggt med djup komplexitet i kärnan - flera entiteter, avancerad supply chain, branschvertikaler. Storleken på er verksamhet är inte det som avgör. Era processer är."
+ title="Två ERP under samma namn — två olika beslut"
+ titleAccent="Storleken på företaget avgör sällan valet. Era processer gör det."
+ subhead="Business Central och Finance & Supply Chain Management är båda fullvärdiga affärssystem i Dynamics 365-familjen, men de är byggda för olika typer av komplexitet. Business Central är konstruerat för snabbare implementationer och kompletteras av 7 000+ tilläggsappar. F&SCM är byggt med flera entiteter, avancerad supply chain och branschvertikaler i kärnan. Valet handlar mindre om antal anställda och mer om hur era processer faktiskt ser ut idag — och de närmaste fem åren."
  primary={{ label: "Gör en ERP-behovsanalys", to: "/ERPbehovsanalys/", icon: ClipboardList }}
  secondary={{ label: "Jämför Business Central vs Finance & Supply Chain Management", to: "/affarssystem/" }}
  />
