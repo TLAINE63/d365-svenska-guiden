@@ -116,6 +116,7 @@ export interface DatabasePartner {
   } | null;
   team_size_sweden?: string | null;
   implementations_done?: string | null;
+  implementations_per_app?: Record<string, string> | null;
   not_a_fit?: string[] | null;
 }
 
