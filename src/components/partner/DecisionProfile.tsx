@@ -37,6 +37,7 @@ const DecisionProfile = ({ partner }: Props) => {
     delivery_profile?: DeliveryProfile | null;
     team_size_sweden?: string | null;
     implementations_done?: string | null;
+    implementations_per_app?: Record<string, string> | null;
     not_a_fit?: string[] | null;
   };
 
@@ -44,6 +45,9 @@ const DecisionProfile = ({ partner }: Props) => {
   const delivery: DeliveryProfile = (p.delivery_profile || {}) as DeliveryProfile;
   const notAFit = cleanList(p.not_a_fit);
   const roles = cleanList(delivery.roles);
+  const implPerApp = Object.entries(p.implementations_per_app || {})
+    .filter(([, v]) => typeof v === "string" && v.trim())
+    .map(([app, count]) => ({ app, count: count.trim() }));
 
   // Derive headline tags
   const primaryApp = (partner.applications || [])[0];
