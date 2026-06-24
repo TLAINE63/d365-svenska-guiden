@@ -258,7 +258,7 @@ export function usePartner(slug: string | undefined) {
         team_size_sweden: (data as any).team_size_sweden ?? null,
         implementations_done: (data as any).implementations_done ?? null,
         not_a_fit: ((data as any).not_a_fit ?? []) as string[],
-      };
+      } as DatabasePartner;
     },
     enabled: !!slug,
   });
