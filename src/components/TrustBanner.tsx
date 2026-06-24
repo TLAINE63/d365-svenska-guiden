@@ -10,10 +10,8 @@ interface Props {
 
 const POINTS = [
   "Vi säljer inte implementation eller system",
-  "Matchningen bygger på relevans utifrån produkt, bransch och behov",
-  "AI används inte för att välja bort partners – grundurvalet bygger på strukturerade kriterier; AI tolkar signaler och förklarar relevans",
-  "Ingen partner kan köpa bättre placering",
-  "Alla profilerade partners betalar samma fasta avgift",
+  "Matchningen bygger på relevans utifrån produkt, bransch och behov. AI används inte för att välja bort partners – grundurvalet bygger på strukturerade kriterier; AI tolkar signaler och förklarar relevans",
+  "Ingen partner kan köpa bättre placering, alla profilerade partners betalar samma fasta avgift",
 ];
 
 /**
