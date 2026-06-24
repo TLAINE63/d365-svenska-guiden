@@ -163,10 +163,10 @@ const QA = () => {
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
-                Vanliga Frågor
+                Frågorna ni faktiskt behöver svar på
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-white/95">
-                Svar på de vanligaste frågorna om Dynamics 365
+                Svar på det som är viktigt att förstå om Microsoft Dynamics 365 innan partnerdialogen börjar — licens, implementation, ansvar och totalkostnad.
               </p>
             </div>
           </div>
