@@ -452,9 +452,9 @@ const KomIgang = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-muted/40 to-muted/80" />
           <div className="container mx-auto px-4 sm:px-6 text-center relative z-10">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-1">
-              Kom igång
+              Några frågor — sedan en kortlista att gå vidare med
             </h1>
-            <p className="text-sm sm:text-base text-muted-foreground">Vi ställer några snabba frågor och visar vilka partners som passar dig.</p>
+            <p className="text-sm sm:text-base text-muted-foreground">Vi ringar in bransch, behov och ambitionsnivå och visar vilka partners som faktiskt matchar — utan säljpåverkan.</p>
           </div>
         </section>
 
