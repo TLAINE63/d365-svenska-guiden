@@ -60,7 +60,7 @@ export default function AllD365Partners() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Alla Dynamics 365-partners i Sverige – komplett lista | d365.se"
+        title="Alla Dynamics 365-partners i Sverige"
         description="Komplett lista över Dynamics 365-partners i Sverige – profilerade leverantörer på d365.se och övriga aktörer på marknaden. Köparsidig vägledning vid partnerval."
         canonicalPath="/alla-d365-partners/"
       />
