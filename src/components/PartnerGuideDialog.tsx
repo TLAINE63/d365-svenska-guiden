@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import WhyTheseResults from "@/components/WhyTheseResults";
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -899,6 +900,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
               </div>
             ) : (
               <div className="space-y-3">
+                <WhyTheseResults defaultOpen />
                 {suggestedPartners.map((partner, index) => {
                   const partnerSlug = isDatabasePartner(partner) 
                     ? partner.slug 

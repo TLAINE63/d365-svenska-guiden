@@ -67,6 +67,7 @@ const industryImages: Record<string, string> = {
 
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { supabase } from "@/integrations/supabase/client";
+import WhyTheseResults from "@/components/WhyTheseResults";
 
 // Step 2: Product options
 const productOptions = [
@@ -312,6 +313,7 @@ const KomIgang = () => {
 
               {matchedPartners.length > 0 ? (
                 <div className="space-y-4">
+                  <WhyTheseResults defaultOpen />
                   {matchedPartners.map((partner, idx) => {
                     const aiMatch = getAiMatch(partner.id);
                     return (
