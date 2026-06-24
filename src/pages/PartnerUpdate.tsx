@@ -849,6 +849,16 @@ const PartnerUpdate = () => {
  industry_apps: industryApps.filter(app => app.name.trim() && app.url.trim()),
  industry_pitches: industryPitches.filter(p => p.text?.trim()),
  office_cities: officeCities,
+ positioning_statement: positioningStatement.trim() || null,
+ delivery_profile: {
+   roles: rolesInput.split(",").map(s => s.trim()).filter(Boolean),
+   typical_length: deliveryProfile.typical_length.trim(),
+   engagement_model: deliveryProfile.engagement_model.trim(),
+   methodology: deliveryProfile.methodology.trim(),
+ },
+ team_size_sweden: teamSizeSweden || null,
+ implementations_done: implementationsDone || null,
+ not_a_fit: notAFitInput.split("\n").map(s => s.trim()).filter(Boolean),
  };
 
  const response = await fetch(
