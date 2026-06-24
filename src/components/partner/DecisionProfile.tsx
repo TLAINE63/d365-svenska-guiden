@@ -94,7 +94,7 @@ const DecisionProfile = ({ partner }: Props) => {
             <div className="grid sm:grid-cols-2 gap-4 text-sm">
               <div>
                 <div className="text-xs font-semibold text-slate-500 mb-1.5 flex items-center gap-1.5">
-                  <Users className="w-3.5 h-3.5" /> Typiska roller i teamet
+                  <Users className="w-3.5 h-3.5" /> Roller partnern bemannar
                 </div>
                 {roles.length > 0 ? (
                   <div className="flex flex-wrap gap-1.5">
