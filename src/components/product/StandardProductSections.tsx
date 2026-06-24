@@ -153,17 +153,19 @@ export default function StandardProductSections({ productName, data }: Props) {
                 cta: "Hitta partner",
               },
             ].map((step) => (
-              <Link
+              <div
                 key={step.href}
-                to={step.href}
-                className="group flex flex-col p-5 rounded border border-border bg-card hover:border-primary/50 transition-colors"
+                className="flex flex-col p-5 rounded border border-border bg-card"
               >
                 <h3 className="font-semibold text-foreground mb-2">{step.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">{step.body}</p>
-                <span className="inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all">
+                <Link
+                  to={step.href}
+                  className="inline-flex items-center justify-center gap-1.5 h-11 px-4 rounded font-semibold text-white bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] transition-colors"
+                >
                   {step.cta} <ArrowRight className="w-4 h-4" />
-                </span>
-              </Link>
+                </Link>
+              </div>
             ))}
           </div>
         </div>
