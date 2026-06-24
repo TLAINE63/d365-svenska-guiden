@@ -106,7 +106,7 @@ const Copilot = () => {
                 Microsoft Copilot för Dynamics 365
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-4 sm:mb-6">
-                AI-driven produktivitet inbyggd i ditt affärssystem
+                Inbäddad AI i affärssystemet — vad som ingår, vad som kräver tillägg och vad ni behöver göra först för att effekten ska bli verklig
               </p>
               
               <ContactFormDialog>
