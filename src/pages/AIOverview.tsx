@@ -195,13 +195,13 @@ const AIOverview = () => {
  return (
  <div className="min-h-screen bg-background">
  <SEOHead
- title="AI i Microsoft Dynamics 365 – Copilot & agenter"
- description="Spara tid och öka lönsamhet med Copilot och intelligenta agenter i Microsoft Dynamics 365. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+ title="AI i Microsoft Dynamics 365 – data, process, ansvar"
+ description="Copilot och agenter i Dynamics 365 kräver mer än licenser. Vad som krävs av data, processer och ägarskap innan AI-effekten infinner sig."
  canonicalPath="/aioversikt"
  />
  <WebPageSchema
  name="AI i Dynamics 365 – Copilot & Agenter"
- description="Spara tid och öka lönsamhet med Copilot och intelligenta agenter i Dynamics 365. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+ description="Copilot och agenter i Dynamics 365 kräver mer än licenser. Vad som krävs av data, processer och ägarskap innan AI-effekten infinner sig."
  url="https://d365.se/aioversikt/"
  breadcrumb={[
  { name: "Hem", url: "https://d365.se/" },
@@ -220,13 +220,13 @@ const AIOverview = () => {
  Microsoft AI i Dynamics 365
  </div>
  <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
- AI i Dynamics 365 — vad det faktiskt innebär
+ AI i Dynamics 365 kräver mer än Copilot-licenser
  </h1>
  <p className="text-xl sm:text-2xl text-white/80 font-medium mb-8">
- Copilot, agenter och inbäddad AI: vad ingår i licensen, vad kostar tilläggen och vad krävs av er datakvalitet innan effekten infinner sig.
+ Copilot och agenter kräver data, process och ansvar. Utan den grunden uteblir effekten — oavsett hur många licenser ni köper.
  </p>
  <p className="text-lg text-white/70 max-w-2xl mx-auto mb-10">
- Det handlar inte om teknik. Det handlar om affärseffekt:
+ Det här behöver vara på plats innan ni skalar AI i affärssystemet:
  </p>
 
  <div className="grid gap-4 max-w-xl mx-auto text-left mb-10">
