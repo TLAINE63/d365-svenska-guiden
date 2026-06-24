@@ -92,7 +92,7 @@ const DecisionProfile = ({ partner }: Props) => {
               )}
               {p.team_size_sweden && (
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 text-xs font-medium">
-                  <Users className="w-3 h-3" /> {p.team_size_sweden} konsulter i Sverige
+                  <Users className="w-3 h-3" /> Lokalt team (Sverige): {p.team_size_sweden}
                 </span>
               )}
             </div>
