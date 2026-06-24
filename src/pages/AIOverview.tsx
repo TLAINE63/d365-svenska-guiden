@@ -180,11 +180,11 @@ const erpScenarios = [
 ];
 
 const practicalEffects = [
- "20–40% minskning av manuella moment",
- "Kortare ledtider i säljcykeln",
- "Förbättrad prognosprecision",
- "Färre fel i ekonomiprocesser",
- "Ökad kundnöjdhet",
+ "Datakvalitet i CRM/ERP är på plats — annars hallucinerar Copilot",
+ "Processerna är dokumenterade innan en agent automatiserar dem",
+ "Ett namngivet ägarskap finns för varje AI-funktion som aktiveras",
+ "Governance och behörigheter är genomgångna före utrullning",
+ "AI-mognaden är bedömd och prioriterad mot affärsvärde",
 ];
 
 const AIOverview = () => {
