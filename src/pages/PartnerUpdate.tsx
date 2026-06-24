@@ -2251,6 +2251,7 @@ const PartnerUpdate = () => {
  )}
  </div>
  </PremiumCollapsibleSection>
+ )}
 
  {/* Decision profile */}
  <PremiumCollapsibleSection
