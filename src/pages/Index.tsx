@@ -33,6 +33,7 @@ import LatestArticlesStrip from "@/components/LatestArticlesStrip";
 
 import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
 import HomePartnersTeaser from "@/components/HomePartnersTeaser";
+import TrustBanner from "@/components/TrustBanner";
 const BuyerJourneyStages = lazy(() => import("@/components/BuyerJourneyStages"));
 
 const homeFaqs = [
@@ -525,6 +526,10 @@ const Index = () => {
  </div>
  </div>
  </section>
+
+ <TrustBanner variant="full" />
+
+
 
 
 

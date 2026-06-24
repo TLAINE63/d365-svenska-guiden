@@ -3,6 +3,7 @@ import { useState, useEffect, useMemo } from "react";
 import { useParams, Link, useSearchParams, useNavigate, Navigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import TrustBanner from "@/components/TrustBanner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -707,6 +708,10 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  {/* Bottom fade to content */}
  <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-background to-transparent" />
  </header>
+
+ <TrustBanner variant="compact" />
+
+
 
  {/* Content Section */}
  <section className="py-8 sm:py-12 relative">
