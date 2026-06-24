@@ -1,4 +1,6 @@
 import ProductHero from "@/components/ProductHero";
+import StandardProductSections from "@/components/product/StandardProductSections";
+import { PRODUCT_STANDARD_SECTIONS } from "@/data/productStandardSections";
 import { FSC_ARTICLES } from "@/data/fscArticles";
 import RelatedPages, { fscRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
@@ -210,6 +212,7 @@ const FinanceSupplyChain = () => {
  <p>Hela sviten bygger på Microsofts moln med Power Platform, Fabric och Azure i botten, vilket gör F&SCM till ett tryggt val för organisationer med höga krav på skalbarhet, integration och styrning.</p>
  </ShortAnswer>
 
+ <StandardProductSections productName="Finance & Supply Chain Management" data={PRODUCT_STANDARD_SECTIONS["finance-supply-chain"]} />
 
  {/* FAQ Section */}
  <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
