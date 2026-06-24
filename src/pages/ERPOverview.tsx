@@ -103,12 +103,10 @@ const ERPOverview = () => {
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-4xl mx-auto text-center">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6">
- Vilket ERP-system passar dig?
+ Vilket ERP passar er verksamhet?
  </h2>
  <p className="text-lg text-muted-foreground mb-8">
- Microsoft erbjuder två kraftfulla ERP-lösningar inom Dynamics 365-familjen. 
- Valet beror på er organisations storlek, komplexitet och framtida ambitioner.
- Nedan ser du en jämförelse som hjälper dig förstå skillnaderna.
+ Båda systemen tillhör Dynamics 365-familjen, men de är konstruerade för olika typer av komplexitet. Nedanstående jämförelse visar var skillnaderna faktiskt får praktisk betydelse — i ekonomihantering, supply chain, internationell drift och i hur stor del av lösningen som behöver konfigureras kontra utvecklas.
  </p>
  
  {/* Industry Comparison Widget */}
