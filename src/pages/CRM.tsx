@@ -362,7 +362,7 @@ const CRM = () => {
 
  {/* Geography Filter */}
  <FilterButtons
- title="Ange vart geografiskt ni har er verksamhet"
+ title="Ange var geografiskt ni har er verksamhet"
  icon="geography"
  options={geographyFilters.map(g => ({ label: g.label, value: g.value }))}
  selectedValue={selectedGeography}
