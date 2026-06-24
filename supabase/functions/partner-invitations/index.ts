@@ -681,7 +681,7 @@ serve(async (req: Request): Promise<Response> => {
             } else if (isNewPartner) {
               emailBody = `Hej,
 
-Välkommen till D365.se – Sveriges ledande oberoende guide för Microsoft Dynamics 365!
+Välkommen till D365.se – Sveriges köparsidiga guide för Microsoft Dynamics 365!
 
 Vi hjälper svenska företag att hitta rätt Dynamics 365-partner, och vi vill gärna ha med er. Genom att skapa en partnerprofil på D365.se blir ni synliga för potentiella kunder som aktivt söker efter just den kompetens ni erbjuder.
 
@@ -1626,7 +1626,7 @@ D365.se`;
       const resend = new Resend(resendApiKey);
       const baseUrl = PUBLIC_BASE_URL;
       const pdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/D365_Partner_Agreement_2026.pdf`;
-      const emailSubject = customSubject || "Bli synlig på d365.se – Sveriges oberoende guide till Dynamics 365";
+      const emailSubject = customSubject || "Bli synlig på d365.se – Sveriges köparsidiga guide till Dynamics 365";
       const emailBody = customBody || "Hej,\n\nVi vill gärna ha med er som partner på d365.se.\n\n{{INVITATION_LINK}}\n\n{{PDF_LINK}}\n\nVänliga hälsningar\nThomas Laine & Michael Uhman";
       const ccList: string[] = Array.isArray(cc) ? cc : (cc ? [cc] : []);
 
@@ -2087,7 +2087,7 @@ D365.se`;
           .single();
         emailBody = bodySetting?.value || `Hej {{NAME}},
 
-Jag vill presentera d365.se – en oberoende köpguide för företag som utvärderar Microsoft Dynamics 365.
+Jag vill presentera d365.se – en köparsidig köpguide för företag som utvärderar Microsoft Dynamics 365.
 
 {{INVITATION_LINK}}
 

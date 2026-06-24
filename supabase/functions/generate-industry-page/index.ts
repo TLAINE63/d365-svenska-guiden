@@ -206,7 +206,7 @@ serve(async (req) => {
             {
               role: "system",
               content:
-                "Du är en oberoende svensk branschexpert på affärssystem och Microsoft Dynamics 365. Du skriver neutralt, faktabaserat och rådgivande. Använd alltid det angivna verktyget för att returnera strukturerad data.",
+                "Du är en fristående svensk branschexpert på affärssystem och Microsoft Dynamics 365. Du skriver neutralt, faktabaserat och rådgivande. Använd alltid det angivna verktyget för att returnera strukturerad data.",
             },
             { role: "user", content: buildPrompt(industry_name) },
           ],

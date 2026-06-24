@@ -237,7 +237,7 @@ function buildEmailHtml(opts: {
       <p style="color:#475569;font-size:13px;line-height:1.6;margin:28px 0 6px">
         Vänliga hälsningar,<br/>
         <strong style="color:#0f172a">Thomas Laine &amp; Michael Uhman</strong><br/>
-        d365.se · Den oberoende guiden till Microsoft Dynamics 365
+        d365.se · Den köparsidiga guiden till Microsoft Dynamics 365
       </p>
 
       <div style="margin:28px 0 8px;padding-top:20px;border-top:1px solid #e2e8f0">
@@ -262,7 +262,7 @@ function buildEmailHtml(opts: {
     </div>
 
     <p style="text-align:center;color:#94a3b8;font-size:11px;margin:16px 0 0">
-      D365.se · Den oberoende guiden till Microsoft Dynamics 365
+      D365.se · Den köparsidiga guiden till Microsoft Dynamics 365
     </p>
   </div>
 </body></html>`;
