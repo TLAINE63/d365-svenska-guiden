@@ -263,6 +263,7 @@ const PartnerUpdate = () => {
   const [rolesInput, setRolesInput] = useState("");
   const [teamSizeSweden, setTeamSizeSweden] = useState("");
   const [implementationsDone, setImplementationsDone] = useState("");
+  const [implementationsPerApp, setImplementationsPerApp] = useState<Record<string, string>>({});
   const [notAFitInput, setNotAFitInput] = useState("");
 
   type SectionKey = "basic" | "decision" | "products" | "specialty" | "pitches" | "industryApps" | "events" | "notes";
