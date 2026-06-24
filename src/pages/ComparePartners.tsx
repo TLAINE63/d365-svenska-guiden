@@ -45,7 +45,7 @@ interface ColProps {
 }
 
 const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label }: ColProps) => (
-  <div className="rounded-xl border border-slate-200 bg-white p-4 sticky top-0 z-10">
+  <div className="rounded-xl border border-slate-200 bg-white p-3 sm:p-4">
     <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-2">
       {label}
     </div>
@@ -65,14 +65,14 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label
       <div className="mt-3 flex items-center justify-between gap-2">
         <Link
           to={`/partner/${partner.slug}`}
-          className="text-sm font-semibold text-foreground hover:underline truncate flex items-center gap-1"
+          className="text-sm font-semibold text-foreground hover:underline truncate flex items-center gap-1 min-w-0"
         >
-          {partner.name}
-          <ExternalLink className="w-3 h-3 opacity-60" />
+          <span className="truncate">{partner.name}</span>
+          <ExternalLink className="w-3 h-3 opacity-60 shrink-0" />
         </Link>
         <button
           onClick={onClear}
-          className="text-slate-400 hover:text-slate-700"
+          className="text-slate-400 hover:text-slate-700 shrink-0"
           aria-label="Rensa val"
         >
           <X className="w-4 h-4" />
@@ -82,8 +82,13 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label
   </div>
 );
 
-const Cell = ({ children }: { children: React.ReactNode }) => (
-  <div className="rounded-lg border border-slate-200 bg-white p-4 text-sm text-slate-800 min-h-[64px]">
+const Cell = ({ children, mobileLabel }: { children: React.ReactNode; mobileLabel?: string }) => (
+  <div className="rounded-lg border border-slate-200 bg-white p-3 sm:p-4 text-sm text-slate-800 min-h-[56px] sm:min-h-[64px]">
+    {mobileLabel && (
+      <div className="md:hidden text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+        {mobileLabel}
+      </div>
+    )}
     {children}
   </div>
 );
@@ -111,13 +116,33 @@ const SectionTitle = ({
   </div>
 );
 
-const Row = ({ label, a, b, warn = false }: { label: string; a: React.ReactNode; b: React.ReactNode; warn?: boolean }) => (
-  <div className="grid grid-cols-[180px_1fr_1fr] gap-3 items-stretch">
-    <div className={`text-xs font-medium ${warn ? "text-amber-700" : "text-slate-500"} pt-4`}>
+const Row = ({
+  label,
+  a,
+  b,
+  warn = false,
+  aName,
+  bName,
+}: {
+  label: string;
+  a: React.ReactNode;
+  b: React.ReactNode;
+  warn?: boolean;
+  aName?: string;
+  bName?: string;
+}) => (
+  <div className="md:grid md:grid-cols-[180px_1fr_1fr] md:gap-3 md:items-stretch">
+    <div
+      className={`text-xs font-semibold uppercase tracking-wider ${
+        warn ? "text-amber-700" : "text-slate-500"
+      } mb-2 md:mb-0 md:pt-4 md:normal-case md:font-medium md:tracking-normal`}
+    >
       {label}
     </div>
-    <Cell>{a}</Cell>
-    <Cell>{b}</Cell>
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 md:contents">
+      <Cell mobileLabel={aName || "Partner A"}>{a}</Cell>
+      <Cell mobileLabel={bName || "Partner B"}>{b}</Cell>
+    </div>
   </div>
 );
 
@@ -208,6 +233,11 @@ const ComparePartners = () => {
   const A = get(a);
   const B = get(b);
   const hasBoth = !!a && !!b;
+  const aName = a?.name;
+  const bName = b?.name;
+  const R = (props: { label: string; a: React.ReactNode; b: React.ReactNode; warn?: boolean }) => (
+    <Row {...props} aName={aName} bName={bName} />
+  );
 
   return (
     <div className="min-h-screen bg-background">
@@ -241,8 +271,8 @@ const ComparePartners = () => {
             ) : (
               <>
                 {/* Picker row */}
-                <div className="grid grid-cols-[180px_1fr_1fr] gap-3 mb-4">
-                  <div className="flex items-end pb-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[180px_1fr_1fr] gap-3 mb-4">
+                  <div className="order-last md:order-first flex md:items-end md:pb-1">
                     <Button
                       type="button"
                       variant="outline"
@@ -284,17 +314,17 @@ const ComparePartners = () => {
                     {/* Positionering */}
                     <section className="space-y-3">
                       <SectionTitle icon={Target} title="Positionering" />
-                      <Row
+                      <R
                         label="Vi är valet när…"
                         a={A.positioning ? <p className="font-medium leading-relaxed">{A.positioning}</p> : EMPTY}
                         b={B.positioning ? <p className="font-medium leading-relaxed">{B.positioning}</p> : EMPTY}
                       />
-                      <Row
+                      <R
                         label="Primär app"
                         a={renderValue(A.primaryApp)}
                         b={renderValue(B.primaryApp)}
                       />
-                      <Row
+                      <R
                         label="Primär bransch"
                         a={renderValue(A.primaryIndustry)}
                         b={renderValue(B.primaryIndustry)}
@@ -304,18 +334,18 @@ const ComparePartners = () => {
                     {/* Leveransbild */}
                     <section className="space-y-3">
                       <SectionTitle icon={Package} title="Leveransbild" />
-                      <Row label="Typiska roller" a={renderList(A.roles)} b={renderList(B.roles)} />
-                      <Row
+                      <R label="Typiska roller" a={renderList(A.roles)} b={renderList(B.roles)} />
+                      <R
                         label="Typisk projektlängd"
                         a={renderValue(A.length)}
                         b={renderValue(B.length)}
                       />
-                      <Row
+                      <R
                         label="Startmodell"
                         a={renderValue(A.engagement)}
                         b={renderValue(B.engagement)}
                       />
-                      <Row
+                      <R
                         label="Metod"
                         a={renderValue(A.methodology)}
                         b={renderValue(B.methodology)}
@@ -325,28 +355,28 @@ const ComparePartners = () => {
                     {/* Snabbfakta */}
                     <section className="space-y-3">
                       <SectionTitle icon={Table2} title="Snabbfakta" />
-                      <Row
+                      <R
                         label="Konsulter i Sverige"
                         a={renderValue(A.teamSize)}
                         b={renderValue(B.teamSize)}
                       />
-                      <Row
+                      <R
                         label="Genomförda D365-impl."
                         a={renderValue(A.implementations)}
                         b={renderValue(B.implementations)}
                       />
-                      <Row
+                      <R
                         label="Geografisk närvaro"
                         a={renderValue(A.offices)}
                         b={renderValue(B.offices)}
                       />
-                      <Row
+                      <R
                         label="Branschfokus"
                         a={renderList(A.industries)}
                         b={renderList(B.industries)}
                       />
-                      <Row label="AI-nivå" a={renderValue(A.aiLevel)} b={renderValue(B.aiLevel)} />
-                      <Row
+                      <R label="AI-nivå" a={renderValue(A.aiLevel)} b={renderValue(B.aiLevel)} />
+                      <R
                         label="Avtalspartner"
                         a={renderValue(A.agreement)}
                         b={renderValue(B.agreement)}
@@ -356,7 +386,7 @@ const ComparePartners = () => {
                     {/* När passar vi inte */}
                     <section className="space-y-3">
                       <SectionTitle icon={AlertTriangle} title="När passar vi inte" tone="warn" />
-                      <Row
+                      <R
                         label="Partnern säger själv"
                         a={renderNotAFit(A.notAFit)}
                         b={renderNotAFit(B.notAFit)}
