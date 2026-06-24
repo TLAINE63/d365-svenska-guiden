@@ -2251,7 +2251,133 @@ const PartnerUpdate = () => {
  )}
  </div>
  </PremiumCollapsibleSection>
- )}
+
+ {/* Decision profile */}
+ <PremiumCollapsibleSection
+ title="Beslutsprofil"
+ description="Hjälper köparen välja mellan partners. Visas högt upp på er profil."
+ icon={Target}
+ accent="primary"
+ status={
+   positioningStatement.trim() && notAFitInput.trim() && rolesInput.trim()
+     ? "complete"
+     : (positioningStatement.trim() || notAFitInput.trim() ? "partial" : "empty")
+ }
+ open={openSections.decision}
+ onOpenChange={() => toggleSection("decision")}
+ >
+ <div className="space-y-6">
+   <div>
+     <Label htmlFor="positioning_statement">Positionering — en mening</Label>
+     <p className="text-xs text-muted-foreground mb-2">
+       Börja gärna med "Vi är valet när …". Konkret om bransch, storlek eller utmaning.
+     </p>
+     <Textarea
+       id="positioning_statement"
+       rows={2}
+       maxLength={240}
+       placeholder="Vi är valet när medelstora tillverkande bolag i Sverige ska byta från äldre ERP till Business Central."
+       value={positioningStatement}
+       onChange={(e) => setPositioningStatement(e.target.value)}
+     />
+     <div className="text-[11px] text-muted-foreground mt-1">{positioningStatement.length}/240</div>
+   </div>
+
+   <div className="grid sm:grid-cols-2 gap-4">
+     <div>
+       <Label htmlFor="team_size_sweden">Antal D365-konsulter i Sverige</Label>
+       <select
+         id="team_size_sweden"
+         className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+         value={teamSizeSweden}
+         onChange={(e) => setTeamSizeSweden(e.target.value)}
+       >
+         <option value="">Välj intervall…</option>
+         <option value="1–10">1–10</option>
+         <option value="11–25">11–25</option>
+         <option value="26–50">26–50</option>
+         <option value="50+">50+</option>
+       </select>
+     </div>
+     <div>
+       <Label htmlFor="implementations_done">Antal genomförda D365-implementationer</Label>
+       <select
+         id="implementations_done"
+         className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+         value={implementationsDone}
+         onChange={(e) => setImplementationsDone(e.target.value)}
+       >
+         <option value="">Välj intervall…</option>
+         <option value="<10">Mindre än 10</option>
+         <option value="10–25">10–25</option>
+         <option value="25–100">25–100</option>
+         <option value="100+">100+</option>
+       </select>
+     </div>
+   </div>
+
+   <div className="border-t border-border pt-4">
+     <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
+       <Package className="w-4 h-4" /> Leveransbild
+     </h4>
+     <div className="grid sm:grid-cols-2 gap-4">
+       <div className="sm:col-span-2">
+         <Label htmlFor="dp_roles">Typiska roller i teamet (kommaseparerade)</Label>
+         <Input
+           id="dp_roles"
+           placeholder="Lösningsarkitekt, Funktionskonsult, Utvecklare"
+           value={rolesInput}
+           onChange={(e) => setRolesInput(e.target.value)}
+         />
+       </div>
+       <div>
+         <Label htmlFor="dp_length">Typisk projektlängd</Label>
+         <Input
+           id="dp_length"
+           placeholder="t.ex. 4–9 månader"
+           value={deliveryProfile.typical_length}
+           onChange={(e) => setDeliveryProfile({ ...deliveryProfile, typical_length: e.target.value })}
+         />
+       </div>
+       <div>
+         <Label htmlFor="dp_engagement">Startmodell</Label>
+         <Input
+           id="dp_engagement"
+           placeholder="t.ex. Förstudie, fast pris, T&M"
+           value={deliveryProfile.engagement_model}
+           onChange={(e) => setDeliveryProfile({ ...deliveryProfile, engagement_model: e.target.value })}
+         />
+       </div>
+       <div className="sm:col-span-2">
+         <Label htmlFor="dp_method">Metod / ramverk</Label>
+         <Input
+           id="dp_method"
+           placeholder="t.ex. Sure Step, egen agil metod"
+           value={deliveryProfile.methodology}
+           onChange={(e) => setDeliveryProfile({ ...deliveryProfile, methodology: e.target.value })}
+         />
+       </div>
+     </div>
+   </div>
+
+   <div className="border-t border-border pt-4">
+     <Label htmlFor="not_a_fit" className="flex items-center gap-2">
+       <AlertTriangle className="w-4 h-4 text-amber-600" />
+       När passar ni inte? (en punkt per rad)
+     </Label>
+     <p className="text-xs text-muted-foreground mb-2">
+       Obligatoriskt. Hjälper köparen avgöra snabbt om ni inte är rätt val. Var konkret.
+     </p>
+     <Textarea
+       id="not_a_fit"
+       rows={4}
+       placeholder={"Under 20 användare\nRen molnmigrering utan verksamhetsförändring\nOffentlig sektor"}
+       value={notAFitInput}
+       onChange={(e) => setNotAFitInput(e.target.value)}
+     />
+   </div>
+ </div>
+ </PremiumCollapsibleSection>
 
  {/* Notes */}
  <PremiumCollapsibleSection
