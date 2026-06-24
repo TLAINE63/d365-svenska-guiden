@@ -20,9 +20,14 @@ import {
   ExternalLink,
   X,
   Calendar,
+  Info,
 } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { calculateAiScore, getAiLevel } from "@/utils/aiScoring";
+
+const AI_LEVEL_HELP =
+  "AI-nivå sammanfattar bredden i partnerns AI-erbjudande baserat på vilka AI-funktioner de jobbar med i sina D365-projekt. Skalan: AI Enabled (aktiverar Microsofts inbyggda Copilot) → AI Integration Partner (bygger egna AI-agenter) → AI Advanced (kundunika lösningar, prediktiva modeller) → AI Transformation Partner (avancerade Azure AI-arkitekturer). Säger inget om hur många AI-projekt partnern levererat — be om referenser.";
 
 type DeliveryProfile = {
   roles?: string[];
@@ -124,6 +129,7 @@ const Row = ({
   warn = false,
   aName,
   bName,
+  help,
 }: {
   label: string;
   a: React.ReactNode;
@@ -131,14 +137,29 @@ const Row = ({
   warn?: boolean;
   aName?: string;
   bName?: string;
+  help?: string;
 }) => (
   <div className="md:grid md:grid-cols-[180px_1fr_1fr] md:gap-3 md:items-stretch">
     <div
       className={`text-xs font-semibold uppercase tracking-wider ${
         warn ? "text-amber-700" : "text-slate-500"
-      } mb-2 md:mb-0 md:pt-4 md:normal-case md:font-medium md:tracking-normal`}
+      } mb-2 md:mb-0 md:pt-4 md:normal-case md:font-medium md:tracking-normal flex items-center gap-1.5`}
     >
       {label}
+      {help && (
+        <TooltipProvider delayDuration={100}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button type="button" aria-label={`Vad betyder ${label}?`} className="text-slate-400 hover:text-slate-600">
+                <Info className="w-3.5 h-3.5" />
+              </button>
+            </TooltipTrigger>
+            <TooltipContent side="top" className="max-w-xs text-xs leading-relaxed">
+              {help}
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      )}
     </div>
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 md:contents">
       <Cell mobileLabel={aName || "Partner A"}>{a}</Cell>
@@ -236,7 +257,7 @@ const ComparePartners = () => {
   const hasBoth = !!a && !!b;
   const aName = a?.name;
   const bName = b?.name;
-  const R = (props: { label: string; a: React.ReactNode; b: React.ReactNode; warn?: boolean }) => (
+  const R = (props: { label: string; a: React.ReactNode; b: React.ReactNode; warn?: boolean; help?: string }) => (
     <Row {...props} aName={aName} bName={bName} />
   );
 
