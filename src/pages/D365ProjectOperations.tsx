@@ -1,4 +1,6 @@
 import ProductHero from "@/components/ProductHero";
+import StandardProductSections from "@/components/product/StandardProductSections";
+import { PRODUCT_STANDARD_SECTIONS } from "@/data/productStandardSections";
 import RelatedPages, { fscRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
@@ -62,6 +64,9 @@ const D365ProjectOperations = () => {
       </ShortAnswer>
 
       <section className="py-12 sm:py-16 md:py-20 bg-background">
+
+      <StandardProductSections productName="Project Operations" data={PRODUCT_STANDARD_SECTIONS["project-operations"]} />
+
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">

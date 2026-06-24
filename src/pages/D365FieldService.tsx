@@ -1,4 +1,6 @@
 import ProductHero from "@/components/ProductHero";
+import StandardProductSections from "@/components/product/StandardProductSections";
+import { PRODUCT_STANDARD_SECTIONS } from "@/data/productStandardSections";
 import RelatedPages, { fieldServiceRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
@@ -113,6 +115,9 @@ const D365FieldService = () => {
 
       {/* Introduction Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-background">
+
+      <StandardProductSections productName="Field Service" data={PRODUCT_STANDARD_SECTIONS["field-service"]} />
+
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
