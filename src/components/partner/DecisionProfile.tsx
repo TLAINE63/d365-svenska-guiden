@@ -1,6 +1,10 @@
-import { Target, Package, Table2, AlertTriangle, Users, Building2, Calendar, Briefcase, Wrench } from "lucide-react";
+import { Target, Package, Table2, AlertTriangle, Users, Building2, Calendar, Briefcase, Wrench, Info } from "lucide-react";
 import { DatabasePartner } from "@/hooks/usePartners";
 import { calculateAiScore, getAiLevel } from "@/utils/aiScoring";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+
+const AI_LEVEL_HELP =
+  "AI-nivå sammanfattar bredden i partnerns AI-erbjudande baserat på vilka AI-funktioner de jobbar med i sina D365-projekt. Skalan: AI Enabled (aktiverar Microsofts inbyggda Copilot) → AI Integration Partner (bygger egna AI-agenter och processer) → AI Advanced (kundunika lösningar, prediktiva modeller) → AI Transformation Partner (avancerade Azure AI-arkitekturer). Säger inget om hur många AI-projekt partnern levererat — be om referenser.";
 
 type DeliveryProfile = {
   roles?: string[];
@@ -136,15 +140,30 @@ const DecisionProfile = ({ partner }: Props) => {
             </div>
             <dl className="divide-y divide-slate-100 text-sm">
               {[
-                ["Konsulter i Sverige (D365)", p.team_size_sweden],
-                ["Genomförda D365-implementationer", p.implementations_done],
-                ["Geografisk närvaro", offices > 0 ? `${offices} kontor` : null],
-                ["Branschfokus", (partner.industries || []).slice(0, 3).join(", ") || null],
-                ["AI-nivå", aiLevel.level !== "none" ? aiLevel.label : null],
-                
-              ].map(([label, value]) => (
-                <div key={label as string} className="grid grid-cols-[1fr_auto] gap-4 py-2.5">
-                  <dt className="text-slate-500">{label}</dt>
+                { label: "Konsulter i Sverige (D365)", value: p.team_size_sweden },
+                { label: "Genomförda D365-implementationer", value: p.implementations_done },
+                { label: "Geografisk närvaro", value: offices > 0 ? `${offices} kontor` : null },
+                { label: "Branschfokus", value: (partner.industries || []).slice(0, 3).join(", ") || null },
+                { label: "AI-nivå", value: aiLevel.level !== "none" ? aiLevel.label : null, help: AI_LEVEL_HELP },
+              ].map(({ label, value, help }) => (
+                <div key={label} className="grid grid-cols-[1fr_auto] gap-4 py-2.5">
+                  <dt className="text-slate-500 flex items-center gap-1.5">
+                    {label}
+                    {help && (
+                      <TooltipProvider delayDuration={100}>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button type="button" aria-label={`Vad betyder ${label}?`} className="text-slate-400 hover:text-slate-600">
+                              <Info className="w-3.5 h-3.5" />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top" className="max-w-xs text-xs leading-relaxed">
+                            {help}
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    )}
+                  </dt>
                   <dd className="text-slate-900 font-medium text-right">{value || EMPTY}</dd>
                 </div>
               ))}
