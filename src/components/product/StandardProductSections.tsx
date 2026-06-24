@@ -1,0 +1,173 @@
+import { Link } from "react-router-dom";
+import { ArrowRight, CheckCircle2, AlertTriangle, Users, Database, GitBranch, BarChart3, Workflow, Building2 } from "lucide-react";
+
+export interface StandardSectionsData {
+  buyerNeeds: string[];
+  whatItSolves: string[];
+  partnerMatters: {
+    processDesign: string;
+    integrations: string;
+    dataModel: string;
+    reporting: string;
+    changeManagement: string;
+    industryKnowledge: string;
+  };
+  pitfalls: string[];
+}
+
+const PARTNER_AREAS = [
+  { key: "processDesign", label: "Processdesign", Icon: Workflow },
+  { key: "integrations", label: "Integrationer", Icon: GitBranch },
+  { key: "dataModel", label: "Datamodell", Icon: Database },
+  { key: "reporting", label: "Rapportering", Icon: BarChart3 },
+  { key: "changeManagement", label: "Förändringsledning", Icon: Users },
+  { key: "industryKnowledge", label: "Branschkunskap", Icon: Building2 },
+] as const;
+
+interface Props {
+  productName: string;
+  data: StandardSectionsData;
+}
+
+export default function StandardProductSections({ productName, data }: Props) {
+  return (
+    <>
+      {/* 2. Typiska köparbehov */}
+      <section className="py-12 sm:py-16 md:py-20 bg-background border-t border-border">
+        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+            Typiska köparbehov
+          </h2>
+          <p className="text-sm md:text-base text-muted-foreground mb-8 max-w-3xl">
+            Situationer där svenska bolag brukar börja utvärdera {productName}.
+          </p>
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {data.buyerNeeds.map((item, i) => (
+              <li
+                key={i}
+                className="flex items-start gap-3 p-4 rounded border border-border bg-card"
+              >
+                <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                <span className="text-sm md:text-[15px] text-foreground leading-relaxed">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 3. Vad Dynamics 365 löser */}
+      <section className="py-12 sm:py-16 md:py-20 bg-secondary/30 border-t border-border">
+        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+            Vad Microsoft Dynamics 365 löser
+          </h2>
+          <p className="text-sm md:text-base text-muted-foreground mb-8 max-w-3xl">
+            Sakligt — utan Microsofts marknadsföringsord.
+          </p>
+          <ul className="space-y-3">
+            {data.whatItSolves.map((item, i) => (
+              <li key={i} className="flex items-start gap-3">
+                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                <span className="text-sm md:text-[15px] text-foreground leading-relaxed">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 4. Var partnern avgör */}
+      <section className="py-12 sm:py-16 md:py-20 bg-background border-t border-border">
+        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+            Var partnern avgör
+          </h2>
+          <p className="text-sm md:text-base text-muted-foreground mb-8 max-w-3xl">
+            Microsoft levererar plattformen. Partnern avgör om implementationen faktiskt fungerar i er verksamhet.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {PARTNER_AREAS.map(({ key, label, Icon }) => (
+              <div key={key} className="p-5 rounded border border-border bg-card">
+                <div className="flex items-center gap-2 mb-2">
+                  <Icon className="w-5 h-5 text-primary" />
+                  <h3 className="font-semibold text-foreground">{label}</h3>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {data.partnerMatters[key as keyof typeof data.partnerMatters]}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Vanliga fallgropar */}
+      <section className="py-12 sm:py-16 md:py-20 bg-secondary/30 border-t border-border">
+        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+            Vanliga fallgropar
+          </h2>
+          <p className="text-sm md:text-base text-muted-foreground mb-8 max-w-3xl">
+            Det vi ser oftast i utvärderingar som inte landar väl.
+          </p>
+          <ul className="space-y-3">
+            {data.pitfalls.map((item, i) => (
+              <li
+                key={i}
+                className="flex items-start gap-3 p-4 rounded border border-border bg-card"
+              >
+                <AlertTriangle className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
+                <span className="text-sm md:text-[15px] text-foreground leading-relaxed">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 6. Rekommenderat nästa steg */}
+      <section className="py-12 sm:py-16 md:py-20 bg-background border-t border-border">
+        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+            Rekommenderat nästa steg
+          </h2>
+          <p className="text-sm md:text-base text-muted-foreground mb-8 max-w-3xl">
+            Tre konkreta steg som gör beslutsunderlaget skarpare innan partnerdialogen börjar.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              {
+                title: "1. Gör en behovsanalys",
+                body: "Ringa in vad ni faktiskt behöver — innan ni jämför produkter.",
+                href: "/behovsanalys/",
+                cta: "Starta behovsanalys",
+              },
+              {
+                title: "2. Skapa en kravspec",
+                body: "Gör offerter och partnerförslag jämförbara på rätt grunder.",
+                href: "/kravspecifikation/",
+                cta: "Bygg kravspec",
+              },
+              {
+                title: "3. Hitta rätt partner",
+                body: "Utgå från er bransch och era processer — inte från vilken partner som syns mest.",
+                href: "/branscher/",
+                cta: "Hitta partner",
+              },
+            ].map((step) => (
+              <Link
+                key={step.href}
+                to={step.href}
+                className="group flex flex-col p-5 rounded border border-border bg-card hover:border-primary/50 transition-colors"
+              >
+                <h3 className="font-semibold text-foreground mb-2">{step.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">{step.body}</p>
+                <span className="inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all">
+                  {step.cta} <ArrowRight className="w-4 h-4" />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
