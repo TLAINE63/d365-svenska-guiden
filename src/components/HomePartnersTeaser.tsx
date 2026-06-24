@@ -165,7 +165,7 @@ export default function HomePartnersTeaser() {
               Partners
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-white tracking-tight leading-tight max-w-3xl">
-              Jämför {totalCount} partners på det som faktiskt skiljer dem åt
+              Hitta partners som matchar din bransch, lösningsintresse och storlek
             </h2>
           </div>
 
