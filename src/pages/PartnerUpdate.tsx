@@ -2292,37 +2292,71 @@ const PartnerUpdate = () => {
    </div>
 
    <div className="grid sm:grid-cols-2 gap-4">
-     <div>
-       <Label htmlFor="team_size_sweden">Lokal teamstorlek (Sverige) – D365</Label>
-       <select
-         id="team_size_sweden"
-         className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-         value={teamSizeSweden}
-         onChange={(e) => setTeamSizeSweden(e.target.value)}
-       >
-         <option value="">Välj intervall…</option>
-         <option value="1–10">1–10</option>
-         <option value="11–25">11–25</option>
-         <option value="26–50">26–50</option>
-         <option value="50+">50+</option>
-       </select>
-     </div>
-     <div>
-       <Label htmlFor="implementations_done">Antal genomförda D365-implementationer</Label>
-       <select
-         id="implementations_done"
-         className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-         value={implementationsDone}
-         onChange={(e) => setImplementationsDone(e.target.value)}
-       >
-         <option value="">Välj intervall…</option>
-         <option value="<10">Mindre än 10</option>
-         <option value="10–25">10–25</option>
-         <option value="25–100">25–100</option>
-         <option value="100+">100+</option>
-       </select>
-     </div>
+   <div>
+     <Label htmlFor="team_size_sweden">Lokal teamstorlek (Sverige) – D365</Label>
+     <select
+       id="team_size_sweden"
+       className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+       value={teamSizeSweden}
+       onChange={(e) => setTeamSizeSweden(e.target.value)}
+     >
+       <option value="">Välj intervall…</option>
+       <option value="1–10">1–10</option>
+       <option value="11–25">11–25</option>
+       <option value="26–50">26–50</option>
+       <option value="50+">50+</option>
+     </select>
    </div>
+
+   {(() => {
+     const apps = [
+       ...activeProducts.flatMap((k) => productSections.find((s) => s.key === k)?.apps || []),
+       ...selectedSpecialtyProducts,
+     ];
+     if (apps.length === 0) {
+       return (
+         <div className="rounded-md border border-dashed border-border bg-muted/30 p-3 text-xs text-muted-foreground">
+           <Label className="text-sm text-foreground">Genomförda implementationer per applikation</Label>
+           <p className="mt-1">Välj produkter ovan för att kunna ange antal implementationer per applikation.</p>
+         </div>
+       );
+     }
+     return (
+       <div className="space-y-2">
+         <Label>Genomförda implementationer per applikation</Label>
+         <p className="text-[11px] text-muted-foreground -mt-1">
+           Antal totalt per Dynamics 365-applikation. Visas i beslutsprofilen så att köparen ser volym där det är relevant.
+         </p>
+         <div className="grid sm:grid-cols-2 gap-2">
+           {apps.map((app) => (
+             <div key={app} className="flex items-center gap-2">
+               <span className="text-sm flex-1 truncate" title={app}>{app}</span>
+               <select
+                 className="flex h-9 w-32 rounded-md border border-input bg-background px-2 py-1 text-sm"
+                 value={implementationsPerApp[app] || ""}
+                 onChange={(e) =>
+                   setImplementationsPerApp((prev) => {
+                     const next = { ...prev };
+                     if (e.target.value) next[app] = e.target.value;
+                     else delete next[app];
+                     return next;
+                   })
+                 }
+               >
+                 <option value="">Välj…</option>
+                 <option value="<10">&lt;10</option>
+                 <option value="10–25">10–25</option>
+                 <option value="25–100">25–100</option>
+                 <option value="100+">100+</option>
+               </select>
+             </div>
+           ))}
+         </div>
+       </div>
+     );
+   })()}
+ </div>
+
 
    <div className="border-t border-border pt-4">
      <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
