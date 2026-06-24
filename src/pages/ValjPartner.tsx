@@ -17,6 +17,7 @@ import LeadCTA from "@/components/LeadCTA";
 import LeadMagnetBanner from "@/components/LeadMagnetBanner";
 import UrgencyBadge from "@/components/UrgencyBadge";
 import PartnerCard from "@/components/PartnerCard";
+import WhyTheseResults from "@/components/WhyTheseResults";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import SEOHead from "@/components/SEOHead";
 import { FAQSchema, ServiceSchema, BreadcrumbSchema, ItemListSchema } from "@/components/StructuredData";
@@ -767,7 +768,9 @@ const ValjPartner = () => {
  </div>
  </div>
  ) : (
- <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  <>
+  <WhyTheseResults className="mb-6 max-w-3xl mx-auto" />
+  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
  {filteredPartners.map((partner, index) => {
  // Determine which product key to use for this partner
  const hasBCApp = selectedApplications.includes("Business Central");
@@ -800,7 +803,8 @@ const ValjPartner = () => {
  />
  );
  })}
- </div>
+  </div>
+  </>
  )}
 
  {/* Lead CTA with urgency badge */}
