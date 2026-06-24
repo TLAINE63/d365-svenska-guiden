@@ -373,7 +373,7 @@ serve(async (req) => {
     }));
 
     const productNames: Record<string, string> = {
-      erp: "Microsoft Dynamics 365 ERP (systemoberoende – Business Central och/eller Finance & SCM)",
+      erp: "Microsoft Dynamics 365 ERP (systemneutralt – Business Central och/eller Finance & SCM)",
       bc: "Microsoft Dynamics 365 Business Central",
       fsc: "Microsoft Dynamics 365 Finance & Supply Chain Management",
       sales: "Microsoft Dynamics 365 Sales",
