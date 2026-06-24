@@ -2332,16 +2332,6 @@ const PartnerUpdate = () => {
          />
        </div>
        <div>
-         <Label htmlFor="dp_length">Typisk projektlängd <span className="text-xs font-normal text-muted-foreground">(internt)</span></Label>
-         <Input
-           id="dp_length"
-           placeholder="t.ex. 4–9 månader"
-           value={deliveryProfile.typical_length}
-           onChange={(e) => setDeliveryProfile({ ...deliveryProfile, typical_length: e.target.value })}
-         />
-         <p className="text-[11px] text-muted-foreground mt-1">Visas inte publikt — projektlängd är för beroende av applikation och scope för att jämföras på en rad.</p>
-       </div>
-       <div>
          <Label htmlFor="dp_engagement">Uppdragsform</Label>
          <Input
            id="dp_engagement"
