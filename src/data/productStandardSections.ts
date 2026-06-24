@@ -18,7 +18,7 @@ export const PRODUCT_STANDARD_SECTIONS: Record<string, StandardSectionsData> = {
     ],
     partnerMatters: {
       processDesign: "Hur ni hanterar order-till-faktura, inköp och lager sätter ramen för hela implementationen. Fel processdesign märks först efter go-live.",
-      integrationer: "Koppling till e-handel, WMS, lönesystem, EDI och Power BI varierar kraftigt mellan partners — fråga efter konkreta referenser.",
+      integrations: "Koppling till e-handel, WMS, lönesystem, EDI och Power BI varierar kraftigt mellan partners — fråga efter konkreta referenser.",
       dataModel: "Artikel-, kund- och dimensionsstruktur är svår att ändra senare. Partnern bör utmana er på detta tidigt.",
       reporting: "Standardrapporter räcker sällan. Hur partnern sätter upp dimensioner, jobbqueue och Power BI avgör beslutsstödet.",
       changeManagement: "Användaradoption är största risken. Partners med strukturerad utbildning och superuser-program lyckas oftare.",
@@ -49,7 +49,7 @@ export const PRODUCT_STANDARD_SECTIONS: Record<string, StandardSectionsData> = {
     ],
     partnerMatters: {
       processDesign: "F&SCM-implementationer faller eller står på processkartläggningen. Partners som hoppar över detta levererar dyra projekt som inte används.",
-      integrationer: "EDI, MES, lager, e-handel, koncernsystem och rapporteringsverktyg — komplexiteten är hög och kräver erfarna integrationsarkitekter.",
+      integrations: "EDI, MES, lager, e-handel, koncernsystem och rapporteringsverktyg — komplexiteten är hög och kräver erfarna integrationsarkitekter.",
       dataModel: "Legal entity-struktur, dimensioner och produktstruktur måste sättas rätt från början. Att ändra senare är extremt dyrt.",
       reporting: "Financial reporting, dimensioner och Fabric/Power BI-uppsättning skiljer en bra implementation från en oanvändbar.",
       changeManagement: "F&SCM påverkar hundratals användare. Partners utan tydlig adoption-metodik underskattar nästan alltid utbildningsbehovet.",
@@ -80,7 +80,7 @@ export const PRODUCT_STANDARD_SECTIONS: Record<string, StandardSectionsData> = {
     ],
     partnerMatters: {
       processDesign: "Säljprocess, leadkvalificering och pipeline-stadier måste matcha hur ni faktiskt säljer — inte hur Microsofts demo ser ut.",
-      integrationer: "Outlook, Teams, LinkedIn, ERP, marketing automation och offertverktyg — uppsättningen avgör om säljaren faktiskt använder systemet.",
+      integrations: "Outlook, Teams, LinkedIn, ERP, marketing automation och offertverktyg — uppsättningen avgör om säljaren faktiskt använder systemet.",
       dataModel: "Konto/kontakt/lead-modellen ser olika ut för B2B-långa cykler vs transaktionsförsäljning. Partnern måste förstå er affär.",
       reporting: "Pipeline-rapporter, prognoser och säljchefs-dashboards skiljer ett aktivt CRM från en datakyrkogård.",
       changeManagement: "Säljare adopterar inte CRM frivilligt. Partners utan tydlig adoption-plan levererar system som ingen loggar in i.",
@@ -111,7 +111,7 @@ export const PRODUCT_STANDARD_SECTIONS: Record<string, StandardSectionsData> = {
     ],
     partnerMatters: {
       processDesign: "Vilka journeys, vilka triggers, vilken kvalificering till sälj — designen avgör om plattformen levererar affärsvärde eller bara skickar fler e-postutskick.",
-      integrationer: "Webb, e-handel, transaktionssystem, ERP och support måste mata CDP:n med korrekt data — utan det blir segmenten värdelösa.",
+      integrations: "Webb, e-handel, transaktionssystem, ERP och support måste mata CDP:n med korrekt data — utan det blir segmenten värdelösa.",
       dataModel: "Entitetsmodell, unified profile-regler och consent-hantering är komplext och GDPR-känsligt.",
       reporting: "Attribution, kampanj-ROI och pipeline-bidrag kräver att data är rätt kopplad redan från start.",
       changeManagement: "Marknadsteam, säljteam och e-handelsteam behöver enas om definitioner och processer — partnern måste leda detta arbete.",
@@ -142,7 +142,7 @@ export const PRODUCT_STANDARD_SECTIONS: Record<string, StandardSectionsData> = {
     ],
     partnerMatters: {
       processDesign: "Köer, SLA, routing-regler och eskaleringsvägar måste matcha er supportorganisation — annars blir systemet ett hinder i stället för stöd.",
-      integrationer: "Telefoni, e-post, chatt, sociala kanaler, ERP, fältservice och kunskapsbas — uppsättningen avgör hela agentupplevelsen.",
+      integrations: "Telefoni, e-post, chatt, sociala kanaler, ERP, fältservice och kunskapsbas — uppsättningen avgör hela agentupplevelsen.",
       dataModel: "Ärende-, kontakt- och kontomodell måste fungera ihop med Sales och Marketing — annars hamnar ni i datasilos igen.",
       reporting: "SLA-uppföljning, NPS, first-call-resolution och agentproduktivitet kräver rätt fältdesign från början.",
       changeManagement: "Agenter är snabba att överge dåliga system. Partners utan tydlig adoption-plan tappar daglig användning inom månader.",
@@ -173,7 +173,7 @@ export const PRODUCT_STANDARD_SECTIONS: Record<string, StandardSectionsData> = {
     ],
     partnerMatters: {
       processDesign: "Schemaläggningsregler, kompetensmatchning och SLA-hantering måste designas efter er verksamhet — annars blir AI-dispatchern värdelös.",
-      integrationer: "ERP för reservdelar, ekonomi för fakturering, telefoni, IoT-plattform och mobilappar — uppsättningen avgör hela teknikerflödet.",
+      integrations: "ERP för reservdelar, ekonomi för fakturering, telefoni, IoT-plattform och mobilappar — uppsättningen avgör hela teknikerflödet.",
       dataModel: "Tillgångar, installationer, garantier och avtal måste struktureras rätt för att förebyggande underhåll ska fungera.",
       reporting: "Teknikerproduktivitet, första-besök-lösning, SLA och reservdelsmarginal kräver rätt fält från start.",
       changeManagement: "Tekniker i fält är de svåraste användarna att ändra arbetssätt hos. Partners utan field service-erfarenhet underskattar detta.",
@@ -204,7 +204,7 @@ export const PRODUCT_STANDARD_SECTIONS: Record<string, StandardSectionsData> = {
     ],
     partnerMatters: {
       processDesign: "IVR-flöden, routing och eskalering måste matcha er supportorganisation — fel design ger fler eskaleringar, inte färre.",
-      integrationer: "Telefonioperatör, CRM, support, kunskapsbas och WFM — uppsättningen avgör hela kontaktcentrets funktion.",
+      integrations: "Telefonioperatör, CRM, support, kunskapsbas och WFM — uppsättningen avgör hela kontaktcentrets funktion.",
       dataModel: "Samtal, kontakter, ärenden och uppföljning måste hänga ihop med övriga D365-modulerna — annars uppstår nya silos.",
       reporting: "AHT, FCR, NPS, abandoned rate och supervisor-dashboards kräver rätt datapunkter från start.",
       changeManagement: "Agenter och supervisorer behöver utbildas på både teknik och nya arbetssätt — partners utan contact center-vana underskattar detta.",
@@ -235,7 +235,7 @@ export const PRODUCT_STANDARD_SECTIONS: Record<string, StandardSectionsData> = {
     ],
     partnerMatters: {
       processDesign: "Projektmodell, faseringar, godkännandeflöden och faktureringsregler måste designas efter er affär — annars blir systemet ett hinder.",
-      integrationer: "Sales för offert, ekonomisystem för fakturering och redovisning, HR för resurser, BI för uppföljning.",
+      integrations: "Sales för offert, ekonomisystem för fakturering och redovisning, HR för resurser, BI för uppföljning.",
       dataModel: "Projekt-, kund-, kontrakt- och resursstruktur är svår att ändra senare — partnern måste utmana er tidigt.",
       reporting: "Beläggningsgrad, projektresultat, WIP och prognoser kräver rätt fältdesign från start.",
       changeManagement: "Konsulter och projektledare har låg tolerans för dåligt designade system. Partners utan projektorganisation-erfarenhet missar detta.",
