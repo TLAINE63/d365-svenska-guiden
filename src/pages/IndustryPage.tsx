@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 import PartnerCard from "@/components/PartnerCard";
+import WhyTheseResults from "@/components/WhyTheseResults";
 import RelatedPages, { branschRelatedPages } from "@/components/RelatedPages";
 import { useIndustryPage } from "@/hooks/useIndustryPage";
 import { usePartners } from "@/hooks/usePartners";
@@ -450,8 +451,10 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  Kontakta oss →
  </Link>
  </div>
- ) : (
- <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+  ) : (
+   <>
+   <WhyTheseResults className="mb-4" />
+   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
  {matchingPartners.map((p) => {
  const activeProductKey =
  selected.length === 1 ? FILTER_TO_UNDERLYING[selected[0]] : null;
@@ -465,8 +468,9 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  />
  );
  })}
- </div>
- )}
+  </div>
+   </>
+   )}
  </div>
  </section>
 
