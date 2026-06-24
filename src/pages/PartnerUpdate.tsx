@@ -2286,7 +2286,7 @@ const PartnerUpdate = () => {
 
    <div className="grid sm:grid-cols-2 gap-4">
      <div>
-       <Label htmlFor="team_size_sweden">Antal D365-konsulter i Sverige</Label>
+       <Label htmlFor="team_size_sweden">Lokal teamstorlek (Sverige) – D365</Label>
        <select
          id="team_size_sweden"
          className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
