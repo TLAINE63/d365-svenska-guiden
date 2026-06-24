@@ -12,6 +12,9 @@ const ENGAGEMENT_HELP =
 const METHODOLOGY_HELP =
   "Projektmetodik är det ramverk partnern arbetar enligt — alltså hur projekt styrs, dokumenteras och följs upp. Vanliga: Microsoft Sure Step / Success by Design, Agile / Scrum, Vattenfall, Hybrid (fast förstudie + agil bygg), SAFe eller en egen paketerad metod. Säger något om PMO-mognad och dokumentationskrav, inte om vad som byggs.";
 
+const TEAM_SIZE_HELP =
+  "Många partners förstärker leveransteamet med kollegor från nordiska/europeiska kontor. Fråga partnern hur många som faktiskt arbetar med er valda applikation och bransch — det är mer relevant än totalsiffran i Sverige.";
+
 type DeliveryProfile = {
   roles?: string[];
   typical_length?: string;
