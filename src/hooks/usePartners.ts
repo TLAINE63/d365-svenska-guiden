@@ -205,6 +205,7 @@ export function usePartners() {
         delivery_profile: ((p as any).delivery_profile ?? null) as DatabasePartner['delivery_profile'],
         team_size_sweden: (p as any).team_size_sweden ?? null,
         implementations_done: (p as any).implementations_done ?? null,
+        implementations_per_app: ((p as any).implementations_per_app ?? {}) as Record<string, string>,
         not_a_fit: ((p as any).not_a_fit ?? []) as string[],
       })) as DatabasePartner[];
     },
