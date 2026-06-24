@@ -995,10 +995,10 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                               )}
                             </div>
                             
-                            <Button asChild size="sm" className="w-full sm:w-auto">
-                              <Link to={profileUrl} onClick={() => onOpenChange(false)}>
-                                Läs mer om denna partner
-                                <ArrowRight className="ml-2 h-4 w-4" />
+                            <Button asChild size="sm" className="w-full sm:w-auto whitespace-nowrap">
+                              <Link to={profileUrl} onClick={() => onOpenChange(false)} className="inline-flex items-center">
+                                Visa partnerprofil
+                                <ArrowRight className="ml-2 h-4 w-4 shrink-0" />
                               </Link>
                             </Button>
                           </div>
