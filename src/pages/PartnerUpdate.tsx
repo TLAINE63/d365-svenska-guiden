@@ -865,6 +865,9 @@ const PartnerUpdate = () => {
  },
  team_size_sweden: teamSizeSweden || null,
  implementations_done: implementationsDone || null,
+ implementations_per_app: Object.fromEntries(
+   Object.entries(implementationsPerApp).filter(([app, v]) => applications.includes(app) && (v || "").trim())
+ ),
  not_a_fit: notAFitInput.split("\n").map(s => s.trim()).filter(Boolean),
  };
 
