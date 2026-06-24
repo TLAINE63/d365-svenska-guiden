@@ -36,6 +36,7 @@ REGLER:
 - Om frågan ligger utanför Dynamics 365 – säg det vänligt och föreslå /kontakt.`;
 
 Deno.serve(async (req) => {
+  const corsHeaders = getCorsHeaders(req);
   if (req.method === 'OPTIONS') return new Response(null, { headers: corsHeaders });
 
   try {
