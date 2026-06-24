@@ -259,6 +259,7 @@ export function usePartner(slug: string | undefined) {
         delivery_profile: ((data as any).delivery_profile ?? null) as DatabasePartner['delivery_profile'],
         team_size_sweden: (data as any).team_size_sweden ?? null,
         implementations_done: (data as any).implementations_done ?? null,
+        implementations_per_app: ((data as any).implementations_per_app ?? {}) as Record<string, string>,
         not_a_fit: ((data as any).not_a_fit ?? []) as string[],
       } as DatabasePartner;
     },
