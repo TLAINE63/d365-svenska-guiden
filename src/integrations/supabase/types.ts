@@ -755,6 +755,7 @@ export type Database = {
           geography: string[] | null
           id: string
           implementations_done: string | null
+          implementations_per_app: Json
           industries: string[] | null
           industry_apps: Json | null
           invitation_id: string
@@ -784,6 +785,7 @@ export type Database = {
           geography?: string[] | null
           id?: string
           implementations_done?: string | null
+          implementations_per_app?: Json
           industries?: string[] | null
           industry_apps?: Json | null
           invitation_id: string
@@ -813,6 +815,7 @@ export type Database = {
           geography?: string[] | null
           id?: string
           implementations_done?: string | null
+          implementations_per_app?: Json
           industries?: string[] | null
           industry_apps?: Json | null
           invitation_id?: string
@@ -881,6 +884,7 @@ export type Database = {
           geography: string[] | null
           id: string
           implementations_done: string | null
+          implementations_per_app: Json
           industries: string[] | null
           industry_apps: Json | null
           industry_pitches: Json
@@ -934,6 +938,7 @@ export type Database = {
           geography?: string[] | null
           id?: string
           implementations_done?: string | null
+          implementations_per_app?: Json
           industries?: string[] | null
           industry_apps?: Json | null
           industry_pitches?: Json
@@ -987,6 +992,7 @@ export type Database = {
           geography?: string[] | null
           id?: string
           implementations_done?: string | null
+          implementations_per_app?: Json
           industries?: string[] | null
           industry_apps?: Json | null
           industry_pitches?: Json
@@ -1420,6 +1426,7 @@ export type Database = {
           geography: string[] | null
           id: string | null
           implementations_done: string | null
+          implementations_per_app: Json | null
           industries: string[] | null
           industry_apps: Json | null
           industry_pitches: Json | null
@@ -1454,6 +1461,7 @@ export type Database = {
           geography?: string[] | null
           id?: string | null
           implementations_done?: string | null
+          implementations_per_app?: Json | null
           industries?: string[] | null
           industry_apps?: Json | null
           industry_pitches?: Json | null
@@ -1488,6 +1496,7 @@ export type Database = {
           geography?: string[] | null
           id?: string | null
           implementations_done?: string | null
+          implementations_per_app?: Json | null
           industries?: string[] | null
           industry_apps?: Json | null
           industry_pitches?: Json | null

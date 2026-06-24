@@ -243,6 +243,9 @@ const ComparePartners = () => {
     const offices = (p?.office_cities || []).length;
     const score = p ? calculateAiScore(p.product_filters) : 0;
     const aiLevel = getAiLevel(score);
+    const perApp = Object.entries(((p as any)?.implementations_per_app || {}) as Record<string, string>)
+      .filter(([, v]) => typeof v === "string" && v.trim())
+      .map(([app, count]) => ({ app, count: (count as string).trim() }));
     return {
       positioning: p?.positioning_statement?.trim() || "",
       primaryApp: (p?.applications || [])[0],
@@ -253,6 +256,7 @@ const ComparePartners = () => {
       methodology: dp.methodology?.trim() || "",
       teamSize: p?.team_size_sweden?.trim() || "",
       implementations: p?.implementations_done?.trim() || "",
+      implementationsPerApp: perApp,
       offices: offices > 0 ? `${offices} kontor` : "",
       industries: (p?.industries || []).slice(0, 3),
       aiLevel: aiLevel.level !== "none" ? aiLevel.label : "",
@@ -390,9 +394,18 @@ const ComparePartners = () => {
                         b={renderValue(B.teamSize)}
                       />
                       <R
-                        label="Genomförda D365-impl."
-                        a={renderValue(A.implementations)}
-                        b={renderValue(B.implementations)}
+                        label="Genomförda implementationer"
+                        help="Antal genomförda D365-implementationer per applikation. Säger något om volym, inte om kvalitet eller branschpassning — be alltid om referenser i den bransch ni befinner er i."
+                        a={
+                          A.implementationsPerApp.length > 0
+                            ? renderList(A.implementationsPerApp.map((i) => `${i.app}: ${i.count}`))
+                            : renderValue(A.implementations)
+                        }
+                        b={
+                          B.implementationsPerApp.length > 0
+                            ? renderList(B.implementationsPerApp.map((i) => `${i.app}: ${i.count}`))
+                            : renderValue(B.implementations)
+                        }
                       />
                       <R
                         label="Geografisk närvaro"

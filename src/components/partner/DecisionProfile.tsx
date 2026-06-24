@@ -37,6 +37,7 @@ const DecisionProfile = ({ partner }: Props) => {
     delivery_profile?: DeliveryProfile | null;
     team_size_sweden?: string | null;
     implementations_done?: string | null;
+    implementations_per_app?: Record<string, string> | null;
     not_a_fit?: string[] | null;
   };
 
@@ -44,6 +45,9 @@ const DecisionProfile = ({ partner }: Props) => {
   const delivery: DeliveryProfile = (p.delivery_profile || {}) as DeliveryProfile;
   const notAFit = cleanList(p.not_a_fit);
   const roles = cleanList(delivery.roles);
+  const implPerApp = Object.entries(p.implementations_per_app || {})
+    .filter(([, v]) => typeof v === "string" && v.trim())
+    .map(([app, count]) => ({ app, count: count.trim() }));
 
   // Derive headline tags
   const primaryApp = (partner.applications || [])[0];
@@ -161,11 +165,28 @@ const DecisionProfile = ({ partner }: Props) => {
             </div>
             <dl className="divide-y divide-slate-100 text-sm">
               {[
-                { label: "Lokal teamstorlek (Sverige)", value: p.team_size_sweden, help: TEAM_SIZE_HELP },
-                { label: "Genomförda D365-implementationer", value: p.implementations_done },
-                { label: "Geografisk närvaro", value: offices > 0 ? `${offices} kontor` : null },
-                { label: "Branschfokus", value: (partner.industries || []).slice(0, 3).join(", ") || null },
-                { label: "AI-nivå", value: aiLevel.level !== "none" ? aiLevel.label : null, help: AI_LEVEL_HELP },
+              { label: "Lokal teamstorlek (Sverige)", value: p.team_size_sweden, help: TEAM_SIZE_HELP },
+              {
+                label: "Genomförda implementationer",
+                value:
+                  implPerApp.length > 0 ? (
+                    <div className="flex flex-col items-end gap-0.5">
+                      {implPerApp.map(({ app, count }) => (
+                        <div key={app} className="text-slate-900">
+                          <span className="text-slate-500 font-normal">{app}:</span>{" "}
+                          <span className="font-medium">{count}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    p.implementations_done || null
+                  ),
+                help:
+                  "Antal genomförda D365-implementationer per applikation. Säger något om volym, inte om kvalitet eller branschpassning — be alltid om referenser i den bransch ni befinner er i.",
+              },
+              { label: "Geografisk närvaro", value: offices > 0 ? `${offices} kontor` : null },
+              { label: "Branschfokus", value: (partner.industries || []).slice(0, 3).join(", ") || null },
+              { label: "AI-nivå", value: aiLevel.level !== "none" ? aiLevel.label : null, help: AI_LEVEL_HELP },
               ].map(({ label, value, help }) => (
                 <div key={label} className="grid grid-cols-[1fr_auto] gap-4 py-2.5">
                   <dt className="text-slate-500 flex items-center gap-1.5">
