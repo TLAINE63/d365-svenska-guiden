@@ -808,7 +808,7 @@ const Index = () => {
  </div>
  <div>
  <p className="text-[13px] font-semibold text-white/90">d365.se Beslutsmognadsindex</p>
- <p className="text-[11px] text-white/40 uppercase tracking-wider">Volym 01 · Kvartal 2 · 2026</p>
+ <p className="text-[11px] text-white/70 uppercase tracking-wider">Volym 01 · Kvartal 2 · 2026</p>
  </div>
  </div>
  </div>
