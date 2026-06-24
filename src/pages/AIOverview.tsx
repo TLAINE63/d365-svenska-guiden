@@ -63,11 +63,11 @@ const roles = [
 ];
 
 const benefits = [
- { icon: TrendingUp, text: "Öka lönsamheten genom smartare beslutsunderlag" },
- { icon: Bot, text: "Spara tid – låt AI ta hand om rutinarbetet" },
- { icon: Package, text: "Förenkla ekonomi- och lagerprocesser" },
- { icon: Brain, text: "Få kontroll med prognoser och insikter i realtid" },
- { icon: Users, text: "Väx utan att behöva anställa för varje ny kund" },
+ { icon: Brain, text: "AI-effekten beror på datakvaliteten — inte på licensen" },
+ { icon: Cog, text: "Copilot fungerar bäst när CRM/ERP-data är komplett och strukturerad" },
+ { icon: Bot, text: "Agenter kräver tydliga processer och ett namngivet ägarskap" },
+ { icon: ShieldAlert, text: "Automatisering utan processkontroll skapar nya problem, inte färre" },
+ { icon: TrendingUp, text: "Bedöm er AI-mognad innan ni gör större investeringar" },
 ];
 
 const goals = [
@@ -180,11 +180,11 @@ const erpScenarios = [
 ];
 
 const practicalEffects = [
- "20–40% minskning av manuella moment",
- "Kortare ledtider i säljcykeln",
- "Förbättrad prognosprecision",
- "Färre fel i ekonomiprocesser",
- "Ökad kundnöjdhet",
+ "Datakvalitet i CRM/ERP är på plats — annars hallucinerar Copilot",
+ "Processerna är dokumenterade innan en agent automatiserar dem",
+ "Ett namngivet ägarskap finns för varje AI-funktion som aktiveras",
+ "Governance och behörigheter är genomgångna före utrullning",
+ "AI-mognaden är bedömd och prioriterad mot affärsvärde",
 ];
 
 const AIOverview = () => {
@@ -195,13 +195,13 @@ const AIOverview = () => {
  return (
  <div className="min-h-screen bg-background">
  <SEOHead
- title="AI i Microsoft Dynamics 365 – Copilot & agenter"
- description="Spara tid och öka lönsamhet med Copilot och intelligenta agenter i Microsoft Dynamics 365. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+ title="AI i Microsoft Dynamics 365 – data, process, ansvar"
+ description="Copilot och agenter i Dynamics 365 kräver mer än licenser. Vad som krävs av data, processer och ägarskap innan AI-effekten infinner sig."
  canonicalPath="/aioversikt"
  />
  <WebPageSchema
  name="AI i Dynamics 365 – Copilot & Agenter"
- description="Spara tid och öka lönsamhet med Copilot och intelligenta agenter i Dynamics 365. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+ description="Copilot och agenter i Dynamics 365 kräver mer än licenser. Vad som krävs av data, processer och ägarskap innan AI-effekten infinner sig."
  url="https://d365.se/aioversikt/"
  breadcrumb={[
  { name: "Hem", url: "https://d365.se/" },
@@ -220,13 +220,13 @@ const AIOverview = () => {
  Microsoft AI i Dynamics 365
  </div>
  <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
- AI i Dynamics 365 — vad det faktiskt innebär
+ AI i Dynamics 365 kräver mer än Copilot-licenser
  </h1>
  <p className="text-xl sm:text-2xl text-white/80 font-medium mb-8">
- Copilot, agenter och inbäddad AI: vad ingår i licensen, vad kostar tilläggen och vad krävs av er datakvalitet innan effekten infinner sig.
+ Copilot och agenter kräver data, process och ansvar. Utan den grunden uteblir effekten — oavsett hur många licenser ni köper.
  </p>
  <p className="text-lg text-white/70 max-w-2xl mx-auto mb-10">
- Det handlar inte om teknik. Det handlar om affärseffekt:
+ Det här behöver vara på plats innan ni skalar AI i affärssystemet:
  </p>
 
  <div className="grid gap-4 max-w-xl mx-auto text-left mb-10">
@@ -239,7 +239,7 @@ const AIOverview = () => {
  </div>
 
  <p className="text-lg text-white/80 max-w-2xl mx-auto">
- <strong>Copilot</strong> och <strong>intelligenta agenter</strong> gör det möjligt – inbyggt i de verktyg ditt team redan använder.
+ Den här sidan reder ut vad <strong>Copilot</strong> och <strong>agenter</strong> faktiskt kräver — och var partnervalet börjar spela roll.
  </p>
  </section>
  </div>
@@ -685,16 +685,16 @@ const AIOverview = () => {
  </div>
  </section>
 
- {/* Practical effects */}
+ {/* Practical prerequisites */}
  <section className="max-w-3xl mx-auto mb-20">
  <div className="flex items-center justify-center gap-3 mb-3">
  <span className="text-3xl">📊</span>
  <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground">
- Vad betyder detta i praktiken?
+ Vad krävs för att AI ska ge effekt?
  </h2>
  </div>
  <p className="text-center text-muted-foreground mb-8">
- Typiska effekter vi ser i projekt med AI i Dynamics 365:
+ Innan ni mäter effekt behöver grunden vara på plats. Det här är förutsättningarna vi ser i de projekt som faktiskt levererar:
  </p>
  <div className="grid gap-3">
  {practicalEffects.map((effect, i) => (
@@ -704,6 +704,9 @@ const AIOverview = () => {
  </div>
  ))}
  </div>
+ <p className="text-xs text-muted-foreground text-center mt-6 italic">
+ Effektsiffror som "20–40% tidsbesparing" varierar kraftigt mellan organisationer och bör behandlas som exempel — inte som löften. Bedöm potentialen i er egen kontext via AI-mognadstestet.
+ </p>
  </section>
 
  {/* Getting started steps */}
@@ -752,17 +755,25 @@ const AIOverview = () => {
  <CardContent className="p-6 sm:p-10 text-center">
  <span className="text-4xl mb-4 block">🧠</span>
  <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
- Är ni redo för AI?
+ Innan ni investerar — bedöm er AI-mognad
  </h2>
  <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
- Gör vårt AI Readiness Assessment – 12 frågor, 3 minuter – och få en personlig rekommendation för hur ni tar nästa steg med Copilot och agenter.
+ Större AI-investeringar bör baseras på faktisk mognad i data, processer och ägarskap — inte på licenstillgänglighet. Testa er mognad eller börja med en strukturerad behovsanalys.
  </p>
+ <div className="flex flex-col sm:flex-row gap-3 justify-center">
  <Link
  to="/ai-readiness/"
- className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium text-lg hover:bg-primary/90 transition-colors"
+ className="inline-flex items-center justify-center gap-2 bg-[hsl(var(--cta-orange))] text-white px-6 py-3 rounded font-medium text-lg hover:opacity-90 transition-opacity"
  >
- Starta Assessment <ArrowRight className="h-5 w-5" />
+ Testa er AI-mognad <ArrowRight className="h-5 w-5" />
  </Link>
+ <Link
+ to="/behovsanalys/"
+ className="inline-flex items-center justify-center gap-2 border border-primary/30 text-foreground px-6 py-3 rounded font-medium text-lg hover:bg-primary/5 transition-colors"
+ >
+ Gör behovsanalys för Dynamics 365
+ </Link>
+ </div>
  </CardContent>
  </Card>
  </section>
