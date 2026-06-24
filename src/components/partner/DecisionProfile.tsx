@@ -165,7 +165,7 @@ const DecisionProfile = ({ partner }: Props) => {
             </div>
             <dl className="divide-y divide-slate-100 text-sm">
               {[
-                { label: "Konsulter i Sverige (D365)", value: p.team_size_sweden },
+                { label: "Lokal teamstorlek (Sverige)", value: p.team_size_sweden, help: TEAM_SIZE_HELP },
                 { label: "Genomförda D365-implementationer", value: p.implementations_done },
                 { label: "Geografisk närvaro", value: offices > 0 ? `${offices} kontor` : null },
                 { label: "Branschfokus", value: (partner.industries || []).slice(0, 3).join(", ") || null },
