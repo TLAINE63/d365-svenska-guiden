@@ -279,10 +279,10 @@ const Index = () => {
  Upphandlingsguiden för Microsoft Dynamics 365
  </div>
  <h1 className="text-[26px] sm:text-[34px] md:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
- <span className="text-[hsl(var(--signature))] whitespace-nowrap">Dynamics&nbsp;365</span> — guider, jämförelser och partnerval på köparens villkor
+ <span className="text-[hsl(var(--signature))]">Microsoft Dynamics&nbsp;365</span> — guider, jämförelser och partnerval på köparens villkor
  </h1>
   <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl">
-  d365.se hjälper er förstå behovet, jämföra alternativen och hitta partners som matchar er verksamhet – med guider, analyser och verktyg skrivna från köparens perspektiv.
+  d365.se är den köparsidiga guiden till Microsoft Dynamics 365 i Sverige – förstå behovet, jämför ERP- och CRM-alternativen och hitta partners som matchar er bransch och storlek.
   </p>
  <p className="mt-3 inline-flex items-center gap-2 text-[12.5px] sm:text-[13px] text-white/65">
  <Sparkles className="w-3.5 h-3.5 text-[hsl(var(--signature))]" />
