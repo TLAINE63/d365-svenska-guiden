@@ -107,16 +107,36 @@ const Branscher = () => {
  />
  <Navbar />
  <main className="min-h-screen bg-background pt-28 md:pt-36">
- <section className="py-5 md:py-6 bg-gradient-to-b from-muted/30 to-background border-b border-border">
- <div className="container mx-auto px-4 max-w-6xl">
- <h1 className="text-xl md:text-2xl font-bold text-foreground mb-2">
- Börja med branschen — inte med produktnamnet
- </h1>
- <p className="text-xs md:text-sm text-muted-foreground max-w-4xl">
- Processer, roller och regelkrav skiljer sig åt mellan branscher — och därmed också vilka delar av Microsoft Dynamics 365 som faktiskt är relevanta. Välj er bransch nedan för att se vilka applikationer, vanliga frågeställningar och partners som är aktuella för just er typ av verksamhet.
- </p>
- </div>
- </section>
+        <section className="py-5 md:py-6 bg-gradient-to-b from-muted/30 to-background border-b border-border">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <h1 className="text-xl md:text-2xl font-bold text-foreground mb-2">
+              Välj bransch först — annars jämför ni Dynamics 365 på fel grunder
+            </h1>
+            <p className="text-xs md:text-sm text-muted-foreground max-w-4xl">
+              Dynamics 365 ser olika ut i tillverkning, handel, fastighet, service, konsultverksamhet och andra branscher. Rätt lösning beror inte bara på produktvalet, utan på processer, integrationsbehov, rapportering, regelverk och vilken typ av partner som krävs för att lyckas.
+            </p>
+          </div>
+        </section>
+
+        <section className="py-6 md:py-8 border-b border-border bg-background">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <h2 className="text-lg md:text-xl font-bold text-foreground mb-3">
+              Varför bransch spelar roll
+            </h2>
+            <div className="space-y-3 text-sm md:text-[15px] text-muted-foreground max-w-4xl leading-relaxed">
+              <p>
+                Två företag kan välja exakt samma Dynamics 365-produkt — och ändå hamna i två helt olika projekt. Implementationen, kravspecifikationen och vilken partnerprofil som faktiskt klarar uppdraget styrs i hög grad av branschens processer, terminologi och regelverk.
+              </p>
+              <p>
+                Inom flera branscher räcker inte standardfunktionaliteten i Dynamics 365. Då krävs tilläggsapplikationer (ISV-lösningar) för exempelvis batch-spårbarhet, hyresavtal, projektredovisning, MES-integration eller branschspecifik rapportering — och enbart vissa partners är certifierade för dessa.
+              </p>
+              <p>
+                Att börja med branschen — innan ni jämför produkter eller partners — gör att utvärderingen sker på rätt grunder: era processer, era integrationsbehov och de partners som faktiskt har levererat i er typ av verksamhet tidigare.
+              </p>
+            </div>
+          </div>
+        </section>
+
 
  <section className="py-6 md:py-8">
  <div className="container mx-auto px-4 max-w-6xl">
