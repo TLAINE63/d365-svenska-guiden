@@ -41,8 +41,9 @@ interface UserCriteria {
 
 interface PartnerMatch {
   id: string;
-  score: number; // 0-100
+  score: number; // 0-100 (internt – visas aldrig i UI)
   matchReason: string; // Short Swedish explanation
+  bullets?: string[]; // 2-4 korta konkreta motiveringar
 }
 
 Deno.serve(async (req) => {
@@ -167,12 +168,14 @@ INSTRUKTIONER:
 ${criteria.preferCrmOnly ? `
 3. VIKTIGT för CRM-appar: Om en partner har bred ERP-kompetens (Business Central, Finance & SCM) men begränsad CRM-specialisering, sänk poängen med 10-15 enheter jämfört med en renodlad CRM-partner med liknande profil. En CRM-specialist som inte säljer ERP bör premieras.
 ` : ''}
-${criteria.preferCrmOnly ? '4.' : '3.'} Skriv en kort motivering på svenska (max 15 ord) per partner som förklarar varför de matchar eller inte.
+${criteria.preferCrmOnly ? '4.' : '3.'} Skriv en kort motivering på svenska (max 15 ord) per partner som förklarar varför de matchar.
+
+${criteria.preferCrmOnly ? '5.' : '4.'} Lägg till 2–4 KORTA bullets (max ~8 ord styck) som konkret motiverar matchningen i klartext. Använd formuleringar som "Stark matchning inom vald bransch", "Relevant erfarenhet av ${criteria.application}", "Har kundcase inom liknande bolagsstorlek", "Specialist inom valt workload", "Nationell leveranskapacitet", "Lokal närvaro nära kunden", "Erfarenhet av vald ISV-/branschlösning", "Begränsad publik information" (om profilen är tunn). Skriv ALDRIG ut poäng, procent eller vikter i bullets eller motivering.
 
 Svara med JSON i EXAKT detta format (inga andra fält):
 {
   "matches": [
-    { "id": "<partner-id>", "score": <0-100>, "matchReason": "<kort motivering på svenska>" }
+    { "id": "<partner-id>", "score": <0-100>, "matchReason": "<kort motivering på svenska>", "bullets": ["<kort bullet>", "<kort bullet>"] }
   ]
 }`;
 
