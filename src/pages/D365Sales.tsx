@@ -130,9 +130,8 @@ const D365Sales = () => {
         <p>Det blir riktigt vasst när partnern modellerar er specifika säljprocess, era kvalificeringskriterier och era nyckeltal — standardinstallationen ger sällan full effekt på egen hand, men rätt konfigurerad blir Dynamics 365 Sales motorn som skalar hela er säljorganisation.</p>
       </ShortAnswer>
 
-
       {/* Introduction Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-background">
+      <section className="pt-0 pb-12 sm:pb-16 md:pb-20 bg-background">
 
       <StandardProductSections productName="Sales" data={PRODUCT_STANDARD_SECTIONS["sales"]} />
 
