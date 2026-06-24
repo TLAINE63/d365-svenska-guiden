@@ -45,7 +45,7 @@ interface ColProps {
 }
 
 const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label }: ColProps) => (
-  <div className="rounded-xl border border-slate-200 bg-white p-4 sticky top-0 z-10">
+  <div className="rounded-xl border border-slate-200 bg-white p-3 sm:p-4">
     <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-2">
       {label}
     </div>
@@ -65,14 +65,14 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label
       <div className="mt-3 flex items-center justify-between gap-2">
         <Link
           to={`/partner/${partner.slug}`}
-          className="text-sm font-semibold text-foreground hover:underline truncate flex items-center gap-1"
+          className="text-sm font-semibold text-foreground hover:underline truncate flex items-center gap-1 min-w-0"
         >
-          {partner.name}
-          <ExternalLink className="w-3 h-3 opacity-60" />
+          <span className="truncate">{partner.name}</span>
+          <ExternalLink className="w-3 h-3 opacity-60 shrink-0" />
         </Link>
         <button
           onClick={onClear}
-          className="text-slate-400 hover:text-slate-700"
+          className="text-slate-400 hover:text-slate-700 shrink-0"
           aria-label="Rensa val"
         >
           <X className="w-4 h-4" />
@@ -82,8 +82,13 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label
   </div>
 );
 
-const Cell = ({ children }: { children: React.ReactNode }) => (
-  <div className="rounded-lg border border-slate-200 bg-white p-4 text-sm text-slate-800 min-h-[64px]">
+const Cell = ({ children, mobileLabel }: { children: React.ReactNode; mobileLabel?: string }) => (
+  <div className="rounded-lg border border-slate-200 bg-white p-3 sm:p-4 text-sm text-slate-800 min-h-[56px] sm:min-h-[64px]">
+    {mobileLabel && (
+      <div className="md:hidden text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+        {mobileLabel}
+      </div>
+    )}
     {children}
   </div>
 );
@@ -111,13 +116,33 @@ const SectionTitle = ({
   </div>
 );
 
-const Row = ({ label, a, b, warn = false }: { label: string; a: React.ReactNode; b: React.ReactNode; warn?: boolean }) => (
-  <div className="grid grid-cols-[180px_1fr_1fr] gap-3 items-stretch">
-    <div className={`text-xs font-medium ${warn ? "text-amber-700" : "text-slate-500"} pt-4`}>
+const Row = ({
+  label,
+  a,
+  b,
+  warn = false,
+  aName,
+  bName,
+}: {
+  label: string;
+  a: React.ReactNode;
+  b: React.ReactNode;
+  warn?: boolean;
+  aName?: string;
+  bName?: string;
+}) => (
+  <div className="md:grid md:grid-cols-[180px_1fr_1fr] md:gap-3 md:items-stretch">
+    <div
+      className={`text-xs font-semibold uppercase tracking-wider ${
+        warn ? "text-amber-700" : "text-slate-500"
+      } mb-2 md:mb-0 md:pt-4 md:normal-case md:font-medium md:tracking-normal`}
+    >
       {label}
     </div>
-    <Cell>{a}</Cell>
-    <Cell>{b}</Cell>
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 md:contents">
+      <Cell mobileLabel={aName || "Partner A"}>{a}</Cell>
+      <Cell mobileLabel={bName || "Partner B"}>{b}</Cell>
+    </div>
   </div>
 );
 
