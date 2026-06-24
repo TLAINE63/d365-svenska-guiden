@@ -110,10 +110,10 @@ const Branscher = () => {
  <section className="py-5 md:py-6 bg-gradient-to-b from-muted/30 to-background border-b border-border">
  <div className="container mx-auto px-4 max-w-6xl">
  <h1 className="text-xl md:text-2xl font-bold text-foreground mb-2">
- Dynamics 365 per bransch – guide & partners i Sverige
+ Börja med branschen — inte med produktnamnet
  </h1>
  <p className="text-xs md:text-sm text-muted-foreground max-w-4xl">
- Upptäck hur Microsoft Dynamics 365 kan förändra din bransch – från smidigare affärsprocesser och tydligare roller till lösningar på de utmaningar som verkligen betyder något. Välj din bransch nedan för konkreta insikter, vägledning och rätt applikationer för att driva din verksamhet framåt.
+ Processer, roller och regelkrav skiljer sig åt mellan branscher — och därmed också vilka delar av Microsoft Dynamics 365 som faktiskt är relevanta. Välj er bransch nedan för att se vilka applikationer, vanliga frågeställningar och partners som är aktuella för just er typ av verksamhet.
  </p>
  </div>
  </section>
