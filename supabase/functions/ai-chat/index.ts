@@ -1,11 +1,7 @@
 // Streaming AI chat for d365.se – neutral D365 advisor
 import { checkAndLogQuota } from '../_shared/ai-quota.ts';
 import { D365_MARKET_CONTEXT_SV } from '../_shared/market-context.ts';
-
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+import { getCorsHeaders } from '../_shared/cors.ts';
 
 const DAILY_LIMIT = 50;
 
@@ -40,6 +36,7 @@ REGLER:
 - Om frågan ligger utanför Dynamics 365 – säg det vänligt och föreslå /kontakt.`;
 
 Deno.serve(async (req) => {
+  const corsHeaders = getCorsHeaders(req);
   if (req.method === 'OPTIONS') return new Response(null, { headers: corsHeaders });
 
   try {

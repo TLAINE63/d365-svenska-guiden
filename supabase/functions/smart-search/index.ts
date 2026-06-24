@@ -1,10 +1,6 @@
 // Smart AI search: tolkar fri text och returnerar bästa rutt + förklaring
 import { checkAndLogQuota } from '../_shared/ai-quota.ts';
-
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+import { getCorsHeaders } from '../_shared/cors.ts';
 
 const DAILY_LIMIT = 30;
 
@@ -40,6 +36,7 @@ const ROUTES = [
 ];
 
 Deno.serve(async (req) => {
+  const corsHeaders = getCorsHeaders(req);
   if (req.method === 'OPTIONS') return new Response(null, { headers: corsHeaders });
 
   try {
