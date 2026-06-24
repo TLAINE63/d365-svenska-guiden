@@ -115,7 +115,7 @@ const Upphandlingsguiden = () => {
  return (
  <>
  <SEOHead
- title="Upphandlingsguiden – så upphandlar du Dynamics 365"
+ title="Upphandlingsguiden – Microsoft Dynamics 365"
  description="Köparsidig vägledning genom hela upphandlingen av Microsoft Dynamics 365 – från behovsanalys och kravspec till partnerval, införande och avtal."
  canonicalPath="/upphandlingsguiden"
  />
