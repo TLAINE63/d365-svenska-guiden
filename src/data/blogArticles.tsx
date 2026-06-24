@@ -1213,7 +1213,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Och det syns extra tydligt i ERP- och CRM-projekt.
         </p>
         <p>
-          Microsofts bild kompletteras intressant av oberoende analytiker.
+          Microsofts bild kompletteras intressant av fristående analytiker.
           Gartner konstaterar i sin 2026 Hype Cycle att endast 17 procent av
           organisationer faktiskt har deployat AI-agenter, även om över 60
           procent säger sig planera det inom två år. Än mer påtagligt: Gartner
@@ -1840,7 +1840,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Fanns en strukturerad utvärdering? Fanns relevanta referenser? Fanns
           en tydlig koppling mellan partnerns erfarenhet och verksamhetens
-          behov? Fanns oberoende underlag — eller byggde valet mest på pris,
+          behov? Fanns neutralt underlag — eller byggde valet mest på pris,
           relationer och presentationer?
         </p>
         <p>

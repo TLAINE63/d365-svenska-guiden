@@ -1,13 +1,13 @@
 // Marknadskontext för svenska D365-partnermarknaden.
-// Sammanfattade insikter (ej ordagrann kopia) från oberoende marknadsanalys
+// Sammanfattade insikter (ej ordagrann kopia) från fristående marknadsanalys
 // "Microsoft D365 partners i Sverige" (HerbertNathan & Co, 2026) – används
 // som bakgrundsfakta för AI-analyser. Egna observationer ska alltid väga tyngst.
 //
-// Källa: HerbertNathan & Co marknadsanalys 2026 (oberoende rapport).
+// Källa: HerbertNathan & Co marknadsanalys 2026 (fristående rapport).
 // Använd som faktagrund, citera inte ordagrant.
 
 export const D365_MARKET_CONTEXT_SV = `
-BAKGRUND: SVENSKA D365-PARTNERMARKNADEN (oberoende marknadsanalys 2026)
+BAKGRUND: SVENSKA D365-PARTNERMARKNADEN (fristående marknadsanalys 2026)
 
 Marknadens utveckling:
 - Microsofts förvärv av danska Damgaard (Navision + Axapta) i början av 2000-talet

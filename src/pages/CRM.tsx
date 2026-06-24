@@ -293,7 +293,7 @@ const CRM = () => {
  <AccordionContent className="text-muted-foreground pb-6 space-y-4">
  <p>En av de mest återkommande frågorna från företag som utvärderar ett nytt CRM-system handlar om flexibilitet – kan systemet verkligen anpassas efter hur vi arbetar, eller tvingas vi anpassa oss efter systemet? Med Dynamics 365 CE är svaret tydligt: systemet formar sig efter er verksamhet, inte tvärtom.</p>
  <p><strong>Flexibilitet som standard</strong></p>
- <p>Dynamics 365 CE är byggt från grunden för att vara anpassningsbart och branschoberoende. Oavsett om ni arbetar med långa och komplexa säljcykler, volymdriven kundservice eller projektbaserade leveranser – systemet kan konfigureras för att spegla just era processer, er terminologi och era flöden.</p>
+ <p>Dynamics 365 CE är byggt från grunden för att vara anpassningsbart och branschneutralt. Oavsett om ni arbetar med långa och komplexa säljcykler, volymdriven kundservice eller projektbaserade leveranser – systemet kan konfigureras för att spegla just era processer, er terminologi och era flöden.</p>
  <p>Det handlar inte om att välja ett system och sedan leva med dess begränsningar. Det handlar om att ta ett kraftfullt fundament och forma det till något som känns skräddarsytt för er.</p>
  <p><strong>Power Platform – anpassning utan programmering</strong></p>
  <p>En av de mest kraftfulla komponenterna i ekosystemet är Microsoft Power Platform, som ger er möjlighet att:</p>

@@ -853,7 +853,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  {/* If no industries at all */}
  {primary.length === 0 && (
  <p className="text-sm text-muted-foreground italic">
- Branschoberoende
+ Branschneutral
  </p>
  )}
 

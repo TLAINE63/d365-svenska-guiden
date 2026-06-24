@@ -200,7 +200,7 @@ const RequirementsSpec = () => {
               Skapa din ERP-kravspecifikation
             </h1>
             <p className="text-white/80 max-w-2xl mx-auto">
-              Fånga dina verksamhetsbehov oberoende av system. AI-berikad med branschspecifika
+              Fånga dina verksamhetsbehov systemneutralt. AI-berikad med branschspecifika
               krav och KPI:er anpassade efter din bransch och storlek.
             </p>
           </div>
