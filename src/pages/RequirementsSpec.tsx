@@ -197,11 +197,10 @@ const RequirementsSpec = () => {
               Kravspecifikation – ERP/Affärssystem
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
-              Skapa din ERP-kravspecifikation
+              En kravspec som gör offerter jämförbara
             </h1>
             <p className="text-white/80 max-w-2xl mx-auto">
-              Fånga dina verksamhetsbehov systemneutralt. AI-berikad med branschspecifika
-              krav och KPI:er anpassade efter din bransch och storlek.
+              Fånga era verksamhetskrav systemneutralt — så att partnernas svar går att läsa sida vid sida. AI-berikad med branschspecifika krav och KPI:er anpassade efter bransch och storlek.
             </p>
           </div>
         </div>
