@@ -19,6 +19,7 @@ import {
   ArrowLeftRight,
   ExternalLink,
   X,
+  Calendar,
 } from "lucide-react";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { calculateAiScore, getAiLevel } from "@/utils/aiScoring";
