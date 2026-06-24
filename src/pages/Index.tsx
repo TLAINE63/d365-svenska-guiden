@@ -526,6 +526,10 @@ const Index = () => {
  </div>
  </section>
 
+ <TrustBanner variant="full" />
+
+
+
 
 
  {/* Block 2 — Kunskapscenter: utvald artikel */}
