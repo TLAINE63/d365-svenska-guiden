@@ -755,17 +755,25 @@ const AIOverview = () => {
  <CardContent className="p-6 sm:p-10 text-center">
  <span className="text-4xl mb-4 block">🧠</span>
  <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
- Är ni redo för AI?
+ Innan ni investerar — bedöm er AI-mognad
  </h2>
  <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
- Gör vårt AI Readiness Assessment – 12 frågor, 3 minuter – och få en personlig rekommendation för hur ni tar nästa steg med Copilot och agenter.
+ Större AI-investeringar bör baseras på faktisk mognad i data, processer och ägarskap — inte på licenstillgänglighet. Testa er mognad eller börja med en strukturerad behovsanalys.
  </p>
+ <div className="flex flex-col sm:flex-row gap-3 justify-center">
  <Link
  to="/ai-readiness/"
- className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium text-lg hover:bg-primary/90 transition-colors"
+ className="inline-flex items-center justify-center gap-2 bg-[hsl(var(--cta-orange))] text-white px-6 py-3 rounded font-medium text-lg hover:opacity-90 transition-opacity"
  >
- Starta Assessment <ArrowRight className="h-5 w-5" />
+ Testa er AI-mognad <ArrowRight className="h-5 w-5" />
  </Link>
+ <Link
+ to="/behovsanalys/"
+ className="inline-flex items-center justify-center gap-2 border border-primary/30 text-foreground px-6 py-3 rounded font-medium text-lg hover:bg-primary/5 transition-colors"
+ >
+ Gör behovsanalys för Dynamics 365
+ </Link>
+ </div>
  </CardContent>
  </Card>
  </section>
