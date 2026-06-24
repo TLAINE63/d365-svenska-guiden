@@ -685,16 +685,16 @@ const AIOverview = () => {
  </div>
  </section>
 
- {/* Practical effects */}
+ {/* Practical prerequisites */}
  <section className="max-w-3xl mx-auto mb-20">
  <div className="flex items-center justify-center gap-3 mb-3">
  <span className="text-3xl">📊</span>
  <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground">
- Vad betyder detta i praktiken?
+ Vad krävs för att AI ska ge effekt?
  </h2>
  </div>
  <p className="text-center text-muted-foreground mb-8">
- Typiska effekter vi ser i projekt med AI i Dynamics 365:
+ Innan ni mäter effekt behöver grunden vara på plats. Det här är förutsättningarna vi ser i de projekt som faktiskt levererar:
  </p>
  <div className="grid gap-3">
  {practicalEffects.map((effect, i) => (
@@ -704,6 +704,9 @@ const AIOverview = () => {
  </div>
  ))}
  </div>
+ <p className="text-xs text-muted-foreground text-center mt-6 italic">
+ Effektsiffror som "20–40% tidsbesparing" varierar kraftigt mellan organisationer och bör behandlas som exempel — inte som löften. Bedöm potentialen i er egen kontext via AI-mognadstestet.
+ </p>
  </section>
 
  {/* Getting started steps */}
