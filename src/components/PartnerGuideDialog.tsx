@@ -899,6 +899,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
               </div>
             ) : (
               <div className="space-y-3">
+                <WhyTheseResults defaultOpen />
                 {suggestedPartners.map((partner, index) => {
                   const partnerSlug = isDatabasePartner(partner) 
                     ? partner.slug 
