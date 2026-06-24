@@ -63,11 +63,11 @@ const roles = [
 ];
 
 const benefits = [
- { icon: TrendingUp, text: "Öka lönsamheten genom smartare beslutsunderlag" },
- { icon: Bot, text: "Spara tid – låt AI ta hand om rutinarbetet" },
- { icon: Package, text: "Förenkla ekonomi- och lagerprocesser" },
- { icon: Brain, text: "Få kontroll med prognoser och insikter i realtid" },
- { icon: Users, text: "Väx utan att behöva anställa för varje ny kund" },
+ { icon: Brain, text: "AI-effekten beror på datakvaliteten — inte på licensen" },
+ { icon: Cog, text: "Copilot fungerar bäst när CRM/ERP-data är komplett och strukturerad" },
+ { icon: Bot, text: "Agenter kräver tydliga processer och ett namngivet ägarskap" },
+ { icon: ShieldAlert, text: "Automatisering utan processkontroll skapar nya problem, inte färre" },
+ { icon: TrendingUp, text: "Bedöm er AI-mognad innan ni gör större investeringar" },
 ];
 
 const goals = [
