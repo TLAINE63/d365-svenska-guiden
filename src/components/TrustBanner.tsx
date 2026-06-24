@@ -52,32 +52,29 @@ export default function TrustBanner({ variant = "full", className = "" }: Props)
       className={`bg-background border-b border-border ${className}`}
       aria-label="Så fungerar d365.se"
     >
-      <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-8 sm:py-10">
-        <div className="bg-card border border-border rounded p-5 sm:p-6">
-          <div className="flex flex-col lg:flex-row lg:items-start gap-5 lg:gap-8">
-            <div className="lg:w-1/3 lg:shrink-0">
-              <div className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[hsl(var(--cta-orange))] mb-2">
-                <ShieldCheck className="w-4 h-4" />
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-4 sm:py-5">
+        <div className="bg-card border border-border rounded p-3 sm:p-4">
+          <div className="flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-6">
+            <div className="lg:w-1/4 lg:shrink-0">
+              <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-[hsl(var(--cta-orange))] mb-1">
+                <ShieldCheck className="w-3.5 h-3.5" />
                 Transparens
               </div>
-              <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
+              <h2 className="text-base sm:text-lg font-bold text-foreground leading-tight">
                 Så fungerar d365.se
               </h2>
-              <p className="text-sm text-muted-foreground">
-                En köparorienterad plattform för Microsoft Dynamics 365 – utan dolda intressen.
-              </p>
               <Link
                 to="/agande-och-intressen/"
-                className="inline-flex items-center gap-1 mt-3 text-sm font-semibold text-[hsl(var(--cta-orange))] hover:underline"
+                className="inline-flex items-center gap-1 mt-1 text-xs font-semibold text-[hsl(var(--cta-orange))] hover:underline"
               >
-                Läs mer om metodiken <ArrowRight className="w-4 h-4" />
+                Läs mer om metodiken <ArrowRight className="w-3 h-3" />
               </Link>
             </div>
-            <ul className="flex-1 grid sm:grid-cols-2 gap-x-6 gap-y-2.5">
+            <ul className="flex-1 grid sm:grid-cols-2 gap-x-5 gap-y-1.5">
               {POINTS.map((p) => (
-                <li key={p} className="flex items-start gap-2 text-sm text-foreground">
+                <li key={p} className="flex items-start gap-2 text-[13px] text-foreground">
                   <span
-                    className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[hsl(var(--cta-orange))] shrink-0"
+                    className="mt-1.5 w-1 h-1 rounded-full bg-[hsl(var(--cta-orange))] shrink-0"
                     aria-hidden
                   />
                   <span>{p}</span>
