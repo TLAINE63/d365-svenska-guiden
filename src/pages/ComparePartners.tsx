@@ -314,17 +314,17 @@ const ComparePartners = () => {
                     {/* Positionering */}
                     <section className="space-y-3">
                       <SectionTitle icon={Target} title="Positionering" />
-                      <Row
+                      <R
                         label="Vi är valet när…"
                         a={A.positioning ? <p className="font-medium leading-relaxed">{A.positioning}</p> : EMPTY}
                         b={B.positioning ? <p className="font-medium leading-relaxed">{B.positioning}</p> : EMPTY}
                       />
-                      <Row
+                      <R
                         label="Primär app"
                         a={renderValue(A.primaryApp)}
                         b={renderValue(B.primaryApp)}
                       />
-                      <Row
+                      <R
                         label="Primär bransch"
                         a={renderValue(A.primaryIndustry)}
                         b={renderValue(B.primaryIndustry)}
@@ -335,17 +335,17 @@ const ComparePartners = () => {
                     <section className="space-y-3">
                       <SectionTitle icon={Package} title="Leveransbild" />
                       <R label="Typiska roller" a={renderList(A.roles)} b={renderList(B.roles)} />
-                      <Row
+                      <R
                         label="Typisk projektlängd"
                         a={renderValue(A.length)}
                         b={renderValue(B.length)}
                       />
-                      <Row
+                      <R
                         label="Startmodell"
                         a={renderValue(A.engagement)}
                         b={renderValue(B.engagement)}
                       />
-                      <Row
+                      <R
                         label="Metod"
                         a={renderValue(A.methodology)}
                         b={renderValue(B.methodology)}
@@ -355,28 +355,28 @@ const ComparePartners = () => {
                     {/* Snabbfakta */}
                     <section className="space-y-3">
                       <SectionTitle icon={Table2} title="Snabbfakta" />
-                      <Row
+                      <R
                         label="Konsulter i Sverige"
                         a={renderValue(A.teamSize)}
                         b={renderValue(B.teamSize)}
                       />
-                      <Row
+                      <R
                         label="Genomförda D365-impl."
                         a={renderValue(A.implementations)}
                         b={renderValue(B.implementations)}
                       />
-                      <Row
+                      <R
                         label="Geografisk närvaro"
                         a={renderValue(A.offices)}
                         b={renderValue(B.offices)}
                       />
-                      <Row
+                      <R
                         label="Branschfokus"
                         a={renderList(A.industries)}
                         b={renderList(B.industries)}
                       />
                       <R label="AI-nivå" a={renderValue(A.aiLevel)} b={renderValue(B.aiLevel)} />
-                      <Row
+                      <R
                         label="Avtalspartner"
                         a={renderValue(A.agreement)}
                         b={renderValue(B.agreement)}
@@ -386,7 +386,7 @@ const ComparePartners = () => {
                     {/* När passar vi inte */}
                     <section className="space-y-3">
                       <SectionTitle icon={AlertTriangle} title="När passar vi inte" tone="warn" />
-                      <Row
+                      <R
                         label="Partnern säger själv"
                         a={renderNotAFit(A.notAFit)}
                         b={renderNotAFit(B.notAFit)}
