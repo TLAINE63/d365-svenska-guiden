@@ -378,10 +378,6 @@ const ComparePartners = () => {
                         a={renderValue(A.methodology)}
                         b={renderValue(B.methodology)}
                       />
-                      <p className="text-xs text-slate-500 leading-relaxed pt-1">
-                        <Calendar className="w-3.5 h-3.5 inline-block mr-1 -mt-0.5 text-slate-400" />
-                        <span className="font-medium text-slate-600">Projektlängd:</span> varierar kraftigt med applikation, bolagsstorlek och scope — be respektive partner om exempel från liknande projekt.
-                      </p>
                     </section>
 
                     {/* Snabbfakta */}
