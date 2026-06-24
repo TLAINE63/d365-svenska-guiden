@@ -334,7 +334,7 @@ const Index = () => {
 </div>
 
  {/* AI-sök – startsidesfunktion */}
- <div className="max-w-3xl mb-8 sm:mb-10">
+ <div className="mb-8 sm:mb-10">
   <form
    onSubmit={(e) => {
     e.preventDefault();
