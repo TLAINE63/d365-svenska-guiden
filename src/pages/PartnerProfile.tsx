@@ -714,6 +714,17 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
  <DecisionProfile partner={partner} />
 
+ <div className="container mx-auto px-4 sm:px-6 -mt-4 mb-4">
+   <div className="max-w-4xl mx-auto flex justify-end">
+     <Button asChild variant="outline" size="sm">
+       <Link to={`/jamfor-partners?a=${partner.slug}`}>
+         <ArrowLeftRight className="w-4 h-4 mr-1.5" />
+         Jämför med annan partner
+       </Link>
+     </Button>
+   </div>
+ </div>
+
 
 
  {/* Content Section */}
