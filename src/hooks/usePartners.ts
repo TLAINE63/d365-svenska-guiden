@@ -106,6 +106,17 @@ export interface DatabasePartner {
     edited_by?: string | null;
     updated_at?: string;
   }>;
+  // Decision profile fields
+  positioning_statement?: string | null;
+  delivery_profile?: {
+    roles?: string[];
+    typical_length?: string;
+    engagement_model?: string;
+    methodology?: string;
+  } | null;
+  team_size_sweden?: string | null;
+  implementations_done?: string | null;
+  not_a_fit?: string[] | null;
 }
 
 export interface PartnerInput {
