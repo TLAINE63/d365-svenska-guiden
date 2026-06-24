@@ -417,7 +417,7 @@ const ComparePartners = () => {
                         a={renderList(A.industries)}
                         b={renderList(B.industries)}
                       />
-                      <R label="AI-nivå" help={AI_LEVEL_HELP} a={renderValue(A.aiLevel)} b={renderValue(B.aiLevel)} />
+                      
                     </section>
 
                     {/* När passar vi inte */}
