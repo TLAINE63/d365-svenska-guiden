@@ -830,11 +830,10 @@ const Kunskapscenter = () => {
  </div>
  <div className="container mx-auto px-4 max-w-4xl relative z-10">
  <h1 className="text-2xl md:text-4xl font-bold text-white mb-2 tracking-tight">
- Kunskapscenter & Events
+ Förstå Dynamics 365 — innan partnerdialogen börjar
  </h1>
  <p className="text-sm md:text-base text-white/80 leading-relaxed max-w-2xl">
- Guider, analyser, behovsanalyser och kravspecifikationer för er som vill
- förstå Dynamics 365 innan partnerdialogen börjar.
+ Guider, analyser, behovsanalyser och kravspecifikationer för ledning, IT, ekonomi, sälj och verksamhetsansvariga som vill gå in i en partnerdialog med ett genomtänkt underlag.
  </p>
  </div>
  </section>
