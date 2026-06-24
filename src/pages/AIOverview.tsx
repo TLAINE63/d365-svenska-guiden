@@ -220,10 +220,10 @@ const AIOverview = () => {
  Microsoft AI i Dynamics 365
  </div>
  <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
- Mer effekt, mindre manuellt arbete
+ AI i Dynamics 365 — vad det faktiskt innebär
  </h1>
  <p className="text-xl sm:text-2xl text-white/80 font-medium mb-8">
- AI i Dynamics 365 – för dig som vill förenkla, spara tid och öka lönsamheten
+ Copilot, agenter och inbäddad AI: vad ingår i licensen, vad kostar tilläggen och vad krävs av er datakvalitet innan effekten infinner sig.
  </p>
  <p className="text-lg text-white/70 max-w-2xl mx-auto mb-10">
  Det handlar inte om teknik. Det handlar om affärseffekt:
