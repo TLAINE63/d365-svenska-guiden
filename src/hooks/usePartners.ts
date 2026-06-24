@@ -205,7 +205,7 @@ export function usePartners() {
         team_size_sweden: (p as any).team_size_sweden ?? null,
         implementations_done: (p as any).implementations_done ?? null,
         not_a_fit: ((p as any).not_a_fit ?? []) as string[],
-      }));
+      })) as DatabasePartner[];
     },
   });
 }
