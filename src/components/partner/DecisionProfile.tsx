@@ -119,12 +119,28 @@ const DecisionProfile = ({ partner }: Props) => {
               <div>
                 <div className="text-xs font-semibold text-slate-500 mb-1.5 flex items-center gap-1.5">
                   <Briefcase className="w-3.5 h-3.5" /> Uppdragsform
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button type="button" className="inline-flex" aria-label="Vad är Uppdragsform?">
+                        <Info className="w-3.5 h-3.5 text-slate-400 hover:text-slate-600" />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-sm text-xs leading-relaxed">{ENGAGEMENT_HELP}</TooltipContent>
+                  </Tooltip>
                 </div>
                 <div className="text-slate-800">{delivery.engagement_model?.trim() || EMPTY}</div>
               </div>
               <div>
                 <div className="text-xs font-semibold text-slate-500 mb-1.5 flex items-center gap-1.5">
                   <Wrench className="w-3.5 h-3.5" /> Projektmetodik
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button type="button" className="inline-flex" aria-label="Vad är Projektmetodik?">
+                        <Info className="w-3.5 h-3.5 text-slate-400 hover:text-slate-600" />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-sm text-xs leading-relaxed">{METHODOLOGY_HELP}</TooltipContent>
+                  </Tooltip>
                 </div>
                 <div className="text-slate-800">{delivery.methodology?.trim() || EMPTY}</div>
               </div>
