@@ -243,8 +243,8 @@ const Index = () => {
  } as const;
  return <div className="min-h-screen bg-secondary/30">
  <SEOHead 
-  title="Dynamics 365 – guider, jämförelser och partnerval"
-  description="Köparsidiga guider, jämförelser, behovsanalyser och kravspecifikationer för Microsoft Dynamics 365 – plus hjälp att hitta rätt partner per bransch."
+  title="Microsoft Dynamics 365 – guider & partnerval"
+  description="Köparsidig guide till Microsoft Dynamics 365 i Sverige – jämför ERP & CRM, gör kostnadsfri behovsanalys och hitta rätt partner per bransch."
  canonicalPath="/"
  ogImage="https://d365.se/og-erp.png"
  />
@@ -253,7 +253,7 @@ const Index = () => {
  <LocalBusinessSchema />
  <FAQSchema faqs={homeFaqs} />
  <NoscriptSEO
- title="Dynamics 365 Sverige – köparsidig guide till ERP & CRM"
+ title="Microsoft Dynamics 365 Sverige – köparsidig guide till ERP & CRM"
  description="d365.se är Sveriges köparsidiga guide till Microsoft Dynamics 365. Vi står på köparens sida och hjälper svenska företag att jämföra ERP- och CRM-lösningar, hitta rätt Microsoft-certifierad partner och göra kostnadsfria behovsanalyser. Business Central från 765 kr per användare och månad."
  sections={[
  { heading: "Vad är Microsoft Dynamics 365?", text: "Microsoft Dynamics 365 är Microsofts molnbaserade plattform för affärssystem (ERP) och kundrelationshantering (CRM). Plattformen består av specialiserade affärsapplikationer: Business Central och Finance & Supply Chain Management för ERP, samt Sales, Customer Service, Field Service, Marketing och Customer Insights för CRM." },
@@ -279,10 +279,10 @@ const Index = () => {
  Upphandlingsguiden för Microsoft Dynamics 365
  </div>
  <h1 className="text-[26px] sm:text-[34px] md:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
- <span className="text-[hsl(var(--signature))] whitespace-nowrap">Dynamics&nbsp;365</span> — guider, jämförelser och partnerval på köparens villkor
+ <span className="text-[hsl(var(--signature))]">Microsoft Dynamics&nbsp;365</span> — guider, jämförelser och partnerval på köparens villkor
  </h1>
   <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl">
-  d365.se hjälper er förstå behovet, jämföra alternativen och hitta partners som matchar er verksamhet – med guider, analyser och verktyg skrivna från köparens perspektiv.
+  d365.se är den köparsidiga guiden till Microsoft Dynamics 365 i Sverige – förstå behovet, jämför ERP- och CRM-alternativen och hitta partners som matchar er bransch och storlek.
   </p>
  <p className="mt-3 inline-flex items-center gap-2 text-[12.5px] sm:text-[13px] text-white/65">
  <Sparkles className="w-3.5 h-3.5 text-[hsl(var(--signature))]" />
@@ -299,7 +299,7 @@ const Index = () => {
           Börja här
         </div>
         <p className="text-white text-[15px] sm:text-base font-semibold mb-1">
-          Vet ni redan vilket Dynamics 365-system ni behöver?
+          Vet ni redan vilken Microsoft Dynamics 365-app ni behöver?
         </p>
         <p className="text-white/70 text-[13px] sm:text-[14px]">
           Välj ingång – vi guidar er rätt oavsett var ni står idag.
