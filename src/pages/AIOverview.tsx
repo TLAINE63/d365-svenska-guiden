@@ -239,7 +239,7 @@ const AIOverview = () => {
  </div>
 
  <p className="text-lg text-white/80 max-w-2xl mx-auto">
- <strong>Copilot</strong> och <strong>intelligenta agenter</strong> gör det möjligt – inbyggt i de verktyg ditt team redan använder.
+ Den här sidan reder ut vad <strong>Copilot</strong> och <strong>agenter</strong> faktiskt kräver — och var partnervalet börjar spela roll.
  </p>
  </section>
  </div>
