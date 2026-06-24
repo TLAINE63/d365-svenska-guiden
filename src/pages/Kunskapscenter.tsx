@@ -786,8 +786,8 @@ const Kunskapscenter = () => {
  return (
  <>
  <SEOHead
- title="Kunskapscenter & Events – Dynamics 365 guider"
- description="Artiklar, videor, behovsanalyser, kravspecar och events för beslut om Dynamics 365. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+ title="Kunskapscenter – Microsoft Dynamics 365-guider"
+ description="Artiklar, videor, behovsanalyser, kravspecar och events för beslut om Microsoft Dynamics 365. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
  canonicalPath="/kunskapscenter"
  />
  <BreadcrumbSchema

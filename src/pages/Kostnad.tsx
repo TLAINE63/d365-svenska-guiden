@@ -33,8 +33,8 @@ export default function Kostnad() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Vad kostar Dynamics 365? – Prismodell, implementation och löpande kostnader | d365.se"
-        description="Köparvänlig guide till vad Dynamics 365 faktiskt kostar: abonnemang per användare/månad, engångskostnad för implementation (S/M/L-intervall i SEK), vanliga kostnadsdrivare och löpande kostnader efter go-live."
+        title="Vad kostar Microsoft Dynamics 365? – prismodell"
+        description="Köparvänlig guide till vad Microsoft Dynamics 365 faktiskt kostar: abonnemang per användare/månad, engångskostnad för implementation (S/M/L-intervall i SEK), vanliga kostnadsdrivare och löpande kostnader efter go-live."
         canonicalPath="/kostnad/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
