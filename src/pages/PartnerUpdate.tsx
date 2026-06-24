@@ -289,15 +289,17 @@ const PartnerUpdate = () => {
  const industryAppsComplete = industryApps.some((a) => a.name?.trim() && a.url?.trim());
  const eventsComplete = partnerEvents.length > 0;
  const pitchesComplete = industryPitches.some((p) => p.text?.trim());
- setOpenSections({
- basic: !basicComplete,
- products: !productsComplete,
- specialty: !specialtyComplete && productsComplete,
- pitches: !pitchesComplete && productsComplete,
- industryApps: !industryAppsComplete && productsComplete,
- events: !eventsComplete && !!invitation?.partner_id,
- notes: false,
- });
+  const decisionComplete = !!(positioningStatement.trim() && notAFitInput.trim());
+  setOpenSections({
+  basic: !basicComplete,
+  decision: !decisionComplete && productsComplete,
+  products: !productsComplete,
+  specialty: !specialtyComplete && productsComplete,
+  pitches: !pitchesComplete && productsComplete,
+  industryApps: !industryAppsComplete && productsComplete,
+  events: !eventsComplete && !!invitation?.partner_id,
+  notes: false,
+  });
  setAutoExpandApplied(true);
  // eslint-disable-next-line react-hooks/exhaustive-deps
  }, [loading, invitation]);
