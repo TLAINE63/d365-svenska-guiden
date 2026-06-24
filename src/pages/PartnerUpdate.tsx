@@ -250,7 +250,20 @@ const PartnerUpdate = () => {
  const [productFilters, setProductFilters] = useState<ProductFilters>({});
  const [activeProducts, setActiveProducts] = useState<ProductKey[]>([]);
  const [selectedSpecialtyProducts, setSelectedSpecialtyProducts] = useState<SpecialtyProduct[]>([]);
- const [industryPitches, setIndustryPitches] = useState<IndustryPitch[]>([]);
+  const [industryPitches, setIndustryPitches] = useState<IndustryPitch[]>([]);
+
+  // Decision profile state
+  const [positioningStatement, setPositioningStatement] = useState("");
+  const [deliveryProfile, setDeliveryProfile] = useState<{
+    roles: string[];
+    typical_length: string;
+    engagement_model: string;
+    methodology: string;
+  }>({ roles: [], typical_length: "", engagement_model: "", methodology: "" });
+  const [rolesInput, setRolesInput] = useState("");
+  const [teamSizeSweden, setTeamSizeSweden] = useState("");
+  const [implementationsDone, setImplementationsDone] = useState("");
+  const [notAFitInput, setNotAFitInput] = useState("");
 
  type SectionKey = "basic" | "products" | "specialty" | "pitches" | "industryApps" | "events" | "notes";
  const [openSections, setOpenSections] = useState<Record<SectionKey, boolean>>({
