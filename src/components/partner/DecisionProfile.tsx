@@ -120,7 +120,7 @@ const DecisionProfile = ({ partner }: Props) => {
               </div>
               <div>
                 <div className="text-xs font-semibold text-slate-500 mb-1.5 flex items-center gap-1.5">
-                  <Wrench className="w-3.5 h-3.5" /> Metod
+                  <Wrench className="w-3.5 h-3.5" /> Projektmetodik
                 </div>
                 <div className="text-slate-800">{delivery.methodology?.trim() || EMPTY}</div>
               </div>

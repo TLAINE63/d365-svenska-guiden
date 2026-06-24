@@ -2350,7 +2350,7 @@ const PartnerUpdate = () => {
          />
        </div>
        <div className="sm:col-span-2">
-         <Label htmlFor="dp_method">Metod / ramverk</Label>
+         <Label htmlFor="dp_method">Projektmetodik</Label>
          <Input
            id="dp_method"
            placeholder="t.ex. Sure Step, egen agil metod"

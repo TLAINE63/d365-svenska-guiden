@@ -346,7 +346,7 @@ const ComparePartners = () => {
                         b={renderValue(B.engagement)}
                       />
                       <R
-                        label="Metod"
+                        label="Projektmetodik"
                         a={renderValue(A.methodology)}
                         b={renderValue(B.methodology)}
                       />
