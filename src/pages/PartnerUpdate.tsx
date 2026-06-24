@@ -387,10 +387,27 @@ const PartnerUpdate = () => {
  setIndustryApps(result.existingData.industry_apps);
  }
 
- // Pre-fill industry pitches if available
- if (result.existingData.industry_pitches && Array.isArray(result.existingData.industry_pitches)) {
- setIndustryPitches(result.existingData.industry_pitches);
- }
+  // Pre-fill industry pitches if available
+  if (result.existingData.industry_pitches && Array.isArray(result.existingData.industry_pitches)) {
+  setIndustryPitches(result.existingData.industry_pitches);
+  }
+
+  // Pre-fill decision profile fields
+  const ed: any = result.existingData;
+  if (typeof ed.positioning_statement === "string") setPositioningStatement(ed.positioning_statement);
+  if (ed.delivery_profile && typeof ed.delivery_profile === "object") {
+    const dp = ed.delivery_profile;
+    setDeliveryProfile({
+      roles: Array.isArray(dp.roles) ? dp.roles : [],
+      typical_length: dp.typical_length || "",
+      engagement_model: dp.engagement_model || "",
+      methodology: dp.methodology || "",
+    });
+    if (Array.isArray(dp.roles)) setRolesInput(dp.roles.join(", "));
+  }
+  if (typeof ed.team_size_sweden === "string") setTeamSizeSweden(ed.team_size_sweden);
+  if (typeof ed.implementations_done === "string") setImplementationsDone(ed.implementations_done);
+  if (Array.isArray(ed.not_a_fit)) setNotAFitInput(ed.not_a_fit.join("\n"));
  } else {
  setFormData(prev => ({
  ...prev,
