@@ -243,8 +243,8 @@ const Index = () => {
  } as const;
  return <div className="min-h-screen bg-secondary/30">
  <SEOHead 
- title="Dynamics 365-partner – välj på köparens sida | d365.se"
- description="Jämför certifierade Microsoftpartners per bransch, applikation och storlek. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+  title="Dynamics 365 — guider, jämförelser och partnerval på köparens villkor | d365.se"
+  description="Köparsidiga guider, jämförelser, behovsanalyser och kravspecifikationer för Microsoft Dynamics 365 – plus hjälp att hitta rätt partner per bransch."
  canonicalPath="/"
  ogImage="https://d365.se/og-erp.png"
  />
