@@ -10,10 +10,8 @@ interface Props {
 
 const POINTS = [
   "Vi säljer inte implementation eller system",
-  "Matchningen bygger på relevans utifrån produkt, bransch och behov",
-  "AI används inte för att välja bort partners – grundurvalet bygger på strukturerade kriterier; AI tolkar signaler och förklarar relevans",
-  "Ingen partner kan köpa bättre placering",
-  "Alla profilerade partners betalar samma fasta avgift",
+  "Matchningen bygger på relevans utifrån produkt, bransch och behov. AI används inte för att välja bort partners – grundurvalet bygger på strukturerade kriterier; AI tolkar signaler och förklarar relevans",
+  "Ingen partner kan köpa bättre placering, alla profilerade partners betalar samma fasta avgift",
 ];
 
 /**
@@ -71,7 +69,7 @@ export default function TrustBanner({ variant = "full", className = "" }: Props)
                 Läs mer om metodiken <ArrowRight className="w-3 h-3" />
               </Link>
             </div>
-            <ul className="flex-1 grid sm:grid-cols-2 gap-x-5 gap-y-1.5">
+            <ul className="flex-1 grid grid-cols-1 gap-y-1.5">
               {POINTS.map((p) => (
                 <li key={p} className="flex items-start gap-2 text-[13px] text-foreground">
                   <span
