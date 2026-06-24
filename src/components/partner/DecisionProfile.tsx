@@ -12,6 +12,9 @@ const ENGAGEMENT_HELP =
 const METHODOLOGY_HELP =
   "Projektmetodik är det ramverk partnern arbetar enligt — alltså hur projekt styrs, dokumenteras och följs upp. Vanliga: Microsoft Sure Step / Success by Design, Agile / Scrum, Vattenfall, Hybrid (fast förstudie + agil bygg), SAFe eller en egen paketerad metod. Säger något om PMO-mognad och dokumentationskrav, inte om vad som byggs.";
 
+const TEAM_SIZE_HELP =
+  "Många partners förstärker leveransteamet med kollegor från nordiska/europeiska kontor. Fråga partnern hur många som faktiskt arbetar med er valda applikation och bransch — det är mer relevant än totalsiffran i Sverige.";
+
 type DeliveryProfile = {
   roles?: string[];
   typical_length?: string;
@@ -89,7 +92,7 @@ const DecisionProfile = ({ partner }: Props) => {
               )}
               {p.team_size_sweden && (
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 text-xs font-medium">
-                  <Users className="w-3 h-3" /> {p.team_size_sweden} konsulter i Sverige
+                  <Users className="w-3 h-3" /> Lokalt team (Sverige): {p.team_size_sweden}
                 </span>
               )}
             </div>
@@ -162,7 +165,7 @@ const DecisionProfile = ({ partner }: Props) => {
             </div>
             <dl className="divide-y divide-slate-100 text-sm">
               {[
-                { label: "Konsulter i Sverige (D365)", value: p.team_size_sweden },
+                { label: "Lokal teamstorlek (Sverige)", value: p.team_size_sweden, help: TEAM_SIZE_HELP },
                 { label: "Genomförda D365-implementationer", value: p.implementations_done },
                 { label: "Geografisk närvaro", value: offices > 0 ? `${offices} kontor` : null },
                 { label: "Branschfokus", value: (partner.industries || []).slice(0, 3).join(", ") || null },
