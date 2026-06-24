@@ -327,6 +327,11 @@ serve(async (req: Request): Promise<Response> => {
             map_url: partner.map_url?.trim() || null,
             youtube_video_id: partner.youtube_video_id?.trim() || null,
             industry_pitches: partner.industry_pitches || [],
+            positioning_statement: (partner as any).positioning_statement || null,
+            delivery_profile: (partner as any).delivery_profile || {},
+            team_size_sweden: (partner as any).team_size_sweden || null,
+            implementations_done: (partner as any).implementations_done || null,
+            not_a_fit: (partner as any).not_a_fit || [],
           })
           .select()
           .single();
@@ -391,6 +396,11 @@ serve(async (req: Request): Promise<Response> => {
         if (partner?.map_url !== undefined) updateData.map_url = partner.map_url?.trim() || null;
         if (partner?.youtube_video_id !== undefined) updateData.youtube_video_id = partner.youtube_video_id?.trim() || null;
         if (partner?.industry_pitches !== undefined) updateData.industry_pitches = partner.industry_pitches;
+        if ((partner as any)?.positioning_statement !== undefined) updateData.positioning_statement = (partner as any).positioning_statement || null;
+        if ((partner as any)?.delivery_profile !== undefined) updateData.delivery_profile = (partner as any).delivery_profile || {};
+        if ((partner as any)?.team_size_sweden !== undefined) updateData.team_size_sweden = (partner as any).team_size_sweden || null;
+        if ((partner as any)?.implementations_done !== undefined) updateData.implementations_done = (partner as any).implementations_done || null;
+        if ((partner as any)?.not_a_fit !== undefined) updateData.not_a_fit = (partner as any).not_a_fit || [];
 
         const { data, error } = await supabase
           .from("partners")
