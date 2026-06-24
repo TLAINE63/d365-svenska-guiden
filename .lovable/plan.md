@@ -1,69 +1,17 @@
-## Mål
+## Lågkontrast-träffar på publika sidor
 
-Dölj **uppenbart** branschfrämmande frågor och alternativ utifrån vald bransch i de tre behovsanalyserna och de tre kravspecarna. Ingen poäng-omvägning, ingen ny logik – bara visuell filtrering. Användaren ska aldrig tvingas svara på frågor som är meningslösa för deras bransch.
+Två fall på startsidan (`src/pages/Index.tsx`) som ligger under WCAG AA mot mörk bakgrund `#15130F`:
 
-## Branschgrupper (centralt)
+| # | Plats | Klass | Effekt |
+|---|---|---|---|
+| 1 | Rad 363 — AI-sökens input-placeholder ("Beskriv ert behov…") | `placeholder:text-white/40` | Vit @ 40 % opacitet ≈ 3.6:1 mot `#15130F` → under AA (4.5:1) för bodytext |
+| 2 | Rad 811 — kapitäl-undertitel "Volym 01 · Kvartal 2 · 2026" | `text-white/40` | Samma som ovan |
 
-Lägg en ny `src/lib/industryFilters.ts` med tre helpers, så samma definition återanvänds i alla analyser:
+Övriga `text-muted-foreground/30` / `text-white/40`-träffar är admin-UI (inloggat, ej publikt) eller dekorativa ikoner — lämnas orörda.
 
-```ts
-isServicesIndustry(industry)  // Konsulttjänster, Finans & Försäkring, Telekom & IT-tjänster,
-                              // Media & Publishing, Hälsa & sjukvård, Non-profit, Medlemsorganisationer,
-                              // Utbildning, Offentlig sektor, Fastighet & Förvaltning
-isB2COrientedIndustry(industry) // Retail & E-handel, Mode/Sport/Textil
-isProductIndustry(industry)   // Tillverkning, Livsmedel/Process, Grossist, Retail/Mode,
-                              // Life Science, Transport & Logistik, Jordbruk, Energi, Bygg, Uthyrning
-```
+## Föreslagen fix
 
-Använder samma bransch-värden som `industryOptions` i resp. analys.
+1. **Index.tsx rad 363**: byt `placeholder:text-white/40` → `placeholder:text-white/70` (≈ 6.3:1, passerar AA).
+2. **Index.tsx rad 811**: byt `text-white/40` → `text-white/70` på Volym-caption.
 
-## 1. ERPbehovsanalys (`NeedsAnalysis.tsx`)
-
-Dölj när `isServicesIndustry(data.industry)`:
-- `moduleOptions`: "Lager & Logistik", "Produktion & Montering", "E-handel"
-- `challengeOptions`: "Brister i lager- och leveransprecision …"
-- `situationChallengeCategories`-item: "Mycket manuellt arbete i inköp, order, lager"
-
-(Operativ komplexitet filtreras redan via `businessModel` – orörd.)
-
-## 2. Sälj & Marknad (`SalesMarketingNeedsAnalysis.tsx`)
-
-Dölj när `isServicesIndustry(data.industry)`:
-- `integrationTypes`-alternativ: "E-handelsplattform", "Lager/WMS" (om finns)
-
-Dölj när `isB2COrientedIndustry(data.industry)`:
-- (inget – B2C-frågor är redan låsta bakom `commercialModel`)
-
-Dölj när **inte** `isB2COrientedIndustry(data.industry)` **och** `commercialModel` inte är b2c/digital:
-- (befintlig logik – orörd)
-
-Dvs här räcker det att rensa integrations-listan för rena tjänsteindustrier.
-
-## 3. Kundservice (`CustomerServiceNeedsAnalysis.tsx`)
-
-Dölj när `isServicesIndustry(data.industry)`:
-- `systemDependencies`-alternativ med id `lager` och `e_handel`
-- `fieldServiceNeedOptions` som rör "Reservdelar"/"lager" om fältservice ändå är aktivt (behåll – kunden kan ha tekniker även i tjänsteföretag, bara dölj lager-specifika)
-
-Field Service-steget styrs redan av `focusKey` – orörd.
-
-## 4. Kravspecar (Sales / Marketing / CustomerService)
-
-Korta filer (≈480 rader). Dölj uppenbart produkt-/lagerrelaterade rader i kravlistan när `isServicesIndustry(industry)`. Konkret efter genomläsning av varje fil:
-- ta bort krav som nämner "lager", "produkt-katalog", "e-handelsintegration", "POS" i ren tjänstebransch.
-
-Bransch hämtas från ev. fält i kravspec-state; om det saknas idag, lägg en enkel `<Select>` högst upp (samma `industryOptions` som behovsanalyserna) och spara i state. Inget annat ändras.
-
-## Teknik
-
-- Ny fil: `src/lib/industryFilters.ts`
-- Edits: `NeedsAnalysis.tsx`, `SalesMarketingNeedsAnalysis.tsx`, `CustomerServiceNeedsAnalysis.tsx`, `RequirementsSpec*.tsx` (4 st)
-- Filtrering sker vid rendering: `options.filter(o => !hiddenForIndustry(o, data.industry))`. Inga state-fält ändrar typ. Befintliga svar lämnas orörda (om någon byter bransch i efterhand spelar det ingen praktisk roll – dolda värden bidrar inte till poäng).
-
-## Vad som INTE görs
-
-- Ingen omviktning av scoring (samma som F&SCM-mönstret – dolda block får helt enkelt 0-bidrag).
-- Inga nya frågor.
-- Ingen ändring av PDF-export utöver att dolda fält naturligt blir tomma.
-
-Säg till om du vill att jag även lägger till en branschväljare i kravspecarna om de saknar det, eller om jag ska köra precis enligt ovan.
+Inga andra ändringar. Inga tokens eller komponenter rörs.
