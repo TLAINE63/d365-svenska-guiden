@@ -236,7 +236,7 @@ const ComparePartners = () => {
   const aName = a?.name;
   const bName = b?.name;
   const R = (props: { label: string; a: React.ReactNode; b: React.ReactNode; warn?: boolean }) => (
-    <R {...props} aName={aName} bName={bName} />
+    <Row {...props} aName={aName} bName={bName} />
   );
 
   return (
