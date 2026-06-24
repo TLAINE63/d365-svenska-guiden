@@ -3849,7 +3849,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
             {/* Beslutstidslinje */}
             <div>
-              <h3 className="text-lg font-semibold mb-4">Vart skulle du säga att ni ligger i beslutsprocessen?</h3>
+              <h3 className="text-lg font-semibold mb-4">Var skulle du säga att ni ligger i beslutsprocessen?</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {decisionTimelineOptions.map((option) => (
                   <SelectionCard

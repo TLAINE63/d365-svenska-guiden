@@ -161,7 +161,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
 
  {/* Geography Filter */}
  <FilterButtons
- title="Ange vart geografiskt ni har er verksamhet och som är relevant för denna lösning (organisation, kontor/personal)"
+ title="Ange var geografiskt ni har er verksamhet och som är relevant för denna lösning (organisation, kontor/personal)"
  icon="geography"
  options={geographyFilters.map(g => ({ label: g.label, value: g.value }))}
  selectedValue={selectedGeography}
