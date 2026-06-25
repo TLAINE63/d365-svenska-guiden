@@ -62,7 +62,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "BC-tillägg – Fakturahantering",
     title: "Fakturahantering & AP Automation för Business Central",
     description:
-      "Continia och SignUp ExFlow är de två dominerande lösningarna för leverantörsfakturor i svenska BC-affärer. Här är ISV:erna och de BC-partners som är offentligt listade.",
+      "Välj mellan Continia och ExFlow (Truvio) – de två ledande lösningarna i Sverige. Skillnaden avgör hur mycket du automatiserar och hur processen styrs i BC.",
     productSlug: "businesscentral",
     product: "Business Central",
     parentPath: "/businesscentral/",
@@ -140,7 +140,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "BC-tillägg – Lokalisering",
     title: "Svensk lokalisering & moms för Business Central",
     description:
-      "Swebase och Smart Swedish VAT är de vanligaste tilläggen när BC:s standardlokalisering inte räcker för svenska krav.",
+      "Swebase (Aritma) och SmartApps är standard i svenska BC-projekt. De kompletterar moms, betalningar och ekonomiflöden som inte täcks av standard.",
     productSlug: "businesscentral",
     product: "Business Central",
     parentPath: "/businesscentral/",
@@ -188,7 +188,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "BC-tillägg – WMS",
     title: "WMS, lager & handdatorer för Business Central",
     description:
-      "Tasklet Mobile WMS är den etablerade WMS-lösningen för BC/NAV. Ongoing WMS via Golden EDI används ofta vid extern 3PL.",
+      "Tasklet används för interna lager medan Ongoing används vid 3PL. Valet avgör om lagret körs i BC eller som extern lösning.",
     productSlug: "businesscentral",
     product: "Business Central",
     parentPath: "/businesscentral/",
@@ -253,7 +253,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "BC-tillägg – EDI",
     title: "EDI & e-faktura för Business Central",
     description:
-      "Golden EDI, TrueCommerce, Peppol720 och Continia e-dokument är de vanligaste valen för EDI och elektroniska affärsdokument.",
+      "Golden EDI är standard i svenska BC-affärer och används för att koppla kunder, leverantörer och 3PL via EDI och integrationsflöden.",
     productSlug: "businesscentral",
     product: "Business Central",
     parentPath: "/businesscentral/",
@@ -311,7 +311,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "BC-tillägg – Frakt & TA",
     title: "Frakt, transport & TA-system för Business Central",
     description:
-      "nShift, Shipmondo, Sendcloud och Cargoson är de mest sedda TA-integrationerna för BC i svenska affärer.",
+      "Logtrade och nShift hanterar transportbokning och etiketter. Valet påverkar integration, transportörer och arbetsflöde.",
     productSlug: "businesscentral",
     product: "Business Central",
     parentPath: "/businesscentral/",
@@ -352,7 +352,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "BC-tillägg – E-handel",
     title: "E-handel B2B/B2C för Business Central",
     description:
-      "Sana Commerce Cloud är förstaval när e-handeln ska ligga nära BC-data. För lättare behov finns connector-alternativ.",
+      "Sana och Dynamicweb används nära BC. Shopify används som extern frontend i mer flexibla lösningar.",
     productSlug: "businesscentral",
     product: "Business Central",
     parentPath: "/businesscentral/",
@@ -399,9 +399,9 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
   {
     slug: "tillagg-retail-pos",
     headerLabel: "BC-tillägg – Retail & POS",
-    title: "Retail, POS & hospitality för Business Central",
+    title: "Retail, POS & butikssystem för Business Central",
     description:
-      "LS Central är den tunga retail-/POS-lösningen på BC-plattformen, med relevant fiskalisering för svenska förhållanden.",
+      "LS Central är en komplett retailplattform. Alternativt används Shopify POS i en mer modulär lösning med BC som backend.",
     productSlug: "businesscentral",
     product: "Business Central",
     parentPath: "/businesscentral/",
@@ -440,9 +440,9 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
   {
     slug: "tillagg-branschpaket",
     headerLabel: "BC-tillägg – Branschpaket",
-    title: "Branschpaket för Business Central (livsmedel, mode, tillverkning, bygg)",
+    title: "Branschpaket för Business Central",
     description:
-      "Aptean, TRIMIT, COSMO och 4PS är de vanligaste branschpaketen ovanpå BC för livsmedel, mode, avancerad tillverkning och bygg/installation.",
+      "Aptean (food), TRIMIT och Pebblestone (mode) samt COSMO (tillverkning) är de vanligaste branschlösningarna ovanpå BC.",
     productSlug: "businesscentral",
     product: "Business Central",
     parentPath: "/businesscentral/",
