@@ -1230,6 +1230,9 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  </div>
  </section>
 
+ <TrustBanner variant="compact" />
+
+
  <Footer />
 
  <PartnerVideoModal
