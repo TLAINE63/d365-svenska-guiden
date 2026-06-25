@@ -535,7 +535,7 @@ const ComparePartners = () => {
                       />
                       <R
                         label="Branschapplikationer"
-                        help="Egenutvecklade branschlösningar / vertikala tillägg som partnern erbjuder ovanpå Dynamics 365."
+                        help="Branschlösningar / vertikala tillägg som partnern erbjuder ovanpå Dynamics 365."
                         a={
                           AF.industryApps.length > 0 ? (
                             <ul className="space-y-1.5">
