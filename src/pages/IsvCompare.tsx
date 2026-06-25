@@ -27,6 +27,20 @@ const IsvCompare = () => {
       ? "lg:grid-cols-3"
       : "lg:grid-cols-2";
 
+  // Bransch-konsistens: hitta gemensamma branscher (exkl. "Generell" som matchar allt)
+  const industryArrays = solutions.map((s) =>
+    (s.industries as string[]).filter((i) => i !== "Generell")
+  );
+  const allGeneral = industryArrays.every((arr) => arr.length === 0);
+  const sharedIndustries = allGeneral
+    ? []
+    : industryArrays.reduce<string[]>((acc, arr, idx) => {
+        if (idx === 0) return [...arr];
+        return acc.filter((i) => arr.includes(i));
+      }, []);
+  const hasIndustryFocus = industryArrays.some((arr) => arr.length > 0);
+  const crossIndustry = hasIndustryFocus && sharedIndustries.length === 0;
+
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
@@ -55,6 +69,28 @@ const IsvCompare = () => {
 
       {/* Comparison grid */}
       <section className="container mx-auto px-4 py-10 max-w-6xl">
+        {hasIndustryFocus && (
+          <div
+            className={`mb-6 p-4 rounded-lg border text-sm ${
+              crossIndustry
+                ? "border-amber-500/40 bg-amber-500/10 text-amber-900 dark:text-amber-200"
+                : "border-primary/30 bg-primary/5 text-foreground"
+            }`}
+          >
+            {crossIndustry ? (
+              <>
+                <strong>Obs – olika branscher:</strong> lösningarna nedan riktar sig till olika
+                branscher och är inte direkt utbytbara. Använd jämförelsen som översikt, inte som
+                head-to-head-val.
+              </>
+            ) : (
+              <>
+                <strong>Bransch:</strong> alla lösningar nedan är relevanta för{" "}
+                {sharedIndustries.join(", ")}. Jämförelsen sker inom samma bransch.
+              </>
+            )}
+          </div>
+        )}
         <div className={`grid grid-cols-1 md:grid-cols-2 ${cols} gap-6`}>
           {solutions.map((s) => (
             <article
@@ -69,6 +105,13 @@ const IsvCompare = () => {
                   <Badge variant="outline" className="text-[10px]">{s.tier}</Badge>
                   {s.geo.map((g) => (
                     <Badge key={g} variant="secondary" className="text-[10px]">{g}</Badge>
+                  ))}
+                </div>
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {s.industries.map((ind) => (
+                    <Badge key={ind} variant="outline" className="text-[10px] border-primary/40 text-primary">
+                      {ind}
+                    </Badge>
                   ))}
                 </div>
               </header>

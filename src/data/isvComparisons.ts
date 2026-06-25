@@ -84,14 +84,24 @@ export const ISV_COMPARISONS: IsvComparison[] = [
     parentArticleSlug: "tillagg-retail-pos",
   },
   {
-    slug: "aptean-vs-trimit-vs-pebblestone-vs-cosmo",
-    title: "Aptean vs TRIMIT vs Pebblestone vs COSMO",
+    slug: "aptean-vs-merit-vs-foodcloud",
+    title: "Aptean Food vs Merit vs FoodCloud (Food)",
     intro:
-      "Branschpaket ovanpå BC. Aptean för food, TRIMIT och Pebblestone för mode, COSMO för tillverkning. Valet styrs av bransch och hur djupt paketet täcker era processer.",
-    solutionIds: ["aptean-food", "trimit-fashion", "pebblestone", "cosmo-manufacturing"],
+      "Tre branschpaket ovanpå Business Central för svensk livsmedelsindustri. Aptean är bredast internationellt, Merit och FoodCloud är svenska/nordiska alternativ med stark förankring i lokala flöden.",
+    solutionIds: ["aptean-food", "merit-food", "foodcloud"],
     category: "Branschpaket",
     parentArticleSlug: "tillagg-branschpaket",
   },
+  {
+    slug: "trimit-vs-pebblestone",
+    title: "TRIMIT vs Pebblestone (Fashion)",
+    intro:
+      "Två etablerade branschpaket för mode och textil ovanpå Business Central. Båda hanterar style/color/size, säsong och PLM-flöden — valet styrs av processdjup och var ni redan har partnernärvaro.",
+    solutionIds: ["trimit-fashion", "pebblestone"],
+    category: "Branschpaket",
+    parentArticleSlug: "tillagg-branschpaket",
+  },
+
   {
     slug: "4ps-vs-cosmo-projektproduktion",
     title: "4PS Construct vs COSMO (bygg & projektproduktion)",
