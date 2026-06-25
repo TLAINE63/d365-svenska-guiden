@@ -391,7 +391,7 @@ const BCTillaggKatalog = () => {
             partners som matchar er kombination av bransch, processer och tilläggsbehov.
           </p>
           <Button asChild>
-            <Link to="/valjdynamics365partner/">Hitta Business Central-partners →</Link>
+            <Link to="/businesscentral#partners">Hitta Business Central-partners →</Link>
           </Button>
         </div>
       </div>
