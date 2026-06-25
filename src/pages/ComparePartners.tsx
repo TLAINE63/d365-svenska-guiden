@@ -403,6 +403,12 @@ const ComparePartners = () => {
                   />
                 </div>
 
+                {!hasBoth && (
+                  <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-sm text-slate-600 mb-6">
+                    Välj två partner ovan för att se jämförelsen.
+                  </div>
+                )}
+
                 {hasBoth && (productOptions.length > 0 || industryOptions.length > 0) && (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 rounded-xl border border-slate-200 bg-slate-50 p-3 sm:p-4">
                     <div>
