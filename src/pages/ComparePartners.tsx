@@ -25,8 +25,6 @@ import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 
 const TEAM_SIZE_HELP =
 
-
-const TEAM_SIZE_HELP =
   "Många partners förstärker leveransteamet med kollegor från nordiska/europeiska kontor. Fråga partnern hur många som faktiskt arbetar med er valda applikation och bransch — det är mer relevant än totalsiffran i Sverige.";
 
 type DeliveryProfile = {
