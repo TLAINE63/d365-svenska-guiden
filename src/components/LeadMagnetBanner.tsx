@@ -149,35 +149,35 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
   }
 
   return (
-    <Card ref={cardRef} className="bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 border-primary/30 p-4 sm:p-6 relative overflow-hidden rounded  shadow-primary/10">
+    <Card ref={cardRef} className="bg-[hsl(var(--hero-dark))] border-[hsl(var(--line-dark))] text-white p-4 sm:p-6 relative overflow-hidden rounded">
       {onClose && (
-        <button onClick={onClose} className="absolute top-2 right-2 text-muted-foreground hover:text-foreground z-10">
+        <button onClick={onClose} className="absolute top-2 right-2 text-white/60 hover:text-white z-10">
           <X className="h-4 w-4" />
         </button>
       )}
-      
-      {/* Decorative element */}
-      <div className="absolute -right-8 -top-8 w-32 h-32 bg-primary/5 rounded " />
-      
+
+      {/* Decorative accent */}
+      <div className="absolute -right-8 -top-8 w-32 h-32 bg-[hsl(var(--cta-orange))]/15 rounded-full pointer-events-none" />
+
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 relative">
         <div className="flex items-center gap-3 flex-shrink-0">
-          <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center">
-            <FileText className="h-6 w-6 text-primary" />
+          <div className="w-12 h-12 rounded-lg bg-[hsl(var(--cta-orange))]/20 flex items-center justify-center">
+            <FileText className="h-6 w-6 text-[hsl(var(--cta-orange))]" />
           </div>
         </div>
-        
+
         <div className="flex-1 min-w-0">
           <h3 className="font-semibold text-lg mb-1 flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center px-3 py-1 rounded bg-primary text-primary-foreground text-sm font-bold uppercase tracking-wide">
+            <span className="inline-flex items-center px-3 py-1 rounded bg-[hsl(var(--cta-orange))] text-white text-sm font-bold uppercase tracking-wide">
               Gratis guide
             </span>
-            <span className="text-foreground">Så väljer du rätt Dynamics 365-partner</span>
+            <span className="text-white">Så väljer du rätt Dynamics 365-partner</span>
           </h3>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-white/75">
             Lär dig vilka frågor du ska ställa och vad du ska tänka på. Ange din e-post så skickar vi guiden direkt.
           </p>
         </div>
-        
+
         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto mt-2 sm:mt-0">
           {/* Honeypot field - hidden from humans, visible to bots */}
           <input
@@ -195,10 +195,10 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="din@epost.se"
-            className="w-full sm:w-48 bg-background/80 border-emerald-500/50 focus:border-emerald-500 focus:ring-emerald-500/30"
+            className="w-full sm:w-48 bg-white text-foreground placeholder:text-muted-foreground border-white/20"
             disabled={isSubmitting}
           />
-          <Button type="submit" disabled={isSubmitting} className="whitespace-nowrap bg-emerald-600 hover:bg-emerald-700 text-white transition-all duration-200 hover:scale-105  hover:shadow-emerald-500/30">
+          <Button type="submit" disabled={isSubmitting} className="whitespace-nowrap bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white transition-all duration-200">
             {isSubmitting ? (
               "Skickar..."
             ) : (
