@@ -201,6 +201,50 @@ const renderNotAFit = (items: string[]) =>
     EMPTY
   );
 
+const splitIntoParagraphs = (text: string): string[] => {
+  return text
+    .split(/\n+/)
+    .flatMap((block) => {
+      const sentences = block.match(/[^.!?]+[.!?]+(\s|$)/g) || [block];
+      const paras: string[] = [];
+      for (let i = 0; i < sentences.length; i += 2) {
+        paras.push(sentences.slice(i, i + 2).join("").trim());
+      }
+      return paras.filter(Boolean);
+    });
+};
+
+const renderPositioningCell = (
+  positioning: string,
+  productDescriptions: { app: string; text: string }[]
+) => {
+  if (!positioning && productDescriptions.length === 0) return EMPTY;
+  return (
+    <div className="space-y-4">
+      {positioning && (
+        <p className="font-medium leading-relaxed text-slate-900">{positioning}</p>
+      )}
+      {productDescriptions.map((pd, idx) => (
+        <div
+          key={idx}
+          className={`space-y-2 ${
+            positioning || idx > 0 ? "pt-3 border-t border-slate-200" : ""
+          }`}
+        >
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+            {pd.app}
+          </p>
+          <div className="space-y-2 text-[14px] leading-[1.7] text-slate-700">
+            {splitIntoParagraphs(pd.text).map((para, i) => (
+              <p key={i}>{para}</p>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 const ComparePartners = () => {
   const [params, setParams] = useSearchParams();
   const aSlug = params.get("a") || "";
