@@ -478,6 +478,13 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
         </p>
         <p><strong>BC-partner:</strong> COSMO CONSULT Sweden.</p>
 
+        <h2>4PS Construct</h2>
+        <p>
+          Branschpaket ovanpå BC för bygg-, installations- och serviceföretag — projektstyrning,
+          resursplanering, servicekontrakt och underentreprenörer i realtid.
+        </p>
+        <p><strong>BC-partner:</strong> 4PS Construction Software AB.</p>
+
         <h2>När är det relevant?</h2>
         <p>
           När er bransch har specifika krav som standard-BC inte täcker, men där ni vill behålla
