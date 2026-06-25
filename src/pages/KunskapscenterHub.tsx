@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowLeft, ArrowRight, ExternalLink, BookOpen, Wrench, FileText, Play, Sparkles, Puzzle } from "lucide-react";
 import { HUB_BY_SLUG, type HubResourceCard } from "@/data/knowledgeHubs";
+import BcIsvCatalog from "@/components/BcIsvCatalog";
 
 const ICONS: Record<HubResourceCard["type"], typeof BookOpen> = {
   fordjupning: BookOpen,
@@ -117,30 +118,23 @@ const KunskapscenterHub = ({ slug }: Props) => {
           </div>
         </section>
 
-        {/* Hub-specific teaser: katalog för BC-tillägg */}
+        {/* Hub-specific: inline ISV-katalog för BC-tillägg */}
         {hub.slug === "business-central-tillagg" && (
-          <section className="border-b border-border bg-gradient-to-r from-primary/5 via-background to-amber-50/40">
-            <div className="container mx-auto px-4 py-6 md:py-8 max-w-5xl">
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <div>
-                  <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary mb-1">
-                    <Puzzle className="w-3.5 h-3.5" /> Nytt — interaktivt
-                  </div>
-                  <h2 className="text-xl md:text-2xl font-bold text-foreground">
-                    Katalog: filtrera fram rätt tilläggsapplikation
-                  </h2>
-                  <p className="text-sm text-muted-foreground mt-1 max-w-2xl">
-                    Bläddra alla ISV-lösningar i BC-ekosystemet och filtrera på kategori, typ,
-                    bransch och geografi.
-                  </p>
+          <section className="border-b border-border bg-background">
+            <div className="container mx-auto px-4 py-8 md:py-10 max-w-6xl">
+              <div className="mb-6">
+                <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary mb-1">
+                  <Puzzle className="w-3.5 h-3.5" /> Interaktiv katalog
                 </div>
-                <Link
-                  to="/kunskapscenter/business-central-tillagg/katalog/"
-                  className="shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition"
-                >
-                  Öppna katalogen <ArrowRight className="w-4 h-4" />
-                </Link>
+                <h2 className="text-xl md:text-2xl font-bold text-foreground">
+                  Filtrera fram rätt tilläggsapplikation
+                </h2>
+                <p className="text-sm text-muted-foreground mt-1 max-w-2xl">
+                  Bläddra alla ISV-lösningar i BC-ekosystemet och filtrera på kategori, typ,
+                  bransch och geografi.
+                </p>
               </div>
+              <BcIsvCatalog defaultFiltersOpen showCta={false} />
             </div>
           </section>
         )}
