@@ -2144,20 +2144,20 @@ const AIReadiness = () => {
 
           {/* Report form */}
           {!showReportForm && !submitted && (
-            <Card className="mt-8 border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
+            <Card className="mt-8 border-[hsl(var(--line-dark))] bg-[hsl(var(--hero-dark))] text-white">
               <CardContent className="p-6 sm:p-8 text-center">
-                <Lock className="h-8 w-8 text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-foreground mb-2">Ladda ner din AI Impact-rapport som PDF</h3>
-                <p className="text-muted-foreground mb-2 max-w-md mx-auto text-sm">
+                <Lock className="h-8 w-8 text-[hsl(var(--cta-orange))] mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-white mb-2">Ladda ner din AI Impact-rapport som PDF</h3>
+                <p className="text-white/75 mb-2 max-w-md mx-auto text-sm">
                   En professionell 4-sidig rapport med:
                 </p>
-                <div className="grid grid-cols-2 gap-2 max-w-sm mx-auto mb-6 text-xs text-muted-foreground">
-                  <span className="bg-muted/50 rounded px-2 py-1">📄 Executive Summary + ROI</span>
-                  <span className="bg-muted/50 rounded px-2 py-1">⚡ AI-potential per område</span>
-                  <span className="bg-muted/50 rounded px-2 py-1">⚠️ Riskanalys & roadmap</span>
-                  <span className="bg-muted/50 rounded px-2 py-1">🤝 Partnermatchning</span>
+                <div className="grid grid-cols-2 gap-2 max-w-sm mx-auto mb-6 text-xs text-white/80">
+                  <span className="bg-white/10 rounded px-2 py-1">📄 Executive Summary + ROI</span>
+                  <span className="bg-white/10 rounded px-2 py-1">⚡ AI-potential per område</span>
+                  <span className="bg-white/10 rounded px-2 py-1">⚠️ Riskanalys & roadmap</span>
+                  <span className="bg-white/10 rounded px-2 py-1">🤝 Partnermatchning</span>
                 </div>
-                <Button size="lg" onClick={() => setShowReportForm(true)}>
+                <Button size="lg" onClick={() => setShowReportForm(true)} className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white">
                   <Download className="mr-2 h-4 w-4" /> Ladda ner rapport
                 </Button>
               </CardContent>
