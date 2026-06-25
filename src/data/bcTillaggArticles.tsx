@@ -47,7 +47,10 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     title: "Fakturahantering & AP Automation för Business Central",
     description:
       "Continia och SignUp ExFlow är de två dominerande lösningarna för leverantörsfakturor i svenska BC-affärer. Här är ISV:erna och de BC-partners som är offentligt listade.",
-    ...parent,
+    productSlug: "businesscentral",
+    product: "Business Central",
+    parentPath: "/businesscentral/",
+    parentLabel: "Affärssystem (ERP) – Business Central",
     content: (
       <>
         <p>
@@ -95,7 +98,10 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     title: "Svensk lokalisering & moms för Business Central",
     description:
       "Swebase och Smart Swedish VAT är de vanligaste tilläggen när BC:s standardlokalisering inte räcker för svenska krav.",
-    ...parent,
+    productSlug: "businesscentral",
+    product: "Business Central",
+    parentPath: "/businesscentral/",
+    parentLabel: "Affärssystem (ERP) – Business Central",
     content: (
       <>
         <p>
@@ -134,7 +140,10 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     title: "WMS, lager & handdatorer för Business Central",
     description:
       "Tasklet Mobile WMS är den etablerade WMS-lösningen för BC/NAV. Ongoing WMS via Golden EDI används ofta vid extern 3PL.",
-    ...parent,
+    productSlug: "businesscentral",
+    product: "Business Central",
+    parentPath: "/businesscentral/",
+    parentLabel: "Affärssystem (ERP) – Business Central",
     content: (
       <>
         <p>
@@ -177,7 +186,10 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     title: "EDI & e-faktura för Business Central",
     description:
       "Golden EDI, TrueCommerce, Peppol720 och Continia e-dokument är de vanligaste valen för EDI och elektroniska affärsdokument.",
-    ...parent,
+    productSlug: "businesscentral",
+    product: "Business Central",
+    parentPath: "/businesscentral/",
+    parentLabel: "Affärssystem (ERP) – Business Central",
     content: (
       <>
         <p>
@@ -227,7 +239,10 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     title: "Frakt, transport & TA-system för Business Central",
     description:
       "nShift, Shipmondo, Sendcloud och Cargoson är de mest sedda TA-integrationerna för BC i svenska affärer.",
-    ...parent,
+    productSlug: "businesscentral",
+    product: "Business Central",
+    parentPath: "/businesscentral/",
+    parentLabel: "Affärssystem (ERP) – Business Central",
     content: (
       <>
         <p>
@@ -262,7 +277,10 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     title: "E-handel B2B/B2C för Business Central",
     description:
       "Sana Commerce Cloud är förstaval när e-handeln ska ligga nära BC-data. För lättare behov finns connector-alternativ.",
-    ...parent,
+    productSlug: "businesscentral",
+    product: "Business Central",
+    parentPath: "/businesscentral/",
+    parentLabel: "Affärssystem (ERP) – Business Central",
     content: (
       <>
         <p>
@@ -304,7 +322,10 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     title: "Retail, POS & hospitality för Business Central",
     description:
       "LS Central är den tunga retail-/POS-lösningen på BC-plattformen, med relevant fiskalisering för svenska förhållanden.",
-    ...parent,
+    productSlug: "businesscentral",
+    product: "Business Central",
+    parentPath: "/businesscentral/",
+    parentLabel: "Affärssystem (ERP) – Business Central",
     content: (
       <>
         <p>
@@ -339,7 +360,10 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     title: "Branschpaket för Business Central (livsmedel, mode, tillverkning)",
     description:
       "Aptean, TRIMIT och COSMO är de vanligaste branschpaketen ovanpå BC för livsmedel, mode och avancerad tillverkning.",
-    ...parent,
+    productSlug: "businesscentral",
+    product: "Business Central",
+    parentPath: "/businesscentral/",
+    parentLabel: "Affärssystem (ERP) – Business Central",
     content: (
       <>
         <p>
@@ -383,7 +407,10 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     title: "Dokument, rapportlayout & output management för Business Central",
     description:
       "Lasernet och Continia Document Output är de vanligaste valen för dokumentdesign och utskick av kunddokument från BC.",
-    ...parent,
+    productSlug: "businesscentral",
+    product: "Business Central",
+    parentPath: "/businesscentral/",
+    parentLabel: "Affärssystem (ERP) – Business Central",
     content: (
       <>
         <p>
@@ -425,7 +452,10 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     title: "Rapportering, budget & FP&A för Business Central",
     description:
       "Jet Reports/insightsoftware, Bizview, Solver samt Power BI och Microsoft Fabric är de vanligaste komplementen till BC:s standardrapportering.",
-    ...parent,
+    productSlug: "businesscentral",
+    product: "Business Central",
+    parentPath: "/businesscentral/",
+    parentLabel: "Affärssystem (ERP) – Business Central",
     content: (
       <>
         <p>
