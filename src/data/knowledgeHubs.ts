@@ -268,6 +268,30 @@ export const KNOWLEDGE_HUBS: KnowledgeHubConfig[] = [
     ],
   },
   {
+    slug: "business-central-tillagg",
+    metaTitle: "Tilläggsapplikationer (ISV) för Business Central | d365.se",
+    metaDescription:
+      "Köparsidig översikt av de vanligaste ISV-tilläggen för Microsoft Dynamics 365 Business Central på svenska marknaden — fakturahantering, WMS, EDI, retail, branschpaket, rapportering m.m.",
+    h1: "Tilläggsapplikationer (ISV) för Business Central",
+    intro:
+      "Business Central räcker långt — men i nästan alla affärer kompletteras BC med ett antal ISV-tillägg. Här är de tio vanligaste kategorierna på svenska marknaden, vilka ISV:er som dominerar och vilka BC-partners som är offentligt listade. Skriven ur köparens perspektiv.",
+    breadcrumbLabel: "BC-tilläggsapplikationer",
+    resources: [
+      tools.bcMatchningstest,
+      tools.behovsanalysErp,
+      ...ALL_DEEP_DIVE_ARTICLES
+        .filter((a) => a.productSlug === "businesscentral" && (a.slug.startsWith("tillagg-") || a.slug === "isv-tillaggsapplikationer"))
+        .map((a) => ({
+          id: `dd-${a.productSlug}-${a.slug}`,
+          type: "tillagg" as const,
+          title: a.title,
+          description: a.description,
+          url: `/kunskapscenter/${a.productSlug}/${a.slug}/`,
+          category: a.product,
+        })),
+    ],
+  },
+  {
     slug: "finance-supply-chain",
     metaTitle: "Finance & Supply Chain – kunskap, guider och fördjupningar | d365.se",
     metaDescription:
