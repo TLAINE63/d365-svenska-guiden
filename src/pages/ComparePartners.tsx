@@ -18,10 +18,14 @@ import {
   ExternalLink,
   X,
   Info,
+  ChevronDown,
 } from "lucide-react";
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Checkbox } from "@/components/ui/checkbox";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
+
 
 const TEAM_SIZE_HELP =
 
@@ -288,12 +292,25 @@ const ComparePartners = () => {
   };
 
   const industryFilter = params.get("industry") || "";
-  const productFilter = params.get("product") || "";
+  const productFilterRaw = params.get("product") || "";
+  const productFilters = productFilterRaw
+    ? productFilterRaw.split(",").map((s) => s.trim()).filter(Boolean)
+    : [];
 
   const setFilter = (key: "industry" | "product", val: string) => {
     const next = new URLSearchParams(params);
     if (val && val !== "__all__") next.set(key, val);
     else next.delete(key);
+    setParams(next, { replace: true });
+  };
+
+  const toggleProductFilter = (opt: string) => {
+    const set = new Set(productFilters);
+    if (set.has(opt)) set.delete(opt);
+    else set.add(opt);
+    const next = new URLSearchParams(params);
+    if (set.size > 0) next.set("product", Array.from(set).join(","));
+    else next.delete("product");
     setParams(next, { replace: true });
   };
 
@@ -308,19 +325,23 @@ const ComparePartners = () => {
   );
   const productOptions = sortApps([...A.apps, ...B.apps]);
 
+  const productActive = productFilters.length > 0;
+  const matchesProduct = (app: string) => !productActive || productFilters.includes(app);
+
   const applyFilters = (data: ReturnType<typeof get>) => ({
     ...data,
-    apps: productFilter ? data.apps.filter((x) => x === productFilter) : data.apps,
+    apps: productActive ? data.apps.filter(matchesProduct) : data.apps,
     industries: industryFilter ? data.industries.filter((x) => x === industryFilter) : data.industries,
     industryApps: data.industryApps.filter(
       (ia) =>
-        (!productFilter || ia.application === productFilter) &&
+        matchesProduct(ia.application) &&
         (!industryFilter || ia.industry === industryFilter)
     ),
   });
 
   const AF = applyFilters(A);
   const BF = applyFilters(B);
+
 
   const R = (props: { label: string; a: React.ReactNode; b: React.ReactNode; warn?: boolean; help?: string }) => (
     <Row {...props} aName={aName} bName={bName} />
@@ -402,23 +423,53 @@ const ComparePartners = () => {
                       <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
                         Filtrera produkt
                       </label>
-                      <Select
-                        value={productFilter || "__all__"}
-                        onValueChange={(v) => setFilter("product", v)}
-                      >
-                        <SelectTrigger className="h-9 bg-white">
-                          <SelectValue placeholder="Alla produkter" />
-                        </SelectTrigger>
-                        <SelectContent className="max-h-80">
-                          <SelectItem value="__all__">Alla produkter</SelectItem>
-                          {productOptions.map((opt) => (
-                            <SelectItem key={opt} value={opt}>
-                              {opt}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <button
+                            type="button"
+                            className="flex h-9 w-full items-center justify-between rounded-md border border-input bg-white px-3 py-1 text-sm shadow-sm"
+                          >
+                            <span className="truncate text-left">
+                              {productFilters.length === 0
+                                ? "Alla produkter"
+                                : productFilters.length === 1
+                                ? productFilters[0]
+                                : `${productFilters.length} valda`}
+                            </span>
+                            <ChevronDown className="w-4 h-4 opacity-50 shrink-0 ml-2" />
+                          </button>
+                        </PopoverTrigger>
+                        <PopoverContent align="start" className="w-[260px] p-2 max-h-80 overflow-auto">
+                          {productFilters.length > 0 && (
+                            <button
+                              type="button"
+                              onClick={() => setFilter("product", "")}
+                              className="w-full text-left text-xs text-slate-500 hover:text-slate-800 underline px-2 py-1 mb-1"
+                            >
+                              Rensa val
+                            </button>
+                          )}
+                          <div className="space-y-1">
+                            {productOptions.map((opt) => {
+                              const checked = productFilters.includes(opt);
+                              return (
+                                <label
+                                  key={opt}
+                                  className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-slate-100 cursor-pointer text-sm"
+                                >
+                                  <Checkbox
+                                    checked={checked}
+                                    onCheckedChange={() => toggleProductFilter(opt)}
+                                  />
+                                  <span className="flex-1">{opt}</span>
+                                </label>
+                              );
+                            })}
+                          </div>
+                        </PopoverContent>
+                      </Popover>
                     </div>
+
                     <div>
                       <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
                         Filtrera bransch
@@ -440,7 +491,7 @@ const ComparePartners = () => {
                         </SelectContent>
                       </Select>
                     </div>
-                    {(productFilter || industryFilter) && (
+                    {(productActive || industryFilter) && (
                       <button
                         type="button"
                         onClick={() => {
