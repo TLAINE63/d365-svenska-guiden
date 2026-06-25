@@ -288,58 +288,32 @@ export const BLOG_ARTICLES: BlogArticle[] = [
                 <th className="text-left p-3 font-semibold">
                   Vad ska vara på plats?
                 </th>
+                <th className="text-center p-3 font-semibold w-16">Ja</th>
+                <th className="text-center p-3 font-semibold w-20">Delvis</th>
+                <th className="text-center p-3 font-semibold w-16">Nej</th>
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b border-border/50">
-                <td className="p-3 font-medium">1. Datakvalitet</td>
-                <td className="p-3">
-                  Kunddata, historik och dubletter är under kontroll
-                </td>
-              </tr>
-              <tr className="border-b border-border/50">
-                <td className="p-3 font-medium">2. M365-mognad</td>
-                <td className="p-3">
-                  Outlook, Teams och gemensamma arbetssätt används konsekvent
-                </td>
-              </tr>
-              <tr className="border-b border-border/50">
-                <td className="p-3 font-medium">3. Processmognad</td>
-                <td className="p-3">
-                  Processer, beslutsregler och ansvar är tydliga
-                </td>
-              </tr>
-              <tr className="border-b border-border/50">
-                <td className="p-3 font-medium">4. Governance</td>
-                <td className="p-3">
-                  AI-policy, behörigheter och agentbeteende är styrda
-                </td>
-              </tr>
-              <tr className="border-b border-border/50">
-                <td className="p-3 font-medium">5. Teknik</td>
-                <td className="p-3">
-                  Dynamics 365-miljö och integrationer är stabila
-                </td>
-              </tr>
-              <tr className="border-b border-border/50">
-                <td className="p-3 font-medium">6. Ekonomi</td>
-                <td className="p-3">
-                  Copilot Credits, AI-konsumtion och ROI är medräknade
-                </td>
-              </tr>
-              <tr className="border-b border-border/50">
-                <td className="p-3 font-medium">7. Organisation</td>
-                <td className="p-3">
-                  Ledning och förändringsledning är på plats
-                </td>
-              </tr>
-              <tr>
-                <td className="p-3 font-medium">8. Partner</td>
-                <td className="p-3">
-                  Partnern har AI-kompetens och governance-erfarenhet
-                </td>
-              </tr>
+              {[
+                ["1. Datakvalitet", "Kunddata, historik och dubletter är under kontroll"],
+                ["2. M365-mognad", "Outlook, Teams och gemensamma arbetssätt används konsekvent"],
+                ["3. Processmognad", "Processer, beslutsregler och ansvar är tydliga"],
+                ["4. Governance", "AI-policy, behörigheter och agentbeteende är styrda"],
+                ["5. Teknik", "Dynamics 365-miljö och integrationer är stabila"],
+                ["6. Ekonomi", "Copilot Credits, AI-konsumtion och ROI är medräknade"],
+                ["7. Organisation", "Ledning och förändringsledning är på plats"],
+                ["8. Partner", "Partnern har AI-kompetens och governance-erfarenhet"],
+              ].map(([omrade, krav], i, arr) => (
+                <tr key={omrade} className={i < arr.length - 1 ? "border-b border-border/50" : ""}>
+                  <td className="p-3 font-medium">{omrade}</td>
+                  <td className="p-3">{krav}</td>
+                  <td className="p-3 text-center text-muted-foreground">☐</td>
+                  <td className="p-3 text-center text-muted-foreground">☐</td>
+                  <td className="p-3 text-center text-muted-foreground">☐</td>
+                </tr>
+              ))}
             </tbody>
+
           </table>
         </div>
 
