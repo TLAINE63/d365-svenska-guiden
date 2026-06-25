@@ -576,6 +576,10 @@ export const CATEGORIES: SolutionCategory[] = [
   "Branschpaket",
   "Dokument & output",
   "Rapportering / FP&A",
+  "PIM",
+  "Integration / iPaaS",
+  "Projekt",
+  "Planering & produktion",
 ];
 
 export const TYPES: SolutionType[] = ["BC-native (ISV)", "External system", "Integration layer"];
@@ -589,6 +593,8 @@ export const INDUSTRIES: SolutionIndustry[] = [
   "Wholesale",
   "3PL",
   "Hospitality",
+  "Print",
+  "Services",
 ];
 
 export const GEOS: SolutionGeo[] = ["Sverige", "Norden", "Global"];
