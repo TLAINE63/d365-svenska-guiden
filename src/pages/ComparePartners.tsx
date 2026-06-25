@@ -483,12 +483,6 @@ const ComparePartners = () => {
                         a={renderValue(A.offices)}
                         b={renderValue(B.offices)}
                       />
-                      <R
-                        label="Branschfokus"
-                        a={renderList(A.industries)}
-                        b={renderList(B.industries)}
-                      />
-                      
                     </section>
 
                     {/* När passar vi inte */}
