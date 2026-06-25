@@ -263,17 +263,24 @@ const ComparePartners = () => {
     const perApp = Object.entries(((p as any)?.implementations_per_app || {}) as Record<string, string>)
       .filter(([, v]) => typeof v === "string" && v.trim())
       .map(([app, count]) => ({ app, count: (count as string).trim() }));
+    const industryAppsRaw = (p?.industry_apps || []).map((ia) => ({
+      name: (ia.name || "").trim(),
+      application: (ia.application || "").trim(),
+      industry: (ia.industry || "").trim(),
+      url: (ia.url || "").trim(),
+    })).filter((ia) => ia.name);
     const allIndustries = Array.from(
-      new Set([...(p?.industries || []), ...(p?.secondary_industries || [])].map((s) => (s || "").trim()).filter(Boolean))
+      new Set(
+        [
+          ...(p?.industries || []),
+          ...(p?.secondary_industries || []),
+          ...industryAppsRaw.map((ia) => ia.industry),
+        ]
+          .map((s) => (s || "").trim())
+          .filter(Boolean)
+      )
     ).sort((a, b) => a.localeCompare(b, "sv"));
-    const industryApps = (p?.industry_apps || [])
-      .map((ia) => ({
-        name: (ia.name || "").trim(),
-        application: (ia.application || "").trim(),
-        industry: (ia.industry || "").trim(),
-        url: (ia.url || "").trim(),
-      }))
-      .filter((ia) => ia.name);
+    const industryApps = industryAppsRaw;
     return {
       positioning: p?.positioning_statement?.trim() || "",
       apps: sortApps(p?.applications || []),
@@ -293,11 +300,41 @@ const ComparePartners = () => {
     };
   };
 
+  const industryFilter = params.get("industry") || "";
+  const productFilter = params.get("product") || "";
+
+  const setFilter = (key: "industry" | "product", val: string) => {
+    const next = new URLSearchParams(params);
+    if (val && val !== "__all__") next.set(key, val);
+    else next.delete(key);
+    setParams(next, { replace: true });
+  };
+
   const A = get(a);
   const B = get(b);
   const hasBoth = !!a && !!b;
   const aName = a?.name;
   const bName = b?.name;
+
+  const industryOptions = Array.from(new Set([...A.industries, ...B.industries])).sort((x, y) =>
+    x.localeCompare(y, "sv")
+  );
+  const productOptions = sortApps([...A.apps, ...B.apps]);
+
+  const applyFilters = (data: ReturnType<typeof get>) => ({
+    ...data,
+    apps: productFilter ? data.apps.filter((x) => x === productFilter) : data.apps,
+    industries: industryFilter ? data.industries.filter((x) => x === industryFilter) : data.industries,
+    industryApps: data.industryApps.filter(
+      (ia) =>
+        (!productFilter || ia.application === productFilter) &&
+        (!industryFilter || ia.industry === industryFilter)
+    ),
+  });
+
+  const AF = applyFilters(A);
+  const BF = applyFilters(B);
+
   const R = (props: { label: string; a: React.ReactNode; b: React.ReactNode; warn?: boolean; help?: string }) => (
     <Row {...props} aName={aName} bName={bName} />
   );
@@ -372,6 +409,67 @@ const ComparePartners = () => {
                   </div>
                 )}
 
+                {hasBoth && (productOptions.length > 0 || industryOptions.length > 0) && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 rounded-xl border border-slate-200 bg-slate-50 p-3 sm:p-4">
+                    <div>
+                      <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
+                        Filtrera produkt
+                      </label>
+                      <Select
+                        value={productFilter || "__all__"}
+                        onValueChange={(v) => setFilter("product", v)}
+                      >
+                        <SelectTrigger className="h-9 bg-white">
+                          <SelectValue placeholder="Alla produkter" />
+                        </SelectTrigger>
+                        <SelectContent className="max-h-80">
+                          <SelectItem value="__all__">Alla produkter</SelectItem>
+                          {productOptions.map((opt) => (
+                            <SelectItem key={opt} value={opt}>
+                              {opt}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
+                        Filtrera bransch
+                      </label>
+                      <Select
+                        value={industryFilter || "__all__"}
+                        onValueChange={(v) => setFilter("industry", v)}
+                      >
+                        <SelectTrigger className="h-9 bg-white">
+                          <SelectValue placeholder="Alla branscher" />
+                        </SelectTrigger>
+                        <SelectContent className="max-h-80">
+                          <SelectItem value="__all__">Alla branscher</SelectItem>
+                          {industryOptions.map((opt) => (
+                            <SelectItem key={opt} value={opt}>
+                              {opt}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    {(productFilter || industryFilter) && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const next = new URLSearchParams(params);
+                          next.delete("product");
+                          next.delete("industry");
+                          setParams(next, { replace: true });
+                        }}
+                        className="sm:col-span-2 text-xs text-slate-500 hover:text-slate-800 underline self-start"
+                      >
+                        Rensa filter
+                      </button>
+                    )}
+                  </div>
+                )}
+
                 {hasBoth && (
                   <div className="space-y-8">
                     {/* Positionering */}
@@ -385,21 +483,21 @@ const ComparePartners = () => {
                       <R
                         label="Kompetens inom Dynamics 365"
                         help="Alla Dynamics 365-applikationer partnern arbetar med. ERP-appar listas först, därefter CE/CRM — båda i bokstavsordning."
-                        a={renderList(A.apps)}
-                        b={renderList(B.apps)}
+                        a={renderList(AF.apps)}
+                        b={renderList(BF.apps)}
                       />
                       <R
                         label="Branscher"
-                        a={renderList(A.industries)}
-                        b={renderList(B.industries)}
+                        a={renderList(AF.industries)}
+                        b={renderList(BF.industries)}
                       />
                       <R
                         label="Branschapplikationer"
                         help="Egenutvecklade branschlösningar / vertikala tillägg som partnern erbjuder ovanpå Dynamics 365."
                         a={
-                          A.industryApps.length > 0 ? (
+                          AF.industryApps.length > 0 ? (
                             <ul className="space-y-1.5">
-                              {A.industryApps.map((ia, i) => (
+                              {AF.industryApps.map((ia, i) => (
                                 <li key={i} className="text-sm">
                                   <span className="font-medium">{ia.name}</span>
                                   {(ia.application || ia.industry) && (
@@ -416,9 +514,9 @@ const ComparePartners = () => {
                           )
                         }
                         b={
-                          B.industryApps.length > 0 ? (
+                          BF.industryApps.length > 0 ? (
                             <ul className="space-y-1.5">
-                              {B.industryApps.map((ia, i) => (
+                              {BF.industryApps.map((ia, i) => (
                                 <li key={i} className="text-sm">
                                   <span className="font-medium">{ia.name}</span>
                                   {(ia.application || ia.industry) && (
