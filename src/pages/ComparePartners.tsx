@@ -257,7 +257,7 @@ const ComparePartners = () => {
 
   const get = (p?: DatabasePartner) => {
     const dp = (p?.delivery_profile || {}) as DeliveryProfile;
-    const offices = (p?.office_cities || []).length;
+    const officeCities = cleanList(p?.office_cities).sort((a, b) => a.localeCompare(b, "sv"));
     const score = p ? calculateAiScore(p.product_filters) : 0;
     const aiLevel = getAiLevel(score);
     const perApp = Object.entries(((p as any)?.implementations_per_app || {}) as Record<string, string>)
@@ -286,7 +286,7 @@ const ComparePartners = () => {
       teamSize: p?.team_size_sweden?.trim() || "",
       implementations: p?.implementations_done?.trim() || "",
       implementationsPerApp: perApp,
-      offices: offices > 0 ? `${offices} kontor` : "",
+      offices: officeCities,
       aiLevel: aiLevel.level !== "none" ? aiLevel.label : "",
       agreement: p ? (p.agreement_signed ? "Ja" : "Nej") : "",
       notAFit: cleanList(p?.not_a_fit),
@@ -480,8 +480,8 @@ const ComparePartners = () => {
                       />
                       <R
                         label="Geografisk närvaro"
-                        a={renderValue(A.offices)}
-                        b={renderValue(B.offices)}
+                        a={renderList(A.offices)}
+                        b={renderList(B.offices)}
                       />
                     </section>
 
