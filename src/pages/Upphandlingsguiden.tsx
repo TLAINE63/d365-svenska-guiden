@@ -289,7 +289,7 @@ const Upphandlingsguiden = () => {
  {/* Avslut CTA */}
  <section className="px-4 sm:px-6 py-12 sm:py-16 bg-background">
  <div className="container mx-auto max-w-5xl">
- <div className="relative overflow-hidden rounded bg-gradient-to-br from-[hsl(195_45%_10%)] via-[hsl(190_40%_14%)] to-[hsl(20_55%_18%)] border border-[hsl(var(--cta-orange))]/30 p-8 sm:p-12 text-center">
+ <div className="relative overflow-hidden rounded bg-[hsl(var(--hero-dark))] border border-[hsl(var(--line-dark))] p-8 sm:p-12 text-center">
  <div className="absolute -top-32 -right-32 w-80 h-80 rounded bg-[hsl(var(--cta-orange))]/25 pointer-events-none" />
  <div className="relative">
  <h2 className="text-2xl sm:text-3xl md:text-[34px] font-bold text-white leading-tight tracking-tight mb-4">
