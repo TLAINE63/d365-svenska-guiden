@@ -216,7 +216,7 @@ const BusinessCentral = () => {
  icon: FileText,
  }}
  secondary={{
- label: "Jämför BC-partners",
+ label: "Jämför Business Central-partners",
  onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
  }}
  />
