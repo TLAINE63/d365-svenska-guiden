@@ -18,8 +18,8 @@ const Disclaimer = () => (
 const BackToOverview = () => (
   <p className="mt-8 text-sm">
     ←{" "}
-    <Link to="/kunskapscenter/business-central/isv-tillaggsapplikationer/" className="text-primary underline hover:text-primary/80">
-      Tillbaka till översikten av BC-tilläggskategorier
+    <Link to="/kunskapscenter/business-central-tillagg/" className="text-primary underline hover:text-primary/80">
+      Tillbaka till översikten: BC-tilläggsapplikationer (ISV)
     </Link>
   </p>
 );
