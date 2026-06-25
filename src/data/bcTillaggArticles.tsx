@@ -386,9 +386,12 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
   {
     slug: "tillagg-ehandel",
     headerLabel: "BC-tillägg – E-handel",
-    title: "E-handel B2B/B2C för Business Central",
+    title: "E-handel B2B/B2C i Business Central",
     description:
       "Sana och Dynamicweb används nära BC. Shopify används som extern frontend i mer flexibla lösningar.",
+    seoTitle: "E-handel i Business Central – Sana vs Shopify vs Dynamicweb",
+    seoDescription:
+      "Hur bygger man e-handel med Business Central? Jämför Sana, Dynamicweb och Shopify som frontend – och hitta rätt arkitektur.",
     productSlug: "businesscentral",
     product: "Business Central",
     parentPath: "/businesscentral/",
