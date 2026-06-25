@@ -155,6 +155,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
           reseräkningshantering än vad standard-BC ger.
         </p>
 
+        <CompareLinks articleSlug="tillagg-fakturahantering" />
         <CTA />
         <BackToOverview />
       </>
@@ -203,6 +204,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
           <li>När ni vill minimera anpassningar i kärnsystemet.</li>
         </ul>
 
+        <CompareLinks articleSlug="tillagg-svensk-lokalisering" />
         <CTA />
         <BackToOverview />
       </>
@@ -268,6 +270,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
           <li>När ni behöver streckkods- och handdatorflöden i lagerprocessen.</li>
         </ul>
 
+        <CompareLinks articleSlug="tillagg-wms-lager" />
         <CTA />
         <BackToOverview />
       </>
@@ -326,6 +329,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
           <li>När ni behöver hantera Peppol/e-faktura mot offentlig sektor.</li>
         </ul>
 
+        <CompareLinks articleSlug="tillagg-edi-efaktura" />
         <CTA />
         <BackToOverview />
       </>
@@ -367,6 +371,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
           etiketter, track &amp; trace och returer direkt från BC.
         </p>
 
+        <CompareLinks articleSlug="tillagg-frakt-ta" />
         <CTA />
         <BackToOverview />
       </>
@@ -416,6 +421,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
           <li>När ni vill konsolidera order- och kundhantering till ett system.</li>
         </ul>
 
+        <CompareLinks articleSlug="tillagg-ehandel" />
         <CTA />
         <BackToOverview />
       </>
@@ -457,6 +463,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
           på samma plattform.
         </p>
 
+        <CompareLinks articleSlug="tillagg-retail-pos" />
         <CTA />
         <BackToOverview />
       </>
@@ -516,6 +523,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
           BC som plattform i stället för att byta till ett dedikerat branschsystem.
         </p>
 
+        <CompareLinks articleSlug="tillagg-branschpaket" />
         <CTA />
         <BackToOverview />
       </>
@@ -569,6 +577,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
           olika format till olika mottagare (e-post, Peppol, EDI, print).
         </p>
 
+        <CompareLinks articleSlug="tillagg-dokument-output" />
         <CTA />
         <BackToOverview />
       </>
@@ -628,6 +637,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
           <li>När rapportering ska kombineras med data från andra system.</li>
         </ul>
 
+        <CompareLinks articleSlug="tillagg-rapportering-budget" />
         <CTA />
         <BackToOverview />
       </>
