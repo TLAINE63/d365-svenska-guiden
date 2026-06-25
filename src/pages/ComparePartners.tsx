@@ -238,6 +238,23 @@ const ComparePartners = () => {
     setParams(next, { replace: true });
   };
 
+  const ERP_APPS = new Set([
+    "Business Central",
+    "Finance",
+    "Supply Chain Management",
+    "Finance & Supply Chain Management",
+    "Commerce",
+    "Human Resources",
+    "Project Operations",
+  ]);
+
+  const sortApps = (apps: string[]): string[] => {
+    const uniq = Array.from(new Set(apps.map((a) => (a || "").trim()).filter(Boolean)));
+    const erp = uniq.filter((a) => ERP_APPS.has(a)).sort((a, b) => a.localeCompare(b, "sv"));
+    const ce = uniq.filter((a) => !ERP_APPS.has(a)).sort((a, b) => a.localeCompare(b, "sv"));
+    return [...erp, ...ce];
+  };
+
   const get = (p?: DatabasePartner) => {
     const dp = (p?.delivery_profile || {}) as DeliveryProfile;
     const offices = (p?.office_cities || []).length;
@@ -246,10 +263,22 @@ const ComparePartners = () => {
     const perApp = Object.entries(((p as any)?.implementations_per_app || {}) as Record<string, string>)
       .filter(([, v]) => typeof v === "string" && v.trim())
       .map(([app, count]) => ({ app, count: (count as string).trim() }));
+    const allIndustries = Array.from(
+      new Set([...(p?.industries || []), ...(p?.secondary_industries || [])].map((s) => (s || "").trim()).filter(Boolean))
+    ).sort((a, b) => a.localeCompare(b, "sv"));
+    const industryApps = (p?.industry_apps || [])
+      .map((ia) => ({
+        name: (ia.name || "").trim(),
+        application: (ia.application || "").trim(),
+        industry: (ia.industry || "").trim(),
+        url: (ia.url || "").trim(),
+      }))
+      .filter((ia) => ia.name);
     return {
       positioning: p?.positioning_statement?.trim() || "",
-      primaryApp: (p?.applications || [])[0],
-      primaryIndustry: (p?.industries || [])[0],
+      apps: sortApps(p?.applications || []),
+      industries: allIndustries,
+      industryApps,
       roles: cleanList(dp.roles),
       length: dp.typical_length?.trim() || "",
       engagement: dp.engagement_model?.trim() || "",
@@ -258,7 +287,6 @@ const ComparePartners = () => {
       implementations: p?.implementations_done?.trim() || "",
       implementationsPerApp: perApp,
       offices: offices > 0 ? `${offices} kontor` : "",
-      industries: (p?.industries || []).slice(0, 3),
       aiLevel: aiLevel.level !== "none" ? aiLevel.label : "",
       agreement: p ? (p.agreement_signed ? "Ja" : "Nej") : "",
       notAFit: cleanList(p?.not_a_fit),
@@ -355,14 +383,57 @@ const ComparePartners = () => {
                         b={B.positioning ? <p className="font-medium leading-relaxed">{B.positioning}</p> : EMPTY}
                       />
                       <R
-                        label="Primär app"
-                        a={renderValue(A.primaryApp)}
-                        b={renderValue(B.primaryApp)}
+                        label="Kompetens inom Dynamics 365"
+                        help="Alla Dynamics 365-applikationer partnern arbetar med. ERP-appar listas först, därefter CE/CRM — båda i bokstavsordning."
+                        a={renderList(A.apps)}
+                        b={renderList(B.apps)}
                       />
                       <R
-                        label="Primär bransch"
-                        a={renderValue(A.primaryIndustry)}
-                        b={renderValue(B.primaryIndustry)}
+                        label="Branscher"
+                        a={renderList(A.industries)}
+                        b={renderList(B.industries)}
+                      />
+                      <R
+                        label="Branschapplikationer"
+                        help="Egenutvecklade branschlösningar / vertikala tillägg som partnern erbjuder ovanpå Dynamics 365."
+                        a={
+                          A.industryApps.length > 0 ? (
+                            <ul className="space-y-1.5">
+                              {A.industryApps.map((ia, i) => (
+                                <li key={i} className="text-sm">
+                                  <span className="font-medium">{ia.name}</span>
+                                  {(ia.application || ia.industry) && (
+                                    <span className="text-slate-500">
+                                      {" — "}
+                                      {[ia.application, ia.industry].filter(Boolean).join(" · ")}
+                                    </span>
+                                  )}
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            EMPTY
+                          )
+                        }
+                        b={
+                          B.industryApps.length > 0 ? (
+                            <ul className="space-y-1.5">
+                              {B.industryApps.map((ia, i) => (
+                                <li key={i} className="text-sm">
+                                  <span className="font-medium">{ia.name}</span>
+                                  {(ia.application || ia.industry) && (
+                                    <span className="text-slate-500">
+                                      {" — "}
+                                      {[ia.application, ia.industry].filter(Boolean).join(" · ")}
+                                    </span>
+                                  )}
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            EMPTY
+                          )
+                        }
                       />
                     </section>
 
@@ -412,12 +483,6 @@ const ComparePartners = () => {
                         a={renderValue(A.offices)}
                         b={renderValue(B.offices)}
                       />
-                      <R
-                        label="Branschfokus"
-                        a={renderList(A.industries)}
-                        b={renderList(B.industries)}
-                      />
-                      
                     </section>
 
                     {/* När passar vi inte */}
