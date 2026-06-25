@@ -889,15 +889,17 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
  {/* Product Description - above Customer Examples */}
  {productDescription && (
- <div className="border-l-2 border-primary/30 pl-3">
- <p className="text-sm text-muted-foreground leading-relaxed italic">
- {productDescription.text}
- </p>
+ <div className="border-l-2 border-primary/30 pl-4 py-1 my-2">
+ <div className="text-[15px] text-foreground/80 leading-[1.75] space-y-3">
+ {productDescription.text.split(/\n\s*\n/).map((para, i) => (
+ <p key={i}>{para}</p>
+ ))}
+ </div>
  {productDescription.aiGenerated && (
  <TooltipProvider delayDuration={150}>
  <Tooltip>
  <TooltipTrigger asChild>
- <span className="mt-1.5 inline-flex items-center gap-1 text-[10px] font-medium text-muted-foreground/80 uppercase tracking-wide cursor-help">
+ <span className="mt-3 inline-flex items-center gap-1 text-[10px] font-medium text-muted-foreground/80 uppercase tracking-wide cursor-help">
  <Sparkles className="w-3 h-3" aria-hidden="true" />
  AI-genererad text
  </span>
