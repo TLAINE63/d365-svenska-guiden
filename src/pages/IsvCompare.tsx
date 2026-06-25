@@ -183,7 +183,7 @@ const IsvCompare = () => {
             ISV-lösning, bransch och processdjup. Ingen partner betalar för att rankas högre.
           </p>
           <Button asChild>
-            <Link to="/valjdynamics365partner/">Hitta Business Central-partners →</Link>
+            <Link to="/businesscentral#partners">Hitta Business Central-partners →</Link>
           </Button>
         </div>
 
