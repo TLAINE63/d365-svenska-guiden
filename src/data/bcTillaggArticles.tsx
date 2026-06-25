@@ -140,7 +140,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "BC-tillägg – Lokalisering",
     title: "Svensk lokalisering & moms för Business Central",
     description:
-      "Swebase och Smart Swedish VAT är de vanligaste tilläggen när BC:s standardlokalisering inte räcker för svenska krav.",
+      "Swebase (Aritma) och SmartApps är standard i svenska BC-projekt. De kompletterar moms, betalningar och ekonomiflöden som inte täcks av standard.",
     productSlug: "businesscentral",
     product: "Business Central",
     parentPath: "/businesscentral/",
