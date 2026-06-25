@@ -311,7 +311,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "BC-tillägg – Frakt & TA",
     title: "Frakt, transport & TA-system för Business Central",
     description:
-      "nShift, Shipmondo, Sendcloud och Cargoson är de mest sedda TA-integrationerna för BC i svenska affärer.",
+      "Logtrade och nShift hanterar transportbokning och etiketter. Valet påverkar integration, transportörer och arbetsflöde.",
     productSlug: "businesscentral",
     product: "Business Central",
     parentPath: "/businesscentral/",
