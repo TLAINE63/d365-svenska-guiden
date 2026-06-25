@@ -188,7 +188,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "BC-tillägg – WMS",
     title: "WMS, lager & handdatorer för Business Central",
     description:
-      "Tasklet Mobile WMS är den etablerade WMS-lösningen för BC/NAV. Ongoing WMS via Golden EDI används ofta vid extern 3PL.",
+      "Tasklet används för interna lager medan Ongoing används vid 3PL. Valet avgör om lagret körs i BC eller som extern lösning.",
     productSlug: "businesscentral",
     product: "Business Central",
     parentPath: "/businesscentral/",
