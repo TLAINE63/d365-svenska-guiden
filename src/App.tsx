@@ -65,6 +65,7 @@ const RequirementsSpecMarketing = lazy(() => import("./pages/RequirementsSpecMar
 const RequirementsSpecCustomerService = lazy(() => import("./pages/RequirementsSpecCustomerService"));
 const Kunskapscenter = lazy(() => import("./pages/Kunskapscenter"));
 const KunskapscenterHub = lazy(() => import("./pages/KunskapscenterHub"));
+const BCTillaggKatalog = lazy(() => import("./pages/BCTillaggKatalog"));
 const Upphandlingsresan = lazy(() => import("./pages/Upphandlingsresan"));
 const Upphandlingsguiden = lazy(() => import("./pages/Upphandlingsguiden"));
 const VideoLanding = lazy(() => import("./pages/VideoLanding"));
@@ -211,6 +212,7 @@ const AppShell = () => {
           {/* Topical hubs — explicit slugs (registered before the generic 2-segment article route) */}
           <Route path="/kunskapscenter/business-central" element={<KunskapscenterHub slug="business-central" />} />
           <Route path="/kunskapscenter/business-central-tillagg" element={<KunskapscenterHub slug="business-central-tillagg" />} />
+          <Route path="/kunskapscenter/business-central-tillagg/katalog" element={<BCTillaggKatalog />} />
           <Route path="/kunskapscenter/finance-supply-chain" element={<KunskapscenterHub slug="finance-supply-chain" />} />
           <Route path="/kunskapscenter/sales" element={<KunskapscenterHub slug="sales" />} />
           <Route path="/kunskapscenter/customer-service" element={<KunskapscenterHub slug="customer-service" />} />
