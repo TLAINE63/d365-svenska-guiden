@@ -484,9 +484,12 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
   {
     slug: "tillagg-branschpaket",
     headerLabel: "BC-tillägg – Branschpaket",
-    title: "Branschpaket för Business Central",
+    title: "Branschlösningar i Business Central",
     description:
       "Aptean (food), TRIMIT och Pebblestone (mode) samt COSMO (tillverkning) är de vanligaste branschlösningarna ovanpå BC.",
+    seoTitle: "Branschlösningar i Business Central – Food, mode & tillverkning",
+    seoDescription:
+      "Se de vanligaste branschlösningarna i Business Central: Aptean Food, TRIMIT, Pebblestone och COSMO – och när de används.",
     productSlug: "businesscentral",
     product: "Business Central",
     parentPath: "/businesscentral/",
