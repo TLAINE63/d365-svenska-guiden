@@ -71,6 +71,13 @@ const IsvCompare = () => {
                     <Badge key={g} variant="secondary" className="text-[10px]">{g}</Badge>
                   ))}
                 </div>
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {s.industries.map((ind) => (
+                    <Badge key={ind} variant="outline" className="text-[10px] border-primary/40 text-primary">
+                      {ind}
+                    </Badge>
+                  ))}
+                </div>
               </header>
 
               <div className="space-y-4 text-sm leading-relaxed text-foreground/85 flex-1">
