@@ -29,7 +29,7 @@ const IsvCompare = () => {
 
   // Bransch-konsistens: hitta gemensamma branscher (exkl. "Generell" som matchar allt)
   const industryArrays = solutions.map((s) =>
-    s.industries.filter((i) => i !== "Generell")
+    (s.industries as string[]).filter((i) => i !== "Generell")
   );
   const allGeneral = industryArrays.every((arr) => arr.length === 0);
   const sharedIndustries = allGeneral
