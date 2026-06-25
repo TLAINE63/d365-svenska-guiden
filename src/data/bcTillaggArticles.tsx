@@ -1,5 +1,30 @@
 import { Link } from "react-router-dom";
 import type { DeepDiveArticle } from "./bcArticles";
+import { getComparisonsForArticle } from "./isvComparisons";
+
+const CompareLinks = ({ articleSlug }: { articleSlug: string }) => {
+  const comparisons = getComparisonsForArticle(articleSlug);
+  if (comparisons.length === 0) return null;
+  return (
+    <aside className="comparison-links my-10 p-6 rounded border border-border bg-card not-prose">
+      <h3 className="text-base font-semibold text-foreground mb-1">Jämför lösningar</h3>
+      <p className="text-sm text-muted-foreground mb-4">
+        Sida vid sida — vad respektive lösning är, när den passar och vilka BC-partners som är offentligt
+        kopplade.
+      </p>
+      <ul className="space-y-2 text-sm">
+        {comparisons.map((c) => (
+          <li key={c.slug}>
+            <Link to={`/compare/${c.slug}/`} className="text-primary font-medium hover:underline">
+              {c.title} →
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  );
+};
+
 
 
 const Disclaimer = () => (
