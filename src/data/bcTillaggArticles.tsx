@@ -439,9 +439,12 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
   {
     slug: "tillagg-retail-pos",
     headerLabel: "BC-tillägg – Retail & POS",
-    title: "Retail, POS & butikssystem för Business Central",
+    title: "Retail, POS & butikssystem i Business Central",
     description:
       "LS Central är en komplett retailplattform. Alternativt används Shopify POS i en mer modulär lösning med BC som backend.",
+    seoTitle: "Retail & POS i Business Central – LS Central vs Shopify",
+    seoDescription:
+      "Välj rätt retailsetup i Business Central. Jämför LS Central (allt-i-ett) med Shopify POS som extern lösning för butik och e-handel.",
     productSlug: "businesscentral",
     product: "Business Central",
     parentPath: "/businesscentral/",
