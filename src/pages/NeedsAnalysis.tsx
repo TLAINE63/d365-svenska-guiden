@@ -4152,14 +4152,15 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               })()}
             </div>
 
-            {/* Kontaktformulär */}
-            <div className="border-t border-border pt-6 mt-2 print:hidden">
-              <div className="border rounded p-5 bg-background  space-y-4">
-                <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
-                  <Download className="w-5 h-5 text-finance-supply" />
+            <div className="border border-[hsl(var(--line-dark))] rounded overflow-hidden print:hidden">
+              <div className="bg-[hsl(var(--hero-dark))] px-5 py-4 text-white">
+                <h3 className="font-bold text-white flex items-center gap-2 text-base">
+                  <Download className="w-5 h-5 text-[hsl(var(--cta-orange))]" />
                   Skicka PDF till min e-post
                 </h3>
-                <p className="text-sm text-muted-foreground">Fyll i dina kontaktuppgifter så skickar vi PDF-rapporten till din e-post.</p>
+                <p className="text-sm text-white/75 mt-1">Fyll i dina kontaktuppgifter så skickar vi PDF-rapporten till din e-post.</p>
+              </div>
+              <div className="p-5 bg-background space-y-4">
                 {isComplete ? (
                   <div className="flex items-center gap-3 p-4 rounded-lg border border-green-200 bg-green-50 dark:bg-green-950/30 dark:border-green-800">
                     <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0" />
@@ -4243,7 +4244,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                       <Button
                         onClick={generateDocument}
                         disabled={!isContactFormValid() || isSendingEmail}
-                        className="bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground flex-1"
+                        className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white flex-1"
                       >
                         <Download className="w-4 h-4 mr-2" />
                         {isSendingEmail ? "Skickar..." : "Skicka PDF till min e-post"}

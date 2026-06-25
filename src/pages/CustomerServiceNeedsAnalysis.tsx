@@ -2220,10 +2220,10 @@ const CustomerServiceNeedsAnalysis = () => {
  </div>
 
  {/* KONTAKTUPPGIFTER & LADDA NER */}
- <div className="border-2 border-primary/30 rounded overflow-hidden ">
- <div className="bg-primary px-5 py-4">
- <h3 className="font-bold text-primary-foreground text-base tracking-wide">📥 Ladda ner din analys som PDF</h3>
- <p className="text-primary-foreground/80 text-sm mt-1">Vi skickar PDF:en till din e-post och laddar även ner den direkt.</p>
+ <div className="border border-[hsl(var(--line-dark))] rounded overflow-hidden ">
+ <div className="bg-[hsl(var(--hero-dark))] px-5 py-4">
+ <h3 className="font-bold text-white text-base tracking-wide">📥 Ladda ner din analys som PDF</h3>
+ <p className="text-white/75 text-sm mt-1">Vi skickar PDF:en till din e-post och laddar även ner den direkt.</p>
  </div>
  <div className="p-6 bg-background space-y-5">
  {isComplete ? (
@@ -2258,7 +2258,7 @@ const CustomerServiceNeedsAnalysis = () => {
  </div>
  </div>
  <div className="flex flex-col sm:flex-row gap-3 pt-2">
- <Button onClick={generateDocument} disabled={!data.companyName || !data.contactName || !data.email || isSendingEmail} className="bg-customer-service hover:bg-customer-service/90 text-customer-service-foreground flex-1">
+ <Button onClick={generateDocument} disabled={!data.companyName || !data.contactName || !data.email || isSendingEmail} className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white flex-1">
  <Download className="w-4 h-4 mr-2" />
  {isSendingEmail ? "Skickar..." : "Ladda ner & skicka analys"}
  </Button>
