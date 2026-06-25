@@ -106,12 +106,12 @@ const KunskapscenterHub = ({ slug }: Props) => {
               Kunskapscenter
             </div>
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3 text-white">{hub.h1}</h1>
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">
+            <p className="text-base md:text-lg text-white/85 leading-relaxed max-w-3xl">
               {hub.intro}
             </p>
 
-            <p className="mt-6 text-sm text-muted-foreground">
-              <span className="font-semibold text-foreground">{hub.resources.length}</span>{" "}
+            <p className="mt-6 text-sm text-white/70">
+              <span className="font-semibold text-white">{hub.resources.length}</span>{" "}
               {hub.resources.length === 1 ? "resurs" : "resurser"} samlade här.
             </p>
           </div>
