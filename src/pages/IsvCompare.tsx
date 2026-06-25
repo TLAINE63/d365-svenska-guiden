@@ -27,6 +27,20 @@ const IsvCompare = () => {
       ? "lg:grid-cols-3"
       : "lg:grid-cols-2";
 
+  // Bransch-konsistens: hitta gemensamma branscher (exkl. "Generell" som matchar allt)
+  const industryArrays = solutions.map((s) =>
+    s.industries.filter((i) => i !== "Generell")
+  );
+  const allGeneral = industryArrays.every((arr) => arr.length === 0);
+  const sharedIndustries = allGeneral
+    ? []
+    : industryArrays.reduce<string[]>((acc, arr, idx) => {
+        if (idx === 0) return [...arr];
+        return acc.filter((i) => arr.includes(i));
+      }, []);
+  const hasIndustryFocus = industryArrays.some((arr) => arr.length > 0);
+  const crossIndustry = hasIndustryFocus && sharedIndustries.length === 0;
+
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
