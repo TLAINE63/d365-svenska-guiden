@@ -711,9 +711,8 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-background to-transparent" />
  </header>
 
- <TrustBanner variant="compact" />
-
  <DecisionProfile partner={partner} />
+
 
  <div className="container mx-auto px-4 sm:px-6 -mt-4 mb-4">
    <div className="max-w-4xl mx-auto flex justify-end">
