@@ -13,29 +13,18 @@ import {
 } from "@/components/ui/select";
 import {
   Target,
-  Package,
   Table2,
-  AlertTriangle,
   ArrowLeftRight,
   ExternalLink,
   X,
-  Calendar,
   Info,
 } from "lucide-react";
+
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
-import { calculateAiScore, getAiLevel } from "@/utils/aiScoring";
-
-const AI_LEVEL_HELP =
-  "AI-nivå sammanfattar bredden i partnerns AI-erbjudande baserat på vilka AI-funktioner de jobbar med i sina D365-projekt. Skalan: AI Enabled (aktiverar Microsofts inbyggda Copilot) → AI Integration Partner (bygger egna AI-agenter) → AI Advanced (kundunika lösningar, prediktiva modeller) → AI Transformation Partner (avancerade Azure AI-arkitekturer). Säger inget om hur många AI-projekt partnern levererat — be om referenser.";
-
-const ENGAGEMENT_HELP =
-  "Uppdragsform beskriver hur ett uppdrag startar och faktureras kommersiellt. Typiska värden: Fast pris (definierat scope och åtagande), Löpande / T&M (timdebitering), Workshop / förstudie först (betald discovery innan implementation), Pilot / Proof of Concept (avgränsad första leverans) eller Managed service / abonnemang (löpande förvaltning). Avgör om partnern matchar er inköpsform.";
-
-const METHODOLOGY_HELP =
-  "Projektmetodik är det ramverk partnern arbetar enligt — alltså hur projekt styrs, dokumenteras och följs upp. Vanliga: Microsoft Sure Step / Success by Design, Agile / Scrum, Vattenfall, Hybrid (fast förstudie + agil bygg), SAFe eller en egen paketerad metod. Säger något om PMO-mognad och dokumentationskrav, inte om vad som byggs.";
 
 const TEAM_SIZE_HELP =
+
   "Många partners förstärker leveransteamet med kollegor från nordiska/europeiska kontor. Fråga partnern hur många som faktiskt arbetar med er valda applikation och bransch — det är mer relevant än totalsiffran i Sverige.";
 
 type DeliveryProfile = {
@@ -258,8 +247,6 @@ const ComparePartners = () => {
   const get = (p?: DatabasePartner) => {
     const dp = (p?.delivery_profile || {}) as DeliveryProfile;
     const officeCities = cleanList(p?.office_cities).sort((a, b) => a.localeCompare(b, "sv"));
-    const score = p ? calculateAiScore(p.product_filters) : 0;
-    const aiLevel = getAiLevel(score);
     const perApp = Object.entries(((p as any)?.implementations_per_app || {}) as Record<string, string>)
       .filter(([, v]) => typeof v === "string" && v.trim())
       .map(([app, count]) => ({ app, count: (count as string).trim() }));
@@ -294,8 +281,8 @@ const ComparePartners = () => {
       implementations: p?.implementations_done?.trim() || "",
       implementationsPerApp: perApp,
       offices: officeCities,
-      aiLevel: aiLevel.level !== "none" ? aiLevel.label : "",
       agreement: p ? (p.agreement_signed ? "Ja" : "Nej") : "",
+
       notAFit: cleanList(p?.not_a_fit),
     };
   };
@@ -535,23 +522,6 @@ const ComparePartners = () => {
                       />
                     </section>
 
-                    {/* Leveransbild */}
-                    <section className="space-y-3">
-                      <SectionTitle icon={Package} title="Leveransbild" />
-                      <R label="Roller partnern bemannar" a={renderList(A.roles)} b={renderList(B.roles)} />
-                      <R
-                        label="Uppdragsform"
-                        help={ENGAGEMENT_HELP}
-                        a={renderValue(A.engagement)}
-                        b={renderValue(B.engagement)}
-                      />
-                      <R
-                        label="Projektmetodik"
-                        help={METHODOLOGY_HELP}
-                        a={renderValue(A.methodology)}
-                        b={renderValue(B.methodology)}
-                      />
-                    </section>
 
                     {/* Snabbfakta */}
                     <section className="space-y-3">
