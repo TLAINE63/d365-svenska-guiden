@@ -112,7 +112,6 @@ const DecisionProfile = ({ partner }: Props) => {
                 help:
                   "Antal genomförda D365-implementationer per applikation. Säger något om volym, inte om kvalitet eller branschpassning — be alltid om referenser i den bransch ni befinner er i.",
               },
-              { label: "Geografisk närvaro", value: offices > 0 ? `${offices} kontor` : null },
               { label: "Branschfokus", value: (partner.industries || []).slice(0, 3).join(", ") || null },
               
               ].map(({ label, value, help }) => (
