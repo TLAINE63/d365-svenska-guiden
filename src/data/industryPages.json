@@ -307,6 +307,14 @@
       {
         "title": "Projektledning för Bygg & Utveckling",
         "description": "Styrning av nybyggnadsprojekt, ombyggnationer och större underhållsprojekt, inklusive budget och tidsplaner."
+      },
+      {
+        "title": "Indexerade & kommersiella hyresavtal",
+        "description": "Hantering av KPI-/SCB-indexering, omsättningshyra, fastighetsskattetillägg, hyresgästanpassningar och tilläggsavtal för kommersiella lokaler."
+      },
+      {
+        "title": "IMD & energiuppföljning",
+        "description": "Individuell mätning och debitering (IMD) av el, vatten och värme per lägenhet/lokal, samt energistatistik för CSRD/EU-taxonomin."
       }
     ],
     "challenges": [
@@ -329,6 +337,14 @@
       {
         "title": "Förbättrad hyresgästkommunikation",
         "description": "Behovet av smidiga digitala kanaler för kommunikation, felanmälan och tjänster för att öka hyresgästnöjdheten."
+      },
+      {
+        "title": "Branschspecifika behov utanför standard-D365",
+        "description": "Standard Business Central och Finance täcker ekonomi men saknar djup fastighetsfunktionalitet — kräver ISV-tillägg (4PS, Nectar/MVI, To-Increase) eller egen utveckling."
+      },
+      {
+        "title": "BC vs F&SCM för fastighetsbolag",
+        "description": "Mindre bestånd klarar sig ofta med Business Central + ISV, medan större börsnoterade fastighetsbolag med koncernkonsolidering och internationell närvaro lutar mot Finance & Supply Chain."
       }
     ],
     "roles": [
@@ -403,13 +419,25 @@
       {
         "a": "Genom att centralisera kunddata och effektivisera kommunikationsprocesser kan Dynamics 365, med applikationer som Customer Service, bidra till snabbare respons på ärenden och en mer proaktiv service. Detta kan förbättra hyresgästnöjdheten.",
         "q": "Hur kan Dynamics 365 bidra till en bättre hyresgästupplevelse?"
+      },
+      {
+        "a": "För renodlad fastighetsförvaltning är svaret oftast ja. Standard-D365 har inte färdiga objekt för hyresavtal, indexering, IMD eller vakanshantering. Branschpaket som 4PS Construct, Nectar/MVI eller motsvarande lägger detta ovanpå Business Central eller Finance och kortar projekttiden avsevärt.",
+        "q": "Behöver vi en branschspecifik ISV-lösning som 4PS eller Nectar/MVI?"
+      },
+      {
+        "a": "Med ett fastighetspaket kopplas hyresavtalen till valt index (KPI, KPIF, NPI) och systemet räknar automatiskt upp hyran per justeringsdatum, skapar aviseringar och bokför differensen. Utan ISV behöver detta byggas manuellt eller hanteras utanför systemet.",
+        "q": "Hur hanteras KPI-indexering av hyror i Dynamics 365?"
+      },
+      {
+        "a": "Business Central + branschtillägg räcker långt för svenska fastighetsbolag upp till några miljarder i omsättning. Finance & Supply Chain blir aktuellt vid koncernredovisning över flera länder, mycket avancerad projektredovisning eller när man redan har F&SCM i moderbolaget.",
+        "q": "Klarar Business Central större fastighetsbestånd eller måste vi välja Finance & Supply Chain?"
       }
     ],
     "related_industries": [],
     "is_published": true,
     "ai_generated_at": "2026-05-16T17:07:21.657+00:00",
     "created_at": "2026-05-16T17:07:21.684628+00:00",
-    "updated_at": "2026-05-16T17:07:29.90513+00:00"
+    "updated_at": "2026-06-25T12:16:23.702676+00:00"
   },
   {
     "id": "61457453-ffce-44bd-a5b2-30b566748088",
@@ -2451,6 +2479,14 @@
       {
         "title": "Fältservice och teknikerstyrning",
         "description": "Schemaläggning och styrning av tekniker för installation, underhåll och reparation på plats hos kund."
+      },
+      {
+        "title": "XaaS & förbrukningsbaserad fakturering",
+        "description": "Mätning, ratering och fakturering av användning (API-anrop, GB, användare, minuter) inklusive trösklar, tak och rabatter — som komplement till fasta abonnemang."
+      },
+      {
+        "title": "ITSM-integration mot ServiceNow/Jira",
+        "description": "Två-vägs synk av ärenden, change requests och projektuppgifter mellan Dynamics 365 och leveransteamens verktyg (ServiceNow, Jira Service Management, Azure DevOps)."
       }
     ],
     "challenges": [
@@ -2477,6 +2513,14 @@
       {
         "title": "Systemstöd som inte skalar",
         "description": "Befintliga system är ofta fragmenterade och klarar inte av att stödja företagets tillväxt, nya affärsmodeller eller krav på rapportering."
+      },
+      {
+        "title": "D365 saknar djup billing för usage/XaaS",
+        "description": "Standard Sales/CS hanterar abonnemang men inte avancerad mätning, ratering och dispute management — många bolag kompletterar med en specialiserad billing-motor (Zuora, BillingPlatform, Stripe Billing) som integreras mot ekonomin i BC/F&SCM."
+      },
+      {
+        "title": "ITSM kontra CRM-överlapp",
+        "description": "Ärenden hanteras ofta både i ServiceNow/Jira (leverans, incident, change) och i Customer Service (säljnära kund­dialog). Tydlig ansvars­fördelning och integration krävs för att undvika dubbelarbete och splittrad kundbild."
       }
     ],
     "roles": [
@@ -2555,13 +2599,25 @@
       {
         "a": "Med Dynamics 365 Sales kan säljare konfigurera komplexa offerter som innehåller olika komponenter. Systemet kan hantera prissättning, rabatter och beroenden mellan produkter och tjänster. Integrationen med ERP-delen säkerställer sedan att ordern kan överföras smidigt till projektupplägg eller servicekontrakt för leverans och fakturering.",
         "q": "Hur stödjer Dynamics 365 försäljning av paketerade lösningar (hårdvara, mjukvara, tjänster)?"
+      },
+      {
+        "a": "För enklare prenumerationer ja — både BC och F&SCM hanterar återkommande fakturering. För avancerad usage-baserad ratering, mätaravläsning och komplexa pris­modeller används ofta en dedikerad billing-plattform (Zuora, BillingPlatform, Stripe Billing) som skickar fakturerade belopp till D365 för ekonomi och redovisning.",
+        "q": "Klarar Dynamics 365 förbrukningsbaserad/XaaS-fakturering?"
+      },
+      {
+        "a": "Vanligaste mönstret är att ServiceNow/Jira äger leveransärendet (incident, problem, change) och Customer Service äger kundkommunikationen. Integration sker via API:er eller iPaaS (Azure Logic Apps, MuleSoft) och synkar status, kommentarer och SLA båda vägarna.",
+        "q": "Hur integrerar vi Dynamics 365 med ServiceNow eller Jira?"
+      },
+      {
+        "a": "Ja, Project Operations är Microsofts förstahandsval för IT-tjänsteföretag som vill ha bemanning, tidrapportering, projektredovisning och fakturering i ett. Det integrerar direkt mot Sales (offert→projekt) och mot Finance (redovisning, WIP, periodisering).",
+        "q": "Är Project Operations rätt för konsult- och IT-tjänsteleverans?"
       }
     ],
     "related_industries": [],
     "is_published": true,
     "ai_generated_at": "2026-05-16T17:04:58.65+00:00",
     "created_at": "2026-05-16T17:04:58.692257+00:00",
-    "updated_at": "2026-05-16T17:06:50.172168+00:00"
+    "updated_at": "2026-06-25T12:16:23.702676+00:00"
   },
   {
     "id": "2222d8c1-3b1a-4a0b-8d9e-699ee544f35f",
@@ -2599,6 +2655,14 @@
       {
         "title": "Ekonomistyrning och projektredovisning",
         "description": "Korrekt bokföring av produkter i arbete (PIA), projektredovisning för utvecklings- eller kundprojekt samt finansiell rapportering."
+      },
+      {
+        "title": "Variant- och konfiguratorflöden (CTO/ETO)",
+        "description": "Hantering av produktkonfigurator, attributbaserade varianter, dimensioner och regelstyrda stycklistor för Configure-to-Order och Engineer-to-Order."
+      },
+      {
+        "title": "MRP, replenishment och planeringsmotorer",
+        "description": "Behovsplanering med MRP/MPS, planeringsoptimering, säkerhetslager, min/max och drag-baserade signaler för att balansera service­nivå mot kapitalbindning."
       }
     ],
     "challenges": [
@@ -2625,6 +2689,14 @@
       {
         "title": "Hantering av eftermarknad och service",
         "description": "Att gå från enbart produktförsäljning till att effektivt hantera service, reservdelar och avtal som en växande del av affären."
+      },
+      {
+        "title": "Val mellan volymstyrt BC och avancerat F&SCM",
+        "description": "Diskret styckmontering och måttliga volymer hanteras bra i Business Central, medan högvolymsproduktion, avancerad produktkonfigurator, formelbaserad processtillverkning och planeringsoptimering kräver Finance & Supply Chain."
+      },
+      {
+        "title": "Komplexitet i produktkonfigurator",
+        "description": "Att modellera regler, prissättning och tekniska beroenden i Product Configuration Models tar tid och kräver dedikerad förvaltning — annars eroderar lösningen snabbt när produktsortimentet ändras."
       }
     ],
     "roles": [
@@ -2695,13 +2767,25 @@
       {
         "a": "Genom applikationen Field Service kan hela serviceflödet hanteras, från att ett serviceärende skapas till att en tekniker schemaläggs och slutför uppdraget. Systemet hanterar även serviceavtal, förebyggande underhåll och fakturering av utfört arbete och reservdelar.",
         "q": "Hur stödjer systemet hantering av eftermarknad och service?"
+      },
+      {
+        "a": "BC räcker oftast för diskret tillverkning upp till ~500 anställda, måttliga produktionsvolymer och enklare stycklistor. F&SCM blir motiverat vid hög volym, avancerad produktkonfigurator, formelbaserad processtillverkning, MES-integration med planeringsoptimering eller koncernkonsolidering över flera länder.",
+        "q": "När räcker Business Central och när behöver vi Finance & Supply Chain?"
+      },
+      {
+        "a": "F&SCM har en inbyggd Product Configuration Model där man bygger regler, attribut och prissättning som genererar unika varianter vid orderläggning. BC har enklare varianthantering med dimensioner och attribut samt kan kompletteras med ISV-konfiguratorer som ETO-paket.",
+        "q": "Hur fungerar produktkonfiguratorn i Dynamics 365?"
+      },
+      {
+        "a": "Ja. Båda produkterna har MRP. F&SCM kompletterar med Planning Optimization — en separat tjänst som kör planeringen i molnet på minuter istället för timmar och stödjer komplexa scenarier. För enklare tillverkning räcker BC:s standard-MRP.",
+        "q": "Kan vi köra MRP/behovsplanering i Dynamics 365?"
       }
     ],
     "related_industries": [],
     "is_published": true,
     "ai_generated_at": "2026-05-16T06:45:48.505+00:00",
     "created_at": "2026-05-16T06:45:48.649401+00:00",
-    "updated_at": "2026-05-16T06:46:37.913587+00:00"
+    "updated_at": "2026-06-25T12:16:23.702676+00:00"
   },
   {
     "id": "0dd1754f-eb66-4be7-a3e9-b6ad0a61d654",
@@ -2867,6 +2951,14 @@
       {
         "title": "Service och underhåll",
         "description": "Planering och dokumentation av både förebyggande underhåll och akuta reparationer för att minimera stilleståndstid."
+      },
+      {
+        "title": "Mobil fält- och förarapp",
+        "description": "Stöd för förare och tekniker i mobilen: leveranskvittens, signatur, skadebesiktning vid retur, foto­dokumentation och tidrapportering direkt mot hyresavtalet."
+      },
+      {
+        "title": "Långtidshyra & rental-as-a-service",
+        "description": "Funktion för långa hyresperioder, abonnemang, automatiska förlängningar och konvertering hyra-till-köp utan att tappa spårbarhet på serienummer."
       }
     ],
     "challenges": [
@@ -2889,6 +2981,14 @@
       {
         "title": "Hantering av logistik och returer",
         "description": "Koordinering av transporter och inspektion av returnerad utrustning är resurskrävande och kan leda till förseningar."
+      },
+      {
+        "title": "Standard-D365 saknar rental-funktionalitet",
+        "description": "Varken Business Central eller Finance & Supply Chain har färdig uthyrning ur lådan — det krävs en rental-ISV eller egen utveckling för att hantera tillgänglighetskalender, hyresavtal och periodisk fakturering."
+      },
+      {
+        "title": "Val mellan rental-ISV och egenutvecklat",
+        "description": "To-Increase DynaRent (på F&SCM) och olika BC-baserade rentallösningar löser 80 % direkt men låser fast vid en leverantör — eget bygge ger flexibilitet men ökar förvaltningskostnaden."
       }
     ],
     "roles": [
@@ -2959,12 +3059,24 @@
       {
         "a": "För många medelstora företag är Business Central en fullgod lösning som kombinerar ekonomi, lager och uthyrning. Om verksamheten har mycket komplex logistik, avancerade servicekrav eller internationell närvaro kan en kombination med Finance & Supply Chain och Field Service vara mer passande.",
         "q": "Vilken Dynamics 365-applikation passar bäst för ett medelstort uthyrningsföretag?"
+      },
+      {
+        "a": "De vanligaste är To-Increase DynaRent (för Finance & Supply Chain), samt flera mindre BC-baserade paket från nordiska partners. DynaRent är marknadsledande för maskin- och utrustningsuthyrning, medan BC-paketen ofta passar mindre bolag med enklare flöden.",
+        "q": "Vilka ISV-lösningar finns för uthyrning på Dynamics 365?"
+      },
+      {
+        "a": "Branschlösningarna levererar oftast en mobil app som hämtar dagens turer/arbetsorder från Dynamics, låter föraren kvittera ut- och inlämning med signatur och foto, registrera skador och driftstid samt synka tillbaka till hyresavtalet. Field Service kan komplettera för förebyggande underhåll.",
+        "q": "Hur fungerar en mobil app för förare och servicetekniker?"
+      },
+      {
+        "a": "För nordiska uthyrningsbolag med enklare maskinpark och en eller ett fåtal depåer räcker BC + branschtillägg långt. Vid stora maskinparker, flera bolag/länder, avancerad service och komplex långtidsuthyrning är F&SCM + DynaRent vanligare valet.",
+        "q": "Räcker Business Central eller behöver vi Finance & Supply Chain för uthyrning?"
       }
     ],
     "related_industries": [],
     "is_published": true,
     "ai_generated_at": "2026-05-16T17:05:17.85+00:00",
     "created_at": "2026-05-16T17:05:17.881873+00:00",
-    "updated_at": "2026-05-16T17:06:01.212231+00:00"
+    "updated_at": "2026-06-25T12:16:23.702676+00:00"
   }
 ]
