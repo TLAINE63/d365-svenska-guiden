@@ -233,7 +233,7 @@ const RequirementsSpecCustomerService = () => {
           {step === 1 && (
             <div className="space-y-6">
               <h2 className="text-xl font-semibold text-foreground">Välj bransch</h2>
-              <p className="text-sm text-white/75">
+              <p className="text-sm text-muted-foreground">
                 Branschen påverkar vilka specialkrav och KPI:er som inkluderas i din kundservicekravspecifikation.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -415,7 +415,7 @@ const RequirementsSpecCustomerService = () => {
                       <h3 className="font-semibold text-lg text-white mb-1">
                         Ladda ner komplett kravspecifikation (PDF)
                       </h3>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-white/75">
                         Inkluderar alla funktionskrav, branschkrav, KPI:er och integrationsförslag.
                       </p>
                     </div>
