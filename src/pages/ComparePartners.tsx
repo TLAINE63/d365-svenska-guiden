@@ -568,8 +568,8 @@ const ComparePartners = () => {
                       <SectionTitle icon={Target} title="Positionering" />
                       <R
                         label="Vi är valet när…"
-                        a={A.positioning ? <p className="font-medium leading-relaxed">{A.positioning}</p> : EMPTY}
-                        b={B.positioning ? <p className="font-medium leading-relaxed">{B.positioning}</p> : EMPTY}
+                        a={renderPositioningCell(A.positioning, getProductDescriptions(a, AF.apps))}
+                        b={renderPositioningCell(B.positioning, getProductDescriptions(b, BF.apps))}
                       />
                       <R
                         label="Kompetens inom Dynamics 365"
