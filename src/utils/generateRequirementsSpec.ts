@@ -127,18 +127,12 @@ export const generateRequirementsSpec = async (
   const isSales = data.product === "sales";
   const isMarketing = data.product === "marketing";
   const isCustomerService = data.product === "customer_service";
-  const primaryColor = isCustomerService
-    ? { r: 134, g: 97, b: 197 }    // Customer Service violet
-    : isMarketing
-      ? { r: 135, g: 50, b: 160 }   // Marketing purple
-      : isSales
-        ? { r: 42, g: 100, b: 168 }  // Sales blue
-        : (isErp || isBc)
-          ? { r: 0, g: 120, b: 212 }  // ERP / BC blue
-          : { r: 16, g: 124, b: 65 }; // FSC green
-  const darkColor = { r: 30, g: 41, b: 59 };
+  // Unified hero palette across all PDFs (matches site --hero-dark + --cta-orange)
+  void isCustomerService; void isMarketing; void isSales; void isErp; void isBc;
+  const primaryColor = { r: 14, g: 124, b: 134 };   // --cta-orange (petrol #0E7C86)
+  const darkColor = { r: 21, g: 19, b: 15 };        // --hero-dark #15130F
   const mutedColor = { r: 100, g: 116, b: 139 };
-  const lightBg = { r: 248, g: 250, b: 252 };
+  const lightBg = { r: 245, g: 243, b: 239 };       // warm off-white
 
   let logoBase64: string | null = null;
   let logoAspect = 1;
