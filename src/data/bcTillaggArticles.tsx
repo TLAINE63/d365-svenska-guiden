@@ -62,7 +62,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "BC-tillägg – Fakturahantering",
     title: "Fakturahantering & AP Automation för Business Central",
     description:
-      "Continia och SignUp ExFlow är de två dominerande lösningarna för leverantörsfakturor i svenska BC-affärer. Här är ISV:erna och de BC-partners som är offentligt listade.",
+      "Välj mellan Continia och ExFlow (Truvio) – de två ledande lösningarna i Sverige. Skillnaden avgör hur mycket du automatiserar och hur processen styrs i BC.",
     productSlug: "businesscentral",
     product: "Business Central",
     parentPath: "/businesscentral/",
