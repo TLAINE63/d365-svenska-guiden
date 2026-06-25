@@ -135,7 +135,7 @@ const DecisionProfile = ({ partner }: Props) => {
               },
               { label: "Geografisk närvaro", value: offices > 0 ? `${offices} kontor` : null },
               { label: "Branschfokus", value: (partner.industries || []).slice(0, 3).join(", ") || null },
-              { label: "AI-nivå", value: aiLevel.level !== "none" ? aiLevel.label : null, help: AI_LEVEL_HELP },
+              
               ].map(({ label, value, help }) => (
                 <div key={label} className="grid grid-cols-[1fr_auto] gap-4 py-2.5">
                   <dt className="text-slate-500 flex items-center gap-1.5">
