@@ -25,6 +25,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
+import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 
 
 const TEAM_SIZE_HELP =
