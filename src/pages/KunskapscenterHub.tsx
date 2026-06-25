@@ -80,38 +80,38 @@ const KunskapscenterHub = ({ slug }: Props) => {
       <Navbar />
       <main className="min-h-screen bg-background pt-20 lg:pt-28">
         {/* Header */}
-        <section className="border-b border-border bg-gradient-to-br from-primary/5 via-background to-background">
+        <section className="border-b border-border bg-[hsl(var(--hero-dark))] text-white">
           <div className="container mx-auto px-4 py-10 md:py-14 max-w-5xl">
             {/* Breadcrumbs (visual) */}
             <nav aria-label="Brödsmulor" className="mb-4 text-sm">
-              <ol className="flex flex-wrap items-center gap-1.5 text-muted-foreground">
+              <ol className="flex flex-wrap items-center gap-1.5 text-white/70">
                 <li>
-                  <Link to="/" className="hover:text-foreground transition-colors">
+                  <Link to="/" className="hover:text-white transition-colors">
                     Hem
                   </Link>
                 </li>
                 <li aria-hidden="true">/</li>
                 <li>
-                  <Link to="/kunskapscenter" className="hover:text-foreground transition-colors">
+                  <Link to="/kunskapscenter" className="hover:text-white transition-colors">
                     Kunskapscenter
                   </Link>
                 </li>
                 <li aria-hidden="true">/</li>
-                <li className="text-foreground font-medium">{hub.breadcrumbLabel}</li>
+                <li className="text-white font-medium">{hub.breadcrumbLabel}</li>
               </ol>
             </nav>
 
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-primary/10 text-primary text-xs font-medium mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/10 text-white text-xs font-medium mb-3">
               <Sparkles className="w-3.5 h-3.5" />
               Kunskapscenter
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">{hub.h1}</h1>
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3 text-white">{hub.h1}</h1>
+            <p className="text-base md:text-lg text-white/85 leading-relaxed max-w-3xl">
               {hub.intro}
             </p>
 
-            <p className="mt-6 text-sm text-muted-foreground">
-              <span className="font-semibold text-foreground">{hub.resources.length}</span>{" "}
+            <p className="mt-6 text-sm text-white/70">
+              <span className="font-semibold text-white">{hub.resources.length}</span>{" "}
               {hub.resources.length === 1 ? "resurs" : "resurser"} samlade här.
             </p>
           </div>
