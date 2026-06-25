@@ -111,6 +111,15 @@ export const ISV_COMPARISONS: IsvComparison[] = [
     parentArticleSlug: "tillagg-dokument-output",
   },
   {
+    slug: "bizview-vs-solver-vs-aimplan",
+    title: "Bizview vs Solver vs Aimplan",
+    intro:
+      "Tre FP&A-alternativ ovanpå Business Central. Bizview och Solver är globala plattformar med stark Sverige-närvaro. Aimplan är en svensk molnplattform med nordiskt fokus. Cloud Aheads (som driver d365.se) har ägarintresse i Aimplan — se /agande-och-intressen.",
+    solutionIds: ["bizview", "solver", "aimplan"],
+    category: "Rapportering / FP&A",
+    parentArticleSlug: "tillagg-rapportering-budget",
+  },
+  {
     slug: "jet-vs-bizview-vs-solver",
     title: "Jet Reports vs Bizview vs Solver",
     intro:
