@@ -47,9 +47,6 @@ const DecisionProfile = ({ partner }: Props) => {
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
               Beslutsprofil
             </p>
-            <h2 className="text-xl sm:text-2xl font-bold text-foreground mt-1">
-              Underlag för att välja — eller välja bort
-            </h2>
           </div>
 
           {/* 1. Positionering */}
