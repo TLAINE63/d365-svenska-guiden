@@ -249,6 +249,54 @@ const ComparePartners = () => {
     return [...erp, ...ce];
   };
 
+  const APP_TO_PF_KEY = (app: string): "bc" | "fsc" | "crm" | null => {
+    const a = app.trim();
+    if (a === "Business Central") return "bc";
+    if (
+      a === "Finance" ||
+      a === "Supply Chain Management" ||
+      a === "Finance & Supply Chain Management"
+    )
+      return "fsc";
+    if (
+      a === "Sales" ||
+      a === "Customer Service" ||
+      a === "Field Service" ||
+      a === "Contact Center" ||
+      a === "Customer Insights (Marketing)" ||
+      a === "Marketing"
+    )
+      return "crm";
+    return null;
+  };
+
+  const getProductDescriptions = (
+    p: DatabasePartner | undefined,
+    apps: string[]
+  ): { app: string; text: string }[] => {
+    const pf = (p as any)?.product_filters as
+      | Record<string, { productDescription?: string }>
+      | undefined;
+    if (!pf) return [];
+    const seen = new Set<string>();
+    const out: { app: string; text: string }[] = [];
+    for (const app of apps) {
+      const key = APP_TO_PF_KEY(app);
+      if (!key || seen.has(key)) continue;
+      const text = pf[key]?.productDescription?.trim();
+      if (!text) continue;
+      seen.add(key);
+      const label =
+        key === "bc"
+          ? "Business Central"
+          : key === "fsc"
+          ? "Finance & Supply Chain Management"
+          : "Sales, Service & Marketing (CE/CRM)";
+      out.push({ app: label, text });
+    }
+    return out;
+  };
+
   const get = (p?: DatabasePartner) => {
     const dp = (p?.delivery_profile || {}) as DeliveryProfile;
     const officeCities = cleanList(p?.office_cities).sort((a, b) => a.localeCompare(b, "sv"));
@@ -274,6 +322,7 @@ const ComparePartners = () => {
     ).sort((a, b) => a.localeCompare(b, "sv"));
     const industryApps = industryAppsRaw;
     return {
+      partner: p,
       positioning: p?.positioning_statement?.trim() || "",
       apps: sortApps(p?.applications || []),
       industries: allIndustries,
