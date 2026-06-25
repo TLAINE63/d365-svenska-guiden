@@ -299,18 +299,25 @@ const BCTillaggKatalog = () => {
       <div className="container mx-auto px-4 py-8 max-w-6xl">
         {/* Filter bar */}
         <div className="mb-6">
-          <div className="flex items-center justify-between mb-4">
-            <button
-              type="button"
-              onClick={() => setShowFilters((v) => !v)}
-              className="inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-primary"
-            >
-              <Filter className="w-4 h-4" />
-              Filter
-              {activeCount > 0 && (
-                <Badge className="bg-primary text-primary-foreground ml-1">{activeCount}</Badge>
-              )}
-            </button>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
+            <div className="flex items-start gap-3">
+              <button
+                type="button"
+                onClick={() => setShowFilters((v) => !v)}
+                aria-expanded={showFilters}
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-md border-2 border-primary bg-primary text-primary-foreground text-sm font-semibold shadow-sm hover:bg-primary/90 transition-colors"
+              >
+                <Filter className="w-4 h-4" />
+                {showFilters ? "Dölj filter" : "Filtrera lösningar"}
+                {activeCount > 0 && (
+                  <Badge className="bg-primary-foreground text-primary ml-1">{activeCount}</Badge>
+                )}
+              </button>
+              <p className="text-xs text-muted-foreground max-w-sm leading-relaxed pt-1">
+                Filtrera på kategori, bransch, typ (add-on/extern) eller geografi för att hitta
+                lösningar som matchar er BC-miljö.
+              </p>
+            </div>
             <div className="flex items-center gap-3 text-sm">
               <span className="text-muted-foreground">
                 Visar <strong className="text-foreground">{filtered.length}</strong> av{" "}
