@@ -352,7 +352,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "BC-tillägg – E-handel",
     title: "E-handel B2B/B2C för Business Central",
     description:
-      "Sana Commerce Cloud är förstaval när e-handeln ska ligga nära BC-data. För lättare behov finns connector-alternativ.",
+      "Sana och Dynamicweb används nära BC. Shopify används som extern frontend i mer flexibla lösningar.",
     productSlug: "businesscentral",
     product: "Business Central",
     parentPath: "/businesscentral/",
