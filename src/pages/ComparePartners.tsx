@@ -286,7 +286,7 @@ const ComparePartners = () => {
       teamSize: p?.team_size_sweden?.trim() || "",
       implementations: p?.implementations_done?.trim() || "",
       implementationsPerApp: perApp,
-      offices: offices > 0 ? `${offices} kontor` : "",
+      offices: officeCities,
       aiLevel: aiLevel.level !== "none" ? aiLevel.label : "",
       agreement: p ? (p.agreement_signed ? "Ja" : "Nej") : "",
       notAFit: cleanList(p?.not_a_fit),
