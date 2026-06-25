@@ -274,7 +274,7 @@ const BCTillaggKatalog = () => {
 
       {/* Hero */}
       <section className="bg-[hsl(var(--hero-dark))] text-white border-b border-[hsl(var(--line-dark))]">
-        <div className="container mx-auto px-4 py-12 max-w-6xl">
+        <div className="container mx-auto px-4 pt-28 pb-12 max-w-6xl">
           <Link
             to="/kunskapscenter/business-central-tillagg/"
             className="inline-flex items-center text-white/70 hover:text-white text-sm mb-4"
