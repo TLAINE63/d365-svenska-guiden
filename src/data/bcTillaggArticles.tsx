@@ -253,7 +253,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "BC-tillägg – EDI",
     title: "EDI & e-faktura för Business Central",
     description:
-      "Golden EDI, TrueCommerce, Peppol720 och Continia e-dokument är de vanligaste valen för EDI och elektroniska affärsdokument.",
+      "Golden EDI är standard i svenska BC-affärer och används för att koppla kunder, leverantörer och 3PL via EDI och integrationsflöden.",
     productSlug: "businesscentral",
     product: "Business Central",
     parentPath: "/businesscentral/",
