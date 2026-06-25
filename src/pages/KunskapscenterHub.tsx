@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowLeft, ArrowRight, ExternalLink, BookOpen, Wrench, FileText, Play, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink, BookOpen, Wrench, FileText, Play, Sparkles, Puzzle } from "lucide-react";
 import { HUB_BY_SLUG, type HubResourceCard } from "@/data/knowledgeHubs";
 
 const ICONS: Record<HubResourceCard["type"], typeof BookOpen> = {
@@ -14,6 +14,7 @@ const ICONS: Record<HubResourceCard["type"], typeof BookOpen> = {
   verktyg: Wrench,
   guide: FileText,
   video: Play,
+  tillagg: Puzzle,
 };
 
 const TYPE_LABEL: Record<HubResourceCard["type"], string> = {
@@ -22,6 +23,7 @@ const TYPE_LABEL: Record<HubResourceCard["type"], string> = {
   verktyg: "Verktyg",
   guide: "Guide",
   video: "Video",
+  tillagg: "Tilläggsapplikation (ISV)",
 };
 
 const TYPE_BADGE: Record<HubResourceCard["type"], string> = {
@@ -30,6 +32,7 @@ const TYPE_BADGE: Record<HubResourceCard["type"], string> = {
   verktyg: "bg-[hsl(var(--primary))] text-white border-[hsl(var(--primary))]",
   guide: "bg-indigo-600 text-white border-indigo-600",
   video: "bg-rose-600 text-white border-rose-600",
+  tillagg: "bg-amber-600 text-white border-amber-600",
 };
 
 interface Props {
@@ -47,6 +50,7 @@ const KunskapscenterHub = ({ slug }: Props) => {
     { type: "verktyg", heading: "Verktyg & behovsanalyser" },
     { type: "guide", heading: "Guider" },
     { type: "fordjupning", heading: "Produktfördjupningar" },
+    { type: "tillagg", heading: "Tilläggsapplikationer (ISV)" },
     { type: "artikel", heading: "Artiklar" },
     { type: "video", heading: "Videor" },
   ];
