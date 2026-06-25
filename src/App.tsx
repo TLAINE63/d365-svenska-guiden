@@ -245,6 +245,7 @@ const AppShell = () => {
           {/* Ägande- och intresseredovisning – transparenssida */}
           <Route path="/agande-och-intressen" element={<OwnershipAndInterests />} />
           <Route path="/jamfor-partners" element={<ComparePartners />} />
+          <Route path="/compare/:slug" element={<IsvCompare />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
