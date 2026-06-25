@@ -20,6 +20,7 @@ import {
   type SolutionIndustry,
   type SolutionGeo,
 } from "@/data/bcIsvSolutions";
+import { ISV_COMPARISONS } from "@/data/isvComparisons";
 
 const TYPE_BADGE: Record<SolutionType, string> = {
   "BC-native (ISV)": "bg-primary/10 text-primary border-primary/30",
@@ -189,6 +190,33 @@ const SolutionDetail = ({ s, onClose }: { s: IsvSolution | null; onClose: () => 
                 </span>
               ))}
             </section>
+
+            {(() => {
+              const matches = ISV_COMPARISONS.filter((c) => c.solutionIds.includes(s.id));
+              if (matches.length === 0) return null;
+              return (
+                <section className="p-4 rounded-lg bg-primary/5 border border-primary/20">
+                  <h4 className="font-semibold text-foreground mb-2">
+                    Jämför sida vid sida
+                  </h4>
+                  <p className="text-xs text-muted-foreground mb-3">
+                    Gå direkt till beslutsunderlaget — samma struktur, samma fält, så ni kan välja.
+                  </p>
+                  <ul className="space-y-1.5">
+                    {matches.map((c) => (
+                      <li key={c.slug}>
+                        <Link
+                          to={`/compare/${c.slug}`}
+                          className="text-sm text-primary hover:underline font-medium"
+                        >
+                          → {c.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              );
+            })()}
 
             <div className="pt-3">
               <Button asChild variant="outline" className="w-full">
