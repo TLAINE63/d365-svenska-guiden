@@ -13,15 +13,13 @@ import {
 } from "@/components/ui/select";
 import {
   Target,
-  Package,
   Table2,
-  AlertTriangle,
   ArrowLeftRight,
   ExternalLink,
   X,
-  Calendar,
   Info,
 } from "lucide-react";
+
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { calculateAiScore, getAiLevel } from "@/utils/aiScoring";
