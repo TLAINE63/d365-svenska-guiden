@@ -225,6 +225,7 @@ const AppShell = () => {
           <Route path="/bc-ehandel" element={<Navigate to="/kunskapscenter/business-central/tillagg-ehandel/" replace />} />
           <Route path="/bc-retail-pos" element={<Navigate to="/kunskapscenter/business-central/tillagg-retail-pos/" replace />} />
           <Route path="/bc-branschlosningar" element={<Navigate to="/kunskapscenter/business-central/tillagg-branschpaket/" replace />} />
+          <Route path="/business-central-tillagg" element={<Navigate to="/kunskapscenter/business-central-tillagg/" replace />} />
           <Route path="/kunskapscenter/:productSlug/:articleSlug" element={<DeepDiveArticle />} />
           <Route path="/artiklar/:slug" element={<BlogArticle />} />
           <Route path="/events" element={<Events />} />

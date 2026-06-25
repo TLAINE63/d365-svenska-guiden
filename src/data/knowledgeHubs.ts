@@ -269,10 +269,10 @@ export const KNOWLEDGE_HUBS: KnowledgeHubConfig[] = [
   },
   {
     slug: "business-central-tillagg",
-    metaTitle: "Tilläggsapplikationer (ISV) för Business Central | d365.se",
+    metaTitle: "Tillägg till Business Central – komplett guide till ISV i Sverige",
     metaDescription:
-      "Köparsidig översikt av de vanligaste ISV-tilläggen för Microsoft Dynamics 365 Business Central på svenska marknaden — fakturahantering, WMS, EDI, retail, branschpaket, rapportering m.m.",
-    h1: "Tilläggsapplikationer (ISV) för Business Central",
+      "Se alla viktiga tillägg till Microsoft Dynamics Business Central i Sverige – från AP automation och WMS till retail, EDI och branschlösningar.",
+    h1: "Tillägg och ISV-ekosystem för Business Central",
     intro:
       "Business Central räcker långt — men i nästan alla affärer kompletteras BC med ett antal ISV-tillägg. Här är de tio vanligaste kategorierna på svenska marknaden, vilka ISV:er som dominerar och vilka BC-partners som är offentligt listade. Skriven ur köparens perspektiv.",
     breadcrumbLabel: "BC-tilläggsapplikationer",
