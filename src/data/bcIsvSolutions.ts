@@ -13,7 +13,11 @@ export type SolutionCategory =
   | "Retail / POS"
   | "Branschpaket"
   | "Dokument & output"
-  | "Rapportering / FP&A";
+  | "Rapportering / FP&A"
+  | "PIM"
+  | "Integration / iPaaS"
+  | "Projekt"
+  | "Planering & produktion";
 export type SolutionTier = "Tier 1" | "Tier 2" | "Vertikal";
 export type SolutionIndustry =
   | "Generell"
@@ -24,7 +28,9 @@ export type SolutionIndustry =
   | "Fashion"
   | "Wholesale"
   | "3PL"
-  | "Hospitality";
+  | "Hospitality"
+  | "Print"
+  | "Services";
 export type SolutionGeo = "Sverige" | "Norden" | "Global";
 
 export interface IsvSolution {
