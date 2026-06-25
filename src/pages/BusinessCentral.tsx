@@ -228,6 +228,31 @@ const BusinessCentral = () => {
  <p>Business Central är tillgängligt i över 160 länder med lokaliseringar från Microsoft och partners, vilket gör det till ett tryggt val även för bolag med internationella ambitioner eller dotterbolag i flera länder.</p>
  </ShortAnswer>
 
+ {/* Matchningstest CTA */}
+ <section className="py-10 sm:py-12 bg-[hsl(var(--hero-dark))] border-y border-primary/20">
+   <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+     <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 items-center">
+       <div>
+         <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/60 mb-2">
+           Matchningstest
+         </p>
+         <h2 className="text-xl sm:text-2xl md:text-[28px] font-semibold text-white leading-snug mb-2">
+           Matchar Business Central era behov?
+         </h2>
+         <p className="text-white/75 text-sm sm:text-base max-w-2xl leading-relaxed">
+           20–25 frågor — först generella, sedan branschspecifika. Resultatet visar vad som ingår i BC i
+           standard, vad som kräver Premium, konfiguration eller ISV-tillägg, och vad som ligger utanför BC.
+         </p>
+       </div>
+       <Link
+         to="/businesscentral/matchningstest/"
+         className="inline-flex items-center justify-center rounded-md px-5 py-3 text-sm font-semibold bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 transition-colors whitespace-nowrap"
+       >
+         Starta matchningstestet →
+       </Link>
+     </div>
+   </div>
+ </section>
 
  <StandardProductSections productName="Business Central" data={PRODUCT_STANDARD_SECTIONS["business-central"]} />
 
