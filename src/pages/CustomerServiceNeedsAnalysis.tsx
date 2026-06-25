@@ -2258,7 +2258,7 @@ const CustomerServiceNeedsAnalysis = () => {
  </div>
  </div>
  <div className="flex flex-col sm:flex-row gap-3 pt-2">
- <Button onClick={generateDocument} disabled={!data.companyName || !data.contactName || !data.email || isSendingEmail} className="bg-customer-service hover:bg-customer-service/90 text-customer-service-foreground flex-1">
+ <Button onClick={generateDocument} disabled={!data.companyName || !data.contactName || !data.email || isSendingEmail} className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white flex-1">
  <Download className="w-4 h-4 mr-2" />
  {isSendingEmail ? "Skickar..." : "Ladda ner & skicka analys"}
  </Button>
