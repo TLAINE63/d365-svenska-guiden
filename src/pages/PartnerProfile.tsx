@@ -890,11 +890,22 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  {/* Product Description - above Customer Examples */}
  {productDescription && (
  <div className="border-l-2 border-primary/30 pl-4 py-1 my-2">
- <div className="text-[15px] text-foreground/80 leading-[1.75] space-y-3">
- {productDescription.text.split(/\n\s*\n/).map((para, i) => (
- <p key={i}>{para}</p>
- ))}
- </div>
+                              <div className="text-[15px] text-foreground/80 leading-[1.75] space-y-3 max-w-[68ch]">
+                                {(() => {
+                                  const chunks = productDescription.text
+                                    .split(/\n+/)
+                                    .flatMap((block) => {
+                                      const sentences = block.match(/[^.!?]+[.!?]+(\s|$)/g) || [block];
+                                      const paras: string[] = [];
+                                      for (let i = 0; i < sentences.length; i += 2) {
+                                        paras.push(sentences.slice(i, i + 2).join("").trim());
+                                      }
+                                      return paras.filter(Boolean);
+                                    });
+                                  return chunks.map((para, i) => <p key={i}>{para}</p>);
+                                })()}
+                              </div>
+
  {productDescription.aiGenerated && (
  <TooltipProvider delayDuration={150}>
  <Tooltip>
