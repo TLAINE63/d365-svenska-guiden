@@ -75,7 +75,7 @@ export const ISV_COMPARISONS: IsvComparison[] = [
     parentArticleSlug: "tillagg-ehandel",
   },
   {
-    slug: "ls-central-vs-shopify-pos",
+    slug: "ls-central-vs-shopify",
     title: "LS Central vs Shopify POS + BC",
     intro:
       "LS Central är en samlad retailplattform på BC. Shopify POS med BC som backend är en modulär lösning där butik och ekonomi körs separat men integrerat.",
