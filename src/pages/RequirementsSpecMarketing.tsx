@@ -226,7 +226,7 @@ const RequirementsSpecMarketing = () => {
           {step === 1 && (
             <div className="space-y-6">
               <h2 className="text-xl font-semibold text-foreground">Välj bransch</h2>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-white/75">
                 Branschen påverkar vilka specialkrav och KPI:er som inkluderas i din marknadsföringskravspecifikation.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -399,11 +399,11 @@ const RequirementsSpecMarketing = () => {
                 </Card>
               )}
 
-              <Card className="border-primary/30 bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 ">
+              <Card className="border-[hsl(var(--line-dark))] bg-[hsl(var(--hero-dark))] text-white">
                 <CardContent className="p-6">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                     <div className="flex-1">
-                      <h3 className="font-semibold text-lg text-foreground mb-1">
+                      <h3 className="font-semibold text-lg text-white mb-1">
                         Ladda ner komplett kravspecifikation (PDF)
                       </h3>
                       <p className="text-sm text-muted-foreground">
@@ -416,13 +416,13 @@ const RequirementsSpecMarketing = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="din@epost.se"
-                        className="sm:w-48 bg-background/80"
+                        className="sm:w-48 bg-white text-foreground placeholder:text-muted-foreground border-white/20"
                         disabled={isDownloading}
                       />
                       <Button
                         onClick={handleDownload}
                         disabled={isDownloading || !email}
-                        className="whitespace-nowrap"
+                        className="whitespace-nowrap bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white"
                       >
                         {isDownloading ? (
                           <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Laddar...</>
