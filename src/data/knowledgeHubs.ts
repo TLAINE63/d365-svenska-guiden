@@ -46,7 +46,9 @@ const deepDiveBySlug = (productSlugs: string[]): HubResourceCard[] =>
     .filter((a) => productSlugs.includes(a.productSlug))
     .map((a) => ({
       id: `dd-${a.productSlug}-${a.slug}`,
-      type: "fordjupning" as const,
+      type: (a.slug.startsWith("tillagg-") || a.slug === "isv-tillaggsapplikationer"
+        ? "tillagg"
+        : "fordjupning") as HubResourceCard["type"],
       title: a.title,
       description: a.description,
       url: `/kunskapscenter/${a.productSlug}/${a.slug}/`,
