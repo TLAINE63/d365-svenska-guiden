@@ -86,6 +86,7 @@ const OwnershipAndInterests = lazy(() => import("./pages/OwnershipAndInterests")
 const Priser = lazy(() => import("./pages/Priser"));
 const Kostnad = lazy(() => import("./pages/Kostnad"));
 const ComparePartners = lazy(() => import("./pages/ComparePartners"));
+const IsvCompare = lazy(() => import("./pages/IsvCompare"));
 const AiChatBubble = lazy(() => import("@/components/AiChatBubble"));
 
 const queryClient = new QueryClient();
@@ -244,6 +245,7 @@ const AppShell = () => {
           {/* Ägande- och intresseredovisning – transparenssida */}
           <Route path="/agande-och-intressen" element={<OwnershipAndInterests />} />
           <Route path="/jamfor-partners" element={<ComparePartners />} />
+          <Route path="/compare/:slug" element={<IsvCompare />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
