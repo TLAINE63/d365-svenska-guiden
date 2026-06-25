@@ -60,8 +60,8 @@ const DeepDiveArticle = () => {
   return (
     <>
       <SEOHead
-        title={`${article.title} | d365.se`}
-        description={article.description}
+        title={article.seoTitle ?? `${article.title} | d365.se`}
+        description={article.seoDescription ?? article.description}
         canonicalPath={`/kunskapscenter/${article.productSlug}/${article.slug}`}
         ogType="article"
         ogImage={articleImage || "https://d365.se/og-erp.png"}

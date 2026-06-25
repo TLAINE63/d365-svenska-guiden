@@ -13,6 +13,8 @@ export interface DeepDiveArticle {
   headerLabel?: string;
   image?: string;
   bannerImage?: string;
+  seoTitle?: string;
+  seoDescription?: string;
   content: ReactNode;
 }
 
