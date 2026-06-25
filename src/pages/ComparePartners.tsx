@@ -423,23 +423,53 @@ const ComparePartners = () => {
                       <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
                         Filtrera produkt
                       </label>
-                      <Select
-                        value={productFilter || "__all__"}
-                        onValueChange={(v) => setFilter("product", v)}
-                      >
-                        <SelectTrigger className="h-9 bg-white">
-                          <SelectValue placeholder="Alla produkter" />
-                        </SelectTrigger>
-                        <SelectContent className="max-h-80">
-                          <SelectItem value="__all__">Alla produkter</SelectItem>
-                          {productOptions.map((opt) => (
-                            <SelectItem key={opt} value={opt}>
-                              {opt}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <button
+                            type="button"
+                            className="flex h-9 w-full items-center justify-between rounded-md border border-input bg-white px-3 py-1 text-sm shadow-sm"
+                          >
+                            <span className="truncate text-left">
+                              {productFilters.length === 0
+                                ? "Alla produkter"
+                                : productFilters.length === 1
+                                ? productFilters[0]
+                                : `${productFilters.length} valda`}
+                            </span>
+                            <ChevronDown className="w-4 h-4 opacity-50 shrink-0 ml-2" />
+                          </button>
+                        </PopoverTrigger>
+                        <PopoverContent align="start" className="w-[260px] p-2 max-h-80 overflow-auto">
+                          {productFilters.length > 0 && (
+                            <button
+                              type="button"
+                              onClick={() => setFilter("product", "")}
+                              className="w-full text-left text-xs text-slate-500 hover:text-slate-800 underline px-2 py-1 mb-1"
+                            >
+                              Rensa val
+                            </button>
+                          )}
+                          <div className="space-y-1">
+                            {productOptions.map((opt) => {
+                              const checked = productFilters.includes(opt);
+                              return (
+                                <label
+                                  key={opt}
+                                  className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-slate-100 cursor-pointer text-sm"
+                                >
+                                  <Checkbox
+                                    checked={checked}
+                                    onCheckedChange={() => toggleProductFilter(opt)}
+                                  />
+                                  <span className="flex-1">{opt}</span>
+                                </label>
+                              );
+                            })}
+                          </div>
+                        </PopoverContent>
+                      </Popover>
                     </div>
+
                     <div>
                       <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
                         Filtrera bransch
