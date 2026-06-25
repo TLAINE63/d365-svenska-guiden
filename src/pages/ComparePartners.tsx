@@ -263,8 +263,22 @@ const ComparePartners = () => {
     const perApp = Object.entries(((p as any)?.implementations_per_app || {}) as Record<string, string>)
       .filter(([, v]) => typeof v === "string" && v.trim())
       .map(([app, count]) => ({ app, count: (count as string).trim() }));
+    const industryAppsRaw = (p?.industry_apps || []).map((ia) => ({
+      name: (ia.name || "").trim(),
+      application: (ia.application || "").trim(),
+      industry: (ia.industry || "").trim(),
+      url: (ia.url || "").trim(),
+    })).filter((ia) => ia.name);
     const allIndustries = Array.from(
-      new Set([...(p?.industries || []), ...(p?.secondary_industries || [])].map((s) => (s || "").trim()).filter(Boolean))
+      new Set(
+        [
+          ...(p?.industries || []),
+          ...(p?.secondary_industries || []),
+          ...industryAppsRaw.map((ia) => ia.industry),
+        ]
+          .map((s) => (s || "").trim())
+          .filter(Boolean)
+      )
     ).sort((a, b) => a.localeCompare(b, "sv"));
     const industryApps = (p?.industry_apps || [])
       .map((ia) => ({
