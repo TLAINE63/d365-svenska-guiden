@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
+import { BC_TILLAGG_ARTICLES } from "./bcTillaggArticles";
 
 export interface DeepDiveArticle {
   slug: string;
