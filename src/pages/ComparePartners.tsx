@@ -18,10 +18,14 @@ import {
   ExternalLink,
   X,
   Info,
+  ChevronDown,
 } from "lucide-react";
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Checkbox } from "@/components/ui/checkbox";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
+
 
 const TEAM_SIZE_HELP =
 
