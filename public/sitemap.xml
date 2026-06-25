@@ -577,6 +577,72 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://d365.se/kunskapscenter/businesscentral/isv-tillaggsapplikationer/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/kunskapscenter/businesscentral/tillagg-fakturahantering/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/kunskapscenter/businesscentral/tillagg-svensk-lokalisering/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/kunskapscenter/businesscentral/tillagg-wms-lager/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/kunskapscenter/businesscentral/tillagg-edi-efaktura/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/kunskapscenter/businesscentral/tillagg-frakt-ta/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/kunskapscenter/businesscentral/tillagg-ehandel/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/kunskapscenter/businesscentral/tillagg-retail-pos/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/kunskapscenter/businesscentral/tillagg-branschpaket/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/kunskapscenter/businesscentral/tillagg-dokument-output/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/kunskapscenter/businesscentral/tillagg-rapportering-budget/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://d365.se/kunskapscenter/d365contactcenter/den-moderna-contactcenterplattformen/</loc>
     <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
