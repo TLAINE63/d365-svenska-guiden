@@ -3439,7 +3439,7 @@ const SalesMarketingNeedsAnalysis = () => {
  <Button
  onClick={generateDocument}
  disabled={!data.companyName || !data.contactName || !data.email || isSendingEmail}
- className="bg-crm hover:bg-crm/90 flex-1"
+ className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white flex-1"
  >
  <Download className="w-4 h-4 mr-2" />
  {isSendingEmail ? "Skickar..." : "Ladda ner & skicka analys"}
