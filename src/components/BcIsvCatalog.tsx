@@ -2,20 +2,17 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { X, Filter } from "lucide-react";
+import { X, ArrowRight } from "lucide-react";
 import {
   BC_ISV_SOLUTIONS,
   CATEGORIES,
   TYPES,
   INDUSTRIES,
-  GEOS,
   type IsvSolution,
   type SolutionCategory,
   type SolutionType,
   type SolutionIndustry,
-  type SolutionGeo,
 } from "@/data/bcIsvSolutions";
 import { ISV_COMPARISONS } from "@/data/isvComparisons";
 
@@ -26,28 +23,44 @@ const TYPE_BADGE: Record<SolutionType, string> = {
 };
 
 const TIER_BADGE: Record<string, string> = {
-  "Tier 1": "bg-emerald-100 text-emerald-900 border-emerald-300",
-  "Tier 2": "bg-sky-100 text-sky-900 border-sky-300",
-  Vertikal: "bg-violet-100 text-violet-900 border-violet-300",
+  "Tier 1": "bg-[hsl(var(--cta-orange))]/10 text-[hsl(var(--cta-orange))] border-[hsl(var(--cta-orange))]/30",
+  "Tier 2": "bg-stone-100 text-stone-700 border-stone-200",
+  Vertikal: "bg-violet-50 text-violet-900 border-violet-200",
 };
 
-function FilterGroup<T extends string>({
+function FilterRow<T extends string>({
   label,
   options,
   selected,
   onToggle,
+  onClear,
 }: {
   label: string;
   options: T[];
   selected: Set<T>;
   onToggle: (v: T) => void;
+  onClear: () => void;
 }) {
+  const allActive = selected.size === 0;
   return (
-    <div>
-      <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
-        {label}
-      </h3>
-      <div className="flex flex-wrap gap-2">
+    <div className="flex flex-col md:flex-row md:items-start gap-3 md:gap-5">
+      <div className="md:w-24 shrink-0 pt-1.5">
+        <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
+          {label}
+        </span>
+      </div>
+      <div className="flex flex-wrap gap-2 flex-1">
+        <button
+          type="button"
+          onClick={onClear}
+          className={`px-3.5 py-1.5 text-xs font-medium rounded-full border transition-all ${
+            allActive
+              ? "bg-primary text-primary-foreground border-primary shadow-sm"
+              : "bg-background text-muted-foreground border-border hover:border-primary/40"
+          }`}
+        >
+          Alla
+        </button>
         {options.map((opt) => {
           const active = selected.has(opt);
           return (
@@ -55,10 +68,10 @@ function FilterGroup<T extends string>({
               key={opt}
               type="button"
               onClick={() => onToggle(opt)}
-              className={`text-sm px-3 py-1.5 rounded-full border transition ${
+              className={`px-3.5 py-1.5 text-xs font-medium rounded-full border transition-all ${
                 active
-                  ? "bg-primary text-primary-foreground border-primary shadow-sm"
-                  : "bg-background text-foreground border-border hover:border-primary/50 hover:bg-muted"
+                  ? "bg-primary/10 text-primary border-primary/30 font-semibold"
+                  : "bg-background text-foreground border-border hover:border-primary/40 hover:bg-muted/50"
               }`}
             >
               {opt}
@@ -71,36 +84,59 @@ function FilterGroup<T extends string>({
 }
 
 const SolutionCard = ({ s, onOpen }: { s: IsvSolution; onOpen: () => void }) => (
-  <button type="button" onClick={onOpen} className="text-left group">
-    <Card className="h-full border-border/70 hover:border-primary/50 hover:shadow-md transition bg-card">
-      <CardContent className="p-5 flex flex-col h-full">
-        <div className="flex items-start justify-between gap-2 mb-3">
-          <div>
-            <h3 className="font-bold text-foreground text-lg leading-tight group-hover:text-primary transition">
-              {s.name}
-            </h3>
-            <p className="text-xs text-muted-foreground mt-0.5">{s.vendor}</p>
-          </div>
-          <Badge variant="outline" className={`text-[10px] shrink-0 ${TIER_BADGE[s.tier]}`}>
-            {s.tier}
-          </Badge>
-        </div>
-        <p className="text-sm text-foreground/80 leading-relaxed mb-4 line-clamp-2">
-          {s.shortDescription}
+  <button
+    type="button"
+    onClick={onOpen}
+    className="text-left group relative bg-gradient-to-b from-card to-muted/20 border border-border hover:border-primary/40 hover:shadow-lg transition-all duration-300 flex flex-col p-7 overflow-hidden"
+  >
+    {/* Top accent bar */}
+    <div className="absolute top-0 left-0 right-0 h-[3px] bg-primary opacity-80 group-hover:opacity-100 transition-opacity" />
+
+    <div className="flex justify-between items-start gap-3 mb-5">
+      <div className="min-w-0">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground/80 mb-1.5 truncate">
+          {s.vendor}
         </p>
-        <div className="flex flex-wrap gap-1.5 mb-3">
-          <Badge variant="outline" className={`text-[10px] ${TYPE_BADGE[s.type]}`}>{s.type}</Badge>
-          <Badge variant="outline" className="text-[10px] bg-muted/50 text-foreground border-border">
-            {s.category}
-          </Badge>
-        </div>
-        <div className="mt-auto pt-2 flex flex-wrap gap-1">
-          {s.tags.slice(0, 4).map((t) => (
-            <span key={t} className="text-[10px] text-muted-foreground">#{t}</span>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
+        <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-foreground leading-tight group-hover:text-primary transition-colors">
+          {s.name}
+        </h3>
+      </div>
+      <span
+        className={`shrink-0 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.1em] border rounded-sm ${TIER_BADGE[s.tier]}`}
+      >
+        {s.tier}
+      </span>
+    </div>
+
+    <div className="flex flex-wrap gap-1.5 mb-5">
+      <span className={`px-2 py-0.5 text-[11px] font-medium rounded border ${TYPE_BADGE[s.type]}`}>
+        {s.type}
+      </span>
+      <span className="px-2 py-0.5 text-[11px] font-medium bg-muted/60 text-foreground border border-border rounded">
+        {s.category}
+      </span>
+    </div>
+
+    <p className="text-sm text-muted-foreground leading-relaxed mb-6 line-clamp-3 flex-1">
+      {s.shortDescription}
+    </p>
+
+    <div className="mt-auto border-t border-border/60 pt-4">
+      <div className="flex flex-wrap gap-1.5 mb-4 min-h-[18px]">
+        {s.tags.slice(0, 3).map((t) => (
+          <span
+            key={t}
+            className="text-[10px] text-muted-foreground bg-muted/40 px-1.5 py-0.5 border border-border/60 rounded-sm"
+          >
+            #{t}
+          </span>
+        ))}
+      </div>
+      <span className="inline-flex items-center text-[11px] font-bold uppercase tracking-[0.15em] text-primary">
+        Visa lösningen
+        <ArrowRight className="ml-1.5 w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+      </span>
+    </div>
   </button>
 );
 
@@ -117,7 +153,7 @@ const SolutionDetail = ({ s, onClose }: { s: IsvSolution | null; onClose: () => 
                 {s.category}
               </Badge>
             </div>
-            <DialogTitle className="text-2xl">{s.name}</DialogTitle>
+            <DialogTitle className="text-2xl font-['Playfair_Display'] font-semibold">{s.name}</DialogTitle>
             <DialogDescription className="text-sm">{s.vendor}</DialogDescription>
           </DialogHeader>
 
@@ -208,13 +244,11 @@ interface BcIsvCatalogProps {
   showCta?: boolean;
 }
 
-const BcIsvCatalog = ({ defaultFiltersOpen = true, showCta = true }: BcIsvCatalogProps) => {
+const BcIsvCatalog = (_: BcIsvCatalogProps = {}) => {
   const [cats, setCats] = useState<Set<SolutionCategory>>(new Set());
   const [types, setTypes] = useState<Set<SolutionType>>(new Set());
   const [industries, setIndustries] = useState<Set<SolutionIndustry>>(new Set());
-  const [geos, setGeos] = useState<Set<SolutionGeo>>(new Set());
   const [open, setOpen] = useState<IsvSolution | null>(null);
-  const [showFilters, setShowFilters] = useState(defaultFiltersOpen);
 
   const toggle = <T,>(set: Set<T>, setter: (s: Set<T>) => void) => (v: T) => {
     const next = new Set(set);
@@ -227,52 +261,41 @@ const BcIsvCatalog = ({ defaultFiltersOpen = true, showCta = true }: BcIsvCatalo
       if (cats.size && !cats.has(s.category)) return false;
       if (types.size && !types.has(s.type)) return false;
       if (industries.size && !s.industries.some((i) => industries.has(i))) return false;
-      if (geos.size && !s.geo.some((g) => geos.has(g))) return false;
       return true;
     });
-  }, [cats, types, industries, geos]);
+  }, [cats, types, industries]);
 
-  const activeCount = cats.size + types.size + industries.size + geos.size;
+  const activeCount = cats.size + types.size + industries.size;
 
   const clearAll = () => {
     setCats(new Set());
     setTypes(new Set());
     setIndustries(new Set());
-    setGeos(new Set());
   };
 
   return (
     <div>
-      <div className="mb-6">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
-          <div className="flex items-start gap-3">
-            <button
-              type="button"
-              onClick={() => setShowFilters((v) => !v)}
-              aria-expanded={showFilters}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-md border-2 border-primary bg-primary text-primary-foreground text-sm font-semibold shadow-sm hover:bg-primary/90 transition-colors"
-            >
-              <Filter className="w-4 h-4" />
-              {showFilters ? "Dölj filter" : "Filtrera lösningar"}
-              {activeCount > 0 && (
-                <Badge className="bg-primary-foreground text-primary ml-1">{activeCount}</Badge>
-              )}
-            </button>
-            <p className="text-xs text-muted-foreground max-w-sm leading-relaxed pt-1">
-              Filtrera på kategori, bransch, typ (add-on/extern) eller geografi för att hitta
-              lösningar som matchar er BC-miljö.
+      {/* Editorial filter module */}
+      <div className="border-y border-border bg-gradient-to-b from-muted/20 via-background to-background py-8 px-6 md:px-8 mb-8">
+        <div className="flex items-baseline justify-between mb-6">
+          <div>
+            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-primary block mb-1.5">
+              Förfina urvalet
+            </span>
+            <p className="text-sm text-muted-foreground max-w-xl leading-relaxed">
+              Filtrera fram lösningar som matchar er kategori, leveransform och bransch.
             </p>
           </div>
-          <div className="flex items-center gap-3 text-sm">
-            <span className="text-muted-foreground">
-              Visar <strong className="text-foreground">{filtered.length}</strong> av{" "}
-              {BC_ISV_SOLUTIONS.length}
+          <div className="flex items-center gap-3 text-xs shrink-0">
+            <span className="text-muted-foreground hidden sm:inline">
+              <strong className="text-foreground text-sm font-semibold">{filtered.length}</strong>
+              <span className="text-muted-foreground"> / {BC_ISV_SOLUTIONS.length}</span>
             </span>
             {activeCount > 0 && (
               <button
                 type="button"
                 onClick={clearAll}
-                className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
+                className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 font-medium"
               >
                 <X className="w-3.5 h-3.5" /> Rensa
               </button>
@@ -280,43 +303,45 @@ const BcIsvCatalog = ({ defaultFiltersOpen = true, showCta = true }: BcIsvCatalo
           </div>
         </div>
 
-        {(showFilters || activeCount > 0) && (
-          <div className="p-5 bg-muted/30 border border-border rounded-lg space-y-5">
-            <FilterGroup label="Kategori" options={CATEGORIES} selected={cats} onToggle={toggle(cats, setCats)} />
-            <FilterGroup label="Typ" options={TYPES} selected={types} onToggle={toggle(types, setTypes)} />
-            <FilterGroup label="Bransch" options={INDUSTRIES} selected={industries} onToggle={toggle(industries, setIndustries)} />
-            <FilterGroup label="Geografi" options={GEOS} selected={geos} onToggle={toggle(geos, setGeos)} />
-          </div>
-        )}
+        <div className="space-y-5">
+          <FilterRow
+            label="Kategori"
+            options={CATEGORIES}
+            selected={cats}
+            onToggle={toggle(cats, setCats)}
+            onClear={() => setCats(new Set())}
+          />
+          <div className="h-px bg-border/60" />
+          <FilterRow
+            label="Typ"
+            options={TYPES}
+            selected={types}
+            onToggle={toggle(types, setTypes)}
+            onClear={() => setTypes(new Set())}
+          />
+          <div className="h-px bg-border/60" />
+          <FilterRow
+            label="Bransch"
+            options={INDUSTRIES}
+            selected={industries}
+            onToggle={toggle(industries, setIndustries)}
+            onClear={() => setIndustries(new Set())}
+          />
+        </div>
       </div>
 
       {filtered.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map((s) => (
             <SolutionCard key={s.id} s={s} onOpen={() => setOpen(s)} />
           ))}
         </div>
       ) : (
-        <div className="text-center py-16 text-muted-foreground">
+        <div className="text-center py-16 text-muted-foreground border border-dashed border-border rounded">
           <p>Inga lösningar matchar valda filter.</p>
           <button onClick={clearAll} className="text-primary hover:underline mt-2 text-sm">
             Rensa filter
           </button>
-        </div>
-      )}
-
-      {showCta && (
-        <div className="mt-12 p-6 bg-secondary/40 border border-border rounded-lg text-center">
-          <h2 className="text-xl font-bold text-foreground mb-2">
-            Behöver ni hjälp att välja rätt kombination?
-          </h2>
-          <p className="text-muted-foreground mb-4 max-w-2xl mx-auto text-sm">
-            Många BC-partners är specialiserade på vissa ISV-lösningar. Vi hjälper er hitta
-            partners som matchar er kombination av bransch, processer och tilläggsbehov.
-          </p>
-          <Button asChild>
-            <Link to="/valjdynamics365partner/">Hitta Business Central-partners →</Link>
-          </Button>
         </div>
       )}
 
