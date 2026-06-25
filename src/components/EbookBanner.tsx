@@ -132,58 +132,58 @@ const EbookBanner = ({ variant = "full", sourcePage = "homepage" }: EbookBannerP
  );
  }
 
- return (
- <section className="py-10 sm:py-12 bg-card border-y border-border">
- <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
- <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
- {/* Book image */}
- <div className="flex-shrink-0">
- <img
- src={ebookCover}
- alt="E-bok: Det viktiga partnervalet"
- className="w-40 sm:w-48 h-auto drop- hover:scale-105 transition-transform duration-300"
- loading="lazy"
- width={192}
- height={240}
- />
- </div>
+  return (
+    <section className="py-10 sm:py-12 bg-[hsl(var(--hero-dark))] border-y border-[hsl(var(--line-dark))] text-white">
+      <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+          {/* Book image */}
+          <div className="flex-shrink-0">
+            <img
+              src={ebookCover}
+              alt="E-bok: Det viktiga partnervalet"
+              className="w-40 sm:w-48 h-auto drop- hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+              width={192}
+              height={240}
+            />
+          </div>
 
- {/* Content */}
- <div className="flex-1 text-center md:text-left">
- <span className="inline-flex items-center px-3 py-1 rounded bg-primary text-primary-foreground text-sm font-bold uppercase tracking-wide mb-3">
- <BookOpen className="w-4 h-4 mr-1.5" />
- Gratis e-bok
- </span>
- <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
- Det viktiga partnervalet
- </h2>
- <p className="text-sm sm:text-base text-muted-foreground mb-2 max-w-lg">
- Rätt system. Rätt partner. Bättre affärsresultat.
- </p>
- <p className="text-xs sm:text-sm text-muted-foreground mb-5 max-w-lg">
- Vad statistiken säger om lyckade och misslyckade projekt, varför branschkompetens gör så stor skillnad och en praktisk modell för att välja Microsoftpartner. 20 sidor med konkreta insikter.
- </p>
+          {/* Content */}
+          <div className="flex-1 text-center md:text-left">
+            <span className="inline-flex items-center px-3 py-1 rounded bg-[hsl(var(--cta-orange))] text-white text-sm font-bold uppercase tracking-wide mb-3">
+              <BookOpen className="w-4 h-4 mr-1.5" />
+              Gratis e-bok
+            </span>
+            <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">
+              Det viktiga partnervalet
+            </h2>
+            <p className="text-sm sm:text-base text-white/80 mb-2 max-w-lg">
+              Rätt system. Rätt partner. Bättre affärsresultat.
+            </p>
+            <p className="text-xs sm:text-sm text-white/70 mb-5 max-w-lg">
+              Vad statistiken säger om lyckade och misslyckade projekt, varför branschkompetens gör så stor skillnad och en praktisk modell för att välja Microsoftpartner. 20 sidor med konkreta insikter.
+            </p>
 
- <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto md:mx-0">
- <input type="text" name="website" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} className="absolute -left-[9999px] opacity-0 pointer-events-none" tabIndex={-1} autoComplete="off" aria-hidden="true" />
- <Input
- type="email"
- value={email}
- onChange={(e) => setEmail(e.target.value)}
- placeholder="din@epost.se"
- className="w-full sm:w-56 bg-background/80 border-primary/30 focus:border-primary focus:ring-primary/30"
- disabled={isSubmitting}
- />
- <Button type="submit" disabled={isSubmitting} className="whitespace-nowrap">
- {isSubmitting ? "Skickar..." : <><Download className="mr-2 h-4 w-4" />Ladda ner e-boken</>}
- </Button>
- </form>
- <p className="text-[11px] text-muted-foreground/60 mt-2">Kostnadsfri. Ingen prenumeration.</p>
- </div>
- </div>
- </div>
- </section>
- );
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto md:mx-0">
+              <input type="text" name="website" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} className="absolute -left-[9999px] opacity-0 pointer-events-none" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="din@epost.se"
+                className="w-full sm:w-56 bg-white text-foreground placeholder:text-muted-foreground border-white/20"
+                disabled={isSubmitting}
+              />
+              <Button type="submit" disabled={isSubmitting} className="whitespace-nowrap bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white">
+                {isSubmitting ? "Skickar..." : <><Download className="mr-2 h-4 w-4" />Ladda ner e-boken</>}
+              </Button>
+            </form>
+            <p className="text-[11px] text-white/55 mt-2">Kostnadsfri. Ingen prenumeration.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default EbookBanner;
