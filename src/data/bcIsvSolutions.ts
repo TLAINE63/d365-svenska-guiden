@@ -74,7 +74,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     ],
     whenFits: "När volym leverantörsfakturor och attestkedjor gör manuell hantering kostsam, eller när ni behöver starkare Peppol- och e-fakturastöd än standard-BC.",
     combos: ["BC + Continia + Lasernet", "BC + Continia + svensk lokalisering"],
-    partnersSE: ["Evidi / NaviPro", "NAB Solutions", "JMA", "dizparc Värnamo ERP", "Navet / Aderian"],
+    partnersSE: ["4PS Construction Software", "APX Core Solutions", "Bisqo", "BrightCom", "CGI", "COSMO CONSULT", "Cepheo", "Dizparc", "Evidi", "Fellowmind", "IT Stöd", "JMA", "NAB Solutions", "Navet", "Update", "Yellow Solution"],
     partnerSource: "Continia",
   },
   {
@@ -96,7 +96,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     ],
     whenFits: "Större volymer leverantörsfakturor där ni vill ha svensk ISV med stark BC- och F&O-närvaro.",
     combos: ["BC + ExFlow + Power BI", "BC + ExFlow + svensk lokalisering"],
-    partnersSE: ["NAB Solutions", "Mibusoft", "Implema", "Fellowmind", "THINKNINE"],
+    partnersSE: ["4PS Construction Software", "Fellowmind", "Implema", "NAB Solutions", "Sherpas Group", "Yellow Solution"],
     partnerSource: "SignUp Software",
   },
   {
@@ -150,7 +150,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["Plock och pack i lager", "Inleverans och inventering", "Streckkodshantering"],
     whenFits: "När lagervolym eller plockfrekvens överstiger vad standard-BC klarar effektivt och ni vill behålla lagret i BC.",
     combos: ["BC + Tasklet + Golden EDI", "BC + Tasklet + nShift"],
-    partnersSE: ["Adbriq", "Azets Sweden", "COSMO CONSULT Sweden", "THINKNINE", "twoday"],
+    partnersSE: ["Basecloud", "Bisqo", "COSMO CONSULT", "Navet", "Update", "adbriq"],
     partnerSource: "Tasklet",
   },
   {
@@ -186,7 +186,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["EDI mot kedjor och leverantörer", "Integration mot Ongoing WMS", "E-faktura"],
     whenFits: "När ni har återkommande EDI-flöden eller vill ha en svensk/nordisk integrationspartner.",
     combos: ["BC + Golden EDI + Ongoing WMS", "BC + Golden EDI + Shopify"],
-    partnersSE: ["NAB Solutions", "Softronic", "Update Affärssystem"],
+    partnersSE: ["NAB Solutions", "Softronic", "Update"],
     partnerSource: "Golden EDI / offentliga partnerreferenser",
 
   },
@@ -241,7 +241,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["Skicka och ta emot e-fakturor"],
     whenFits: "När ni redan kör Continia Document Capture eller Output.",
     combos: ["BC + Continia + Continia e-dokument"],
-    partnersSE: ["Evidi / NaviPro", "NAB Solutions"],
+    partnersSE: ["4PS Construction Software", "APX Core Solutions", "Bisqo", "BrightCom", "CGI", "COSMO CONSULT", "Cepheo", "Dizparc", "Evidi", "Fellowmind", "IT Stöd", "JMA", "NAB Solutions", "Navet", "Update", "Yellow Solution"],
     partnerSource: "Continia",
   },
   {
@@ -259,7 +259,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["Fraktbokning", "Etiketter", "Track & trace", "Returer"],
     whenFits: "När ni skickar volym mot flera transportörer och vill automatisera fraktflödet från BC.",
     combos: ["BC + nShift + Sana Commerce"],
-    partnersSE: ["BrightCom / Exsitec"],
+    partnersSE: ["BrightCom"],
     partnerSource: "nShift",
   },
   {
@@ -366,7 +366,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["Butikskedjor", "Restaurang/hotell", "Lojalitet"],
     whenFits: "När ni vill ha kassa, lager och ekonomi på samma plattform.",
     combos: ["BC + LS Central + Tasklet"],
-    partnersSE: ["Azets", "Unikal / Active", "RTS Business Solutions"],
+    partnersSE: ["Active Business Solutions"],
     partnerSource: "LS Retail",
   },
   {
@@ -384,7 +384,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["Recept", "Batch och spårbarhet", "Kvalitet och bäst-före", "Processproduktion"],
     whenFits: "När ni har livsmedels-/processkrav som standard-BC inte täcker.",
     combos: ["BC + Aptean Food + Tasklet"],
-    partnersSE: ["Softronic", "Fellowmind"],
+    partnersSE: ["Fellowmind", "Softronic"],
     partnerSource: "Aptean",
   },
   {
@@ -402,7 +402,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["Kollektionsplanering", "Variantmatris", "PDM"],
     whenFits: "Mode- och konfektionsbolag som vill behålla BC som plattform.",
     combos: ["BC + TRIMIT + Sana Commerce"],
-    partnersSE: ["Adbriq"],
+    partnersSE: ["adbriq"],
     partnerSource: "TRIMIT",
   },
   {
@@ -420,7 +420,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["Projektproduktion", "Avancerad tillverkning", "Processflöden"],
     whenFits: "Tillverkning med komplexa flöden som standard-BC inte räcker till för.",
     combos: ["BC + COSMO + Tasklet"],
-    partnersSE: ["COSMO CONSULT Sweden"],
+    partnersSE: ["COSMO CONSULT"],
     partnerSource: "COSMO CONSULT",
   },
   {
@@ -438,7 +438,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["Projekthantering", "Resursplanering", "Servicekontrakt", "Inköp och underentreprenörer"],
     whenFits: "Bygg-, installations- och serviceföretag som vill ha BC som plattform med färdig projektfunktionalitet.",
     combos: ["BC + 4PS Construct"],
-    partnersSE: ["4PS Construction Software AB"],
+    partnersSE: ["4PS Construction Software"],
     partnerSource: "4PS",
   },
   {
@@ -456,7 +456,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["Många mallar och varumärken", "Distribution via e-post, Peppol, EDI, print"],
     whenFits: "Många dokumentmallar eller komplexa varumärkeskrav.",
     combos: ["BC + Lasernet + Continia"],
-    partnersSE: ["BE-terna", "Nexer", "Tabellae"],
+    partnersSE: ["BE-terna", "Nexer"],
     partnerSource: "Lasernet",
   },
   {
@@ -474,7 +474,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["Skicka fakturor och ordererkännanden via olika kanaler"],
     whenFits: "Naturligt om ni redan kör Continia Document Capture.",
     combos: ["BC + Continia + Continia Document Output"],
-    partnersSE: ["Evidi / NaviPro", "NAB Solutions"],
+    partnersSE: ["4PS Construction Software", "APX Core Solutions", "Bisqo", "BrightCom", "CGI", "COSMO CONSULT", "Cepheo", "Dizparc", "Evidi", "Fellowmind", "IT Stöd", "JMA", "NAB Solutions", "Navet", "Update", "Yellow Solution"],
     partnerSource: "Continia",
   },
   {
@@ -639,7 +639,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["Fraktbokning från BC", "Etiketter och fraktsedlar", "Track & trace"],
     whenFits: "När ni vill ha en svensk TA-leverantör med stark BC-koppling.",
     combos: ["BC + Logtrade + Tasklet"],
-    partnersSE: ["Update"],
+    partnersSE: ["APX Core Solutions", "BrightCom", "CGI", "COSMO CONSULT", "Dizparc", "Evidi", "Fellowmind", "Goodfellows", "InBiz", "Invid", "NAB Solutions", "Navcite", "Navet", "Sherpas Group", "Softronic", "Update", "Yellow Solution", "adbriq"],
     partnerSource: "Logtrade",
   },
   {
@@ -657,7 +657,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["B2B-portal", "B2C-handel", "PIM och produktdata", "Innehåll och kampanjer"],
     whenFits: "När ni vill ha e-handel, CMS och PIM på en plattform tätt kopplat till BC.",
     combos: ["BC + Dynamicweb + Continia"],
-    partnersSE: ["Truvio"],
+    partnersSE: ["4PS Construction Software", "Fellowmind", "Implema", "NAB Solutions", "Sherpas Group", "Yellow Solution"],
     partnerSource: "Dynamicweb",
   },
   {
@@ -675,7 +675,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["Centraliserad produktdata", "Multi-channel publicering", "Översättningar och varianter"],
     whenFits: "När produktdata är komplex och ska publiceras till flera kanaler (e-handel, print, marketplaces).",
     combos: ["BC + Perfion + Sana Commerce", "BC + Perfion + Dynamicweb"],
-    partnersSE: ["Aderian", "Fellowmind"],
+    partnersSE: ["Fellowmind", "Navet", "adbriq"],
     partnerSource: "Perfion",
   },
   {
@@ -801,7 +801,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["Dokumenthantering", "Process- och workflowautomation", "Projektstöd"],
     whenFits: "När ni vill stärka dokument- och processflöden direkt i BC.",
     combos: ["BC + Axtension + Continia"],
-    partnersSE: ["Fellowmind"],
+    partnersSE: ["4PS Construction Software", "Fellowmind", "Implema", "NAB Solutions", "Sherpas Group", "Yellow Solution"],
     partnerSource: "Axtension",
   },
   {
@@ -819,7 +819,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["Mobile WMS", "Shop floor-rapportering", "Produktionsstöd"],
     whenFits: "Tillverkare som vill ha både WMS och shop floor i samma BC-svit.",
     combos: ["BC + Insight Works + Netronic"],
-    partnersSE: ["COSMO CONSULT Sweden"],
+    partnersSE: ["COSMO CONSULT"],
     partnerSource: "Insight Works",
   },
   {
