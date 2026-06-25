@@ -69,6 +69,28 @@ const IsvCompare = () => {
 
       {/* Comparison grid */}
       <section className="container mx-auto px-4 py-10 max-w-6xl">
+        {hasIndustryFocus && (
+          <div
+            className={`mb-6 p-4 rounded-lg border text-sm ${
+              crossIndustry
+                ? "border-amber-500/40 bg-amber-500/10 text-amber-900 dark:text-amber-200"
+                : "border-primary/30 bg-primary/5 text-foreground"
+            }`}
+          >
+            {crossIndustry ? (
+              <>
+                <strong>Obs – olika branscher:</strong> lösningarna nedan riktar sig till olika
+                branscher och är inte direkt utbytbara. Använd jämförelsen som översikt, inte som
+                head-to-head-val.
+              </>
+            ) : (
+              <>
+                <strong>Bransch:</strong> alla lösningar nedan är relevanta för{" "}
+                {sharedIndustries.join(", ")}. Jämförelsen sker inom samma bransch.
+              </>
+            )}
+          </div>
+        )}
         <div className={`grid grid-cols-1 md:grid-cols-2 ${cols} gap-6`}>
           {solutions.map((s) => (
             <article
