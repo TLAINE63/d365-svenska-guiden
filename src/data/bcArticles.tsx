@@ -662,8 +662,8 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
             kombination av bransch, processer och tilläggsbehov.
           </p>
           <p>
-            <Link to="/valjdynamics365partner/" className="font-semibold text-primary hover:underline">
-              Hitta Business Central-partners → d365.se/valjdynamics365partner
+            <Link to="/businesscentral#partners" className="font-semibold text-primary hover:underline">
+              Hitta Business Central-partners → d365.se/businesscentral#partners
             </Link>
           </p>
         </div>
