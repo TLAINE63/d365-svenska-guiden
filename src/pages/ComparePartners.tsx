@@ -372,9 +372,9 @@ const ComparePartners = () => {
                 Jämför två partner sida vid sida
               </h1>
               <p className="text-sm text-slate-600 mt-2 max-w-2xl mx-auto">
-                Samma rader för båda partner — positionering, leveransbild,
-                snabbfakta och "när passar vi inte". Underlag för beslut, inte
-                rangordning.
+                Samma rader för båda partner — positionering, snabbfakta,
+                kompetens inom Dynamics 365, branscher och kontor. Underlag för
+                beslut, inte rangordning.
               </p>
             </header>
 
