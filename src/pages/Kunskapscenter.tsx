@@ -926,6 +926,7 @@ const Kunskapscenter = () => {
  <div className="flex flex-wrap gap-2">
  {[
  { slug: "business-central", label: "Business Central" },
+ { slug: "business-central-tillagg", label: "BC-tilläggsapplikationer (ISV)" },
  { slug: "finance-supply-chain", label: "Finance & Supply Chain" },
  { slug: "sales", label: "Sales & CRM" },
  { slug: "customer-service", label: "Kundservice & Field Service" },
