@@ -620,10 +620,9 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
       <>
         <p>
           <strong>Business Centrals styrka ligger i kombinationen av kärnsystem och tillägg.</strong> Snarare än att lista
-          alla appar i AppSource fokuserar vi här på de tilläggskategorier som återkommer i nästan varje svensk BC-affär:
-          fakturahantering, svensk lokalisering, WMS, EDI/e-faktura, frakt, e-handel, retail, branschpaket, dokumentutskick
-          och rapportering. För varje kategori nämner vi de mest etablerade ISV-leverantörerna och exempel på
-          svenska/nordiska BC-partners som är offentligt listade av respektive ISV.
+          alla appar i AppSource fokuserar vi här på de 10 tilläggskategorier som återkommer i nästan varje svensk
+          BC-affär. Klicka vidare till respektive kategorisida för ISV:er, exempel på BC-partners som är offentligt
+          listade av ISV:n och vägledning kring när tillägget är relevant.
         </p>
         <p className="text-sm text-muted-foreground italic">
           Vi skriver medvetet "offentligt listad av ISV:n som partner" snarare än "auktoriserad återförsäljare". Aktuell
@@ -631,127 +630,26 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
           BC-partner inför en affär.
         </p>
 
-        <h2>1. Fakturahantering &amp; AP Automation</h2>
-        <p>
-          Två lösningar dominerar svenska BC-affärer: <strong>Continia</strong> (Document Capture, Expense, Document Output,
-          Banking/Payment, Collection, Finance, OPplus) och <strong>SignUp Software ExFlow</strong> (AP Automation, Data
-          Capture, Travel &amp; Expense, E-invoicing). Båda är byggda inuti Business Central och hanterar fakturaflödet
-          direkt i BC.
-        </p>
-        <p>
-          <strong>BC-partners offentligt listade av Continia (urval):</strong> Evidi/NaviPro, NAB Solutions, JMA,
-          Flank Speed, dizparc Värnamo ERP, Navet/Aderian, Update.
-        </p>
-        <p>
-          <strong>BC-partners offentligt listade av SignUp Software (urval):</strong> NAB Solutions, Mibusoft,
-          4PS by Hilti, Implema, Fellowmind, Niedall, Sherpas, Yellow Solution, THINKNINE.
-        </p>
-
-        <h2>2. Svensk lokalisering &amp; moms</h2>
-        <p>
-          För många bolag räcker BC:s standardfunktionalitet långt. När den inte gör det är de vanligaste tilläggen
-          <strong> Swebase</strong> (Update AB) och <strong>Smart Swedish VAT</strong> från SmartApps/NAB Solutions.
-          SmartApps har även bredare BC-tillägg som Eagle, Spider, Parrot och StoryPoint med svenskt/nordiskt stöd.
-        </p>
-        <p>
-          <strong>Huvudpartners:</strong> Update (Swebase), NAB Solutions (Smart Swedish VAT/SmartApps). Övriga
-          BC-partners kan ofta leverera när de samarbetar med någon av dessa ISV:er.
-        </p>
-
-        <h2>3. WMS, lager &amp; handdatorer</h2>
-        <p>
-          <strong>Tasklet Mobile WMS</strong> (Tasklet Factory) är den etablerade WMS-lösningen för BC/NAV med ett brett
-          partnernät. För handels- och lagerbolag med extern 3PL är även <strong>Ongoing WMS</strong> via Golden EDI:s
-          connector ett vanligt val.
-        </p>
-        <p>
-          <strong>BC-partners offentligt listade av Tasklet (urval):</strong> Adbriq, Aderian Navet, Azets Sweden,
-          Basecloud, Bedege, Bisqo, COSMO CONSULT Sweden, THINKNINE, TietoEVRY Sweden, Update, twoday.
-        </p>
-
-        <h2>4. EDI &amp; e-faktura</h2>
-        <p>
-          De vanligaste valen är <strong>Golden EDI</strong> (Business Central Hub, Ongoing WMS Connector),
-          <strong> TrueCommerce EDI</strong> for Business Central, <strong>Peppol720</strong> (ON720.COM) och
-          <strong> Continia e-dokument</strong>. Golden EDI och Peppol720 stödjer svensk marknad direkt; TrueCommerce
-          ingår i EU-erbjudandet och partner verifieras per land.
-        </p>
-
-        <h2>5. Frakt, transport &amp; TA</h2>
-        <p>
-          Flera alternativ finns och valet styrs ofta av transportörer (PostNord, DHL, Bring, DB Schenker), etiketter,
-          fraktbokning och returflöden. De mest sedda i svenska BC-affärer är <strong>nShift</strong>,
-          <strong> Shipmondo</strong>, <strong>Sendcloud</strong> och <strong>Cargoson</strong>.
-        </p>
-        <p>
-          <strong>BC-partners offentligt kopplade (urval):</strong> BrightCom/Exsitec (nShift), Abakion (Shipmondo),
-          IDYN och N.Vision (Sendcloud-varianter), Cargoson.
-        </p>
-
-        <h2>6. E-handel B2B/B2C</h2>
-        <p>
-          <strong>Sana Commerce Cloud for Business Central</strong> är förstaval när e-handeln ska ligga nära BC-data:
-          produkter, lager, priser, kunder och order. För lättare behov finns connector-alternativ till befintliga
-          e-handelsplattformar (Shopify, Magento m.fl.).
-        </p>
-        <p>
-          <strong>Partner offentligt listad av Sana (exempel):</strong> Update (svensk produktsida).
-        </p>
-
-        <h2>7. Retail, POS &amp; hospitality</h2>
-        <p>
-          <strong>LS Central</strong> (LS Retail) är den tunga retail-/POS-lösningen på BC-plattformen, med relevant
-          fiskalisering för svenska förhållanden.
-        </p>
-        <p>
-          <strong>BC-partners offentligt kopplade till LS Central (urval):</strong> Azets, Unikal / Active,
-          RTS Business Solutions.
-        </p>
-
-        <h2>8. Branschpaket (livsmedel, mode, tillverkning)</h2>
-        <p>
-          Beroende på industri är de vanligaste branschpaketen ovanpå BC:
-        </p>
-        <ul>
-          <li>
-            <strong>Aptean Food &amp; Beverage / Process Manufacturing</strong> — livsmedel, recept, batch, spårbarhet,
-            bäst-före. BC-partners offentligt kopplade: Softronic, Fellowmind.
-          </li>
-          <li>
-            <strong>TRIMIT Fashion</strong> — mode, kollektioner, storlek/färg/variant, PDM, säsongsstyrning.
-            BC-partner offentligt kopplad: Adbriq.
-          </li>
-          <li>
-            <strong>COSMO Project / Process / Discrete Manufacturing</strong> (COSMO CONSULT) — avancerad tillverkning,
-            projektproduktion och processflöden. BC-partner: COSMO CONSULT Sweden.
-          </li>
-        </ul>
-
-        <h2>9. Dokument, rapportlayout &amp; output management</h2>
-        <p>
-          För bolag med stora volymer kunddokument, fakturor, följesedlar, etiketter och dokumentdesign är de vanligaste
-          valen <strong>Lasernet for Business Central</strong> (Formpipe / Lasernet Group) och
-          <strong> Continia Document Output</strong>.
-        </p>
-        <p>
-          <strong>BC-partners offentligt kopplade till Lasernet (urval):</strong> BE-terna, Nexer, Tabellae.
-        </p>
-
-        <h2>10. Rapportering, budget &amp; FP&amp;A</h2>
-        <p>
-          Vanliga komplement till BC:s standardrapportering är <strong>Jet Reports / insightsoftware</strong>,
-          <strong> Bizview</strong> och <strong>Solver</strong> för Excel-rapportering, finansiell rapportering, budget
-          och prognos. För modernare datadrivna spår är <strong>Power BI</strong> och <strong>Microsoft Fabric</strong>
-          ofta förstaval, med eller utan dedikerat FP&amp;A-verktyg ovanpå.
-        </p>
+        <h2>De 10 tilläggskategorierna</h2>
+        <ol className="space-y-3">
+          <li><Link to="/kunskapscenter/business-central/tillagg-fakturahantering/" className="text-primary underline hover:text-primary/80 font-semibold">1. Fakturahantering &amp; AP Automation</Link> — Continia, SignUp ExFlow.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-svensk-lokalisering/" className="text-primary underline hover:text-primary/80 font-semibold">2. Svensk lokalisering &amp; moms</Link> — Swebase, Smart Swedish VAT.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-wms-lager/" className="text-primary underline hover:text-primary/80 font-semibold">3. WMS, lager &amp; handdatorer</Link> — Tasklet, Ongoing WMS.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-edi-efaktura/" className="text-primary underline hover:text-primary/80 font-semibold">4. EDI &amp; e-faktura</Link> — Golden EDI, TrueCommerce, Peppol720, Continia e-dokument.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-frakt-ta/" className="text-primary underline hover:text-primary/80 font-semibold">5. Frakt, transport &amp; TA</Link> — nShift, Shipmondo, Sendcloud, Cargoson.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-ehandel/" className="text-primary underline hover:text-primary/80 font-semibold">6. E-handel B2B/B2C</Link> — Sana Commerce och connector-alternativ.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-retail-pos/" className="text-primary underline hover:text-primary/80 font-semibold">7. Retail, POS &amp; hospitality</Link> — LS Central.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-branschpaket/" className="text-primary underline hover:text-primary/80 font-semibold">8. Branschpaket</Link> — Aptean, TRIMIT, COSMO.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-dokument-output/" className="text-primary underline hover:text-primary/80 font-semibold">9. Dokument &amp; output management</Link> — Lasernet, Continia Document Output.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-rapportering-budget/" className="text-primary underline hover:text-primary/80 font-semibold">10. Rapportering, budget &amp; FP&amp;A</Link> — Jet/insightsoftware, Bizview, Solver, Power BI/Fabric.</li>
+        </ol>
 
         <h2>Hur vi tolkar "offentligt listad" vs "auktoriserad"</h2>
         <p>
           På d365.se undviker vi att skriva att en partner är "auktoriserad för produkten" om det inte går att verifiera
-          i ISV:ns partnerkatalog eller via ett skriftligt partnerintyg. Det vi visar här är partners som är
-          <strong> offentligt listade av ISV:n</strong> som partner — vilket inte alltid är samma sak som certifierad,
-          auktoriserad eller exklusiv återförsäljare. Inför en affär bör nivå, certifiering och svensk lokalisering
-          alltid verifieras direkt mot ISV:n och partnern.
+          i ISV:ns partnerkatalog eller via ett skriftligt partnerintyg. Det vi visar är partners som är
+          <strong> offentligt listade av ISV:n</strong> — vilket inte alltid är samma sak som certifierad, auktoriserad
+          eller exklusiv återförsäljare.
         </p>
 
         <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
@@ -769,6 +667,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
       </>
     ),
   },
+  ...BC_TILLAGG_ARTICLES,
 ];
 
 import { FSC_ARTICLES } from "./fscArticles";
