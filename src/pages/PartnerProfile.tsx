@@ -476,10 +476,23 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  </div>
  
  {/* Description */}
- <div className="max-w-3xl mb-4">
- <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-light">
- {partner.description}
- </p>
+                <div className="max-w-[68ch] mb-4">
+                  <div className="text-base sm:text-lg text-slate-600 leading-[1.8] font-light space-y-4">
+                    {(() => {
+                      const chunks = (partner.description || "")
+                        .split(/\n+/)
+                        .flatMap((block) => {
+                          const sentences = block.match(/[^.!?]+[.!?]+(\s|$)/g) || [block];
+                          const paras: string[] = [];
+                          for (let i = 0; i < sentences.length; i += 2) {
+                            paras.push(sentences.slice(i, i + 2).join("").trim());
+                          }
+                          return paras.filter(Boolean);
+                        });
+                      return chunks.map((para, i) => <p key={i}>{para}</p>);
+                    })()}
+                  </div>
+
  {(partner as any).description_ai_generated && (
  <TooltipProvider>
  <Tooltip>
