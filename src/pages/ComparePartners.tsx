@@ -300,11 +300,41 @@ const ComparePartners = () => {
     };
   };
 
+  const industryFilter = params.get("industry") || "";
+  const productFilter = params.get("product") || "";
+
+  const setFilter = (key: "industry" | "product", val: string) => {
+    const next = new URLSearchParams(params);
+    if (val && val !== "__all__") next.set(key, val);
+    else next.delete(key);
+    setParams(next, { replace: true });
+  };
+
   const A = get(a);
   const B = get(b);
   const hasBoth = !!a && !!b;
   const aName = a?.name;
   const bName = b?.name;
+
+  const industryOptions = Array.from(new Set([...A.industries, ...B.industries])).sort((x, y) =>
+    x.localeCompare(y, "sv")
+  );
+  const productOptions = sortApps([...A.apps, ...B.apps]);
+
+  const applyFilters = (data: ReturnType<typeof get>) => ({
+    ...data,
+    apps: productFilter ? data.apps.filter((x) => x === productFilter) : data.apps,
+    industries: industryFilter ? data.industries.filter((x) => x === industryFilter) : data.industries,
+    industryApps: data.industryApps.filter(
+      (ia) =>
+        (!productFilter || ia.application === productFilter) &&
+        (!industryFilter || ia.industry === industryFilter)
+    ),
+  });
+
+  const AF = applyFilters(A);
+  const BF = applyFilters(B);
+
   const R = (props: { label: string; a: React.ReactNode; b: React.ReactNode; warn?: boolean; help?: string }) => (
     <Row {...props} aName={aName} bName={bName} />
   );
