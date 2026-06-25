@@ -122,7 +122,7 @@ const Upphandlingsguiden = () => {
  <Navbar />
  <main className="min-h-screen bg-background pt-16 lg:pt-28">
  {/* Hero */}
- <section className="relative overflow-hidden bg-gradient-to-br from-[hsl(195_45%_10%)] via-[hsl(190_40%_14%)] to-[hsl(20_55%_18%)]">
+ <section className="relative overflow-hidden bg-[hsl(var(--hero-dark))] border-b border-[hsl(var(--line-dark))]">
  <div className="absolute -top-32 -right-32 w-[28rem] h-[28rem] rounded bg-[hsl(var(--cta-orange))]/25 pointer-events-none" />
  <div className="absolute -bottom-32 -left-20 w-[24rem] h-[24rem] rounded bg-primary/25 pointer-events-none" />
  <div
@@ -209,8 +209,8 @@ const Upphandlingsguiden = () => {
  key={step.num}
  className={`group relative overflow-hidden rounded border p-6 sm:p-8 ${
  isPrimary
- ? "bg-gradient-to-br from-[hsl(195_45%_10%)] via-[hsl(190_40%_14%)] to-[hsl(20_55%_18%)] border-[hsl(var(--cta-orange))]/30"
- : "bg-gradient-to-br from-white via-[hsl(40_30%_98%)] to-[hsl(180_25%_95%)] border-border"
+ ? "bg-[hsl(var(--hero-dark))] border-[hsl(var(--line-dark))]"
+ : "bg-card border-border"
  }`}
  >
  {isPrimary ? (
@@ -289,7 +289,7 @@ const Upphandlingsguiden = () => {
  {/* Avslut CTA */}
  <section className="px-4 sm:px-6 py-12 sm:py-16 bg-background">
  <div className="container mx-auto max-w-5xl">
- <div className="relative overflow-hidden rounded bg-gradient-to-br from-[hsl(195_45%_10%)] via-[hsl(190_40%_14%)] to-[hsl(20_55%_18%)] border border-[hsl(var(--cta-orange))]/30 p-8 sm:p-12 text-center">
+ <div className="relative overflow-hidden rounded bg-[hsl(var(--hero-dark))] border border-[hsl(var(--line-dark))] p-8 sm:p-12 text-center">
  <div className="absolute -top-32 -right-32 w-80 h-80 rounded bg-[hsl(var(--cta-orange))]/25 pointer-events-none" />
  <div className="relative">
  <h2 className="text-2xl sm:text-3xl md:text-[34px] font-bold text-white leading-tight tracking-tight mb-4">
