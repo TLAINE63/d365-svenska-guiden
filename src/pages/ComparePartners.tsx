@@ -247,8 +247,6 @@ const ComparePartners = () => {
   const get = (p?: DatabasePartner) => {
     const dp = (p?.delivery_profile || {}) as DeliveryProfile;
     const officeCities = cleanList(p?.office_cities).sort((a, b) => a.localeCompare(b, "sv"));
-    const score = p ? calculateAiScore(p.product_filters) : 0;
-    const aiLevel = getAiLevel(score);
     const perApp = Object.entries(((p as any)?.implementations_per_app || {}) as Record<string, string>)
       .filter(([, v]) => typeof v === "string" && v.trim())
       .map(([app, count]) => ({ app, count: (count as string).trim() }));
