@@ -14,7 +14,7 @@ import { KNOWLEDGE_VIDEOS } from "./knowledgeVideos";
 
 export interface HubResourceCard {
   id: string;
-  type: "fordjupning" | "artikel" | "verktyg" | "video" | "guide";
+  type: "fordjupning" | "artikel" | "verktyg" | "video" | "guide" | "tillagg";
   title: string;
   description: string;
   url: string;
