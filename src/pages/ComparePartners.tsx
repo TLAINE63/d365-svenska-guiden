@@ -485,16 +485,8 @@ const ComparePartners = () => {
                       />
                     </section>
 
-                    {/* När passar vi inte */}
-                    <section className="space-y-3">
-                      <SectionTitle icon={AlertTriangle} title="När passar vi inte" tone="warn" />
-                      <R
-                        label="Partnern säger själv"
-                        a={renderNotAFit(A.notAFit)}
-                        b={renderNotAFit(B.notAFit)}
-                        warn
-                      />
-                    </section>
+
+
 
                     <p className="text-xs text-slate-500 text-center pt-4">
                       Innehåll i beslutsprofilen är skrivet av partnern själv. d365.se redigerar inte.
