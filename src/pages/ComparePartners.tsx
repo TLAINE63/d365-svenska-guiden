@@ -383,14 +383,57 @@ const ComparePartners = () => {
                         b={B.positioning ? <p className="font-medium leading-relaxed">{B.positioning}</p> : EMPTY}
                       />
                       <R
-                        label="Primär app"
-                        a={renderValue(A.primaryApp)}
-                        b={renderValue(B.primaryApp)}
+                        label="Kompetens inom Dynamics 365"
+                        help="Alla Dynamics 365-applikationer partnern arbetar med. ERP-appar listas först, därefter CE/CRM — båda i bokstavsordning."
+                        a={renderList(A.apps)}
+                        b={renderList(B.apps)}
                       />
                       <R
-                        label="Primär bransch"
-                        a={renderValue(A.primaryIndustry)}
-                        b={renderValue(B.primaryIndustry)}
+                        label="Branscher"
+                        a={renderList(A.industries)}
+                        b={renderList(B.industries)}
+                      />
+                      <R
+                        label="Branschapplikationer"
+                        help="Egenutvecklade branschlösningar / vertikala tillägg som partnern erbjuder ovanpå Dynamics 365."
+                        a={
+                          A.industryApps.length > 0 ? (
+                            <ul className="space-y-1.5">
+                              {A.industryApps.map((ia, i) => (
+                                <li key={i} className="text-sm">
+                                  <span className="font-medium">{ia.name}</span>
+                                  {(ia.application || ia.industry) && (
+                                    <span className="text-slate-500">
+                                      {" — "}
+                                      {[ia.application, ia.industry].filter(Boolean).join(" · ")}
+                                    </span>
+                                  )}
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            EMPTY
+                          )
+                        }
+                        b={
+                          B.industryApps.length > 0 ? (
+                            <ul className="space-y-1.5">
+                              {B.industryApps.map((ia, i) => (
+                                <li key={i} className="text-sm">
+                                  <span className="font-medium">{ia.name}</span>
+                                  {(ia.application || ia.industry) && (
+                                    <span className="text-slate-500">
+                                      {" — "}
+                                      {[ia.application, ia.industry].filter(Boolean).join(" · ")}
+                                    </span>
+                                  )}
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            EMPTY
+                          )
+                        }
                       />
                     </section>
 
