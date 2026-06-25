@@ -32,9 +32,6 @@ const DecisionProfile = ({ partner }: Props) => {
   };
 
   const positioning = (p.positioning_statement || "").trim();
-  const delivery: DeliveryProfile = (p.delivery_profile || {}) as DeliveryProfile;
-  const notAFit = cleanList(p.not_a_fit);
-  const roles = cleanList(delivery.roles);
   const implPerApp = Object.entries(p.implementations_per_app || {})
     .filter(([, v]) => typeof v === "string" && v.trim())
     .map(([app, count]) => ({ app, count: count.trim() }));
@@ -43,9 +40,6 @@ const DecisionProfile = ({ partner }: Props) => {
   const primaryApp = (partner.applications || [])[0];
   const primaryIndustry = (partner.industries || [])[0];
   const offices = (partner.office_cities || []).length;
-
-  const score = calculateAiScore(partner.product_filters);
-  const aiLevel = getAiLevel(score);
 
   return (
     <section className="py-6 sm:py-8 bg-gradient-to-b from-background to-slate-50/40">
