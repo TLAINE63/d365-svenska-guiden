@@ -22,6 +22,7 @@ const CRM = lazy(() => import("./pages/CRM"));
 const BusinessCentral = lazy(() => import("./pages/BusinessCentral"));
 const FinanceSupplyChain = lazy(() => import("./pages/FinanceSupplyChain"));
 const FscmMatchningstest = lazy(() => import("./pages/FscmMatchningstest"));
+const BcMatchningstest = lazy(() => import("./pages/BcMatchningstest"));
 const ERPOverview = lazy(() => import("./pages/ERPOverview"));
 const Affarssystem = lazy(() => import("./pages/Affarssystem"));
 
@@ -111,6 +112,8 @@ const AppShell = () => {
           <Route path="/crm" element={<CRM />} />
           <Route path="/businesscentral" element={<BusinessCentral />} />
           <Route path="/business-central" element={<Navigate to="/businesscentral" replace />} />
+          <Route path="/businesscentral/matchningstest" element={<BcMatchningstest />} />
+          <Route path="/business-central/matchningstest" element={<Navigate to="/businesscentral/matchningstest" replace />} />
           <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
           <Route path="/finance-supply-chain-management/matchningstest" element={<FscmMatchningstest />} />
           <Route path="/finance-supply-chain/matchningstest" element={<Navigate to="/finance-supply-chain-management/matchningstest" replace />} />

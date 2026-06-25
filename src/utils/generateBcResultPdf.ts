@@ -1,0 +1,119 @@
+import type { BcAnswers } from "@/data/bcMatchningstest";
+import { CLASS_ORDER_LABEL, type BcClassification } from "@/lib/bcScoringConstants";
+import type { BcResult } from "@/lib/bcScoring";
+
+// Brand colors (consistent with other PDF exports)
+const BRAND_PETROL: [number, number, number] = [14, 124, 134]; // #0E7C86
+const BRAND_DARK: [number, number, number] = [21, 19, 15]; // #15130F
+
+const CLASS_RGB: Record<BcClassification, [number, number, number]> = {
+  essentials: [16, 122, 87],
+  premium: [12, 102, 138],
+  config: [161, 98, 7],
+  isv: [109, 40, 217],
+  outside: [159, 18, 57],
+};
+
+export async function generateBcResultPdf(result: BcResult, _answers: BcAnswers) {
+  const { default: jsPDF } = await import("jspdf");
+  const doc = new jsPDF({ unit: "mm", format: "a4" });
+  const pageW = doc.internal.pageSize.getWidth();
+  const pageH = doc.internal.pageSize.getHeight();
+  const margin = 18;
+  let y = margin;
+
+  // Header bar
+  doc.setFillColor(...BRAND_DARK);
+  doc.rect(0, 0, pageW, 28, "F");
+  doc.setTextColor(255, 255, 255);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(16);
+  doc.text("Business Central – Matchningstest", margin, 14);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.text("d365.se · köparsidig vägledning", margin, 21);
+
+  y = 36;
+  doc.setTextColor(...BRAND_DARK);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(14);
+  const headlineLines = doc.splitTextToSize(result.headline, pageW - 2 * margin);
+  doc.text(headlineLines, margin, y);
+  y += headlineLines.length * 6 + 2;
+
+  if (result.segmentLabel) {
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor(110, 110, 110);
+    doc.text(`Segment: ${result.segmentLabel}`, margin, y);
+    y += 6;
+  }
+
+  doc.setTextColor(...BRAND_DARK);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(11);
+  const bodyLines = doc.splitTextToSize(result.body, pageW - 2 * margin);
+  doc.text(bodyLines, margin, y);
+  y += bodyLines.length * 5.2 + 4;
+
+  // Section header
+  doc.setDrawColor(...BRAND_PETROL);
+  doc.setLineWidth(0.6);
+  doc.line(margin, y, pageW - margin, y);
+  y += 6;
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(12);
+  doc.text("Identifierade behov per kategori", margin, y);
+  y += 6;
+
+  // Sections
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  for (const c of Object.keys(CLASS_ORDER_LABEL) as BcClassification[]) {
+    const items = result.byClassification[c];
+    if (!items?.length) continue;
+
+    if (y > pageH - 40) {
+      doc.addPage();
+      y = margin;
+    }
+
+    doc.setFillColor(...CLASS_RGB[c]);
+    doc.rect(margin, y, 3, 5, "F");
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.setTextColor(...BRAND_DARK);
+    doc.text(CLASS_ORDER_LABEL[c], margin + 6, y + 4);
+    y += 8;
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    for (const s of items) {
+      const txt = s.note ? `• ${s.area} — ${s.note}` : `• ${s.area}`;
+      const lines = doc.splitTextToSize(txt, pageW - 2 * margin - 4);
+      if (y + lines.length * 4.6 > pageH - 20) {
+        doc.addPage();
+        y = margin;
+      }
+      doc.text(lines, margin + 4, y);
+      y += lines.length * 4.6 + 1;
+    }
+    y += 3;
+  }
+
+  // Footer
+  const total = doc.getNumberOfPages();
+  for (let i = 1; i <= total; i++) {
+    doc.setPage(i);
+    doc.setFontSize(8);
+    doc.setTextColor(140, 140, 140);
+    doc.text(
+      `d365.se – Business Central Matchningstest · Sida ${i} av ${total}`,
+      pageW / 2,
+      pageH - 8,
+      { align: "center" },
+    );
+  }
+
+  doc.save(`bc-matchningstest-${new Date().toISOString().slice(0, 10)}.pdf`);
+}
