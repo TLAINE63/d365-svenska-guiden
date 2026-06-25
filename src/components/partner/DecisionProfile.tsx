@@ -18,8 +18,6 @@ interface Props {
 
 const EMPTY = <span className="text-slate-400 italic">Partner har inte fyllt i</span>;
 
-const cleanList = (arr?: string[] | null): string[] =>
-  (arr || []).map((s) => (s || "").trim()).filter(Boolean);
 
 const DecisionProfile = ({ partner }: Props) => {
   const p = partner as DatabasePartner & {
