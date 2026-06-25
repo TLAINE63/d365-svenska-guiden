@@ -25,6 +25,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
+import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 
 
 const TEAM_SIZE_HELP =
@@ -320,9 +321,12 @@ const ComparePartners = () => {
   const aName = a?.name;
   const bName = b?.name;
 
-  const industryOptions = Array.from(new Set([...A.industries, ...B.industries])).sort((x, y) =>
-    x.localeCompare(y, "sv")
-  );
+  const partnerIndustries = Array.from(new Set([...A.industries, ...B.industries]));
+  const industryOptions = (
+    partnerIndustries.length > 0
+      ? partnerIndustries
+      : STANDARD_INDUSTRIES.map((i) => i.name)
+  ).sort((x, y) => x.localeCompare(y, "sv"));
   const productOptions = sortApps([...A.apps, ...B.apps]);
 
   const productActive = productFilters.length > 0;
