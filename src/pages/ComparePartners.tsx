@@ -280,14 +280,7 @@ const ComparePartners = () => {
           .filter(Boolean)
       )
     ).sort((a, b) => a.localeCompare(b, "sv"));
-    const industryApps = (p?.industry_apps || [])
-      .map((ia) => ({
-        name: (ia.name || "").trim(),
-        application: (ia.application || "").trim(),
-        industry: (ia.industry || "").trim(),
-        url: (ia.url || "").trim(),
-      }))
-      .filter((ia) => ia.name);
+    const industryApps = industryAppsRaw;
     return {
       positioning: p?.positioning_statement?.trim() || "",
       apps: sortApps(p?.applications || []),
