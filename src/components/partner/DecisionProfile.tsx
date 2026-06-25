@@ -161,34 +161,6 @@ const DecisionProfile = ({ partner }: Props) => {
             </dl>
           </article>
 
-          {/* 4. När passar vi inte */}
-          <article className="rounded-xl border-2 border-amber-200 bg-amber-50/40 p-5 sm:p-6">
-            <div className="flex items-center gap-2 mb-3 text-xs font-semibold uppercase tracking-wider text-amber-700">
-              <AlertTriangle className="w-4 h-4" />
-              När passar vi inte
-            </div>
-            {notAFit.length > 0 ? (
-              <ul className="space-y-2">
-                {notAFit.map((item, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-slate-800">
-                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-sm">
-                {EMPTY}{" "}
-                <span className="text-slate-500">
-                  – partnern uppmuntras alltid ange situationer där de inte är rätt val.
-                </span>
-              </p>
-            )}
-            <p className="mt-4 text-xs text-slate-500">
-              Partnern definierar själv vilka situationer som inte är en god matchning. d365.se
-              redigerar inte innehållet.
-            </p>
-          </article>
         </div>
       </div>
     </section>
