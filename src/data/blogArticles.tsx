@@ -7,6 +7,7 @@ import releaseWave1Hero from "@/assets/articles/d365-release-wave-1-2026-hero.jp
 import aiSkiftetBuild2026Hero from "@/assets/articles/ai-skiftet-build-2026-hero.jpg";
 import frontierFirmHero from "@/assets/articles/frontier-firm-hero.jpg";
 import copilotCoworkHero from "@/assets/articles/copilot-cowork-hero.jpg";
+import workIqApisHero from "@/assets/articles/work-iq-apis-hero.jpg";
 import detaljhandelImg from "@/assets/industries/detaljhandel.webp";
 import tillverkningImg from "@/assets/industries/tillverkning.webp";
 import livsmedelImg from "@/assets/industries/livsmedel.webp";
@@ -85,6 +86,306 @@ const THOMAS_LAINE: BlogArticleAuthor = {
 };
 
 export const BLOG_ARTICLES: BlogArticle[] = [
+  {
+    slug: "work-iq-apis-dynamics-365",
+    title:
+      "Work IQ APIs: vad Microsoft egentligen bygger – och varför det spelar roll om du investerar i Dynamics 365",
+    metaTitle:
+      "Work IQ APIs och Dynamics 365 – vad AI-First betyder för ditt investeringsbeslut | d365.se",
+    metaDescription:
+      "Microsofts Work IQ APIs markerar ett skifte mot AI-First. Här är vad det betyder för dig som investerar i Dynamics 365 – från agenter och governance till Copilot Credits och partnerval.",
+    summary:
+      "Microsofts Work IQ APIs markerar ett viktigt steg mot AI-First: en arbetsmodell där agenter kan förstå kontext, agera över systemgränser och använda information från både Microsoft 365 och Dynamics 365. För dig som investerar i Dynamics 365 är frågan inte bara vilka funktioner som finns, utan om lösningen utvecklats för människor, agenter och nya sätt att utföra arbete.",
+    category: "AI & Copilot",
+    tags: [
+      "work iq",
+      "ai-agenter",
+      "copilot",
+      "microsoft",
+      "dynamics365",
+      "implementation",
+      "governance",
+      "partnerval",
+    ],
+    products: [
+      "Business Central",
+      "Finance & SCM",
+      "Sales",
+      "Customer Service",
+      "Field Service",
+      "AI/Copilot/Agents",
+    ],
+    publishedAt: "2026-06-25",
+    author: THOMAS_LAINE,
+    heroImage: workIqApisHero,
+    readingTimeMinutes: 9,
+    featured: true,
+    content: (
+      <>
+        <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] italic text-foreground/85 !mb-8">
+          Microsofts Work IQ APIs markerar ett viktigt steg mot AI-First: en
+          arbetsmodell där agenter kan förstå kontext, agera över systemgränser
+          och använda information från både Microsoft 365 och Dynamics 365.
+        </p>
+
+        <p>
+          För dig som investerar i Dynamics 365 är frågan därför inte bara
+          vilka funktioner som finns, utan om lösningen utvecklats för
+          människor, agenter och nya sätt att utföra arbete.
+        </p>
+
+        <h2>Vad är Work IQ?</h2>
+        <p>
+          Work IQ är ett intelligenslager i Microsoft 365 som löpande bygger
+          upp en semantisk förståelse för hur arbetet faktiskt går till i din
+          organisation.
+        </p>
+        <p>Detta lager:</p>
+        <ul>
+          <li>kopplar samman signaler från Microsoft 365</li>
+          <li>skapar sammanhang över system och människor</li>
+          <li>gör kontext tillgänglig för AI-agenter via API</li>
+        </ul>
+
+        <h2>Vad förändras med AI-First?</h2>
+        <p>
+          <strong>Traditionellt:</strong>
+        </p>
+        <ul>
+          <li>användare arbetar i system</li>
+          <li>processer är manuella</li>
+          <li>systemet reagerar på input</li>
+        </ul>
+        <p>
+          <strong>Med Work IQ:</strong>
+        </p>
+        <ul>
+          <li>agenter kan agera i system</li>
+          <li>beslut baseras på kontext från hela organisationen</li>
+          <li>
+            arbete kan utföras med minimal manuell hantering (beroende på
+            governance)
+          </li>
+        </ul>
+        <p>
+          Detta är vad Microsoft menar med AI-First: inte AI som en enskild
+          funktion, utan AI som en ny arbetsmodell.
+        </p>
+
+        <h2>Kopplingen till Dynamics 365</h2>
+        <p>Work IQ gör det möjligt att kombinera:</p>
+        <ul>
+          <li>kunddata från Dynamics 365</li>
+          <li>kommunikation från Outlook</li>
+          <li>samarbete i Teams</li>
+        </ul>
+        <p>
+          <strong>Exempel:</strong> En agent kan läsa kundhistorik i Dynamics
+          365, analysera e-posttrådar, identifiera rätt kontakt internt och
+          driva ett ärende vidare. Detta är infrastrukturen som nu etableras.
+        </p>
+
+        <h2>Vad det innebär för dig som investerar i Dynamics 365</h2>
+        <p>Om du planerar att investera i Dynamics 365 bör du utvärdera:</p>
+        <ul>
+          <li>Om lösningen designas för agenter — inte bara användare</li>
+          <li>Om partnern har kompetens inom Work IQ och Copilot</li>
+          <li>Hur datastyrning och governance hanteras</li>
+          <li>Hur M365 och D365 kopplas samman</li>
+          <li>Hur Copilot Credits påverkar kostnadsbilden</li>
+        </ul>
+
+        <h2>Sammanfattning</h2>
+        <p>
+          <strong>Rekommendation:</strong> Välj en partner som redan tänker i
+          agenter — inte bara i användare.
+        </p>
+
+        <h2>Work IQ vs traditionell Dynamics 365-implementation</h2>
+        <p>
+          Skillnaden mellan Work IQ och traditionell implementation handlar
+          inte om teknik — utan om hur arbete faktiskt utförs.
+        </p>
+
+        <div className="my-6 overflow-x-auto">
+          <table className="w-full text-sm border-collapse">
+            <thead>
+              <tr className="border-b border-border">
+                <th className="text-left p-3 font-semibold">Område</th>
+                <th className="text-left p-3 font-semibold">Traditionellt</th>
+                <th className="text-left p-3 font-semibold">Work IQ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-border/50">
+                <td className="p-3 font-medium">Fokus</td>
+                <td className="p-3">Användaren i systemet</td>
+                <td className="p-3">Agenten i arbetsflödet</td>
+              </tr>
+              <tr className="border-b border-border/50">
+                <td className="p-3 font-medium">Process</td>
+                <td className="p-3">Manuell</td>
+                <td className="p-3">Kontextstyrd</td>
+              </tr>
+              <tr className="border-b border-border/50">
+                <td className="p-3 font-medium">Data</td>
+                <td className="p-3">Dynamics 365</td>
+                <td className="p-3">D365 + M365</td>
+              </tr>
+              <tr className="border-b border-border/50">
+                <td className="p-3 font-medium">AI-roll</td>
+                <td className="p-3">Tillägg</td>
+                <td className="p-3">Inbyggd i flödet</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-medium">Design</td>
+                <td className="p-3">Systemcentrerad</td>
+                <td className="p-3">Agentcentrerad</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Fördjupad jämförelse</h3>
+        <p>
+          <strong>Design:</strong> Traditionellt fokuserar på formulär, vyer
+          och roller. Work IQ fokuserar på flöden, beslut och automation.
+        </p>
+        <p>
+          <strong>Arbete:</strong> Traditionellt söker, analyserar och agerar
+          användaren själv. Med Work IQ kan en agent hämta kontext, analysera
+          och föreslå nästa steg.
+        </p>
+        <p>
+          <strong>Kostnad:</strong> Traditionellt dominerar licens och
+          implementation. Med Work IQ behöver även Copilot Credits och
+          konsumtionsbaserad AI räknas in.
+        </p>
+        <p>
+          <strong>Risk:</strong> Traditionellt handlar risken ofta om låg
+          adoption och komplexa gränssnitt. Med Work IQ flyttas risken mot
+          felaktig automatisering och svag governance.
+        </p>
+        <p>
+          <strong>Nyckelinsikt:</strong> Systemet går från att stödja arbete
+          till att i högre grad kunna utföra arbete.
+        </p>
+
+        <h2>Checklista: Är organisationen redo för Work IQ?</h2>
+        <p>
+          <strong>Så räknar du poängen:</strong> Välj ett svar för varje
+          område. <em>Ja</em> = 0 poäng, <em>Delvis</em> = 1 poäng,{" "}
+          <em>Nej</em> = 2 poäng. Summera poängen för alla åtta områden. Ju
+          lägre totalpoäng, desto bättre beredskap för Work IQ och AI i
+          Dynamics 365.
+        </p>
+
+        <div className="my-6 overflow-x-auto">
+          <table className="w-full text-sm border-collapse">
+            <thead>
+              <tr className="border-b border-border">
+                <th className="text-left p-3 font-semibold">Område</th>
+                <th className="text-left p-3 font-semibold">
+                  Vad ska vara på plats?
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-border/50">
+                <td className="p-3 font-medium">1. Datakvalitet</td>
+                <td className="p-3">
+                  Kunddata, historik och dubletter är under kontroll
+                </td>
+              </tr>
+              <tr className="border-b border-border/50">
+                <td className="p-3 font-medium">2. M365-mognad</td>
+                <td className="p-3">
+                  Outlook, Teams och gemensamma arbetssätt används konsekvent
+                </td>
+              </tr>
+              <tr className="border-b border-border/50">
+                <td className="p-3 font-medium">3. Processmognad</td>
+                <td className="p-3">
+                  Processer, beslutsregler och ansvar är tydliga
+                </td>
+              </tr>
+              <tr className="border-b border-border/50">
+                <td className="p-3 font-medium">4. Governance</td>
+                <td className="p-3">
+                  AI-policy, behörigheter och agentbeteende är styrda
+                </td>
+              </tr>
+              <tr className="border-b border-border/50">
+                <td className="p-3 font-medium">5. Teknik</td>
+                <td className="p-3">
+                  Dynamics 365-miljö och integrationer är stabila
+                </td>
+              </tr>
+              <tr className="border-b border-border/50">
+                <td className="p-3 font-medium">6. Ekonomi</td>
+                <td className="p-3">
+                  Copilot Credits, AI-konsumtion och ROI är medräknade
+                </td>
+              </tr>
+              <tr className="border-b border-border/50">
+                <td className="p-3 font-medium">7. Organisation</td>
+                <td className="p-3">
+                  Ledning och förändringsledning är på plats
+                </td>
+              </tr>
+              <tr>
+                <td className="p-3 font-medium">8. Partner</td>
+                <td className="p-3">
+                  Partnern har AI-kompetens och governance-erfarenhet
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Snabb tolkning</h3>
+        <ul>
+          <li>
+            <strong>0–4 poäng — Relativt redo.</strong> Fortsätt med
+            prioriterade piloter.
+          </li>
+          <li>
+            <strong>5–10 poäng — Delvis redo.</strong> Börja med pilot och
+            åtgärdsplan.
+          </li>
+          <li>
+            <strong>11–16 poäng — Inte redo att skala.</strong> Stärk
+            grundförmågan först.
+          </li>
+        </ul>
+
+        <p>
+          <strong>Slutsats:</strong> De organisationer som lyckas bäst börjar
+          med datakvalitet, processmognad och governance — innan de skalar
+          Dynamics 365 och AI.
+        </p>
+
+        <aside
+          aria-label="Relaterat innehåll"
+          className="mt-12 p-6 rounded border border-border bg-secondary/30"
+        >
+          <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-3">
+            Relaterat innehåll
+          </p>
+          <p className="!my-0 text-sm text-muted-foreground">
+            <a
+              href="/beslutsmognadsindex/"
+              className="text-primary hover:underline"
+            >
+              Beslutsmognadsindex på d365.se
+            </a>{" "}
+            — en kostnadsfri självskattning som hjälper er bedöma om data,
+            processer och organisation är redo för AI-agenter i Dynamics 365.
+          </p>
+        </aside>
+      </>
+    ),
+  },
   {
     slug: "copilot-cowork-dynamics-365",
     title:
