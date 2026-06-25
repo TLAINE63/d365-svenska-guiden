@@ -480,8 +480,8 @@ const ComparePartners = () => {
                       />
                       <R
                         label="Geografisk närvaro"
-                        a={renderValue(A.offices)}
-                        b={renderValue(B.offices)}
+                        a={renderList(A.offices)}
+                        b={renderList(B.offices)}
                       />
                     </section>
 
