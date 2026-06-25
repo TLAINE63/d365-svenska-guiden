@@ -186,8 +186,9 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["EDI mot kedjor och leverantörer", "Integration mot Ongoing WMS", "E-faktura"],
     whenFits: "När ni har återkommande EDI-flöden eller vill ha en svensk/nordisk integrationspartner.",
     combos: ["BC + Golden EDI + Ongoing WMS", "BC + Golden EDI + Shopify"],
-    partnersSE: [],
-    partnerSource: "Golden EDI",
+    partnersSE: ["NAB Solutions", "Softronic", "Update Affärssystem"],
+    partnerSource: "Golden EDI / offentliga partnerreferenser",
+
   },
   {
     id: "truecommerce-edi",
