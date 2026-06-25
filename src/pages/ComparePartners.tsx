@@ -491,7 +491,7 @@ const ComparePartners = () => {
                         </SelectContent>
                       </Select>
                     </div>
-                    {(productFilter || industryFilter) && (
+                    {(productActive || industryFilter) && (
                       <button
                         type="button"
                         onClick={() => {
