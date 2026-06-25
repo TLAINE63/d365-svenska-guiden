@@ -201,6 +201,50 @@ const renderNotAFit = (items: string[]) =>
     EMPTY
   );
 
+const splitIntoParagraphs = (text: string): string[] => {
+  return text
+    .split(/\n+/)
+    .flatMap((block) => {
+      const sentences = block.match(/[^.!?]+[.!?]+(\s|$)/g) || [block];
+      const paras: string[] = [];
+      for (let i = 0; i < sentences.length; i += 2) {
+        paras.push(sentences.slice(i, i + 2).join("").trim());
+      }
+      return paras.filter(Boolean);
+    });
+};
+
+const renderPositioningCell = (
+  positioning: string,
+  productDescriptions: { app: string; text: string }[]
+) => {
+  if (!positioning && productDescriptions.length === 0) return EMPTY;
+  return (
+    <div className="space-y-4">
+      {positioning && (
+        <p className="font-medium leading-relaxed text-slate-900">{positioning}</p>
+      )}
+      {productDescriptions.map((pd, idx) => (
+        <div
+          key={idx}
+          className={`space-y-2 ${
+            positioning || idx > 0 ? "pt-3 border-t border-slate-200" : ""
+          }`}
+        >
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+            {pd.app}
+          </p>
+          <div className="space-y-2 text-[14px] leading-[1.7] text-slate-700">
+            {splitIntoParagraphs(pd.text).map((para, i) => (
+              <p key={i}>{para}</p>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 const ComparePartners = () => {
   const [params, setParams] = useSearchParams();
   const aSlug = params.get("a") || "";
@@ -249,6 +293,54 @@ const ComparePartners = () => {
     return [...erp, ...ce];
   };
 
+  const APP_TO_PF_KEY = (app: string): "bc" | "fsc" | "crm" | null => {
+    const a = app.trim();
+    if (a === "Business Central") return "bc";
+    if (
+      a === "Finance" ||
+      a === "Supply Chain Management" ||
+      a === "Finance & Supply Chain Management"
+    )
+      return "fsc";
+    if (
+      a === "Sales" ||
+      a === "Customer Service" ||
+      a === "Field Service" ||
+      a === "Contact Center" ||
+      a === "Customer Insights (Marketing)" ||
+      a === "Marketing"
+    )
+      return "crm";
+    return null;
+  };
+
+  const getProductDescriptions = (
+    p: DatabasePartner | undefined,
+    apps: string[]
+  ): { app: string; text: string }[] => {
+    const pf = (p as any)?.product_filters as
+      | Record<string, { productDescription?: string }>
+      | undefined;
+    if (!pf) return [];
+    const seen = new Set<string>();
+    const out: { app: string; text: string }[] = [];
+    for (const app of apps) {
+      const key = APP_TO_PF_KEY(app);
+      if (!key || seen.has(key)) continue;
+      const text = pf[key]?.productDescription?.trim();
+      if (!text) continue;
+      seen.add(key);
+      const label =
+        key === "bc"
+          ? "Business Central"
+          : key === "fsc"
+          ? "Finance & Supply Chain Management"
+          : "Sales, Service & Marketing (CE/CRM)";
+      out.push({ app: label, text });
+    }
+    return out;
+  };
+
   const get = (p?: DatabasePartner) => {
     const dp = (p?.delivery_profile || {}) as DeliveryProfile;
     const officeCities = cleanList(p?.office_cities).sort((a, b) => a.localeCompare(b, "sv"));
@@ -274,6 +366,7 @@ const ComparePartners = () => {
     ).sort((a, b) => a.localeCompare(b, "sv"));
     const industryApps = industryAppsRaw;
     return {
+      partner: p,
       positioning: p?.positioning_statement?.trim() || "",
       apps: sortApps(p?.applications || []),
       industries: allIndustries,
@@ -519,8 +612,8 @@ const ComparePartners = () => {
                       <SectionTitle icon={Target} title="Positionering" />
                       <R
                         label="Vi är valet när…"
-                        a={A.positioning ? <p className="font-medium leading-relaxed">{A.positioning}</p> : EMPTY}
-                        b={B.positioning ? <p className="font-medium leading-relaxed">{B.positioning}</p> : EMPTY}
+                        a={renderPositioningCell(A.positioning, getProductDescriptions(a, AF.apps))}
+                        b={renderPositioningCell(B.positioning, getProductDescriptions(b, BF.apps))}
                       />
                       <R
                         label="Kompetens inom Dynamics 365"
