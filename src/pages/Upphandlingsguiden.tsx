@@ -209,8 +209,8 @@ const Upphandlingsguiden = () => {
  key={step.num}
  className={`group relative overflow-hidden rounded border p-6 sm:p-8 ${
  isPrimary
- ? "bg-gradient-to-br from-[hsl(195_45%_10%)] via-[hsl(190_40%_14%)] to-[hsl(20_55%_18%)] border-[hsl(var(--cta-orange))]/30"
- : "bg-gradient-to-br from-white via-[hsl(40_30%_98%)] to-[hsl(180_25%_95%)] border-border"
+ ? "bg-[hsl(var(--hero-dark))] border-[hsl(var(--line-dark))]"
+ : "bg-card border-border"
  }`}
  >
  {isPrimary ? (
