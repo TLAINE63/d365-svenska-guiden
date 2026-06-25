@@ -535,23 +535,6 @@ const ComparePartners = () => {
                       />
                     </section>
 
-                    {/* Leveransbild */}
-                    <section className="space-y-3">
-                      <SectionTitle icon={Package} title="Leveransbild" />
-                      <R label="Roller partnern bemannar" a={renderList(A.roles)} b={renderList(B.roles)} />
-                      <R
-                        label="Uppdragsform"
-                        help={ENGAGEMENT_HELP}
-                        a={renderValue(A.engagement)}
-                        b={renderValue(B.engagement)}
-                      />
-                      <R
-                        label="Projektmetodik"
-                        help={METHODOLOGY_HELP}
-                        a={renderValue(A.methodology)}
-                        b={renderValue(B.methodology)}
-                      />
-                    </section>
 
                     {/* Snabbfakta */}
                     <section className="space-y-3">
