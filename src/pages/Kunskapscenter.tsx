@@ -175,6 +175,16 @@ const STATIC_TOOLS: Array<{
  products: ["AI/Copilot/Agents", "Business Central", "Sales", "Customer Service"],
  },
  {
+ id: "tool-bc-matchningstest",
+ title: "Business Central matchningstest",
+ description: "Sex frågor med branschspecifik fördjupning. Få en bedömning om Business Central matchar era behov — och var ni eventuellt behöver ISV-tillägg eller annan plattform.",
+ type: "behovsanalys",
+ url: "/businesscentral/matchningstest",
+ image_url: behovsErpImage,
+ icon: Wrench,
+ products: ["Business Central"],
+ },
+ {
  id: "tool-branschjamforelse",
  title: "Branschjämförelse: BC vs Finance & SCM",
  description: "Jämför Business Central och Finance & Supply Chain Management utifrån bransch, storlek och geografi.",

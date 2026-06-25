@@ -105,6 +105,14 @@ const tools = {
     url: "/ERPbehovsanalys/",
     category: "Behovsanalys",
   },
+  bcMatchningstest: {
+    id: "tool-bc-matchningstest",
+    type: "verktyg" as const,
+    title: "Business Central matchningstest",
+    description: "Sex frågor med branschspecifik fördjupning. Få en bedömning om Business Central matchar era behov — och var ni eventuellt behöver ISV-tillägg eller annan plattform.",
+    url: "/businesscentral/matchningstest/",
+    category: "Behovsanalys",
+  },
   behovsanalysCrm: {
     id: "tool-behovsanalys-crm",
     type: "verktyg" as const,
@@ -250,6 +258,7 @@ export const KNOWLEDGE_HUBS: KnowledgeHubConfig[] = [
     breadcrumbLabel: "Business Central",
     resources: [
       tools.behovsanalysErp,
+      tools.bcMatchningstest,
       tools.kravspecErp,
       tools.branschjamforelse,
       ...deepDiveBySlug(["businesscentral"]),
