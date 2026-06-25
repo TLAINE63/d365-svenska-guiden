@@ -3361,13 +3361,15 @@ const SalesMarketingNeedsAnalysis = () => {
  </div>
 
  {/* Kontaktformulär */}
- <div className="border-t border-border pt-6 mt-2 print:hidden">
- <div className="border rounded p-5 bg-background space-y-4">
- <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
- <Download className="w-5 h-5 text-crm" />
+ <div className="border border-[hsl(var(--line-dark))] rounded overflow-hidden print:hidden">
+ <div className="bg-[hsl(var(--hero-dark))] px-5 py-4 text-white">
+ <h3 className="font-bold text-white flex items-center gap-2 text-base">
+ <Download className="w-5 h-5 text-[hsl(var(--cta-orange))]" />
  Ladda ned din fullständiga Sälj & Marknad-analys
  </h3>
- <p className="text-sm text-muted-foreground">Fyll i kontaktuppgifter för att ladda ned en PDF med din analys och alla svar.</p>
+ <p className="text-sm text-white/75 mt-1">Fyll i kontaktuppgifter för att ladda ned en PDF med din analys och alla svar.</p>
+ </div>
+ <div className="p-5 bg-background space-y-4">
  {isComplete ? (
  <div className="flex items-center gap-3 p-4 rounded-lg border border-green-200 bg-green-50 dark:bg-green-950/30 dark:border-green-800">
  <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0" />
