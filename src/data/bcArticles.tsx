@@ -606,6 +606,176 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
       </>
     ),
   },
+  {
+    slug: "isv-tillaggsapplikationer",
+    headerLabel: "BC – ISV & tillägg",
+    title: "Tilläggsapplikationer (ISV) för Business Central på svenska marknaden",
+    description:
+      "En översikt av de mest etablerade ISV-tilläggen för Business Central i Sverige — och vilka BC-partners som syns offentligt som auktoriserade återförsäljare.",
+    product: "Business Central",
+    productSlug: "businesscentral",
+    parentPath: "/businesscentral/",
+    parentLabel: "Affärssystem (ERP) – Business Central",
+    content: (
+      <>
+        <p>
+          <strong>Business Centrals styrka ligger i kombinationen av kärnsystem och tillägg.</strong> En stor del av den
+          funktionalitet som svenska bolag behöver — fakturahantering, svensk moms, WMS, EDI, e-handel, frakt,
+          rapportering och branschlösningar — levereras av specialiserade ISV-leverantörer (Independent Software Vendors)
+          ovanpå BC. Nedan listas de mest etablerade tilläggen för den svenska marknaden, tillsammans med svenska/nordiska
+          BC-partners som enligt respektive ISV är auktoriserade återförsäljare eller har offentligt synlig koppling.
+        </p>
+        <p className="text-sm text-muted-foreground italic">
+          Listan är översiktlig och bygger på publika partnerkataloger hos respektive ISV. Verifiera alltid aktuell
+          partnerstatus, version och svensk lokalisering direkt med ISV:n och er BC-partner inför en affär.
+        </p>
+
+        <h2>Leverantörsfakturor & AP Automation</h2>
+        <h3>Continia (Document Capture, Expense, Document Output, Banking/Payment, Collection, Finance, OPplus)</h3>
+        <p>
+          En av de mest etablerade tilläggssviterna för BC/NAV i Norden. Continia har egen partnerkatalog med filter för
+          Sverige och anger att certifierade Continia-partners också är officiella Business Central-partners.
+        </p>
+        <p>
+          <strong>Svenska/nordiska partners (exempel):</strong> Evidi/NaviPro, NAB Solutions, JMA, Flank Speed,
+          dizparc Värnamo ERP, Navet/Aderian, Update.
+        </p>
+
+        <h3>SignUp Software (ExFlow AP Automation, Data Capture, Travel &amp; Expense, E-invoicing)</h3>
+        <p>
+          Svensk ISV med stark BC- och F&amp;O-närvaro. ExFlow är byggt inuti Business Central och hanterar
+          fakturaflödet direkt i BC.
+        </p>
+        <p>
+          <strong>Partners (exempel):</strong> NAB Solutions, Mibusoft, 4PS by Hilti, Implema, Fellowmind, Niedall,
+          Sherpas, Yellow Solution, THINKNINE.
+        </p>
+
+        <h2>Svensk lokalisering &amp; ekonomi</h2>
+        <h3>SmartApps / NAB Solutions (Smart Swedish VAT, Eagle, Spider, Parrot, StoryPoint)</h3>
+        <p>
+          NAB Solutions är huvudutgivare. Smart Swedish VAT är specifikt för svensk momsrapportering; Eagle, Spider
+          och Parrot är bredare BC-tillägg med svenskt/nordiskt stöd. Övriga BC-partners kan ofta leverera om de
+          arbetar med NAB/SmartApps.
+        </p>
+
+        <h3>Swebase (Update AB)</h3>
+        <p>
+          Svensk BC/NAV-extension för svenska marknadens krav och praktiska ekonomifunktioner. Huvudpartner: Update.
+        </p>
+
+        <h2>Dokument, rapportlayout &amp; output management</h2>
+        <h3>Lasernet for Business Central (Formpipe / Lasernet Group)</h3>
+        <p>
+          Relevant för bolag med stora volymer kunddokument, fakturor, följesedlar, etiketter och dokumentdesign.
+        </p>
+        <p><strong>Partners (exempel):</strong> BE-terna, Nexer, Tabellae.</p>
+
+        <h2>WMS, lager &amp; handdatorer</h2>
+        <h3>Tasklet Mobile WMS (Tasklet Factory)</h3>
+        <p>
+          Etablerad WMS-lösning för BC/NAV med globalt partnernät i 40+ länder.
+        </p>
+        <p>
+          <strong>Partners (exempel):</strong> Adbriq, Aderian Navet, Azets Sweden, Basecloud, Bedege, Bisqo,
+          COSMO CONSULT Sweden, THINKNINE, TietoEVRY Sweden, Update, twoday.
+        </p>
+
+        <h2>EDI, e-faktura &amp; integrationshubbar</h2>
+        <h3>Golden EDI (Business Central Hub, Ongoing WMS Connector)</h3>
+        <p>
+          Svensk/nordisk lösning för EDI, e-faktura och integrationer. Ongoing WMS Connector är relevant för
+          handels- och lagerbolag med extern 3PL/WMS. Levereras direkt av Golden EDI eller via BC-partners.
+        </p>
+
+        <h3>TrueCommerce EDI for Business Central</h3>
+        <p>
+          Relevant för bolag med större handelsflöden, EDI-meddelanden och trading partners. Sverige ingår i
+          EU-erbjudandet; partner verifieras per land.
+        </p>
+
+        <h3>Peppol720 (ON720.COM)</h3>
+        <p>
+          AppSource-produkt för att skicka och ta emot elektroniska dokument via Peppol med Sverige som stödd
+          marknad. Direkt- eller partnerkanal verifieras per affär.
+        </p>
+
+        <h2>Frakt, transport &amp; TA</h2>
+        <h3>nShift-integrationer, Shipping Central, Shipmondo Connector, Sendcloud/ShipIT 365, Cargoson</h3>
+        <p>
+          Flera alternativ finns. Valet bör styras av transportörer (PostNord, DHL, Bring, DB Schenker),
+          etikettlösningar, fraktbokning och returflöden.
+        </p>
+        <p>
+          <strong>Partners (exempel):</strong> BrightCom/Exsitec (nShift), Abakion (Shipmondo), IDYN och N.Vision
+          (Sendcloud-varianter), Cargoson.
+        </p>
+
+        <h2>E-handel B2B/B2C</h2>
+        <h3>Sana Commerce Cloud for Business Central</h3>
+        <p>
+          Stark kandidat när e-handeln ska ligga nära BC-data: produkter, lager, priser, kunder och order. Sanas
+          AppSource-erbjudande stödjer Sverige.
+        </p>
+        <p><strong>Partner (exempel):</strong> Update (svensk produktsida).</p>
+
+        <h2>Retail, POS &amp; hospitality</h2>
+        <h3>LS Central (LS Retail)</h3>
+        <p>
+          Den tunga retail-/POS-lösningen på BC-plattformen, med stöd för länder där BC finns och relevant
+          fiskalisering för svenska förhållanden.
+        </p>
+        <p><strong>Partners (exempel):</strong> Azets, Unikal / Active, RTS Business Solutions.</p>
+
+        <h2>Bransch: livsmedel &amp; processindustri</h2>
+        <h3>Aptean Food &amp; Beverage ERP / Process Manufacturing</h3>
+        <p>
+          Bra spår för livsmedel, recept, batch, spårbarhet, kvalitet, bäst-före och processflöden ovanpå BC.
+        </p>
+        <p><strong>Partners (exempel):</strong> Softronic, Fellowmind.</p>
+
+        <h2>Bransch: mode &amp; fashion</h2>
+        <h3>TRIMIT Fashion</h3>
+        <p>
+          Relevant för mode, kollektioner, storlek/färg/variant, PDM och säsongsstyrning.
+        </p>
+        <p><strong>Partner (exempel):</strong> Adbriq (svensk produktsida och case med TRIMIT och BC).</p>
+
+        <h2>Tillverkning, projekt &amp; process</h2>
+        <h3>COSMO Project Manufacturing, Process Manufacturing, Discrete Manufacturing (COSMO CONSULT)</h3>
+        <p>
+          Branschpaket ovanpå BC för mer avancerad tillverkning, projektproduktion och processflöden.
+        </p>
+        <p><strong>Partner:</strong> COSMO CONSULT Sweden.</p>
+
+        <h2>Rapportering, Excel-rapportering &amp; budget</h2>
+        <h3>insightsoftware (Jet Reports, Bizview)</h3>
+        <p>
+          Relevant när kunden vill ha bättre Excel-rapportering, finansiell rapportering, budget/prognos och
+          management reporting ovanpå BC. Bizview visas som stödd för Sverige.
+        </p>
+
+        <h3>Solver for Business Central (xFP&amp;A, budget &amp; prognos)</h3>
+        <p>
+          Levereras av Solver tillsammans med Solver-partners och BC-partners. Verifiera svensk partnerstatus
+          per affär.
+        </p>
+
+        <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
+          <h3 className="text-xl font-bold text-foreground mb-2">Behöver ni hjälp att välja rätt tilläggsapplikationer?</h3>
+          <p className="text-muted-foreground mb-4">
+            Många BC-partners är specialiserade på vissa ISV-lösningar. Vi hjälper er hitta partners som matchar er
+            kombination av bransch, processer och tilläggsbehov.
+          </p>
+          <p>
+            <Link to="/valjdynamics365partner/" className="font-semibold text-primary hover:underline">
+              Hitta Business Central-partners → d365.se/valjdynamics365partner
+            </Link>
+          </p>
+        </div>
+      </>
+    ),
+  },
 ];
 
 import { FSC_ARTICLES } from "./fscArticles";
