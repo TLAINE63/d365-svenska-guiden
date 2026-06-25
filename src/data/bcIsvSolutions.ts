@@ -17,7 +17,8 @@ export type SolutionCategory =
   | "PIM"
   | "Integration / iPaaS"
   | "Projekt"
-  | "Planering & produktion";
+  | "Planering & produktion"
+  | "CPQ";
 export type SolutionTier = "Tier 1" | "Tier 2" | "Vertikal";
 export type SolutionIndustry =
   | "Generell"
@@ -838,6 +839,52 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     partnersSE: [],
     partnerSource: "Netronic",
   },
+  {
+    id: "tacton",
+    name: "Tacton CPQ",
+    vendor: "Tacton Systems",
+    shortDescription: "Svensk CPQ-plattform för komplex produktkonfigurering, prissättning och offerter.",
+    type: "External system",
+    category: "CPQ",
+    tier: "Tier 1",
+    tags: ["CPQ", "Produktkonfigurator", "Offert", "Svensk ISV"],
+    industries: ["Manufacturing"],
+    geo: ["Sverige", "Norden", "Global"],
+    what: "Tacton är en svenskutvecklad CPQ-plattform med stark constraint-baserad konfigurator. Integreras mot BC, F&SCM, Sales och CAD-system.",
+    useCases: [
+      "Konfigurering av komplexa, varianttunga produkter",
+      "Regelstyrd prissättning och offert",
+      "Visuell 3D-konfigurator mot kund och säljare",
+      "Generering av BOM och produktionsunderlag till BC/F&SCM",
+    ],
+    whenFits: "Tillverkare med högt antal produktvarianter, constraint-baserade regelverk och behov av visuell konfigurering mot slutkund.",
+    combos: ["BC + Tacton", "F&SCM + Tacton", "Sales + Tacton + CAD"],
+    partnersSE: [],
+    partnerSource: "Tacton",
+  },
+  {
+    id: "experlogix",
+    name: "Experlogix CPQ",
+    vendor: "Experlogix",
+    shortDescription: "CPQ med djup native-integration mot Dynamics 365 (BC, F&SCM och Sales).",
+    type: "BC-native (ISV)",
+    category: "CPQ",
+    tier: "Tier 1",
+    tags: ["CPQ", "Produktkonfigurator", "Dynamics 365", "Offert"],
+    industries: ["Manufacturing", "Services"],
+    geo: ["Sverige", "Norden", "Global"],
+    what: "Experlogix CPQ är byggt för Dynamics-stacken och integrerar djupt mot BC, F&SCM och Sales för konfigurering, prissättning och offert.",
+    useCases: [
+      "Konfigurering av produkter och tjänster i offert- och orderflöden",
+      "Regelstyrd prissättning och rabatthantering",
+      "Automatisk generering av order, BOM och rutter i BC/F&SCM",
+      "Säljstöd i Sales med guidad konfigurering",
+    ],
+    whenFits: "Bolag som redan kör Dynamics 365 och vill ha CPQ som ligger nära plattformen utan tung integration.",
+    combos: ["BC + Experlogix", "F&SCM + Experlogix", "Sales + Experlogix"],
+    partnersSE: [],
+    partnerSource: "Experlogix",
+  },
 ];
 
 export const CATEGORIES: SolutionCategory[] = [
@@ -855,6 +902,7 @@ export const CATEGORIES: SolutionCategory[] = [
   "Integration / iPaaS",
   "Projekt",
   "Planering & produktion",
+  "CPQ",
 ];
 
 export const TYPES: SolutionType[] = ["BC-native (ISV)", "External system", "Integration layer"];

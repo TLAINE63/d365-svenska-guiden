@@ -128,6 +128,15 @@ export const ISV_COMPARISONS: IsvComparison[] = [
     category: "Rapportering / FP&A",
     parentArticleSlug: "tillagg-rapportering-budget",
   },
+  {
+    slug: "tacton-vs-experlogix",
+    title: "Tacton vs Experlogix",
+    intro:
+      "Två ledande CPQ-plattformar för Dynamics 365. Tacton har en stark constraint-baserad konfigurator och 3D-visualisering, ofta valt vid mycket komplex varianttillverkning. Experlogix är byggt nära Dynamics-stacken och integrerar djupt mot BC, F&SCM och Sales.",
+    solutionIds: ["tacton", "experlogix"],
+    category: "CPQ",
+    parentArticleSlug: "tillagg-cpq",
+  },
 ];
 
 export const getComparisonBySlug = (slug: string) =>
