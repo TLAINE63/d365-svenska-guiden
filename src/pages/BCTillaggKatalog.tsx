@@ -240,7 +240,7 @@ const BCTillaggKatalog = () => {
       <SEOHead
         title="Katalog: Tilläggsapplikationer för Business Central (ISV)"
         description="Interaktiv katalog över ISV-lösningar för Microsoft Dynamics 365 Business Central — AP automation, WMS, EDI, retail, e-handel, branschpaket m.m. Filtrera på kategori, typ, bransch och geografi."
-        canonicalUrl="/kunskapscenter/business-central-tillagg/katalog/"
+        canonicalPath="/kunskapscenter/business-central-tillagg/katalog/"
       />
       <Navbar />
 
