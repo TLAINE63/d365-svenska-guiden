@@ -102,57 +102,6 @@ const DecisionProfile = ({ partner }: Props) => {
             </div>
           </article>
 
-          {/* 2. Leveransbild */}
-          <article className="rounded-xl border border-slate-200 bg-white p-5 sm:p-6">
-            <div className="flex items-center gap-2 mb-4 text-xs font-semibold uppercase tracking-wider text-slate-500">
-              <Package className="w-4 h-4 text-[hsl(var(--cta-orange))]" />
-              Leveransbild
-            </div>
-            <div className="grid sm:grid-cols-2 gap-4 text-sm">
-              <div>
-                <div className="text-xs font-semibold text-slate-500 mb-1.5 flex items-center gap-1.5">
-                  <Users className="w-3.5 h-3.5" /> Roller partnern bemannar
-                </div>
-                {roles.length > 0 ? (
-                  <div className="flex flex-wrap gap-1.5">
-                    {roles.map((r, i) => (
-                      <span key={i} className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs">
-                        {r}
-                      </span>
-                    ))}
-                  </div>
-                ) : EMPTY}
-              </div>
-              <div>
-                <div className="text-xs font-semibold text-slate-500 mb-1.5 flex items-center gap-1.5">
-                  <Briefcase className="w-3.5 h-3.5" /> Uppdragsform
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <button type="button" className="inline-flex" aria-label="Vad är Uppdragsform?">
-                        <Info className="w-3.5 h-3.5 text-slate-400 hover:text-slate-600" />
-                      </button>
-                    </TooltipTrigger>
-                    <TooltipContent className="max-w-sm text-xs leading-relaxed">{ENGAGEMENT_HELP}</TooltipContent>
-                  </Tooltip>
-                </div>
-                <div className="text-slate-800">{delivery.engagement_model?.trim() || EMPTY}</div>
-              </div>
-              <div>
-                <div className="text-xs font-semibold text-slate-500 mb-1.5 flex items-center gap-1.5">
-                  <Wrench className="w-3.5 h-3.5" /> Projektmetodik
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <button type="button" className="inline-flex" aria-label="Vad är Projektmetodik?">
-                        <Info className="w-3.5 h-3.5 text-slate-400 hover:text-slate-600" />
-                      </button>
-                    </TooltipTrigger>
-                    <TooltipContent className="max-w-sm text-xs leading-relaxed">{METHODOLOGY_HELP}</TooltipContent>
-                  </Tooltip>
-                </div>
-                <div className="text-slate-800">{delivery.methodology?.trim() || EMPTY}</div>
-              </div>
-            </div>
-          </article>
 
           {/* 3. Jämförbar faktatabell */}
           <article className="rounded-xl border border-slate-200 bg-white p-5 sm:p-6">
