@@ -1,12 +1,6 @@
 import { Link } from "react-router-dom";
 import type { DeepDiveArticle } from "./bcArticles";
 
-const parent = {
-  product: "Business Central",
-  productSlug: "businesscentral",
-  parentPath: "/businesscentral/",
-  parentLabel: "Affärssystem (ERP) – Business Central",
-} as const;
 
 const Disclaimer = () => (
   <p className="text-sm text-muted-foreground italic">
