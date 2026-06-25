@@ -407,8 +407,8 @@ const PartnerCard = ({
 
  {/* Product-specific description */}
  {productDescription && (
- <div className="mb-4 p-2.5 rounded-lg bg-muted/50 border-l-2 border-primary/40">
- <p className="text-sm text-muted-foreground italic leading-relaxed line-clamp-2">
+ <div className="mb-4 p-3.5 rounded-lg bg-muted/50 border-l-2 border-primary/40">
+ <p className="text-[15px] text-foreground/80 leading-[1.7] line-clamp-3">
  {productDescription}
  </p>
  {productDescriptionAi && (
