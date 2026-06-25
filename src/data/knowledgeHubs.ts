@@ -258,6 +258,7 @@ export const KNOWLEDGE_HUBS: KnowledgeHubConfig[] = [
     breadcrumbLabel: "Business Central",
     resources: [
       tools.behovsanalysErp,
+      tools.bcMatchningstest,
       tools.kravspecErp,
       tools.branschjamforelse,
       ...deepDiveBySlug(["businesscentral"]),
