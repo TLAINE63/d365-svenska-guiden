@@ -403,9 +403,64 @@ const ComparePartners = () => {
                   />
                 </div>
 
-                {!hasBoth && (
-                  <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-sm text-slate-600 mb-6">
-                    Välj två partner ovan för att se jämförelsen.
+                {hasBoth && (productOptions.length > 0 || industryOptions.length > 0) && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 rounded-xl border border-slate-200 bg-slate-50 p-3 sm:p-4">
+                    <div>
+                      <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
+                        Filtrera produkt
+                      </label>
+                      <Select
+                        value={productFilter || "__all__"}
+                        onValueChange={(v) => setFilter("product", v)}
+                      >
+                        <SelectTrigger className="h-9 bg-white">
+                          <SelectValue placeholder="Alla produkter" />
+                        </SelectTrigger>
+                        <SelectContent className="max-h-80">
+                          <SelectItem value="__all__">Alla produkter</SelectItem>
+                          {productOptions.map((opt) => (
+                            <SelectItem key={opt} value={opt}>
+                              {opt}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
+                        Filtrera bransch
+                      </label>
+                      <Select
+                        value={industryFilter || "__all__"}
+                        onValueChange={(v) => setFilter("industry", v)}
+                      >
+                        <SelectTrigger className="h-9 bg-white">
+                          <SelectValue placeholder="Alla branscher" />
+                        </SelectTrigger>
+                        <SelectContent className="max-h-80">
+                          <SelectItem value="__all__">Alla branscher</SelectItem>
+                          {industryOptions.map((opt) => (
+                            <SelectItem key={opt} value={opt}>
+                              {opt}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    {(productFilter || industryFilter) && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const next = new URLSearchParams(params);
+                          next.delete("product");
+                          next.delete("industry");
+                          setParams(next, { replace: true });
+                        }}
+                        className="sm:col-span-2 text-xs text-slate-500 hover:text-slate-800 underline self-start"
+                      >
+                        Rensa filter
+                      </button>
+                    )}
                   </div>
                 )}
 
@@ -422,21 +477,21 @@ const ComparePartners = () => {
                       <R
                         label="Kompetens inom Dynamics 365"
                         help="Alla Dynamics 365-applikationer partnern arbetar med. ERP-appar listas först, därefter CE/CRM — båda i bokstavsordning."
-                        a={renderList(A.apps)}
-                        b={renderList(B.apps)}
+                        a={renderList(AF.apps)}
+                        b={renderList(BF.apps)}
                       />
                       <R
                         label="Branscher"
-                        a={renderList(A.industries)}
-                        b={renderList(B.industries)}
+                        a={renderList(AF.industries)}
+                        b={renderList(BF.industries)}
                       />
                       <R
                         label="Branschapplikationer"
                         help="Egenutvecklade branschlösningar / vertikala tillägg som partnern erbjuder ovanpå Dynamics 365."
                         a={
-                          A.industryApps.length > 0 ? (
+                          AF.industryApps.length > 0 ? (
                             <ul className="space-y-1.5">
-                              {A.industryApps.map((ia, i) => (
+                              {AF.industryApps.map((ia, i) => (
                                 <li key={i} className="text-sm">
                                   <span className="font-medium">{ia.name}</span>
                                   {(ia.application || ia.industry) && (
@@ -453,9 +508,9 @@ const ComparePartners = () => {
                           )
                         }
                         b={
-                          B.industryApps.length > 0 ? (
+                          BF.industryApps.length > 0 ? (
                             <ul className="space-y-1.5">
-                              {B.industryApps.map((ia, i) => (
+                              {BF.industryApps.map((ia, i) => (
                                 <li key={i} className="text-sm">
                                   <span className="font-medium">{ia.name}</span>
                                   {(ia.application || ia.industry) && (
