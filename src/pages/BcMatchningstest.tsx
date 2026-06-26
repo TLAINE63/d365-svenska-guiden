@@ -25,7 +25,6 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
-const STORAGE_KEY = "bc_matchningstest_answers_v1";
 const SEC_PER_Q = 18;
 
 const CLASS_ORDER: BcClassification[] = ["essentials", "premium", "config", "isv", "outside"];
@@ -40,15 +39,8 @@ const CLASS_COLOR: Record<BcClassification, string> = {
 const BcMatchningstest = () => {
   useNavigate();
   const { toast } = useToast();
-  const [answers, setAnswers] = useState<BcAnswers>(() => {
-    if (typeof window === "undefined") return {};
-    try {
-      const raw = window.localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : {};
-    } catch {
-      return {};
-    }
-  });
+  // Starta alltid tomt — testet ska kännas färskt varje gång.
+  const [answers, setAnswers] = useState<BcAnswers>({});
   const [index, setIndex] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -56,14 +48,6 @@ const BcMatchningstest = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  useEffect(() => {
-    try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(answers));
-    } catch {
-      /* noop */
-    }
-  }, [answers]);
 
   const visible = useMemo(() => bcVisibleQuestions(answers), [answers]);
   const safeIndex = Math.min(index, Math.max(0, visible.length - 1));
