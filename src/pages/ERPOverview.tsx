@@ -86,6 +86,14 @@ const erpFaqsRaw = [
  answer: "Välj Business Central om: du har 5–300 användare, omsättning under 1–2 miljarder, behov av ett komplett men lätthanterligt system. Välj Finance & SCM om: du är en global koncern med flera juridiska entiteter, komplexa regulatoriska krav, avancerad tillverkning med MRP/MPS eller global supply chain. En köparsidig behovsanalys hjälper dig välja rätt – utan säljpåverkan."
  },
  {
+ question: "Vad är ett affärssystem?",
+ answer: "Ett affärssystem (ERP – Enterprise Resource Planning) är ett samlat verksamhetssystem som hanterar ekonomi, lager, inköp, försäljning, produktion och ofta även projekt och service i en gemensam databas. Syftet är att ersätta öar av Excel och fristående system med en enda källa till sanning så att hela företaget arbetar mot samma siffror i realtid."
+ },
+ {
+ question: "Vilka är de vanligaste misstagen vid val av affärssystem?",
+ answer: "1) Att låta licenspris styra mer än totalkostnad och processpassning. 2) Att hoppa över en köparsidig behovsanalys och köpa det partnern råkar sälja mest av. 3) Att underskatta tiden för datatvätt och integration. 4) Att inte involvera nyckelanvändare tidigt. 5) Att välja partner enbart på pris istället för branscherfarenhet och referenser."
+ },
+ {
  question: "Behöver vi en Microsoft-partner för att implementera Dynamics 365 ERP?",
  answer: "Ja, alla Dynamics 365 ERP-implementeringar görs via Microsoft-certifierade partners (Solutions Partner for Business Applications). Valet av rätt partner är lika viktigt som valet av system – en erfaren partner med branschkännedom kan halvera implementationstiden. På d365.se kan du jämföra och filtrera certifierade ERP-partners baserat på din bransch och geografi kostnadsfritt."
  },
