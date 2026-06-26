@@ -74,7 +74,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     ],
     whenFits: "När volym leverantörsfakturor och attestkedjor gör manuell hantering kostsam, eller när ni behöver starkare Peppol- och e-fakturastöd än standard-BC.",
     combos: ["BC + Continia + Lasernet", "BC + Continia + svensk lokalisering"],
-    partnersSE: ["4PS Construction Software", "APX Core Solutions", "Bisqo", "BrightCom", "CGI", "COSMO CONSULT", "Cepheo", "Dizparc", "Evidi", "Fellowmind", "IT Stöd", "JMA", "NAB Solutions", "Navet", "Update", "Yellow Solution"],
+    partnersSE: ["4PS Construction Software", "APX Core Solutions", "Bisqo", "BrightCom (Excitec)", "CGI", "COSMO CONSULT", "Cepheo", "Dizparc", "Evidi", "Fellowmind", "IT Stöd", "JMA", "NAB Solutions", "Navet", "Update", "Yellow Solution"],
     partnerSource: "Continia",
   },
   {
@@ -259,7 +259,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["Skicka och ta emot e-fakturor"],
     whenFits: "När ni redan kör Continia Document Capture eller Output.",
     combos: ["BC + Continia + Continia e-dokument"],
-    partnersSE: ["4PS Construction Software", "APX Core Solutions", "Bisqo", "BrightCom", "CGI", "COSMO CONSULT", "Cepheo", "Dizparc", "Evidi", "Fellowmind", "IT Stöd", "JMA", "NAB Solutions", "Navet", "Update", "Yellow Solution"],
+    partnersSE: ["4PS Construction Software", "APX Core Solutions", "Bisqo", "BrightCom (Excitec)", "CGI", "COSMO CONSULT", "Cepheo", "Dizparc", "Evidi", "Fellowmind", "IT Stöd", "JMA", "NAB Solutions", "Navet", "Update", "Yellow Solution"],
     partnerSource: "Continia",
   },
   {
@@ -277,7 +277,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["Fraktbokning", "Etiketter", "Track & trace", "Returer"],
     whenFits: "När ni skickar volym mot flera transportörer och vill automatisera fraktflödet från BC.",
     combos: ["BC + nShift + Sana Commerce"],
-    partnersSE: ["BrightCom"],
+    partnersSE: ["BrightCom (Excitec)"],
     partnerSource: "nShift",
   },
   {
@@ -492,7 +492,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["Skicka fakturor och ordererkännanden via olika kanaler"],
     whenFits: "Naturligt om ni redan kör Continia Document Capture.",
     combos: ["BC + Continia + Continia Document Output"],
-    partnersSE: ["4PS Construction Software", "APX Core Solutions", "Bisqo", "BrightCom", "CGI", "COSMO CONSULT", "Cepheo", "Dizparc", "Evidi", "Fellowmind", "IT Stöd", "JMA", "NAB Solutions", "Navet", "Update", "Yellow Solution"],
+    partnersSE: ["4PS Construction Software", "APX Core Solutions", "Bisqo", "BrightCom (Excitec)", "CGI", "COSMO CONSULT", "Cepheo", "Dizparc", "Evidi", "Fellowmind", "IT Stöd", "JMA", "NAB Solutions", "Navet", "Update", "Yellow Solution"],
     partnerSource: "Continia",
   },
   {
@@ -657,7 +657,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["Fraktbokning från BC", "Etiketter och fraktsedlar", "Track & trace"],
     whenFits: "När ni vill ha en svensk TA-leverantör med stark BC-koppling.",
     combos: ["BC + Logtrade + Tasklet"],
-    partnersSE: ["APX Core Solutions", "BrightCom", "CGI", "COSMO CONSULT", "Dizparc", "Evidi", "Fellowmind", "Goodfellows", "InBiz", "Invid", "NAB Solutions", "Navcite", "Navet", "Sherpas Group", "Softronic", "Update", "Yellow Solution", "adbriq"],
+    partnersSE: ["APX Core Solutions", "BrightCom (Excitec)", "CGI", "COSMO CONSULT", "Dizparc", "Evidi", "Fellowmind", "Goodfellows", "InBiz", "Invid", "NAB Solutions", "Navcite", "Navet", "Sherpas Group", "Softronic", "Update", "Yellow Solution", "adbriq"],
     partnerSource: "Logtrade",
   },
   {
