@@ -6,7 +6,16 @@ import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
-import { ArrowRight, ClipboardList } from "lucide-react";
+import {
+  ArrowRight,
+  ClipboardList,
+  CheckCircle2,
+  AlertTriangle,
+  Lightbulb,
+  Coins,
+  Clock,
+  Users,
+} from "lucide-react";
 import { useEffect } from "react";
 import LeadCTA from "@/components/LeadCTA";
 import IndustryComparisonWidget from "@/components/IndustryComparisonWidget";
@@ -19,6 +28,40 @@ const erpBreadcrumbs = [
  { name: "Hem", url: "https://d365.se" },
  { name: "Affärssystem (ERP)", url: "https://d365.se/erp" },
 ];
+
+const youtubeVideos = [
+  {
+    id: "Business-Central-overview",
+    embedId: "lLI3gtahMyE",
+    title: "Business Central – översikt på 5 minuter",
+    description:
+      "En kort, neutral genomgång av vad Microsoft Dynamics 365 Business Central är och vilka delar (ekonomi, lager, försäljning, inköp, produktion) som ingår. Bra startpunkt om du aldrig sett systemet förut.",
+  },
+  {
+    id: "FSCM-overview",
+    embedId: "1Nh8tT3GQEw",
+    title: "Dynamics 365 Finance & Supply Chain Management – introduktion",
+    description:
+      "Översikt över Microsofts enterprise-affärssystem. Fokus på flerbolagsstöd, global ekonomistyrning, avancerad tillverkning och vad som faktiskt skiljer F&SCM från Business Central i praktiken.",
+  },
+  {
+    id: "ERP-implementation",
+    embedId: "qyVmIQA1qHk",
+    title: "Så genomförs ett ERP-projekt – Microsofts Success by Design",
+    description:
+      "Genomgång av den metodik certifierade Microsoft-partners använder vid införande. Tydliggör vilka faser som tar tid, var de flesta projekt fastnar och vad du som kund ansvarar för.",
+  },
+];
+
+const honestFacts = [
+  { icon: Coins, title: "Licenspriset är inte totalkostnaden", body: "Räkna med 3–5x licenskostnaden för implementation första året, och 15–25 % av licensen i löpande förvaltning per år." },
+  { icon: Clock, title: "Tiden går till data och processer", body: "60–70 % av projekttiden går till datatvätt, processdefinition och tester. Själva systemkonfigurationen är minoriteten." },
+  { icon: Users, title: "Partnervalet slår produktvalet", body: "Samma Business Central kan upplevas helt olika beroende på partner. Branscherfarenhet och referenser är viktigare än timpris." },
+  { icon: AlertTriangle, title: "Anpassningar kostar för evigt", body: "Varje specialanpassning måste underhållas vid varje uppgradering. Anpassa bara där det ger äkta konkurrensfördel." },
+  { icon: Lightbulb, title: "Standard slår skräddarsytt", body: "Microsoft uppgraderar BC och F&SCM löpande. Den som följer standard får ny funktionalitet gratis. Den som anpassat får teknisk skuld." },
+  { icon: CheckCircle2, title: "Börja med en köparsidig analys", body: "En behovsanalys utan säljincitament tar några timmar och sparar ofta hundratusentals kronor i felval senare." },
+];
+
 
 // ERP FAQs for schema – priser hämtas från product_prices via resolvePriceTokens
 const erpFaqsRaw = [
