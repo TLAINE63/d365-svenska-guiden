@@ -82,8 +82,8 @@ export function calculateBcResult(answers: BcAnswers): BcResult {
     overall = "fit_with_isv";
     headline = "Business Central passar — kombinerat med branschtillägg";
     body =
-      "Era svar indikerar att BC är en bra grund, men att ni behöver komplettera med ett par ISV-tillägg från AppSource för att täcka branschspecifika behov. " +
-      "Det är ett normalt och välbeprövat upplägg.";
+      "Era svar indikerar att BC är en bra grund, men att ni behöver komplettera med ett par tilläggsappar för att täcka branschspecifika behov. Börja med att titta i vår ISV-katalog för Business Central — där hittar ni de vanligaste svenska alternativen kategoriserade. " +
+      "Om inget passar finns fler appar att söka via Microsoft Marketplace.";
   } else {
     overall = "good_fit";
     headline = "Business Central matchar era behov väl";
