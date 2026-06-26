@@ -88,6 +88,7 @@ import AdminPartnerAgreementTab from "@/components/AdminPartnerAgreementTab";
 import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
 import AdminAllVisitorsTab from "@/components/AdminAllVisitorsTab";
+import AdminPartnerProfileVisitsTab from "@/components/AdminPartnerProfileVisitsTab";
 import AdminFunnelTab from "@/components/AdminFunnelTab";
 import AdminSalesOverview from "@/components/AdminSalesOverview";
 import AdminSalesPitchTab from "@/components/AdminSalesPitchTab";
@@ -271,7 +272,7 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
  id: "statistik",
  label: "Statistik",
  icon: BarChart3,
- tabs: ["clicks", "stats", "visitors", "all-visitors", "funnel", "summary", "email-log"],
+ tabs: ["clicks", "stats", "visitors", "all-visitors", "partner-profile-visits", "funnel", "summary", "email-log"],
  },
  {
  id: "seo",
@@ -1958,6 +1959,12 @@ Thomas`,
  </span>
  Alla besökare
  </TabsTrigger>
+ <TabsTrigger value="partner-profile-visits" className={`flex items-center gap-2 ${activeGroup === "statistik" ? "" : "hidden"}`}>
+ <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-fuchsia-500/20 to-fuchsia-600/10 ring-1 ring-fuchsia-400/20">
+ <BarChart3 className="h-3.5 w-3.5 text-fuchsia-300" strokeWidth={1.75} />
+ </span>
+ Profilbesök
+ </TabsTrigger>
  <TabsTrigger value="funnel" className={`flex items-center gap-2 ${activeGroup === "statistik" ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-orange-500/20 to-orange-600/10 ring-1 ring-orange-400/20">
  <TrendingUp className="h-3.5 w-3.5 text-orange-300" strokeWidth={1.75} />
@@ -3062,6 +3069,11 @@ Thomas`,
  {/* ==================== ALL VISITORS (SNITCHER) TAB ==================== */}
  <TabsContent value="all-visitors">
  <AdminAllVisitorsTab token={token || null} />
+ </TabsContent>
+
+ {/* ==================== PARTNER PROFILE VISITS TAB ==================== */}
+ <TabsContent value="partner-profile-visits">
+ <AdminPartnerProfileVisitsTab token={token || null} />
  </TabsContent>
 
  {/* ==================== FUNNEL TAB ==================== */}

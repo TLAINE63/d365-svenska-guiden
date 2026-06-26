@@ -544,6 +544,80 @@ serve(async (req) => {
         }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
 
+      case "partner_profile_visits": {
+        // Aggregera Snitcher-sessioner per partnerprofil. Endast publicerade partners.
+        const { period_start, period_end } = data as { period_start?: string; period_end?: string };
+        const range = period_start && period_end
+          ? { start: period_start, end: period_end }
+          : previousMonthRange();
+
+        const { data: visits, error: vErr } = await supabase
+          .from("snitcher_visits")
+          .select("organisation_uuid, company_name, partner_slugs, session_started_at, session_ended_at")
+          .gte("session_ended_at", `${range.start}T00:00:00Z`)
+          .lte("session_ended_at", `${range.end}T23:59:59Z`)
+          .not("partner_slugs", "is", null);
+        if (vErr) throw vErr;
+
+        const { data: publishedRows } = await supabase
+          .from("partners")
+          .select("slug, name")
+          .eq("is_featured", true);
+        const slugToName = new Map<string, string>((publishedRows || []).map((r: any) => [r.slug, r.name]));
+
+        type Agg = {
+          slug: string;
+          name: string;
+          session_count: number;
+          unique_companies: Set<string>;
+          last_seen: string | null;
+          recent_companies: Map<string, string>; // org -> name
+        };
+        const byPartner = new Map<string, Agg>();
+        for (const v of visits || []) {
+          for (const slug of v.partner_slugs || []) {
+            if (!slugToName.has(slug)) continue;
+            let agg = byPartner.get(slug);
+            if (!agg) {
+              agg = {
+                slug,
+                name: slugToName.get(slug)!,
+                session_count: 0,
+                unique_companies: new Set(),
+                last_seen: null,
+                recent_companies: new Map(),
+              };
+              byPartner.set(slug, agg);
+            }
+            agg.session_count += 1;
+            agg.unique_companies.add(v.organisation_uuid);
+            if (v.company_name) agg.recent_companies.set(v.organisation_uuid, v.company_name);
+            if (v.session_ended_at && (!agg.last_seen || v.session_ended_at > agg.last_seen)) {
+              agg.last_seen = v.session_ended_at;
+            }
+          }
+        }
+
+        const partners = Array.from(byPartner.values())
+          .map(a => ({
+            slug: a.slug,
+            name: a.name,
+            session_count: a.session_count,
+            unique_companies: a.unique_companies.size,
+            last_seen: a.last_seen,
+            companies: Array.from(a.recent_companies.values()).slice(0, 25),
+          }))
+          .sort((a, b) => b.session_count - a.session_count);
+
+        return new Response(JSON.stringify({
+          period_start: range.start,
+          period_end: range.end,
+          total_partners: partners.length,
+          total_sessions: partners.reduce((s, p) => s + p.session_count, 0),
+          partners,
+        }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
       case "stats_matrix": {
         // Per-partner activity counts for both a primary and comparison window.
         // Used by admin overview (matrix) and embedded in partner edit dialog.
