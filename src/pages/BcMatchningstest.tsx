@@ -228,7 +228,7 @@ const WizardView = ({
       <div className="mb-6">
         <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
           <span>
-            Fråga {index + 1} av upp till {totalMax} · cirka {minutesLeft} min kvar
+            Fråga {index + 1} av {totalVisible} · cirka {minutesLeft} min kvar
           </span>
           <span>Steg {current.block} av 6</span>
         </div>
