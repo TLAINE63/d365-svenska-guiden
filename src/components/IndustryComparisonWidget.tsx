@@ -202,9 +202,9 @@ const IndustryComparisonWidget = () => {
               : "bg-card text-muted-foreground border-border hover:border-[hsl(210_60%_60%)]"
           }`}
         >
-          {showApps ? "✓ " : ""}Visa certifierade appar för BC
+          {showApps ? "✓ " : ""}Inkludera etablerade tilläggsappar till BC
         </button>
-        <span className="text-[11px] text-muted-foreground/70">Appar godkända av Microsoft</span>
+        <span className="text-[11px] text-muted-foreground/70">Etablerade ISV-lösningar på Microsoft Marketplace</span>
       </div>
 
       {/* Result */}
