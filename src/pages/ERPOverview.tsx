@@ -6,7 +6,16 @@ import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
-import { ArrowRight, ClipboardList } from "lucide-react";
+import {
+  ArrowRight,
+  ClipboardList,
+  CheckCircle2,
+  AlertTriangle,
+  Lightbulb,
+  Coins,
+  Clock,
+  Users,
+} from "lucide-react";
 import { useEffect } from "react";
 import LeadCTA from "@/components/LeadCTA";
 import IndustryComparisonWidget from "@/components/IndustryComparisonWidget";
@@ -19,6 +28,40 @@ const erpBreadcrumbs = [
  { name: "Hem", url: "https://d365.se" },
  { name: "Affärssystem (ERP)", url: "https://d365.se/erp" },
 ];
+
+const youtubeVideos = [
+  {
+    id: "Business-Central-overview",
+    embedId: "lLI3gtahMyE",
+    title: "Business Central – översikt på 5 minuter",
+    description:
+      "En kort, neutral genomgång av vad Microsoft Dynamics 365 Business Central är och vilka delar (ekonomi, lager, försäljning, inköp, produktion) som ingår. Bra startpunkt om du aldrig sett systemet förut.",
+  },
+  {
+    id: "FSCM-overview",
+    embedId: "1Nh8tT3GQEw",
+    title: "Dynamics 365 Finance & Supply Chain Management – introduktion",
+    description:
+      "Översikt över Microsofts enterprise-affärssystem. Fokus på flerbolagsstöd, global ekonomistyrning, avancerad tillverkning och vad som faktiskt skiljer F&SCM från Business Central i praktiken.",
+  },
+  {
+    id: "ERP-implementation",
+    embedId: "qyVmIQA1qHk",
+    title: "Så genomförs ett ERP-projekt – Microsofts Success by Design",
+    description:
+      "Genomgång av den metodik certifierade Microsoft-partners använder vid införande. Tydliggör vilka faser som tar tid, var de flesta projekt fastnar och vad du som kund ansvarar för.",
+  },
+];
+
+const honestFacts = [
+  { icon: Coins, title: "Licenspriset är inte totalkostnaden", body: "Räkna med 3–5x licenskostnaden för implementation första året, och 15–25 % av licensen i löpande förvaltning per år." },
+  { icon: Clock, title: "Tiden går till data och processer", body: "60–70 % av projekttiden går till datatvätt, processdefinition och tester. Själva systemkonfigurationen är minoriteten." },
+  { icon: Users, title: "Partnervalet slår produktvalet", body: "Samma Business Central kan upplevas helt olika beroende på partner. Branscherfarenhet och referenser är viktigare än timpris." },
+  { icon: AlertTriangle, title: "Anpassningar kostar för evigt", body: "Varje specialanpassning måste underhållas vid varje uppgradering. Anpassa bara där det ger äkta konkurrensfördel." },
+  { icon: Lightbulb, title: "Standard slår skräddarsytt", body: "Microsoft uppgraderar BC och F&SCM löpande. Den som följer standard får ny funktionalitet gratis. Den som anpassat får teknisk skuld." },
+  { icon: CheckCircle2, title: "Börja med en köparsidig analys", body: "En behovsanalys utan säljincitament tar några timmar och sparar ofta hundratusentals kronor i felval senare." },
+];
+
 
 // ERP FAQs for schema – priser hämtas från product_prices via resolvePriceTokens
 const erpFaqsRaw = [
@@ -41,6 +84,14 @@ const erpFaqsRaw = [
  {
  question: "Vilket Microsoft ERP-system passar mitt företag?",
  answer: "Välj Business Central om: du har 5–300 användare, omsättning under 1–2 miljarder, behov av ett komplett men lätthanterligt system. Välj Finance & SCM om: du är en global koncern med flera juridiska entiteter, komplexa regulatoriska krav, avancerad tillverkning med MRP/MPS eller global supply chain. En köparsidig behovsanalys hjälper dig välja rätt – utan säljpåverkan."
+ },
+ {
+ question: "Vad är ett affärssystem?",
+ answer: "Ett affärssystem (ERP – Enterprise Resource Planning) är ett samlat verksamhetssystem som hanterar ekonomi, lager, inköp, försäljning, produktion och ofta även projekt och service i en gemensam databas. Syftet är att ersätta öar av Excel och fristående system med en enda källa till sanning så att hela företaget arbetar mot samma siffror i realtid."
+ },
+ {
+ question: "Vilka är de vanligaste misstagen vid val av affärssystem?",
+ answer: "1) Att låta licenspris styra mer än totalkostnad och processpassning. 2) Att hoppa över en köparsidig behovsanalys och köpa det partnern råkar sälja mest av. 3) Att underskatta tiden för datatvätt och integration. 4) Att inte involvera nyckelanvändare tidigt. 5) Att välja partner enbart på pris istället för branscherfarenhet och referenser."
  },
  {
  question: "Behöver vi en Microsoft-partner för att implementera Dynamics 365 ERP?",
@@ -72,15 +123,15 @@ const ERPOverview = () => {
  return (
  <div className="min-h-screen">
  <SEOHead 
- title="ERP-system – jämför Business Central & Finance & Supply Chain"
- description={resolvePriceTokens("Jämför Microsofts ERP-system: Business Central ({{price:bc-essentials:short}}) för SMB och Finance & Supply Chain ({{price:finance:short}}) för enterprise – funktioner, pris och rätt val.")}
+ title="Affärssystem & ERP 2026 – guide, jämförelse och svenska partners"
+ description={resolvePriceTokens("Vad ett affärssystem är, vad det kostar och hur du väljer rätt – med fokus på Microsoft Dynamics 365 Business Central ({{price:bc-essentials:short}}) och Finance & Supply Chain ({{price:finance:short}}).")}
  canonicalPath="/erp"
- keywords="erp, erp system, erp system sverige, microsoft erp, dynamics 365 erp, erp dynamics, business central vs finance scm, erp software, erp systems, dynamics 365 finance supply chain, microsoft affärssystem"
+ keywords="affärssystem, erp, erp system, erp system sverige, vad är ett affärssystem, affärssystem sverige, affärssystem jämförelse, affärssystem pris, välja affärssystem, microsoft erp, dynamics 365 erp, business central vs finance scm, dynamics 365 finance supply chain, microsoft affärssystem"
  ogImage="https://d365.se/og-erp.png"
  />
  <ServiceSchema 
- name="Microsoft Dynamics 365 ERP – jämförelse & rådgivning"
- description="Köparsidig jämförelse av Microsoft Dynamics 365 ERP-system: Business Central för mindre och medelstora företag, Finance & Supply Chain Management för stora organisationer. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+ name="Affärssystem & Microsoft Dynamics 365 ERP – köparsidig guide"
+ description="Köparsidig guide och jämförelse av affärssystem i Sverige med fokus på Microsoft Dynamics 365: Business Central för mindre och medelstora företag, Finance & Supply Chain Management för stora organisationer. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
  />
  <FAQSchema faqs={erpFaqs} />
  <BreadcrumbSchema items={erpBreadcrumbs} />
@@ -88,18 +139,73 @@ const ERPOverview = () => {
  
  {/* Header */}
  <ProductHero
- eyebrow="ERP"
- title="Två ERP under samma namn — två olika beslut"
- titleAccent="Storleken på företaget avgör sällan valet. Era processer gör det."
- subhead="Business Central och Finance & Supply Chain Management är båda fullvärdiga affärssystem i Dynamics 365-familjen, men de är byggda för olika typer av komplexitet. Business Central är konstruerat för snabbare implementationer och kompletteras av 7 000+ tilläggsappar. F&SCM är byggt med flera entiteter, avancerad supply chain och branschvertikaler i kärnan. Valet handlar mindre om antal anställda och mer om hur era processer faktiskt ser ut idag — och de närmaste fem åren."
- primary={{ label: "Gör en ERP-behovsanalys", to: "/ERPbehovsanalys/", icon: ClipboardList }}
- secondary={{ label: "Jämför Business Central vs Finance & Supply Chain Management", to: "/affarssystem/" }}
+ eyebrow="Pelarsida · Köparsidig guide"
+ title="Affärssystem (ERP) — vad det är."
+ titleAccent="Så väljer ni rätt utan säljpåverkan."
+ subhead="Vad är ett affärssystem, vad kostar det, hur lång tid tar det att införa och vilket av Microsofts två alternativ — Business Central eller Finance & Supply Chain Management — passar er bäst? Här får ni svaren utan säljpress."
+ primary={{ label: "Gör en kostnadsfri behovsanalys", to: "/ERPbehovsanalys/", icon: ClipboardList }}
+ secondary={{ label: "Jämför Business Central vs Finance & Supply Chain", href: "#comparison" }}
  />
 
+ {/* TAYA: Vad är ett affärssystem */}
+ <section className="py-12 sm:py-16 bg-background">
+ <div className="container mx-auto px-4 sm:px-6">
+ <div className="max-w-3xl mx-auto">
+ <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6">
+ Vad är ett affärssystem – egentligen?
+ </h2>
+ <p className="text-lg text-muted-foreground mb-4">
+ Ett affärssystem (ERP – Enterprise Resource Planning) är ett samlat verksamhetssystem som hanterar
+ ekonomi, lager, inköp, försäljning, produktion och ofta även projekt och service i en gemensam
+ databas. Syftet är enkelt: en sanning för hela företaget i stället för Excel-ark som inte stämmer
+ överens med varandra.
+ </p>
+ <p className="text-lg text-muted-foreground mb-4">
+ I praktiken är affärssystemet den ryggrad som styr hur ordrar, fakturor, lagersaldon, inköp och
+ redovisning hänger ihop. När en säljare lägger en order ska den synas på lagret, i ekonomin och i
+ rapporterna – utan dubbelregistrering. Det är där värdet uppstår, och det är också där de flesta
+ ERP-projekt misslyckas: när processerna inte är genomtänkta innan systemet införs.
+ </p>
+ <p className="text-lg text-muted-foreground">
+ Microsoft erbjuder två affärssystem inom Dynamics 365-familjen:&nbsp;
+ <Link to="/businesscentral/" className="text-primary font-medium hover:underline">Business Central</Link> för mindre och medelstora bolag, och&nbsp;
+ <Link to="/finance-supply-chain/" className="text-primary font-medium hover:underline">Finance &amp; Supply Chain Management</Link> för stora, internationella organisationer. Jämförelsen längre ned visar var skillnaderna får praktisk betydelse — i ekonomi, supply chain, internationell drift och i hur mycket som kan konfigureras kontra utvecklas.
+ </p>
+ </div>
+ </div>
+ </section>
 
+ {/* TAYA: Ärliga fakta */}
+ <section className="py-12 sm:py-16 bg-secondary/40">
+ <div className="container mx-auto px-4 sm:px-6">
+ <div className="max-w-5xl mx-auto">
+ <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 text-center">
+ Det här säger ingen leverantör – men ni behöver veta det
+ </h2>
+ <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
+ Vi tror på radikal transparens. Här är de sex sakerna som avgör om ett ERP-projekt blir lyckat
+ eller en mardröm.
+ </p>
+
+ <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+ {honestFacts.map((item) => (
+ <div key={item.title} className="bg-card border border-border rounded p-6">
+ <div className="flex items-center gap-3 mb-3">
+ <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+ <item.icon className="h-5 w-5 text-primary" />
+ </div>
+ <h3 className="font-semibold text-card-foreground">{item.title}</h3>
+ </div>
+ <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
+ </div>
+ ))}
+ </div>
+ </div>
+ </div>
+ </section>
 
  {/* Introduction Section */}
- <section className="py-12 sm:py-16 md:py-20 bg-background">
+ <section id="comparison-intro" className="py-12 sm:py-16 md:py-20 bg-background scroll-mt-24">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-4xl mx-auto text-center">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6">
@@ -256,8 +362,71 @@ const ERPOverview = () => {
  </div>
  </section>
 
+ {/* YouTube videos */}
+ <section className="py-12 sm:py-16 bg-secondary/40">
+ <div className="container mx-auto px-4 sm:px-6">
+ <div className="max-w-5xl mx-auto">
+ <div className="text-center mb-10">
+ <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3">
+ Se affärssystemen i praktiken
+ </h2>
+ <p className="text-muted-foreground max-w-2xl mx-auto">
+ Tre korta videor som ger er en första känsla för Microsofts affärssystem och hur ett
+ ERP-projekt faktiskt går till.
+ </p>
+ </div>
+
+ <div className="space-y-10">
+ {youtubeVideos.map((v) => (
+ <div key={v.id} className="grid md:grid-cols-2 gap-6 items-center bg-card border border-border rounded p-4 sm:p-6">
+ <div className="aspect-video w-full overflow-hidden rounded-lg bg-black">
+ <iframe
+ className="w-full h-full"
+ src={`https://www.youtube-nocookie.com/embed/${v.embedId}`}
+ title={v.title}
+ width="1280"
+ height="720"
+ loading="lazy"
+ allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+ allowFullScreen
+ />
+ </div>
+ <div>
+ <h3 className="text-xl font-semibold text-card-foreground mb-2">{v.title}</h3>
+ <p className="text-muted-foreground leading-relaxed">{v.description}</p>
+ </div>
+ </div>
+ ))}
+ </div>
+ </div>
+ </div>
+ </section>
+
+ {/* FAQ */}
+ <section className="py-12 sm:py-16 bg-background">
+ <div className="container mx-auto px-4 sm:px-6">
+ <div className="max-w-3xl mx-auto">
+ <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-8 text-center">
+ Vanliga frågor om affärssystem
+ </h2>
+ <div className="space-y-4">
+ {erpFaqs.map((f) => (
+ <details key={f.question} className="group bg-card border border-border rounded p-5">
+ <summary className="cursor-pointer font-semibold text-card-foreground list-none flex justify-between items-center gap-4">
+ {f.question}
+ <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-open:rotate-90 shrink-0" />
+ </summary>
+ <p className="mt-3 text-muted-foreground leading-relaxed">{f.answer}</p>
+ </details>
+ ))}
+ </div>
+ </div>
+ </div>
+ </section>
+
  {/* CTA Section */}
  <section className="py-12 sm:py-16 md:py-20 bg-background">
+
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-3xl mx-auto text-center mb-12">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6">
