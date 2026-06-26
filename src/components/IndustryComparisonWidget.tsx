@@ -268,20 +268,32 @@ const IndustryComparisonWidget = () => {
             <div className="rounded border-2 border-[hsl(210_60%_85%)] dark:border-[hsl(210_30%_35%)] overflow-hidden">
               <div className="p-4 bg-gradient-to-br from-[hsl(210_60%_95%)] to-[hsl(210_60%_90%)] dark:from-[hsl(210_30%_18%)] dark:to-[hsl(210_30%_14%)]">
                 <div className="text-base font-bold text-[hsl(210_60%_25%)] dark:text-[hsl(210_60%_80%)]">Business Central</div>
-                <div className="text-xs mt-0.5 text-[hsl(210_60%_40%)] dark:text-[hsl(210_60%_60%)]">Dynamics 365 BC{showApps ? " + certifierade appar" : ""}</div>
+                <div className="text-xs mt-0.5 text-[hsl(210_60%_40%)] dark:text-[hsl(210_60%_60%)]">Dynamics 365 BC{showApps ? " + etablerade tilläggsappar" : ""}</div>
               </div>
               <div className="p-3 space-y-2">
                 {entry.bc.p.map((p, i) => <CardItem key={`bp${i}`} title={p.t} desc={p.d} type="strength" />)}
                 {entry.bc.c.map((c, i) => <CardItem key={`bc${i}`} title={c.t} desc={c.d} type="limitation" />)}
-                {showApps && entry.apps.length > 0 && (
-                  <div className="mt-3 pt-3 border-t border-border">
+                {showApps && relevantIsvs.length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-border space-y-2">
                     <div className="text-xs text-muted-foreground leading-relaxed">
-                      <span className="font-semibold text-[hsl(210_60%_30%)] dark:text-[hsl(210_60%_70%)]">~{entry.apps.length} certifierade BC-appar</span> från Microsofts Marketplace-marknadsplats krävs troligtvis för att täcka gapen i detta segment.
+                      <span className="font-semibold text-[hsl(210_60%_30%)] dark:text-[hsl(210_60%_70%)]">{relevantIsvs.length} etablerade tilläggsappar</span> från d365.se:s ISV-katalog matchar detta segment och täpper igen vanliga gap mot F&SCM:
                     </div>
+                    <ul className="space-y-1.5">
+                      {relevantIsvs.map(s => (
+                        <li key={s.id} className="text-xs leading-snug bg-card border border-border rounded p-2">
+                          <div className="font-semibold text-card-foreground">{s.name} <span className="font-normal text-muted-foreground">· {s.vendor}</span></div>
+                          <div className="text-muted-foreground mt-0.5">{s.category} · {s.shortDescription}</div>
+                        </li>
+                      ))}
+                    </ul>
+                    <a href="/kunskapscenter/business-central-tillagg/" className="inline-block text-xs font-semibold text-[hsl(210_60%_30%)] dark:text-[hsl(210_60%_70%)] hover:underline mt-1">
+                      Öppna hela ISV-katalogen ↗
+                    </a>
                   </div>
                 )}
               </div>
             </div>
+
 
             {/* F&SCM column */}
             <div className="rounded border-2 border-[hsl(250_50%_85%)] dark:border-[hsl(250_30%_35%)] overflow-hidden">
