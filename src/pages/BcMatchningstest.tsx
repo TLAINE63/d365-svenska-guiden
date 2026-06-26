@@ -384,6 +384,15 @@ const ResultView = ({ result, answers, onRestart, onBack, onPdf }: ResultProps) 
                       </li>
                     ))}
                   </ul>
+                  {c === "isv" && (
+                    <p className="text-sm mt-3 pt-3 border-t border-current/20">
+                      <span className="font-semibold">Tips:</span> börja med att titta i vår{" "}
+                      <Link to="/kunskapscenter/business-central-tillagg/" className="underline underline-offset-2 font-medium">
+                        ISV-katalog för Business Central
+                      </Link>{" "}
+                      — där hittar ni de vanligaste svenska tilläggen kategoriserade. Hittar ni inget som passar finns fler appar på Microsoft Marketplace.
+                    </p>
+                  )}
                 </div>
               );
             })}
