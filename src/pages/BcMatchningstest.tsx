@@ -25,7 +25,6 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
-const STORAGE_KEY = "bc_matchningstest_answers_v1";
 const SEC_PER_Q = 18;
 
 const CLASS_ORDER: BcClassification[] = ["essentials", "premium", "config", "isv", "outside"];
@@ -40,15 +39,8 @@ const CLASS_COLOR: Record<BcClassification, string> = {
 const BcMatchningstest = () => {
   useNavigate();
   const { toast } = useToast();
-  const [answers, setAnswers] = useState<BcAnswers>(() => {
-    if (typeof window === "undefined") return {};
-    try {
-      const raw = window.localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : {};
-    } catch {
-      return {};
-    }
-  });
+  // Starta alltid tomt — testet ska kännas färskt varje gång.
+  const [answers, setAnswers] = useState<BcAnswers>({});
   const [index, setIndex] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -56,14 +48,6 @@ const BcMatchningstest = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  useEffect(() => {
-    try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(answers));
-    } catch {
-      /* noop */
-    }
-  }, [answers]);
 
   const visible = useMemo(() => bcVisibleQuestions(answers), [answers]);
   const safeIndex = Math.min(index, Math.max(0, visible.length - 1));
@@ -132,11 +116,6 @@ const BcMatchningstest = () => {
     setIndex(0);
     setShowResult(false);
     setSubmitted(false);
-    try {
-      window.localStorage.removeItem(STORAGE_KEY);
-    } catch {
-      /* noop */
-    }
   };
 
   const onPdf = async () => {
@@ -405,6 +384,15 @@ const ResultView = ({ result, answers, onRestart, onBack, onPdf }: ResultProps) 
                       </li>
                     ))}
                   </ul>
+                  {c === "isv" && (
+                    <p className="text-sm mt-3 pt-3 border-t border-current/20">
+                      <span className="font-semibold">Tips:</span> börja med att titta i vår{" "}
+                      <Link to="/kunskapscenter/business-central-tillagg/" className="underline underline-offset-2 font-medium">
+                        ISV-katalog för Business Central
+                      </Link>{" "}
+                      — där hittar ni de vanligaste svenska tilläggen kategoriserade. Hittar ni inget som passar finns fler appar på Microsoft Marketplace.
+                    </p>
+                  )}
                 </div>
               );
             })}

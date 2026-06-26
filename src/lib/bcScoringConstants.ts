@@ -4,7 +4,7 @@ export const CLASS_ORDER_LABEL: Record<BcClassification, string> = {
   essentials: "Ingår i BC Essentials (standard)",
   premium: "Kräver BC Premium",
   config: "Kräver konfiguration",
-  isv: "Kräver ISV-tillägg (AppSource)",
+  isv: "Kräver tilläggsapp (Microsoft Marketplace)",
   outside: "Ligger utanför BC — annan plattform",
 };
 
