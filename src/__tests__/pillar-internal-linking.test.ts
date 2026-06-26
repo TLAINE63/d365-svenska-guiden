@@ -1,7 +1,6 @@
 import { describe, it, expect } from "vitest";
 import {
   indexRelatedPages,
-  affarssystemRelatedPages,
   erpRelatedPages,
   bcRelatedPages,
 } from "@/components/RelatedPages";
@@ -9,18 +8,13 @@ import {
 /**
  * Automatisk länkgranskning för pelarsidorna.
  *
- * Bevakar TOFU → MOFU → BOFU → Konvertering-tratten enligt
- * mem://seo/pillar-internal-linking-sv:
+ * 2026-06-26: /affarssystem (TOFU) konsoliderad in i /erp (pelarsidan
+ * för affärssystem/ERP). Tratten är nu:
  *
  *   /  (Hub)                       Brand/discovery
- *   └─► /affarssystem   (TOFU)     Utbildning, "vad är ett affärssystem"
- *       └─► /erp        (MOFU)     Teknisk jämförelse BC vs F&SCM
- *           └─► /businesscentral (BOFU) Produkt + pris
- *               └─► /valjdynamics365partner (Konvertering)
- *
- * Reglerna existerar för att förhindra sökordskannibalisering
- * mellan de fyra pelarsidorna. Vid varje förändring av
- * `RelatedPages.tsx` körs detta test automatiskt.
+ *   └─► /erp        (TOFU + MOFU)  Guide + jämförelse BC vs F&SCM
+ *       └─► /businesscentral (BOFU) Produkt + pris
+ *           └─► /valjdynamics365partner (Konvertering)
  */
 
 type Link = { title: string; description: string; href: string };
@@ -33,25 +27,13 @@ const has = (links: Link[], targetHref: string) =>
 const findLink = (links: Link[], targetHref: string): Link | undefined =>
   links.find((l) => norm(l.href) === norm(targetHref));
 
-describe("Pelar-intern länkstruktur (TOFU → MOFU → BOFU)", () => {
+describe("Pelar-intern länkstruktur (Hub → /erp → /businesscentral → konvertering)", () => {
   describe("Framåtlänkar i tratten (måste finnas)", () => {
-    it("/ (Hub) länkar nedåt till /affarssystem (TOFU)", () => {
-      expect(has(indexRelatedPages, "/affarssystem/")).toBe(true);
-    });
-
-    it("/ (Hub) länkar nedåt till /erp (MOFU)", () => {
+    it("/ (Hub) länkar nedåt till /erp", () => {
       expect(has(indexRelatedPages, "/erp/")).toBe(true);
     });
 
-    it("/affarssystem (TOFU) länkar nedåt till /erp (MOFU)", () => {
-      expect(has(affarssystemRelatedPages, "/erp/")).toBe(true);
-    });
-
-    it("/affarssystem (TOFU) länkar nedåt till /businesscentral (BOFU)", () => {
-      expect(has(affarssystemRelatedPages, "/businesscentral/")).toBe(true);
-    });
-
-    it("/erp (MOFU) länkar nedåt till /businesscentral (BOFU)", () => {
+    it("/erp länkar nedåt till /businesscentral (BOFU)", () => {
       expect(has(erpRelatedPages, "/businesscentral/")).toBe(true);
     });
 
@@ -60,52 +42,27 @@ describe("Pelar-intern länkstruktur (TOFU → MOFU → BOFU)", () => {
     });
   });
 
-  describe("Bakåtlänkar i tratten (förbjudna – anti-kannibalisering)", () => {
-    it("/erp (MOFU) länkar INTE bakåt till /affarssystem (TOFU)", () => {
-      // En köpmogen MOFU-besökare ska inte skickas tillbaka till TOFU-utbildning.
-      expect(has(erpRelatedPages, "/affarssystem/")).toBe(false);
-    });
-
-    it("/businesscentral (BOFU) länkar INTE bakåt till /affarssystem (TOFU)", () => {
-      // BOFU-trafik ska konvertera, inte återgå till utbildningssteget.
-      expect(has(bcRelatedPages, "/affarssystem/")).toBe(false);
+  describe("Konsolidering /affarssystem → /erp", () => {
+    it("Inga pelar-länklistor pekar på den avvecklade /affarssystem-URL:n", () => {
+      const all = [indexRelatedPages, erpRelatedPages, bcRelatedPages];
+      for (const list of all) {
+        expect(has(list, "/affarssystem/")).toBe(false);
+      }
     });
   });
 
   describe("Ankartext-regler (förhindrar sökordskrock)", () => {
-    it("/:s länk till /affarssystem använder TOFU-formulering, inte rena nyckelordet 'Affärssystem'", () => {
-      const link = findLink(indexRelatedPages, "/affarssystem/")!;
-      expect(link).toBeDefined();
-      // Får inte vara exakt "Affärssystem" – då konkurrerar / med /affarssystem
-      // om samma SERP. TOFU-frågeform ("Vad är ett affärssystem?") är OK.
-      expect(link.title.toLowerCase()).not.toBe("affärssystem");
-      expect(link.title).toMatch(/vad är|guide|utbildning|introduktion/i);
-    });
-
-    it("/:s länk till /erp använder MOFU-jämförelse, inte rena nyckelordet 'ERP'", () => {
+    it("/:s länk till /erp använder guide/jämförelse-formulering, inte rena nyckelordet 'ERP'", () => {
       const link = findLink(indexRelatedPages, "/erp/")!;
       expect(link).toBeDefined();
-      // Får inte vara exakt "ERP" eller "ERP-översikt" på Hub-sidan – då
-      // krockar / med /erp:s primära sökord.
       expect(link.title.toLowerCase()).not.toBe("erp");
       expect(link.title.toLowerCase()).not.toBe("erp-översikt");
-      expect(link.title).toMatch(/jämför|business central.*finance|finance.*business central/i);
-    });
-
-    it("/affarssystem:s länk till /erp använder jämförelse-formulering, inte rena ordet 'ERP'", () => {
-      const link = findLink(affarssystemRelatedPages, "/erp/")!;
-      expect(link).toBeDefined();
-      // TOFU-sidan får inte ranka sig själv för "ERP" via intern ankartext.
-      expect(link.title.toLowerCase()).not.toBe("erp");
-      expect(link.title.toLowerCase()).not.toBe("erp-översikt");
-      expect(link.title).toMatch(/jämför/i);
+      expect(link.title).toMatch(/guide|jämför|affärssystem/i);
     });
 
     it("/erp:s länk till /businesscentral framhäver pris/produkt (BOFU-intent)", () => {
       const link = findLink(erpRelatedPages, "/businesscentral/")!;
       expect(link).toBeDefined();
-      // MOFU → BOFU ska driva köpsignal, inte återanvända allmän
-      // "Business Central"-anchor som krockar med BC:s egen H1.
       expect(link.title).toMatch(/pris|funktioner|licens|produkt/i);
     });
   });
@@ -113,16 +70,13 @@ describe("Pelar-intern länkstruktur (TOFU → MOFU → BOFU)", () => {
   describe("Strukturell hygien", () => {
     const all: Array<[string, Link[]]> = [
       ["indexRelatedPages", indexRelatedPages],
-      ["affarssystemRelatedPages", affarssystemRelatedPages],
       ["erpRelatedPages", erpRelatedPages],
       ["bcRelatedPages", bcRelatedPages],
     ];
 
     it.each(all)("%s har inga interna självlänkar", (_name, links) => {
-      // En sida får inte länka till sig själv via RelatedPages.
       const selfMap: Record<string, string> = {
         indexRelatedPages: "/",
-        affarssystemRelatedPages: "/affarssystem/",
         erpRelatedPages: "/erp/",
         bcRelatedPages: "/businesscentral/",
       };
