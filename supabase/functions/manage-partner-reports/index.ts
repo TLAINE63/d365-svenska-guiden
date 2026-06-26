@@ -487,6 +487,13 @@ serve(async (req) => {
           .limit(2000);
         if (vErr) throw vErr;
 
+        // Only show slugs that still correspond to a currently published partner.
+        const { data: publishedRows } = await supabase
+          .from("partners")
+          .select("slug")
+          .eq("is_featured", true);
+        const publishedSlugs = new Set((publishedRows || []).map((r: any) => r.slug));
+
         // Aggregate per organisation_uuid (one row per company in the range)
         const byOrg = new Map<string, any>();
         for (const v of visits || []) {
@@ -510,7 +517,9 @@ serve(async (req) => {
             };
             byOrg.set(v.organisation_uuid, entry);
           }
-          for (const s of v.partner_slugs || []) entry.partner_slugs.add(s);
+          for (const s of v.partner_slugs || []) {
+            if (publishedSlugs.has(s)) entry.partner_slugs.add(s);
+          }
           urlList.forEach(u => entry.urls.add(u));
           entry.session_count += 1;
           if (v.session_started_at && (!entry.first_seen || v.session_started_at < entry.first_seen)) entry.first_seen = v.session_started_at;
