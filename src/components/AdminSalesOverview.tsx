@@ -604,7 +604,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
         <div>
           <h3 className="text-xl font-bold flex items-center gap-2">
             <Award className="h-6 w-6 text-primary" />
-            Totalöversikt – Införsäljning
+            Totalöversikt
           </h3>
           <p className="text-sm text-muted-foreground mt-1">
             Nyckeltal för att visa sajtens värde för partners
