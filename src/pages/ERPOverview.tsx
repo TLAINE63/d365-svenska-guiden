@@ -362,8 +362,71 @@ const ERPOverview = () => {
  </div>
  </section>
 
+ {/* YouTube videos */}
+ <section className="py-12 sm:py-16 bg-secondary/40">
+ <div className="container mx-auto px-4 sm:px-6">
+ <div className="max-w-5xl mx-auto">
+ <div className="text-center mb-10">
+ <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3">
+ Se affärssystemen i praktiken
+ </h2>
+ <p className="text-muted-foreground max-w-2xl mx-auto">
+ Tre korta videor som ger er en första känsla för Microsofts affärssystem och hur ett
+ ERP-projekt faktiskt går till.
+ </p>
+ </div>
+
+ <div className="space-y-10">
+ {youtubeVideos.map((v) => (
+ <div key={v.id} className="grid md:grid-cols-2 gap-6 items-center bg-card border border-border rounded p-4 sm:p-6">
+ <div className="aspect-video w-full overflow-hidden rounded-lg bg-black">
+ <iframe
+ className="w-full h-full"
+ src={`https://www.youtube-nocookie.com/embed/${v.embedId}`}
+ title={v.title}
+ width="1280"
+ height="720"
+ loading="lazy"
+ allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+ allowFullScreen
+ />
+ </div>
+ <div>
+ <h3 className="text-xl font-semibold text-card-foreground mb-2">{v.title}</h3>
+ <p className="text-muted-foreground leading-relaxed">{v.description}</p>
+ </div>
+ </div>
+ ))}
+ </div>
+ </div>
+ </div>
+ </section>
+
+ {/* FAQ */}
+ <section className="py-12 sm:py-16 bg-background">
+ <div className="container mx-auto px-4 sm:px-6">
+ <div className="max-w-3xl mx-auto">
+ <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-8 text-center">
+ Vanliga frågor om affärssystem
+ </h2>
+ <div className="space-y-4">
+ {erpFaqs.map((f) => (
+ <details key={f.question} className="group bg-card border border-border rounded p-5">
+ <summary className="cursor-pointer font-semibold text-card-foreground list-none flex justify-between items-center gap-4">
+ {f.question}
+ <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-open:rotate-90 shrink-0" />
+ </summary>
+ <p className="mt-3 text-muted-foreground leading-relaxed">{f.answer}</p>
+ </details>
+ ))}
+ </div>
+ </div>
+ </div>
+ </section>
+
  {/* CTA Section */}
  <section className="py-12 sm:py-16 md:py-20 bg-background">
+
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-3xl mx-auto text-center mb-12">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6">
