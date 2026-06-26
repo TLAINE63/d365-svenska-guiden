@@ -187,10 +187,13 @@ const IndustryComparisonWidget = () => {
     return D[sec]?.[sz]?.[geo] ?? null;
   }, [sec, sz, geo]);
 
+  const relevantIsvs = useMemo(() => getRelevantIsvs(sec, geo), [sec, geo]);
+
   const note = useMemo(() => {
     if (!entry) return null;
     return leNote(entry.rec, le);
   }, [entry, le]);
+
 
   const recLabel = entry?.rec === "bc" ? "Rekommendation: Business Central" : entry?.rec === "fscm" ? "Rekommendation: Finance & SCM" : "Utvärdera båda";
   const recColor = entry?.rec === "bc" ? "bg-[hsl(210_60%_90%)] text-[hsl(210_60%_30%)]" : entry?.rec === "fscm" ? "bg-[hsl(250_50%_92%)] text-[hsl(250_50%_30%)]" : "bg-secondary text-foreground";
