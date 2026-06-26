@@ -448,9 +448,77 @@ function OverviewBlock({ stats, periodLabel, title, subtitle, icon, accentClass,
           </CardContent>
         </Card>
       </div>
+
+      {/* Two-column: Industries visited + Industries filtered on */}
+      <div className="grid md:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base flex items-center gap-2">
+              <BarChart3 className="h-4 w-4" />
+              Mest besökta branschsidor
+            </CardTitle>
+            <CardDescription>Unika besök per <code>/branscher/&lt;bransch&gt;</code></CardDescription>
+          </CardHeader>
+          <CardContent>
+            {!stats.industryVisits || stats.industryVisits.length === 0 ? (
+              <p className="text-muted-foreground text-sm py-4 text-center">Ingen data</p>
+            ) : (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Bransch</TableHead>
+                    <TableHead className="text-right">Besök</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {stats.industryVisits.slice(0, 15).map((r: any, i: number) => (
+                    <TableRow key={i}>
+                      <TableCell className="font-medium text-sm">{r.name}</TableCell>
+                      <TableCell className="text-right font-semibold">{r.visits}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base flex items-center gap-2">
+              <ClipboardCheck className="h-4 w-4" />
+              Mest filtrerade branscher
+            </CardTitle>
+            <CardDescription>Hur ofta varje bransch används som filter i partnerlistor</CardDescription>
+          </CardHeader>
+          <CardContent>
+            {!stats.industryFilters || stats.industryFilters.length === 0 ? (
+              <p className="text-muted-foreground text-sm py-4 text-center">Ingen data</p>
+            ) : (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Bransch</TableHead>
+                    <TableHead className="text-right">Antal filtreringar</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {stats.industryFilters.slice(0, 15).map((r: any, i: number) => (
+                    <TableRow key={i}>
+                      <TableCell className="font-medium text-sm">{r.name}</TableCell>
+                      <TableCell className="text-right font-semibold">{r.count}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
+
 
 // ================ Main Component ================
 
