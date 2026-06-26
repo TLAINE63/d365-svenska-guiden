@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { Badge } from "@/components/ui/badge";
+import { BC_ISV_SOLUTIONS, type SolutionCategory, type SolutionIndustry } from "@/data/bcIsvSolutions";
 
 // ── Types ──
 interface Side {
@@ -15,6 +16,46 @@ interface Entry {
   pills: string[];
   apps: string[];
 }
+
+// ── Sector → ISV-katalog mapping ──
+// Driver vilka kategorier och industries i bcIsvSolutions som är relevanta per bransch.
+// Geo "int" adderar lokalisering, EDI/e-faktura och integration.
+const SECTOR_ISV_MAP: Record<string, { industries: SolutionIndustry[]; categories: SolutionCategory[] }> = {
+  dis: { industries: ["Manufacturing", "Generell"], categories: ["Planering & produktion", "WMS", "Branschpaket", "CPQ", "PIM"] },
+  pro: { industries: ["Manufacturing", "Food", "Generell"], categories: ["Planering & produktion", "WMS", "Branschpaket"] },
+  ret: { industries: ["Retail", "Fashion", "Generell"], categories: ["Retail / POS", "E-handel", "PIM", "WMS", "Frakt & TA"] },
+  gro: { industries: ["Wholesale", "3PL", "Generell"], categories: ["WMS", "EDI / e-faktura", "Frakt & TA", "PIM", "E-handel"] },
+  ftj: { industries: ["Services", "Generell"], categories: ["Projekt", "Dokument & output", "Rapportering / FP&A"] },
+  it:  { industries: ["Services", "Generell"], categories: ["Projekt", "Integration / iPaaS", "Dokument & output"] },
+  fin: { industries: ["Services", "Generell"], categories: ["Rapportering / FP&A", "Dokument & output", "AP automation"] },
+  hot: { industries: ["Hospitality", "Generell"], categories: ["Retail / POS", "Branschpaket"] },
+  byg: { industries: ["Construction", "Generell"], categories: ["Projekt", "Branschpaket", "Dokument & output"] },
+  tra: { industries: ["3PL", "Wholesale", "Generell"], categories: ["WMS", "Frakt & TA", "EDI / e-faktura"] },
+};
+
+function getRelevantIsvs(sec: string, geo: string) {
+  const map = SECTOR_ISV_MAP[sec];
+  if (!map) return [];
+  const cats = new Set<SolutionCategory>(map.categories);
+  // AP automation är universellt relevant
+  cats.add("AP automation");
+  if (geo === "int") {
+    cats.add("Lokalisering");
+    cats.add("EDI / e-faktura");
+    cats.add("Frakt & TA");
+    cats.add("Integration / iPaaS");
+  }
+  const indSet = new Set<SolutionIndustry>(map.industries);
+  const filtered = BC_ISV_SOLUTIONS.filter(s => {
+    if (!cats.has(s.category)) return false;
+    // Industrimatch: Generell träffar alltid, annars måste minst en industri överlappa.
+    return s.industries.some(i => i === "Generell" || indSet.has(i));
+  });
+  // Prioritera Tier 1, sedan Vertikal, sedan Tier 2. Cap till 8 för läsbarhet.
+  const tierRank = { "Tier 1": 0, Vertikal: 1, "Tier 2": 2 } as const;
+  return filtered.sort((a, b) => tierRank[a.tier] - tierRank[b.tier]).slice(0, 8);
+}
+
 
 // ── Data ──
 const D: Record<string, Record<string, Record<string, Entry>>> = {
