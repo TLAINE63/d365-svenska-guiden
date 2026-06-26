@@ -177,8 +177,7 @@ export const indexRelatedPages: RelatedPage[] = [
   { title: "Microsoft Dynamics 365 Business Central", description: "ERP för SMB – ekonomi, lager och produktion", href: "/businesscentral/" },
   { title: "Microsoft Dynamics 365 Customer Service", description: "Helpdesk och ärendehantering med omnikanal", href: "/d365customerservice/" },
   { title: "Microsoft Dynamics 365 Finance & SCM", description: "Enterprise ERP för globala koncerner", href: "/finance-supply-chain/" },
-  { title: "Vad är ett affärssystem?", description: "Utbildande guide för dig som utvärderar ett första affärssystem", href: "/affarssystem/" },
-  { title: "Jämför Business Central och Finance & SCM", description: "Teknisk MOFU-jämförelse av Microsofts två ERP-system", href: "/erp/" },
+  { title: "Affärssystem & ERP – guide", description: "Köparsidig guide: vad ett affärssystem är, vad det kostar och hur du väljer rätt", href: "/erp/" },
   { title: "CRM-översikt", description: "Jämför alla CRM-applikationer i Dynamics 365", href: "/crm/" },
   { title: "Copilot i Microsoft Dynamics 365", description: "AI-assistenten som ingår i alla appar", href: "/copilot/" },
 ];
