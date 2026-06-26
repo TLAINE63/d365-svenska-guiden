@@ -116,11 +116,6 @@ const BcMatchningstest = () => {
     setIndex(0);
     setShowResult(false);
     setSubmitted(false);
-    try {
-      window.localStorage.removeItem(STORAGE_KEY);
-    } catch {
-      /* noop */
-    }
   };
 
   const onPdf = async () => {
