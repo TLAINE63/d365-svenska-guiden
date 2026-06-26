@@ -732,6 +732,45 @@ case "click-stats": {
           if (p.includes("behovsanalys") || p.includes("kravspec") || p.includes("ai-readiness")) analysisCount++;
         }
 
+        // Industry page visits (/branscher/<slug>) within filtered set
+        const industrySlugToName: Record<string, string> = {};
+        const { data: industryRows } = await supabase
+          .from("industry_pages")
+          .select("slug, name");
+        for (const r of industryRows || []) industrySlugToName[r.slug] = r.name;
+
+        const industryVisitMap: Record<string, Set<string>> = {};
+        for (const v of filteredVisitors) {
+          const p = v.page_path || "";
+          if (p.startsWith("/branscher/")) {
+            const slug = p.replace("/branscher/", "").replace(/\/$/, "").split("/")[0];
+            if (!slug) continue;
+            const name = industrySlugToName[slug] || slug;
+            if (!industryVisitMap[name]) industryVisitMap[name] = new Set();
+            industryVisitMap[name].add(v.session_id || v.id);
+          }
+        }
+        const industryVisits = Object.entries(industryVisitMap)
+          .map(([name, sessions]) => ({ name, visits: sessions.size }))
+          .sort((a, b) => b.visits - a.visits);
+
+        // Industry filter usage from partner_filter_exposures
+        let filterQuery = supabase
+          .from("partner_filter_exposures")
+          .select("filter_context, viewed_at")
+          .not("filter_context->industry", "is", null);
+        if (startDate) filterQuery = filterQuery.gte("viewed_at", startDate);
+        const { data: filterRows } = await filterQuery;
+        const industryFilterMap: Record<string, number> = {};
+        for (const row of filterRows || []) {
+          const ind = (row.filter_context as any)?.industry;
+          if (!ind || typeof ind !== "string") continue;
+          industryFilterMap[ind] = (industryFilterMap[ind] || 0) + 1;
+        }
+        const industryFilters = Object.entries(industryFilterMap)
+          .map(([name, count]) => ({ name, count }))
+          .sort((a, b) => b.count - a.count);
+
         const stats = {
           totalVisitors: totalUniqueVisitors,
           totalPageViews: totalPageViews,
@@ -750,7 +789,10 @@ case "click-stats": {
           komIgangCount,
           valjPartnerCount,
           analysisCount,
+          industryVisits,
+          industryFilters,
         };
+
 
         return new Response(
           JSON.stringify({ stats }),
