@@ -75,6 +75,16 @@ export const LeadCTA = ({
       return;
     }
 
+    const emailError = validateBusinessEmail(formData.email);
+    if (emailError) {
+      toast({
+        title: "Ogiltig e-postadress",
+        description: emailError,
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
