@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Build and SEO check
 
 on:
   push:
@@ -7,20 +7,15 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: build-and-seo
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  build-and-seo:
     timeout-minutes: 20
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -40,16 +35,6 @@ jobs:
       - name: SEO regression check (prerendered dist/)
         run: bun run check:prerender-seo
 
-      - uses: actions/configure-pages@v4
-
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-
-      - id: deployment
-        uses: actions/deploy-pages@v4
-
       - name: Ping IndexNow (Bing, Yandex)
-        if: success()
         run: node scripts/ping-indexnow.mjs
         continue-on-error: true
