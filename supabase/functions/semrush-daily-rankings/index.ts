@@ -120,8 +120,14 @@ serve(async (req) => {
 
     const tok = (req.headers.get("authorization") || "").replace(/^Bearer /, "");
     const secret = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
+    const anonKey = Deno.env.get("SUPABASE_ANON_KEY") || "";
+    const apikeyHeader = req.headers.get("apikey") || "";
     const isAdmin = tok && await verifyAdminJWT(tok, secret);
-    const isCron = action === "snapshot" && body.cron_token === secret;
+    // Snapshot kan triggas av cron (anropas med projektets anon apikey) – idempotent per dag
+    const isCron = action === "snapshot" && (
+      body.cron_token === secret ||
+      (apikeyHeader && apikeyHeader === anonKey)
+    );
     if (!isAdmin && !isCron) {
       return json({ error: "Sessionen har gått ut. Logga in igen." }, 401, h);
     }
