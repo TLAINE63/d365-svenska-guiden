@@ -399,7 +399,7 @@ export default function ProductRoiAnalysis({
               </h3>
 
               <Card className="bg-[hsl(var(--hero-dark,222_47%_11%))] text-primary-foreground border-0">
-                <CardContent className="p-5 sm:p-6 space-y-4">
+                <CardContent className="p-5 pr-20 sm:pr-6 sm:p-6 space-y-4">
                   <Kpi
                     icon={<TrendingUp className="w-4 h-4" />}
                     label="5-årig ROI"
