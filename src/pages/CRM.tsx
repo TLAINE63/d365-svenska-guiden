@@ -237,7 +237,19 @@ const CRM = () => {
  <p><strong>Byggt för att växa med dig</strong></p>
  <p>Oavsett om du är ett mindre team som precis kommit igång, eller en global organisation med komplexa behov, är Dynamics 365 CE designat för att skala. Du börjar där du är och bygger ut i den takt som passar din verksamhet – utan att behöva byta system när ni växer.</p>
  <p>Sammantaget är det just kombinationen av Microsoft-integration, inbyggd AI, flexibilitet, ERP-koppling och skalbarhet som gör Dynamics 365 CE till något mer än ett traditionellt CRM – det är en plattform för hela affären.</p>
- </AccordionContent>
+ <p className="text-sm pt-2 border-t border-border">
+ <strong className="text-foreground">Se publicerade jämförelser mot etablerade CRM-alternativ:</strong>
+ </p>
+ <ul className="text-sm grid sm:grid-cols-2 gap-x-6 gap-y-1 list-disc pl-5">
+ <li><Link to="/jamfor/sales-vs-salesforce-sales-cloud/" className="text-crm hover:underline font-medium">Sales vs Salesforce Sales Cloud</Link></li>
+ <li><Link to="/jamfor/sales-vs-hubspot-sales-hub/" className="text-crm hover:underline font-medium">Sales vs HubSpot Sales Hub</Link></li>
+ <li><Link to="/jamfor/customer-service-vs-salesforce-service-cloud/" className="text-crm hover:underline font-medium">Customer Service vs Salesforce Service Cloud</Link></li>
+ <li><Link to="/jamfor/customer-service-vs-zendesk/" className="text-crm hover:underline font-medium">Customer Service vs Zendesk</Link></li>
+ <li><Link to="/jamfor/customer-service-vs-servicenow-csm/" className="text-crm hover:underline font-medium">Customer Service vs ServiceNow CSM</Link></li>
+ <li><Link to="/jamfor/customer-insights-vs-salesforce-marketing-cloud/" className="text-crm hover:underline font-medium">Customer Insights vs Salesforce Marketing Cloud</Link></li>
+ <li><Link to="/jamfor/field-service-vs-salesforce-field-service/" className="text-crm hover:underline font-medium">Field Service vs Salesforce Field Service</Link></li>
+ <li><Link to="/jamfor/" className="text-crm hover:underline font-medium">→ Se alla jämförelser</Link></li>
+ </ul>
  </AccordionItem>
 
  <AccordionItem value="item-3" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
