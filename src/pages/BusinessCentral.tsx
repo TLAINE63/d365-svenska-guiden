@@ -614,7 +614,10 @@ const BusinessCentral = () => {
  </div>
  </section>
 
-  {/* ROI- & TCO-kalkylator CTA */}
+      <BuyerManual product="business-central" />
+      <CostBreakdown product="business-central" />
+
+  {/* ROI- & TCO-kalkylator CTA — efter pris/kostnadsuppgifter */}
   <section className="py-12 bg-background">
     <div className="container mx-auto px-4 max-w-5xl">
       <div className="rounded-2xl border border-border bg-gradient-to-br from-secondary/40 to-background p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center gap-6">
@@ -640,10 +643,6 @@ const BusinessCentral = () => {
       </div>
     </div>
   </section>
-
-
-      <BuyerManual product="business-central" />
-      <CostBreakdown product="business-central" />
 
       {/* Fördjupningsartiklar */}
       <section className="py-12 bg-secondary/20">
