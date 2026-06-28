@@ -8,6 +8,23 @@ const MUTED: [number, number, number] = [110, 110, 110];
 const fmtSek = (n: number) =>
   new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 0 }).format(Math.round(n)) + " kr";
 
+// jsPDF's built-in helvetica uses WinAnsi (cp1252) encoding. Characters outside
+// that set (≈, −, →, …, non-breaking hyphen, soft hyphen, etc.) render as
+// garbled glyphs or break kerning. Replace them with WinAnsi-safe equivalents.
+const safe = (s: string): string =>
+  s
+    .replace(/\u00A0/g, " ") // non-breaking space
+    .replace(/\u00AD/g, "") // soft hyphen
+    .replace(/\u200B/g, "") // zero-width space
+    .replace(/\u2011/g, "-") // non-breaking hyphen
+    .replace(/\u2248/g, "ca. ") // ≈
+    .replace(/\u2212/g, "-") // minus
+    .replace(/\u2192/g, "->") // →
+    .replace(/\u2190/g, "<-") // ←
+    .replace(/\u2026/g, "...") // …
+    .replace(/\u2022/g, "-"); // •
+
+
 export interface RoiPdfKpi {
   label: string;
   value: string;
