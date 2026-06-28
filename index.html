@@ -72,13 +72,8 @@
       .min-h-screen{min-height:100vh}
       .bg-secondary\/30{background-color:hsl(0 0% 96%/.3)}
       .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border-width:0;white-space:nowrap}
-      /* Navbar (scoped via data attribute so other <nav> elements like breadcrumbs aren't affected) */
-      nav[data-site-nav]{display:block;position:fixed;top:0;left:0;right:0;z-index:50;background:hsla(0,0%,100%,.95);border-bottom:1px solid hsl(0 0% 90%);backdrop-filter:blur(8px)}
-      nav[data-site-nav] .container{max-width:80rem;margin:0 auto;padding:0 1rem}
-      nav[data-site-nav] .flex{display:flex;align-items:center}
-      nav[data-site-nav] .h-16{height:4rem}
-      nav[data-site-nav] .justify-between{justify-content:space-between}
-      nav[data-site-nav] img{height:79px;width:auto;object-fit:contain;margin-top:5px}
+      /* Navbar reserve space + fixed positioning only — visuals handled by Tailwind to avoid stale overrides */
+      nav[data-site-nav]{position:fixed;top:0;left:0;right:0;z-index:50}
       /* Hero section */
       section{display:block}
       .container{max-width:80rem;margin:0 auto;padding-left:1rem;padding-right:1rem}
