@@ -274,8 +274,11 @@ const D365FieldService = () => {
       <CostBreakdown product="field-service" />
       <ComparisonQuickLinks productKeys="field-service" />
 
+      <ProductRoiAnalysis productKey="field-service" />
+
       {/* Deep Dive Articles */}
       <section className="py-8 sm:py-12 md:py-16 bg-muted/30">
+
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4">Fördjupningsartiklar</h2>
           <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
