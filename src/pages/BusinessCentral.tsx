@@ -619,11 +619,10 @@ const BusinessCentral = () => {
       <BuyerManual product="business-central" />
       <CostBreakdown product="business-central" />
 
-  {/* ROI- & TCO-kalkylator CTA — efter pris/kostnadsuppgifter */}
-      {/* Inbäddad ROI/TCO-analys ovanför fördjupningar */}
-      <ProductRoiAnalysis productKey="business-central" />
-
       <ComparisonQuickLinks productKeys="bc" />
+
+      {/* Inbäddad ROI/TCO-analys precis ovanför fördjupningar */}
+      <ProductRoiAnalysis productKey="business-central" />
 
 
 
