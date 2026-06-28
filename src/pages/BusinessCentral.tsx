@@ -17,7 +17,7 @@ import PartnerCard from "@/components/PartnerCard";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
 import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
-import ProductRoiAnalysis from "@/components/ProductRoiAnalysis";
+import ProductRoiCta from "@/components/ProductRoiCta";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
@@ -223,7 +223,7 @@ const BusinessCentral = () => {
  }}
  tertiary={{
  label: "Gör en estimerad TCO/ROI-kalkyl",
- onClick: () => document.getElementById('roi-tco')?.scrollIntoView({ behavior: 'smooth' }),
+ to: "/businesscentral/roi-kalkylator/",
  }}
  />
 
@@ -625,8 +625,8 @@ const BusinessCentral = () => {
 
       <ComparisonQuickLinks productKeys="bc" />
 
-      {/* Inbäddad ROI/TCO-analys precis ovanför fördjupningar */}
-      <ProductRoiAnalysis productKey="business-central" />
+      {/* CTA till TCO/ROI-kalkylator i Kunskapscentret */}
+      <ProductRoiCta productKey="business-central" />
 
 
 

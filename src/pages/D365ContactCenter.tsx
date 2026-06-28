@@ -13,7 +13,7 @@ import ApplicationPartners from "@/components/ApplicationPartners";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
 import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
-import ProductRoiAnalysis from "@/components/ProductRoiAnalysis";
+import ProductRoiCta from "@/components/ProductRoiCta";
 import { ArrowRight, FileText } from "lucide-react";
 import { useEffect } from "react";
 import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
@@ -98,7 +98,7 @@ const D365ContactCenter = () => {
         }}
         tertiary={{
           label: "Gör en estimerad TCO/ROI-kalkyl",
-          onClick: () => document.getElementById('roi-tco')?.scrollIntoView({ behavior: 'smooth' }),
+          to: "/d365contactcenter/roi-kalkylator/",
         }}
       />
 
@@ -280,7 +280,7 @@ const D365ContactCenter = () => {
       <CostBreakdown product="contact-center" />
       <ComparisonQuickLinks productKeys="contact-center" />
 
-      <ProductRoiAnalysis productKey="contact-center" />
+      <ProductRoiCta productKey="contact-center" />
 
       {/* Deep-dive articles */}
       <section className="py-8 sm:py-12 bg-secondary/30">

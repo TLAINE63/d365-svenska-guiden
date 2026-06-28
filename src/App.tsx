@@ -25,6 +25,7 @@ const FscmMatchningstest = lazy(() => import("./pages/FscmMatchningstest"));
 const BcMatchningstest = lazy(() => import("./pages/BcMatchningstest"));
 const BcRoiCalculator = lazy(() => import("./pages/BcRoiCalculator"));
 const SalesRoiCalculator = lazy(() => import("./pages/SalesRoiCalculator"));
+const ProductRoiPage = lazy(() => import("./pages/ProductRoiPage"));
 const ErpComparisonsHub = lazy(() => import("./pages/ErpComparisonsHub"));
 const ErpComparisonPage = lazy(() => import("./pages/ErpComparisonPage"));
 const ERPOverview = lazy(() => import("./pages/ERPOverview"));
@@ -123,6 +124,12 @@ const AppShell = () => {
           <Route path="/businesscentral/roi-kalkylator" element={<BcRoiCalculator />} />
           <Route path="/business-central/roi-kalkylator" element={<Navigate to="/businesscentral/roi-kalkylator" replace />} />
           <Route path="/d365sales/roi-kalkylator" element={<SalesRoiCalculator />} />
+          <Route path="/finance-supply-chain/roi-kalkylator" element={<ProductRoiPage productKey="finance-scm" />} />
+          <Route path="/finance-supply-chain-management/roi-kalkylator" element={<Navigate to="/finance-supply-chain/roi-kalkylator" replace />} />
+          <Route path="/d365customerservice/roi-kalkylator" element={<ProductRoiPage productKey="customer-service" />} />
+          <Route path="/d365marketing/roi-kalkylator" element={<ProductRoiPage productKey="customer-insights" />} />
+          <Route path="/d365contactcenter/roi-kalkylator" element={<ProductRoiPage productKey="contact-center" />} />
+          <Route path="/d365fieldservice/roi-kalkylator" element={<ProductRoiPage productKey="field-service" />} />
           <Route path="/jamfor" element={<ErpComparisonsHub />} />
           <Route path="/jamfor/:slug" element={<ErpComparisonPage />} />
           <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />

@@ -13,7 +13,7 @@ import ApplicationPartners from "@/components/ApplicationPartners";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
 import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
-import ProductRoiAnalysis from "@/components/ProductRoiAnalysis";
+import ProductRoiCta from "@/components/ProductRoiCta";
 import { ArrowRight, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
@@ -110,7 +110,7 @@ const D365Marketing = () => {
         }}
         tertiary={{
           label: "Gör en estimerad TCO/ROI-kalkyl",
-          onClick: () => document.getElementById('roi-tco')?.scrollIntoView({ behavior: 'smooth' }),
+          to: "/d365marketing/roi-kalkylator/",
         }}
       />
 
@@ -283,7 +283,7 @@ const D365Marketing = () => {
       <CostBreakdown product="marketing" />
       <ComparisonQuickLinks productKeys="customer-insights" />
 
-      <ProductRoiAnalysis productKey="customer-insights" />
+      <ProductRoiCta productKey="customer-insights" />
 
       {/* Deep-dive articles */}
       <section className="py-8 sm:py-12 bg-secondary/30">
