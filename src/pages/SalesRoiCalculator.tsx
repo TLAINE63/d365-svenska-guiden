@@ -209,6 +209,11 @@ export default function SalesRoiCalculator() {
         canonicalPath="/d365sales/roi-kalkylator/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
+      <SoftwareApplicationSchema
+        name="Dynamics 365 Sales ROI/TCO-kalkylator"
+        description="Räkna fram payback, 5-årig TCO och årlig säljnytta för Microsoft Dynamics 365 Sales – per säljare, bransch och effektiviseringsmål."
+        url="https://d365.se/d365sales/roi-kalkylator/"
+      />
       <Navbar />
 
       <main className="pt-20">
