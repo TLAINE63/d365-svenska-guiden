@@ -67,8 +67,15 @@ import { BLOG_ARTICLES } from './data/blogArticles';
 import partnerRoutesData from './data/partnerRoutes.json';
 import partnerDataJson from './data/partnerData.json';
 
-// Re-export so the SSG prerender plugin can emit static legacy-redirect HTML.
-export { LEGACY_REDIRECTS, buildRedirectHtml } from './lib/legacy-redirects';
+// Re-export buildRedirectHtml; LEGACY_REDIRECTS is extended below with
+// dynamic kunskapscenter redirects that map old hyphenated/d365-prefixed
+// slugs (still referenced by Google Search Console) to the current
+// canonical productSlug used in routes/sitemap.
+import {
+  LEGACY_REDIRECTS as STATIC_LEGACY_REDIRECTS,
+  type LegacyRedirect,
+} from './lib/legacy-redirects';
+export { buildRedirectHtml } from './lib/legacy-redirects';
 
 // Build a slug→partner lookup for SSR
 const partnerDataBySlug: Record<string, typeof partnerDataJson[number]> = {};
@@ -218,6 +225,62 @@ export const routes: PrerenderRoute[] = [
     },
   })),
 ];
+
+// ─── Dynamic legacy kunskapscenter redirects ───────────────────────────────
+// Google Search Console still tries to crawl old kunskapscenter URLs that
+// used hyphenated / d365-prefixed product slugs. The canonical slugs in the
+// current routes/sitemap are e.g. `businesscentral`, `d365sales`,
+// `d365customerservice`. Emit a static 301-equivalent HTML page at each
+// legacy path so soft-404s in GSC get consolidated to the live URL.
+const LEGACY_PRODUCT_SLUG_MAP: Record<string, string> = {
+  'business-central': 'businesscentral',
+  'finance-supply-chain': 'financesupplychain',
+  'd365-sales': 'd365sales',
+  'd365-marketing': 'd365marketing',
+  'd365-customer-service': 'd365customerservice',
+  'd365-field-service': 'd365fieldservice',
+  'd365-contact-center': 'd365contactcenter',
+};
+
+// Hubs whose old hyphenated path should land on something sensible. Where no
+// matching kunskapscenter-hub exists, point at the product landing page so
+// the user (and Google) still find relevant content.
+const LEGACY_HUB_REDIRECTS: LegacyRedirect[] = [
+  { from: '/kunskapscenter/d365-sales',            to: '/kunskapscenter/sales',            intendedStatus: 301 },
+  { from: '/kunskapscenter/d365-customer-service', to: '/kunskapscenter/customer-service', intendedStatus: 301 },
+  { from: '/kunskapscenter/d365-marketing',        to: '/d365marketing',                   intendedStatus: 301 },
+  { from: '/kunskapscenter/d365-field-service',    to: '/d365fieldservice',                intendedStatus: 301 },
+  { from: '/kunskapscenter/d365-contact-center',   to: '/d365contactcenter',               intendedStatus: 301 },
+  // /kunskapscenter/business-central/ and /finance-supply-chain/ are valid
+  // hub paths (slugs match KNOWLEDGE_HUBS) — don't redirect those.
+];
+
+const DYNAMIC_ARTICLE_REDIRECTS: LegacyRedirect[] = [];
+{
+  const seen = new Set<string>();
+  // Build reverse lookup: canonical productSlug → legacy hyphenated slug.
+  const reverseMap: Record<string, string> = {};
+  for (const [legacy, canonical] of Object.entries(LEGACY_PRODUCT_SLUG_MAP)) {
+    reverseMap[canonical] = legacy;
+  }
+  for (const a of ALL_DEEP_DIVE_ARTICLES) {
+    const legacyProduct = reverseMap[a.productSlug];
+    if (!legacyProduct) continue;
+    const from = `/kunskapscenter/${legacyProduct}/${a.slug}`;
+    const to = `/kunskapscenter/${a.productSlug}/${a.slug}`;
+    if (from === to || seen.has(from)) continue;
+    seen.add(from);
+    DYNAMIC_ARTICLE_REDIRECTS.push({ from, to, intendedStatus: 301 });
+  }
+}
+
+export const LEGACY_REDIRECTS: LegacyRedirect[] = [
+  ...STATIC_LEGACY_REDIRECTS,
+  ...LEGACY_HUB_REDIRECTS,
+  ...DYNAMIC_ARTICLE_REDIRECTS,
+];
+
+
 
 export function render(url: string) {
   const queryClient = new QueryClient({
