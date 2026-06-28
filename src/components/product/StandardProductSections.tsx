@@ -32,11 +32,11 @@ interface Props {
 export default function StandardProductSections({ productName, data }: Props) {
   return (
     <>
-      {/* 2. Typiska köparbehov */}
+      {/* 2. Känner du igen dig? */}
       <section className="py-6 sm:py-7 md:py-8 bg-background border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
-            Typiska köparbehov
+            Känner du igen dig?
           </h2>
           <p className="text-sm md:text-base text-muted-foreground mb-4 max-w-3xl">
             Situationer där svenska bolag brukar börja utvärdera {productName}.
