@@ -39,6 +39,17 @@ type DeliveryProfile = {
   methodology?: string;
   bc_project_weeks_min?: number | null;
   bc_project_weeks_max?: number | null;
+  bc_project_cost_band?: string | null;
+};
+
+const COST_BAND_LABELS: Record<string, string> = {
+  "<250k": "< 250 000 kr",
+  "250k–500k": "250 000 – 500 000 kr",
+  "500k–1M": "500 000 kr – 1 MSEK",
+  "1M–2.5M": "1 – 2,5 MSEK",
+  "2.5M–5M": "2,5 – 5 MSEK",
+  "5M–10M": "5 – 10 MSEK",
+  ">10M": "> 10 MSEK",
 };
 
 const formatBcLength = (dp?: DeliveryProfile | null): string => {
@@ -49,6 +60,12 @@ const formatBcLength = (dp?: DeliveryProfile | null): string => {
   if (min != null) return `Från ${min} veckor`;
   if (max != null) return `Upp till ${max} veckor`;
   return "";
+};
+
+const formatBcCost = (dp?: DeliveryProfile | null): string => {
+  const band = dp?.bc_project_cost_band;
+  if (!band) return "";
+  return COST_BAND_LABELS[band] || band;
 };
 
 const EMPTY = <span className="text-slate-400 italic">—</span>;
@@ -386,6 +403,7 @@ const ComparePartners = () => {
       roles: cleanList(dp.roles),
       length: dp.typical_length?.trim() || "",
       bcLength: formatBcLength(dp),
+      bcCost: formatBcCost(dp),
       engagement: dp.engagement_model?.trim() || "",
       methodology: dp.methodology?.trim() || "",
       teamSize: p?.team_size_sweden?.trim() || "",
@@ -712,6 +730,12 @@ const ComparePartners = () => {
                         help="Partnerns egna spann för typisk implementationstid av Business Central, mätt i veckor från projektstart till driftsättning. Verklig längd beror på scope, datakvalitet och organisationens beslutskraft."
                         a={renderValue(A.bcLength)}
                         b={renderValue(B.bcLength)}
+                      />
+                      <R
+                        label="Typisk total projektkostnad (BC)"
+                        help="Partnerns egna kostnadsband för typisk Business Central-implementation (exkl. licenser). Slutpriset beror på scope, integrationer, datamigrering och förändringsledning."
+                        a={renderValue(A.bcCost)}
+                        b={renderValue(B.bcCost)}
                       />
                       <R
                         label="Geografisk närvaro"
