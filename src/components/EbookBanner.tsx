@@ -23,8 +23,9 @@ const EbookBanner = ({ variant = "full", sourcePage = "homepage" }: EbookBannerP
  const handleSubmit = async (e: React.FormEvent) => {
  e.preventDefault();
 
- if (!email) {
- toast({ title: "Ange din e-postadress", variant: "destructive" });
+ const emailError = validateBusinessEmail(email);
+ if (emailError) {
+ toast({ title: emailError, variant: "destructive" });
  return;
  }
 
