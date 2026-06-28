@@ -87,7 +87,7 @@ const ProductHero = ({
       style={{ borderBottom: "1px solid hsl(var(--line-dark))" }}
     >
 
-      <div className="container mx-auto px-4 sm:px-6 max-w-6xl pt-28 sm:pt-32 md:pt-36 pb-10 sm:pb-10 md:pb-12 relative">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-10 md:pb-12 relative">
         <div className="grid lg:grid-cols-[1fr_auto] gap-8 lg:gap-12 items-center">
           <div>
             {(icon || eyebrow) && (
