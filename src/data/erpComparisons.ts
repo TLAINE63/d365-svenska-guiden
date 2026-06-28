@@ -117,7 +117,7 @@ export const ERP_COMPARISONS: ErpComparison[] = [
       competitor: [
         "Renodlade svenska verkstadsbolag med fokus på diskret tillverkning.",
         "Bolag som vill ha MPS, kapacitetsplanering och produktionsuppföljning i grunden.",
-        "Företag som värdesätter en svensk leverantör med svensk support.",
+        "Företag som värdesätter en svenskägd produktleverantör med svensk juridik och produktutveckling i Sverige.",
       ],
     },
     rows: COMMON_ROWS({
