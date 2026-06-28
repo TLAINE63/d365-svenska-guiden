@@ -400,7 +400,9 @@ export default function BcRoiCalculator() {
                       <div className="space-y-2">
                         {industryDrivers.map((d) => {
                           const checked = v.enabledDrivers.includes(d.id);
-                          const annual = d.savings(v.revenue);
+                          const totalUsersUi = v.fullUsers + v.teamMembers + v.deviceUsers;
+                          const userFactorUi = Math.min(3.5, Math.max(0.4, Math.pow(Math.max(1, totalUsersUi) / 25, 0.6)));
+                          const annual = d.savings(v.revenue) * userFactorUi;
                           return (
                             <label
                               key={d.id}
