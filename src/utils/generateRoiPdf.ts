@@ -26,7 +26,9 @@ export interface RoiPdfDriver {
   label: string;
   annual: number;
   hint?: string;
+  detail?: string;
 }
+
 
 export interface RoiPdfInput {
   label: string;
@@ -204,7 +206,7 @@ export async function generateRoiPdf(data: RoiPdfData) {
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     for (const d of data.drivers) {
-      ensureSpace(d.hint ? 12 : 7);
+      ensureSpace(d.hint || d.detail ? 18 : 7);
       doc.setFillColor(...BRAND_PETROL);
       doc.circle(margin + 1.2, y - 1.4, 0.9, "F");
       doc.setTextColor(...BRAND_DARK);
@@ -219,12 +221,23 @@ export async function generateRoiPdf(data: RoiPdfData) {
         doc.setTextColor(...MUTED);
         const hintLines = doc.splitTextToSize(d.hint, contentW - 6);
         doc.text(hintLines, margin + 4.5, y);
-        y += hintLines.length * 4 + 1.5;
+        y += hintLines.length * 4 + 1;
         doc.setFontSize(10);
-      } else {
+      }
+      if (d.detail) {
+        doc.setFontSize(9);
+        doc.setTextColor(...BRAND_DARK);
+        const detailLines = doc.splitTextToSize(d.detail, contentW - 6);
+        ensureSpace(detailLines.length * 4 + 2);
+        doc.text(detailLines, margin + 4.5, y);
+        y += detailLines.length * 4 + 2.5;
+        doc.setFontSize(10);
+      }
+      if (!d.hint && !d.detail) {
         y += 1;
       }
     }
+
   }
 
   // ---- APPENDIX: ANTAGANDEN ----
