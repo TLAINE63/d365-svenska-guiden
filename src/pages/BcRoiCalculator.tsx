@@ -600,7 +600,8 @@ export default function BcRoiCalculator() {
                   + 200 000 kr om Premium krävs.
                 </Assumption>
                 <Assumption title="Förvaltning">
-                  Löpande förvaltning antas vara cirka 18 % av implementationskostnaden per år.
+                  År 1 antas löpande förvaltning vara cirka 8 % av implementationskostnaden, eftersom huvuddelen av insatsen
+                  går till själva projektet. Från år 2 och framåt antas normal förvaltningsnivå om cirka 18 % per år.
                 </Assumption>
                 <Assumption title="Årlig nytta">
                   Nyttan summeras från de drivare ni bockat i för er bransch. Varje drivare har en grundnivå (fast belopp eller andel
