@@ -16,6 +16,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Send, CheckCircle, Filter } from "lucide-react";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
 
 interface LeadCTAProps {
   sourcePage: string;
@@ -69,6 +70,16 @@ export const LeadCTA = ({
       toast({
         title: "Fyll i obligatoriska fält",
         description: "Företagsnamn, kontaktperson och e-post är obligatoriska.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const emailError = validateBusinessEmail(formData.email);
+    if (emailError) {
+      toast({
+        title: "Ogiltig e-postadress",
+        description: emailError,
         variant: "destructive",
       });
       return;

@@ -6,6 +6,7 @@ import { Download, CheckCircle, FileDown } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { generateRoiPdf, type RoiPdfData } from "@/utils/generateRoiPdf";
+import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
 
 interface RoiPdfDownloadProps {
   buildPdfData: (email: string) => RoiPdfData;
@@ -24,8 +25,9 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
-      toast({ title: "Ange en giltig e-postadress", variant: "destructive" });
+    const emailError = validateBusinessEmail(email);
+    if (emailError) {
+      toast({ title: emailError, variant: "destructive" });
       return;
     }
     if (honeypot) {

@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Download, BookOpen, CheckCircle } from "lucide-react";
 import ebookCover from "@/assets/ebook-partnervalet-cover.webp";
+import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
 
 interface EbookBannerProps {
  variant?: "full" | "compact";
@@ -22,8 +23,9 @@ const EbookBanner = ({ variant = "full", sourcePage = "homepage" }: EbookBannerP
  const handleSubmit = async (e: React.FormEvent) => {
  e.preventDefault();
 
- if (!email) {
- toast({ title: "Ange din e-postadress", variant: "destructive" });
+ const emailError = validateBusinessEmail(email);
+ if (emailError) {
+ toast({ title: emailError, variant: "destructive" });
  return;
  }
 

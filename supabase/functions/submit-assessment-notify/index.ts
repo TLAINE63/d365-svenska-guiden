@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "https://esm.sh/resend@2.0.0";
+import { isFreeEmailDomain, FREE_EMAIL_ERROR_SV } from "../_shared/freeEmailDomains.ts";
 
 function isAllowedOrigin(origin: string): boolean {
   if (!origin) return false;
@@ -50,6 +51,14 @@ serve(async (req: Request) => {
     const body = (await req.json()) as SubmitBody;
     if (!body?.contact_email || !body?.contact_name) {
       return new Response(JSON.stringify({ error: "Missing fields" }), {
+        status: 400,
+        headers: { ...cors, "Content-Type": "application/json" },
+      });
+    }
+
+    if (isFreeEmailDomain(body.contact_email)) {
+      console.log(`Blocked free email domain submission: ${body.contact_email}`);
+      return new Response(JSON.stringify({ error: FREE_EMAIL_ERROR_SV }), {
         status: 400,
         headers: { ...cors, "Content-Type": "application/json" },
       });

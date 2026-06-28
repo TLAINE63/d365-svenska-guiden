@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Download, FileText, CheckCircle, X } from "lucide-react";
 import { generatePartnerGuide } from "@/utils/generatePartnerGuide";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
 
 interface LeadMagnetBannerProps {
   sourcePage: string;
@@ -52,9 +53,10 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
       metadata: { source_page: sourcePage },
     });
 
-    if (!email) {
+    const emailError = validateBusinessEmail(email);
+    if (emailError) {
       toast({
-        title: "Ange din e-postadress",
+        title: emailError,
         variant: "destructive",
       });
       return;

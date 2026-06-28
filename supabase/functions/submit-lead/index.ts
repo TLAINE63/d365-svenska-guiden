@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { Resend } from "https://esm.sh/resend@2.0.0";
+import { isFreeEmailDomain, FREE_EMAIL_ERROR_SV } from "../_shared/freeEmailDomains.ts";
 
 // Get allowed origins for CORS
 function isAllowedOrigin(origin: string): boolean {
@@ -127,6 +128,15 @@ const handler = async (req: Request): Promise<Response> => {
     if (!isValidEmail(data.email)) {
       return new Response(
         JSON.stringify({ error: "Ogiltig e-postadress." }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Block free/personal/disposable email domains (gmail, hotmail, live, etc.)
+    if (isFreeEmailDomain(data.email)) {
+      console.log(`Blocked free email domain submission: ${data.email}`);
+      return new Response(
+        JSON.stringify({ error: FREE_EMAIL_ERROR_SV }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
