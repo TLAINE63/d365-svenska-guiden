@@ -80,6 +80,14 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   // Tidigare produktlandningssidor
   { from: "/dynamics-365-customer-engagement-crm", to: "/crm",            intendedStatus: 301 },
   { from: "/dynamics-365-erp-business-central",    to: "/businesscentral", intendedStatus: 301 },
+
+  // Beslutsmognad — kortat namn (gammalt: beslutsmognadsindex)
+  { from: "/beslutsmognadsindex",            to: "/beslutsmognad",           intendedStatus: 301 },
+  { from: "/beslutsmognadsindex/diagnostik", to: "/beslutsmognad/diagnostik", intendedStatus: 301 },
+  { from: "/beslutsmognadsindex/tack",       to: "/beslutsmognad/tack",       intendedStatus: 301 },
+
+  // Avpublicerade partner-sidor → partnerväljaren
+  { from: "/partner/adbriq",                 to: "/valjdynamics365partner",   intendedStatus: 301 },
 ];
 
 const SITE_ORIGIN = "https://d365.se";
