@@ -124,6 +124,12 @@ const ErpComparisonPage = () => {
                 </tbody>
               </table>
             </div>
+            <div className="mt-4 rounded-lg border border-border bg-background p-4 flex gap-3">
+              <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
+              <p className="text-sm text-muted-foreground">
+                <strong className="text-foreground">Observera:</strong> Priser, licensvillkor och funktionalitet kan ändras över tid. Kontrollera aktuella uppgifter direkt med respektive leverantör eller partner innan ni fattar beslut. Jämförelsen är en köparsidig vägledning, inte en garanti för att enskilda funktioner eller priser är identiska vid ert köptillfälle.
+              </p>
+            </div>
           </div>
         </section>
 

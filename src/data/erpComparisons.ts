@@ -64,7 +64,7 @@ const COMMON_ROWS = (
   },
   {
     area: "ISV- & tilläggsekosystem",
-    bc: "Microsoft Marketplace + svenska ISV: Continia, Tabellae, Bitlog, BrightCom (Excitec), Storm Commerce m.fl.",
+    bc: "Microsoft Marketplace + över 7 000 certifierade tilläggsappar. Svenska ISV: Continia, Tabellae, Bitlog, BrightCom (Excitec), Storm Commerce m.fl.",
     competitor: comp.isvEko,
   },
   {
