@@ -31,7 +31,7 @@ const ErpComparisonPage = () => {
         canonicalPath={`/jamfor/${data.slug}/`}
       />
       <BreadcrumbSchema items={breadcrumbs} />
-      <FAQSchema faqs={data.faqs} />
+      <FAQSchema faqs={data.faqs.map((f) => ({ question: f.q, answer: f.a }))} />
       <Navbar />
 
       <main className="pt-20 flex-1">
