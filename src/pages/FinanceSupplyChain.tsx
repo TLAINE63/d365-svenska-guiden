@@ -234,8 +234,16 @@ const FinanceSupplyChain = () => {
  <span>Vad är skillnaden mellan Dynamics 365 F&SCM och andra ERP-system?</span>
  </span>
  </AccordionTrigger>
- <AccordionContent className="text-muted-foreground pb-6 pl-11">
- Dynamics 365 Finance & Supply Chain Management skiljer sig genom sin skalbarhet för globala organisationer, djupgående integration med Microsoft-ekosystemet, kraftfulla AI- och maskininlärningsfunktioner för prediktiv analys, samt branschspecifika applikationer för tillverkning, detaljhandel och distribution. Systemet erbjuder också omfattande compliance-stöd för olika regioner och branscher.
+ <AccordionContent className="text-muted-foreground pb-6 pl-11 space-y-3">
+ <p>Dynamics 365 Finance & Supply Chain Management skiljer sig genom sin skalbarhet för globala organisationer, djupgående integration med Microsoft-ekosystemet, kraftfulla AI- och maskininlärningsfunktioner för prediktiv analys, samt branschspecifika applikationer för tillverkning, detaljhandel och distribution. Systemet erbjuder också omfattande compliance-stöd för olika regioner och branscher.</p>
+ <p className="text-sm">
+ <strong className="text-foreground">Se publicerade jämförelser:</strong>{" "}
+ <Link to="/jamfor/fscm-vs-sap-s4hana/" className="text-primary hover:underline font-medium">F&SCM vs SAP S/4HANA</Link>
+ {" · "}
+ <Link to="/jamfor/fscm-vs-infor-m3/" className="text-primary hover:underline font-medium">F&SCM vs Infor M3</Link>
+ {" · "}
+ <Link to="/jamfor/" className="text-primary hover:underline font-medium">Alla jämförelser</Link>
+ </p>
  </AccordionContent>
  </AccordionItem>
  
