@@ -11,6 +11,7 @@
 import { ALL_DEEP_DIVE_ARTICLES } from "./bcArticles";
 import { BLOG_ARTICLES } from "./blogArticles";
 import { KNOWLEDGE_VIDEOS } from "./knowledgeVideos";
+import { ERP_COMPARISONS } from "./erpComparisons";
 
 export interface HubResourceCard {
   id: string;
@@ -96,6 +97,16 @@ const videosByProductTag = (tags: string[]): HubResourceCard[] =>
       url: `/kunskapscenter/video/${v.slug}/`,
       category: "Video",
     }));
+
+const erpComparisonsAsResources = (): HubResourceCard[] =>
+  ERP_COMPARISONS.map((c) => ({
+    id: `jamfor-${c.slug}`,
+    type: "guide" as const,
+    title: `Business Central vs ${c.competitor}`,
+    description: c.intro,
+    url: `/jamfor/${c.slug}/`,
+    category: "Konkurrentjämförelse",
+  }));
 
 // Tool entries are hand-curated (small set, easier to keep on-brand than auto-filter)
 const tools = {
@@ -272,6 +283,7 @@ export const KNOWLEDGE_HUBS: KnowledgeHubConfig[] = [
       tools.bcRoiKalkylator,
       tools.kravspecErp,
       tools.branschjamforelse,
+      ...erpComparisonsAsResources(),
       ...deepDiveBySlug(["businesscentral"]),
       ...blogByProduct(["Business Central"]),
     ],

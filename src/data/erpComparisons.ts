@@ -278,6 +278,190 @@ export const ERP_COMPARISONS: ErpComparison[] = [
       },
     ],
   },
+  {
+    slug: "business-central-vs-sap-business-one",
+    competitor: "SAP Business One",
+    competitorUrl: "https://www.sap.com/sweden/products/business-one.html",
+    title: "Business Central vs SAP Business One – jämförelse för svenska SMB",
+    metaDescription:
+      "Jämför Microsoft Dynamics 365 Business Central med SAP Business One. Funktioner, pris, implementationstid, AI och partnerekosystem för svenska små och medelstora bolag.",
+    intro:
+      "SAP Business One är SAP:s ERP för små och medelstora bolag — inte att förväxla med SAP S/4HANA som riktar sig till storföretag. Business Central är Microsofts motsvarighet och är ofta den tydligaste konkurrenten i SMB-segmentet i Sverige.",
+    bcSummary:
+      "Business Central står starkast när bolaget redan kör Microsoft 365, vill ha Copilot inbyggt och söker en bred, modern molnplattform med stort svenskt partnernätverk.",
+    competitorSummary:
+      "SAP Business One har djup ekonomi- och lagerfunktionalitet och passar bolag som vill ha SAP-varumärket, internationell SAP-konsolidering eller redan har SAP i moderbolaget.",
+    bestFor: {
+      bc: [
+        "Bolag som vill ha Microsoft 365, Teams och Copilot djupt integrerat i affärsprocesserna.",
+        "Bolag som söker bred lokalisering i Sverige med många konkurrerande partners.",
+        "Bolag i tillväxt som vill kunna växa till F&SCM utan att byta plattform.",
+      ],
+      competitor: [
+        "Dotterbolag till SAP-koncerner som behöver konsolidera mot S/4HANA eller ECC.",
+        "Bolag som har starka SAP-kompetenser internt eller via befintlig partner.",
+        "Bolag som värdesätter SAP-ekosystemet och dess globala räckvidd.",
+      ],
+    },
+    rows: COMMON_ROWS({
+      arkitektur: "Moln (SAP Business One Cloud) eller on-prem. HANA eller MS SQL Server som databas.",
+      licensModell: "Per användare/månad. Professional ~1 600–2 200 kr, Limited ~600–900 kr (offert).",
+      implTid: "10–24 veckor för standardprojekt; längre vid SAP-koncernintegration.",
+      implKostnad: "400 000–1 800 000 kr beroende på komplexitet och anpassningar.",
+      isvEko: "Globalt SAP-ekosystem (Boyum, Beas, Produmex m.fl.). Mindre svenskt utbud än BC.",
+      integration: "Standardintegrationer mot Office finns men inte i samma djup som BC:s native-integration.",
+      ai: "SAP Joule rullas ut stegvis i Business One. Mindre moget än Microsoft Copilot idag.",
+      lokalRedovisning: "Svensk lokalisering finns, men kräver oftare partnerinsats än BC:s standardstöd.",
+      internationell: "Stark – SAP har lokalisering i 50+ länder och är ett naturligt val för SAP-koncerner.",
+      partnerEko: "Mindre svenskt partnernät (handfull aktiva), större internationellt.",
+    }),
+    bcLimits: [
+      "Om ni är dotterbolag i en SAP-koncern där koncernen kräver SAP i hela kedjan.",
+      "Om ni har starkt SAP-kompetensberoende internt och vill behålla det.",
+    ],
+    competitorLimits: [
+      "Om Microsoft 365 / Copilot är central plattform i organisationen.",
+      "Om ni vill ha brett urval av svenska partners att jämföra och förhandla med.",
+      "Om ni söker en modern molnförst-arkitektur utan beroende av on-prem-historik.",
+    ],
+    faqs: [
+      {
+        q: "Är SAP Business One samma sak som SAP S/4HANA?",
+        a: "Nej. Business One är SAP:s SMB-ERP (10–500 användare). S/4HANA är för storföretag. Det är Business One — inte S/4HANA — som är reell konkurrent till Business Central.",
+      },
+      {
+        q: "Är SAP Business One dyrare än Business Central?",
+        a: "Licenspriserna ligger ofta något över BC Premium. Implementationen blir typiskt 20–40 % dyrare i Sverige, främst eftersom partnerutbudet är mindre och timpriserna högre.",
+      },
+      {
+        q: "Vilket system har starkare AI?",
+        a: "Microsoft Copilot är idag mer moget i Business Central än SAP Joule i Business One. SAP investerar tungt men ligger 12–24 månader efter Microsoft i SMB-segmentet.",
+      },
+    ],
+  },
+  {
+    slug: "business-central-vs-netsuite",
+    competitor: "Oracle NetSuite",
+    competitorUrl: "https://www.netsuite.com/portal/se/home.shtml",
+    title: "Business Central vs Oracle NetSuite – jämförelse för svenska bolag",
+    metaDescription:
+      "Jämför Microsoft Dynamics 365 Business Central med Oracle NetSuite. Funktioner, pris, implementationstid, AI och svensk lokalisering för SaaS-baserade ERP-val.",
+    intro:
+      "Oracle NetSuite är ett av världens mest etablerade moln-ERP och vanligt val i tech-bolag, e-handel och bolag med USA-kopplingar. Business Central är Microsofts motsvarighet med tydligare svensk förankring och Microsoft 365-integration.",
+    bcSummary:
+      "Business Central står starkast när bolaget vill ha djup Microsoft 365- och Copilot-integration, svensk lokalisering ur lådan och ett brett svenskt partnernät att välja från.",
+    competitorSummary:
+      "NetSuite är ett moget, multitenancy-baserat moln-ERP med stark funktionalitet för flerbolag, intercompany, revenue recognition och USA-baserade redovisningsregler. Vanligt i scale-ups och bolag med amerikanska investerare.",
+    bestFor: {
+      bc: [
+        "Bolag med svenskt huvudkontor som söker stark lokalisering och svenskt partnernät.",
+        "Bolag som redan kör Microsoft 365 / Azure / Copilot.",
+        "Bolag som vill ha valfrihet mellan många konkurrerande implementationspartners.",
+      ],
+      competitor: [
+        "Bolag med amerikanska ägare eller US-baserad finansieringsstruktur (VC, PE).",
+        "Internationella scale-ups med många bolag, valutor och intercompany-flöden.",
+        "Bolag som vill ha advanced revenue recognition (ASC 606 / IFRS 15) inbyggt.",
+      ],
+    },
+    rows: COMMON_ROWS({
+      arkitektur: "Rent moln-SaaS (multitenancy). Oracle-driven, ingen on-prem-variant.",
+      licensModell: "Per användare/månad – från ca 1 000 kr (Limited) till 1 800+ kr (Full). Plattformsavgift ~10 000–25 000 kr/mån.",
+      implTid: "16–36 veckor; ofta längre i Sverige p.g.a. begränsat lokalt partnerutbud.",
+      implKostnad: "600 000–3 000 000 kr beroende på antal bolag, integrationer och svensk lokalisering.",
+      isvEko: "Stort globalt ekosystem (SuiteApps). Mindre svenskt utbud.",
+      integration: "Integrationer mot Microsoft 365 finns via SuiteApps men inte native som i BC.",
+      ai: "NetSuite AI och text enhance finns; mindre moget än Microsoft Copilot idag.",
+      lokalRedovisning: "Begränsad svensk lokalisering – ofta krävs egen anpassning eller SuiteApp.",
+      internationell: "Mycket stark – NetSuite OneWorld är byggt för multinationella koncerner.",
+      partnerEko: "Få NetSuite-partners i Sverige (handfull). Direktförsäljning från Oracle vanligt.",
+    }),
+    bcLimits: [
+      "Om ni har komplex internationell konsolidering med 20+ bolag i många valutor.",
+      "Om amerikansk redovisning (ASC 606) och revenue recognition är kärnkrav.",
+    ],
+    competitorLimits: [
+      "Om ni har svenskt huvudkontor och vill ha stark lokal redovisning ur lådan.",
+      "Om Microsoft 365 / Copilot är central plattform i organisationen.",
+      "Om ni vill ha brett urval av svenska partners att jämföra och förhandla med.",
+    ],
+    faqs: [
+      {
+        q: "Är NetSuite dyrare än Business Central i Sverige?",
+        a: "I de flesta fall ja. Plattformsavgiften (10–25 k kr/mån) tillkommer ovanpå användarlicenser. Implementationen blir ofta 30–60 % dyrare än motsvarande BC-projekt eftersom svenskt partnerutbud är begränsat.",
+      },
+      {
+        q: "När är NetSuite ett bättre val än Business Central?",
+        a: "Vid amerikanska ägare som kräver NetSuite, vid komplex internationell intercompany-konsolidering, eller om ni behöver advanced revenue recognition (ASC 606) inbyggt.",
+      },
+      {
+        q: "Finns det svensk support för NetSuite?",
+        a: "Ja, men begränsat. Ett fåtal svenska partners arbetar med NetSuite och Oracle har svensk säljorganisation. BC har avsevärt fler aktiva svenska partners.",
+      },
+    ],
+  },
+  {
+    slug: "business-central-vs-odoo",
+    competitor: "Odoo",
+    competitorUrl: "https://www.odoo.com/sv_SE",
+    title: "Business Central vs Odoo – jämförelse för svenska SMB och scale-ups",
+    metaDescription:
+      "Jämför Microsoft Dynamics 365 Business Central med Odoo. Funktioner, pris, implementationstid, AI, svensk lokalisering och öppen källkod – för köpare i SMB-segmentet.",
+    intro:
+      "Odoo är ett snabbväxande, modulärt ERP med öppen källkod-historik och låg startkostnad. Business Central är Microsofts molnbaserade ERP med djup Microsoft 365-integration och svenskt partnernät. Två tydligt olika filosofier för samma SMB-segment.",
+    bcSummary:
+      "Business Central står starkast när bolaget värdesätter ett moget Microsoft-ekosystem, stark svensk lokalisering, Copilot och ett brett svenskt partnernät.",
+    competitorSummary:
+      "Odoo är prisvärt, mycket modulärt och har bred funktionalitet (ERP, CRM, e-handel, HR, MRP, projekt). Passar bolag som vill bygga upp stegvis och har tekniskt mognad internt eller via partner.",
+    bestFor: {
+      bc: [
+        "Bolag som vill ha en stabil, etablerad plattform med tydlig roadmap och stark global support.",
+        "Bolag som redan kör Microsoft 365 och vill ha Copilot inbyggt.",
+        "Bolag som värdesätter stort svenskt partnerutbud och svensk redovisning ur lådan.",
+      ],
+      competitor: [
+        "Bolag med stark teknisk profil eller IT-team som vill ha kontroll på källkod och anpassningar.",
+        "Bolag som vill starta smalt (t.ex. bara ekonomi + CRM) och växa stegvis.",
+        "Bolag med stark prispress där låg licenskostnad är centralt.",
+      ],
+    },
+    rows: COMMON_ROWS({
+      arkitektur: "Moln (Odoo Online / Odoo.sh) eller on-prem. Open Source Community + kommersiell Enterprise.",
+      licensModell: "Per användare/månad – från ~250 kr (One App Free) till ~450–550 kr (Standard) eller ~700–900 kr (Custom).",
+      implTid: "6–20 veckor är vanligt; kortare för smala uppstarter, längre för full ERP-svit.",
+      implKostnad: "100 000–800 000 kr beroende på moduler, anpassningar och svensk lokalisering.",
+      isvEko: "Stort globalt community + Odoo Apps Store. Mindre svenskt utbud av certifierade lösningar.",
+      integration: "Integrationer mot Office finns men inte i samma djup som BC:s native Microsoft 365-integration.",
+      ai: "Odoo AI-funktioner finns (text/automation) men är mindre mogna än Microsoft Copilot.",
+      lokalRedovisning: "Svensk lokalisering finns (BAS-kontoplan, SIE) men kräver ofta partneranpassning för full täckning.",
+      internationell: "Stark – global plattform med community-lokalisering i 100+ länder.",
+      partnerEko: "Växande svenskt partnernät (handfull aktiva Odoo Gold/Silver-partners). Mindre än BC.",
+    }),
+    bcLimits: [
+      "Om ni har stark teknisk profil internt och värdesätter öppen källkod-arkitektur.",
+      "Om ni har begränsad budget och vill starta smalt med låg licenskostnad.",
+      "Om ni vill ha full kontroll på databas och möjlighet till on-prem-drift.",
+    ],
+    competitorLimits: [
+      "Om Microsoft 365 / Copilot är central plattform i organisationen.",
+      "Om ni vill ha brett svenskt partnerutbud och svensk redovisning ur lådan.",
+      "Om ni är ett medelstort/större bolag med komplexa krav på revision, kontroll och SLA.",
+    ],
+    faqs: [
+      {
+        q: "Är Odoo gratis?",
+        a: "Odoo Community är öppen källkod och kan användas gratis, men kräver egen drift och anpassning. Odoo Enterprise (det som de flesta bolag faktiskt kör) är licensierat per användare/månad och tillkommer drift- och implementationskostnader.",
+      },
+      {
+        q: "Vilket är billigare över 5 år – Odoo eller Business Central?",
+        a: "Odoo har lägre licenskostnad men ofta högre anpassnings- och förvaltningskostnad i Sverige p.g.a. mindre standardiserad svensk lokalisering. På 5 år hamnar TCO ofta i samma härad för medelstora bolag.",
+      },
+      {
+        q: "Är Odoo mogen nog för svenska SMB?",
+        a: "Ja, för många bolag – särskilt tjänste-, handels- och e-handelsbolag. För djup svensk redovisning, lön och tillverkningsstyrning är BC eller svenska alternativ (Visma, Jeeves, Monitor) ofta tryggare val.",
+      },
+    ],
+  },
 ];
 
 export const getErpComparison = (slug: string): ErpComparison | undefined =>
