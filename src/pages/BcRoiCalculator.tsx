@@ -144,7 +144,10 @@ export default function BcRoiCalculator() {
       driverImplCost +
       (v.license === "Premium" ? 200_000 : 0);
 
-    const supportYearly = implementation * 0.18; // löpande förvaltning ~18% av impl/år
+    // År 1: lägre förvaltning eftersom projektet pågår (~8% av impl).
+    // År 2–5: full löpande förvaltning (~18% av impl/år).
+    const supportYear1 = implementation * 0.08;
+    const supportYearly = implementation * 0.18;
 
     const complexityFactor: Record<Complexity, number> = { Låg: 0.6, Medel: 1, Hög: 1.3 };
     const manualMultiplier = 0.5 + (v.manualPct / 100); // 0.5 vid 0%, 1.5 vid 100%
@@ -153,10 +156,11 @@ export default function BcRoiCalculator() {
     const annualBenefit =
       (driverSavings * manualMultiplier + integrationSavings) * complexityFactor[v.complexity];
 
+    // Payback baseras på steady-state (efter år 1)
     const netAnnual = annualBenefit + v.currentItCost - licenseYearly - supportYearly;
     const paybackMonths = netAnnual > 0 ? (implementation / netAnnual) * 12 : null;
 
-    const tco5 = implementation + 5 * (licenseYearly + supportYearly);
+    const tco5 = implementation + 5 * licenseYearly + supportYear1 + 4 * supportYearly;
     const benefit5 = 5 * annualBenefit + 5 * v.currentItCost;
     const net5 = benefit5 - tco5;
     const roiPct = implementation > 0 ? (net5 / implementation) * 100 : 0;
