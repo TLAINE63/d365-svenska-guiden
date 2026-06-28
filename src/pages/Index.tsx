@@ -211,10 +211,6 @@ const Index = () => {
  const [directionPicker, setDirectionPicker] = useState<null | "behovsanalys" | "kravspec">(null);
  const [aiQuery, setAiQuery] = useState("");
  const navigate = useNavigate();
-  const aiExamples = [
-   "Vi är ett tillverkande bolag och behöver bättre koll på lager",
-   "Hitta partner inom fastighet",
-  ];
  const submitAiSearch = (q: string) => {
   const trimmed = q.trim();
   if (!trimmed) return;
@@ -371,21 +367,9 @@ const Index = () => {
      Sök med AI
      <ArrowRight className="w-4 h-4" />
     </button>
-   </div>
-   <div className="mt-3 flex flex-wrap gap-2">
-    {aiExamples.map((ex) => (
-     <button
-      key={ex}
-      type="button"
-      onClick={() => submitAiSearch(ex)}
-      className="text-[12px] text-white/70 hover:text-white border border-[#3A332A] hover:border-[hsl(var(--signature))] rounded px-2.5 py-1 transition-colors"
-     >
-      {ex}
-     </button>
-    ))}
-   </div>
-  </form>
- </div>
+    </div>
+   </form>
+  </div>
 
  {/* 3 step cards */}
  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 mb-5 sm:mb-6">
