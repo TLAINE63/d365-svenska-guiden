@@ -109,6 +109,10 @@ const D365CustomerService = () => {
           label: "Jämför CS-partners",
           onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
         }}
+        tertiary={{
+          label: "Gör en estimerad TCO/ROI-kalkyl",
+          onClick: () => document.getElementById('roi-tco')?.scrollIntoView({ behavior: 'smooth' }),
+        }}
       />
 
       <ShortAnswer title="Vad är Dynamics 365 Customer Service">

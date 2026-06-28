@@ -221,6 +221,10 @@ const BusinessCentral = () => {
  label: "Jämför Business Central-partners",
  onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
  }}
+ tertiary={{
+ label: "Gör en estimerad TCO/ROI-kalkyl",
+ onClick: () => document.getElementById('roi-tco')?.scrollIntoView({ behavior: 'smooth' }),
+ }}
  />
 
  <ShortAnswer title="Vad är Microsoft Dynamics 365 Business Central">
