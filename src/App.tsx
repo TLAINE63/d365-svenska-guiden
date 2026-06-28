@@ -23,6 +23,7 @@ const BusinessCentral = lazy(() => import("./pages/BusinessCentral"));
 const FinanceSupplyChain = lazy(() => import("./pages/FinanceSupplyChain"));
 const FscmMatchningstest = lazy(() => import("./pages/FscmMatchningstest"));
 const BcMatchningstest = lazy(() => import("./pages/BcMatchningstest"));
+const BcRoiCalculator = lazy(() => import("./pages/BcRoiCalculator"));
 const ERPOverview = lazy(() => import("./pages/ERPOverview"));
 const Affarssystem = lazy(() => import("./pages/Affarssystem"));
 
@@ -116,6 +117,8 @@ const AppShell = () => {
           <Route path="/business-central" element={<Navigate to="/businesscentral" replace />} />
           <Route path="/businesscentral/matchningstest" element={<BcMatchningstest />} />
           <Route path="/business-central/matchningstest" element={<Navigate to="/businesscentral/matchningstest" replace />} />
+          <Route path="/businesscentral/roi-kalkylator" element={<BcRoiCalculator />} />
+          <Route path="/business-central/roi-kalkylator" element={<Navigate to="/businesscentral/roi-kalkylator" replace />} />
           <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
           <Route path="/finance-supply-chain-management/matchningstest" element={<FscmMatchningstest />} />
           <Route path="/finance-supply-chain/matchningstest" element={<Navigate to="/finance-supply-chain-management/matchningstest" replace />} />
