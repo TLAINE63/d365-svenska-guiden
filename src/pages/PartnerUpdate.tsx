@@ -259,7 +259,9 @@ const PartnerUpdate = () => {
     typical_length: string;
     engagement_model: string;
     methodology: string;
-  }>({ roles: [], typical_length: "", engagement_model: "", methodology: "" });
+    bc_project_weeks_min: string;
+    bc_project_weeks_max: string;
+  }>({ roles: [], typical_length: "", engagement_model: "", methodology: "", bc_project_weeks_min: "", bc_project_weeks_max: "" });
   const [rolesInput, setRolesInput] = useState("");
   const [teamSizeSweden, setTeamSizeSweden] = useState("");
   const [implementationsDone, setImplementationsDone] = useState("");
