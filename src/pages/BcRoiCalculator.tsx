@@ -136,10 +136,19 @@ export default function BcRoiCalculator() {
     const licenseYearly = licenseMonthly * 12;
 
     const complexityImpl: Record<Complexity, number> = { Låg: 250_000, Medel: 500_000, Hög: 1_000_000 };
+    // Branschfaktor på basimplementation: tillverkning/distribution drar tyngre projekt,
+    // tjänster lättare, handel/annan i mitten.
+    const industryImplFactor: Record<Industry, number> = {
+      Tillverkning: 1.4,
+      Distribution: 1.2,
+      Handel: 1.0,
+      Annan: 1.0,
+      Tjänster: 0.8,
+    };
     const usersFactor = 1 + Math.max(0, v.fullUsers - 25) * 0.012;
     const driverImplCost = activeDrivers.reduce((sum, d) => sum + d.implCost, 0);
     const implementation =
-      complexityImpl[v.complexity] * usersFactor +
+      complexityImpl[v.complexity] * usersFactor * industryImplFactor[v.industry] +
       v.integrations * 30_000 +
       driverImplCost +
       (v.license === "Premium" ? 200_000 : 0);
