@@ -259,7 +259,9 @@ const PartnerUpdate = () => {
     typical_length: string;
     engagement_model: string;
     methodology: string;
-  }>({ roles: [], typical_length: "", engagement_model: "", methodology: "" });
+    bc_project_weeks_min: string;
+    bc_project_weeks_max: string;
+  }>({ roles: [], typical_length: "", engagement_model: "", methodology: "", bc_project_weeks_min: "", bc_project_weeks_max: "" });
   const [rolesInput, setRolesInput] = useState("");
   const [teamSizeSweden, setTeamSizeSweden] = useState("");
   const [implementationsDone, setImplementationsDone] = useState("");
@@ -406,6 +408,8 @@ const PartnerUpdate = () => {
       typical_length: dp.typical_length || "",
       engagement_model: dp.engagement_model || "",
       methodology: dp.methodology || "",
+      bc_project_weeks_min: dp.bc_project_weeks_min != null ? String(dp.bc_project_weeks_min) : "",
+      bc_project_weeks_max: dp.bc_project_weeks_max != null ? String(dp.bc_project_weeks_max) : "",
     });
     if (Array.isArray(dp.roles)) setRolesInput(dp.roles.join(", "));
   }
@@ -862,6 +866,8 @@ const PartnerUpdate = () => {
    typical_length: deliveryProfile.typical_length.trim(),
    engagement_model: deliveryProfile.engagement_model.trim(),
    methodology: deliveryProfile.methodology.trim(),
+   bc_project_weeks_min: deliveryProfile.bc_project_weeks_min.trim() ? Math.max(0, parseInt(deliveryProfile.bc_project_weeks_min, 10) || 0) : null,
+   bc_project_weeks_max: deliveryProfile.bc_project_weeks_max.trim() ? Math.max(0, parseInt(deliveryProfile.bc_project_weeks_max, 10) || 0) : null,
  },
  team_size_sweden: teamSizeSweden || null,
  implementations_done: implementationsDone || null,
@@ -2381,17 +2387,49 @@ const PartnerUpdate = () => {
            onChange={(e) => setDeliveryProfile({ ...deliveryProfile, engagement_model: e.target.value })}
          />
        </div>
-       <div className="sm:col-span-2">
-         <Label htmlFor="dp_method">Projektmetodik</Label>
-         <Input
-           id="dp_method"
-           placeholder="t.ex. Sure Step, egen agil metod"
-           value={deliveryProfile.methodology}
-           onChange={(e) => setDeliveryProfile({ ...deliveryProfile, methodology: e.target.value })}
-         />
-       </div>
-     </div>
-   </div>
+        <div className="sm:col-span-2">
+          <Label htmlFor="dp_method">Projektmetodik</Label>
+          <Input
+            id="dp_method"
+            placeholder="t.ex. Sure Step, egen agil metod"
+            value={deliveryProfile.methodology}
+            onChange={(e) => setDeliveryProfile({ ...deliveryProfile, methodology: e.target.value })}
+          />
+        </div>
+        <div className="sm:col-span-2">
+          <Label className="flex items-center gap-2">
+            Typisk projektlängd för Business Central (veckor)
+          </Label>
+          <p className="text-xs text-muted-foreground mb-2">
+            Ange spannet ni oftast levererar BC-implementationer på (min och max). Hjälper köparen jämföra realistisk tidsåtgång.
+          </p>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <Label htmlFor="dp_bc_min" className="text-xs text-slate-500">Min (veckor)</Label>
+              <Input
+                id="dp_bc_min"
+                type="number"
+                min={0}
+                placeholder="t.ex. 12"
+                value={deliveryProfile.bc_project_weeks_min}
+                onChange={(e) => setDeliveryProfile({ ...deliveryProfile, bc_project_weeks_min: e.target.value })}
+              />
+            </div>
+            <div>
+              <Label htmlFor="dp_bc_max" className="text-xs text-slate-500">Max (veckor)</Label>
+              <Input
+                id="dp_bc_max"
+                type="number"
+                min={0}
+                placeholder="t.ex. 26"
+                value={deliveryProfile.bc_project_weeks_max}
+                onChange={(e) => setDeliveryProfile({ ...deliveryProfile, bc_project_weeks_max: e.target.value })}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
    <div className="border-t border-border pt-4">
      <Label htmlFor="not_a_fit" className="flex items-center gap-2">

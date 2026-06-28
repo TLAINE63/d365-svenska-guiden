@@ -37,6 +37,18 @@ type DeliveryProfile = {
   typical_length?: string;
   engagement_model?: string;
   methodology?: string;
+  bc_project_weeks_min?: number | null;
+  bc_project_weeks_max?: number | null;
+};
+
+const formatBcLength = (dp?: DeliveryProfile | null): string => {
+  if (!dp) return "";
+  const min = typeof dp.bc_project_weeks_min === "number" ? dp.bc_project_weeks_min : null;
+  const max = typeof dp.bc_project_weeks_max === "number" ? dp.bc_project_weeks_max : null;
+  if (min != null && max != null) return `${min}–${max} veckor`;
+  if (min != null) return `Från ${min} veckor`;
+  if (max != null) return `Upp till ${max} veckor`;
+  return "";
 };
 
 const EMPTY = <span className="text-slate-400 italic">—</span>;
@@ -373,6 +385,7 @@ const ComparePartners = () => {
       industryApps,
       roles: cleanList(dp.roles),
       length: dp.typical_length?.trim() || "",
+      bcLength: formatBcLength(dp),
       engagement: dp.engagement_model?.trim() || "",
       methodology: dp.methodology?.trim() || "",
       teamSize: p?.team_size_sweden?.trim() || "",
@@ -693,6 +706,12 @@ const ComparePartners = () => {
                             ? renderList(B.implementationsPerApp.map((i) => `${i.app}: ${i.count}`))
                             : renderValue(B.implementations)
                         }
+                      />
+                      <R
+                        label="Typisk BC-projektlängd"
+                        help="Partnerns egna spann för typisk implementationstid av Business Central, mätt i veckor från projektstart till driftsättning. Verklig längd beror på scope, datakvalitet och organisationens beslutskraft."
+                        a={renderValue(A.bcLength)}
+                        b={renderValue(B.bcLength)}
                       />
                       <R
                         label="Geografisk närvaro"
