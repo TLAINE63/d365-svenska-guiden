@@ -12,6 +12,7 @@ import ContactFormDialog from "@/components/ContactFormDialog";
 import ApplicationPartners from "@/components/ApplicationPartners";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
+import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
 import { ArrowRight, FileText } from "lucide-react";
 import { useEffect } from "react";
 import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
@@ -272,6 +273,7 @@ const D365ContactCenter = () => {
       {/* Partners Section */}
       <BuyerManual product="contact-center" />
       <CostBreakdown product="contact-center" />
+      <ComparisonQuickLinks productKeys="contact-center" />
 
       {/* Deep-dive articles */}
       <section className="py-8 sm:py-12 bg-secondary/30">

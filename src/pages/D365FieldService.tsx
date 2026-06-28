@@ -12,6 +12,7 @@ import ContactFormDialog from "@/components/ContactFormDialog";
 import ApplicationPartners from "@/components/ApplicationPartners";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
+import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
 import { ArrowRight, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
@@ -270,6 +271,7 @@ const D365FieldService = () => {
       {/* Partners Section */}
       <BuyerManual product="field-service" />
       <CostBreakdown product="field-service" />
+      <ComparisonQuickLinks productKeys="field-service" />
 
       {/* Deep Dive Articles */}
       <section className="py-8 sm:py-12 md:py-16 bg-muted/30">
