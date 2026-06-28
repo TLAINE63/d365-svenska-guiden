@@ -18,7 +18,7 @@ import PartnerCard from "@/components/PartnerCard";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
 import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
-import ProductRoiAnalysis from "@/components/ProductRoiAnalysis";
+import ProductRoiCta from "@/components/ProductRoiCta";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
@@ -202,7 +202,7 @@ const FinanceSupplyChain = () => {
  }}
  tertiary={{
  label: "Gör en estimerad TCO/ROI-kalkyl",
- onClick: () => document.getElementById('roi-tco')?.scrollIntoView({ behavior: 'smooth' }),
+ to: "/finance-supply-chain/roi-kalkylator/",
  }}
  />
 
@@ -608,7 +608,7 @@ const FinanceSupplyChain = () => {
       <CostBreakdown product="finance-scm" />
       <ComparisonQuickLinks productKeys="fscm" />
 
-      <ProductRoiAnalysis productKey="finance-scm" />
+      <ProductRoiCta productKey="finance-scm" />
 
       {/* Fördjupningsartiklar */}
       <section className="py-12 bg-secondary/20">

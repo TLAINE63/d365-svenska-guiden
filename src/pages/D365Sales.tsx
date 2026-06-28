@@ -13,7 +13,7 @@ import ApplicationPartners from "@/components/ApplicationPartners";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
 import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
-import ProductRoiAnalysis from "@/components/ProductRoiAnalysis";
+import ProductRoiCta from "@/components/ProductRoiCta";
 import { ArrowRight, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
@@ -124,7 +124,7 @@ const D365Sales = () => {
         }}
         tertiary={{
           label: "Gör en estimerad TCO/ROI-kalkyl",
-          onClick: () => document.getElementById('roi-tco')?.scrollIntoView({ behavior: 'smooth' }),
+          to: "/d365sales/roi-kalkylator/",
         }}
       />
 
@@ -299,8 +299,8 @@ const D365Sales = () => {
       <CostBreakdown product="sales" />
       <ComparisonQuickLinks productKeys="sales" />
 
-      {/* ROI/TCO Calculator CTA — efter pris/kostnadsuppgifter */}
-      <ProductRoiAnalysis productKey="sales" />
+      {/* CTA till TCO/ROI-kalkylator i Kunskapscentret */}
+      <ProductRoiCta productKey="sales" />
 
 
       {/* Deep-dive articles */}
