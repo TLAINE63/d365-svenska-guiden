@@ -281,7 +281,17 @@ export default function BcRoiCalculator() {
                     {/* Bransch */}
                     <div className="space-y-2">
                       <Label>Bransch</Label>
-                      <Select value={v.industry} onValueChange={(val) => update("industry", val as Industry)}>
+                      <Select
+                        value={v.industry}
+                        onValueChange={(val) => {
+                          const next = val as Industry;
+                          setV((prev) => ({
+                            ...prev,
+                            industry: next,
+                            enabledDrivers: defaultEnabledDrivers(next),
+                          }));
+                        }}
+                      >
                         <SelectTrigger><SelectValue /></SelectTrigger>
                         <SelectContent>
                           {(["Handel","Distribution","Tillverkning","Tjänster","Annan"] as Industry[]).map(i => (
