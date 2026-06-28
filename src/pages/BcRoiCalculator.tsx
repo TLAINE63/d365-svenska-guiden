@@ -611,9 +611,10 @@ export default function BcRoiCalculator() {
                 </Assumption>
                 <Assumption title="Årlig nytta">
                   Nyttan summeras från de drivare ni bockat i för er bransch. Varje drivare har en grundnivå (fast belopp eller andel
-                  av omsättning, taklagd). Summan justeras med andelen manuella processer (0,5×–1,5×) och komplexitetsfaktor
-                  (0,6 / 1,0 / 1,3). Integrationer ger dessutom 50 000 kr/år vardera. Estimaten är baserade på Microsofts Business
-                  Value Assessment (oktober 2025) och svenska partnerbenchmarks.
+                  av omsättning, taklagd) som skalas med <strong>antal användare</strong> – baseline 25 användare = 1,0×, sublinjärt så att
+                  10 användare ger ~0,55× och 100 användare ~2,3×. Summan justeras sedan med andelen manuella processer (0,5×–1,5×) och
+                  komplexitetsfaktor (0,6 / 1,0 / 1,3). Integrationer ger dessutom 50 000 kr/år vardera. Estimaten är baserade på
+                  Microsofts Business Value Assessment (oktober 2025) och svenska partnerbenchmarks.
                 </Assumption>
                 <Assumption title="Payback &amp; TCO">
                   Payback = implementation / (årlig nettonytta inkl. ersatt IT-kostnad). 5-årig TCO = implementation + 5 × (licens + förvaltning).
