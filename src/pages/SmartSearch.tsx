@@ -17,10 +17,8 @@ interface SearchResult {
 }
 
 const EXAMPLES = [
-  "Vi är ett tillverkande bolag och behöver bättre koll på lager",
   "Vilken CRM passar för 30 säljare?",
   "Hur kommer jag igång med Copilot?",
-  "Hitta partner inom fastighet",
   "Skillnad mellan Business Central och Finance & SCM",
 ];
 
