@@ -279,8 +279,11 @@ const D365Marketing = () => {
       <CostBreakdown product="marketing" />
       <ComparisonQuickLinks productKeys="customer-insights" />
 
+      <ProductRoiAnalysis productKey="customer-insights" />
+
       {/* Deep-dive articles */}
       <section className="py-8 sm:py-12 bg-secondary/30">
+
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center mb-3">Fördjupningsartiklar</h2>
           <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">Utforska Dynamics 365 Customer Insights på djupet — från enhetliga kundprofiler och AI-segmentering till journey automation och GDPR-compliance.</p>
