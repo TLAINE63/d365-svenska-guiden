@@ -11,7 +11,11 @@
 import { ALL_DEEP_DIVE_ARTICLES } from "./bcArticles";
 import { BLOG_ARTICLES } from "./blogArticles";
 import { KNOWLEDGE_VIDEOS } from "./knowledgeVideos";
-import { ERP_COMPARISONS } from "./erpComparisons";
+import {
+  ERP_COMPARISONS,
+  getComparisonsByProduct,
+  type ProductKey,
+} from "./erpComparisons";
 
 export interface HubResourceCard {
   id: string;
