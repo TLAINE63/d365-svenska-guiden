@@ -17,6 +17,7 @@ import PartnerCard from "@/components/PartnerCard";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
 import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
+import ProductRoiAnalysis from "@/components/ProductRoiAnalysis";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
