@@ -269,6 +269,10 @@ const D365ContactCenter = () => {
         </div>
       </section>
 
+      {/* Partners Section */}
+      <BuyerManual product="contact-center" />
+      <CostBreakdown product="contact-center" />
+
       {/* Deep-dive articles */}
       <section className="py-12 sm:py-16 bg-secondary/30">
         <div className="container mx-auto px-4 sm:px-6">
@@ -297,10 +301,6 @@ const D365ContactCenter = () => {
           </div>
         </div>
       </section>
-
-      {/* Partners Section */}
-      <BuyerManual product="contact-center" />
-      <CostBreakdown product="contact-center" />
 
       <ApplicationPartners applicationFilter="Contact Center" pageSource="D365 Contact Center" />
 

@@ -312,6 +312,10 @@ const D365Sales = () => {
         </div>
       </section>
 
+      {/* Partners Section */}
+      <BuyerManual product="sales" />
+      <CostBreakdown product="sales" />
+
       {/* Deep-dive articles */}
       <section className="py-12 sm:py-16 bg-secondary/30">
         <div className="container mx-auto px-4 sm:px-6">
@@ -340,10 +344,6 @@ const D365Sales = () => {
           </div>
         </div>
       </section>
-
-      {/* Partners Section */}
-      <BuyerManual product="sales" />
-      <CostBreakdown product="sales" />
 
       <ApplicationPartners applicationFilter="Sales" pageSource="D365 Sales" />
 
