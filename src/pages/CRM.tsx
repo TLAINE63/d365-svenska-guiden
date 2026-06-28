@@ -250,6 +250,7 @@ const CRM = () => {
  <li><Link to="/jamfor/field-service-vs-salesforce-field-service/" className="text-crm hover:underline font-medium">Field Service vs Salesforce Field Service</Link></li>
  <li><Link to="/jamfor/" className="text-crm hover:underline font-medium">→ Se alla jämförelser</Link></li>
  </ul>
+ </AccordionContent>
  </AccordionItem>
 
  <AccordionItem value="item-3" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
