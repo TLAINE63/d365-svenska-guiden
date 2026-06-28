@@ -98,6 +98,16 @@ const videosByProductTag = (tags: string[]): HubResourceCard[] =>
       category: "Video",
     }));
 
+const erpComparisonsAsResources = (): HubResourceCard[] =>
+  ERP_COMPARISONS.map((c) => ({
+    id: `jamfor-${c.slug}`,
+    type: "guide" as const,
+    title: `Business Central vs ${c.competitor}`,
+    description: c.intro,
+    url: `/jamfor/${c.slug}/`,
+    category: "Konkurrentjämförelse",
+  }));
+
 // Tool entries are hand-curated (small set, easier to keep on-brand than auto-filter)
 const tools = {
   behovsanalysErp: {
