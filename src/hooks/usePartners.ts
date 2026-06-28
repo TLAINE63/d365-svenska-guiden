@@ -115,6 +115,7 @@ export interface DatabasePartner {
     methodology?: string;
     bc_project_weeks_min?: number | null;
     bc_project_weeks_max?: number | null;
+    bc_project_cost_band?: string | null;
   } | null;
   team_size_sweden?: string | null;
   implementations_done?: string | null;
