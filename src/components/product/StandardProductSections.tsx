@@ -33,19 +33,19 @@ export default function StandardProductSections({ productName, data }: Props) {
   return (
     <>
       {/* 2. Typiska köparbehov */}
-      <section className="py-12 sm:py-16 md:py-20 bg-background border-t border-border">
+      <section className="py-8 sm:py-10 md:py-12 bg-background border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
             Typiska köparbehov
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground mb-8 max-w-3xl">
+          <p className="text-sm md:text-base text-muted-foreground mb-6 max-w-3xl">
             Situationer där svenska bolag brukar börja utvärdera {productName}.
           </p>
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
             {data.buyerNeeds.map((item, i) => (
               <li
                 key={i}
-                className="flex items-start gap-3 p-4 rounded border border-border bg-card"
+                className="flex items-start gap-3 p-3 rounded border border-border bg-card"
               >
                 <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                 <span className="text-sm md:text-[15px] text-foreground leading-relaxed">{item}</span>
