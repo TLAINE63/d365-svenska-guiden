@@ -8,6 +8,23 @@ const MUTED: [number, number, number] = [110, 110, 110];
 const fmtSek = (n: number) =>
   new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 0 }).format(Math.round(n)) + " kr";
 
+// jsPDF's built-in helvetica uses WinAnsi (cp1252) encoding. Characters outside
+// that set (≈, −, →, …, non-breaking hyphen, soft hyphen, etc.) render as
+// garbled glyphs or break kerning. Replace them with WinAnsi-safe equivalents.
+const safe = (s: string): string =>
+  s
+    .replace(/\u00A0/g, " ") // non-breaking space
+    .replace(/\u00AD/g, "") // soft hyphen
+    .replace(/\u200B/g, "") // zero-width space
+    .replace(/\u2011/g, "-") // non-breaking hyphen
+    .replace(/\u2248/g, "ca. ") // ≈
+    .replace(/\u2212/g, "-") // minus
+    .replace(/\u2192/g, "->") // →
+    .replace(/\u2190/g, "<-") // ←
+    .replace(/\u2026/g, "...") // …
+    .replace(/\u2022/g, "-"); // •
+
+
 export interface RoiPdfKpi {
   label: string;
   value: string;
@@ -254,7 +271,7 @@ export async function generateRoiPdf(data: RoiPdfData) {
   doc.setFont("helvetica", "italic");
   doc.setFontSize(10);
   const introLines = doc.splitTextToSize(
-    `Kalkylen för ${data.productName} är medvetet förenklad. Den ska ge en storleksordning – inte ersätta en business case-analys eller offert.`,
+    safe(`Kalkylen för ${data.productName} är medvetet förenklad. Den ska ge en storleksordning – inte ersätta en business case-analys eller offert.`),
     contentW,
   );
   doc.text(introLines, margin, y);
@@ -267,16 +284,17 @@ export async function generateRoiPdf(data: RoiPdfData) {
     doc.setFont("helvetica", "bold");
     doc.setFontSize(11);
     doc.setTextColor(...BRAND_DARK);
-    doc.text(a.title, margin + 5, y);
+    doc.text(safe(a.title), margin + 5, y);
     y += 5;
     doc.setFont("helvetica", "normal");
     doc.setFontSize(9.5);
     doc.setTextColor(60, 60, 60);
-    const lines = doc.splitTextToSize(a.body, contentW);
+    const lines = doc.splitTextToSize(safe(a.body), contentW);
     ensureSpace(lines.length * 4.4 + 3);
     doc.text(lines, margin, y);
     y += lines.length * 4.4 + 5;
   }
+
 
   // ---- FOOTER on every page ----
   const total = doc.getNumberOfPages();
