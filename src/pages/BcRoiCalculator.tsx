@@ -232,6 +232,11 @@ export default function BcRoiCalculator() {
         canonicalPath="/businesscentral/roi-kalkylator/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
+      <SoftwareApplicationSchema
+        name="Business Central ROI/TCO-kalkylator"
+        description="Räkna fram payback, 5-årig totalkostnad och årlig nytta för Microsoft Dynamics 365 Business Central baserat på antal användare, bransch och effektiviseringsmål."
+        url="https://d365.se/businesscentral/roi-kalkylator/"
+      />
       <Navbar />
 
       <main className="pt-20">
