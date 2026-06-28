@@ -271,7 +271,7 @@ export async function generateRoiPdf(data: RoiPdfData) {
   doc.setFont("helvetica", "italic");
   doc.setFontSize(10);
   const introLines = doc.splitTextToSize(
-    `Kalkylen för ${data.productName} är medvetet förenklad. Den ska ge en storleksordning – inte ersätta en business case-analys eller offert.`,
+    safe(`Kalkylen för ${data.productName} är medvetet förenklad. Den ska ge en storleksordning – inte ersätta en business case-analys eller offert.`),
     contentW,
   );
   doc.text(introLines, margin, y);
@@ -284,16 +284,17 @@ export async function generateRoiPdf(data: RoiPdfData) {
     doc.setFont("helvetica", "bold");
     doc.setFontSize(11);
     doc.setTextColor(...BRAND_DARK);
-    doc.text(a.title, margin + 5, y);
+    doc.text(safe(a.title), margin + 5, y);
     y += 5;
     doc.setFont("helvetica", "normal");
     doc.setFontSize(9.5);
     doc.setTextColor(60, 60, 60);
-    const lines = doc.splitTextToSize(a.body, contentW);
+    const lines = doc.splitTextToSize(safe(a.body), contentW);
     ensureSpace(lines.length * 4.4 + 3);
     doc.text(lines, margin, y);
     y += lines.length * 4.4 + 5;
   }
+
 
   // ---- FOOTER on every page ----
   const total = doc.getNumberOfPages();
