@@ -2428,10 +2428,34 @@ const PartnerUpdate = () => {
                 value={deliveryProfile.bc_project_weeks_max}
                 onChange={(e) => setDeliveryProfile({ ...deliveryProfile, bc_project_weeks_max: e.target.value })}
               />
-            </div>
           </div>
         </div>
+        <div className="sm:col-span-2">
+          <Label htmlFor="dp_bc_cost_band" className="flex items-center gap-2">
+            Typisk total projektkostnad för Business Central (kostnadsband)
+          </Label>
+          <p className="text-xs text-muted-foreground mb-2">
+            Ange det kostnadsband ni oftast levererar BC-implementationer inom (exkl. licenser). Hjälper köparen kalibrera budget.
+          </p>
+          <select
+            id="dp_bc_cost_band"
+            className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
+            value={deliveryProfile.bc_project_cost_band}
+            onChange={(e) => setDeliveryProfile({ ...deliveryProfile, bc_project_cost_band: e.target.value })}
+          >
+            <option value="">— Välj kostnadsband —</option>
+            <option value="<250k">Mindre än 250 000 kr</option>
+            <option value="250k–500k">250 000 – 500 000 kr</option>
+            <option value="500k–1M">500 000 kr – 1 MSEK</option>
+            <option value="1M–2.5M">1 – 2,5 MSEK</option>
+            <option value="2.5M–5M">2,5 – 5 MSEK</option>
+            <option value="5M–10M">5 – 10 MSEK</option>
+            <option value=">10M">Över 10 MSEK</option>
+          </select>
+        </div>
       </div>
+    </div>
+
     </div>
 
    <div className="border-t border-border pt-4">
