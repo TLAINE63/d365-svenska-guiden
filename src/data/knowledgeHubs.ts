@@ -114,6 +114,7 @@ const tools = {
     description: "Sex frågor med branschspecifik fördjupning. Få en bedömning om Business Central matchar era behov — och var ni eventuellt behöver ISV-tillägg eller annan plattform.",
     url: "/businesscentral/matchningstest/",
     category: "Behovsanalys",
+  },
   bcRoiKalkylator: {
     id: "tool-bc-roi-kalkylator",
     type: "verktyg" as const,
