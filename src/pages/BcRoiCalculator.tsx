@@ -381,15 +381,51 @@ export default function BcRoiCalculator() {
                       />
                     </div>
 
-                    {/* Lager + E-handel */}
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div className="flex items-center justify-between p-3 rounded-md border border-border">
-                        <Label htmlFor="wh" className="cursor-pointer">Lagerhantering</Label>
-                        <Switch id="wh" checked={v.warehouse} onCheckedChange={(b) => update("warehouse", b)} />
+                    {/* Branschspecifika effektiviseringsdrivare */}
+                    <div className="space-y-3">
+                      <div>
+                        <Label>Effektiviseringar för {v.industry.toLowerCase()}</Label>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          Bocka i de områden där ni ser potential. Estimaten baseras på Microsofts Business Value Assessment och svenska partnerbenchmarks.
+                        </p>
                       </div>
-                      <div className="flex items-center justify-between p-3 rounded-md border border-border">
-                        <Label htmlFor="ec" className="cursor-pointer">E-handel</Label>
-                        <Switch id="ec" checked={v.ecommerce} onCheckedChange={(b) => update("ecommerce", b)} />
+                      <div className="space-y-2">
+                        {industryDrivers.map((d) => {
+                          const checked = v.enabledDrivers.includes(d.id);
+                          const annual = d.savings(v.revenue);
+                          return (
+                            <label
+                              key={d.id}
+                              htmlFor={`drv-${d.id}`}
+                              className={`flex items-start gap-3 p-3 rounded-md border cursor-pointer transition-colors ${
+                                checked ? "border-primary bg-primary/5" : "border-border hover:bg-secondary/40"
+                              }`}
+                            >
+                              <Checkbox
+                                id={`drv-${d.id}`}
+                                checked={checked}
+                                onCheckedChange={(b) => {
+                                  setV((prev) => ({
+                                    ...prev,
+                                    enabledDrivers: b
+                                      ? [...prev.enabledDrivers, d.id]
+                                      : prev.enabledDrivers.filter((x) => x !== d.id),
+                                  }));
+                                }}
+                                className="mt-0.5"
+                              />
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-baseline justify-between gap-3">
+                                  <span className="text-sm font-medium text-foreground">{d.label}</span>
+                                  <span className="text-xs tabular-nums text-muted-foreground whitespace-nowrap">
+                                    ~{fmtSek(annual)}/år
+                                  </span>
+                                </div>
+                                <p className="text-xs text-muted-foreground mt-0.5">{d.hint}</p>
+                              </div>
+                            </label>
+                          );
+                        })}
                       </div>
                     </div>
 
