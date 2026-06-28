@@ -1,5 +1,5 @@
 import { useParams, Link, Navigate } from "react-router-dom";
-import { ArrowRight, Check, AlertTriangle, ExternalLink } from "lucide-react";
+import { ArrowRight, Check, AlertTriangle, ExternalLink, Sparkles } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
