@@ -1,7 +1,5 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 import {
-  ArrowRight,
   Calculator,
   Info,
   TrendingUp,
@@ -10,7 +8,6 @@ import {
   PiggyBank,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
@@ -185,17 +182,6 @@ export default function ProductRoiAnalysis({
             nytta utifrån era nyckeltal. Kalkylen är medvetet förenklad – den ska ge
             storleksordning, inte ersätta en business case-analys.
           </p>
-          {cfg.deepDivePath && (
-            <p className="text-xs sm:text-sm mt-3">
-              <Link
-                to={cfg.deepDivePath}
-                className="text-primary font-medium hover:underline inline-flex items-center gap-1"
-              >
-                Öppna djup-kalkylatorn med bransch &amp; ISV-rekommendationer
-                <ArrowRight className="w-3 h-3" />
-              </Link>
-            </p>
-          )}
         </div>
 
         <div className="grid lg:grid-cols-5 gap-6 lg:gap-8">
@@ -576,20 +562,6 @@ export default function ProductRoiAnalysis({
           />
         </div>
 
-        {cfg.deepDivePath && (
-          <div className="mt-8 text-center">
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-            >
-              <Link to={cfg.deepDivePath}>
-                Öppna djup-kalkylatorn för {cfg.productShort}
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Link>
-            </Button>
-          </div>
-        )}
       </div>
     </section>
   );
