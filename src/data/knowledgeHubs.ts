@@ -283,6 +283,7 @@ export const KNOWLEDGE_HUBS: KnowledgeHubConfig[] = [
       tools.bcRoiKalkylator,
       tools.kravspecErp,
       tools.branschjamforelse,
+      ...erpComparisonsAsResources(),
       ...deepDiveBySlug(["businesscentral"]),
       ...blogByProduct(["Business Central"]),
     ],
