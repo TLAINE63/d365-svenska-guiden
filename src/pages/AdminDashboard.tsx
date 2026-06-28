@@ -103,6 +103,7 @@ import AdminUnprofiledPartnersTab from "@/components/AdminUnprofiledPartnersTab"
 import AdminIndustryPagesTab from "@/components/AdminIndustryPagesTab";
 import AdminSeoRankingsTab from "@/components/AdminSeoRankingsTab";
 import AdminSemrushTab from "@/components/AdminSemrushTab";
+import AdminSemrushDailyTab from "@/components/AdminSemrushDailyTab";
 import AdminCompetitorTab from "@/components/AdminCompetitorTab";
 import AdminCompetitorInsightsTab from "@/components/AdminCompetitorInsightsTab";
 import AdminKeywordTrendsTab from "@/components/AdminKeywordTrendsTab";
