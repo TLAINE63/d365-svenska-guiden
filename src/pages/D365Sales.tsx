@@ -292,6 +292,31 @@ const D365Sales = () => {
       <BuyerManual product="sales" />
       <CostBreakdown product="sales" />
 
+      {/* ROI/TCO Calculator CTA — efter pris/kostnadsuppgifter */}
+      <section className="py-8 sm:py-12 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto rounded-2xl border border-border bg-gradient-to-br from-secondary/60 to-background p-6 sm:p-10">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+              <div className="max-w-2xl">
+                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Beslutsstöd</p>
+                <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+                  ROI- &amp; TCO-kalkylator för Dynamics 365 Sales
+                </h2>
+                <p className="text-sm sm:text-base text-muted-foreground">
+                  Räkna fram licens, implementation, payback och 5-årig totalkostnad utifrån antal säljare, bransch och vilka effektiviseringar ni satsar på.
+                </p>
+              </div>
+              <Link
+                to="/d365sales/roi-kalkylator/"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white font-medium px-6 py-3 whitespace-nowrap"
+              >
+                Öppna kalkylatorn →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Deep-dive articles */}
       <section className="py-8 sm:py-12 bg-secondary/30">
         <div className="container mx-auto px-4 sm:px-6">
