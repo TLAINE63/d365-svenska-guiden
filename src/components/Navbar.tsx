@@ -46,6 +46,7 @@ const Navbar = () => {
 
   return (
     <nav
+      data-site-nav
       className="fixed top-0 left-0 right-0 z-50 bg-[hsl(var(--hero-dark))]"
       style={{ borderBottom: "3px solid hsl(var(--signature))" }}
     >
