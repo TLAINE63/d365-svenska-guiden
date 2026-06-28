@@ -238,7 +238,7 @@ export const ERP_COMPARISONS: ErpComparison[] = [
       ],
       competitor: [
         "Svenska tillverkande och distribuerande bolag som vill ha djup branschfunktionalitet ur lådan.",
-        "Bolag som söker en svensk leverantör med svensk support och svensk juridik.",
+        "Bolag som värdesätter en svenskägd produktleverantör med svensk juridik och produktutveckling i Sverige.",
         "Bolag i specifika nischer (livsmedel, läkemedel, grossist) där Jeeves har färdiga branschmoduler.",
       ],
     },
