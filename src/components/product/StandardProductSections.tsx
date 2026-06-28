@@ -33,12 +33,12 @@ export default function StandardProductSections({ productName, data }: Props) {
   return (
     <>
       {/* 2. Typiska köparbehov */}
-      <section className="py-8 sm:py-10 md:py-12 bg-background border-t border-border">
+      <section className="py-6 sm:py-7 md:py-8 bg-background border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
             Typiska köparbehov
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground mb-6 max-w-3xl">
+          <p className="text-sm md:text-base text-muted-foreground mb-4 max-w-3xl">
             Situationer där svenska bolag brukar börja utvärdera {productName}.
           </p>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
@@ -56,12 +56,12 @@ export default function StandardProductSections({ productName, data }: Props) {
       </section>
 
       {/* 3. Vad Dynamics 365 löser */}
-      <section className="py-8 sm:py-10 md:py-12 bg-secondary/30 border-t border-border">
+      <section className="py-6 sm:py-7 md:py-8 bg-secondary/30 border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
             Vad Microsoft Dynamics 365 löser
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground mb-6 max-w-3xl">
+          <p className="text-sm md:text-base text-muted-foreground mb-4 max-w-3xl">
             Sakligt — utan Microsofts marknadsföringsord.
           </p>
           <ul className="space-y-2.5">
@@ -76,12 +76,12 @@ export default function StandardProductSections({ productName, data }: Props) {
       </section>
 
       {/* 4. Var partnern avgör */}
-      <section className="py-8 sm:py-10 md:py-12 bg-background border-t border-border">
+      <section className="py-6 sm:py-7 md:py-8 bg-background border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
             Var partnern avgör
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground mb-6 max-w-3xl">
+          <p className="text-sm md:text-base text-muted-foreground mb-4 max-w-3xl">
             Microsoft levererar plattformen. Partnern avgör om implementationen faktiskt fungerar i er verksamhet.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -101,12 +101,12 @@ export default function StandardProductSections({ productName, data }: Props) {
       </section>
 
       {/* 5. Vanliga fallgropar */}
-      <section className="py-8 sm:py-10 md:py-12 bg-secondary/30 border-t border-border">
+      <section className="py-6 sm:py-7 md:py-8 bg-secondary/30 border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
             Vanliga fallgropar
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground mb-6 max-w-3xl">
+          <p className="text-sm md:text-base text-muted-foreground mb-4 max-w-3xl">
             Det vi ser oftast i utvärderingar som inte landar väl.
           </p>
           <ul className="space-y-2.5">
@@ -124,12 +124,12 @@ export default function StandardProductSections({ productName, data }: Props) {
       </section>
 
       {/* 6. Rekommenderat nästa steg */}
-      <section className="py-8 sm:py-10 md:py-12 bg-background border-t border-border">
+      <section className="py-6 sm:py-7 md:py-8 bg-background border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
             Rekommenderat nästa steg
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground mb-6 max-w-3xl">
+          <p className="text-sm md:text-base text-muted-foreground mb-4 max-w-3xl">
             Tre konkreta steg som gör beslutsunderlaget skarpare innan partnerdialogen börjar.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
