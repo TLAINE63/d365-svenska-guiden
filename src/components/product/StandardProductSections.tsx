@@ -35,7 +35,7 @@ export default function StandardProductSections({ productName, data }: Props) {
       {/* 2. Typiska köparbehov */}
       <section className="py-6 sm:py-7 md:py-8 bg-background border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
             Typiska köparbehov
           </h2>
           <p className="text-sm md:text-base text-muted-foreground mb-4 max-w-3xl">
@@ -58,7 +58,7 @@ export default function StandardProductSections({ productName, data }: Props) {
       {/* 3. Vad Dynamics 365 löser */}
       <section className="py-6 sm:py-7 md:py-8 bg-secondary/30 border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
             Vad Microsoft Dynamics 365 löser
           </h2>
           <p className="text-sm md:text-base text-muted-foreground mb-4 max-w-3xl">
@@ -78,7 +78,7 @@ export default function StandardProductSections({ productName, data }: Props) {
       {/* 4. Var partnern avgör */}
       <section className="py-6 sm:py-7 md:py-8 bg-background border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
             Var partnern avgör
           </h2>
           <p className="text-sm md:text-base text-muted-foreground mb-4 max-w-3xl">
@@ -103,7 +103,7 @@ export default function StandardProductSections({ productName, data }: Props) {
       {/* 5. Vanliga fallgropar */}
       <section className="py-6 sm:py-7 md:py-8 bg-secondary/30 border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
             Vanliga fallgropar
           </h2>
           <p className="text-sm md:text-base text-muted-foreground mb-4 max-w-3xl">
@@ -126,7 +126,7 @@ export default function StandardProductSections({ productName, data }: Props) {
       {/* 6. Rekommenderat nästa steg */}
       <section className="py-6 sm:py-7 md:py-8 bg-background border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
             Rekommenderat nästa steg
           </h2>
           <p className="text-sm md:text-base text-muted-foreground mb-4 max-w-3xl">
