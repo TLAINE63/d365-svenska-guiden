@@ -10,6 +10,18 @@ type DeliveryProfile = {
   typical_length?: string;
   engagement_model?: string;
   methodology?: string;
+  bc_project_weeks_min?: number | null;
+  bc_project_weeks_max?: number | null;
+};
+
+const formatBcLength = (dp?: DeliveryProfile | null): string | null => {
+  if (!dp) return null;
+  const min = typeof dp.bc_project_weeks_min === "number" ? dp.bc_project_weeks_min : null;
+  const max = typeof dp.bc_project_weeks_max === "number" ? dp.bc_project_weeks_max : null;
+  if (min != null && max != null) return `${min}–${max} veckor`;
+  if (min != null) return `Från ${min} veckor`;
+  if (max != null) return `Upp till ${max} veckor`;
+  return null;
 };
 
 interface Props {
