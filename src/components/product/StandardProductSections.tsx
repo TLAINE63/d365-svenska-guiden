@@ -56,15 +56,15 @@ export default function StandardProductSections({ productName, data }: Props) {
       </section>
 
       {/* 3. Vad Dynamics 365 löser */}
-      <section className="py-12 sm:py-16 md:py-20 bg-secondary/30 border-t border-border">
+      <section className="py-8 sm:py-10 md:py-12 bg-secondary/30 border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
             Vad Microsoft Dynamics 365 löser
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground mb-8 max-w-3xl">
+          <p className="text-sm md:text-base text-muted-foreground mb-6 max-w-3xl">
             Sakligt — utan Microsofts marknadsföringsord.
           </p>
-          <ul className="space-y-3">
+          <ul className="space-y-2.5">
             {data.whatItSolves.map((item, i) => (
               <li key={i} className="flex items-start gap-3">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
@@ -76,18 +76,18 @@ export default function StandardProductSections({ productName, data }: Props) {
       </section>
 
       {/* 4. Var partnern avgör */}
-      <section className="py-12 sm:py-16 md:py-20 bg-background border-t border-border">
+      <section className="py-8 sm:py-10 md:py-12 bg-background border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
             Var partnern avgör
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground mb-8 max-w-3xl">
+          <p className="text-sm md:text-base text-muted-foreground mb-6 max-w-3xl">
             Microsoft levererar plattformen. Partnern avgör om implementationen faktiskt fungerar i er verksamhet.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {PARTNER_AREAS.map(({ key, label, Icon }) => (
-              <div key={key} className="p-5 rounded border border-border bg-card">
-                <div className="flex items-center gap-2 mb-2">
+              <div key={key} className="p-4 rounded border border-border bg-card">
+                <div className="flex items-center gap-2 mb-1.5">
                   <Icon className="w-5 h-5 text-primary" />
                   <h3 className="font-semibold text-foreground">{label}</h3>
                 </div>
