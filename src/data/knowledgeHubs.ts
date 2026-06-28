@@ -106,7 +106,17 @@ const erpComparisonsAsResources = (): HubResourceCard[] =>
   ERP_COMPARISONS.map((c) => ({
     id: `jamfor-${c.slug}`,
     type: "guide" as const,
-    title: `Business Central vs ${c.competitor}`,
+    title: `${c.productShort} vs ${c.competitor}`,
+    description: c.intro,
+    url: `/jamfor/${c.slug}/`,
+    category: "Konkurrentjämförelse",
+  }));
+
+const comparisonsAsResources = (productKey: ProductKey): HubResourceCard[] =>
+  getComparisonsByProduct(productKey).map((c) => ({
+    id: `jamfor-${c.slug}`,
+    type: "guide" as const,
+    title: `${c.productShort} vs ${c.competitor}`,
     description: c.intro,
     url: `/jamfor/${c.slug}/`,
     category: "Konkurrentjämförelse",
