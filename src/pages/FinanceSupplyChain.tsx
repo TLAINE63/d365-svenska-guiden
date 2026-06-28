@@ -201,8 +201,8 @@ const FinanceSupplyChain = () => {
  to: "/finance-supply-chain-management/matchningstest",
  }}
  tertiary={{
- label: "Jämför F&SCM-partners",
- onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
+ label: "Gör en estimerad TCO/ROI-kalkyl",
+ onClick: () => document.getElementById('roi-tco')?.scrollIntoView({ behavior: 'smooth' }),
  }}
  />
 
