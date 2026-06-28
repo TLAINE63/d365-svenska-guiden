@@ -33,19 +33,19 @@ export default function StandardProductSections({ productName, data }: Props) {
   return (
     <>
       {/* 2. Typiska köparbehov */}
-      <section className="py-12 sm:py-16 md:py-20 bg-background border-t border-border">
+      <section className="py-8 sm:py-10 md:py-12 bg-background border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
             Typiska köparbehov
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground mb-8 max-w-3xl">
+          <p className="text-sm md:text-base text-muted-foreground mb-6 max-w-3xl">
             Situationer där svenska bolag brukar börja utvärdera {productName}.
           </p>
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
             {data.buyerNeeds.map((item, i) => (
               <li
                 key={i}
-                className="flex items-start gap-3 p-4 rounded border border-border bg-card"
+                className="flex items-start gap-3 p-3 rounded border border-border bg-card"
               >
                 <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                 <span className="text-sm md:text-[15px] text-foreground leading-relaxed">{item}</span>
@@ -56,15 +56,15 @@ export default function StandardProductSections({ productName, data }: Props) {
       </section>
 
       {/* 3. Vad Dynamics 365 löser */}
-      <section className="py-12 sm:py-16 md:py-20 bg-secondary/30 border-t border-border">
+      <section className="py-8 sm:py-10 md:py-12 bg-secondary/30 border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
             Vad Microsoft Dynamics 365 löser
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground mb-8 max-w-3xl">
+          <p className="text-sm md:text-base text-muted-foreground mb-6 max-w-3xl">
             Sakligt — utan Microsofts marknadsföringsord.
           </p>
-          <ul className="space-y-3">
+          <ul className="space-y-2.5">
             {data.whatItSolves.map((item, i) => (
               <li key={i} className="flex items-start gap-3">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
@@ -76,18 +76,18 @@ export default function StandardProductSections({ productName, data }: Props) {
       </section>
 
       {/* 4. Var partnern avgör */}
-      <section className="py-12 sm:py-16 md:py-20 bg-background border-t border-border">
+      <section className="py-8 sm:py-10 md:py-12 bg-background border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
             Var partnern avgör
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground mb-8 max-w-3xl">
+          <p className="text-sm md:text-base text-muted-foreground mb-6 max-w-3xl">
             Microsoft levererar plattformen. Partnern avgör om implementationen faktiskt fungerar i er verksamhet.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {PARTNER_AREAS.map(({ key, label, Icon }) => (
-              <div key={key} className="p-5 rounded border border-border bg-card">
-                <div className="flex items-center gap-2 mb-2">
+              <div key={key} className="p-4 rounded border border-border bg-card">
+                <div className="flex items-center gap-2 mb-1.5">
                   <Icon className="w-5 h-5 text-primary" />
                   <h3 className="font-semibold text-foreground">{label}</h3>
                 </div>
@@ -101,19 +101,19 @@ export default function StandardProductSections({ productName, data }: Props) {
       </section>
 
       {/* 5. Vanliga fallgropar */}
-      <section className="py-12 sm:py-16 md:py-20 bg-secondary/30 border-t border-border">
+      <section className="py-8 sm:py-10 md:py-12 bg-secondary/30 border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
             Vanliga fallgropar
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground mb-8 max-w-3xl">
+          <p className="text-sm md:text-base text-muted-foreground mb-6 max-w-3xl">
             Det vi ser oftast i utvärderingar som inte landar väl.
           </p>
-          <ul className="space-y-3">
+          <ul className="space-y-2.5">
             {data.pitfalls.map((item, i) => (
               <li
                 key={i}
-                className="flex items-start gap-3 p-4 rounded border border-border bg-card"
+                className="flex items-start gap-3 p-3 rounded border border-border bg-card"
               >
                 <AlertTriangle className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
                 <span className="text-sm md:text-[15px] text-foreground leading-relaxed">{item}</span>
@@ -124,15 +124,15 @@ export default function StandardProductSections({ productName, data }: Props) {
       </section>
 
       {/* 6. Rekommenderat nästa steg */}
-      <section className="py-12 sm:py-16 md:py-20 bg-background border-t border-border">
+      <section className="py-8 sm:py-10 md:py-12 bg-background border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
             Rekommenderat nästa steg
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground mb-8 max-w-3xl">
+          <p className="text-sm md:text-base text-muted-foreground mb-6 max-w-3xl">
             Tre konkreta steg som gör beslutsunderlaget skarpare innan partnerdialogen börjar.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {[
               {
                 title: "1. Gör en behovsanalys",
@@ -155,13 +155,13 @@ export default function StandardProductSections({ productName, data }: Props) {
             ].map((step) => (
               <div
                 key={step.href}
-                className="flex flex-col p-5 rounded border border-border bg-card"
+                className="flex flex-col p-4 rounded border border-border bg-card"
               >
-                <h3 className="font-semibold text-foreground mb-2">{step.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">{step.body}</p>
+                <h3 className="font-semibold text-foreground mb-1.5">{step.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-3 flex-1">{step.body}</p>
                 <Link
                   to={step.href}
-                  className="inline-flex items-center justify-center gap-1.5 h-11 px-4 rounded font-semibold text-white bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] transition-colors"
+                  className="inline-flex items-center justify-center gap-1.5 h-10 px-3 rounded font-semibold text-sm text-white bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] transition-colors"
                 >
                   {step.cta} <ArrowRight className="w-4 h-4" />
                 </Link>
