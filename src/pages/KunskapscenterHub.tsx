@@ -8,6 +8,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ArrowLeft, ArrowRight, ExternalLink, BookOpen, Wrench, FileText, Play, Sparkles, Puzzle } from "lucide-react";
 import { HUB_BY_SLUG, type HubResourceCard } from "@/data/knowledgeHubs";
 import BcIsvCatalog from "@/components/BcIsvCatalog";
+import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
+import type { ProductKey } from "@/data/erpComparisons";
+
+const HUB_COMPARISON_KEYS: Record<string, ProductKey[]> = {
+  "business-central": ["bc"],
+  "finance-supply-chain": ["fscm"],
+  sales: ["sales", "customer-insights"],
+  "customer-service": ["customer-service", "contact-center", "field-service"],
+};
 
 const ICONS: Record<HubResourceCard["type"], typeof BookOpen> = {
   fordjupning: BookOpen,
@@ -137,6 +146,10 @@ const KunskapscenterHub = ({ slug }: Props) => {
               <BcIsvCatalog defaultFiltersOpen showCta={false} />
             </div>
           </section>
+        )}
+
+        {HUB_COMPARISON_KEYS[hub.slug] && (
+          <ComparisonQuickLinks productKeys={HUB_COMPARISON_KEYS[hub.slug]} />
         )}
 
         {/* Grouped resource sections */}
