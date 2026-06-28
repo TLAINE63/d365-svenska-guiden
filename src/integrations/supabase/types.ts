@@ -1113,6 +1113,54 @@ export type Database = {
         }
         Relationships: []
       }
+      seo_keyword_daily: {
+        Row: {
+          cpc: number | null
+          created_at: string
+          database: string
+          estimated_traffic: number | null
+          id: string
+          keyword: string
+          position: number | null
+          previous_position: number | null
+          raw: Json | null
+          search_volume: number | null
+          snapshot_date: string
+          source: string
+          url: string | null
+        }
+        Insert: {
+          cpc?: number | null
+          created_at?: string
+          database?: string
+          estimated_traffic?: number | null
+          id?: string
+          keyword: string
+          position?: number | null
+          previous_position?: number | null
+          raw?: Json | null
+          search_volume?: number | null
+          snapshot_date: string
+          source?: string
+          url?: string | null
+        }
+        Update: {
+          cpc?: number | null
+          created_at?: string
+          database?: string
+          estimated_traffic?: number | null
+          id?: string
+          keyword?: string
+          position?: number | null
+          previous_position?: number | null
+          raw?: Json | null
+          search_volume?: number | null
+          snapshot_date?: string
+          source?: string
+          url?: string | null
+        }
+        Relationships: []
+      }
       seo_keyword_rankings: {
         Row: {
           clicks: number | null

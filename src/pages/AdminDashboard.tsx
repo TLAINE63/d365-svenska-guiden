@@ -103,6 +103,7 @@ import AdminUnprofiledPartnersTab from "@/components/AdminUnprofiledPartnersTab"
 import AdminIndustryPagesTab from "@/components/AdminIndustryPagesTab";
 import AdminSeoRankingsTab from "@/components/AdminSeoRankingsTab";
 import AdminSemrushTab from "@/components/AdminSemrushTab";
+import AdminSemrushDailyTab from "@/components/AdminSemrushDailyTab";
 import AdminCompetitorTab from "@/components/AdminCompetitorTab";
 import AdminCompetitorInsightsTab from "@/components/AdminCompetitorInsightsTab";
 import AdminKeywordTrendsTab from "@/components/AdminKeywordTrendsTab";
@@ -278,7 +279,7 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
  id: "seo",
  label: "SEO & Konkurrens",
  icon: TrendingUp,
- tabs: ["seo-rankings", "keyword-trends", "semrush", "competitor", "competitor-insights", "gsc", "pillar-followup"],
+ tabs: ["semrush-daily", "seo-rankings", "keyword-trends", "semrush", "competitor", "competitor-insights", "gsc", "pillar-followup"],
  },
  {
  id: "partnerportal",
@@ -2085,6 +2086,12 @@ Thomas`,
  </span>
  Konkurrentinsikter
  </TabsTrigger>
+ <TabsTrigger value="semrush-daily" className={`flex items-center gap-2 ${activeGroup === "seo" ? "" : "hidden"}`}>
+ <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-cyan-500/20 to-cyan-600/10 ring-1 ring-cyan-400/20">
+ <TrendingUp className="h-3.5 w-3.5 text-cyan-300" strokeWidth={1.75} />
+ </span>
+ Semrush daglig
+ </TabsTrigger>
  <TabsTrigger value="keyword-trends" className={`flex items-center gap-2 ${activeGroup === "seo" ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-sky-500/20 to-sky-600/10 ring-1 ring-sky-400/20">
  <TrendingUp className="h-3.5 w-3.5 text-sky-300" strokeWidth={1.75} />
@@ -3165,6 +3172,11 @@ Thomas`,
  {/* ==================== PARTNER REPORTS TAB ==================== */}
  <TabsContent value="partner-reports">
  <AdminPartnerReportsTab token={token || null} />
+ </TabsContent>
+
+ {/* ==================== SEMRUSH DAILY TAB ==================== */}
+ <TabsContent value="semrush-daily">
+ <AdminSemrushDailyTab token={token || null} onSessionExpired={logout} />
  </TabsContent>
 
  {/* ==================== SEO RANKINGS TAB ==================== */}
