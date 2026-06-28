@@ -151,7 +151,11 @@ export default function BcRoiCalculator() {
 
     const complexityFactor: Record<Complexity, number> = { Låg: 0.6, Medel: 1, Hög: 1.3 };
     const manualMultiplier = 0.5 + (v.manualPct / 100); // 0.5 vid 0%, 1.5 vid 100%
-    const driverSavings = activeDrivers.reduce((sum, d) => sum + d.savings(v.revenue), 0);
+    // Användarskala: drivare ger mer nytta ju fler som faktiskt använder systemet.
+    // Baseline 25 användare = 1,0. Sublinjär (^0.6) så stora bolag inte blåser upp orimligt.
+    const totalUsers = v.fullUsers + v.teamMembers + v.deviceUsers;
+    const userFactor = Math.min(3.5, Math.max(0.4, Math.pow(Math.max(1, totalUsers) / 25, 0.6)));
+    const driverSavings = activeDrivers.reduce((sum, d) => sum + d.savings(v.revenue) * userFactor, 0);
     const integrationSavings = v.integrations * 50_000;
     const annualBenefit =
       (driverSavings * manualMultiplier + integrationSavings) * complexityFactor[v.complexity];
