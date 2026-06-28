@@ -378,14 +378,14 @@ const BlogArticle = () => {
                 >
                   <div>
                     <div className="text-base font-semibold text-white mb-1">
-                      Bygg kravspec
+                      Generera en kravspecifikation
                     </div>
                     <p className="text-sm text-white/70">
                       Skapa en skarp kravspecifikation som PDF – redo att skicka till partners.
                     </p>
                   </div>
                   <span className="mt-4 text-sm font-semibold text-[#D64A1F] group-hover:translate-x-1 transition-transform">
-                    Bygg kravspec →
+                    Generera en kravspecifikation →
                   </span>
                 </Link>
                 <Link

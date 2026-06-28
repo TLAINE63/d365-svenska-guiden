@@ -161,7 +161,7 @@ const Upphandlingsguiden = () => {
  variant="outline"
  className="bg-white/5 border-white/30 text-white hover:bg-white/15 hover:text-white text-[15px] font-semibold h-12 px-7 rounded"
  >
- <Link to="/ERPbehovsanalys/">Starta behovsanalys</Link>
+ <Link to="/ERPbehovsanalys/">Skapa en behovsanalys</Link>
  </Button>
  </div>
  </div>

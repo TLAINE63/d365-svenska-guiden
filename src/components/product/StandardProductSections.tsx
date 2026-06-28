@@ -138,13 +138,13 @@ export default function StandardProductSections({ productName, data }: Props) {
                 title: "1. Gör en behovsanalys",
                 body: "Ringa in vad ni faktiskt behöver — innan ni jämför produkter.",
                 href: "/behovsanalys/",
-                cta: "Starta behovsanalys",
+                cta: "Skapa en behovsanalys",
               },
               {
                 title: "2. Skapa en kravspec",
                 body: "Gör offerter och partnerförslag jämförbara på rätt grunder.",
                 href: "/kravspecifikation/",
-                cta: "Bygg kravspec",
+                cta: "Generera en kravspecifikation",
               },
               {
                 title: "3. Hitta rätt partner",
