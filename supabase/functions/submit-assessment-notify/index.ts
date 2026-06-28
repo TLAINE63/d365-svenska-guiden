@@ -56,6 +56,14 @@ serve(async (req: Request) => {
       });
     }
 
+    if (isFreeEmailDomain(body.contact_email)) {
+      console.log(`Blocked free email domain submission: ${body.contact_email}`);
+      return new Response(JSON.stringify({ error: FREE_EMAIL_ERROR_SV }), {
+        status: 400,
+        headers: { ...cors, "Content-Type": "application/json" },
+      });
+    }
+
     const apiKey = Deno.env.get("RESEND_API_KEY");
     if (!apiKey) {
       return new Response(JSON.stringify({ error: "Email not configured" }), {
