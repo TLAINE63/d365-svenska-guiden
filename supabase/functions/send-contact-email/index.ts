@@ -151,6 +151,8 @@ serve(async (req: Request): Promise<Response> => {
     }
     if (!isValidEmail(email)) {
       errors.push("Valid email is required");
+    } else if (isFreeEmailDomain(email)) {
+      errors.push(FREE_EMAIL_ERROR_SV);
     }
     if (!isValidPhone(phone)) {
       errors.push("Phone number must be less than 30 characters");
