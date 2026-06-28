@@ -115,6 +115,14 @@ const tools = {
     url: "/businesscentral/matchningstest/",
     category: "Behovsanalys",
   },
+  bcRoiKalkylator: {
+    id: "tool-bc-roi-kalkylator",
+    type: "verktyg" as const,
+    title: "ROI- & TCO-kalkylator för Business Central",
+    description: "Räkna ut licens, implementation, 5-årig TCO och payback. Branschspecifika effektiviseringsdrivare för Handel, Distribution, Tillverkning och Tjänster.",
+    url: "/businesscentral/roi-kalkylator/",
+    category: "Kalkylator",
+  },
   behovsanalysCrm: {
     id: "tool-behovsanalys-crm",
     type: "verktyg" as const,
@@ -261,6 +269,7 @@ export const KNOWLEDGE_HUBS: KnowledgeHubConfig[] = [
     resources: [
       tools.behovsanalysErp,
       tools.bcMatchningstest,
+      tools.bcRoiKalkylator,
       tools.kravspecErp,
       tools.branschjamforelse,
       ...deepDiveBySlug(["businesscentral"]),
