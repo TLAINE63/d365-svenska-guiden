@@ -25,6 +25,8 @@ import { usePartners } from "@/hooks/usePartners";
 import { filterAndSortPartners } from "@/hooks/usePartnerFilters";
 import PartnerCard from "@/components/PartnerCard";
 import { BC_ISV_SOLUTIONS, type SolutionIndustry } from "@/data/bcIsvSolutions";
+import { Checkbox } from "@/components/ui/checkbox";
+import { INDUSTRY_DRIVERS, defaultEnabledDrivers, type Industry } from "@/data/bcRoiDrivers";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
@@ -32,7 +34,6 @@ const breadcrumbs = [
   { name: "ROI/TCO-kalkylator", url: "https://d365.se/businesscentral/roi-kalkylator/" },
 ];
 
-type Industry = "Handel" | "Distribution" | "Tillverkning" | "Tjänster" | "Annan";
 type Complexity = "Låg" | "Medel" | "Hög";
 type LicenseModel = "Essentials" | "Premium";
 
@@ -46,15 +47,15 @@ interface Inputs {
   revenue: number;
   complexity: Complexity;
   manualPct: number;
-  warehouse: boolean;
-  ecommerce: boolean;
+  enabledDrivers: string[];
   integrations: number;
   currentItCost: number;
 }
 
+const initialIndustry: Industry = "Handel";
 const DEFAULTS: Inputs = {
   companyName: "",
-  industry: "Handel",
+  industry: initialIndustry,
   fullUsers: 25,
   teamMembers: 10,
   deviceUsers: 0,
@@ -62,8 +63,7 @@ const DEFAULTS: Inputs = {
   revenue: 45_000_000,
   complexity: "Medel",
   manualPct: 60,
-  warehouse: true,
-  ecommerce: true,
+  enabledDrivers: defaultEnabledDrivers(initialIndustry),
   integrations: 3,
   currentItCost: 300_000,
 };
@@ -115,6 +115,18 @@ export default function BcRoiCalculator() {
   const perFullUser = v.license === "Premium" ? premPrice : essPrice;
   const perFullUserLabel = v.license === "Premium" ? "Premium" : "Essentials";
 
+  // ----- Aktiva drivare för vald bransch -----
+  const industryDrivers = INDUSTRY_DRIVERS[v.industry];
+  const activeDrivers = useMemo(
+    () => industryDrivers.filter((d) => v.enabledDrivers.includes(d.id)),
+    [industryDrivers, v.enabledDrivers]
+  );
+  const activeIsvCategories = useMemo(() => {
+    const set = new Set<string>();
+    activeDrivers.forEach((d) => d.isvCategories?.forEach((c) => set.add(c)));
+    return set;
+  }, [activeDrivers]);
+
   // ----- Beräkningar -----
   const calc = useMemo(() => {
     const fullCost = (perFullUser ?? 0) * v.fullUsers;
@@ -125,21 +137,21 @@ export default function BcRoiCalculator() {
 
     const complexityImpl: Record<Complexity, number> = { Låg: 250_000, Medel: 500_000, Hög: 1_000_000 };
     const usersFactor = 1 + Math.max(0, v.fullUsers - 25) * 0.012;
+    const driverImplCost = activeDrivers.reduce((sum, d) => sum + d.implCost, 0);
     const implementation =
       complexityImpl[v.complexity] * usersFactor +
       v.integrations * 30_000 +
-      (v.warehouse ? 100_000 : 0) +
-      (v.ecommerce ? 150_000 : 0) +
+      driverImplCost +
       (v.license === "Premium" ? 200_000 : 0);
 
     const supportYearly = implementation * 0.18; // löpande förvaltning ~18% av impl/år
 
     const complexityFactor: Record<Complexity, number> = { Låg: 0.6, Medel: 1, Hög: 1.3 };
-    const manualSavings = v.revenue * 0.01 * (v.manualPct / 100) * complexityFactor[v.complexity];
+    const manualMultiplier = 0.5 + (v.manualPct / 100); // 0.5 vid 0%, 1.5 vid 100%
+    const driverSavings = activeDrivers.reduce((sum, d) => sum + d.savings(v.revenue), 0);
     const integrationSavings = v.integrations * 50_000;
-    const warehouseSavings = v.warehouse ? v.revenue * 0.003 : 0;
-    const ecommerceUplift = v.ecommerce ? v.revenue * 0.005 : 0;
-    const annualBenefit = manualSavings + integrationSavings + warehouseSavings + ecommerceUplift;
+    const annualBenefit =
+      (driverSavings * manualMultiplier + integrationSavings) * complexityFactor[v.complexity];
 
     const netAnnual = annualBenefit + v.currentItCost - licenseYearly - supportYearly;
     const paybackMonths = netAnnual > 0 ? (implementation / netAnnual) * 12 : null;
@@ -165,7 +177,7 @@ export default function BcRoiCalculator() {
       net5,
       roiPct,
     };
-  }, [v, perFullUser, teamPrice, devicePrice]);
+  }, [v, perFullUser, teamPrice, devicePrice, activeDrivers]);
 
   const priceMissing = perFullUser == null || teamPrice == null;
   const tillverkningEssentialsWarning = v.industry === "Tillverkning" && v.license === "Essentials";
@@ -178,8 +190,7 @@ export default function BcRoiCalculator() {
     );
     const pri = (s: (typeof all)[number]) => {
       let score = 0;
-      if (v.warehouse && s.category === "WMS") score += 5;
-      if (v.ecommerce && (s.category === "E-handel" || s.category === "PIM")) score += 5;
+      if (activeIsvCategories.has(s.category)) score += 6;
       if (v.integrations >= 3 && (s.category === "EDI / e-faktura" || s.category === "Integration / iPaaS")) score += 3;
       if (s.category === "AP automation") score += 2;
       if (s.category === "Lokalisering" && s.geo.includes("Sverige")) score += 2;
@@ -188,7 +199,7 @@ export default function BcRoiCalculator() {
       return score;
     };
     return all.sort((a, b) => pri(b) - pri(a)).slice(0, 6);
-  }, [v.industry, v.warehouse, v.ecommerce, v.integrations]);
+  }, [v.industry, v.integrations, activeIsvCategories]);
 
   // ----- Relevanta partners -----
   const bcPartners = useMemo(
@@ -270,7 +281,17 @@ export default function BcRoiCalculator() {
                     {/* Bransch */}
                     <div className="space-y-2">
                       <Label>Bransch</Label>
-                      <Select value={v.industry} onValueChange={(val) => update("industry", val as Industry)}>
+                      <Select
+                        value={v.industry}
+                        onValueChange={(val) => {
+                          const next = val as Industry;
+                          setV((prev) => ({
+                            ...prev,
+                            industry: next,
+                            enabledDrivers: defaultEnabledDrivers(next),
+                          }));
+                        }}
+                      >
                         <SelectTrigger><SelectValue /></SelectTrigger>
                         <SelectContent>
                           {(["Handel","Distribution","Tillverkning","Tjänster","Annan"] as Industry[]).map(i => (
@@ -360,15 +381,51 @@ export default function BcRoiCalculator() {
                       />
                     </div>
 
-                    {/* Lager + E-handel */}
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div className="flex items-center justify-between p-3 rounded-md border border-border">
-                        <Label htmlFor="wh" className="cursor-pointer">Lagerhantering</Label>
-                        <Switch id="wh" checked={v.warehouse} onCheckedChange={(b) => update("warehouse", b)} />
+                    {/* Branschspecifika effektiviseringsdrivare */}
+                    <div className="space-y-3">
+                      <div>
+                        <Label>Effektiviseringar för {v.industry.toLowerCase()}</Label>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          Bocka i de områden där ni ser potential. Estimaten baseras på Microsofts Business Value Assessment och svenska partnerbenchmarks.
+                        </p>
                       </div>
-                      <div className="flex items-center justify-between p-3 rounded-md border border-border">
-                        <Label htmlFor="ec" className="cursor-pointer">E-handel</Label>
-                        <Switch id="ec" checked={v.ecommerce} onCheckedChange={(b) => update("ecommerce", b)} />
+                      <div className="space-y-2">
+                        {industryDrivers.map((d) => {
+                          const checked = v.enabledDrivers.includes(d.id);
+                          const annual = d.savings(v.revenue);
+                          return (
+                            <label
+                              key={d.id}
+                              htmlFor={`drv-${d.id}`}
+                              className={`flex items-start gap-3 p-3 rounded-md border cursor-pointer transition-colors ${
+                                checked ? "border-primary bg-primary/5" : "border-border hover:bg-secondary/40"
+                              }`}
+                            >
+                              <Checkbox
+                                id={`drv-${d.id}`}
+                                checked={checked}
+                                onCheckedChange={(b) => {
+                                  setV((prev) => ({
+                                    ...prev,
+                                    enabledDrivers: b
+                                      ? [...prev.enabledDrivers, d.id]
+                                      : prev.enabledDrivers.filter((x) => x !== d.id),
+                                  }));
+                                }}
+                                className="mt-0.5"
+                              />
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-baseline justify-between gap-3">
+                                  <span className="text-sm font-medium text-foreground">{d.label}</span>
+                                  <span className="text-xs tabular-nums text-muted-foreground whitespace-nowrap">
+                                    ~{fmtSek(annual)}/år
+                                  </span>
+                                </div>
+                                <p className="text-xs text-muted-foreground mt-0.5">{d.hint}</p>
+                              </div>
+                            </label>
+                          );
+                        })}
                       </div>
                     </div>
 
@@ -535,14 +592,17 @@ export default function BcRoiCalculator() {
                 </Assumption>
                 <Assumption title="Implementation">
                   Bas: Låg 250 000 kr, Medel 500 000 kr, Hög 1 000 000 kr. Skalas mjukt med antal användare (+1,2 % per användare över 25),
-                  + 30 000 kr per integration, + 100 000 kr för lager, + 150 000 kr för e-handel, + 200 000 kr om Premium krävs.
+                  + 30 000 kr per integration, + en engångskostnad per vald effektiviseringsdrivare (50–200 000 kr beroende på område),
+                  + 200 000 kr om Premium krävs.
                 </Assumption>
                 <Assumption title="Förvaltning">
                   Löpande förvaltning antas vara cirka 18 % av implementationskostnaden per år.
                 </Assumption>
                 <Assumption title="Årlig nytta">
-                  Manuell process: omsättning × 1 % × andel manuella processer × komplexitetsfaktor (0,6 / 1,0 / 1,3).
-                  Per integration: 50 000 kr/år. Lagerhantering: 0,3 % av omsättning. E-handel: 0,5 % av omsättning.
+                  Nyttan summeras från de drivare ni bockat i för er bransch. Varje drivare har en grundnivå (fast belopp eller andel
+                  av omsättning, taklagd). Summan justeras med andelen manuella processer (0,5×–1,5×) och komplexitetsfaktor
+                  (0,6 / 1,0 / 1,3). Integrationer ger dessutom 50 000 kr/år vardera. Estimaten är baserade på Microsofts Business
+                  Value Assessment (oktober 2025) och svenska partnerbenchmarks.
                 </Assumption>
                 <Assumption title="Payback &amp; TCO">
                   Payback = implementation / (årlig nettonytta inkl. ersatt IT-kostnad). 5-årig TCO = implementation + 5 × (licens + förvaltning).
