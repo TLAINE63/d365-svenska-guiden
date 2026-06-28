@@ -6,6 +6,7 @@ import { Download, CheckCircle, FileDown } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { generateRoiPdf, type RoiPdfData } from "@/utils/generateRoiPdf";
+import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
 
 interface RoiPdfDownloadProps {
   buildPdfData: (email: string) => RoiPdfData;
