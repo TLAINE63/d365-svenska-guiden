@@ -125,6 +125,12 @@ const DecisionProfile = ({ partner }: Props) => {
                   "Antal genomförda D365-implementationer per applikation. Säger något om volym, inte om kvalitet eller branschpassning — be alltid om referenser i den bransch ni befinner er i.",
               },
               { label: "Branschfokus", value: (partner.industries || []).slice(0, 3).join(", ") || null },
+              {
+                label: "Typisk BC-projektlängd",
+                value: formatBcLength(p.delivery_profile),
+                help: "Partnerns egna spann för typisk implementationstid av Business Central, mätt i veckor från projektstart till driftsättning. Verklig längd beror på scope, datakvalitet och organisationens beslutskraft.",
+              },
+              
               
               ].map(({ label, value, help }) => (
                 <div key={label} className="grid grid-cols-[1fr_auto] gap-4 py-2.5">
