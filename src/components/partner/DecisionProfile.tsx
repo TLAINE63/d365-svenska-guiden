@@ -147,6 +147,11 @@ const DecisionProfile = ({ partner }: Props) => {
                 value: formatBcLength(p.delivery_profile),
                 help: "Partnerns egna spann för typisk implementationstid av Business Central, mätt i veckor från projektstart till driftsättning. Verklig längd beror på scope, datakvalitet och organisationens beslutskraft.",
               },
+              {
+                label: "Typisk total projektkostnad (BC)",
+                value: formatBcCost(p.delivery_profile),
+                help: "Partnerns egna kostnadsband för typisk Business Central-implementation (exkl. licenser). Använd som indikation — slutpriset beror på scope, integrationer, datamigrering och förändringsledning.",
+              },
               
               
               ].map(({ label, value, help }) => (
