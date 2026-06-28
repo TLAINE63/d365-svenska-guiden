@@ -25,6 +25,8 @@ import { usePartners } from "@/hooks/usePartners";
 import { filterAndSortPartners } from "@/hooks/usePartnerFilters";
 import PartnerCard from "@/components/PartnerCard";
 import { BC_ISV_SOLUTIONS, type SolutionIndustry } from "@/data/bcIsvSolutions";
+import { Checkbox } from "@/components/ui/checkbox";
+import { INDUSTRY_DRIVERS, defaultEnabledDrivers, type Industry } from "@/data/bcRoiDrivers";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
@@ -32,7 +34,6 @@ const breadcrumbs = [
   { name: "ROI/TCO-kalkylator", url: "https://d365.se/businesscentral/roi-kalkylator/" },
 ];
 
-type Industry = "Handel" | "Distribution" | "Tillverkning" | "Tjänster" | "Annan";
 type Complexity = "Låg" | "Medel" | "Hög";
 type LicenseModel = "Essentials" | "Premium";
 
@@ -46,15 +47,15 @@ interface Inputs {
   revenue: number;
   complexity: Complexity;
   manualPct: number;
-  warehouse: boolean;
-  ecommerce: boolean;
+  enabledDrivers: string[];
   integrations: number;
   currentItCost: number;
 }
 
+const initialIndustry: Industry = "Handel";
 const DEFAULTS: Inputs = {
   companyName: "",
-  industry: "Handel",
+  industry: initialIndustry,
   fullUsers: 25,
   teamMembers: 10,
   deviceUsers: 0,
@@ -62,8 +63,7 @@ const DEFAULTS: Inputs = {
   revenue: 45_000_000,
   complexity: "Medel",
   manualPct: 60,
-  warehouse: true,
-  ecommerce: true,
+  enabledDrivers: defaultEnabledDrivers(initialIndustry),
   integrations: 3,
   currentItCost: 300_000,
 };
