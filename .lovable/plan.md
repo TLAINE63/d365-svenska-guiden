@@ -1,72 +1,68 @@
-# Partnerprofil som beslutsstöd
+## Mål
 
-Idag är profilen mest en presentation. Vi gör om den så att den hjälper köparen välja mellan ett redan filtrerat urval. Fyra block ovanför fold på varje profil, samma struktur för alla partners.
+Utvidga konkurrentjämförelserna från enbart Business Central till samtliga D365-produkter där det finns relevanta konkurrenter. Återanvänd befintlig sidmall (`ErpComparisonPage.tsx`) och hubbstruktur, men generalisera datamodellen så den fungerar för alla produkter.
 
-## Ny struktur (i ordning)
+## Nya jämförelser som ska byggas (13 st)
 
-1. **Positioneringsrad** (direkt under namn/logo)
-   - En mening: "Vi är valet när …" — partnerns spetsläge i klartext.
-   - Tre nyckeltaggar: primär app, primär bransch, primär storlekssegment.
-   - Källa: ny fält `positioning_statement` + härledda taggar från `product_filters`.
+| Produkt | Konkurrenter |
+|---|---|
+| Finance & SCM | SAP S/4HANA, Infor M3 |
+| Sales | Salesforce Sales Cloud, HubSpot Sales Hub |
+| Customer Service | Zendesk, ServiceNow CSM, Salesforce Service Cloud |
+| Customer Insights | Salesforce Marketing Cloud / Data Cloud, HubSpot Marketing Hub |
+| Contact Center | Genesys Cloud CX, NICE CXone, Puzzel, Telia ACE |
+| Field Service | Salesforce Field Service |
 
-2. **Leveransbild** (vad du faktiskt får)
-   - Typiska roller i teamet (t.ex. Lösningsarkitekt, Funktionskonsult, Utvecklare).
-   - Typisk projektlängd och startmodell (workshop, fast pris, T&M).
-   - Metod/ramverk i en mening (Sure Step, egen metodik, etc.).
-   - Källa: ny strukturerad fält `delivery_profile` (JSONB).
+## Teknisk lösning
 
-3. **Jämförbar faktatabell** (samma rader för alla partners)
-   - Storlek på D365-team i Sverige
-   - Antal genomförda D365-implementationer (intervall)
-   - Geografisk närvaro (kontor)
-   - Branschfokus (max 3)
-   - AI-nivå (befintlig score)
-   - Avtalspartner ja/nej
-   - Källa: dels befintliga fält, dels nya intervallfält.
+### 1. Generalisera datamodellen
+Döp om `src/data/erpComparisons.ts` → `src/data/productComparisons.ts` och refaktorera:
+- Byt fältnamn `bc` / `bcSummary` / `bcLimits` → `product` / `productSummary` / `productLimits`
+- Lägg till fält: `productKey` (`'bc' | 'fscm' | 'sales' | 'customer-service' | 'customer-insights' | 'contact-center' | 'field-service'`), `productName`, `productPath` (länk tillbaka till produktsidan)
+- Behåll `COMMON_ROWS`-helpern men en variant per produkt (priser/implementationstid skiljer sig markant mellan t.ex. BC och F&SCM)
 
-4. **"När passar vi inte"** (obligatorisk)
-   - 2–4 punkter där partnern själv pekar ut fel matchning (t.ex. "under 20 användare", "ren molnmigrering utan verksamhetsförändring", "publik sektor").
-   - Visas alltid, även om kort. Tom = profilen flaggas som ofullständig i admin.
-   - Källa: nytt fält `not_a_fit` (text[]).
+### 2. Slug-konvention
+Behåll `/jamfor/{slug}/` – nya slugar t.ex.:
+`fscm-vs-sap`, `fscm-vs-infor-m3`, `sales-vs-salesforce`, `sales-vs-hubspot`, `customer-service-vs-zendesk`, `customer-service-vs-servicenow`, `customer-service-vs-salesforce-service-cloud`, `customer-insights-vs-salesforce-marketing-cloud`, `customer-insights-vs-hubspot`, `contact-center-vs-genesys`, `contact-center-vs-nice-cxone`, `contact-center-vs-puzzel`, `contact-center-vs-telia-ace`, `field-service-vs-salesforce-field-service`.
 
-Resten av profilen (kundcase, events, kontakt, video) ligger kvar nedanför men sekundärt.
+### 3. Uppdatera sidor
+- `ErpComparisonPage.tsx`: Använd dynamisk produktreferens (titel, summary, "Tillbaka till {produkt}"-länk). Disclaimer + 7 000-tilläggsraden behålls (men ISV-meningen anpassas per produkt – Salesforce AppExchange osv. skrivs in på konkurrentsidan).
+- `ErpComparisonsHub.tsx`: Gruppera kort per produkt (sektioner: ERP / Sales / Customer Service / Marketing / Contact Center / Field Service).
+- Döp om `/jamfor/` (ErpComparisonsHub) `title` + intro till "D365-jämförelser" istället för ERP-specifik.
 
-## Datamodell
+### 4. Kunskapscenter-integration
+I `src/data/knowledgeHubs.ts`:
+- Behåll BC-hubbens 6 ERP-jämförelser
+- Lägg till motsvarande "Konkurrentjämförelse"-block i hubbarna för Sales, Customer Service, Customer Insights, Contact Center, Field Service och F&SCM
+- Helper `erpComparisonsAsResources` generaliseras till `comparisonsAsResources(productKey)`
 
-Nya kolumner på `partners`:
+### 5. Routing & sitemap
+- `App.tsx`: route `/jamfor/:slug/` finns redan, träffar nya slugar automatiskt
+- SSG: lägg till nya slugar i `partnerRoutes.json` / motsvarande prerender-lista
+- `sitemap-jamfor.xml`-generatorn plockar upp alla från `productComparisons.ts`
 
-- `positioning_statement text`
-- `delivery_profile jsonb` — `{ roles: string[], typical_length: string, engagement_model: string, methodology: string }`
-- `team_size_sweden text` (intervall: "1–10", "11–25", "26–50", "50+")
-- `implementations_done text` (intervall: "<10", "10–25", "25–100", "100+")
-- `not_a_fit text[]`
+### 6. Innehållskvalitet
+Varje jämförelse innehåller (oförändrat mot dagens struktur):
+- Köparsidig intro
+- "Bäst för"-bullets för båda sidor
+- 10 strukturerade tabellrader (arkitektur, licens, impl-tid, impl-kostnad, ISV, MS365-integration, AI, lokal redovisning/lokalisering, internationell, partnernätverk)
+- "När passar inte X" för båda
+- 4–6 FAQ:s (driver FAQPage-schema)
+- Disclaimer-block (priser/funktioner ändras över tid)
 
-Alla fält valfria i DB men obligatoriska i publicerings-flow (samma mönster som AI-fälten idag).
+För **Puzzel** och **Telia ACE** noteras särskilt nordiskt/svenskt fokus, lokal support och eventuell PTS/myndighetspositionering – det är deras huvudsakliga differentiator vs Microsoft.
 
-## Admin
+### 7. Disclaimers
+Alla nya sidor får samma disclaimer som BC-jämförelserna idag. För Contact Center och Field Service läggs en extra notering om att Microsoft fortfarande utvecklar produkterna snabbt (Contact Center är ung; Field Service har genomgått stora UI-omarbetningar).
 
-Ny sektion "Beslutsprofil" i partner-editorn med fälten ovan. Validering vid publicering: positioning + minst 2 `not_a_fit`-punkter + delivery_profile ifyllt → annars varningsbadge på admin-listan (befintligt mönster).
+## Arbetsordning (i en följd, ingen mellandialog)
 
-## Frontend
+1. Refaktorera datamodellen + befintliga 6 BC-jämförelser till nya fältnamn (rent omdöp – ingen innehållsförändring).
+2. Lägg till alla 13 nya jämförelser i `productComparisons.ts`.
+3. Uppdatera `ErpComparisonPage.tsx` + `ErpComparisonsHub.tsx` (gruppering per produkt, dynamiska "tillbaka till produkt"-länkar).
+4. Lägg till comparisons i 5 nya kunskapscenter-hubbar.
+5. Verifiera build.
 
-- `src/pages/PartnerProfile.tsx`: byt ut nuvarande hero-block (rad 470+) mot fyra-block-strukturen. Behåll TrustBanner, SEO, kundcase, events.
-- Ny komponent `src/components/partner/DecisionProfile.tsx` som renderar block 1–4 i identisk layout för alla partners.
-- Faktatabell som CSS grid med fasta rader så två profiler i två flikar går att jämföra visuellt.
-- AI-genererad fallback (Lovable AI) för `positioning_statement` om tomt, markerad med befintlig "AI-genererad"-badge — samma mönster som industry_pitches idag.
+## Omfattning
 
-## Konsekvenser
-
-- PartnerCard rör vi inte (kortet är discovery, profilen är beslut).
-- Befintliga profiler utan nya fält visar tomma block med "Partner har inte fyllt i" tills admin uppdaterar — neutralt, ingen pitchig fyllnadstext.
-- Migration är additiv, ingen risk för befintlig data.
-
-## Tekniska detaljer
-
-- Migration: `ALTER TABLE public.partners ADD COLUMN ...` + GRANT redan på plats (oförändrat).
-- Types regenereras automatiskt av Lovable Cloud.
-- Edge function `match-partners` ändras inte — detta är ren profilförbättring, inte rankning.
-
-## Öppna frågor
-
-- Ska `not_a_fit` även visas på PartnerCard i resultatlistan (snabb diskvalificering) eller bara på profilen? Förslag: bara profilen i v1.
-- Vill du att jag AI-genererar förslag för befintliga partners på `positioning_statement` och `not_a_fit` baserat på deras nuvarande data, så admin bara godkänner?
+Stort innehållsarbete – ca 13 × (10 rader + 4–6 FAQ + intro/limits) ≈ 2 000–2 500 rader ny data. Inga nya beroenden, ingen DB-migration, endast frontend/SSG.

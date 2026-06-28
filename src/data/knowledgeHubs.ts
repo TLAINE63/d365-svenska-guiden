@@ -11,7 +11,11 @@
 import { ALL_DEEP_DIVE_ARTICLES } from "./bcArticles";
 import { BLOG_ARTICLES } from "./blogArticles";
 import { KNOWLEDGE_VIDEOS } from "./knowledgeVideos";
-import { ERP_COMPARISONS } from "./erpComparisons";
+import {
+  ERP_COMPARISONS,
+  getComparisonsByProduct,
+  type ProductKey,
+} from "./erpComparisons";
 
 export interface HubResourceCard {
   id: string;
@@ -102,7 +106,17 @@ const erpComparisonsAsResources = (): HubResourceCard[] =>
   ERP_COMPARISONS.map((c) => ({
     id: `jamfor-${c.slug}`,
     type: "guide" as const,
-    title: `Business Central vs ${c.competitor}`,
+    title: `${c.productShort} vs ${c.competitor}`,
+    description: c.intro,
+    url: `/jamfor/${c.slug}/`,
+    category: "Konkurrentjämförelse",
+  }));
+
+const comparisonsAsResources = (productKey: ProductKey): HubResourceCard[] =>
+  getComparisonsByProduct(productKey).map((c) => ({
+    id: `jamfor-${c.slug}`,
+    type: "guide" as const,
+    title: `${c.productShort} vs ${c.competitor}`,
     description: c.intro,
     url: `/jamfor/${c.slug}/`,
     category: "Konkurrentjämförelse",
@@ -283,7 +297,7 @@ export const KNOWLEDGE_HUBS: KnowledgeHubConfig[] = [
       tools.bcRoiKalkylator,
       tools.kravspecErp,
       tools.branschjamforelse,
-      ...erpComparisonsAsResources(),
+      ...comparisonsAsResources("bc"),
       ...deepDiveBySlug(["businesscentral"]),
       ...blogByProduct(["Business Central"]),
     ],
@@ -325,6 +339,7 @@ export const KNOWLEDGE_HUBS: KnowledgeHubConfig[] = [
       tools.behovsanalysErp,
       tools.kravspecErp,
       tools.branschjamforelse,
+      ...comparisonsAsResources("fscm"),
       ...deepDiveBySlug(["financesupplychain"]),
       ...blogByProduct(["Finance & SCM"]),
     ],
@@ -342,6 +357,8 @@ export const KNOWLEDGE_HUBS: KnowledgeHubConfig[] = [
       tools.behovsanalysCrm,
       tools.kravspecSales,
       tools.kravspecMarketing,
+      ...comparisonsAsResources("sales"),
+      ...comparisonsAsResources("customer-insights"),
       ...deepDiveBySlug(["d365sales", "d365marketing"]),
       ...blogByProduct(["Sales", "Customer Insights"]),
     ],
@@ -358,6 +375,9 @@ export const KNOWLEDGE_HUBS: KnowledgeHubConfig[] = [
     resources: [
       tools.behovsanalysService,
       tools.kravspecKundservice,
+      ...comparisonsAsResources("customer-service"),
+      ...comparisonsAsResources("contact-center"),
+      ...comparisonsAsResources("field-service"),
       ...deepDiveBySlug(["d365customerservice", "d365fieldservice", "d365contactcenter"]),
       ...blogByProduct(["Customer Service", "Field Service", "Contact Center"]),
     ],

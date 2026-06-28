@@ -4,9 +4,12 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ERP_COMPARISONS, getErpComparison } from "@/data/erpComparisons";
+import {
+  PRODUCT_COMPARISONS,
+  PRODUCT_META,
+  getErpComparison,
+} from "@/data/erpComparisons";
 
 const ErpComparisonPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -16,12 +19,22 @@ const ErpComparisonPage = () => {
     return <Navigate to="/jamfor/" replace />;
   }
 
+  const meta = PRODUCT_META[data.productKey];
+
   const breadcrumbs = [
     { name: "Hem", url: "/" },
-    { name: "Business Central", url: "/businesscentral" },
-    { name: "Jämför ERP", url: "/jamfor" },
-    { name: `BC vs ${data.competitor}`, url: `/jamfor/${data.slug}` },
+    { name: data.productBreadcrumb, url: data.productPath },
+    { name: "Jämför", url: "/jamfor" },
+    { name: `${data.productShort} vs ${data.competitor}`, url: `/jamfor/${data.slug}` },
   ];
+
+  // Andra jämförelser från samma produkt först, sedan resten
+  const sameProduct = PRODUCT_COMPARISONS.filter(
+    (c) => c.productKey === data.productKey && c.slug !== data.slug,
+  );
+  const otherProducts = PRODUCT_COMPARISONS.filter(
+    (c) => c.productKey !== data.productKey,
+  ).slice(0, 6);
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -54,12 +67,14 @@ const ErpComparisonPage = () => {
             <Card className="border-border">
               <CardContent className="p-6">
                 <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
-                  Microsoft Dynamics 365 Business Central
+                  {data.productName}
                 </p>
-                <h2 className="text-xl font-bold mb-3 text-foreground">När BC är rätt val</h2>
-                <p className="text-sm text-muted-foreground mb-4">{data.bcSummary}</p>
+                <h2 className="text-xl font-bold mb-3 text-foreground">
+                  När {data.productShort} är rätt val
+                </h2>
+                <p className="text-sm text-muted-foreground mb-4">{data.productSummary}</p>
                 <ul className="space-y-2">
-                  {data.bestFor.bc.map((b) => (
+                  {data.bestFor.product.map((b) => (
                     <li key={b} className="flex gap-2 text-sm text-foreground">
                       <Check className="h-4 w-4 mt-0.5 text-[hsl(var(--cta-orange))] shrink-0" />
                       <span>{b}</span>
@@ -83,7 +98,9 @@ const ErpComparisonPage = () => {
                     </a>
                   )}
                 </p>
-                <h2 className="text-xl font-bold mb-3 text-foreground">När {data.competitor} är rätt val</h2>
+                <h2 className="text-xl font-bold mb-3 text-foreground">
+                  När {data.competitor} är rätt val
+                </h2>
                 <p className="text-sm text-muted-foreground mb-4">{data.competitorSummary}</p>
                 <ul className="space-y-2">
                   {data.bestFor.competitor.map((b) => (
@@ -109,7 +126,7 @@ const ErpComparisonPage = () => {
                 <thead className="bg-secondary/60">
                   <tr>
                     <th className="text-left p-3 font-semibold text-foreground w-1/5">Område</th>
-                    <th className="text-left p-3 font-semibold text-foreground w-2/5">Business Central</th>
+                    <th className="text-left p-3 font-semibold text-foreground w-2/5">{data.productShort}</th>
                     <th className="text-left p-3 font-semibold text-foreground w-2/5">{data.competitor}</th>
                   </tr>
                 </thead>
@@ -117,7 +134,7 @@ const ErpComparisonPage = () => {
                   {data.rows.map((r) => (
                     <tr key={r.area} className="border-t border-border align-top">
                       <td className="p-3 font-medium text-foreground">{r.area}</td>
-                      <td className="p-3 text-muted-foreground">{r.bc}</td>
+                      <td className="p-3 text-muted-foreground">{r.product}</td>
                       <td className="p-3 text-muted-foreground">{r.competitor}</td>
                     </tr>
                   ))}
@@ -140,10 +157,12 @@ const ErpComparisonPage = () => {
               <CardContent className="p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <AlertTriangle className="h-4 w-4 text-amber-700" />
-                  <h3 className="text-lg font-bold text-foreground">När BC inte passar</h3>
+                  <h3 className="text-lg font-bold text-foreground">
+                    När {data.productShort} inte passar
+                  </h3>
                 </div>
                 <ul className="space-y-2">
-                  {data.bcLimits.map((b) => (
+                  {data.productLimits.map((b) => (
                     <li key={b} className="text-sm text-foreground/80">• {b}</li>
                   ))}
                 </ul>
@@ -153,7 +172,9 @@ const ErpComparisonPage = () => {
               <CardContent className="p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <AlertTriangle className="h-4 w-4 text-amber-700" />
-                  <h3 className="text-lg font-bold text-foreground">När {data.competitor} inte passar</h3>
+                  <h3 className="text-lg font-bold text-foreground">
+                    När {data.competitor} inte passar
+                  </h3>
                 </div>
                 <ul className="space-y-2">
                   {data.competitorLimits.map((b) => (
@@ -185,29 +206,34 @@ const ErpComparisonPage = () => {
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
             <div className="rounded-2xl border border-border bg-gradient-to-br from-secondary/60 to-background p-6 sm:p-10 text-center">
               <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
-                Vill ni jämföra BC mot ert behov – inte mot {data.competitor}?
+                Vill ni jämföra {data.productShort} mot ert behov – inte mot {data.competitor}?
               </h2>
               <p className="text-sm sm:text-base text-muted-foreground mb-6 max-w-2xl mx-auto">
-                Starta ett funktionsorienterat matchningstest eller räkna fram TCO med era egna nyckeltal.
+                Starta en behovsanalys, räkna fram TCO eller utforska {data.productShort}-sidan med
+                priser, funktioner och partners.
               </p>
               <div className="flex flex-wrap justify-center gap-3">
+                {meta.ctaPrimary && (
+                  <Link
+                    to={meta.ctaPrimary.url}
+                    className="inline-flex items-center gap-2 rounded-md bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white font-medium px-5 py-2.5"
+                  >
+                    {meta.ctaPrimary.label} <ArrowRight className="h-4 w-4" />
+                  </Link>
+                )}
+                {meta.ctaSecondary && (
+                  <Link
+                    to={meta.ctaSecondary.url}
+                    className="inline-flex items-center gap-2 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-medium px-5 py-2.5"
+                  >
+                    {meta.ctaSecondary.label}
+                  </Link>
+                )}
                 <Link
-                  to="/businesscentral/matchningstest/"
-                  className="inline-flex items-center gap-2 rounded-md bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white font-medium px-5 py-2.5"
-                >
-                  Matchningstest <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  to="/businesscentral/roi-kalkylator/"
+                  to={data.productPath}
                   className="inline-flex items-center gap-2 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-medium px-5 py-2.5"
                 >
-                  ROI/TCO-kalkylator
-                </Link>
-                <Link
-                  to="/businesscentral/#partners"
-                  className="inline-flex items-center gap-2 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-medium px-5 py-2.5"
-                >
-                  Se BC-partners
+                  Till {data.productShort}-sidan
                 </Link>
               </div>
             </div>
@@ -215,25 +241,58 @@ const ErpComparisonPage = () => {
         </section>
 
         {/* OTHER COMPARISONS */}
-        <section className="py-10 border-t border-border">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-            <h2 className="text-lg font-bold text-foreground mb-4">Fler jämförelser</h2>
-            <div className="grid sm:grid-cols-3 gap-3">
-              {ERP_COMPARISONS.filter((c) => c.slug !== data.slug).map((c) => (
-                <Link
-                  key={c.slug}
-                  to={`/jamfor/${c.slug}/`}
-                  className="rounded-lg border border-border p-4 hover:border-foreground/30 transition"
-                >
-                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">
-                    Jämförelse
-                  </p>
-                  <p className="font-medium text-foreground">BC vs {c.competitor}</p>
-                </Link>
-              ))}
+        {(sameProduct.length > 0 || otherProducts.length > 0) && (
+          <section className="py-10 border-t border-border">
+            <div className="container mx-auto px-4 sm:px-6 max-w-5xl space-y-8">
+              {sameProduct.length > 0 && (
+                <div>
+                  <h2 className="text-lg font-bold text-foreground mb-4">
+                    Fler {data.productShort}-jämförelser
+                  </h2>
+                  <div className="grid sm:grid-cols-3 gap-3">
+                    {sameProduct.map((c) => (
+                      <Link
+                        key={c.slug}
+                        to={`/jamfor/${c.slug}/`}
+                        className="rounded-lg border border-border p-4 hover:border-foreground/30 transition"
+                      >
+                        <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">
+                          Jämförelse
+                        </p>
+                        <p className="font-medium text-foreground">
+                          {c.productShort} vs {c.competitor}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {otherProducts.length > 0 && (
+                <div>
+                  <h2 className="text-lg font-bold text-foreground mb-4">
+                    Jämförelser för andra produkter
+                  </h2>
+                  <div className="grid sm:grid-cols-3 gap-3">
+                    {otherProducts.map((c) => (
+                      <Link
+                        key={c.slug}
+                        to={`/jamfor/${c.slug}/`}
+                        className="rounded-lg border border-border p-4 hover:border-foreground/30 transition"
+                      >
+                        <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">
+                          {c.productBreadcrumb}
+                        </p>
+                        <p className="font-medium text-foreground">
+                          {c.productShort} vs {c.competitor}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
-        </section>
+          </section>
+        )}
       </main>
 
       <Footer />
