@@ -614,7 +614,34 @@ const BusinessCentral = () => {
  </div>
  </section>
 
- {/* Fördjupningsartiklar */}
+  {/* ROI- & TCO-kalkylator CTA */}
+  <section className="py-12 bg-background">
+    <div className="container mx-auto px-4 max-w-5xl">
+      <div className="rounded-2xl border border-border bg-gradient-to-br from-secondary/40 to-background p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center gap-6">
+        <div className="flex-1 min-w-0">
+          <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary mb-2">
+            <FileText className="w-3.5 h-3.5" /> Beslutsunderlag
+          </div>
+          <h2 className="text-xl md:text-2xl font-bold text-foreground mb-2">
+            ROI- & TCO-kalkylator för Business Central
+          </h2>
+          <p className="text-sm md:text-base text-muted-foreground max-w-2xl">
+            Räkna fram licenskostnad, implementation, 5-årig TCO, payback och ROI. Branschspecifika
+            effektiviseringsdrivare för Handel, Distribution, Tillverkning och Tjänster — med
+            antaganden helt öppna.
+          </p>
+        </div>
+        <Link
+          to="/businesscentral/roi-kalkylator/"
+          className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-[hsl(var(--cta-orange))] text-white font-semibold hover:opacity-90 transition-opacity whitespace-nowrap"
+        >
+          Öppna kalkylatorn <ArrowRight className="w-4 h-4" />
+        </Link>
+      </div>
+    </div>
+  </section>
+
+  {/* Fördjupningsartiklar */}
  <section className="py-16 bg-secondary/20">
  <div className="container mx-auto px-4">
  <h2 className="text-2xl font-bold text-foreground mb-2 text-center">Fördjupningsartiklar om Business Central</h2>
