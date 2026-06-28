@@ -408,6 +408,8 @@ const PartnerUpdate = () => {
       typical_length: dp.typical_length || "",
       engagement_model: dp.engagement_model || "",
       methodology: dp.methodology || "",
+      bc_project_weeks_min: dp.bc_project_weeks_min != null ? String(dp.bc_project_weeks_min) : "",
+      bc_project_weeks_max: dp.bc_project_weeks_max != null ? String(dp.bc_project_weeks_max) : "",
     });
     if (Array.isArray(dp.roles)) setRolesInput(dp.roles.join(", "));
   }
