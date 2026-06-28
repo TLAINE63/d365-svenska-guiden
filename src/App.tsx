@@ -25,6 +25,8 @@ const FscmMatchningstest = lazy(() => import("./pages/FscmMatchningstest"));
 const BcMatchningstest = lazy(() => import("./pages/BcMatchningstest"));
 const BcRoiCalculator = lazy(() => import("./pages/BcRoiCalculator"));
 const SalesRoiCalculator = lazy(() => import("./pages/SalesRoiCalculator"));
+const ErpComparisonsHub = lazy(() => import("./pages/ErpComparisonsHub"));
+const ErpComparisonPage = lazy(() => import("./pages/ErpComparisonPage"));
 const ERPOverview = lazy(() => import("./pages/ERPOverview"));
 const Affarssystem = lazy(() => import("./pages/Affarssystem"));
 
