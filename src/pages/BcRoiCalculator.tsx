@@ -4,7 +4,7 @@ import { ArrowRight, Calculator, Info, AlertTriangle, TrendingUp, Clock, Wallet,
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import { BreadcrumbSchema } from "@/components/StructuredData";
+import { BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -232,6 +232,11 @@ export default function BcRoiCalculator() {
         canonicalPath="/businesscentral/roi-kalkylator/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
+      <SoftwareApplicationSchema
+        name="Business Central ROI/TCO-kalkylator"
+        description="Räkna fram payback, 5-årig totalkostnad och årlig nytta för Microsoft Dynamics 365 Business Central baserat på antal användare, bransch och effektiviseringsmål."
+        url="https://d365.se/businesscentral/roi-kalkylator/"
+      />
       <Navbar />
 
       <main className="pt-20">
