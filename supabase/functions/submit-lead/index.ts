@@ -132,6 +132,15 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
+    // Block free/personal/disposable email domains (gmail, hotmail, live, etc.)
+    if (isFreeEmailDomain(data.email)) {
+      console.log(`Blocked free email domain submission: ${data.email}`);
+      return new Response(
+        JSON.stringify({ error: FREE_EMAIL_ERROR_SV }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     // Sanitize inputs
     const sanitizedData = {
       company_name: sanitizeInput(data.company_name).slice(0, 100),
