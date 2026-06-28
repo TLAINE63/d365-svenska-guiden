@@ -405,7 +405,7 @@ const Index = () => {
   eyebrow: "Steg 2",
   icon: <BookOpen className="w-5 h-5 text-white" />,
   title: "Kravspecifikation",
-  desc: "Strukturerat beslutsunderlag som partners kan svara på — och som ni sedan kan jämföra på lika villkor.",
+  desc: "Skapa ett strukturerat beslutsunderlag som ett stöd i dialogen med partners/leverantörer.",
   cta: "Bygg kravspec",
   onClick: () => setDirectionPicker("kravspec"),
   aiPowered: true,
