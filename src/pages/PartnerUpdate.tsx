@@ -2387,17 +2387,49 @@ const PartnerUpdate = () => {
            onChange={(e) => setDeliveryProfile({ ...deliveryProfile, engagement_model: e.target.value })}
          />
        </div>
-       <div className="sm:col-span-2">
-         <Label htmlFor="dp_method">Projektmetodik</Label>
-         <Input
-           id="dp_method"
-           placeholder="t.ex. Sure Step, egen agil metod"
-           value={deliveryProfile.methodology}
-           onChange={(e) => setDeliveryProfile({ ...deliveryProfile, methodology: e.target.value })}
-         />
-       </div>
-     </div>
-   </div>
+        <div className="sm:col-span-2">
+          <Label htmlFor="dp_method">Projektmetodik</Label>
+          <Input
+            id="dp_method"
+            placeholder="t.ex. Sure Step, egen agil metod"
+            value={deliveryProfile.methodology}
+            onChange={(e) => setDeliveryProfile({ ...deliveryProfile, methodology: e.target.value })}
+          />
+        </div>
+        <div className="sm:col-span-2">
+          <Label className="flex items-center gap-2">
+            Typisk projektlängd för Business Central (veckor)
+          </Label>
+          <p className="text-xs text-muted-foreground mb-2">
+            Ange spannet ni oftast levererar BC-implementationer på (min och max). Hjälper köparen jämföra realistisk tidsåtgång.
+          </p>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <Label htmlFor="dp_bc_min" className="text-xs text-slate-500">Min (veckor)</Label>
+              <Input
+                id="dp_bc_min"
+                type="number"
+                min={0}
+                placeholder="t.ex. 12"
+                value={deliveryProfile.bc_project_weeks_min}
+                onChange={(e) => setDeliveryProfile({ ...deliveryProfile, bc_project_weeks_min: e.target.value })}
+              />
+            </div>
+            <div>
+              <Label htmlFor="dp_bc_max" className="text-xs text-slate-500">Max (veckor)</Label>
+              <Input
+                id="dp_bc_max"
+                type="number"
+                min={0}
+                placeholder="t.ex. 26"
+                value={deliveryProfile.bc_project_weeks_max}
+                onChange={(e) => setDeliveryProfile({ ...deliveryProfile, bc_project_weeks_max: e.target.value })}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
    <div className="border-t border-border pt-4">
      <Label htmlFor="not_a_fit" className="flex items-center gap-2">
