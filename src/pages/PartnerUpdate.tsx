@@ -411,6 +411,7 @@ const PartnerUpdate = () => {
       methodology: dp.methodology || "",
       bc_project_weeks_min: dp.bc_project_weeks_min != null ? String(dp.bc_project_weeks_min) : "",
       bc_project_weeks_max: dp.bc_project_weeks_max != null ? String(dp.bc_project_weeks_max) : "",
+      bc_project_cost_band: typeof dp.bc_project_cost_band === "string" ? dp.bc_project_cost_band : "",
     });
     if (Array.isArray(dp.roles)) setRolesInput(dp.roles.join(", "));
   }
