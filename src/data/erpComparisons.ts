@@ -117,7 +117,7 @@ export const ERP_COMPARISONS: ErpComparison[] = [
       competitor: [
         "Renodlade svenska verkstadsbolag med fokus på diskret tillverkning.",
         "Bolag som vill ha MPS, kapacitetsplanering och produktionsuppföljning i grunden.",
-        "Företag som värdesätter en svensk leverantör med svensk support.",
+        "Företag som värdesätter en svenskägd produktleverantör med svensk juridik och produktutveckling i Sverige.",
       ],
     },
     rows: COMMON_ROWS({
@@ -134,7 +134,7 @@ export const ERP_COMPARISONS: ErpComparison[] = [
     }),
     bcLimits: [
       "Om ni har djup, komplex svensk verkstadstillverkning utan vilja att lägga ISV ovanpå.",
-      "Om ni vill ha en svensk leverantör med svensk support i hela kedjan.",
+      "Om det är avgörande att hela leverantörskedjan – inklusive produktägaren – är svensk (Business Centrals produktägare är Microsoft, även om svenska partners står för implementation och support).",
     ],
     competitorLimits: [
       "Om ni har process- eller livsmedelstillverkning – Monitor är optimerat för diskret tillverkning.",
@@ -238,7 +238,7 @@ export const ERP_COMPARISONS: ErpComparison[] = [
       ],
       competitor: [
         "Svenska tillverkande och distribuerande bolag som vill ha djup branschfunktionalitet ur lådan.",
-        "Bolag som söker en svensk leverantör med svensk support och svensk juridik.",
+        "Bolag som värdesätter en svenskägd produktleverantör med svensk juridik och produktutveckling i Sverige.",
         "Bolag i specifika nischer (livsmedel, läkemedel, grossist) där Jeeves har färdiga branschmoduler.",
       ],
     },
@@ -256,7 +256,7 @@ export const ERP_COMPARISONS: ErpComparison[] = [
     }),
     bcLimits: [
       "Om ni har en mycket specifik svensk branschnisch där Jeeves har färdig modul.",
-      "Om ni vill ha en svensk leverantör med svensk support i hela kedjan.",
+      "Om det är avgörande att även produktägaren är svensk (Business Centrals produktägare är Microsoft, även om svenska partners står för implementation och support på samma sätt som för Jeeves).",
     ],
     competitorLimits: [
       "Om ni har internationell verksamhet eller flera bolag i olika länder/valutor.",
