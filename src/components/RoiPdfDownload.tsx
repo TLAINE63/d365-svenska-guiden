@@ -25,8 +25,9 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
-      toast({ title: "Ange en giltig e-postadress", variant: "destructive" });
+    const emailError = validateBusinessEmail(email);
+    if (emailError) {
+      toast({ title: emailError, variant: "destructive" });
       return;
     }
     if (honeypot) {
