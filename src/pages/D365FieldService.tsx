@@ -267,6 +267,10 @@ const D365FieldService = () => {
         </div>
       </section>
 
+      {/* Partners Section */}
+      <BuyerManual product="field-service" />
+      <CostBreakdown product="field-service" />
+
       {/* Deep Dive Articles */}
       <section className="py-12 sm:py-16 md:py-20 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6">
@@ -299,10 +303,6 @@ const D365FieldService = () => {
           </div>
         </div>
       </section>
-
-      {/* Partners Section */}
-      <BuyerManual product="field-service" />
-      <CostBreakdown product="field-service" />
 
       <ApplicationPartners applicationFilter="Field Service" pageSource="D365 Field Service" />
 
