@@ -399,10 +399,9 @@ export default function SalesRoiCalculator() {
                           const userFactorUi = Math.min(3.5, Math.max(0.4, Math.pow(Math.max(1, v.sellers) / 10, 0.55)));
                           const annual = d.savings(v.revenue, v.sellers) * userFactorUi;
                           return (
-                            <label
+                            <div
                               key={d.id}
-                              htmlFor={`drv-${d.id}`}
-                              className={`flex items-start gap-3 p-3 rounded-md border cursor-pointer transition-colors ${
+                              className={`flex items-start gap-3 p-3 rounded-md border transition-colors ${
                                 checked ? "border-primary bg-primary/5" : "border-border hover:bg-secondary/40"
                               }`}
                             >
@@ -420,15 +419,27 @@ export default function SalesRoiCalculator() {
                                 className="mt-0.5"
                               />
                               <div className="flex-1 min-w-0">
-                                <div className="flex items-baseline justify-between gap-3">
-                                  <span className="text-sm font-medium text-foreground">{d.label}</span>
-                                  <span className="text-xs tabular-nums text-muted-foreground whitespace-nowrap">
-                                    ~{fmtSek(annual)}/år
-                                  </span>
-                                </div>
-                                <p className="text-xs text-muted-foreground mt-0.5">{d.hint}</p>
+                                <label htmlFor={`drv-${d.id}`} className="cursor-pointer block">
+                                  <div className="flex items-baseline justify-between gap-3">
+                                    <span className="text-sm font-medium text-foreground">{d.label}</span>
+                                    <span className="text-xs tabular-nums text-muted-foreground whitespace-nowrap">
+                                      ~{fmtSek(annual)}/år
+                                    </span>
+                                  </div>
+                                  <p className="text-xs text-muted-foreground mt-0.5">{d.hint}</p>
+                                </label>
+                                <details className="mt-2 group">
+                                  <summary className="text-xs text-primary cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden">
+                                    <span className="group-open:hidden">Visa förklaring ▾</span>
+                                    <span className="hidden group-open:inline">Dölj förklaring ▴</span>
+                                  </summary>
+                                  <p className="text-xs text-muted-foreground leading-relaxed mt-1.5">
+                                    {d.detail}
+                                  </p>
+                                </details>
                               </div>
-                            </label>
+                            </div>
+
                           );
                         })}
                       </div>
