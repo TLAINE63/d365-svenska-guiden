@@ -565,20 +565,6 @@ export default function ProductRoiAnalysis({
           />
         </div>
 
-        {cfg.deepDivePath && (
-          <div className="mt-8 text-center">
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-            >
-              <Link to={cfg.deepDivePath}>
-                Öppna djup-kalkylatorn för {cfg.productShort}
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Link>
-            </Button>
-          </div>
-        )}
       </div>
     </section>
   );
