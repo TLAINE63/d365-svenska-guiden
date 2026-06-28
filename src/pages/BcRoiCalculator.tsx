@@ -115,6 +115,18 @@ export default function BcRoiCalculator() {
   const perFullUser = v.license === "Premium" ? premPrice : essPrice;
   const perFullUserLabel = v.license === "Premium" ? "Premium" : "Essentials";
 
+  // ----- Aktiva drivare för vald bransch -----
+  const industryDrivers = INDUSTRY_DRIVERS[v.industry];
+  const activeDrivers = useMemo(
+    () => industryDrivers.filter((d) => v.enabledDrivers.includes(d.id)),
+    [industryDrivers, v.enabledDrivers]
+  );
+  const activeIsvCategories = useMemo(() => {
+    const set = new Set<string>();
+    activeDrivers.forEach((d) => d.isvCategories?.forEach((c) => set.add(c)));
+    return set;
+  }, [activeDrivers]);
+
   // ----- Beräkningar -----
   const calc = useMemo(() => {
     const fullCost = (perFullUser ?? 0) * v.fullUsers;
@@ -125,21 +137,21 @@ export default function BcRoiCalculator() {
 
     const complexityImpl: Record<Complexity, number> = { Låg: 250_000, Medel: 500_000, Hög: 1_000_000 };
     const usersFactor = 1 + Math.max(0, v.fullUsers - 25) * 0.012;
+    const driverImplCost = activeDrivers.reduce((sum, d) => sum + d.implCost, 0);
     const implementation =
       complexityImpl[v.complexity] * usersFactor +
       v.integrations * 30_000 +
-      (v.warehouse ? 100_000 : 0) +
-      (v.ecommerce ? 150_000 : 0) +
+      driverImplCost +
       (v.license === "Premium" ? 200_000 : 0);
 
     const supportYearly = implementation * 0.18; // löpande förvaltning ~18% av impl/år
 
     const complexityFactor: Record<Complexity, number> = { Låg: 0.6, Medel: 1, Hög: 1.3 };
-    const manualSavings = v.revenue * 0.01 * (v.manualPct / 100) * complexityFactor[v.complexity];
+    const manualMultiplier = 0.5 + (v.manualPct / 100); // 0.5 vid 0%, 1.5 vid 100%
+    const driverSavings = activeDrivers.reduce((sum, d) => sum + d.savings(v.revenue), 0);
     const integrationSavings = v.integrations * 50_000;
-    const warehouseSavings = v.warehouse ? v.revenue * 0.003 : 0;
-    const ecommerceUplift = v.ecommerce ? v.revenue * 0.005 : 0;
-    const annualBenefit = manualSavings + integrationSavings + warehouseSavings + ecommerceUplift;
+    const annualBenefit =
+      (driverSavings * manualMultiplier + integrationSavings) * complexityFactor[v.complexity];
 
     const netAnnual = annualBenefit + v.currentItCost - licenseYearly - supportYearly;
     const paybackMonths = netAnnual > 0 ? (implementation / netAnnual) * 12 : null;
@@ -165,7 +177,7 @@ export default function BcRoiCalculator() {
       net5,
       roiPct,
     };
-  }, [v, perFullUser, teamPrice, devicePrice]);
+  }, [v, perFullUser, teamPrice, devicePrice, activeDrivers]);
 
   const priceMissing = perFullUser == null || teamPrice == null;
   const tillverkningEssentialsWarning = v.industry === "Tillverkning" && v.license === "Essentials";
@@ -178,8 +190,7 @@ export default function BcRoiCalculator() {
     );
     const pri = (s: (typeof all)[number]) => {
       let score = 0;
-      if (v.warehouse && s.category === "WMS") score += 5;
-      if (v.ecommerce && (s.category === "E-handel" || s.category === "PIM")) score += 5;
+      if (activeIsvCategories.has(s.category)) score += 6;
       if (v.integrations >= 3 && (s.category === "EDI / e-faktura" || s.category === "Integration / iPaaS")) score += 3;
       if (s.category === "AP automation") score += 2;
       if (s.category === "Lokalisering" && s.geo.includes("Sverige")) score += 2;
@@ -188,7 +199,7 @@ export default function BcRoiCalculator() {
       return score;
     };
     return all.sort((a, b) => pri(b) - pri(a)).slice(0, 6);
-  }, [v.industry, v.warehouse, v.ecommerce, v.integrations]);
+  }, [v.industry, v.integrations, activeIsvCategories]);
 
   // ----- Relevanta partners -----
   const bcPartners = useMemo(
