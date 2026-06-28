@@ -244,7 +244,7 @@ const Index = () => {
  } as const;
  return <div className="min-h-screen bg-secondary/30">
  <SEOHead 
-  title="Microsoft Dynamics 365 – guider & partnerval"
+  title="Microsoft Dynamics 365 i Sverige – guide & partnerval | d365.se"
   description="Köparsidig guide till Microsoft Dynamics 365 i Sverige – jämför ERP & CRM, gör kostnadsfri behovsanalys och hitta rätt partner per bransch."
  canonicalPath="/"
  ogImage="https://d365.se/og-erp.png"
@@ -528,6 +528,77 @@ const Index = () => {
  </section>
 
  <TrustBanner variant="full" />
+
+ {/* SEO-anchor — Vad är Microsoft Dynamics 365 + inline internal links */}
+ <section className="section-divider py-12 sm:py-16 bg-white border-b border-border">
+   <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+     <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-[hsl(var(--signature))] mb-3">
+       Översikt
+     </span>
+     <h2 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight mb-5">
+       Vad är Microsoft Dynamics 365?
+     </h2>
+     <div className="space-y-4 text-[15px] sm:text-base text-foreground/85 leading-relaxed max-w-[68ch]">
+       <p>
+         <strong>Microsoft Dynamics 365</strong> är Microsofts molnbaserade plattform för affärssystem (ERP) och kundrelationshantering (CRM).
+         Dynamics 365 består av specialiserade affärsapplikationer som delar dataplattform, integreras med Microsoft 365 (Outlook, Teams, Excel)
+         och har inbyggd AI via Microsoft Copilot. För svenska företag är D365 ofta det naturligaste valet när Microsoft-stacken redan finns på plats.
+       </p>
+       <p>
+         På ERP-sidan finns{" "}
+         <Link to="/businesscentral/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">
+           Dynamics 365 Business Central
+         </Link>{" "}
+         för små och medelstora företag, och{" "}
+         <Link to="/finance-supply-chain/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">
+           Finance &amp; Supply Chain Management
+         </Link>{" "}
+         för större bolag och koncerner. På CRM-sidan finns{" "}
+         <Link to="/d365sales/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">Sales</Link>,{" "}
+         <Link to="/d365customerservice/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">Customer Service</Link>,{" "}
+         <Link to="/d365fieldservice/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">Field Service</Link>,{" "}
+         <Link to="/d365contactcenter/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">Contact Center</Link>,{" "}
+         <Link to="/d365marketing/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">Marketing / Customer Insights</Link>,{" "}
+         samt{" "}
+         <Link to="/d365projectoperations/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">Project Operations</Link>,{" "}
+         <Link to="/d365commerce/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">Commerce</Link> och{" "}
+         <Link to="/d365humanresources/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">Human Resources</Link>.
+       </p>
+       <p>
+         Licens börjar vid 765 kr per användare och månad för Business Central Essentials — se hela{" "}
+         <Link to="/priser/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">prislistan för Microsoft Dynamics 365</Link>{" "}
+         eller jämför{" "}
+         <Link to="/erp/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">ERP-alternativen</Link> och{" "}
+         <Link to="/crm/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">CRM-alternativen</Link>.
+       </p>
+     </div>
+
+     <h2 className="text-xl sm:text-2xl font-bold text-foreground leading-tight mt-10 mb-4">
+       Så väljer du rätt Microsoft-partner
+     </h2>
+     <ol className="space-y-3 text-[15px] sm:text-base text-foreground/85 leading-relaxed max-w-[68ch] list-decimal pl-5">
+       <li>
+         Börja med behovet — använd vår{" "}
+         <Link to="/ERPbehovsanalys/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">behovsanalys</Link>{" "}
+         för att klargöra omfattning och prioriteringar.
+       </li>
+       <li>
+         Förstå er bransch på djupet via{" "}
+         <Link to="/branscher/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">branschguiderna</Link>.
+       </li>
+       <li>
+         Generera en{" "}
+         <Link to="/kravspecifikation/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">kravspecifikation</Link>{" "}
+         som strukturerat beslutsunderlag inför partnerdialog.
+       </li>
+       <li>
+         Jämför{" "}
+         <Link to="/valjdynamics365partner/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">Microsoft Dynamics 365-partners</Link>{" "}
+         på bransch, storlek och leveransförmåga — inte på pitch.
+       </li>
+     </ol>
+   </div>
+ </section>
 
 
 
