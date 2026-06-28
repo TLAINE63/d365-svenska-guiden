@@ -103,7 +103,7 @@ const D365Marketing = () => {
         subhead="Microsoft levererar plattformen och AI-segmenteringen. Partnern hjälper er att skapa datamodellen, integrationerna och de poängregler som faktiskt avgör om leads får rätt mejl vid rätt tid. Det är där projekt med marketing automation vinns eller förloras. Här jämför ni partners som faktiskt levererat den här typen av flöden i er typ av verksamhet."
         primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-marketing/", icon: FileText }}
         secondary={{
-          label: "Jämför CI-partners",
+          label: "Jämför Customer Insights-partners",
           onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
         }}
       />
