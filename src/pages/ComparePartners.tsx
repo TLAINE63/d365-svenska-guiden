@@ -385,6 +385,7 @@ const ComparePartners = () => {
       industryApps,
       roles: cleanList(dp.roles),
       length: dp.typical_length?.trim() || "",
+      bcLength: formatBcLength(dp),
       engagement: dp.engagement_model?.trim() || "",
       methodology: dp.methodology?.trim() || "",
       teamSize: p?.team_size_sweden?.trim() || "",
