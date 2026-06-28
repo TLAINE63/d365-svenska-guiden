@@ -139,6 +139,11 @@ const BcMatchningstest = () => {
         canonicalPath="/businesscentral/matchningstest"
         keywords="Business Central matchningstest, BC behovsanalys, Dynamics 365 Business Central, Essentials Premium ISV"
       />
+      <SoftwareApplicationSchema
+        name="Business Central matchningstest"
+        description="Funktionsorienterat 20–25-frågors matchningstest som visar hur väl Dynamics 365 Business Central täcker era behov – standard, Premium, ISV eller utanför BC."
+        url="https://d365.se/businesscentral/matchningstest/"
+      />
       <Navbar />
 
       <main className="flex-1">
