@@ -27,6 +27,8 @@ import PartnerCard from "@/components/PartnerCard";
 import { BC_ISV_SOLUTIONS, type SolutionIndustry } from "@/data/bcIsvSolutions";
 import { Checkbox } from "@/components/ui/checkbox";
 import { INDUSTRY_DRIVERS, defaultEnabledDrivers, type Industry } from "@/data/bcRoiDrivers";
+import RoiPdfDownload from "@/components/RoiPdfDownload";
+import type { RoiPdfData } from "@/utils/generateRoiPdf";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
@@ -535,10 +537,71 @@ export default function BcRoiCalculator() {
                 </div>
               </div>
             </div>
+
+            {/* PDF DOWNLOAD */}
+            <div className="mt-10 max-w-3xl mx-auto">
+              <RoiPdfDownload
+                sourceKey="businesscentral-roi"
+                productLabel="Business Central"
+                buildPdfData={(email): RoiPdfData => {
+                  const totalUsers = v.fullUsers + v.teamMembers + v.deviceUsers;
+                  const userFactorUi = Math.min(3.5, Math.max(0.4, Math.pow(Math.max(1, totalUsers) / 25, 0.6)));
+                  return {
+                    productName: "Business Central",
+                    pageUrl: "d365.se/businesscentral/roi-kalkylator/",
+                    companyName: v.companyName || undefined,
+                    recipientEmail: email,
+                    fileName: `bc-roi-tco-${v.companyName ? v.companyName.toLowerCase().replace(/[^a-z0-9]+/g, "-") + "-" : ""}${new Date().toISOString().slice(0, 10)}.pdf`,
+                    kpis: [
+                      { label: "5-årig ROI", value: `${Math.round(calc.roiPct)}%` },
+                      { label: "Payback", value: calc.paybackMonths == null ? "—" : `${Math.round(calc.paybackMonths)} mån`, sub: calc.paybackMonths == null ? "Nytta täcker inte löpande kostnad" : undefined },
+                      { label: "5-årig TCO", value: fmtSek(calc.tco5) },
+                      { label: "Nettonytta år 1", value: fmtSek(calc.netAnnual) },
+                    ],
+                    inputs: [
+                      { label: "Bransch", value: v.industry },
+                      { label: "Licensmodell", value: perFullUserLabel },
+                      { label: "Full users", value: String(v.fullUsers) },
+                      { label: "Team Members", value: String(v.teamMembers) },
+                      { label: "Device-licenser", value: String(v.deviceUsers) },
+                      { label: "Omsättning per år", value: fmtSek(v.revenue) },
+                      { label: "Affärskomplexitet", value: v.complexity },
+                      { label: "Andel manuella processer", value: `${v.manualPct}%` },
+                      { label: "Antal integrationer", value: String(v.integrations) },
+                      { label: "Nuvarande IT-kostnad/år", value: fmtSek(v.currentItCost) },
+                    ],
+                    costRows: [
+                      { label: `Licens (${perFullUserLabel})`, value: fmtSek(calc.fullCost), sub: "/mån" },
+                      { label: "Team Members", value: fmtSek(calc.teamCost), sub: "/mån" },
+                      { label: "Device-licenser", value: fmtSek(calc.deviceCost), sub: "/mån" },
+                      { divider: true, label: "", value: "" },
+                      { label: "Licens totalt", value: fmtSek(calc.licenseMonthly), sub: "/mån", strong: true },
+                      { label: "Licens helår", value: fmtSek(calc.licenseYearly) },
+                      { divider: true, label: "", value: "" },
+                      { label: "Implementation (engångs)", value: fmtSek(calc.implementation) },
+                      { label: "Förvaltning från år 2", value: fmtSek(calc.supportYearly), sub: "/år" },
+                      { label: "Estimerad årlig nytta", value: fmtSek(calc.annualBenefit), strong: true },
+                    ],
+                    drivers: activeDrivers.map((d) => ({
+                      label: d.label,
+                      annual: d.savings(v.revenue) * userFactorUi,
+                      hint: d.hint,
+                    })),
+                    assumptions: [
+                      { title: "Licens", body: `Priser hämtas från d365.se centrala prisregister (Microsofts listpriser, SEK/mån exkl. moms). Faktiskt pris beror på avtalsform (EA, CSP), volym och förhandling. Device-licens använder fallback ${fmtSek(DEVICE_FALLBACK)}/mån om SKU saknas i prisregistret.` },
+                      { title: "Implementation", body: "Bas: Låg 250 000 kr, Medel 500 000 kr, Hög 1 000 000 kr. Skalas mjukt med antal användare (+1,2 % per användare över 25) och med en branschfaktor som speglar typisk projekttyngd: Tillverkning 1,4× · Distribution 1,2× · Handel 1,0× · Annan 1,0× · Tjänster 0,8×. Därtill + 30 000 kr per integration, + en engångskostnad per vald effektiviseringsdrivare (50–200 000 kr beroende på område), + 200 000 kr om Premium krävs." },
+                      { title: "Förvaltning", body: "År 1 antas löpande förvaltning vara cirka 8 % av implementationskostnaden, eftersom huvuddelen av insatsen går till själva projektet. Från år 2 och framåt antas normal förvaltningsnivå om cirka 18 % per år." },
+                      { title: "Årlig nytta", body: "Nyttan summeras från de drivare ni bockat i för er bransch. Varje drivare har en grundnivå (fast belopp eller andel av omsättning, taklagd) som skalas med antal användare – baseline 25 användare = 1,0×, sublinjärt så att 10 användare ger ~0,55× och 100 användare ~2,3×. Summan justeras sedan med andelen manuella processer (0,5×–1,5×) och komplexitetsfaktor (0,6 / 1,0 / 1,3). Integrationer ger dessutom 50 000 kr/år vardera. Estimaten är baserade på Microsofts Business Value Assessment (oktober 2025) och svenska partnerbenchmarks." },
+                      { title: "Payback & TCO", body: "Payback = implementation / (årlig nettonytta inkl. ersatt IT-kostnad). 5-årig TCO = implementation + 5 × (licens + förvaltning). 5-årig ROI = (5 × årlig nytta + 5 × ersatt IT-kostnad − TCO) / implementation." },
+                      { title: "Vad ingår inte", body: "Förändringsledning, datakvalitet, intern tidsåtgång, integrationsplattform (iPaaS), ISV-licenser och hårdvara hanteras separat." },
+                      { title: "Disclaimer", body: "Kalkylen är en förenklad uppskattning och bör användas som beslutsstöd – inte som en slutlig offert eller affärskalkyl. Validera alltid utfall med två–tre relevanta partners." },
+                    ],
+                  };
+                }}
+              />
+            </div>
           </div>
         </section>
-
-        {/* ISV */}
         <section className="py-12 bg-secondary/30 border-y border-border">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <div className="flex items-end justify-between mb-6 gap-4 flex-wrap">

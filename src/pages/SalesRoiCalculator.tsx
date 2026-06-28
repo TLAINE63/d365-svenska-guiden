@@ -30,6 +30,8 @@ import {
   defaultEnabledSalesDrivers,
   type SalesIndustry,
 } from "@/data/salesRoiDrivers";
+import RoiPdfDownload from "@/components/RoiPdfDownload";
+import type { RoiPdfData } from "@/utils/generateRoiPdf";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
@@ -519,6 +521,68 @@ export default function SalesRoiCalculator() {
                   </p>
                 </div>
               </div>
+            </div>
+
+            {/* PDF DOWNLOAD */}
+            <div className="mt-10 max-w-3xl mx-auto">
+              <RoiPdfDownload
+                sourceKey="d365sales-roi"
+                productLabel="Dynamics 365 Sales"
+                buildPdfData={(email): RoiPdfData => {
+                  const userFactorUi = Math.min(3.5, Math.max(0.4, Math.pow(Math.max(1, v.sellers) / 10, 0.55)));
+                  return {
+                    productName: "Dynamics 365 Sales",
+                    pageUrl: "d365.se/d365sales/roi-kalkylator/",
+                    companyName: v.companyName || undefined,
+                    recipientEmail: email,
+                    fileName: `d365sales-roi-tco-${v.companyName ? v.companyName.toLowerCase().replace(/[^a-z0-9]+/g, "-") + "-" : ""}${new Date().toISOString().slice(0, 10)}.pdf`,
+                    kpis: [
+                      { label: "5-årig ROI", value: `${Math.round(calc.roiPct)}%` },
+                      { label: "Payback", value: calc.paybackMonths == null ? "—" : `${Math.round(calc.paybackMonths)} mån`, sub: calc.paybackMonths == null ? "Nytta täcker inte löpande kostnad" : undefined },
+                      { label: "5-årig TCO", value: fmtSek(calc.tco5) },
+                      { label: "Nettonytta år 1", value: fmtSek(calc.netAnnual) },
+                    ],
+                    inputs: [
+                      { label: "Bransch", value: v.industry },
+                      { label: "Licensmodell", value: v.license },
+                      { label: "Antal säljare", value: String(v.sellers) },
+                      { label: "Sales Ops / admin", value: String(v.salesOps) },
+                      { label: "Omsättning per år", value: fmtSek(v.revenue) },
+                      { label: "Genomsnittlig affärsstorlek", value: fmtSek(v.avgDealSize) },
+                      { label: "Säljprocessens komplexitet", value: v.complexity },
+                      { label: "Andel adminstid idag", value: `${v.adminPct}%` },
+                      { label: "Antal integrationer", value: String(v.integrations) },
+                      { label: "Nuvarande CRM-/IT-kostnad/år", value: fmtSek(v.currentItCost) },
+                    ],
+                    costRows: [
+                      { label: `Säljarlicenser (${v.license})`, value: fmtSek(calc.sellerCost), sub: "/mån" },
+                      { label: "Sales Ops-licenser", value: fmtSek(calc.opsCost), sub: "/mån" },
+                      { divider: true, label: "", value: "" },
+                      { label: "Licens totalt", value: fmtSek(calc.licenseMonthly), sub: "/mån", strong: true },
+                      { label: "Licens helår", value: fmtSek(calc.licenseYearly) },
+                      { divider: true, label: "", value: "" },
+                      { label: "Implementation (engångs)", value: fmtSek(calc.implementation) },
+                      { label: "Förvaltning år 1", value: fmtSek(calc.supportYear1) },
+                      { label: "Förvaltning år 2+", value: fmtSek(calc.supportYearly), sub: "/år" },
+                      { label: "Estimerad årlig nytta", value: fmtSek(calc.annualBenefit), strong: true },
+                    ],
+                    drivers: activeDrivers.map((d) => ({
+                      label: d.label,
+                      annual: d.savings(v.revenue, v.sellers) * userFactorUi,
+                      hint: d.hint,
+                    })),
+                    assumptions: [
+                      { title: "Licens", body: "Priser hämtas från d365.se centrala prisregister (Microsofts listpriser för Sales Professional, Enterprise och Premium, SEK/mån exkl. moms). Faktiskt pris beror på avtalsform (EA, CSP), volym och förhandling. Sales Ops antas använda Enterprise-licens." },
+                      { title: "Implementation", body: "Bas: Låg 150 000 kr, Medel 350 000 kr, Hög 750 000 kr. Skalas mjukt med antal säljare (+1,5 % per säljare över 15) och med en branschfaktor som speglar typisk projekttyngd för CRM-införanden: Tillverkning 1,3× · Finans & försäkring 1,3× · Distribution 1,1× · Tech & SaaS 1,0× · Bygg 1,0× · B2B-tjänster 0,9× · Annan 1,0×. Därtill + 35 000 kr per integration, + engångskostnad per vald effektiviseringsdrivare (60–150 000 kr beroende på område), + 150 000 kr om Premium krävs och + 50 000 kr för Enterprise (anpassning & Power Platform)." },
+                      { title: "Förvaltning", body: "CRM-förvaltning ligger normalt lägre än ERP. År 1 antas cirka 10 % av implementationskostnaden, eftersom huvuddelen av insatsen går till själva projektet. Från år 2 antas normal förvaltningsnivå om cirka 15 % per år." },
+                      { title: "Årlig nytta", body: "Nyttan summeras från de drivare ni bockat i för er bransch. Varje drivare är en kombination av per säljare-belopp och en liten andel av omsättning (taklagd). Summan skalas med antal säljare – baseline 10 säljare = 1,0×, sublinjärt så att 5 säljare ger ~0,7× och 50 säljare ~2,5×. Den justeras sedan med andelen säljaradminstid (0,6×–1,8×) och komplexitetsfaktor (0,7 / 1,0 / 1,25). Integrationer ger dessutom 40 000 kr/år vardera. Estimaten är baserade på Microsofts Business Value Assessment och svenska partnerbenchmarks för CRM-införanden." },
+                      { title: "Payback & TCO", body: "Payback = implementation / (årlig nettonytta inkl. ersatt IT-kostnad). 5-årig TCO = implementation + 5 × licens + förvaltning år 1 + 4 × förvaltning år 2+. 5-årig ROI = (5 × årlig nytta + 5 × ersatt IT-kostnad − TCO) / implementation." },
+                      { title: "Vad ingår inte", body: "Förändringsledning, datakvalitet och datamigrering, säljträning, externa marketing automation-licenser, Power Platform-tillägg utöver standard samt integrationsplattform (iPaaS) hanteras separat." },
+                      { title: "Disclaimer", body: "Kalkylen är en förenklad uppskattning och bör användas som beslutsstöd – inte som en slutlig offert eller affärskalkyl. Validera alltid utfall med två–tre relevanta partners." },
+                    ],
+                  };
+                }}
+              />
             </div>
           </div>
         </section>
