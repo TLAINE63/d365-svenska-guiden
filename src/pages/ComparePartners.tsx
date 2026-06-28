@@ -732,6 +732,12 @@ const ComparePartners = () => {
                         b={renderValue(B.bcLength)}
                       />
                       <R
+                        label="Typisk total projektkostnad (BC)"
+                        help="Partnerns egna kostnadsband för typisk Business Central-implementation (exkl. licenser). Slutpriset beror på scope, integrationer, datamigrering och förändringsledning."
+                        a={renderValue(A.bcCost)}
+                        b={renderValue(B.bcCost)}
+                      />
+                      <R
                         label="Geografisk närvaro"
                         a={renderList(A.offices)}
                         b={renderList(B.offices)}
