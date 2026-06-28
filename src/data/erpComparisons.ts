@@ -134,7 +134,7 @@ export const ERP_COMPARISONS: ErpComparison[] = [
     }),
     bcLimits: [
       "Om ni har djup, komplex svensk verkstadstillverkning utan vilja att lägga ISV ovanpå.",
-      "Om ni vill ha en svensk leverantör med svensk support i hela kedjan.",
+      "Om det är avgörande att hela leverantörskedjan – inklusive produktägaren – är svensk (Business Centrals produktägare är Microsoft, även om svenska partners står för implementation och support).",
     ],
     competitorLimits: [
       "Om ni har process- eller livsmedelstillverkning – Monitor är optimerat för diskret tillverkning.",
