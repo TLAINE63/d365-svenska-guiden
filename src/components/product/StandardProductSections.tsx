@@ -124,15 +124,15 @@ export default function StandardProductSections({ productName, data }: Props) {
       </section>
 
       {/* 6. Rekommenderat nästa steg */}
-      <section className="py-12 sm:py-16 md:py-20 bg-background border-t border-border">
+      <section className="py-8 sm:py-10 md:py-12 bg-background border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
             Rekommenderat nästa steg
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground mb-8 max-w-3xl">
+          <p className="text-sm md:text-base text-muted-foreground mb-6 max-w-3xl">
             Tre konkreta steg som gör beslutsunderlaget skarpare innan partnerdialogen börjar.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {[
               {
                 title: "1. Gör en behovsanalys",
@@ -155,13 +155,13 @@ export default function StandardProductSections({ productName, data }: Props) {
             ].map((step) => (
               <div
                 key={step.href}
-                className="flex flex-col p-5 rounded border border-border bg-card"
+                className="flex flex-col p-4 rounded border border-border bg-card"
               >
-                <h3 className="font-semibold text-foreground mb-2">{step.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">{step.body}</p>
+                <h3 className="font-semibold text-foreground mb-1.5">{step.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-3 flex-1">{step.body}</p>
                 <Link
                   to={step.href}
-                  className="inline-flex items-center justify-center gap-1.5 h-11 px-4 rounded font-semibold text-white bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] transition-colors"
+                  className="inline-flex items-center justify-center gap-1.5 h-10 px-3 rounded font-semibold text-sm text-white bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] transition-colors"
                 >
                   {step.cta} <ArrowRight className="w-4 h-4" />
                 </Link>
