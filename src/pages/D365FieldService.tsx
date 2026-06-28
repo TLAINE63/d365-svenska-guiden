@@ -114,7 +114,7 @@ const D365FieldService = () => {
 
 
       {/* Introduction Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-background">
+      <section className="py-8 sm:py-12 md:py-16 bg-background">
 
       <StandardProductSections productName="Field Service" data={PRODUCT_STANDARD_SECTIONS["field-service"]} />
 
@@ -137,7 +137,7 @@ const D365FieldService = () => {
       </section>
 
       {/* Video Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+      <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 sm:mb-8 text-center">
@@ -154,7 +154,7 @@ const D365FieldService = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-background">
+      <section className="py-8 sm:py-12 md:py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-8 sm:mb-10 md:mb-12 text-center">
@@ -203,7 +203,7 @@ const D365FieldService = () => {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+      <section id="pricing" className="py-8 sm:py-12 md:py-16 bg-secondary/50">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 sm:mb-16">
             <div className="flex justify-center items-center gap-3 mb-4">
@@ -228,7 +228,7 @@ const D365FieldService = () => {
       </section>
 
       {/* Implementation Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-background">
+      <section className="py-8 sm:py-12 md:py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-5xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 sm:mb-8 text-center">
@@ -272,7 +272,7 @@ const D365FieldService = () => {
       <CostBreakdown product="field-service" />
 
       {/* Deep Dive Articles */}
-      <section className="py-12 sm:py-16 md:py-20 bg-muted/30">
+      <section className="py-8 sm:py-12 md:py-16 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4">Fördjupningsartiklar</h2>
           <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
@@ -307,7 +307,7 @@ const D365FieldService = () => {
       <ApplicationPartners applicationFilter="Field Service" pageSource="D365 Field Service" />
 
       {/* CTA Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-field-service">
+      <section className="py-8 sm:py-12 md:py-16 bg-field-service">
         <div className="container mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
             Redo att optimera din fältservice?

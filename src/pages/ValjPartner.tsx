@@ -507,7 +507,7 @@ const ValjPartner = () => {
 
 
  {/* Fem viktiga frågor Section */}
- <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+ <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-4xl mx-auto">
  <div className="text-center mb-8 sm:mb-10 md:mb-12">
@@ -626,7 +626,7 @@ const ValjPartner = () => {
  )}
 
 
- <section className="py-12 sm:py-16 md:py-20 bg-background">
+ <section className="py-8 sm:py-12 md:py-16 bg-background">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10 mb-8 sm:mb-10 md:mb-12">
  {/* Partner Map */}
@@ -881,7 +881,7 @@ const ValjPartner = () => {
  </section>
 
  {/* Statisk partnerlista för SEO/AI – renderas i HTML även utan JS */}
- <section className="py-16 bg-background border-t border-border" aria-labelledby="alla-partners-rubrik">
+ <section className="py-12 bg-background border-t border-border" aria-labelledby="alla-partners-rubrik">
  <div className="container mx-auto px-4">
  <div className="max-w-5xl mx-auto">
  <h2 id="alla-partners-rubrik" className="text-2xl md:text-3xl font-bold text-foreground mb-3">
@@ -922,7 +922,7 @@ const ValjPartner = () => {
 
 
  {/* CTA Section */}
- <section className="py-20 bg-secondary/50">
+ <section className="py-10 bg-secondary/50">
  <div className="container mx-auto px-4">
  <div className="max-w-3xl mx-auto">
  <div className="flex flex-col md:flex-row gap-8 items-center mb-8">

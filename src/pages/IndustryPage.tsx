@@ -165,7 +165,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  />
  <Navbar />
  <main className="min-h-screen bg-background pt-24">
- <div className="container mx-auto px-4 max-w-3xl text-center py-20">
+ <div className="container mx-auto px-4 max-w-3xl text-center py-10">
  <h1 className="text-2xl md:text-3xl font-bold mb-3">{industryName}</h1>
  <p className="text-muted-foreground mb-6">
  Innehållet för denna bransch är på väg. Under tiden kan du hitta partners eller göra en behovsanalys.
@@ -216,7 +216,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  )}
 
  <Navbar />
- <main className="min-h-screen bg-background pt-16 lg:pt-28">
+ <main className="min-h-screen bg-background pt-12 lg:pt-28">
  {/* Hero med bakgrundsbild */}
  <section className="relative border-b border-border overflow-hidden min-h-[320px] md:min-h-[420px] flex items-center">
  {heroImage ? (

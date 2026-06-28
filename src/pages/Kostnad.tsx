@@ -40,8 +40,8 @@ export default function Kostnad() {
       <BreadcrumbSchema items={breadcrumbs} />
       <Navbar />
 
-      <main className="pt-20">
-        <section className="py-12 sm:py-16 bg-gradient-to-br from-secondary/60 to-background">
+      <main className="pt-10">
+        <section className="py-8 sm:py-12 bg-gradient-to-br from-secondary/60 to-background">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
             <nav aria-label="Brödsmulor" className="text-xs text-muted-foreground mb-4">
               <Link to="/" className="hover:text-foreground">Hem</Link>
@@ -122,7 +122,7 @@ export default function Kostnad() {
           </div>
         ))}
 
-        <section className="py-12 sm:py-16">
+        <section className="py-8 sm:py-12">
           <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
               Behöver ni hjälp att tolka offerterna?

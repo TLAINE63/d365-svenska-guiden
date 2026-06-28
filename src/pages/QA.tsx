@@ -175,7 +175,7 @@ const QA = () => {
 
 
       {/* FAQ Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-background">
+      <section className="py-8 sm:py-12 md:py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <Accordion type="single" collapsible className="space-y-3 sm:space-y-4" value={openItem} onValueChange={setOpenItem}>
@@ -230,7 +230,7 @@ const QA = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-secondary/50">
+      <section className="py-10 bg-secondary/50">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">

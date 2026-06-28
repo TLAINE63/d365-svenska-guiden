@@ -57,7 +57,7 @@ const PartnersPerBransch = () => {
         ]}
       />
       <Navbar />
-      <main className="min-h-screen bg-background pt-16 lg:pt-28">
+      <main className="min-h-screen bg-background pt-12 lg:pt-28">
         <section className="border-b border-border bg-secondary/30">
           <div className="container mx-auto px-4 py-10 max-w-5xl">
             <div className="flex items-center gap-3 mb-3">

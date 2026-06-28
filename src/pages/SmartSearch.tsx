@@ -56,7 +56,7 @@ export default function SmartSearch() {
         <meta name="robots" content="noindex, follow" />
       </Helmet>
       <Navbar />
-      <main className="container mx-auto px-4 pt-28 pb-16 max-w-3xl">
+      <main className="container mx-auto px-4 pt-28 pb-12 max-w-3xl">
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-primary/10 text-primary text-sm font-medium mb-4">
             <Sparkles className="h-4 w-4" /> AI-driven sökning

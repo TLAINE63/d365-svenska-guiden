@@ -63,7 +63,7 @@ const D365ProjectOperations = () => {
         <p>Project Operations är fristående men blomstrar när det integreras djupt med Finance & Supply Chain Management eller Business Central för redovisning, Sales för CRM och Customer Service för support efter projektet. Precis som med övriga D365-appar avgör partnerns förmåga att modellera er specifika leveransmodell hur stor effekten faktiskt blir.</p>
       </ShortAnswer>
 
-      <section className="py-12 sm:py-16 md:py-20 bg-background">
+      <section className="py-8 sm:py-12 md:py-16 bg-background">
 
       <StandardProductSections productName="Project Operations" data={PRODUCT_STANDARD_SECTIONS["project-operations"]} />
 
@@ -90,7 +90,7 @@ const D365ProjectOperations = () => {
 
       <ApplicationPartners applicationFilter="Project Operations" pageSource="D365 Project Operations" filterMode="companySize" />
 
-      <section className="py-12 sm:py-16 md:py-20 bg-finance">
+      <section className="py-8 sm:py-12 md:py-16 bg-finance">
         <div className="container mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
             Redo att professionalisera er projektleverans?

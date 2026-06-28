@@ -337,7 +337,7 @@ const BcIsvCatalog = (_: BcIsvCatalogProps = {}) => {
           ))}
         </div>
       ) : (
-        <div className="text-center py-16 text-muted-foreground border border-dashed border-border rounded">
+        <div className="text-center py-12 text-muted-foreground border border-dashed border-border rounded">
           <p>Inga lösningar matchar valda filter.</p>
           <button onClick={clearAll} className="text-primary hover:underline mt-2 text-sm">
             Rensa filter

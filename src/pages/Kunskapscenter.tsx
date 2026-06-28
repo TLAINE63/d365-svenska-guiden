@@ -825,7 +825,7 @@ const Kunskapscenter = () => {
  ))}
  </Helmet>
  <Navbar />
- <main className="min-h-screen bg-background pt-16 lg:pt-28">
+ <main className="min-h-screen bg-background pt-12 lg:pt-28">
  {/* Hero */}
  <section className="relative py-8 md:py-10 overflow-hidden">
  <div className="absolute inset-0">
@@ -1145,7 +1145,7 @@ const Kunskapscenter = () => {
  </div>
 
  {filteredItems.length === 0 ? (
- <div className="text-center py-16">
+ <div className="text-center py-12">
  <p className="text-muted-foreground text-lg mb-4">
  Inga resurser matchade dina filter.
  </p>

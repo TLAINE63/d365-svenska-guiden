@@ -59,7 +59,7 @@ const ContactUs = () => {
       </header>
 
       {/* Contact Information */}
-      <section className="py-12 sm:py-16 md:py-20 bg-background">
+      <section className="py-8 sm:py-12 md:py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-5xl mx-auto">
             {/* Intro */}

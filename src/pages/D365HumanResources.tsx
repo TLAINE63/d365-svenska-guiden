@@ -62,7 +62,7 @@ const D365HumanResources = () => {
         <p>För svenska organisationer kompletteras lösningen oftast med externa lönesystem (Hogia, Visma, Agda) och rekryteringsverktyg via öppna API:er — och en partner som förstår både svensk arbetsrätt och Microsofts integrationer är avgörande för att helheten ska sitta.</p>
       </ShortAnswer>
 
-      <section className="py-12 sm:py-16 md:py-20 bg-background">
+      <section className="py-8 sm:py-12 md:py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
@@ -86,7 +86,7 @@ const D365HumanResources = () => {
 
       <ApplicationPartners applicationFilter="Human Resources" pageSource="D365 Human Resources" filterMode="companySize" />
 
-      <section className="py-12 sm:py-16 md:py-20 bg-finance">
+      <section className="py-8 sm:py-12 md:py-16 bg-finance">
         <div className="container mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
             Redo att samla HR och affärssystem?

@@ -67,7 +67,7 @@ const UnprofiledPartnersList = ({
     : "För full transparens listar vi även andra Dynamics 365-partners som är verksamma i Sverige. Dessa har vi ännu inte profilerat på d365.se. Vill du veta mer om någon av dem – eller få hjälp att jämföra – kontakta oss så vägleder vi dig vidare.";
 
   return (
-    <section className="py-12 sm:py-16 bg-background border-t border-border">
+    <section className="py-8 sm:py-12 bg-background border-t border-border">
       <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
         <div className="text-center mb-6 sm:mb-8">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">

@@ -505,7 +505,7 @@ export default function BeslutsmognadDiagnostik() {
             }}
           />
         ) : phase === "contact" ? (
-          <div className="max-w-[640px] mx-auto w-full px-6 py-16">
+          <div className="max-w-[640px] mx-auto w-full px-6 py-12">
             <p className="font-bm-display italic text-bm-accent-deep mb-3 text-lg">VII.</p>
             <h2
               className="font-bm-display italic text-bm-ink mb-10 leading-snug"

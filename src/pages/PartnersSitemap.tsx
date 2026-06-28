@@ -43,8 +43,8 @@ export default function PartnersSitemap() {
       <BreadcrumbSchema items={breadcrumbs} />
       <Navbar />
 
-      <main className="pt-20">
-        <section className="py-12 sm:py-16 bg-gradient-to-br from-secondary/60 to-background">
+      <main className="pt-10">
+        <section className="py-8 sm:py-12 bg-gradient-to-br from-secondary/60 to-background">
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
             <nav aria-label="Brödsmulor" className="text-xs text-muted-foreground mb-4">
               <Link to="/" className="hover:text-foreground">Hem</Link>
@@ -64,7 +64,7 @@ export default function PartnersSitemap() {
         </section>
 
         {/* A–Ö */}
-        <section className="py-10 sm:py-14">
+        <section className="py-8 sm:py-10">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
               Alla partners A–Ö
@@ -85,7 +85,7 @@ export default function PartnersSitemap() {
         </section>
 
         {/* Per produktområde */}
-        <section className="py-10 sm:py-14 bg-secondary/40 border-t border-border">
+        <section className="py-8 sm:py-10 bg-secondary/40 border-t border-border">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
               Partners per produktområde
@@ -106,7 +106,7 @@ export default function PartnersSitemap() {
         </section>
 
         {/* Per bransch */}
-        <section className="py-10 sm:py-14 border-t border-border">
+        <section className="py-8 sm:py-10 border-t border-border">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
               Partners per bransch

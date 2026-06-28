@@ -60,7 +60,7 @@ const OmMichaelUhman = () => {
       <main className="mt-16">
         {/* Hero */}
         <section className="bg-gradient-to-br from-secondary/40 to-background border-b border-border">
-          <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16">
+          <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
             <Link
               to="/kontakt/"
               className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6"
@@ -94,7 +94,7 @@ const OmMichaelUhman = () => {
         </section>
 
         {/* Bakgrund */}
-        <section className="py-12 sm:py-16">
+        <section className="py-8 sm:py-12">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl mx-auto space-y-5 text-foreground/90 text-base sm:text-lg leading-relaxed">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground">Bakgrund</h2>
@@ -116,7 +116,7 @@ const OmMichaelUhman = () => {
         </section>
 
         {/* Varför d365.se finns */}
-        <section className="py-12 sm:py-16 bg-secondary/20 border-y border-border">
+        <section className="py-8 sm:py-12 bg-secondary/20 border-y border-border">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl mx-auto space-y-5 text-foreground/90 text-base sm:text-lg leading-relaxed">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground">Varför d365.se finns</h2>
@@ -135,7 +135,7 @@ const OmMichaelUhman = () => {
         </section>
 
         {/* Vad det betyder för dig */}
-        <section className="py-12 sm:py-16">
+        <section className="py-8 sm:py-12">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl mx-auto space-y-5 text-foreground/90 text-base sm:text-lg leading-relaxed">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground">Vad det betyder för dig</h2>
@@ -150,7 +150,7 @@ const OmMichaelUhman = () => {
         </section>
 
         {/* Kontakt */}
-        <section className="py-12 sm:py-16 bg-secondary/20 border-t border-border">
+        <section className="py-8 sm:py-12 bg-secondary/20 border-t border-border">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl mx-auto bg-card border border-border rounded-lg p-8 sm:p-10 ">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">Kontakt</h2>

@@ -97,7 +97,7 @@ export default function BeslutsmognadResultat() {
       </Helmet>
       <TopBar />
 
-      <main className="max-w-[820px] mx-auto px-6 pt-20 pb-24">
+      <main className="max-w-[820px] mx-auto px-6 pt-10 pb-24">
         {/* Totalindex */}
         <p className="font-bm-display italic text-bm-ink-muted text-base mb-4 text-center">
           Ert beslutsmognadsindex

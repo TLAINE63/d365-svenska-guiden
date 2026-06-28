@@ -34,10 +34,10 @@ const ErpComparisonPage = () => {
       <FAQSchema faqs={data.faqs.map((f) => ({ question: f.q, answer: f.a }))} />
       <Navbar />
 
-      <main className="pt-20 flex-1">
+      <main className="pt-10 flex-1">
         {/* HERO */}
         <section className="bg-[hsl(var(--hero-dark))] border-b border-primary/20 text-white">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl py-12 sm:py-16">
+          <div className="container mx-auto px-4 sm:px-6 max-w-5xl py-8 sm:py-12">
             <p className="text-xs font-semibold uppercase tracking-wide text-white/70 mb-3">
               Konkurrentjämförelse · Köparsidigt perspektiv
             </p>
@@ -49,7 +49,7 @@ const ErpComparisonPage = () => {
         </section>
 
         {/* SUMMARIES */}
-        <section className="py-10 sm:py-14">
+        <section className="py-8 sm:py-10">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl grid md:grid-cols-2 gap-6">
             <Card className="border-border">
               <CardContent className="p-6">
@@ -99,7 +99,7 @@ const ErpComparisonPage = () => {
         </section>
 
         {/* COMPARISON TABLE */}
-        <section className="py-10 sm:py-14 bg-secondary/40 border-y border-border">
+        <section className="py-8 sm:py-10 bg-secondary/40 border-y border-border">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
               Strukturerad jämförelse
@@ -128,7 +128,7 @@ const ErpComparisonPage = () => {
         </section>
 
         {/* WHEN NOT */}
-        <section className="py-10 sm:py-14">
+        <section className="py-8 sm:py-10">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl grid md:grid-cols-2 gap-6">
             <Card className="border-amber-200 bg-amber-50/40">
               <CardContent className="p-6">
@@ -160,7 +160,7 @@ const ErpComparisonPage = () => {
         </section>
 
         {/* FAQ */}
-        <section className="py-10 sm:py-14 bg-secondary/40 border-y border-border">
+        <section className="py-8 sm:py-10 bg-secondary/40 border-y border-border">
           <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">Vanliga frågor</h2>
             <div className="space-y-4">

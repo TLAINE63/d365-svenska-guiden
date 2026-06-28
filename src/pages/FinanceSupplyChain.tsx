@@ -215,7 +215,7 @@ const FinanceSupplyChain = () => {
  <StandardProductSections productName="Finance & Supply Chain Management" data={PRODUCT_STANDARD_SECTIONS["finance-supply-chain"]} />
 
  {/* FAQ Section */}
- <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+ <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-4xl mx-auto">
  <div className="text-center mb-8 sm:mb-10 md:mb-12">
@@ -302,7 +302,7 @@ const FinanceSupplyChain = () => {
  </section>
 
  {/* F&SCM Matchningstest CTA-sektion */}
- <section className="py-12 sm:py-16 md:py-20 bg-background">
+ <section className="py-8 sm:py-12 md:py-16 bg-background">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-4xl mx-auto">
  <div className="rounded border border-border bg-card p-6 sm:p-10 ">
@@ -342,7 +342,7 @@ const FinanceSupplyChain = () => {
 
 
  {/* Videos Section */}
- <section id="videos" className="py-20 bg-background">
+ <section id="videos" className="py-10 bg-background">
  <div className="container mx-auto px-4">
  <div className="text-center mb-12">
  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -362,7 +362,7 @@ const FinanceSupplyChain = () => {
 
 
  {/* AI & Agents Section for Finance & Supply Chain */}
- <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10">
+ <section className="py-8 sm:py-12 md:py-16 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-5xl mx-auto">
  <div className="text-center mb-8 sm:mb-10">
@@ -494,7 +494,7 @@ const FinanceSupplyChain = () => {
 
 
  {/* Pricing Section */}
- <section id="pricing" className="py-20 bg-background">
+ <section id="pricing" className="py-10 bg-background">
  <div className="container mx-auto px-4">
  <div className="text-center mb-16">
  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -517,7 +517,7 @@ const FinanceSupplyChain = () => {
 
 
  {/* Implementation Costs Section */}
- <section id="implementation" className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+ <section id="implementation" className="py-8 sm:py-12 md:py-16 bg-secondary/50">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="text-center mb-8 sm:mb-12 md:mb-16">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
@@ -598,7 +598,7 @@ const FinanceSupplyChain = () => {
       <CostBreakdown product="finance-scm" />
 
       {/* Fördjupningsartiklar */}
-      <section className="py-16 bg-secondary/20">
+      <section className="py-12 bg-secondary/20">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl font-bold text-foreground mb-2 text-center">Fördjupningsartiklar om Finance & Supply Chain</h2>
           <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
@@ -629,7 +629,7 @@ const FinanceSupplyChain = () => {
       </section>
 
       {/* Partners Section */}
-      <section id="partners" className="py-12 sm:py-16 md:py-20 bg-background">
+      <section id="partners" className="py-8 sm:py-12 md:py-16 bg-background">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="text-center mb-8 sm:mb-10 md:mb-12">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
@@ -811,7 +811,7 @@ const FinanceSupplyChain = () => {
  <UnprofiledPartnersList variant="teaser" showSeeAllLink productKey="fsc" productLabel="Finance & Supply Chain" />
 
  {/* CTA Section */}
- <section className="py-20 bg-secondary/50">
+ <section className="py-10 bg-secondary/50">
  <div className="container mx-auto px-4">
  <div className="max-w-3xl mx-auto text-center">
  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">

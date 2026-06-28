@@ -374,7 +374,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  return (
  <div className="min-h-screen bg-background">
  <Navbar />
- <div className="container mx-auto px-4 py-20 mt-16">
+ <div className="container mx-auto px-4 py-10 mt-16">
  <div className="animate-pulse text-center text-muted-foreground">
  Laddar partnerinformation...
  </div>

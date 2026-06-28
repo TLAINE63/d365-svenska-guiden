@@ -198,7 +198,7 @@ const PartnerEvents = () => {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
-        <div className="container mx-auto px-4 py-16">
+        <div className="container mx-auto px-4 py-12">
           <Card className="max-w-lg mx-auto">
             <CardContent className="pt-6">
               <div className="text-center">

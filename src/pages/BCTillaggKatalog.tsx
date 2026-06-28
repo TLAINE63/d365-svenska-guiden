@@ -373,7 +373,7 @@ const BCTillaggKatalog = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center py-16 text-muted-foreground">
+          <div className="text-center py-12 text-muted-foreground">
             <p>Inga lösningar matchar valda filter.</p>
             <button onClick={clearAll} className="text-primary hover:underline mt-2 text-sm">
               Rensa filter

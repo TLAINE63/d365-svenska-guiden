@@ -216,10 +216,10 @@ export default function SalesRoiCalculator() {
       />
       <Navbar />
 
-      <main className="pt-20">
+      <main className="pt-10">
         {/* HERO */}
         <section className="border-b border-border bg-gradient-to-br from-secondary/60 to-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-12 sm:py-16">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-8 sm:py-12">
             <nav aria-label="Brödsmulor" className="text-xs text-muted-foreground mb-4">
               <Link to="/" className="hover:text-foreground">Hem</Link>
               <span className="mx-2">/</span>
@@ -258,7 +258,7 @@ export default function SalesRoiCalculator() {
         </section>
 
         {/* KALKYL */}
-        <section id="kalkyl" className="py-12 sm:py-16">
+        <section id="kalkyl" className="py-8 sm:py-12">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <div className="grid lg:grid-cols-5 gap-8">
               {/* INPUT */}
@@ -600,7 +600,7 @@ export default function SalesRoiCalculator() {
         </section>
 
         {/* CTA */}
-        <section className="py-14">
+        <section className="py-10">
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">Nästa steg</h2>
             <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">

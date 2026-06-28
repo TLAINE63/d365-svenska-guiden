@@ -209,7 +209,7 @@ const AIOverview = () => {
  ]}
  />
  <Navbar />
- <main className="pb-16">
+ <main className="pb-12">
  {/* Hero */}
  <div className="relative bg-[hsl(var(--hero-dark))] border-b border-primary/20 pt-28 pb-12 mb-16 overflow-hidden">
  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
@@ -780,7 +780,7 @@ const AIOverview = () => {
  </div>
  </main>
  {/* Fördjupningsartiklar – Copilot */}
- <section className="py-16 bg-secondary/20">
+ <section className="py-12 bg-secondary/20">
  <div className="container mx-auto px-4">
  <h2 className="text-2xl font-bold text-foreground mb-2 text-center">Fördjupningsartiklar om Copilot</h2>
  <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
@@ -811,7 +811,7 @@ const AIOverview = () => {
  </section>
 
  {/* Fördjupningsartiklar – Agenter */}
- <section className="py-16 bg-muted/30">
+ <section className="py-12 bg-muted/30">
  <div className="container mx-auto px-4">
  <h2 className="text-2xl font-bold text-foreground mb-2 text-center">Fördjupningsartiklar om AI-agenter</h2>
  <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">

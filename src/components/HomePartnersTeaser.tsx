@@ -157,7 +157,7 @@ export default function HomePartnersTeaser() {
     "bg-white/10 text-white/80 border-white/20 hover:border-white/40 hover:text-white";
 
   return (
-    <section className="section-divider section-divider-dark py-14 sm:py-20 bg-[hsl(var(--hero-dark))] border-b border-white/10">
+    <section className="section-divider section-divider-dark py-10 sm:py-12 bg-[hsl(var(--hero-dark))] border-b border-white/10">
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <div className="flex items-end justify-between gap-6 mb-6 flex-wrap">
           <div>

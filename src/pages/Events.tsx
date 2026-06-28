@@ -173,7 +173,7 @@ const Events = () => {
  ogImage="https://d365.se/og-events.png"
  />
  <Navbar />
- <div className="container mx-auto px-4 py-20 mt-16 flex items-center justify-center">
+ <div className="container mx-auto px-4 py-10 mt-16 flex items-center justify-center">
  <Loader2 className="w-8 h-8 animate-spin text-primary" />
  </div>
  <Footer />
@@ -217,7 +217,7 @@ const Events = () => {
  <Navbar />
 
  {/* Hero Section */}
- <section className="relative overflow-hidden mt-16 py-16 md:py-24">
+ <section className="relative overflow-hidden mt-16 py-12 md:py-24">
  {/* Background Image */}
  <div 
  className="absolute inset-0 bg-cover bg-center"
@@ -443,7 +443,7 @@ const Events = () => {
  </section>
 
  {/* Visible FAQ section (mirrors FAQSchema for AIO / search readiness) */}
- <section className="py-12 sm:py-16 bg-secondary/40 border-t border-border">
+ <section className="py-8 sm:py-12 bg-secondary/40 border-t border-border">
  <div className="container mx-auto px-4 max-w-4xl">
  <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
  Vanliga frågor om Dynamics 365-event

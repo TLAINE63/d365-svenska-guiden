@@ -68,9 +68,9 @@ export default function AllD365Partners() {
       <BreadcrumbSchema items={breadcrumbs} />
       <Navbar />
 
-      <main className="pt-20">
+      <main className="pt-10">
         {/* Hero */}
-        <section className="py-12 sm:py-16 bg-gradient-to-br from-secondary/60 to-background">
+        <section className="py-8 sm:py-12 bg-gradient-to-br from-secondary/60 to-background">
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-primary/10 text-primary text-xs font-semibold mb-4">
               <Users className="w-3.5 h-3.5" /> Marknadsöversikt
@@ -89,7 +89,7 @@ export default function AllD365Partners() {
 
 
         {/* Profiled partners */}
-        <section className="py-12 sm:py-16">
+        <section className="py-8 sm:py-12">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
             <div className="mb-8">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
@@ -124,7 +124,7 @@ export default function AllD365Partners() {
 
         {/* Other partners (non-featured DB entries + curated list) */}
         {others.length > 0 && (
-          <section className="py-12 sm:py-16 bg-secondary/40 border-t border-border">
+          <section className="py-8 sm:py-12 bg-secondary/40 border-t border-border">
             <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
               <div className="mb-8">
                 <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
@@ -152,7 +152,7 @@ export default function AllD365Partners() {
         )}
 
         {/* CTA */}
-        <section className="py-12 sm:py-16">
+        <section className="py-8 sm:py-12">
           <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
               Vill du ha hjälp att hitta rätt partner?
