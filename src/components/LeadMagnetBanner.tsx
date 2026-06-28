@@ -53,9 +53,10 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
       metadata: { source_page: sourcePage },
     });
 
-    if (!email) {
+    const emailError = validateBusinessEmail(email);
+    if (emailError) {
       toast({
-        title: "Ange din e-postadress",
+        title: emailError,
         variant: "destructive",
       });
       return;
