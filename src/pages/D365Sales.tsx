@@ -13,6 +13,7 @@ import ApplicationPartners from "@/components/ApplicationPartners";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
 import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
+import ProductRoiAnalysis from "@/components/ProductRoiAnalysis";
 import { ArrowRight, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
