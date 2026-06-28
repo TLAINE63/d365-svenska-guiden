@@ -600,6 +600,8 @@ const FinanceSupplyChain = () => {
       <CostBreakdown product="finance-scm" />
       <ComparisonQuickLinks productKeys="fscm" />
 
+      <ProductRoiAnalysis productKey="finance-scm" />
+
       {/* Fördjupningsartiklar */}
       <section className="py-12 bg-secondary/20">
         <div className="container mx-auto px-4">
