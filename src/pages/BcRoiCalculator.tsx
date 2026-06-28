@@ -597,7 +597,9 @@ export default function BcRoiCalculator() {
                       label: d.label,
                       annual: d.savings(v.revenue) * userFactorUi,
                       hint: d.hint,
+                      detail: d.detail,
                     })),
+
                     assumptions: [
                       { title: "Licens", body: `Priser hämtas från d365.se centrala prisregister (Microsofts listpriser, SEK/mån exkl. moms). Faktiskt pris beror på avtalsform (EA, CSP), volym och förhandling. Device-licens använder fallback ${fmtSek(DEVICE_FALLBACK)}/mån om SKU saknas i prisregistret.` },
                       { title: "Implementation", body: "Bas: Låg 250 000 kr, Medel 500 000 kr, Hög 1 000 000 kr. Skalas mjukt med antal användare (+1,2 % per användare över 25) och med en branschfaktor som speglar typisk projekttyngd: Tillverkning 1,4× · Distribution 1,2× · Handel 1,0× · Annan 1,0× · Tjänster 0,8×. Därtill + 30 000 kr per integration, + en engångskostnad per vald effektiviseringsdrivare (50–200 000 kr beroende på område), + 200 000 kr om Premium krävs." },
