@@ -49,7 +49,7 @@ const COMMON_ROWS = (
   },
   {
     area: "Licensmodell",
-    bc: "Per användare/månad – Essentials ~1 100 kr, Premium ~1 580 kr, Team Member ~110 kr.",
+    bc: "Per användare/månad (Microsofts officiella listpris exkl. moms) – Essentials ~765 kr, Premium ~1 050 kr, Team Member ~77 kr.",
     competitor: comp.licensModell,
   },
   {
