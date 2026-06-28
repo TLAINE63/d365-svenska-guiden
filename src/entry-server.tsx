@@ -67,8 +67,15 @@ import { BLOG_ARTICLES } from './data/blogArticles';
 import partnerRoutesData from './data/partnerRoutes.json';
 import partnerDataJson from './data/partnerData.json';
 
-// Re-export so the SSG prerender plugin can emit static legacy-redirect HTML.
-export { LEGACY_REDIRECTS, buildRedirectHtml } from './lib/legacy-redirects';
+// Re-export buildRedirectHtml; LEGACY_REDIRECTS is extended below with
+// dynamic kunskapscenter redirects that map old hyphenated/d365-prefixed
+// slugs (still referenced by Google Search Console) to the current
+// canonical productSlug used in routes/sitemap.
+import {
+  LEGACY_REDIRECTS as STATIC_LEGACY_REDIRECTS,
+  type LegacyRedirect,
+} from './lib/legacy-redirects';
+export { buildRedirectHtml } from './lib/legacy-redirects';
 
 // Build a slug→partner lookup for SSR
 const partnerDataBySlug: Record<string, typeof partnerDataJson[number]> = {};
