@@ -96,7 +96,7 @@ const Copilot = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
         </div>
         
-        <div className="relative min-h-[560px] sm:h-[450px] md:h-[550px] flex items-center pt-14 sm:pt-0">
+        <div className="relative min-h-[560px] sm:h-[450px] md:h-[550px] flex items-center pt-10 sm:pt-0">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl">
               <div className="flex items-center mb-3 sm:mb-4">
@@ -123,7 +123,7 @@ const Copilot = () => {
       </header>
 
       {/* Agents Intro Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10">
+      <section className="py-6 sm:py-10 md:py-12 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-5xl mx-auto">
             <div className="bg-card rounded p-6 sm:p-8 border-2 border-primary/20">
@@ -180,7 +180,7 @@ const Copilot = () => {
       </section>
 
       {/* What is Copilot Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-background">
+      <section className="py-6 sm:py-10 md:py-12 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-8 sm:mb-10 md:mb-12">
@@ -205,7 +205,7 @@ const Copilot = () => {
       </section>
 
       {/* Copilot by Application */}
-      <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+      <section className="py-6 sm:py-10 md:py-12 bg-secondary/50">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-8 sm:mb-10 md:mb-12">
@@ -426,7 +426,7 @@ const Copilot = () => {
       </section>
 
       {/* Videos Section */}
-      <section className="py-20 bg-secondary/50">
+      <section className="py-10 bg-secondary/50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -445,7 +445,7 @@ const Copilot = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-background">
+      <section className="py-10 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
@@ -499,7 +499,7 @@ const Copilot = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 bg-background">
+      <section className="py-10 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -545,7 +545,7 @@ const Copilot = () => {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-20 bg-secondary/50">
+      <section className="py-10 bg-secondary/50">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <div className="bg-card rounded-lg p-8 border border-border ">
@@ -568,7 +568,7 @@ const Copilot = () => {
       </section>
 
       {/* Deep Dive Articles */}
-      <section className="py-12 sm:py-16 md:py-20 bg-muted/30">
+      <section className="py-6 sm:py-10 md:py-12 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4">Fördjupningsartiklar</h2>
           <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
@@ -604,7 +604,7 @@ const Copilot = () => {
       <CostBreakdown product="copilot" />
 
       {/* CTA Section */}
-      <section className="py-20 bg-background">
+      <section className="py-10 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">

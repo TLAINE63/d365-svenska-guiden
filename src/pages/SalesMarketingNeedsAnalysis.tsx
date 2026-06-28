@@ -3467,7 +3467,7 @@ const SalesMarketingNeedsAnalysis = () => {
  return (
  <div className="min-h-screen bg-background">
  <Navbar />
- <main className="pt-28 pb-16">
+ <main className="pt-28 pb-12">
  
  <ShortAnswer title="Vad är en behovsanalys för Sales & Marketing">
  En CRM-behovsanalys för sälj och marknad klargör hur er pipeline, leadshantering, kampanjer och kunddata ska fungera — innan ni jämför verktyg. Vår kostnadsfria analys ger en köparsidig rekommendation om Dynamics 365 Sales och Customer Insights baserat på er säljmodell, B2B/B2C-fokus och datamognad.
@@ -3555,8 +3555,8 @@ const SalesMarketingNeedsAnalysis = () => {
  url="https://d365.se/CRMbehovsanalys"
  />
  <Navbar />
- <main className="pb-16">
- <div className="relative bg-cover bg-center pt-36 pb-20 mb-8" style={{ backgroundImage: `url(${heroBehovsanalysSalj})` }}>
+ <main className="pb-12">
+ <div className="relative bg-cover bg-center pt-36 pb-10 mb-8" style={{ backgroundImage: `url(${heroBehovsanalysSalj})` }}>
  <div className="absolute inset-0 bg-black/60" />
  <div className="relative container mx-auto px-4 max-w-4xl text-center">
  <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">

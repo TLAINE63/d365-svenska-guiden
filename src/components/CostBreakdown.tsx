@@ -20,7 +20,7 @@ const CostBreakdown = ({ product, heading, hideOverviewLink = false }: CostBreak
   if (!data) return null;
 
   return (
-    <section className="py-12 sm:py-16 md:py-20 bg-background border-b border-border">
+    <section className="py-6 sm:py-10 md:py-12 bg-background border-b border-border">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="max-w-3xl mb-8 sm:mb-10">
           <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">

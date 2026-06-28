@@ -163,7 +163,7 @@ const BcMatchningstest = () => {
           </div>
         </section>
 
-        <div className="container mx-auto px-4 sm:px-6 max-w-3xl py-8 sm:py-12">
+        <div className="container mx-auto px-4 sm:px-6 max-w-3xl py-6 sm:py-10">
           {!showResult ? (
             <WizardView
               current={current}

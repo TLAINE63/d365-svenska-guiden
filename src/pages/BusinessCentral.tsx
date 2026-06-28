@@ -257,7 +257,7 @@ const BusinessCentral = () => {
  <StandardProductSections productName="Business Central" data={PRODUCT_STANDARD_SECTIONS["business-central"]} />
 
  {/* FAQ Section */}
- <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+ <section className="py-6 sm:py-10 md:py-12 bg-secondary/50">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-4xl mx-auto">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-8 sm:mb-10 md:mb-12 text-center">
@@ -416,7 +416,7 @@ const BusinessCentral = () => {
  </section>
 
  {/* Videos Section */}
- <section id="videos" className="py-12 sm:py-16 md:py-20 bg-background">
+ <section id="videos" className="py-6 sm:py-10 md:py-12 bg-background">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="text-center mb-8 sm:mb-10 md:mb-12">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
@@ -435,7 +435,7 @@ const BusinessCentral = () => {
  </section>
 
  {/* AI & Agents Section for Business Central */}
- <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10">
+ <section className="py-6 sm:py-10 md:py-12 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-5xl mx-auto">
  <div className="text-center mb-8 sm:mb-10">
@@ -548,7 +548,7 @@ const BusinessCentral = () => {
  </section>
 
  {/* Project Cost Section */}
- <section id="project-cost" className="py-12 sm:py-16 md:py-20 bg-background">
+ <section id="project-cost" className="py-6 sm:py-10 md:py-12 bg-background">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-6xl mx-auto">
  <div className="text-center mb-6 sm:mb-8">
@@ -593,7 +593,7 @@ const BusinessCentral = () => {
 
 
  {/* Pricing Section */}
- <section id="pricing" className="py-12 sm:py-16 md:py-20 bg-background">
+ <section id="pricing" className="py-6 sm:py-10 md:py-12 bg-background">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="text-center mb-10 sm:mb-12 md:mb-16">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
@@ -646,7 +646,7 @@ const BusinessCentral = () => {
       <CostBreakdown product="business-central" />
 
       {/* Fördjupningsartiklar */}
-      <section className="py-16 bg-secondary/20">
+      <section className="py-12 bg-secondary/20">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl font-bold text-foreground mb-2 text-center">Fördjupningsartiklar om Business Central</h2>
           <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
@@ -677,7 +677,7 @@ const BusinessCentral = () => {
       </section>
 
       {/* Partners Section */}
-      <section id="partners" className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+      <section id="partners" className="py-6 sm:py-10 md:py-12 bg-secondary/50">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="text-center mb-8 sm:mb-10 md:mb-12">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
@@ -859,7 +859,7 @@ const BusinessCentral = () => {
  <UnprofiledPartnersList variant="teaser" showSeeAllLink productKey="bc" productLabel="Business Central" />
 
  {/* CTA Section */}
- <section className="py-20 bg-background">
+ <section className="py-10 bg-background">
  <div className="container mx-auto px-4">
  <div className="max-w-3xl mx-auto text-center">
  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">

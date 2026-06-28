@@ -120,7 +120,7 @@ const Upphandlingsguiden = () => {
  canonicalPath="/upphandlingsguiden"
  />
  <Navbar />
- <main className="min-h-screen bg-background pt-16 lg:pt-28">
+ <main className="min-h-screen bg-background pt-12 lg:pt-28">
  {/* Hero */}
  <section className="relative overflow-hidden bg-[hsl(var(--hero-dark))] border-b border-[hsl(var(--line-dark))]">
  <div className="absolute -top-32 -right-32 w-[28rem] h-[28rem] rounded bg-[hsl(var(--cta-orange))]/25 pointer-events-none" />
@@ -133,7 +133,7 @@ const Upphandlingsguiden = () => {
  backgroundSize: "32px 32px",
  }}
  />
- <div className="relative container mx-auto px-4 sm:px-6 py-14 sm:py-20 max-w-5xl">
+ <div className="relative container mx-auto px-4 sm:px-6 py-10 sm:py-12 max-w-5xl">
  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-white/10 border border-white/20 text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6 ">
  <Sparkles className="w-3 h-3" />
  Upphandlingsguiden för Microsoft Dynamics 365
@@ -189,7 +189,7 @@ const Upphandlingsguiden = () => {
  </section>
 
  {/* Steg */}
- <section className="px-4 sm:px-6 py-12 sm:py-16 bg-background">
+ <section className="px-4 sm:px-6 py-6 sm:py-10 bg-background">
  <div className="container mx-auto max-w-6xl">
  <div className="max-w-3xl mb-10 sm:mb-14">
  <h2 className="text-2xl sm:text-3xl md:text-[34px] font-bold text-foreground leading-tight tracking-tight mb-3">
@@ -287,7 +287,7 @@ const Upphandlingsguiden = () => {
 
 
  {/* Avslut CTA */}
- <section className="px-4 sm:px-6 py-12 sm:py-16 bg-background">
+ <section className="px-4 sm:px-6 py-6 sm:py-10 bg-background">
  <div className="container mx-auto max-w-5xl">
  <div className="relative overflow-hidden rounded bg-[hsl(var(--hero-dark))] border border-[hsl(var(--line-dark))] p-8 sm:p-12 text-center">
  <div className="absolute -top-32 -right-32 w-80 h-80 rounded bg-[hsl(var(--cta-orange))]/25 pointer-events-none" />

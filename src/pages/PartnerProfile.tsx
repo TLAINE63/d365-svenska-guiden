@@ -374,7 +374,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  return (
  <div className="min-h-screen bg-background">
  <Navbar />
- <div className="container mx-auto px-4 py-20 mt-16">
+ <div className="container mx-auto px-4 py-10 mt-16">
  <div className="animate-pulse text-center text-muted-foreground">
  Laddar partnerinformation...
  </div>
@@ -447,7 +447,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  backgroundSize: '50px 50px'
  }} />
  
- <div className="relative container mx-auto px-4 sm:px-6 py-8 sm:py-12">
+ <div className="relative container mx-auto px-4 sm:px-6 py-6 sm:py-10">
  <button
  onClick={() => window.history.back()}
  className="inline-flex items-center text-slate-500 hover:text-slate-800 transition-colors mb-6 group text-sm font-medium bg-slate-200/50 px-3 py-1.5 rounded border border-slate-200"
@@ -731,7 +731,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
 
  {/* Content Section */}
- <section className="py-8 sm:py-12 relative">
+ <section className="py-6 sm:py-10 relative">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-4xl mx-auto space-y-8">
  

@@ -143,7 +143,7 @@ const EventDetail = () => {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
-        <div className="container mx-auto px-4 py-20 mt-16 flex items-center justify-center">
+        <div className="container mx-auto px-4 py-10 mt-16 flex items-center justify-center">
           <Loader2 className="w-8 h-8 animate-spin text-primary" />
         </div>
         <Footer />
@@ -155,7 +155,7 @@ const EventDetail = () => {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
-        <div className="container mx-auto px-4 py-20 mt-16">
+        <div className="container mx-auto px-4 py-10 mt-16">
           <Card className="max-w-lg mx-auto">
             <CardContent className="py-12 text-center">
               <Calendar className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
@@ -285,7 +285,7 @@ const EventDetail = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden mt-16 py-12 md:py-16 bg-gradient-to-br from-violet-600 via-purple-600 to-violet-700">
+      <section className="relative overflow-hidden mt-16 py-12 md:py-12 bg-gradient-to-br from-violet-600 via-purple-600 to-violet-700">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent" />
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-white/10 rounded " />
         

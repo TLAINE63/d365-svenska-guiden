@@ -68,8 +68,8 @@ export default function Priser() {
       <BreadcrumbSchema items={breadcrumbs} />
       <Navbar />
 
-      <main className="pt-20">
-        <section className="py-12 sm:py-16 bg-gradient-to-br from-secondary/60 to-background">
+      <main className="pt-10">
+        <section className="py-6 sm:py-10 bg-gradient-to-br from-secondary/60 to-background">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
             <nav aria-label="Brödsmulor" className="text-xs text-muted-foreground mb-4">
               <Link to="/" className="hover:text-foreground">Hem</Link>
@@ -87,7 +87,7 @@ export default function Priser() {
           </div>
         </section>
 
-        <section className="py-10 sm:py-14">
+        <section className="py-8 sm:py-10">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
             <Section title="ERP – Business Central, Finance & Supply Chain" rows={erp} />
             <Section title="CRM – Sales, Service, Customer Insights m.fl." rows={crm} />

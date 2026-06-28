@@ -148,7 +148,7 @@ const ERPOverview = () => {
  />
 
  {/* TAYA: Vad är ett affärssystem */}
- <section className="py-12 sm:py-16 bg-background">
+ <section className="py-6 sm:py-10 bg-background">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-3xl mx-auto">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6">
@@ -176,7 +176,7 @@ const ERPOverview = () => {
  </section>
 
  {/* TAYA: Ärliga fakta */}
- <section className="py-12 sm:py-16 bg-secondary/40">
+ <section className="py-6 sm:py-10 bg-secondary/40">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-5xl mx-auto">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 text-center">
@@ -205,7 +205,7 @@ const ERPOverview = () => {
  </section>
 
  {/* Introduction Section */}
- <section id="comparison-intro" className="py-12 sm:py-16 md:py-20 bg-background scroll-mt-24">
+ <section id="comparison-intro" className="py-6 sm:py-10 md:py-12 bg-background scroll-mt-24">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-4xl mx-auto text-center">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6">
@@ -246,7 +246,7 @@ const ERPOverview = () => {
  </section>
 
  {/* Comparison Section */}
- <section id="comparison" className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+ <section id="comparison" className="py-6 sm:py-10 md:py-12 bg-secondary/50">
  <div className="container mx-auto px-4">
  <div className="max-w-5xl mx-auto">
  <div className="text-center mb-12">
@@ -363,7 +363,7 @@ const ERPOverview = () => {
  </section>
 
  {/* YouTube videos */}
- <section className="py-12 sm:py-16 bg-secondary/40">
+ <section className="py-6 sm:py-10 bg-secondary/40">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-5xl mx-auto">
  <div className="text-center mb-10">
@@ -403,7 +403,7 @@ const ERPOverview = () => {
  </section>
 
  {/* FAQ */}
- <section className="py-12 sm:py-16 bg-background">
+ <section className="py-6 sm:py-10 bg-background">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-3xl mx-auto">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-8 text-center">
@@ -425,7 +425,7 @@ const ERPOverview = () => {
  </section>
 
  {/* CTA Section */}
- <section className="py-12 sm:py-16 md:py-20 bg-background">
+ <section className="py-6 sm:py-10 md:py-12 bg-background">
 
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-3xl mx-auto text-center mb-12">

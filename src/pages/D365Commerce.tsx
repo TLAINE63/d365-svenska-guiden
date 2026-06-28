@@ -62,7 +62,7 @@ const D365Commerce = () => {
         <p>Commerce är djupt integrerat med Finance & Supply Chain Management för redovisning, inköp, lager och varuförsörjning, vilket gör helhetslösningen särskilt stark för retail-kedjor som vill konsolidera bort separata kassa-, lager- och e-handelssystem — men implementationen är ett betydande åtagande och kräver en partner med dokumenterad retail-erfarenhet.</p>
       </ShortAnswer>
 
-      <section className="py-12 sm:py-16 md:py-20 bg-background">
+      <section className="py-6 sm:py-10 md:py-12 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
@@ -86,7 +86,7 @@ const D365Commerce = () => {
 
       <ApplicationPartners applicationFilter="Commerce" pageSource="D365 Commerce" filterMode="companySize" />
 
-      <section className="py-12 sm:py-16 md:py-20 bg-finance">
+      <section className="py-6 sm:py-10 md:py-12 bg-finance">
         <div className="container mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
             Redo att samla butik, e-handel och kundklubb?

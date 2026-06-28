@@ -184,7 +184,7 @@ const RequirementsSpecSales = () => {
         url="https://d365.se/kravspecifikation-sales"
       />
       <Navbar />
-      <main className="min-h-screen bg-background pb-16">
+      <main className="min-h-screen bg-background pb-12">
         <div className="relative bg-cover bg-center pt-24 pb-10 mb-8" style={{ backgroundImage: `url(${heroKravspecSales})` }}>
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative container mx-auto px-4 max-w-4xl text-center">

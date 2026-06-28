@@ -1588,7 +1588,7 @@ const AIReadiness = () => {
           ]}
         />
         <Navbar />
-        <main className="pb-16">
+        <main className="pb-12">
           <div className="relative bg-cover bg-center pt-28 pb-10 mb-8" style={{ backgroundImage: `url(${heroAiReadiness})` }}>
             <div className="absolute inset-0 bg-black/60" />
             <section className="relative max-w-2xl mx-auto text-center px-4">
@@ -1688,7 +1688,7 @@ const AIReadiness = () => {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
-        <main className="container mx-auto px-4 pt-28 pb-16">
+        <main className="container mx-auto px-4 pt-28 pb-12">
           <div className="max-w-2xl mx-auto">
             <div className="mb-8">
               <div className="flex items-center justify-between mb-2">
@@ -1841,7 +1841,7 @@ const AIReadiness = () => {
     <div className="min-h-screen bg-background">
       <SEOHead title={`AI Impact Assessment: ${pd.title} | d365.se`} description={pd.description.slice(0, 150)} canonicalPath="/ai-readiness" noIndex />
       <Navbar />
-      <main className="container mx-auto px-4 pt-28 pb-16">
+      <main className="container mx-auto px-4 pt-28 pb-12">
         <div className="max-w-3xl mx-auto">
           {/* Header */}
           <div className="text-center mb-10">

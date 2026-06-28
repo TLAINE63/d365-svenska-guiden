@@ -4559,7 +4559,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       <Navbar />
       
       <main className="flex-grow pb-12">
-        <div className="relative bg-cover bg-center pt-36 pb-20 mb-8" style={{ backgroundImage: `url(${heroBehovsanalysErp})` }}>
+        <div className="relative bg-cover bg-center pt-36 pb-10 mb-8" style={{ backgroundImage: `url(${heroBehovsanalysErp})` }}>
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative container mx-auto px-4 max-w-4xl text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">

@@ -267,7 +267,7 @@ const Index = () => {
  <main>
  
  {/* Hero — Upphandlingsguiden */}
- <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-24 sm:pt-28 md:pt-32 pb-10 sm:pb-14 relative overflow-hidden border-b border-[hsl(var(--line-dark))]">
+ <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-24 sm:pt-28 md:pt-32 pb-10 sm:pb-10 relative overflow-hidden border-b border-[hsl(var(--line-dark))]">
 
  <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
  <div className="max-w-4xl mb-6 sm:mb-8">
@@ -514,7 +514,7 @@ const Index = () => {
  <TrustBanner variant="full" />
 
  {/* SEO-anchor — Vad är Microsoft Dynamics 365 + inline internal links */}
- <section className="section-divider py-12 sm:py-16 bg-white border-b border-border">
+ <section className="section-divider py-6 sm:py-10 bg-white border-b border-border">
    <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
      <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-[hsl(var(--signature))] mb-3">
        Översikt
@@ -589,7 +589,7 @@ const Index = () => {
 
 
  {/* Block 2 — Kunskapscenter: utvald artikel */}
- <section className="section-divider py-10 sm:py-14 bg-white">
+ <section className="section-divider py-8 sm:py-10 bg-white">
 
  <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
  <FeaturedArticleBanner />
@@ -599,7 +599,7 @@ const Index = () => {
 
 
     {/* Förtroendesektion: Köparsidiga rådgivare + E-bok + 3 pillars */}
-    <section className="section-divider px-4 sm:px-6 py-12 sm:py-16 bg-white border-b border-border">
+    <section className="section-divider px-4 sm:px-6 py-6 sm:py-10 bg-white border-b border-border">
 
       <div className="container mx-auto max-w-6xl">
         <div className="flex flex-col gap-12 lg:gap-16">
@@ -721,7 +721,7 @@ const Index = () => {
 
 
  {/* Block 3 — Hitta er ingång: situationskort */}
- <section className="section-divider pt-14 sm:pt-20 pb-14 sm:pb-20 bg-secondary border-b border-border relative overflow-hidden">
+ <section className="section-divider pt-10 sm:pt-12 pb-10 sm:pb-12 bg-secondary border-b border-border relative overflow-hidden">
 
 
  {/* Subtle ambient background */}
@@ -797,7 +797,7 @@ const Index = () => {
 
 
  {/* Block 7 — Lär dig mer */}
- <section className="section-divider py-14 sm:py-20 bg-secondary border-t border-border/60">
+ <section className="section-divider py-10 sm:py-12 bg-secondary border-t border-border/60">
 
 
  <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
@@ -875,7 +875,7 @@ const Index = () => {
 
 
  {/* Block 9 — Mest lästa guider */}
- <section className="section-divider py-12 sm:py-16 bg-white">
+ <section className="section-divider py-6 sm:py-10 bg-white">
 
  <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
   <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-1">Frågorna som avgör beslutet</h2>
@@ -904,7 +904,7 @@ const Index = () => {
 
  {/* Block 10 — Branschvägar (dold) */}
  {/*
- <section className="py-12 sm:py-16 bg-white">
+ <section className="py-6 sm:py-10 bg-white">
  <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
  <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-8">
  <div>
@@ -931,7 +931,7 @@ const Index = () => {
  */}
 
   {/* Block 11 — Slut-CTA (BOOKEND 2): flat mörk bakgrund, speglar hero, en orange CTA */}
-  <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] py-16 sm:py-20 relative overflow-hidden">
+  <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] py-12 sm:py-12 relative overflow-hidden">
  <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative text-center">
   <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-white tracking-tight mb-4 leading-[1.15]">
   Rätt partner beror på er bransch
@@ -953,7 +953,7 @@ const Index = () => {
  </section>
 
  {/* Block 12 — Vanliga frågor */}
- <section id="questions" className="section-divider py-12 sm:py-16 bg-secondary">
+ <section id="questions" className="section-divider py-6 sm:py-10 bg-secondary">
 
  <div className="container mx-auto px-4 sm:px-6">
  <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold text-center mb-8 sm:mb-10 md:mb-12">
