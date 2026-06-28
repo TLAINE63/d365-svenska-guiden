@@ -113,6 +113,8 @@ export interface DatabasePartner {
     typical_length?: string;
     engagement_model?: string;
     methodology?: string;
+    bc_project_weeks_min?: number | null;
+    bc_project_weeks_max?: number | null;
   } | null;
   team_size_sweden?: string | null;
   implementations_done?: string | null;
