@@ -1,24 +1,26 @@
 #!/usr/bin/env node
 /**
- * Generates public/sitemap.xml with all indexable, canonical URLs.
+ * Generates a sitemap index + multiple sub-sitemaps under public/:
+ *   - sitemap.xml         (sitemap index)
+ *   - sitemap-pages.xml   (static + tool/hub routes)
+ *   - sitemap-branscher.xml (industry pages)
+ *   - sitemap-articles.xml  (kunskapscenter deep-dives + /artiklar blog)
+ *   - sitemap-partners.xml  (per-partner profiles)
+ *   - sitemap-jamfor.xml    (ERP comparison pages)
  *
- * Sources:
- *  - Static canonical routes (manual list, mirrors src/App.tsx non-Navigate routes)
- *  - Dynamic partners from src/data/partnerRoutes.json
- *  - Dynamic industries from src/data/standardIndustries.ts (regex-parsed)
- *  - Dynamic deep-dive articles from src/data/*Articles.tsx (regex-parsed)
- *  - Blog articles from src/data/blogArticles.tsx (regex-parsed)
+ * lastmod strategy:
+ *   - For grouped sitemaps: max(mtime) of the source files behind the group.
+ *   - For individual <url> entries: same group mtime (we don't track per-entry).
+ *   - For the sitemap index: today.
  *
- * Convention: trailing slash on every URL (matches site-wide canonical convention).
- * Runs via predev/prebuild.
+ * Convention: trailing slash on every URL.
  */
-import { writeFileSync, readFileSync, readdirSync } from "node:fs";
+import { writeFileSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 
 const BASE_URL = "https://d365.se";
 const TODAY = new Date().toISOString().slice(0, 10);
 
-/** Static canonical routes (public, indexable). Exclude redirects, admin, partner-internal, AI search, dataskydd noindex. */
 const STATIC_ROUTES = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
   { path: "/crm/", changefreq: "monthly", priority: "0.9" },
@@ -78,52 +80,72 @@ const STATIC_ROUTES = [
   { path: "/priser/", changefreq: "monthly", priority: "0.8" },
   { path: "/kostnad/", changefreq: "monthly", priority: "0.8" },
   { path: "/partners-sitemap/", changefreq: "weekly", priority: "0.5" },
+  { path: "/jamfor/", changefreq: "monthly", priority: "0.7" },
 ];
 
 function readText(p) {
   try { return readFileSync(resolve(p), "utf8"); } catch { return ""; }
 }
-
+function mtimeISO(p) {
+  try { return statSync(resolve(p)).mtime.toISOString().slice(0, 10); } catch { return TODAY; }
+}
+function maxMtime(paths) {
+  const dates = paths.map((p) => {
+    try { return statSync(resolve(p)).mtime.getTime(); } catch { return 0; }
+  });
+  const m = Math.max(0, ...dates);
+  return m ? new Date(m).toISOString().slice(0, 10) : TODAY;
+}
 function uniqueSlugs(content) {
   const slugs = new Set();
   for (const m of content.matchAll(/slug:\s*"([^"]+)"/g)) slugs.add(m[1]);
   return [...slugs];
 }
 
-// Partners
-const partners = JSON.parse(readText("src/data/partnerRoutes.json"));
-const partnerEntries = partners.map((p) => ({
-  path: `/partner/${p.slug}/`,
-  changefreq: "monthly",
-  priority: "0.6",
-}));
+// ---- Build entry lists per sub-sitemap ----
+
+// Pages (static + tool)
+const pagesLastmod = maxMtime([
+  "src/App.tsx",
+  "src/pages/Index.tsx",
+  "src/pages/BusinessCentral.tsx",
+  "src/pages/BcRoiCalculator.tsx",
+  "src/pages/SalesRoiCalculator.tsx",
+  "src/pages/BcMatchningstest.tsx",
+]);
+const pagesEntries = STATIC_ROUTES.map((e) => ({ ...e, lastmod: pagesLastmod }));
 
 // Industries
-const industrySrc = readText("src/data/standardIndustries.ts");
-const industryEntries = uniqueSlugs(industrySrc).map((slug) => ({
+const industrySrc = "src/data/standardIndustries.ts";
+const industryLastmod = mtimeISO(industrySrc);
+const industryEntries = uniqueSlugs(readText(industrySrc)).map((slug) => ({
   path: `/branscher/${slug}/`,
   changefreq: "monthly",
   priority: "0.7",
+  lastmod: industryLastmod,
 }));
 
-// Blog articles
-const blogSrc = readText("src/data/blogArticles.tsx");
-const blogEntries = uniqueSlugs(blogSrc).map((slug) => ({
+// Articles (deep-dive + blog)
+const blogSrc = "src/data/blogArticles.tsx";
+const blogLastmod = mtimeISO(blogSrc);
+const blogEntries = uniqueSlugs(readText(blogSrc)).map((slug) => ({
   path: `/artiklar/${slug}/`,
   changefreq: "monthly",
   priority: "0.6",
+  lastmod: blogLastmod,
 }));
 
-// Deep-dive articles: each *Articles.tsx file (except blog) has objects with slug + productSlug
 const articleFiles = readdirSync("src/data").filter(
   (f) => /Articles\.tsx$/.test(f) && f !== "blogArticles.tsx"
 );
 const deepDiveEntries = [];
 const seenDeep = new Set();
+let deepLastmodMs = 0;
 for (const f of articleFiles) {
-  const src = readText(`src/data/${f}`);
-  // Match each article block: capture slug & nearest productSlug
-  const blocks = src.split(/\{\s*\n/); // crude per-object split
+  const full = `src/data/${f}`;
+  try { deepLastmodMs = Math.max(deepLastmodMs, statSync(resolve(full)).mtime.getTime()); } catch {}
+  const src = readText(full);
+  const blocks = src.split(/\{\s*\n/);
   for (const b of blocks) {
     const slug = b.match(/slug:\s*"([^"]+)"/)?.[1];
     const productSlug = b.match(/productSlug:\s*"([^"]+)"/)?.[1];
@@ -140,21 +162,40 @@ for (const f of articleFiles) {
     }
   }
 }
+const deepLastmod = deepLastmodMs ? new Date(deepLastmodMs).toISOString().slice(0, 10) : TODAY;
+deepDiveEntries.forEach((e) => (e.lastmod = deepLastmod));
+const articlesLastmod = blogLastmod > deepLastmod ? blogLastmod : deepLastmod;
+const articleEntries = [...deepDiveEntries, ...blogEntries];
 
-const entries = [
-  ...STATIC_ROUTES,
-  ...industryEntries,
-  ...deepDiveEntries,
-  ...blogEntries,
-  ...partnerEntries,
-];
+// Partners
+const partnerRoutesSrc = "src/data/partnerRoutes.json";
+const partnersLastmod = mtimeISO(partnerRoutesSrc);
+const partners = JSON.parse(readText(partnerRoutesSrc));
+const partnerEntries = partners.map((p) => ({
+  path: `/partner/${p.slug}/`,
+  changefreq: "monthly",
+  priority: "0.6",
+  lastmod: partnersLastmod,
+}));
 
-function xml(entries) {
+// Jämför (ERP comparisons)
+const jamforSrc = "src/data/erpComparisons.ts";
+const jamforLastmod = mtimeISO(jamforSrc);
+const jamforSlugs = [...readText(jamforSrc).matchAll(/slug:\s*"([^"]+)"/g)].map((m) => m[1]);
+const jamforEntries = jamforSlugs.map((slug) => ({
+  path: `/jamfor/${slug}/`,
+  changefreq: "monthly",
+  priority: "0.7",
+  lastmod: jamforLastmod,
+}));
+
+// ---- XML helpers ----
+function urlset(entries) {
   const urls = entries.map((e) =>
     [
       "  <url>",
       `    <loc>${BASE_URL}${e.path}</loc>`,
-      `    <lastmod>${TODAY}</lastmod>`,
+      `    <lastmod>${e.lastmod || TODAY}</lastmod>`,
       e.changefreq ? `    <changefreq>${e.changefreq}</changefreq>` : null,
       e.priority ? `    <priority>${e.priority}</priority>` : null,
       "  </url>",
@@ -169,5 +210,43 @@ function xml(entries) {
   ].join("\n");
 }
 
-writeFileSync(resolve("public/sitemap.xml"), xml(entries));
-console.log(`sitemap.xml written: ${entries.length} URLs (static=${STATIC_ROUTES.length}, industries=${industryEntries.length}, deep-dive=${deepDiveEntries.length}, blog=${blogEntries.length}, partners=${partnerEntries.length})`);
+function sitemapindex(items) {
+  const blocks = items.map((it) =>
+    [
+      "  <sitemap>",
+      `    <loc>${BASE_URL}/${it.file}</loc>`,
+      `    <lastmod>${it.lastmod}</lastmod>`,
+      "  </sitemap>",
+    ].join("\n")
+  );
+  return [
+    `<?xml version="1.0" encoding="UTF-8"?>`,
+    `<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`,
+    ...blocks,
+    `</sitemapindex>`,
+    "",
+  ].join("\n");
+}
+
+// ---- Write sub-sitemaps + index ----
+const groups = [
+  { file: "sitemap-pages.xml", entries: pagesEntries, lastmod: pagesLastmod },
+  { file: "sitemap-branscher.xml", entries: industryEntries, lastmod: industryLastmod },
+  { file: "sitemap-articles.xml", entries: articleEntries, lastmod: articlesLastmod },
+  { file: "sitemap-partners.xml", entries: partnerEntries, lastmod: partnersLastmod },
+  { file: "sitemap-jamfor.xml", entries: jamforEntries, lastmod: jamforLastmod },
+];
+
+let total = 0;
+for (const g of groups) {
+  writeFileSync(resolve(`public/${g.file}`), urlset(g.entries));
+  total += g.entries.length;
+}
+writeFileSync(
+  resolve("public/sitemap.xml"),
+  sitemapindex(groups.map((g) => ({ file: g.file, lastmod: g.lastmod })))
+);
+
+console.log(
+  `sitemap index written with ${groups.length} sub-sitemaps (${total} URLs total).`
+);
