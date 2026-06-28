@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Download, BookOpen, CheckCircle } from "lucide-react";
 import ebookCover from "@/assets/ebook-partnervalet-cover.webp";
+import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
 
 interface EbookBannerProps {
  variant?: "full" | "compact";
