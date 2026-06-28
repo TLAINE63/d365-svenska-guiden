@@ -308,7 +308,7 @@ const Index = () => {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 lg:flex-1">
         <Link
-          to="/valjdynamics365partner/"
+          to="/branscher/"
           className="inline-flex items-center justify-between gap-2 bg-[#15130F] hover:bg-[#1d1b16] border border-[#3A332A] hover:border-[hsl(var(--signature))] rounded px-3 py-2.5 text-[13px] font-semibold text-white transition-colors"
         >
           <span>Jag har en god insikt i vilken lösning som borde passa och vill ha hjälp att välja rätt <span className="text-[hsl(var(--signature))]">partner</span></span>
