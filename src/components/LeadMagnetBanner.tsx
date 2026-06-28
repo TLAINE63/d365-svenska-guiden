@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Download, FileText, CheckCircle, X } from "lucide-react";
 import { generatePartnerGuide } from "@/utils/generatePartnerGuide";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
 
 interface LeadMagnetBannerProps {
   sourcePage: string;
