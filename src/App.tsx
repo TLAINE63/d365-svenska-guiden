@@ -123,6 +123,8 @@ const AppShell = () => {
           <Route path="/businesscentral/roi-kalkylator" element={<BcRoiCalculator />} />
           <Route path="/business-central/roi-kalkylator" element={<Navigate to="/businesscentral/roi-kalkylator" replace />} />
           <Route path="/d365sales/roi-kalkylator" element={<SalesRoiCalculator />} />
+          <Route path="/jamfor" element={<ErpComparisonsHub />} />
+          <Route path="/jamfor/:slug" element={<ErpComparisonPage />} />
           <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
           <Route path="/finance-supply-chain-management/matchningstest" element={<FscmMatchningstest />} />
           <Route path="/finance-supply-chain/matchningstest" element={<Navigate to="/finance-supply-chain-management/matchningstest" replace />} />
