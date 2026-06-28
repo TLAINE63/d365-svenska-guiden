@@ -1,0 +1,625 @@
+import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { ArrowRight, Calculator, Info, AlertTriangle, TrendingUp, Clock, Wallet, PiggyBank } from "lucide-react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
+import { BreadcrumbSchema } from "@/components/StructuredData";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
+import { Slider } from "@/components/ui/slider";
+import { Switch } from "@/components/ui/switch";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { usePriceMap } from "@/hooks/usePriceMap";
+import { usePartners } from "@/hooks/usePartners";
+import { filterAndSortPartners } from "@/hooks/usePartnerFilters";
+import PartnerCard from "@/components/PartnerCard";
+import { BC_ISV_SOLUTIONS, type SolutionIndustry } from "@/data/bcIsvSolutions";
+
+const breadcrumbs = [
+  { name: "Hem", url: "https://d365.se" },
+  { name: "Business Central", url: "https://d365.se/businesscentral/" },
+  { name: "ROI/TCO-kalkylator", url: "https://d365.se/businesscentral/roi-kalkylator/" },
+];
+
+type Industry = "Handel" | "Distribution" | "Tillverkning" | "Tjänster" | "Annan";
+type Complexity = "Låg" | "Medel" | "Hög";
+type LicenseModel = "Essentials" | "Premium";
+
+interface Inputs {
+  companyName: string;
+  industry: Industry;
+  fullUsers: number;
+  teamMembers: number;
+  deviceUsers: number;
+  license: LicenseModel;
+  revenue: number;
+  complexity: Complexity;
+  manualPct: number;
+  warehouse: boolean;
+  ecommerce: boolean;
+  integrations: number;
+  currentItCost: number;
+}
+
+const DEFAULTS: Inputs = {
+  companyName: "",
+  industry: "Handel",
+  fullUsers: 25,
+  teamMembers: 10,
+  deviceUsers: 0,
+  license: "Essentials",
+  revenue: 45_000_000,
+  complexity: "Medel",
+  manualPct: 60,
+  warehouse: true,
+  ecommerce: true,
+  integrations: 3,
+  currentItCost: 300_000,
+};
+
+const fmtSek = (n: number) =>
+  new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 0 }).format(Math.round(n)) + " kr";
+
+const fmtSekInput = (n: number) => new Intl.NumberFormat("sv-SE").format(n);
+
+const parseNum = (s: string): number => {
+  const cleaned = s.replace(/\s/g, "").replace(/[^\d-]/g, "");
+  const n = Number(cleaned);
+  return Number.isFinite(n) ? n : 0;
+};
+
+// Map Swedish industries → ISV catalog industries
+const INDUSTRY_TO_ISV: Record<Industry, SolutionIndustry[]> = {
+  Handel: ["Retail", "Wholesale"],
+  Distribution: ["Wholesale", "3PL"],
+  Tillverkning: ["Manufacturing"],
+  Tjänster: ["Services"],
+  Annan: ["Generell"],
+};
+
+export default function BcRoiCalculator() {
+  const priceMap = usePriceMap();
+  const { data: partners = [] } = usePartners();
+  const [v, setV] = useState<Inputs>(DEFAULTS);
+  const [showAssumptions, setShowAssumptions] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const update = <K extends keyof Inputs>(k: K, val: Inputs[K]) =>
+    setV((prev) => ({ ...prev, [k]: val }));
+
+  // ----- Pricing (SEK/mån per user from priceMap; device fallback) -----
+  const ess = priceMap.get("bc-essentials");
+  const prem = priceMap.get("bc-premium");
+  const team = priceMap.get("bc-team-members");
+  const DEVICE_FALLBACK = 380; // SEK/mån — fallback om SKU saknas i prisregistret
+  const essPrice = ess?.price_sek ?? null;
+  const premPrice = prem?.price_sek ?? null;
+  const teamPrice = team?.price_sek ?? null;
+  const deviceSku = priceMap.get("bc-device");
+  const devicePrice = deviceSku?.price_sek ?? DEVICE_FALLBACK;
+
+  const perFullUser = v.license === "Premium" ? premPrice : essPrice;
+  const perFullUserLabel = v.license === "Premium" ? "Premium" : "Essentials";
+
+  // ----- Beräkningar -----
+  const calc = useMemo(() => {
+    const fullCost = (perFullUser ?? 0) * v.fullUsers;
+    const teamCost = (teamPrice ?? 0) * v.teamMembers;
+    const deviceCost = devicePrice * v.deviceUsers;
+    const licenseMonthly = fullCost + teamCost + deviceCost;
+    const licenseYearly = licenseMonthly * 12;
+
+    const complexityImpl: Record<Complexity, number> = { Låg: 250_000, Medel: 500_000, Hög: 1_000_000 };
+    const usersFactor = 1 + Math.max(0, v.fullUsers - 25) * 0.012;
+    const implementation =
+      complexityImpl[v.complexity] * usersFactor +
+      v.integrations * 30_000 +
+      (v.warehouse ? 100_000 : 0) +
+      (v.ecommerce ? 150_000 : 0) +
+      (v.license === "Premium" ? 200_000 : 0);
+
+    const supportYearly = implementation * 0.18; // löpande förvaltning ~18% av impl/år
+
+    const complexityFactor: Record<Complexity, number> = { Låg: 0.6, Medel: 1, Hög: 1.3 };
+    const manualSavings = v.revenue * 0.01 * (v.manualPct / 100) * complexityFactor[v.complexity];
+    const integrationSavings = v.integrations * 50_000;
+    const warehouseSavings = v.warehouse ? v.revenue * 0.003 : 0;
+    const ecommerceUplift = v.ecommerce ? v.revenue * 0.005 : 0;
+    const annualBenefit = manualSavings + integrationSavings + warehouseSavings + ecommerceUplift;
+
+    const netAnnual = annualBenefit + v.currentItCost - licenseYearly - supportYearly;
+    const paybackMonths = netAnnual > 0 ? (implementation / netAnnual) * 12 : null;
+
+    const tco5 = implementation + 5 * (licenseYearly + supportYearly);
+    const benefit5 = 5 * annualBenefit + 5 * v.currentItCost;
+    const net5 = benefit5 - tco5;
+    const roiPct = implementation > 0 ? (net5 / implementation) * 100 : 0;
+
+    return {
+      licenseMonthly,
+      licenseYearly,
+      fullCost,
+      teamCost,
+      deviceCost,
+      implementation,
+      supportYearly,
+      annualBenefit,
+      netAnnual,
+      paybackMonths,
+      tco5,
+      benefit5,
+      net5,
+      roiPct,
+    };
+  }, [v, perFullUser, teamPrice, devicePrice]);
+
+  const priceMissing = perFullUser == null || teamPrice == null;
+  const tillverkningEssentialsWarning = v.industry === "Tillverkning" && v.license === "Essentials";
+
+  // ----- ISV-rekommendationer baserat på bransch/val -----
+  const isvSuggestions = useMemo(() => {
+    const want = INDUSTRY_TO_ISV[v.industry];
+    const all = BC_ISV_SOLUTIONS.filter((s) =>
+      s.industries.some((i) => want.includes(i) || i === "Generell")
+    );
+    const pri = (s: (typeof all)[number]) => {
+      let score = 0;
+      if (v.warehouse && s.category === "WMS") score += 5;
+      if (v.ecommerce && (s.category === "E-handel" || s.category === "PIM")) score += 5;
+      if (v.integrations >= 3 && (s.category === "EDI / e-faktura" || s.category === "Integration / iPaaS")) score += 3;
+      if (s.category === "AP automation") score += 2;
+      if (s.category === "Lokalisering" && s.geo.includes("Sverige")) score += 2;
+      if (s.industries.some((i) => want.includes(i))) score += 4;
+      if (s.tier === "Tier 1") score += 1;
+      return score;
+    };
+    return all.sort((a, b) => pri(b) - pri(a)).slice(0, 6);
+  }, [v.industry, v.warehouse, v.ecommerce, v.integrations]);
+
+  // ----- Relevanta partners -----
+  const bcPartners = useMemo(
+    () => filterAndSortPartners(partners, "bc", null, null, null, null, true).slice(0, 6),
+    [partners]
+  );
+
+  return (
+    <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Business Central ROI/TCO-kalkylator – payback & 5-årig totalkostnad"
+        description="Indikativ ROI- och TCO-kalkyl för Microsoft Dynamics 365 Business Central. Räkna licens, implementation, payback och 5-årig totalkostnad utifrån era nyckeltal."
+        canonicalPath="/businesscentral/roi-kalkylator/"
+      />
+      <BreadcrumbSchema items={breadcrumbs} />
+      <Navbar />
+
+      <main className="pt-20">
+        {/* HERO */}
+        <section className="border-b border-border bg-gradient-to-br from-secondary/60 to-background">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-12 sm:py-16">
+            <nav aria-label="Brödsmulor" className="text-xs text-muted-foreground mb-4">
+              <Link to="/" className="hover:text-foreground">Hem</Link>
+              <span className="mx-2">/</span>
+              <Link to="/businesscentral/" className="hover:text-foreground">Business Central</Link>
+              <span className="mx-2">/</span>
+              <span aria-current="page">ROI/TCO-kalkylator</span>
+            </nav>
+            <Badge variant="outline" className="mb-4">
+              <Calculator className="w-3 h-3 mr-1" /> Beslutsstöd
+            </Badge>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 max-w-3xl">
+              Beräkna ROI och TCO för Business Central
+            </h1>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-3xl">
+              Få en indikativ uppskattning av investering, årlig nytta, payback och 5-årig TCO baserat på några enkla nyckeltal.
+            </p>
+            <p className="text-xs text-muted-foreground mt-4 max-w-3xl italic">
+              Kalkylen är en förenklad uppskattning och bör användas som beslutsstöd – inte som en slutlig offert eller affärskalkyl.
+            </p>
+            <div className="flex flex-wrap gap-3 mt-6">
+              <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white">
+                <a href="#kalkyl">Starta kalkyl <ArrowRight className="ml-2 w-4 h-4" /></a>
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => {
+                  setShowAssumptions(true);
+                  document.getElementById("antaganden")?.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
+                Visa antaganden
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* KALKYL */}
+        <section id="kalkyl" className="py-12 sm:py-16">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <div className="grid lg:grid-cols-5 gap-8">
+              {/* INPUT */}
+              <div className="lg:col-span-3">
+                <h2 className="text-2xl font-bold text-foreground mb-6">Dina förutsättningar</h2>
+                <Card>
+                  <CardContent className="p-6 space-y-6">
+                    {/* Företagsnamn */}
+                    <div className="space-y-2">
+                      <Label htmlFor="company">Företagsnamn <span className="text-muted-foreground font-normal">(valfritt)</span></Label>
+                      <Input
+                        id="company"
+                        value={v.companyName}
+                        onChange={(e) => update("companyName", e.target.value)}
+                        placeholder="Ditt företag AB"
+                      />
+                    </div>
+
+                    {/* Bransch */}
+                    <div className="space-y-2">
+                      <Label>Bransch</Label>
+                      <Select value={v.industry} onValueChange={(val) => update("industry", val as Industry)}>
+                        <SelectTrigger><SelectValue /></SelectTrigger>
+                        <SelectContent>
+                          {(["Handel","Distribution","Tillverkning","Tjänster","Annan"] as Industry[]).map(i => (
+                            <SelectItem key={i} value={i}>{i}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {/* Användare */}
+                    <div className="grid sm:grid-cols-3 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="full">Antal full users</Label>
+                        <Input id="full" type="number" min={1} value={v.fullUsers}
+                          onChange={(e) => update("fullUsers", Math.max(1, Number(e.target.value) || 1))} />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="team">Antal Team Members</Label>
+                        <Input id="team" type="number" min={0} value={v.teamMembers}
+                          onChange={(e) => update("teamMembers", Math.max(0, Number(e.target.value) || 0))} />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="dev">Antal Device-licenser</Label>
+                        <Input id="dev" type="number" min={0} value={v.deviceUsers}
+                          onChange={(e) => update("deviceUsers", Math.max(0, Number(e.target.value) || 0))} />
+                      </div>
+                    </div>
+
+                    {/* Licensmodell */}
+                    <div className="space-y-2">
+                      <Label>Licensmodell</Label>
+                      <Select value={v.license} onValueChange={(val) => update("license", val as LicenseModel)}>
+                        <SelectTrigger><SelectValue /></SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Essentials">Essentials</SelectItem>
+                          <SelectItem value="Premium">Premium</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      {tillverkningEssentialsWarning && (
+                        <div className="flex gap-2 p-3 rounded-md border border-amber-300 bg-amber-50 dark:bg-amber-950/20 dark:border-amber-900 text-sm text-amber-900 dark:text-amber-100">
+                          <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                          <span>Tillverkning kräver normalt Business Central Premium. Kontrollera licensbehovet innan kalkylen används som beslutsunderlag.</span>
+                        </div>
+                      )}
+                      {priceMissing && (
+                        <p className="text-xs text-destructive">Pris saknas i licensprislistan</p>
+                      )}
+                    </div>
+
+                    {/* Omsättning */}
+                    <div className="space-y-2">
+                      <Label htmlFor="rev">Omsättning per år</Label>
+                      <Input
+                        id="rev"
+                        inputMode="numeric"
+                        value={fmtSekInput(v.revenue)}
+                        onChange={(e) => update("revenue", parseNum(e.target.value))}
+                      />
+                      <p className="text-xs text-muted-foreground">{fmtSek(v.revenue)}</p>
+                    </div>
+
+                    {/* Komplexitet */}
+                    <div className="space-y-2">
+                      <Label>Affärskomplexitet</Label>
+                      <ToggleGroup
+                        type="single"
+                        value={v.complexity}
+                        onValueChange={(val) => val && update("complexity", val as Complexity)}
+                        className="justify-start"
+                      >
+                        <ToggleGroupItem value="Låg">Låg</ToggleGroupItem>
+                        <ToggleGroupItem value="Medel">Medel</ToggleGroupItem>
+                        <ToggleGroupItem value="Hög">Hög</ToggleGroupItem>
+                      </ToggleGroup>
+                    </div>
+
+                    {/* Manuella processer */}
+                    <div className="space-y-2">
+                      <div className="flex justify-between">
+                        <Label>Andel manuella processer</Label>
+                        <span className="text-sm font-medium text-foreground">{v.manualPct}%</span>
+                      </div>
+                      <Slider
+                        min={0} max={100} step={5}
+                        value={[v.manualPct]}
+                        onValueChange={([val]) => update("manualPct", val)}
+                      />
+                    </div>
+
+                    {/* Lager + E-handel */}
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div className="flex items-center justify-between p-3 rounded-md border border-border">
+                        <Label htmlFor="wh" className="cursor-pointer">Lagerhantering</Label>
+                        <Switch id="wh" checked={v.warehouse} onCheckedChange={(b) => update("warehouse", b)} />
+                      </div>
+                      <div className="flex items-center justify-between p-3 rounded-md border border-border">
+                        <Label htmlFor="ec" className="cursor-pointer">E-handel</Label>
+                        <Switch id="ec" checked={v.ecommerce} onCheckedChange={(b) => update("ecommerce", b)} />
+                      </div>
+                    </div>
+
+                    {/* Integrationer */}
+                    <div className="space-y-2">
+                      <Label htmlFor="int">Antal integrationer</Label>
+                      <Input id="int" type="number" min={0} value={v.integrations}
+                        onChange={(e) => update("integrations", Math.max(0, Number(e.target.value) || 0))} />
+                    </div>
+
+                    {/* Nuvarande IT-kostnad */}
+                    <div className="space-y-2">
+                      <Label htmlFor="cur">Nuvarande ERP-/IT-kostnad per år</Label>
+                      <Input
+                        id="cur"
+                        inputMode="numeric"
+                        value={fmtSekInput(v.currentItCost)}
+                        onChange={(e) => update("currentItCost", parseNum(e.target.value))}
+                      />
+                      <p className="text-xs text-muted-foreground">{fmtSek(v.currentItCost)}</p>
+                    </div>
+
+                    <div className="flex gap-3 pt-2">
+                      <Button variant="ghost" onClick={() => setV(DEFAULTS)}>Återställ värden</Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* RESULT */}
+              <div className="lg:col-span-2">
+                <div className="lg:sticky lg:top-24 space-y-4">
+                  <h2 className="text-2xl font-bold text-foreground mb-2">Resultat</h2>
+                  <p className="text-xs text-muted-foreground">Live-uppdaterad indikation{v.companyName ? ` för ${v.companyName}` : ""}.</p>
+
+                  <Card className="bg-[hsl(var(--hero-dark,222_47%_11%))] text-primary-foreground border-0">
+                    <CardContent className="p-6 space-y-4">
+                      <Kpi
+                        icon={<TrendingUp className="w-4 h-4" />}
+                        label="5-årig ROI"
+                        value={`${Math.round(calc.roiPct)}%`}
+                        tone={calc.roiPct >= 0 ? "good" : "warn"}
+                      />
+                      <Kpi
+                        icon={<Clock className="w-4 h-4" />}
+                        label="Payback"
+                        value={calc.paybackMonths == null ? "—" : `${Math.round(calc.paybackMonths)} mån`}
+                        sub={calc.paybackMonths == null ? "Nytta täcker inte löpande kostnad" : undefined}
+                      />
+                      <Kpi
+                        icon={<Wallet className="w-4 h-4" />}
+                        label="5-årig TCO"
+                        value={fmtSek(calc.tco5)}
+                      />
+                      <Kpi
+                        icon={<PiggyBank className="w-4 h-4" />}
+                        label="Nettonytta år 1"
+                        value={fmtSek(calc.netAnnual)}
+                        tone={calc.netAnnual >= 0 ? "good" : "warn"}
+                      />
+                    </CardContent>
+                  </Card>
+
+                  <Card>
+                    <CardContent className="p-5 text-sm space-y-2">
+                      <Row label={`Licens (${perFullUserLabel})`} value={fmtSek(calc.fullCost)} sub="/mån" />
+                      <Row label="Team Members" value={fmtSek(calc.teamCost)} sub="/mån" />
+                      <Row label="Device-licenser" value={fmtSek(calc.deviceCost)} sub="/mån" />
+                      <div className="border-t border-border my-2" />
+                      <Row label="Licens totalt" value={fmtSek(calc.licenseMonthly)} sub="/mån" strong />
+                      <Row label="Licens helår" value={fmtSek(calc.licenseYearly)} />
+                      <div className="border-t border-border my-2" />
+                      <Row label="Implementation (engångs)" value={fmtSek(calc.implementation)} />
+                      <Row label="Förvaltning" value={fmtSek(calc.supportYearly)} sub="/år" />
+                      <Row label="Estimerad årlig nytta" value={fmtSek(calc.annualBenefit)} />
+                    </CardContent>
+                  </Card>
+
+                  <p className="text-xs text-muted-foreground flex gap-2">
+                    <Info className="w-3 h-3 mt-0.5 flex-shrink-0" />
+                    Indikativ kalkyl – verkligt utfall beror på avtal, omfattning och förändringsledning.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ISV */}
+        <section className="py-12 bg-secondary/30 border-y border-border">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <div className="flex items-end justify-between mb-6 gap-4 flex-wrap">
+              <div>
+                <h2 className="text-2xl font-bold text-foreground">Rekommenderade tilläggslösningar</h2>
+                <p className="text-sm text-muted-foreground mt-1">Baserat på bransch ({v.industry}) och dina val.</p>
+              </div>
+              <Button asChild variant="outline" size="sm">
+                <Link to="/kunskapscenter/business-central-tillagg/katalog/">Hela ISV-katalogen</Link>
+              </Button>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {isvSuggestions.map((s) => (
+                <Card key={s.id} className="hover:shadow-md transition-shadow">
+                  <CardContent className="p-5 space-y-3">
+                    <div className="flex items-start justify-between gap-2">
+                      <h3 className="font-semibold text-foreground">{s.name}</h3>
+                      <Badge variant="secondary" className="text-xs">{s.tier}</Badge>
+                    </div>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wide">{s.category}</p>
+                    <p className="text-sm text-foreground/80">{s.shortDescription}</p>
+                    <p className="text-xs text-muted-foreground line-clamp-3">{s.whenFits}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* PARTNERS */}
+        <section className="py-12">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <div className="flex items-end justify-between mb-6 gap-4 flex-wrap">
+              <div>
+                <h2 className="text-2xl font-bold text-foreground">Relevanta Business Central-partners</h2>
+                <p className="text-sm text-muted-foreground mt-1">Publicerade partners med Business Central-erbjudande.</p>
+              </div>
+              <Button asChild variant="outline" size="sm">
+                <Link to="/business-central-partners-sverige/">Se alla partners</Link>
+              </Button>
+            </div>
+            {bcPartners.length === 0 ? (
+              <p className="text-sm text-muted-foreground">Laddar partners…</p>
+            ) : (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {bcPartners.map((p) => (
+                  <PartnerCard
+                    key={p.id}
+                    partner={p}
+                    profileUrl={`/partner/${p.slug}/business-central`}
+                    productKey="bc"
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* ANTAGANDEN */}
+        <section id="antaganden" className="py-12 bg-secondary/30 border-t border-border">
+          <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+            <h2 className="text-2xl font-bold text-foreground mb-2">Antaganden</h2>
+            <p className="text-sm text-muted-foreground mb-4">
+              Kalkylen är medvetet förenklad. Den ska ge en storleksordning, inte ersätta en business case-analys.
+            </p>
+            <Button variant="outline" size="sm" onClick={() => setShowAssumptions(s => !s)}>
+              {showAssumptions ? "Dölj detaljer" : "Visa detaljer"}
+            </Button>
+            {showAssumptions && (
+              <div className="mt-6 space-y-4 text-sm text-foreground/90">
+                <Assumption title="Licens">
+                  Priser hämtas från d365.se centrala prisregister (Microsofts listpriser, SEK/mån exkl. moms).
+                  Faktiskt pris beror på avtalsform (EA, CSP), volym och förhandling.
+                  Device-licens använder fallback {fmtSek(DEVICE_FALLBACK)}/mån om SKU saknas.
+                </Assumption>
+                <Assumption title="Implementation">
+                  Bas: Låg 250 000 kr, Medel 500 000 kr, Hög 1 000 000 kr. Skalas mjukt med antal användare (+1,2 % per användare över 25),
+                  + 30 000 kr per integration, + 100 000 kr för lager, + 150 000 kr för e-handel, + 200 000 kr om Premium krävs.
+                </Assumption>
+                <Assumption title="Förvaltning">
+                  Löpande förvaltning antas vara cirka 18 % av implementationskostnaden per år.
+                </Assumption>
+                <Assumption title="Årlig nytta">
+                  Manuell process: omsättning × 1 % × andel manuella processer × komplexitetsfaktor (0,6 / 1,0 / 1,3).
+                  Per integration: 50 000 kr/år. Lagerhantering: 0,3 % av omsättning. E-handel: 0,5 % av omsättning.
+                </Assumption>
+                <Assumption title="Payback &amp; TCO">
+                  Payback = implementation / (årlig nettonytta inkl. ersatt IT-kostnad). 5-årig TCO = implementation + 5 × (licens + förvaltning).
+                  5-årig ROI = (5 × årlig nytta + 5 × ersatt IT-kostnad − TCO) / implementation.
+                </Assumption>
+                <Assumption title="Vad ingår inte">
+                  Förändringsledning, datakvalitet, intern tidsåtgång, integrationsplattform (iPaaS), ISV-licenser och hårdvara hanteras separat.
+                </Assumption>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="py-14">
+          <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">Nästa steg</h2>
+            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+              Validera kalkylen i en kort dialog med två–tre relevanta partners. Eller fördjupa underlaget genom matchningstestet och en kravspecifikation.
+            </p>
+            <div className="flex flex-wrap gap-3 justify-center">
+              <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white">
+                <Link to="/businesscentral/matchningstest/">Starta matchningstest</Link>
+              </Button>
+              <Button asChild variant="outline" size="lg">
+                <Link to="/kravspecifikation/">Generera en kravspecifikation</Link>
+              </Button>
+              <Button asChild variant="outline" size="lg">
+                <Link to="/businesscentral/#partners">Hitta Business Central-partners</Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
+
+// ----- Small helpers -----
+
+function Kpi({
+  icon, label, value, sub, tone,
+}: { icon: React.ReactNode; label: string; value: string; sub?: string; tone?: "good" | "warn" }) {
+  const toneClass =
+    tone === "good" ? "text-emerald-300" : tone === "warn" ? "text-amber-300" : "text-primary-foreground";
+  return (
+    <div className="flex items-center justify-between gap-4">
+      <div className="flex items-center gap-2 text-sm opacity-80">
+        {icon}
+        <span>{label}</span>
+      </div>
+      <div className="text-right">
+        <div className={`text-xl font-bold ${toneClass}`}>{value}</div>
+        {sub && <div className="text-xs opacity-70">{sub}</div>}
+      </div>
+    </div>
+  );
+}
+
+function Row({ label, value, sub, strong }: { label: string; value: string; sub?: string; strong?: boolean }) {
+  return (
+    <div className="flex items-baseline justify-between gap-3">
+      <span className={`text-muted-foreground ${strong ? "text-foreground font-medium" : ""}`}>{label}</span>
+      <span className={`tabular-nums ${strong ? "font-semibold text-foreground" : "text-foreground"}`}>
+        {value}{sub && <span className="text-muted-foreground text-xs ml-1">{sub}</span>}
+      </span>
+    </div>
+  );
+}
+
+function Assumption({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="p-4 rounded-md border border-border bg-background">
+      <h3 className="font-semibold text-foreground mb-1">{title}</h3>
+      <p className="text-sm text-muted-foreground leading-relaxed">{children}</p>
+    </div>
+  );
+}
