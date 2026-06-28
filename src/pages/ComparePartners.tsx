@@ -708,6 +708,12 @@ const ComparePartners = () => {
                         }
                       />
                       <R
+                        label="Typisk BC-projektlängd"
+                        help="Partnerns egna spann för typisk implementationstid av Business Central, mätt i veckor från projektstart till driftsättning. Verklig längd beror på scope, datakvalitet och organisationens beslutskraft."
+                        a={renderValue(A.bcLength)}
+                        b={renderValue(B.bcLength)}
+                      />
+                      <R
                         label="Geografisk närvaro"
                         a={renderList(A.offices)}
                         b={renderList(B.offices)}
