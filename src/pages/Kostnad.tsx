@@ -79,7 +79,7 @@ export default function Kostnad() {
                 to="/kravspecifikation/"
                 className="inline-flex items-center px-4 py-2 rounded border border-border bg-card hover:bg-secondary/60 transition-colors"
               >
-                Bygg kravspec →
+                Generera en kravspecifikation →
               </Link>
             </div>
           </div>
@@ -137,7 +137,7 @@ export default function Kostnad() {
                 to="/beslutsmognad/"
                 className="inline-flex items-center px-5 py-2.5 rounded bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
               >
-                Starta behovsanalys
+                Skapa en behovsanalys
               </Link>
               <Link
                 to="/valjdynamics365partner/"

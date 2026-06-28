@@ -236,7 +236,7 @@ const ERPOverview = () => {
  </p>
  <Link to="/ERPbehovsanalys/">
  <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
- Starta behovsanalysen
+ Skapa en behovsanalys
  <ArrowRight className="ml-2 h-4 w-4" />
  </Button>
  </Link>
