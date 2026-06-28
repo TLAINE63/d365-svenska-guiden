@@ -269,6 +269,7 @@ export const KNOWLEDGE_HUBS: KnowledgeHubConfig[] = [
     resources: [
       tools.behovsanalysErp,
       tools.bcMatchningstest,
+      tools.bcRoiKalkylator,
       tools.kravspecErp,
       tools.branschjamforelse,
       ...deepDiveBySlug(["businesscentral"]),
