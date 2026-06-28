@@ -27,6 +27,8 @@ import PartnerCard from "@/components/PartnerCard";
 import { BC_ISV_SOLUTIONS, type SolutionIndustry } from "@/data/bcIsvSolutions";
 import { Checkbox } from "@/components/ui/checkbox";
 import { INDUSTRY_DRIVERS, defaultEnabledDrivers, type Industry } from "@/data/bcRoiDrivers";
+import RoiPdfDownload from "@/components/RoiPdfDownload";
+import type { RoiPdfData } from "@/utils/generateRoiPdf";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
