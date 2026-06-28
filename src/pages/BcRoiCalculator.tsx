@@ -592,14 +592,17 @@ export default function BcRoiCalculator() {
                 </Assumption>
                 <Assumption title="Implementation">
                   Bas: Låg 250 000 kr, Medel 500 000 kr, Hög 1 000 000 kr. Skalas mjukt med antal användare (+1,2 % per användare över 25),
-                  + 30 000 kr per integration, + 100 000 kr för lager, + 150 000 kr för e-handel, + 200 000 kr om Premium krävs.
+                  + 30 000 kr per integration, + en engångskostnad per vald effektiviseringsdrivare (50–200 000 kr beroende på område),
+                  + 200 000 kr om Premium krävs.
                 </Assumption>
                 <Assumption title="Förvaltning">
                   Löpande förvaltning antas vara cirka 18 % av implementationskostnaden per år.
                 </Assumption>
                 <Assumption title="Årlig nytta">
-                  Manuell process: omsättning × 1 % × andel manuella processer × komplexitetsfaktor (0,6 / 1,0 / 1,3).
-                  Per integration: 50 000 kr/år. Lagerhantering: 0,3 % av omsättning. E-handel: 0,5 % av omsättning.
+                  Nyttan summeras från de drivare ni bockat i för er bransch. Varje drivare har en grundnivå (fast belopp eller andel
+                  av omsättning, taklagd). Summan justeras med andelen manuella processer (0,5×–1,5×) och komplexitetsfaktor
+                  (0,6 / 1,0 / 1,3). Integrationer ger dessutom 50 000 kr/år vardera. Estimaten är baserade på Microsofts Business
+                  Value Assessment (oktober 2025) och svenska partnerbenchmarks.
                 </Assumption>
                 <Assumption title="Payback &amp; TCO">
                   Payback = implementation / (årlig nettonytta inkl. ersatt IT-kostnad). 5-årig TCO = implementation + 5 × (licens + förvaltning).
