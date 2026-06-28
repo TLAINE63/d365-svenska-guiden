@@ -23,6 +23,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { isFreeEmailDomain, FREE_EMAIL_ERROR_SV } from "@/lib/validateBusinessEmail";
 
 const formSchema = z.object({
  name: z.string().trim().min(2, {
@@ -34,7 +35,7 @@ const formSchema = z.object({
  message: "Ange en giltig e-postadress.",
  }).max(255, {
  message: "E-postadressen får vara max 255 tecken.",
- }),
+ }).refine((v) => !isFreeEmailDomain(v), { message: FREE_EMAIL_ERROR_SV }),
  phone: z.string().trim().max(20, {
  message: "Telefonnumret får vara max 20 tecken.",
  }).optional().or(z.literal("")),
