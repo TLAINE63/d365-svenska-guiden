@@ -61,6 +61,14 @@ const ErpComparisonsHub = () => {
               </Link>
             ))}
           </div>
+          <div className="container mx-auto px-4 sm:px-6 max-w-5xl mt-8">
+            <div className="rounded-lg border border-border bg-background p-4 flex gap-3">
+              <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
+              <p className="text-sm text-muted-foreground">
+                <strong className="text-foreground">Observera:</strong> Priser, licensvillkor och funktionalitet kan ändras över tid. Kontrollera aktuella uppgifter direkt med respektive leverantör eller partner innan ni fattar beslut. Jämförelserna är köparsidiga vägledningar, inte garantier för att enskilda funktioner eller priser är identiska vid ert köptillfälle.
+              </p>
+            </div>
+          </div>
         </section>
       </main>
 
