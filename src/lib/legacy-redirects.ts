@@ -109,10 +109,15 @@ export function buildRedirectHtml(redirect: LegacyRedirect): string {
   <meta http-equiv="refresh" content="0; url=${targetPath}" />
   <link rel="canonical" href="${canonical}" />
   <meta property="og:url" content="${canonical}" />
-  <script>window.location.replace(${JSON.stringify(targetPath)});</script>
 </head>
 <body>
   <p>Den här sidan har flyttat till <a href="${targetPath}">${targetPath}</a>.</p>
+  <script>
+    // Fallback för användare där meta-refresh inte triggar (sällsynt). Körs
+    // efter att Googlebot redan tolkat meta-refresh som 301-ekvivalent, så
+    // det räknas inte längre som en sekundär redirect i renderingen.
+    setTimeout(function(){ window.location.replace(${JSON.stringify(targetPath)}); }, 50);
+  </script>
 </body>
 </html>
 `;
