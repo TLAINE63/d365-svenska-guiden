@@ -30,6 +30,8 @@ import {
   defaultEnabledSalesDrivers,
   type SalesIndustry,
 } from "@/data/salesRoiDrivers";
+import RoiPdfDownload from "@/components/RoiPdfDownload";
+import type { RoiPdfData } from "@/utils/generateRoiPdf";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
