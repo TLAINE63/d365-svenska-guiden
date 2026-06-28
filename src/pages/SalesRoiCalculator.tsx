@@ -581,7 +581,9 @@ export default function SalesRoiCalculator() {
                       label: d.label,
                       annual: d.savings(v.revenue, v.sellers) * userFactorUi,
                       hint: d.hint,
+                      detail: d.detail,
                     })),
+
                     assumptions: [
                       { title: "Licens", body: "Priser hämtas från d365.se centrala prisregister (Microsofts listpriser för Sales Professional, Enterprise och Premium, SEK/mån exkl. moms). Faktiskt pris beror på avtalsform (EA, CSP), volym och förhandling. Sales Ops antas använda Enterprise-licens." },
                       { title: "Implementation", body: "Bas: Låg 150 000 kr, Medel 350 000 kr, Hög 750 000 kr. Skalas mjukt med antal säljare (+1,5 % per säljare över 15) och med en branschfaktor som speglar typisk projekttyngd för CRM-införanden: Tillverkning 1,3× · Finans & försäkring 1,3× · Distribution 1,1× · Tech & SaaS 1,0× · Bygg 1,0× · B2B-tjänster 0,9× · Annan 1,0×. Därtill + 35 000 kr per integration, + engångskostnad per vald effektiviseringsdrivare (60–150 000 kr beroende på område), + 150 000 kr om Premium krävs och + 50 000 kr för Enterprise (anpassning & Power Platform)." },
