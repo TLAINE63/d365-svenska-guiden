@@ -3174,6 +3174,11 @@ Thomas`,
  <AdminPartnerReportsTab token={token || null} />
  </TabsContent>
 
+ {/* ==================== SEMRUSH DAILY TAB ==================== */}
+ <TabsContent value="semrush-daily">
+ <AdminSemrushDailyTab token={token || null} onSessionExpired={logout} />
+ </TabsContent>
+
  {/* ==================== SEO RANKINGS TAB ==================== */}
  <TabsContent value="seo-rankings">
  <AdminSeoRankingsTab token={token || null} onSessionExpired={logout} />
