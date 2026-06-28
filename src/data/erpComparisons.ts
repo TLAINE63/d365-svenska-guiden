@@ -144,7 +144,7 @@ export const ERP_COMPARISONS: ErpComparison[] = [
     faqs: [
       {
         q: "Är Business Central eller Monitor ERP billigare?",
-        a: "Total kostnad beror på antal användare och anpassningar. Som tumregel ligger BC:s licensmodell öppet redovisad (1 100–1 580 kr/användare/månad), medan Monitor är offertbaserad. Implementationen är ofta i samma intervall men Monitor tenderar att bli något dyrare vid komplex svensk tillverkning.",
+        a: "Total kostnad beror på antal användare och anpassningar. Som tumregel ligger BC:s licensmodell öppet redovisad (765 kr Essentials / 1 050 kr Premium per användare/månad, exkl. moms), medan Monitor är offertbaserad. Implementationen är ofta i samma intervall men Monitor tenderar att bli något dyrare vid komplex svensk tillverkning.",
       },
       {
         q: "Kan Business Central hantera MPS och produktion lika bra som Monitor?",
