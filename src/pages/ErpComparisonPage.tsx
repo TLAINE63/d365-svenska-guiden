@@ -37,7 +37,7 @@ const ErpComparisonPage = () => {
       <main className="pt-10 flex-1">
         {/* HERO */}
         <section className="bg-[hsl(var(--hero-dark))] border-b border-primary/20 text-white">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl py-6 sm:py-10">
+          <div className="container mx-auto px-4 sm:px-6 max-w-5xl py-8 sm:py-12">
             <p className="text-xs font-semibold uppercase tracking-wide text-white/70 mb-3">
               Konkurrentjämförelse · Köparsidigt perspektiv
             </p>

@@ -219,7 +219,7 @@ export default function SalesRoiCalculator() {
       <main className="pt-10">
         {/* HERO */}
         <section className="border-b border-border bg-gradient-to-br from-secondary/60 to-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-6 sm:py-10">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-8 sm:py-12">
             <nav aria-label="Brödsmulor" className="text-xs text-muted-foreground mb-4">
               <Link to="/" className="hover:text-foreground">Hem</Link>
               <span className="mx-2">/</span>
@@ -258,7 +258,7 @@ export default function SalesRoiCalculator() {
         </section>
 
         {/* KALKYL */}
-        <section id="kalkyl" className="py-6 sm:py-10">
+        <section id="kalkyl" className="py-8 sm:py-12">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <div className="grid lg:grid-cols-5 gap-8">
               {/* INPUT */}

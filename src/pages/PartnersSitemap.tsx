@@ -44,7 +44,7 @@ export default function PartnersSitemap() {
       <Navbar />
 
       <main className="pt-10">
-        <section className="py-6 sm:py-10 bg-gradient-to-br from-secondary/60 to-background">
+        <section className="py-8 sm:py-12 bg-gradient-to-br from-secondary/60 to-background">
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
             <nav aria-label="Brödsmulor" className="text-xs text-muted-foreground mb-4">
               <Link to="/" className="hover:text-foreground">Hem</Link>

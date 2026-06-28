@@ -120,7 +120,7 @@ const Agents = () => {
       </header>
 
       {/* What are Agents Section */}
-      <section className="py-6 sm:py-10 md:py-12 bg-background">
+      <section className="py-8 sm:py-12 md:py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-10 sm:mb-12">
@@ -195,7 +195,7 @@ const Agents = () => {
       </section>
 
       {/* Key Capabilities Section */}
-      <section className="py-6 sm:py-10 md:py-12 bg-secondary/30">
+      <section className="py-8 sm:py-12 md:py-16 bg-secondary/30">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-10 sm:mb-12">
@@ -254,7 +254,7 @@ const Agents = () => {
       </section>
 
       {/* Use Cases Section */}
-      <section className="py-6 sm:py-10 md:py-12 bg-background">
+      <section className="py-8 sm:py-12 md:py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-10 sm:mb-12">
@@ -404,7 +404,7 @@ const Agents = () => {
       </section>
 
       {/* Videos Section */}
-      <section className="py-6 sm:py-10 md:py-12 bg-secondary/30">
+      <section className="py-8 sm:py-12 md:py-16 bg-secondary/30">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-10">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -423,7 +423,7 @@ const Agents = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-6 sm:py-10 md:py-12 bg-background">
+      <section className="py-8 sm:py-12 md:py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-10 sm:mb-12">
@@ -484,7 +484,7 @@ const Agents = () => {
       </section>
 
       {/* Integration Section */}
-      <section className="py-6 sm:py-10 md:py-12 bg-secondary/30">
+      <section className="py-8 sm:py-12 md:py-16 bg-secondary/30">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="bg-gradient-to-br from-primary/10 via-accent/10 to-primary/5 rounded p-8 border border-primary/20">
@@ -526,7 +526,7 @@ const Agents = () => {
       </section>
 
       {/* Deep Dive Articles */}
-      <section className="py-6 sm:py-10 md:py-12 bg-muted/30">
+      <section className="py-8 sm:py-12 md:py-16 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4">Fördjupningsartiklar</h2>
           <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
@@ -559,7 +559,7 @@ const Agents = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-6 sm:py-10 md:py-12 bg-background">
+      <section className="py-8 sm:py-12 md:py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">

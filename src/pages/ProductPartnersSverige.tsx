@@ -78,7 +78,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
 
       <main className="pt-10">
         {/* Hero */}
-        <section className="py-6 sm:py-10 bg-gradient-to-br from-secondary/60 to-background">
+        <section className="py-8 sm:py-12 bg-gradient-to-br from-secondary/60 to-background">
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
             <nav aria-label="Brödsmulor" className="text-xs text-muted-foreground mb-4">
               <Link to="/" className="hover:text-foreground">Hem</Link>
@@ -103,7 +103,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
         </section>
 
         {/* Partners – plain HTML list */}
-        <section className="py-6 sm:py-10">
+        <section className="py-8 sm:py-12">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
               {partners.length} {partners.length === 1 ? "partner" : "partners"} att jämföra
@@ -151,7 +151,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
 
         {/* FAQ */}
         {cfg.faq.length > 0 && (
-          <section className="py-6 sm:py-10 bg-secondary/40 border-t border-border">
+          <section className="py-8 sm:py-12 bg-secondary/40 border-t border-border">
             <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
                 Vanliga frågor
@@ -169,7 +169,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
         )}
 
         {/* Related landing pages */}
-        <section className="py-6 sm:py-10 border-t border-border">
+        <section className="py-8 sm:py-12 border-t border-border">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
             <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6">
               Utforska partners inom andra Dynamics 365-områden
@@ -191,7 +191,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
         </section>
 
         {/* CTA */}
-        <section className="py-6 sm:py-10 bg-secondary/40 border-t border-border">
+        <section className="py-8 sm:py-12 bg-secondary/40 border-t border-border">
           <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
               Vill du ha hjälp att hitta rätt {cfg.productLabel}-partner?

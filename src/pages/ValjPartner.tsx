@@ -507,7 +507,7 @@ const ValjPartner = () => {
 
 
  {/* Fem viktiga frågor Section */}
- <section className="py-6 sm:py-10 md:py-12 bg-secondary/50">
+ <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-4xl mx-auto">
  <div className="text-center mb-8 sm:mb-10 md:mb-12">
@@ -626,7 +626,7 @@ const ValjPartner = () => {
  )}
 
 
- <section className="py-6 sm:py-10 md:py-12 bg-background">
+ <section className="py-8 sm:py-12 md:py-16 bg-background">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10 mb-8 sm:mb-10 md:mb-12">
  {/* Partner Map */}

@@ -116,7 +116,7 @@ const D365ContactCenter = () => {
 
 
       {/* Introduction Section */}
-      <section className="py-6 sm:py-10 md:py-12 bg-background">
+      <section className="py-8 sm:py-12 md:py-16 bg-background">
 
       <StandardProductSections productName="Contact Center" data={PRODUCT_STANDARD_SECTIONS["contact-center"]} />
 
@@ -139,7 +139,7 @@ const D365ContactCenter = () => {
       </section>
 
       {/* Video Section */}
-      <section className="py-6 sm:py-10 md:py-12 bg-secondary/50">
+      <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 sm:mb-8 text-center">
@@ -156,7 +156,7 @@ const D365ContactCenter = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-6 sm:py-10 md:py-12 bg-background">
+      <section className="py-8 sm:py-12 md:py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-8 sm:mb-10 md:mb-12 text-center">
@@ -205,7 +205,7 @@ const D365ContactCenter = () => {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-6 sm:py-10 md:py-12 bg-secondary/50">
+      <section id="pricing" className="py-8 sm:py-12 md:py-16 bg-secondary/50">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 sm:mb-16">
             <div className="flex justify-center items-center gap-3 mb-4">
@@ -230,7 +230,7 @@ const D365ContactCenter = () => {
       </section>
 
       {/* Implementation Section */}
-      <section className="py-6 sm:py-10 md:py-12 bg-background">
+      <section className="py-8 sm:py-12 md:py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-5xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 sm:mb-8 text-center">
@@ -274,7 +274,7 @@ const D365ContactCenter = () => {
       <CostBreakdown product="contact-center" />
 
       {/* Deep-dive articles */}
-      <section className="py-6 sm:py-10 bg-secondary/30">
+      <section className="py-8 sm:py-12 bg-secondary/30">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center mb-3">Fördjupningsartiklar</h2>
           <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">Utforska Dynamics 365 Contact Center på djupet — från AI-drivna voicebots och intelligent routing till compliance och conversational intelligence.</p>
@@ -305,7 +305,7 @@ const D365ContactCenter = () => {
       <ApplicationPartners applicationFilter="Contact Center" pageSource="D365 Contact Center" />
 
       {/* CTA Section */}
-      <section className="py-6 sm:py-10 md:py-12 bg-contact-center">
+      <section className="py-8 sm:py-12 md:py-16 bg-contact-center">
         <div className="container mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
             Redo att modernisera ditt kontaktcenter?

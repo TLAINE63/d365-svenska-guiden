@@ -514,7 +514,7 @@ const Index = () => {
  <TrustBanner variant="full" />
 
  {/* SEO-anchor — Vad är Microsoft Dynamics 365 + inline internal links */}
- <section className="section-divider py-6 sm:py-10 bg-white border-b border-border">
+ <section className="section-divider py-8 sm:py-12 bg-white border-b border-border">
    <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
      <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-[hsl(var(--signature))] mb-3">
        Översikt
@@ -599,7 +599,7 @@ const Index = () => {
 
 
     {/* Förtroendesektion: Köparsidiga rådgivare + E-bok + 3 pillars */}
-    <section className="section-divider px-4 sm:px-6 py-6 sm:py-10 bg-white border-b border-border">
+    <section className="section-divider px-4 sm:px-6 py-8 sm:py-12 bg-white border-b border-border">
 
       <div className="container mx-auto max-w-6xl">
         <div className="flex flex-col gap-12 lg:gap-16">
@@ -875,7 +875,7 @@ const Index = () => {
 
 
  {/* Block 9 — Mest lästa guider */}
- <section className="section-divider py-6 sm:py-10 bg-white">
+ <section className="section-divider py-8 sm:py-12 bg-white">
 
  <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
   <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-1">Frågorna som avgör beslutet</h2>
@@ -904,7 +904,7 @@ const Index = () => {
 
  {/* Block 10 — Branschvägar (dold) */}
  {/*
- <section className="py-6 sm:py-10 bg-white">
+ <section className="py-8 sm:py-12 bg-white">
  <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
  <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-8">
  <div>
@@ -953,7 +953,7 @@ const Index = () => {
  </section>
 
  {/* Block 12 — Vanliga frågor */}
- <section id="questions" className="section-divider py-6 sm:py-10 bg-secondary">
+ <section id="questions" className="section-divider py-8 sm:py-12 bg-secondary">
 
  <div className="container mx-auto px-4 sm:px-6">
  <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold text-center mb-8 sm:mb-10 md:mb-12">

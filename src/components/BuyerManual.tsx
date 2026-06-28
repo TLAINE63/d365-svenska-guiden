@@ -44,7 +44,7 @@ const BuyerManual = ({ product, heading = "Köparmanual", subheading }: BuyerMan
   const intro = subheading ?? content.intro;
 
   return (
-    <section className="py-6 sm:py-10 md:py-12 bg-secondary/40 border-y border-border">
+    <section className="py-8 sm:py-12 md:py-16 bg-secondary/40 border-y border-border">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="max-w-3xl mb-8 sm:mb-12">
           <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">

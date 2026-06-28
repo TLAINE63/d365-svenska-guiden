@@ -443,7 +443,7 @@ const Events = () => {
  </section>
 
  {/* Visible FAQ section (mirrors FAQSchema for AIO / search readiness) */}
- <section className="py-6 sm:py-10 bg-secondary/40 border-t border-border">
+ <section className="py-8 sm:py-12 bg-secondary/40 border-t border-border">
  <div className="container mx-auto px-4 max-w-4xl">
  <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
  Vanliga frågor om Dynamics 365-event
