@@ -34,7 +34,7 @@ export const PRODUCT_STANDARD_SECTIONS: Record<string, StandardSectionsData> = {
 
   "finance-supply-chain": {
     buyerNeeds: [
-      "Vi har vuxit ur Business Central, Jeeves, IFS eller liknande och behöver enterprise-funktionalitet.",
+      "Vi har vuxit ur AX/Axapta, Jeeves, IFS eller liknande och behöver enterprise-funktionalitet.",
       "Vi expanderar internationellt och behöver flerbolags-, flervaluta- och flerregelverksstöd.",
       "Vi har komplex tillverkning, supply chain eller lagerlogik som standard-ERP inte täcker.",
       "Vi behöver djupare integration mellan finance, supply chain, warehouse och production.",
