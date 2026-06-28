@@ -185,17 +185,6 @@ export default function ProductRoiAnalysis({
             nytta utifrån era nyckeltal. Kalkylen är medvetet förenklad – den ska ge
             storleksordning, inte ersätta en business case-analys.
           </p>
-          {cfg.deepDivePath && (
-            <p className="text-xs sm:text-sm mt-3">
-              <Link
-                to={cfg.deepDivePath}
-                className="text-primary font-medium hover:underline inline-flex items-center gap-1"
-              >
-                Öppna djup-kalkylatorn med bransch &amp; ISV-rekommendationer
-                <ArrowRight className="w-3 h-3" />
-              </Link>
-            </p>
-          )}
         </div>
 
         <div className="grid lg:grid-cols-5 gap-6 lg:gap-8">
