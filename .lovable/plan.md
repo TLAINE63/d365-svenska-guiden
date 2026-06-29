@@ -1,68 +1,55 @@
 ## Mål
+Göra om startsidan så att **partnervalet** är den primära användarresan. Innehåll/guider/AI/mognadsindex finns kvar men i en stödjande roll längre ned. Ren, professionell skandinavisk B2B-känsla.
 
-Utvidga konkurrentjämförelserna från enbart Business Central till samtliga D365-produkter där det finns relevanta konkurrenter. Återanvänd befintlig sidmall (`ErpComparisonPage.tsx`) och hubbstruktur, men generalisera datamodellen så den fungerar för alla produkter.
+## Det här bygger jag (i `src/pages/Index.tsx`)
 
-## Nya jämförelser som ska byggas (13 st)
+Befintliga `<Navbar />`, `<Footer />`, SEO-komponenter och `LatestArticlesStrip`/`HomePartnersTeaser` behålls. Allt annat i `<main>` ersätts med följande 8 sektioner.
 
-| Produkt | Konkurrenter |
-|---|---|
-| Finance & SCM | SAP S/4HANA, Infor M3 |
-| Sales | Salesforce Sales Cloud, HubSpot Sales Hub |
-| Customer Service | Zendesk, ServiceNow CSM, Salesforce Service Cloud |
-| Customer Insights | Salesforce Marketing Cloud / Data Cloud, HubSpot Marketing Hub |
-| Contact Center | Genesys Cloud CX, NICE CXone, Puzzel, Telia ACE |
-| Field Service | Salesforce Field Service |
+**1. Hero**
+- H1: *Microsoft Dynamics 365 — Guider, jämförelser och partnerval på köparens villkor* (behålls)
+- Ingress: *Dynamics 365 är inte ett systemval. Det är ett verksamhetsbeslut…*
+- Subheadline: *"Välj rätt Dynamics 365-partner"* + *"Hitta partners baserat på bransch, lösning, företagsstorlek och geografi – på köparens villkor."*
+- **Primär CTA (stor, orange):** "Starta partnermatchning" → `/valjdynamics365partner/`
+- Sekundära CTA:er: "Starta behovsanalys" (öppnar direction picker), "Läs guider" → `/kunskapscenter/`
+- Diskret 4-stegs-grafik: Bransch → Lösning → Storlek → Geografi
 
-## Teknisk lösning
+**2. Så hittar ni rätt partner** (4-stegs horisontellt flöde med ikoner) + tydlig CTA "Starta partnermatchning". Microcopy: *"Matchningen bygger på relevans – inte sponsring."*
 
-### 1. Generalisera datamodellen
-Döp om `src/data/erpComparisons.ts` → `src/data/productComparisons.ts` och refaktorera:
-- Byt fältnamn `bc` / `bcSummary` / `bcLimits` → `product` / `productSummary` / `productLimits`
-- Lägg till fält: `productKey` (`'bc' | 'fscm' | 'sales' | 'customer-service' | 'customer-insights' | 'contact-center' | 'field-service'`), `productName`, `productPath` (länk tillbaka till produktsidan)
-- Behåll `COMMON_ROWS`-helpern men en variant per produkt (priser/implementationstid skiljer sig markant mellan t.ex. BC och F&SCM)
+**3. Var står ni i processen?** — 3 kort: Hitta partner / Förstå behov / Läs på. En CTA per kort.
 
-### 2. Slug-konvention
-Behåll `/jamfor/{slug}/` – nya slugar t.ex.:
-`fscm-vs-sap`, `fscm-vs-infor-m3`, `sales-vs-salesforce`, `sales-vs-hubspot`, `customer-service-vs-zendesk`, `customer-service-vs-servicenow`, `customer-service-vs-salesforce-service-cloud`, `customer-insights-vs-salesforce-marketing-cloud`, `customer-insights-vs-hubspot`, `contact-center-vs-genesys`, `contact-center-vs-nice-cxone`, `contact-center-vs-puzzel`, `contact-center-vs-telia-ace`, `field-service-vs-salesforce-field-service`.
+**4. Från behov till rätt partner** — lätt 3-stegs visualisering: Behovsanalys → Kravspec → Partner.
 
-### 3. Uppdatera sidor
-- `ErpComparisonPage.tsx`: Använd dynamisk produktreferens (titel, summary, "Tillbaka till {produkt}"-länk). Disclaimer + 7 000-tilläggsraden behålls (men ISV-meningen anpassas per produkt – Salesforce AppExchange osv. skrivs in på konkurrentsidan).
-- `ErpComparisonsHub.tsx`: Gruppera kort per produkt (sektioner: ERP / Sales / Customer Service / Marketing / Contact Center / Field Service).
-- Döp om `/jamfor/` (ErpComparisonsHub) `title` + intro till "D365-jämförelser" istället för ERP-specifik.
+**5. Fördjupa analysen** — grid med 4 verktyg: Behovsanalys, Kravspec, **"Hur redo är ni?"** (omdöpt Mognadsindex), AI-sök. Varje kort: 1 mening + "Starta".
 
-### 4. Kunskapscenter-integration
-I `src/data/knowledgeHubs.ts`:
-- Behåll BC-hubbens 6 ERP-jämförelser
-- Lägg till motsvarande "Konkurrentjämförelse"-block i hubbarna för Sales, Customer Service, Customer Insights, Contact Center, Field Service och F&SCM
-- Helper `erpComparisonsAsResources` generaliseras till `comparisonsAsResources(productKey)`
+**6. Så fungerar d365.se** — transparensbullets (säljer inte system, relevansbaserad matchning, ingen kan köpa placering). Använder befintlig `TrustBanner`-stil.
 
-### 5. Routing & sitemap
-- `App.tsx`: route `/jamfor/:slug/` finns redan, träffar nya slugar automatiskt
-- SSG: lägg till nya slugar i `partnerRoutes.json` / motsvarande prerender-lista
-- `sitemap-jamfor.xml`-generatorn plockar upp alla från `productComparisons.ts`
+**7. Guider och insikter** — befintlig `LatestArticlesStrip` + "Se alla artiklar" → `/kunskapscenter/`.
 
-### 6. Innehållskvalitet
-Varje jämförelse innehåller (oförändrat mot dagens struktur):
-- Köparsidig intro
-- "Bäst för"-bullets för båda sidor
-- 10 strukturerade tabellrader (arkitektur, licens, impl-tid, impl-kostnad, ISV, MS365-integration, AI, lokal redovisning/lokalisering, internationell, partnernätverk)
-- "När passar inte X" för båda
-- 4–6 FAQ:s (driver FAQPage-schema)
-- Disclaimer-block (priser/funktioner ändras över tid)
+**8. Slutlig CTA** — "Redo att hitta rätt partner?" + primär "Starta partnermatchning" / sekundär "Boka rådgivning" (`/kontakt/`).
 
-För **Puzzel** och **Telia ACE** noteras särskilt nordiskt/svenskt fokus, lokal support och eventuell PTS/myndighetspositionering – det är deras huvudsakliga differentiator vs Microsoft.
+Längst ned: nuvarande FAQ-accordion och `<TrustBanner />` behålls.
 
-### 7. Disclaimers
-Alla nya sidor får samma disclaimer som BC-jämförelserna idag. För Contact Center och Field Service läggs en extra notering om att Microsoft fortfarande utvecklar produkterna snabbt (Contact Center är ung; Field Service har genomgått stora UI-omarbetningar).
+## Navigeringsändring (`src/components/Navbar.tsx`)
+- Döp om desktop-länken **"Hitta bransch & partner"** → **"Hitta partner"** (länken pekar fortsatt mot `/valjdynamics365partner/` istället för `/branscher/` — för att matcha den primära CTA:n).
+- Mobil-länken byts på motsvarande sätt.
+- Övrig dropdown-struktur (Verktyg & guider, ERP, Marknad/Sälj/Service, Microsoft AI, AI-sök, Kunskapscenter) lämnas orörd — den följer redan önskad prioritetsordning.
 
-## Arbetsordning (i en följd, ingen mellandialog)
+## Det här tar jag bort/flyttar
+- `situationCards`-griden (9 kort) plockas bort från startsidan — ersätts av 3-kortslayouten i sektion 3 och 4-stegsflödet i sektion 2.
+- `popularGuides`-lista ersätts av `LatestArticlesStrip` i sektion 7 (redan importerad).
+- Befintliga utkommenterade "Börja här"-block tas bort helt.
+- "Hur redo är ni för Dynamics 365?"-blocket längst ned ersätts av den nya sektion 5-kompakta varianten.
 
-1. Refaktorera datamodellen + befintliga 6 BC-jämförelser till nya fältnamn (rent omdöp – ingen innehållsförändring).
-2. Lägg till alla 13 nya jämförelser i `productComparisons.ts`.
-3. Uppdatera `ErpComparisonPage.tsx` + `ErpComparisonsHub.tsx` (gruppering per produkt, dynamiska "tillbaka till produkt"-länkar).
-4. Lägg till comparisons i 5 nya kunskapscenter-hubbar.
-5. Verifiera build.
+## Designtokens / stil
+- Använder befintliga tokens: `--hero-dark`, `--signature`, `--cta-orange`, `--line-dark`, `bg-card`, `text-foreground` osv. Inga hårdkodade färger.
+- Sektioner alternerar `bg-[hsl(var(--hero-dark))]` (mörka: hero + final CTA + transparens) och ljus `bg-background` (steg, kort, verktyg, artiklar).
+- Max 1 primär (orange) CTA per sektion. Sekundära som outline.
+- Mobile-first: 4-stegsflödet blir vertikalt på mobil, 3-kortsgriden `grid-cols-1 md:grid-cols-3`, verktygsgriden `grid-cols-2 md:grid-cols-4`.
 
-## Omfattning
+## Filer som ändras
+- `src/pages/Index.tsx` (stor omskrivning av `<main>`-innehållet, behåller imports/SEO/Navbar/Footer).
+- `src/components/Navbar.tsx` (en label-/path-ändring desktop + mobil).
 
-Stort innehållsarbete – ca 13 × (10 rader + 4–6 FAQ + intro/limits) ≈ 2 000–2 500 rader ny data. Inga nya beroenden, ingen DB-migration, endast frontend/SSG.
+Inga datamodeller, edge functions eller routes berörs. SEO-titel/description, FAQ-schema, `OrganizationSchema`, `WebSiteSchema`, `LocalBusinessSchema` lämnas oförändrade.
+
+Säg till om något ska justeras — annars bygger jag enligt detta.
