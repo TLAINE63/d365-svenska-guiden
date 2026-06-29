@@ -404,6 +404,14 @@ export default function PartnerProductTabs({
                 </p>
               ) : null}
 
+              {data.whyChoose && (
+                <div className="mt-4 text-[15px] sm:text-base text-foreground leading-relaxed max-w-[72ch] whitespace-pre-line">
+                  {data.whyChoose}
+                </div>
+              )}
+
+
+
 
               {data.productDescription && (
                 <div className="mt-5 border-l-2 border-primary/40 pl-4 py-1 text-[15px] text-foreground/80 leading-relaxed max-w-[72ch]">
