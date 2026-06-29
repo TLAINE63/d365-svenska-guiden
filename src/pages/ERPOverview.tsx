@@ -375,10 +375,10 @@ const ERPOverview = () => {
  vägledning baserad på ditt företags specifika förutsättningar.
  </p>
  <Link to="/ERPbehovsanalys/">
- <Button 
- size="lg"
- className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg h-14 sm:h-16 rounded px-8"
- >
+  <Button 
+  size="lg"
+  className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white text-lg h-14 sm:h-16 rounded px-8"
+  >
  <ClipboardList className="mr-2 h-5 w-5" />
  Starta ERP Behovsanalysen
  </Button>
