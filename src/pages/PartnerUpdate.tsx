@@ -800,7 +800,7 @@ const PartnerUpdate = () => {
  // Helper function for cascading geography selection
  // When selecting a higher level, automatically include all lower levels
  const getCascadingGeography = (selectedGeo: string, currentSelection: string[]): string[] => {
- const hierarchy = ['Sverige', 'Norden', 'Europa', 'Övriga världen'];
+ const hierarchy = ['Sverige', 'Norden', 'Europa', 'Globalt'];
  const selectedIndex = hierarchy.indexOf(selectedGeo);
  
  if (selectedIndex === -1) return [...currentSelection, selectedGeo];
