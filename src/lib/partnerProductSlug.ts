@@ -13,6 +13,7 @@
 export type PartnerProductSlug =
   | "business-central"
   | "finance-supply-chain"
+  | "crm"
   | "sales"
   | "customer-insights"
   | "customer-service"
@@ -26,6 +27,8 @@ export type PartnerProductSlug =
 export const SLUG_TO_PRODUCT_NAME: Record<PartnerProductSlug, string> = {
   "business-central": "Business Central",
   "finance-supply-chain": "Finance & SCM",
+  "crm": "CRM",
+
   "sales": "Sales",
   "customer-insights": "Customer Insights (Marketing)",
   "customer-service": "Customer Service",
