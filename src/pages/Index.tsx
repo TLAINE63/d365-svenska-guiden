@@ -85,8 +85,8 @@ const Index = () => {
   } as const;
 
   const matchSteps = [
-    { n: 1, icon: Layers, title: "Välj Dynamics 365-Lösning", desc: "ERP, CRM eller en specifik Dynamics 365-app." },
-    { n: 2, icon: Building2, title: "Välj passande bransch", desc: "Tillverkning, retail, tjänster, life science m.fl." },
+    { n: 1, icon: Building2, title: "Välj passande bransch", desc: "Tillverkning, retail, tjänster, life science m.fl." },
+    { n: 2, icon: Layers, title: "Välj Dynamics 365-Lösning", desc: "ERP, CRM eller en specifik Dynamics 365-app." },
     { n: 3, icon: Map, title: "Filtrera geografi", desc: "Lokal närvaro där ni verkar." },
     { n: 4, icon: Users, title: "Ange företagsstorlek", desc: "Antal anställda och omsättning." },
   ];
@@ -205,7 +205,7 @@ const Index = () => {
                     size="lg"
                     className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-base h-14 px-7 rounded font-bold hover:-translate-y-0.5 transition-all justify-center"
                   >
-                    <Link to="/valjdynamics365partner/">
+                    <Link to="/branscher/">
                       Starta partnermatchning
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </Link>
@@ -295,7 +295,7 @@ const Index = () => {
                 size="lg"
                 className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white h-13 px-7 rounded font-bold hover:-translate-y-0.5 transition-all"
               >
-                <Link to="/valjdynamics365partner/">
+                <Link to="/branscher/">
                   Starta partnermatchning
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Link>
