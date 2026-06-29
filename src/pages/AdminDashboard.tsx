@@ -1441,6 +1441,7 @@ Thomas`,
  }
  });
 
+  try {
   // Clean out empty product filters (no meaningful content)
   const cleanedProductFilters: Record<string, any> = {};
   if (partnerFormData.product_filters) {
