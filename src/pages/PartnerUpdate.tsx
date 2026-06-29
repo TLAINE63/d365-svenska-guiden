@@ -1104,7 +1104,23 @@ const PartnerUpdate = () => {
       <div className="text-sm text-foreground">
         <p className="font-medium">Denna information används för att matcha er med rätt kunder.</p>
         <p>Ju tydligare ni beskriver er spets, desto bättre träffsäkerhet.</p>
+        <p className="text-xs text-muted-foreground mt-2">
+          Aktivera enbart de lösningar ni faktiskt levererar. Lämna övriga avmarkerade – det räknas som <em>"Vi erbjuder inte denna lösning"</em>.
+        </p>
       </div>
+    </div>
+
+    {/* Top partners gör så här */}
+    <div className="rounded-lg border border-emerald-200 dark:border-emerald-900/40 bg-emerald-50/60 dark:bg-emerald-950/20 p-3">
+      <div className="flex items-center gap-2 mb-1.5">
+        <span className="text-base">🔥</span>
+        <span className="text-xs font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-300">Top partners gör så här</span>
+      </div>
+      <ul className="text-xs text-foreground/80 space-y-0.5 pl-1">
+        <li>✔ 3 tydliga branscher per produkt</li>
+        <li>✔ 3–4 punkter i "Varför välja er"</li>
+        <li>✔ Minst 2 kundcase med kända namn</li>
+      </ul>
     </div>
 
     <div className="flex flex-wrap gap-2">
