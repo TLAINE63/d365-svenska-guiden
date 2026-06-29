@@ -24,6 +24,7 @@ export interface ProductFilterInput {
   customerCaseLinks?: string[]; // Links to customer case studies
   productDescription?: string;  // Short description of partner's offering for this product
   whyChoose?: string;           // Required: Why customers should choose this partner for this product
+  keyPoints?: string;           // 3-4 concrete bullet points about strengths, projects, segments, differentiation
   // AI capability fields
   aiCapabilities?: string[];    // Which AI solution types the partner has delivered
   aiProjectCount?: string;      // Number of AI projects last 24 months: "0-2", "3-5", "6+"

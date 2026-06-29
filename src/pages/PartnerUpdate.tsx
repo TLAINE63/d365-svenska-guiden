@@ -100,10 +100,11 @@ interface ProductFilter {
  revenue?: string[];
  ranking: number;
  customerExamples: string[];
- customerCaseLinks: string[];
+  customerCaseLinks: string[];
   productDescription: string;
   whyChoose: string;
- // AI capability fields
+  keyPoints: string;
+  // AI capability fields
  aiCapabilities: string[];
  aiProjectCount: string;
  hasBuiltAgents: boolean | null;
@@ -164,7 +165,8 @@ const emptyProductFilter: ProductFilter = {
  customerCaseLinks: [],
   productDescription: "",
   whyChoose: "",
- aiCapabilities: [],
+  keyPoints: "",
+  aiCapabilities: [],
  aiProjectCount: "",
  hasBuiltAgents: null,
  aiCaseDescription: "",
@@ -1399,6 +1401,26 @@ const PartnerUpdate = () => {
               required
             />
             <p className="text-xs text-muted-foreground mt-1">Obligatoriskt. Visas högst upp på er produktflik på partnerprofilen.</p>
+          </div>
+
+          {/* Key differentiators / concrete points */}
+          <div>
+            <Label className="text-sm">
+              3–4 konkreta punkter om {section.label} <span className="text-destructive">*</span>
+            </Label>
+            <p className="text-xs text-muted-foreground mt-1 mb-2">
+              En punkt per rad. Fokusera på er styrka, typ av projekt ni gör bäst, bransch/kundsegment och vad som skiljer er från andra partners.
+            </p>
+            <Textarea
+              placeholder={`Erfarenhet av Finance & SCM i tillverkningsbolag\nProjekt i internationella miljöer\nFokus på komplex produktion`}
+              value={filter.keyPoints || ''}
+              onChange={(e) => updateProductFilter(productKey, { keyPoints: e.target.value })}
+              className="mt-2 min-h-[100px]"
+              required
+            />
+            <p className="text-xs text-muted-foreground mt-1">
+              Undvik “vi erbjuder” och generell företagsbeskrivning. Visas som punktlista på er produktflik.
+            </p>
           </div>
 
 

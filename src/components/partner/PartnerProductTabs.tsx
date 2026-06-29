@@ -147,6 +147,7 @@ interface TabData {
   customerCaseLinks: string[];
   productDescription: { text: string; aiGenerated: boolean } | null;
   whyChoose: string | null;
+  keyPoints: string[];
   apps: string[];
   industryApps: Array<{ name: string; url: string; application: string; industry: string; description: string }>;
   contact: { name?: string; email?: string; phone?: string } | null;
@@ -198,6 +199,20 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
     if (txt) { whyChoose = txt; break; }
   }
 
+  // Key points (per product) — first non-empty, split into lines
+  let keyPoints: string[] = [];
+  for (const k of keys) {
+    const txt = pf[k]?.keyPoints?.trim();
+    if (txt) {
+      keyPoints = txt
+        .split(/\n/)
+        .map((p: string) => p.trim().replace(/^[•\-\*]\s*/, ""))
+        .filter(Boolean)
+        .slice(0, 6);
+      break;
+    }
+  }
+
   // Apps for this tab
   const appCategoryMap: Record<TabKey, string[]> = {
     bc: ["Business Central"],
@@ -245,6 +260,7 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
     customerCaseLinks,
     productDescription,
     whyChoose,
+    keyPoints,
     apps,
     industryApps,
     contact,
@@ -410,8 +426,16 @@ export default function PartnerProductTabs({
                 </div>
               )}
 
-
-
+              {data.keyPoints.length > 0 && (
+                <ul className="mt-5 space-y-2 max-w-[72ch]">
+                  {data.keyPoints.map((point, idx) => (
+                    <li key={idx} className="flex items-start gap-3 text-[15px] text-foreground">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
 
               {data.productDescription && (
                 <div className="mt-5 border-l-2 border-primary/40 pl-4 py-1 text-[15px] text-foreground/80 leading-relaxed max-w-[72ch]">

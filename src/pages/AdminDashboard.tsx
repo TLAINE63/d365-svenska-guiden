@@ -1441,16 +1441,23 @@ Thomas`,
  }
  });
 
- try {
- // Clean out empty product filters (no industries and no description)
- const cleanedProductFilters: Record<string, any> = {};
- if (partnerFormData.product_filters) {
- Object.entries(partnerFormData.product_filters).forEach(([key, filter]) => {
- if (filter && (filter.industries?.length > 0 || filter.productDescription?.trim())) {
- cleanedProductFilters[key] = filter;
- }
- });
- }
+  try {
+  // Clean out empty product filters (no meaningful content)
+  const cleanedProductFilters: Record<string, any> = {};
+  if (partnerFormData.product_filters) {
+  Object.entries(partnerFormData.product_filters).forEach(([key, filter]) => {
+  const hasContent =
+  filter && (
+  filter.industries?.length > 0 ||
+  filter.productDescription?.trim() ||
+  filter.whyChoose?.trim() ||
+  filter.keyPoints?.trim()
+  );
+  if (hasContent) {
+  cleanedProductFilters[key] = filter;
+  }
+  });
+  }
 
  const dataToSend = {
  ...partnerFormData,
@@ -4190,6 +4197,26 @@ Thomas`,
   className="mt-2 min-h-[100px]"
   />
   <p className="text-xs text-muted-foreground mt-1">Obligatoriskt fält. Visas högst upp under produktfliken på partnerprofilen.</p>
+  </div>
+
+  {/* Key differentiators / concrete points (required) */}
+  <div>
+  <Label className="text-sm">
+  3–4 konkreta punkter om {section.label} <span className="text-destructive">*</span>
+  </Label>
+  <p className="text-xs text-muted-foreground mt-1 mb-2">
+    En punkt per rad. Fokusera på er styrka, typ av projekt ni gör bäst, bransch/kundsegment och vad som skiljer er från andra partners.
+  </p>
+  <Textarea
+  placeholder={`Erfarenhet av Finance & SCM i tillverkningsbolag\nProjekt i internationella miljöer\nFokus på komplex produktion`}
+  defaultValue={filter.keyPoints || ''}
+  key={`${section.key}-keyPoints-${editingPartner?.id || 'new'}`}
+  onBlur={(e) => updateProductFilter(section.key, { keyPoints: e.target.value.trim() })}
+  className="mt-2 min-h-[100px]"
+  />
+  <p className="text-xs text-muted-foreground mt-1">
+    Undvik “vi erbjuder” och generell företagsbeskrivning. Visas som punktlista under produktfliken.
+  </p>
   </div>
 
 
