@@ -16,6 +16,7 @@ import {
   ExternalLink,
   ArrowRight,
 } from "lucide-react";
+import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import type { DatabasePartner } from "@/hooks/usePartners";
 import LeadCTA from "@/components/LeadCTA";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
