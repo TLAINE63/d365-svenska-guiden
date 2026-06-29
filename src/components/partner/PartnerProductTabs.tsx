@@ -14,6 +14,7 @@ import {
   Package,
   ExternalLink,
   ArrowRight,
+  MapPin,
 } from "lucide-react";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import type { DatabasePartner } from "@/hooks/usePartners";
