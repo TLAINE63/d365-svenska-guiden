@@ -319,9 +319,9 @@ const AdminDashboard = () => {
  const { data: dbPartners = [], isLoading: isLoadingPartners, refetch: refetchPartners } = usePartners();
  const [fullPartners, setFullPartners] = useState<FullPartner[]>([]);
  const [isLoadingFullPartners, setIsLoadingFullPartners] = useState(false);
- const [partnerSortBy, setPartnerSortBy] = useState<'name' | 'updated_at'>('name');
- const [partnerSortDir, setPartnerSortDir] = useState<'asc' | 'desc'>('asc');
- const [partnerStatusFilter, setPartnerStatusFilter] = useState<'all' | 'published' | 'invited_unpublished' | 'not_invited' | 'agreement_signed' | 'billable' | 'has_email' | 'missing_email'>('all');
+  const [partnerSortBy, setPartnerSortBy] = useState<'name' | 'updated_at'>('updated_at');
+  const [partnerSortDir, setPartnerSortDir] = useState<'asc' | 'desc'>('desc');
+  const [partnerStatusFilter, setPartnerStatusFilter] = useState<'all' | 'published' | 'unpublished'>('all');
  const createPartner = useCreatePartner();
  const updatePartner = useUpdatePartner();
  const deletePartner = useDeletePartner();
