@@ -1170,6 +1170,44 @@ const PartnerUpdate = () => {
  </CardHeader>
  <CardContent className="space-y-4 pt-4">
  {(() => {
+   const checks = [
+     { ok: !!filter.productDescription?.trim(), label: 'Kort beskrivning' },
+     { ok: !!filter.whyChoose?.trim(), label: 'Varför välja er' },
+     { ok: !!filter.keyPoints?.trim(), label: 'Konkreta punkter' },
+     { ok: (filter.industries?.length || 0) > 0, label: 'Bransch' },
+     { ok: (filter.geography?.length || 0) > 0, label: 'Geografi' },
+     { ok: (filter.customerExamples?.length || 0) > 0, label: 'Case / kundexempel' },
+     { ok: !!filter.contactName?.trim() && !!filter.contactEmail?.trim(), label: 'Kontaktperson' },
+   ];
+   const done = checks.filter(c => c.ok).length;
+   const pct = Math.round((done / checks.length) * 100);
+   const missing = checks.filter(c => !c.ok);
+   const barColor = pct >= 80 ? 'bg-emerald-500' : pct >= 50 ? 'bg-amber-500' : 'bg-red-500';
+   return (
+     <div className="rounded-lg border border-border bg-muted/30 p-3">
+       <div className="flex items-center justify-between mb-2">
+         <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Kvalitetspoäng — {section.label}</span>
+         <span className="text-sm font-bold">{pct}% komplett</span>
+       </div>
+       <div className="h-1.5 rounded-full bg-border overflow-hidden mb-2">
+         <div className={`h-full ${barColor} transition-all`} style={{ width: `${pct}%` }} />
+       </div>
+       <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs">
+         {checks.map(c => (
+           <span key={c.label} className={c.ok ? 'text-emerald-700' : 'text-amber-700'}>
+             {c.ok ? '✔' : '⚠'} {c.label}
+           </span>
+         ))}
+       </div>
+       {missing.length > 0 && (
+         <p className="text-[11px] text-muted-foreground mt-2">
+           Komplettera {missing.length} fält för att öka er synlighet och matchning.
+         </p>
+       )}
+     </div>
+   );
+ })()}
+ {(() => {
    const currentStep = getProductStep(productKey);
    return (
      <>
