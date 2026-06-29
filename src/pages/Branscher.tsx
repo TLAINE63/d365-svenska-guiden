@@ -140,17 +140,7 @@ const Branscher = () => {
     return { filteredIndustries: filtered, filteredPartnerCounts: counts };
   }, [visibleIndustries, partners, selectedGeography, selectedCompanySize]);
 
-  const partnerCounts = useMemo(() => {
-    const counts: Record<string, number> = {};
-    (partners || [])
-      .filter((p) => p.is_featured === true)
-      .forEach((p) => {
-        collectPartnerIndustries(p).forEach((name) => {
-          counts[name] = (counts[name] || 0) + 1;
-        });
-      });
-    return counts;
-  }, [partners]);
+  const hasActiveFilters = selectedGeography || selectedCompanySize;
 
  return (
  <>
