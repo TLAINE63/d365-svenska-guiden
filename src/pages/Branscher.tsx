@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -8,6 +8,9 @@ import { ChevronRight, Sparkles } from "lucide-react";
 import { useCoveredIndustries } from "@/hooks/useCoveredIndustries";
 import { usePartners } from "@/hooks/usePartners";
 import { collectPartnerIndustries } from "@/lib/partnerIndustries";
+import { FilterButtons } from "@/components/FilterButtons";
+import { companySizes, geographyOptions } from "@/data/partners";
+import type { DatabasePartner } from "@/hooks/usePartners";
 
 const INDUSTRY_CONTEXT: Record<string, string> = {
  "tillverkning": "MES, spårbarhet, kvalitet",
