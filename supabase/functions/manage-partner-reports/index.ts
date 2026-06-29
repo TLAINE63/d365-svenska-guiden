@@ -894,6 +894,65 @@ serve(async (req) => {
         return new Response(JSON.stringify({ success: true }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
 
+      case "send-test-batch": {
+        const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+        if (!RESEND_API_KEY) throw new Error("RESEND_API_KEY saknas");
+        const resend = new Resend(RESEND_API_KEY);
+        const { ids, test_email } = data as { ids: string[]; test_email: string };
+        if (!Array.isArray(ids) || ids.length === 0) {
+          return new Response(JSON.stringify({ error: "Inga utkast valda" }), {
+            status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" }
+          });
+        }
+        if (!test_email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(test_email)) {
+          return new Response(JSON.stringify({ error: "Ogiltig testadress" }), {
+            status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" }
+          });
+        }
+        const { data: drafts, error: dErr } = await supabase
+          .from("partner_report_drafts").select("*").in("id", ids);
+        if (dErr) throw dErr;
+
+        const results: any[] = [];
+        for (const d of drafts || []) {
+          const excluded = new Set<string>(d.excluded_organisation_uuids || []);
+          const companies = (d.companies as any[]).filter((c: any) => !excluded.has(c.organisation_uuid));
+          if (companies.length === 0) {
+            results.push({ id: d.id, ok: false, error: "empty_after_exclusions" });
+            continue;
+          }
+          const html = buildEmailHtml({
+            partnerName: d.partner_name,
+            partnerSlug: d.partner_slug,
+            intro: d.intro_text || "",
+            companies,
+            periodLabel: monthLabel(new Date(`${d.period_start}T00:00:00Z`)),
+            siteOrigin: "https://www.d365.se",
+          });
+          const subject = `[GODKÄNN] ${d.subject} → ${d.recipient_email || "saknar mottagare"}`;
+          try {
+            const { error: sendErr } = await resend.emails.send({
+              from: "D365.se Rapporter <noreply@d365.se>",
+              to: [test_email],
+              subject,
+              html,
+            });
+            if (sendErr) throw new Error(sendErr.message || JSON.stringify(sendErr));
+            await supabase.from("email_send_log").insert({
+              recipient_email: test_email,
+              template_name: "partner-monthly-report-approval",
+              subject,
+              status: "sent",
+              metadata: { partner_slug: d.partner_slug, draft_id: d.id, intended_recipient: d.recipient_email, approval: true },
+            });
+            results.push({ id: d.id, partner: d.partner_name, ok: true });
+          } catch (e: any) {
+            results.push({ id: d.id, partner: d.partner_name, ok: false, error: e.message });
+          }
+        }
+        return new Response(JSON.stringify({ success: true, results }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
       default:
         return new Response(JSON.stringify({ error: "Okänd action" }), {
           status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" }
