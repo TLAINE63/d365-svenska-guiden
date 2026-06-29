@@ -185,10 +185,10 @@ const Index = () => {
                 Upphandlingsguiden för Microsoft Dynamics 365
               </div>
               <h1 className="text-[26px] sm:text-[34px] md:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
-                Microsoft Dynamics 365 — Guider, jämförelser och partnerval på köparens villkor
+                Har ni valt – eller överväger – Microsoft Dynamics 365?
               </h1>
               <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
-                Dynamics 365 är inte ett systemval. Det är ett verksamhetsbeslut. d365.se hjälper er förstå behovet, jämföra ERP- och CRM-alternativen sakligt och välja partner utifrån bransch, komplexitet och ambitionsnivå.
+                d365.se hjälper er förstå behovet, jämföra utbudet av Microsofts Affärssystem (ERP), CRM, Kundservicesystem och välja rätt partner.
               </p>
 
               <div className="border-t border-white/10 pt-7 mb-8">
