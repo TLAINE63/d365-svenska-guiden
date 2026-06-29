@@ -198,9 +198,6 @@ const Index = () => {
                 <p className="text-[15px] text-white/70 leading-relaxed max-w-2xl mb-2">
                   Få en lista med matchande partners på under en minut
                 </p>
-                <p className="text-[13px] sm:text-[14px] text-white/60 leading-relaxed max-w-2xl mb-6">
-                  • Byggt på 40+ års erfarenhet av Dynamics 365 och affärssystem
-                </p>
 
                 <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
                   <Button
