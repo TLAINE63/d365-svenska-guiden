@@ -84,8 +84,6 @@ export default function AllD365Partners() {
           </div>
         </section>
 
-        <TrustBanner variant="compact" />
-
 
 
         {/* Profiled partners */}
