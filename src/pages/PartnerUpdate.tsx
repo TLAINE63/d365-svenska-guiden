@@ -1317,7 +1317,7 @@ const PartnerUpdate = () => {
                En punkt per rad. Fokusera på er styrka, typ av projekt ni gör bäst, bransch/kundsegment och vad som skiljer er från andra partners.
              </p>
              <Textarea
-               placeholder={`Erfarenhet av Finance & SCM i tillverkningsbolag\nProjekt i internationella miljöer\nFokus på komplex produktion`}
+               placeholder={keyPointsPlaceholder}
                value={filter.keyPoints || ''}
                onChange={(e) => updateProductFilter(productKey, { keyPoints: e.target.value })}
                className="mt-2 min-h-[100px]"
