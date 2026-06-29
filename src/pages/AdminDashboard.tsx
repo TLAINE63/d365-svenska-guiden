@@ -4509,10 +4509,13 @@ Thomas`,
 
  {/* AI Capabilities Section */}
  <div className="pt-4 border-t border-border">
- <Label className="text-sm font-semibold">
- AI & Automation inom {section.key === 'bc' ? 'Business Central' : section.key === 'fsc' ? 'Finance & Supply Chain' : section.key === 'sales' ? 'Sälj & Marknad' : 'Kundservice & Field Service'}
- </Label>
- <p className="text-xs text-muted-foreground mt-1 mb-3">Vilken typ av AI-lösningar har partnern levererat inom denna applikation?</p>
+  <Label className="text-sm font-semibold">
+  AI & AUTOMATION
+  </Label>
+  <p className="text-xs text-muted-foreground mt-1 mb-3">
+  Denna information används för att visa er nivå inom AI och automatisering.<br />
+  Markera det ni faktiskt levererat – inte vad ni planerar.
+  </p>
  
  <div className="space-y-5">
  {getAiOptionsForProduct(section.key).map((tierGroup) => (
