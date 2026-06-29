@@ -1546,24 +1546,30 @@ const PartnerUpdate = () => {
  <p className="text-xs text-muted-foreground mt-2">Välj max 3 branscher ni fokuserar på för denna produkt</p>
  </div>
 
- {/* Customer Examples */}
- <div>
- <Label className="text-sm">Kundexempel (Ange kundnamn, separerade med kommatecken. Om fältet lämnas tomt visas "Kundexempel kan ges på förfrågan".)</Label>
- <Input
- placeholder="Volvo, IKEA, Scania..."
- value={(filter.customerExamples || []).join(', ')}
- onChange={(e) => {
- const raw = e.target.value;
- const examples = raw.split(',').map(s => s.trim());
- updateProductFilter(productKey, { customerExamples: examples });
- }}
- onBlur={() => {
- const cleaned = (filter.customerExamples || []).filter(s => s.length > 0);
- updateProductFilter(productKey, { customerExamples: cleaned });
- }}
- className="mt-2"
- />
- </div>
+  {/* Customer Examples */}
+  <div>
+  <Label className="text-sm">Ange kunder ni har arbetat med inom denna lösning</Label>
+  <p className="text-xs text-muted-foreground mt-1">
+    Max 5–8 exempel räcker. Kända namn ökar förtroendet.
+  </p>
+  <Input
+    placeholder="Volvo, IKEA, Scania..."
+    value={(filter.customerExamples || []).join(', ')}
+    onChange={(e) => {
+      const raw = e.target.value;
+      const examples = raw.split(',').map(s => s.trim());
+      updateProductFilter(productKey, { customerExamples: examples });
+    }}
+    onBlur={() => {
+      const cleaned = (filter.customerExamples || []).filter(s => s.length > 0);
+      updateProductFilter(productKey, { customerExamples: cleaned });
+    }}
+    className="mt-2"
+  />
+  <p className="text-xs text-muted-foreground mt-1">
+    Om fältet lämnas tomt visas: “Kundexempel kan ges på förfrågan”.
+  </p>
+  </div>
 
  {/* Customer Case Links */}
  <div>
