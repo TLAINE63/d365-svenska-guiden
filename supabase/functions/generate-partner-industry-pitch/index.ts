@@ -64,14 +64,15 @@ function buildPrompt(args: {
   return `Du skriver en kort, neutral och faktabaserad branschtext på svenska för en Microsoft Dynamics 365-partner. Texten visas på branschsidan ${industry} när partnern listas.
 
 REGLER:
-- MAX 120 ord. Hellre 80–110 än längre.
+- MAX 100–150 ord. Målet är omkring 120 ord.
 - Beskriv konkret hur partnern hjälper just denna bransch med Dynamics 365. Fokus på:
-  * Processer de förbättrar
   * Typiska problem de löser
+  * Processer de förbättrar
   * Relevanta lösningar (moduler, branschappar, integrationer)
-- Undvik generell företagsbeskrivning – ingen "om oss"-text.
+- Undvik generell företagsbeskrivning och upprepning av standardtext – ingen "om oss"-text.
 - Neutral och rådgivande ton. Inga superlativ ("bäst", "ledande", "premium", "marknadsledande").
 - Anta att läsaren kan sin egen bransch — förklara inte branschen i sig.
+- Skriv som om kunden redan har valt Dynamics 365.
 - Skriv i tredje person ("Partnern levererar...", "De har...") eller med partnernamnet.
 - Inga emojis, inga rubriker, ingen meta-text om att texten är AI-genererad.${productLine}
 
