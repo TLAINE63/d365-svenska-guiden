@@ -281,10 +281,6 @@ const Index = () => {
   <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl">
    Dynamics 365 är inte ett systemval. Det är ett verksamhetsbeslut. d365.se hjälper er förstå behovet, jämföra ERP- och CRM-alternativen sakligt och välja partner utifrån bransch, komplexitet och ambitionsnivå — inte utifrån pitch.
   </p>
- <p className="mt-3 inline-flex items-center gap-2 text-[12.5px] sm:text-[13px] text-white/65">
- <Sparkles className="w-3.5 h-3.5 text-[hsl(var(--signature))]" />
- AI-assisterat innehåll, granskat av erfarna Dynamics 365-rådgivare
- </p>
  </div>
 
  {/* Börja här – dold tills vidare
@@ -660,9 +656,13 @@ const Index = () => {
 
               </div>
             </div>
-            <p className="text-[15px] text-muted-foreground leading-relaxed">
-              Ett Dynamics 365-val handlar sällan bara om systemfunktioner. Det handlar om rätt omfattning, rätt vägval och framför allt rätt partner. d365.se är byggt för att hjälpa svenska företag komma in i den processen med bättre struktur — innan dialogen blir för bred, för teknisk eller för säljorienterad.
-            </p>
+             <p className="text-[15px] text-muted-foreground leading-relaxed">
+               Ett Dynamics 365-val handlar sällan bara om systemfunktioner. Det handlar om rätt omfattning, rätt vägval och framför allt rätt partner. d365.se är byggt för att hjälpa svenska företag komma in i den processen med bättre struktur — innan dialogen blir för bred, för teknisk eller för säljorienterad.
+             </p>
+             <p className="mt-3 inline-flex items-center gap-2 text-[12.5px] sm:text-[13px] text-muted-foreground">
+               <Sparkles className="w-3.5 h-3.5 text-[hsl(var(--signature))]" />
+               AI-assisterat innehåll, granskat av erfarna Dynamics 365-rådgivare
+             </p>
             <div className="mt-8">
               <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground mb-2">
                 Vill du ha hjälp på vägen?
