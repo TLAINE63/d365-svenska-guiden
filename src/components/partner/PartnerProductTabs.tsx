@@ -252,6 +252,7 @@ export default function PartnerProductTabs({
   selectedCompanySize,
   selectedGeography,
   selectedRevenue,
+  onActiveTabChange,
 }: Props) {
   const availableTabs = useMemo(() => getAvailableTabs(partner), [partner]);
   const fallbackTab: TabKey = availableTabs[0] || "bc";
@@ -262,6 +263,11 @@ export default function PartnerProductTabs({
   useEffect(() => {
     if (availableTabs.includes(initialTab)) setActive(initialTab);
   }, [initialTab, availableTabs]);
+
+  // Notify parent of active tab changes (incl. initial)
+  useEffect(() => {
+    onActiveTabChange?.(active, TAB_META[active].label);
+  }, [active, onActiveTabChange]);
 
   // Update URL without reload when tab changes
   const initialMount = useRef(true);
