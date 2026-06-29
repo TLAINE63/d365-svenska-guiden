@@ -19,6 +19,8 @@ import {
   X,
   Info,
   ChevronDown,
+  Sparkles,
+  Globe2,
 } from "lucide-react";
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -26,6 +28,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Checkbox } from "@/components/ui/checkbox";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
+import { AI_TIER_LABELS } from "@/utils/aiScoring";
+
 
 
 const TEAM_SIZE_HELP =
@@ -230,6 +234,59 @@ const renderNotAFit = (items: string[]) =>
     EMPTY
   );
 
+const renderAi = (
+  items: {
+    productKey: string;
+    productLabel: string;
+    capabilities: string[];
+    projectCount: string;
+    caseDescription: string;
+    businessImpact: string;
+  }[]
+) => {
+  if (!items || items.length === 0) return EMPTY;
+  return (
+    <div className="space-y-4">
+      {items.map((it, idx) => (
+        <div
+          key={it.productKey}
+          className={`space-y-2 ${idx > 0 ? "pt-3 border-t border-slate-200" : ""}`}
+        >
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+            {it.productLabel}
+          </p>
+          {it.capabilities.length > 0 && (
+            <div className="flex flex-wrap gap-1.5">
+              {it.capabilities.map((c, i) => (
+                <span
+                  key={i}
+                  className="px-2 py-0.5 rounded bg-violet-50 text-violet-700 border border-violet-200 text-xs"
+                >
+                  {AI_TIER_LABELS[c] || c}
+                </span>
+              ))}
+            </div>
+          )}
+          {it.projectCount && (
+            <p className="text-xs text-slate-600">
+              <span className="font-semibold">AI-projekt (24 mån):</span> {it.projectCount}
+            </p>
+          )}
+          {it.caseDescription && (
+            <p className="text-xs text-slate-700 italic">"{it.caseDescription}"</p>
+          )}
+          {it.businessImpact && (
+            <p className="text-xs text-slate-700">
+              <span className="font-semibold">Affärseffekt:</span> {it.businessImpact}
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+
 const splitIntoParagraphs = (text: string): string[] => {
   return text
     .split(/\n+/)
@@ -370,6 +427,46 @@ const ComparePartners = () => {
     return out;
   };
 
+  const PRODUCT_KEY_LABEL: Record<string, string> = {
+    bc: "Business Central",
+    fsc: "Finance & SCM",
+    sales: "Sales & Marketing",
+    service: "Customer Service",
+  };
+
+  type AiPerProduct = {
+    productKey: string;
+    productLabel: string;
+    capabilities: string[];
+    projectCount: string;
+    caseDescription: string;
+    businessImpact: string;
+  };
+
+  const getAiPerProduct = (p?: DatabasePartner): AiPerProduct[] => {
+    const pf = (p as any)?.product_filters as Record<string, any> | undefined;
+    if (!pf) return [];
+    const out: AiPerProduct[] = [];
+    for (const key of ["bc", "fsc", "sales", "service"]) {
+      const f = pf[key];
+      if (!f) continue;
+      const caps: string[] = Array.isArray(f.aiCapabilities) ? f.aiCapabilities : [];
+      const proj = (f.aiProjectCount || "").trim();
+      const cd = (f.aiCaseDescription || "").trim();
+      const bi = (f.aiBusinessImpact || "").trim();
+      if (caps.length === 0 && !proj && !cd && !bi) continue;
+      out.push({
+        productKey: key,
+        productLabel: PRODUCT_KEY_LABEL[key] || key,
+        capabilities: caps,
+        projectCount: proj,
+        caseDescription: cd,
+        businessImpact: bi,
+      });
+    }
+    return out;
+  };
+
   const get = (p?: DatabasePartner) => {
     const dp = (p?.delivery_profile || {}) as DeliveryProfile;
     const officeCities = cleanList(p?.office_cities).sort((a, b) => a.localeCompare(b, "sv"));
@@ -396,10 +493,12 @@ const ComparePartners = () => {
     const industryApps = industryAppsRaw;
     return {
       partner: p,
+      description: p?.description?.trim() || "",
       positioning: p?.positioning_statement?.trim() || "",
       apps: sortApps(p?.applications || []),
       industries: allIndustries,
       industryApps,
+      geography: cleanList(p?.geography),
       roles: cleanList(dp.roles),
       length: dp.typical_length?.trim() || "",
       bcLength: formatBcLength(dp),
@@ -411,10 +510,11 @@ const ComparePartners = () => {
       implementationsPerApp: perApp,
       offices: officeCities,
       agreement: p ? (p.agreement_signed ? "Ja" : "Nej") : "",
-
+      ai: getAiPerProduct(p),
       notAFit: cleanList(p?.not_a_fit),
     };
   };
+
 
   const industryFilter = params.get("industry") || "";
   const productFilterRaw = params.get("product") || "";
@@ -456,6 +556,11 @@ const ComparePartners = () => {
   const productActive = productFilters.length > 0;
   const matchesProduct = (app: string) => !productActive || productFilters.includes(app);
 
+  const productKeyMatchesFilter = (key: string): boolean => {
+    if (!productActive) return true;
+    return productFilters.some((sel) => APP_TO_PF_KEY(sel) === key);
+  };
+
   const applyFilters = (data: ReturnType<typeof get>) => ({
     ...data,
     apps: productActive ? data.apps.filter(matchesProduct) : data.apps,
@@ -465,7 +570,9 @@ const ComparePartners = () => {
         matchesProduct(ia.application) &&
         (!industryFilter || ia.industry === industryFilter)
     ),
+    ai: data.ai.filter((a) => productKeyMatchesFilter(a.productKey)),
   });
+
 
   const AF = applyFilters(A);
   const BF = applyFilters(B);
@@ -642,10 +749,16 @@ const ComparePartners = () => {
                     <section className="space-y-3">
                       <SectionTitle icon={Target} title="Positionering" />
                       <R
+                        label="Företagsbeskrivning"
+                        a={A.description ? <p className="leading-relaxed">{A.description}</p> : EMPTY}
+                        b={B.description ? <p className="leading-relaxed">{B.description}</p> : EMPTY}
+                      />
+                      <R
                         label="Vi är valet när…"
                         a={renderPositioningCell(A.positioning, getProductDescriptions(a, AF.apps))}
                         b={renderPositioningCell(B.positioning, getProductDescriptions(b, BF.apps))}
                       />
+
                       <R
                         label="Kompetens inom Dynamics 365"
                         help="Alla Dynamics 365-applikationer partnern arbetar med. ERP-appar listas först, därefter CE/CRM — båda i bokstavsordning."
@@ -738,11 +851,29 @@ const ComparePartners = () => {
                         b={renderValue(B.bcCost)}
                       />
                       <R
-                        label="Geografisk närvaro"
+                        label="Kontor (städer)"
                         a={renderList(A.offices)}
                         b={renderList(B.offices)}
                       />
+                      <R
+                        label="Geografi"
+                        help="Områden där partnern levererar projekt."
+                        a={renderList(A.geography)}
+                        b={renderList(B.geography)}
+                      />
                     </section>
+
+                    {/* AI & automatisering */}
+                    <section className="space-y-3">
+                      <SectionTitle icon={Sparkles} title="AI & automatisering" />
+                      <R
+                        label="AI-erbjudande per lösning"
+                        help="Levererade AI- och automationscase per produktområde, projektnivå senaste 24 mån, samt eventuella case-exempel och affärseffekter."
+                        a={renderAi(AF.ai)}
+                        b={renderAi(BF.ai)}
+                      />
+                    </section>
+
 
 
 
