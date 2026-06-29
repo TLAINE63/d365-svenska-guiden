@@ -7,7 +7,6 @@ import {
   XCircle,
   MapPin,
   Users,
-  Award,
   Briefcase,
   Mail,
   Phone,
@@ -21,7 +20,6 @@ import type { DatabasePartner } from "@/hooks/usePartners";
 import LeadCTA from "@/components/LeadCTA";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
-import { calculateProductAiScore, getAiLevel } from "@/utils/aiScoring";
 
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import FinanceIcon from "@/assets/icons/Finance.svg";
@@ -127,7 +125,6 @@ interface TabData {
   industryApps: Array<{ name: string; url: string; application: string; industry: string; description: string }>;
   contact: { name?: string; email?: string; phone?: string } | null;
   landingPageUrl: string | null;
-  aiBadge: { label: string; emoji: string; color: string; description: string } | null;
 }
 
 
