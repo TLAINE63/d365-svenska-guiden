@@ -29,29 +29,6 @@ const erpBreadcrumbs = [
  { name: "Affärssystem (ERP)", url: "https://d365.se/erp" },
 ];
 
-const youtubeVideos = [
-  {
-    id: "Business-Central-overview",
-    embedId: "lLI3gtahMyE",
-    title: "Business Central – översikt på 5 minuter",
-    description:
-      "En kort, neutral genomgång av vad Microsoft Dynamics 365 Business Central är och vilka delar (ekonomi, lager, försäljning, inköp, produktion) som ingår. Bra startpunkt om du aldrig sett systemet förut.",
-  },
-  {
-    id: "FSCM-overview",
-    embedId: "1Nh8tT3GQEw",
-    title: "Dynamics 365 Finance & Supply Chain Management – introduktion",
-    description:
-      "Översikt över Microsofts enterprise-affärssystem. Fokus på flerbolagsstöd, global ekonomistyrning, avancerad tillverkning och vad som faktiskt skiljer F&SCM från Business Central i praktiken.",
-  },
-  {
-    id: "ERP-implementation",
-    embedId: "qyVmIQA1qHk",
-    title: "Så genomförs ett ERP-projekt – Microsofts Success by Design",
-    description:
-      "Genomgång av den metodik certifierade Microsoft-partners använder vid införande. Tydliggör vilka faser som tar tid, var de flesta projekt fastnar och vad du som kund ansvarar för.",
-  },
-];
 
 const honestFacts = [
   { icon: Coins, title: "Licenspriset är inte totalkostnaden", body: "Räkna med 3–5x licenskostnaden för implementation första året, och 15–25 % av licensen i löpande förvaltning per år." },
