@@ -7,7 +7,6 @@ import {
   XCircle,
   MapPin,
   Users,
-  Award,
   Briefcase,
   Mail,
   Phone,
@@ -21,7 +20,6 @@ import type { DatabasePartner } from "@/hooks/usePartners";
 import LeadCTA from "@/components/LeadCTA";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
-import { calculateProductAiScore, getAiLevel } from "@/utils/aiScoring";
 
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import FinanceIcon from "@/assets/icons/Finance.svg";
@@ -127,7 +125,6 @@ interface TabData {
   industryApps: Array<{ name: string; url: string; application: string; industry: string; description: string }>;
   contact: { name?: string; email?: string; phone?: string } | null;
   landingPageUrl: string | null;
-  aiBadge: { label: string; emoji: string; color: string; description: string } | null;
 }
 
 
@@ -206,34 +203,11 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
     }
   }
 
-  // AI badge — take strongest level across keys
-  let aiBadge: TabData["aiBadge"] = null;
-  let best = -1;
-  for (const k of keys) {
-    const caps = pf[k]?.aiCapabilities;
-    if (!caps || caps.length === 0) continue;
-    const score = calculateProductAiScore(caps, pf[k]?.aiProjectCount, k as any);
-    const lvl = getAiLevel(score);
-    if (lvl.level === "none") continue;
-    const rank = { enabled: 1, integration: 2, advanced: 3, transformation: 4 }[lvl.level] || 0;
-    if (rank > best) {
-      best = rank;
-      const descriptions: Record<string, string> = {
-        enabled: "Aktiverar och implementerar Microsofts inbyggda AI",
-        integration: "Bygger anpassade AI-agenter och processer",
-        advanced: "Utvecklar kundunika AI-lösningar och prediktiva modeller",
-        transformation: "Levererar avancerade Azure AI-arkitekturer",
-      };
-      aiBadge = { label: lvl.label, emoji: lvl.emoji, color: lvl.color, description: descriptions[lvl.level] };
-    }
-  }
-
   return {
     industries: fallbackIndustries,
     geography,
     companySize,
     revenue,
-
     customerExamples,
     customerCaseLinks,
     productDescription,
@@ -241,7 +215,6 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
     industryApps,
     contact,
     landingPageUrl,
-    aiBadge,
   };
 }
 
@@ -417,14 +390,6 @@ export default function PartnerProductTabs({
                     </span>
                   </li>
                 )}
-                {data.aiBadge && (
-                  <li className="flex items-start gap-3">
-                    <Sparkles className="w-5 h-5 text-[hsl(var(--cta-orange))] mt-0.5 shrink-0" />
-                    <span className="text-foreground">
-                      AI-nivå: <strong>{data.aiBadge.label}</strong> – {data.aiBadge.description}
-                    </span>
-                  </li>
-                )}
               </ul>
 
               {data.productDescription && (
@@ -525,14 +490,6 @@ export default function PartnerProductTabs({
                 </div>
               )}
 
-              {data.aiBadge && (
-                <div className="mb-4">
-                  <Badge variant="outline" className={`text-sm font-semibold ${data.aiBadge.color} border-2`}>
-                    <Award className="w-4 h-4 mr-1.5" />
-                    {data.aiBadge.emoji} {data.aiBadge.label}
-                  </Badge>
-                </div>
-              )}
 
               {data.industryApps.length > 0 && (
                 <div className="mt-5">

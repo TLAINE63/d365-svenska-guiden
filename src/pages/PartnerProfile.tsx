@@ -14,7 +14,6 @@ import {
  CheckCircle2,
  Globe, 
  MapPin, 
- Award, 
  Layers, 
  ExternalLink,
  Users,
@@ -45,7 +44,6 @@ import { buildMetaTitle } from "@/lib/metaTitle";
 import { buildMetaDescription } from "@/lib/metaDescription";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 import { trackPartnerView } from "@/utils/trackPartnerView";
-import { calculateProductAiScore, calculateAiScore, getAiLevel } from "@/utils/aiScoring";
 import {
  Tooltip,
  TooltipContent,
@@ -562,42 +560,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  </span>
  </div>
  
- {/* Overall AI Level Badge */}
- {(() => {
- const score = calculateAiScore(partner.product_filters);
- const aiLevel = getAiLevel(score);
- if (aiLevel.level === "none") return null;
- const descriptions: Record<string, string> = {
- enabled: "Aktiverar och implementerar Microsofts inbyggda AI",
- integration: "Bygger anpassade AI-agenter och processer",
- advanced: "Utvecklar kundunika AI-lösningar och prediktiva modeller",
- transformation: "Levererar avancerade Azure AI-arkitekturer",
- };
- return (
- <div className="mb-4">
- <TooltipProvider delayDuration={100}>
- <Tooltip>
- <TooltipTrigger asChild>
- <div>
- <Badge
- variant="outline"
- className={`text-sm font-semibold px-4 py-1.5 cursor-help ${aiLevel.color} border-2`}
- >
- <Award className="w-4 h-4 mr-1.5" />
- {aiLevel.emoji} {aiLevel.label}
- </Badge>
- </div>
- </TooltipTrigger>
- <TooltipContent side="bottom" className="max-w-xs text-sm">
- <p>{descriptions[aiLevel.level]}</p>
- </TooltipContent>
- </Tooltip>
- </TooltipProvider>
- </div>
- );
- })()}
-
- {/* Office cities */}
+  {/* Office cities */}
  {(() => {
  const cities = partner?.office_cities as string[] | undefined;
  return cities && cities.length > 0 ? (
