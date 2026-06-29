@@ -285,8 +285,49 @@ const PartnerUpdate = () => {
   events: false,
   notes: false,
   });
- const [autoExpandApplied, setAutoExpandApplied] = useState(false);
- const toggleSection = (key: SectionKey) =>
+  const [autoExpandApplied, setAutoExpandApplied] = useState(false);
+
+  // Profile completion progress
+  const profileProgress = useMemo(() => {
+    let score = 0;
+    const basicFields = [
+      formData.name?.trim(),
+      formData.website?.trim(),
+      formData.description?.trim(),
+      formData.contact_person?.trim(),
+      formData.email?.trim(),
+    ].filter(Boolean).length;
+    score += (basicFields / 5) * 25;
+
+    if (formData.logo_url?.trim()) score += 5;
+    if (formData.contact_photo_url?.trim()) score += 5;
+
+    const decisionFields = [
+      positioningStatement?.trim(),
+      notAFitInput?.trim(),
+      deliveryProfile.roles?.length > 0,
+    ].filter(Boolean).length;
+    score += (decisionFields / 3) * 20;
+
+    if (activeProducts.length > 0 || selectedSpecialtyProducts.length > 0) score += 5;
+
+    const productScore = activeProducts.reduce((sum, key) => {
+      const pf = getProductFilter(key);
+      const productFields = [
+        pf.productDescription?.trim(),
+        pf.whyChoose?.trim(),
+        pf.keyPoints?.trim(),
+        pf.geography?.length > 0,
+        pf.industries?.length > 0,
+      ].filter(Boolean).length;
+      return sum + (productFields / 5) * 10;
+    }, 0);
+    score += Math.min(productScore, 40);
+
+    return Math.round(Math.min(score, 100));
+  }, [formData, positioningStatement, notAFitInput, deliveryProfile, activeProducts, selectedSpecialtyProducts, productFilters]);
+
+  const toggleSection = (key: SectionKey) =>
  setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
 
  // Smart auto-expand: open empty/incomplete sections after data loads (runs once).
