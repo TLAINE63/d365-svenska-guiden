@@ -7,12 +7,14 @@ import {
  CheckCircle2, 
  Sparkles, 
  Building2,
- Shuffle,
- BrainCircuit,
- ChevronDown,
- ChevronUp,
- ExternalLink
+  Shuffle,
+  BrainCircuit,
+  ChevronDown,
+  ChevronUp,
+  ExternalLink,
+  ArrowLeftRight
 } from "lucide-react";
+import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 import RelatedPartyBadge from "@/components/RelatedPartyBadge";
 import {
  Tooltip,
@@ -123,9 +125,12 @@ const PartnerCard = ({
  highlightedGeography,
  showRandomIndicator = false
 }: PartnerCardProps) => {
- const [showAiDetails, setShowAiDetails] = useState(false);
- 
- // Get color classes based on scheme
+  const [showAiDetails, setShowAiDetails] = useState(false);
+  const { isSelected: isCompareSelected, toggle: toggleCompare } = usePartnerCompare();
+  const compareSlug = isDatabasePartner(partner) ? partner.slug : null;
+  const compareActive = compareSlug ? isCompareSelected(compareSlug) : false;
+  
+  // Get color classes based on scheme
  const getColorClasses = () => {
  switch (colorScheme) {
  case 'crm':
@@ -472,6 +477,25 @@ const PartnerCard = ({
  <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/20 to-transparent" />
  </Link>
  </Button>
+ {compareSlug && (
+  <button
+   type="button"
+   onClick={(e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleCompare({ slug: compareSlug, name: partner.name || 'Partner' });
+   }}
+   aria-pressed={compareActive}
+   className={`w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-semibold border transition-all ${
+    compareActive
+     ? 'bg-[hsl(var(--cta-orange))] text-white border-[hsl(var(--cta-orange))]'
+     : 'bg-transparent text-foreground border-border hover:border-[hsl(var(--cta-orange))] hover:text-[hsl(var(--cta-orange))]'
+   }`}
+  >
+   <ArrowLeftRight className="h-3.5 w-3.5" />
+   {compareActive ? 'Vald för jämförelse' : 'Jämför'}
+  </button>
+ )}
  </div>
  </div>
  </div>
