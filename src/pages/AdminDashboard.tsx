@@ -4024,17 +4024,17 @@ Thomas`,
  </div>
  </PremiumCollapsibleSection>
  <PremiumCollapsibleSection
- title="Geografisk täckning"
- description="Visas överst på Partnerprofilkortet"
- icon={Globe}
- accent="finance-supply"
- status={getSectionStatus('geography')}
- open={openSections.geography}
- onOpenChange={(o) => setSectionOpen('geography', o)}
- sectionRef={(el) => (sectionRefs.current[3] = el)}
- >
- <p className="text-sm text-muted-foreground">Inom vilka geografier har ni möjlighet att leverera projekt och support?</p>
- <div className="flex flex-wrap gap-2">
+  title="Geografisk täckning"
+  description="Välj var ni levererar projekt"
+  icon={Globe}
+  accent="finance-supply"
+  status={getSectionStatus('geography')}
+  open={openSections.geography}
+  onOpenChange={(o) => setSectionOpen('geography', o)}
+  sectionRef={(el) => (sectionRefs.current[3] = el)}
+  >
+  <p className="text-sm text-muted-foreground">Markera endast där ni faktiskt levererar projekt.</p>
+  <div className="flex flex-wrap gap-2">
  {geographyOptions.map((geo) => {
  const isSelected = (partnerFormData.geography || []).includes(geo);
  return (
@@ -4478,11 +4478,11 @@ Thomas`,
  <p className="text-xs text-muted-foreground mt-1">Separera flera länkar med komma</p>
  </div>
 
- <div className="space-y-3">
- <div>
- <Label className="text-sm">Geografisk täckning</Label>
- <p className="text-xs text-muted-foreground mb-2">Markera de geografier där ni har möjlighet att hantera kundprojekt och support/förvaltning</p>
- <div className="flex flex-wrap gap-1.5">
+  <div className="space-y-3">
+  <div>
+  <Label className="text-sm">Välj var ni levererar projekt</Label>
+  <p className="text-xs text-muted-foreground mb-2">Markera endast där ni faktiskt levererar projekt.</p>
+  <div className="flex flex-wrap gap-1.5">
  {geographyOptions.map((geo) => {
  const isSelected = (filter.geography || []).includes(geo);
  return (
