@@ -416,7 +416,7 @@ export default function PartnerProductTabs({
             <section>
               <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
                 <Users className="w-5 h-5 text-primary" />
-                Passar bäst för
+                Passar bäst för verksamheter inom
               </h2>
               <ul className="space-y-2.5">
                 {data.companySize.length > 0 && (
@@ -438,7 +438,6 @@ export default function PartnerProductTabs({
 
                 {data.industries.length > 0 && (
                   <li className="flex flex-col gap-2">
-                    <span className="text-foreground font-medium">Verksamheter</span>
                     <div className="flex flex-wrap gap-2">
                       {data.industries.map((ind) => {
                         const industrySlug = STANDARD_INDUSTRIES.find((i) => i.name === ind)?.slug;
