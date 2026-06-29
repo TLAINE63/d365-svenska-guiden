@@ -335,48 +335,53 @@ export default function PartnerProductTabs({
       <section className="py-8 sm:py-12">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto space-y-10">
-            {/* Filter context */}
+            {/* Match profile summary */}
             {filterBadges.length > 0 && (
-              <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
-                <p className="text-xs font-bold uppercase tracking-wider text-primary mb-2">
-                  Ni tittar på: {tabMeta.label}
-                </p>
-                <p className="text-sm text-foreground/80">
-                  Denna partner matchar er profil baserat på:
-                </p>
-                <ul className="mt-2 flex flex-wrap gap-2">
+              <section className="rounded-lg border border-border bg-card/60 p-5 sm:p-6">
+                <h2 className="text-lg sm:text-xl font-bold text-foreground tracking-tight mb-4">
+                  Denna partner matchar er profil:
+                </h2>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+                    <span className="text-foreground">
+                      <span className="font-semibold">Vald lösning:</span> {tabMeta.label}
+                    </span>
+                  </li>
                   {selectedIndustry && (
-                    <li>
-                      <Badge variant="secondary" className="font-medium">
-                        <CheckCircle2 className="w-3 h-3 mr-1 text-emerald-600" />
-                        Bransch: {selectedIndustry}
-                      </Badge>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+                      <span className="text-foreground">
+                        <span className="font-semibold">Bransch:</span> {selectedIndustry}
+                      </span>
                     </li>
                   )}
-                  <li>
-                    <Badge variant="secondary" className="font-medium">
-                      <CheckCircle2 className="w-3 h-3 mr-1 text-emerald-600" />
-                      Lösning: {tabMeta.label}
-                    </Badge>
-                  </li>
                   {selectedCompanySize && (
-                    <li>
-                      <Badge variant="secondary" className="font-medium">
-                        <CheckCircle2 className="w-3 h-3 mr-1 text-emerald-600" />
-                        Storlek: {selectedCompanySize} anställda
-                      </Badge>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+                      <span className="text-foreground">
+                        <span className="font-semibold">Företagsstorlek:</span> {selectedCompanySize} anställda
+                      </span>
                     </li>
                   )}
                   {selectedGeography && (
-                    <li>
-                      <Badge variant="secondary" className="font-medium">
-                        <CheckCircle2 className="w-3 h-3 mr-1 text-emerald-600" />
-                        Geografi: {selectedGeography}
-                      </Badge>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+                      <span className="text-foreground">
+                        <span className="font-semibold">Geografi:</span> {selectedGeography}
+                      </span>
+                    </li>
+                  )}
+                  {selectedIndustry && (
+                    <li className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+                      <span className="text-foreground">
+                        <span className="font-semibold">Erfarenhet av liknande projekt inom {selectedIndustry}</span>
+                      </span>
                     </li>
                   )}
                 </ul>
-              </div>
+              </section>
             )}
 
             {/* 1. Varför välja */}
