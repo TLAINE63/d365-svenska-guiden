@@ -2613,13 +2613,7 @@ Thomas`,
  Avtal tecknat
  </Badge>
  )}
-              {openInvitations[partner.id] && (
-                <Badge variant="outline" className="text-xs border-amber-500 text-amber-700 dark:text-amber-400" title={openInvitations[partner.id].email}>
-                  <MailPlus className="h-3 w-3 mr-1" />
-                  {openInvitations[partner.id].status === 'submitted' ? 'Inskickad' : 'Inbjuden'}
-                  <span className="ml-1 font-normal text-muted-foreground">({openInvitations[partner.id].email})</span>
-                </Badge>
-              )}
+              {/* Invitation/agreement/email history intentionally hidden in list view */}
  </h3>
  <p className="text-sm text-muted-foreground line-clamp-1">
  {partner.description || "Ingen beskrivning"}
