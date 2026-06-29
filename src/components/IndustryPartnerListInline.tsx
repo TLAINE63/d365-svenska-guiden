@@ -19,7 +19,7 @@ const IndustryPartnerListInline = ({ industry }: Props) => {
 
   const matching = (partners || [])
     .filter((p) => p.is_featured === true)
-    .filter((p) => collectPartnerIndustries(p).includes(industry))
+    .filter((p) => collectPartnerIndustries(p).has(industry))
     .sort((a, b) => a.name.localeCompare(b.name, "sv"));
 
   if (matching.length === 0) return null;
