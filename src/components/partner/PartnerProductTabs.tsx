@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   CheckCircle2,
   XCircle,
-  MapPin,
   Users,
   Briefcase,
   Mail,
@@ -16,6 +15,7 @@ import {
   ExternalLink,
   ArrowRight,
 } from "lucide-react";
+import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import type { DatabasePartner } from "@/hooks/usePartners";
 import LeadCTA from "@/components/LeadCTA";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
@@ -429,11 +429,26 @@ export default function PartnerProductTabs({
                 )}
 
                 {data.industries.length > 0 && (
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-1 shrink-0" />
-                    <span className="text-foreground">
-                      Organisationer inom <strong>{data.industries.slice(0, 3).join(", ")}</strong>
-                    </span>
+                  <li className="flex flex-col gap-2">
+                    <span className="text-foreground font-medium">Verksamheter</span>
+                    <div className="flex flex-wrap gap-2">
+                      {data.industries.map((ind) => {
+                        const industrySlug = STANDARD_INDUSTRIES.find((i) => i.name === ind)?.slug;
+                        const badge = (
+                          <Badge variant="outline" className="bg-card border-border py-1.5 px-3 text-sm">
+                            <CheckCircle2 className="w-3.5 h-3.5 mr-1.5 text-emerald-600" />
+                            {ind}
+                          </Badge>
+                        );
+                        return industrySlug ? (
+                          <Link key={ind} to={`/branscher/${industrySlug}/`} className="inline-block">
+                            {badge}
+                          </Link>
+                        ) : (
+                          <span key={ind} className="inline-block">{badge}</span>
+                        );
+                      })}
+                    </div>
                   </li>
                 )}
                 {data.customerExamples.length > 0 && (
@@ -523,39 +538,6 @@ export default function PartnerProductTabs({
                 </div>
               )}
             </section>
-
-            {/* 5. Branschfokus */}
-            {data.industries.length > 0 && (
-              <section>
-                <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Branschfokus</h2>
-                <div className="flex flex-wrap gap-2">
-                  {data.industries.slice(0, 5).map((ind) => (
-                    <Badge key={ind} variant="outline" className="bg-card border-border py-1.5 px-3 text-sm">
-                      <CheckCircle2 className="w-3.5 h-3.5 mr-1.5 text-emerald-600" />
-                      {ind}
-                    </Badge>
-                  ))}
-                </div>
-              </section>
-            )}
-
-            {/* 6. Geografi */}
-            {data.geography.length > 0 && (
-              <section>
-                <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-primary" />
-                  Geografi
-                </h2>
-                <ul className="space-y-2">
-                  {data.geography.map((geo) => (
-                    <li key={geo} className="flex items-center gap-2 text-foreground">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                      {geo}
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
 
             {/* Customer cases */}
             {data.customerCaseLinks.length > 0 && (
