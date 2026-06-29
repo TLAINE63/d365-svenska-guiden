@@ -740,6 +740,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
    selectedCompanySize={selectedCompanySize}
    selectedGeography={selectedGeography}
    selectedRevenue={selectedRevenue}
+   onActiveTabChange={(_, label) => setActiveTabProduct(label)}
   />
 
   {/* Specialty products (HR / Commerce / ProjOps) — keep visible below tabs */}
