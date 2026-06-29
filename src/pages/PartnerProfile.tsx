@@ -30,6 +30,7 @@ import { extractYouTubeId } from "@/lib/youtube";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
 import DecisionProfile from "@/components/partner/DecisionProfile";
+import PartnerProductTabs, { resolveInitialTab } from "@/components/partner/PartnerProductTabs";
 import { usePartner, DatabasePartner } from "@/hooks/usePartners";
 import { getCumulativeGeographyDisplay } from "@/data/partners";
 import {
