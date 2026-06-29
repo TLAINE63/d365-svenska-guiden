@@ -426,8 +426,16 @@ export default function PartnerProductTabs({
                 </div>
               )}
 
-
-
+              {data.keyPoints.length > 0 && (
+                <ul className="mt-5 space-y-2 max-w-[72ch]">
+                  {data.keyPoints.map((point, idx) => (
+                    <li key={idx} className="flex items-start gap-3 text-[15px] text-foreground">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
 
               {data.productDescription && (
                 <div className="mt-5 border-l-2 border-primary/40 pl-4 py-1 text-[15px] text-foreground/80 leading-relaxed max-w-[72ch]">
