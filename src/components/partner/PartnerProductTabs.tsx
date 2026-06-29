@@ -146,6 +146,7 @@ interface TabData {
   customerExamples: string[];
   customerCaseLinks: string[];
   productDescription: { text: string; aiGenerated: boolean } | null;
+  whyChoose: string | null;
   apps: string[];
   industryApps: Array<{ name: string; url: string; application: string; industry: string; description: string }>;
   contact: { name?: string; email?: string; phone?: string } | null;
@@ -188,6 +189,13 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
       productDescription = { text: txt, aiGenerated: !!pf[k]?.productDescriptionAiGenerated };
       break;
     }
+  }
+
+  // Why choose (per product) — first non-empty
+  let whyChoose: string | null = null;
+  for (const k of keys) {
+    const txt = pf[k]?.whyChoose?.trim();
+    if (txt) { whyChoose = txt; break; }
   }
 
   // Apps for this tab
@@ -236,6 +244,7 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
     customerExamples,
     customerCaseLinks,
     productDescription,
+    whyChoose,
     apps,
     industryApps,
     contact,
@@ -394,6 +403,14 @@ export default function PartnerProductTabs({
                   {partner.positioning_statement}
                 </p>
               ) : null}
+
+              {data.whyChoose && (
+                <div className="mt-4 text-[15px] sm:text-base text-foreground leading-relaxed max-w-[72ch] whitespace-pre-line">
+                  {data.whyChoose}
+                </div>
+              )}
+
+
 
 
               {data.productDescription && (
