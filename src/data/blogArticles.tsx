@@ -2440,6 +2440,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           systemleveranser.
         </p>
 
+        <IndustryPartnerListInline industry="Retail & E-handel" />
+
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
           Dynamics 365 är en bred plattform och alla listade partners har en
@@ -2767,6 +2769,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           komplexa och tvärfunktionella krav.
         </p>
 
+        <IndustryPartnerListInline industry="Tillverkningsindustri" />
+
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
           Tillverkningsindustrin är d365.se:s bransch med flest listade
@@ -2981,6 +2985,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           hands-on partner med tydligt ägandeskap för leveransen är InBiz ett
           relevant alternativ.
         </p>
+
+        <IndustryPartnerListInline industry="Livsmedel & Processindustri" />
 
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
@@ -3278,6 +3284,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           distributörer med komplexa supply chain-krav.
         </p>
 
+        <IndustryPartnerListInline industry="Grossist & Distribution" />
+
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
           Grossist och distribution är en bransch där affärssystemet är direkt
@@ -3463,6 +3471,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           söker en partner med bred plattformskapacitet och dokumenterad
           förståelse för branschens specifika processer.
         </p>
+
+        <IndustryPartnerListInline industry="Jordbruk & Skogsbruk" />
 
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
@@ -3718,6 +3728,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           av datadriven styrning framöver.
         </p>
 
+        <IndustryPartnerListInline industry="Bygg & Entreprenad" />
+
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
           Bygg och entreprenad är en bransch där systemets förmåga att hantera
@@ -3934,6 +3946,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           specialistkompetens inom förändringsledning och analys är ett
           mervärde vid större digitaliseringsprogram.
         </p>
+
+        <IndustryPartnerListInline industry="Energi & Utilities" />
 
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
@@ -4184,6 +4198,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           erfaren BC-partner med tydligt leveransansvar och god lokal närvaro.
         </p>
 
+        <IndustryPartnerListInline industry="Konsulttjänster" />
+
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
           Konsulttjänster är en bransch där valet mellan partners i hög grad
@@ -4410,6 +4426,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Relevant för finansbolag som vill nyttja sin data mer aktivt för
           riskhantering, kundbearbetning och processautomation.
         </p>
+
+        <IndustryPartnerListInline industry="Finans & Försäkring" />
 
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
@@ -4642,6 +4660,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           och proaktiv service. Relevant för organisationer som vill kombinera
           Dynamics 365 med ett starkare analyslager.
         </p>
+
+        <IndustryPartnerListInline industry="Offentlig sektor" />
 
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
@@ -4883,6 +4903,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           snarare än regulatorisk valideringsstöd.
         </p>
 
+        <IndustryPartnerListInline industry="Life Science / Medtech" />
+
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
           Life Science och Medtech är den bransch på d365.se där skillnaden
@@ -5111,6 +5133,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           som kräver processomstrukturering snarare än bara ett nytt system.
         </p>
 
+        <IndustryPartnerListInline industry="Telekom & IT-tjänster" />
+
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
           Telekom och IT-tjänster är en av de branscher på d365.se med färst
@@ -5317,6 +5341,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           uthyrning, men de täcker samma applikationsmix och har lång
           Dynamics-erfarenhet.
         </p>
+
+        <IndustryPartnerListInline industry="Uthyrningsverksamhet" />
 
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
@@ -5945,6 +5971,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           logistikföretag som söker en partner med bred plattformskapacitet och
           ett tydligt helhetsansvar från rådgivning till förvaltning.
         </p>
+
+        <IndustryPartnerListInline industry="Transport & Logistik" />
 
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
