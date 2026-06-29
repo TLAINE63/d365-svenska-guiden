@@ -589,7 +589,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   : (partner as any)?.contact_photo_url;
 
   // Video: prefer per-product video, fall back to partner main video
-  const productVideoId = key ? extractYouTubeId(productContact?.youtubeVideoId) : null;
+  const productVideoId = extractYouTubeId(productContact?.youtubeVideoId);
   const mainVideoId = extractYouTubeId((partner as any)?.youtube_video_id);
   const displayVideoId = productVideoId || mainVideoId;
 
