@@ -171,6 +171,11 @@ serve(async (req: Request): Promise<Response> => {
     const { data: partners, error } = await query;
     if (error) throw error;
     if (!partners || partners.length === 0) {
+      if (all && mode === "stale") {
+        return new Response(JSON.stringify({ ok: true, results: [], matchedCount: 0 }), {
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        });
+      }
       return new Response(JSON.stringify({ error: "Inga partners hittades" }), {
         status: 404, headers: { "Content-Type": "application/json", ...corsHeaders },
       });
