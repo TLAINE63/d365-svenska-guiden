@@ -389,22 +389,6 @@ export default function PartnerProductTabs({
               ) : null}
 
               <ul className="space-y-3">
-                {data.industries.length > 0 && (
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
-                    <span className="text-foreground">
-                      Stark inom <strong>{data.industries.slice(0, 3).join(", ")}</strong>
-                    </span>
-                  </li>
-                )}
-                {data.apps.length > 0 && (
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
-                    <span className="text-foreground">
-                      Djup kompetens inom <strong>{data.apps.join(", ")}</strong>
-                    </span>
-                  </li>
-                )}
                 {data.geography.length > 0 && (
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
