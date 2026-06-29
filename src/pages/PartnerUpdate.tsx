@@ -1032,17 +1032,26 @@ const PartnerUpdate = () => {
  </div>
  </div>
 
- <div className="space-y-2">
- <Label htmlFor="description">Beskrivning av företaget</Label>
- <Textarea
- id="description"
- name="description"
- rows={8}
- placeholder="Beskriv ert företag och era tjänster..."
- value={formData.description}
- onChange={handleInputChange}
- />
- </div>
+<div className="space-y-2">
+  <Label htmlFor="description">Beskrivning av företaget</Label>
+  <p className="text-sm text-muted-foreground">
+    Beskriv ert företag kort (max 2–3 meningar).
+  </p>
+  <Textarea
+    id="description"
+    name="description"
+    rows={6}
+    placeholder="Vi hjälper tillverkande företag med Business Central – särskilt produktionsplanering och lagerstyrning. Våra kunder är ofta 50–250 anställda i Sverige och Norden."
+    value={formData.description}
+    onChange={handleInputChange}
+  />
+  <p className="text-xs text-muted-foreground">
+    • Vad ni gör (inte hela historien)<br />
+    • Er spets inom Dynamics 365<br />
+    • Typ av kunder ni arbetar med<br /><br />
+    Undvik: “ledande partner”, “vi erbjuder”, marknadsföringsspråk.
+  </p>
+</div>
 
  <div className="grid sm:grid-cols-2 gap-4">
  <div className="space-y-2">

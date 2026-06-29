@@ -3827,25 +3827,35 @@ Thomas`,
  </div>
  </div>
 
- <div>
- <Label htmlFor="description">Beskrivning</Label>
- <Textarea
- id="description"
- value={partnerFormData.description}
- onChange={(e) => {
- setPartnerFormData({ ...partnerFormData, description: e.target.value });
- if (formErrors.description) setFormErrors({ ...formErrors, description: undefined });
- }}
- rows={3}
- className={formErrors.description ? "border-destructive" : ""}
- />
- {formErrors.description && (
- <p className="text-sm text-destructive flex items-center gap-1 mt-1">
- <AlertCircle className="h-3 w-3" />
- {formErrors.description}
- </p>
- )}
- </div>
+<div>
+  <Label htmlFor="description">Beskrivning av företaget</Label>
+  <p className="text-sm text-muted-foreground mb-2">
+    Beskriv ert företag kort (max 2–3 meningar).
+  </p>
+  <Textarea
+    id="description"
+    value={partnerFormData.description}
+    onChange={(e) => {
+      setPartnerFormData({ ...partnerFormData, description: e.target.value });
+      if (formErrors.description) setFormErrors({ ...formErrors, description: undefined });
+    }}
+    rows={4}
+    placeholder="Vi hjälper tillverkande företag med Business Central – särskilt produktionsplanering och lagerstyrning. Våra kunder är ofta 50–250 anställda i Sverige och Norden."
+    className={formErrors.description ? "border-destructive" : ""}
+  />
+  <p className="text-xs text-muted-foreground mt-2">
+    • Vad ni gör (inte hela historien)<br />
+    • Er spets inom Dynamics 365<br />
+    • Typ av kunder ni arbetar med<br /><br />
+    Undvik: “ledande partner”, “vi erbjuder”, marknadsföringsspråk.
+  </p>
+  {formErrors.description && (
+    <p className="text-sm text-destructive flex items-center gap-1 mt-1">
+      <AlertCircle className="h-3 w-3" />
+      {formErrors.description}
+    </p>
+  )}
+</div>
 
  <div>
  <Label htmlFor="website">Hemsida/Landsida (visas på Partnerprofilkortet) *</Label>
