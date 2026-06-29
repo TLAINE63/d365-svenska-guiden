@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   CheckCircle2,
   XCircle,
-  MapPin,
   Users,
   Briefcase,
   Mail,
