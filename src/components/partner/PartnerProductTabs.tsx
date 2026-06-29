@@ -439,22 +439,23 @@ export default function PartnerProductTabs({
                 Passar bäst för
               </h2>
               <ul className="space-y-2.5">
-                {partner.companySize && partner.companySize.length > 0 && (
+                {data.companySize.length > 0 && (
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-1 shrink-0" />
                     <span className="text-foreground">
-                      Företag med <strong>{partner.companySize.join(", ")}</strong> anställda
+                      Företag med <strong>{data.companySize.join(", ")}</strong> anställda
                     </span>
                   </li>
                 )}
-                {partner.revenue && partner.revenue.length > 0 && (
+                {data.revenue.length > 0 && (
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-1 shrink-0" />
                     <span className="text-foreground">
-                      Omsättning: <strong>{partner.revenue.join(", ")}</strong>
+                      Omsättning: <strong>{data.revenue.join(", ")}</strong>
                     </span>
                   </li>
                 )}
+
                 {data.industries.length > 0 && (
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-1 shrink-0" />
