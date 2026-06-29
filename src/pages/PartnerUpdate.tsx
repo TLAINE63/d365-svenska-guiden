@@ -1,10 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Progress } from "@/components/ui/progress";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -284,8 +285,49 @@ const PartnerUpdate = () => {
   events: false,
   notes: false,
   });
- const [autoExpandApplied, setAutoExpandApplied] = useState(false);
- const toggleSection = (key: SectionKey) =>
+  const [autoExpandApplied, setAutoExpandApplied] = useState(false);
+
+  // Profile completion progress
+  const profileProgress = useMemo(() => {
+    let score = 0;
+    const basicFields = [
+      formData.name?.trim(),
+      formData.website?.trim(),
+      formData.description?.trim(),
+      formData.contact_person?.trim(),
+      formData.email?.trim(),
+    ].filter(Boolean).length;
+    score += (basicFields / 5) * 25;
+
+    if (formData.logo_url?.trim()) score += 5;
+    if (formData.contact_photo_url?.trim()) score += 5;
+
+    const decisionFields = [
+      positioningStatement?.trim(),
+      notAFitInput?.trim(),
+      deliveryProfile.roles?.length > 0,
+    ].filter(Boolean).length;
+    score += (decisionFields / 3) * 20;
+
+    if (activeProducts.length > 0 || selectedSpecialtyProducts.length > 0) score += 5;
+
+    const productScore = activeProducts.reduce((sum, key) => {
+      const pf = getProductFilter(key);
+      const productFields = [
+        pf.productDescription?.trim(),
+        pf.whyChoose?.trim(),
+        pf.keyPoints?.trim(),
+        pf.geography?.length > 0,
+        pf.industries?.length > 0,
+      ].filter(Boolean).length;
+      return sum + (productFields / 5) * 10;
+    }, 0);
+    score += Math.min(productScore, 40);
+
+    return Math.round(Math.min(score, 100));
+  }, [formData, positioningStatement, notAFitInput, deliveryProfile, activeProducts, selectedSpecialtyProducts, productFilters]);
+
+  const toggleSection = (key: SectionKey) =>
  setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
 
  // Smart auto-expand: open empty/incomplete sections after data loads (runs once).
@@ -983,15 +1025,38 @@ const PartnerUpdate = () => {
  
  <div className="container mx-auto px-4 py-8">
  <div className="max-w-4xl mx-auto">
- <div className="text-center mb-8">
- <Building2 className="w-12 h-12 text-primary mx-auto mb-4" />
- <h1 className="text-2xl font-bold mb-2">Uppdatera partnerprofil</h1>
- <p className="text-muted-foreground">
- Fyll i eller uppdatera era uppgifter för {invitation?.partner_name}
- </p>
- </div>
+        <div className="text-center mb-8">
+          <Building2 className="w-12 h-12 text-primary mx-auto mb-4" />
+          <h1 className="text-2xl font-bold mb-2">Uppdatera partnerprofil</h1>
+          <p className="text-muted-foreground">
+            Fyll i eller uppdatera era uppgifter för {invitation?.partner_name}
+          </p>
+        </div>
 
- {/* View statistics for this partner — temporarily hidden from partners */}
+        {/* Progress & Value */}
+        <Card className="mb-8 border-cta-orange/20 bg-cta-orange/5">
+          <CardContent className="p-6">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+              <div>
+                <h2 className="text-lg font-semibold text-foreground">Progress & Value</h2>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Din profil används för att matcha er med rätt kunder.
+                  Ju tydligare och mer komplett den är – desto bättre synlighet får ni.
+                </p>
+              </div>
+              <div className="text-right md:text-right">
+                <span className="text-2xl font-bold text-cta-orange">{profileProgress}%</span>
+                <p className="text-xs text-muted-foreground">komplett</p>
+              </div>
+            </div>
+            <Progress value={profileProgress} indicatorClassName="bg-cta-orange" />
+            <p className="text-xs text-muted-foreground mt-2">
+              Fyll i grundinfo, positionering, produkter och branschpitcar för att öka träffsäkerheten.
+            </p>
+          </CardContent>
+        </Card>
+
+        {/* View statistics for this partner — temporarily hidden from partners */}
 
  <form onSubmit={handleSubmit} className="space-y-8">
  {/* Basic Information */}
