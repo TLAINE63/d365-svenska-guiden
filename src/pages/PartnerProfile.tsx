@@ -527,7 +527,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   )}
 
   {/* Website CTA - directly under description */}
-  <div className="flex flex-col items-center mb-4">
+  <div className="flex flex-col items-center mb-2">
   <a 
   href={partner.website} 
   target="_blank" 
