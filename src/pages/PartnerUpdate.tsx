@@ -1202,7 +1202,7 @@ const PartnerUpdate = () => {
          <div className="space-y-4">
            {/* Product Description */}
            <div>
-             <Label className="text-sm">Beskriv vad ni gör inom denna lösning</Label>
+             <Label className="text-sm">Vad gör ni inom denna lösning?</Label>
              <Input
                placeholder={descriptionPlaceholder}
                value={filter.productDescription || ''}
