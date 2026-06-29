@@ -260,6 +260,7 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
     customerCaseLinks,
     productDescription,
     whyChoose,
+    keyPoints,
     apps,
     industryApps,
     contact,
