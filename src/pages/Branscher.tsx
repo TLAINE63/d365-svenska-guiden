@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -8,6 +8,9 @@ import { ChevronRight, Sparkles } from "lucide-react";
 import { useCoveredIndustries } from "@/hooks/useCoveredIndustries";
 import { usePartners } from "@/hooks/usePartners";
 import { collectPartnerIndustries } from "@/lib/partnerIndustries";
+import { FilterButtons } from "@/components/FilterButtons";
+import { companySizes, geographyOptions } from "@/data/partners";
+import type { DatabasePartner } from "@/hooks/usePartners";
 
 const INDUSTRY_CONTEXT: Record<string, string> = {
  "tillverkning": "MES, spårbarhet, kvalitet",
@@ -81,22 +84,63 @@ const INDUSTRY_IMAGES: Record<string, string> = {
  "uthyrning": uthyrningImg,
 };
 
-const Branscher = () => {
- const { covered } = useCoveredIndustries();
- const { data: partners } = usePartners();
- const visibleIndustries = STANDARD_INDUSTRIES.filter((i) => covered.has(i.name));
+const GEOGRAPHY_HIERARCHY = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
 
- const partnerCounts = useMemo(() => {
- const counts: Record<string, number> = {};
- (partners || [])
- .filter((p) => p.is_featured === true)
- .forEach((p) => {
- collectPartnerIndustries(p).forEach((name) => {
- counts[name] = (counts[name] || 0) + 1;
- });
- });
- return counts;
- }, [partners]);
+const matchesGeography = (partnerGeos: string | string[], selected: string): boolean => {
+  const geos = Array.isArray(partnerGeos) && partnerGeos.length > 0
+    ? partnerGeos
+    : typeof partnerGeos === "string" && partnerGeos
+    ? [partnerGeos]
+    : ["Sverige"];
+  const selectedIndex = GEOGRAPHY_HIERARCHY.indexOf(selected);
+  if (selectedIndex === -1) return false;
+  return geos.some((geo) => GEOGRAPHY_HIERARCHY.indexOf(geo) >= selectedIndex);
+};
+
+const partnerMatchesIndustryFilters = (
+  p: DatabasePartner,
+  industryName: string,
+  selectedGeography: string | null,
+  selectedCompanySize: string | null
+): boolean => {
+  const pf = p.product_filters || {};
+  const productKeys = ["bc", "fsc", "sales", "service", "crm"] as const;
+  for (const key of productKeys) {
+    const filter = pf[key as keyof typeof pf];
+    if (!filter) continue;
+    const industries = filter.industries || [];
+    const secondary = filter.secondaryIndustries || [];
+    if (!industries.includes(industryName) && !secondary.includes(industryName)) continue;
+    if (selectedGeography && !matchesGeography(filter.geography, selectedGeography)) continue;
+    if (selectedCompanySize && !(filter.companySize || []).includes(selectedCompanySize)) continue;
+    return true;
+  }
+  return false;
+};
+
+const Branscher = () => {
+  const { covered } = useCoveredIndustries();
+  const { data: partners } = usePartners();
+  const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
+  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
+
+  const visibleIndustries = STANDARD_INDUSTRIES.filter((i) => covered.has(i.name));
+
+  const { filteredIndustries, filteredPartnerCounts } = useMemo(() => {
+    const counts: Record<string, number> = {};
+    const filtered = visibleIndustries.filter((ind) => {
+      const count = (partners || [])
+        .filter((p) => p.is_featured === true)
+        .filter((p) =>
+          partnerMatchesIndustryFilters(p, ind.name, selectedGeography, selectedCompanySize)
+        ).length;
+      counts[ind.name] = count;
+      return count > 0;
+    });
+    return { filteredIndustries: filtered, filteredPartnerCounts: counts };
+  }, [visibleIndustries, partners, selectedGeography, selectedCompanySize]);
+
+  const hasActiveFilters = selectedGeography || selectedCompanySize;
 
  return (
  <>
@@ -140,15 +184,48 @@ const Branscher = () => {
           </div>
         </section>
 
+        <section className="py-6 md:py-8 border-b border-border bg-muted/20">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <div className="max-w-2xl mb-6">
+              <h2 className="text-lg md:text-xl font-bold text-foreground mb-2">
+                Filtrera branscher efter geografi och företagsstorlek
+              </h2>
+              <p className="text-xs md:text-sm text-muted-foreground">
+                Visa endast branscher där det finns partners som matchar era val. Klicka på ett valt filter igen för att nollställa.
+              </p>
+            </div>
+            <FilterButtons
+              title="Geografi"
+              icon="geography"
+              options={geographyOptions.map((g) => ({ label: g, value: g }))}
+              selectedValue={selectedGeography}
+              onSelect={setSelectedGeography}
+              colorScheme="primary"
+            />
+            <FilterButtons
+              title="Företagsstorlek – antal anställda"
+              icon="employees"
+              options={companySizes.map((s) => ({ label: s, value: s }))}
+              selectedValue={selectedCompanySize}
+              onSelect={setSelectedCompanySize}
+              colorScheme="primary"
+            />
+            {hasActiveFilters && filteredIndustries.length === 0 && (
+              <p className="text-sm text-muted-foreground text-center mt-4">
+                Inga branscher matchar de valda filtren. Prova att ändra geografi eller företagsstorlek.
+              </p>
+            )}
+          </div>
+        </section>
 
- <section className="py-6 md:py-8">
- <div className="container mx-auto px-4 max-w-6xl">
- <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
- {visibleIndustries.map((ind) => {
- const img = INDUSTRY_IMAGES[ind.slug];
- const context = INDUSTRY_CONTEXT[ind.slug];
- const count = partnerCounts[ind.name] || 0;
- return (
+        <section className="py-6 md:py-8">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {filteredIndustries.map((ind) => {
+                const img = INDUSTRY_IMAGES[ind.slug];
+                const context = INDUSTRY_CONTEXT[ind.slug];
+                const count = filteredPartnerCounts[ind.name] || 0;
+                return (
  <Link
  key={ind.slug}
  to={`/branscher/${ind.slug}`}
