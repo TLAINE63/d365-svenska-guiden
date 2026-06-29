@@ -196,8 +196,8 @@ export function PartnerIndustryPitchesEditor({
                 value={defaultPitch?.text || ""}
                 onChange={(e) => upsertPitch(industry, null, e.target.value)}
               />
-              <p className={`text-xs text-right ${wordCount(defaultPitch?.text || "") > MAX_WORDS ? "text-destructive font-medium" : "text-muted-foreground"}`}>
-                {wordCount(defaultPitch?.text || "")} / {MAX_WORDS} ord
+              <p className={`text-xs text-right ${wordCount(defaultPitch?.text || "") > MAX_WORDS || wordCount(defaultPitch?.text || "") < MIN_WORDS ? "text-destructive font-medium" : "text-muted-foreground"}`}>
+                {wordCount(defaultPitch?.text || "")} / {MIN_WORDS}–{MAX_WORDS} ord
               </p>
             </div>
 
@@ -248,8 +248,8 @@ export function PartnerIndustryPitchesEditor({
                     value={ov.text || ""}
                     onChange={(e) => upsertPitch(industry, ov.product, e.target.value)}
                   />
-                  <p className={`text-xs text-right ${wordCount(ov.text || "") > MAX_WORDS ? "text-destructive font-medium" : "text-muted-foreground"}`}>
-                    {wordCount(ov.text || "")} / {MAX_WORDS} ord
+                  <p className={`text-xs text-right ${wordCount(ov.text || "") > MAX_WORDS || wordCount(ov.text || "") < MIN_WORDS ? "text-destructive font-medium" : "text-muted-foreground"}`}>
+                    {wordCount(ov.text || "")} / {MIN_WORDS}–{MAX_WORDS} ord
                   </p>
                 </div>
               );
