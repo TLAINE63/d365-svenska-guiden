@@ -1059,7 +1059,7 @@ const PartnerUpdate = () => {
         {/* View statistics for this partner — temporarily hidden from partners */}
 
  <form onSubmit={handleSubmit} className="space-y-8">
- {/* Basic Information */}
+ {/* Products - main flow */}
  <PremiumCollapsibleSection
  title="Dynamics 365-produkter"
  description="Välj produkter ni arbetar med och fyll i detaljer per produkt."
