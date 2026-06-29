@@ -231,6 +231,10 @@ const Index = () => {
                     </Link>
                   </div>
                 </div>
+                <p className="text-[15px] text-white/70 leading-relaxed mt-4">
+                  👉 Få en lista med partners som matchar er verksamhet – på under en minut
+                </p>
+              </div>
               </div>
 
               {/* 4-step filter hint */}
