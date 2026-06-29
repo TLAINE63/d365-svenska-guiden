@@ -389,16 +389,6 @@ export default function PartnerProductTabs({
                 </p>
               ) : null}
 
-              <ul className="space-y-3">
-                {data.geography.length > 0 && (
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
-                    <span className="text-foreground">
-                      Levererar i <strong>{data.geography.join(", ")}</strong>
-                    </span>
-                  </li>
-                )}
-              </ul>
 
               {data.productDescription && (
                 <div className="mt-5 border-l-2 border-primary/40 pl-4 py-1 text-[15px] text-foreground/80 leading-relaxed max-w-[72ch]">
