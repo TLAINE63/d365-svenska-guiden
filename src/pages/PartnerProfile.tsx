@@ -560,28 +560,6 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  </span>
  </div>
  
-  {/* Office cities */}
- {(() => {
- const cities = partner?.office_cities as string[] | undefined;
- return cities && cities.length > 0 ? (
- <div className="mt-5 flex flex-wrap justify-center items-center gap-x-3 gap-y-2">
- <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-500">
-  <MapPin className="w-3.5 h-3.5 text-[hsl(var(--primary))]" />
-  Kontor
-  </span>
-  <div className="flex flex-wrap justify-center gap-1.5">
-  {cities.map((city) => (
-  <span
-  key={city}
-  className="inline-flex items-center px-2.5 py-1 rounded bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:border-[hsl(var(--primary))] hover:text-[hsl(var(--primary))] transition-colors"
- >
- {city}
- </span>
- ))}
- </div>
- </div>
- ) : null;
- })()}
 
  {/* Sales contact card with optional photo - per product if applicable */}
  {(() => {
