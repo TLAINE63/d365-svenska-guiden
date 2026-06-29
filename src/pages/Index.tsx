@@ -287,55 +287,57 @@ const Index = () => {
  </p>
  </div>
 
-<div className="mb-8 sm:mb-10">
-  <div className="bg-[#211F1A] border border-[#3A332A] rounded p-4 sm:p-5">
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-      <Link
-        to="/branscher/"
-        className="group flex flex-col justify-between gap-2 bg-[#15130F] hover:bg-[#1d1b16] border border-[#3A332A] hover:border-[hsl(var(--signature))] rounded px-3 py-2.5 transition-colors"
-      >
-        <div className="flex items-center justify-between gap-2">
-          <span className="text-[13px] font-semibold text-white">Välj rätt partner</span>
-          <ArrowRight className="w-4 h-4 text-[hsl(var(--signature))] shrink-0" />
-        </div>
-        <div className="overflow-hidden transition-all duration-300 max-h-0 opacity-0 group-hover:max-h-[200px] group-hover:opacity-100">
-          <p className="pt-2 text-[13px] text-white/80">
-            Jag har en god insikt i vilken lösning som borde passa och vill ha hjälp att välja rätt <span className="text-[hsl(var(--signature))]">partner</span>.
-          </p>
-        </div>
-      </Link>
-      <button
-        type="button"
-        onClick={() => setDirectionPicker("behovsanalys")}
-        className="group flex flex-col justify-between gap-2 bg-[#15130F] hover:bg-[#1d1b16] border border-[#3A332A] hover:border-[hsl(var(--signature))] rounded px-3 py-2.5 transition-colors text-left"
-      >
-        <div className="flex items-center justify-between gap-2">
-          <span className="text-[13px] font-semibold text-white">Behovsanalys</span>
-          <ArrowRight className="w-4 h-4 text-[hsl(var(--signature))] shrink-0" />
-        </div>
-        <div className="overflow-hidden transition-all duration-300 max-h-0 opacity-0 group-hover:max-h-[200px] group-hover:opacity-100">
-          <p className="pt-2 text-[13px] text-white/80">
-            Jag startar gärna med en <span className="text-[hsl(var(--signature))]">behovsanalys</span>, innan vi går vidare med en partnerdialog.
-          </p>
-        </div>
-      </button>
-      <Link
-        to="/kunskapscenter/"
-        className="group flex flex-col justify-between gap-2 bg-[#15130F] hover:bg-[#1d1b16] border border-[#3A332A] hover:border-[hsl(var(--signature))] rounded px-3 py-2.5 transition-colors"
-      >
-        <div className="flex items-center justify-between gap-2">
-          <span className="text-[13px] font-semibold text-white">Kunskapscentret</span>
-          <ArrowRight className="w-4 h-4 text-[hsl(var(--signature))] shrink-0" />
-        </div>
-        <div className="overflow-hidden transition-all duration-300 max-h-0 opacity-0 group-hover:max-h-[200px] group-hover:opacity-100">
-          <p className="pt-2 text-[13px] text-white/80">
-            Jag behöver förstå mer om vad Dynamics 365 (ERP och CRM) kan hjälpa vår verksamhet med.
-          </p>
-        </div>
-      </Link>
-    </div>
-  </div>
-</div>
+ {/* Börja här – dold tills vidare
+ <div className="mb-8 sm:mb-10">
+   <div className="bg-[#211F1A] border border-[#3A332A] rounded p-4 sm:p-5">
+     <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+       <Link
+         to="/branscher/"
+         className="group flex flex-col justify-between gap-2 bg-[#15130F] hover:bg-[#1d1b16] border border-[#3A332A] hover:border-[hsl(var(--signature))] rounded px-3 py-2.5 transition-colors"
+       >
+         <div className="flex items-center justify-between gap-2">
+           <span className="text-[13px] font-semibold text-white">Välj rätt partner</span>
+           <ArrowRight className="w-4 h-4 text-[hsl(var(--signature))] shrink-0" />
+         </div>
+         <div className="overflow-hidden transition-all duration-300 max-h-0 opacity-0 group-hover:max-h-[200px] group-hover:opacity-100">
+           <p className="pt-2 text-[13px] text-white/80">
+             Jag har en god insikt i vilken lösning som borde passa och vill ha hjälp att välja rätt <span className="text-[hsl(var(--signature))]">partner</span>.
+           </p>
+         </div>
+       </Link>
+       <button
+         type="button"
+         onClick={() => setDirectionPicker("behovsanalys")}
+         className="group flex flex-col justify-between gap-2 bg-[#15130F] hover:bg-[#1d1b16] border border-[#3A332A] hover:border-[hsl(var(--signature))] rounded px-3 py-2.5 transition-colors text-left"
+       >
+         <div className="flex items-center justify-between gap-2">
+           <span className="text-[13px] font-semibold text-white">Behovsanalys</span>
+           <ArrowRight className="w-4 h-4 text-[hsl(var(--signature))] shrink-0" />
+         </div>
+         <div className="overflow-hidden transition-all duration-300 max-h-0 opacity-0 group-hover:max-h-[200px] group-hover:opacity-100">
+           <p className="pt-2 text-[13px] text-white/80">
+             Jag startar gärna med en <span className="text-[hsl(var(--signature))]">behovsanalys</span>, innan vi går vidare med en partnerdialog.
+           </p>
+         </div>
+       </button>
+       <Link
+         to="/kunskapscenter/"
+         className="group flex flex-col justify-between gap-2 bg-[#15130F] hover:bg-[#1d1b16] border border-[#3A332A] hover:border-[hsl(var(--signature))] rounded px-3 py-2.5 transition-colors"
+       >
+         <div className="flex items-center justify-between gap-2">
+           <span className="text-[13px] font-semibold text-white">Kunskapscentret</span>
+           <ArrowRight className="w-4 h-4 text-[hsl(var(--signature))] shrink-0" />
+         </div>
+         <div className="overflow-hidden transition-all duration-300 max-h-0 opacity-0 group-hover:max-h-[200px] group-hover:opacity-100">
+           <p className="pt-2 text-[13px] text-white/80">
+             Jag behöver förstå mer om vad Dynamics 365 (ERP och CRM) kan hjälpa vår verksamhet med.
+           </p>
+         </div>
+       </Link>
+     </div>
+   </div>
+ </div>
+ */}
 
  {/* 3 step cards */}
  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 mb-5 sm:mb-6">
