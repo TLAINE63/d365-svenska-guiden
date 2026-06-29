@@ -1518,8 +1518,8 @@ const PartnerUpdate = () => {
          </div>
        )}
 
-       {/* Steg 3 – Bransch & målgrupp */}
-       {currentStep === 3 && (
+        {/* Steg 2 – Målgrupp */}
+        {currentStep === 2 && (
          <div className="space-y-4">
            {/* Industries */}
            <div>
