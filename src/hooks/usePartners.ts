@@ -23,6 +23,7 @@ export interface ProductFilterInput {
   customerExamples?: string[];  // Reference customers for this product
   customerCaseLinks?: string[]; // Links to customer case studies
   productDescription?: string;  // Short description of partner's offering for this product
+  whyChoose?: string;           // Required: Why customers should choose this partner for this product
   // AI capability fields
   aiCapabilities?: string[];    // Which AI solution types the partner has delivered
   aiProjectCount?: string;      // Number of AI projects last 24 months: "0-2", "3-5", "6+"
