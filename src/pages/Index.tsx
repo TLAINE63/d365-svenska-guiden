@@ -231,6 +231,9 @@ const Index = () => {
                 <p className="text-[15px] text-white/70 leading-relaxed mt-4">
                   👉 Få en lista med partners som matchar er verksamhet – på under en minut
                 </p>
+                <p className="text-[13px] sm:text-[14px] text-white/60 leading-relaxed mt-2">
+                  • Byggt på 40+ års erfarenhet av Dynamics 365 och affärssystem
+                </p>
               </div>
 
               {/* 4-step filter hint */}
