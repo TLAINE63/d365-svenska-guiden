@@ -25,6 +25,29 @@ import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import FinanceIcon from "@/assets/icons/Finance.svg";
 import SalesIcon from "@/assets/icons/Sales.svg";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
+import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
+import CommerceIcon from "@/assets/icons/Commerce.svg";
+import HumanResourcesIcon from "@/assets/icons/HumanResources.svg";
+
+const SPECIALTY_APPLICATIONS = ["Project Operations", "Commerce", "Human Resources"];
+
+const appIconSrc: Record<string, string> = {
+  "Business Central": BusinessCentralIcon,
+  "Finance": FinanceIcon,
+  "Supply Chain Management": FinanceIcon,
+  "Finance & SCM": FinanceIcon,
+  "Finance & Supply Chain": FinanceIcon,
+  "Sales": SalesIcon,
+  "Customer Service": CustomerServiceIcon,
+  "Field Service": CustomerServiceIcon,
+  "Contact Center": CustomerServiceIcon,
+  "Customer Insights": SalesIcon,
+  "Customer Insights (Marketing)": SalesIcon,
+  "Marketing": SalesIcon,
+  "Project Operations": ProjectOperationsIcon,
+  "Commerce": CommerceIcon,
+  "Human Resources": HumanResourcesIcon,
+};
 
 export type TabKey = "bc" | "fsc" | "crm";
 
