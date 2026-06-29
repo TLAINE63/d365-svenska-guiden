@@ -9,7 +9,7 @@
     "website": "https://www.4ps.se/",
     "email": "anders.ostby@4ps.se",
     "contact_person": "Anders Östby",
-    "contact_photo_url": null,
+    "contact_photo_url": "",
     "phone": "+46 10 540 00 00",
     "applications": [
       "Business Central"
@@ -86,7 +86,7 @@
     "map_url": "https://www.google.com/maps/d/edit?mid=1lqToksFfFiaeIdp1Hgub9PYB6WJk_xs&ll=59.13450631416728%2C16.462738500000004&z=5",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-06-29T15:15:18.475994+00:00",
+    "updated_at": "2026-06-29T15:51:17.919698+00:00",
     "industry_pitches": [
       {
         "text": "4PS Construction Software AB erbjuder en branschspecifik ERP-lösning, 4PS Construct, baserad på Microsoft Dynamics 365 Business Central. Lösningen är utvecklad för bygg-, installations- och serviceföretag och syftar till att leverera end-to-end-funktionalitet. Med 4PS Construct kan företag hantera projekthantering, offerter, resursplanering, inköp, ekonomi och service i en integrerad plattform. 4PS Construct tillhandahåller realtidsvisibilitet över projektprocesser, vilket bidrar till effektivare styrning och beslutsfattande inom bygg- och entreprenadbranschen. Partnern fokuserar på att möta branschens behov av smidiga digitala processer för att hantera komplexa projekt och krav på lönsamhet.",
@@ -95,6 +95,14 @@
         "edited_by": "admin",
         "updated_at": "2026-05-17T08:10:26.839Z",
         "generated_at": "2026-05-17T08:10:26.839Z"
+      },
+      {
+        "text": "4PS Construction Software AB erbjuder en specialiserad lösning baserad på Microsoft Dynamics 365 Business Central, designad för bygg- och entreprenadbranschen. Partnern adresserar typiska utmaningar såsom komplex projektledning, resursallokering och uppföljning av kostnadskontroll. Genom att implementera 4PS Construct uppnås förbättrad spårbarhet i hela projektcykeln, från kalkyl till efterkalkyl. Detta system stödjer processer som anbudshantering, inköp, materialplanering och personalhantering. Lösningen tillhandahåller även realtidsdata för beslutsfattande, vilket bidrar till optimerad projektgenomförande och ökad lönsamhet. Fokus ligger på en heltäckande branschanpassning inom Dynamics 365 Business Central.",
+        "product": "Business Central",
+        "industry": "Bygg & Entreprenad",
+        "edited_by": "partner",
+        "updated_at": "2026-06-29T15:49:06.700Z",
+        "generated_at": "2026-06-29T15:49:06.700Z"
       }
     ],
     "agreement_signed": true,
