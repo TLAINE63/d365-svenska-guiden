@@ -1140,15 +1140,35 @@ const PartnerUpdate = () => {
  const section = productSections.find(s => s.key === productKey)!;
  const filter = getProductFilter(productKey);
  
-  // Product-specific placeholder for description
-  const descriptionPlaceholder = 
-  productKey === 'bc' 
-  ? "T.ex. 'Business Central-implementationer i medelstora bolag inom distribution'"
-  : productKey === 'fsc'
-  ? "T.ex. 'Finance & Supply Chain för tillverkande koncerner med komplexa flöden'"
-  : productKey === 'sales'
-  ? "T.ex. 'Sales-implementeringar för B2B-företag med långa säljcykler'"
-  : "T.ex. 'Customer Service-lösningar för supportteam med höga volymer'";
+   // Product-specific placeholder for description
+   const descriptionPlaceholder = 
+   productKey === 'bc' 
+   ? "Ex: Business Central-implementationer i medelstora bolag inom distribution"
+   : productKey === 'fsc'
+   ? "Ex: Finance & Supply Chain för tillverkande koncerner med komplexa flöden"
+   : productKey === 'sales'
+   ? "Ex: Sales-implementeringar för B2B-företag med långa säljcykler"
+   : "Ex: Customer Service-lösningar för supportteam med höga volymer";
+
+   // Product-specific placeholder for "Varför välja er"
+   const whyChoosePlaceholder =
+   productKey === 'bc'
+   ? "Ex: Vi har levererat 40+ Business Central-projekt i distributions- och grossistbolag (50–500 anställda). Vårt team kombinerar BC-konsulter med branschspecialister, och vi har en färdig accelerator för lager, inköp och e-handelsintegration som kortar implementationstiden med ca 30%."
+   : productKey === 'fsc'
+   ? "Ex: Vi är specialiserade på Finance & SCM i tillverkande koncerner med flera bolag och länder. Eget metodverk för konsolidering, IFRS och avancerad produktionsplanering. Senior projektledning som kunden möter från dag ett till go-live."
+   : productKey === 'sales'
+   ? "Ex: Vi bygger Sales-lösningar för B2B-bolag med långa säljcykler och komplex pipeline. Tight Copilot-integration, LinkedIn Sales Navigator och egna mallar för forecast och account-planering. Inga generiska CRM-utrullningar."
+   : "Ex: Vi designar Customer Service för supportorganisationer med höga volymer och SLA-krav. Erfarenhet av omnikanal, kunskapsbas och Copilot-agents. Vi mäter alltid på lösningsgrad och first-response, inte bara på antalet ärenden.";
+
+   // Product-specific placeholder for key points
+   const keyPointsPlaceholder =
+   productKey === 'bc'
+   ? "Erfarna BC-konsulter med snitt 8+ år i rollen\nAccelerator för distribution, lager och e-handel\nFastpris och fast tidplan för standardimplementation\nLokal support i Sverige – inga offshore-team"
+   : productKey === 'fsc'
+   ? "Erfarenhet av Finance & SCM i tillverkningsbolag\nProjekt i internationella miljöer och flera bolag\nFokus på komplex produktion, planering och konsolidering\nSenior projektledning genom hela leveransen"
+   : productKey === 'sales'
+   ? "Specialister på B2B med långa säljcykler\nCopilot for Sales och LinkedIn Sales Navigator i grunden\nMallar för pipeline, forecast och account-planer\nAdoption-program så CRM faktiskt används"
+   : "Omnikanal: telefon, mejl, chatt, självservice\nCopilot-agents för förstaledssupport\nKunskapsbas och ärendeflöden från dag ett\nMätbara mål på lösningsgrad, AHT och CSAT";
  
  return (
  <Card key={productKey} className="ring-2 ring-offset-2" style={{ borderColor: `hsl(var(--${section.key === 'bc' ? 'business-central' : section.key === 'fsc' ? 'finance-supply' : section.key === 'sales' ? 'crm' : 'customer-service'}))` }}>
