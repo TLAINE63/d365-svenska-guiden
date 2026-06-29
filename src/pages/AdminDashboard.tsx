@@ -4104,12 +4104,20 @@ Thomas`,
  onOpenChange={(o) => setSectionOpen('products', o)}
  sectionRef={(el) => (sectionRefs.current[4] = el)}
  >
- <div className="rounded-lg border-2 border-dashed border-primary/30 bg-primary/5 p-3 flex items-start gap-2">
- <ArrowRight className="h-4 w-4 text-primary mt-0.5 shrink-0" />
- <p className="text-sm text-foreground">
- <strong>Klicka på produktnamnet</strong> för att fälla ut och fylla i information för det produktområde partnern erbjuder. Hoppa över de produkter som inte är aktuella.
- </p>
- </div>
+  <div className="rounded-lg border border-cta-orange/30 bg-cta-orange/5 p-3 flex items-start gap-2">
+    <ArrowRight className="h-4 w-4 text-cta-orange mt-0.5 shrink-0" />
+    <div className="text-sm text-foreground">
+      <p className="font-medium">Denna information används för att matcha er med rätt kunder.</p>
+      <p>Ju tydligare ni beskriver er spets, desto bättre träffsäkerhet.</p>
+    </div>
+  </div>
+
+  <div className="rounded-lg border-2 border-dashed border-primary/30 bg-primary/5 p-3 flex items-start gap-2">
+    <ArrowRight className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+    <p className="text-sm text-foreground">
+      <strong>Klicka på produktnamnet</strong> för att fälla ut och fylla i information för det produktområde partnern erbjuder. Hoppa över de produkter som inte är aktuella.
+    </p>
+  </div>
 
  <div className="space-y-4">
  {productSections.map((section) => {
