@@ -392,26 +392,9 @@ export default function PartnerProductTabs({
                 {data.geography.length > 0 && (
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
-                    <div className="text-foreground">
-                      <div>
-                        Levererar i <strong>{data.geography.join(", ")}</strong>
-                      </div>
-                      {(() => {
-                        const cities = (partner as any)?.office_cities as string[] | undefined;
-                        return cities && cities.length > 0 ? (
-                          <div className="mt-2 flex flex-wrap gap-1.5">
-                            {cities.map((city) => (
-                              <span
-                                key={city}
-                                className="inline-flex items-center px-2.5 py-1 rounded bg-white border border-slate-200 text-xs font-semibold text-slate-700"
-                              >
-                                {city}
-                              </span>
-                            ))}
-                          </div>
-                        ) : null;
-                      })()}
-                    </div>
+                    <span className="text-foreground">
+                      Levererar i <strong>{data.geography.join(", ")}</strong>
+                    </span>
                   </li>
                 )}
               </ul>
