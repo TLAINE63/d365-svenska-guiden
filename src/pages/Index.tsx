@@ -188,7 +188,7 @@ const Index = () => {
                 Microsoft Dynamics 365 — Guider, jämförelser och partnerval på köparens villkor
               </h1>
               <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
-                Dynamics 365 är inte ett systemval. Det är ett verksamhetsbeslut. d365.se hjälper er förstå behovet, jämföra ERP- och CRM-alternativen sakligt och välja partner utifrån bransch, komplexitet och ambitionsnivå — inte utifrån pitch.
+                Dynamics 365 är inte ett systemval. Det är ett verksamhetsbeslut. d365.se hjälper er förstå behovet, jämföra ERP- och CRM-alternativen sakligt och välja partner utifrån bransch, komplexitet och ambitionsnivå.
               </p>
 
               <div className="border-t border-white/10 pt-7 mb-8">
