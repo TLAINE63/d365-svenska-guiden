@@ -97,7 +97,7 @@ const Index = () => {
       icon: Users,
       title: "Vi vet vad vi vill",
       desc: "Ni har ringat in behovet och vill jämföra partners utifrån bransch, produkt, storlek och geografi.",
-      cta: "Starta partnermatchning",
+      cta: "Hitta rätt partner",
       to: "/valjdynamics365partner/",
       primary: true,
     },
@@ -206,7 +206,7 @@ const Index = () => {
                     className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-base h-14 px-7 rounded font-bold hover:-translate-y-0.5 transition-all justify-center"
                   >
                     <Link to="/branscher/">
-                      Starta partnermatchning
+                      Hitta rätt partner
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </Link>
                   </Button>
@@ -296,7 +296,7 @@ const Index = () => {
                 className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white h-13 px-7 rounded font-bold hover:-translate-y-0.5 transition-all"
               >
                 <Link to="/branscher/">
-                  Starta partnermatchning
+                  Hitta rätt partner
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Link>
               </Button>
@@ -518,7 +518,7 @@ const Index = () => {
               Redo att hitta rätt partner?
             </h2>
             <p className="text-base sm:text-lg text-white/70 font-light leading-relaxed mb-8 max-w-xl mx-auto">
-              Starta partnermatchningen — eller boka en kostnadsfri rådgivning först.
+              Hitta rätt partner — eller boka en kostnadsfri rådgivning först.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
               <Button
@@ -527,7 +527,7 @@ const Index = () => {
                 className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 text-base sm:text-lg h-14 sm:h-15 px-8 rounded font-bold hover:-translate-y-0.5 transition-all"
               >
                 <Link to="/valjdynamics365partner/">
-                  Starta partnermatchning
+                  Hitta rätt partner
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Link>
               </Button>
@@ -707,7 +707,7 @@ const Index = () => {
                         <p>• <strong>Storlek och kapacitet:</strong> Matcha partnerns kapacitet med projektets storlek.</p>
                         <p className="pt-2">
                           <Link to="/valjdynamics365partner/" className="text-primary hover:underline font-semibold">
-                            → Starta partnermatchningen
+                            → Hitta rätt partner
                           </Link>
                         </p>
                       </div>

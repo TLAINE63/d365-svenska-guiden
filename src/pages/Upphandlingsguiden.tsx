@@ -304,7 +304,7 @@ const Upphandlingsguiden = () => {
  className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-[15px] font-semibold h-12 px-7 rounded hover:-translate-y-0.5 transition-all"
  >
  <Link to="/valjdynamics365partner/">
- Starta partnermatchning
+ Hitta rätt partner
  <ArrowRight className="w-4 h-4 ml-1.5" />
  </Link>
  </Button>
