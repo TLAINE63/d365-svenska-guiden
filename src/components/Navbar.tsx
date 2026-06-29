@@ -101,10 +101,10 @@ const Navbar = () => {
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center gap-4 xl:gap-6">
             <Link
-              to="/branscher/"
+              to="/valjdynamics365partner/"
               className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] transition-colors"
             >
-              Hitta bransch & partner
+              Hitta partner
             </Link>
             {/* Branschlösningar – dold tills vidare */}
             <DropdownMenu>
@@ -244,10 +244,10 @@ const Navbar = () => {
                   <Sparkles className="h-4 w-4" /> AI-sök
                 </Link>
                 <Link
-                  to="/branscher/"
+                  to="/valjdynamics365partner/"
                   className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
                 >
-                  Hitta bransch & partner
+                  Hitta partner
                 </Link>
                 {/* Branschlösningar – dold tills vidare */}
                 <Link
