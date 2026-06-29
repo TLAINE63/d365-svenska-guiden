@@ -189,12 +189,12 @@ export function PartnerIndustryPitchesEditor({
                 </Button>
               </div>
               <Textarea
-                rows={5}
-                placeholder={`Kort text om er erfarenhet inom ${industry.toLowerCase()}...`}
+                rows={7}
+                placeholder={PITCH_PLACEHOLDER}
                 value={defaultPitch?.text || ""}
                 onChange={(e) => upsertPitch(industry, null, e.target.value)}
               />
-              <p className="text-xs text-muted-foreground text-right">
+              <p className={`text-xs text-right ${wordCount(defaultPitch?.text || "") > MAX_WORDS ? "text-destructive font-medium" : "text-muted-foreground"}`}>
                 {wordCount(defaultPitch?.text || "")} / {MAX_WORDS} ord
               </p>
             </div>
