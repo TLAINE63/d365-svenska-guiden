@@ -1061,312 +1061,6 @@ const PartnerUpdate = () => {
  <form onSubmit={handleSubmit} className="space-y-8">
  {/* Basic Information */}
  <PremiumCollapsibleSection
- title="Grundläggande information"
- description="Företagets kontaktuppgifter, logotyp och beskrivning"
- icon={Building2}
- accent="primary"
- status={
- formData.name?.trim() && formData.website?.trim() && formData.description?.trim() && formData.contact_person?.trim() && formData.email?.trim()
- ? "complete"
- : (formData.name?.trim() || formData.website?.trim() ? "partial" : "empty")
- }
- open={openSections.basic}
- onOpenChange={() => toggleSection("basic")}
- >
- <div className="space-y-4">
- <div className="grid sm:grid-cols-2 gap-4">
- <div className="space-y-2">
- <Label htmlFor="name">Företagsnamn *</Label>
- <Input
- id="name"
- name="name"
- value={formData.name}
- onChange={handleInputChange}
- required
- />
- </div>
-<div className="space-y-2">
-  <Label htmlFor="website">Länk till er huvudsida för Dynamics 365 eller er företagswebb *</Label>
-  <p className="text-sm text-muted-foreground">
-    Använd en sida som hjälper kunden förstå ert erbjudande.
-  </p>
-  <Input
-    id="website"
-    name="website"
-    type="url"
-    placeholder="https://"
-    value={formData.website}
-    onChange={handleInputChange}
-    required
-  />
-</div>
- </div>
-
-<div className="space-y-2">
-  <Label htmlFor="description">Beskrivning av företaget</Label>
-  <p className="text-sm text-muted-foreground">
-    Beskriv ert företag kort (max 2–3 meningar).
-  </p>
-  <Textarea
-    id="description"
-    name="description"
-    rows={6}
-    placeholder="Vi hjälper tillverkande företag med Business Central – särskilt produktionsplanering och lagerstyrning. Våra kunder är ofta 50–250 anställda i Sverige och Norden."
-    value={formData.description}
-    onChange={handleInputChange}
-  />
-  <p className="text-xs text-muted-foreground">
-    • Vad ni gör (inte hela historien)<br />
-    • Er spets inom Dynamics 365<br />
-    • Typ av kunder ni arbetar med<br /><br />
-    Undvik: “ledande partner”, “vi erbjuder”, marknadsföringsspråk.
-  </p>
-</div>
-
- <div className="grid sm:grid-cols-2 gap-4">
- <div className="space-y-2">
- <Label htmlFor="contact_person">Säljare/Säljansvarig</Label>
- <Input
- id="contact_person"
- name="contact_person"
- value={formData.contact_person}
- onChange={handleInputChange}
- />
- </div>
- <div className="space-y-2">
- <Label htmlFor="email">E-post</Label>
- <Input
- id="email"
- name="email"
- type="email"
- value={formData.email}
- onChange={handleInputChange}
- />
- </div>
- </div>
-
- {/* Main Sales Contact Photo Upload */}
- <div className="rounded-lg border border-border p-4 space-y-3 bg-muted/30">
- <div>
- <Label className="text-sm font-semibold">Foto på huvudsäljkontakten</Label>
- <p className="text-xs text-muted-foreground mt-1">
- Visas på er partnerprofil bredvid säljkontaktens namn. Rekommenderat: porträtt 400×400px (JPG/PNG/WebP, max 5MB).
- </p>
- </div>
- <div className="flex items-center gap-4">
- {formData.contact_photo_url ? (
- <img
- src={formData.contact_photo_url}
- alt="Säljkontakt foto"
- className="h-20 w-20 object-cover rounded border-2 border-border "
- />
- ) : (
- <div className="h-20 w-20 rounded border-2 border-dashed border-border bg-background flex items-center justify-center">
- <ImageIcon className="h-7 w-7 text-muted-foreground" />
- </div>
- )}
- <div className="flex gap-2">
- <input
- type="file"
- accept="image/jpeg,image/png,image/webp"
- id="main-contact-photo"
- className="hidden"
- onChange={handleMainContactPhotoUpload}
- />
- <Button
- type="button"
- variant="outline"
- size="sm"
- disabled={uploadingMainContactPhoto}
- onClick={() => document.getElementById("main-contact-photo")?.click()}
- >
- {uploadingMainContactPhoto ? (
- <Loader2 className="mr-2 h-4 w-4 animate-spin" />
- ) : (
- <Upload className="mr-2 h-4 w-4" />
- )}
- {uploadingMainContactPhoto
- ? "Laddar upp..."
- : (formData.contact_photo_url ? "Byt foto" : "Ladda upp foto")}
- </Button>
- {formData.contact_photo_url && (
- <Button
- type="button"
- variant="ghost"
- size="sm"
- onClick={() => setFormData(prev => ({ ...prev, contact_photo_url: "" }))}
- className="text-destructive hover:text-destructive"
- >
- <X className="h-4 w-4 mr-1" />
- Ta bort
- </Button>
- )}
- </div>
- </div>
- </div>
-
- <div className="grid sm:grid-cols-2 gap-4">
- <div className="space-y-2">
- <Label htmlFor="phone">Telefon</Label>
- <Input
- id="phone"
- name="phone"
- value={formData.phone}
- onChange={handleInputChange}
- />
- </div>
- <div className="space-y-2">
- <Label htmlFor="address">Adress</Label>
- <Input
- id="address"
- name="address"
- value={formData.address}
- onChange={handleInputChange}
- />
- </div>
- </div>
-
- {/* Invoice fields */}
- <div className="grid sm:grid-cols-2 gap-4">
- <div className="space-y-2">
- <Label htmlFor="invoice_contact">Fakturakontakt (namn)</Label>
- <Input
- id="invoice_contact"
- name="invoice_contact"
- value={formData.invoice_contact}
- onChange={handleInputChange}
- placeholder="Namn på fakturamottagare"
- />
- </div>
- <div className="space-y-2">
- <Label htmlFor="invoice_email">Faktura e-post</Label>
- <Input
- id="invoice_email"
- name="invoice_email"
- type="email"
- value={formData.invoice_email}
- onChange={handleInputChange}
- placeholder="faktura@example.com"
- />
- </div>
- </div>
- <div className="space-y-2">
- <Label htmlFor="office_cities_input">Kontorsstäder</Label>
- <Input
- id="office_cities_input"
- name="office_cities_input"
- placeholder="t.ex. Stockholm, Göteborg, Malmö"
- value={formData.office_cities_input}
- onChange={handleInputChange}
- />
- <p className="text-xs text-muted-foreground">Separera med kommatecken</p>
- </div>
-
- {/* Logo Upload Section */}
- <div className="space-y-3">
- <Label>Logotyp</Label>
- 
- {logoPreview ? (
- <div className="flex items-start gap-4">
- <div className="relative w-32 h-32 rounded-lg border-2 border-border bg-muted overflow-hidden flex items-center justify-center">
- <img 
- src={logoPreview} 
- alt="Partner logotyp" 
- className="max-w-full max-h-full object-contain p-2"
- />
- </div>
- <div className="space-y-2">
- <p className="text-sm text-muted-foreground">
- Logotypen har laddats upp
- </p>
- <div className="flex gap-2">
- <Button
- type="button"
- variant="outline"
- size="sm"
- onClick={() => fileInputRef.current?.click()}
- disabled={uploadingLogo}
- >
- {uploadingLogo ? (
- <Loader2 className="h-4 w-4 animate-spin mr-2" />
- ) : (
- <Upload className="h-4 w-4 mr-2" />
- )}
- Byt logotyp
- </Button>
- <Button
- type="button"
- variant="ghost"
- size="sm"
- onClick={removeLogo}
- className="text-destructive hover:text-destructive"
- >
- <X className="h-4 w-4 mr-1" />
- Ta bort
- </Button>
- </div>
- </div>
- </div>
- ) : (
- <div
- onDragEnter={handleDrag}
- onDragLeave={handleDrag}
- onDragOver={handleDrag}
- onDrop={handleDrop}
- onClick={() => fileInputRef.current?.click()}
- className={`
- relative border-2 border-dashed rounded-lg p-8 text-center cursor-pointer
- transition-colors duration-200
- ${dragActive 
- ? 'border-primary bg-primary/5' 
- : 'border-border hover:border-primary/50 hover:bg-muted/50'
- }
- ${uploadingLogo ? 'pointer-events-none opacity-60' : ''}
- `}
- >
- {uploadingLogo ? (
- <div className="flex flex-col items-center gap-2">
- <Loader2 className="h-10 w-10 animate-spin text-primary" />
- <p className="text-sm text-muted-foreground">Laddar upp...</p>
- </div>
- ) : (
- <div className="flex flex-col items-center gap-3">
- <div className="rounded bg-muted p-3">
- <ImageIcon className="h-8 w-8 text-muted-foreground" />
- </div>
- <div>
- <p className="font-medium text-foreground">
- Dra och släpp er logotyp här
- </p>
- <p className="text-sm text-muted-foreground mt-1">
- eller klicka för att välja fil
- </p>
- </div>
- <p className="text-xs text-muted-foreground">
- JPEG, PNG, WebP eller SVG (max 5MB)
- </p>
- </div>
- )}
- </div>
- )}
- 
- <input
- ref={fileInputRef}
- type="file"
- accept="image/jpeg,image/png,image/webp,image/svg+xml"
- onChange={handleFileSelect}
- className="hidden"
- />
- 
- <p className="text-xs text-muted-foreground">
- Rekommenderat: SVG eller PNG med transparent bakgrund för bästa resultat
- </p>
- </div>
- </div>
- </PremiumCollapsibleSection>
-
- {/* Products Section */}
- <PremiumCollapsibleSection
  title="Dynamics 365-produkter"
  description="Välj produkter ni arbetar med och fyll i detaljer per produkt."
  icon={Layers}
@@ -1987,6 +1681,313 @@ const PartnerUpdate = () => {
  })}
  </div>
  </PremiumCollapsibleSection>
+
+ <PremiumCollapsibleSection
+ title="Grundläggande information"
+ description="Företagets kontaktuppgifter, logotyp och beskrivning"
+ icon={Building2}
+ accent="primary"
+ status={
+ formData.name?.trim() && formData.website?.trim() && formData.description?.trim() && formData.contact_person?.trim() && formData.email?.trim()
+ ? "complete"
+ : (formData.name?.trim() || formData.website?.trim() ? "partial" : "empty")
+ }
+ open={openSections.basic}
+ onOpenChange={() => toggleSection("basic")}
+ >
+ <div className="space-y-4">
+ <div className="grid sm:grid-cols-2 gap-4">
+ <div className="space-y-2">
+ <Label htmlFor="name">Företagsnamn *</Label>
+ <Input
+ id="name"
+ name="name"
+ value={formData.name}
+ onChange={handleInputChange}
+ required
+ />
+ </div>
+<div className="space-y-2">
+  <Label htmlFor="website">Länk till er huvudsida för Dynamics 365 eller er företagswebb *</Label>
+  <p className="text-sm text-muted-foreground">
+    Använd en sida som hjälper kunden förstå ert erbjudande.
+  </p>
+  <Input
+    id="website"
+    name="website"
+    type="url"
+    placeholder="https://"
+    value={formData.website}
+    onChange={handleInputChange}
+    required
+  />
+</div>
+ </div>
+
+<div className="space-y-2">
+  <Label htmlFor="description">Beskrivning av företaget</Label>
+  <p className="text-sm text-muted-foreground">
+    Beskriv ert företag kort (max 2–3 meningar).
+  </p>
+  <Textarea
+    id="description"
+    name="description"
+    rows={6}
+    placeholder="Vi hjälper tillverkande företag med Business Central – särskilt produktionsplanering och lagerstyrning. Våra kunder är ofta 50–250 anställda i Sverige och Norden."
+    value={formData.description}
+    onChange={handleInputChange}
+  />
+  <p className="text-xs text-muted-foreground">
+    • Vad ni gör (inte hela historien)<br />
+    • Er spets inom Dynamics 365<br />
+    • Typ av kunder ni arbetar med<br /><br />
+    Undvik: “ledande partner”, “vi erbjuder”, marknadsföringsspråk.
+  </p>
+</div>
+
+ <div className="grid sm:grid-cols-2 gap-4">
+ <div className="space-y-2">
+ <Label htmlFor="contact_person">Säljare/Säljansvarig</Label>
+ <Input
+ id="contact_person"
+ name="contact_person"
+ value={formData.contact_person}
+ onChange={handleInputChange}
+ />
+ </div>
+ <div className="space-y-2">
+ <Label htmlFor="email">E-post</Label>
+ <Input
+ id="email"
+ name="email"
+ type="email"
+ value={formData.email}
+ onChange={handleInputChange}
+ />
+ </div>
+ </div>
+
+ {/* Main Sales Contact Photo Upload */}
+ <div className="rounded-lg border border-border p-4 space-y-3 bg-muted/30">
+ <div>
+ <Label className="text-sm font-semibold">Foto på huvudsäljkontakten</Label>
+ <p className="text-xs text-muted-foreground mt-1">
+ Visas på er partnerprofil bredvid säljkontaktens namn. Rekommenderat: porträtt 400×400px (JPG/PNG/WebP, max 5MB).
+ </p>
+ </div>
+ <div className="flex items-center gap-4">
+ {formData.contact_photo_url ? (
+ <img
+ src={formData.contact_photo_url}
+ alt="Säljkontakt foto"
+ className="h-20 w-20 object-cover rounded border-2 border-border "
+ />
+ ) : (
+ <div className="h-20 w-20 rounded border-2 border-dashed border-border bg-background flex items-center justify-center">
+ <ImageIcon className="h-7 w-7 text-muted-foreground" />
+ </div>
+ )}
+ <div className="flex gap-2">
+ <input
+ type="file"
+ accept="image/jpeg,image/png,image/webp"
+ id="main-contact-photo"
+ className="hidden"
+ onChange={handleMainContactPhotoUpload}
+ />
+ <Button
+ type="button"
+ variant="outline"
+ size="sm"
+ disabled={uploadingMainContactPhoto}
+ onClick={() => document.getElementById("main-contact-photo")?.click()}
+ >
+ {uploadingMainContactPhoto ? (
+ <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+ ) : (
+ <Upload className="mr-2 h-4 w-4" />
+ )}
+ {uploadingMainContactPhoto
+ ? "Laddar upp..."
+ : (formData.contact_photo_url ? "Byt foto" : "Ladda upp foto")}
+ </Button>
+ {formData.contact_photo_url && (
+ <Button
+ type="button"
+ variant="ghost"
+ size="sm"
+ onClick={() => setFormData(prev => ({ ...prev, contact_photo_url: "" }))}
+ className="text-destructive hover:text-destructive"
+ >
+ <X className="h-4 w-4 mr-1" />
+ Ta bort
+ </Button>
+ )}
+ </div>
+ </div>
+ </div>
+
+ <div className="grid sm:grid-cols-2 gap-4">
+ <div className="space-y-2">
+ <Label htmlFor="phone">Telefon</Label>
+ <Input
+ id="phone"
+ name="phone"
+ value={formData.phone}
+ onChange={handleInputChange}
+ />
+ </div>
+ <div className="space-y-2">
+ <Label htmlFor="address">Adress</Label>
+ <Input
+ id="address"
+ name="address"
+ value={formData.address}
+ onChange={handleInputChange}
+ />
+ </div>
+ </div>
+
+ {/* Invoice fields */}
+ <div className="grid sm:grid-cols-2 gap-4">
+ <div className="space-y-2">
+ <Label htmlFor="invoice_contact">Fakturakontakt (namn)</Label>
+ <Input
+ id="invoice_contact"
+ name="invoice_contact"
+ value={formData.invoice_contact}
+ onChange={handleInputChange}
+ placeholder="Namn på fakturamottagare"
+ />
+ </div>
+ <div className="space-y-2">
+ <Label htmlFor="invoice_email">Faktura e-post</Label>
+ <Input
+ id="invoice_email"
+ name="invoice_email"
+ type="email"
+ value={formData.invoice_email}
+ onChange={handleInputChange}
+ placeholder="faktura@example.com"
+ />
+ </div>
+ </div>
+ <div className="space-y-2">
+ <Label htmlFor="office_cities_input">Kontorsstäder</Label>
+ <Input
+ id="office_cities_input"
+ name="office_cities_input"
+ placeholder="t.ex. Stockholm, Göteborg, Malmö"
+ value={formData.office_cities_input}
+ onChange={handleInputChange}
+ />
+ <p className="text-xs text-muted-foreground">Separera med kommatecken</p>
+ </div>
+
+ {/* Logo Upload Section */}
+ <div className="space-y-3">
+ <Label>Logotyp</Label>
+ 
+ {logoPreview ? (
+ <div className="flex items-start gap-4">
+ <div className="relative w-32 h-32 rounded-lg border-2 border-border bg-muted overflow-hidden flex items-center justify-center">
+ <img 
+ src={logoPreview} 
+ alt="Partner logotyp" 
+ className="max-w-full max-h-full object-contain p-2"
+ />
+ </div>
+ <div className="space-y-2">
+ <p className="text-sm text-muted-foreground">
+ Logotypen har laddats upp
+ </p>
+ <div className="flex gap-2">
+ <Button
+ type="button"
+ variant="outline"
+ size="sm"
+ onClick={() => fileInputRef.current?.click()}
+ disabled={uploadingLogo}
+ >
+ {uploadingLogo ? (
+ <Loader2 className="h-4 w-4 animate-spin mr-2" />
+ ) : (
+ <Upload className="h-4 w-4 mr-2" />
+ )}
+ Byt logotyp
+ </Button>
+ <Button
+ type="button"
+ variant="ghost"
+ size="sm"
+ onClick={removeLogo}
+ className="text-destructive hover:text-destructive"
+ >
+ <X className="h-4 w-4 mr-1" />
+ Ta bort
+ </Button>
+ </div>
+ </div>
+ </div>
+ ) : (
+ <div
+ onDragEnter={handleDrag}
+ onDragLeave={handleDrag}
+ onDragOver={handleDrag}
+ onDrop={handleDrop}
+ onClick={() => fileInputRef.current?.click()}
+ className={`
+ relative border-2 border-dashed rounded-lg p-8 text-center cursor-pointer
+ transition-colors duration-200
+ ${dragActive 
+ ? 'border-primary bg-primary/5' 
+ : 'border-border hover:border-primary/50 hover:bg-muted/50'
+ }
+ ${uploadingLogo ? 'pointer-events-none opacity-60' : ''}
+ `}
+ >
+ {uploadingLogo ? (
+ <div className="flex flex-col items-center gap-2">
+ <Loader2 className="h-10 w-10 animate-spin text-primary" />
+ <p className="text-sm text-muted-foreground">Laddar upp...</p>
+ </div>
+ ) : (
+ <div className="flex flex-col items-center gap-3">
+ <div className="rounded bg-muted p-3">
+ <ImageIcon className="h-8 w-8 text-muted-foreground" />
+ </div>
+ <div>
+ <p className="font-medium text-foreground">
+ Dra och släpp er logotyp här
+ </p>
+ <p className="text-sm text-muted-foreground mt-1">
+ eller klicka för att välja fil
+ </p>
+ </div>
+ <p className="text-xs text-muted-foreground">
+ JPEG, PNG, WebP eller SVG (max 5MB)
+ </p>
+ </div>
+ )}
+ </div>
+ )}
+ 
+ <input
+ ref={fileInputRef}
+ type="file"
+ accept="image/jpeg,image/png,image/webp,image/svg+xml"
+ onChange={handleFileSelect}
+ className="hidden"
+ />
+ 
+ <p className="text-xs text-muted-foreground">
+ Rekommenderat: SVG eller PNG med transparent bakgrund för bästa resultat
+ </p>
+ </div>
+ </div>
+ </PremiumCollapsibleSection>
+
+ {/* Products Section */}
 
  {/* Specialty Products */}
  <PremiumCollapsibleSection
