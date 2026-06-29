@@ -1845,9 +1845,13 @@ const PartnerUpdate = () => {
  </div>
  </div>
  )}
- {/* AI Project Count */}
- <div>
- <Label className="text-sm">Antal AI-relaterade projekt senaste 24 månader</Label>
+  {/* AI Project Count */}
+  <div>
+  <Label className="text-sm font-semibold">Antal AI-projekt</Label>
+  <p className="text-xs text-muted-foreground mt-1 mb-2">
+  Ange ungefärlig nivå senaste 24 månaderna.<br />
+  Används för att ge kunder en bild av er praktiska erfarenhet.
+  </p>
  <div className="mt-2 flex flex-wrap gap-2">
  {["0–2", "3–5", "6+"].map((option) => (
  <button
