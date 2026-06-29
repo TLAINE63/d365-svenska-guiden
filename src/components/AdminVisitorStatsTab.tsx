@@ -151,7 +151,7 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
     { label: "Sverige", value: stats.swedishVisitors, color: "bg-blue-500" },
     { label: "Norden (exkl. SE)", value: stats.nordicVisitors, color: "bg-sky-400" },
     { label: "Europa", value: stats.europeanVisitors, color: "bg-emerald-500" },
-    { label: "Övriga världen", value: stats.otherVisitors, color: "bg-amber-500" },
+    { label: "Globalt", value: stats.otherVisitors, color: "bg-amber-500" },
   ];
 
   const totalGeo = geographyData.reduce((sum, g) => sum + g.value, 0);

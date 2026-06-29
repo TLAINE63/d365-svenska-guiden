@@ -17,7 +17,7 @@ const geographyFilters = [
  { label: "Sverige", value: "Sverige" },
  { label: "Norden", value: "Norden" },
  { label: "Europa", value: "Europa" },
- { label: "Övriga världen", value: "Övriga världen" }
+ { label: "Globalt", value: "Globalt" }
 ];
 
 interface ApplicationPartnersProps {
@@ -70,7 +70,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  if (selectedGeography) {
  // Geography is now an array - check if partner covers the selected geography
  const partnerGeo = Array.isArray(pf.geography) ? pf.geography : (pf.geography ? [pf.geography] : ["Sverige"]);
- const geoHierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
+ const geoHierarchy = ["Sverige", "Norden", "Europa", "Globalt", "Internationellt"];
  const selIdx = geoHierarchy.indexOf(selectedGeography);
  // Partner matches if they have the selected geography or a broader one
  const maxPartnerIdx = Math.max(...partnerGeo.map(g => geoHierarchy.indexOf(g)));

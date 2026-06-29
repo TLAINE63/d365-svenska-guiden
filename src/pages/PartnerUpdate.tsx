@@ -87,7 +87,7 @@ const GEOGRAPHY_OPTIONS = [
  "Sverige",
  "Norden",
  "Europa",
- "Övriga världen",
+ "Globalt",
 ];
 
 
@@ -1591,11 +1591,11 @@ const PartnerUpdate = () => {
  <p className="text-xs text-muted-foreground mt-1">Separera flera länkar med komma</p>
  </div>
 
- {/* Geography */}
- <div>
- <Label className="text-sm">Geografisk täckning</Label>
- <p className="text-xs text-muted-foreground mb-2">Inom vilka geografier har ni möjlighet att leverera projekt och support?</p>
- <div className="flex flex-wrap gap-1.5">
+  {/* Geography */}
+  <div>
+  <Label className="text-sm">Välj var ni levererar projekt</Label>
+  <p className="text-xs text-muted-foreground mb-2">Markera endast där ni faktiskt levererar projekt.</p>
+  <div className="flex flex-wrap gap-1.5">
  {GEOGRAPHY_OPTIONS.map((geo) => {
  const isSelected = (filter.geography || []).includes(geo);
  return (

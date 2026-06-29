@@ -385,20 +385,20 @@ const staticPartners = [
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Tillverkningsindustri", "Livsmedel & Processindustri", "Retail & E-handel"],
     secondary_industries: [],
-    geography: "Internationellt",
+    geography: "Globalt",
     product_filters: {
       fsc: {
         industries: ["Tillverkningsindustri", "Livsmedel & Processindustri"],
         secondaryIndustries: [],
         companySize: ["250-999", "1.000-4.999", ">5.000"],
-        geography: "Internationellt",
+        geography: "Globalt",
         ranking: 2
       },
       crm: {
         industries: ["Tillverkningsindustri", "Retail & E-handel"],
         secondaryIndustries: [],
         companySize: ["250-999", "1.000-4.999", ">5.000"],
-        geography: "Internationellt",
+        geography: "Globalt",
         ranking: 3
       }
     }
@@ -439,20 +439,20 @@ const staticPartners = [
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Finans & Försäkring", "Energi & Utilities", "Life Science / Medtech"],
     secondary_industries: [],
-    geography: "Internationellt",
+    geography: "Globalt",
     product_filters: {
       fsc: {
         industries: ["Finans & Försäkring", "Energi & Utilities"],
         secondaryIndustries: [],
         companySize: ["1.000-4.999", ">5.000"],
-        geography: "Internationellt",
+        geography: "Globalt",
         ranking: 3
       },
       crm: {
         industries: ["Life Science / Medtech", "Finans & Försäkring"],
         secondaryIndustries: [],
         companySize: ["1.000-4.999", ">5.000"],
-        geography: "Internationellt",
+        geography: "Globalt",
         ranking: 2
       }
     }
@@ -486,20 +486,20 @@ const staticPartners = [
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Tillverkningsindustri", "Retail & E-handel", "Finans & Försäkring"],
     secondary_industries: [],
-    geography: "Internationellt",
+    geography: "Globalt",
     product_filters: {
       fsc: {
         industries: ["Tillverkningsindustri", "Retail & E-handel"],
         secondaryIndustries: [],
         companySize: ["250-999", "1.000-4.999", ">5.000"],
-        geography: "Internationellt",
+        geography: "Globalt",
         ranking: 5
       },
       crm: {
         industries: ["Finans & Försäkring", "Retail & E-handel"],
         secondaryIndustries: [],
         companySize: ["250-999", "1.000-4.999", ">5.000"],
-        geography: "Internationellt",
+        geography: "Globalt",
         ranking: 5
       }
     }

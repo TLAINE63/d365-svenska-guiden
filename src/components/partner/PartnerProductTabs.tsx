@@ -90,7 +90,7 @@ interface Props {
   onActiveTabChange?: (tab: TabKey, label: string) => void;
 }
 
-const GEO_ORDER = ["Sverige", "Norden", "Europa", "Övriga världen"];
+const GEO_ORDER = ["Sverige", "Norden", "Europa", "Globalt"];
 
 function mergeArrays<T>(...arrs: (T[] | undefined | null)[]): T[] {
   const set = new Set<T>();
@@ -99,7 +99,7 @@ function mergeArrays<T>(...arrs: (T[] | undefined | null)[]): T[] {
 }
 
 function normalizeGeo(geo: string[]): string[] {
-  const normalized = geo.map((g) => (g === "Internationellt" ? "Övriga världen" : g));
+  const normalized = geo.map((g) => (g === "Internationellt" ? "Globalt" : g));
   const idx = normalized
     .map((g) => GEO_ORDER.indexOf(g))
     .filter((i) => i >= 0);

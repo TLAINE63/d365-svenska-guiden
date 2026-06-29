@@ -90,7 +90,7 @@ const geographyFilters = [
  { label: "Sverige", value: "Sverige" },
  { label: "Norden", value: "Norden" },
  { label: "Europa", value: "Europa" },
- { label: "Övriga världen", value: "Övriga världen" }
+ { label: "Globalt", value: "Globalt" }
 ];
 
 const BusinessCentral = () => {

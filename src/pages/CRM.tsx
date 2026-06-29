@@ -71,7 +71,7 @@ const geographyFilters = [
  { label: "Sverige", value: "Sverige" },
  { label: "Norden", value: "Norden" },
  { label: "Europa", value: "Europa" },
- { label: "Övriga världen", value: "Övriga världen" }
+ { label: "Globalt", value: "Globalt" }
 ];
 
 const CRM = () => {
@@ -112,7 +112,7 @@ const CRM = () => {
 
  // Apply geography filter if selected
  if (selectedGeography) {
- const geographyHierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
+ const geographyHierarchy = ["Sverige", "Norden", "Europa", "Globalt", "Internationellt"];
  const selectedGeoIndex = geographyHierarchy.indexOf(selectedGeography);
  filtered = filtered.filter(p => {
  const salesGeo = p.product_filters?.sales?.geography || ['Sverige'];
