@@ -2402,23 +2402,11 @@ Thomas`,
  </p>
  <div className="flex flex-wrap items-center gap-1.5 p-2 rounded bg-slate-50 border border-slate-200">
  <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 px-2">Snabbfilter</span>
- {([
- { key: 'all', label: 'Alla', count: fullPartners.length, tone: 'slate' },
- { key: 'published', label: 'Publicerade', count: fullPartners.filter(p => p.is_featured).length, tone: 'blue' },
- { key: 'invited_unpublished', label: 'Inbjudna ej publ.', count: fullPartners.filter(p => !p.is_featured && everInvitedPartnerIds.has(p.id)).length, tone: 'violet' },
- { key: 'not_invited', label: 'Ej inbjudna', count: fullPartners.filter(p => !p.is_featured && !everInvitedPartnerIds.has(p.id)).length, tone: 'amber' },
- { key: 'agreement_signed', label: 'Avtal tecknat', count: fullPartners.filter(p => (p as any).agreement_signed).length, tone: 'emerald', icon: Award },
- { key: 'billable', label: 'Fakturerar (aktivt avtal)', count: fullPartners.filter(p => {
- const pp = p as any;
- if (!pp.agreement_signed) return false;
- const today = new Date().toISOString().slice(0, 10);
- if (pp.activation_date && pp.activation_date > today) return false;
- if (pp.cancellation_date && pp.cancellation_date <= today) return false;
- return true;
- }).length, tone: 'emerald', icon: Award },
- { key: 'has_email', label: 'Har e-post', count: fullPartners.filter(p => !!(p.admin_contact_email || p.email)).length, tone: 'sky', icon: Mail },
- { key: 'missing_email', label: 'Saknar e-post', count: fullPartners.filter(p => !(p.admin_contact_email || p.email)).length, tone: 'rose', icon: AlertCircle },
- ] as Array<{ key: typeof partnerStatusFilter; label: string; count: number; tone: string; icon?: typeof Award }>).map(({ key, label, count, tone, icon: Icon }) => {
+              {([
+                { key: 'all', label: 'Alla', count: fullPartners.length, tone: 'slate' },
+                { key: 'published', label: 'Publicerade', count: fullPartners.filter(p => p.is_featured).length, tone: 'blue' },
+                { key: 'unpublished', label: 'Ej publicerade', count: fullPartners.filter(p => !p.is_featured).length, tone: 'amber' },
+              ] as Array<{ key: typeof partnerStatusFilter; label: string; count: number; tone: string }>).map(({ key, label, count, tone }) => {
  const active = partnerStatusFilter === key;
  const toneMap: Record<string, { active: string; idle: string; badge: string }> = {
  slate: { active: 'bg-slate-900 text-white border-slate-900', idle: 'bg-white text-slate-700 border-slate-200 hover:border-slate-400', badge: active ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600' },
