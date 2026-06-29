@@ -1682,6 +1682,7 @@ const PartnerUpdate = () => {
  </div>
  </PremiumCollapsibleSection>
 
+ {/* Basic Information */}
  <PremiumCollapsibleSection
  title="Grundläggande information"
  description="Företagets kontaktuppgifter, logotyp och beskrivning"
