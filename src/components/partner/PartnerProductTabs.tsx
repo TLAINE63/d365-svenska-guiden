@@ -117,6 +117,8 @@ function getAvailableTabs(partner: DatabasePartner): TabKey[] {
 interface TabData {
   industries: string[];
   geography: string[];
+  companySize: string[];
+  revenue: string[];
   customerExamples: string[];
   customerCaseLinks: string[];
   productDescription: { text: string; aiGenerated: boolean } | null;
@@ -126,6 +128,7 @@ interface TabData {
   landingPageUrl: string | null;
   aiBadge: { label: string; emoji: string; color: string; description: string } | null;
 }
+
 
 function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
   const pf = (partner.product_filters || {}) as Record<string, any>;
