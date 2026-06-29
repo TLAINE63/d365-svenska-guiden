@@ -851,11 +851,29 @@ const ComparePartners = () => {
                         b={renderValue(B.bcCost)}
                       />
                       <R
-                        label="Geografisk närvaro"
+                        label="Kontor (städer)"
                         a={renderList(A.offices)}
                         b={renderList(B.offices)}
                       />
+                      <R
+                        label="Geografi"
+                        help="Områden där partnern levererar projekt."
+                        a={renderList(A.geography)}
+                        b={renderList(B.geography)}
+                      />
                     </section>
+
+                    {/* AI & automatisering */}
+                    <section className="space-y-3">
+                      <SectionTitle icon={Sparkles} title="AI & automatisering" />
+                      <R
+                        label="AI-erbjudande per lösning"
+                        help="Levererade AI- och automationscase per produktområde, projektnivå senaste 24 mån, samt eventuella case-exempel och affärseffekter."
+                        a={renderAi(AF.ai)}
+                        b={renderAi(BF.ai)}
+                      />
+                    </section>
+
 
 
 
