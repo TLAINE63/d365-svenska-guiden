@@ -2460,6 +2460,8 @@ Thomas`,
     </button>
   </div>
  </div>
+</div>
+
 
  {isLoadingFullPartners ? (
  <Card>
