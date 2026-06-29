@@ -132,7 +132,7 @@ serve(async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const { token, partnerId, all } = await req.json();
+    const { token, partnerId, all, mode, staleDays } = await req.json();
 
     const JWT_SECRET = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
@@ -151,9 +151,15 @@ serve(async (req: Request): Promise<Response> => {
 
     const supabase = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
 
+    const STALE_DAYS = Math.min(Math.max(Number(staleDays) || 90, 1), 365);
+    const staleBefore = new Date(Date.now() - STALE_DAYS * 24 * 60 * 60 * 1000).toISOString();
+
     let query = supabase.from("partners").select("*");
     if (all) {
       query = query.eq("is_featured", true);
+      if (mode === "stale") {
+        query = query.or(`ai_summary.is.null,ai_summary_generated_at.lt.${staleBefore}`);
+      }
     } else if (partnerId) {
       query = query.eq("id", partnerId);
     } else {
