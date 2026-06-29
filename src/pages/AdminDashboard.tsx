@@ -4153,26 +4153,28 @@ Thomas`,
  </button>
  {isOpen && (
  <CardContent className="space-y-4 pt-5">
- <div>
- <Label className="text-sm">Kort beskrivning av erbjudande</Label>
- <Input
- placeholder={
- section.key === 'bc' 
- ? "T.ex. 'Specialiserade på tillverkande företag med fokus på lageroptimering'"
- : section.key === 'fsc'
- ? "T.ex. 'Experter på koncernkonsolidering och supply chain för stora organisationer'"
- : section.key === 'sales'
- ? "T.ex. 'Fokus på säljautomation och pipeline-hantering för B2B-företag'"
- : "T.ex. 'Specialister på omnikanal-support och Field Service för serviceorganisationer'"
- }
- defaultValue={filter.productDescription || ''}
- key={`${section.key}-productDescription-${editingPartner?.id || 'new'}`}
- onBlur={(e) => {
- updateProductFilter(section.key, { productDescription: e.target.value.trim() });
- }}
- className="mt-2"
- />
-  <p className="text-xs text-muted-foreground mt-1">Max ~100 tecken rekommenderas</p>
+  <div>
+  <Label className="text-sm">Beskriv vad ni gör inom denna lösning</Label>
+  <Input
+    placeholder={
+      section.key === 'bc'
+      ? "T.ex. 'Business Central-implementationer i medelstora bolag inom distribution'"
+      : section.key === 'fsc'
+      ? "T.ex. 'Finance & Supply Chain för tillverkande koncerner med komplexa flöden'"
+      : section.key === 'sales'
+      ? "T.ex. 'Sales-implementeringar för B2B-företag med långa säljcykler'"
+      : "T.ex. 'Customer Service-lösningar för supportteam med höga volymer'"
+    }
+    defaultValue={filter.productDescription || ''}
+    key={`${section.key}-productDescription-${editingPartner?.id || 'new'}`}
+    onBlur={(e) => {
+      updateProductFilter(section.key, { productDescription: e.target.value.trim() });
+    }}
+    className="mt-2"
+  />
+  <p className="text-xs text-muted-foreground mt-1">
+    Max 100 tecken. Fokusera på: typ av projekt, typ av kund och vad ni faktiskt levererar.
+  </p>
   </div>
 
   {/* Why choose us for this product (required) */}
