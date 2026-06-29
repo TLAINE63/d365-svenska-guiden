@@ -84,22 +84,73 @@ const INDUSTRY_IMAGES: Record<string, string> = {
  "uthyrning": uthyrningImg,
 };
 
-const Branscher = () => {
- const { covered } = useCoveredIndustries();
- const { data: partners } = usePartners();
- const visibleIndustries = STANDARD_INDUSTRIES.filter((i) => covered.has(i.name));
+const GEOGRAPHY_HIERARCHY = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
 
- const partnerCounts = useMemo(() => {
- const counts: Record<string, number> = {};
- (partners || [])
- .filter((p) => p.is_featured === true)
- .forEach((p) => {
- collectPartnerIndustries(p).forEach((name) => {
- counts[name] = (counts[name] || 0) + 1;
- });
- });
- return counts;
- }, [partners]);
+const matchesGeography = (partnerGeos: string | string[], selected: string): boolean => {
+  const geos = Array.isArray(partnerGeos) && partnerGeos.length > 0
+    ? partnerGeos
+    : typeof partnerGeos === "string" && partnerGeos
+    ? [partnerGeos]
+    : ["Sverige"];
+  const selectedIndex = GEOGRAPHY_HIERARCHY.indexOf(selected);
+  if (selectedIndex === -1) return false;
+  return geos.some((geo) => GEOGRAPHY_HIERARCHY.indexOf(geo) >= selectedIndex);
+};
+
+const partnerMatchesIndustryFilters = (
+  p: DatabasePartner,
+  industryName: string,
+  selectedGeography: string | null,
+  selectedCompanySize: string | null
+): boolean => {
+  const pf = p.product_filters || {};
+  const productKeys = ["bc", "fsc", "sales", "service", "crm"] as const;
+  for (const key of productKeys) {
+    const filter = pf[key as keyof typeof pf];
+    if (!filter) continue;
+    const industries = filter.industries || [];
+    const secondary = filter.secondaryIndustries || [];
+    if (!industries.includes(industryName) && !secondary.includes(industryName)) continue;
+    if (selectedGeography && !matchesGeography(filter.geography, selectedGeography)) continue;
+    if (selectedCompanySize && !(filter.companySize || []).includes(selectedCompanySize)) continue;
+    return true;
+  }
+  return false;
+};
+
+const Branscher = () => {
+  const { covered } = useCoveredIndustries();
+  const { data: partners } = usePartners();
+  const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
+  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
+
+  const visibleIndustries = STANDARD_INDUSTRIES.filter((i) => covered.has(i.name));
+
+  const { filteredIndustries, filteredPartnerCounts } = useMemo(() => {
+    const counts: Record<string, number> = {};
+    const filtered = visibleIndustries.filter((ind) => {
+      const count = (partners || [])
+        .filter((p) => p.is_featured === true)
+        .filter((p) =>
+          partnerMatchesIndustryFilters(p, ind.name, selectedGeography, selectedCompanySize)
+        ).length;
+      counts[ind.name] = count;
+      return count > 0;
+    });
+    return { filteredIndustries: filtered, filteredPartnerCounts: counts };
+  }, [visibleIndustries, partners, selectedGeography, selectedCompanySize]);
+
+  const partnerCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    (partners || [])
+      .filter((p) => p.is_featured === true)
+      .forEach((p) => {
+        collectPartnerIndustries(p).forEach((name) => {
+          counts[name] = (counts[name] || 0) + 1;
+        });
+      });
+    return counts;
+  }, [partners]);
 
  return (
  <>
