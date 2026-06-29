@@ -1034,7 +1034,22 @@ const PartnerUpdate = () => {
  </Helmet>
  
  <Navbar />
- 
+
+ {/* Sticky live-preview button (desktop) */}
+ {(formData.name || invitation?.partner_name) && (
+   <a
+     href={`/partner/${generateSlug(formData.name || invitation?.partner_name || "partner")}/`}
+     target="_blank"
+     rel="noopener noreferrer"
+     className="hidden lg:flex fixed right-6 top-1/2 -translate-y-1/2 z-40 flex-col items-center gap-1 px-3 py-4 rounded-l-xl border border-r-0 border-cta-orange/40 bg-cta-orange text-white shadow-lg hover:bg-cta-orange/90 transition-all"
+     style={{ writingMode: 'vertical-rl' }}
+     title="Öppna er live partnerprofil i ny flik"
+   >
+     <Eye className="h-4 w-4 mb-1" style={{ writingMode: 'horizontal-tb' }} />
+     <span className="text-xs font-semibold tracking-wide">Förhandsvisa live</span>
+   </a>
+ )}
+
  <div className="container mx-auto px-4 py-8">
  <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
