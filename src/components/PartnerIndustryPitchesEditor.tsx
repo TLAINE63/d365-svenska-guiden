@@ -31,8 +31,11 @@ interface PartnerIndustryPitchesEditorProps {
   partnerId?: string | null;
 }
 
-const MAX_WORDS = 280;
+const MAX_WORDS = 120;
 const wordCount = (s: string) => (s.trim() ? s.trim().split(/\s+/).length : 0);
+
+const PITCH_PLACEHOLDER =
+  "Beskriv hur ni hjälper denna bransch med Dynamics 365.\n\nFokusera på:\n- Processer ni förbättrar\n- Typiska problem ni löser\n- Relevanta lösningar\n\nUndvik generell företagsbeskrivning.";
 
 export function PartnerIndustryPitchesEditor({
   industries,
