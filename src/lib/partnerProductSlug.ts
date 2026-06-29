@@ -13,6 +13,7 @@
 export type PartnerProductSlug =
   | "business-central"
   | "finance-supply-chain"
+  | "crm"
   | "sales"
   | "customer-insights"
   | "customer-service"
@@ -26,6 +27,8 @@ export type PartnerProductSlug =
 export const SLUG_TO_PRODUCT_NAME: Record<PartnerProductSlug, string> = {
   "business-central": "Business Central",
   "finance-supply-chain": "Finance & SCM",
+  "crm": "CRM",
+
   "sales": "Sales",
   "customer-insights": "Customer Insights (Marketing)",
   "customer-service": "Customer Service",
@@ -42,6 +45,8 @@ export function productNameToSlug(name: string): PartnerProductSlug | null {
   const v = name.toLowerCase().trim();
 
   // Exakta/aliasade träffar först
+  if (v === "crm" || v === "customer engagement") return "crm";
+
   if (v.includes("business central")) return "business-central";
   if (v.includes("finance") || v.includes("supply") || v === "fsc" || v === "f&scm") {
     return "finance-supply-chain";
