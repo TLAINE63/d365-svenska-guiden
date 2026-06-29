@@ -242,7 +242,7 @@ export default function SalesRoiCalculator() {
               Kalkylen är en förenklad uppskattning och bör användas som beslutsstöd – inte som en slutlig offert eller affärskalkyl.
             </p>
             <div className="flex flex-wrap gap-3 mt-6">
-              <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white">
+              <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                 <a href="#kalkyl">Starta kalkyl <ArrowRight className="ml-2 w-4 h-4" /></a>
               </Button>
               <Button
@@ -684,7 +684,7 @@ export default function SalesRoiCalculator() {
               Validera kalkylen i en kort dialog med två–tre relevanta partners. Eller fördjupa underlaget genom en behovsanalys för sälj & marknad.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
-              <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white">
+              <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                 <Link to="/CRMbehovsanalys/">Starta behovsanalys för CRM</Link>
               </Button>
               <Button asChild variant="outline" size="lg">

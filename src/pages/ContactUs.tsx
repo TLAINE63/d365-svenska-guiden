@@ -119,7 +119,7 @@ const ContactUs = () => {
                       <div className="mt-4 flex flex-col gap-2">
                         <Button 
                           size="sm"
-                          className="bg-primary hover:bg-primary/90 text-primary-foreground w-full"
+                          className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white w-full"
                           onClick={() => window.location.href = 'mailto:thomas.laine@dynamicfactory.se'}
                         >
                           <Mail className="w-4 h-4 mr-2" />
@@ -186,7 +186,7 @@ const ContactUs = () => {
                       <div className="mt-4 flex flex-col gap-2">
                         <Button 
                           size="sm"
-                          className="bg-primary hover:bg-primary/90 text-primary-foreground w-full"
+                          className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white w-full"
                           onClick={() => window.location.href = 'mailto:michael.uhman@dynamicfactory.se'}
                         >
                           <Mail className="w-4 h-4 mr-2" />
@@ -277,7 +277,7 @@ const ContactUs = () => {
               <ContactFormDialog>
                 <Button 
                   size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground h-14 sm:h-16 rounded"
+                  className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white h-14 sm:h-16 rounded"
                 >
                   Boka in en kostnadsfri rådgivning
                 </Button>

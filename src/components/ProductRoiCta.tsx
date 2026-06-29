@@ -39,7 +39,7 @@ export default function ProductRoiCta({ productKey, id = "roi-tco" }: Props) {
           </div>
           <Link
             to={meta.path}
-            className="inline-flex items-center justify-center rounded-md px-5 py-3 text-sm font-semibold bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 transition-colors whitespace-nowrap"
+            className="inline-flex items-center justify-center rounded-md px-5 py-3 text-sm font-semibold bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange-hover))] transition-colors whitespace-nowrap"
           >
             Gör en TCO/ROI-kalkyl →
           </Link>

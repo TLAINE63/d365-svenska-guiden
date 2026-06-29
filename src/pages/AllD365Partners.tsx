@@ -159,7 +159,7 @@ export default function AllD365Partners() {
               Vi vägleder dig köparsidigt och kostnadsfritt – berätta vad du behöver
               så återkopplar vi med 2–3 lämpliga partners att jämföra.
             </p>
-            <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white">
+            <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
               <Link to="/kontakt/">
                 <MessageSquare className="w-4 h-4 mr-2" />
                 Kontakta oss för matchning

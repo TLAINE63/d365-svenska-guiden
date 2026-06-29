@@ -222,7 +222,7 @@ const ErpComparisonPage = () => {
                 {meta.ctaPrimary && (
                   <Link
                     to={meta.ctaPrimary.url}
-                    className="inline-flex items-center gap-2 rounded-md bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white font-medium px-5 py-2.5"
+                    className="inline-flex items-center gap-2 rounded-md bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-medium px-5 py-2.5"
                   >
                     {meta.ctaPrimary.label} <ArrowRight className="h-4 w-4" />
                   </Link>

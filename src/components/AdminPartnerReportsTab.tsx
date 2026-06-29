@@ -615,7 +615,7 @@ function MonthlyStatsReportCard({ token }: { token: string | null }) {
             {busy === "thomas" ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Send className="h-4 w-4 mr-2" />}
             Skicka till Thomas
           </Button>
-          <Button onClick={() => sendTo("both")} disabled={isBusy} size="sm" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white">
+          <Button onClick={() => sendTo("both")} disabled={isBusy} size="sm" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
             {busy === "both" ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Send className="h-4 w-4 mr-2" />}
             Skicka till partner + Thomas
           </Button>

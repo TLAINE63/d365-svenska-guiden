@@ -545,16 +545,12 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   }
   );
   }}
-  className="group relative inline-flex items-center gap-3 px-6 py-3 rounded bg-gradient-to-r from-[hsl(var(--cta-orange))] via-[hsl(var(--cta-orange))] to-orange-500 text-white font-semibold text-sm sm:text-base hover:scale-[1.04] active:scale-[0.98] transition-all duration-300 overflow-hidden ring-2 ring-[hsl(var(--cta-orange))]/20 hover:ring-[hsl(var(--cta-orange))]/40"
-  >
-  {/* Shimmer effect */}
-  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
-  {/* Pulsing glow ring */}
-  <span className="absolute inset-0 rounded bg-[hsl(var(--cta-orange))] opacity-40 animate-pulse pointer-events-none -z-10" />
-  <Globe className="w-5 h-5 relative z-10" />
-  <span className="relative z-10">Besök {partner.name}</span>
-  <ExternalLink className="w-4 h-4 relative z-10 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5" />
-  </a>
+  className="inline-flex items-center gap-3 px-6 py-3 rounded bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-sm sm:text-base transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+>
+  <Globe className="w-5 h-5" />
+  <span>Besök {partner.name}</span>
+  <ExternalLink className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5" />
+</a>
   <span className="mt-2 text-xs text-slate-500 font-medium">
   Öppnas i nytt fönster
   </span>

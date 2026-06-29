@@ -206,7 +206,7 @@ const Index = () => {
                   <Button
                     asChild
                     size="lg"
-                    className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-base h-14 px-7 rounded font-bold hover:-translate-y-0.5 transition-all justify-center"
+                    className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white text-base h-14 px-7 rounded font-bold hover:-translate-y-0.5 transition-all justify-center"
                   >
                     <Link to="/branscher/">
                       Hitta rätt partner
@@ -296,7 +296,7 @@ const Index = () => {
               <Button
                 asChild
                 size="lg"
-                className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white h-13 px-7 rounded font-bold hover:-translate-y-0.5 transition-all"
+                className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white h-13 px-7 rounded font-bold hover:-translate-y-0.5 transition-all"
               >
                 <Link to="/branscher/">
                   Hitta rätt partner
@@ -348,7 +348,7 @@ const Index = () => {
                       asChild
                       className={
                         c.primary
-                          ? "bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white h-11 rounded font-semibold w-full justify-center"
+                          ? "bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white h-11 rounded font-semibold w-full justify-center"
                           : "bg-foreground hover:bg-foreground/90 text-background h-11 rounded font-semibold w-full justify-center"
                       }
                     >
@@ -527,7 +527,7 @@ const Index = () => {
               <Button
                 asChild
                 size="lg"
-                className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 text-base sm:text-lg h-14 sm:h-15 px-8 rounded font-bold hover:-translate-y-0.5 transition-all"
+                className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange-hover))] text-base sm:text-lg h-14 sm:h-15 px-8 rounded font-bold hover:-translate-y-0.5 transition-all"
               >
                 <Link to="/valjdynamics365partner/">
                   Hitta rätt partner

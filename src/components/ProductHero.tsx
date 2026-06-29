@@ -35,7 +35,7 @@ const renderCTA = (cta: CTA, variant: "primary" | "secondary") => {
   const Icon = cta.icon;
   const baseClasses =
     variant === "primary"
-      ? "bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90     hover:-translate-y-0.5"
+      ? "bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange-hover))]     hover:-translate-y-0.5"
       : "bg-transparent text-white border border-white/30 hover:bg-white/10 hover:border-white/50";
 
   const content = (

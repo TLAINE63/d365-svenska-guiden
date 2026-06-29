@@ -130,7 +130,7 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="whitespace-nowrap bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white"
+            className="whitespace-nowrap bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white"
           >
             {isSubmitting ? "Förbereder…" : <><Download className="mr-2 h-4 w-4" />Ladda ned PDF</>}
           </Button>

@@ -240,7 +240,7 @@ const QA = () => {
               Kontakta oss så hjälper vi dig gärna
             </p>
             <ContactFormDialog>
-              <Button className="bg-accent hover:bg-accent/90 text-accent-foreground h-16 sm:h-20 text-lg sm:text-xl rounded px-8 sm:px-12 font-bold   transition-all" size="lg">
+              <Button className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white h-16 sm:h-20 text-lg sm:text-xl rounded px-8 sm:px-12 font-bold transition-all" size="lg">
                 Boka in en kostnadsfri rådgivning
               </Button>
             </ContactFormDialog>

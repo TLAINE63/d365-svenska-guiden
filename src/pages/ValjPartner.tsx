@@ -943,7 +943,7 @@ const ValjPartner = () => {
  </div>
  </div>
  <div className="flex flex-col sm:flex-row gap-4 justify-center">
- <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold transition-all rounded">
+ <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold transition-all rounded">
  <Link to="/kontakt/">
  <MessageSquare className="w-5 h-5 mr-2" />
  Kontakta oss
@@ -951,7 +951,7 @@ const ValjPartner = () => {
  </Button>
  <Button 
  size="lg" 
- className="bg-primary hover:bg-primary/90 text-primary-foreground h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold transition-all rounded"
+ className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold transition-all rounded"
  onClick={() => window.open('https://outlook.office.com/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ep=mlink', '_blank')}
  >
  <Calendar className="w-5 h-5 mr-2" />

@@ -91,7 +91,7 @@ const UnprofiledPartnersList = ({
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-          <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white">
+          <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
             <Link to="/kontakt/">
               <MessageSquare className="w-4 h-4 mr-2" />
               Kontakta oss för matchning

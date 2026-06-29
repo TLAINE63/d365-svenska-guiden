@@ -336,7 +336,7 @@ const FinanceSupplyChain = () => {
  <Button
  asChild
  size="lg"
- className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
+ className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange-hover))]"
  >
  <Link to="/finance-supply-chain-management/matchningstest">
  Starta matchningstestet
