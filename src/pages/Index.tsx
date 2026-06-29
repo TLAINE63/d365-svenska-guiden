@@ -196,7 +196,7 @@ const Index = () => {
                   Välj rätt Dynamics 365-partner
                 </h2>
                 <p className="text-[15px] text-white/70 leading-relaxed max-w-2xl mb-6">
-                  Hitta partners baserat på bransch, lösning, företagsstorlek och geografi — på köparens villkor.
+                  Få en lista med relevanta Dynamics 365-partners – baserat på er verksamhet.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
