@@ -1441,16 +1441,22 @@ Thomas`,
  }
  });
 
- try {
- // Clean out empty product filters (no industries and no description)
- const cleanedProductFilters: Record<string, any> = {};
- if (partnerFormData.product_filters) {
- Object.entries(partnerFormData.product_filters).forEach(([key, filter]) => {
- if (filter && (filter.industries?.length > 0 || filter.productDescription?.trim())) {
- cleanedProductFilters[key] = filter;
- }
- });
- }
+  // Clean out empty product filters (no meaningful content)
+  const cleanedProductFilters: Record<string, any> = {};
+  if (partnerFormData.product_filters) {
+  Object.entries(partnerFormData.product_filters).forEach(([key, filter]) => {
+  const hasContent =
+  filter && (
+  filter.industries?.length > 0 ||
+  filter.productDescription?.trim() ||
+  filter.whyChoose?.trim() ||
+  filter.keyPoints?.trim()
+  );
+  if (hasContent) {
+  cleanedProductFilters[key] = filter;
+  }
+  });
+  }
 
  const dataToSend = {
  ...partnerFormData,
