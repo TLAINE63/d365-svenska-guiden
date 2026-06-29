@@ -1669,138 +1669,143 @@ const PartnerUpdate = () => {
          </div>
        )}
 
-       {/* Steg 4 – Case & kontakt */}
-       {currentStep === 4 && (
-         <div className="space-y-4">
-           {/* Säljkontakt */}
-           <div className="rounded-lg border border-border p-3 space-y-3">
-             <Label className="text-sm font-semibold">Säljkontakt för {section.label}</Label>
-             <div className="grid sm:grid-cols-3 gap-3">
-               <div>
-                 <Label className="text-xs text-muted-foreground">Namn</Label>
-                 <Input
-                   placeholder="Anna Svensson"
-                   value={filter.contactName || ''}
-                   onChange={(e) => updateProductFilter(productKey, { contactName: e.target.value })}
-                   className="mt-1"
-                 />
-               </div>
-               <div>
-                 <Label className="text-xs text-muted-foreground">E-post</Label>
-                 <Input
-                   type="email"
-                   placeholder="anna@foretag.se"
-                   value={filter.contactEmail || ''}
-                   onChange={(e) => updateProductFilter(productKey, { contactEmail: e.target.value })}
-                   className="mt-1"
-                 />
-               </div>
-               <div>
-                 <Label className="text-xs text-muted-foreground">Telefon</Label>
-                 <Input
-                   placeholder="070-123 45 67"
-                   value={filter.contactPhone || ''}
-                   onChange={(e) => updateProductFilter(productKey, { contactPhone: e.target.value })}
-                   className="mt-1"
-                 />
-               </div>
-             </div>
+        {/* Steg 3 – Bevis */}
+        {currentStep === 3 && (
+          <div className="space-y-4">
+            {/* Customer Examples */}
+            <div>
+              <Label className="text-sm">Ange kunder ni har arbetat med inom denna lösning</Label>
+              <p className="text-xs text-muted-foreground mt-1">
+                Max 5–8 exempel räcker. Kända namn ökar förtroendet.
+              </p>
+              <Input
+                placeholder="Volvo, IKEA, Scania..."
+                value={(filter.customerExamples || []).join(', ')}
+                onChange={(e) => {
+                  const raw = e.target.value;
+                  const examples = raw.split(',').map(s => s.trim());
+                  updateProductFilter(productKey, { customerExamples: examples });
+                }}
+                onBlur={() => {
+                  const cleaned = (filter.customerExamples || []).filter(s => s.length > 0);
+                  updateProductFilter(productKey, { customerExamples: cleaned });
+                }}
+                className="mt-2"
+              />
+              <p className="text-xs text-muted-foreground mt-1">
+                Om fältet lämnas tomt visas: "Kundexempel kan ges på förfrågan".
+              </p>
+            </div>
 
-             <div className="flex items-center gap-3 pt-2 border-t border-border/60">
-               {filter.contactPhotoUrl ? (
-                 <img
-                   src={filter.contactPhotoUrl}
-                   alt="Säljkontakt foto"
-                   className="h-14 w-14 object-cover rounded border-2 border-border "
-                 />
-               ) : (
-                 <div className="h-14 w-14 rounded bg-muted flex items-center justify-center border-2 border-dashed border-border">
-                   <ImageIcon className="h-5 w-5 text-muted-foreground" />
-                 </div>
-               )}
-               <div className="flex flex-col gap-2">
-                 <Label className="text-xs text-muted-foreground">Foto på säljkontakten (visas på partnerprofilen)</Label>
-                 <div className="flex gap-2">
-                   <input
-                     type="file"
-                     accept="image/jpeg,image/png,image/webp"
-                     id={`contact-photo-${productKey}`}
-                     className="hidden"
-                     onChange={(e) => handleProductContactPhotoUpload(productKey, e)}
-                   />
-                   <Button
-                     type="button"
-                     variant="outline"
-                     size="sm"
-                     disabled={uploadingProductPhoto === productKey}
-                     onClick={() => document.getElementById(`contact-photo-${productKey}`)?.click()}
-                   >
-                     <Upload className={`mr-2 h-4 w-4 ${uploadingProductPhoto === productKey ? "animate-spin" : ""}`} />
-                     {uploadingProductPhoto === productKey
-                       ? "Laddar upp..."
-                       : (filter.contactPhotoUrl ? "Byt foto" : "Ladda upp foto")}
-                   </Button>
-                   {filter.contactPhotoUrl && (
-                     <Button
-                       type="button"
-                       variant="ghost"
-                       size="sm"
-                       onClick={() => updateProductFilter(productKey, { contactPhotoUrl: '' })}
-                     >
-                       Ta bort
-                     </Button>
-                   )}
-                 </div>
-               </div>
-             </div>
-           </div>
+            {/* Customer Case Links */}
+            <div>
+              <Label className="text-sm">Länk till kundcase (vill ni stoltsera med kundcase, får ni gärna lägga in länken till dessa nedan)</Label>
+              <Input
+                placeholder="https://partner.se/kundcase1, https://partner.se/kundcase2"
+                value={(filter.customerCaseLinks || []).join(', ')}
+                onChange={(e) => {
+                  const raw = e.target.value;
+                  const links = raw.split(',').map(s => s.trim());
+                  updateProductFilter(productKey, { customerCaseLinks: links });
+                }}
+                onBlur={() => {
+                  const cleaned = (filter.customerCaseLinks || []).filter(s => s.length > 0);
+                  updateProductFilter(productKey, { customerCaseLinks: cleaned });
+                }}
+                className="mt-2"
+              />
+              <p className="text-xs text-muted-foreground mt-1">Separera flera länkar med komma</p>
+            </div>
+          </div>
+        )}
 
-           {/* Customer Examples */}
-           <div>
-             <Label className="text-sm">Ange kunder ni har arbetat med inom denna lösning</Label>
-             <p className="text-xs text-muted-foreground mt-1">
-               Max 5–8 exempel räcker. Kända namn ökar förtroendet.
-             </p>
-             <Input
-               placeholder="Volvo, IKEA, Scania..."
-               value={(filter.customerExamples || []).join(', ')}
-               onChange={(e) => {
-                 const raw = e.target.value;
-                 const examples = raw.split(',').map(s => s.trim());
-                 updateProductFilter(productKey, { customerExamples: examples });
-               }}
-               onBlur={() => {
-                 const cleaned = (filter.customerExamples || []).filter(s => s.length > 0);
-                 updateProductFilter(productKey, { customerExamples: cleaned });
-               }}
-               className="mt-2"
-             />
-             <p className="text-xs text-muted-foreground mt-1">
-               Om fältet lämnas tomt visas: "Kundexempel kan ges på förfrågan".
-             </p>
-           </div>
+        {/* Steg 4 – Kontakt */}
+        {currentStep === 4 && (
+          <div className="space-y-4">
+            {/* Säljkontakt */}
+            <div className="rounded-lg border border-border p-3 space-y-3">
+              <Label className="text-sm font-semibold">Säljkontakt för {section.label}</Label>
+              <div className="grid sm:grid-cols-3 gap-3">
+                <div>
+                  <Label className="text-xs text-muted-foreground">Namn</Label>
+                  <Input
+                    placeholder="Anna Svensson"
+                    value={filter.contactName || ''}
+                    onChange={(e) => updateProductFilter(productKey, { contactName: e.target.value })}
+                    className="mt-1"
+                  />
+                </div>
+                <div>
+                  <Label className="text-xs text-muted-foreground">E-post</Label>
+                  <Input
+                    type="email"
+                    placeholder="anna@foretag.se"
+                    value={filter.contactEmail || ''}
+                    onChange={(e) => updateProductFilter(productKey, { contactEmail: e.target.value })}
+                    className="mt-1"
+                  />
+                </div>
+                <div>
+                  <Label className="text-xs text-muted-foreground">Telefon</Label>
+                  <Input
+                    placeholder="070-123 45 67"
+                    value={filter.contactPhone || ''}
+                    onChange={(e) => updateProductFilter(productKey, { contactPhone: e.target.value })}
+                    className="mt-1"
+                  />
+                </div>
+              </div>
 
-           {/* Customer Case Links */}
-           <div>
-             <Label className="text-sm">Länk till kundcase (vill ni stoltsera med kundcase, får ni gärna lägga in länken till dessa nedan)</Label>
-             <Input
-               placeholder="https://partner.se/kundcase1, https://partner.se/kundcase2"
-               value={(filter.customerCaseLinks || []).join(', ')}
-               onChange={(e) => {
-                 const raw = e.target.value;
-                 const links = raw.split(',').map(s => s.trim());
-                 updateProductFilter(productKey, { customerCaseLinks: links });
-               }}
-               onBlur={() => {
-                 const cleaned = (filter.customerCaseLinks || []).filter(s => s.length > 0);
-                 updateProductFilter(productKey, { customerCaseLinks: cleaned });
-               }}
-               className="mt-2"
-             />
-             <p className="text-xs text-muted-foreground mt-1">Separera flera länkar med komma</p>
-           </div>
-         </div>
-       )}
+              <div className="flex items-center gap-3 pt-2 border-t border-border/60">
+                {filter.contactPhotoUrl ? (
+                  <img
+                    src={filter.contactPhotoUrl}
+                    alt="Säljkontakt foto"
+                    className="h-14 w-14 object-cover rounded border-2 border-border "
+                  />
+                ) : (
+                  <div className="h-14 w-14 rounded bg-muted flex items-center justify-center border-2 border-dashed border-border">
+                    <ImageIcon className="h-5 w-5 text-muted-foreground" />
+                  </div>
+                )}
+                <div className="flex flex-col gap-2">
+                  <Label className="text-xs text-muted-foreground">Foto på säljkontakten (visas på partnerprofilen)</Label>
+                  <div className="flex gap-2">
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      id={`contact-photo-${productKey}`}
+                      className="hidden"
+                      onChange={(e) => handleProductContactPhotoUpload(productKey, e)}
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      disabled={uploadingProductPhoto === productKey}
+                      onClick={() => document.getElementById(`contact-photo-${productKey}`)?.click()}
+                    >
+                      <Upload className={`mr-2 h-4 w-4 ${uploadingProductPhoto === productKey ? "animate-spin" : ""}`} />
+                      {uploadingProductPhoto === productKey
+                        ? "Laddar upp..."
+                        : (filter.contactPhotoUrl ? "Byt foto" : "Ladda upp foto")}
+                    </Button>
+                    {filter.contactPhotoUrl && (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => updateProductFilter(productKey, { contactPhotoUrl: '' })}
+                      >
+                        Ta bort
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
        {/* Nav */}
        <div className="flex items-center justify-between pt-4 mt-4 border-t border-border">
