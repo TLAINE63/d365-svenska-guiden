@@ -199,6 +199,20 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
     if (txt) { whyChoose = txt; break; }
   }
 
+  // Key points (per product) — first non-empty, split into lines
+  let keyPoints: string[] = [];
+  for (const k of keys) {
+    const txt = pf[k]?.keyPoints?.trim();
+    if (txt) {
+      keyPoints = txt
+        .split(/\n/)
+        .map((p: string) => p.trim().replace(/^[•\-\*]\s*/, ""))
+        .filter(Boolean)
+        .slice(0, 6);
+      break;
+    }
+  }
+
   // Apps for this tab
   const appCategoryMap: Record<TabKey, string[]> = {
     bc: ["Business Central"],
