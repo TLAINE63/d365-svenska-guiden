@@ -416,8 +416,10 @@ const AdminDashboard = () => {
       if (error) throw error;
       const results = (data as any)?.results || [];
       const ok = results.filter((r: any) => r.ok).length;
-      const skipped = (data as any)?.skipped || 0;
       const failed = results.length - ok;
+      const matchedCount = (data as any)?.matchedCount ?? results.length;
+      const publishedCount = fullPartners.filter((p) => p.is_featured).length;
+      const skipped = Math.max(0, publishedCount - matchedCount);
       toast({
         title: "Bulk-generering klar",
         description: `${ok} lyckades${failed > 0 ? `, ${failed} misslyckades` : ""}${skipped > 0 ? `, ${skipped} hoppades över` : ""}.`,
