@@ -213,13 +213,13 @@ const ContactFormDialog = ({ children }: ContactFormDialogProps) => {
  >
  Avbryt
  </Button>
- <Button
- type="submit"
- className="flex-1 bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] text-white border-0"
- disabled={isSubmitting}
- >
- {isSubmitting ? "Skickar..." : "Skicka förfrågan"}
- </Button>
+        <Button
+          type="submit"
+          className="flex-1 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-primary-foreground rounded"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Skickar..." : "Skicka förfrågan"}
+        </Button>
  </div>
  </form>
  </Form>
