@@ -152,23 +152,41 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  const underlyingSelected = Array.from(
  new Set(selected.map((k) => FILTER_TO_UNDERLYING[k])),
  );
+ const productKeysToCheck: UnderlyingKey[] =
+ underlyingSelected.length > 0 ? underlyingSelected : ["bc", "fsc", "sales", "service"];
+
  const filtered = partners.filter((p: any) => {
- // Om produktfilter är valt: matcha bara branschen inom de valda produkterna
- if (underlyingSelected.length > 0) {
  const pf = p.product_filters || {};
- return underlyingSelected.some((k) => {
+ // Bransch måste matcha (inom valda produkter om filter satt, annars valfri källa)
+ const industryMatch =
+ underlyingSelected.length > 0
+ ? underlyingSelected.some((k) => {
  const inds = pf[k]?.industries || [];
  const sec = pf[k]?.secondaryIndustries || [];
  return inds.includes(industryName) || sec.includes(industryName);
+ })
+ : collectPartnerIndustries(p).has(industryName);
+ if (!industryMatch) return false;
+
+ // Geografi/storlek: kräver att MINST EN produkt (av de relevanta) uppfyller filtren
+ if (selectedGeography || selectedCompanySize) {
+ return productKeysToCheck.some((k) => {
+ const f = pf[k];
+ if (!f) return false;
+ const inds = f.industries || [];
+ const sec = f.secondaryIndustries || [];
+ if (!inds.includes(industryName) && !sec.includes(industryName)) return false;
+ if (selectedGeography && !matchesGeography(f.geography, selectedGeography)) return false;
+ if (selectedCompanySize && !(f.companySize || []).includes(selectedCompanySize)) return false;
+ return true;
  });
  }
- // Annars: matcha mot alla branschkällor (samma logik som översikten)
- return collectPartnerIndustries(p).has(industryName);
+ return true;
  });
 
- const seed = hashString(`${slug}-${selected.join(",")}`);
+ const seed = hashString(`${slug}-${selected.join(",")}-${selectedGeography || ""}-${selectedCompanySize || ""}`);
  return seededShuffle(filtered, seed);
- }, [partners, meta, selected, slug]);
+ }, [partners, meta, selected, slug, selectedGeography, selectedCompanySize]);
 
  if (!loading && !page) {
  return (
