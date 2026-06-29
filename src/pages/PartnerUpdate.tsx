@@ -1343,15 +1343,15 @@ const PartnerUpdate = () => {
  const section = productSections.find(s => s.key === productKey)!;
  const filter = getProductFilter(productKey);
  
- // Product-specific placeholder for description
- const descriptionPlaceholder = 
- productKey === 'bc' 
- ? "T.ex. 'Specialiserade på tillverkande företag med fokus på lageroptimering'"
- : productKey === 'fsc'
- ? "T.ex. 'Experter på koncernkonsolidering och supply chain för stora organisationer'"
- : productKey === 'sales'
- ? "T.ex. 'Fokus på säljautomation och pipeline-hantering för B2B-företag'"
- : "T.ex. 'Specialister på omnikanal-support och Field Service för serviceorganisationer'";
+  // Product-specific placeholder for description
+  const descriptionPlaceholder = 
+  productKey === 'bc' 
+  ? "T.ex. 'Business Central-implementationer i medelstora bolag inom distribution'"
+  : productKey === 'fsc'
+  ? "T.ex. 'Finance & Supply Chain för tillverkande koncerner med komplexa flöden'"
+  : productKey === 'sales'
+  ? "T.ex. 'Sales-implementeringar för B2B-företag med långa säljcykler'"
+  : "T.ex. 'Customer Service-lösningar för supportteam med höga volymer'";
  
  return (
  <Card key={productKey} className="ring-2 ring-offset-2" style={{ borderColor: `hsl(var(--${section.key === 'bc' ? 'business-central' : section.key === 'fsc' ? 'finance-supply' : section.key === 'sales' ? 'crm' : 'customer-service'}))` }}>
@@ -1374,14 +1374,16 @@ const PartnerUpdate = () => {
  <CardContent className="space-y-4 pt-4">
  {/* Product Description */}
  <div>
- <Label className="text-sm">Kort beskrivning av erbjudande</Label>
- <Input
- placeholder={descriptionPlaceholder}
- value={filter.productDescription || ''}
- onChange={(e) => updateProductFilter(productKey, { productDescription: e.target.value })}
- className="mt-2"
- />
- <p className="text-xs text-muted-foreground mt-1">Beskriv ert fokus och expertis för denna produkt (max ~100 tecken)</p>
+  <Label className="text-sm">Beskriv vad ni gör inom denna lösning</Label>
+  <Input
+    placeholder={descriptionPlaceholder}
+    value={filter.productDescription || ''}
+    onChange={(e) => updateProductFilter(productKey, { productDescription: e.target.value })}
+    className="mt-2"
+  />
+  <p className="text-xs text-muted-foreground mt-1">
+    Max 100 tecken. Fokusera på: typ av projekt, typ av kund och vad ni faktiskt levererar.
+  </p>
           </div>
 
           {/* Why choose us for this product */}
