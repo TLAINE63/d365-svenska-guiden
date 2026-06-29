@@ -45,6 +45,8 @@ export function productNameToSlug(name: string): PartnerProductSlug | null {
   const v = name.toLowerCase().trim();
 
   // Exakta/aliasade träffar först
+  if (v === "crm" || v === "customer engagement") return "crm";
+
   if (v.includes("business central")) return "business-central";
   if (v.includes("finance") || v.includes("supply") || v === "fsc" || v === "f&scm") {
     return "finance-supply-chain";
