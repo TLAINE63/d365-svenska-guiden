@@ -324,9 +324,11 @@ export default function PartnerProductTabs({
       {/* Helper text + sticky tabs */}
       <div className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 sticky top-16 z-30">
         <div className="container mx-auto px-4 sm:px-6">
-          <p className="text-xs sm:text-sm text-muted-foreground pt-3 pb-2 text-center">
-            Denna partner arbetar med flera Dynamics 365-lösningar. Välj område för att se rätt profil.
-          </p>
+          {availableTabs.length > 1 && (
+            <p className="text-xs sm:text-sm text-muted-foreground pt-3 pb-2 text-center">
+              Denna partner arbetar med flera Dynamics 365-lösningar. Välj område för att se rätt profil.
+            </p>
+          )}
           <nav
             role="tablist"
             aria-label="Dynamics 365-områden"
