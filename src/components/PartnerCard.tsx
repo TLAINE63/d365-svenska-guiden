@@ -7,12 +7,14 @@ import {
  CheckCircle2, 
  Sparkles, 
  Building2,
- Shuffle,
- BrainCircuit,
- ChevronDown,
- ChevronUp,
- ExternalLink
+  Shuffle,
+  BrainCircuit,
+  ChevronDown,
+  ChevronUp,
+  ExternalLink,
+  ArrowLeftRight
 } from "lucide-react";
+import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 import RelatedPartyBadge from "@/components/RelatedPartyBadge";
 import {
  Tooltip,
