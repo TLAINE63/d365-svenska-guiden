@@ -1290,8 +1290,8 @@ const PartnerUpdate = () => {
          </div>
        )}
 
-       {/* Steg 2 – Varför välja er */}
-       {currentStep === 2 && (
+        {/* Steg 1 fortsättning – Varför välja er + AI (samma steg som Om erbjudandet) */}
+        {currentStep === 1 && (
          <div className="space-y-4">
            {/* Why choose us */}
            <div>
