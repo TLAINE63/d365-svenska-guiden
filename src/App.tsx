@@ -3,6 +3,8 @@ import ChunkErrorBoundary from "@/components/ChunkErrorBoundary";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { PartnerCompareProvider } from "@/contexts/PartnerCompareContext";
+import PartnerCompareBar from "@/components/PartnerCompareBar";
 import ScrollToTop from "@/components/ScrollToTop";
 import TrailingSlashRedirect from "@/components/TrailingSlashRedirect";
 import { useDeferredLoad } from "@/hooks/useDeferredLoad";
