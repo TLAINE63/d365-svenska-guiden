@@ -188,7 +188,7 @@ const Index = () => {
                 Har ni valt – eller överväger – Dynamics 365?
               </h1>
               <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
-                d365.se hjälper er förstå behovet, jämföra utbudet av Microsofts Affärssystem (ERP), CRM, Kundservicesystem och välja rätt partner.
+                d365.se hjälper er förstå behovet, välja rätt lösning och framför allt hitta rätt partner.
               </p>
 
               <div className="border-t border-white/10 pt-7 mb-8">
