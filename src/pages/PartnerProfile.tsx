@@ -199,7 +199,8 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  // Use initialData for SSR, then hydrate with live data from DB
  const partner = dbPartner ?? initialData ?? null;
 
- const [videoOpen, setVideoOpen] = useState(false);
+  const [videoOpen, setVideoOpen] = useState(false);
+  const [activeTabProduct, setActiveTabProduct] = useState<string | null>(null);
 
  // Track profile visit (one per slug per mount)
  useEffect(() => {
