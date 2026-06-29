@@ -313,7 +313,7 @@ const KomIgang = () => {
 
               {matchedPartners.length > 0 ? (
                 <div className="space-y-4">
-                  <WhyTheseResults defaultOpen />
+                  <WhyTheseResults />
                   {matchedPartners.map((partner, idx) => {
                     const aiMatch = getAiMatch(partner.id);
                     return (
