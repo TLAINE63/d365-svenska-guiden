@@ -516,8 +516,6 @@ const Index = () => {
  </div>
  </section>
 
- <TrustBanner variant="full" />
-
  {/* SEO-anchor — Vad är Microsoft Dynamics 365 + inline internal links */}
  <section className="section-divider py-8 sm:py-12 bg-white border-b border-border">
    <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
