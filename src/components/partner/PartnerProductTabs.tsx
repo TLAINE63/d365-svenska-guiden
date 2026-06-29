@@ -64,6 +64,7 @@ interface Props {
   selectedCompanySize?: string;
   selectedGeography?: string;
   selectedRevenue?: string;
+  onActiveTabChange?: (tab: TabKey, label: string) => void;
 }
 
 const GEO_ORDER = ["Sverige", "Norden", "Europa", "Övriga världen"];
