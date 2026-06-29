@@ -293,10 +293,10 @@ const PartnerUpdate = () => {
   const setStepFor = (key: string, n: number) =>
     setProductStep((prev) => ({ ...prev, [key]: Math.max(1, Math.min(4, n)) }));
   const PRODUCT_STEP_LABELS = [
-    "Kort beskrivning",
-    "Varför välja er",
-    "Bransch & målgrupp",
-    "Case & kontakt",
+    "Om erbjudandet",
+    "Målgrupp",
+    "Bevis",
+    "Kontakt",
   ] as const;
 
   // Profile completion progress
