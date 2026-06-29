@@ -15,11 +15,6 @@ import {
 } from "lucide-react";
 import RelatedPartyBadge from "@/components/RelatedPartyBadge";
 import {
- AI_TIER_LABELS,
- AI_TIER_BADGE_STYLES,
- getCapabilityEmoji,
-} from "@/utils/aiScoring";
-import {
  Tooltip,
  TooltipContent,
  TooltipProvider,
