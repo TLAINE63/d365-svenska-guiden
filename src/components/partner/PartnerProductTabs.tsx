@@ -530,20 +530,31 @@ export default function PartnerProductTabs({
                 Kompetenser
               </h2>
 
-              {data.apps.length > 0 && (
-                <div className="mb-4">
-                  <p className="text-xs font-bold uppercase tracking-wider text-foreground/60 mb-2">
-                    Primära applikationer
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {data.apps.map((app) => (
-                      <Badge key={app} className="bg-primary text-primary-foreground border-0 py-1.5 px-3 text-sm">
-                        {app}
-                      </Badge>
-                    ))}
+              {(() => {
+                const primaryApps = data.apps;
+                const specialtyApps = (partner.applications || []).filter((a) =>
+                  SPECIALTY_APPLICATIONS.includes(a),
+                );
+                const allApps = [...new Set([...primaryApps, ...specialtyApps])];
+                if (allApps.length === 0) return null;
+                return (
+                  <div className="mb-4">
+                    <p className="text-xs font-bold uppercase tracking-wider text-foreground/60 mb-2">
+                      Primära applikationer
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {allApps.map((app) => (
+                        <Badge key={app} className="bg-primary text-primary-foreground border-0 py-1.5 px-3 text-sm inline-flex items-center gap-1.5">
+                          {appIconSrc[app] && (
+                            <img src={appIconSrc[app]} alt="" aria-hidden="true" className="w-4 h-4" />
+                          )}
+                          {app}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
+                );
+              })()}
 
 
               {data.industryApps.length > 0 && (
