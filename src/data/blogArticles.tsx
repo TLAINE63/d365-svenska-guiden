@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import IndustryPartnerListInline from "@/components/IndustryPartnerListInline";
 import aiErpRiskbildHero from "@/assets/articles/ai-erp-riskbild-hero.jpg";
 import partnervaletAvgorHero from "@/assets/articles/partnervalet-avgor-hero.jpg";
 import ownedIntelligenceHero from "@/assets/articles/owned-intelligence-hero.jpg";
@@ -2378,18 +2379,6 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
 
         <p>
-          <strong>Evidi</strong><br />
-          <em>Spetskompetens: Business Central | AI Integration Partner</em>
-        </p>
-        <p>
-          Evidi levererar Business Central-lösningar till retail- och
-          e-handelsföretag med fokus på optimerad kundupplevelse och
-          digitaliserade processer. Som certifierad AI Integration Partner har
-          de en tydlig profil kring hur AI-funktionalitet integreras i
-          affärssystemet för att stödja beslutsfattande och automation.
-        </p>
-
-        <p>
           <strong>Goodfellows</strong><br />
           <em>
             Spetskompetens: Business Central | AI Integration Partner | Fokus:
@@ -2417,21 +2406,6 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           och back-office i ett gemensamt Microsoft-ekosystem. Rätt val för
           organisationer med komplex logistik och krav på realtidsdata i
           butiksmiljö.
-        </p>
-
-        <p>
-          <strong>Sopra Steria</strong><br />
-          <em>
-            Spetskompetens: Business Central, Finance, Supply Chain Management |
-            AI Enabled
-          </em>
-        </p>
-        <p>
-          Sopra Steria arbetar process- och effektorienterat snarare än
-          systeminriktat. Deras styrka ligger i att förstå kundens verksamhet i
-          sin helhet och säkerställa att systemlösningen faktiskt speglar hur
-          arbetet utförs. AI Enabled-certifieringen indikerar att de aktivt
-          integrerar AI-funktionalitet i sina leveranser.
         </p>
 
         <h3>Breda partners med kompetens inom flera produktområden</h3>
@@ -2466,23 +2440,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           systemleveranser.
         </p>
 
-        <p>
-          <strong>Cepheo</strong><br />
-          <em>
-            Spetskompetens: BC, Finance, SCM, Sales, Customer Insights, Customer
-            Service, Field Service, Contact Center, HR
-          </em>
-        </p>
-        <p>
-          Cepheo är en av Nordens mest heltäckande Microsoft Dynamics
-          365-partners och täcker samtliga relevanta produktområden för retail
-          och e-handel. Deras specifika erfarenhet av omnichannel-integrationer
-          — där e-handel, fysisk butik och back-office ska hänga samman i
-          realtid — gör dem relevanta för kedjor med komplex kanalstruktur. Med
-          hela bredden av applikationer i portföljen är Cepheo ett naturligt
-          alternativ när organisationen planerar en plattform som ska växa över
-          tid.
-        </p>
+        <IndustryPartnerListInline industry="Retail & E-handel" />
 
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
@@ -2778,63 +2736,6 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           lokal närvaro.
         </p>
 
-
-        <p>
-          <strong>Cepheo</strong><br />
-          <em>Business Central, Finance, SCM, Sales, Customer Insights, Human Resources</em>
-        </p>
-        <p>
-          Cepheo är en av Nordens mest heltäckande Microsoft-partners med djup
-          erfarenhet av Industri 4.0-implementationer. Deras kompetens spänner
-          från BC och F&amp;SCM till CRM och HR, vilket gör dem relevanta för
-          tillverkande organisationer som planerar en bred plattformssatsning
-          med långsiktig förvaltning.
-        </p>
-
-        <p>
-          <strong>COSMO CONSULT</strong><br />
-          <em>Business Central, Sales, Customer Insights</em>
-        </p>
-        <p>
-          COSMO CONSULT kombinerar BC med CRM-funktionalitet och har
-          branschspecifika lösningar för tillverkning byggda ovanpå Dynamics
-          365. Relevant för tillverkare som söker ett system med inbyggd
-          branschlogik och inte vill bygga allt från standard.
-        </p>
-
-        <p>
-          <strong>Enqore AB</strong><br />
-          <em>Business Central, Finance, SCM, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations</em>
-        </p>
-        <p>
-          Enqore täcker hela Dynamics 365-plattformen och arbetar med
-          tillverkande företag i hela komplexitetsspannet. Relevant som
-          helhetsleverantör för organisationer som vill ha en partner med
-          kapacitet inom samtliga applikationsområden.
-        </p>
-
-        <p>
-          <strong>Evidi</strong><br />
-          <em>Business Central | AI Integration Partner</em>
-        </p>
-        <p>
-          Evidi är en BC-specialist med AI Integration Partner-certifiering.
-          Fokus på SMB-segmentet inom tillverkning med en tydlig profil kring
-          digitalisering och AI-integration i affärssystemet.
-        </p>
-
-        <p>
-          <strong>Implema AB</strong><br />
-          <em>Finance, Supply Chain Management, Project Operations, Commerce, Human Resources</em>
-        </p>
-        <p>
-          Implema har ett tydligt F&amp;SCM-fokus kompletterat med Project
-          Operations och HR — en kombination som passar tillverkande företag
-          med projektbaserade leveranser eller engineer-to-order-processer.
-          Deras motto "snabbt, säkert och redo för framtiden" speglar en
-          leveransmodell inriktad på standardnära implementationer.
-        </p>
-
         <p>
           <strong>InBiz</strong><br />
           <em>Business Central</em>
@@ -2858,26 +2759,6 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
 
         <p>
-          <strong>Navcite</strong><br />
-          <em>Business Central</em>
-        </p>
-        <p>
-          Navcite är en BC-specialist med bred branschräckvidd. Passar
-          tillverkande SMB-företag som vill ha en etablerad BC-partner med
-          lång erfarenhet av Dynamics-plattformen.
-        </p>
-
-        <p>
-          <strong>Navet AB</strong><br />
-          <em>Business Central, Sales, Customer Insights, Customer Service, Field Service, Contact Center</em>
-        </p>
-        <p>
-          Navet kombinerar BC med ett brett CRM- och serviceuttag och täcker
-          därmed både ERP och kundrelationssidan. Relevant för tillverkare som
-          vill samla affärssystem och kundservice hos en och samma partner.
-        </p>
-
-        <p>
           <strong>Vivicta</strong><br />
           <em>Business Central, Finance, SCM, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations, Human Resources</em>
         </p>
@@ -2887,6 +2768,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           applikationsportfölj är de relevanta för tillverkande koncerner med
           komplexa och tvärfunktionella krav.
         </p>
+
+        <IndustryPartnerListInline industry="Tillverkningsindustri" />
 
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
@@ -3089,55 +2972,6 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           365-plattformen.
         </p>
 
-
-        <p>
-          <strong>Cepheo</strong><br />
-          <em>Business Central, Finance, Supply Chain Management, Sales, Customer Insights, Human Resources</em>
-        </p>
-        <p>
-          Cepheo täcker hela ERP-spannet från BC till F&amp;SCM och kombinerar det
-          med CRM och HR. Som en av Nordens större Microsoft-partners har de
-          kapacitet för komplexa implementationer och långsiktig förvaltning,
-          vilket är relevant för livsmedelsföretag som planerar en bred
-          plattformssatsning.
-        </p>
-
-        <p>
-          <strong>COSMO CONSULT</strong><br />
-          <em>Business Central, Sales, Customer Insights</em>
-        </p>
-        <p>
-          COSMO CONSULT kombinerar BC med CRM och erbjuder branschspecifika
-          lösningar för processindustri och livsmedel. För SMB-aktörer som söker
-          ett system med inbyggd branschlogik — snarare än ett generiskt BC som
-          kräver anpassning — är COSMO CONSULT ett relevant alternativ.
-        </p>
-
-        <p>
-          <strong>Enqore AB</strong><br />
-          <em>Business Central, Finance, Supply Chain Management, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Project Operations</em>
-        </p>
-        <p>
-          Enqore täcker hela Dynamics 365-plattformen med ett tydligt fokus på
-          datadrivna och AI-stödda processer. Deras profil — att koppla ihop
-          affärssystem med analys för att gå från reaktiv till prediktiv drift —
-          är direkt relevant för livsmedelsföretag som vill nyttja produktionsdata
-          för bättre beslut kring planering, spårbarhet och kvalitet.
-        </p>
-
-        <p>
-          <strong>Implema AB</strong><br />
-          <em>Finance, Supply Chain Management, Project Operations, Commerce, Human Resources</em>
-        </p>
-        <p>
-          Implema har ett renodlat F&amp;SCM-fokus med standardnära
-          implementationsmetodik. För livsmedels- och processföretag med komplexa
-          supply chain-krav och behov av snabb men robust leverans är Implema ett
-          relevant alternativ. Project Operations-kompetensen passar bolag med
-          projektbaserade processer vid exempelvis nya produktionslinjer eller
-          anläggningar.
-        </p>
-
         <p>
           <strong>InBiz</strong><br />
           <em>Business Central</em>
@@ -3151,6 +2985,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           hands-on partner med tydligt ägandeskap för leveransen är InBiz ett
           relevant alternativ.
         </p>
+
+        <IndustryPartnerListInline industry="Livsmedel & Processindustri" />
 
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
@@ -3421,32 +3257,6 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
 
         <p>
-          <strong>Evidi</strong><br />
-          <em>Business Central | AI Integration Partner</em>
-        </p>
-        <p>
-          Evidi är en BC-specialist med AI Integration Partner-certifiering och
-          ett tydligt fokus på standardnära implementationer med integrerade
-          AI-funktioner. För grossist- och distributionsföretag som vill
-          kombinera en solid BC-implementation med ett aktivt fokus på AI-driven
-          automation och beslutstöd är Evidi ett relevant alternativ i
-          SMB-segmentet.
-        </p>
-
-        <p>
-          <strong>Implema AB</strong><br />
-          <em>Finance, Supply Chain Management, Project Operations, Commerce, Human Resources</em>
-        </p>
-        <p>
-          Implema har ett renodlat F&amp;SCM-fokus och arbetar med standardnära
-          implementationer under mottot "snabbt, säkert och redo för framtiden".
-          För distributionsföretag med avancerade supply chain-krav och behov av
-          snabb men robust leverans av ett komplext ERP är Implema ett relevant
-          alternativ. Commerce-kompetensen är ett mervärde för grossister som
-          hanterar direktförsäljning parallellt.
-        </p>
-
-        <p>
           <strong>InBiz</strong><br />
           <em>Business Central</em>
         </p>
@@ -3474,19 +3284,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           distributörer med komplexa supply chain-krav.
         </p>
 
-        <p>
-          <strong>Navcite</strong><br />
-          <em>Business Central</em>
-        </p>
-        <p>
-          Navcite implementerar Business Central för företag inom distribution,
-          projektstyrning och tillverkning och har lång erfarenhet av
-          Dynamics-plattformen. De arbetar med att integrera BC mot Microsofts
-          övriga ekosystem och erbjuder stöd från implementation till löpande
-          vidareutveckling och support. Passar grossist- och distributionsföretag
-          som söker en etablerad BC-partner med bred plattformserfarenhet och
-          stabil leveransmodell.
-        </p>
+        <IndustryPartnerListInline industry="Grossist & Distribution" />
 
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
@@ -3674,19 +3472,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           förståelse för branschens specifika processer.
         </p>
 
-        <p>
-          <strong>Navcite</strong><br />
-          <em>Business Central</em>
-        </p>
-        <p>
-          Navcite implementerar Business Central för företag inom distribution,
-          projektstyrning och tillverkning, och har lång erfarenhet av
-          Dynamics-plattformen. De arbetar med integration mot Microsofts övriga
-          ekosystem och erbjuder stöd från implementation till löpande
-          vidareutveckling och support. Passar mindre till medelstora jordbruks-
-          och skogsbruksföretag som söker en etablerad BC-partner med stabil
-          leveransmodell och god processförståelse för ekonomi, lager och inköp.
-        </p>
+        <IndustryPartnerListInline industry="Jordbruk & Skogsbruk" />
 
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
@@ -3942,6 +3728,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           av datadriven styrning framöver.
         </p>
 
+        <IndustryPartnerListInline industry="Bygg & Entreprenad" />
+
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
           Bygg och entreprenad är en bransch där systemets förmåga att hantera
@@ -4158,6 +3946,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           specialistkompetens inom förändringsledning och analys är ett
           mervärde vid större digitaliseringsprogram.
         </p>
+
+        <IndustryPartnerListInline industry="Energi & Utilities" />
 
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
@@ -4408,6 +4198,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           erfaren BC-partner med tydligt leveransansvar och god lokal närvaro.
         </p>
 
+        <IndustryPartnerListInline industry="Konsulttjänster" />
+
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
           Konsulttjänster är en bransch där valet mellan partners i hög grad
@@ -4634,6 +4426,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Relevant för finansbolag som vill nyttja sin data mer aktivt för
           riskhantering, kundbearbetning och processautomation.
         </p>
+
+        <IndustryPartnerListInline industry="Finans & Försäkring" />
 
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
@@ -4866,6 +4660,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           och proaktiv service. Relevant för organisationer som vill kombinera
           Dynamics 365 med ett starkare analyslager.
         </p>
+
+        <IndustryPartnerListInline industry="Offentlig sektor" />
 
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
@@ -5107,6 +4903,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           snarare än regulatorisk valideringsstöd.
         </p>
 
+        <IndustryPartnerListInline industry="Life Science / Medtech" />
+
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
           Life Science och Medtech är den bransch på d365.se där skillnaden
@@ -5335,6 +5133,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           som kräver processomstrukturering snarare än bara ett nytt system.
         </p>
 
+        <IndustryPartnerListInline industry="Telekom & IT-tjänster" />
+
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
           Telekom och IT-tjänster är en av de branscher på d365.se med färst
@@ -5541,6 +5341,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           uthyrning, men de täcker samma applikationsmix och har lång
           Dynamics-erfarenhet.
         </p>
+
+        <IndustryPartnerListInline industry="Uthyrningsverksamhet" />
 
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
@@ -6169,6 +5971,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           logistikföretag som söker en partner med bred plattformskapacitet och
           ett tydligt helhetsansvar från rådgivning till förvaltning.
         </p>
+
+        <IndustryPartnerListInline industry="Transport & Logistik" />
 
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
