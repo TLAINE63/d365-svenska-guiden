@@ -25,6 +25,29 @@ import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import FinanceIcon from "@/assets/icons/Finance.svg";
 import SalesIcon from "@/assets/icons/Sales.svg";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
+import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
+import CommerceIcon from "@/assets/icons/Commerce.svg";
+import HumanResourcesIcon from "@/assets/icons/HumanResources.svg";
+
+const SPECIALTY_APPLICATIONS = ["Project Operations", "Commerce", "Human Resources"];
+
+const appIconSrc: Record<string, string> = {
+  "Business Central": BusinessCentralIcon,
+  "Finance": FinanceIcon,
+  "Supply Chain Management": FinanceIcon,
+  "Finance & SCM": FinanceIcon,
+  "Finance & Supply Chain": FinanceIcon,
+  "Sales": SalesIcon,
+  "Customer Service": CustomerServiceIcon,
+  "Field Service": CustomerServiceIcon,
+  "Contact Center": CustomerServiceIcon,
+  "Customer Insights": SalesIcon,
+  "Customer Insights (Marketing)": SalesIcon,
+  "Marketing": SalesIcon,
+  "Project Operations": ProjectOperationsIcon,
+  "Commerce": CommerceIcon,
+  "Human Resources": HumanResourcesIcon,
+};
 
 export type TabKey = "bc" | "fsc" | "crm";
 
@@ -507,20 +530,31 @@ export default function PartnerProductTabs({
                 Kompetenser
               </h2>
 
-              {data.apps.length > 0 && (
-                <div className="mb-4">
-                  <p className="text-xs font-bold uppercase tracking-wider text-foreground/60 mb-2">
-                    Primära applikationer
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {data.apps.map((app) => (
-                      <Badge key={app} className="bg-primary text-primary-foreground border-0 py-1.5 px-3 text-sm">
-                        {app}
-                      </Badge>
-                    ))}
+              {(() => {
+                const primaryApps = data.apps;
+                const specialtyApps = (partner.applications || []).filter((a) =>
+                  SPECIALTY_APPLICATIONS.includes(a),
+                );
+                const allApps = [...new Set([...primaryApps, ...specialtyApps])];
+                if (allApps.length === 0) return null;
+                return (
+                  <div className="mb-4">
+                    <p className="text-xs font-bold uppercase tracking-wider text-foreground/60 mb-2">
+                      Primära applikationer
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {allApps.map((app) => (
+                        <Badge key={app} className="bg-primary text-primary-foreground border-0 py-1.5 px-3 text-sm inline-flex items-center gap-1.5">
+                          {appIconSrc[app] && (
+                            <img src={appIconSrc[app]} alt="" aria-hidden="true" className="w-4 h-4" />
+                          )}
+                          {app}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
+                );
+              })()}
 
 
               {data.industryApps.length > 0 && (
