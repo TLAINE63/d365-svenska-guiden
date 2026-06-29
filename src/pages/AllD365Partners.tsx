@@ -84,8 +84,6 @@ export default function AllD365Partners() {
           </div>
         </section>
 
-        <TrustBanner variant="compact" />
-
 
 
         {/* Profiled partners */}
@@ -169,6 +167,8 @@ export default function AllD365Partners() {
             </Button>
           </div>
         </section>
+        <TrustBanner variant="compact" />
+
       </main>
 
       <Footer />
