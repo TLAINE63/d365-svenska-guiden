@@ -1714,10 +1714,13 @@ const PartnerUpdate = () => {
  </div>
  {/* AI Capabilities - Product-specific tier system */}
  <div className="pt-4 border-t border-border">
- <Label className="text-sm font-semibold">
- AI & Automation inom {productKey === 'bc' ? 'Business Central' : productKey === 'fsc' ? 'Finance & Supply Chain' : productKey === 'sales' ? 'Sälj & Marknad' : 'Kundservice & Field Service'}
- </Label>
- <p className="text-xs text-muted-foreground mt-1 mb-3">Vilken typ av AI-lösningar har ni levererat inom denna applikation?</p>
+  <Label className="text-sm font-semibold">
+  AI & AUTOMATION
+  </Label>
+  <p className="text-xs text-muted-foreground mt-1 mb-3">
+  Denna information används för att visa er nivå inom AI och automatisering.<br />
+  Markera det ni faktiskt levererat – inte vad ni planerar.
+  </p>
  
  <div className="space-y-5">
  {getAiOptionsForProduct(productKey).map((tierGroup) => (
