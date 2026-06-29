@@ -4361,25 +4361,26 @@ Thomas`,
  </div>
  </div>
 
- {/* Målgrupp – kundens storlek (frivilligt) */}
- <div className="rounded-lg border border-border p-3 space-y-3 bg-muted/30">
- <div>
- <Label className="text-sm font-semibold">Målgrupp – kundstorlek (frivilligt)</Label>
- <p className="text-xs text-muted-foreground mt-1">
- Markera vilka kundsegment ni typiskt vänder er till för {section.label}. Detta används som ett mjukt filter när kunder söker partner.
- </p>
- <div className="mt-2 rounded-md bg-background/70 border border-border/60 p-2 text-xs text-muted-foreground space-y-1">
- <p>
- <span className="font-medium text-foreground">Tomt fält = matchar alla.</span> Om ni inte markerar något visas ni för kunder oavsett storlek (vi straffar inte tystnad).
- </p>
- <p>
- <span className="font-medium text-foreground">Markerade värden = era målsegment.</span> Ni visas tydligare för kunder som matchar något av era val. Kunder utanför era val kan fortfarande se er, men utan extra framhävning.
- </p>
- <p>
- Tips: markera bara om ni har en uttalad målgrupp – annars är det bättre att lämna tomt.
- </p>
- </div>
- </div>
+  {/* Målgrupp – kundens storlek (frivilligt) */}
+  <div className="rounded-lg border border-border p-3 space-y-3 bg-muted/30">
+  <div>
+  <Label className="text-sm font-semibold">Välj de kundsegment ni oftast arbetar med</Label>
+  <p className="text-xs text-muted-foreground mt-1">
+    Inom respektive produktområde. Detta används för matchning:
+  </p>
+  <div className="mt-2 rounded-md bg-background/70 border border-border/60 p-2 text-xs text-muted-foreground space-y-1">
+  <p>
+  <span className="font-medium text-foreground">Ju mer träffsäkert → desto bättre synlighet.</span>
+  </p>
+  <p>
+  <span className="font-medium text-foreground">Tips:</span>
+  </p>
+  <ul className="list-disc pl-4 space-y-0.5">
+  <li>Markera endast där ni har tydlig erfarenhet</li>
+  <li>Lämna tomt om ni arbetar brett</li>
+  </ul>
+  </div>
+  </div>
  <div>
  <Label className="text-xs text-muted-foreground">Antal anställda</Label>
  <div className="flex flex-wrap gap-1.5 mt-1.5">
