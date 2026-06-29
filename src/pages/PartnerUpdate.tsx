@@ -1311,8 +1311,16 @@ const PartnerUpdate = () => {
  onOpenChange={() => toggleSection("products")}
  badge={activeProducts.length > 0 ? <Badge variant="outline">{activeProducts.length} valda</Badge> : undefined}
  >
- <div className="space-y-6">
- <div className="flex flex-wrap gap-2">
+  <div className="space-y-6">
+    <div className="rounded-lg border border-cta-orange/30 bg-cta-orange/5 p-3 flex items-start gap-2">
+      <ArrowRight className="h-4 w-4 text-cta-orange mt-0.5 shrink-0" />
+      <div className="text-sm text-foreground">
+        <p className="font-medium">Denna information används för att matcha er med rätt kunder.</p>
+        <p>Ju tydligare ni beskriver er spets, desto bättre träffsäkerhet.</p>
+      </div>
+    </div>
+
+    <div className="flex flex-wrap gap-2">
  {productSections.map((section) => (
  <button
  key={section.key}
