@@ -191,6 +191,13 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
     }
   }
 
+  // Why choose (per product) — first non-empty
+  let whyChoose: string | null = null;
+  for (const k of keys) {
+    const txt = pf[k]?.whyChoose?.trim();
+    if (txt) { whyChoose = txt; break; }
+  }
+
   // Apps for this tab
   const appCategoryMap: Record<TabKey, string[]> = {
     bc: ["Business Central"],
