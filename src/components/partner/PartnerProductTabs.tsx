@@ -203,34 +203,11 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
     }
   }
 
-  // AI badge — take strongest level across keys
-  let aiBadge: TabData["aiBadge"] = null;
-  let best = -1;
-  for (const k of keys) {
-    const caps = pf[k]?.aiCapabilities;
-    if (!caps || caps.length === 0) continue;
-    const score = calculateProductAiScore(caps, pf[k]?.aiProjectCount, k as any);
-    const lvl = getAiLevel(score);
-    if (lvl.level === "none") continue;
-    const rank = { enabled: 1, integration: 2, advanced: 3, transformation: 4 }[lvl.level] || 0;
-    if (rank > best) {
-      best = rank;
-      const descriptions: Record<string, string> = {
-        enabled: "Aktiverar och implementerar Microsofts inbyggda AI",
-        integration: "Bygger anpassade AI-agenter och processer",
-        advanced: "Utvecklar kundunika AI-lösningar och prediktiva modeller",
-        transformation: "Levererar avancerade Azure AI-arkitekturer",
-      };
-      aiBadge = { label: lvl.label, emoji: lvl.emoji, color: lvl.color, description: descriptions[lvl.level] };
-    }
-  }
-
   return {
     industries: fallbackIndustries,
     geography,
     companySize,
     revenue,
-
     customerExamples,
     customerCaseLinks,
     productDescription,
@@ -238,7 +215,6 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
     industryApps,
     contact,
     landingPageUrl,
-    aiBadge,
   };
 }
 
