@@ -477,6 +477,25 @@ const PartnerCard = ({
  <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/20 to-transparent" />
  </Link>
  </Button>
+ {compareSlug && (
+  <button
+   type="button"
+   onClick={(e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleCompare({ slug: compareSlug, name: partner.name || 'Partner' });
+   }}
+   aria-pressed={compareActive}
+   className={`w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-semibold border transition-all ${
+    compareActive
+     ? 'bg-[hsl(var(--cta-orange))] text-white border-[hsl(var(--cta-orange))]'
+     : 'bg-transparent text-foreground border-border hover:border-[hsl(var(--cta-orange))] hover:text-[hsl(var(--cta-orange))]'
+   }`}
+  >
+   <ArrowLeftRight className="h-3.5 w-3.5" />
+   {compareActive ? 'Vald för jämförelse' : 'Jämför'}
+  </button>
+ )}
  </div>
  </div>
  </div>
