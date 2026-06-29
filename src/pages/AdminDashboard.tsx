@@ -3857,22 +3857,25 @@ Thomas`,
   )}
 </div>
 
- <div>
- <Label htmlFor="website">Hemsida/Landsida (visas på Partnerprofilkortet) *</Label>
- <div className="relative">
- <Link className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
- <Input
- id="website"
- type="url"
- value={partnerFormData.website}
- onChange={(e) => {
- setPartnerFormData({ ...partnerFormData, website: e.target.value });
- if (formErrors.website) setFormErrors({ ...formErrors, website: undefined });
- }}
- placeholder="https://example.com"
- className={`pl-10 ${formErrors.website ? "border-destructive" : ""}`}
- />
- </div>
+<div>
+  <Label htmlFor="website">Länk till er huvudsida för Dynamics 365 eller er företagswebb *</Label>
+  <p className="text-sm text-muted-foreground mb-2">
+    Använd en sida som hjälper kunden förstå ert erbjudande.
+  </p>
+  <div className="relative">
+    <Link className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+    <Input
+      id="website"
+      type="url"
+      value={partnerFormData.website}
+      onChange={(e) => {
+        setPartnerFormData({ ...partnerFormData, website: e.target.value });
+        if (formErrors.website) setFormErrors({ ...formErrors, website: undefined });
+      }}
+      placeholder="https://example.com"
+      className={`pl-10 ${formErrors.website ? "border-destructive" : ""}`}
+    />
+  </div>
  {formErrors.website && (
  <p className="text-sm text-destructive flex items-center gap-1 mt-1">
  <AlertCircle className="h-3 w-3" />

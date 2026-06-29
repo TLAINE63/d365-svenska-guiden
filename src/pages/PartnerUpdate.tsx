@@ -1018,18 +1018,21 @@ const PartnerUpdate = () => {
  required
  />
  </div>
- <div className="space-y-2">
- <Label htmlFor="website">Hemsida/Landsida (visas på Partnerprofilkortet) *</Label>
- <Input
- id="website"
- name="website"
- type="url"
- placeholder="https://"
- value={formData.website}
- onChange={handleInputChange}
- required
- />
- </div>
+<div className="space-y-2">
+  <Label htmlFor="website">Länk till er huvudsida för Dynamics 365 eller er företagswebb *</Label>
+  <p className="text-sm text-muted-foreground">
+    Använd en sida som hjälper kunden förstå ert erbjudande.
+  </p>
+  <Input
+    id="website"
+    name="website"
+    type="url"
+    placeholder="https://"
+    value={formData.website}
+    onChange={handleInputChange}
+    required
+  />
+</div>
  </div>
 
 <div className="space-y-2">
