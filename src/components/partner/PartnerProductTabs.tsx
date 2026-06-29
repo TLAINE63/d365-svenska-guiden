@@ -540,39 +540,6 @@ export default function PartnerProductTabs({
               )}
             </section>
 
-            {/* 5. Branschfokus */}
-            {data.industries.length > 0 && (
-              <section>
-                <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Branschfokus</h2>
-                <div className="flex flex-wrap gap-2">
-                  {data.industries.slice(0, 5).map((ind) => (
-                    <Badge key={ind} variant="outline" className="bg-card border-border py-1.5 px-3 text-sm">
-                      <CheckCircle2 className="w-3.5 h-3.5 mr-1.5 text-emerald-600" />
-                      {ind}
-                    </Badge>
-                  ))}
-                </div>
-              </section>
-            )}
-
-            {/* 6. Geografi */}
-            {data.geography.length > 0 && (
-              <section>
-                <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-primary" />
-                  Geografi
-                </h2>
-                <ul className="space-y-2">
-                  {data.geography.map((geo) => (
-                    <li key={geo} className="flex items-center gap-2 text-foreground">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                      {geo}
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
-
             {/* Customer cases */}
             {data.customerCaseLinks.length > 0 && (
               <section>
