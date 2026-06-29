@@ -1424,20 +1424,20 @@ const PartnerUpdate = () => {
           </div>
 
 
- {/* Landing page URL for this product */}
- <div>
- <Label className="text-sm">Länk till er landningssida för {section.label} (valfritt)</Label>
- <Input
- type="url"
- placeholder="https://erforetag.se/dynamics-365-business-central"
- value={filter.landingPageUrl || ''}
- onChange={(e) => updateProductFilter(productKey, { landingPageUrl: e.target.value })}
- className="mt-2"
- />
- <p className="text-xs text-muted-foreground mt-1">
- Visas som knappen "Läs mer om [produkten] på [ert företagsnamn] hemsida" på er partnerprofil och i partnerlistor.
- </p>
- </div>
+  {/* Landing page URL for this product */}
+  <div>
+  <Label className="text-sm">Länk till sida om just denna lösning (valfritt)</Label>
+  <Input
+    type="url"
+    placeholder="https://erforetag.se/business-central"
+    value={filter.landingPageUrl || ''}
+    onChange={(e) => updateProductFilter(productKey, { landingPageUrl: e.target.value })}
+    className="mt-2"
+  />
+  <p className="text-xs text-muted-foreground mt-1">
+    Används som “Läs mer”-länk på er partnerprofil. Exempel: en Business Central-sida, F&SCM-sida eller CRM-sida.
+  </p>
+  </div>
 
  {/* Sales Contact for this product area */}
  <div className="rounded-lg border border-border p-3 space-y-3">
