@@ -236,7 +236,7 @@ const matchesDbProductFilter = (
   
   if (geography) {
     const partnerGeo = Array.isArray(productFilter.geography) ? productFilter.geography : (productFilter.geography ? [productFilter.geography] : ["Sverige"]);
-    const geographyHierarchy = ["Sverige", "Norden", "Europa", "Globalt", "Internationellt"];
+    const geographyHierarchy = ["Sverige", "Norden", "Europa", "Globalt"];
     const selectedGeoIndex = geographyHierarchy.indexOf(geography);
     const maxPartnerGeoIndex = Math.max(...partnerGeo.map((g: string) => geographyHierarchy.indexOf(g)));
     if (maxPartnerGeoIndex < selectedGeoIndex) {

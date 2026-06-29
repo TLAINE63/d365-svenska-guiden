@@ -256,17 +256,17 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  };
 
  // Get geography for a specific product - prioritize database data, return as array
- // Normalize to only valid values: Sverige, Norden, Europa, Övriga världen (in this exact order)
- const getGeographyForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string[] => {
- const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
- 
- // Valid geography values in display order - "Internationellt" should be mapped to "Globalt"
- const geographyOrder = ["Sverige", "Norden", "Europa", "Globalt"];
- 
- const normalizeAndSortGeography = (geoArray: string[]): string[] => {
- const normalized = geoArray.map(geo => 
- geo === "Internationellt" ? "Globalt" : geo
- );
+  // Normalize to only valid values: Sverige, Norden, Europa, Globalt (in this exact order)
+  const getGeographyForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string[] => {
+  const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
+  
+  // Valid geography values in display order - legacy "Internationellt" / "Övriga världen" are mapped to "Globalt"
+  const geographyOrder = ["Sverige", "Norden", "Europa", "Globalt"];
+  
+  const normalizeAndSortGeography = (geoArray: string[]): string[] => {
+  const normalized = geoArray.map(geo => 
+  geo === "Internationellt" || geo === "Övriga världen" ? "Globalt" : geo
+  );
  // Find the broadest geography level and include all levels up to it
  const maxIndex = Math.max(...normalized.map(geo => geographyOrder.indexOf(geo)).filter(i => i >= 0));
  if (maxIndex < 0) return [];

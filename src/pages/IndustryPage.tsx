@@ -19,7 +19,7 @@ import { ArrowRight, Briefcase, Users, AlertTriangle, Layers, HelpCircle, Filter
 import { FilterButtons } from "@/components/FilterButtons";
 import { companySizes, geographyOptions } from "@/data/partners";
 
-const GEOGRAPHY_HIERARCHY = ["Sverige", "Norden", "Europa", "Globalt", "Internationellt"];
+const GEOGRAPHY_HIERARCHY = ["Sverige", "Norden", "Europa", "Globalt"];
 const matchesGeography = (partnerGeos: string | string[] | undefined, selected: string): boolean => {
   const geos = Array.isArray(partnerGeos) && partnerGeos.length > 0
     ? partnerGeos

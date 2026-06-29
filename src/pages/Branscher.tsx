@@ -84,7 +84,7 @@ const INDUSTRY_IMAGES: Record<string, string> = {
  "uthyrning": uthyrningImg,
 };
 
-const GEOGRAPHY_HIERARCHY = ["Sverige", "Norden", "Europa", "Globalt", "Internationellt"];
+const GEOGRAPHY_HIERARCHY = ["Sverige", "Norden", "Europa", "Globalt"];
 
 const matchesGeography = (partnerGeos: string | string[], selected: string): boolean => {
   const geos = Array.isArray(partnerGeos) && partnerGeos.length > 0
