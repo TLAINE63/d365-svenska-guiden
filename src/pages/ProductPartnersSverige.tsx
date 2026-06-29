@@ -203,7 +203,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
             <Button
               asChild
               size="lg"
-              className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white"
+              className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white"
             >
               <Link to="/kontakt/">
                 <MessageSquare className="w-4 h-4 mr-2" />

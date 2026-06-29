@@ -442,7 +442,7 @@ const RequirementsSpec = () => {
                       <Button
                         onClick={handleDownload}
                         disabled={isDownloading || !email}
-                        className="whitespace-nowrap bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white"
+                        className="whitespace-nowrap bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white"
                       >
                         {isDownloading ? (
                           <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Laddar...</>

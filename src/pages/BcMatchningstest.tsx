@@ -285,7 +285,7 @@ const WizardView = ({
           <Button
             onClick={onFinish}
             disabled={!allAnswered}
-            className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
+            className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange-hover))]"
           >
             Visa resultat
             <ArrowRight className="w-4 h-4 ml-1" />
@@ -423,7 +423,7 @@ const ResultView = ({ result, answers, onRestart, onBack, onPdf }: ResultProps) 
             {!leadOpen && !sent && (
               <Button
                 onClick={() => setLeadOpen(true)}
-                className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
+                className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange-hover))]"
               >
                 <Mail className="w-4 h-4 mr-2" />
                 Få matchande BC-partners
@@ -456,7 +456,7 @@ const ResultView = ({ result, answers, onRestart, onBack, onPdf }: ResultProps) 
               </div>
               <div className="sm:col-span-2 flex gap-2 justify-end pt-2">
                 <Button type="button" variant="ghost" onClick={() => setLeadOpen(false)}>Avbryt</Button>
-                <Button type="submit" disabled={submitting} className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90">
+                <Button type="submit" disabled={submitting} className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange-hover))]">
                   {submitting ? "Skickar..." : "Skicka och få matchning"}
                 </Button>
               </div>

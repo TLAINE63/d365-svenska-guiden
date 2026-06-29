@@ -4244,7 +4244,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                       <Button
                         onClick={generateDocument}
                         disabled={!isContactFormValid() || isSendingEmail}
-                        className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white flex-1"
+                        className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white flex-1"
                       >
                         <Download className="w-4 h-4 mr-2" />
                         {isSendingEmail ? "Skickar..." : "Skicka PDF till min e-post"}

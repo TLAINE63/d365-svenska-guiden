@@ -321,7 +321,7 @@ const WizardView = ({
  <Button
  onClick={onFinish}
  disabled={!allAnswered}
- className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
+ className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange-hover))]"
  >
  Visa resultat
  <ArrowRight className="w-4 h-4 ml-1" />

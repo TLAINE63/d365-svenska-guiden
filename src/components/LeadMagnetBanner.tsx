@@ -200,7 +200,7 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
             className="w-full sm:w-48 bg-white text-foreground placeholder:text-muted-foreground border-white/20"
             disabled={isSubmitting}
           />
-          <Button type="submit" disabled={isSubmitting} className="whitespace-nowrap bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white transition-all duration-200">
+          <Button type="submit" disabled={isSubmitting} className="whitespace-nowrap bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white transition-all duration-200">
             {isSubmitting ? (
               "Skickar..."
             ) : (

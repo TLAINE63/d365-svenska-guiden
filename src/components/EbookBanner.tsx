@@ -176,7 +176,7 @@ const EbookBanner = ({ variant = "full", sourcePage = "homepage" }: EbookBannerP
                 className="w-full sm:w-56 bg-white text-foreground placeholder:text-muted-foreground border-white/20"
                 disabled={isSubmitting}
               />
-              <Button type="submit" disabled={isSubmitting} className="whitespace-nowrap bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white">
+              <Button type="submit" disabled={isSubmitting} className="whitespace-nowrap bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                 {isSubmitting ? "Skickar..." : <><Download className="mr-2 h-4 w-4" />Ladda ner e-boken</>}
               </Button>
             </form>

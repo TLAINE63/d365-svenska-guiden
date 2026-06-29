@@ -2157,7 +2157,7 @@ const AIReadiness = () => {
                   <span className="bg-white/10 rounded px-2 py-1">⚠️ Riskanalys & roadmap</span>
                   <span className="bg-white/10 rounded px-2 py-1">🤝 Partnermatchning</span>
                 </div>
-                <Button size="lg" onClick={() => setShowReportForm(true)} className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white">
+                <Button size="lg" onClick={() => setShowReportForm(true)} className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                   <Download className="mr-2 h-4 w-4" /> Ladda ner rapport
                 </Button>
               </CardContent>

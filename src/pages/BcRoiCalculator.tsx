@@ -265,7 +265,7 @@ export default function BcRoiCalculator() {
               Kalkylen är en förenklad uppskattning och bör användas som beslutsstöd – inte som en slutlig offert eller affärskalkyl.
             </p>
             <div className="flex flex-wrap gap-3 mt-6">
-              <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white">
+              <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                 <a href="#kalkyl">Starta kalkyl <ArrowRight className="ml-2 w-4 h-4" /></a>
               </Button>
               <Button
@@ -728,7 +728,7 @@ export default function BcRoiCalculator() {
               Validera kalkylen i en kort dialog med två–tre relevanta partners. Eller fördjupa underlaget genom matchningstestet och en kravspecifikation.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
-              <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white">
+              <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                 <Link to="/businesscentral/matchningstest/">Starta matchningstest</Link>
               </Button>
               <Button asChild variant="outline" size="lg">

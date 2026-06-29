@@ -470,7 +470,7 @@ const Events = () => {
  ))}
  </div>
  <div className="mt-8 text-center">
- <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white">
+ <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
  <Link to="/kontakt/">
  Få hjälp att välja rätt event eller partner
  </Link>
