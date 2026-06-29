@@ -4437,22 +4437,28 @@ Thomas`,
  </div>
  </div>
 
- <div>
- <Label className="text-sm">Kundexempel (Ange kundnamn, separerade med kommatecken. Om fältet lämnas tomt visas "Kundexempel kan ges på förfrågan".)</Label>
- <Input
- placeholder="Volvo, IKEA, Scania..."
- defaultValue={(filter.customerExamples || []).join(', ')}
- key={`${section.key}-customerExamples-${editingPartner?.id || 'new'}`}
- onBlur={(e) => {
- const examples = e.target.value
- .split(',')
- .map(s => s.trim())
- .filter(s => s.length > 0);
- updateProductFilter(section.key, { customerExamples: examples });
- }}
- className="mt-2"
- />
- </div>
+  <div>
+  <Label className="text-sm">Ange kunder ni har arbetat med inom denna lösning</Label>
+  <p className="text-xs text-muted-foreground mt-1">
+    Max 5–8 exempel räcker. Kända namn ökar förtroendet.
+  </p>
+  <Input
+    placeholder="Volvo, IKEA, Scania..."
+    defaultValue={(filter.customerExamples || []).join(', ')}
+    key={`${section.key}-customerExamples-${editingPartner?.id || 'new'}`}
+    onBlur={(e) => {
+      const examples = e.target.value
+        .split(',')
+        .map(s => s.trim())
+        .filter(s => s.length > 0);
+      updateProductFilter(section.key, { customerExamples: examples });
+    }}
+    className="mt-2"
+  />
+  <p className="text-xs text-muted-foreground mt-1">
+    Om fältet lämnas tomt visas: “Kundexempel kan ges på förfrågan”.
+  </p>
+  </div>
 
  <div>
  <Label className="text-sm">Länk till kundcase (vill ni stoltsera med kundcase, får ni gärna lägga in länken till dessa nedan)</Label>
