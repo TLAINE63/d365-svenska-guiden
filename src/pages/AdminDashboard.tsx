@@ -4159,8 +4159,24 @@ Thomas`,
  }}
  className="mt-2"
  />
- <p className="text-xs text-muted-foreground mt-1">Max ~100 tecken rekommenderas</p>
- </div>
+  <p className="text-xs text-muted-foreground mt-1">Max ~100 tecken rekommenderas</p>
+  </div>
+
+  {/* Why choose us for this product (required) */}
+  <div>
+  <Label className="text-sm">
+  Varför välja er för {section.label}? <span className="text-destructive">*</span>
+  </Label>
+  <Textarea
+  placeholder="Beskriv konkret varför kunder bör välja partnern för denna produkt – kompetens, leveransmodell, branscherfarenhet, resultat."
+  defaultValue={filter.whyChoose || ''}
+  key={`${section.key}-whyChoose-${editingPartner?.id || 'new'}`}
+  onBlur={(e) => updateProductFilter(section.key, { whyChoose: e.target.value.trim() })}
+  className="mt-2 min-h-[100px]"
+  />
+  <p className="text-xs text-muted-foreground mt-1">Obligatoriskt fält. Visas högst upp under produktfliken på partnerprofilen.</p>
+  </div>
+
 
  {/* Sales Contact for this product area */}
  <div className="rounded-lg border border-border p-3 space-y-3">
