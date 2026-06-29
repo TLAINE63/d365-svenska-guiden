@@ -147,6 +147,7 @@ interface TabData {
   customerCaseLinks: string[];
   productDescription: { text: string; aiGenerated: boolean } | null;
   whyChoose: string | null;
+  keyPoints: string[];
   apps: string[];
   industryApps: Array<{ name: string; url: string; application: string; industry: string; description: string }>;
   contact: { name?: string; email?: string; phone?: string } | null;
