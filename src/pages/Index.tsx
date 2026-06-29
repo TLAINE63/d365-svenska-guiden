@@ -119,11 +119,6 @@ const Index = () => {
     },
   ];
 
-  const processSteps = [
-    { n: 1, icon: ClipboardCheck, title: "Behovsanalys", desc: "Ringa in vad verksamheten faktiskt behöver." },
-    { n: 2, icon: FileText, title: "Kravspecifikation", desc: "Bygg ett strukturerat beslutsunderlag." },
-    { n: 3, icon: Users, title: "Partner", desc: "Jämför Microsoft-partners på relevans." },
-  ];
 
   const tools = [
     {
@@ -371,43 +366,8 @@ const Index = () => {
           </div>
         </section>
 
-        {/* SECTION 4 — PROCESS */}
-        <section className="section-divider py-14 sm:py-20 bg-background border-b border-border">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-            <div className="max-w-2xl mb-10">
-              <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-[hsl(var(--signature))] mb-3">
-                Beslutsprocess
-              </span>
-              <h2 className="text-2xl sm:text-3xl md:text-[34px] font-bold text-foreground tracking-tight mb-3 leading-tight">
-                Från behov till rätt partner
-              </h2>
-              <p className="text-[15px] text-muted-foreground leading-relaxed">
-                Vi hjälper er strukturera beslutsprocessen — innan dialogen med partners börjar.
-              </p>
-            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              {processSteps.map((s, i) => (
-                <div key={s.n} className="flex items-start gap-4 bg-card border border-border rounded p-5 sm:p-6">
-                  <div className="flex-shrink-0 flex flex-col items-center">
-                    <span className="w-10 h-10 rounded-full bg-[hsl(var(--signature))] text-white font-bold text-sm flex items-center justify-center">
-                      {s.n}
-                    </span>
-                  </div>
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <s.icon className="w-4 h-4 text-muted-foreground" />
-                      <h3 className="text-base font-semibold text-foreground">{s.title}</h3>
-                    </div>
-                    <p className="text-[13.5px] text-muted-foreground leading-relaxed">{s.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* SECTION 5 — TOOLS */}
+        {/* SECTION 4 — TOOLS */}
         <section className="section-divider py-14 sm:py-20 bg-secondary/40 border-b border-border">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <div className="max-w-2xl mb-10">
@@ -493,7 +453,7 @@ const Index = () => {
           </div>
         </section>
 
-        {/* SECTION 6 — TRUST */}
+        {/* SECTION 5 — TRUST */}
         <section className="section-divider py-14 sm:py-18 bg-[hsl(var(--hero-dark))] border-b border-[hsl(var(--line-dark))]">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
             <div className="max-w-2xl mb-8">
@@ -521,7 +481,7 @@ const Index = () => {
           </div>
         </section>
 
-        {/* SECTION 7 — KNOWLEDGE / LATEST ARTICLES */}
+        {/* SECTION 6 — KNOWLEDGE / LATEST ARTICLES */}
         <section className="section-divider py-14 sm:py-20 bg-background border-b border-border">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
@@ -548,7 +508,7 @@ const Index = () => {
           </div>
         </section>
 
-        {/* SECTION 8 — FINAL CTA */}
+        {/* SECTION 7 — FINAL CTA */}
         <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] py-16 sm:py-20 relative overflow-hidden">
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative text-center">
             <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-white tracking-tight mb-4 leading-[1.15]">
