@@ -184,39 +184,6 @@ const Branscher = () => {
           </div>
         </section>
 
-        <section className="py-6 md:py-8 border-b border-border bg-muted/20">
-          <div className="container mx-auto px-4 max-w-6xl">
-            <div className="max-w-2xl mb-6">
-              <h2 className="text-lg md:text-xl font-bold text-foreground mb-2">
-                Filtrera branscher efter geografi och företagsstorlek
-              </h2>
-              <p className="text-xs md:text-sm text-muted-foreground">
-                Visa endast branscher där det finns partners som matchar era val. Klicka på ett valt filter igen för att nollställa.
-              </p>
-            </div>
-            <FilterButtons
-              title="Geografi"
-              icon="geography"
-              options={geographyOptions.map((g) => ({ label: g, value: g }))}
-              selectedValue={selectedGeography}
-              onSelect={setSelectedGeography}
-              colorScheme="primary"
-            />
-            <FilterButtons
-              title="Företagsstorlek – antal anställda"
-              icon="employees"
-              options={companySizes.map((s) => ({ label: s, value: s }))}
-              selectedValue={selectedCompanySize}
-              onSelect={setSelectedCompanySize}
-              colorScheme="primary"
-            />
-            {hasActiveFilters && filteredIndustries.length === 0 && (
-              <p className="text-sm text-muted-foreground text-center mt-4">
-                Inga branscher matchar de valda filtren. Prova att ändra geografi eller företagsstorlek.
-              </p>
-            )}
-          </div>
-        </section>
 
         <section className="py-6 md:py-8">
           <div className="container mx-auto px-4 max-w-6xl">
