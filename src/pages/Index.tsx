@@ -195,9 +195,6 @@ const Index = () => {
                 <h2 className="text-[22px] sm:text-[28px] font-semibold text-white leading-tight mb-3">
                   Välj rätt Dynamics 365-partner
                 </h2>
-                <p className="text-[15px] text-white/70 leading-relaxed max-w-2xl mb-2">
-                  Få en lista med matchande partners på under en minut
-                </p>
 
                 <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
                   <Button
