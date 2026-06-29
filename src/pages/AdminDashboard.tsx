@@ -4324,21 +4324,21 @@ Thomas`,
  </p>
  </div>
 
- {/* Per-product landing page URL */}
- <div className="pt-2 border-t border-border/60">
- <Label className="text-xs text-muted-foreground">Landningssida för {section.label} (valfritt)</Label>
- <Input
- type="url"
- placeholder="https://partner.se/dynamics-365-..."
- defaultValue={filter.landingPageUrl || ''}
- key={`${section.key}-landingPageUrl-${editingPartner?.id || 'new'}`}
- onBlur={(e) => updateProductFilter(section.key, { landingPageUrl: e.target.value.trim() })}
- className="mt-1"
- />
- <p className="text-xs text-muted-foreground mt-1">
- Visas som knappen "Läs mer om [produkten] på [partnernamn] hemsida" på partnerprofilen och i partnerlistor. Klick spåras.
- </p>
- </div>
+  {/* Per-product landing page URL */}
+  <div className="pt-2 border-t border-border/60">
+  <Label className="text-xs text-muted-foreground">Länk till sida om just denna lösning (valfritt)</Label>
+  <Input
+    type="url"
+    placeholder="https://partner.se/business-central"
+    defaultValue={filter.landingPageUrl || ''}
+    key={`${section.key}-landingPageUrl-${editingPartner?.id || 'new'}`}
+    onBlur={(e) => updateProductFilter(section.key, { landingPageUrl: e.target.value.trim() })}
+    className="mt-1"
+  />
+  <p className="text-xs text-muted-foreground mt-1">
+    Används som “Läs mer”-länk på partnerprofilen. Exempel: en Business Central-sida, F&SCM-sida eller CRM-sida.
+  </p>
+  </div>
  </div>
  <div>
  <div className="flex items-center justify-between mb-2">
