@@ -200,7 +200,7 @@ serve(async (req: Request): Promise<Response> => {
       }
     }
 
-    return new Response(JSON.stringify({ ok: true, results }), {
+    return new Response(JSON.stringify({ ok: true, results, matchedCount: partners.length }), {
       headers: { "Content-Type": "application/json", ...corsHeaders },
     });
   } catch (e) {
