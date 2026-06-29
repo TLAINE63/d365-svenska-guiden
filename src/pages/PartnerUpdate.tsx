@@ -101,7 +101,8 @@ interface ProductFilter {
  ranking: number;
  customerExamples: string[];
  customerCaseLinks: string[];
- productDescription: string;
+  productDescription: string;
+  whyChoose: string;
  // AI capability fields
  aiCapabilities: string[];
  aiProjectCount: string;
