@@ -16,6 +16,20 @@ import { INDUSTRY_TO_ARTICLE_SLUG } from "@/data/branschguideIndustryMap";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ArrowRight, Briefcase, Users, AlertTriangle, Layers, HelpCircle, Filter, Building2, Sparkles } from "lucide-react";
+import { FilterButtons } from "@/components/FilterButtons";
+import { companySizes, geographyOptions } from "@/data/partners";
+
+const GEOGRAPHY_HIERARCHY = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
+const matchesGeography = (partnerGeos: string | string[] | undefined, selected: string): boolean => {
+  const geos = Array.isArray(partnerGeos) && partnerGeos.length > 0
+    ? partnerGeos
+    : typeof partnerGeos === "string" && partnerGeos
+    ? [partnerGeos]
+    : ["Sverige"];
+  const selectedIndex = GEOGRAPHY_HIERARCHY.indexOf(selected);
+  if (selectedIndex === -1) return false;
+  return geos.some((geo) => GEOGRAPHY_HIERARCHY.indexOf(geo) >= selectedIndex);
+};
 
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral.svg";
 import FinanceIcon from "@/assets/icons/Finance.svg";
