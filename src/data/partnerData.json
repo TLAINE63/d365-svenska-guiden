@@ -21,7 +21,7 @@
       "bc": {
         "ranking": 1,
         "geography": [
-          "Globalt"
+          "Övriga världen"
         ],
         "industries": [
           "Bygg & Entreprenad"
@@ -346,7 +346,7 @@
         "ranking": 1,
         "geography": [
           "Europa",
-          "Globalt",
+          "Övriga världen",
           "Norden",
           "Sverige"
         ],
@@ -475,7 +475,7 @@
       "bc": {
         "ranking": 1,
         "geography": [
-          "Globalt",
+          "Övriga världen",
           "Sverige",
           "Norden",
           "Europa"
@@ -517,7 +517,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-06-10T11:19:17.136826+00:00",
+    "updated_at": "2026-06-29T15:12:16.241956+00:00",
     "industry_pitches": [
       {
         "text": "Bisqo AB erbjuder molnbaserade lösningar för grossist- och distributionsbranschen med fokus på Microsoft Dynamics 365 Business Central. Partnern har kompetens inom att effektivisera affärsprocesser som är centrala för branschen, inklusive lagerhantering, orderhantering och logistik. De arbetar med att implementera och optimera dessa system för att möta krav på snabba och precisa leveranser. Bisqo AB levererar även lösningar för kundrelationshantering (CRM) baserade på Power Platform samt analysverktyg med Power BI, vilka bidrar till förbättrad överblick och beslutsfattande i komplexa logistikkedjor. Deras arbetssätt syftar till att leverera snabba och förutsägbara implementationer som ger affärsvärde för distributionsföretag som strävar efter digitalisering och effektivisering av sina processer.",
@@ -591,7 +591,7 @@
           "Sverige",
           "Norden",
           "Europa",
-          "Globalt"
+          "Övriga världen"
         ],
         "industries": [
           "Grossist & Distribution",
@@ -649,7 +649,7 @@
           "Sverige",
           "Norden",
           "Europa",
-          "Globalt"
+          "Övriga världen"
         ],
         "industries": [
           "Tillverkningsindustri",
@@ -698,7 +698,7 @@
           "Sverige",
           "Norden",
           "Europa",
-          "Globalt"
+          "Övriga världen"
         ],
         "industries": [
           "Konsulttjänster",
@@ -1188,7 +1188,7 @@
       "bc": {
         "ranking": 1,
         "geography": [
-          "Globalt",
+          "Övriga världen",
           "Sverige",
           "Norden",
           "Europa"
@@ -1241,7 +1241,7 @@
           "Sverige",
           "Norden",
           "Europa",
-          "Globalt"
+          "Övriga världen"
         ],
         "industries": [
           "Grossist & Distribution",
@@ -1290,7 +1290,7 @@
           "Sverige",
           "Norden",
           "Europa",
-          "Globalt"
+          "Övriga världen"
         ],
         "industries": [
           "Konsulttjänster"
@@ -1328,7 +1328,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-06-05T09:59:23.450683+00:00",
+    "updated_at": "2026-06-29T15:12:16.241956+00:00",
     "industry_pitches": [
       {
         "text": "NAB Solutions erbjuder lösningar baserade på Microsoft Dynamics 365 för den svenska finans- och försäkringsbranschen. Partnern levererar systemstöd som adresserar branschens krav på digitalisering, effektivisering av processer och hantering av höga kundförväntningar. Med erfarenhet av Dynamics 365 Business Central kan de bidra till modernisering av kärnsystem för finansiell styrning.\n\nFör att möta behovet av förbättrade kundrelationer och personaliserade upplevelser implementerar NAB Solutions applikationer som Dynamics 365 Sales, Customer Service och Customer Insights (Marketing). Dessa lösningar kan stödja försäljningsprocesser, kundsupport och datadriven marknadsföring, vilket är relevant för företag som vill förstärka sin position i en konkurrensutsatt marknad. De arbetar även med Contact Center-lösningar för att effektivisera kundkommunikationen. Partnern har sedan 2001 fokuserat på Microsofts produkter och bistår företag med digitalisering.",
@@ -1415,7 +1415,7 @@
           "Sverige",
           "Norden",
           "Europa",
-          "Globalt"
+          "Övriga världen"
         ],
         "industries": [
           "Tillverkningsindustri",
@@ -1497,7 +1497,7 @@
         "geography": [
           "Norden",
           "Europa",
-          "Globalt",
+          "Övriga världen",
           "Sverige"
         ],
         "industries": [
@@ -1560,7 +1560,7 @@
           "Norden",
           "Sverige",
           "Europa",
-          "Globalt"
+          "Övriga världen"
         ],
         "industries": [
           "Grossist & Distribution",
