@@ -31,8 +31,11 @@ interface PartnerIndustryPitchesEditorProps {
   partnerId?: string | null;
 }
 
-const MAX_WORDS = 280;
+const MAX_WORDS = 120;
 const wordCount = (s: string) => (s.trim() ? s.trim().split(/\s+/).length : 0);
+
+const PITCH_PLACEHOLDER =
+  "Beskriv hur ni hjälper denna bransch med Dynamics 365.\n\nFokusera på:\n- Processer ni förbättrar\n- Typiska problem ni löser\n- Relevanta lösningar\n\nUndvik generell företagsbeskrivning.";
 
 export function PartnerIndustryPitchesEditor({
   industries,
@@ -133,9 +136,10 @@ export function PartnerIndustryPitchesEditor({
   return (
     <div className="space-y-5">
       <p className="text-sm text-muted-foreground">
-        Skriv en kort (max {MAX_WORDS} ord) branschspecifik text som visas när besökare
-        listar partners på branschsidor. Behöver ni hjälp – generera ett AI-förslag och
-        redigera fritt. Lägg till en produktvariant om texten bör skilja sig per Dynamics 365-applikation.
+        Skriv max {MAX_WORDS} ord per bransch. Beskriv hur ni hjälper just den här branschen med
+        Dynamics 365 – processer ni förbättrar, typiska problem ni löser och relevanta lösningar.
+        Undvik generell företagsbeskrivning. Behöver ni hjälp – generera ett AI-förslag och redigera
+        fritt. Lägg till en produktvariant om texten bör skilja sig per Dynamics 365-applikation.
       </p>
 
       {uniqueIndustries.map((industry) => {
@@ -185,12 +189,12 @@ export function PartnerIndustryPitchesEditor({
                 </Button>
               </div>
               <Textarea
-                rows={5}
-                placeholder={`Kort text om er erfarenhet inom ${industry.toLowerCase()}...`}
+                rows={7}
+                placeholder={PITCH_PLACEHOLDER}
                 value={defaultPitch?.text || ""}
                 onChange={(e) => upsertPitch(industry, null, e.target.value)}
               />
-              <p className="text-xs text-muted-foreground text-right">
+              <p className={`text-xs text-right ${wordCount(defaultPitch?.text || "") > MAX_WORDS ? "text-destructive font-medium" : "text-muted-foreground"}`}>
                 {wordCount(defaultPitch?.text || "")} / {MAX_WORDS} ord
               </p>
             </div>
@@ -237,12 +241,12 @@ export function PartnerIndustryPitchesEditor({
                     </div>
                   </div>
                   <Textarea
-                    rows={4}
-                    placeholder={`Variant för ${ov.product} – t.ex. för mindre/medelstora kunder...`}
+                    rows={6}
+                    placeholder={PITCH_PLACEHOLDER}
                     value={ov.text || ""}
                     onChange={(e) => upsertPitch(industry, ov.product, e.target.value)}
                   />
-                  <p className="text-xs text-muted-foreground text-right">
+                  <p className={`text-xs text-right ${wordCount(ov.text || "") > MAX_WORDS ? "text-destructive font-medium" : "text-muted-foreground"}`}>
                     {wordCount(ov.text || "")} / {MAX_WORDS} ord
                   </p>
                 </div>
