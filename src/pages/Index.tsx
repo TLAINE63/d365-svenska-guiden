@@ -205,7 +205,7 @@ const Index = () => {
                     size="lg"
                     className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-base h-14 px-7 rounded font-bold hover:-translate-y-0.5 transition-all justify-center"
                   >
-                    <Link to="/valjdynamics365partner/">
+                    <Link to="/branscher/">
                       Starta partnermatchning
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </Link>
@@ -295,7 +295,7 @@ const Index = () => {
                 size="lg"
                 className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white h-13 px-7 rounded font-bold hover:-translate-y-0.5 transition-all"
               >
-                <Link to="/valjdynamics365partner/">
+                <Link to="/branscher/">
                   Starta partnermatchning
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Link>
