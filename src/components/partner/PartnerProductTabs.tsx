@@ -570,6 +570,19 @@ export default function PartnerProductTabs({
               </section>
             )}
 
+            {/* Geografi */}
+            {data.geography.length > 0 && (
+              <section>
+                <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+                  <Globe className="w-5 h-5 text-primary" />
+                  Geografi
+                </h2>
+                <p className="text-foreground">
+                  Levererar i <strong>{data.geography.join(", ")}</strong>
+                </p>
+              </section>
+            )}
+
             {/* Kontor */}
             {(() => {
               const cities = (partner as any)?.office_cities as string[] | undefined;
