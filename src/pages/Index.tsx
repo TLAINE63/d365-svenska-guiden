@@ -538,7 +538,7 @@ const Index = () => {
          <Link to="/businesscentral/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">
            Dynamics 365 Business Central
          </Link>{" "}
-         för små och medelstora företag, och{" "}
+         för mindre och medelstora företag, och{" "}
          <Link to="/finance-supply-chain/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">
            Finance &amp; Supply Chain Management
          </Link>{" "}
