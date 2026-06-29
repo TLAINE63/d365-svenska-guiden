@@ -487,9 +487,9 @@ const Index = () => {
       className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white h-12 px-6 rounded font-bold justify-center hover:-translate-y-0.5 transition-all"
      >
       <Link to="/beslutsmognad/">
-       Starta Mognadsindex
-       <ArrowRight className="w-4 h-4 ml-1.5" />
-      </Link>
+        Starta diagnostiken
+        <ArrowRight className="w-4 h-4 ml-1.5" />
+       </Link>
      </Button>
      <p className="text-[12px] text-white/75 text-center">Kostnadsfritt · Ingen registrering</p>
     </div>
