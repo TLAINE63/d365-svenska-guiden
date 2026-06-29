@@ -592,7 +592,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   if (!displayName && !displayEmail && !displayPhone && !displayVideoId) return null;
 
   return (
-  <div className="mt-3 inline-flex flex-col sm:flex-row items-center gap-4 px-5 py-4 rounded bg-white/80 border border-emerald-200 max-w-2xl">
+  <div className="mt-1 inline-flex flex-col sm:flex-row items-center gap-4 px-5 py-4 rounded bg-white/80 border border-emerald-200 max-w-2xl">
   <div className="relative shrink-0">
   {displayPhoto ? (
   <img
