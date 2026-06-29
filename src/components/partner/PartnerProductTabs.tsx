@@ -14,6 +14,7 @@ import {
   Package,
   ExternalLink,
   ArrowRight,
+  MapPin,
 } from "lucide-react";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import type { DatabasePartner } from "@/hooks/usePartners";
@@ -392,26 +393,9 @@ export default function PartnerProductTabs({
                 {data.geography.length > 0 && (
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
-                    <div className="text-foreground">
-                      <div>
-                        Levererar i <strong>{data.geography.join(", ")}</strong>
-                      </div>
-                      {(() => {
-                        const cities = (partner as any)?.office_cities as string[] | undefined;
-                        return cities && cities.length > 0 ? (
-                          <div className="mt-2 flex flex-wrap gap-1.5">
-                            {cities.map((city) => (
-                              <span
-                                key={city}
-                                className="inline-flex items-center px-2.5 py-1 rounded bg-white border border-slate-200 text-xs font-semibold text-slate-700"
-                              >
-                                {city}
-                              </span>
-                            ))}
-                          </div>
-                        ) : null;
-                      })()}
-                    </div>
+                    <span className="text-foreground">
+                      Levererar i <strong>{data.geography.join(", ")}</strong>
+                    </span>
                   </li>
                 )}
               </ul>
@@ -573,6 +557,29 @@ export default function PartnerProductTabs({
                 </div>
               )}
             </section>
+
+            {/* Kontor */}
+            {(() => {
+              const cities = (partner as any)?.office_cities as string[] | undefined;
+              return cities && cities.length > 0 ? (
+                <section>
+                  <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+                    <MapPin className="w-5 h-5 text-primary" />
+                    Kontor
+                  </h2>
+                  <div className="flex flex-wrap gap-2">
+                    {cities.map((city) => (
+                      <span
+                        key={city}
+                        className="inline-flex items-center px-3 py-1.5 rounded bg-white border border-slate-200 text-sm font-semibold text-slate-700"
+                      >
+                        {city}
+                      </span>
+                    ))}
+                  </div>
+                </section>
+              ) : null;
+            })()}
 
             {/* Customer cases */}
             {data.customerCaseLinks.length > 0 && (
