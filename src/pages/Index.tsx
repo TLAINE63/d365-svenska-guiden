@@ -520,14 +520,14 @@ const Index = () => {
 
  {/* SEO-anchor — Vad är Microsoft Dynamics 365 + inline internal links */}
  <section className="section-divider py-8 sm:py-12 bg-white border-b border-border">
-   <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+   <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
      <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-[hsl(var(--signature))] mb-3">
        Översikt
      </span>
      <h2 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight mb-5">
        Vad är Microsoft Dynamics 365?
      </h2>
-     <div className="space-y-4 text-[15px] sm:text-base text-foreground/85 leading-relaxed max-w-[68ch]">
+     <div className="space-y-4 text-[15px] sm:text-base text-foreground/85 leading-relaxed">
        <p>
          <strong>Microsoft Dynamics 365</strong> är Microsofts molnbaserade plattform för affärssystem (ERP) och kundrelationshantering (CRM).
          Dynamics 365 består av specialiserade affärsapplikationer som delar dataplattform, integreras med Microsoft 365 (Outlook, Teams, Excel)
