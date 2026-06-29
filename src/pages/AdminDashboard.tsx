@@ -32,6 +32,7 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/hooks/use-toast";
@@ -375,51 +376,61 @@ const AdminDashboard = () => {
  try { localStorage.setItem("admin-active-tab", activeTab); } catch {}
  }, [activeTab]);
 
- // AI summary generation state
- const [generatingSummaryId, setGeneratingSummaryId] = useState<string | null>(null);
- const [generatingAllSummaries, setGeneratingAllSummaries] = useState(false);
+  // AI summary generation state
+  const [generatingSummaryId, setGeneratingSummaryId] = useState<string | null>(null);
+  const [generatingAllSummaries, setGeneratingAllSummaries] = useState(false);
+  const [summaryMode, setSummaryMode] = useState<"all" | "stale">("stale");
+  const SUMMARY_STALE_DAYS = 90;
 
- const handleGenerateSummary = async (partnerId: string, partnerName: string) => {
- setGeneratingSummaryId(partnerId);
- try {
- const { data, error } = await invokeAdminEdgeWithRetry("generate-partner-summary", { token, partnerId });
- if (error) throw error;
- if ((data as any)?.error) throw new Error((data as any).error);
- toast({ title: "AI-summering klar", description: `Sammanfattning genererad för ${partnerName}.` });
- refetchPartners();
- } catch (e: any) {
- const msg = e?.message || "Okänt fel";
- toast({
- title: "Kunde inte generera",
- description: msg === "RATE_LIMIT" ? "AI-tjänsten är överbelastad – försök igen om en stund."
- : msg === "PAYMENT_REQUIRED" ? "AI-krediter slut. Lägg till krediter under Settings → Workspace → Usage."
- : msg,
- variant: "destructive",
- });
- } finally {
- setGeneratingSummaryId(null);
- }
- };
+  const handleGenerateSummary = async (partnerId: string, partnerName: string) => {
+    setGeneratingSummaryId(partnerId);
+    try {
+      const { data, error } = await invokeAdminEdgeWithRetry("generate-partner-summary", { token, partnerId });
+      if (error) throw error;
+      if ((data as any)?.error) throw new Error((data as any).error);
+      toast({ title: "AI-summering klar", description: `Sammanfattning genererad för ${partnerName}.` });
+      refetchPartners();
+    } catch (e: any) {
+      const msg = e?.message || "Okänt fel";
+      toast({
+        title: "Kunde inte generera",
+        description: msg === "RATE_LIMIT" ? "AI-tjänsten är överbelastad – försök igen om en stund."
+          : msg === "PAYMENT_REQUIRED" ? "AI-krediter slut. Lägg till krediter under Settings → Workspace → Usage."
+          : msg,
+        variant: "destructive",
+      });
+    } finally {
+      setGeneratingSummaryId(null);
+    }
+  };
 
- const handleGenerateAllMissingSummaries = async () => {
- setGeneratingAllSummaries(true);
- try {
- const { data, error } = await invokeAdminEdgeWithRetry("generate-partner-summary", { token, all: true });
- if (error) throw error;
- const results = (data as any)?.results || [];
- const ok = results.filter((r: any) => r.ok).length;
- const failed = results.length - ok;
- toast({
- title: "Bulk-generering klar",
- description: `${ok} lyckades${failed > 0 ? `, ${failed} misslyckades` : ""}.`,
- });
- refetchPartners();
- } catch (e: any) {
- toast({ title: "Bulk-generering misslyckades", description: e?.message || "Okänt fel", variant: "destructive" });
- } finally {
- setGeneratingAllSummaries(false);
- }
- };
+  const handleGenerateAllMissingSummaries = async () => {
+    setGeneratingAllSummaries(true);
+    try {
+      const { data, error } = await invokeAdminEdgeWithRetry("generate-partner-summary", {
+        token,
+        all: true,
+        mode: summaryMode,
+        staleDays: SUMMARY_STALE_DAYS,
+      });
+      if (error) throw error;
+      const results = (data as any)?.results || [];
+      const ok = results.filter((r: any) => r.ok).length;
+      const failed = results.length - ok;
+      const matchedCount = (data as any)?.matchedCount ?? results.length;
+      const publishedCount = fullPartners.filter((p) => p.is_featured).length;
+      const skipped = Math.max(0, publishedCount - matchedCount);
+      toast({
+        title: "Bulk-generering klar",
+        description: `${ok} lyckades${failed > 0 ? `, ${failed} misslyckades` : ""}${skipped > 0 ? `, ${skipped} hoppades över` : ""}.`,
+      });
+      refetchPartners();
+    } catch (e: any) {
+      toast({ title: "Bulk-generering misslyckades", description: e?.message || "Okänt fel", variant: "destructive" });
+    } finally {
+      setGeneratingAllSummaries(false);
+    }
+  };
 
  // Collapsible sections state in partner edit dialog (all open by default)
  const [openSections, setOpenSections] = useState<Record<string, boolean>>({
@@ -2359,15 +2370,37 @@ Thomas`,
  <Download className="mr-2 h-4 w-4" />
  Exportera kontakter
  </Button>
- <Button
- variant="outline"
- onClick={handleGenerateAllMissingSummaries}
- disabled={generatingAllSummaries}
- title="Generera AI-summeringar för alla publicerade partners"
- >
- <Sparkles className={`mr-2 h-4 w-4 ${generatingAllSummaries ? "animate-pulse" : ""}`} />
- {generatingAllSummaries ? "Genererar..." : "AI-summera alla"}
- </Button>
+  <div className="flex items-center gap-2 flex-wrap">
+    <Button
+      variant="outline"
+      onClick={handleGenerateAllMissingSummaries}
+      disabled={generatingAllSummaries}
+      title={summaryMode === "all"
+        ? "Generera AI-summeringar för alla publicerade partners"
+        : `Generera AI-summeringar för publicerade partners som saknar sammanfattning eller har en äldre än ${SUMMARY_STALE_DAYS} dagar`}
+    >
+      <Sparkles className={`mr-2 h-4 w-4 ${generatingAllSummaries ? "animate-pulse" : ""}`} />
+      {generatingAllSummaries
+        ? "Genererar..."
+        : summaryMode === "all"
+          ? "AI-summera alla"
+          : "AI-summera saknade/gamla"}
+    </Button>
+    <div className="flex items-center gap-2">
+      <Switch
+        id="summary-mode"
+        checked={summaryMode === "stale"}
+        onCheckedChange={(checked) => setSummaryMode(checked ? "stale" : "all")}
+        disabled={generatingAllSummaries}
+      />
+      <Label
+        htmlFor="summary-mode"
+        className="text-xs text-muted-foreground cursor-pointer"
+      >
+        Endast saknade/gamla
+      </Label>
+    </div>
+  </div>
  {selectedForWelcome.size > 0 && (
  <DropdownMenu>
  <DropdownMenuTrigger asChild>
