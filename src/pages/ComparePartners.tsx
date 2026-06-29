@@ -374,6 +374,46 @@ const ComparePartners = () => {
     return out;
   };
 
+  const PRODUCT_KEY_LABEL: Record<string, string> = {
+    bc: "Business Central",
+    fsc: "Finance & SCM",
+    sales: "Sales & Marketing",
+    service: "Customer Service",
+  };
+
+  type AiPerProduct = {
+    productKey: string;
+    productLabel: string;
+    capabilities: string[];
+    projectCount: string;
+    caseDescription: string;
+    businessImpact: string;
+  };
+
+  const getAiPerProduct = (p?: DatabasePartner): AiPerProduct[] => {
+    const pf = (p as any)?.product_filters as Record<string, any> | undefined;
+    if (!pf) return [];
+    const out: AiPerProduct[] = [];
+    for (const key of ["bc", "fsc", "sales", "service"]) {
+      const f = pf[key];
+      if (!f) continue;
+      const caps: string[] = Array.isArray(f.aiCapabilities) ? f.aiCapabilities : [];
+      const proj = (f.aiProjectCount || "").trim();
+      const cd = (f.aiCaseDescription || "").trim();
+      const bi = (f.aiBusinessImpact || "").trim();
+      if (caps.length === 0 && !proj && !cd && !bi) continue;
+      out.push({
+        productKey: key,
+        productLabel: PRODUCT_KEY_LABEL[key] || key,
+        capabilities: caps,
+        projectCount: proj,
+        caseDescription: cd,
+        businessImpact: bi,
+      });
+    }
+    return out;
+  };
+
   const get = (p?: DatabasePartner) => {
     const dp = (p?.delivery_profile || {}) as DeliveryProfile;
     const officeCities = cleanList(p?.office_cities).sort((a, b) => a.localeCompare(b, "sv"));
@@ -400,10 +440,12 @@ const ComparePartners = () => {
     const industryApps = industryAppsRaw;
     return {
       partner: p,
+      description: p?.description?.trim() || "",
       positioning: p?.positioning_statement?.trim() || "",
       apps: sortApps(p?.applications || []),
       industries: allIndustries,
       industryApps,
+      geography: cleanList(p?.geography),
       roles: cleanList(dp.roles),
       length: dp.typical_length?.trim() || "",
       bcLength: formatBcLength(dp),
@@ -415,10 +457,11 @@ const ComparePartners = () => {
       implementationsPerApp: perApp,
       offices: officeCities,
       agreement: p ? (p.agreement_signed ? "Ja" : "Nej") : "",
-
+      ai: getAiPerProduct(p),
       notAFit: cleanList(p?.not_a_fit),
     };
   };
+
 
   const industryFilter = params.get("industry") || "";
   const productFilterRaw = params.get("product") || "";
