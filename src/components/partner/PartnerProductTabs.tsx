@@ -609,7 +609,7 @@ export default function PartnerProductTabs({
             {/* 7. CTA */}
             <section className="rounded-xl border border-border bg-gradient-to-br from-card to-muted/40 p-6 sm:p-8">
               <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
-                Kontakta {partner.name} om {tabMeta.label}
+                Ta första dialogen med {partner.name}
               </h2>
               <p className="text-sm sm:text-base text-muted-foreground mb-5 max-w-[60ch]">
                 Vi förmedlar din förfrågan direkt till {partner.name} – kostnadsfritt och utan
