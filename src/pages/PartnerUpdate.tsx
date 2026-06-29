@@ -1025,15 +1025,38 @@ const PartnerUpdate = () => {
  
  <div className="container mx-auto px-4 py-8">
  <div className="max-w-4xl mx-auto">
- <div className="text-center mb-8">
- <Building2 className="w-12 h-12 text-primary mx-auto mb-4" />
- <h1 className="text-2xl font-bold mb-2">Uppdatera partnerprofil</h1>
- <p className="text-muted-foreground">
- Fyll i eller uppdatera era uppgifter för {invitation?.partner_name}
- </p>
- </div>
+        <div className="text-center mb-8">
+          <Building2 className="w-12 h-12 text-primary mx-auto mb-4" />
+          <h1 className="text-2xl font-bold mb-2">Uppdatera partnerprofil</h1>
+          <p className="text-muted-foreground">
+            Fyll i eller uppdatera era uppgifter för {invitation?.partner_name}
+          </p>
+        </div>
 
- {/* View statistics for this partner — temporarily hidden from partners */}
+        {/* Progress & Value */}
+        <Card className="mb-8 border-cta-orange/20 bg-cta-orange/5">
+          <CardContent className="p-6">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+              <div>
+                <h2 className="text-lg font-semibold text-foreground">Progress & Value</h2>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Din profil används för att matcha er med rätt kunder.
+                  Ju tydligare och mer komplett den är – desto bättre synlighet får ni.
+                </p>
+              </div>
+              <div className="text-right md:text-right">
+                <span className="text-2xl font-bold text-cta-orange">{profileProgress}%</span>
+                <p className="text-xs text-muted-foreground">komplett</p>
+              </div>
+            </div>
+            <Progress value={profileProgress} indicatorClassName="bg-cta-orange" />
+            <p className="text-xs text-muted-foreground mt-2">
+              Fyll i grundinfo, positionering, produkter och branschpitcar för att öka träffsäkerheten.
+            </p>
+          </CardContent>
+        </Card>
+
+        {/* View statistics for this partner — temporarily hidden from partners */}
 
  <form onSubmit={handleSubmit} className="space-y-8">
  {/* Basic Information */}
