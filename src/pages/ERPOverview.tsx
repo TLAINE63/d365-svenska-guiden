@@ -29,29 +29,6 @@ const erpBreadcrumbs = [
  { name: "Affärssystem (ERP)", url: "https://d365.se/erp" },
 ];
 
-const youtubeVideos = [
-  {
-    id: "Business-Central-overview",
-    embedId: "lLI3gtahMyE",
-    title: "Business Central – översikt på 5 minuter",
-    description:
-      "En kort, neutral genomgång av vad Microsoft Dynamics 365 Business Central är och vilka delar (ekonomi, lager, försäljning, inköp, produktion) som ingår. Bra startpunkt om du aldrig sett systemet förut.",
-  },
-  {
-    id: "FSCM-overview",
-    embedId: "1Nh8tT3GQEw",
-    title: "Dynamics 365 Finance & Supply Chain Management – introduktion",
-    description:
-      "Översikt över Microsofts enterprise-affärssystem. Fokus på flerbolagsstöd, global ekonomistyrning, avancerad tillverkning och vad som faktiskt skiljer F&SCM från Business Central i praktiken.",
-  },
-  {
-    id: "ERP-implementation",
-    embedId: "qyVmIQA1qHk",
-    title: "Så genomförs ett ERP-projekt – Microsofts Success by Design",
-    description:
-      "Genomgång av den metodik certifierade Microsoft-partners använder vid införande. Tydliggör vilka faser som tar tid, var de flesta projekt fastnar och vad du som kund ansvarar för.",
-  },
-];
 
 const honestFacts = [
   { icon: Coins, title: "Licenspriset är inte totalkostnaden", body: "Räkna med 3–5x licenskostnaden för implementation första året, och 15–25 % av licensen i löpande förvaltning per år." },
@@ -362,45 +339,6 @@ const ERPOverview = () => {
  </div>
  </section>
 
- {/* YouTube videos */}
- <section className="py-8 sm:py-12 bg-secondary/40">
- <div className="container mx-auto px-4 sm:px-6">
- <div className="max-w-5xl mx-auto">
- <div className="text-center mb-10">
- <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3">
- Se affärssystemen i praktiken
- </h2>
- <p className="text-muted-foreground max-w-2xl mx-auto">
- Tre korta videor som ger er en första känsla för Microsofts affärssystem och hur ett
- ERP-projekt faktiskt går till.
- </p>
- </div>
-
- <div className="space-y-10">
- {youtubeVideos.map((v) => (
- <div key={v.id} className="grid md:grid-cols-2 gap-6 items-center bg-card border border-border rounded p-4 sm:p-6">
- <div className="aspect-video w-full overflow-hidden rounded-lg bg-black">
- <iframe
- className="w-full h-full"
- src={`https://www.youtube-nocookie.com/embed/${v.embedId}`}
- title={v.title}
- width="1280"
- height="720"
- loading="lazy"
- allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
- allowFullScreen
- />
- </div>
- <div>
- <h3 className="text-xl font-semibold text-card-foreground mb-2">{v.title}</h3>
- <p className="text-muted-foreground leading-relaxed">{v.description}</p>
- </div>
- </div>
- ))}
- </div>
- </div>
- </div>
- </section>
 
  {/* FAQ */}
  <section className="py-8 sm:py-12 bg-background">
