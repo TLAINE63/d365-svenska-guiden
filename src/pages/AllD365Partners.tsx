@@ -167,6 +167,8 @@ export default function AllD365Partners() {
             </Button>
           </div>
         </section>
+        <TrustBanner variant="compact" />
+
       </main>
 
       <Footer />
