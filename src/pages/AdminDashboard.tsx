@@ -319,9 +319,9 @@ const AdminDashboard = () => {
  const { data: dbPartners = [], isLoading: isLoadingPartners, refetch: refetchPartners } = usePartners();
  const [fullPartners, setFullPartners] = useState<FullPartner[]>([]);
  const [isLoadingFullPartners, setIsLoadingFullPartners] = useState(false);
- const [partnerSortBy, setPartnerSortBy] = useState<'name' | 'updated_at'>('name');
- const [partnerSortDir, setPartnerSortDir] = useState<'asc' | 'desc'>('asc');
- const [partnerStatusFilter, setPartnerStatusFilter] = useState<'all' | 'published' | 'invited_unpublished' | 'not_invited' | 'agreement_signed' | 'billable' | 'has_email' | 'missing_email'>('all');
+  const [partnerSortBy, setPartnerSortBy] = useState<'name' | 'updated_at'>('updated_at');
+  const [partnerSortDir, setPartnerSortDir] = useState<'asc' | 'desc'>('desc');
+  const [partnerStatusFilter, setPartnerStatusFilter] = useState<'all' | 'published' | 'unpublished'>('all');
  const createPartner = useCreatePartner();
  const updatePartner = useUpdatePartner();
  const deletePartner = useDeletePartner();
@@ -2402,23 +2402,11 @@ Thomas`,
  </p>
  <div className="flex flex-wrap items-center gap-1.5 p-2 rounded bg-slate-50 border border-slate-200">
  <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 px-2">Snabbfilter</span>
- {([
- { key: 'all', label: 'Alla', count: fullPartners.length, tone: 'slate' },
- { key: 'published', label: 'Publicerade', count: fullPartners.filter(p => p.is_featured).length, tone: 'blue' },
- { key: 'invited_unpublished', label: 'Inbjudna ej publ.', count: fullPartners.filter(p => !p.is_featured && everInvitedPartnerIds.has(p.id)).length, tone: 'violet' },
- { key: 'not_invited', label: 'Ej inbjudna', count: fullPartners.filter(p => !p.is_featured && !everInvitedPartnerIds.has(p.id)).length, tone: 'amber' },
- { key: 'agreement_signed', label: 'Avtal tecknat', count: fullPartners.filter(p => (p as any).agreement_signed).length, tone: 'emerald', icon: Award },
- { key: 'billable', label: 'Fakturerar (aktivt avtal)', count: fullPartners.filter(p => {
- const pp = p as any;
- if (!pp.agreement_signed) return false;
- const today = new Date().toISOString().slice(0, 10);
- if (pp.activation_date && pp.activation_date > today) return false;
- if (pp.cancellation_date && pp.cancellation_date <= today) return false;
- return true;
- }).length, tone: 'emerald', icon: Award },
- { key: 'has_email', label: 'Har e-post', count: fullPartners.filter(p => !!(p.admin_contact_email || p.email)).length, tone: 'sky', icon: Mail },
- { key: 'missing_email', label: 'Saknar e-post', count: fullPartners.filter(p => !(p.admin_contact_email || p.email)).length, tone: 'rose', icon: AlertCircle },
- ] as Array<{ key: typeof partnerStatusFilter; label: string; count: number; tone: string; icon?: typeof Award }>).map(({ key, label, count, tone, icon: Icon }) => {
+              {([
+                { key: 'all', label: 'Alla', count: fullPartners.length, tone: 'slate' },
+                { key: 'published', label: 'Publicerade', count: fullPartners.filter(p => p.is_featured).length, tone: 'blue' },
+                { key: 'unpublished', label: 'Ej publicerade', count: fullPartners.filter(p => !p.is_featured).length, tone: 'amber' },
+              ] as Array<{ key: typeof partnerStatusFilter; label: string; count: number; tone: string }>).map(({ key, label, count, tone }) => {
  const active = partnerStatusFilter === key;
  const toneMap: Record<string, { active: string; idle: string; badge: string }> = {
  slate: { active: 'bg-slate-900 text-white border-slate-900', idle: 'bg-white text-slate-700 border-slate-200 hover:border-slate-400', badge: active ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600' },
@@ -2437,8 +2425,7 @@ Thomas`,
  onClick={() => setPartnerStatusFilter(key as typeof partnerStatusFilter)}
  className={`group inline-flex items-center gap-1.5 h-7 px-2.5 rounded border text-xs font-medium transition-all ${active ? tones.active + ' ' : tones.idle}`}
  >
- {Icon && <Icon className="h-3 w-3" strokeWidth={2} />}
- {label}
+                {label}
  <span className={`inline-flex items-center justify-center min-w-[1.25rem] h-4 px-1 rounded text-[10px] font-semibold ${tones.badge}`}>
  {count}
  </span>
@@ -2490,24 +2477,12 @@ Thomas`,
  ) : (
  <>
  {(() => {
- const filtered = fullPartners.filter(p => {
- if (partnerStatusFilter === 'all') return true;
- if (partnerStatusFilter === 'published') return p.is_featured;
- if (partnerStatusFilter === 'invited_unpublished') return !p.is_featured && everInvitedPartnerIds.has(p.id);
- if (partnerStatusFilter === 'not_invited') return !p.is_featured && !everInvitedPartnerIds.has(p.id);
- if (partnerStatusFilter === 'agreement_signed') return !!(p as any).agreement_signed;
- if (partnerStatusFilter === 'billable') {
- const pp = p as any;
- if (!pp.agreement_signed) return false;
- const today = new Date().toISOString().slice(0, 10);
- if (pp.activation_date && pp.activation_date > today) return false;
- if (pp.cancellation_date && pp.cancellation_date <= today) return false;
- return true;
- }
- if (partnerStatusFilter === 'has_email') return !!(p.admin_contact_email || p.email);
- if (partnerStatusFilter === 'missing_email') return !(p.admin_contact_email || p.email);
- return true;
- });
+              const filtered = fullPartners.filter(p => {
+                if (partnerStatusFilter === 'all') return true;
+                if (partnerStatusFilter === 'published') return p.is_featured;
+                if (partnerStatusFilter === 'unpublished') return !p.is_featured;
+                return true;
+              });
  const selectable = filtered;
  
  if (selectable.length === 0) return null;
@@ -2547,16 +2522,12 @@ Thomas`,
  })()}
  <div className="grid gap-4">
  {[...fullPartners]
- .filter(p => {
- if (partnerStatusFilter === 'all') return true;
- if (partnerStatusFilter === 'published') return p.is_featured;
- if (partnerStatusFilter === 'invited_unpublished') return !p.is_featured && everInvitedPartnerIds.has(p.id);
- if (partnerStatusFilter === 'not_invited') return !p.is_featured && !everInvitedPartnerIds.has(p.id);
- if (partnerStatusFilter === 'agreement_signed') return !!(p as any).agreement_signed;
- if (partnerStatusFilter === 'has_email') return !!(p.admin_contact_email || p.email);
- if (partnerStatusFilter === 'missing_email') return !(p.admin_contact_email || p.email);
- return true;
- })
+            .filter(p => {
+              if (partnerStatusFilter === 'all') return true;
+              if (partnerStatusFilter === 'published') return p.is_featured;
+              if (partnerStatusFilter === 'unpublished') return !p.is_featured;
+              return true;
+            })
  .sort((a, b) => {
  if (partnerSortBy === 'updated_at') {
  const diff = new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime();
@@ -2601,18 +2572,30 @@ Thomas`,
  <div>
  <h3 className="font-semibold flex items-center gap-2">
  {partner.name}
- {partner.is_featured && (
- <Badge className="text-xs bg-emerald-600 hover:bg-emerald-700 text-white">✓ Publicerad</Badge>
- )}
- {(partner as any).agreement_signed && (
- <Badge
- className="text-xs bg-emerald-700 hover:bg-emerald-800 text-white"
- title={(partner as any).agreement_notes || "Avtal tecknat"}
- >
- <Award className="h-3 w-3 mr-1" />
- Avtal tecknat
- </Badge>
- )}
+                {partner.is_featured && (
+                  <Badge className="text-xs bg-emerald-600 hover:bg-emerald-700 text-white">
+                    ✓ Publicerad
+                    {partner.updated_at && (
+                      <span className="ml-1 font-normal opacity-90">
+                        • {new Date(partner.updated_at).toLocaleDateString('sv-SE').replace(/-/g, '/')}
+                      </span>
+                    )}
+                  </Badge>
+                )}
+                {(partner as any).agreement_signed && (
+                  <Badge
+                    className="text-xs bg-emerald-700 hover:bg-emerald-800 text-white"
+                    title={(partner as any).agreement_notes || "Avtal tecknat"}
+                  >
+                    <Award className="h-3 w-3 mr-1" />
+                    Avtal tecknat
+                    {partner.updated_at && (
+                      <span className="ml-1 font-normal opacity-90">
+                        • {new Date(partner.updated_at).toLocaleDateString('sv-SE').replace(/-/g, '/')}
+                      </span>
+                    )}
+                  </Badge>
+                )}
               {/* Invitation/agreement/email history intentionally hidden in list view */}
  </h3>
  <p className="text-sm text-muted-foreground line-clamp-1">
