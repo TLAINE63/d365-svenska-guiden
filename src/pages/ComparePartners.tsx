@@ -19,6 +19,8 @@ import {
   X,
   Info,
   ChevronDown,
+  Sparkles,
+  Globe2,
 } from "lucide-react";
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -26,6 +28,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Checkbox } from "@/components/ui/checkbox";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
+import { AI_TIER_LABELS } from "@/utils/aiScoring";
+
 
 
 const TEAM_SIZE_HELP =
