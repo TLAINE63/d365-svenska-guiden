@@ -136,9 +136,10 @@ export function PartnerIndustryPitchesEditor({
   return (
     <div className="space-y-5">
       <p className="text-sm text-muted-foreground">
-        Skriv en kort (max {MAX_WORDS} ord) branschspecifik text som visas när besökare
-        listar partners på branschsidor. Behöver ni hjälp – generera ett AI-förslag och
-        redigera fritt. Lägg till en produktvariant om texten bör skilja sig per Dynamics 365-applikation.
+        Skriv max {MAX_WORDS} ord per bransch. Beskriv hur ni hjälper just den här branschen med
+        Dynamics 365 – processer ni förbättrar, typiska problem ni löser och relevanta lösningar.
+        Undvik generell företagsbeskrivning. Behöver ni hjälp – generera ett AI-förslag och redigera
+        fritt. Lägg till en produktvariant om texten bör skilja sig per Dynamics 365-applikation.
       </p>
 
       {uniqueIndustries.map((industry) => {
