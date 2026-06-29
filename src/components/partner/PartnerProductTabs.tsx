@@ -430,11 +430,26 @@ export default function PartnerProductTabs({
                 )}
 
                 {data.industries.length > 0 && (
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-1 shrink-0" />
-                    <span className="text-foreground">
-                      Organisationer inom <strong>{data.industries.slice(0, 3).join(", ")}</strong>
-                    </span>
+                  <li className="flex flex-col gap-2">
+                    <span className="text-foreground font-medium">Verksamheter</span>
+                    <div className="flex flex-wrap gap-2">
+                      {data.industries.map((ind) => {
+                        const industrySlug = STANDARD_INDUSTRIES.find((i) => i.name === ind)?.slug;
+                        const badge = (
+                          <Badge variant="outline" className="bg-card border-border py-1.5 px-3 text-sm">
+                            <CheckCircle2 className="w-3.5 h-3.5 mr-1.5 text-emerald-600" />
+                            {ind}
+                          </Badge>
+                        );
+                        return industrySlug ? (
+                          <Link key={ind} to={`/branscher/${industrySlug}/`} className="inline-block">
+                            {badge}
+                          </Link>
+                        ) : (
+                          <span key={ind} className="inline-block">{badge}</span>
+                        );
+                      })}
+                    </div>
                   </li>
                 )}
                 {data.customerExamples.length > 0 && (
