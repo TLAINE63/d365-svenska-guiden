@@ -455,9 +455,10 @@ const Index = () => {
      </button>
      </div>
     </form>
-   </div>
+    </div>
 
- </section>
+  </div>
+  </section>
 
  {/* SEO-anchor — Vad är Microsoft Dynamics 365 + inline internal links */}
  <section className="section-divider py-8 sm:py-12 bg-white border-b border-border">
@@ -1086,9 +1087,8 @@ const Index = () => {
      </div>
     ))}
    </div>
+   </div>
   </div>
- </div>
- </div>
 
 
 
