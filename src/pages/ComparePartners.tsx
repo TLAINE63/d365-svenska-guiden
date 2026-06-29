@@ -234,6 +234,59 @@ const renderNotAFit = (items: string[]) =>
     EMPTY
   );
 
+const renderAi = (
+  items: {
+    productKey: string;
+    productLabel: string;
+    capabilities: string[];
+    projectCount: string;
+    caseDescription: string;
+    businessImpact: string;
+  }[]
+) => {
+  if (!items || items.length === 0) return EMPTY;
+  return (
+    <div className="space-y-4">
+      {items.map((it, idx) => (
+        <div
+          key={it.productKey}
+          className={`space-y-2 ${idx > 0 ? "pt-3 border-t border-slate-200" : ""}`}
+        >
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+            {it.productLabel}
+          </p>
+          {it.capabilities.length > 0 && (
+            <div className="flex flex-wrap gap-1.5">
+              {it.capabilities.map((c, i) => (
+                <span
+                  key={i}
+                  className="px-2 py-0.5 rounded bg-violet-50 text-violet-700 border border-violet-200 text-xs"
+                >
+                  {AI_TIER_LABELS[c] || c}
+                </span>
+              ))}
+            </div>
+          )}
+          {it.projectCount && (
+            <p className="text-xs text-slate-600">
+              <span className="font-semibold">AI-projekt (24 mån):</span> {it.projectCount}
+            </p>
+          )}
+          {it.caseDescription && (
+            <p className="text-xs text-slate-700 italic">"{it.caseDescription}"</p>
+          )}
+          {it.businessImpact && (
+            <p className="text-xs text-slate-700">
+              <span className="font-semibold">Affärseffekt:</span> {it.businessImpact}
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+
 const splitIntoParagraphs = (text: string): string[] => {
   return text
     .split(/\n+/)
