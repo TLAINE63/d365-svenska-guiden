@@ -482,22 +482,22 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  <div className="mb-6 rounded-lg border border-border bg-background p-4">
  <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground uppercase tracking-wide mb-3">
  <Filter className="w-3.5 h-3.5" />
- Filtrera ytterligare – geografi och företagsstorlek
+ Filtrera ytterligare – företagsstorlek och geografi
  </div>
- <FilterButtons
- title="Geografi"
- icon="geography"
- options={geographyOptions.map((g) => ({ label: g, value: g }))}
- selectedValue={selectedGeography}
- onSelect={setSelectedGeography}
- colorScheme="primary"
- />
  <FilterButtons
  title="Företagsstorlek – antal anställda"
  icon="employees"
  options={companySizes.map((s) => ({ label: s, value: s }))}
  selectedValue={selectedCompanySize}
  onSelect={setSelectedCompanySize}
+ colorScheme="primary"
+ />
+ <FilterButtons
+ title="Geografi"
+ icon="geography"
+ options={geographyOptions.map((g) => ({ label: g, value: g }))}
+ selectedValue={selectedGeography}
+ onSelect={setSelectedGeography}
  colorScheme="primary"
  />
  </div>

@@ -671,6 +671,16 @@ const ValjPartner = () => {
  </div>
  </div>
 
+ {/* Industry Filter */}
+ <FilterButtons
+ title="Filtrera på bransch"
+ icon="industry"
+ options={availableIndustries.map(ind => ({ label: ind, value: ind }))}
+ selectedValue={selectedIndustry}
+ onSelect={setSelectedIndustry}
+ colorScheme="amber"
+ />
+
  {/* Application Filter */}
  <MultiFilterButtons
  title="Filtrera på Dynamics 365 Applikation"
@@ -682,13 +692,12 @@ const ValjPartner = () => {
  showApplicationIcons={true}
  />
 
- {/* Industry Filter */}
- <FilterButtons
- title="Filtrera på bransch"
- icon="industry"
- options={availableIndustries.map(ind => ({ label: ind, value: ind }))}
- selectedValue={selectedIndustry}
- onSelect={setSelectedIndustry}
+ {/* Optional size filters */}
+ <SizeFilters
+ selectedCompanySize={selectedCompanySize}
+ selectedRevenue={selectedRevenue}
+ onCompanySizeChange={setSelectedCompanySize}
+ onRevenueChange={setSelectedRevenue}
  colorScheme="amber"
  />
 
@@ -699,15 +708,6 @@ const ValjPartner = () => {
  options={geographyFilters.map(f => ({ label: f.label, value: f.value }))}
  selectedValue={selectedGeography}
  onSelect={setSelectedGeography}
- colorScheme="amber"
- />
-
- {/* Optional size filters */}
- <SizeFilters
- selectedCompanySize={selectedCompanySize}
- selectedRevenue={selectedRevenue}
- onCompanySizeChange={setSelectedCompanySize}
- onRevenueChange={setSelectedRevenue}
  colorScheme="amber"
  />
 
