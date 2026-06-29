@@ -390,14 +390,6 @@ export default function PartnerProductTabs({
                     </span>
                   </li>
                 )}
-                {data.aiBadge && (
-                  <li className="flex items-start gap-3">
-                    <Sparkles className="w-5 h-5 text-[hsl(var(--cta-orange))] mt-0.5 shrink-0" />
-                    <span className="text-foreground">
-                      AI-nivå: <strong>{data.aiBadge.label}</strong> – {data.aiBadge.description}
-                    </span>
-                  </li>
-                )}
               </ul>
 
               {data.productDescription && (
@@ -498,14 +490,6 @@ export default function PartnerProductTabs({
                 </div>
               )}
 
-              {data.aiBadge && (
-                <div className="mb-4">
-                  <Badge variant="outline" className={`text-sm font-semibold ${data.aiBadge.color} border-2`}>
-                    <Award className="w-4 h-4 mr-1.5" />
-                    {data.aiBadge.emoji} {data.aiBadge.label}
-                  </Badge>
-                </div>
-              )}
 
               {data.industryApps.length > 0 && (
                 <div className="mt-5">
