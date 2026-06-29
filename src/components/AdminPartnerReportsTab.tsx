@@ -149,6 +149,23 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
     setSelected(new Set());
   };
 
+  const sendSelectedForApproval = async () => {
+    if (selected.size === 0) return;
+    const to = "thomas.laine@dynamicfactory.se";
+    if (!confirm(`Skicka ${selected.size} rapport(er) till ${to} för godkännande?\n\nDrafts förblir orörda — du kan skicka skarpt efter granskning.`)) return;
+    setBusy("approval");
+    const { data, error } = await supabase.functions.invoke("manage-partner-reports", {
+      body: { action: "send-test-batch", token, ids: Array.from(selected), test_email: to },
+    });
+    setBusy(null);
+    if (error || data?.error) {
+      toast({ title: "Fel", description: data?.error || error?.message, variant: "destructive" });
+      return;
+    }
+    const okCount = (data.results || []).filter((r: any) => r.ok).length;
+    toast({ title: "Skickat för godkännande", description: `${okCount}/${selected.size} skickade till ${to}` });
+  };
+
   const updateDraft = async (patch: Partial<Draft>) => {
     if (!viewing) return;
     await callAction("update", { id: viewing.id, ...patch }, "Sparat");
