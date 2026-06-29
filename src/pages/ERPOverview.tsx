@@ -212,7 +212,7 @@ const ERPOverview = () => {
  baserad på er verksamhet, storlek och specifika behov.
  </p>
  <Link to="/ERPbehovsanalys/">
- <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
+ <Button className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
  Skapa en behovsanalys
  <ArrowRight className="ml-2 h-4 w-4" />
  </Button>

@@ -338,7 +338,7 @@ const IndustryComparisonWidget = () => {
             <a href="/finance-supply-chain/" className="px-5 py-2.5 text-sm border-2 border-[hsl(250_50%_80%)] rounded bg-[hsl(250_50%_97%)] text-[hsl(250_50%_30%)] font-medium hover:bg-[hsl(250_50%_93%)]  transition-all dark:bg-[hsl(250_30%_15%)] dark:text-[hsl(250_50%_70%)] dark:border-[hsl(250_30%_35%)] dark:hover:bg-[hsl(250_30%_20%)]">
               Mer om Finance & SCM
             </a>
-            <a href="/kontakta-oss/" className="px-5 py-2.5 text-sm border-2 border-primary rounded bg-primary text-primary-foreground font-semibold hover:bg-primary/90  transition-all">
+            <a href="/kontakta-oss/" className="px-5 py-2.5 text-sm border-2 border-[hsl(var(--cta-orange))] rounded bg-[hsl(var(--cta-orange))] text-white font-semibold hover:bg-[hsl(var(--cta-orange-hover))] transition-all">
               Kontakta oss ↗
             </a>
           </div>
