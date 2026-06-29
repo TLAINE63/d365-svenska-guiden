@@ -367,7 +367,7 @@ const Index = () => {
         </section>
 
 
-        {/* SECTION 5 — TOOLS */}
+        {/* SECTION 4 — TOOLS */}
         <section className="section-divider py-14 sm:py-20 bg-secondary/40 border-b border-border">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <div className="max-w-2xl mb-10">
@@ -453,7 +453,7 @@ const Index = () => {
           </div>
         </section>
 
-        {/* SECTION 6 — TRUST */}
+        {/* SECTION 5 — TRUST */}
         <section className="section-divider py-14 sm:py-18 bg-[hsl(var(--hero-dark))] border-b border-[hsl(var(--line-dark))]">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
             <div className="max-w-2xl mb-8">
@@ -481,7 +481,7 @@ const Index = () => {
           </div>
         </section>
 
-        {/* SECTION 7 — KNOWLEDGE / LATEST ARTICLES */}
+        {/* SECTION 6 — KNOWLEDGE / LATEST ARTICLES */}
         <section className="section-divider py-14 sm:py-20 bg-background border-b border-border">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
@@ -508,7 +508,7 @@ const Index = () => {
           </div>
         </section>
 
-        {/* SECTION 8 — FINAL CTA */}
+        {/* SECTION 7 — FINAL CTA */}
         <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] py-16 sm:py-20 relative overflow-hidden">
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative text-center">
             <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-white tracking-tight mb-4 leading-[1.15]">
