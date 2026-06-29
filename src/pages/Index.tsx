@@ -457,7 +457,7 @@ const Index = () => {
     </form>
    </div>
 
- {/* Mognadsindex — eget framträdande block */}
+ {/* Hur redo är ni för Dynamics 365? — eget framträdande block */}
  <div className="relative rounded overflow-hidden border border-[hsl(var(--line-dark))] bg-[#211F1A]">
   {/* Signaturstreck */}
   <div className="absolute left-0 top-0 bottom-0 w-1 bg-[hsl(var(--signature))]" />
@@ -468,7 +468,7 @@ const Index = () => {
      <div className="flex items-center gap-2 mb-3">
       <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[hsl(var(--signature))]/15 border border-[hsl(var(--signature))]/40 text-[10.5px] font-bold uppercase tracking-[0.14em] text-[hsl(var(--signature))]">
        <BarChart3 className="w-3 h-3" />
-       Mognadsindex
+       Hur redo är ni för Dynamics 365?
       </span>
       
      </div>
@@ -487,9 +487,9 @@ const Index = () => {
       className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white h-12 px-6 rounded font-bold justify-center hover:-translate-y-0.5 transition-all"
      >
       <Link to="/beslutsmognad/">
-       Starta Mognadsindex
-       <ArrowRight className="w-4 h-4 ml-1.5" />
-      </Link>
+        Starta diagnostiken
+        <ArrowRight className="w-4 h-4 ml-1.5" />
+       </Link>
      </Button>
      <p className="text-[12px] text-white/75 text-center">Kostnadsfritt · Ingen registrering</p>
     </div>
