@@ -276,9 +276,9 @@ const PartnerUpdate = () => {
 
   type SectionKey = "basic" | "decision" | "products" | "specialty" | "pitches" | "industryApps" | "events" | "notes";
   const [openSections, setOpenSections] = useState<Record<SectionKey, boolean>>({
-  basic: true,
-  decision: false,
   products: true,
+  basic: false,
+  decision: false,
   specialty: false,
   pitches: false,
   industryApps: false,
