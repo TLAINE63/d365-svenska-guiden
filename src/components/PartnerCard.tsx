@@ -125,9 +125,12 @@ const PartnerCard = ({
  highlightedGeography,
  showRandomIndicator = false
 }: PartnerCardProps) => {
- const [showAiDetails, setShowAiDetails] = useState(false);
- 
- // Get color classes based on scheme
+  const [showAiDetails, setShowAiDetails] = useState(false);
+  const { isSelected: isCompareSelected, toggle: toggleCompare } = usePartnerCompare();
+  const compareSlug = isDatabasePartner(partner) ? partner.slug : null;
+  const compareActive = compareSlug ? isCompareSelected(compareSlug) : false;
+  
+  // Get color classes based on scheme
  const getColorClasses = () => {
  switch (colorScheme) {
  case 'crm':
