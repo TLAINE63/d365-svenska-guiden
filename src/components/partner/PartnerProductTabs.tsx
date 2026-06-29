@@ -558,6 +558,28 @@ export default function PartnerProductTabs({
               )}
             </section>
 
+            {/* Customer cases */}
+            {data.customerCaseLinks.length > 0 && (
+              <section>
+                <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Kundcase</h2>
+                <ul className="grid sm:grid-cols-2 gap-2">
+                  {data.customerCaseLinks.map((url, idx) => (
+                    <li key={idx}>
+                      <a
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
+                      >
+                        <ExternalLink className="w-3.5 h-3.5" />
+                        Läs kundcase {data.customerCaseLinks.length > 1 ? idx + 1 : ""}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
             {/* Kontor */}
             {(() => {
               const cities = (partner as any)?.office_cities as string[] | undefined;
@@ -580,28 +602,6 @@ export default function PartnerProductTabs({
                 </section>
               ) : null;
             })()}
-
-            {/* Customer cases */}
-            {data.customerCaseLinks.length > 0 && (
-              <section>
-                <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Kundcase</h2>
-                <ul className="grid sm:grid-cols-2 gap-2">
-                  {data.customerCaseLinks.map((url, idx) => (
-                    <li key={idx}>
-                      <a
-                        href={url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
-                      >
-                        <ExternalLink className="w-3.5 h-3.5" />
-                        Läs kundcase {data.customerCaseLinks.length > 1 ? idx + 1 : ""}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
 
             {/* 7. CTA */}
             <section className="rounded-xl border border-border bg-gradient-to-br from-card to-muted/40 p-6 sm:p-8">
