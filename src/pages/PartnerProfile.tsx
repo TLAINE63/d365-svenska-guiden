@@ -199,7 +199,8 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  // Use initialData for SSR, then hydrate with live data from DB
  const partner = dbPartner ?? initialData ?? null;
 
- const [videoOpen, setVideoOpen] = useState(false);
+  const [videoOpen, setVideoOpen] = useState(false);
+  const [activeTabProduct, setActiveTabProduct] = useState<string | null>(null);
 
  // Track profile visit (one per slug per mount)
  useEffect(() => {
@@ -622,7 +623,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  {/* Sales contact card with optional photo - per product if applicable */}
  {(() => {
  // Map URL ?product= value to product_filters key
- const selectedProduct = stashedParams.get('product') || '';
+ const selectedProduct = activeTabProduct || stashedParams.get('product') || '';
  const productToKey = (p: string): 'bc' | 'fsc' | 'sales' | 'service' | null => {
  const v = p.toLowerCase();
  if (v.includes('business central')) return 'bc';
@@ -739,6 +740,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
    selectedCompanySize={selectedCompanySize}
    selectedGeography={selectedGeography}
    selectedRevenue={selectedRevenue}
+   onActiveTabChange={(_, label) => setActiveTabProduct(label)}
   />
 
   {/* Specialty products (HR / Commerce / ProjOps) — keep visible below tabs */}
