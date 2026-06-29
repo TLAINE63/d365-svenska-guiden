@@ -4115,7 +4115,7 @@ Thomas`,
   <div className="rounded-lg border-2 border-dashed border-primary/30 bg-primary/5 p-3 flex items-start gap-2">
     <ArrowRight className="h-4 w-4 text-primary mt-0.5 shrink-0" />
     <p className="text-sm text-foreground">
-      <strong>Klicka på produktnamnet</strong> för att fälla ut och fylla i information för det produktområde partnern erbjuder. Hoppa över de produkter som inte är aktuella.
+      <strong>Klicka på produktnamnet</strong> för att fälla ut och fylla i information för det produktområde partnern erbjuder. Lämna övriga avmarkerade – det räknas som <em>"Vi erbjuder inte denna lösning"</em>.
     </p>
   </div>
 
