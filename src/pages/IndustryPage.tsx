@@ -156,6 +156,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  underlyingSelected.length > 0 ? underlyingSelected : ["bc", "fsc", "sales", "service"];
 
  const filtered = partners.filter((p: any) => {
+ if (p.is_featured !== true) return false;
  const pf = p.product_filters || {};
  // Bransch måste matcha (inom valda produkter om filter satt, annars valfri källa)
  const industryMatch =
