@@ -1090,7 +1090,9 @@ const Index = () => {
  </section>
 
 
- </main>
+  <TrustBanner variant="full" />
+
+  </main>
 
  {/* Scroll-triggered CTA */}
  <Suspense fallback={null}><ScrollCTA /></Suspense>
