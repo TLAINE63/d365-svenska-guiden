@@ -295,7 +295,10 @@ const App = () => (
         <Sonner />
       </Suspense>
       <BrowserRouter>
-        <AppShell />
+        <PartnerCompareProvider>
+          <AppShell />
+          <PartnerCompareBar />
+        </PartnerCompareProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
