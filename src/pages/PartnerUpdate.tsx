@@ -1299,7 +1299,7 @@ const PartnerUpdate = () => {
                Varför välja er för {section.label}? <span className="text-destructive">*</span>
              </Label>
              <Textarea
-               placeholder="Beskriv konkret varför kunder bör välja er för denna produkt – t.ex. unik kompetens, leveransmodell, branscherfarenhet eller resultat."
+               placeholder={whyChoosePlaceholder}
                value={filter.whyChoose || ''}
                onChange={(e) => updateProductFilter(productKey, { whyChoose: e.target.value })}
                className="mt-2 min-h-[100px]"
