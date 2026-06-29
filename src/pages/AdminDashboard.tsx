@@ -2368,15 +2368,37 @@ Thomas`,
  <Download className="mr-2 h-4 w-4" />
  Exportera kontakter
  </Button>
- <Button
- variant="outline"
- onClick={handleGenerateAllMissingSummaries}
- disabled={generatingAllSummaries}
- title="Generera AI-summeringar för alla publicerade partners"
- >
- <Sparkles className={`mr-2 h-4 w-4 ${generatingAllSummaries ? "animate-pulse" : ""}`} />
- {generatingAllSummaries ? "Genererar..." : "AI-summera alla"}
- </Button>
+  <div className="flex items-center gap-2 flex-wrap">
+    <Button
+      variant="outline"
+      onClick={handleGenerateAllMissingSummaries}
+      disabled={generatingAllSummaries}
+      title={summaryMode === "all"
+        ? "Generera AI-summeringar för alla publicerade partners"
+        : `Generera AI-summeringar för publicerade partners som saknar sammanfattning eller har en äldre än ${SUMMARY_STALE_DAYS} dagar`}
+    >
+      <Sparkles className={`mr-2 h-4 w-4 ${generatingAllSummaries ? "animate-pulse" : ""}`} />
+      {generatingAllSummaries
+        ? "Genererar..."
+        : summaryMode === "all"
+          ? "AI-summera alla"
+          : "AI-summera saknade/gamla"}
+    </Button>
+    <div className="flex items-center gap-2">
+      <Switch
+        id="summary-mode"
+        checked={summaryMode === "stale"}
+        onCheckedChange={(checked) => setSummaryMode(checked ? "stale" : "all")}
+        disabled={generatingAllSummaries}
+      />
+      <Label
+        htmlFor="summary-mode"
+        className="text-xs text-muted-foreground cursor-pointer"
+      >
+        Endast saknade/gamla
+      </Label>
+    </div>
+  </div>
  {selectedForWelcome.size > 0 && (
  <DropdownMenu>
  <DropdownMenuTrigger asChild>
