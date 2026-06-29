@@ -4023,9 +4023,9 @@ Thomas`,
  </p>
  </div>
  </PremiumCollapsibleSection>
- <PremiumCollapsibleSection
-  title="Geografisk täckning"
-  description="Välj var ni levererar projekt"
+  <PremiumCollapsibleSection
+  title="Välj var ni levererar projekt"
+  description="Sverige, Norden, Europa eller Globalt"
   icon={Globe}
   accent="finance-supply"
   status={getSectionStatus('geography')}
