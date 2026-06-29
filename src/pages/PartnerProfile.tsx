@@ -447,221 +447,220 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  backgroundSize: '50px 50px'
  }} />
  
- <div className="relative container mx-auto px-4 sm:px-6 py-8 sm:py-12">
- <button
- onClick={() => window.history.back()}
- className="inline-flex items-center text-slate-500 hover:text-slate-800 transition-colors mb-6 group text-sm font-medium bg-slate-200/50 px-3 py-1.5 rounded border border-slate-200"
- >
- <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
- Tillbaka till partnerlistan
- </button>
+  <div className="relative container mx-auto px-4 sm:px-6 py-4 sm:py-6">
+  <button
+  onClick={() => window.history.back()}
+  className="inline-flex items-center text-slate-500 hover:text-slate-800 transition-colors mb-3 group text-sm font-medium bg-slate-200/50 px-3 py-1.5 rounded border border-slate-200"
+  >
+  <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+  Tillbaka till partnerlistan
+  </button>
 
- {/* Main content - centered layout */}
- <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
- {/* Partner identity - logo OR name, not both */}
- <div className="flex items-center justify-center mb-4">
- {partner.logo_url ? (
- <div className="w-56 h-32 sm:w-72 sm:h-36 flex items-center justify-center overflow-hidden">
- <img
- src={partner.logo_url}
- alt={`${partner.name} logotyp`}
- className="max-w-full max-h-full object-contain drop-"
- />
- </div>
- ) : (
- <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight">
- {partner.name}
- </h1>
- )}
- </div>
- 
- {/* Description */}
-                <div className="max-w-[68ch] mb-4">
-                  <div className="text-base sm:text-lg text-slate-600 leading-[1.8] font-light space-y-4">
-                    {(() => {
-                      const chunks = (partner.description || "")
-                        .split(/\n+/)
-                        .flatMap((block) => {
-                          const sentences = block.match(/[^.!?]+[.!?]+(\s|$)/g) || [block];
-                          const paras: string[] = [];
-                          for (let i = 0; i < sentences.length; i += 2) {
-                            paras.push(sentences.slice(i, i + 2).join("").trim());
-                          }
-                          return paras.filter(Boolean);
-                        });
-                      return chunks.map((para, i) => <p key={i}>{para}</p>);
-                    })()}
-                  </div>
+  {/* Main content - centered layout */}
+  <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+  {/* Partner identity - logo OR name, not both */}
+  <div className="flex items-center justify-center mb-2">
+  {partner.logo_url ? (
+  <div className="w-48 h-28 sm:w-64 sm:h-32 flex items-center justify-center overflow-hidden">
+  <img
+  src={partner.logo_url}
+  alt={`${partner.name} logotyp`}
+  className="max-w-full max-h-full object-contain"
+  />
+  </div>
+  ) : (
+  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight">
+  {partner.name}
+  </h1>
+  )}
+  </div>
 
- {(partner as any).description_ai_generated && (
- <TooltipProvider>
- <Tooltip>
- <TooltipTrigger asChild>
- <span className="inline-flex items-center gap-1 mt-2 text-[11px] font-medium text-slate-500 cursor-help">
- <Sparkles className="w-3 h-3 text-[hsl(var(--cta-orange))]" />
- AI-genererad beskrivning
- </span>
- </TooltipTrigger>
- <TooltipContent className="max-w-xs">
- <p className="text-xs">Beskrivningen är genererad av d365.se utifrån partnerns angivna data. Partnern kan när som helst skriva en egen beskrivning som ersätter denna.</p>
- </TooltipContent>
- </Tooltip>
- </TooltipProvider>
- )}
- </div>
+  {/* Description */}
+  <div className="max-w-[68ch] mb-2">
+  <div className="text-sm sm:text-base text-slate-600 leading-relaxed font-light space-y-2">
+    {(() => {
+      const chunks = (partner.description || "")
+        .split(/\n+/)
+        .flatMap((block) => {
+          const sentences = block.match(/[^.!?]+[.!?]+(\s|$)/g) || [block];
+          const paras: string[] = [];
+          for (let i = 0; i < sentences.length; i += 2) {
+            paras.push(sentences.slice(i, i + 2).join("").trim());
+          }
+          return paras.filter(Boolean);
+        });
+      return chunks.map((para, i) => <p key={i}>{para}</p>);
+    })()}
+  </div>
 
- {/* AI-generated neutral summary */}
- {(partner as any).ai_summary && (
- <div className="max-w-3xl mb-6 rounded border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-4 sm:p-5 ">
- <div className="flex items-center gap-2 mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
- <Sparkles className="w-3.5 h-3.5 text-[hsl(var(--cta-orange))]" />
- Neutral sammanfattning
- </div>
- <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
- {(partner as any).ai_summary}
- </p>
- <p className="mt-2 text-[11px] text-slate-600">
- Genererad av d365.se utifrån partnerdata. Uppdateras löpande.
- </p>
- </div>
- )}
+  {(partner as any).description_ai_generated && (
+  <TooltipProvider>
+  <Tooltip>
+  <TooltipTrigger asChild>
+  <span className="inline-flex items-center gap-1 mt-1 text-[11px] font-medium text-slate-500 cursor-help">
+  <Sparkles className="w-3 h-3 text-[hsl(var(--cta-orange))]" />
+  AI-genererad beskrivning
+  </span>
+  </TooltipTrigger>
+  <TooltipContent className="max-w-xs">
+  <p className="text-xs">Beskrivningen är genererad av d365.se utifrån partnerns angivna data. Partnern kan när som helst skriva en egen beskrivning som ersätter denna.</p>
+  </TooltipContent>
+  </Tooltip>
+  </TooltipProvider>
+  )}
+  </div>
 
- {/* Website CTA - directly under description */}
- <div className="flex flex-col items-center mb-6">
- <a 
- href={partner.website} 
- target="_blank" 
- rel="noopener noreferrer"
- onClick={() => {
- trackPartnerClick(
- partner.name,
- partner.website,
- `partner-profile-${partner.slug}`,
- {
- product: selectedProduct,
- industry: selectedIndustry,
- companySize: selectedCompanySize,
- geography: selectedGeography,
- }
- );
- }}
- className="group relative inline-flex items-center gap-3 px-7 py-4 rounded bg-gradient-to-r from-[hsl(var(--cta-orange))] via-[hsl(var(--cta-orange))] to-orange-500 text-white font-semibold text-base hover:scale-[1.04] active:scale-[0.98] transition-all duration-300 overflow-hidden ring-2 ring-[hsl(var(--cta-orange))]/20 hover:ring-[hsl(var(--cta-orange))]/40"
- >
- {/* Shimmer effect */}
- <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
- {/* Pulsing glow ring */}
- <span className="absolute inset-0 rounded bg-[hsl(var(--cta-orange))] opacity-40 animate-pulse pointer-events-none -z-10" />
- <Globe className="w-5 h-5 relative z-10" />
- <span className="relative z-10">Besök {partner.name}</span>
- <ExternalLink className="w-4 h-4 relative z-10 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5" />
- </a>
- <span className="mt-2 text-xs text-slate-500 font-medium">
- Öppnas i nytt fönster
- </span>
- </div>
- 
+  {/* AI-generated neutral summary */}
+  {(partner as any).ai_summary && (
+  <div className="max-w-3xl mb-4 rounded border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-3 sm:p-4 ">
+  <div className="flex items-center gap-2 mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
+  <Sparkles className="w-3.5 h-3.5 text-[hsl(var(--cta-orange))]" />
+  Neutral sammanfattning
+  </div>
+  <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
+  {(partner as any).ai_summary}
+  </p>
+  <p className="mt-2 text-[11px] text-slate-600">
+  Genererad av d365.se utifrån partnerdata. Uppdateras löpande.
+  </p>
+  </div>
+  )}
 
- {/* Sales contact card with optional photo - per product if applicable */}
- {(() => {
- // Map URL ?product= value to product_filters key
- const selectedProduct = activeTabProduct || stashedParams.get('product') || '';
- const productToKey = (p: string): 'bc' | 'fsc' | 'sales' | 'service' | null => {
- const v = p.toLowerCase();
- if (v.includes('business central')) return 'bc';
- if (v.includes('finance') || v.includes('supply')) return 'fsc';
- if (v.includes('sales') || v.includes('marketing') || v.includes('customer insights')) return 'sales';
- if (v.includes('service') || v.includes('contact center') || v.includes('field')) return 'service';
- return null;
- };
- const pf = (partner as any)?.product_filters || {};
- const key = productToKey(selectedProduct);
- const productContact = key ? pf[key] : null;
- const hasProductContact = !!(productContact?.contactName || productContact?.contactEmail || productContact?.contactPhone);
+  {/* Website CTA - directly under description */}
+  <div className="flex flex-col items-center mb-4">
+  <a 
+  href={partner.website} 
+  target="_blank" 
+  rel="noopener noreferrer"
+  onClick={() => {
+  trackPartnerClick(
+  partner.name,
+  partner.website,
+  `partner-profile-${partner.slug}`,
+  {
+  product: selectedProduct,
+  industry: selectedIndustry,
+  companySize: selectedCompanySize,
+  geography: selectedGeography,
+  }
+  );
+  }}
+  className="group relative inline-flex items-center gap-3 px-6 py-3 rounded bg-gradient-to-r from-[hsl(var(--cta-orange))] via-[hsl(var(--cta-orange))] to-orange-500 text-white font-semibold text-sm sm:text-base hover:scale-[1.04] active:scale-[0.98] transition-all duration-300 overflow-hidden ring-2 ring-[hsl(var(--cta-orange))]/20 hover:ring-[hsl(var(--cta-orange))]/40"
+  >
+  {/* Shimmer effect */}
+  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
+  {/* Pulsing glow ring */}
+  <span className="absolute inset-0 rounded bg-[hsl(var(--cta-orange))] opacity-40 animate-pulse pointer-events-none -z-10" />
+  <Globe className="w-5 h-5 relative z-10" />
+  <span className="relative z-10">Besök {partner.name}</span>
+  <ExternalLink className="w-4 h-4 relative z-10 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5" />
+  </a>
+  <span className="mt-2 text-xs text-slate-500 font-medium">
+  Öppnas i nytt fönster
+  </span>
+  </div>
 
- const displayName = hasProductContact ? productContact.contactName : partner?.contactPerson;
- const displayEmail = hasProductContact ? productContact.contactEmail : partner?.email;
- const displayPhone = hasProductContact ? productContact.contactPhone : partner?.phone;
- const displayPhoto = hasProductContact && productContact.contactPhotoUrl
- ? productContact.contactPhotoUrl
- : (partner as any)?.contact_photo_url;
+  {/* Sales contact card with optional photo - per product if applicable */}
+  {(() => {
+  // Map URL ?product= value to product_filters key
+  const selectedProduct = activeTabProduct || stashedParams.get('product') || '';
+  const productToKey = (p: string): 'bc' | 'fsc' | 'sales' | 'service' | null => {
+  const v = p.toLowerCase();
+  if (v.includes('business central')) return 'bc';
+  if (v.includes('finance') || v.includes('supply')) return 'fsc';
+  if (v.includes('sales') || v.includes('marketing') || v.includes('customer insights')) return 'sales';
+  if (v.includes('service') || v.includes('contact center') || v.includes('field')) return 'service';
+  return null;
+  };
+  const pf = (partner as any)?.product_filters || {};
+  const key = productToKey(selectedProduct);
+  const productContact = key ? pf[key] : null;
+  const hasProductContact = !!(productContact?.contactName || productContact?.contactEmail || productContact?.contactPhone);
 
- // Video: prefer per-product video, fall back to partner main video
- const productVideoId = key ? extractYouTubeId(productContact?.youtubeVideoId) : null;
- const mainVideoId = extractYouTubeId((partner as any)?.youtube_video_id);
- const displayVideoId = productVideoId || mainVideoId;
+  const displayName = hasProductContact ? productContact.contactName : partner?.contactPerson;
+  const displayEmail = hasProductContact ? productContact.contactEmail : partner?.email;
+  const displayPhone = hasProductContact ? productContact.contactPhone : partner?.phone;
+  const displayPhoto = hasProductContact && productContact.contactPhotoUrl
+  ? productContact.contactPhotoUrl
+  : (partner as any)?.contact_photo_url;
 
- if (!displayName && !displayEmail && !displayPhone && !displayVideoId) return null;
+  // Video: prefer per-product video, fall back to partner main video
+  const productVideoId = key ? extractYouTubeId(productContact?.youtubeVideoId) : null;
+  const mainVideoId = extractYouTubeId((partner as any)?.youtube_video_id);
+  const displayVideoId = productVideoId || mainVideoId;
 
- return (
- <div className="mt-5 inline-flex flex-col sm:flex-row items-center gap-4 px-5 py-4 rounded bg-white/80 border border-emerald-200 max-w-2xl">
- <div className="relative shrink-0">
- {displayPhoto ? (
- <img
- src={displayPhoto}
- alt={`Foto av ${displayName || 'kontaktperson'}`}
- loading="lazy"
- className="w-16 h-16 sm:w-20 sm:h-20 rounded object-cover border-2 border-emerald-200 "
- />
- ) : (
- <div className="w-16 h-16 sm:w-20 sm:h-20 rounded bg-emerald-50 border-2 border-emerald-200 flex items-center justify-center">
- <User className="w-8 h-8 text-emerald-600" />
- </div>
- )}
- {displayVideoId && (
- <button
- type="button"
- onClick={() => setVideoOpen(true)}
- aria-label={`Spela introduktionsvideo från ${partner.name}`}
- className="absolute inset-0 rounded bg-black/40 hover:bg-black/55 transition-colors flex items-center justify-center group focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
- >
- <span className="w-9 h-9 sm:w-11 sm:h-11 rounded bg-white/95 flex items-center justify-center group-hover:scale-110 transition-transform">
- <Play className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-700 fill-emerald-700 ml-0.5" />
- </span>
- <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-emerald-600 text-white text-[10px] font-bold uppercase tracking-wider whitespace-nowrap">
- Video
- </span>
- </button>
- )}
- </div>
+  if (!displayName && !displayEmail && !displayPhone && !displayVideoId) return null;
 
- <div className="flex flex-col items-center sm:items-start text-center sm:text-left gap-1">
- <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700">
- {hasProductContact && selectedProduct
- ? `Din kontaktperson för ${selectedProduct} hos ${partner.name}`
- : `Din kontaktperson hos ${partner.name}`}
- </span>
- {displayName && (
- <span className="text-base font-semibold text-slate-900">
- {displayName}
- </span>
- )}
- <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-3 gap-y-1 mt-1">
- {displayEmail && (
- <a
- href={`mailto:${displayEmail}`}
- className="inline-flex items-center gap-1.5 text-sm text-slate-700 hover:text-emerald-700 transition-colors"
- >
- <Mail className="w-3.5 h-3.5 text-emerald-600" />
- <span className="font-medium">{displayEmail}</span>
- </a>
- )}
- {displayPhone && (
- <a
- href={`tel:${displayPhone}`}
- className="inline-flex items-center gap-1.5 text-sm text-slate-700 hover:text-emerald-700 transition-colors"
- >
- <Phone className="w-3.5 h-3.5 text-emerald-600" />
- <span className="font-medium">{displayPhone}</span>
- </a>
- )}
- </div>
- </div>
- </div>
- );
- })()}
+  return (
+  <div className="mt-3 inline-flex flex-col sm:flex-row items-center gap-4 px-5 py-4 rounded bg-white/80 border border-emerald-200 max-w-2xl">
+  <div className="relative shrink-0">
+  {displayPhoto ? (
+  <img
+  src={displayPhoto}
+  alt={`Foto av ${displayName || 'kontaktperson'}`}
+  loading="lazy"
+  className="w-16 h-16 sm:w-20 sm:h-20 rounded object-cover border-2 border-emerald-200 "
+  />
+  ) : (
+  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded bg-emerald-50 border-2 border-emerald-200 flex items-center justify-center">
+  <User className="w-8 h-8 text-emerald-600" />
+  </div>
+  )}
+  {displayVideoId && (
+  <button
+  type="button"
+  onClick={() => setVideoOpen(true)}
+  aria-label={`Spela introduktionsvideo från ${partner.name}`}
+  className="absolute inset-0 rounded bg-black/40 hover:bg-black/55 transition-colors flex items-center justify-center group focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+  >
+  <span className="w-9 h-9 sm:w-11 sm:h-11 rounded bg-white/95 flex items-center justify-center group-hover:scale-110 transition-transform">
+  <Play className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-700 fill-emerald-700 ml-0.5" />
+  </span>
+  <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-emerald-600 text-white text-[10px] font-bold uppercase tracking-wider whitespace-nowrap">
+  Video
+  </span>
+  </button>
+  )}
+  </div>
 
- </div>
- </div>
+  <div className="flex flex-col items-center sm:items-start text-center sm:text-left gap-1">
+  <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700">
+  {hasProductContact && selectedProduct
+  ? `Din kontaktperson för ${selectedProduct} hos ${partner.name}`
+  : `Din kontaktperson hos ${partner.name}`}
+  </span>
+  {displayName && (
+  <span className="text-base font-semibold text-slate-900">
+  {displayName}
+  </span>
+  )}
+  <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-3 gap-y-1 mt-1">
+  {displayEmail && (
+  <a
+  href={`mailto:${displayEmail}`}
+  className="inline-flex items-center gap-1.5 text-sm text-slate-700 hover:text-emerald-700 transition-colors"
+  >
+  <Mail className="w-3.5 h-3.5 text-emerald-600" />
+  <span className="font-medium">{displayEmail}</span>
+  </a>
+  )}
+  {displayPhone && (
+  <a
+  href={`tel:${displayPhone}`}
+  className="inline-flex items-center gap-1.5 text-sm text-slate-700 hover:text-emerald-700 transition-colors"
+  >
+  <Phone className="w-3.5 h-3.5 text-emerald-600" />
+  <span className="font-medium">{displayPhone}</span>
+  </a>
+  )}
+  </div>
+  </div>
+  </div>
+  );
+  })()}
+
+  </div>
+  </div>
  
  {/* Bottom fade to content */}
  <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-background to-transparent" />
