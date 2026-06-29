@@ -1616,7 +1616,7 @@ const PartnerUpdate = () => {
   <div>
   <Label className="text-sm font-semibold">Välj de kundsegment ni oftast arbetar med</Label>
   <p className="text-xs text-muted-foreground mt-1">
-    Inom respektive produktområde. Detta används för matchning:
+    Inom respektive produktområde. Max 3 val per kategori. Detta används för matchning:
   </p>
   <div className="mt-2 rounded-md bg-background/70 border border-border/60 p-2 text-xs text-muted-foreground space-y-1">
   <p>
