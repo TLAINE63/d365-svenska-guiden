@@ -31,11 +31,12 @@ interface PartnerIndustryPitchesEditorProps {
   partnerId?: string | null;
 }
 
-const MAX_WORDS = 120;
+const MAX_WORDS = 150;
+const MIN_WORDS = 100;
 const wordCount = (s: string) => (s.trim() ? s.trim().split(/\s+/).length : 0);
 
 const PITCH_PLACEHOLDER =
-  "Beskriv hur ni hjälper denna bransch med Dynamics 365.\n\nFokusera på:\n- Processer ni förbättrar\n- Typiska problem ni löser\n- Relevanta lösningar\n\nUndvik generell företagsbeskrivning.";
+  "Beskriv hur ni hjälper denna bransch med Dynamics 365.\n\nFokusera på:\n- Typiska problem ni löser\n- Processer ni förbättrar\n- Relevanta lösningar\n\nUndvik generell företagsbeskrivning och upprepning av standardtext.\n\nTips: Skriv som om kunden redan har valt Dynamics 365.";
 
 export function PartnerIndustryPitchesEditor({
   industries,
@@ -136,10 +137,11 @@ export function PartnerIndustryPitchesEditor({
   return (
     <div className="space-y-5">
       <p className="text-sm text-muted-foreground">
-        Skriv max {MAX_WORDS} ord per bransch. Beskriv hur ni hjälper just den här branschen med
-        Dynamics 365 – processer ni förbättrar, typiska problem ni löser och relevanta lösningar.
-        Undvik generell företagsbeskrivning. Behöver ni hjälp – generera ett AI-förslag och redigera
-        fritt. Lägg till en produktvariant om texten bör skilja sig per Dynamics 365-applikation.
+        Beskriv hur ni hjälper denna bransch med Dynamics 365 (max 100–150 ord). Fokusera på typiska
+        problem ni löser, processer ni förbättrar och relevanta lösningar. Undvik generell
+        företagsbeskrivning och upprepning av standardtext. Behöver ni hjälp – generera ett
+        AI-förslag och redigera fritt. Lägg till en produktvariant om texten bör skilja sig per
+        Dynamics 365-applikation. Tips: skriv som om kunden redan har valt Dynamics 365.
       </p>
 
       {uniqueIndustries.map((industry) => {
