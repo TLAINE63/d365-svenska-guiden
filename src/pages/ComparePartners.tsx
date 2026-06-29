@@ -503,6 +503,11 @@ const ComparePartners = () => {
   const productActive = productFilters.length > 0;
   const matchesProduct = (app: string) => !productActive || productFilters.includes(app);
 
+  const productKeyMatchesFilter = (key: string): boolean => {
+    if (!productActive) return true;
+    return productFilters.some((sel) => APP_TO_PF_KEY(sel) === key);
+  };
+
   const applyFilters = (data: ReturnType<typeof get>) => ({
     ...data,
     apps: productActive ? data.apps.filter(matchesProduct) : data.apps,
@@ -512,7 +517,9 @@ const ComparePartners = () => {
         matchesProduct(ia.application) &&
         (!industryFilter || ia.industry === industryFilter)
     ),
+    ai: data.ai.filter((a) => productKeyMatchesFilter(a.productKey)),
   });
+
 
   const AF = applyFilters(A);
   const BF = applyFilters(B);
