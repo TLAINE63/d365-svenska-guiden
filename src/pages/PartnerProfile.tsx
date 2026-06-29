@@ -14,7 +14,6 @@ import {
  CheckCircle2,
  Globe, 
  MapPin, 
- Award, 
  Layers, 
  ExternalLink,
  Users,
@@ -45,7 +44,6 @@ import { buildMetaTitle } from "@/lib/metaTitle";
 import { buildMetaDescription } from "@/lib/metaDescription";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 import { trackPartnerView } from "@/utils/trackPartnerView";
-import { calculateProductAiScore, calculateAiScore, getAiLevel } from "@/utils/aiScoring";
 import {
  Tooltip,
  TooltipContent,
