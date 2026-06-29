@@ -11,7 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Loader2, CheckCircle2, AlertCircle, Building2, Upload, X, ImageIcon, Plus, Trash2, ExternalLink, CalendarDays, Clock, MapPin, Globe, Link, Layers, Package, MessageSquare, Sparkles, Target, AlertTriangle, ArrowRight } from "lucide-react";
+import { Loader2, CheckCircle2, AlertCircle, Building2, Upload, X, ImageIcon, Plus, Trash2, ExternalLink, CalendarDays, Clock, MapPin, Globe, Link, Layers, Package, MessageSquare, Sparkles, Target, AlertTriangle, ArrowRight, ChevronLeft, ChevronRight, Eye } from "lucide-react";
 import { PremiumCollapsibleSection } from "@/components/admin/PremiumCollapsibleSection";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -286,6 +286,18 @@ const PartnerUpdate = () => {
   notes: false,
   });
   const [autoExpandApplied, setAutoExpandApplied] = useState(false);
+
+  // Sub-step wizard per product (1..4)
+  const [productStep, setProductStep] = useState<Record<string, number>>({});
+  const getProductStep = (key: string) => productStep[key] ?? 1;
+  const setStepFor = (key: string, n: number) =>
+    setProductStep((prev) => ({ ...prev, [key]: Math.max(1, Math.min(4, n)) }));
+  const PRODUCT_STEP_LABELS = [
+    "Kort beskrivning",
+    "Varför välja er",
+    "Bransch & målgrupp",
+    "Case & kontakt",
+  ] as const;
 
   // Profile completion progress
   const profileProgress = useMemo(() => {
@@ -1022,7 +1034,22 @@ const PartnerUpdate = () => {
  </Helmet>
  
  <Navbar />
- 
+
+ {/* Sticky live-preview button (desktop) */}
+ {(formData.name || invitation?.partner_name) && (
+   <a
+     href={`/partner/${generateSlug(formData.name || invitation?.partner_name || "partner")}/`}
+     target="_blank"
+     rel="noopener noreferrer"
+     className="hidden lg:flex fixed right-6 top-1/2 -translate-y-1/2 z-40 flex-col items-center gap-1 px-3 py-4 rounded-l-xl border border-r-0 border-cta-orange/40 bg-cta-orange text-white shadow-lg hover:bg-cta-orange/90 transition-all"
+     style={{ writingMode: 'vertical-rl' }}
+     title="Öppna er live partnerprofil i ny flik"
+   >
+     <Eye className="h-4 w-4 mb-1" style={{ writingMode: 'horizontal-tb' }} />
+     <span className="text-xs font-semibold tracking-wide">Förhandsvisa live</span>
+   </a>
+ )}
+
  <div className="container mx-auto px-4 py-8">
  <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
@@ -1141,540 +1168,605 @@ const PartnerUpdate = () => {
  </div>
  </CardHeader>
  <CardContent className="space-y-4 pt-4">
- {/* Product Description */}
- <div>
-  <Label className="text-sm">Beskriv vad ni gör inom denna lösning</Label>
-  <Input
-    placeholder={descriptionPlaceholder}
-    value={filter.productDescription || ''}
-    onChange={(e) => updateProductFilter(productKey, { productDescription: e.target.value })}
-    className="mt-2"
-  />
-  <p className="text-xs text-muted-foreground mt-1">
-    Max 100 tecken. Fokusera på: typ av projekt, typ av kund och vad ni faktiskt levererar.
-  </p>
-          </div>
+ {(() => {
+   const currentStep = getProductStep(productKey);
+   return (
+     <>
+       {/* Sub-steg per produkt */}
+       <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2">
+         {PRODUCT_STEP_LABELS.map((lbl, i) => {
+           const n = i + 1;
+           const active = currentStep === n;
+           return (
+             <button
+               key={lbl}
+               type="button"
+               onClick={() => setStepFor(productKey, n)}
+               className={`text-left px-3 py-2 rounded-lg border-2 transition-all ${
+                 active
+                   ? 'border-cta-orange bg-cta-orange/10'
+                   : 'border-border hover:border-cta-orange/40 bg-card'
+               }`}
+             >
+               <div className={`text-[10px] font-bold uppercase tracking-wider ${active ? 'text-cta-orange' : 'text-muted-foreground'}`}>
+                 Steg {n} av 4
+               </div>
+               <div className="text-xs font-medium mt-0.5 leading-tight">{lbl}</div>
+             </button>
+           );
+         })}
+       </div>
 
-          {/* Why choose us for this product */}
-          <div>
-            <Label className="text-sm">
-              Varför välja er för {section.label}? <span className="text-destructive">*</span>
-            </Label>
-            <Textarea
-              placeholder="Beskriv konkret varför kunder bör välja er för denna produkt – t.ex. unik kompetens, leveransmodell, branscherfarenhet eller resultat."
-              value={filter.whyChoose || ''}
-              onChange={(e) => updateProductFilter(productKey, { whyChoose: e.target.value })}
-              className="mt-2 min-h-[100px]"
-              required
-            />
-            <p className="text-xs text-muted-foreground mt-1">Obligatoriskt. Visas högst upp på er produktflik på partnerprofilen.</p>
-          </div>
+       {/* Steg 1 – Kort beskrivning */}
+       {currentStep === 1 && (
+         <div className="space-y-4">
+           {/* Product Description */}
+           <div>
+             <Label className="text-sm">Beskriv vad ni gör inom denna lösning</Label>
+             <Input
+               placeholder={descriptionPlaceholder}
+               value={filter.productDescription || ''}
+               onChange={(e) => updateProductFilter(productKey, { productDescription: e.target.value })}
+               className="mt-2"
+             />
+             <p className="text-xs text-muted-foreground mt-1">
+               Max 100 tecken. Fokusera på: typ av projekt, typ av kund och vad ni faktiskt levererar.
+             </p>
+           </div>
 
-          {/* Key differentiators / concrete points */}
-          <div>
-            <Label className="text-sm">
-              3–4 konkreta punkter om {section.label} <span className="text-destructive">*</span>
-            </Label>
-            <p className="text-xs text-muted-foreground mt-1 mb-2">
-              En punkt per rad. Fokusera på er styrka, typ av projekt ni gör bäst, bransch/kundsegment och vad som skiljer er från andra partners.
-            </p>
-            <Textarea
-              placeholder={`Erfarenhet av Finance & SCM i tillverkningsbolag\nProjekt i internationella miljöer\nFokus på komplex produktion`}
-              value={filter.keyPoints || ''}
-              onChange={(e) => updateProductFilter(productKey, { keyPoints: e.target.value })}
-              className="mt-2 min-h-[100px]"
-              required
-            />
-            <p className="text-xs text-muted-foreground mt-1">
-              Undvik “vi erbjuder” och generell företagsbeskrivning. Visas som punktlista på er produktflik.
-            </p>
-          </div>
+           {/* Landing page URL */}
+           <div>
+             <Label className="text-sm">Länk till sida om just denna lösning (valfritt)</Label>
+             <Input
+               type="url"
+               placeholder="https://erforetag.se/business-central"
+               value={filter.landingPageUrl || ''}
+               onChange={(e) => updateProductFilter(productKey, { landingPageUrl: e.target.value })}
+               className="mt-2"
+             />
+             <p className="text-xs text-muted-foreground mt-1">
+               Används som "Läs mer"-länk på er partnerprofil. Exempel: en Business Central-sida, F&SCM-sida eller CRM-sida.
+             </p>
+           </div>
+         </div>
+       )}
 
+       {/* Steg 2 – Varför välja er */}
+       {currentStep === 2 && (
+         <div className="space-y-4">
+           {/* Why choose us */}
+           <div>
+             <Label className="text-sm">
+               Varför välja er för {section.label}? <span className="text-destructive">*</span>
+             </Label>
+             <Textarea
+               placeholder="Beskriv konkret varför kunder bör välja er för denna produkt – t.ex. unik kompetens, leveransmodell, branscherfarenhet eller resultat."
+               value={filter.whyChoose || ''}
+               onChange={(e) => updateProductFilter(productKey, { whyChoose: e.target.value })}
+               className="mt-2 min-h-[100px]"
+               required
+             />
+             <p className="text-xs text-muted-foreground mt-1">Obligatoriskt. Visas högst upp på er produktflik på partnerprofilen.</p>
+           </div>
 
-  {/* Landing page URL for this product */}
-  <div>
-  <Label className="text-sm">Länk till sida om just denna lösning (valfritt)</Label>
-  <Input
-    type="url"
-    placeholder="https://erforetag.se/business-central"
-    value={filter.landingPageUrl || ''}
-    onChange={(e) => updateProductFilter(productKey, { landingPageUrl: e.target.value })}
-    className="mt-2"
-  />
-  <p className="text-xs text-muted-foreground mt-1">
-    Används som “Läs mer”-länk på er partnerprofil. Exempel: en Business Central-sida, F&SCM-sida eller CRM-sida.
-  </p>
-  </div>
+           {/* Key differentiators */}
+           <div>
+             <Label className="text-sm">
+               3–4 konkreta punkter om {section.label} <span className="text-destructive">*</span>
+             </Label>
+             <p className="text-xs text-muted-foreground mt-1 mb-2">
+               En punkt per rad. Fokusera på er styrka, typ av projekt ni gör bäst, bransch/kundsegment och vad som skiljer er från andra partners.
+             </p>
+             <Textarea
+               placeholder={`Erfarenhet av Finance & SCM i tillverkningsbolag\nProjekt i internationella miljöer\nFokus på komplex produktion`}
+               value={filter.keyPoints || ''}
+               onChange={(e) => updateProductFilter(productKey, { keyPoints: e.target.value })}
+               className="mt-2 min-h-[100px]"
+               required
+             />
+             <p className="text-xs text-muted-foreground mt-1">
+               Undvik "vi erbjuder" och generell företagsbeskrivning. Visas som punktlista på er produktflik.
+             </p>
+           </div>
 
- {/* Sales Contact for this product area */}
- <div className="rounded-lg border border-border p-3 space-y-3">
- <Label className="text-sm font-semibold">Säljkontakt för {section.label}</Label>
- <div className="grid sm:grid-cols-3 gap-3">
- <div>
- <Label className="text-xs text-muted-foreground">Namn</Label>
- <Input
- placeholder="Anna Svensson"
- value={filter.contactName || ''}
- onChange={(e) => updateProductFilter(productKey, { contactName: e.target.value })}
- className="mt-1"
- />
- </div>
- <div>
- <Label className="text-xs text-muted-foreground">E-post</Label>
- <Input
- type="email"
- placeholder="anna@foretag.se"
- value={filter.contactEmail || ''}
- onChange={(e) => updateProductFilter(productKey, { contactEmail: e.target.value })}
- className="mt-1"
- />
- </div>
- <div>
- <Label className="text-xs text-muted-foreground">Telefon</Label>
- <Input
- placeholder="070-123 45 67"
- value={filter.contactPhone || ''}
- onChange={(e) => updateProductFilter(productKey, { contactPhone: e.target.value })}
- className="mt-1"
- />
- </div>
- </div>
+           {/* AI & Automation */}
+           <div className="pt-4 border-t border-border">
+             <Label className="text-sm font-semibold">AI & AUTOMATION</Label>
+             <p className="text-xs text-muted-foreground mt-1 mb-3">
+               Denna information används för att visa er nivå inom AI och automatisering.<br />
+               Markera det ni faktiskt levererat – inte vad ni planerar.
+             </p>
 
- {/* Contact photo upload */}
- <div className="flex items-center gap-3 pt-2 border-t border-border/60">
- {filter.contactPhotoUrl ? (
- <img
- src={filter.contactPhotoUrl}
- alt="Säljkontakt foto"
- className="h-14 w-14 object-cover rounded border-2 border-border "
- />
- ) : (
- <div className="h-14 w-14 rounded bg-muted flex items-center justify-center border-2 border-dashed border-border">
- <ImageIcon className="h-5 w-5 text-muted-foreground" />
- </div>
- )}
- <div className="flex flex-col gap-2">
- <Label className="text-xs text-muted-foreground">Foto på säljkontakten (visas på partnerprofilen)</Label>
- <div className="flex gap-2">
- <input
- type="file"
- accept="image/jpeg,image/png,image/webp"
- id={`contact-photo-${productKey}`}
- className="hidden"
- onChange={(e) => handleProductContactPhotoUpload(productKey, e)}
- />
- <Button
- type="button"
- variant="outline"
- size="sm"
- disabled={uploadingProductPhoto === productKey}
- onClick={() => document.getElementById(`contact-photo-${productKey}`)?.click()}
- >
- <Upload className={`mr-2 h-4 w-4 ${uploadingProductPhoto === productKey ? "animate-spin" : ""}`} />
- {uploadingProductPhoto === productKey
- ? "Laddar upp..."
- : (filter.contactPhotoUrl ? "Byt foto" : "Ladda upp foto")}
- </Button>
- {filter.contactPhotoUrl && (
- <Button
- type="button"
- variant="ghost"
- size="sm"
- onClick={() => updateProductFilter(productKey, { contactPhotoUrl: '' })}
- >
- Ta bort
- </Button>
- )}
- </div>
- </div>
- </div>
- </div>
+             <div className="space-y-5">
+               {getAiOptionsForProduct(productKey).map((tierGroup) => (
+                 <div key={tierGroup.tierLabel}>
+                   <div className="flex items-center gap-2 mb-2">
+                     <span className="text-sm">{tierGroup.emoji}</span>
+                     <span className="text-xs font-bold uppercase tracking-wider text-foreground/70">{tierGroup.tierLabel}</span>
+                     <span className="text-xs text-muted-foreground ml-auto">({tierGroup.pointsLabel})</span>
+                   </div>
+                   <div className="space-y-2">
+                     {tierGroup.options.map((option) => (
+                       <label
+                         key={option.value}
+                         className={`flex items-start gap-3 p-3 rounded-lg border-2 cursor-pointer transition-all ${
+                           filter.aiCapabilities.includes(option.value)
+                             ? 'border-primary bg-primary/5'
+                             : 'border-border hover:border-primary/40'
+                         }`}
+                       >
+                         <Checkbox
+                           checked={filter.aiCapabilities.includes(option.value)}
+                           onCheckedChange={(checked) => {
+                             const current = filter.aiCapabilities;
+                             const updated = checked
+                               ? [...current, option.value]
+                               : current.filter(v => v !== option.value);
+                             updateProductFilter(productKey, { aiCapabilities: updated });
+                           }}
+                           className="mt-0.5"
+                         />
+                         <div>
+                           <span className="text-sm font-medium">{option.label}</span>
+                           {option.description && (
+                             <p className="text-xs text-muted-foreground mt-0.5">{option.description}</p>
+                           )}
+                         </div>
+                       </label>
+                     ))}
+                     {tierGroup.emoji === "🟡" && (
+                       <div className="mt-2">
+                         <Input
+                           placeholder="Annat – beskriv er egenutvecklade lösning"
+                           value={filter.aiOtherPartner}
+                           maxLength={200}
+                           onChange={(e) => updateProductFilter(productKey, { aiOtherPartner: e.target.value })}
+                           className="text-sm"
+                         />
+                       </div>
+                     )}
+                     {tierGroup.emoji === "🔴" && (
+                       <div className="mt-2">
+                         <Input
+                           placeholder="Annat – beskriv er avancerade AI-lösning"
+                           value={filter.aiOtherAdvanced}
+                           maxLength={200}
+                           onChange={(e) => updateProductFilter(productKey, { aiOtherAdvanced: e.target.value })}
+                           className="text-sm"
+                         />
+                       </div>
+                     )}
+                   </div>
+                 </div>
+               ))}
+             </div>
 
- {/* Industries */}
- <div>
- <div className="flex items-center justify-between mb-2">
- <Label className="text-sm">Branschfokus</Label>
- <span className={`text-xs font-medium px-2 py-0.5 rounded ${filter.industries.length > 0 ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`}>
- {filter.industries.length}/3
- </span>
- </div>
- <div className="flex flex-wrap gap-1.5">
- {INDUSTRY_OPTIONS.map((ind) => (
- <Badge
- key={ind}
- variant={filter.industries.includes(ind) ? "default" : "outline"}
- className="cursor-pointer text-xs"
- onClick={() => toggleProductIndustry(productKey, ind)}
- >
- {ind}
- </Badge>
- ))}
- </div>
- <p className="text-xs text-muted-foreground mt-2">Välj max 3 branscher ni fokuserar på för denna produkt</p>
- </div>
+             {filter.aiCapabilities.length > 0 && (
+               <div className="mt-4 ml-2 pl-4 border-l-2 border-primary/30 space-y-4">
+                 {filter.aiCapabilities.includes("sales-std-segmentation") && (
+                   <div className="p-3 rounded-lg border border-border bg-muted/30">
+                     <Label className="text-sm font-medium">Hur genomförs kundsegmenteringen?</Label>
+                     <div className="mt-2 space-y-2">
+                       {[
+                         { value: "ci-platform", label: "Använder Microsoft Customer Insights" },
+                         { value: "azure-ai", label: "Byggd med Azure AI" },
+                         { value: "external-data", label: "Integrerad med externa datakällor" },
+                       ].map((opt) => (
+                         <label key={opt.value} className="flex items-center gap-2 cursor-pointer">
+                           <Checkbox
+                             checked={filter.aiSegmentationDetails.includes(opt.value)}
+                             onCheckedChange={(checked) => {
+                               const current = filter.aiSegmentationDetails;
+                               const updated = checked
+                                 ? [...current, opt.value]
+                                 : current.filter(v => v !== opt.value);
+                               updateProductFilter(productKey, { aiSegmentationDetails: updated });
+                             }}
+                           />
+                           <span className="text-sm">{opt.label}</span>
+                         </label>
+                       ))}
+                     </div>
+                   </div>
+                 )}
 
-  {/* Customer Examples */}
-  <div>
-  <Label className="text-sm">Ange kunder ni har arbetat med inom denna lösning</Label>
-  <p className="text-xs text-muted-foreground mt-1">
-    Max 5–8 exempel räcker. Kända namn ökar förtroendet.
-  </p>
-  <Input
-    placeholder="Volvo, IKEA, Scania..."
-    value={(filter.customerExamples || []).join(', ')}
-    onChange={(e) => {
-      const raw = e.target.value;
-      const examples = raw.split(',').map(s => s.trim());
-      updateProductFilter(productKey, { customerExamples: examples });
-    }}
-    onBlur={() => {
-      const cleaned = (filter.customerExamples || []).filter(s => s.length > 0);
-      updateProductFilter(productKey, { customerExamples: cleaned });
-    }}
-    className="mt-2"
-  />
-  <p className="text-xs text-muted-foreground mt-1">
-    Om fältet lämnas tomt visas: “Kundexempel kan ges på förfrågan”.
-  </p>
-  </div>
+                 {filter.aiCapabilities.includes("svc-adv-predictive") && (
+                   <div className="p-3 rounded-lg border border-border bg-muted/30">
+                     <Label className="text-sm font-medium">Hur genomförs prediktivt underhåll?</Label>
+                     <div className="mt-2 space-y-2">
+                       {[
+                         { value: "iot-integrated", label: "Integrerat med IoT" },
+                         { value: "azure-ai-built", label: "Byggt med Azure AI" },
+                         { value: "standard-function", label: "Byggt med standardfunktion" },
+                       ].map((opt) => (
+                         <label key={opt.value} className="flex items-center gap-2 cursor-pointer">
+                           <Checkbox
+                             checked={filter.aiPredictiveDetails.includes(opt.value)}
+                             onCheckedChange={(checked) => {
+                               const current = filter.aiPredictiveDetails;
+                               const updated = checked
+                                 ? [...current, opt.value]
+                                 : current.filter(v => v !== opt.value);
+                               updateProductFilter(productKey, { aiPredictiveDetails: updated });
+                             }}
+                           />
+                           <span className="text-sm">{opt.label}</span>
+                         </label>
+                       ))}
+                     </div>
+                   </div>
+                 )}
+                 <div>
+                   <Label className="text-sm font-semibold">Antal AI-projekt</Label>
+                   <p className="text-xs text-muted-foreground mt-1 mb-2">
+                     Ange ungefärlig nivå senaste 24 månaderna.<br />
+                     Används för att ge kunder en bild av er praktiska erfarenhet.
+                   </p>
+                   <div className="mt-2 flex flex-wrap gap-2">
+                     {["0–2", "3–5", "6+"].map((option) => (
+                       <button
+                         key={option}
+                         type="button"
+                         onClick={() => updateProductFilter(productKey, { aiProjectCount: option })}
+                         className={`px-4 py-2 rounded-lg border-2 text-sm font-medium transition-all ${
+                           filter.aiProjectCount === option
+                             ? 'border-primary bg-primary text-primary-foreground'
+                             : 'border-border hover:border-primary/50'
+                         }`}
+                       >
+                         {option}
+                       </button>
+                     ))}
+                   </div>
+                 </div>
 
- {/* Customer Case Links */}
- <div>
- <Label className="text-sm">Länk till kundcase (vill ni stoltsera med kundcase, får ni gärna lägga in länken till dessa nedan)</Label>
- <Input
- placeholder="https://partner.se/kundcase1, https://partner.se/kundcase2"
- value={(filter.customerCaseLinks || []).join(', ')}
- onChange={(e) => {
- const raw = e.target.value;
- const links = raw.split(',').map(s => s.trim());
- updateProductFilter(productKey, { customerCaseLinks: links });
- }}
- onBlur={() => {
- const cleaned = (filter.customerCaseLinks || []).filter(s => s.length > 0);
- updateProductFilter(productKey, { customerCaseLinks: cleaned });
- }}
- className="mt-2"
- />
- <p className="text-xs text-muted-foreground mt-1">Separera flera länkar med komma</p>
- </div>
+                 <div>
+                   <Label className="text-sm">Kort beskrivning av ett AI-case (max 200 tecken)</Label>
+                   <Input
+                     placeholder="T.ex. 'Implementerade Copilot för att automatisera offertförslag inom tillverkningsindustrin'"
+                     value={filter.aiCaseDescription}
+                     maxLength={200}
+                     onChange={(e) => updateProductFilter(productKey, { aiCaseDescription: e.target.value })}
+                     className="mt-2"
+                   />
+                   <p className="text-xs text-muted-foreground mt-1">
+                     {filter.aiCaseDescription.length}/200 tecken
+                   </p>
+                 </div>
 
-  {/* Geography */}
-  <div>
-  <Label className="text-sm">Välj var ni levererar projekt</Label>
-  <p className="text-xs text-muted-foreground mb-2">Markera endast där ni faktiskt levererar projekt.</p>
-  <div className="flex flex-wrap gap-1.5">
- {GEOGRAPHY_OPTIONS.map((geo) => {
- const isSelected = (filter.geography || []).includes(geo);
- return (
- <Badge
- key={geo}
- variant={isSelected ? "default" : "outline"}
- className="cursor-pointer text-xs"
- onClick={() => {
- const current = filter.geography || [];
- const newGeo = isSelected
- ? getFilteredGeography(geo, current)
- : getCascadingGeography(geo, current);
- updateProductFilter(productKey, { geography: newGeo });
- }}
- >
- {geo}
- </Badge>
- );
- })}
- </div>
- </div>
- {/* Målgrupp – kundens storlek (frivilligt) */}
-  <div className="rounded-lg border border-border p-3 space-y-3 bg-muted/30">
-  <div>
-  <Label className="text-sm font-semibold">Välj de kundsegment ni oftast arbetar med</Label>
-  <p className="text-xs text-muted-foreground mt-1">
-    Inom respektive produktområde. Max 3 val per kategori. Detta används för matchning:
-  </p>
-  <div className="mt-2 rounded-md bg-background/70 border border-border/60 p-2 text-xs text-muted-foreground space-y-1">
-  <p>
-  <span className="font-medium text-foreground">Ju mer träffsäkert → desto bättre synlighet.</span>
-  </p>
-  <p>
-  <span className="font-medium text-foreground">Tips:</span>
-  </p>
-  <ul className="list-disc pl-4 space-y-0.5">
-  <li>Markera endast där ni har tydlig erfarenhet</li>
-  <li>Lämna tomt om ni arbetar brett</li>
-  </ul>
-  </div>
-  </div>
- <div>
- <div className="flex items-center justify-between">
- <Label className="text-xs text-muted-foreground">Antal anställda</Label>
- <span className={`text-xs font-medium px-2 py-0.5 rounded ${(filter.companySize?.length || 0) > 0 ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`}>
- {filter.companySize?.length || 0}/3
- </span>
- </div>
- <div className="flex flex-wrap gap-1.5 mt-1.5">
- {companySizes.map((size) => {
- const isSelected = (filter.companySize || []).includes(size);
- const atLimit = (filter.companySize?.length || 0) >= 3 && !isSelected;
- return (
- <Badge
- key={size}
- variant={isSelected ? "default" : "outline"}
- className={`text-xs ${atLimit ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}
- onClick={() => {
- const current = filter.companySize || [];
- if (!isSelected && current.length >= 3) {
- toast.error("Max 3 val för antal anställda");
- return;
- }
- const next = isSelected
- ? current.filter((s) => s !== size)
- : [...current, size];
- updateProductFilter(productKey, { companySize: next });
- }}
- >
- {size}
- </Badge>
- );
- })}
- </div>
- <p className="text-[11px] text-muted-foreground mt-1.5">
- Inget val = ni matchar kunder av alla storlekar.
- </p>
- </div>
- <div>
- <div className="flex items-center justify-between">
- <Label className="text-xs text-muted-foreground">Omsättning (MSEK)</Label>
- <span className={`text-xs font-medium px-2 py-0.5 rounded ${(filter.revenue?.length || 0) > 0 ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`}>
- {filter.revenue?.length || 0}/3
- </span>
- </div>
- <div className="flex flex-wrap gap-1.5 mt-1.5">
- {revenueOptions.map((rev) => {
- const isSelected = (filter.revenue || []).includes(rev);
- const atLimit = (filter.revenue?.length || 0) >= 3 && !isSelected;
- return (
- <Badge
- key={rev}
- variant={isSelected ? "default" : "outline"}
- className={`text-xs ${atLimit ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}
- onClick={() => {
- const current = filter.revenue || [];
- if (!isSelected && current.length >= 3) {
- toast.error("Max 3 val för omsättning");
- return;
- }
- const next = isSelected
- ? current.filter((r) => r !== rev)
- : [...current, rev];
- updateProductFilter(productKey, { revenue: next });
- }}
- >
- {rev}
- </Badge>
- );
- })}
- </div>
- <p className="text-[11px] text-muted-foreground mt-1.5">
- Inget val = ni matchar kunder oavsett omsättning.
- </p>
- </div>
- </div>
- {/* AI Capabilities - Product-specific tier system */}
- <div className="pt-4 border-t border-border">
-  <Label className="text-sm font-semibold">
-  AI & AUTOMATION
-  </Label>
-  <p className="text-xs text-muted-foreground mt-1 mb-3">
-  Denna information används för att visa er nivå inom AI och automatisering.<br />
-  Markera det ni faktiskt levererat – inte vad ni planerar.
-  </p>
- 
- <div className="space-y-5">
- {getAiOptionsForProduct(productKey).map((tierGroup) => (
- <div key={tierGroup.tierLabel}>
- <div className="flex items-center gap-2 mb-2">
- <span className="text-sm">{tierGroup.emoji}</span>
- <span className="text-xs font-bold uppercase tracking-wider text-foreground/70">{tierGroup.tierLabel}</span>
- <span className="text-xs text-muted-foreground ml-auto">({tierGroup.pointsLabel})</span>
- </div>
- <div className="space-y-2">
- {tierGroup.options.map((option) => (
- <label
- key={option.value}
- className={`flex items-start gap-3 p-3 rounded-lg border-2 cursor-pointer transition-all ${
- filter.aiCapabilities.includes(option.value)
- ? 'border-primary bg-primary/5'
- : 'border-border hover:border-primary/40'
- }`}
- >
- <Checkbox
- checked={filter.aiCapabilities.includes(option.value)}
- onCheckedChange={(checked) => {
- const current = filter.aiCapabilities;
- const updated = checked
- ? [...current, option.value]
- : current.filter(v => v !== option.value);
- updateProductFilter(productKey, { aiCapabilities: updated });
- }}
- className="mt-0.5"
- />
- <div>
- <span className="text-sm font-medium">{option.label}</span>
- {option.description && (
- <p className="text-xs text-muted-foreground mt-0.5">{option.description}</p>
- )}
- </div>
- </label>
- ))}
- {/* Free-text "Annat" field for 🟡 and 🔴 tiers */}
- {tierGroup.emoji === "🟡" && (
- <div className="mt-2">
- <Input
- placeholder="Annat – beskriv er egenutvecklade lösning"
- value={filter.aiOtherPartner}
- maxLength={200}
- onChange={(e) => updateProductFilter(productKey, { aiOtherPartner: e.target.value })}
- className="text-sm"
- />
- </div>
- )}
- {tierGroup.emoji === "🔴" && (
- <div className="mt-2">
- <Input
- placeholder="Annat – beskriv er avancerade AI-lösning"
- value={filter.aiOtherAdvanced}
- maxLength={200}
- onChange={(e) => updateProductFilter(productKey, { aiOtherAdvanced: e.target.value })}
- className="text-sm"
- />
- </div>
- )}
- </div>
- </div>
- ))}
- </div>
+                 {filter.aiCapabilities.some(c => c.includes('-adv-') || c === 'ai-advanced') && (
+                   <div className="p-3 rounded-lg border-2 border-red-200 dark:border-red-900/40 bg-red-50/50 dark:bg-red-950/20">
+                     <Label className="text-sm font-semibold flex items-center gap-1.5">
+                       🔴 Kravfält för Avancerad AI
+                     </Label>
+                     <p className="text-xs text-muted-foreground mt-1 mb-2">
+                       Beskriv kort vilken affärseffekt lösningen skapade
+                     </p>
+                     <Input
+                       placeholder="T.ex. 'Minskade lagerkostnader med 18% genom prediktiv efterfrågemodell för 12 produktionslinjer'"
+                       value={filter.aiBusinessImpact}
+                       maxLength={200}
+                       onChange={(e) => updateProductFilter(productKey, { aiBusinessImpact: e.target.value })}
+                     />
+                     <p className="text-xs text-muted-foreground mt-1">
+                       {filter.aiBusinessImpact.length}/200 tecken
+                     </p>
+                   </div>
+                 )}
+               </div>
+             )}
+           </div>
+         </div>
+       )}
 
- {/* Conditional follow-up questions - only show if any AI capability is selected */}
- {filter.aiCapabilities.length > 0 && (
- <div className="mt-4 ml-2 pl-4 border-l-2 border-primary/30 space-y-4">
- {/* Segmentation follow-up (Sales only) */}
- {filter.aiCapabilities.includes("sales-std-segmentation") && (
- <div className="p-3 rounded-lg border border-border bg-muted/30">
- <Label className="text-sm font-medium">Hur genomförs kundsegmenteringen?</Label>
- <div className="mt-2 space-y-2">
- {[
- { value: "ci-platform", label: "Använder Microsoft Customer Insights" },
- { value: "azure-ai", label: "Byggd med Azure AI" },
- { value: "external-data", label: "Integrerad med externa datakällor" },
- ].map((opt) => (
- <label key={opt.value} className="flex items-center gap-2 cursor-pointer">
- <Checkbox
- checked={filter.aiSegmentationDetails.includes(opt.value)}
- onCheckedChange={(checked) => {
- const current = filter.aiSegmentationDetails;
- const updated = checked
- ? [...current, opt.value]
- : current.filter(v => v !== opt.value);
- updateProductFilter(productKey, { aiSegmentationDetails: updated });
- }}
- />
- <span className="text-sm">{opt.label}</span>
- </label>
- ))}
- </div>
- </div>
- )}
+       {/* Steg 3 – Bransch & målgrupp */}
+       {currentStep === 3 && (
+         <div className="space-y-4">
+           {/* Industries */}
+           <div>
+             <div className="flex items-center justify-between mb-2">
+               <Label className="text-sm">Branschfokus</Label>
+               <span className={`text-xs font-medium px-2 py-0.5 rounded ${filter.industries.length > 0 ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`}>
+                 {filter.industries.length}/3
+               </span>
+             </div>
+             <div className="flex flex-wrap gap-1.5">
+               {INDUSTRY_OPTIONS.map((ind) => (
+                 <Badge
+                   key={ind}
+                   variant={filter.industries.includes(ind) ? "default" : "outline"}
+                   className="cursor-pointer text-xs"
+                   onClick={() => toggleProductIndustry(productKey, ind)}
+                 >
+                   {ind}
+                 </Badge>
+               ))}
+             </div>
+             <p className="text-xs text-muted-foreground mt-2">Välj max 3 branscher ni fokuserar på för denna produkt</p>
+           </div>
 
- {/* Predictive maintenance follow-up (Service only) */}
- {filter.aiCapabilities.includes("svc-adv-predictive") && (
- <div className="p-3 rounded-lg border border-border bg-muted/30">
- <Label className="text-sm font-medium">Hur genomförs prediktivt underhåll?</Label>
- <div className="mt-2 space-y-2">
- {[
- { value: "iot-integrated", label: "Integrerat med IoT" },
- { value: "azure-ai-built", label: "Byggt med Azure AI" },
- { value: "standard-function", label: "Byggt med standardfunktion" },
- ].map((opt) => (
- <label key={opt.value} className="flex items-center gap-2 cursor-pointer">
- <Checkbox
- checked={filter.aiPredictiveDetails.includes(opt.value)}
- onCheckedChange={(checked) => {
- const current = filter.aiPredictiveDetails;
- const updated = checked
- ? [...current, opt.value]
- : current.filter(v => v !== opt.value);
- updateProductFilter(productKey, { aiPredictiveDetails: updated });
- }}
- />
- <span className="text-sm">{opt.label}</span>
- </label>
- ))}
- </div>
- </div>
- )}
-  {/* AI Project Count */}
-  <div>
-  <Label className="text-sm font-semibold">Antal AI-projekt</Label>
-  <p className="text-xs text-muted-foreground mt-1 mb-2">
-  Ange ungefärlig nivå senaste 24 månaderna.<br />
-  Används för att ge kunder en bild av er praktiska erfarenhet.
-  </p>
- <div className="mt-2 flex flex-wrap gap-2">
- {["0–2", "3–5", "6+"].map((option) => (
- <button
- key={option}
- type="button"
- onClick={() => updateProductFilter(productKey, { aiProjectCount: option })}
- className={`px-4 py-2 rounded-lg border-2 text-sm font-medium transition-all ${
- filter.aiProjectCount === option
- ? 'border-primary bg-primary text-primary-foreground'
- : 'border-border hover:border-primary/50'
- }`}
- >
- {option}
- </button>
- ))}
- </div>
- </div>
+           {/* Geography */}
+           <div>
+             <Label className="text-sm">Välj var ni levererar projekt</Label>
+             <p className="text-xs text-muted-foreground mb-2">Markera endast där ni faktiskt levererar projekt.</p>
+             <div className="flex flex-wrap gap-1.5">
+               {GEOGRAPHY_OPTIONS.map((geo) => {
+                 const isSelected = (filter.geography || []).includes(geo);
+                 return (
+                   <Badge
+                     key={geo}
+                     variant={isSelected ? "default" : "outline"}
+                     className="cursor-pointer text-xs"
+                     onClick={() => {
+                       const current = filter.geography || [];
+                       const newGeo = isSelected
+                         ? getFilteredGeography(geo, current)
+                         : getCascadingGeography(geo, current);
+                       updateProductFilter(productKey, { geography: newGeo });
+                     }}
+                   >
+                     {geo}
+                   </Badge>
+                 );
+               })}
+             </div>
+           </div>
 
- {/* AI Case Description */}
- <div>
- <Label className="text-sm">Kort beskrivning av ett AI-case (max 200 tecken)</Label>
- <Input
- placeholder="T.ex. 'Implementerade Copilot för att automatisera offertförslag inom tillverkningsindustrin'"
- value={filter.aiCaseDescription}
- maxLength={200}
- onChange={(e) => updateProductFilter(productKey, { aiCaseDescription: e.target.value })}
- className="mt-2"
- />
- <p className="text-xs text-muted-foreground mt-1">
- {filter.aiCaseDescription.length}/200 tecken
- </p>
- </div>
+           {/* Målgrupp – kundens storlek */}
+           <div className="rounded-lg border border-border p-3 space-y-3 bg-muted/30">
+             <div>
+               <Label className="text-sm font-semibold">Välj de kundsegment ni oftast arbetar med</Label>
+               <p className="text-xs text-muted-foreground mt-1">
+                 Inom respektive produktområde. Max 3 val per kategori. Detta används för matchning:
+               </p>
+               <div className="mt-2 rounded-md bg-background/70 border border-border/60 p-2 text-xs text-muted-foreground space-y-1">
+                 <p>
+                   <span className="font-medium text-foreground">Ju mer träffsäkert → desto bättre synlighet.</span>
+                 </p>
+                 <p>
+                   <span className="font-medium text-foreground">Tips:</span>
+                 </p>
+                 <ul className="list-disc pl-4 space-y-0.5">
+                   <li>Markera endast där ni har tydlig erfarenhet</li>
+                   <li>Lämna tomt om ni arbetar brett</li>
+                 </ul>
+               </div>
+             </div>
+             <div>
+               <div className="flex items-center justify-between">
+                 <Label className="text-xs text-muted-foreground">Antal anställda</Label>
+                 <span className={`text-xs font-medium px-2 py-0.5 rounded ${(filter.companySize?.length || 0) > 0 ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`}>
+                   {filter.companySize?.length || 0}/3
+                 </span>
+               </div>
+               <div className="flex flex-wrap gap-1.5 mt-1.5">
+                 {companySizes.map((size) => {
+                   const isSelected = (filter.companySize || []).includes(size);
+                   const atLimit = (filter.companySize?.length || 0) >= 3 && !isSelected;
+                   return (
+                     <Badge
+                       key={size}
+                       variant={isSelected ? "default" : "outline"}
+                       className={`text-xs ${atLimit ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}
+                       onClick={() => {
+                         const current = filter.companySize || [];
+                         if (!isSelected && current.length >= 3) {
+                           toast.error("Max 3 val för antal anställda");
+                           return;
+                         }
+                         const next = isSelected
+                           ? current.filter((s) => s !== size)
+                           : [...current, size];
+                         updateProductFilter(productKey, { companySize: next });
+                       }}
+                     >
+                       {size}
+                     </Badge>
+                   );
+                 })}
+               </div>
+               <p className="text-[11px] text-muted-foreground mt-1.5">
+                 Inget val = ni matchar kunder av alla storlekar.
+               </p>
+             </div>
+             <div>
+               <div className="flex items-center justify-between">
+                 <Label className="text-xs text-muted-foreground">Omsättning (MSEK)</Label>
+                 <span className={`text-xs font-medium px-2 py-0.5 rounded ${(filter.revenue?.length || 0) > 0 ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`}>
+                   {filter.revenue?.length || 0}/3
+                 </span>
+               </div>
+               <div className="flex flex-wrap gap-1.5 mt-1.5">
+                 {revenueOptions.map((rev) => {
+                   const isSelected = (filter.revenue || []).includes(rev);
+                   const atLimit = (filter.revenue?.length || 0) >= 3 && !isSelected;
+                   return (
+                     <Badge
+                       key={rev}
+                       variant={isSelected ? "default" : "outline"}
+                       className={`text-xs ${atLimit ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}
+                       onClick={() => {
+                         const current = filter.revenue || [];
+                         if (!isSelected && current.length >= 3) {
+                           toast.error("Max 3 val för omsättning");
+                           return;
+                         }
+                         const next = isSelected
+                           ? current.filter((r) => r !== rev)
+                           : [...current, rev];
+                         updateProductFilter(productKey, { revenue: next });
+                       }}
+                     >
+                       {rev}
+                     </Badge>
+                   );
+                 })}
+               </div>
+               <p className="text-[11px] text-muted-foreground mt-1.5">
+                 Inget val = ni matchar kunder oavsett omsättning.
+               </p>
+             </div>
+           </div>
+         </div>
+       )}
 
- {/* Business Impact - only for advanced (🔴) selections */}
- {filter.aiCapabilities.some(c => c.includes('-adv-') || c === 'ai-advanced') && (
- <div className="p-3 rounded-lg border-2 border-red-200 dark:border-red-900/40 bg-red-50/50 dark:bg-red-950/20">
- <Label className="text-sm font-semibold flex items-center gap-1.5">
- 🔴 Kravfält för Avancerad AI
- </Label>
- <p className="text-xs text-muted-foreground mt-1 mb-2">
- Beskriv kort vilken affärseffekt lösningen skapade
- </p>
- <Input
- placeholder="T.ex. 'Minskade lagerkostnader med 18% genom prediktiv efterfrågemodell för 12 produktionslinjer'"
- value={filter.aiBusinessImpact}
- maxLength={200}
- onChange={(e) => updateProductFilter(productKey, { aiBusinessImpact: e.target.value })}
- />
- <p className="text-xs text-muted-foreground mt-1">
- {filter.aiBusinessImpact.length}/200 tecken
- </p>
- </div>
- )}
- </div>
- )}
- </div>
+       {/* Steg 4 – Case & kontakt */}
+       {currentStep === 4 && (
+         <div className="space-y-4">
+           {/* Säljkontakt */}
+           <div className="rounded-lg border border-border p-3 space-y-3">
+             <Label className="text-sm font-semibold">Säljkontakt för {section.label}</Label>
+             <div className="grid sm:grid-cols-3 gap-3">
+               <div>
+                 <Label className="text-xs text-muted-foreground">Namn</Label>
+                 <Input
+                   placeholder="Anna Svensson"
+                   value={filter.contactName || ''}
+                   onChange={(e) => updateProductFilter(productKey, { contactName: e.target.value })}
+                   className="mt-1"
+                 />
+               </div>
+               <div>
+                 <Label className="text-xs text-muted-foreground">E-post</Label>
+                 <Input
+                   type="email"
+                   placeholder="anna@foretag.se"
+                   value={filter.contactEmail || ''}
+                   onChange={(e) => updateProductFilter(productKey, { contactEmail: e.target.value })}
+                   className="mt-1"
+                 />
+               </div>
+               <div>
+                 <Label className="text-xs text-muted-foreground">Telefon</Label>
+                 <Input
+                   placeholder="070-123 45 67"
+                   value={filter.contactPhone || ''}
+                   onChange={(e) => updateProductFilter(productKey, { contactPhone: e.target.value })}
+                   className="mt-1"
+                 />
+               </div>
+             </div>
+
+             <div className="flex items-center gap-3 pt-2 border-t border-border/60">
+               {filter.contactPhotoUrl ? (
+                 <img
+                   src={filter.contactPhotoUrl}
+                   alt="Säljkontakt foto"
+                   className="h-14 w-14 object-cover rounded border-2 border-border "
+                 />
+               ) : (
+                 <div className="h-14 w-14 rounded bg-muted flex items-center justify-center border-2 border-dashed border-border">
+                   <ImageIcon className="h-5 w-5 text-muted-foreground" />
+                 </div>
+               )}
+               <div className="flex flex-col gap-2">
+                 <Label className="text-xs text-muted-foreground">Foto på säljkontakten (visas på partnerprofilen)</Label>
+                 <div className="flex gap-2">
+                   <input
+                     type="file"
+                     accept="image/jpeg,image/png,image/webp"
+                     id={`contact-photo-${productKey}`}
+                     className="hidden"
+                     onChange={(e) => handleProductContactPhotoUpload(productKey, e)}
+                   />
+                   <Button
+                     type="button"
+                     variant="outline"
+                     size="sm"
+                     disabled={uploadingProductPhoto === productKey}
+                     onClick={() => document.getElementById(`contact-photo-${productKey}`)?.click()}
+                   >
+                     <Upload className={`mr-2 h-4 w-4 ${uploadingProductPhoto === productKey ? "animate-spin" : ""}`} />
+                     {uploadingProductPhoto === productKey
+                       ? "Laddar upp..."
+                       : (filter.contactPhotoUrl ? "Byt foto" : "Ladda upp foto")}
+                   </Button>
+                   {filter.contactPhotoUrl && (
+                     <Button
+                       type="button"
+                       variant="ghost"
+                       size="sm"
+                       onClick={() => updateProductFilter(productKey, { contactPhotoUrl: '' })}
+                     >
+                       Ta bort
+                     </Button>
+                   )}
+                 </div>
+               </div>
+             </div>
+           </div>
+
+           {/* Customer Examples */}
+           <div>
+             <Label className="text-sm">Ange kunder ni har arbetat med inom denna lösning</Label>
+             <p className="text-xs text-muted-foreground mt-1">
+               Max 5–8 exempel räcker. Kända namn ökar förtroendet.
+             </p>
+             <Input
+               placeholder="Volvo, IKEA, Scania..."
+               value={(filter.customerExamples || []).join(', ')}
+               onChange={(e) => {
+                 const raw = e.target.value;
+                 const examples = raw.split(',').map(s => s.trim());
+                 updateProductFilter(productKey, { customerExamples: examples });
+               }}
+               onBlur={() => {
+                 const cleaned = (filter.customerExamples || []).filter(s => s.length > 0);
+                 updateProductFilter(productKey, { customerExamples: cleaned });
+               }}
+               className="mt-2"
+             />
+             <p className="text-xs text-muted-foreground mt-1">
+               Om fältet lämnas tomt visas: "Kundexempel kan ges på förfrågan".
+             </p>
+           </div>
+
+           {/* Customer Case Links */}
+           <div>
+             <Label className="text-sm">Länk till kundcase (vill ni stoltsera med kundcase, får ni gärna lägga in länken till dessa nedan)</Label>
+             <Input
+               placeholder="https://partner.se/kundcase1, https://partner.se/kundcase2"
+               value={(filter.customerCaseLinks || []).join(', ')}
+               onChange={(e) => {
+                 const raw = e.target.value;
+                 const links = raw.split(',').map(s => s.trim());
+                 updateProductFilter(productKey, { customerCaseLinks: links });
+               }}
+               onBlur={() => {
+                 const cleaned = (filter.customerCaseLinks || []).filter(s => s.length > 0);
+                 updateProductFilter(productKey, { customerCaseLinks: cleaned });
+               }}
+               className="mt-2"
+             />
+             <p className="text-xs text-muted-foreground mt-1">Separera flera länkar med komma</p>
+           </div>
+         </div>
+       )}
+
+       {/* Nav */}
+       <div className="flex items-center justify-between pt-4 mt-4 border-t border-border">
+         <Button
+           type="button"
+           variant="ghost"
+           size="sm"
+           disabled={currentStep === 1}
+           onClick={() => setStepFor(productKey, currentStep - 1)}
+         >
+           <ChevronLeft className="mr-1 h-4 w-4" /> Föregående
+         </Button>
+         <span className="text-xs text-muted-foreground">Steg {currentStep} av 4 – {PRODUCT_STEP_LABELS[currentStep - 1]}</span>
+         <Button
+           type="button"
+           size="sm"
+           disabled={currentStep === 4}
+           onClick={() => setStepFor(productKey, currentStep + 1)}
+         >
+           Nästa <ChevronRight className="ml-1 h-4 w-4" />
+         </Button>
+       </div>
+     </>
+   );
+ })()}
  </CardContent>
  </Card>
  );
