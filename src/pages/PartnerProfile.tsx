@@ -447,7 +447,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  backgroundSize: '50px 50px'
  }} />
  
-  <div className="relative container mx-auto px-4 sm:px-6 py-4 sm:py-6">
+  <div className="relative container mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-4 sm:pb-6">
   <button
   onClick={() => window.history.back()}
   className="inline-flex items-center text-slate-500 hover:text-slate-800 transition-colors mb-3 group text-sm font-medium bg-slate-200/50 px-3 py-1.5 rounded border border-slate-200"
