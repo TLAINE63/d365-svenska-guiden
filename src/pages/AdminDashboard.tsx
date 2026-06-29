@@ -2425,8 +2425,7 @@ Thomas`,
  onClick={() => setPartnerStatusFilter(key as typeof partnerStatusFilter)}
  className={`group inline-flex items-center gap-1.5 h-7 px-2.5 rounded border text-xs font-medium transition-all ${active ? tones.active + ' ' : tones.idle}`}
  >
- {Icon && <Icon className="h-3 w-3" strokeWidth={2} />}
- {label}
+                {label}
  <span className={`inline-flex items-center justify-center min-w-[1.25rem] h-4 px-1 rounded text-[10px] font-semibold ${tones.badge}`}>
  {count}
  </span>
@@ -2478,24 +2477,12 @@ Thomas`,
  ) : (
  <>
  {(() => {
- const filtered = fullPartners.filter(p => {
- if (partnerStatusFilter === 'all') return true;
- if (partnerStatusFilter === 'published') return p.is_featured;
- if (partnerStatusFilter === 'invited_unpublished') return !p.is_featured && everInvitedPartnerIds.has(p.id);
- if (partnerStatusFilter === 'not_invited') return !p.is_featured && !everInvitedPartnerIds.has(p.id);
- if (partnerStatusFilter === 'agreement_signed') return !!(p as any).agreement_signed;
- if (partnerStatusFilter === 'billable') {
- const pp = p as any;
- if (!pp.agreement_signed) return false;
- const today = new Date().toISOString().slice(0, 10);
- if (pp.activation_date && pp.activation_date > today) return false;
- if (pp.cancellation_date && pp.cancellation_date <= today) return false;
- return true;
- }
- if (partnerStatusFilter === 'has_email') return !!(p.admin_contact_email || p.email);
- if (partnerStatusFilter === 'missing_email') return !(p.admin_contact_email || p.email);
- return true;
- });
+              const filtered = fullPartners.filter(p => {
+                if (partnerStatusFilter === 'all') return true;
+                if (partnerStatusFilter === 'published') return p.is_featured;
+                if (partnerStatusFilter === 'unpublished') return !p.is_featured;
+                return true;
+              });
  const selectable = filtered;
  
  if (selectable.length === 0) return null;
@@ -2535,16 +2522,12 @@ Thomas`,
  })()}
  <div className="grid gap-4">
  {[...fullPartners]
- .filter(p => {
- if (partnerStatusFilter === 'all') return true;
- if (partnerStatusFilter === 'published') return p.is_featured;
- if (partnerStatusFilter === 'invited_unpublished') return !p.is_featured && everInvitedPartnerIds.has(p.id);
- if (partnerStatusFilter === 'not_invited') return !p.is_featured && !everInvitedPartnerIds.has(p.id);
- if (partnerStatusFilter === 'agreement_signed') return !!(p as any).agreement_signed;
- if (partnerStatusFilter === 'has_email') return !!(p.admin_contact_email || p.email);
- if (partnerStatusFilter === 'missing_email') return !(p.admin_contact_email || p.email);
- return true;
- })
+            .filter(p => {
+              if (partnerStatusFilter === 'all') return true;
+              if (partnerStatusFilter === 'published') return p.is_featured;
+              if (partnerStatusFilter === 'unpublished') return !p.is_featured;
+              return true;
+            })
  .sort((a, b) => {
  if (partnerSortBy === 'updated_at') {
  const diff = new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime();
