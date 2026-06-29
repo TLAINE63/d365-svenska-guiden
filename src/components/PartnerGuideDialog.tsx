@@ -178,7 +178,7 @@ const marketOptions = [
   { value: "Sverige", label: "Sverige" },
   { value: "Norden", label: "Norden" },
   { value: "Europa", label: "Europa" },
-  { value: "Övriga världen", label: "Övriga världen" }
+  { value: "Globalt", label: "Globalt" }
 ];
 
 const sizeOptions = [
@@ -236,7 +236,7 @@ const matchesDbProductFilter = (
   
   if (geography) {
     const partnerGeo = Array.isArray(productFilter.geography) ? productFilter.geography : (productFilter.geography ? [productFilter.geography] : ["Sverige"]);
-    const geographyHierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
+    const geographyHierarchy = ["Sverige", "Norden", "Europa", "Globalt", "Internationellt"];
     const selectedGeoIndex = geographyHierarchy.indexOf(geography);
     const maxPartnerGeoIndex = Math.max(...partnerGeo.map((g: string) => geographyHierarchy.indexOf(g)));
     if (maxPartnerGeoIndex < selectedGeoIndex) {
@@ -380,9 +380,9 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
     // Step 1: strict filter (product + industry + geography all enforced)
     let matchingPartners = filterPartners(false);
 
-    // Step 2: relax ONLY geography if < MIN_RESULTS (skip for "Övriga världen")
+    // Step 2: relax ONLY geography if < MIN_RESULTS (skip for "Globalt")
     // Produkt och bransch förblir låsta även här.
-    if (matchingPartners.length < MIN_RESULTS && selectedMarket !== "Övriga världen") {
+    if (matchingPartners.length < MIN_RESULTS && selectedMarket !== "Globalt") {
       matchingPartners = filterPartners(true);
     }
 
@@ -444,7 +444,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
               productKey,
               industry: selectedIndustry,
               geography: selectedMarket,
-              customCountries: selectedMarket === "Övriga världen" && customCountries ? customCountries : undefined,
+              customCountries: selectedMarket === "Globalt" && customCountries ? customCountries : undefined,
               companySize: selectedSize,
               workload: selectedWorkload || undefined,
               preferCrmOnly: isCrmSpecialistApp,

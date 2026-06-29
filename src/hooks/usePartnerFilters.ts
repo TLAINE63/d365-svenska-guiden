@@ -76,7 +76,7 @@ export const matchesDatabaseProductFilter = (
   
   // Check geography match (hierarchical: Sverige < Norden < Europa < Övriga världen)
   if (selectedGeography) {
-    const geographyHierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
+    const geographyHierarchy = ["Sverige", "Norden", "Europa", "Globalt", "Internationellt"];
     
     // Read geography from product filter, not top-level partner.geography
     const pfGeo = productFilter.geography;

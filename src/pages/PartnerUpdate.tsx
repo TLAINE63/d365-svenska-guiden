@@ -87,7 +87,7 @@ const GEOGRAPHY_OPTIONS = [
  "Sverige",
  "Norden",
  "Europa",
- "Övriga världen",
+ "Globalt",
 ];
 
 

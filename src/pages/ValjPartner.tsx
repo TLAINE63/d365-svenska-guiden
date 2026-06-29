@@ -93,7 +93,7 @@ const geographyFilters = [
  { label: "Sverige", value: "Sverige" },
  { label: "Norden", value: "Norden" },
  { label: "Europa", value: "Europa" },
- { label: "Övriga världen", value: "Övriga världen" }
+ { label: "Globalt", value: "Globalt" }
 ];
 
 // Helper function to convert company sizes to readable categories
@@ -179,7 +179,7 @@ const matchesDbProductFilter = (
  // Check geography filter with hierarchy
  if (geography) {
  const partnerGeo = Array.isArray(productFilter.geography) ? productFilter.geography : (productFilter.geography ? [productFilter.geography] : ["Sverige"]);
- const geographyHierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
+ const geographyHierarchy = ["Sverige", "Norden", "Europa", "Globalt", "Internationellt"];
  const selectedGeoIndex = geographyHierarchy.indexOf(geography);
  const maxPartnerGeoIndex = Math.max(...partnerGeo.map(g => geographyHierarchy.indexOf(g)));
  if (maxPartnerGeoIndex < selectedGeoIndex) {
@@ -379,7 +379,7 @@ const ValjPartner = () => {
  }
  
  if (selectedGeography) {
- const geographyHierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
+ const geographyHierarchy = ["Sverige", "Norden", "Europa", "Globalt", "Internationellt"];
  const selectedGeoIndex = geographyHierarchy.indexOf(selectedGeography);
  result = result.filter(partner => {
  // Check geography in any product filter - geography is now an array

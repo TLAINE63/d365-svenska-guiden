@@ -260,12 +260,12 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  const getGeographyForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string[] => {
  const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
  
- // Valid geography values in display order - "Internationellt" should be mapped to "Övriga världen"
- const geographyOrder = ["Sverige", "Norden", "Europa", "Övriga världen"];
+ // Valid geography values in display order - "Internationellt" should be mapped to "Globalt"
+ const geographyOrder = ["Sverige", "Norden", "Europa", "Globalt"];
  
  const normalizeAndSortGeography = (geoArray: string[]): string[] => {
  const normalized = geoArray.map(geo => 
- geo === "Internationellt" ? "Övriga världen" : geo
+ geo === "Internationellt" ? "Globalt" : geo
  );
  // Find the broadest geography level and include all levels up to it
  const maxIndex = Math.max(...normalized.map(geo => geographyOrder.indexOf(geo)).filter(i => i >= 0));
