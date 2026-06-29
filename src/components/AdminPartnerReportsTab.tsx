@@ -316,6 +316,10 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
             {busy === "generate" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
             <span className="ml-2">Generera utkast (förra månaden)</span>
           </Button>
+          <Button variant="outline" size="sm" onClick={sendSelectedForApproval} disabled={selected.size === 0 || busy === "approval"}>
+            {busy === "approval" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Eye className="h-4 w-4" />}
+            <span className="ml-2">Skicka markerade till mig för godkännande</span>
+          </Button>
           <Button size="sm" onClick={sendSelected} disabled={selected.size === 0 || busy === "send"}>
             {busy === "send" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
             <span className="ml-2">Skicka markerade ({selected.size})</span>
