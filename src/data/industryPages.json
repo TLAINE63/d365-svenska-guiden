@@ -952,7 +952,7 @@
     "applications": [
       {
         "app": "Business Central",
-        "relevance": "Passar mindre och medelstora företag inom jordbruk och skogsbruk för att hantera ekonomi, inköp, försäljning, lager och projekt."
+        "relevance": "Passar små och medelstora företag inom jordbruk och skogsbruk för att hantera ekonomi, inköp, försäljning, lager och projekt."
       },
       {
         "app": "Finance & Supply Chain",
@@ -1273,7 +1273,7 @@
         "q": "Hur hanterar Dynamics 365 spårbarhet för UDI och batcher?"
       },
       {
-        "a": "Valet beror på företagets storlek, komplexitet och tillväxtplaner. Business Central är en allt-i-ett-lösning som passar utmärkt för mindre och medelstora företag. Finance & Supply Chain riktar sig till större, ofta internationella, företag med mer komplexa krav inom tillverkning, ekonomi och logistik.",
+        "a": "Valet beror på företagets storlek, komplexitet och tillväxtplaner. Business Central är en allt-i-ett-lösning som passar utmärkt för små och medelstora företag. Finance & Supply Chain riktar sig till större, ofta internationella, företag med mer komplexa krav inom tillverkning, ekonomi och logistik.",
         "q": "Passar Business Central eller Finance & Supply Chain bäst för oss?"
       },
       {
@@ -1392,7 +1392,7 @@
       },
       {
         "app": "Business Central",
-        "relevance": "En heltäckande affärssystemslösning för mindre och medelstora företag som behöver stöd för ekonomi, tillverkning, lager och försäljning i en och samma applikation."
+        "relevance": "En heltäckande affärssystemslösning för små och medelstora företag som behöver stöd för ekonomi, tillverkning, lager och försäljning i en och samma applikation."
       },
       {
         "app": "Sales",
@@ -1524,7 +1524,7 @@
       },
       {
         "app": "Business Central",
-        "relevance": "Passar mindre och medelstora företag som behöver en allt-i-ett-lösning för ekonomi, order och enklare lagerhantering."
+        "relevance": "Passar små och medelstora företag som behöver en allt-i-ett-lösning för ekonomi, order och enklare lagerhantering."
       },
       {
         "app": "Field Service",
@@ -1693,7 +1693,7 @@
         "q": "Kan vi få en samlad bild av våra kunder över både print och digitala kanaler?"
       },
       {
-        "a": "Dynamics 365 Business Central är specifikt utformat för mindre och medelstora företag. Det erbjuder en komplett affärssystemlösning som kan anpassas efter verksamhetens storlek och komplexitet, och kan skalas upp i takt med att företaget växer.",
+        "a": "Dynamics 365 Business Central är specifikt utformat för små och medelstora företag. Det erbjuder en komplett affärssystemlösning som kan anpassas efter verksamhetens storlek och komplexitet, och kan skalas upp i takt med att företaget växer.",
         "q": "Vi är ett mindre förlag. Är Dynamics 365 för stort för oss?"
       }
     ],
@@ -2400,7 +2400,7 @@
       },
       {
         "app": "Business Central",
-        "relevance": "Är en allt-i-ett-lösning för mindre och medelstora företag som behöver en kombination av ekonomi, lager, inköp och försäljning i ett och samma system."
+        "relevance": "Är en allt-i-ett-lösning för små och medelstora företag som behöver en kombination av ekonomi, lager, inköp och försäljning i ett och samma system."
       },
       {
         "app": "Customer Insights",
@@ -2589,7 +2589,7 @@
         "q": "Kan systemet hantera både projekt och löpande serviceavtal?"
       },
       {
-        "a": "Valet beror på företagets storlek, komplexitet och internationella närvaro. Business Central är ofta ett bra val för mindre och medelstora företag som vill ha en bred, samlad lösning. Finance & Supply Chain riktar sig till större eller mer komplexa organisationer med avancerade krav på ekonomi, logistik, projektredovisning och verksamhet i flera länder.",
+        "a": "Valet beror på företagets storlek, komplexitet och internationella närvaro. Business Central är ofta ett bra val för små och medelstora företag som vill ha en bred, samlad lösning. Finance & Supply Chain riktar sig till större eller mer komplexa organisationer med avancerade krav på ekonomi, logistik, projektredovisning och verksamhet i flera länder.",
         "q": "Vilken ERP-lösning passar oss bäst, Business Central eller Finance & Supply Chain?"
       },
       {
