@@ -2572,18 +2572,30 @@ Thomas`,
  <div>
  <h3 className="font-semibold flex items-center gap-2">
  {partner.name}
- {partner.is_featured && (
- <Badge className="text-xs bg-emerald-600 hover:bg-emerald-700 text-white">✓ Publicerad</Badge>
- )}
- {(partner as any).agreement_signed && (
- <Badge
- className="text-xs bg-emerald-700 hover:bg-emerald-800 text-white"
- title={(partner as any).agreement_notes || "Avtal tecknat"}
- >
- <Award className="h-3 w-3 mr-1" />
- Avtal tecknat
- </Badge>
- )}
+                {partner.is_featured && (
+                  <Badge className="text-xs bg-emerald-600 hover:bg-emerald-700 text-white">
+                    ✓ Publicerad
+                    {partner.updated_at && (
+                      <span className="ml-1 font-normal opacity-90">
+                        • {new Date(partner.updated_at).toLocaleDateString('sv-SE').replace(/-/g, '/')}
+                      </span>
+                    )}
+                  </Badge>
+                )}
+                {(partner as any).agreement_signed && (
+                  <Badge
+                    className="text-xs bg-emerald-700 hover:bg-emerald-800 text-white"
+                    title={(partner as any).agreement_notes || "Avtal tecknat"}
+                  >
+                    <Award className="h-3 w-3 mr-1" />
+                    Avtal tecknat
+                    {partner.updated_at && (
+                      <span className="ml-1 font-normal opacity-90">
+                        • {new Date(partner.updated_at).toLocaleDateString('sv-SE').replace(/-/g, '/')}
+                      </span>
+                    )}
+                  </Badge>
+                )}
               {/* Invitation/agreement/email history intentionally hidden in list view */}
  </h3>
  <p className="text-sm text-muted-foreground line-clamp-1">
