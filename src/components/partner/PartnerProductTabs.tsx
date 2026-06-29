@@ -230,6 +230,9 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
   return {
     industries: fallbackIndustries,
     geography,
+    companySize,
+    revenue,
+
     customerExamples,
     customerCaseLinks,
     productDescription,
