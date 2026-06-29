@@ -16,6 +16,20 @@ import { INDUSTRY_TO_ARTICLE_SLUG } from "@/data/branschguideIndustryMap";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ArrowRight, Briefcase, Users, AlertTriangle, Layers, HelpCircle, Filter, Building2, Sparkles } from "lucide-react";
+import { FilterButtons } from "@/components/FilterButtons";
+import { companySizes, geographyOptions } from "@/data/partners";
+
+const GEOGRAPHY_HIERARCHY = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
+const matchesGeography = (partnerGeos: string | string[] | undefined, selected: string): boolean => {
+  const geos = Array.isArray(partnerGeos) && partnerGeos.length > 0
+    ? partnerGeos
+    : typeof partnerGeos === "string" && partnerGeos
+    ? [partnerGeos]
+    : ["Sverige"];
+  const selectedIndex = GEOGRAPHY_HIERARCHY.indexOf(selected);
+  if (selectedIndex === -1) return false;
+  return geos.some((geo) => GEOGRAPHY_HIERARCHY.indexOf(geo) >= selectedIndex);
+};
 
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral.svg";
 import FinanceIcon from "@/assets/icons/Finance.svg";
@@ -124,6 +138,8 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  // Prefer live data after hydration; fall back to SSR-injected partners
  const partners = partnersLive ?? initialPartners ?? undefined;
  const [selected, setSelected] = useState<FilterKey[]>([]);
+ const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
+ const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
 
  const industryName = page?.name || meta?.name || "Bransch";
  const heroImage = slug ? INDUSTRY_IMAGES[slug] : undefined;
@@ -136,23 +152,41 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  const underlyingSelected = Array.from(
  new Set(selected.map((k) => FILTER_TO_UNDERLYING[k])),
  );
+ const productKeysToCheck: UnderlyingKey[] =
+ underlyingSelected.length > 0 ? underlyingSelected : ["bc", "fsc", "sales", "service"];
+
  const filtered = partners.filter((p: any) => {
- // Om produktfilter är valt: matcha bara branschen inom de valda produkterna
- if (underlyingSelected.length > 0) {
  const pf = p.product_filters || {};
- return underlyingSelected.some((k) => {
+ // Bransch måste matcha (inom valda produkter om filter satt, annars valfri källa)
+ const industryMatch =
+ underlyingSelected.length > 0
+ ? underlyingSelected.some((k) => {
  const inds = pf[k]?.industries || [];
  const sec = pf[k]?.secondaryIndustries || [];
  return inds.includes(industryName) || sec.includes(industryName);
+ })
+ : collectPartnerIndustries(p).has(industryName);
+ if (!industryMatch) return false;
+
+ // Geografi/storlek: kräver att MINST EN produkt (av de relevanta) uppfyller filtren
+ if (selectedGeography || selectedCompanySize) {
+ return productKeysToCheck.some((k) => {
+ const f = pf[k];
+ if (!f) return false;
+ const inds = f.industries || [];
+ const sec = f.secondaryIndustries || [];
+ if (!inds.includes(industryName) && !sec.includes(industryName)) return false;
+ if (selectedGeography && !matchesGeography(f.geography, selectedGeography)) return false;
+ if (selectedCompanySize && !(f.companySize || []).includes(selectedCompanySize)) return false;
+ return true;
  });
  }
- // Annars: matcha mot alla branschkällor (samma logik som översikten)
- return collectPartnerIndustries(p).has(industryName);
+ return true;
  });
 
- const seed = hashString(`${slug}-${selected.join(",")}`);
+ const seed = hashString(`${slug}-${selected.join(",")}-${selectedGeography || ""}-${selectedCompanySize || ""}`);
  return seededShuffle(filtered, seed);
- }, [partners, meta, selected, slug]);
+ }, [partners, meta, selected, slug, selectedGeography, selectedCompanySize]);
 
  if (!loading && !page) {
  return (
@@ -441,7 +475,30 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  </button>
  );
  })}
+  </div>
  </div>
+
+ <div className="mb-6 rounded-lg border border-border bg-background p-4">
+ <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground uppercase tracking-wide mb-3">
+ <Filter className="w-3.5 h-3.5" />
+ Filtrera ytterligare – geografi och företagsstorlek
+ </div>
+ <FilterButtons
+ title="Geografi"
+ icon="geography"
+ options={geographyOptions.map((g) => ({ label: g, value: g }))}
+ selectedValue={selectedGeography}
+ onSelect={setSelectedGeography}
+ colorScheme="primary"
+ />
+ <FilterButtons
+ title="Företagsstorlek – antal anställda"
+ icon="employees"
+ options={companySizes.map((s) => ({ label: s, value: s }))}
+ selectedValue={selectedCompanySize}
+ onSelect={setSelectedCompanySize}
+ colorScheme="primary"
+ />
  </div>
 
  {matchingPartners.length === 0 ? (
