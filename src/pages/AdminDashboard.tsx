@@ -2397,9 +2397,6 @@ Thomas`,
  </DropdownMenu>
  )}
  </div>
- <p className="text-sm text-muted-foreground">
- {fullPartners.length} partners i databasen
- </p>
 <div className="flex flex-wrap items-center gap-x-4 gap-y-2 p-2.5 rounded-md bg-slate-50 border border-slate-200">
   <div className="flex flex-wrap items-center gap-1.5">
     <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 pr-1">Snabbfilter</span>
