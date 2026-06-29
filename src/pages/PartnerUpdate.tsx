@@ -1370,7 +1370,23 @@ const PartnerUpdate = () => {
  className="mt-2"
  />
  <p className="text-xs text-muted-foreground mt-1">Beskriv ert fokus och expertis för denna produkt (max ~100 tecken)</p>
- </div>
+          </div>
+
+          {/* Why choose us for this product */}
+          <div>
+            <Label className="text-sm">
+              Varför välja er för {section.label}? <span className="text-destructive">*</span>
+            </Label>
+            <Textarea
+              placeholder="Beskriv konkret varför kunder bör välja er för denna produkt – t.ex. unik kompetens, leveransmodell, branscherfarenhet eller resultat."
+              value={filter.whyChoose || ''}
+              onChange={(e) => updateProductFilter(productKey, { whyChoose: e.target.value })}
+              className="mt-2 min-h-[100px]"
+              required
+            />
+            <p className="text-xs text-muted-foreground mt-1">Obligatoriskt. Visas högst upp på er produktflik på partnerprofilen.</p>
+          </div>
+
 
  {/* Landing page URL for this product */}
  <div>
