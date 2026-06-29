@@ -235,7 +235,6 @@ const Index = () => {
                   👉 Få en lista med partners som matchar er verksamhet – på under en minut
                 </p>
               </div>
-              </div>
 
               {/* 4-step filter hint */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 w-full">
