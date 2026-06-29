@@ -562,30 +562,6 @@ const Index = () => {
        </p>
      </div>
 
-     <h2 className="text-xl sm:text-2xl font-bold text-foreground leading-tight mt-10 mb-4">
-       Så väljer du rätt Microsoft-partner
-     </h2>
-     <ol className="space-y-3 text-[15px] sm:text-base text-foreground/85 leading-relaxed max-w-[68ch] list-decimal pl-5">
-       <li>
-         Börja med behovet — använd vår{" "}
-         <Link to="/ERPbehovsanalys/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">behovsanalys</Link>{" "}
-         för att klargöra omfattning och prioriteringar.
-       </li>
-       <li>
-         Förstå er bransch på djupet via{" "}
-         <Link to="/branscher/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">branschguiderna</Link>.
-       </li>
-       <li>
-         Generera en{" "}
-         <Link to="/kravspecifikation/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">kravspecifikation</Link>{" "}
-         som strukturerat beslutsunderlag inför partnerdialog.
-       </li>
-       <li>
-         Jämför{" "}
-         <Link to="/valjdynamics365partner/" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">Microsoft Dynamics 365-partners</Link>{" "}
-         på bransch, storlek och leveransförmåga — inte på pitch.
-       </li>
-     </ol>
    </div>
  </section>
 
