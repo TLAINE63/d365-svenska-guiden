@@ -100,10 +100,11 @@ interface ProductFilter {
  revenue?: string[];
  ranking: number;
  customerExamples: string[];
- customerCaseLinks: string[];
+  customerCaseLinks: string[];
   productDescription: string;
   whyChoose: string;
- // AI capability fields
+  keyPoints: string;
+  // AI capability fields
  aiCapabilities: string[];
  aiProjectCount: string;
  hasBuiltAgents: boolean | null;
