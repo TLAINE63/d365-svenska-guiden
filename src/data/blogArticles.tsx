@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import IndustryPartnerListInline from "@/components/IndustryPartnerListInline";
 import aiErpRiskbildHero from "@/assets/articles/ai-erp-riskbild-hero.jpg";
 import partnervaletAvgorHero from "@/assets/articles/partnervalet-avgor-hero.jpg";
 import ownedIntelligenceHero from "@/assets/articles/owned-intelligence-hero.jpg";
