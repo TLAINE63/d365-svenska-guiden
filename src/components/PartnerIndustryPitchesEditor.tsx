@@ -241,12 +241,12 @@ export function PartnerIndustryPitchesEditor({
                     </div>
                   </div>
                   <Textarea
-                    rows={4}
-                    placeholder={`Variant för ${ov.product} – t.ex. för mindre/medelstora kunder...`}
+                    rows={6}
+                    placeholder={PITCH_PLACEHOLDER}
                     value={ov.text || ""}
                     onChange={(e) => upsertPitch(industry, ov.product, e.target.value)}
                   />
-                  <p className="text-xs text-muted-foreground text-right">
+                  <p className={`text-xs text-right ${wordCount(ov.text || "") > MAX_WORDS ? "text-destructive font-medium" : "text-muted-foreground"}`}>
                     {wordCount(ov.text || "")} / {MAX_WORDS} ord
                   </p>
                 </div>
