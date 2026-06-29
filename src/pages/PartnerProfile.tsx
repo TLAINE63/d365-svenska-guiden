@@ -562,20 +562,24 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
   {/* Sales contact card with optional photo - per product if applicable */}
   {(() => {
-  // Map URL ?product= value to product_filters key
-  const selectedProduct = activeTabProduct || stashedParams.get('product') || '';
-  const productToKey = (p: string): 'bc' | 'fsc' | 'sales' | 'service' | null => {
-  const v = p.toLowerCase();
-  if (v.includes('business central')) return 'bc';
-  if (v.includes('finance') || v.includes('supply')) return 'fsc';
-  if (v.includes('sales') || v.includes('marketing') || v.includes('customer insights')) return 'sales';
-  if (v.includes('service') || v.includes('contact center') || v.includes('field')) return 'service';
-  return null;
-  };
-  const pf = (partner as any)?.product_filters || {};
-  const key = productToKey(selectedProduct);
-  const productContact = key ? pf[key] : null;
-  const hasProductContact = !!(productContact?.contactName || productContact?.contactEmail || productContact?.contactPhone);
+   // Map URL ?product= value (or active tab label) to product_filters key(s)
+   const selectedProduct = activeTabProduct || stashedParams.get('product') || '';
+   const productToKeys = (p: string): Array<'bc' | 'fsc' | 'sales' | 'service' | 'crm'> => {
+   const v = p.toLowerCase();
+   if (v.includes('business central')) return ['bc'];
+   if (v.includes('finance') || v.includes('supply')) return ['fsc'];
+   // CRM / Customer Engagement tab combines sales + service
+   if (v.includes('crm') || v.includes('customer engagement')) return ['sales', 'service', 'crm'];
+   if (v.includes('sales') || v.includes('marketing') || v.includes('customer insights')) return ['sales', 'crm'];
+   if (v.includes('service') || v.includes('contact center') || v.includes('field')) return ['service', 'crm'];
+   return [];
+   };
+   const pf = (partner as any)?.product_filters || {};
+   const keys = productToKeys(selectedProduct);
+   const productContact = keys
+     .map((k) => pf[k])
+     .find((c) => c && (c.contactName || c.contactEmail || c.contactPhone)) || null;
+   const hasProductContact = !!productContact;
 
   const displayName = hasProductContact ? productContact.contactName : partner?.contactPerson;
   const displayEmail = hasProductContact ? productContact.contactEmail : partner?.email;
@@ -585,7 +589,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   : (partner as any)?.contact_photo_url;
 
   // Video: prefer per-product video, fall back to partner main video
-  const productVideoId = key ? extractYouTubeId(productContact?.youtubeVideoId) : null;
+  const productVideoId = extractYouTubeId(productContact?.youtubeVideoId);
   const mainVideoId = extractYouTubeId((partner as any)?.youtube_video_id);
   const displayVideoId = productVideoId || mainVideoId;
 
