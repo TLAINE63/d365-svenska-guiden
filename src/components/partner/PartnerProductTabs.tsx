@@ -244,6 +244,7 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
     customerExamples,
     customerCaseLinks,
     productDescription,
+    whyChoose,
     apps,
     industryApps,
     contact,
