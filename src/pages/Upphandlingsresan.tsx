@@ -99,7 +99,7 @@ const Upphandlingsresan = () => {
  className="w-full sm:w-auto bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-[15px] font-semibold h-12 px-7 rounded hover:-translate-y-0.5 transition-all group/btn"
  >
  <Link to="/valjdynamics365partner/">
- Starta partnermatchning
+ Hitta rätt partner
  <ArrowRight className="w-4 h-4 ml-1.5 group-hover/btn:translate-x-1 transition-transform" />
  </Link>
  </Button>
