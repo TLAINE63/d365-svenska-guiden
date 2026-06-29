@@ -139,11 +139,15 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
   );
   const fallbackIndustries = industries.length > 0 ? industries : (partner.industries || []).slice(0, 5);
 
+  const companySize = mergeArrays<string>(...keys.map((k) => pf[k]?.companySize));
+  const revenue = mergeArrays<string>(...keys.map((k) => pf[k]?.revenue));
+
   const geoRaw = mergeArrays<string>(...keys.map((k) => {
     const g = pf[k]?.geography;
     if (!g) return [];
     return Array.isArray(g) ? g : [g];
   }));
+
   const geography = geoRaw.length > 0 ? normalizeGeo(geoRaw) : normalizeGeo(partner.geography || []);
 
   const customerExamples = mergeArrays<string>(
