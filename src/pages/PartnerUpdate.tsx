@@ -287,6 +287,18 @@ const PartnerUpdate = () => {
   });
   const [autoExpandApplied, setAutoExpandApplied] = useState(false);
 
+  // Sub-step wizard per product (1..4)
+  const [productStep, setProductStep] = useState<Record<string, number>>({});
+  const getProductStep = (key: string) => productStep[key] ?? 1;
+  const setStepFor = (key: string, n: number) =>
+    setProductStep((prev) => ({ ...prev, [key]: Math.max(1, Math.min(4, n)) }));
+  const PRODUCT_STEP_LABELS = [
+    "Kort beskrivning",
+    "Varför välja er",
+    "Bransch & målgrupp",
+    "Case & kontakt",
+  ] as const;
+
   // Profile completion progress
   const profileProgress = useMemo(() => {
     let score = 0;
