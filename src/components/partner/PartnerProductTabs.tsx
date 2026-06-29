@@ -557,6 +557,29 @@ export default function PartnerProductTabs({
               )}
             </section>
 
+            {/* Kontor */}
+            {(() => {
+              const cities = (partner as any)?.office_cities as string[] | undefined;
+              return cities && cities.length > 0 ? (
+                <section>
+                  <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+                    <MapPin className="w-5 h-5 text-primary" />
+                    Kontor
+                  </h2>
+                  <div className="flex flex-wrap gap-2">
+                    {cities.map((city) => (
+                      <span
+                        key={city}
+                        className="inline-flex items-center px-3 py-1.5 rounded bg-white border border-slate-200 text-sm font-semibold text-slate-700"
+                      >
+                        {city}
+                      </span>
+                    ))}
+                  </div>
+                </section>
+              ) : null;
+            })()}
+
             {/* Customer cases */}
             {data.customerCaseLinks.length > 0 && (
               <section>
