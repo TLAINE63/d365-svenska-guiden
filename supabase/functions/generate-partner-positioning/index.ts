@@ -247,7 +247,15 @@ serve(async (req: Request): Promise<Response> => {
         }
 
         if (updated.length > 0) {
-          const { error: upErr } = await supabase.from("partners").update({ product_profiles: profiles }).eq("id", p.id);
+          // Fyll även det globala positioning_statement om det är tomt (eller overwrite) —
+          // använd första nya texten utan produktnamn så den fungerar generellt.
+          const firstNew = profiles[updated[0]]?.positioning as string | undefined;
+          const currentTop = (p.positioning_statement || "").trim();
+          const updatePayload: Record<string, any> = { product_profiles: profiles };
+          if (firstNew && (overwrite || !currentTop)) {
+            updatePayload.positioning_statement = firstNew;
+          }
+          const { error: upErr } = await supabase.from("partners").update(updatePayload).eq("id", p.id);
           if (upErr) throw upErr;
         }
         results.push({ id: p.id, name: p.name, ok: true, updatedApps: updated, skippedApps: apps.filter((a) => !missing.includes(a)) });

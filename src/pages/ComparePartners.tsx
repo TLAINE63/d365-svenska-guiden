@@ -776,10 +776,26 @@ const ComparePartners = () => {
       )
     ).sort((a, b) => a.localeCompare(b, "sv"));
     const industryApps = industryAppsRaw;
+    // Positionering: primärt partnerns globala "Vi är valet när…", annars
+    // fallback till AI-genererade product_profiles[app].positioning för aktiva
+    // produkter (eller alla produkter om inget filter är valt).
+    const ppForPositioning = ((p as any)?.product_profiles || {}) as Record<string, any>;
+    const activeKeysForPositioning: ProductFilterKey[] =
+      productFilters.length > 0
+        ? productFilters
+        : (Object.keys(PRODUCT_FILTER_GROUP) as ProductFilterKey[]);
+    const fallbackPositioning = Array.from(
+      new Set(
+        activeKeysForPositioning
+          .flatMap((k) => PRODUCT_FILTER_GROUP[k].apps)
+          .map((app) => (ppForPositioning[app]?.positioning || "").trim())
+          .filter(Boolean),
+      ),
+    ).join(" · ");
     return {
       partner: p,
       description: p?.description?.trim() || "",
-      positioning: p?.positioning_statement?.trim() || "",
+      positioning: (p?.positioning_statement?.trim() || fallbackPositioning) || "",
       apps: sortApps(p?.applications || []),
       industries: allIndustries,
       industryApps,
