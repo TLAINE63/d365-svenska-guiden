@@ -341,7 +341,13 @@ const renderAppList = (items: string[]) =>
     EMPTY
   );
 
-
+const renderAi = (
+  items: {
+    productKey: string;
+    productLabel: string;
+    capabilities: string[];
+    projectCount: string;
+    caseDescription: string;
     businessImpact: string;
   }[]
 ) => {
