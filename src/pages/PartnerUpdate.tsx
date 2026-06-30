@@ -324,13 +324,14 @@ const PartnerUpdate = () => {
     if (activeProducts.length > 0 || selectedSpecialtyProducts.length > 0) score += 5;
 
     const productScore = activeProducts.reduce((sum, key) => {
-      const pf = getProductFilter(key);
+      const pf = (productFilters?.[key] ?? {}) as Partial<ProductFilter>;
+      const geo = Array.isArray(pf.geography) ? pf.geography : (pf.geography ? [pf.geography] : []);
       const productFields = [
         pf.productDescription?.trim(),
         pf.whyChoose?.trim(),
         pf.keyPoints?.trim(),
-        pf.geography?.length > 0,
-        pf.industries?.length > 0,
+        geo.length > 0,
+        (pf.industries?.length ?? 0) > 0,
       ].filter(Boolean).length;
       return sum + (productFields / 5) * 10;
     }, 0);
