@@ -397,47 +397,48 @@ const ComparePartners = () => {
     return [...erp, ...ce];
   };
 
-  const APP_TO_PF_KEY = (app: string): "bc" | "fsc" | "crm" | null => {
+  const PRODUCT_FILTER_GROUP = {
+    bc: {
+      label: "Business Central",
+      apps: ["Business Central"],
+    },
+    fsc: {
+      label: "Finance & Supply Chain Management",
+      apps: ["Finance", "Supply Chain Management", "Finance & Supply Chain Management"],
+    },
+    sales: {
+      label: "Sales & Customer Insights",
+      apps: ["Sales", "Customer Insights (Marketing)", "Marketing"],
+    },
+    service: {
+      label: "Customer Service / Field Service / Contact Center",
+      apps: ["Customer Service", "Field Service", "Contact Center"],
+    },
+  } as const;
+  type ProductFilterKey = keyof typeof PRODUCT_FILTER_GROUP;
+
+  const appToGroupKey = (app: string): ProductFilterKey | null => {
     const a = app.trim();
-    if (a === "Business Central") return "bc";
-    if (
-      a === "Finance" ||
-      a === "Supply Chain Management" ||
-      a === "Finance & Supply Chain Management"
-    )
-      return "fsc";
-    if (
-      a === "Sales" ||
-      a === "Customer Service" ||
-      a === "Field Service" ||
-      a === "Contact Center" ||
-      a === "Customer Insights (Marketing)" ||
-      a === "Marketing"
-    )
-      return "crm";
+    for (const [key, group] of Object.entries(PRODUCT_FILTER_GROUP) as [ProductFilterKey, (typeof PRODUCT_FILTER_GROUP)[ProductFilterKey]][]) {
+      if ((group.apps as readonly string[]).includes(a)) return key;
+    }
     return null;
   };
 
-  const PF_KEYS_BY_GROUP: Record<"bc" | "fsc" | "crm", string[]> = {
-    bc: ["bc"],
-    fsc: ["fsc"],
-    crm: ["sales", "service"],
-  };
-
-  const PRODUCT_FILTER_KEY_LABEL: Record<string, string> = {
+  const PRODUCT_FILTER_KEY_LABEL: Record<ProductFilterKey, string> = {
     bc: "Business Central",
     fsc: "Finance & Supply Chain Management",
-    sales: "Sales & Marketing",
-    service: "Customer Service",
+    sales: "Sales & Customer Insights",
+    service: "Customer Service / Field Service / Contact Center",
   };
 
-  const getProductFilterKeysForApps = (apps: string[]): string[] => {
-    const groups = new Set<"bc" | "fsc" | "crm">();
+  const getProductFilterKeysForApps = (apps: string[]): ProductFilterKey[] => {
+    const keys = new Set<ProductFilterKey>();
     for (const app of apps) {
-      const g = APP_TO_PF_KEY(app);
-      if (g) groups.add(g);
+      const key = appToGroupKey(app);
+      if (key) keys.add(key);
     }
-    return Array.from(groups).flatMap((g) => PF_KEYS_BY_GROUP[g]);
+    return Array.from(keys);
   };
 
   const getProductDescriptions = (
@@ -458,11 +459,11 @@ const ComparePartners = () => {
     return out;
   };
 
-  const PRODUCT_KEY_LABEL: Record<string, string> = {
+  const PRODUCT_KEY_LABEL: Record<ProductFilterKey, string> = {
     bc: "Business Central",
-    fsc: "Finance & SCM",
-    sales: "Sales & Marketing",
-    service: "Customer Service",
+    fsc: "Finance & Supply Chain Management",
+    sales: "Sales & Customer Insights",
+    service: "Customer Service / Field Service / Contact Center",
   };
 
   type AiPerProduct = {
@@ -562,8 +563,21 @@ const ComparePartners = () => {
 
   const industryFilter = params.get("industry") || "";
   const productFilterRaw = params.get("product") || "";
+  const normalizeProductFilterKey = (raw: string): string => {
+    const k = raw.trim() as ProductFilterKey;
+    if (PRODUCT_FILTER_GROUP[k]) return k;
+    const fromApp = appToGroupKey(raw);
+    return fromApp || raw;
+  };
   const productFilters = productFilterRaw
-    ? productFilterRaw.split(",").map((s) => s.trim()).filter(Boolean)
+    ? (Array.from(
+        new Set(
+          productFilterRaw
+            .split(",")
+            .map((s) => normalizeProductFilterKey(s))
+            .filter((s) => s in PRODUCT_FILTER_GROUP)
+        )
+      ) as ProductFilterKey[])
     : [];
 
   const setFilter = (key: "industry" | "product", val: string) => {
@@ -573,7 +587,7 @@ const ComparePartners = () => {
     setParams(next, { replace: true });
   };
 
-  const toggleProductFilter = (opt: string) => {
+  const toggleProductFilter = (opt: ProductFilterKey) => {
     const set = new Set(productFilters);
     if (set.has(opt)) set.delete(opt);
     else set.add(opt);
@@ -595,38 +609,33 @@ const ComparePartners = () => {
       ? partnerIndustries
       : STANDARD_INDUSTRIES.map((i) => i.name)
   ).sort((x, y) => x.localeCompare(y, "sv"));
-  const productOptions = sortApps([...A.apps, ...B.apps]);
+  const productOptions = (Object.keys(PRODUCT_FILTER_GROUP) as ProductFilterKey[])
+    .sort((a, b) => PRODUCT_FILTER_GROUP[a].label.localeCompare(PRODUCT_FILTER_GROUP[b].label, "sv"))
+    .map((key) => ({ key, label: PRODUCT_FILTER_GROUP[key].label }));
 
   const productActive = productFilters.length > 0;
   
 
   const matchesProduct = (app: string) => {
     if (!productActive) return true;
-    if (productFilters.includes(app)) return true;
-    const appKey = APP_TO_PF_KEY(app);
-    if (!appKey) return false;
-    return productFilters.some((sel) => APP_TO_PF_KEY(sel) === appKey);
+    const key = appToGroupKey(app);
+    if (!key) return false;
+    return productFilters.includes(key);
   };
 
   const productKeyMatchesFilter = (key: string): boolean => {
     if (!productActive) return true;
-    return productFilters.some((sel) => {
-      const group = APP_TO_PF_KEY(sel);
-      if (!group) return false;
-      return PF_KEYS_BY_GROUP[group].includes(key);
-    });
+    return productFilters.includes(key as ProductFilterKey);
   };
 
-  const PF_KEY_TO_PITCH_LABELS: Record<string, string[]> = {
-    bc: ["Business Central"],
-    fsc: ["Finance & Supply Chain"],
-    crm: ["Sales & Customer Insights", "Customer Service / Field Service / Contact Center"],
+  const PITCH_LABELS_BY_KEY: Record<ProductFilterKey, string[]> = {
+    bc: [...PRODUCT_FILTER_GROUP.bc.apps] as string[],
+    fsc: [...PRODUCT_FILTER_GROUP.fsc.apps] as string[],
+    sales: [...PRODUCT_FILTER_GROUP.sales.apps] as string[],
+    service: [...PRODUCT_FILTER_GROUP.service.apps] as string[],
   };
   const selectedPitchLabels = productActive
-    ? Array.from(new Set(productFilters.flatMap((sel) => {
-        const k = APP_TO_PF_KEY(sel);
-        return k ? (PF_KEY_TO_PITCH_LABELS[k] || []) : [];
-      })))
+    ? Array.from(new Set(productFilters.flatMap((sel) => PITCH_LABELS_BY_KEY[sel] || [])))
     : [];
 
   const applyFilters = (data: ReturnType<typeof get>) => ({
@@ -740,7 +749,7 @@ const ComparePartners = () => {
                               {productFilters.length === 0
                                 ? "Alla produkter"
                                 : productFilters.length === 1
-                                ? productFilters[0]
+                                ? PRODUCT_FILTER_GROUP[productFilters[0]].label
                                 : `${productFilters.length} valda`}
                             </span>
                             <ChevronDown className="w-4 h-4 opacity-50 shrink-0 ml-2" />
@@ -758,17 +767,17 @@ const ComparePartners = () => {
                           )}
                           <div className="space-y-1">
                             {productOptions.map((opt) => {
-                              const checked = productFilters.includes(opt);
+                              const checked = productFilters.includes(opt.key);
                               return (
                                 <label
-                                  key={opt}
+                                  key={opt.key}
                                   className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-slate-100 cursor-pointer text-sm"
                                 >
                                   <Checkbox
                                     checked={checked}
-                                    onCheckedChange={() => toggleProductFilter(opt)}
+                                    onCheckedChange={() => toggleProductFilter(opt.key)}
                                   />
-                                  <span className="flex-1">{opt}</span>
+                                  <span className="flex-1">{opt.label}</span>
                                 </label>
                               );
                             })}
