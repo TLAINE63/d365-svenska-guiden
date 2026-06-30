@@ -352,6 +352,12 @@ const handler = async (req: Request): Promise<Response> => {
                       <td style="padding: 8px 0; color: #6b7280;">Produkt:</td>
                       <td style="padding: 8px 0; color: #111827;">${sanitizedData.selected_product || "Ej angivet"}</td>
                     </tr>
+                    ${hasPartnerRequest ? `
+                      <tr>
+                        <td style="padding: 8px 0; color: #6b7280;">Önskad partner:</td>
+                        <td style="padding: 8px 0; color: #111827;"><strong>${sanitizedData.assigned_partners.join(", ")}</strong></td>
+                      </tr>
+                    ` : ""}
                   </table>
                 ` : ""}
                 
