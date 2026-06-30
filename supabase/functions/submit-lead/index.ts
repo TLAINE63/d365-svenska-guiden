@@ -154,6 +154,13 @@ const handler = async (req: Request): Promise<Response> => {
       source_page: sanitizeInput(data.source_page).slice(0, 200),
       source_type: sanitizeInput(data.source_type).slice(0, 50) || "cta",
       message: sanitizeInput(data.message).slice(0, 1000),
+      assigned_partners: Array.isArray(data.assigned_partners)
+        ? data.assigned_partners
+            .filter((s) => typeof s === "string")
+            .map((s) => sanitizeInput(s).slice(0, 100))
+            .filter(Boolean)
+            .slice(0, 5)
+        : [],
     };
 
     // Create Supabase client with service role
@@ -175,6 +182,7 @@ const handler = async (req: Request): Promise<Response> => {
         source_page: sanitizedData.source_page || null,
         source_type: sanitizedData.source_type,
         message: sanitizedData.message || null,
+        assigned_partners: sanitizedData.assigned_partners,
         status: "new",
       })
       .select()
