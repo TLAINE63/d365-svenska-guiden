@@ -12,10 +12,12 @@ import {
   ChevronDown,
   ChevronUp,
   ExternalLink,
-  ArrowLeftRight
+  ArrowLeftRight,
+  Mail
 } from "lucide-react";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 import RelatedPartyBadge from "@/components/RelatedPartyBadge";
+import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import {
  Tooltip,
  TooltipContent,
