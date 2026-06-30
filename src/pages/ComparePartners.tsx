@@ -891,9 +891,37 @@ const ComparePartners = () => {
                       <SectionTitle icon={Target} title="Positionering" />
                       <R
                         label="Vi är valet när…"
-                        a={renderPositioningCell(A.positioning, getProductDescriptions(a, AF.apps))}
-                        b={renderPositioningCell(B.positioning, getProductDescriptions(b, BF.apps))}
+                        a={renderPositioningCell(A.positioning)}
+                        b={renderPositioningCell(B.positioning)}
                       />
+
+                      {(() => {
+                        const aDescs = getProductDescriptions(a, AF.apps);
+                        const bDescs = getProductDescriptions(b, BF.apps);
+                        const keys = Array.from(
+                          new Set<ProductFilterKey>([
+                            ...aDescs.map((d) => d.key),
+                            ...bDescs.map((d) => d.key),
+                          ])
+                        ).sort((x, y) =>
+                          PRODUCT_FILTER_GROUP[x].label.localeCompare(
+                            PRODUCT_FILTER_GROUP[y].label,
+                            "sv"
+                          )
+                        );
+                        return keys.map((key) => {
+                          const descA = aDescs.find((d) => d.key === key);
+                          const descB = bDescs.find((d) => d.key === key);
+                          return (
+                            <R
+                              key={key}
+                              label={PRODUCT_FILTER_KEY_LABEL[key] || key}
+                              a={descA ? renderProductDescCell(descA.text) : EMPTY}
+                              b={descB ? renderProductDescCell(descB.text) : EMPTY}
+                            />
+                          );
+                        });
+                      })()}
 
                       <R
                         label="Kompetens inom Dynamics 365"
@@ -906,12 +934,27 @@ const ComparePartners = () => {
                         a={renderList(AF.industries)}
                         b={renderList(BF.industries)}
                       />
-                      <R
-                        label="Branschpitch"
-                        help="Partnerns egna ord om varför de passar i den valda branschen (och produkten om vald)."
-                        a={renderPitches(AF.industryPitches)}
-                        b={renderPitches(BF.industryPitches)}
-                      />
+
+                      {(() => {
+                        const keys = Array.from(
+                          new Set([
+                            ...AF.industryPitches.map((ip) => ip.industry),
+                            ...BF.industryPitches.map((ip) => ip.industry),
+                          ])
+                        ).sort((x, y) => x.localeCompare(y, "sv"));
+                        return keys.map((industry) => (
+                          <R
+                            key={industry}
+                            label={industry}
+                            a={renderPitchCell(
+                              AF.industryPitches.filter((ip) => ip.industry === industry)
+                            )}
+                            b={renderPitchCell(
+                              BF.industryPitches.filter((ip) => ip.industry === industry)
+                            )}
+                          />
+                        ));
+                      })()}
 
                       <R
                         label="Branschapplikationer"
