@@ -126,6 +126,11 @@ const Navbar = () => {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
+                  <Link to="/jamfor-partners/" className="cursor-pointer">
+                    ⚖️ Jämför partners
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
                   <Link to="/upphandlingsguiden/" className="cursor-pointer font-medium text-primary">
                     🗺️ Upphandlingsguiden
                   </Link>
@@ -261,6 +266,12 @@ const Navbar = () => {
                   className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
                 >
                   🏭 Partners per bransch
+                </Link>
+                <Link
+                  to="/jamfor-partners/"
+                  className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
+                >
+                  ⚖️ Jämför partners
                 </Link>
                 <Link
                   to="/upphandlingsguiden/"
