@@ -175,16 +175,19 @@ export default function AiProfileSection({ value, onChange }: Props) {
 
   return (
     <div className="space-y-6 rounded-lg border border-border bg-card p-4 sm:p-5">
-      <div>
-        <h3 className="text-base font-semibold flex items-center gap-2">
-          AI, Copilot &amp; Automation
-        </h3>
-        <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
-          Beskriv hur ni hjälper kunder med AI, Copilot och automation i Microsoft Dynamics 365- och
-          Power Platform-miljöer. Markera endast områden där ni har faktisk erfarenhet från
-          rådgivning, pilot eller kundprojekt. Ni behöver inte ange kundnamn — kundreferenser kan
-          anges som "lämnas på förfrågan".
-        </p>
+      <div className="flex items-start justify-between gap-3 flex-wrap">
+        <div>
+          <h3 className="text-base font-semibold flex items-center gap-2">
+            AI, Copilot &amp; Automation
+          </h3>
+          <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
+            Beskriv hur ni hjälper kunder med AI, Copilot och automation i Microsoft Dynamics 365- och
+            Power Platform-miljöer. Markera endast områden där ni har faktisk erfarenhet från
+            rådgivning, pilot eller kundprojekt. Ni behöver inte ange kundnamn — kundreferenser kan
+            anges som "lämnas på förfrågan".
+          </p>
+        </div>
+        <ScoreBreakdownPopover />
       </div>
 
       {/* 1. Delivery model */}
