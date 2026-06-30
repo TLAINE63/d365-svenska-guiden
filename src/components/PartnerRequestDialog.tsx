@@ -17,7 +17,41 @@ interface PartnerRequestDialogProps {
   selectedProduct?: string;
   industry?: string;
   onSubmitting?: (submitting: boolean) => void;
+  mode?: "contact" | "demo" | "quote";
 }
+
+const MODE_CONFIG = {
+  contact: {
+    title: (name: string) => `Få kontakt med ${name}`,
+    description: (name: string, product?: string, industry?: string) =>
+      `Lämna dina uppgifter så förmedlar d365.se en kontaktförfrågan till ${name}${product ? ` avseende ${product}` : ""}${industry ? ` inom ${industry}` : ""}.`,
+    sourceType: "partner_contact_request",
+    messagePrefix: (name: string) => `Kontaktförfrågan till ${name}.`,
+    toastTitle: "Kontaktförfrågan skickad",
+    toastDescription: (name: string) => `Vi förmedlar din förfrågan till ${name} och återkopplar inom kort.`,
+    submitLabel: "Skicka kontaktförfrågan",
+  },
+  demo: {
+    title: (name: string) => `Gör en intresseförfrågan om demo från ${name}`,
+    description: (name: string, product?: string, industry?: string) =>
+      `Vill du se ${product || "lösningen"} i en demo? Lämna dina uppgifter så förmedlar d365.se din demoförfrågan till ${name}${industry ? ` inom ${industry}` : ""}.`,
+    sourceType: "partner_demo_request",
+    messagePrefix: (name: string) => `Demointresse för ${name}.`,
+    toastTitle: "Demoförfrågan skickad",
+    toastDescription: (name: string) => `Vi förmedlar din demoförfrågan till ${name} och återkopplar inom kort.`,
+    submitLabel: "Skicka demoförfrågan",
+  },
+  quote: {
+    title: (name: string) => `Begär offert från ${name}`,
+    description: (name: string, product?: string, industry?: string) =>
+      `${product ? `Avser ${product}` : `d365.se förmedlar förfrågan till ${name}`}${industry ? ` · ${industry}` : ""}.`,
+    sourceType: "partner_quote_request",
+    messagePrefix: (name: string) => `Begär offert/kontakt från ${name}.`,
+    toastTitle: "Förfrågan skickad",
+    toastDescription: (name: string) => `Vi förmedlar din förfrågan till ${name} och återkopplar inom kort.`,
+    submitLabel: "Skicka offertförfrågan",
+  },
+};
 
 const PartnerRequestDialog = ({
   open,
@@ -27,7 +61,9 @@ const PartnerRequestDialog = ({
   selectedProduct,
   industry,
   onSubmitting,
+  mode = "quote",
 }: PartnerRequestDialogProps) => {
+  const config = MODE_CONFIG[mode];
   const { toast } = useToast();
   const [submitting, setSubmitting] = useState(false);
   useEffect(() => {
@@ -60,7 +96,7 @@ const PartnerRequestDialog = ({
     setSubmitting(true);
     try {
       const composedMessage = [
-        `Begär offert/kontakt från ${partnerName}.`,
+        config.messagePrefix(partnerName),
         selectedProduct ? `Produkt: ${selectedProduct}.` : "",
         industry ? `Bransch: ${industry}.` : "",
         form.message.trim() ? `\nMeddelande:\n${form.message.trim()}` : "",
@@ -74,8 +110,8 @@ const PartnerRequestDialog = ({
           phone: form.phone.trim() || undefined,
           industry: industry || undefined,
           selected_product: selectedProduct || undefined,
-          source_page: typeof window !== "undefined" ? window.location.pathname + window.location.search : "/jamfor-partners",
-          source_type: "partner_quote_request",
+          source_page: typeof window !== "undefined" ? window.location.pathname + window.location.search : "/partner",
+          source_type: config.sourceType,
           message: composedMessage,
           assigned_partners: [partnerSlug],
           _hp: form._hp,
@@ -85,8 +121,8 @@ const PartnerRequestDialog = ({
       if (error) throw error;
 
       toast({
-        title: "Förfrågan skickad",
-        description: `Vi förmedlar din förfrågan till ${partnerName} och återkopplar inom kort.`,
+        title: config.toastTitle,
+        description: config.toastDescription(partnerName),
       });
       reset();
       onOpenChange(false);
@@ -106,12 +142,8 @@ const PartnerRequestDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Begär offert från {partnerName}</DialogTitle>
-          <DialogDescription>
-            {selectedProduct
-              ? `Avser ${selectedProduct}${industry ? ` · ${industry}` : ""}. d365.se förmedlar förfrågan vidare.`
-              : `d365.se förmedlar förfrågan vidare till ${partnerName}.`}
-          </DialogDescription>
+          <DialogTitle>{config.title(partnerName)}</DialogTitle>
+          <DialogDescription>{config.description(partnerName, selectedProduct, industry)}</DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-3">
@@ -195,7 +227,7 @@ const PartnerRequestDialog = ({
               className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
             >
               <Send className="w-4 h-4 mr-1.5" />
-              {submitting ? "Skickar…" : "Skicka förfrågan"}
+              {submitting ? "Skickar…" : config.submitLabel}
             </Button>
           </DialogFooter>
         </form>

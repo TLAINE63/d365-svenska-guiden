@@ -7,26 +7,25 @@ import TrustBanner from "@/components/TrustBanner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
- ArrowLeft, 
- Building2, 
- Sparkles, 
- Briefcase, 
- CheckCircle2,
- Globe, 
- MapPin, 
- Layers, 
- ExternalLink,
- Users,
- User,
- Mail,
- Phone,
- Package,
- Play,
- ArrowLeftRight
+  ArrowLeft, 
+  Building2, 
+  Sparkles, 
+  Briefcase, 
+  CheckCircle2,
+  MapPin, 
+  Layers, 
+  Users,
+  User,
+  Mail,
+  Phone,
+  Package,
+  Play,
+  ArrowLeftRight
 } from "lucide-react";
 import PartnerVideoModal from "@/components/PartnerVideoModal";
 import { extractYouTubeId } from "@/lib/youtube";
 import LeadCTA from "@/components/LeadCTA";
+import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
 import DecisionProfile from "@/components/partner/DecisionProfile";
 import PartnerProductTabs, { resolveInitialTab } from "@/components/partner/PartnerProductTabs";
@@ -43,7 +42,6 @@ import SEOHead from "@/components/SEOHead";
 import { PartnerOrganizationSchema, BreadcrumbSchema } from "@/components/StructuredData";
 import { buildMetaTitle } from "@/lib/metaTitle";
 import { buildMetaDescription } from "@/lib/metaDescription";
-import { trackPartnerClick } from "@/utils/trackPartnerClick";
 import { trackPartnerView } from "@/utils/trackPartnerView";
 
 // Dynamics 365 icons
@@ -194,6 +192,13 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
   const [videoOpen, setVideoOpen] = useState(false);
   const [activeTabProduct, setActiveTabProduct] = useState<string | null>(null);
+  const [requestOpen, setRequestOpen] = useState(false);
+  const [requestMode, setRequestMode] = useState<"contact" | "demo" | "quote">("quote");
+
+  const openRequest = (mode: "contact" | "demo" | "quote") => {
+    setRequestMode(mode);
+    setRequestOpen(true);
+  };
 
  // Track profile visit (one per slug per mount)
  useEffect(() => {
@@ -453,19 +458,23 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
   {/* Main content - centered layout */}
   <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-  {/* Partner identity - logo OR name, not both */}
+  {/* Partner identity - logo OR name, not both; logo routes to partner landing page */}
   <div className="flex items-center justify-center mb-2">
   {partner.logo_url ? (
-  <div className="w-48 h-28 sm:w-64 sm:h-32 flex items-center justify-center overflow-hidden">
-  <img
-  src={partner.logo_url}
-  alt={`${partner.name} logotyp`}
-  className="max-w-full max-h-full object-contain"
-  />
-  </div>
+  <Link
+    to={slug ? `/partner/${slug}/` : "/"}
+    className="w-48 h-28 sm:w-64 sm:h-32 flex items-center justify-center overflow-hidden rounded hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+    aria-label={`Till ${partner.name}s landningssida`}
+  >
+    <img
+    src={partner.logo_url}
+    alt={`${partner.name} logotyp`}
+    className="max-w-full max-h-full object-contain"
+    />
+  </Link>
   ) : (
   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight">
-  {partner.name}
+    {partner.name}
   </h1>
   )}
   </div>
@@ -487,35 +496,45 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   </div>
   )}
 
-  {/* Website CTA - directly under description */}
-  <div className="flex flex-col items-center mb-2">
-  <a 
-  href={partner.website} 
-  target="_blank" 
-  rel="noopener noreferrer"
-  onClick={() => {
-  trackPartnerClick(
-  partner.name,
-  partner.website,
-  `partner-profile-${partner.slug}`,
-  {
-  product: selectedProduct,
-  industry: selectedIndustry,
-  companySize: selectedCompanySize,
-  geography: selectedGeography,
-  }
-  );
-  }}
-  className="inline-flex items-center gap-3 px-6 py-3 rounded bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-sm sm:text-base transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
->
-  <Globe className="w-5 h-5" />
-  <span>Besök {partner.name}</span>
-  <ExternalLink className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5" />
-</a>
-  <span className="mt-2 text-xs text-slate-500 font-medium">
-  Öppnas i nytt fönster
-  </span>
+  {/* Lead CTA block - replace external website link with mediated requests */}
+  <div className="w-full max-w-2xl mx-auto mb-4">
+    <div className="flex flex-col sm:flex-row gap-3">
+      <Button
+        type="button"
+        onClick={() => openRequest("contact")}
+        className="flex-1 min-h-[48px] bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-sm sm:text-base rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      >
+        Få kontakt
+      </Button>
+      <Button
+        type="button"
+        onClick={() => openRequest("demo")}
+        className="flex-1 min-h-[48px] bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-sm sm:text-base rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      >
+        Gör en intresseförfrågan om demo
+      </Button>
+      <Button
+        type="button"
+        onClick={() => openRequest("quote")}
+        className="flex-1 min-h-[48px] bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-sm sm:text-base rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      >
+        Begär offert
+      </Button>
+    </div>
+    <p className="mt-3 text-xs text-center text-slate-500">
+      d365.se förmedlar din förfrågan till partnern. Inga privata e-postadresser (Gmail, Hotmail, etc.) accepteras.
+    </p>
   </div>
+
+  <PartnerRequestDialog
+    open={requestOpen}
+    onOpenChange={setRequestOpen}
+    partnerSlug={partner.slug}
+    partnerName={partner.name}
+    selectedProduct={selectedProduct}
+    industry={selectedIndustry}
+    mode={requestMode}
+  />
 
   {/* Sales contact card with optional photo - per product if applicable */}
   {(() => {
