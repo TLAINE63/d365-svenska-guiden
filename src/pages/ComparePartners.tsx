@@ -397,47 +397,48 @@ const ComparePartners = () => {
     return [...erp, ...ce];
   };
 
-  const APP_TO_PF_KEY = (app: string): "bc" | "fsc" | "crm" | null => {
+  const PRODUCT_FILTER_GROUP = {
+    bc: {
+      label: "Business Central",
+      apps: ["Business Central"],
+    },
+    fsc: {
+      label: "Finance & Supply Chain Management",
+      apps: ["Finance", "Supply Chain Management", "Finance & Supply Chain Management"],
+    },
+    sales: {
+      label: "Sales & Customer Insights",
+      apps: ["Sales", "Customer Insights (Marketing)", "Marketing"],
+    },
+    service: {
+      label: "Customer Service / Field Service / Contact Center",
+      apps: ["Customer Service", "Field Service", "Contact Center"],
+    },
+  } as const;
+  type ProductFilterKey = keyof typeof PRODUCT_FILTER_GROUP;
+
+  const appToGroupKey = (app: string): ProductFilterKey | null => {
     const a = app.trim();
-    if (a === "Business Central") return "bc";
-    if (
-      a === "Finance" ||
-      a === "Supply Chain Management" ||
-      a === "Finance & Supply Chain Management"
-    )
-      return "fsc";
-    if (
-      a === "Sales" ||
-      a === "Customer Service" ||
-      a === "Field Service" ||
-      a === "Contact Center" ||
-      a === "Customer Insights (Marketing)" ||
-      a === "Marketing"
-    )
-      return "crm";
+    for (const [key, group] of Object.entries(PRODUCT_FILTER_GROUP) as [ProductFilterKey, (typeof PRODUCT_FILTER_GROUP)[ProductFilterKey]][]) {
+      if (group.apps.includes(a)) return key;
+    }
     return null;
   };
 
-  const PF_KEYS_BY_GROUP: Record<"bc" | "fsc" | "crm", string[]> = {
-    bc: ["bc"],
-    fsc: ["fsc"],
-    crm: ["sales", "service"],
-  };
-
-  const PRODUCT_FILTER_KEY_LABEL: Record<string, string> = {
+  const PRODUCT_FILTER_KEY_LABEL: Record<ProductFilterKey, string> = {
     bc: "Business Central",
     fsc: "Finance & Supply Chain Management",
-    sales: "Sales & Marketing",
-    service: "Customer Service",
+    sales: "Sales & Customer Insights",
+    service: "Customer Service / Field Service / Contact Center",
   };
 
-  const getProductFilterKeysForApps = (apps: string[]): string[] => {
-    const groups = new Set<"bc" | "fsc" | "crm">();
+  const getProductFilterKeysForApps = (apps: string[]): ProductFilterKey[] => {
+    const keys = new Set<ProductFilterKey>();
     for (const app of apps) {
-      const g = APP_TO_PF_KEY(app);
-      if (g) groups.add(g);
+      const key = appToGroupKey(app);
+      if (key) keys.add(key);
     }
-    return Array.from(groups).flatMap((g) => PF_KEYS_BY_GROUP[g]);
+    return Array.from(keys);
   };
 
   const getProductDescriptions = (
