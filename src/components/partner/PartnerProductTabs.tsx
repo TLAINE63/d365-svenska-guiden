@@ -447,9 +447,9 @@ export default function PartnerProductTabs({
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight mb-2">
                 Varför välja {partner.name} för {tabMeta.label}?
               </h2>
-              {partner.positioning_statement ? (
+              {(data.productProfile?.positioning || partner.positioning_statement) ? (
                 <p className="text-base text-muted-foreground mb-5 max-w-[68ch] leading-relaxed">
-                  {partner.positioning_statement}
+                  {data.productProfile?.positioning || partner.positioning_statement}
                 </p>
               ) : null}
 
