@@ -501,7 +501,10 @@ const ComparePartners = () => {
       apps: sortApps(p?.applications || []),
       industries: allIndustries,
       industryApps,
-      geography: cleanList(p?.geography),
+      geography: Array.from(new Set([
+        ...cleanList(p?.geography),
+        ...Object.values(pfAll).flatMap((f: any) => Array.isArray(f?.geography) ? f.geography : []),
+      ].map((s) => (s || "").trim()).filter(Boolean))),
       roles: cleanList(dp.roles),
       length: dp.typical_length?.trim() || "",
       bcLength: formatBcLength(dp),
