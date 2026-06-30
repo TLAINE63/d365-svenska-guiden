@@ -746,6 +746,7 @@ export type Database = {
       partner_submissions: {
         Row: {
           address: string | null
+          ai_profile: Json
           applications: string[] | null
           contact_person: string | null
           contact_photo_url: string | null
@@ -776,6 +777,7 @@ export type Database = {
         }
         Insert: {
           address?: string | null
+          ai_profile?: Json
           applications?: string[] | null
           contact_person?: string | null
           contact_photo_url?: string | null
@@ -806,6 +808,7 @@ export type Database = {
         }
         Update: {
           address?: string | null
+          ai_profile?: Json
           applications?: string[] | null
           contact_person?: string | null
           contact_photo_url?: string | null
@@ -868,6 +871,7 @@ export type Database = {
           agreement_notes: string | null
           agreement_signed: boolean
           agreement_signed_at: string | null
+          ai_profile: Json
           ai_summary: string | null
           ai_summary_generated_at: string | null
           applications: string[] | null
@@ -922,6 +926,7 @@ export type Database = {
           agreement_notes?: string | null
           agreement_signed?: boolean
           agreement_signed_at?: string | null
+          ai_profile?: Json
           ai_summary?: string | null
           ai_summary_generated_at?: string | null
           applications?: string[] | null
@@ -976,6 +981,7 @@ export type Database = {
           agreement_notes?: string | null
           agreement_signed?: boolean
           agreement_signed_at?: string | null
+          ai_profile?: Json
           ai_summary?: string | null
           ai_summary_generated_at?: string | null
           applications?: string[] | null
@@ -1463,6 +1469,9 @@ export type Database = {
       partners_public: {
         Row: {
           agreement_signed: boolean | null
+          ai_profile: Json | null
+          ai_summary: string | null
+          ai_summary_generated_at: string | null
           applications: string[] | null
           contact_person: string | null
           contact_photo_url: string | null
@@ -1478,13 +1487,17 @@ export type Database = {
           industries: string[] | null
           industry_apps: Json | null
           industry_pitches: Json | null
+          invoice_contact: string | null
+          invoice_email: string | null
           is_featured: boolean | null
+          legal_name: string | null
           logo_dark_bg: boolean | null
           logo_url: string | null
           map_url: string | null
           name: string | null
           not_a_fit: string[] | null
           office_cities: string[] | null
+          org_number: string | null
           phone: string | null
           positioning_statement: string | null
           product_filters: Json | null
@@ -1498,6 +1511,9 @@ export type Database = {
         }
         Insert: {
           agreement_signed?: boolean | null
+          ai_profile?: Json | null
+          ai_summary?: string | null
+          ai_summary_generated_at?: string | null
           applications?: string[] | null
           contact_person?: string | null
           contact_photo_url?: string | null
@@ -1513,13 +1529,17 @@ export type Database = {
           industries?: string[] | null
           industry_apps?: Json | null
           industry_pitches?: Json | null
+          invoice_contact?: string | null
+          invoice_email?: string | null
           is_featured?: boolean | null
+          legal_name?: string | null
           logo_dark_bg?: boolean | null
           logo_url?: string | null
           map_url?: string | null
           name?: string | null
           not_a_fit?: string[] | null
           office_cities?: string[] | null
+          org_number?: string | null
           phone?: string | null
           positioning_statement?: string | null
           product_filters?: Json | null
@@ -1533,6 +1553,9 @@ export type Database = {
         }
         Update: {
           agreement_signed?: boolean | null
+          ai_profile?: Json | null
+          ai_summary?: string | null
+          ai_summary_generated_at?: string | null
           applications?: string[] | null
           contact_person?: string | null
           contact_photo_url?: string | null
@@ -1548,13 +1571,17 @@ export type Database = {
           industries?: string[] | null
           industry_apps?: Json | null
           industry_pitches?: Json | null
+          invoice_contact?: string | null
+          invoice_email?: string | null
           is_featured?: boolean | null
+          legal_name?: string | null
           logo_dark_bg?: boolean | null
           logo_url?: string | null
           map_url?: string | null
           name?: string | null
           not_a_fit?: string[] | null
           office_cities?: string[] | null
+          org_number?: string | null
           phone?: string | null
           positioning_statement?: string | null
           product_filters?: Json | null
