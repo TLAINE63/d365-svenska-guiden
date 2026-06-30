@@ -479,11 +479,14 @@ const ComparePartners = () => {
       industry: (ia.industry || "").trim(),
       url: (ia.url || "").trim(),
     })).filter((ia) => ia.name);
+    const pfAll = ((p as any)?.product_filters || {}) as Record<string, { industries?: string[] }>;
+    const pfIndustries = Object.values(pfAll).flatMap((f) => (Array.isArray(f?.industries) ? f.industries : []));
     const allIndustries = Array.from(
       new Set(
         [
           ...(p?.industries || []),
           ...(p?.secondary_industries || []),
+          ...pfIndustries,
           ...industryAppsRaw.map((ia) => ia.industry),
         ]
           .map((s) => (s || "").trim())
@@ -554,7 +557,15 @@ const ComparePartners = () => {
   const productOptions = sortApps([...A.apps, ...B.apps]);
 
   const productActive = productFilters.length > 0;
-  const matchesProduct = (app: string) => !productActive || productFilters.includes(app);
+  
+
+  const matchesProduct = (app: string) => {
+    if (!productActive) return true;
+    if (productFilters.includes(app)) return true;
+    const appKey = APP_TO_PF_KEY(app);
+    if (!appKey) return false;
+    return productFilters.some((sel) => APP_TO_PF_KEY(sel) === appKey);
+  };
 
   const productKeyMatchesFilter = (key: string): boolean => {
     if (!productActive) return true;
