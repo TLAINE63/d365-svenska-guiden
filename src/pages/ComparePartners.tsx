@@ -179,9 +179,10 @@ interface ColProps {
   onChange: (slug: string) => void;
   onClear: () => void;
   label: string;
+  onRequestQuote?: () => void;
 }
 
-const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label }: ColProps) => (
+const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label, onRequestQuote }: ColProps) => (
   <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5">
     {partner ? (
       <div className="flex items-start gap-3">
@@ -231,7 +232,7 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label
       </div>
     )}
 
-    <div className="mt-4 pt-3 border-t border-slate-100">
+    <div className="mt-4 pt-3 border-t border-slate-100 space-y-2">
       <Select value={slug || undefined} onValueChange={onChange}>
         <SelectTrigger className="h-9 text-sm bg-slate-50 border-slate-200 hover:border-slate-300">
           {slug ? (
@@ -251,9 +252,21 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label
           ))}
         </SelectContent>
       </Select>
+      {partner && onRequestQuote && (
+        <Button
+          type="button"
+          size="sm"
+          onClick={onRequestQuote}
+          className="w-full h-9 bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
+        >
+          <Mail className="w-4 h-4 mr-1.5" />
+          Begär offert
+        </Button>
+      )}
     </div>
   </div>
 );
+
 
 const Cell = ({ children, mobileLabel }: { children: React.ReactNode; mobileLabel?: string }) => (
   <div className="p-3 sm:p-4 text-sm text-[hsl(var(--foreground))] min-h-[56px] sm:min-h-[64px]">
