@@ -30,6 +30,38 @@ import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { AI_TIER_LABELS } from "@/utils/aiScoring";
 
+import bcIcon from "@/assets/icons/BusinessCentral-new.webp";
+import financeIcon from "@/assets/icons/Finance.svg";
+import scmIcon from "@/assets/icons/SupplyChain.svg";
+import salesIcon from "@/assets/icons/Sales.svg";
+import marketingIcon from "@/assets/icons/Marketing.svg";
+import csIcon from "@/assets/icons/CustomerService.svg";
+import fsIcon from "@/assets/icons/FieldService.svg";
+import ccIcon from "@/assets/icons/ContactCenter.svg";
+import poIcon from "@/assets/icons/ProjectOperations.svg";
+import hrIcon from "@/assets/icons/HumanResources.svg";
+import commerceIcon from "@/assets/icons/Commerce.svg";
+
+const APP_ICON_MAP: Record<string, string> = {
+  "business central": bcIcon,
+  "finance": financeIcon,
+  "supply chain management": scmIcon,
+  "finance & supply chain management": financeIcon,
+  "sales": salesIcon,
+  "customer insights (marketing)": marketingIcon,
+  "customer insights": marketingIcon,
+  "marketing": marketingIcon,
+  "customer service": csIcon,
+  "field service": fsIcon,
+  "contact center": ccIcon,
+  "project operations": poIcon,
+  "human resources": hrIcon,
+  "commerce": commerceIcon,
+};
+
+const getAppIcon = (name: string): string | null =>
+  APP_ICON_MAP[name.trim().toLowerCase()] ?? null;
+
 
 
 const TEAM_SIZE_HELP =
@@ -277,6 +309,34 @@ const renderNotAFit = (items: string[]) =>
         </li>
       ))}
     </ul>
+  ) : (
+    EMPTY
+  );
+
+const renderAppList = (items: string[]) =>
+  items.length > 0 ? (
+    <div className="flex flex-wrap gap-1.5">
+      {items.map((r, i) => {
+        const icon = getAppIcon(r);
+        return (
+          <span
+            key={i}
+            className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs"
+          >
+            {icon && (
+              <img
+                src={icon}
+                alt=""
+                aria-hidden="true"
+                className="w-3.5 h-3.5 object-contain shrink-0"
+                loading="lazy"
+              />
+            )}
+            {r}
+          </span>
+        );
+      })}
+    </div>
   ) : (
     EMPTY
   );
@@ -927,8 +987,8 @@ const ComparePartners = () => {
                       <R
                         label="Kompetens inom Dynamics 365"
                         help="Alla Dynamics 365-applikationer partnern arbetar med. ERP-appar listas först, därefter CE/CRM — båda i bokstavsordning."
-                        a={renderList(AF.apps)}
-                        b={renderList(BF.apps)}
+                        a={renderAppList(AF.apps)}
+                        b={renderAppList(BF.apps)}
                       />
                       <R
                         label="Fokusbranscher"
