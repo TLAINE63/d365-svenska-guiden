@@ -283,8 +283,11 @@ const handler = async (req: Request): Promise<Response> => {
       
       // Send notification to admin
       try {
-        const emailSubject = isLeadMagnet 
+        const hasPartnerRequest = sanitizedData.assigned_partners.length > 0;
+        const emailSubject = isLeadMagnet
           ? `📥 Guide nedladdad: ${sanitizedData.email}`
+          : hasPartnerRequest
+          ? `📨 Offertförfrågan → ${sanitizedData.assigned_partners.join(", ")}: ${sanitizedData.company_name}`
           : `🎯 Ny lead: ${sanitizedData.company_name}`;
         
         await resend.emails.send({
