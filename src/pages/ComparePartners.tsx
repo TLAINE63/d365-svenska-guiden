@@ -609,12 +609,7 @@ const ComparePartners = () => {
       ? partnerIndustries
       : STANDARD_INDUSTRIES.map((i) => i.name)
   ).sort((x, y) => x.localeCompare(y, "sv"));
-  const availableProductGroups = new Set<ProductFilterKey>();
-  for (const app of [...A.apps, ...B.apps]) {
-    const key = appToGroupKey(app);
-    if (key) availableProductGroups.add(key);
-  }
-  const productOptions = (Array.from(availableProductGroups) as ProductFilterKey[])
+  const productOptions = (Object.keys(PRODUCT_FILTER_GROUP) as ProductFilterKey[])
     .sort((a, b) => PRODUCT_FILTER_GROUP[a].label.localeCompare(PRODUCT_FILTER_GROUP[b].label, "sv"))
     .map((key) => ({ key, label: PRODUCT_FILTER_GROUP[key].label }));
 
