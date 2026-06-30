@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,6 +16,7 @@ interface PartnerRequestDialogProps {
   partnerName: string;
   selectedProduct?: string;
   industry?: string;
+  onSubmitting?: (submitting: boolean) => void;
 }
 
 const PartnerRequestDialog = ({
@@ -25,9 +26,13 @@ const PartnerRequestDialog = ({
   partnerName,
   selectedProduct,
   industry,
+  onSubmitting,
 }: PartnerRequestDialogProps) => {
   const { toast } = useToast();
   const [submitting, setSubmitting] = useState(false);
+  useEffect(() => {
+    onSubmitting?.(submitting);
+  }, [submitting, onSubmitting]);
   const [form, setForm] = useState({
     company_name: "",
     contact_name: "",
