@@ -128,6 +128,7 @@ const PartnerCard = ({
  showRandomIndicator = false
 }: PartnerCardProps) => {
   const [showAiDetails, setShowAiDetails] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
   const { isSelected: isCompareSelected, toggle: toggleCompare } = usePartnerCompare();
   const compareSlug = isDatabasePartner(partner) ? partner.slug : null;
   const compareActive = compareSlug ? isCompareSelected(compareSlug) : false;
