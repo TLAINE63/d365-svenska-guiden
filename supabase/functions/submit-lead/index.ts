@@ -81,6 +81,7 @@ interface LeadRequest {
   source_page?: string;
   source_type?: string;
   message?: string;
+  assigned_partners?: string[];
   _hp?: string; // Honeypot field
   pdfBase64?: string; // PDF attachment for lead magnet
   pdfFilename?: string;
@@ -153,6 +154,13 @@ const handler = async (req: Request): Promise<Response> => {
       source_page: sanitizeInput(data.source_page).slice(0, 200),
       source_type: sanitizeInput(data.source_type).slice(0, 50) || "cta",
       message: sanitizeInput(data.message).slice(0, 1000),
+      assigned_partners: Array.isArray(data.assigned_partners)
+        ? data.assigned_partners
+            .filter((s) => typeof s === "string")
+            .map((s) => sanitizeInput(s).slice(0, 100))
+            .filter(Boolean)
+            .slice(0, 5)
+        : [],
     };
 
     // Create Supabase client with service role
@@ -174,6 +182,7 @@ const handler = async (req: Request): Promise<Response> => {
         source_page: sanitizedData.source_page || null,
         source_type: sanitizedData.source_type,
         message: sanitizedData.message || null,
+        assigned_partners: sanitizedData.assigned_partners,
         status: "new",
       })
       .select()
@@ -274,8 +283,11 @@ const handler = async (req: Request): Promise<Response> => {
       
       // Send notification to admin
       try {
-        const emailSubject = isLeadMagnet 
+        const hasPartnerRequest = sanitizedData.assigned_partners.length > 0;
+        const emailSubject = isLeadMagnet
           ? `📥 Guide nedladdad: ${sanitizedData.email}`
+          : hasPartnerRequest
+          ? `📨 Offertförfrågan → ${sanitizedData.assigned_partners.join(", ")}: ${sanitizedData.company_name}`
           : `🎯 Ny lead: ${sanitizedData.company_name}`;
         
         await resend.emails.send({
@@ -340,6 +352,12 @@ const handler = async (req: Request): Promise<Response> => {
                       <td style="padding: 8px 0; color: #6b7280;">Produkt:</td>
                       <td style="padding: 8px 0; color: #111827;">${sanitizedData.selected_product || "Ej angivet"}</td>
                     </tr>
+                    ${hasPartnerRequest ? `
+                      <tr>
+                        <td style="padding: 8px 0; color: #6b7280;">Önskad partner:</td>
+                        <td style="padding: 8px 0; color: #111827;"><strong>${sanitizedData.assigned_partners.join(", ")}</strong></td>
+                      </tr>
+                    ` : ""}
                   </table>
                 ` : ""}
                 

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -21,11 +21,14 @@ import {
   ChevronDown,
   Sparkles,
   Globe2,
+  Mail,
 } from "lucide-react";
+
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
+import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import {
@@ -179,9 +182,10 @@ interface ColProps {
   onChange: (slug: string) => void;
   onClear: () => void;
   label: string;
+  onRequestQuote?: () => void;
 }
 
-const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label }: ColProps) => (
+const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label, onRequestQuote }: ColProps) => (
   <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5">
     {partner ? (
       <div className="flex items-start gap-3">
@@ -231,7 +235,7 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label
       </div>
     )}
 
-    <div className="mt-4 pt-3 border-t border-slate-100">
+    <div className="mt-4 pt-3 border-t border-slate-100 space-y-2">
       <Select value={slug || undefined} onValueChange={onChange}>
         <SelectTrigger className="h-9 text-sm bg-slate-50 border-slate-200 hover:border-slate-300">
           {slug ? (
@@ -251,9 +255,21 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label
           ))}
         </SelectContent>
       </Select>
+      {partner && onRequestQuote && (
+        <Button
+          type="button"
+          size="sm"
+          onClick={onRequestQuote}
+          className="w-full h-9 bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
+        >
+          <Mail className="w-4 h-4 mr-1.5" />
+          Begär offert
+        </Button>
+      )}
     </div>
   </div>
 );
+
 
 const Cell = ({ children, mobileLabel }: { children: React.ReactNode; mobileLabel?: string }) => (
   <div className="p-3 sm:p-4 text-sm text-[hsl(var(--foreground))] min-h-[56px] sm:min-h-[64px]">
@@ -549,6 +565,7 @@ const ComparePartners = () => {
   const [params, setParams] = useSearchParams();
   const aSlug = params.get("a") || "";
   const bSlug = params.get("b") || "";
+  const [quoteFor, setQuoteFor] = useState<DatabasePartner | null>(null);
 
   const { data: partners = [], isLoading } = usePartners();
 
@@ -1150,6 +1167,7 @@ const ComparePartners = () => {
                     slug={aSlug}
                     onChange={(s) => setSlot("a", s)}
                     onClear={() => setSlot("a", "")}
+                    onRequestQuote={a ? () => setQuoteFor(a) : undefined}
                   />
                   <PartnerColumnHeader
                     label="Partner B"
@@ -1158,6 +1176,7 @@ const ComparePartners = () => {
                     slug={bSlug}
                     onChange={(s) => setSlot("b", s)}
                     onClear={() => setSlot("b", "")}
+                    onRequestQuote={b ? () => setQuoteFor(b) : undefined}
                   />
                 </div>
 
@@ -1389,6 +1408,21 @@ const ComparePartners = () => {
           </div>
         </div>
       </main>
+
+      {quoteFor && (
+        <PartnerRequestDialog
+          open={!!quoteFor}
+          onOpenChange={(o) => { if (!o) setQuoteFor(null); }}
+          partnerSlug={quoteFor.slug}
+          partnerName={quoteFor.name}
+          selectedProduct={
+            productFilters.length === 1
+              ? PRODUCT_FILTER_GROUP[productFilters[0]].label
+              : undefined
+          }
+          industry={industryFilter || undefined}
+        />
+      )}
 
       <Footer />
     </div>
