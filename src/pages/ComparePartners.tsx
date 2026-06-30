@@ -432,16 +432,6 @@ const renderIndustryList = (items: string[]) =>
     EMPTY
   );
 
-const renderAi = (
-  items: {
-    productKey: string;
-    productLabel: string;
-    capabilities: string[];
-    projectCount: string;
-    caseDescription: string;
-    businessImpact: string;
-  }[]
-) => {
 const renderAiProfile = (profile?: AiProfile | null) => {
   if (isAiProfileEmpty(profile)) return EMPTY;
   const p = profile!;
