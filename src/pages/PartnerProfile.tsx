@@ -496,45 +496,19 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   </div>
   )}
 
-  {/* Lead CTA block - replace external website link with mediated requests */}
-  <div className="w-full max-w-2xl mx-auto mb-4">
-    <div className="flex flex-col sm:flex-row gap-3">
-      <Button
-        type="button"
-        onClick={() => openRequest("contact")}
-        className="flex-1 min-h-[48px] bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-sm sm:text-base rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-      >
-        Få kontakt
-      </Button>
-      <Button
-        type="button"
-        onClick={() => openRequest("quote")}
-        className="flex-1 min-h-[48px] bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-sm sm:text-base rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-      >
-        Begär offert
-      </Button>
-      <Button
-        type="button"
-        onClick={() => openRequest("demo")}
-        className="flex-1 min-h-[48px] bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-sm sm:text-base rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-      >
-        Gör en intresseförfrågan om demo
-      </Button>
-    </div>
-    <p className="mt-3 text-xs text-center text-slate-500">
-      d365.se förmedlar din förfrågan till partnern. Inga privata e-postadresser (Gmail, Hotmail, etc.) accepteras.
-    </p>
-  </div>
+  {/* Lead CTA block moved under product tabs — see PartnerProductTabs */}
+
 
   <PartnerRequestDialog
     open={requestOpen}
     onOpenChange={setRequestOpen}
     partnerSlug={partner.slug}
     partnerName={partner.name}
-    selectedProduct={selectedProduct}
+    selectedProduct={activeTabProduct || selectedProduct}
     industry={selectedIndustry}
     mode={requestMode}
   />
+
 
   {/* Sales contact card with optional photo - per product if applicable */}
   {(() => {
@@ -661,7 +635,9 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
    selectedGeography={selectedGeography}
    selectedRevenue={selectedRevenue}
    onActiveTabChange={(_, label) => setActiveTabProduct(label)}
+   onRequest={openRequest}
    />
+
 
    {/* AI, Copilot & Automation – partner-level public view */}
    {(partner as any).ai_profile && (

@@ -88,7 +88,9 @@ interface Props {
   selectedGeography?: string;
   selectedRevenue?: string;
   onActiveTabChange?: (tab: TabKey, label: string) => void;
+  onRequest?: (mode: "contact" | "demo" | "quote") => void;
 }
+
 
 const GEO_ORDER = ["Sverige", "Norden", "Europa", "Globalt"];
 
@@ -307,7 +309,9 @@ export default function PartnerProductTabs({
   selectedGeography,
   selectedRevenue,
   onActiveTabChange,
+  onRequest,
 }: Props) {
+
   const availableTabs = useMemo(() => getAvailableTabs(partner), [partner]);
   const fallbackTab: TabKey = availableTabs[0] || "bc";
   const [active, setActive] = useState<TabKey>(
@@ -442,7 +446,40 @@ export default function PartnerProductTabs({
               </section>
             )}
 
+            {/* Lead CTA — auto-fills active product */}
+            {onRequest && (
+              <section className="w-full">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <button
+                    type="button"
+                    onClick={() => onRequest("contact")}
+                    className="flex-1 min-h-[48px] bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-sm sm:text-base rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  >
+                    Få kontakt
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => onRequest("quote")}
+                    className="flex-1 min-h-[48px] bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-sm sm:text-base rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  >
+                    Begär offert
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => onRequest("demo")}
+                    className="flex-1 min-h-[48px] bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-sm sm:text-base rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  >
+                    Gör en intresseförfrågan om demo
+                  </button>
+                </div>
+                <p className="mt-3 text-xs text-center text-muted-foreground">
+                  Din förfrågan gäller <span className="font-semibold text-foreground">{tabMeta.label}</span>. d365.se förmedlar den till {partner.name}. Inga privata e-postadresser (Gmail, Hotmail, etc.) accepteras.
+                </p>
+              </section>
+            )}
+
             {/* 1. Varför välja */}
+
             <section>
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight mb-2">
                 Varför välja {partner.name} för {tabMeta.label}?
