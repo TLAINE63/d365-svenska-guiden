@@ -1861,6 +1861,19 @@ const PartnerUpdate = () => {
  </div>
  </PremiumCollapsibleSection>
 
+ {/* AI, Copilot & Automation – partner-level */}
+ <PremiumCollapsibleSection
+   title="AI, Copilot & Automation"
+   description="En gemensam AI-profil för hela ert företag – ersätter den gamla per-produkt-modellen."
+   icon={Sparkles}
+   accent="crm"
+   status={(aiProfile.capabilities || []).length > 0 ? "complete" : "empty"}
+   open={true}
+   onOpenChange={() => {}}
+ >
+   <AiProfileSection value={aiProfile} onChange={setAiProfile} />
+ </PremiumCollapsibleSection>
+
  {/* Basic Information */}
  <PremiumCollapsibleSection
  title="Grundläggande information"
