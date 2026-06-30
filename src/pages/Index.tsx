@@ -272,31 +272,52 @@ const Index = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-              {matchSteps.map((s, i) => (
-                <div key={s.n} className="relative bg-card border border-border rounded p-5 sm:p-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="w-9 h-9 rounded bg-[hsl(var(--signature))]/10 text-[hsl(var(--signature))] font-bold text-sm flex items-center justify-center">
-                      {s.n}
-                    </span>
-                    <s.icon className="w-5 h-5 text-muted-foreground" />
-                  </div>
-                  <h3 className="text-base font-semibold text-foreground mb-1.5">{s.title}</h3>
-                  <p className="text-[13.5px] text-muted-foreground leading-relaxed">{s.desc}</p>
-                  {i < matchSteps.length - 1 && (
+              {matchSteps.map((s, i) =>
+                i === 0 ? (
+                  <Link
+                    key={s.n}
+                    to="/branscher/"
+                    className="group relative bg-card border border-border rounded p-5 sm:p-6 transition-all hover:-translate-y-1 hover:border-[hsl(var(--cta-orange))]/40 hover:shadow-[0_8px_24px_-12px_hsl(var(--cta-orange)/0.15)]"
+                  >
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="w-9 h-9 rounded bg-[hsl(var(--signature))]/10 text-[hsl(var(--signature))] font-bold text-sm flex items-center justify-center">
+                        {s.n}
+                      </span>
+                      <s.icon className="w-5 h-5 text-muted-foreground" />
+                    </div>
+                    <h3 className="text-base font-semibold text-foreground mb-1.5">{s.title}</h3>
+                    <p className="text-[13.5px] text-muted-foreground leading-relaxed">{s.desc}</p>
                     <ArrowRight
                       className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-border bg-background"
                       aria-hidden="true"
                     />
-                  )}
-                </div>
-              ))}
+                  </Link>
+                ) : (
+                  <div key={s.n} className="relative bg-card border border-border rounded p-5 sm:p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="w-9 h-9 rounded bg-[hsl(var(--signature))]/10 text-[hsl(var(--signature))] font-bold text-sm flex items-center justify-center">
+                        {s.n}
+                      </span>
+                      <s.icon className="w-5 h-5 text-muted-foreground" />
+                    </div>
+                    <h3 className="text-base font-semibold text-foreground mb-1.5">{s.title}</h3>
+                    <p className="text-[13.5px] text-muted-foreground leading-relaxed">{s.desc}</p>
+                    {i < matchSteps.length - 1 && (
+                      <ArrowRight
+                        className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-border bg-background"
+                        aria-hidden="true"
+                      />
+                    )}
+                  </div>
+                )
+              )}
             </div>
 
             <div className="flex flex-col sm:flex-row sm:items-center gap-4">
               <Button
                 asChild
                 size="lg"
-                className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white h-13 px-7 rounded font-bold hover:-translate-y-0.5 transition-all"
+                className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white h-14 px-8 rounded font-bold text-base hover:-translate-y-0.5 transition-all"
               >
                 <Link to="/branscher/">
                   Hitta rätt partner
