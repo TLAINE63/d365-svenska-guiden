@@ -5,6 +5,7 @@ import partnerDataJson from "@/data/partnerData.json";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { companySizes } from "@/data/partners";
 import PartnerCard from "@/components/PartnerCard";
+import FilteredListActions from "@/components/FilteredListActions";
 import type { DatabasePartner } from "@/hooks/usePartners";
 
 
