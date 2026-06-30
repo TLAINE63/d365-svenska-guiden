@@ -987,8 +987,8 @@ const ComparePartners = () => {
                       <R
                         label="Kompetens inom Dynamics 365"
                         help="Alla Dynamics 365-applikationer partnern arbetar med. ERP-appar listas först, därefter CE/CRM — båda i bokstavsordning."
-                        a={renderList(AF.apps)}
-                        b={renderList(BF.apps)}
+                        a={renderAppList(AF.apps)}
+                        b={renderAppList(BF.apps)}
                       />
                       <R
                         label="Fokusbranscher"
