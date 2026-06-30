@@ -504,10 +504,11 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
     onOpenChange={setRequestOpen}
     partnerSlug={partner.slug}
     partnerName={partner.name}
-    selectedProduct={selectedProduct}
+    selectedProduct={activeTabProduct || selectedProduct}
     industry={selectedIndustry}
     mode={requestMode}
   />
+
 
   {/* Sales contact card with optional photo - per product if applicable */}
   {(() => {
