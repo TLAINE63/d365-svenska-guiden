@@ -88,7 +88,9 @@ interface Props {
   selectedGeography?: string;
   selectedRevenue?: string;
   onActiveTabChange?: (tab: TabKey, label: string) => void;
+  onRequest?: (mode: "contact" | "demo" | "quote") => void;
 }
+
 
 const GEO_ORDER = ["Sverige", "Norden", "Europa", "Globalt"];
 
