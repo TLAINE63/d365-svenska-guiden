@@ -42,7 +42,6 @@ import SEOHead from "@/components/SEOHead";
 import { PartnerOrganizationSchema, BreadcrumbSchema } from "@/components/StructuredData";
 import { buildMetaTitle } from "@/lib/metaTitle";
 import { buildMetaDescription } from "@/lib/metaDescription";
-import { trackPartnerClick } from "@/utils/trackPartnerClick";
 import { trackPartnerView } from "@/utils/trackPartnerView";
 
 // Dynamics 365 icons
