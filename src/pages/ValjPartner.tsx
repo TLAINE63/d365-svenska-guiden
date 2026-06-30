@@ -901,16 +901,11 @@ const ValjPartner = () => {
  {p.name}
  </Link>
  </h3>
- {Array.isArray(p.applications) && p.applications.length > 0 && (
- <p className="text-xs text-muted-foreground mb-2">
- {p.applications.join(" · ")}
- </p>
- )}
- {p.description && (
- <p className="text-sm text-muted-foreground line-clamp-3">
- {p.description}
- </p>
- )}
+  {Array.isArray(p.applications) && p.applications.length > 0 && (
+  <p className="text-xs text-muted-foreground">
+  {p.applications.join(" · ")}
+  </p>
+  )}
  </li>
  ))}
  </ul>

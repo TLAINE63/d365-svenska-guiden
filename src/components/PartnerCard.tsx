@@ -397,12 +397,7 @@ const PartnerCard = ({
  );
  })()}
 
- {/* Description */}
- <p className="text-sm text-muted-foreground leading-relaxed mb-3 line-clamp-3">
- {partner.description}
- </p>
-
- {/* Product-specific description */}
+  {/* Product-specific description */}
  {productDescription && (
  <div className="mb-4 p-3.5 rounded-lg bg-muted/50 border-l-2 border-primary/40">
  <p className="text-[15px] text-foreground/80 leading-[1.7] line-clamp-3">
