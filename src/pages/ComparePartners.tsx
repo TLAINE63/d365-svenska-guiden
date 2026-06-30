@@ -629,10 +629,10 @@ const ComparePartners = () => {
   };
 
   const PITCH_LABELS_BY_KEY: Record<ProductFilterKey, string[]> = {
-    bc: PRODUCT_FILTER_GROUP.bc.apps as string[],
-    fsc: PRODUCT_FILTER_GROUP.fsc.apps as string[],
-    sales: PRODUCT_FILTER_GROUP.sales.apps as string[],
-    service: PRODUCT_FILTER_GROUP.service.apps as string[],
+    bc: [...PRODUCT_FILTER_GROUP.bc.apps] as string[],
+    fsc: [...PRODUCT_FILTER_GROUP.fsc.apps] as string[],
+    sales: [...PRODUCT_FILTER_GROUP.sales.apps] as string[],
+    service: [...PRODUCT_FILTER_GROUP.service.apps] as string[],
   };
   const selectedPitchLabels = productActive
     ? Array.from(new Set(productFilters.flatMap((sel) => PITCH_LABELS_BY_KEY[sel] || [])))
