@@ -186,7 +186,7 @@ interface ColProps {
   quoteSubmitting?: boolean;
 }
 
-const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label, onRequestQuote }: ColProps) => (
+const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label, onRequestQuote, quoteSubmitting }: ColProps) => (
   <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5">
     {partner ? (
       <div className="flex items-start gap-3">
@@ -261,10 +261,12 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label
           type="button"
           size="sm"
           onClick={onRequestQuote}
-          className="w-full h-9 bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
+          disabled={quoteSubmitting}
+          aria-busy={quoteSubmitting}
+          className="w-full h-9 bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 disabled:opacity-60 disabled:cursor-not-allowed"
         >
           <Mail className="w-4 h-4 mr-1.5" />
-          Begär offert
+          {quoteSubmitting ? "Skickar…" : "Begär offert"}
         </Button>
       )}
     </div>
