@@ -152,6 +152,16 @@ interface TabData {
   industryApps: Array<{ name: string; url: string; application: string; industry: string; description: string }>;
   contact: { name?: string; email?: string; phone?: string } | null;
   landingPageUrl: string | null;
+  productProfile: {
+    app: string;
+    positioning: string | null;
+    roles: string[];
+    engagement_model: string | null;
+    methodology: string | null;
+    weeks_min: number | null;
+    weeks_max: number | null;
+    cost_band: string | null;
+  } | null;
 }
 
 
@@ -251,6 +261,26 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
     }
   }
 
+  // Per-product beslutsprofil — pick first matching app's product_profile
+  const productProfilesMap = ((partner as any).product_profiles || {}) as Record<string, any>;
+  let productProfile: TabData["productProfile"] = null;
+  for (const app of apps) {
+    const raw = productProfilesMap[app];
+    if (raw && typeof raw === "object") {
+      productProfile = {
+        app,
+        positioning: typeof raw.positioning === "string" ? raw.positioning : null,
+        roles: Array.isArray(raw.roles) ? raw.roles : [],
+        engagement_model: typeof raw.engagement_model === "string" ? raw.engagement_model : null,
+        methodology: typeof raw.methodology === "string" ? raw.methodology : null,
+        weeks_min: typeof raw.weeks_min === "number" ? raw.weeks_min : null,
+        weeks_max: typeof raw.weeks_max === "number" ? raw.weeks_max : null,
+        cost_band: typeof raw.cost_band === "string" ? raw.cost_band : null,
+      };
+      break;
+    }
+  }
+
   return {
     industries: fallbackIndustries,
     geography,
@@ -265,6 +295,7 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
     industryApps,
     contact,
     landingPageUrl,
+    productProfile,
   };
 }
 
@@ -416,9 +447,9 @@ export default function PartnerProductTabs({
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight mb-2">
                 Varför välja {partner.name} för {tabMeta.label}?
               </h2>
-              {partner.positioning_statement ? (
+              {(data.productProfile?.positioning || partner.positioning_statement) ? (
                 <p className="text-base text-muted-foreground mb-5 max-w-[68ch] leading-relaxed">
-                  {partner.positioning_statement}
+                  {data.productProfile?.positioning || partner.positioning_statement}
                 </p>
               ) : null}
 

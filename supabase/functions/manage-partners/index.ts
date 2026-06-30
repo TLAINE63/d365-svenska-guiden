@@ -334,6 +334,8 @@ serve(async (req: Request): Promise<Response> => {
             implementations_done: (partner as any).implementations_done || null,
             not_a_fit: (partner as any).not_a_fit || [],
             ai_profile: (partner as any).ai_profile || {},
+            product_profiles: (partner as any).product_profiles || {},
+            implementations_per_app: (partner as any).implementations_per_app || {},
           })
           .select()
           .single();
@@ -404,6 +406,8 @@ serve(async (req: Request): Promise<Response> => {
         if ((partner as any)?.implementations_done !== undefined) updateData.implementations_done = (partner as any).implementations_done || null;
         if ((partner as any)?.not_a_fit !== undefined) updateData.not_a_fit = (partner as any).not_a_fit || [];
         if ((partner as any)?.ai_profile !== undefined) updateData.ai_profile = (partner as any).ai_profile || {};
+        if ((partner as any)?.product_profiles !== undefined) updateData.product_profiles = (partner as any).product_profiles || {};
+        if ((partner as any)?.implementations_per_app !== undefined) updateData.implementations_per_app = (partner as any).implementations_per_app || {};
 
         const { data, error } = await supabase
           .from("partners")

@@ -258,7 +258,7 @@ const PartnerUpdate = () => {
  const [selectedSpecialtyProducts, setSelectedSpecialtyProducts] = useState<SpecialtyProduct[]>([]);
   const [industryPitches, setIndustryPitches] = useState<IndustryPitch[]>([]);
 
-  // Decision profile state
+  // Decision profile state (legacy partner-level fields kept for backward compat / fallback)
   const [positioningStatement, setPositioningStatement] = useState("");
   const [deliveryProfile, setDeliveryProfile] = useState<{
     roles: string[];
@@ -275,6 +275,33 @@ const PartnerUpdate = () => {
   const [implementationsPerApp, setImplementationsPerApp] = useState<Record<string, string>>({});
   const [notAFitInput, setNotAFitInput] = useState("");
   const [aiProfile, setAiProfile] = useState<import("@/lib/aiProfile").AiProfile>({});
+
+  // Per-produkt beslutsprofil (positionering + leveransbild) — en post per aktiv D365-applikation
+  type ProductProfile = {
+    positioning: string;
+    roles: string;
+    engagement_model: string;
+    methodology: string;
+    weeks_min: string;
+    weeks_max: string;
+    cost_band: string;
+  };
+  const EMPTY_PRODUCT_PROFILE: ProductProfile = {
+    positioning: "",
+    roles: "",
+    engagement_model: "",
+    methodology: "",
+    weeks_min: "",
+    weeks_max: "",
+    cost_band: "",
+  };
+  const [productProfiles, setProductProfiles] = useState<Record<string, ProductProfile>>({});
+  const updateProductProfile = (app: string, patch: Partial<ProductProfile>) => {
+    setProductProfiles((prev) => ({
+      ...prev,
+      [app]: { ...EMPTY_PRODUCT_PROFILE, ...(prev[app] || {}), ...patch },
+    }));
+  };
 
   type SectionKey = "basic" | "decision" | "products" | "specialty" | "pitches" | "industryApps" | "events" | "notes";
   const [openSections, setOpenSections] = useState<Record<SectionKey, boolean>>({
@@ -483,6 +510,24 @@ const PartnerUpdate = () => {
   }
   if (Array.isArray(ed.not_a_fit)) setNotAFitInput(ed.not_a_fit.join("\n"));
   if (ed.ai_profile && typeof ed.ai_profile === "object") setAiProfile(ed.ai_profile);
+
+  // Per-produkt beslutsprofil — hydrera från product_profiles, fall tillbaka på legacy positioning/delivery_profile
+  if (ed.product_profiles && typeof ed.product_profiles === "object" && !Array.isArray(ed.product_profiles)) {
+    const normalized: Record<string, ProductProfile> = {};
+    for (const [app, raw] of Object.entries(ed.product_profiles as Record<string, any>)) {
+      if (!raw || typeof raw !== "object") continue;
+      normalized[app] = {
+        positioning: typeof raw.positioning === "string" ? raw.positioning : "",
+        roles: typeof raw.roles === "string" ? raw.roles : Array.isArray(raw.roles) ? raw.roles.join(", ") : "",
+        engagement_model: typeof raw.engagement_model === "string" ? raw.engagement_model : "",
+        methodology: typeof raw.methodology === "string" ? raw.methodology : "",
+        weeks_min: raw.weeks_min != null ? String(raw.weeks_min) : "",
+        weeks_max: raw.weeks_max != null ? String(raw.weeks_max) : "",
+        cost_band: typeof raw.cost_band === "string" ? raw.cost_band : "",
+      };
+    }
+    setProductProfiles(normalized);
+  }
  } else {
  setFormData(prev => ({
  ...prev,
@@ -913,6 +958,50 @@ const PartnerUpdate = () => {
  .map(c => c.trim())
  .filter(Boolean);
 
+ // Per-produkt beslutsprofil — sanera och behåll endast aktiva applikationer
+ const sanitizedProductProfiles: Record<string, any> = {};
+ for (const app of applications) {
+   const pp = productProfiles[app];
+   if (!pp) continue;
+   const entry: any = {
+     positioning: pp.positioning.trim() || null,
+     roles: pp.roles.split(",").map((s) => s.trim()).filter(Boolean),
+     engagement_model: pp.engagement_model.trim() || null,
+     methodology: pp.methodology.trim() || null,
+     weeks_min: pp.weeks_min.trim() ? Math.max(0, parseInt(pp.weeks_min, 10) || 0) : null,
+     weeks_max: pp.weeks_max.trim() ? Math.max(0, parseInt(pp.weeks_max, 10) || 0) : null,
+     cost_band: pp.cost_band || null,
+   };
+   const hasAny =
+     entry.positioning || entry.engagement_model || entry.methodology ||
+     entry.weeks_min != null || entry.weeks_max != null || entry.cost_band ||
+     (entry.roles && entry.roles.length > 0);
+   if (hasAny) sanitizedProductProfiles[app] = entry;
+ }
+ // Härled legacy partner-fält från första app:s profil (för bakåtkompatibilitet)
+ const firstAppWithProfile = applications.find((a) => sanitizedProductProfiles[a]);
+ const legacyProfile = firstAppWithProfile ? sanitizedProductProfiles[firstAppWithProfile] : null;
+ const legacyPositioning = legacyProfile?.positioning || positioningStatement.trim() || null;
+ const legacyDelivery = legacyProfile
+   ? {
+       roles: legacyProfile.roles || [],
+       typical_length: "",
+       engagement_model: legacyProfile.engagement_model || "",
+       methodology: legacyProfile.methodology || "",
+       bc_project_weeks_min: legacyProfile.weeks_min,
+       bc_project_weeks_max: legacyProfile.weeks_max,
+       bc_project_cost_band: legacyProfile.cost_band,
+     }
+   : {
+       roles: rolesInput.split(",").map((s) => s.trim()).filter(Boolean),
+       typical_length: deliveryProfile.typical_length.trim(),
+       engagement_model: deliveryProfile.engagement_model.trim(),
+       methodology: deliveryProfile.methodology.trim(),
+       bc_project_weeks_min: deliveryProfile.bc_project_weeks_min.trim() ? Math.max(0, parseInt(deliveryProfile.bc_project_weeks_min, 10) || 0) : null,
+       bc_project_weeks_max: deliveryProfile.bc_project_weeks_max.trim() ? Math.max(0, parseInt(deliveryProfile.bc_project_weeks_max, 10) || 0) : null,
+       bc_project_cost_band: deliveryProfile.bc_project_cost_band || null,
+     };
+
  // Build submission data
  const submissionData = {
  ...formData,
@@ -924,16 +1013,9 @@ const PartnerUpdate = () => {
  industry_apps: industryApps.filter(app => app.name.trim() && app.url.trim()),
  industry_pitches: industryPitches.filter(p => p.text?.trim()),
  office_cities: officeCities,
- positioning_statement: positioningStatement.trim() || null,
- delivery_profile: {
-   roles: rolesInput.split(",").map(s => s.trim()).filter(Boolean),
-   typical_length: deliveryProfile.typical_length.trim(),
-   engagement_model: deliveryProfile.engagement_model.trim(),
-   methodology: deliveryProfile.methodology.trim(),
-   bc_project_weeks_min: deliveryProfile.bc_project_weeks_min.trim() ? Math.max(0, parseInt(deliveryProfile.bc_project_weeks_min, 10) || 0) : null,
-    bc_project_weeks_max: deliveryProfile.bc_project_weeks_max.trim() ? Math.max(0, parseInt(deliveryProfile.bc_project_weeks_max, 10) || 0) : null,
-    bc_project_cost_band: deliveryProfile.bc_project_cost_band || null,
- },
+ product_profiles: sanitizedProductProfiles,
+ positioning_statement: legacyPositioning,
+ delivery_profile: legacyDelivery,
  team_size_sweden: teamSizeSweden || null,
  implementations_done: implementationsDone || null,
  implementations_per_app: Object.fromEntries(
@@ -2614,30 +2696,26 @@ const PartnerUpdate = () => {
  icon={Target}
  accent="primary"
  status={
-   positioningStatement.trim() && notAFitInput.trim() && rolesInput.trim()
-     ? "complete"
-     : (positioningStatement.trim() || notAFitInput.trim() ? "partial" : "empty")
+   (() => {
+     const apps = [
+       ...activeProducts.flatMap((k) => productSections.find((s) => s.key === k)?.apps || []),
+       ...selectedSpecialtyProducts,
+     ];
+     const filledPositioning = apps.filter((a) => productProfiles[a]?.positioning?.trim()).length;
+     const anyDelivery = apps.some((a) => {
+       const pp = productProfiles[a];
+       return pp && (pp.roles.trim() || pp.engagement_model.trim() || pp.methodology.trim() || pp.weeks_min.trim() || pp.weeks_max.trim() || pp.cost_band);
+     });
+     if (apps.length > 0 && filledPositioning === apps.length && notAFitInput.trim() && anyDelivery) return "complete";
+     if (filledPositioning > 0 || notAFitInput.trim() || anyDelivery) return "partial";
+     return "empty";
+   })()
  }
  open={openSections.decision}
  onOpenChange={() => toggleSection("decision")}
  >
  <div className="space-y-6">
-   <div>
-     <Label htmlFor="positioning_statement">Positionering — en mening</Label>
-     <p className="text-xs text-muted-foreground mb-2">
-       Börja gärna med "Vi är valet när …". Konkret om bransch, storlek eller utmaning.
-     </p>
-     <Textarea
-       id="positioning_statement"
-       rows={2}
-       maxLength={240}
-       placeholder="Vi är valet när medelstora tillverkande bolag i Sverige ska byta från äldre ERP till Business Central."
-       value={positioningStatement}
-       onChange={(e) => setPositioningStatement(e.target.value)}
-     />
-     <div className="text-[11px] text-muted-foreground mt-1">{positioningStatement.length}/240</div>
-   </div>
-
+   {/* Partner-nivå: teamstorlek + implementationer per applikation */}
    <div className="grid sm:grid-cols-2 gap-4">
    <div>
      <Label htmlFor="team_size_sweden">Lokal teamstorlek (Sverige) – D365</Label>
@@ -2704,97 +2782,132 @@ const PartnerUpdate = () => {
    })()}
  </div>
 
+   {/* Per-produkt beslutsprofil */}
+   {(() => {
+     const apps = [
+       ...activeProducts.flatMap((k) => productSections.find((s) => s.key === k)?.apps || []),
+       ...selectedSpecialtyProducts,
+     ];
+     if (apps.length === 0) {
+       return (
+         <div className="border-t border-border pt-4">
+           <div className="rounded-md border border-dashed border-border bg-muted/30 p-4 text-sm text-muted-foreground">
+             Välj minst en Dynamics 365-produkt ovan för att fylla i positionering och leveransbild per produkt.
+           </div>
+         </div>
+       );
+     }
+     return (
+       <div className="border-t border-border pt-4 space-y-4">
+         <div>
+           <h4 className="font-semibold text-sm flex items-center gap-2">
+             <Target className="w-4 h-4 text-[hsl(var(--cta-orange))]" /> Positionering & leveransbild — per Dynamics 365-produkt
+           </h4>
+           <p className="text-xs text-muted-foreground mt-1">
+             Köpare ser olika beslutsprofiler beroende på vilken produkt de tittar på. Fyll i en kort positionering och er typiska leveransbild för varje aktiv produkt.
+           </p>
+         </div>
+         {apps.map((app) => {
+           const pp = productProfiles[app] || EMPTY_PRODUCT_PROFILE;
+           return (
+             <div key={app} className="rounded-lg border border-border bg-card p-4 space-y-4">
+               <div className="flex items-center gap-2">
+                 <Package className="w-4 h-4 text-muted-foreground" />
+                 <h5 className="font-semibold text-sm">{app}</h5>
+               </div>
 
-   <div className="border-t border-border pt-4">
-     <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
-       <Package className="w-4 h-4" /> Leveransbild
-     </h4>
-     <div className="grid sm:grid-cols-2 gap-4">
-       <div className="sm:col-span-2">
-         <Label htmlFor="dp_roles">Roller partnern bemannar (kommaseparerade)</Label>
-         <Input
-           id="dp_roles"
-           placeholder="Lösningsarkitekt, Funktionskonsult, Utvecklare"
-           value={rolesInput}
-           onChange={(e) => setRolesInput(e.target.value)}
-         />
-       </div>
-       <div>
-         <Label htmlFor="dp_engagement">Uppdragsform</Label>
-         <Input
-           id="dp_engagement"
-           placeholder="t.ex. Förstudie, fast pris, T&M"
-           value={deliveryProfile.engagement_model}
-           onChange={(e) => setDeliveryProfile({ ...deliveryProfile, engagement_model: e.target.value })}
-         />
-       </div>
-        <div className="sm:col-span-2">
-          <Label htmlFor="dp_method">Projektmetodik</Label>
-          <Input
-            id="dp_method"
-            placeholder="t.ex. Sure Step, egen agil metod"
-            value={deliveryProfile.methodology}
-            onChange={(e) => setDeliveryProfile({ ...deliveryProfile, methodology: e.target.value })}
-          />
-        </div>
-        <div className="sm:col-span-2">
-          <Label className="flex items-center gap-2">
-            Typisk projektlängd för Business Central (veckor)
-          </Label>
-          <p className="text-xs text-muted-foreground mb-2">
-            Ange spannet ni oftast levererar BC-implementationer på (min och max). Hjälper köparen jämföra realistisk tidsåtgång.
-          </p>
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <Label htmlFor="dp_bc_min" className="text-xs text-slate-500">Min (veckor)</Label>
-              <Input
-                id="dp_bc_min"
-                type="number"
-                min={0}
-                placeholder="t.ex. 12"
-                value={deliveryProfile.bc_project_weeks_min}
-                onChange={(e) => setDeliveryProfile({ ...deliveryProfile, bc_project_weeks_min: e.target.value })}
-              />
-            </div>
-            <div>
-              <Label htmlFor="dp_bc_max" className="text-xs text-slate-500">Max (veckor)</Label>
-              <Input
-                id="dp_bc_max"
-                type="number"
-                min={0}
-                placeholder="t.ex. 26"
-                value={deliveryProfile.bc_project_weeks_max}
-                onChange={(e) => setDeliveryProfile({ ...deliveryProfile, bc_project_weeks_max: e.target.value })}
-              />
-          </div>
-        </div>
-        <div className="sm:col-span-2">
-          <Label htmlFor="dp_bc_cost_band" className="flex items-center gap-2">
-            Typisk total projektkostnad för Business Central (kostnadsband)
-          </Label>
-          <p className="text-xs text-muted-foreground mb-2">
-            Ange det kostnadsband ni oftast levererar BC-implementationer inom (exkl. licenser). Hjälper köparen kalibrera budget.
-          </p>
-          <select
-            id="dp_bc_cost_band"
-            className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
-            value={deliveryProfile.bc_project_cost_band}
-            onChange={(e) => setDeliveryProfile({ ...deliveryProfile, bc_project_cost_band: e.target.value })}
-          >
-            <option value="">— Välj kostnadsband —</option>
-            <option value="<250k">Mindre än 250 000 kr</option>
-            <option value="250k–500k">250 000 – 500 000 kr</option>
-            <option value="500k–1M">500 000 kr – 1 MSEK</option>
-            <option value="1M–2.5M">1 – 2,5 MSEK</option>
-            <option value="2.5M–5M">2,5 – 5 MSEK</option>
-            <option value="5M–10M">5 – 10 MSEK</option>
-            <option value=">10M">Över 10 MSEK</option>
-          </select>
-        </div>
-      </div>
-    </div>
+               <div>
+                 <Label htmlFor={`pp_pos_${app}`} className="text-xs">Positionering — en mening</Label>
+                 <p className="text-[11px] text-muted-foreground mb-1">
+                   Börja gärna med "Vi är valet när …". Konkret om bransch, storlek eller utmaning för {app}.
+                 </p>
+                 <Textarea
+                   id={`pp_pos_${app}`}
+                   rows={2}
+                   maxLength={240}
+                   placeholder={`Vi är valet när medelstora bolag i Sverige ska implementera ${app}.`}
+                   value={pp.positioning}
+                   onChange={(e) => updateProductProfile(app, { positioning: e.target.value })}
+                 />
+                 <div className="text-[11px] text-muted-foreground mt-1">{pp.positioning.length}/240</div>
+               </div>
 
-    </div>
+               <div className="grid sm:grid-cols-2 gap-3">
+                 <div className="sm:col-span-2">
+                   <Label htmlFor={`pp_roles_${app}`} className="text-xs">Roller ni bemannar (kommaseparerade)</Label>
+                   <Input
+                     id={`pp_roles_${app}`}
+                     placeholder="Lösningsarkitekt, Funktionskonsult, Utvecklare"
+                     value={pp.roles}
+                     onChange={(e) => updateProductProfile(app, { roles: e.target.value })}
+                   />
+                 </div>
+                 <div>
+                   <Label htmlFor={`pp_eng_${app}`} className="text-xs">Uppdragsform</Label>
+                   <Input
+                     id={`pp_eng_${app}`}
+                     placeholder="t.ex. Förstudie, fast pris, T&M"
+                     value={pp.engagement_model}
+                     onChange={(e) => updateProductProfile(app, { engagement_model: e.target.value })}
+                   />
+                 </div>
+                 <div>
+                   <Label htmlFor={`pp_met_${app}`} className="text-xs">Projektmetodik</Label>
+                   <Input
+                     id={`pp_met_${app}`}
+                     placeholder="t.ex. Sure Step, egen agil metod"
+                     value={pp.methodology}
+                     onChange={(e) => updateProductProfile(app, { methodology: e.target.value })}
+                   />
+                 </div>
+                 <div>
+                   <Label htmlFor={`pp_wmin_${app}`} className="text-xs">Typisk projektlängd — min (veckor)</Label>
+                   <Input
+                     id={`pp_wmin_${app}`}
+                     type="number"
+                     min={0}
+                     placeholder="t.ex. 12"
+                     value={pp.weeks_min}
+                     onChange={(e) => updateProductProfile(app, { weeks_min: e.target.value })}
+                   />
+                 </div>
+                 <div>
+                   <Label htmlFor={`pp_wmax_${app}`} className="text-xs">Typisk projektlängd — max (veckor)</Label>
+                   <Input
+                     id={`pp_wmax_${app}`}
+                     type="number"
+                     min={0}
+                     placeholder="t.ex. 26"
+                     value={pp.weeks_max}
+                     onChange={(e) => updateProductProfile(app, { weeks_max: e.target.value })}
+                   />
+                 </div>
+                 <div className="sm:col-span-2">
+                   <Label htmlFor={`pp_cost_${app}`} className="text-xs">Typisk total projektkostnad (kostnadsband, exkl. licenser)</Label>
+                   <select
+                     id={`pp_cost_${app}`}
+                     className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
+                     value={pp.cost_band}
+                     onChange={(e) => updateProductProfile(app, { cost_band: e.target.value })}
+                   >
+                     <option value="">— Välj kostnadsband —</option>
+                     <option value="<250k">Mindre än 250 000 kr</option>
+                     <option value="250k–500k">250 000 – 500 000 kr</option>
+                     <option value="500k–1M">500 000 kr – 1 MSEK</option>
+                     <option value="1M–2.5M">1 – 2,5 MSEK</option>
+                     <option value="2.5M–5M">2,5 – 5 MSEK</option>
+                     <option value="5M–10M">5 – 10 MSEK</option>
+                     <option value=">10M">Över 10 MSEK</option>
+                   </select>
+                 </div>
+               </div>
+             </div>
+           );
+         })}
+       </div>
+     );
+   })()}
+
 
    <div className="border-t border-border pt-4">
      <Label htmlFor="not_a_fit" className="flex items-center gap-2">

@@ -1,0 +1,1 @@
+ALTER TABLE public.partner_submissions ADD COLUMN IF NOT EXISTS product_profiles JSONB NOT NULL DEFAULT '{}'::jsonb;
