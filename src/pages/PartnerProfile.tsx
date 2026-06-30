@@ -496,35 +496,45 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   </div>
   )}
 
-  {/* Website CTA - directly under description */}
-  <div className="flex flex-col items-center mb-2">
-  <a 
-  href={partner.website} 
-  target="_blank" 
-  rel="noopener noreferrer"
-  onClick={() => {
-  trackPartnerClick(
-  partner.name,
-  partner.website,
-  `partner-profile-${partner.slug}`,
-  {
-  product: selectedProduct,
-  industry: selectedIndustry,
-  companySize: selectedCompanySize,
-  geography: selectedGeography,
-  }
-  );
-  }}
-  className="inline-flex items-center gap-3 px-6 py-3 rounded bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-sm sm:text-base transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
->
-  <Globe className="w-5 h-5" />
-  <span>Besök {partner.name}</span>
-  <ExternalLink className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5" />
-</a>
-  <span className="mt-2 text-xs text-slate-500 font-medium">
-  Öppnas i nytt fönster
-  </span>
+  {/* Lead CTA block - replace external website link with mediated requests */}
+  <div className="w-full max-w-2xl mx-auto mb-4">
+    <div className="flex flex-col sm:flex-row gap-3">
+      <Button
+        type="button"
+        onClick={() => openRequest("contact")}
+        className="flex-1 min-h-[48px] bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-sm sm:text-base rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      >
+        Få kontakt
+      </Button>
+      <Button
+        type="button"
+        onClick={() => openRequest("demo")}
+        className="flex-1 min-h-[48px] bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-sm sm:text-base rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      >
+        Gör en intresseförfrågan om demo
+      </Button>
+      <Button
+        type="button"
+        onClick={() => openRequest("quote")}
+        className="flex-1 min-h-[48px] bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-sm sm:text-base rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      >
+        Begär offert
+      </Button>
+    </div>
+    <p className="mt-3 text-xs text-center text-slate-500">
+      d365.se förmedlar din förfrågan till partnern. Inga privata e-postadresser (Gmail, Hotmail, etc.) accepteras.
+    </p>
   </div>
+
+  <PartnerRequestDialog
+    open={requestOpen}
+    onOpenChange={setRequestOpen}
+    partnerSlug={partner.slug}
+    partnerName={partner.name}
+    selectedProduct={selectedProduct}
+    industry={selectedIndustry}
+    mode={requestMode}
+  />
 
   {/* Sales contact card with optional photo - per product if applicable */}
   {(() => {
