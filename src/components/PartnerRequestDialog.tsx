@@ -18,6 +18,8 @@ interface PartnerRequestDialogProps {
   industry?: string;
   onSubmitting?: (submitting: boolean) => void;
   mode?: "contact" | "demo" | "quote";
+  /** When set with 2+ entries, sends the same lead to every recipient (multi-mode). */
+  recipients?: Array<{ slug: string; name: string }>;
 }
 
 const MODE_CONFIG = {
@@ -62,8 +64,13 @@ const PartnerRequestDialog = ({
   industry,
   onSubmitting,
   mode = "quote",
+  recipients,
 }: PartnerRequestDialogProps) => {
   const config = MODE_CONFIG[mode];
+  const multi = Array.isArray(recipients) && recipients.length > 1;
+  const displayName = multi
+    ? `${recipients!.length} partners`
+    : partnerName;
   const { toast } = useToast();
   const [submitting, setSubmitting] = useState(false);
   useEffect(() => {
