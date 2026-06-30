@@ -479,11 +479,14 @@ const ComparePartners = () => {
       industry: (ia.industry || "").trim(),
       url: (ia.url || "").trim(),
     })).filter((ia) => ia.name);
+    const pfAll = ((p as any)?.product_filters || {}) as Record<string, { industries?: string[] }>;
+    const pfIndustries = Object.values(pfAll).flatMap((f) => (Array.isArray(f?.industries) ? f.industries : []));
     const allIndustries = Array.from(
       new Set(
         [
           ...(p?.industries || []),
           ...(p?.secondary_industries || []),
+          ...pfIndustries,
           ...industryAppsRaw.map((ia) => ia.industry),
         ]
           .map((s) => (s || "").trim())
