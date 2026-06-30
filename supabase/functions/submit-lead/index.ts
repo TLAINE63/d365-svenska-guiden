@@ -284,10 +284,22 @@ const handler = async (req: Request): Promise<Response> => {
       // Send notification to admin
       try {
         const hasPartnerRequest = sanitizedData.assigned_partners.length > 0;
+        const partnerRequestLabel = (() => {
+          if (!hasPartnerRequest) return "";
+          switch (sanitizedData.source_type) {
+            case "partner_contact_request":
+              return "📞 Kontaktförfrågan";
+            case "partner_demo_request":
+              return "🎮 Demoförfrågan";
+            case "partner_quote_request":
+            default:
+              return "📨 Offertförfrågan";
+          }
+        })();
         const emailSubject = isLeadMagnet
           ? `📥 Guide nedladdad: ${sanitizedData.email}`
           : hasPartnerRequest
-          ? `📨 Offertförfrågan → ${sanitizedData.assigned_partners.join(", ")}: ${sanitizedData.company_name}`
+          ? `${partnerRequestLabel} → ${sanitizedData.assigned_partners.join(", ")}: ${sanitizedData.company_name}`
           : `🎯 Ny lead: ${sanitizedData.company_name}`;
         
         await resend.emails.send({
