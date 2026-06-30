@@ -1427,6 +1427,7 @@ const ComparePartners = () => {
               : undefined
           }
           industry={industryFilter || undefined}
+          onSubmitting={setIsSubmittingQuote}
         />
       )}
 
