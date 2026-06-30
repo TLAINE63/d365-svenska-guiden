@@ -557,7 +557,7 @@ const ComparePartners = () => {
   const productOptions = sortApps([...A.apps, ...B.apps]);
 
   const productActive = productFilters.length > 0;
-  const matchesProduct = (app: string) => !productActive || productFilters.includes(app);
+  
 
   const matchesProduct = (app: string) => {
     if (!productActive) return true;
