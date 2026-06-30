@@ -383,6 +383,7 @@ const AdminDashboard = () => {
   const [summaryMode, setSummaryMode] = useState<"all" | "stale">("stale");
   const SUMMARY_STALE_DAYS = 90;
   const [generatingPositioning, setGeneratingPositioning] = useState(false);
+  const [generatingPositioningId, setGeneratingPositioningId] = useState<string | null>(null);
 
   const handleGenerateAllPositioning = async () => {
     if (!confirm("Generera 'Vi är valet när …' för alla publicerade partners som saknar denna text per produkt? Befintliga texter rörs ej.")) return;
@@ -406,6 +407,30 @@ const AdminDashboard = () => {
       });
     } finally {
       setGeneratingPositioning(false);
+    }
+  };
+
+  const handleGeneratePositioning = async (partnerId: string, partnerName: string) => {
+    if (!confirm(`Generera 'Vi är valet när …' för ${partnerName}? Befintliga texter rörs ej.`)) return;
+    setGeneratingPositioningId(partnerId);
+    try {
+      const { data, error } = await invokeAdminEdgeWithRetry("generate-partner-positioning", { token, partnerId });
+      if (error) throw error;
+      if ((data as any)?.error) throw new Error((data as any).error);
+      const gen = (data as any)?.generatedCount ?? 0;
+      toast({ title: "Positionering klar", description: `${gen} meningar genererade för ${partnerName}.` });
+      refetchPartners();
+    } catch (e: any) {
+      const msg = e?.message || "Okänt fel";
+      toast({
+        title: "Kunde inte generera",
+        description: msg === "RATE_LIMIT" ? "AI-tjänsten är överbelastad – försök igen om en stund."
+          : msg === "PAYMENT_REQUIRED" ? "AI-krediter slut. Lägg till krediter under Settings → Workspace → Usage."
+          : msg,
+        variant: "destructive",
+      });
+    } finally {
+      setGeneratingPositioningId(null);
     }
   };
 
@@ -2806,33 +2831,45 @@ Thomas`,
  <Link className="h-4 w-4" />
  </Button>
  )}
- {partner.is_featured && (
- <Button
- variant="outline"
- size="sm"
- onClick={() => handleGenerateSummary(partner.id, partner.name)}
- disabled={generatingSummaryId === partner.id}
- title={(partner as any).ai_summary ? "Regenerera AI-summering" : "Generera AI-summering"}
- className={(partner as any).ai_summary ? "" : "border-amber-400 text-amber-700"}
- >
- <Sparkles className={`h-4 w-4 ${generatingSummaryId === partner.id ? "animate-pulse" : ""}`} />
- </Button>
- )}
- <Button
- variant="outline"
- size="sm"
- onClick={() => openEditPartnerDialog(partner)}
- >
- <Pencil className="h-4 w-4" />
- </Button>
- <Button
- variant="outline"
- size="sm"
- className="text-destructive hover:text-destructive"
- onClick={() => setDeleteConfirmId(partner.id)}
- >
- <Trash2 className="h-4 w-4" />
- </Button>
+  {partner.is_featured && (
+  <Button
+  variant="outline"
+  size="sm"
+  onClick={() => handleGenerateSummary(partner.id, partner.name)}
+  disabled={generatingSummaryId === partner.id}
+  title={(partner as any).ai_summary ? "Regenerera AI-summering" : "Generera AI-summering"}
+  className={(partner as any).ai_summary ? "" : "border-amber-400 text-amber-700"}
+  >
+  <Sparkles className={`h-4 w-4 ${generatingSummaryId === partner.id ? "animate-pulse" : ""}`} />
+  </Button>
+  )}
+  {partner.is_featured && (
+  <Button
+  variant="outline"
+  size="sm"
+  onClick={() => handleGeneratePositioning(partner.id, partner.name)}
+  disabled={generatingPositioningId === partner.id}
+  title="Generera 'Vi är valet när …' per produkt för denna partner"
+  className="border-primary/60 text-primary hover:bg-primary/10"
+  >
+  <Sparkles className={`h-4 w-4 ${generatingPositioningId === partner.id ? "animate-pulse" : ""}`} />
+  </Button>
+  )}
+  <Button
+  variant="outline"
+  size="sm"
+  onClick={() => openEditPartnerDialog(partner)}
+  >
+  <Pencil className="h-4 w-4" />
+  </Button>
+  <Button
+  variant="outline"
+  size="sm"
+  className="text-destructive hover:text-destructive"
+  onClick={() => setDeleteConfirmId(partner.id)}
+  >
+  <Trash2 className="h-4 w-4" />
+  </Button>
  </div>
  </div>
  </CardContent>
