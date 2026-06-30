@@ -4,7 +4,8 @@
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
-import { AlertCircle, Info } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { AlertCircle, Info, HelpCircle } from "lucide-react";
 import {
   AiProfile,
   DELIVERY_MODELS,
@@ -17,6 +18,110 @@ import {
   MAX_USE_CASES,
   MAX_DESCRIPTION_LENGTH,
 } from "@/lib/aiProfile";
+
+// Per-level explanations: what counts as this level + how it affects the internal 0–100 score.
+const EXPERIENCE_LEVEL_INFO: Record<string, { what: string; points: string }> = {
+  advisory: {
+    what: "Ni har hållit rådgivning, workshops eller utbildningar kring AI/Copilot – men ännu inga skarpa kundprojekt.",
+    points: "Bidrar med 5 poäng till delpoäng B (erfarenhet, max 25 av 100).",
+  },
+  pilot: {
+    what: "Ni har genomfört minst en pilot eller proof-of-concept där AI/Copilot använts i en kundmiljö.",
+    points: "Bidrar med 10 poäng till delpoäng B (erfarenhet, max 25 av 100).",
+  },
+  delivered: {
+    what: "Ni har minst ett skarpt kundprojekt där AI/Copilot är i produktion.",
+    points: "Bidrar med 15 poäng till delpoäng B (erfarenhet, max 25 av 100).",
+  },
+  multiple: {
+    what: "Ni har flera kundprojekt i produktion och återanvänder erfarenhet mellan dem.",
+    points: "Bidrar med 20 poäng till delpoäng B (erfarenhet, max 25 av 100).",
+  },
+  packaged: {
+    what: "Ni har minst ett paketerat AI/Copilot-erbjudande med tydligt scope, leveransmodell och pris.",
+    points: "Bidrar med 22 poäng till delpoäng B (erfarenhet, max 25 av 100).",
+  },
+  established: {
+    what: "Etablerad leveransmodell för AI/Copilot: dedikerade roller, metodik, mätbara resultat över flera kunder.",
+    points: "Bidrar med 25 poäng till delpoäng B (erfarenhet, max 25 av 100).",
+  },
+};
+
+function ScoreBreakdownPopover() {
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <button
+          type="button"
+          aria-label="Hur räknas AI-poängen ut?"
+          className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
+        >
+          <HelpCircle className="w-3.5 h-3.5" />
+          Hur räknas AI-poängen ut?
+        </button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[360px] text-xs leading-relaxed" align="start">
+        <p className="font-semibold text-sm mb-2">AI-poäng (intern, 0–100)</p>
+        <p className="mb-2 text-muted-foreground">
+          Poängen används endast internt för matchning och tiebreak – den visas aldrig publikt.
+          Den summeras från fem delar med tak:
+        </p>
+        <ul className="space-y-1.5">
+          <li>
+            <strong>A. AI-förmågor (max 40):</strong> Summa av valda förmågor.
+            Azure AI 25, Copilot Studio 18, Power Platform-automation 16, Branschspecifik AI 16,
+            Fabric/Power BI 14, Readiness 12, Governance 12, Adoption 10, Standard Copilot 8.
+          </li>
+          <li>
+            <strong>B. Erfarenhet + projekt (max 25):</strong> Erfarenhetsnivå (5–25) plus
+            projektbonus (1–2: 0, 3–5: 3, 6–10: 5, 10+: 7).
+          </li>
+          <li>
+            <strong>C. Underlag (max 15):</strong> Högsta valda underlag räknas.
+            Granskat 15, Publikt case 13, Referens på förfrågan 10, Anonymiserat 8,
+            Paketerat 6, Självdeklarerat 3.
+          </li>
+          <li>
+            <strong>D. Relevanta områden (max 10):</strong> 0 områden = 0 p, 1 = 3 p, 2–3 = 6 p,
+            4+ = 10 p.
+          </li>
+          <li>
+            <strong>E. Leveransmodell (max 10):</strong> Kombination 10, Centralt/externt team 7,
+            Produktteam 5, Rådgivning 4.
+          </li>
+        </ul>
+        <p className="mt-2 text-muted-foreground">
+          Total = A + B + C + D + E, kappat till 100.
+        </p>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+function LevelInfoPopover({ levelValue }: { levelValue: string }) {
+  const info = EXPERIENCE_LEVEL_INFO[levelValue];
+  if (!info) return null;
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <button
+          type="button"
+          aria-label="Mer info om nivån"
+          className="inline-flex items-center text-muted-foreground hover:text-foreground"
+        >
+          <Info className="w-3.5 h-3.5" />
+        </button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[300px] text-xs leading-relaxed" align="start">
+        <p className="font-semibold text-sm mb-1">
+          {AI_EXPERIENCE_LEVELS.find((l) => l.value === levelValue)?.label}
+        </p>
+        <p className="mb-2">{info.what}</p>
+        <p className="text-muted-foreground">{info.points}</p>
+      </PopoverContent>
+    </Popover>
+  );
+}
 
 interface Props {
   value: AiProfile;
