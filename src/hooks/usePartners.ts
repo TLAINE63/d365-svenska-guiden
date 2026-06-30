@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
+import type { AiProfile } from "@/lib/aiProfile";
 
 // Swedish regions for granular geography filtering
 export type SwedishRegion = 
@@ -123,6 +124,7 @@ export interface DatabasePartner {
   implementations_done?: string | null;
   implementations_per_app?: Record<string, string> | null;
   not_a_fit?: string[] | null;
+  ai_profile?: AiProfile | null;
 }
 
 export interface PartnerInput {
@@ -212,6 +214,7 @@ export function usePartners() {
         implementations_done: (p as any).implementations_done ?? null,
         implementations_per_app: ((p as any).implementations_per_app ?? {}) as Record<string, string>,
         not_a_fit: ((p as any).not_a_fit ?? []) as string[],
+        ai_profile: ((p as any).ai_profile ?? null) as AiProfile | null,
       })) as DatabasePartner[];
     },
   });
@@ -266,6 +269,7 @@ export function usePartner(slug: string | undefined) {
         implementations_done: (data as any).implementations_done ?? null,
         implementations_per_app: ((data as any).implementations_per_app ?? {}) as Record<string, string>,
         not_a_fit: ((data as any).not_a_fit ?? []) as string[],
+        ai_profile: ((data as any).ai_profile ?? null) as AiProfile | null,
       } as DatabasePartner;
     },
     enabled: !!slug,

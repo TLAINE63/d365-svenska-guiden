@@ -160,6 +160,7 @@ interface PartnerData {
     edited_by?: string | null;
     updated_at?: string;
   }>;
+  ai_profile?: Record<string, unknown>;
 }
 
 interface RequestBody {
@@ -332,6 +333,7 @@ serve(async (req: Request): Promise<Response> => {
             team_size_sweden: (partner as any).team_size_sweden || null,
             implementations_done: (partner as any).implementations_done || null,
             not_a_fit: (partner as any).not_a_fit || [],
+            ai_profile: (partner as any).ai_profile || {},
           })
           .select()
           .single();
@@ -401,6 +403,7 @@ serve(async (req: Request): Promise<Response> => {
         if ((partner as any)?.team_size_sweden !== undefined) updateData.team_size_sweden = (partner as any).team_size_sweden || null;
         if ((partner as any)?.implementations_done !== undefined) updateData.implementations_done = (partner as any).implementations_done || null;
         if ((partner as any)?.not_a_fit !== undefined) updateData.not_a_fit = (partner as any).not_a_fit || [];
+        if ((partner as any)?.ai_profile !== undefined) updateData.ai_profile = (partner as any).ai_profile || {};
 
         const { data, error } = await supabase
           .from("partners")

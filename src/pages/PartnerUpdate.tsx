@@ -17,6 +17,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
 import PartnerIndustryPitchesEditor, { type IndustryPitch } from "@/components/PartnerIndustryPitchesEditor";
+import AiProfileSection from "@/components/partner/AiProfileSection";
 
 // Import product icons
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
@@ -273,6 +274,7 @@ const PartnerUpdate = () => {
   const [implementationsDone, setImplementationsDone] = useState("");
   const [implementationsPerApp, setImplementationsPerApp] = useState<Record<string, string>>({});
   const [notAFitInput, setNotAFitInput] = useState("");
+  const [aiProfile, setAiProfile] = useState<import("@/lib/aiProfile").AiProfile>({});
 
   type SectionKey = "basic" | "decision" | "products" | "specialty" | "pitches" | "industryApps" | "events" | "notes";
   const [openSections, setOpenSections] = useState<Record<SectionKey, boolean>>({
@@ -480,6 +482,7 @@ const PartnerUpdate = () => {
     setImplementationsPerApp(ed.implementations_per_app as Record<string, string>);
   }
   if (Array.isArray(ed.not_a_fit)) setNotAFitInput(ed.not_a_fit.join("\n"));
+  if (ed.ai_profile && typeof ed.ai_profile === "object") setAiProfile(ed.ai_profile);
  } else {
  setFormData(prev => ({
  ...prev,
@@ -936,8 +939,9 @@ const PartnerUpdate = () => {
  implementations_per_app: Object.fromEntries(
    Object.entries(implementationsPerApp).filter(([app, v]) => applications.includes(app) && (v || "").trim())
  ),
- not_a_fit: notAFitInput.split("\n").map(s => s.trim()).filter(Boolean),
- };
+  not_a_fit: notAFitInput.split("\n").map(s => s.trim()).filter(Boolean),
+  ai_profile: aiProfile,
+  };
 
  const response = await fetch(
  `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=submit`,
@@ -1345,9 +1349,10 @@ const PartnerUpdate = () => {
              </p>
            </div>
 
-           {/* AI & Automation */}
-           <div className="pt-4 border-t border-border">
-             <Label className="text-sm font-semibold">AI & AUTOMATION</Label>
+            {/* Legacy per-product AI block – hidden in favour of partner-level AI profile */}
+            {false && (
+            <div className="pt-4 border-t border-border">
+              <Label className="text-sm font-semibold">AI & AUTOMATION</Label>
              <p className="text-xs text-muted-foreground mt-1 mb-3">
                Denna information används för att visa er nivå inom AI och automatisering.<br />
                Markera det ni faktiskt levererat – inte vad ni planerar.
@@ -1531,7 +1536,8 @@ const PartnerUpdate = () => {
                  )}
                </div>
              )}
-           </div>
+            </div>
+            )}
          </div>
        )}
 
@@ -1853,6 +1859,19 @@ const PartnerUpdate = () => {
  );
  })}
  </div>
+ </PremiumCollapsibleSection>
+
+ {/* AI, Copilot & Automation – partner-level */}
+ <PremiumCollapsibleSection
+   title="AI, Copilot & Automation"
+   description="En gemensam AI-profil för hela ert företag – ersätter den gamla per-produkt-modellen."
+   icon={Sparkles}
+   accent="crm"
+   status={(aiProfile.capabilities || []).length > 0 ? "complete" : "empty"}
+   open={true}
+   onOpenChange={() => {}}
+ >
+   <AiProfileSection value={aiProfile} onChange={setAiProfile} />
  </PremiumCollapsibleSection>
 
  {/* Basic Information */}

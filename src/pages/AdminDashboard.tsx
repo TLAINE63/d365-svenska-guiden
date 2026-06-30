@@ -40,6 +40,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
 import { allIndustries, geographyOptions, getCumulativeGeographyDisplay, companySizes, revenueOptions } from "@/data/partners";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
+import AiProfileSection from "@/components/partner/AiProfileSection";
 import {
  usePartners,
  useCreatePartner,
@@ -493,7 +494,8 @@ const AdminDashboard = () => {
  invoice_contact?: string;
  org_number?: string;
  legal_name?: string;
- youtube_video_id?: string;
+  youtube_video_id?: string;
+  ai_profile?: import("@/lib/aiProfile").AiProfile;
  }>({
  slug: "",
  name: "",
@@ -1268,8 +1270,9 @@ Thomas`,
  invoice_contact: (partner as any).invoice_contact || "",
  org_number: (partner as any).org_number || "",
  legal_name: (partner as any).legal_name || "",
- youtube_video_id: (partner as any).youtube_video_id || "",
- });
+  youtube_video_id: (partner as any).youtube_video_id || "",
+  ai_profile: (partner as any).ai_profile || {},
+  });
  setIndustryApps(
  Array.isArray((partner as any).industry_apps) ? (partner as any).industry_apps : []
  );
@@ -4481,8 +4484,9 @@ Thomas`,
  
  </div>
 
- {/* AI Capabilities Section */}
- <div className="pt-4 border-t border-border">
+  {/* Legacy per-product AI block – hidden in favour of partner-level AI profile */}
+  {false && (
+  <div className="pt-4 border-t border-border">
   <Label className="text-sm font-semibold">
   AI & AUTOMATION
   </Label>
@@ -4670,16 +4674,35 @@ Thomas`,
  )}
  </div>
  )}
- </div>
+  </div>
+  )}
+
+
 
  </CardContent>
  )}
  </Card>
  );
  })}
- </div>
+  </div>
 
- {/* Specialty Products Section */}
+  {/* AI, Copilot & Automation – partner-level */}
+  <Card className="mt-6">
+    <CardHeader className="pb-4 bg-indigo-600 text-white rounded-t-lg">
+      <CardTitle className="text-xl font-bold">AI, Copilot & Automation</CardTitle>
+      <p className="text-sm text-white/80 mt-1">
+        Gemensam AI-profil på partnernivå – ersätter den gamla per-produkt-modellen.
+      </p>
+    </CardHeader>
+    <CardContent className="pt-4">
+      <AiProfileSection
+        value={(partnerFormData.ai_profile || {}) as any}
+        onChange={(next) => setPartnerFormData(prev => ({ ...prev, ai_profile: next }))}
+      />
+    </CardContent>
+  </Card>
+
+  {/* Specialty Products Section */}
  <Card className="mt-6">
  <CardHeader className="pb-4 bg-slate-600 text-white rounded-t-lg">
  <CardTitle className="text-xl font-bold flex items-center gap-3">
