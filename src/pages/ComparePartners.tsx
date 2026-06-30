@@ -139,7 +139,14 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label
     <div className="mt-4 pt-3 border-t border-slate-100">
       <Select value={slug || undefined} onValueChange={onChange}>
         <SelectTrigger className="h-9 text-sm bg-slate-50 border-slate-200 hover:border-slate-300">
-          <SelectValue placeholder="Byt partner…" />
+          {slug ? (
+            <span className="text-slate-600 flex items-center gap-1.5">
+              <ArrowLeftRight className="w-3.5 h-3.5" />
+              Byt partner
+            </span>
+          ) : (
+            <SelectValue placeholder="Välj partner…" />
+          )}
         </SelectTrigger>
         <SelectContent className="max-h-80">
           {partners.map((p) => (
