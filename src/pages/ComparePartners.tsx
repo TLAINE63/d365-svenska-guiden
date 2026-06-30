@@ -21,7 +21,9 @@ import {
   ChevronDown,
   Sparkles,
   Globe2,
+  Mail,
 } from "lucide-react";
+
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
