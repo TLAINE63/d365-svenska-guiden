@@ -87,40 +87,76 @@ interface ColProps {
 }
 
 const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label }: ColProps) => (
-  <div className="rounded-xl border border-slate-200 bg-white p-3 sm:p-4">
-    <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-2">
-      {label}
-    </div>
-    <Select value={slug || undefined} onValueChange={onChange}>
-      <SelectTrigger className="h-10">
-        <SelectValue placeholder="Välj partner…" />
-      </SelectTrigger>
-      <SelectContent className="max-h-80">
-        {partners.map((p) => (
-          <SelectItem key={p.slug} value={p.slug}>
-            {p.name}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
-    {partner && (
-      <div className="mt-3 flex items-center justify-between gap-2">
-        <Link
-          to={`/partner/${partner.slug}`}
-          className="text-sm font-semibold text-foreground hover:underline truncate flex items-center gap-1 min-w-0"
-        >
-          <span className="truncate">{partner.name}</span>
-          <ExternalLink className="w-3 h-3 opacity-60 shrink-0" />
-        </Link>
+  <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5">
+    {partner ? (
+      <div className="flex items-start gap-3">
+        <div className="shrink-0">
+          {partner.logo_url ? (
+            <img
+              src={partner.logo_url}
+              alt={`${partner.name} logotyp`}
+              width="56"
+              height="56"
+              className="w-14 h-14 object-contain rounded-lg bg-white border border-slate-100 p-1.5"
+            />
+          ) : (
+            <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-muted to-muted/60 flex items-center justify-center">
+              <span className="text-lg font-bold text-muted-foreground/60">{partner.name.slice(0, 2).toUpperCase()}</span>
+            </div>
+          )}
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-0.5">
+            {label}
+          </div>
+          <Link
+            to={`/partner/${partner.slug}`}
+            className="group flex items-center gap-1 text-lg sm:text-xl font-bold text-foreground hover:text-[hsl(var(--cta-orange))] transition-colors"
+          >
+            <span className="truncate">{partner.name}</span>
+            <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-60 transition-opacity shrink-0" />
+          </Link>
+        </div>
         <button
           onClick={onClear}
-          className="text-slate-400 hover:text-slate-700 shrink-0"
+          className="mt-0.5 text-slate-400 hover:text-slate-700 shrink-0"
           aria-label="Rensa val"
         >
           <X className="w-4 h-4" />
         </button>
       </div>
+    ) : (
+      <div className="space-y-2">
+        <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+          {label}
+        </div>
+        <div className="h-14 rounded-lg bg-slate-50 border border-dashed border-slate-200 flex items-center justify-center text-sm text-slate-500">
+          Välj partner nedan
+        </div>
+      </div>
     )}
+
+    <div className="mt-4 pt-3 border-t border-slate-100">
+      <Select value={slug || undefined} onValueChange={onChange}>
+        <SelectTrigger className="h-9 text-sm bg-slate-50 border-slate-200 hover:border-slate-300">
+          {slug ? (
+            <span className="text-slate-600 flex items-center gap-1.5">
+              <ArrowLeftRight className="w-3.5 h-3.5" />
+              Byt partner
+            </span>
+          ) : (
+            <SelectValue placeholder="Välj partner…" />
+          )}
+        </SelectTrigger>
+        <SelectContent className="max-h-80">
+          {partners.map((p) => (
+            <SelectItem key={p.slug} value={p.slug}>
+              {p.name}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
   </div>
 );
 
