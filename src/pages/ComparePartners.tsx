@@ -754,7 +754,7 @@ const ComparePartners = () => {
                               {productFilters.length === 0
                                 ? "Alla produkter"
                                 : productFilters.length === 1
-                                ? productFilters[0]
+                                ? PRODUCT_FILTER_GROUP[productFilters[0]].label
                                 : `${productFilters.length} valda`}
                             </span>
                             <ChevronDown className="w-4 h-4 opacity-50 shrink-0 ml-2" />
@@ -772,17 +772,17 @@ const ComparePartners = () => {
                           )}
                           <div className="space-y-1">
                             {productOptions.map((opt) => {
-                              const checked = productFilters.includes(opt);
+                              const checked = productFilters.includes(opt.key);
                               return (
                                 <label
-                                  key={opt}
+                                  key={opt.key}
                                   className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-slate-100 cursor-pointer text-sm"
                                 >
                                   <Checkbox
                                     checked={checked}
-                                    onCheckedChange={() => toggleProductFilter(opt)}
+                                    onCheckedChange={() => toggleProductFilter(opt.key)}
                                   />
-                                  <span className="flex-1">{opt}</span>
+                                  <span className="flex-1">{opt.label}</span>
                                 </label>
                               );
                             })}
