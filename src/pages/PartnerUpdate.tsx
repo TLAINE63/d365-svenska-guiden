@@ -273,6 +273,7 @@ const PartnerUpdate = () => {
   const [implementationsDone, setImplementationsDone] = useState("");
   const [implementationsPerApp, setImplementationsPerApp] = useState<Record<string, string>>({});
   const [notAFitInput, setNotAFitInput] = useState("");
+  const [aiProfile, setAiProfile] = useState<import("@/lib/aiProfile").AiProfile>({});
 
   type SectionKey = "basic" | "decision" | "products" | "specialty" | "pitches" | "industryApps" | "events" | "notes";
   const [openSections, setOpenSections] = useState<Record<SectionKey, boolean>>({
@@ -480,6 +481,7 @@ const PartnerUpdate = () => {
     setImplementationsPerApp(ed.implementations_per_app as Record<string, string>);
   }
   if (Array.isArray(ed.not_a_fit)) setNotAFitInput(ed.not_a_fit.join("\n"));
+  if (ed.ai_profile && typeof ed.ai_profile === "object") setAiProfile(ed.ai_profile);
  } else {
  setFormData(prev => ({
  ...prev,
@@ -936,8 +938,9 @@ const PartnerUpdate = () => {
  implementations_per_app: Object.fromEntries(
    Object.entries(implementationsPerApp).filter(([app, v]) => applications.includes(app) && (v || "").trim())
  ),
- not_a_fit: notAFitInput.split("\n").map(s => s.trim()).filter(Boolean),
- };
+  not_a_fit: notAFitInput.split("\n").map(s => s.trim()).filter(Boolean),
+  ai_profile: aiProfile,
+  };
 
  const response = await fetch(
  `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=submit`,
