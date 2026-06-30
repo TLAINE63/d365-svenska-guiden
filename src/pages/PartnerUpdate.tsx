@@ -17,6 +17,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
 import PartnerIndustryPitchesEditor, { type IndustryPitch } from "@/components/PartnerIndustryPitchesEditor";
+import AiProfileSection from "@/components/partner/AiProfileSection";
 
 // Import product icons
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
@@ -1348,7 +1349,9 @@ const PartnerUpdate = () => {
              </p>
            </div>
 
-           {/* AI & Automation */}
+            {/* Legacy per-product AI block – hidden in favour of partner-level AI profile */}
+            {false && (
+            /* AI & Automation */
            <div className="pt-4 border-t border-border">
              <Label className="text-sm font-semibold">AI & AUTOMATION</Label>
              <p className="text-xs text-muted-foreground mt-1 mb-3">
