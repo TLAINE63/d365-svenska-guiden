@@ -261,6 +261,26 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
     }
   }
 
+  // Per-product beslutsprofil — pick first matching app's product_profile
+  const productProfilesMap = ((partner as any).product_profiles || {}) as Record<string, any>;
+  let productProfile: TabData["productProfile"] = null;
+  for (const app of apps) {
+    const raw = productProfilesMap[app];
+    if (raw && typeof raw === "object") {
+      productProfile = {
+        app,
+        positioning: typeof raw.positioning === "string" ? raw.positioning : null,
+        roles: Array.isArray(raw.roles) ? raw.roles : [],
+        engagement_model: typeof raw.engagement_model === "string" ? raw.engagement_model : null,
+        methodology: typeof raw.methodology === "string" ? raw.methodology : null,
+        weeks_min: typeof raw.weeks_min === "number" ? raw.weeks_min : null,
+        weeks_max: typeof raw.weeks_max === "number" ? raw.weeks_max : null,
+        cost_band: typeof raw.cost_band === "string" ? raw.cost_band : null,
+      };
+      break;
+    }
+  }
+
   return {
     industries: fallbackIndustries,
     geography,
@@ -275,6 +295,7 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
     industryApps,
     contact,
     landingPageUrl,
+    productProfile,
   };
 }
 
