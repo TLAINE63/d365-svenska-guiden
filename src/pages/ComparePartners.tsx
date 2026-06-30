@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -646,9 +646,27 @@ const ComparePartners = () => {
       ? partnerIndustries
       : STANDARD_INDUSTRIES.map((i) => i.name)
   ).sort((x, y) => x.localeCompare(y, "sv"));
-  const productOptions = (Object.keys(PRODUCT_FILTER_GROUP) as ProductFilterKey[])
-    .sort((a, b) => PRODUCT_FILTER_GROUP[a].label.localeCompare(PRODUCT_FILTER_GROUP[b].label, "sv"))
-    .map((key) => ({ key, label: PRODUCT_FILTER_GROUP[key].label }));
+  const availableProductKeys = Array.from(
+    new Set([
+      ...getProductFilterKeysForApps(A.apps),
+      ...getProductFilterKeysForApps(B.apps),
+    ])
+  ).sort((a, b) => PRODUCT_FILTER_GROUP[a].label.localeCompare(PRODUCT_FILTER_GROUP[b].label, "sv"));
+
+  const productOptions = availableProductKeys.map((key) => ({
+    key,
+    label: PRODUCT_FILTER_GROUP[key].label,
+  }));
+
+  useEffect(() => {
+    const invalid = productFilters.filter((f) => !availableProductKeys.includes(f));
+    if (invalid.length === 0) return;
+    const remaining = productFilters.filter((f) => availableProductKeys.includes(f));
+    const next = new URLSearchParams(params);
+    if (remaining.length > 0) next.set("product", remaining.join(","));
+    else next.delete("product");
+    setParams(next, { replace: true });
+  }, [productFilters, availableProductKeys, params, setParams]);
 
   const productActive = productFilters.length > 0;
   
