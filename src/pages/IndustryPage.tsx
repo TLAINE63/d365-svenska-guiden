@@ -363,26 +363,27 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  </AccordionItem>
  )}
 
- {page?.roles && page.roles.length > 0 && (
- <AccordionItem value="roles" className="border border-border rounded-lg bg-card px-5">
- <AccordionTrigger className="hover:no-underline py-4">
- <span className="flex items-center gap-2 text-lg md:text-xl font-bold">
- <Users className="w-5 h-5 text-primary" />
- Roller & funktioner
- </span>
- </AccordionTrigger>
- <AccordionContent>
- <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 pb-4">
- {page.roles.map((r, i) => (
- <div key={i} className="rounded-lg border border-border bg-background p-5">
- <h2 className="font-semibold text-foreground mb-2">{r.role}</h2>
- <p className="text-sm text-muted-foreground">{r.needs}</p>
- </div>
- ))}
- </div>
- </AccordionContent>
- </AccordionItem>
- )}
+            {/* Dold tills vidare: Roller & funktioner */}
+            {false && page?.roles && page.roles.length > 0 && (
+              <AccordionItem value="roles" className="border border-border rounded-lg bg-card px-5">
+                <AccordionTrigger className="hover:no-underline py-4">
+                  <span className="flex items-center gap-2 text-lg md:text-xl font-bold">
+                    <Users className="w-5 h-5 text-primary" />
+                    Roller & funktioner
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 pb-4">
+                    {page.roles.map((r, i) => (
+                      <div key={i} className="rounded-lg border border-border bg-background p-5">
+                        <h2 className="font-semibold text-foreground mb-2">{r.role}</h2>
+                        <p className="text-sm text-muted-foreground">{r.needs}</p>
+                      </div>
+                    ))}
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            )}
 
  {page?.applications && page.applications.length > 0 && (
  <AccordionItem value="applications" className="border border-border rounded-lg bg-card px-5">
