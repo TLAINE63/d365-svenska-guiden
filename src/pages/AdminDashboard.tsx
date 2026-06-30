@@ -383,6 +383,7 @@ const AdminDashboard = () => {
   const [summaryMode, setSummaryMode] = useState<"all" | "stale">("stale");
   const SUMMARY_STALE_DAYS = 90;
   const [generatingPositioning, setGeneratingPositioning] = useState(false);
+  const [generatingPositioningId, setGeneratingPositioningId] = useState<string | null>(null);
 
   const handleGenerateAllPositioning = async () => {
     if (!confirm("Generera 'Vi är valet när …' för alla publicerade partners som saknar denna text per produkt? Befintliga texter rörs ej.")) return;
@@ -406,6 +407,30 @@ const AdminDashboard = () => {
       });
     } finally {
       setGeneratingPositioning(false);
+    }
+  };
+
+  const handleGeneratePositioning = async (partnerId: string, partnerName: string) => {
+    if (!confirm(`Generera 'Vi är valet när …' för ${partnerName}? Befintliga texter rörs ej.`)) return;
+    setGeneratingPositioningId(partnerId);
+    try {
+      const { data, error } = await invokeAdminEdgeWithRetry("generate-partner-positioning", { token, partnerId });
+      if (error) throw error;
+      if ((data as any)?.error) throw new Error((data as any).error);
+      const gen = (data as any)?.generatedCount ?? 0;
+      toast({ title: "Positionering klar", description: `${gen} meningar genererade för ${partnerName}.` });
+      refetchPartners();
+    } catch (e: any) {
+      const msg = e?.message || "Okänt fel";
+      toast({
+        title: "Kunde inte generera",
+        description: msg === "RATE_LIMIT" ? "AI-tjänsten är överbelastad – försök igen om en stund."
+          : msg === "PAYMENT_REQUIRED" ? "AI-krediter slut. Lägg till krediter under Settings → Workspace → Usage."
+          : msg,
+        variant: "destructive",
+      });
+    } finally {
+      setGeneratingPositioningId(null);
     }
   };
 
