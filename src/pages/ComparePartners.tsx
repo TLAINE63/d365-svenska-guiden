@@ -1167,6 +1167,7 @@ const ComparePartners = () => {
                     slug={aSlug}
                     onChange={(s) => setSlot("a", s)}
                     onClear={() => setSlot("a", "")}
+                    onRequestQuote={a ? () => setQuoteFor(a) : undefined}
                   />
                   <PartnerColumnHeader
                     label="Partner B"
@@ -1175,6 +1176,7 @@ const ComparePartners = () => {
                     slug={bSlug}
                     onChange={(s) => setSlot("b", s)}
                     onClear={() => setSlot("b", "")}
+                    onRequestQuote={b ? () => setQuoteFor(b) : undefined}
                   />
                 </div>
 
