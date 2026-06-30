@@ -30,6 +30,7 @@ import LeadCTA from "@/components/LeadCTA";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
 import DecisionProfile from "@/components/partner/DecisionProfile";
 import PartnerProductTabs, { resolveInitialTab } from "@/components/partner/PartnerProductTabs";
+import AiProfilePublic from "@/components/partner/AiProfilePublic";
 import { usePartner, DatabasePartner } from "@/hooks/usePartners";
 import { getCumulativeGeographyDisplay } from "@/data/partners";
 import {
@@ -681,7 +682,17 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
    selectedGeography={selectedGeography}
    selectedRevenue={selectedRevenue}
    onActiveTabChange={(_, label) => setActiveTabProduct(label)}
-  />
+   />
+
+   {/* AI, Copilot & Automation – partner-level public view */}
+   {(partner as any).ai_profile && (
+     <section className="py-8 border-t border-border">
+       <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+         <AiProfilePublic profile={(partner as any).ai_profile} />
+       </div>
+     </section>
+   )}
+
 
   {/* Specialty products (HR / Commerce / ProjOps) — keep visible below tabs */}
   {(() => {
