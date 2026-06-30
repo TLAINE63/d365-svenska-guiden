@@ -28,7 +28,17 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Checkbox } from "@/components/ui/checkbox";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
-import { AI_TIER_LABELS } from "@/utils/aiScoring";
+import {
+  AiProfile,
+  labelForDelivery,
+  labelForCapability,
+  labelForArea,
+  labelForUseCase,
+  labelForExperience,
+  labelForProjectCount,
+  labelForEvidence,
+  isAiProfileEmpty,
+} from "@/lib/aiProfile";
 
 import bcIcon from "@/assets/icons/BusinessCentral-new.webp";
 import financeIcon from "@/assets/icons/Finance.svg";
@@ -422,58 +432,66 @@ const renderIndustryList = (items: string[]) =>
     EMPTY
   );
 
-const renderAi = (
-  items: {
-    productKey: string;
-    productLabel: string;
-    capabilities: string[];
-    projectCount: string;
-    caseDescription: string;
-    businessImpact: string;
-  }[]
-) => {
-  if (!items || items.length === 0) return EMPTY;
-  return (
-    <div className="space-y-4">
-      {items.map((it, idx) => (
-        <div
-          key={it.productKey}
-          className={`space-y-2 ${idx > 0 ? "pt-3 border-t border-slate-200" : ""}`}
-        >
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-            {it.productLabel}
-          </p>
-          {it.capabilities.length > 0 && (
-            <div className="flex flex-wrap gap-1.5">
-              {it.capabilities.map((c, i) => (
-                <span
-                  key={i}
-                  className="px-2 py-0.5 rounded bg-violet-50 text-violet-700 border border-violet-200 text-xs"
-                >
-                  {AI_TIER_LABELS[c] || c}
-                </span>
-              ))}
-            </div>
-          )}
-          {it.projectCount && (
-            <p className="text-xs text-slate-600">
-              <span className="font-semibold">AI-projekt (24 mån):</span> {it.projectCount}
-            </p>
-          )}
-          {it.caseDescription && (
-            <p className="text-xs text-slate-700 italic">"{it.caseDescription}"</p>
-          )}
-          {it.businessImpact && (
-            <p className="text-xs text-slate-700">
-              <span className="font-semibold">Affärseffekt:</span> {it.businessImpact}
-            </p>
-          )}
-        </div>
+const renderAiProfile = (profile?: AiProfile | null) => {
+  if (isAiProfileEmpty(profile)) return EMPTY;
+  const p = profile!;
+  const caps = (p.capabilities || []).map(labelForCapability).filter(Boolean);
+  const areas = (p.relevant_areas || []).map(labelForArea).filter(Boolean);
+  const cases = (p.use_cases || []).map(labelForUseCase).filter(Boolean);
+  const evidence = (p.evidence_level || []).map(labelForEvidence).filter(Boolean);
+
+  const chips = (items: string[], cls: string) => (
+    <div className="flex flex-wrap gap-1.5">
+      {items.map((t, i) => (
+        <span key={i} className={`px-2 py-0.5 rounded text-xs ${cls}`}>
+          {t}
+        </span>
       ))}
     </div>
   );
-};
 
+  const Field = ({ label, children }: { label: string; children: React.ReactNode }) => (
+    <div className="space-y-1">
+      <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">{label}</p>
+      <div className="text-xs text-slate-700">{children}</div>
+    </div>
+  );
+
+  return (
+    <div className="space-y-3">
+      {p.delivery_model && (
+        <Field label="AI-leveransmodell">{labelForDelivery(p.delivery_model)}</Field>
+      )}
+      {caps.length > 0 && (
+        <Field label="AI-förmågor">
+          {chips(caps, "bg-violet-50 text-violet-700 border border-violet-200")}
+        </Field>
+      )}
+      {areas.length > 0 && (
+        <Field label="Relevant för">
+          {chips(areas, "bg-slate-100 text-slate-700 border border-slate-200")}
+        </Field>
+      )}
+      {cases.length > 0 && (
+        <Field label="Typiska use cases">
+          {chips(cases, "bg-slate-100 text-slate-700 border border-slate-200")}
+        </Field>
+      )}
+      {p.experience_level && (
+        <Field label="Erfarenhetsnivå">{labelForExperience(p.experience_level)}</Field>
+      )}
+      {p.project_count_range && (
+        <Field label="AI-projekt (24 mån)">{labelForProjectCount(p.project_count_range)}</Field>
+      )}
+      {evidence.length > 0 && <Field label="Underlag">{evidence.join(" · ")}</Field>}
+      {p.description && (
+        <Field label="Kort beskrivning">
+          <p className="leading-relaxed italic">"{p.description}"</p>
+        </Field>
+      )}
+    </div>
+  );
+};
 
 const splitIntoParagraphs = (text: string): string[] => {
   return text
@@ -1253,10 +1271,10 @@ const ComparePartners = () => {
                     <section className="space-y-3">
                       <SectionTitle icon={Sparkles} title="AI & automatisering" />
                       <R
-                        label="AI-erbjudande per lösning"
-                        help="Levererade AI- och automationscase per produktområde, projektnivå senaste 24 mån, samt eventuella case-exempel och affärseffekter."
-                        a={renderAi(AF.ai)}
-                        b={renderAi(BF.ai)}
+                        label="AI, Copilot & Automation"
+                        help="Partnerns samlade AI- och automationsprofil: leveransmodell, förmågor, relevanta områden, use cases, erfarenhet och underlag. Bygger på partnerns egna uppgifter."
+                        a={renderAiProfile(((A.partner as any)?.ai_profile) as AiProfile | null)}
+                        b={renderAiProfile(((B.partner as any)?.ai_profile) as AiProfile | null)}
                       />
                     </section>
 
