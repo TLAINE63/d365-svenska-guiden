@@ -459,11 +459,11 @@ const ComparePartners = () => {
     return out;
   };
 
-  const PRODUCT_KEY_LABEL: Record<string, string> = {
+  const PRODUCT_KEY_LABEL: Record<ProductFilterKey, string> = {
     bc: "Business Central",
-    fsc: "Finance & SCM",
-    sales: "Sales & Marketing",
-    service: "Customer Service",
+    fsc: "Finance & Supply Chain Management",
+    sales: "Sales & Customer Insights",
+    service: "Customer Service / Field Service / Contact Center",
   };
 
   type AiPerProduct = {
