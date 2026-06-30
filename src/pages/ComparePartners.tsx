@@ -418,6 +418,28 @@ const ComparePartners = () => {
     return null;
   };
 
+  const PF_KEYS_BY_GROUP: Record<"bc" | "fsc" | "crm", string[]> = {
+    bc: ["bc"],
+    fsc: ["fsc"],
+    crm: ["sales", "service"],
+  };
+
+  const PRODUCT_FILTER_KEY_LABEL: Record<string, string> = {
+    bc: "Business Central",
+    fsc: "Finance & Supply Chain Management",
+    sales: "Sales & Marketing",
+    service: "Customer Service",
+  };
+
+  const getProductFilterKeysForApps = (apps: string[]): string[] => {
+    const groups = new Set<"bc" | "fsc" | "crm">();
+    for (const app of apps) {
+      const g = APP_TO_PF_KEY(app);
+      if (g) groups.add(g);
+    }
+    return Array.from(groups).flatMap((g) => PF_KEYS_BY_GROUP[g]);
+  };
+
   const getProductDescriptions = (
     p: DatabasePartner | undefined,
     apps: string[]
@@ -426,21 +448,12 @@ const ComparePartners = () => {
       | Record<string, { productDescription?: string }>
       | undefined;
     if (!pf) return [];
-    const seen = new Set<string>();
+    const keys = getProductFilterKeysForApps(apps);
     const out: { app: string; text: string }[] = [];
-    for (const app of apps) {
-      const key = APP_TO_PF_KEY(app);
-      if (!key || seen.has(key)) continue;
+    for (const key of keys) {
       const text = pf[key]?.productDescription?.trim();
       if (!text) continue;
-      seen.add(key);
-      const label =
-        key === "bc"
-          ? "Business Central"
-          : key === "fsc"
-          ? "Finance & Supply Chain Management"
-          : "Sales, Service & Marketing (CE/CRM)";
-      out.push({ app: label, text });
+      out.push({ app: PRODUCT_FILTER_KEY_LABEL[key] || key, text });
     }
     return out;
   };
