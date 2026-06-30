@@ -1150,20 +1150,7 @@ const ComparePartners = () => {
                       : "Visar alla publicerade partners — välj produkt och bransch ovan för att smalna av"}
                   </p>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[180px_1fr_1fr] gap-3 mb-6">
-                  <div className="order-last md:order-first flex md:items-end md:pb-1">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={swap}
-                      disabled={!hasBoth}
-                      className="h-9 w-full"
-                    >
-                      <ArrowLeftRight className="w-4 h-4 mr-1.5" />
-                      Byt plats
-                    </Button>
-                  </div>
+                <div className="grid grid-cols-1 md:grid-cols-[1fr_80px_1fr] gap-3 mb-6">
                   <PartnerColumnHeader
                     label="Partner A"
                     partner={a}
@@ -1174,6 +1161,20 @@ const ComparePartners = () => {
                     onRequestQuote={a ? () => setQuoteFor(a) : undefined}
                     quoteSubmitting={isSubmittingQuote}
                   />
+                  <div className="flex items-center justify-center md:pt-10">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={swap}
+                      disabled={!hasBoth}
+                      className="h-auto w-full min-h-[3rem] flex-col gap-1 px-2 py-2"
+                      title="Byt plats"
+                    >
+                      <ArrowLeftRight className="w-4 h-4" />
+                      <span className="text-xs leading-tight">Byt plats</span>
+                    </Button>
+                  </div>
                   <PartnerColumnHeader
                     label="Partner B"
                     partner={b}
