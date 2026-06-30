@@ -4684,9 +4684,25 @@ Thomas`,
  </Card>
  );
  })}
- </div>
+  </div>
 
- {/* Specialty Products Section */}
+  {/* AI, Copilot & Automation – partner-level */}
+  <Card className="mt-6">
+    <CardHeader className="pb-4 bg-indigo-600 text-white rounded-t-lg">
+      <CardTitle className="text-xl font-bold">AI, Copilot & Automation</CardTitle>
+      <p className="text-sm text-white/80 mt-1">
+        Gemensam AI-profil på partnernivå – ersätter den gamla per-produkt-modellen.
+      </p>
+    </CardHeader>
+    <CardContent className="pt-4">
+      <AiProfileSection
+        value={(partnerFormData.ai_profile || {}) as any}
+        onChange={(next) => setPartnerFormData(prev => ({ ...prev, ai_profile: next }))}
+      />
+    </CardContent>
+  </Card>
+
+  {/* Specialty Products Section */}
  <Card className="mt-6">
  <CardHeader className="pb-4 bg-slate-600 text-white rounded-t-lg">
  <CardTitle className="text-xl font-bold flex items-center gap-3">
