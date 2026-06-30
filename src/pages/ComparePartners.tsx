@@ -849,7 +849,7 @@ const ComparePartners = () => {
                         Filtrera bransch
                       </label>
                       <span className="block text-xs text-slate-400 mb-1.5">
-                        De branscher listas som någon av valda partners har som fokusbranscher
+                        Endast fokusbranscher hos {a?.name || "Partner A"} eller {b?.name || "Partner B"}
                       </span>
                       <Select
                         value={industryFilter || "__all__"}
