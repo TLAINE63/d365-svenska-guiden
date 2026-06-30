@@ -1,0 +1,1 @@
+ALTER TABLE public.partners ADD COLUMN IF NOT EXISTS product_profiles JSONB NOT NULL DEFAULT '{}'::jsonb;

@@ -205,7 +205,7 @@ serve(async (req: Request): Promise<Response> => {
             is_featured, office_cities, map_url, customer_examples,
             industry_pitches,
             positioning_statement, delivery_profile, team_size_sweden,
-            implementations_done, not_a_fit, ai_profile,
+            implementations_done, implementations_per_app, not_a_fit, ai_profile, product_profiles,
             created_at, updated_at
           `)
           .eq("id", invitation.partner_id)
@@ -295,6 +295,8 @@ serve(async (req: Request): Promise<Response> => {
           implementations_done: submissionData.implementations_done || null,
           not_a_fit: submissionData.not_a_fit || [],
           ai_profile: submissionData.ai_profile || {},
+          product_profiles: submissionData.product_profiles || {},
+          implementations_per_app: submissionData.implementations_per_app || {},
         });
 
       // Handle events if provided
@@ -385,6 +387,13 @@ serve(async (req: Request): Promise<Response> => {
         office_cities: submissionData.office_cities || [],
         industry_pitches: submissionData.industry_pitches || [],
         ai_profile: submissionData.ai_profile || {},
+        product_profiles: submissionData.product_profiles || {},
+        implementations_per_app: submissionData.implementations_per_app || {},
+        positioning_statement: submissionData.positioning_statement ?? null,
+        delivery_profile: submissionData.delivery_profile || {},
+        team_size_sweden: submissionData.team_size_sweden ?? null,
+        implementations_done: submissionData.implementations_done ?? null,
+        not_a_fit: submissionData.not_a_fit || [],
         updated_at: new Date().toISOString(),
       };
 

@@ -770,6 +770,7 @@ export type Database = {
           platform_capabilities: string[] | null
           positioning_statement: string | null
           product_filters: Json | null
+          product_profiles: Json
           secondary_industries: string[] | null
           submitted_at: string
           team_size_sweden: string | null
@@ -801,6 +802,7 @@ export type Database = {
           platform_capabilities?: string[] | null
           positioning_statement?: string | null
           product_filters?: Json | null
+          product_profiles?: Json
           secondary_industries?: string[] | null
           submitted_at?: string
           team_size_sweden?: string | null
@@ -832,6 +834,7 @@ export type Database = {
           platform_capabilities?: string[] | null
           positioning_statement?: string | null
           product_filters?: Json | null
+          product_profiles?: Json
           secondary_industries?: string[] | null
           submitted_at?: string
           team_size_sweden?: string | null
@@ -908,6 +911,7 @@ export type Database = {
           platform_capabilities: string[] | null
           positioning_statement: string | null
           product_filters: Json | null
+          product_profiles: Json
           published_at: string | null
           related_party: boolean
           secondary_industries: string[] | null
@@ -963,6 +967,7 @@ export type Database = {
           platform_capabilities?: string[] | null
           positioning_statement?: string | null
           product_filters?: Json | null
+          product_profiles?: Json
           published_at?: string | null
           related_party?: boolean
           secondary_industries?: string[] | null
@@ -1018,6 +1023,7 @@ export type Database = {
           platform_capabilities?: string[] | null
           positioning_statement?: string | null
           product_filters?: Json | null
+          product_profiles?: Json
           published_at?: string | null
           related_party?: boolean
           secondary_industries?: string[] | null
