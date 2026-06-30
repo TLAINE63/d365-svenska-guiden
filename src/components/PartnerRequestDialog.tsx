@@ -96,7 +96,7 @@ const PartnerRequestDialog = ({
     setSubmitting(true);
     try {
       const composedMessage = [
-        `Begär offert/kontakt från ${partnerName}.`,
+        config.messagePrefix(partnerName),
         selectedProduct ? `Produkt: ${selectedProduct}.` : "",
         industry ? `Bransch: ${industry}.` : "",
         form.message.trim() ? `\nMeddelande:\n${form.message.trim()}` : "",
@@ -110,8 +110,8 @@ const PartnerRequestDialog = ({
           phone: form.phone.trim() || undefined,
           industry: industry || undefined,
           selected_product: selectedProduct || undefined,
-          source_page: typeof window !== "undefined" ? window.location.pathname + window.location.search : "/jamfor-partners",
-          source_type: "partner_quote_request",
+          source_page: typeof window !== "undefined" ? window.location.pathname + window.location.search : "/partner",
+          source_type: config.sourceType,
           message: composedMessage,
           assigned_partners: [partnerSlug],
           _hp: form._hp,
@@ -121,8 +121,8 @@ const PartnerRequestDialog = ({
       if (error) throw error;
 
       toast({
-        title: "Förfrågan skickad",
-        description: `Vi förmedlar din förfrågan till ${partnerName} och återkopplar inom kort.`,
+        title: config.toastTitle,
+        description: config.toastDescription(partnerName),
       });
       reset();
       onOpenChange(false);
@@ -142,12 +142,8 @@ const PartnerRequestDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Begär offert från {partnerName}</DialogTitle>
-          <DialogDescription>
-            {selectedProduct
-              ? `Avser ${selectedProduct}${industry ? ` · ${industry}` : ""}. d365.se förmedlar förfrågan vidare.`
-              : `d365.se förmedlar förfrågan vidare till ${partnerName}.`}
-          </DialogDescription>
+          <DialogTitle>{config.title(partnerName)}</DialogTitle>
+          <DialogDescription>{config.description(partnerName, selectedProduct, industry)}</DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-3">
