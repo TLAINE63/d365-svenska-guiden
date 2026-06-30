@@ -62,6 +62,59 @@ const APP_ICON_MAP: Record<string, string> = {
 const getAppIcon = (name: string): string | null =>
   APP_ICON_MAP[name.trim().toLowerCase()] ?? null;
 
+// Industry icons (same source set as /branscher)
+import tillverkningImg from "@/assets/industries/tillverkning.webp";
+import livsmedelsImg from "@/assets/industries/livsmedel.webp";
+import handelDistributionImg from "@/assets/industries/handel-distribution.webp";
+import detaljhandelImg from "@/assets/industries/detaljhandel.webp";
+import modeSportTextilImg from "@/assets/industries/mode-sport-textil.webp";
+import konsultforetagImg from "@/assets/industries/konsultforetag.webp";
+import byggEntreprenadImg from "@/assets/industries/bygg-entreprenad.webp";
+import fastigheterImg from "@/assets/industries/fastigheter.webp";
+import energiImg from "@/assets/industries/energi.webp";
+import finansForsakringImg from "@/assets/industries/finans-forsakring.webp";
+import lakemedelImg from "@/assets/industries/lakemedel-life-science.webp";
+import itTechImg from "@/assets/industries/it-tech.webp";
+import transportLogistikImg from "@/assets/industries/transport-logistik.webp";
+import mediaPublishingImg from "@/assets/industries/media-publishing.webp";
+import jordbrukImg from "@/assets/industries/jordbruk-skogsbruk.webp";
+import halsaImg from "@/assets/industries/halsa-sjukvard.webp";
+import medlemsorganisationerImg from "@/assets/industries/medlemsorganisationer.webp";
+import utbildningImg from "@/assets/industries/utbildning.webp";
+import offentligSektorImg from "@/assets/industries/offentlig-sektor.webp";
+import uthyrningImg from "@/assets/industries/uthyrning.webp";
+
+const INDUSTRY_IMAGE_BY_SLUG: Record<string, string> = {
+  "tillverkning": tillverkningImg,
+  "livsmedel-processindustri": livsmedelsImg,
+  "grossist-distribution": handelDistributionImg,
+  "retail-ehandel": detaljhandelImg,
+  "mode-sport-textil": modeSportTextilImg,
+  "konsulttjanster": konsultforetagImg,
+  "bygg-entreprenad": byggEntreprenadImg,
+  "fastighet-forvaltning": fastigheterImg,
+  "energi-utilities": energiImg,
+  "finans-forsakring": finansForsakringImg,
+  "life-science-medtech": lakemedelImg,
+  "telekom-it-tjanster": itTechImg,
+  "logistik-transport": transportLogistikImg,
+  "media-publishing": mediaPublishingImg,
+  "jordbruk-skogsbruk": jordbrukImg,
+  "halsa-sjukvard": halsaImg,
+  "nonprofit-organisationer": medlemsorganisationerImg,
+  "medlemsorganisationer": medlemsorganisationerImg,
+  "utbildning": utbildningImg,
+  "offentlig-sektor": offentligSektorImg,
+  "uthyrning": uthyrningImg,
+};
+
+const getIndustryIcon = (name: string): string | null => {
+  const match = STANDARD_INDUSTRIES.find(
+    (i) => i.name.trim().toLowerCase() === name.trim().toLowerCase(),
+  );
+  return match ? INDUSTRY_IMAGE_BY_SLUG[match.slug] ?? null : null;
+};
+
 
 
 const TEAM_SIZE_HELP =
@@ -329,6 +382,34 @@ const renderAppList = (items: string[]) =>
                 alt=""
                 aria-hidden="true"
                 className="w-3.5 h-3.5 object-contain shrink-0"
+                loading="lazy"
+              />
+            )}
+            {r}
+          </span>
+        );
+      })}
+    </div>
+  ) : (
+    EMPTY
+  );
+
+const renderIndustryList = (items: string[]) =>
+  items.length > 0 ? (
+    <div className="flex flex-wrap gap-1.5">
+      {items.map((r, i) => {
+        const icon = getIndustryIcon(r);
+        return (
+          <span
+            key={i}
+            className="inline-flex items-center gap-1.5 pl-1 pr-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs"
+          >
+            {icon && (
+              <img
+                src={icon}
+                alt=""
+                aria-hidden="true"
+                className="w-5 h-5 rounded object-cover shrink-0"
                 loading="lazy"
               />
             )}
@@ -992,8 +1073,8 @@ const ComparePartners = () => {
                       />
                       <R
                         label="Fokusbranscher"
-                        a={renderList(AF.industries)}
-                        b={renderList(BF.industries)}
+                        a={renderIndustryList(AF.industries)}
+                        b={renderIndustryList(BF.industries)}
                       />
 
                       {(() => {
