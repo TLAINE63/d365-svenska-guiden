@@ -981,28 +981,36 @@ const ComparePartners = () => {
                 )}
 
                 {hasBoth && (productOptions.length > 0 || industryOptions.length > 0) && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 rounded-xl border border-slate-200 bg-slate-50 p-3 sm:p-4">
-                    <div>
-                      <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-0.5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                    <div className="group relative">
+                      <label className="block text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] mb-1.5 ml-1">
                         Filtrera produkt
                       </label>
-                      <span className="block text-xs text-slate-400 mb-1.5">
+                      <span className="block text-[11px] text-[hsl(var(--muted-foreground)/0.8)] mb-1.5 ml-1">
                         Endast produkter som {a?.name || "Partner A"} eller {b?.name || "Partner B"} levererar
                       </span>
                       <Popover>
                         <PopoverTrigger asChild>
                           <button
                             type="button"
-                            className="flex h-9 w-full items-center justify-between rounded-md border border-input bg-white px-3 py-1 text-sm shadow-sm"
+                            className="relative flex h-14 w-full items-center justify-between rounded-lg border border-[hsl(var(--border-on-dark)/15)] bg-[hsl(var(--card-dark))] px-4 py-3 text-left transition-all duration-300 hover:border-[hsl(var(--primary)/40)] hover:shadow-[0_8px_24px_-12px_hsl(var(--card-dark)/0.4)]"
                           >
-                            <span className="truncate text-left">
-                              {productFilters.length === 0
-                                ? "Alla produkter"
-                                : productFilters.length === 1
-                                ? PRODUCT_FILTER_GROUP[productFilters[0]].label
-                                : `${productFilters.length} valda`}
-                            </span>
-                            <ChevronDown className="w-4 h-4 opacity-50 shrink-0 ml-2" />
+                            <div className="flex-1 min-w-0">
+                              <span className="block text-sm font-medium text-[hsl(var(--primary-foreground))] truncate">
+                                {productFilters.length === 0
+                                  ? "Alla produkter"
+                                  : productFilters.length === 1
+                                  ? PRODUCT_FILTER_GROUP[productFilters[0]].label
+                                  : `${productFilters.length} valda`}
+                              </span>
+                              <span className="block text-[11px] text-[hsl(var(--muted-dark))]">
+                                {productFilters.length === 0 ? "Välj produktkategori" : "Filtrering aktiv"}
+                              </span>
+                            </div>
+                            <div className="ml-3 flex shrink-0 items-center justify-center rounded-md bg-[hsl(var(--primary-foreground)/0.08)] p-1.5 transition-colors group-hover:bg-[hsl(var(--primary)/0.15)]">
+                              <ChevronDown className="w-4 h-4 text-[hsl(var(--primary))]" />
+                            </div>
+                            <div className="absolute bottom-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[hsl(var(--primary)/0.4)] to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                           </button>
                         </PopoverTrigger>
                         <PopoverContent align="start" className="w-[260px] p-2 max-h-80 overflow-auto">
@@ -1010,7 +1018,7 @@ const ComparePartners = () => {
                             <button
                               type="button"
                               onClick={() => setFilter("product", "")}
-                              className="w-full text-left text-xs text-slate-500 hover:text-slate-800 underline px-2 py-1 mb-1"
+                              className="w-full text-left text-xs text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] underline px-2 py-1 mb-1"
                             >
                               Rensa val
                             </button>
@@ -1021,7 +1029,7 @@ const ComparePartners = () => {
                               return (
                                 <label
                                   key={opt.key}
-                                  className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-slate-100 cursor-pointer text-sm"
+                                  className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-[hsl(var(--muted))] cursor-pointer text-sm"
                                 >
                                   <Checkbox
                                     checked={checked}
@@ -1036,19 +1044,30 @@ const ComparePartners = () => {
                       </Popover>
                     </div>
 
-                    <div>
-                      <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-0.5">
+                    <div className="group relative">
+                      <label className="block text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] mb-1.5 ml-1">
                         Filtrera bransch
                       </label>
-                      <span className="block text-xs text-slate-400 mb-1.5">
+                      <span className="block text-[11px] text-[hsl(var(--muted-foreground)/0.8)] mb-1.5 ml-1">
                         Endast fokusbranscher hos {a?.name || "Partner A"} eller {b?.name || "Partner B"}
                       </span>
                       <Select
                         value={industryFilter || "__all__"}
                         onValueChange={(v) => setFilter("industry", v)}
                       >
-                        <SelectTrigger className="h-9 bg-white">
-                          <SelectValue placeholder="Alla branscher" />
+                        <SelectTrigger className="relative h-14 w-full rounded-lg border border-[hsl(var(--border-on-dark)/15)] bg-[hsl(var(--card-dark))] px-4 py-3 text-left transition-all duration-300 hover:border-[hsl(var(--primary)/40)] hover:shadow-[0_8px_24px_-12px_hsl(var(--card-dark)/0.4)] [&>svg]:hidden">
+                          <div className="flex-1 min-w-0">
+                            <span className="block text-sm font-medium text-[hsl(var(--primary-foreground))] truncate">
+                              {industryFilter || "Alla branscher"}
+                            </span>
+                            <span className="block text-[11px] text-[hsl(var(--muted-dark))]">
+                              {industryFilter ? "Bransch vald" : "Välj branschområde"}
+                            </span>
+                          </div>
+                          <div className="ml-3 flex shrink-0 items-center justify-center rounded-md bg-[hsl(var(--primary-foreground)/0.08)] p-1.5 transition-colors group-hover:bg-[hsl(var(--primary)/0.15)]">
+                            <ChevronDown className="w-4 h-4 text-[hsl(var(--primary))]" />
+                          </div>
+                          <div className="absolute bottom-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[hsl(var(--primary)/0.4)] to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                         </SelectTrigger>
                         <SelectContent className="max-h-80">
                           <SelectItem value="__all__">Alla branscher</SelectItem>
@@ -1060,19 +1079,22 @@ const ComparePartners = () => {
                         </SelectContent>
                       </Select>
                     </div>
+
                     {(productActive || industryFilter) && (
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const next = new URLSearchParams(params);
-                          next.delete("product");
-                          next.delete("industry");
-                          setParams(next, { replace: true });
-                        }}
-                        className="sm:col-span-2 text-xs text-slate-500 hover:text-slate-800 underline self-start"
-                      >
-                        Rensa filter
-                      </button>
+                      <div className="sm:col-span-2 flex justify-end">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const next = new URLSearchParams(params);
+                            next.delete("product");
+                            next.delete("industry");
+                            setParams(next, { replace: true });
+                          }}
+                          className="text-xs text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] underline self-start"
+                        >
+                          Rensa filter
+                        </button>
+                      </div>
                     )}
                   </div>
                 )}
