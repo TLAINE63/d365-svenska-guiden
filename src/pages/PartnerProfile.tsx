@@ -476,40 +476,6 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   )}
   </div>
 
-  {/* Description */}
-  <div className="max-w-[68ch] mb-2">
-  <div className="text-sm sm:text-base text-slate-600 leading-relaxed font-light space-y-2">
-    {(() => {
-      const chunks = (partner.description || "")
-        .split(/\n+/)
-        .flatMap((block) => {
-          const sentences = block.match(/[^.!?]+[.!?]+(\s|$)/g) || [block];
-          const paras: string[] = [];
-          for (let i = 0; i < sentences.length; i += 2) {
-            paras.push(sentences.slice(i, i + 2).join("").trim());
-          }
-          return paras.filter(Boolean);
-        });
-      return chunks.map((para, i) => <p key={i}>{para}</p>);
-    })()}
-  </div>
-
-  {(partner as any).description_ai_generated && (
-  <TooltipProvider>
-  <Tooltip>
-  <TooltipTrigger asChild>
-  <span className="inline-flex items-center gap-1 mt-1 text-[11px] font-medium text-slate-500 cursor-help">
-  <Sparkles className="w-3 h-3 text-[hsl(var(--cta-orange))]" />
-  AI-genererad beskrivning
-  </span>
-  </TooltipTrigger>
-  <TooltipContent className="max-w-xs">
-  <p className="text-xs">Beskrivningen är genererad av d365.se utifrån partnerns angivna data. Partnern kan när som helst skriva en egen beskrivning som ersätter denna.</p>
-  </TooltipContent>
-  </Tooltip>
-  </TooltipProvider>
-  )}
-  </div>
 
   {/* AI-generated neutral summary */}
   {(partner as any).ai_summary && (
