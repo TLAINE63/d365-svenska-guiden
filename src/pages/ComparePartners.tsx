@@ -220,6 +220,24 @@ const renderList = (items: string[]) =>
     EMPTY
   );
 
+const renderPitches = (
+  pitches: Array<{ industry: string; product: string | null; text: string }>
+) =>
+  pitches.length > 0 ? (
+    <ul className="space-y-2">
+      {pitches.map((p, i) => (
+        <li key={i} className="text-sm">
+          <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+            {[p.industry, p.product].filter(Boolean).join(" · ")}
+          </div>
+          <p className="text-slate-700 whitespace-pre-line mt-0.5">{p.text}</p>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    EMPTY
+  );
+
 const renderNotAFit = (items: string[]) =>
   items.length > 0 ? (
     <ul className="space-y-1.5">
