@@ -220,6 +220,24 @@ const renderList = (items: string[]) =>
     EMPTY
   );
 
+const renderPitches = (
+  pitches: Array<{ industry: string; product: string | null; text: string }>
+) =>
+  pitches.length > 0 ? (
+    <ul className="space-y-2">
+      {pitches.map((p, i) => (
+        <li key={i} className="text-sm">
+          <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+            {[p.industry, p.product].filter(Boolean).join(" · ")}
+          </div>
+          <p className="text-slate-700 whitespace-pre-line mt-0.5">{p.text}</p>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    EMPTY
+  );
+
 const renderNotAFit = (items: string[]) =>
   items.length > 0 ? (
     <ul className="space-y-1.5">
@@ -518,6 +536,13 @@ const ComparePartners = () => {
       agreement: p ? (p.agreement_signed ? "Ja" : "Nej") : "",
       ai: getAiPerProduct(p),
       notAFit: cleanList(p?.not_a_fit),
+      industryPitches: (Array.isArray((p as any)?.industry_pitches) ? (p as any).industry_pitches : [])
+        .map((ip: any) => ({
+          industry: (ip?.industry || "").trim(),
+          product: (ip?.product || "").trim() || null,
+          text: (ip?.text || "").trim(),
+        }))
+        .filter((ip: any) => ip.industry && ip.text),
     };
   };
 
@@ -575,6 +600,18 @@ const ComparePartners = () => {
     return productFilters.some((sel) => APP_TO_PF_KEY(sel) === key);
   };
 
+  const PF_KEY_TO_PITCH_LABELS: Record<string, string[]> = {
+    bc: ["Business Central"],
+    fsc: ["Finance & Supply Chain"],
+    crm: ["Sales & Customer Insights", "Customer Service / Field Service / Contact Center"],
+  };
+  const selectedPitchLabels = productActive
+    ? Array.from(new Set(productFilters.flatMap((sel) => {
+        const k = APP_TO_PF_KEY(sel);
+        return k ? (PF_KEY_TO_PITCH_LABELS[k] || []) : [];
+      })))
+    : [];
+
   const applyFilters = (data: ReturnType<typeof get>) => ({
     ...data,
     apps: productActive ? data.apps.filter(matchesProduct) : data.apps,
@@ -585,6 +622,10 @@ const ComparePartners = () => {
         (!industryFilter || ia.industry === industryFilter)
     ),
     ai: data.ai.filter((a) => productKeyMatchesFilter(a.productKey)),
+    industryPitches: data.industryPitches.filter((ip) =>
+      (!industryFilter || ip.industry === industryFilter) &&
+      (!productActive || !ip.product || selectedPitchLabels.includes(ip.product))
+    ),
   });
 
 
@@ -784,6 +825,13 @@ const ComparePartners = () => {
                         a={renderList(AF.industries)}
                         b={renderList(BF.industries)}
                       />
+                      <R
+                        label="Branschpitch"
+                        help="Partnerns egna ord om varför de passar i den valda branschen (och produkten om vald)."
+                        a={renderPitches(AF.industryPitches)}
+                        b={renderPitches(BF.industryPitches)}
+                      />
+
                       <R
                         label="Branschapplikationer"
                         help="Branschlösningar / vertikala tillägg som partnern erbjuder ovanpå Dynamics 365."
