@@ -1199,18 +1199,43 @@ const ComparePartners = () => {
                             : renderValue(B.implementations)
                         }
                       />
-                      <R
-                        label="Typisk BC-projektlängd"
-                        help="Partnerns egna spann för typisk implementationstid av Business Central, mätt i veckor från projektstart till driftsättning. Verklig längd beror på scope, datakvalitet och organisationens beslutskraft."
-                        a={renderValue(A.bcLength)}
-                        b={renderValue(B.bcLength)}
-                      />
-                      <R
-                        label="Typisk total projektkostnad (BC)"
-                        help="Partnerns egna kostnadsband för typisk Business Central-implementation (exkl. licenser). Slutpriset beror på scope, integrationer, datamigrering och förändringsledning."
-                        a={renderValue(A.bcCost)}
-                        b={renderValue(B.bcCost)}
-                      />
+                      {(() => {
+                        const keysToShow: ProductFilterKey[] =
+                          productFilters.length > 0
+                            ? productFilters
+                            : (Array.from(
+                                new Set([
+                                  ...getProductFilterKeysForApps(A.apps),
+                                  ...getProductFilterKeysForApps(B.apps),
+                                ]),
+                              ) as ProductFilterKey[]);
+                        const rows: JSX.Element[] = [];
+                        keysToShow.forEach((key) => {
+                          const mA = getProductMetrics(A.partner, key);
+                          const mB = getProductMetrics(B.partner, key);
+                          if (!mA.length && !mA.cost && !mB.length && !mB.cost) return;
+                          const label = PRODUCT_KEY_LABEL[key] || key;
+                          rows.push(
+                            <R
+                              key={`len-${key}`}
+                              label={`Typisk projektlängd (${label})`}
+                              help="Partnerns egna spann för typisk implementationstid, i veckor från projektstart till driftsättning. Verklig längd beror på scope, datakvalitet och organisationens beslutskraft."
+                              a={renderValue(mA.length)}
+                              b={renderValue(mB.length)}
+                            />,
+                          );
+                          rows.push(
+                            <R
+                              key={`cost-${key}`}
+                              label={`Typisk total projektkostnad (${label})`}
+                              help="Partnerns egna kostnadsband för typisk implementation (exkl. licenser). Slutpriset beror på scope, integrationer, datamigrering och förändringsledning."
+                              a={renderValue(mA.cost)}
+                              b={renderValue(mB.cost)}
+                            />,
+                          );
+                        });
+                        return rows;
+                      })()}
                       <R
                         label="Kontor (städer)"
                         a={renderList(A.offices)}
