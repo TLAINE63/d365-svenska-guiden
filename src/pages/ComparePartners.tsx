@@ -364,31 +364,39 @@ const splitIntoParagraphs = (text: string): string[] => {
     });
 };
 
-const renderPositioningCell = (
-  positioning: string,
-  productDescriptions: { app: string; text: string }[]
-) => {
-  if (!positioning && productDescriptions.length === 0) return EMPTY;
+const renderPositioningCell = (positioning: string) => {
+  if (!positioning) return EMPTY;
   return (
-    <div className="space-y-4">
-      {positioning && (
-        <p className="font-medium leading-relaxed text-slate-900">{positioning}</p>
-      )}
-      {productDescriptions.map((pd, idx) => (
-        <div
-          key={idx}
-          className={`space-y-2 ${
-            positioning || idx > 0 ? "pt-3 border-t border-slate-200" : ""
-          }`}
-        >
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-            {pd.app}
+    <p className="font-medium leading-relaxed text-[hsl(var(--foreground))]">
+      {positioning}
+    </p>
+  );
+};
+
+const renderProductDescCell = (text: string) => (
+  <div className="space-y-2 text-sm leading-relaxed text-[hsl(var(--foreground))]">
+    {splitIntoParagraphs(text).map((para, i) => (
+      <p key={i}>{para}</p>
+    ))}
+  </div>
+);
+
+const renderPitchCell = (
+  pitches: Array<{ industry: string; product: string | null; text: string }>
+) => {
+  if (pitches.length === 0) return EMPTY;
+  return (
+    <div className="space-y-3">
+      {pitches.map((p, i) => (
+        <div key={i} className="space-y-1">
+          {p.product && (
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-[hsl(var(--muted-foreground))]">
+              {p.product}
+            </p>
+          )}
+          <p className="text-sm leading-relaxed text-[hsl(var(--foreground))] whitespace-pre-line">
+            {p.text}
           </p>
-          <div className="space-y-2 text-[14px] leading-[1.7] text-slate-700">
-            {splitIntoParagraphs(pd.text).map((para, i) => (
-              <p key={i}>{para}</p>
-            ))}
-          </div>
         </div>
       ))}
     </div>
