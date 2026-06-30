@@ -508,17 +508,17 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
       </Button>
       <Button
         type="button"
-        onClick={() => openRequest("demo")}
-        className="flex-1 min-h-[48px] bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-sm sm:text-base rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-      >
-        Gör en intresseförfrågan om demo
-      </Button>
-      <Button
-        type="button"
         onClick={() => openRequest("quote")}
         className="flex-1 min-h-[48px] bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-sm sm:text-base rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
       >
         Begär offert
+      </Button>
+      <Button
+        type="button"
+        onClick={() => openRequest("demo")}
+        className="flex-1 min-h-[48px] bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-sm sm:text-base rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      >
+        Gör en intresseförfrågan om demo
       </Button>
     </div>
     <p className="mt-3 text-xs text-center text-slate-500">
