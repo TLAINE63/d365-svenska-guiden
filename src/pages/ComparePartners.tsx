@@ -634,16 +634,6 @@ const ComparePartners = () => {
     setParams(next, { replace: true });
   };
 
-  useEffect(() => {
-    const invalid = productFilters.filter((f) => !availableProductKeys.includes(f));
-    if (invalid.length === 0) return;
-    const remaining = productFilters.filter((f) => availableProductKeys.includes(f));
-    const next = new URLSearchParams(params);
-    if (remaining.length > 0) next.set("product", remaining.join(","));
-    else next.delete("product");
-    setParams(next, { replace: true });
-  }, [productFilters, availableProductKeys, params, setParams]);
-
   const A = get(a);
   const B = get(b);
   const hasBoth = !!a && !!b;
