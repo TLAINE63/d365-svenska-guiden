@@ -40,6 +40,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
 import { allIndustries, geographyOptions, getCumulativeGeographyDisplay, companySizes, revenueOptions } from "@/data/partners";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
+import AiProfileSection from "@/components/partner/AiProfileSection";
 import {
  usePartners,
  useCreatePartner,
