@@ -303,14 +303,17 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  </div>
  </section>
 
- <ShortAnswer title={`Hur passar Dynamics 365 för ${industryName.toLowerCase()}`}>
- För <strong>{industryName.toLowerCase()}</strong> är Microsoft Dynamics 365 en bred plattform där rätt
- val av app (Business Central, Finance &amp; Supply Chain, Sales, Customer Service m.fl.) och
- partner spelar större roll än produkten i sig. På d365.se hittar du {matchingPartners.length}{' '}
- {matchingPartners.length === 1 ? 'partner' : 'partners'} med dokumenterad erfarenhet av{' '}
- {industryName.toLowerCase()} — jämför kompetens, branschreferenser och geografisk närvaro
- köparsidigt, utan att bli kontaktad förrän du själv väljer det.
- </ShortAnswer>
+      {/* Dold tills vidare: Hur passar Dynamics 365 för branschen */}
+      {false && (
+        <ShortAnswer title={`Hur passar Dynamics 365 för ${industryName.toLowerCase()}`}>
+          För <strong>{industryName.toLowerCase()}</strong> är Microsoft Dynamics 365 en bred plattform där rätt
+          val av app (Business Central, Finance &amp; Supply Chain, Sales, Customer Service m.fl.) och
+          partner spelar större roll än produkten i sig. På d365.se hittar du {matchingPartners.length}{' '}
+          {matchingPartners.length === 1 ? 'partner' : 'partners'} med dokumenterad erfarenhet av{' '}
+          {industryName.toLowerCase()} — jämför kompetens, branschreferenser och geografisk närvaro
+          köparsidigt, utan att bli kontaktad förrän du själv väljer det.
+        </ShortAnswer>
+      )}
 
  {/* Innehåll – full bredd */}
  <section className="pt-4 md:pt-6 pb-10 border-b border-border">
