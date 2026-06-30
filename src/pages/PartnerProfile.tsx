@@ -192,6 +192,13 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
   const [videoOpen, setVideoOpen] = useState(false);
   const [activeTabProduct, setActiveTabProduct] = useState<string | null>(null);
+  const [requestOpen, setRequestOpen] = useState(false);
+  const [requestMode, setRequestMode] = useState<"contact" | "demo" | "quote">("quote");
+
+  const openRequest = (mode: "contact" | "demo" | "quote") => {
+    setRequestMode(mode);
+    setRequestOpen(true);
+  };
 
  // Track profile visit (one per slug per mount)
  useEffect(() => {
