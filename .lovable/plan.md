@@ -1,55 +1,21 @@
-## Mål
-Göra om startsidan så att **partnervalet** är den primära användarresan. Innehåll/guider/AI/mognadsindex finns kvar men i en stödjande roll längre ned. Ren, professionell skandinavisk B2B-känsla.
+Implementera den valda "Midnight advisory"-stilen för filtreringsrutorna på /jamfor-partners.
 
-## Det här bygger jag (i `src/pages/Index.tsx`)
+## Teknisk plan
 
-Befintliga `<Navbar />`, `<Footer />`, SEO-komponenter och `LatestArticlesStrip`/`HomePartnersTeaser` behålls. Allt annat i `<main>` ersätts med följande 8 sektioner.
+1. **Målfil**: `src/pages/ComparePartners.tsx`, radintervallet ca 983–1078 (filter-griden för produkt och bransch).
 
-**1. Hero**
-- H1: *Microsoft Dynamics 365 — Guider, jämförelser och partnerval på köparens villkor* (behålls)
-- Ingress: *Dynamics 365 är inte ett systemval. Det är ett verksamhetsbeslut…*
-- Subheadline: *"Välj rätt Dynamics 365-partner"* + *"Hitta partners baserat på bransch, lösning, företagsstorlek och geografi – på köparens villkor."*
-- **Primär CTA (stor, orange):** "Starta partnermatchning" → `/valjdynamics365partner/`
-- Sekundära CTA:er: "Starta behovsanalys" (öppnar direction picker), "Läs guider" → `/kunskapscenter/`
-- Diskret 4-stegs-grafik: Bransch → Lösning → Storlek → Geografi
+2. **Designval (låst)**: Användaren valde "Midnight advisory filters" — mörka, exklusiva filterboxar med petrolgrön hover- och fokusaccent, övre etiketter och subtil understrykningsdetalj.
 
-**2. Så hittar ni rätt partner** (4-stegs horisontellt flöde med ikoner) + tydlig CTA "Starta partnermatchning". Microcopy: *"Matchningen bygger på relevans – inte sponsring."*
+3. **CSS/Tailwind-tokens**: Ingen hård-kodad hex-färg. Använd projektets semantiska tokens:
+   - Mörk bakgrund: `bg-[hsl(var(--card-dark))]`
+   - Subtil kant: `border-[hsl(var(--border-on-dark)/15)]`
+   - Vit huvudtext: `text-[hsl(var(--primary-foreground))]`
+   - Dämpad text: `text-[hsl(var(--muted-dark))]` / `text-[hsl(var(--muted-foreground))]`
+   - Petrolgrön accent: `text-[hsl(var(--primary))]`, `hover:border-[hsl(var(--primary)/40)]`, gradient-aktiverad linje
+   - Chevron-container: `bg-[hsl(var(--primary-foreground)/0.08)]`
 
-**3. Var står ni i processen?** — 3 kort: Hitta partner / Förstå behov / Läs på. En CTA per kort.
+4. **Layout**: Byt från ljus grå wrap (`bg-slate-50`) till en ren 2-kolumns grid med separata mörka kort per filter. Behåll popover-innehåll och select-innehåll ljusa för läsbarhet i listorna.
 
-**4. Från behov till rätt partner** — lätt 3-stegs visualisering: Behovsanalys → Kravspec → Partner.
+5. **Komponentbeteende**: Oförändrat — samma produkt-popover med kryssrutor, samma bransch-select, samma "Rensa filter"-länk. Endast estetik och struktur ändras.
 
-**5. Fördjupa analysen** — grid med 4 verktyg: Behovsanalys, Kravspec, **"Hur redo är ni?"** (omdöpt Mognadsindex), AI-sök. Varje kort: 1 mening + "Starta".
-
-**6. Så fungerar d365.se** — transparensbullets (säljer inte system, relevansbaserad matchning, ingen kan köpa placering). Använder befintlig `TrustBanner`-stil.
-
-**7. Guider och insikter** — befintlig `LatestArticlesStrip` + "Se alla artiklar" → `/kunskapscenter/`.
-
-**8. Slutlig CTA** — "Redo att hitta rätt partner?" + primär "Starta partnermatchning" / sekundär "Boka rådgivning" (`/kontakt/`).
-
-Längst ned: nuvarande FAQ-accordion och `<TrustBanner />` behålls.
-
-## Navigeringsändring (`src/components/Navbar.tsx`)
-- Döp om desktop-länken **"Hitta bransch & partner"** → **"Hitta partner"** (länken pekar fortsatt mot `/valjdynamics365partner/` istället för `/branscher/` — för att matcha den primära CTA:n).
-- Mobil-länken byts på motsvarande sätt.
-- Övrig dropdown-struktur (Verktyg & guider, ERP, Marknad/Sälj/Service, Microsoft AI, AI-sök, Kunskapscenter) lämnas orörd — den följer redan önskad prioritetsordning.
-
-## Det här tar jag bort/flyttar
-- `situationCards`-griden (9 kort) plockas bort från startsidan — ersätts av 3-kortslayouten i sektion 3 och 4-stegsflödet i sektion 2.
-- `popularGuides`-lista ersätts av `LatestArticlesStrip` i sektion 7 (redan importerad).
-- Befintliga utkommenterade "Börja här"-block tas bort helt.
-- "Hur redo är ni för Dynamics 365?"-blocket längst ned ersätts av den nya sektion 5-kompakta varianten.
-
-## Designtokens / stil
-- Använder befintliga tokens: `--hero-dark`, `--signature`, `--cta-orange`, `--line-dark`, `bg-card`, `text-foreground` osv. Inga hårdkodade färger.
-- Sektioner alternerar `bg-[hsl(var(--hero-dark))]` (mörka: hero + final CTA + transparens) och ljus `bg-background` (steg, kort, verktyg, artiklar).
-- Max 1 primär (orange) CTA per sektion. Sekundära som outline.
-- Mobile-first: 4-stegsflödet blir vertikalt på mobil, 3-kortsgriden `grid-cols-1 md:grid-cols-3`, verktygsgriden `grid-cols-2 md:grid-cols-4`.
-
-## Filer som ändras
-- `src/pages/Index.tsx` (stor omskrivning av `<main>`-innehållet, behåller imports/SEO/Navbar/Footer).
-- `src/components/Navbar.tsx` (en label-/path-ändring desktop + mobil).
-
-Inga datamodeller, edge functions eller routes berörs. SEO-titel/description, FAQ-schema, `OrganizationSchema`, `WebSiteSchema`, `LocalBusinessSchema` lämnas oförändrade.
-
-Säg till om något ska justeras — annars bygger jag enligt detta.
+6. **Verifiering**: Visuell kontroll i preview (kontrollera att båda filterboxarna syns korrekt, att hover/fokus ger petrolaccent, och att de inte ser ut som standard ljusa input-fält).
