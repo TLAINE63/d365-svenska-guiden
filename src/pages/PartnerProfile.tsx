@@ -7,26 +7,25 @@ import TrustBanner from "@/components/TrustBanner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
- ArrowLeft, 
- Building2, 
- Sparkles, 
- Briefcase, 
- CheckCircle2,
- Globe, 
- MapPin, 
- Layers, 
- ExternalLink,
- Users,
- User,
- Mail,
- Phone,
- Package,
- Play,
- ArrowLeftRight
+  ArrowLeft, 
+  Building2, 
+  Sparkles, 
+  Briefcase, 
+  CheckCircle2,
+  MapPin, 
+  Layers, 
+  Users,
+  User,
+  Mail,
+  Phone,
+  Package,
+  Play,
+  ArrowLeftRight
 } from "lucide-react";
 import PartnerVideoModal from "@/components/PartnerVideoModal";
 import { extractYouTubeId } from "@/lib/youtube";
 import LeadCTA from "@/components/LeadCTA";
+import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
 import DecisionProfile from "@/components/partner/DecisionProfile";
 import PartnerProductTabs, { resolveInitialTab } from "@/components/partner/PartnerProductTabs";
