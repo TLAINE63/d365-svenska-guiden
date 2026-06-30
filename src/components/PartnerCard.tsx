@@ -415,29 +415,31 @@ const PartnerCard = ({
  </div>
  )}
  
- {/* Applications / Competencies */}
- <div className="mb-3">
- <p className="text-xs font-semibold text-foreground/80 mb-2 uppercase tracking-wider flex items-center gap-1.5">
- <span className="w-1 h-1 rounded bg-primary" />
- Kompetenser
- </p>
- <div className="flex flex-wrap gap-1.5">
- {displayApplications.map((app, i) => {
- const appIcon = getApplicationIcon(app);
- return (
- <Badge 
- key={i} 
- className="text-xs bg-accent text-accent-foreground border-0 font-medium hover:bg-accent/90 transition-all"
- >
- {appIcon && (
- <img src={appIcon} alt="" aria-hidden="true" width="16" height="16" loading="lazy" decoding="async" className="w-4 h-4 mr-1.5" />
- )}
- {app}
- </Badge>
- );
- })}
- </div>
- </div>
+      {/* Dold tills vidare: Kompetenser */}
+      {false && (
+        <div className="mb-3">
+          <p className="text-xs font-semibold text-foreground/80 mb-2 uppercase tracking-wider flex items-center gap-1.5">
+            <span className="w-1 h-1 rounded bg-primary" />
+            Kompetenser
+          </p>
+          <div className="flex flex-wrap gap-1.5">
+            {displayApplications.map((app, i) => {
+              const appIcon = getApplicationIcon(app);
+              return (
+                <Badge 
+                  key={i} 
+                  className="text-xs bg-accent text-accent-foreground border-0 font-medium hover:bg-accent/90 transition-all"
+                >
+                  {appIcon && (
+                    <img src={appIcon} alt="" aria-hidden="true" width="16" height="16" loading="lazy" decoding="async" className="w-4 h-4 mr-1.5" />
+                  )}
+                  {app}
+                </Badge>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
 
  <div className="mt-auto pt-3 space-y-2">
