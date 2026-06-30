@@ -808,6 +808,13 @@ const ComparePartners = () => {
                         b={renderList(BF.industries)}
                       />
                       <R
+                        label="Branschpitch"
+                        help="Partnerns egna ord om varför de passar i den valda branschen (och produkten om vald)."
+                        a={renderPitches(AF.industryPitches)}
+                        b={renderPitches(BF.industryPitches)}
+                      />
+
+                      <R
                         label="Branschapplikationer"
                         help="Branschlösningar / vertikala tillägg som partnern erbjuder ovanpå Dynamics 365."
                         a={
