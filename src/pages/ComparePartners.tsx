@@ -766,7 +766,7 @@ const ComparePartners = () => {
                         b={renderList(BF.apps)}
                       />
                       <R
-                        label="Branscher"
+                        label="Fokusbranscher"
                         a={renderList(AF.industries)}
                         b={renderList(BF.industries)}
                       />
