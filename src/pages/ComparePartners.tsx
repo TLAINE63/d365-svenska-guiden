@@ -30,6 +30,38 @@ import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { AI_TIER_LABELS } from "@/utils/aiScoring";
 
+import bcIcon from "@/assets/icons/BusinessCentral-new.webp";
+import financeIcon from "@/assets/icons/Finance.svg";
+import scmIcon from "@/assets/icons/SupplyChain.svg";
+import salesIcon from "@/assets/icons/Sales.svg";
+import marketingIcon from "@/assets/icons/Marketing.svg";
+import csIcon from "@/assets/icons/CustomerService.svg";
+import fsIcon from "@/assets/icons/FieldService.svg";
+import ccIcon from "@/assets/icons/ContactCenter.svg";
+import poIcon from "@/assets/icons/ProjectOperations.svg";
+import hrIcon from "@/assets/icons/HumanResources.svg";
+import commerceIcon from "@/assets/icons/Commerce.svg";
+
+const APP_ICON_MAP: Record<string, string> = {
+  "business central": bcIcon,
+  "finance": financeIcon,
+  "supply chain management": scmIcon,
+  "finance & supply chain management": financeIcon,
+  "sales": salesIcon,
+  "customer insights (marketing)": marketingIcon,
+  "customer insights": marketingIcon,
+  "marketing": marketingIcon,
+  "customer service": csIcon,
+  "field service": fsIcon,
+  "contact center": ccIcon,
+  "project operations": poIcon,
+  "human resources": hrIcon,
+  "commerce": commerceIcon,
+};
+
+const getAppIcon = (name: string): string | null =>
+  APP_ICON_MAP[name.trim().toLowerCase()] ?? null;
+
 
 
 const TEAM_SIZE_HELP =
