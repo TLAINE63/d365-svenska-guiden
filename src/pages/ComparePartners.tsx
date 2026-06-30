@@ -1022,7 +1022,7 @@ const ComparePartners = () => {
             ) : (
               <>
                 {/* Step 1 — Filter by product and industry */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                <div className="grid grid-cols-1 md:grid-cols-[1fr_80px_1fr] gap-3 mb-6">
                   <div className="group relative">
                     <label className="block text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] mb-1.5 ml-1">
                       1. Välj produkt
@@ -1085,6 +1085,8 @@ const ComparePartners = () => {
                     </Popover>
                   </div>
 
+                  <div className="hidden md:block" aria-hidden="true" />
+
                   <div className="group relative">
                     <label className="block text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] mb-1.5 ml-1">
                       2. Välj bransch
@@ -1122,7 +1124,7 @@ const ComparePartners = () => {
                   </div>
 
                   {(productActive || industryFilter) && (
-                    <div className="sm:col-span-2 flex justify-end">
+                    <div className="md:col-span-3 flex justify-end">
                       <button
                         type="button"
                         onClick={() => {
