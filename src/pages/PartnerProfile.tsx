@@ -634,7 +634,9 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
    selectedGeography={selectedGeography}
    selectedRevenue={selectedRevenue}
    onActiveTabChange={(_, label) => setActiveTabProduct(label)}
+   onRequest={openRequest}
    />
+
 
    {/* AI, Copilot & Automation – partner-level public view */}
    {(partner as any).ai_profile && (
