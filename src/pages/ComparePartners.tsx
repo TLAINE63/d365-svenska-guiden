@@ -563,8 +563,21 @@ const ComparePartners = () => {
 
   const industryFilter = params.get("industry") || "";
   const productFilterRaw = params.get("product") || "";
+  const normalizeProductFilterKey = (raw: string): string => {
+    const k = raw.trim() as ProductFilterKey;
+    if (PRODUCT_FILTER_GROUP[k]) return k;
+    const fromApp = appToGroupKey(raw);
+    return fromApp || raw;
+  };
   const productFilters = productFilterRaw
-    ? productFilterRaw.split(",").map((s) => s.trim()).filter(Boolean)
+    ? (Array.from(
+        new Set(
+          productFilterRaw
+            .split(",")
+            .map((s) => normalizeProductFilterKey(s))
+            .filter((s) => s in PRODUCT_FILTER_GROUP)
+        )
+      ) as ProductFilterKey[])
     : [];
 
   const setFilter = (key: "industry" | "product", val: string) => {
@@ -574,7 +587,7 @@ const ComparePartners = () => {
     setParams(next, { replace: true });
   };
 
-  const toggleProductFilter = (opt: string) => {
+  const toggleProductFilter = (opt: ProductFilterKey) => {
     const set = new Set(productFilters);
     if (set.has(opt)) set.delete(opt);
     else set.add(opt);
@@ -596,38 +609,38 @@ const ComparePartners = () => {
       ? partnerIndustries
       : STANDARD_INDUSTRIES.map((i) => i.name)
   ).sort((x, y) => x.localeCompare(y, "sv"));
-  const productOptions = sortApps([...A.apps, ...B.apps]);
+  const availableProductGroups = new Set<ProductFilterKey>();
+  for (const app of [...A.apps, ...B.apps]) {
+    const key = appToGroupKey(app);
+    if (key) availableProductGroups.add(key);
+  }
+  const productOptions = (Array.from(availableProductGroups) as ProductFilterKey[])
+    .sort((a, b) => PRODUCT_FILTER_GROUP[a].label.localeCompare(PRODUCT_FILTER_GROUP[b].label, "sv"))
+    .map((key) => ({ key, label: PRODUCT_FILTER_GROUP[key].label }));
 
   const productActive = productFilters.length > 0;
   
 
   const matchesProduct = (app: string) => {
     if (!productActive) return true;
-    if (productFilters.includes(app)) return true;
-    const appKey = APP_TO_PF_KEY(app);
-    if (!appKey) return false;
-    return productFilters.some((sel) => APP_TO_PF_KEY(sel) === appKey);
+    const key = appToGroupKey(app);
+    if (!key) return false;
+    return productFilters.includes(key);
   };
 
   const productKeyMatchesFilter = (key: string): boolean => {
     if (!productActive) return true;
-    return productFilters.some((sel) => {
-      const group = APP_TO_PF_KEY(sel);
-      if (!group) return false;
-      return PF_KEYS_BY_GROUP[group].includes(key);
-    });
+    return productFilters.includes(key as ProductFilterKey);
   };
 
-  const PF_KEY_TO_PITCH_LABELS: Record<string, string[]> = {
+  const PITCH_LABELS_BY_KEY: Record<ProductFilterKey, string[]> = {
     bc: ["Business Central"],
     fsc: ["Finance & Supply Chain"],
-    crm: ["Sales & Customer Insights", "Customer Service / Field Service / Contact Center"],
+    sales: ["Sales & Customer Insights"],
+    service: ["Customer Service / Field Service / Contact Center"],
   };
   const selectedPitchLabels = productActive
-    ? Array.from(new Set(productFilters.flatMap((sel) => {
-        const k = APP_TO_PF_KEY(sel);
-        return k ? (PF_KEY_TO_PITCH_LABELS[k] || []) : [];
-      })))
+    ? Array.from(new Set(productFilters.flatMap((sel) => PITCH_LABELS_BY_KEY[sel] || [])))
     : [];
 
   const applyFilters = (data: ReturnType<typeof get>) => ({
