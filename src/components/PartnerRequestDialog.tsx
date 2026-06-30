@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,7 +7,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
-import { Send } from "lucide-react";
+import { AlertCircle, Send } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface PartnerRequestDialogProps {
   open: boolean;
@@ -55,6 +56,56 @@ const MODE_CONFIG = {
   },
 };
 
+type FormState = {
+  company_name: string;
+  contact_name: string;
+  email: string;
+  phone: string;
+  message: string;
+  _hp: string;
+};
+
+type FieldErrors = Partial<Record<"company_name" | "contact_name" | "email" | "phone" | "message", string>>;
+
+const PHONE_REGEX = /^[+0-9\s\-()./]{6,20}$/;
+
+const validateForm = (form: FormState): FieldErrors => {
+  const errors: FieldErrors = {};
+
+  if (!form.company_name.trim()) {
+    errors.company_name = "Ange företagsnamn.";
+  } else if (form.company_name.trim().length < 2) {
+    errors.company_name = "Företagsnamn måste vara minst 2 tecken.";
+  } else if (form.company_name.length > 100) {
+    errors.company_name = "Max 100 tecken.";
+  }
+
+  if (!form.contact_name.trim()) {
+    errors.contact_name = "Ange ditt namn.";
+  } else if (!form.contact_name.trim().includes(" ")) {
+    errors.contact_name = "Ange både för- och efternamn.";
+  } else if (form.contact_name.length > 100) {
+    errors.contact_name = "Max 100 tecken.";
+  }
+
+  if (!form.email.trim()) {
+    errors.email = "Ange din jobbmejl.";
+  } else {
+    const emailErr = validateBusinessEmail(form.email);
+    if (emailErr) errors.email = emailErr;
+  }
+
+  if (form.phone.trim() && !PHONE_REGEX.test(form.phone.trim())) {
+    errors.phone = "Ogiltigt telefonnummer.";
+  }
+
+  if (form.message.length > 1000) {
+    errors.message = "Max 1000 tecken.";
+  }
+
+  return errors;
+};
+
 const PartnerRequestDialog = ({
   open,
   onOpenChange,
@@ -76,7 +127,8 @@ const PartnerRequestDialog = ({
   useEffect(() => {
     onSubmitting?.(submitting);
   }, [submitting, onSubmitting]);
-  const [form, setForm] = useState({
+
+  const [form, setForm] = useState<FormState>({
     company_name: "",
     contact_name: "",
     email: "",
@@ -84,19 +136,39 @@ const PartnerRequestDialog = ({
     message: "",
     _hp: "",
   });
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [attemptedSubmit, setAttemptedSubmit] = useState(false);
 
-  const reset = () =>
+  const errors = useMemo(() => validateForm(form), [form]);
+  const showError = (field: keyof FieldErrors) => (touched[field] || attemptedSubmit) && !!errors[field];
+  const errorCount = Object.keys(errors).length;
+
+  const reset = () => {
     setForm({ company_name: "", contact_name: "", email: "", phone: "", message: "", _hp: "" });
+    setTouched({});
+    setAttemptedSubmit(false);
+  };
+
+  const handleClose = (next: boolean) => {
+    if (!next) reset();
+    onOpenChange(next);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.company_name.trim() || !form.contact_name.trim() || !form.email.trim()) {
-      toast({ title: "Fyll i obligatoriska fält", description: "Företag, namn och jobbmejl krävs.", variant: "destructive" });
-      return;
-    }
-    const emailErr = validateBusinessEmail(form.email);
-    if (emailErr) {
-      toast({ title: "Ogiltig e-post", description: emailErr, variant: "destructive" });
+    setAttemptedSubmit(true);
+
+    if (errorCount > 0) {
+      const firstError = Object.values(errors)[0];
+      toast({
+        title: errorCount === 1 ? "Ett fält behöver justeras" : `${errorCount} fält behöver justeras`,
+        description: firstError,
+        variant: "destructive",
+      });
+      // Focus first invalid field
+      const firstField = Object.keys(errors)[0];
+      const el = document.getElementById(`prq-${firstField.replace("_", "-")}`);
+      el?.focus();
       return;
     }
 
@@ -141,7 +213,13 @@ const PartnerRequestDialog = ({
       const failed = results.filter(
         (r) => r.status === "rejected" || (r.status === "fulfilled" && (r.value as any)?.error)
       );
-      if (failed.length === targets.length) throw failed[0];
+      if (failed.length === targets.length) {
+        const first = failed[0];
+        const errMsg = first.status === "rejected"
+          ? (first.reason as any)?.message
+          : ((first.value as any)?.error?.message);
+        throw new Error(errMsg || "Kunde inte skicka förfrågan.");
+      }
 
       toast({
         title: config.toastTitle,
@@ -154,9 +232,12 @@ const PartnerRequestDialog = ({
       onOpenChange(false);
     } catch (err) {
       console.error(err);
+      const message = err instanceof Error && err.message
+        ? err.message
+        : "Försök igen om en stund eller mejla info@d365.se.";
       toast({
         title: "Något gick fel",
-        description: "Försök igen om en stund eller mejla info@d365.se.",
+        description: message,
         variant: "destructive",
       });
     } finally {
@@ -164,8 +245,23 @@ const PartnerRequestDialog = ({
     }
   };
 
+  const fieldClass = (field: keyof FieldErrors) =>
+    cn(showError(field) && "border-destructive focus-visible:ring-destructive");
+
+  const ErrorText = ({ field }: { field: keyof FieldErrors }) =>
+    showError(field) ? (
+      <p
+        id={`prq-${field.replace("_", "-")}-error`}
+        className="text-xs text-destructive flex items-start gap-1 mt-1"
+        role="alert"
+      >
+        <AlertCircle className="w-3.5 h-3.5 mt-px shrink-0" aria-hidden="true" />
+        <span>{errors[field]}</span>
+      </p>
+    ) : null;
+
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>{config.title(displayName)}</DialogTitle>
@@ -181,7 +277,24 @@ const PartnerRequestDialog = ({
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-3">
+        {attemptedSubmit && errorCount > 0 && (
+          <div
+            role="alert"
+            className="rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive flex items-start gap-2"
+          >
+            <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" aria-hidden="true" />
+            <div>
+              <p className="font-semibold">
+                {errorCount === 1
+                  ? "Ett fält behöver justeras innan vi kan skicka."
+                  : `${errorCount} fält behöver justeras innan vi kan skicka.`}
+              </p>
+              <p className="text-xs opacity-80 mt-0.5">Se markerade fält nedan.</p>
+            </div>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} noValidate className="space-y-3">
           {/* Honeypot */}
           <input
             type="text"
@@ -196,24 +309,34 @@ const PartnerRequestDialog = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <Label htmlFor="prq-company">Företag *</Label>
+              <Label htmlFor="prq-company-name">Företag *</Label>
               <Input
-                id="prq-company"
+                id="prq-company-name"
                 value={form.company_name}
                 onChange={(e) => setForm((f) => ({ ...f, company_name: e.target.value }))}
+                onBlur={() => setTouched((t) => ({ ...t, company_name: true }))}
                 maxLength={100}
                 required
+                aria-invalid={showError("company_name")}
+                aria-describedby={showError("company_name") ? "prq-company-name-error" : undefined}
+                className={fieldClass("company_name")}
               />
+              <ErrorText field="company_name" />
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="prq-name">Namn *</Label>
+              <Label htmlFor="prq-contact-name">Namn *</Label>
               <Input
-                id="prq-name"
+                id="prq-contact-name"
                 value={form.contact_name}
                 onChange={(e) => setForm((f) => ({ ...f, contact_name: e.target.value }))}
+                onBlur={() => setTouched((t) => ({ ...t, contact_name: true }))}
                 maxLength={100}
                 required
+                aria-invalid={showError("contact_name")}
+                aria-describedby={showError("contact_name") ? "prq-contact-name-error" : undefined}
+                className={fieldClass("contact_name")}
               />
+              <ErrorText field="contact_name" />
             </div>
           </div>
 
@@ -225,9 +348,19 @@ const PartnerRequestDialog = ({
                 type="email"
                 value={form.email}
                 onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                onBlur={() => setTouched((t) => ({ ...t, email: true }))}
                 maxLength={255}
                 required
+                aria-invalid={showError("email")}
+                aria-describedby={showError("email") ? "prq-email-error" : "prq-email-hint"}
+                className={fieldClass("email")}
               />
+              {!showError("email") && (
+                <p id="prq-email-hint" className="text-xs text-muted-foreground">
+                  Vi accepterar endast jobbmejl (ej Gmail/Hotmail).
+                </p>
+              )}
+              <ErrorText field="email" />
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="prq-phone">Telefon</Label>
@@ -235,25 +368,44 @@ const PartnerRequestDialog = ({
                 id="prq-phone"
                 value={form.phone}
                 onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
+                onBlur={() => setTouched((t) => ({ ...t, phone: true }))}
                 maxLength={20}
+                aria-invalid={showError("phone")}
+                aria-describedby={showError("phone") ? "prq-phone-error" : undefined}
+                className={fieldClass("phone")}
               />
+              <ErrorText field="phone" />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="prq-message">Kort om behovet (valfritt)</Label>
+            <div className="flex items-baseline justify-between">
+              <Label htmlFor="prq-message">Kort om behovet (valfritt)</Label>
+              <span className={cn(
+                "text-xs",
+                form.message.length > 900 ? "text-amber-600" : "text-muted-foreground",
+                form.message.length > 1000 && "text-destructive"
+              )}>
+                {form.message.length}/1000
+              </span>
+            </div>
             <Textarea
               id="prq-message"
               value={form.message}
               onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
+              onBlur={() => setTouched((t) => ({ ...t, message: true }))}
               maxLength={1000}
               rows={4}
               placeholder="T.ex. nuläge, tidplan, antal användare, integrationer."
+              aria-invalid={showError("message")}
+              aria-describedby={showError("message") ? "prq-message-error" : undefined}
+              className={fieldClass("message")}
             />
+            <ErrorText field="message" />
           </div>
 
           <DialogFooter className="gap-2 sm:gap-0">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={submitting}>
+            <Button type="button" variant="outline" onClick={() => handleClose(false)} disabled={submitting}>
               Avbryt
             </Button>
             <Button
