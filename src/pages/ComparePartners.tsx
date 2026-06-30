@@ -610,7 +610,11 @@ const ComparePartners = () => {
 
   const productKeyMatchesFilter = (key: string): boolean => {
     if (!productActive) return true;
-    return productFilters.some((sel) => APP_TO_PF_KEY(sel) === key);
+    return productFilters.some((sel) => {
+      const group = APP_TO_PF_KEY(sel);
+      if (!group) return false;
+      return PF_KEYS_BY_GROUP[group].includes(key);
+    });
   };
 
   const PF_KEY_TO_PITCH_LABELS: Record<string, string[]> = {
