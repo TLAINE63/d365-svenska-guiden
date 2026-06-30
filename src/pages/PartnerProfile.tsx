@@ -45,12 +45,6 @@ import { buildMetaTitle } from "@/lib/metaTitle";
 import { buildMetaDescription } from "@/lib/metaDescription";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 import { trackPartnerView } from "@/utils/trackPartnerView";
-import {
- Tooltip,
- TooltipContent,
- TooltipProvider,
- TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 // Dynamics 365 icons
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
