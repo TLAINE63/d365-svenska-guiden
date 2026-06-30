@@ -313,13 +313,35 @@ const renderNotAFit = (items: string[]) =>
     EMPTY
   );
 
-const renderAi = (
-  items: {
-    productKey: string;
-    productLabel: string;
-    capabilities: string[];
-    projectCount: string;
-    caseDescription: string;
+const renderAppList = (items: string[]) =>
+  items.length > 0 ? (
+    <div className="flex flex-wrap gap-1.5">
+      {items.map((r, i) => {
+        const icon = getAppIcon(r);
+        return (
+          <span
+            key={i}
+            className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs"
+          >
+            {icon && (
+              <img
+                src={icon}
+                alt=""
+                aria-hidden="true"
+                className="w-3.5 h-3.5 object-contain shrink-0"
+                loading="lazy"
+              />
+            )}
+            {r}
+          </span>
+        );
+      })}
+    </div>
+  ) : (
+    EMPTY
+  );
+
+
     businessImpact: string;
   }[]
 ) => {
