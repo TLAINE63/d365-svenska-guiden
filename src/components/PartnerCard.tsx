@@ -488,7 +488,7 @@ const PartnerCard = ({
    }`}
   >
    <ArrowLeftRight className="h-3.5 w-3.5" />
-   {compareActive ? 'Vald för jämförelse' : 'Jämför'}
+   {compareActive ? 'Vald för jämförelse' : 'Jämför partners'}
   </button>
  )}
  </div>
