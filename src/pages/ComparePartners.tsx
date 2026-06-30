@@ -1055,7 +1055,7 @@ const ComparePartners = () => {
                         value={industryFilter || "__all__"}
                         onValueChange={(v) => setFilter("industry", v)}
                       >
-                        <SelectTrigger className="relative h-14 w-full rounded-lg border border-[hsl(var(--border-on-dark)/15)] bg-[hsl(var(--card-dark))] px-4 py-3 text-left transition-all duration-300 hover:border-[hsl(var(--primary)/40)] hover:shadow-[0_8px_24px_-12px_hsl(var(--card-dark)/0.4)] [&>svg]:hidden">
+                        <SelectTrigger className="relative h-14 w-full rounded-lg border border-[hsl(var(--border-on-dark)/15)] bg-[hsl(var(--card-dark))] px-4 py-3 text-left transition-all duration-300 hover:border-[hsl(var(--primary)/40)] hover:shadow-[0_8px_24px_-12px_hsl(var(--card-dark)/0.4)] [&>span:last-child]:hidden">
                           <div className="flex-1 min-w-0">
                             <span className="block text-sm font-medium text-[hsl(var(--primary-foreground))] truncate">
                               {industryFilter || "Alla branscher"}
