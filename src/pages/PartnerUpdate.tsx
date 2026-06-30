@@ -1351,9 +1351,8 @@ const PartnerUpdate = () => {
 
             {/* Legacy per-product AI block – hidden in favour of partner-level AI profile */}
             {false && (
-            /* AI & Automation */
-           <div className="pt-4 border-t border-border">
-             <Label className="text-sm font-semibold">AI & AUTOMATION</Label>
+            <div className="pt-4 border-t border-border">
+              <Label className="text-sm font-semibold">AI & AUTOMATION</Label>
              <p className="text-xs text-muted-foreground mt-1 mb-3">
                Denna information används för att visa er nivå inom AI och automatisering.<br />
                Markera det ni faktiskt levererat – inte vad ni planerar.
@@ -1537,7 +1536,8 @@ const PartnerUpdate = () => {
                  )}
                </div>
              )}
-           </div>
+            </div>
+            )}
          </div>
        )}
 
