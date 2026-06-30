@@ -1271,10 +1271,10 @@ const ComparePartners = () => {
                     <section className="space-y-3">
                       <SectionTitle icon={Sparkles} title="AI & automatisering" />
                       <R
-                        label="AI-erbjudande per lösning"
-                        help="Levererade AI- och automationscase per produktområde, projektnivå senaste 24 mån, samt eventuella case-exempel och affärseffekter."
-                        a={renderAi(AF.ai)}
-                        b={renderAi(BF.ai)}
+                        label="AI, Copilot & Automation"
+                        help="Partnerns samlade AI- och automationsprofil: leveransmodell, förmågor, relevanta områden, use cases, erfarenhet och underlag. Bygger på partnerns egna uppgifter."
+                        a={renderAiProfile(((A.partner as any)?.ai_profile) as AiProfile | null)}
+                        b={renderAiProfile(((B.partner as any)?.ai_profile) as AiProfile | null)}
                       />
                     </section>
 
