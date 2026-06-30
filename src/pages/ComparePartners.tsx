@@ -646,9 +646,17 @@ const ComparePartners = () => {
       ? partnerIndustries
       : STANDARD_INDUSTRIES.map((i) => i.name)
   ).sort((x, y) => x.localeCompare(y, "sv"));
-  const productOptions = (Object.keys(PRODUCT_FILTER_GROUP) as ProductFilterKey[])
-    .sort((a, b) => PRODUCT_FILTER_GROUP[a].label.localeCompare(PRODUCT_FILTER_GROUP[b].label, "sv"))
-    .map((key) => ({ key, label: PRODUCT_FILTER_GROUP[key].label }));
+  const availableProductKeys = Array.from(
+    new Set([
+      ...getProductFilterKeysForApps(A.apps),
+      ...getProductFilterKeysForApps(B.apps),
+    ])
+  ).sort((a, b) => PRODUCT_FILTER_GROUP[a].label.localeCompare(PRODUCT_FILTER_GROUP[b].label, "sv"));
+
+  const productOptions = availableProductKeys.map((key) => ({
+    key,
+    label: PRODUCT_FILTER_GROUP[key].label,
+  }));
 
   const productActive = productFilters.length > 0;
   
