@@ -493,7 +493,8 @@ const AdminDashboard = () => {
  invoice_contact?: string;
  org_number?: string;
  legal_name?: string;
- youtube_video_id?: string;
+  youtube_video_id?: string;
+  ai_profile?: import("@/lib/aiProfile").AiProfile;
  }>({
  slug: "",
  name: "",
@@ -1268,8 +1269,9 @@ Thomas`,
  invoice_contact: (partner as any).invoice_contact || "",
  org_number: (partner as any).org_number || "",
  legal_name: (partner as any).legal_name || "",
- youtube_video_id: (partner as any).youtube_video_id || "",
- });
+  youtube_video_id: (partner as any).youtube_video_id || "",
+  ai_profile: (partner as any).ai_profile || {},
+  });
  setIndustryApps(
  Array.isArray((partner as any).industry_apps) ? (partner as any).industry_apps : []
  );
@@ -4481,8 +4483,9 @@ Thomas`,
  
  </div>
 
- {/* AI Capabilities Section */}
- <div className="pt-4 border-t border-border">
+  {/* Legacy per-product AI block – hidden in favour of partner-level AI profile */}
+  {false && (
+  <div className="pt-4 border-t border-border">
   <Label className="text-sm font-semibold">
   AI & AUTOMATION
   </Label>
@@ -4670,7 +4673,10 @@ Thomas`,
  )}
  </div>
  )}
- </div>
+  </div>
+  )}
+
+
 
  </CardContent>
  )}
