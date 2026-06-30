@@ -102,34 +102,53 @@ const PartnerRequestDialog = ({
 
     setSubmitting(true);
     try {
+      const targets = multi
+        ? recipients!
+        : [{ slug: partnerSlug, name: partnerName }];
+
       const composedMessage = [
-        config.messagePrefix(partnerName),
+        config.messagePrefix(displayName),
+        multi ? `Förfrågan skickas till: ${targets.map((t) => t.name).join(", ")}.` : "",
         selectedProduct ? `Produkt: ${selectedProduct}.` : "",
         industry ? `Bransch: ${industry}.` : "",
         form.message.trim() ? `\nMeddelande:\n${form.message.trim()}` : "",
       ].filter(Boolean).join(" ");
 
-      const { error } = await supabase.functions.invoke("submit-lead", {
-        body: {
-          company_name: form.company_name.trim(),
-          contact_name: form.contact_name.trim(),
-          email: form.email.trim(),
-          phone: form.phone.trim() || undefined,
-          industry: industry || undefined,
-          selected_product: selectedProduct || undefined,
-          source_page: typeof window !== "undefined" ? window.location.pathname + window.location.search : "/partner",
-          source_type: config.sourceType,
-          message: composedMessage,
-          assigned_partners: [partnerSlug],
-          _hp: form._hp,
-        },
-      });
+      const sourcePage = typeof window !== "undefined"
+        ? window.location.pathname + window.location.search
+        : "/partner";
 
-      if (error) throw error;
+      const results = await Promise.allSettled(
+        targets.map((t) =>
+          supabase.functions.invoke("submit-lead", {
+            body: {
+              company_name: form.company_name.trim(),
+              contact_name: form.contact_name.trim(),
+              email: form.email.trim(),
+              phone: form.phone.trim() || undefined,
+              industry: industry || undefined,
+              selected_product: selectedProduct || undefined,
+              source_page: sourcePage,
+              source_type: multi ? "partner_multi_quote_request" : config.sourceType,
+              message: composedMessage,
+              assigned_partners: [t.slug],
+              _hp: form._hp,
+            },
+          })
+        )
+      );
+
+      const failed = results.filter(
+        (r) => r.status === "rejected" || (r.status === "fulfilled" && (r.value as any)?.error)
+      );
+      if (failed.length === targets.length) throw failed[0];
 
       toast({
         title: config.toastTitle,
-        description: config.toastDescription(partnerName),
+        description:
+          failed.length > 0
+            ? `Skickad till ${targets.length - failed.length} av ${targets.length} partners. Vi följer upp de övriga manuellt.`
+            : config.toastDescription(displayName),
       });
       reset();
       onOpenChange(false);
@@ -149,9 +168,18 @@ const PartnerRequestDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>{config.title(partnerName)}</DialogTitle>
-          <DialogDescription>{config.description(partnerName, selectedProduct, industry)}</DialogDescription>
+          <DialogTitle>{config.title(displayName)}</DialogTitle>
+          <DialogDescription>{config.description(displayName, selectedProduct, industry)}</DialogDescription>
         </DialogHeader>
+
+        {multi && (
+          <div className="rounded-md border border-border bg-secondary/40 p-3 text-xs text-foreground">
+            <p className="font-semibold mb-1">Din förfrågan skickas till:</p>
+            <p className="text-muted-foreground leading-relaxed">
+              {recipients!.map((r) => r.name).join(" · ")}
+            </p>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-3">
           {/* Honeypot */}
