@@ -483,6 +483,20 @@ const PartnerCard = ({
    onClick={(e) => {
     e.preventDefault();
     e.stopPropagation();
+    setContactOpen(true);
+   }}
+   className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-sm font-semibold border bg-[hsl(var(--cta-orange))] text-white border-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 transition-all"
+  >
+   <Mail className="h-4 w-4" />
+   Få kontakt
+  </button>
+ )}
+ {compareSlug && (
+  <button
+   type="button"
+   onClick={(e) => {
+    e.preventDefault();
+    e.stopPropagation();
     toggleCompare({ slug: compareSlug, name: partner.name || 'Partner' });
    }}
    aria-pressed={compareActive}
@@ -499,6 +513,17 @@ const PartnerCard = ({
  </div>
  </div>
  </div>
+ {compareSlug && (
+  <PartnerRequestDialog
+   open={contactOpen}
+   onOpenChange={setContactOpen}
+   partnerSlug={compareSlug}
+   partnerName={partner.name || 'Partner'}
+   selectedProduct={highlightedProduct || (productKey ? productKeyToSwedish[productKey] : undefined)}
+   industry={highlightedIndustry}
+   mode="contact"
+  />
+ )}
  </article>
  );
 };
