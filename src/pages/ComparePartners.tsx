@@ -394,6 +394,34 @@ const renderAppList = (items: string[]) =>
     EMPTY
   );
 
+const renderIndustryList = (items: string[]) =>
+  items.length > 0 ? (
+    <div className="flex flex-wrap gap-1.5">
+      {items.map((r, i) => {
+        const icon = getIndustryIcon(r);
+        return (
+          <span
+            key={i}
+            className="inline-flex items-center gap-1.5 pl-1 pr-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs"
+          >
+            {icon && (
+              <img
+                src={icon}
+                alt=""
+                aria-hidden="true"
+                className="w-5 h-5 rounded object-cover shrink-0"
+                loading="lazy"
+              />
+            )}
+            {r}
+          </span>
+        );
+      })}
+    </div>
+  ) : (
+    EMPTY
+  );
+
 const renderAi = (
   items: {
     productKey: string;
