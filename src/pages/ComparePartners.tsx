@@ -420,7 +420,7 @@ const ComparePartners = () => {
   const appToGroupKey = (app: string): ProductFilterKey | null => {
     const a = app.trim();
     for (const [key, group] of Object.entries(PRODUCT_FILTER_GROUP) as [ProductFilterKey, (typeof PRODUCT_FILTER_GROUP)[ProductFilterKey]][]) {
-      if ((group.apps as string[]).includes(a)) return key;
+      if ((group.apps as readonly string[]).includes(a)) return key;
     }
     return null;
   };
