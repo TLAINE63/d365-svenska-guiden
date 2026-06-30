@@ -493,6 +493,7 @@ const renderAiProfile = (profile?: AiProfile | null) => {
   );
 };
 
+const splitIntoParagraphs = (text: string): string[] => {
   return text
     .split(/\n+/)
     .flatMap((block) => {
