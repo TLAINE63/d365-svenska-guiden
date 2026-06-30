@@ -227,7 +227,7 @@ const PartnerRequestDialog = ({
               className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
             >
               <Send className="w-4 h-4 mr-1.5" />
-              {submitting ? "Skickar…" : "Skicka förfrågan"}
+              {submitting ? "Skickar…" : config.submitLabel}
             </Button>
           </DialogFooter>
         </form>
