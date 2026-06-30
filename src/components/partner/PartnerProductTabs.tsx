@@ -152,6 +152,16 @@ interface TabData {
   industryApps: Array<{ name: string; url: string; application: string; industry: string; description: string }>;
   contact: { name?: string; email?: string; phone?: string } | null;
   landingPageUrl: string | null;
+  productProfile: {
+    app: string;
+    positioning: string | null;
+    roles: string[];
+    engagement_model: string | null;
+    methodology: string | null;
+    weeks_min: number | null;
+    weeks_max: number | null;
+    cost_band: string | null;
+  } | null;
 }
 
 
