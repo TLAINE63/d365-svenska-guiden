@@ -161,9 +161,9 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label
 );
 
 const Cell = ({ children, mobileLabel }: { children: React.ReactNode; mobileLabel?: string }) => (
-  <div className="rounded-lg border border-slate-200 bg-white p-3 sm:p-4 text-sm text-slate-800 min-h-[56px] sm:min-h-[64px]">
+  <div className="p-3 sm:p-4 text-sm text-[hsl(var(--foreground))] min-h-[56px] sm:min-h-[64px]">
     {mobileLabel && (
-      <div className="md:hidden text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+      <div className="md:hidden text-[10px] font-semibold uppercase tracking-wider text-[hsl(var(--muted-foreground))] mb-1.5">
         {mobileLabel}
       </div>
     )}
@@ -182,7 +182,7 @@ const SectionTitle = ({
 }) => (
   <div
     className={`flex items-center gap-2 text-xs font-semibold uppercase tracking-wider ${
-      tone === "warn" ? "text-amber-700" : "text-slate-500"
+      tone === "warn" ? "text-[hsl(var(--warning))]" : "text-[hsl(var(--muted-foreground))]"
     }`}
   >
     <Icon
@@ -211,31 +211,41 @@ const Row = ({
   bName?: string;
   help?: string;
 }) => (
-  <div className="md:grid md:grid-cols-[180px_1fr_1fr] md:gap-3 md:items-stretch">
+  <div className="rounded border border-[hsl(var(--border))] overflow-hidden bg-[hsl(var(--card))]">
     <div
-      className={`text-xs font-semibold uppercase tracking-wider ${
-        warn ? "text-amber-700" : "text-slate-500"
-      } mb-2 md:mb-0 md:pt-4 md:normal-case md:font-medium md:tracking-normal flex items-center gap-1.5`}
+      className={`px-4 py-2.5 border-l-4 ${
+        warn
+          ? "bg-[hsl(var(--warning))] border-[hsl(var(--warning))] text-[hsl(var(--warning-foreground))]"
+          : "bg-[hsl(var(--card-dark))] border-[hsl(var(--cta-orange))] text-[hsl(var(--primary-foreground))]"
+      }`}
     >
-      {label}
-      {help && (
-        <TooltipProvider delayDuration={100}>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button type="button" aria-label={`Vad betyder ${label}?`} className="text-slate-400 hover:text-slate-600">
-                <Info className="w-3.5 h-3.5" />
-              </button>
-            </TooltipTrigger>
-            <TooltipContent side="top" className="max-w-xs text-xs leading-relaxed">
-              {help}
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      )}
+      <div className="flex items-center gap-1.5">
+        <span className="text-xs font-semibold uppercase tracking-wider">
+          {label}
+        </span>
+        {help && (
+          <TooltipProvider delayDuration={100}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button type="button" aria-label={`Vad betyder ${label}?`} className="opacity-70 hover:opacity-100">
+                  <Info className="w-3.5 h-3.5" />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent side="top" className="max-w-xs text-xs leading-relaxed">
+                {help}
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )}
+      </div>
     </div>
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 md:contents">
-      <Cell mobileLabel={aName || "Partner A"}>{a}</Cell>
-      <Cell mobileLabel={bName || "Partner B"}>{b}</Cell>
+    <div className="grid grid-cols-1 sm:grid-cols-2">
+      <div className="border-r border-[hsl(var(--border))]">
+        <Cell mobileLabel={aName || "Partner A"}>{a}</Cell>
+      </div>
+      <div>
+        <Cell mobileLabel={bName || "Partner B"}>{b}</Cell>
+      </div>
     </div>
   </div>
 );
