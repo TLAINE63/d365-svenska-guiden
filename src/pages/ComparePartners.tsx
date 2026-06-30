@@ -1409,6 +1409,21 @@ const ComparePartners = () => {
         </div>
       </main>
 
+      {quoteFor && (
+        <PartnerRequestDialog
+          open={!!quoteFor}
+          onOpenChange={(o) => { if (!o) setQuoteFor(null); }}
+          partnerSlug={quoteFor.slug}
+          partnerName={quoteFor.name}
+          selectedProduct={
+            productFilters.length === 1
+              ? PRODUCT_FILTER_GROUP[productFilters[0]].label
+              : undefined
+          }
+          industry={industryFilter || undefined}
+        />
+      )}
+
       <Footer />
     </div>
   );
