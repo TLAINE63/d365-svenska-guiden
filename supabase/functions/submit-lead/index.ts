@@ -81,6 +81,7 @@ interface LeadRequest {
   source_page?: string;
   source_type?: string;
   message?: string;
+  assigned_partners?: string[];
   _hp?: string; // Honeypot field
   pdfBase64?: string; // PDF attachment for lead magnet
   pdfFilename?: string;
