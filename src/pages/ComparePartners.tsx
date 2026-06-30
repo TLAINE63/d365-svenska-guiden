@@ -1172,6 +1172,7 @@ const ComparePartners = () => {
                     onChange={(s) => setSlot("a", s)}
                     onClear={() => setSlot("a", "")}
                     onRequestQuote={a ? () => setQuoteFor(a) : undefined}
+                    quoteSubmitting={isSubmittingQuote}
                   />
                   <PartnerColumnHeader
                     label="Partner B"
@@ -1181,6 +1182,7 @@ const ComparePartners = () => {
                     onChange={(s) => setSlot("b", s)}
                     onClear={() => setSlot("b", "")}
                     onRequestQuote={b ? () => setQuoteFor(b) : undefined}
+                    quoteSubmitting={isSubmittingQuote}
                   />
                 </div>
 
