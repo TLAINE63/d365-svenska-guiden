@@ -795,7 +795,7 @@ const ComparePartners = () => {
                         Filtrera produkt
                       </label>
                       <span className="block text-xs text-slate-400 mb-1.5">
-                        Endast de produkter som någon av valda partners levererar
+                        Endast produkter som {a?.name || "Partner A"} eller {b?.name || "Partner B"} levererar
                       </span>
                       <Popover>
                         <PopoverTrigger asChild>
