@@ -301,24 +301,40 @@ export default function AiProfileSection({ value, onChange }: Props) {
       </div>
 
       <div className="grid sm:grid-cols-2 gap-4">
-        {/* 5. Experience level */}
         <div>
           <Label className="text-sm font-semibold">Erfarenhetsnivå</Label>
           <p className="text-xs text-muted-foreground mt-0.5 mb-2">
             Välj den nivå som bäst motsvarar er nuvarande erfarenhet. Inte framtida planer.
+            Klicka på <Info className="inline w-3 h-3 align-[-2px]" /> för att se vad varje nivå
+            innebär och hur den påverkar AI-poängen.
           </p>
-          <select
-            value={v.experience_level || ""}
-            onChange={(e) => update({ experience_level: e.target.value || null })}
-            className="w-full h-9 rounded-md border border-input bg-background px-3 text-sm"
-          >
-            {AI_EXPERIENCE_LEVELS.map((o) => (
-              <option key={o.value || "none"} value={o.value}>
-                {o.label}
-              </option>
-            ))}
-          </select>
+          <div className="space-y-1">
+            {AI_EXPERIENCE_LEVELS.map((o) => {
+              const selected = (v.experience_level || "") === o.value;
+              return (
+                <div
+                  key={o.value || "none"}
+                  className={`flex items-center justify-between gap-2 rounded-md border px-2.5 py-1.5 text-sm ${
+                    selected ? "border-primary bg-primary/5" : "border-border"
+                  }`}
+                >
+                  <label className="flex items-center gap-2 cursor-pointer flex-1">
+                    <input
+                      type="radio"
+                      name="ai_experience_level"
+                      checked={selected}
+                      onChange={() => update({ experience_level: o.value || null })}
+                      className="accent-primary"
+                    />
+                    <span>{o.label}</span>
+                  </label>
+                  {o.value && <LevelInfoPopover levelValue={o.value} />}
+                </div>
+              );
+            })}
+          </div>
         </div>
+
 
         {/* 6. Project count */}
         <div>
