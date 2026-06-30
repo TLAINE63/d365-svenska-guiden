@@ -565,6 +565,7 @@ const ComparePartners = () => {
   const [params, setParams] = useSearchParams();
   const aSlug = params.get("a") || "";
   const bSlug = params.get("b") || "";
+  const [quoteFor, setQuoteFor] = useState<DatabasePartner | null>(null);
 
   const { data: partners = [], isLoading } = usePartners();
 
