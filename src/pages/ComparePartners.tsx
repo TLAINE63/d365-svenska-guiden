@@ -772,9 +772,12 @@ const ComparePartners = () => {
                 {hasBoth && (productOptions.length > 0 || industryOptions.length > 0) && (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 rounded-xl border border-slate-200 bg-slate-50 p-3 sm:p-4">
                     <div>
-                      <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
+                      <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-0.5">
                         Filtrera produkt
                       </label>
+                      <span className="block text-xs text-slate-400 mb-1.5">
+                        Endast de produkter som någon av valda partners levererar
+                      </span>
                       <Popover>
                         <PopoverTrigger asChild>
                           <button
@@ -823,9 +826,12 @@ const ComparePartners = () => {
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
+                      <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-0.5">
                         Filtrera bransch
                       </label>
+                      <span className="block text-xs text-slate-400 mb-1.5">
+                        De branscher listas som någon av valda partners har som fokusbranscher
+                      </span>
                       <Select
                         value={industryFilter || "__all__"}
                         onValueChange={(v) => setFilter("industry", v)}
