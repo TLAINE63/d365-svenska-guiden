@@ -28,7 +28,17 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Checkbox } from "@/components/ui/checkbox";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
-import { AI_TIER_LABELS } from "@/utils/aiScoring";
+import {
+  AiProfile,
+  labelForDelivery,
+  labelForCapability,
+  labelForArea,
+  labelForUseCase,
+  labelForExperience,
+  labelForProjectCount,
+  labelForEvidence,
+  isAiProfileEmpty,
+} from "@/lib/aiProfile";
 
 import bcIcon from "@/assets/icons/BusinessCentral-new.webp";
 import financeIcon from "@/assets/icons/Finance.svg";
