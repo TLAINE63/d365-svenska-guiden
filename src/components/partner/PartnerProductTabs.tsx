@@ -309,7 +309,9 @@ export default function PartnerProductTabs({
   selectedGeography,
   selectedRevenue,
   onActiveTabChange,
+  onRequest,
 }: Props) {
+
   const availableTabs = useMemo(() => getAvailableTabs(partner), [partner]);
   const fallbackTab: TabKey = availableTabs[0] || "bc";
   const [active, setActive] = useState<TabKey>(
