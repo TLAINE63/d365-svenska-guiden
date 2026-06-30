@@ -266,23 +266,6 @@ const renderList = (items: string[]) =>
     EMPTY
   );
 
-const renderPitches = (
-  pitches: Array<{ industry: string; product: string | null; text: string }>
-) =>
-  pitches.length > 0 ? (
-    <ul className="space-y-2">
-      {pitches.map((p, i) => (
-        <li key={i} className="text-sm">
-          <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
-            {[p.industry, p.product].filter(Boolean).join(" · ")}
-          </div>
-          <p className="text-slate-700 whitespace-pre-line mt-0.5">{p.text}</p>
-        </li>
-      ))}
-    </ul>
-  ) : (
-    EMPTY
-  );
 
 const renderNotAFit = (items: string[]) =>
   items.length > 0 ? (
@@ -364,31 +347,39 @@ const splitIntoParagraphs = (text: string): string[] => {
     });
 };
 
-const renderPositioningCell = (
-  positioning: string,
-  productDescriptions: { app: string; text: string }[]
-) => {
-  if (!positioning && productDescriptions.length === 0) return EMPTY;
+const renderPositioningCell = (positioning: string) => {
+  if (!positioning) return EMPTY;
   return (
-    <div className="space-y-4">
-      {positioning && (
-        <p className="font-medium leading-relaxed text-slate-900">{positioning}</p>
-      )}
-      {productDescriptions.map((pd, idx) => (
-        <div
-          key={idx}
-          className={`space-y-2 ${
-            positioning || idx > 0 ? "pt-3 border-t border-slate-200" : ""
-          }`}
-        >
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-            {pd.app}
+    <p className="font-medium leading-relaxed text-[hsl(var(--foreground))]">
+      {positioning}
+    </p>
+  );
+};
+
+const renderProductDescCell = (text: string) => (
+  <div className="space-y-2 text-sm leading-relaxed text-[hsl(var(--foreground))]">
+    {splitIntoParagraphs(text).map((para, i) => (
+      <p key={i}>{para}</p>
+    ))}
+  </div>
+);
+
+const renderPitchCell = (
+  pitches: Array<{ industry: string; product: string | null; text: string }>
+) => {
+  if (pitches.length === 0) return EMPTY;
+  return (
+    <div className="space-y-3">
+      {pitches.map((p, i) => (
+        <div key={i} className="space-y-1">
+          {p.product && (
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-[hsl(var(--muted-foreground))]">
+              {p.product}
+            </p>
+          )}
+          <p className="text-sm leading-relaxed text-[hsl(var(--foreground))] whitespace-pre-line">
+            {p.text}
           </p>
-          <div className="space-y-2 text-[14px] leading-[1.7] text-slate-700">
-            {splitIntoParagraphs(pd.text).map((para, i) => (
-              <p key={i}>{para}</p>
-            ))}
-          </div>
         </div>
       ))}
     </div>
@@ -490,17 +481,17 @@ const ComparePartners = () => {
   const getProductDescriptions = (
     p: DatabasePartner | undefined,
     apps: string[]
-  ): { app: string; text: string }[] => {
+  ): { key: ProductFilterKey; label: string; text: string }[] => {
     const pf = (p as any)?.product_filters as
       | Record<string, { productDescription?: string }>
       | undefined;
     if (!pf) return [];
     const keys = getProductFilterKeysForApps(apps);
-    const out: { app: string; text: string }[] = [];
+    const out: { key: ProductFilterKey; label: string; text: string }[] = [];
     for (const key of keys) {
       const text = pf[key]?.productDescription?.trim();
       if (!text) continue;
-      out.push({ app: PRODUCT_FILTER_KEY_LABEL[key] || key, text });
+      out.push({ key, label: PRODUCT_FILTER_KEY_LABEL[key] || key, text });
     }
     return out;
   };
@@ -883,9 +874,37 @@ const ComparePartners = () => {
                       <SectionTitle icon={Target} title="Positionering" />
                       <R
                         label="Vi är valet när…"
-                        a={renderPositioningCell(A.positioning, getProductDescriptions(a, AF.apps))}
-                        b={renderPositioningCell(B.positioning, getProductDescriptions(b, BF.apps))}
+                        a={renderPositioningCell(A.positioning)}
+                        b={renderPositioningCell(B.positioning)}
                       />
+
+                      {(() => {
+                        const aDescs = getProductDescriptions(a, AF.apps);
+                        const bDescs = getProductDescriptions(b, BF.apps);
+                        const keys = Array.from(
+                          new Set<ProductFilterKey>([
+                            ...aDescs.map((d) => d.key),
+                            ...bDescs.map((d) => d.key),
+                          ])
+                        ).sort((x, y) =>
+                          PRODUCT_FILTER_GROUP[x].label.localeCompare(
+                            PRODUCT_FILTER_GROUP[y].label,
+                            "sv"
+                          )
+                        );
+                        return keys.map((key) => {
+                          const descA = aDescs.find((d) => d.key === key);
+                          const descB = bDescs.find((d) => d.key === key);
+                          return (
+                            <R
+                              key={key}
+                              label={PRODUCT_FILTER_KEY_LABEL[key] || key}
+                              a={descA ? renderProductDescCell(descA.text) : EMPTY}
+                              b={descB ? renderProductDescCell(descB.text) : EMPTY}
+                            />
+                          );
+                        });
+                      })()}
 
                       <R
                         label="Kompetens inom Dynamics 365"
@@ -898,12 +917,27 @@ const ComparePartners = () => {
                         a={renderList(AF.industries)}
                         b={renderList(BF.industries)}
                       />
-                      <R
-                        label="Branschpitch"
-                        help="Partnerns egna ord om varför de passar i den valda branschen (och produkten om vald)."
-                        a={renderPitches(AF.industryPitches)}
-                        b={renderPitches(BF.industryPitches)}
-                      />
+
+                      {(() => {
+                        const keys = Array.from(
+                          new Set([
+                            ...AF.industryPitches.map((ip) => ip.industry),
+                            ...BF.industryPitches.map((ip) => ip.industry),
+                          ])
+                        ).sort((x, y) => x.localeCompare(y, "sv"));
+                        return keys.map((industry) => (
+                          <R
+                            key={industry}
+                            label={industry}
+                            a={renderPitchCell(
+                              AF.industryPitches.filter((ip) => ip.industry === industry)
+                            )}
+                            b={renderPitchCell(
+                              BF.industryPitches.filter((ip) => ip.industry === industry)
+                            )}
+                          />
+                        ));
+                      })()}
 
                       <R
                         label="Branschapplikationer"
