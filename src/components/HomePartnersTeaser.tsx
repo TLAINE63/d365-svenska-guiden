@@ -5,6 +5,7 @@ import partnerDataJson from "@/data/partnerData.json";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { companySizes } from "@/data/partners";
 import PartnerCard from "@/components/PartnerCard";
+import FilteredListActions from "@/components/FilteredListActions";
 import type { DatabasePartner } from "@/hooks/usePartners";
 
 
@@ -236,6 +237,16 @@ export default function HomePartnersTeaser() {
             .
           </div>
         ) : (
+          <>
+            <div className="mb-5">
+              <FilteredListActions
+                visiblePartners={filtered.map((p) => ({ slug: p.slug, name: p.name }))}
+                selectedProduct={quick !== "all" ? QUICK_FILTERS.find((f) => f.id === quick)?.label : undefined}
+                industry={industry || undefined}
+                analyticsSource="home-teaser"
+                variant="compact"
+              />
+            </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
             {filtered.map((p) => {
               let productKey: 'bc' | 'fsc' | 'crm' | 'sales' | 'service' | null = null;
@@ -258,6 +269,7 @@ export default function HomePartnersTeaser() {
               );
             })}
           </div>
+          </>
         )}
 
       </div>

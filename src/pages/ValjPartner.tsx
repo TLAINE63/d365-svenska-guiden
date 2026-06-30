@@ -17,6 +17,7 @@ import LeadCTA from "@/components/LeadCTA";
 import LeadMagnetBanner from "@/components/LeadMagnetBanner";
 import UrgencyBadge from "@/components/UrgencyBadge";
 import PartnerCard from "@/components/PartnerCard";
+import FilteredListActions from "@/components/FilteredListActions";
 import WhyTheseResults from "@/components/WhyTheseResults";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import SEOHead from "@/components/SEOHead";
@@ -767,10 +768,16 @@ const ValjPartner = () => {
  </Button>
  </div>
  </div>
- ) : (
-  <>
-  <WhyTheseResults className="mb-6 max-w-3xl mx-auto" />
-  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  ) : (
+   <>
+   <WhyTheseResults className="mb-6 max-w-3xl mx-auto" />
+   <FilteredListActions
+     visiblePartners={filteredPartners.map((p) => ({ slug: p.slug, name: p.name }))}
+     selectedProduct={selectedApplications.length > 0 ? selectedApplications.join(", ") : undefined}
+     industry={selectedIndustry || undefined}
+     analyticsSource="valj-partner"
+   />
+   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
  {filteredPartners.map((partner, index) => {
  // Determine which product key to use for this partner
  const hasBCApp = selectedApplications.includes("Business Central");
