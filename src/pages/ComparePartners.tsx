@@ -582,6 +582,18 @@ const ComparePartners = () => {
     return productFilters.some((sel) => APP_TO_PF_KEY(sel) === key);
   };
 
+  const PF_KEY_TO_PITCH_LABELS: Record<string, string[]> = {
+    bc: ["Business Central"],
+    fsc: ["Finance & Supply Chain"],
+    crm: ["Sales & Customer Insights", "Customer Service / Field Service / Contact Center"],
+  };
+  const selectedPitchLabels = productActive
+    ? Array.from(new Set(productFilters.flatMap((sel) => {
+        const k = APP_TO_PF_KEY(sel);
+        return k ? (PF_KEY_TO_PITCH_LABELS[k] || []) : [];
+      })))
+    : [];
+
   const applyFilters = (data: ReturnType<typeof get>) => ({
     ...data,
     apps: productActive ? data.apps.filter(matchesProduct) : data.apps,
@@ -592,6 +604,10 @@ const ComparePartners = () => {
         (!industryFilter || ia.industry === industryFilter)
     ),
     ai: data.ai.filter((a) => productKeyMatchesFilter(a.productKey)),
+    industryPitches: data.industryPitches.filter((ip) =>
+      (!industryFilter || ip.industry === industryFilter) &&
+      (!productActive || !ip.product || selectedPitchLabels.includes(ip.product))
+    ),
   });
 
 
