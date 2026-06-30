@@ -498,17 +498,17 @@ const ComparePartners = () => {
   const getProductDescriptions = (
     p: DatabasePartner | undefined,
     apps: string[]
-  ): { app: string; text: string }[] => {
+  ): { key: ProductFilterKey; label: string; text: string }[] => {
     const pf = (p as any)?.product_filters as
       | Record<string, { productDescription?: string }>
       | undefined;
     if (!pf) return [];
     const keys = getProductFilterKeysForApps(apps);
-    const out: { app: string; text: string }[] = [];
+    const out: { key: ProductFilterKey; label: string; text: string }[] = [];
     for (const key of keys) {
       const text = pf[key]?.productDescription?.trim();
       if (!text) continue;
-      out.push({ app: PRODUCT_FILTER_KEY_LABEL[key] || key, text });
+      out.push({ key, label: PRODUCT_FILTER_KEY_LABEL[key] || key, text });
     }
     return out;
   };
