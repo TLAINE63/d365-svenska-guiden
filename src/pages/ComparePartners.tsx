@@ -1260,65 +1260,6 @@ const ComparePartners = () => {
                   </div>
                 )}
 
-                          </div>
-                        </PopoverContent>
-                      </Popover>
-                    </div>
-
-                    <div className="group relative">
-                      <label className="block text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] mb-1.5 ml-1">
-                        Filtrera bransch
-                      </label>
-                      <span className="block text-[11px] text-[hsl(var(--muted-foreground)/0.8)] mb-1.5 ml-1">
-                        Endast fokusbranscher hos {a?.name || "Partner A"} eller {b?.name || "Partner B"}
-                      </span>
-                      <Select
-                        value={industryFilter || "__all__"}
-                        onValueChange={(v) => setFilter("industry", v)}
-                      >
-                        <SelectTrigger className="relative h-14 w-full rounded-lg border border-[hsl(var(--border-on-dark)/15)] bg-[hsl(var(--card-dark))] px-4 py-3 text-left transition-all duration-300 hover:border-[hsl(var(--primary)/40)] hover:shadow-[0_8px_24px_-12px_hsl(var(--card-dark)/0.4)] [&>span:last-child]:hidden">
-                          <div className="flex-1 min-w-0">
-                            <span className="block text-sm font-medium text-[hsl(var(--primary-foreground))] truncate">
-                              {industryFilter || "Alla branscher"}
-                            </span>
-                            <span className="block text-[11px] text-[hsl(var(--muted-dark))]">
-                              {industryFilter ? "Bransch vald" : "Välj branschområde"}
-                            </span>
-                          </div>
-                          <div className="ml-3 flex shrink-0 items-center justify-center rounded-md bg-[hsl(var(--primary-foreground)/0.08)] p-1.5 transition-colors group-hover:bg-[hsl(var(--primary)/0.15)]">
-                            <ChevronDown className="w-4 h-4 text-[hsl(var(--primary))]" />
-                          </div>
-                          <div className="absolute bottom-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[hsl(var(--primary)/0.4)] to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-                        </SelectTrigger>
-                        <SelectContent className="max-h-80">
-                          <SelectItem value="__all__">Alla branscher</SelectItem>
-                          {industryOptions.map((opt) => (
-                            <SelectItem key={opt} value={opt}>
-                              {opt}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    {(productActive || industryFilter) && (
-                      <div className="sm:col-span-2 flex justify-end">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const next = new URLSearchParams(params);
-                            next.delete("product");
-                            next.delete("industry");
-                            setParams(next, { replace: true });
-                          }}
-                          className="text-xs text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] underline self-start"
-                        >
-                          Rensa filter
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                )}
 
                 {hasBoth && (
                   <div className="space-y-8">
