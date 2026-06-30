@@ -2429,6 +2429,15 @@ Thomas`,
         Endast saknade/gamla
       </Label>
     </div>
+    <Button
+      variant="outline"
+      onClick={handleGenerateAllPositioning}
+      disabled={generatingPositioning}
+      title="Generera 'Vi är valet när …' per produkt för publicerade partners som saknar texten. Använder partnerns profil, webbplats och övriga insikter."
+    >
+      <Sparkles className={`mr-2 h-4 w-4 ${generatingPositioning ? "animate-pulse" : ""}`} />
+      {generatingPositioning ? "Genererar positionering…" : "AI: Vi är valet när…"}
+    </Button>
   </div>
  {selectedForWelcome.size > 0 && (
  <DropdownMenu>
