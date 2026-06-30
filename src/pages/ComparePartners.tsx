@@ -559,6 +559,14 @@ const ComparePartners = () => {
   const productActive = productFilters.length > 0;
   const matchesProduct = (app: string) => !productActive || productFilters.includes(app);
 
+  const matchesProduct = (app: string) => {
+    if (!productActive) return true;
+    if (productFilters.includes(app)) return true;
+    const appKey = APP_TO_PF_KEY(app);
+    if (!appKey) return false;
+    return productFilters.some((sel) => APP_TO_PF_KEY(sel) === appKey);
+  };
+
   const productKeyMatchesFilter = (key: string): boolean => {
     if (!productActive) return true;
     return productFilters.some((sel) => APP_TO_PF_KEY(sel) === key);
