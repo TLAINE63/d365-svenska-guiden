@@ -832,23 +832,82 @@ const ComparePartners = () => {
   const aName = a?.name;
   const bName = b?.name;
 
-  const partnerIndustries = Array.from(new Set([...A.industries, ...B.industries]));
-  const industryOptions = (
-    partnerIndustries.length > 0
-      ? partnerIndustries
-      : STANDARD_INDUSTRIES.map((i) => i.name)
-  ).sort((x, y) => x.localeCompare(y, "sv"));
-  const availableProductKeys = Array.from(
-    new Set([
-      ...getProductFilterKeysForApps(A.apps),
-      ...getProductFilterKeysForApps(B.apps),
-    ])
-  ).sort((a, b) => PRODUCT_FILTER_GROUP[a].label.localeCompare(PRODUCT_FILTER_GROUP[b].label, "sv"));
+  // Filters drive partner picker — full standard taxonomy, not derived from selection
+  const industryOptions = STANDARD_INDUSTRIES.map((i) => i.name).sort((x, y) =>
+    x.localeCompare(y, "sv"),
+  );
+  const availableProductKeys = (Object.keys(PRODUCT_FILTER_GROUP) as ProductFilterKey[]).sort(
+    (x, y) => PRODUCT_FILTER_GROUP[x].label.localeCompare(PRODUCT_FILTER_GROUP[y].label, "sv"),
+  );
 
   const productOptions = availableProductKeys.map((key) => ({
     key,
     label: PRODUCT_FILTER_GROUP[key].label,
   }));
+
+  // Eligibility for picker: partner must deliver any selected product AND cover selected industry
+  const partnerIndustriesFor = (p: DatabasePartner): string[] => {
+    const pfAll = ((p as any)?.product_filters || {}) as Record<string, { industries?: string[] }>;
+    const pfIndustries = Object.values(pfAll).flatMap((f) =>
+      Array.isArray(f?.industries) ? f.industries : [],
+    );
+    const iaInd = (p.industry_apps || []).map((ia: any) => (ia?.industry || "").trim());
+    return Array.from(
+      new Set(
+        [
+          ...(p.industries || []),
+          ...(p.secondary_industries || []),
+          ...pfIndustries,
+          ...iaInd,
+        ]
+          .map((s) => (s || "").trim())
+          .filter(Boolean),
+      ),
+    );
+  };
+
+  const partnerProductKeys = (p: DatabasePartner): ProductFilterKey[] => {
+    const fromApps = getProductFilterKeysForApps(p.applications || []);
+    const pfAll = ((p as any)?.product_filters || {}) as Record<string, unknown>;
+    const fromPf = Object.keys(pfAll).filter(
+      (k): k is ProductFilterKey => (k as ProductFilterKey) in PRODUCT_FILTER_GROUP,
+    );
+    return Array.from(new Set<ProductFilterKey>([...fromApps, ...fromPf]));
+  };
+
+  const partnerMatchesFilters = (p: DatabasePartner): boolean => {
+    if (productFilters.length > 0) {
+      const keys = partnerProductKeys(p);
+      if (!productFilters.some((k) => keys.includes(k))) return false;
+    }
+    if (industryFilter) {
+      const inds = partnerIndustriesFor(p);
+      if (!inds.includes(industryFilter)) return false;
+    }
+    return true;
+  };
+
+  const eligiblePartners = useMemo(
+    () => sortedPartners.filter(partnerMatchesFilters),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [sortedPartners, productFilterRaw, industryFilter],
+  );
+
+  // Auto-clear picked partner if it no longer matches the active filters
+  useEffect(() => {
+    const next = new URLSearchParams(params);
+    let changed = false;
+    if (a && !partnerMatchesFilters(a)) {
+      next.delete("a");
+      changed = true;
+    }
+    if (b && !partnerMatchesFilters(b)) {
+      next.delete("b");
+      changed = true;
+    }
+    if (changed) setParams(next, { replace: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productFilterRaw, industryFilter, aSlug, bSlug]);
 
   useEffect(() => {
     const invalid = productFilters.filter((f) => !availableProductKeys.includes(f));
