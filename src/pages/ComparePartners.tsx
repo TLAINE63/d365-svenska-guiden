@@ -644,6 +644,39 @@ const ComparePartners = () => {
     service: "Customer Service / Field Service / Contact Center",
   };
 
+  const formatWeeksRange = (min: number | null, max: number | null): string => {
+    if (min != null && max != null) return `${min}–${max} veckor`;
+    if (min != null) return `Från ${min} veckor`;
+    if (max != null) return `Upp till ${max} veckor`;
+    return "";
+  };
+
+  const getProductMetrics = (
+    p: DatabasePartner | undefined,
+    key: ProductFilterKey,
+  ): { length: string; cost: string } => {
+    const pp = ((p as any)?.product_profiles || {}) as Record<string, any>;
+    for (const app of PRODUCT_FILTER_GROUP[key].apps) {
+      const raw = pp[app];
+      if (raw && typeof raw === "object") {
+        const length = formatWeeksRange(
+          typeof raw.weeks_min === "number" ? raw.weeks_min : null,
+          typeof raw.weeks_max === "number" ? raw.weeks_max : null,
+        );
+        const cost =
+          typeof raw.cost_band === "string" && raw.cost_band
+            ? COST_BAND_LABELS[raw.cost_band] || raw.cost_band
+            : "";
+        if (length || cost) return { length, cost };
+      }
+    }
+    if (key === "bc") {
+      const dp = (p?.delivery_profile || {}) as DeliveryProfile;
+      return { length: formatBcLength(dp), cost: formatBcCost(dp) };
+    }
+    return { length: "", cost: "" };
+  };
+
   type AiPerProduct = {
     productKey: string;
     productLabel: string;
