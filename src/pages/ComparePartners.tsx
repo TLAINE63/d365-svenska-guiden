@@ -832,23 +832,82 @@ const ComparePartners = () => {
   const aName = a?.name;
   const bName = b?.name;
 
-  const partnerIndustries = Array.from(new Set([...A.industries, ...B.industries]));
-  const industryOptions = (
-    partnerIndustries.length > 0
-      ? partnerIndustries
-      : STANDARD_INDUSTRIES.map((i) => i.name)
-  ).sort((x, y) => x.localeCompare(y, "sv"));
-  const availableProductKeys = Array.from(
-    new Set([
-      ...getProductFilterKeysForApps(A.apps),
-      ...getProductFilterKeysForApps(B.apps),
-    ])
-  ).sort((a, b) => PRODUCT_FILTER_GROUP[a].label.localeCompare(PRODUCT_FILTER_GROUP[b].label, "sv"));
+  // Filters drive partner picker — full standard taxonomy, not derived from selection
+  const industryOptions = STANDARD_INDUSTRIES.map((i) => i.name).sort((x, y) =>
+    x.localeCompare(y, "sv"),
+  );
+  const availableProductKeys = (Object.keys(PRODUCT_FILTER_GROUP) as ProductFilterKey[]).sort(
+    (x, y) => PRODUCT_FILTER_GROUP[x].label.localeCompare(PRODUCT_FILTER_GROUP[y].label, "sv"),
+  );
 
   const productOptions = availableProductKeys.map((key) => ({
     key,
     label: PRODUCT_FILTER_GROUP[key].label,
   }));
+
+  // Eligibility for picker: partner must deliver any selected product AND cover selected industry
+  const partnerIndustriesFor = (p: DatabasePartner): string[] => {
+    const pfAll = ((p as any)?.product_filters || {}) as Record<string, { industries?: string[] }>;
+    const pfIndustries = Object.values(pfAll).flatMap((f) =>
+      Array.isArray(f?.industries) ? f.industries : [],
+    );
+    const iaInd = (p.industry_apps || []).map((ia: any) => (ia?.industry || "").trim());
+    return Array.from(
+      new Set(
+        [
+          ...(p.industries || []),
+          ...(p.secondary_industries || []),
+          ...pfIndustries,
+          ...iaInd,
+        ]
+          .map((s) => (s || "").trim())
+          .filter(Boolean),
+      ),
+    );
+  };
+
+  const partnerProductKeys = (p: DatabasePartner): ProductFilterKey[] => {
+    const fromApps = getProductFilterKeysForApps(p.applications || []);
+    const pfAll = ((p as any)?.product_filters || {}) as Record<string, unknown>;
+    const fromPf = Object.keys(pfAll).filter(
+      (k): k is ProductFilterKey => (k as ProductFilterKey) in PRODUCT_FILTER_GROUP,
+    );
+    return Array.from(new Set<ProductFilterKey>([...fromApps, ...fromPf]));
+  };
+
+  const partnerMatchesFilters = (p: DatabasePartner): boolean => {
+    if (productFilters.length > 0) {
+      const keys = partnerProductKeys(p);
+      if (!productFilters.some((k) => keys.includes(k))) return false;
+    }
+    if (industryFilter) {
+      const inds = partnerIndustriesFor(p);
+      if (!inds.includes(industryFilter)) return false;
+    }
+    return true;
+  };
+
+  const eligiblePartners = useMemo(
+    () => sortedPartners.filter(partnerMatchesFilters),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [sortedPartners, productFilterRaw, industryFilter],
+  );
+
+  // Auto-clear picked partner if it no longer matches the active filters
+  useEffect(() => {
+    const next = new URLSearchParams(params);
+    let changed = false;
+    if (a && !partnerMatchesFilters(a)) {
+      next.delete("a");
+      changed = true;
+    }
+    if (b && !partnerMatchesFilters(b)) {
+      next.delete("b");
+      changed = true;
+    }
+    if (changed) setParams(next, { replace: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productFilterRaw, industryFilter, aSlug, bSlug]);
 
   useEffect(() => {
     const invalid = productFilters.filter((f) => !availableProductKeys.includes(f));
@@ -941,8 +1000,136 @@ const ComparePartners = () => {
               <div className="text-center text-muted-foreground py-10">Laddar partner…</div>
             ) : (
               <>
-                {/* Picker row */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[180px_1fr_1fr] gap-3 mb-4">
+                {/* Step 1 — Filter by product and industry */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                  <div className="group relative">
+                    <label className="block text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] mb-1.5 ml-1">
+                      1. Välj produkt
+                    </label>
+                    <span className="block text-[11px] text-[hsl(var(--muted-foreground)/0.8)] mb-1.5 ml-1">
+                      Endast partners som levererar vald produkt visas i nästa steg
+                    </span>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <button
+                          type="button"
+                          className="relative flex h-14 w-full items-center justify-between rounded-lg border border-[hsl(var(--border-on-dark)/15)] bg-[hsl(var(--card-dark))] px-4 py-3 text-left transition-all duration-300 hover:border-[hsl(var(--primary)/40)] hover:shadow-[0_8px_24px_-12px_hsl(var(--card-dark)/0.4)]"
+                        >
+                          <div className="flex-1 min-w-0">
+                            <span className="block text-sm font-medium text-[hsl(var(--primary-foreground))] truncate">
+                              {productFilters.length === 0
+                                ? "Alla produkter"
+                                : productFilters.length === 1
+                                ? PRODUCT_FILTER_GROUP[productFilters[0]].label
+                                : `${productFilters.length} valda`}
+                            </span>
+                            <span className="block text-[11px] text-[hsl(var(--muted-dark))]">
+                              {productFilters.length === 0 ? "Välj produktkategori" : "Filtrering aktiv"}
+                            </span>
+                          </div>
+                          <div className="ml-3 flex shrink-0 items-center justify-center rounded-md bg-[hsl(var(--primary-foreground)/0.08)] p-1.5 transition-colors group-hover:bg-[hsl(var(--primary)/0.15)]">
+                            <ChevronDown className="w-4 h-4 text-[hsl(var(--primary))]" />
+                          </div>
+                          <div className="absolute bottom-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[hsl(var(--primary)/0.4)] to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                        </button>
+                      </PopoverTrigger>
+                      <PopoverContent align="start" className="w-[260px] p-2 max-h-80 overflow-auto">
+                        {productFilters.length > 0 && (
+                          <button
+                            type="button"
+                            onClick={() => setFilter("product", "")}
+                            className="w-full text-left text-xs text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] underline px-2 py-1 mb-1"
+                          >
+                            Rensa val
+                          </button>
+                        )}
+                        <div className="space-y-1">
+                          {productOptions.map((opt) => {
+                            const checked = productFilters.includes(opt.key);
+                            return (
+                              <label
+                                key={opt.key}
+                                className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-[hsl(var(--muted))] cursor-pointer text-sm"
+                              >
+                                <Checkbox
+                                  checked={checked}
+                                  onCheckedChange={() => toggleProductFilter(opt.key)}
+                                />
+                                <span className="flex-1">{opt.label}</span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+
+                  <div className="group relative">
+                    <label className="block text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] mb-1.5 ml-1">
+                      2. Välj bransch
+                    </label>
+                    <span className="block text-[11px] text-[hsl(var(--muted-foreground)/0.8)] mb-1.5 ml-1">
+                      Endast partners med vald fokusbransch visas i nästa steg
+                    </span>
+                    <Select
+                      value={industryFilter || "__all__"}
+                      onValueChange={(v) => setFilter("industry", v)}
+                    >
+                      <SelectTrigger className="relative h-14 w-full rounded-lg border border-[hsl(var(--border-on-dark)/15)] bg-[hsl(var(--card-dark))] px-4 py-3 text-left transition-all duration-300 hover:border-[hsl(var(--primary)/40)] hover:shadow-[0_8px_24px_-12px_hsl(var(--card-dark)/0.4)] [&>span:last-child]:hidden">
+                        <div className="flex-1 min-w-0">
+                          <span className="block text-sm font-medium text-[hsl(var(--primary-foreground))] truncate">
+                            {industryFilter || "Alla branscher"}
+                          </span>
+                          <span className="block text-[11px] text-[hsl(var(--muted-dark))]">
+                            {industryFilter ? "Bransch vald" : "Välj branschområde"}
+                          </span>
+                        </div>
+                        <div className="ml-3 flex shrink-0 items-center justify-center rounded-md bg-[hsl(var(--primary-foreground)/0.08)] p-1.5 transition-colors group-hover:bg-[hsl(var(--primary)/0.15)]">
+                          <ChevronDown className="w-4 h-4 text-[hsl(var(--primary))]" />
+                        </div>
+                        <div className="absolute bottom-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[hsl(var(--primary)/0.4)] to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                      </SelectTrigger>
+                      <SelectContent className="max-h-80">
+                        <SelectItem value="__all__">Alla branscher</SelectItem>
+                        {industryOptions.map((opt) => (
+                          <SelectItem key={opt} value={opt}>
+                            {opt}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {(productActive || industryFilter) && (
+                    <div className="sm:col-span-2 flex justify-end">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const next = new URLSearchParams(params);
+                          next.delete("product");
+                          next.delete("industry");
+                          setParams(next, { replace: true });
+                        }}
+                        className="text-xs text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] underline self-start"
+                      >
+                        Rensa filter
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                {/* Step 2 — Pick two partners (filtered by step 1) */}
+                <div className="mb-2">
+                  <p className="text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] ml-1">
+                    3. Välj två partners att jämföra
+                  </p>
+                  <p className="text-[11px] text-[hsl(var(--muted-foreground)/0.8)] ml-1 mt-0.5">
+                    {productActive || industryFilter
+                      ? `${eligiblePartners.length} partner${eligiblePartners.length === 1 ? "" : "s"} matchar urvalet`
+                      : "Visar alla publicerade partners — välj produkt och bransch ovan för att smalna av"}
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[180px_1fr_1fr] gap-3 mb-6">
                   <div className="order-last md:order-first flex md:items-end md:pb-1">
                     <Button
                       type="button"
@@ -959,7 +1146,7 @@ const ComparePartners = () => {
                   <PartnerColumnHeader
                     label="Partner A"
                     partner={a}
-                    partners={sortedPartners}
+                    partners={eligiblePartners}
                     slug={aSlug}
                     onChange={(s) => setSlot("a", s)}
                     onClear={() => setSlot("a", "")}
@@ -967,137 +1154,25 @@ const ComparePartners = () => {
                   <PartnerColumnHeader
                     label="Partner B"
                     partner={b}
-                    partners={sortedPartners}
+                    partners={eligiblePartners}
                     slug={bSlug}
                     onChange={(s) => setSlot("b", s)}
                     onClear={() => setSlot("b", "")}
                   />
                 </div>
 
-                {!hasBoth && (
+                {eligiblePartners.length === 0 && (productActive || industryFilter) && (
+                  <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-sm text-slate-600 mb-6">
+                    Inga partners matchar er kombination av produkt och bransch. Bredda urvalet ovan.
+                  </div>
+                )}
+
+                {!hasBoth && eligiblePartners.length > 0 && (
                   <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-sm text-slate-600 mb-6">
                     Välj två partner ovan för att se jämförelsen.
                   </div>
                 )}
 
-                {hasBoth && (productOptions.length > 0 || industryOptions.length > 0) && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                    <div className="group relative">
-                      <label className="block text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] mb-1.5 ml-1">
-                        Filtrera produkt
-                      </label>
-                      <span className="block text-[11px] text-[hsl(var(--muted-foreground)/0.8)] mb-1.5 ml-1">
-                        Endast produkter som {a?.name || "Partner A"} eller {b?.name || "Partner B"} levererar
-                      </span>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <button
-                            type="button"
-                            className="relative flex h-14 w-full items-center justify-between rounded-lg border border-[hsl(var(--border-on-dark)/15)] bg-[hsl(var(--card-dark))] px-4 py-3 text-left transition-all duration-300 hover:border-[hsl(var(--primary)/40)] hover:shadow-[0_8px_24px_-12px_hsl(var(--card-dark)/0.4)]"
-                          >
-                            <div className="flex-1 min-w-0">
-                              <span className="block text-sm font-medium text-[hsl(var(--primary-foreground))] truncate">
-                                {productFilters.length === 0
-                                  ? "Alla produkter"
-                                  : productFilters.length === 1
-                                  ? PRODUCT_FILTER_GROUP[productFilters[0]].label
-                                  : `${productFilters.length} valda`}
-                              </span>
-                              <span className="block text-[11px] text-[hsl(var(--muted-dark))]">
-                                {productFilters.length === 0 ? "Välj produktkategori" : "Filtrering aktiv"}
-                              </span>
-                            </div>
-                            <div className="ml-3 flex shrink-0 items-center justify-center rounded-md bg-[hsl(var(--primary-foreground)/0.08)] p-1.5 transition-colors group-hover:bg-[hsl(var(--primary)/0.15)]">
-                              <ChevronDown className="w-4 h-4 text-[hsl(var(--primary))]" />
-                            </div>
-                            <div className="absolute bottom-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[hsl(var(--primary)/0.4)] to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-                          </button>
-                        </PopoverTrigger>
-                        <PopoverContent align="start" className="w-[260px] p-2 max-h-80 overflow-auto">
-                          {productFilters.length > 0 && (
-                            <button
-                              type="button"
-                              onClick={() => setFilter("product", "")}
-                              className="w-full text-left text-xs text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] underline px-2 py-1 mb-1"
-                            >
-                              Rensa val
-                            </button>
-                          )}
-                          <div className="space-y-1">
-                            {productOptions.map((opt) => {
-                              const checked = productFilters.includes(opt.key);
-                              return (
-                                <label
-                                  key={opt.key}
-                                  className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-[hsl(var(--muted))] cursor-pointer text-sm"
-                                >
-                                  <Checkbox
-                                    checked={checked}
-                                    onCheckedChange={() => toggleProductFilter(opt.key)}
-                                  />
-                                  <span className="flex-1">{opt.label}</span>
-                                </label>
-                              );
-                            })}
-                          </div>
-                        </PopoverContent>
-                      </Popover>
-                    </div>
-
-                    <div className="group relative">
-                      <label className="block text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] mb-1.5 ml-1">
-                        Filtrera bransch
-                      </label>
-                      <span className="block text-[11px] text-[hsl(var(--muted-foreground)/0.8)] mb-1.5 ml-1">
-                        Endast fokusbranscher hos {a?.name || "Partner A"} eller {b?.name || "Partner B"}
-                      </span>
-                      <Select
-                        value={industryFilter || "__all__"}
-                        onValueChange={(v) => setFilter("industry", v)}
-                      >
-                        <SelectTrigger className="relative h-14 w-full rounded-lg border border-[hsl(var(--border-on-dark)/15)] bg-[hsl(var(--card-dark))] px-4 py-3 text-left transition-all duration-300 hover:border-[hsl(var(--primary)/40)] hover:shadow-[0_8px_24px_-12px_hsl(var(--card-dark)/0.4)] [&>span:last-child]:hidden">
-                          <div className="flex-1 min-w-0">
-                            <span className="block text-sm font-medium text-[hsl(var(--primary-foreground))] truncate">
-                              {industryFilter || "Alla branscher"}
-                            </span>
-                            <span className="block text-[11px] text-[hsl(var(--muted-dark))]">
-                              {industryFilter ? "Bransch vald" : "Välj branschområde"}
-                            </span>
-                          </div>
-                          <div className="ml-3 flex shrink-0 items-center justify-center rounded-md bg-[hsl(var(--primary-foreground)/0.08)] p-1.5 transition-colors group-hover:bg-[hsl(var(--primary)/0.15)]">
-                            <ChevronDown className="w-4 h-4 text-[hsl(var(--primary))]" />
-                          </div>
-                          <div className="absolute bottom-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[hsl(var(--primary)/0.4)] to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-                        </SelectTrigger>
-                        <SelectContent className="max-h-80">
-                          <SelectItem value="__all__">Alla branscher</SelectItem>
-                          {industryOptions.map((opt) => (
-                            <SelectItem key={opt} value={opt}>
-                              {opt}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    {(productActive || industryFilter) && (
-                      <div className="sm:col-span-2 flex justify-end">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const next = new URLSearchParams(params);
-                            next.delete("product");
-                            next.delete("industry");
-                            setParams(next, { replace: true });
-                          }}
-                          className="text-xs text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] underline self-start"
-                        >
-                          Rensa filter
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                )}
 
                 {hasBoth && (
                   <div className="space-y-8">
