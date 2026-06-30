@@ -183,6 +183,7 @@ interface ColProps {
   onClear: () => void;
   label: string;
   onRequestQuote?: () => void;
+  quoteSubmitting?: boolean;
 }
 
 const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label, onRequestQuote }: ColProps) => (
