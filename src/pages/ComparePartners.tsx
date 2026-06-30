@@ -804,11 +804,6 @@ const ComparePartners = () => {
                     <section className="space-y-3">
                       <SectionTitle icon={Target} title="Positionering" />
                       <R
-                        label="Företagsbeskrivning"
-                        a={A.description ? <p className="leading-relaxed">{A.description}</p> : EMPTY}
-                        b={B.description ? <p className="leading-relaxed">{B.description}</p> : EMPTY}
-                      />
-                      <R
                         label="Vi är valet när…"
                         a={renderPositioningCell(A.positioning, getProductDescriptions(a, AF.apps))}
                         b={renderPositioningCell(B.positioning, getProductDescriptions(b, BF.apps))}
