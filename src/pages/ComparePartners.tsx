@@ -1664,61 +1664,6 @@ const ComparePartners = () => {
                             : renderValue(C.implementations)
                         }
                       />
-                      {(() => {
-                        const keysToShow: ProductFilterKey[] =
-                          productFilters.length > 0
-                            ? productFilters
-                            : (Array.from(
-                                new Set([
-                                  ...getProductFilterKeysForApps(A.apps),
-                                  ...getProductFilterKeysForApps(B.apps),
-                                  ...getProductFilterKeysForApps(C.apps),
-                                ]),
-                              ) as ProductFilterKey[]);
-                        const rows: JSX.Element[] = [];
-                        keysToShow.forEach((key) => {
-                          const mA = getProductMetrics(A.partner, key);
-                          const mB = getProductMetrics(B.partner, key);
-                          const mC = getProductMetrics(C.partner, key);
-                          if (
-                            !mA.length && !mA.cost && !mA.methodology &&
-                            !mB.length && !mB.cost && !mB.methodology &&
-                            !mC.length && !mC.cost && !mC.methodology
-                          ) return;
-                          const label = PRODUCT_KEY_LABEL[key] || key;
-                          rows.push(
-                            <R
-                              key={`method-${key}`}
-                              label={`Projektmetodik (${label})`}
-                              help="Partnerns arbetssätt och metodik för implementation, t.ex. Sure Step, egen agil metod eller hybrid."
-                              a={renderValue(mA.methodology)}
-                              b={renderValue(mB.methodology)}
-                              c={renderValue(mC.methodology)}
-                            />,
-                          );
-                          rows.push(
-                            <R
-                              key={`len-${key}`}
-                              label={`Typisk projektlängd (${label})`}
-                              help="Partnerns egna spann för typisk implementationstid, i veckor från projektstart till driftsättning. Verklig längd beror på scope, datakvalitet och organisationens beslutskraft."
-                              a={renderValue(mA.length)}
-                              b={renderValue(mB.length)}
-                              c={renderValue(mC.length)}
-                            />,
-                          );
-                          rows.push(
-                            <R
-                              key={`cost-${key}`}
-                              label={`Typisk total projektkostnad (${label})`}
-                              help="Partnerns egna kostnadsband för typisk implementation (exkl. licenser). Slutpriset beror på scope, integrationer, datamigrering och förändringsledning."
-                              a={renderValue(mA.cost)}
-                              b={renderValue(mB.cost)}
-                              c={renderValue(mC.cost)}
-                            />,
-                          );
-                        });
-                        return rows;
-                      })()}
                       <R
                         label="Kontor (städer)"
                         a={renderList(A.offices)}
