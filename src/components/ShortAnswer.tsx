@@ -43,7 +43,7 @@ const ShortAnswer = ({ title = "Kort svar", children, className = "", cta }: Sho
             </div>
             {cta && (
               <div className="mt-5">
-                <Button asChild variant="outline" size="sm" className="border-primary/40 text-foreground hover:bg-primary/10 hover:text-primary">
+                <Button asChild variant="outline" size="sm">
                   <Link to={cta.to}>{cta.label}</Link>
                 </Button>
               </div>
