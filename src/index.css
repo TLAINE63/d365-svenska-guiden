@@ -190,9 +190,9 @@ All colors MUST be HSL.
     --popover: 0 0% 12%;
     --popover-foreground: 0 0% 96%;
 
-    --primary: 185 70% 45%;             /* Ljusare petrol för dark mode */
+    --primary: 14 85% 58%;              /* Ljusare orange för dark mode */
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 185 70% 55%;
+    --primary-glow: 14 90% 65%;
 
     --secondary: 210 30% 16%;
     --secondary-foreground: 0 0% 96%;
@@ -200,24 +200,24 @@ All colors MUST be HSL.
     --muted: 210 25% 14%;
     --muted-foreground: 207 16% 70%;
 
-    --accent: 185 70% 45%;
+    --accent: 170 55% 45%;              /* Ljusare teal – sekundär accent */
     --accent-foreground: 0 0% 100%;
 
-    --success: 165 55% 45%;
+    --success: 170 55% 45%;
     --success-foreground: 0 0% 100%;
 
-    --warning: 38 75% 55%;
+    --warning: 38 90% 60%;
     --warning-foreground: 0 0% 10%;
 
-    --cta-orange: 185 70% 45%;
-    --cta-orange-hover: 185 75% 38%;
+    --cta-orange: 14 85% 58%;
+    --cta-orange-hover: 14 88% 48%;
 
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 210 20% 22%;
     --input: 210 20% 20%;
-    --ring: 185 70% 45%;
+    --ring: 14 85% 58%;
 
     /* Dark mode produktfärger – något ljusare för kontrast */
     --business-central: 192 100% 42%;
