@@ -1419,59 +1419,148 @@ const ComparePartners = () => {
                       />
                     </section>
 
-                    {/* Per-partner CTAs */}
+                    {/* Kontakta valda partners */}
                     <section className="space-y-3">
-                      <SectionTitle icon={Mail} title="Ta nästa steg" />
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {[
-                          { p: A.partner, name: A.partner?.name || "", label: "Partner A" },
-                          { p: B.partner, name: B.partner?.name || "", label: "Partner B" },
-                        ].map(({ p, name, label }) =>
-                          p ? (
-                            <div key={label} className="rounded-lg border border-slate-200 bg-white p-4">
-                              <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
-                                {label}
-                              </div>
-                              <div className="text-sm font-semibold text-foreground mb-3 truncate">{name}</div>
-                              <div className="grid grid-cols-1 gap-2">
-                                <Button
-                                  type="button"
-                                  size="sm"
-                                  onClick={() => setQuoteFor({ partner: p, mode: "contact" })}
-                                  disabled={isSubmittingQuote}
-                                  className="w-full h-9 bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
-                                >
-                                  Få kontakt
-                                </Button>
-                                <Button
-                                  type="button"
-                                  size="sm"
-                                  variant="outline"
-                                  onClick={() => setQuoteFor({ partner: p, mode: "quote" })}
-                                  disabled={isSubmittingQuote}
-                                  className="w-full h-9"
-                                >
-                                  Begär offert
-                                </Button>
-                                <Button
-                                  type="button"
-                                  size="sm"
-                                  variant="outline"
-                                  onClick={() => setQuoteFor({ partner: p, mode: "demo" })}
-                                  disabled={isSubmittingQuote}
-                                  className="w-full h-9"
-                                >
-                                  Boka demo
-                                </Button>
-                              </div>
+                      <SectionTitle icon={Mail} title="Kontakta valda partners" />
+                      {A.partner && B.partner ? (
+                        <div className="rounded-xl border border-slate-200 bg-white p-5">
+                          <p className="text-sm text-slate-700 mb-1">
+                            Skicka samma förfrågan till <span className="font-semibold">{A.partner.name}</span> och <span className="font-semibold">{B.partner.name}</span> — du får jämförbara svar.
+                          </p>
+                          <p className="text-xs text-slate-500 mb-4">
+                            Varje partner kontaktas separat och ser bara sin egen förfrågan — aldrig samma tråd.
+                          </p>
+                          <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2">
+                            Hur vill du gå vidare?
+                          </p>
+                          <div className="flex flex-col gap-2">
+                            <Button
+                              type="button"
+                              onClick={() =>
+                                setQuoteFor({
+                                  recipients: [
+                                    { slug: A.partner!.slug, name: A.partner!.name },
+                                    { slug: B.partner!.slug, name: B.partner!.name },
+                                  ],
+                                  mode: "contact",
+                                })
+                              }
+                              disabled={isSubmittingQuote}
+                              className="w-full min-h-[48px] bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 font-semibold"
+                            >
+                              Ställ en första fråga till båda
+                            </Button>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                              <Button
+                                type="button"
+                                variant="outline"
+                                onClick={() =>
+                                  setQuoteFor({
+                                    recipients: [
+                                      { slug: A.partner!.slug, name: A.partner!.name },
+                                      { slug: B.partner!.slug, name: B.partner!.name },
+                                    ],
+                                    mode: "demo",
+                                  })
+                                }
+                                disabled={isSubmittingQuote}
+                                className="w-full min-h-[44px]"
+                              >
+                                Boka genomgång eller demo
+                              </Button>
+                              <Button
+                                type="button"
+                                variant="outline"
+                                onClick={() =>
+                                  setQuoteFor({
+                                    recipients: [
+                                      { slug: A.partner!.slug, name: A.partner!.name },
+                                      { slug: B.partner!.slug, name: B.partner!.name },
+                                    ],
+                                    mode: "quote",
+                                  })
+                                }
+                                disabled={isSubmittingQuote}
+                                className="w-full min-h-[44px]"
+                              >
+                                Begär offertindikering
+                              </Button>
                             </div>
-                          ) : (
-                            <div key={label} className="rounded-lg border border-dashed border-slate-200 bg-slate-50 p-4 text-sm text-slate-500">
-                              Välj {label.toLowerCase()} för att aktivera kontakt-, offert- och demoknappar.
-                            </div>
-                          ),
-                        )}
-                      </div>
+                          </div>
+                          <p className="text-xs text-slate-500 mt-3">
+                            Kostnadsfritt. d365.se säljer inte implementationer — förfrågan går direkt till respektive partner med kopia till dig och d365.se.
+                          </p>
+                        </div>
+                      ) : (
+                        <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-5 text-sm text-slate-600">
+                          Välj två partners ovan för att kunna skicka samma förfrågan till båda och få jämförbara svar.
+                        </div>
+                      )}
+
+                      {/* Kontakta enskilt */}
+                      {(A.partner || B.partner) && (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          {[A, B].map((side, idx) =>
+                            side.partner ? (
+                              <div key={idx} className="rounded-lg border border-slate-200 bg-white p-3">
+                                <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
+                                  Endast {idx === 0 ? "Partner A" : "Partner B"}
+                                </div>
+                                <div className="text-sm font-medium text-foreground mb-2 truncate">
+                                  {side.partner.name}
+                                </div>
+                                <div className="flex flex-wrap gap-2">
+                                  <Button
+                                    type="button"
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={() =>
+                                      setQuoteFor({
+                                        recipients: [{ slug: side.partner!.slug, name: side.partner!.name }],
+                                        mode: "contact",
+                                      })
+                                    }
+                                    disabled={isSubmittingQuote}
+                                    className="text-xs"
+                                  >
+                                    Ställ en fråga
+                                  </Button>
+                                  <Button
+                                    type="button"
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={() =>
+                                      setQuoteFor({
+                                        recipients: [{ slug: side.partner!.slug, name: side.partner!.name }],
+                                        mode: "demo",
+                                      })
+                                    }
+                                    disabled={isSubmittingQuote}
+                                    className="text-xs"
+                                  >
+                                    Boka genomgång
+                                  </Button>
+                                  <Button
+                                    type="button"
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={() =>
+                                      setQuoteFor({
+                                        recipients: [{ slug: side.partner!.slug, name: side.partner!.name }],
+                                        mode: "quote",
+                                      })
+                                    }
+                                    disabled={isSubmittingQuote}
+                                    className="text-xs"
+                                  >
+                                    Offertindikering
+                                  </Button>
+                                </div>
+                              </div>
+                            ) : null,
+                          )}
+                        </div>
+                      )}
                     </section>
 
                     <p className="text-xs text-slate-500 text-center pt-4">
