@@ -199,7 +199,7 @@ const Branscher = () => {
  className="group relative flex flex-col rounded-lg border border-border bg-card overflow-hidden hover:border-primary/40 transition-all"
  >
  {img && (
- <div className="aspect-[4/3] overflow-hidden bg-muted relative">
+ <div className="aspect-[3/2] overflow-hidden bg-muted relative">
  <img
  src={img}
  alt={`Branschlösning för ${ind.name} i Microsoft Dynamics 365`}
