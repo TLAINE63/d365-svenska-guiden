@@ -70,8 +70,16 @@ const CrmMatchningstest = ({ productKey }: Props) => {
 
   const handlePick = (qid: string, value: string) => {
     setAnswers((prev) => ({ ...prev, [qid]: value }));
+    const idx = questions.findIndex((q) => q.id === qid);
+    trackFunnelEvent("crm_test_question_answer", {
+      product_key: productKey,
+      assessment_type: config.assessmentType,
+      question_id: qid,
+      question_index: idx + 1,
+      total_questions: questions.length,
+      answer_value: value,
+    });
     setTimeout(() => {
-      const idx = questions.findIndex((q) => q.id === qid);
       if (idx >= 0 && idx < questions.length - 1) {
         setIndex(idx + 1);
       } else if (idx === questions.length - 1) {
