@@ -310,57 +310,74 @@ const Row = ({
   label,
   a,
   b,
+  c,
   warn = false,
   aName,
   bName,
+  cName,
   help,
+  showC = false,
 }: {
   label: string;
   a: React.ReactNode;
   b: React.ReactNode;
+  c?: React.ReactNode;
   warn?: boolean;
   aName?: string;
   bName?: string;
+  cName?: string;
   help?: string;
-}) => (
-  <div className="rounded border border-[hsl(var(--border))] overflow-hidden bg-[hsl(var(--card))]">
-    <div
-      className={`px-4 py-2.5 border-l-4 ${
-        warn
-          ? "bg-[hsl(var(--warning))] border-[hsl(var(--warning))] text-[hsl(var(--warning-foreground))]"
-          : "bg-[hsl(var(--card-dark))] border-[hsl(var(--cta-orange))] text-[hsl(var(--primary-foreground))]"
-      }`}
-    >
-      <div className="flex items-center gap-1.5">
-        <span className="text-xs font-semibold uppercase tracking-wider">
-          {label}
-        </span>
-        {help && (
-          <TooltipProvider delayDuration={100}>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button type="button" aria-label={`Vad betyder ${label}?`} className="opacity-70 hover:opacity-100">
-                  <Info className="w-3.5 h-3.5" />
-                </button>
-              </TooltipTrigger>
-              <TooltipContent side="top" className="max-w-xs text-xs leading-relaxed">
-                {help}
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+  showC?: boolean;
+}) => {
+  const cols = showC ? 3 : 2;
+  const gridCls = cols === 3
+    ? "grid grid-cols-1 sm:grid-cols-3"
+    : "grid grid-cols-1 sm:grid-cols-2";
+  return (
+    <div className="rounded border border-[hsl(var(--border))] overflow-hidden bg-[hsl(var(--card))]">
+      <div
+        className={`px-4 py-2.5 border-l-4 ${
+          warn
+            ? "bg-[hsl(var(--warning))] border-[hsl(var(--warning))] text-[hsl(var(--warning-foreground))]"
+            : "bg-[hsl(var(--card-dark))] border-[hsl(var(--cta-orange))] text-[hsl(var(--primary-foreground))]"
+        }`}
+      >
+        <div className="flex items-center gap-1.5">
+          <span className="text-xs font-semibold uppercase tracking-wider">
+            {label}
+          </span>
+          {help && (
+            <TooltipProvider delayDuration={100}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button type="button" aria-label={`Vad betyder ${label}?`} className="opacity-70 hover:opacity-100">
+                    <Info className="w-3.5 h-3.5" />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="top" className="max-w-xs text-xs leading-relaxed">
+                  {help}
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
+        </div>
+      </div>
+      <div className={gridCls}>
+        <div className="border-r border-[hsl(var(--border))]">
+          <Cell mobileLabel={aName || "Partner A"}>{a}</Cell>
+        </div>
+        <div className={showC ? "border-r border-[hsl(var(--border))]" : ""}>
+          <Cell mobileLabel={bName || "Partner B"}>{b}</Cell>
+        </div>
+        {showC && (
+          <div>
+            <Cell mobileLabel={cName || "Partner C"}>{c}</Cell>
+          </div>
         )}
       </div>
     </div>
-    <div className="grid grid-cols-1 sm:grid-cols-2">
-      <div className="border-r border-[hsl(var(--border))]">
-        <Cell mobileLabel={aName || "Partner A"}>{a}</Cell>
-      </div>
-      <div>
-        <Cell mobileLabel={bName || "Partner B"}>{b}</Cell>
-      </div>
-    </div>
-  </div>
-);
+  );
+};
 
 const renderValue = (v: string | null | undefined) =>
   v && v.trim() ? <span>{v}</span> : EMPTY;
