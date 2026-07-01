@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeftRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -33,6 +33,10 @@ const PartnerCompareBar = () => {
     }
   }, [selected]);
 
+  const location = useLocation();
+  const onComparePage = location.pathname.startsWith("/jamfor-partners");
+
+  if (onComparePage) return null;
   if (selected.length === 0) return null;
 
   const goCompare = () => {
