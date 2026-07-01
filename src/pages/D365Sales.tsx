@@ -128,7 +128,7 @@ const D365Sales = () => {
         }}
       />
 
-      <ShortAnswer title="Vad är Dynamics 365 Sales" cta={{ label: "Matcha er behov", to: "/CRMbehovsanalys" }}>
+      <ShortAnswer title="Vad är Dynamics 365 Sales" cta={{ label: "Matcha er behov", to: "/d365sales/matchningstest" }}>
         <p>Dynamics 365 Sales är Microsofts moderna CRM för B2B-säljorganisationer som vill lyfta sitt sälj från magkänsla och spridda Excel-listor till en gemensam, datadriven affärsprocess.</p>
         <p>Plattformen samlar leads, kontakter, affärsmöjligheter, offerter, order och prognoser i en strukturerad pipeline där varje säljare ser sina viktigaste affärer, nästa-bästa-åtgärd och realtidsinsikter om kundens engagemang.</p>
         <p>Genom djup integration med Outlook, Teams, Excel, SharePoint och LinkedIn Sales Navigator arbetar säljaren kvar i sina vana verktyg samtidigt som all aktivitet automatiskt loggas i CRM:et — inga dubbla registreringar, ingen administrativ friktion.</p>
