@@ -18,6 +18,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { ArrowRight, Briefcase, Users, AlertTriangle, Layers, HelpCircle, Filter, Building2, Sparkles } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
 import { companySizes, geographyOptions } from "@/data/partners";
+import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 
 const GEOGRAPHY_HIERARCHY = ["Sverige", "Norden", "Europa", "Globalt"];
 const matchesGeography = (partnerGeos: string | string[] | undefined, selected: string): boolean => {
