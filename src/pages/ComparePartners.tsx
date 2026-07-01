@@ -1123,70 +1123,64 @@ const ComparePartners = () => {
             ) : (
               <>
                 {/* Step 1 — Filter by product and industry */}
-                <div className="grid grid-cols-1 md:grid-cols-[1fr_80px_1fr] gap-3 mb-6">
-                  <div className="group relative">
-                    <label className="block text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] mb-1.5 ml-1">
-                      1. Välj produkt
-                    </label>
-                    <span className="block text-[11px] text-[hsl(var(--muted-foreground)/0.8)] mb-1.5 ml-1">
-                      Endast partners som levererar vald produkt visas i nästa steg
-                    </span>
-                    <Popover>
-                      <PopoverTrigger asChild>
+                <div className="mb-6">
+                  <label className="block text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] mb-1.5 ml-1">
+                    1. Välj produkt
+                  </label>
+                  <span className="block text-[11px] text-[hsl(var(--muted-foreground)/0.8)] mb-3 ml-1">
+                    Endast partners som levererar vald produkt visas i nästa steg
+                  </span>
+                  {(() => {
+                    const ERP_CHIPS: { label: string; icon: string; key: ProductFilterKey }[] = [
+                      { label: "Business Central", icon: bcIcon, key: "bc" },
+                      { label: "Finance & Supply Chain", icon: financeIcon, key: "fsc" },
+                    ];
+                    const CRM_CHIPS: { label: string; icon: string; key: ProductFilterKey }[] = [
+                      { label: "Sales", icon: salesIcon, key: "sales" },
+                      { label: "Customer Insights (Marketing Automation)", icon: marketingIcon, key: "sales" },
+                      { label: "Customer Service", icon: csIcon, key: "service" },
+                      { label: "Field Service", icon: fsIcon, key: "service" },
+                      { label: "Contact Center", icon: ccIcon, key: "service" },
+                    ];
+                    const renderChip = (c: { label: string; icon: string; key: ProductFilterKey }) => {
+                      const selected = productFilters.includes(c.key);
+                      return (
                         <button
+                          key={c.label}
                           type="button"
-                          className="relative flex h-14 w-full items-center justify-between rounded-lg border border-[hsl(var(--border-on-dark)/15)] bg-[hsl(var(--card-dark))] px-4 py-3 text-left transition-all duration-300 hover:border-[hsl(var(--primary)/40)] hover:shadow-[0_8px_24px_-12px_hsl(var(--card-dark)/0.4)]"
+                          onClick={() => toggleProductFilter(c.key)}
+                          className={`inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition-all ${
+                            selected
+                              ? "border-[hsl(var(--primary))] bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] shadow-sm"
+                              : "border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary)/0.5)]"
+                          }`}
+                          aria-pressed={selected}
                         >
-                          <div className="flex-1 min-w-0">
-                            <span className="block text-sm font-medium text-[hsl(var(--primary-foreground))] truncate">
-                              {productFilters.length === 0
-                                ? "Alla produkter"
-                                : productFilters.length === 1
-                                ? PRODUCT_FILTER_GROUP[productFilters[0]].label
-                                : `${productFilters.length} valda`}
-                            </span>
-                            <span className="block text-[11px] text-[hsl(var(--muted-dark))]">
-                              {productFilters.length === 0 ? "Välj produktkategori" : "Filtrering aktiv"}
-                            </span>
-                          </div>
-                          <div className="ml-3 flex shrink-0 items-center justify-center rounded-md bg-[hsl(var(--primary-foreground)/0.08)] p-1.5 transition-colors group-hover:bg-[hsl(var(--primary)/0.15)]">
-                            <ChevronDown className="w-4 h-4 text-[hsl(var(--primary))]" />
-                          </div>
-                          <div className="absolute bottom-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[hsl(var(--primary)/0.4)] to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                          <img src={c.icon} alt="" aria-hidden="true" className="w-5 h-5 shrink-0" />
+                          <span>{c.label}</span>
                         </button>
-                      </PopoverTrigger>
-                      <PopoverContent align="start" className="w-[260px] p-2 max-h-80 overflow-auto">
-                        {productFilters.length > 0 && (
-                          <button
-                            type="button"
-                            onClick={() => setFilter("product", "")}
-                            className="w-full text-left text-xs text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] underline px-2 py-1 mb-1"
-                          >
-                            Rensa val
-                          </button>
-                        )}
-                        <div className="space-y-1">
-                          {productOptions.map((opt) => {
-                            const checked = productFilters.includes(opt.key);
-                            return (
-                              <label
-                                key={opt.key}
-                                className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-[hsl(var(--muted))] cursor-pointer text-sm"
-                              >
-                                <Checkbox
-                                  checked={checked}
-                                  onCheckedChange={() => toggleProductFilter(opt.key)}
-                                />
-                                <span className="flex-1">{opt.label}</span>
-                              </label>
-                            );
-                          })}
+                      );
+                    };
+                    return (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--muted)/0.3)] p-4">
+                          <div className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-[hsl(var(--muted-foreground))]">
+                            ERP
+                          </div>
+                          <div className="flex flex-wrap gap-2">{ERP_CHIPS.map(renderChip)}</div>
                         </div>
-                      </PopoverContent>
-                    </Popover>
-                  </div>
+                        <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--muted)/0.3)] p-4">
+                          <div className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-[hsl(var(--muted-foreground))]">
+                            CRM & Customer Experience
+                          </div>
+                          <div className="flex flex-wrap gap-2">{CRM_CHIPS.map(renderChip)}</div>
+                        </div>
+                      </div>
+                    );
+                  })()}
+                </div>
 
-                  <div className="hidden md:block" aria-hidden="true" />
+                <div className="grid grid-cols-1 gap-3 mb-6">
 
                   <div className="group relative">
                     <label className="block text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] mb-1.5 ml-1">
