@@ -115,7 +115,7 @@ const D365CustomerService = () => {
         }}
       />
 
-      <ShortAnswer title="Vad är Dynamics 365 Customer Service">
+      <ShortAnswer title="Vad är Dynamics 365 Customer Service" cta={{ label: "Matcha er behov", to: "/kundservice-behovsanalys" }}>
         <p>
           Dynamics 365 Customer Service är Microsofts moderna plattform för kundservice och support — byggd för organisationer som vill leverera snabb, träffsäker och personlig hjälp oavsett om kunden hör av sig via telefon, chatt, e-post, webbformulär, sociala medier eller självbetjäningsportal.
         </p>

@@ -114,7 +114,7 @@ const D365Marketing = () => {
         }}
       />
 
-      <ShortAnswer title="Vad är Dynamics 365 Customer Insights">
+      <ShortAnswer title="Vad är Dynamics 365 Customer Insights" cta={{ label: "Matcha er behov", to: "/CRMbehovsanalys" }}>
         <p>Dynamics 365 Customer Insights är Microsofts moderna marknads- och kunddataplattform och består av två tätt integrerade delar som tillsammans täcker både datasidan och aktiveringssidan av modern marknadsföring.</p>
         <p><strong>Customer Insights — Data</strong> är en kraftfull Customer Data Platform (CDP) som samlar och förenar kunddata från CRM, ERP, webb, e-handel, lojalitetsprogram och tredjepartskällor till en gemensam, AI-berikad kundprofil med segment, livstidsvärde och nästa-bästa-åtgärd.</p>
         <p><strong>Customer Insights — Journeys</strong> är en automationsmotor för marknadsföring som orkestrerar personaliserade kundresor i realtid över e-post, SMS, push, Teams, webb och annonskanaler.</p>

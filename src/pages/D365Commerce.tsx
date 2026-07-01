@@ -54,7 +54,7 @@ const D365Commerce = () => {
         secondary={{ label: "Generera kravspecifikation", to: "/kravspecifikation/", icon: FileText }}
       />
 
-      <ShortAnswer title="Vad är Dynamics 365 Commerce">
+      <ShortAnswer title="Vad är Dynamics 365 Commerce" cta={{ label: "Matcha er behov", to: "/ERPbehovsanalys" }}>
         <p>Dynamics 365 Commerce är Microsofts omnikanal-plattform för retail och konsument­varor — en lösning som samlar fysisk butik, e-handel, mobil och kundklubb i en gemensam datamodell med en enda produktkatalog, prismotorn och kundprofil.</p>
         <p>Kärnan är <strong>Commerce Scale Unit</strong>, en central dataplattform som synkar produkter, priser, lagersaldon och kunddata i realtid över alla kanaler så att butikspersonal, e-handel och kundtjänst alltid ser samma bild.</p>
         <p>På topp ligger <strong>Commerce POS</strong>, en modern kassalösning som fungerar både online och offline med automatisk synkronisering. Pris- och kampanjmotorn hanterar miljontals prisuträkningar per dag med stöd för köp-N-betala-M, tröskelrabatter, mix-och-matcha, kundklubbs­priser och affinity-baserade kampanjer. <strong>Sites Builder</strong> ger drag-and-drop e-handel eller headless-arkitektur mot React/Next.js-frontends.</p>
