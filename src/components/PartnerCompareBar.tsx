@@ -33,6 +33,10 @@ const PartnerCompareBar = () => {
     }
   }, [selected]);
 
+  const location = useLocation();
+  const onComparePage = location.pathname.startsWith("/jamfor-partners");
+
+  if (onComparePage) return null;
   if (selected.length === 0) return null;
 
   const goCompare = () => {
