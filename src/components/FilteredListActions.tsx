@@ -19,6 +19,9 @@ interface FilteredListActionsProps {
   /** Active filter context — surfaced in the dialog for clarity. */
   selectedProduct?: string;
   industry?: string;
+  geography?: string;
+  companySize?: string;
+  revenue?: string;
   /** Hide entirely when list is small enough that selection is trivial. */
   minVisible?: number;
   /** Optional override for the page-source label sent to analytics. */
@@ -32,6 +35,9 @@ const FilteredListActions = ({
   topN = 3,
   selectedProduct,
   industry,
+  geography,
+  companySize,
+  revenue,
   minVisible = 2,
   analyticsSource,
   variant = "default",
@@ -138,6 +144,9 @@ const FilteredListActions = ({
         recipients={recipients}
         selectedProduct={selectedProduct}
         industry={industry}
+        geography={geography}
+        companySize={companySize}
+        revenue={revenue}
         mode="quote"
       />
     </div>

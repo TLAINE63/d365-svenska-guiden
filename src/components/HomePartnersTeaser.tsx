@@ -243,6 +243,7 @@ export default function HomePartnersTeaser() {
                 visiblePartners={filtered.map((p) => ({ slug: p.slug, name: p.name }))}
                 selectedProduct={quick !== "all" ? QUICK_FILTERS.find((f) => f.id === quick)?.label : undefined}
                 industry={industry || undefined}
+                companySize={size || undefined}
                 analyticsSource="home-teaser"
                 variant="compact"
               />

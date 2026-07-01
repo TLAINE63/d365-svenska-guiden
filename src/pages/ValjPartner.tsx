@@ -775,6 +775,9 @@ const ValjPartner = () => {
      visiblePartners={filteredPartners.map((p) => ({ slug: p.slug, name: p.name }))}
      selectedProduct={selectedApplications.length > 0 ? selectedApplications.join(", ") : undefined}
      industry={selectedIndustry || undefined}
+     geography={selectedGeography || undefined}
+     companySize={selectedCompanySize || undefined}
+     revenue={selectedRevenue || undefined}
      analyticsSource="valj-partner"
    />
    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">

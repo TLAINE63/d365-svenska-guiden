@@ -17,6 +17,9 @@ interface PartnerRequestDialogProps {
   partnerName: string;
   selectedProduct?: string;
   industry?: string;
+  geography?: string;
+  companySize?: string;
+  revenue?: string;
   onSubmitting?: (submitting: boolean) => void;
   mode?: "contact" | "demo" | "quote";
   /** When set with 2+ entries, sends the same lead to every recipient (multi-mode). */
@@ -113,6 +116,9 @@ const PartnerRequestDialog = ({
   partnerName,
   selectedProduct,
   industry,
+  geography,
+  companySize,
+  revenue,
   onSubmitting,
   mode = "quote",
   recipients,
@@ -183,6 +189,9 @@ const PartnerRequestDialog = ({
         multi ? `Förfrågan skickas till: ${targets.map((t) => t.name).join(", ")}.` : "",
         selectedProduct ? `Produkt: ${selectedProduct}.` : "",
         industry ? `Bransch: ${industry}.` : "",
+        geography ? `Geografi: ${geography}.` : "",
+        companySize ? `Företagsstorlek: ${companySize} anställda.` : "",
+        revenue ? `Omsättning: ${revenue}.` : "",
         form.message.trim() ? `\nMeddelande:\n${form.message.trim()}` : "",
       ].filter(Boolean).join(" ");
 
@@ -274,6 +283,39 @@ const PartnerRequestDialog = ({
             <p className="text-muted-foreground leading-relaxed">
               {recipients!.map((r) => r.name).join(" · ")}
             </p>
+          </div>
+        )}
+
+        {(selectedProduct || industry || geography || companySize || revenue) && (
+          <div className="rounded-md border border-primary/20 bg-primary/5 p-3 text-xs">
+            <p className="font-semibold text-foreground mb-1.5">Din förfrågan avser:</p>
+            <div className="flex flex-wrap gap-1.5">
+              {selectedProduct && (
+                <span className="inline-flex items-center rounded-md bg-primary/10 text-primary border border-primary/20 px-2 py-0.5 font-medium">
+                  {selectedProduct}
+                </span>
+              )}
+              {industry && (
+                <span className="inline-flex items-center rounded-md bg-background text-foreground border border-border px-2 py-0.5">
+                  {industry}
+                </span>
+              )}
+              {geography && (
+                <span className="inline-flex items-center rounded-md bg-background text-foreground border border-border px-2 py-0.5">
+                  {geography}
+                </span>
+              )}
+              {companySize && (
+                <span className="inline-flex items-center rounded-md bg-background text-foreground border border-border px-2 py-0.5">
+                  {companySize} anställda
+                </span>
+              )}
+              {revenue && (
+                <span className="inline-flex items-center rounded-md bg-background text-foreground border border-border px-2 py-0.5">
+                  {revenue}
+                </span>
+              )}
+            </div>
           </div>
         )}
 
