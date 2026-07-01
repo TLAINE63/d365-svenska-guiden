@@ -556,6 +556,52 @@ const renderProductDescCell = (text: string) => (
   </div>
 );
 
+const renderProductInsightCell = (insight?: {
+  description: string;
+  whyChoose: string;
+  keyPoints: string[];
+}) => {
+  if (!insight) return EMPTY;
+  const { description, whyChoose, keyPoints } = insight;
+  if (!description && !whyChoose && keyPoints.length === 0) return EMPTY;
+  return (
+    <div className="space-y-3 text-sm leading-relaxed text-[hsl(var(--foreground))]">
+      {description && (
+        <div className="space-y-1">
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-[hsl(var(--muted-foreground))]">
+            Vad vi gör inom lösningen
+          </p>
+          {splitIntoParagraphs(description).map((para, i) => (
+            <p key={i}>{para}</p>
+          ))}
+        </div>
+      )}
+      {whyChoose && (
+        <div className="space-y-1">
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-[hsl(var(--muted-foreground))]">
+            Varför välja oss
+          </p>
+          {splitIntoParagraphs(whyChoose).map((para, i) => (
+            <p key={i}>{para}</p>
+          ))}
+        </div>
+      )}
+      {keyPoints.length > 0 && (
+        <div className="space-y-1">
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-[hsl(var(--muted-foreground))]">
+            Konkreta styrkor
+          </p>
+          <ul className="list-disc space-y-1 pl-5">
+            {keyPoints.map((pt, i) => (
+              <li key={i}>{pt}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const renderPitchCell = (
   pitches: Array<{ industry: string; product: string | null; text: string }>
 ) => {
@@ -694,6 +740,49 @@ const ComparePartners = () => {
       const text = pf[key]?.productDescription?.trim();
       if (!text) continue;
       out.push({ key, label: PRODUCT_FILTER_KEY_LABEL[key] || key, text });
+    }
+    return out;
+  };
+
+  type ProductInsight = {
+    key: ProductFilterKey;
+    label: string;
+    description: string;
+    whyChoose: string;
+    keyPoints: string[];
+  };
+
+  const splitKeyPoints = (raw: string): string[] => {
+    if (!raw) return [];
+    return raw
+      .split(/\r?\n+|(?:^|\s)[-•·*]\s+/g)
+      .map((s) => s.trim().replace(/^[-•·*]\s*/, ""))
+      .filter(Boolean)
+      .slice(0, 6);
+  };
+
+  const getProductInsights = (
+    p: DatabasePartner | undefined,
+    apps: string[]
+  ): ProductInsight[] => {
+    const pf = (p as any)?.product_filters as
+      | Record<string, { productDescription?: string; whyChoose?: string; keyPoints?: string }>
+      | undefined;
+    if (!pf) return [];
+    const keys = getProductFilterKeysForApps(apps);
+    const out: ProductInsight[] = [];
+    for (const key of keys) {
+      const description = (pf[key]?.productDescription || "").trim();
+      const whyChoose = (pf[key]?.whyChoose || "").trim();
+      const keyPoints = splitKeyPoints(pf[key]?.keyPoints || "");
+      if (!description && !whyChoose && keyPoints.length === 0) continue;
+      out.push({
+        key,
+        label: PRODUCT_FILTER_KEY_LABEL[key] || key,
+        description,
+        whyChoose,
+        keyPoints,
+      });
     }
     return out;
   };
@@ -1418,14 +1507,14 @@ const ComparePartners = () => {
                       />
 
                       {(() => {
-                        const aDescs = getProductDescriptions(a, AF.apps);
-                        const bDescs = getProductDescriptions(b, BF.apps);
-                        const cDescs = getProductDescriptions(c, CF.apps);
+                        const aIns = getProductInsights(a, AF.apps);
+                        const bIns = getProductInsights(b, BF.apps);
+                        const cIns = getProductInsights(c, CF.apps);
                         const keys = Array.from(
                           new Set<ProductFilterKey>([
-                            ...aDescs.map((d) => d.key),
-                            ...bDescs.map((d) => d.key),
-                            ...cDescs.map((d) => d.key),
+                            ...aIns.map((d) => d.key),
+                            ...bIns.map((d) => d.key),
+                            ...cIns.map((d) => d.key),
                           ])
                         ).sort((x, y) =>
                           PRODUCT_FILTER_GROUP[x].label.localeCompare(
@@ -1434,16 +1523,16 @@ const ComparePartners = () => {
                           )
                         );
                         return keys.map((key) => {
-                          const descA = aDescs.find((d) => d.key === key);
-                          const descB = bDescs.find((d) => d.key === key);
-                          const descC = cDescs.find((d) => d.key === key);
+                          const insA = aIns.find((d) => d.key === key);
+                          const insB = bIns.find((d) => d.key === key);
+                          const insC = cIns.find((d) => d.key === key);
                           return (
                             <R
                               key={key}
                               label={PRODUCT_FILTER_KEY_LABEL[key] || key}
-                              a={descA ? renderProductDescCell(descA.text) : EMPTY}
-                              b={descB ? renderProductDescCell(descB.text) : EMPTY}
-                              c={descC ? renderProductDescCell(descC.text) : EMPTY}
+                              a={renderProductInsightCell(insA)}
+                              b={renderProductInsightCell(insB)}
+                              c={renderProductInsightCell(insC)}
                             />
                           );
                         });
@@ -1487,6 +1576,15 @@ const ComparePartners = () => {
                           />
                         ));
                       })()}
+
+                      <R
+                        label="AI, Copilot & Automation"
+                        help="Partnerns samlade AI- och automationsprofil: leveransmodell, förmågor, relevanta områden, use cases, erfarenhet och underlag. Bygger på partnerns egna uppgifter."
+                        a={renderAiProfile(((A.partner as any)?.ai_profile) as AiProfile | null)}
+                        b={renderAiProfile(((B.partner as any)?.ai_profile) as AiProfile | null)}
+                        c={renderAiProfile(((C.partner as any)?.ai_profile) as AiProfile | null)}
+                      />
+
 
                       {(() => {
                         const renderIA = (list: typeof AF.industryApps) =>
@@ -1605,17 +1703,7 @@ const ComparePartners = () => {
                       />
                     </section>
 
-                    {/* AI & automatisering */}
-                    <section className="space-y-3">
-                      <SectionTitle icon={Sparkles} title="AI & automatisering" />
-                      <R
-                        label="AI, Copilot & Automation"
-                        help="Partnerns samlade AI- och automationsprofil: leveransmodell, förmågor, relevanta områden, use cases, erfarenhet och underlag. Bygger på partnerns egna uppgifter."
-                        a={renderAiProfile(((A.partner as any)?.ai_profile) as AiProfile | null)}
-                        b={renderAiProfile(((B.partner as any)?.ai_profile) as AiProfile | null)}
-                        c={renderAiProfile(((C.partner as any)?.ai_profile) as AiProfile | null)}
-                      />
-                    </section>
+
 
                     {/* Kontakta valda partners */}
                     <section className="space-y-3">
