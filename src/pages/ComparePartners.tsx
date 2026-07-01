@@ -919,6 +919,17 @@ const ComparePartners = () => {
       description: p?.description?.trim() || "",
       positioning: (p?.positioning_statement?.trim() || fallbackPositioning) || "",
       apps: sortApps(p?.applications || []),
+      focusIndustries: Array.from(
+        new Set(
+          [
+            ...(p?.industries || []),
+            ...(p?.secondary_industries || []),
+            ...industryAppsRaw.map((ia) => ia.industry),
+          ]
+            .map((s) => (s || "").trim())
+            .filter(Boolean)
+        )
+      ).sort((a, b) => a.localeCompare(b, "sv")),
       industries: allIndustries,
       industryApps,
       geography: Array.from(new Set([
@@ -1185,6 +1196,33 @@ const ComparePartners = () => {
         `Branschtyngdpunkt skiljer sig: ` +
           uniquePer.map((u) => `${u.name} har fokus på ${u.only.join(", ")}`).join("; ") + "."
       );
+    }
+
+    // Branschfokus-djup – notera om någon partner är smal (1–2 branscher)
+    const focusInfo = sides.map((s) => {
+      const focus = s.P.focusIndustries || [];
+      const first = focus[0];
+      const appsForFirst = first
+        ? s.P.industryApps
+            .filter((ia) => ia.industry.toLowerCase() === first.toLowerCase())
+            .map((ia) => ia.name)
+            .slice(0, 1)
+        : [];
+      return { name: s.name, focus, count: focus.length, first, appsForFirst };
+    });
+    const anySingle = focusInfo.some((f) => f.count === 1);
+    const distinctCounts = new Set(focusInfo.map((f) => f.count)).size;
+    if (anySingle || distinctCounts > 1) {
+      const focusTexts = focusInfo.map((f) => {
+        if (f.count === 0) return `${f.name} har ingen angiven fokusbransch`;
+        if (f.count === 1) {
+          const appText = f.appsForFirst.length > 0 ? ` (branschlösning: ${f.appsForFirst.join(", ")})` : "";
+          return `${f.name} har endast ${f.first} som fokusbransch${appText}`;
+        }
+        if (f.count === 2) return `${f.name} har två fokusbranscher`;
+        return `${f.name} har ${f.count} fokusbranscher`;
+      });
+      points.push(`Branschfokus: ${focusTexts.join("; ")}.`);
     }
 
     // Produktbredd – unika appar per partner
