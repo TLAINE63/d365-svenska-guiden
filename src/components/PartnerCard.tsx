@@ -410,7 +410,17 @@ const PartnerCard = ({
  );
  })()}
 
-  {/* Product-specific description */}
+   {/* Positioning statement — kort beslutsstöd */}
+   {isDatabasePartner(partner) && partner.positioning_statement && (
+     <div className="mb-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary">
+       <p className="text-[13px] font-medium text-foreground leading-snug line-clamp-3">
+         <span className="text-primary font-semibold">Passar bäst för: </span>
+         {partner.positioning_statement}
+       </p>
+     </div>
+   )}
+
+   {/* Product-specific description */}
  {productDescription && (
  <div className="mb-4 p-3.5 rounded-lg bg-muted/50 border-l-2 border-primary/40">
  <p className="text-[15px] text-foreground/80 leading-[1.7] line-clamp-3">
