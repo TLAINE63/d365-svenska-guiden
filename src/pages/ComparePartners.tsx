@@ -135,9 +135,7 @@ const TEAM_SIZE_HELP =
   "Många partners förstärker leveransteamet med kollegor från nordiska/europeiska kontor. Fråga partnern hur många som faktiskt arbetar med er valda applikation och bransch — det är mer relevant än totalsiffran i Sverige.";
 
 type DeliveryProfile = {
-  roles?: string[];
   typical_length?: string;
-  engagement_model?: string;
   methodology?: string;
   bc_project_weeks_min?: number | null;
   bc_project_weeks_max?: number | null;
@@ -803,11 +801,11 @@ const ComparePartners = () => {
         ...cleanList(p?.geography),
         ...Object.values(pfAll).flatMap((f: any) => Array.isArray(f?.geography) ? f.geography : []),
       ].map((s) => (s || "").trim()).filter(Boolean))),
-      roles: cleanList(dp.roles),
+      roles: [],
       length: dp.typical_length?.trim() || "",
       bcLength: formatBcLength(dp),
       bcCost: formatBcCost(dp),
-      engagement: dp.engagement_model?.trim() || "",
+      engagement: "",
       methodology: dp.methodology?.trim() || "",
       teamSize: p?.team_size_sweden?.trim() || "",
       implementations: p?.implementations_done?.trim() || "",
