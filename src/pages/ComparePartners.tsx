@@ -1424,8 +1424,8 @@ const ComparePartners = () => {
                       <SectionTitle icon={Mail} title="Ta nästa steg" />
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {[
-                          { p: A.partner, name: A.name, label: "Partner A" },
-                          { p: B.partner, name: B.name, label: "Partner B" },
+                          { p: A.partner, name: A.partner?.name || "", label: "Partner A" },
+                          { p: B.partner, name: B.partner?.name || "", label: "Partner B" },
                         ].map(({ p, name, label }) =>
                           p ? (
                             <div key={label} className="rounded-lg border border-slate-200 bg-white p-4">
