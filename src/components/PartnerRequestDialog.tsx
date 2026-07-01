@@ -52,7 +52,7 @@ const MODE_CONFIG = {
     description: (name: string, product?: string, industry?: string) =>
       `En exakt offert kräver normalt fördjupad avstämning — men ${name} kan ge en första uppskattning av tid och kostnad${product ? ` för ${product}` : ""}${industry ? ` (${industry})` : ""} utifrån ert underlag.`,
     sourceType: "partner_quote_request",
-    messagePrefix: (name: string) => `Offertindikering — förfrågan till ${name}.`,
+    messagePrefix: (name: string) => `Prisindikation — förfrågan till ${name}.`,
     toastTitle: "Förfrågan skickad",
     toastDescription: (name: string) => `${name} återkommer med första uppskattning av tid och kostnad.`,
     submitLabel: "Begär första uppskattning",

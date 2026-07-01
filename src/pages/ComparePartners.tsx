@@ -1901,7 +1901,7 @@ const ComparePartners = () => {
                                     disabled={isSubmittingQuote}
                                     className="text-xs min-h-[40px]"
                                   >
-                                    Offertindikering
+                                    Prisindikation
                                   </Button>
                                 </div>
                               </div>
