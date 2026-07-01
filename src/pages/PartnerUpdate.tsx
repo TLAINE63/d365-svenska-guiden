@@ -43,10 +43,10 @@ interface ProductSection {
 }
 
 const productSections: ProductSection[] = [
- { key: 'bc', label: 'Business Central', apps: ['Business Central'], colorClass: 'bg-business-central', icon: BusinessCentralIcon },
- { key: 'fsc', label: 'Finance & Supply Chain', apps: ['Finance', 'Supply Chain Management'], colorClass: 'bg-finance-supply', icon: FinanceIcon },
- { key: 'sales', label: 'Sales & Customer Insights', apps: ['Sales', 'Customer Insights (Marketing)'], colorClass: 'bg-crm', icon: SalesIcon },
- { key: 'service', label: 'Customer Service / Field Service / Contact Center', apps: ['Customer Service', 'Field Service', 'Contact Center'], colorClass: 'bg-customer-service', icon: CustomerServiceIcon },
+  { key: 'bc', label: 'Business Central', apps: ['Business Central'], colorClass: 'bg-business-central', icon: BusinessCentralIcon },
+  { key: 'fsc', label: 'F&SCM', apps: ['F&SCM'], colorClass: 'bg-finance-supply', icon: FinanceIcon },
+  { key: 'sales', label: 'Sales & Customer Insights', apps: ['Sales', 'Customer Insights (Marketing)'], colorClass: 'bg-crm', icon: SalesIcon },
+  { key: 'service', label: 'Customer Service / Field Service / Contact Center', apps: ['Customer Service', 'Field Service', 'Contact Center'], colorClass: 'bg-customer-service', icon: CustomerServiceIcon },
 ];
 // Dev-time guard: keep editor labels in sync with PartnerCard's pitch resolver.
 assertPitchLabelsConsistency(productSections, "PartnerUpdate productSections");
@@ -261,15 +261,13 @@ const PartnerUpdate = () => {
   // Decision profile state (legacy partner-level fields kept for backward compat / fallback)
   const [positioningStatement, setPositioningStatement] = useState("");
   const [deliveryProfile, setDeliveryProfile] = useState<{
-    roles: string[];
     typical_length: string;
-    engagement_model: string;
     methodology: string;
     bc_project_weeks_min: string;
     bc_project_weeks_max: string;
     bc_project_cost_band: string;
-  }>({ roles: [], typical_length: "", engagement_model: "", methodology: "", bc_project_weeks_min: "", bc_project_weeks_max: "", bc_project_cost_band: "" });
-  const [rolesInput, setRolesInput] = useState("");
+  }>({ typical_length: "", methodology: "", bc_project_weeks_min: "", bc_project_weeks_max: "", bc_project_cost_band: "" });
+  
   const [teamSizeSweden, setTeamSizeSweden] = useState("");
   const [implementationsDone, setImplementationsDone] = useState("");
   const [implementationsPerApp, setImplementationsPerApp] = useState<Record<string, string>>({});
@@ -279,8 +277,6 @@ const PartnerUpdate = () => {
   // Per-produkt beslutsprofil (positionering + leveransbild) — en post per aktiv D365-applikation
   type ProductProfile = {
     positioning: string;
-    roles: string;
-    engagement_model: string;
     methodology: string;
     weeks_min: string;
     weeks_max: string;
@@ -288,8 +284,6 @@ const PartnerUpdate = () => {
   };
   const EMPTY_PRODUCT_PROFILE: ProductProfile = {
     positioning: "",
-    roles: "",
-    engagement_model: "",
     methodology: "",
     weeks_min: "",
     weeks_max: "",
@@ -346,9 +340,11 @@ const PartnerUpdate = () => {
     const decisionFields = [
       positioningStatement?.trim(),
       notAFitInput?.trim(),
-      deliveryProfile.roles?.length > 0,
+      deliveryProfile.methodology?.trim(),
+      deliveryProfile.typical_length?.trim(),
+      deliveryProfile.bc_project_cost_band?.trim(),
     ].filter(Boolean).length;
-    score += (decisionFields / 3) * 20;
+    score += (decisionFields / 5) * 20;
 
     if (activeProducts.length > 0 || selectedSpecialtyProducts.length > 0) score += 5;
 
@@ -493,15 +489,12 @@ const PartnerUpdate = () => {
   if (ed.delivery_profile && typeof ed.delivery_profile === "object") {
     const dp = ed.delivery_profile;
     setDeliveryProfile({
-      roles: Array.isArray(dp.roles) ? dp.roles : [],
       typical_length: dp.typical_length || "",
-      engagement_model: dp.engagement_model || "",
       methodology: dp.methodology || "",
       bc_project_weeks_min: dp.bc_project_weeks_min != null ? String(dp.bc_project_weeks_min) : "",
       bc_project_weeks_max: dp.bc_project_weeks_max != null ? String(dp.bc_project_weeks_max) : "",
       bc_project_cost_band: typeof dp.bc_project_cost_band === "string" ? dp.bc_project_cost_band : "",
     });
-    if (Array.isArray(dp.roles)) setRolesInput(dp.roles.join(", "));
   }
   if (typeof ed.team_size_sweden === "string") setTeamSizeSweden(ed.team_size_sweden);
   if (typeof ed.implementations_done === "string") setImplementationsDone(ed.implementations_done);
@@ -518,8 +511,6 @@ const PartnerUpdate = () => {
       if (!raw || typeof raw !== "object") continue;
       normalized[app] = {
         positioning: typeof raw.positioning === "string" ? raw.positioning : "",
-        roles: typeof raw.roles === "string" ? raw.roles : Array.isArray(raw.roles) ? raw.roles.join(", ") : "",
-        engagement_model: typeof raw.engagement_model === "string" ? raw.engagement_model : "",
         methodology: typeof raw.methodology === "string" ? raw.methodology : "",
         weeks_min: raw.weeks_min != null ? String(raw.weeks_min) : "",
         weeks_max: raw.weeks_max != null ? String(raw.weeks_max) : "",
@@ -963,44 +954,37 @@ const PartnerUpdate = () => {
  for (const app of applications) {
    const pp = productProfiles[app];
    if (!pp) continue;
-   const entry: any = {
-     positioning: pp.positioning.trim() || null,
-     roles: pp.roles.split(",").map((s) => s.trim()).filter(Boolean),
-     engagement_model: pp.engagement_model.trim() || null,
-     methodology: pp.methodology.trim() || null,
-     weeks_min: pp.weeks_min.trim() ? Math.max(0, parseInt(pp.weeks_min, 10) || 0) : null,
-     weeks_max: pp.weeks_max.trim() ? Math.max(0, parseInt(pp.weeks_max, 10) || 0) : null,
-     cost_band: pp.cost_band || null,
-   };
-   const hasAny =
-     entry.positioning || entry.engagement_model || entry.methodology ||
-     entry.weeks_min != null || entry.weeks_max != null || entry.cost_band ||
-     (entry.roles && entry.roles.length > 0);
-   if (hasAny) sanitizedProductProfiles[app] = entry;
+    const entry: any = {
+      positioning: pp.positioning.trim() || null,
+      methodology: pp.methodology.trim() || null,
+      weeks_min: pp.weeks_min.trim() ? Math.max(0, parseInt(pp.weeks_min, 10) || 0) : null,
+      weeks_max: pp.weeks_max.trim() ? Math.max(0, parseInt(pp.weeks_max, 10) || 0) : null,
+      cost_band: pp.cost_band || null,
+    };
+    const hasAny =
+      entry.positioning || entry.methodology ||
+      entry.weeks_min != null || entry.weeks_max != null || entry.cost_band;
+    if (hasAny) sanitizedProductProfiles[app] = entry;
  }
  // Härled legacy partner-fält från första app:s profil (för bakåtkompatibilitet)
  const firstAppWithProfile = applications.find((a) => sanitizedProductProfiles[a]);
  const legacyProfile = firstAppWithProfile ? sanitizedProductProfiles[firstAppWithProfile] : null;
  const legacyPositioning = legacyProfile?.positioning || positioningStatement.trim() || null;
- const legacyDelivery = legacyProfile
-   ? {
-       roles: legacyProfile.roles || [],
-       typical_length: "",
-       engagement_model: legacyProfile.engagement_model || "",
-       methodology: legacyProfile.methodology || "",
-       bc_project_weeks_min: legacyProfile.weeks_min,
-       bc_project_weeks_max: legacyProfile.weeks_max,
-       bc_project_cost_band: legacyProfile.cost_band,
-     }
-   : {
-       roles: rolesInput.split(",").map((s) => s.trim()).filter(Boolean),
-       typical_length: deliveryProfile.typical_length.trim(),
-       engagement_model: deliveryProfile.engagement_model.trim(),
-       methodology: deliveryProfile.methodology.trim(),
-       bc_project_weeks_min: deliveryProfile.bc_project_weeks_min.trim() ? Math.max(0, parseInt(deliveryProfile.bc_project_weeks_min, 10) || 0) : null,
-       bc_project_weeks_max: deliveryProfile.bc_project_weeks_max.trim() ? Math.max(0, parseInt(deliveryProfile.bc_project_weeks_max, 10) || 0) : null,
-       bc_project_cost_band: deliveryProfile.bc_project_cost_band || null,
-     };
+  const legacyDelivery = legacyProfile
+    ? {
+        typical_length: "",
+        methodology: legacyProfile.methodology || "",
+        bc_project_weeks_min: legacyProfile.weeks_min,
+        bc_project_weeks_max: legacyProfile.weeks_max,
+        bc_project_cost_band: legacyProfile.cost_band,
+      }
+    : {
+        typical_length: deliveryProfile.typical_length.trim(),
+        methodology: deliveryProfile.methodology.trim(),
+        bc_project_weeks_min: deliveryProfile.bc_project_weeks_min.trim() ? Math.max(0, parseInt(deliveryProfile.bc_project_weeks_min, 10) || 0) : null,
+        bc_project_weeks_max: deliveryProfile.bc_project_weeks_max.trim() ? Math.max(0, parseInt(deliveryProfile.bc_project_weeks_max, 10) || 0) : null,
+        bc_project_cost_band: deliveryProfile.bc_project_cost_band || null,
+      };
 
  // Build submission data
  const submissionData = {
@@ -2702,13 +2686,13 @@ const PartnerUpdate = () => {
        ...selectedSpecialtyProducts,
      ];
      const filledPositioning = apps.filter((a) => productProfiles[a]?.positioning?.trim()).length;
-     const anyDelivery = apps.some((a) => {
-       const pp = productProfiles[a];
-       return pp && (pp.roles.trim() || pp.engagement_model.trim() || pp.methodology.trim() || pp.weeks_min.trim() || pp.weeks_max.trim() || pp.cost_band);
-     });
-     if (apps.length > 0 && filledPositioning === apps.length && notAFitInput.trim() && anyDelivery) return "complete";
-     if (filledPositioning > 0 || notAFitInput.trim() || anyDelivery) return "partial";
-     return "empty";
+      const anyDelivery = apps.some((a) => {
+        const pp = productProfiles[a];
+        return pp && (pp.methodology.trim() || pp.weeks_min.trim() || pp.weeks_max.trim() || pp.cost_band);
+      });
+      if (apps.length > 0 && filledPositioning === apps.length && notAFitInput.trim() && anyDelivery) return "complete";
+      if (filledPositioning > 0 || notAFitInput.trim() || anyDelivery) return "partial";
+      return "empty";
    })()
  }
  open={openSections.decision}
@@ -2832,34 +2816,16 @@ const PartnerUpdate = () => {
                  <div className="text-[11px] text-muted-foreground mt-1">{pp.positioning.length}/240</div>
                </div>
 
-               <div className="grid sm:grid-cols-2 gap-3">
-                 <div className="sm:col-span-2">
-                   <Label htmlFor={`pp_roles_${app}`} className="text-xs">Roller ni bemannar (kommaseparerade)</Label>
-                   <Input
-                     id={`pp_roles_${app}`}
-                     placeholder="Lösningsarkitekt, Funktionskonsult, Utvecklare"
-                     value={pp.roles}
-                     onChange={(e) => updateProductProfile(app, { roles: e.target.value })}
-                   />
-                 </div>
-                 <div>
-                   <Label htmlFor={`pp_eng_${app}`} className="text-xs">Uppdragsform</Label>
-                   <Input
-                     id={`pp_eng_${app}`}
-                     placeholder="t.ex. Förstudie, fast pris, T&M"
-                     value={pp.engagement_model}
-                     onChange={(e) => updateProductProfile(app, { engagement_model: e.target.value })}
-                   />
-                 </div>
-                 <div>
-                   <Label htmlFor={`pp_met_${app}`} className="text-xs">Projektmetodik</Label>
-                   <Input
-                     id={`pp_met_${app}`}
-                     placeholder="t.ex. Sure Step, egen agil metod"
-                     value={pp.methodology}
-                     onChange={(e) => updateProductProfile(app, { methodology: e.target.value })}
-                   />
-                 </div>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <div>
+                    <Label htmlFor={`pp_met_${app}`} className="text-xs">Projektmetodik</Label>
+                    <Input
+                      id={`pp_met_${app}`}
+                      placeholder="t.ex. Sure Step, egen agil metod"
+                      value={pp.methodology}
+                      onChange={(e) => updateProductProfile(app, { methodology: e.target.value })}
+                    />
+                  </div>
                  <div>
                    <Label htmlFor={`pp_wmin_${app}`} className="text-xs">Typisk projektlängd — min (veckor)</Label>
                    <Input

@@ -29,7 +29,7 @@ export type PitchProductKey = (typeof PITCH_PRODUCT_KEYS)[number];
  */
 export const PRODUCT_KEY_TO_PITCH_LABEL: Record<PitchProductKey, string> = {
   bc: "Business Central",
-  fsc: "Finance & Supply Chain",
+  fsc: "F&SCM",
   sales: "Sales & Customer Insights",
   crm: "Sales & Customer Insights",
   service: "Customer Service / Field Service / Contact Center",
