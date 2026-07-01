@@ -1251,10 +1251,10 @@ const ComparePartners = () => {
                   )}
                 </div>
 
-                {/* Step 2 — Pick two partners (filtered by step 1) */}
+                {/* Step 3 — Pick 2-3 partners (filtered by step 1) */}
                 <div className="mb-2">
                   <p className="text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] ml-1">
-                    3. Välj två partners att jämföra
+                    3. Välj 2–3 partners att jämföra
                   </p>
                   <p className="text-[11px] text-[hsl(var(--muted-foreground)/0.8)] ml-1 mt-0.5">
                     {productActive || industryFilter
@@ -1262,7 +1262,7 @@ const ComparePartners = () => {
                       : "Visar alla publicerade partners — välj produkt och bransch ovan för att smalna av"}
                   </p>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-[1fr_80px_1fr] gap-3 mb-6">
+                <div className={`grid grid-cols-1 ${hasBoth ? "md:grid-cols-3" : "md:grid-cols-[1fr_80px_1fr]"} gap-3 mb-3`}>
                   <PartnerColumnHeader
                     label="Partner A"
                     partner={a}
@@ -1273,20 +1273,22 @@ const ComparePartners = () => {
                     onRequestQuote={a ? () => setQuoteFor({ recipients: [{ slug: a.slug, name: a.name }], mode: "quote" }) : undefined}
                     quoteSubmitting={isSubmittingQuote}
                   />
-                  <div className="flex items-center justify-center md:pt-10">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={swap}
-                      disabled={!hasBoth}
-                      className="h-auto w-full min-h-[3rem] flex-col gap-1 px-2 py-2"
-                      title="Byt plats"
-                    >
-                      <ArrowLeftRight className="w-4 h-4" />
-                      <span className="text-xs leading-tight">Byt plats</span>
-                    </Button>
-                  </div>
+                  {!hasBoth && (
+                    <div className="flex items-center justify-center md:pt-10">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={swap}
+                        disabled={!hasBoth}
+                        className="h-auto w-full min-h-[3rem] flex-col gap-1 px-2 py-2"
+                        title="Byt plats"
+                      >
+                        <ArrowLeftRight className="w-4 h-4" />
+                        <span className="text-xs leading-tight">Byt plats</span>
+                      </Button>
+                    </div>
+                  )}
                   <PartnerColumnHeader
                     label="Partner B"
                     partner={b}
@@ -1297,7 +1299,24 @@ const ComparePartners = () => {
                     onRequestQuote={b ? () => setQuoteFor({ recipients: [{ slug: b.slug, name: b.name }], mode: "quote" }) : undefined}
                     quoteSubmitting={isSubmittingQuote}
                   />
+                  {hasBoth && (
+                    <PartnerColumnHeader
+                      label="Partner C (valfri)"
+                      partner={c}
+                      partners={eligiblePartners}
+                      slug={cSlug}
+                      onChange={(s) => setSlot("c", s)}
+                      onClear={() => setSlot("c", "")}
+                      onRequestQuote={c ? () => setQuoteFor({ recipients: [{ slug: c.slug, name: c.name }], mode: "quote" }) : undefined}
+                      quoteSubmitting={isSubmittingQuote}
+                    />
+                  )}
                 </div>
+                {hasBoth && !hasC && eligiblePartners.length > 2 && (
+                  <p className="text-[11px] text-[hsl(var(--muted-foreground))] ml-1 mb-4">
+                    Tips: lägg till en tredje partner ovan för trevägsjämförelse.
+                  </p>
+                )}
 
                 {eligiblePartners.length === 0 && (productActive || industryFilter) && (
                   <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-sm text-slate-600 mb-6">
