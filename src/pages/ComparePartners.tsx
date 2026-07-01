@@ -1167,6 +1167,8 @@ const ComparePartners = () => {
                     const ERP_CHIPS: { label: string; icon: string; key: ProductFilterKey }[] = [
                       { label: "Business Central", icon: bcIcon, key: "bc" },
                       { label: "Finance & Supply Chain", icon: financeIcon, key: "fsc" },
+                      { label: "Commerce", icon: commerceIcon, key: "commerce" },
+                      { label: "Human Resources", icon: hrIcon, key: "hr" },
                     ];
                     const CRM_CHIPS: { label: string; icon: string; key: ProductFilterKey }[] = [
                       { label: "Sales", icon: salesIcon, key: "sales" },
@@ -1174,6 +1176,7 @@ const ComparePartners = () => {
                       { label: "Customer Service", icon: csIcon, key: "service" },
                       { label: "Field Service", icon: fsIcon, key: "service" },
                       { label: "Contact Center", icon: ccIcon, key: "service" },
+                      { label: "Project Operations", icon: poIcon, key: "po" },
                     ];
                     const renderChip = (c: { label: string; icon: string; key: ProductFilterKey }) => {
                       const selected = productFilters.includes(c.key);
