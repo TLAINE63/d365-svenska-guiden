@@ -656,12 +656,8 @@ const Index = () => {
                           <p>• <strong>CRM-sidan</strong> täcker försäljning, marknadsföring, kundservice och fältservice.</p>
                           <p>• <strong>AI är inbyggt</strong> i samtliga appar via Microsoft Copilot.</p>
                         </div>
-                        <Suspense fallback={null}>
-                          <figure className="space-y-1.5">
-                            <YouTubeLite videoId="wVFZVajK2YI" title="Microsoft Dynamics 365 Business Central – översikt" />
-                            <figcaption className="text-xs text-muted-foreground">Video: Microsoft Dynamics 365 (YouTube)</figcaption>
-                          </figure>
-                        </Suspense>
+                        <VideoComingSoon />
+
                       </div>
                     </AccordionContent>
                   </AccordionItem>
@@ -684,12 +680,8 @@ const Index = () => {
                             → Gör en kostnadsfri behovsanalys för <Link to="/ERPbehovsanalys/" className="text-primary hover:underline font-semibold">ERP</Link>, <Link to="/CRMbehovsanalys/" className="text-primary hover:underline font-semibold">Sälj & Marknad</Link> eller <Link to="/kundservice-behovsanalys/" className="text-primary hover:underline font-semibold">Kundservice</Link>.
                           </p>
                         </div>
-                        <Suspense fallback={null}>
-                          <figure className="space-y-1.5">
-                            <YouTubeLite videoId="XWfNtf2sIGo" title="SAP S/4HANA vs Oracle vs Microsoft Dynamics 365 – jämförelse" />
-                            <figcaption className="text-xs text-muted-foreground">Video: Digital Transformation with Eric Kimberling (YouTube)</figcaption>
-                          </figure>
-                        </Suspense>
+                        <VideoComingSoon />
+
                       </div>
                     </AccordionContent>
                   </AccordionItem>
@@ -716,12 +708,8 @@ const Index = () => {
                             </ContactFormDialog>
                           </Suspense>
                         </div>
-                        <Suspense fallback={null}>
-                          <figure className="space-y-1.5">
-                            <YouTubeLite videoId="zEKNKES1sXs" title="Understanding Dynamics 365 pricing" />
-                            <figcaption className="text-xs text-muted-foreground">Video: Dynamics 365 pricing walkthrough (YouTube)</figcaption>
-                          </figure>
-                        </Suspense>
+                        <VideoComingSoon />
+
                       </div>
                     </AccordionContent>
                   </AccordionItem>
@@ -746,12 +734,8 @@ const Index = () => {
                             </Link>
                           </p>
                         </div>
-                        <Suspense fallback={null}>
-                          <figure className="space-y-1.5">
-                            <YouTubeLite videoId="XGyM7Kq9TfA" title="Grand & Toy – Dynamics 365 Customer Story" />
-                            <figcaption className="text-xs text-muted-foreground">Video: Microsoft Dynamics 365 Community (YouTube)</figcaption>
-                          </figure>
-                        </Suspense>
+                        <VideoComingSoon />
+
                       </div>
                     </AccordionContent>
                   </AccordionItem>
@@ -774,12 +758,8 @@ const Index = () => {
                             → Läs mer i vår <Link to="/ai-oversikt/" className="text-primary hover:underline font-semibold">AI-översikt</Link> eller gör en <Link to="/ai-mognadsanalys/" className="text-primary hover:underline font-semibold">AI-mognadsanalys</Link>.
                           </p>
                         </div>
-                        <Suspense fallback={null}>
-                          <figure className="space-y-1.5">
-                            <YouTubeLite videoId="GMwtXDx-JUI" title="Introducing Microsoft Dynamics 365 Copilot" />
-                            <figcaption className="text-xs text-muted-foreground">Video: Microsoft Dynamics 365 (YouTube)</figcaption>
-                          </figure>
-                        </Suspense>
+                        <VideoComingSoon />
+
                       </div>
                     </AccordionContent>
                   </AccordionItem>
