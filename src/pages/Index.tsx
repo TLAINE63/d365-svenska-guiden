@@ -38,7 +38,33 @@ const AccordionTrigger = lazy(() => import("@/components/ui/accordion").then(m =
 const ContactFormDialog = lazy(() => import("@/components/ContactFormDialog"));
 const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
 const EbookBanner = lazy(() => import("@/components/EbookBanner"));
-const YouTubeLite = lazy(() => import("@/components/YouTubeLite"));
+
+const VideoComingSoon = () => (
+  <figure className="space-y-1.5">
+    <div
+      role="img"
+      aria-label="Video kommer inom kort"
+      className="aspect-video w-full rounded-md border border-dashed border-border bg-muted/40 flex flex-col items-center justify-center text-center px-4"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="w-8 h-8 text-muted-foreground/60 mb-2"
+        aria-hidden="true"
+      >
+        <rect x="2" y="6" width="14" height="12" rx="2" />
+        <path d="m22 8-6 4 6 4V8Z" />
+      </svg>
+      <span className="text-sm font-medium text-muted-foreground">Video kommer inom kort</span>
+    </div>
+  </figure>
+);
+
 
 import LatestArticlesStrip from "@/components/LatestArticlesStrip";
 import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
@@ -656,12 +682,8 @@ const Index = () => {
                           <p>• <strong>CRM-sidan</strong> täcker försäljning, marknadsföring, kundservice och fältservice.</p>
                           <p>• <strong>AI är inbyggt</strong> i samtliga appar via Microsoft Copilot.</p>
                         </div>
-                        <Suspense fallback={null}>
-                          <figure className="space-y-1.5">
-                            <YouTubeLite videoId="wVFZVajK2YI" title="Microsoft Dynamics 365 Business Central – översikt" />
-                            <figcaption className="text-xs text-muted-foreground">Video: Microsoft Dynamics 365 (YouTube)</figcaption>
-                          </figure>
-                        </Suspense>
+                        <VideoComingSoon />
+
                       </div>
                     </AccordionContent>
                   </AccordionItem>
@@ -684,12 +706,8 @@ const Index = () => {
                             → Gör en kostnadsfri behovsanalys för <Link to="/ERPbehovsanalys/" className="text-primary hover:underline font-semibold">ERP</Link>, <Link to="/CRMbehovsanalys/" className="text-primary hover:underline font-semibold">Sälj & Marknad</Link> eller <Link to="/kundservice-behovsanalys/" className="text-primary hover:underline font-semibold">Kundservice</Link>.
                           </p>
                         </div>
-                        <Suspense fallback={null}>
-                          <figure className="space-y-1.5">
-                            <YouTubeLite videoId="XWfNtf2sIGo" title="SAP S/4HANA vs Oracle vs Microsoft Dynamics 365 – jämförelse" />
-                            <figcaption className="text-xs text-muted-foreground">Video: Digital Transformation with Eric Kimberling (YouTube)</figcaption>
-                          </figure>
-                        </Suspense>
+                        <VideoComingSoon />
+
                       </div>
                     </AccordionContent>
                   </AccordionItem>
@@ -716,12 +734,8 @@ const Index = () => {
                             </ContactFormDialog>
                           </Suspense>
                         </div>
-                        <Suspense fallback={null}>
-                          <figure className="space-y-1.5">
-                            <YouTubeLite videoId="zEKNKES1sXs" title="Understanding Dynamics 365 pricing" />
-                            <figcaption className="text-xs text-muted-foreground">Video: Dynamics 365 pricing walkthrough (YouTube)</figcaption>
-                          </figure>
-                        </Suspense>
+                        <VideoComingSoon />
+
                       </div>
                     </AccordionContent>
                   </AccordionItem>
@@ -746,12 +760,8 @@ const Index = () => {
                             </Link>
                           </p>
                         </div>
-                        <Suspense fallback={null}>
-                          <figure className="space-y-1.5">
-                            <YouTubeLite videoId="XGyM7Kq9TfA" title="Grand & Toy – Dynamics 365 Customer Story" />
-                            <figcaption className="text-xs text-muted-foreground">Video: Microsoft Dynamics 365 Community (YouTube)</figcaption>
-                          </figure>
-                        </Suspense>
+                        <VideoComingSoon />
+
                       </div>
                     </AccordionContent>
                   </AccordionItem>
@@ -774,12 +784,8 @@ const Index = () => {
                             → Läs mer i vår <Link to="/ai-oversikt/" className="text-primary hover:underline font-semibold">AI-översikt</Link> eller gör en <Link to="/ai-mognadsanalys/" className="text-primary hover:underline font-semibold">AI-mognadsanalys</Link>.
                           </p>
                         </div>
-                        <Suspense fallback={null}>
-                          <figure className="space-y-1.5">
-                            <YouTubeLite videoId="GMwtXDx-JUI" title="Introducing Microsoft Dynamics 365 Copilot" />
-                            <figcaption className="text-xs text-muted-foreground">Video: Microsoft Dynamics 365 (YouTube)</figcaption>
-                          </figure>
-                        </Suspense>
+                        <VideoComingSoon />
+
                       </div>
                     </AccordionContent>
                   </AccordionItem>
