@@ -1176,7 +1176,7 @@ const ComparePartners = () => {
                     slug={aSlug}
                     onChange={(s) => setSlot("a", s)}
                     onClear={() => setSlot("a", "")}
-                    onRequestQuote={a ? () => setQuoteFor(a) : undefined}
+                    onRequestQuote={a ? () => setQuoteFor({ partner: a, mode: "quote" }) : undefined}
                     quoteSubmitting={isSubmittingQuote}
                   />
                   <div className="flex items-center justify-center md:pt-10">
