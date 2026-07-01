@@ -605,15 +605,6 @@ const ComparePartners = () => {
     setParams(next, { replace: true });
   };
 
-  const swap = () => {
-    const next = new URLSearchParams(params);
-    if (aSlug) next.set("b", aSlug);
-    else next.delete("b");
-    if (bSlug) next.set("a", bSlug);
-    else next.delete("a");
-    setParams(next, { replace: true });
-  };
-
   const ERP_APPS = new Set([
     "Business Central",
     "Finance",
