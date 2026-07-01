@@ -49,11 +49,11 @@ const D365ProjectOperations = () => {
         title="Project Operations."
         titleAccent="Projekt, resurser och ekonomi i ett sammanhang — när partnern kan er leveransmodell."
         subhead="Project Operations är inte ett verktyg du installerar och kör igång — det är en spegling av hur ert tjänsteföretag säljer, bemannar och fakturerar projekt. Skillnaden mellan ett system som verkligen lyfter marginalen och ett som bara ersätter Excel ligger i partnervalet: en partner som förstår tid & utlägg, resursoptimering, work-in-progress, milstolps­fakturering och hur det hänger ihop med er ERP är guld värd."
-        primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation/", icon: FileText }}
-        secondary={{
+        primary={{
           label: "Jämför Project Operations-partners",
           onClick: () => document.getElementById("partners")?.scrollIntoView({ behavior: "smooth" }),
         }}
+        secondary={{ label: "Generera kravspecifikation", to: "/kravspecifikation/", icon: FileText }}
       />
 
       <ShortAnswer title="Vad är Dynamics 365 Project Operations">

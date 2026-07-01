@@ -47,11 +47,11 @@ const D365HumanResources = () => {
         title="Human Resources."
         titleAccent="HR-data, organisation och kompensation som en del av affärssystemet."
         subhead="Microsofts HR-modul är inte ett självständigt HR-system i klass med Workday eller SuccessFactors — den är ett strategiskt nav för medarbetardata, organisations­struktur och kompensation som lever tätt ihop med ekonomi, planering och Microsoft 365. För organisationer som redan kör Finance & Supply Chain Management eller Business Central ger det en sammanhängande datamodell där personalkostnader, projektresurser och organisations­förändringar speglas i realtid. Partnervalet handlar om att hitta någon som förstår både HR-processer och ert affärssystem."
-        primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation/", icon: FileText }}
-        secondary={{
+        primary={{
           label: "Jämför HR-partners",
           onClick: () => document.getElementById("partners")?.scrollIntoView({ behavior: "smooth" }),
         }}
+        secondary={{ label: "Generera kravspecifikation", to: "/kravspecifikation/", icon: FileText }}
       />
 
       <ShortAnswer title="Vad är Dynamics 365 Human Resources">

@@ -104,11 +104,11 @@ const D365CustomerService = () => {
         eyebrow="Dynamics 365 Customer Service"
         title="Dynamics 365 Customer Service – ärendehantering, kanaler och partner"
         subhead="En e-handelssupport med 5 000 ärenden i veckan behöver något annat än en B2B-organisation med 200 komplexa ärenden. Funktionerna är desamma — men hur partnern designar ärendefördelning, kunskapsbas och självservice avgör om systemet sänker handläggningstiden eller bara flyttar admin mellan avdelningar. Här jämför ni partners som faktiskt levererat Customer Service i er volym och er bransch."
-        primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-kundservice/", icon: FileText }}
-        secondary={{
+        primary={{
           label: "Jämför CS-partners",
           onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
         }}
+        secondary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-kundservice/", icon: FileText }}
         tertiary={{
           label: "Gör en estimerad TCO/ROI-kalkyl",
           to: "/d365customerservice/roi-kalkylator/",
