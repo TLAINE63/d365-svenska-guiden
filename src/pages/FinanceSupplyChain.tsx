@@ -188,37 +188,23 @@ const FinanceSupplyChain = () => {
  <BreadcrumbSchema items={fscBreadcrumbs} />
  <Navbar />
  
- {/* Header */}
- <ProductHero
- icon={FinanceIcon}
- eyebrow="Finance & Supply Chain Management"
+  {/* Header */}
+  <ProductHero
+  icon={FinanceIcon}
+  eyebrow="Finance & Supply Chain Management"
         title="Finance & Supply Chain Management."
         titleAccent="Byggt för internationell komplexitet — och kräver en partner med motsvarande erfarenhet."
- subhead="Microsoft levererar en kraftfull Enterpriseplattform. Partnern skapar branschmodellen, integrationerna mot era befintliga system och den förändringsledning som faktiskt ger användarnytta. Det är där F&SCM-projekt blir framgångsrika - eller missar målet. Här jämför ni partners som levererat F&SCM i er bransch."
- primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation/", icon: FileText }}
- secondary={{
- label: "Matchar F&SCM era behov? (10 min)",
- to: "/finance-supply-chain-management/matchningstest",
- }}
- tertiary={{
- label: "Gör en estimerad TCO/ROI-kalkyl",
- to: "/finance-supply-chain/roi-kalkylator/",
- }}
+  subhead="Microsoft levererar en kraftfull Enterpriseplattform. Partnern skapar branschmodellen, integrationerna mot era befintliga system och den förändringsledning som faktiskt ger användarnytta. Det är där F&SCM-projekt blir framgångsrika - eller missar målet. Här jämför ni partners som levererat F&SCM i er bransch."
+  primary={{
+    label: "Jämför F&SCM-partners",
+    onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
+  }}
+  secondary={{ label: "Generera kravspecifikation", to: "/kravspecifikation/", icon: FileText }}
+  tertiary={{
+    label: "Gör en estimerad TCO/ROI-kalkyl",
+    to: "/finance-supply-chain/roi-kalkylator/",
+  }}
   />
-
-  {/* Quick link to partner filtering */}
-  <section className="py-4 sm:py-6 bg-background border-b border-border">
-    <div className="container mx-auto px-4 sm:px-6">
-      <div className="flex justify-center">
-        <Button asChild size="lg" className="bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground">
-          <a href="#partners">
-            Jämför F&SCM-partners
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </a>
-        </Button>
-      </div>
-    </div>
-  </section>
 
   <ShortAnswer title="Vad är Dynamics 365 Finance & Supply Chain">
  <p>Dynamics 365 Finance & Supply Chain Management är Microsofts enterprise-affärssystem för större och internationella organisationer med avancerad ekonomi, supply chain, flera juridiska bolag, flera valutor och hög grad av regelefterlevnad.</p>
