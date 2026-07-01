@@ -1273,17 +1273,15 @@ const ComparePartners = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-5xl mx-auto">
             <header className="text-center mb-8">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                Jämförelsevy
-              </p>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground mt-1">
-                Jämför två till tre partner sida vid sida
-              </h1>
-              <p className="text-sm text-slate-600 mt-2 max-w-2xl mx-auto">
-                Samma rader för valda partner — positionering, snabbfakta,
-                kompetens inom Dynamics 365, branscher och kontor. Underlag för
-                beslut, inte rangordning.
-              </p>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                  Jämförelsevy
+                </p>
+                <h1 className="text-2xl sm:text-3xl font-bold text-foreground mt-1">
+                  Jämför Dynamics 365-partner utifrån produkt, bransch och leveransförmåga
+                </h1>
+                <p className="text-sm text-slate-600 mt-2 max-w-2xl mx-auto">
+                  Välj två till tre partner och se samma rader för varje — positionering, snabbfakta, kompetenser, fokusbranscher och kontor. Ett underlag för ert beslut, inte en rangordning.
+                </p>
             </header>
 
             {isLoading ? (
