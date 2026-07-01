@@ -1305,10 +1305,10 @@ const ComparePartners = () => {
                   Jämförelsevy
                 </p>
                 <h1 className="text-2xl sm:text-3xl font-bold text-foreground mt-1">
-                  Jämför Dynamics 365-partner utifrån produkt, bransch och leveransförmåga
+                  Hitta rätt Dynamics 365-partner
                 </h1>
                 <p className="text-sm text-slate-600 mt-2 max-w-2xl mx-auto">
-                  Välj två till tre partner och se samma rader för varje — positionering, snabbfakta, kompetenser, fokusbranscher och kontor. Ett underlag för ert beslut, inte en rangordning.
+                  Alla partner i jämförelsen är relevanta kandidater. Här ser ni var de skiljer sig åt och vilken typ av företag de passar bäst för.
                 </p>
             </header>
 
