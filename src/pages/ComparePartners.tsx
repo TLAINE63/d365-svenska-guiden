@@ -18,7 +18,6 @@ import {
   ExternalLink,
   X,
   Info,
-  ChevronDown,
   Sparkles,
   Globe2,
   Mail,
