@@ -65,12 +65,25 @@ type FormState = {
   email: string;
   phone: string;
   message: string;
+  // Quote-specific
+  quote_users: string;
+  quote_features: string;
+  // Demo-specific
+  demo_audience: string;
+  demo_features: string;
+  demo_timing: string;
   _hp: string;
 };
 
-type FieldErrors = Partial<Record<"company_name" | "contact_name" | "email" | "phone" | "message", string>>;
+type FieldErrors = Partial<Record<
+  "company_name" | "contact_name" | "email" | "phone" | "message"
+  | "quote_users" | "quote_features"
+  | "demo_audience" | "demo_features" | "demo_timing",
+  string
+>>;
 
 const PHONE_REGEX = /^[+0-9\s\-()./]{6,20}$/;
+const MAX_DETAIL = 600;
 
 const validateForm = (form: FormState): FieldErrors => {
   const errors: FieldErrors = {};
