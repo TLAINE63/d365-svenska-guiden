@@ -620,6 +620,11 @@ const PartnerRequestDialog = ({
             <ErrorText field="message" />
           </div>
 
+          <p className="text-xs text-slate-500 border-t border-slate-100 pt-3">
+            Kostnadsfritt. Du väljer själv vilka partners som kontaktas. Varje partner kontaktas separat — aldrig i samma tråd. d365.se säljer inte implementationer; förfrågan går direkt till partnern med kopia till dig och d365.se.
+          </p>
+
+
           <DialogFooter className="gap-2 sm:gap-0">
             <Button type="button" variant="outline" onClick={() => handleClose(false)} disabled={submitting}>
               Avbryt
