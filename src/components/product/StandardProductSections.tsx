@@ -47,7 +47,7 @@ export default function StandardProductSections({ productName, data }: Props) {
                 key={i}
                 className="flex items-start gap-3 p-3 rounded border border-border bg-card"
               >
-                <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                <CheckCircle2 className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
                 <span className="text-sm md:text-[15px] text-foreground leading-relaxed">{item}</span>
               </li>
             ))}
