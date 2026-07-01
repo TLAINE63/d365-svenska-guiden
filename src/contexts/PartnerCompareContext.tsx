@@ -25,7 +25,7 @@ interface PartnerCompareContextValue {
 }
 
 const STORAGE_KEY = "partner-compare-selection";
-const MAX = 2;
+const MAX = 3;
 
 
 const PartnerCompareContext = createContext<PartnerCompareContextValue | null>(null);
