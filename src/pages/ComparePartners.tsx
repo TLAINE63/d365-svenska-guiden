@@ -266,7 +266,7 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label
           className="w-full h-9 bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 disabled:opacity-60 disabled:cursor-not-allowed"
         >
           <Mail className="w-4 h-4 mr-1.5" />
-          {quoteSubmitting ? "Skickar…" : "Begär offert"}
+          {quoteSubmitting ? "Skickar…" : "Ställ en fråga"}
         </Button>
       )}
     </div>
