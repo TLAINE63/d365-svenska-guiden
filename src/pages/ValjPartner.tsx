@@ -910,10 +910,10 @@ const ValjPartner = () => {
           Sida vid sida
         </div>
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
-          Jämför upp till två partners innan ni kontaktar dem
+          Jämför upp till tre partners innan ni kontaktar dem
         </h2>
         <p className="text-base sm:text-lg text-white/70 mb-8 max-w-2xl mx-auto">
-          Välj två partners i listan ovan och få en jämförelsevy över produktområden, branscher, geografisk närvaro, storlek och AI-mognad — så att ni kan gå vidare med rätt kortlista.
+          Välj två till tre partners i listan ovan och få en jämförelsevy över produktområden, branscher, geografisk närvaro, storlek och AI-mognad — så att ni kan gå vidare med rätt kortlista.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button
