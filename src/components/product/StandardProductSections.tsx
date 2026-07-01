@@ -88,7 +88,7 @@ export default function StandardProductSections({ productName, data }: Props) {
             {PARTNER_AREAS.map(({ key, label, Icon }) => (
               <div key={key} className="p-4 rounded border border-border bg-card">
                 <div className="flex items-center gap-2 mb-1.5">
-                  <Icon className="w-5 h-5 text-primary" />
+                  <Icon className="w-5 h-5 text-accent" />
                   <h3 className="font-semibold text-foreground">{label}</h3>
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed">
