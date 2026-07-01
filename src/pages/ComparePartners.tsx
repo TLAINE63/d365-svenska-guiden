@@ -1371,11 +1371,11 @@ const ComparePartners = () => {
                               />
                             </div>
                           )}
-                          <div className="p-1">
-                            <span className={`text-[10px] font-semibold block ${selected ? "text-[hsl(var(--primary))]" : "group-hover:text-[hsl(var(--primary))]"}`}>
+                          <div className="p-0.5">
+                            <span className={`text-[9px] font-semibold block ${selected ? "text-[hsl(var(--primary))]" : "group-hover:text-[hsl(var(--primary))]"}`}>
                               {ind.short}
                             </span>
-                            <span className="text-[9px] text-muted-foreground">
+                            <span className="text-[8px] text-muted-foreground">
                               {count} {count === 1 ? "partner" : "partners"}
                             </span>
                           </div>
