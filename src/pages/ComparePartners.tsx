@@ -1379,15 +1379,18 @@ const ComparePartners = () => {
                         label="Vi är valet när…"
                         a={renderPositioningCell(A.positioning)}
                         b={renderPositioningCell(B.positioning)}
+                        c={renderPositioningCell(C.positioning)}
                       />
 
                       {(() => {
                         const aDescs = getProductDescriptions(a, AF.apps);
                         const bDescs = getProductDescriptions(b, BF.apps);
+                        const cDescs = getProductDescriptions(c, CF.apps);
                         const keys = Array.from(
                           new Set<ProductFilterKey>([
                             ...aDescs.map((d) => d.key),
                             ...bDescs.map((d) => d.key),
+                            ...cDescs.map((d) => d.key),
                           ])
                         ).sort((x, y) =>
                           PRODUCT_FILTER_GROUP[x].label.localeCompare(
@@ -1398,12 +1401,14 @@ const ComparePartners = () => {
                         return keys.map((key) => {
                           const descA = aDescs.find((d) => d.key === key);
                           const descB = bDescs.find((d) => d.key === key);
+                          const descC = cDescs.find((d) => d.key === key);
                           return (
                             <R
                               key={key}
                               label={PRODUCT_FILTER_KEY_LABEL[key] || key}
                               a={descA ? renderProductDescCell(descA.text) : EMPTY}
                               b={descB ? renderProductDescCell(descB.text) : EMPTY}
+                              c={descC ? renderProductDescCell(descC.text) : EMPTY}
                             />
                           );
                         });
@@ -1414,11 +1419,13 @@ const ComparePartners = () => {
                         help="Alla Dynamics 365-applikationer partnern arbetar med. ERP-appar listas först, därefter CE/CRM — båda i bokstavsordning."
                         a={renderAppList(AF.apps)}
                         b={renderAppList(BF.apps)}
+                        c={renderAppList(CF.apps)}
                       />
                       <R
                         label="Fokusbranscher"
                         a={renderIndustryList(AF.industries)}
                         b={renderIndustryList(BF.industries)}
+                        c={renderIndustryList(CF.industries)}
                       />
 
                       {(() => {
@@ -1426,6 +1433,7 @@ const ComparePartners = () => {
                           new Set([
                             ...AF.industryPitches.map((ip) => ip.industry),
                             ...BF.industryPitches.map((ip) => ip.industry),
+                            ...CF.industryPitches.map((ip) => ip.industry),
                           ])
                         ).sort((x, y) => x.localeCompare(y, "sv"));
                         return keys.map((industry) => (
@@ -1438,17 +1446,18 @@ const ComparePartners = () => {
                             b={renderPitchCell(
                               BF.industryPitches.filter((ip) => ip.industry === industry)
                             )}
+                            c={renderPitchCell(
+                              CF.industryPitches.filter((ip) => ip.industry === industry)
+                            )}
                           />
                         ));
                       })()}
 
-                      <R
-                        label="Branschapplikationer"
-                        help="Branschlösningar / vertikala tillägg som partnern erbjuder ovanpå Dynamics 365."
-                        a={
-                          AF.industryApps.length > 0 ? (
+                      {(() => {
+                        const renderIA = (list: typeof AF.industryApps) =>
+                          list.length > 0 ? (
                             <ul className="space-y-1.5">
-                              {AF.industryApps.map((ia, i) => (
+                              {list.map((ia, i) => (
                                 <li key={i} className="text-sm">
                                   <span className="font-medium">{ia.name}</span>
                                   {(ia.application || ia.industry) && (
@@ -1462,28 +1471,17 @@ const ComparePartners = () => {
                             </ul>
                           ) : (
                             EMPTY
-                          )
-                        }
-                        b={
-                          BF.industryApps.length > 0 ? (
-                            <ul className="space-y-1.5">
-                              {BF.industryApps.map((ia, i) => (
-                                <li key={i} className="text-sm">
-                                  <span className="font-medium">{ia.name}</span>
-                                  {(ia.application || ia.industry) && (
-                                    <span className="text-slate-500">
-                                      {" — "}
-                                      {[ia.application, ia.industry].filter(Boolean).join(" · ")}
-                                    </span>
-                                  )}
-                                </li>
-                              ))}
-                            </ul>
-                          ) : (
-                            EMPTY
-                          )
-                        }
-                      />
+                          );
+                        return (
+                          <R
+                            label="Branschapplikationer"
+                            help="Branschlösningar / vertikala tillägg som partnern erbjuder ovanpå Dynamics 365."
+                            a={renderIA(AF.industryApps)}
+                            b={renderIA(BF.industryApps)}
+                            c={renderIA(CF.industryApps)}
+                          />
+                        );
+                      })()}
                     </section>
 
 
@@ -1495,6 +1493,7 @@ const ComparePartners = () => {
                         help={TEAM_SIZE_HELP}
                         a={renderValue(A.teamSize)}
                         b={renderValue(B.teamSize)}
+                        c={renderValue(C.teamSize)}
                       />
                       <R
                         label="Genomförda implementationer"
@@ -1509,6 +1508,11 @@ const ComparePartners = () => {
                             ? renderList(B.implementationsPerApp.map((i) => `${i.app}: ${i.count}`))
                             : renderValue(B.implementations)
                         }
+                        c={
+                          C.implementationsPerApp.length > 0
+                            ? renderList(C.implementationsPerApp.map((i) => `${i.app}: ${i.count}`))
+                            : renderValue(C.implementations)
+                        }
                       />
                       {(() => {
                         const keysToShow: ProductFilterKey[] =
@@ -1518,13 +1522,15 @@ const ComparePartners = () => {
                                 new Set([
                                   ...getProductFilterKeysForApps(A.apps),
                                   ...getProductFilterKeysForApps(B.apps),
+                                  ...getProductFilterKeysForApps(C.apps),
                                 ]),
                               ) as ProductFilterKey[]);
                         const rows: JSX.Element[] = [];
                         keysToShow.forEach((key) => {
                           const mA = getProductMetrics(A.partner, key);
                           const mB = getProductMetrics(B.partner, key);
-                          if (!mA.length && !mA.cost && !mB.length && !mB.cost) return;
+                          const mC = getProductMetrics(C.partner, key);
+                          if (!mA.length && !mA.cost && !mB.length && !mB.cost && !mC.length && !mC.cost) return;
                           const label = PRODUCT_KEY_LABEL[key] || key;
                           rows.push(
                             <R
@@ -1533,6 +1539,7 @@ const ComparePartners = () => {
                               help="Partnerns egna spann för typisk implementationstid, i veckor från projektstart till driftsättning. Verklig längd beror på scope, datakvalitet och organisationens beslutskraft."
                               a={renderValue(mA.length)}
                               b={renderValue(mB.length)}
+                              c={renderValue(mC.length)}
                             />,
                           );
                           rows.push(
@@ -1542,6 +1549,7 @@ const ComparePartners = () => {
                               help="Partnerns egna kostnadsband för typisk implementation (exkl. licenser). Slutpriset beror på scope, integrationer, datamigrering och förändringsledning."
                               a={renderValue(mA.cost)}
                               b={renderValue(mB.cost)}
+                              c={renderValue(mC.cost)}
                             />,
                           );
                         });
@@ -1551,12 +1559,14 @@ const ComparePartners = () => {
                         label="Kontor (städer)"
                         a={renderList(A.offices)}
                         b={renderList(B.offices)}
+                        c={renderList(C.offices)}
                       />
                       <R
                         label="Geografi"
                         help="Områden där partnern levererar projekt."
                         a={renderList(A.geography)}
                         b={renderList(B.geography)}
+                        c={renderList(C.geography)}
                       />
                     </section>
 
@@ -1568,6 +1578,7 @@ const ComparePartners = () => {
                         help="Partnerns samlade AI- och automationsprofil: leveransmodell, förmågor, relevanta områden, use cases, erfarenhet och underlag. Bygger på partnerns egna uppgifter."
                         a={renderAiProfile(((A.partner as any)?.ai_profile) as AiProfile | null)}
                         b={renderAiProfile(((B.partner as any)?.ai_profile) as AiProfile | null)}
+                        c={renderAiProfile(((C.partner as any)?.ai_profile) as AiProfile | null)}
                       />
                     </section>
 
