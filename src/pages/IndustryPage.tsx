@@ -521,13 +521,16 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  const activeProductKey =
  selected.length === 1 ? FILTER_TO_UNDERLYING[selected[0]] : null;
  return (
- <PartnerCard
- key={p.id}
- partner={p as any}
- profileUrl={`/partner/${(p as any).slug}`}
- highlightedIndustry={meta?.name}
- productKey={activeProductKey as any}
- />
+  <PartnerCard
+  key={p.id}
+  partner={p as any}
+  profileUrl={`/partner/${(p as any).slug}`}
+  highlightedIndustry={meta?.name}
+  highlightedGeography={selectedGeography || undefined}
+  highlightedCompanySize={selectedCompanySize || undefined}
+  productKey={activeProductKey as any}
+  />
+
  );
  })}
   </div>
