@@ -568,7 +568,7 @@ const ComparePartners = () => {
   const [params, setParams] = useSearchParams();
   const aSlug = params.get("a") || "";
   const bSlug = params.get("b") || "";
-  const [quoteFor, setQuoteFor] = useState<{ partner: DatabasePartner; mode: "contact" | "demo" | "quote" } | null>(null);
+  const [quoteFor, setQuoteFor] = useState<{ recipients: Array<{ slug: string; name: string }>; mode: "contact" | "demo" | "quote" } | null>(null);
   const [isSubmittingQuote, setIsSubmittingQuote] = useState(false);
 
   const { data: partners = [], isLoading } = usePartners();
