@@ -1282,14 +1282,14 @@ const ComparePartners = () => {
                           key={c.label}
                           type="button"
                           onClick={() => toggleProductFilter(c.key)}
-                          className={`inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition-all ${
+                          className={`inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-medium transition-all ${
                             selected
                               ? "border-[hsl(var(--primary))] bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] shadow-sm"
                               : "border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary)/0.5)]"
                           }`}
                           aria-pressed={selected}
                         >
-                          <img src={c.icon} alt="" aria-hidden="true" className="w-5 h-5 shrink-0" />
+                          <img src={c.icon} alt="" aria-hidden="true" className="w-4 h-4 shrink-0" />
                           <span>{c.label}</span>
                         </button>
                       );
