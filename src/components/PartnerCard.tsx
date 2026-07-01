@@ -244,7 +244,7 @@ const PartnerCard = ({
 
  const displayApplications = getDisplayApplications();
 
- const hasHighlights = highlightedProduct || highlightedIndustry || highlightedGeography;
+ const hasHighlights = highlightedProduct || highlightedIndustry || highlightedGeography || highlightedCompanySize || highlightedRevenue;
 
  return (
  <article 
