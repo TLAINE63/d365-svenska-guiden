@@ -662,10 +662,27 @@ const ComparePartners = () => {
     "Project Operations",
   ]);
 
+  const normalizeAppName = (app: string): string => {
+    const a = (app || "").trim().toLowerCase().replace(/\s+/g, " ");
+    if (
+      a === "f&scm" ||
+      a === "fscm" ||
+      a === "finance & scm" ||
+      a === "finance & supply chain" ||
+      a === "finance and supply chain management" ||
+      a === "finance & scm management"
+    ) {
+      return "Finance & Supply Chain Management";
+    }
+    return app.trim();
+  };
+
   const sortApps = (apps: string[]): string[] => {
-    const uniq = Array.from(new Set(apps.map((a) => (a || "").trim()).filter(Boolean)));
-    const erp = uniq.filter((a) => ERP_APPS.has(a)).sort((a, b) => a.localeCompare(b, "sv"));
-    const ce = uniq.filter((a) => !ERP_APPS.has(a)).sort((a, b) => a.localeCompare(b, "sv"));
+    const normalized = Array.from(
+      new Set(apps.map((a) => normalizeAppName(a || "")).filter(Boolean))
+    );
+    const erp = normalized.filter((a) => ERP_APPS.has(a)).sort((a, b) => a.localeCompare(b, "sv"));
+    const ce = normalized.filter((a) => !ERP_APPS.has(a)).sort((a, b) => a.localeCompare(b, "sv"));
     return [...erp, ...ce];
   };
 
