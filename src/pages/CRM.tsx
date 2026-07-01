@@ -171,18 +171,18 @@ const CRM = () => {
  <Navbar />
  
  {/* Header */}
- <ProductHero
- icon={SalesIcon}
- eyebrow="CRM (Customer Engagement)"
- title="Dynamics 365 CRM."
- titleAccent="6 applikationer – är alla partners specialister på allt?"
- subhead="Sales, Customer Insights, Customer Service, Field Service, Contact Center och Project Operations. Få partners kan allt. Vi hjälper er hitta dem som faktiskt levererat det ni behöver."
- primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-sales/", icon: FileText }}
- secondary={{
- label: "Jämför CRM-partners",
- onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
- }}
- />
+  <ProductHero
+  icon={SalesIcon}
+  eyebrow="CRM (Customer Engagement)"
+  title="Dynamics 365 CRM."
+  titleAccent="6 applikationer – är alla partners specialister på allt?"
+  subhead="Sales, Customer Insights, Customer Service, Field Service, Contact Center och Project Operations. Få partners kan allt. Vi hjälper er hitta dem som faktiskt levererat det ni behöver."
+  primary={{
+    label: "Jämför CRM-partners",
+    onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
+  }}
+  secondary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-sales/", icon: FileText }}
+  />
 
 
  <ShortAnswer title="Vad är Microsoft Dynamics 365 Customer Engagement (CRM)?">

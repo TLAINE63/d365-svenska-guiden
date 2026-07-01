@@ -91,11 +91,11 @@ const D365ContactCenter = () => {
         title="Contact Center."
         titleAccent="Omnichannel är inte plug-and-play. Partnervalet avgör projektframgången."
         subhead="En bank med hård regelefterlevnad och identitetsverifiering driver Contact Center helt annorlunda än en e-handelsaktör med säsongstoppar och returer. AI:n och kanalerna är samma — men hur partnern designar röstflöden, automatiseringen och anpassningarna till era branschkrav avgör om systemet sänker samtalstid och höjer kundnöjdhet eller bara läggs ovanpå ett gammalt arbetssätt. Här jämför ni partners som faktiskt levererat Contact Center i er bransch och samtalsvolym."
-        primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-kundservice/", icon: FileText }}
-        secondary={{
+        primary={{
           label: "Jämför CC-partners",
           onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
         }}
+        secondary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-kundservice/", icon: FileText }}
         tertiary={{
           label: "Gör en estimerad TCO/ROI-kalkyl",
           to: "/d365contactcenter/roi-kalkylator/",

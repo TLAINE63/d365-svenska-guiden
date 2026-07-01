@@ -207,25 +207,25 @@ const BusinessCentral = () => {
  <Navbar />
  
  {/* Hero */}
- <ProductHero
- icon={BusinessCentralIcon}
- eyebrow="Business Central"
- title="Dynamics 365 Business Central – pris, funktioner och rätt partner i Sverige"
- subhead="Microsoft levererar det kraftfulla affärssystemet. Partnern bygger processerna, väljer rätt branschspecifika tillägg och designar integrationerna mot era befintliga system. Det är nyckeln till framgångsrika BC-projekt. Här jämför ni partners som faktiskt levererat Business Central i er bransch."
- primary={{
- label: "Generera kravspecifikation",
- to: "/kravspecifikation/",
- icon: FileText,
- }}
- secondary={{
- label: "Jämför Business Central-partners",
- onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
- }}
- tertiary={{
- label: "Gör en estimerad TCO/ROI-kalkyl",
- to: "/businesscentral/roi-kalkylator/",
- }}
- />
+  <ProductHero
+  icon={BusinessCentralIcon}
+  eyebrow="Business Central"
+  title="Dynamics 365 Business Central – pris, funktioner och rätt partner i Sverige"
+  subhead="Microsoft levererar det kraftfulla affärssystemet. Partnern bygger processerna, väljer rätt branschspecifika tillägg och designar integrationerna mot era befintliga system. Det är nyckeln till framgångsrika BC-projekt. Här jämför ni partners som faktiskt levererat Business Central i er bransch."
+  primary={{
+    label: "Jämför Business Central-partners",
+    onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
+  }}
+  secondary={{
+  label: "Generera kravspecifikation",
+  to: "/kravspecifikation/",
+  icon: FileText,
+  }}
+  tertiary={{
+  label: "Gör en estimerad TCO/ROI-kalkyl",
+  to: "/businesscentral/roi-kalkylator/",
+  }}
+  />
 
  <ShortAnswer title="Vad är Microsoft Dynamics 365 Business Central">
  <p>Dynamics 365 Business Central är Microsofts moderna molnbaserade affärssystem för mindre och medelstora företag som vill samla ekonomi, inköp, lager, försäljning och produktion i en plattform — i stället för att hålla ihop en flora av separata system som inte pratar med varandra.</p>
