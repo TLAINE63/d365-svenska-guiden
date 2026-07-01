@@ -192,23 +192,16 @@ const PartnerRequestDialog = ({
     onSubmitting?.(submitting);
   }, [submitting, onSubmitting]);
 
-  const [form, setForm] = useState<FormState>({
-    company_name: "",
-    contact_name: "",
-    email: "",
-    phone: "",
-    message: "",
-    _hp: "",
-  });
+  const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
 
-  const errors = useMemo(() => validateForm(form), [form]);
+  const errors = useMemo(() => validateForm(form, mode), [form, mode]);
   const showError = (field: keyof FieldErrors) => (touched[field] || attemptedSubmit) && !!errors[field];
   const errorCount = Object.keys(errors).length;
 
   const reset = () => {
-    setForm({ company_name: "", contact_name: "", email: "", phone: "", message: "", _hp: "" });
+    setForm(EMPTY_FORM);
     setTouched({});
     setAttemptedSubmit(false);
   };
