@@ -2,6 +2,17 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, R
 
 type CompareEntry = { slug: string; name: string };
 
+export type CompareFilterContext = {
+  /** Product filter key (bc | fsc | sales | service) or comma-separated list. */
+  product?: string | null;
+  /** Industry name (e.g. "Tillverkning"). */
+  industry?: string | null;
+  /** Geography (e.g. "Sverige"). */
+  geography?: string | null;
+  /** Company size bucket. */
+  companySize?: string | null;
+};
+
 interface PartnerCompareContextValue {
   selected: CompareEntry[];
   isSelected: (slug: string) => boolean;
@@ -9,10 +20,13 @@ interface PartnerCompareContextValue {
   remove: (slug: string) => void;
   clear: () => void;
   max: number;
+  filterContext: CompareFilterContext;
+  setFilterContext: (patch: CompareFilterContext) => void;
 }
 
 const STORAGE_KEY = "partner-compare-selection";
 const MAX = 2;
+
 
 const PartnerCompareContext = createContext<PartnerCompareContextValue | null>(null);
 
