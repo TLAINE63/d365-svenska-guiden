@@ -13,6 +13,7 @@ import {
   type ProductConfig,
   type Question,
 } from "@/data/crmMatchningstestConfigs";
+import { trackFunnelEvent, trackFunnelEventOnce } from "@/lib/funnelTracking";
 
 interface Props {
   productKey: ProductConfig["key"];
