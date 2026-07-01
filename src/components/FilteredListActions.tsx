@@ -130,8 +130,8 @@ const FilteredListActions = ({
           >
             <FileText className="w-4 h-4 mr-1.5" />
             {selected.length > 0
-              ? `Begär offert från ${selected.length} valda`
-              : `Begär offert från ${recipients.length} matchande`}
+              ? `Begär offertindikering från ${selected.length} valda`
+              : `Begär offertindikering från ${recipients.length} matchande`}
           </Button>
         </div>
       </div>
