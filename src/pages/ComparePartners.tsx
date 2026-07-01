@@ -882,9 +882,12 @@ const ComparePartners = () => {
 
   const A = get(a);
   const B = get(b);
+  const C = get(c);
   const hasBoth = !!a && !!b;
+  const hasC = !!c;
   const aName = a?.name;
   const bName = b?.name;
+  const cName = c?.name;
 
   // Filters drive partner picker — full standard taxonomy, not derived from selection
   const industryOptions = STANDARD_INDUSTRIES.map((i) => i.name).sort((x, y) =>
