@@ -1,10 +1,9 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
+import { getCorsHeaders, isAllowedOrigin } from "../_shared/cors.ts";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
-};
+function isProductionOrigin(origin: string | null): boolean {
+  return origin === "https://d365.se" || origin === "https://www.d365.se";
+}
 
 function anonymizeIp(ip: string | null): string | null {
   if (!ip) return null;
@@ -14,9 +13,27 @@ function anonymizeIp(ip: string | null): string | null {
 }
 
 Deno.serve(async (req) => {
+  const corsHeaders = getCorsHeaders(req);
+
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
   if (req.method !== "POST") {
     return new Response("Method not allowed", { status: 405, headers: corsHeaders });
+  }
+
+  const origin = req.headers.get("origin");
+  // Silently drop analytics writes that don't originate from a known origin
+  // (blocks arbitrary third-party sites from polluting partner analytics).
+  if (!isAllowedOrigin(origin || "")) {
+    return new Response(JSON.stringify({ ok: true, filtered: "origin_not_allowed" }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+  // Only production origins actually write; preview/localhost are accepted but
+  // dropped to avoid mixing dev traffic into the real dataset.
+  if (!isProductionOrigin(origin)) {
+    return new Response(JSON.stringify({ ok: true, filtered: "non_production_origin" }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 
   try {

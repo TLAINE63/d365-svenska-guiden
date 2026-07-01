@@ -1,10 +1,7 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { D365_MARKET_CONTEXT_SV } from "../_shared/market-context.ts";
+import { getCorsHeaders } from "../_shared/cors.ts";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
-};
 
 // Unified ERP base requirements (system-agnostic, covering both BC and F&SCM capabilities)
 const erpBaseRequirements = {
@@ -339,9 +336,11 @@ VIKTIGA REGLER:
 }
 
 serve(async (req) => {
+  const corsHeaders = getCorsHeaders(req);
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
+
 
   try {
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
