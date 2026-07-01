@@ -40,6 +40,13 @@ const CrmMatchningstest = ({ productKey }: Props) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    trackFunnelEventOnce(`crm_test_start:${productKey}`, "crm_test_start", {
+      product_key: productKey,
+      assessment_type: config.assessmentType,
+      total_questions: config.questions.length,
+      resumed: Object.keys(answers).length > 0,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
