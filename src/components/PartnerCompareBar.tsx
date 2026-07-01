@@ -19,7 +19,7 @@ import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 let promptedPairKey = "";
 
 const PartnerCompareBar = () => {
-  const { selected, remove, clear } = usePartnerCompare();
+  const { selected, remove, clear, filterContext } = usePartnerCompare();
   const navigate = useNavigate();
   const location = useLocation();
   const [askOpen, setAskOpen] = useState(false);
@@ -46,7 +46,14 @@ const PartnerCompareBar = () => {
   const goCompare = () => {
     if (selected.length !== 2) return;
     setAskOpen(false);
-    navigate(`/jamfor-partners?a=${encodeURIComponent(selected[0].slug)}&b=${encodeURIComponent(selected[1].slug)}`);
+    const qs = new URLSearchParams();
+    qs.set("a", selected[0].slug);
+    qs.set("b", selected[1].slug);
+    if (filterContext.product) qs.set("product", filterContext.product);
+    if (filterContext.industry) qs.set("industry", filterContext.industry);
+    if (filterContext.geography) qs.set("geography", filterContext.geography);
+    if (filterContext.companySize) qs.set("companySize", filterContext.companySize);
+    navigate(`/jamfor-partners?${qs.toString()}`);
   };
 
   return (
