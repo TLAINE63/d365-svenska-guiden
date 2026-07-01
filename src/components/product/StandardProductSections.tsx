@@ -47,7 +47,7 @@ export default function StandardProductSections({ productName, data }: Props) {
                 key={i}
                 className="flex items-start gap-3 p-3 rounded border border-border bg-card"
               >
-                <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                <CheckCircle2 className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
                 <span className="text-sm md:text-[15px] text-foreground leading-relaxed">{item}</span>
               </li>
             ))}
@@ -67,7 +67,7 @@ export default function StandardProductSections({ productName, data }: Props) {
           <ul className="space-y-2.5">
             {data.whatItSolves.map((item, i) => (
               <li key={i} className="flex items-start gap-3">
-                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
                 <span className="text-sm md:text-[15px] text-foreground leading-relaxed">{item}</span>
               </li>
             ))}
@@ -88,7 +88,7 @@ export default function StandardProductSections({ productName, data }: Props) {
             {PARTNER_AREAS.map(({ key, label, Icon }) => (
               <div key={key} className="p-4 rounded border border-border bg-card">
                 <div className="flex items-center gap-2 mb-1.5">
-                  <Icon className="w-5 h-5 text-primary" />
+                  <Icon className="w-5 h-5 text-accent" />
                   <h3 className="font-semibold text-foreground">{label}</h3>
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed">

@@ -250,12 +250,12 @@ const BusinessCentral = () => {
            standard, vad som kräver Premium, konfiguration eller ISV-tillägg, och vad som ligger utanför BC.
          </p>
        </div>
-       <Link
-         to="/businesscentral/matchningstest/"
-         className="inline-flex items-center justify-center rounded-md px-5 py-3 text-sm font-semibold bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange-hover))] transition-colors whitespace-nowrap"
-       >
-         Starta matchningstestet →
-       </Link>
+        <Link
+          to="/businesscentral/matchningstest/"
+          className="inline-flex items-center justify-center rounded-md px-7 py-4 text-base sm:text-lg font-semibold bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange-hover))] transition-colors whitespace-nowrap shadow-lg shadow-black/20 hover:-translate-y-0.5 transition-transform"
+        >
+          Starta matchningstestet →
+        </Link>
      </div>
    </div>
  </section>

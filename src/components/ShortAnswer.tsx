@@ -31,7 +31,7 @@ const ShortAnswer = ({ title = "Kort svar", children, className = "", cta }: Sho
     >
       <div className="container mx-auto px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
-          <div className="rounded border border-primary/20 bg-primary/[0.04] p-5 sm:p-7 ">
+          <div className="rounded p-5 sm:p-7" style={{ border: "1px solid #e7c5b7", background: "#faf8f6" }}>
             <div className="flex items-center gap-2 mb-3">
               <Sparkles className="w-4 h-4 text-primary" aria-hidden="true" />
               <h2 className="text-xs sm:text-sm font-bold uppercase tracking-[0.12em] text-[hsl(var(--signature))] m-0">
