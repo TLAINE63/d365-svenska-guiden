@@ -217,7 +217,7 @@ const BusinessCentral = () => {
     onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
   }}
   secondary={{
-  label: "Generera kravspecifikation",
+  label: "Generera en kravspecifikation",
   to: "/kravspecifikation/",
   icon: FileText,
   }}

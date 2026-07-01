@@ -96,7 +96,7 @@ const D365FieldService = () => {
           label: "Jämför FS-partners",
           onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
         }}
-        secondary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-kundservice/", icon: FileText }}
+        secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation-kundservice/", icon: FileText }}
         tertiary={{
           label: "Gör en estimerad TCO/ROI-kalkyl",
           to: "/d365fieldservice/roi-kalkylator/",

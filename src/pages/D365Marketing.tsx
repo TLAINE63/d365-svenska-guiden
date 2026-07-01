@@ -107,7 +107,7 @@ const D365Marketing = () => {
           label: "Jämför Customer Insights-partners",
           onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
         }}
-        secondary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-marketing/", icon: FileText }}
+        secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation-marketing/", icon: FileText }}
         tertiary={{
           label: "Gör en estimerad TCO/ROI-kalkyl",
           to: "/d365marketing/roi-kalkylator/",

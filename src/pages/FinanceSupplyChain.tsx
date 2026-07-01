@@ -199,7 +199,7 @@ const FinanceSupplyChain = () => {
     label: "Jämför F&SCM-partners",
     onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
   }}
-  secondary={{ label: "Generera kravspecifikation", to: "/kravspecifikation/", icon: FileText }}
+  secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation/", icon: FileText }}
   tertiary={{
     label: "Gör en estimerad TCO/ROI-kalkyl",
     to: "/finance-supply-chain/roi-kalkylator/",
