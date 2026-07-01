@@ -496,7 +496,7 @@ const PartnerRequestDialog = ({
                   onChange={(e) => setForm((f) => ({ ...f, quote_users: e.target.value }))}
                   onBlur={() => setTouched((t) => ({ ...t, quote_users: true }))}
                   maxLength={60}
-                  placeholder="T.ex. 25 användare, varav 5 power users"
+                  placeholder="T.ex. ca 25 användare"
                   required
                   aria-invalid={showError("quote_users")}
                   className={fieldClass("quote_users")}
