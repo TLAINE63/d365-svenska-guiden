@@ -962,9 +962,13 @@ const ComparePartners = () => {
       next.delete("b");
       changed = true;
     }
+    if (c && !partnerMatchesFilters(c)) {
+      next.delete("c");
+      changed = true;
+    }
     if (changed) setParams(next, { replace: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [productFilterRaw, industryFilter, aSlug, bSlug]);
+  }, [productFilterRaw, industryFilter, aSlug, bSlug, cSlug]);
 
   useEffect(() => {
     const invalid = productFilters.filter((f) => !availableProductKeys.includes(f));
