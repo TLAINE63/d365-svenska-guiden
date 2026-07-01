@@ -531,6 +531,9 @@ const PartnerCard = ({
    partnerName={partner.name || 'Partner'}
    selectedProduct={highlightedProduct || (productKey ? productKeyToSwedish[productKey] : undefined)}
    industry={highlightedIndustry}
+   geography={highlightedGeography}
+   companySize={highlightedCompanySize}
+   revenue={highlightedRevenue}
    mode="contact"
   />
  )}
