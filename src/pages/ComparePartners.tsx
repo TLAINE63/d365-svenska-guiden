@@ -1578,8 +1578,9 @@ const ComparePartners = () => {
         <PartnerRequestDialog
           open={!!quoteFor}
           onOpenChange={(o) => { if (!o) setQuoteFor(null); }}
-          partnerSlug={quoteFor.partner.slug}
-          partnerName={quoteFor.partner.name}
+          partnerSlug={quoteFor.recipients[0].slug}
+          partnerName={quoteFor.recipients[0].name}
+          recipients={quoteFor.recipients.length > 1 ? quoteFor.recipients : undefined}
           mode={quoteFor.mode}
           selectedProduct={
             productFilters.length === 1
