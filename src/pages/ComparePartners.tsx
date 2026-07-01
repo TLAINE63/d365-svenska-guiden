@@ -310,57 +310,74 @@ const Row = ({
   label,
   a,
   b,
+  c,
   warn = false,
   aName,
   bName,
+  cName,
   help,
+  showC = false,
 }: {
   label: string;
   a: React.ReactNode;
   b: React.ReactNode;
+  c?: React.ReactNode;
   warn?: boolean;
   aName?: string;
   bName?: string;
+  cName?: string;
   help?: string;
-}) => (
-  <div className="rounded border border-[hsl(var(--border))] overflow-hidden bg-[hsl(var(--card))]">
-    <div
-      className={`px-4 py-2.5 border-l-4 ${
-        warn
-          ? "bg-[hsl(var(--warning))] border-[hsl(var(--warning))] text-[hsl(var(--warning-foreground))]"
-          : "bg-[hsl(var(--card-dark))] border-[hsl(var(--cta-orange))] text-[hsl(var(--primary-foreground))]"
-      }`}
-    >
-      <div className="flex items-center gap-1.5">
-        <span className="text-xs font-semibold uppercase tracking-wider">
-          {label}
-        </span>
-        {help && (
-          <TooltipProvider delayDuration={100}>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button type="button" aria-label={`Vad betyder ${label}?`} className="opacity-70 hover:opacity-100">
-                  <Info className="w-3.5 h-3.5" />
-                </button>
-              </TooltipTrigger>
-              <TooltipContent side="top" className="max-w-xs text-xs leading-relaxed">
-                {help}
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+  showC?: boolean;
+}) => {
+  const cols = showC ? 3 : 2;
+  const gridCls = cols === 3
+    ? "grid grid-cols-1 sm:grid-cols-3"
+    : "grid grid-cols-1 sm:grid-cols-2";
+  return (
+    <div className="rounded border border-[hsl(var(--border))] overflow-hidden bg-[hsl(var(--card))]">
+      <div
+        className={`px-4 py-2.5 border-l-4 ${
+          warn
+            ? "bg-[hsl(var(--warning))] border-[hsl(var(--warning))] text-[hsl(var(--warning-foreground))]"
+            : "bg-[hsl(var(--card-dark))] border-[hsl(var(--cta-orange))] text-[hsl(var(--primary-foreground))]"
+        }`}
+      >
+        <div className="flex items-center gap-1.5">
+          <span className="text-xs font-semibold uppercase tracking-wider">
+            {label}
+          </span>
+          {help && (
+            <TooltipProvider delayDuration={100}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button type="button" aria-label={`Vad betyder ${label}?`} className="opacity-70 hover:opacity-100">
+                    <Info className="w-3.5 h-3.5" />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="top" className="max-w-xs text-xs leading-relaxed">
+                  {help}
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
+        </div>
+      </div>
+      <div className={gridCls}>
+        <div className="border-r border-[hsl(var(--border))]">
+          <Cell mobileLabel={aName || "Partner A"}>{a}</Cell>
+        </div>
+        <div className={showC ? "border-r border-[hsl(var(--border))]" : ""}>
+          <Cell mobileLabel={bName || "Partner B"}>{b}</Cell>
+        </div>
+        {showC && (
+          <div>
+            <Cell mobileLabel={cName || "Partner C"}>{c}</Cell>
+          </div>
         )}
       </div>
     </div>
-    <div className="grid grid-cols-1 sm:grid-cols-2">
-      <div className="border-r border-[hsl(var(--border))]">
-        <Cell mobileLabel={aName || "Partner A"}>{a}</Cell>
-      </div>
-      <div>
-        <Cell mobileLabel={bName || "Partner B"}>{b}</Cell>
-      </div>
-    </div>
-  </div>
-);
+  );
+};
 
 const renderValue = (v: string | null | undefined) =>
   v && v.trim() ? <span>{v}</span> : EMPTY;
@@ -566,6 +583,7 @@ const ComparePartners = () => {
   const [params, setParams] = useSearchParams();
   const aSlug = params.get("a") || "";
   const bSlug = params.get("b") || "";
+  const cSlug = params.get("c") || "";
   const [quoteFor, setQuoteFor] = useState<{ recipients: Array<{ slug: string; name: string }>; mode: "contact" | "demo" | "quote" } | null>(null);
   const [isSubmittingQuote, setIsSubmittingQuote] = useState(false);
 
@@ -578,8 +596,9 @@ const ComparePartners = () => {
 
   const a = partners.find((p) => p.slug === aSlug);
   const b = partners.find((p) => p.slug === bSlug);
+  const c = partners.find((p) => p.slug === cSlug);
 
-  const setSlot = (key: "a" | "b", slug: string) => {
+  const setSlot = (key: "a" | "b" | "c", slug: string) => {
     const next = new URLSearchParams(params);
     if (slug) next.set(key, slug);
     else next.delete(key);
@@ -863,9 +882,12 @@ const ComparePartners = () => {
 
   const A = get(a);
   const B = get(b);
+  const C = get(c);
   const hasBoth = !!a && !!b;
+  const hasC = !!c;
   const aName = a?.name;
   const bName = b?.name;
+  const cName = c?.name;
 
   // Filters drive partner picker — full standard taxonomy, not derived from selection
   const industryOptions = STANDARD_INDUSTRIES.map((i) => i.name).sort((x, y) =>
@@ -940,9 +962,13 @@ const ComparePartners = () => {
       next.delete("b");
       changed = true;
     }
+    if (c && !partnerMatchesFilters(c)) {
+      next.delete("c");
+      changed = true;
+    }
     if (changed) setParams(next, { replace: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [productFilterRaw, industryFilter, aSlug, bSlug]);
+  }, [productFilterRaw, industryFilter, aSlug, bSlug, cSlug]);
 
   useEffect(() => {
     const invalid = productFilters.filter((f) => !availableProductKeys.includes(f));
@@ -998,64 +1024,80 @@ const ComparePartners = () => {
 
   const AF = applyFilters(A);
   const BF = applyFilters(B);
+  const CF = applyFilters(C);
 
 
   const [showAllRows, setShowAllRows] = useState(false);
 
-  const R = (props: { label: string; a: React.ReactNode; b: React.ReactNode; warn?: boolean; help?: string }) => {
+  const R = (props: { label: string; a: React.ReactNode; b: React.ReactNode; c?: React.ReactNode; warn?: boolean; help?: string }) => {
     if (!showAllRows && !props.warn) {
       try {
         const sa = JSON.stringify(props.a);
         const sb = JSON.stringify(props.b);
-        if (sa && sa === sb) return null;
+        const sc = hasC ? JSON.stringify(props.c) : sa;
+        if (sa && sa === sb && sa === sc) return null;
       } catch {}
     }
-    return <Row {...props} aName={aName} bName={bName} />;
+    return <Row {...props} aName={aName} bName={bName} cName={cName} showC={hasC} />;
   };
 
-  // Heuristik: bygg 2-4 skillnadspunkter mellan A och B (utan AI-anrop)
+  // Heuristik: bygg 2-4 skillnadspunkter mellan valda partners (utan AI-anrop)
   const diffPoints = useMemo(() => {
     if (!hasBoth) return [] as string[];
     const points: string[] = [];
     const setDiff = (x: string[], y: string[]) => x.filter((v) => !y.includes(v));
 
-    const aOnlyInd = setDiff(A.industries, B.industries).slice(0, 3);
-    const bOnlyInd = setDiff(B.industries, A.industries).slice(0, 3);
-    if (aOnlyInd.length && bOnlyInd.length) {
-      points.push(`Branschtyngdpunkt skiljer sig: ${A.partner?.name} har fokus på ${aOnlyInd.join(", ")}, ${B.partner?.name} på ${bOnlyInd.join(", ")}.`);
-    } else if (aOnlyInd.length) {
-      points.push(`${A.partner?.name} täcker även ${aOnlyInd.join(", ")} som ${B.partner?.name} inte lyfter fram.`);
-    } else if (bOnlyInd.length) {
-      points.push(`${B.partner?.name} täcker även ${bOnlyInd.join(", ")} som ${A.partner?.name} inte lyfter fram.`);
-    }
+    const sides = [
+      { P: A, name: A.partner?.name || "Partner A" },
+      { P: B, name: B.partner?.name || "Partner B" },
+      ...(hasC ? [{ P: C, name: C.partner?.name || "Partner C" }] : []),
+    ];
 
-    const aOnlyApps = setDiff(A.apps, B.apps);
-    const bOnlyApps = setDiff(B.apps, A.apps);
-    if (aOnlyApps.length || bOnlyApps.length) {
-      const parts: string[] = [];
-      if (aOnlyApps.length) parts.push(`${A.partner?.name} levererar även ${aOnlyApps.slice(0, 3).join(", ")}`);
-      if (bOnlyApps.length) parts.push(`${B.partner?.name} levererar även ${bOnlyApps.slice(0, 3).join(", ")}`);
-      points.push(`Produktbredd: ${parts.join("; ")}.`);
-    }
-
-    const aOnlyGeo = setDiff(A.geography, B.geography);
-    const bOnlyGeo = setDiff(B.geography, A.geography);
-    if (aOnlyGeo.length || bOnlyGeo.length) {
+    // Branschtyngdpunkt – lyft fram unika branscher per partner
+    const allInd = Array.from(new Set(sides.flatMap((s) => s.P.industries)));
+    const uniquePer = sides.map((s) => ({
+      name: s.name,
+      only: s.P.industries.filter((i) => sides.every((o) => o === s || !o.P.industries.includes(i))).slice(0, 3),
+    })).filter((u) => u.only.length > 0);
+    if (uniquePer.length > 0) {
       points.push(
-        `Geografisk täckning: ${A.partner?.name} ${A.geography.join(", ") || "—"} vs ${B.partner?.name} ${B.geography.join(", ") || "—"}.`
+        `Branschtyngdpunkt skiljer sig: ` +
+          uniquePer.map((u) => `${u.name} har fokus på ${u.only.join(", ")}`).join("; ") + "."
       );
     }
 
-    if (A.teamSize && B.teamSize && A.teamSize !== B.teamSize) {
-      points.push(`Teamstorlek i Sverige: ${A.partner?.name} ${A.teamSize}, ${B.partner?.name} ${B.teamSize}.`);
+    // Produktbredd – unika appar per partner
+    const uniqueApps = sides.map((s) => ({
+      name: s.name,
+      only: s.P.apps.filter((a) => sides.every((o) => o === s || !o.P.apps.includes(a))).slice(0, 3),
+    })).filter((u) => u.only.length > 0);
+    if (uniqueApps.length > 0) {
+      points.push(
+        `Produktbredd: ` + uniqueApps.map((u) => `${u.name} levererar även ${u.only.join(", ")}`).join("; ") + "."
+      );
     }
 
-    if (A.positioning && B.positioning && A.positioning !== B.positioning) {
+    // Geografi
+    const geoTexts = sides.map((s) => `${s.name} ${s.P.geography.join(", ") || "—"}`);
+    const distinctGeo = new Set(sides.map((s) => s.P.geography.join(","))).size > 1;
+    if (distinctGeo) {
+      points.push(`Geografisk täckning: ${geoTexts.join(" vs ")}.`);
+    }
+
+    // Teamstorlek
+    const teams = sides.filter((s) => s.P.teamSize);
+    if (teams.length >= 2 && new Set(teams.map((t) => t.P.teamSize)).size > 1) {
+      points.push(`Teamstorlek i Sverige: ${teams.map((t) => `${t.name} ${t.P.teamSize}`).join(", ")}.`);
+    }
+
+    // Positionering
+    const positionings = sides.map((s) => s.P.positioning).filter(Boolean);
+    if (positionings.length >= 2 && new Set(positionings).size > 1) {
       points.push(`Positionering skiljer sig — se "Vi är valet när…" för respektive partner.`);
     }
 
-    return points.slice(0, 5);
-  }, [hasBoth, A, B]);
+    return points.slice(0, 6);
+  }, [hasBoth, hasC, A, B, C]);
 
 
   return (
@@ -1209,10 +1251,10 @@ const ComparePartners = () => {
                   )}
                 </div>
 
-                {/* Step 2 — Pick two partners (filtered by step 1) */}
+                {/* Step 3 — Pick 2-3 partners (filtered by step 1) */}
                 <div className="mb-2">
                   <p className="text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] ml-1">
-                    3. Välj två partners att jämföra
+                    3. Välj 2–3 partners att jämföra
                   </p>
                   <p className="text-[11px] text-[hsl(var(--muted-foreground)/0.8)] ml-1 mt-0.5">
                     {productActive || industryFilter
@@ -1220,7 +1262,7 @@ const ComparePartners = () => {
                       : "Visar alla publicerade partners — välj produkt och bransch ovan för att smalna av"}
                   </p>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-[1fr_80px_1fr] gap-3 mb-6">
+                <div className={`grid grid-cols-1 ${hasBoth ? "md:grid-cols-3" : "md:grid-cols-[1fr_80px_1fr]"} gap-3 mb-3`}>
                   <PartnerColumnHeader
                     label="Partner A"
                     partner={a}
@@ -1231,20 +1273,22 @@ const ComparePartners = () => {
                     onRequestQuote={a ? () => setQuoteFor({ recipients: [{ slug: a.slug, name: a.name }], mode: "quote" }) : undefined}
                     quoteSubmitting={isSubmittingQuote}
                   />
-                  <div className="flex items-center justify-center md:pt-10">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={swap}
-                      disabled={!hasBoth}
-                      className="h-auto w-full min-h-[3rem] flex-col gap-1 px-2 py-2"
-                      title="Byt plats"
-                    >
-                      <ArrowLeftRight className="w-4 h-4" />
-                      <span className="text-xs leading-tight">Byt plats</span>
-                    </Button>
-                  </div>
+                  {!hasBoth && (
+                    <div className="flex items-center justify-center md:pt-10">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={swap}
+                        disabled={!hasBoth}
+                        className="h-auto w-full min-h-[3rem] flex-col gap-1 px-2 py-2"
+                        title="Byt plats"
+                      >
+                        <ArrowLeftRight className="w-4 h-4" />
+                        <span className="text-xs leading-tight">Byt plats</span>
+                      </Button>
+                    </div>
+                  )}
                   <PartnerColumnHeader
                     label="Partner B"
                     partner={b}
@@ -1255,7 +1299,24 @@ const ComparePartners = () => {
                     onRequestQuote={b ? () => setQuoteFor({ recipients: [{ slug: b.slug, name: b.name }], mode: "quote" }) : undefined}
                     quoteSubmitting={isSubmittingQuote}
                   />
+                  {hasBoth && (
+                    <PartnerColumnHeader
+                      label="Partner C (valfri)"
+                      partner={c}
+                      partners={eligiblePartners}
+                      slug={cSlug}
+                      onChange={(s) => setSlot("c", s)}
+                      onClear={() => setSlot("c", "")}
+                      onRequestQuote={c ? () => setQuoteFor({ recipients: [{ slug: c.slug, name: c.name }], mode: "quote" }) : undefined}
+                      quoteSubmitting={isSubmittingQuote}
+                    />
+                  )}
                 </div>
+                {hasBoth && !hasC && eligiblePartners.length > 2 && (
+                  <p className="text-[11px] text-[hsl(var(--muted-foreground))] ml-1 mb-4">
+                    Tips: lägg till en tredje partner ovan för trevägsjämförelse.
+                  </p>
+                )}
 
                 {eligiblePartners.length === 0 && (productActive || industryFilter) && (
                   <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-sm text-slate-600 mb-6">
@@ -1318,15 +1379,18 @@ const ComparePartners = () => {
                         label="Vi är valet när…"
                         a={renderPositioningCell(A.positioning)}
                         b={renderPositioningCell(B.positioning)}
+                        c={renderPositioningCell(C.positioning)}
                       />
 
                       {(() => {
                         const aDescs = getProductDescriptions(a, AF.apps);
                         const bDescs = getProductDescriptions(b, BF.apps);
+                        const cDescs = getProductDescriptions(c, CF.apps);
                         const keys = Array.from(
                           new Set<ProductFilterKey>([
                             ...aDescs.map((d) => d.key),
                             ...bDescs.map((d) => d.key),
+                            ...cDescs.map((d) => d.key),
                           ])
                         ).sort((x, y) =>
                           PRODUCT_FILTER_GROUP[x].label.localeCompare(
@@ -1337,12 +1401,14 @@ const ComparePartners = () => {
                         return keys.map((key) => {
                           const descA = aDescs.find((d) => d.key === key);
                           const descB = bDescs.find((d) => d.key === key);
+                          const descC = cDescs.find((d) => d.key === key);
                           return (
                             <R
                               key={key}
                               label={PRODUCT_FILTER_KEY_LABEL[key] || key}
                               a={descA ? renderProductDescCell(descA.text) : EMPTY}
                               b={descB ? renderProductDescCell(descB.text) : EMPTY}
+                              c={descC ? renderProductDescCell(descC.text) : EMPTY}
                             />
                           );
                         });
@@ -1353,11 +1419,13 @@ const ComparePartners = () => {
                         help="Alla Dynamics 365-applikationer partnern arbetar med. ERP-appar listas först, därefter CE/CRM — båda i bokstavsordning."
                         a={renderAppList(AF.apps)}
                         b={renderAppList(BF.apps)}
+                        c={renderAppList(CF.apps)}
                       />
                       <R
                         label="Fokusbranscher"
                         a={renderIndustryList(AF.industries)}
                         b={renderIndustryList(BF.industries)}
+                        c={renderIndustryList(CF.industries)}
                       />
 
                       {(() => {
@@ -1365,6 +1433,7 @@ const ComparePartners = () => {
                           new Set([
                             ...AF.industryPitches.map((ip) => ip.industry),
                             ...BF.industryPitches.map((ip) => ip.industry),
+                            ...CF.industryPitches.map((ip) => ip.industry),
                           ])
                         ).sort((x, y) => x.localeCompare(y, "sv"));
                         return keys.map((industry) => (
@@ -1377,17 +1446,18 @@ const ComparePartners = () => {
                             b={renderPitchCell(
                               BF.industryPitches.filter((ip) => ip.industry === industry)
                             )}
+                            c={renderPitchCell(
+                              CF.industryPitches.filter((ip) => ip.industry === industry)
+                            )}
                           />
                         ));
                       })()}
 
-                      <R
-                        label="Branschapplikationer"
-                        help="Branschlösningar / vertikala tillägg som partnern erbjuder ovanpå Dynamics 365."
-                        a={
-                          AF.industryApps.length > 0 ? (
+                      {(() => {
+                        const renderIA = (list: typeof AF.industryApps) =>
+                          list.length > 0 ? (
                             <ul className="space-y-1.5">
-                              {AF.industryApps.map((ia, i) => (
+                              {list.map((ia, i) => (
                                 <li key={i} className="text-sm">
                                   <span className="font-medium">{ia.name}</span>
                                   {(ia.application || ia.industry) && (
@@ -1401,28 +1471,17 @@ const ComparePartners = () => {
                             </ul>
                           ) : (
                             EMPTY
-                          )
-                        }
-                        b={
-                          BF.industryApps.length > 0 ? (
-                            <ul className="space-y-1.5">
-                              {BF.industryApps.map((ia, i) => (
-                                <li key={i} className="text-sm">
-                                  <span className="font-medium">{ia.name}</span>
-                                  {(ia.application || ia.industry) && (
-                                    <span className="text-slate-500">
-                                      {" — "}
-                                      {[ia.application, ia.industry].filter(Boolean).join(" · ")}
-                                    </span>
-                                  )}
-                                </li>
-                              ))}
-                            </ul>
-                          ) : (
-                            EMPTY
-                          )
-                        }
-                      />
+                          );
+                        return (
+                          <R
+                            label="Branschapplikationer"
+                            help="Branschlösningar / vertikala tillägg som partnern erbjuder ovanpå Dynamics 365."
+                            a={renderIA(AF.industryApps)}
+                            b={renderIA(BF.industryApps)}
+                            c={renderIA(CF.industryApps)}
+                          />
+                        );
+                      })()}
                     </section>
 
 
@@ -1434,6 +1493,7 @@ const ComparePartners = () => {
                         help={TEAM_SIZE_HELP}
                         a={renderValue(A.teamSize)}
                         b={renderValue(B.teamSize)}
+                        c={renderValue(C.teamSize)}
                       />
                       <R
                         label="Genomförda implementationer"
@@ -1448,6 +1508,11 @@ const ComparePartners = () => {
                             ? renderList(B.implementationsPerApp.map((i) => `${i.app}: ${i.count}`))
                             : renderValue(B.implementations)
                         }
+                        c={
+                          C.implementationsPerApp.length > 0
+                            ? renderList(C.implementationsPerApp.map((i) => `${i.app}: ${i.count}`))
+                            : renderValue(C.implementations)
+                        }
                       />
                       {(() => {
                         const keysToShow: ProductFilterKey[] =
@@ -1457,13 +1522,15 @@ const ComparePartners = () => {
                                 new Set([
                                   ...getProductFilterKeysForApps(A.apps),
                                   ...getProductFilterKeysForApps(B.apps),
+                                  ...getProductFilterKeysForApps(C.apps),
                                 ]),
                               ) as ProductFilterKey[]);
                         const rows: JSX.Element[] = [];
                         keysToShow.forEach((key) => {
                           const mA = getProductMetrics(A.partner, key);
                           const mB = getProductMetrics(B.partner, key);
-                          if (!mA.length && !mA.cost && !mB.length && !mB.cost) return;
+                          const mC = getProductMetrics(C.partner, key);
+                          if (!mA.length && !mA.cost && !mB.length && !mB.cost && !mC.length && !mC.cost) return;
                           const label = PRODUCT_KEY_LABEL[key] || key;
                           rows.push(
                             <R
@@ -1472,6 +1539,7 @@ const ComparePartners = () => {
                               help="Partnerns egna spann för typisk implementationstid, i veckor från projektstart till driftsättning. Verklig längd beror på scope, datakvalitet och organisationens beslutskraft."
                               a={renderValue(mA.length)}
                               b={renderValue(mB.length)}
+                              c={renderValue(mC.length)}
                             />,
                           );
                           rows.push(
@@ -1481,6 +1549,7 @@ const ComparePartners = () => {
                               help="Partnerns egna kostnadsband för typisk implementation (exkl. licenser). Slutpriset beror på scope, integrationer, datamigrering och förändringsledning."
                               a={renderValue(mA.cost)}
                               b={renderValue(mB.cost)}
+                              c={renderValue(mC.cost)}
                             />,
                           );
                         });
@@ -1490,12 +1559,14 @@ const ComparePartners = () => {
                         label="Kontor (städer)"
                         a={renderList(A.offices)}
                         b={renderList(B.offices)}
+                        c={renderList(C.offices)}
                       />
                       <R
                         label="Geografi"
                         help="Områden där partnern levererar projekt."
                         a={renderList(A.geography)}
                         b={renderList(B.geography)}
+                        c={renderList(C.geography)}
                       />
                     </section>
 
@@ -1507,96 +1578,87 @@ const ComparePartners = () => {
                         help="Partnerns samlade AI- och automationsprofil: leveransmodell, förmågor, relevanta områden, use cases, erfarenhet och underlag. Bygger på partnerns egna uppgifter."
                         a={renderAiProfile(((A.partner as any)?.ai_profile) as AiProfile | null)}
                         b={renderAiProfile(((B.partner as any)?.ai_profile) as AiProfile | null)}
+                        c={renderAiProfile(((C.partner as any)?.ai_profile) as AiProfile | null)}
                       />
                     </section>
 
                     {/* Kontakta valda partners */}
                     <section className="space-y-3">
                       <SectionTitle icon={Mail} title="Kontakta valda partners" />
-                      {A.partner && B.partner ? (
-                        <div className="rounded-xl border border-slate-200 bg-white p-5">
-                          <p className="text-sm text-slate-700 mb-1">
-                            Skicka samma förfrågan till <span className="font-semibold">{A.partner.name}</span> och <span className="font-semibold">{B.partner.name}</span> — du får jämförbara svar.
-                          </p>
-                          <p className="text-xs text-slate-500 mb-4">
-                            Varje partner kontaktas separat och ser bara sin egen förfrågan — aldrig samma tråd.
-                          </p>
-                          <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2">
-                            Hur vill du gå vidare?
-                          </p>
-                          <div className="flex flex-col gap-2">
-                            <Button
-                              type="button"
-                              onClick={() =>
-                                setQuoteFor({
-                                  recipients: [
-                                    { slug: A.partner!.slug, name: A.partner!.name },
-                                    { slug: B.partner!.slug, name: B.partner!.name },
-                                  ],
-                                  mode: "contact",
-                                })
-                              }
-                              disabled={isSubmittingQuote}
-                              className="w-full min-h-[52px] bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 font-semibold"
-                            >
-                              Ställ en första fråga till båda
-                            </Button>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                              <Button
-                                type="button"
-                                variant="outline"
-                                onClick={() =>
-                                  setQuoteFor({
-                                    recipients: [
-                                      { slug: A.partner!.slug, name: A.partner!.name },
-                                      { slug: B.partner!.slug, name: B.partner!.name },
-                                    ],
-                                    mode: "demo",
-                                  })
-                                }
-                                disabled={isSubmittingQuote}
-                                className="w-full min-h-[52px]"
-                              >
-                                Boka genomgång eller demo
-                              </Button>
-                              <Button
-                                type="button"
-                                variant="outline"
-                                onClick={() =>
-                                  setQuoteFor({
-                                    recipients: [
-                                      { slug: A.partner!.slug, name: A.partner!.name },
-                                      { slug: B.partner!.slug, name: B.partner!.name },
-                                    ],
-                                    mode: "quote",
-                                  })
-                                }
-                                disabled={isSubmittingQuote}
-                                className="w-full min-h-[52px]"
-                              >
-                                Få en uppskattning av tid och kostnad
-                              </Button>
+                      {(() => {
+                        const selected = [A, B, C].filter((s) => s.partner);
+                        const recipients = selected.map((s) => ({ slug: s.partner!.slug, name: s.partner!.name }));
+                        if (selected.length >= 2) {
+                          const names = selected.map((s) => s.partner!.name);
+                          const joined =
+                            names.length === 2
+                              ? `${names[0]} och ${names[1]}`
+                              : `${names.slice(0, -1).join(", ")} och ${names[names.length - 1]}`;
+                          const groupLabel =
+                            selected.length === 3 ? "Ställ en första fråga till alla tre" : "Ställ en första fråga till båda";
+                          return (
+                            <div className="rounded-xl border border-slate-200 bg-white p-5">
+                              <p className="text-sm text-slate-700 mb-1">
+                                Skicka samma förfrågan till <span className="font-semibold">{joined}</span> — du får jämförbara svar.
+                              </p>
+                              <p className="text-xs text-slate-500 mb-4">
+                                Varje partner kontaktas separat och ser bara sin egen förfrågan — aldrig samma tråd.
+                              </p>
+                              <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2">
+                                Hur vill du gå vidare?
+                              </p>
+                              <div className="flex flex-col gap-2">
+                                <Button
+                                  type="button"
+                                  onClick={() => setQuoteFor({ recipients, mode: "contact" })}
+                                  disabled={isSubmittingQuote}
+                                  className="w-full min-h-[52px] bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 font-semibold"
+                                >
+                                  {groupLabel}
+                                </Button>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                  <Button
+                                    type="button"
+                                    variant="outline"
+                                    onClick={() => setQuoteFor({ recipients, mode: "demo" })}
+                                    disabled={isSubmittingQuote}
+                                    className="w-full min-h-[52px]"
+                                  >
+                                    Boka genomgång eller demo
+                                  </Button>
+                                  <Button
+                                    type="button"
+                                    variant="outline"
+                                    onClick={() => setQuoteFor({ recipients, mode: "quote" })}
+                                    disabled={isSubmittingQuote}
+                                    className="w-full min-h-[52px]"
+                                  >
+                                    Få en uppskattning av tid och kostnad
+                                  </Button>
+                                </div>
+                              </div>
+                              <p className="text-xs text-slate-500 mt-3">
+                                Kostnadsfritt. d365.se säljer inte implementationer — förfrågan går direkt till respektive partner med kopia till dig och d365.se.
+                              </p>
                             </div>
+                          );
+                        }
+                        return (
+                          <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-5 text-sm text-slate-600">
+                            Välj minst två partners ovan för att kunna skicka samma förfrågan till alla och få jämförbara svar.
                           </div>
-                          <p className="text-xs text-slate-500 mt-3">
-                            Kostnadsfritt. d365.se säljer inte implementationer — förfrågan går direkt till respektive partner med kopia till dig och d365.se.
-                          </p>
-                        </div>
-                      ) : (
-                        <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-5 text-sm text-slate-600">
-                          Välj två partners ovan för att kunna skicka samma förfrågan till båda och få jämförbara svar.
-                        </div>
-                      )}
+                        );
+                      })()}
 
                       {/* Kontakta enskilt */}
-                      {(A.partner || B.partner) && (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-stretch">
-                          {[A, B].map((side, idx) =>
+                      {(A.partner || B.partner || C.partner) && (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 items-stretch">
+                          {[A, B, C].map((side, idx) =>
                             side.partner ? (
                               <div key={idx} className="rounded-lg border border-slate-200 bg-white p-4 flex flex-col justify-between">
                                 <div>
                                   <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
-                                    Endast {idx === 0 ? "Partner A" : "Partner B"}
+                                    Endast Partner {["A", "B", "C"][idx]}
                                   </div>
                                   <div className="text-sm font-medium text-foreground mb-3 truncate">
                                     {side.partner.name}
@@ -1655,6 +1717,7 @@ const ComparePartners = () => {
                         </div>
                       )}
                     </section>
+
 
                     <p className="text-xs text-slate-500 text-center pt-4">
                       Innehåll i beslutsprofilen är skrivet av partnern själv. d365.se redigerar inte.
