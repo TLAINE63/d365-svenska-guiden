@@ -1,90 +1,54 @@
+## Mål
+Göra partnerval och jämförelse mer beslutsstödjande genom att (1) styra upp filterflödet med obligatoriskt produktområde, (2) förenkla partnerkorten till beslutsrelevant info och (3) bygga om jämförelsesidan så att AI-sammanfattning + skillnader syns först.
 
-# Köparsidig CTA-arkitektur för d365.se
+## 1. Filterflöde på `/valjdynamics365partner/`
+- Gör **Produktområde obligatoriskt**: dölj partnerlistan och visa en tydlig prompt tills användaren valt ett av: Business Central, Finance & Supply Chain, Sales/CRM, Customer Service, Customer Insights, Field Service, Contact Center.
+- Bransch = valfritt men markerad som *rekommenderat* (badge "Rekommenderat" på filterknappen).
+- Behåll geografi + storlek som valfria.
+- Höj max antal jämförbara partners från 2 → **3** (`PartnerCompareContext`, `PartnerCompareBar`, kort-labels "välj upp till 3").
 
-Målet: göra CTA:erna mer köparsidiga, minska knappbrus i listor, och lyfta jämförelse-/underlagsflödet som d365.se:s signaturupplevelse.
+## 2. Partnerkort (`PartnerCard.tsx`)
+Sätt beslutsstöd först. Visa i denna ordning:
+- Logo + Namn
+- Produktområde-badge (det valda) + matchningsgrad om finns
+- Primära branscher (max 3 chips)
+- Geografisk närvaro (kort form)
+- **AI-sammanfattning 1–2 meningar** ("Passar bäst för …") – använd befintlig `positioning_statement` / `ai_profile.summary`; fallback till kort autogenererad mening från industries+product.
+- CTA: **Jämför** (toggle) + **Kontakta**
 
-## 1. Terminologi (globalt)
+Ta bort/flytta ner: långa beskrivningar, kompetenslistor, storleksbadges (visas endast i "fullständig jämförelse" / profil).
 
-Ny standardnomenklatur (används i alla dialoger, knappar och e-post):
+## 3. Jämförelsesida `/jamfor-partners/`
+Ny struktur, top-down:
 
-| Nu | Ny text | Signal |
-|---|---|---|
-| Få kontakt | **Ställ en fråga** | Låg tröskel |
-| Boka demo | **Boka genomgång eller demo** | Medel |
-| Begär offert | **Begär offertindikering** | Hög intent |
+**A. AI-sammanfattning** – ny sektion överst
+- Rubrik: *"Vad skiljer partnerna åt?"*
+- 2–4 meningar genererade via ny edge-funktion `compare-partners-summary` (Lovable AI Gateway, `google/gemini-3-flash-preview`). Input: valda partners { namn, positioning, industries, applications, ai_profile, geografi }. Output: kort text.
+- Cache i `sessionStorage` per set av partner-slugs för att spara credits.
 
-Underrad under primär CTA (trygghetstext):
-> Kostnadsfritt. Du väljer själv vilka partners som kontaktas. Varje partner kontaktas separat — aldrig i samma tråd.
+**B. Viktigaste skillnaderna** (standardvy)
+Attribut som jämförs:
+- Branschspecialisering
+- AI-kompetens (från `ai_profile`)
+- Geografisk täckning
+- Produktbredd (antal D365-appar)
+- Implementationsmodell / storleksfokus
+- Certifieringar / specialiseringar
 
-## 2. CTA per kontext
+Regel: dölj rader där alla valda partners har samma värde. Om alla rader är lika: visa "Partnerna är mycket lika på nyckelattributen – se fullständig jämförelse".
 
-| Situation | Primär CTA | Sekundärt |
-|---|---|---|
-| **Partnerprofil** | Ställ en fråga till [Partner] | Boka genomgång · Begär offertindikering |
-| **Jämförelsevy** (`/jamfor-partners`) | Kontakta valda partners | Väljer syfte i steg 2 |
-| **Bransch-/filterlista** (`/branscher/...`, `/valjdynamics365partner`) | Sticky: Gå vidare med valda partners (0–3) | Kryssruta på kort ersätter tre knappar |
-| **Efter behovsanalys / kravspec** | Skicka mitt underlag till valda partners | Väljer syfte |
-| **Inga träffar** | Få hjälp att hitta rätt partner | Går till d365.se, ej partner |
-| **Guide/artikel** | Hitta partners för detta område | Länk till filter |
-
-## 3. Frågeflöden per syfte
-
-**A. Ställ en fråga** (kort):
-Namn · Företag · E-post · Telefon (frivilligt) · Din fråga · Produkt (autofyllt) · Bransch (autofyllt)
-
-**B. Boka genomgång/demo**:
-Vad vill ni se/diskutera · Lösning · Nuvarande system · Antal användare · Bransch · Tidshorisont (0–3/3–6/6–12/senare) · Föredragna tider · Demo/behovsdialog/båda
-
-**C. Offertindikering**:
-Vad vill ni få uppskattat (impl./licenser/förstudie/förvaltning) · Nuvarande system · Antal användare · Bolag/länder · Viktiga processer · Integrationer · Datamigrering · Önskad start · Önskad go-live · Kravspec finns? · Budget (frivilligt) · Fastpris/budgetpris/uppskattning
-
-## 4. Sticky-listflöde (nytt)
-
-På `IndustryPage` och `ValjPartner`:
-- Ersätt "Få kontakt"-knappen på varje `PartnerCard` med en **kryssruta "Välj för kontakt"**.
-- Behåll befintlig "Jämför"-kryssruta.
-- Ny sticky bar längst ned när ≥1 partner vald för kontakt:
-  ```
-  [2 partners valda]   Gå vidare med valda partners →
-  ```
-- Klick → dialog "Hur vill du gå vidare?" med tre syfteskort → återanvänd `PartnerRequestDialog` parallellt (finns redan).
-
-## 5. Underlagsflöde (nytt, signaturupplevelse)
-
-Efter Behovsanalys / Kravspec / ROI:
-- Ny CTA-kort: **"Skicka mitt underlag till 1–3 relevanta partners"**
-- Väljer syfte (fråga/genomgång/offertindikering)
-- Underlaget (PDF eller sammanfattning) bifogas som länk i e-post till partner via `send-transactional-email`
-
-## 6. E-post till partner
-
-Ämnesrad:
-`d365.se: [CTA-typ] från [Företag] – [Produkt] – [Bransch]`
-
-Innehåll: kund, syfte, produkt, bransch, storlek, tidshorisont, meddelande, ev. länk till underlag. Fotnot:
-> Kunden har själv valt att kontakta er via d365.se efter filtrering/jämförelse. Svara direkt till kunden — d365.se är kopierad för uppföljning.
+**C. Knapp "Visa fullständig jämförelse"**
+Togglar fram nuvarande fullständiga tabell (alla attribut, även identiska).
 
 ## Tekniska detaljer
+- `src/pages/ValjPartner.tsx`: gate på produktval, uppdatera copy.
+- `src/contexts/PartnerCompareContext.tsx`: `MAX = 3`.
+- `src/components/PartnerCompareBar.tsx`: uppdatera texter.
+- `src/components/PartnerCard.tsx`: ny kompakt beslutslayout (bakåtkompatibel via prop `variant="decision"` default true på partnerlistor).
+- `src/pages/ComparePartners.tsx`: ny struktur med AI-summary + diff-first + toggle.
+- Ny edge-funktion `supabase/functions/compare-partners-summary/index.ts` (CORS whitelist, input zod-validering, streaming ej nödvändigt).
+- Hjälpfunktion `src/lib/partnerDiff.ts` som beräknar attributdiff.
 
-**Filer som ändras:**
-- `PartnerRequestDialog.tsx` — byt knapptexter, bekräftelsetexter, lägg till trygghetstext
-- `PartnerProfile.tsx` + `PartnerProductTabs.tsx` — primär/sekundär-hierarki (en primär, två outline)
-- `ComparePartners.tsx` — byt "Ta nästa steg"-sektion till en **"Kontakta valda partners"**-knapp som öppnar syftesväljare (parallell submit finns redan i dialog)
-- `PartnerCard.tsx` — ersätt "Få kontakt"-knapp med kryssruta "Välj för kontakt"
-- Nytt: `ContactSelectionContext.tsx` + `ContactSelectionBar.tsx` (sticky) — mönster likt `PartnerCompareContext`
-- Nytt: `PurposePickerDialog.tsx` — tre kort (fråga / genomgång / offertindikering)
-- `IndustryPage.tsx`, `ValjPartner.tsx` — publicera filter till nya kontexten
-- E-post: uppdatera `send-transactional-email`-template med ny ämnesrad + fotnot
-- Behovsanalys/Kravspec/ROI-sidor — lägg till "Skicka mitt underlag"-CTA (fas 2)
-
-**Publicerings-ordning (rekommenderad fasning):**
-1. **Fas 1 (nu):** Ny terminologi + trygghetstext + hierarki på profil + "Kontakta valda partners" i jämförelse
-2. **Fas 2:** Sticky-listflöde med kryssruta på kort
-3. **Fas 3:** "Skicka mitt underlag"-flöde
-4. **Fas 4:** E-postmallen (ämnesrad + fotnot)
-
-## Frågor innan jag börjar
-
-1. Ska jag köra **hela Fas 1–4** i ett svep, eller bara **Fas 1** nu och stämma av innan resten?
-2. På partnerprofilen: vill du ha **en primär + två sekundära** knappar (min rekommendation), eller behålla tre likvärdiga?
-3. Ska "Skicka mitt underlag" (Fas 3) skicka **PDF som bilaga-länk** (Storage signed URL) eller bara en **textsammanfattning** i mailet?
+## Ur scope
+- Ingen ändring av admin-vy, PDF-export eller ranking-algoritm.
+- Inga schema-ändringar (använder befintliga fält).
