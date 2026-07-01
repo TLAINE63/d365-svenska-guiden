@@ -85,7 +85,7 @@ type FieldErrors = Partial<Record<
 const PHONE_REGEX = /^[+0-9\s\-()./]{6,20}$/;
 const MAX_DETAIL = 600;
 
-const validateForm = (form: FormState): FieldErrors => {
+const validateForm = (form: FormState, mode: "contact" | "demo" | "quote"): FieldErrors => {
   const errors: FieldErrors = {};
 
   if (!form.company_name.trim()) {
@@ -119,7 +119,52 @@ const validateForm = (form: FormState): FieldErrors => {
     errors.message = "Max 1000 tecken.";
   }
 
+  if (mode === "quote") {
+    if (!form.quote_users.trim()) {
+      errors.quote_users = "Ange ungefärligt antal användare.";
+    } else if (form.quote_users.length > 60) {
+      errors.quote_users = "Max 60 tecken.";
+    }
+    if (!form.quote_features.trim()) {
+      errors.quote_features = "Beskriv kort viktigaste funktionerna eller behovet.";
+    } else if (form.quote_features.length > MAX_DETAIL) {
+      errors.quote_features = `Max ${MAX_DETAIL} tecken.`;
+    }
+  }
+
+  if (mode === "demo") {
+    if (!form.demo_audience.trim()) {
+      errors.demo_audience = "Ange för vem/vilka roller demon är.";
+    } else if (form.demo_audience.length > 200) {
+      errors.demo_audience = "Max 200 tecken.";
+    }
+    if (!form.demo_features.trim()) {
+      errors.demo_features = "Ange vilka funktioner ni vill se.";
+    } else if (form.demo_features.length > MAX_DETAIL) {
+      errors.demo_features = `Max ${MAX_DETAIL} tecken.`;
+    }
+    if (!form.demo_timing.trim()) {
+      errors.demo_timing = "Ange ungefärlig tidshorisont.";
+    } else if (form.demo_timing.length > 100) {
+      errors.demo_timing = "Max 100 tecken.";
+    }
+  }
+
   return errors;
+};
+
+const EMPTY_FORM: FormState = {
+  company_name: "",
+  contact_name: "",
+  email: "",
+  phone: "",
+  message: "",
+  quote_users: "",
+  quote_features: "",
+  demo_audience: "",
+  demo_features: "",
+  demo_timing: "",
+  _hp: "",
 };
 
 const PartnerRequestDialog = ({
