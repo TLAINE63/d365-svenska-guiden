@@ -17,6 +17,9 @@ interface PartnerRequestDialogProps {
   partnerName: string;
   selectedProduct?: string;
   industry?: string;
+  geography?: string;
+  companySize?: string;
+  revenue?: string;
   onSubmitting?: (submitting: boolean) => void;
   mode?: "contact" | "demo" | "quote";
   /** When set with 2+ entries, sends the same lead to every recipient (multi-mode). */
