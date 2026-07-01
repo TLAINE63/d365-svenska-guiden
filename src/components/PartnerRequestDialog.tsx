@@ -235,6 +235,17 @@ const PartnerRequestDialog = ({
         ? recipients!
         : [{ slug: partnerSlug, name: partnerName }];
 
+      const detailLines: string[] = [];
+      if (mode === "quote") {
+        if (form.quote_users.trim()) detailLines.push(`Antal användare: ${form.quote_users.trim()}`);
+        if (form.quote_features.trim()) detailLines.push(`Viktigaste funktioner/behov:\n${form.quote_features.trim()}`);
+      }
+      if (mode === "demo") {
+        if (form.demo_audience.trim()) detailLines.push(`Målgrupp/roller: ${form.demo_audience.trim()}`);
+        if (form.demo_features.trim()) detailLines.push(`Fokus i demon:\n${form.demo_features.trim()}`);
+        if (form.demo_timing.trim()) detailLines.push(`Tidshorisont: ${form.demo_timing.trim()}`);
+      }
+
       const composedMessage = [
         config.messagePrefix(displayName),
         multi ? `Förfrågan skickas till: ${targets.map((t) => t.name).join(", ")}.` : "",
@@ -243,6 +254,7 @@ const PartnerRequestDialog = ({
         geography ? `Geografi: ${geography}.` : "",
         companySize ? `Företagsstorlek: ${companySize} anställda.` : "",
         revenue ? `Omsättning: ${revenue}.` : "",
+        detailLines.length ? `\n${detailLines.join("\n")}` : "",
         form.message.trim() ? `\nMeddelande:\n${form.message.trim()}` : "",
       ].filter(Boolean).join(" ");
 
