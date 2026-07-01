@@ -879,18 +879,9 @@ const ComparePartners = () => {
   const bName = b?.name;
   const cName = c?.name;
 
-  // Filters drive partner picker — full standard taxonomy, not derived from selection
-  const industryOptions = STANDARD_INDUSTRIES.map((i) => i.name).sort((x, y) =>
-    x.localeCompare(y, "sv"),
-  );
   const availableProductKeys = (Object.keys(PRODUCT_FILTER_GROUP) as ProductFilterKey[]).sort(
     (x, y) => PRODUCT_FILTER_GROUP[x].label.localeCompare(PRODUCT_FILTER_GROUP[y].label, "sv"),
   );
-
-  const productOptions = availableProductKeys.map((key) => ({
-    key,
-    label: PRODUCT_FILTER_GROUP[key].label,
-  }));
 
   // Eligibility for picker: partner must deliver any selected product AND cover selected industry
   const partnerIndustriesFor = (p: DatabasePartner): string[] => {
