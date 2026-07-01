@@ -38,7 +38,33 @@ const AccordionTrigger = lazy(() => import("@/components/ui/accordion").then(m =
 const ContactFormDialog = lazy(() => import("@/components/ContactFormDialog"));
 const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
 const EbookBanner = lazy(() => import("@/components/EbookBanner"));
-const YouTubeLite = lazy(() => import("@/components/YouTubeLite"));
+
+const VideoComingSoon = () => (
+  <figure className="space-y-1.5">
+    <div
+      role="img"
+      aria-label="Video kommer inom kort"
+      className="aspect-video w-full rounded-md border border-dashed border-border bg-muted/40 flex flex-col items-center justify-center text-center px-4"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="w-8 h-8 text-muted-foreground/60 mb-2"
+        aria-hidden="true"
+      >
+        <rect x="2" y="6" width="14" height="12" rx="2" />
+        <path d="m22 8-6 4 6 4V8Z" />
+      </svg>
+      <span className="text-sm font-medium text-muted-foreground">Video kommer inom kort</span>
+    </div>
+  </figure>
+);
+
 
 import LatestArticlesStrip from "@/components/LatestArticlesStrip";
 import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
