@@ -1419,9 +1419,60 @@ const ComparePartners = () => {
                       />
                     </section>
 
-
-
-
+                    {/* Per-partner CTAs */}
+                    <section className="space-y-3">
+                      <SectionTitle icon={Mail} title="Ta nästa steg" />
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {[
+                          { p: A.partner, name: A.name, label: "Partner A" },
+                          { p: B.partner, name: B.name, label: "Partner B" },
+                        ].map(({ p, name, label }) =>
+                          p ? (
+                            <div key={label} className="rounded-lg border border-slate-200 bg-white p-4">
+                              <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
+                                {label}
+                              </div>
+                              <div className="text-sm font-semibold text-foreground mb-3 truncate">{name}</div>
+                              <div className="grid grid-cols-1 gap-2">
+                                <Button
+                                  type="button"
+                                  size="sm"
+                                  onClick={() => setQuoteFor({ partner: p, mode: "contact" })}
+                                  disabled={isSubmittingQuote}
+                                  className="w-full h-9 bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
+                                >
+                                  Få kontakt
+                                </Button>
+                                <Button
+                                  type="button"
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => setQuoteFor({ partner: p, mode: "quote" })}
+                                  disabled={isSubmittingQuote}
+                                  className="w-full h-9"
+                                >
+                                  Begär offert
+                                </Button>
+                                <Button
+                                  type="button"
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => setQuoteFor({ partner: p, mode: "demo" })}
+                                  disabled={isSubmittingQuote}
+                                  className="w-full h-9"
+                                >
+                                  Boka demo
+                                </Button>
+                              </div>
+                            </div>
+                          ) : (
+                            <div key={label} className="rounded-lg border border-dashed border-slate-200 bg-slate-50 p-4 text-sm text-slate-500">
+                              Välj {label.toLowerCase()} för att aktivera kontakt-, offert- och demoknappar.
+                            </div>
+                          ),
+                        )}
+                      </div>
+                    </section>
 
                     <p className="text-xs text-slate-500 text-center pt-4">
                       Innehåll i beslutsprofilen är skrivet av partnern själv. d365.se redigerar inte.
