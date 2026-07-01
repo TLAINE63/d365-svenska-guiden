@@ -1746,10 +1746,10 @@ const ComparePartners = () => {
                       <R
                         label="Kompetens inom Dynamics 365"
                         warn
-                        help="Dynamics 365-applikationer som partnern arbetar med, filtrerat på de produkter du valt i jämförelsen."
-                        a={renderAppList(AF.apps)}
-                        b={renderAppList(BF.apps)}
-                        c={renderAppList(CF.apps)}
+                        help="Alla Dynamics 365-applikationer som partnern arbetar med — oavsett vilka produkter som är valda i jämförelsen."
+                        a={renderAppList(A.apps)}
+                        b={renderAppList(B.apps)}
+                        c={renderAppList(C.apps)}
                       />
 
                     </section>
