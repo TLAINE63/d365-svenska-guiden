@@ -921,7 +921,11 @@ const ComparePartners = () => {
       apps: sortApps(p?.applications || []),
       focusIndustries: Array.from(
         new Set(
-          [...(p?.industries || []), ...(p?.secondary_industries || [])]
+          [
+            ...(p?.industries || []),
+            ...(p?.secondary_industries || []),
+            ...industryAppsRaw.map((ia) => ia.industry),
+          ]
             .map((s) => (s || "").trim())
             .filter(Boolean)
         )
