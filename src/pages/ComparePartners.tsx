@@ -1671,8 +1671,22 @@ const ComparePartners = () => {
                           const mA = getProductMetrics(A.partner, key);
                           const mB = getProductMetrics(B.partner, key);
                           const mC = getProductMetrics(C.partner, key);
-                          if (!mA.length && !mA.cost && !mB.length && !mB.cost && !mC.length && !mC.cost) return;
+                          if (
+                            !mA.length && !mA.cost && !mA.methodology &&
+                            !mB.length && !mB.cost && !mB.methodology &&
+                            !mC.length && !mC.cost && !mC.methodology
+                          ) return;
                           const label = PRODUCT_KEY_LABEL[key] || key;
+                          rows.push(
+                            <R
+                              key={`method-${key}`}
+                              label={`Projektmetodik (${label})`}
+                              help="Partnerns arbetssätt och metodik för implementation, t.ex. Sure Step, egen agil metod eller hybrid."
+                              a={renderValue(mA.methodology)}
+                              b={renderValue(mB.methodology)}
+                              c={renderValue(mC.methodology)}
+                            />,
+                          );
                           rows.push(
                             <R
                               key={`len-${key}`}
