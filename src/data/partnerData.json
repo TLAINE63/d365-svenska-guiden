@@ -162,6 +162,13 @@
         "geography": [
           "Sverige"
         ],
+        "keyPoints": [
+          "Digitaliserar processer specifikt för er bransch.",
+          "Djup förståelse för mode och textil.",
+          "Optimerar lagerhantering och leveranskedjor.",
+          "Skalbar systemlösning för er verksamhet."
+        ],
+        "whyChoose": "Vi erbjuder en beprövad lösning med Business Central, anpassad för er bransch, som effektiviserar era affärsprocesser och stödjer er tillväxt.",
         "industries": [
           "Mode, Sport & Textil",
           "Retail & E-handel"
@@ -222,7 +229,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-05-26T11:20:39.922112+00:00",
-    "updated_at": "2026-06-30T17:00:52.817576+00:00",
+    "updated_at": "2026-07-01T15:56:21.39688+00:00",
     "industry_pitches": [
       {
         "text": "adbriq erbjuder stöd för företag inom mode, sport och textil som använder Microsoft Dynamics 365 Business Central. De fokuserar på att optimera affärsprocesser kopplade till produktlivscykelhantering, lageroptimering och distributionskedjan. Med förståelse för branschens specifika krav, som exempelvis säsongsvariationer, kollektionshantering och flera försäljningskanaler, arbetar adbriq med att anpassa Business Central för en effektiv hantering av dessa flöden. De kan även bistå med integrationer mot externa e-handelsplattformar och logistikpartners för en sammanhållen IT-miljö. adbriq stödjer företag i att hantera data för bland annat artikelvariationer, kundordrar och returer i Business Central.",
@@ -965,6 +972,13 @@
           "Sverige",
           "Norden"
         ],
+        "keyPoints": [
+          "Vi erbjuder kontinuerligt stöd för Business Central.",
+          "Vi har erfarenhet av handel och distribution.",
+          "Vi tillhandahåller lösningar för affärsprocesser.",
+          "Vi erbjuder implementation och support."
+        ],
+        "whyChoose": "Vi erbjuder kontinuitet i våra kundrelationer, där samma konsulter följer dig från start till mål. Detta säkerställer en djup förståelse för era processer och ger ett förutsägbart resultat för er Business Central-lösning.",
         "industries": [
           "Grossist & Distribution",
           "Konsulttjänster",
@@ -1014,7 +1028,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-06-30T17:00:55.461131+00:00",
+    "updated_at": "2026-07-01T15:56:21.39688+00:00",
     "industry_pitches": [
       {
         "text": "Goodfellows levererar affärssystemlösningar med fokus på Microsoft Dynamics 365 Business Central. Partnern har erfarenhet av att arbeta med företag inom handel och distribution. De strävar efter att leverera lösningar som fungerar i praktiken och bidrar med affärsförståelse för att säkerställa relevanta vägval. Goodfellows kan erbjuda stöd för processer som rör omnikanalstrategier, kundresor, logistik och lagerhantering, vilka är centrala för aktörer inom retail och e-handel. De arbetar nära sina kunder för att implementera lösningar som skapar affärsnytta, med målet att systemet ska fungera utan oväntade utmaningar.",
@@ -1113,6 +1127,13 @@
         "geography": [
           "Sverige"
         ],
+        "keyPoints": [
+          "Vi erbjuder anpassningar för tillverkningsindustrin.",
+          "Vi har erfarenhet av grossist- och distributionsbranschen.",
+          "Vi stödjer livsmedels- och processindustrin.",
+          "Vi fokuserar på effektiva processer."
+        ],
+        "whyChoose": "Vi hjälper er att få ett Business Central-system som möter era specifika behov för tillverkning eller grossist, vilket skapar effektiva processer och beslutsunderlag. Vi fokuserar på att ni får affärsnytta.",
         "industries": [
           "Tillverkningsindustri",
           "Grossist & Distribution"
@@ -1158,7 +1179,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-06-30T17:02:09.150445+00:00",
+    "updated_at": "2026-07-01T15:56:21.39688+00:00",
     "industry_pitches": [
       {
         "text": "InBiz har sedan 2005 erfarenhet av att implementera Microsoft Dynamics 365 Business Central för företag inom olika branscher, inklusive grossist- och distributionssektorn. De erbjuder lösningar som stödjer optimering av bland annat lagerhantering, logistik, inköpsprocesser och försäljning, vilket är centralt för grossisters operativa effektivitet. Genom att anpassa Business Central kan InBiz bidra till förbättrad spårbarhet och precision i leveranskedjan. Fokus ligger på att leverera stabila systemlösningar som möter de krav på snabba och precisa flöden som kännetecknar distributionsbranschen. InBiz strävar efter att underlätta för företag att hantera sina verksamhetsprocesser mer effektivt.",
@@ -1241,6 +1262,13 @@
         "geography": [
           "Norden"
         ],
+        "keyPoints": [
+          "Expertis inom D365 för tillverkning/distribution.",
+          "Integrerar AI och automatisering där det ger nytta.",
+          "Stödjer hela systemets livscykel.",
+          "Fokus affärsmål och verksamhetsnytta."
+        ],
+        "whyChoose": "Vi hjälper tillverkande och distribuerande verksamheter att framgångsrikt implementera D365 Supply Chain Management. Vi fokuserar på att förvandla affärsmål till fungerande processer och systemstöd med långsiktigt fokus.",
         "industries": [
           "Tillverkningsindustri",
           "Grossist & Distribution"
@@ -1290,7 +1318,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-07-01T14:56:07.928362+00:00",
+    "updated_at": "2026-07-01T15:56:21.39688+00:00",
     "industry_pitches": [
       {
         "text": "Knowit bistår organisationer inom grossist- och distributionsbranschen med att utveckla och modernisera sina affärssystem baserade på Microsoft Dynamics 365. Genom att implementera och optimera applikationer som Dynamics 365 Finance och Supply Chain Management, strävar Knowit efter att förbättra verksamhetsprocesser, datainsamling och automatisering. De fokuserar på att integrera ERP-system med data och intelligenta arbetsflöden för att möjliggöra effektivare beslutsfattande och en mer hållbar verksamhetsutveckling. Knowit har kompetens att anpassa lösningar för att möta branschens krav på optimerade leveranskedjor och finansiell kontroll, vilket kan stödja grossister och distributörer i en konkurrensutsatt marknad.",
@@ -2200,6 +2228,13 @@
           "Sverige",
           "Norden"
         ],
+        "keyPoints": [
+          "Paketerat Business Central-erbjudande.",
+          "Stöd för PrintVis (grafisk industri).",
+          "Transport Ekonomi (transportbranschen).",
+          "Färre anpassningar, snabbare implementering."
+        ],
+        "whyChoose": "Vi erbjuder paketerade Business Central-lösningar anpassade för transport, logistik, tillverkning och IT-konsulting, vilket ger er snabb affärsnytta. Våra branschspecifika lösningar minskar implementeringstid och risk.",
         "industries": [
           "Transport & Logistik",
           "Telekom & IT-tjänster",
@@ -2238,6 +2273,13 @@
           "Sverige",
           "Norden"
         ],
+        "keyPoints": [
+          "Vi hanterar komplexa, globala försörjningskedjor.",
+          "Vi skapar kostnadseffektiva lösningar för er verksamhet.",
+          "Vi optimerar ekonomistyrning och logistikhantering.",
+          "Vi har erfarenhet av flera globala implementeringar."
+        ],
+        "whyChoose": "Vi erbjuder globalt skalbara lösningar för Finance & Supply Chain Management anpassade för tillverknings- och processindustrin i norra Europa, vilket säkrar er affärsnytta.",
         "industries": [
           "Tillverkningsindustri",
           "Jordbruk & Skogsbruk",
@@ -2292,6 +2334,13 @@
           "Sverige",
           "Norden"
         ],
+        "keyPoints": [
+          "Vi hanterar komplexa säljprocesser effektivt.",
+          "Vi skapar en enhetlig kundbild över systemen.",
+          "Vi har erfarenhet av stora globala organisationer.",
+          "Vi stödjer med datadriven kundinsikt och anpassning."
+        ],
+        "whyChoose": "Vi hjälper stora, komplexa organisationer inom tillverknings- och offentlig sektor att personalisera kundresan. Vi anpassar Sales och Customer Insights för era globala verksamhetsbehov och komplexa processer.",
         "industries": [
           "Tillverkningsindustri",
           "Transport & Logistik",
@@ -2336,6 +2385,13 @@
           "Sverige",
           "Norden"
         ],
+        "keyPoints": [
+          "Vi optimerar komplexa servicebehov inom tillverkning.",
+          "Vi har erfarenhet av globala utrullningar.",
+          "Vi integrerar Customer Service med Field Service.",
+          "Vi förbättrar serviceupplevelsen på flera kanaler."
+        ],
+        "whyChoose": "Vi hjälper tillverkande industri och transport/logistik att optimera komplexa eftermarknadsprocesser effektivt. Med oss får du stöd för både proaktiv och reaktiv servicehantering.",
         "industries": [
           "Tillverkningsindustri",
           "Jordbruk & Skogsbruk",
@@ -2404,7 +2460,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-03-19T08:57:20.19097+00:00",
-    "updated_at": "2026-07-01T14:56:07.928362+00:00",
+    "updated_at": "2026-07-01T15:56:21.39688+00:00",
     "industry_pitches": [
       {
         "text": "Vivicta bistår aktörer inom jordbruk och skogsbruk med implementering och förvaltning av Microsoft Dynamics 365-lösningar. De fokuserar på att leverera skalbara affärssystem som kan stödja verksamhetens processer, från rådgivning till driftsättning. Vivictas erbjudande omfattar Dynamics 365 Finance och Supply Chain Management, vilka kan användas för att hantera finansiella processer, logistik och försörjningskedjor.\n\nFör mindre verksamheter kan Dynamics 365 Business Central vara aktuellt. De har även kompetens inom att integrera lösningar med Power Platform och Azure, vilket kan bidra till automatiserade flöden och utökad analyskapacitet. Vivictas tjänster sträcker sig från initial rådgivning och lösningsdesign till implementering och kontinuerlig förvaltning. Deras expertis omfattar även CRM-applikationer genom Dynamics 365 Customer Engagement.",
@@ -2515,6 +2571,13 @@
           "Norden",
           "Europa"
         ],
+        "keyPoints": [
+          "Komplett erbjudande, förstudie till utveckling.",
+          "Effektiva projekt med tydliga leveranser.",
+          "Lång erfarenhet, starkt engagemang.",
+          "Maximerar värdet av er Business Central-investering."
+        ],
+        "whyChoose": "Vi erbjuder en trygg och lokalt förankrad partner för Business Central, med fokus på att maximera nyttan för tillverkande företag, grossister och byggföretag. Vi säkerställer effektiva projekt som driver er verksamhetsutveckling.",
         "industries": [
           "Tillverkningsindustri",
           "Grossist & Distribution",
@@ -2551,7 +2614,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-03-25T10:51:24.706444+00:00",
-    "updated_at": "2026-06-30T17:01:07.450616+00:00",
+    "updated_at": "2026-07-01T15:56:21.39688+00:00",
     "industry_pitches": [
       {
         "text": "Yellow Solution AB erbjuder lösningar baserade på Microsoft Dynamics 365 Business Central till företag inom bygg- och entreprenadbranschen. Partnern fokuserar på att optimera affärsprocesser för ökad effektivitet och tillväxt. De har erfarenhet av att anpassa Business Central för att möta branschens specifika krav, vilket inkluderar hantering av projekt, ekonomi och resursplanering. Genom sitt engagemang syftar Yellow Solution AB till att hjälpa företag att utnyttja affärssystemets fulla potential för bättre beslutsfattande och hållbar utveckling. Deras tjänster bidrar till att säkerställa att investeringar i affärssystemet ger konkret nytta i en komplex bransch.",
