@@ -630,6 +630,14 @@ const ComparePartners = () => {
       label: "Finance & Supply Chain Management",
       apps: ["Finance", "Supply Chain Management", "Finance & Supply Chain Management"],
     },
+    commerce: {
+      label: "Commerce",
+      apps: ["Commerce"],
+    },
+    hr: {
+      label: "Human Resources",
+      apps: ["Human Resources"],
+    },
     sales: {
       label: "Sales & Customer Insights",
       apps: ["Sales", "Customer Insights (Marketing)", "Marketing"],
@@ -637,6 +645,10 @@ const ComparePartners = () => {
     service: {
       label: "Customer Service / Field Service / Contact Center",
       apps: ["Customer Service", "Field Service", "Contact Center"],
+    },
+    po: {
+      label: "Project Operations",
+      apps: ["Project Operations"],
     },
   } as const;
   type ProductFilterKey = keyof typeof PRODUCT_FILTER_GROUP;
@@ -652,8 +664,11 @@ const ComparePartners = () => {
   const PRODUCT_FILTER_KEY_LABEL: Record<ProductFilterKey, string> = {
     bc: "Business Central",
     fsc: "Finance & Supply Chain Management",
+    commerce: "Commerce",
+    hr: "Human Resources",
     sales: "Sales & Customer Insights",
     service: "Customer Service / Field Service / Contact Center",
+    po: "Project Operations",
   };
 
   const getProductFilterKeysForApps = (apps: string[]): ProductFilterKey[] => {
@@ -686,8 +701,11 @@ const ComparePartners = () => {
   const PRODUCT_KEY_LABEL: Record<ProductFilterKey, string> = {
     bc: "Business Central",
     fsc: "Finance & Supply Chain Management",
+    commerce: "Commerce",
+    hr: "Human Resources",
     sales: "Sales & Customer Insights",
     service: "Customer Service / Field Service / Contact Center",
+    po: "Project Operations",
   };
 
   const formatWeeksRange = (min: number | null, max: number | null): string => {
