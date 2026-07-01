@@ -1814,7 +1814,7 @@ const ComparePartners = () => {
                                   <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
                                     Endast Partner {["A", "B", "C"][idx]}
                                   </div>
-                                  <div className="text-sm font-medium text-foreground mb-3 truncate">
+                                  <div className="text-xs sm:text-sm font-medium text-foreground mb-3 break-words">
                                     {side.partner.name}
                                   </div>
                                 </div>
