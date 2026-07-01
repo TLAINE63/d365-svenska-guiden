@@ -1577,6 +1577,15 @@ const ComparePartners = () => {
                         ));
                       })()}
 
+                      <R
+                        label="AI, Copilot & Automation"
+                        help="Partnerns samlade AI- och automationsprofil: leveransmodell, förmågor, relevanta områden, use cases, erfarenhet och underlag. Bygger på partnerns egna uppgifter."
+                        a={renderAiProfile(((A.partner as any)?.ai_profile) as AiProfile | null)}
+                        b={renderAiProfile(((B.partner as any)?.ai_profile) as AiProfile | null)}
+                        c={renderAiProfile(((C.partner as any)?.ai_profile) as AiProfile | null)}
+                      />
+
+
                       {(() => {
                         const renderIA = (list: typeof AF.industryApps) =>
                           list.length > 0 ? (
