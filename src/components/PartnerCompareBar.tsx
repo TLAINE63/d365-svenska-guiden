@@ -14,27 +14,31 @@ import {
 } from "@/components/ui/alert-dialog";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 
+// Persist across remounts so the prompt doesn't re-appear when navigating
+// (the bar unmounts on /jamfor-partners and remounts on the next page).
+let promptedPairKey = "";
+
 const PartnerCompareBar = () => {
   const { selected, remove, clear } = usePartnerCompare();
   const navigate = useNavigate();
+  const location = useLocation();
   const [askOpen, setAskOpen] = useState(false);
-  const lastPromptedKey = useRef<string>("");
 
-  // Auto-open the prompt when the user reaches 2 selections (only once per pair)
+  const onComparePage = location.pathname.startsWith("/jamfor-partners");
+
+  // Auto-open the prompt when the user reaches 2 selections (only once per pair, per session)
   useEffect(() => {
+    if (onComparePage) return;
     if (selected.length === 2) {
       const key = selected.map((s) => s.slug).sort().join("|");
-      if (lastPromptedKey.current !== key) {
-        lastPromptedKey.current = key;
+      if (promptedPairKey !== key) {
+        promptedPairKey = key;
         setAskOpen(true);
       }
-    } else {
-      lastPromptedKey.current = "";
+    } else if (selected.length === 0) {
+      promptedPairKey = "";
     }
-  }, [selected]);
-
-  const location = useLocation();
-  const onComparePage = location.pathname.startsWith("/jamfor-partners");
+  }, [selected, onComparePage]);
 
   if (onComparePage) return null;
   if (selected.length === 0) return null;
