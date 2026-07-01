@@ -483,6 +483,117 @@ const PartnerRequestDialog = ({
             </div>
           </div>
 
+          {mode === "quote" && (
+            <div className="space-y-3 rounded-md border border-border bg-secondary/30 p-3">
+              <p className="text-xs font-semibold text-foreground uppercase tracking-wide">
+                Ge partnern grund för dialog
+              </p>
+              <div className="space-y-1.5">
+                <Label htmlFor="prq-quote-users">Antal användare *</Label>
+                <Input
+                  id="prq-quote-users"
+                  value={form.quote_users}
+                  onChange={(e) => setForm((f) => ({ ...f, quote_users: e.target.value }))}
+                  onBlur={() => setTouched((t) => ({ ...t, quote_users: true }))}
+                  maxLength={60}
+                  placeholder="T.ex. 25 användare, varav 5 power users"
+                  required
+                  aria-invalid={showError("quote_users")}
+                  className={fieldClass("quote_users")}
+                />
+                <ErrorText field="quote_users" />
+              </div>
+              <div className="space-y-1.5">
+                <div className="flex items-baseline justify-between">
+                  <Label htmlFor="prq-quote-features">Viktigaste funktioner/behov *</Label>
+                  <span className={cn(
+                    "text-xs",
+                    form.quote_features.length > MAX_DETAIL - 60 ? "text-amber-600" : "text-muted-foreground",
+                    form.quote_features.length > MAX_DETAIL && "text-destructive"
+                  )}>
+                    {form.quote_features.length}/{MAX_DETAIL}
+                  </span>
+                </div>
+                <Textarea
+                  id="prq-quote-features"
+                  value={form.quote_features}
+                  onChange={(e) => setForm((f) => ({ ...f, quote_features: e.target.value }))}
+                  onBlur={() => setTouched((t) => ({ ...t, quote_features: true }))}
+                  maxLength={MAX_DETAIL}
+                  rows={3}
+                  placeholder="T.ex. ekonomi + lager, integration mot vårt CRM, e-fakturering, projektredovisning."
+                  required
+                  aria-invalid={showError("quote_features")}
+                  className={fieldClass("quote_features")}
+                />
+                <ErrorText field="quote_features" />
+              </div>
+            </div>
+          )}
+
+          {mode === "demo" && (
+            <div className="space-y-3 rounded-md border border-border bg-secondary/30 p-3">
+              <p className="text-xs font-semibold text-foreground uppercase tracking-wide">
+                Hjälp partnern skräddarsy demon
+              </p>
+              <div className="space-y-1.5">
+                <Label htmlFor="prq-demo-audience">För vem/vilka roller *</Label>
+                <Input
+                  id="prq-demo-audience"
+                  value={form.demo_audience}
+                  onChange={(e) => setForm((f) => ({ ...f, demo_audience: e.target.value }))}
+                  onBlur={() => setTouched((t) => ({ ...t, demo_audience: true }))}
+                  maxLength={200}
+                  placeholder="T.ex. CFO + ekonomichef + 2 controllers"
+                  required
+                  aria-invalid={showError("demo_audience")}
+                  className={fieldClass("demo_audience")}
+                />
+                <ErrorText field="demo_audience" />
+              </div>
+              <div className="space-y-1.5">
+                <div className="flex items-baseline justify-between">
+                  <Label htmlFor="prq-demo-features">Vad vill ni se i demon? *</Label>
+                  <span className={cn(
+                    "text-xs",
+                    form.demo_features.length > MAX_DETAIL - 60 ? "text-amber-600" : "text-muted-foreground",
+                    form.demo_features.length > MAX_DETAIL && "text-destructive"
+                  )}>
+                    {form.demo_features.length}/{MAX_DETAIL}
+                  </span>
+                </div>
+                <Textarea
+                  id="prq-demo-features"
+                  value={form.demo_features}
+                  onChange={(e) => setForm((f) => ({ ...f, demo_features: e.target.value }))}
+                  onBlur={() => setTouched((t) => ({ ...t, demo_features: true }))}
+                  maxLength={MAX_DETAIL}
+                  rows={3}
+                  placeholder="T.ex. månadsbokslut, likviditetsprognos, Copilot-flöden, godkännande av leverantörsfakturor."
+                  required
+                  aria-invalid={showError("demo_features")}
+                  className={fieldClass("demo_features")}
+                />
+                <ErrorText field="demo_features" />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="prq-demo-timing">När är det aktuellt? *</Label>
+                <Input
+                  id="prq-demo-timing"
+                  value={form.demo_timing}
+                  onChange={(e) => setForm((f) => ({ ...f, demo_timing: e.target.value }))}
+                  onBlur={() => setTouched((t) => ({ ...t, demo_timing: true }))}
+                  maxLength={100}
+                  placeholder="T.ex. inom 2–4 veckor, eller Q2 2026"
+                  required
+                  aria-invalid={showError("demo_timing")}
+                  className={fieldClass("demo_timing")}
+                />
+                <ErrorText field="demo_timing" />
+              </div>
+            </div>
+          )}
+
           <div className="space-y-1.5">
             <div className="flex items-baseline justify-between">
               <Label htmlFor="prq-message">Kort om behovet (valfritt)</Label>
