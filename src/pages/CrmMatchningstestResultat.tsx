@@ -26,6 +26,7 @@ import {
   CRM_TEST_TO_PARTNER_SLUG,
 } from "@/lib/crmMatchingPartners";
 import PartnerCard from "@/components/PartnerCard";
+import { trackFunnelEvent, trackFunnelEventOnce } from "@/lib/funnelTracking";
 
 interface Props {
   productKey: ProductConfig["key"];
