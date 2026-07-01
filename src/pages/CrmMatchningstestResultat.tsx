@@ -79,6 +79,17 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
   useEffect(() => {
     if (!score || submitted) return;
     setSubmitted(true);
+    trackFunnelEventOnce(
+      `crm_test_result_view:${productKey}`,
+      "crm_test_result_view",
+      {
+        product_key: productKey,
+        assessment_type: config.assessmentType,
+        level: score.level,
+        top_profile: score.profiles[0]?.key,
+        top_profile_score: score.profiles[0]?.percent,
+      },
+    );
     void supabase.from("assessments").insert([
       {
         contact_name: "anonymous",
@@ -91,7 +102,7 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
         meta: { assessment_type: `${config.assessmentType}_result_page`, version: 1 },
       },
     ]);
-  }, [score, submitted, answers, config]);
+  }, [score, submitted, answers, config, productKey]);
 
   const restart = () => {
     try {
