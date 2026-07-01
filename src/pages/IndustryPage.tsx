@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
@@ -18,6 +18,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { ArrowRight, Briefcase, Users, AlertTriangle, Layers, HelpCircle, Filter, Building2, Sparkles } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
 import { companySizes, geographyOptions } from "@/data/partners";
+import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 
 const GEOGRAPHY_HIERARCHY = ["Sverige", "Norden", "Europa", "Globalt"];
 const matchesGeography = (partnerGeos: string | string[] | undefined, selected: string): boolean => {
@@ -140,6 +141,20 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  const [selected, setSelected] = useState<FilterKey[]>([]);
  const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
+
+ // Publish current filters to partner-compare so a "Jämför"-navigering
+ // carries product/industry/geo/size into the compare page.
+ const { setFilterContext: setCompareFilters } = usePartnerCompare();
+ useEffect(() => {
+  const industryName = meta?.name || null;
+  const productKeys = Array.from(new Set(selected.map((k) => FILTER_TO_UNDERLYING[k])));
+  setCompareFilters({
+   product: productKeys.length > 0 ? productKeys.join(",") : null,
+   industry: industryName,
+   geography: selectedGeography || null,
+   companySize: selectedCompanySize || null,
+  });
+ }, [selected, meta, selectedGeography, selectedCompanySize, setCompareFilters]);
 
  const industryName = page?.name || meta?.name || "Bransch";
  const heroImage = slug ? INDUSTRY_IMAGES[slug] : undefined;

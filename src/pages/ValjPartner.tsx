@@ -23,6 +23,8 @@ import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import SEOHead from "@/components/SEOHead";
 import { FAQSchema, ServiceSchema, BreadcrumbSchema, ItemListSchema } from "@/components/StructuredData";
 import { resolvePriceTokens } from "@/lib/productPriceFormat";
+import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
+import { appsToProductFilterKeys } from "@/lib/productFilterGroup";
 
 // Breadcrumb items
 const partnerBreadcrumbs = [
@@ -220,6 +222,19 @@ const ValjPartner = () => {
  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
  const [selectedRevenue, setSelectedRevenue] = useState<string | null>(null);
  const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
+
+ // Publish current filters to the partner-compare context so a "Jämför"
+ // navigation carries product/industry/geo/size into the compare page.
+ const { setFilterContext: setCompareFilters } = usePartnerCompare();
+ useEffect(() => {
+  const productKeys = appsToProductFilterKeys(selectedApplications);
+  setCompareFilters({
+   product: productKeys.length > 0 ? productKeys.join(",") : null,
+   industry: selectedIndustry || null,
+   geography: selectedGeography || null,
+   companySize: selectedCompanySize || null,
+  });
+ }, [selectedApplications, selectedIndustry, selectedGeography, selectedCompanySize, setCompareFilters]);
 
  // Filter to only show featured partners from database
  const partners = useMemo(() => {

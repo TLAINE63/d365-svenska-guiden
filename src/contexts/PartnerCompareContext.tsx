@@ -2,6 +2,17 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, R
 
 type CompareEntry = { slug: string; name: string };
 
+export type CompareFilterContext = {
+  /** Product filter key (bc | fsc | sales | service) or comma-separated list. */
+  product?: string | null;
+  /** Industry name (e.g. "Tillverkning"). */
+  industry?: string | null;
+  /** Geography (e.g. "Sverige"). */
+  geography?: string | null;
+  /** Company size bucket. */
+  companySize?: string | null;
+};
+
 interface PartnerCompareContextValue {
   selected: CompareEntry[];
   isSelected: (slug: string) => boolean;
@@ -9,10 +20,13 @@ interface PartnerCompareContextValue {
   remove: (slug: string) => void;
   clear: () => void;
   max: number;
+  filterContext: CompareFilterContext;
+  setFilterContext: (patch: CompareFilterContext) => void;
 }
 
 const STORAGE_KEY = "partner-compare-selection";
 const MAX = 2;
+
 
 const PartnerCompareContext = createContext<PartnerCompareContextValue | null>(null);
 
@@ -63,9 +77,20 @@ export const PartnerCompareProvider = ({ children }: { children: ReactNode }) =>
 
   const clear = useCallback(() => setSelected([]), []);
 
+  const [filterContext, setFilterContextState] = useState<CompareFilterContext>({});
+  const setFilterContext = useCallback((patch: CompareFilterContext) => {
+    setFilterContextState((prev) => {
+      const next = { ...prev, ...patch };
+      // Shallow-equal check to avoid needless re-renders
+      const keys = ["product", "industry", "geography", "companySize"] as const;
+      if (keys.every((k) => (prev[k] ?? null) === (next[k] ?? null))) return prev;
+      return next;
+    });
+  }, []);
+
   const value = useMemo(
-    () => ({ selected, isSelected, toggle, remove, clear, max: MAX }),
-    [selected, isSelected, toggle, remove, clear]
+    () => ({ selected, isSelected, toggle, remove, clear, max: MAX, filterContext, setFilterContext }),
+    [selected, isSelected, toggle, remove, clear, filterContext, setFilterContext]
   );
 
   return (
@@ -84,7 +109,10 @@ export const usePartnerCompare = () => {
       remove: () => {},
       clear: () => {},
       max: MAX,
+      filterContext: {},
+      setFilterContext: () => {},
     } as PartnerCompareContextValue;
   }
+
   return ctx;
 };
