@@ -926,12 +926,6 @@ const ValjPartner = () => {
               Jämför partners
             </Link>
           </Button>
-          <Link
-            to="/jamfor-partners/"
-            className="text-white/80 hover:text-white underline underline-offset-4 text-sm sm:text-base font-medium transition-colors"
-          >
-            Se tidigare jämförelser
-          </Link>
         </div>
       </div>
     </div>
