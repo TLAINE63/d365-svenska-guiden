@@ -122,6 +122,14 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
   const level = score ? config.levelCopy[score.level] : null;
   const tops = score ? topCrmProfiles(score, 3) : [];
 
+  // Partnerrekommendationer baserat på testresultatet
+  const { data: allPartners = [] } = usePartners();
+  const recommendations = useMemo(
+    () => (score ? recommendCrmPartners(allPartners, config, score, 3) : []),
+    [allPartners, config, score],
+  );
+  const partnerSlug = CRM_TEST_TO_PARTNER_SLUG[config.key];
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
