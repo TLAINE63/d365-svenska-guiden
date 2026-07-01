@@ -1,4 +1,6 @@
 import { Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 interface ShortAnswerProps {
   /** Heading shown above the answer. Defaults to "Kort svar". */
@@ -7,6 +9,11 @@ interface ShortAnswerProps {
   children: React.ReactNode;
   /** Optional className passthrough for layout tweaks. */
   className?: string;
+  /** Optional CTA button shown below the answer. */
+  cta?: {
+    label: string;
+    to: string;
+  };
 }
 
 /**
@@ -16,7 +23,7 @@ interface ShortAnswerProps {
  * sidans huvudfråga i 2–4 meningar. Rubriken är h2 så Google/AI-läsare
  * lätt kan plocka ut svaret.
  */
-const ShortAnswer = ({ title = "Kort svar", children, className = "" }: ShortAnswerProps) => {
+const ShortAnswer = ({ title = "Kort svar", children, className = "", cta }: ShortAnswerProps) => {
   return (
     <section
       aria-label={title}
@@ -34,6 +41,13 @@ const ShortAnswer = ({ title = "Kort svar", children, className = "" }: ShortAns
             <div className="text-sm sm:text-[15px] leading-relaxed text-foreground [&>p]:m-0 [&>p+p]:mt-3">
               {typeof children === "string" ? <p>{children}</p> : children}
             </div>
+            {cta && (
+              <div className="mt-5">
+                <Button asChild variant="outline" size="sm" className="border-primary/40 text-foreground hover:bg-primary/10 hover:text-primary">
+                  <Link to={cta.to}>{cta.label}</Link>
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </div>
