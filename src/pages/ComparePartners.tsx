@@ -127,30 +127,6 @@ const getIndustryIcon = (name: string): string | null => {
   return match ? INDUSTRY_IMAGE_BY_SLUG[match.slug] ?? null : null;
 };
 
-const INDUSTRY_CONTEXT: Record<string, string> = {
-  "tillverkning": "MES, spårbarhet, kvalitet",
-  "livsmedel-processindustri": "Batch, spårbarhet, HACCP",
-  "grossist-distribution": "Lager, WMS, prissättning",
-  "retail-ehandel": "POS, omnikanal, lojalitet",
-  "mode-sport-textil": "Säsong, kollektion, storlek/färg",
-  "konsulttjanster": "Projekt, tid, fakturering",
-  "bygg-entreprenad": "Projekt, ÄTA, underentreprenörer",
-  "fastighet-forvaltning": "Hyresavtal, drift, underhåll",
-  "energi-utilities": "Mätvärden, fältservice, avtal",
-  "finans-forsakring": "Compliance, KYC, rapportering",
-  "life-science-medtech": "GxP, validering, spårbarhet",
-  "telekom-it-tjanster": "Abonnemang, ärenden, SLA",
-  "logistik-transport": "TMS, ruttplanering, EDI",
-  "media-publishing": "Prenumerationer, rättigheter, annons",
-  "jordbruk-skogsbruk": "Säsong, lager, maskinpark",
-  "halsa-sjukvard": "Patientflöden, journaler, GDPR",
-  "nonprofit-organisationer": "Bidrag, givare, projekt",
-  "medlemsorganisationer": "Medlemmar, avgifter, event",
-  "utbildning": "Kurser, deltagare, certifikat",
-  "offentlig-sektor": "Upphandling, diarier, ärenden",
-  "uthyrning": "Uthyrning, retur, underhåll",
-};
-
 
 
 const TEAM_SIZE_HELP =
