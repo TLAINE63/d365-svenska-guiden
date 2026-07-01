@@ -1507,14 +1507,14 @@ const ComparePartners = () => {
                       />
 
                       {(() => {
-                        const aDescs = getProductDescriptions(a, AF.apps);
-                        const bDescs = getProductDescriptions(b, BF.apps);
-                        const cDescs = getProductDescriptions(c, CF.apps);
+                        const aIns = getProductInsights(a, AF.apps);
+                        const bIns = getProductInsights(b, BF.apps);
+                        const cIns = getProductInsights(c, CF.apps);
                         const keys = Array.from(
                           new Set<ProductFilterKey>([
-                            ...aDescs.map((d) => d.key),
-                            ...bDescs.map((d) => d.key),
-                            ...cDescs.map((d) => d.key),
+                            ...aIns.map((d) => d.key),
+                            ...bIns.map((d) => d.key),
+                            ...cIns.map((d) => d.key),
                           ])
                         ).sort((x, y) =>
                           PRODUCT_FILTER_GROUP[x].label.localeCompare(
@@ -1523,16 +1523,16 @@ const ComparePartners = () => {
                           )
                         );
                         return keys.map((key) => {
-                          const descA = aDescs.find((d) => d.key === key);
-                          const descB = bDescs.find((d) => d.key === key);
-                          const descC = cDescs.find((d) => d.key === key);
+                          const insA = aIns.find((d) => d.key === key);
+                          const insB = bIns.find((d) => d.key === key);
+                          const insC = cIns.find((d) => d.key === key);
                           return (
                             <R
                               key={key}
                               label={PRODUCT_FILTER_KEY_LABEL[key] || key}
-                              a={descA ? renderProductDescCell(descA.text) : EMPTY}
-                              b={descB ? renderProductDescCell(descB.text) : EMPTY}
-                              c={descC ? renderProductDescCell(descC.text) : EMPTY}
+                              a={renderProductInsightCell(insA)}
+                              b={renderProductInsightCell(insB)}
+                              c={renderProductInsightCell(insC)}
                             />
                           );
                         });
