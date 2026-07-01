@@ -28,34 +28,34 @@ interface PartnerRequestDialogProps {
 
 const MODE_CONFIG = {
   contact: {
-    title: (name: string) => `Få kontakt med ${name}`,
+    title: (name: string) => `Ställ en fråga till ${name}`,
     description: (name: string, product?: string, industry?: string) =>
-      `Lämna dina uppgifter så förmedlar d365.se en kontaktförfrågan till ${name}${product ? ` avseende ${product}` : ""}${industry ? ` inom ${industry}` : ""}.`,
+      `Låg tröskel — beskriv kort vad du undrar över${product ? ` inom ${product}` : ""}${industry ? ` (${industry})` : ""}. ${name} svarar dig direkt, d365.se får kopia för uppföljning.`,
     sourceType: "partner_contact_request",
-    messagePrefix: (name: string) => `Kontaktförfrågan till ${name}.`,
-    toastTitle: "Kontaktförfrågan skickad",
-    toastDescription: (name: string) => `Vi förmedlar din förfrågan till ${name} och återkopplar inom kort.`,
-    submitLabel: "Skicka kontaktförfrågan",
+    messagePrefix: (name: string) => `Fråga till ${name}.`,
+    toastTitle: "Frågan är skickad",
+    toastDescription: (name: string) => `${name} får din fråga direkt. Du får en kopia och d365.se är kopierad för uppföljning.`,
+    submitLabel: "Skicka fråga till partnern",
   },
   demo: {
-    title: (name: string) => `Gör en intresseförfrågan om demo från ${name}`,
+    title: (name: string) => `Boka genomgång eller demo med ${name}`,
     description: (name: string, product?: string, industry?: string) =>
-      `Vill du se ${product || "lösningen"} i en demo? Lämna dina uppgifter så förmedlar d365.se din demoförfrågan till ${name}${industry ? ` inom ${industry}` : ""}.`,
+      `De flesta seriösa partners vill förstå behovet innan de visar system. Beskriv kort vad ni vill se eller diskutera${product ? ` inom ${product}` : ""}${industry ? ` (${industry})` : ""}, så återkommer ${name} med förslag på upplägg.`,
     sourceType: "partner_demo_request",
-    messagePrefix: (name: string) => `Demointresse för ${name}.`,
-    toastTitle: "Demoförfrågan skickad",
-    toastDescription: (name: string) => `Vi förmedlar din demoförfrågan till ${name} och återkopplar inom kort.`,
-    submitLabel: "Skicka demoförfrågan",
+    messagePrefix: (name: string) => `Genomgång/demo — förfrågan till ${name}.`,
+    toastTitle: "Förfrågan skickad",
+    toastDescription: (name: string) => `${name} återkommer med förslag på tid för genomgång eller demo.`,
+    submitLabel: "Be partnern föreslå tid",
   },
   quote: {
-    title: (name: string) => `Begär offert från ${name}`,
+    title: (name: string) => `Begär offertindikering från ${name}`,
     description: (name: string, product?: string, industry?: string) =>
-      `${product ? `Avser ${product}` : `d365.se förmedlar förfrågan till ${name}`}${industry ? ` · ${industry}` : ""}.`,
+      `En exakt offert kräver normalt fördjupad avstämning — men ${name} kan ge en första uppskattning av tid och kostnad${product ? ` för ${product}` : ""}${industry ? ` (${industry})` : ""} utifrån ert underlag.`,
     sourceType: "partner_quote_request",
-    messagePrefix: (name: string) => `Begär offert/kontakt från ${name}.`,
+    messagePrefix: (name: string) => `Offertindikering — förfrågan till ${name}.`,
     toastTitle: "Förfrågan skickad",
-    toastDescription: (name: string) => `Vi förmedlar din förfrågan till ${name} och återkopplar inom kort.`,
-    submitLabel: "Skicka offertförfrågan",
+    toastDescription: (name: string) => `${name} återkommer med första uppskattning av tid och kostnad.`,
+    submitLabel: "Begär första uppskattning",
   },
 };
 
@@ -619,6 +619,11 @@ const PartnerRequestDialog = ({
             />
             <ErrorText field="message" />
           </div>
+
+          <p className="text-xs text-slate-500 border-t border-slate-100 pt-3">
+            Kostnadsfritt. Du väljer själv vilka partners som kontaktas. Varje partner kontaktas separat — aldrig i samma tråd. d365.se säljer inte implementationer; förfrågan går direkt till partnern med kopia till dig och d365.se.
+          </p>
+
 
           <DialogFooter className="gap-2 sm:gap-0">
             <Button type="button" variant="outline" onClick={() => handleClose(false)} disabled={submitting}>

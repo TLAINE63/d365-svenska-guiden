@@ -449,31 +449,33 @@ export default function PartnerProductTabs({
             {/* Lead CTA — auto-fills active product */}
             {onRequest && (
               <section className="w-full">
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-col gap-2">
                   <button
                     type="button"
                     onClick={() => onRequest("contact")}
-                    className="flex-1 min-h-[48px] bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-sm sm:text-base rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    className="w-full min-h-[52px] bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-base rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   >
-                    Få kontakt
+                    Ställ en fråga till {partner.name}
                   </button>
-                  <button
-                    type="button"
-                    onClick={() => onRequest("quote")}
-                    className="flex-1 min-h-[48px] bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-sm sm:text-base rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                  >
-                    Begär offert
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => onRequest("demo")}
-                    className="flex-1 min-h-[48px] bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-sm sm:text-base rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                  >
-                    Gör en intresseförfrågan om demo
-                  </button>
+                  <div className="flex flex-col sm:flex-row gap-2">
+                    <button
+                      type="button"
+                      onClick={() => onRequest("demo")}
+                      className="flex-1 min-h-[44px] border border-slate-300 bg-white hover:bg-slate-50 text-foreground font-medium text-sm rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    >
+                      Boka genomgång eller demo
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => onRequest("quote")}
+                      className="flex-1 min-h-[44px] border border-slate-300 bg-white hover:bg-slate-50 text-foreground font-medium text-sm rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    >
+                      Begär offertindikering
+                    </button>
+                  </div>
                 </div>
                 <p className="mt-3 text-xs text-center text-muted-foreground">
-                  Din förfrågan gäller <span className="font-semibold text-foreground">{tabMeta.label}</span>. d365.se förmedlar den till {partner.name}. Inga privata e-postadresser (Gmail, Hotmail, etc.) accepteras.
+                  Din förfrågan gäller <span className="font-semibold text-foreground">{tabMeta.label}</span>. Kostnadsfritt — {partner.name} svarar dig direkt, d365.se är kopierad för uppföljning. Inga privata e-postadresser accepteras.
                 </p>
               </section>
             )}
