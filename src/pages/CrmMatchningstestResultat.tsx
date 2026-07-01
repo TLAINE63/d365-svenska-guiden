@@ -284,9 +284,17 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
                   <RotateCcw className="w-4 h-4 mr-1" />
                   Börja om
                 </Button>
+                <Button
+                  onClick={handleDownloadPdf}
+                  disabled={downloading}
+                  className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange-hover))]"
+                >
+                  <FileDown className="w-4 h-4 mr-1" />
+                  {downloading ? "Skapar PDF…" : "Ladda ner PDF"}
+                </Button>
                 <Button variant="outline" onClick={handlePrint}>
                   <Download className="w-4 h-4 mr-1" />
-                  Skriv ut / spara som PDF
+                  Skriv ut
                 </Button>
               </div>
             </div>
