@@ -1335,9 +1335,9 @@ const ComparePartners = () => {
                       <div className="aspect-[16/4] overflow-hidden bg-muted flex items-center justify-center">
                         <span className="text-[10px] font-medium text-muted-foreground">Alla branscher</span>
                       </div>
-                      <div className="p-1">
-                        <span className="text-[10px] font-semibold block">Alla branscher</span>
-                        <span className="text-[9px] text-muted-foreground">
+                      <div className="p-0.5">
+                        <span className="text-[9px] font-semibold block">Alla branscher</span>
+                        <span className="text-[8px] text-muted-foreground">
                           {allIndustryEligibleCount} {allIndustryEligibleCount === 1 ? "partner" : "partners"}
                         </span>
                       </div>
