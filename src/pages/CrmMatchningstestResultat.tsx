@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, ArrowRight, CheckCircle2, Download, MessageSquare, RotateCcw, Users } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, Download, FileDown, MessageSquare, RotateCcw, Users } from "lucide-react";
+import { toast } from "sonner";
+import { generateCrmResultPdf } from "@/utils/generateCrmResultPdf";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
