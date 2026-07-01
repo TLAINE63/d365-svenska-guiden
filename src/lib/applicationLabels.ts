@@ -12,7 +12,7 @@ import HumanResourcesIcon from "@/assets/icons/HumanResources.svg";
 import CopilotIcon from "@/assets/icons/Copilot.png";
 
 /** Canonical merged name for Finance + Supply Chain Management. */
-export const FSCM_DISPLAY_NAME = "F&SCM";
+export const FSCM_DISPLAY_NAME = "Finance & Supply Chain Management";
 
 /** All labels that should be treated as the Finance & SCM product group. */
 const FSCM_ALIASES = new Set([
