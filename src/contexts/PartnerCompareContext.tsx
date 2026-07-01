@@ -77,9 +77,20 @@ export const PartnerCompareProvider = ({ children }: { children: ReactNode }) =>
 
   const clear = useCallback(() => setSelected([]), []);
 
+  const [filterContext, setFilterContextState] = useState<CompareFilterContext>({});
+  const setFilterContext = useCallback((patch: CompareFilterContext) => {
+    setFilterContextState((prev) => {
+      const next = { ...prev, ...patch };
+      // Shallow-equal check to avoid needless re-renders
+      const keys = ["product", "industry", "geography", "companySize"] as const;
+      if (keys.every((k) => (prev[k] ?? null) === (next[k] ?? null))) return prev;
+      return next;
+    });
+  }, []);
+
   const value = useMemo(
-    () => ({ selected, isSelected, toggle, remove, clear, max: MAX }),
-    [selected, isSelected, toggle, remove, clear]
+    () => ({ selected, isSelected, toggle, remove, clear, max: MAX, filterContext, setFilterContext }),
+    [selected, isSelected, toggle, remove, clear, filterContext, setFilterContext]
   );
 
   return (
@@ -98,7 +109,10 @@ export const usePartnerCompare = () => {
       remove: () => {},
       clear: () => {},
       max: MAX,
+      filterContext: {},
+      setFilterContext: () => {},
     } as PartnerCompareContextValue;
   }
+
   return ctx;
 };
