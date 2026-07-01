@@ -1226,46 +1226,78 @@ const ComparePartners = () => {
                   })()}
                 </div>
 
-                <div className="grid grid-cols-1 gap-3 mb-6">
-
-                  <div className="group relative">
-                    <label className="block text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] mb-1.5 ml-1">
-                      2. Välj bransch
-                    </label>
-                    <span className="block text-[11px] text-[hsl(var(--muted-foreground)/0.8)] mb-1.5 ml-1">
-                      Endast partners med vald fokusbransch visas i nästa steg
-                    </span>
-                    <Select
-                      value={industryFilter || "__all__"}
-                      onValueChange={(v) => setFilter("industry", v)}
+                <div className="mb-6">
+                  <label className="block text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] mb-1.5 ml-1">
+                    2. Välj bransch
+                  </label>
+                  <span className="block text-[11px] text-[hsl(var(--muted-foreground)/0.8)] mb-3 ml-1">
+                    Endast partners med vald fokusbransch visas i nästa steg
+                  </span>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                    {/* Alla branscher */}
+                    <button
+                      type="button"
+                      onClick={() => setFilter("industry", "")}
+                      className={`group relative flex flex-col rounded-lg border overflow-hidden text-left transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+                        !industryFilter
+                          ? "border-[hsl(var(--primary))] bg-[hsl(var(--primary)/0.06)]"
+                          : "border-[hsl(var(--border))] bg-[hsl(var(--card))] hover:border-[hsl(var(--primary)/0.5)]"
+                      }`}
+                      aria-pressed={!industryFilter}
                     >
-                      <SelectTrigger className="relative h-14 w-full rounded-lg border border-[hsl(var(--border-on-dark)/15)] bg-[hsl(var(--card-dark))] px-4 py-3 text-left transition-all duration-300 hover:border-[hsl(var(--primary)/40)] hover:shadow-[0_8px_24px_-12px_hsl(var(--card-dark)/0.4)] [&>span:last-child]:hidden">
-                        <div className="flex-1 min-w-0">
-                          <span className="block text-sm font-medium text-[hsl(var(--primary-foreground))] truncate">
-                            {industryFilter || "Alla branscher"}
-                          </span>
-                          <span className="block text-[11px] text-[hsl(var(--muted-dark))]">
-                            {industryFilter ? "Bransch vald" : "Välj branschområde"}
-                          </span>
-                        </div>
-                        <div className="ml-3 flex shrink-0 items-center justify-center rounded-md bg-[hsl(var(--primary-foreground)/0.08)] p-1.5 transition-colors group-hover:bg-[hsl(var(--primary)/0.15)]">
-                          <ChevronDown className="w-4 h-4 text-[hsl(var(--primary))]" />
-                        </div>
-                        <div className="absolute bottom-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[hsl(var(--primary)/0.4)] to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-                      </SelectTrigger>
-                      <SelectContent className="max-h-80">
-                        <SelectItem value="__all__">Alla branscher</SelectItem>
-                        {industryOptions.map((opt) => (
-                          <SelectItem key={opt} value={opt}>
-                            {opt}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
+                      <div className="aspect-[16/10] overflow-hidden bg-muted flex items-center justify-center">
+                        <span className="text-xs font-medium text-muted-foreground">Alla branscher</span>
+                      </div>
+                      <div className="p-2">
+                        <span className="text-xs font-semibold block">Alla branscher</span>
+                        <span className="text-[10px] text-muted-foreground">
+                          {allIndustryEligibleCount} {allIndustryEligibleCount === 1 ? "partner" : "partners"}
+                        </span>
+                      </div>
+                    </button>
 
+                    {STANDARD_INDUSTRIES.map((ind) => {
+                      const img = INDUSTRY_IMAGE_BY_SLUG[ind.slug];
+                      const selected = industryFilter === ind.name;
+                      const count = industryPartnerCounts[ind.name] || 0;
+                      const disabled = count === 0;
+                      return (
+                        <button
+                          key={ind.slug}
+                          type="button"
+                          onClick={() => setFilter("industry", ind.name)}
+                          disabled={disabled}
+                          className={`group relative flex flex-col rounded-lg border overflow-hidden text-left transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-45 disabled:cursor-not-allowed ${
+                            selected
+                              ? "border-[hsl(var(--primary))] bg-[hsl(var(--primary)/0.06)]"
+                              : "border-[hsl(var(--border))] bg-[hsl(var(--card))] hover:border-[hsl(var(--primary)/0.5)]"
+                          }`}
+                          aria-pressed={selected}
+                        >
+                          {img && (
+                            <div className="aspect-[16/10] overflow-hidden bg-muted">
+                              <img
+                                src={img}
+                                alt={`Bransch ${ind.name}`}
+                                loading="lazy"
+                                className={`w-full h-full object-cover transition-transform duration-500 ${!disabled ? "group-hover:scale-105" : ""}`}
+                              />
+                            </div>
+                          )}
+                          <div className="p-2">
+                            <span className={`text-xs font-semibold block ${selected ? "text-[hsl(var(--primary))]" : "group-hover:text-[hsl(var(--primary))]"}`}>
+                              {ind.short}
+                            </span>
+                            <span className="text-[10px] text-muted-foreground">
+                              {count} {count === 1 ? "partner" : "partners"}
+                            </span>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
                   {(productActive || industryFilter) && (
-                    <div className="md:col-span-3 flex justify-end">
+                    <div className="mt-3 flex justify-end">
                       <button
                         type="button"
                         onClick={() => {
