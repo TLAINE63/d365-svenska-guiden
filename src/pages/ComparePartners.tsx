@@ -568,7 +568,7 @@ const ComparePartners = () => {
   const [params, setParams] = useSearchParams();
   const aSlug = params.get("a") || "";
   const bSlug = params.get("b") || "";
-  const [quoteFor, setQuoteFor] = useState<DatabasePartner | null>(null);
+  const [quoteFor, setQuoteFor] = useState<{ partner: DatabasePartner; mode: "contact" | "demo" | "quote" } | null>(null);
   const [isSubmittingQuote, setIsSubmittingQuote] = useState(false);
 
   const { data: partners = [], isLoading } = usePartners();
@@ -1176,7 +1176,7 @@ const ComparePartners = () => {
                     slug={aSlug}
                     onChange={(s) => setSlot("a", s)}
                     onClear={() => setSlot("a", "")}
-                    onRequestQuote={a ? () => setQuoteFor(a) : undefined}
+                    onRequestQuote={a ? () => setQuoteFor({ partner: a, mode: "quote" }) : undefined}
                     quoteSubmitting={isSubmittingQuote}
                   />
                   <div className="flex items-center justify-center md:pt-10">
@@ -1200,7 +1200,7 @@ const ComparePartners = () => {
                     slug={bSlug}
                     onChange={(s) => setSlot("b", s)}
                     onClear={() => setSlot("b", "")}
-                    onRequestQuote={b ? () => setQuoteFor(b) : undefined}
+                    onRequestQuote={b ? () => setQuoteFor({ partner: b, mode: "quote" }) : undefined}
                     quoteSubmitting={isSubmittingQuote}
                   />
                 </div>
@@ -1419,9 +1419,60 @@ const ComparePartners = () => {
                       />
                     </section>
 
-
-
-
+                    {/* Per-partner CTAs */}
+                    <section className="space-y-3">
+                      <SectionTitle icon={Mail} title="Ta nästa steg" />
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {[
+                          { p: A.partner, name: A.partner?.name || "", label: "Partner A" },
+                          { p: B.partner, name: B.partner?.name || "", label: "Partner B" },
+                        ].map(({ p, name, label }) =>
+                          p ? (
+                            <div key={label} className="rounded-lg border border-slate-200 bg-white p-4">
+                              <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
+                                {label}
+                              </div>
+                              <div className="text-sm font-semibold text-foreground mb-3 truncate">{name}</div>
+                              <div className="grid grid-cols-1 gap-2">
+                                <Button
+                                  type="button"
+                                  size="sm"
+                                  onClick={() => setQuoteFor({ partner: p, mode: "contact" })}
+                                  disabled={isSubmittingQuote}
+                                  className="w-full h-9 bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
+                                >
+                                  Få kontakt
+                                </Button>
+                                <Button
+                                  type="button"
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => setQuoteFor({ partner: p, mode: "quote" })}
+                                  disabled={isSubmittingQuote}
+                                  className="w-full h-9"
+                                >
+                                  Begär offert
+                                </Button>
+                                <Button
+                                  type="button"
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => setQuoteFor({ partner: p, mode: "demo" })}
+                                  disabled={isSubmittingQuote}
+                                  className="w-full h-9"
+                                >
+                                  Boka demo
+                                </Button>
+                              </div>
+                            </div>
+                          ) : (
+                            <div key={label} className="rounded-lg border border-dashed border-slate-200 bg-slate-50 p-4 text-sm text-slate-500">
+                              Välj {label.toLowerCase()} för att aktivera kontakt-, offert- och demoknappar.
+                            </div>
+                          ),
+                        )}
+                      </div>
+                    </section>
 
                     <p className="text-xs text-slate-500 text-center pt-4">
                       Innehåll i beslutsprofilen är skrivet av partnern själv. d365.se redigerar inte.
@@ -1438,8 +1489,9 @@ const ComparePartners = () => {
         <PartnerRequestDialog
           open={!!quoteFor}
           onOpenChange={(o) => { if (!o) setQuoteFor(null); }}
-          partnerSlug={quoteFor.slug}
-          partnerName={quoteFor.name}
+          partnerSlug={quoteFor.partner.slug}
+          partnerName={quoteFor.partner.name}
+          mode={quoteFor.mode}
           selectedProduct={
             productFilters.length === 1
               ? PRODUCT_FILTER_GROUP[productFilters[0]].label
