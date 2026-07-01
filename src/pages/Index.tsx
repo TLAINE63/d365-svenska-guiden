@@ -649,11 +649,19 @@ const Index = () => {
                       </span>
                     </AccordionTrigger>
                     <AccordionContent className="pb-6">
-                      <div className="space-y-3 text-muted-foreground">
-                        <p>Microsoft Dynamics 365 är Microsofts plattform för affärssystem (ERP) och kundrelationshantering (CRM). Det är inte ett enda system, utan en familj av specialiserade affärsapplikationer som alla delar samma dataplattform och kan integreras sömlöst med varandra.</p>
-                        <p>• <strong>ERP-sidan</strong> täcker ekonomi, inköp, lager, produktion, projekt och supply chain – med <em>Business Central</em> (för SMB) och <em>Finance & Supply Chain Management</em> (för större koncerner).</p>
-                        <p>• <strong>CRM-sidan</strong> täcker försäljning, marknadsföring, kundservice och fältservice.</p>
-                        <p>• <strong>AI är inbyggt</strong> i samtliga appar via Microsoft Copilot.</p>
+                      <div className="grid gap-6 lg:grid-cols-[1fr,minmax(0,340px)] lg:items-start">
+                        <div className="space-y-3 text-muted-foreground">
+                          <p>Microsoft Dynamics 365 är Microsofts plattform för affärssystem (ERP) och kundrelationshantering (CRM). Det är inte ett enda system, utan en familj av specialiserade affärsapplikationer som alla delar samma dataplattform och kan integreras sömlöst med varandra.</p>
+                          <p>• <strong>ERP-sidan</strong> täcker ekonomi, inköp, lager, produktion, projekt och supply chain – med <em>Business Central</em> (för SMB) och <em>Finance & Supply Chain Management</em> (för större koncerner).</p>
+                          <p>• <strong>CRM-sidan</strong> täcker försäljning, marknadsföring, kundservice och fältservice.</p>
+                          <p>• <strong>AI är inbyggt</strong> i samtliga appar via Microsoft Copilot.</p>
+                        </div>
+                        <Suspense fallback={null}>
+                          <figure className="space-y-1.5">
+                            <YouTubeLite videoId="wVFZVajK2YI" title="Microsoft Dynamics 365 Business Central – översikt" />
+                            <figcaption className="text-xs text-muted-foreground">Video: Microsoft Dynamics 365 (YouTube)</figcaption>
+                          </figure>
+                        </Suspense>
                       </div>
                     </AccordionContent>
                   </AccordionItem>
@@ -666,14 +674,22 @@ const Index = () => {
                       </span>
                     </AccordionTrigger>
                     <AccordionContent className="pb-6">
-                      <div className="space-y-3 text-muted-foreground">
-                        <p>Det beror på om ni primärt behöver ett <strong>affärssystem (ERP)</strong> eller ett <strong>CRM-system</strong> – eller båda.</p>
-                        <p>• <strong>Business Central</strong> för mindre och medelstora företag (ca 10–300 anställda).</p>
-                        <p>• <strong>Finance & Supply Chain Management</strong> för större koncerner med komplexa globala flöden.</p>
-                        <p>• <strong>Sales / Customer Service / Field Service</strong> för säljorganisation respektive ärende- och fälthantering.</p>
-                        <p className="pt-1">
-                          → Gör en kostnadsfri behovsanalys för <Link to="/ERPbehovsanalys/" className="text-primary hover:underline font-semibold">ERP</Link>, <Link to="/CRMbehovsanalys/" className="text-primary hover:underline font-semibold">Sälj & Marknad</Link> eller <Link to="/kundservice-behovsanalys/" className="text-primary hover:underline font-semibold">Kundservice</Link>.
-                        </p>
+                      <div className="grid gap-6 lg:grid-cols-[1fr,minmax(0,340px)] lg:items-start">
+                        <div className="space-y-3 text-muted-foreground">
+                          <p>Det beror på om ni primärt behöver ett <strong>affärssystem (ERP)</strong> eller ett <strong>CRM-system</strong> – eller båda.</p>
+                          <p>• <strong>Business Central</strong> för mindre och medelstora företag (ca 10–300 anställda).</p>
+                          <p>• <strong>Finance & Supply Chain Management</strong> för större koncerner med komplexa globala flöden.</p>
+                          <p>• <strong>Sales / Customer Service / Field Service</strong> för säljorganisation respektive ärende- och fälthantering.</p>
+                          <p className="pt-1">
+                            → Gör en kostnadsfri behovsanalys för <Link to="/ERPbehovsanalys/" className="text-primary hover:underline font-semibold">ERP</Link>, <Link to="/CRMbehovsanalys/" className="text-primary hover:underline font-semibold">Sälj & Marknad</Link> eller <Link to="/kundservice-behovsanalys/" className="text-primary hover:underline font-semibold">Kundservice</Link>.
+                          </p>
+                        </div>
+                        <Suspense fallback={null}>
+                          <figure className="space-y-1.5">
+                            <YouTubeLite videoId="XWfNtf2sIGo" title="SAP S/4HANA vs Oracle vs Microsoft Dynamics 365 – jämförelse" />
+                            <figcaption className="text-xs text-muted-foreground">Video: Digital Transformation with Eric Kimberling (YouTube)</figcaption>
+                          </figure>
+                        </Suspense>
                       </div>
                     </AccordionContent>
                   </AccordionItem>
@@ -686,17 +702,25 @@ const Index = () => {
                       </span>
                     </AccordionTrigger>
                     <AccordionContent className="pb-6">
-                      <div className="space-y-3 text-muted-foreground">
-                        <p>Kostnaden består av <strong>löpande licensavgifter</strong> och en engångs <strong>implementeringskostnad</strong>.</p>
-                        <p>• <strong>Business Central:</strong> 765 kr/mån (Essentials) eller 1 051 kr/mån (Premium) per användare.</p>
-                        <p>• <strong>Finance & Supply Chain:</strong> 2 007 kr/mån per användare.</p>
-                        <p>• <strong>Sales & Customer Service:</strong> Från 478 kr/mån.</p>
+                      <div className="grid gap-6 lg:grid-cols-[1fr,minmax(0,340px)] lg:items-start">
+                        <div className="space-y-3 text-muted-foreground">
+                          <p>Kostnaden består av <strong>löpande licensavgifter</strong> och en engångs <strong>implementeringskostnad</strong>.</p>
+                          <p>• <strong>Business Central:</strong> 765 kr/mån (Essentials) eller 1 051 kr/mån (Premium) per användare.</p>
+                          <p>• <strong>Finance & Supply Chain:</strong> 2 007 kr/mån per användare.</p>
+                          <p>• <strong>Sales & Customer Service:</strong> Från 478 kr/mån.</p>
+                          <Suspense fallback={null}>
+                            <ContactFormDialog>
+                              <Button variant="link" className="mt-2 italic p-0 h-auto font-normal text-muted-foreground hover:text-primary">
+                                Kontakta oss för en tydligare uppfattning av kostnader →
+                              </Button>
+                            </ContactFormDialog>
+                          </Suspense>
+                        </div>
                         <Suspense fallback={null}>
-                          <ContactFormDialog>
-                            <Button variant="link" className="mt-2 italic p-0 h-auto font-normal text-muted-foreground hover:text-primary">
-                              Kontakta oss för en tydligare uppfattning av kostnader →
-                            </Button>
-                          </ContactFormDialog>
+                          <figure className="space-y-1.5">
+                            <YouTubeLite videoId="zEKNKES1sXs" title="Understanding Dynamics 365 pricing" />
+                            <figcaption className="text-xs text-muted-foreground">Video: Dynamics 365 pricing walkthrough (YouTube)</figcaption>
+                          </figure>
                         </Suspense>
                       </div>
                     </AccordionContent>
@@ -710,20 +734,57 @@ const Index = () => {
                       </span>
                     </AccordionTrigger>
                     <AccordionContent className="pb-6">
-                      <div className="space-y-3 text-muted-foreground">
-                        <p>Att välja rätt partner är minst lika viktigt som att välja rätt system.</p>
-                        <p>• <strong>Branschkunskap:</strong> Välj en partner med referenskunder i er bransch.</p>
-                        <p>• <strong>Applikationsfokus:</strong> Kontrollera att partnern är specialiserad på rätt app.</p>
-                        <p>• <strong>Storlek och kapacitet:</strong> Matcha partnerns kapacitet med projektets storlek.</p>
-                        <p className="pt-2">
-                          <Link to="/valjdynamics365partner/" className="text-primary hover:underline font-semibold">
-                            → Hitta rätt partner
-                          </Link>
-                        </p>
+                      <div className="grid gap-6 lg:grid-cols-[1fr,minmax(0,340px)] lg:items-start">
+                        <div className="space-y-3 text-muted-foreground">
+                          <p>Att välja rätt partner är minst lika viktigt som att välja rätt system.</p>
+                          <p>• <strong>Branschkunskap:</strong> Välj en partner med referenskunder i er bransch.</p>
+                          <p>• <strong>Applikationsfokus:</strong> Kontrollera att partnern är specialiserad på rätt app.</p>
+                          <p>• <strong>Storlek och kapacitet:</strong> Matcha partnerns kapacitet med projektets storlek.</p>
+                          <p className="pt-2">
+                            <Link to="/valjdynamics365partner/" className="text-primary hover:underline font-semibold">
+                              → Hitta rätt partner
+                            </Link>
+                          </p>
+                        </div>
+                        <Suspense fallback={null}>
+                          <figure className="space-y-1.5">
+                            <YouTubeLite videoId="XGyM7Kq9TfA" title="Grand & Toy – Dynamics 365 Customer Story" />
+                            <figcaption className="text-xs text-muted-foreground">Video: Microsoft Dynamics 365 Community (YouTube)</figcaption>
+                          </figure>
+                        </Suspense>
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="item-5" className="bg-card rounded px-4 sm:px-6 border border-border">
+                    <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
+                      <span className="text-base sm:text-lg font-bold text-card-foreground flex items-start gap-3">
+                        <Sparkles className="w-6 h-6 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
+                        <span>Hur gör AI och Microsoft Copilot skillnad i Dynamics 365?</span>
+                      </span>
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-6">
+                      <div className="grid gap-6 lg:grid-cols-[1fr,minmax(0,340px)] lg:items-start">
+                        <div className="space-y-3 text-muted-foreground">
+                          <p>Microsoft Copilot är inbyggt i samtliga Dynamics 365-appar och används i dag främst för att <strong>korta ledtider</strong> i vardagsarbetet – inte för att ersätta människor.</p>
+                          <p>• <strong>Sales:</strong> Sammanfattar möten, skriver mailutkast och pekar ut affärer att prioritera.</p>
+                          <p>• <strong>Customer Service:</strong> Föreslår svar och hämtar kunskapsartiklar under pågående ärende.</p>
+                          <p>• <strong>Business Central & F&SCM:</strong> Automatiserar bokföring, prognoser och inköpsförslag.</p>
+                          <p className="pt-1">
+                            → Läs mer i vår <Link to="/ai-oversikt/" className="text-primary hover:underline font-semibold">AI-översikt</Link> eller gör en <Link to="/ai-mognadsanalys/" className="text-primary hover:underline font-semibold">AI-mognadsanalys</Link>.
+                          </p>
+                        </div>
+                        <Suspense fallback={null}>
+                          <figure className="space-y-1.5">
+                            <YouTubeLite videoId="GMwtXDx-JUI" title="Introducing Microsoft Dynamics 365 Copilot" />
+                            <figcaption className="text-xs text-muted-foreground">Video: Microsoft Dynamics 365 (YouTube)</figcaption>
+                          </figure>
+                        </Suspense>
                       </div>
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
+
               </Suspense>
             </div>
           </div>
