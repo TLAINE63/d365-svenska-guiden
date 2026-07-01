@@ -1555,6 +1555,7 @@ const ComparePartners = () => {
                       />
                       <R
                         label="Fokusbranscher"
+                        warn={!!industryFilter}
                         a={renderIndustryList(AF.industries)}
                         b={renderIndustryList(BF.industries)}
                         c={renderIndustryList(CF.industries)}
@@ -1569,17 +1570,23 @@ const ComparePartners = () => {
                       />
 
                       {(() => {
-                        const keys = Array.from(
+                        // If a specific industry is selected, always show that row (even if empty across partners)
+                        const baseKeys = Array.from(
                           new Set([
                             ...AF.industryPitches.map((ip) => ip.industry),
                             ...BF.industryPitches.map((ip) => ip.industry),
                             ...CF.industryPitches.map((ip) => ip.industry),
                           ])
+                        );
+                        const keys = (industryFilter && !baseKeys.includes(industryFilter)
+                          ? [industryFilter, ...baseKeys]
+                          : baseKeys
                         ).sort((x, y) => x.localeCompare(y, "sv"));
                         return keys.map((industry) => (
                           <R
                             key={industry}
                             label={industry}
+                            warn={!!industryFilter}
                             a={renderPitchCell(
                               AF.industryPitches.filter((ip) => ip.industry === industry)
                             )}
