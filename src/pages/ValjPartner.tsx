@@ -670,22 +670,6 @@ const ValjPartner = () => {
  </div>
  </div>
 
- {/* Advisory Box - How to use the matchmaking */}
- <div className="mb-8 sm:mb-10 rounded border border-primary/20 bg-gradient-to-br from-primary/5 via-background to-accent/5 p-5 sm:p-6 md:p-7 ">
- <div className="flex items-start gap-3 sm:gap-4">
- <div className="shrink-0 p-2.5 rounded bg-primary/10 text-primary">
- <Target className="h-5 w-5" />
- </div>
- <div className="flex-1">
- <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2">
- Så bör ni använda partnermatchningen
- </h3>
- <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
- Välj produktområde, bransch och ungefärlig storlek. Använd resultatet som en <span className="font-semibold text-foreground">första shortlist</span> – inte som ett facit. Ett bra val handlar både om erfarenhet, metodik, team, kemi och hur väl partnern förstår er verksamhet.
- </p>
- </div>
- </div>
- </div>
 
  {/* Industry Filter */}
  <FilterButtons
