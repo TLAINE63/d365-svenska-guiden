@@ -44,7 +44,7 @@ interface ProductSection {
 
 const productSections: ProductSection[] = [
   { key: 'bc', label: 'Business Central', apps: ['Business Central'], colorClass: 'bg-business-central', icon: BusinessCentralIcon },
-  { key: 'fsc', label: 'F&SCM', apps: ['Finance', 'Supply Chain Management'], colorClass: 'bg-finance-supply', icon: FinanceIcon },
+  { key: 'fsc', label: 'F&SCM', apps: ['F&SCM'], colorClass: 'bg-finance-supply', icon: FinanceIcon },
   { key: 'sales', label: 'Sales & Customer Insights', apps: ['Sales', 'Customer Insights (Marketing)'], colorClass: 'bg-crm', icon: SalesIcon },
   { key: 'service', label: 'Customer Service / Field Service / Contact Center', apps: ['Customer Service', 'Field Service', 'Contact Center'], colorClass: 'bg-customer-service', icon: CustomerServiceIcon },
 ];
