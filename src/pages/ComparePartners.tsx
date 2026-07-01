@@ -1024,64 +1024,80 @@ const ComparePartners = () => {
 
   const AF = applyFilters(A);
   const BF = applyFilters(B);
+  const CF = applyFilters(C);
 
 
   const [showAllRows, setShowAllRows] = useState(false);
 
-  const R = (props: { label: string; a: React.ReactNode; b: React.ReactNode; warn?: boolean; help?: string }) => {
+  const R = (props: { label: string; a: React.ReactNode; b: React.ReactNode; c?: React.ReactNode; warn?: boolean; help?: string }) => {
     if (!showAllRows && !props.warn) {
       try {
         const sa = JSON.stringify(props.a);
         const sb = JSON.stringify(props.b);
-        if (sa && sa === sb) return null;
+        const sc = hasC ? JSON.stringify(props.c) : sa;
+        if (sa && sa === sb && sa === sc) return null;
       } catch {}
     }
-    return <Row {...props} aName={aName} bName={bName} />;
+    return <Row {...props} aName={aName} bName={bName} cName={cName} showC={hasC} />;
   };
 
-  // Heuristik: bygg 2-4 skillnadspunkter mellan A och B (utan AI-anrop)
+  // Heuristik: bygg 2-4 skillnadspunkter mellan valda partners (utan AI-anrop)
   const diffPoints = useMemo(() => {
     if (!hasBoth) return [] as string[];
     const points: string[] = [];
     const setDiff = (x: string[], y: string[]) => x.filter((v) => !y.includes(v));
 
-    const aOnlyInd = setDiff(A.industries, B.industries).slice(0, 3);
-    const bOnlyInd = setDiff(B.industries, A.industries).slice(0, 3);
-    if (aOnlyInd.length && bOnlyInd.length) {
-      points.push(`Branschtyngdpunkt skiljer sig: ${A.partner?.name} har fokus på ${aOnlyInd.join(", ")}, ${B.partner?.name} på ${bOnlyInd.join(", ")}.`);
-    } else if (aOnlyInd.length) {
-      points.push(`${A.partner?.name} täcker även ${aOnlyInd.join(", ")} som ${B.partner?.name} inte lyfter fram.`);
-    } else if (bOnlyInd.length) {
-      points.push(`${B.partner?.name} täcker även ${bOnlyInd.join(", ")} som ${A.partner?.name} inte lyfter fram.`);
-    }
+    const sides = [
+      { P: A, name: A.partner?.name || "Partner A" },
+      { P: B, name: B.partner?.name || "Partner B" },
+      ...(hasC ? [{ P: C, name: C.partner?.name || "Partner C" }] : []),
+    ];
 
-    const aOnlyApps = setDiff(A.apps, B.apps);
-    const bOnlyApps = setDiff(B.apps, A.apps);
-    if (aOnlyApps.length || bOnlyApps.length) {
-      const parts: string[] = [];
-      if (aOnlyApps.length) parts.push(`${A.partner?.name} levererar även ${aOnlyApps.slice(0, 3).join(", ")}`);
-      if (bOnlyApps.length) parts.push(`${B.partner?.name} levererar även ${bOnlyApps.slice(0, 3).join(", ")}`);
-      points.push(`Produktbredd: ${parts.join("; ")}.`);
-    }
-
-    const aOnlyGeo = setDiff(A.geography, B.geography);
-    const bOnlyGeo = setDiff(B.geography, A.geography);
-    if (aOnlyGeo.length || bOnlyGeo.length) {
+    // Branschtyngdpunkt – lyft fram unika branscher per partner
+    const allInd = Array.from(new Set(sides.flatMap((s) => s.P.industries)));
+    const uniquePer = sides.map((s) => ({
+      name: s.name,
+      only: s.P.industries.filter((i) => sides.every((o) => o === s || !o.P.industries.includes(i))).slice(0, 3),
+    })).filter((u) => u.only.length > 0);
+    if (uniquePer.length > 0) {
       points.push(
-        `Geografisk täckning: ${A.partner?.name} ${A.geography.join(", ") || "—"} vs ${B.partner?.name} ${B.geography.join(", ") || "—"}.`
+        `Branschtyngdpunkt skiljer sig: ` +
+          uniquePer.map((u) => `${u.name} har fokus på ${u.only.join(", ")}`).join("; ") + "."
       );
     }
 
-    if (A.teamSize && B.teamSize && A.teamSize !== B.teamSize) {
-      points.push(`Teamstorlek i Sverige: ${A.partner?.name} ${A.teamSize}, ${B.partner?.name} ${B.teamSize}.`);
+    // Produktbredd – unika appar per partner
+    const uniqueApps = sides.map((s) => ({
+      name: s.name,
+      only: s.P.apps.filter((a) => sides.every((o) => o === s || !o.P.apps.includes(a))).slice(0, 3),
+    })).filter((u) => u.only.length > 0);
+    if (uniqueApps.length > 0) {
+      points.push(
+        `Produktbredd: ` + uniqueApps.map((u) => `${u.name} levererar även ${u.only.join(", ")}`).join("; ") + "."
+      );
     }
 
-    if (A.positioning && B.positioning && A.positioning !== B.positioning) {
+    // Geografi
+    const geoTexts = sides.map((s) => `${s.name} ${s.P.geography.join(", ") || "—"}`);
+    const distinctGeo = new Set(sides.map((s) => s.P.geography.join(","))).size > 1;
+    if (distinctGeo) {
+      points.push(`Geografisk täckning: ${geoTexts.join(" vs ")}.`);
+    }
+
+    // Teamstorlek
+    const teams = sides.filter((s) => s.P.teamSize);
+    if (teams.length >= 2 && new Set(teams.map((t) => t.P.teamSize)).size > 1) {
+      points.push(`Teamstorlek i Sverige: ${teams.map((t) => `${t.name} ${t.P.teamSize}`).join(", ")}.`);
+    }
+
+    // Positionering
+    const positionings = sides.map((s) => s.P.positioning).filter(Boolean);
+    if (positionings.length >= 2 && new Set(positionings).size > 1) {
       points.push(`Positionering skiljer sig — se "Vi är valet när…" för respektive partner.`);
     }
 
-    return points.slice(0, 5);
-  }, [hasBoth, A, B]);
+    return points.slice(0, 6);
+  }, [hasBoth, hasC, A, B, C]);
 
 
   return (
