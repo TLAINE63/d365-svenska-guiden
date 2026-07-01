@@ -1446,7 +1446,7 @@ const ComparePartners = () => {
                                 })
                               }
                               disabled={isSubmittingQuote}
-                              className="w-full min-h-[48px] bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 font-semibold"
+                              className="w-full min-h-[52px] bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 font-semibold"
                             >
                               Ställ en första fråga till båda
                             </Button>
@@ -1464,7 +1464,7 @@ const ComparePartners = () => {
                                   })
                                 }
                                 disabled={isSubmittingQuote}
-                                className="w-full min-h-[44px]"
+                                className="w-full min-h-[52px]"
                               >
                                 Boka genomgång eller demo
                               </Button>
@@ -1481,7 +1481,7 @@ const ComparePartners = () => {
                                   })
                                 }
                                 disabled={isSubmittingQuote}
-                                className="w-full min-h-[44px]"
+                                className="w-full min-h-[52px]"
                               >
                                 Få en uppskattning av tid och kostnad
                               </Button>
@@ -1499,15 +1499,17 @@ const ComparePartners = () => {
 
                       {/* Kontakta enskilt */}
                       {(A.partner || B.partner) && (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-stretch">
                           {[A, B].map((side, idx) =>
                             side.partner ? (
-                              <div key={idx} className="rounded-lg border border-slate-200 bg-white p-3">
-                                <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
-                                  Endast {idx === 0 ? "Partner A" : "Partner B"}
-                                </div>
-                                <div className="text-sm font-medium text-foreground mb-2 truncate">
-                                  {side.partner.name}
+                              <div key={idx} className="rounded-lg border border-slate-200 bg-white p-4 flex flex-col justify-between">
+                                <div>
+                                  <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
+                                    Endast {idx === 0 ? "Partner A" : "Partner B"}
+                                  </div>
+                                  <div className="text-sm font-medium text-foreground mb-3 truncate">
+                                    {side.partner.name}
+                                  </div>
                                 </div>
                                 <div className="flex flex-wrap gap-2">
                                   <Button
@@ -1521,7 +1523,7 @@ const ComparePartners = () => {
                                       })
                                     }
                                     disabled={isSubmittingQuote}
-                                    className="text-xs"
+                                    className="text-xs min-h-[40px]"
                                   >
                                     Ställ en fråga till denna partner
                                   </Button>
@@ -1536,7 +1538,7 @@ const ComparePartners = () => {
                                       })
                                     }
                                     disabled={isSubmittingQuote}
-                                    className="text-xs"
+                                    className="text-xs min-h-[40px]"
                                   >
                                     Boka genomgång
                                   </Button>
@@ -1551,7 +1553,7 @@ const ComparePartners = () => {
                                       })
                                     }
                                     disabled={isSubmittingQuote}
-                                    className="text-xs"
+                                    className="text-xs min-h-[40px]"
                                   >
                                     Offertindikering
                                   </Button>
