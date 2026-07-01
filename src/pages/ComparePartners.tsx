@@ -754,7 +754,7 @@ const ComparePartners = () => {
     const pf = (p as any)?.product_filters as Record<string, any> | undefined;
     if (!pf) return [];
     const out: AiPerProduct[] = [];
-    for (const key of ["bc", "fsc", "sales", "service"]) {
+    for (const key of Object.keys(PRODUCT_FILTER_GROUP) as ProductFilterKey[]) {
       const f = pf[key];
       if (!f) continue;
       const caps: string[] = Array.isArray(f.aiCapabilities) ? f.aiCapabilities : [];
