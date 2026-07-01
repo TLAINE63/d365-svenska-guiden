@@ -1554,7 +1554,6 @@ const ComparePartners = () => {
                         c={renderIndustryList(CF.industries)}
                       />
 
-
                       <R
                         label="AI, Copilot & Automation"
                         help="Partnerns samlade AI- och automationsprofil: leveransmodell, förmågor, relevanta områden, use cases, erfarenhet och underlag. Bygger på partnerns egna uppgifter."
@@ -1562,6 +1561,36 @@ const ComparePartners = () => {
                         b={renderAiProfile(((B.partner as any)?.ai_profile) as AiProfile | null)}
                         c={renderAiProfile(((C.partner as any)?.ai_profile) as AiProfile | null)}
                       />
+
+                      {(() => {
+                        const renderIA = (list: typeof AF.industryApps) =>
+                          list.length > 0 ? (
+                            <ul className="space-y-1.5">
+                              {list.map((ia, i) => (
+                                <li key={i} className="text-sm">
+                                  <span className="font-medium">{ia.name}</span>
+                                  {(ia.application || ia.industry) && (
+                                    <span className="text-slate-500">
+                                      {" — "}
+                                      {[ia.application, ia.industry].filter(Boolean).join(" · ")}
+                                    </span>
+                                  )}
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            EMPTY
+                          );
+                        return (
+                          <R
+                            label="Branschapplikationer"
+                            help="Branschlösningar / vertikala tillägg som partnern erbjuder ovanpå Dynamics 365."
+                            a={renderIA(AF.industryApps)}
+                            b={renderIA(BF.industryApps)}
+                            c={renderIA(CF.industryApps)}
+                          />
+                        );
+                      })()}
 
                       {(() => {
                         // If a specific industry is selected, always show that row (even if empty across partners)
@@ -1603,38 +1632,6 @@ const ComparePartners = () => {
                         c={renderAppList(C.apps)}
                       />
 
-
-
-
-                      {(() => {
-                        const renderIA = (list: typeof AF.industryApps) =>
-                          list.length > 0 ? (
-                            <ul className="space-y-1.5">
-                              {list.map((ia, i) => (
-                                <li key={i} className="text-sm">
-                                  <span className="font-medium">{ia.name}</span>
-                                  {(ia.application || ia.industry) && (
-                                    <span className="text-slate-500">
-                                      {" — "}
-                                      {[ia.application, ia.industry].filter(Boolean).join(" · ")}
-                                    </span>
-                                  )}
-                                </li>
-                              ))}
-                            </ul>
-                          ) : (
-                            EMPTY
-                          );
-                        return (
-                          <R
-                            label="Branschapplikationer"
-                            help="Branschlösningar / vertikala tillägg som partnern erbjuder ovanpå Dynamics 365."
-                            a={renderIA(AF.industryApps)}
-                            b={renderIA(BF.industryApps)}
-                            c={renderIA(CF.industryApps)}
-                          />
-                        );
-                      })()}
                     </section>
 
 
