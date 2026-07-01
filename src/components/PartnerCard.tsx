@@ -527,7 +527,7 @@ const PartnerCard = ({
    }`}
   >
    <ArrowLeftRight className="h-3.5 w-3.5" />
-   {compareActive ? 'Vald för jämförelse' : 'Jämför partners (välj 2)'}
+   {compareActive ? 'Vald för jämförelse' : 'Jämför partners (välj upp till 3)'}
   </button>
  )}
  </div>
