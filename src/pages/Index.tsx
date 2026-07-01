@@ -38,10 +38,12 @@ const AccordionTrigger = lazy(() => import("@/components/ui/accordion").then(m =
 const ContactFormDialog = lazy(() => import("@/components/ContactFormDialog"));
 const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
 const EbookBanner = lazy(() => import("@/components/EbookBanner"));
+const YouTubeLite = lazy(() => import("@/components/YouTubeLite"));
 
 import LatestArticlesStrip from "@/components/LatestArticlesStrip";
 import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
 import TrustBanner from "@/components/TrustBanner";
+
 
 const homeFaqs = [
   { question: "Vad är Microsoft Dynamics 365?", answer: "Microsoft Dynamics 365 är Microsofts plattform för affärssystem (ERP) och kundrelationshantering (CRM) i molnet. Det är en familj av specialiserade affärsappar – Business Central och Finance & Supply Chain för ERP, samt Sales, Customer Service, Field Service och Customer Insights för CRM. Alla appar delar samma dataplattform, integreras sömlöst med Microsoft 365 (Outlook, Teams, Excel) och har inbyggd AI via Microsoft Copilot. Dynamics 365 faktureras per användare och månad utan egna servrar." },
