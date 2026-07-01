@@ -1217,8 +1217,10 @@ const Kunskapscenter = () => {
  </span>
  )}
  </div>
- ) : (
- <div className="aspect-[2/1] overflow-hidden bg-gradient-to-br from-secondary to-muted flex items-center justify-center">
+              ) : (
+                <div
+                  className={`${item.type === "video" ? "aspect-[20/7]" : "aspect-[2/1]"} overflow-hidden bg-gradient-to-br from-secondary to-muted flex items-center justify-center`}
+                >
  <item.icon className="w-12 h-12 text-muted-foreground/40" />
  </div>
  )}
