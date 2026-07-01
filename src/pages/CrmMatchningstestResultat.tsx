@@ -79,6 +79,7 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
   useEffect(() => {
     if (!score || submitted) return;
     setSubmitted(true);
+    const top = topCrmProfiles(score, 1)[0];
     trackFunnelEventOnce(
       `crm_test_result_view:${productKey}`,
       "crm_test_result_view",
@@ -86,8 +87,9 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
         product_key: productKey,
         assessment_type: config.assessmentType,
         level: score.level,
-        top_profile: score.profiles[0]?.key,
-        top_profile_score: score.profiles[0]?.percent,
+        total_score: score.total,
+        top_profile: top?.key,
+        top_profile_score: top?.score,
       },
     );
     void supabase.from("assessments").insert([
