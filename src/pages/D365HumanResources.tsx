@@ -54,7 +54,7 @@ const D365HumanResources = () => {
         secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation/", icon: FileText }}
       />
 
-      <ShortAnswer title="Vad är Dynamics 365 Human Resources" cta={{ label: "Matcha er behov", to: "/ERPbehovsanalys" }}>
+      <ShortAnswer title="Vad är Dynamics 365 Human Resources">
         <p>Dynamics 365 Human Resources är Microsofts HR-plattform för att hantera medarbetardata, organisations­struktur, anställningsavtal, kompensation, förmåner, frånvaro, prestations­utvärdering och kompetensutveckling i en samlad lösning.</p>
         <p>Funktionellt täcker den hela medarbetar­livscykeln — onboarding, befordringar, lönerevisioner, certifieringar, successions­planering och offboarding — och ger HR-avdelningen ett strukturerat sätt att förvalta organisations­hierarkier, befattningar och positions­budgetar över flera bolag och länder.</p>
         <p>Plattformen är nu integrerad som en del av Dynamics 365 Finance & Supply Chain Management, vilket gör att medarbetar­data flödar sömlöst till projektresursplanering (Project Operations), produktionsplanering, ekonomi och rapportering i Power BI.</p>

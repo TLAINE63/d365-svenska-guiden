@@ -185,7 +185,7 @@ const CRM = () => {
   />
 
 
- <ShortAnswer title="Vad är Microsoft Dynamics 365 Customer Engagement (CRM)?" cta={{ label: "Matcha er behov", to: "/CRMbehovsanalys" }}>
+ <ShortAnswer title="Vad är Microsoft Dynamics 365 Customer Engagement (CRM)?">
  <p>Microsoft Dynamics 365 Customer Engagement — i dagligt tal Dynamics 365 CRM — är Microsofts samling av molnbaserade affärsapplikationer för försäljning, marknadsföring, kundservice, fältservice och kontaktcenter.</p>
  <p>Sviten omfattar <strong>Dynamics 365 Sales</strong> för pipeline- och offerthantering, <strong>Dynamics 365 Customer Service</strong> och <strong>Contact Center</strong> för ärendehantering och omnikanal-support, <strong>Dynamics 365 Field Service</strong> för planering och utförande av arbete ute hos kund, samt <strong>Customer Insights — Journeys</strong> och <strong>Data</strong> för marknadsföring, kundresor och en enhetlig kundprofil.</p>
  <p>Alla applikationer delar samma datamodell via Dataverse och är djupt integrerade med Microsoft 365 (Outlook, Teams, Excel), Power BI, Power Automate och Azure. Det ger en sammanhängande 360°-bild av kunden och eliminerar behovet av separata system för sälj, support och marknad.</p>

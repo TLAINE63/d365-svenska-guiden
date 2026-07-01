@@ -56,7 +56,7 @@ const D365ProjectOperations = () => {
         secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation/", icon: FileText }}
       />
 
-      <ShortAnswer title="Vad är Dynamics 365 Project Operations" cta={{ label: "Matcha er behov", to: "/ERPbehovsanalys" }}>
+      <ShortAnswer title="Vad är Dynamics 365 Project Operations">
         <p>Dynamics 365 Project Operations är Microsofts samlade projektmodul för konsult-, ingenjörs- och tjänsteföretag — en plattform som binder ihop sälj, leverans och ekonomi i ett enda flöde från första offert till slutfaktura.</p>
         <p>Affären kvalificeras i Dynamics 365 Sales, planeras med resurskapacitet och kompetensmatchning, levereras genom uppgifter, tidrapporter och utlägg i Teams och mobilen, och faktureras via fast pris, löpande räkning eller milstolpar med full koppling till projektekonomi, work-in-progress och intäktsavräkning.</p>
         <p>Inbyggda funktioner för portföljstyrning, prognos, marginal­uppföljning per projekt och utilization av konsulter ger ledningen realtidsbild av lönsamheten — medan Copilot och AI-agenter hjälper projektledare att sammanfatta statusrapporter, identifiera risk och föreslå nästa åtgärd.</p>
