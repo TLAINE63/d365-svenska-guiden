@@ -1483,7 +1483,7 @@ const ComparePartners = () => {
                                 disabled={isSubmittingQuote}
                                 className="w-full min-h-[44px]"
                               >
-                                Begär offertindikering
+                                Få en uppskattning av tid och kostnad
                               </Button>
                             </div>
                           </div>
