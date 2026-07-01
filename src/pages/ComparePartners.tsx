@@ -1273,6 +1273,45 @@ const ComparePartners = () => {
 
 
                 {hasBoth && (
+                  <>
+                    {/* AI-liknande diff-sammanfattning */}
+                    <section className="mb-6 rounded-lg border border-primary/30 bg-primary/5 p-5">
+                      <h2 className="text-lg font-bold text-foreground mb-2">
+                        Vad skiljer partnerna åt?
+                      </h2>
+                      {diffPoints.length === 0 ? (
+                        <p className="text-sm text-muted-foreground">
+                          Partnerna liknar varandra mycket på nyckelattributen ovan. Se
+                          fullständig jämförelse nedan för fler detaljer.
+                        </p>
+                      ) : (
+                        <ul className="space-y-1.5 text-sm text-foreground/90 list-disc pl-5">
+                          {diffPoints.map((p, i) => (
+                            <li key={i}>{p}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </section>
+
+                    {/* Toggle skillnader / fullständig jämförelse */}
+                    <div className="flex items-center justify-between mb-4 gap-3 flex-wrap">
+                      <p className="text-xs text-muted-foreground">
+                        {showAllRows
+                          ? "Visar samtliga attribut."
+                          : "Visar endast rader där partnerna skiljer sig åt."}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => setShowAllRows((v) => !v)}
+                        className="text-sm font-semibold text-primary hover:underline"
+                      >
+                        {showAllRows ? "Visa endast skillnader" : "Visa fullständig jämförelse"}
+                      </button>
+                    </div>
+                  </>
+                )}
+
+                {hasBoth && (
                   <div className="space-y-8">
                     {/* Positionering */}
                     <section className="space-y-3">
