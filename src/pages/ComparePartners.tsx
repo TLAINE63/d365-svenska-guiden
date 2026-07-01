@@ -1002,9 +1002,63 @@ const ComparePartners = () => {
   const BF = applyFilters(B);
 
 
-  const R = (props: { label: string; a: React.ReactNode; b: React.ReactNode; warn?: boolean; help?: string }) => (
-    <Row {...props} aName={aName} bName={bName} />
-  );
+  const [showAllRows, setShowAllRows] = useState(false);
+
+  const R = (props: { label: string; a: React.ReactNode; b: React.ReactNode; warn?: boolean; help?: string }) => {
+    if (!showAllRows && !props.warn) {
+      try {
+        const sa = JSON.stringify(props.a);
+        const sb = JSON.stringify(props.b);
+        if (sa && sa === sb) return null;
+      } catch {}
+    }
+    return <Row {...props} aName={aName} bName={bName} />;
+  };
+
+  // Heuristik: bygg 2-4 skillnadspunkter mellan A och B (utan AI-anrop)
+  const diffPoints = useMemo(() => {
+    if (!hasBoth) return [] as string[];
+    const points: string[] = [];
+    const setDiff = (x: string[], y: string[]) => x.filter((v) => !y.includes(v));
+
+    const aOnlyInd = setDiff(A.industries, B.industries).slice(0, 3);
+    const bOnlyInd = setDiff(B.industries, A.industries).slice(0, 3);
+    if (aOnlyInd.length && bOnlyInd.length) {
+      points.push(`Branschtyngdpunkt skiljer sig: ${A.partner?.name} har fokus på ${aOnlyInd.join(", ")}, ${B.partner?.name} på ${bOnlyInd.join(", ")}.`);
+    } else if (aOnlyInd.length) {
+      points.push(`${A.partner?.name} täcker även ${aOnlyInd.join(", ")} som ${B.partner?.name} inte lyfter fram.`);
+    } else if (bOnlyInd.length) {
+      points.push(`${B.partner?.name} täcker även ${bOnlyInd.join(", ")} som ${A.partner?.name} inte lyfter fram.`);
+    }
+
+    const aOnlyApps = setDiff(A.apps, B.apps);
+    const bOnlyApps = setDiff(B.apps, A.apps);
+    if (aOnlyApps.length || bOnlyApps.length) {
+      const parts: string[] = [];
+      if (aOnlyApps.length) parts.push(`${A.partner?.name} levererar även ${aOnlyApps.slice(0, 3).join(", ")}`);
+      if (bOnlyApps.length) parts.push(`${B.partner?.name} levererar även ${bOnlyApps.slice(0, 3).join(", ")}`);
+      points.push(`Produktbredd: ${parts.join("; ")}.`);
+    }
+
+    const aOnlyGeo = setDiff(A.geography, B.geography);
+    const bOnlyGeo = setDiff(B.geography, A.geography);
+    if (aOnlyGeo.length || bOnlyGeo.length) {
+      points.push(
+        `Geografisk täckning: ${A.partner?.name} ${A.geography.join(", ") || "—"} vs ${B.partner?.name} ${B.geography.join(", ") || "—"}.`
+      );
+    }
+
+    if (A.teamSize && B.teamSize && A.teamSize !== B.teamSize) {
+      points.push(`Teamstorlek i Sverige: ${A.partner?.name} ${A.teamSize}, ${B.partner?.name} ${B.teamSize}.`);
+    }
+
+    if (A.positioning && B.positioning && A.positioning !== B.positioning) {
+      points.push(`Positionering skiljer sig — se "Vi är valet när…" för respektive partner.`);
+    }
+
+    return points.slice(0, 5);
+  }, [hasBoth, A, B]);
+
 
   return (
     <div className="min-h-screen bg-background">
@@ -1217,6 +1271,45 @@ const ComparePartners = () => {
                   </div>
                 )}
 
+
+                {hasBoth && (
+                  <>
+                    {/* AI-liknande diff-sammanfattning */}
+                    <section className="mb-6 rounded-lg border border-primary/30 bg-primary/5 p-5">
+                      <h2 className="text-lg font-bold text-foreground mb-2">
+                        Vad skiljer partnerna åt?
+                      </h2>
+                      {diffPoints.length === 0 ? (
+                        <p className="text-sm text-muted-foreground">
+                          Partnerna liknar varandra mycket på nyckelattributen ovan. Se
+                          fullständig jämförelse nedan för fler detaljer.
+                        </p>
+                      ) : (
+                        <ul className="space-y-1.5 text-sm text-foreground/90 list-disc pl-5">
+                          {diffPoints.map((p, i) => (
+                            <li key={i}>{p}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </section>
+
+                    {/* Toggle skillnader / fullständig jämförelse */}
+                    <div className="flex items-center justify-between mb-4 gap-3 flex-wrap">
+                      <p className="text-xs text-muted-foreground">
+                        {showAllRows
+                          ? "Visar samtliga attribut."
+                          : "Visar endast rader där partnerna skiljer sig åt."}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => setShowAllRows((v) => !v)}
+                        className="text-sm font-semibold text-primary hover:underline"
+                      >
+                        {showAllRows ? "Visa endast skillnader" : "Visa fullständig jämförelse"}
+                      </button>
+                    </div>
+                  </>
+                )}
 
                 {hasBoth && (
                   <div className="space-y-8">

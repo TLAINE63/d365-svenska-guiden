@@ -673,7 +673,7 @@ const ValjPartner = () => {
 
  {/* Industry Filter */}
  <FilterButtons
- title="Filtrera på bransch"
+ title="Filtrera på bransch (rekommenderat)"
  icon="industry"
  options={availableIndustries.map(ind => ({ label: ind, value: ind }))}
  selectedValue={selectedIndustry}
@@ -681,9 +681,9 @@ const ValjPartner = () => {
  colorScheme="amber"
  />
 
- {/* Application Filter */}
+ {/* Application Filter (obligatoriskt) */}
  <MultiFilterButtons
- title="Filtrera på Dynamics 365 Applikation"
+ title="Filtrera på Dynamics 365 Applikation (obligatoriskt)"
  icon="application"
  options={allApplications.map(app => ({ label: app, value: app }))}
  selectedValues={selectedApplications}
@@ -739,7 +739,17 @@ const ValjPartner = () => {
  </div>
  )}
 
- {filteredPartners.length === 0 ? (
+ {selectedApplications.length === 0 ? (
+ <div className="text-center py-10 bg-muted/30 rounded border border-border/50">
+ <Award className="h-12 w-12 text-primary mx-auto mb-4" />
+ <h3 className="text-xl font-semibold text-foreground mb-2">
+ Välj först ett produktområde
+ </h3>
+ <p className="text-muted-foreground max-w-lg mx-auto">
+ För att visa relevanta partners behöver du välja minst en Dynamics 365-applikation ovan (t.ex. Business Central, Sales eller Customer Service). Bransch är valfritt men rekommenderat.
+ </p>
+ </div>
+ ) : filteredPartners.length === 0 ? (
  <div className="text-center py-6 bg-muted/30 rounded border border-border/50">
  <Users className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
  <h3 className="text-xl font-semibold text-foreground mb-2">
