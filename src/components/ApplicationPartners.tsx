@@ -218,6 +218,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  highlightedProduct={applicationFilter}
  highlightedIndustry={selectedIndustry || undefined}
  highlightedGeography={selectedGeography || undefined}
+ highlightedCompanySize={selectedCompanySize || undefined}
  showRandomIndicator={true}
  />
  );
