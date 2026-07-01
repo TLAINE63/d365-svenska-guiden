@@ -23,6 +23,8 @@ import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import SEOHead from "@/components/SEOHead";
 import { FAQSchema, ServiceSchema, BreadcrumbSchema, ItemListSchema } from "@/components/StructuredData";
 import { resolvePriceTokens } from "@/lib/productPriceFormat";
+import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
+import { appsToProductFilterKeys } from "@/lib/productFilterGroup";
 
 // Breadcrumb items
 const partnerBreadcrumbs = [
