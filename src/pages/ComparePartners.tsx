@@ -583,6 +583,7 @@ const ComparePartners = () => {
   const [params, setParams] = useSearchParams();
   const aSlug = params.get("a") || "";
   const bSlug = params.get("b") || "";
+  const cSlug = params.get("c") || "";
   const [quoteFor, setQuoteFor] = useState<{ recipients: Array<{ slug: string; name: string }>; mode: "contact" | "demo" | "quote" } | null>(null);
   const [isSubmittingQuote, setIsSubmittingQuote] = useState(false);
 
@@ -595,8 +596,9 @@ const ComparePartners = () => {
 
   const a = partners.find((p) => p.slug === aSlug);
   const b = partners.find((p) => p.slug === bSlug);
+  const c = partners.find((p) => p.slug === cSlug);
 
-  const setSlot = (key: "a" | "b", slug: string) => {
+  const setSlot = (key: "a" | "b" | "c", slug: string) => {
     const next = new URLSearchParams(params);
     if (slug) next.set(key, slug);
     else next.delete(key);
