@@ -605,15 +605,6 @@ const ComparePartners = () => {
     setParams(next, { replace: true });
   };
 
-  const swap = () => {
-    const next = new URLSearchParams(params);
-    if (aSlug) next.set("b", aSlug);
-    else next.delete("b");
-    if (bSlug) next.set("a", bSlug);
-    else next.delete("a");
-    setParams(next, { replace: true });
-  };
-
   const ERP_APPS = new Set([
     "Business Central",
     "Finance",
@@ -1104,7 +1095,7 @@ const ComparePartners = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Jämför Dynamics 365-partner sida vid sida | d365.se"
-        description="Jämför två Microsoft Dynamics 365-partner mot samma beslutsprofil: positionering, leveransbild, fakta och 'när passar vi inte'."
+        description="Jämför två till tre Microsoft Dynamics 365-partner mot samma beslutsprofil: positionering, leveransbild, fakta och 'när passar vi inte'."
         canonicalPath="/jamfor-partners"
         noIndex
       />
@@ -1118,10 +1109,10 @@ const ComparePartners = () => {
                 Jämförelsevy
               </p>
               <h1 className="text-2xl sm:text-3xl font-bold text-foreground mt-1">
-                Jämför två partner sida vid sida
+                Jämför två till tre partner sida vid sida
               </h1>
               <p className="text-sm text-slate-600 mt-2 max-w-2xl mx-auto">
-                Samma rader för båda partner — positionering, snabbfakta,
+                Samma rader för valda partner — positionering, snabbfakta,
                 kompetens inom Dynamics 365, branscher och kontor. Underlag för
                 beslut, inte rangordning.
               </p>
@@ -1262,7 +1253,7 @@ const ComparePartners = () => {
                       : "Visar alla publicerade partners — välj produkt och bransch ovan för att smalna av"}
                   </p>
                 </div>
-                <div className={`grid grid-cols-1 ${hasBoth ? "md:grid-cols-3" : "md:grid-cols-[1fr_80px_1fr]"} gap-3 mb-3`}>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
                   <PartnerColumnHeader
                     label="Partner A"
                     partner={a}
@@ -1273,22 +1264,6 @@ const ComparePartners = () => {
                     onRequestQuote={a ? () => setQuoteFor({ recipients: [{ slug: a.slug, name: a.name }], mode: "quote" }) : undefined}
                     quoteSubmitting={isSubmittingQuote}
                   />
-                  {!hasBoth && (
-                    <div className="flex items-center justify-center md:pt-10">
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        onClick={swap}
-                        disabled={!hasBoth}
-                        className="h-auto w-full min-h-[3rem] flex-col gap-1 px-2 py-2"
-                        title="Byt plats"
-                      >
-                        <ArrowLeftRight className="w-4 h-4" />
-                        <span className="text-xs leading-tight">Byt plats</span>
-                      </Button>
-                    </div>
-                  )}
                   <PartnerColumnHeader
                     label="Partner B"
                     partner={b}
@@ -1299,18 +1274,16 @@ const ComparePartners = () => {
                     onRequestQuote={b ? () => setQuoteFor({ recipients: [{ slug: b.slug, name: b.name }], mode: "quote" }) : undefined}
                     quoteSubmitting={isSubmittingQuote}
                   />
-                  {hasBoth && (
-                    <PartnerColumnHeader
-                      label="Partner C (valfri)"
-                      partner={c}
-                      partners={eligiblePartners}
-                      slug={cSlug}
-                      onChange={(s) => setSlot("c", s)}
-                      onClear={() => setSlot("c", "")}
-                      onRequestQuote={c ? () => setQuoteFor({ recipients: [{ slug: c.slug, name: c.name }], mode: "quote" }) : undefined}
-                      quoteSubmitting={isSubmittingQuote}
-                    />
-                  )}
+                  <PartnerColumnHeader
+                    label="Partner C (valfri)"
+                    partner={c}
+                    partners={eligiblePartners}
+                    slug={cSlug}
+                    onChange={(s) => setSlot("c", s)}
+                    onClear={() => setSlot("c", "")}
+                    onRequestQuote={c ? () => setQuoteFor({ recipients: [{ slug: c.slug, name: c.name }], mode: "quote" }) : undefined}
+                    quoteSubmitting={isSubmittingQuote}
+                  />
                 </div>
                 {hasBoth && !hasC && eligiblePartners.length > 2 && (
                   <p className="text-[11px] text-[hsl(var(--muted-foreground))] ml-1 mb-4">

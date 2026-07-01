@@ -73,7 +73,7 @@ const PartnerCompareBar = () => {
 
   const onComparePage = location.pathname.startsWith("/jamfor-partners");
   const currentPairKey = useMemo(
-    () => (selected.length === 2 ? getPairKey(selected) : ""),
+    () => (selected.length >= 2 ? getPairKey(selected) : ""),
     [selected]
   );
 
@@ -86,7 +86,7 @@ const PartnerCompareBar = () => {
     }
   }, [onComparePage, selected.length, clear]);
 
-  // Auto-open the prompt when the user reaches 2 selections (only once per pair, per session)
+  // Auto-open the prompt when the user reaches 2–3 selections (only once per selection, per session)
   useEffect(() => {
     if (onComparePage) return;
     if (currentPairKey) {
@@ -114,11 +114,12 @@ const PartnerCompareBar = () => {
   if (selected.length === 0) return null;
 
   const goCompare = () => {
-    if (selected.length !== 2) return;
+    if (selected.length < 2) return;
     setAskOpen(false);
     const qs = new URLSearchParams();
     qs.set("a", selected[0].slug);
     qs.set("b", selected[1].slug);
+    if (selected[2]) qs.set("c", selected[2].slug);
     if (filterContext.product) qs.set("product", filterContext.product);
     if (filterContext.industry) qs.set("industry", filterContext.industry);
     if (filterContext.geography) qs.set("geography", filterContext.geography);
@@ -133,7 +134,7 @@ const PartnerCompareBar = () => {
           <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
             <ArrowLeftRight className="h-4 w-4 text-primary" />
             Jämför partners
-            <span className="text-muted-foreground font-normal">({selected.length}/2)</span>
+            <span className="text-muted-foreground font-normal">({selected.length}/3)</span>
           </div>
 
           <div className="flex flex-wrap items-center gap-2 flex-1 min-w-0">
@@ -167,7 +168,7 @@ const PartnerCompareBar = () => {
             <Button
               size="sm"
               onClick={goCompare}
-              disabled={selected.length !== 2}
+              disabled={selected.length < 2}
               className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
             >
               Visa jämförelse
@@ -181,9 +182,9 @@ const PartnerCompareBar = () => {
           <AlertDialogHeader>
             <AlertDialogTitle>Visa jämförelse sida vid sida?</AlertDialogTitle>
             <AlertDialogDescription>
-              Du har valt två partners att jämföra:
+              Du har valt {selected.length === 3 ? "tre" : "två"} partners att jämföra:
               <span className="block mt-2 font-semibold text-foreground">
-                {selected[0]?.name} &nbsp;vs&nbsp; {selected[1]?.name}
+                {selected.map((partner) => partner.name).join(" · ")}
               </span>
             </AlertDialogDescription>
           </AlertDialogHeader>
