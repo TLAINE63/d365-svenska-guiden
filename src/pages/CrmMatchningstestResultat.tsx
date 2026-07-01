@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, ArrowRight, CheckCircle2, Download, MessageSquare, RotateCcw, Users } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, Download, FileDown, MessageSquare, RotateCcw, Users } from "lucide-react";
+import { toast } from "sonner";
+import { generateCrmResultPdf } from "@/utils/generateCrmResultPdf";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -95,6 +97,20 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
 
   const handlePrint = () => {
     if (typeof window !== "undefined") window.print();
+  };
+
+  const [downloading, setDownloading] = useState(false);
+  const handleDownloadPdf = async () => {
+    if (!score) return;
+    try {
+      setDownloading(true);
+      await generateCrmResultPdf(score, config);
+    } catch (err) {
+      console.error("PDF generation failed", err);
+      toast.error("Kunde inte skapa PDF. Försök igen.");
+    } finally {
+      setDownloading(false);
+    }
   };
 
   const level = score ? config.levelCopy[score.level] : null;
@@ -268,9 +284,17 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
                   <RotateCcw className="w-4 h-4 mr-1" />
                   Börja om
                 </Button>
+                <Button
+                  onClick={handleDownloadPdf}
+                  disabled={downloading}
+                  className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange-hover))]"
+                >
+                  <FileDown className="w-4 h-4 mr-1" />
+                  {downloading ? "Skapar PDF…" : "Ladda ner PDF"}
+                </Button>
                 <Button variant="outline" onClick={handlePrint}>
                   <Download className="w-4 h-4 mr-1" />
-                  Skriv ut / spara som PDF
+                  Skriv ut
                 </Button>
               </div>
             </div>
