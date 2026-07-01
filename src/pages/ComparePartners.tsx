@@ -1390,7 +1390,7 @@ const ComparePartners = () => {
                       </div>
                     </button>
 
-                    {STANDARD_INDUSTRIES.map((ind) => {
+                    {STANDARD_INDUSTRIES.filter((ind) => (industryPartnerCounts[ind.name] || 0) > 0).map((ind) => {
                       const img = INDUSTRY_IMAGE_BY_SLUG[ind.slug];
                       const selected = industryFilter === ind.name;
                       const count = industryPartnerCounts[ind.name] || 0;
