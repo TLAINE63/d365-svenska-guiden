@@ -1176,7 +1176,9 @@ const Kunskapscenter = () => {
  >
  <Card className="h-full overflow-hidden border-border/50 hover:-translate-y-1 transition-all duration-300">
  {item.image_url ? (
- <div className="aspect-[2/1] overflow-hidden bg-muted relative">
+              <div
+                className={`${item.type === "video" ? "aspect-[20/7]" : "aspect-[2/1]"} overflow-hidden bg-muted relative`}
+              >
  <img
  src={item.image_url}
  alt={item.title}
