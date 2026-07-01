@@ -807,8 +807,10 @@ const ComparePartners = () => {
   const getProductMetrics = (
     p: DatabasePartner | undefined,
     key: ProductFilterKey,
-  ): { length: string; cost: string } => {
+  ): { length: string; cost: string; methodology: string } => {
     const pp = ((p as any)?.product_profiles || {}) as Record<string, any>;
+    const dpGlobal = (p?.delivery_profile || {}) as DeliveryProfile;
+    const fallbackMethodology = (dpGlobal.methodology || "").trim();
     for (const app of PRODUCT_FILTER_GROUP[key].apps) {
       const raw = pp[app];
       if (raw && typeof raw === "object") {
@@ -820,14 +822,20 @@ const ComparePartners = () => {
           typeof raw.cost_band === "string" && raw.cost_band
             ? COST_BAND_LABELS[raw.cost_band] || raw.cost_band
             : "";
-        if (length || cost) return { length, cost };
+        const methodology =
+          (typeof raw.methodology === "string" ? raw.methodology.trim() : "") ||
+          fallbackMethodology;
+        if (length || cost || methodology) return { length, cost, methodology };
       }
     }
     if (key === "bc") {
-      const dp = (p?.delivery_profile || {}) as DeliveryProfile;
-      return { length: formatBcLength(dp), cost: formatBcCost(dp) };
+      return {
+        length: formatBcLength(dpGlobal),
+        cost: formatBcCost(dpGlobal),
+        methodology: fallbackMethodology,
+      };
     }
-    return { length: "", cost: "" };
+    return { length: "", cost: "", methodology: fallbackMethodology };
   };
 
   type AiPerProduct = {
@@ -1663,8 +1671,22 @@ const ComparePartners = () => {
                           const mA = getProductMetrics(A.partner, key);
                           const mB = getProductMetrics(B.partner, key);
                           const mC = getProductMetrics(C.partner, key);
-                          if (!mA.length && !mA.cost && !mB.length && !mB.cost && !mC.length && !mC.cost) return;
+                          if (
+                            !mA.length && !mA.cost && !mA.methodology &&
+                            !mB.length && !mB.cost && !mB.methodology &&
+                            !mC.length && !mC.cost && !mC.methodology
+                          ) return;
                           const label = PRODUCT_KEY_LABEL[key] || key;
+                          rows.push(
+                            <R
+                              key={`method-${key}`}
+                              label={`Projektmetodik (${label})`}
+                              help="Partnerns arbetssätt och metodik för implementation, t.ex. Sure Step, egen agil metod eller hybrid."
+                              a={renderValue(mA.methodology)}
+                              b={renderValue(mB.methodology)}
+                              c={renderValue(mC.methodology)}
+                            />,
+                          );
                           rows.push(
                             <R
                               key={`len-${key}`}
