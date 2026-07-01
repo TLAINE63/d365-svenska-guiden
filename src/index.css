@@ -75,9 +75,11 @@ All colors MUST be HSL.
     --color-dark-muted: #9A9490;
     --color-dark-border: #3A332A;
     --color-line: #D8D1C6;
-    --color-accent: #D64A1F;
-    --color-cta: #007C68;
-    --color-cta-bg: #E3F4EE;
+    --color-accent: #D64A1F;            /* Primär orange (CTA) */
+    --color-cta: #D64A1F;               /* Primär orange (CTA) */
+    --color-cta-hover: #B23D19;         /* Mörkare hover */
+    --color-teal: #007C68;              /* Sekundär accent (ikoner, checks) */
+    --color-cta-bg: #E3F4EE;            /* Ljus teal bg för ikonchips */
 
 
 
