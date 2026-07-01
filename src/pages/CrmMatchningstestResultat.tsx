@@ -20,6 +20,12 @@ import {
   topCrmProfiles,
   type CrmScoreResult,
 } from "@/lib/crmMatchingScoring";
+import { usePartners } from "@/hooks/usePartners";
+import {
+  recommendCrmPartners,
+  CRM_TEST_TO_PARTNER_SLUG,
+} from "@/lib/crmMatchingPartners";
+import PartnerCard from "@/components/PartnerCard";
 
 interface Props {
   productKey: ProductConfig["key"];
@@ -115,6 +121,14 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
 
   const level = score ? config.levelCopy[score.level] : null;
   const tops = score ? topCrmProfiles(score, 3) : [];
+
+  // Partnerrekommendationer baserat på testresultatet
+  const { data: allPartners = [] } = usePartners();
+  const recommendations = useMemo(
+    () => (score ? recommendCrmPartners(allPartners, config, score, 3) : []),
+    [allPartners, config, score],
+  );
+  const partnerSlug = CRM_TEST_TO_PARTNER_SLUG[config.key];
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -229,6 +243,61 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
                   </CardContent>
                 </Card>
               )}
+
+              {/* Rekommenderade partners baserat på profil */}
+              {score.level !== "oversized" && recommendations.length > 0 && (
+                <Card>
+                  <CardContent className="p-6 sm:p-8">
+                    <div className="flex items-start justify-between gap-4 mb-4 flex-wrap">
+                      <div>
+                        <h3 className="text-lg font-semibold text-foreground">
+                          Rekommenderade partners för er profil
+                        </h3>
+                        <p className="text-sm text-muted-foreground mt-1">
+                          Ett urval baserat på er matchningsprofil för {config.productName}.
+                          Filtrera på bransch, geografi och storlek i partnerlistan för att
+                          skräddarsy jämförelsen ytterligare.
+                        </p>
+                      </div>
+                      <Button asChild variant="outline" size="sm">
+                        <Link to={config.partnerFilterPath}>
+                          Se alla {config.productName}-partners
+                          <ArrowRight className="w-4 h-4 ml-1" />
+                        </Link>
+                      </Button>
+                    </div>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {recommendations.map(({ partner, reasons }) => (
+                        <div key={partner.id} className="flex flex-col gap-2">
+                          <PartnerCard
+                            partner={partner}
+                            profileUrl={`/partner/${partner.slug}/${partnerSlug}`}
+                            productKey={
+                              config.key === "customer-service" ||
+                              config.key === "field-service" ||
+                              config.key === "contact-center"
+                                ? "service"
+                                : "sales"
+                            }
+                            highlightedProduct={config.productName}
+                          />
+                          {reasons.length > 0 && (
+                            <ul className="text-xs text-muted-foreground space-y-1 px-1">
+                              {reasons.map((r, i) => (
+                                <li key={i} className="flex gap-1.5">
+                                  <span className="text-primary">•</span>
+                                  <span>{r}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
 
               {/* Alternativ vid overdimensionerat */}
               {score.level === "oversized" && config.oversizedAlternative && (
