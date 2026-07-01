@@ -72,7 +72,7 @@ const VideoLanding = () => {
 
             <div
               className="relative w-full mb-8 rounded overflow-hidden bg-black mx-auto"
-              style={{ maxWidth: "400px", aspectRatio: "9 / 16" }}
+              style={{ maxWidth: "280px", aspectRatio: "9 / 16" }}
             >
               <iframe
                 src={`https://www.youtube.com/embed/${video.youtubeId}`}
