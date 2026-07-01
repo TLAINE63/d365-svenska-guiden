@@ -48,7 +48,7 @@ const MODE_CONFIG = {
     submitLabel: "Be partnern föreslå tid",
   },
   quote: {
-    title: (name: string) => `Begär offertindikering från ${name}`,
+    title: (name: string) => `Få en uppskattning av tid och kostnad från ${name}`,
     description: (name: string, product?: string, industry?: string) =>
       `En exakt offert kräver normalt fördjupad avstämning — men ${name} kan ge en första uppskattning av tid och kostnad${product ? ` för ${product}` : ""}${industry ? ` (${industry})` : ""} utifrån ert underlag.`,
     sourceType: "partner_quote_request",
