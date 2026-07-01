@@ -1624,12 +1624,12 @@ const ComparePartners = () => {
                       })()}
 
                       <R
-                        label="Kompetens inom Dynamics 365"
+                        label="Kompetens inom valda produkter"
                         warn
-                        help="Alla Dynamics 365-applikationer partnern arbetar med (oavsett vald produkt). ERP-appar listas först, därefter CE/CRM — båda i bokstavsordning."
-                        a={renderAppList(A.apps)}
-                        b={renderAppList(B.apps)}
-                        c={renderAppList(C.apps)}
+                        help="Dynamics 365-applikationer som partnern arbetar med, filtrerat på de produkter du valt i jämförelsen."
+                        a={renderAppList(AF.apps)}
+                        b={renderAppList(BF.apps)}
+                        c={renderAppList(CF.apps)}
                       />
 
                     </section>
