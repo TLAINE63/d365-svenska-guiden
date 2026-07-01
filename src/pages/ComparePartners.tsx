@@ -1594,6 +1594,17 @@ const ComparePartners = () => {
                         ));
                       })()}
 
+                      <R
+                        label="Kompetens inom Dynamics 365"
+                        warn
+                        help="Alla Dynamics 365-applikationer partnern arbetar med (oavsett vald produkt). ERP-appar listas först, därefter CE/CRM — båda i bokstavsordning."
+                        a={renderAppList(A.apps)}
+                        b={renderAppList(B.apps)}
+                        c={renderAppList(C.apps)}
+                      />
+
+
+
 
                       {(() => {
                         const renderIA = (list: typeof AF.industryApps) =>
