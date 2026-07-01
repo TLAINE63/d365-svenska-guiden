@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link, useSearchParams } from "react-router-dom";
-import { Users, ArrowRight, Calendar, MessageSquare, Mail, Award, Target, Shield, ExternalLink, Star, Loader2 } from "lucide-react";
+import { Users, ArrowRight, ArrowLeftRight, Calendar, MessageSquare, Mail, Award, Target, Shield, ExternalLink, Star, Loader2 } from "lucide-react";
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import { SizeFilters } from "@/components/SizeFilters";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
@@ -515,9 +515,9 @@ const ValjPartner = () => {
  </div>
  </div>
  </div>
- </header>
+  </header>
 
- <ShortAnswer title="Vad är en Dynamics 365-partner">
+  <ShortAnswer title="Vad är en Dynamics 365-partner">
  Rätt Dynamics 365-partner har bevisad erfarenhet av respektive produktområde (Business Central, Finance & Supply Chain, Sales, Customer Service m.fl.), er bransch och en storlek som matchar er. På d365.se kan ni jämföra Microsoft-partners för er bransch, geografi och AI-mognad — och få rekommendationer via vår köparsidiga partnerguide.
  </ShortAnswer>
 
@@ -903,9 +903,47 @@ const ValjPartner = () => {
  </article>
  </div>
  </div>
- </section>
+  </section>
 
- {/* Statisk partnerlista för SEO/AI – renderas i HTML även utan JS */}
+  {/* Compare partners CTA section - black background */}
+  <section className="relative py-10 sm:py-14 md:py-16 bg-[hsl(var(--hero-dark))] overflow-hidden">
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent opacity-60" />
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/15 via-transparent to-transparent opacity-40" />
+    <div className="relative container mx-auto px-4 sm:px-6">
+      <div className="max-w-4xl mx-auto text-center">
+        <div className="inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/90 text-sm font-medium mb-5">
+          <ArrowLeftRight className="h-4 w-4" />
+          Sida vid sida
+        </div>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
+          Jämför upp till två partners innan ni kontaktar dem
+        </h2>
+        <p className="text-base sm:text-lg text-white/70 mb-8 max-w-2xl mx-auto">
+          Välj två partners i listan ovan och få en jämförelsevy över produktområden, branscher, geografisk närvaro, storlek och AI-mognad — så att ni kan gå vidare med rätt kortlista.
+        </p>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Button
+            asChild
+            size="lg"
+            className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white h-14 text-base sm:text-lg px-8 font-semibold transition-all rounded"
+          >
+            <Link to="/jamfor-partners/">
+              <ArrowLeftRight className="w-5 h-5 mr-2" />
+              Jämför partners
+            </Link>
+          </Button>
+          <Link
+            to="/jamfor-partners/"
+            className="text-white/80 hover:text-white underline underline-offset-4 text-sm sm:text-base font-medium transition-colors"
+          >
+            Se tidigare jämförelser
+          </Link>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Statisk partnerlista för SEO/AI – renderas i HTML även utan JS */}
  <section className="py-12 bg-background border-t border-border" aria-labelledby="alla-partners-rubrik">
  <div className="container mx-auto px-4">
  <div className="max-w-5xl mx-auto">
