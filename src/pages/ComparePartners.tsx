@@ -965,6 +965,28 @@ const ComparePartners = () => {
     [sortedPartners, productFilterRaw, industryFilter],
   );
 
+  const industryPartnerCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    STANDARD_INDUSTRIES.forEach((ind) => {
+      counts[ind.name] = sortedPartners.filter((p) => {
+        if (productFilters.length > 0) {
+          const keys = partnerProductKeys(p);
+          if (!productFilters.some((k) => keys.includes(k))) return false;
+        }
+        return partnerIndustriesFor(p).includes(ind.name);
+      }).length;
+    });
+    return counts;
+  }, [sortedPartners, productFilters]);
+
+  const allIndustryEligibleCount = useMemo(() => {
+    if (productFilters.length === 0) return sortedPartners.length;
+    return sortedPartners.filter((p) => {
+      const keys = partnerProductKeys(p);
+      return productFilters.some((k) => keys.includes(k));
+    }).length;
+  }, [sortedPartners, productFilters]);
+
   // Auto-clear picked partner if it no longer matches the active filters
   useEffect(() => {
     const next = new URLSearchParams(params);
