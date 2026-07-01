@@ -771,9 +771,20 @@ const ComparePartners = () => {
     keyPoints: string[];
   };
 
-  const splitKeyPoints = (raw: string): string[] => {
+  const safeText = (value: unknown): string =>
+    typeof value === "string" ? value.trim() : "";
+
+  const splitKeyPoints = (raw: unknown): string[] => {
     if (!raw) return [];
-    return raw
+    if (Array.isArray(raw)) {
+      return raw
+        .map((item) => safeText(item))
+        .filter(Boolean)
+        .slice(0, 6);
+    }
+    const text = safeText(raw);
+    if (!text) return [];
+    return text
       .split(/\r?\n+|(?:^|\s)[-•·*]\s+/g)
       .map((s) => s.trim().replace(/^[-•·*]\s*/, ""))
       .filter(Boolean)
@@ -785,15 +796,15 @@ const ComparePartners = () => {
     apps: string[]
   ): ProductInsight[] => {
     const pf = (p as any)?.product_filters as
-      | Record<string, { productDescription?: string; whyChoose?: string; keyPoints?: string }>
+      | Record<string, { productDescription?: unknown; whyChoose?: unknown; keyPoints?: unknown }>
       | undefined;
     if (!pf) return [];
     const keys = getProductFilterKeysForApps(apps);
     const out: ProductInsight[] = [];
     for (const key of keys) {
-      const description = (pf[key]?.productDescription || "").trim();
-      const whyChoose = (pf[key]?.whyChoose || "").trim();
-      const keyPoints = splitKeyPoints(pf[key]?.keyPoints || "");
+      const description = safeText(pf[key]?.productDescription);
+      const whyChoose = safeText(pf[key]?.whyChoose);
+      const keyPoints = splitKeyPoints(pf[key]?.keyPoints);
       if (!description && !whyChoose && keyPoints.length === 0) continue;
       out.push({
         key,
