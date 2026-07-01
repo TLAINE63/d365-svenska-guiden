@@ -556,6 +556,52 @@ const renderProductDescCell = (text: string) => (
   </div>
 );
 
+const renderProductInsightCell = (insight?: {
+  description: string;
+  whyChoose: string;
+  keyPoints: string[];
+}) => {
+  if (!insight) return EMPTY;
+  const { description, whyChoose, keyPoints } = insight;
+  if (!description && !whyChoose && keyPoints.length === 0) return EMPTY;
+  return (
+    <div className="space-y-3 text-sm leading-relaxed text-[hsl(var(--foreground))]">
+      {description && (
+        <div className="space-y-1">
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-[hsl(var(--muted-foreground))]">
+            Vad vi gör inom lösningen
+          </p>
+          {splitIntoParagraphs(description).map((para, i) => (
+            <p key={i}>{para}</p>
+          ))}
+        </div>
+      )}
+      {whyChoose && (
+        <div className="space-y-1">
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-[hsl(var(--muted-foreground))]">
+            Varför välja oss
+          </p>
+          {splitIntoParagraphs(whyChoose).map((para, i) => (
+            <p key={i}>{para}</p>
+          ))}
+        </div>
+      )}
+      {keyPoints.length > 0 && (
+        <div className="space-y-1">
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-[hsl(var(--muted-foreground))]">
+            Konkreta styrkor
+          </p>
+          <ul className="list-disc space-y-1 pl-5">
+            {keyPoints.map((pt, i) => (
+              <li key={i}>{pt}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const renderPitchCell = (
   pitches: Array<{ industry: string; product: string | null; text: string }>
 ) => {
