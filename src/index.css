@@ -25,9 +25,11 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 30 14% 8%;
 
-    --primary: 170 100% 24%;            /* Green #007C68 – CTA/länk */
+    /* PRIMÄR – logotypens orange. Används för CTA, primära knappar,
+       högprioriterade länkar och aktiva element. */
+    --primary: 14 75% 48%;              /* #D64A1F – logo orange */
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 170 100% 28%;
+    --primary-glow: 14 82% 55%;         /* Något ljusare för glow/gradient */
 
     --secondary: 40 53% 97%;            /* Warm #FBF8F2 – TAYA-band */
     --secondary-foreground: 30 14% 8%;
@@ -35,20 +37,22 @@ All colors MUST be HSL.
     --muted: 40 26% 94%;                /* #F5F2EC */
     --muted-foreground: 35 7% 41%;      /* #6F6A61 – metadata */
 
-    --accent: 170 100% 24%;             /* Green – CTA/link accent */
+    /* SEKUNDÄR ACCENT – petrol/teal. Används för ikoner, checkmarks,
+       informations- och matchningsindikatorer. Får aldrig konkurrera med CTA. */
+    --accent: 170 100% 24%;             /* #007C68 – teal secondary */
     --accent-foreground: 0 0% 100%;
 
-    --success: 170 100% 24%;            /* Green */
+    --success: 170 100% 24%;            /* Teal – positiv indikator */
     --success-foreground: 0 0% 100%;
 
-    --warning: 14 75% 48%;              /* Red #D64A1F – insight/warning */
+    --warning: 32 92% 45%;              /* Amber – separerad från CTA-orange */
     --warning-foreground: 0 0% 100%;
 
-    /* CTA – green #007C68. Token-namnet bibehålls för bakåtkompatibilitet. */
-    --cta-orange: 170 100% 24%;
-    --cta-orange-hover: 170 100% 19%;
+    /* CTA-token: logo-orange med mörkare hover. Historiskt namn behålls. */
+    --cta-orange: 14 75% 48%;           /* #D64A1F */
+    --cta-orange-hover: 14 82% 38%;     /* #B23D19 – mörkare hover */
 
-    /* Editorial signatur – Red #D64A1F. Endast text/tagg/eyebrow, aldrig bakgrund (utom röd rubrik-bar). */
+    /* Editorial signatur – identisk med primär. Röd/orange för tags & eyebrows. */
     --signature: 14 75% 48%;
     --signature-foreground: 0 0% 100%;
 
@@ -57,7 +61,7 @@ All colors MUST be HSL.
     --petrol: 40 17% 7%;                /* alias → svart */
     --card-dark: 40 17% 7%;
     --line-dark: 30 16% 20%;            /* #3A332A */
-    --accent-light: 156 47% 92%;        /* #E3F4EE – ljus grön bg */
+    --accent-light: 156 47% 92%;        /* #E3F4EE – ljus teal bg för ikonchips */
     --muted-dark: 24 5% 58%;            /* #9A9490 – text på svart */
     --border-on-dark: 36 18% 81%;       /* #D8D1C6 – sekundär knapp på mörk bg */
 
@@ -71,9 +75,11 @@ All colors MUST be HSL.
     --color-dark-muted: #9A9490;
     --color-dark-border: #3A332A;
     --color-line: #D8D1C6;
-    --color-accent: #D64A1F;
-    --color-cta: #007C68;
-    --color-cta-bg: #E3F4EE;
+    --color-accent: #D64A1F;            /* Primär orange (CTA) */
+    --color-cta: #D64A1F;               /* Primär orange (CTA) */
+    --color-cta-hover: #B23D19;         /* Mörkare hover */
+    --color-teal: #007C68;              /* Sekundär accent (ikoner, checks) */
+    --color-cta-bg: #E3F4EE;            /* Ljus teal bg för ikonchips */
 
 
 
@@ -141,13 +147,13 @@ All colors MUST be HSL.
 
     --border: 34 22% 81%;               /* Line #D8D1C6 – diskreta avdelare */
     --input: 34 22% 81%;
-    --ring: 167 100% 21%;               /* Green #006B55 */
+    --ring: 14 75% 48%;                 /* Orange – fokusring matchar CTA */
 
     --radius: 0.25rem;                  /* max 4px – ingen SaaS-estetik */
 
     --gradient-primary: linear-gradient(135deg, hsl(30 14% 7%) 0%, hsl(30 14% 7%) 100%);
     --gradient-hero: linear-gradient(135deg, rgba(22,21,17,0.92) 0%, rgba(22,21,17,0.75) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(167 100% 21%) 0%, hsl(167 100% 21%) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(14 75% 48%) 0%, hsl(14 82% 38%) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(40 53% 97%) 0%, hsl(40 26% 94%) 100%);
     /* Inga skuggor – behåll tokens som no-op för bakåtkompatibilitet */
     --shadow-card: 0 0 0 0 transparent;
@@ -184,9 +190,9 @@ All colors MUST be HSL.
     --popover: 0 0% 12%;
     --popover-foreground: 0 0% 96%;
 
-    --primary: 185 70% 45%;             /* Ljusare petrol för dark mode */
+    --primary: 14 85% 58%;              /* Ljusare orange för dark mode */
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 185 70% 55%;
+    --primary-glow: 14 90% 65%;
 
     --secondary: 210 30% 16%;
     --secondary-foreground: 0 0% 96%;
@@ -194,24 +200,24 @@ All colors MUST be HSL.
     --muted: 210 25% 14%;
     --muted-foreground: 207 16% 70%;
 
-    --accent: 185 70% 45%;
+    --accent: 170 55% 45%;              /* Ljusare teal – sekundär accent */
     --accent-foreground: 0 0% 100%;
 
-    --success: 165 55% 45%;
+    --success: 170 55% 45%;
     --success-foreground: 0 0% 100%;
 
-    --warning: 38 75% 55%;
+    --warning: 38 90% 60%;
     --warning-foreground: 0 0% 10%;
 
-    --cta-orange: 185 70% 45%;
-    --cta-orange-hover: 185 75% 38%;
+    --cta-orange: 14 85% 58%;
+    --cta-orange-hover: 14 88% 48%;
 
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 210 20% 22%;
     --input: 210 20% 20%;
-    --ring: 185 70% 45%;
+    --ring: 14 85% 58%;
 
     /* Dark mode produktfärger – något ljusare för kontrast */
     --business-central: 192 100% 42%;
