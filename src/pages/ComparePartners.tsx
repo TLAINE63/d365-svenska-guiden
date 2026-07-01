@@ -919,6 +919,13 @@ const ComparePartners = () => {
       description: p?.description?.trim() || "",
       positioning: (p?.positioning_statement?.trim() || fallbackPositioning) || "",
       apps: sortApps(p?.applications || []),
+      focusIndustries: Array.from(
+        new Set(
+          [...(p?.industries || []), ...(p?.secondary_industries || [])]
+            .map((s) => (s || "").trim())
+            .filter(Boolean)
+        )
+      ).sort((a, b) => a.localeCompare(b, "sv")),
       industries: allIndustries,
       industryApps,
       geography: Array.from(new Set([
