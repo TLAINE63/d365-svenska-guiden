@@ -214,6 +214,33 @@ const FinanceSupplyChain = () => {
  <p>Hela sviten bygger på Microsofts moln med Power Platform, Fabric och Azure i botten, vilket gör F&SCM till ett tryggt val för organisationer med höga krav på skalbarhet, integration och styrning.</p>
  </ShortAnswer>
 
+ {/* Matchningstest CTA */}
+ <section className="py-10 sm:py-12 bg-[hsl(var(--hero-dark))] border-y border-primary/20">
+   <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+     <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 items-center">
+       <div>
+         <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/60 mb-2">
+           Matchningstest
+         </p>
+         <h2 className="text-xl sm:text-2xl md:text-[28px] font-semibold text-white leading-snug mb-2">
+           Matchar F&amp;SCM era behov?
+         </h2>
+         <p className="text-white/75 text-sm sm:text-base max-w-2xl leading-relaxed">
+           Ett funktionsorienterat test som tittar på vilka konkreta behov ni har — inte ett mognadsbetyg.
+           Testet är ärligt även när svaret är att F&amp;SCM är överdimensionerat för er. Då pekar vi i stället
+           på Business Central eller andra alternativ.
+         </p>
+       </div>
+       <Link
+         to="/finance-supply-chain-management/matchningstest/"
+         className="inline-flex items-center justify-center rounded-md px-5 py-3 text-sm font-semibold bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange-hover))] transition-colors whitespace-nowrap"
+       >
+         Starta matchningstestet →
+       </Link>
+     </div>
+   </div>
+ </section>
+
  <StandardProductSections productName="Finance & Supply Chain Management" data={PRODUCT_STANDARD_SECTIONS["finance-supply-chain"]} />
 
  {/* FAQ Section */}
@@ -311,42 +338,6 @@ const FinanceSupplyChain = () => {
  </div>
  </section>
 
- {/* F&SCM Matchningstest CTA-sektion */}
- <section className="py-8 sm:py-12 md:py-16 bg-background">
- <div className="container mx-auto px-4 sm:px-6">
- <div className="max-w-4xl mx-auto">
- <div className="rounded border border-border bg-card p-6 sm:p-10 ">
- <span className="text-xs uppercase tracking-[0.14em] text-muted-foreground font-semibold">
- Behovsmatchning · cirka 10 minuter
- </span>
- <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mt-3 mb-4">
- Matchar F&amp;SCM era behov?
- </h2>
- <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-6">
- Ett funktionsorienterat test som tittar på vilka konkreta behov ni har – inte ett mognadsbetyg.
- Testet är ärligt även när svaret är att F&amp;SCM är överdimensionerat för er. Då pekar vi i stället
- på Business Central eller andra alternativ.
- </p>
- <ul className="grid sm:grid-cols-2 gap-3 mb-8 text-sm text-foreground/85">
- <li className="flex gap-2"><span className="text-primary">●</span> Koncernkomplexitet och flerbolagsstruktur</li>
- <li className="flex gap-2"><span className="text-primary">●</span> Supply chain, lager och tillverkning</li>
- <li className="flex gap-2"><span className="text-primary">●</span> Projektförsäljning och resursplanering</li>
- <li className="flex gap-2"><span className="text-primary">●</span> Handel, e-handel och omnikanal</li>
- </ul>
- <Button
- asChild
- size="lg"
- className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange-hover))]"
- >
- <Link to="/finance-supply-chain-management/matchningstest">
- Starta matchningstestet
- <ArrowRight className="w-5 h-5 ml-2" />
- </Link>
- </Button>
- </div>
- </div>
- </div>
- </section>
 
 
 
