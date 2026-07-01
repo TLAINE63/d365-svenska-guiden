@@ -99,6 +99,20 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
     if (typeof window !== "undefined") window.print();
   };
 
+  const [downloading, setDownloading] = useState(false);
+  const handleDownloadPdf = async () => {
+    if (!score) return;
+    try {
+      setDownloading(true);
+      await generateCrmResultPdf(score, config);
+    } catch (err) {
+      console.error("PDF generation failed", err);
+      toast.error("Kunde inte skapa PDF. Försök igen.");
+    } finally {
+      setDownloading(false);
+    }
+  };
+
   const level = score ? config.levelCopy[score.level] : null;
   const tops = score ? topCrmProfiles(score, 3) : [];
 
