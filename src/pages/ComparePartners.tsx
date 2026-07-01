@@ -630,6 +630,14 @@ const ComparePartners = () => {
       label: "Finance & Supply Chain Management",
       apps: ["Finance", "Supply Chain Management", "Finance & Supply Chain Management"],
     },
+    commerce: {
+      label: "Commerce",
+      apps: ["Commerce"],
+    },
+    hr: {
+      label: "Human Resources",
+      apps: ["Human Resources"],
+    },
     sales: {
       label: "Sales & Customer Insights",
       apps: ["Sales", "Customer Insights (Marketing)", "Marketing"],
@@ -637,6 +645,10 @@ const ComparePartners = () => {
     service: {
       label: "Customer Service / Field Service / Contact Center",
       apps: ["Customer Service", "Field Service", "Contact Center"],
+    },
+    po: {
+      label: "Project Operations",
+      apps: ["Project Operations"],
     },
   } as const;
   type ProductFilterKey = keyof typeof PRODUCT_FILTER_GROUP;
@@ -652,8 +664,11 @@ const ComparePartners = () => {
   const PRODUCT_FILTER_KEY_LABEL: Record<ProductFilterKey, string> = {
     bc: "Business Central",
     fsc: "Finance & Supply Chain Management",
+    commerce: "Commerce",
+    hr: "Human Resources",
     sales: "Sales & Customer Insights",
     service: "Customer Service / Field Service / Contact Center",
+    po: "Project Operations",
   };
 
   const getProductFilterKeysForApps = (apps: string[]): ProductFilterKey[] => {
@@ -686,8 +701,11 @@ const ComparePartners = () => {
   const PRODUCT_KEY_LABEL: Record<ProductFilterKey, string> = {
     bc: "Business Central",
     fsc: "Finance & Supply Chain Management",
+    commerce: "Commerce",
+    hr: "Human Resources",
     sales: "Sales & Customer Insights",
     service: "Customer Service / Field Service / Contact Center",
+    po: "Project Operations",
   };
 
   const formatWeeksRange = (min: number | null, max: number | null): string => {
@@ -736,7 +754,7 @@ const ComparePartners = () => {
     const pf = (p as any)?.product_filters as Record<string, any> | undefined;
     if (!pf) return [];
     const out: AiPerProduct[] = [];
-    for (const key of ["bc", "fsc", "sales", "service"]) {
+    for (const key of Object.keys(PRODUCT_FILTER_GROUP) as ProductFilterKey[]) {
       const f = pf[key];
       if (!f) continue;
       const caps: string[] = Array.isArray(f.aiCapabilities) ? f.aiCapabilities : [];
@@ -1001,8 +1019,11 @@ const ComparePartners = () => {
   const PITCH_LABELS_BY_KEY: Record<ProductFilterKey, string[]> = {
     bc: [...PRODUCT_FILTER_GROUP.bc.apps] as string[],
     fsc: [...PRODUCT_FILTER_GROUP.fsc.apps] as string[],
+    commerce: [...PRODUCT_FILTER_GROUP.commerce.apps] as string[],
+    hr: [...PRODUCT_FILTER_GROUP.hr.apps] as string[],
     sales: [...PRODUCT_FILTER_GROUP.sales.apps] as string[],
     service: [...PRODUCT_FILTER_GROUP.service.apps] as string[],
+    po: [...PRODUCT_FILTER_GROUP.po.apps] as string[],
   };
   const selectedPitchLabels = productActive
     ? Array.from(new Set(productFilters.flatMap((sel) => PITCH_LABELS_BY_KEY[sel] || [])))
@@ -1146,6 +1167,8 @@ const ComparePartners = () => {
                     const ERP_CHIPS: { label: string; icon: string; key: ProductFilterKey }[] = [
                       { label: "Business Central", icon: bcIcon, key: "bc" },
                       { label: "Finance & Supply Chain", icon: financeIcon, key: "fsc" },
+                      { label: "Commerce", icon: commerceIcon, key: "commerce" },
+                      { label: "Human Resources", icon: hrIcon, key: "hr" },
                     ];
                     const CRM_CHIPS: { label: string; icon: string; key: ProductFilterKey }[] = [
                       { label: "Sales", icon: salesIcon, key: "sales" },
@@ -1153,6 +1176,7 @@ const ComparePartners = () => {
                       { label: "Customer Service", icon: csIcon, key: "service" },
                       { label: "Field Service", icon: fsIcon, key: "service" },
                       { label: "Contact Center", icon: ccIcon, key: "service" },
+                      { label: "Project Operations", icon: poIcon, key: "po" },
                     ];
                     const renderChip = (c: { label: string; icon: string; key: ProductFilterKey }) => {
                       const selected = productFilters.includes(c.key);
