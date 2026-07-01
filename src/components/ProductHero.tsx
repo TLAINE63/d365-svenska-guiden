@@ -40,13 +40,14 @@ const renderCTA = (cta: CTA, variant: "primary" | "secondary") => {
 
   const content = (
     <>
-      {Icon && <Icon className="w-5 h-5 mr-2" />}
-      {cta.label}
-      {variant === "primary" && !Icon && <ArrowRight className="w-5 h-5 ml-2" />}
+      {Icon && <Icon className="w-4 h-4 mr-2 flex-shrink-0" />}
+      <span className="text-center leading-tight whitespace-normal break-words">{cta.label}</span>
+      {variant === "primary" && !Icon && <ArrowRight className="w-4 h-4 ml-2 flex-shrink-0" />}
     </>
   );
 
-  const className = `${baseClasses} text-base sm:text-lg h-14 sm:h-16 px-6 sm:px-8 rounded font-bold w-full justify-center transition-all`;
+  const className = `${baseClasses} text-sm sm:text-[15px] min-h-14 sm:min-h-16 h-auto py-3 px-4 sm:px-5 rounded font-bold w-full justify-center items-center transition-all whitespace-normal`;
+
 
   if (cta.to) {
     return (
