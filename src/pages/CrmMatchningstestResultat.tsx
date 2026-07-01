@@ -20,6 +20,12 @@ import {
   topCrmProfiles,
   type CrmScoreResult,
 } from "@/lib/crmMatchingScoring";
+import { usePartners } from "@/hooks/usePartners";
+import {
+  recommendCrmPartners,
+  CRM_TEST_TO_PARTNER_SLUG,
+} from "@/lib/crmMatchingPartners";
+import PartnerCard from "@/components/PartnerCard";
 
 interface Props {
   productKey: ProductConfig["key"];
