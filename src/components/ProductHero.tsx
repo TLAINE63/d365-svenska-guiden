@@ -46,7 +46,7 @@ const renderCTA = (cta: CTA, variant: "primary" | "secondary") => {
     </>
   );
 
-  const className = `${baseClasses} text-base sm:text-lg h-14 sm:h-16 px-6 sm:px-8 rounded font-bold w-full sm:w-auto justify-center transition-all`;
+  const className = `${baseClasses} text-base sm:text-lg h-14 sm:h-16 px-6 sm:px-8 rounded font-bold w-full justify-center transition-all`;
 
   if (cta.to) {
     return (
@@ -121,7 +121,7 @@ const ProductHero = ({
               {subhead}
             </p>
 
-            <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 max-w-3xl">
               {renderCTA(primary, "primary")}
               {secondary && renderCTA(secondary, "secondary")}
               {tertiary && renderCTA(tertiary, "secondary")}
