@@ -1585,90 +1585,80 @@ const ComparePartners = () => {
                     {/* Kontakta valda partners */}
                     <section className="space-y-3">
                       <SectionTitle icon={Mail} title="Kontakta valda partners" />
-                      {A.partner && B.partner ? (
-                        <div className="rounded-xl border border-slate-200 bg-white p-5">
-                          <p className="text-sm text-slate-700 mb-1">
-                            Skicka samma förfrågan till <span className="font-semibold">{A.partner.name}</span> och <span className="font-semibold">{B.partner.name}</span> — du får jämförbara svar.
-                          </p>
-                          <p className="text-xs text-slate-500 mb-4">
-                            Varje partner kontaktas separat och ser bara sin egen förfrågan — aldrig samma tråd.
-                          </p>
-                          <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2">
-                            Hur vill du gå vidare?
-                          </p>
-                          <div className="flex flex-col gap-2">
-                            <Button
-                              type="button"
-                              onClick={() =>
-                                setQuoteFor({
-                                  recipients: [
-                                    { slug: A.partner!.slug, name: A.partner!.name },
-                                    { slug: B.partner!.slug, name: B.partner!.name },
-                                  ],
-                                  mode: "contact",
-                                })
-                              }
-                              disabled={isSubmittingQuote}
-                              className="w-full min-h-[52px] bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 font-semibold"
-                            >
-                              Ställ en första fråga till båda
-                            </Button>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                              <Button
-                                type="button"
-                                variant="outline"
-                                onClick={() =>
-                                  setQuoteFor({
-                                    recipients: [
-                                      { slug: A.partner!.slug, name: A.partner!.name },
-                                      { slug: B.partner!.slug, name: B.partner!.name },
-                                    ],
-                                    mode: "demo",
-                                  })
-                                }
-                                disabled={isSubmittingQuote}
-                                className="w-full min-h-[52px]"
-                              >
-                                Boka genomgång eller demo
-                              </Button>
-                              <Button
-                                type="button"
-                                variant="outline"
-                                onClick={() =>
-                                  setQuoteFor({
-                                    recipients: [
-                                      { slug: A.partner!.slug, name: A.partner!.name },
-                                      { slug: B.partner!.slug, name: B.partner!.name },
-                                    ],
-                                    mode: "quote",
-                                  })
-                                }
-                                disabled={isSubmittingQuote}
-                                className="w-full min-h-[52px]"
-                              >
-                                Få en uppskattning av tid och kostnad
-                              </Button>
+                      {(() => {
+                        const selected = [A, B, C].filter((s) => s.partner);
+                        const recipients = selected.map((s) => ({ slug: s.partner!.slug, name: s.partner!.name }));
+                        if (selected.length >= 2) {
+                          const names = selected.map((s) => s.partner!.name);
+                          const joined =
+                            names.length === 2
+                              ? `${names[0]} och ${names[1]}`
+                              : `${names.slice(0, -1).join(", ")} och ${names[names.length - 1]}`;
+                          const groupLabel =
+                            selected.length === 3 ? "Ställ en första fråga till alla tre" : "Ställ en första fråga till båda";
+                          return (
+                            <div className="rounded-xl border border-slate-200 bg-white p-5">
+                              <p className="text-sm text-slate-700 mb-1">
+                                Skicka samma förfrågan till <span className="font-semibold">{joined}</span> — du får jämförbara svar.
+                              </p>
+                              <p className="text-xs text-slate-500 mb-4">
+                                Varje partner kontaktas separat och ser bara sin egen förfrågan — aldrig samma tråd.
+                              </p>
+                              <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2">
+                                Hur vill du gå vidare?
+                              </p>
+                              <div className="flex flex-col gap-2">
+                                <Button
+                                  type="button"
+                                  onClick={() => setQuoteFor({ recipients, mode: "contact" })}
+                                  disabled={isSubmittingQuote}
+                                  className="w-full min-h-[52px] bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 font-semibold"
+                                >
+                                  {groupLabel}
+                                </Button>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                  <Button
+                                    type="button"
+                                    variant="outline"
+                                    onClick={() => setQuoteFor({ recipients, mode: "demo" })}
+                                    disabled={isSubmittingQuote}
+                                    className="w-full min-h-[52px]"
+                                  >
+                                    Boka genomgång eller demo
+                                  </Button>
+                                  <Button
+                                    type="button"
+                                    variant="outline"
+                                    onClick={() => setQuoteFor({ recipients, mode: "quote" })}
+                                    disabled={isSubmittingQuote}
+                                    className="w-full min-h-[52px]"
+                                  >
+                                    Få en uppskattning av tid och kostnad
+                                  </Button>
+                                </div>
+                              </div>
+                              <p className="text-xs text-slate-500 mt-3">
+                                Kostnadsfritt. d365.se säljer inte implementationer — förfrågan går direkt till respektive partner med kopia till dig och d365.se.
+                              </p>
                             </div>
+                          );
+                        }
+                        return (
+                          <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-5 text-sm text-slate-600">
+                            Välj minst två partners ovan för att kunna skicka samma förfrågan till alla och få jämförbara svar.
                           </div>
-                          <p className="text-xs text-slate-500 mt-3">
-                            Kostnadsfritt. d365.se säljer inte implementationer — förfrågan går direkt till respektive partner med kopia till dig och d365.se.
-                          </p>
-                        </div>
-                      ) : (
-                        <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-5 text-sm text-slate-600">
-                          Välj två partners ovan för att kunna skicka samma förfrågan till båda och få jämförbara svar.
-                        </div>
-                      )}
+                        );
+                      })()}
 
                       {/* Kontakta enskilt */}
-                      {(A.partner || B.partner) && (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-stretch">
-                          {[A, B].map((side, idx) =>
+                      {(A.partner || B.partner || C.partner) && (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 items-stretch">
+                          {[A, B, C].map((side, idx) =>
                             side.partner ? (
                               <div key={idx} className="rounded-lg border border-slate-200 bg-white p-4 flex flex-col justify-between">
                                 <div>
                                   <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
-                                    Endast {idx === 0 ? "Partner A" : "Partner B"}
+                                    Endast Partner {["A", "B", "C"][idx]}
                                   </div>
                                   <div className="text-sm font-medium text-foreground mb-3 truncate">
                                     {side.partner.name}
@@ -1727,6 +1717,7 @@ const ComparePartners = () => {
                         </div>
                       )}
                     </section>
+
 
                     <p className="text-xs text-slate-500 text-center pt-4">
                       Innehåll i beslutsprofilen är skrivet av partnern själv. d365.se redigerar inte.
