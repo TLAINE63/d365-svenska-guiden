@@ -208,9 +208,9 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label
           </div>
           <Link
             to={`/partner/${partner.slug}`}
-            className="group flex items-center gap-1 text-lg sm:text-xl font-bold text-foreground hover:text-[hsl(var(--cta-orange))] transition-colors"
+            className="group flex flex-wrap items-center gap-1 text-sm sm:text-base font-bold text-foreground hover:text-[hsl(var(--cta-orange))] transition-colors"
           >
-            <span className="truncate">{partner.name}</span>
+            <span className="break-words">{partner.name}</span>
             <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-60 transition-opacity shrink-0" />
           </Link>
         </div>
