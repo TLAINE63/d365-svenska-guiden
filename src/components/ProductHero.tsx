@@ -46,7 +46,7 @@ const renderCTA = (cta: CTA, variant: "primary" | "secondary") => {
     </>
   );
 
-  const className = `${baseClasses} text-base sm:text-lg h-14 sm:h-16 px-6 sm:px-8 rounded font-bold w-full sm:w-auto justify-center transition-all`;
+  const className = `${baseClasses} text-base sm:text-lg h-14 sm:h-16 px-6 sm:px-8 rounded font-bold w-full justify-center transition-all`;
 
   if (cta.to) {
     return (
