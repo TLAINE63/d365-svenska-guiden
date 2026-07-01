@@ -1200,7 +1200,7 @@ const ComparePartners = () => {
                     slug={bSlug}
                     onChange={(s) => setSlot("b", s)}
                     onClear={() => setSlot("b", "")}
-                    onRequestQuote={b ? () => setQuoteFor({ partner: b, mode: "quote" }) : undefined}
+                    onRequestQuote={b ? () => setQuoteFor({ recipients: [{ slug: b.slug, name: b.name }], mode: "quote" }) : undefined}
                     quoteSubmitting={isSubmittingQuote}
                   />
                 </div>
