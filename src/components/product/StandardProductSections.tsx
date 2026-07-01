@@ -67,7 +67,7 @@ export default function StandardProductSections({ productName, data }: Props) {
           <ul className="space-y-2.5">
             {data.whatItSolves.map((item, i) => (
               <li key={i} className="flex items-start gap-3">
-                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
                 <span className="text-sm md:text-[15px] text-foreground leading-relaxed">{item}</span>
               </li>
             ))}
