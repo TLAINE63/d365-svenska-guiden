@@ -38,7 +38,7 @@ import {
   labelForUseCase,
   labelForExperience,
   labelForProjectCount,
-  labelForEvidence,
+  
   isAiProfileEmpty,
 } from "@/lib/aiProfile";
 
@@ -471,7 +471,7 @@ const renderAiProfile = (profile?: AiProfile | null) => {
   const caps = (p.capabilities || []).map(labelForCapability).filter(Boolean);
   const areas = (p.relevant_areas || []).map(labelForArea).filter(Boolean);
   const cases = (p.use_cases || []).map(labelForUseCase).filter(Boolean);
-  const evidence = (p.evidence_level || []).map(labelForEvidence).filter(Boolean);
+  
 
   const chips = (items: string[], cls: string) => (
     <div className="flex flex-wrap gap-1.5">
@@ -516,7 +516,9 @@ const renderAiProfile = (profile?: AiProfile | null) => {
       {p.project_count_range && (
         <Field label="AI-projekt (24 mån)">{labelForProjectCount(p.project_count_range)}</Field>
       )}
-      {evidence.length > 0 && <Field label="Underlag">{evidence.join(" · ")}</Field>}
+      {p.project_count_range && (
+        <Field label="AI-projekt (24 mån)">{labelForProjectCount(p.project_count_range)}</Field>
+      )}
       {p.description && (
         <Field label="Kort beskrivning">
           <p className="leading-relaxed italic">"{p.description}"</p>
