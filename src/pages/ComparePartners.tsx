@@ -1624,7 +1624,7 @@ const ComparePartners = () => {
                       })()}
 
                       <R
-                        label="Kompetens inom valda produkter"
+                        label="Kompetens inom Dynamics 365"
                         warn
                         help="Dynamics 365-applikationer som partnern arbetar med, filtrerat på de produkter du valt i jämförelsen."
                         a={renderAppList(AF.apps)}
