@@ -516,7 +516,9 @@ const renderAiProfile = (profile?: AiProfile | null) => {
       {p.project_count_range && (
         <Field label="AI-projekt (24 mån)">{labelForProjectCount(p.project_count_range)}</Field>
       )}
-      {evidence.length > 0 && <Field label="Underlag">{evidence.join(" · ")}</Field>}
+      {p.project_count_range && (
+        <Field label="AI-projekt (24 mån)">{labelForProjectCount(p.project_count_range)}</Field>
+      )}
       {p.description && (
         <Field label="Kort beskrivning">
           <p className="leading-relaxed italic">"{p.description}"</p>
