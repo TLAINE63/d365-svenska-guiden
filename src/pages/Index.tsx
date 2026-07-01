@@ -633,7 +633,11 @@ const Index = () => {
         {/* FAQ */}
         <section id="questions" className="section-divider py-12 sm:py-16 bg-background">
           <div className="container mx-auto px-4 sm:px-6">
-            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10">Vanliga frågor</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-3">De 5 vanligaste frågorna om Dynamics 365</h2>
+            <p className="text-center text-sm text-muted-foreground mb-10 max-w-2xl mx-auto">
+              Ärliga svar på pris, val, partner och AI – med en kort video från Microsoft eller ledande experter per fråga.
+            </p>
+
             <div className="max-w-4xl mx-auto">
               <Suspense fallback={<div className="space-y-3" />}>
                 <Accordion type="single" collapsible className="space-y-3">
