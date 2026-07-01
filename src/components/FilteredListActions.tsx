@@ -144,6 +144,9 @@ const FilteredListActions = ({
         recipients={recipients}
         selectedProduct={selectedProduct}
         industry={industry}
+        geography={geography}
+        companySize={companySize}
+        revenue={revenue}
         mode="quote"
       />
     </div>
