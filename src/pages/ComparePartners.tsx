@@ -1332,7 +1332,7 @@ const ComparePartners = () => {
                       }`}
                       aria-pressed={!industryFilter}
                     >
-                      <div className="aspect-[16/5] overflow-hidden bg-muted flex items-center justify-center">
+                      <div className="aspect-[16/4] overflow-hidden bg-muted flex items-center justify-center">
                         <span className="text-[10px] font-medium text-muted-foreground">Alla branscher</span>
                       </div>
                       <div className="p-1">
