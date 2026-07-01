@@ -807,8 +807,10 @@ const ComparePartners = () => {
   const getProductMetrics = (
     p: DatabasePartner | undefined,
     key: ProductFilterKey,
-  ): { length: string; cost: string } => {
+  ): { length: string; cost: string; methodology: string } => {
     const pp = ((p as any)?.product_profiles || {}) as Record<string, any>;
+    const dpGlobal = (p?.delivery_profile || {}) as DeliveryProfile;
+    const fallbackMethodology = (dpGlobal.methodology || "").trim();
     for (const app of PRODUCT_FILTER_GROUP[key].apps) {
       const raw = pp[app];
       if (raw && typeof raw === "object") {
@@ -820,14 +822,20 @@ const ComparePartners = () => {
           typeof raw.cost_band === "string" && raw.cost_band
             ? COST_BAND_LABELS[raw.cost_band] || raw.cost_band
             : "";
-        if (length || cost) return { length, cost };
+        const methodology =
+          (typeof raw.methodology === "string" ? raw.methodology.trim() : "") ||
+          fallbackMethodology;
+        if (length || cost || methodology) return { length, cost, methodology };
       }
     }
     if (key === "bc") {
-      const dp = (p?.delivery_profile || {}) as DeliveryProfile;
-      return { length: formatBcLength(dp), cost: formatBcCost(dp) };
+      return {
+        length: formatBcLength(dpGlobal),
+        cost: formatBcCost(dpGlobal),
+        methodology: fallbackMethodology,
+      };
     }
-    return { length: "", cost: "" };
+    return { length: "", cost: "", methodology: fallbackMethodology };
   };
 
   type AiPerProduct = {
