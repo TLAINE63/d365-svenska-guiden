@@ -147,13 +147,13 @@ All colors MUST be HSL.
 
     --border: 34 22% 81%;               /* Line #D8D1C6 – diskreta avdelare */
     --input: 34 22% 81%;
-    --ring: 167 100% 21%;               /* Green #006B55 */
+    --ring: 14 75% 48%;                 /* Orange – fokusring matchar CTA */
 
     --radius: 0.25rem;                  /* max 4px – ingen SaaS-estetik */
 
     --gradient-primary: linear-gradient(135deg, hsl(30 14% 7%) 0%, hsl(30 14% 7%) 100%);
     --gradient-hero: linear-gradient(135deg, rgba(22,21,17,0.92) 0%, rgba(22,21,17,0.75) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(167 100% 21%) 0%, hsl(167 100% 21%) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(14 75% 48%) 0%, hsl(14 82% 38%) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(40 53% 97%) 0%, hsl(40 26% 94%) 100%);
     /* Inga skuggor – behåll tokens som no-op för bakåtkompatibilitet */
     --shadow-card: 0 0 0 0 transparent;
