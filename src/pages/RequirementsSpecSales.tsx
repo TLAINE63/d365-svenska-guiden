@@ -468,7 +468,7 @@ const RequirementsSpecSales = () => {
                   {isGenerating ? (
                     <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Genererar...</>
                   ) : (
-                    <><FileText className="mr-2 h-4 w-4" /> Generera kravspecifikation</>
+                    <><FileText className="mr-2 h-4 w-4" /> Generera en kravspecifikation</>
                   )}
                 </Button>
               )}

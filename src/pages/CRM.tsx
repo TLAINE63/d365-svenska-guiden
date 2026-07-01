@@ -181,7 +181,7 @@ const CRM = () => {
     label: "Jämför CRM-partners",
     onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
   }}
-  secondary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-sales/", icon: FileText }}
+  secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation-sales/", icon: FileText }}
   />
 
 

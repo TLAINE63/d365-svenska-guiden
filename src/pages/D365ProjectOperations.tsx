@@ -53,7 +53,7 @@ const D365ProjectOperations = () => {
           label: "Jämför Project Operations-partners",
           onClick: () => document.getElementById("partners")?.scrollIntoView({ behavior: "smooth" }),
         }}
-        secondary={{ label: "Generera kravspecifikation", to: "/kravspecifikation/", icon: FileText }}
+        secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation/", icon: FileText }}
       />
 
       <ShortAnswer title="Vad är Dynamics 365 Project Operations" cta={{ label: "Matcha er behov", to: "/ERPbehovsanalys" }}>

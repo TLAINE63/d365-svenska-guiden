@@ -51,7 +51,7 @@ const D365Commerce = () => {
           label: "Jämför Commerce-partners",
           onClick: () => document.getElementById("partners")?.scrollIntoView({ behavior: "smooth" }),
         }}
-        secondary={{ label: "Generera kravspecifikation", to: "/kravspecifikation/", icon: FileText }}
+        secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation/", icon: FileText }}
       />
 
       <ShortAnswer title="Vad är Dynamics 365 Commerce" cta={{ label: "Matcha er behov", to: "/ERPbehovsanalys" }}>
