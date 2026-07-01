@@ -29,66 +29,19 @@ import { DatabasePartner } from "@/hooks/usePartners";
 import { trackPartnerView } from "@/utils/trackPartnerView";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 
-// Dynamics 365 icons
-import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
-import FinanceIcon from "@/assets/icons/Finance.svg";
-import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
-import SalesIcon from "@/assets/icons/Sales.svg";
-import MarketingIcon from "@/assets/icons/Marketing.svg";
-import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
-import FieldServiceIcon from "@/assets/icons/FieldService.svg";
-import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
-import CopilotIcon from "@/assets/icons/Copilot.png";
-import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
-import CommerceIcon from "@/assets/icons/Commerce.svg";
-import HumanResourcesIcon from "@/assets/icons/HumanResources.svg";
+import { displayApplicationName, getApplicationIcon, sortApplications, normalizeApplications } from "@/lib/applicationLabels";
 
-// Map application names to Dynamics 365 icons
-const applicationIcons: Record<string, string> = {
- "Business Central": BusinessCentralIcon,
- "Sales": SalesIcon,
- "Customer Service": CustomerServiceIcon,
- "Field Service": FieldServiceIcon,
- "Marketing": MarketingIcon,
- "Customer Insights": MarketingIcon,
- "Customer Insights (Marketing)": MarketingIcon,
- "Finance": FinanceIcon,
- "Finance & Supply Chain": FinanceIcon,
- "Supply Chain": SupplyChainIcon,
- "Supply Chain Management": SupplyChainIcon,
- "Copilot": CopilotIcon,
- "Contact Center": ContactCenterIcon,
- // Specialty products with official icons
- "Project Operations": ProjectOperationsIcon,
- "Commerce": CommerceIcon,
- "Human Resources": HumanResourcesIcon,
-};
-
-const getApplicationIcon = (appName: string): string | null => {
- // Try exact match first
- if (applicationIcons[appName]) return applicationIcons[appName];
- 
- // Try partial match
- const lowerName = appName.toLowerCase();
- for (const [key, icon] of Object.entries(applicationIcons)) {
- if (lowerName.includes(key.toLowerCase()) || key.toLowerCase().includes(lowerName)) {
- return icon;
- }
- }
- 
- // No matching icon
- return null;
-};
 
 // (AI labels and badge styles now come from aiScoring.ts)
 
 // Product key to Swedish label for AI section header
 const productKeyToSwedish: Record<string, string> = {
  bc: "Business Central",
- fsc: "Finance & SCM",
+ fsc: "F&SCM",
  sales: "Sälj & Marknad",
  service: "Kundservice",
 };
+
 
 // Map productKey to the product label stored in industry_pitches.
 // Canonical source: src/data/pitchProductMapping.ts (single source of truth
@@ -211,36 +164,12 @@ const PartnerCard = ({
  const secondaryIndustries = productFilter?.secondaryIndustries || [];
  const geography = productFilter?.geography || (isDatabasePartner(partner) ? (partner.geography?.[0] || 'Sverige') : partner.geography);
 
- // Derive applications from product_filters for database partners
- const getDisplayApplications = (): string[] => {
- if (isDatabasePartner(partner) && partner.product_filters) {
- const apps: string[] = [];
- if (partner.product_filters.bc) apps.push("Business Central");
- if (partner.product_filters.fsc) {
- apps.push("Finance");
- apps.push("Supply Chain Management");
- }
- if (partner.product_filters.sales) {
- apps.push("Sales");
- apps.push("Customer Insights (Marketing)");
- }
- if (partner.product_filters.service) {
- apps.push("Customer Service");
- apps.push("Field Service");
- apps.push("Contact Center");
- }
- // Add specialty products from applications array (explicitly selected)
- const specialtyProducts = ["Project Operations", "Commerce", "Human Resources"];
- specialtyProducts.forEach(product => {
- if (partner.applications?.includes(product)) {
- apps.push(product);
- }
- });
- // Remove duplicates
- return apps.length > 0 ? [...new Set(apps)] : (partner.applications || []);
- }
- return partner.applications || [];
- };
+  // Public-facing application badges from the partner's explicit applications list.
+  // Finance/SCM aliases are merged into a single F&SCM badge by normalizeApplications.
+  const getDisplayApplications = (): string[] => {
+    return sortApplications(normalizeApplications(partner.applications || []));
+  };
+
 
  const displayApplications = getDisplayApplications();
 
@@ -438,31 +367,31 @@ const PartnerCard = ({
  </div>
  )}
  
-      {/* Dold tills vidare: Kompetenser */}
-      {false && (
-        <div className="mb-3">
-          <p className="text-xs font-semibold text-foreground/80 mb-2 uppercase tracking-wider flex items-center gap-1.5">
-            <span className="w-1 h-1 rounded bg-primary" />
-            Kompetenser
-          </p>
-          <div className="flex flex-wrap gap-1.5">
-            {displayApplications.map((app, i) => {
-              const appIcon = getApplicationIcon(app);
-              return (
-                <Badge 
-                  key={i} 
-                  className="text-xs bg-accent text-accent-foreground border-0 font-medium hover:bg-accent/90 transition-all"
-                >
-                  {appIcon && (
-                    <img src={appIcon} alt="" aria-hidden="true" width="16" height="16" loading="lazy" decoding="async" className="w-4 h-4 mr-1.5" />
-                  )}
-                  {app}
-                </Badge>
-              );
-            })}
-          </div>
-        </div>
-      )}
+       {/* Product competence badges */}
+       {displayApplications.length > 0 && (
+         <div className="mb-3">
+           <p className="text-xs font-semibold text-foreground/80 mb-2 uppercase tracking-wider flex items-center gap-1.5">
+             <span className="w-1 h-1 rounded bg-primary" />
+             Kompetenser
+           </p>
+           <div className="flex flex-wrap gap-1.5">
+             {displayApplications.map((app, i) => {
+               const appIcon = getApplicationIcon(app);
+               return (
+                 <Badge 
+                   key={i} 
+                   className="text-xs bg-accent text-accent-foreground border-0 font-medium hover:bg-accent/90 transition-all"
+                 >
+                   {appIcon && (
+                     <img src={appIcon} alt="" aria-hidden="true" width="16" height="16" loading="lazy" decoding="async" className="w-4 h-4 mr-1.5" />
+                   )}
+                   {displayApplicationName(app)}
+                 </Badge>
+               );
+             })}
+           </div>
+         </div>
+       )}
 
 
  <div className="mt-auto pt-3 space-y-2">
