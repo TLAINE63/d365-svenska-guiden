@@ -1362,7 +1362,7 @@ const ComparePartners = () => {
                           aria-pressed={selected}
                         >
                           {img && (
-                            <div className="aspect-[16/5] overflow-hidden bg-muted">
+                            <div className="aspect-[16/4] overflow-hidden bg-muted">
                               <img
                                 src={img}
                                 alt={`Bransch ${ind.name}`}
