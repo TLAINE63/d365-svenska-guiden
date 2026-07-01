@@ -286,6 +286,39 @@ const PartnerRequestDialog = ({
           </div>
         )}
 
+        {(selectedProduct || industry || geography || companySize || revenue) && (
+          <div className="rounded-md border border-primary/20 bg-primary/5 p-3 text-xs">
+            <p className="font-semibold text-foreground mb-1.5">Din förfrågan avser:</p>
+            <div className="flex flex-wrap gap-1.5">
+              {selectedProduct && (
+                <span className="inline-flex items-center rounded-md bg-primary/10 text-primary border border-primary/20 px-2 py-0.5 font-medium">
+                  {selectedProduct}
+                </span>
+              )}
+              {industry && (
+                <span className="inline-flex items-center rounded-md bg-background text-foreground border border-border px-2 py-0.5">
+                  {industry}
+                </span>
+              )}
+              {geography && (
+                <span className="inline-flex items-center rounded-md bg-background text-foreground border border-border px-2 py-0.5">
+                  {geography}
+                </span>
+              )}
+              {companySize && (
+                <span className="inline-flex items-center rounded-md bg-background text-foreground border border-border px-2 py-0.5">
+                  {companySize} anställda
+                </span>
+              )}
+              {revenue && (
+                <span className="inline-flex items-center rounded-md bg-background text-foreground border border-border px-2 py-0.5">
+                  {revenue}
+                </span>
+              )}
+            </div>
+          </div>
+        )}
+
         {attemptedSubmit && errorCount > 0 && (
           <div
             role="alert"
