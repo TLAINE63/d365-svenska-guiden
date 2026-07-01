@@ -189,6 +189,9 @@ const PartnerRequestDialog = ({
         multi ? `Förfrågan skickas till: ${targets.map((t) => t.name).join(", ")}.` : "",
         selectedProduct ? `Produkt: ${selectedProduct}.` : "",
         industry ? `Bransch: ${industry}.` : "",
+        geography ? `Geografi: ${geography}.` : "",
+        companySize ? `Företagsstorlek: ${companySize} anställda.` : "",
+        revenue ? `Omsättning: ${revenue}.` : "",
         form.message.trim() ? `\nMeddelande:\n${form.message.trim()}` : "",
       ].filter(Boolean).join(" ");
 
