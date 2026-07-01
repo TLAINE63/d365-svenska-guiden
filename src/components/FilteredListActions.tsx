@@ -19,6 +19,9 @@ interface FilteredListActionsProps {
   /** Active filter context — surfaced in the dialog for clarity. */
   selectedProduct?: string;
   industry?: string;
+  geography?: string;
+  companySize?: string;
+  revenue?: string;
   /** Hide entirely when list is small enough that selection is trivial. */
   minVisible?: number;
   /** Optional override for the page-source label sent to analytics. */
