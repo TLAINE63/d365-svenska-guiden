@@ -25,6 +25,7 @@ const BusinessCentral = lazy(() => import("./pages/BusinessCentral"));
 const FinanceSupplyChain = lazy(() => import("./pages/FinanceSupplyChain"));
 const FscmMatchningstest = lazy(() => import("./pages/FscmMatchningstest"));
 const BcMatchningstest = lazy(() => import("./pages/BcMatchningstest"));
+const CrmMatchningstest = lazy(() => import("./pages/CrmMatchningstest"));
 const BcRoiCalculator = lazy(() => import("./pages/BcRoiCalculator"));
 const SalesRoiCalculator = lazy(() => import("./pages/SalesRoiCalculator"));
 const ProductRoiPage = lazy(() => import("./pages/ProductRoiPage"));
@@ -137,6 +138,11 @@ const AppShell = () => {
           <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
           <Route path="/finance-supply-chain-management/matchningstest" element={<FscmMatchningstest />} />
           <Route path="/finance-supply-chain/matchningstest" element={<Navigate to="/finance-supply-chain-management/matchningstest" replace />} />
+          <Route path="/d365sales/matchningstest" element={<CrmMatchningstest productKey="sales" />} />
+          <Route path="/d365customerservice/matchningstest" element={<CrmMatchningstest productKey="customer-service" />} />
+          <Route path="/d365marketing/matchningstest" element={<CrmMatchningstest productKey="marketing" />} />
+          <Route path="/d365fieldservice/matchningstest" element={<CrmMatchningstest productKey="field-service" />} />
+          <Route path="/d365contactcenter/matchningstest" element={<CrmMatchningstest productKey="contact-center" />} />
           <Route path="/erp" element={<ERPOverview />} />
           <Route path="/d365projectoperations" element={<D365ProjectOperations />} />
           <Route path="/d365commerce" element={<D365Commerce />} />
