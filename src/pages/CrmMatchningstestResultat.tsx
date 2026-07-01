@@ -26,6 +26,7 @@ import {
   CRM_TEST_TO_PARTNER_SLUG,
 } from "@/lib/crmMatchingPartners";
 import PartnerCard from "@/components/PartnerCard";
+import { trackFunnelEvent, trackFunnelEventOnce } from "@/lib/funnelTracking";
 
 interface Props {
   productKey: ProductConfig["key"];
@@ -78,6 +79,19 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
   useEffect(() => {
     if (!score || submitted) return;
     setSubmitted(true);
+    const top = topCrmProfiles(score, 1)[0];
+    trackFunnelEventOnce(
+      `crm_test_result_view:${productKey}`,
+      "crm_test_result_view",
+      {
+        product_key: productKey,
+        assessment_type: config.assessmentType,
+        level: score.level,
+        total_score: score.total,
+        top_profile: top?.key,
+        top_profile_score: top?.score,
+      },
+    );
     void supabase.from("assessments").insert([
       {
         contact_name: "anonymous",
@@ -90,7 +104,7 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
         meta: { assessment_type: `${config.assessmentType}_result_page`, version: 1 },
       },
     ]);
-  }, [score, submitted, answers, config]);
+  }, [score, submitted, answers, config, productKey]);
 
   const restart = () => {
     try {
