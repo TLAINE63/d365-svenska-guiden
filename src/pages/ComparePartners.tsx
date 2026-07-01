@@ -1547,19 +1547,13 @@ const ComparePartners = () => {
                       })()}
 
                       <R
-                        label="Kompetens inom Dynamics 365"
-                        help="Alla Dynamics 365-applikationer partnern arbetar med. ERP-appar listas först, därefter CE/CRM — båda i bokstavsordning."
-                        a={renderAppList(AF.apps)}
-                        b={renderAppList(BF.apps)}
-                        c={renderAppList(CF.apps)}
-                      />
-                      <R
                         label="Fokusbranscher"
                         warn={!!industryFilter}
                         a={renderIndustryList(AF.industries)}
                         b={renderIndustryList(BF.industries)}
                         c={renderIndustryList(CF.industries)}
                       />
+
 
                       <R
                         label="AI, Copilot & Automation"
@@ -1599,6 +1593,17 @@ const ComparePartners = () => {
                           />
                         ));
                       })()}
+
+                      <R
+                        label="Kompetens inom Dynamics 365"
+                        warn
+                        help="Alla Dynamics 365-applikationer partnern arbetar med (oavsett vald produkt). ERP-appar listas först, därefter CE/CRM — båda i bokstavsordning."
+                        a={renderAppList(A.apps)}
+                        b={renderAppList(B.apps)}
+                        c={renderAppList(C.apps)}
+                      />
+
+
 
 
                       {(() => {
