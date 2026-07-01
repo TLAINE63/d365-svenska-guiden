@@ -18,6 +18,7 @@ import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 // (the bar unmounts on /jamfor-partners and remounts on the next page).
 let promptedPairKey = "";
 const DISMISSED_PROMPTS_STORAGE_KEY = "partner-compare-dismissed-prompts";
+const AUTO_PROMPT_DISMISSED_STORAGE_KEY = "partner-compare-auto-prompt-dismissed";
 
 const getPairKey = (items: { slug: string }[]) => items.map((s) => s.slug).sort().join("|");
 
@@ -34,6 +35,22 @@ const readDismissedPromptKeys = () => {
 
 const isPromptDismissed = (key: string) => readDismissedPromptKeys().has(key);
 
+const isAutoPromptDismissed = () => {
+  if (typeof window === "undefined") return false;
+  try {
+    return sessionStorage.getItem(AUTO_PROMPT_DISMISSED_STORAGE_KEY) === "true";
+  } catch {
+    return false;
+  }
+};
+
+const dismissAutoPrompt = () => {
+  if (typeof window === "undefined") return;
+  try {
+    sessionStorage.setItem(AUTO_PROMPT_DISMISSED_STORAGE_KEY, "true");
+  } catch {}
+};
+
 const dismissPromptForPair = (key: string) => {
   if (!key || typeof window === "undefined") return;
   try {
@@ -41,6 +58,11 @@ const dismissPromptForPair = (key: string) => {
     dismissed.add(key);
     sessionStorage.setItem(DISMISSED_PROMPTS_STORAGE_KEY, JSON.stringify([...dismissed]));
   } catch {}
+};
+
+const dismissPrompt = (key: string) => {
+  dismissAutoPrompt();
+  dismissPromptForPair(key);
 };
 
 const PartnerCompareBar = () => {
@@ -59,6 +81,7 @@ const PartnerCompareBar = () => {
   // so the floating bar & prompt don't keep reappearing on later navigation.
   useEffect(() => {
     if (onComparePage && selected.length > 0) {
+      setAskOpen(false);
       clear();
     }
   }, [onComparePage, selected.length, clear]);
@@ -67,7 +90,11 @@ const PartnerCompareBar = () => {
   useEffect(() => {
     if (onComparePage) return;
     if (currentPairKey) {
-      if (promptedPairKey !== currentPairKey && !isPromptDismissed(currentPairKey)) {
+      if (
+        promptedPairKey !== currentPairKey &&
+        !isAutoPromptDismissed() &&
+        !isPromptDismissed(currentPairKey)
+      ) {
         promptedPairKey = currentPairKey;
         setAskOpen(true);
       }
@@ -78,7 +105,7 @@ const PartnerCompareBar = () => {
 
   const handleAskOpenChange = (open: boolean) => {
     if (!open && askOpen && currentPairKey) {
-      dismissPromptForPair(currentPairKey);
+      dismissPrompt(currentPairKey);
     }
     setAskOpen(open);
   };
@@ -161,7 +188,7 @@ const PartnerCompareBar = () => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Inte nu</AlertDialogCancel>
+            <AlertDialogCancel onClick={() => dismissPrompt(currentPairKey)}>Inte nu</AlertDialogCancel>
             <AlertDialogAction
               onClick={goCompare}
               className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
