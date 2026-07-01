@@ -698,6 +698,49 @@ const ComparePartners = () => {
     return out;
   };
 
+  type ProductInsight = {
+    key: ProductFilterKey;
+    label: string;
+    description: string;
+    whyChoose: string;
+    keyPoints: string[];
+  };
+
+  const splitKeyPoints = (raw: string): string[] => {
+    if (!raw) return [];
+    return raw
+      .split(/\r?\n+|(?:^|\s)[-•·*]\s+/g)
+      .map((s) => s.trim().replace(/^[-•·*]\s*/, ""))
+      .filter(Boolean)
+      .slice(0, 6);
+  };
+
+  const getProductInsights = (
+    p: DatabasePartner | undefined,
+    apps: string[]
+  ): ProductInsight[] => {
+    const pf = (p as any)?.product_filters as
+      | Record<string, { productDescription?: string; whyChoose?: string; keyPoints?: string }>
+      | undefined;
+    if (!pf) return [];
+    const keys = getProductFilterKeysForApps(apps);
+    const out: ProductInsight[] = [];
+    for (const key of keys) {
+      const description = (pf[key]?.productDescription || "").trim();
+      const whyChoose = (pf[key]?.whyChoose || "").trim();
+      const keyPoints = splitKeyPoints(pf[key]?.keyPoints || "");
+      if (!description && !whyChoose && keyPoints.length === 0) continue;
+      out.push({
+        key,
+        label: PRODUCT_FILTER_KEY_LABEL[key] || key,
+        description,
+        whyChoose,
+        keyPoints,
+      });
+    }
+    return out;
+  };
+
   const PRODUCT_KEY_LABEL: Record<ProductFilterKey, string> = {
     bc: "Business Central",
     fsc: "Finance & Supply Chain Management",
