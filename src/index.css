@@ -25,9 +25,11 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 30 14% 8%;
 
-    --primary: 170 100% 24%;            /* Green #007C68 – CTA/länk */
+    /* PRIMÄR – logotypens orange. Används för CTA, primära knappar,
+       högprioriterade länkar och aktiva element. */
+    --primary: 14 75% 48%;              /* #D64A1F – logo orange */
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 170 100% 28%;
+    --primary-glow: 14 82% 55%;         /* Något ljusare för glow/gradient */
 
     --secondary: 40 53% 97%;            /* Warm #FBF8F2 – TAYA-band */
     --secondary-foreground: 30 14% 8%;
@@ -35,20 +37,22 @@ All colors MUST be HSL.
     --muted: 40 26% 94%;                /* #F5F2EC */
     --muted-foreground: 35 7% 41%;      /* #6F6A61 – metadata */
 
-    --accent: 170 100% 24%;             /* Green – CTA/link accent */
+    /* SEKUNDÄR ACCENT – petrol/teal. Används för ikoner, checkmarks,
+       informations- och matchningsindikatorer. Får aldrig konkurrera med CTA. */
+    --accent: 170 100% 24%;             /* #007C68 – teal secondary */
     --accent-foreground: 0 0% 100%;
 
-    --success: 170 100% 24%;            /* Green */
+    --success: 170 100% 24%;            /* Teal – positiv indikator */
     --success-foreground: 0 0% 100%;
 
-    --warning: 14 75% 48%;              /* Red #D64A1F – insight/warning */
+    --warning: 32 92% 45%;              /* Amber – separerad från CTA-orange */
     --warning-foreground: 0 0% 100%;
 
-    /* CTA – green #007C68. Token-namnet bibehålls för bakåtkompatibilitet. */
-    --cta-orange: 170 100% 24%;
-    --cta-orange-hover: 170 100% 19%;
+    /* CTA-token: logo-orange med mörkare hover. Historiskt namn behålls. */
+    --cta-orange: 14 75% 48%;           /* #D64A1F */
+    --cta-orange-hover: 14 82% 38%;     /* #B23D19 – mörkare hover */
 
-    /* Editorial signatur – Red #D64A1F. Endast text/tagg/eyebrow, aldrig bakgrund (utom röd rubrik-bar). */
+    /* Editorial signatur – identisk med primär. Röd/orange för tags & eyebrows. */
     --signature: 14 75% 48%;
     --signature-foreground: 0 0% 100%;
 
@@ -57,7 +61,7 @@ All colors MUST be HSL.
     --petrol: 40 17% 7%;                /* alias → svart */
     --card-dark: 40 17% 7%;
     --line-dark: 30 16% 20%;            /* #3A332A */
-    --accent-light: 156 47% 92%;        /* #E3F4EE – ljus grön bg */
+    --accent-light: 156 47% 92%;        /* #E3F4EE – ljus teal bg för ikonchips */
     --muted-dark: 24 5% 58%;            /* #9A9490 – text på svart */
     --border-on-dark: 36 18% 81%;       /* #D8D1C6 – sekundär knapp på mörk bg */
 
