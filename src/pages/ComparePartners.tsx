@@ -2119,9 +2119,6 @@ const ComparePartners = () => {
                     </section>
 
 
-                    <p className="text-xs text-slate-500 text-center pt-4">
-                      Innehåll i beslutsprofilen är skrivet av partnern själv. d365.se redigerar inte.
-                    </p>
                   </div>
                 )}
               </>
