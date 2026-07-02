@@ -198,9 +198,9 @@ const Branscher = () => {
  to={`/branscher/${ind.slug}`}
  className="group relative flex flex-col rounded-lg border border-border bg-card overflow-hidden hover:border-primary/40 transition-all"
  >
- {img && (
- <div className="aspect-[3/2] overflow-hidden bg-muted relative">
- <img
+{img && (
+  <div className="aspect-[5/3] overflow-hidden bg-muted relative">
+    <img
  src={img}
  alt={`Branschlösning för ${ind.name} i Microsoft Dynamics 365`}
  loading="lazy"
