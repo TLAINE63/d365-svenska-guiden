@@ -2116,7 +2116,7 @@ const ComparePartners = () => {
                                     disabled={isSubmittingQuote}
                                     className="text-xs min-h-[40px]"
                                   >
-                                    Prisindikation
+                                    Få en Prisindikation
                                   </Button>
                                 </div>
                               </div>
