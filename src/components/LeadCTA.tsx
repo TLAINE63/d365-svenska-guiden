@@ -106,7 +106,8 @@ export const LeadCTA = ({
           industry: selectedIndustry,
           selected_product: productToSend,
           source_page: sourcePage,
-          source_type: "cta",
+          source_type: isPartnerBound ? "partner_contact_request" : "cta",
+          assigned_partners: isPartnerBound ? [partnerSlug] : undefined,
         },
       });
 
@@ -115,7 +116,9 @@ export const LeadCTA = ({
       setIsSubmitted(true);
       toast({
         title: "Tack för ditt intresse!",
-        description: "Vi återkommer inom kort med förslag på partners.",
+        description: isPartnerBound
+          ? `${partnerName} har mottagit din förfrågan och återkommer inom kort.`
+          : "Vi återkommer inom kort med förslag på partners.",
       });
     } catch (error) {
       console.error("Error submitting lead:", error);
