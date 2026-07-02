@@ -307,9 +307,9 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  | Record<string, { productDescription?: string; productDescriptionAiGenerated?: boolean }>
  | undefined;
  const pf = dbProductFilters?.[filterKey] || dbProductFilters?.[category];
- const text = pf?.productDescription?.trim();
+ const raw = pf?.productDescription;
+ const text = typeof raw === "string" ? raw.trim() : Array.isArray(raw) ? raw.filter((x) => typeof x === "string").join("\n").trim() : "";
  if (!text) return null;
- return { text, aiGenerated: !!pf?.productDescriptionAiGenerated };
  };
 
  // Get per-product sales contact
