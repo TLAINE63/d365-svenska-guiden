@@ -1649,38 +1649,7 @@ const ComparePartners = () => {
                         />
                       )}
 
-                      {(() => {
-                        const aIns = getProductInsights(a, AF.apps);
-                        const bIns = getProductInsights(b, BF.apps);
-                        const cIns = getProductInsights(c, CF.apps);
-                        const keys = Array.from(
-                          new Set<ProductFilterKey>([
-                            ...aIns.map((d) => d.key),
-                            ...bIns.map((d) => d.key),
-                            ...cIns.map((d) => d.key),
-                          ])
-                        ).sort((x, y) =>
-                          PRODUCT_FILTER_GROUP[x].label.localeCompare(
-                            PRODUCT_FILTER_GROUP[y].label,
-                            "sv"
-                          )
-                        );
-                        return keys.map((key) => {
-                          const insA = aIns.find((d) => d.key === key);
-                          const insB = bIns.find((d) => d.key === key);
-                          const insC = cIns.find((d) => d.key === key);
-                          return (
-                            <R
-                              key={key}
-                              label={PRODUCT_FILTER_KEY_LABEL[key] || key}
-                              a={renderProductInsightCell(insA)}
-                              b={renderProductInsightCell(insB)}
-                              c={renderProductInsightCell(insC)}
-                            />
-                          );
-                        });
-                      })()}
-
+                      {/* Kompakta jämförelserader först — långa texter kommer längre ned */}
                       <R
                         label="Fokusbranscher"
                         a={renderIndustryList(scopedFocusIndustries(A))}
@@ -1689,11 +1658,12 @@ const ComparePartners = () => {
                       />
 
                       <R
-                        label="AI, Copilot & Automation"
-                        help="Partnerns samlade AI- och automationsprofil: leveransmodell, förmågor, relevanta områden, use cases, erfarenhet och underlag. Bygger på partnerns egna uppgifter."
-                        a={renderAiProfile(((A.partner as any)?.ai_profile) as AiProfile | null)}
-                        b={renderAiProfile(((B.partner as any)?.ai_profile) as AiProfile | null)}
-                        c={renderAiProfile(((C.partner as any)?.ai_profile) as AiProfile | null)}
+                        label="Kompetens inom Dynamics 365"
+                        warn
+                        help="Alla Dynamics 365-applikationer som partnern arbetar med — oavsett vilka produkter som är valda i jämförelsen."
+                        a={renderAppList(A.apps)}
+                        b={renderAppList(B.apps)}
+                        c={renderAppList(C.apps)}
                       />
 
                       {(() => {
@@ -1782,6 +1752,47 @@ const ComparePartners = () => {
                         return rows;
                       })()}
 
+                      {/* Längre innehåll längst ned — AI-profil, produktbeskrivningar och branschpitchar */}
+                      <R
+                        label="AI, Copilot & Automation"
+                        help="Partnerns samlade AI- och automationsprofil: leveransmodell, förmågor, relevanta områden, use cases, erfarenhet och underlag. Bygger på partnerns egna uppgifter."
+                        a={renderAiProfile(((A.partner as any)?.ai_profile) as AiProfile | null)}
+                        b={renderAiProfile(((B.partner as any)?.ai_profile) as AiProfile | null)}
+                        c={renderAiProfile(((C.partner as any)?.ai_profile) as AiProfile | null)}
+                      />
+
+                      {(() => {
+                        const aIns = getProductInsights(a, AF.apps);
+                        const bIns = getProductInsights(b, BF.apps);
+                        const cIns = getProductInsights(c, CF.apps);
+                        const keys = Array.from(
+                          new Set<ProductFilterKey>([
+                            ...aIns.map((d) => d.key),
+                            ...bIns.map((d) => d.key),
+                            ...cIns.map((d) => d.key),
+                          ])
+                        ).sort((x, y) =>
+                          PRODUCT_FILTER_GROUP[x].label.localeCompare(
+                            PRODUCT_FILTER_GROUP[y].label,
+                            "sv"
+                          )
+                        );
+                        return keys.map((key) => {
+                          const insA = aIns.find((d) => d.key === key);
+                          const insB = bIns.find((d) => d.key === key);
+                          const insC = cIns.find((d) => d.key === key);
+                          return (
+                            <R
+                              key={key}
+                              label={PRODUCT_FILTER_KEY_LABEL[key] || key}
+                              a={renderProductInsightCell(insA)}
+                              b={renderProductInsightCell(insB)}
+                              c={renderProductInsightCell(insC)}
+                            />
+                          );
+                        });
+                      })()}
+
                       {(() => {
                         // If a specific industry is selected, always show that row (even if empty across partners)
                         const baseKeys = Array.from(
@@ -1813,14 +1824,6 @@ const ComparePartners = () => {
                         ));
                       })()}
 
-                      <R
-                        label="Kompetens inom Dynamics 365"
-                        warn
-                        help="Alla Dynamics 365-applikationer som partnern arbetar med — oavsett vilka produkter som är valda i jämförelsen."
-                        a={renderAppList(A.apps)}
-                        b={renderAppList(B.apps)}
-                        c={renderAppList(C.apps)}
-                      />
 
                     </section>
 
