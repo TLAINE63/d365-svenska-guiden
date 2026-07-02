@@ -1264,22 +1264,20 @@ const ComparePartners = () => {
       return parts.join(" i ");
     })();
 
-    // 1) Branschlösningar för valt filter (produkt + ev. bransch)
+    // 1) Branschlösningar för valt filter — nämn endast partners som HAR lösningar
     if (productActive || industryFilter) {
-      const iaTexts = sides.map((s) => {
-        const list = s.F.industryApps;
-        if (list.length === 0) return `${s.name} har ingen egen branschlösning för ${filterLabel || "detta val"}`;
-        const names = list.slice(0, 3).map((ia) => ia.name).join(", ");
-        return `${s.name} har ${list.length} branschlösning${list.length === 1 ? "" : "ar"} (${names})`;
-      });
-      const distinct = new Set(sides.map((s) => s.F.industryApps.length)).size > 1
-        || new Set(sides.map((s) => s.F.industryApps.map((ia) => ia.name).sort().join("|"))).size > 1;
-      if (distinct) {
+      const withSolutions = sides.filter((s) => s.F.industryApps.length > 0);
+      if (withSolutions.length > 0) {
+        const iaTexts = withSolutions.map((s) => {
+          const list = s.F.industryApps;
+          const names = list.slice(0, 3).map((ia) => ia.name).join(", ");
+          return `${s.name} har ${list.length} branschlösning${list.length === 1 ? "" : "ar"} (${names})`;
+        });
         points.push(`Branschlösningar${filterLabel ? ` för ${filterLabel}` : ""}: ${iaTexts.join("; ")}.`);
       }
     }
 
-    // 2) Projektlängd + kostnad per vald produkt
+    // 2) Projektlängd + kostnad per vald produkt — endast partners med data
     if (productActive) {
       productFilters.forEach((key) => {
         const label = PRODUCT_KEY_LABEL[key] || key;
@@ -1291,38 +1289,43 @@ const ComparePartners = () => {
         if (lens.length >= 2 && new Set(lens.map((m) => m.length)).size > 1) {
           points.push(
             `Typisk projektlängd (${label}): ` +
-              metrics.map((m) => `${m.name} ${m.length || "—"}`).join(", ") + ".",
+              lens.map((m) => `${m.name} ${m.length}`).join(", ") + ".",
           );
         }
         const costs = metrics.filter((m) => m.cost);
         if (costs.length >= 2 && new Set(costs.map((m) => m.cost)).size > 1) {
           points.push(
             `Typisk kostnadsnivå (${label}): ` +
-              metrics.map((m) => `${m.name} ${m.cost || "—"}`).join(", ") + ".",
+              costs.map((m) => `${m.name} ${m.cost}`).join(", ") + ".",
           );
         }
       });
     }
 
-    // 3) AI-kompetens för valt produktfilter (eller totalt)
-    const aiSummary = sides.map((s) => {
-      const relevant = productActive
-        ? s.P.ai.filter((x) => productFilters.includes(x.productKey as ProductFilterKey))
-        : s.P.ai;
-      const caps = Array.from(new Set(relevant.flatMap((x) => x.capabilities))).slice(0, 3);
-      const projCounts = relevant.map((x) => x.projectCount).filter(Boolean);
-      const projText = projCounts[0] ? ` (${projCounts[0]} projekt)` : "";
-      if (caps.length === 0 && !projText) return `${s.name} har ingen registrerad AI-kompetens${productActive ? ` för ${filterLabel}` : ""}`;
-      return `${s.name}: ${caps.join(", ") || "—"}${projText}`;
-    });
-    const aiDistinct = new Set(aiSummary).size > 1;
-    if (aiDistinct) {
-      points.push(`AI-kompetens${productActive ? ` (${filterLabel})` : ""}: ${aiSummary.join("; ")}.`);
+    // 3) AI-kompetens — nämn endast partners som har registrerad AI-kompetens
+    const aiEntries = sides
+      .map((s) => {
+        const relevant = productActive
+          ? s.P.ai.filter((x) => productFilters.includes(x.productKey as ProductFilterKey))
+          : s.P.ai;
+        const caps = Array.from(new Set(relevant.flatMap((x) => x.capabilities))).slice(0, 3);
+        const projCounts = relevant.map((x) => x.projectCount).filter(Boolean);
+        const projText = projCounts[0] ? ` (${projCounts[0]} projekt)` : "";
+        if (caps.length === 0 && !projText) return null;
+        return `${s.name}: ${caps.join(", ") || "—"}${projText}`;
+      })
+      .filter((x): x is string => !!x);
+    if (aiEntries.length >= 2 && new Set(aiEntries).size > 1) {
+      points.push(`AI-kompetens${productActive ? ` (${filterLabel})` : ""}: ${aiEntries.join("; ")}.`);
     }
 
-    // 4) Geografi
-    const geoTexts = sides.map((s) => `${s.name} ${s.P.geography.join(", ") || "—"}`);
-    if (new Set(sides.map((s) => s.P.geography.slice().sort().join(","))).size > 1) {
+    // 4) Geografi — endast partners med angiven geografi
+    const geoSides = sides.filter((s) => s.P.geography.length > 0);
+    if (
+      geoSides.length >= 2 &&
+      new Set(geoSides.map((s) => s.P.geography.slice().sort().join(","))).size > 1
+    ) {
+      const geoTexts = geoSides.map((s) => `${s.name} ${s.P.geography.join(", ")}`);
       points.push(`Geografisk täckning: ${geoTexts.join("; ")}.`);
     }
 
