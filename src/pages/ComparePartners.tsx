@@ -980,6 +980,7 @@ const ComparePartners = () => {
         )
       ).sort((a, b) => a.localeCompare(b, "sv")),
       industries: allIndustries,
+      productIndustries,
       industryApps,
       geography: Array.from(new Set([
         ...cleanList(p?.geography),
