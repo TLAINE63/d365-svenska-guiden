@@ -51,10 +51,6 @@ const productKeyToSwedish: Record<string, string> = {
 };
 
 
-// Map productKey to the product label stored in industry_pitches.
-// Canonical source: src/data/pitchProductMapping.ts (single source of truth
-// shared between editor + public renderer).
-import { getPitchLabelForKey } from "@/data/pitchProductMapping";
 // Union type to support both static and database partners
 type PartnerData = Partner | DatabasePartner;
 
