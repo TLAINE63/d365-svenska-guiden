@@ -340,7 +340,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
  const dbProductFilters = partner?.product_filters as Record<string, { landingPageUrl?: string }> | undefined;
  const url = dbProductFilters?.[filterKey]?.landingPageUrl || dbProductFilters?.[category]?.landingPageUrl;
- return url && url.trim().length > 0 ? url.trim() : null;
+ return typeof url === "string" && url.trim().length > 0 ? url.trim() : null;
  };
 
  // Get industry apps for a specific product category
