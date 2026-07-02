@@ -2032,7 +2032,7 @@ const ComparePartners = () => {
                                     disabled={isSubmittingQuote}
                                     className="w-full min-h-[52px]"
                                   >
-                                    Boka genomgång eller demo
+                                    Boka Demo/Genomgång
                                   </Button>
                                   <Button
                                     type="button"
@@ -2101,7 +2101,7 @@ const ComparePartners = () => {
                                     disabled={isSubmittingQuote}
                                     className="text-xs min-h-[40px]"
                                   >
-                                    Boka genomgång
+                                    Boka Demo/Genomgång
                                   </Button>
                                   <Button
                                     type="button"
