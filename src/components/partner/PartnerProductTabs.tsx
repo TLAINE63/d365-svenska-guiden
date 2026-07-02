@@ -585,28 +585,7 @@ export default function PartnerProductTabs({
               </ul>
             </section>
 
-            {/* 3. Passar mindre bra för */}
-            {partner.not_a_fit && partner.not_a_fit.length > 0 && (
-              <section>
-                <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
-                  <XCircle className="w-5 h-5 text-muted-foreground" />
-                  När passar {partner.name} mindre bra?
-                </h2>
-                <ul className="space-y-2.5">
-                  {partner.not_a_fit.map((item, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <XCircle className="w-4 h-4 text-muted-foreground mt-1 shrink-0" />
-                      <span className="text-foreground/80">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-3 text-xs text-muted-foreground italic">
-                  Att tydligt visa när en partner inte passar är en del av vår köparsidiga rådgivning.
-                </p>
-              </section>
-            )}
-
-            {/* 4. Kompetenser */}
+            {/* 3. Kompetenser */}
             <section>
               <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
                 <Briefcase className="w-5 h-5 text-primary" />
