@@ -639,14 +639,6 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
    />
 
 
-   {/* AI, Copilot & Automation – partner-level public view */}
-   {(partner as any).ai_profile && (
-     <section className="py-8 border-t border-border">
-       <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
-         <AiProfilePublic profile={(partner as any).ai_profile} />
-       </div>
-     </section>
-   )}
 
 
   {/* Specialty products (HR / Commerce / ProjOps) — keep visible below tabs */}
