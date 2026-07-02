@@ -187,55 +187,55 @@ const Branscher = () => {
 
         <section className="py-6 md:py-8">
           <div className="container mx-auto px-4 max-w-6xl">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
               {filteredIndustries.map((ind) => {
                 const img = INDUSTRY_IMAGES[ind.slug];
                 const context = INDUSTRY_CONTEXT[ind.slug];
                 const count = filteredPartnerCounts[ind.name] || 0;
                 return (
- <Link
- key={ind.slug}
- to={`/branscher/${ind.slug}`}
- className="group relative flex flex-col rounded-lg border border-border bg-card overflow-hidden hover:border-primary/40 transition-all"
- >
-{img && (
-  <div className="aspect-[5/3] overflow-hidden bg-muted relative">
-    <img
- src={img}
- alt={`Branschlösning för ${ind.name} i Microsoft Dynamics 365`}
- loading="lazy"
- className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
- />
- <span
- title="AI-assisterat branschinnehåll"
- aria-label="AI-assisterat branschinnehåll"
- className="absolute top-2 right-2 inline-flex items-center gap-1 rounded bg-cyan-500/95 text-white text-[10px] font-semibold px-2 py-0.5 "
- >
- <Sparkles className="w-3 h-3" />
- AI
- </span>
- </div>
- )}
- <div className="flex flex-col gap-1 p-3 pr-8">
- <span className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors leading-tight">
- {ind.name}
- </span>
- {context && (
- <span className="text-xs text-muted-foreground leading-snug">
- {context}
- </span>
- )}
- <span className="text-xs font-medium text-primary/80 mt-0.5">
- {count > 0 ? `${count} ${count === 1 ? "partner" : "partners"} listade` : "Kommer snart"}
- </span>
- </div>
- <ChevronRight className="absolute bottom-3 right-3 h-4 w-4 text-muted-foreground/60 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
- </Link>
- );
- })}
- </div>
- </div>
- </section>
+                  <Link
+                    key={ind.slug}
+                    to={`/branscher/${ind.slug}`}
+                    className="group relative flex flex-col rounded-lg border border-border bg-card overflow-hidden hover:border-primary/40 transition-all"
+                  >
+                    {img && (
+                      <div className="aspect-[16/9] overflow-hidden bg-muted relative">
+                        <img
+                          src={img}
+                          alt={`Branschlösning för ${ind.name} i Microsoft Dynamics 365`}
+                          loading="lazy"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <span
+                          title="AI-assisterat branschinnehåll"
+                          aria-label="AI-assisterat branschinnehåll"
+                          className="absolute top-2 right-2 inline-flex items-center gap-1 rounded bg-cyan-500/95 text-white text-[10px] font-semibold px-2 py-0.5"
+                        >
+                          <Sparkles className="w-3 h-3" />
+                          AI
+                        </span>
+                      </div>
+                    )}
+                    <div className="flex flex-col gap-1 p-2.5 pr-7">
+                      <span className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors leading-tight">
+                        {ind.name}
+                      </span>
+                      {context && (
+                        <span className="text-xs text-muted-foreground leading-snug">
+                          {context}
+                        </span>
+                      )}
+                      <span className="text-xs font-medium text-primary/80 mt-0.5">
+                        {count > 0 ? `${count} ${count === 1 ? "partner" : "partners"} listade` : "Kommer snart"}
+                      </span>
+                    </div>
+                    <ChevronRight className="absolute bottom-2.5 right-2.5 h-4 w-4 text-muted-foreground/60 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </section>
  </main>
  <Footer />
  </>
