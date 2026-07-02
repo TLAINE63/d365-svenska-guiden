@@ -1669,7 +1669,12 @@ const ComparePartners = () => {
 
                 {hasBoth && (
                   <>
-                    {/* AI-liknande diff-sammanfattning */}
+                    <AiCompareInsights
+                      partners={[a, b, ...(c ? [c] : [])].filter(Boolean) as DatabasePartner[]}
+                      productFilters={productFilters}
+                      industry={industryFilter || ""}
+                    />
+                    {/* Heuristisk diff-sammanfattning (regelbaserad, faktakontroll) */}
                     <section className="mb-6 rounded-lg border border-primary/30 bg-primary/5 p-5">
                       <h2 className="text-lg font-bold text-foreground mb-2">
                         Vad skiljer partnerna åt?
