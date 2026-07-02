@@ -92,7 +92,7 @@ const buildPartnerPayload = (
 
 interface Props {
   partners: DatabasePartner[]; // 2 or 3 partners in display order
-  productFilters: ProductFilterKey[];
+  productFilters: string[];
   industry: string;
 }
 
