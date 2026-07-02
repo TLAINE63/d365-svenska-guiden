@@ -1748,6 +1748,7 @@ const ComparePartners = () => {
                 {hasBoth && (
                   <div className="space-y-8">
                     {showAllRows && (
+                    <>
                     <section className="space-y-3">
                       <SectionTitle icon={Target} title="Fler partnerdetaljer" />
 
