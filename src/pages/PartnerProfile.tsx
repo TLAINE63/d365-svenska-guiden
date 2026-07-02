@@ -635,13 +635,10 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
    selectedRevenue={selectedRevenue}
    onActiveTabChange={(_, label) => setActiveTabProduct(label)}
    onRequest={openRequest}
-   />
+    />
 
-
-
-
-  {/* Specialty products (HR / Commerce / ProjOps) — keep visible below tabs */}
-  {(() => {
+   {/* Specialty products (HR / Commerce / ProjOps) — keep visible below tabs */}
+   {(() => {
    const specialtyProducts = ['Project Operations', 'Commerce', 'Human Resources'];
    const partnerSpecialties = partner.applications.filter(app => specialtyProducts.includes(app));
    if (partnerSpecialties.length === 0) return null;
