@@ -307,9 +307,9 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  | Record<string, { productDescription?: string; productDescriptionAiGenerated?: boolean }>
  | undefined;
  const pf = dbProductFilters?.[filterKey] || dbProductFilters?.[category];
- const text = pf?.productDescription?.trim();
+ const raw: unknown = (pf as any)?.productDescription;
+ const text = typeof raw === "string" ? raw.trim() : Array.isArray(raw) ? (raw as unknown[]).filter((x): x is string => typeof x === "string").join("\n").trim() : "";
  if (!text) return null;
- return { text, aiGenerated: !!pf?.productDescriptionAiGenerated };
  };
 
  // Get per-product sales contact
@@ -340,7 +340,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
  const dbProductFilters = partner?.product_filters as Record<string, { landingPageUrl?: string }> | undefined;
  const url = dbProductFilters?.[filterKey]?.landingPageUrl || dbProductFilters?.[category]?.landingPageUrl;
- return url && url.trim().length > 0 ? url.trim() : null;
+ return typeof url === "string" && url.trim().length > 0 ? url.trim() : null;
  };
 
  // Get industry apps for a specific product category
