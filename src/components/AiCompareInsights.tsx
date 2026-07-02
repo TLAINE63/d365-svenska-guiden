@@ -96,7 +96,7 @@ interface Props {
 }
 
 const productLabel = (keys: string[]) =>
-  keys.map((k) => PRODUCT_FILTER_GROUP[k]?.label || k).join(" / ");
+  keys.map((k) => (PRODUCT_FILTER_GROUP as any)[k]?.label || k).join(" / ");
 
 const AiCompareInsights = ({ partners, productFilters, industry }: Props) => {
   const slugs = useMemo(() => partners.map((p) => p.slug), [partners]);
