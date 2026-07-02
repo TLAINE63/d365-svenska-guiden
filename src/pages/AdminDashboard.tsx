@@ -384,6 +384,32 @@ const AdminDashboard = () => {
   const SUMMARY_STALE_DAYS = 90;
   const [generatingPositioning, setGeneratingPositioning] = useState(false);
   const [generatingPositioningId, setGeneratingPositioningId] = useState<string | null>(null);
+  const [generatingAiNotAFit, setGeneratingAiNotAFit] = useState(false);
+
+  const handleGenerateAllAiAndNotAFit = async () => {
+    if (!confirm("Fyll AI-profil och 'När vi inte är rätt val' för alla publicerade partners som saknar det? Befintligt innehåll rörs ej.")) return;
+    setGeneratingAiNotAFit(true);
+    try {
+      const { data, error } = await invokeAdminEdgeWithRetry("generate-partner-ai-notafit", { token, all: true });
+      if (error) throw error;
+      if ((data as any)?.error) throw new Error((data as any).error);
+      const gen = (data as any)?.generatedCount ?? 0;
+      const pc = (data as any)?.partnerCount ?? 0;
+      toast({ title: "AI-profil & beslutsprofil klar", description: `${gen} av ${pc} partners uppdaterade.` });
+      refetchPartners();
+    } catch (e: any) {
+      const msg = e?.message || "Okänt fel";
+      toast({
+        title: "Kunde inte generera",
+        description: msg === "RATE_LIMIT" ? "AI-tjänsten är överbelastad – försök igen om en stund."
+          : msg === "PAYMENT_REQUIRED" ? "AI-krediter slut. Lägg till krediter under Settings → Workspace → Usage."
+          : msg,
+        variant: "destructive",
+      });
+    } finally {
+      setGeneratingAiNotAFit(false);
+    }
+  };
 
   const handleGenerateAllPositioning = async () => {
     if (!confirm("Generera 'Vi är valet när …' för alla publicerade partners som saknar denna text per produkt? Befintliga texter rörs ej.")) return;
@@ -2462,6 +2488,15 @@ Thomas`,
     >
       <Sparkles className={`mr-2 h-4 w-4 ${generatingPositioning ? "animate-pulse" : ""}`} />
       {generatingPositioning ? "Genererar positionering…" : "AI: Vi är valet när…"}
+    </Button>
+    <Button
+      variant="outline"
+      onClick={handleGenerateAllAiAndNotAFit}
+      disabled={generatingAiNotAFit}
+      title="Fyll i tomma AI-profiler och 'När vi inte är rätt val' för publicerade partners. Befintligt innehåll rörs ej."
+    >
+      <Sparkles className={`mr-2 h-4 w-4 ${generatingAiNotAFit ? "animate-pulse" : ""}`} />
+      {generatingAiNotAFit ? "Fyller AI & beslutsprofil…" : "AI: Fyll AI-profil & 'passar inte'"}
     </Button>
   </div>
  {selectedForWelcome.size > 0 && (
