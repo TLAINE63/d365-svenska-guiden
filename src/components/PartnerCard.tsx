@@ -51,10 +51,6 @@ const productKeyToSwedish: Record<string, string> = {
 };
 
 
-// Map productKey to the product label stored in industry_pitches.
-// Canonical source: src/data/pitchProductMapping.ts (single source of truth
-// shared between editor + public renderer).
-import { getPitchLabelForKey } from "@/data/pitchProductMapping";
 // Union type to support both static and database partners
 type PartnerData = Partner | DatabasePartner;
 
@@ -158,11 +154,6 @@ const PartnerCard = ({
 
  const productFilter = getProductFilter();
  
- // Get product-specific description (with AI-generated flag)
- const productDescription = productFilter?.productDescription || null;
- const productDescriptionAi =
- (productFilter as { productDescriptionAiGenerated?: boolean } | null | undefined)
- ?.productDescriptionAiGenerated === true;
 
  // Get product-specific landing page URL
  const productLandingPageUrl = (productFilter as { landingPageUrl?: string } | null | undefined)?.landingPageUrl?.trim() || null;
@@ -312,41 +303,6 @@ const PartnerCard = ({
  </div>
  )}
 
- {/* Industry pitch (when filtered by industry) */}
- {(() => {
- if (!highlightedIndustry || !isDatabasePartner(partner)) return null;
- const pitches = partner.industry_pitches || [];
- const productLabel = getPitchLabelForKey(productKey);
- const matchOverride = productLabel
- ? pitches.find((p) => p.industry === highlightedIndustry && p.product === productLabel)
- : null;
- const matchDefault = pitches.find(
- (p) => p.industry === highlightedIndustry && (p.product === null || p.product === undefined),
- );
- const pitch = matchOverride || matchDefault;
- if (!pitch?.text?.trim()) return null;
- const isAi = (pitch as { edited_by?: string }).edited_by === "ai";
- return (
- <div className="mb-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary/60">
- <p className="text-xs font-semibold text-[hsl(var(--signature))] mb-1 uppercase tracking-wider">
- Inom {highlightedIndustry}
- </p>
- <p className="text-sm text-foreground/90 leading-relaxed line-clamp-4">
- {pitch.text}
- </p>
- {isAi && (
- <span
- className="mt-1.5 inline-flex items-center gap-1 text-[10px] font-medium text-muted-foreground/80 uppercase tracking-wide"
- title="AI-genererad text – baserad på partnerns övriga uppgifter"
- >
- <Sparkles className="w-3 h-3" aria-hidden="true" />
- AI-genererad
- </span>
- )}
- </div>
- );
- })()}
-
     {/* Varför välja partnern för aktuell produkt? */}
     {isDatabasePartner(partner) && partner.positioning_statement && (
       <div className="mb-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary">
@@ -358,24 +314,6 @@ const PartnerCard = ({
         </p>
       </div>
     )}
-
-   {/* Product-specific description */}
- {productDescription && (
- <div className="mb-4 p-3.5 rounded-lg bg-muted/50 border-l-2 border-primary/40">
- <p className="text-[15px] text-foreground/80 leading-[1.7] line-clamp-3">
- {productDescription}
- </p>
- {productDescriptionAi && (
- <span
- className="mt-1 inline-flex items-center gap-1 text-[10px] font-medium text-muted-foreground/80 uppercase tracking-wide"
- title="AI-genererad text – baserad på partnerns övriga uppgifter"
- >
- <Sparkles className="w-3 h-3" aria-hidden="true" />
- AI-genererad
- </span>
- )}
- </div>
- )}
  
        {/* Product competence badges */}
        {displayApplications.length > 0 && (
