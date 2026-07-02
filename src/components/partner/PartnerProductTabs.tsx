@@ -470,7 +470,7 @@ export default function PartnerProductTabs({
                       onClick={() => onRequest("demo")}
                       className="flex-1 min-h-[52px] border border-slate-300 bg-white hover:bg-slate-50 text-foreground font-medium text-sm rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                     >
-                      Boka genomgång eller demo
+                      Boka Demo/Genomgång
                     </button>
                     <button
                       type="button"

@@ -38,7 +38,7 @@ const MODE_CONFIG = {
     submitLabel: "Skicka fråga till partnern",
   },
   demo: {
-    title: (name: string) => `Boka genomgång eller demo med ${name}`,
+    title: (name: string) => `Boka Demo/Genomgång med ${name}`,
     description: (name: string, product?: string, industry?: string) =>
       `De flesta seriösa partners vill förstå behovet innan de visar system. Beskriv kort vad ni vill se eller diskutera${product ? ` inom ${product}` : ""}${industry ? ` (${industry})` : ""}, så återkommer ${name} med förslag på upplägg.`,
     sourceType: "partner_demo_request",
