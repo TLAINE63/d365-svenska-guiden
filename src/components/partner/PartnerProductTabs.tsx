@@ -33,6 +33,13 @@ import HumanResourcesIcon from "@/assets/icons/HumanResources.svg";
 
 const SPECIALTY_APPLICATIONS = ["Project Operations", "Commerce", "Human Resources"];
 
+// Safely coerce a value that may be a string, string[] or null/undefined into a trimmed string.
+const toText = (v: unknown): string => {
+  if (typeof v === "string") return v.trim();
+  if (Array.isArray(v)) return v.filter((x) => typeof x === "string").map((x) => (x as string).trim()).filter(Boolean).join("\n");
+  return "";
+};
+
 const appIconSrc: Record<string, string> = {
   "Business Central": BusinessCentralIcon,
   "Finance": FinanceIcon,
