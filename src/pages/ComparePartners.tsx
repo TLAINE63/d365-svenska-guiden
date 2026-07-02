@@ -38,7 +38,6 @@ import {
   labelForUseCase,
   labelForExperience,
   labelForProjectCount,
-  labelForEvidence,
   isAiProfileEmpty,
 } from "@/lib/aiProfile";
 
@@ -471,7 +470,6 @@ const renderAiProfile = (profile?: AiProfile | null) => {
   const caps = (p.capabilities || []).map(labelForCapability).filter(Boolean);
   const areas = (p.relevant_areas || []).map(labelForArea).filter(Boolean);
   const cases = (p.use_cases || []).map(labelForUseCase).filter(Boolean);
-  const evidence = (p.evidence_level || []).map(labelForEvidence).filter(Boolean);
 
   const chips = (items: string[], cls: string) => (
     <div className="flex flex-wrap gap-1.5">
@@ -516,11 +514,6 @@ const renderAiProfile = (profile?: AiProfile | null) => {
       {cases.length > 0 && (
         <Field label="Typiska use cases">
           {chips(cases, "bg-slate-100 text-slate-700 border border-slate-200")}
-        </Field>
-      )}
-      {evidence.length > 0 && (
-        <Field label="Underlag & referenser">
-          {chips(evidence, "bg-emerald-50 text-emerald-800 border border-emerald-200")}
         </Field>
       )}
       {p.description && (
