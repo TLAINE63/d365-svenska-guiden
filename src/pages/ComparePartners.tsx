@@ -993,8 +993,8 @@ const ComparePartners = () => {
       offices: officeCities,
       agreement: p ? (p.agreement_signed ? "Ja" : "Nej") : "",
       ai: getAiPerProduct(p),
-      notAFit: cleanList(p?.not_a_fit),
       industryPitches: (Array.isArray((p as any)?.industry_pitches) ? (p as any).industry_pitches : [])
+
         .map((ip: any) => ({
           industry: (ip?.industry || "").trim(),
           product: (ip?.product || "").trim() || null,
