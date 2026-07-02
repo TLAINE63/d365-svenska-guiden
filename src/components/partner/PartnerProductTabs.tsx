@@ -19,6 +19,7 @@ import {
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import type { DatabasePartner } from "@/hooks/usePartners";
 import LeadCTA from "@/components/LeadCTA";
+import AiProfilePublic from "@/components/partner/AiProfilePublic";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 
@@ -708,6 +709,13 @@ export default function PartnerProductTabs({
                 </section>
               ) : null;
             })()}
+
+            {/* AI, Copilot & Automation – partner-level public view */}
+            {(partner as any).ai_profile && (
+              <section>
+                <AiProfilePublic profile={(partner as any).ai_profile} />
+              </section>
+            )}
 
             {/* 7. CTA */}
             <section className="rounded-xl border border-border bg-gradient-to-br from-card to-muted/40 p-6 sm:p-8">
