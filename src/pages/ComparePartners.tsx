@@ -1260,7 +1260,81 @@ const ComparePartners = () => {
       return parts.join(" i ");
     })();
 
-    // 1) Branschlösningar för valt filter — nämn endast partners som HAR lösningar
+    // 1) Produktportfölj (D365) — vilka produktgrupper varje partner har profilerat
+    const allKeys = Object.keys(PRODUCT_FILTER_GROUP) as ProductFilterKey[];
+    const shortLabel: Record<ProductFilterKey, string> = {
+      bc: "Business Central",
+      fsc: "F&SCM",
+      commerce: "Commerce",
+      hr: "HR",
+      sales: "Sales/CI",
+      service: "Service (CS/FS/CC)",
+      po: "Project Ops",
+    };
+    const portfolio = sides.map((s) => {
+      const pf = (s.partner as any)?.product_filters || {};
+      const keys = allKeys.filter((k) => pf[k]);
+      return { name: s.name, keys };
+    });
+    const portfolioSigs = portfolio.map((p) => p.keys.slice().sort().join(","));
+    if (new Set(portfolioSigs).size > 1) {
+      points.push(
+        `Produktportfölj (Dynamics 365): ` +
+          portfolio
+            .map((p) =>
+              `${p.name} ${p.keys.length} områden (${p.keys.map((k) => shortLabel[k]).join(", ") || "—"})`,
+            )
+            .join("; ") + ".",
+      );
+    }
+
+    // 2) Branschfokus inom vald produkt — bredd vs specialisering
+    if (productActive) {
+      productFilters.forEach((key) => {
+        const label = PRODUCT_KEY_LABEL[key] || key;
+        const focus = sides
+          .map((s) => ({
+            name: s.name,
+            inds: s.P.productIndustries[key] || [],
+          }))
+          .filter((x) => x.inds.length > 0);
+        if (focus.length >= 2 && new Set(focus.map((f) => f.inds.length)).size > 1) {
+          const min = Math.min(...focus.map((f) => f.inds.length));
+          points.push(
+            `Branschfokus (${label}): ` +
+              focus
+                .map((f) => {
+                  const tag = f.inds.length <= 3 ? "specialist" : f.inds.length >= 8 ? "bred" : "fokuserad";
+                  return `${f.name} ${f.inds.length} branscher (${tag})`;
+                })
+                .join(", ") + ".",
+          );
+        }
+
+        // 3) Övriga branscher inom vald produkt utöver filtret
+        if (industryFilter) {
+          const others = sides
+            .map((s) => ({
+              name: s.name,
+              list: (s.P.productIndustries[key] || []).filter((i) => i !== industryFilter),
+            }))
+            .filter((s) => s.list.length > 0);
+          if (others.length > 0) {
+            const sigs = others.map((o) => o.list.slice().sort().join("|"));
+            if (new Set(sigs).size > 1 || others.length < sides.length) {
+              points.push(
+                `Övriga branscher inom ${label}: ` +
+                  others
+                    .map((o) => `${o.name} ${o.list.slice(0, 4).join(", ")}${o.list.length > 4 ? ` +${o.list.length - 4}` : ""}`)
+                    .join("; ") + ".",
+              );
+            }
+          }
+        }
+      });
+    }
+
+    // 4) Branschlösningar för valt filter — nämn endast partners som HAR lösningar
     if (productActive || industryFilter) {
       const withSolutions = sides.filter((s) => s.F.industryApps.length > 0);
       if (withSolutions.length > 0) {
@@ -1273,7 +1347,7 @@ const ComparePartners = () => {
       }
     }
 
-    // 2) Projektlängd + kostnad per vald produkt — endast partners med data
+    // 5) Projektlängd + kostnad per vald produkt — endast partners med data
     if (productActive) {
       productFilters.forEach((key) => {
         const label = PRODUCT_KEY_LABEL[key] || key;
@@ -1298,24 +1372,42 @@ const ComparePartners = () => {
       });
     }
 
-    // 3) AI-kompetens — nämn endast partners som har registrerad AI-kompetens
-    const aiEntries = sides
-      .map((s) => {
-        const relevant = productActive
-          ? s.P.ai.filter((x) => productFilters.includes(x.productKey as ProductFilterKey))
-          : s.P.ai;
-        const caps = Array.from(new Set(relevant.flatMap((x) => x.capabilities))).slice(0, 3);
-        const projCounts = relevant.map((x) => x.projectCount).filter(Boolean);
-        const projText = projCounts[0] ? ` (${projCounts[0]} projekt)` : "";
-        if (caps.length === 0 && !projText) return null;
-        return `${s.name}: ${caps.join(", ") || "—"}${projText}`;
-      })
-      .filter((x): x is string => !!x);
-    if (aiEntries.length >= 2 && new Set(aiEntries).size > 1) {
-      points.push(`AI-kompetens${productActive ? ` (${filterLabel})` : ""}: ${aiEntries.join("; ")}.`);
+    // 6) AI-förmågor — bryt ut förmågor, projektvolym och impact
+    const aiSides = sides.map((s) => {
+      const relevant = productActive
+        ? s.P.ai.filter((x) => productFilters.includes(x.productKey as ProductFilterKey))
+        : s.P.ai;
+      const caps = Array.from(new Set(relevant.flatMap((x) => x.capabilities)));
+      const projCounts = Array.from(new Set(relevant.map((x) => x.projectCount).filter(Boolean)));
+      const hasImpact = relevant.some((x) => x.businessImpact || x.caseDescription);
+      return { name: s.name, caps, projCounts, hasImpact, count: relevant.length };
+    });
+    const withAi = aiSides.filter((s) => s.caps.length > 0 || s.projCounts.length > 0 || s.hasImpact);
+    if (withAi.length > 0) {
+      // Förmågor
+      const capsSigs = aiSides.map((s) => s.caps.slice().sort().join(","));
+      if (new Set(capsSigs).size > 1) {
+        points.push(
+          `AI-förmågor${productActive ? ` (${filterLabel})` : ""}: ` +
+            aiSides
+              .map((s) => `${s.name} ${s.caps.length > 0 ? s.caps.slice(0, 4).join(", ") + (s.caps.length > 4 ? ` +${s.caps.length - 4}` : "") : "ingen registrerad"}`)
+              .join("; ") + ".",
+        );
+      }
+      // Projektvolym
+      const projSigs = aiSides.map((s) => s.projCounts.slice().sort().join(","));
+      if (new Set(projSigs).size > 1 && aiSides.some((s) => s.projCounts.length > 0)) {
+        points.push(
+          `AI-projektvolym: ` +
+            aiSides
+              .filter((s) => s.projCounts.length > 0)
+              .map((s) => `${s.name} ${s.projCounts.join(" / ")} projekt`)
+              .join(", ") + ".",
+        );
+      }
     }
 
-    // 4) Geografi — endast partners med angiven geografi
+    // 7) Geografi — endast partners med angiven geografi
     const geoSides = sides.filter((s) => s.P.geography.length > 0);
     if (
       geoSides.length >= 2 &&
@@ -1325,13 +1417,13 @@ const ComparePartners = () => {
       points.push(`Geografisk täckning: ${geoTexts.join("; ")}.`);
     }
 
-    // 5) Teamstorlek som kompletterande signal
+    // 8) Teamstorlek som kompletterande signal
     const teams = sides.filter((s) => s.P.teamSize);
     if (teams.length >= 2 && new Set(teams.map((t) => t.P.teamSize)).size > 1) {
       points.push(`Teamstorlek i Sverige: ${teams.map((t) => `${t.name} ${t.P.teamSize}`).join(", ")}.`);
     }
 
-    return points.slice(0, 8);
+    return points.slice(0, 10);
   }, [hasBoth, hasC, A, B, C, AF, BF, CF, a, b, c, productActive, productFilterRaw, industryFilter]);
 
 
