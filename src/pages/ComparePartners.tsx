@@ -781,16 +781,19 @@ const ComparePartners = () => {
 
   const getProductInsights = (
     p: DatabasePartner | undefined,
-    _apps: string[]
+    apps: string[]
   ): ProductInsight[] => {
     const pf = (p as any)?.product_filters as
       | Record<string, { productDescription?: unknown; whyChoose?: unknown; keyPoints?: unknown }>
       | undefined;
     if (!pf) return [];
-    // Include every product the partner has profiled, not just the ones matching the active filter.
-    const allKeys = Object.keys(PRODUCT_FILTER_KEY_LABEL) as ProductFilterKey[];
+    // Only show products that match the active filter. If no product filter is
+    // active, fall back to all products the partner has profiled.
+    const keys = productActive
+      ? getProductFilterKeysForApps(apps)
+      : (Object.keys(PRODUCT_FILTER_KEY_LABEL) as ProductFilterKey[]);
     const out: ProductInsight[] = [];
-    for (const key of allKeys) {
+    for (const key of keys) {
       const entry = pf[key];
       if (!entry) continue;
       const description = safeText(entry.productDescription);
