@@ -132,6 +132,16 @@ export const LeadCTA = ({
     }
   };
 
+  if (isSubmitted && isPartnerBound) {
+    return (
+      <div className="text-center py-6">
+        <p className="text-sm text-muted-foreground">
+          Din förfrågan har skickats till {partnerName}. De återkommer inom kort.
+        </p>
+      </div>
+    );
+  }
+
   if (isSubmitted) {
     return (
       <Card className="bg-primary/5 border-primary/20">
@@ -140,9 +150,7 @@ export const LeadCTA = ({
             <CheckCircle className="h-12 w-12 text-primary mb-4" />
             <h3 className="text-xl font-semibold mb-2">Tack för ditt intresse!</h3>
             <p className="text-muted-foreground">
-              {isPartnerBound
-                ? `Din förfrågan har skickats till ${partnerName}. De återkommer inom kort.`
-                : "Vi har tagit emot din förfrågan och återkommer inom kort med förslag på lämpliga partners och kontaktpersoner."}
+              Vi har tagit emot din förfrågan och återkommer inom kort med förslag på lämpliga partners och kontaktpersoner.
             </p>
           </div>
         </CardContent>
