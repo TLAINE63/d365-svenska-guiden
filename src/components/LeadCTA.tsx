@@ -47,6 +47,7 @@ export const LeadCTA = ({
   selectedCompanySize,
   selectedGeography,
   partnerName,
+  partnerSlug,
   variant = "card",
   title = "Få hjälp att hitta rätt partner",
   description = "Lämna dina kontaktuppgifter så hjälper vi dig att hitta den partner som passar bäst för dina behov.",
