@@ -471,7 +471,6 @@ const renderAiProfile = (profile?: AiProfile | null) => {
   const caps = (p.capabilities || []).map(labelForCapability).filter(Boolean);
   const areas = (p.relevant_areas || []).map(labelForArea).filter(Boolean);
   const cases = (p.use_cases || []).map(labelForUseCase).filter(Boolean);
-  const evidence = (p.evidence_level || []).map(labelForEvidence).filter(Boolean);
 
   const chips = (items: string[], cls: string) => (
     <div className="flex flex-wrap gap-1.5">
