@@ -38,7 +38,6 @@ import {
   labelForUseCase,
   labelForExperience,
   labelForProjectCount,
-  labelForEvidence,
   isAiProfileEmpty,
 } from "@/lib/aiProfile";
 
