@@ -158,11 +158,6 @@ const PartnerCard = ({
 
  const productFilter = getProductFilter();
  
- // Get product-specific description (with AI-generated flag)
- const productDescription = productFilter?.productDescription || null;
- const productDescriptionAi =
- (productFilter as { productDescriptionAiGenerated?: boolean } | null | undefined)
- ?.productDescriptionAiGenerated === true;
 
  // Get product-specific landing page URL
  const productLandingPageUrl = (productFilter as { landingPageUrl?: string } | null | undefined)?.landingPageUrl?.trim() || null;
