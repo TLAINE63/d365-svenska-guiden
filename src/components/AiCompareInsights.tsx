@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { Sparkles, Loader2, AlertCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { DatabasePartner } from "@/hooks/usePartners";
-import { PRODUCT_FILTER_GROUP, type ProductFilterKey } from "@/lib/productFilterGroup";
+import { PRODUCT_FILTER_GROUP } from "@/lib/productFilterGroup";
+type ProductFilterKey = keyof typeof PRODUCT_FILTER_GROUP;
 
 type Insights = {
   summary: string;
