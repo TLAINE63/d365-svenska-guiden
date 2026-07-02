@@ -517,11 +517,6 @@ const renderAiProfile = (profile?: AiProfile | null) => {
           {chips(cases, "bg-slate-100 text-slate-700 border border-slate-200")}
         </Field>
       )}
-      {evidence.length > 0 && (
-        <Field label="Underlag & referenser">
-          {chips(evidence, "bg-emerald-50 text-emerald-800 border border-emerald-200")}
-        </Field>
-      )}
       {p.description && (
         <Field label="Kort beskrivning">
           <p className="leading-relaxed italic">"{p.description}"</p>
