@@ -53,6 +53,7 @@ export const LeadCTA = ({
   description = "Lämna dina kontaktuppgifter så hjälper vi dig att hitta den partner som passar bäst för dina behov.",
 }: LeadCTAProps) => {
   const { toast } = useToast();
+  const isPartnerBound = Boolean(partnerSlug && partnerName);
   const hasFilters = partnerName || selectedProduct || (selectedProducts && selectedProducts.length > 0) || selectedIndustry || selectedCompanySize || selectedGeography;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
