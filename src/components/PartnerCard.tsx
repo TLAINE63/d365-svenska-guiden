@@ -43,6 +43,13 @@ const PRODUCT_HEADING_LABEL: Record<string, string> = {
   service: "Kundservice",
 };
 
+const productKeyToSwedish: Record<string, string> = {
+  bc: "Business Central",
+  fsc: "F&SCM",
+  sales: "Sälj & Marknad",
+  service: "Kundservice",
+};
+
 
 // Map productKey to the product label stored in industry_pitches.
 // Canonical source: src/data/pitchProductMapping.ts (single source of truth
