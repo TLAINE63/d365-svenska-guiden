@@ -569,25 +569,16 @@ const renderProductInsightCell = (insight?: {
 }) => {
   if (!insight) return EMPTY;
   const { description, whyChoose, keyPoints } = insight;
-  if (!description && !whyChoose && keyPoints.length === 0) return EMPTY;
+  const reasonText = whyChoose.trim() || description.trim();
+  if (!reasonText && keyPoints.length === 0) return EMPTY;
   return (
     <div className="space-y-3 text-sm leading-relaxed text-[hsl(var(--foreground))]">
-      {description && (
+      {reasonText && (
         <div className="space-y-1">
           <p className="text-[10px] font-semibold uppercase tracking-wider text-[hsl(var(--muted-foreground))]">
-            Vad vi gör inom lösningen
+            Varför välja denna partner
           </p>
-          {splitIntoParagraphs(description).map((para, i) => (
-            <p key={i}>{para}</p>
-          ))}
-        </div>
-      )}
-      {whyChoose && (
-        <div className="space-y-1">
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-[hsl(var(--muted-foreground))]">
-            Varför välja oss
-          </p>
-          {splitIntoParagraphs(whyChoose).map((para, i) => (
+          {splitIntoParagraphs(reasonText).map((para, i) => (
             <p key={i}>{para}</p>
           ))}
         </div>
