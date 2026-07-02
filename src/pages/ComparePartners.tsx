@@ -183,58 +183,58 @@ interface ColProps {
 }
 
 const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label, onRequestQuote, quoteSubmitting }: ColProps) => (
-  <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5">
+  <div className="rounded-xl border border-slate-200 bg-white p-3 sm:p-4">
     {partner ? (
-      <div className="flex items-start gap-3">
+      <div className="flex items-start gap-2.5">
         <div className="shrink-0">
           {partner.logo_url ? (
             <img
               src={partner.logo_url}
               alt={`${partner.name} logotyp`}
-              width="56"
-              height="56"
-              className="w-14 h-14 object-contain rounded-lg bg-white border border-slate-100 p-1.5"
+              width="48"
+              height="48"
+              className="w-12 h-12 object-contain rounded-lg bg-white border border-slate-100 p-1"
             />
           ) : (
-            <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-muted to-muted/60 flex items-center justify-center">
-              <span className="text-lg font-bold text-muted-foreground/60">{partner.name.slice(0, 2).toUpperCase()}</span>
+            <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-muted to-muted/60 flex items-center justify-center">
+              <span className="text-base font-bold text-muted-foreground/60">{partner.name.slice(0, 2).toUpperCase()}</span>
             </div>
           )}
         </div>
         <div className="min-w-0 flex-1">
-          <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-0.5">
+          <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-0">
             {label}
           </div>
           <Link
             to={`/partner/${partner.slug}`}
-            className="group flex flex-wrap items-center gap-1 text-sm sm:text-base font-bold text-foreground hover:text-[hsl(var(--cta-orange))] transition-colors"
+            className="group flex flex-wrap items-center gap-1 text-sm font-bold text-foreground hover:text-[hsl(var(--cta-orange))] transition-colors"
           >
             <span className="break-words">{partner.name}</span>
-            <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-60 transition-opacity shrink-0" />
+            <ExternalLink className="w-3.5 h-3.5 opacity-0 group-hover:opacity-60 transition-opacity shrink-0" />
           </Link>
         </div>
         <button
           onClick={onClear}
-          className="mt-0.5 text-slate-400 hover:text-slate-700 shrink-0"
+          className="text-slate-400 hover:text-slate-700 shrink-0"
           aria-label="Rensa val"
         >
           <X className="w-4 h-4" />
         </button>
       </div>
     ) : (
-      <div className="space-y-2">
+      <div className="space-y-1.5">
         <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
           {label}
         </div>
-        <div className="h-14 rounded-lg bg-slate-50 border border-dashed border-slate-200 flex items-center justify-center text-sm text-slate-500">
+        <div className="h-12 rounded-lg bg-slate-50 border border-dashed border-slate-200 flex items-center justify-center text-sm text-slate-500">
           Välj partner nedan
         </div>
       </div>
     )}
 
-    <div className="mt-4 pt-3 border-t border-slate-100 space-y-2">
+    <div className="mt-2 pt-2 border-t border-slate-100 space-y-1.5">
       <Select value={slug || undefined} onValueChange={onChange}>
-        <SelectTrigger className="h-9 text-sm bg-slate-50 border-slate-200 hover:border-slate-300">
+        <SelectTrigger className="h-8 text-sm bg-slate-50 border-slate-200 hover:border-slate-300 px-2">
           {slug ? (
             <span className="text-slate-600 flex items-center gap-1.5">
               <ArrowLeftRight className="w-3.5 h-3.5" />
@@ -259,7 +259,7 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label
           onClick={onRequestQuote}
           disabled={quoteSubmitting}
           aria-busy={quoteSubmitting}
-          className="w-full h-9 bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 disabled:opacity-60 disabled:cursor-not-allowed"
+          className="w-full h-8 bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 disabled:opacity-60 disabled:cursor-not-allowed"
         >
           <Mail className="w-4 h-4 mr-1.5" />
           {quoteSubmitting ? "Skickar…" : "Ställ en fråga till denna partner"}
