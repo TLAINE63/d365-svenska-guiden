@@ -1622,10 +1622,32 @@ const ComparePartners = () => {
                       <SectionTitle icon={Target} title="Positionering" />
                       <R
                         label="Vi är valet när…"
+                        help="Partnerns egen beslutsprofil: när de är rätt val för kunden."
                         a={renderPositioningCell(A.positioning)}
                         b={renderPositioningCell(B.positioning)}
                         c={renderPositioningCell(C.positioning)}
                       />
+                      {(A.notAFit.length > 0 || B.notAFit.length > 0 || C.notAFit.length > 0) && (
+                        <R
+                          label="När vi inte är rätt val"
+                          help="Partnerns egen avgränsning: situationer eller kundtyper där de avråder från att anlita dem. Ärlighet som gör beslutet enklare."
+                          a={A.notAFit.length ? (
+                            <ul className="space-y-1 text-sm leading-relaxed">
+                              {A.notAFit.map((t, i) => <li key={i}>• {t}</li>)}
+                            </ul>
+                          ) : EMPTY}
+                          b={B.notAFit.length ? (
+                            <ul className="space-y-1 text-sm leading-relaxed">
+                              {B.notAFit.map((t, i) => <li key={i}>• {t}</li>)}
+                            </ul>
+                          ) : EMPTY}
+                          c={C.notAFit.length ? (
+                            <ul className="space-y-1 text-sm leading-relaxed">
+                              {C.notAFit.map((t, i) => <li key={i}>• {t}</li>)}
+                            </ul>
+                          ) : EMPTY}
+                        />
+                      )}
 
                       {(() => {
                         const aIns = getProductInsights(a, AF.apps);
