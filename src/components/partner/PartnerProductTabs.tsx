@@ -204,7 +204,7 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
   // Product description — first non-empty
   let productDescription: TabData["productDescription"] = null;
   for (const k of keys) {
-    const txt = pf[k]?.productDescription?.trim();
+    const txt = toText(pf[k]?.productDescription);
     if (txt) {
       productDescription = { text: txt, aiGenerated: !!pf[k]?.productDescriptionAiGenerated };
       break;
@@ -214,22 +214,22 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
   // Why choose (per product) — first non-empty
   let whyChoose: string | null = null;
   for (const k of keys) {
-    const txt = pf[k]?.whyChoose?.trim();
+    const txt = toText(pf[k]?.whyChoose);
     if (txt) { whyChoose = txt; break; }
   }
 
   // Key points (per product) — first non-empty, split into lines
   let keyPoints: string[] = [];
   for (const k of keys) {
-    const txt = pf[k]?.keyPoints?.trim();
-    if (txt) {
-      keyPoints = txt
-        .split(/\n/)
-        .map((p: string) => p.trim().replace(/^[•\-\*]\s*/, ""))
-        .filter(Boolean)
-        .slice(0, 6);
-      break;
+    const raw = pf[k]?.keyPoints;
+    let arr: string[] = [];
+    if (Array.isArray(raw)) {
+      arr = raw.filter((x: unknown) => typeof x === "string").map((x: string) => x.trim());
+    } else if (typeof raw === "string" && raw.trim()) {
+      arr = raw.split(/\n/).map((p: string) => p.trim().replace(/^[•\-\*]\s*/, ""));
     }
+    arr = arr.filter(Boolean).slice(0, 6);
+    if (arr.length) { keyPoints = arr; break; }
   }
 
   // Apps for this tab
@@ -263,9 +263,9 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
 
   let landingPageUrl: string | null = null;
   for (const k of keys) {
-    const u = pf[k]?.landingPageUrl;
-    if (u && u.trim()) {
-      landingPageUrl = u.trim();
+    const u = toText(pf[k]?.landingPageUrl);
+    if (u) {
+      landingPageUrl = u;
       break;
     }
   }
