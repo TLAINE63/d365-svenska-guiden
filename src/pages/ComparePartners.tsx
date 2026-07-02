@@ -1212,6 +1212,14 @@ const ComparePartners = () => {
     ),
   });
 
+  const scopedFocusIndustries = (data: ReturnType<typeof get>): string[] => {
+    if (!productActive) return data.industries;
+    const union = Array.from(
+      new Set(productFilters.flatMap((k) => data.productIndustries[k] || [])),
+    );
+    return union.sort((x, y) => x.localeCompare(y, "sv"));
+  };
+
 
   const AF = applyFilters(A);
   const BF = applyFilters(B);
