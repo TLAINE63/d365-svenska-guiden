@@ -385,6 +385,32 @@ const AdminDashboard = () => {
   const [generatingPositioning, setGeneratingPositioning] = useState(false);
   const [generatingPositioningId, setGeneratingPositioningId] = useState<string | null>(null);
   const [generatingAiNotAFit, setGeneratingAiNotAFit] = useState(false);
+  const [generatingWhyKeypoints, setGeneratingWhyKeypoints] = useState(false);
+
+  const handleGenerateAllWhyKeypoints = async () => {
+    if (!confirm("Fyll 'Varför välja er' och 3–4 konkreta punkter för alla publicerade partners som saknar det (per produktområde)? Befintligt innehåll rörs ej.")) return;
+    setGeneratingWhyKeypoints(true);
+    try {
+      const { data, error } = await invokeAdminEdgeWithRetry("generate-partner-why-keypoints", { token, all: true });
+      if (error) throw error;
+      if ((data as any)?.error) throw new Error((data as any).error);
+      const gen = (data as any)?.generatedCount ?? 0;
+      const pc = (data as any)?.partnerCount ?? 0;
+      toast({ title: "Varför välja & punkter klar", description: `${gen} produktsektioner fyllda över ${pc} partners.` });
+      refetchPartners();
+    } catch (e: any) {
+      const msg = e?.message || "Okänt fel";
+      toast({
+        title: "Kunde inte generera",
+        description: msg === "RATE_LIMIT" ? "AI-tjänsten är överbelastad – försök igen om en stund."
+          : msg === "PAYMENT_REQUIRED" ? "AI-krediter slut. Lägg till krediter under Settings → Workspace → Usage."
+          : msg,
+        variant: "destructive",
+      });
+    } finally {
+      setGeneratingWhyKeypoints(false);
+    }
+  };
 
   const handleGenerateAllAiAndNotAFit = async () => {
     if (!confirm("Fyll AI-profil och 'När vi inte är rätt val' för alla publicerade partners som saknar det? Befintligt innehåll rörs ej.")) return;
