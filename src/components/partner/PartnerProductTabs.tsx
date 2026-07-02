@@ -762,6 +762,7 @@ export default function PartnerProductTabs({
               <LeadCTA
                 sourcePage={`partner-profile-${partner.slug}-${active}`}
                 partnerName={partner.name}
+                partnerSlug={partner.slug}
                 selectedProduct={tabMeta.label}
                 selectedIndustry={selectedIndustry || partner.industries[0]}
                 variant="inline"

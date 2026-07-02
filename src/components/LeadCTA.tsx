@@ -26,6 +26,7 @@ interface LeadCTAProps {
   selectedCompanySize?: string;
   selectedGeography?: string;
   partnerName?: string;
+  partnerSlug?: string;
   variant?: "inline" | "card";
   title?: string;
   description?: string;
@@ -46,11 +47,13 @@ export const LeadCTA = ({
   selectedCompanySize,
   selectedGeography,
   partnerName,
+  partnerSlug,
   variant = "card",
   title = "Få hjälp att hitta rätt partner",
   description = "Lämna dina kontaktuppgifter så hjälper vi dig att hitta den partner som passar bäst för dina behov.",
 }: LeadCTAProps) => {
   const { toast } = useToast();
+  const isPartnerBound = Boolean(partnerSlug && partnerName);
   const hasFilters = partnerName || selectedProduct || (selectedProducts && selectedProducts.length > 0) || selectedIndustry || selectedCompanySize || selectedGeography;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -103,7 +106,8 @@ export const LeadCTA = ({
           industry: selectedIndustry,
           selected_product: productToSend,
           source_page: sourcePage,
-          source_type: "cta",
+          source_type: isPartnerBound ? "partner_contact_request" : "cta",
+          assigned_partners: isPartnerBound ? [partnerSlug] : undefined,
         },
       });
 
@@ -112,7 +116,9 @@ export const LeadCTA = ({
       setIsSubmitted(true);
       toast({
         title: "Tack för ditt intresse!",
-        description: "Vi återkommer inom kort med förslag på partners.",
+        description: isPartnerBound
+          ? `${partnerName} har mottagit din förfrågan och återkommer inom kort.`
+          : "Vi återkommer inom kort med förslag på partners.",
       });
     } catch (error) {
       console.error("Error submitting lead:", error);
@@ -134,7 +140,9 @@ export const LeadCTA = ({
             <CheckCircle className="h-12 w-12 text-primary mb-4" />
             <h3 className="text-xl font-semibold mb-2">Tack för ditt intresse!</h3>
             <p className="text-muted-foreground">
-              Vi har tagit emot din förfrågan och återkommer inom kort med förslag på lämpliga partners och kontaktpersoner.
+              {isPartnerBound
+                ? `Din förfrågan har skickats till ${partnerName}. De återkommer inom kort.`
+                : "Vi har tagit emot din förfrågan och återkommer inom kort med förslag på lämpliga partners och kontaktpersoner."}
             </p>
           </div>
         </CardContent>
