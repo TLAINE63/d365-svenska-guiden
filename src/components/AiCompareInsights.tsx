@@ -15,7 +15,7 @@ const CACHE_PREFIX = "compare-ai-insights:v1:";
 
 const buildKey = (
   slugs: string[],
-  productFilters: ProductFilterKey[],
+  productFilters: string[],
   industry: string,
 ) =>
   CACHE_PREFIX +
@@ -27,13 +27,13 @@ const buildKey = (
 
 const pickProductText = (
   p: DatabasePartner,
-  productFilters: ProductFilterKey[],
+  productFilters: string[],
 ): { productDescription?: string; whyChoose?: string; keyPoints?: string[] } => {
   const pf: any = (p as any).product_filters || {};
-  const keys: ProductFilterKey[] =
+  const keys: string[] =
     productFilters.length > 0
       ? productFilters
-      : (Object.keys(pf) as ProductFilterKey[]);
+      : (Object.keys(pf) as string[]);
   const desc: string[] = [];
   const why: string[] = [];
   const kp: string[] = [];
@@ -53,7 +53,7 @@ const pickProductText = (
 
 const buildPartnerPayload = (
   p: DatabasePartner,
-  productFilters: ProductFilterKey[],
+  productFilters: string[],
 ) => {
   const { productDescription, whyChoose, keyPoints } = pickProductText(p, productFilters);
   const aiProfile: any = (p as any).ai_profile || {};
@@ -96,7 +96,7 @@ interface Props {
   industry: string;
 }
 
-const productLabel = (keys: ProductFilterKey[]) =>
+const productLabel = (keys: string[]) =>
   keys.map((k) => PRODUCT_FILTER_GROUP[k]?.label || k).join(" / ");
 
 const AiCompareInsights = ({ partners, productFilters, industry }: Props) => {
