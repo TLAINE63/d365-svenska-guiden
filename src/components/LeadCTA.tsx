@@ -26,6 +26,7 @@ interface LeadCTAProps {
   selectedCompanySize?: string;
   selectedGeography?: string;
   partnerName?: string;
+  partnerSlug?: string;
   variant?: "inline" | "card";
   title?: string;
   description?: string;
