@@ -1837,25 +1837,36 @@ const ComparePartners = () => {
                         b={renderValue(B.teamSize)}
                         c={renderValue(C.teamSize)}
                       />
-                      <R
-                        label="Genomförda implementationer"
-                        help="Antal genomförda D365-implementationer per applikation. Säger något om volym, inte om kvalitet eller branschpassning — be alltid om referenser i den bransch ni befinner er i."
-                        a={
-                          A.implementationsPerApp.length > 0
-                            ? renderList(A.implementationsPerApp.map((i) => `${i.app}: ${i.count}`))
-                            : renderValue(A.implementations)
-                        }
-                        b={
-                          B.implementationsPerApp.length > 0
-                            ? renderList(B.implementationsPerApp.map((i) => `${i.app}: ${i.count}`))
-                            : renderValue(B.implementations)
-                        }
-                        c={
-                          C.implementationsPerApp.length > 0
-                            ? renderList(C.implementationsPerApp.map((i) => `${i.app}: ${i.count}`))
-                            : renderValue(C.implementations)
-                        }
-                      />
+                      {(() => {
+                        const allowedApps = productFilters.length > 0
+                          ? new Set(productFilters.flatMap((k) => PRODUCT_FILTER_GROUP[k].apps as readonly string[]))
+                          : null;
+                        const filterPerApp = (list: { app: string; count: string }[]) =>
+                          allowedApps ? list.filter((i) => allowedApps.has(i.app)) : list;
+                        const renderCell = (perApp: { app: string; count: string }[], fallback: string) => {
+                          const filtered = filterPerApp(perApp);
+                          if (filtered.length > 0) {
+                            return renderList(filtered.map((i) => `${i.app}: ${i.count}`));
+                          }
+                          // If a product filter is active, don't fall back to the global count
+                          // (it isn't scoped to the selected product).
+                          if (allowedApps) return renderValue("");
+                          return renderValue(fallback);
+                        };
+                        const helpText = allowedApps
+                          ? "Antal genomförda implementationer för den valda produktens applikationer. Säger något om volym, inte om kvalitet eller branschpassning — be alltid om referenser i den bransch ni befinner er i."
+                          : "Antal genomförda D365-implementationer per applikation. Säger något om volym, inte om kvalitet eller branschpassning — be alltid om referenser i den bransch ni befinner er i.";
+                        return (
+                          <R
+                            label="Genomförda implementationer"
+                            help={helpText}
+                            warn={!!allowedApps}
+                            a={renderCell(A.implementationsPerApp, A.implementations)}
+                            b={renderCell(B.implementationsPerApp, B.implementations)}
+                            c={renderCell(C.implementationsPerApp, C.implementations)}
+                          />
+                        );
+                      })()}
                       <R
                         label="Kontor (städer)"
                         a={renderList(A.offices)}
