@@ -1623,10 +1623,9 @@ const ComparePartners = () => {
 
                       <R
                         label="Fokusbranscher"
-                        warn={!!industryFilter}
-                        a={renderIndustryList(AF.industries)}
-                        b={renderIndustryList(BF.industries)}
-                        c={renderIndustryList(CF.industries)}
+                        a={renderIndustryList(A.industries)}
+                        b={renderIndustryList(B.industries)}
+                        c={renderIndustryList(C.industries)}
                       />
 
                       <R
