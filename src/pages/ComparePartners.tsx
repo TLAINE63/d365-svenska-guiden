@@ -38,7 +38,7 @@ import {
   labelForUseCase,
   labelForExperience,
   labelForProjectCount,
-  
+  labelForEvidence,
   isAiProfileEmpty,
 } from "@/lib/aiProfile";
 
@@ -471,7 +471,7 @@ const renderAiProfile = (profile?: AiProfile | null) => {
   const caps = (p.capabilities || []).map(labelForCapability).filter(Boolean);
   const areas = (p.relevant_areas || []).map(labelForArea).filter(Boolean);
   const cases = (p.use_cases || []).map(labelForUseCase).filter(Boolean);
-  
+  const evidence = (p.evidence_level || []).map(labelForEvidence).filter(Boolean);
 
   const chips = (items: string[], cls: string) => (
     <div className="flex flex-wrap gap-1.5">
@@ -490,10 +490,18 @@ const renderAiProfile = (profile?: AiProfile | null) => {
     </div>
   );
 
+  // Compact summary line at top so det syns direkt vad partnern erbjuder inom AI
+  const summaryBits: string[] = [];
+  if (p.delivery_model) summaryBits.push(labelForDelivery(p.delivery_model));
+  if (p.experience_level) summaryBits.push(labelForExperience(p.experience_level));
+  if (p.project_count_range) summaryBits.push(`${labelForProjectCount(p.project_count_range)} AI-projekt (24 mån)`);
+
   return (
     <div className="space-y-3">
-      {p.delivery_model && (
-        <Field label="AI-leveransmodell">{labelForDelivery(p.delivery_model)}</Field>
+      {summaryBits.length > 0 && (
+        <div className="rounded-md border border-violet-200 bg-violet-50/60 px-2.5 py-1.5 text-xs text-violet-900">
+          {summaryBits.join(" · ")}
+        </div>
       )}
       {caps.length > 0 && (
         <Field label="AI-förmågor">
@@ -510,14 +518,10 @@ const renderAiProfile = (profile?: AiProfile | null) => {
           {chips(cases, "bg-slate-100 text-slate-700 border border-slate-200")}
         </Field>
       )}
-      {p.experience_level && (
-        <Field label="Erfarenhetsnivå">{labelForExperience(p.experience_level)}</Field>
-      )}
-      {p.project_count_range && (
-        <Field label="AI-projekt (24 mån)">{labelForProjectCount(p.project_count_range)}</Field>
-      )}
-      {p.project_count_range && (
-        <Field label="AI-projekt (24 mån)">{labelForProjectCount(p.project_count_range)}</Field>
+      {evidence.length > 0 && (
+        <Field label="Underlag & referenser">
+          {chips(evidence, "bg-emerald-50 text-emerald-800 border border-emerald-200")}
+        </Field>
       )}
       {p.description && (
         <Field label="Kort beskrivning">
