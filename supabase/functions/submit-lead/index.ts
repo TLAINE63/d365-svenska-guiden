@@ -281,7 +281,110 @@ const handler = async (req: Request): Promise<Response> => {
         }
       }
       
-      // Send notification to admin
+      // --- Partner routing: send directly to the partner's contact person ---
+      const ADMIN_EMAILS = ["info@d365.se", "thomas.laine@dynamicfactory.se"];
+      const isPartnerRequest =
+        sanitizedData.assigned_partners.length > 0 &&
+        sanitizedData.source_type.startsWith("partner_");
+      let partnerEmailSentCount = 0;
+
+      const productToKeys = (p: string): string[] => {
+        const v = (p || "").toLowerCase();
+        if (v.includes("business central")) return ["bc"];
+        if (v.includes("finance") || v.includes("supply")) return ["fsc"];
+        if (v.includes("crm") || v.includes("customer engagement")) return ["sales", "service", "crm"];
+        if (v.includes("sales") || v.includes("marketing") || v.includes("customer insights")) return ["sales", "crm"];
+        if (v.includes("service") || v.includes("contact center") || v.includes("field")) return ["service", "crm"];
+        return [];
+      };
+
+      const requestLabel = (() => {
+        switch (sanitizedData.source_type) {
+          case "partner_contact_request": return "Kontaktförfrågan";
+          case "partner_demo_request": return "Demo-/genomgångsförfrågan";
+          case "partner_quote_request": return "Prisindikationsförfrågan";
+          case "partner_multi_quote_request": return "Prisindikationsförfrågan";
+          default: return "Förfrågan";
+        }
+      })();
+
+      if (isPartnerRequest) {
+        try {
+          const { data: partnerRows } = await supabase
+            .from("partners")
+            .select("slug, name, email, contactPerson, product_filters")
+            .in("slug", sanitizedData.assigned_partners);
+
+          for (const p of partnerRows || []) {
+            const keys = productToKeys(sanitizedData.selected_product);
+            const pf = (p as any).product_filters || {};
+            const productContact = keys
+              .map((k) => pf[k])
+              .find((c: any) => c && (c.contactEmail || c.contactName)) || null;
+
+            const toName = (productContact?.contactName || (p as any).contactPerson || "").toString().trim();
+            const toEmail = (productContact?.contactEmail || (p as any).email || "").toString().trim();
+
+            if (!toEmail || !isValidEmail(toEmail)) {
+              console.warn(`No valid partner email for ${p.slug}, falling back to admin only`);
+              continue;
+            }
+
+            const toHeader = toName ? `${toName} <${toEmail}>` : toEmail;
+            const subject = `${requestLabel} från d365.se: ${sanitizedData.company_name}${sanitizedData.selected_product ? ` – ${sanitizedData.selected_product}` : ""}`;
+
+            await resend.emails.send({
+              from: "d365.se <info@d365.se>",
+              to: [toHeader],
+              cc: ADMIN_EMAILS,
+              reply_to: sanitizedData.email,
+              subject,
+              html: `
+                <div style="font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto; color:#111827;">
+                  <div style="background: linear-gradient(135deg, #D64A1F, #B23A17); padding: 20px; border-radius: 8px 8px 0 0;">
+                    <h2 style="color: white; margin: 0; font-size: 20px;">Ny ${requestLabel.toLowerCase()} via d365.se</h2>
+                  </div>
+                  <div style="background:#ffffff; padding: 24px; border: 1px solid #e5e7eb; border-top:none;">
+                    <p style="margin:0 0 16px 0;">Hej${toName ? ` ${toName.split(" ")[0]}` : ""},</p>
+                    <p style="margin:0 0 16px 0;">
+                      En besökare på <a href="https://www.d365.se" style="color:#D64A1F;">d365.se</a> har skickat en ${requestLabel.toLowerCase()} till <strong>${p.name}</strong>${sanitizedData.selected_product ? ` gällande <strong>${sanitizedData.selected_product}</strong>` : ""}.
+                      Svara direkt till avsändaren genom att klicka på "Svara" — d365.se är kopierad för uppföljning.
+                    </p>
+
+                    <h3 style="color:#111827; border-bottom: 2px solid #D64A1F; padding-bottom: 6px; margin-top:24px; font-size:15px;">Kontaktuppgifter</h3>
+                    <table style="width:100%; border-collapse:collapse; font-size:14px;">
+                      <tr><td style="padding:6px 0; color:#6b7280; width:140px;">Företag:</td><td style="padding:6px 0;"><strong>${sanitizedData.company_name}</strong></td></tr>
+                      <tr><td style="padding:6px 0; color:#6b7280;">Kontaktperson:</td><td style="padding:6px 0;">${sanitizedData.contact_name}</td></tr>
+                      <tr><td style="padding:6px 0; color:#6b7280;">E-post:</td><td style="padding:6px 0;"><a href="mailto:${sanitizedData.email}" style="color:#D64A1F;">${sanitizedData.email}</a></td></tr>
+                      <tr><td style="padding:6px 0; color:#6b7280;">Telefon:</td><td style="padding:6px 0;">${sanitizedData.phone || "—"}</td></tr>
+                      ${sanitizedData.industry ? `<tr><td style="padding:6px 0; color:#6b7280;">Bransch:</td><td style="padding:6px 0;">${sanitizedData.industry}</td></tr>` : ""}
+                      ${sanitizedData.selected_product ? `<tr><td style="padding:6px 0; color:#6b7280;">Produkt:</td><td style="padding:6px 0;">${sanitizedData.selected_product}</td></tr>` : ""}
+                    </table>
+
+                    ${sanitizedData.message ? `
+                      <h3 style="color:#111827; border-bottom: 2px solid #D64A1F; padding-bottom: 6px; margin-top:24px; font-size:15px;">Meddelande</h3>
+                      <div style="background:#faf8f6; border:1px solid #e7c5b7; padding:12px; border-radius:6px; white-space:pre-wrap; font-size:14px;">${sanitizedData.message}</div>
+                    ` : ""}
+
+                    <p style="margin-top:24px; font-size:12px; color:#6b7280;">
+                      Källa: ${sanitizedData.source_page || "—"}<br>
+                      Denna förfrågan är även loggad hos d365.se för uppföljning.
+                    </p>
+                  </div>
+                </div>
+              `,
+            });
+            partnerEmailSentCount++;
+            console.log(`Partner email sent to ${toEmail} for slug ${p.slug}`);
+          }
+        } catch (partnerEmailError) {
+          console.error("Partner email routing failed:", partnerEmailError);
+        }
+      }
+
+      // Send notification to admin (only when we did NOT already CC them via partner email)
+      const shouldSendAdminEmail = !(isPartnerRequest && partnerEmailSentCount > 0);
+      if (shouldSendAdminEmail)
       try {
         const hasPartnerRequest = sanitizedData.assigned_partners.length > 0;
         const partnerRequestLabel = (() => {
