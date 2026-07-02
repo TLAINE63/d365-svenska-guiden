@@ -710,6 +710,13 @@ export default function PartnerProductTabs({
               ) : null;
             })()}
 
+            {/* AI, Copilot & Automation – partner-level public view */}
+            {(partner as any).ai_profile && (
+              <section>
+                <AiProfilePublic profile={(partner as any).ai_profile} />
+              </section>
+            )}
+
             {/* 7. CTA */}
             <section className="rounded-xl border border-border bg-gradient-to-br from-card to-muted/40 p-6 sm:p-8">
               <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
