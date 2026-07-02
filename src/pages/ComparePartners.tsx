@@ -1984,6 +1984,7 @@ const ComparePartners = () => {
                         c={renderList(C.geography)}
                       />
                     </section>
+                    )}
 
 
 
