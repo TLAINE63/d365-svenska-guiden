@@ -307,8 +307,8 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  | Record<string, { productDescription?: string; productDescriptionAiGenerated?: boolean }>
  | undefined;
  const pf = dbProductFilters?.[filterKey] || dbProductFilters?.[category];
- const raw = pf?.productDescription;
- const text = typeof raw === "string" ? raw.trim() : Array.isArray(raw) ? raw.filter((x) => typeof x === "string").join("\n").trim() : "";
+ const raw: unknown = (pf as any)?.productDescription;
+ const text = typeof raw === "string" ? raw.trim() : Array.isArray(raw) ? (raw as unknown[]).filter((x): x is string => typeof x === "string").join("\n").trim() : "";
  if (!text) return null;
  };
 
