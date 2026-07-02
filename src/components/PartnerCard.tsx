@@ -34,14 +34,6 @@ import { displayApplicationName, getApplicationIcon, sortApplications, normalize
 
 // (AI labels and badge styles now come from aiScoring.ts)
 
-// Product key to Swedish label for AI section header
-const PRODUCT_HEADING_LABEL: Record<string, string> = {
-  bc: "Business Central",
-  fsc: "Finance & Supply Chain Management",
-  sales: "Sales & Customer Insights",
-  crm: "Sales & Customer Insights",
-  service: "Kundservice",
-};
 
 const productKeyToSwedish: Record<string, string> = {
   bc: "Business Central",
@@ -303,13 +295,10 @@ const PartnerCard = ({
  </div>
  )}
 
-    {/* Varför välja partnern för aktuell produkt? */}
+    {/* Positioning statement — gives the partner more text space */}
     {isDatabasePartner(partner) && partner.positioning_statement && (
       <div className="mb-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary">
-        <p className="text-xs font-semibold text-primary mb-1.5 uppercase tracking-wider">
-          {productKey ? `Varför välja ${partner.name} för ${PRODUCT_HEADING_LABEL[productKey] || productKey}?` : `Varför välja ${partner.name}?`}
-        </p>
-        <p className="text-[13px] font-medium text-foreground leading-snug line-clamp-4">
+        <p className="text-[13px] font-medium text-foreground leading-snug line-clamp-5">
           {partner.positioning_statement}
         </p>
       </div>
