@@ -2489,6 +2489,15 @@ Thomas`,
       <Sparkles className={`mr-2 h-4 w-4 ${generatingPositioning ? "animate-pulse" : ""}`} />
       {generatingPositioning ? "Genererar positionering…" : "AI: Vi är valet när…"}
     </Button>
+    <Button
+      variant="outline"
+      onClick={handleGenerateAllAiAndNotAFit}
+      disabled={generatingAiNotAFit}
+      title="Fyll i tomma AI-profiler och 'När vi inte är rätt val' för publicerade partners. Befintligt innehåll rörs ej."
+    >
+      <Sparkles className={`mr-2 h-4 w-4 ${generatingAiNotAFit ? "animate-pulse" : ""}`} />
+      {generatingAiNotAFit ? "Fyller AI & beslutsprofil…" : "AI: Fyll AI-profil & 'passar inte'"}
+    </Button>
   </div>
  {selectedForWelcome.size > 0 && (
  <DropdownMenu>
