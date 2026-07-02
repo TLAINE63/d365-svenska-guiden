@@ -34,14 +34,6 @@ import { displayApplicationName, getApplicationIcon, sortApplications, normalize
 
 // (AI labels and badge styles now come from aiScoring.ts)
 
-// Product key to Swedish label for AI section header
-const PRODUCT_HEADING_LABEL: Record<string, string> = {
-  bc: "Business Central",
-  fsc: "Finance & Supply Chain Management",
-  sales: "Sales & Customer Insights",
-  crm: "Sales & Customer Insights",
-  service: "Kundservice",
-};
 
 const productKeyToSwedish: Record<string, string> = {
   bc: "Business Central",
