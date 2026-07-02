@@ -928,6 +928,25 @@ const ComparePartners = () => {
       )
     ).sort((a, b) => a.localeCompare(b, "sv"));
     const industryApps = industryAppsRaw;
+    // Per-product industri-scoping: union av product_filters[key].industries,
+    // industry_apps kopplade till produktens appar, samt industry_pitches
+    // vars product-fält matchar. Används för att visa endast branscher inom
+    // vald produkt i Fokusbranscher-raden.
+    const pitchesRaw = Array.isArray((p as any)?.industry_pitches) ? (p as any).industry_pitches : [];
+    const productIndustries: Record<string, string[]> = {};
+    (Object.keys(PRODUCT_FILTER_GROUP) as ProductFilterKey[]).forEach((key) => {
+      const apps = PRODUCT_FILTER_GROUP[key].apps as readonly string[];
+      const pfInds = Array.isArray(pfAll[key]?.industries) ? (pfAll[key]!.industries as string[]) : [];
+      const iaInds = industryAppsRaw
+        .filter((ia) => apps.includes(ia.application))
+        .map((ia) => ia.industry);
+      const pitchInds = pitchesRaw
+        .filter((ip: any) => ip?.product && apps.includes(String(ip.product).trim()))
+        .map((ip: any) => (ip?.industry || "").trim());
+      productIndustries[key] = Array.from(
+        new Set([...pfInds, ...iaInds, ...pitchInds].map((s) => (s || "").trim()).filter(Boolean)),
+      ).sort((x, y) => x.localeCompare(y, "sv"));
+    });
     // Positionering: primärt partnerns globala "Vi är valet när…", annars
     // fallback till AI-genererade product_profiles[app].positioning för aktiva
     // produkter (eller alla produkter om inget filter är valt).
