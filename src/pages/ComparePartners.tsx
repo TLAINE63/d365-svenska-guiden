@@ -993,8 +993,8 @@ const ComparePartners = () => {
       offices: officeCities,
       agreement: p ? (p.agreement_signed ? "Ja" : "Nej") : "",
       ai: getAiPerProduct(p),
-      notAFit: cleanList(p?.not_a_fit),
       industryPitches: (Array.isArray((p as any)?.industry_pitches) ? (p as any).industry_pitches : [])
+
         .map((ip: any) => ({
           industry: (ip?.industry || "").trim(),
           product: (ip?.product || "").trim() || null,
@@ -1704,30 +1704,10 @@ const ComparePartners = () => {
                         b={renderPositioningCell(B.positioning)}
                         c={renderPositioningCell(C.positioning)}
                       />
-                      {(A.notAFit.length > 0 || B.notAFit.length > 0 || C.notAFit.length > 0) && (
-                        <R
-                          label="När vi inte är rätt val"
-                          help="Partnerns egen avgränsning: situationer eller kundtyper där de avråder från att anlita dem. Ärlighet som gör beslutet enklare."
-                          a={A.notAFit.length ? (
-                            <ul className="space-y-1 text-sm leading-relaxed">
-                              {A.notAFit.map((t, i) => <li key={i}>• {t}</li>)}
-                            </ul>
-                          ) : EMPTY}
-                          b={B.notAFit.length ? (
-                            <ul className="space-y-1 text-sm leading-relaxed">
-                              {B.notAFit.map((t, i) => <li key={i}>• {t}</li>)}
-                            </ul>
-                          ) : EMPTY}
-                          c={C.notAFit.length ? (
-                            <ul className="space-y-1 text-sm leading-relaxed">
-                              {C.notAFit.map((t, i) => <li key={i}>• {t}</li>)}
-                            </ul>
-                          ) : EMPTY}
-                        />
-                      )}
                     </section>
 
                     {/* Toggle: fördjupning */}
+
                     <div className="flex items-center justify-between mb-4 gap-3 flex-wrap">
                       <p className="text-xs text-muted-foreground">
                         {showAllRows
