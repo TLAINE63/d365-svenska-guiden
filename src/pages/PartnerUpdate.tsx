@@ -1143,8 +1143,8 @@ const PartnerUpdate = () => {
               <div>
                 <h2 className="text-lg font-semibold text-foreground">Progress & Value</h2>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Din profil används för att matcha er med rätt kunder.
-                  Ju tydligare och mer komplett den är – desto bättre synlighet får ni.
+                  Informationen ni fyller i publiceras direkt på ert partnerkort och er partnerprofil på d365.se – och används för att matcha er med rätt kunder.
+                  Ju tydligare och mer komplett profilen är, desto starkare framträder ni för besökarna.
                 </p>
               </div>
               <div className="text-right md:text-right">
@@ -1177,8 +1177,8 @@ const PartnerUpdate = () => {
     <div className="rounded-lg border border-cta-orange/30 bg-cta-orange/5 p-3 flex items-start gap-2">
       <ArrowRight className="h-4 w-4 text-cta-orange mt-0.5 shrink-0" />
       <div className="text-sm text-foreground">
-        <p className="font-medium">Denna information används för att matcha er med rätt kunder.</p>
-        <p>Ju tydligare ni beskriver er spets, desto bättre träffsäkerhet.</p>
+        <p className="font-medium">Det ni skriver här publiceras på ert partnerkort och er partnerprofil, och är underlag för matchningen mot kundernas sökningar.</p>
+        <p>Ju tydligare ni beskriver er spets, desto bättre träffsäkerhet och framtoning.</p>
         <p className="text-xs text-muted-foreground mt-2">
           Aktivera enbart de lösningar ni faktiskt levererar. Lämna övriga avmarkerade – det räknas som <em>"Vi erbjuder inte denna lösning"</em>.
         </p>
@@ -1312,7 +1312,7 @@ const PartnerUpdate = () => {
        </div>
        {missing.length > 0 && (
          <p className="text-[11px] text-muted-foreground mt-2">
-           Komplettera {missing.length} fält för att öka er synlighet och matchning.
+           Komplettera {missing.length} fält för att stärka hur ni publiceras på sajten och öka matchningen.
          </p>
        )}
      </div>
