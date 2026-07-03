@@ -3872,7 +3872,7 @@ Thomas`,
  <div className="mt-6 p-4 bg-muted/30 rounded-lg border">
  <h4 className="font-semibold text-sm mb-2">Pris- och betalningsvillkor</h4>
  <p className="text-sm text-muted-foreground">
- Månadsavgiften faktureras löpande i förskott. Uppsägningstiden är 3 (tre) månader och skall meddelas i god tid före varje kvartals början.
+ Månadsavgiften faktureras löpande i efterskott. Uppsägningstiden är 3 (tre) månader och skall meddelas i god tid före varje kvartals början.
  </p>
  </div>
  </PremiumCollapsibleSection>
