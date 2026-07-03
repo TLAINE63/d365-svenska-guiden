@@ -435,7 +435,7 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
     const selectedPartners = partners.filter((p) => selected.has(p.id));
     if (selectedPartners.length === 0) return;
 
-    const label = templateKind === "published" ? "avtalsmail (publicerad mall)" : "prospektmail (ej publicerad mall)";
+    const label = templateKind === "published" ? "avtalsmail (publicerad mall)" : "avtalsförslag (med profileringslänk + PDF)";
     const names = selectedPartners.slice(0, 5).map((p) => p.name).join(", ") + (selectedPartners.length > 5 ? `, +${selectedPartners.length - 5} till` : "");
     if (!confirm(`Skicka ${label} till ${selectedPartners.length} partner(s)?\n\n${names}`)) return;
 
@@ -446,6 +446,8 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
         name: p.name,
         email: p.admin_contact_email || p.email || "",
       }));
+
+      const emailBodyToSend = templateKind === "prospect" ? ensureAvtalsforslagPlaceholders(active.body) : active.body;
 
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=${action}`,
@@ -459,7 +461,7 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
           body: JSON.stringify({
             partners: partnerList,
             subject: active.subject,
-            email_body: active.body,
+            email_body: emailBodyToSend,
             cc: ccList,
           }),
         }
