@@ -297,9 +297,10 @@ const PartnerUpdate = () => {
     }));
   };
 
-  type SectionKey = "basic" | "decision" | "products" | "specialty" | "pitches" | "industryApps" | "events" | "notes";
+  type SectionKey = "basic" | "decision" | "products" | "ai" | "specialty" | "pitches" | "industryApps" | "events" | "notes";
   const [openSections, setOpenSections] = useState<Record<SectionKey, boolean>>({
   products: true,
+  ai: false,
   basic: false,
   decision: false,
   specialty: false,
@@ -308,6 +309,7 @@ const PartnerUpdate = () => {
   events: false,
   notes: false,
   });
+
   const [autoExpandApplied, setAutoExpandApplied] = useState(false);
 
   // Sub-step wizard per product (1..4)
