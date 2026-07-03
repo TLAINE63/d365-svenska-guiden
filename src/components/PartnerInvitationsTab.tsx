@@ -729,18 +729,17 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   }, [invitations]);
 
   const sortedInvitations = useMemo(() => {
-    const sorted = [...dedupedInvitations];
-    const statusOrder: Record<string, number> = { pending: 0, submitted: 1, approved: 2, expired: 3 };
+    let sorted = [...dedupedInvitations];
+    if (publishFilter !== "all") {
+      sorted = sorted.filter(inv => {
+        const partner = inv.partner_id ? partners.find(p => p.id === inv.partner_id) : null;
+        if (!partner) return publishFilter === "unpublished";
+        return publishFilter === "published" ? partner.is_featured : !partner.is_featured;
+      });
+    }
     switch (sortOrder) {
       case "name_asc":
         sorted.sort((a, b) => a.partner_name.localeCompare(b.partner_name, "sv"));
-        break;
-      case "status":
-        sorted.sort((a, b) => {
-          const aStatus = new Date(a.expires_at) < new Date() && a.status === "pending" ? "expired" : a.status;
-          const bStatus = new Date(b.expires_at) < new Date() && b.status === "pending" ? "expired" : b.status;
-          return (statusOrder[aStatus] ?? 99) - (statusOrder[bStatus] ?? 99);
-        });
         break;
       case "latest_inv_desc":
         sorted.sort((a, b) => {
@@ -753,7 +752,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
         sorted.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
     }
     return sorted;
-  }, [dedupedInvitations, sortOrder, latestInvitationByPartner]);
+  }, [dedupedInvitations, sortOrder, latestInvitationByPartner, publishFilter, partners]);
 
   const toggleReminderSelection = (id: string) => {
     setSelectedForReminder(prev => {
