@@ -763,6 +763,7 @@ const BusinessCentral = () => {
  highlightedCompanySize={selectedCompanySize || undefined}
  highlightedRevenue={selectedRevenue || undefined}
  showRandomIndicator={true}
+ showBestFitOnly
  />
  );
  })}
