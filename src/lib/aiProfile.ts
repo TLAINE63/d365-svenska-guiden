@@ -254,7 +254,8 @@ export function isAiProfileEmpty(p?: AiProfile | null): boolean {
     !p.project_count_range &&
     !(p.evidence_level && p.evidence_level.length) &&
     !p.delivery_model &&
-    !(p.description && p.description.trim())
+    !(p.description && p.description.trim()) &&
+    !(p.ai_experience_summary && p.ai_experience_summary.trim())
   );
 }
 
@@ -265,6 +266,22 @@ export function shortAiSummary(p?: AiProfile | null): string {
   if (caps.length === 0) return "";
   return caps.join(" · ");
 }
+
+/**
+ * Buyer-facing maturity label derived from internal score + confidence.
+ * Concrete wording (Grundläggande / Etablerad / Avancerad) rather than a score.
+ */
+export function aiMaturityLabel(
+  p?: AiProfile | null,
+): "Grundläggande" | "Etablerad" | "Avancerad" | null {
+  if (!p || isAiProfileEmpty(p)) return null;
+  const score = calculatePartnerAiScore(p);
+  const confidence = calculateAiConfidence(p);
+  if (score >= 60 && confidence === "high") return "Avancerad";
+  if (score >= 35 || confidence === "medium") return "Etablerad";
+  return "Grundläggande";
+}
+
 
 // Legacy migration helper (also runs in DB, but kept client-side as fallback)
 export function migrateLegacyAi(productFilters?: ProductFilters | null): AiProfile {
