@@ -3009,11 +3009,12 @@ Thomas`,
 
  {/* ==================== INVITATIONS TAB ==================== */}
  <TabsContent value="invitations">
- <PartnerInvitationsTab 
- token={token || ""} 
- partners={fullPartners.map(p => ({ id: p.id, name: p.name, slug: p.slug, email: p.email || "", admin_contact_email: p.admin_contact_email || "", is_featured: p.is_featured ?? false, contact_person: p.contactPerson || "" }))}
- onSessionExpired={logout}
- />
+            <PartnerInvitationsTab 
+              token={token || ""} 
+              partners={fullPartners.map(p => ({ id: p.id, name: p.name, slug: p.slug, email: p.email || "", admin_contact_email: p.admin_contact_email || "", admin_contact_name: p.admin_contact_name || "", is_featured: p.is_featured ?? false, contact_person: p.contactPerson || "" }))}
+              onSessionExpired={logout}
+            />
+
  </TabsContent>
 
  {/* ==================== EVENTS TAB ==================== */}

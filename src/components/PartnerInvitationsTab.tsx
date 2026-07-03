@@ -84,9 +84,10 @@ interface Invitation {
 
 interface PartnerInvitationsTabProps {
   token: string;
-  partners: Array<{ id: string; name: string; slug: string; email: string; admin_contact_email: string; is_featured: boolean; contact_person: string }>;
+  partners: Array<{ id: string; name: string; slug: string; email: string; admin_contact_email: string; admin_contact_name: string; is_featured: boolean; contact_person: string }>;
   onSessionExpired?: () => void;
 }
+
 
 const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInvitationsTabProps) => {
 
@@ -104,7 +105,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   const [sendingReminders, setSendingReminders] = useState(false);
   const [selectedForReminder, setSelectedForReminder] = useState<Set<string>>(new Set());
   const [showCreateDialog, setShowCreateDialog] = useState(false);
-  const [sortOrder, setSortOrder] = useState<"created_desc" | "name_asc" | "latest_inv_desc">("created_desc");
+  const [sortOrder, setSortOrder] = useState<"created_desc" | "name_asc" | "latest_inv_desc" | "missing_contact">("created_desc");
   const [publishFilter, setPublishFilter] = useState<"all" | "published" | "unpublished">("all");
   
   // Email template state
@@ -676,11 +677,14 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   const partnerRows = useMemo(() => {
     const rows = partners.map(p => {
       const contactEmail = p.admin_contact_email || p.email || "";
+      const hasContactName = !!(p.admin_contact_name || p.contact_person);
+      const hasContactEmail = !!(p.admin_contact_email || p.email);
+      const missingContact = !hasContactName || !hasContactEmail;
       const inv =
         latestInvitationByPartner.get(p.id) ||
         (contactEmail ? latestInvitationByEmail.get(contactEmail.toLowerCase()) : undefined) ||
         (p.email ? latestInvitationByEmail.get(p.email.toLowerCase()) : undefined);
-      return { partner: p, invitation: inv || null, contactEmail };
+      return { partner: p, invitation: inv || null, contactEmail, missingContact };
     });
 
     const filtered = rows.filter(r => {
@@ -692,6 +696,12 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     switch (sortOrder) {
       case "name_asc":
         filtered.sort((a, b) => a.partner.name.localeCompare(b.partner.name, "sv"));
+        break;
+      case "missing_contact":
+        filtered.sort((a, b) => {
+          if (a.missingContact !== b.missingContact) return a.missingContact ? -1 : 1;
+          return a.partner.name.localeCompare(b.partner.name, "sv");
+        });
         break;
       case "latest_inv_desc":
       case "created_desc":
@@ -705,6 +715,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     }
     return filtered;
   }, [partners, latestInvitationByPartner, latestInvitationByEmail, publishFilter, sortOrder]);
+
 
   const toggleReminderSelection = (id: string) => {
     setSelectedForReminder(prev => {
@@ -1096,6 +1107,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
             <span className="text-xs">Sortera:</span>
             {([
               { key: "created_desc", label: "Senaste kommunikationen" },
+              { key: "missing_contact", label: "Saknar kontakt" },
               { key: "name_asc", label: "A–Ö" },
             ] as const).map(opt => (
               <Button
@@ -1103,11 +1115,12 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                 variant={sortOrder === opt.key ? "secondary" : "ghost"}
                 size="sm"
                 className="h-6 text-xs px-2"
-                onClick={() => setSortOrder(opt.key)}
+                onClick={() => setSortOrder(opt.key as typeof sortOrder)}
               >
                 {opt.label}
               </Button>
             ))}
+
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -1137,7 +1150,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {partnerRows.map(({ partner, invitation, contactEmail }) => {
+                {partnerRows.map(({ partner, invitation, contactEmail, missingContact }) => {
                   const isPending = !!invitation && invitation.status === "pending" && new Date(invitation.expires_at) >= new Date();
                   return (
                   <TableRow key={partner.id}>
@@ -1150,13 +1163,17 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                       />
                     </TableCell>
                     <TableCell className="font-medium">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
                         {partner.name}
                         {partner.is_featured
                           ? <Badge variant="outline" className="border-green-500 text-green-600 text-xs">Publicerad</Badge>
                           : <Badge variant="outline" className="border-orange-400 text-orange-600 text-xs">Ej publicerad</Badge>}
+                        {missingContact && (
+                          <Badge variant="destructive" className="text-xs">Saknar kontakt</Badge>
+                        )}
                       </div>
                     </TableCell>
+
                     <TableCell>
                       <div className="flex flex-col">
                         {partner.contact_person && (
