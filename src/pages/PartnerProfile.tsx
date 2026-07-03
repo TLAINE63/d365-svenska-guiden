@@ -45,59 +45,8 @@ import { buildMetaTitle } from "@/lib/metaTitle";
 import { buildMetaDescription } from "@/lib/metaDescription";
 import { trackPartnerView } from "@/utils/trackPartnerView";
 
-// Dynamics 365 icons
-import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
-import FinanceIcon from "@/assets/icons/Finance.svg";
-import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
-import SalesIcon from "@/assets/icons/Sales.svg";
-import MarketingIcon from "@/assets/icons/Marketing.svg";
-import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
-import FieldServiceIcon from "@/assets/icons/FieldService.svg";
-import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
-import CopilotIcon from "@/assets/icons/Copilot.png";
-import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
-import CommerceIcon from "@/assets/icons/Commerce.svg";
-import HumanResourcesIcon from "@/assets/icons/HumanResources.svg";
-
-// Map application names to Dynamics 365 icons
-const applicationIcons: Record<string, string> = {
- "Business Central": BusinessCentralIcon,
- "Sales": SalesIcon,
- "Customer Service": CustomerServiceIcon,
- "Field Service": FieldServiceIcon,
- "Marketing": MarketingIcon,
- "Customer Insights": MarketingIcon,
- "Customer Insights (Marketing)": MarketingIcon,
- "Finance": FinanceIcon,
- "Finance & SCM": FinanceIcon,
- "Finance & Supply Chain": FinanceIcon,
- "Supply Chain": SupplyChainIcon,
- "Supply Chain Management": SupplyChainIcon,
- "Copilot": CopilotIcon,
- "Contact Center": ContactCenterIcon,
- "Project Operations": ProjectOperationsIcon,
- "Commerce": CommerceIcon,
- "Human Resources": HumanResourcesIcon,
-};
-
-const getApplicationIcon = (appName: string): string | null => {
- // Try exact match first
- if (applicationIcons[appName]) return applicationIcons[appName];
- 
- // Try partial match
- const lowerName = appName.toLowerCase();
- for (const [key, icon] of Object.entries(applicationIcons)) {
- if (lowerName.includes(key.toLowerCase()) || key.toLowerCase().includes(lowerName)) {
- return icon;
- }
- }
- 
- // No matching icon
- return null;
-};
 
 // Map application names to product categories
-// NOTE: Project Operations, Commerce, Human Resources are specialty products shown separately
 const getProductCategory = (app: string): 'bc' | 'fsc' | 'sales' | 'service' | null => {
  if (app === "Business Central") return 'bc';
  if (["Finance", "Supply Chain Management", "Finance & SCM", "Finance & Supply Chain"].includes(app)) return 'fsc';
@@ -664,31 +613,6 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
     }}
    onRequest={openRequest}
     />
-
-   {/* Specialty products (HR / Commerce / ProjOps) — keep visible below tabs */}
-   {(() => {
-   const specialtyProducts = ['Project Operations', 'Commerce', 'Human Resources'];
-   const partnerSpecialties = partner.applications.filter(app => specialtyProducts.includes(app));
-   if (partnerSpecialties.length === 0) return null;
-   return (
-    <section className="py-8 border-t border-border">
-     <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
-      <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Tilläggsområden</h2>
-      <div className="grid gap-3 sm:grid-cols-3">
-       {partnerSpecialties.map((product) => {
-        const icon = getApplicationIcon(product);
-        return (
-         <div key={product} className="rounded border border-border bg-card p-4 flex items-center gap-3">
-          {icon && <img src={icon} alt="" aria-hidden="true" className="w-7 h-7" />}
-          <span className="font-semibold text-foreground text-sm">Dynamics 365 {product}</span>
-         </div>
-        );
-       })}
-      </div>
-     </div>
-    </section>
-   );
-  })()}
 
   {/* Events Section */}
   {partner?.id && (
