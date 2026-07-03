@@ -30,6 +30,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import AiCompareInsights from "@/components/AiCompareInsights";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
+import { useTrackFilterExposure } from "@/hooks/useTrackFilterExposure";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import {
   AiProfile,
