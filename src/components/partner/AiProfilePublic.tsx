@@ -104,7 +104,7 @@ export default function AiProfilePublic({ profile, compact = false }: Props) {
               <Sparkles className="w-3.5 h-3.5 text-primary" aria-hidden="true" />
               AI:s sammanfattning
             </p>
-            <p className="text-sm leading-relaxed text-foreground/90 italic text-left">
+            <p className="text-sm leading-relaxed text-foreground/90 italic">
               {summary}
             </p>
             <p className="text-[11px] text-muted-foreground mt-1.5">
