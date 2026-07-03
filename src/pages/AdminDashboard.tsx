@@ -2560,7 +2560,17 @@ Thomas`,
       <Sparkles className={`mr-2 h-4 w-4 ${generatingWhyKeypoints ? "animate-pulse" : ""}`} />
       {generatingWhyKeypoints ? "Fyller varför & punkter…" : "AI: Fyll 'Varför välja' & punkter"}
     </Button>
+    <Button
+      variant="outline"
+      onClick={handleGenerateAllAiExperienceSummary}
+      disabled={generatingAiExperienceSummary}
+      title="Generera köparorienterad 'AI:s sammanfattning' (2 meningar) för publicerade partners med AI-profil. Befintlig text rörs ej."
+    >
+      <Sparkles className={`mr-2 h-4 w-4 ${generatingAiExperienceSummary ? "animate-pulse" : ""}`} />
+      {generatingAiExperienceSummary ? "Genererar AI-sammanfattning…" : "AI: 'AI:s sammanfattning'"}
+    </Button>
   </div>
+
  {selectedForWelcome.size > 0 && (
  <DropdownMenu>
  <DropdownMenuTrigger asChild>
