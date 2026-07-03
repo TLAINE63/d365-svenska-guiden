@@ -1,54 +1,41 @@
-## Mål
-Göra partnerval och jämförelse mer beslutsstödjande genom att (1) styra upp filterflödet med obligatoriskt produktområde, (2) förenkla partnerkorten till beslutsrelevant info och (3) bygga om jämförelsesidan så att AI-sammanfattning + skillnader syns först.
+# Justera löftet i profileringsmallen (PartnerUpdate)
 
-## 1. Filterflöde på `/valjdynamics365partner/`
-- Gör **Produktområde obligatoriskt**: dölj partnerlistan och visa en tydlig prompt tills användaren valt ett av: Business Central, Finance & Supply Chain, Sales/CRM, Customer Service, Customer Insights, Field Service, Contact Center.
-- Bransch = valfritt men markerad som *rekommenderat* (badge "Rekommenderat" på filterknappen).
-- Behåll geografi + storlek som valfria.
-- Höj max antal jämförbara partners från 2 → **3** (`PartnerCompareContext`, `PartnerCompareBar`, kort-labels "välj upp till 3").
+## Vad som stämmer idag
+Profileringsmallens sektioner motsvarar vad som faktiskt visas publikt:
+- **Dynamics 365-produkter, Övriga produkter, Branschpitcar, Branschapplikationer, Events, AI/Copilot, Grundinfo, Beslutsprofil** → syns på PartnerCard (highlights) och PartnerProfile (fullständigt).
+- **Övriga kommentarer** → intern, syns ej publikt.
 
-## 2. Partnerkort (`PartnerCard.tsx`)
-Sätt beslutsstöd först. Visa i denna ordning:
-- Logo + Namn
-- Produktområde-badge (det valda) + matchningsgrad om finns
-- Primära branscher (max 3 chips)
-- Geografisk närvaro (kort form)
-- **AI-sammanfattning 1–2 meningar** ("Passar bäst för …") – använd befintlig `positioning_statement` / `ai_profile.summary`; fallback till kort autogenererad mening från industries+product.
-- CTA: **Jämför** (toggle) + **Kontakta**
+Data som fylls i används alltså inte enbart för matchning – den publiceras rakt av på partnerkortet och partnerprofilen.
 
-Ta bort/flytta ner: långa beskrivningar, kompetenslistor, storleksbadges (visas endast i "fullständig jämförelse" / profil).
+## Vad löftet säger idag (missvisande)
+Två ställen i `src/pages/PartnerUpdate.tsx` beskriver bara matchning + synlighet, inte att texten publiceras:
 
-## 3. Jämförelsesida `/jamfor-partners/`
-Ny struktur, top-down:
+1. **Rad 1144–1148** – "Progress & Value"-boxen:
+   > "Din profil används för att matcha er med rätt kunder. Ju tydligare och mer komplett den är – desto bättre synlighet får ni."
 
-**A. AI-sammanfattning** – ny sektion överst
-- Rubrik: *"Vad skiljer partnerna åt?"*
-- 2–4 meningar genererade via ny edge-funktion `compare-partners-summary` (Lovable AI Gateway, `google/gemini-3-flash-preview`). Input: valda partners { namn, positioning, industries, applications, ai_profile, geografi }. Output: kort text.
-- Cache i `sessionStorage` per set av partner-slugs för att spara credits.
+2. **Rad 1180–1181** – Info-boxen ovanför produktvalet:
+   > "Denna information används för att matcha er med rätt kunder. Ju tydligare ni beskriver er spets, desto bättre träffsäkerhet."
 
-**B. Viktigaste skillnaderna** (standardvy)
-Attribut som jämförs:
-- Branschspecialisering
-- AI-kompetens (från `ai_profile`)
-- Geografisk täckning
-- Produktbredd (antal D365-appar)
-- Implementationsmodell / storleksfokus
-- Certifieringar / specialiseringar
+3. **Rad 1315** – Progress-hint:
+   > "Komplettera {n} fält för att öka er synlighet och matchning."
 
-Regel: dölj rader där alla valda partners har samma värde. Om alla rader är lika: visa "Partnerna är mycket lika på nyckelattributen – se fullständig jämförelse".
+Ingen av texterna nämner att innehållet publiceras direkt på d365.se.
 
-**C. Knapp "Visa fullständig jämförelse"**
-Togglar fram nuvarande fullständiga tabell (alla attribut, även identiska).
+## Ändring
+Uppdatera de tre texterna så det tydligt framgår att inmatad information är **underlag för publicering** på sajten (partnerkort + partnerprofil), utöver matchning:
 
-## Tekniska detaljer
-- `src/pages/ValjPartner.tsx`: gate på produktval, uppdatera copy.
-- `src/contexts/PartnerCompareContext.tsx`: `MAX = 3`.
-- `src/components/PartnerCompareBar.tsx`: uppdatera texter.
-- `src/components/PartnerCard.tsx`: ny kompakt beslutslayout (bakåtkompatibel via prop `variant="decision"` default true på partnerlistor).
-- `src/pages/ComparePartners.tsx`: ny struktur med AI-summary + diff-first + toggle.
-- Ny edge-funktion `supabase/functions/compare-partners-summary/index.ts` (CORS whitelist, input zod-validering, streaming ej nödvändigt).
-- Hjälpfunktion `src/lib/partnerDiff.ts` som beräknar attributdiff.
+1. **Progress & Value-boxen** (rad 1146–1148):
+   > "Informationen ni fyller i publiceras direkt på ert partnerkort och er partnerprofil på d365.se – och används för att matcha er med rätt kunder. Ju tydligare och mer komplett profilen är, desto starkare framträder ni för besökarna."
 
-## Ur scope
-- Ingen ändring av admin-vy, PDF-export eller ranking-algoritm.
-- Inga schema-ändringar (använder befintliga fält).
+2. **Produkt-info-boxen** (rad 1180–1181):
+   > "Det ni skriver här publiceras på ert partnerkort och er partnerprofil, och är underlag för matchningen mot kundernas sökningar. Ju tydligare ni beskriver er spets, desto bättre träffsäkerhet och framtoning."
+
+3. **Progress-hint** (rad 1315):
+   > "Komplettera {n} fält för att stärka hur ni publiceras på sajten och öka matchningen."
+
+Behåller den redan tydliga "Så här visas ni för kunder"-knappen (rad 1121–1125) som redan pekar på live-profilen – ingen ändring där.
+
+## Filer som ändras
+- `src/pages/PartnerUpdate.tsx` (tre textblock)
+
+Ingen logikändring, ingen ny data, inga migrations.
