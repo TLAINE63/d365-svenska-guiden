@@ -1150,7 +1150,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {partnerRows.map(({ partner, invitation, contactEmail }) => {
+                {partnerRows.map(({ partner, invitation, contactEmail, missingContact }) => {
                   const isPending = !!invitation && invitation.status === "pending" && new Date(invitation.expires_at) >= new Date();
                   return (
                   <TableRow key={partner.id}>
@@ -1163,13 +1163,17 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                       />
                     </TableCell>
                     <TableCell className="font-medium">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
                         {partner.name}
                         {partner.is_featured
                           ? <Badge variant="outline" className="border-green-500 text-green-600 text-xs">Publicerad</Badge>
                           : <Badge variant="outline" className="border-orange-400 text-orange-600 text-xs">Ej publicerad</Badge>}
+                        {missingContact && (
+                          <Badge variant="destructive" className="text-xs">Saknar kontakt</Badge>
+                        )}
                       </div>
                     </TableCell>
+
                     <TableCell>
                       <div className="flex flex-col">
                         {partner.contact_person && (
