@@ -113,7 +113,7 @@ interface PartnerQuickFactsProps {
 }
 
 export function PartnerQuickFacts({ partner, activeTab }: PartnerQuickFactsProps) {
-  const { companySize, geography, industries } = getTabFilter(partner, activeTab);
+  const { companySize, revenue, geography, industries } = getTabFilter(partner, activeTab);
 
   const bullets: { icon: string; text: string }[] = [];
 
@@ -131,9 +131,11 @@ export function PartnerQuickFacts({ partner, activeTab }: PartnerQuickFactsProps
     bullets.push({ icon: "🏭", text: `Starkast inom ${formatIndustries(industries)}` });
   }
 
-  if (companySize.length > 0) {
-    bullets.push({ icon: "📈", text: `Passar främst ${formatCompanySizeLabel(companySize)}` });
-  }
+  const sizeLabel =
+    companySize.length > 0
+      ? formatCompanySizeLabel(companySize)
+      : formatSizeLabelFromRevenue(revenue);
+  bullets.push({ icon: "📈", text: `Passar främst ${sizeLabel}` });
 
   if (bullets.length === 0) return null;
 
