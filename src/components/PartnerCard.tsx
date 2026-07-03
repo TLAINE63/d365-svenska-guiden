@@ -294,14 +294,30 @@ const PartnerCard = ({
  const secondaryIndustries = productFilter?.secondaryIndustries || [];
  const geography = productFilter?.geography || (isDatabasePartner(partner) ? (partner.geography?.[0] || 'Sverige') : partner.geography);
 
-  // Public-facing application badges from the partner's explicit applications list.
-  // Finance/SCM aliases are merged into a single F&SCM badge by normalizeApplications.
+  // Public-facing application badges from all registered product competencies:
+  // product_filters keys plus the explicit applications list.
   const getDisplayApplications = (): string[] => {
-    return sortApplications(normalizeApplications(partner.applications || []));
+    const apps = new Set<string>();
+    if (isDatabasePartner(partner)) {
+      const pf = partner.product_filters || {};
+      const map: Record<string, string> = {
+        bc: "Business Central",
+        fsc: "Finance & Supply Chain Management",
+        sales: "Sales",
+        service: "Customer Service",
+        crm: "Sales",
+      };
+      for (const [key, filter] of Object.entries(pf)) {
+        if (filter && map[key]) apps.add(map[key]);
+      }
+    }
+    for (const app of partner.applications || []) {
+      apps.add(displayApplicationName(app));
+    }
+    return sortApplications(Array.from(apps));
   };
 
-
- const displayApplications = getDisplayApplications();
+  const displayApplications = getDisplayApplications();
 
  const hasHighlights = highlightedProduct || highlightedIndustry || highlightedGeography || highlightedCompanySize || highlightedRevenue;
 
