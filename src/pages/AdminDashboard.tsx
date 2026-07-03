@@ -3261,6 +3261,11 @@ Thomas`,
  <AdminPartnerProfileVisitsTab token={token || null} />
  </TabsContent>
 
+ {/* ==================== PARTNER ENGAGEMENT TAB ==================== */}
+ <TabsContent value="partner-engagement">
+ <AdminPartnerEngagementTab token={token || null} />
+ </TabsContent>
+
  {/* ==================== FUNNEL TAB ==================== */}
  <TabsContent value="funnel">
  <AdminFunnelTab token={token || null} onSessionExpired={logout} />
