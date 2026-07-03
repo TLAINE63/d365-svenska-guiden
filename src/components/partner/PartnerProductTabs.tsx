@@ -60,7 +60,6 @@ const appIconSrc: Record<string, string> = {
   "Human Resources": HumanResourcesIcon,
 };
 
-export type TabKey = "bc" | "fsc" | "crm";
 
 const TAB_META: Record<
   TabKey,
