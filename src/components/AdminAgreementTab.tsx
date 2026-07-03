@@ -700,7 +700,7 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="published">Avtalsmail – för publicerade partners (fortsätt synlighet)</SelectItem>
-              <SelectItem value="prospect">Prospektmail – för ej publicerade (med profileringslänk)</SelectItem>
+              <SelectItem value="prospect">Avtalsförslag – innehåller alltid profileringslänk + PDF-avtal</SelectItem>
               <SelectItem value="cold-pitch">Införsäljningsmail – fri e-postadress, en åt gången</SelectItem>
             </SelectContent>
           </Select>
