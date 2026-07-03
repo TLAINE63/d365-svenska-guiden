@@ -64,6 +64,8 @@ interface PartnerCardProps {
  showRandomIndicator?: boolean;
  // When true, show a single longer industry-pitch text block instead of the positioning statement
  showIndustryPitch?: boolean;
+ // When true, show only the positioning statement as a "Passar bäst för" block (product pages)
+ showBestFitOnly?: boolean;
 }
 
 const PartnerCard = ({ 
@@ -78,6 +80,7 @@ const PartnerCard = ({
  highlightedGeography,
  showRandomIndicator = false,
  showIndustryPitch = false,
+ showBestFitOnly = false,
 }: PartnerCardProps) => {
   const [showAiDetails, setShowAiDetails] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
