@@ -1,6 +1,5 @@
 import { DatabasePartner } from "@/hooks/usePartners";
 import { Card, CardContent } from "@/components/ui/card";
-import { Zap } from "lucide-react";
 import { TabKey } from "./PartnerProductTabs";
 
 const SIZE_ORDER = ["1-49", "50-99", "100-249", "250-999", "1.000-4.999", ">5.000"];
@@ -8,7 +7,7 @@ const SIZE_ORDER = ["1-49", "50-99", "100-249", "250-999", "1.000-4.999", ">5.00
 const TAB_PRODUCT_TYPE: Record<TabKey, string> = {
   bc: "Business Central",
   fsc: "Finance & Supply Chain",
-  crm: "CRM (Sales, Service, Marketing)",
+  crm: "CRM",
 };
 
 const TAB_FILTER_KEYS: Record<TabKey, Array<"bc" | "fsc" | "sales" | "service" | "crm">> = {
@@ -49,30 +48,61 @@ function dedupeStrings<T>(arr: T[]): T[] {
   return Array.from(new Set(arr));
 }
 
-function deriveFocus(industries: string[]): string {
-  if (industries.length <= 1) return "Branschspecialist";
-  if (industries.length <= 3) return "Specialist";
-  return "Generalist";
-}
-
-function formatDeliveryModel(engagement?: string | null): string {
-  if (!engagement) return "";
-  return engagement;
-}
-
 function formatIndustries(industries: string[]): string {
   if (industries.length === 0) return "";
-  if (industries.length <= 3) return industries.join(", ");
-  return `${industries.slice(0, 3).join(", ")} +${industries.length - 3} till`;
+  return industries.join(", ");
+}
+
+function formatGeography(geography: string[]): string {
+  if (geography.length === 0) return "";
+  if (geography.length === 1) return geography[0];
+  // Join all but the last with commas, then add " och " before the last item
+  if (geography.length === 2) return geography.join(" och ");
+  return `${geography.slice(0, -1).join(", ")} och ${geography[geography.length - 1]}`;
+}
+
+function formatCompanySizeLabel(sizes: string[]): string {
+  if (sizes.length === 0) return "företag i olika storlekar";
+  const ordered = sizes
+    .filter((s) => SIZE_ORDER.includes(s))
+    .sort((a, b) => SIZE_ORDER.indexOf(a) - SIZE_ORDER.indexOf(b));
+  if (ordered.length === 0) return `${sizes.join(", ")} anställda`;
+
+  const first = parseSizeBound(ordered[0]);
+  const last = parseSizeBound(ordered[ordered.length - 1]);
+  if (!first || !last) return `${ordered.join(", ")} anställda`;
+
+  const min = first.min;
+  const max = last.max;
+
+  if (min === 1 && max !== null && max <= 49) return "små företag";
+  if (min >= 50 && max !== null && max <= 249) return "medelstora företag";
+  if (min >= 250 && max !== null && max <= 999) return "medelstora och större företag";
+  if (min >= 1000 && max !== null) return "stora företag";
+  if (max === null) return "stora företag";
+  return "företag i olika storlekar";
 }
 
 function getTabFilter(partner: DatabasePartner, tab: TabKey) {
   const keys = TAB_FILTER_KEYS[tab];
   const filters = keys.map((k) => partner.product_filters?.[k]).filter(Boolean);
   const companySize = dedupeStrings(filters.flatMap((f) => f?.companySize || []));
+  const revenue = dedupeStrings(filters.flatMap((f) => f?.revenue || []));
   const geography = dedupeStrings(filters.flatMap((f) => f?.geography || []));
   const industries = dedupeStrings(filters.flatMap((f) => f?.industries || []));
-  return { companySize, geography, industries };
+  return { companySize, revenue, geography, industries };
+}
+
+function formatSizeLabelFromRevenue(revenue: string[]): string {
+  if (revenue.length === 0) return "företag i olika storlekar";
+  const hasVeryLarge = revenue.some((r) => r.includes("1.000") || r.includes(">5.000"));
+  const hasMediumLarge = revenue.some((r) => r.includes("100-499") || r.includes("500-999"));
+  const hasSmall = revenue.some((r) => r.includes("25-99") || r.includes("1-24"));
+
+  if (hasVeryLarge) return "stora företag";
+  if (hasMediumLarge) return "medelstora och större företag";
+  if (hasSmall) return "små och medelstora företag";
+  return "företag i olika storlekar";
 }
 
 interface PartnerQuickFactsProps {
@@ -81,64 +111,46 @@ interface PartnerQuickFactsProps {
 }
 
 export function PartnerQuickFacts({ partner, activeTab }: PartnerQuickFactsProps) {
-  const { companySize, geography, industries } = getTabFilter(partner, activeTab);
-  const deliveryModel = formatDeliveryModel(partner.delivery_profile?.engagement_model);
+  const { companySize, revenue, geography, industries } = getTabFilter(partner, activeTab);
 
-  const rows: { label: string; value: string }[] = [];
+  const bullets: { icon: string; text: string }[] = [];
 
-  if (companySize.length > 0) {
-    rows.push({ label: "Kundstorlek", value: formatSizeRange(companySize) });
+  if (activeTab === "bc" || activeTab === "fsc") {
+    bullets.push({ icon: "🏢", text: "ERP-specialist" });
+  } else {
+    bullets.push({ icon: "🏢", text: `${TAB_PRODUCT_TYPE[activeTab]}-specialist` });
   }
 
   if (geography.length > 0) {
-    rows.push({ label: "Geografi", value: geography.join(", ") });
+    bullets.push({ icon: "🌍", text: `Levererar i ${formatGeography(geography)}` });
   }
 
   if (industries.length > 0) {
-    rows.push({ label: "Fokus", value: deriveFocus(industries) });
+    bullets.push({ icon: "🏭", text: `Starkast inom ${formatIndustries(industries)}` });
   }
 
-  if (deliveryModel) {
-    rows.push({ label: "Leveransmodell", value: deliveryModel });
-  }
+  const sizeLabel =
+    companySize.length > 0
+      ? formatCompanySizeLabel(companySize)
+      : formatSizeLabelFromRevenue(revenue);
+  bullets.push({ icon: "📈", text: `Passar främst ${sizeLabel}` });
 
-  if (industries.length > 0) {
-    rows.push({ label: "Branscher", value: formatIndustries(industries) });
-  }
-
-  rows.push({ label: "Projekttyp", value: TAB_PRODUCT_TYPE[activeTab] });
-
-  if (rows.length === 0) return null;
+  if (bullets.length === 0) return null;
 
   return (
     <Card className="bg-[hsl(var(--hero-dark))] border-[hsl(var(--line-dark))] text-primary-foreground overflow-hidden">
       <CardContent className="p-0">
-        <div className="flex items-center gap-2 px-5 py-3 border-b border-[hsl(var(--line-dark))]">
-          <Zap className="h-4 w-4 text-[hsl(var(--signature))]" />
-          <h3 className="text-sm font-semibold tracking-wide text-primary-foreground">Snabbfakta</h3>
+        <div className="px-5 py-3 border-b border-[hsl(var(--line-dark))]">
+          <h3 className="text-sm font-semibold tracking-wide text-primary-foreground">Kort profil</h3>
         </div>
-        <table className="w-full text-sm" aria-label="Snabbfakta">
-          <tbody>
-            {rows.map((row, idx) => (
-              <tr
-                key={row.label}
-                className={
-                  idx !== rows.length - 1 ? "border-b border-[hsl(var(--line-dark))]" : ""
-                }
-              >
-                <th
-                  scope="row"
-                  className="px-5 py-2.5 font-medium text-[hsl(var(--muted-dark))] w-[40%] align-top text-left"
-                >
-                  {row.label}
-                </th>
-                <td className="px-5 py-2.5 text-primary-foreground align-top">
-                  {row.value}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <ul className="py-3 px-5 space-y-3 text-sm" aria-label="Kort profil">
+          {bullets.map((bullet) => (
+            <li key={bullet.text} className="flex items-start gap-3 text-primary-foreground">
+              <span className="shrink-0" aria-hidden="true">{bullet.icon}</span>
+              <span>{bullet.text}</span>
+            </li>
+          ))}
+        </ul>
       </CardContent>
     </Card>
   );
