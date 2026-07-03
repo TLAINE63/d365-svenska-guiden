@@ -532,20 +532,26 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
    <>
    <WhyTheseResults className="mb-4" />
    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-  {matchingPartners.map((p) => {
-  const activeProductKey =
-  selected.length === 1 ? FILTER_TO_UNDERLYING[selected[0]] : null;
-  return (
-   <PartnerCard
-   key={p.id}
-   partner={p as any}
-   profileUrl={`/partner/${(p as any).slug}`}
-   highlightedIndustry={meta?.name}
-   highlightedGeography={selectedGeography || undefined}
-   highlightedCompanySize={selectedCompanySize || undefined}
-   productKey={activeProductKey as any}
-   showIndustryPitch
-   />
+   {matchingPartners.map((p) => {
+   const activeProductKey =
+   selected.length === 1 ? FILTER_TO_UNDERLYING[selected[0]] : null;
+   const highlightedProductLabel =
+   selected.length >= 1
+   ? selected.map((k) => PRODUCT_FILTERS.find((f) => f.key === k)?.label || k).join(", ")
+   : undefined;
+   return (
+    <PartnerCard
+    key={p.id}
+    partner={p as any}
+    profileUrl={`/partner/${(p as any).slug}`}
+    highlightedIndustry={meta?.name}
+    highlightedGeography={selectedGeography || undefined}
+    highlightedCompanySize={selectedCompanySize || undefined}
+    highlightedProduct={highlightedProductLabel}
+    productKey={activeProductKey as any}
+    showIndustryPitch
+    />
+
 
   );
   })}
