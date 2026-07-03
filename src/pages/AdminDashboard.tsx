@@ -5235,7 +5235,7 @@ Thomas`,
  <DialogTitle>
  {emailDialogType === 'welcome' && 'Skicka välkomstmail'}
  {emailDialogType === 'sales_pitch' && 'Skicka införsäljningsmail'}
- {emailDialogType === 'profile_refresh' && 'Skicka profileringslänk (90 dgr)'}
+ {emailDialogType === 'profile_refresh' && 'Skicka profileringslänk (2026)'}
  {' '}({selectedForWelcome.size})
  </DialogTitle>
  </DialogHeader>
