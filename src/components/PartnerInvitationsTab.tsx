@@ -782,10 +782,6 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
       <div className="flex justify-between items-center">
         <div>
           <h2 className="text-xl font-semibold">Partnerkommunikation</h2>
-          <p className="text-sm text-muted-foreground">
-            Skicka inbjudningar, profileringslänkar, införsäljning och fria meddelanden till partners.
-            Ändringar publiceras direkt – du får ett e-postmeddelande vid varje uppdatering.
-          </p>
         </div>
         <div className="flex gap-2">
           <Button 
