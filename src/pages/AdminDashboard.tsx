@@ -2468,8 +2468,9 @@ Thomas`,
  </div>
  </TabsContent>
 
- {/* ==================== PARTNERS TAB ==================== */}
- <TabsContent value="partners">
+ {/* ==================== PARTNERS TAB (Publicerade / Ej publicerade) ==================== */}
+ {(["partners", "unprofiled-partners"] as const).map((tabValue) => (
+ <TabsContent key={tabValue} value={tabValue}>
  <div className="flex justify-between items-center mb-4">
  <div className="flex gap-2">
  <Button onClick={openCreatePartnerDialog}>
