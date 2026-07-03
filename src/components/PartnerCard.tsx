@@ -324,7 +324,7 @@ const PartnerCard = ({
      ) : (
        industryPitch ? (
          <div className="mb-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary">
-           <p className="text-[13px] font-medium text-foreground leading-snug line-clamp-6">
+           <p className="text-[13px] font-medium text-foreground leading-snug line-clamp-8">
              {industryPitch}
            </p>
          </div>
