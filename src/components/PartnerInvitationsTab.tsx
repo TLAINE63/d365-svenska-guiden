@@ -1234,7 +1234,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                         return (adminEmail && adminEmail !== invitation.email) ? adminEmail : invitation.email;
                       })()}
                     </TableCell>
-                    <TableCell>{getStatusBadge(invitation.status, invitation.expires_at)}</TableCell>
+                    
                     <TableCell>
                       {format(new Date(invitation.created_at), "d MMM yyyy", { locale: sv })}
                     </TableCell>
