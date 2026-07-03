@@ -317,7 +317,7 @@ const PartnerCard = ({
      {showBestFitOnly && isDatabasePartner(partner) && partner.positioning_statement ? (
        <div className="mb-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary">
          <p className="text-[13px] font-semibold text-primary mb-1.5">Passar bäst för:</p>
-         <p className="text-[13px] font-medium text-foreground leading-snug line-clamp-7">
+         <p className="text-[13px] font-medium text-foreground leading-snug line-clamp-9">
            {partner.positioning_statement}
          </p>
        </div>
