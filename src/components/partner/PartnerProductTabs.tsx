@@ -107,6 +107,31 @@ function mergeArrays<T>(...arrs: (T[] | undefined | null)[]): T[] {
   return Array.from(set);
 }
 
+import { displayApplicationName, normalizeApplications, sortApplications, FSCM_DISPLAY_NAME } from "@/lib/applicationLabels";
+
+const PRODUCT_FILTER_TO_APP: Record<string, string> = {
+  bc: "Business Central",
+  fsc: FSCM_DISPLAY_NAME,
+  sales: "Sales",
+  service: "Customer Service",
+  crm: "Sales",
+};
+
+/** All product competencies the partner has registered, including both product_filters and explicit applications. */
+function getAllProductCompetencies(partner: DatabasePartner): string[] {
+  const apps: string[] = [];
+  const pf = partner.product_filters || {};
+  for (const [key, filter] of Object.entries(pf)) {
+    if (filter && PRODUCT_FILTER_TO_APP[key]) {
+      apps.push(PRODUCT_FILTER_TO_APP[key]);
+    }
+  }
+  for (const app of partner.applications || []) {
+    apps.push(displayApplicationName(app));
+  }
+  return sortApplications(normalizeApplications(apps));
+}
+
 function normalizeGeo(geo: string[]): string[] {
   const normalized = geo.map((g) => (g === "Internationellt" ? "Globalt" : g));
   const idx = normalized
@@ -593,11 +618,7 @@ export default function PartnerProductTabs({
               </h2>
 
               {(() => {
-                const primaryApps = data.apps;
-                const specialtyApps = (partner.applications || []).filter((a) =>
-                  SPECIALTY_APPLICATIONS.includes(a),
-                );
-                const allApps = [...new Set([...primaryApps, ...specialtyApps])];
+                const allApps = getAllProductCompetencies(partner);
                 if (allApps.length === 0) return null;
                 return (
                   <div className="mb-4">
