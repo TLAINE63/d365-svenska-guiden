@@ -1154,7 +1154,7 @@ const PartnerUpdate = () => {
             </div>
             <Progress value={profileProgress} indicatorClassName="bg-cta-orange" />
             <p className="text-xs text-muted-foreground mt-2">
-              Fyll i grundinfo, positionering, produkter och branschpitcar för att öka träffsäkerheten.
+              Fyll i grundinfo, positionering, produkter och branschpitchar för att öka träffsäkerheten.
             </p>
           </CardContent>
         </Card>
