@@ -107,7 +107,7 @@ function mergeArrays<T>(...arrs: (T[] | undefined | null)[]): T[] {
   return Array.from(set);
 }
 
-import { displayApplicationName, normalizeApplications, sortApplications, FSCM_DISPLAY_NAME } from "@/lib/applicationLabels";
+import { displayApplicationName, sortApplications, FSCM_DISPLAY_NAME } from "@/lib/applicationLabels";
 
 const PRODUCT_FILTER_TO_APP: Record<string, string> = {
   bc: "Business Central",
