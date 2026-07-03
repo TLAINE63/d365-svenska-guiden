@@ -412,8 +412,8 @@ export default function PartnerProductTabs({
                   onClick={() => setActive(key)}
                   className={`group inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full text-sm font-semibold transition-all border ${
                     isActive
-                      ? "bg-foreground text-background border-foreground shadow-md"
-                      : "bg-transparent text-foreground/80 border-foreground/40 hover:border-foreground hover:text-foreground hover:bg-muted/30"
+                      ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                      : "bg-transparent text-foreground/80 border-foreground/40 hover:border-primary hover:text-primary hover:bg-muted/30"
                   }`}
                 >
                   <img src={meta.icon} alt="" aria-hidden="true" className="w-4 h-4" />
