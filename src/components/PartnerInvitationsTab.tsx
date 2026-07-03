@@ -867,7 +867,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
             className="border-primary text-primary hover:bg-primary/10"
           >
             <Send className="w-4 h-4 mr-2" />
-            Skicka profileringslänk (90 dgr)
+            Skicka profileringslänk (2026)
           </Button>
           <Button
             variant="outline"
