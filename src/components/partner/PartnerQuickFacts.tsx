@@ -87,9 +87,24 @@ function getTabFilter(partner: DatabasePartner, tab: TabKey) {
   const keys = TAB_FILTER_KEYS[tab];
   const filters = keys.map((k) => partner.product_filters?.[k]).filter(Boolean);
   const companySize = dedupeStrings(filters.flatMap((f) => f?.companySize || []));
+  const revenue = dedupeStrings(filters.flatMap((f) => f?.revenue || []));
   const geography = dedupeStrings(filters.flatMap((f) => f?.geography || []));
   const industries = dedupeStrings(filters.flatMap((f) => f?.industries || []));
-  return { companySize, geography, industries };
+  return { companySize, revenue, geography, industries };
+}
+
+function formatSizeLabelFromRevenue(revenue: string[]): string {
+  if (revenue.length === 0) return "företag i olika storlekar";
+  const hasSmall = revenue.some((r) => r.includes("1-24") || r.includes("25-99"));
+  const hasMedium = revenue.some((r) => r.includes("100-499") || r.includes("500-999"));
+  const hasLarge = revenue.some((r) => r.includes("1.000") || r.includes(">5.000"));
+
+  if (hasLarge && hasSmall) return "företag i alla storlekar";
+  if (hasLarge) return "stora företag";
+  if (hasMedium && hasSmall) return "små och medelstora företag";
+  if (hasMedium) return "medelstora och större företag";
+  if (hasSmall) return "små och medelstora företag";
+  return "företag i olika storlekar";
 }
 
 interface PartnerQuickFactsProps {
