@@ -665,31 +665,6 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
    onRequest={openRequest}
     />
 
-   {/* Specialty products (HR / Commerce / ProjOps) — keep visible below tabs */}
-   {(() => {
-   const specialtyProducts = ['Project Operations', 'Commerce', 'Human Resources'];
-   const partnerSpecialties = partner.applications.filter(app => specialtyProducts.includes(app));
-   if (partnerSpecialties.length === 0) return null;
-   return (
-    <section className="py-8 border-t border-border">
-     <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
-      <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Tilläggsområden</h2>
-      <div className="grid gap-3 sm:grid-cols-3">
-       {partnerSpecialties.map((product) => {
-        const icon = getApplicationIcon(product);
-        return (
-         <div key={product} className="rounded border border-border bg-card p-4 flex items-center gap-3">
-          {icon && <img src={icon} alt="" aria-hidden="true" className="w-7 h-7" />}
-          <span className="font-semibold text-foreground text-sm">Dynamics 365 {product}</span>
-         </div>
-        );
-       })}
-      </div>
-     </div>
-    </section>
-   );
-  })()}
-
   {/* Events Section */}
   {partner?.id && (
    <section className="py-8">
