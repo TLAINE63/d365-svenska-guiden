@@ -105,7 +105,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   const [sendingReminders, setSendingReminders] = useState(false);
   const [selectedForReminder, setSelectedForReminder] = useState<Set<string>>(new Set());
   const [showCreateDialog, setShowCreateDialog] = useState(false);
-  const [sortOrder, setSortOrder] = useState<"created_desc" | "name_asc" | "latest_inv_desc">("created_desc");
+  const [sortOrder, setSortOrder] = useState<"created_desc" | "name_asc" | "latest_inv_desc" | "missing_contact">("created_desc");
   const [publishFilter, setPublishFilter] = useState<"all" | "published" | "unpublished">("all");
   
   // Email template state
