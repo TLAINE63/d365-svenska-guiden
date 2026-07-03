@@ -938,7 +938,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                 onClick={() => setActiveTemplateTab("profile_refresh")}
               >
                 <Send className="w-4 h-4 mr-2" />
-                Profileringslänk (90 dgr)
+                Profileringslänk (2026)
               </Button>
             </div>
 
