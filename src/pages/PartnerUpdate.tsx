@@ -2875,22 +2875,37 @@ const PartnerUpdate = () => {
    })()}
 
 
-   <div className="border-t border-border pt-4">
-     <Label htmlFor="not_a_fit" className="flex items-center gap-2">
-       <AlertTriangle className="w-4 h-4 text-amber-600" />
-       När passar ni inte? (en punkt per rad)
-     </Label>
-     <p className="text-xs text-muted-foreground mb-2">
-       Obligatoriskt. Hjälper köparen avgöra snabbt om ni inte är rätt val. Var konkret.
-     </p>
-     <Textarea
-       id="not_a_fit"
-       rows={4}
-       placeholder={"Under 20 användare\nRen molnmigrering utan verksamhetsförändring\nOffentlig sektor"}
-       value={notAFitInput}
-       onChange={(e) => setNotAFitInput(e.target.value)}
-     />
-   </div>
+    <div className="border-t border-border pt-4">
+      <div className="rounded-lg border border-amber-300/60 bg-amber-50 dark:bg-amber-950/20 p-3 mb-3">
+        <div className="flex items-start gap-2">
+          <AlertTriangle className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" aria-hidden="true" />
+          <div className="text-xs text-amber-900 dark:text-amber-100 leading-relaxed">
+            <strong className="font-semibold">Detta är en av era starkaste konkurrensfördelar.</strong>{" "}
+            Nästan ingen annan partnerkatalog vågar visa när en leverantör <em>inte</em> är rätt val.
+            Att ni själva sätter orden bygger trovärdighet hos köparen och filtrerar bort fel leads.
+            Texten AI-genereras <strong>aldrig</strong> – den kommer bara från er.
+          </div>
+        </div>
+      </div>
+      <Label htmlFor="not_a_fit" className="flex items-center gap-2">
+        <AlertTriangle className="w-4 h-4 text-amber-600" />
+        När passar ni <em>mindre bra</em>? (en punkt per rad)
+      </Label>
+      <p className="text-xs text-muted-foreground mb-2">
+        Obligatoriskt. Var konkret om storlek, bransch, teknik eller projekttyp där andra passar bättre.
+      </p>
+      <Textarea
+        id="not_a_fit"
+        rows={4}
+        placeholder={"Under 20 användare\nRen molnmigrering utan verksamhetsförändring\nOffentlig sektor\nRena Power Platform-projekt utan ERP-koppling"}
+        value={notAFitInput}
+        onChange={(e) => setNotAFitInput(e.target.value)}
+      />
+      <p className="text-[11px] text-muted-foreground mt-1.5">
+        Tips: 3–5 punkter räcker. Skriv i er egen ton – köparen märker skillnaden.
+      </p>
+    </div>
+
  </div>
  </PremiumCollapsibleSection>
 
