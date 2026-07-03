@@ -137,6 +137,15 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   const [profileRefreshEmails, setProfileRefreshEmails] = useState<Record<string, string>>({});
   const [profileRefreshSearch, setProfileRefreshSearch] = useState("");
   const [sendingProfileRefresh, setSendingProfileRefresh] = useState(false);
+
+  // Custom email (Partnerkommunikation)
+  const [showCustomEmailDialog, setShowCustomEmailDialog] = useState(false);
+  const [customEmailSubject, setCustomEmailSubject] = useState("");
+  const [customEmailBody, setCustomEmailBody] = useState("");
+  const [customEmailGroup, setCustomEmailGroup] = useState<"published" | "unpublished" | "selected">("selected");
+  const [customEmailSelected, setCustomEmailSelected] = useState<Set<string>>(new Set());
+  const [customEmailSearch, setCustomEmailSearch] = useState("");
+  const [sendingCustomEmail, setSendingCustomEmail] = useState(false);
   
   // Create form state
   const [newInvitation, setNewInvitation] = useState({
