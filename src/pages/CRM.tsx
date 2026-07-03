@@ -435,6 +435,7 @@ const CRM = () => {
  highlightedRevenue={selectedRevenue || undefined}
  highlightedGeography={selectedGeography || undefined}
  showRandomIndicator={true}
+ showBestFitOnly
  />
  ))}
  </div>

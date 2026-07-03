@@ -733,6 +733,7 @@ const FinanceSupplyChain = () => {
  highlightedCompanySize={selectedCompanySize || undefined}
  highlightedRevenue={selectedRevenue || undefined}
  showRandomIndicator={true}
+ showBestFitOnly
  />
  );
  })}
