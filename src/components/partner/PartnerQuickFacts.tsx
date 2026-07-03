@@ -146,14 +146,14 @@ export function PartnerQuickFacts({ partner, activeTab }: PartnerQuickFactsProps
   if (bullets.length === 0) return null;
 
   return (
-    <Card className="bg-[hsl(var(--hero-dark))] border-[hsl(var(--line-dark))] text-primary-foreground overflow-hidden">
+    <Card className="bg-[hsl(var(--color-warm))] border-[hsl(var(--color-line))] text-foreground overflow-hidden shadow-sm">
       <CardContent className="p-0">
-        <div className="px-5 py-3 border-b border-[hsl(var(--line-dark))]">
-          <h3 className="text-sm font-semibold tracking-wide text-primary-foreground">Kort profil</h3>
+        <div className="px-5 py-3 border-b border-[hsl(var(--color-line))]">
+          <h3 className="text-sm font-semibold tracking-wide text-foreground">Kort profil</h3>
         </div>
         <ul className="py-3 px-5 space-y-3 text-sm" aria-label="Kort profil">
           {bullets.map((bullet) => (
-            <li key={bullet.text} className="flex items-start gap-3 text-primary-foreground">
+            <li key={bullet.text} className="flex items-start gap-3 text-foreground">
               <span className="shrink-0" aria-hidden="true">{bullet.icon}</span>
               <span>{bullet.text}</span>
             </li>
