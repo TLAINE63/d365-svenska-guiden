@@ -644,60 +644,67 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     inv => inv.status === "pending" && new Date(inv.expires_at) >= new Date()
   );
 
-  // Map partner_id -> latest invitation created_at
+  // Map partner_id -> latest invitation (used to enrich the partner-based list)
   const latestInvitationByPartner = useMemo(() => {
-    const map = new Map<string, string>();
-    invitations.forEach(inv => {
-      if (!inv.partner_id) return;
+    const map = new Map<string, Invitation>();
+    for (const inv of invitations) {
+      if (!inv.partner_id) continue;
       const existing = map.get(inv.partner_id);
-      if (!existing || new Date(inv.created_at) > new Date(existing)) {
-        map.set(inv.partner_id, inv.created_at);
+      if (!existing || new Date(inv.created_at) > new Date(existing.created_at)) {
+        map.set(inv.partner_id, inv);
       }
-    });
+    }
     return map;
   }, [invitations]);
 
-  // Deduplicate: keep only the most recent invitation per partner
-  // (grouped by partner_id when available, otherwise by lowercase email + name)
-  const dedupedInvitations = useMemo(() => {
-    const byKey = new Map<string, typeof invitations[number]>();
+  // Fallback lookup for invitations without partner_id (match on email)
+  const latestInvitationByEmail = useMemo(() => {
+    const map = new Map<string, Invitation>();
     for (const inv of invitations) {
-      const key = inv.partner_id
-        ? `pid:${inv.partner_id}`
-        : `em:${(inv.email || "").toLowerCase()}|${inv.partner_name.toLowerCase()}`;
-      const existing = byKey.get(key);
+      if (inv.partner_id) continue;
+      const key = (inv.email || "").toLowerCase();
+      if (!key) continue;
+      const existing = map.get(key);
       if (!existing || new Date(inv.created_at) > new Date(existing.created_at)) {
-        byKey.set(key, inv);
+        map.set(key, inv);
       }
     }
-    return Array.from(byKey.values());
+    return map;
   }, [invitations]);
 
-  const sortedInvitations = useMemo(() => {
-    let sorted = [...dedupedInvitations];
-    if (publishFilter !== "all") {
-      sorted = sorted.filter(inv => {
-        const partner = inv.partner_id ? partners.find(p => p.id === inv.partner_id) : null;
-        if (!partner) return publishFilter === "unpublished";
-        return publishFilter === "published" ? partner.is_featured : !partner.is_featured;
-      });
-    }
+  // Build partner-based rows: one per partner, with latest invitation (if any)
+  const partnerRows = useMemo(() => {
+    const rows = partners.map(p => {
+      const contactEmail = p.admin_contact_email || p.email || "";
+      const inv =
+        latestInvitationByPartner.get(p.id) ||
+        (contactEmail ? latestInvitationByEmail.get(contactEmail.toLowerCase()) : undefined) ||
+        (p.email ? latestInvitationByEmail.get(p.email.toLowerCase()) : undefined);
+      return { partner: p, invitation: inv || null, contactEmail };
+    });
+
+    const filtered = rows.filter(r => {
+      if (publishFilter === "published") return r.partner.is_featured;
+      if (publishFilter === "unpublished") return !r.partner.is_featured;
+      return true;
+    });
+
     switch (sortOrder) {
       case "name_asc":
-        sorted.sort((a, b) => a.partner_name.localeCompare(b.partner_name, "sv"));
+        filtered.sort((a, b) => a.partner.name.localeCompare(b.partner.name, "sv"));
         break;
       case "latest_inv_desc":
-        sorted.sort((a, b) => {
-          const aLatest = a.partner_id ? latestInvitationByPartner.get(a.partner_id) : null;
-          const bLatest = b.partner_id ? latestInvitationByPartner.get(b.partner_id) : null;
-          return new Date(bLatest || 0).getTime() - new Date(aLatest || 0).getTime();
-        });
-        break;
+      case "created_desc":
       default:
-        sorted.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+        filtered.sort((a, b) => {
+          const at = a.invitation ? new Date(a.invitation.created_at).getTime() : 0;
+          const bt = b.invitation ? new Date(b.invitation.created_at).getTime() : 0;
+          if (bt !== at) return bt - at;
+          return a.partner.name.localeCompare(b.partner.name, "sv");
+        });
     }
-    return sorted;
-  }, [dedupedInvitations, sortOrder, latestInvitationByPartner, publishFilter, partners]);
+    return filtered;
+  }, [partners, latestInvitationByPartner, latestInvitationByEmail, publishFilter, sortOrder]);
 
   const toggleReminderSelection = (id: string) => {
     setSelectedForReminder(prev => {
