@@ -147,6 +147,16 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   const [customEmailSelected, setCustomEmailSelected] = useState<Set<string>>(new Set());
   const [customEmailSearch, setCustomEmailSearch] = useState("");
   const [sendingCustomEmail, setSendingCustomEmail] = useState(false);
+
+  // Kopiera e-postadresser (för klistra in i eget mailprogram)
+  const [showEmailListDialog, setShowEmailListDialog] = useState(false);
+  const [emailListSelected, setEmailListSelected] = useState<Set<string>>(new Set());
+  const [emailListSearch, setEmailListSearch] = useState("");
+  const [emailListSeparator, setEmailListSeparator] = useState<"comma" | "semicolon" | "newline">("semicolon");
+  const [emailListIncludeInvoice, setEmailListIncludeInvoice] = useState(false);
+  const [emailListFilter, setEmailListFilter] = useState<"all" | "published" | "unpublished">("all");
+
+  
   
   // Create form state
   const [newInvitation, setNewInvitation] = useState({
