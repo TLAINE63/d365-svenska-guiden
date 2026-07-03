@@ -84,9 +84,10 @@ interface Invitation {
 
 interface PartnerInvitationsTabProps {
   token: string;
-  partners: Array<{ id: string; name: string; slug: string; email: string; admin_contact_email: string; is_featured: boolean; contact_person: string }>;
+  partners: Array<{ id: string; name: string; slug: string; email: string; admin_contact_email: string; admin_contact_name: string; is_featured: boolean; contact_person: string }>;
   onSessionExpired?: () => void;
 }
+
 
 const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInvitationsTabProps) => {
 
