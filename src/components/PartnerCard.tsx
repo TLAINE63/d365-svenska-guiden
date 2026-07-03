@@ -169,6 +169,18 @@ const PartnerCard = ({
 
  const hasHighlights = highlightedProduct || highlightedIndustry || highlightedGeography || highlightedCompanySize || highlightedRevenue;
 
+ // Find a matching industry pitch when requested; prefer product-specific, fall back to industry-only.
+ const industryPitch = useMemo(() => {
+  if (!showIndustryPitch || !isDatabasePartner(partner) || !partner.industry_pitches || !highlightedIndustry) return null;
+  const pitches = partner.industry_pitches;
+  if (productKey) {
+   const productPitch = pitches.find(p => p.industry === highlightedIndustry && p.product === productKey);
+   if (productPitch?.text) return productPitch.text;
+  }
+  const anyPitch = pitches.find(p => p.industry === highlightedIndustry);
+  return anyPitch?.text || null;
+ }, [showIndustryPitch, partner, highlightedIndustry, productKey]);
+
  return (
  <article 
  className={`group relative flex flex-col h-full rounded overflow-hidden
