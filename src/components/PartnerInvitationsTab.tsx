@@ -1360,7 +1360,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Send className="w-5 h-5" />
-              Skicka profileringslänk (90 dagar)
+              Skicka profileringslänk (2026)
             </DialogTitle>
             <CardDescription>
               Skickar en unik profileringslänk till valda partners. Mailet skickas från <strong>info@d365.se</strong> med svar till <strong>thomas.laine@dynamicfactory.se</strong>.
