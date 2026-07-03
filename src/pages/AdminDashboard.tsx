@@ -811,7 +811,7 @@ const AdminDashboard = () => {
  body: "Hej {{NAME}},\n\nJag vill presentera d365.se – en köparsidig köpguide för företag som utvärderar Microsoft Dynamics 365.\n\n{{INVITATION_LINK}}\n\nMed vänlig hälsning,\n\nThomas Laine & Michael Uhman\nd365.se",
  },
  profile_refresh: {
- label: "Profileringslänk (90 dgr)",
+ label: "Profileringslänk (2026)",
  subject: "VIKTIGT! Uppdatera er partnerprofil på d365.se",
  body: `Hej,
 
