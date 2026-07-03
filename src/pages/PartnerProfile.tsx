@@ -703,7 +703,14 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  <TrustBanner variant="compact" />
 
 
- <Footer />
+  <Footer />
+
+  <StickyContactCTA
+    partnerName={partner.name}
+    onBookMeeting={() => openRequest("demo")}
+    onIntro={() => openRequest("contact")}
+  />
+
 
  <PartnerVideoModal
  videoId={videoOpen ? (extractYouTubeId((() => {
