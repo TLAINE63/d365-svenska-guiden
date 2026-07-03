@@ -15,7 +15,7 @@ import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
 // Maps template_name in email_send_log to the badge shown next to each partner
 const AGREEMENT_TEMPLATE_LABELS: Record<string, { label: string; className: string }> = {
   partner_agreement: { label: "Avtal", className: "bg-blue-50 text-blue-700 border-blue-200" },
-  partner_prospect_agreement: { label: "Prospekt", className: "bg-purple-50 text-purple-700 border-purple-200" },
+  partner_prospect_agreement: { label: "Avtalsförslag", className: "bg-purple-50 text-purple-700 border-purple-200" },
   partner_sales_pitch: { label: "Införsälj", className: "bg-orange-50 text-orange-700 border-orange-200" },
 };
 
@@ -107,7 +107,7 @@ Thomas Laine & Michael Uhman
 Moveahead AB / Dynamic Factory
 d365.se`;
 
-const PROSPECT_DEFAULT_SUBJECT = "Bli synlig på d365.se – Beslutsstöd för dig som ska välja Microsoft Dynamics 365 och rätt partner";
+const PROSPECT_DEFAULT_SUBJECT = "Avtalsförslag – bli synlig på d365.se";
 
 const PROSPECT_DEFAULT_BODY = `Hej,
 
@@ -331,11 +331,28 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
     }
   };
 
+  // Avtalsförslag måste alltid innehålla både profileringslänk och PDF-länk.
+  // Om admin råkat radera någon platshållare lägger vi tillbaka den automatiskt.
+  const ensureAvtalsforslagPlaceholders = (body: string) => {
+    let b = body;
+    if (!b.includes("{{INVITATION_LINK}}")) {
+      b = b.trimEnd() + "\n\nDin profileringslänk:\n\n{{INVITATION_LINK}}";
+    }
+    if (!b.includes("{{PDF_LINK}}")) {
+      b = b.trimEnd() + "\n\nFullständigt partneravtal:\n\n{{PDF_LINK}}";
+    }
+    return b;
+  };
+
   const saveTemplate = async () => {
     try {
+      const bodyToSave = templateKind === "prospect" ? ensureAvtalsforslagPlaceholders(active.body) : active.body;
+      if (templateKind === "prospect" && bodyToSave !== active.body) {
+        active.setBody(bodyToSave);
+      }
       const saves = [
         { key: active.subjectKey, value: active.subject },
-        { key: active.bodyKey, value: active.body },
+        { key: active.bodyKey, value: bodyToSave },
         { key: active.ccKey, value: active.cc },
       ];
       await Promise.all(saves.map((s) =>
@@ -418,7 +435,7 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
     const selectedPartners = partners.filter((p) => selected.has(p.id));
     if (selectedPartners.length === 0) return;
 
-    const label = templateKind === "published" ? "avtalsmail (publicerad mall)" : "prospektmail (ej publicerad mall)";
+    const label = templateKind === "published" ? "avtalsmail (publicerad mall)" : "avtalsförslag (med profileringslänk + PDF)";
     const names = selectedPartners.slice(0, 5).map((p) => p.name).join(", ") + (selectedPartners.length > 5 ? `, +${selectedPartners.length - 5} till` : "");
     if (!confirm(`Skicka ${label} till ${selectedPartners.length} partner(s)?\n\n${names}`)) return;
 
@@ -429,6 +446,8 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
         name: p.name,
         email: p.admin_contact_email || p.email || "",
       }));
+
+      const emailBodyToSend = templateKind === "prospect" ? ensureAvtalsforslagPlaceholders(active.body) : active.body;
 
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=${action}`,
@@ -442,7 +461,7 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
           body: JSON.stringify({
             partners: partnerList,
             subject: active.subject,
-            email_body: active.body,
+            email_body: emailBodyToSend,
             cc: ccList,
           }),
         }
@@ -481,7 +500,7 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
       <div>
         <h2 className="text-lg font-semibold mb-1 flex items-center gap-2">
           <Mail className="h-5 w-5" />
-          Partneravtal & Prospektutskick
+          Partneravtal & Avtalsförslag
         </h2>
         <p className="text-sm text-muted-foreground">
           Markera valfria partners (publicerade eller ej) och välj vilken mall som ska skickas.
@@ -681,7 +700,7 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="published">Avtalsmail – för publicerade partners (fortsätt synlighet)</SelectItem>
-              <SelectItem value="prospect">Prospektmail – för ej publicerade (med profileringslänk)</SelectItem>
+              <SelectItem value="prospect">Avtalsförslag – innehåller alltid profileringslänk + PDF-avtal</SelectItem>
               <SelectItem value="cold-pitch">Införsäljningsmail – fri e-postadress, en åt gången</SelectItem>
             </SelectContent>
           </Select>
@@ -735,7 +754,7 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
               ) : (
                 <>
                   <span className="font-medium">{selected.size}</span> mottagare ·{" "}
-                  <span className="font-medium">{templateKind === "published" ? "Avtalsmail" : "Prospektmail"}</span>
+                  <span className="font-medium">{templateKind === "published" ? "Avtalsmail" : "Avtalsförslag"}</span>
                 </>
               )}
             </div>
