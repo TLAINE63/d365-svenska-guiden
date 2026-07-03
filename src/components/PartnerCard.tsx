@@ -4,8 +4,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { 
  ArrowRight, 
- CheckCircle2, 
- Sparkles, 
  Building2,
   Shuffle,
   BrainCircuit,
