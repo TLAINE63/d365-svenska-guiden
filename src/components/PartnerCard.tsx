@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -62,6 +62,8 @@ interface PartnerCardProps {
  highlightedRevenue?: string;
  highlightedGeography?: string;
  showRandomIndicator?: boolean;
+ // When true, show a single longer industry-pitch text block instead of the positioning statement
+ showIndustryPitch?: boolean;
 }
 
 const PartnerCard = ({ 
@@ -74,7 +76,8 @@ const PartnerCard = ({
  highlightedCompanySize,
  highlightedRevenue,
  highlightedGeography,
- showRandomIndicator = false
+ showRandomIndicator = false,
+ showIndustryPitch = false,
 }: PartnerCardProps) => {
   const [showAiDetails, setShowAiDetails] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
@@ -165,6 +168,18 @@ const PartnerCard = ({
  const displayApplications = getDisplayApplications();
 
  const hasHighlights = highlightedProduct || highlightedIndustry || highlightedGeography || highlightedCompanySize || highlightedRevenue;
+
+ // Find a matching industry pitch when requested; prefer product-specific, fall back to industry-only.
+ const industryPitch = useMemo(() => {
+  if (!showIndustryPitch || !isDatabasePartner(partner) || !partner.industry_pitches || !highlightedIndustry) return null;
+  const pitches = partner.industry_pitches;
+  if (productKey) {
+   const productPitch = pitches.find(p => p.industry === highlightedIndustry && p.product === productKey);
+   if (productPitch?.text) return productPitch.text;
+  }
+  const anyPitch = pitches.find(p => p.industry === highlightedIndustry);
+  return anyPitch?.text || null;
+ }, [showIndustryPitch, partner, highlightedIndustry, productKey]);
 
  return (
  <article 
@@ -295,14 +310,22 @@ const PartnerCard = ({
  </div>
  )}
 
-    {/* Positioning statement — gives the partner more text space */}
-    {isDatabasePartner(partner) && partner.positioning_statement && (
-      <div className="mb-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary">
-        <p className="text-[13px] font-medium text-foreground leading-snug line-clamp-5">
-          {partner.positioning_statement}
-        </p>
-      </div>
-    )}
+     {/* Industry pitch or positioning statement — single text block */}
+     {industryPitch ? (
+       <div className="mb-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary">
+         <p className="text-[13px] font-medium text-foreground leading-snug line-clamp-6">
+           {industryPitch}
+         </p>
+       </div>
+     ) : (
+       isDatabasePartner(partner) && partner.positioning_statement && (
+         <div className="mb-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary">
+           <p className="text-[13px] font-medium text-foreground leading-snug line-clamp-5">
+             {partner.positioning_statement}
+           </p>
+         </div>
+       )
+     )}
  
        {/* Product competence badges */}
        {displayApplications.length > 0 && (
