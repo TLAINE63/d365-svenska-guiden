@@ -1763,8 +1763,16 @@ D365.se`;
             <a href="${pdfUrl}" style="display: inline-block; background-color: #1e40af; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 15px;">📄 Ladda ner partneravtal (PDF)</a>
           </div>`;
 
-          // Convert plain text to HTML, handle both placeholders
-          let bodyText = emailBody;
+          // Convert plain text to HTML, handle both placeholders (normalize legacy literals)
+          let bodyText = emailBody
+            .replace(/\[Länk till profileringsformulär\]/gi, "{{INVITATION_LINK}}")
+            .replace(/\[Länk till profilering\]/gi, "{{INVITATION_LINK}}")
+            .replace(/\[Profileringslänk\]/gi, "{{INVITATION_LINK}}")
+            .replace(/\[Länk till avtal\]/gi, "{{PDF_LINK}}")
+            .replace(/\[Länk till partneravtal\]/gi, "{{PDF_LINK}}")
+            .replace(/\[Avtalslänk\]/gi, "{{PDF_LINK}}");
+          
+
           
           const htmlBody = bodyText
             .split("{{INVITATION_LINK}}")
