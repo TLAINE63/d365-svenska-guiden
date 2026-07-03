@@ -45,19 +45,6 @@ import { buildMetaTitle } from "@/lib/metaTitle";
 import { buildMetaDescription } from "@/lib/metaDescription";
 import { trackPartnerView } from "@/utils/trackPartnerView";
 
-// Dynamics 365 icons
-import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
-import FinanceIcon from "@/assets/icons/Finance.svg";
-import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
-import SalesIcon from "@/assets/icons/Sales.svg";
-import MarketingIcon from "@/assets/icons/Marketing.svg";
-import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
-import FieldServiceIcon from "@/assets/icons/FieldService.svg";
-import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
-import CopilotIcon from "@/assets/icons/Copilot.png";
-import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
-import CommerceIcon from "@/assets/icons/Commerce.svg";
-import HumanResourcesIcon from "@/assets/icons/HumanResources.svg";
 
 // Map application names to Dynamics 365 icons
 const applicationIcons: Record<string, string> = {
