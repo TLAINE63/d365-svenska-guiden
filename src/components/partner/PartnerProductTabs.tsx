@@ -618,11 +618,7 @@ export default function PartnerProductTabs({
               </h2>
 
               {(() => {
-                const primaryApps = data.apps;
-                const specialtyApps = (partner.applications || []).filter((a) =>
-                  SPECIALTY_APPLICATIONS.includes(a),
-                );
-                const allApps = [...new Set([...primaryApps, ...specialtyApps])];
+                const allApps = getAllProductCompetencies(partner);
                 if (allApps.length === 0) return null;
                 return (
                   <div className="mb-4">
