@@ -90,7 +90,7 @@
     "map_url": "https://www.google.com/maps/d/edit?mid=1lqToksFfFiaeIdp1Hgub9PYB6WJk_xs&ll=59.13450631416728%2C16.462738500000004&z=5",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-07-02T10:48:17.090082+00:00",
+    "updated_at": "2026-07-03T08:14:45.728367+00:00",
     "industry_pitches": [
       {
         "text": "4PS Construction Software AB erbjuder en branschspecifik ERP-lösning, 4PS Construct, baserad på Microsoft Dynamics 365 Business Central. Lösningen är utvecklad för bygg-, installations- och serviceföretag och syftar till att leverera end-to-end-funktionalitet. Med 4PS Construct kan företag hantera projekthantering, offerter, resursplanering, inköp, ekonomi och service i en integrerad plattform. 4PS Construct tillhandahåller realtidsvisibilitet över projektprocesser, vilket bidrar till effektivare styrning och beslutsfattande inom bygg- och entreprenadbranschen. Partnern fokuserar på att möta branschens behov av smidiga digitala processer för att hantera komplexa projekt och krav på lönsamhet.",
@@ -115,7 +115,12 @@
     "delivery_profile": {},
     "team_size_sweden": null,
     "implementations_done": null,
-    "not_a_fit": [],
+    "not_a_fit": [
+      "Kunder som söker en partner med bred geografisk täckning utanför Norden.",
+      "Bolag verksamma i andra branscher än bygg, installation och service.",
+      "Projekt som kräver avancerad AI-utveckling bortom standardintegrationer i Microsofts plattform.",
+      "Organisationer som kräver support för Dynamics 365 Finance & Operations."
+    ],
     "implementations_per_app": {},
     "invoice_email": "peter.vach@4ps.se",
     "invoice_contact": "Peter Vach",
