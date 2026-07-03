@@ -17,6 +17,9 @@ export interface AiProfile {
   /** AI-generated buyer-oriented summary shown in the "AI-erfarenhet" box. */
   ai_experience_summary?: string | null;
   ai_experience_summary_generated_at?: string | null;
+  /** Concise, buyer-oriented summary shown on smaller partner cards. */
+  card_ai_summary?: string | null;
+  card_ai_summary_generated_at?: string | null;
 }
 
 

@@ -29,6 +29,7 @@ import { trackPartnerView } from "@/utils/trackPartnerView";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 
 import { displayApplicationName, getApplicationIcon, sortApplications, normalizeApplications } from "@/lib/applicationLabels";
+import PartnerCardSummary from "@/components/partner/PartnerCardSummary";
 
 
 // (AI labels and badge styles now come from aiScoring.ts)
@@ -317,17 +318,6 @@ const PartnerCard = ({
 
   const displayApplications = getDisplayApplications();
 
-  // Find a matching industry pitch when requested; prefer product-specific, fall back to industry-only.
- const industryPitch = useMemo(() => {
-  if (!showIndustryPitch || !isDatabasePartner(partner) || !partner.industry_pitches || !highlightedIndustry) return null;
-  const pitches = partner.industry_pitches;
-  if (productKey) {
-   const productPitch = pitches.find(p => p.industry === highlightedIndustry && p.product === productKey);
-   if (productPitch?.text) return productPitch.text;
-  }
-  const anyPitch = pitches.find(p => p.industry === highlightedIndustry);
-  return anyPitch?.text || null;
- }, [showIndustryPitch, partner, highlightedIndustry, productKey]);
 
  return (
  <article 
@@ -444,31 +434,10 @@ const PartnerCard = ({
 
 
 
-   {/* Single text block — product pages show "Passar bäst för" with positioning statement */}
-     {showBestFitOnly && isDatabasePartner(partner) && partner.positioning_statement ? (
-       <div className="mb-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary">
-         <p className="text-[13px] font-semibold text-primary mb-1.5">Passar bäst för:</p>
-         <p className="text-[13px] font-medium text-foreground leading-snug line-clamp-9">
-           {partner.positioning_statement}
-         </p>
-       </div>
-     ) : (
-       industryPitch ? (
-         <div className="mb-4 p-4 rounded-lg bg-primary/5 border-l-2 border-primary">
-           <p className="text-[14px] font-medium text-foreground leading-relaxed line-clamp-8">
-             {industryPitch}
-           </p>
-         </div>
-       ) : (
-         isDatabasePartner(partner) && partner.positioning_statement && (
-           <div className="mb-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary">
-             <p className="text-[13px] font-medium text-foreground leading-snug line-clamp-5">
-               {partner.positioning_statement}
-             </p>
-           </div>
-         )
-       )
-     )}
+    <PartnerCardSummary
+      partner={partner}
+      highlightedIndustry={highlightedIndustry || null}
+    />
  
        {/* Product competence badges */}
        {displayApplications.length > 0 && (
