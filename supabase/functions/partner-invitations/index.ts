@@ -1527,10 +1527,17 @@ D365.se`;
             continue;
           }
 
-          // Replace placeholders
+          // Replace placeholders (also normalize legacy Swedish literals)
           let bodyText = emailBody
             .replace(/\{\{DEADLINE\}\}/g, deadlineStr)
-            .replace(/\{\{START_DATE\}\}/g, startDateStr);
+            .replace(/\{\{START_DATE\}\}/g, startDateStr)
+            .replace(/\[Länk till profileringsformulär\]/gi, "{{INVITATION_LINK}}")
+            .replace(/\[Länk till profilering\]/gi, "{{INVITATION_LINK}}")
+            .replace(/\[Profileringslänk\]/gi, "{{INVITATION_LINK}}")
+            .replace(/\[Länk till avtal\]/gi, "{{PDF_LINK}}")
+            .replace(/\[Länk till partneravtal\]/gi, "{{PDF_LINK}}")
+            .replace(/\[Avtalslänk\]/gi, "{{PDF_LINK}}");
+
 
           // Resolve a unique profiling link for this partner (reuse existing invitation or create one)
           let invitationLink = PUBLIC_BASE_URL;
