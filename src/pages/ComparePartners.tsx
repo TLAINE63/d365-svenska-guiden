@@ -30,6 +30,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import AiCompareInsights from "@/components/AiCompareInsights";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
+import { useTrackFilterExposure } from "@/hooks/useTrackFilterExposure";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import {
   AiProfile,
@@ -1164,6 +1165,24 @@ const ComparePartners = () => {
   }, [productFilters, availableProductKeys, params, setParams]);
 
   const productActive = productFilters.length > 0;
+
+  // Track which partners are actually compared (2-3 selected) so admin can see participation
+  const comparedPartners = useMemo(
+    () => [a, b, c].filter((p): p is DatabasePartner => Boolean(p)),
+    [a, b, c]
+  );
+  useTrackFilterExposure({
+    partners: comparedPartners.map((p) => ({ slug: p.slug, id: p.id })),
+    pagePath: "/jamfor-partners",
+    filterContext: {
+      product: productFilters.join(",") || null,
+      industry: industryFilter || null,
+      compared_count: comparedPartners.length,
+    },
+    enabled: !isLoading && comparedPartners.length >= 2,
+  });
+
+
   
 
   const matchesProduct = (app: string) => {

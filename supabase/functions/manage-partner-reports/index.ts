@@ -388,6 +388,131 @@ serve(async (req) => {
         return new Response(JSON.stringify({ drafts }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
 
+      case "partner_engagement": {
+        // Aggregates: partners compared in /jamfor-partners, listed in filters, and card-clicked.
+        const { period_start, period_end } = data as { period_start?: string; period_end?: string };
+        const now = new Date();
+        const defaultEnd = now.toISOString().slice(0, 10);
+        const defaultStart = new Date(now.getTime() - 30 * 86400000).toISOString().slice(0, 10);
+        const start = period_start || defaultStart;
+        const end = period_end || defaultEnd;
+        const startIso = `${start}T00:00:00Z`;
+        const endIso = `${end}T23:59:59Z`;
+
+        const [{ data: partners }, { data: exposures, error: eErr }, { data: views, error: vErr }] = await Promise.all([
+          supabase.from("partners").select("id, slug, name, is_featured, agreement_signed"),
+          supabase
+            .from("partner_filter_exposures")
+            .select("partner_slug, page_path, filter_context, session_id, viewed_at")
+            .gte("viewed_at", startIso)
+            .lte("viewed_at", endIso),
+          supabase
+            .from("partner_profile_views")
+            .select("partner_slug, view_type, page_source, viewed_at")
+            .eq("view_type", "card_click")
+            .gte("viewed_at", startIso)
+            .lte("viewed_at", endIso),
+        ]);
+        if (eErr) throw eErr;
+        if (vErr) throw vErr;
+
+        const partnerBySlug = new Map<string, any>();
+        for (const p of partners || []) partnerBySlug.set(p.slug, p);
+        const nameOf = (slug: string) => partnerBySlug.get(slug)?.name || slug;
+        const isFeatured = (slug: string) => Boolean(partnerBySlug.get(slug)?.is_featured);
+        const isSigned = (slug: string) => Boolean(partnerBySlug.get(slug)?.agreement_signed);
+
+        // 1) Compare participation (page_path = /jamfor-partners)
+        const compareBySlug = new Map<string, { sessions: Set<string>; count: number; last: string | null }>();
+        // 2) Listings in other filter pages
+        const listingsBySlug = new Map<string, { total: number; by_path: Record<string, number>; last: string | null }>();
+        let compareSessions = new Set<string>();
+
+        for (const e of exposures || []) {
+          const slug = e.partner_slug as string;
+          if (!slug) continue;
+          if (e.page_path === "/jamfor-partners") {
+            let b = compareBySlug.get(slug);
+            if (!b) { b = { sessions: new Set(), count: 0, last: null }; compareBySlug.set(slug, b); }
+            b.count++;
+            if (e.session_id) { b.sessions.add(e.session_id); compareSessions.add(e.session_id); }
+            if (!b.last || e.viewed_at > b.last) b.last = e.viewed_at;
+          } else {
+            let b = listingsBySlug.get(slug);
+            if (!b) { b = { total: 0, by_path: {}, last: null }; listingsBySlug.set(slug, b); }
+            b.total++;
+            b.by_path[e.page_path] = (b.by_path[e.page_path] || 0) + 1;
+            if (!b.last || e.viewed_at > b.last) b.last = e.viewed_at;
+          }
+        }
+
+        // 3) Card clicks
+        const cardsBySlug = new Map<string, { count: number; by_source: Record<string, number>; last: string | null }>();
+        for (const v of views || []) {
+          const slug = v.partner_slug as string;
+          if (!slug) continue;
+          let b = cardsBySlug.get(slug);
+          if (!b) { b = { count: 0, by_source: {}, last: null }; cardsBySlug.set(slug, b); }
+          b.count++;
+          const src = v.page_source || "(okänd)";
+          b.by_source[src] = (b.by_source[src] || 0) + 1;
+          if (!b.last || v.viewed_at > b.last) b.last = v.viewed_at;
+        }
+
+        const compareRows = Array.from(compareBySlug.entries()).map(([slug, v]) => ({
+          slug,
+          name: nameOf(slug),
+          is_featured: isFeatured(slug),
+          agreement_signed: isSigned(slug),
+          exposures: v.count,
+          unique_sessions: v.sessions.size,
+          last_seen: v.last,
+        })).sort((a, b) => b.exposures - a.exposures);
+
+        const listingRows = Array.from(listingsBySlug.entries()).map(([slug, v]) => ({
+          slug,
+          name: nameOf(slug),
+          is_featured: isFeatured(slug),
+          agreement_signed: isSigned(slug),
+          total: v.total,
+          by_path: Object.entries(v.by_path).map(([path, count]) => ({ path, count })).sort((a, b) => b.count - a.count),
+          last_seen: v.last,
+        })).sort((a, b) => b.total - a.total);
+
+        const cardRows = Array.from(cardsBySlug.entries()).map(([slug, v]) => ({
+          slug,
+          name: nameOf(slug),
+          is_featured: isFeatured(slug),
+          agreement_signed: isSigned(slug),
+          card_clicks: v.count,
+          by_source: Object.entries(v.by_source).map(([source, count]) => ({ source, count })).sort((a, b) => b.count - a.count),
+          last_seen: v.last,
+        })).sort((a, b) => b.card_clicks - a.card_clicks);
+
+        return new Response(JSON.stringify({
+          period_start: start,
+          period_end: end,
+          compare: {
+            total_partners: compareRows.length,
+            total_exposures: (exposures || []).filter((e: any) => e.page_path === "/jamfor-partners").length,
+            unique_sessions: compareSessions.size,
+            partners: compareRows,
+          },
+          listings: {
+            total_partners: listingRows.length,
+            total_exposures: (exposures || []).filter((e: any) => e.page_path !== "/jamfor-partners").length,
+            partners: listingRows,
+          },
+          card_clicks: {
+            total_partners: cardRows.length,
+            total_clicks: cardRows.reduce((s, r) => s + r.card_clicks, 0),
+            partners: cardRows,
+          },
+        }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
+
+
       case "explore": {
         // Returns per-partner aggregation of identified companies + URLs for a date range.
         const { period_start, period_end } = data as { period_start?: string; period_end?: string };
