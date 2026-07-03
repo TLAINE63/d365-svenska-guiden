@@ -373,9 +373,11 @@ const AdminDashboard = () => {
  useEffect(() => {
  try { localStorage.setItem("admin-active-group", activeGroup); } catch {}
  }, [activeGroup]);
- useEffect(() => {
- try { localStorage.setItem("admin-active-tab", activeTab); } catch {}
- }, [activeTab]);
+  useEffect(() => {
+  try { localStorage.setItem("admin-active-tab", activeTab); } catch {}
+  if (activeTab === "partners") setPartnerStatusFilter("published");
+  else if (activeTab === "unprofiled-partners") setPartnerStatusFilter("unpublished");
+  }, [activeTab]);
 
   // AI summary generation state
   const [generatingSummaryId, setGeneratingSummaryId] = useState<string | null>(null);
