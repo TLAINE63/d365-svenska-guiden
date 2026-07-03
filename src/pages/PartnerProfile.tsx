@@ -582,10 +582,6 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   );
    })()}
 
-   {/* Quick facts — helps customers compare themselves against the partner */}
-   <div className="mt-4 w-full max-w-2xl">
-     <PartnerQuickFacts partner={partner} activeTab={activeTabKey} />
-   </div>
 
   </div>
   </div>
