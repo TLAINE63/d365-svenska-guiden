@@ -106,7 +106,8 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   const [selectedForDelete, setSelectedForDelete] = useState<Set<string>>(new Set());
   const [deleting, setDeleting] = useState(false);
   const [showCreateDialog, setShowCreateDialog] = useState(false);
-  const [sortOrder, setSortOrder] = useState<"created_desc" | "name_asc" | "status" | "latest_inv_desc">("created_desc");
+  const [sortOrder, setSortOrder] = useState<"created_desc" | "name_asc" | "latest_inv_desc">("created_desc");
+  const [publishFilter, setPublishFilter] = useState<"all" | "published" | "unpublished">("all");
   
   // Email template state
   const [emailTemplate, setEmailTemplate] = useState("");
