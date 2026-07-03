@@ -1092,7 +1092,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                 />
                 <div className="flex justify-between items-center">
                   <p className="text-xs text-muted-foreground">
-                    Platshållare: {"{{INVITATION_LINK}}"} = unik profileringslänk (90 dgr), {"{{NAME}}"} = partnerns namn
+                    Platshållare: {"{{INVITATION_LINK}}"} = unik profileringslänk (2026), {"{{NAME}}"} = partnerns namn
                   </p>
                   <div className="flex gap-2">
                     {(profileRefreshTemplate !== profileRefreshTemplateOriginal || profileRefreshSubject !== profileRefreshSubjectOriginal) && (
