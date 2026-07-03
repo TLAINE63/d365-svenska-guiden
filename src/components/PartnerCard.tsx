@@ -25,7 +25,8 @@ import {
  TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Partner, getCumulativeGeographyDisplay } from "@/data/partners";
-import { DatabasePartner } from "@/hooks/usePartners";
+import { DatabasePartner, type ProductFilterInput, type ProductFilters } from "@/hooks/usePartners";
+
 import { trackPartnerView } from "@/utils/trackPartnerView";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 
@@ -50,6 +51,134 @@ type PartnerData = Partner | DatabasePartner;
 function isDatabasePartner(partner: PartnerData): partner is DatabasePartner {
  return 'product_filters' in partner && 'slug' in partner;
 }
+
+const smallSizeBuckets = ["1-49", "50-99", "100-249"];
+const largeSizeBuckets = ["1.000-4.999", ">5.000"];
+
+function getPartnerIndicators(
+ partner: PartnerData,
+ productKey?: string | null,
+ highlightedIndustry?: string | null,
+) {
+ const indicators: { icon: string; label: string; tooltip: string }[] = [];
+
+ const isDb = isDatabasePartner(partner);
+
+ // Determine which product filter to derive size/geography from when possible
+ let productFilter: ProductFilterInput | undefined = undefined;
+ if (isDb && productKey) {
+  productFilter = partner.product_filters?.[productKey];
+ }
+
+ // If no product key but a highlighted industry is provided, prefer a filter
+ // that explicitly targets that industry so the indicator matches the context.
+ if (!productFilter && isDb && highlightedIndustry) {
+  const filters = partner.product_filters || {};
+  for (const key of Object.keys(filters)) {
+   const pf = filters[key as keyof ProductFilters];
+   if (pf?.industries?.includes(highlightedIndustry)) {
+    productFilter = pf;
+    break;
+   }
+  }
+ }
+
+ // Fallback to any populated product filter
+ if (!productFilter && isDb) {
+  const filters = partner.product_filters || {};
+  productFilter = Object.values(filters).find(
+   (pf): pf is ProductFilterInput => !!pf && (pf.industries?.length > 0 || pf.companySize?.length > 0)
+  );
+ }
+
+ const industries = productFilter?.industries?.length
+   ? productFilter.industries
+   : (partner.industries || []);
+
+ const companySize = (productFilter?.companySize || []) as string[];
+
+ let geography: string[] = [];
+ if (productFilter?.geography?.length) {
+  geography = productFilter.geography;
+ } else if (isDb) {
+  geography = partner.geography || [];
+ } else {
+  geography = partner.geography ? [partner.geography] : [];
+ }
+
+ const deliveryProfile = isDb ? partner.delivery_profile : null;
+
+ // Industry specialist / specific industry focus
+ const displayedIndustry =
+  highlightedIndustry && industries.includes(highlightedIndustry)
+   ? highlightedIndustry
+   : industries[0];
+
+ if (industries.length === 1) {
+  const industry = displayedIndustry;
+  if (industry === "Transport & Logistik") {
+   indicators.push({ icon: "🚚", label: "Logistikexpert", tooltip: "Specialist på transport & logistik" });
+  } else if (industry === "Tillverkningsindustri") {
+   indicators.push({ icon: "🏭", label: "Tillverkningsexpert", tooltip: "Specialist på tillverkningsindustri" });
+  } else if (industry === "Retail & E-handel") {
+   indicators.push({ icon: "🛒", label: "Retail-specialist", tooltip: "Specialist på retail & e-handel" });
+  } else if (industry === "Bygg & Entreprenad") {
+   indicators.push({ icon: "🏗️", label: "Byggspecialist", tooltip: "Specialist på bygg & entreprenad" });
+  } else if (industry === "Livsmedel & Processindustri") {
+   indicators.push({ icon: "🍽️", label: "Livsmedelsexpert", tooltip: "Specialist på livsmedel & processindustri" });
+  } else {
+   indicators.push({ icon: "🏭", label: "Branschspecialist", tooltip: `Djup branschkunskap inom ${industry}` });
+  }
+ } else if (highlightedIndustry && industries.includes(highlightedIndustry)) {
+  // Show a contextual specialist badge even if the partner has other industries
+  if (highlightedIndustry === "Transport & Logistik") {
+   indicators.push({ icon: "🚚", label: "Logistikexpert", tooltip: "Har tydlig kompetens inom transport & logistik" });
+  } else if (highlightedIndustry === "Tillverkningsindustri") {
+   indicators.push({ icon: "🏭", label: "Tillverkningsexpert", tooltip: "Har tydlig kompetens inom tillverkningsindustri" });
+  } else if (highlightedIndustry === "Retail & E-handel") {
+   indicators.push({ icon: "🛒", label: "Retail-specialist", tooltip: "Har tydlig kompetens inom retail & e-handel" });
+  } else if (highlightedIndustry === "Bygg & Entreprenad") {
+   indicators.push({ icon: "🏗️", label: "Byggspecialist", tooltip: "Har tydlig kompetens inom bygg & entreprenad" });
+  } else if (highlightedIndustry === "Livsmedel & Processindustri") {
+   indicators.push({ icon: "🍽️", label: "Livsmedelsexpert", tooltip: "Har tydlig kompetens inom livsmedel & processindustri" });
+  } else {
+   indicators.push({ icon: "🏭", label: "Branschspecialist", tooltip: `Har kompetens inom ${highlightedIndustry}` });
+  }
+ } else if (industries.length > 1 && industries.length <= 3) {
+  indicators.push({ icon: "🏭", label: "Branschspecialist", tooltip: "Tydlig branschfokus" });
+ }
+
+
+ // SMB focus
+ const hasSmall = companySize.some(s => smallSizeBuckets.includes(s));
+ const hasLarge = companySize.some(s => largeSizeBuckets.includes(s));
+ if (hasSmall && !hasLarge) {
+  indicators.push({ icon: "💼", label: "SMB-fokus", tooltip: "Fokuserat på små och medelstora företag" });
+ } else if (hasSmall && hasLarge) {
+  indicators.push({ icon: "💼", label: "Alla storlekar", tooltip: "Arbetar med både SMB och stora företag" });
+ }
+
+ // Geography
+ const geoSet = new Set(geography);
+ if (geoSet.has("Globalt") || geoSet.has("Europa")) {
+  indicators.push({ icon: "🌍", label: "Norden +", tooltip: "Verksam i Norden och internationellt" });
+ } else if (geoSet.has("Norden")) {
+  indicators.push({ icon: "🌍", label: "Norden", tooltip: "Verksam i Sverige och Norden" });
+ }
+
+ // Fast implementation
+ const maxWeeks = deliveryProfile?.bc_project_weeks_max;
+ const methodology = deliveryProfile?.methodology || "";
+ if (maxWeeks && maxWeeks <= 16) {
+  indicators.push({ icon: "⚡", label: "Snabb implementation", tooltip: `Typisk implementation upp till ${maxWeeks} veckor` });
+ } else if (methodology.toLowerCase().includes("agil") || methodology.toLowerCase().includes("rapid") || methodology.toLowerCase().includes("iterativ")) {
+  indicators.push({ icon: "⚡", label: "Agil leverans", tooltip: "Agil implementeringsmetodik" });
+ }
+
+ return indicators.slice(0, 5);
+}
+
+
 
 interface PartnerCardProps {
  partner: PartnerData;
@@ -119,6 +248,10 @@ const PartnerCard = ({
  };
 
  const colors = getColorClasses();
+
+ const indicators = useMemo(() => getPartnerIndicators(partner, productKey, highlightedIndustry || null), [partner, productKey, highlightedIndustry]);
+
+
 
  // Track click into partner profile (card click)
  const handleCardClick = () => {
@@ -271,10 +404,33 @@ const PartnerCard = ({
  </h3>
  </Link>
  {isDatabasePartner(partner) && (partner as any).related_party && (
- <div className="mb-2 -mt-1">
- <RelatedPartyBadge />
- </div>
+  <div className="mb-2 -mt-1">
+   <RelatedPartyBadge />
+  </div>
  )}
+
+ {/* Quick indicator badges — faster to interpret than text */}
+ {indicators.length > 0 && (
+  <TooltipProvider delayDuration={100}>
+   <div className="flex flex-wrap gap-1.5 mb-3">
+    {indicators.map((indicator, idx) => (
+     <Tooltip key={idx}>
+      <TooltipTrigger asChild>
+       <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-accent/10 text-accent border border-accent/20 cursor-help hover:bg-accent/15 transition-colors">
+        <span className="text-xs leading-none">{indicator.icon}</span>
+        <span>{indicator.label}</span>
+       </span>
+      </TooltipTrigger>
+      <TooltipContent side="top" sideOffset={6} className="z-[100] text-xs max-w-[220px] bg-popover text-popover-foreground border">
+       <p>{indicator.tooltip}</p>
+      </TooltipContent>
+     </Tooltip>
+    ))}
+   </div>
+  </TooltipProvider>
+ )}
+
+
 
   {/* Highlighted search criteria */}
   {hasHighlights && (
