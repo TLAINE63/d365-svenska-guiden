@@ -78,14 +78,16 @@ function buildPrompt(p: any): string {
   const customers = (p.customer_examples || []).slice(0, 8).join(", ");
   const desc = (p.description || "").slice(0, 1500);
 
-  return `Du skriver en kort, neutral och faktabaserad sammanfattning på svenska om en Microsoft Dynamics 365-partner. Sammanfattningen visas på partnerns publika profil och i AI-driven matchning.
+  return `Du skriver en kort, skannbar AI-sammanfattning på svenska om en Microsoft Dynamics 365-partner. Sammanfattningen visas överst på partnerns publika profil och ska ge besökaren en förståelse på cirka 10 sekunder.
 
 REGLER:
-- Max 2-3 meningar (ca 60-90 ord).
-- Skriv i tredje person, neutralt och rådgivande. Ingen säljjargong, inga superlativ ("bäst", "ledande", "premium").
-- Lyft fram: vilka D365-applikationer de jobbar med, branschfokus, geografi/närvaro.
+- Formulera exakt 5 punkter, varje punkt ska vara max 8 ord.
+- Varje punkt ska inledas med "- " (bindestreck + mellanslag).
+- Lyft fram: vilka D365-applikationer/typ av partner de är (t.ex. "Svensk specialist på Business Central"), branschfokus, typ av kund de passar för, geografi, och särskilda styrkor/nischkompetenser.
+- Skriv i tredje person, neutralt och rådgivande. Ingen säljjargong, inga superlativ ("bäst", "ledande", "premium", "marknadsledande").
 - Nämn EJ pris, antal anställda, eller konkurrenter.
-- Skriv ALDRIG ut "AI-genererad" eller liknande meta-text.
+- Skriv ALDRIG ut "AI-genererad", "Sammanfattning:" eller liknande meta-text.
+- Ingen inledande eller avslutande mening. Endast de 5 punkterna.
 
 PARTNERDATA:
 Namn: ${p.name}
@@ -97,7 +99,7 @@ Orter med kontor: ${cities || "ej angett"}
 Plattformskompetenser: ${platforms || "ej angett"}
 Kundexempel: ${customers || "ej angett"}
 
-Skriv sammanfattningen nu, utan rubrik eller inledande fraser som "Sammanfattning:".`;
+Skriv de 5 punkterna nu. Håll varje punkt kort och konkret.`;
 }
 
 async function generateSummary(partner: any, apiKey: string): Promise<string> {
