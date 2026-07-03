@@ -1981,7 +1981,7 @@ D365.se`;
           </div>
           <p style="color: #6b7280; font-size: 14px;">Om knappen inte fungerar, kopiera och klistra in denna länk i din webbläsare:</p>
           <p style="color: #2563eb; font-size: 14px; word-break: break-all;">${invitationLink}</p>
-          <p style="color: #9ca3af; font-size: 12px; margin-top: 8px;">Länken är giltig i 90 dagar.</p>`;
+          <p style="color: #9ca3af; font-size: 12px; margin-top: 8px;">Länken är giltig hela 2026.</p>`;
 
           const htmlBody = personalizedBody
             .split("{{INVITATION_LINK}}")
