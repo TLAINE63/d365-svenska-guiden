@@ -317,9 +317,7 @@ const PartnerCard = ({
 
   const displayApplications = getDisplayApplications();
 
- const hasHighlights = highlightedProduct || highlightedIndustry || highlightedGeography || highlightedCompanySize || highlightedRevenue;
-
- // Find a matching industry pitch when requested; prefer product-specific, fall back to industry-only.
+  // Find a matching industry pitch when requested; prefer product-specific, fall back to industry-only.
  const industryPitch = useMemo(() => {
   if (!showIndustryPitch || !isDatabasePartner(partner) || !partner.industry_pitches || !highlightedIndustry) return null;
   const pitches = partner.industry_pitches;
