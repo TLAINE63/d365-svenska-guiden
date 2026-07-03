@@ -147,6 +147,16 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   const [customEmailSelected, setCustomEmailSelected] = useState<Set<string>>(new Set());
   const [customEmailSearch, setCustomEmailSearch] = useState("");
   const [sendingCustomEmail, setSendingCustomEmail] = useState(false);
+
+  // Kopiera e-postadresser (för klistra in i eget mailprogram)
+  const [showEmailListDialog, setShowEmailListDialog] = useState(false);
+  const [emailListSelected, setEmailListSelected] = useState<Set<string>>(new Set());
+  const [emailListSearch, setEmailListSearch] = useState("");
+  const [emailListSeparator, setEmailListSeparator] = useState<"comma" | "semicolon" | "newline">("semicolon");
+  const [emailListFilter, setEmailListFilter] = useState<"all" | "published" | "unpublished">("all");
+
+
+  
   
   // Create form state
   const [newInvitation, setNewInvitation] = useState({
@@ -877,10 +887,19 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
             <Mail className="w-4 h-4 mr-2" />
             Skicka fritt meddelande
           </Button>
+          <Button
+            variant="outline"
+            onClick={() => setShowEmailListDialog(true)}
+            className="border-slate-400 text-slate-700 hover:bg-slate-50"
+          >
+            <Copy className="w-4 h-4 mr-2" />
+            Kopiera e-postadresser
+          </Button>
           <Button onClick={() => setShowCreateDialog(true)}>
             <Plus className="w-4 h-4 mr-2" />
             Ny inbjudan
           </Button>
+
         </div>
       </div>
 
@@ -1620,7 +1639,217 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Kopiera e-postadresser dialog */}
+      <Dialog open={showEmailListDialog} onOpenChange={setShowEmailListDialog}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Copy className="w-5 h-5 text-slate-700" />
+              Kopiera e-postadresser
+            </DialogTitle>
+            <CardDescription>
+              Markera partners, välj separator och klistra sedan in listan i ditt eget mailprogram (t.ex. i Kopia/Hemlig kopia-fältet).
+            </CardDescription>
+          </DialogHeader>
+
+          {(() => {
+            const filtered = partners
+              .filter(p => emailListFilter === "all" || (emailListFilter === "published" ? p.is_featured : !p.is_featured))
+              .filter(p => !emailListSearch || p.name.toLowerCase().includes(emailListSearch.toLowerCase()))
+              .sort((a, b) => a.name.localeCompare(b.name, "sv"));
+
+            const selectedPartners = partners.filter(p => emailListSelected.has(p.id));
+            const emailSet = new Set<string>();
+            selectedPartners.forEach(p => {
+              [p.admin_contact_email, p.email].forEach(e => {
+                if (!e) return;
+                e.split(/[;,\s]+/).forEach(part => {
+                  const trimmed = part.trim().toLowerCase();
+                  if (trimmed && trimmed.includes("@")) emailSet.add(trimmed);
+                });
+              });
+            });
+            const emailList = Array.from(emailSet).sort();
+            const sep = emailListSeparator === "comma" ? ", " : emailListSeparator === "semicolon" ? "; " : "\n";
+            const emailString = emailList.join(sep);
+
+            const partnersWithoutEmail = selectedPartners.filter(p => !p.admin_contact_email && !p.email);
+
+            return (
+              <div className="space-y-4 py-2">
+                <div className="flex flex-wrap gap-2 items-center">
+                  <span className="text-sm font-medium mr-2">Filter:</span>
+                  {([
+                    { key: "all", label: `Alla (${partners.length})` },
+                    { key: "published", label: `Publicerade (${partners.filter(p => p.is_featured).length})` },
+                    { key: "unpublished", label: `Ej publicerade (${partners.filter(p => !p.is_featured).length})` },
+                  ] as const).map(({ key, label }) => (
+                    <button
+                      key={key}
+                      type="button"
+                      onClick={() => setEmailListFilter(key)}
+                      className={`h-8 px-3 rounded border text-xs font-medium transition-all ${
+                        emailListFilter === key
+                          ? "bg-slate-800 text-white border-slate-800"
+                          : "bg-white text-slate-700 border-slate-200 hover:border-slate-400"
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="flex items-center justify-between gap-2">
+                  <Label className="text-sm">Välj partners ({emailListSelected.size} valda)</Label>
+                  <div className="flex gap-2">
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setEmailListSelected(new Set([
+                        ...emailListSelected,
+                        ...filtered.map(p => p.id),
+                      ]))}
+                    >
+                      Välj alla synliga
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setEmailListSelected(new Set())}
+                    >
+                      Avmarkera alla
+                    </Button>
+                  </div>
+                </div>
+
+                <Input
+                  placeholder="Sök partner..."
+                  value={emailListSearch}
+                  onChange={(e) => setEmailListSearch(e.target.value)}
+                />
+
+                <div className="border rounded-md max-h-64 overflow-y-auto divide-y">
+                  {filtered.map(p => {
+                    const checked = emailListSelected.has(p.id);
+                    const primary = p.admin_contact_email || p.email;
+                    return (
+                      <label
+                        key={p.id}
+                        className="flex items-center gap-3 px-3 py-2 hover:bg-muted/50 cursor-pointer text-sm"
+                      >
+                        <Checkbox
+                          checked={checked}
+                          onCheckedChange={(c) => {
+                            setEmailListSelected(prev => {
+                              const next = new Set(prev);
+                              if (c === true) next.add(p.id); else next.delete(p.id);
+                              return next;
+                            });
+                          }}
+                        />
+                        <div className="flex-1 min-w-0">
+                          <div className="font-medium truncate flex items-center gap-2">
+                            {p.name}
+                            {p.is_featured && <Badge variant="secondary" className="text-[10px]">Publicerad</Badge>}
+                          </div>
+                          <div className="text-xs text-muted-foreground truncate">
+                            {primary || <span className="text-destructive">Ingen e-post</span>}
+                          </div>
+                        </div>
+                      </label>
+                    );
+                  })}
+                  {filtered.length === 0 && (
+                    <div className="p-4 text-center text-sm text-muted-foreground">Inga partners matchar</div>
+                  )}
+                </div>
+
+                <div className="space-y-2 border-t pt-4">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm font-medium">
+                      {emailList.length} unika e-postadresser
+                    </Label>
+                    <div className="flex gap-1">
+                      {([
+                        { key: "semicolon", label: "; (Outlook)" },
+                        { key: "comma", label: ", (Gmail)" },
+                        { key: "newline", label: "Radbryt" },
+                      ] as const).map(({ key, label }) => (
+                        <button
+                          key={key}
+                          type="button"
+                          onClick={() => setEmailListSeparator(key)}
+                          className={`h-7 px-2 rounded border text-xs font-medium transition-all ${
+                            emailListSeparator === key
+                              ? "bg-slate-800 text-white border-slate-800"
+                              : "bg-white text-slate-700 border-slate-200 hover:border-slate-400"
+                          }`}
+                        >
+                          {label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <Textarea
+                    value={emailString}
+                    readOnly
+                    rows={6}
+                    className="font-mono text-xs"
+                    onFocus={(e) => e.currentTarget.select()}
+                  />
+                  {partnersWithoutEmail.length > 0 && (
+                    <p className="text-xs text-amber-700">
+                      Obs: {partnersWithoutEmail.length} valda partner{partnersWithoutEmail.length === 1 ? "" : "s"} saknar e-post och ingår inte i listan.
+                    </p>
+                  )}
+                </div>
+              </div>
+            );
+          })()}
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowEmailListDialog(false)}>
+              Stäng
+            </Button>
+            <Button
+              onClick={async () => {
+                const selectedPartners = partners.filter(p => emailListSelected.has(p.id));
+                const emailSet = new Set<string>();
+                selectedPartners.forEach(p => {
+                  [p.admin_contact_email, p.email].forEach(e => {
+                    if (!e) return;
+                    e.split(/[;,\s]+/).forEach(part => {
+                      const t = part.trim().toLowerCase();
+                      if (t && t.includes("@")) emailSet.add(t);
+                    });
+                  });
+                });
+                const sep = emailListSeparator === "comma" ? ", " : emailListSeparator === "semicolon" ? "; " : "\n";
+                const text = Array.from(emailSet).sort().join(sep);
+                if (!text) {
+                  toast.error("Inga e-postadresser att kopiera");
+                  return;
+                }
+                try {
+                  await navigator.clipboard.writeText(text);
+                  toast.success(`Kopierade ${emailSet.size} e-postadresser`);
+                } catch {
+                  toast.error("Kunde inte kopiera – markera och kopiera manuellt från fältet");
+                }
+              }}
+              disabled={emailListSelected.size === 0}
+            >
+              <Copy className="w-4 h-4 mr-2" />
+              Kopiera till urklipp
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
+
   );
 };
 
