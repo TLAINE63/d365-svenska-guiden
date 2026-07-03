@@ -754,7 +754,7 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
               ) : (
                 <>
                   <span className="font-medium">{selected.size}</span> mottagare ·{" "}
-                  <span className="font-medium">{templateKind === "published" ? "Avtalsmail" : "Prospektmail"}</span>
+                  <span className="font-medium">{templateKind === "published" ? "Avtalsmail" : "Avtalsförslag"}</span>
                 </>
               )}
             </div>
