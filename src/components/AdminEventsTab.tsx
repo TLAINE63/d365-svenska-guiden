@@ -336,9 +336,9 @@ D365.se`;
     setFormData({ title: "", event_link: "", event_date: "" });
   };
 
-  // Filter partners based on search - show ALL partners, not just featured
-  const filteredPartners = partners.filter(p => 
-    p.name.toLowerCase().includes(partnerFilter.toLowerCase())
+  // Endast publicerade partners visas i event-hanteringen
+  const filteredPartners = partners.filter(p =>
+    p.is_featured && p.name.toLowerCase().includes(partnerFilter.toLowerCase())
   );
 
   // Sort all events: upcoming first (nearest first), then past (newest first)
@@ -691,6 +691,18 @@ D365.se`;
                   >
                     {sendingEmail ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
                     Skicka via e-post
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="gap-2"
+                    onClick={() => {
+                      setSelectedPartnerIds(new Set([selectedPartner.id]));
+                      setBulkEmailOpen(true);
+                    }}
+                  >
+                    <Mail className="h-4 w-4" />
+                    Skicka event-inbjudan
                   </Button>
                   <Button 
                     variant="outline" 
