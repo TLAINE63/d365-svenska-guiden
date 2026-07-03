@@ -29,8 +29,9 @@ import StickyContactCTA from "@/components/partner/StickyContactCTA";
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
 import DecisionProfile from "@/components/partner/DecisionProfile";
-import PartnerProductTabs, { resolveInitialTab, TabKey } from "@/components/partner/PartnerProductTabs";
-import PartnerQuickFacts from "@/components/partner/PartnerQuickFacts";
+import PartnerProductTabs, { resolveInitialTab } from "@/components/partner/PartnerProductTabs";
+import type { TabKey } from "@/components/partner/types";
+
 import { usePartner, DatabasePartner } from "@/hooks/usePartners";
 import { getCumulativeGeographyDisplay } from "@/data/partners";
 import {
@@ -581,10 +582,6 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   );
    })()}
 
-   {/* Quick facts — helps customers compare themselves against the partner */}
-   <div className="mt-4 w-full max-w-2xl">
-     <PartnerQuickFacts partner={partner} activeTab={activeTabKey} />
-   </div>
 
   </div>
   </div>

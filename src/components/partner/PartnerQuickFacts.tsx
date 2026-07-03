@@ -1,6 +1,6 @@
 import { DatabasePartner } from "@/hooks/usePartners";
 import { Card, CardContent } from "@/components/ui/card";
-import { TabKey } from "./PartnerProductTabs";
+import type { TabKey } from "./types";
 
 const SIZE_ORDER = ["1-49", "50-99", "100-249", "250-999", "1.000-4.999", ">5.000"];
 

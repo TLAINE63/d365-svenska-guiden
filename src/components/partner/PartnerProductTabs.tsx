@@ -1,3 +1,5 @@
+import type { TabKey } from "./types";
+export type { TabKey } from "./types";
 import { useMemo, useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
@@ -20,6 +22,7 @@ import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import type { DatabasePartner } from "@/hooks/usePartners";
 import LeadCTA from "@/components/LeadCTA";
 import AiProfilePublic from "@/components/partner/AiProfilePublic";
+import PartnerQuickFacts from "@/components/partner/PartnerQuickFacts";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 
@@ -58,7 +61,6 @@ const appIconSrc: Record<string, string> = {
   "Human Resources": HumanResourcesIcon,
 };
 
-export type TabKey = "bc" | "fsc" | "crm";
 
 const TAB_META: Record<
   TabKey,
@@ -511,6 +513,9 @@ export default function PartnerProductTabs({
                 </p>
               </section>
             )}
+
+            {/* Quick facts — helps customers compare themselves against the partner */}
+            <PartnerQuickFacts partner={partner} activeTab={active} />
 
             {/* 1. Varför välja */}
 
