@@ -2028,7 +2028,7 @@ D365.se`;
             template_name: "partner_profile_refresh",
             subject: personalizedSubject,
             status: "sent",
-            metadata: { partner_name: partner.name, invitation_token: invitation.token, expires_at: ninetyDays },
+            metadata: { partner_name: partner.name, invitation_token: invitation.token, expires_at: endOf2026 },
           });
         } catch (sendErr: any) {
           failed++;
