@@ -310,14 +310,22 @@ const PartnerCard = ({
  </div>
  )}
 
-    {/* Positioning statement — gives the partner more text space */}
-    {isDatabasePartner(partner) && partner.positioning_statement && (
-      <div className="mb-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary">
-        <p className="text-[13px] font-medium text-foreground leading-snug line-clamp-5">
-          {partner.positioning_statement}
-        </p>
-      </div>
-    )}
+     {/* Industry pitch or positioning statement — single text block */}
+     {industryPitch ? (
+       <div className="mb-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary">
+         <p className="text-[13px] font-medium text-foreground leading-snug line-clamp-6">
+           {industryPitch}
+         </p>
+       </div>
+     ) : (
+       isDatabasePartner(partner) && partner.positioning_statement && (
+         <div className="mb-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary">
+           <p className="text-[13px] font-medium text-foreground leading-snug line-clamp-5">
+             {partner.positioning_statement}
+           </p>
+         </div>
+       )
+     )}
  
        {/* Product competence badges */}
        {displayApplications.length > 0 && (
