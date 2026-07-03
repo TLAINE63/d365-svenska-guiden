@@ -336,9 +336,9 @@ D365.se`;
     setFormData({ title: "", event_link: "", event_date: "" });
   };
 
-  // Filter partners based on search - show ALL partners, not just featured
-  const filteredPartners = partners.filter(p => 
-    p.name.toLowerCase().includes(partnerFilter.toLowerCase())
+  // Endast publicerade partners visas i event-hanteringen
+  const filteredPartners = partners.filter(p =>
+    p.is_featured && p.name.toLowerCase().includes(partnerFilter.toLowerCase())
   );
 
   // Sort all events: upcoming first (nearest first), then past (newest first)
