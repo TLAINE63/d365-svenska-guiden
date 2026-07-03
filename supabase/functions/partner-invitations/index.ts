@@ -2128,9 +2128,27 @@ d365.se`;
         emailSubject = subjectSetting?.value || "Prova d365.se kostnadsfritt – kvalificerade D365-leads direkt till er";
       }
 
+      // Resolve agreement PDF url (from site_settings > partner_agreement_page_config)
+      let agreementPdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/D365_Partner_Agreement_2026.pdf`;
+      try {
+        const { data: agrSetting } = await supabase
+          .from("site_settings")
+          .select("value")
+          .eq("key", "partner_agreement_page_config")
+          .maybeSingle();
+        if (agrSetting?.value) {
+          const parsed = JSON.parse(agrSetting.value);
+          if (parsed?.pdfUrl && typeof parsed.pdfUrl === "string" && parsed.pdfUrl.trim()) {
+            agreementPdfUrl = parsed.pdfUrl.trim();
+          }
+        }
+      } catch (_e) { /* keep fallback */ }
+
       let sent = 0;
       let failed = 0;
       const errors: string[] = [];
+
+
 
       for (const partner of partnerList) {
         try {
