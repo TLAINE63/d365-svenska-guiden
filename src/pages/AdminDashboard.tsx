@@ -373,9 +373,11 @@ const AdminDashboard = () => {
  useEffect(() => {
  try { localStorage.setItem("admin-active-group", activeGroup); } catch {}
  }, [activeGroup]);
- useEffect(() => {
- try { localStorage.setItem("admin-active-tab", activeTab); } catch {}
- }, [activeTab]);
+  useEffect(() => {
+  try { localStorage.setItem("admin-active-tab", activeTab); } catch {}
+  if (activeTab === "partners") setPartnerStatusFilter("published");
+  else if (activeTab === "unprofiled-partners") setPartnerStatusFilter("unpublished");
+  }, [activeTab]);
 
   // AI summary generation state
   const [generatingSummaryId, setGeneratingSummaryId] = useState<string | null>(null);
@@ -2073,13 +2075,13 @@ Thomas`,
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-amber-500/20 to-amber-600/10 ring-1 ring-amber-400/20">
  <Building2 className="h-3.5 w-3.5 text-amber-300" strokeWidth={1.75} />
  </span>
- Partners
+ Publicerade
  </TabsTrigger>
  <TabsTrigger value="unprofiled-partners" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-slate-500/20 to-slate-600/10 ring-1 ring-slate-400/20">
  <Building2 className="h-3.5 w-3.5 text-slate-300" strokeWidth={1.75} />
  </span>
- Ej profilerade
+ Ej publicerade
  </TabsTrigger>
  <TabsTrigger value="invitations" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-violet-500/20 to-violet-600/10 ring-1 ring-violet-400/20">
@@ -2466,8 +2468,9 @@ Thomas`,
  </div>
  </TabsContent>
 
- {/* ==================== PARTNERS TAB ==================== */}
- <TabsContent value="partners">
+ {/* ==================== PARTNERS TAB (Publicerade / Ej publicerade) ==================== */}
+ {(["partners", "unprofiled-partners"] as const).map((tabValue) => (
+ <TabsContent key={tabValue} value={tabValue}>
  <div className="flex justify-between items-center mb-4">
  <div className="flex gap-2">
  <Button onClick={openCreatePartnerDialog}>
@@ -2986,11 +2989,8 @@ Thomas`,
  </>
  )}
  </TabsContent>
+ ))}
 
- {/* ==================== UNPROFILED PARTNERS TAB ==================== */}
- <TabsContent value="unprofiled-partners">
- <AdminUnprofiledPartnersTab token={token || null} onSessionExpired={logout} />
- </TabsContent>
 
  {/* ==================== INVITATIONS TAB ==================== */}
  <TabsContent value="invitations">
