@@ -2712,7 +2712,7 @@ Thomas`,
                 {(() => {
                   if (partnerStatusFilter === 'unpublished') {
                     const unpublishedPartners = fullPartners.filter(p => !p.is_featured);
-                    const totalPotential = unpublishedPartners.reduce((sum, p) => sum + calcMonthlyFee(p.product_filters), 0);
+                    const totalPotential = unpublishedPartners.reduce((sum, p) => sum + (calcMonthlyFee(p.product_filters) || 995), 0);
                     if (totalPotential === 0) return null;
                     return (
                       <div className="flex items-center justify-between p-3 mb-2 rounded-lg border bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800">
