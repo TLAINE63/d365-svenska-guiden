@@ -1177,8 +1177,8 @@ const PartnerUpdate = () => {
     <div className="rounded-lg border border-cta-orange/30 bg-cta-orange/5 p-3 flex items-start gap-2">
       <ArrowRight className="h-4 w-4 text-cta-orange mt-0.5 shrink-0" />
       <div className="text-sm text-foreground">
-        <p className="font-medium">Denna information används för att matcha er med rätt kunder.</p>
-        <p>Ju tydligare ni beskriver er spets, desto bättre träffsäkerhet.</p>
+        <p className="font-medium">Det ni skriver här publiceras på ert partnerkort och er partnerprofil, och är underlag för matchningen mot kundernas sökningar.</p>
+        <p>Ju tydligare ni beskriver er spets, desto bättre träffsäkerhet och framtoning.</p>
         <p className="text-xs text-muted-foreground mt-2">
           Aktivera enbart de lösningar ni faktiskt levererar. Lämna övriga avmarkerade – det räknas som <em>"Vi erbjuder inte denna lösning"</em>.
         </p>
