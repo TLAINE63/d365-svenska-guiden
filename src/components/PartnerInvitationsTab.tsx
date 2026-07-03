@@ -779,10 +779,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex justify-between items-center">
-        <div>
-          <h2 className="text-xl font-semibold">Partnerkommunikation</h2>
-        </div>
+      <div className="flex justify-end items-center">
         <div className="flex gap-2">
           <Button 
             variant="outline" 
