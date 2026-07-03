@@ -1481,7 +1481,19 @@ D365.se`;
       }
 
       const resend = new Resend(resendApiKey);
-      const pdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/D365_Partner_Agreement_2026.pdf`;
+      let pdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/D365_Partner_Agreement_2026.pdf`;
+      try {
+        const { data: agrSetting } = await supabase
+          .from("site_settings").select("value")
+          .eq("key", "partner_agreement_page_config").maybeSingle();
+        if (agrSetting?.value) {
+          const parsed = JSON.parse(agrSetting.value);
+          if (parsed?.pdfUrl && typeof parsed.pdfUrl === "string" && parsed.pdfUrl.trim()) {
+            pdfUrl = parsed.pdfUrl.trim();
+          }
+        }
+      } catch (_e) { /* keep fallback */ }
+
       const deadlineStr = deadline || "2026-04-30";
       const startDateStr = start_date || "2026-05-01";
       const emailSubject = customSubject || "Fortsätt vara synliga på d365.se från 1 maj";
