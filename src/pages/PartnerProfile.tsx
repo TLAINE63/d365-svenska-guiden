@@ -25,6 +25,7 @@ import {
 import PartnerVideoModal from "@/components/PartnerVideoModal";
 import { extractYouTubeId } from "@/lib/youtube";
 import LeadCTA from "@/components/LeadCTA";
+import StickyContactCTA from "@/components/partner/StickyContactCTA";
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
 import DecisionProfile from "@/components/partner/DecisionProfile";
@@ -702,7 +703,14 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  <TrustBanner variant="compact" />
 
 
- <Footer />
+  <Footer />
+
+  <StickyContactCTA
+    partnerName={partner.name}
+    onBookMeeting={() => openRequest("demo")}
+    onIntro={() => openRequest("contact")}
+  />
+
 
  <PartnerVideoModal
  videoId={videoOpen ? (extractYouTubeId((() => {
