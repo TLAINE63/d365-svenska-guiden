@@ -1118,15 +1118,9 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                 <TableRow>
                   <TableHead className="w-10">
                     <Checkbox
-                      checked={selectedForDelete.size === sortedInvitations.length && sortedInvitations.length > 0}
-                      onCheckedChange={() => {
-                        if (selectedForDelete.size === sortedInvitations.length) {
-                          setSelectedForDelete(new Set());
-                        } else {
-                          setSelectedForDelete(new Set(sortedInvitations.map(i => i.id)));
-                        }
-                      }}
-                      title="Markera alla"
+                      checked={selectedForReminder.size === pendingInvitations.length && pendingInvitations.length > 0}
+                      onCheckedChange={toggleAllReminders}
+                      title="Markera alla påminnelser"
                     />
                   </TableHead>
                   <TableHead>Partner</TableHead>
