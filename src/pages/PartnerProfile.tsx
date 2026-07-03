@@ -596,6 +596,15 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
 
 
+  {/* Events Section */}
+  {partner?.id && (
+   <section className="py-8">
+    <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+     <PartnerEventsSection partnerId={partner.id} partnerName={partner.name} />
+    </div>
+   </section>
+  )}
+
   {/* Tabbed product profile */}
   <PartnerProductTabs
    partner={partner}
@@ -611,14 +620,6 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
    onRequest={openRequest}
     />
 
-  {/* Events Section */}
-  {partner?.id && (
-   <section className="py-8">
-    <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
-     <PartnerEventsSection partnerId={partner.id} partnerName={partner.name} />
-    </div>
-   </section>
-  )}
 
 
  <TrustBanner variant="compact" />
