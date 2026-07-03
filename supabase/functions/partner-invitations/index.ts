@@ -798,7 +798,7 @@ D365.se`;
                   <p style="color: #2563eb; font-size: 14px; word-break: break-all;">${invitationLink}</p>`;
             
             // Convert plain text to HTML paragraphs, handling the invitation link placeholder
-            const htmlBody = emailBody
+            const htmlBody = normalizeEmailPlaceholders(emailBody)
               .split("{{INVITATION_LINK}}")
               .map(part => {
                 return part
@@ -1205,7 +1205,7 @@ D365.se`;
                   <p style="color: #6b7280; font-size: 14px;">Om knappen inte fungerar, kopiera och klistra in denna länk i din webbläsare:</p>
                   <p style="color: #2563eb; font-size: 14px; word-break: break-all;">${invitationLink}</p>`;
 
-          const htmlBody = emailBody
+          const htmlBody = normalizeEmailPlaceholders(emailBody)
             .split("{{INVITATION_LINK}}")
             .map(part => {
               return part
@@ -1404,7 +1404,7 @@ D365.se`;
               <p style="color: #6b7280; font-size: 14px;">Om knappen inte fungerar, kopiera och klistra in denna länk i din webbläsare:</p>
               <p style="color: #2563eb; font-size: 14px; word-break: break-all;">${invitationLink}</p>`;
 
-              const personalizedBody = emailBody.replace(/\{\{NAME\}\}/g, inv.partner_name || "");
+              const personalizedBody = normalizeEmailPlaceholders(emailBody).replace(/\{\{NAME\}\}/g, inv.partner_name || "");
               const personalizedSubject = bulkSubject.replace(/\{\{NAME\}\}/g, inv.partner_name || "");
 
               const htmlBody = personalizedBody
