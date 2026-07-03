@@ -24,6 +24,7 @@ import {
 import LeadCTA from "@/components/LeadCTA";
 import { Partner } from "@/data/partners";
 import { DatabasePartner } from "@/hooks/usePartners";
+import PartnerCardSummary from "@/components/partner/PartnerCardSummary";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -995,7 +996,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                               </ul>
                             )}
                             
-                            <p className="text-sm text-muted-foreground line-clamp-2 mb-3">{partner.description}</p>
+                            <PartnerCardSummary partner={partner} highlightedIndustry={selectedIndustry || null} />
                             
                             <div className="flex flex-wrap gap-1.5 mb-3">
                               {(partner.applications || []).slice(0, 4).map((app, i) => (

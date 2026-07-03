@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Check, Loader2, ExternalLink, Mail, HelpCircle, FileText, Users } from "lucide-react";
 import { allIndustries } from "@/data/partners";
 import { getSizeMatchBonus } from "@/hooks/usePartnerFilters";
+import PartnerCardSummary from "@/components/partner/PartnerCardSummary";
 
 // Product icons
 import bcIcon from "@/assets/icons/BusinessCentral-new.webp";
@@ -344,9 +345,9 @@ const KomIgang = () => {
                                   </li>
                                 ))}
                               </ul>
-                            ) : partner.description ? (
-                              <p className="text-sm text-muted-foreground mt-2 line-clamp-2">{partner.description}</p>
                             ) : null}
+
+                            <PartnerCardSummary partner={partner} highlightedIndustry={selectedIndustry || null} />
                           </div>
                         </div>
 
