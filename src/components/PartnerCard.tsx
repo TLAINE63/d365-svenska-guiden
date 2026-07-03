@@ -446,49 +446,7 @@ const PartnerCard = ({
 
 
 
-  {/* Highlighted search criteria */}
-  {hasHighlights && (
-    <div className="relative mb-4 p-3 rounded bg-gradient-to-br from-slate-100 to-slate-50 dark:from-slate-800/40 dark:to-slate-700/20 border border-slate-200 dark:border-slate-600/40">
-      <div className="flex items-center gap-1.5 mb-2.5">
-        <Sparkles className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
-        <span className="text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">Varför visas denna partner?</span>
-      </div>
-      <ul className="space-y-1">
-        {highlightedProduct && (
-          <li className="flex items-center gap-2 text-sm text-foreground">
-            <CheckCircle2 className="w-4 h-4 text-accent shrink-0" />
-            <span>{highlightedProduct}</span>
-          </li>
-        )}
-        {highlightedIndustry && (
-          <li className="flex items-center gap-2 text-sm text-foreground">
-            <CheckCircle2 className="w-4 h-4 text-accent shrink-0" />
-            <span>{highlightedIndustry}</span>
-          </li>
-        )}
-        {highlightedGeography && (
-          <li className="flex items-center gap-2 text-sm text-foreground">
-            <CheckCircle2 className="w-4 h-4 text-accent shrink-0" />
-            <span>{getCumulativeGeographyDisplay(highlightedGeography)}</span>
-          </li>
-        )}
-        {highlightedCompanySize && (
-          <li className="flex items-center gap-2 text-sm text-foreground">
-            <CheckCircle2 className="w-4 h-4 text-accent shrink-0" />
-            <span>{highlightedCompanySize} anställda</span>
-          </li>
-        )}
-        {highlightedRevenue && (
-          <li className="flex items-center gap-2 text-sm text-foreground">
-            <CheckCircle2 className="w-4 h-4 text-accent shrink-0" />
-            <span>{highlightedRevenue}</span>
-          </li>
-        )}
-      </ul>
-    </div>
-  )}
-
-     {/* Single text block — product pages show "Passar bäst för" with positioning statement */}
+   {/* Single text block — product pages show "Passar bäst för" with positioning statement */}
      {showBestFitOnly && isDatabasePartner(partner) && partner.positioning_statement ? (
        <div className="mb-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary">
          <p className="text-[13px] font-semibold text-primary mb-1.5">Passar bäst för:</p>
