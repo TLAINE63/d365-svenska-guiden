@@ -480,6 +480,82 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     }
   };
 
+  const openCustomEmailDialog = () => {
+    setCustomEmailGroup("selected");
+    setCustomEmailSelected(new Set());
+    setCustomEmailSearch("");
+    if (!customEmailSubject) setCustomEmailSubject("");
+    if (!customEmailBody) setCustomEmailBody("Hej {{NAME}},\n\n");
+    setShowCustomEmailDialog(true);
+  };
+
+  const getCustomEmailRecipients = () => {
+    if (customEmailGroup === "published") return partners.filter(p => p.is_featured);
+    if (customEmailGroup === "unpublished") return partners.filter(p => !p.is_featured);
+    return partners.filter(p => customEmailSelected.has(p.id));
+  };
+
+  const sendCustomEmail = async () => {
+    const recipients = getCustomEmailRecipients();
+    if (recipients.length === 0) {
+      toast.error("Inga mottagare valda");
+      return;
+    }
+    if (!customEmailSubject.trim()) {
+      toast.error("Ämnesrad krävs");
+      return;
+    }
+    if (!customEmailBody.trim()) {
+      toast.error("Meddelandetext krävs");
+      return;
+    }
+    const withoutEmail = recipients.filter(p => !(p.admin_contact_email || p.email));
+    if (withoutEmail.length > 0) {
+      toast.error(`Saknar e-post för: ${withoutEmail.map(p => p.name).slice(0, 5).join(", ")}${withoutEmail.length > 5 ? "..." : ""}`);
+      return;
+    }
+    if (!confirm(`Skicka meddelande till ${recipients.length} partner(s)?`)) return;
+
+    setSendingCustomEmail(true);
+    try {
+      const partnerList = recipients.map(p => ({
+        id: p.id,
+        name: p.name,
+        email: (p.admin_contact_email || p.email).trim(),
+        contact_name: p.contact_person || p.name,
+      }));
+
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=send-custom-email`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+          body: JSON.stringify({
+            partners: partnerList,
+            subject: customEmailSubject,
+            body: customEmailBody,
+          }),
+        }
+      );
+      handleResponse(response);
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Kunde inte skicka");
+      toast.success(data.message || "Meddelande skickat!");
+      if (data.errors?.length) console.warn("Custom email errors:", data.errors);
+      setShowCustomEmailDialog(false);
+    } catch (err: any) {
+      if (err.message !== "Session expired") {
+        toast.error(err.message || "Kunde inte skicka meddelande");
+      }
+    } finally {
+      setSendingCustomEmail(false);
+    }
+  };
+
   const createInvitation = async () => {
     if (!newInvitation.email || !newInvitation.partner_name) {
       toast.error("E-post och partnernamn krävs");
