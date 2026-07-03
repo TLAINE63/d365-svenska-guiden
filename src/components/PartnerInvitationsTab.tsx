@@ -887,10 +887,19 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
             <Mail className="w-4 h-4 mr-2" />
             Skicka fritt meddelande
           </Button>
+          <Button
+            variant="outline"
+            onClick={() => setShowEmailListDialog(true)}
+            className="border-slate-400 text-slate-700 hover:bg-slate-50"
+          >
+            <Copy className="w-4 h-4 mr-2" />
+            Kopiera e-postadresser
+          </Button>
           <Button onClick={() => setShowCreateDialog(true)}>
             <Plus className="w-4 h-4 mr-2" />
             Ny inbjudan
           </Button>
+
         </div>
       </div>
 
