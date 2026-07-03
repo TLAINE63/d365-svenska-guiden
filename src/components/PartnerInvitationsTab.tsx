@@ -436,7 +436,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
       toast.error("Brödtexten måste innehålla {{INVITATION_LINK}}");
       return;
     }
-    if (!confirm(`Skicka profileringslänk till ${selectedPartners.length} partner(s)? Länken är giltig i 90 dagar.`)) return;
+    if (!confirm(`Skicka profileringslänk till ${selectedPartners.length} partner(s)? Länken är giltig hela 2026.`)) return;
 
     setSendingProfileRefresh(true);
     try {
@@ -867,7 +867,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
             className="border-primary text-primary hover:bg-primary/10"
           >
             <Send className="w-4 h-4 mr-2" />
-            Skicka profileringslänk (90 dgr)
+            Skicka profileringslänk (2026)
           </Button>
           <Button
             variant="outline"
@@ -938,7 +938,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                 onClick={() => setActiveTemplateTab("profile_refresh")}
               >
                 <Send className="w-4 h-4 mr-2" />
-                Profileringslänk (90 dgr)
+                Profileringslänk (2026)
               </Button>
             </div>
 
@@ -1070,7 +1070,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
             ) : (
               <>
                 <div className="bg-muted/50 rounded-lg p-3 text-sm text-muted-foreground">
-                  <strong>Profileringslänkmailet</strong> skickas till partners (publicerade eller inbjudna) för att de ska få en fräsch unik länk att uppdatera sin profil. Länken är giltig i 90 dagar.
+                  <strong>Profileringslänkmailet</strong> skickas till partners (publicerade eller inbjudna) för att de ska få en fräsch unik länk att uppdatera sin profil. Länken är giltig hela 2026.
                   Använd <code className="bg-muted px-1 py-0.5 rounded text-xs font-mono">{"{{INVITATION_LINK}}"}</code> där länken ska placeras och valfritt <code className="bg-muted px-1 py-0.5 rounded text-xs font-mono">{"{{NAME}}"}</code> för partnerns namn.
                   Mail skickas från <strong>info@d365.se</strong> med svar till <strong>thomas.laine@dynamicfactory.se</strong>.
                 </div>
@@ -1092,7 +1092,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                 />
                 <div className="flex justify-between items-center">
                   <p className="text-xs text-muted-foreground">
-                    Platshållare: {"{{INVITATION_LINK}}"} = unik profileringslänk (90 dgr), {"{{NAME}}"} = partnerns namn
+                    Platshållare: {"{{INVITATION_LINK}}"} = unik profileringslänk (2026), {"{{NAME}}"} = partnerns namn
                   </p>
                   <div className="flex gap-2">
                     {(profileRefreshTemplate !== profileRefreshTemplateOriginal || profileRefreshSubject !== profileRefreshSubjectOriginal) && (
@@ -1360,7 +1360,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Send className="w-5 h-5" />
-              Skicka profileringslänk (90 dagar)
+              Skicka profileringslänk (2026)
             </DialogTitle>
             <CardDescription>
               Skickar en unik profileringslänk till valda partners. Mailet skickas från <strong>info@d365.se</strong> med svar till <strong>thomas.laine@dynamicfactory.se</strong>.

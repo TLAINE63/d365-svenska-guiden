@@ -1936,7 +1936,7 @@ D365.se`;
         emailSubject = subjectSetting?.value || "VIKTIGT! Uppdatera er partnerprofil på d365.se";
       }
 
-      const ninetyDays = new Date(Date.now() + 90 * 86400000).toISOString();
+      const endOf2026 = new Date("2026-12-31T23:59:59.000Z").toISOString();
 
       let sent = 0;
       let failed = 0;
@@ -1951,7 +1951,7 @@ D365.se`;
             continue;
           }
 
-          // Create a fresh invitation valid for 90 days
+          // Create a fresh invitation valid through the end of 2026
           const { data: invitation, error: invErr } = await supabase
             .from("partner_invitations")
             .insert({
@@ -1959,7 +1959,7 @@ D365.se`;
               partner_name: partner.name,
               partner_id: partner.id || null,
               status: "approved",
-              expires_at: ninetyDays,
+              expires_at: endOf2026,
             })
             .select()
             .single();
@@ -1981,7 +1981,7 @@ D365.se`;
           </div>
           <p style="color: #6b7280; font-size: 14px;">Om knappen inte fungerar, kopiera och klistra in denna länk i din webbläsare:</p>
           <p style="color: #2563eb; font-size: 14px; word-break: break-all;">${invitationLink}</p>
-          <p style="color: #9ca3af; font-size: 12px; margin-top: 8px;">Länken är giltig i 90 dagar.</p>`;
+          <p style="color: #9ca3af; font-size: 12px; margin-top: 8px;">Länken är giltig hela 2026.</p>`;
 
           const htmlBody = personalizedBody
             .split("{{INVITATION_LINK}}")
@@ -2028,7 +2028,7 @@ D365.se`;
             template_name: "partner_profile_refresh",
             subject: personalizedSubject,
             status: "sent",
-            metadata: { partner_name: partner.name, invitation_token: invitation.token, expires_at: ninetyDays },
+            metadata: { partner_name: partner.name, invitation_token: invitation.token, expires_at: endOf2026 },
           });
         } catch (sendErr: any) {
           failed++;

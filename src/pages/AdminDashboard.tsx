@@ -811,7 +811,7 @@ const AdminDashboard = () => {
  body: "Hej {{NAME}},\n\nJag vill presentera d365.se – en köparsidig köpguide för företag som utvärderar Microsoft Dynamics 365.\n\n{{INVITATION_LINK}}\n\nMed vänlig hälsning,\n\nThomas Laine & Michael Uhman\nd365.se",
  },
  profile_refresh: {
- label: "Profileringslänk (90 dgr)",
+ label: "Profileringslänk (2026)",
  subject: "VIKTIGT! Uppdatera er partnerprofil på d365.se",
  body: `Hej,
 
@@ -2593,7 +2593,7 @@ Thomas`,
  </DropdownMenuItem>
  <DropdownMenuItem onClick={() => openEmailDialog('profile_refresh')}>
  <Mail className="mr-2 h-4 w-4" />
- Profileringslänk (90 dgr)
+ Profileringslänk (2026)
  </DropdownMenuItem>
  <DropdownMenuItem onClick={() => openEmailDialog('sales_pitch')}>
  <Send className="mr-2 h-4 w-4" />
@@ -5235,7 +5235,7 @@ Thomas`,
  <DialogTitle>
  {emailDialogType === 'welcome' && 'Skicka välkomstmail'}
  {emailDialogType === 'sales_pitch' && 'Skicka införsäljningsmail'}
- {emailDialogType === 'profile_refresh' && 'Skicka profileringslänk (90 dgr)'}
+ {emailDialogType === 'profile_refresh' && 'Skicka profileringslänk (2026)'}
  {' '}({selectedForWelcome.size})
  </DialogTitle>
  </DialogHeader>
