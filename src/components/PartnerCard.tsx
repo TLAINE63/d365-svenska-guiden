@@ -22,7 +22,7 @@ import {
  TooltipProvider,
  TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Partner, getCumulativeGeographyDisplay } from "@/data/partners";
+import { Partner } from "@/data/partners";
 import { DatabasePartner, type ProductFilterInput, type ProductFilters } from "@/hooks/usePartners";
 
 import { trackPartnerView } from "@/utils/trackPartnerView";
