@@ -2280,6 +2280,125 @@ d365.se`;
       );
     }
 
+    if (action === "send-custom-email" && req.method === "POST") {
+      const body = await req.json();
+      const { partners: partnerList, subject: emailSubject, body: emailBody } = body;
+
+      if (!partnerList || !Array.isArray(partnerList) || partnerList.length === 0) {
+        return new Response(
+          JSON.stringify({ error: "Partnerlista krävs" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+      if (!emailSubject || typeof emailSubject !== "string" || !emailSubject.trim()) {
+        return new Response(
+          JSON.stringify({ error: "Ämne krävs" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+      if (!emailBody || typeof emailBody !== "string" || !emailBody.trim()) {
+        return new Response(
+          JSON.stringify({ error: "Meddelandetext krävs" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const resendApiKey = Deno.env.get("RESEND_API_KEY");
+      if (!resendApiKey) {
+        return new Response(
+          JSON.stringify({ error: "RESEND_API_KEY ej konfigurerad" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const resend = new Resend(resendApiKey);
+
+      let sent = 0;
+      let failed = 0;
+      const errors: string[] = [];
+
+      for (const partner of partnerList) {
+        try {
+          const email = partner.email;
+          if (!email) {
+            errors.push(`${partner.name}: Ingen e-postadress`);
+            failed++;
+            continue;
+          }
+
+          const contactName = partner.contact_name || partner.name || "";
+          const personalizedSubject = emailSubject
+            .replace(/\{\{NAME\}\}/g, contactName)
+            .replace(/\{\{PARTNER_NAME\}\}/g, partner.name || "");
+          const personalizedBody = emailBody
+            .replace(/\{\{NAME\}\}/g, contactName)
+            .replace(/\{\{PARTNER_NAME\}\}/g, partner.name || "");
+
+          const htmlBody = personalizedBody
+            .split("\n\n")
+            .map((paragraph: string) => {
+              const trimmed = paragraph.trim();
+              if (!trimmed) return "";
+              return renderParagraph(trimmed);
+            })
+            .filter(Boolean)
+            .join("\n");
+
+          const fullHtml = `<!DOCTYPE html>
+            <html>
+            <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+            <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+              <div style="text-align: center; margin-bottom: 30px;">
+                <h1 style="color: #1e40af; margin: 0;">D365.se</h1>
+              </div>
+              ${htmlBody}
+            </body>
+            </html>`;
+
+          await resend.emails.send({
+            from: "Thomas Laine <info@d365.se>",
+            to: parseRecipients(email),
+            replyTo: "thomas.laine@dynamicfactory.se",
+            bcc: ["thomas.laine@dynamicfactory.se"],
+            subject: personalizedSubject,
+            html: fullHtml,
+          });
+
+          sent++;
+          await supabase.from("email_send_log").insert({
+            recipient_email: email,
+            template_name: "partner_custom_email",
+            subject: personalizedSubject,
+            status: "sent",
+            metadata: { partner_name: partner.name, partner_id: partner.id || null },
+          });
+        } catch (sendErr: any) {
+          failed++;
+          errors.push(`${partner.name} (${partner.email}): ${sendErr.message}`);
+          await supabase.from("email_send_log").insert({
+            recipient_email: partner.email,
+            template_name: "partner_custom_email",
+            subject: emailSubject,
+            status: "failed",
+            error_message: sendErr.message,
+            metadata: { partner_name: partner.name, partner_id: partner.id || null },
+          });
+        }
+      }
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          sent,
+          failed,
+          total: partnerList.length,
+          errors: errors.length > 0 ? errors : undefined,
+          message: `Meddelande skickat till ${sent} av ${partnerList.length} partners.${failed > 0 ? ` ${failed} misslyckades.` : ''}`,
+        }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     return new Response(
       JSON.stringify({ error: "Ogiltig åtgärd" }),
       { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }

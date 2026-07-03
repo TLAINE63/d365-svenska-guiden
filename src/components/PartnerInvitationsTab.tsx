@@ -137,6 +137,15 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   const [profileRefreshEmails, setProfileRefreshEmails] = useState<Record<string, string>>({});
   const [profileRefreshSearch, setProfileRefreshSearch] = useState("");
   const [sendingProfileRefresh, setSendingProfileRefresh] = useState(false);
+
+  // Custom email (Partnerkommunikation)
+  const [showCustomEmailDialog, setShowCustomEmailDialog] = useState(false);
+  const [customEmailSubject, setCustomEmailSubject] = useState("");
+  const [customEmailBody, setCustomEmailBody] = useState("");
+  const [customEmailGroup, setCustomEmailGroup] = useState<"published" | "unpublished" | "selected">("selected");
+  const [customEmailSelected, setCustomEmailSelected] = useState<Set<string>>(new Set());
+  const [customEmailSearch, setCustomEmailSearch] = useState("");
+  const [sendingCustomEmail, setSendingCustomEmail] = useState(false);
   
   // Create form state
   const [newInvitation, setNewInvitation] = useState({
@@ -471,6 +480,82 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     }
   };
 
+  const openCustomEmailDialog = () => {
+    setCustomEmailGroup("selected");
+    setCustomEmailSelected(new Set());
+    setCustomEmailSearch("");
+    if (!customEmailSubject) setCustomEmailSubject("");
+    if (!customEmailBody) setCustomEmailBody("Hej {{NAME}},\n\n");
+    setShowCustomEmailDialog(true);
+  };
+
+  const getCustomEmailRecipients = () => {
+    if (customEmailGroup === "published") return partners.filter(p => p.is_featured);
+    if (customEmailGroup === "unpublished") return partners.filter(p => !p.is_featured);
+    return partners.filter(p => customEmailSelected.has(p.id));
+  };
+
+  const sendCustomEmail = async () => {
+    const recipients = getCustomEmailRecipients();
+    if (recipients.length === 0) {
+      toast.error("Inga mottagare valda");
+      return;
+    }
+    if (!customEmailSubject.trim()) {
+      toast.error("Ämnesrad krävs");
+      return;
+    }
+    if (!customEmailBody.trim()) {
+      toast.error("Meddelandetext krävs");
+      return;
+    }
+    const withoutEmail = recipients.filter(p => !(p.admin_contact_email || p.email));
+    if (withoutEmail.length > 0) {
+      toast.error(`Saknar e-post för: ${withoutEmail.map(p => p.name).slice(0, 5).join(", ")}${withoutEmail.length > 5 ? "..." : ""}`);
+      return;
+    }
+    if (!confirm(`Skicka meddelande till ${recipients.length} partner(s)?`)) return;
+
+    setSendingCustomEmail(true);
+    try {
+      const partnerList = recipients.map(p => ({
+        id: p.id,
+        name: p.name,
+        email: (p.admin_contact_email || p.email).trim(),
+        contact_name: p.contact_person || p.name,
+      }));
+
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=send-custom-email`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+          body: JSON.stringify({
+            partners: partnerList,
+            subject: customEmailSubject,
+            body: customEmailBody,
+          }),
+        }
+      );
+      handleResponse(response);
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Kunde inte skicka");
+      toast.success(data.message || "Meddelande skickat!");
+      if (data.errors?.length) console.warn("Custom email errors:", data.errors);
+      setShowCustomEmailDialog(false);
+    } catch (err: any) {
+      if (err.message !== "Session expired") {
+        toast.error(err.message || "Kunde inte skicka meddelande");
+      }
+    } finally {
+      setSendingCustomEmail(false);
+    }
+  };
+
   const createInvitation = async () => {
     if (!newInvitation.email || !newInvitation.partner_name) {
       toast.error("E-post och partnernamn krävs");
@@ -763,9 +848,9 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-xl font-semibold">Partnerinbjudningar</h2>
+          <h2 className="text-xl font-semibold">Partnerkommunikation</h2>
           <p className="text-sm text-muted-foreground">
-            Skicka inbjudningar till partners för att uppdatera sina profiluppgifter. 
+            Skicka inbjudningar, profileringslänkar, införsäljning och fria meddelanden till partners.
             Ändringar publiceras direkt – du får ett e-postmeddelande vid varje uppdatering.
           </p>
         </div>
@@ -813,6 +898,14 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
           >
             <Send className="w-4 h-4 mr-2" />
             Skicka profileringslänk (90 dgr)
+          </Button>
+          <Button
+            variant="outline"
+            onClick={openCustomEmailDialog}
+            className="border-emerald-600 text-emerald-700 hover:bg-emerald-50 dark:text-emerald-400 dark:hover:bg-emerald-950"
+          >
+            <Mail className="w-4 h-4 mr-2" />
+            Skicka fritt meddelande
           </Button>
           <Button onClick={() => setShowCreateDialog(true)}>
             <Plus className="w-4 h-4 mr-2" />
@@ -1439,6 +1532,130 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
               {sendingProfileRefresh
                 ? "Skickar..."
                 : `Skicka till ${profileRefreshSelected.size} partner${profileRefreshSelected.size === 1 ? "" : "s"}`}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Custom email (Partnerkommunikation) dialog */}
+      <Dialog open={showCustomEmailDialog} onOpenChange={setShowCustomEmailDialog}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Mail className="w-5 h-5 text-emerald-600" />
+              Skicka fritt meddelande
+            </DialogTitle>
+          </DialogHeader>
+
+          <div className="space-y-4 py-2">
+            <div>
+              <Label className="mb-2 block">Mottagargrupp</Label>
+              <div className="flex flex-wrap gap-2">
+                {([
+                  { key: "published", label: `Alla publicerade (${partners.filter(p => p.is_featured).length})` },
+                  { key: "unpublished", label: `Alla opublicerade (${partners.filter(p => !p.is_featured).length})` },
+                  { key: "selected", label: "Markerade partners" },
+                ] as const).map(({ key, label }) => (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => setCustomEmailGroup(key)}
+                    className={`h-8 px-3 rounded border text-sm font-medium transition-all ${
+                      customEmailGroup === key
+                        ? "bg-emerald-600 text-white border-emerald-600"
+                        : "bg-white text-slate-700 border-slate-200 hover:border-emerald-400"
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+              {customEmailGroup !== "selected" && (
+                <p className="text-xs text-muted-foreground mt-2">
+                  {getCustomEmailRecipients().length} mottagare
+                </p>
+              )}
+            </div>
+
+            {customEmailGroup === "selected" && (
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <Label>Välj partners ({customEmailSelected.size} valda)</Label>
+                  <Input
+                    placeholder="Sök partner..."
+                    value={customEmailSearch}
+                    onChange={(e) => setCustomEmailSearch(e.target.value)}
+                    className="max-w-xs h-8"
+                  />
+                </div>
+                <div className="border rounded max-h-56 overflow-y-auto divide-y">
+                  {partners
+                    .filter(p => !customEmailSearch || p.name.toLowerCase().includes(customEmailSearch.toLowerCase()))
+                    .sort((a, b) => a.name.localeCompare(b.name, "sv"))
+                    .map(p => {
+                      const checked = customEmailSelected.has(p.id);
+                      const hasEmail = !!(p.admin_contact_email || p.email);
+                      return (
+                        <label key={p.id} className="flex items-center gap-2 px-3 py-1.5 hover:bg-slate-50 cursor-pointer text-sm">
+                          <Checkbox
+                            checked={checked}
+                            onCheckedChange={(v) => {
+                              setCustomEmailSelected(prev => {
+                                const next = new Set(prev);
+                                if (v) next.add(p.id); else next.delete(p.id);
+                                return next;
+                              });
+                            }}
+                          />
+                          <span className="flex-1">{p.name}</span>
+                          {p.is_featured && <Badge variant="secondary" className="text-[10px]">Publicerad</Badge>}
+                          {!hasEmail && <Badge variant="destructive" className="text-[10px]">Ingen e-post</Badge>}
+                        </label>
+                      );
+                    })}
+                </div>
+              </div>
+            )}
+
+            <div>
+              <Label htmlFor="custom-email-subject">Ämne</Label>
+              <Input
+                id="custom-email-subject"
+                value={customEmailSubject}
+                onChange={(e) => setCustomEmailSubject(e.target.value)}
+                placeholder="T.ex. Uppdatering från d365.se"
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="custom-email-body">Meddelande</Label>
+              <Textarea
+                id="custom-email-body"
+                value={customEmailBody}
+                onChange={(e) => setCustomEmailBody(e.target.value)}
+                rows={14}
+                placeholder="Hej {{NAME}},&#10;&#10;..."
+                className="font-mono text-sm"
+              />
+              <p className="text-xs text-muted-foreground mt-1">
+                Variabler: <code>{"{{NAME}}"}</code> (kontaktperson), <code>{"{{PARTNER_NAME}}"}</code> (partnernamn). Använd tom rad för nytt stycke.
+              </p>
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowCustomEmailDialog(false)}>
+              Avbryt
+            </Button>
+            <Button
+              onClick={sendCustomEmail}
+              disabled={sendingCustomEmail || getCustomEmailRecipients().length === 0}
+              className="bg-emerald-600 hover:bg-emerald-700"
+            >
+              <Send className={`w-4 h-4 mr-2 ${sendingCustomEmail ? "animate-pulse" : ""}`} />
+              {sendingCustomEmail
+                ? "Skickar..."
+                : `Skicka till ${getCustomEmailRecipients().length} partner${getCustomEmailRecipients().length === 1 ? "" : "s"}`}
             </Button>
           </DialogFooter>
         </DialogContent>

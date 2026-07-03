@@ -50,6 +50,7 @@ const TEMPLATE_LABELS: Record<string, string> = {
   event_approved: "Event godkänt",
   event_rejected: "Event nekat",
   event_portal_link: "Event-portallänk",
+  partner_custom_email: "Fritt meddelande",
   event_portal_bulk: "Event-portal bulk",
 };
 

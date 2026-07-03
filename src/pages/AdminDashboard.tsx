@@ -2087,7 +2087,7 @@ Thomas`,
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-violet-500/20 to-violet-600/10 ring-1 ring-violet-400/20">
  <MailPlus className="h-3.5 w-3.5 text-violet-300" strokeWidth={1.75} />
  </span>
- Inbjudningar
+ Partnerkommunikation
  </TabsTrigger>
  <TabsTrigger value="events" className={`flex items-center gap-2 ${activeGroup === "innehall" ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-rose-500/20 to-rose-600/10 ring-1 ring-rose-400/20">
