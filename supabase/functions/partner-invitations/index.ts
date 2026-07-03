@@ -1532,36 +1532,67 @@ D365.se`;
             .replace(/\{\{DEADLINE\}\}/g, deadlineStr)
             .replace(/\{\{START_DATE\}\}/g, startDateStr);
 
+          // Resolve a unique profiling link for this partner (reuse existing invitation or create one)
+          let invitationLink = PUBLIC_BASE_URL;
+          if (/\{\{INVITATION_LINK\}\}/.test(bodyText)) {
+            let inviteQuery = supabase.from("partner_invitations").select("token").eq("email", email).order("created_at", { ascending: false }).limit(1);
+            if (partner.id) {
+              inviteQuery = supabase.from("partner_invitations").select("token").eq("partner_id", partner.id).order("created_at", { ascending: false }).limit(1);
+            }
+            const { data: existingInv } = await inviteQuery;
+            if (existingInv && existingInv.length > 0) {
+              invitationLink = `${PUBLIC_BASE_URL}/partner-update/${existingInv[0].token}`;
+            } else {
+              const { data: newInv } = await supabase
+                .from("partner_invitations")
+                .insert({ email, partner_name: partner.name, partner_id: partner.id || null })
+                .select().single();
+              if (newInv) invitationLink = `${PUBLIC_BASE_URL}/partner-update/${newInv.token}`;
+            }
+          }
+
+          const invitationButton = `<div style="text-align: center; margin: 30px 0;">
+            <a href="${invitationLink}" style="display: inline-block; background-color: #2563eb; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px;">Skapa/uppdatera er partnerprofil</a>
+          </div>
+          <p style="color: #6b7280; font-size: 14px;">Om knappen inte fungerar, kopiera länken:</p>
+          <p style="color: #2563eb; font-size: 14px; word-break: break-all;">${invitationLink}</p>`;
+
           // Build PDF link button
           const pdfButton = `<div style="text-align: center; margin: 20px 0;">
             <a href="${pdfUrl}" style="display: inline-block; background-color: #1e40af; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 15px;">📄 Ladda ner partneravtal (PDF)</a>
           </div>`;
 
-          // Convert plain text to HTML
+          // Convert plain text to HTML, handle both placeholders
           const htmlBody = bodyText
-            .split("{{PDF_LINK}}")
-            .map((part: string) => {
-              return part
-                .split("\n\n")
-                .map((paragraph: string) => {
-                  const trimmed = paragraph.trim();
-                  if (!trimmed) return "";
-                  const withBr = trimmed.replace(/\n/g, "<br>");
-                  const withLinks = withBr.replace(
-                    /(https?:\/\/[^\s<,]+)/g,
-                    '<a href="$1" style="color: #2563eb;">$1</a>'
-                  );
-                  const withEmails = withLinks.replace(
-                    /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g,
-                    '<a href="mailto:$1" style="color: #2563eb;">$1</a>'
-                  );
-                  const withBold = withEmails.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-                  return `<p>${withBold}</p>`;
+            .split("{{INVITATION_LINK}}")
+            .map((segment: string) => {
+              return segment
+                .split("{{PDF_LINK}}")
+                .map((part: string) => {
+                  return part
+                    .split("\n\n")
+                    .map((paragraph: string) => {
+                      const trimmed = paragraph.trim();
+                      if (!trimmed) return "";
+                      const withBr = trimmed.replace(/\n/g, "<br>");
+                      const withLinks = withBr.replace(
+                        /(https?:\/\/[^\s<,]+)/g,
+                        '<a href="$1" style="color: #2563eb;">$1</a>'
+                      );
+                      const withEmails = withLinks.replace(
+                        /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g,
+                        '<a href="mailto:$1" style="color: #2563eb;">$1</a>'
+                      );
+                      const withBold = withEmails.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+                      return `<p>${withBold}</p>`;
+                    })
+                    .filter(Boolean)
+                    .join("\n");
                 })
-                .filter(Boolean)
-                .join("\n");
+                .join(pdfButton);
             })
-            .join(pdfButton);
+            .join(invitationButton);
+
 
           const fullHtml = `<!DOCTYPE html>
             <html>
