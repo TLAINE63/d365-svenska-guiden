@@ -9,7 +9,6 @@ import {
   labelForArea,
   labelForUseCase,
   labelForExperience,
-  labelForEvidence,
   isAiProfileEmpty,
 } from "@/lib/aiProfile";
 
@@ -44,7 +43,6 @@ export default function AiProfilePublic({ profile, compact = false }: Props) {
   const caps = (p.capabilities || []).map(labelForCapability).filter(Boolean);
   const areas = (p.relevant_areas || []).map(labelForArea).filter(Boolean);
   const cases = (p.use_cases || []).map(labelForUseCase).filter(Boolean);
-  const evidence = (p.evidence_level || []).map(labelForEvidence).filter(Boolean);
 
   return (
     <section className={`rounded-lg border border-border bg-card ${compact ? "p-4" : "p-5 sm:p-6"}`}>
