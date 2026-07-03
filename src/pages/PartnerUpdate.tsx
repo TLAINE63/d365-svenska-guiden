@@ -1937,9 +1937,10 @@ const PartnerUpdate = () => {
    description="En gemensam AI-profil för hela ert företag – ersätter den gamla per-produkt-modellen."
    icon={Sparkles}
    accent="crm"
-   status={(aiProfile.capabilities || []).length > 0 ? "complete" : "empty"}
-   open={true}
-   onOpenChange={() => {}}
+    status={(aiProfile.capabilities || []).length > 0 ? "complete" : "empty"}
+    open={openSections.ai}
+    onOpenChange={() => toggleSection("ai")}
+
  >
    <AiProfileSection value={aiProfile} onChange={setAiProfile} />
  </PremiumCollapsibleSection>
