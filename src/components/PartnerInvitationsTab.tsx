@@ -1124,15 +1124,30 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
       {/* All invitations */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Alla inbjudningar</CardTitle>
+          <CardTitle className="text-lg">Partnerkommunikation</CardTitle>
           <CardDescription className="flex items-center gap-3 flex-wrap">
-            <span>{invitations.length} inbjudningar totalt</span>
+            <span>{sortedInvitations.length} av {invitations.length} inbjudningar</span>
+            <span className="text-xs">Filter:</span>
+            {([
+              { key: "all", label: "Alla" },
+              { key: "published", label: "Publicerad" },
+              { key: "unpublished", label: "Ej publicerad" },
+            ] as const).map(opt => (
+              <Button
+                key={opt.key}
+                variant={publishFilter === opt.key ? "secondary" : "ghost"}
+                size="sm"
+                className="h-6 text-xs px-2"
+                onClick={() => setPublishFilter(opt.key)}
+              >
+                {opt.label}
+              </Button>
+            ))}
             <span className="text-xs">Sortera:</span>
             {([
               { key: "created_desc", label: "Skapad" },
               { key: "name_asc", label: "A–Ö" },
-              { key: "status", label: "Status" },
-              { key: "latest_inv_desc", label: "Senaste inbjudan" },
+              { key: "latest_inv_desc", label: "Senaste kommunikationen" },
             ] as const).map(opt => (
               <Button
                 key={opt.key}
@@ -1173,10 +1188,9 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                   </TableHead>
                   <TableHead>Partner</TableHead>
                   <TableHead>E-post (mottagare)</TableHead>
-                  <TableHead>Status</TableHead>
                   <TableHead>Skapad</TableHead>
-                  <TableHead>Senaste inbjudan</TableHead>
-                  <TableHead>Senast inskickad</TableHead>
+                  <TableHead>Senaste kommunikationen</TableHead>
+                  <TableHead>Senast uppdaterad profil</TableHead>
                   <TableHead className="text-right">Åtgärder</TableHead>
                 </TableRow>
               </TableHeader>
