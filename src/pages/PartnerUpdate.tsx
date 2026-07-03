@@ -1312,7 +1312,7 @@ const PartnerUpdate = () => {
        </div>
        {missing.length > 0 && (
          <p className="text-[11px] text-muted-foreground mt-2">
-           Komplettera {missing.length} fält för att öka er synlighet och matchning.
+           Komplettera {missing.length} fält för att stärka hur ni publiceras på sajten och öka matchningen.
          </p>
        )}
      </div>
