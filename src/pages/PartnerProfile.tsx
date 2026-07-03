@@ -479,20 +479,33 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   </div>
 
 
-  {/* AI-generated neutral summary */}
+  {/* AI-generated summary — condensed checklist */}
   {(partner as any).ai_summary && (
-  <div className="max-w-3xl mb-4 rounded border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-3 sm:p-4 ">
-  <div className="flex items-center gap-2 mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
-  <Sparkles className="w-3.5 h-3.5 text-[hsl(var(--cta-orange))]" />
-  Neutral sammanfattning
-  </div>
-  <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
-  {(partner as any).ai_summary}
-  </p>
-  <p className="mt-2 text-[11px] text-slate-600">
-  Genererad av d365.se utifrån partnerdata. Uppdateras löpande.
-  </p>
-  </div>
+    <div className="max-w-3xl w-full mb-4 rounded-lg border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-3 sm:p-4">
+      <div className="flex items-center gap-2 mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
+        <Sparkles className="w-3.5 h-3.5 text-[hsl(var(--cta-orange))]" />
+        AI-sammanfattning
+      </div>
+      <ul className="space-y-1.5">
+        {(() => {
+          const raw = String((partner as any).ai_summary || "");
+          // Split by newlines, then by sentences if no newlines, and strip list markers
+          let items = raw.includes("\n")
+            ? raw.split(/\r?\n+/).filter(Boolean)
+            : raw.split(/\.\s+/).filter(s => s.trim().length > 8).map(s => s.replace(/\.$/, ""));
+          items = items.map(s => s.replace(/^\s*[-–—•✅\d]+\.?\s*/g, "").trim()).filter(Boolean);
+          return items.slice(0, 6).map((item, idx) => (
+            <li key={idx} className="flex items-start gap-2 text-sm sm:text-base text-slate-700">
+              <CheckCircle2 className="w-4 h-4 text-[hsl(var(--cta-orange))] mt-0.5 shrink-0" />
+              <span>{item}</span>
+            </li>
+          ));
+        })()}
+      </ul>
+      <p className="mt-2 text-[11px] text-slate-500">
+        Genererad av d365.se utifrån partnerdata. Uppdateras löpande.
+      </p>
+    </div>
   )}
 
   {/* Lead CTA block moved under product tabs — see PartnerProductTabs */}
