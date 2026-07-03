@@ -62,6 +62,8 @@ interface PartnerCardProps {
  highlightedRevenue?: string;
  highlightedGeography?: string;
  showRandomIndicator?: boolean;
+ // When true, show a single longer industry-pitch text block instead of the positioning statement
+ showIndustryPitch?: boolean;
 }
 
 const PartnerCard = ({ 
@@ -74,7 +76,8 @@ const PartnerCard = ({
  highlightedCompanySize,
  highlightedRevenue,
  highlightedGeography,
- showRandomIndicator = false
+ showRandomIndicator = false,
+ showIndustryPitch = false,
 }: PartnerCardProps) => {
   const [showAiDetails, setShowAiDetails] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
