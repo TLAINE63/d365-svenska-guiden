@@ -1951,7 +1951,7 @@ D365.se`;
             continue;
           }
 
-          // Create a fresh invitation valid for 90 days
+          // Create a fresh invitation valid through the end of 2026
           const { data: invitation, error: invErr } = await supabase
             .from("partner_invitations")
             .insert({
@@ -1959,7 +1959,7 @@ D365.se`;
               partner_name: partner.name,
               partner_id: partner.id || null,
               status: "approved",
-              expires_at: ninetyDays,
+              expires_at: endOf2026,
             })
             .select()
             .single();
