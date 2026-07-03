@@ -331,11 +331,28 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
     }
   };
 
+  // Avtalsförslag måste alltid innehålla både profileringslänk och PDF-länk.
+  // Om admin råkat radera någon platshållare lägger vi tillbaka den automatiskt.
+  const ensureAvtalsforslagPlaceholders = (body: string) => {
+    let b = body;
+    if (!b.includes("{{INVITATION_LINK}}")) {
+      b = b.trimEnd() + "\n\nDin profileringslänk:\n\n{{INVITATION_LINK}}";
+    }
+    if (!b.includes("{{PDF_LINK}}")) {
+      b = b.trimEnd() + "\n\nFullständigt partneravtal:\n\n{{PDF_LINK}}";
+    }
+    return b;
+  };
+
   const saveTemplate = async () => {
     try {
+      const bodyToSave = templateKind === "prospect" ? ensureAvtalsforslagPlaceholders(active.body) : active.body;
+      if (templateKind === "prospect" && bodyToSave !== active.body) {
+        active.setBody(bodyToSave);
+      }
       const saves = [
         { key: active.subjectKey, value: active.subject },
-        { key: active.bodyKey, value: active.body },
+        { key: active.bodyKey, value: bodyToSave },
         { key: active.ccKey, value: active.cc },
       ];
       await Promise.all(saves.map((s) =>
