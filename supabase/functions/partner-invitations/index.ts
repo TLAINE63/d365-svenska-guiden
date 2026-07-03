@@ -52,6 +52,21 @@ function renderParagraph(trimmed: string): string {
   return `<p>${withBold}</p>`;
 }
 
+function normalizeEmailPlaceholders(body: string): string {
+  return String(body || "")
+    .replace(/\[\s*Länk\s+till\s+profileringsformulär\s*\]/gi, "{{INVITATION_LINK}}")
+    .replace(/\[\s*Länk\s+till\s+profilering\s*\]/gi, "{{INVITATION_LINK}}")
+    .replace(/\[\s*Profileringslänk\s*\]/gi, "{{INVITATION_LINK}}")
+    .replace(/\[\s*PROFILERINGSLÄNK\s*\]/gi, "{{INVITATION_LINK}}")
+    .replace(/\[\s*Länk\s+till\s+avtalsmallen\s*\]/gi, "{{PDF_LINK}}")
+    .replace(/\[\s*Länk\s+till\s+avtalsförslaget\s*\]/gi, "{{PDF_LINK}}")
+    .replace(/\[\s*Länk\s+till\s+avtalsförslag\s*\]/gi, "{{PDF_LINK}}")
+    .replace(/\[\s*Länk\s+till\s+avtalssida\s*\]/gi, "{{PDF_LINK}}")
+    .replace(/\[\s*Länk\s+till\s+partneravtal\s*\]/gi, "{{PDF_LINK}}")
+    .replace(/\[\s*Länk\s+till\s+avtal\s*\]/gi, "{{PDF_LINK}}")
+    .replace(/\[\s*Avtalslänk\s*\]/gi, "{{PDF_LINK}}");
+}
+
 /**
  * Splits an email field into a list of addresses.
  * Accepts ";" or "," as separators so admins can mail multiple
@@ -1528,15 +1543,9 @@ D365.se`;
           }
 
           // Replace placeholders (also normalize legacy Swedish literals)
-          let bodyText = emailBody
+          let bodyText = normalizeEmailPlaceholders(emailBody)
             .replace(/\{\{DEADLINE\}\}/g, deadlineStr)
-            .replace(/\{\{START_DATE\}\}/g, startDateStr)
-            .replace(/\[Länk till profileringsformulär\]/gi, "{{INVITATION_LINK}}")
-            .replace(/\[Länk till profilering\]/gi, "{{INVITATION_LINK}}")
-            .replace(/\[Profileringslänk\]/gi, "{{INVITATION_LINK}}")
-            .replace(/\[Länk till avtal\]/gi, "{{PDF_LINK}}")
-            .replace(/\[Länk till partneravtal\]/gi, "{{PDF_LINK}}")
-            .replace(/\[Avtalslänk\]/gi, "{{PDF_LINK}}");
+            .replace(/\{\{START_DATE\}\}/g, startDateStr);
 
 
           // Resolve a unique profiling link for this partner (reuse existing invitation or create one)
@@ -1764,13 +1773,7 @@ D365.se`;
           </div>`;
 
           // Convert plain text to HTML, handle both placeholders (normalize legacy literals)
-          let bodyText = emailBody
-            .replace(/\[Länk till profileringsformulär\]/gi, "{{INVITATION_LINK}}")
-            .replace(/\[Länk till profilering\]/gi, "{{INVITATION_LINK}}")
-            .replace(/\[Profileringslänk\]/gi, "{{INVITATION_LINK}}")
-            .replace(/\[Länk till avtal\]/gi, "{{PDF_LINK}}")
-            .replace(/\[Länk till partneravtal\]/gi, "{{PDF_LINK}}")
-            .replace(/\[Avtalslänk\]/gi, "{{PDF_LINK}}");
+          let bodyText = normalizeEmailPlaceholders(emailBody);
           
 
           
@@ -1890,7 +1893,7 @@ D365.se`;
           <a href="${pdfUrl}" style="display: inline-block; background-color: #1e40af; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 15px;">📄 Ladda ner partneravtal (PDF)</a>
         </div>`;
 
-        const htmlBody = emailBody
+        const htmlBody = normalizeEmailPlaceholders(emailBody)
           .split("{{PDF_LINK}}")
           .map((part: string) => {
             return part
@@ -2041,7 +2044,7 @@ D365.se`;
           const invitationLink = `${baseUrl}/partner-update/${invitation.token}`;
           const contactName = partner.contact_name || partner.name || "";
 
-          const personalizedBody = emailBody
+          const personalizedBody = normalizeEmailPlaceholders(emailBody)
             .replace(/\{\{NAME\}\}/g, contactName)
             .replace(/\[PROFILERINGSLÄNK\]/g, "{{INVITATION_LINK}}");
           const personalizedSubject = emailSubject.replace(/\{\{NAME\}\}/g, contactName);
@@ -2254,7 +2257,7 @@ d365.se`;
 
           const contactName = partner.contact_name || partner.name;
 
-          const personalizedBody = emailBody.replace(/\{\{NAME\}\}/g, contactName);
+          const personalizedBody = normalizeEmailPlaceholders(emailBody).replace(/\{\{NAME\}\}/g, contactName);
           const personalizedSubject = emailSubject.replace(/\{\{NAME\}\}/g, contactName);
 
           const invitationButton = `<div style="text-align: center; margin: 30px 0;">
