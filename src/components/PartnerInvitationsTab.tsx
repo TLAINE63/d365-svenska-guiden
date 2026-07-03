@@ -106,7 +106,8 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   const [selectedForDelete, setSelectedForDelete] = useState<Set<string>>(new Set());
   const [deleting, setDeleting] = useState(false);
   const [showCreateDialog, setShowCreateDialog] = useState(false);
-  const [sortOrder, setSortOrder] = useState<"created_desc" | "name_asc" | "status" | "latest_inv_desc">("created_desc");
+  const [sortOrder, setSortOrder] = useState<"created_desc" | "name_asc" | "latest_inv_desc">("created_desc");
+  const [publishFilter, setPublishFilter] = useState<"all" | "published" | "unpublished">("all");
   
   // Email template state
   const [emailTemplate, setEmailTemplate] = useState("");
@@ -728,18 +729,17 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   }, [invitations]);
 
   const sortedInvitations = useMemo(() => {
-    const sorted = [...dedupedInvitations];
-    const statusOrder: Record<string, number> = { pending: 0, submitted: 1, approved: 2, expired: 3 };
+    let sorted = [...dedupedInvitations];
+    if (publishFilter !== "all") {
+      sorted = sorted.filter(inv => {
+        const partner = inv.partner_id ? partners.find(p => p.id === inv.partner_id) : null;
+        if (!partner) return publishFilter === "unpublished";
+        return publishFilter === "published" ? partner.is_featured : !partner.is_featured;
+      });
+    }
     switch (sortOrder) {
       case "name_asc":
         sorted.sort((a, b) => a.partner_name.localeCompare(b.partner_name, "sv"));
-        break;
-      case "status":
-        sorted.sort((a, b) => {
-          const aStatus = new Date(a.expires_at) < new Date() && a.status === "pending" ? "expired" : a.status;
-          const bStatus = new Date(b.expires_at) < new Date() && b.status === "pending" ? "expired" : b.status;
-          return (statusOrder[aStatus] ?? 99) - (statusOrder[bStatus] ?? 99);
-        });
         break;
       case "latest_inv_desc":
         sorted.sort((a, b) => {
@@ -752,7 +752,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
         sorted.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
     }
     return sorted;
-  }, [dedupedInvitations, sortOrder, latestInvitationByPartner]);
+  }, [dedupedInvitations, sortOrder, latestInvitationByPartner, publishFilter, partners]);
 
   const toggleReminderSelection = (id: string) => {
     setSelectedForReminder(prev => {
@@ -1124,15 +1124,30 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
       {/* All invitations */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Alla inbjudningar</CardTitle>
+          <CardTitle className="text-lg">Partnerkommunikation</CardTitle>
           <CardDescription className="flex items-center gap-3 flex-wrap">
-            <span>{invitations.length} inbjudningar totalt</span>
+            <span>{sortedInvitations.length} av {invitations.length} inbjudningar</span>
+            <span className="text-xs">Filter:</span>
+            {([
+              { key: "all", label: "Alla" },
+              { key: "published", label: "Publicerad" },
+              { key: "unpublished", label: "Ej publicerad" },
+            ] as const).map(opt => (
+              <Button
+                key={opt.key}
+                variant={publishFilter === opt.key ? "secondary" : "ghost"}
+                size="sm"
+                className="h-6 text-xs px-2"
+                onClick={() => setPublishFilter(opt.key)}
+              >
+                {opt.label}
+              </Button>
+            ))}
             <span className="text-xs">Sortera:</span>
             {([
               { key: "created_desc", label: "Skapad" },
               { key: "name_asc", label: "A–Ö" },
-              { key: "status", label: "Status" },
-              { key: "latest_inv_desc", label: "Senaste inbjudan" },
+              { key: "latest_inv_desc", label: "Senaste kommunikationen" },
             ] as const).map(opt => (
               <Button
                 key={opt.key}
@@ -1173,10 +1188,9 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                   </TableHead>
                   <TableHead>Partner</TableHead>
                   <TableHead>E-post (mottagare)</TableHead>
-                  <TableHead>Status</TableHead>
                   <TableHead>Skapad</TableHead>
-                  <TableHead>Senaste inbjudan</TableHead>
-                  <TableHead>Senast inskickad</TableHead>
+                  <TableHead>Senaste kommunikationen</TableHead>
+                  <TableHead>Senast uppdaterad profil</TableHead>
                   <TableHead className="text-right">Åtgärder</TableHead>
                 </TableRow>
               </TableHeader>
@@ -1220,7 +1234,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                         return (adminEmail && adminEmail !== invitation.email) ? adminEmail : invitation.email;
                       })()}
                     </TableCell>
-                    <TableCell>{getStatusBadge(invitation.status, invitation.expires_at)}</TableCell>
+                    
                     <TableCell>
                       {format(new Date(invitation.created_at), "d MMM yyyy", { locale: sv })}
                     </TableCell>
