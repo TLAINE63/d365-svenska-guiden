@@ -1655,7 +1655,19 @@ D365.se`;
 
       const resend = new Resend(resendApiKey);
       const baseUrl = PUBLIC_BASE_URL;
-      const pdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/D365_Partner_Agreement_2026.pdf`;
+      let pdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/D365_Partner_Agreement_2026.pdf`;
+      try {
+        const { data: agrSetting } = await supabase
+          .from("site_settings").select("value")
+          .eq("key", "partner_agreement_page_config").maybeSingle();
+        if (agrSetting?.value) {
+          const parsed = JSON.parse(agrSetting.value);
+          if (parsed?.pdfUrl && typeof parsed.pdfUrl === "string" && parsed.pdfUrl.trim()) {
+            pdfUrl = parsed.pdfUrl.trim();
+          }
+        }
+      } catch (_e) { /* keep fallback */ }
+
       const emailSubject = customSubject || "Bli synlig på d365.se – Sveriges köparsidiga guide till Dynamics 365";
       const emailBody = customBody || "Hej,\n\nVi vill gärna ha med er som partner på d365.se.\n\n{{INVITATION_LINK}}\n\n{{PDF_LINK}}\n\nVänliga hälsningar\nThomas Laine & Michael Uhman";
       const ccList: string[] = Array.isArray(cc) ? cc : (cc ? [cc] : []);
