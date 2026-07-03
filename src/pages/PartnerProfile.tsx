@@ -46,43 +46,6 @@ import { buildMetaDescription } from "@/lib/metaDescription";
 import { trackPartnerView } from "@/utils/trackPartnerView";
 
 
-// Map application names to Dynamics 365 icons
-const applicationIcons: Record<string, string> = {
- "Business Central": BusinessCentralIcon,
- "Sales": SalesIcon,
- "Customer Service": CustomerServiceIcon,
- "Field Service": FieldServiceIcon,
- "Marketing": MarketingIcon,
- "Customer Insights": MarketingIcon,
- "Customer Insights (Marketing)": MarketingIcon,
- "Finance": FinanceIcon,
- "Finance & SCM": FinanceIcon,
- "Finance & Supply Chain": FinanceIcon,
- "Supply Chain": SupplyChainIcon,
- "Supply Chain Management": SupplyChainIcon,
- "Copilot": CopilotIcon,
- "Contact Center": ContactCenterIcon,
- "Project Operations": ProjectOperationsIcon,
- "Commerce": CommerceIcon,
- "Human Resources": HumanResourcesIcon,
-};
-
-const getApplicationIcon = (appName: string): string | null => {
- // Try exact match first
- if (applicationIcons[appName]) return applicationIcons[appName];
- 
- // Try partial match
- const lowerName = appName.toLowerCase();
- for (const [key, icon] of Object.entries(applicationIcons)) {
- if (lowerName.includes(key.toLowerCase()) || key.toLowerCase().includes(lowerName)) {
- return icon;
- }
- }
- 
- // No matching icon
- return null;
-};
-
 // Map application names to product categories
 // NOTE: Project Operations, Commerce, Human Resources are specialty products shown separately
 const getProductCategory = (app: string): 'bc' | 'fsc' | 'sales' | 'service' | null => {
