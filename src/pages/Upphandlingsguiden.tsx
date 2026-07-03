@@ -65,10 +65,12 @@ const steps: Step[] = [
  highlight: "med köparsidig vägledning",
  description:
  "Få en strukturerad överblick över vilka partners som matchar er bransch, era produktområden, er geografi och er storlek. Vi står på köparens sida – inga direktlänkar till leverantörer, all kontakt går via plattformens mediarade matchning.",
- links: [
- { label: "Hitta Dynamics 365-partner", to: "/valjdynamics365partner/" },
- { label: "Utforska branscher", to: "/branscher/" },
- ],
+    links: [
+      { label: "Hitta Dynamics 365-partner", to: "/valjdynamics365partner/" },
+      { label: "Hitta partner för din bransch", to: "/branscher/" },
+      { label: "Utforska branscher", to: "/branscher/" },
+    ],
+
  primary: true,
  },
  {
@@ -92,10 +94,11 @@ const steps: Step[] = [
  highlight: "team, metodik och bemanning",
  description:
  "Rätt implementeringspartner är avgörande för ett lyckat införande. Granska kundexempel, certifieringar, AI-förmågor och referenser för Business Central, F&SCM, Sales, Customer Service, Field Service, Customer Insights och Contact Center.",
- links: [
- { label: "Bläddra bland partners", to: "/valjdynamics365partner/" },
- { label: "Så väljer du rätt partner", to: "/valjdynamics365partner/?ai=1" },
- ],
+    links: [
+      { label: "Jämför Partner", to: "/jamfor-partners" },
+      { label: "Så väljer du rätt partner", to: "/valjdynamics365partner/?ai=1" },
+    ],
+
  },
  {
  num: 6,
