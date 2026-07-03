@@ -436,7 +436,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
       toast.error("Brödtexten måste innehålla {{INVITATION_LINK}}");
       return;
     }
-    if (!confirm(`Skicka profileringslänk till ${selectedPartners.length} partner(s)? Länken är giltig i 90 dagar.`)) return;
+    if (!confirm(`Skicka profileringslänk till ${selectedPartners.length} partner(s)? Länken är giltig hela 2026.`)) return;
 
     setSendingProfileRefresh(true);
     try {
