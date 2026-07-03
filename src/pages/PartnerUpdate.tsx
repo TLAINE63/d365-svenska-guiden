@@ -1143,8 +1143,8 @@ const PartnerUpdate = () => {
               <div>
                 <h2 className="text-lg font-semibold text-foreground">Progress & Value</h2>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Din profil används för att matcha er med rätt kunder.
-                  Ju tydligare och mer komplett den är – desto bättre synlighet får ni.
+                  Informationen ni fyller i publiceras direkt på ert partnerkort och er partnerprofil på d365.se – och används för att matcha er med rätt kunder.
+                  Ju tydligare och mer komplett profilen är, desto starkare framträder ni för besökarna.
                 </p>
               </div>
               <div className="text-right md:text-right">
