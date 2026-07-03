@@ -28,7 +28,7 @@ export default function AiChatBubble() {
 
       {/* Panel */}
       {open && (
-        <div className="fixed bottom-24 right-5 z-50 w-[min(92vw,400px)] h-[min(70vh,560px)] rounded bg-background border border-border  flex flex-col overflow-hidden animate-in slide-in-from-bottom-4 fade-in duration-200">
+        <div className="fixed bottom-36 right-5 sm:bottom-24 sm:right-5 z-50 w-[min(92vw,400px)] h-[min(70vh,560px)] rounded bg-background border border-border  flex flex-col overflow-hidden animate-in slide-in-from-bottom-4 fade-in duration-200">
           <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-gradient-to-r from-primary/10 to-transparent">
             <div>
               <p className="font-semibold text-sm">Fråga AI om Dynamics 365</p>
