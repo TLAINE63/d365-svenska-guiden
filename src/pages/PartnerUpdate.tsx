@@ -384,6 +384,8 @@ const PartnerUpdate = () => {
   basic: !basicComplete,
   decision: !decisionComplete && productsComplete,
   products: !productsComplete,
+  ai: false,
+
   specialty: !specialtyComplete && productsComplete,
   pitches: !pitchesComplete && productsComplete,
   industryApps: !industryAppsComplete && productsComplete,
