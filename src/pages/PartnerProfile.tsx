@@ -31,7 +31,7 @@ import PartnerEventsSection from "@/components/PartnerEventsSection";
 import DecisionProfile from "@/components/partner/DecisionProfile";
 import PartnerProductTabs, { resolveInitialTab } from "@/components/partner/PartnerProductTabs";
 import type { TabKey } from "@/components/partner/types";
-import PartnerQuickFacts from "@/components/partner/PartnerQuickFacts";
+
 import { usePartner, DatabasePartner } from "@/hooks/usePartners";
 import { getCumulativeGeographyDisplay } from "@/data/partners";
 import {
