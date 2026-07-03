@@ -1199,15 +1199,6 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                         >
                           <ExternalLink className="w-4 h-4" />
                         </Button>
-                        <Button 
-                          variant="ghost" 
-                          size="sm"
-                          onClick={() => deleteInvitation(invitation.id)}
-                          className="text-destructive hover:text-destructive"
-                          title="Radera"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
                       </div>
                     </TableCell>
                   </TableRow>
