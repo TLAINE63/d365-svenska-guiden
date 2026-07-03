@@ -1138,16 +1138,10 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                   <TableRow key={invitation.id}>
                     <TableCell>
                       <Checkbox
-                        checked={selectedForDelete.has(invitation.id)}
-                        onCheckedChange={() => {
-                          setSelectedForDelete(prev => {
-                            const next = new Set(prev);
-                            if (next.has(invitation.id)) next.delete(invitation.id); else next.add(invitation.id);
-                            return next;
-                          });
-                          // Also toggle reminder if pending
-                          if (isPending) toggleReminderSelection(invitation.id);
-                        }}
+                        checked={selectedForReminder.has(invitation.id)}
+                        onCheckedChange={() => toggleReminderSelection(invitation.id)}
+                        disabled={!isPending}
+                        title={isPending ? "Välj för påminnelse" : "Endast pågående inbjudningar kan påminnas"}
                       />
                     </TableCell>
                     <TableCell className="font-medium">
