@@ -64,22 +64,15 @@ export default function AiProfilePublic({ profile, compact = false }: Props) {
         )}
         {areas.length > 0 && <Row label="Relevant för">{chips(areas)}</Row>}
         {cases.length > 0 && <Row label="Typiska use cases">{chips(cases)}</Row>}
-        {p.experience_level && (
-          <Row label="Erfarenhetsnivå">{labelForExperience(p.experience_level)}</Row>
-        )}
-        {evidence.length > 0 && <Row label="Underlag">{evidence.join(" · ")}</Row>}
-        {p.description && (
-          <Row label="Kort beskrivning">
-            <p className="leading-relaxed">{p.description}</p>
-          </Row>
-        )}
+         {p.experience_level && (
+           <Row label="Erfarenhetsnivå">{labelForExperience(p.experience_level)}</Row>
+         )}
+         {p.description && (
+           <Row label="Kort beskrivning">
+             <p className="leading-relaxed">{p.description}</p>
+           </Row>
+         )}
       </dl>
-
-      <p className="mt-3 text-[11px] text-muted-foreground">
-        Uppgifterna bygger på information från partnern. d365.se skiljer mellan självdeklarerade
-        uppgifter, underbyggda uppgifter och uppgifter som granskats eller stöds av publika
-        case/referenser.
-      </p>
     </section>
   );
 }
