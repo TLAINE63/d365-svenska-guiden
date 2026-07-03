@@ -313,20 +313,29 @@ const PartnerCard = ({
  </div>
  )}
 
-     {/* Industry pitch or positioning statement — single text block */}
-     {industryPitch ? (
+     {/* Single text block — product pages show "Passar bäst för" with positioning statement */}
+     {showBestFitOnly && isDatabasePartner(partner) && partner.positioning_statement ? (
        <div className="mb-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary">
-         <p className="text-[13px] font-medium text-foreground leading-snug line-clamp-6">
-           {industryPitch}
+         <p className="text-[13px] font-semibold text-primary mb-1.5">Passar bäst för:</p>
+         <p className="text-[13px] font-medium text-foreground leading-snug line-clamp-7">
+           {partner.positioning_statement}
          </p>
        </div>
      ) : (
-       isDatabasePartner(partner) && partner.positioning_statement && (
+       industryPitch ? (
          <div className="mb-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary">
-           <p className="text-[13px] font-medium text-foreground leading-snug line-clamp-5">
-             {partner.positioning_statement}
+           <p className="text-[13px] font-medium text-foreground leading-snug line-clamp-6">
+             {industryPitch}
            </p>
          </div>
+       ) : (
+         isDatabasePartner(partner) && partner.positioning_statement && (
+           <div className="mb-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary">
+             <p className="text-[13px] font-medium text-foreground leading-snug line-clamp-5">
+               {partner.positioning_statement}
+             </p>
+           </div>
+         )
        )
      )}
  
