@@ -1936,7 +1936,7 @@ D365.se`;
         emailSubject = subjectSetting?.value || "VIKTIGT! Uppdatera er partnerprofil på d365.se";
       }
 
-      const ninetyDays = new Date(Date.now() + 90 * 86400000).toISOString();
+      const endOf2026 = new Date("2026-12-31T23:59:59.000Z").toISOString();
 
       let sent = 0;
       let failed = 0;
