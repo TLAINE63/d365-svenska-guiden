@@ -1070,7 +1070,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
                 </div>
                 <div>
                   <Label htmlFor={`body-${k}`}>
-                    Brödtext (använd <code className="text-xs">[NAMN]</code> för mottagarens kontaktnamn{k === "published" ? <>, <code className="text-xs">{"{{INVITATION_LINK}}"}</code> för profileringslänk</> : null}, <code className="text-xs">{"{{SITE_STATS}}"}</code> för 8-rutors statistikblock, <code className="text-xs">{"{{SNITCHER_COMPANIES}}"}</code> för identifierade besökande företag)
+                    Brödtext (använd <code className="text-xs">[NAMN]</code> för mottagarens kontaktnamn{k === "published" ? <>, <code className="text-xs">{"{{INVITATION_LINK}}"}</code> för unik profileringslänk</> : null}, <code className="text-xs">{"{{PDF_LINK}}"}</code> för länk till partneravtalet (PDF), <code className="text-xs">{"{{SITE_STATS}}"}</code> för 8-rutors statistikblock, <code className="text-xs">{"{{SNITCHER_COMPANIES}}"}</code> för identifierade besökande företag)
                   </Label>
                   {activeTab === k && (
                     <div className="flex flex-wrap gap-2 my-2">
@@ -1085,8 +1085,12 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
                           + Infoga profileringslänk
                         </Button>
                       )}
+                      <Button type="button" variant="outline" size="sm" onClick={() => insertPlaceholder("{{PDF_LINK}}")}>
+                        + Infoga avtalslänk (PDF)
+                      </Button>
                     </div>
                   )}
+
                   <Textarea
                     id={`body-${k}`}
                     value={templates[k].body}

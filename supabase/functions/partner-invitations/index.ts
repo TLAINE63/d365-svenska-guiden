@@ -2128,9 +2128,27 @@ d365.se`;
         emailSubject = subjectSetting?.value || "Prova d365.se kostnadsfritt – kvalificerade D365-leads direkt till er";
       }
 
+      // Resolve agreement PDF url (from site_settings > partner_agreement_page_config)
+      let agreementPdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/D365_Partner_Agreement_2026.pdf`;
+      try {
+        const { data: agrSetting } = await supabase
+          .from("site_settings")
+          .select("value")
+          .eq("key", "partner_agreement_page_config")
+          .maybeSingle();
+        if (agrSetting?.value) {
+          const parsed = JSON.parse(agrSetting.value);
+          if (parsed?.pdfUrl && typeof parsed.pdfUrl === "string" && parsed.pdfUrl.trim()) {
+            agreementPdfUrl = parsed.pdfUrl.trim();
+          }
+        }
+      } catch (_e) { /* keep fallback */ }
+
       let sent = 0;
       let failed = 0;
       const errors: string[] = [];
+
+
 
       for (const partner of partnerList) {
         try {
@@ -2175,20 +2193,30 @@ d365.se`;
           <p style="color: #6b7280; font-size: 14px;">Om knappen inte fungerar, kopiera och klistra in denna länk i din webbläsare:</p>
           <p style="color: #2563eb; font-size: 14px; word-break: break-all;">${invitationLink}</p>`;
 
+          const pdfButton = `<div style="text-align: center; margin: 20px 0;">
+            <a href="${agreementPdfUrl}" style="display: inline-block; background-color: #1e40af; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 15px;">📄 Ladda ner partneravtal (PDF)</a>
+          </div>`;
+
           let htmlBody = personalizedBody
             .split("{{INVITATION_LINK}}")
-            .map((part: string) => {
-              return part
-                .split("\n\n")
-                .map((paragraph: string) => {
-                  const trimmed = paragraph.trim();
-                  if (!trimmed) return "";
-                  return renderParagraph(trimmed);
+            .map((segment: string) => {
+              return segment
+                .split("{{PDF_LINK}}")
+                .map((part: string) => {
+                  return part
+                    .split("\n\n")
+                    .map((paragraph: string) => {
+                      const trimmed = paragraph.trim();
+                      if (!trimmed) return "";
+                      return renderParagraph(trimmed);
+                    })
+                    .filter(Boolean)
+                    .join("\n");
                 })
-                .filter(Boolean)
-                .join("\n");
+                .join(pdfButton);
             })
             .join(invitationButton);
+
 
           // Inject inline block placeholders (replace the rendered <p>{{...}}</p>)
           const hasSiteStatsPlaceholder = /\{\{SITE_STATS\}\}/.test(personalizedBody);
