@@ -899,6 +899,14 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
             <Send className="w-4 h-4 mr-2" />
             Skicka profileringslänk (90 dgr)
           </Button>
+          <Button
+            variant="outline"
+            onClick={openCustomEmailDialog}
+            className="border-emerald-600 text-emerald-700 hover:bg-emerald-50 dark:text-emerald-400 dark:hover:bg-emerald-950"
+          >
+            <Mail className="w-4 h-4 mr-2" />
+            Skicka fritt meddelande
+          </Button>
           <Button onClick={() => setShowCreateDialog(true)}>
             <Plus className="w-4 h-4 mr-2" />
             Ny inbjudan
