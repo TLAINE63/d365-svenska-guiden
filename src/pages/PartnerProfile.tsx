@@ -28,7 +28,8 @@ import LeadCTA from "@/components/LeadCTA";
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
 import DecisionProfile from "@/components/partner/DecisionProfile";
-import PartnerProductTabs, { resolveInitialTab } from "@/components/partner/PartnerProductTabs";
+import PartnerProductTabs, { resolveInitialTab, TabKey } from "@/components/partner/PartnerProductTabs";
+import PartnerQuickFacts from "@/components/partner/PartnerQuickFacts";
 import { usePartner, DatabasePartner } from "@/hooks/usePartners";
 import { getCumulativeGeographyDisplay } from "@/data/partners";
 import {
@@ -179,7 +180,11 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  }
  }, [slug, searchParams, productFromPath]);
 
- const selectedProduct = stashedParams.get("product") || undefined;
+  const selectedProduct = stashedParams.get("product") || undefined;
+  const initialTabKey = useMemo<TabKey>(
+    () => resolveInitialTab(productFromPath, selectedProduct),
+    [productFromPath, selectedProduct],
+  );
  const selectedIndustry = stashedParams.get("industry") || undefined;
  const selectedCompanySize = stashedParams.get("companySize") || undefined;
  const selectedRevenue = stashedParams.get("revenue") || undefined;
@@ -191,6 +196,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
   const [videoOpen, setVideoOpen] = useState(false);
   const [activeTabProduct, setActiveTabProduct] = useState<string | null>(null);
+  const [activeTabKey, setActiveTabKey] = useState<TabKey>(initialTabKey);
   const [requestOpen, setRequestOpen] = useState(false);
   const [requestMode, setRequestMode] = useState<"contact" | "demo" | "quote">("quote");
 
@@ -623,7 +629,12 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   </div>
   </div>
   );
-  })()}
+   })()}
+
+   {/* Quick facts — helps customers compare themselves against the partner */}
+   <div className="mt-4 w-full max-w-2xl">
+     <PartnerQuickFacts partner={partner} activeTab={activeTabKey} />
+   </div>
 
   </div>
   </div>
@@ -646,7 +657,10 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
    selectedCompanySize={selectedCompanySize}
    selectedGeography={selectedGeography}
    selectedRevenue={selectedRevenue}
-   onActiveTabChange={(_, label) => setActiveTabProduct(label)}
+    onActiveTabChange={(tab, label) => {
+      setActiveTabKey(tab);
+      setActiveTabProduct(label);
+    }}
    onRequest={openRequest}
     />
 
