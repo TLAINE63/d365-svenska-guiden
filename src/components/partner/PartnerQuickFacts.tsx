@@ -95,14 +95,12 @@ function getTabFilter(partner: DatabasePartner, tab: TabKey) {
 
 function formatSizeLabelFromRevenue(revenue: string[]): string {
   if (revenue.length === 0) return "företag i olika storlekar";
-  const hasSmall = revenue.some((r) => r.includes("1-24") || r.includes("25-99"));
-  const hasMedium = revenue.some((r) => r.includes("100-499") || r.includes("500-999"));
-  const hasLarge = revenue.some((r) => r.includes("1.000") || r.includes(">5.000"));
+  const hasVeryLarge = revenue.some((r) => r.includes("1.000") || r.includes(">5.000"));
+  const hasMediumLarge = revenue.some((r) => r.includes("100-499") || r.includes("500-999"));
+  const hasSmall = revenue.some((r) => r.includes("25-99") || r.includes("1-24"));
 
-  if (hasLarge && hasSmall) return "företag i alla storlekar";
-  if (hasLarge) return "stora företag";
-  if (hasMedium && hasSmall) return "små och medelstora företag";
-  if (hasMedium) return "medelstora och större företag";
+  if (hasVeryLarge) return "stora företag";
+  if (hasMediumLarge) return "medelstora och större företag";
   if (hasSmall) return "små och medelstora företag";
   return "företag i olika storlekar";
 }
