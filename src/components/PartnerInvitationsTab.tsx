@@ -1107,6 +1107,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
             <span className="text-xs">Sortera:</span>
             {([
               { key: "created_desc", label: "Senaste kommunikationen" },
+              { key: "missing_contact", label: "Saknar kontakt" },
               { key: "name_asc", label: "A–Ö" },
             ] as const).map(opt => (
               <Button
@@ -1114,11 +1115,12 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                 variant={sortOrder === opt.key ? "secondary" : "ghost"}
                 size="sm"
                 className="h-6 text-xs px-2"
-                onClick={() => setSortOrder(opt.key)}
+                onClick={() => setSortOrder(opt.key as typeof sortOrder)}
               >
                 {opt.label}
               </Button>
             ))}
+
           </CardDescription>
         </CardHeader>
         <CardContent>
