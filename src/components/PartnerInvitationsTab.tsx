@@ -25,7 +25,7 @@ import { toast } from "sonner";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { 
-  Plus, Copy, Trash2, RefreshCw, CheckCircle2, Clock, Send, 
+  Plus, Copy, RefreshCw, CheckCircle2, Clock, Send, 
   ExternalLink, Mail, FileEdit, Save
 } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
