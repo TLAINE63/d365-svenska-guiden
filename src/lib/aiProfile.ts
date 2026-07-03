@@ -14,7 +14,11 @@ export interface AiProfile {
   evidence_level?: string[];
   description?: string | null;
   migrated_at?: string;
+  /** AI-generated buyer-oriented summary shown in the "AI-erfarenhet" box. */
+  ai_experience_summary?: string | null;
+  ai_experience_summary_generated_at?: string | null;
 }
+
 
 // ===== Options =====
 // label-pairs are [value, label]
