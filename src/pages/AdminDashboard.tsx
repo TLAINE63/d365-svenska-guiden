@@ -386,6 +386,33 @@ const AdminDashboard = () => {
   const [generatingPositioningId, setGeneratingPositioningId] = useState<string | null>(null);
   const [generatingAiNotAFit, setGeneratingAiNotAFit] = useState(false);
   const [generatingWhyKeypoints, setGeneratingWhyKeypoints] = useState(false);
+  const [generatingAiExperienceSummary, setGeneratingAiExperienceSummary] = useState(false);
+
+  const handleGenerateAllAiExperienceSummary = async () => {
+    if (!confirm("Generera köparorienterad 'AI:s sammanfattning' för alla publicerade partners med AI-profil som saknar text? Befintliga texter rörs ej.")) return;
+    setGeneratingAiExperienceSummary(true);
+    try {
+      const { data, error } = await invokeAdminEdgeWithRetry("generate-partner-ai-experience-summary", { token, all: true });
+      if (error) throw error;
+      if ((data as any)?.error) throw new Error((data as any).error);
+      const gen = (data as any)?.generatedCount ?? 0;
+      const pc = (data as any)?.partnerCount ?? 0;
+      toast({ title: "AI-sammanfattning klar", description: `${gen} av ${pc} partners uppdaterade.` });
+      refetchPartners();
+    } catch (e: any) {
+      const msg = e?.message || "Okänt fel";
+      toast({
+        title: "Kunde inte generera",
+        description: msg === "RATE_LIMIT" ? "AI-tjänsten är överbelastad – försök igen om en stund."
+          : msg === "PAYMENT_REQUIRED" ? "AI-krediter slut. Lägg till krediter under Settings → Workspace → Usage."
+          : msg,
+        variant: "destructive",
+      });
+    } finally {
+      setGeneratingAiExperienceSummary(false);
+    }
+  };
+
 
   const handleGenerateAllWhyKeypoints = async () => {
     if (!confirm("Fyll 'Varför välja er' och 3–4 konkreta punkter för alla publicerade partners som saknar det (per produktområde)? Befintligt innehåll rörs ej.")) return;
@@ -2533,7 +2560,17 @@ Thomas`,
       <Sparkles className={`mr-2 h-4 w-4 ${generatingWhyKeypoints ? "animate-pulse" : ""}`} />
       {generatingWhyKeypoints ? "Fyller varför & punkter…" : "AI: Fyll 'Varför välja' & punkter"}
     </Button>
+    <Button
+      variant="outline"
+      onClick={handleGenerateAllAiExperienceSummary}
+      disabled={generatingAiExperienceSummary}
+      title="Generera köparorienterad 'AI:s sammanfattning' (2 meningar) för publicerade partners med AI-profil. Befintlig text rörs ej."
+    >
+      <Sparkles className={`mr-2 h-4 w-4 ${generatingAiExperienceSummary ? "animate-pulse" : ""}`} />
+      {generatingAiExperienceSummary ? "Genererar AI-sammanfattning…" : "AI: 'AI:s sammanfattning'"}
+    </Button>
   </div>
+
  {selectedForWelcome.size > 0 && (
  <DropdownMenu>
  <DropdownMenuTrigger asChild>
