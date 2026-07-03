@@ -153,8 +153,8 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   const [emailListSelected, setEmailListSelected] = useState<Set<string>>(new Set());
   const [emailListSearch, setEmailListSearch] = useState("");
   const [emailListSeparator, setEmailListSeparator] = useState<"comma" | "semicolon" | "newline">("semicolon");
-  const [emailListIncludeInvoice, setEmailListIncludeInvoice] = useState(false);
   const [emailListFilter, setEmailListFilter] = useState<"all" | "published" | "unpublished">("all");
+
 
   
   
