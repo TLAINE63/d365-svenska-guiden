@@ -129,11 +129,19 @@ export function PartnerQuickFacts({ partner, activeTab }: PartnerQuickFactsProps
     bullets.push({ icon: "🏭", text: `Starkast inom ${formatIndustries(industries)}` });
   }
 
-  const sizeLabel =
-    companySize.length > 0
-      ? formatCompanySizeLabel(companySize)
-      : formatSizeLabelFromRevenue(revenue);
-  bullets.push({ icon: "📈", text: `Passar främst ${sizeLabel}` });
+  const sizeText = (() => {
+    if (companySize.length > 0) {
+      const range = formatSizeRange(companySize);
+      return `Passar främst företag med ${range}`;
+    }
+    if (revenue.length > 0) {
+      return `Passar främst ${formatSizeLabelFromRevenue(revenue)}`;
+    }
+    return null;
+  })();
+  if (sizeText) {
+    bullets.push({ icon: "📈", text: sizeText });
+  }
 
   if (bullets.length === 0) return null;
 
