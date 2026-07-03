@@ -514,6 +514,9 @@ export default function PartnerProductTabs({
               </section>
             )}
 
+            {/* Quick facts — helps customers compare themselves against the partner */}
+            <PartnerQuickFacts partner={partner} activeTab={active} />
+
             {/* 1. Varför välja */}
 
             <section>
