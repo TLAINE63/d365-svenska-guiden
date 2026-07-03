@@ -323,8 +323,8 @@ const PartnerCard = ({
        </div>
      ) : (
        industryPitch ? (
-         <div className="mb-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary">
-           <p className="text-[13px] font-medium text-foreground leading-snug line-clamp-8">
+         <div className="mb-4 p-4 rounded-lg bg-primary/5 border-l-2 border-primary">
+           <p className="text-[14px] font-medium text-foreground leading-relaxed line-clamp-8">
              {industryPitch}
            </p>
          </div>
