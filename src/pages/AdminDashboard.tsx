@@ -2593,7 +2593,7 @@ Thomas`,
  </DropdownMenuItem>
  <DropdownMenuItem onClick={() => openEmailDialog('profile_refresh')}>
  <Mail className="mr-2 h-4 w-4" />
- Profileringslänk (90 dgr)
+ Profileringslänk (2026)
  </DropdownMenuItem>
  <DropdownMenuItem onClick={() => openEmailDialog('sales_pitch')}>
  <Send className="mr-2 h-4 w-4" />
