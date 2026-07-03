@@ -411,7 +411,39 @@ const PartnerCard = ({
   </div>
  )}
 
- {/* Quick indicator badges — faster to interpret than text */}
+
+ {/* Matchar din sökning – visas när användaren har aktiva filter */}
+ {(highlightedProduct || highlightedIndustry || highlightedGeography || highlightedCompanySize) && (
+  <div className="mb-3 rounded-md border border-primary/20 bg-primary/5 px-3 py-2">
+   <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-1.5 flex items-center gap-1.5">
+    <span aria-hidden="true">✨</span> Matchar din sökning
+   </p>
+   <div className="flex flex-wrap gap-1.5">
+    {highlightedProduct && (
+     <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-background border border-border text-foreground/80">
+      {highlightedProduct}
+     </span>
+    )}
+    {highlightedIndustry && (
+     <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-background border border-border text-foreground/80">
+      {highlightedIndustry}
+     </span>
+    )}
+    {highlightedGeography && (
+     <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-background border border-border text-foreground/80">
+      {highlightedGeography}
+     </span>
+    )}
+    {highlightedCompanySize && (
+     <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-background border border-border text-foreground/80">
+      {highlightedCompanySize} anställda
+     </span>
+    )}
+   </div>
+  </div>
+ )}
+
+
  {indicators.length > 0 && (
   <TooltipProvider delayDuration={100}>
    <div className="flex flex-wrap gap-1.5 mb-3">
