@@ -500,7 +500,7 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
       <div>
         <h2 className="text-lg font-semibold mb-1 flex items-center gap-2">
           <Mail className="h-5 w-5" />
-          Partneravtal & Prospektutskick
+          Partneravtal & Avtalsförslag
         </h2>
         <p className="text-sm text-muted-foreground">
           Markera valfria partners (publicerade eller ej) och välj vilken mall som ska skickas.
