@@ -297,7 +297,7 @@ const PartnerCard = ({
   // Public-facing application badges from all registered product competencies:
   // product_filters keys plus the explicit applications list.
   const getDisplayApplications = (): string[] => {
-    const apps = new Set<string>();
+    const apps: string[] = [];
     if (isDatabasePartner(partner)) {
       const pf = partner.product_filters || {};
       const map: Record<string, string> = {
@@ -308,13 +308,13 @@ const PartnerCard = ({
         crm: "Sales",
       };
       for (const [key, filter] of Object.entries(pf)) {
-        if (filter && map[key]) apps.add(map[key]);
+        if (filter && map[key]) apps.push(map[key]);
       }
     }
     for (const app of partner.applications || []) {
-      apps.add(displayApplicationName(app));
+      apps.push(displayApplicationName(app));
     }
-    return sortApplications(Array.from(apps));
+    return sortApplications(normalizeApplications(apps));
   };
 
   const displayApplications = getDisplayApplications();
