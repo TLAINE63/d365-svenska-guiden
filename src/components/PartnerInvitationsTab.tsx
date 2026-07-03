@@ -677,11 +677,14 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   const partnerRows = useMemo(() => {
     const rows = partners.map(p => {
       const contactEmail = p.admin_contact_email || p.email || "";
+      const hasContactName = !!(p.admin_contact_name || p.contact_person);
+      const hasContactEmail = !!(p.admin_contact_email || p.email);
+      const missingContact = !hasContactName || !hasContactEmail;
       const inv =
         latestInvitationByPartner.get(p.id) ||
         (contactEmail ? latestInvitationByEmail.get(contactEmail.toLowerCase()) : undefined) ||
         (p.email ? latestInvitationByEmail.get(p.email.toLowerCase()) : undefined);
-      return { partner: p, invitation: inv || null, contactEmail };
+      return { partner: p, invitation: inv || null, contactEmail, missingContact };
     });
 
     const filtered = rows.filter(r => {
@@ -693,6 +696,12 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     switch (sortOrder) {
       case "name_asc":
         filtered.sort((a, b) => a.partner.name.localeCompare(b.partner.name, "sv"));
+        break;
+      case "missing_contact":
+        filtered.sort((a, b) => {
+          if (a.missingContact !== b.missingContact) return a.missingContact ? -1 : 1;
+          return a.partner.name.localeCompare(b.partner.name, "sv");
+        });
         break;
       case "latest_inv_desc":
       case "created_desc":
@@ -706,6 +715,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     }
     return filtered;
   }, [partners, latestInvitationByPartner, latestInvitationByEmail, publishFilter, sortOrder]);
+
 
   const toggleReminderSelection = (id: string) => {
     setSelectedForReminder(prev => {
