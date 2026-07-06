@@ -225,6 +225,11 @@ Deno.serve(async (req) => {
         : `\nMålgrupp (${criteria.application}): ej angiven (neutral – varken bonus eller avdrag)`;
 
       const knowledgeBlock = renderKnowledgeBlock(knowledgeMap.get(p.id));
+      const extRaw = extendedMap.get(p.id) || '';
+      const extClean = extRaw.replace(/\s+/g, ' ').trim();
+      const extendedBlock = extClean
+        ? `\nFÖRDJUPNING (partnerns egen bakgrundstext, använd som kompletterande källa för matchning – citera aldrig ordagrant, referera inte till "fördjupningen" i motivering/bullets): ${extClean.substring(0, 1200)}${extClean.length > 1200 ? '…' : ''}`
+        : '';
 
       return `ID: ${p.id}
 Namn: ${sanitizeUntrusted(p.name, 200)}
@@ -233,7 +238,7 @@ Produktbeskrivning (${criteria.application}): ${productDesc}
 Branschfokus för ${criteria.application}: ${pfIndustries}
 Kundexempel: ${customerExamples}
 Kontorsorter: ${officeCities.length > 0 ? officeCities.join(', ') : 'Ej angivet'}
-Plattformskompetens: ${platformCaps.length > 0 ? platformCaps.join(', ') : 'Ej angivet'}${industryFocusLine}${targetAudienceLine}${aiSummary}${knowledgeBlock}`;
+Plattformskompetens: ${platformCaps.length > 0 ? platformCaps.join(', ') : 'Ej angivet'}${industryFocusLine}${targetAudienceLine}${aiSummary}${knowledgeBlock}${extendedBlock}`;
     }).join('\n\n---\n\n');
 
     const systemPrompt = `Du är en expert på Microsoft Dynamics 365 och hjälper svenska företag att hitta rätt implementeringspartner.
