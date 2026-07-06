@@ -15,7 +15,6 @@ import {
   Target,
   Table2,
   ArrowLeftRight,
-  ExternalLink,
   X,
   Info,
   Sparkles,
@@ -186,34 +185,29 @@ interface ColProps {
 const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onRequestQuote, quoteSubmitting }: ColProps) => (
   <div className="rounded-xl border border-slate-200 bg-white p-3 sm:p-4">
     {partner ? (
-      <div className="flex items-start gap-3 sm:gap-4">
-        <div className="shrink-0">
+      <div className="relative flex flex-col items-center justify-center text-center">
+        <Link
+          to={`/partner/${partner.slug}`}
+          className="group block"
+          aria-label={`Gå till ${partner.name}s profil`}
+        >
           {partner.logo_url ? (
             <img
               src={partner.logo_url}
               alt={`${partner.name} logotyp`}
-              width="96"
-              height="96"
-              className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain rounded-lg bg-white border border-slate-100 p-1"
+              width="176"
+              height="176"
+              className="w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 object-contain rounded-lg bg-white border border-slate-100 p-2 transition-transform group-hover:scale-105"
             />
           ) : (
-            <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-lg bg-gradient-to-br from-muted to-muted/60 flex items-center justify-center">
-              <span className="text-2xl sm:text-3xl font-bold text-muted-foreground/60">{partner.name.slice(0, 2).toUpperCase()}</span>
+            <div className="w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 rounded-lg bg-gradient-to-br from-muted to-muted/60 flex items-center justify-center transition-transform group-hover:scale-105">
+              <span className="text-3xl sm:text-4xl lg:text-5xl font-bold text-muted-foreground/60">{partner.name.slice(0, 2).toUpperCase()}</span>
             </div>
           )}
-        </div>
-        <div className="min-w-0 flex-1">
-          <Link
-            to={`/partner/${partner.slug}`}
-            className="group flex flex-wrap items-center gap-1.5 text-xl sm:text-2xl lg:text-3xl font-bold text-foreground hover:text-[hsl(var(--cta-orange))] transition-colors"
-          >
-            <span className="break-words leading-tight">{partner.name}</span>
-            <ExternalLink className="w-5 h-5 opacity-0 group-hover:opacity-60 transition-opacity shrink-0" />
-          </Link>
-        </div>
+        </Link>
         <button
           onClick={onClear}
-          className="text-slate-400 hover:text-slate-700 shrink-0"
+          className="absolute top-0 right-0 text-slate-400 hover:text-slate-700 shrink-0 p-1"
           aria-label="Rensa val"
         >
           <X className="w-4 h-4" />
@@ -221,7 +215,7 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
       </div>
     ) : (
       <div className="space-y-1.5">
-        <div className="h-20 sm:h-24 lg:h-28 rounded-lg bg-slate-50 border border-dashed border-slate-200 flex items-center justify-center text-sm text-slate-500">
+        <div className="h-28 sm:h-36 lg:h-44 rounded-lg bg-slate-50 border border-dashed border-slate-200 flex items-center justify-center text-sm text-slate-500">
           Välj partner nedan
         </div>
       </div>
