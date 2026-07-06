@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -77,7 +78,7 @@ import {
  Users, Building2, Plus, Pencil, Upload, Lock, TrendingUp, Calendar, Inbox, Globe,
  ImageIcon, User, Phone, Mail, Link, FileText, CalendarCheck, CalendarX, AlertCircle,
  CheckCircle2, Circle, ArrowRight, MailPlus, CalendarDays, Download, ArrowUpDown, Clock, Award, ChevronDown,
- MailCheck, ScrollText, Megaphone, LineChart, Gauge, LayoutDashboard, FileSignature, Sparkles, AlertTriangle
+  MailCheck, ScrollText, Megaphone, LineChart, Gauge, LayoutDashboard, FileSignature, Sparkles, AlertTriangle, Server
 } from "lucide-react";
 import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
 import { PremiumCollapsibleSection } from "@/components/admin/PremiumCollapsibleSection";
@@ -1957,14 +1958,24 @@ Thomas`,
  <RefreshCw className={`mr-2 h-4 w-4 ${(isLoadingLeads || isLoadingStats || isLoadingPartners) ? "animate-spin" : ""}`} />
  Uppdatera
  </Button>
- <Button
- onClick={logout}
- variant="outline"
- className="bg-white/5 border-white/15 text-white hover:bg-white/10 hover:text-white "
- >
- <LogOut className="mr-2 h-4 w-4" />
- Logga ut
- </Button>
+              <Button
+                asChild
+                variant="outline"
+                className="bg-white/5 border-white/15 text-white hover:bg-white/10 hover:text-white"
+              >
+                <RouterLink to="/admin/mcp-test">
+                  <Server className="mr-2 h-4 w-4" />
+                  MCP-test
+                </RouterLink>
+              </Button>
+              <Button
+                onClick={logout}
+                variant="outline"
+                className="bg-white/5 border-white/15 text-white hover:bg-white/10 hover:text-white "
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                Logga ut
+              </Button>
  </div>
  </div>
 
