@@ -370,6 +370,11 @@ const PartnerUpdate = () => {
   const toggleSection = (key: SectionKey) =>
  setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
 
+  const SECTION_KEYS: SectionKey[] = ["basic", "products", "ai", "specialty", "pitches", "industryApps", "events", "decision", "notes"];
+  const allExpanded = SECTION_KEYS.every((k) => openSections[k]);
+  const setAllSections = (open: boolean) =>
+    setOpenSections(SECTION_KEYS.reduce((acc, k) => ({ ...acc, [k]: open }), {} as Record<SectionKey, boolean>));
+
  // Smart auto-expand: open empty/incomplete sections after data loads (runs once).
  useEffect(() => {
  if (loading || autoExpandApplied || !invitation) return;
