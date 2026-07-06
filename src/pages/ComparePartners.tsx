@@ -1255,9 +1255,9 @@ const ComparePartners = () => {
     if (!hasBoth) return [] as string[];
     const points: string[] = [];
     const sides = [
-      { P: A, F: AF, name: A.partner?.name || "Partner A", partner: a },
-      { P: B, F: BF, name: B.partner?.name || "Partner B", partner: b },
-      ...(hasC ? [{ P: C, F: CF, name: C.partner?.name || "Partner C", partner: c }] : []),
+      { P: A, F: AF, name: A.partner?.name || "Partner 1", partner: a },
+      { P: B, F: BF, name: B.partner?.name || "Partner 2", partner: b },
+      ...(hasC ? [{ P: C, F: CF, name: C.partner?.name || "Partner 3", partner: c }] : []),
     ];
 
     const filterLabel = (() => {
