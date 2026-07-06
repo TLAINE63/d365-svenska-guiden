@@ -24,6 +24,8 @@ import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import FinanceIcon from "@/assets/icons/Finance.svg";
 import SalesIcon from "@/assets/icons/Sales.svg";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
+import FieldServiceIcon from "@/assets/icons/FieldService.svg";
+import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
 import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
 import CommerceIcon from "@/assets/icons/Commerce.svg";
 import HumanResourcesIcon from "@/assets/icons/HumanResources.svg";
@@ -120,8 +122,16 @@ interface ProductFilter {
  contactName: string;
  contactEmail: string;
  contactPhone: string;
- contactPhotoUrl: string;
- landingPageUrl: string;
+  contactPhotoUrl: string;
+  landingPageUrl: string;
+  // Per-app profiling inside the "service" product tab (Customer Service, Field Service, Contact Center)
+  servicePerApp?: Record<string, {
+    offered?: boolean;
+    productDescription?: string;
+    whyChoose?: string;
+    keyPoints?: string;
+    landingPageUrl?: string;
+  }>;
 }
 
 interface ProductFilters {
@@ -1748,12 +1758,124 @@ const PartnerUpdate = () => {
              <p className="text-xs text-muted-foreground mt-1">
                Undvik "vi erbjuder" och generell företagsbeskrivning. Visas som punktlista på er produktflik.
              </p>
-           </div>
+            </div>
 
-            {/* Legacy per-product AI block – hidden in favour of partner-level AI profile */}
-            {false && (
-            <div className="pt-4 border-t border-border">
-              <Label className="text-sm font-semibold">AI & AUTOMATION</Label>
+            {/* Per-app profiling – only for the combined service tab */}
+            {productKey === 'service' && (() => {
+              const serviceApps = [
+                {
+                  key: 'Customer Service',
+                  label: 'Customer Service',
+                  icon: CustomerServiceIcon,
+                  descPh: 'Ex: Omnikanal support med Copilot-agents för B2B-team',
+                  whyPh: 'Ex: Vi designar Customer Service för supportorganisationer med höga volymer och SLA-krav. Erfarenhet av omnikanal, kunskapsbas och Copilot-agents.',
+                  keyPh: 'Omnikanal: telefon, mejl, chatt, självservice\nCopilot-agents för förstaledssupport\nKunskapsbas och ärendeflöden från dag ett\nMätbara mål på lösningsgrad, AHT och CSAT',
+                },
+                {
+                  key: 'Field Service',
+                  label: 'Field Service',
+                  icon: FieldServiceIcon,
+                  descPh: 'Ex: Ruttoptimering, mobil arbetsorder och IoT för serviceteam',
+                  whyPh: 'Ex: Vi implementerar Field Service för fältorganisationer med komplex resursplanering, ruttoptimering och mobila tekniker. Integrationer mot ERP och IoT.',
+                  keyPh: 'Ruttoptimering och resursplanering\nMobil arbetsorder offline-first\nIoT-integration för prediktivt underhåll\nIntegration mot ERP och reservdelslager',
+                },
+                {
+                  key: 'Contact Center',
+                  label: 'Contact Center',
+                  icon: ContactCenterIcon,
+                  descPh: 'Ex: Digital contact center med röst, chatt och AI-agents',
+                  whyPh: 'Ex: Vi bygger moderna contact centers på Dynamics 365 Contact Center med djup Copilot-integration, röst, chatt och digital självservice.',
+                  keyPh: 'Röst, chatt, sms och digital självservice\nCopilot voice- och chat-agents\nRealtidsanalys och supervisor-dashboards\nSnabb time-to-value via färdiga mallar',
+                },
+              ] as const;
+              const perApp = filter.servicePerApp || {};
+              const updatePerApp = (appKey: string, patch: Partial<NonNullable<ProductFilter['servicePerApp']>[string]>) => {
+                const next = {
+                  ...perApp,
+                  [appKey]: { ...(perApp[appKey] || {}), ...patch },
+                };
+                updateProductFilter(productKey, { servicePerApp: next });
+              };
+              return (
+                <div className="pt-4 border-t border-border space-y-4">
+                  <div>
+                    <Label className="text-sm font-semibold">Profilera per applikation</Label>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Fyll i separat beskrivning, "varför välja er" och punktlista per applikation ni faktiskt levererar. Lämna tomt för de ni inte erbjuder.
+                    </p>
+                  </div>
+                  {serviceApps.map((app) => {
+                    const entry = perApp[app.key] || {};
+                    const offered = entry.offered ?? !!(entry.productDescription || entry.whyChoose || entry.keyPoints);
+                    return (
+                      <div key={app.key} className="rounded-lg border-2 border-border bg-card p-4 space-y-3">
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="flex items-center gap-2">
+                            <img src={app.icon} alt={app.label} className="h-6 w-6 object-contain" />
+                            <span className="font-semibold text-base">Dynamics 365 {app.label}</span>
+                          </div>
+                          <label className="flex items-center gap-2 text-xs cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={offered}
+                              onChange={(e) => updatePerApp(app.key, { offered: e.target.checked })}
+                              className="h-4 w-4"
+                            />
+                            <span>Vi erbjuder denna</span>
+                          </label>
+                        </div>
+                        {offered && (
+                          <div className="space-y-3">
+                            <div>
+                              <Label className="text-xs">Kort beskrivning</Label>
+                              <Input
+                                placeholder={app.descPh}
+                                value={entry.productDescription || ''}
+                                onChange={(e) => updatePerApp(app.key, { productDescription: e.target.value })}
+                                className="mt-1"
+                              />
+                            </div>
+                            <div>
+                              <Label className="text-xs">Varför välja er för {app.label}?</Label>
+                              <Textarea
+                                placeholder={app.whyPh}
+                                value={entry.whyChoose || ''}
+                                onChange={(e) => updatePerApp(app.key, { whyChoose: e.target.value })}
+                                className="mt-1 min-h-[80px]"
+                              />
+                            </div>
+                            <div>
+                              <Label className="text-xs">3–4 konkreta punkter (en per rad)</Label>
+                              <Textarea
+                                placeholder={app.keyPh}
+                                value={entry.keyPoints || ''}
+                                onChange={(e) => updatePerApp(app.key, { keyPoints: e.target.value })}
+                                className="mt-1 min-h-[80px]"
+                              />
+                            </div>
+                            <div>
+                              <Label className="text-xs">Länk till er sida om {app.label} (valfritt)</Label>
+                              <Input
+                                type="url"
+                                placeholder={`https://erforetag.se/${app.label.toLowerCase().replace(/\s+/g, '-')}`}
+                                value={entry.landingPageUrl || ''}
+                                onChange={(e) => updatePerApp(app.key, { landingPageUrl: e.target.value })}
+                                className="mt-1"
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })()}
+
+             {/* Legacy per-product AI block – hidden in favour of partner-level AI profile */}
+             {false && (
+             <div className="pt-4 border-t border-border">
+               <Label className="text-sm font-semibold">AI & AUTOMATION</Label>
              <p className="text-xs text-muted-foreground mt-1 mb-3">
                Denna information används för att visa er nivå inom AI och automatisering.<br />
                Markera det ni faktiskt levererat – inte vad ni planerar.
