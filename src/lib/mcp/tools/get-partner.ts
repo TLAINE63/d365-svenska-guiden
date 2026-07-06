@@ -20,13 +20,12 @@ export default defineTool({
   handler: async ({ slug }) => {
     const sb = supabaseAnon();
     const { data, error } = await sb
-      .from("partners")
+      .from("partners_public")
       .select(
-        "slug,name,description,website,applications,industries,secondary_industries,geography,office_cities,customer_examples,platform_capabilities,positioning_statement,team_size_sweden,implementations_done,ai_summary",
+        "slug,name,description,website,applications,industries,secondary_industries,geography,office_cities,customer_examples,positioning_statement,team_size_sweden,implementations_done,ai_summary",
       )
       .eq("slug", slug)
       .eq("is_featured", true)
-      .not("published_at", "is", null)
       .maybeSingle();
 
     if (error) {
