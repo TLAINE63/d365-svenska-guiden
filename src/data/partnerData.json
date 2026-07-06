@@ -153,7 +153,9 @@
       "ai_experience_summary": "Partnern erbjuder rådgivning och workshops för AI-strategi och implementering, med fokus på AI-readiness, datakvalitet och styrning. Detta passar organisationer som vill bygga en grund för ansvarsfull AI-användning, särskilt med inriktning på Copilot-förberedelser och ERP-processer.",
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:29.767Z"
-    }
+    },
+    "extended_content": null,
+    "extended_content_updated_at": null
   },
   {
     "id": "67211d79-5e9e-4113-b6c2-ac77f54fc17b",
@@ -301,7 +303,9 @@
       "ai_experience_summary": "adriq hjälper företag inom mode-, sport- och textilbranschen att effektivisera affärsprocesser med Business Central. Partnern integrerar generella AI-funktioner som en del av standardlösningarna för att digitalisera informationsflöden.",
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:32.977Z"
-    }
+    },
+    "extended_content": null,
+    "extended_content_updated_at": null
   },
   {
     "id": "de93854a-6402-4f4a-8901-82bf355d0f0b",
@@ -453,7 +457,9 @@
       "ai_experience_summary": "Partnern hjälper organisationer att integrera AI och automation, inklusive Copilot Studio-agenter, i sina sälj- och kundserviceprocesser. De passar företag som söker praktisk implementering av AI inom Dynamics 365 och Power Platform, från strategi till drift.",
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:48.621Z"
-    }
+    },
+    "extended_content": null,
+    "extended_content_updated_at": null
   },
   {
     "id": "e97862ae-7d14-44da-9ea3-7e2de1140a10",
@@ -627,7 +633,9 @@
       "ai_experience_summary": "Partnern arbetar med att införa AI och automation inom Microsoft Dynamics 365 och Power Platform, med praktisk erfarenhet av att utveckla AI-stöd för bland annat sälj, kundservice och ekonomi. De passar organisationer som vill bygga effektivitet genom AI-integration i sina befintliga affärsprocesser, inklusive förberedelser för Copilot.",
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:39.939Z"
-    }
+    },
+    "extended_content": null,
+    "extended_content_updated_at": null
   },
   {
     "id": "d51765db-7ab6-4cb6-8c53-384f1ffee552",
@@ -708,7 +716,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-07-03T14:03:43.714458+00:00",
+    "updated_at": "2026-07-06T17:13:14.965723+00:00",
     "industry_pitches": [
       {
         "text": "Bisqo AB erbjuder molnbaserade lösningar för grossist- och distributionsbranschen med fokus på Microsoft Dynamics 365 Business Central. Partnern har kompetens inom att effektivisera affärsprocesser som är centrala för branschen, inklusive lagerhantering, orderhantering och logistik. De arbetar med att implementera och optimera dessa system för att möta krav på snabba och precisa leveranser. Bisqo AB levererar även lösningar för kundrelationshantering (CRM) baserade på Power Platform samt analysverktyg med Power BI, vilka bidrar till förbättrad överblick och beslutsfattande i komplexa logistikkedjor. Deras arbetssätt syftar till att leverera snabba och förutsägbara implementationer som ger affärsvärde för distributionsföretag som strävar efter digitalisering och effektivisering av sina processer.",
@@ -777,7 +785,9 @@
       "ai_experience_summary": "Partnern fokuserar på att effektivisera affärsprocesser genom standardlösningar inom Business Central och Power Platform. De lämpar sig för organisationer som söker rådgivning och workshops för att nyttja befintlig funktionalitet för skalbarhet och framtidssäkring.",
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:43.662Z"
-    }
+    },
+    "extended_content": "Bisqo är en svensk, nischad Microsoft-partner med tyngdpunkt på Dynamics 365 Business Central och CRM på Power Platform. De vänder sig i första hand till små och medelstora bolag och profilerar sig på standardiserade, paketerade lösningar med tydligt scope, fast pris och snabb implementation, kompletterat av långsiktig förvaltning. Där Fellowmind är en bred plattformspartner är Bisqo en fokuserad SMB-/midmarket-specialist.\n\nAktiva produktområden: Business Central är kärnan (5/5), följt av CRM på Power Platform och Dynamics 365 Sales. Sekundärt finns Customer Service, Customer Insights - Journeys, RapidStart CRM, ClickDimensions, Power Platform, Power BI och integrationer. Viktig avgränsning: Finance & SCM, Project Operations, Commerce, HR, Field Service och Contact Center är inte verifierade som aktiva och bör inte visas som leveransområden utan ny bekräftelse.\n\nTydliga styrkor: Business Central-specialisering, standardisering (FastTrack, Elevate, \"standard först\"), fast scope och fast pris, samt en tydlig Managed Services-modell med fast månadspris, fri support, löpande uppdateringar och tilläggshantering. Kombinationen BC + CRM på Power Platform för mindre kunder är deras främsta särskiljare, tillsammans med Land and Expand-tänket.\nRäckvidd och segment: Lokal svensk organisation med kontor i Helsingborg och Malmö, stark närvaro i Skåne/södra Sverige. Cirka 16 anställda 2025 enligt Bolagsfakta (intern kontext anger ca 30, bör verifieras). Fokus på SMB och nedre/mellersta midmarket, ungefär 50–999 anställda. Branschfokus: grossist/distribution, retail/e-handel/handel och tillverkning, med referenser inom bland annat fordonsbelysning, hjälpmedel och belysning.\n\nPassar bäst: Bolag som ska införa Business Central med tydligt scope och snabb start, byten från äldre ERP (C5, Visma, NAV, BC On-Premise) till BC Online, handels-/distributions-/tillverkningsnära verksamheter med integrationsbehov, samt kunder som vill kombinera BC med CRM och som föredrar fast pris framför tunga skräddarsydda projekt. Mindre lämplig för stora enterprise-/F&SCM-program, globala rollouts, renodlade advisory-/SI-uppdrag eller avancerade CE-program.\n\nTre saker jag skulle flagga innan publik användning:\nFörst AI-profilen: AI, automation och Copilot-insikter kommuniceras, men d365.se anger AI-mognaden som grundläggande till medel och antalet AI-projekt är inte publikt verifierat. Verifiera nivå och kundcase innan någon starkare AI-positionering.\n\nSedan bolagsdatan: här spretar källorna. Den juridiska enheten Bisqo AB (org.nr 556265-0795) är registrerad 1987, medan den nuvarande verksamheten anges ha startat 1 oktober 2023. Även antal anställda (16 vs ca 30) och omsättningsnivåer skiljer sig mellan källor. Håll dessa isär och verifiera vid partnerdialog före publicering.\n\nSlutligen ISV-avgränsningen: Bisqo bör bara visas under specifika Business Central-tillägg där de är verifierade (partnersidan listar bland annat Continia, Golden EDI, SmartApps, AGR, ClickDimensions, Truvio och RapidStart CRM). ExFlow är noterat som ej verifierat, och auktorisation för övriga tillägg ska inte antas.\n\nKort sagt: en snabb, förutsägbar BC- och CRM-partner för SMB/midmarket, starkast på standardiserad implementation och förvaltning. Rätt jämförelsegrupp är BC-specialister som NAB Solutions, Adbriq, Navcite och Goodfellows, med Fellowmind, Accigo, Evidi, COSMO CONSULT och Cepheo som ett steg upp i storlek, snarare än globala SI:er som CGI eller Avanade.\nKontaktväg på d365.se: Daniel Vesterberg (daniel.vesterberg@bisqo.se).",
+    "extended_content_updated_at": "2026-07-06T17:13:14.57+00:00"
   },
   {
     "id": "42f8b63b-a4c9-480d-81e5-a322652b3af4",
@@ -789,13 +799,14 @@
     "website": "https://fellowmind.se",
     "email": "katarina.parsson@fellowmind.se",
     "contact_person": "Katarina Pärsson",
-    "contact_photo_url": "",
+    "contact_photo_url": null,
     "phone": "0103333399",
     "applications": [
+      "Business Central",
+      "Finance",
+      "Supply Chain Management",
       "Sales",
-      "Customer Insights (Marketing)",
-      "F&SCM",
-      "Business Central"
+      "Customer Insights (Marketing)"
     ],
     "industries": [],
     "secondary_industries": [],
@@ -989,7 +1000,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T20:38:52.813808+00:00",
-    "updated_at": "2026-07-03T14:03:46.94023+00:00",
+    "updated_at": "2026-07-06T16:23:31.517219+00:00",
     "industry_pitches": [
       {
         "text": "Fellowmind erbjuder lösningar baserade på Microsoft Dynamics 365 för grossist- och distributionsbranschen. Med inriktning på att optimera leveranskedjor och finansiella processer, implementerar Fellowmind Dynamics 365 Finance och Supply Chain Management. Deras expertis omfattar att stödja företag i att hantera komplexa logistikflöden, förbättra lagereffektiviteten och säkerställa transparenta ekonomiska transaktioner. Fellowmind arbetar med att anpassa Microsoft-plattformen för att möta specifika krav gällande priskonfigurationer, integration med tredjepartslogistik (3PL) och optimering av order-till-leveransprocesser. De strävar efter att leverera hållbara lösningar som bidrar till ökad operativ effektivitet och datadrivna beslutsunderlag.",
@@ -1074,7 +1085,9 @@
       "ai_experience_summary": "Partnern fokuserar på att integrera Microsofts standards AI-lösningar, inklusive Copilot Studio och inbyggd Copilot, primärt för Business Central-miljöer. Detta passar organisationer som vill förstärka befintliga processer med omedelbara och beprövade AI-funktioner.",
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:46.870Z"
-    }
+    },
+    "extended_content": null,
+    "extended_content_updated_at": null
   },
   {
     "id": "731f9c05-c293-4842-ac40-19fb610eaeac",
@@ -1225,7 +1238,9 @@
       "ai_experience_summary": "Goodfellows implementerar Copilot Studio och standardiserade AI-funktioner i Business Central. Partnern passar organisationer som vill förstärka processer med Microsofts färdiga AI och anpassade agenter.",
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:26.482Z"
-    }
+    },
+    "extended_content": null,
+    "extended_content_updated_at": null
   },
   {
     "id": "47db240f-0e3c-4ef7-8532-ddd914a990de",
@@ -1383,7 +1398,9 @@
       "ai_experience_summary": "Partnern erbjuder workshops för AI-beredskap och datakvalitet, särskilt inför Copilot-integration i Business Central. Den passar bäst för tillverknings- och grossistföretag som söker vägledning för att förbereda sina ERP-processer för AI-driven effektivisering.",
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:28.231Z"
-    }
+    },
+    "extended_content": null,
+    "extended_content_updated_at": null
   },
   {
     "id": "fe117b80-6acd-49c0-bab0-6fda75f25894",
@@ -1514,7 +1531,9 @@
       "ai_experience_summary": "Partnern fokuserar på att implementera inbyggd AI och Copilot i Dynamics 365 Finance. Detta passar organisationer som vill förstärka befintliga finansiella processer med standardiserad AI-funktionalitet.",
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:38.112Z"
-    }
+    },
+    "extended_content": null,
+    "extended_content_updated_at": null
   },
   {
     "id": "4097cfef-2af6-4aaf-8fbe-69c388c16d8d",
@@ -1801,7 +1820,9 @@
       "ai_experience_summary": "NAB Solutions erbjuder rådgivning och workshops för att förbereda er organisation för AI och förbättra datakvaliteten, särskilt relevant inför implementeringen av Copilot. Partnern fokuserar på Power Platform-automation med AI för att effektivisera processer inom affärssystem och kundhantering.",
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:36.569Z"
-    }
+    },
+    "extended_content": null,
+    "extended_content_updated_at": null
   },
   {
     "id": "674e19f3-b48c-4bf1-86ea-81c2170b178b",
@@ -2101,7 +2122,9 @@
       "ai_experience_summary": "Partnern fokuserar på att integrera Microsofts standardsatta AI-funktionalitet och Copilot-teknik inom Business Central, Customer Service och Sales. Detta gör dem lämpade för organisationer som söker praktisk tillämpning av AI i sina affärsprocesser utan behov av skräddarsydd modellutveckling.",
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:41.745Z"
-    }
+    },
+    "extended_content": null,
+    "extended_content_updated_at": null
   },
   {
     "id": "5faf2ae1-e0a4-4481-a209-6e75e82c7efa",
@@ -2234,7 +2257,9 @@
     "implementations_per_app": {},
     "ai_summary": null,
     "ai_summary_generated_at": null,
-    "ai_profile": {}
+    "ai_profile": {},
+    "extended_content": null,
+    "extended_content_updated_at": null
   },
   {
     "id": "f1947f70-3320-43b0-af09-8387d7546fa3",
@@ -2427,7 +2452,9 @@
       "ai_experience_summary": "Partnern fokuserar på att integrera Microsofts standards AI-funktionalitet, som inbyggd Copilot och Copilot Studio, främst inom Business Central. Detta passar organisationer som vill effektivisera affärsprocesser genom att tillämpa befintliga AI-lösningar.",
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:34.550Z"
-    }
+    },
+    "extended_content": null,
+    "extended_content_updated_at": null
   },
   {
     "id": "14adea7a-3dcb-403e-8d8e-0d8481e0fec4",
@@ -2575,7 +2602,9 @@
       "ai_experience_summary": "Sirocco Group har praktisk erfarenhet av att införa AI i CRM- och kundserviceprocesser, med fokus på datadriven kundinsikt och effektivitet via Power Platform och Azure AI. Partnern passar organisationer som vill bygga AI-understödda processer inom sälj, service och marknad.",
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:45.262Z"
-    }
+    },
+    "extended_content": null,
+    "extended_content_updated_at": null
   },
   {
     "id": "cfe135f8-b2bf-4740-9f26-389bca040715",
@@ -2919,7 +2948,9 @@
       "ai_experience_summary": "Partnern fokuserar på att införa Microsofts AI-lösningar, inklusive Copilot, över hela D365-paletten för att automatisera och effektivisera affärsprocesser. Detta gör dem lämpliga för organisationer som söker praktisk tillämpning av AI för omedelbar processförbättring inom D365.",
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:31.469Z"
-    }
+    },
+    "extended_content": null,
+    "extended_content_updated_at": null
   },
   {
     "id": "d863d43e-f5a7-461a-a289-ba285b905d9e",
@@ -3048,6 +3079,8 @@
       "ai_experience_summary": "Yellow Solution effektiviserar verksamheter genom att integrera AI i digitala plattformar och ERP-processer. De passar organisationer som söker praktisk tillämpning av AI för att automatisera och optimera sina affärssystem i Business Central.",
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:24.939Z"
-    }
+    },
+    "extended_content": null,
+    "extended_content_updated_at": null
   }
 ]
