@@ -84,9 +84,14 @@ export default function AdminRelevanceTest() {
   }
 
   useEffect(() => {
-    if (isAuthenticated) run();
+    if (!isAuthenticated) return;
+    const t = setTimeout(() => {
+      if (query.trim() && slug.trim()) run();
+    }, 400);
+    return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated]);
+  }, [isAuthenticated, query, slug]);
+
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -152,8 +157,13 @@ export default function AdminRelevanceTest() {
           <CardContent className="space-y-4">
             <div className="grid gap-4 md:grid-cols-[1fr_180px]">
               <div className="space-y-1.5">
-                <Label htmlFor="query">Sökfras / kriterier</Label>
-                <Textarea id="query" rows={3} value={query} onChange={(e) => setQuery(e.target.value)} />
+                <Label htmlFor="query" className="flex items-center gap-2">
+                  Sökfras / kriterier
+                  {loading && <Loader2 className="h-3 w-3 animate-spin text-muted-foreground" />}
+                  <span className="text-xs font-normal text-muted-foreground ml-auto">Live-uppdatering</span>
+                </Label>
+                <Textarea id="query" rows={3} value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Skriv en sökfras – resultatet uppdateras direkt…" />
+
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="slug">Partner-slug</Label>
