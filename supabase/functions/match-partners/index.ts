@@ -175,7 +175,9 @@ Deno.serve(async (req) => {
       );
     }
     // Fetch internal AI knowledge for all partners in this batch (service-role, never returned to client).
-    const knowledgeMap = await fetchPartnerAiKnowledge(partners.map(p => p.id));
+    const partnerIds = partners.map(p => p.id);
+    const knowledgeMap = await fetchPartnerAiKnowledge(partnerIds);
+    const extendedMap = await fetchPartnerExtendedContent(partnerIds);
 
     // Build a concise representation of each partner for the AI
     const partnerSummaries = partners.map(p => {
