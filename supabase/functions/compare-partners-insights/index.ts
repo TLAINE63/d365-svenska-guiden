@@ -25,6 +25,7 @@ type PartnerInput = {
   geography?: string[];
   aiCapabilities?: string[];
   aiProjects?: string | number;
+  extendedContent?: string;
 };
 
 type Body = {
