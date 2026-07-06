@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "sdk_version": "0.20.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "d365-guide-mcp",
+      "version": "0.1.0",
+      "title": "D365 Guide MCP"
+    },
+    "tools": [
+      {
+        "name": "search_partners",
+        "title": "Sök Dynamics 365-partners",
+        "description": "Sök publika, publicerade Dynamics 365-partners på d365.se. Filtrera på applikation (t.ex. 'Business Central', 'Finance & Supply Chain', 'Sales', 'Customer Service'), bransch och geografi. Returnerar namn, kort beskrivning, applikationer, branscher, geografi och publik profil-URL.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "application": {
+              "description": "Dynamics 365-applikation att filtrera på.",
+              "type": "string"
+            },
+            "industry": {
+              "description": "Bransch (t.ex. 'Tillverkning', 'Detaljhandel').",
+              "type": "string"
+            },
+            "geography": {
+              "description": "Geografi (t.ex. 'Sverige', 'Norden').",
+              "type": "string"
+            },
+            "limit": {
+              "description": "Max antal resultat (1-50, default 20).",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_partner",
+        "title": "Hämta partnerprofil",
+        "description": "Hämta den publika profilen för en enskild Dynamics 365-partner på d365.se via slug (t.ex. 'cgi', 'columbus'). Returnerar beskrivning, applikationer, branscher, geografi, kontor, kundexempel och positioneringsinformation.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "slug": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Partnerns URL-slug, t.ex. 'columbus'."
+            }
+          },
+          "required": [
+            "slug"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_knowledge_articles",
+        "title": "Lista kunskapsartiklar",
+        "description": "Lista publicerade artiklar från d365.se kunskapscenter. Filtrera fritt på ämne via 'query' som matchar titel eller sammanfattning.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "query": {
+              "description": "Fritextsökning i titel/sammanfattning.",
+              "type": "string"
+            },
+            "limit": {
+              "description": "Max antal resultat (1-50, default 20).",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
