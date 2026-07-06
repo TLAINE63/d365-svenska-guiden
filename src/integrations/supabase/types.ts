@@ -1493,17 +1493,13 @@ export type Database = {
           industries: string[] | null
           industry_apps: Json | null
           industry_pitches: Json | null
-          invoice_contact: string | null
-          invoice_email: string | null
           is_featured: boolean | null
-          legal_name: string | null
           logo_dark_bg: boolean | null
           logo_url: string | null
           map_url: string | null
           name: string | null
           not_a_fit: string[] | null
           office_cities: string[] | null
-          org_number: string | null
           phone: string | null
           positioning_statement: string | null
           product_filters: Json | null
@@ -1535,17 +1531,13 @@ export type Database = {
           industries?: string[] | null
           industry_apps?: Json | null
           industry_pitches?: Json | null
-          invoice_contact?: string | null
-          invoice_email?: string | null
           is_featured?: boolean | null
-          legal_name?: string | null
           logo_dark_bg?: boolean | null
           logo_url?: string | null
           map_url?: string | null
           name?: string | null
           not_a_fit?: string[] | null
           office_cities?: string[] | null
-          org_number?: string | null
           phone?: string | null
           positioning_statement?: string | null
           product_filters?: Json | null
@@ -1577,17 +1569,13 @@ export type Database = {
           industries?: string[] | null
           industry_apps?: Json | null
           industry_pitches?: Json | null
-          invoice_contact?: string | null
-          invoice_email?: string | null
           is_featured?: boolean | null
-          legal_name?: string | null
           logo_dark_bg?: boolean | null
           logo_url?: string | null
           map_url?: string | null
           name?: string | null
           not_a_fit?: string[] | null
           office_cities?: string[] | null
-          org_number?: string | null
           phone?: string | null
           positioning_statement?: string | null
           product_filters?: Json | null
