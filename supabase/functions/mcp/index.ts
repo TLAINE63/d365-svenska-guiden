@@ -27,7 +27,7 @@ var search_partners_default = defineTool({
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: async ({ application, industry, geography, limit }) => {
     const sb = supabaseAnon();
-    let q = sb.from("partners").select("slug,name,description,applications,industries,geography,office_cities,website").eq("is_featured", true).not("published_at", "is", null).limit(limit ?? 20);
+    let q = sb.from("partners_public").select("slug,name,description,applications,industries,geography,office_cities,website").eq("is_featured", true).limit(limit ?? 20);
     if (application) q = q.contains("applications", [application]);
     if (industry) q = q.contains("industries", [industry]);
     if (geography) q = q.contains("geography", [geography]);

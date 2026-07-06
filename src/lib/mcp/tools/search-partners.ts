@@ -23,10 +23,9 @@ export default defineTool({
   handler: async ({ application, industry, geography, limit }) => {
     const sb = supabaseAnon();
     let q = sb
-      .from("partners")
+      .from("partners_public")
       .select("slug,name,description,applications,industries,geography,office_cities,website")
       .eq("is_featured", true)
-      .not("published_at", "is", null)
       .limit(limit ?? 20);
 
     if (application) q = q.contains("applications", [application]);
