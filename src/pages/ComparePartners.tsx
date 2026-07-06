@@ -1631,7 +1631,6 @@ const ComparePartners = () => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
                   <PartnerColumnHeader
-                    label="Partner A"
                     partner={a}
                     partners={eligiblePartners}
                     slug={aSlug}
@@ -1641,7 +1640,6 @@ const ComparePartners = () => {
                     quoteSubmitting={isSubmittingQuote}
                   />
                   <PartnerColumnHeader
-                    label="Partner B"
                     partner={b}
                     partners={eligiblePartners}
                     slug={bSlug}
@@ -1651,7 +1649,6 @@ const ComparePartners = () => {
                     quoteSubmitting={isSubmittingQuote}
                   />
                   <PartnerColumnHeader
-                    label="Partner C (valfri)"
                     partner={c}
                     partners={eligiblePartners}
                     slug={cSlug}
