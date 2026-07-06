@@ -65,14 +65,16 @@ Deno.serve(async (req) => {
     // Hämta partners (slug + name + description) för att kunna föreslå direkta profiler
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-    const partnersRes = await fetch(`${supabaseUrl}/rest/v1/partners?select=slug,name,description,applications,industries&is_featured=eq.true`, {
+    const partnersRes = await fetch(`${supabaseUrl}/rest/v1/partners?select=slug,name,description,applications,industries,extended_content&is_featured=eq.true`, {
       headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` },
     });
     const partners = await partnersRes.json();
 
-    const partnerList = (partners || []).map((p: any) =>
-      `- /partner/${p.slug} | ${p.name} | apps: ${(p.applications || []).join(', ')} | ${(p.description || '').substring(0, 120)}`
-    ).join('\n');
+    const partnerList = (partners || []).map((p: any) => {
+      const ext = (p.extended_content || '').replace(/\s+/g, ' ').trim();
+      const extSnippet = ext ? ` | fördjupning: ${ext.substring(0, 600)}${ext.length > 600 ? '…' : ''}` : '';
+      return `- /partner/${p.slug} | ${p.name} | apps: ${(p.applications || []).join(', ')} | ${(p.description || '').substring(0, 120)}${extSnippet}`;
+    }).join('\n');
 
     const routeList = ROUTES.map(r => `- ${r.path} | ${r.label}`).join('\n');
 
