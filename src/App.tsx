@@ -64,6 +64,7 @@ const D365Commerce = lazy(() => import("./pages/D365Commerce"));
 const D365HumanResources = lazy(() => import("./pages/D365HumanResources"));
 const PartnerProfile = lazy(() => import("./pages/PartnerProfile"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+const AdminMcpTest = lazy(() => import("./pages/AdminMcpTest"));
 const PartnerUpdate = lazy(() => import("./pages/PartnerUpdate"));
 const Events = lazy(() => import("./pages/Events"));
 const EventDetail = lazy(() => import("./pages/EventDetail"));
