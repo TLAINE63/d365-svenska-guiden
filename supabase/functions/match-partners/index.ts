@@ -196,6 +196,8 @@ Deno.serve(async (req) => {
         ? `\nMålgrupp (${criteria.application}): ${targetSizes.length > 0 ? `anställda ${targetSizes.join(', ')}` : 'anställda ej angivet'}; ${targetRevenues.length > 0 ? `omsättning MSEK ${targetRevenues.join(', ')}` : 'omsättning ej angiven'}`
         : `\nMålgrupp (${criteria.application}): ej angiven (neutral – varken bonus eller avdrag)`;
 
+      const knowledgeBlock = renderKnowledgeBlock(knowledgeMap.get(p.id));
+
       return `ID: ${p.id}
 Namn: ${sanitizeUntrusted(p.name, 200)}
 Beskrivning: ${sanitizeUntrusted(p.description || '', 400)}
@@ -203,7 +205,7 @@ Produktbeskrivning (${criteria.application}): ${productDesc}
 Branschfokus för ${criteria.application}: ${pfIndustries}
 Kundexempel: ${customerExamples}
 Kontorsorter: ${officeCities.length > 0 ? officeCities.join(', ') : 'Ej angivet'}
-Plattformskompetens: ${platformCaps.length > 0 ? platformCaps.join(', ') : 'Ej angivet'}${industryFocusLine}${targetAudienceLine}${aiSummary}`;
+Plattformskompetens: ${platformCaps.length > 0 ? platformCaps.join(', ') : 'Ej angivet'}${industryFocusLine}${targetAudienceLine}${aiSummary}${knowledgeBlock}`;
     }).join('\n\n---\n\n');
 
     const systemPrompt = `Du är en expert på Microsoft Dynamics 365 och hjälper svenska företag att hitta rätt implementeringspartner.
