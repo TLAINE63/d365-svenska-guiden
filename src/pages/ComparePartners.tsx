@@ -378,7 +378,16 @@ const Row = ({
 const renderValue = (v: string | null | undefined) =>
   v && v.trim() ? <span>{v}</span> : EMPTY;
 
-const renderList = (items: string[]) =>
+const renderEmptyLabel = (label: string) => (
+  <span className="inline-flex items-center gap-2 text-xs text-slate-400 italic">
+    <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-slate-100 text-slate-400">
+      —
+    </span>
+    {label}
+  </span>
+);
+
+const renderList = (items: string[], emptyLabel?: string) =>
   items.length > 0 ? (
     <div className="flex flex-wrap gap-1.5">
       {items.map((r, i) => (
@@ -388,7 +397,7 @@ const renderList = (items: string[]) =>
       ))}
     </div>
   ) : (
-    EMPTY
+    emptyLabel ? renderEmptyLabel(emptyLabel) : EMPTY
   );
 
 
@@ -406,7 +415,7 @@ const renderNotAFit = (items: string[]) =>
     EMPTY
   );
 
-const renderAppList = (items: string[]) =>
+const renderAppList = (items: string[], emptyLabel?: string) =>
   items.length > 0 ? (
     <div className="flex flex-wrap gap-1.5">
       {items.map((r, i) => {
@@ -431,10 +440,10 @@ const renderAppList = (items: string[]) =>
       })}
     </div>
   ) : (
-    EMPTY
+    emptyLabel ? renderEmptyLabel(emptyLabel) : EMPTY
   );
 
-const renderIndustryList = (items: string[]) =>
+const renderIndustryList = (items: string[], emptyLabel?: string) =>
   items.length > 0 ? (
     <div className="flex flex-wrap gap-1.5">
       {items.map((r, i) => {
@@ -459,7 +468,7 @@ const renderIndustryList = (items: string[]) =>
       })}
     </div>
   ) : (
-    EMPTY
+    emptyLabel ? renderEmptyLabel(emptyLabel) : EMPTY
   );
 
 const renderAiProfile = (profile?: AiProfile | null) => {
@@ -1748,9 +1757,9 @@ const ComparePartners = () => {
                       <R
                         label="Fokusbranscher"
                         subtitle="Branscher där partnern har valt att bygga särskild djupkompetens – ofta baserat på referensprojekt och branschspecifika lösningar."
-                        a={renderIndustryList(scopedFocusIndustries(A))}
-                        b={renderIndustryList(scopedFocusIndustries(B))}
-                        c={renderIndustryList(scopedFocusIndustries(C))}
+                        a={renderIndustryList(scopedFocusIndustries(A), "Inga fokusbranscher uppgivna")}
+                        b={renderIndustryList(scopedFocusIndustries(B), "Inga fokusbranscher uppgivna")}
+                        c={renderIndustryList(scopedFocusIndustries(C), "Inga fokusbranscher uppgivna")}
                       />
 
                       {(() => {
@@ -1770,7 +1779,7 @@ const ComparePartners = () => {
                               ))}
                             </ul>
                           ) : (
-                            EMPTY
+                            renderEmptyLabel("Inga branschapplikationer uppgivna")
                           );
                         return (
                           <R
@@ -1789,9 +1798,9 @@ const ComparePartners = () => {
                         subtitle="Överblick över samtliga Dynamics 365-applikationer som partnern arbetar med."
                         warn
                         help="Alla Dynamics 365-applikationer som partnern arbetar med — oavsett vilka produkter som är valda i jämförelsen."
-                        a={renderAppList(A.apps)}
-                        b={renderAppList(B.apps)}
-                        c={renderAppList(C.apps)}
+                        a={renderAppList(A.apps, "Inga Dynamics 365-applikationer uppgivna")}
+                        b={renderAppList(B.apps, "Inga Dynamics 365-applikationer uppgivna")}
+                        c={renderAppList(C.apps, "Inga Dynamics 365-applikationer uppgivna")}
                       />
 
 
