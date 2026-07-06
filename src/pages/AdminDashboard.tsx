@@ -661,9 +661,10 @@ const AdminDashboard = () => {
  invoice_email: "",
  invoice_contact: "",
  org_number: "",
- legal_name: "",
- youtube_video_id: "",
- });
+  legal_name: "",
+  youtube_video_id: "",
+  extended_content: "",
+  });
 
  // ==================== LEAD FUNCTIONS ====================
 
