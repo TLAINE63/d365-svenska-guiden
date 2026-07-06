@@ -71,9 +71,19 @@ Deno.serve(async (req) => {
     });
     const partners = await partnersRes.json();
 
-    const partnerList = (partners || []).map((p: any) => {
-      const ext = (p.extended_content || '').replace(/\s+/g, ' ').trim();
-      const extSnippet = ext ? ` | fördjupning: ${ext.substring(0, 600)}${ext.length > 600 ? '…' : ''}` : '';
+    // Vikt fördjupningen efter hur väl den överlappar med användarens fråga.
+    // Partners med HÖG relevans får längre snippet + högre plats i listan.
+    const scored = (partners || []).map((p: any) => {
+      const rel = scoreExtendedRelevance(query, p.extended_content || '');
+      return { p, rel };
+    });
+    scored.sort((a: any, b: any) => b.rel.score - a.rel.score);
+
+    const partnerList = scored.map(({ p, rel }: any) => {
+      const ext = (p.extended_content || '').trim();
+      const extSnippet = ext
+        ? ` | fördjupning [relevans: ${rel.level}${rel.matchedTerms.length ? `, träffar: ${rel.matchedTerms.join(', ')}` : ''}]: ${cleanSnippet(ext, rel.snippetChars)}`
+        : '';
       return `- /partner/${p.slug} | ${p.name} | apps: ${(p.applications || []).join(', ')} | ${(p.description || '').substring(0, 120)}${extSnippet}`;
     }).join('\n');
 
