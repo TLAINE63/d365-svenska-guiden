@@ -186,32 +186,29 @@ interface ColProps {
 const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onRequestQuote, quoteSubmitting }: ColProps) => (
   <div className="rounded-xl border border-slate-200 bg-white p-3 sm:p-4">
     {partner ? (
-      <div className="flex items-start gap-3">
+      <div className="flex items-start gap-3 sm:gap-4">
         <div className="shrink-0">
           {partner.logo_url ? (
             <img
               src={partner.logo_url}
               alt={`${partner.name} logotyp`}
-              width="64"
-              height="64"
-              className="w-16 h-16 sm:w-20 sm:h-20 object-contain rounded-lg bg-white border border-slate-100 p-1"
+              width="96"
+              height="96"
+              className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain rounded-lg bg-white border border-slate-100 p-1"
             />
           ) : (
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg bg-gradient-to-br from-muted to-muted/60 flex items-center justify-center">
-              <span className="text-lg sm:text-xl font-bold text-muted-foreground/60">{partner.name.slice(0, 2).toUpperCase()}</span>
+            <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-lg bg-gradient-to-br from-muted to-muted/60 flex items-center justify-center">
+              <span className="text-2xl sm:text-3xl font-bold text-muted-foreground/60">{partner.name.slice(0, 2).toUpperCase()}</span>
             </div>
           )}
         </div>
         <div className="min-w-0 flex-1">
-          <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-0">
-            {label}
-          </div>
           <Link
             to={`/partner/${partner.slug}`}
-            className="group flex flex-wrap items-center gap-1 text-base sm:text-lg font-bold text-foreground hover:text-[hsl(var(--cta-orange))] transition-colors"
+            className="group flex flex-wrap items-center gap-1.5 text-xl sm:text-2xl lg:text-3xl font-bold text-foreground hover:text-[hsl(var(--cta-orange))] transition-colors"
           >
-            <span className="break-words">{partner.name}</span>
-            <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-60 transition-opacity shrink-0" />
+            <span className="break-words leading-tight">{partner.name}</span>
+            <ExternalLink className="w-5 h-5 opacity-0 group-hover:opacity-60 transition-opacity shrink-0" />
           </Link>
         </div>
         <button
@@ -224,10 +221,7 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
       </div>
     ) : (
       <div className="space-y-1.5">
-        <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
-          {label}
-        </div>
-        <div className="h-16 sm:h-20 rounded-lg bg-slate-50 border border-dashed border-slate-200 flex items-center justify-center text-sm text-slate-500">
+        <div className="h-20 sm:h-24 lg:h-28 rounded-lg bg-slate-50 border border-dashed border-slate-200 flex items-center justify-center text-sm text-slate-500">
           Välj partner nedan
         </div>
       </div>
