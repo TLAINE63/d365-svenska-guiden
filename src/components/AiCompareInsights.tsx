@@ -86,6 +86,7 @@ const buildPartnerPayload = (
     geography,
     aiCapabilities: aiCaps,
     aiProjects: aiProfile?.projectsCompleted || aiProfile?.projects || undefined,
+    extendedContent: ((p as any).extended_content as string | null)?.trim() || undefined,
   };
 };
 
