@@ -174,7 +174,7 @@ Returnera JSON:
     });
   } catch (e) {
     console.error('smart-search error', e);
-    return new Response(JSON.stringify({ error: e instanceof Error ? e.message : 'Okänt fel' }), {
+    return new Response(JSON.stringify({ error: 'Internt serverfel – försök igen' }), {
       status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }

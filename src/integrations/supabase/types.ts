@@ -1472,6 +1472,84 @@ export type Database = {
       }
     }
     Views: {
+      partner_events_public: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          end_time: string | null
+          event_date: string | null
+          event_link: string | null
+          event_time: string | null
+          id: string | null
+          image_url: string | null
+          is_online: boolean | null
+          location: string | null
+          partner_id: string | null
+          recording_available: boolean | null
+          recording_url: string | null
+          registration_deadline: string | null
+          registration_link: string | null
+          status: string | null
+          title: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          end_time?: string | null
+          event_date?: string | null
+          event_link?: string | null
+          event_time?: string | null
+          id?: string | null
+          image_url?: string | null
+          is_online?: boolean | null
+          location?: string | null
+          partner_id?: string | null
+          recording_available?: boolean | null
+          recording_url?: string | null
+          registration_deadline?: string | null
+          registration_link?: string | null
+          status?: string | null
+          title?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          end_time?: string | null
+          event_date?: string | null
+          event_link?: string | null
+          event_time?: string | null
+          id?: string | null
+          image_url?: string | null
+          is_online?: boolean | null
+          location?: string | null
+          partner_id?: string | null
+          recording_available?: boolean | null
+          recording_url?: string | null
+          registration_deadline?: string | null
+          registration_link?: string | null
+          status?: string | null
+          title?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       partners_public: {
         Row: {
           agreement_signed: boolean | null

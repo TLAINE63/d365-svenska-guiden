@@ -137,7 +137,7 @@ ${body.free_text ?? "(ingen)"}
   } catch (e) {
     console.error("submit-assessment-notify error", e);
     return new Response(
-      JSON.stringify({ error: (e as Error).message ?? "unknown" }),
+      JSON.stringify({ error: "Internt serverfel – försök igen" }),
       { status: 500, headers: { ...cors, "Content-Type": "application/json" } }
     );
   }

@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { D365_MARKET_CONTEXT_SV } from "../_shared/market-context.ts";
 import { getCorsHeaders } from "../_shared/cors.ts";
+import { checkAndLogQuota } from "../_shared/ai-quota.ts";
 
 
 // Unified ERP base requirements (system-agnostic, covering both BC and F&SCM capabilities)
@@ -343,6 +344,13 @@ serve(async (req) => {
 
 
   try {
+    const quota = await checkAndLogQuota(req, 'generate-requirements', 10);
+    if (!quota.allowed) {
+      return new Response(JSON.stringify({ error: 'Daglig gräns nådd, försök igen imorgon.' }), {
+        status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
 
@@ -547,7 +555,7 @@ Returnera JSON med denna exakta struktur:
   } catch (e) {
     console.error("generate-requirements error:", e);
     return new Response(
-      JSON.stringify({ error: e instanceof Error ? e.message : "Unknown error" }),
+      JSON.stringify({ error: "Internt serverfel – försök igen" }),
       {
         status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },

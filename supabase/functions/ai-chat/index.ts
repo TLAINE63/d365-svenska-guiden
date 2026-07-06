@@ -107,7 +107,7 @@ Deno.serve(async (req) => {
     });
   } catch (e) {
     console.error('ai-chat error', e);
-    return new Response(JSON.stringify({ error: e instanceof Error ? e.message : 'Okänt fel' }), {
+    return new Response(JSON.stringify({ error: 'Internt serverfel – försök igen' }), {
       status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }

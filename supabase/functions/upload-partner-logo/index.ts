@@ -150,12 +150,15 @@ serve(async (req: Request): Promise<Response> => {
 
     // Try to verify as admin JWT first, then as invitation token
     let isAuthorized = false;
-    
+    let isAdmin = false;
+    let invitationPartnerId: string | null = null;
+
     // Check if token looks like a JWT (has 3 parts separated by dots)
     if (token.split('.').length === 3) {
       const jwtVerification = await verifyAdminJWT(token, supabaseKey);
       if (jwtVerification.valid) {
         isAuthorized = true;
+        isAdmin = true;
         console.log("Admin JWT verified for logo upload");
       }
     }
@@ -165,6 +168,7 @@ serve(async (req: Request): Promise<Response> => {
       const invitationVerification = await verifyInvitationToken(supabase, token);
       if (invitationVerification.valid) {
         isAuthorized = true;
+        invitationPartnerId = invitationVerification.partnerId || null;
         console.log("Invitation token verified for partner:", invitationVerification.partnerName);
       } else {
         return new Response(
@@ -173,6 +177,34 @@ serve(async (req: Request): Promise<Response> => {
         );
       }
     }
+
+    // For invitation-token uploads, ignore any client-supplied slug and use the
+    // server-side slug tied to the invitation's partner_id. This prevents an
+    // invited partner from overwriting another partner's logo by substituting
+    // partnerSlug in the request.
+    let effectiveSlug = partnerSlug;
+    if (!isAdmin) {
+      if (!invitationPartnerId) {
+        return new Response(
+          JSON.stringify({ error: "Inbjudan saknar kopplad partner – kontakta support" }),
+          { status: 403, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+      const { data: partnerRow, error: partnerErr } = await supabase
+        .from("partners")
+        .select("slug")
+        .eq("id", invitationPartnerId)
+        .maybeSingle();
+      if (partnerErr || !partnerRow?.slug) {
+        console.error("Failed to resolve partner slug for invitation", partnerErr);
+        return new Response(
+          JSON.stringify({ error: "Kunde inte verifiera partner" }),
+          { status: 403, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+      effectiveSlug = partnerRow.slug as string;
+    }
+
 
     // Validate file type
     const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/svg+xml"];
@@ -242,7 +274,7 @@ serve(async (req: Request): Promise<Response> => {
     // Allow "logo", "contact" (legacy main contact) or "contact-<productKey>" (per-product contact)
     const ext = file.name.split('.').pop() || 'png';
     const safeKind = /^[a-z0-9-]{1,40}$/.test(kind) ? kind : "logo";
-    const filename = safeKind === "logo" ? `${partnerSlug}.${ext}` : `${partnerSlug}-${safeKind}.${ext}`;
+    const filename = safeKind === "logo" ? `${effectiveSlug}.${ext}` : `${effectiveSlug}-${safeKind}.${ext}`;
     const { data, error } = await supabase.storage
       .from("partner-logos")
       .upload(filename, arrayBuffer, {
@@ -260,7 +292,7 @@ serve(async (req: Request): Promise<Response> => {
       .from("partner-logos")
       .getPublicUrl(filename);
 
-    console.log("Logo uploaded for partner:", partnerSlug);
+    console.log("Logo uploaded for partner:", effectiveSlug);
     return new Response(
       JSON.stringify({ success: true, url: urlData.publicUrl }),
       { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
