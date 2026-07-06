@@ -10,7 +10,7 @@ type Insights = {
   bestFitFor: { partner: string; text: string }[];
 };
 
-const CACHE_PREFIX = "compare-ai-insights:v2:";
+const CACHE_PREFIX = "compare-ai-insights:v3:";
 
 const buildKey = (
   slugs: string[],
@@ -86,6 +86,7 @@ const buildPartnerPayload = (
     geography,
     aiCapabilities: aiCaps,
     aiProjects: aiProfile?.projectsCompleted || aiProfile?.projects || undefined,
+    extendedContent: ((p as any).extended_content as string | null)?.trim() || undefined,
   };
 };
 

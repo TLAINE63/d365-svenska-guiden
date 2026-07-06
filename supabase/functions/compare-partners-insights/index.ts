@@ -25,6 +25,7 @@ type PartnerInput = {
   geography?: string[];
   aiCapabilities?: string[];
   aiProjects?: string | number;
+  extendedContent?: string;
 };
 
 type Body = {
@@ -108,6 +109,7 @@ Deno.serve(async (req) => {
       if (p.geography?.length) contextLines.push(`  Geografi: ${sArr(p.geography).join(", ")}`);
       if (p.aiCapabilities?.length) contextLines.push(`  AI-förmågor: ${sArr(p.aiCapabilities).join(", ")}`);
       if (p.aiProjects != null && p.aiProjects !== "") contextLines.push(`  AI-projekt: ${s(String(p.aiProjects), 40)}`);
+      if (p.extendedContent) contextLines.push(`  Fördjupning (partnerns egen bakgrundstext, använd som stödjande kontext – citera aldrig ordagrant, referera inte till "fördjupningen"): ${s(p.extendedContent, 2500)}`);
       contextLines.push("");
     });
 
