@@ -63,7 +63,7 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const quota = await checkAndLogQuota(req, 'compare-partners-insights', 15);
+    const quota = await checkAndLogQuota(req, 'compare-partners-insights', 60);
     if (!quota.allowed) {
       // Return 200 with a structured error so the client doesn't treat this as
       // an uncaught HTTP failure (which triggered a blank-screen error boundary).
