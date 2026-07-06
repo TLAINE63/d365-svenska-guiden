@@ -1167,6 +1167,27 @@ const PartnerUpdate = () => {
         {/* View statistics for this partner — temporarily hidden from partners */}
 
   <form onSubmit={handleSubmit} className="space-y-8">
+  <div className="flex justify-end">
+    <Button
+      type="button"
+      variant="outline"
+      size="sm"
+      onClick={() => setAllSections(!allExpanded)}
+      className="gap-2"
+    >
+      {allExpanded ? (
+        <>
+          <ChevronsDownUp className="w-4 h-4" />
+          Fäll ihop alla avdelningar
+        </>
+      ) : (
+        <>
+          <ChevronsUpDown className="w-4 h-4" />
+          Expandera alla avdelningar
+        </>
+      )}
+    </Button>
+  </div>
   {/* Basic Information */}
   <PremiumCollapsibleSection
   title="Grundläggande information"
