@@ -13,9 +13,7 @@ import {
 } from "@/components/ui/select";
 import {
   Target,
-  Table2,
   ArrowLeftRight,
-  ExternalLink,
   X,
   Info,
   Sparkles,
