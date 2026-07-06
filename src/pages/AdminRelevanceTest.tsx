@@ -84,9 +84,14 @@ export default function AdminRelevanceTest() {
   }
 
   useEffect(() => {
-    if (isAuthenticated) run();
+    if (!isAuthenticated) return;
+    const t = setTimeout(() => {
+      if (query.trim() && slug.trim()) run();
+    }, 400);
+    return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated]);
+  }, [isAuthenticated, query, slug]);
+
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
