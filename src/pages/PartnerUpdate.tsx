@@ -120,8 +120,16 @@ interface ProductFilter {
  contactName: string;
  contactEmail: string;
  contactPhone: string;
- contactPhotoUrl: string;
- landingPageUrl: string;
+  contactPhotoUrl: string;
+  landingPageUrl: string;
+  // Per-app profiling inside the "service" product tab (Customer Service, Field Service, Contact Center)
+  servicePerApp?: Record<string, {
+    offered?: boolean;
+    productDescription?: string;
+    whyChoose?: string;
+    keyPoints?: string;
+    landingPageUrl?: string;
+  }>;
 }
 
 interface ProductFilters {
