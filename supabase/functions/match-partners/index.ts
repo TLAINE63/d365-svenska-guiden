@@ -227,9 +227,21 @@ Deno.serve(async (req) => {
 
       const knowledgeBlock = renderKnowledgeBlock(knowledgeMap.get(p.id));
       const extRaw = extendedMap.get(p.id) || '';
-      const extClean = extRaw.replace(/\s+/g, ' ').trim();
-      const extendedBlock = extClean
-        ? `\nFÖRDJUPNING (partnerns egen bakgrundstext, använd som kompletterande källa för matchning – citera aldrig ordagrant, referera inte till "fördjupningen" i motivering/bullets): ${extClean.substring(0, 1200)}${extClean.length > 1200 ? '…' : ''}`
+
+      // Build a "query bag" from the customer's criteria — the more of these
+      // terms that show up in the partner's fördjupning, the more we boost it.
+      const queryBag = [
+        criteria.application,
+        criteria.industry,
+        criteria.workload,
+        criteria.geography,
+        ...(criteria.platformNeeds || []),
+        ...(criteria.additionalApps || []),
+        criteria.aiInterest === 'high' ? 'ai copilot agenter azure' : '',
+      ].filter(Boolean).join(' ');
+      const rel = scoreExtendedRelevance(queryBag, extRaw);
+      const extendedBlock = extRaw
+        ? `\nFÖRDJUPNING [relevans: ${rel.level}${rel.matchedTerms.length ? `, träffar: ${rel.matchedTerms.join(', ')}` : ''}] (partnerns egen bakgrundstext – använd som kompletterande matchningskälla. Vid HÖG relevans ska den påverka rankingen tydligt, vid MEDEL som stödjande signal, vid LÅG/INGEN endast bakgrund. Citera aldrig ordagrant, referera aldrig till "fördjupningen" i motivering/bullets): ${cleanSnippet(extRaw, rel.snippetChars)}`
         : '';
 
       return `ID: ${p.id}
