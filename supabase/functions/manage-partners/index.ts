@@ -337,6 +337,8 @@ serve(async (req: Request): Promise<Response> => {
             ai_profile: (partner as any).ai_profile || {},
             product_profiles: (partner as any).product_profiles || {},
             implementations_per_app: (partner as any).implementations_per_app || {},
+            extended_content: (partner as any).extended_content?.trim() || null,
+            extended_content_updated_at: (partner as any).extended_content?.trim() ? new Date().toISOString() : null,
           })
           .select()
           .single();
