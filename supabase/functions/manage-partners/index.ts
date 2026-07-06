@@ -161,6 +161,7 @@ interface PartnerData {
     updated_at?: string;
   }>;
   ai_profile?: Record<string, unknown>;
+  extended_content?: string;
 }
 
 interface RequestBody {
