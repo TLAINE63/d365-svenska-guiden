@@ -148,9 +148,12 @@ Deno.serve(async (req) => {
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
+    // Fetch internal AI knowledge for all partners in this batch (service-role, never returned to client).
+    const knowledgeMap = await fetchPartnerAiKnowledge(partners.map(p => p.id));
 
     // Build a concise representation of each partner for the AI
     const partnerSummaries = partners.map(p => {
+
       const productFilter = p.product_filters?.[criteria.productKey];
       const productDesc = sanitizeUntrusted(productFilter?.productDescription, 500);
       const customerExamples = sanitizeUntrusted(
