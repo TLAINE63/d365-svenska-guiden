@@ -122,10 +122,6 @@
       "Organisationer som kräver support för Dynamics 365 Finance & Operations."
     ],
     "implementations_per_app": {},
-    "invoice_email": "peter.vach@4ps.se",
-    "invoice_contact": "Peter Vach",
-    "org_number": "559475-0878",
-    "legal_name": "4PS Construction Software AB",
     "ai_summary": "4PS Construction Software AB erbjuder branschspecifik ERP-programvara, 4PS Construct, baserad på Microsoft Dynamics 365 Business Central. De fokuserar på bygg-, installations- och serviceföretag, med syfte att ge realtidsöversikt över projekt. Företaget har kontor i Norrköping och Göteborg och räknas som en lokal specialistpartner.",
     "ai_summary_generated_at": "2026-06-29T16:18:46.838+00:00",
     "ai_profile": {
@@ -282,10 +278,6 @@
       "Bolag som kräver specialiserade AI/Copilot-lösningar bortom standardfunktionaliteten i Business Central."
     ],
     "implementations_per_app": {},
-    "invoice_email": "martin.rosenqvist@adbriq.com",
-    "invoice_contact": "Martin Rosenqvist",
-    "org_number": "5591631279",
-    "legal_name": "adbriq AB",
     "ai_summary": "adbriq är en Microsoft Dynamics 365-partner som fokuserar på Business Central. De stödjer organisationer i digitaliseringen av affärsprocesser, med en noterad inriktning mot mode-, sport- och textilbranscherna. Företaget erbjuder implementering, vidareutveckling och löpande support för att effektivisera kunders verksamhet.",
     "ai_summary_generated_at": "2026-06-29T16:19:06.678+00:00",
     "ai_profile": {
@@ -420,10 +412,6 @@
       "Kunder som primärt söker en partner med etablerad kapacitet att rulla ut globala D365-lösningar."
     ],
     "implementations_per_app": {},
-    "invoice_email": "daniel.cato@b3.se",
-    "invoice_contact": "Daniel Cato",
-    "org_number": "559092-1531",
-    "legal_name": "B3 Elevate Consulting AB",
     "ai_summary": "B3 Elevate är en specialistpartner inom B3 Consulting Group som levererar AI-baserade molnlösningar baserade på Dynamics 365, primärt inom D365 Sales, Customer Insights, Customer Service och Field Service. De erbjuder tjänster från strategi till förvaltning och har en bred svensk närvaro med kontor på flera orter. Partnern fokuserar på kundupplevelse och digital transformation.",
     "ai_summary_generated_at": "2026-06-29T16:19:16.998+00:00",
     "ai_profile": {
@@ -595,10 +583,6 @@
       "Projekt där den primära utmaningen är bristande budget för storskaliga D365 Finance & SCM-implementationer."
     ],
     "implementations_per_app": {},
-    "invoice_email": "fredrik.stenlund@be-terna.com",
-    "invoice_contact": "Fredrik Stenlund",
-    "org_number": "556414-2486",
-    "legal_name": "BE-terna AB",
     "ai_summary": "BE-terna är en nordisk systemintegratör med fokus på Microsoft Dynamics 365. De levererar och förvaltar lösningar inom Finance, Supply Chain Management och Commerce, med särskild expertis inom retail, tillverkning och professional services. Med kontor i Halmstad och Helsingborg erbjuder BE-terna en lokal närvaro i kombination med global leveransförmåga.",
     "ai_summary_generated_at": "2026-06-29T16:19:10.869+00:00",
     "ai_profile": {
@@ -768,10 +752,6 @@
       "Organisationer som söker en bred IT-partner utanför Microsofts D365-ekosystem är inte våra primära kunder."
     ],
     "implementations_per_app": {},
-    "invoice_email": "daniel.vesterberg@bisqo.se",
-    "invoice_contact": "Daniel Vesterberg",
-    "org_number": "556265-0795",
-    "legal_name": "Bisqo AB",
     "ai_summary": "Bisqo AB är en nischad specialist som fokuserar på implementering och utveckling av Dynamics 365 Business Central, kompletterat med Power Platform och Power BI. De erbjuder paketerade lösningar och tjänster, främst riktade mot grossist, distribution, retail, e-handel, tillverkningsindustri och konsulttjänster i Sverige och övriga Norden. Företaget har kontor i Malmö och Helsingborg.",
     "ai_summary_generated_at": "2026-06-29T16:19:20.064+00:00",
     "ai_profile": {
@@ -1071,10 +1051,6 @@
       "Organisationer som önskar en partner med primärt fokus på strategi och verksamhetsutveckling utan direkt koppling till systemimplementation."
     ],
     "implementations_per_app": {},
-    "invoice_email": "carolina.jarl@fellowmind.se",
-    "invoice_contact": "Carolina Jarl",
-    "org_number": "556733-9865",
-    "legal_name": "Fellowmind Sweden AB",
     "ai_summary": "Fellowmind är en nordisk systemintegratör med fokus på hela Microsoft-plattformen, särskilt Dynamics 365 Finance & Supply Chain Management och Business Central, samt Sales och Customer Insights. De har en stark lokal närvaro i framförallt södra Sverige och erbjuder molnbaserade teknologilösningar, Data & AI till en bred kundbas. Företaget har en europeisk räckvidd som kan vara fördelaktig för nordiska kunder med internationella behov.",
     "ai_summary_generated_at": "2026-06-29T16:19:24.319+00:00",
     "ai_profile": {
@@ -1226,10 +1202,6 @@
       "Projekt som kräver omfattande anpassningar och egenutveckling utanför standardfunktionaliteten."
     ],
     "implementations_per_app": {},
-    "invoice_email": "asa.lindell@goodfellows.se",
-    "invoice_contact": "Åsa Lindell",
-    "org_number": "559171-2087",
-    "legal_name": "Goodfellows Business AB",
     "ai_summary": "Goodfellows är en svensk Dynamics 365-partner med fokus på Business Central. De betonar kontinuitet i kundrelationer, med samma konsulter genom hela projektet från förstudie till förvaltning. Företaget har kontor i Göteborg och anger djup affärsförståelse från branscher som handel, produktion, distribution och konsultverksamhet.",
     "ai_summary_generated_at": "2026-06-29T16:19:08.748+00:00",
     "ai_profile": {
@@ -1381,10 +1353,6 @@
       "Kunder som kräver support- och konsulttjänster utanför Sverige."
     ],
     "implementations_per_app": {},
-    "invoice_email": "carsten@inbiz.se",
-    "invoice_contact": "Carsten Heiter",
-    "org_number": "556677-3577",
-    "legal_name": "Information & Business Solutions Svenska AB",
     "ai_summary": "InBiz är en specialistpartner för Microsoft Dynamics 365 Business Central med fokus på implementering och förvaltning, särskilt anpassade för tillverknings-, grossist-, distributions-, livsmedels- och processindustrin, samt konsultföretag. Från sitt kontor i Uppsala stödjer de kunder i Sverige med löpande utveckling av sina Business Central-miljöer.",
     "ai_summary_generated_at": "2026-06-29T16:19:15.021+00:00",
     "ai_profile": {
@@ -1524,10 +1492,6 @@
       "Kunder som förväntar sig en global utrullningskapacitet bortom nordiska förhållanden."
     ],
     "implementations_per_app": {},
-    "invoice_email": "Tobias.andersson@knowit.se",
-    "invoice_contact": "Tobias Andersson",
-    "org_number": "559543-2898",
-    "legal_name": "Knowit Insight Business Solution AB",
     "ai_summary": "Knowit bistår med att utveckla och modernisera affärssystem med D365 Finance och Supply Chain Management som grund. Vidare erbjuder de kompetens inom D365 med fokus på att integrera ERP, data och automation för att optimera processer och verksamhetsutveckling. Knowit har kontor i Stockholm, Göteborg och Malmö.",
     "ai_summary_generated_at": "2026-06-29T16:18:44.007+00:00",
     "ai_profile": {
@@ -1801,10 +1765,6 @@
       "Kunder som söker en partner för internationella utrullningar utanför Norden som inte kan samordnas från en nordisk hubb."
     ],
     "implementations_per_app": {},
-    "invoice_email": "Carolina.Edvinsson@nabsolutions.se",
-    "invoice_contact": "Carolina Edvinsson",
-    "org_number": "556608-0106",
-    "legal_name": "NAB Solutions AB",
     "ai_summary": "NAB Solutions är en nordisk systemintegratör med fokus på Microsoft Dynamics 365 Business Central samt kundrelationsapplikationer som Sales, Customer Service och Field Service. De har en stark lokal förankring i Sverige med flera kontor och levererar lösningar inom bland annat grossist- och tillverkningsindustrin. Partnern stöder kunder med digitalisering för att möta behoven hos både små och medelstora företag.",
     "ai_summary_generated_at": "2026-06-29T16:18:59.433+00:00",
     "ai_profile": {
@@ -2116,10 +2076,6 @@
       "Kunder som söker enbart rådgivning utan intresse av implementering eller vidareutveckling av D365-lösningar kan uppleva Nexers erbjudande som för fokuserat på helhetsåtaganden."
     ],
     "implementations_per_app": {},
-    "invoice_email": "mikael.carle@nexergroup.com",
-    "invoice_contact": "Mikael Carle",
-    "org_number": "559428-5826",
-    "legal_name": "Nexer Enterprise Applications AB",
     "ai_summary": "Nexer är en nordisk systemintegratör med bred närvaro i Sverige, som levererar lösningar inom hela Microsoft Dynamics 365-sviten, inklusive Business Central, Finance & Supply Chain Management samt applikationer för Sales, Marketing och Customer Service. De har en global räckvidd och har ett brett erbjudande inom Microsofts ekosystem, med grund i svensk entreprenörsanda.",
     "ai_summary_generated_at": "2026-06-29T16:18:53.077+00:00",
     "ai_profile": {
@@ -2276,10 +2232,6 @@
       "Kunder som primärt söker expertis inom AI för avancerad dataanalys i Microsoft Fabric utan koppling till D365 CE-applikationer."
     ],
     "implementations_per_app": {},
-    "invoice_email": "Totte.Parlefalk@pointtaken.se",
-    "invoice_contact": "Totte Pärlefalk",
-    "org_number": "559032-1062",
-    "legal_name": "Point Taken AB",
     "ai_summary": null,
     "ai_summary_generated_at": null,
     "ai_profile": {}
@@ -2452,10 +2404,6 @@
       "Kunder som primärt söker support för SAP- eller Oraclesystem i kombination med D365."
     ],
     "implementations_per_app": {},
-    "invoice_email": "Peter.selin@sherpas.se",
-    "invoice_contact": "Peter Selin",
-    "org_number": "556719-3015",
-    "legal_name": "Sherpas Group AB",
     "ai_summary": "Sherpas Group AB erbjuder implementering och rådgivning för Microsoft Dynamics 365 Business Central, Finance och Supply Chain Management (SCM). Med kontor i Skellefteå, Stockholm, Malmö, Göteborg och Västerås har de en bred geografisk täckning i Sverige. De positionerar sig som en lokal specialist som fokuserar på att anpassa D365-lösningar efter kunders affärsbehov.",
     "ai_summary_generated_at": "2026-06-29T16:18:48.994+00:00",
     "ai_profile": {
@@ -2588,10 +2536,6 @@
       "Organisationer som önskar en partner med mycket bred teknisk erfarenhet inom hela Microsoft-ekosystemet bortom CRM-fokus."
     ],
     "implementations_per_app": {},
-    "invoice_email": "laith.al-hashimi@siroccogroup.com",
-    "invoice_contact": "Laith Al-hashimi",
-    "org_number": "556755-5999",
-    "legal_name": "Sirocco AB",
     "ai_summary": "Sirocco Group är en Stockholmsbaserad partner som fokuserar på implementering och utveckling av Microsoft Dynamics 365. De arbetar primärt med CRM-relaterade applikationer som Sales, Customer Insights, Customer Service, Field Service och Project Operations. Sirocco Group hanterar digital transformation och anpassning av plattformen efter kundspecifika behov.",
     "ai_summary_generated_at": "2026-06-29T16:19:26.402+00:00",
     "ai_profile": {
@@ -2946,10 +2890,6 @@
       "Internationella kunder som söker en partner med egen kapacitet i alla geografier utanför Norden och Baltikum."
     ],
     "implementations_per_app": {},
-    "invoice_email": "peter.b.andersson@vivicta.com",
-    "invoice_contact": "Peter B Andersson",
-    "org_number": "556052-7466",
-    "legal_name": "Vivicta AB",
     "ai_summary": "Vivicta erbjuder ett helhetsåtagande inom Microsoft Dynamics 365, inklusive Finance, Supply Chain Management, Business Central och de flesta Customer Engagement-moduler. De har kontor i flera svenska städer och fokuserar på branscher som industri, tillverkning, process- och skogsindustri, återvinning, energi, offentlig sektor samt handel och service. Vid behov av rådgivning kring val av partnerkategori, betraktas Vivicta som en nordisk systemintegratör med riskkapitalfinansiering och fokus på snabb tillväxt.",
     "ai_summary_generated_at": "2026-06-29T16:18:55.448+00:00",
     "ai_profile": {
@@ -3085,10 +3025,6 @@
       "Stora, komplexa koncerner med behov som sträcker sig långt bortom vad en lokal partner kan erbjuda."
     ],
     "implementations_per_app": {},
-    "invoice_email": "Jonas.grunditz@yellowsolution.se",
-    "invoice_contact": "Jonas Grunditz",
-    "org_number": "559013-1693",
-    "legal_name": "Yellow Solution AB",
     "ai_summary": "Yellow Solution är en Microsoft Dynamics 365-partner som fokuserar på Business Central för att stödja företags effektivitet och tillväxt. Med sin bas i Jönköping erbjuder de expertis inom affärssystem och lång erfarenhet för att maximera kundernas investeringar. Deras tjänster passar företag som söker en partner med personligt engagemang och kompetens inom Business Central för att driva hållbar utveckling.",
     "ai_summary_generated_at": "2026-06-29T16:19:03.191+00:00",
     "ai_profile": {

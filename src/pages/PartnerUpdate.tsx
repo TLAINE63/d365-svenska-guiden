@@ -11,7 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Loader2, CheckCircle2, AlertCircle, Building2, Upload, X, ImageIcon, Plus, Trash2, ExternalLink, CalendarDays, Clock, MapPin, Globe, Link, Layers, Package, MessageSquare, Sparkles, Target, AlertTriangle, ArrowRight, ChevronLeft, ChevronRight, Eye } from "lucide-react";
+import { Loader2, CheckCircle2, AlertCircle, Building2, Upload, X, ImageIcon, Plus, Trash2, ExternalLink, CalendarDays, Clock, MapPin, Globe, Link, Layers, Package, MessageSquare, Sparkles, Target, AlertTriangle, ArrowRight, ChevronLeft, ChevronRight, Eye, ChevronsDownUp, ChevronsUpDown } from "lucide-react";
 import { PremiumCollapsibleSection } from "@/components/admin/PremiumCollapsibleSection";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -369,6 +369,11 @@ const PartnerUpdate = () => {
 
   const toggleSection = (key: SectionKey) =>
  setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
+
+  const SECTION_KEYS: SectionKey[] = ["basic", "products", "ai", "specialty", "pitches", "industryApps", "events", "decision", "notes"];
+  const allExpanded = SECTION_KEYS.every((k) => openSections[k]);
+  const setAllSections = (open: boolean) =>
+    setOpenSections(SECTION_KEYS.reduce((acc, k) => ({ ...acc, [k]: open }), {} as Record<SectionKey, boolean>));
 
  // Smart auto-expand: open empty/incomplete sections after data loads (runs once).
  useEffect(() => {
@@ -1162,6 +1167,27 @@ const PartnerUpdate = () => {
         {/* View statistics for this partner — temporarily hidden from partners */}
 
   <form onSubmit={handleSubmit} className="space-y-8">
+  <div className="flex justify-end">
+    <Button
+      type="button"
+      variant="outline"
+      size="sm"
+      onClick={() => setAllSections(!allExpanded)}
+      className="gap-2"
+    >
+      {allExpanded ? (
+        <>
+          <ChevronsDownUp className="w-4 h-4" />
+          Fäll ihop alla avdelningar
+        </>
+      ) : (
+        <>
+          <ChevronsUpDown className="w-4 h-4" />
+          Expandera alla avdelningar
+        </>
+      )}
+    </Button>
+  </div>
   {/* Basic Information */}
   <PremiumCollapsibleSection
   title="Grundläggande information"
