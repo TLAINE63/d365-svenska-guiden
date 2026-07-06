@@ -1743,15 +1743,6 @@ const ComparePartners = () => {
                         c={renderIndustryList(scopedFocusIndustries(C))}
                       />
 
-                      <R
-                        label="Kompetens inom Dynamics 365"
-                        warn
-                        help="Alla Dynamics 365-applikationer som partnern arbetar med — oavsett vilka produkter som är valda i jämförelsen."
-                        a={renderAppList(A.apps)}
-                        b={renderAppList(B.apps)}
-                        c={renderAppList(C.apps)}
-                      />
-
                       {(() => {
                         const renderIA = (list: typeof AF.industryApps) =>
                           list.length > 0 ? (
@@ -1773,7 +1764,7 @@ const ComparePartners = () => {
                           );
                         return (
                           <R
-                            label="Branschapplikationer"
+                            label="Speciella Branschapplikationer"
                             help="Branschlösningar / vertikala tillägg som partnern erbjuder ovanpå Dynamics 365."
                             a={renderIA(AF.industryApps)}
                             b={renderIA(BF.industryApps)}
@@ -1781,6 +1772,16 @@ const ComparePartners = () => {
                           />
                         );
                       })()}
+
+                      <R
+                        label="Kompetens inom Dynamics 365"
+                        warn
+                        help="Alla Dynamics 365-applikationer som partnern arbetar med — oavsett vilka produkter som är valda i jämförelsen."
+                        a={renderAppList(A.apps)}
+                        b={renderAppList(B.apps)}
+                        c={renderAppList(C.apps)}
+                      />
+
 
                       {(() => {
                         const keysToShow: ProductFilterKey[] =
