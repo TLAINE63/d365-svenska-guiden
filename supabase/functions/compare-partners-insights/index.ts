@@ -64,10 +64,12 @@ Deno.serve(async (req) => {
   try {
     const quota = await checkAndLogQuota(req, 'compare-partners-insights', 15);
     if (!quota.allowed) {
-      return new Response(JSON.stringify({ error: "Daglig gräns nådd, försök igen imorgon." }), {
-        status: 429,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
+      // Return 200 with a structured error so the client doesn't treat this as
+      // an uncaught HTTP failure (which triggered a blank-screen error boundary).
+      return new Response(
+        JSON.stringify({ error: "Daglig gräns nådd, försök igen imorgon.", fallback: true }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+      );
     }
 
     const body = (await req.json()) as Body;
