@@ -1238,7 +1238,7 @@ const ComparePartners = () => {
 
   const [showAllRows, setShowAllRows] = useState(false);
 
-  const R = (props: { label: string; a: React.ReactNode; b: React.ReactNode; c?: React.ReactNode; warn?: boolean; help?: string }) => {
+  const R = (props: { label: string; a: React.ReactNode; b: React.ReactNode; c?: React.ReactNode; warn?: boolean; help?: string; subtitle?: string }) => {
     if (!showAllRows && !props.warn) {
       try {
         const sa = JSON.stringify(props.a);
