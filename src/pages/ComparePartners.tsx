@@ -303,6 +303,7 @@ const Row = ({
   bName,
   cName,
   help,
+  subtitle,
   showC = false,
 }: {
   label: string;
@@ -314,6 +315,7 @@ const Row = ({
   bName?: string;
   cName?: string;
   help?: string;
+  subtitle?: string;
   showC?: boolean;
 }) => {
   const cols = showC ? 3 : 2;
@@ -329,23 +331,30 @@ const Row = ({
             : "bg-[hsl(var(--card-dark))] border-[hsl(var(--cta-orange))] text-[hsl(var(--primary-foreground))]"
         }`}
       >
-        <div className="flex items-center gap-1.5">
-          <span className="text-xs font-semibold uppercase tracking-wider">
-            {label}
-          </span>
-          {help && (
-            <TooltipProvider delayDuration={100}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button type="button" aria-label={`Vad betyder ${label}?`} className="opacity-70 hover:opacity-100">
-                    <Info className="w-3.5 h-3.5" />
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent side="top" className="max-w-xs text-xs leading-relaxed">
-                  {help}
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+        <div className="flex flex-col gap-0.5">
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs font-semibold uppercase tracking-wider">
+              {label}
+            </span>
+            {help && (
+              <TooltipProvider delayDuration={100}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button type="button" aria-label={`Vad betyder ${label}?`} className="opacity-70 hover:opacity-100">
+                      <Info className="w-3.5 h-3.5" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent side="top" className="max-w-xs text-xs leading-relaxed">
+                    {help}
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
+          </div>
+          {subtitle && (
+            <p className="text-[11px] leading-snug text-[hsl(var(--muted-foreground))]/80">
+              {subtitle}
+            </p>
           )}
         </div>
       </div>
