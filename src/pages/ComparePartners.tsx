@@ -1747,6 +1747,7 @@ const ComparePartners = () => {
                       {/* Kompakta jämförelserader först — långa texter kommer längre ned */}
                       <R
                         label="Fokusbranscher"
+                        subtitle="Branscher där partnern har valt att bygga särskild djupkompetens – ofta baserat på referensprojekt och branschspecifika lösningar."
                         a={renderIndustryList(scopedFocusIndustries(A))}
                         b={renderIndustryList(scopedFocusIndustries(B))}
                         c={renderIndustryList(scopedFocusIndustries(C))}
@@ -1774,6 +1775,7 @@ const ComparePartners = () => {
                         return (
                           <R
                             label="Speciella Branschapplikationer"
+                            subtitle="Certifierade tillägg från Microsoft Marketplace som partnern erbjuder för specifika branscher eller verksamheter."
                             help="Branschlösningar / vertikala tillägg som partnern erbjuder ovanpå Dynamics 365."
                             a={renderIA(AF.industryApps)}
                             b={renderIA(BF.industryApps)}
@@ -1784,6 +1786,7 @@ const ComparePartners = () => {
 
                       <R
                         label="Kompetens inom Dynamics 365"
+                        subtitle="Överblick över samtliga Dynamics 365-applikationer som partnern arbetar med."
                         warn
                         help="Alla Dynamics 365-applikationer som partnern arbetar med — oavsett vilka produkter som är valda i jämförelsen."
                         a={renderAppList(A.apps)}
