@@ -303,6 +303,7 @@ const Row = ({
   bName,
   cName,
   help,
+  subtitle,
   showC = false,
 }: {
   label: string;
@@ -314,6 +315,7 @@ const Row = ({
   bName?: string;
   cName?: string;
   help?: string;
+  subtitle?: string;
   showC?: boolean;
 }) => {
   const cols = showC ? 3 : 2;
@@ -329,23 +331,30 @@ const Row = ({
             : "bg-[hsl(var(--card-dark))] border-[hsl(var(--cta-orange))] text-[hsl(var(--primary-foreground))]"
         }`}
       >
-        <div className="flex items-center gap-1.5">
-          <span className="text-xs font-semibold uppercase tracking-wider">
-            {label}
-          </span>
-          {help && (
-            <TooltipProvider delayDuration={100}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button type="button" aria-label={`Vad betyder ${label}?`} className="opacity-70 hover:opacity-100">
-                    <Info className="w-3.5 h-3.5" />
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent side="top" className="max-w-xs text-xs leading-relaxed">
-                  {help}
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+        <div className="flex flex-col gap-0.5">
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs font-semibold uppercase tracking-wider">
+              {label}
+            </span>
+            {help && (
+              <TooltipProvider delayDuration={100}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button type="button" aria-label={`Vad betyder ${label}?`} className="opacity-70 hover:opacity-100">
+                      <Info className="w-3.5 h-3.5" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent side="top" className="max-w-xs text-xs leading-relaxed">
+                    {help}
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
+          </div>
+          {subtitle && (
+            <p className="text-[11px] leading-snug text-[hsl(var(--muted-foreground))]/80">
+              {subtitle}
+            </p>
           )}
         </div>
       </div>
@@ -1229,7 +1238,7 @@ const ComparePartners = () => {
 
   const [showAllRows, setShowAllRows] = useState(false);
 
-  const R = (props: { label: string; a: React.ReactNode; b: React.ReactNode; c?: React.ReactNode; warn?: boolean; help?: string }) => {
+  const R = (props: { label: string; a: React.ReactNode; b: React.ReactNode; c?: React.ReactNode; warn?: boolean; help?: string; subtitle?: string }) => {
     if (!showAllRows && !props.warn) {
       try {
         const sa = JSON.stringify(props.a);
@@ -1738,6 +1747,7 @@ const ComparePartners = () => {
                       {/* Kompakta jämförelserader först — långa texter kommer längre ned */}
                       <R
                         label="Fokusbranscher"
+                        subtitle="Branscher där partnern har valt att bygga särskild djupkompetens – ofta baserat på referensprojekt och branschspecifika lösningar."
                         a={renderIndustryList(scopedFocusIndustries(A))}
                         b={renderIndustryList(scopedFocusIndustries(B))}
                         c={renderIndustryList(scopedFocusIndustries(C))}
@@ -1765,6 +1775,7 @@ const ComparePartners = () => {
                         return (
                           <R
                             label="Speciella Branschapplikationer"
+                            subtitle="Certifierade tillägg från Microsoft Marketplace som partnern erbjuder för specifika branscher eller verksamheter."
                             help="Branschlösningar / vertikala tillägg som partnern erbjuder ovanpå Dynamics 365."
                             a={renderIA(AF.industryApps)}
                             b={renderIA(BF.industryApps)}
@@ -1775,6 +1786,7 @@ const ComparePartners = () => {
 
                       <R
                         label="Kompetens inom Dynamics 365"
+                        subtitle="Överblick över samtliga Dynamics 365-applikationer som partnern arbetar med."
                         warn
                         help="Alla Dynamics 365-applikationer som partnern arbetar med — oavsett vilka produkter som är valda i jämförelsen."
                         a={renderAppList(A.apps)}
