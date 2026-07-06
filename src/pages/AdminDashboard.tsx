@@ -1957,14 +1957,24 @@ Thomas`,
  <RefreshCw className={`mr-2 h-4 w-4 ${(isLoadingLeads || isLoadingStats || isLoadingPartners) ? "animate-spin" : ""}`} />
  Uppdatera
  </Button>
- <Button
- onClick={logout}
- variant="outline"
- className="bg-white/5 border-white/15 text-white hover:bg-white/10 hover:text-white "
- >
- <LogOut className="mr-2 h-4 w-4" />
- Logga ut
- </Button>
+              <Button
+                asChild
+                variant="outline"
+                className="bg-white/5 border-white/15 text-white hover:bg-white/10 hover:text-white"
+              >
+                <Link to="/admin/mcp-test">
+                  <Server className="mr-2 h-4 w-4" />
+                  MCP-test
+                </Link>
+              </Button>
+              <Button
+                onClick={logout}
+                variant="outline"
+                className="bg-white/5 border-white/15 text-white hover:bg-white/10 hover:text-white "
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                Logga ut
+              </Button>
  </div>
  </div>
 
