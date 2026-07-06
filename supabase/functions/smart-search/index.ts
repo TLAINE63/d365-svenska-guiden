@@ -1,6 +1,7 @@
 // Smart AI search: tolkar fri text och returnerar bästa rutt + förklaring
 import { checkAndLogQuota } from '../_shared/ai-quota.ts';
 import { getCorsHeaders } from '../_shared/cors.ts';
+import { scoreExtendedRelevance, cleanSnippet } from '../_shared/extended-relevance.ts';
 
 const DAILY_LIMIT = 30;
 
