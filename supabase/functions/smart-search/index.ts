@@ -1,6 +1,7 @@
 // Smart AI search: tolkar fri text och returnerar bästa rutt + förklaring
 import { checkAndLogQuota } from '../_shared/ai-quota.ts';
 import { getCorsHeaders } from '../_shared/cors.ts';
+import { scoreExtendedRelevance, cleanSnippet } from '../_shared/extended-relevance.ts';
 
 const DAILY_LIMIT = 30;
 
@@ -70,9 +71,19 @@ Deno.serve(async (req) => {
     });
     const partners = await partnersRes.json();
 
-    const partnerList = (partners || []).map((p: any) => {
-      const ext = (p.extended_content || '').replace(/\s+/g, ' ').trim();
-      const extSnippet = ext ? ` | fördjupning: ${ext.substring(0, 600)}${ext.length > 600 ? '…' : ''}` : '';
+    // Vikt fördjupningen efter hur väl den överlappar med användarens fråga.
+    // Partners med HÖG relevans får längre snippet + högre plats i listan.
+    const scored = (partners || []).map((p: any) => {
+      const rel = scoreExtendedRelevance(query, p.extended_content || '');
+      return { p, rel };
+    });
+    scored.sort((a: any, b: any) => b.rel.score - a.rel.score);
+
+    const partnerList = scored.map(({ p, rel }: any) => {
+      const ext = (p.extended_content || '').trim();
+      const extSnippet = ext
+        ? ` | fördjupning [relevans: ${rel.level}${rel.matchedTerms.length ? `, träffar: ${rel.matchedTerms.join(', ')}` : ''}]: ${cleanSnippet(ext, rel.snippetChars)}`
+        : '';
       return `- /partner/${p.slug} | ${p.name} | apps: ${(p.applications || []).join(', ')} | ${(p.description || '').substring(0, 120)}${extSnippet}`;
     }).join('\n');
 
@@ -94,7 +105,7 @@ VIKTIGA REGLER OM PARTNERS:
 TILLGÄNGLIGA SIDOR:
 ${routeList}
 
-PARTNERS (du kan länka direkt till en specifik partner om frågan tydligt nämner ett företagsnamn. Fältet "fördjupning" är partnerns egna längre bakgrundstext – använd som bakgrundskälla för att besvara frågor om vad partnern gör, men citera aldrig ordagrant och referera inte till "fördjupningen" i svaret):
+PARTNERS (sorterade efter fördjupningsrelevans mot frågan. Fältet "fördjupning" är partnerns egna längre bakgrundstext — använd den ENBART som bakgrundskälla. Vikt: HÖG = låt den styra svar och val av partner-länk starkt; MEDEL = använd som stödjande signal; LÅG/INGEN = använd endast om inget annat matchar. Citera aldrig ordagrant och referera aldrig till "fördjupningen" i svaret):
 ${partnerList}
 
 Returnera JSON:
