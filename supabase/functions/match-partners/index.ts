@@ -33,6 +33,32 @@ async function fetchPartnerAiKnowledge(partnerIds: string[]) {
   return map;
 }
 
+// Fetch partner extended_content (public deep-dive text authored by admin) for prompt context.
+async function fetchPartnerExtendedContent(partnerIds: string[]) {
+  const url = Deno.env.get('SUPABASE_URL');
+  const key = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+  const map = new Map<string, string>();
+  if (!url || !key || partnerIds.length === 0) return map;
+  try {
+    const admin = createClient(url, key, { auth: { persistSession: false } });
+    const { data, error } = await admin
+      .from('partners')
+      .select('id, extended_content')
+      .in('id', partnerIds);
+    if (error) {
+      console.error('partners extended_content fetch error:', error.message);
+      return map;
+    }
+    for (const row of (data || []) as any[]) {
+      const ext = (row.extended_content as string | null) || '';
+      if (ext.trim()) map.set(row.id as string, ext);
+    }
+  } catch (e) {
+    console.error('partners extended_content fetch exception:', e);
+  }
+  return map;
+}
+
 // Render the internal AI matching profile as a compact, safe text block for the prompt.
 function renderKnowledgeBlock(k: { matching_profile: any; raw_content: string | null } | undefined): string {
   if (!k || !k.matching_profile) return '';
