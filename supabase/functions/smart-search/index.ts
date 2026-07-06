@@ -105,7 +105,7 @@ VIKTIGA REGLER OM PARTNERS:
 TILLGÄNGLIGA SIDOR:
 ${routeList}
 
-PARTNERS (du kan länka direkt till en specifik partner om frågan tydligt nämner ett företagsnamn. Fältet "fördjupning" är partnerns egna längre bakgrundstext – använd som bakgrundskälla för att besvara frågor om vad partnern gör, men citera aldrig ordagrant och referera inte till "fördjupningen" i svaret):
+PARTNERS (sorterade efter fördjupningsrelevans mot frågan. Fältet "fördjupning" är partnerns egna längre bakgrundstext — använd den ENBART som bakgrundskälla. Vikt: HÖG = låt den styra svar och val av partner-länk starkt; MEDEL = använd som stödjande signal; LÅG/INGEN = använd endast om inget annat matchar. Citera aldrig ordagrant och referera aldrig till "fördjupningen" i svaret):
 ${partnerList}
 
 Returnera JSON:
