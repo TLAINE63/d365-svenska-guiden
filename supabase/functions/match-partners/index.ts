@@ -1,6 +1,67 @@
 import { D365_MARKET_CONTEXT_SV } from '../_shared/market-context.ts';
 import { getCorsHeaders } from '../_shared/cors.ts';
 import { checkAndLogQuota } from '../_shared/ai-quota.ts';
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
+
+// Fetch internal AI matching knowledge (partner_ai_knowledge) for the given partner ids.
+// Data is internal-only and never returned to the client — used only to enrich the AI prompt.
+async function fetchPartnerAiKnowledge(partnerIds: string[]) {
+  const url = Deno.env.get('SUPABASE_URL');
+  const key = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+  const map = new Map<string, { matching_profile: any; raw_content: string | null }>();
+  if (!url || !key || partnerIds.length === 0) return map;
+  try {
+    const admin = createClient(url, key, { auth: { persistSession: false } });
+    const { data, error } = await admin
+      .from('partner_ai_knowledge')
+      .select('partner_id, matching_profile, raw_content')
+      .in('partner_id', partnerIds)
+      .eq('is_active', true);
+    if (error) {
+      console.error('partner_ai_knowledge fetch error:', error.message);
+      return map;
+    }
+    for (const row of (data || []) as any[]) {
+      map.set(row.partner_id as string, {
+        matching_profile: row.matching_profile,
+        raw_content: (row.raw_content as string | null) ?? null,
+      });
+    }
+  } catch (e) {
+    console.error('partner_ai_knowledge fetch exception:', e);
+  }
+  return map;
+}
+
+// Render the internal AI matching profile as a compact, safe text block for the prompt.
+function renderKnowledgeBlock(k: { matching_profile: any; raw_content: string | null } | undefined): string {
+  if (!k || !k.matching_profile) return '';
+  const p = k.matching_profile || {};
+  const arr = (v: any): string[] => Array.isArray(v) ? v.map((s) => String(s).slice(0, 80)) : [];
+  const lines: string[] = [];
+  const active = arr(p.active_product_areas);
+  const related = arr(p.related_product_areas);
+  const inactive = arr(p.inactive_product_areas);
+  const industries = arr(p.industry_focus);
+  const isv = arr(p.isv_addons_verified);
+  const useCases = arr(p.ai_use_cases);
+  const prio = arr(p.prioritize_when);
+  const deprio = arr(p.deprioritize_when);
+  const sizes = arr(p.customer_size);
+  const geo = arr(p.geography_capability);
+  if (active.length) lines.push(`Aktiva produktområden: ${active.join(', ')}`);
+  if (related.length) lines.push(`Angränsande (positiv signal, ej primär): ${related.join(', ')}`);
+  if (inactive.length) lines.push(`EJ aktiva (matcha ej som primär): ${inactive.join(', ')}`);
+  if (industries.length) lines.push(`Branschfokus: ${industries.join(', ')}`);
+  if (isv.length) lines.push(`Verifierade BC-ISV-tillägg: ${isv.join(', ')}`);
+  if (useCases.length) lines.push(`AI use cases: ${useCases.slice(0, 8).join('; ')}`);
+  if (prio.length) lines.push(`Prioritera högt när: ${prio.slice(0, 8).join('; ')}`);
+  if (deprio.length) lines.push(`Prioritera lägre när: ${deprio.slice(0, 8).join('; ')}`);
+  if (sizes.length) lines.push(`Kundstorlek: ${sizes.join(', ')}`);
+  if (geo.length) lines.push(`Geografisk kapacitet: ${geo.join(', ')}`);
+  const text = lines.join('\n');
+  return text ? `\nINTERN AI-MATCHNINGSPROFIL (endast för din bedömning, får ej citeras ordagrant, får ej exponeras publikt):\n${text}` : '';
+}
 
 // Strip control chars / suspicious prompt-injection markers and cap length.
 function sanitizeUntrusted(s: unknown, max = 500): string {
