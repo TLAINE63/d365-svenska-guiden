@@ -179,12 +179,11 @@ interface ColProps {
   slug: string;
   onChange: (slug: string) => void;
   onClear: () => void;
-  label: string;
   onRequestQuote?: () => void;
   quoteSubmitting?: boolean;
 }
 
-const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, label, onRequestQuote, quoteSubmitting }: ColProps) => (
+const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onRequestQuote, quoteSubmitting }: ColProps) => (
   <div className="rounded-xl border border-slate-200 bg-white p-3 sm:p-4">
     {partner ? (
       <div className="flex items-start gap-3">
