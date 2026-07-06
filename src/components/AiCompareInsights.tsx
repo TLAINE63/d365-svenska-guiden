@@ -10,7 +10,7 @@ type Insights = {
   bestFitFor: { partner: string; text: string }[];
 };
 
-const CACHE_PREFIX = "compare-ai-insights:v2:";
+const CACHE_PREFIX = "compare-ai-insights:v3:";
 
 const buildKey = (
   slugs: string[],
