@@ -461,7 +461,7 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
     const supaKey = process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
     if (supaUrl && supaKey) {
       const today = new Date().toISOString().split('T')[0];
-      const url = `${supaUrl}/rest/v1/partner_events?select=id,title,description,event_date,updated_at,status&status=eq.approved&event_date=gte.${today}&order=event_date.asc`;
+      const url = `${supaUrl}/rest/v1/partner_events_public?select=id,title,description,event_date,updated_at,status&event_date=gte.${today}&order=event_date.asc`;
       const res = await fetch(url, {
         headers: { apikey: supaKey, Authorization: `Bearer ${supaKey}` },
       });

@@ -1,6 +1,8 @@
 // Edge function: generate-erp-analysis
 // Genererar köparsidig AI-tolkning av ERP behovsanalys via Lovable AI Gateway.
 
+import { checkAndLogQuota } from "../_shared/ai-quota.ts";
+
 const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
 
 function isAllowedOrigin(origin: string): boolean {
@@ -93,6 +95,13 @@ Deno.serve(async (req: Request): Promise<Response> => {
   }
 
   try {
+    const quota = await checkAndLogQuota(req, 'generate-erp-analysis', 10);
+    if (!quota.allowed) {
+      return new Response(JSON.stringify({ error: 'Daglig gräns nådd, försök igen imorgon.' }), {
+        status: 429, headers: { "Content-Type": "application/json", ...cors },
+      });
+    }
+
     if (!LOVABLE_API_KEY) {
       console.error("Missing LOVABLE_API_KEY");
       return new Response(JSON.stringify({ analysis: FALLBACK, fallback: true }), {

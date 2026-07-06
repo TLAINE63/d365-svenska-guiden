@@ -2,6 +2,8 @@
 // Genererar köparsidig AI-tolkning av behovsanalys för Customer Service /
 // Field Service / Contact Center via Lovable AI Gateway.
 
+import { checkAndLogQuota } from "../_shared/ai-quota.ts";
+
 const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
 
 function isAllowedOrigin(origin: string): boolean {
@@ -92,6 +94,13 @@ Deno.serve(async (req: Request): Promise<Response> => {
   }
 
   try {
+    const quota = await checkAndLogQuota(req, 'generate-customer-service-analysis', 10);
+    if (!quota.allowed) {
+      return new Response(JSON.stringify({ error: 'Daglig gräns nådd, försök igen imorgon.' }), {
+        status: 429, headers: { "Content-Type": "application/json", ...cors },
+      });
+    }
+
     if (!LOVABLE_API_KEY) {
       return new Response(JSON.stringify({ analysis: FALLBACK, fallback: true }), {
         status: 200, headers: { "Content-Type": "application/json", ...cors },
