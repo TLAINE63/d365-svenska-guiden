@@ -66,6 +66,7 @@ const PartnerProfile = lazy(() => import("./pages/PartnerProfile"));
 const PartnerExtendedContent = lazy(() => import("./pages/PartnerExtendedContent"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const AdminMcpTest = lazy(() => import("./pages/AdminMcpTest"));
+const AdminRelevanceTest = lazy(() => import("./pages/AdminRelevanceTest"));
 const PartnerUpdate = lazy(() => import("./pages/PartnerUpdate"));
 const Events = lazy(() => import("./pages/Events"));
 const EventDetail = lazy(() => import("./pages/EventDetail"));
