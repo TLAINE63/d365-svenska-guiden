@@ -628,8 +628,9 @@ const AdminDashboard = () => {
  invoice_contact?: string;
  org_number?: string;
  legal_name?: string;
-  youtube_video_id?: string;
-  ai_profile?: import("@/lib/aiProfile").AiProfile;
+   youtube_video_id?: string;
+   ai_profile?: import("@/lib/aiProfile").AiProfile;
+   extended_content?: string;
  }>({
  slug: "",
  name: "",
