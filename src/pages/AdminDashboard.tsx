@@ -1407,9 +1407,10 @@ Thomas`,
  invoice_contact: (partner as any).invoice_contact || "",
  org_number: (partner as any).org_number || "",
  legal_name: (partner as any).legal_name || "",
-  youtube_video_id: (partner as any).youtube_video_id || "",
-  ai_profile: (partner as any).ai_profile || {},
-  });
+   youtube_video_id: (partner as any).youtube_video_id || "",
+   ai_profile: (partner as any).ai_profile || {},
+   extended_content: (partner as any).extended_content || "",
+   });
  setIndustryApps(
  Array.isArray((partner as any).industry_apps) ? (partner as any).industry_apps : []
  );
