@@ -24,6 +24,8 @@ import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import FinanceIcon from "@/assets/icons/Finance.svg";
 import SalesIcon from "@/assets/icons/Sales.svg";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
+import FieldServiceIcon from "@/assets/icons/FieldService.svg";
+import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
 import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
 import CommerceIcon from "@/assets/icons/Commerce.svg";
 import HumanResourcesIcon from "@/assets/icons/HumanResources.svg";
