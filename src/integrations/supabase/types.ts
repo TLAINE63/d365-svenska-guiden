@@ -942,6 +942,8 @@ export type Database = {
           description_ai_generated: boolean | null
           description_generated_at: string | null
           email: string | null
+          extended_content: string | null
+          extended_content_updated_at: string | null
           geography: string[] | null
           id: string
           implementations_done: string | null
@@ -998,6 +1000,8 @@ export type Database = {
           description_ai_generated?: boolean | null
           description_generated_at?: string | null
           email?: string | null
+          extended_content?: string | null
+          extended_content_updated_at?: string | null
           geography?: string[] | null
           id?: string
           implementations_done?: string | null
@@ -1054,6 +1058,8 @@ export type Database = {
           description_ai_generated?: boolean | null
           description_generated_at?: string | null
           email?: string | null
+          extended_content?: string | null
+          extended_content_updated_at?: string | null
           geography?: string[] | null
           id?: string
           implementations_done?: string | null
@@ -1618,6 +1624,8 @@ export type Database = {
           delivery_profile: Json | null
           description: string | null
           email: string | null
+          extended_content: string | null
+          extended_content_updated_at: string | null
           geography: string[] | null
           id: string | null
           implementations_done: string | null
@@ -1656,6 +1664,8 @@ export type Database = {
           delivery_profile?: Json | null
           description?: string | null
           email?: string | null
+          extended_content?: string | null
+          extended_content_updated_at?: string | null
           geography?: string[] | null
           id?: string | null
           implementations_done?: string | null
@@ -1694,6 +1704,8 @@ export type Database = {
           delivery_profile?: Json | null
           description?: string | null
           email?: string | null
+          extended_content?: string | null
+          extended_content_updated_at?: string | null
           geography?: string[] | null
           id?: string | null
           implementations_done?: string | null

@@ -63,6 +63,7 @@ const D365ProjectOperations = lazy(() => import("./pages/D365ProjectOperations")
 const D365Commerce = lazy(() => import("./pages/D365Commerce"));
 const D365HumanResources = lazy(() => import("./pages/D365HumanResources"));
 const PartnerProfile = lazy(() => import("./pages/PartnerProfile"));
+const PartnerExtendedContent = lazy(() => import("./pages/PartnerExtendedContent"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const AdminMcpTest = lazy(() => import("./pages/AdminMcpTest"));
 const PartnerUpdate = lazy(() => import("./pages/PartnerUpdate"));
@@ -203,6 +204,8 @@ const AppShell = () => {
           <Route path="/d365contactcenter" element={<D365ContactCenter />} />
           <Route path="/d365-contact-center" element={<Navigate to="/d365contactcenter" replace />} />
           <Route path="/partner/:slug" element={<PartnerProfile />} />
+          <Route path="/partner/:slug/fordjupning" element={<PartnerExtendedContent />} />
+          <Route path="/partner/:slug/fordjupning/" element={<PartnerExtendedContent />} />
           <Route path="/partner/:slug/:productSlug" element={<PartnerProfile />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/mcp-test" element={<AdminMcpTest />} />

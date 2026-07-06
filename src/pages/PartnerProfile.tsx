@@ -409,8 +409,16 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   className="inline-flex items-center text-slate-500 hover:text-slate-800 transition-colors mb-3 group text-sm font-medium bg-slate-200/50 px-3 py-1.5 rounded border border-slate-200"
   >
   <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-  Tillbaka till partnerlistan
-  </button>
+   Tillbaka till partnerlistan
+   </button>
+   {((partner as any).extended_content || "").trim() && (
+   <Link
+   to={`/partner/${partner.slug}/fordjupning/`}
+   className="inline-flex items-center ml-2 mb-3 text-sm font-medium text-primary hover:underline bg-primary/10 px-3 py-1.5 rounded border border-primary/20"
+   >
+   Läs fördjupning om {partner.name} →
+   </Link>
+   )}
 
   {/* Main content - centered layout */}
   <div className="flex flex-col items-center text-center max-w-4xl mx-auto">

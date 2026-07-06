@@ -628,8 +628,9 @@ const AdminDashboard = () => {
  invoice_contact?: string;
  org_number?: string;
  legal_name?: string;
-  youtube_video_id?: string;
-  ai_profile?: import("@/lib/aiProfile").AiProfile;
+   youtube_video_id?: string;
+   ai_profile?: import("@/lib/aiProfile").AiProfile;
+   extended_content?: string;
  }>({
  slug: "",
  name: "",
@@ -660,9 +661,10 @@ const AdminDashboard = () => {
  invoice_email: "",
  invoice_contact: "",
  org_number: "",
- legal_name: "",
- youtube_video_id: "",
- });
+  legal_name: "",
+  youtube_video_id: "",
+  extended_content: "",
+  });
 
  // ==================== LEAD FUNCTIONS ====================
 
@@ -1320,9 +1322,10 @@ Thomas`,
  agreement_notes: "",
  invoice_email: "",
  invoice_contact: "",
- org_number: "",
- legal_name: "",
- });
+  org_number: "",
+  legal_name: "",
+  extended_content: "",
+  });
  setEditingPartner(null);
  setFormErrors({});
  setIndustryApps([]);
@@ -1404,9 +1407,10 @@ Thomas`,
  invoice_contact: (partner as any).invoice_contact || "",
  org_number: (partner as any).org_number || "",
  legal_name: (partner as any).legal_name || "",
-  youtube_video_id: (partner as any).youtube_video_id || "",
-  ai_profile: (partner as any).ai_profile || {},
-  });
+   youtube_video_id: (partner as any).youtube_video_id || "",
+   ai_profile: (partner as any).ai_profile || {},
+   extended_content: (partner as any).extended_content || "",
+   });
  setIndustryApps(
  Array.isArray((partner as any).industry_apps) ? (partner as any).industry_apps : []
  );
@@ -3855,18 +3859,49 @@ Thomas`,
  </div>
  </div>
 
- <div>
- <Label htmlFor="admin_notes">Interna noteringar</Label>
- <Textarea
- id="admin_notes"
- value={partnerFormData.admin_notes || ""}
- onChange={(e) =>
- setPartnerFormData({ ...partnerFormData, admin_notes: e.target.value })
- }
- rows={3}
- placeholder="Interna anteckningar som inte visas publikt..."
- />
- </div>
+  <div className="rounded-lg border border-primary/30 bg-primary/5 p-4 space-y-2">
+  <div className="flex items-center justify-between gap-2 flex-wrap">
+  <Label htmlFor="extended_content" className="font-semibold">
+  Fördjupningstext (AI-sök, SEO & AIO)
+  </Label>
+  {(() => {
+   const val = partnerFormData.extended_content || "";
+   const chars = val.length;
+   const words = val.trim() ? val.trim().split(/\s+/).length : 0;
+   return (
+    <span className="text-xs text-muted-foreground">
+     {words} ord · {chars} tecken {chars > 0 && chars < 2500 ? "(sikta på ~3000)" : ""}
+    </span>
+   );
+  })()}
+  </div>
+  <p className="text-xs text-muted-foreground">
+  Fri text om partnern – bakgrund, styrkor, referenser, filosofi, arbetssätt. Publiceras på en egen fördjupningssida (<code>/partner/{partnerFormData.slug || "slug"}/fordjupning</code>) och används av sajtens AI-sök samt av Google och AI-svar (AIO). Rikta in dig på ca <strong>500 ord / 3 000 tecken</strong>.
+  </p>
+  <Textarea
+  id="extended_content"
+  value={partnerFormData.extended_content || ""}
+  onChange={(e) =>
+  setPartnerFormData({ ...partnerFormData, extended_content: e.target.value })
+  }
+  rows={14}
+  maxLength={8000}
+  placeholder="Skriv en fördjupande text om partnern – bakgrund, specialistområden, arbetssätt, kundexempel, filosofi..."
+  />
+  </div>
+
+  <div>
+  <Label htmlFor="admin_notes">Interna noteringar</Label>
+  <Textarea
+  id="admin_notes"
+  value={partnerFormData.admin_notes || ""}
+  onChange={(e) =>
+  setPartnerFormData({ ...partnerFormData, admin_notes: e.target.value })
+  }
+  rows={3}
+  placeholder="Interna anteckningar som inte visas publikt..."
+  />
+  </div>
 
  <div className="rounded-lg border border-emerald-200 dark:border-emerald-900 bg-emerald-50/50 dark:bg-emerald-950/20 p-4 space-y-3">
  <div className="flex items-center gap-2">
