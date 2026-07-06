@@ -33,6 +33,32 @@ async function fetchPartnerAiKnowledge(partnerIds: string[]) {
   return map;
 }
 
+// Fetch partner extended_content (public deep-dive text authored by admin) for prompt context.
+async function fetchPartnerExtendedContent(partnerIds: string[]) {
+  const url = Deno.env.get('SUPABASE_URL');
+  const key = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+  const map = new Map<string, string>();
+  if (!url || !key || partnerIds.length === 0) return map;
+  try {
+    const admin = createClient(url, key, { auth: { persistSession: false } });
+    const { data, error } = await admin
+      .from('partners')
+      .select('id, extended_content')
+      .in('id', partnerIds);
+    if (error) {
+      console.error('partners extended_content fetch error:', error.message);
+      return map;
+    }
+    for (const row of (data || []) as any[]) {
+      const ext = (row.extended_content as string | null) || '';
+      if (ext.trim()) map.set(row.id as string, ext);
+    }
+  } catch (e) {
+    console.error('partners extended_content fetch exception:', e);
+  }
+  return map;
+}
+
 // Render the internal AI matching profile as a compact, safe text block for the prompt.
 function renderKnowledgeBlock(k: { matching_profile: any; raw_content: string | null } | undefined): string {
   if (!k || !k.matching_profile) return '';
@@ -149,7 +175,9 @@ Deno.serve(async (req) => {
       );
     }
     // Fetch internal AI knowledge for all partners in this batch (service-role, never returned to client).
-    const knowledgeMap = await fetchPartnerAiKnowledge(partners.map(p => p.id));
+    const partnerIds = partners.map(p => p.id);
+    const knowledgeMap = await fetchPartnerAiKnowledge(partnerIds);
+    const extendedMap = await fetchPartnerExtendedContent(partnerIds);
 
     // Build a concise representation of each partner for the AI
     const partnerSummaries = partners.map(p => {
@@ -197,6 +225,11 @@ Deno.serve(async (req) => {
         : `\nMålgrupp (${criteria.application}): ej angiven (neutral – varken bonus eller avdrag)`;
 
       const knowledgeBlock = renderKnowledgeBlock(knowledgeMap.get(p.id));
+      const extRaw = extendedMap.get(p.id) || '';
+      const extClean = extRaw.replace(/\s+/g, ' ').trim();
+      const extendedBlock = extClean
+        ? `\nFÖRDJUPNING (partnerns egen bakgrundstext, använd som kompletterande källa för matchning – citera aldrig ordagrant, referera inte till "fördjupningen" i motivering/bullets): ${extClean.substring(0, 1200)}${extClean.length > 1200 ? '…' : ''}`
+        : '';
 
       return `ID: ${p.id}
 Namn: ${sanitizeUntrusted(p.name, 200)}
@@ -205,7 +238,7 @@ Produktbeskrivning (${criteria.application}): ${productDesc}
 Branschfokus för ${criteria.application}: ${pfIndustries}
 Kundexempel: ${customerExamples}
 Kontorsorter: ${officeCities.length > 0 ? officeCities.join(', ') : 'Ej angivet'}
-Plattformskompetens: ${platformCaps.length > 0 ? platformCaps.join(', ') : 'Ej angivet'}${industryFocusLine}${targetAudienceLine}${aiSummary}${knowledgeBlock}`;
+Plattformskompetens: ${platformCaps.length > 0 ? platformCaps.join(', ') : 'Ej angivet'}${industryFocusLine}${targetAudienceLine}${aiSummary}${knowledgeBlock}${extendedBlock}`;
     }).join('\n\n---\n\n');
 
     const systemPrompt = `Du är en expert på Microsoft Dynamics 365 och hjälper svenska företag att hitta rätt implementeringspartner.

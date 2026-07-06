@@ -68,15 +68,17 @@ Deno.serve(async (req) => {
       const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
       const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
       const partnersRes = await fetch(
-        `${supabaseUrl}/rest/v1/partners?select=slug,name,description,applications&is_featured=eq.true`,
+        `${supabaseUrl}/rest/v1/partners?select=slug,name,description,applications,extended_content&is_featured=eq.true`,
         { headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` } },
       );
       if (partnersRes.ok) {
         const partners = await partnersRes.json();
-        partnerBlock = '\n\nPARTNERLISTA (använd ENDAST dessa när användaren frågar efter en namngiven partner):\n' +
-          (partners || []).map((p: any) =>
-            `- ${p.name} → /partner/${p.slug} | apps: ${(p.applications || []).join(', ')} | ${(p.description || '').substring(0, 120)}`
-          ).join('\n');
+        partnerBlock = '\n\nPARTNERLISTA (använd ENDAST dessa när användaren frågar efter en namngiven partner. "Fördjupning" är extra bakgrundstext från partnern själv – använd som källa men citera aldrig ordagrant):\n' +
+          (partners || []).map((p: any) => {
+            const ext = (p.extended_content || '').replace(/\s+/g, ' ').trim();
+            const extSnippet = ext ? ` | fördjupning: ${ext.substring(0, 700)}${ext.length > 700 ? '…' : ''}` : '';
+            return `- ${p.name} → /partner/${p.slug} | apps: ${(p.applications || []).join(', ')} | ${(p.description || '').substring(0, 120)}${extSnippet}`;
+          }).join('\n');
       }
     } catch (e) {
       console.error('Failed to load partners for ai-chat', e);
