@@ -1322,9 +1322,10 @@ Thomas`,
  agreement_notes: "",
  invoice_email: "",
  invoice_contact: "",
- org_number: "",
- legal_name: "",
- });
+  org_number: "",
+  legal_name: "",
+  extended_content: "",
+  });
  setEditingPartner(null);
  setFormErrors({});
  setIndustryApps([]);
