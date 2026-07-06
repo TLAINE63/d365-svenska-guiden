@@ -383,6 +383,60 @@ export type Database = {
         }
         Relationships: []
       }
+      partner_ai_knowledge: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean
+          matching_profile: Json
+          notes: string | null
+          partner_id: string
+          raw_content: string | null
+          source_version: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          matching_profile?: Json
+          notes?: string | null
+          partner_id: string
+          raw_content?: string | null
+          source_version?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          matching_profile?: Json
+          notes?: string | null
+          partner_id?: string
+          raw_content?: string | null
+          source_version?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_ai_knowledge_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_ai_knowledge_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       partner_clicks: {
         Row: {
           clicked_at: string
