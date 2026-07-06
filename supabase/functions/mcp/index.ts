@@ -65,9 +65,9 @@ var get_partner_default = defineTool2({
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: async ({ slug }) => {
     const sb = supabaseAnon2();
-    const { data, error } = await sb.from("partners").select(
-      "slug,name,description,website,applications,industries,secondary_industries,geography,office_cities,customer_examples,platform_capabilities,positioning_statement,team_size_sweden,implementations_done,ai_summary"
-    ).eq("slug", slug).eq("is_featured", true).not("published_at", "is", null).maybeSingle();
+    const { data, error } = await sb.from("partners_public").select(
+      "slug,name,description,website,applications,industries,secondary_industries,geography,office_cities,customer_examples,positioning_statement,team_size_sweden,implementations_done,ai_summary"
+    ).eq("slug", slug).eq("is_featured", true).maybeSingle();
     if (error) {
       return { content: [{ type: "text", text: `Fel: ${error.message}` }], isError: true };
     }
