@@ -357,14 +357,14 @@ const Row = ({
       </div>
       <div className={gridCls}>
         <div className="border-r border-[hsl(var(--border))]">
-          <Cell mobileLabel={aName || "Partner A"}>{a}</Cell>
+          <Cell mobileLabel={aName}>{a}</Cell>
         </div>
         <div className={showC ? "border-r border-[hsl(var(--border))]" : ""}>
-          <Cell mobileLabel={bName || "Partner B"}>{b}</Cell>
+          <Cell mobileLabel={bName}>{b}</Cell>
         </div>
         {showC && (
           <div>
-            <Cell mobileLabel={cName || "Partner C"}>{c}</Cell>
+            <Cell mobileLabel={cName}>{c}</Cell>
           </div>
         )}
       </div>
