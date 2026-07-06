@@ -2,6 +2,7 @@ import { D365_MARKET_CONTEXT_SV } from '../_shared/market-context.ts';
 import { getCorsHeaders } from '../_shared/cors.ts';
 import { checkAndLogQuota } from '../_shared/ai-quota.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
+import { scoreExtendedRelevance, cleanSnippet } from '../_shared/extended-relevance.ts';
 
 // Fetch internal AI matching knowledge (partner_ai_knowledge) for the given partner ids.
 // Data is internal-only and never returned to the client — used only to enrich the AI prompt.
