@@ -1554,7 +1554,7 @@ Thomas`,
  const validationResult = partnerValidationSchema.safeParse(partnerFormData);
  if (!validationResult.success) {
  const errors: PartnerFormErrors = {};
- validationResult.error.errors.forEach((err) => {
+ validationResult.error.issues.forEach((err) => {
  const field = err.path[0] as keyof PartnerFormErrors;
  if (field && !errors[field]) {
  errors[field] = err.message;

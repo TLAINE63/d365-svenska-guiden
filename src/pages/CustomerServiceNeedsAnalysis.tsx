@@ -795,7 +795,7 @@ const CustomerServiceNeedsAnalysis = () => {
  const result = contactFormSchema.safeParse({ companyName: data.companyName, contactName: data.contactName, phone: data.phone, email: data.email });
  if (!result.success) {
  const errors: ContactFormErrors = {};
- result.error.errors.forEach((err) => {
+ result.error.issues.forEach((err) => {
  const field = err.path[0] as keyof ContactFormErrors;
  if (!errors[field]) errors[field] = err.message;
  });
