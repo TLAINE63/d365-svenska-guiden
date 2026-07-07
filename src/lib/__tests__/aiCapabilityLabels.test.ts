@@ -4,11 +4,15 @@ import {
   helpForCapability,
   AI_CAPABILITIES,
   AI_CAPABILITY_HELP,
+  UNKNOWN_CAPABILITY_LABEL,
+  UNKNOWN_CAPABILITY_HELP,
 } from "@/lib/aiProfile";
 import {
   describeAiCapability,
   describeAiCapabilities,
   helpForAiCapability,
+  UNKNOWN_AI_CAPABILITY_LABEL,
+  UNKNOWN_AI_CAPABILITY_HELP,
   AI_TIERS,
 } from "@/utils/aiScoring";
 
@@ -46,8 +50,10 @@ describe("labelForCapability (AI-profil, AI_CAPABILITIES)", () => {
     }
   });
 
-  it("returnerar slugen som fallback för okända värden", () => {
-    expect(labelForCapability("finns-inte")).toBe("finns-inte");
+  it("visar en begriplig svensk fallback för okända slugs (aldrig rå slug)", () => {
+    expect(labelForCapability("finns-inte")).toBe(UNKNOWN_CAPABILITY_LABEL);
+    expect(labelForCapability("standard-copilot-v2")).toBe(UNKNOWN_CAPABILITY_LABEL);
+    // tom sträng är fortfarande tom – anropssidan filtrerar bort tomma värden
     expect(labelForCapability("")).toBe("");
   });
 
@@ -59,8 +65,9 @@ describe("labelForCapability (AI-profil, AI_CAPABILITIES)", () => {
     }
   });
 
-  it("tom hjälptext för okända capabilities", () => {
-    expect(helpForCapability("finns-inte")).toBe("");
+  it("fallback-hjälptext för okända capabilities istället för tom sträng", () => {
+    expect(helpForCapability("finns-inte")).toBe(UNKNOWN_CAPABILITY_HELP);
+    expect(helpForCapability("")).toBe("");
   });
 });
 
@@ -118,10 +125,27 @@ describe("describeAiCapability (per-produkt slugs → tier-etikett)", () => {
     }
   });
 
-  it("okänd slug hamnar på Standard-tier som säker fallback", () => {
-    // getTier() faller tillbaka till STANDARD för okända värden – detta
-    // säkerställer att inga rå slugs läcker till besökaren.
-    expect(describeAiCapability("helt-ny-slug")).toBe(STANDARD);
+  it("okänd slug får explicit fallback-etikett och fallback-hjälp", () => {
+    // Ingen rå slug läcker till besökaren, och den mappas inte tyst till
+    // Standard-tier (missvisande). Istället får besökaren en tydlig, generisk
+    // svensk beskrivning som gör det uppenbart att det är en övrig förmåga.
+    expect(describeAiCapability("helt-ny-slug")).toBe(UNKNOWN_AI_CAPABILITY_LABEL);
+    expect(helpForAiCapability("helt-ny-slug")).toBe(UNKNOWN_AI_CAPABILITY_HELP);
+    expect(describeAiCapability("cust-ml-2027")).toBe(UNKNOWN_AI_CAPABILITY_LABEL);
+  });
+
+  it("okända slugs samexisterar med kända i describeAiCapabilities", () => {
+    const result = describeAiCapabilities([
+      "ai-standard",
+      "helt-ny-slug",
+      "ai-advanced",
+    ]);
+    expect(result.map((r) => r.label)).toEqual([
+      "Microsoft Copilot & standard-AI",
+      UNKNOWN_AI_CAPABILITY_LABEL,
+      "Avancerad Azure AI / ML",
+    ]);
+    for (const r of result) expect(r.help).toBeTruthy();
   });
 });
 
