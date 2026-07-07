@@ -124,12 +124,18 @@ export default function AllD365Partners() {
                   <li key={p.id}>
                     <Link
                       to={`/partner/${p.slug}`}
-                      className="group flex items-center justify-between gap-2 p-4 rounded-lg border border-border bg-card hover:border-primary/50  transition-all"
+                      className="group relative flex items-center justify-between gap-2 p-4 rounded-lg border-2 border-primary/25 bg-card shadow-sm hover:border-primary hover:shadow-md transition-all"
                     >
-                      <span className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                        {p.name}
-                      </span>
-                      <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+                      <div className="min-w-0">
+                        <div className="mb-1 inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                          <CheckCircle2 className="w-3 h-3" />
+                          Publicerad
+                        </div>
+                        <div className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
+                          {p.name}
+                        </div>
+                      </div>
+                      <ArrowRight className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
                     </Link>
                   </li>
                 ))}
