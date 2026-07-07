@@ -177,6 +177,9 @@ interface PartnerData {
   profile_level?: "basic" | "profilerad";
   observed_products?: Record<string, boolean>;
   observed_industries?: Record<string, string[]>;
+  observed_company_sizes?: Record<string, string[]>;
+  observed_revenue?: Record<string, string[]>;
+  observed_delivery_geo?: Record<string, string[]>;
   observed_locations?: string[];
   observed_updated_at?: string | null;
 }
