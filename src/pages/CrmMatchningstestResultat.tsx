@@ -273,12 +273,31 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
                           skräddarsy jämförelsen ytterligare.
                         </p>
                       </div>
-                      <Button asChild variant="outline" size="sm">
-                        <Link to={config.partnerFilterPath}>
-                          Se alla {config.productName}-partners
-                          <ArrowRight className="w-4 h-4 ml-1" />
-                        </Link>
-                      </Button>
+                      <div className="flex flex-wrap gap-2">
+                        {recommendations.length >= 2 && (
+                          <Button
+                            asChild
+                            size="sm"
+                            className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white"
+                          >
+                            <Link
+                              to={`/jamfor-partners?${recommendations
+                                .slice(0, 3)
+                                .map((r, i) => `${["a", "b", "c"][i]}=${encodeURIComponent(r.partner.slug)}`)
+                                .join("&")}`}
+                            >
+                              Jämför dessa {Math.min(recommendations.length, 3)} sida vid sida
+                              <ArrowRight className="w-4 h-4 ml-1" />
+                            </Link>
+                          </Button>
+                        )}
+                        <Button asChild variant="outline" size="sm">
+                          <Link to={config.partnerFilterPath}>
+                            Se alla {config.productName}-partners
+                            <ArrowRight className="w-4 h-4 ml-1" />
+                          </Link>
+                        </Button>
+                      </div>
                     </div>
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {recommendations.map(({ partner, reasons }) => (

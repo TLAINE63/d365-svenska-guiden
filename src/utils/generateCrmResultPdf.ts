@@ -71,9 +71,18 @@ const nextStepsFor = (
   ];
 };
 
+import type { PdfSuggestedPartner } from "./pdfSuggestedPartners";
+
+export interface CrmPdfExtras {
+  suggestedPartners?: PdfSuggestedPartner[];
+  suggestedCompareUrl?: string;
+  suggestedIndustry?: string | null;
+}
+
 export async function generateCrmResultPdf(
   score: CrmScoreResult,
   config: ProductConfig,
+  extras?: CrmPdfExtras,
 ) {
   const { default: jsPDF } = await import("jspdf");
   const doc = new jsPDF({ unit: "mm", format: "a4" });
@@ -268,6 +277,16 @@ export async function generateCrmResultPdf(
     doc.text(ctaText, margin + 4, y);
     y += 6;
   });
+
+  // Suggested partners page
+  if (extras?.suggestedPartners?.length && extras.suggestedCompareUrl) {
+    const { appendSuggestedPartnersPage } = await import("./pdfSuggestedPartners");
+    appendSuggestedPartnersPage(doc, extras.suggestedPartners, {
+      compareUrl: extras.suggestedCompareUrl,
+      productLabel: config.productName,
+      industry: extras.suggestedIndustry ?? null,
+    });
+  }
 
   // ---- Footer ----
   const total = doc.getNumberOfPages();

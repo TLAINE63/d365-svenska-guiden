@@ -103,9 +103,15 @@ const priorityLabels: Record<string, string> = {
   could: "Kan ha",
 };
 
+export interface RequirementsPdfExtras {
+  suggestedPartners?: import("./pdfSuggestedPartners").PdfSuggestedPartner[];
+  suggestedCompareUrl?: string;
+}
+
 export const generateRequirementsSpec = async (
   data: RequirementsData,
-  returnBase64: boolean = false
+  returnBase64: boolean = false,
+  extras?: RequirementsPdfExtras,
 ): Promise<string | void> => {
   if (!returnBase64) {
     trackFunnelEvent({
@@ -423,6 +429,16 @@ export const generateRequirementsSpec = async (
     for (const sug of data.aiEnrichment.integrationSuggestions) {
       addBulletItem(sug);
     }
+  }
+
+  // === SUGGESTED PARTNERS (endast vid nedladdning, ej email base64) ===
+  if (!returnBase64 && extras?.suggestedPartners?.length && extras.suggestedCompareUrl) {
+    const { appendSuggestedPartnersPage } = await import("./pdfSuggestedPartners");
+    appendSuggestedPartnersPage(doc, extras.suggestedPartners, {
+      compareUrl: extras.suggestedCompareUrl,
+      productLabel: data.product,
+      industry: data.industry,
+    });
   }
 
   addFooter(doc.getNumberOfPages());

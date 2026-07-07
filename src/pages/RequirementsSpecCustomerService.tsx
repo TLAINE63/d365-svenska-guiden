@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import RequirementsDisclaimer from "@/components/RequirementsDisclaimer";
 import Footer from "@/components/Footer";
 import RelatedPages, { requirementsCsRelatedPages } from "@/components/RelatedPages";
+import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
@@ -480,6 +481,7 @@ const RequirementsSpecCustomerService = () => {
         </div>
       </main>
       <RelatedPages heading="Nästa steg i Customer Service-köpresan" pages={requirementsCsRelatedPages} />
+      {result && <SuggestedPartnersCTA product="service" industry={result.industry || industry} />}
       <Footer />
     </>
   );

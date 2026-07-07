@@ -14,7 +14,14 @@ const CLASS_RGB: Record<BcClassification, [number, number, number]> = {
   outside: [159, 18, 57],
 };
 
-export async function generateBcResultPdf(result: BcResult, _answers: BcAnswers) {
+import type { PdfSuggestedPartner } from "./pdfSuggestedPartners";
+
+export interface BcPdfExtras {
+  suggestedPartners?: PdfSuggestedPartner[];
+  suggestedCompareUrl?: string;
+}
+
+export async function generateBcResultPdf(result: BcResult, _answers: BcAnswers, extras?: BcPdfExtras) {
   const { default: jsPDF } = await import("jspdf");
   const doc = new jsPDF({ unit: "mm", format: "a4" });
   const pageW = doc.internal.pageSize.getWidth();
@@ -100,6 +107,16 @@ export async function generateBcResultPdf(result: BcResult, _answers: BcAnswers)
     }
     y += 3;
   }
+
+  // Suggested partners page
+  if (extras?.suggestedPartners?.length && extras.suggestedCompareUrl) {
+    const { appendSuggestedPartnersPage } = await import("./pdfSuggestedPartners");
+    appendSuggestedPartnersPage(doc, extras.suggestedPartners, {
+      compareUrl: extras.suggestedCompareUrl,
+      productLabel: "Business Central",
+    });
+  }
+
 
   // Footer
   const total = doc.getNumberOfPages();

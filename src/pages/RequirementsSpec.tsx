@@ -19,6 +19,7 @@ import { generateRequirementsSpec, type RequirementsData } from "@/utils/generat
 import { allIndustries } from "@/data/partners";
 import { isServicesIndustry } from "@/lib/industryFilters";
 import RelatedPages, { requirementsErpRelatedPages } from "@/components/RelatedPages";
+import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
 import {
   ArrowLeft, ArrowRight, FileText, Download,
   Calculator, Package, Factory, ShoppingCart, Boxes, Wrench,
@@ -492,6 +493,7 @@ const RequirementsSpec = () => {
         </div>
       </main>
       <RelatedPages heading="Nästa steg i ERP-köpresan" pages={requirementsErpRelatedPages} />
+      {result && <SuggestedPartnersCTA product={["bc", "fsc"]} industry={result.industry || industry} />}
       <Footer />
     </>
   );

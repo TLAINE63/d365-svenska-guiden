@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, CheckCircle2, RotateCcw, FileDown, Mail } from "
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
 import { SoftwareApplicationSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -186,6 +187,7 @@ const BcMatchningstest = () => {
         </div>
       </main>
 
+      {result && showResult && <SuggestedPartnersCTA product="bc" />}
       <Footer />
     </div>
   );
