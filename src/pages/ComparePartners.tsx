@@ -1411,21 +1411,63 @@ const ComparePartners = () => {
     });
     const withAi = aiSides.filter((s) => s.caps.length > 0 || s.projCounts.length > 0 || s.hasImpact);
     if (withAi.length > 0) {
-      // Förmågor – översätt slugs till begripliga svenska tier-etiketter och
-      // hoppa över partners som inte har registrerat några AI-förmågor
-      // (tomt = säger inget för besökaren).
+      // Förmågor – översätt slugs till begripliga svenska tier-etiketter med
+      // förklarande tooltip. Hoppa över partners som inte har registrerat några
+      // AI-förmågor (tomt = säger inget för besökaren).
       const aiSidesLabeled = aiSides.map((s) => ({
         ...s,
         labels: describeAiCapabilities(s.caps),
       }));
       const withCaps = aiSidesLabeled.filter((s) => s.labels.length > 0);
-      const capsSigs = aiSidesLabeled.map((s) => s.labels.slice().sort().join(","));
+      const capsSigs = aiSidesLabeled.map((s) =>
+        s.labels.map((l) => l.label).sort().join(","),
+      );
       if (withCaps.length >= 2 && new Set(capsSigs).size > 1) {
+        // Samla unika förklaringar för legend under bullet
+        const legendMap = new Map<string, string>();
+        for (const s of withCaps) {
+          for (const l of s.labels) {
+            if (l.help && !legendMap.has(l.label)) legendMap.set(l.label, l.help);
+          }
+        }
         points.push(
-          `AI-förmågor${productActive ? ` (${filterLabel})` : ""}: ` +
-            withCaps
-              .map((s) => `${s.name} – ${s.labels.slice(0, 3).join(", ")}${s.labels.length > 3 ? ` +${s.labels.length - 3}` : ""}`)
-              .join("; ") + ".",
+          <div key="ai-caps">
+            <div>
+              <span className="font-medium">AI-förmågor{productActive ? ` (${filterLabel})` : ""}:</span>{" "}
+              {withCaps.map((s, i) => {
+                const shown = s.labels.slice(0, 3);
+                const extra = s.labels.length - shown.length;
+                return (
+                  <span key={s.name}>
+                    {i > 0 ? "; " : ""}
+                    {s.name} –{" "}
+                    {shown.map((l, j) => (
+                      <span key={l.label}>
+                        {j > 0 ? ", " : ""}
+                        <span
+                          title={l.help}
+                          className="underline decoration-dotted decoration-muted-foreground/60 underline-offset-2 cursor-help"
+                        >
+                          {l.label}
+                        </span>
+                      </span>
+                    ))}
+                    {extra > 0 ? ` +${extra}` : ""}
+                  </span>
+                );
+              })}
+              .
+            </div>
+            {legendMap.size > 0 && (
+              <ul className="mt-1.5 space-y-0.5 text-xs text-muted-foreground list-none pl-0">
+                {Array.from(legendMap.entries()).map(([label, help]) => (
+                  <li key={label}>
+                    <span className="font-medium text-foreground/80">{label}:</span> {help}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>,
         );
       }
       // Projektvolym
