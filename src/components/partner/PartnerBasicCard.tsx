@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Building2, ExternalLink, Info, MapPin, Tag } from "lucide-react";
+import { Building2, ExternalLink, FileText, Info, MapPin, Tag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -7,6 +7,7 @@ import {
   BASIC_COPY,
   BasicPartner,
   PRODUCT_LABEL,
+  PRODUCT_ORDER,
   ProductKey,
   normalizeObservedIndustries,
 } from "@/hooks/useBasicPartners";
@@ -24,7 +25,7 @@ interface PartnerBasicCardProps {
 
 function observedProductKeys(p: BasicPartner): ProductKey[] {
   const src = p.observed_products || {};
-  return (["bc", "fsc", "crm"] as ProductKey[]).filter((k) => !!src[k]);
+  return PRODUCT_ORDER.filter((k) => !!src[k]);
 }
 
 export function PartnerBasicCard({
@@ -36,6 +37,8 @@ export function PartnerBasicCard({
   const industriesByProduct = normalizeObservedIndustries(partner.observed_industries);
   const locations = (partner.observed_locations || []).slice(0, 4);
   const isStandalone = variant === "standalone";
+  const extended = (partner.extended_content || "").trim();
+
 
   return (
     <article
@@ -160,8 +163,36 @@ export function PartnerBasicCard({
         </section>
       )}
 
+      {/* Extended observed description – standalone only */}
+      {isStandalone && extended && (
+        <section className="mb-4">
+          <div className="mb-1.5 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+            <FileText className="h-3 w-3" aria-hidden />
+            Fördjupning
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  type="button"
+                  className="inline-flex text-muted-foreground/70 hover:text-muted-foreground"
+                  aria-label="Om fördjupningstexten"
+                >
+                  <Info className="h-3 w-3" />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent side="top" className="max-w-xs text-xs">
+                {BASIC_COPY.extendedLabel}
+              </TooltipContent>
+            </Tooltip>
+          </div>
+          <div className="whitespace-pre-line text-sm leading-relaxed text-foreground/90">
+            {extended}
+          </div>
+        </section>
+      )}
+
       {/* Footer + CTA */}
       <footer className="mt-auto pt-3">
+
         <p className="text-[11px] leading-snug text-muted-foreground">
           {BASIC_COPY.footer}
         </p>

@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { Building2, Eye, Pencil, Plus, Trash2, Activity, ArrowDownCircle } from "lucide-react";
-import { PRODUCT_LABEL, ProductKey } from "@/hooks/useBasicPartners";
+import { PRODUCT_LABEL, PRODUCT_ORDER, ProductKey } from "@/hooks/useBasicPartners";
 import { useAdminPartners } from "@/hooks/useAdminPartners";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 
@@ -50,6 +50,7 @@ type BasicRow = {
   observed_industries: Partial<Record<ProductKey, string[]>>;
   observed_locations: string[];
   observed_updated_at: string | null;
+  extended_content: string | null;
   hide_basic_card: boolean;
   updated_at: string;
 };
@@ -64,9 +65,11 @@ function emptyDraft(): Partial<BasicRow> {
     observed_products: {},
     observed_industries: {},
     observed_locations: [],
+    extended_content: "",
     hide_basic_card: false,
   };
 }
+
 
 
 function slugify(name: string) {
@@ -114,6 +117,7 @@ export default function AdminBasicPartnersTab() {
           observed_industries: p.observed_industries || {},
           observed_locations: p.observed_locations || [],
           observed_updated_at: p.observed_updated_at ?? null,
+          extended_content: p.extended_content ?? null,
           hide_basic_card: p.hide_basic_card === true,
           updated_at: p.updated_at,
         })),
@@ -164,6 +168,7 @@ export default function AdminBasicPartnersTab() {
         observed_industries: editing.observed_industries || {},
         observed_locations: editing.observed_locations || [],
         observed_updated_at: new Date().toISOString(),
+        extended_content: (editing.extended_content || "").trim() || null,
         hide_basic_card: editing.hide_basic_card === true,
         // Basic partners never enter the paid rotation. Enforce defensively:
         is_featured: false,
@@ -351,7 +356,7 @@ export default function AdminBasicPartnersTab() {
                   <td className="p-2">{(r.observed_locations || []).join(", ")}</td>
                   <td className="p-2">
                     <div className="flex flex-wrap gap-1">
-                      {(["bc", "fsc", "crm"] as ProductKey[])
+                      {PRODUCT_ORDER
                         .filter((k) => r.observed_products?.[k])
                         .map((k) => (
                           <Badge key={k} variant="secondary" className="text-[10px]">
@@ -463,7 +468,7 @@ export default function AdminBasicPartnersTab() {
 
               <div className="space-y-3">
                 <Label>Observerade produktområden & branscher (max 3 per område)</Label>
-                {(["bc", "fsc", "crm"] as ProductKey[]).map((k) => {
+                {PRODUCT_ORDER.map((k) => {
                   const active = !!editing.observed_products?.[k];
                   const inds = editing.observed_industries?.[k] || [];
                   return (
@@ -516,8 +521,24 @@ export default function AdminBasicPartnersTab() {
                   );
                 })}
               </div>
+
+              <div>
+                <Label>Fördjupningstext (visas på standalone-Basickortet)</Label>
+                <Textarea
+                  rows={6}
+                  value={editing.extended_content || ""}
+                  placeholder="Fri text sammanställd från publika källor. Visas för besökare på partnerns Basickort-sida."
+                  onChange={(e) =>
+                    setEditing({ ...editing, extended_content: e.target.value })
+                  }
+                />
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Ej granskad av partnern. Håll neutralt, faktabaserat och kortfattat.
+                </p>
+              </div>
             </div>
           )}
+
           {editing && (
             <div className="rounded-md border border-amber-500/40 bg-amber-500/5 p-3">
               <label className="flex items-start gap-2 cursor-pointer">

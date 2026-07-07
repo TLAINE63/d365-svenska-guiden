@@ -9,7 +9,10 @@ import { supabase } from "@/integrations/supabase/client";
  * The view `partners_basic_public` whitelists the observed columns at DB level –
  * client cannot accidentally pull sensitive columns.
  */
-export type ProductKey = "bc" | "fsc" | "crm";
+export type ProductKey = "bc" | "fsc" | "sales" | "service";
+
+/** Legacy key kept only for backwards-compatible reads of existing "crm" data. */
+type LegacyProductKey = ProductKey | "crm";
 
 export interface BasicPartner {
   id: string;
@@ -21,9 +24,51 @@ export interface BasicPartner {
   observed_industries: Partial<Record<ProductKey, string[]>>;
   observed_locations: string[];
   observed_updated_at: string | null;
+  extended_content: string | null;
+  extended_content_updated_at: string | null;
   profile_level: "basic";
   created_at: string;
   updated_at: string;
+}
+
+/** Split legacy "crm" into both sales + service so existing data still renders. */
+function expandLegacyProducts<T>(
+  raw: Partial<Record<LegacyProductKey, T>> | null | undefined,
+  merge: (a: T | undefined, b: T | undefined) => T | undefined,
+): Partial<Record<ProductKey, T>> {
+  const src = raw || {};
+  const out: Partial<Record<ProductKey, T>> = {
+    bc: src.bc,
+    fsc: src.fsc,
+    sales: merge(src.sales, src.crm),
+    service: merge(src.service, src.crm),
+  };
+  (Object.keys(out) as ProductKey[]).forEach((k) => {
+    if (out[k] === undefined) delete out[k];
+  });
+  return out;
+}
+
+function normalizeRaw(row: any): BasicPartner {
+  const products = expandLegacyProducts<boolean>(
+    row?.observed_products || {},
+    (a, b) => (a === true || b === true ? true : a ?? b),
+  );
+  const industries = expandLegacyProducts<string[]>(
+    row?.observed_industries || {},
+    (a, b) => {
+      const merged = Array.from(new Set([...(a || []), ...(b || [])]));
+      return merged.length ? merged : undefined;
+    },
+  );
+  return {
+    ...row,
+    observed_products: products,
+    observed_industries: industries,
+    observed_locations: row?.observed_locations || [],
+    extended_content: row?.extended_content ?? null,
+    extended_content_updated_at: row?.extended_content_updated_at ?? null,
+  } as BasicPartner;
 }
 
 export function useBasicPartners() {
@@ -35,7 +80,7 @@ export function useBasicPartners() {
         .select("*")
         .order("name");
       if (error) throw error;
-      return (data || []) as BasicPartner[];
+      return (data || []).map(normalizeRaw);
     },
     staleTime: 5 * 60 * 1000,
   });
@@ -52,7 +97,7 @@ export function useBasicPartner(slug: string | undefined) {
         .eq("slug", slug)
         .maybeSingle();
       if (error) throw error;
-      return (data ?? null) as BasicPartner | null;
+      return data ? normalizeRaw(data) : null;
     },
     enabled: !!slug,
     staleTime: 5 * 60 * 1000,
@@ -61,11 +106,11 @@ export function useBasicPartner(slug: string | undefined) {
 
 /** Truncate observed industries to max 3 per product area (defensive – DB is source-of-truth). */
 export function normalizeObservedIndustries(
-  raw: Partial<Record<ProductKey, string[]>> | null | undefined
+  raw: Partial<Record<ProductKey, string[]>> | null | undefined,
 ): Partial<Record<ProductKey, string[]>> {
   const out: Partial<Record<ProductKey, string[]>> = {};
   if (!raw) return out;
-  (["bc", "fsc", "crm"] as ProductKey[]).forEach((k) => {
+  (["bc", "fsc", "sales", "service"] as ProductKey[]).forEach((k) => {
     const arr = Array.isArray(raw[k]) ? raw[k]! : [];
     if (arr.length) out[k] = arr.slice(0, 3);
   });
@@ -77,6 +122,8 @@ export const BASIC_COPY = {
     "Branschinriktning enligt d365.se:s marknadsanalys. Ej bekräftad av partnern.",
   productsLabel:
     "Observerade produktområden baserade på partnerns publika information.",
+  extendedLabel:
+    "Utökad beskrivning sammanställd av d365.se från publika källor. Ej granskad av partnern.",
   footer:
     "Denna partner har ännu inte en egen profil på d365.se. Uppgifterna är sammanställda av d365.se från publika källor.",
   cta: "Är detta ert bolag? Ta kontroll över er profil.",
@@ -89,5 +136,8 @@ export const BASIC_COPY = {
 export const PRODUCT_LABEL: Record<ProductKey, string> = {
   bc: "Business Central",
   fsc: "Finance & Supply Chain",
-  crm: "CRM (Sales / Service / Marketing)",
+  sales: "Sales & Marketing",
+  service: "Service / Field Service / Contact Center",
 };
+
+export const PRODUCT_ORDER: ProductKey[] = ["bc", "fsc", "sales", "service"];
