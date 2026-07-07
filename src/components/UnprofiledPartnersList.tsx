@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MessageSquare } from "lucide-react";
+import { MessageSquare, ArrowRight } from "lucide-react";
 import { useMemo } from "react";
 import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
-import { useBasicPartners } from "@/hooks/useBasicPartners";
+import { useBasicPartners, PRODUCT_LABEL, PRODUCT_ORDER } from "@/hooks/useBasicPartners";
 
 interface Props {
   /** Show a compact teaser (Välj Partner) vs. full page list */
