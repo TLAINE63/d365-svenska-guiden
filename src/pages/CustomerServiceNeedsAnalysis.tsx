@@ -522,6 +522,7 @@ function shouldRecommendAiAssessment(d: CustomerServiceAnalysisData): boolean {
 
 const CustomerServiceNeedsAnalysis = () => {
  const [currentStep, setCurrentStep] = useState(1);
+ const { data: allPartners = [] } = usePartners();
  const [data, setData] = useState<CustomerServiceAnalysisData>(initialData);
  const [isComplete, setIsComplete] = useState(false);
  const [contactErrors, setContactErrors] = useState<ContactFormErrors>({});
