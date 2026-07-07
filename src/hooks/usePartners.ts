@@ -125,6 +125,9 @@ export interface DatabasePartner {
   implementations_per_app?: Record<string, string> | null;
   not_a_fit?: string[] | null;
   ai_profile?: AiProfile | null;
+  /** Grov leverantörsstorlek 1..5 (intern signal – ingen publik filter-UI). */
+  partner_size_tier?: number | null;
+  partner_size_tier_needs_review?: boolean | null;
 }
 
 export interface PartnerInput {
