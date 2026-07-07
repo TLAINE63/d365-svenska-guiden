@@ -92,18 +92,30 @@ export default function AdminBasicPartnersTab() {
   const [editing, setEditing] = useState<Partial<BasicRow> | null>(null);
   const [saving, setSaving] = useState(false);
 
-  const { data: rows = [], isLoading, refetch } = useQuery({
-    queryKey: ["admin-basic-partners"],
-    queryFn: async (): Promise<BasicRow[]> => {
-      // Use the whitelisted public view – it already scopes to profile_level='basic'.
-      const { data, error } = await (supabase as any)
-        .from("partners_basic_public")
-        .select("*")
-        .order("name");
-      if (error) throw error;
-      return (data || []) as BasicRow[];
-    },
-  });
+  // Basickort = alla opublicerade partners (is_featured=false). Data hämtas via
+  // admin-endpointen som redan har alla observed_*-fält. Vi struntar i
+  // profile_level-kolumnen som är kvar som reserv men inte längre gate:ar synligheten.
+  const adminTokenForList = getAdminToken();
+  const { data: allAdminPartners = [], isLoading, refetch } = useAdminPartners(adminTokenForList);
+  const rows: BasicRow[] = useMemo(
+    () =>
+      (allAdminPartners || [])
+        .filter((p: any) => !p.is_featured)
+        .map((p: any) => ({
+          id: p.id,
+          slug: p.slug,
+          name: p.name,
+          website: p.website ?? null,
+          profile_level: (p.profile_level as "basic" | "profilerad") ?? "profilerad",
+          observed_products: p.observed_products || {},
+          observed_industries: p.observed_industries || {},
+          observed_locations: p.observed_locations || [],
+          observed_updated_at: p.observed_updated_at ?? null,
+          updated_at: p.updated_at,
+        })),
+    [allAdminPartners],
+  );
+
 
   // Blocked-contact counters – admin only. Aggregated per partner.
   const { data: blockedCounts = {} as Record<string, number> } = useQuery({
