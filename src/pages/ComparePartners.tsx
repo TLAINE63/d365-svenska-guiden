@@ -2110,17 +2110,32 @@ const ComparePartners = () => {
                       <SectionTitle icon={Mail} title="Kontakta valda partners" />
                       {(() => {
                         const selected = [A, B, C].filter((s) => s.partner);
-                        const recipients = selected.map((s) => ({ slug: s.partner!.slug, name: s.partner!.name }));
-                        if (selected.length >= 2) {
-                          const names = selected.map((s) => s.partner!.name);
+                        const contactable = selected.filter((s) => !(s.partner as any).__basic);
+                        const basicSelected = selected.filter((s) => (s.partner as any).__basic);
+                        const recipients = contactable.map((s) => ({ slug: s.partner!.slug, name: s.partner!.name }));
+                        const logBasicBlocked = () => {
+                          basicSelected.forEach((s) => {
+                            if (s.partner?.id) trackContactBlocked(s.partner.id, "compare_mix");
+                          });
+                        };
+                        const basicNotice = basicSelected.length > 0 ? (
+                          <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-3 text-xs text-slate-600 mb-3">
+                            <span className="font-semibold text-slate-700">Basickort utan kontakt: </span>
+                            {basicSelected.map((s) => s.partner!.name).join(", ")} är inte anslutna till d365.se och kan inte kontaktas härifrån. Vi loggar anonymt att intresse fanns.
+                          </div>
+                        ) : null;
+
+                        if (contactable.length >= 2) {
+                          const names = contactable.map((s) => s.partner!.name);
                           const joined =
                             names.length === 2
                               ? `${names[0]} och ${names[1]}`
                               : `${names.slice(0, -1).join(", ")} och ${names[names.length - 1]}`;
                           const groupLabel =
-                            selected.length === 3 ? "Ställ en första fråga till alla tre" : "Ställ en första fråga till båda";
+                            contactable.length === 3 ? "Ställ en första fråga till alla tre" : "Ställ en första fråga till båda";
                           return (
                             <div className="rounded-xl border border-slate-200 bg-white p-5">
+                              {basicNotice}
                               <p className="text-sm text-slate-700 mb-1">
                                 Skicka samma förfrågan till <span className="font-semibold">{joined}</span> — du får jämförbara svar.
                               </p>
@@ -2133,7 +2148,7 @@ const ComparePartners = () => {
                               <div className="flex flex-col gap-2">
                                 <Button
                                   type="button"
-                                  onClick={() => setQuoteFor({ recipients, mode: "contact" })}
+                                  onClick={() => { logBasicBlocked(); setQuoteFor({ recipients, mode: "contact" }); }}
                                   disabled={isSubmittingQuote}
                                   className="w-full min-h-[52px] bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 font-semibold"
                                 >
@@ -2143,7 +2158,7 @@ const ComparePartners = () => {
                                   <Button
                                     type="button"
                                     variant="outline"
-                                    onClick={() => setQuoteFor({ recipients, mode: "demo" })}
+                                    onClick={() => { logBasicBlocked(); setQuoteFor({ recipients, mode: "demo" }); }}
                                     disabled={isSubmittingQuote}
                                     className="w-full min-h-[52px]"
                                   >
@@ -2152,7 +2167,7 @@ const ComparePartners = () => {
                                   <Button
                                     type="button"
                                     variant="outline"
-                                    onClick={() => setQuoteFor({ recipients, mode: "quote" })}
+                                    onClick={() => { logBasicBlocked(); setQuoteFor({ recipients, mode: "quote" }); }}
                                     disabled={isSubmittingQuote}
                                     className="w-full min-h-[52px]"
                                   >
@@ -2167,8 +2182,9 @@ const ComparePartners = () => {
                           );
                         }
                         return (
-                          <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-5 text-sm text-slate-600">
-                            Välj minst två partners ovan för att kunna skicka samma förfrågan till alla och få jämförbara svar.
+                          <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-5 text-sm text-slate-600 space-y-2">
+                            {basicNotice}
+                            <p>Välj minst två anslutna partners ovan för att kunna skicka samma förfrågan till alla och få jämförbara svar.</p>
                           </div>
                         );
                       })()}
@@ -2176,8 +2192,10 @@ const ComparePartners = () => {
                       {/* Kontakta enskilt */}
                       {(A.partner || B.partner || C.partner) && (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 items-stretch">
-                          {[A, B, C].map((side, idx) =>
-                            side.partner ? (
+                          {[A, B, C].map((side, idx) => {
+                            if (!side.partner) return null;
+                            const isBasic = !!(side.partner as any).__basic;
+                            return (
                               <div key={idx} className="rounded-lg border border-slate-200 bg-white p-4 flex flex-col justify-between">
                                 <div>
                                   <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
@@ -2185,58 +2203,65 @@ const ComparePartners = () => {
                                   </div>
                                   <div className="text-xs sm:text-sm font-medium text-foreground mb-3 break-words">
                                     {side.partner.name}
+                                    {isBasic && <span className="ml-1.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500">· Basickort</span>}
                                   </div>
                                 </div>
-                                <div className="flex flex-wrap gap-2">
-                                  <Button
-                                    type="button"
-                                    size="sm"
-                                    variant="outline"
-                                    onClick={() =>
-                                      setQuoteFor({
-                                        recipients: [{ slug: side.partner!.slug, name: side.partner!.name }],
-                                        mode: "contact",
-                                      })
-                                    }
-                                    disabled={isSubmittingQuote}
-                                    className="text-xs min-h-[40px]"
-                                  >
-                                    Ställ en fråga till denna partner
-                                  </Button>
-                                  <Button
-                                    type="button"
-                                    size="sm"
-                                    variant="outline"
-                                    onClick={() =>
-                                      setQuoteFor({
-                                        recipients: [{ slug: side.partner!.slug, name: side.partner!.name }],
-                                        mode: "demo",
-                                      })
-                                    }
-                                    disabled={isSubmittingQuote}
-                                    className="text-xs min-h-[40px]"
-                                  >
-                                    Boka Demo/Genomgång
-                                  </Button>
-                                  <Button
-                                    type="button"
-                                    size="sm"
-                                    variant="outline"
-                                    onClick={() =>
-                                      setQuoteFor({
-                                        recipients: [{ slug: side.partner!.slug, name: side.partner!.name }],
-                                        mode: "quote",
-                                      })
-                                    }
-                                    disabled={isSubmittingQuote}
-                                    className="text-xs min-h-[40px]"
-                                  >
-                                    Få en Prisindikation
-                                  </Button>
-                                </div>
+                                {isBasic ? (
+                                  <p className="text-xs text-slate-500 leading-snug">
+                                    Ej ansluten till d365.se – kan inte kontaktas härifrån.
+                                  </p>
+                                ) : (
+                                  <div className="flex flex-wrap gap-2">
+                                    <Button
+                                      type="button"
+                                      size="sm"
+                                      variant="outline"
+                                      onClick={() =>
+                                        setQuoteFor({
+                                          recipients: [{ slug: side.partner!.slug, name: side.partner!.name }],
+                                          mode: "contact",
+                                        })
+                                      }
+                                      disabled={isSubmittingQuote}
+                                      className="text-xs min-h-[40px]"
+                                    >
+                                      Ställ en fråga till denna partner
+                                    </Button>
+                                    <Button
+                                      type="button"
+                                      size="sm"
+                                      variant="outline"
+                                      onClick={() =>
+                                        setQuoteFor({
+                                          recipients: [{ slug: side.partner!.slug, name: side.partner!.name }],
+                                          mode: "demo",
+                                        })
+                                      }
+                                      disabled={isSubmittingQuote}
+                                      className="text-xs min-h-[40px]"
+                                    >
+                                      Boka Demo/Genomgång
+                                    </Button>
+                                    <Button
+                                      type="button"
+                                      size="sm"
+                                      variant="outline"
+                                      onClick={() =>
+                                        setQuoteFor({
+                                          recipients: [{ slug: side.partner!.slug, name: side.partner!.name }],
+                                          mode: "quote",
+                                        })
+                                      }
+                                      disabled={isSubmittingQuote}
+                                      className="text-xs min-h-[40px]"
+                                    >
+                                      Få en Prisindikation
+                                    </Button>
+                                  </div>
+                                )}
                               </div>
-                            ) : null,
-                          )}
+                            );
+                          })}
                         </div>
                       )}
                     </section>
