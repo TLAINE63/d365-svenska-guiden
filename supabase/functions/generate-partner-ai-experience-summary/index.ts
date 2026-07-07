@@ -94,14 +94,28 @@ function labelList(vals: string[] | undefined, map: Record<string, string>): str
   return (vals || []).map((v) => safeLabel(v, map)).filter(Boolean).join(", ");
 }
 
+const DELIVERY_LABELS: Record<string, string> = {
+  "product-teams": "AI-kompetens finns i respektive produktteam",
+  "central-team": "AI-kompetens finns i ett centralt/tvärfunktionellt AI-team",
+  "combined": "Kombination av produktteam och centralt AI-team",
+  "external-team": "Samarbete med koncerninternt eller externt AI-specialistteam",
+  "advisory": "Erbjuder främst rådgivning kring AI/Copilot",
+};
+const PROJECT_COUNT_LABELS: Record<string, string> = {
+  "1-2": "1–2 projekt",
+  "3-5": "3–5 projekt",
+  "6-10": "6–10 projekt",
+  "10+": "10+ projekt",
+};
+
 function buildPrompt(p: any): string {
   const ai = p.ai_profile || {};
   const caps = labelList(ai.capabilities, CAP_LABELS) || "(ej angett)";
   const cases = labelList(ai.use_cases, USE_CASE_LABELS) || "(ej angett)";
   const areas = (ai.relevant_areas || []).join(", ") || "(ej angett)";
-  const exp = EXP_LABELS[ai.experience_level || ""] || "(ej angett)";
-  const projects = ai.project_count_range || "(ej angett)";
-  const delivery = ai.delivery_model || "(ej angett)";
+  const exp = safeLabel(ai.experience_level || "", EXP_LABELS) || "(ej angett)";
+  const projects = safeLabel(ai.project_count_range || "", PROJECT_COUNT_LABELS) || "(ej angett)";
+  const delivery = safeLabel(ai.delivery_model || "", DELIVERY_LABELS) || "(ej angett)";
   const desc = (ai.description || "").slice(0, 800);
   const industries = [...(p.industries || []), ...(p.secondary_industries || [])].join(", ") || "(ej angett)";
 
