@@ -941,22 +941,46 @@ const ValjPartner = () => {
  <p className="text-muted-foreground mb-8">
  Komplett lista i bokstavsordning över partners som har en profil på d365.se. Använd filtreringen ovan för att hitta rätt partner för din bransch och dina applikationer.
  </p>
- <ul className="grid gap-4 md:grid-cols-2">
+ <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
  {[...staticPartnerData]
  .filter((p: any) => p.is_featured)
  .sort((a: any, b: any) => a.name.localeCompare(b.name, "sv"))
  .map((p: any) => (
- <li key={p.id} className="border border-border rounded-lg p-4 bg-card">
- <h3 className="text-base font-semibold text-foreground mb-1">
- <Link to={`/partner/${p.slug}/`} className="hover:text-primary transition-colors">
+ <li key={p.id}>
+ <Link
+ to={`/partner/${p.slug}/`}
+ aria-label={p.name}
+ className="group relative flex items-center justify-between gap-3 p-4 rounded-lg border-2 border-primary/25 bg-card shadow-sm hover:border-primary hover:shadow-md transition-all"
+ >
+ <div className="min-w-0 flex-1">
+ {p.logo_url ? (
+ <img
+ src={p.logo_url}
+ alt={`${p.name} logotyp`}
+ loading="lazy"
+ className="h-10 max-w-[160px] object-contain mb-2"
+ />
+ ) : (
+ <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors truncate mb-2">
  {p.name}
- </Link>
  </h3>
-  {Array.isArray(p.applications) && p.applications.length > 0 && (
-  <p className="text-xs text-muted-foreground">
-  {p.applications.join(" · ")}
-  </p>
-  )}
+ )}
+ {Array.isArray(p.applications) && p.applications.length > 0 && (
+ <div className="flex flex-wrap gap-1">
+ {p.applications.slice(0, 3).map((app: string) => (
+ <Badge
+ key={app}
+ variant="outline"
+ className="text-[10px] px-1.5 py-0 border-primary/30 text-primary/80 bg-primary/5"
+ >
+ {app}
+ </Badge>
+ ))}
+ </div>
+ )}
+ </div>
+ <ArrowRight className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+ </Link>
  </li>
  ))}
  </ul>
