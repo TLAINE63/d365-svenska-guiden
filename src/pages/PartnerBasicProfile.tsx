@@ -46,13 +46,25 @@ export default function PartnerBasicProfile() {
       />
       {partner && (
         <>
-          <PartnerOrganizationSchema
-            name={partner.name}
-            description={excerpt(partner.extended_content, 300) || undefined}
-            slug={`../basic/${partner.slug}`}
-            website={partner.website || undefined}
-            applications={observedApps}
-          />
+          <Helmet>
+            <script type="application/ld+json">
+              {JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                name: partner.name,
+                url: `https://d365.se/basic/${partner.slug}/`,
+                mainEntityOfPage: `https://d365.se/basic/${partner.slug}/`,
+                ...(partner.website ? { sameAs: [partner.website] } : {}),
+                ...(excerpt(partner.extended_content, 300)
+                  ? { description: excerpt(partner.extended_content, 300) }
+                  : {}),
+                areaServed: { "@type": "Country", name: "Sweden" },
+                ...(observedApps.length
+                  ? { knowsAbout: ["Microsoft Dynamics 365", ...observedApps] }
+                  : {}),
+              })}
+            </script>
+          </Helmet>
           <BreadcrumbSchema
             items={[
               { name: "Hem", url: "https://d365.se/" },
