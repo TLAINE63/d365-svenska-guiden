@@ -1778,33 +1778,10 @@ const ComparePartners = () => {
                       />
                     </section>
 
-                    {/* Toggle: fördjupning */}
-
-                    <div className="flex items-center justify-between mb-4 gap-3 flex-wrap">
-                      <p className="text-xs text-muted-foreground">
-                        {showAllRows
-                          ? "Visar fördjupade partnerdetaljer nedan."
-                          : "Positioneringen ovan räcker ofta för ett första beslut. Öppna mer om ni vill fördjupa."}
-                      </p>
-                      <button
-                        type="button"
-                        onClick={() => setShowAllRows((v) => !v)}
-                        className="text-sm font-semibold text-primary hover:underline"
-                      >
-                        {showAllRows ? "Dölj partnerdetaljer" : "Visa mer partnerdetaljer"}
-                      </button>
-                    </div>
-                  </>
-                )}
-
-                {hasBoth && (
-                  <div className="space-y-8">
-                    {showAllRows && (
-                    <>
-                    <section className="space-y-3">
+                    {/* Fokus & kompetens: alltid synligt ovanför toggle */}
+                    <section className="space-y-3 mb-6">
                       <SectionTitle icon={Target} title="Fler partnerdetaljer" />
 
-                      {/* Kompakta jämförelserader först — långa texter kommer längre ned */}
                       <R
                         label="Fokusbranscher"
                         subtitle="Branscher där partnern har valt att bygga särskild djupkompetens – ofta baserat på referensprojekt och branschspecifika lösningar."
@@ -1853,6 +1830,36 @@ const ComparePartners = () => {
                         b={renderAppList(B.apps, "Inga Dynamics 365-applikationer uppgivna")}
                         c={renderAppList(C.apps, "Inga Dynamics 365-applikationer uppgivna")}
                       />
+                    </section>
+
+                    {/* Toggle: fördjupning */}
+
+                    <div className="flex items-center justify-between mb-4 gap-3 flex-wrap">
+                      <p className="text-xs text-muted-foreground">
+                        {showAllRows
+                          ? "Visar fördjupade partnerdetaljer nedan."
+                          : "Positioneringen och fokus ovan räcker ofta för ett första beslut. Öppna mer om ni vill fördjupa."}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => setShowAllRows((v) => !v)}
+                        className="text-sm font-semibold text-primary hover:underline"
+                      >
+                        {showAllRows ? "Dölj partnerdetaljer" : "Visa mer partnerdetaljer"}
+                      </button>
+                    </div>
+
+                  </>
+                )}
+
+                {hasBoth && (
+                  <div className="space-y-8">
+                    {showAllRows && (
+                    <>
+                    <section className="space-y-3">
+                      <SectionTitle icon={Target} title="Ytterligare fördjupning" />
+
+
 
 
                       {(() => {
