@@ -56,11 +56,19 @@ export default function AllD365Partners() {
   }, [dbPartners]);
 
   const others = useMemo(() => {
+    // Names already shown as Basic cards should not be counted/listed again
+    // as "övriga aktörer" — the basic view is a subset of non-featured partners.
+    const basicNames = new Set(
+      (basicPartners || []).map((p) => p.name.trim().toLowerCase()),
+    );
     const items: { id: string; name: string }[] = [];
     (allNames || [])
       .filter((p) => !p.is_featured)
+      .filter((p) => !basicNames.has(p.name.trim().toLowerCase()))
       .forEach((p) => items.push({ id: `db-${p.id}`, name: p.name }));
-    (unprofiled || []).forEach((p) => items.push({ id: `up-${p.id}`, name: p.name }));
+    (unprofiled || [])
+      .filter((p) => !basicNames.has(p.name.trim().toLowerCase()))
+      .forEach((p) => items.push({ id: `up-${p.id}`, name: p.name }));
     const seen = new Set<string>();
     const deduped = items.filter((it) => {
       const key = it.name.trim().toLowerCase();
@@ -70,7 +78,7 @@ export default function AllD365Partners() {
     });
     deduped.sort((a, b) => a.name.localeCompare(b.name, "sv"));
     return deduped;
-  }, [allNames, unprofiled]);
+  }, [allNames, unprofiled, basicPartners]);
 
   const totalMarket =
     profiled.length + (basicPartners?.length ?? 0) + others.length;
