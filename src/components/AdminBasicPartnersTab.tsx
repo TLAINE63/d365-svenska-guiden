@@ -351,7 +351,7 @@ export default function AdminBasicPartnersTab() {
                   <td className="p-2">{(r.observed_locations || []).join(", ")}</td>
                   <td className="p-2">
                     <div className="flex flex-wrap gap-1">
-                      {(["bc", "fsc", "crm"] as ProductKey[])
+                      {PRODUCT_ORDER
                         .filter((k) => r.observed_products?.[k])
                         .map((k) => (
                           <Badge key={k} variant="secondary" className="text-[10px]">
