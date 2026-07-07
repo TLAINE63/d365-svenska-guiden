@@ -143,7 +143,7 @@ export default function AllD365Partners() {
           </div>
         </section>
 
-        {/* Basic cards: partners with observed data but no paid profile */}
+        {/* Basic partners: compact list linking to detail cards */}
         {(basicPartners?.length ?? 0) > 0 && (
           <section className="py-8 sm:py-12 bg-secondary/40 border-t border-border">
             <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
@@ -155,13 +155,40 @@ export default function AllD365Partners() {
                   Dessa partners har ännu inte en egen profil på d365.se. Vi visar
                   observerad data (branscher, produktområden, orter) sammanställd
                   från publika källor – för att ge en realistisk bild av marknaden.
+                  Klicka på ett namn för att se detaljer.
                 </p>
               </div>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+              <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
                 {basicPartners!.map((p) => (
-                  <PartnerBasicCard key={p.id} partner={p} variant="list" />
+                  <li key={p.id}>
+                    <Link
+                      to={`/basic/${p.slug}/`}
+                      className="group relative flex items-center justify-between gap-3 p-4 rounded-lg border border-dashed border-border bg-card hover:border-muted-foreground/40 hover:shadow-sm transition-all"
+                    >
+                      <div className="min-w-0">
+                        <div className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
+                          {p.name}
+                        </div>
+                        {(p.observed_locations || []).length > 0 && (
+                          <div className="mt-1 flex items-center gap-1 text-xs text-muted-foreground truncate">
+                            <MapPin className="w-3 h-3 shrink-0" />
+                            {(p.observed_locations || []).slice(0, 3).join(" · ")}
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex shrink-0 items-center gap-2">
+                        <Badge
+                          variant="outline"
+                          className="border-muted-foreground/40 bg-background/60 text-[10px] font-medium uppercase tracking-wide text-muted-foreground"
+                        >
+                          Basic
+                        </Badge>
+                        <ArrowRight className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+                      </div>
+                    </Link>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
           </section>
         )}
