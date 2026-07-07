@@ -56,6 +56,87 @@ function sanitizeHtml(input: string): string {
     .replace(/'/g, "&#039;");
 }
 
+/**
+ * Formatera AI-genererad text (som ofta innehåller markdown: **bold**, ## rubriker,
+ * - listor, 1. numrerade listor, dubbla radbrytningar) till läsbar HTML för e-post.
+ * Escapar först allt, konverterar sen tillbaka en whitelist av markdown-syntax.
+ */
+function formatAiMarkdown(input: string, maxLen = 6000): string {
+  if (typeof input !== "string" || !input.trim()) return "";
+  const clipped = input.slice(0, maxLen);
+  // 1) Escape allt
+  const escaped = sanitizeHtml(clipped);
+
+  // 2) Radbaserad parsning (rubriker + listor)
+  const lines = escaped.split(/\r?\n/);
+  const out: string[] = [];
+  let listType: "ul" | "ol" | null = null;
+  const closeList = () => {
+    if (listType) { out.push(`</${listType}>`); listType = null; }
+  };
+  const paraBuf: string[] = [];
+  const flushPara = () => {
+    if (paraBuf.length) {
+      out.push(`<p style="margin:0 0 12px 0;line-height:1.55;">${paraBuf.join(" ")}</p>`);
+      paraBuf.length = 0;
+    }
+  };
+
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+    if (!line) { flushPara(); closeList(); continue; }
+
+    // Rubriker ### / ## / #
+    const h = line.match(/^(#{1,4})\s+(.+)$/);
+    if (h) {
+      flushPara(); closeList();
+      const level = Math.min(4, Math.max(2, h[1].length + 1)); // # -> h2, ## -> h3 osv
+      out.push(`<h${level} style="color:#0E7C86;margin:18px 0 8px 0;font-size:${level === 2 ? "17px" : "15px"};">${h[2]}</h${level}>`);
+      continue;
+    }
+
+    // Numrerad lista "1." "2)"
+    const ol = line.match(/^(\d+)[.)]\s+(.+)$/);
+    if (ol) {
+      flushPara();
+      if (listType !== "ol") { closeList(); out.push('<ol style="margin:0 0 12px 20px;padding:0;line-height:1.55;">'); listType = "ol"; }
+      out.push(`<li style="margin:0 0 4px 0;">${ol[2]}</li>`);
+      continue;
+    }
+
+    // Punktlista "- " "* " "• "
+    const ul = line.match(/^[-*•]\s+(.+)$/);
+    if (ul) {
+      flushPara();
+      if (listType !== "ul") { closeList(); out.push('<ul style="margin:0 0 12px 20px;padding:0;line-height:1.55;">'); listType = "ul"; }
+      out.push(`<li style="margin:0 0 4px 0;">${ul[1]}</li>`);
+      continue;
+    }
+
+    // Vanlig text – ackumulera i stycke
+    closeList();
+    paraBuf.push(line);
+  }
+  flushPara(); closeList();
+
+  // 3) Inline-formatering: **bold**, *italic*, `code`
+  let html = out.join("\n");
+  html = html.replace(/\*\*([^*\n]+?)\*\*/g, "<strong>$1</strong>");
+  html = html.replace(/(^|[^\*])\*([^*\n]+?)\*(?!\*)/g, "$1<em>$2</em>");
+  html = html.replace(/`([^`\n]+?)`/g, '<code style="background:#f4f4f5;padding:1px 4px;border-radius:3px;font-size:13px;">$1</code>');
+  return html;
+}
+
+/** Kortare version för listobjekt (t.ex. risks/nextSteps) – behåller bold/italic men ingen block-parse. */
+function formatAiInline(input: string, maxLen = 500): string {
+  if (typeof input !== "string") return "";
+  let html = sanitizeHtml(input.slice(0, maxLen));
+  html = html.replace(/\*\*([^*\n]+?)\*\*/g, "<strong>$1</strong>");
+  html = html.replace(/(^|[^\*])\*([^*\n]+?)\*(?!\*)/g, "$1<em>$2</em>");
+  html = html.replace(/`([^`\n]+?)`/g, '<code style="background:#f4f4f5;padding:1px 4px;border-radius:3px;font-size:13px;">$1</code>');
+  return html;
+}
+
 // Validation functions
 function isValidEmail(email: string): boolean {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
