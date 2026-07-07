@@ -26,14 +26,17 @@ export function useAllPartnerNames() {
     queryFn: async (): Promise<PartnerNameRow[]> => {
       const { data, error } = await (supabase as any).rpc("get_all_partner_names");
       if (error) throw error;
-      return ((data as any[]) || []).map((p: any) => ({
-        id: p.id,
-        name: p.name,
-        slug: p.slug,
-        is_featured: !!p.is_featured,
-        agreement_signed: !!p.agreement_signed,
-        product_filters: (p.product_filters as Record<string, any>) || {},
-      }));
+      return ((data as any[]) || [])
+        .filter((p: any) => !isPartnerExcluded(p.name, p.slug))
+        .map((p: any) => ({
+          id: p.id,
+          name: p.name,
+          slug: p.slug,
+          is_featured: !!p.is_featured,
+          agreement_signed: !!p.agreement_signed,
+          product_filters: (p.product_filters as Record<string, any>) || {},
+        }));
+
     },
     staleTime: 5 * 60 * 1000,
   });
