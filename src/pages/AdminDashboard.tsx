@@ -1427,6 +1427,8 @@ Thomas`,
     source_document_url: (partner as any).source_document_url || "",
     source_document_filename: (partner as any).source_document_filename || "",
     source_document_updated_at: (partner as any).source_document_updated_at || "",
+    partner_size_tier: (partner as any).partner_size_tier ?? null,
+    partner_size_tier_needs_review: (partner as any).partner_size_tier_needs_review ?? false,
     });
  setIndustryApps(
  Array.isArray((partner as any).industry_apps) ? (partner as any).industry_apps : []
