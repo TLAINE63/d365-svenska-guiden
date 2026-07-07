@@ -353,7 +353,7 @@ const Row = ({
             )}
           </div>
           {subtitle && (
-            <p className="text-[11px] leading-snug text-[hsl(var(--muted-foreground))]/80">
+            <p className="text-sm leading-relaxed text-[hsl(var(--muted-foreground))]">
               {subtitle}
             </p>
           )}
