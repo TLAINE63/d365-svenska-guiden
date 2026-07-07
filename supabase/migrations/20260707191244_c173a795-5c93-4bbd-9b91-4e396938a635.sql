@@ -1,0 +1,1 @@
+ALTER VIEW public.partners_basic_public SET (security_invoker = off);
