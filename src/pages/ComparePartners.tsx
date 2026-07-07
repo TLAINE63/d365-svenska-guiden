@@ -259,7 +259,7 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
       </Select>
       {partner && isBasic && (
         <p className="text-[11px] leading-snug text-slate-500">
-          {BASIC_COPY.compareMissing}. Denna partner är inte ansluten till d365.se och kan inte kontaktas härifrån.
+          Basickort med observerad marknadsdata. Utökad profil och kontakt sker via ansluten partner.
         </p>
       )}
       {partner && !isBasic && onRequestQuote && (
