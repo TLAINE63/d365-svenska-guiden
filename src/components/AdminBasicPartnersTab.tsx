@@ -26,6 +26,9 @@ import { Building2, Eye, Pencil, Plus, Trash2, Activity } from "lucide-react";
 import { PRODUCT_LABEL, PRODUCT_ORDER, ProductKey } from "@/hooks/useBasicPartners";
 import { useAdminPartners } from "@/hooks/useAdminPartners";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
+import { companySizes, revenueOptions } from "@/data/partners";
+
+const DELIVERY_GEO_OPTIONS = ["Sverige", "Norden", "Europa", "Internationellt"] as const;
 
 function getAdminToken(): string | null {
   if (typeof window === "undefined") return null;
