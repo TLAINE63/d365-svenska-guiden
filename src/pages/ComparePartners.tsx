@@ -2070,32 +2070,18 @@ const ComparePartners = () => {
                       <SectionTitle icon={Mail} title="Kontakta valda partners" />
                       {(() => {
                         const selected = [A, B, C].filter((s) => s.partner);
-                        const contactable = selected.filter((s) => !(s.partner as any).__basic);
-                        const basicSelected = selected.filter((s) => (s.partner as any).__basic);
-                        const recipients = contactable.map((s) => ({ slug: s.partner!.slug, name: s.partner!.name }));
-                        const logBasicBlocked = () => {
-                          basicSelected.forEach((s) => {
-                            if (s.partner?.id) trackContactBlocked(s.partner.id, "compare_mix");
-                          });
-                        };
-                        const basicNotice = basicSelected.length > 0 ? (
-                          <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-3 text-xs text-slate-600 mb-3">
-                            <span className="font-semibold text-slate-700">Basickort: </span>
-                            {basicSelected.map((s) => s.partner!.name).join(", ")} visas med observerad marknadsdata. Kontakt sker via ansluten partner.
-                          </div>
-                        ) : null;
+                        const recipients = selected.map((s) => ({ slug: s.partner!.slug, name: s.partner!.name }));
 
-                        if (contactable.length >= 2) {
-                          const names = contactable.map((s) => s.partner!.name);
+                        if (selected.length >= 2) {
+                          const names = selected.map((s) => s.partner!.name);
                           const joined =
                             names.length === 2
                               ? `${names[0]} och ${names[1]}`
                               : `${names.slice(0, -1).join(", ")} och ${names[names.length - 1]}`;
                           const groupLabel =
-                            contactable.length === 3 ? "Ställ en första fråga till alla tre" : "Ställ en första fråga till båda";
+                            selected.length === 3 ? "Ställ en första fråga till alla tre" : "Ställ en första fråga till båda";
                           return (
                             <div className="rounded-xl border border-slate-200 bg-white p-5">
-                              {basicNotice}
                               <p className="text-sm text-slate-700 mb-1">
                                 Skicka samma förfrågan till <span className="font-semibold">{joined}</span> — du får jämförbara svar.
                               </p>
@@ -2108,7 +2094,7 @@ const ComparePartners = () => {
                               <div className="flex flex-col gap-2">
                                 <Button
                                   type="button"
-                                  onClick={() => { logBasicBlocked(); setQuoteFor({ recipients, mode: "contact" }); }}
+                                  onClick={() => setQuoteFor({ recipients, mode: "contact" })}
                                   disabled={isSubmittingQuote}
                                   className="w-full min-h-[52px] bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 font-semibold"
                                 >
@@ -2118,7 +2104,7 @@ const ComparePartners = () => {
                                   <Button
                                     type="button"
                                     variant="outline"
-                                    onClick={() => { logBasicBlocked(); setQuoteFor({ recipients, mode: "demo" }); }}
+                                    onClick={() => setQuoteFor({ recipients, mode: "demo" })}
                                     disabled={isSubmittingQuote}
                                     className="w-full min-h-[52px]"
                                   >
@@ -2127,7 +2113,7 @@ const ComparePartners = () => {
                                   <Button
                                     type="button"
                                     variant="outline"
-                                    onClick={() => { logBasicBlocked(); setQuoteFor({ recipients, mode: "quote" }); }}
+                                    onClick={() => setQuoteFor({ recipients, mode: "quote" })}
                                     disabled={isSubmittingQuote}
                                     className="w-full min-h-[52px]"
                                   >
@@ -2143,7 +2129,6 @@ const ComparePartners = () => {
                         }
                         return (
                           <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-5 text-sm text-slate-600 space-y-2">
-                            {basicNotice}
                             <p>Välj minst två anslutna partners ovan för att kunna skicka samma förfrågan till alla och få jämförbara svar.</p>
                           </div>
                         );
