@@ -43,31 +43,35 @@ async function verifyJWT(token: string, secret: string) {
   } catch { return { valid: false }; }
 }
 
-// Label maps (kept in sync with src/lib/aiProfile.ts)
+// Label maps (MUST stay in sync with src/lib/aiProfile.ts – canonical source
+// of truth for AI-förmågor). Aldrig läcka råa capability-slugs till LLM-prompt,
+// JSON-LD eller AI-citat – okända värden faller tillbaka på en generisk svensk
+// etikett så att slugs som "ai-partner" eller "bc-agent" aldrig når besökaren.
+const UNKNOWN_CAPABILITY_LABEL = "Övrig AI-förmåga";
 const CAP_LABELS: Record<string, string> = {
   "standard-copilot": "Microsoft Standard AI / inbyggd Copilot",
   "copilot-studio": "Copilot Studio / agents",
   "power-platform": "Power Platform-automation med AI",
   "azure-ai": "Azure AI / Foundry / ML",
-  "fabric-bi": "Power BI / Fabric",
+  "fabric-bi": "Power BI / Fabric och AI-driven analys",
   "ai-readiness": "AI-readiness och datakvalitet",
-  "ai-governance": "AI-governance",
+  "ai-governance": "AI-governance, säkerhet och behörigheter",
   "ai-adoption": "AI-adoption och utbildning",
   "industry-ai": "Branschspecifika AI-lösningar",
 };
 const USE_CASE_LABELS: Record<string, string> = {
   "readiness": "AI-readiness inför Copilot",
-  "data-quality": "Datakvalitet inför Copilot",
+  "data-quality": "Datakvalitet och behörigheter inför Copilot",
   "copilot-studio-agent": "Copilot Studio-agent",
-  "sales-automation": "Säljautomation",
+  "sales-automation": "Automatisering av säljprocess",
   "service-ai": "AI-stöd för kundservice",
-  "finance-ai": "AI-stöd för ekonomi",
-  "scm-ai": "AI-stöd för supply chain",
-  "forecast": "Prognos / prediktiv analys",
+  "finance-ai": "AI-stöd för ekonomi och rapportering",
+  "scm-ai": "AI-stöd för inköp, lager eller supply chain",
+  "forecast": "Prognos eller prediktiv analys",
   "anomaly": "Avvikelseanalys",
-  "industry-agent": "Branschspecifik agent",
-  "fabric-analytics": "Fabric/BI-analys",
-  "governance": "AI-governance",
+  "industry-agent": "Branschspecifik agent eller automation",
+  "fabric-analytics": "Power BI/Fabric-baserad analys",
+  "governance": "AI-governance och policy",
   "training": "Utbildning och adoption",
 };
 const EXP_LABELS: Record<string, string> = {
@@ -75,22 +79,43 @@ const EXP_LABELS: Record<string, string> = {
   "pilot": "Pilot/PoC",
   "delivered": "Levererat i kundprojekt",
   "multiple": "Flera kundprojekt",
-  "packaged": "Paketerat erbjudande",
+  "packaged": "Paketerat erbjudande finns",
   "established": "Etablerad AI-leveransmodell",
 };
 
-function labelList(vals: string[] | undefined, map: Record<string, string>): string {
-  return (vals || []).map((v) => map[v] || v).filter(Boolean).join(", ");
+// Slug-safe label lookup. Om värdet saknas i vår ordbok returneras en generisk
+// svensk fallback – aldrig den råa slug-strängen (den skulle annars kunna
+// smyga in i AI-citat, JSON-LD-articleBody eller card-sammanfattningar).
+function safeLabel(v: string, map: Record<string, string>): string {
+  if (!v) return "";
+  return map[v] || UNKNOWN_CAPABILITY_LABEL;
 }
+function labelList(vals: string[] | undefined, map: Record<string, string>): string {
+  return (vals || []).map((v) => safeLabel(v, map)).filter(Boolean).join(", ");
+}
+
+const DELIVERY_LABELS: Record<string, string> = {
+  "product-teams": "AI-kompetens finns i respektive produktteam",
+  "central-team": "AI-kompetens finns i ett centralt/tvärfunktionellt AI-team",
+  "combined": "Kombination av produktteam och centralt AI-team",
+  "external-team": "Samarbete med koncerninternt eller externt AI-specialistteam",
+  "advisory": "Erbjuder främst rådgivning kring AI/Copilot",
+};
+const PROJECT_COUNT_LABELS: Record<string, string> = {
+  "1-2": "1–2 projekt",
+  "3-5": "3–5 projekt",
+  "6-10": "6–10 projekt",
+  "10+": "10+ projekt",
+};
 
 function buildPrompt(p: any): string {
   const ai = p.ai_profile || {};
   const caps = labelList(ai.capabilities, CAP_LABELS) || "(ej angett)";
   const cases = labelList(ai.use_cases, USE_CASE_LABELS) || "(ej angett)";
   const areas = (ai.relevant_areas || []).join(", ") || "(ej angett)";
-  const exp = EXP_LABELS[ai.experience_level || ""] || "(ej angett)";
-  const projects = ai.project_count_range || "(ej angett)";
-  const delivery = ai.delivery_model || "(ej angett)";
+  const exp = safeLabel(ai.experience_level || "", EXP_LABELS) || "(ej angett)";
+  const projects = safeLabel(ai.project_count_range || "", PROJECT_COUNT_LABELS) || "(ej angett)";
+  const delivery = safeLabel(ai.delivery_model || "", DELIVERY_LABELS) || "(ej angett)";
   const desc = (ai.description || "").slice(0, 800);
   const industries = [...(p.industries || []), ...(p.secondary_industries || [])].join(", ") || "(ej angett)";
 
