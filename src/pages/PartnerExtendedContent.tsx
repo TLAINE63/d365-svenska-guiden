@@ -1,4 +1,5 @@
 import { Link, useParams, Navigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { ArrowLeft } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -57,6 +58,62 @@ const PartnerExtendedContent = () => {
     `Fördjupning om ${partner.name} som Microsoft Dynamics 365-partner: bakgrund, styrkor, arbetssätt och referenser.`,
   ]);
 
+  const canonicalUrl = `https://d365.se/partner/${partner.slug}/fordjupning/`;
+  const publishedIso = updatedAt || new Date().toISOString();
+  const partnerWebsite = (partner as any).website as string | undefined;
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: `${partner.name} – fördjupning & bakgrund`,
+    description: seoDescription,
+    mainEntityOfPage: { "@type": "WebPage", "@id": canonicalUrl },
+    url: canonicalUrl,
+    inLanguage: "sv-SE",
+    datePublished: publishedIso,
+    dateModified: publishedIso,
+    image: partner.logo_url || "https://d365.se/og-erp.png",
+    author: { "@type": "Organization", name: "d365.se" },
+    publisher: {
+      "@type": "Organization",
+      name: "d365.se",
+      logo: { "@type": "ImageObject", url: "https://d365.se/d365-logo.svg" },
+    },
+    about: {
+      "@type": "Organization",
+      name: partner.name,
+      ...(partner.logo_url ? { logo: partner.logo_url } : {}),
+      ...(partnerWebsite ? { url: partnerWebsite } : {}),
+    },
+    keywords: [
+      partner.name,
+      "Dynamics 365 partner",
+      "Microsoft Dynamics 365",
+      ...(partner.applications || []),
+    ].join(", "),
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Hem", item: "https://d365.se/" },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Alla D365-partners",
+        item: "https://d365.se/alla-d365-partners/",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: partner.name,
+        item: `https://d365.se/partner/${partner.slug}/`,
+      },
+      { "@type": "ListItem", position: 4, name: "Fördjupning", item: canonicalUrl },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
@@ -71,9 +128,26 @@ const PartnerExtendedContent = () => {
           ...(partner.applications || []),
         ].join(", ")}
         ogImage={partner.logo_url || undefined}
-        ogImageAlt={`${partner.name} – fördjupning`}
+        ogImageAlt={`${partner.name} – fördjupning om Microsoft Dynamics 365-partner`}
         ogType="article"
+        articlePublishedTime={publishedIso}
+        articleModifiedTime={publishedIso}
+        articleAuthor="d365.se"
+        articleSection="Partnerfördjupning"
+        articleTags={[
+          partner.name,
+          "Dynamics 365 partner",
+          ...(partner.applications || []),
+        ]}
       />
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify(articleSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+      </Helmet>
 
       <Navbar />
 
