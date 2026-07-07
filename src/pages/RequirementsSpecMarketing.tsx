@@ -49,6 +49,7 @@ const areaOptions = [
 
 const RequirementsSpecMarketing = () => {
   const { toast } = useToast();
+  const { data: partnersList = [] } = usePartners();
   const location = useLocation();
   const prefilledIndustry = (location.state as { industry?: string } | null)?.industry;
   const isValidPrefill = !!prefilledIndustry && allIndustries.includes(prefilledIndustry);
