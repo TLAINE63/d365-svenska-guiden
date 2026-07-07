@@ -228,48 +228,6 @@ export default function AdminBasicPartnersTab() {
         </Button>
       </div>
 
-      {/* Degrade profiled → basic */}
-      <div className="rounded-md border border-amber-500/40 bg-amber-500/5 p-4">
-        <div className="flex items-start gap-3">
-          <ArrowDownCircle className="mt-0.5 h-5 w-5 text-amber-700 shrink-0" />
-          <div className="flex-1 space-y-2">
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">
-                Konvertera profilerad partner → Basickort
-              </h3>
-              <p className="text-xs text-muted-foreground">
-                När en partner avslutar avtalet: byt profile_level till "basic". Partnern
-                behåller sin plats i marknadskartan men tappar kontaktbarhet, publik
-                profil och plats i matchning/rotation. Reversibelt.
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center gap-2">
-              <Select value={degradeId || "__none__"} onValueChange={(v) => setDegradeId(v === "__none__" ? "" : v)}>
-                <SelectTrigger className="min-w-[260px] bg-background">
-                  <SelectValue placeholder="Välj profilerad partner…" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="__none__">– Välj partner –</SelectItem>
-                  {profiledPartners.map((p: any) => (
-                    <SelectItem key={p.id} value={p.id}>
-                      {p.name}
-                      {p.is_featured ? "" : " (opublicerad)"}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <Button
-                variant="outline"
-                onClick={degrade}
-                disabled={!degradeId || degrading}
-                className="border-amber-500/60"
-              >
-                {degrading ? "Konverterar…" : "Konvertera till Basickort"}
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
 
 
 
