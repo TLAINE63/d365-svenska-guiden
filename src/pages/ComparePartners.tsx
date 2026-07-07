@@ -654,27 +654,8 @@ const ComparePartners = () => {
   const [isSubmittingQuote, setIsSubmittingQuote] = useState(false);
 
   const { data: partners = [], isLoading } = usePartners();
-  const { data: basicPartnersRaw = [] } = useBasicPartners();
 
-  // Represent Basic partners as synthetic DatabasePartner objects with a
-  // sentinel flag. Only name/slug/id are populated — every other field stays
-  // empty so downstream rows render "—" (EMPTY). No commercial/economic data
-  // ever leaks (source is already `partners_basic_public` view).
-  const basicSynth = useMemo<DatabasePartner[]>(
-    () =>
-      (basicPartnersRaw || []).map((b: BasicPartner) => ({
-        id: b.id,
-        slug: b.slug,
-        name: b.name,
-        __basic: true,
-      } as unknown as DatabasePartner)),
-    [basicPartnersRaw],
-  );
-
-  const allPartners = useMemo(
-    () => [...partners, ...basicSynth],
-    [partners, basicSynth],
-  );
+  const allPartners = useMemo(() => partners, [partners]);
 
   const sortedPartners = useMemo(
     () => [...allPartners].sort((x, y) => x.name.localeCompare(y.name, "sv")),
