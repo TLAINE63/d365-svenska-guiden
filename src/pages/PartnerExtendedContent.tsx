@@ -66,6 +66,7 @@ const PartnerExtendedContent = () => {
     "@type": "Article",
     headline: `${partner.name} – fördjupning & bakgrund`,
     description: seoDescription,
+    articleBody: extended,
     mainEntityOfPage: { "@type": "WebPage", "@id": canonicalUrl },
     url: canonicalUrl,
     inLanguage: "sv-SE",
