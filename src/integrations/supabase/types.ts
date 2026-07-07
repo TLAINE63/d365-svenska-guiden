@@ -972,6 +972,11 @@ export type Database = {
           related_party: boolean
           secondary_industries: string[] | null
           slug: string
+          source_document_filename: string | null
+          source_document_mime: string | null
+          source_document_text: string | null
+          source_document_updated_at: string | null
+          source_document_url: string | null
           team_size_sweden: string | null
           updated_at: string
           website: string
@@ -1030,6 +1035,11 @@ export type Database = {
           related_party?: boolean
           secondary_industries?: string[] | null
           slug: string
+          source_document_filename?: string | null
+          source_document_mime?: string | null
+          source_document_text?: string | null
+          source_document_updated_at?: string | null
+          source_document_url?: string | null
           team_size_sweden?: string | null
           updated_at?: string
           website: string
@@ -1088,6 +1098,11 @@ export type Database = {
           related_party?: boolean
           secondary_industries?: string[] | null
           slug?: string
+          source_document_filename?: string | null
+          source_document_mime?: string | null
+          source_document_text?: string | null
+          source_document_updated_at?: string | null
+          source_document_url?: string | null
           team_size_sweden?: string | null
           updated_at?: string
           website?: string
