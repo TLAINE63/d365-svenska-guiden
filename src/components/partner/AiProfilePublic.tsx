@@ -75,11 +75,23 @@ export default function AiProfilePublic({ profile, compact = false }: Props) {
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
                 Starkast inom
               </p>
-              <ul className="text-sm text-foreground/90 space-y-0.5">
+              <ul className="text-sm text-foreground/90 space-y-1">
                 {topCaps.map((c) => (
-                  <li key={c} className="flex gap-1.5">
-                    <span aria-hidden="true" className="text-primary">•</span>
-                    <span>{c}</span>
+                  <li key={c.label} className="flex gap-1.5">
+                    <span aria-hidden="true" className="text-primary mt-0.5">•</span>
+                    <span>
+                      <span
+                        title={c.help}
+                        className={c.help ? "underline decoration-dotted decoration-muted-foreground/60 underline-offset-2 cursor-help" : ""}
+                      >
+                        {c.label}
+                      </span>
+                      {c.help && (
+                        <span className="block text-[11px] text-muted-foreground leading-snug">
+                          {c.help}
+                        </span>
+                      )}
+                    </span>
                   </li>
                 ))}
               </ul>
