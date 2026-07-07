@@ -228,6 +228,24 @@ Deno.serve(async (req) => {
       const knowledgeBlock = renderKnowledgeBlock(knowledgeMap.get(p.id));
       const extRaw = extendedMap.get(p.id) || '';
 
+      // Leverantörsstorlek (1..5) – intern grov klassning av partnerns
+      // leveransorganisation. Neutral kontext för LLM: ska inte överskugga
+      // bransch/produkt (per ranking-policy), men får väga in när kundens
+      // storlek och partnerns skala är uppenbart missmatchade.
+      const SIZE_TIER_LABELS: Record<number, string> = {
+        1: 'Mycket stor global/Sverige-stor koncern',
+        2: 'Stor / etablerad Microsoft-/D365-specialist',
+        3: 'Medelstor D365-, BC- eller CRM-specialist',
+        4: 'Mindre / nischad / SMB-orienterad',
+        5: 'Låg offentlig synlighet (osäker klassning)',
+      };
+      const tierRaw = (p as any).partner_size_tier;
+      const tierNum = typeof tierRaw === 'number' && tierRaw >= 1 && tierRaw <= 5 ? tierRaw : null;
+      const tierNeedsReview = (p as any).partner_size_tier_needs_review === true;
+      const sizeTierLine = tierNum
+        ? `\nLeverantörsstorlek (intern): tier ${tierNum} – ${SIZE_TIER_LABELS[tierNum]}${tierNeedsReview ? ' (osäker – behandla som svag signal)' : ''}`
+        : '\nLeverantörsstorlek (intern): ej klassad (neutral)';
+
       // Build a "query bag" from the customer's criteria — the more of these
       // terms that show up in the partner's fördjupning, the more we boost it.
       const queryBag = [
@@ -251,7 +269,7 @@ Produktbeskrivning (${criteria.application}): ${productDesc}
 Branschfokus för ${criteria.application}: ${pfIndustries}
 Kundexempel: ${customerExamples}
 Kontorsorter: ${officeCities.length > 0 ? officeCities.join(', ') : 'Ej angivet'}
-Plattformskompetens: ${platformCaps.length > 0 ? platformCaps.join(', ') : 'Ej angivet'}${industryFocusLine}${targetAudienceLine}${aiSummary}${knowledgeBlock}${extendedBlock}`;
+Plattformskompetens: ${platformCaps.length > 0 ? platformCaps.join(', ') : 'Ej angivet'}${industryFocusLine}${targetAudienceLine}${sizeTierLine}${aiSummary}${knowledgeBlock}${extendedBlock}`;
     }).join('\n\n---\n\n');
 
     const systemPrompt = `Du är en expert på Microsoft Dynamics 365 och hjälper svenska företag att hitta rätt implementeringspartner.
