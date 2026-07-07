@@ -43,13 +43,23 @@ export default function AiProfilePublic({ profile, compact = false }: Props) {
     </div>
   );
 
-  const chips = (items: string[], cls = "bg-muted text-foreground/80") => (
+  const chips = (
+    items: { label: string; help?: string }[] | string[],
+    cls = "bg-muted text-foreground/80",
+  ) => (
     <div className="flex flex-wrap gap-1.5">
-      {items.map((t) => (
-        <span key={t} className={`px-2 py-0.5 rounded-md text-xs ${cls}`}>
-          {t}
-        </span>
-      ))}
+      {items.map((raw) => {
+        const item = typeof raw === "string" ? { label: raw, help: "" } : raw;
+        return (
+          <span
+            key={item.label}
+            title={item.help || undefined}
+            className={`px-2 py-0.5 rounded-md text-xs ${cls} ${item.help ? "cursor-help" : ""}`}
+          >
+            {item.label}
+          </span>
+        );
+      })}
     </div>
   );
 
