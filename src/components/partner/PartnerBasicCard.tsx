@@ -52,11 +52,11 @@ function SectionHeader({
       {tooltip && (
         <Tooltip>
           <TooltipTrigger asChild>
-            <button
-              type="button"
-              className="inline-flex text-muted-foreground/70 hover:text-muted-foreground"
-              aria-label={tooltipLabel || `Om ${label.toLowerCase()}`}
-            >
+                <button
+                  type="button"
+                  className="inline-flex text-muted-foreground/70 transition-colors hover:text-muted-foreground focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
+                  aria-label={tooltipLabel || `Om ${label.toLowerCase()}`}
+                >
               <Info className="h-3 w-3" />
             </button>
           </TooltipTrigger>
