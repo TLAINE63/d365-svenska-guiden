@@ -1795,7 +1795,7 @@ Thomas`,
  // Calculate form completion percentage
  const formCompletion = useMemo(() => {
  let completed = 0;
- const total = 5;
+ const total = 6;
  
  // Section 1: Basic info - name and website required
  if (partnerFormData.name && partnerFormData.website) completed++;
@@ -1808,13 +1808,16 @@ Thomas`,
  
  // Section 4: Products - at least one product with industries
  const hasActiveProduct = productSections.some(section => {
- const filter = partnerFormData.product_filters?.[section.key];
- return filter && filter.industries.length > 0;
+  const filter = partnerFormData.product_filters?.[section.key];
+  return filter && filter.industries.length > 0;
  });
  if (hasActiveProduct) completed++;
  
  // Section 5: Admin info - activation date or featured status
  if (partnerFormData.activation_date || partnerFormData.is_featured) completed++;
+
+ // Section 6: Text & sources - extended content or uploaded source document
+ if ((partnerFormData.extended_content || "").trim().length > 50 || (partnerFormData.source_document_text || "").trim().length > 50) completed++;
  
  return { completed, total, percentage: Math.round((completed / total) * 100) };
  }, [partnerFormData]);
