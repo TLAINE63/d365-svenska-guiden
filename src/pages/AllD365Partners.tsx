@@ -5,7 +5,7 @@ import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MessageSquare, ArrowRight, Users, CheckCircle2, MapPin } from "lucide-react";
+import { MessageSquare, ArrowRight, Users, CheckCircle2 } from "lucide-react";
 import { usePartners } from "@/hooks/usePartners";
 import TrustBanner from "@/components/TrustBanner";
 import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
@@ -24,7 +24,12 @@ const breadcrumbs = [
 // client-side JavaScript or a network round-trip).
 const STATIC_PROFILED = (partnerDataJson as any[])
   .filter((p) => p.is_featured !== false)
-  .map((p) => ({ id: p.id as string, slug: p.slug as string, name: p.name as string }))
+  .map((p) => ({
+    id: p.id as string,
+    slug: p.slug as string,
+    name: p.name as string,
+    applications: (p.applications ?? []) as string[],
+  }))
   .sort((a, b) => a.name.localeCompare(b.name, "sv"));
 
 export default function AllD365Partners() {
@@ -38,7 +43,7 @@ export default function AllD365Partners() {
     // snapshot so SSG/crawlers always see the full list.
     const live = (dbPartners || [])
       .filter((p) => p.is_featured)
-      .map((p) => ({ id: p.id, slug: p.slug, name: p.name }));
+      .map((p) => ({ id: p.id, slug: p.slug, name: p.name, applications: p.applications ?? [] }));
     const source = live.length > 0 ? live : STATIC_PROFILED;
     return [...source].sort((a, b) => a.name.localeCompare(b.name, "sv"));
   }, [dbPartners]);
@@ -126,13 +131,22 @@ export default function AllD365Partners() {
                       className="group relative flex items-center justify-between gap-2 p-4 rounded-lg border-2 border-primary/25 bg-card shadow-sm hover:border-primary hover:shadow-md transition-all"
                     >
                       <div className="min-w-0">
-                        <div className="mb-1 inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide text-primary">
-                          <CheckCircle2 className="w-3 h-3" />
-                          Publicerad
-                        </div>
                         <div className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
                           {p.name}
                         </div>
+                        {p.applications.length > 0 && (
+                          <div className="mt-2 flex flex-wrap gap-1">
+                            {p.applications.slice(0, 3).map((app) => (
+                              <Badge
+                                key={app}
+                                variant="outline"
+                                className="text-[10px] px-1.5 py-0 border-primary/30 text-primary/80 bg-primary/5"
+                              >
+                                {app}
+                              </Badge>
+                            ))}
+                          </div>
+                        )}
                       </div>
                       <ArrowRight className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
                     </Link>
@@ -169,12 +183,6 @@ export default function AllD365Partners() {
                         <div className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
                           {p.name}
                         </div>
-                        {(p.observed_locations || []).length > 0 && (
-                          <div className="mt-1 flex items-center gap-1 text-xs text-muted-foreground truncate">
-                            <MapPin className="w-3 h-3 shrink-0" />
-                            {(p.observed_locations || []).slice(0, 3).join(" · ")}
-                          </div>
-                        )}
                       </div>
                       <div className="flex shrink-0 items-center gap-2">
                         <Badge
