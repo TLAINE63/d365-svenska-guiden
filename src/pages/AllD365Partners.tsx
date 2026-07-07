@@ -183,12 +183,6 @@ export default function AllD365Partners() {
                         <div className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
                           {p.name}
                         </div>
-                        {(p.observed_locations || []).length > 0 && (
-                          <div className="mt-1 flex items-center gap-1 text-xs text-muted-foreground truncate">
-                            <MapPin className="w-3 h-3 shrink-0" />
-                            {(p.observed_locations || []).slice(0, 3).join(" · ")}
-                          </div>
-                        )}
                       </div>
                       <div className="flex shrink-0 items-center gap-2">
                         <Badge
