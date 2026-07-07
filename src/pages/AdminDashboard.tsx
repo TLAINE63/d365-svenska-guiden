@@ -3068,6 +3068,11 @@ Thomas`,
  ))}
 
 
+ {/* ==================== BASIC PARTNERS TAB ==================== */}
+ <TabsContent value="basic-partners">
+   <AdminBasicPartnersTab />
+ </TabsContent>
+
  {/* ==================== INVITATIONS TAB ==================== */}
  <TabsContent value="invitations">
             <PartnerInvitationsTab 
