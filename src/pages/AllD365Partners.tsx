@@ -24,7 +24,12 @@ const breadcrumbs = [
 // client-side JavaScript or a network round-trip).
 const STATIC_PROFILED = (partnerDataJson as any[])
   .filter((p) => p.is_featured !== false)
-  .map((p) => ({ id: p.id as string, slug: p.slug as string, name: p.name as string }))
+  .map((p) => ({
+    id: p.id as string,
+    slug: p.slug as string,
+    name: p.name as string,
+    applications: (p.applications ?? []) as string[],
+  }))
   .sort((a, b) => a.name.localeCompare(b.name, "sv"));
 
 export default function AllD365Partners() {
