@@ -57,7 +57,9 @@ const buildPartnerPayload = (
   const { productDescription, whyChoose, keyPoints } = pickProductText(p, productFilters);
   const aiProfile: any = (p as any).ai_profile || {};
   const aiCaps: string[] = Array.isArray(aiProfile.capabilities)
-    ? aiProfile.capabilities.map((c: any) => String(c?.label || c)).filter(Boolean)
+    ? aiProfile.capabilities
+        .map((c: any) => (typeof c === "string" ? labelForCapability(c) : String(c?.label || c)))
+        .filter(Boolean)
     : [];
   const industryApps: string[] = Array.isArray((p as any).industry_apps)
     ? (p as any).industry_apps
