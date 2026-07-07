@@ -140,7 +140,7 @@ export function PartnerBasicCard({
               <Badge
                 key={k}
                 variant="secondary"
-                className={`text-xs font-medium ${PRODUCT_THEME[k]}`}
+                className={`text-xs font-medium transition-opacity hover:opacity-90 ${PRODUCT_THEME[k]}`}
               >
                 {PRODUCT_LABEL[k]}
               </Badge>
