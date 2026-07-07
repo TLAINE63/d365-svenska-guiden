@@ -1749,7 +1749,7 @@ const ComparePartners = () => {
                   <>
                     {(() => {
                       const aiPartners = [a, b, ...(c ? [c] : [])].filter(
-                        (p): p is DatabasePartner => !!p && !(p as any).__basic,
+                        (p): p is DatabasePartner => !!p,
                       );
                       return aiPartners.length >= 2 ? (
                         <AiCompareInsights
