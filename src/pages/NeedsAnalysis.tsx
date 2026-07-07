@@ -4536,6 +4536,13 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               </CardContent>
             </Card>
 
+            {/* FÖRESLAGNA PARTNERS */}
+            <SuggestedPartnersCTA
+              product={isBC ? "bc" : "fsc"}
+              industry={data.industry || null}
+              className="!py-8 mb-8 border rounded overflow-hidden !bg-secondary/40"
+            />
+
             {/* Actions */}
             <div className="flex justify-center">
               <Button
