@@ -1597,7 +1597,7 @@ const ComparePartners = () => {
                   <label className="block text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] mb-1.5 ml-1">
                     2. Välj bransch
                   </label>
-                  <span className="block text-[11px] text-[hsl(var(--muted-foreground)/0.8)] mb-3 ml-1">
+                  <span className="block text-sm text-[hsl(var(--muted-foreground))] mb-3 ml-1">
                     Endast partners med vald fokusbransch visas i nästa steg
                   </span>
                   <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 xl:grid-cols-8 gap-2">
