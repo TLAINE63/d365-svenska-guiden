@@ -1,0 +1,1 @@
+GRANT SELECT ON public.partners_basic_public TO anon, authenticated;
