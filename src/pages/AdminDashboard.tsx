@@ -104,6 +104,7 @@ import AdminFeaturedArticleTab from "@/components/AdminFeaturedArticleTab";
 import AdminKnowledgeArticlesTab from "@/components/AdminKnowledgeArticlesTab";
 import AdminProductPricesTab from "@/components/AdminProductPricesTab";
 import AdminUnprofiledPartnersTab from "@/components/AdminUnprofiledPartnersTab";
+import AdminBasicPartnersTab from "@/components/AdminBasicPartnersTab";
 import AdminIndustryPagesTab from "@/components/AdminIndustryPagesTab";
 import AdminSeoRankingsTab from "@/components/AdminSeoRankingsTab";
 import AdminSemrushTab from "@/components/AdminSemrushTab";
@@ -259,7 +260,7 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
  id: "leads-partners",
  label: "Leads & Partners",
  icon: Building2,
- tabs: ["leads", "partners", "unprofiled-partners", "invitations", "agreement"],
+ tabs: ["leads", "partners", "unprofiled-partners", "basic-partners", "invitations", "agreement"],
  },
  {
  id: "innehall",
@@ -2131,6 +2132,12 @@ Thomas`,
  </span>
  Ej publicerade
  </TabsTrigger>
+ <TabsTrigger value="basic-partners" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
+ <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-slate-500/20 to-slate-600/10 ring-1 ring-slate-400/20">
+ <Building2 className="h-3.5 w-3.5 text-slate-300" strokeWidth={1.75} />
+ </span>
+ Basickort
+ </TabsTrigger>
  <TabsTrigger value="invitations" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-violet-500/20 to-violet-600/10 ring-1 ring-violet-400/20">
  <MailPlus className="h-3.5 w-3.5 text-violet-300" strokeWidth={1.75} />
@@ -3060,6 +3067,11 @@ Thomas`,
  </TabsContent>
  ))}
 
+
+ {/* ==================== BASIC PARTNERS TAB ==================== */}
+ <TabsContent value="basic-partners">
+   <AdminBasicPartnersTab />
+ </TabsContent>
 
  {/* ==================== INVITATIONS TAB ==================== */}
  <TabsContent value="invitations">

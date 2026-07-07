@@ -176,7 +176,7 @@ interface PartnerData {
 }
 
 interface RequestBody {
-  action: "create" | "update" | "delete" | "get-full" | "get-one" | "get-sales-pitch-segments";
+  action: "create" | "update" | "delete" | "get-full" | "get-one" | "get-sales-pitch-segments" | "list-contact-blocked-counts";
   partner?: PartnerData;
   id?: string;
   token: string;
@@ -473,6 +473,28 @@ serve(async (req: Request): Promise<Response> => {
         console.log("Partner deleted:", id);
         return new Response(
           JSON.stringify({ success: true }),
+          { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      case "list-contact-blocked-counts": {
+        // Aggregated counter for admin — count of anonymous blocked contact
+        // attempts per Basic partner. No buyer data is stored, so nothing
+        // beyond raw counts can be returned even in principle.
+        const { data, error } = await supabase
+          .from("contact_attempt_blocked")
+          .select("partner_id");
+        if (error) throw error;
+        const counts: Record<string, number> = {};
+        (data || []).forEach((r: { partner_id: string }) => {
+          counts[r.partner_id] = (counts[r.partner_id] || 0) + 1;
+        });
+        const arr = Object.entries(counts).map(([partner_id, count]) => ({
+          partner_id,
+          count,
+        }));
+        return new Response(
+          JSON.stringify({ counts: arr }),
           { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
         );
       }
