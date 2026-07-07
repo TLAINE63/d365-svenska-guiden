@@ -1537,7 +1537,7 @@ const ComparePartners = () => {
                   <label className="block text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] mb-1.5 ml-1">
                     1. Välj produkt
                   </label>
-                  <span className="block text-[11px] text-[hsl(var(--muted-foreground)/0.8)] mb-3 ml-1">
+                  <span className="block text-sm text-[hsl(var(--muted-foreground))] mb-3 ml-1">
                     Endast partners som levererar vald produkt visas i nästa steg
                   </span>
                   {(() => {
@@ -1686,7 +1686,7 @@ const ComparePartners = () => {
                   <p className="text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] ml-1">
                     3. Välj 2–3 partners att jämföra
                   </p>
-                  <p className="text-[11px] text-[hsl(var(--muted-foreground)/0.8)] ml-1 mt-0.5">
+                  <p className="text-sm text-[hsl(var(--muted-foreground))] ml-1 mt-0.5">
                     {productActive || industryFilter
                       ? `${eligiblePartners.length} partner${eligiblePartners.length === 1 ? "" : "s"} matchar urvalet`
                       : "Visar alla publicerade partners — välj produkt och bransch ovan för att smalna av"}
