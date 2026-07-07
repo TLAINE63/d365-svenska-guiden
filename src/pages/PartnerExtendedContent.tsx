@@ -111,6 +111,9 @@ const PartnerExtendedContent = () => {
                 {partner.description}
               </p>
             )}
+            <p className="mt-4 text-xs text-muted-foreground italic">
+              Redaktionell översikt sammanställd från publika källor (bl.a. d365.se, allabolag.se och partnerns egen webbnärvaro). Kompletterar {partner.name}s egen profil och är inte partnerns egna marknadstext. Enskilda uppgifter kan förändras över tid – kontakta partnern för aktuella detaljer.
+            </p>
           </header>
 
           <div className="prose prose-slate dark:prose-invert max-w-none">
