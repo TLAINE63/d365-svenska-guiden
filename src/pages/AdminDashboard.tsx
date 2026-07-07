@@ -1417,9 +1417,13 @@ Thomas`,
  org_number: (partner as any).org_number || "",
  legal_name: (partner as any).legal_name || "",
    youtube_video_id: (partner as any).youtube_video_id || "",
-   ai_profile: (partner as any).ai_profile || {},
-   extended_content: (partner as any).extended_content || "",
-   });
+    ai_profile: (partner as any).ai_profile || {},
+    extended_content: (partner as any).extended_content || "",
+    source_document_text: (partner as any).source_document_text || "",
+    source_document_url: (partner as any).source_document_url || "",
+    source_document_filename: (partner as any).source_document_filename || "",
+    source_document_updated_at: (partner as any).source_document_updated_at || "",
+    });
  setIndustryApps(
  Array.isArray((partner as any).industry_apps) ? (partner as any).industry_apps : []
  );
