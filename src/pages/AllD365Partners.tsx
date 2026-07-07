@@ -44,7 +44,13 @@ export default function AllD365Partners() {
     // snapshot so SSG/crawlers always see the full list.
     const live = (dbPartners || [])
       .filter((p) => p.is_featured)
-      .map((p) => ({ id: p.id, slug: p.slug, name: p.name, applications: p.applications ?? [] }));
+      .map((p) => ({
+        id: p.id,
+        slug: p.slug,
+        name: p.name,
+        logo_url: p.logo_url || null,
+        applications: p.applications ?? [],
+      }));
     const source = live.length > 0 ? live : STATIC_PROFILED;
     return [...source].sort((a, b) => a.name.localeCompare(b.name, "sv"));
   }, [dbPartners]);
