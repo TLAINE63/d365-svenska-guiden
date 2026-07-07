@@ -670,12 +670,14 @@ const AdminDashboard = () => {
   org_number: "",
    legal_name: "",
    youtube_video_id: "",
-   extended_content: "",
-   source_document_text: "",
-   source_document_url: "",
-   source_document_filename: "",
-   source_document_updated_at: "",
-   });
+    extended_content: "",
+    source_document_text: "",
+    source_document_url: "",
+    source_document_filename: "",
+    source_document_updated_at: "",
+    partner_size_tier: null,
+    partner_size_tier_needs_review: false,
+    });
 
  // ==================== LEAD FUNCTIONS ====================
 
