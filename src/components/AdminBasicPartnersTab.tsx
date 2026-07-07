@@ -396,11 +396,24 @@ export default function AdminBasicPartnersTab() {
                 {PRODUCT_ORDER.map((k) => {
                   const active = !!editing.observed_products?.[k];
                   const inds = editing.observed_industries?.[k] || [];
+                  const sizes = editing.observed_company_sizes?.[k] || [];
+                  const revs = editing.observed_revenue?.[k] || [];
+                  const geos = editing.observed_delivery_geo?.[k] || [];
+                  const toggleIn = (
+                    field: "observed_company_sizes" | "observed_revenue" | "observed_delivery_geo",
+                    value: string,
+                    current: string[],
+                  ) => {
+                    const next = current.includes(value)
+                      ? current.filter((x) => x !== value)
+                      : [...current, value];
+                    setEditing({
+                      ...editing,
+                      [field]: { ...((editing as any)[field] || {}), [k]: next },
+                    });
+                  };
                   return (
-                    <div
-                      key={k}
-                      className="rounded border border-border p-3 space-y-2"
-                    >
+                    <div key={k} className="rounded border border-border p-3 space-y-3">
                       <div className="flex items-center gap-2">
                         <Checkbox
                           checked={active}
@@ -417,30 +430,101 @@ export default function AdminBasicPartnersTab() {
                         <span className="font-medium">{PRODUCT_LABEL[k]}</span>
                       </div>
                       {active && (
-                        <div>
-                          <Label className="text-xs">
-                            Branschinriktning (max 3, komma-separerade)
-                          </Label>
-                          <Textarea
-                            rows={2}
-                            value={inds.join(", ")}
-                            placeholder={STANDARD_INDUSTRIES.slice(0, 3).join(", ")}
-                            onChange={(e) => {
-                              const list = e.target.value
-                                .split(",")
-                                .map((s) => s.trim())
-                                .filter(Boolean)
-                                .slice(0, 3);
-                              setEditing({
-                                ...editing,
-                                observed_industries: {
-                                  ...(editing.observed_industries || {}),
-                                  [k]: list,
-                                },
-                              });
-                            }}
-                          />
-                        </div>
+                        <>
+                          <div>
+                            <Label className="text-xs">
+                              Branschinriktning (max 3, komma-separerade)
+                            </Label>
+                            <Textarea
+                              rows={2}
+                              value={inds.join(", ")}
+                              placeholder={STANDARD_INDUSTRIES.slice(0, 3).join(", ")}
+                              onChange={(e) => {
+                                const list = e.target.value
+                                  .split(",")
+                                  .map((s) => s.trim())
+                                  .filter(Boolean)
+                                  .slice(0, 3);
+                                setEditing({
+                                  ...editing,
+                                  observed_industries: {
+                                    ...(editing.observed_industries || {}),
+                                    [k]: list,
+                                  },
+                                });
+                              }}
+                            />
+                          </div>
+
+                          <div>
+                            <Label className="text-xs">Målgrupp – antal anställda</Label>
+                            <div className="mt-1 flex flex-wrap gap-1.5">
+                              {companySizes.map((v) => {
+                                const on = sizes.includes(v);
+                                return (
+                                  <button
+                                    type="button"
+                                    key={v}
+                                    onClick={() => toggleIn("observed_company_sizes", v, sizes)}
+                                    className={`text-xs rounded-full border px-2.5 py-1 transition ${
+                                      on
+                                        ? "bg-primary text-primary-foreground border-primary"
+                                        : "bg-background border-border hover:bg-muted"
+                                    }`}
+                                  >
+                                    {v}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+
+                          <div>
+                            <Label className="text-xs">Målgrupp – kundomsättning</Label>
+                            <div className="mt-1 flex flex-wrap gap-1.5">
+                              {revenueOptions.map((v) => {
+                                const on = revs.includes(v);
+                                return (
+                                  <button
+                                    type="button"
+                                    key={v}
+                                    onClick={() => toggleIn("observed_revenue", v, revs)}
+                                    className={`text-xs rounded-full border px-2.5 py-1 transition ${
+                                      on
+                                        ? "bg-primary text-primary-foreground border-primary"
+                                        : "bg-background border-border hover:bg-muted"
+                                    }`}
+                                  >
+                                    {v}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+
+                          <div>
+                            <Label className="text-xs">Trolig leveransgeografi</Label>
+                            <div className="mt-1 flex flex-wrap gap-1.5">
+                              {DELIVERY_GEO_OPTIONS.map((v) => {
+                                const on = geos.includes(v);
+                                return (
+                                  <button
+                                    type="button"
+                                    key={v}
+                                    onClick={() => toggleIn("observed_delivery_geo", v, geos)}
+                                    className={`text-xs rounded-full border px-2.5 py-1 transition ${
+                                      on
+                                        ? "bg-primary text-primary-foreground border-primary"
+                                        : "bg-background border-border hover:bg-muted"
+                                    }`}
+                                  >
+                                    {v}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        </>
                       )}
                     </div>
                   );
