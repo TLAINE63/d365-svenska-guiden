@@ -186,29 +186,38 @@ interface ColProps {
   quoteSubmitting?: boolean;
 }
 
-const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onRequestQuote, quoteSubmitting }: ColProps) => (
+const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onRequestQuote, quoteSubmitting }: ColProps) => {
+  const isBasic = !!(partner as any)?.__basic;
+  return (
   <div className="rounded-xl border border-slate-200 bg-white p-3 sm:p-4">
     {partner ? (
       <div className="relative flex flex-col items-center justify-center text-center">
-        <Link
-          to={`/partner/${partner.slug}`}
-          className="group block"
-          aria-label={`Gå till ${partner.name}s profil`}
-        >
-          {partner.logo_url ? (
-            <img
-              src={partner.logo_url}
-              alt={`${partner.name} logotyp`}
-              width="176"
-              height="176"
-              className="w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 object-contain rounded-lg bg-white border border-slate-100 p-2 transition-transform group-hover:scale-105"
-            />
-          ) : (
-            <div className="w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 rounded-lg bg-gradient-to-br from-muted to-muted/60 flex items-center justify-center transition-transform group-hover:scale-105">
-              <span className="text-3xl sm:text-4xl lg:text-5xl font-bold text-muted-foreground/60">{partner.name.slice(0, 2).toUpperCase()}</span>
-            </div>
-          )}
-        </Link>
+        {isBasic ? (
+          <div className="w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 rounded-lg bg-slate-50 border border-dashed border-slate-300 flex flex-col items-center justify-center px-2 text-center">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 mb-1">Basickort</span>
+            <span className="text-sm sm:text-base font-semibold text-slate-700 break-words">{partner.name}</span>
+          </div>
+        ) : (
+          <Link
+            to={`/partner/${partner.slug}`}
+            className="group block"
+            aria-label={`Gå till ${partner.name}s profil`}
+          >
+            {partner.logo_url ? (
+              <img
+                src={partner.logo_url}
+                alt={`${partner.name} logotyp`}
+                width="176"
+                height="176"
+                className="w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 object-contain rounded-lg bg-white border border-slate-100 p-2 transition-transform group-hover:scale-105"
+              />
+            ) : (
+              <div className="w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 rounded-lg bg-gradient-to-br from-muted to-muted/60 flex items-center justify-center transition-transform group-hover:scale-105">
+                <span className="text-3xl sm:text-4xl lg:text-5xl font-bold text-muted-foreground/60">{partner.name.slice(0, 2).toUpperCase()}</span>
+              </div>
+            )}
+          </Link>
+        )}
         <button
           onClick={onClear}
           className="absolute top-0 right-0 text-slate-400 hover:text-slate-700 shrink-0 p-1"
@@ -238,14 +247,22 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
           )}
         </SelectTrigger>
         <SelectContent className="max-h-80">
-          {partners.map((p) => (
-            <SelectItem key={p.slug} value={p.slug}>
-              {p.name}
-            </SelectItem>
-          ))}
+          {partners.map((p) => {
+            const pBasic = !!(p as any).__basic;
+            return (
+              <SelectItem key={p.slug} value={p.slug}>
+                {p.name}{pBasic ? " · Basickort" : ""}
+              </SelectItem>
+            );
+          })}
         </SelectContent>
       </Select>
-      {partner && onRequestQuote && (
+      {partner && isBasic && (
+        <p className="text-[11px] leading-snug text-slate-500">
+          {BASIC_COPY.compareMissing}. Denna partner är inte ansluten till d365.se och kan inte kontaktas härifrån.
+        </p>
+      )}
+      {partner && !isBasic && onRequestQuote && (
         <Button
           type="button"
           size="sm"
@@ -260,7 +277,8 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
       )}
     </div>
   </div>
-);
+  );
+};
 
 
 const Cell = ({ children, mobileLabel }: { children: React.ReactNode; mobileLabel?: string }) => (
