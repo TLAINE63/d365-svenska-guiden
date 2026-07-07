@@ -151,7 +151,7 @@ export default function AiProfilePublic({ profile, compact = false }: Props) {
           )}
           {caps.length > 0 && (
             <Row label="AI-förmågor">
-              {chips(caps, "bg-primary/10 text-primary border border-primary/20")}
+              {chips(capItems, "bg-primary/10 text-primary border border-primary/20")}
             </Row>
           )}
           {areas.length > 0 && <Row label="Relevant för">{chips(areas)}</Row>}
