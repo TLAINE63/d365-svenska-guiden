@@ -5,6 +5,7 @@ import { MessageSquare } from "lucide-react";
 import { useMemo } from "react";
 import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
+import { useBasicPartners } from "@/hooks/useBasicPartners";
 
 interface Props {
   /** Show a compact teaser (Välj Partner) vs. full page list */
@@ -20,6 +21,8 @@ interface Props {
   productLabel?: string;
 }
 
+type ListItem = { id: string; name: string; slug?: string };
+
 const UnprofiledPartnersList = ({
   variant = "teaser",
   showSeeAllLink = true,
@@ -28,9 +31,18 @@ const UnprofiledPartnersList = ({
 }: Props) => {
   const { data: unprofiled, isLoading: l1 } = useUnprofiledPartners();
   const { data: allNames, isLoading: l2 } = useAllPartnerNames();
+  const { data: basicPartners, isLoading: l3 } = useBasicPartners();
 
-  const combined = useMemo(() => {
-    const items: { id: string; name: string }[] = [];
+  const combined = useMemo<ListItem[]>(() => {
+    const items: ListItem[] = [];
+    // Basic partners first — they have a real basic-profile page, so they win
+    // dedupe over name-only entries and can be linked.
+    (basicPartners || [])
+      .filter((p) => {
+        if (!productKey) return true;
+        return !!p.observed_products?.[productKey];
+      })
+      .forEach((p) => items.push({ id: `basic-${p.id}`, name: p.name, slug: p.slug }));
     // Non-featured partners in DB (exists in our system but not yet published)
     (allNames || [])
       .filter((p) => !p.is_featured)
@@ -44,7 +56,7 @@ const UnprofiledPartnersList = ({
     if (!productKey) {
       (unprofiled || []).forEach((p) => items.push({ id: `up-${p.id}`, name: p.name }));
     }
-    // Dedupe by lowercased name, keep first occurrence
+    // Dedupe by lowercased name, keep first occurrence (basic wins).
     const seen = new Set<string>();
     const deduped = items.filter((it) => {
       const key = it.name.trim().toLowerCase();
@@ -54,9 +66,9 @@ const UnprofiledPartnersList = ({
     });
     deduped.sort((a, b) => a.name.localeCompare(b.name, "sv"));
     return deduped;
-  }, [unprofiled, allNames, productKey]);
+  }, [unprofiled, allNames, basicPartners, productKey]);
 
-  if (l1 || l2) return null;
+  if (l1 || l2 || l3) return null;
   if (combined.length === 0) return null;
 
   const heading = productKey && productLabel
@@ -79,15 +91,31 @@ const UnprofiledPartnersList = ({
         </div>
 
         <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8">
-          {combined.map((p) => (
-            <Badge
-              key={p.id}
-              variant="outline"
-              className="text-sm sm:text-base px-3 py-1.5 bg-card text-foreground border-border font-medium"
-            >
-              {p.name}
-            </Badge>
-          ))}
+          {combined.map((p) =>
+            p.slug ? (
+              <Link
+                key={p.id}
+                to={`/basic/${p.slug}/`}
+                className="group inline-flex items-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                aria-label={`Öppna basickort för ${p.name}`}
+              >
+                <Badge
+                  variant="outline"
+                  className="text-sm sm:text-base px-3 py-1.5 bg-card text-foreground border-border font-medium cursor-pointer transition-colors group-hover:bg-accent/10 group-hover:border-accent group-hover:text-accent-foreground"
+                >
+                  {p.name}
+                </Badge>
+              </Link>
+            ) : (
+              <Badge
+                key={p.id}
+                variant="outline"
+                className="text-sm sm:text-base px-3 py-1.5 bg-card text-foreground border-border font-medium"
+              >
+                {p.name}
+              </Badge>
+            ),
+          )}
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
