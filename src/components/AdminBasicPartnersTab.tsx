@@ -17,7 +17,7 @@ import {
 import { toast } from "sonner";
 import { Building2, Eye, Pencil, Plus, Trash2, Activity } from "lucide-react";
 import { PRODUCT_LABEL, ProductKey } from "@/hooks/useBasicPartners";
-import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
+import { STANDARD_INDUSTRIES } from "@/data/STANDARD_INDUSTRIES";
 
 function getAdminToken(): string | null {
   if (typeof window === "undefined") return null;
@@ -362,7 +362,7 @@ export default function AdminBasicPartnersTab() {
                           <Textarea
                             rows={2}
                             value={inds.join(", ")}
-                            placeholder={standardIndustries.slice(0, 3).join(", ")}
+                            placeholder={STANDARD_INDUSTRIES.slice(0, 3).join(", ")}
                             onChange={(e) => {
                               const list = e.target.value
                                 .split(",")
