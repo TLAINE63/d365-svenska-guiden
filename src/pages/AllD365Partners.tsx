@@ -61,6 +61,9 @@ export default function AllD365Partners() {
     return deduped;
   }, [allNames, unprofiled]);
 
+  const totalMarket =
+    profiled.length + (basicPartners?.length ?? 0) + others.length;
+
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
@@ -76,16 +79,28 @@ export default function AllD365Partners() {
         <section className="py-8 sm:py-12 bg-gradient-to-br from-secondary/60 to-background">
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-primary/10 text-primary text-xs font-semibold mb-4">
-              <Users className="w-3.5 h-3.5" /> Marknadsöversikt
+              <Users className="w-3.5 h-3.5" /> Marknadskarta
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
               Hela partnermarknaden i Sverige
             </h1>
-            <p className="text-base sm:text-lg text-muted-foreground">
+            <p className="text-base sm:text-lg text-muted-foreground mb-5">
               För att ge er en realistisk bild av partnerlandskapet listar vi både de partners som är profilerade på d365.se och övriga svenska Dynamics 365-partners vi känner till. Vill ni veta mer om någon — eller få hjälp att smalna ner kortlistan — hör av er.
             </p>
+            {totalMarket > 0 && (
+              <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
+                <Badge className="bg-primary/10 text-primary border-primary/30 hover:bg-primary/10">
+                  <CheckCircle2 className="w-3 h-3 mr-1" />
+                  {profiled.length} profilerade partners
+                </Badge>
+                <Badge variant="outline" className="text-muted-foreground">
+                  {(basicPartners?.length ?? 0) + others.length} övriga aktörer i marknadskartan
+                </Badge>
+              </div>
+            )}
           </div>
         </section>
+
 
 
 
