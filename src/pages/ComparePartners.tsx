@@ -31,6 +31,8 @@ import CompareStickyCTA from "@/components/CompareStickyCTA";
 import AiCompareInsights from "@/components/AiCompareInsights";
 import { describeAiCapabilities } from "@/utils/aiScoring";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
+import { useBasicPartners, BasicPartner, BASIC_COPY } from "@/hooks/useBasicPartners";
+import { trackContactBlocked } from "@/lib/trackContactBlocked";
 import { useTrackFilterExposure } from "@/hooks/useTrackFilterExposure";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import {
