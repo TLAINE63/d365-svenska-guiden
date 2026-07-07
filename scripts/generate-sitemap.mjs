@@ -178,6 +178,45 @@ const partnerEntries = partners.map((p) => ({
   lastmod: partnersLastmod,
 }));
 
+// Basic partners: fetch slugs live from Supabase (observed data only)
+function loadEnvFile() {
+  try {
+    const txt = readFileSync(resolve(".env"), "utf8");
+    const out = {};
+    for (const line of txt.split(/\r?\n/)) {
+      const m = line.match(/^([A-Z0-9_]+)\s*=\s*"?([^"\n]*)"?\s*$/);
+      if (m) out[m[1]] = m[2];
+    }
+    return out;
+  } catch { return {}; }
+}
+const _env = { ...loadEnvFile(), ...process.env };
+const _supaUrl = _env.VITE_SUPABASE_URL;
+const _supaKey = _env.VITE_SUPABASE_PUBLISHABLE_KEY;
+let basicPartnerEntries = [];
+if (_supaUrl && _supaKey) {
+  try {
+    const res = await fetch(
+      `${_supaUrl}/rest/v1/partners_basic_public?select=slug,updated_at&order=name.asc`,
+      { headers: { apikey: _supaKey, Authorization: `Bearer ${_supaKey}` } },
+    );
+    if (res.ok) {
+      const rows = await res.json();
+      basicPartnerEntries = (rows || [])
+        .filter((r) => r && r.slug)
+        .map((r) => ({
+          path: `/basic/${r.slug}/`,
+          changefreq: "monthly",
+          priority: "0.4",
+          lastmod: (r.updated_at || "").slice(0, 10) || TODAY,
+        }));
+    }
+  } catch (e) {
+    console.warn(`[sitemap] basic partners fetch failed: ${e.message}`);
+  }
+}
+const allPartnerEntries = [...partnerEntries, ...basicPartnerEntries];
+
 // Jämför (ERP comparisons)
 const jamforSrc = "src/data/erpComparisons.ts";
 const jamforLastmod = mtimeISO(jamforSrc);
@@ -233,7 +272,7 @@ const groups = [
   { file: "sitemap-pages.xml", entries: pagesEntries, lastmod: pagesLastmod },
   { file: "sitemap-branscher.xml", entries: industryEntries, lastmod: industryLastmod },
   { file: "sitemap-articles.xml", entries: articleEntries, lastmod: articlesLastmod },
-  { file: "sitemap-partners.xml", entries: partnerEntries, lastmod: partnersLastmod },
+  { file: "sitemap-partners.xml", entries: allPartnerEntries, lastmod: partnersLastmod },
   { file: "sitemap-jamfor.xml", entries: jamforEntries, lastmod: jamforLastmod },
 ];
 
