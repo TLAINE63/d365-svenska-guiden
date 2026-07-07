@@ -28,6 +28,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Checkbox } from "@/components/ui/checkbox";
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import AiCompareInsights from "@/components/AiCompareInsights";
+import { describeAiCapabilities } from "@/utils/aiScoring";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { useTrackFilterExposure } from "@/hooks/useTrackFilterExposure";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
@@ -1409,13 +1410,20 @@ const ComparePartners = () => {
     });
     const withAi = aiSides.filter((s) => s.caps.length > 0 || s.projCounts.length > 0 || s.hasImpact);
     if (withAi.length > 0) {
-      // Förmågor
-      const capsSigs = aiSides.map((s) => s.caps.slice().sort().join(","));
-      if (new Set(capsSigs).size > 1) {
+      // Förmågor – översätt slugs till begripliga svenska tier-etiketter och
+      // hoppa över partners som inte har registrerat några AI-förmågor
+      // (tomt = säger inget för besökaren).
+      const aiSidesLabeled = aiSides.map((s) => ({
+        ...s,
+        labels: describeAiCapabilities(s.caps),
+      }));
+      const withCaps = aiSidesLabeled.filter((s) => s.labels.length > 0);
+      const capsSigs = aiSidesLabeled.map((s) => s.labels.slice().sort().join(","));
+      if (withCaps.length >= 2 && new Set(capsSigs).size > 1) {
         points.push(
           `AI-förmågor${productActive ? ` (${filterLabel})` : ""}: ` +
-            aiSides
-              .map((s) => `${s.name} ${s.caps.length > 0 ? s.caps.slice(0, 4).join(", ") + (s.caps.length > 4 ? ` +${s.caps.length - 4}` : "") : "ingen registrerad"}`)
+            withCaps
+              .map((s) => `${s.name} – ${s.labels.slice(0, 3).join(", ")}${s.labels.length > 3 ? ` +${s.labels.length - 3}` : ""}`)
               .join("; ") + ".",
         );
       }
