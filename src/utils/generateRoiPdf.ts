@@ -1,7 +1,8 @@
 // Branded ROI/TCO PDF generator – used by both BC and Sales ROI calculators.
 // Layout mirrors hero/look (petrol + deep charcoal) and ends with an assumptions appendix.
 
-const BRAND_PETROL: [number, number, number] = [14, 124, 134]; // #0E7C86
+import { PDF_BRAND } from "./pdfBrand";
+const BRAND_PETROL: [number, number, number] = PDF_BRAND.primary;
 const BRAND_DARK: [number, number, number] = [21, 19, 15]; // #15130F
 const MUTED: [number, number, number] = [110, 110, 110];
 
