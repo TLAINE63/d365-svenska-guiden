@@ -173,10 +173,10 @@ const PartnerExtendedContent = () => {
               )}
               <div>
                 <p className="text-xs uppercase tracking-wider text-muted-foreground">
-                  Fördjupning · Microsoft Dynamics 365-partner
+                  Microsoft Dynamics 365-partner
                 </p>
                 <h1 className="text-3xl sm:text-4xl font-bold text-foreground">
-                  Om {partner.name}
+                  {partner.name}
                 </h1>
               </div>
             </div>
@@ -185,32 +185,19 @@ const PartnerExtendedContent = () => {
                 {partner.description}
               </p>
             )}
-            <p className="mt-4 text-xs text-muted-foreground italic">
-              Redaktionell översikt sammanställd från publika källor (bl.a. d365.se, allabolag.se och partnerns egen webbnärvaro). Kompletterar {partner.name}s egen profil och är inte partnerns egna marknadstext. Enskilda uppgifter kan förändras över tid – kontakta partnern för aktuella detaljer.
-            </p>
           </header>
 
-          <div className="prose prose-slate dark:prose-invert max-w-none">
-            {paragraphs.map((p, i) => (
-              <p key={i} className="text-base leading-relaxed text-foreground/90">
-                {p}
-              </p>
-            ))}
-          </div>
+          <p className="text-base text-foreground/90 leading-relaxed">
+            Se {partner.name}s fullständiga partnerprofil för kompetenser,
+            branscher, referenser och kontaktvägar.
+          </p>
 
-          {updatedAt && (
-            <p className="mt-10 text-xs text-muted-foreground">
-              Senast uppdaterad:{" "}
-              {new Date(updatedAt).toLocaleDateString("sv-SE").replace(/-/g, "/")}
-            </p>
-          )}
-
-          <div className="mt-10 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap gap-3">
             <Link
               to={`/partner/${partner.slug}/`}
               className="inline-flex items-center rounded-md bg-primary text-primary-foreground px-4 py-2 text-sm font-medium hover:opacity-90"
             >
-              Se {partner.name}s partnerprofil
+              Till {partner.name}s partnerprofil
             </Link>
             <Link
               to="/valjdynamics365partner/"
