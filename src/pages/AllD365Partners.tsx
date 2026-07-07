@@ -5,13 +5,12 @@ import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MessageSquare, ArrowRight, Users, CheckCircle2 } from "lucide-react";
+import { MessageSquare, ArrowRight, Users, CheckCircle2, MapPin } from "lucide-react";
 import { usePartners } from "@/hooks/usePartners";
 import TrustBanner from "@/components/TrustBanner";
 import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
-import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
 import { useMemo } from "react";
 import partnerDataJson from "@/data/partnerData.json";
 
