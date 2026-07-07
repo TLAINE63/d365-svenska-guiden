@@ -484,11 +484,11 @@ const ValjPartner = () => {
  {/* Header */}
  <header className="relative overflow-hidden mt-28 min-h-[420px] sm:h-[450px] md:h-[550px]">
  <div className="absolute inset-0">
- <img 
- src={partnersComparisonImg} 
- alt="Teamwork and partnership selection" 
- className="w-full h-full object-cover object-top"
- />
+  <img 
+  src={heroPartnerFinder} 
+  alt="" 
+  className="w-full h-full object-cover object-center"
+  />
  <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
  </div>
  
