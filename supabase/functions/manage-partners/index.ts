@@ -33,6 +33,15 @@ function getCorsHeaders(req: Request): Record<string, string> {
   };
 }
 
+// Grov leverantörsstorlek 1..5 (intern signal – ingen publik UI).
+// Alla värden utanför intervallet nollas till NULL för att skydda CHECK-constrainten.
+function normalizeSizeTier(v: unknown): number | null {
+  if (v === null || v === undefined || v === "") return null;
+  const n = typeof v === "number" ? v : parseInt(String(v), 10);
+  if (!Number.isFinite(n)) return null;
+  const r = Math.round(n);
+  return r >= 1 && r <= 5 ? r : null;
+
 // JWT verification using HMAC-SHA256
 async function verifyJWT(token: string, secret: string): Promise<{ valid: boolean; payload?: Record<string, unknown>; error?: string }> {
   try {
