@@ -1,7 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
+import { isPartnerExcluded } from "@/lib/partnerVisibility";
 import type { AiProfile } from "@/lib/aiProfile";
+
 
 // Swedish regions for granular geography filtering
 export type SwedishRegion = 

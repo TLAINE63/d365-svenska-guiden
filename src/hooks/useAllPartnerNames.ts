@@ -1,5 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { isPartnerExcluded } from "@/lib/partnerVisibility";
+
 
 export interface PartnerNameRow {
   id: string;
