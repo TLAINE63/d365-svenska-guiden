@@ -42,7 +42,12 @@ const UnprofiledPartnersList = ({
         if (!productKey) return true;
         return !!p.observed_products?.[productKey];
       })
-      .forEach((p) => items.push({ id: `basic-${p.id}`, name: p.name, slug: p.slug }));
+      .forEach((p) => {
+        const products = PRODUCT_ORDER
+          .filter((k) => p.observed_products?.[k])
+          .map((k) => PRODUCT_LABEL[k]);
+        items.push({ id: `basic-${p.id}`, name: p.name, slug: p.slug, products });
+      });
     // Non-featured partners in DB (exists in our system but not yet published)
     (allNames || [])
       .filter((p) => !p.is_featured)
