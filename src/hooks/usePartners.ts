@@ -251,8 +251,10 @@ export function usePartner(slug: string | undefined) {
 
       if (error) throw error;
       if (!data) return null;
-      
+      if (isPartnerExcluded(data.name, data.slug)) return null;
+
       // Map database field names to frontend field names
+
       return {
         ...data,
         contactPerson: data.contact_person,
