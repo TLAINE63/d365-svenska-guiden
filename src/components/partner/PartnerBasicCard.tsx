@@ -275,7 +275,7 @@ export function PartnerBasicCard({
       )}
 
       {/* Footer + CTA */}
-      <footer className="mt-auto pt-3">
+      <footer className="relative z-10 mt-auto pt-3">
 
         <p className="text-[11px] leading-snug text-muted-foreground">
           {BASIC_COPY.footer}
