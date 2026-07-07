@@ -27,7 +27,12 @@ export default function PartnerBasicProfile() {
       <main className="pt-10">
         <section className="py-8 sm:py-12">
           <div className="container mx-auto max-w-2xl px-4 sm:px-6">
-            <Button asChild variant="ghost" size="sm" className="mb-4">
+            <Button
+              asChild
+              variant="secondary"
+              size="sm"
+              className="mb-6 border border-border font-medium hover:bg-muted/80"
+            >
               <Link to="/alla-d365-partners/">
                 <ArrowLeft className="mr-1.5 h-4 w-4" />
                 Alla D365-partners
@@ -50,3 +55,4 @@ export default function PartnerBasicProfile() {
     </div>
   );
 }
+

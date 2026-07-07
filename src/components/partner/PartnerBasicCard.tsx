@@ -27,6 +27,48 @@ function observedProductKeys(p: BasicPartner): ProductKey[] {
   return PRODUCT_ORDER.filter((k) => !!src[k]);
 }
 
+const PRODUCT_THEME: Record<ProductKey, string> = {
+  bc: "bg-business-central text-business-central-foreground",
+  fsc: "bg-finance-supply text-finance-supply-foreground",
+  sales: "bg-sales text-sales-foreground",
+  service: "bg-customer-service text-customer-service-foreground",
+};
+
+function SectionHeader({
+  icon: Icon,
+  label,
+  tooltip,
+  tooltipLabel,
+}: {
+  icon: React.ElementType;
+  label: string;
+  tooltip?: string;
+  tooltipLabel?: string;
+}) {
+  return (
+    <div className="mb-2 flex items-center gap-1.5 border-l-2 border-accent pl-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+      <Icon className="h-3.5 w-3.5 text-accent" aria-hidden />
+      {label}
+      {tooltip && (
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              type="button"
+              className="inline-flex text-muted-foreground/70 hover:text-muted-foreground"
+              aria-label={tooltipLabel || `Om ${label.toLowerCase()}`}
+            >
+              <Info className="h-3 w-3" />
+            </button>
+          </TooltipTrigger>
+          <TooltipContent side="top" className="max-w-xs text-xs">
+            {tooltip}
+          </TooltipContent>
+        </Tooltip>
+      )}
+    </div>
+  );
+}
+
 export function PartnerBasicCard({
   partner,
   variant = "list",
@@ -38,19 +80,18 @@ export function PartnerBasicCard({
   const isStandalone = variant === "standalone";
   const extended = (partner.extended_content || "").trim();
 
-
   return (
     <article
       className={
         isStandalone
-          ? "rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-sm"
+          ? "relative overflow-hidden rounded-2xl border border-border border-t-4 border-t-accent bg-card p-6 sm:p-8"
           : "relative flex h-full flex-col rounded-xl border border-dashed border-border bg-muted/30 p-4 transition-colors hover:border-muted-foreground/40 hover:bg-muted/50"
       }
       data-basic-partner
       aria-label={`${partner.name} – Basic-profil`}
     >
       {/* Header: name replaces logo per spec */}
-      <header className="mb-3 flex items-start justify-between gap-3">
+      <header className="mb-4 flex items-start justify-between gap-3">
         <div className="min-w-0">
           <h3
             className={
@@ -79,7 +120,7 @@ export function PartnerBasicCard({
         </div>
         <Badge
           variant="outline"
-          className="shrink-0 border-muted-foreground/40 bg-background/60 text-[11px] font-medium uppercase tracking-wide text-muted-foreground"
+          className="shrink-0 border-accent/40 bg-accent/10 text-[11px] font-medium uppercase tracking-wide text-accent"
         >
           Basic
         </Badge>
@@ -87,31 +128,19 @@ export function PartnerBasicCard({
 
       {/* Observed products */}
       {products.length > 0 && (
-        <section className="mb-3">
-          <div className="mb-1.5 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-            <Building2 className="h-3 w-3" aria-hidden />
-            Observerade produktområden
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button
-                  type="button"
-                  className="inline-flex text-muted-foreground/70 hover:text-muted-foreground"
-                  aria-label="Om observerade produktområden"
-                >
-                  <Info className="h-3 w-3" />
-                </button>
-              </TooltipTrigger>
-              <TooltipContent side="top" className="max-w-xs text-xs">
-                {BASIC_COPY.productsLabel}
-              </TooltipContent>
-            </Tooltip>
-          </div>
+        <section className={isStandalone ? "mb-4 rounded bg-secondary/50 p-3" : "mb-3"}>
+          <SectionHeader
+            icon={Building2}
+            label="Observerade produktområden"
+            tooltip={BASIC_COPY.productsLabel}
+            tooltipLabel="Om observerade produktområden"
+          />
           <div className="flex flex-wrap gap-1.5">
             {products.map((k) => (
               <Badge
                 key={k}
                 variant="secondary"
-                className="bg-secondary/70 text-xs font-medium"
+                className={`text-xs font-medium ${PRODUCT_THEME[k]}`}
               >
                 {PRODUCT_LABEL[k]}
               </Badge>
@@ -122,25 +151,13 @@ export function PartnerBasicCard({
 
       {/* Observed industries per product */}
       {products.some((k) => (industriesByProduct[k] || []).length > 0) && (
-        <section className="mb-3">
-          <div className="mb-1.5 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-            <Tag className="h-3 w-3" aria-hidden />
-            Observerad branschinriktning
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button
-                  type="button"
-                  className="inline-flex text-muted-foreground/70 hover:text-muted-foreground"
-                  aria-label="Om observerad branschinriktning"
-                >
-                  <Info className="h-3 w-3" />
-                </button>
-              </TooltipTrigger>
-              <TooltipContent side="top" className="max-w-xs text-xs">
-                {BASIC_COPY.industriesLabel}
-              </TooltipContent>
-            </Tooltip>
-          </div>
+        <section className={isStandalone ? "mb-4 rounded bg-secondary/50 p-3" : "mb-3"}>
+          <SectionHeader
+            icon={Tag}
+            label="Observerad branschinriktning"
+            tooltip={BASIC_COPY.industriesLabel}
+            tooltipLabel="Om observerad branschinriktning"
+          />
           <ul className="space-y-1.5">
             {products.map((k) => {
               const list = industriesByProduct[k] || [];
@@ -184,25 +201,13 @@ export function PartnerBasicCard({
         );
         if (!hasAny) return null;
         return (
-          <section className="mb-3">
-            <div className="mb-1.5 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-              <Users className="h-3 w-3" aria-hidden />
-              Observerad målgrupp & leverans
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button
-                    type="button"
-                    className="inline-flex text-muted-foreground/70 hover:text-muted-foreground"
-                    aria-label="Om observerad målgrupp och leveransgeografi"
-                  >
-                    <Info className="h-3 w-3" />
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent side="top" className="max-w-xs text-xs">
-                  Sammanställt från publika källor. Ej bekräftat av partnern.
-                </TooltipContent>
-              </Tooltip>
-            </div>
+          <section className={isStandalone ? "mb-4 rounded bg-secondary/50 p-3" : "mb-3"}>
+            <SectionHeader
+              icon={Users}
+              label="Observerad målgrupp & leverans"
+              tooltip="Sammanställt från publika källor. Ej bekräftat av partnern."
+              tooltipLabel="Om observerad målgrupp och leveransgeografi"
+            />
             <ul className="space-y-2">
               {products.map((k) => {
                 const s = sizes[k] || [];
@@ -248,25 +253,13 @@ export function PartnerBasicCard({
 
       {/* Extended observed description – standalone only */}
       {isStandalone && extended && (
-        <section className="mb-4">
-          <div className="mb-1.5 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-            <FileText className="h-3 w-3" aria-hidden />
-            Fördjupning
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button
-                  type="button"
-                  className="inline-flex text-muted-foreground/70 hover:text-muted-foreground"
-                  aria-label="Om fördjupningstexten"
-                >
-                  <Info className="h-3 w-3" />
-                </button>
-              </TooltipTrigger>
-              <TooltipContent side="top" className="max-w-xs text-xs">
-                {BASIC_COPY.extendedLabel}
-              </TooltipContent>
-            </Tooltip>
-          </div>
+        <section className="mb-4 rounded bg-secondary/50 p-3">
+          <SectionHeader
+            icon={FileText}
+            label="Fördjupning"
+            tooltip={BASIC_COPY.extendedLabel}
+            tooltipLabel="Om fördjupningstexten"
+          />
           <div className="whitespace-pre-line text-sm leading-relaxed text-foreground/90">
             {extended}
           </div>
@@ -274,24 +267,24 @@ export function PartnerBasicCard({
       )}
 
       {/* Footer + CTA */}
-      <footer className="relative z-10 mt-auto pt-3">
-
+      <footer className="relative z-10 mt-auto border-t border-border pt-4">
         <p className="text-[11px] leading-snug text-muted-foreground">
           {BASIC_COPY.footer}
         </p>
 
         {isStandalone && (
-          <div className="mt-4 rounded-md border border-border bg-background/50 p-3 text-sm text-muted-foreground">
+          <div className="mt-4 rounded border border-border bg-muted/40 p-3 text-sm text-muted-foreground">
             {BASIC_COPY.standaloneNoContact}
           </div>
         )}
 
-        <div className="mt-3">
+        <div className="mt-4">
           <Link
             to="/kontakt/?intent=partneranmalan"
-            className="text-xs font-medium text-primary underline-offset-2 hover:underline"
+            className="inline-flex items-center gap-1 text-sm font-medium text-primary underline-offset-2 hover:underline"
           >
-            {BASIC_COPY.cta} →
+            {BASIC_COPY.cta}
+            <span aria-hidden>→</span>
           </Link>
         </div>
 
