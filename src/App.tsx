@@ -320,6 +320,7 @@ const App = () => (
         <PartnerCompareProvider>
           <AppShell />
           <PartnerCompareBar />
+          <Suspense fallback={null}><ScrollCTA /></Suspense>
         </PartnerCompareProvider>
       </BrowserRouter>
     </TooltipProvider>
