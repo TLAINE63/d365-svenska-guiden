@@ -38,6 +38,7 @@ const AccordionTrigger = lazy(() => import("@/components/ui/accordion").then(m =
 const ContactFormDialog = lazy(() => import("@/components/ContactFormDialog"));
 
 const EbookBanner = lazy(() => import("@/components/EbookBanner"));
+const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
 
 const VideoComingSoon = () => (
   <figure className="space-y-1.5">
@@ -797,7 +798,7 @@ const Index = () => {
 
         <TrustBanner variant="full" />
       </main>
-
+      <Suspense fallback={null}><ScrollCTA /></Suspense>
       
       <Footer />
     </div>
