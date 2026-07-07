@@ -275,6 +275,8 @@ export function usePartner(slug: string | undefined) {
         implementations_per_app: ((data as any).implementations_per_app ?? {}) as Record<string, string>,
         not_a_fit: ((data as any).not_a_fit ?? []) as string[],
         ai_profile: ((data as any).ai_profile ?? null) as AiProfile | null,
+        partner_size_tier: (data as any).partner_size_tier ?? null,
+        partner_size_tier_needs_review: (data as any).partner_size_tier_needs_review ?? false,
       } as DatabasePartner;
     },
     enabled: !!slug,
