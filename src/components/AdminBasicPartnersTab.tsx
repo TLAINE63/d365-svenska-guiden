@@ -174,7 +174,7 @@ export default function AdminBasicPartnersTab() {
         toast.success("Basickort skapat");
       }
       setEditing(null);
-      qc.invalidateQueries({ queryKey: ["admin-basic-partners"] });
+      qc.invalidateQueries({ queryKey: ["admin-partners"] });
       qc.invalidateQueries({ queryKey: ["basic-partners"] });
     } catch (e: any) {
       toast.error(e?.message || "Kunde inte spara");
