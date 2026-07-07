@@ -3,7 +3,8 @@ import type { CrmScoreResult } from "@/lib/crmMatchingScoring";
 import { topCrmProfiles } from "@/lib/crmMatchingScoring";
 
 // Brand colors (consistent with other PDF exports)
-const BRAND_PETROL: [number, number, number] = [14, 124, 134]; // #0E7C86
+import { PDF_BRAND } from "./pdfBrand";
+const BRAND_PETROL: [number, number, number] = PDF_BRAND.primary;
 const BRAND_DARK: [number, number, number] = [21, 19, 15]; // #15130F
 
 const LEVEL_LABEL: Record<CrmScoreResult["level"], string> = {

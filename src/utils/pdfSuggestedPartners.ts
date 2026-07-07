@@ -7,7 +7,8 @@ export interface PdfSuggestedPartner {
   description?: string;
 }
 
-const BRAND_PETROL: [number, number, number] = [14, 124, 134];
+import { PDF_BRAND } from "./pdfBrand";
+const BRAND_PETROL: [number, number, number] = PDF_BRAND.primary;
 const BRAND_DARK: [number, number, number] = [21, 19, 15];
 const MUTED: [number, number, number] = [110, 110, 120];
 
