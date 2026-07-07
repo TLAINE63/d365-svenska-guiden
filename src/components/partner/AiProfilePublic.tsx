@@ -6,6 +6,7 @@ import {
   AiProfile,
   labelForDelivery,
   labelForCapability,
+  helpForCapability,
   labelForArea,
   labelForUseCase,
   labelForExperience,
@@ -22,11 +23,14 @@ export default function AiProfilePublic({ profile, compact = false }: Props) {
   if (isAiProfileEmpty(profile)) return null;
   const p = profile!;
 
-  const caps = (p.capabilities || []).map(labelForCapability).filter(Boolean);
+  const capItems = (p.capabilities || [])
+    .map((v) => ({ label: labelForCapability(v), help: helpForCapability(v) }))
+    .filter((x) => x.label);
+  const caps = capItems.map((c) => c.label);
   const areas = (p.relevant_areas || []).map(labelForArea).filter(Boolean);
   const cases = (p.use_cases || []).map(labelForUseCase).filter(Boolean);
   const maturity = aiMaturityLabel(p);
-  const topCaps = caps.slice(0, 3);
+  const topCaps = capItems.slice(0, 3);
   const topCases = cases.slice(0, 4);
   const summary = (p.ai_experience_summary || "").trim();
 
@@ -39,13 +43,23 @@ export default function AiProfilePublic({ profile, compact = false }: Props) {
     </div>
   );
 
-  const chips = (items: string[], cls = "bg-muted text-foreground/80") => (
+  const chips = (
+    items: { label: string; help?: string }[] | string[],
+    cls = "bg-muted text-foreground/80",
+  ) => (
     <div className="flex flex-wrap gap-1.5">
-      {items.map((t) => (
-        <span key={t} className={`px-2 py-0.5 rounded-md text-xs ${cls}`}>
-          {t}
-        </span>
-      ))}
+      {items.map((raw) => {
+        const item = typeof raw === "string" ? { label: raw, help: "" } : raw;
+        return (
+          <span
+            key={item.label}
+            title={item.help || undefined}
+            className={`px-2 py-0.5 rounded-md text-xs ${cls} ${item.help ? "cursor-help" : ""}`}
+          >
+            {item.label}
+          </span>
+        );
+      })}
     </div>
   );
 
@@ -71,11 +85,23 @@ export default function AiProfilePublic({ profile, compact = false }: Props) {
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
                 Starkast inom
               </p>
-              <ul className="text-sm text-foreground/90 space-y-0.5">
+              <ul className="text-sm text-foreground/90 space-y-1">
                 {topCaps.map((c) => (
-                  <li key={c} className="flex gap-1.5">
-                    <span aria-hidden="true" className="text-primary">•</span>
-                    <span>{c}</span>
+                  <li key={c.label} className="flex gap-1.5">
+                    <span aria-hidden="true" className="text-primary mt-0.5">•</span>
+                    <span>
+                      <span
+                        title={c.help}
+                        className={c.help ? "underline decoration-dotted decoration-muted-foreground/60 underline-offset-2 cursor-help" : ""}
+                      >
+                        {c.label}
+                      </span>
+                      {c.help && (
+                        <span className="block text-[11px] text-muted-foreground leading-snug">
+                          {c.help}
+                        </span>
+                      )}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -125,7 +151,7 @@ export default function AiProfilePublic({ profile, compact = false }: Props) {
           )}
           {caps.length > 0 && (
             <Row label="AI-förmågor">
-              {chips(caps, "bg-primary/10 text-primary border border-primary/20")}
+              {chips(capItems, "bg-primary/10 text-primary border border-primary/20")}
             </Row>
           )}
           {areas.length > 0 && <Row label="Relevant för">{chips(areas)}</Row>}

@@ -128,6 +128,21 @@ export const labelForEvidence = (v: string) => labelFor(AI_EVIDENCE_LEVELS, v);
 export const labelForDelivery = (v: string | null | undefined) =>
   labelFor(DELIVERY_MODELS, v || "");
 
+// Kort förklaring per AI-förmåga – används som tooltip i publika vyer så att
+// besökaren förstår vad etiketten betyder i praktiken.
+export const AI_CAPABILITY_HELP: Record<string, string> = {
+  "standard-copilot": "Färdiga Copilot-funktioner i Microsofts produkter, t.ex. förslag, sammanfattningar och användarstöd direkt i Dynamics 365.",
+  "copilot-studio": "Egenbyggda AI-agenter i Copilot Studio – anpassade dialoger, flöden och beslutsstöd för specifika processer.",
+  "power-platform": "AI-drivna automationer och appar byggda i Power Platform (Power Automate, Power Apps) kopplat till affärsdata.",
+  "azure-ai": "Skräddarsydda AI-modeller i Azure AI / Foundry / Machine Learning – t.ex. prediktion, klassificering och egen ML.",
+  "fabric-bi": "AI-driven analys och rapportering i Power BI och Microsoft Fabric – insikter, prognoser och datamodeller.",
+  "ai-readiness": "Hjälper er förbereda data, arkitektur och organisation för att kunna införa Copilot och AI på ett säkert sätt.",
+  "ai-governance": "Policy, säkerhet, behörigheter och regelefterlevnad kring AI – vem får använda vad och med vilken data.",
+  "ai-adoption": "Utbildning, förändringsledning och användaradoption så att AI-funktionerna faktiskt kommer till nytta.",
+  "industry-ai": "Branschspecifika AI-lösningar och agenter anpassade för t.ex. tillverkning, retail eller finansbranschen.",
+};
+export const helpForCapability = (v: string): string => AI_CAPABILITY_HELP[v] || "";
+
 // ===== Scoring (internal only) =====
 const CAP_POINTS: Record<string, number> = {
   "standard-copilot": 8,

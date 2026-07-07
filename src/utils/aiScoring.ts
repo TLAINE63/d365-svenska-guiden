@@ -94,17 +94,27 @@ const TIER_PUBLIC_LABEL: Record<string, string> = {
   [AI_TIERS.PARTNER]: "Egenbyggda Copilot Studio-agenter",
   [AI_TIERS.ADVANCED]: "Avancerad Azure AI / ML",
 };
+// Kort förklaring per tier – används som tooltip/hjälp­text i publika vyer
+// (t.ex. jämförelsevyn) så besökaren förstår vad varje nivå betyder i praktiken.
+const TIER_PUBLIC_HELP: Record<string, string> = {
+  [AI_TIERS.STANDARD]: "Färdiga Copilot-funktioner i Microsofts produkter – t.ex. förslag, sammanfattningar och användarstöd direkt i Dynamics 365.",
+  [AI_TIERS.PARTNER]: "Skräddarsydda AI-agenter och automationer byggda av partnern i Copilot Studio eller Power Platform, kopplade till era processer.",
+  [AI_TIERS.ADVANCED]: "Egna AI-modeller på Azure AI / Foundry / ML – prediktion, optimering eller specialiserad analys utöver standard-Copilot.",
+};
 export function describeAiCapability(cap: string): string {
   return TIER_PUBLIC_LABEL[getTier(cap)] || "AI-förmåga";
 }
-export function describeAiCapabilities(caps: string[]): string[] {
+export function helpForAiCapability(cap: string): string {
+  return TIER_PUBLIC_HELP[getTier(cap)] || "";
+}
+export function describeAiCapabilities(caps: string[]): { label: string; help: string }[] {
   const seen = new Set<string>();
-  const out: string[] = [];
+  const out: { label: string; help: string }[] = [];
   for (const c of caps) {
     const label = describeAiCapability(c);
     if (!seen.has(label)) {
       seen.add(label);
-      out.push(label);
+      out.push({ label, help: helpForAiCapability(c) });
     }
   }
   return out;
