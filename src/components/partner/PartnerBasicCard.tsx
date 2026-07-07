@@ -163,8 +163,36 @@ export function PartnerBasicCard({
         </section>
       )}
 
+      {/* Extended observed description – standalone only */}
+      {isStandalone && extended && (
+        <section className="mb-4">
+          <div className="mb-1.5 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+            <FileText className="h-3 w-3" aria-hidden />
+            Fördjupning
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  type="button"
+                  className="inline-flex text-muted-foreground/70 hover:text-muted-foreground"
+                  aria-label="Om fördjupningstexten"
+                >
+                  <Info className="h-3 w-3" />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent side="top" className="max-w-xs text-xs">
+                {BASIC_COPY.extendedLabel}
+              </TooltipContent>
+            </Tooltip>
+          </div>
+          <div className="whitespace-pre-line text-sm leading-relaxed text-foreground/90">
+            {extended}
+          </div>
+        </section>
+      )}
+
       {/* Footer + CTA */}
       <footer className="mt-auto pt-3">
+
         <p className="text-[11px] leading-snug text-muted-foreground">
           {BASIC_COPY.footer}
         </p>
