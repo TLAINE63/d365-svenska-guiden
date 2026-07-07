@@ -192,7 +192,8 @@ const PartnerUpdate = () => {
  const [submitting, setSubmitting] = useState(false);
  const [submitted, setSubmitted] = useState(false);
  const [error, setError] = useState<string | null>(null);
- const [invitation, setInvitation] = useState<Invitation | null>(null);
+  const [invitation, setInvitation] = useState<Invitation | null>(null);
+  const [existingSlug, setExistingSlug] = useState<string | null>(null);
  
  // Logo upload state
  const [uploadingLogo, setUploadingLogo] = useState(false);
