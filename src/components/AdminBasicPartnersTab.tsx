@@ -51,6 +51,9 @@ type BasicRow = {
   profile_level: "basic" | "profilerad";
   observed_products: Partial<Record<ProductKey, boolean>>;
   observed_industries: Partial<Record<ProductKey, string[]>>;
+  observed_company_sizes: Partial<Record<ProductKey, string[]>>;
+  observed_revenue: Partial<Record<ProductKey, string[]>>;
+  observed_delivery_geo: Partial<Record<ProductKey, string[]>>;
   observed_locations: string[];
   observed_updated_at: string | null;
   extended_content: string | null;
