@@ -29,9 +29,9 @@ export default function PartnerBasicProfile() {
           <div className="container mx-auto max-w-2xl px-4 sm:px-6">
             <Button
               asChild
-              variant="secondary"
+              variant="default"
               size="sm"
-              className="mb-6 border border-border font-medium transition-colors hover:border-accent/50 hover:bg-muted/80 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className="mb-6 font-medium transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               <Link to="/alla-d365-partners/">
                 <ArrowLeft className="mr-1.5 h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
