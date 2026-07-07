@@ -52,11 +52,11 @@ function SectionHeader({
       {tooltip && (
         <Tooltip>
           <TooltipTrigger asChild>
-            <button
-              type="button"
-              className="inline-flex text-muted-foreground/70 hover:text-muted-foreground"
-              aria-label={tooltipLabel || `Om ${label.toLowerCase()}`}
-            >
+                <button
+                  type="button"
+                  className="inline-flex text-muted-foreground/70 transition-colors hover:text-muted-foreground focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
+                  aria-label={tooltipLabel || `Om ${label.toLowerCase()}`}
+                >
               <Info className="h-3 w-3" />
             </button>
           </TooltipTrigger>
@@ -140,7 +140,7 @@ export function PartnerBasicCard({
               <Badge
                 key={k}
                 variant="secondary"
-                className={`text-xs font-medium ${PRODUCT_THEME[k]}`}
+                className={`text-xs font-medium transition-opacity hover:opacity-90 ${PRODUCT_THEME[k]}`}
               >
                 {PRODUCT_LABEL[k]}
               </Badge>
@@ -281,10 +281,10 @@ export function PartnerBasicCard({
         <div className="mt-4">
           <Link
             to="/kontakt/?intent=partneranmalan"
-            className="inline-flex items-center gap-1 text-sm font-medium text-primary underline-offset-2 hover:underline"
+            className="group inline-flex items-center gap-1 text-sm font-medium text-primary underline-offset-2 transition-colors hover:underline focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             {BASIC_COPY.cta}
-            <span aria-hidden>→</span>
+            <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
           </Link>
         </div>
 
@@ -292,7 +292,7 @@ export function PartnerBasicCard({
           <div className="mt-2">
             <Link
               to={`/basic/${partner.slug}/`}
-              className="text-xs text-muted-foreground hover:text-foreground"
+              className="text-xs text-muted-foreground transition-colors hover:text-foreground focus-visible:text-foreground focus-visible:underline"
             >
               Visa detaljer
             </Link>
