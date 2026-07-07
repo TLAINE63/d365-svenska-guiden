@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { Building2, Eye, Pencil, Plus, Trash2, Activity, ArrowDownCircle } from "lucide-react";
-import { PRODUCT_LABEL, ProductKey } from "@/hooks/useBasicPartners";
+import { PRODUCT_LABEL, PRODUCT_ORDER, ProductKey } from "@/hooks/useBasicPartners";
 import { useAdminPartners } from "@/hooks/useAdminPartners";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 
