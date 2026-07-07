@@ -20,6 +20,12 @@ import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
 import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
 import { isServicesIndustry } from "@/lib/industryFilters";
+import { usePartners } from "@/hooks/usePartners";
+import { pickSuggestedPartners } from "@/lib/suggestPartners";
+import { buildCompareUrl } from "@/lib/compareUrl";
+import { appendSuggestedPartnersPage } from "@/utils/pdfSuggestedPartners";
+import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
+import type { ProductKey } from "@/hooks/usePartnerFilters";
 
 // Breadcrumb items
 const needsAnalysisBreadcrumbs = [
@@ -1041,6 +1047,7 @@ const complexityRetailOptions = {
 
 const NeedsAnalysis = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const { data: allPartners = [] } = usePartners();
   const [data, setData] = useState<AnalysisData>(initialData);
   const [isComplete, setIsComplete] = useState(false);
   const [contactErrors, setContactErrors] = useState<ContactFormErrors>({});
@@ -3015,6 +3022,20 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
     pdf.text("d365.se", pageWidth - margin - 55, yPos + 26);
 
+    // Föreslagna partners – avslutande sida
+    try {
+      const _isBC = recommendation.product === "Business Central";
+      const _productKey: ProductKey = _isBC ? "bc" : "fsc";
+      const _industry = data.industry || null;
+      const _suggested = pickSuggestedPartners(allPartners, { product: _productKey, industry: _industry, limit: 3 });
+      const _origin = typeof window !== "undefined" ? window.location.origin : "https://d365.se";
+      const _compareUrl = _origin + buildCompareUrl(_suggested.map(p => p.slug));
+      appendSuggestedPartnersPage(pdf, _suggested.map(p => ({
+        name: p.name, slug: p.slug,
+        positioning: (p as any).positioning_statement, description: p.description,
+      })), { compareUrl: _compareUrl, productLabel: _isBC ? "Business Central" : "Finance & Supply Chain", industry: _industry });
+    } catch (e) { console.warn("Suggested partners append failed", e); }
+
     // Generate PDF
     const pdfFilename = `Behovsanalys_${data.companyName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}`;
     const pdfBase64 = pdf.output('datauristring').split(',')[1];
@@ -4514,6 +4535,13 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 </div>
               </CardContent>
             </Card>
+
+            {/* FÖRESLAGNA PARTNERS */}
+            <SuggestedPartnersCTA
+              product={isBC ? "bc" : "fsc"}
+              industry={data.industry || null}
+              className="!py-8 mb-8 border rounded overflow-hidden !bg-secondary/40"
+            />
 
             {/* Actions */}
             <div className="flex justify-center">

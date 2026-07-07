@@ -19,6 +19,11 @@ import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
 import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
 import { isServicesIndustry } from "@/lib/industryFilters";
+import { usePartners } from "@/hooks/usePartners";
+import { pickSuggestedPartners } from "@/lib/suggestPartners";
+import { buildCompareUrl } from "@/lib/compareUrl";
+import { appendSuggestedPartnersPage } from "@/utils/pdfSuggestedPartners";
+import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
 
 const customerServiceBreadcrumbs = [
  { name: "Hem", url: "https://d365.se" },
@@ -517,6 +522,7 @@ function shouldRecommendAiAssessment(d: CustomerServiceAnalysisData): boolean {
 
 const CustomerServiceNeedsAnalysis = () => {
  const [currentStep, setCurrentStep] = useState(1);
+ const { data: allPartners = [] } = usePartners();
  const [data, setData] = useState<CustomerServiceAnalysisData>(initialData);
  const [isComplete, setIsComplete] = useState(false);
  const [contactErrors, setContactErrors] = useState<ContactFormErrors>({});
@@ -1430,6 +1436,18 @@ const CustomerServiceNeedsAnalysis = () => {
  pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
  pdf.text("d365.se", pageWidth - margin - 55, yPos + 26);
 
+ // Föreslagna partners – avslutande sida
+ try {
+ const _industry = data.industry === "Annat" ? data.industryOther : data.industry;
+ const _suggested = pickSuggestedPartners(allPartners, { product: "service", industry: _industry, limit: 3 });
+ const _origin = typeof window !== "undefined" ? window.location.origin : "https://d365.se";
+ const _compareUrl = _origin + buildCompareUrl(_suggested.map(p => p.slug));
+ appendSuggestedPartnersPage(pdf, _suggested.map(p => ({
+ name: p.name, slug: p.slug,
+ positioning: (p as any).positioning_statement, description: p.description,
+ })), { compareUrl: _compareUrl, productLabel: "Customer Service", industry: _industry });
+ } catch (e) { console.warn("Suggested partners append failed", e); }
+
  const pdfFilename = `Behovsanalys_${focusCfg.pdfSubTitle.replace(/[^a-zA-ZåäöÅÄÖ0-9]+/g, "_")}_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}`;
  const pdfBase64 = pdf.output('datauristring').split(',')[1];
  pdf.save(`${pdfFilename}.pdf`);
@@ -2218,6 +2236,13 @@ const CustomerServiceNeedsAnalysis = () => {
  </table>
  </div>
  </div>
+
+ {/* FÖRESLAGNA PARTNERS */}
+ <SuggestedPartnersCTA
+ product="service"
+ industry={data.industry === "Annat" ? data.industryOther : data.industry}
+ className="!py-8 border rounded overflow-hidden !bg-secondary/40"
+ />
 
  {/* KONTAKTUPPGIFTER & LADDA NER */}
  <div className="border border-[hsl(var(--line-dark))] rounded overflow-hidden ">

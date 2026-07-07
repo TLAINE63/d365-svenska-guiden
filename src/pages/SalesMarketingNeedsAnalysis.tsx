@@ -22,6 +22,11 @@ import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
 import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
 import { isServicesIndustry } from "@/lib/industryFilters";
+import { usePartners } from "@/hooks/usePartners";
+import { pickSuggestedPartners } from "@/lib/suggestPartners";
+import { buildCompareUrl } from "@/lib/compareUrl";
+import { appendSuggestedPartnersPage } from "@/utils/pdfSuggestedPartners";
+import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
 
 // Breadcrumb items
 const salesMarketingBreadcrumbs = [
@@ -546,6 +551,7 @@ const aiUseCaseCategories = [
 
 const SalesMarketingNeedsAnalysis = () => {
  const [currentStep, setCurrentStep] = useState(1);
+ const { data: allPartners = [] } = usePartners();
  const [data, setData] = useState<SalesMarketingAnalysisData>(initialData);
  const [isComplete, setIsComplete] = useState(false);
  const [contactErrors, setContactErrors] = useState<ContactFormErrors>({});
@@ -1697,6 +1703,18 @@ const SalesMarketingNeedsAnalysis = () => {
  pdf.text("+46 72 232 40 60", pageWidth - margin - 55, yPos + 10);
  pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
  pdf.text("d365.se", pageWidth - margin - 55, yPos + 26);
+
+ // Föreslagna partners – avslutande sida
+ try {
+ const _industry = data.industry || data.industryOther || null;
+ const _suggested = pickSuggestedPartners(allPartners, { product: "sales", industry: _industry, limit: 3 });
+ const _origin = typeof window !== "undefined" ? window.location.origin : "https://d365.se";
+ const _compareUrl = _origin + buildCompareUrl(_suggested.map(p => p.slug));
+ appendSuggestedPartnersPage(pdf, _suggested.map(p => ({
+ name: p.name, slug: p.slug,
+ positioning: (p as any).positioning_statement, description: p.description,
+ })), { compareUrl: _compareUrl, productLabel: "Sales & Marketing", industry: _industry });
+ } catch (e) { console.warn("Suggested partners append failed", e); }
 
  // Generate PDF as base64 for email attachment
  const pdfFilename = `Behovsanalys_Salj_Marknad_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}`;
@@ -3526,6 +3544,13 @@ const SalesMarketingNeedsAnalysis = () => {
  </div>
  </CardContent>
  </Card>
+
+ {/* FÖRESLAGNA PARTNERS */}
+ <SuggestedPartnersCTA
+ product="sales"
+ industry={data.industry || data.industryOther || null}
+ className="!py-8 mt-8 border rounded overflow-hidden !bg-secondary/40"
+ />
  </div>
  </main>
  <Footer />
