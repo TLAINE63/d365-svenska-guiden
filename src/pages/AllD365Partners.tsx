@@ -135,14 +135,24 @@ export default function AllD365Partners() {
                   <li key={p.id}>
                     <Link
                       to={`/partner/${p.slug}`}
-                      className="group relative flex items-center justify-between gap-2 p-4 rounded-lg border-2 border-primary/25 bg-card shadow-sm hover:border-primary hover:shadow-md transition-all"
+                      aria-label={p.name}
+                      className="group relative flex items-center justify-between gap-3 p-4 rounded-lg border-2 border-primary/25 bg-card shadow-sm hover:border-primary hover:shadow-md transition-all"
                     >
-                      <div className="min-w-0">
-                        <div className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
-                          {p.name}
-                        </div>
+                      <div className="min-w-0 flex-1">
+                        {p.logo_url ? (
+                          <img
+                            src={p.logo_url}
+                            alt={`${p.name} logotyp`}
+                            loading="lazy"
+                            className="h-10 max-w-[160px] object-contain mb-2"
+                          />
+                        ) : (
+                          <div className="font-semibold text-foreground group-hover:text-primary transition-colors truncate mb-2">
+                            {p.name}
+                          </div>
+                        )}
                         {p.applications.length > 0 && (
-                          <div className="mt-2 flex flex-wrap gap-1">
+                          <div className="flex flex-wrap gap-1">
                             {p.applications.slice(0, 3).map((app) => (
                               <Badge
                                 key={app}
