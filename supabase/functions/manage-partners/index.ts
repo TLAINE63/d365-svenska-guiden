@@ -330,6 +330,8 @@ serve(async (req: Request): Promise<Response> => {
             office_cities: partner.office_cities || [],
             map_url: partner.map_url?.trim() || null,
             youtube_video_id: partner.youtube_video_id?.trim() || null,
+            partner_size_tier: normalizeSizeTier(partner.partner_size_tier),
+            partner_size_tier_needs_review: partner.partner_size_tier_needs_review === true,
             industry_pitches: partner.industry_pitches || [],
             positioning_statement: (partner as any).positioning_statement || null,
             delivery_profile: (partner as any).delivery_profile || {},
