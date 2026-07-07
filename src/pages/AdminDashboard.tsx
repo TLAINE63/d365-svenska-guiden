@@ -1338,6 +1338,8 @@ Thomas`,
   org_number: "",
   legal_name: "",
   extended_content: "",
+  partner_size_tier: null,
+  partner_size_tier_needs_review: false,
   });
  setEditingPartner(null);
  setFormErrors({});
