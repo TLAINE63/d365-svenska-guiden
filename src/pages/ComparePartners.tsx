@@ -2206,13 +2206,22 @@ const ComparePartners = () => {
                                     Endast Partner {["A", "B", "C"][idx]}
                                   </div>
                                   <div className="text-xs sm:text-sm font-medium text-foreground mb-3 break-words">
-                                    {side.partner.name}
+                                    {isBasic ? (
+                                      <Link
+                                        to={`/basic/${side.partner.slug}/`}
+                                        className="hover:text-primary hover:underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
+                                      >
+                                        {side.partner.name}
+                                      </Link>
+                                    ) : (
+                                      side.partner.name
+                                    )}
                                     {isBasic && <span className="ml-1.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500">· Basickort</span>}
                                   </div>
                                 </div>
                                 {isBasic ? (
                                   <p className="text-xs text-slate-500 leading-snug">
-                                    Basickort – kontakt sker via ansluten partner.
+                                    <Link to={`/basic/${side.partner.slug}/`} className="text-primary hover:underline">Öppna basickort →</Link>
                                   </p>
                                 ) : (
                                   <div className="flex flex-wrap gap-2">
