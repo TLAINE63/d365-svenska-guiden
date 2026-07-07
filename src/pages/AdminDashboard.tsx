@@ -576,6 +576,7 @@ const AdminDashboard = () => {
  products: true,
  pitches: true,
  industryApps: true,
+ text: true,
  });
  const toggleSection = (id: string) =>
  setOpenSections((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -616,55 +617,63 @@ const AdminDashboard = () => {
  };
 
  const [partnerFormData, setPartnerFormData] = useState<PartnerInput & {
- activation_date?: string;
- monthly_fee?: number;
- cancellation_date?: string;
- admin_notes?: string;
- admin_contact_name?: string;
- admin_contact_email?: string;
- agreement_signed?: boolean;
- agreement_notes?: string;
- invoice_email?: string;
- invoice_contact?: string;
- org_number?: string;
- legal_name?: string;
-   youtube_video_id?: string;
-   ai_profile?: import("@/lib/aiProfile").AiProfile;
-   extended_content?: string;
- }>({
- slug: "",
- name: "",
- description: "",
- logo_url: "",
- website: "",
- email: "",
- contactPerson: "",
- contact_photo_url: "",
- phone: "",
- address: "",
- applications: [],
- industries: [],
- secondary_industries: [],
- geography: ["Sverige"],
- product_filters: {},
- is_featured: false,
- office_cities: [],
- map_url: "",
- activation_date: "",
- monthly_fee: undefined,
- cancellation_date: "",
- admin_notes: "",
- admin_contact_name: "",
- admin_contact_email: "",
- agreement_signed: false,
- agreement_notes: "",
- invoice_email: "",
- invoice_contact: "",
- org_number: "",
-  legal_name: "",
-  youtube_video_id: "",
-  extended_content: "",
-  });
+  activation_date?: string;
+  monthly_fee?: number;
+  cancellation_date?: string;
+  admin_notes?: string;
+  admin_contact_name?: string;
+  admin_contact_email?: string;
+  agreement_signed?: boolean;
+  agreement_notes?: string;
+  invoice_email?: string;
+  invoice_contact?: string;
+  org_number?: string;
+  legal_name?: string;
+    youtube_video_id?: string;
+    ai_profile?: import("@/lib/aiProfile").AiProfile;
+    extended_content?: string;
+    source_document_text?: string;
+    source_document_url?: string;
+    source_document_filename?: string;
+    source_document_updated_at?: string;
+  }>({
+  slug: "",
+  name: "",
+  description: "",
+  logo_url: "",
+  website: "",
+  email: "",
+  contactPerson: "",
+  contact_photo_url: "",
+  phone: "",
+  address: "",
+  applications: [],
+  industries: [],
+  secondary_industries: [],
+  geography: ["Sverige"],
+  product_filters: {},
+  is_featured: false,
+  office_cities: [],
+  map_url: "",
+  activation_date: "",
+  monthly_fee: undefined,
+  cancellation_date: "",
+  admin_notes: "",
+  admin_contact_name: "",
+  admin_contact_email: "",
+  agreement_signed: false,
+  agreement_notes: "",
+  invoice_email: "",
+  invoice_contact: "",
+  org_number: "",
+   legal_name: "",
+   youtube_video_id: "",
+   extended_content: "",
+   source_document_text: "",
+   source_document_url: "",
+   source_document_filename: "",
+   source_document_updated_at: "",
+   });
 
  // ==================== LEAD FUNCTIONS ====================
 
@@ -1408,9 +1417,13 @@ Thomas`,
  org_number: (partner as any).org_number || "",
  legal_name: (partner as any).legal_name || "",
    youtube_video_id: (partner as any).youtube_video_id || "",
-   ai_profile: (partner as any).ai_profile || {},
-   extended_content: (partner as any).extended_content || "",
-   });
+    ai_profile: (partner as any).ai_profile || {},
+    extended_content: (partner as any).extended_content || "",
+    source_document_text: (partner as any).source_document_text || "",
+    source_document_url: (partner as any).source_document_url || "",
+    source_document_filename: (partner as any).source_document_filename || "",
+    source_document_updated_at: (partner as any).source_document_updated_at || "",
+    });
  setIndustryApps(
  Array.isArray((partner as any).industry_apps) ? (partner as any).industry_apps : []
  );
@@ -1780,12 +1793,13 @@ Thomas`,
  { id: 'contact', label: 'Kontaktuppgifter', icon: User },
  { id: 'geography', label: 'Geografi', icon: Globe },
  { id: 'products', label: 'Produkter', icon: FileText },
+ { id: 'text', label: 'Text & källor', icon: FileText },
  ];
 
  // Calculate form completion percentage
  const formCompletion = useMemo(() => {
  let completed = 0;
- const total = 5;
+ const total = 6;
  
  // Section 1: Basic info - name and website required
  if (partnerFormData.name && partnerFormData.website) completed++;
@@ -1798,13 +1812,16 @@ Thomas`,
  
  // Section 4: Products - at least one product with industries
  const hasActiveProduct = productSections.some(section => {
- const filter = partnerFormData.product_filters?.[section.key];
- return filter && filter.industries.length > 0;
+  const filter = partnerFormData.product_filters?.[section.key];
+  return filter && filter.industries.length > 0;
  });
  if (hasActiveProduct) completed++;
  
  // Section 5: Admin info - activation date or featured status
  if (partnerFormData.activation_date || partnerFormData.is_featured) completed++;
+
+ // Section 6: Text & sources - extended content or uploaded source document
+ if ((partnerFormData.extended_content || "").trim().length > 50 || (partnerFormData.source_document_text || "").trim().length > 50) completed++;
  
  return { completed, total, percentage: Math.round((completed / total) * 100) };
  }, [partnerFormData]);
@@ -1840,12 +1857,19 @@ Thomas`,
  }).length;
  if (activeCount >= 1) return 'complete';
  return 'empty';
- case 'admin':
- if (partnerFormData.activation_date) return 'complete';
- if (partnerFormData.admin_notes || partnerFormData.admin_contact_name) return 'partial';
- return 'empty';
- default:
- return 'empty';
+  case 'admin':
+  if (partnerFormData.activation_date) return 'complete';
+  if (partnerFormData.admin_notes || partnerFormData.admin_contact_name) return 'partial';
+  return 'empty';
+  case 'text': {
+    const hasExtended = (partnerFormData.extended_content || "").trim().length > 50;
+    const hasSourceDoc = (partnerFormData.source_document_text || "").trim().length > 50;
+    if (hasExtended || hasSourceDoc) return 'complete';
+    if (partnerFormData.extended_content || partnerFormData.source_document_text) return 'partial';
+    return 'empty';
+  }
+  default:
+  return 'empty';
  }
  };
 
@@ -3859,36 +3883,6 @@ Thomas`,
  </div>
  </div>
 
-  <div className="rounded-lg border border-primary/30 bg-primary/5 p-4 space-y-2">
-  <div className="flex items-center justify-between gap-2 flex-wrap">
-  <Label htmlFor="extended_content" className="font-semibold">
-  Fördjupningstext (AI-sök, SEO & AIO)
-  </Label>
-  {(() => {
-   const val = partnerFormData.extended_content || "";
-   const chars = val.length;
-   const words = val.trim() ? val.trim().split(/\s+/).length : 0;
-   return (
-    <span className="text-xs text-muted-foreground">
-     {words} ord · {chars} tecken {chars > 0 && chars < 2500 ? "(sikta på ~3000)" : ""}
-    </span>
-   );
-  })()}
-  </div>
-  <p className="text-xs text-muted-foreground">
-  Fri text om partnern – bakgrund, styrkor, referenser, filosofi, arbetssätt. Publiceras på en egen fördjupningssida (<code>/partner/{partnerFormData.slug || "slug"}/fordjupning</code>) och används av sajtens AI-sök samt av Google och AI-svar (AIO). Rikta in dig på ca <strong>500 ord / 3 000 tecken</strong>.
-  </p>
-  <Textarea
-  id="extended_content"
-  value={partnerFormData.extended_content || ""}
-  onChange={(e) =>
-  setPartnerFormData({ ...partnerFormData, extended_content: e.target.value })
-  }
-  rows={14}
-  maxLength={8000}
-  placeholder="Skriv en fördjupande text om partnern – bakgrund, specialistområden, arbetssätt, kundexempel, filosofi..."
-  />
-  </div>
 
   <div>
   <Label htmlFor="admin_notes">Interna noteringar</Label>
@@ -5251,7 +5245,95 @@ Thomas`,
  )}
  </PremiumCollapsibleSection>
 
+ <PremiumCollapsibleSection
+ title="Text & källor"
+ description="Fördjupningstext och extraherad text från partnerns underlagsdokument"
+ icon={FileText}
+ accent="copilot"
+ status={getSectionStatus('text')}
+ open={openSections.text}
+ onOpenChange={(o) => setSectionOpen('text', o)}
+ sectionRef={(el) => (sectionRefs.current[5] = el)}
+ >
+ <div className="rounded-lg border border-primary/30 bg-primary/5 p-4 space-y-2">
+ <div className="flex items-center justify-between gap-2 flex-wrap">
+ <Label htmlFor="extended_content" className="font-semibold">
+ Fördjupningstext (AI-sök, SEO & AIO)
+ </Label>
+ {(() => {
+  const val = partnerFormData.extended_content || "";
+  const chars = val.length;
+  const words = val.trim() ? val.trim().split(/\s+/).length : 0;
+  return (
+   <span className="text-xs text-muted-foreground">
+    {words} ord · {chars} tecken {chars > 0 && chars < 2500 ? "(sikta på ~3000)" : ""}
+   </span>
+  );
+ })()}
+ </div>
+ <p className="text-xs text-muted-foreground">
+ Fri text om partnern – bakgrund, styrkor, referenser, filosofi, arbetssätt. Publiceras på en egen fördjupningssida (<code>/partner/{partnerFormData.slug || "slug"}/fordjupning</code>) och används av sajtens AI-sök samt av Google och AI-svar (AIO). Rikta in dig på ca <strong>500 ord / 3 000 tecken</strong>.
+ </p>
+ <Textarea
+ id="extended_content"
+ value={partnerFormData.extended_content || ""}
+ onChange={(e) =>
+ setPartnerFormData({ ...partnerFormData, extended_content: e.target.value })
+ }
+ rows={14}
+ maxLength={8000}
+ placeholder="Skriv en fördjupande text om partnern – bakgrund, specialistområden, arbetssätt, kundexempel, filosofi..."
+ />
+ </div>
 
+ {partnerFormData.source_document_text && (
+ <div className="rounded-lg border border-slate-200 bg-slate-50/50 p-4 space-y-2">
+ <div className="flex items-center justify-between gap-2 flex-wrap">
+ <Label className="font-semibold">Extraherad text från underlagsdokument</Label>
+ <span className="text-xs text-muted-foreground">
+ {(() => {
+  const val = partnerFormData.source_document_text || "";
+  const chars = val.length;
+  const words = val.trim() ? val.trim().split(/\s+/).length : 0;
+  return `${words} ord · ${chars} tecken`;
+ })()}
+ </span>
+ </div>
+ {partnerFormData.source_document_filename && (
+ <p className="text-xs text-muted-foreground">
+ Källa: <span className="font-medium">{partnerFormData.source_document_filename}</span>
+ {partnerFormData.source_document_updated_at && (
+  <span className="ml-2">
+   (extraherad {format(new Date(partnerFormData.source_document_updated_at), "yyyy/MM/dd HH:mm", { locale: sv })})
+  </span>
+ )}
+ </p>
+ )}
+ {partnerFormData.source_document_url && (
+ <p className="text-xs">
+ <a
+ href={partnerFormData.source_document_url}
+ target="_blank"
+ rel="noopener noreferrer"
+ className="text-primary hover:underline inline-flex items-center gap-1"
+ >
+ <FileText className="h-3 w-3" />
+ Öppna originaldokument
+ </a>
+ </p>
+ )}
+ <div className="max-h-96 overflow-y-auto p-3 bg-background rounded border text-sm text-muted-foreground whitespace-pre-wrap leading-relaxed">
+ {partnerFormData.source_document_text}
+ </div>
+ </div>
+ )}
+
+ {!partnerFormData.source_document_text && (
+ <div className="rounded-lg border border-dashed border-slate-200 p-4 text-center text-sm text-muted-foreground">
+ Inget underlagsdokument har laddats upp ännu. Extraherad text från PDF/DOCX visas här.
+ </div>
+ )}
+ </PremiumCollapsibleSection>
 
  <DialogFooter>
  <Button type="button" variant="outline" onClick={() => setIsPartnerDialogOpen(false)}>
