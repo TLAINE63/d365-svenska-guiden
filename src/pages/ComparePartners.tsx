@@ -1097,9 +1097,6 @@ const ComparePartners = () => {
   };
 
   const partnerMatchesFilters = (p: DatabasePartner): boolean => {
-    // Basic-partners are always eligible – the user explicitly opts them in
-    // and we display "data saknas" placeholders in every field.
-    if ((p as any).__basic) return true;
     if (productFilters.length > 0) {
       const keys = partnerProductKeys(p);
       if (!productFilters.some((k) => keys.includes(k))) return false;
