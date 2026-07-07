@@ -188,41 +188,47 @@ export function usePartners() {
 
       if (error) throw error;
       // Add null values for fields not in the public view
-      return (data || []).map(p => ({
-        ...p,
-        email: null,
-        contactPerson: null,
-        contact_photo_url: null,
-        phone: null,
-        address: null,
-        secondary_industries: p.secondary_industries || [],
-        geography: p.geography || ['Sverige'],
-        product_filters: (p.product_filters as ProductFilters) || {},
-        industry_apps: (p.industry_apps as DatabasePartner['industry_apps']) || [],
-        industry_pitches: (p.industry_pitches as DatabasePartner['industry_pitches']) || [],
-        invoice_email: null,
-        invoice_contact: null,
-        org_number: null,
-        legal_name: null,
-        activation_date: null,
-        monthly_fee: null,
-        cancellation_date: null,
-        admin_notes: null,
-        admin_contact_name: null,
-        admin_contact_email: null,
-        agreement_signed: (p as any).agreement_signed ?? false,
-        related_party: (p as any).related_party ?? false,
-        youtube_video_id: (p as any).youtube_video_id || null,
-        positioning_statement: (p as any).positioning_statement ?? null,
-        delivery_profile: ((p as any).delivery_profile ?? null) as DatabasePartner['delivery_profile'],
-        team_size_sweden: (p as any).team_size_sweden ?? null,
-        implementations_done: (p as any).implementations_done ?? null,
-        implementations_per_app: ((p as any).implementations_per_app ?? {}) as Record<string, string>,
-        not_a_fit: ((p as any).not_a_fit ?? []) as string[],
-        ai_profile: ((p as any).ai_profile ?? null) as AiProfile | null,
-        partner_size_tier: (p as any).partner_size_tier ?? null,
-        partner_size_tier_needs_review: (p as any).partner_size_tier_needs_review ?? false,
-      })) as DatabasePartner[];
+      return (data || [])
+        .map(
+          (p) =>
+            ({
+              ...p,
+              email: null,
+              contactPerson: null,
+              contact_photo_url: null,
+              phone: null,
+              address: null,
+              secondary_industries: p.secondary_industries || [],
+              geography: p.geography || ["Sverige"],
+              product_filters: (p.product_filters as ProductFilters) || {},
+              industry_apps: (p.industry_apps as DatabasePartner["industry_apps"]) || [],
+              industry_pitches: (p.industry_pitches as DatabasePartner["industry_pitches"]) || [],
+              invoice_email: null,
+              invoice_contact: null,
+              org_number: null,
+              legal_name: null,
+              activation_date: null,
+              monthly_fee: null,
+              cancellation_date: null,
+              admin_notes: null,
+              admin_contact_name: null,
+              admin_contact_email: null,
+              agreement_signed: (p as any).agreement_signed ?? false,
+              related_party: (p as any).related_party ?? false,
+              youtube_video_id: (p as any).youtube_video_id || null,
+              positioning_statement: (p as any).positioning_statement ?? null,
+              delivery_profile: ((p as any).delivery_profile ?? null) as DatabasePartner["delivery_profile"],
+              team_size_sweden: (p as any).team_size_sweden ?? null,
+              implementations_done: (p as any).implementations_done ?? null,
+              implementations_per_app: ((p as any).implementations_per_app ?? {}) as Record<string, string>,
+              not_a_fit: ((p as any).not_a_fit ?? []) as string[],
+              ai_profile: ((p as any).ai_profile ?? null) as AiProfile | null,
+              partner_size_tier: (p as any).partner_size_tier ?? null,
+              partner_size_tier_needs_review: (p as any).partner_size_tier_needs_review ?? false,
+            }) as DatabasePartner
+        )
+        .filter((p) => !isPartnerExcluded(p.name, p.slug));
+
     },
   });
 }
