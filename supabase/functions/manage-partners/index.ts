@@ -41,6 +41,7 @@ function normalizeSizeTier(v: unknown): number | null {
   if (!Number.isFinite(n)) return null;
   const r = Math.round(n);
   return r >= 1 && r <= 5 ? r : null;
+}
 
 // JWT verification using HMAC-SHA256
 async function verifyJWT(token: string, secret: string): Promise<{ valid: boolean; payload?: Record<string, unknown>; error?: string }> {
