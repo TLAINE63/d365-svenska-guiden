@@ -17,8 +17,20 @@ import {
 import { toast } from "sonner";
 import { Building2, Eye, Pencil, Plus, Trash2, Activity } from "lucide-react";
 import { PRODUCT_LABEL, ProductKey } from "@/hooks/useBasicPartners";
-import { standardIndustries } from "@/data/standardIndustries";
-import { getAdminToken } from "@/hooks/useAdminAuth";
+import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
+
+function getAdminToken(): string | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const t = window.sessionStorage.getItem("admin_token");
+    const e = window.sessionStorage.getItem("admin_token_expiry");
+    if (!t || !e) return null;
+    if (Date.now() >= parseInt(e, 10)) return null;
+    return t;
+  } catch {
+    return null;
+  }
+}
 
 type BasicRow = {
   id: string;
