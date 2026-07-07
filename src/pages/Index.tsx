@@ -798,7 +798,7 @@ const Index = () => {
         <TrustBanner variant="full" />
       </main>
 
-      <Suspense fallback={null}><ScrollCTA /></Suspense>
+      
       <Footer />
     </div>
   );
