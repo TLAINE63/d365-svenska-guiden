@@ -3022,6 +3022,20 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
     pdf.text("d365.se", pageWidth - margin - 55, yPos + 26);
 
+    // Föreslagna partners – avslutande sida
+    try {
+      const _isBC = recommendation.product === "Business Central";
+      const _productKey: ProductKey = _isBC ? "bc" : "fsc";
+      const _industry = data.industry || null;
+      const _suggested = pickSuggestedPartners(allPartners, { product: _productKey, industry: _industry, limit: 3 });
+      const _origin = typeof window !== "undefined" ? window.location.origin : "https://d365.se";
+      const _compareUrl = _origin + buildCompareUrl(_suggested.map(p => p.slug));
+      appendSuggestedPartnersPage(pdf, _suggested.map(p => ({
+        name: p.name, slug: p.slug,
+        positioning: (p as any).positioning_statement, description: p.description,
+      })), { compareUrl: _compareUrl, productLabel: _isBC ? "Business Central" : "Finance & Supply Chain", industry: _industry });
+    } catch (e) { console.warn("Suggested partners append failed", e); }
+
     // Generate PDF
     const pdfFilename = `Behovsanalys_${data.companyName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}`;
     const pdfBase64 = pdf.output('datauristring').split(',')[1];
