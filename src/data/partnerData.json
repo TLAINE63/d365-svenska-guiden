@@ -90,7 +90,7 @@
     "map_url": "https://www.google.com/maps/d/edit?mid=1lqToksFfFiaeIdp1Hgub9PYB6WJk_xs&ll=59.13450631416728%2C16.462738500000004&z=5",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-07-06T21:14:05.488978+00:00",
+    "updated_at": "2026-07-06T22:13:44.86289+00:00",
     "industry_pitches": [
       {
         "text": "4PS Construction Software AB erbjuder en branschspecifik ERP-lösning, 4PS Construct, baserad på Microsoft Dynamics 365 Business Central. Lösningen är utvecklad för bygg-, installations- och serviceföretag och syftar till att leverera end-to-end-funktionalitet. Med 4PS Construct kan företag hantera projekthantering, offerter, resursplanering, inköp, ekonomi och service i en integrerad plattform. 4PS Construct tillhandahåller realtidsvisibilitet över projektprocesser, vilket bidrar till effektivare styrning och beslutsfattande inom bygg- och entreprenadbranschen. Partnern fokuserar på att möta branschens behov av smidiga digitala processer för att hantera komplexa projekt och krav på lönsamhet.",
@@ -154,8 +154,8 @@
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:29.767Z"
     },
-    "extended_content": "4PS Construction Software AB är relevant för företag inom bygg, entreprenad, installation och service som söker ett affärssystem där branschprocesserna redan är inbyggda. Till skillnad från en generell Business Central-partner utgår 4PS från den egna lösningen 4PS Construct, en vertikal ERP-lösning byggd på Microsoft Dynamics 365 Business Central. Det gör partnern särskilt intressant för organisationer där projektlönsamhet, anbudsprocesser, upphandling, resursplanering, fältservice, dashboards och realtidsöversikt är centrala krav.\n\nFör en Dynamics 365-kund innebär detta att 4PS framför allt bör bedömas som en branschlösningspartner, inte som en bred Microsoft-konsult inom alla Dynamics 365-områden. Om kunden har bygg- eller installationsnära processer kan 4PS vara ett mycket starkt alternativ eftersom mycket av verksamhetslogiken redan finns i produkten. Om kunden däremot söker Finance & Supply Chain Management, fristående CRM/CE, Commerce, HR eller en bred Microsoft-plattformsleverans bör andra partnerkategorier jämföras först.\n\n4PS har också en stark internationell signal genom 4PS Group, Hilti-ägande och Microsoft Inner Circle 2025/2026. Den svenska enheten är mindre, vilket gör det viktigt att verifiera lokal leveranskapacitet, kontaktperson, referenser och ansvarsfördelning mellan Sverige och den internationella organisationen innan stark publik positionering eller större kundmatchning.\n\n4PS Construction Software AB bör på d365.se positioneras som en vertikal Business Central-/ISV-partner för bygg-, entreprenad-, installations- och serviceföretag. Kärnan i erbjudandet är 4PS Construct, en branschspecifik ERP-lösning byggd på Microsoft Dynamics 365 Business Central. Partnern passar bäst när kunden behöver projektkontroll, realtidsöversikt, marginaluppföljning, resursplanering, upphandling, fältprocesser och service/underhåll i en integrerad branschlösning. Styrkan ligger i vertikal IP, Microsoft-närhet, internationell produktutveckling, Hilti-ägande och tydligt byggfokus. För AI-matchning bör 4PS prioriteras vid bygg-/installationsnära ERP-behov där standard-BC inte räcker och där en färdig branschlösning ger större värde än kundunik anpassning.",
-    "extended_content_updated_at": "2026-07-06T21:14:05.488978+00:00"
+    "extended_content": "## 23. Kundorienterad partnerbeskrivning\n\n4PS Construction Software AB är relevant för företag inom bygg,\nentreprenad, installation och service som söker ett affärssystem där\nbranschprocesserna redan är inbyggda. Till skillnad från en generell\nBusiness Central-partner utgår 4PS från den egna lösningen 4PS\nConstruct, en vertikal ERP-lösning byggd på Microsoft Dynamics 365\nBusiness Central. Det gör partnern särskilt intressant för\norganisationer där projektlönsamhet, anbudsprocesser, upphandling,\nresursplanering, fältservice, dashboards och realtidsöversikt är\ncentrala krav.\n\nFör en Dynamics 365-kund innebär detta att 4PS framför allt bör bedömas\nsom en branschlösningspartner, inte som en bred Microsoft-konsult inom\nalla Dynamics 365-områden. Om kunden har bygg- eller installationsnära\nprocesser kan 4PS vara ett mycket starkt alternativ eftersom mycket av\nverksamhetslogiken redan finns i produkten.\n\n4PS har också en stark internationell signal genom 4PS Group,\nHilti-ägande och Microsoft Inner Circle 2025/2026.\n\n## 24. AI-sammanfattning\n\n4PS Construction Software AB bör på d365.se positioneras som en\nvertikal Business Central-/ISV-partner för bygg-, entreprenad-,\ninstallations- och serviceföretag. Kärnan i erbjudandet är 4PS\nConstruct, en branschspecifik ERP-lösning byggd på Microsoft Dynamics\n365 Business Central. Partnern passar bäst när kunden behöver\nprojektkontroll, realtidsöversikt, marginaluppföljning,\nresursplanering, upphandling, fältprocesser och service/underhåll i en\nintegrerad branschlösning.\n\n## 25. Varför denna partner\n\n- Kunden söker Business Central med tydligt bygg-, installations- eller servicefokus.\n- Kunden behöver en färdig branschlösning snarare än en generell BC-implementation.\n- Projektkontroll, projektlönsamhet, resursplanering och realtidsdashboards är centrala krav.\n- Kunden vill minska mängden kundunik anpassning genom vertikal standard-IP.",
+    "extended_content_updated_at": "2026-07-06T22:13:44.86289+00:00"
   },
   {
     "id": "67211d79-5e9e-4113-b6c2-ac77f54fc17b",
@@ -250,7 +250,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-05-26T11:20:39.922112+00:00",
-    "updated_at": "2026-07-03T14:03:33.02426+00:00",
+    "updated_at": "2026-07-06T22:13:44.86289+00:00",
     "industry_pitches": [
       {
         "text": "adbriq erbjuder stöd för företag inom mode, sport och textil som använder Microsoft Dynamics 365 Business Central. De fokuserar på att optimera affärsprocesser kopplade till produktlivscykelhantering, lageroptimering och distributionskedjan. Med förståelse för branschens specifika krav, som exempelvis säsongsvariationer, kollektionshantering och flera försäljningskanaler, arbetar adbriq med att anpassa Business Central för en effektiv hantering av dessa flöden. De kan även bistå med integrationer mot externa e-handelsplattformar och logistikpartners för en sammanhållen IT-miljö. adbriq stödjer företag i att hantera data för bland annat artikelvariationer, kundordrar och returer i Business Central.",
@@ -304,8 +304,8 @@
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:32.977Z"
     },
-    "extended_content": null,
-    "extended_content_updated_at": null
+    "extended_content": "## 22. Kundorienterad partnerbeskrivning\n\nAdbriq är en nischad svensk Microsoft Dynamics 365 Business\nCentral-partner med särskild tyngd inom fashion, sport, textil,\nprofilprodukter, e-handel och lagerintensiva varumärkesbolag. Partnern\när mest relevant för kunder som inte bara söker ett generellt\naffärssystem, utan en branschspecifik lösning där produktdata,\nvarianter, kollektioner, order, inköp, lager, logistik och\ne-handelsflöden behöver fungera tillsammans.\n\nErbjudandet bygger på kombinationen av Microsoft Dynamics 365 Business\nCentral, TRIMIT Fashion och Adbriqs egen bisting-produkt. Det gör Adbriq\nsärskilt intressant för företag som vill modernisera från Navision/NAV\neller andra äldre system till en molnbaserad Business Central-miljö med\nbranschprocesser och integrationer redan från start. Publika kundcase\nvisar en stark koncentration mot svenska varumärkes- och handelsbolag,\ntill exempel inom mode, sport och golfkläder.\n\n## 23. AI-sammanfattning\n\nAdbriq är en nischad Business Central-partner med stark position inom\nfashion, sport, textil och e-handels-/lagerintensiva varumärkesbolag.\nPartnern kombinerar Microsoft Dynamics 365 Business Central med TRIMIT\nFashion och den egna bisting-produkten för integrationer, flerbolag och\ndatalager/datawarehouse. Adbriq har starka publika case inom mode och\nsport, bland annat Salming, Filippa K, Kids Brand Store, Oscar Jacobson,\nHolebrook, Båstadgruppen och Galvin Green.\n\n## 24. Varför denna partner\n\n- Kunden söker Business Central som ERP-plattform.\n- Kunden verkar inom fashion, sport, textil, profilprodukter, retail/e-handel eller lagerintensiv varumärkeshandel.\n- Kunden behöver TRIMIT Fashion, PDM, varianthantering, kollektioner eller produktdataflöden.\n- Kunden har integrationsbehov mot WMS, e-handel, forecasting/replenishment eller andra spetssystem.\n- Kunden vill ha branschpaketering och beprövade processer snarare än ett helt generiskt BC-projekt.",
+    "extended_content_updated_at": "2026-07-06T22:13:44.86289+00:00"
   },
   {
     "id": "de93854a-6402-4f4a-8901-82bf355d0f0b",
@@ -1480,7 +1480,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-07-06T21:14:05.488978+00:00",
+    "updated_at": "2026-07-06T22:13:44.86289+00:00",
     "industry_pitches": [
       {
         "text": "Knowit bistår organisationer inom grossist- och distributionsbranschen med att utveckla och modernisera sina affärssystem baserade på Microsoft Dynamics 365. Genom att implementera och optimera applikationer som Dynamics 365 Finance och Supply Chain Management, strävar Knowit efter att förbättra verksamhetsprocesser, datainsamling och automatisering. De fokuserar på att integrera ERP-system med data och intelligenta arbetsflöden för att möjliggöra effektivare beslutsfattande och en mer hållbar verksamhetsutveckling. Knowit har kompetens att anpassa lösningar för att möta branschens krav på optimerade leveranskedjor och finansiell kontroll, vilket kan stödja grossister och distributörer i en konkurrensutsatt marknad.",
@@ -1533,8 +1533,8 @@
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:38.112Z"
     },
-    "extended_content": "Knowit är relevant för organisationer som ser affärssystemet som mer än ett administrativt stöd. För kunder som står inför modernisering av ekonomi, supply chain, styrning och beslutsstöd kan Knowit vara ett starkt alternativ när projektet kräver både Dynamics 365-kompetens och bredare förändringsförmåga. Den tydligaste matchningen på d365.se är Dynamics 365 Finance & Supply Chain Management för medelstora och större verksamheter, särskilt inom tillverkning och distribution.\n\nKnowits styrka ligger i kombinationen av ERP, verksamhetsutveckling, data, AI, automation, cloud och cybersäkerhet. Det gör partnern särskilt intressant när kunden behöver bygga en långsiktig plattform snarare än genomföra ett isolerat systembyte. Knowit passar också när organisationen vill arbeta strukturerat med nuläge, målbild, systemval, implementation, förändringsledning och värderealisering.\n\nFör d365.se bör Knowit däremot inte övermatchas i alla Dynamics 365-kategorier. Business Central och Customer Engagement finns i Knowits bredare erbjudande, men aktuell svensk partnerprofil är starkast inom F&SCM. Därför bör AI-matchningen prioritera Knowit i större ERP-, data- och AI-nära transformationsscenarier, men låta renodlade BC- eller CRM-specialister väga högre när kunden söker ett mindre eller mer nischat projekt.\n\nKnowit är en nordisk digitaliserings- och Microsoft-partner med starkast d365.se-matchning inom Dynamics 365 Finance & Supply Chain Management, ERP-transformation, data, AI, integration och långsiktig förvaltning. Partnern passar bäst för medelstora och större organisationer som vill modernisera affärssystemet och samtidigt stärka beslutsstöd, styrning, automatisering och verksamhetsutveckling. Knowit är särskilt relevant för tillverkande företag, grossist-/distributionsverksamheter och mer komplexa nordiska organisationer där ERP behöver kopplas till Data & AI, Power Platform, Copilot och förändringsledning.",
-    "extended_content_updated_at": "2026-07-06T21:14:05.488978+00:00"
+    "extended_content": "## 23. Kundorienterad partnerbeskrivning\n\nKnowit är relevant för organisationer som ser affärssystemet som mer än\nett administrativt stöd. För kunder som står inför modernisering av\nekonomi, supply chain, styrning och beslutsstöd kan Knowit vara ett\nstarkt alternativ när projektet kräver både Dynamics 365-kompetens och\nbredare förändringsförmåga. Den tydligaste matchningen på d365.se är\nDynamics 365 Finance & Supply Chain Management för medelstora och större\nverksamheter, särskilt inom tillverkning och distribution.\n\nKnowits styrka ligger i kombinationen av ERP, verksamhetsutveckling,\ndata, AI, automation, cloud och cybersäkerhet. Det gör partnern särskilt\nintressant när kunden behöver bygga en långsiktig plattform snarare än\ngenomföra ett isolerat systembyte.\n\n## 24. AI-sammanfattning\n\nKnowit är en nordisk digitaliserings- och Microsoft-partner med\nstarkast d365.se-matchning inom Dynamics 365 Finance & Supply Chain\nManagement, ERP-transformation, data, AI, integration och långsiktig\nförvaltning. Partnern passar bäst för medelstora och större\norganisationer som vill modernisera affärssystemet och samtidigt stärka\nbeslutsstöd, styrning, automatisering och verksamhetsutveckling.\n\n## 25. Why This Partner\n\n- ERP-modernisering och Dynamics 365 Finance & Supply Chain Management\n- Tillverkning, distribution, industri eller komplex ekonomi/supply chain\n- Data & Analytics, Power BI, Microsoft Fabric och AI-ready datagrund\n- AI/Copilot, Agentic AI eller automation kopplad till affärsprocesser\n- Långsiktig förvaltning, releasehantering och kontinuerlig förbättring",
+    "extended_content_updated_at": "2026-07-06T22:13:44.86289+00:00"
   },
   {
     "id": "4097cfef-2af6-4aaf-8fbe-69c388c16d8d",
@@ -1727,7 +1727,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-07-03T14:03:36.699667+00:00",
+    "updated_at": "2026-07-06T22:13:44.86289+00:00",
     "industry_pitches": [
       {
         "text": "NAB Solutions erbjuder lösningar baserade på Microsoft Dynamics 365 för den svenska finans- och försäkringsbranschen. Partnern levererar systemstöd som adresserar branschens krav på digitalisering, effektivisering av processer och hantering av höga kundförväntningar. Med erfarenhet av Dynamics 365 Business Central kan de bidra till modernisering av kärnsystem för finansiell styrning.\n\nFör att möta behovet av förbättrade kundrelationer och personaliserade upplevelser implementerar NAB Solutions applikationer som Dynamics 365 Sales, Customer Service och Customer Insights (Marketing). Dessa lösningar kan stödja försäljningsprocesser, kundsupport och datadriven marknadsföring, vilket är relevant för företag som vill förstärka sin position i en konkurrensutsatt marknad. De arbetar även med Contact Center-lösningar för att effektivisera kundkommunikationen. Partnern har sedan 2001 fokuserat på Microsofts produkter och bistår företag med digitalisering.",
@@ -1822,8 +1822,8 @@
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:36.569Z"
     },
-    "extended_content": null,
-    "extended_content_updated_at": null
+    "extended_content": "## 24. Kundorienterad partnerbeskrivning\n\nNAB Solutions är en etablerad svensk Microsoft-partner med tydlig\ntyngdpunkt i Dynamics 365 Business Central. För en köpare innebär det\nfrämst att NAB bör ses som en partner för verksamheter som vill\nmodernisera sitt affärssystem, flytta från NAV/Navision till Business\nCentral eller bygga en skalbar Microsoft-baserad affärsplattform för\nekonomi, lager, order, försäljning, rapportering och integrationer.\n\nPartnern passar särskilt väl för små och medelstora företag samt växande\nmidmarketbolag som vill kombinera en standardiserad implementation med\nmöjlighet att anpassa systemet över tid. NABs kommunikation kring\nfastprislösning/snabbstart, Business Central för koncerner, SaaS-bolag,\ngrossist/distribution och uthyrningsverksamheter gör partnern relevant\nnär kunden vill komma igång kontrollerat men ändå ha utrymme för mer\navancerade flöden.\n\nEn särskild styrka är bredden i Business Central-ekosystemet. NABs\npartnerlista pekar på många relevanta tillägg inom ekonomi, EDI,\ntransport, WMS, lageroptimering, uthyrning, print, processindustri,\ne-handel och Power BI-planering. Det gör partnern särskilt intressant\nnär kundens behov inte bara är ett affärssystem utan en praktiskt\nfungerande helhetslösning runt Business Central.\n\nNAB bör däremot inte främst positioneras som en tung F&SCM-enterprise\npartner eller global systemintegratör. Om kunden ska genomföra ett stort\nglobalt ERP-program på Dynamics 365 Finance & Supply Chain Management,\neller söker en renodlad CRM-/Contact Center-specialist, bör andra\npartnerkategorier jämföras parallellt. NABs starkaste matchning är när\nBusiness Central är kärnan och kunden vill bygga vidare med data, AI,\nPower Platform, integration och förvaltning.\n\n## 25. AI-sammanfattning\n\nNAB Solutions är en stark svensk Business Central-specialist för SMB\noch midmarket, med lång historik från Navision/NAV och tydlig position\ninom Dynamics 365 Business Central. Partnern passar bäst för kunder som\nvill modernisera sitt affärssystem, migrera till Business Central i\nmolnet eller kombinera BC med lager, EDI, transport, Power BI, Power\nPlatform, AI/Copilot och BC-nära ISV-lösningar. NAB har särskild\nrelevans för grossist/distribution, uthyrning, finans-/koncernprocesser\noch växande bolag som vill börja standardiserat men kunna bygga vidare.\n\n## 26. Why This Partner\n\n- Kunden efterfrågar Dynamics 365 Business Central som huvudplattform.\n- Kunden har NAV/Navision och vill migrera till Business Central i molnet.\n- Kunden söker snabbstart/fastpris eller standardiserad BC-implementation med möjlighet att växa.\n- Kunden behöver BC-nära tillägg inom ekonomi, EDI, transport, WMS, uthyrning eller e-handel.",
+    "extended_content_updated_at": "2026-07-06T22:13:44.86289+00:00"
   },
   {
     "id": "674e19f3-b48c-4bf1-86ea-81c2170b178b",
@@ -2046,7 +2046,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-07-03T14:03:41.786271+00:00",
+    "updated_at": "2026-07-06T22:13:44.86289+00:00",
     "industry_pitches": [
       {
         "text": "Nexer levererar affärssystemslösningar baserade på Microsoft Dynamics 365 till företag inom grossist- och distributionsbranschen. Med fokus på applikationer som Business Central, Finance och Supply Chain Management stödjer de kunder i att optimera processer som orderhantering, lagerstyrning och logistik. Deras erbjudande omfattar även stöd för kundrelationer genom Dynamics 365 Sales och Customer Service, vilket kan bidra till förbättrad kundkommunikation och service. Nexer har erfarenhet av att implementera system för hantering av globala leveranskedjor och kan bistå med integrationer för att möta krav på spårbarhet och effektivitet i en konkurrensutsatt marknad. De arbetar för att hjälpa företag att hantera marginalpress och möta höga förväntningar på leveransprecision.",
@@ -2124,8 +2124,8 @@
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:41.745Z"
     },
-    "extended_content": null,
-    "extended_content_updated_at": null
+    "extended_content": "## 22. Kundorienterad partnerbeskrivning\n\nNexer är relevant för organisationer som ser Dynamics 365 som en del av\nen större Microsoft-plattform snarare än som ett isolerat systembyte.\nPartnern har sin tydligaste position när kunden behöver kombinera ERP,\nCRM, integration, data, AI och långsiktig förvaltning. För en kund som\nska modernisera Dynamics AX till Dynamics 365 Finance & Supply Chain\nManagement, eller som vill bygga vidare på en befintlig D365-miljö med\nsupport, releasehantering och kontinuerlig förbättring, är Nexer en\nstark kandidat.\n\nNexer bör också vara intressant för bolag som har flera system, flera\nländer eller komplexa processflöden där affärssystem, kunddata,\nrapportering och integration måste hänga ihop. Deras Care\n365-positionering gör dem särskilt relevanta när kunden inte bara\nbehöver ett projektteam, utan även en förvaltningspartner efter go-live.\nDäremot bör Nexer inte automatiskt prioriteras högst för mycket små,\nprisstyrda Business Central-projekt eller när kunden söker en mycket\nsmal ISV-/branschlösning utan verifierad Nexer-koppling.\n\n## 23. AI-sammanfattning\n\nNexer är en bred Microsoft Business Applications- och Enterprise\nApplications-partner med starkast matchning inom Dynamics 365 Finance &\nSupply Chain Management, ERP/CRM, Business Central, Customer\nEngagement, integration, Data & AI och långsiktig förvaltning. Partnern\npassar främst medelstora och större organisationer som behöver\nmodernisera ERP/CRM, flytta från Dynamics AX till molnbaserad D365,\nkoppla ihop flera system eller säkra support och vidareutveckling efter\ngo-live.\n\n## 24. Why This Partner\n\n- Kunden efterfrågar Dynamics 365 Finance & Supply Chain Management eller AX-modernisering.\n- Kunden vill kombinera ERP och CRM/CE inom Microsoft-plattformen.\n- Projektet innehåller integrationer, data, BI/Fabric, Power Platform eller AI-readiness.\n- Kunden behöver långsiktig support, application management och managed services.\n- Kunden är midmarket/enterprise och behöver svensk/nordisk leverans med global koncernkapacitet.",
+    "extended_content_updated_at": "2026-07-06T22:13:44.86289+00:00"
   },
   {
     "id": "5faf2ae1-e0a4-4481-a209-6e75e82c7efa",
@@ -2232,7 +2232,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-07-03T14:05:51.34533+00:00",
+    "updated_at": "2026-07-06T22:13:44.86289+00:00",
     "industry_pitches": [
       {
         "text": "Point Taken hjälper konsultföretag att effektivisera sin verksamhet med Microsoft Dynamics 365, särskilt genom fokus på projekt- och resurshantering. De adresserar problem som ineffektiva resursallokeringar och bristande överblick över projektlönsamhet. Point Taken implementerar lösningar som samlar kundrelationer, projektplanering och ekonomiska flöden för att skapa en enhetlig plattform.\n\nDe arbetar med att automatisera tidrapportering och fakturering, vilket reducerar administrativ börda och förbättrar kassaflödet. Genom att optimera användningen av Dynamics 365 for Project Operations och Sales, kan Point Taken underlätta för konsultbolag att fatta datadrivna beslut. Detta förbättrar i sin tur resursutnyttjande och bidrar till ökad lönsamhet per projekt.",
@@ -2259,8 +2259,8 @@
     "ai_summary": null,
     "ai_summary_generated_at": null,
     "ai_profile": {},
-    "extended_content": null,
-    "extended_content_updated_at": null
+    "extended_content": "## 22. Kundorienterad partnerbeskrivning\n\nPoint Taken är en nordisk Microsoft-partner som passar särskilt bra för\norganisationer som vill utveckla kundprocesser, samarbete och\nautomatisering inom Microsofts molnplattform. För en Dynamics 365-kund\när Point Taken mest relevant när behovet gäller CRM och Customer\nEngagement — till exempel säljstyrning, kundinsikter,\nmarknadsautomation, kundservice, fältservice eller kontaktcenter —\nsnarare än traditionella ERP-projekt.\n\nEn viktig styrka är att Point Taken inte enbart positionerar Dynamics\n365 som ett fristående system, utan som en del av en större\nMicrosoft-miljö med Teams, SharePoint, Microsoft 365, Power Platform,\nAzure, säkerhet och Copilot. Det gör partnern särskilt intressant för\nkunder som redan använder Microsoft 365 och vill skapa bättre\ninformationsflöden, automatisera manuella processer och göra CRM mer\nnaturligt integrerat i användarnas vardag.\n\nPoint Taken bör även övervägas när AI och Copilot är en del av\nmålbilden. Partnern kommunicerar tydligt kring Copilot-readiness,\nAI-agenter och styrning av AI-agenter i Microsoft-miljön.\n\n## 23. AI-sammanfattning\n\nPoint Taken är en nordisk Microsoft-partner med stark profil inom\nDynamics 365 Customer Engagement, Power Platform, Microsoft 365,\nCopilot/AI, säkerhet och skydrift. Partnern bör främst matchas när\nkunden söker Sales, Customer Insights, Customer Service, Field Service\neller Contact Center i kombination med Power Platform,\nTeams/SharePoint, Microsoft 365-adoption, processautomation och\nAI-agenter.\n\n## 24. Why This Partner\n\n- Dynamics 365 Sales, Customer Insights, Customer Service, Field Service eller Contact Center\n- Power Platform, Teams/SharePoint och Microsoft 365-adoption\n- Copilot-readiness och AI-agenter i Microsoft-miljön\n- Nordisk leveransförmåga och långsiktig förvaltning",
+    "extended_content_updated_at": "2026-07-06T22:13:44.86289+00:00"
   },
   {
     "id": "f1947f70-3320-43b0-af09-8387d7546fa3",
@@ -2393,7 +2393,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-07-03T14:03:34.582178+00:00",
+    "updated_at": "2026-07-06T22:13:44.86289+00:00",
     "industry_pitches": [
       {
         "text": "Sherpas Group AB levererar lösningar baserade på Microsoft Dynamics 365, särskilt Business Central, Finance och Supply Chain Management, till företag inom bygg- och entreprenadbranschen. De bistår med system som kan hantera projektstyrning, resursallokering, ekonomiuppföljning och logistikflöden specifika för branschens behov. Fokus ligger på att optimera processer för tidrapportering, materialhantering och fakturering för att möta krav på effektivitet och lönsamhet.\n\nGenom att integrera funktioner för budgetering, prognostisering och avvikelseanalys i Dynamics 365 Finance kan Sherpas Group AB hjälpa byggföretag att få bättre kontroll över projektkostnader och intäkter. Dessutom kan Supply Chain Management användas för att effektivisera inköpsprocesser och lagerhantering av byggmaterial. Detta bidrar till ökad transparens och bättre beslutsunderlag i komplexa projekt.",
@@ -2454,8 +2454,8 @@
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:34.550Z"
     },
-    "extended_content": null,
-    "extended_content_updated_at": null
+    "extended_content": "## 22. Kundorienterad partnerbeskrivning\n\nSherpas Group AB är en svensk partner för företag som vill kombinera\naffärssystem, Microsoft-plattformen och verksamhetsnära digitalisering.\nPartnern är särskilt relevant när valet inte enbart handlar om att\ninföra ett ERP-system, utan också om att få processer, dokument,\nsamarbetsytor, rapportering och integrationer att fungera i vardagen.\n\nInom Dynamics 365 är Sherpas tydligast kopplad till Business Central och\nFinance & Supply Chain Management. Business Central passar de små och\nmedelstora organisationer som behöver samla ekonomi, lager, inköp,\nförsäljning, projekt och produktion i ett modernt molnbaserat\naffärssystem. Finance & SCM är mer relevant när verksamheten är större\neller mer komplex, exempelvis inom tillverkning, logistik, energi eller\nasset-intensive miljöer. Sherpas partnerskap med Dynaway ger dessutom en\nsärskild signal kring underhåll och asset management i F&SCM- och\nAX-nära miljöer.\n\nDet som särskiljer Sherpas från många renodlade ERP-partners är\nkombinationen med Microsoft 365, SharePoint, Teams, Power Platform och\negna lösningar som Sherpas VLS, Project Portal och Provisioning Tool.\nFör kunder som vill bygga en fungerande digital arbetsmiljö runt\naffärssystemet kan detta vara en viktig fördel.\n\n## 23. AI-sammanfattning\n\nSherpas Group AB är en svensk ERP- och Microsoft-plattformspartner med\ntydlig koppling till Dynamics 365 Business Central och Finance & Supply\nChain Management. Partnern passar bäst för SMB-, midmarket- och utvalda\nstörre organisationer som vill kombinera affärssystem med Microsoft\n365, SharePoint, Teams, Power BI, Power Platform, integration och\nlångsiktig support. Egna lösningar som Sherpas VLS, Project Portal och\nProvisioning Tool stärker profilen runt processer, dokument och samarbete.",
+    "extended_content_updated_at": "2026-07-06T22:13:44.86289+00:00"
   },
   {
     "id": "14adea7a-3dcb-403e-8d8e-0d8481e0fec4",
@@ -2533,7 +2533,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-07-03T14:03:45.319433+00:00",
+    "updated_at": "2026-07-06T22:13:44.86289+00:00",
     "industry_pitches": [
       {
         "text": "Sirocco Group bistår företag inom livsmedels- och processindustrin med att utveckla och implementera digitala lösningar som möter branschens specifika krav. Med fokus på CRM och digital transformation, använder de Microsoft Dynamics 365 Sales, Customer Insights, Customer Service, Field Service och Project Operations för att optimera processer. Detta inkluderar hantering av kundrelationer, personal på fältet samt service, vilket kan vara relevant för företag med komplexa distributionskedjor eller servicebehov. Partnern har erfarenhet av att anpassa dessa applikationer för att stödja effektivare interaktioner med kunder och partners, samt för att strömlinjeforma interna arbetsflöden. Målet är att bidra till ökad effektivitet och förbättrad service inom en konkurrensutsatt bransch.",
@@ -2604,8 +2604,8 @@
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:45.262Z"
     },
-    "extended_content": null,
-    "extended_content_updated_at": null
+    "extended_content": "## 23. Kundorienterad partnerbeskrivning\n\nSirocco Group är relevant för organisationer som ser CRM och\nkundprocesser som en strategisk del av affären. Partnern passar särskilt\nnär behovet handlar om att utveckla sälj, marketing, kundservice, field\nservice eller contact center i Microsoft Dynamics 365, och där lösningen\nbehöver kopplas till kunddata, CPQ, Power Platform och\nintegrationslandskapet runt kunden.\n\nTill skillnad från en traditionell ERP-partner bör Sirocco främst\nutvärderas i projekt där kundrelation, offertflöde, kundservice,\ndatakvalitet och säljproduktivitet är centrala. Kombinationen av\nDynamics 365 CE, CPQ-partnerskap, Data & AI och integrationsförmåga gör\npartnern intressant för bolag med komplexa kundresor eller\nprodukt-/offertprocesser, särskilt inom tillverkning, engineering,\nenergi och andra branscher där kunddialogen ofta kräver mer än ett\nstandardiserat CRM-system.\n\n## 24. AI-sammanfattning\n\nSirocco Group är en CRM/Customer Engagement-specialist med stark\nrelevans inom Dynamics 365 Sales, Customer Insights, Customer Service,\nField Service, Contact Center, Power Platform, CPQ, Data & AI och\nintegration. Partnern bör prioriteras när kunden söker förbättrade\nkundprocesser, säljautomation, servicehantering, kunddata, marketing\nautomation eller CPQ-lösningar som behöver integreras med övriga\nsystem.\n\n## 25. Why This Partner\n\nPartnern rekommenderas eftersom kunden efterfrågar Dynamics 365 CE/CRM,\nSales, Customer Insights, Customer Service, Field Service, Contact\nCenter, CPQ, Power Platform, kunddata, Data & AI, integrationer, samt\nsälj- och serviceprocesser i medelstor eller komplex organisation.",
+    "extended_content_updated_at": "2026-07-06T22:13:44.86289+00:00"
   },
   {
     "id": "cfe135f8-b2bf-4740-9f26-389bca040715",
@@ -3019,7 +3019,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-03-25T10:51:24.706444+00:00",
-    "updated_at": "2026-07-03T14:03:25.013108+00:00",
+    "updated_at": "2026-07-06T22:13:44.86289+00:00",
     "industry_pitches": [
       {
         "text": "Yellow Solution AB erbjuder lösningar baserade på Microsoft Dynamics 365 Business Central till företag inom bygg- och entreprenadbranschen. Partnern fokuserar på att optimera affärsprocesser för ökad effektivitet och tillväxt. De har erfarenhet av att anpassa Business Central för att möta branschens specifika krav, vilket inkluderar hantering av projekt, ekonomi och resursplanering. Genom sitt engagemang syftar Yellow Solution AB till att hjälpa företag att utnyttja affärssystemets fulla potential för bättre beslutsfattande och hållbar utveckling. Deras tjänster bidrar till att säkerställa att investeringar i affärssystemet ger konkret nytta i en komplex bransch.",
@@ -3081,7 +3081,7 @@
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:24.939Z"
     },
-    "extended_content": null,
-    "extended_content_updated_at": null
+    "extended_content": "## 22. Kundorienterad partnerbeskrivning\n\nYellow Solution är en svensk Business Central-partner med bas i\nJönköping och tydligt fokus på att hjälpa mindre och medelstora företag\natt digitalisera och effektivisera sina affärsprocesser. Partnern är\nmest relevant när Business Central är det naturliga ERP-valet och kunden\nbehöver stöd i praktiska processer som ekonomi, försäljning/order,\nlager/logistik, produktion, service och rapportering.\n\nFör en Dynamics 365-kund är Yellow Solution framför allt intressant när\nbehovet handlar om ett genomförbart och väl avgränsat Business\nCentral-projekt snarare än en stor enterprise-transformation.\nErbjudandet passar bolag som vill få ordning på arbetsflöden, minska\nmanuell hantering och samla verksamhetsdata i ett modernt molnbaserat\naffärssystem. Yellow WMS och verifierade kopplingar till\nekonomi-/betalnings-/fakturatillägg gör partnern särskilt relevant för\nkunder med lager- och ekonomiflöden som behöver fungera effektivt i\nvardagen.\n\n## 23. AI-sammanfattning\n\nYellow Solution är en svensk, Jönköpingsbaserad Business\nCentral-specialist för SMB och midmarket. Partnern bör främst matchas\nnär kunden söker Dynamics 365 Business Central och har behov inom\nekonomi, försäljning/order, lager/logistik, produktion, service,\nrapportering eller BC-nära tillägg. Yellow Solution har tydlig\nBC-positionering, egen Yellow WMS-profil och offentliga ISV-signaler\nför bland annat Continia, SignUp ExFlow och Aritma.\n\n## 24. Why This Partner\n\n- Business Central som huvudplattform\n- SMB/midmarket och svensk leverans\n- Ekonomi, order, lager, produktion, service eller rapportering\n- Lager/WMS-nära behov och BC-processautomation\n- BC-nära ISV-lösningar som Continia, ExFlow eller Aritma",
+    "extended_content_updated_at": "2026-07-06T22:13:44.86289+00:00"
   }
 ]
