@@ -204,58 +204,10 @@ export default function AdminBasicPartnersTab() {
     }
   };
 
-  // ---- Avpublicera (published → basic) --------------------------------------
-  // Ett Basickort är helt enkelt en opublicerad partner. Vi behåller all data i
-  // partners-raden; is_featured=false gör att endast observed_*-fälten exponeras
-  // publikt via partners_basic_public. Åtgärden är fullt reversibel genom att
-  // sätta is_featured=true igen i den vanliga partner-editorn.
-  const [degradeId, setDegradeId] = useState<string>("");
-  const [degrading, setDegrading] = useState(false);
+  // Alla partners har ett Basickort som fallback (visas när is_featured=false).
+  // Publicering/avpublicering hanteras i vanliga partner-editorn via is_featured.
 
-  const profiledPartners = useMemo(
-    () =>
-      (allAdminPartners || [])
-        .filter((p: any) => p.is_featured === true)
-        .slice()
-        .sort((a: any, b: any) => a.name.localeCompare(b.name, "sv")),
-    [allAdminPartners],
-  );
 
-  const degrade = async () => {
-    const p = profiledPartners.find((x: any) => x.id === degradeId);
-    if (!p) return;
-    if (
-      !confirm(
-        `Avpublicera ${p.name} och visa som Basickort?\n\n` +
-          `• Partnern försvinner ur publika listor, matchning och kontaktflöden.\n` +
-          `• Publik data begränsas till observerad marknadsdata (namn, orter, produktområden, branschinriktning).\n` +
-          `• All annan data (kontakt, AI-profil, ekonomi) lämnas orörd i databasen.\n\n` +
-          `Åtgärden är fullt reversibel – sätt "Publicerad" igen i partner-editorn.`,
-      )
-    )
-      return;
-    setDegrading(true);
-    try {
-      await callAdmin("update", {
-        id: p.id,
-        partner: {
-          is_featured: false,
-          agreement_signed: false,
-          cancellation_date: new Date().toISOString().slice(0, 10),
-          observed_updated_at: new Date().toISOString(),
-        },
-      });
-      toast.success(`${p.name} visas nu som Basickort`);
-      setDegradeId("");
-      qc.invalidateQueries({ queryKey: ["basic-partners"] });
-      qc.invalidateQueries({ queryKey: ["admin-partners"] });
-      qc.invalidateQueries({ queryKey: ["partners"] });
-    } catch (e: any) {
-      toast.error(e?.message || "Kunde inte avpublicera");
-    } finally {
-      setDegrading(false);
-    }
-  };
 
 
 
