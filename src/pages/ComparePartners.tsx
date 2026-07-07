@@ -2139,7 +2139,6 @@ const ComparePartners = () => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 items-stretch">
                           {[A, B, C].map((side, idx) => {
                             if (!side.partner) return null;
-                            const isBasic = !!(side.partner as any).__basic;
                             return (
                               <div key={idx} className="rounded-lg border border-slate-200 bg-white p-4 flex flex-col justify-between">
                                 <div>
@@ -2147,72 +2146,56 @@ const ComparePartners = () => {
                                     Endast Partner {["A", "B", "C"][idx]}
                                   </div>
                                   <div className="text-xs sm:text-sm font-medium text-foreground mb-3 break-words">
-                                    {isBasic ? (
-                                      <Link
-                                        to={`/basic/${side.partner.slug}/`}
-                                        className="hover:text-primary hover:underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
-                                      >
-                                        {side.partner.name}
-                                      </Link>
-                                    ) : (
-                                      side.partner.name
-                                    )}
-                                    {isBasic && <span className="ml-1.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500">· Basickort</span>}
+                                    {side.partner.name}
                                   </div>
                                 </div>
-                                {isBasic ? (
-                                  <p className="text-xs text-slate-500 leading-snug">
-                                    <Link to={`/basic/${side.partner.slug}/`} className="text-primary hover:underline">Öppna basickort →</Link>
-                                  </p>
-                                ) : (
-                                  <div className="flex flex-wrap gap-2">
-                                    <Button
-                                      type="button"
-                                      size="sm"
-                                      variant="outline"
-                                      onClick={() =>
-                                        setQuoteFor({
-                                          recipients: [{ slug: side.partner!.slug, name: side.partner!.name }],
-                                          mode: "contact",
-                                        })
-                                      }
-                                      disabled={isSubmittingQuote}
-                                      className="text-xs min-h-[40px]"
-                                    >
-                                      Ställ en fråga till denna partner
-                                    </Button>
-                                    <Button
-                                      type="button"
-                                      size="sm"
-                                      variant="outline"
-                                      onClick={() =>
-                                        setQuoteFor({
-                                          recipients: [{ slug: side.partner!.slug, name: side.partner!.name }],
-                                          mode: "demo",
-                                        })
-                                      }
-                                      disabled={isSubmittingQuote}
-                                      className="text-xs min-h-[40px]"
-                                    >
-                                      Boka Demo/Genomgång
-                                    </Button>
-                                    <Button
-                                      type="button"
-                                      size="sm"
-                                      variant="outline"
-                                      onClick={() =>
-                                        setQuoteFor({
-                                          recipients: [{ slug: side.partner!.slug, name: side.partner!.name }],
-                                          mode: "quote",
-                                        })
-                                      }
-                                      disabled={isSubmittingQuote}
-                                      className="text-xs min-h-[40px]"
-                                    >
-                                      Få en Prisindikation
-                                    </Button>
-                                  </div>
-                                )}
+                                <div className="flex flex-wrap gap-2">
+                                  <Button
+                                    type="button"
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={() =>
+                                      setQuoteFor({
+                                        recipients: [{ slug: side.partner!.slug, name: side.partner!.name }],
+                                        mode: "contact",
+                                      })
+                                    }
+                                    disabled={isSubmittingQuote}
+                                    className="text-xs min-h-[40px]"
+                                  >
+                                    Ställ en fråga till denna partner
+                                  </Button>
+                                  <Button
+                                    type="button"
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={() =>
+                                      setQuoteFor({
+                                        recipients: [{ slug: side.partner!.slug, name: side.partner!.name }],
+                                        mode: "demo",
+                                      })
+                                    }
+                                    disabled={isSubmittingQuote}
+                                    className="text-xs min-h-[40px]"
+                                  >
+                                    Boka Demo/Genomgång
+                                  </Button>
+                                  <Button
+                                    type="button"
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={() =>
+                                      setQuoteFor({
+                                        recipients: [{ slug: side.partner!.slug, name: side.partner!.name }],
+                                        mode: "quote",
+                                      })
+                                    }
+                                    disabled={isSubmittingQuote}
+                                    className="text-xs min-h-[40px]"
+                                  >
+                                    Få en Prisindikation
+                                  </Button>
+                                </div>
                               </div>
                             );
                           })}
