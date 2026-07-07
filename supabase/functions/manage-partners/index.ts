@@ -357,6 +357,11 @@ serve(async (req: Request): Promise<Response> => {
             implementations_per_app: (partner as any).implementations_per_app || {},
             extended_content: (partner as any).extended_content?.trim() || null,
             extended_content_updated_at: (partner as any).extended_content?.trim() ? new Date().toISOString() : null,
+            profile_level: partner.profile_level || "profilerad",
+            observed_products: partner.observed_products || {},
+            observed_industries: partner.observed_industries || {},
+            observed_locations: partner.observed_locations || [],
+            observed_updated_at: partner.observed_updated_at || null,
           })
           .select()
           .single();
