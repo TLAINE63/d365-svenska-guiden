@@ -2,7 +2,7 @@
 // Layout mirrors hero/look (petrol + deep charcoal) and ends with an assumptions appendix.
 
 const BRAND_PETROL: [number, number, number] = [14, 124, 134]; // #0E7C86
-const BRAND_DARK: [number, number, number] = [15, 27, 61]; // navy #0F1B3D
+const BRAND_DARK: [number, number, number] = [21, 19, 15]; // #15130F
 const MUTED: [number, number, number] = [110, 110, 110];
 
 const fmtSek = (n: number) =>

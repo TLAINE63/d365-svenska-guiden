@@ -136,7 +136,7 @@ export const generateRequirementsSpec = async (
   // Unified hero palette across all PDFs (matches site --hero-dark + --cta-orange)
   void isCustomerService; void isMarketing; void isSales; void isErp; void isBc;
   const primaryColor = { r: 14, g: 124, b: 134 };   // --cta-orange (petrol #0E7C86)
-  const darkColor = { r: 15, g: 27, b: 61 };        // --hero-dark navy #0F1B3D
+  const darkColor = { r: 21, g: 19, b: 15 };        // --hero-dark #15130F
   const mutedColor = { r: 100, g: 116, b: 139 };
   const lightBg = { r: 245, g: 243, b: 239 };       // warm off-white
 

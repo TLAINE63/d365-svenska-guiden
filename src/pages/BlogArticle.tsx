@@ -261,7 +261,7 @@ const BlogArticle = () => {
             {article.freshness?.status === "older" && (
               <aside
                 aria-label="Artikelns aktualitet"
-                className="mb-8 border-l-4 border-[hsl(var(--cta-orange))] bg-[hsl(var(--hero-dark))] text-white p-5"
+                className="mb-8 border-l-4 border-[#D64A1F] bg-[#15130F] text-white p-5"
               >
                 <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#D64A1F] mb-2">
                   Äldre AI/Copilot-artikel · publicerad {formatDateSv(article.publishedAt)}
@@ -347,7 +347,7 @@ const BlogArticle = () => {
             {/* Stark CTA-sektion efter artikeln – nästa steg i köpresan */}
             <aside
               aria-label="Nästa steg"
-              className="mt-12 border-t-2 border-[hsl(var(--cta-orange))] bg-[hsl(var(--hero-dark))] text-white p-6 md:p-8"
+              className="mt-12 border-t-2 border-[#D64A1F] bg-[#15130F] text-white p-6 md:p-8"
             >
               <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#D64A1F] mb-2">
                 Ta nästa steg
@@ -358,7 +358,7 @@ const BlogArticle = () => {
               <div className="grid gap-3 md:grid-cols-3">
                 <Link
                   to="/ERPbehovsanalys/"
-                  className="group flex flex-col justify-between p-5 bg-[#211F1A] border border-[#3A332A] hover:border-[hsl(var(--cta-orange))] transition-colors"
+                  className="group flex flex-col justify-between p-5 bg-[#211F1A] border border-[#3A332A] hover:border-[#D64A1F] transition-colors"
                 >
                   <div>
                     <div className="text-base font-semibold text-white mb-1">
@@ -374,7 +374,7 @@ const BlogArticle = () => {
                 </Link>
                 <Link
                   to="/kravspecifikation/"
-                  className="group flex flex-col justify-between p-5 bg-[#211F1A] border border-[#3A332A] hover:border-[hsl(var(--cta-orange))] transition-colors"
+                  className="group flex flex-col justify-between p-5 bg-[#211F1A] border border-[#3A332A] hover:border-[#D64A1F] transition-colors"
                 >
                   <div>
                     <div className="text-base font-semibold text-white mb-1">
@@ -390,7 +390,7 @@ const BlogArticle = () => {
                 </Link>
                 <Link
                   to="/valjdynamics365partner/"
-                  className="group flex flex-col justify-between p-5 bg-[#211F1A] border border-[#3A332A] hover:border-[hsl(var(--cta-orange))] transition-colors"
+                  className="group flex flex-col justify-between p-5 bg-[#211F1A] border border-[#3A332A] hover:border-[#D64A1F] transition-colors"
                 >
                   <div>
                     <div className="text-base font-semibold text-white mb-1">
