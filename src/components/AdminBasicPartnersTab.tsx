@@ -17,7 +17,7 @@ import {
 import { toast } from "sonner";
 import { Building2, Eye, Pencil, Plus, Trash2, Activity } from "lucide-react";
 import { PRODUCT_LABEL, ProductKey } from "@/hooks/useBasicPartners";
-import { STANDARD_INDUSTRIES } from "@/data/STANDARD_INDUSTRIES";
+import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 
 function getAdminToken(): string | null {
   if (typeof window === "undefined") return null;
