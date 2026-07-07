@@ -327,27 +327,28 @@ serve(async (req: Request): Promise<Response> => {
         <p style="color:#555;font-size:13px;">Detta är en preliminär indikation – inte ett definitivt systemval. Använd resultatet som diskussionsunderlag inför kravspecifikation och partnerdialog.</p>
         ${(recommendation.reasons || []).length > 0 ? `
           <p style="margin-top:12px;"><strong>Indikationen bygger främst på:</strong></p>
-          <ul>
-            ${(recommendation.reasons || []).slice(0, 6).map(r => `<li>${sanitizeHtml(String(r).slice(0, 500))}</li>`).join("")}
+          <ul style="margin:0 0 12px 20px;padding:0;line-height:1.55;">
+            ${(recommendation.reasons || []).slice(0, 6).map(r => `<li style="margin:0 0 4px 0;">${formatAiInline(String(r), 500)}</li>`).join("")}
           </ul>` : ""}
       `
       : "";
 
     const renderList = (items: string[] | undefined, limit = 7) =>
       Array.isArray(items) && items.length > 0
-        ? `<ul>${items.slice(0, limit).map(i => `<li>${sanitizeHtml(String(i).slice(0, 500))}</li>`).join("")}</ul>`
+        ? `<ul style="margin:0 0 12px 20px;padding:0;line-height:1.55;">${items.slice(0, limit).map(i => `<li style="margin:0 0 4px 0;">${formatAiInline(String(i), 500)}</li>`).join("")}</ul>`
         : "";
 
     const aiHtml = aiAnalysis
       ? `
         ${aiAnalysis.aiInterpretation ? `
-          <h2 style="color:#0E7C86;">AI-tolkning av ert underlag</h2>
-          <p style="white-space:pre-line;">${sanitizeHtml(String(aiAnalysis.aiInterpretation).slice(0, 4000))}</p>
-          ${aiAnalysis.confidence ? `<p style="color:#666;font-size:12px;"><em>Säkerhet i analysen: ${sanitizeHtml(String(aiAnalysis.confidence))}</em></p>` : ""}
+          <h2 style="color:#0E7C86;margin:20px 0 10px 0;">AI-tolkning av ert underlag</h2>
+          <div style="font-size:14px;color:#1a1a1a;">${formatAiMarkdown(String(aiAnalysis.aiInterpretation), 6000)}</div>
+          ${aiAnalysis.confidence ? `<p style="color:#666;font-size:12px;margin-top:8px;"><em>Säkerhet i analysen: ${sanitizeHtml(String(aiAnalysis.confidence))}</em></p>` : ""}
         ` : ""}
-        ${(aiAnalysis.risks || []).length ? `<h3 style="color:#0E7C86;">Risker och frågor att utreda vidare</h3>${renderList(aiAnalysis.risks)}` : ""}
-        ${aiAnalysis.partnerProfile ? `<h3 style="color:#0E7C86;">Rekommenderad partnerprofil</h3><p>${sanitizeHtml(String(aiAnalysis.partnerProfile).slice(0, 1500))}</p>` : ""}
-        ${(aiAnalysis.nextSteps || []).length ? `<h3 style="color:#0E7C86;">Rekommenderade nästa steg</h3>${renderList(aiAnalysis.nextSteps)}` : ""}
+        ${(aiAnalysis.whyPoints || []).length ? `<h3 style="color:#0E7C86;margin:18px 0 8px 0;">Varför denna riktning</h3>${renderList(aiAnalysis.whyPoints)}` : ""}
+        ${(aiAnalysis.risks || []).length ? `<h3 style="color:#0E7C86;margin:18px 0 8px 0;">Risker och frågor att utreda vidare</h3>${renderList(aiAnalysis.risks)}` : ""}
+        ${aiAnalysis.partnerProfile ? `<h3 style="color:#0E7C86;margin:18px 0 8px 0;">Rekommenderad partnerprofil</h3><div style="font-size:14px;color:#1a1a1a;">${formatAiMarkdown(String(aiAnalysis.partnerProfile), 2500)}</div>` : ""}
+        ${(aiAnalysis.nextSteps || []).length ? `<h3 style="color:#0E7C86;margin:18px 0 8px 0;">Rekommenderade nästa steg</h3>${renderList(aiAnalysis.nextSteps)}` : ""}
       `
       : "";
 
