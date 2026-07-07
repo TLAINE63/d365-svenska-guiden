@@ -56,21 +56,21 @@ All colors MUST be HSL.
     --signature: 14 75% 48%;
     --signature-foreground: 0 0% 100%;
 
-    /* Mörka zon-tokens (masthead, hero, footer, sidebar headers) */
-    --hero-dark: 40 17% 7%;             /* #15130F */
-    --petrol: 40 17% 7%;                /* alias → svart */
-    --card-dark: 40 17% 7%;
-    --line-dark: 30 16% 20%;            /* #3A332A */
+    /* Mörka zon-tokens (masthead, hero, footer, sidebar headers) – senior/advisory navy */
+    --hero-dark: 220 61% 15%;           /* #0F1B3D navy */
+    --petrol: 187 81% 29%;              /* #0E7C86 petrol (accent) */
+    --card-dark: 220 61% 15%;           /* #0F1B3D navy */
+    --line-dark: 220 30% 28%;           /* mjuk navy-linje på mörk bg */
     --accent-light: 156 47% 92%;        /* #E3F4EE – ljus teal bg för ikonchips */
-    --muted-dark: 24 5% 58%;            /* #9A9490 – text på svart */
-    --border-on-dark: 36 18% 81%;       /* #D8D1C6 – sekundär knapp på mörk bg */
+    --muted-dark: 220 12% 72%;          /* ljus slate-text på navy */
+    --border-on-dark: 220 22% 78%;      /* sekundär knapp/border på navy */
 
     /* ─── Literal färg-aliases (för direkt användning i komponenter) ─── */
-    --color-masthead: #15130F;
+    --color-masthead: #0F1B3D;
     --color-bg: #F5F2EC;
     --color-warm: #FBF8F2;
     --color-white: #FFFFFF;
-    --color-ink: #181512;
+    --color-ink: #0F1B3D;
     --color-muted: #6F6A61;
     --color-dark-muted: #9A9490;
     --color-dark-border: #3A332A;
