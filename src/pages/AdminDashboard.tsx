@@ -1853,12 +1853,19 @@ Thomas`,
  }).length;
  if (activeCount >= 1) return 'complete';
  return 'empty';
- case 'admin':
- if (partnerFormData.activation_date) return 'complete';
- if (partnerFormData.admin_notes || partnerFormData.admin_contact_name) return 'partial';
- return 'empty';
- default:
- return 'empty';
+  case 'admin':
+  if (partnerFormData.activation_date) return 'complete';
+  if (partnerFormData.admin_notes || partnerFormData.admin_contact_name) return 'partial';
+  return 'empty';
+  case 'text': {
+    const hasExtended = (partnerFormData.extended_content || "").trim().length > 50;
+    const hasSourceDoc = (partnerFormData.source_document_text || "").trim().length > 50;
+    if (hasExtended || hasSourceDoc) return 'complete';
+    if (partnerFormData.extended_content || partnerFormData.source_document_text) return 'partial';
+    return 'empty';
+  }
+  default:
+  return 'empty';
  }
  };
 
