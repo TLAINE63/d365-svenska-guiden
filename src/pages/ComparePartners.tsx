@@ -652,15 +652,36 @@ const ComparePartners = () => {
   const [isSubmittingQuote, setIsSubmittingQuote] = useState(false);
 
   const { data: partners = [], isLoading } = usePartners();
+  const { data: basicPartnersRaw = [] } = useBasicPartners();
 
-  const sortedPartners = useMemo(
-    () => [...partners].sort((x, y) => x.name.localeCompare(y.name, "sv")),
-    [partners]
+  // Represent Basic partners as synthetic DatabasePartner objects with a
+  // sentinel flag. Only name/slug/id are populated — every other field stays
+  // empty so downstream rows render "—" (EMPTY). No commercial/economic data
+  // ever leaks (source is already `partners_basic_public` view).
+  const basicSynth = useMemo<DatabasePartner[]>(
+    () =>
+      (basicPartnersRaw || []).map((b: BasicPartner) => ({
+        id: b.id,
+        slug: b.slug,
+        name: b.name,
+        __basic: true,
+      } as unknown as DatabasePartner)),
+    [basicPartnersRaw],
   );
 
-  const a = partners.find((p) => p.slug === aSlug);
-  const b = partners.find((p) => p.slug === bSlug);
-  const c = partners.find((p) => p.slug === cSlug);
+  const allPartners = useMemo(
+    () => [...partners, ...basicSynth],
+    [partners, basicSynth],
+  );
+
+  const sortedPartners = useMemo(
+    () => [...allPartners].sort((x, y) => x.name.localeCompare(y.name, "sv")),
+    [allPartners]
+  );
+
+  const a = allPartners.find((p) => p.slug === aSlug);
+  const b = allPartners.find((p) => p.slug === bSlug);
+  const c = allPartners.find((p) => p.slug === cSlug);
 
   const setSlot = (key: "a" | "b" | "c", slug: string) => {
     const next = new URLSearchParams(params);
