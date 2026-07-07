@@ -453,6 +453,49 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
 
   console.log(`  📦 Found ${partnerRoutes.length} partner routes from local JSON`);
 
+  // ── Basic partners: fetched live from Supabase (observed data only) ──
+  const basicPartnerRoutes: PrerenderRoute[] = [];
+  try {
+    const supaUrl = process.env.VITE_SUPABASE_URL;
+    const supaKey = process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+    if (supaUrl && supaKey) {
+      const url = `${supaUrl}/rest/v1/partners_basic_public?select=slug,name,extended_content,updated_at&order=name.asc`;
+      const res = await fetch(url, {
+        headers: { apikey: supaKey, Authorization: `Bearer ${supaKey}` },
+      });
+      if (res.ok) {
+        const rows = (await res.json()) as Array<{
+          slug: string;
+          name: string;
+          extended_content: string | null;
+          updated_at: string | null;
+        }>;
+        for (const r of rows) {
+          if (!r.slug || !r.name) continue;
+          const desc = (r.extended_content || '')
+            .replace(/\s+/g, ' ')
+            .trim()
+            .slice(0, 155);
+          basicPartnerRoutes.push({
+            path: `/basic/${r.slug}`,
+            priority: '0.4',
+            changefreq: 'monthly',
+            lastmod: (r.updated_at || '').slice(0, 10) || undefined,
+            meta: {
+              title: `${r.name} – Microsoft Dynamics 365-partner i Sverige | d365.se`,
+              description:
+                desc ||
+                `${r.name} – observerad data om denna Microsoft Dynamics 365-partner i Sverige, sammanställd av d365.se från publika källor.`,
+            },
+          });
+        }
+        console.log(`  📦 Found ${basicPartnerRoutes.length} basic partner routes from Supabase`);
+      }
+    }
+  } catch (err: any) {
+    console.warn(`  ⚠️  Basic partners fetch error: ${err.message}`);
+  }
+
   // ── Events: fetch published/upcoming events from Supabase REST ──────
   const eventRoutes: PrerenderRoute[] = [];
   const articleRoutes: PrerenderRoute[] = [];
