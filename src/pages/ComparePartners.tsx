@@ -2208,7 +2208,7 @@ const ComparePartners = () => {
                                 </div>
                                 {isBasic ? (
                                   <p className="text-xs text-slate-500 leading-snug">
-                                    Ej ansluten till d365.se – kan inte kontaktas härifrån.
+                                    Basickort – kontakt sker via ansluten partner.
                                   </p>
                                 ) : (
                                   <div className="flex flex-wrap gap-2">
