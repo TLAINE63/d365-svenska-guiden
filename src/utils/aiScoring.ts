@@ -85,6 +85,31 @@ function getTier(cap: string): string {
   return CAPABILITY_TIER[cap] || AI_TIERS.STANDARD;
 }
 
+// Human-readable Swedish label for a capability slug. Used in public copy
+// (e.g. AI-jämförelse) där slugs som "ai-standard"/"ai-partner" annars visas
+// för besökare. Grupperas på tier så texten blir begriplig även för partners
+// som inte känner till den interna taxonomin.
+const TIER_PUBLIC_LABEL: Record<string, string> = {
+  [AI_TIERS.STANDARD]: "Microsoft Copilot & standard-AI",
+  [AI_TIERS.PARTNER]: "Egenbyggda Copilot Studio-agenter",
+  [AI_TIERS.ADVANCED]: "Avancerad Azure AI / ML",
+};
+export function describeAiCapability(cap: string): string {
+  return TIER_PUBLIC_LABEL[getTier(cap)] || "AI-förmåga";
+}
+export function describeAiCapabilities(caps: string[]): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const c of caps) {
+    const label = describeAiCapability(c);
+    if (!seen.has(label)) {
+      seen.add(label);
+      out.push(label);
+    }
+  }
+  return out;
+}
+
 // Calculate max possible raw score for a product key
 function getMaxRawScore(productKey: string): number {
   const options = getAiOptionsForProduct(productKey);
