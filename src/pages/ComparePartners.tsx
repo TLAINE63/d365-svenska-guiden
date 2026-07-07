@@ -2120,8 +2120,8 @@ const ComparePartners = () => {
                         };
                         const basicNotice = basicSelected.length > 0 ? (
                           <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-3 text-xs text-slate-600 mb-3">
-                            <span className="font-semibold text-slate-700">Basickort utan kontakt: </span>
-                            {basicSelected.map((s) => s.partner!.name).join(", ")} är inte anslutna till d365.se och kan inte kontaktas härifrån. Vi loggar anonymt att intresse fanns.
+                            <span className="font-semibold text-slate-700">Basickort: </span>
+                            {basicSelected.map((s) => s.partner!.name).join(", ")} visas med observerad marknadsdata. Kontakt sker via ansluten partner.
                           </div>
                         ) : null;
 
