@@ -25,6 +25,7 @@ import {
   recommendCrmPartners,
   CRM_TEST_TO_PARTNER_SLUG,
 } from "@/lib/crmMatchingPartners";
+import { buildCompareUrl } from "@/lib/compareUrl";
 import PartnerCard from "@/components/PartnerCard";
 import { trackFunnelEvent, trackFunnelEventOnce } from "@/lib/funnelTracking";
 
@@ -124,7 +125,17 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
     if (!score) return;
     try {
       setDownloading(true);
-      await generateCrmResultPdf(score, config);
+      const top3 = recommendations.slice(0, 3);
+      const origin = typeof window !== "undefined" ? window.location.origin : "https://d365.se";
+      const extras = top3.length > 0 ? {
+        suggestedPartners: top3.map((r) => ({
+          name: r.partner.name,
+          slug: r.partner.slug,
+          positioning: (r.partner as any).positioning_statement || r.partner.description || "",
+        })),
+        suggestedCompareUrl: origin + buildCompareUrl(top3.map((r) => r.partner.slug)),
+      } : undefined;
+      await generateCrmResultPdf(score, config, extras);
     } catch (err) {
       console.error("PDF generation failed", err);
       toast.error("Kunde inte skapa PDF. Försök igen.");
