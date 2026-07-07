@@ -4,11 +4,15 @@ import {
   helpForCapability,
   AI_CAPABILITIES,
   AI_CAPABILITY_HELP,
+  UNKNOWN_CAPABILITY_LABEL,
+  UNKNOWN_CAPABILITY_HELP,
 } from "@/lib/aiProfile";
 import {
   describeAiCapability,
   describeAiCapabilities,
   helpForAiCapability,
+  UNKNOWN_AI_CAPABILITY_LABEL,
+  UNKNOWN_AI_CAPABILITY_HELP,
   AI_TIERS,
 } from "@/utils/aiScoring";
 
