@@ -10,10 +10,12 @@ import { buildMetaDescription } from "@/lib/metaDescription";
 /**
  * Public per-partner deep-dive page.
  *
- * Fills the SEO/AIO surface area for each partner with ~500 words of
- * long-form editorial content that the admin fills in themselves via
- * the admin dashboard (extended_content on partners). Also read by the
- * on-site AI search / matching prompts as background knowledge.
+ * Fills the SEO/AIO surface area for each partner with an editorial
+ * research summary about the partner. The text in `extended_content`
+ * is an AI-aggregated compilation from public sources (d365.se,
+ * allabolag.se and other public web material) — not the partner's own
+ * marketing copy. It is also read by the on-site AI search / matching
+ * prompts as background knowledge.
  */
 const PartnerExtendedContent = () => {
   const { slug } = useParams<{ slug: string }>();
