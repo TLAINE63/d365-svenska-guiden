@@ -3,6 +3,7 @@ import { Sparkles, Loader2, AlertCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { DatabasePartner } from "@/hooks/usePartners";
 import { PRODUCT_FILTER_GROUP } from "@/lib/productFilterGroup";
+import { labelForCapability } from "@/lib/aiProfile";
 
 type Insights = {
   summary: string;
