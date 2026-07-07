@@ -8,8 +8,20 @@ import { BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/Struct
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import ProductRoiAnalysis from "@/components/ProductRoiAnalysis";
+import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
 import { PRODUCT_ROI_PAGES } from "@/data/productRoiPages";
 import { PRODUCT_ROI_CONFIGS, type ProductRoiKey } from "@/data/productRoiConfigs";
+import type { ProductKey } from "@/hooks/usePartnerFilters";
+
+const ROI_TO_PARTNER_PRODUCT: Record<ProductRoiKey, ProductKey> = {
+  "business-central": "bc",
+  "finance-scm": "fsc",
+  "sales": "sales",
+  "customer-insights": "sales",
+  "customer-service": "service",
+  "contact-center": "service",
+  "field-service": "service",
+};
 
 interface Props {
   productKey: ProductRoiKey;
@@ -152,6 +164,7 @@ export default function ProductRoiPage({ productKey }: Props) {
         </section>
       </main>
 
+      <SuggestedPartnersCTA product={ROI_TO_PARTNER_PRODUCT[productKey]} />
       <Footer />
     </div>
   );

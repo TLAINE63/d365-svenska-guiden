@@ -68,6 +68,11 @@ export interface RoiPdfData {
   drivers: RoiPdfDriver[];
   assumptions: RoiPdfAssumption[];
   fileName: string;
+  /** Föreslagna partners att kontakta (max 3). Läggs som avslutande sida. */
+  suggestedPartners?: import("./pdfSuggestedPartners").PdfSuggestedPartner[];
+  /** Absolut URL till /jamfor-partners?a=... med de förifyllda slugsen. */
+  suggestedCompareUrl?: string;
+  suggestedIndustry?: string | null;
 }
 
 export async function generateRoiPdf(data: RoiPdfData) {
@@ -293,6 +298,16 @@ export async function generateRoiPdf(data: RoiPdfData) {
     ensureSpace(lines.length * 4.4 + 3);
     doc.text(lines, margin, y);
     y += lines.length * 4.4 + 5;
+  }
+
+  // ---- APPENDIX: FÖRESLAGNA PARTNERS ----
+  if (data.suggestedPartners && data.suggestedPartners.length > 0 && data.suggestedCompareUrl) {
+    const { appendSuggestedPartnersPage } = await import("./pdfSuggestedPartners");
+    appendSuggestedPartnersPage(doc, data.suggestedPartners, {
+      compareUrl: data.suggestedCompareUrl,
+      productLabel: data.productName,
+      industry: data.suggestedIndustry ?? null,
+    });
   }
 
 

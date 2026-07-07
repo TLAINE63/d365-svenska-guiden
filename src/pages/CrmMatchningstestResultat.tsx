@@ -25,6 +25,7 @@ import {
   recommendCrmPartners,
   CRM_TEST_TO_PARTNER_SLUG,
 } from "@/lib/crmMatchingPartners";
+import { buildCompareUrl } from "@/lib/compareUrl";
 import PartnerCard from "@/components/PartnerCard";
 import { trackFunnelEvent, trackFunnelEventOnce } from "@/lib/funnelTracking";
 
@@ -124,7 +125,17 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
     if (!score) return;
     try {
       setDownloading(true);
-      await generateCrmResultPdf(score, config);
+      const top3 = recommendations.slice(0, 3);
+      const origin = typeof window !== "undefined" ? window.location.origin : "https://d365.se";
+      const extras = top3.length > 0 ? {
+        suggestedPartners: top3.map((r) => ({
+          name: r.partner.name,
+          slug: r.partner.slug,
+          positioning: (r.partner as any).positioning_statement || r.partner.description || "",
+        })),
+        suggestedCompareUrl: origin + buildCompareUrl(top3.map((r) => r.partner.slug)),
+      } : undefined;
+      await generateCrmResultPdf(score, config, extras);
     } catch (err) {
       console.error("PDF generation failed", err);
       toast.error("Kunde inte skapa PDF. Försök igen.");
@@ -273,12 +284,31 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
                           skräddarsy jämförelsen ytterligare.
                         </p>
                       </div>
-                      <Button asChild variant="outline" size="sm">
-                        <Link to={config.partnerFilterPath}>
-                          Se alla {config.productName}-partners
-                          <ArrowRight className="w-4 h-4 ml-1" />
-                        </Link>
-                      </Button>
+                      <div className="flex flex-wrap gap-2">
+                        {recommendations.length >= 2 && (
+                          <Button
+                            asChild
+                            size="sm"
+                            className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white"
+                          >
+                            <Link
+                              to={`/jamfor-partners?${recommendations
+                                .slice(0, 3)
+                                .map((r, i) => `${["a", "b", "c"][i]}=${encodeURIComponent(r.partner.slug)}`)
+                                .join("&")}`}
+                            >
+                              Jämför dessa {Math.min(recommendations.length, 3)} sida vid sida
+                              <ArrowRight className="w-4 h-4 ml-1" />
+                            </Link>
+                          </Button>
+                        )}
+                        <Button asChild variant="outline" size="sm">
+                          <Link to={config.partnerFilterPath}>
+                            Se alla {config.productName}-partners
+                            <ArrowRight className="w-4 h-4 ml-1" />
+                          </Link>
+                        </Button>
+                      </div>
                     </div>
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {recommendations.map(({ partner, reasons }) => (

@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, CheckCircle2, RotateCcw } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -224,6 +225,7 @@ const FscmMatchningstest = () => {
  </div>
  </main>
 
+ {score && <SuggestedPartnersCTA product="fsc" />}
  <Footer />
  </div>
  );

@@ -19,6 +19,10 @@ import { generateRequirementsSpec, type RequirementsData } from "@/utils/generat
 import { allIndustries } from "@/data/partners";
 import { isServicesIndustry } from "@/lib/industryFilters";
 import RelatedPages, { requirementsErpRelatedPages } from "@/components/RelatedPages";
+import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
+import { usePartners } from "@/hooks/usePartners";
+import { pickSuggestedPartners } from "@/lib/suggestPartners";
+import { buildCompareUrl } from "@/lib/compareUrl";
 import {
   ArrowLeft, ArrowRight, FileText, Download,
   Calculator, Package, Factory, ShoppingCart, Boxes, Wrench,
@@ -48,6 +52,7 @@ const areaOptions = [
 
 const RequirementsSpec = () => {
   const { toast } = useToast();
+  const { data: partnersList = [] } = usePartners();
   const location = useLocation();
   const prefilledIndustry = (location.state as { industry?: string } | null)?.industry;
   const isValidPrefill = !!prefilledIndustry && allIndustries.includes(prefilledIndustry);
@@ -134,7 +139,12 @@ const RequirementsSpec = () => {
         },
       });
 
-      await generateRequirementsSpec(result);
+      const sugg = pickSuggestedPartners(partnersList, { product: ["bc", "fsc"], industry: result.industry, limit: 3 });
+      const origin = typeof window !== "undefined" ? window.location.origin : "https://d365.se";
+      await generateRequirementsSpec(result, false, sugg.length > 0 ? {
+        suggestedPartners: sugg.map((p) => ({ name: p.name, slug: p.slug, positioning: (p as any).positioning_statement || p.description || "" })),
+        suggestedCompareUrl: origin + buildCompareUrl(sugg.map((p) => p.slug)),
+      } : undefined);
       toast({ title: "Kravspecifikationen har laddats ner!" });
     } catch (err: any) {
       console.error("Download error:", err);
@@ -492,6 +502,7 @@ const RequirementsSpec = () => {
         </div>
       </main>
       <RelatedPages heading="Nästa steg i ERP-köpresan" pages={requirementsErpRelatedPages} />
+      {result && <SuggestedPartnersCTA product={["bc", "fsc"]} industry={result.industry || industry} />}
       <Footer />
     </>
   );

@@ -4,6 +4,7 @@ import { ArrowRight, Calculator, Info, TrendingUp, Clock, Wallet, PiggyBank } fr
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
 import { BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -22,6 +23,8 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { usePriceMap } from "@/hooks/usePriceMap";
 import { usePartners } from "@/hooks/usePartners";
+import { pickSuggestedPartners } from "@/lib/suggestPartners";
+import { buildCompareUrl } from "@/lib/compareUrl";
 import { filterAndSortPartners } from "@/hooks/usePartnerFilters";
 import PartnerCard from "@/components/PartnerCard";
 import {
@@ -593,6 +596,20 @@ export default function SalesRoiCalculator() {
                       { title: "Vad ingår inte", body: "Förändringsledning, datakvalitet och datamigrering, säljträning, externa marketing automation-licenser, Power Platform-tillägg utöver standard samt integrationsplattform (iPaaS) hanteras separat." },
                       { title: "Disclaimer", body: "Kalkylen är en förenklad uppskattning och bör användas som beslutsstöd – inte som en slutlig offert eller affärskalkyl. Validera alltid utfall med två–tre relevanta partners." },
                     ],
+                    ...(() => {
+                      const sugg = pickSuggestedPartners(partners, { product: "sales", industry: v.industry, limit: 3 });
+                      if (sugg.length === 0) return {};
+                      const origin = typeof window !== "undefined" ? window.location.origin : "https://d365.se";
+                      return {
+                        suggestedPartners: sugg.map((p) => ({
+                          name: p.name,
+                          slug: p.slug,
+                          positioning: (p as any).positioning_statement || p.description || "",
+                        })),
+                        suggestedCompareUrl: origin + buildCompareUrl(sugg.map((p) => p.slug)),
+                        suggestedIndustry: v.industry,
+                      };
+                    })(),
                   };
                 }}
               />
@@ -698,6 +715,7 @@ export default function SalesRoiCalculator() {
         </section>
       </main>
 
+      <SuggestedPartnersCTA product="sales" industry={v.industry} />
       <Footer />
     </div>
   );
