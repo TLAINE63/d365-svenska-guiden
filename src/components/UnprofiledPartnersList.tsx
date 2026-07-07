@@ -21,7 +21,7 @@ interface Props {
   productLabel?: string;
 }
 
-type ListItem = { id: string; name: string; slug?: string };
+type ListItem = { id: string; name: string; slug?: string; products?: string[] };
 
 const UnprofiledPartnersList = ({
   variant = "teaser",
