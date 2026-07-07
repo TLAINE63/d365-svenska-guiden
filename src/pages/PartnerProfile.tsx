@@ -436,6 +436,15 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   )}
   </div>
 
+  {/* Partnerns egen övergripande text */}
+  {partner.description && (
+    <p className="max-w-3xl w-full mb-4 text-base sm:text-lg text-slate-700 leading-relaxed">
+      {partner.description}
+    </p>
+  )}
+
+
+
 
   {/* AI-generated summary — condensed checklist */}
   {(partner as any).ai_summary && (
