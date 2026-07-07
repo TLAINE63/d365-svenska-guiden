@@ -182,6 +182,60 @@ export default function AdminBasicPartnersTab() {
     }
   };
 
+  // ---- Degrade profiled → basic --------------------------------------------
+  const adminToken = getAdminToken();
+  const { data: allPartners = [] } = useAdminPartners(adminToken);
+  const [degradeId, setDegradeId] = useState<string>("");
+  const [degrading, setDegrading] = useState(false);
+
+  const profiledPartners = useMemo(
+    () =>
+      (allPartners || [])
+        .filter((p: any) => p.profile_level !== "basic")
+        .slice()
+        .sort((a: any, b: any) => a.name.localeCompare(b.name, "sv")),
+    [allPartners],
+  );
+
+  const degrade = async () => {
+    const p = profiledPartners.find((x: any) => x.id === degradeId);
+    if (!p) return;
+    if (
+      !confirm(
+        `Konvertera ${p.name} till Basickort?\n\n` +
+          `• Partnern försvinner ur betalda listor, matchning och kontaktflöden.\n` +
+          `• Publik data begränsas till observerad marknadsdata (namn, orter, produktområden, branschinriktning).\n` +
+          `• Kontaktuppgifter, AI-profil och ekonomiska fält lämnas orörda i databasen men slutar exponeras.\n\n` +
+          `Åtgärden är reversibel via partnerredigering.`,
+      )
+    )
+      return;
+    setDegrading(true);
+    try {
+      await callAdmin("update", {
+        id: p.id,
+        partner: {
+          profile_level: "basic",
+          is_featured: false,
+          agreement_signed: false,
+          cancellation_date: new Date().toISOString().slice(0, 10),
+          observed_updated_at: new Date().toISOString(),
+        },
+      });
+      toast.success(`${p.name} är nu ett Basickort`);
+      setDegradeId("");
+      qc.invalidateQueries({ queryKey: ["admin-basic-partners"] });
+      qc.invalidateQueries({ queryKey: ["basic-partners"] });
+      qc.invalidateQueries({ queryKey: ["admin-partners"] });
+      qc.invalidateQueries({ queryKey: ["partners"] });
+    } catch (e: any) {
+      toast.error(e?.message || "Kunde inte konvertera");
+    } finally {
+      setDegrading(false);
+    }
+  };
+
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
