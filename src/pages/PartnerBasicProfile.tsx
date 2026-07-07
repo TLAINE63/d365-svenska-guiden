@@ -88,7 +88,7 @@ export default function PartnerBasicProfile() {
               asChild
               variant="default"
               size="sm"
-              className="mb-6 font-medium transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className="mt-4 mb-6 font-medium transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               <Link to="/alla-d365-partners/">
                 <ArrowLeft className="mr-1.5 h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
