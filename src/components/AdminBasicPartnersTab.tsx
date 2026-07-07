@@ -521,8 +521,24 @@ export default function AdminBasicPartnersTab() {
                   );
                 })}
               </div>
+
+              <div>
+                <Label>Fördjupningstext (visas på standalone-Basickortet)</Label>
+                <Textarea
+                  rows={6}
+                  value={editing.extended_content || ""}
+                  placeholder="Fri text sammanställd från publika källor. Visas för besökare på partnerns Basickort-sida."
+                  onChange={(e) =>
+                    setEditing({ ...editing, extended_content: e.target.value })
+                  }
+                />
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Ej granskad av partnern. Håll neutralt, faktabaserat och kortfattat.
+                </p>
+              </div>
             </div>
           )}
+
           {editing && (
             <div className="rounded-md border border-amber-500/40 bg-amber-500/5 p-3">
               <label className="flex items-start gap-2 cursor-pointer">
