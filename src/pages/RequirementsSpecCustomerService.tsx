@@ -7,6 +7,9 @@ import RequirementsDisclaimer from "@/components/RequirementsDisclaimer";
 import Footer from "@/components/Footer";
 import RelatedPages, { requirementsCsRelatedPages } from "@/components/RelatedPages";
 import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
+import { usePartners } from "@/hooks/usePartners";
+import { pickSuggestedPartners } from "@/lib/suggestPartners";
+import { buildCompareUrl } from "@/lib/compareUrl";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
@@ -136,7 +139,12 @@ const RequirementsSpecCustomerService = () => {
         },
       });
 
-      await generateRequirementsSpec(result);
+      const sugg = pickSuggestedPartners(partnersList, { product: "service", industry: result.industry, limit: 3 });
+      const origin = typeof window !== "undefined" ? window.location.origin : "https://d365.se";
+      await generateRequirementsSpec(result, false, sugg.length > 0 ? {
+        suggestedPartners: sugg.map((p) => ({ name: p.name, slug: p.slug, positioning: (p as any).positioning_statement || p.description || "" })),
+        suggestedCompareUrl: origin + buildCompareUrl(sugg.map((p) => p.slug)),
+      } : undefined);
       toast({ title: "Kravspecifikationen har laddats ner!" });
     } catch (err: any) {
       console.error("Download error:", err);
