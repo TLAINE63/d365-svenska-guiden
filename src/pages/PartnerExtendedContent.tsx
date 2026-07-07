@@ -9,14 +9,13 @@ import { buildMetaTitle } from "@/lib/metaTitle";
 import { buildMetaDescription } from "@/lib/metaDescription";
 
 /**
- * Public per-partner deep-dive page.
+ * Per-partner deep-dive page.
  *
- * Fills the SEO/AIO surface area for each partner with an editorial
- * research summary about the partner. The text in `extended_content`
- * is an AI-aggregated compilation from public sources (d365.se,
- * allabolag.se and other public web material) — not the partner's own
- * marketing copy. It is also read by the on-site AI search / matching
- * prompts as background knowledge.
+ * The `extended_content` text is an AI-aggregated research summary from
+ * public sources. It is used internally by the on-site AI matching and
+ * is exposed to search engines / AI crawlers via JSON-LD structured
+ * data (articleBody) for SEO/AIO purposes only — it is NOT rendered
+ * as visible body text to users.
  */
 const PartnerExtendedContent = () => {
   const { slug } = useParams<{ slug: string }>();
