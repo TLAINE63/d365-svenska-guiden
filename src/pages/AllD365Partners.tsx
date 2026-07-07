@@ -28,6 +28,7 @@ const STATIC_PROFILED = (partnerDataJson as any[])
     id: p.id as string,
     slug: p.slug as string,
     name: p.name as string,
+    logo_url: (p.logo_url ?? null) as string | null,
     applications: (p.applications ?? []) as string[],
   }))
   .sort((a, b) => a.name.localeCompare(b.name, "sv"));
@@ -43,7 +44,13 @@ export default function AllD365Partners() {
     // snapshot so SSG/crawlers always see the full list.
     const live = (dbPartners || [])
       .filter((p) => p.is_featured)
-      .map((p) => ({ id: p.id, slug: p.slug, name: p.name, applications: p.applications ?? [] }));
+      .map((p) => ({
+        id: p.id,
+        slug: p.slug,
+        name: p.name,
+        logo_url: p.logo_url || null,
+        applications: p.applications ?? [],
+      }));
     const source = live.length > 0 ? live : STATIC_PROFILED;
     return [...source].sort((a, b) => a.name.localeCompare(b.name, "sv"));
   }, [dbPartners]);
@@ -128,14 +135,24 @@ export default function AllD365Partners() {
                   <li key={p.id}>
                     <Link
                       to={`/partner/${p.slug}`}
-                      className="group relative flex items-center justify-between gap-2 p-4 rounded-lg border-2 border-primary/25 bg-card shadow-sm hover:border-primary hover:shadow-md transition-all"
+                      aria-label={p.name}
+                      className="group relative flex items-center justify-between gap-3 p-4 rounded-lg border-2 border-primary/25 bg-card shadow-sm hover:border-primary hover:shadow-md transition-all"
                     >
-                      <div className="min-w-0">
-                        <div className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
-                          {p.name}
-                        </div>
+                      <div className="min-w-0 flex-1">
+                        {p.logo_url ? (
+                          <img
+                            src={p.logo_url}
+                            alt={`${p.name} logotyp`}
+                            loading="lazy"
+                            className="h-10 max-w-[160px] object-contain mb-2"
+                          />
+                        ) : (
+                          <div className="font-semibold text-foreground group-hover:text-primary transition-colors truncate mb-2">
+                            {p.name}
+                          </div>
+                        )}
                         {p.applications.length > 0 && (
-                          <div className="mt-2 flex flex-wrap gap-1">
+                          <div className="flex flex-wrap gap-1">
                             {p.applications.slice(0, 3).map((app) => (
                               <Badge
                                 key={app}
