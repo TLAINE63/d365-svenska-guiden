@@ -45,7 +45,7 @@ export function PartnerBasicCard({
       className={
         isStandalone
           ? "rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-sm"
-          : "flex h-full flex-col rounded-xl border border-dashed border-border bg-muted/30 p-4 transition-colors hover:border-muted-foreground/40"
+          : "relative flex h-full flex-col rounded-xl border border-dashed border-border bg-muted/30 p-4 transition-colors hover:border-muted-foreground/40 hover:bg-muted/50"
       }
       data-basic-partner
       aria-label={`${partner.name} – Basic-profil`}
@@ -60,7 +60,16 @@ export function PartnerBasicCard({
                 : "text-lg font-semibold text-foreground truncate"
             }
           >
-            {partner.name}
+            {isStandalone ? (
+              partner.name
+            ) : (
+              <Link
+                to={`/basic/${partner.slug}/`}
+                className="before:absolute before:inset-0 before:z-0 before:content-[''] hover:text-primary focus-visible:text-primary"
+              >
+                {partner.name}
+              </Link>
+            )}
           </h3>
           {locations.length > 0 && (
             <p className="mt-1 flex items-center gap-1.5 text-sm text-muted-foreground">
