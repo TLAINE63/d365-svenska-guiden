@@ -576,6 +576,7 @@ const AdminDashboard = () => {
  products: true,
  pitches: true,
  industryApps: true,
+ text: true,
  });
  const toggleSection = (id: string) =>
  setOpenSections((prev) => ({ ...prev, [id]: !prev[id] }));
