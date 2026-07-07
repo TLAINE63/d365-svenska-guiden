@@ -113,11 +113,21 @@ export const AI_EVIDENCE_LEVELS: Opt[] = [
 export const MAX_DESCRIPTION_LENGTH = 500;
 
 // ===== Lookup helpers =====
+// Fallback som visas för besökaren om en slug inte finns i vår ordbok –
+// bättre än att tappa värdet (silent drop) eller läcka en rå slug.
+export const UNKNOWN_CAPABILITY_LABEL = "Övrig AI-förmåga";
+export const UNKNOWN_CAPABILITY_HELP =
+  "Annan AI-, Copilot- eller automations­förmåga som partnern har registrerat men som inte matchar våra standardkategorier.";
+
 function labelFor(list: Opt[], value: string | null | undefined): string {
   if (!value) return "";
   return list.find((o) => o.value === value)?.label ?? value;
 }
-export const labelForCapability = (v: string) => labelFor(AI_CAPABILITIES, v);
+export const labelForCapability = (v: string): string => {
+  if (!v) return "";
+  const hit = AI_CAPABILITIES.find((o) => o.value === v);
+  return hit ? hit.label : UNKNOWN_CAPABILITY_LABEL;
+};
 export const labelForArea = (v: string) => labelFor(AI_RELEVANT_AREAS, v);
 export const labelForUseCase = (v: string) => labelFor(AI_USE_CASES, v);
 export const labelForExperience = (v: string | null | undefined) =>
@@ -141,7 +151,10 @@ export const AI_CAPABILITY_HELP: Record<string, string> = {
   "ai-adoption": "Utbildning, förändringsledning och användaradoption så att AI-funktionerna faktiskt kommer till nytta.",
   "industry-ai": "Branschspecifika AI-lösningar och agenter anpassade för t.ex. tillverkning, retail eller finansbranschen.",
 };
-export const helpForCapability = (v: string): string => AI_CAPABILITY_HELP[v] || "";
+export const helpForCapability = (v: string): string => {
+  if (!v) return "";
+  return AI_CAPABILITY_HELP[v] ?? UNKNOWN_CAPABILITY_HELP;
+};
 
 // ===== Scoring (internal only) =====
 const CAP_POINTS: Record<string, number> = {
