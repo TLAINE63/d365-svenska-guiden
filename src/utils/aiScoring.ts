@@ -80,7 +80,13 @@ function getProjectMultiplier(projectCount?: string): number {
   return 1;
 }
 
-// Get tier for a capability key
+// Get tier for a known capability key. Returns undefined for okända slugs så
+// att describeAiCapability/helpForAiCapability kan visa en tydlig fallback
+// istället för att gömma dem som Standard-tier (missvisande).
+function getKnownTier(cap: string): string | undefined {
+  return CAPABILITY_TIER[cap];
+}
+// Scoring-vägen behöver en säker default – okända slugs poängsätts som Standard.
 function getTier(cap: string): string {
   return CAPABILITY_TIER[cap] || AI_TIERS.STANDARD;
 }
@@ -101,11 +107,21 @@ const TIER_PUBLIC_HELP: Record<string, string> = {
   [AI_TIERS.PARTNER]: "Skräddarsydda AI-agenter och automationer byggda av partnern i Copilot Studio eller Power Platform, kopplade till era processer.",
   [AI_TIERS.ADVANCED]: "Egna AI-modeller på Azure AI / Foundry / ML – prediktion, optimering eller specialiserad analys utöver standard-Copilot.",
 };
+// Publik fallback när en slug inte matchar någon känd tier. Bättre än att
+// visa raw slug eller tyst mappa den till Standard – besökaren får en tydlig,
+// begriplig svensk beskrivning och vi kan enkelt spåra okända värden.
+export const UNKNOWN_AI_CAPABILITY_LABEL = "Övrig AI-förmåga";
+export const UNKNOWN_AI_CAPABILITY_HELP =
+  "Annan AI-, Copilot- eller automations­förmåga som partnern har registrerat men som inte matchar våra standardnivåer.";
 export function describeAiCapability(cap: string): string {
-  return TIER_PUBLIC_LABEL[getTier(cap)] || "AI-förmåga";
+  const tier = getKnownTier(cap);
+  if (!tier) return UNKNOWN_AI_CAPABILITY_LABEL;
+  return TIER_PUBLIC_LABEL[tier] || UNKNOWN_AI_CAPABILITY_LABEL;
 }
 export function helpForAiCapability(cap: string): string {
-  return TIER_PUBLIC_HELP[getTier(cap)] || "";
+  const tier = getKnownTier(cap);
+  if (!tier) return UNKNOWN_AI_CAPABILITY_HELP;
+  return TIER_PUBLIC_HELP[tier] || UNKNOWN_AI_CAPABILITY_HELP;
 }
 export function describeAiCapabilities(caps: string[]): { label: string; help: string }[] {
   const seen = new Set<string>();
