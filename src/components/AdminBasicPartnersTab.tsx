@@ -8,6 +8,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Dialog,
   DialogContent,
   DialogHeader,
@@ -15,8 +22,9 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { Building2, Eye, Pencil, Plus, Trash2, Activity } from "lucide-react";
+import { Building2, Eye, Pencil, Plus, Trash2, Activity, ArrowDownCircle } from "lucide-react";
 import { PRODUCT_LABEL, ProductKey } from "@/hooks/useBasicPartners";
+import { useAdminPartners } from "@/hooks/useAdminPartners";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 
 function getAdminToken(): string | null {
