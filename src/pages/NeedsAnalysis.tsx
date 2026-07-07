@@ -1047,6 +1047,7 @@ const complexityRetailOptions = {
 
 const NeedsAnalysis = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const { data: allPartners = [] } = usePartners();
   const [data, setData] = useState<AnalysisData>(initialData);
   const [isComplete, setIsComplete] = useState(false);
   const [contactErrors, setContactErrors] = useState<ContactFormErrors>({});
