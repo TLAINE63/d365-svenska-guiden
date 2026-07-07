@@ -28,6 +28,7 @@ const STATIC_PROFILED = (partnerDataJson as any[])
     id: p.id as string,
     slug: p.slug as string,
     name: p.name as string,
+    logo_url: (p.logo_url ?? null) as string | null,
     applications: (p.applications ?? []) as string[],
   }))
   .sort((a, b) => a.name.localeCompare(b.name, "sv"));
