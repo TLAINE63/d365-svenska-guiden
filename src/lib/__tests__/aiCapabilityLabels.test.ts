@@ -125,10 +125,27 @@ describe("describeAiCapability (per-produkt slugs → tier-etikett)", () => {
     }
   });
 
-  it("okänd slug hamnar på Standard-tier som säker fallback", () => {
-    // getTier() faller tillbaka till STANDARD för okända värden – detta
-    // säkerställer att inga rå slugs läcker till besökaren.
-    expect(describeAiCapability("helt-ny-slug")).toBe(STANDARD);
+  it("okänd slug får explicit fallback-etikett och fallback-hjälp", () => {
+    // Ingen rå slug läcker till besökaren, och den mappas inte tyst till
+    // Standard-tier (missvisande). Istället får besökaren en tydlig, generisk
+    // svensk beskrivning som gör det uppenbart att det är en övrig förmåga.
+    expect(describeAiCapability("helt-ny-slug")).toBe(UNKNOWN_AI_CAPABILITY_LABEL);
+    expect(helpForAiCapability("helt-ny-slug")).toBe(UNKNOWN_AI_CAPABILITY_HELP);
+    expect(describeAiCapability("cust-ml-2027")).toBe(UNKNOWN_AI_CAPABILITY_LABEL);
+  });
+
+  it("okända slugs samexisterar med kända i describeAiCapabilities", () => {
+    const result = describeAiCapabilities([
+      "ai-standard",
+      "helt-ny-slug",
+      "ai-advanced",
+    ]);
+    expect(result.map((r) => r.label)).toEqual([
+      "Microsoft Copilot & standard-AI",
+      UNKNOWN_AI_CAPABILITY_LABEL,
+      "Avancerad Azure AI / ML",
+    ]);
+    for (const r of result) expect(r.help).toBeTruthy();
   });
 });
 
