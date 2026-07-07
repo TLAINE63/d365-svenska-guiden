@@ -511,6 +511,26 @@ export default function AdminBasicPartnersTab() {
               </div>
             </div>
           )}
+          {editing && (
+            <div className="rounded-md border border-amber-500/40 bg-amber-500/5 p-3">
+              <label className="flex items-start gap-2 cursor-pointer">
+                <Checkbox
+                  checked={editing.hide_basic_card === true}
+                  onCheckedChange={(v) =>
+                    setEditing((prev) => (prev ? { ...prev, hide_basic_card: v === true } : prev))
+                  }
+                  className="mt-0.5"
+                />
+                <span className="text-sm">
+                  <span className="font-medium">Dölj Basickort publikt</span>
+                  <span className="block text-xs text-muted-foreground">
+                    Partnern har bett att inte synas alls på d365.se. Ingen publik listning,
+                    ingen standalone-sida, ingen matchning. Data bevaras för admin.
+                  </span>
+                </span>
+              </label>
+            </div>
+          )}
           <DialogFooter>
             <Button variant="outline" onClick={() => setEditing(null)}>
               Avbryt
