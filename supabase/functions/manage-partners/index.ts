@@ -152,6 +152,8 @@ interface PartnerData {
   office_cities?: string[];
   map_url?: string;
   youtube_video_id?: string;
+  partner_size_tier?: number | null;
+  partner_size_tier_needs_review?: boolean;
   industry_pitches?: Array<{
     industry: string;
     product: string | null;
