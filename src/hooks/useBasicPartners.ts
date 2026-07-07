@@ -22,6 +22,9 @@ export interface BasicPartner {
   website: string | null;
   observed_products: Partial<Record<ProductKey, boolean>>;
   observed_industries: Partial<Record<ProductKey, string[]>>;
+  observed_company_sizes: Partial<Record<ProductKey, string[]>>;
+  observed_revenue: Partial<Record<ProductKey, string[]>>;
+  observed_delivery_geo: Partial<Record<ProductKey, string[]>>;
   observed_locations: string[];
   observed_updated_at: string | null;
   extended_content: string | null;
@@ -49,6 +52,18 @@ function expandLegacyProducts<T>(
   return out;
 }
 
+function normalizeStringArrayMap(
+  raw: any,
+): Partial<Record<ProductKey, string[]>> {
+  const out: Partial<Record<ProductKey, string[]>> = {};
+  const src = raw && typeof raw === "object" ? raw : {};
+  (["bc", "fsc", "sales", "service"] as ProductKey[]).forEach((k) => {
+    const arr = Array.isArray(src[k]) ? src[k].filter((x: any) => typeof x === "string") : [];
+    if (arr.length) out[k] = arr;
+  });
+  return out;
+}
+
 function normalizeRaw(row: any): BasicPartner {
   const products = expandLegacyProducts<boolean>(
     row?.observed_products || {},
@@ -65,11 +80,15 @@ function normalizeRaw(row: any): BasicPartner {
     ...row,
     observed_products: products,
     observed_industries: industries,
+    observed_company_sizes: normalizeStringArrayMap(row?.observed_company_sizes),
+    observed_revenue: normalizeStringArrayMap(row?.observed_revenue),
+    observed_delivery_geo: normalizeStringArrayMap(row?.observed_delivery_geo),
     observed_locations: row?.observed_locations || [],
     extended_content: row?.extended_content ?? null,
     extended_content_updated_at: row?.extended_content_updated_at ?? null,
   } as BasicPartner;
 }
+
 
 export function useBasicPartners() {
   return useQuery({

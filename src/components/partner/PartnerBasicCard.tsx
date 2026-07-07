@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Building2, ExternalLink, FileText, Info, MapPin, Tag } from "lucide-react";
+import { Building2, ExternalLink, FileText, Globe2, Info, MapPin, Tag, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -162,6 +162,81 @@ export function PartnerBasicCard({
           </ul>
         </section>
       )}
+
+      {/* Målgrupp & leveransgeografi per produktområde */}
+      {(() => {
+        const sizes = partner.observed_company_sizes || {};
+        const revs = partner.observed_revenue || {};
+        const geos = partner.observed_delivery_geo || {};
+        const hasAny = products.some(
+          (k) =>
+            (sizes[k] || []).length > 0 ||
+            (revs[k] || []).length > 0 ||
+            (geos[k] || []).length > 0,
+        );
+        if (!hasAny) return null;
+        return (
+          <section className="mb-3">
+            <div className="mb-1.5 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+              <Users className="h-3 w-3" aria-hidden />
+              Observerad målgrupp & leverans
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    className="inline-flex text-muted-foreground/70 hover:text-muted-foreground"
+                    aria-label="Om observerad målgrupp och leveransgeografi"
+                  >
+                    <Info className="h-3 w-3" />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="top" className="max-w-xs text-xs">
+                  Sammanställt från publika källor. Ej bekräftat av partnern.
+                </TooltipContent>
+              </Tooltip>
+            </div>
+            <ul className="space-y-2">
+              {products.map((k) => {
+                const s = sizes[k] || [];
+                const r = revs[k] || [];
+                const g = geos[k] || [];
+                if (!s.length && !r.length && !g.length) return null;
+                return (
+                  <li key={k} className="text-xs text-muted-foreground">
+                    <div className="font-medium text-foreground">
+                      {PRODUCT_LABEL[k]}
+                    </div>
+                    <div className="mt-0.5 flex flex-wrap gap-x-3 gap-y-0.5">
+                      {s.length > 0 && (
+                        <span>
+                          <span className="text-[10px] uppercase tracking-wide">
+                            Anställda:
+                          </span>{" "}
+                          {s.join(", ")}
+                        </span>
+                      )}
+                      {r.length > 0 && (
+                        <span>
+                          <span className="text-[10px] uppercase tracking-wide">
+                            Omsättning:
+                          </span>{" "}
+                          {r.join(", ")}
+                        </span>
+                      )}
+                      {g.length > 0 && (
+                        <span className="inline-flex items-center gap-1">
+                          <Globe2 className="h-3 w-3" aria-hidden />
+                          {g.join(", ")}
+                        </span>
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        );
+      })()}
 
       {/* Extended observed description – standalone only */}
       {isStandalone && extended && (

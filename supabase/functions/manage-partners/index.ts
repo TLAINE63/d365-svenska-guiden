@@ -177,6 +177,9 @@ interface PartnerData {
   profile_level?: "basic" | "profilerad";
   observed_products?: Record<string, boolean>;
   observed_industries?: Record<string, string[]>;
+  observed_company_sizes?: Record<string, string[]>;
+  observed_revenue?: Record<string, string[]>;
+  observed_delivery_geo?: Record<string, string[]>;
   observed_locations?: string[];
   observed_updated_at?: string | null;
 }
@@ -361,6 +364,9 @@ serve(async (req: Request): Promise<Response> => {
             profile_level: partner.profile_level || "profilerad",
             observed_products: partner.observed_products || {},
             observed_industries: partner.observed_industries || {},
+            observed_company_sizes: (partner as any).observed_company_sizes || {},
+            observed_revenue: (partner as any).observed_revenue || {},
+            observed_delivery_geo: (partner as any).observed_delivery_geo || {},
             observed_locations: partner.observed_locations || [],
             observed_updated_at: partner.observed_updated_at || null,
           })
@@ -445,6 +451,9 @@ serve(async (req: Request): Promise<Response> => {
         if (partner?.profile_level !== undefined) updateData.profile_level = partner.profile_level;
         if (partner?.observed_products !== undefined) updateData.observed_products = partner.observed_products || {};
         if (partner?.observed_industries !== undefined) updateData.observed_industries = partner.observed_industries || {};
+        if ((partner as any)?.observed_company_sizes !== undefined) updateData.observed_company_sizes = (partner as any).observed_company_sizes || {};
+        if ((partner as any)?.observed_revenue !== undefined) updateData.observed_revenue = (partner as any).observed_revenue || {};
+        if ((partner as any)?.observed_delivery_geo !== undefined) updateData.observed_delivery_geo = (partner as any).observed_delivery_geo || {};
         if (partner?.observed_locations !== undefined) updateData.observed_locations = partner.observed_locations || [];
         if (partner?.observed_updated_at !== undefined) updateData.observed_updated_at = partner.observed_updated_at;
         if ((partner as any)?.hide_basic_card !== undefined) updateData.hide_basic_card = (partner as any).hide_basic_card === true;
