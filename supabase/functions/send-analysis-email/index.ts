@@ -56,6 +56,87 @@ function sanitizeHtml(input: string): string {
     .replace(/'/g, "&#039;");
 }
 
+/**
+ * Formatera AI-genererad text (som ofta innehåller markdown: **bold**, ## rubriker,
+ * - listor, 1. numrerade listor, dubbla radbrytningar) till läsbar HTML för e-post.
+ * Escapar först allt, konverterar sen tillbaka en whitelist av markdown-syntax.
+ */
+function formatAiMarkdown(input: string, maxLen = 6000): string {
+  if (typeof input !== "string" || !input.trim()) return "";
+  const clipped = input.slice(0, maxLen);
+  // 1) Escape allt
+  const escaped = sanitizeHtml(clipped);
+
+  // 2) Radbaserad parsning (rubriker + listor)
+  const lines = escaped.split(/\r?\n/);
+  const out: string[] = [];
+  let listType: "ul" | "ol" | null = null;
+  const closeList = () => {
+    if (listType) { out.push(`</${listType}>`); listType = null; }
+  };
+  const paraBuf: string[] = [];
+  const flushPara = () => {
+    if (paraBuf.length) {
+      out.push(`<p style="margin:0 0 12px 0;line-height:1.55;">${paraBuf.join(" ")}</p>`);
+      paraBuf.length = 0;
+    }
+  };
+
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+    if (!line) { flushPara(); closeList(); continue; }
+
+    // Rubriker ### / ## / #
+    const h = line.match(/^(#{1,4})\s+(.+)$/);
+    if (h) {
+      flushPara(); closeList();
+      const level = Math.min(4, Math.max(2, h[1].length + 1)); // # -> h2, ## -> h3 osv
+      out.push(`<h${level} style="color:#0E7C86;margin:18px 0 8px 0;font-size:${level === 2 ? "17px" : "15px"};">${h[2]}</h${level}>`);
+      continue;
+    }
+
+    // Numrerad lista "1." "2)"
+    const ol = line.match(/^(\d+)[.)]\s+(.+)$/);
+    if (ol) {
+      flushPara();
+      if (listType !== "ol") { closeList(); out.push('<ol style="margin:0 0 12px 20px;padding:0;line-height:1.55;">'); listType = "ol"; }
+      out.push(`<li style="margin:0 0 4px 0;">${ol[2]}</li>`);
+      continue;
+    }
+
+    // Punktlista "- " "* " "• "
+    const ul = line.match(/^[-*•]\s+(.+)$/);
+    if (ul) {
+      flushPara();
+      if (listType !== "ul") { closeList(); out.push('<ul style="margin:0 0 12px 20px;padding:0;line-height:1.55;">'); listType = "ul"; }
+      out.push(`<li style="margin:0 0 4px 0;">${ul[1]}</li>`);
+      continue;
+    }
+
+    // Vanlig text – ackumulera i stycke
+    closeList();
+    paraBuf.push(line);
+  }
+  flushPara(); closeList();
+
+  // 3) Inline-formatering: **bold**, *italic*, `code`
+  let html = out.join("\n");
+  html = html.replace(/\*\*([^*\n]+?)\*\*/g, "<strong>$1</strong>");
+  html = html.replace(/(^|[^\*])\*([^*\n]+?)\*(?!\*)/g, "$1<em>$2</em>");
+  html = html.replace(/`([^`\n]+?)`/g, '<code style="background:#f4f4f5;padding:1px 4px;border-radius:3px;font-size:13px;">$1</code>');
+  return html;
+}
+
+/** Kortare version för listobjekt (t.ex. risks/nextSteps) – behåller bold/italic men ingen block-parse. */
+function formatAiInline(input: string, maxLen = 500): string {
+  if (typeof input !== "string") return "";
+  let html = sanitizeHtml(input.slice(0, maxLen));
+  html = html.replace(/\*\*([^*\n]+?)\*\*/g, "<strong>$1</strong>");
+  html = html.replace(/(^|[^\*])\*([^*\n]+?)\*(?!\*)/g, "$1<em>$2</em>");
+  html = html.replace(/`([^`\n]+?)`/g, '<code style="background:#f4f4f5;padding:1px 4px;border-radius:3px;font-size:13px;">$1</code>');
+  return html;
+}
+
 // Validation functions
 function isValidEmail(email: string): boolean {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -246,27 +327,28 @@ serve(async (req: Request): Promise<Response> => {
         <p style="color:#555;font-size:13px;">Detta är en preliminär indikation – inte ett definitivt systemval. Använd resultatet som diskussionsunderlag inför kravspecifikation och partnerdialog.</p>
         ${(recommendation.reasons || []).length > 0 ? `
           <p style="margin-top:12px;"><strong>Indikationen bygger främst på:</strong></p>
-          <ul>
-            ${(recommendation.reasons || []).slice(0, 6).map(r => `<li>${sanitizeHtml(String(r).slice(0, 500))}</li>`).join("")}
+          <ul style="margin:0 0 12px 20px;padding:0;line-height:1.55;">
+            ${(recommendation.reasons || []).slice(0, 6).map(r => `<li style="margin:0 0 4px 0;">${formatAiInline(String(r), 500)}</li>`).join("")}
           </ul>` : ""}
       `
       : "";
 
     const renderList = (items: string[] | undefined, limit = 7) =>
       Array.isArray(items) && items.length > 0
-        ? `<ul>${items.slice(0, limit).map(i => `<li>${sanitizeHtml(String(i).slice(0, 500))}</li>`).join("")}</ul>`
+        ? `<ul style="margin:0 0 12px 20px;padding:0;line-height:1.55;">${items.slice(0, limit).map(i => `<li style="margin:0 0 4px 0;">${formatAiInline(String(i), 500)}</li>`).join("")}</ul>`
         : "";
 
     const aiHtml = aiAnalysis
       ? `
         ${aiAnalysis.aiInterpretation ? `
-          <h2 style="color:#0E7C86;">AI-tolkning av ert underlag</h2>
-          <p style="white-space:pre-line;">${sanitizeHtml(String(aiAnalysis.aiInterpretation).slice(0, 4000))}</p>
-          ${aiAnalysis.confidence ? `<p style="color:#666;font-size:12px;"><em>Säkerhet i analysen: ${sanitizeHtml(String(aiAnalysis.confidence))}</em></p>` : ""}
+          <h2 style="color:#0E7C86;margin:20px 0 10px 0;">AI-tolkning av ert underlag</h2>
+          <div style="font-size:14px;color:#1a1a1a;">${formatAiMarkdown(String(aiAnalysis.aiInterpretation), 6000)}</div>
+          ${aiAnalysis.confidence ? `<p style="color:#666;font-size:12px;margin-top:8px;"><em>Säkerhet i analysen: ${sanitizeHtml(String(aiAnalysis.confidence))}</em></p>` : ""}
         ` : ""}
-        ${(aiAnalysis.risks || []).length ? `<h3 style="color:#0E7C86;">Risker och frågor att utreda vidare</h3>${renderList(aiAnalysis.risks)}` : ""}
-        ${aiAnalysis.partnerProfile ? `<h3 style="color:#0E7C86;">Rekommenderad partnerprofil</h3><p>${sanitizeHtml(String(aiAnalysis.partnerProfile).slice(0, 1500))}</p>` : ""}
-        ${(aiAnalysis.nextSteps || []).length ? `<h3 style="color:#0E7C86;">Rekommenderade nästa steg</h3>${renderList(aiAnalysis.nextSteps)}` : ""}
+        ${(aiAnalysis.whyPoints || []).length ? `<h3 style="color:#0E7C86;margin:18px 0 8px 0;">Varför denna riktning</h3>${renderList(aiAnalysis.whyPoints)}` : ""}
+        ${(aiAnalysis.risks || []).length ? `<h3 style="color:#0E7C86;margin:18px 0 8px 0;">Risker och frågor att utreda vidare</h3>${renderList(aiAnalysis.risks)}` : ""}
+        ${aiAnalysis.partnerProfile ? `<h3 style="color:#0E7C86;margin:18px 0 8px 0;">Rekommenderad partnerprofil</h3><div style="font-size:14px;color:#1a1a1a;">${formatAiMarkdown(String(aiAnalysis.partnerProfile), 2500)}</div>` : ""}
+        ${(aiAnalysis.nextSteps || []).length ? `<h3 style="color:#0E7C86;margin:18px 0 8px 0;">Rekommenderade nästa steg</h3>${renderList(aiAnalysis.nextSteps)}` : ""}
       `
       : "";
 
