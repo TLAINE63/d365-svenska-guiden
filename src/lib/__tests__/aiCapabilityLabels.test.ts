@@ -50,8 +50,10 @@ describe("labelForCapability (AI-profil, AI_CAPABILITIES)", () => {
     }
   });
 
-  it("returnerar slugen som fallback för okända värden", () => {
-    expect(labelForCapability("finns-inte")).toBe("finns-inte");
+  it("visar en begriplig svensk fallback för okända slugs (aldrig rå slug)", () => {
+    expect(labelForCapability("finns-inte")).toBe(UNKNOWN_CAPABILITY_LABEL);
+    expect(labelForCapability("standard-copilot-v2")).toBe(UNKNOWN_CAPABILITY_LABEL);
+    // tom sträng är fortfarande tom – anropssidan filtrerar bort tomma värden
     expect(labelForCapability("")).toBe("");
   });
 
@@ -63,8 +65,9 @@ describe("labelForCapability (AI-profil, AI_CAPABILITIES)", () => {
     }
   });
 
-  it("tom hjälptext för okända capabilities", () => {
-    expect(helpForCapability("finns-inte")).toBe("");
+  it("fallback-hjälptext för okända capabilities istället för tom sträng", () => {
+    expect(helpForCapability("finns-inte")).toBe(UNKNOWN_CAPABILITY_HELP);
+    expect(helpForCapability("")).toBe("");
   });
 });
 
