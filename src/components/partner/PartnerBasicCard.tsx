@@ -282,28 +282,9 @@ export function PartnerBasicCard({
         </p>
 
         {isStandalone && (
-          <>
-            <div className="mt-4 rounded-md border border-border bg-background/50 p-3 text-sm text-muted-foreground">
-              {BASIC_COPY.standaloneNoContact}
-            </div>
-            {partner.website && (
-              <Button
-                asChild
-                variant="outline"
-                size="sm"
-                className="mt-3"
-              >
-                <a
-                  href={partner.website}
-                  target="_blank"
-                  rel="noopener noreferrer nofollow"
-                >
-                  <ExternalLink className="mr-1.5 h-3.5 w-3.5" />
-                  Besök partnerns webbplats
-                </a>
-              </Button>
-            )}
-          </>
+          <div className="mt-4 rounded-md border border-border bg-background/50 p-3 text-sm text-muted-foreground">
+            {BASIC_COPY.standaloneNoContact}
+          </div>
         )}
 
         <div className="mt-3">
