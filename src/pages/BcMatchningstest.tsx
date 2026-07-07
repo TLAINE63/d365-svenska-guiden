@@ -5,6 +5,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
+import { usePartners } from "@/hooks/usePartners";
+import { pickSuggestedPartners } from "@/lib/suggestPartners";
+import { buildCompareUrl } from "@/lib/compareUrl";
 import { SoftwareApplicationSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -120,11 +123,22 @@ const BcMatchningstest = () => {
     setSubmitted(false);
   };
 
+  const { data: partners = [] } = usePartners();
+
   const onPdf = async () => {
     if (!result) return;
     try {
       const { generateBcResultPdf } = await import("@/utils/generateBcResultPdf");
-      await generateBcResultPdf(result, answers);
+      const sugg = pickSuggestedPartners(partners, { product: "bc", limit: 3 });
+      const origin = typeof window !== "undefined" ? window.location.origin : "https://d365.se";
+      await generateBcResultPdf(result, answers, sugg.length > 0 ? {
+        suggestedPartners: sugg.map((p) => ({
+          name: p.name,
+          slug: p.slug,
+          positioning: (p as any).positioning_statement || p.description || "",
+        })),
+        suggestedCompareUrl: origin + buildCompareUrl(sugg.map((p) => p.slug)),
+      } : undefined);
       toast({ title: "PDF skapad", description: "Resultatet har laddats ned." });
     } catch (e) {
       console.error(e);
