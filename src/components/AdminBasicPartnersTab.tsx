@@ -338,7 +338,14 @@ export default function AdminBasicPartnersTab() {
               {sorted.map((r) => (
                 <tr key={r.id} className="border-t">
                   <td className="p-2">
-                    <div className="font-medium">{r.name}</div>
+                    <div className="font-medium flex items-center gap-2">
+                      {r.name}
+                      {r.hide_basic_card && (
+                        <Badge variant="outline" className="text-[10px] border-amber-500/60 text-amber-600">
+                          Dolt publikt
+                        </Badge>
+                      )}
+                    </div>
                     <div className="text-xs text-muted-foreground">{r.slug}</div>
                   </td>
                   <td className="p-2">{(r.observed_locations || []).join(", ")}</td>
