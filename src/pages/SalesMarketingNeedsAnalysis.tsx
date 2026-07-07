@@ -1704,6 +1704,18 @@ const SalesMarketingNeedsAnalysis = () => {
  pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
  pdf.text("d365.se", pageWidth - margin - 55, yPos + 26);
 
+ // Föreslagna partners – avslutande sida
+ try {
+ const _industry = data.industry || data.industryOther || null;
+ const _suggested = pickSuggestedPartners(allPartners, { product: "sales", industry: _industry, limit: 3 });
+ const _origin = typeof window !== "undefined" ? window.location.origin : "https://d365.se";
+ const _compareUrl = _origin + buildCompareUrl(_suggested.map(p => p.slug));
+ appendSuggestedPartnersPage(pdf, _suggested.map(p => ({
+ name: p.name, slug: p.slug,
+ positioning: (p as any).positioning_statement, description: p.description,
+ })), { compareUrl: _compareUrl, productLabel: "Sales & Marketing", industry: _industry });
+ } catch (e) { console.warn("Suggested partners append failed", e); }
+
  // Generate PDF as base64 for email attachment
  const pdfFilename = `Behovsanalys_Salj_Marknad_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}`;
  const pdfBase64 = pdf.output('datauristring').split(',')[1];
