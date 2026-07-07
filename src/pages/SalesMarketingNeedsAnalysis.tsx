@@ -3544,6 +3544,13 @@ const SalesMarketingNeedsAnalysis = () => {
  </div>
  </CardContent>
  </Card>
+
+ {/* FÖRESLAGNA PARTNERS */}
+ <SuggestedPartnersCTA
+ product="sales"
+ industry={data.industry || data.industryOther || null}
+ className="!py-8 mt-8 border rounded overflow-hidden !bg-secondary/40"
+ />
  </div>
  </main>
  <Footer />
