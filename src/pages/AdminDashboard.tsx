@@ -616,55 +616,63 @@ const AdminDashboard = () => {
  };
 
  const [partnerFormData, setPartnerFormData] = useState<PartnerInput & {
- activation_date?: string;
- monthly_fee?: number;
- cancellation_date?: string;
- admin_notes?: string;
- admin_contact_name?: string;
- admin_contact_email?: string;
- agreement_signed?: boolean;
- agreement_notes?: string;
- invoice_email?: string;
- invoice_contact?: string;
- org_number?: string;
- legal_name?: string;
-   youtube_video_id?: string;
-   ai_profile?: import("@/lib/aiProfile").AiProfile;
-   extended_content?: string;
- }>({
- slug: "",
- name: "",
- description: "",
- logo_url: "",
- website: "",
- email: "",
- contactPerson: "",
- contact_photo_url: "",
- phone: "",
- address: "",
- applications: [],
- industries: [],
- secondary_industries: [],
- geography: ["Sverige"],
- product_filters: {},
- is_featured: false,
- office_cities: [],
- map_url: "",
- activation_date: "",
- monthly_fee: undefined,
- cancellation_date: "",
- admin_notes: "",
- admin_contact_name: "",
- admin_contact_email: "",
- agreement_signed: false,
- agreement_notes: "",
- invoice_email: "",
- invoice_contact: "",
- org_number: "",
-  legal_name: "",
-  youtube_video_id: "",
-  extended_content: "",
-  });
+  activation_date?: string;
+  monthly_fee?: number;
+  cancellation_date?: string;
+  admin_notes?: string;
+  admin_contact_name?: string;
+  admin_contact_email?: string;
+  agreement_signed?: boolean;
+  agreement_notes?: string;
+  invoice_email?: string;
+  invoice_contact?: string;
+  org_number?: string;
+  legal_name?: string;
+    youtube_video_id?: string;
+    ai_profile?: import("@/lib/aiProfile").AiProfile;
+    extended_content?: string;
+    source_document_text?: string;
+    source_document_url?: string;
+    source_document_filename?: string;
+    source_document_updated_at?: string;
+  }>({
+  slug: "",
+  name: "",
+  description: "",
+  logo_url: "",
+  website: "",
+  email: "",
+  contactPerson: "",
+  contact_photo_url: "",
+  phone: "",
+  address: "",
+  applications: [],
+  industries: [],
+  secondary_industries: [],
+  geography: ["Sverige"],
+  product_filters: {},
+  is_featured: false,
+  office_cities: [],
+  map_url: "",
+  activation_date: "",
+  monthly_fee: undefined,
+  cancellation_date: "",
+  admin_notes: "",
+  admin_contact_name: "",
+  admin_contact_email: "",
+  agreement_signed: false,
+  agreement_notes: "",
+  invoice_email: "",
+  invoice_contact: "",
+  org_number: "",
+   legal_name: "",
+   youtube_video_id: "",
+   extended_content: "",
+   source_document_text: "",
+   source_document_url: "",
+   source_document_filename: "",
+   source_document_updated_at: "",
+   });
 
  // ==================== LEAD FUNCTIONS ====================
 
