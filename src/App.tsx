@@ -17,6 +17,7 @@ const Sonner = lazy(() => import("@/components/ui/sonner").then(m => ({ default:
 const CookieBanner = lazy(() => import("@/components/CookieBanner"));
 const SnitcherTracking = lazy(() => import("@/components/SnitcherTracking"));
 const VisitorTracking = lazy(() => import("@/components/VisitorTracking"));
+const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
 
 // Lazy load pages for code splitting
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -319,6 +320,7 @@ const App = () => (
         <PartnerCompareProvider>
           <AppShell />
           <PartnerCompareBar />
+          <Suspense fallback={null}><ScrollCTA /></Suspense>
         </PartnerCompareProvider>
       </BrowserRouter>
     </TooltipProvider>
