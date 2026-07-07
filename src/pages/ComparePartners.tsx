@@ -27,6 +27,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
+import CompareStickyCTA from "@/components/CompareStickyCTA";
 import AiCompareInsights from "@/components/AiCompareInsights";
 import { describeAiCapabilities } from "@/utils/aiScoring";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
@@ -2215,6 +2216,13 @@ const ComparePartners = () => {
           onSubmitting={setIsSubmittingQuote}
         />
       )}
+
+      <CompareStickyCTA
+        partners={[a, b, c].filter(Boolean).map((p: any) => ({ slug: p.slug, name: p.name }))}
+        selectedProduct={productFilters.length === 1 ? PRODUCT_FILTER_GROUP[productFilters[0]].label : undefined}
+        selectedIndustry={industryFilter || undefined}
+        sourcePage="compare-partners"
+      />
 
       <Footer />
     </div>
