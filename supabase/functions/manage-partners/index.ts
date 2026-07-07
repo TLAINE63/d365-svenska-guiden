@@ -447,6 +447,7 @@ serve(async (req: Request): Promise<Response> => {
         if (partner?.observed_industries !== undefined) updateData.observed_industries = partner.observed_industries || {};
         if (partner?.observed_locations !== undefined) updateData.observed_locations = partner.observed_locations || [];
         if (partner?.observed_updated_at !== undefined) updateData.observed_updated_at = partner.observed_updated_at;
+        if ((partner as any)?.hide_basic_card !== undefined) updateData.hide_basic_card = (partner as any).hide_basic_card === true;
 
 
         const { data, error } = await supabase

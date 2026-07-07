@@ -50,6 +50,7 @@ type BasicRow = {
   observed_industries: Partial<Record<ProductKey, string[]>>;
   observed_locations: string[];
   observed_updated_at: string | null;
+  hide_basic_card: boolean;
   updated_at: string;
 };
 
@@ -63,8 +64,10 @@ function emptyDraft(): Partial<BasicRow> {
     observed_products: {},
     observed_industries: {},
     observed_locations: [],
+    hide_basic_card: false,
   };
 }
+
 
 function slugify(name: string) {
   return name
@@ -111,6 +114,7 @@ export default function AdminBasicPartnersTab() {
           observed_industries: p.observed_industries || {},
           observed_locations: p.observed_locations || [],
           observed_updated_at: p.observed_updated_at ?? null,
+          hide_basic_card: p.hide_basic_card === true,
           updated_at: p.updated_at,
         })),
     [allAdminPartners],
@@ -160,6 +164,7 @@ export default function AdminBasicPartnersTab() {
         observed_industries: editing.observed_industries || {},
         observed_locations: editing.observed_locations || [],
         observed_updated_at: new Date().toISOString(),
+        hide_basic_card: editing.hide_basic_card === true,
         // Basic partners never enter the paid rotation. Enforce defensively:
         is_featured: false,
         agreement_signed: false,
@@ -333,7 +338,14 @@ export default function AdminBasicPartnersTab() {
               {sorted.map((r) => (
                 <tr key={r.id} className="border-t">
                   <td className="p-2">
-                    <div className="font-medium">{r.name}</div>
+                    <div className="font-medium flex items-center gap-2">
+                      {r.name}
+                      {r.hide_basic_card && (
+                        <Badge variant="outline" className="text-[10px] border-amber-500/60 text-amber-600">
+                          Dolt publikt
+                        </Badge>
+                      )}
+                    </div>
                     <div className="text-xs text-muted-foreground">{r.slug}</div>
                   </td>
                   <td className="p-2">{(r.observed_locations || []).join(", ")}</td>
@@ -504,6 +516,26 @@ export default function AdminBasicPartnersTab() {
                   );
                 })}
               </div>
+            </div>
+          )}
+          {editing && (
+            <div className="rounded-md border border-amber-500/40 bg-amber-500/5 p-3">
+              <label className="flex items-start gap-2 cursor-pointer">
+                <Checkbox
+                  checked={editing.hide_basic_card === true}
+                  onCheckedChange={(v) =>
+                    setEditing((prev) => (prev ? { ...prev, hide_basic_card: v === true } : prev))
+                  }
+                  className="mt-0.5"
+                />
+                <span className="text-sm">
+                  <span className="font-medium">Dölj Basickort publikt</span>
+                  <span className="block text-xs text-muted-foreground">
+                    Partnern har bett att inte synas alls på d365.se. Ingen publik listning,
+                    ingen standalone-sida, ingen matchning. Data bevaras för admin.
+                  </span>
+                </span>
+              </label>
             </div>
           )}
           <DialogFooter>
