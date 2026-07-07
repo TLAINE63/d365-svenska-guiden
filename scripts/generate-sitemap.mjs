@@ -272,7 +272,7 @@ const groups = [
   { file: "sitemap-pages.xml", entries: pagesEntries, lastmod: pagesLastmod },
   { file: "sitemap-branscher.xml", entries: industryEntries, lastmod: industryLastmod },
   { file: "sitemap-articles.xml", entries: articleEntries, lastmod: articlesLastmod },
-  { file: "sitemap-partners.xml", entries: partnerEntries, lastmod: partnersLastmod },
+  { file: "sitemap-partners.xml", entries: allPartnerEntries, lastmod: partnersLastmod },
   { file: "sitemap-jamfor.xml", entries: jamforEntries, lastmod: jamforLastmod },
 ];
 
