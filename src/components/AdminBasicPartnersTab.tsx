@@ -50,6 +50,7 @@ type BasicRow = {
   observed_industries: Partial<Record<ProductKey, string[]>>;
   observed_locations: string[];
   observed_updated_at: string | null;
+  extended_content: string | null;
   hide_basic_card: boolean;
   updated_at: string;
 };
@@ -64,9 +65,11 @@ function emptyDraft(): Partial<BasicRow> {
     observed_products: {},
     observed_industries: {},
     observed_locations: [],
+    extended_content: "",
     hide_basic_card: false,
   };
 }
+
 
 
 function slugify(name: string) {
