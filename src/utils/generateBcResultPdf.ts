@@ -4,7 +4,7 @@ import type { BcResult } from "@/lib/bcScoring";
 
 // Brand colors (consistent with other PDF exports)
 const BRAND_PETROL: [number, number, number] = [14, 124, 134]; // #0E7C86
-const BRAND_DARK: [number, number, number] = [21, 19, 15]; // #15130F
+const BRAND_DARK: [number, number, number] = [15, 27, 61]; // navy #0F1B3D
 
 const CLASS_RGB: Record<BcClassification, [number, number, number]> = {
   essentials: [16, 122, 87],

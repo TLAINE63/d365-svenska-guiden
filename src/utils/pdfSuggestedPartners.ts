@@ -8,7 +8,7 @@ export interface PdfSuggestedPartner {
 }
 
 const BRAND_PETROL: [number, number, number] = [14, 124, 134];
-const BRAND_DARK: [number, number, number] = [21, 19, 15];
+const BRAND_DARK: [number, number, number] = [15, 27, 61];
 const MUTED: [number, number, number] = [110, 110, 120];
 
 /**
