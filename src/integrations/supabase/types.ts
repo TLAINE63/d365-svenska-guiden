@@ -1744,6 +1744,8 @@ export type Database = {
       partners_basic_public: {
         Row: {
           created_at: string | null
+          extended_content: string | null
+          extended_content_updated_at: string | null
           id: string | null
           name: string | null
           observed_industries: Json | null
@@ -1757,6 +1759,8 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
+          extended_content?: string | null
+          extended_content_updated_at?: string | null
           id?: string | null
           name?: string | null
           observed_industries?: Json | null
@@ -1770,6 +1774,8 @@ export type Database = {
         }
         Update: {
           created_at?: string | null
+          extended_content?: string | null
+          extended_content_updated_at?: string | null
           id?: string | null
           name?: string | null
           observed_industries?: Json | null
