@@ -43,31 +43,35 @@ async function verifyJWT(token: string, secret: string) {
   } catch { return { valid: false }; }
 }
 
-// Label maps (kept in sync with src/lib/aiProfile.ts)
+// Label maps (MUST stay in sync with src/lib/aiProfile.ts – canonical source
+// of truth for AI-förmågor). Aldrig läcka råa capability-slugs till LLM-prompt,
+// JSON-LD eller AI-citat – okända värden faller tillbaka på en generisk svensk
+// etikett så att slugs som "ai-partner" eller "bc-agent" aldrig når besökaren.
+const UNKNOWN_CAPABILITY_LABEL = "Övrig AI-förmåga";
 const CAP_LABELS: Record<string, string> = {
   "standard-copilot": "Microsoft Standard AI / inbyggd Copilot",
   "copilot-studio": "Copilot Studio / agents",
   "power-platform": "Power Platform-automation med AI",
   "azure-ai": "Azure AI / Foundry / ML",
-  "fabric-bi": "Power BI / Fabric",
+  "fabric-bi": "Power BI / Fabric och AI-driven analys",
   "ai-readiness": "AI-readiness och datakvalitet",
-  "ai-governance": "AI-governance",
+  "ai-governance": "AI-governance, säkerhet och behörigheter",
   "ai-adoption": "AI-adoption och utbildning",
   "industry-ai": "Branschspecifika AI-lösningar",
 };
 const USE_CASE_LABELS: Record<string, string> = {
   "readiness": "AI-readiness inför Copilot",
-  "data-quality": "Datakvalitet inför Copilot",
+  "data-quality": "Datakvalitet och behörigheter inför Copilot",
   "copilot-studio-agent": "Copilot Studio-agent",
-  "sales-automation": "Säljautomation",
+  "sales-automation": "Automatisering av säljprocess",
   "service-ai": "AI-stöd för kundservice",
-  "finance-ai": "AI-stöd för ekonomi",
-  "scm-ai": "AI-stöd för supply chain",
-  "forecast": "Prognos / prediktiv analys",
+  "finance-ai": "AI-stöd för ekonomi och rapportering",
+  "scm-ai": "AI-stöd för inköp, lager eller supply chain",
+  "forecast": "Prognos eller prediktiv analys",
   "anomaly": "Avvikelseanalys",
-  "industry-agent": "Branschspecifik agent",
-  "fabric-analytics": "Fabric/BI-analys",
-  "governance": "AI-governance",
+  "industry-agent": "Branschspecifik agent eller automation",
+  "fabric-analytics": "Power BI/Fabric-baserad analys",
+  "governance": "AI-governance och policy",
   "training": "Utbildning och adoption",
 };
 const EXP_LABELS: Record<string, string> = {
@@ -75,12 +79,19 @@ const EXP_LABELS: Record<string, string> = {
   "pilot": "Pilot/PoC",
   "delivered": "Levererat i kundprojekt",
   "multiple": "Flera kundprojekt",
-  "packaged": "Paketerat erbjudande",
+  "packaged": "Paketerat erbjudande finns",
   "established": "Etablerad AI-leveransmodell",
 };
 
+// Slug-safe label lookup. Om värdet saknas i vår ordbok returneras en generisk
+// svensk fallback – aldrig den råa slug-strängen (den skulle annars kunna
+// smyga in i AI-citat, JSON-LD-articleBody eller card-sammanfattningar).
+function safeLabel(v: string, map: Record<string, string>): string {
+  if (!v) return "";
+  return map[v] || UNKNOWN_CAPABILITY_LABEL;
+}
 function labelList(vals: string[] | undefined, map: Record<string, string>): string {
-  return (vals || []).map((v) => map[v] || v).filter(Boolean).join(", ");
+  return (vals || []).map((v) => safeLabel(v, map)).filter(Boolean).join(", ");
 }
 
 function buildPrompt(p: any): string {
