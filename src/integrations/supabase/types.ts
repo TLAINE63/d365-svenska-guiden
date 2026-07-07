@@ -1047,9 +1047,12 @@ export type Database = {
           monthly_fee: number | null
           name: string
           not_a_fit: string[] | null
+          observed_company_sizes: Json
+          observed_delivery_geo: Json
           observed_industries: Json
           observed_locations: string[]
           observed_products: Json
+          observed_revenue: Json
           observed_updated_at: string | null
           office_cities: string[] | null
           org_number: string | null
@@ -1118,9 +1121,12 @@ export type Database = {
           monthly_fee?: number | null
           name: string
           not_a_fit?: string[] | null
+          observed_company_sizes?: Json
+          observed_delivery_geo?: Json
           observed_industries?: Json
           observed_locations?: string[]
           observed_products?: Json
+          observed_revenue?: Json
           observed_updated_at?: string | null
           office_cities?: string[] | null
           org_number?: string | null
@@ -1189,9 +1195,12 @@ export type Database = {
           monthly_fee?: number | null
           name?: string
           not_a_fit?: string[] | null
+          observed_company_sizes?: Json
+          observed_delivery_geo?: Json
           observed_industries?: Json
           observed_locations?: string[]
           observed_products?: Json
+          observed_revenue?: Json
           observed_updated_at?: string | null
           office_cities?: string[] | null
           org_number?: string | null
@@ -1748,9 +1757,12 @@ export type Database = {
           extended_content_updated_at: string | null
           id: string | null
           name: string | null
+          observed_company_sizes: Json | null
+          observed_delivery_geo: Json | null
           observed_industries: Json | null
           observed_locations: string[] | null
           observed_products: Json | null
+          observed_revenue: Json | null
           observed_updated_at: string | null
           profile_level: string | null
           slug: string | null
@@ -1763,9 +1775,12 @@ export type Database = {
           extended_content_updated_at?: string | null
           id?: string | null
           name?: string | null
+          observed_company_sizes?: Json | null
+          observed_delivery_geo?: Json | null
           observed_industries?: Json | null
           observed_locations?: string[] | null
           observed_products?: Json | null
+          observed_revenue?: Json | null
           observed_updated_at?: string | null
           profile_level?: string | null
           slug?: string | null
@@ -1778,9 +1793,12 @@ export type Database = {
           extended_content_updated_at?: string | null
           id?: string | null
           name?: string | null
+          observed_company_sizes?: Json | null
+          observed_delivery_geo?: Json | null
           observed_industries?: Json | null
           observed_locations?: string[] | null
           observed_products?: Json | null
+          observed_revenue?: Json | null
           observed_updated_at?: string | null
           profile_level?: string | null
           slug?: string | null
