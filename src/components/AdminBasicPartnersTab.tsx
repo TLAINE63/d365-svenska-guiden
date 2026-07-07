@@ -92,18 +92,30 @@ export default function AdminBasicPartnersTab() {
   const [editing, setEditing] = useState<Partial<BasicRow> | null>(null);
   const [saving, setSaving] = useState(false);
 
-  const { data: rows = [], isLoading, refetch } = useQuery({
-    queryKey: ["admin-basic-partners"],
-    queryFn: async (): Promise<BasicRow[]> => {
-      // Use the whitelisted public view – it already scopes to profile_level='basic'.
-      const { data, error } = await (supabase as any)
-        .from("partners_basic_public")
-        .select("*")
-        .order("name");
-      if (error) throw error;
-      return (data || []) as BasicRow[];
-    },
-  });
+  // Basickort = alla opublicerade partners (is_featured=false). Data hämtas via
+  // admin-endpointen som redan har alla observed_*-fält. Vi struntar i
+  // profile_level-kolumnen som är kvar som reserv men inte längre gate:ar synligheten.
+  const adminTokenForList = getAdminToken();
+  const { data: allAdminPartners = [], isLoading, refetch } = useAdminPartners(adminTokenForList);
+  const rows: BasicRow[] = useMemo(
+    () =>
+      (allAdminPartners || [])
+        .filter((p: any) => !p.is_featured)
+        .map((p: any) => ({
+          id: p.id,
+          slug: p.slug,
+          name: p.name,
+          website: p.website ?? null,
+          profile_level: (p.profile_level as "basic" | "profilerad") ?? "profilerad",
+          observed_products: p.observed_products || {},
+          observed_industries: p.observed_industries || {},
+          observed_locations: p.observed_locations || [],
+          observed_updated_at: p.observed_updated_at ?? null,
+          updated_at: p.updated_at,
+        })),
+    [allAdminPartners],
+  );
+
 
   // Blocked-contact counters – admin only. Aggregated per partner.
   const { data: blockedCounts = {} as Record<string, number> } = useQuery({
@@ -162,7 +174,7 @@ export default function AdminBasicPartnersTab() {
         toast.success("Basickort skapat");
       }
       setEditing(null);
-      qc.invalidateQueries({ queryKey: ["admin-basic-partners"] });
+      qc.invalidateQueries({ queryKey: ["admin-partners"] });
       qc.invalidateQueries({ queryKey: ["basic-partners"] });
     } catch (e: any) {
       toast.error(e?.message || "Kunde inte spara");
@@ -182,19 +194,21 @@ export default function AdminBasicPartnersTab() {
     }
   };
 
-  // ---- Degrade profiled → basic --------------------------------------------
-  const adminToken = getAdminToken();
-  const { data: allPartners = [] } = useAdminPartners(adminToken);
+  // ---- Avpublicera (published → basic) --------------------------------------
+  // Ett Basickort är helt enkelt en opublicerad partner. Vi behåller all data i
+  // partners-raden; is_featured=false gör att endast observed_*-fälten exponeras
+  // publikt via partners_basic_public. Åtgärden är fullt reversibel genom att
+  // sätta is_featured=true igen i den vanliga partner-editorn.
   const [degradeId, setDegradeId] = useState<string>("");
   const [degrading, setDegrading] = useState(false);
 
   const profiledPartners = useMemo(
     () =>
-      (allPartners || [])
-        .filter((p: any) => p.profile_level !== "basic")
+      (allAdminPartners || [])
+        .filter((p: any) => p.is_featured === true)
         .slice()
         .sort((a: any, b: any) => a.name.localeCompare(b.name, "sv")),
-    [allPartners],
+    [allAdminPartners],
   );
 
   const degrade = async () => {
@@ -202,11 +216,11 @@ export default function AdminBasicPartnersTab() {
     if (!p) return;
     if (
       !confirm(
-        `Konvertera ${p.name} till Basickort?\n\n` +
-          `• Partnern försvinner ur betalda listor, matchning och kontaktflöden.\n` +
+        `Avpublicera ${p.name} och visa som Basickort?\n\n` +
+          `• Partnern försvinner ur publika listor, matchning och kontaktflöden.\n` +
           `• Publik data begränsas till observerad marknadsdata (namn, orter, produktområden, branschinriktning).\n` +
-          `• Kontaktuppgifter, AI-profil och ekonomiska fält lämnas orörda i databasen men slutar exponeras.\n\n` +
-          `Åtgärden är reversibel via partnerredigering.`,
+          `• All annan data (kontakt, AI-profil, ekonomi) lämnas orörd i databasen.\n\n` +
+          `Åtgärden är fullt reversibel – sätt "Publicerad" igen i partner-editorn.`,
       )
     )
       return;
@@ -215,25 +229,24 @@ export default function AdminBasicPartnersTab() {
       await callAdmin("update", {
         id: p.id,
         partner: {
-          profile_level: "basic",
           is_featured: false,
           agreement_signed: false,
           cancellation_date: new Date().toISOString().slice(0, 10),
           observed_updated_at: new Date().toISOString(),
         },
       });
-      toast.success(`${p.name} är nu ett Basickort`);
+      toast.success(`${p.name} visas nu som Basickort`);
       setDegradeId("");
-      qc.invalidateQueries({ queryKey: ["admin-basic-partners"] });
       qc.invalidateQueries({ queryKey: ["basic-partners"] });
       qc.invalidateQueries({ queryKey: ["admin-partners"] });
       qc.invalidateQueries({ queryKey: ["partners"] });
     } catch (e: any) {
-      toast.error(e?.message || "Kunde inte konvertera");
+      toast.error(e?.message || "Kunde inte avpublicera");
     } finally {
       setDegrading(false);
     }
   };
+
 
 
   return (
