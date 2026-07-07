@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Building2, ExternalLink, Info, MapPin, Tag } from "lucide-react";
+import { Building2, ExternalLink, FileText, Info, MapPin, Tag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -7,6 +7,7 @@ import {
   BASIC_COPY,
   BasicPartner,
   PRODUCT_LABEL,
+  PRODUCT_ORDER,
   ProductKey,
   normalizeObservedIndustries,
 } from "@/hooks/useBasicPartners";
@@ -24,7 +25,7 @@ interface PartnerBasicCardProps {
 
 function observedProductKeys(p: BasicPartner): ProductKey[] {
   const src = p.observed_products || {};
-  return (["bc", "fsc", "crm"] as ProductKey[]).filter((k) => !!src[k]);
+  return PRODUCT_ORDER.filter((k) => !!src[k]);
 }
 
 export function PartnerBasicCard({
@@ -36,6 +37,8 @@ export function PartnerBasicCard({
   const industriesByProduct = normalizeObservedIndustries(partner.observed_industries);
   const locations = (partner.observed_locations || []).slice(0, 4);
   const isStandalone = variant === "standalone";
+  const extended = (partner.extended_content || "").trim();
+
 
   return (
     <article
