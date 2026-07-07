@@ -95,33 +95,58 @@ const UnprofiledPartnersList = ({
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8">
-          {combined.map((p) =>
-            p.slug ? (
-              <Link
-                key={p.id}
-                to={`/basic/${p.slug}/`}
-                className="group inline-flex items-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                aria-label={`Öppna basickort för ${p.name}`}
-              >
-                <Badge
-                  variant="outline"
-                  className="text-sm sm:text-base px-3 py-1.5 bg-card text-foreground border-border font-medium cursor-pointer transition-colors group-hover:bg-accent/10 group-hover:border-accent group-hover:text-accent-foreground"
-                >
-                  {p.name}
-                </Badge>
-              </Link>
-            ) : (
-              <Badge
-                key={p.id}
-                variant="outline"
-                className="text-sm sm:text-base px-3 py-1.5 bg-card text-foreground border-border font-medium"
-              >
-                {p.name}
-              </Badge>
-            ),
-          )}
-        </div>
+        <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
+          {combined.map((p) => {
+            const content = (
+              <>
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors truncate mb-2">
+                    {p.name}
+                  </h3>
+                  {p.products && p.products.length > 0 && (
+                    <div className="flex flex-wrap gap-1">
+                      {p.products.map((label) => (
+                        <Badge
+                          key={label}
+                          variant="outline"
+                          className="text-[10px] px-1.5 py-0 border-accent/30 text-accent/80 bg-accent/5"
+                        >
+                          {label}
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <div className="flex shrink-0 items-center gap-2">
+                  <Badge
+                    variant="outline"
+                    className="border-muted-foreground/40 bg-background/60 text-[10px] font-medium uppercase tracking-wide text-muted-foreground"
+                  >
+                    Basic
+                  </Badge>
+                  <ArrowRight className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+                </div>
+              </>
+            );
+            return (
+              <li key={p.id}>
+                {p.slug ? (
+                  <Link
+                    to={`/basic/${p.slug}/`}
+                    aria-label={`Öppna basickort för ${p.name}`}
+                    className="group relative flex items-center justify-between gap-3 p-4 rounded-lg border border-dashed border-border bg-card hover:border-muted-foreground/40 hover:shadow-sm transition-all"
+                  >
+                    {content}
+                  </Link>
+                ) : (
+                  <div className="group relative flex items-center justify-between gap-3 p-4 rounded-lg border border-dashed border-border bg-card">
+                    {content}
+                  </div>
+                )}
+              </li>
+            );
+          })}
+        </ul>
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
           <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
