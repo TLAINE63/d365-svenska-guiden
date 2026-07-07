@@ -218,6 +218,8 @@ export function usePartners() {
         implementations_per_app: ((p as any).implementations_per_app ?? {}) as Record<string, string>,
         not_a_fit: ((p as any).not_a_fit ?? []) as string[],
         ai_profile: ((p as any).ai_profile ?? null) as AiProfile | null,
+        partner_size_tier: (p as any).partner_size_tier ?? null,
+        partner_size_tier_needs_review: (p as any).partner_size_tier_needs_review ?? false,
       })) as DatabasePartner[];
     },
   });
