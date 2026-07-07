@@ -104,6 +104,7 @@ import AdminFeaturedArticleTab from "@/components/AdminFeaturedArticleTab";
 import AdminKnowledgeArticlesTab from "@/components/AdminKnowledgeArticlesTab";
 import AdminProductPricesTab from "@/components/AdminProductPricesTab";
 import AdminUnprofiledPartnersTab from "@/components/AdminUnprofiledPartnersTab";
+import AdminBasicPartnersTab from "@/components/AdminBasicPartnersTab";
 import AdminIndustryPagesTab from "@/components/AdminIndustryPagesTab";
 import AdminSeoRankingsTab from "@/components/AdminSeoRankingsTab";
 import AdminSemrushTab from "@/components/AdminSemrushTab";
