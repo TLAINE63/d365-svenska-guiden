@@ -364,6 +364,9 @@ serve(async (req: Request): Promise<Response> => {
             profile_level: partner.profile_level || "profilerad",
             observed_products: partner.observed_products || {},
             observed_industries: partner.observed_industries || {},
+            observed_company_sizes: (partner as any).observed_company_sizes || {},
+            observed_revenue: (partner as any).observed_revenue || {},
+            observed_delivery_geo: (partner as any).observed_delivery_geo || {},
             observed_locations: partner.observed_locations || [],
             observed_updated_at: partner.observed_updated_at || null,
           })
