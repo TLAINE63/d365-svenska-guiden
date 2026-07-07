@@ -636,6 +636,8 @@ const AdminDashboard = () => {
     source_document_url?: string;
     source_document_filename?: string;
     source_document_updated_at?: string;
+    partner_size_tier?: number | null;
+    partner_size_tier_needs_review?: boolean;
   }>({
   slug: "",
   name: "",
