@@ -1,11 +1,9 @@
 import { useParams, Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import {
-  PartnerOrganizationSchema,
-  BreadcrumbSchema,
-} from "@/components/StructuredData";
+import { BreadcrumbSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useBasicPartner, PRODUCT_LABEL, PRODUCT_ORDER } from "@/hooks/useBasicPartners";
