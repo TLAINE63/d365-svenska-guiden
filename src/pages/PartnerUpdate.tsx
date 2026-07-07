@@ -438,8 +438,9 @@ const PartnerUpdate = () => {
 
  setInvitation(result.invitation);
  
- // Pre-fill form with existing data if available
- if (result.existingData) {
+  // Pre-fill form with existing data if available
+  if (result.existingData) {
+  if (result.existingData.slug) setExistingSlug(result.existingData.slug);
  setFormData({
  name: result.existingData.name || result.invitation.partner_name,
  description: result.existingData.description || "",
