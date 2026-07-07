@@ -636,6 +636,8 @@ const AdminDashboard = () => {
     source_document_url?: string;
     source_document_filename?: string;
     source_document_updated_at?: string;
+    partner_size_tier?: number | null;
+    partner_size_tier_needs_review?: boolean;
   }>({
   slug: "",
   name: "",
@@ -668,12 +670,14 @@ const AdminDashboard = () => {
   org_number: "",
    legal_name: "",
    youtube_video_id: "",
-   extended_content: "",
-   source_document_text: "",
-   source_document_url: "",
-   source_document_filename: "",
-   source_document_updated_at: "",
-   });
+    extended_content: "",
+    source_document_text: "",
+    source_document_url: "",
+    source_document_filename: "",
+    source_document_updated_at: "",
+    partner_size_tier: null,
+    partner_size_tier_needs_review: false,
+    });
 
  // ==================== LEAD FUNCTIONS ====================
 
@@ -1334,6 +1338,8 @@ Thomas`,
   org_number: "",
   legal_name: "",
   extended_content: "",
+  partner_size_tier: null,
+  partner_size_tier_needs_review: false,
   });
  setEditingPartner(null);
  setFormErrors({});
@@ -1423,6 +1429,8 @@ Thomas`,
     source_document_url: (partner as any).source_document_url || "",
     source_document_filename: (partner as any).source_document_filename || "",
     source_document_updated_at: (partner as any).source_document_updated_at || "",
+    partner_size_tier: (partner as any).partner_size_tier ?? null,
+    partner_size_tier_needs_review: (partner as any).partner_size_tier_needs_review ?? false,
     });
  setIndustryApps(
  Array.isArray((partner as any).industry_apps) ? (partner as any).industry_apps : []
@@ -3935,7 +3943,55 @@ Thomas`,
  }
  />
  <Label htmlFor="is_featured">Publicerad partner</Label>
- </div>
+  </div>
+
+  {/* Leverantörsstorlek – intern signal för AI-ranking (ingen publik filter-UI) */}
+  <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/30 p-4 space-y-3">
+    <div>
+      <Label htmlFor="partner_size_tier" className="text-sm font-medium">
+        Leverantörsstorlek (intern)
+      </Label>
+      <p className="text-xs text-muted-foreground mt-0.5">
+        Grov klassning av partnerns leveransorganisation. Används som mjuk signal i AI-matchning och för admin-överblick. Visas inte som filter för besökare.
+      </p>
+      <select
+        id="partner_size_tier"
+        className="mt-2 h-9 w-full rounded-md border border-input bg-background px-3 text-sm"
+        value={partnerFormData.partner_size_tier ?? ""}
+        onChange={(e) => {
+          const v = e.target.value;
+          const tier = v === "" ? null : parseInt(v, 10);
+          setPartnerFormData({
+            ...partnerFormData,
+            partner_size_tier: tier,
+            // Tier 5 flaggas automatiskt för verifiering; övriga tiers rensas.
+            partner_size_tier_needs_review:
+              tier === 5 ? true : tier === null ? partnerFormData.partner_size_tier_needs_review ?? false : false,
+          });
+        }}
+      >
+        <option value="">Ej klassad</option>
+        <option value="1">1 – Mycket stor global/Sverige-stor koncern</option>
+        <option value="2">2 – Stor / etablerad Microsoft-/D365-specialist</option>
+        <option value="3">3 – Medelstor D365-, BC- eller CRM-specialist</option>
+        <option value="4">4 – Mindre / nischad / SMB-orienterad</option>
+        <option value="5">5 – Låg offentlig synlighet (kräver verifiering)</option>
+      </select>
+    </div>
+    <div className="flex items-center gap-2">
+      <Checkbox
+        id="partner_size_tier_needs_review"
+        checked={!!partnerFormData.partner_size_tier_needs_review}
+        onCheckedChange={(checked) =>
+          setPartnerFormData({ ...partnerFormData, partner_size_tier_needs_review: !!checked })
+        }
+      />
+      <Label htmlFor="partner_size_tier_needs_review" className="text-sm cursor-pointer">
+        Behöver verifieras (osäker klassning)
+      </Label>
+    </div>
+  </div>
+
 
  <div className="mt-6 p-4 bg-muted/30 rounded-lg border">
  <h4 className="font-semibold text-sm mb-2">Pris- och betalningsvillkor</h4>

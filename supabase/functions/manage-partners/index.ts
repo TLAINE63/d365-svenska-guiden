@@ -33,6 +33,15 @@ function getCorsHeaders(req: Request): Record<string, string> {
   };
 }
 
+// Grov leverantörsstorlek 1..5 (intern signal – ingen publik UI).
+// Alla värden utanför intervallet nollas till NULL för att skydda CHECK-constrainten.
+function normalizeSizeTier(v: unknown): number | null {
+  if (v === null || v === undefined || v === "") return null;
+  const n = typeof v === "number" ? v : parseInt(String(v), 10);
+  if (!Number.isFinite(n)) return null;
+  const r = Math.round(n);
+  return r >= 1 && r <= 5 ? r : null;
+
 // JWT verification using HMAC-SHA256
 async function verifyJWT(token: string, secret: string): Promise<{ valid: boolean; payload?: Record<string, unknown>; error?: string }> {
   try {
@@ -152,6 +161,8 @@ interface PartnerData {
   office_cities?: string[];
   map_url?: string;
   youtube_video_id?: string;
+  partner_size_tier?: number | null;
+  partner_size_tier_needs_review?: boolean;
   industry_pitches?: Array<{
     industry: string;
     product: string | null;
@@ -328,6 +339,8 @@ serve(async (req: Request): Promise<Response> => {
             office_cities: partner.office_cities || [],
             map_url: partner.map_url?.trim() || null,
             youtube_video_id: partner.youtube_video_id?.trim() || null,
+            partner_size_tier: normalizeSizeTier(partner.partner_size_tier),
+            partner_size_tier_needs_review: partner.partner_size_tier_needs_review === true,
             industry_pitches: partner.industry_pitches || [],
             positioning_statement: (partner as any).positioning_statement || null,
             delivery_profile: (partner as any).delivery_profile || {},
@@ -402,6 +415,8 @@ serve(async (req: Request): Promise<Response> => {
         if (partner?.office_cities !== undefined) updateData.office_cities = partner.office_cities;
         if (partner?.map_url !== undefined) updateData.map_url = partner.map_url?.trim() || null;
         if (partner?.youtube_video_id !== undefined) updateData.youtube_video_id = partner.youtube_video_id?.trim() || null;
+        if (partner?.partner_size_tier !== undefined) updateData.partner_size_tier = normalizeSizeTier(partner.partner_size_tier);
+        if (partner?.partner_size_tier_needs_review !== undefined) updateData.partner_size_tier_needs_review = partner.partner_size_tier_needs_review === true;
         if (partner?.industry_pitches !== undefined) updateData.industry_pitches = partner.industry_pitches;
         if ((partner as any)?.positioning_statement !== undefined) updateData.positioning_statement = (partner as any).positioning_statement || null;
         if ((partner as any)?.delivery_profile !== undefined) updateData.delivery_profile = (partner as any).delivery_profile || {};

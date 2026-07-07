@@ -228,6 +228,24 @@ Deno.serve(async (req) => {
       const knowledgeBlock = renderKnowledgeBlock(knowledgeMap.get(p.id));
       const extRaw = extendedMap.get(p.id) || '';
 
+      // Leverantörsstorlek (1..5) – intern grov klassning av partnerns
+      // leveransorganisation. Neutral kontext för LLM: ska inte överskugga
+      // bransch/produkt (per ranking-policy), men får väga in när kundens
+      // storlek och partnerns skala är uppenbart missmatchade.
+      const SIZE_TIER_LABELS: Record<number, string> = {
+        1: 'Mycket stor global/Sverige-stor koncern',
+        2: 'Stor / etablerad Microsoft-/D365-specialist',
+        3: 'Medelstor D365-, BC- eller CRM-specialist',
+        4: 'Mindre / nischad / SMB-orienterad',
+        5: 'Låg offentlig synlighet (osäker klassning)',
+      };
+      const tierRaw = (p as any).partner_size_tier;
+      const tierNum = typeof tierRaw === 'number' && tierRaw >= 1 && tierRaw <= 5 ? tierRaw : null;
+      const tierNeedsReview = (p as any).partner_size_tier_needs_review === true;
+      const sizeTierLine = tierNum
+        ? `\nLeverantörsstorlek (intern): tier ${tierNum} – ${SIZE_TIER_LABELS[tierNum]}${tierNeedsReview ? ' (osäker – behandla som svag signal)' : ''}`
+        : '\nLeverantörsstorlek (intern): ej klassad (neutral)';
+
       // Build a "query bag" from the customer's criteria — the more of these
       // terms that show up in the partner's fördjupning, the more we boost it.
       const queryBag = [
@@ -251,7 +269,7 @@ Produktbeskrivning (${criteria.application}): ${productDesc}
 Branschfokus för ${criteria.application}: ${pfIndustries}
 Kundexempel: ${customerExamples}
 Kontorsorter: ${officeCities.length > 0 ? officeCities.join(', ') : 'Ej angivet'}
-Plattformskompetens: ${platformCaps.length > 0 ? platformCaps.join(', ') : 'Ej angivet'}${industryFocusLine}${targetAudienceLine}${aiSummary}${knowledgeBlock}${extendedBlock}`;
+Plattformskompetens: ${platformCaps.length > 0 ? platformCaps.join(', ') : 'Ej angivet'}${industryFocusLine}${targetAudienceLine}${sizeTierLine}${aiSummary}${knowledgeBlock}${extendedBlock}`;
     }).join('\n\n---\n\n');
 
     const systemPrompt = `Du är en expert på Microsoft Dynamics 365 och hjälper svenska företag att hitta rätt implementeringspartner.
@@ -294,6 +312,7 @@ INSTRUKTIONER:
    b) PRODUKT är näst viktigast${criteria.application && criteria.application !== 'Alla' ? ` (kunden har valt ${criteria.application})` : ' när kunden valt en specifik applikation'}. En partner med tydlig specialisering på den valda applikationen ska rankas högre än en partner med svagare/bredare produktfokus. Använd produktbeskrivning, AI-kompetens för produkten och kundexempel som signaler.
    c) NISCHFOKUS-BONUS (max 3 branscher per produkt är möjligt): Om en partner har angett ENDAST 1 bransch för ${criteria.application} (se "Branschfokus-bredd") OCH den branschen matchar kundens bransch ("${criteria.industry || 'Ej specificerat'}"), ge +6-10 extra poäng — de är extremt fokuserade och därmed en mycket starkare match. Partners med 2 matchande branscher får +3-5. Partners med 3 branscher (max) som matchar får +1-2 (bredare profil).
    d) Övriga faktorer (geografi, storlek, AI-intresse, plattform, lokal närvaro etc.) är mindre viktiga och används endast för att finjustera rankingen MELLAN partners som är likvärdiga på bransch och produkt.
+   e) LEVERANTÖRSSTORLEK (tier 1–5) är en mjuk kompletterande signal. Använd den bara för att finjustera mellan i övrigt likvärdiga partners när det finns en tydlig storleks-missmatch mot kunden: stora enterprise-kunder (>1.000 anställda eller >1.000 MSEK) kan gynnas milt av tier 1–2, SMB-kunder (<100 anställda) kan gynnas milt av tier 3–4. Max ±5 poäng. Denna signal får ALDRIG överskugga bransch, produkt eller nischfokus, och tier "ej klassad" eller tier 5 med "osäker klassning" ska behandlas som neutralt.
 
 2. Ge varje partner ett matchningspoäng 0-100 enligt följande viktning:
    - Branscherfarenhet (40%) — HÖGSTA PRIO. Stark match = +30-40, bred branschtäckning = +20-30, ingen branschmatch men relevant erfarenhet = +5-15, ingen matchning alls = 0-5.

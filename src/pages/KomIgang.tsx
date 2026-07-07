@@ -247,6 +247,8 @@ const KomIgang = () => {
           industries: p.industries || [],
           geography: p.geography || [],
           product_filters: p.product_filters || {},
+          partner_size_tier: (p as any).partner_size_tier ?? null,
+          partner_size_tier_needs_review: (p as any).partner_size_tier_needs_review === true,
         }));
 
         const { data, error } = await supabase.functions.invoke('match-partners', {

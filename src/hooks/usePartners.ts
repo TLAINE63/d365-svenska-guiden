@@ -125,6 +125,9 @@ export interface DatabasePartner {
   implementations_per_app?: Record<string, string> | null;
   not_a_fit?: string[] | null;
   ai_profile?: AiProfile | null;
+  /** Grov leverantörsstorlek 1..5 (intern signal – ingen publik filter-UI). */
+  partner_size_tier?: number | null;
+  partner_size_tier_needs_review?: boolean | null;
 }
 
 export interface PartnerInput {
@@ -215,6 +218,8 @@ export function usePartners() {
         implementations_per_app: ((p as any).implementations_per_app ?? {}) as Record<string, string>,
         not_a_fit: ((p as any).not_a_fit ?? []) as string[],
         ai_profile: ((p as any).ai_profile ?? null) as AiProfile | null,
+        partner_size_tier: (p as any).partner_size_tier ?? null,
+        partner_size_tier_needs_review: (p as any).partner_size_tier_needs_review ?? false,
       })) as DatabasePartner[];
     },
   });
@@ -270,6 +275,8 @@ export function usePartner(slug: string | undefined) {
         implementations_per_app: ((data as any).implementations_per_app ?? {}) as Record<string, string>,
         not_a_fit: ((data as any).not_a_fit ?? []) as string[],
         ai_profile: ((data as any).ai_profile ?? null) as AiProfile | null,
+        partner_size_tier: (data as any).partner_size_tier ?? null,
+        partner_size_tier_needs_review: (data as any).partner_size_tier_needs_review ?? false,
       } as DatabasePartner;
     },
     enabled: !!slug,

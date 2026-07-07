@@ -430,6 +430,8 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
             product_filters: p.product_filters || {},
             office_cities: p.office_cities || [],
             platform_capabilities: (p as any).platform_capabilities || [],
+            partner_size_tier: (p as any).partner_size_tier ?? null,
+            partner_size_tier_needs_review: (p as any).partner_size_tier_needs_review === true,
           }));
 
         if (partnerPayload.length === 0) {

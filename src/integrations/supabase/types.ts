@@ -963,6 +963,8 @@ export type Database = {
           not_a_fit: string[] | null
           office_cities: string[] | null
           org_number: string | null
+          partner_size_tier: number | null
+          partner_size_tier_needs_review: boolean
           phone: string | null
           platform_capabilities: string[] | null
           positioning_statement: string | null
@@ -1026,6 +1028,8 @@ export type Database = {
           not_a_fit?: string[] | null
           office_cities?: string[] | null
           org_number?: string | null
+          partner_size_tier?: number | null
+          partner_size_tier_needs_review?: boolean
           phone?: string | null
           platform_capabilities?: string[] | null
           positioning_statement?: string | null
@@ -1089,6 +1093,8 @@ export type Database = {
           not_a_fit?: string[] | null
           office_cities?: string[] | null
           org_number?: string | null
+          partner_size_tier?: number | null
+          partner_size_tier_needs_review?: boolean
           phone?: string | null
           platform_capabilities?: string[] | null
           positioning_statement?: string | null
@@ -1655,6 +1661,8 @@ export type Database = {
           name: string | null
           not_a_fit: string[] | null
           office_cities: string[] | null
+          partner_size_tier: number | null
+          partner_size_tier_needs_review: boolean | null
           phone: string | null
           positioning_statement: string | null
           product_filters: Json | null
@@ -1695,6 +1703,8 @@ export type Database = {
           name?: string | null
           not_a_fit?: string[] | null
           office_cities?: string[] | null
+          partner_size_tier?: number | null
+          partner_size_tier_needs_review?: boolean | null
           phone?: string | null
           positioning_statement?: string | null
           product_filters?: Json | null
@@ -1735,6 +1745,8 @@ export type Database = {
           name?: string | null
           not_a_fit?: string[] | null
           office_cities?: string[] | null
+          partner_size_tier?: number | null
+          partner_size_tier_needs_review?: boolean | null
           phone?: string | null
           positioning_statement?: string | null
           product_filters?: Json | null
