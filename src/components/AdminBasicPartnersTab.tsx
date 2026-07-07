@@ -22,7 +22,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { Building2, Eye, Pencil, Plus, Trash2, Activity, ArrowDownCircle } from "lucide-react";
+import { Building2, Eye, Pencil, Plus, Trash2, Activity } from "lucide-react";
 import { PRODUCT_LABEL, PRODUCT_ORDER, ProductKey } from "@/hooks/useBasicPartners";
 import { useAdminPartners } from "@/hooks/useAdminPartners";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
@@ -204,58 +204,10 @@ export default function AdminBasicPartnersTab() {
     }
   };
 
-  // ---- Avpublicera (published → basic) --------------------------------------
-  // Ett Basickort är helt enkelt en opublicerad partner. Vi behåller all data i
-  // partners-raden; is_featured=false gör att endast observed_*-fälten exponeras
-  // publikt via partners_basic_public. Åtgärden är fullt reversibel genom att
-  // sätta is_featured=true igen i den vanliga partner-editorn.
-  const [degradeId, setDegradeId] = useState<string>("");
-  const [degrading, setDegrading] = useState(false);
+  // Alla partners har ett Basickort som fallback (visas när is_featured=false).
+  // Publicering/avpublicering hanteras i vanliga partner-editorn via is_featured.
 
-  const profiledPartners = useMemo(
-    () =>
-      (allAdminPartners || [])
-        .filter((p: any) => p.is_featured === true)
-        .slice()
-        .sort((a: any, b: any) => a.name.localeCompare(b.name, "sv")),
-    [allAdminPartners],
-  );
 
-  const degrade = async () => {
-    const p = profiledPartners.find((x: any) => x.id === degradeId);
-    if (!p) return;
-    if (
-      !confirm(
-        `Avpublicera ${p.name} och visa som Basickort?\n\n` +
-          `• Partnern försvinner ur publika listor, matchning och kontaktflöden.\n` +
-          `• Publik data begränsas till observerad marknadsdata (namn, orter, produktområden, branschinriktning).\n` +
-          `• All annan data (kontakt, AI-profil, ekonomi) lämnas orörd i databasen.\n\n` +
-          `Åtgärden är fullt reversibel – sätt "Publicerad" igen i partner-editorn.`,
-      )
-    )
-      return;
-    setDegrading(true);
-    try {
-      await callAdmin("update", {
-        id: p.id,
-        partner: {
-          is_featured: false,
-          agreement_signed: false,
-          cancellation_date: new Date().toISOString().slice(0, 10),
-          observed_updated_at: new Date().toISOString(),
-        },
-      });
-      toast.success(`${p.name} visas nu som Basickort`);
-      setDegradeId("");
-      qc.invalidateQueries({ queryKey: ["basic-partners"] });
-      qc.invalidateQueries({ queryKey: ["admin-partners"] });
-      qc.invalidateQueries({ queryKey: ["partners"] });
-    } catch (e: any) {
-      toast.error(e?.message || "Kunde inte avpublicera");
-    } finally {
-      setDegrading(false);
-    }
-  };
 
 
 
@@ -276,48 +228,6 @@ export default function AdminBasicPartnersTab() {
         </Button>
       </div>
 
-      {/* Degrade profiled → basic */}
-      <div className="rounded-md border border-amber-500/40 bg-amber-500/5 p-4">
-        <div className="flex items-start gap-3">
-          <ArrowDownCircle className="mt-0.5 h-5 w-5 text-amber-700 shrink-0" />
-          <div className="flex-1 space-y-2">
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">
-                Konvertera profilerad partner → Basickort
-              </h3>
-              <p className="text-xs text-muted-foreground">
-                När en partner avslutar avtalet: byt profile_level till "basic". Partnern
-                behåller sin plats i marknadskartan men tappar kontaktbarhet, publik
-                profil och plats i matchning/rotation. Reversibelt.
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center gap-2">
-              <Select value={degradeId || "__none__"} onValueChange={(v) => setDegradeId(v === "__none__" ? "" : v)}>
-                <SelectTrigger className="min-w-[260px] bg-background">
-                  <SelectValue placeholder="Välj profilerad partner…" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="__none__">– Välj partner –</SelectItem>
-                  {profiledPartners.map((p: any) => (
-                    <SelectItem key={p.id} value={p.id}>
-                      {p.name}
-                      {p.is_featured ? "" : " (opublicerad)"}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <Button
-                variant="outline"
-                onClick={degrade}
-                disabled={!degradeId || degrading}
-                className="border-amber-500/60"
-              >
-                {degrading ? "Konverterar…" : "Konvertera till Basickort"}
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
 
 
 
