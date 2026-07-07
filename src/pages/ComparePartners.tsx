@@ -1265,13 +1265,14 @@ const ComparePartners = () => {
   // det valet: branschlösningar, projektlängd, kostnad, AI-kompetens och
   // geografi för vald produkt/bransch.
   const diffPoints = useMemo(() => {
-    if (!hasBoth) return [] as string[];
-    const points: string[] = [];
+    if (!hasBoth) return [] as React.ReactNode[];
+    const points: React.ReactNode[] = [];
     const sides = [
       { P: A, F: AF, name: A.partner?.name || "Partner 1", partner: a },
       { P: B, F: BF, name: B.partner?.name || "Partner 2", partner: b },
       ...(hasC ? [{ P: C, F: CF, name: C.partner?.name || "Partner 3", partner: c }] : []),
     ];
+
 
     const filterLabel = (() => {
       const parts: string[] = [];
