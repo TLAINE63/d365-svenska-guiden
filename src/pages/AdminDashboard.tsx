@@ -1789,6 +1789,7 @@ Thomas`,
  { id: 'contact', label: 'Kontaktuppgifter', icon: User },
  { id: 'geography', label: 'Geografi', icon: Globe },
  { id: 'products', label: 'Produkter', icon: FileText },
+ { id: 'text', label: 'Text & källor', icon: FileText },
  ];
 
  // Calculate form completion percentage
