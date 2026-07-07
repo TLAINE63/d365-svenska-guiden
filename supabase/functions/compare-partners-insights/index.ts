@@ -109,7 +109,7 @@ Deno.serve(async (req) => {
       if (p.geography?.length) contextLines.push(`  Geografi: ${sArr(p.geography).join(", ")}`);
       if (p.aiCapabilities?.length) contextLines.push(`  AI-förmågor: ${sArr(p.aiCapabilities).join(", ")}`);
       if (p.aiProjects != null && p.aiProjects !== "") contextLines.push(`  AI-projekt: ${s(String(p.aiProjects), 40)}`);
-      if (p.extendedContent) contextLines.push(`  Fördjupning (partnerns egen bakgrundstext, använd som stödjande kontext – citera aldrig ordagrant, referera inte till "fördjupningen"): ${s(p.extendedContent, 2500)}`);
+      if (p.extendedContent) contextLines.push(`  Fördjupning (extern research-sammanställning om partnern, AI-aggregerad från publika källor som d365.se, allabolag.se m.fl. – använd som stödjande bakgrundskontext, citera aldrig ordagrant, referera inte till "fördjupningen", och lita inte blint på specifika siffror, kundnamn eller certifieringar): ${s(p.extendedContent, 2500)}`);
       contextLines.push("");
     });
 
