@@ -574,5 +574,5 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
     console.warn(`  ⚠️  Dynamic routes fetch error: ${err.message}`);
   }
 
-  return [...partnerRoutes, ...eventRoutes, ...articleRoutes];
+  return [...partnerRoutes, ...basicPartnerRoutes, ...eventRoutes, ...articleRoutes];
 }
