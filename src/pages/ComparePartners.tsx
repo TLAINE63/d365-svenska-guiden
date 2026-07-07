@@ -1778,13 +1778,67 @@ const ComparePartners = () => {
                       />
                     </section>
 
+                    {/* Fokus & kompetens: alltid synligt ovanför toggle */}
+                    <section className="space-y-3 mb-6">
+                      <SectionTitle icon={Target} title="Fler partnerdetaljer" />
+
+                      <R
+                        label="Fokusbranscher"
+                        subtitle="Branscher där partnern har valt att bygga särskild djupkompetens – ofta baserat på referensprojekt och branschspecifika lösningar."
+                        a={renderIndustryList(scopedFocusIndustries(A), "Inga fokusbranscher uppgivna")}
+                        b={renderIndustryList(scopedFocusIndustries(B), "Inga fokusbranscher uppgivna")}
+                        c={renderIndustryList(scopedFocusIndustries(C), "Inga fokusbranscher uppgivna")}
+                      />
+
+                      {(() => {
+                        const renderIA = (list: typeof AF.industryApps) =>
+                          list.length > 0 ? (
+                            <ul className="space-y-1.5">
+                              {list.map((ia, i) => (
+                                <li key={i} className="text-sm">
+                                  <span className="font-medium">{ia.name}</span>
+                                  {(ia.application || ia.industry) && (
+                                    <span className="text-slate-500">
+                                      {" — "}
+                                      {[ia.application, ia.industry].filter(Boolean).join(" · ")}
+                                    </span>
+                                  )}
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            renderEmptyLabel("Inga branschapplikationer uppgivna")
+                          );
+                        return (
+                          <R
+                            label="Speciella Branschapplikationer"
+                            subtitle="Certifierade tillägg från Microsoft Marketplace som partnern erbjuder för specifika branscher eller verksamheter."
+                            help="Branschlösningar / vertikala tillägg som partnern erbjuder ovanpå Dynamics 365."
+                            a={renderIA(AF.industryApps)}
+                            b={renderIA(BF.industryApps)}
+                            c={renderIA(CF.industryApps)}
+                          />
+                        );
+                      })()}
+
+                      <R
+                        label="Kompetens inom Dynamics 365"
+                        subtitle="Överblick över samtliga Dynamics 365-applikationer som partnern arbetar med."
+                        warn
+                        help="Alla Dynamics 365-applikationer som partnern arbetar med — oavsett vilka produkter som är valda i jämförelsen."
+                        a={renderAppList(A.apps, "Inga Dynamics 365-applikationer uppgivna")}
+                        b={renderAppList(B.apps, "Inga Dynamics 365-applikationer uppgivna")}
+                        c={renderAppList(C.apps, "Inga Dynamics 365-applikationer uppgivna")}
+                      />
+                    </section>
+
                     {/* Toggle: fördjupning */}
 
                     <div className="flex items-center justify-between mb-4 gap-3 flex-wrap">
                       <p className="text-xs text-muted-foreground">
                         {showAllRows
                           ? "Visar fördjupade partnerdetaljer nedan."
-                          : "Positioneringen ovan räcker ofta för ett första beslut. Öppna mer om ni vill fördjupa."}
+                          : "Positioneringen och fokus ovan räcker ofta för ett första beslut. Öppna mer om ni vill fördjupa."}
                       </p>
                       <button
                         type="button"
@@ -1794,6 +1848,7 @@ const ComparePartners = () => {
                         {showAllRows ? "Dölj partnerdetaljer" : "Visa mer partnerdetaljer"}
                       </button>
                     </div>
+
                   </>
                 )}
 
