@@ -1030,6 +1030,7 @@ export type Database = {
           extended_content: string | null
           extended_content_updated_at: string | null
           geography: string[] | null
+          hide_basic_card: boolean
           id: string
           implementations_done: string | null
           implementations_per_app: Json
@@ -1100,6 +1101,7 @@ export type Database = {
           extended_content?: string | null
           extended_content_updated_at?: string | null
           geography?: string[] | null
+          hide_basic_card?: boolean
           id?: string
           implementations_done?: string | null
           implementations_per_app?: Json
@@ -1170,6 +1172,7 @@ export type Database = {
           extended_content?: string | null
           extended_content_updated_at?: string | null
           geography?: string[] | null
+          hide_basic_card?: boolean
           id?: string
           implementations_done?: string | null
           implementations_per_app?: Json
