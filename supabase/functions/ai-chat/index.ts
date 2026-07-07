@@ -73,7 +73,7 @@ Deno.serve(async (req) => {
       );
       if (partnersRes.ok) {
         const partners = await partnersRes.json();
-        partnerBlock = '\n\nPARTNERLISTA (använd ENDAST dessa när användaren frågar efter en namngiven partner. "Fördjupning" är extra bakgrundstext från partnern själv – använd som källa men citera aldrig ordagrant):\n' +
+        partnerBlock = '\n\nPARTNERLISTA (använd ENDAST dessa när användaren frågar efter en namngiven partner. "Fördjupning" är en extern research-sammanställning om partnern, AI-aggregerad från publika källor som d365.se, allabolag.se m.fl. – använd som bakgrundskälla, citera aldrig ordagrant, och lita inte blint på specifika siffror, kundnamn eller certifieringar):\n' +
           (partners || []).map((p: any) => {
             const ext = (p.extended_content || '').replace(/\s+/g, ' ').trim();
             const extSnippet = ext ? ` | fördjupning: ${ext.substring(0, 700)}${ext.length > 700 ? '…' : ''}` : '';

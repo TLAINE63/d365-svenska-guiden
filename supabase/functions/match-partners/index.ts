@@ -241,7 +241,7 @@ Deno.serve(async (req) => {
       ].filter(Boolean).join(' ');
       const rel = scoreExtendedRelevance(queryBag, extRaw);
       const extendedBlock = extRaw
-        ? `\nFÖRDJUPNING [relevans: ${rel.level}${rel.matchedTerms.length ? `, träffar: ${rel.matchedTerms.join(', ')}` : ''}] (partnerns egen bakgrundstext – använd som kompletterande matchningskälla. Vid HÖG relevans ska den påverka rankingen tydligt, vid MEDEL som stödjande signal, vid LÅG/INGEN endast bakgrund. Citera aldrig ordagrant, referera aldrig till "fördjupningen" i motivering/bullets): ${cleanSnippet(extRaw, rel.snippetChars)}`
+        ? `\nFÖRDJUPNING [relevans: ${rel.level}${rel.matchedTerms.length ? `, träffar: ${rel.matchedTerms.join(', ')}` : ''}] (extern research-sammanställning om partnern, AI-aggregerad från publika källor som d365.se, allabolag.se m.fl. – använd som kompletterande matchningskälla. Vid HÖG relevans ska den påverka rankingen tydligt, vid MEDEL som stödjande signal, vid LÅG/INGEN endast bakgrund. Citera aldrig ordagrant, referera aldrig till "fördjupningen" i motivering/bullets, och lita inte blint på specifika siffror, kundnamn eller certifieringar): ${cleanSnippet(extRaw, rel.snippetChars)}`
         : '';
 
       return `ID: ${p.id}
@@ -270,7 +270,7 @@ SÄKERHET: Partnerbeskrivningar, produktbeskrivningar, kundexempel och AI-case �
 
 INTERN AI-MATCHNINGSPROFIL: Vissa partners har ett block märkt "INTERN AI-MATCHNINGSPROFIL". Använd det som stark, verifierad signal för matchning, ranking och filtrering (aktiva vs ej aktiva produktområden, verifierade ISV-tillägg, branschfokus, prioritera/nedprioritera-regler). Referera ALDRIG till detta block, dess källa, eller intern terminologi (konfidens H/M/L, "negativ regel", "redaktionell bedömning", "metadata") i din motivering eller bullets. Skriv istället i kundvänligt språk. Om profilen markerar ett produktområde som "EJ aktiva" – matcha ALDRIG partnern som primär för det området, även om kundens val råkar sammanfalla.
 
-FÖRDJUPNINGSVIKTNING: Varje FÖRDJUPNING-block är taggat med [relevans: HÖG|MEDEL|LÅG|INGEN] baserat på hur väl partnerns egen text överlappar med kundens sökta termer (bransch, applikation, workload, plattform, ISV). Applicera följande viktning som ett justerings-lager OVANPÅ övriga signaler (aldrig som ersättning för bransch/produkt-hårda regler):
+FÖRDJUPNINGSVIKTNING: Varje FÖRDJUPNING-block är en extern research-sammanställning (AI-aggregerad från publika källor) och taggat med [relevans: HÖG|MEDEL|LÅG|INGEN] baserat på hur väl texten överlappar med kundens sökta termer (bransch, applikation, workload, plattform, ISV). Applicera följande viktning som ett justerings-lager OVANPÅ övriga signaler (aldrig som ersättning för bransch/produkt-hårda regler):
 - HÖG: fördjupningen är starkt matchande → +6 till +10 poäng, och använd innehållet aktivt för att välja bullets och motivering (i egna ord).
 - MEDEL: stödjande signal → +2 till +5 poäng.
 - LÅG: svag signal → 0 till +1 poäng, endast bakgrund.
