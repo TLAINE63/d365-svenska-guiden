@@ -241,7 +241,7 @@ Deno.serve(async (req) => {
       ].filter(Boolean).join(' ');
       const rel = scoreExtendedRelevance(queryBag, extRaw);
       const extendedBlock = extRaw
-        ? `\nFÖRDJUPNING [relevans: ${rel.level}${rel.matchedTerms.length ? `, träffar: ${rel.matchedTerms.join(', ')}` : ''}] (partnerns egen bakgrundstext – använd som kompletterande matchningskälla. Vid HÖG relevans ska den påverka rankingen tydligt, vid MEDEL som stödjande signal, vid LÅG/INGEN endast bakgrund. Citera aldrig ordagrant, referera aldrig till "fördjupningen" i motivering/bullets): ${cleanSnippet(extRaw, rel.snippetChars)}`
+        ? `\nFÖRDJUPNING [relevans: ${rel.level}${rel.matchedTerms.length ? `, träffar: ${rel.matchedTerms.join(', ')}` : ''}] (extern research-sammanställning om partnern, AI-aggregerad från publika källor som d365.se, allabolag.se m.fl. – använd som kompletterande matchningskälla. Vid HÖG relevans ska den påverka rankingen tydligt, vid MEDEL som stödjande signal, vid LÅG/INGEN endast bakgrund. Citera aldrig ordagrant, referera aldrig till "fördjupningen" i motivering/bullets, och lita inte blint på specifika siffror, kundnamn eller certifieringar): ${cleanSnippet(extRaw, rel.snippetChars)}`
         : '';
 
       return `ID: ${p.id}
