@@ -281,10 +281,10 @@ export function PartnerBasicCard({
         <div className="mt-4">
           <Link
             to="/kontakt/?intent=partneranmalan"
-            className="inline-flex items-center gap-1 text-sm font-medium text-primary underline-offset-2 hover:underline"
+            className="group inline-flex items-center gap-1 text-sm font-medium text-primary underline-offset-2 transition-colors hover:underline focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             {BASIC_COPY.cta}
-            <span aria-hidden>→</span>
+            <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
           </Link>
         </div>
 
@@ -292,7 +292,7 @@ export function PartnerBasicCard({
           <div className="mt-2">
             <Link
               to={`/basic/${partner.slug}/`}
-              className="text-xs text-muted-foreground hover:text-foreground"
+              className="text-xs text-muted-foreground transition-colors hover:text-foreground focus-visible:text-foreground focus-visible:underline"
             >
               Visa detaljer
             </Link>
