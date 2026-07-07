@@ -406,6 +406,8 @@ serve(async (req: Request): Promise<Response> => {
         if (partner?.office_cities !== undefined) updateData.office_cities = partner.office_cities;
         if (partner?.map_url !== undefined) updateData.map_url = partner.map_url?.trim() || null;
         if (partner?.youtube_video_id !== undefined) updateData.youtube_video_id = partner.youtube_video_id?.trim() || null;
+        if (partner?.partner_size_tier !== undefined) updateData.partner_size_tier = normalizeSizeTier(partner.partner_size_tier);
+        if (partner?.partner_size_tier_needs_review !== undefined) updateData.partner_size_tier_needs_review = partner.partner_size_tier_needs_review === true;
         if (partner?.industry_pitches !== undefined) updateData.industry_pitches = partner.industry_pitches;
         if ((partner as any)?.positioning_statement !== undefined) updateData.positioning_statement = (partner as any).positioning_statement || null;
         if ((partner as any)?.delivery_profile !== undefined) updateData.delivery_profile = (partner as any).delivery_profile || {};
