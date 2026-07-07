@@ -463,7 +463,7 @@ export default function AdminBasicPartnersTab() {
 
               <div className="space-y-3">
                 <Label>Observerade produktområden & branscher (max 3 per område)</Label>
-                {(["bc", "fsc", "crm"] as ProductKey[]).map((k) => {
+                {PRODUCT_ORDER.map((k) => {
                   const active = !!editing.observed_products?.[k];
                   const inds = editing.observed_industries?.[k] || [];
                   return (
