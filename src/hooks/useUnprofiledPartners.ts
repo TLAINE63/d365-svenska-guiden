@@ -23,7 +23,10 @@ export function useUnprofiledPartners() {
         .order("display_order", { ascending: true })
         .order("name", { ascending: true });
       if (error) throw error;
-      return (data || []) as UnprofiledPartner[];
+      return ((data || []) as UnprofiledPartner[]).filter(
+        (p) => !isPartnerExcluded(p.name)
+      );
+
     },
     staleTime: 5 * 60 * 1000,
   });
