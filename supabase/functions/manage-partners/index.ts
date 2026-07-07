@@ -173,6 +173,11 @@ interface PartnerData {
   }>;
   ai_profile?: Record<string, unknown>;
   extended_content?: string;
+  profile_level?: "basic" | "profilerad";
+  observed_products?: Record<string, boolean>;
+  observed_industries?: Record<string, string[]>;
+  observed_locations?: string[];
+  observed_updated_at?: string | null;
 }
 
 interface RequestBody {
@@ -352,6 +357,11 @@ serve(async (req: Request): Promise<Response> => {
             implementations_per_app: (partner as any).implementations_per_app || {},
             extended_content: (partner as any).extended_content?.trim() || null,
             extended_content_updated_at: (partner as any).extended_content?.trim() ? new Date().toISOString() : null,
+            profile_level: partner.profile_level || "profilerad",
+            observed_products: partner.observed_products || {},
+            observed_industries: partner.observed_industries || {},
+            observed_locations: partner.observed_locations || [],
+            observed_updated_at: partner.observed_updated_at || null,
           })
           .select()
           .single();
@@ -431,6 +441,11 @@ serve(async (req: Request): Promise<Response> => {
           updateData.extended_content = trimmed;
           updateData.extended_content_updated_at = trimmed ? new Date().toISOString() : null;
         }
+        if (partner?.profile_level !== undefined) updateData.profile_level = partner.profile_level;
+        if (partner?.observed_products !== undefined) updateData.observed_products = partner.observed_products || {};
+        if (partner?.observed_industries !== undefined) updateData.observed_industries = partner.observed_industries || {};
+        if (partner?.observed_locations !== undefined) updateData.observed_locations = partner.observed_locations || [];
+        if (partner?.observed_updated_at !== undefined) updateData.observed_updated_at = partner.observed_updated_at;
 
 
         const { data, error } = await supabase
