@@ -2237,6 +2237,13 @@ const CustomerServiceNeedsAnalysis = () => {
  </div>
  </div>
 
+ {/* FÖRESLAGNA PARTNERS */}
+ <SuggestedPartnersCTA
+ product="service"
+ industry={data.industry === "Annat" ? data.industryOther : data.industry}
+ className="!py-8 border rounded overflow-hidden !bg-secondary/40"
+ />
+
  {/* KONTAKTUPPGIFTER & LADDA NER */}
  <div className="border border-[hsl(var(--line-dark))] rounded overflow-hidden ">
  <div className="bg-[hsl(var(--hero-dark))] px-5 py-4">
