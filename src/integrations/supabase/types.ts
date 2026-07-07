@@ -83,6 +83,49 @@ export type Database = {
         }
         Relationships: []
       }
+      contact_attempt_blocked: {
+        Row: {
+          created_at: string
+          id: string
+          partner_id: string
+          source_context: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          partner_id: string
+          source_context?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          partner_id?: string
+          source_context?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contact_attempt_blocked_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contact_attempt_blocked_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_basic_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contact_attempt_blocked_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       email_send_log: {
         Row: {
           created_at: string
@@ -432,6 +475,13 @@ export type Database = {
             foreignKeyName: "partner_ai_knowledge_partner_id_fkey"
             columns: ["partner_id"]
             isOneToOne: false
+            referencedRelation: "partners_basic_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_ai_knowledge_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
             referencedRelation: "partners_public"
             referencedColumns: ["id"]
           },
@@ -498,6 +548,13 @@ export type Database = {
             columns: ["partner_id"]
             isOneToOne: true
             referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_event_tokens_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: true
+            referencedRelation: "partners_basic_public"
             referencedColumns: ["id"]
           },
           {
@@ -585,6 +642,13 @@ export type Database = {
             columns: ["partner_id"]
             isOneToOne: false
             referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_basic_public"
             referencedColumns: ["id"]
           },
           {
@@ -684,6 +748,13 @@ export type Database = {
             foreignKeyName: "partner_invitations_partner_id_fkey"
             columns: ["partner_id"]
             isOneToOne: false
+            referencedRelation: "partners_basic_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_invitations_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
             referencedRelation: "partners_public"
             referencedColumns: ["id"]
           },
@@ -729,6 +800,13 @@ export type Database = {
             columns: ["partner_id"]
             isOneToOne: false
             referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_profile_views_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_basic_public"
             referencedColumns: ["id"]
           },
           {
@@ -913,6 +991,13 @@ export type Database = {
             foreignKeyName: "partner_submissions_partner_id_fkey"
             columns: ["partner_id"]
             isOneToOne: false
+            referencedRelation: "partners_basic_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_submissions_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
             referencedRelation: "partners_public"
             referencedColumns: ["id"]
           },
@@ -961,6 +1046,10 @@ export type Database = {
           monthly_fee: number | null
           name: string
           not_a_fit: string[] | null
+          observed_industries: Json
+          observed_locations: string[]
+          observed_products: Json
+          observed_updated_at: string | null
           office_cities: string[] | null
           org_number: string | null
           partner_size_tier: number | null
@@ -970,6 +1059,7 @@ export type Database = {
           positioning_statement: string | null
           product_filters: Json | null
           product_profiles: Json
+          profile_level: string
           published_at: string | null
           related_party: boolean
           secondary_industries: string[] | null
@@ -1026,6 +1116,10 @@ export type Database = {
           monthly_fee?: number | null
           name: string
           not_a_fit?: string[] | null
+          observed_industries?: Json
+          observed_locations?: string[]
+          observed_products?: Json
+          observed_updated_at?: string | null
           office_cities?: string[] | null
           org_number?: string | null
           partner_size_tier?: number | null
@@ -1035,6 +1129,7 @@ export type Database = {
           positioning_statement?: string | null
           product_filters?: Json | null
           product_profiles?: Json
+          profile_level?: string
           published_at?: string | null
           related_party?: boolean
           secondary_industries?: string[] | null
@@ -1091,6 +1186,10 @@ export type Database = {
           monthly_fee?: number | null
           name?: string
           not_a_fit?: string[] | null
+          observed_industries?: Json
+          observed_locations?: string[]
+          observed_products?: Json
+          observed_updated_at?: string | null
           office_cities?: string[] | null
           org_number?: string | null
           partner_size_tier?: number | null
@@ -1100,6 +1199,7 @@ export type Database = {
           positioning_statement?: string | null
           product_filters?: Json | null
           product_profiles?: Json
+          profile_level?: string
           published_at?: string | null
           related_party?: boolean
           secondary_industries?: string[] | null
@@ -1626,10 +1726,59 @@ export type Database = {
             foreignKeyName: "partner_events_partner_id_fkey"
             columns: ["partner_id"]
             isOneToOne: false
+            referencedRelation: "partners_basic_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
             referencedRelation: "partners_public"
             referencedColumns: ["id"]
           },
         ]
+      }
+      partners_basic_public: {
+        Row: {
+          created_at: string | null
+          id: string | null
+          name: string | null
+          observed_industries: Json | null
+          observed_locations: string[] | null
+          observed_products: Json | null
+          observed_updated_at: string | null
+          profile_level: string | null
+          slug: string | null
+          updated_at: string | null
+          website: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string | null
+          name?: string | null
+          observed_industries?: Json | null
+          observed_locations?: string[] | null
+          observed_products?: Json | null
+          observed_updated_at?: string | null
+          profile_level?: string | null
+          slug?: string | null
+          updated_at?: string | null
+          website?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string | null
+          name?: string | null
+          observed_industries?: Json | null
+          observed_locations?: string[] | null
+          observed_products?: Json | null
+          observed_updated_at?: string | null
+          profile_level?: string | null
+          slug?: string | null
+          updated_at?: string | null
+          website?: string | null
+        }
+        Relationships: []
       }
       partners_public: {
         Row: {

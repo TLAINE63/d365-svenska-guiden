@@ -259,7 +259,7 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
  id: "leads-partners",
  label: "Leads & Partners",
  icon: Building2,
- tabs: ["leads", "partners", "unprofiled-partners", "invitations", "agreement"],
+ tabs: ["leads", "partners", "unprofiled-partners", "basic-partners", "invitations", "agreement"],
  },
  {
  id: "innehall",

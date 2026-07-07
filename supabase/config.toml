@@ -62,3 +62,7 @@ verify_jwt = true
 
 [functions.mcp]
 verify_jwt = false
+
+[functions.track-contact-blocked]
+verify_jwt = false
+

@@ -10,6 +10,8 @@ import { usePartners } from "@/hooks/usePartners";
 import TrustBanner from "@/components/TrustBanner";
 import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
+import { useBasicPartners } from "@/hooks/useBasicPartners";
+import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
 import { useMemo } from "react";
 import partnerDataJson from "@/data/partnerData.json";
 
@@ -30,6 +32,7 @@ export default function AllD365Partners() {
   const { data: dbPartners } = usePartners();
   const { data: unprofiled } = useUnprofiledPartners();
   const { data: allNames } = useAllPartnerNames();
+  const { data: basicPartners } = useBasicPartners();
 
   const profiled = useMemo(() => {
     // Prefer live DB data once loaded; otherwise fall back to the static
@@ -120,18 +123,40 @@ export default function AllD365Partners() {
           </div>
         </section>
 
-        {/* Other partners (non-featured DB entries + curated list) */}
-        {others.length > 0 && (
+        {/* Basic cards: partners with observed data but no paid profile */}
+        {(basicPartners?.length ?? 0) > 0 && (
           <section className="py-8 sm:py-12 bg-secondary/40 border-t border-border">
             <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-              <div className="mb-8">
+              <div className="mb-6">
                 <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
-                  Övriga D365-partners på marknaden
+                  Övriga D365-partners – Basickort
                 </h2>
                 <p className="text-sm text-muted-foreground max-w-3xl">
-                  Dessa partners är verksamma i Sverige men har ännu inte en egen profil
-                  här på d365.se. Vi visar deras namn för transparens. Vill du veta mer
-                  – eller jämföra dem med profilerade partners – hör av dig.
+                  Dessa partners har ännu inte en egen profil på d365.se. Vi visar
+                  observerad data (branscher, produktområden, orter) sammanställd
+                  från publika källor – för att ge en realistisk bild av marknaden.
+                </p>
+              </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                {basicPartners!.map((p) => (
+                  <PartnerBasicCard key={p.id} partner={p} variant="list" />
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Legacy "others" (curated names without observed data yet) */}
+        {others.length > 0 && (
+          <section className="py-8 sm:py-12 border-t border-border">
+            <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+              <div className="mb-6">
+                <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
+                  Övriga aktörer på marknaden
+                </h2>
+                <p className="text-sm text-muted-foreground max-w-3xl">
+                  Partners vi känner till men där vi ännu inte har sammanställt
+                  observerad data. Hör av dig om du vill veta mer.
                 </p>
               </div>
               <div className="flex flex-wrap gap-2 sm:gap-3 mb-10">
