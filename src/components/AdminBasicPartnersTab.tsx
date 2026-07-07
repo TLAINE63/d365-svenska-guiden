@@ -114,6 +114,7 @@ export default function AdminBasicPartnersTab() {
           observed_industries: p.observed_industries || {},
           observed_locations: p.observed_locations || [],
           observed_updated_at: p.observed_updated_at ?? null,
+          hide_basic_card: p.hide_basic_card === true,
           updated_at: p.updated_at,
         })),
     [allAdminPartners],
