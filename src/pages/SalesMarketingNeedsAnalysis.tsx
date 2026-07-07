@@ -22,6 +22,11 @@ import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
 import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
 import { isServicesIndustry } from "@/lib/industryFilters";
+import { usePartners } from "@/hooks/usePartners";
+import { pickSuggestedPartners } from "@/lib/suggestPartners";
+import { buildCompareUrl } from "@/lib/compareUrl";
+import { appendSuggestedPartnersPage } from "@/utils/pdfSuggestedPartners";
+import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
 
 // Breadcrumb items
 const salesMarketingBreadcrumbs = [
