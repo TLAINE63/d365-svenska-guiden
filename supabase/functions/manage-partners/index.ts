@@ -176,7 +176,7 @@ interface PartnerData {
 }
 
 interface RequestBody {
-  action: "create" | "update" | "delete" | "get-full" | "get-one" | "get-sales-pitch-segments";
+  action: "create" | "update" | "delete" | "get-full" | "get-one" | "get-sales-pitch-segments" | "list-contact-blocked-counts";
   partner?: PartnerData;
   id?: string;
   token: string;
