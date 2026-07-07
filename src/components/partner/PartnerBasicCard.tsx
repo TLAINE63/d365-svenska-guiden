@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
-import { Building2, ExternalLink, FileText, Globe2, Info, MapPin, Tag, Users } from "lucide-react";
+import { Building2, FileText, Globe2, Info, MapPin, Tag, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import {
   BASIC_COPY,
