@@ -246,7 +246,7 @@ const AIOverview = () => {
   </section>
 
   {/* Förutsättningar för AI */}
-  <section className="px-4 sm:px-6 py-10 bg-[#F4F8F8] border-b border-border">
+  <section className="px-4 sm:px-6 py-10 bg-background border-b border-border">
   <div className="container mx-auto max-w-5xl">
   <div className="max-w-3xl mb-8">
   <h2 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight mb-2">
