@@ -30,6 +30,7 @@ import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
 import DecisionProfile from "@/components/partner/DecisionProfile";
 import PartnerProductTabs, { resolveInitialTab } from "@/components/partner/PartnerProductTabs";
+import { RadialGlow } from "@/components/RadialGlow";
 import type { TabKey } from "@/components/partner/types";
 
 import { usePartner, DatabasePartner } from "@/hooks/usePartners";
@@ -392,17 +393,12 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  <Navbar />
 
  {/* Premium Hero Header - Light theme */}
- <header className="relative overflow-hidden mt-16 text-slate-900">
- {/* Always-light background regardless of theme */}
- <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-slate-100" />
-  {/* Flat secondary backdrop — no teal, no orbs */}
- 
- {/* Subtle grid pattern overlay */}
- <div className="absolute inset-0 opacity-[0.04]" style={{ 
- backgroundImage: 'linear-gradient(rgba(0,0,0,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.06) 1px, transparent 1px)',
- backgroundSize: '50px 50px'
- }} />
- 
+  <header className="relative overflow-hidden mt-16 text-slate-900">
+  {/* Always-light background regardless of theme */}
+  <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-slate-100" />
+  {/* Subtle radial glow replacing the grid pattern */}
+  <RadialGlow variant="light" />
+
   <div className="relative container mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-4 sm:pb-6">
   <button
   onClick={() => window.history.back()}
