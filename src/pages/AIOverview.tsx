@@ -536,7 +536,7 @@ const AIOverview = () => {
 
   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
   {roles.map((role) => (
-  <Card key={role.title} className="relative overflow-hidden bg-[#211F1A] h-full" style={{ border: "0.5px solid #3A332A" }}>
+  <Card key={role.title} className="relative overflow-hidden bg-[hsl(var(--card-dark))] border border-[hsl(var(--line-dark))] h-full">
   <CardContent className="p-6 sm:p-8 flex flex-col h-full">
   <div className="text-3xl mb-3">{role.emoji}</div>
   <h3 className="text-lg font-bold text-white mb-1">
@@ -578,11 +578,11 @@ const AIOverview = () => {
  onClick={() => setSelectedGoal(isActive ? null : goal.id)}
  className="text-left w-full"
  >
-  <Card className={`group relative overflow-hidden transition-all duration-300 h-full bg-[#211F1A] ${
+  <Card className={`group relative overflow-hidden transition-all duration-300 h-full bg-[hsl(var(--card-dark))] border border-[hsl(var(--line-dark))] ${
   isActive
   ? "ring-2 ring-[hsl(var(--signature))] scale-[1.02]"
   : "hover:scale-[1.01]"
-  }`} style={{ border: "0.5px solid #3A332A" }}>
+  }`}>
   <CardContent className="p-5 sm:p-6">
   <div className="flex items-start gap-3">
   <span className="text-2xl shrink-0">{goal.emoji}</span>
