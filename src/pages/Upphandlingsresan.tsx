@@ -12,7 +12,7 @@ const Upphandlingsresan = () => {
     <>
       <SEOHead
         title="Upphandlingsresan – 7 stadier för ERP & CRM"
-        description="Två frågor visar var ni står i upphandlingsresan för Dynamics 365 (ERP och CRM). Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+        description="Frågor som avslöjar var ni står i upphandlingsresan för Dynamics 365 (ERP och CRM). Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
         canonicalPath="/kunskapscenter/upphandlingsresan"
       />
       <Navbar />
@@ -21,7 +21,7 @@ const Upphandlingsresan = () => {
           eyebrow="Kunskapscenter"
           title="Upphandlingsresan"
           titleAccent="7 stadier för ERP & CRM"
-          subhead="Två frågor visar var ni står i upphandlingsresan för Dynamics 365 (ERP och CRM). Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+          subhead="Frågor som avslöjar var ni står i upphandlingsresan för Dynamics 365 (ERP och CRM). Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
           primary={{
             label: "Hitta rätt partner",
             to: "/valjdynamics365partner/",
