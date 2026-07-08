@@ -11,7 +11,7 @@ import { Users, ArrowRight, ArrowLeftRight, Calendar, MessageSquare, Mail, Award
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import { SizeFilters } from "@/components/SizeFilters";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
-import heroPartnerFinder from "@/assets/hero-home-bg.jpg";
+import ProductHero from "@/components/ProductHero";
 import PartnerGuideDialog from "@/components/PartnerGuideDialog";
 import LeadCTA from "@/components/LeadCTA";
 import LeadMagnetBanner from "@/components/LeadMagnetBanner";
