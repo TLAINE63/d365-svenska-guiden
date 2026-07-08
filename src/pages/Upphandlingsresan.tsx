@@ -39,7 +39,7 @@ const Upphandlingsresan = () => {
         />
 
         {/* Värderingskort: Beslutsmognadsindex */}
-        <section className="bg-[hsl(var(--hero-dark))] border-b border-white/10 py-10 md:py-14">
+        <section className="relative overflow-hidden bg-[hsl(var(--hero-dark))] border-b border-white/10 py-10 md:py-14">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.10),transparent_60%)] pointer-events-none" />
           <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
           <div className="relative container mx-auto px-4 sm:px-6 max-w-5xl">
