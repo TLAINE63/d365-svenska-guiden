@@ -360,7 +360,10 @@ function getIndustryPitchesForTab(
   return pitches
     .filter((p) => {
       if (!p?.text?.trim()) return false;
-      const pitchKey = appToProductFilterKey(p.product || "");
+      const product = (p.product || "").trim();
+      // General pitches without a product are shown whenever the industry is listed.
+      if (!product) return true;
+      const pitchKey = appToProductFilterKey(product);
       return pitchKey !== null && keys.has(pitchKey);
     })
     .map((p) => ({
