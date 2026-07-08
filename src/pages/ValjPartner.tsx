@@ -527,7 +527,7 @@ const ValjPartner = () => {
   <Button
   size="lg"
   variant="outline"
-  className="w-full sm:w-auto text-lg sm:text-xl h-16 sm:h-20 px-6 sm:px-8 font-semibold transition-all rounded border-white/30 bg-[hsl(var(--hero-dark))] hover:bg-[hsl(var(--hero-dark))]/80 text-white"
+  className="w-full sm:w-auto text-sm sm:text-[15px] h-16 sm:h-20 px-6 sm:px-8 font-semibold transition-all rounded border-white/30 bg-[hsl(var(--hero-dark))] hover:bg-[hsl(var(--hero-dark))]/80 text-white"
   onClick={() => document.getElementById("hitta-partners")?.scrollIntoView({ behavior: "smooth", block: "start" })}
   >
   <List className="mr-2 h-5 w-5" />
