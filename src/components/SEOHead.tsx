@@ -30,6 +30,7 @@ const SEOHead = ({
   ogImageWidth = 1200,
   ogImageHeight = 630,
   ogType = "website",
+  ogVideo,
   noIndex = false,
   articlePublishedTime,
   articleModifiedTime,
