@@ -25,6 +25,7 @@ import AiProfilePublic from "@/components/partner/AiProfilePublic";
 import PartnerQuickFacts from "@/components/partner/PartnerQuickFacts";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
+import { appToProductFilterKey, type ProductFilterKey } from "@/lib/productFilterGroup";
 
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import FinanceIcon from "@/assets/icons/Finance.svg";
