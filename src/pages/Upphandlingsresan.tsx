@@ -19,10 +19,10 @@ const Upphandlingsresan = () => {
  <BuyerJourneyStages />
 
  {/* Steg 1: Kravspecifikation */}
- <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] py-10 sm:py-12 relative overflow-hidden border-b border-white/10">
- <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)] pointer-events-none" />
- <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--cta-orange)/0.10),transparent_55%)] pointer-events-none" />
+ <section className="bg-[hsl(var(--hero-dark))] py-10 sm:py-12 relative overflow-hidden border-b border-white/10">
+ <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.12),transparent_60%)] pointer-events-none" />
  <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+
 
  <div className="relative container mx-auto max-w-6xl px-4 sm:px-6">
  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-white/10 border border-white/20 text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6 ">
