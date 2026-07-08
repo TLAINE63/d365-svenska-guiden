@@ -43,7 +43,7 @@ interface Props {
   partner: DatabasePartner;
 }
 
-const EMPTY = <span className="text-slate-400 italic">Partner har inte fyllt i</span>;
+const EMPTY = <span className="text-slate-600 italic">Partner har inte fyllt i</span>;
 
 
 const DecisionProfile = ({ partner }: Props) => {
@@ -114,7 +114,7 @@ const DecisionProfile = ({ partner }: Props) => {
             <div className="flex items-center gap-2 mb-4 text-xs font-semibold uppercase tracking-wider text-slate-500">
               <Table2 className="w-4 h-4 text-[hsl(var(--cta-orange))]" />
               Snabbfakta
-              <span className="ml-2 normal-case tracking-normal text-[11px] font-normal text-slate-400">
+              <span className="ml-2 normal-case tracking-normal text-[11px] font-normal text-slate-600">
                 samma rader för alla partners — jämför enkelt
               </span>
             </div>
@@ -160,7 +160,7 @@ const DecisionProfile = ({ partner }: Props) => {
                       <TooltipProvider delayDuration={100}>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <button type="button" aria-label={`Vad betyder ${label}?`} className="text-slate-400 hover:text-slate-600">
+                            <button type="button" aria-label={`Vad betyder ${label}?`} className="text-slate-600 hover:text-slate-900">
                               <Info className="w-3.5 h-3.5" />
                             </button>
                           </TooltipTrigger>
