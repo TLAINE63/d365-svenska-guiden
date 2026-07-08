@@ -8,6 +8,8 @@ import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { collectPartnerIndustries } from "@/lib/partnerIndustries";
 import { ArrowRight, Building2 } from "lucide-react";
 import partnerDataJson from "@/data/partnerData.json";
+import { useBasicPartners, PRODUCT_LABEL, PRODUCT_ORDER } from "@/hooks/useBasicPartners";
+import { Badge } from "@/components/ui/badge";
 
 // Static featured-partner snapshot bundled at build time. Used as the
 // source for the initial render (SSG/crawlers) so partnernamn, branscher
