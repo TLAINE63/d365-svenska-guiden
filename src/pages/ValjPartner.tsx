@@ -528,7 +528,7 @@ const ValjPartner = () => {
   size="lg"
   variant="outline"
   className="w-full sm:w-auto text-lg sm:text-xl h-16 sm:h-20 px-6 sm:px-8 font-semibold transition-all rounded border-white/30 bg-white/10 hover:bg-white/20 text-white"
-  onClick={() => document.getElementById("alla-partners-rubrik")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+  onClick={() => document.getElementById("hitta-partners")?.scrollIntoView({ behavior: "smooth", block: "start" })}
   >
   <List className="mr-2 h-5 w-5" />
   Gå till partnerlistan
@@ -664,7 +664,7 @@ const ValjPartner = () => {
  )}
 
 
- <section className="py-8 sm:py-12 md:py-16 bg-background">
+ <section id="hitta-partners" className="py-8 sm:py-12 md:py-16 bg-background">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10 mb-8 sm:mb-10 md:mb-12">
  {/* Partner Map */}
