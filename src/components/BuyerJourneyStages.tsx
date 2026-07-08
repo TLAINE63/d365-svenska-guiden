@@ -178,10 +178,10 @@ const STEP2_OPTIONS = [
 ];
 
 const focusRing =
- "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E5006D] focus-visible:ring-offset-2";
+ "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent))] focus-visible:ring-offset-2";
 
 const PhaseTag = ({ phase }: { phase: Phase }) => (
- <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66]">
+ <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
  {phase}
  </span>
 );
@@ -196,9 +196,9 @@ const OptionCard = ({
  <button
  type="button"
  onClick={onClick}
- className={`group w-full text-left rounded border border-[#E5E5E8] bg-white p-5 sm:p-6 transition-all duration-200 hover:bg-[#FFF0F6] hover:border-[#E5006D] ${focusRing}`}
+ className={`group w-full text-left rounded border border-border bg-card p-5 sm:p-6 transition-all duration-200 hover:bg-[hsl(var(--accent-light))] hover:border-[hsl(var(--accent))] ${focusRing}`}
  >
- <span className="block text-[15px] sm:text-base font-medium text-[#0B0B0F] leading-snug">
+ <span className="block text-[15px] sm:text-base font-medium text-foreground leading-snug">
  {label}
  </span>
  </button>
@@ -313,58 +313,12 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
  PARTNERVAL: STAGES.filter((s) => s.phase === "PARTNERVAL"),
  };
 
- return (
- <>
- {/* Dark full-width hero (matches Home pattern) */}
- <section className="bg-[hsl(var(--hero-dark))] pt-24 md:pt-36 pb-10 md:pb-14 border-b border-white/10 relative overflow-hidden">
- <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)] pointer-events-none" />
- <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--cta-orange)/0.10),transparent_55%)] pointer-events-none" />
- <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
- <div className="relative container mx-auto px-4 sm:px-6 max-w-5xl">
- <header>
- <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white leading-tight mb-4 max-w-3xl">
- Var i systemlivscykeln står ni?
- </h2>
- <p className="text-base sm:text-lg text-white/85 mb-3 max-w-3xl leading-relaxed">
- Hur moget är ert beslutsunderlag inför en investering i affärssystem, CRM, marknadsföring eller kundservice? Beslutsmognadsindex är en diagnostik för svenska beslutsgrupper — utvecklad av d365.se, som står på köparens sida.
- </p>
- <p className="text-sm text-white/65 mb-6 max-w-3xl leading-relaxed">
- Gäller både ERP (Business Central, Finance &amp; Supply Chain Management) och CRM/kundnära system (Sales, Marketing/Customer Insights, Customer Service, Field Service, Contact Center). Konfidentiell sammanställning — inga svar sparas innan ni väljer att skicka in.
- </p>
+  return (
+    <>
+      {/* Light section: journey map + overview */}
+      <section className="bg-background py-12 md:py-10 border-b border-border">
+        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
 
- <div className="grid sm:grid-cols-3 gap-4 mb-8 max-w-4xl">
- {[
- { num: "I", title: "Personlig mognadsprofil", body: "Er position på fem dimensioner: behovsbild, intern samsyn, riskinsikt, partnermarknad, beslutsstruktur." },
- { num: "II", title: "Peer benchmark", body: "Jämförelse mot andra svenska beslutsgrupper som genomfört diagnostiken." },
- { num: "III", title: "Tre konkreta rekommendationer", body: "Inriktade på där hävstången är störst i ert nuvarande skede — inte på era svagheter." },
- ].map((c) => (
- <div key={c.num} className="rounded border border-white/15 bg-white/5 p-5">
- <div className="text-2xl font-serif italic text-cta-orange mb-2 leading-none">{c.num}</div>
- <div className="text-sm font-semibold text-white mb-1.5">{c.title}</div>
- <p className="text-[13px] text-white/70 leading-relaxed">{c.body}</p>
- </div>
- ))}
- </div>
-
- <div className="flex flex-col sm:flex-row sm:items-center gap-4">
- <a
- href="/beslutsmognad/"
- className={`inline-flex items-center justify-center gap-3 rounded-lg bg-cta-orange px-8 py-5 text-base sm:text-lg font-semibold text-white hover:bg-cta-orange-hover hover:-translate-y-0.5 transition-all ${focusRing}`}
- >
- Starta Beslutsmognadsindex
- <span aria-hidden className="text-xl">→</span>
- </a>
- <span className="text-sm text-white/70">
- 8–10 minuter · 25 frågor · konfidentiellt
- </span>
- </div>
- </header>
- </div>
- </section>
-
- {/* Light section: journey map + overview */}
- <section className="bg-[#FAFAFA] py-12 md:py-10 border-b border-[#E5E5E8]">
- <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
 
 
 
@@ -373,10 +327,10 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
  <div className="mb-12 md:mb-16">
  <div className="mb-5 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
  <div>
- <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-[#0B0B0F] mb-1">
+ <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground mb-1">
  Den typiska upphandlingsresan
  </h3>
- <p className="text-sm text-[#5A5A66]">
+ <p className="text-sm text-muted-foreground">
  Klicka på det stadie ni känner igen er i — så öppnas detaljerna och nästa steg.
  </p>
  </div>
@@ -386,32 +340,32 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
 
  <div className="hidden md:grid grid-cols-7 gap-3 mb-2 px-1">
  <div className="col-span-2 text-center">
- <span className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66]">
+ <span className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
  {PHASE_LABEL_SHORT["TIDIGA SIGNALER"]}
  </span>
- <div className="mt-1 h-px bg-[#E5E5E8]" />
+ <div className="mt-1 h-px bg-border" />
  </div>
  <div className="col-span-3 text-center">
- <span className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66]">
+ <span className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
  {PHASE_LABEL_SHORT["BEHOVET AKTIVERAS"]}
  </span>
- <div className="mt-1 h-px bg-[#E5E5E8]" />
+ <div className="mt-1 h-px bg-border" />
  </div>
  <div className="col-span-2 text-center">
- <span className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66]">
+ <span className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
  {PHASE_LABEL_SHORT["PARTNERVAL"]}
  </span>
- <div className="mt-1 h-px bg-[#E5E5E8]" />
+ <div className="mt-1 h-px bg-border" />
  </div>
  </div>
 
  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 gap-3">
  {STAGES.map((stage) => {
  const isActive = result === stage.id;
- const cardClass = `group relative flex flex-col rounded border bg-white p-4 pt-5 text-left transition-all duration-200 hover:-translate-y-0.5 ${focusRing} ${
+ const cardClass = `group relative flex flex-col rounded border bg-card p-4 pt-5 text-left transition-all duration-200 hover:-translate-y-0.5 ${focusRing} ${
  isActive
- ? "border-[#E5006D] ring-2 ring-[#E5006D]/30 bg-[#FFF0F6]"
- : "border-[#E5E5E8] hover:border-[#E5006D]"
+ ? "border-[hsl(var(--accent))] ring-2 ring-[hsl(var(--accent))]/30 bg-[hsl(var(--accent-light))]"
+ : "border-border hover:border-[hsl(var(--accent))]"
  }`;
  const cardInner = (
  <>
@@ -419,8 +373,8 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
  <span
  className={`inline-flex h-7 w-7 items-center justify-center rounded border text-xs font-bold ${
  isActive
- ? "border-[#E5006D] bg-[#E5006D] text-white"
- : "border-[#E5006D] text-[#E5006D] group-hover:bg-[#E5006D] group-hover:text-white"
+ ? "border-[hsl(var(--accent))] bg-[hsl(var(--accent))] text-white"
+ : "border-[hsl(var(--accent))] text-[hsl(var(--accent))] group-hover:bg-[hsl(var(--accent))] group-hover:text-white"
  }`}
  >
  {stage.id}
@@ -428,14 +382,14 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
  </div>
  <div className="flex justify-center mb-2">
  <stage.Icon
- className={`w-5 h-5 ${isActive ? "text-[#E5006D]" : "text-[#5A5A66]"}`}
+ className={`w-5 h-5 ${isActive ? "text-[hsl(var(--accent))]" : "text-muted-foreground"}`}
  />
  </div>
- <div className="text-center text-[13px] sm:text-sm font-semibold text-[#0B0B0F] leading-snug mb-3 min-h-[2.5rem] flex items-center justify-center">
+ <div className="text-center text-[13px] sm:text-sm font-semibold text-foreground leading-snug mb-3 min-h-[2.5rem] flex items-center justify-center">
  {SHORT_TITLES[stage.id]}
  </div>
- <div className="border-t border-[#E5E5E8] pt-3">
- <ul className="space-y-1.5 text-[11.5px] sm:text-xs text-[#5A5A66] leading-snug">
+ <div className="border-t border-border pt-3">
+ <ul className="space-y-1.5 text-[11.5px] sm:text-xs text-muted-foreground leading-snug">
  {STAGE_BULLETS[stage.id].map((b) => (
  <li key={b}>• {b}</li>
  ))}
@@ -475,30 +429,30 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
  {resultStage && (
  <div
  key={`result-${resultStage.id}`}
- className="rounded border border-[#E5E5E8] bg-white p-6 md:p-8 transition-opacity duration-200"
+ className="rounded border border-border bg-card p-6 md:p-8 transition-opacity duration-200"
  >
  <PhaseTag phase={resultStage.phase} />
- <div className="mt-2 mb-3 text-sm font-semibold text-[#E5006D]">
+ <div className="mt-2 mb-3 text-sm font-semibold text-[hsl(var(--accent))]">
  Stadie {resultStage.id} av 7
  </div>
- <h3 className="text-2xl sm:text-3xl font-semibold text-[#0B0B0F] tracking-tight leading-tight mb-5 flex items-start gap-3">
- <resultStage.Icon className="w-5 h-5 mt-1.5 text-[#5A5A66] flex-shrink-0" />
+ <h3 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-tight leading-tight mb-5 flex items-start gap-3">
+ <resultStage.Icon className="w-5 h-5 mt-1.5 text-muted-foreground flex-shrink-0" />
  <span>{resultStage.title}</span>
  </h3>
 
- <div className="space-y-4 text-[15px] sm:text-base text-[#5A5A66] leading-relaxed">
+ <div className="space-y-4 text-[15px] sm:text-base text-muted-foreground leading-relaxed">
  {resultStage.paragraphs.map((p, i) => (
  <p key={i}>{p}</p>
  ))}
  </div>
 
- <hr className="my-6 border-[#E5E5E8]" />
+ <hr className="my-6 border-border" />
 
- <div className="rounded bg-[#FFF0F6] border border-[#E5006D]/30 p-5 sm:p-6">
- <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#E5006D] mb-2">
+ <div className="rounded bg-[hsl(var(--accent-light))] border border-[hsl(var(--accent))]/30 p-5 sm:p-6">
+ <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[hsl(var(--accent))] mb-2">
  Nästa steg
  </div>
- <p className="text-[15px] text-[#0B0B0F] leading-relaxed mb-4">
+ <p className="text-[15px] text-foreground leading-relaxed mb-4">
  {resultStage.nextStep.helper}
  </p>
  {resultStage.nextStep.options ? (
@@ -507,7 +461,7 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
  <a
  key={opt.href}
  href={opt.href}
- className={`inline-flex items-center gap-1.5 rounded-lg bg-[#E5006D] px-4 py-2 text-sm font-semibold text-white hover:bg-[#c9005f] transition-colors ${focusRing}`}
+ className={`inline-flex items-center gap-1.5 rounded-lg bg-cta-orange px-4 py-2 text-sm font-semibold text-white hover:bg-cta-orange-hover transition-colors ${focusRing}`}
  >
  {opt.label} →
  </a>
@@ -516,7 +470,7 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
  ) : (
  <a
  href={resultStage.nextStep.href}
- className={`inline-flex items-center gap-2 rounded-lg bg-[#E5006D] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#c9005f] transition-colors ${focusRing}`}
+ className={`inline-flex items-center gap-2 rounded-lg bg-cta-orange px-5 py-2.5 text-sm font-semibold text-white hover:bg-cta-orange-hover transition-colors ${focusRing}`}
  >
  {resultStage.nextStep.label} →
  </a>
@@ -524,29 +478,29 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
  </div>
 
  <div className="mt-6">
- <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66] mb-2">
+ <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground mb-2">
  Användbart hos oss
  </div>
  <a
  href={resultStage.recommendationHref}
- className={`text-[15px] font-medium text-[#E5006D] hover:underline underline-offset-4 ${focusRing} rounded`}
+ className={`text-[15px] font-medium text-[hsl(var(--accent))] hover:underline underline-offset-4 ${focusRing} rounded`}
  >
  {resultStage.recommendation} →
  </a>
  </div>
 
- <div className="mt-8 pt-6 border-t border-[#E5E5E8] flex flex-col sm:flex-row gap-4 sm:gap-6">
+ <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row gap-4 sm:gap-6">
  <button
  type="button"
  onClick={scrollToOverview}
- className={`text-sm font-medium text-[#0B0B0F] hover:text-[#E5006D] ${focusRing} rounded`}
+ className={`text-sm font-medium text-foreground hover:text-[hsl(var(--accent))] ${focusRing} rounded`}
  >
  Visa alla stadier
  </button>
  <button
  type="button"
  onClick={reset}
- className={`text-sm font-medium text-[#5A5A66] hover:text-[#0B0B0F] ${focusRing} rounded`}
+ className={`text-sm font-medium text-muted-foreground hover:text-foreground ${focusRing} rounded`}
  >
  Gör om självskattningen
  </button>
@@ -560,10 +514,10 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
  {!compact && (
  <div ref={overviewRef} className="scroll-mt-24">
  <header className="mb-8 md:mb-10 max-w-2xl">
- <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-[#0B0B0F] mb-2">
+ <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground mb-2">
  De sju stadierna i en köpresa för ERP och CRM
  </h3>
- <p className="text-base text-[#5A5A66] leading-relaxed">
+ <p className="text-base text-muted-foreground leading-relaxed">
  Klicka på det stadie som känns mest likt er situation just nu.
  </p>
  </header>
@@ -581,34 +535,34 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
  <article
  key={stage.id}
  id={`steg-${stage.id}`}
- className="rounded border border-[#E5E5E8] bg-white p-6 transition-shadow duration-200 flex flex-col scroll-mt-24"
+ className="rounded border border-border bg-card p-6 transition-shadow duration-200 flex flex-col scroll-mt-24"
  >
- <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66] mb-2">
+ <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground mb-2">
  Stadie {stage.id}
  </div>
- <h4 className="text-lg font-semibold text-[#0B0B0F] leading-snug mb-3 flex items-start gap-2">
- <stage.Icon className="w-4 h-4 mt-1 text-[#5A5A66] flex-shrink-0" />
+ <h4 className="text-lg font-semibold text-foreground leading-snug mb-3 flex items-start gap-2">
+ <stage.Icon className="w-4 h-4 mt-1 text-muted-foreground flex-shrink-0" />
  <span>{stage.title}</span>
  </h4>
- <p className="text-sm text-[#5A5A66] leading-relaxed mb-4">
+ <p className="text-sm text-muted-foreground leading-relaxed mb-4">
  {stage.paragraphs[0]}
  </p>
 
  {isOpen && (
- <div className="mb-4 space-y-4 text-sm text-[#5A5A66] leading-relaxed border-t border-[#E5E5E8] pt-4">
+ <div className="mb-4 space-y-4 text-sm text-muted-foreground leading-relaxed border-t border-border pt-4">
  <p>{stage.paragraphs[1]}</p>
- <div className="rounded-lg bg-[#FFF0F6] border border-[#E5006D]/30 p-4">
- <div className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[#E5006D] mb-1.5">
+ <div className="rounded-lg bg-[hsl(var(--accent-light))] border border-[hsl(var(--accent))]/30 p-4">
+ <div className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[hsl(var(--accent))] mb-1.5">
  Nästa steg
  </div>
- <p className="text-sm text-[#0B0B0F] mb-3">{stage.nextStep.helper}</p>
+ <p className="text-sm text-foreground mb-3">{stage.nextStep.helper}</p>
  {stage.nextStep.options ? (
  <div className="flex flex-wrap gap-1.5">
  {stage.nextStep.options.map((opt) => (
  <a
  key={opt.href}
  href={opt.href}
- className={`inline-flex items-center gap-1 rounded-md bg-[#E5006D] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#c9005f] transition-colors ${focusRing}`}
+ className={`inline-flex items-center gap-1 rounded-md bg-cta-orange px-3 py-1.5 text-xs font-semibold text-white hover:bg-cta-orange-hover transition-colors ${focusRing}`}
  >
  {opt.label} →
  </a>
@@ -617,19 +571,19 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
  ) : (
  <a
  href={stage.nextStep.href}
- className={`inline-flex items-center gap-1.5 rounded-md bg-[#E5006D] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#c9005f] transition-colors ${focusRing}`}
+ className={`inline-flex items-center gap-1.5 rounded-md bg-cta-orange px-3.5 py-2 text-xs font-semibold text-white hover:bg-cta-orange-hover transition-colors ${focusRing}`}
  >
  {stage.nextStep.label} →
  </a>
  )}
  </div>
  <div>
- <div className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66] mb-1.5">
+ <div className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground mb-1.5">
  Användbart hos oss
  </div>
  <a
  href={stage.recommendationHref}
- className={`text-sm font-medium text-[#E5006D] hover:underline underline-offset-4 ${focusRing} rounded`}
+ className={`text-sm font-medium text-[hsl(var(--accent))] hover:underline underline-offset-4 ${focusRing} rounded`}
  >
  {stage.recommendation} →
  </a>
@@ -643,7 +597,7 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
  setExpanded((prev) => ({ ...prev, [stage.id]: !prev[stage.id] }))
  }
  aria-expanded={isOpen}
- className={`mt-auto self-start text-sm font-medium text-[#E5006D] hover:underline underline-offset-4 ${focusRing} rounded`}
+ className={`mt-auto self-start text-sm font-medium text-[hsl(var(--accent))] hover:underline underline-offset-4 ${focusRing} rounded`}
  >
  {isOpen ? "Visa mindre" : "Läs mer →"}
  </button>
