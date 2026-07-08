@@ -209,7 +209,7 @@ export default function SalesRoiCalculator() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Dynamics 365 Sales ROI/TCO-kalkylator – payback & 5-årig totalkostnad"
+        title="Sales ROI-kalkylator – payback & 5-årig kostnad"
         description="Indikativ ROI- och TCO-kalkyl för Microsoft Dynamics 365 Sales. Räkna licens, implementation, payback och 5-årig totalkostnad utifrån antal säljare, bransch och valda effektiviseringar."
         canonicalPath="/d365sales/roi-kalkylator/"
       />

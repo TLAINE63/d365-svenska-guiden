@@ -3563,7 +3563,7 @@ const SalesMarketingNeedsAnalysis = () => {
  return (
  <div className="min-h-screen bg-background">
  <SEOHead 
- title="Behovsanalys CRM – Dynamics 365 Sales & Customer Insights"
+ title="Behovsanalys CRM – Dynamics 365 Sales & Insights"
  description="Kostnadsfri CRM-behovsanalys: kartlägg sälj- och marknadsprocesser och få rekommendation för Dynamics 365 Sales och Customer Insights (Marketing)."
  canonicalPath="/CRMbehovsanalys"
  keywords="CRM behovsanalys, Dynamics 365 Sales, Marketing, Customer Insights, försäljning"

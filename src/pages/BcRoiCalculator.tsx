@@ -232,7 +232,7 @@ export default function BcRoiCalculator() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Business Central ROI/TCO-kalkylator – payback & 5-årig totalkostnad"
+        title="Business Central ROI-kalkylator – payback & kostnad"
         description="Indikativ ROI- och TCO-kalkyl för Microsoft Dynamics 365 Business Central. Räkna licens, implementation, payback och 5-årig totalkostnad utifrån era nyckeltal."
         canonicalPath="/businesscentral/roi-kalkylator/"
       />
