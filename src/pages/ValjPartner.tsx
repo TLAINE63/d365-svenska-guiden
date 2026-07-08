@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link, useSearchParams } from "react-router-dom";
-import { Users, ArrowRight, ArrowLeftRight, Calendar, MessageSquare, Mail, Award, Shield, ExternalLink, Star, Loader2 } from "lucide-react";
+import { Users, ArrowRight, ArrowLeftRight, Calendar, MessageSquare, Mail, Award, Shield, ExternalLink, Star, Loader2, List } from "lucide-react";
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import { SizeFilters } from "@/components/SizeFilters";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
@@ -504,14 +504,36 @@ const ValjPartner = () => {
               <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-6 sm:mb-8">
                 Använd filtret som en första shortlist, inte ett facit. Rätt partner handlar om applikation, bransch, metodik, team, kemi och ansvar efter go-live.
               </p>
- <Button 
- size="lg" 
- className="bg-cta-orange hover:bg-cta-orange-hover text-white w-full sm:w-auto text-lg sm:text-xl h-16 sm:h-20 px-8 sm:px-12 font-bold transition-all rounded"
- onClick={() => setGuideOpen(true)}
- >
- <span>Få hjälp att välja rätt partner</span>
- <ArrowRight className="ml-2 h-5 w-5" />
- </Button>
+  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+  <Button 
+  size="lg" 
+  className="bg-cta-orange hover:bg-cta-orange-hover text-white w-full sm:w-auto text-lg sm:text-xl h-16 sm:h-20 px-8 sm:px-12 font-bold transition-all rounded"
+  onClick={() => setGuideOpen(true)}
+  >
+  <span>Få hjälp att välja rätt partner</span>
+  <ArrowRight className="ml-2 h-5 w-5" />
+  </Button>
+  <Button
+  asChild
+  size="lg"
+  variant="outline"
+  className="w-full sm:w-auto text-lg sm:text-xl h-16 sm:h-20 px-6 sm:px-8 font-semibold transition-all rounded border-white/30 bg-white/10 hover:bg-white/20 text-white"
+  >
+  <Link to="/jamfor-partners/">
+  <ArrowLeftRight className="mr-2 h-5 w-5" />
+  Jämför tre partners sida vid sida
+  </Link>
+  </Button>
+  <Button
+  size="lg"
+  variant="outline"
+  className="w-full sm:w-auto text-lg sm:text-xl h-16 sm:h-20 px-6 sm:px-8 font-semibold transition-all rounded border-white/30 bg-white/10 hover:bg-white/20 text-white"
+  onClick={() => document.getElementById("alla-partners-rubrik")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+  >
+  <List className="mr-2 h-5 w-5" />
+  Gå till partnerlistan
+  </Button>
+  </div>
  </div>
  </div>
  </div>
