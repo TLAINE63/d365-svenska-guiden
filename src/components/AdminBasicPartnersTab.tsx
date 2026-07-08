@@ -330,14 +330,14 @@ export default function AdminBasicPartnersTab() {
       )}
 
       <Dialog open={!!editing} onOpenChange={(o) => !o && setEditing(null)}>
-        <DialogContent className="max-w-2xl">
-          <DialogHeader>
+        <DialogContent className="max-w-2xl max-h-[90vh] flex flex-col p-0 gap-0">
+          <DialogHeader className="px-6 pt-6 pb-3 border-b shrink-0">
             <DialogTitle>
               {editing?.id ? "Redigera Basickort" : "Nytt Basickort"}
             </DialogTitle>
           </DialogHeader>
           {editing && (
-            <div className="space-y-4">
+            <div className="space-y-4 overflow-y-auto px-6 py-4 flex-1 min-h-0">
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <Label>Partnernamn *</Label>
@@ -545,30 +545,28 @@ export default function AdminBasicPartnersTab() {
                   Ej granskad av partnern. Håll neutralt, faktabaserat och kortfattat.
                 </p>
               </div>
+              <div className="rounded-md border border-amber-500/40 bg-amber-500/5 p-3">
+                <label className="flex items-start gap-2 cursor-pointer">
+                  <Checkbox
+                    checked={editing.hide_basic_card === true}
+                    onCheckedChange={(v) =>
+                      setEditing((prev) => (prev ? { ...prev, hide_basic_card: v === true } : prev))
+                    }
+                    className="mt-0.5"
+                  />
+                  <span className="text-sm">
+                    <span className="font-medium">Dölj Basickort publikt</span>
+                    <span className="block text-xs text-muted-foreground">
+                      Partnern har bett att inte synas alls på d365.se. Ingen publik listning,
+                      ingen standalone-sida, ingen matchning. Data bevaras för admin.
+                    </span>
+                  </span>
+                </label>
+              </div>
             </div>
           )}
 
-          {editing && (
-            <div className="rounded-md border border-amber-500/40 bg-amber-500/5 p-3">
-              <label className="flex items-start gap-2 cursor-pointer">
-                <Checkbox
-                  checked={editing.hide_basic_card === true}
-                  onCheckedChange={(v) =>
-                    setEditing((prev) => (prev ? { ...prev, hide_basic_card: v === true } : prev))
-                  }
-                  className="mt-0.5"
-                />
-                <span className="text-sm">
-                  <span className="font-medium">Dölj Basickort publikt</span>
-                  <span className="block text-xs text-muted-foreground">
-                    Partnern har bett att inte synas alls på d365.se. Ingen publik listning,
-                    ingen standalone-sida, ingen matchning. Data bevaras för admin.
-                  </span>
-                </span>
-              </label>
-            </div>
-          )}
-          <DialogFooter>
+          <DialogFooter className="px-6 py-4 border-t bg-background shrink-0">
             <Button variant="outline" onClick={() => setEditing(null)}>
               Avbryt
             </Button>
