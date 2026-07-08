@@ -536,7 +536,7 @@ const AIOverview = () => {
 
   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
   {roles.map((role) => (
-  <Card key={role.title} className="relative overflow-hidden bg-[#211F1A] h-full" style={{ border: "0.5px solid #3A332A" }}>
+  <Card key={role.title} className="relative overflow-hidden bg-[hsl(var(--card-dark))] border border-[hsl(var(--line-dark))] h-full">
   <CardContent className="p-6 sm:p-8 flex flex-col h-full">
   <div className="text-3xl mb-3">{role.emoji}</div>
   <h3 className="text-lg font-bold text-white mb-1">
