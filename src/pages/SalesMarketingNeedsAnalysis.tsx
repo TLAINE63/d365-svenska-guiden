@@ -3624,13 +3624,13 @@ const SalesMarketingNeedsAnalysis = () => {
  className="flex flex-col items-center min-w-[70px] max-w-[100px] cursor-pointer hover:opacity-80 transition-opacity flex-1"
  >
  <div className={`w-10 h-10 rounded flex items-center justify-center mb-1.5 transition-colors ${
- isActive ? 'bg-[#15363F] text-white' : 
- isCompleted ? 'bg-[#15363F]/20 text-[#15363F]' : 
+ isActive ? 'bg-[hsl(var(--cta-orange))] text-white' : 
+ isCompleted ? 'bg-[hsl(var(--cta-orange))]/20 text-[hsl(var(--cta-orange))]' : 
  'bg-muted text-muted-foreground'
  }`}>
  <Icon className="w-5 h-5" />
  </div>
- <span className={`text-[10px] leading-tight text-center ${isActive ? 'text-[#15363F] font-medium' : 'text-muted-foreground'}`}>
+ <span className={`text-[10px] leading-tight text-center ${isActive ? 'text-[hsl(var(--cta-orange))] font-medium' : 'text-muted-foreground'}`}>
  {title}
  </span>
  </button>
@@ -3639,10 +3639,10 @@ const SalesMarketingNeedsAnalysis = () => {
  </div>
 
  <Card className="">
- <CardHeader className="bg-gradient-to-r from-[#15363F]/10 to-[#15363F]/5 border-b py-3">
+ <CardHeader className="bg-gradient-to-r from-[hsl(var(--cta-orange))]/10 to-[hsl(var(--cta-orange))]/5 border-b py-3">
  <div className="flex items-center gap-2">
- <StepIcon className="w-5 h-5 text-[#15363F]" />
- <CardTitle className="text-lg text-[#15363F]">
+ <StepIcon className="w-5 h-5 text-[hsl(var(--cta-orange))]" />
+ <CardTitle className="text-lg text-[hsl(var(--cta-orange))]">
  {stepTitles[currentStep - 1]}
  </CardTitle>
  </div>
