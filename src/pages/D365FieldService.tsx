@@ -72,7 +72,7 @@ const D365FieldService = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Dynamics 365 Field Service – fältservice, schemaläggning & IoT"
+        title="Field Service – fältservice, schemaläggning & IoT"
         description={resolvePriceTokens("System för fältservice och underhåll: intelligent schemaläggning, IoT-baserat prediktivt underhåll och mobilapp. Pris från {{price:field-service:short}}.")}
         canonicalPath="/d365fieldservice"
         keywords="Dynamics 365 Field Service pris, fältservice system, underhållshantering Microsoft, Field Service mobilapp, IoT fältservice, schemaläggning fälttekniker, prediktivt underhåll, Microsoft Field Service Sverige, fältservicehantering, Resource Scheduling Optimization"

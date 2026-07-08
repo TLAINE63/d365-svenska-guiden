@@ -36,7 +36,7 @@ export default function PartnersSitemap() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Partners-sitemap – alla profilerade Dynamics 365-partners | d365.se"
+        title="Partners-sitemap – alla Dynamics 365-partners | d365.se"
         description="HTML-sitemap över alla profilerade Microsoft Dynamics 365-partners på d365.se – sorterade A–Ö, per produktområde och per bransch."
         canonicalPath="/partners-sitemap/"
       />

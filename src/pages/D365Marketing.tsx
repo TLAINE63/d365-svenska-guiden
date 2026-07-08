@@ -82,7 +82,7 @@ const D365Marketing = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Dynamics 365 Customer Insights – marketing automation & CDP"
+        title="Dynamics 365 Customer Insights – automation & CDP"
         description={resolvePriceTokens("Marketing automation och Customer Data Platform med AI-kundresor och lead scoring. Pris från {{price:customer-insights-attach:amount}}/mån – HubSpot- och Marketo-alternativ.")}
         canonicalPath="/d365marketing"
         keywords="Dynamics 365 Customer Insights pris, marketing automation Microsoft, HubSpot alternativ, Marketo alternativ Sverige, Dynamics 365 Marketing pris, kundresor automation, CDP customer data platform, lead scoring CRM, marknadsföringsautomation Microsoft, Customer Insights Journeys"

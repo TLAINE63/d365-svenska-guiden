@@ -192,7 +192,7 @@ const BusinessCentral = () => {
  return (
  <div className="min-h-screen">
  <SEOHead 
- title="Microsoft Dynamics 365 Business Central – pris & partner"
+ title="Dynamics 365 Business Central – pris & partner"
  description={resolvePriceTokens("Jämför Microsoft Dynamics 365 Business Central: pris ({{price:bc-essentials:short}}–{{price:bc-premium:short}}), funktioner, implementationstid och hitta rätt Microsoft-partner i Sverige.")}
  canonicalPath="/businesscentral"
  keywords="business central, dynamics 365 business central, d365 bc, dynamics 365 bc, business central pris, business central licens, business central essentials, business central premium, business central partner sverige, business central implementering"

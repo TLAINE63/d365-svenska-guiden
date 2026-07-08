@@ -10,7 +10,7 @@ const Upphandlingsresan = () => {
  return (
  <>
  <SEOHead
- title="Den typiska upphandlingsresan – 7 stadier för ERP & CRM"
+ title="Upphandlingsresan – 7 stadier för ERP & CRM"
  description="Två frågor visar var ni står i upphandlingsresan för Dynamics 365 (ERP och CRM). Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
  canonicalPath="/kunskapscenter/upphandlingsresan"
  />

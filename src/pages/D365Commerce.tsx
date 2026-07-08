@@ -28,7 +28,7 @@ const D365Commerce = () => {
   return (
     <div className="min-h-screen">
       <SEOHead
-        title="Dynamics 365 Commerce – omnikanal retail, POS och e-handel"
+        title="Dynamics 365 Commerce – retail, POS och e-handel"
         description="Microsofts omnikanal-plattform för butik, e-handel, kundklubb och POS – samlad produktkatalog, prismotor och kunddata i realtid över alla kanaler. Integrerat med F&SCM."
         canonicalPath="/d365commerce"
         keywords="Dynamics 365 Commerce, omnikanal retail, POS-system Microsoft, e-handel Dynamics, kundklubb, prismotor, butikssystem, headless commerce"

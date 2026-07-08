@@ -70,7 +70,7 @@ const D365ContactCenter = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Dynamics 365 Contact Center – AI-kontaktcenter, pris & funktioner"
+        title="Dynamics 365 Contact Center – pris & funktioner"
         description="AI-drivet kontaktcenter med omnikanal (telefon, chatt, e-post, SMS, sociala medier), virtuella agenter och intelligent routing. Pris från 1 051 kr/agent/mån."
         canonicalPath="/d365contactcenter"
         keywords="Dynamics 365 Contact Center pris, contact center Microsoft, omnichannel kontaktcenter, virtuella agenter AI, intelligent routing, Genesys alternativ, Avaya alternativ Microsoft, kontaktcenter system Sverige, Teams kontaktcenter, contact center molntjänst"

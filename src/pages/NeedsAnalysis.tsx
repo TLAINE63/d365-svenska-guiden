@@ -4568,7 +4568,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead 
-        title="Behovsanalys ERP – få rekommendation Business Central eller F&SCM"
+        title="Behovsanalys ERP – Business Central eller F&SCM"
         description="Kostnadsfri ERP-behovsanalys på 5 minuter: svar på frågor om verksamhet och processer ger rekommendation av Business Central eller Finance & Supply Chain."
         canonicalPath="/ERPbehovsanalys"
         keywords="ERP behovsanalys, Dynamics 365, Business Central, Finance Supply Chain, affärssystem, kravspecifikation"
