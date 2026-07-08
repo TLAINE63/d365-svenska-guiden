@@ -15,6 +15,7 @@ const contactBreadcrumbs = [
 import { Mail, Phone, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
 import thomasLainePhoto from "@/assets/thomas-laine-real.jpg";
+import thomasLaineHeader from "@/assets/thomas-laine-kokai.jpg.asset.json";
 import michaelUhmanPhoto from "@/assets/michael-uhman.jpg";
 import linkedinLogo from "@/assets/linkedin-logo.jfif";
 
