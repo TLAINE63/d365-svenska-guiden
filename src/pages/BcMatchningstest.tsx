@@ -149,7 +149,7 @@ const BcMatchningstest = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="Matchar Business Central era behov? – Matchningstest | d365.se"
+        title="Matchar Business Central era behov? – Test | d365.se"
         description="Funktionsorienterat matchningstest för Microsoft Dynamics 365 Business Central. 20–25 frågor som visar vad som ingår i standard, kräver Premium, ISV eller ligger utanför BC."
         canonicalPath="/businesscentral/matchningstest"
         keywords="Business Central matchningstest, BC behovsanalys, Dynamics 365 Business Central, Essentials Premium ISV"

@@ -187,7 +187,7 @@ const RequirementsSpec = () => {
   return (
     <>
       <SEOHead
-        title="Kravspecifikation affärssystem – skapa underlag för ERP-projekt"
+        title="Kravspecifikation – underlag för ERP-projekt"
         description="Skapa en tydlig kravspecifikation inför val av affärssystem, ERP-system eller Dynamics 365-partner – med AI-berikade krav, KPI:er och branschanpassning."
         canonicalPath="/kravspecifikation"
       />
