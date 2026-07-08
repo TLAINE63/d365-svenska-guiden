@@ -15,7 +15,7 @@ const Upphandlingsresan = () => {
  canonicalPath="/kunskapscenter/upphandlingsresan"
  />
  <Navbar />
- <main className="min-h-screen bg-secondary/30 pt-12 lg:pt-28">
+ <main className="min-h-screen bg-secondary/30">
  <BuyerJourneyStages />
 
  {/* Steg 1: Kravspecifikation */}
