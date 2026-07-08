@@ -368,6 +368,8 @@ function getIndustryPitchesForTab(
       text: p.text.trim(),
     }))
     .filter((p) => p.industry && industries.includes(p.industry));
+}
+
 
 export default function PartnerProductTabs({
   partner,
