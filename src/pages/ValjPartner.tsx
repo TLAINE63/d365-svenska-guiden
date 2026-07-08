@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link, useSearchParams } from "react-router-dom";
-import { Users, ArrowRight, ArrowLeftRight, Calendar, MessageSquare, Mail, Award, Shield, ExternalLink, Star, Loader2 } from "lucide-react";
+import { Users, ArrowRight, ArrowLeftRight, Calendar, MessageSquare, Mail, Award, Shield, ExternalLink, Star, Loader2, List } from "lucide-react";
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import { SizeFilters } from "@/components/SizeFilters";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
