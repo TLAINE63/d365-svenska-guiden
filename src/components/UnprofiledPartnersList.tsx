@@ -117,15 +117,10 @@ const UnprofiledPartnersList = ({
                     </div>
                   )}
                 </div>
-                <div className="flex shrink-0 items-center gap-2">
-                  <Badge
-                    variant="outline"
-                    className="border-muted-foreground/40 bg-background/60 text-[10px] font-medium uppercase tracking-wide text-muted-foreground"
-                  >
-                    Basic
-                  </Badge>
+                <div className="flex shrink-0 items-center">
                   <ArrowRight className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
                 </div>
+
               </>
             );
             return (
