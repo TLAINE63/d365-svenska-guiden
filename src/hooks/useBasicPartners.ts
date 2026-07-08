@@ -1,5 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { isPartnerExcluded } from "@/lib/partnerVisibility";
+
 
 /**
  * A Basic partner is a partner that has NOT bought profile publication on d365.se.
@@ -99,7 +101,10 @@ export function useBasicPartners() {
         .select("*")
         .order("name");
       if (error) throw error;
-      return (data || []).map(normalizeRaw);
+      return (data || [])
+        .map(normalizeRaw)
+        .filter((p) => !isPartnerExcluded(p.name, p.slug));
+
     },
     staleTime: 5 * 60 * 1000,
   });
@@ -116,7 +121,9 @@ export function useBasicPartner(slug: string | undefined) {
         .eq("slug", slug)
         .maybeSingle();
       if (error) throw error;
-      return data ? normalizeRaw(data) : null;
+      if (!data || isPartnerExcluded(data.name, data.slug)) return null;
+      return normalizeRaw(data);
+
     },
     enabled: !!slug,
     staleTime: 5 * 60 * 1000,
