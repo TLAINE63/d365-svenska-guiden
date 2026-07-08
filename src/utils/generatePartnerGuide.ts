@@ -1,4 +1,4 @@
-import logoImage from "@/assets/dynamic-factory-logo-new.jpg";
+import logoImage from "@/assets/d365guide-logo-white-bg.png";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 // Convert image to base64
@@ -59,7 +59,7 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
     doc.setFontSize(8);
     doc.setTextColor(mutedColor.r, mutedColor.g, mutedColor.b);
     doc.text(`Sida ${pageNum}`, pageWidth / 2, pageHeight - 10, { align: "center" });
-    doc.text("© Dynamic Factory", margin, pageHeight - 10);
+    doc.text("© d365.se", margin, pageHeight - 10);
   };
 
   const addTitle = (text: string, size: number = 18) => {
@@ -156,7 +156,7 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
   // Logo
   if (logoBase64) {
     try {
-      doc.addImage(logoBase64, "JPEG", margin, 25, 50, 20);
+      doc.addImage(logoBase64, "PNG", margin, 22, 55, 11);
     } catch (e) {
       console.log("Could not add logo to PDF:", e);
     }
