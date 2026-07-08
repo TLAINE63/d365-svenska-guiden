@@ -127,9 +127,13 @@ export default function Friskrivning() {
           </p>
           <ul className="list-disc pl-6 mt-3 space-y-2 text-muted-foreground leading-relaxed">
             <li>
-              <strong>Anslutna partners</strong> har själva bekräftat sina uppgifter
-              (kompetenser, branscher, geografi, kontaktvägar) via vår partnerportal
-              och kan kontaktas via plattformens förmedlade leadflöde.
+              <strong>Anslutna partners</strong> har granskat och bekräftat
+              sina uppgifter (kompetenser, branscher, geografi, kontaktvägar)
+              via vår partnerportal. d365.se använder AI för att tolka,
+              strukturera och summera informationen så att de delar vi bedömer
+              mest relevanta för dig som köpare framträder tydligare. Det du ser
+              är en köparsidig presentation, inte partnerns ordagrant återgivna
+              profil.
             </li>
             <li>
               <strong>Basickort</strong> är översikter som är sammanställda av d365.se
