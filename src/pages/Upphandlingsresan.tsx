@@ -40,8 +40,8 @@ const Upphandlingsresan = () => {
 
         {/* Värderingskort: Beslutsmognadsindex */}
         <section className="relative overflow-hidden bg-[hsl(var(--hero-dark))] border-b border-white/10 py-10 md:py-14">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.10),transparent_60%)] pointer-events-none" />
-          <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent opacity-60" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/15 via-transparent to-transparent opacity-40" />
           <div className="relative container mx-auto px-4 sm:px-6 max-w-5xl">
             <div className="grid sm:grid-cols-3 gap-4 mb-8">
               {[
@@ -75,8 +75,8 @@ const Upphandlingsresan = () => {
 
         {/* Steg 1: Kravspecifikation */}
         <section className="bg-[hsl(var(--hero-dark))] py-10 sm:py-12 relative overflow-hidden border-b border-white/10">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.12),transparent_60%)] pointer-events-none" />
-          <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent opacity-60" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/15 via-transparent to-transparent opacity-40" />
 
           <div className="relative container mx-auto max-w-6xl px-4 sm:px-6">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-white/10 border border-white/20 text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6">
@@ -116,9 +116,8 @@ const Upphandlingsresan = () => {
 
         {/* Steg 2: Partner-matchning */}
         <section className="bg-[hsl(var(--hero-dark))] py-10 sm:py-12 relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--cta-orange)/0.10),transparent_60%)] pointer-events-none" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--primary)/0.08),transparent_55%)] pointer-events-none" />
-          <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent opacity-60" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/15 via-transparent to-transparent opacity-40" />
 
           <div className="relative container mx-auto max-w-6xl px-4 sm:px-6">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-[hsl(var(--cta-orange))] text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6">
