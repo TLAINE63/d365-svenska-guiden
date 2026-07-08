@@ -499,7 +499,7 @@ const ValjPartner = () => {
  <Users className="h-10 w-10 sm:h-12 sm:w-12 text-white" />
  </div>
               <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
-                Guidad väg till rätt partners
+                Hitta Dynamics 365-partners som matchar era behov
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-6 sm:mb-8">
                 Använd filtret som en första shortlist, inte ett facit. Rätt partner handlar om applikation, bransch, metodik, team, kemi och ansvar efter go-live.
