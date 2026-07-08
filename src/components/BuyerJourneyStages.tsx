@@ -313,58 +313,12 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
  PARTNERVAL: STAGES.filter((s) => s.phase === "PARTNERVAL"),
  };
 
- return (
- <>
- {/* Dark full-width hero (matches Home pattern) */}
- <section className="bg-[hsl(var(--hero-dark))] pt-24 md:pt-36 pb-10 md:pb-14 border-b border-white/10 relative overflow-hidden">
- <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)] pointer-events-none" />
- <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--cta-orange)/0.10),transparent_55%)] pointer-events-none" />
- <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
- <div className="relative container mx-auto px-4 sm:px-6 max-w-5xl">
- <header>
- <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white leading-tight mb-4 max-w-3xl">
- Var i systemlivscykeln står ni?
- </h2>
- <p className="text-base sm:text-lg text-white/85 mb-3 max-w-3xl leading-relaxed">
- Hur moget är ert beslutsunderlag inför en investering i affärssystem, CRM, marknadsföring eller kundservice? Beslutsmognadsindex är en diagnostik för svenska beslutsgrupper — utvecklad av d365.se, som står på köparens sida.
- </p>
- <p className="text-sm text-white/65 mb-6 max-w-3xl leading-relaxed">
- Gäller både ERP (Business Central, Finance &amp; Supply Chain Management) och CRM/kundnära system (Sales, Marketing/Customer Insights, Customer Service, Field Service, Contact Center). Konfidentiell sammanställning — inga svar sparas innan ni väljer att skicka in.
- </p>
+  return (
+    <>
+      {/* Light section: journey map + overview */}
+      <section className="bg-background py-12 md:py-10 border-b border-border">
+        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
 
- <div className="grid sm:grid-cols-3 gap-4 mb-8 max-w-4xl">
- {[
- { num: "I", title: "Personlig mognadsprofil", body: "Er position på fem dimensioner: behovsbild, intern samsyn, riskinsikt, partnermarknad, beslutsstruktur." },
- { num: "II", title: "Peer benchmark", body: "Jämförelse mot andra svenska beslutsgrupper som genomfört diagnostiken." },
- { num: "III", title: "Tre konkreta rekommendationer", body: "Inriktade på där hävstången är störst i ert nuvarande skede — inte på era svagheter." },
- ].map((c) => (
- <div key={c.num} className="rounded border border-white/15 bg-white/5 p-5">
- <div className="text-2xl font-serif italic text-cta-orange mb-2 leading-none">{c.num}</div>
- <div className="text-sm font-semibold text-white mb-1.5">{c.title}</div>
- <p className="text-[13px] text-white/70 leading-relaxed">{c.body}</p>
- </div>
- ))}
- </div>
-
- <div className="flex flex-col sm:flex-row sm:items-center gap-4">
- <a
- href="/beslutsmognad/"
- className={`inline-flex items-center justify-center gap-3 rounded-lg bg-cta-orange px-8 py-5 text-base sm:text-lg font-semibold text-white hover:bg-cta-orange-hover hover:-translate-y-0.5 transition-all ${focusRing}`}
- >
- Starta Beslutsmognadsindex
- <span aria-hidden className="text-xl">→</span>
- </a>
- <span className="text-sm text-white/70">
- 8–10 minuter · 25 frågor · konfidentiellt
- </span>
- </div>
- </header>
- </div>
- </section>
-
- {/* Light section: journey map + overview */}
- <section className="bg-[#FAFAFA] py-12 md:py-10 border-b border-[#E5E5E8]">
- <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
 
 
 
