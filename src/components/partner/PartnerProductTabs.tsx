@@ -648,8 +648,25 @@ export default function PartnerProductTabs({
                     </span>
                   </li>
                 )}
-              </ul>
-            </section>
+              {(() => {
+                const pitches = getIndustryPitchesForTab(partner, active, data.industries);
+                if (pitches.length === 0) return null;
+                return (
+                  <li className="flex flex-col gap-2 mt-2">
+                    {pitches.map((pitch, idx) => (
+                      <div
+                        key={idx}
+                        className="text-sm text-foreground/90 leading-relaxed border-l-2 border-primary/40 pl-3 py-1 bg-muted/30 rounded-r"
+                      >
+                        <span className="font-medium text-foreground">{pitch.industry}:</span>{" "}
+                        {pitch.text}
+                      </div>
+                    ))}
+                  </li>
+                );
+              })()}
+            </ul>
+          </section>
 
             {/* 3. Kompetenser */}
             <section>
