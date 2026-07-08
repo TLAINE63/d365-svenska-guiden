@@ -316,7 +316,7 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
  return (
  <>
  {/* Dark full-width hero (matches Home pattern) */}
- <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] py-10 md:py-10 border-b border-white/10 relative overflow-hidden">
+ <section className="bg-[hsl(var(--hero-dark))] pt-24 md:pt-36 pb-10 md:pb-14 border-b border-white/10 relative overflow-hidden">
  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)] pointer-events-none" />
  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--cta-orange)/0.10),transparent_55%)] pointer-events-none" />
  <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
