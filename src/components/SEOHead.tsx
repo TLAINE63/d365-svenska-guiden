@@ -9,7 +9,8 @@ interface SEOHeadProps {
   ogImageAlt?: string;
   ogImageWidth?: number;
   ogImageHeight?: number;
-  ogType?: "website" | "article";
+  ogType?: "website" | "article" | "video.other";
+  ogVideo?: string;
   noIndex?: boolean;
   // Article-specific metadata (used when ogType === "article")
   articlePublishedTime?: string;
