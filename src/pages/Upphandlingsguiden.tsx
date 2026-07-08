@@ -163,7 +163,7 @@ const Upphandlingsguiden = () => {
   </section>
 
  {/* Köparsidigt löfte */}
- <section className="px-4 sm:px-6 py-10 bg-[#F4F8F8] border-b border-border">
+ <section className="px-4 sm:px-6 py-10 bg-background border-b border-border">
  <div className="container mx-auto max-w-5xl grid sm:grid-cols-3 gap-4">
  {[
  { icon: ShieldCheck, title: "Köparens sida", text: "Vi vägleder utan att sälja in en specifik partner." },
