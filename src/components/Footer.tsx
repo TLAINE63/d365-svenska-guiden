@@ -80,25 +80,11 @@ const Footer = () => {
               <li><Link to="/qa/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Vanliga frågor</Link></li>
               <li><Link to="/branscher/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Hitta din bransch</Link></li>
               <li><Link to="/valjdynamics365partner/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Hitta din partner</Link></li>
-              {showMoreKc && (
-                <>
-                  <li><Link to="/alla-d365-partners/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Alla D365-partners</Link></li>
-                  <li><Link to="/partners-per-bransch/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Partners per bransch</Link></li>
-                  <li><Link to="/business-central-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Business Central-partners</Link></li>
-                  <li><Link to="/dynamics-365-sales-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Sales-partners</Link></li>
-                  <li><Link to="/partners-sitemap/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Partners-sitemap</Link></li>
-                </>
-              )}
-              <li>
-                <button
-                  type="button"
-                  onClick={() => setShowMoreKc((v) => !v)}
-                  className="text-[hsl(var(--signature))] hover:text-white transition-colors text-xs font-semibold uppercase tracking-wider"
-                  aria-expanded={showMoreKc}
-                >
-                  {showMoreKc ? "Visa mindre" : "Visa fler länkar"}
-                </button>
-              </li>
+              <li><Link to="/alla-d365-partners/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Alla D365-partners</Link></li>
+              <li><Link to="/partners-per-bransch/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Partners per bransch</Link></li>
+              <li><Link to="/business-central-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Business Central-partners</Link></li>
+              <li><Link to="/dynamics-365-sales-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Sales-partners</Link></li>
+              <li><Link to="/partners-sitemap/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Partners-sitemap</Link></li>
             </ul>
           </div>
 
