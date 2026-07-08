@@ -56,6 +56,8 @@ const DeepDiveArticle = () => {
   const articleImage = article.bannerImage || article.image;
   const fallbackPublished = "2024-01-01T00:00:00+01:00";
   const lastReviewed = KNOWLEDGE_CENTER_LAST_REVIEWED;
+  const publishedAt = article.publishedAt ?? fallbackPublished;
+  const modifiedAt = article.modifiedAt ?? lastReviewed;
 
   return (
     <>
@@ -66,8 +68,8 @@ const DeepDiveArticle = () => {
         ogType="article"
         ogImage={articleImage || "https://d365.se/og-erp.png"}
         ogImageAlt={article.title}
-        articlePublishedTime={fallbackPublished}
-        articleModifiedTime={lastReviewed}
+        articlePublishedTime={publishedAt}
+        articleModifiedTime={modifiedAt}
         articleAuthor="Thomas Laine"
         articleSection={article.product}
       />
@@ -85,8 +87,8 @@ const DeepDiveArticle = () => {
         url={articleUrl}
         image={articleImage}
         section={article.product}
-        datePublished={fallbackPublished}
-        dateModified={lastReviewed}
+        datePublished={publishedAt}
+        dateModified={modifiedAt}
       />
 
 

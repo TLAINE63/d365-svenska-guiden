@@ -9,7 +9,8 @@ interface SEOHeadProps {
   ogImageAlt?: string;
   ogImageWidth?: number;
   ogImageHeight?: number;
-  ogType?: "website" | "article";
+  ogType?: "website" | "article" | "video.other";
+  ogVideo?: string;
   noIndex?: boolean;
   // Article-specific metadata (used when ogType === "article")
   articlePublishedTime?: string;
@@ -29,6 +30,7 @@ const SEOHead = ({
   ogImageWidth = 1200,
   ogImageHeight = 630,
   ogType = "website",
+  ogVideo,
   noIndex = false,
   articlePublishedTime,
   articleModifiedTime,
@@ -66,6 +68,10 @@ const SEOHead = ({
       <meta property="og:site_name" content="d365.se" />
       <meta property="og:locale" content="sv_SE" />
       <meta property="og:locale:alternate" content="nb_NO" />
+      {ogVideo && <meta property="og:video" content={ogVideo} />}
+      {ogVideo && <meta property="og:video:secure_url" content={ogVideo} />}
+      {ogVideo && <meta property="og:video:type" content="text/html" />}
+
 
       {/* Article-specific Open Graph tags */}
       {isArticle && articlePublishedTime && (

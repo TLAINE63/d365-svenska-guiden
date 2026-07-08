@@ -34,7 +34,8 @@ const VideoLanding = () => {
         canonicalPath={canonicalPath}
         ogImage={thumb}
         ogImageAlt={video.title}
-        ogType="article"
+        ogType="video.other"
+        ogVideo={`https://www.youtube.com/embed/${video.youtubeId}`}
       />
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
