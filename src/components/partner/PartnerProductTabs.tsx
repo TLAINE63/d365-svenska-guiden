@@ -25,6 +25,7 @@ import AiProfilePublic from "@/components/partner/AiProfilePublic";
 import PartnerQuickFacts from "@/components/partner/PartnerQuickFacts";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
+import { appToProductFilterKey, type ProductFilterKey } from "@/lib/productFilterGroup";
 
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import FinanceIcon from "@/assets/icons/Finance.svg";
@@ -335,6 +336,44 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
   };
 }
 
+function tabToProductKeys(tab: TabKey): ProductFilterKey[] {
+  switch (tab) {
+    case "bc":
+      return ["bc"];
+    case "fsc":
+      return ["fsc"];
+    case "crm":
+      return ["sales", "service"];
+    default:
+      return [];
+  }
+}
+
+function getIndustryPitchesForTab(
+  partner: DatabasePartner,
+  tab: TabKey,
+  industries: string[],
+): { industry: string; text: string }[] {
+  const pitches = partner?.industry_pitches;
+  if (!Array.isArray(pitches)) return [];
+  const keys = new Set(tabToProductKeys(tab));
+  return pitches
+    .filter((p) => {
+      if (!p?.text?.trim()) return false;
+      const product = (p.product || "").trim();
+      // General pitches without a product are shown whenever the industry is listed.
+      if (!product) return true;
+      const pitchKey = appToProductFilterKey(product);
+      return pitchKey !== null && keys.has(pitchKey);
+    })
+    .map((p) => ({
+      industry: (p.industry || "").trim(),
+      text: p.text.trim(),
+    }))
+    .filter((p) => p.industry && industries.includes(p.industry));
+}
+
+
 export default function PartnerProductTabs({
   partner,
   initialTab,
@@ -612,8 +651,25 @@ export default function PartnerProductTabs({
                     </span>
                   </li>
                 )}
-              </ul>
-            </section>
+              {(() => {
+                const pitches = getIndustryPitchesForTab(partner, active, data.industries);
+                if (pitches.length === 0) return null;
+                return (
+                  <li className="flex flex-col gap-2 mt-2">
+                    {pitches.map((pitch, idx) => (
+                      <div
+                        key={idx}
+                        className="text-sm text-foreground/90 leading-relaxed border-l-2 border-primary/40 pl-3 py-1 bg-muted/30 rounded-r"
+                      >
+                        <span className="font-medium text-foreground">{pitch.industry}:</span>{" "}
+                        {pitch.text}
+                      </div>
+                    ))}
+                  </li>
+                );
+              })()}
+            </ul>
+          </section>
 
             {/* 3. Kompetenser */}
             <section>
