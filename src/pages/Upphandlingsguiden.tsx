@@ -123,55 +123,47 @@ const Upphandlingsguiden = () => {
  canonicalPath="/upphandlingsguiden"
  />
  <Navbar />
- <main className="min-h-screen bg-background pt-12 lg:pt-28">
- {/* Hero */}
- <section className="relative overflow-hidden bg-[hsl(var(--hero-dark))] border-b border-[hsl(var(--line-dark))]">
- <div className="absolute -top-32 -right-32 w-[28rem] h-[28rem] rounded bg-[hsl(var(--cta-orange))]/25 pointer-events-none" />
- <div className="absolute -bottom-32 -left-20 w-[24rem] h-[24rem] rounded bg-primary/25 pointer-events-none" />
- <div
- className="absolute inset-0 opacity-[0.05] pointer-events-none"
- style={{
- backgroundImage:
- "linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)",
- backgroundSize: "32px 32px",
- }}
- />
- <div className="relative container mx-auto px-4 sm:px-6 py-10 sm:py-12 max-w-5xl">
- <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-white/10 border border-white/20 text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6 ">
- <Sparkles className="w-3 h-3" />
- Upphandlingsguiden för Microsoft Dynamics 365
- </div>
- <h1 className="text-[26px] sm:text-4xl md:text-[44px] font-bold text-white leading-[1.15] tracking-tight mb-5">
- Kvalitetssäkrad upphandling av{" "}
- <span className="whitespace-nowrap text-[hsl(var(--cta-orange))]">Dynamics&nbsp;365</span>
- <span className="block text-white/90 mt-1">– från behov till val av Microsoftpartner</span>
- </h1>
- <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
- På d365.se får din verksamhet vägledning genom hela upphandlingsresan – från behovsanalys och hjälp att skriva kravspecifikation, till jämförelser av Dynamics 365-partners och fördjupade insikter i Dynamics 365-applikationerna. Allt samlat på ett ställe, så att ni kan fatta trygga beslut hela vägen fram till avtal och införande.
- </p>
- <div className="flex flex-col sm:flex-row gap-3">
- <Button
- asChild
- className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white text-[15px] font-semibold h-12 px-7 rounded hover:-translate-y-0.5 transition-all"
- >
- <Link to="/valjdynamics365partner/">
- Hitta rätt partner
- <ArrowRight className="w-4 h-4 ml-1.5" />
- </Link>
- </Button>
- <Button
- asChild
- variant="outline"
- className="bg-white/5 border-white/30 text-white hover:bg-white/15 hover:text-white text-[15px] font-semibold h-12 px-7 rounded"
- >
- <Link to="/ERPbehovsanalys/">Skapa en behovsanalys</Link>
- </Button>
- </div>
- </div>
- </section>
+  <main className="min-h-screen bg-background">
+  {/* Hero */}
+  <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 relative overflow-hidden border-b border-[hsl(var(--line-dark))]">
+  <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
+  <div className="max-w-4xl">
+  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-white/10 border border-white/20 text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6">
+  <Sparkles className="w-3 h-3" />
+  Upphandlingsguiden för Microsoft Dynamics 365
+  </div>
+  <h1 className="text-[26px] sm:text-[34px] md:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
+  Kvalitetssäkrad upphandling av{" "}
+  <span className="whitespace-nowrap text-[hsl(var(--cta-orange))]">Dynamics&nbsp;365</span>
+  <span className="block text-white/90 mt-1">– från behov till val av Microsoftpartner</span>
+  </h1>
+  <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
+  På d365.se får din verksamhet vägledning genom hela upphandlingsresan – från behovsanalys och hjälp att skriva kravspecifikation, till jämförelser av Dynamics 365-partners och fördjupade insikter i Dynamics 365-applikationerna. Allt samlat på ett ställe, så att ni kan fatta trygga beslut hela vägen fram till avtal och införande.
+  </p>
+  <div className="flex flex-col sm:flex-row gap-3">
+  <Button
+  asChild
+  className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white text-[15px] font-semibold h-12 px-7 rounded hover:-translate-y-0.5 transition-all"
+  >
+  <Link to="/valjdynamics365partner/">
+  Hitta rätt partner
+  <ArrowRight className="w-4 h-4 ml-1.5" />
+  </Link>
+  </Button>
+  <Button
+  asChild
+  variant="outline"
+  className="bg-white/5 border-white/30 text-white hover:bg-white/15 hover:text-white text-[15px] font-semibold h-12 px-7 rounded"
+  >
+  <Link to="/ERPbehovsanalys/">Skapa en behovsanalys</Link>
+  </Button>
+  </div>
+  </div>
+  </div>
+  </section>
 
  {/* Köparsidigt löfte */}
- <section className="px-4 sm:px-6 py-10 bg-[#F4F8F8] border-b border-border">
+ <section className="px-4 sm:px-6 py-10 bg-background border-b border-border">
  <div className="container mx-auto max-w-5xl grid sm:grid-cols-3 gap-4">
  {[
  { icon: ShieldCheck, title: "Köparens sida", text: "Vi vägleder utan att sälja in en specifik partner." },
