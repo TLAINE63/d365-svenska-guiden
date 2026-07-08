@@ -15,6 +15,7 @@ const contactBreadcrumbs = [
 import { Mail, Phone, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
 import thomasLainePhoto from "@/assets/thomas-laine-real.jpg";
+import thomasLaineHeader from "@/assets/thomas-laine-kokai.jpg.asset.json";
 import michaelUhmanPhoto from "@/assets/michael-uhman.jpg";
 import linkedinLogo from "@/assets/linkedin-logo.jfif";
 
@@ -34,23 +35,29 @@ const ContactUs = () => {
       <Navbar />
       
       {/* Header */}
-      <header className="relative overflow-hidden mt-16 h-[300px] sm:h-[400px] md:h-[450px]">
-        <div className="absolute inset-0">
-          <img 
-            src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=80&w=2070" 
-            alt="Contact and consultation" 
-            className="w-full h-full object-cover"
+      <header className="relative overflow-hidden mt-16 h-[340px] sm:h-[420px] md:h-[480px]">
+        <div className="absolute inset-0 grid grid-cols-2">
+          <img
+            src={thomasLaineHeader.url}
+            alt="Thomas Laine"
+            className="w-full h-full object-cover object-top"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+          <img
+            src={michaelUhmanPhoto}
+            alt="Michael Uhman"
+            className="w-full h-full object-cover object-top"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/80 to-black/70" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_hsl(var(--background)/0.15),_hsl(var(--background)/0.85))]" />
         </div>
-        
-        <div className="relative h-full flex items-center">
+
+        <div className="relative h-full flex items-center justify-center">
           <div className="container mx-auto px-4 sm:px-6">
-            <div className="max-w-3xl">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
+            <div className="max-w-2xl mx-auto text-center">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-3 sm:mb-4 drop-shadow-lg">
                 Ett samtal innan partnerdialogen börjar
               </h1>
-              <p className="text-lg sm:text-xl md:text-2xl text-white/95">
+              <p className="text-base sm:text-lg md:text-xl text-white/95 drop-shadow">
                 Ställ frågor om Dynamics 365, hur en upphandling brukar se ut, eller bolla vilka partners som rimligen bör finnas på er kortlista — från köparens perspektiv.
               </p>
             </div>
