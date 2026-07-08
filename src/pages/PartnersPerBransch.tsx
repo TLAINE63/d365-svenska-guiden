@@ -184,6 +184,84 @@ const PartnersPerBransch = () => {
             )}
           </div>
         </section>
+
+        {/* Basic partners per bransch – observed data, same layout as /alla-d365-partners/ */}
+        {basicPartners.length > 0 && (
+          <section className="py-10 bg-secondary/40 border-t border-border">
+            <div className="container mx-auto px-4 max-w-5xl">
+              <div className="mb-8">
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+                  Övriga D365-partners per bransch – Basickort
+                </h2>
+                <p className="text-sm text-muted-foreground max-w-3xl">
+                  Dessa partners har ännu inte en egen profil på d365.se. Vi visar
+                  observerad data (branscher, produktområden, orter) sammanställd
+                  från publika källor – grupperat per bransch.
+                </p>
+              </div>
+              <div className="space-y-10">
+                {[...STANDARD_INDUSTRIES]
+                  .sort((a, b) => {
+                    const ac = (basicByIndustry.get(a.name) || []).length;
+                    const bc = (basicByIndustry.get(b.name) || []).length;
+                    if ((ac === 0) !== (bc === 0)) return ac === 0 ? 1 : -1;
+                    return 0;
+                  })
+                  .map((industry) => {
+                    const list = basicByIndustry.get(industry.name) || [];
+                    if (list.length === 0) return null;
+                    return (
+                      <div key={`basic-${industry.slug}`} className="scroll-mt-24">
+                        <div className="flex items-center justify-between gap-4 mb-4 pb-2 border-b border-border">
+                          <h3 className="text-lg md:text-xl font-semibold text-foreground">
+                            {industry.name}
+                            <span className="ml-2 text-sm font-normal text-muted-foreground">
+                              ({list.length})
+                            </span>
+                          </h3>
+                        </div>
+                        <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                          {list.map((p) => {
+                            const basicProducts = PRODUCT_ORDER.filter(
+                              (k) => p.observed_products?.[k],
+                            );
+                            return (
+                              <li key={p.id}>
+                                <Link
+                                  to={`/basic/${p.slug}/`}
+                                  className="group relative flex items-center justify-between gap-3 p-4 rounded-lg border border-dashed border-border bg-card hover:border-muted-foreground/40 hover:shadow-sm transition-all"
+                                >
+                                  <div className="min-w-0">
+                                    <div className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
+                                      {p.name}
+                                    </div>
+                                    {basicProducts.length > 0 && (
+                                      <div className="mt-2 flex flex-wrap gap-1">
+                                        {basicProducts.map((k) => (
+                                          <Badge
+                                            key={k}
+                                            variant="outline"
+                                            className="text-[10px] px-1.5 py-0 border-accent/30 text-accent/80 bg-accent/5"
+                                          >
+                                            {PRODUCT_LABEL[k]}
+                                          </Badge>
+                                        ))}
+                                      </div>
+                                    )}
+                                  </div>
+                                  <ArrowRight className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+                                </Link>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+          </section>
+        )}
       </main>
       <Footer />
     </>
