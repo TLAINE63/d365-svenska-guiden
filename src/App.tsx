@@ -96,6 +96,7 @@ const BeslutsmognadDiagnostik = lazy(() => import("./pages/BeslutsmognadDiagnost
 const BeslutsmognadTack = lazy(() => import("./pages/BeslutsmognadTack"));
 const BeslutsmognadResultat = lazy(() => import("./pages/BeslutsmognadResultat"));
 const OwnershipAndInterests = lazy(() => import("./pages/OwnershipAndInterests"));
+const Friskrivning = lazy(() => import("./pages/Friskrivning"));
 const Priser = lazy(() => import("./pages/Priser"));
 const Kostnad = lazy(() => import("./pages/Kostnad"));
 const ComparePartners = lazy(() => import("./pages/ComparePartners"));
@@ -290,6 +291,7 @@ const AppShell = () => {
           <Route path="/beslutsmognadsindex/tack" element={<Navigate to="/beslutsmognad/tack" replace />} />
           {/* Ägande- och intresseredovisning – transparenssida */}
           <Route path="/agande-och-intressen" element={<OwnershipAndInterests />} />
+          <Route path="/friskrivning" element={<Friskrivning />} />
           <Route path="/jamfor-partners" element={<ComparePartners />} />
           <Route path="/compare/:slug" element={<IsvCompare />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
