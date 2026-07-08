@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { RadialGlow } from "@/components/RadialGlow";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import {
@@ -126,6 +127,7 @@ const Upphandlingsguiden = () => {
   <main className="min-h-screen bg-background">
   {/* Hero */}
   <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 relative overflow-hidden border-b border-[hsl(var(--line-dark))]">
+  <RadialGlow />
   <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
   <div className="max-w-4xl">
   <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-white/10 border border-white/20 text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6">
@@ -208,14 +210,11 @@ const Upphandlingsguiden = () => {
  : "bg-card border-border"
  }`}
  >
- {isPrimary ? (
- <>
- <div className="absolute -top-24 -right-24 w-72 h-72 rounded bg-[hsl(var(--cta-orange))]/25 pointer-events-none" />
- <div className="absolute -bottom-24 -left-16 w-64 h-64 rounded bg-primary/25 pointer-events-none" />
- </>
- ) : (
- <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-primary via-primary/70 to-[hsl(var(--cta-orange))] pointer-events-none" />
- )}
+  {isPrimary ? (
+  <RadialGlow />
+  ) : (
+  <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-primary via-primary/70 to-[hsl(var(--cta-orange))] pointer-events-none" />
+  )}
 
  <div className="relative grid lg:grid-cols-[auto_1fr] gap-5 lg:gap-8 items-start">
  <div
@@ -284,9 +283,9 @@ const Upphandlingsguiden = () => {
  {/* Avslut CTA */}
  <section className="px-4 sm:px-6 py-8 sm:py-12 bg-background">
  <div className="container mx-auto max-w-5xl">
- <div className="relative overflow-hidden rounded bg-[hsl(var(--hero-dark))] border border-[hsl(var(--line-dark))] p-8 sm:p-12 text-center">
- <div className="absolute -top-32 -right-32 w-80 h-80 rounded bg-[hsl(var(--cta-orange))]/25 pointer-events-none" />
- <div className="relative">
+  <div className="relative overflow-hidden rounded bg-[hsl(var(--hero-dark))] border border-[hsl(var(--line-dark))] p-8 sm:p-12 text-center">
+  <RadialGlow />
+  <div className="relative">
  <h2 className="text-2xl sm:text-3xl md:text-[34px] font-bold text-white leading-tight tracking-tight mb-4">
  Redo att starta er upphandling?
  </h2>
