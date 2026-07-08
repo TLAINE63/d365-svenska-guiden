@@ -501,7 +501,7 @@ const ValjPartner = () => {
               <h1 className="text-[26px] sm:text-4xl md:text-[44px] font-semibold leading-[1.2] sm:leading-[1.25] tracking-tight text-white mb-3 sm:mb-4">
                 Hitta Dynamics 365-partners som matchar era behov
               </h1>
-              <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-6 sm:mb-8">
+              <p className="text-[15px] sm:text-lg text-white/70 font-light leading-[1.65] sm:leading-[1.9] mb-6 sm:mb-8">
                 Använd filtret som en första shortlist, inte ett facit. Rätt partner handlar om applikation, bransch, metodik, team, kemi och ansvar efter go-live.
               </p>
   <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
