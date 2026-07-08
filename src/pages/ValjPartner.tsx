@@ -507,10 +507,10 @@ const ValjPartner = () => {
   <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
   <Button 
   size="lg" 
-  className="bg-cta-orange hover:bg-cta-orange-hover text-white w-full sm:w-auto text-lg sm:text-xl h-16 sm:h-20 px-8 sm:px-12 font-bold transition-all rounded"
+  className="bg-cta-orange hover:bg-cta-orange-hover text-white w-full sm:w-auto text-sm sm:text-[15px] h-16 sm:h-20 px-8 sm:px-12 font-bold transition-all rounded"
   onClick={() => setGuideOpen(true)}
   >
-  <span>Få hjälp att välja rätt partner</span>
+  <span>Guidad väg till rätt partner</span>
   <ArrowRight className="ml-2 h-5 w-5" />
   </Button>
   <Button
