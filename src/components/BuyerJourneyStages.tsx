@@ -322,9 +322,6 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
  <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
  <div className="relative container mx-auto px-4 sm:px-6 max-w-5xl">
  <header>
- <span className="inline-block mb-4 px-3 py-1 rounded bg-cta-orange/20 text-cta-orange text-[11px] font-semibold uppercase tracking-[0.16em] ring-1 ring-cta-orange/30">
- Nytt för 2026 · Beslutsmognadsindex
- </span>
  <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white leading-tight mb-4 max-w-3xl">
  Var i systemlivscykeln står ni?
  </h2>
