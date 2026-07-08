@@ -347,60 +347,60 @@ const BlogArticle = () => {
             {/* Stark CTA-sektion efter artikeln – nästa steg i köpresan */}
             <aside
               aria-label="Nästa steg"
-              className="mt-12 border-t-2 border-[#D64A1F] bg-[#15130F] text-white p-6 md:p-8"
+              className="mt-12 border-t-2 border-primary bg-[hsl(var(--hero-dark))] text-primary-foreground p-6 md:p-8"
             >
-              <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#D64A1F] mb-2">
+              <p className="text-xs font-semibold uppercase tracking-[0.15em] text-primary mb-2">
                 Ta nästa steg
               </p>
-              <h2 className="text-xl md:text-2xl font-semibold mb-5 text-white">
+              <h2 className="text-xl md:text-2xl font-semibold mb-5 text-primary-foreground">
                 Gå från läsning till underlag – på några minuter
               </h2>
               <div className="grid gap-3 md:grid-cols-3">
                 <Link
                   to="/ERPbehovsanalys/"
-                  className="group flex flex-col justify-between p-5 bg-[#211F1A] border border-[#3A332A] hover:border-[#D64A1F] transition-colors"
+                  className="group flex flex-col justify-between p-5 bg-[hsl(var(--card-dark))] border border-[hsl(var(--line-dark))] hover:border-primary transition-colors"
                 >
                   <div>
-                    <div className="text-base font-semibold text-white mb-1">
+                    <div className="text-base font-semibold text-primary-foreground mb-1">
                       Testa behovsanalysen
                     </div>
-                    <p className="text-sm text-white/70">
+                    <p className="text-sm text-primary-foreground/70">
                       Kartlägg ert nuläge och få en prioriterad rekommendation.
                     </p>
                   </div>
-                  <span className="mt-4 text-sm font-semibold text-[#D64A1F] group-hover:translate-x-1 transition-transform">
+                  <span className="mt-4 text-sm font-semibold text-primary group-hover:translate-x-1 transition-transform">
                     Starta analys →
                   </span>
                 </Link>
                 <Link
                   to="/kravspecifikation/"
-                  className="group flex flex-col justify-between p-5 bg-[#211F1A] border border-[#3A332A] hover:border-[#D64A1F] transition-colors"
+                  className="group flex flex-col justify-between p-5 bg-[hsl(var(--card-dark))] border border-[hsl(var(--line-dark))] hover:border-primary transition-colors"
                 >
                   <div>
-                    <div className="text-base font-semibold text-white mb-1">
+                    <div className="text-base font-semibold text-primary-foreground mb-1">
                       Generera en kravspecifikation
                     </div>
-                    <p className="text-sm text-white/70">
+                    <p className="text-sm text-primary-foreground/70">
                       Skapa en skarp kravspecifikation som PDF – redo att skicka till partners.
                     </p>
                   </div>
-                  <span className="mt-4 text-sm font-semibold text-[#D64A1F] group-hover:translate-x-1 transition-transform">
+                  <span className="mt-4 text-sm font-semibold text-primary group-hover:translate-x-1 transition-transform">
                     Generera en kravspecifikation →
                   </span>
                 </Link>
                 <Link
                   to="/valjdynamics365partner/"
-                  className="group flex flex-col justify-between p-5 bg-[#211F1A] border border-[#3A332A] hover:border-[#D64A1F] transition-colors"
+                  className="group flex flex-col justify-between p-5 bg-[hsl(var(--card-dark))] border border-[hsl(var(--line-dark))] hover:border-primary transition-colors"
                 >
                   <div>
-                    <div className="text-base font-semibold text-white mb-1">
+                    <div className="text-base font-semibold text-primary-foreground mb-1">
                       Filtrera partners
                     </div>
-                    <p className="text-sm text-white/70">
+                    <p className="text-sm text-primary-foreground/70">
                       Hitta partners som matchar bransch, produkt och storlek.
                     </p>
                   </div>
-                  <span className="mt-4 text-sm font-semibold text-[#D64A1F] group-hover:translate-x-1 transition-transform">
+                  <span className="mt-4 text-sm font-semibold text-primary group-hover:translate-x-1 transition-transform">
                     Filtrera partners →
                   </span>
                 </Link>
