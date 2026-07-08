@@ -356,7 +356,7 @@ const Row = ({
             )}
           </div>
           {subtitle && (
-            <p className="text-sm leading-relaxed text-[hsl(var(--muted-foreground))]">
+            <p className={`text-sm leading-relaxed ${warn ? "text-[hsl(var(--warning-foreground))]/90" : "text-[hsl(var(--muted-dark))]"}`}>
               {subtitle}
             </p>
           )}
