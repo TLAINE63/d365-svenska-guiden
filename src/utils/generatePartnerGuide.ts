@@ -1,4 +1,4 @@
-import logoImage from "@/assets/d365guide-logo-white-bg.png";
+const logoImage = "/d365-logo.png";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 // Convert image to base64
