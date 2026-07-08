@@ -88,7 +88,7 @@ export function PartnerBasicCard({
           : "relative flex h-full flex-col rounded-xl border border-dashed border-border bg-muted/30 p-4 transition-colors hover:border-muted-foreground/40 hover:bg-muted/50"
       }
       data-basic-partner
-      aria-label={`${partner.name} – Basic-profil`}
+      aria-label={`${partner.name} – observerad partnerprofil`}
     >
       {/* Header: name replaces logo per spec */}
       <header className="mb-4 flex items-start justify-between gap-3">
@@ -118,13 +118,8 @@ export function PartnerBasicCard({
             </p>
           )}
         </div>
-        <Badge
-          variant="outline"
-          className="shrink-0 border-accent/40 bg-accent/10 text-[11px] font-medium uppercase tracking-wide text-accent"
-        >
-          Basic
-        </Badge>
       </header>
+
 
       {/* Observed products */}
       {products.length > 0 && (
