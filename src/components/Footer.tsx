@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const siteLogo = "/d365-logo.svg";
 
 const Footer = () => {
-  const [showMoreKc, setShowMoreKc] = useState(false);
   return (
     <footer
       className="bg-[hsl(var(--hero-dark))] py-12 text-[hsl(var(--muted-dark))]"
