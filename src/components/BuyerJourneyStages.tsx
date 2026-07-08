@@ -373,7 +373,7 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
  <span
  className={`inline-flex h-7 w-7 items-center justify-center rounded border text-xs font-bold ${
  isActive
- ? "border-[hsl(var(--accent))] bg-[#E5006D] text-white"
+ ? "border-[hsl(var(--accent))] bg-[hsl(var(--accent))] text-white"
  : "border-[hsl(var(--accent))] text-[hsl(var(--accent))] group-hover:bg-[hsl(var(--accent))] group-hover:text-white"
  }`}
  >
