@@ -261,17 +261,17 @@ const BlogArticle = () => {
             {article.freshness?.status === "older" && (
               <aside
                 aria-label="Artikelns aktualitet"
-                className="mb-8 border-l-4 border-[#D64A1F] bg-[#15130F] text-white p-5"
+                className="mb-8 border-l-4 border-primary bg-[hsl(var(--hero-dark))] text-primary-foreground p-5"
               >
-                <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#D64A1F] mb-2">
+                <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary mb-2">
                   Äldre AI/Copilot-artikel · publicerad {formatDateSv(article.publishedAt)}
                 </p>
                 {article.freshness.note && (
-                  <p className="text-sm md:text-[0.95rem] leading-relaxed text-white/85 mb-3">
+                  <p className="text-sm leading-relaxed text-primary-foreground/85 mb-3">
                     {article.freshness.note}
                   </p>
                 )}
-                <p className="text-xs font-semibold uppercase tracking-wider text-white/70 mb-2">
+                <p className="text-xs font-semibold uppercase tracking-wider text-primary-foreground/70 mb-2">
                   Läs vidare på nyare 2026-sidor
                 </p>
                 <ul className="space-y-1.5">
@@ -279,7 +279,7 @@ const BlogArticle = () => {
                     <li key={n.slug}>
                       <Link
                         to={`/artiklar/${n.slug}/`}
-                        className="text-[0.95rem] font-semibold text-white hover:text-[#D64A1F] underline underline-offset-4 decoration-[#D64A1F]/60"
+                        className="text-sm font-semibold text-primary-foreground hover:text-primary underline underline-offset-4 decoration-primary/60"
                       >
                         {n.label} →
                       </Link>
@@ -305,11 +305,11 @@ const BlogArticle = () => {
             <article
               className="
                 article-body max-w-none
-                text-[1.0625rem] md:text-[1.125rem] leading-[1.75] text-foreground/90
-                [&_p]:mb-5 [&_p]:leading-[1.75]
-                [&_h2]:font-bold [&_h2]:text-[1.35rem] md:[&_h2]:text-[1.625rem] [&_h2]:tracking-tight [&_h2]:text-[#1F4E79] [&_h2]:mt-12 [&_h2]:mb-5 [&_h2]:text-balance
-                [&_h3]:font-semibold [&_h3]:text-[1.125rem] md:[&_h3]:text-[1.25rem] [&_h3]:text-[#1F4E79] [&_h3]:mt-9 [&_h3]:mb-3 [&_h3]:text-balance
-                [&_ul]:my-6 [&_ul]:pl-7 [&_ul]:space-y-2 [&_ul>li]:list-disc [&_ul>li]:marker:text-[#1F4E79] [&_ul>li]:pl-2
+                text-base md:text-lg leading-relaxed text-foreground/90
+                [&_p]:mb-5 [&_p]:leading-relaxed
+                [&_h2]:font-bold [&_h2]:text-2xl md:[&_h2]:text-3xl [&_h2]:tracking-tight [&_h2]:text-foreground [&_h2]:mt-12 [&_h2]:mb-5 [&_h2]:text-balance
+                [&_h3]:font-semibold [&_h3]:text-xl md:[&_h3]:text-2xl [&_h3]:text-foreground [&_h3]:mt-9 [&_h3]:mb-3 [&_h3]:text-balance
+                [&_ul]:my-6 [&_ul]:pl-7 [&_ul]:space-y-2 [&_ul>li]:list-disc [&_ul>li]:marker:text-primary [&_ul>li]:pl-2
                 [&_ol]:my-6 [&_ol]:pl-7 [&_ol]:space-y-2 [&_ol>li]:list-decimal
                 [&_strong]:text-foreground [&_strong]:font-semibold
                 [&_em]:italic
