@@ -15,6 +15,8 @@ export interface DeepDiveArticle {
   bannerImage?: string;
   seoTitle?: string;
   seoDescription?: string;
+  publishedAt?: string; // ISO 8601, e.g. "2025-03-14T09:00:00+01:00"
+  modifiedAt?: string;  // ISO 8601; fallback = KNOWLEDGE_CENTER_LAST_REVIEWED
   content: ReactNode;
 }
 
