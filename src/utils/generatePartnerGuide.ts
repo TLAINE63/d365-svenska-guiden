@@ -156,7 +156,7 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
   // Logo
   if (logoBase64) {
     try {
-      doc.addImage(logoBase64, "PNG", margin, 22, 55, 11);
+      doc.addImage(logoBase64, "PNG", margin, 22, 55, 14.7);
     } catch (e) {
       console.log("Could not add logo to PDF:", e);
     }
