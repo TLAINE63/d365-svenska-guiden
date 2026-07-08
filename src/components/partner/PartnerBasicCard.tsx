@@ -263,9 +263,14 @@ export function PartnerBasicCard({
 
       {/* Footer + CTA */}
       <footer className="relative z-10 mt-auto border-t border-border pt-4">
-        <p className="text-[11px] leading-snug text-muted-foreground">
-          {BASIC_COPY.footer}
-        </p>
+        <div className="space-y-2">
+          <h4 className="text-sm font-semibold text-foreground">
+            {BASIC_COPY.partnerRepHeading}
+          </h4>
+          <p className="text-[11px] leading-snug text-muted-foreground">
+            {BASIC_COPY.footer} {BASIC_COPY.partnerRepBody}
+          </p>
+        </div>
 
         {isStandalone && (
           <div className="mt-4 rounded border border-border bg-muted/40 p-3 text-sm text-muted-foreground">
