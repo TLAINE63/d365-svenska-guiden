@@ -2360,10 +2360,10 @@ const CustomerServiceNeedsAnalysis = () => {
  const isCompleted = currentStep > stepNum;
  return (
  <button key={index} onClick={() => setCurrentStep(stepNum)} className="flex flex-col items-center min-w-[80px] cursor-pointer hover:opacity-80 transition-opacity">
- <div className={`w-10 h-10 rounded flex items-center justify-center mb-2 transition-colors ${isActive ? 'bg-[#15363F] text-white' : isCompleted ? 'bg-[#15363F]/20 text-[#15363F]' : 'bg-muted text-muted-foreground'}`}>
+ <div className={`w-10 h-10 rounded flex items-center justify-center mb-2 transition-colors ${isActive ? 'bg-[hsl(var(--cta-orange))] text-white' : isCompleted ? 'bg-[hsl(var(--cta-orange))]/20 text-[hsl(var(--cta-orange))]' : 'bg-muted text-muted-foreground'}`}>
  <Icon className="w-5 h-5" />
  </div>
- <span className={`text-xs text-center ${isActive ? 'text-[#15363F] font-medium' : 'text-muted-foreground'}`}>{title}</span>
+ <span className={`text-xs text-center ${isActive ? 'text-[hsl(var(--cta-orange))] font-medium' : 'text-muted-foreground'}`}>{title}</span>
  </button>
  );
  })}
