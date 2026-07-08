@@ -481,63 +481,13 @@ const ValjPartner = () => {
  initialAiInterest={aiParam || undefined}
  />
  
- {/* Header */}
- <header className="relative overflow-hidden mt-28 min-h-[420px] sm:h-[450px] md:h-[550px]">
- <div className="absolute inset-0">
-  <img 
-  src={heroPartnerFinder} 
-  alt="" 
-  className="w-full h-full object-cover object-center"
+  <ProductHero
+  title="Hitta Dynamics 365-partners som matchar era behov"
+  subhead="Använd filtret som en första shortlist, inte ett facit. Rätt partner handlar om applikation, bransch, metodik, team, kemi och ansvar efter go-live."
+  primary={{ label: "Guidad väg till rätt partner", onClick: () => setGuideOpen(true), icon: ArrowRight }}
+  secondary={{ label: "Jämför tre partners sida vid sida", to: "/jamfor-partners/", icon: ArrowLeftRight }}
+  tertiary={{ label: "Gå till partnerlistan", onClick: () => document.getElementById("hitta-partners")?.scrollIntoView({ behavior: "smooth", block: "start" }), icon: List }}
   />
- <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
- </div>
- 
- <div className="relative h-full flex items-center">
- <div className="container mx-auto px-4 sm:px-6">
- <div className="max-w-3xl">
- <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
- <Users className="h-10 w-10 sm:h-12 sm:w-12 text-white" />
- </div>
-              <h1 className="text-[26px] sm:text-4xl md:text-[44px] font-semibold leading-[1.2] sm:leading-[1.25] tracking-tight text-white mb-3 sm:mb-4">
-                Hitta Dynamics 365-partners som matchar era behov
-              </h1>
-              <p className="text-[15px] sm:text-lg text-white/70 font-light leading-[1.65] sm:leading-[1.9] mb-6 sm:mb-8">
-                Använd filtret som en första shortlist, inte ett facit. Rätt partner handlar om applikation, bransch, metodik, team, kemi och ansvar efter go-live.
-              </p>
-  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-  <Button 
-  size="lg" 
-  className="bg-cta-orange hover:bg-cta-orange-hover text-white w-full sm:w-auto text-sm sm:text-[15px] h-16 sm:h-20 px-8 sm:px-12 font-bold transition-all rounded"
-  onClick={() => setGuideOpen(true)}
-  >
-  <span>Guidad väg till rätt partner</span>
-  <ArrowRight className="ml-2 h-5 w-5" />
-  </Button>
-  <Button
-  asChild
-  size="lg"
-  variant="outline"
-  className="w-full sm:w-auto text-sm sm:text-[15px] h-16 sm:h-20 px-6 sm:px-8 font-semibold transition-all rounded border-white/30 bg-[hsl(var(--hero-dark))] hover:bg-[hsl(var(--hero-dark))]/80 text-white"
-  >
-  <Link to="/jamfor-partners/">
-  <ArrowLeftRight className="mr-2 h-5 w-5" />
-  Jämför tre partners sida vid sida
-  </Link>
-  </Button>
-  <Button
-  size="lg"
-  variant="outline"
-  className="w-full sm:w-auto text-sm sm:text-[15px] h-16 sm:h-20 px-6 sm:px-8 font-semibold transition-all rounded border-white/30 bg-[hsl(var(--hero-dark))] hover:bg-[hsl(var(--hero-dark))]/80 text-white"
-  onClick={() => document.getElementById("hitta-partners")?.scrollIntoView({ behavior: "smooth", block: "start" })}
-  >
-  <List className="mr-2 h-5 w-5" />
-  Gå till partnerlistan
-  </Button>
-  </div>
- </div>
- </div>
- </div>
-  </header>
 
   <ShortAnswer title="Vad är en Dynamics 365-partner">
  Rätt Dynamics 365-partner har bevisad erfarenhet av respektive produktområde (Business Central, Finance & Supply Chain, Sales, Customer Service m.fl.), er bransch och en storlek som matchar er. På d365.se kan ni jämföra Microsoft-partners för er bransch, geografi och AI-mognad — och få rekommendationer via vår köparsidiga partnerguide.
