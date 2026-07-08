@@ -659,9 +659,10 @@ export default function PartnerProductTabs({
                     {pitches.map((pitch, idx) => (
                       <div
                         key={idx}
-                        className="text-sm text-foreground/90 leading-relaxed border-l-2 border-primary/40 pl-3 py-1 bg-muted/30 rounded-r"
+                        className="text-sm text-foreground/90 leading-relaxed border-l-2 border-primary/40 pl-3 py-2 bg-muted/30 rounded-r"
                       >
-                        <span className="font-medium text-foreground">{pitch.industry}:</span>{" "}
+                        <span className="font-bold text-primary">{pitch.industry}</span>
+                        <span className="text-muted-foreground mx-1">·</span>
                         {pitch.text}
                       </div>
                     ))}
