@@ -20,9 +20,28 @@ const STATIC_FEATURED = (partnerDataJson as any[]).filter(
 
 const PartnersPerBransch = () => {
   const { data: livePartners = [], isLoading } = usePartners();
+  const { data: basicPartners = [] } = useBasicPartners();
   // Use live DB data when available, otherwise the static snapshot so the
   // prerendered HTML always contains the full partner-per-bransch grid.
   const partners: DatabasePartner[] = livePartners.length > 0 ? livePartners : STATIC_FEATURED;
+
+  // Group Basic partners by industry (from observed_industries per product area)
+  const basicByIndustry = new Map<string, typeof basicPartners>();
+  STANDARD_INDUSTRIES.forEach((i) => basicByIndustry.set(i.name, []));
+  basicPartners.forEach((p) => {
+    const seen = new Set<string>();
+    (["bc", "fsc", "sales", "service"] as const).forEach((k) => {
+      (p.observed_industries?.[k] || []).forEach((ind) => {
+        if (basicByIndustry.has(ind) && !seen.has(ind)) {
+          seen.add(ind);
+          basicByIndustry.get(ind)!.push(p);
+        }
+      });
+    });
+  });
+  basicByIndustry.forEach((list) =>
+    list.sort((a, b) => a.name.localeCompare(b.name, "sv")),
+  );
 
   // Build map: industry name -> partners[]
   const byIndustry = new Map<string, DatabasePartner[]>();
