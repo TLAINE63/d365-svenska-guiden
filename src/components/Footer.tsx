@@ -133,6 +133,10 @@ const Footer = () => {
               Så fungerar partnersamarbetet
             </Link>
             <span className="text-[hsl(var(--line-dark))]">|</span>
+            <Link to="/friskrivning/" className="hover:text-white transition-colors">
+              Friskrivning
+            </Link>
+            <span className="text-[hsl(var(--line-dark))]">|</span>
             <button
               onClick={() => window.dispatchEvent(new Event('open-cookie-settings'))}
               className="hover:text-white transition-colors"
