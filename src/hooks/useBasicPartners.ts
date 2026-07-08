@@ -151,8 +151,11 @@ export const BASIC_COPY = {
   extendedLabel:
     "Utökad beskrivning sammanställd av d365.se från publika källor. Ej granskad av partnern.",
   footer:
-    "Denna partner har ännu inte en egen profil på d365.se. Uppgifterna är sammanställda av d365.se från publika källor.",
-  cta: "Är detta ert bolag? Ta kontroll över er profil.",
+    "Den här översikten är sammanställd av d365.se utifrån publika källor.",
+  partnerRepHeading: "Representerar du denna partner?",
+  partnerRepBody:
+    "Vill ni säkerställa att er kompetens, branschinriktning och kontaktvägar visas rätt för kunder som jämför Dynamics 365-partners?",
+  cta: "Komplettera partnerprofilen",
   standaloneNoContact:
     "Denna partner är inte ansluten till d365.se och kan inte kontaktas härifrån.",
   matchingLimited: "Begränsad data: partnern kan inte bedömas fullt ut.",
