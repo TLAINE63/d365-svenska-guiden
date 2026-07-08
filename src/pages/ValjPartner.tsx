@@ -528,7 +528,7 @@ const ValjPartner = () => {
   size="lg"
   variant="outline"
   className="w-full sm:w-auto text-lg sm:text-xl h-16 sm:h-20 px-6 sm:px-8 font-semibold transition-all rounded border-white/30 bg-white/10 hover:bg-white/20 text-white"
-  onClick={() => document.getElementById("alla-partners-rubrik")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+  onClick={() => document.getElementById("hitta-partners")?.scrollIntoView({ behavior: "smooth", block: "start" })}
   >
   <List className="mr-2 h-5 w-5" />
   Gå till partnerlistan
