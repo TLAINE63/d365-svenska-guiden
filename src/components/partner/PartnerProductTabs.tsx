@@ -336,6 +336,39 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
   };
 }
 
+function tabToProductKeys(tab: TabKey): ProductFilterKey[] {
+  switch (tab) {
+    case "bc":
+      return ["bc"];
+    case "fsc":
+      return ["fsc"];
+    case "crm":
+      return ["sales", "service"];
+    default:
+      return [];
+  }
+}
+
+function getIndustryPitchesForTab(
+  partner: DatabasePartner,
+  tab: TabKey,
+  industries: string[],
+): { industry: string; text: string }[] {
+  const pitches = partner?.industry_pitches;
+  if (!Array.isArray(pitches)) return [];
+  const keys = new Set(tabToProductKeys(tab));
+  return pitches
+    .filter((p) => {
+      if (!p?.text?.trim()) return false;
+      const pitchKey = appToProductFilterKey(p.product || "");
+      return pitchKey !== null && keys.has(pitchKey);
+    })
+    .map((p) => ({
+      industry: (p.industry || "").trim(),
+      text: p.text.trim(),
+    }))
+    .filter((p) => p.industry && industries.includes(p.industry));
+
 export default function PartnerProductTabs({
   partner,
   initialTab,
