@@ -169,7 +169,7 @@ const formatBcCost = (dp?: DeliveryProfile | null): string => {
   return COST_BAND_LABELS[band] || band;
 };
 
-const EMPTY = <span className="text-slate-400 italic">—</span>;
+const EMPTY = <span className="text-slate-600 italic">—</span>;
 
 const cleanList = (arr?: string[] | null): string[] =>
   (arr || []).map((s) => (s || "").trim()).filter(Boolean);
@@ -210,7 +210,7 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
         </Link>
         <button
           onClick={onClear}
-          className="absolute top-0 right-0 text-slate-400 hover:text-slate-700 shrink-0 p-1"
+          className="absolute top-0 right-0 text-slate-600 hover:text-slate-900 shrink-0 p-1"
           aria-label="Rensa val"
         >
           <X className="w-4 h-4" />
@@ -383,8 +383,8 @@ const renderValue = (v: string | null | undefined) =>
   v && v.trim() ? <span>{v}</span> : EMPTY;
 
 const renderEmptyLabel = (label: string) => (
-  <span className="inline-flex items-center gap-2 text-xs text-slate-400 italic">
-    <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-slate-100 text-slate-400">
+  <span className="inline-flex items-center gap-2 text-xs text-slate-600 italic">
+    <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-slate-200 text-slate-700">
       —
     </span>
     {label}
@@ -2088,7 +2088,7 @@ const ComparePartners = () => {
                               <p className="text-xs text-slate-500 mb-4">
                                 Varje partner kontaktas separat och ser bara sin egen förfrågan — aldrig samma tråd.
                               </p>
-                              <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2">
+                              <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-600 mb-2">
                                 Hur vill du gå vidare?
                               </p>
                               <div className="flex flex-col gap-2">
@@ -2142,7 +2142,7 @@ const ComparePartners = () => {
                             return (
                               <div key={idx} className="rounded-lg border border-slate-200 bg-white p-4 flex flex-col justify-between">
                                 <div>
-                                  <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
+                                  <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-600 mb-1">
                                     Endast Partner {["A", "B", "C"][idx]}
                                   </div>
                                   <div className="text-xs sm:text-sm font-medium text-foreground mb-3 break-words">
