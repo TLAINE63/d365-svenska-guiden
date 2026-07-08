@@ -40,12 +40,27 @@ const UnprofiledPartnersList = ({
     (basicPartners || [])
       .filter((p) => {
         if (!productKey) return true;
-        return !!p.observed_products?.[productKey];
+        // Include if the product is either explicitly observed OR has any
+        // observed data (industries/sizes/revenue/geo) for that product key.
+        return (
+          !!p.observed_products?.[productKey] ||
+          !!p.observed_industries?.[productKey]?.length ||
+          !!p.observed_company_sizes?.[productKey]?.length ||
+          !!p.observed_revenue?.[productKey]?.length ||
+          !!p.observed_delivery_geo?.[productKey]?.length
+        );
       })
       .forEach((p) => {
-        const products = PRODUCT_ORDER
-          .filter((k) => p.observed_products?.[k])
-          .map((k) => PRODUCT_LABEL[k]);
+        // Derive product areas from the union of all observed_* maps so that
+        // partners that only have e.g. industries populated still show badges.
+        const products = PRODUCT_ORDER.filter(
+          (k) =>
+            !!p.observed_products?.[k] ||
+            !!p.observed_industries?.[k]?.length ||
+            !!p.observed_company_sizes?.[k]?.length ||
+            !!p.observed_revenue?.[k]?.length ||
+            !!p.observed_delivery_geo?.[k]?.length,
+        ).map((k) => PRODUCT_LABEL[k]);
         items.push({ id: `basic-${p.id}`, name: p.name, slug: p.slug, products });
       });
     // Non-featured partners in DB (exists in our system but not yet published)
