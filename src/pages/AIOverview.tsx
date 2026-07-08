@@ -208,41 +208,66 @@ const AIOverview = () => {
  { name: "AI-översikt", url: "https://d365.se/aioversikt/" },
  ]}
  />
- <Navbar />
- <main className="pb-12">
- {/* Hero */}
- <div className="relative bg-[hsl(var(--hero-dark))] border-b border-primary/20 pt-28 pb-12 mb-16 overflow-hidden">
- <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
- <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--primary)/0.08),transparent_50%)]" />
- <section className="relative max-w-4xl mx-auto text-center px-4">
- <div className="inline-flex items-center gap-2 bg-white/20 text-white rounded px-4 py-1.5 text-sm font-medium mb-6">
- <Sparkles className="h-4 w-4" />
- Microsoft AI i Dynamics 365
- </div>
- <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
- AI i Dynamics 365 kräver mer än Copilot-licenser
- </h1>
- <p className="text-xl sm:text-2xl text-white/80 font-medium mb-8">
- Copilot och agenter kräver data, process och ansvar. Utan den grunden uteblir effekten — oavsett hur många licenser ni köper.
- </p>
- <p className="text-lg text-white/70 max-w-2xl mx-auto mb-10">
- Det här behöver vara på plats innan ni skalar AI i affärssystemet:
- </p>
+  <Navbar />
+  <main className="pb-12 bg-background">
+  {/* Hero */}
+  <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 relative overflow-hidden border-b border-[hsl(var(--line-dark))]">
+  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
+  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--primary)/0.08),transparent_50%)]" />
+  <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
+  <div className="max-w-4xl">
+  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-white/10 border border-white/20 text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6">
+  <Sparkles className="w-3 h-3" />
+  AI med Copilot & Agenter
+  </div>
+  <h1 className="text-[26px] sm:text-[34px] md:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
+  AI i Dynamics 365 kräver mer än Copilot-licenser
+  </h1>
+  <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
+  Copilot och agenter kräver data, process och ansvar. Utan den grunden uteblir effekten — oavsett hur många licenser ni köper. Den här sidan reder ut vad Copilot och agenter faktiskt kräver — och var partnervalet börjar spela roll.
+  </p>
+  <div className="flex flex-col sm:flex-row gap-3">
+  <Link
+  to="/ai-readiness/"
+  className="inline-flex items-center justify-center gap-2 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white text-[15px] font-semibold h-12 px-7 rounded hover:-translate-y-0.5 transition-all"
+  >
+  Gör AI Readiness Assessment
+  <ArrowRight className="w-4 h-4" />
+  </Link>
+  <Link
+  to="/copilot/"
+  className="inline-flex items-center justify-center gap-2 bg-white/5 border border-white/30 text-white hover:bg-white/15 hover:text-white text-[15px] font-semibold h-12 px-7 rounded transition-all"
+  >
+  Läs mer om Copilot
+  </Link>
+  </div>
+  </div>
+  </div>
+  </section>
 
- <div className="grid gap-4 max-w-xl mx-auto text-left mb-10">
- {benefits.map((b, i) => (
- <div key={i} className="flex items-center gap-3 bg-white/10 rounded-lg px-4 py-3">
- <b.icon className="h-5 w-5 text-white shrink-0" />
- <span className="text-white font-medium">{b.text}</span>
- </div>
- ))}
- </div>
-
- <p className="text-lg text-white/80 max-w-2xl mx-auto">
- Den här sidan reder ut vad <strong>Copilot</strong> och <strong>agenter</strong> faktiskt kräver — och var partnervalet börjar spela roll.
- </p>
- </section>
- </div>
+  {/* Förutsättningar för AI */}
+  <section className="px-4 sm:px-6 py-10 bg-[#F4F8F8] border-b border-border">
+  <div className="container mx-auto max-w-5xl">
+  <div className="max-w-3xl mb-8">
+  <h2 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight mb-2">
+  Det här behöver vara på plats innan ni skalar AI
+  </h2>
+  <p className="text-[15px] text-muted-foreground leading-relaxed">
+  AI-effekten kommer inte automatiskt med licensen. Här är de fem vanligaste förutsättningarna vi ser hos svenska Dynamics 365-köpare.
+  </p>
+  </div>
+  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+  {benefits.map((b, i) => (
+  <div key={i} className="flex items-start gap-3 p-4 rounded bg-white border border-border">
+  <div className="shrink-0 w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+  <b.icon className="w-4 h-4" />
+  </div>
+  <div className="text-[14px] text-foreground leading-snug pt-2">{b.text}</div>
+  </div>
+  ))}
+  </div>
+  </div>
+  </section>
 
  <div className="container mx-auto px-4">
 
