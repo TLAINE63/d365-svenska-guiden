@@ -19,16 +19,13 @@ export default function WhyTheseResults({ className = "" }: Props) {
         <Info className="w-4 h-4 text-[hsl(var(--cta-orange))]" />
         Varför visas dessa partners?
       </div>
-      <div className="text-[13px] leading-relaxed text-foreground/85 space-y-2">
+      <div className="text-[13px] leading-relaxed text-foreground/85 italic">
         <p>
           Vi visar partners som matchar era val av bransch, lösning och geografi.
           Resultatet sorteras efter hur väl de passar er profil.
-        </p>
-        <p>
           AI kan hjälpa till att förklara relevansen – men påverkar inte vilka partners som visas.
-        </p>
-        <p className="text-xs text-muted-foreground">
-          <Link to="/agande-och-intressen/" className="text-[hsl(var(--cta-orange))] hover:underline font-semibold">
+          {" "}
+          <Link to="/agande-och-intressen/" className="text-[hsl(var(--cta-orange))] hover:underline font-semibold not-italic">
             Läs mer om metodiken
           </Link>
         </p>

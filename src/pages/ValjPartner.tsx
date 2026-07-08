@@ -751,7 +751,7 @@ const ValjPartner = () => {
  </div>
   ) : (
    <>
-   <WhyTheseResults className="mb-6 max-w-3xl mx-auto" />
+   <WhyTheseResults className="mb-6 max-w-4xl mx-auto" />
    <FilteredListActions
      visiblePartners={filteredPartners.map((p) => ({ slug: p.slug, name: p.name }))}
      selectedProduct={selectedApplications.length > 0 ? selectedApplications.join(", ") : undefined}
