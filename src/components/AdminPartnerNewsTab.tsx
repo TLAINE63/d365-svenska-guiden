@@ -469,16 +469,34 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
                 </SelectContent>
               </Select>
             </div>
-            <div>
-              <Label>Produktområde</Label>
-              <Select value={form.product_area} onValueChange={(v) => setForm({ ...form, product_area: v as PartnerNewsProductArea })}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  {PRODUCT_OPTIONS.map((p) => (
-                    <SelectItem key={p} value={p}>{partnerNewsProductLabel(p)}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <div className="sm:col-span-2">
+              <Label>Produktområden (välj ett eller flera)</Label>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {PRODUCT_OPTIONS.map((p) => {
+                  const checked = form.product_areas.includes(p);
+                  return (
+                    <button
+                      key={p}
+                      type="button"
+                      onClick={() => {
+                        const next = checked
+                          ? form.product_areas.filter((x) => x !== p)
+                          : [...form.product_areas, p];
+                        setForm({ ...form, product_areas: next.length > 0 ? next : form.product_areas });
+                      }}
+                      className={`px-3 py-1.5 rounded-full border text-xs transition ${
+                        checked
+                          ? "bg-[hsl(var(--cta-orange))] text-white border-[hsl(var(--cta-orange))]"
+                          : "bg-background text-foreground border-border hover:bg-muted"
+                      }`}
+                      aria-pressed={checked}
+                    >
+                      {partnerNewsProductLabel(p)}
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="text-xs text-muted-foreground mt-1">Det första valda området används som primärt (visas på kort och i filter).</p>
             </div>
             <div>
               <Label>Bransch (valfritt)</Label>
