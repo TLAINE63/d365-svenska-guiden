@@ -612,6 +612,16 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
    </section>
   )}
 
+  {partner?.id && (
+    <PartnerProfileNewsSection
+      partnerId={partner.id}
+      partnerName={partner.name}
+      partnerSlug={partner.slug}
+      partnerLogoUrl={partner.logo_url ?? null}
+    />
+  )}
+
+
   {/* Tabbed product profile */}
   <PartnerProductTabs
    partner={partner}
