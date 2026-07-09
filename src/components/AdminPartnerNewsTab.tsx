@@ -231,6 +231,35 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
     }
   };
 
+  const handleImageUpload = async (file: File) => {
+    if (!file.type.match(/^image\/(jpeg|png|webp|gif)$/)) {
+      toast({ title: "Ogiltigt format", description: "Använd JPG, PNG, WebP eller GIF.", variant: "destructive" });
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast({ title: "Bilden är för stor", description: "Max 5 MB.", variant: "destructive" });
+      return;
+    }
+    setUploadingImage(true);
+    try {
+      const b64 = await new Promise<string>((resolve, reject) => {
+        const r = new FileReader();
+        r.onload = () => resolve(String(r.result).split(",")[1] ?? "");
+        r.onerror = () => reject(new Error("Kunde inte läsa filen"));
+        r.readAsDataURL(file);
+      });
+      const res = await invoke("upload-image", { file_base64: b64, content_type: file.type, filename: file.name });
+      if (res?.image_url) {
+        setForm((f) => ({ ...f, image_url: res.image_url }));
+        toast({ title: "Bild uppladdad" });
+      }
+    } catch (err) {
+      toast({ title: "Kunde inte ladda upp bild", description: (err as Error).message, variant: "destructive" });
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
   const previewFormItem: PartnerNewsItem = useMemo(() => {
     const partner = publishedPartners.find((p) => p.id === form.partner_id);
     return {
