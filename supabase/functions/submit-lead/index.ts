@@ -287,6 +287,8 @@ const handler = async (req: Request): Promise<Response> => {
         sanitizedData.assigned_partners.length > 0 &&
         sanitizedData.source_type.startsWith("partner_");
       let partnerEmailSentCount = 0;
+      const notifiedPartnerNames: string[] = [];
+      const RESPONSE_DAYS = 3;
 
       const productToKeys = (p: string): string[] => {
         const v = (p || "").toLowerCase();
@@ -375,10 +377,78 @@ const handler = async (req: Request): Promise<Response> => {
               `,
             });
             partnerEmailSentCount++;
+            notifiedPartnerNames.push((p as any).name || p.slug);
             console.log(`Partner email sent to ${toEmail} for slug ${p.slug}`);
           }
         } catch (partnerEmailError) {
           console.error("Partner email routing failed:", partnerEmailError);
+        }
+
+        // --- Visitor confirmation email (all partner_* CTAs) ---
+        if (partnerEmailSentCount > 0) {
+          try {
+            const partnersLabel = notifiedPartnerNames.length > 0
+              ? notifiedPartnerNames.join(", ")
+              : sanitizedData.assigned_partners.join(", ");
+            const firstName = sanitizedData.contact_name.split(" ")[0] || "";
+            const confirmSubject = `Bekräftelse: din ${requestLabel.toLowerCase()} till ${partnersLabel}`;
+
+            await resend.emails.send({
+              from: "d365.se <info@d365.se>",
+              to: [sanitizedData.email],
+              reply_to: "info@d365.se",
+              subject: confirmSubject,
+              html: `
+                <div style="font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto; color:#111827;">
+                  <div style="background: linear-gradient(135deg, #D64A1F, #B23A17); padding: 20px; border-radius: 8px 8px 0 0;">
+                    <h2 style="color: white; margin: 0; font-size: 20px;">Tack – din förfrågan är skickad</h2>
+                  </div>
+                  <div style="background:#ffffff; padding: 24px; border: 1px solid #e5e7eb; border-top:none;">
+                    <p style="margin:0 0 16px 0;">Hej${firstName ? ` ${firstName}` : ""},</p>
+                    <p style="margin:0 0 16px 0;">
+                      Vi har vidarebefordrat din ${requestLabel.toLowerCase()} till <strong>${partnersLabel}</strong>.
+                      Normalt hör partnern av sig inom <strong>${RESPONSE_DAYS} arbetsdagar</strong>.
+                    </p>
+
+                    <h3 style="color:#111827; border-bottom: 2px solid #D64A1F; padding-bottom: 6px; margin-top:24px; font-size:15px;">Sammanfattning</h3>
+                    <table style="width:100%; border-collapse:collapse; font-size:14px;">
+                      <tr><td style="padding:6px 0; color:#6b7280; width:160px;">Företag:</td><td style="padding:6px 0;"><strong>${sanitizedData.company_name}</strong></td></tr>
+                      <tr><td style="padding:6px 0; color:#6b7280;">Kontaktperson:</td><td style="padding:6px 0;">${sanitizedData.contact_name}</td></tr>
+                      <tr><td style="padding:6px 0; color:#6b7280;">E-post:</td><td style="padding:6px 0;">${sanitizedData.email}</td></tr>
+                      ${sanitizedData.phone ? `<tr><td style="padding:6px 0; color:#6b7280;">Telefon:</td><td style="padding:6px 0;">${sanitizedData.phone}</td></tr>` : ""}
+                      ${sanitizedData.selected_product ? `<tr><td style="padding:6px 0; color:#6b7280;">Produktområde:</td><td style="padding:6px 0;">${sanitizedData.selected_product}</td></tr>` : ""}
+                      ${sanitizedData.industry ? `<tr><td style="padding:6px 0; color:#6b7280;">Bransch:</td><td style="padding:6px 0;">${sanitizedData.industry}</td></tr>` : ""}
+                      <tr><td style="padding:6px 0; color:#6b7280;">Skickad till:</td><td style="padding:6px 0;">${partnersLabel}</td></tr>
+                    </table>
+
+                    ${sanitizedData.message ? `
+                      <h3 style="color:#111827; border-bottom: 2px solid #D64A1F; padding-bottom: 6px; margin-top:24px; font-size:15px;">Ditt meddelande</h3>
+                      <div style="background:#faf8f6; border:1px solid #e7c5b7; padding:12px; border-radius:6px; white-space:pre-wrap; font-size:14px;">${sanitizedData.message}</div>
+                    ` : ""}
+
+                    <div style="background:#f9fafb; border-radius:8px; padding:16px; margin-top:24px;">
+                      <h4 style="color:#111827; margin:0 0 8px 0; font-size:15px;">Hör inte partnern av sig?</h4>
+                      <p style="color:#4b5563; font-size:14px; margin:0;">
+                        Om du inte har fått svar inom ${RESPONSE_DAYS} arbetsdagar – hör av dig till oss på
+                        <a href="mailto:info@d365.se" style="color:#D64A1F;">info@d365.se</a> så hjälper vi dig vidare,
+                        antingen genom att påminna partnern eller föreslå ett bättre alternativ.
+                      </p>
+                    </div>
+
+                    <p style="margin-top:24px; font-size:12px; color:#6b7280;">
+                      d365.se är köparsidig och förmedlar din förfrågan neutralt. Vi är kopierade på utskicket för uppföljning och kvalitetssäkring.
+                    </p>
+                  </div>
+                  <div style="background:#374151; padding:16px; border-radius:0 0 8px 8px; text-align:center;">
+                    <a href="https://www.d365.se" style="color:#f3f4f6; text-decoration:none; font-size:13px;">www.d365.se</a>
+                  </div>
+                </div>
+              `,
+            });
+            console.log(`Visitor confirmation email sent to ${sanitizedData.email}`);
+          } catch (visitorEmailError) {
+            console.error("Visitor confirmation email failed:", visitorEmailError);
+          }
         }
       }
 
