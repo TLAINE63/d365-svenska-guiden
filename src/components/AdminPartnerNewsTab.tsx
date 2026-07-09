@@ -22,7 +22,7 @@ import type {
   PartnerNewsStatus,
   PartnerNewsType,
 } from "@/hooks/usePartnerNews";
-import { Plus, Pencil, Trash2, Eye, Send, Archive, CheckCircle2, XCircle, Circle, ExternalLink, RefreshCw, Inbox, Tag } from "lucide-react";
+import { Plus, Pencil, Trash2, Eye, Send, Archive, CheckCircle2, XCircle, Circle, ExternalLink, RefreshCw, Inbox, Tag, Info } from "lucide-react";
 
 interface Props {
   token: string;
@@ -510,11 +510,32 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
               <p className="text-xs text-muted-foreground mt-1">Klistra in en publik bild-URL från partnerns webb, LinkedIn eller pressrum.</p>
             </div>
 
-            <div className="sm:col-span-2 grid grid-cols-2 gap-3 pt-2 border-t">
-              <label className="flex items-center gap-2"><Switch checked={form.is_featured} onCheckedChange={(v) => setForm({ ...form, is_featured: v })} /> Utvald</label>
-              <label className="flex items-center gap-2"><Switch checked={form.show_on_home} onCheckedChange={(v) => setForm({ ...form, show_on_home: v })} /> Visa på startsidan</label>
-              <label className="flex items-center gap-2"><Switch checked={form.show_on_partner_profile} onCheckedChange={(v) => setForm({ ...form, show_on_partner_profile: v })} /> Visa på partnerprofil</label>
-              <label className="flex items-center gap-2"><Switch checked={form.show_on_product_page} onCheckedChange={(v) => setForm({ ...form, show_on_product_page: v })} /> Visa på produktområdessida</label>
+            <div className="sm:col-span-2 pt-2 border-t">
+              <Label className="mb-2 block">Synlighet och placering</Label>
+              <div className="rounded-md bg-muted/50 p-3 text-xs text-muted-foreground mb-3">
+                <p className="flex items-start gap-2 mb-1.5">
+                  <Info className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
+                  <span><strong>Utvald</strong> – markerar nyheten som redaktionellt utvald. Den får en orange “Utvald”-badge, sorteras överst i listor och visas extra framträdande.</span>
+                </p>
+                <p className="flex items-start gap-2 mb-1.5">
+                  <Info className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
+                  <span><strong>Visa på startsidan</strong> – inkluderas i sektionen “Aktuellt från Dynamics 365-partners” på startsidan (visar upp till 3 publicerade nyheter).</span>
+                </p>
+                <p className="flex items-start gap-2 mb-1.5">
+                  <Info className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
+                  <span><strong>Visa på partnerprofil</strong> – visas under “Senaste nytt” på partnerns publika profilsida på d365.se.</span>
+                </p>
+                <p className="flex items-start gap-2">
+                  <Info className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
+                  <span><strong>Visa på produktområdessida</strong> – gör att nyheten kan filtreras och visas i arkivet per produktområde. För närvarande syns den i nyhetsarkivet när besökaren väljer motsvarande produktområde.</span>
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <label className="flex items-center gap-2"><Switch checked={form.is_featured} onCheckedChange={(v) => setForm({ ...form, is_featured: v })} /> Utvald</label>
+                <label className="flex items-center gap-2"><Switch checked={form.show_on_home} onCheckedChange={(v) => setForm({ ...form, show_on_home: v })} /> Visa på startsidan</label>
+                <label className="flex items-center gap-2"><Switch checked={form.show_on_partner_profile} onCheckedChange={(v) => setForm({ ...form, show_on_partner_profile: v })} /> Visa på partnerprofil</label>
+                <label className="flex items-center gap-2"><Switch checked={form.show_on_product_page} onCheckedChange={(v) => setForm({ ...form, show_on_product_page: v })} /> Visa på produktområdessida</label>
+              </div>
             </div>
 
             <div className="sm:col-span-2">
