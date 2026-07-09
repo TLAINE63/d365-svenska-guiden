@@ -353,19 +353,26 @@ const PartnerCard = ({
  {/* Logo column - separate on the left */}
  <div className="flex-shrink-0 relative">
  {isDatabasePartner(partner) && partner.logo_url ? (
- <img 
- src={partner.logo_url} 
- alt={`${partner.name} logotyp`}
- width="72"
- height="72"
- loading="lazy"
- decoding="async"
- className={`w-[4.5rem] h-[4.5rem] object-contain rounded-lg p-2 border ${
- partner.logo_dark_bg 
- ? 'bg-slate-700 border-slate-600 brightness-125 drop-' 
- : 'bg-white border-border/40'
- }`}
- />
+  <Link
+   to={cleanProfileUrl}
+   onClick={handleCardClick}
+   className="block rounded-lg hover:opacity-80 transition-opacity"
+   title={`Visa ${partner.name || "partner"}s profil`}
+  >
+   <img
+    src={partner.logo_url}
+    alt={`${partner.name} logotyp`}
+    width="72"
+    height="72"
+    loading="lazy"
+    decoding="async"
+    className={`w-[4.5rem] h-[4.5rem] object-contain rounded-lg p-2 border ${
+     partner.logo_dark_bg
+      ? 'bg-slate-700 border-slate-600 brightness-125 drop-'
+      : 'bg-white border-border/40'
+    }`}
+   />
+  </Link>
  ) : (
  <div className="w-[4.5rem] h-[4.5rem] rounded-lg bg-gradient-to-br from-muted/80 to-muted flex items-center justify-center ">
  <Building2 className="w-8 h-8 text-muted-foreground/60" />
