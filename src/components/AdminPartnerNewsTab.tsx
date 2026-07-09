@@ -22,7 +22,7 @@ import type {
   PartnerNewsStatus,
   PartnerNewsType,
 } from "@/hooks/usePartnerNews";
-import { Plus, Pencil, Trash2, Eye, Send, Archive, CheckCircle2, XCircle, Circle, ExternalLink, RefreshCw, Inbox, Tag } from "lucide-react";
+import { Plus, Pencil, Trash2, Eye, Send, Archive, CheckCircle2, XCircle, Circle, ExternalLink, RefreshCw, Inbox, Tag, Info } from "lucide-react";
 
 interface Props {
   token: string;
