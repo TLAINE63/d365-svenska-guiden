@@ -535,10 +535,45 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
             </div>
 
             <div className="sm:col-span-2">
-              <Label>Bild-URL (valfritt)</Label>
-              <Input type="url" value={form.image_url} onChange={(e) => setForm({ ...form, image_url: e.target.value })} placeholder="https://..." />
-              <p className="text-xs text-muted-foreground mt-1">Klistra in en publik bild-URL från partnerns webb, LinkedIn eller pressrum.</p>
+              <Label>Bild (valfritt)</Label>
+              {form.image_url ? (
+                <div className="mt-2 relative inline-block">
+                  <img src={form.image_url} alt="Förhandsvisning" className="max-h-48 rounded-md border object-cover" />
+                  <button
+                    type="button"
+                    onClick={() => setForm({ ...form, image_url: "" })}
+                    className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground rounded-full p-1 shadow hover:opacity-90"
+                    aria-label="Ta bort bild"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              ) : (
+                <div className="mt-2 flex items-center gap-2">
+                  <label className="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-dashed border-border cursor-pointer hover:bg-muted text-sm">
+                    {uploadingImage ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+                    {uploadingImage ? "Laddar upp…" : "Ladda upp bild från datorn"}
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp,image/gif"
+                      className="hidden"
+                      disabled={uploadingImage}
+                      onChange={(e) => {
+                        const f = e.target.files?.[0];
+                        if (f) handleImageUpload(f);
+                        e.target.value = "";
+                      }}
+                    />
+                  </label>
+                </div>
+              )}
+              <div className="mt-2">
+                <Label className="text-xs text-muted-foreground">Eller klistra in en publik bild-URL</Label>
+                <Input type="url" value={form.image_url} onChange={(e) => setForm({ ...form, image_url: e.target.value })} placeholder="https://..." />
+              </div>
+              <p className="text-xs text-muted-foreground mt-1">JPG, PNG, WebP eller GIF, max 5 MB. Ta t.ex. en skärmdump av LinkedIn-inläggets bild.</p>
             </div>
+
 
             <div className="sm:col-span-2 pt-2 border-t">
               <Label className="mb-2 block">Synlighet och placering</Label>
