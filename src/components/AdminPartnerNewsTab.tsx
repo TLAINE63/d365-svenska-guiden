@@ -678,6 +678,13 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
           {previewItem && <PartnerNewsCard item={previewItem} />}
         </DialogContent>
       </Dialog>
+      <ImageCropDialog
+        open={!!cropSrc}
+        imageSrc={cropSrc}
+        aspect={16 / 9}
+        onCancel={() => setCropSrc(null)}
+        onCropped={handleCropped}
+      />
     </div>
   );
 }
