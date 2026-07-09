@@ -60,7 +60,7 @@ type FormState = {
   summary: string;
   source_url: string;
   source_type: PartnerNewsSourceType;
-  product_area: PartnerNewsProductArea;
+  product_areas: PartnerNewsProductArea[];
   news_type: PartnerNewsType;
   industry: string;
   image_url: string;
@@ -78,7 +78,7 @@ const emptyForm = (partnerId: string): FormState => ({
   summary: "",
   source_url: "",
   source_type: "linkedin",
-  product_area: "business-central",
+  product_areas: ["business-central"],
   news_type: "kundcase",
   industry: "",
   image_url: "",
