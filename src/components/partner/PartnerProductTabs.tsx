@@ -798,6 +798,15 @@ export default function PartnerProductTabs({
               </section>
             )}
 
+            {/* Partner news */}
+            <PartnerProfileNewsSection
+              partnerId={partner.id}
+              partnerName={partner.name}
+              partnerSlug={partner.slug}
+              partnerLogoUrl={partner.logo_url ?? null}
+              variant="inline"
+            />
+
             {/* 7. CTA */}
             <section className="rounded-xl border border-border bg-gradient-to-br from-card to-muted/40 p-6 sm:p-8">
               <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
