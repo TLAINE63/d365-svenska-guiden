@@ -93,9 +93,14 @@ export default function PartnerNewsCard({ item, partnerName, partnerSlug, partne
           <Badge variant="secondary" className="bg-slate-100 text-slate-700 hover:bg-slate-100">
             {TYPE_LABELS[item.news_type]}
           </Badge>
-          <Badge variant="outline" className="border-slate-300 text-slate-600">
-            {PRODUCT_LABELS[item.product_area]}
-          </Badge>
+          {(item.product_areas && item.product_areas.length > 0
+            ? item.product_areas
+            : [item.product_area]
+          ).map((area) => (
+            <Badge key={area} variant="outline" className="border-slate-300 text-slate-600">
+              {PRODUCT_LABELS[area]}
+            </Badge>
+          ))}
           {item.industry && (
             <Badge variant="outline" className="border-teal-300 text-teal-700">
               {item.industry}
