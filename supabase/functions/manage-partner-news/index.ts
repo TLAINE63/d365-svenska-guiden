@@ -63,7 +63,7 @@ const NewsSchema = z.object({
   summary: z.string().trim().min(10).max(600),
   source_url: z.string().trim().url().max(1000),
   source_type: z.enum(["linkedin", "partner_web", "blog", "press", "webinar", "event", "other"]),
-  product_area: z.enum(["business-central", "finance-scm", "crm", "power-platform", "microsoft-ai", "ovrigt"]),
+  product_area: z.enum(["business-central", "finance-scm", "crm-sales", "crm-service", "crm", "power-platform", "microsoft-ai", "ovrigt"]),
   news_type: z.enum(["kundcase", "event", "webinar", "erbjudande", "artikel", "rapport", "branschlosning", "produktnyhet", "partnernyhet", "analys"]),
   industry: z.string().trim().max(120).optional().nullable(),
   image_url: z.string().trim().url().max(1000).optional().nullable().or(z.literal("")),
