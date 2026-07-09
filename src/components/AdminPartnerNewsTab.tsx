@@ -30,7 +30,7 @@ interface Props {
   onSessionExpired: () => void;
 }
 
-const PRODUCT_OPTIONS: PartnerNewsProductArea[] = ["business-central", "finance-scm", "crm", "power-platform", "microsoft-ai", "ovrigt"];
+const PRODUCT_OPTIONS: PartnerNewsProductArea[] = ["business-central", "finance-scm", "crm-sales", "crm-service", "power-platform", "microsoft-ai", "ovrigt"];
 const TYPE_OPTIONS: PartnerNewsType[] = ["kundcase", "event", "webinar", "erbjudande", "artikel", "rapport", "branschlosning", "produktnyhet", "partnernyhet", "analys"];
 const SOURCE_OPTIONS: PartnerNewsSourceType[] = ["linkedin", "partner_web", "blog", "press", "webinar", "event", "other"];
 const STATUS_OPTIONS: PartnerNewsStatus[] = ["draft", "review", "approved", "published", "unpublished", "archived"];
