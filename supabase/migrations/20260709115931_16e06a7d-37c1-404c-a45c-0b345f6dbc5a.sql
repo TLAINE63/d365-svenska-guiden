@@ -1,0 +1,2 @@
+ALTER TABLE public.partner_news DROP CONSTRAINT IF EXISTS partner_news_product_area_check;
+ALTER TABLE public.partner_news ADD CONSTRAINT partner_news_product_area_check CHECK (product_area = ANY (ARRAY['business-central'::text, 'finance-scm'::text, 'crm'::text, 'crm-sales'::text, 'crm-service'::text, 'power-platform'::text, 'microsoft-ai'::text, 'ovrigt'::text]));
