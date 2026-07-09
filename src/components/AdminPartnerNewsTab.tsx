@@ -105,6 +105,7 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
   const [uploadingImage, setUploadingImage] = useState(false);
   const [cropSrc, setCropSrc] = useState<string | null>(null);
   const [cropMime, setCropMime] = useState<string>("image/jpeg");
+  const [lastRawImage, setLastRawImage] = useState<string | null>(null);
 
   const invoke = useCallback(async (action: string, extra: Record<string, unknown> = {}) => {
     const { data, error } = await supabase.functions.invoke("manage-partner-news", {
@@ -255,6 +256,36 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
     }
   };
 
+  const autoCenterCrop16x9 = async (dataUrl: string, mime: string): Promise<Blob> => {
+    const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+      const i = new Image();
+      i.onload = () => resolve(i);
+      i.onerror = () => reject(new Error("Kunde inte läsa bilden"));
+      i.src = dataUrl;
+    });
+    const target = 16 / 9;
+    const src = img.width / img.height;
+    let sw = img.width;
+    let sh = img.height;
+    if (src > target) {
+      // Too wide → crop width, keep full height, center horizontally
+      sw = Math.round(img.height * target);
+    } else {
+      // Too tall → crop height, keep full width, center vertically
+      sh = Math.round(img.width / target);
+    }
+    const sx = Math.round((img.width - sw) / 2);
+    const sy = Math.round((img.height - sh) / 2);
+    const canvas = document.createElement("canvas");
+    canvas.width = sw;
+    canvas.height = sh;
+    const ctx = canvas.getContext("2d")!;
+    ctx.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
+    return new Promise((resolve, reject) => {
+      canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("Kunde inte skapa bild"))), mime, 0.92);
+    });
+  };
+
   const handleImageUpload = async (file: File) => {
     if (!file.type.match(/^image\/(jpeg|png|webp|gif)$/)) {
       toast({ title: "Ogiltigt format", description: "Använd JPG, PNG, WebP eller GIF.", variant: "destructive" });
@@ -264,21 +295,32 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
       toast({ title: "Bilden är för stor", description: "Max 5 MB.", variant: "destructive" });
       return;
     }
-    // Read as data URL and open crop dialog
     const dataUrl = await new Promise<string>((resolve, reject) => {
       const r = new FileReader();
       r.onload = () => resolve(String(r.result));
       r.onerror = () => reject(new Error("Kunde inte läsa filen"));
       r.readAsDataURL(file);
     });
-    setCropMime(file.type === "image/png" ? "image/png" : "image/jpeg");
-    setCropSrc(dataUrl);
+    const mime = file.type === "image/png" ? "image/png" : "image/jpeg";
+    setCropMime(mime);
+    setLastRawImage(dataUrl);
+    try {
+      const blob = await autoCenterCrop16x9(dataUrl, mime);
+      const ext = mime === "image/png" ? "png" : "jpg";
+      await uploadBlob(blob, `auto-${Date.now()}.${ext}`, mime);
+    } catch (err) {
+      toast({ title: "Kunde inte beskära bild", description: (err as Error).message, variant: "destructive" });
+    }
   };
 
   const handleCropped = async (blob: Blob) => {
     const ext = cropMime === "image/png" ? "png" : "jpg";
     setCropSrc(null);
     await uploadBlob(blob, `crop-${Date.now()}.${ext}`, cropMime);
+  };
+
+  const openManualCrop = () => {
+    if (lastRawImage) setCropSrc(lastRawImage);
   };
 
   const previewFormItem: PartnerNewsItem = useMemo(() => {
@@ -570,21 +612,33 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
                       <X className="w-3.5 h-3.5" />
                     </button>
                   </div>
-                  <label className="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-dashed border-border cursor-pointer hover:bg-muted text-sm">
-                    {uploadingImage ? <Loader2 className="w-4 h-4 animate-spin" /> : <Crop className="w-4 h-4" />}
-                    {uploadingImage ? "Laddar upp…" : "Byt / beskär bild"}
-                    <input
-                      type="file"
-                      accept="image/jpeg,image/png,image/webp,image/gif"
-                      className="hidden"
-                      disabled={uploadingImage}
-                      onChange={(e) => {
-                        const f = e.target.files?.[0];
-                        if (f) handleImageUpload(f);
-                        e.target.value = "";
-                      }}
-                    />
-                  </label>
+                  <div className="flex flex-col gap-2">
+                    <label className="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-dashed border-border cursor-pointer hover:bg-muted text-sm">
+                      {uploadingImage ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+                      {uploadingImage ? "Laddar upp…" : "Byt bild (auto-centrerad 16:9)"}
+                      <input
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp,image/gif"
+                        className="hidden"
+                        disabled={uploadingImage}
+                        onChange={(e) => {
+                          const f = e.target.files?.[0];
+                          if (f) handleImageUpload(f);
+                          e.target.value = "";
+                        }}
+                      />
+                    </label>
+                    {lastRawImage && (
+                      <button
+                        type="button"
+                        onClick={openManualCrop}
+                        disabled={uploadingImage}
+                        className="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-border text-sm hover:bg-muted disabled:opacity-50"
+                      >
+                        <Crop className="w-4 h-4" /> Justera beskärning manuellt
+                      </button>
+                    )}
+                  </div>
                 </div>
               ) : (
                 <div className="mt-2 flex items-center gap-2">
