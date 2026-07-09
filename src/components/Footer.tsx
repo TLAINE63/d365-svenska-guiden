@@ -104,6 +104,7 @@ const Footer = () => {
               <li><Link to="/valjdynamics365partner/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Välj Partner</Link></li>
               <li><Link to="/jamfor-partners/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Jämför Partners</Link></li>
               <li><Link to="/dynamics-365-ai-copilot-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 AI- & Copilot-partners</Link></li>
+              <li><Link to="/partnernytt/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Partnernytt</Link></li>
               <li><Link to="/branscher/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Branschlösningar</Link></li>
               <li><Link to="/kontakt/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Kontakta oss</Link></li>
             </ul>

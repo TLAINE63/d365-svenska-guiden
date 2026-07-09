@@ -28,6 +28,7 @@ import LeadCTA from "@/components/LeadCTA";
 import StickyContactCTA from "@/components/partner/StickyContactCTA";
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
+import PartnerProfileNewsSection from "@/components/PartnerProfileNewsSection";
 import DecisionProfile from "@/components/partner/DecisionProfile";
 import PartnerProductTabs, { resolveInitialTab } from "@/components/partner/PartnerProductTabs";
 import { RadialGlow } from "@/components/RadialGlow";
@@ -610,6 +611,16 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
     </div>
    </section>
   )}
+
+  {partner?.id && (
+    <PartnerProfileNewsSection
+      partnerId={partner.id}
+      partnerName={partner.name}
+      partnerSlug={partner.slug}
+      partnerLogoUrl={partner.logo_url ?? null}
+    />
+  )}
+
 
   {/* Tabbed product profile */}
   <PartnerProductTabs

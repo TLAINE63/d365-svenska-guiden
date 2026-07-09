@@ -100,6 +100,7 @@ const Friskrivning = lazy(() => import("./pages/Friskrivning"));
 const Priser = lazy(() => import("./pages/Priser"));
 const Kostnad = lazy(() => import("./pages/Kostnad"));
 const ComparePartners = lazy(() => import("./pages/ComparePartners"));
+const Partnernytt = lazy(() => import("./pages/Partnernytt"));
 const IsvCompare = lazy(() => import("./pages/IsvCompare"));
 const AiChatBubble = lazy(() => import("@/components/AiChatBubble"));
 
@@ -294,6 +295,7 @@ const AppShell = () => {
           <Route path="/friskrivning" element={<Friskrivning />} />
           <Route path="/jamfor-partners" element={<ComparePartners />} />
           <Route path="/compare/:slug" element={<IsvCompare />} />
+          <Route path="/partnernytt" element={<Partnernytt />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

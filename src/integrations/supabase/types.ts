@@ -760,6 +760,94 @@ export type Database = {
           },
         ]
       }
+      partner_news: {
+        Row: {
+          created_at: string
+          editorial_title: string
+          id: string
+          image_url: string | null
+          industry: string | null
+          is_featured: boolean
+          news_date: string
+          news_type: string
+          partner_id: string
+          product_area: string
+          published_at: string | null
+          show_on_home: boolean
+          show_on_partner_profile: boolean
+          show_on_product_page: boolean
+          source_type: string
+          source_url: string
+          status: string
+          summary: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          editorial_title: string
+          id?: string
+          image_url?: string | null
+          industry?: string | null
+          is_featured?: boolean
+          news_date?: string
+          news_type?: string
+          partner_id: string
+          product_area?: string
+          published_at?: string | null
+          show_on_home?: boolean
+          show_on_partner_profile?: boolean
+          show_on_product_page?: boolean
+          source_type?: string
+          source_url: string
+          status?: string
+          summary: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          editorial_title?: string
+          id?: string
+          image_url?: string | null
+          industry?: string | null
+          is_featured?: boolean
+          news_date?: string
+          news_type?: string
+          partner_id?: string
+          product_area?: string
+          published_at?: string | null
+          show_on_home?: boolean
+          show_on_partner_profile?: boolean
+          show_on_product_page?: boolean
+          source_type?: string
+          source_url?: string
+          status?: string
+          summary?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_news_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_news_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_basic_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_news_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       partner_profile_views: {
         Row: {
           id: string
