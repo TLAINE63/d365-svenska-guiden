@@ -101,6 +101,8 @@ import AdminSalesPitchV2Tab from "@/components/AdminSalesPitchV2Tab";
 import AdminSalesKpiTab from "@/components/AdminSalesKpiTab";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminEmailLogTab from "@/components/AdminEmailLogTab";
+import AdminPartnerRequestsTab from "@/components/AdminPartnerRequestsTab";
+
 import AdminFeaturedArticleTab from "@/components/AdminFeaturedArticleTab";
 import AdminKnowledgeArticlesTab from "@/components/AdminKnowledgeArticlesTab";
 import AdminProductPricesTab from "@/components/AdminProductPricesTab";
