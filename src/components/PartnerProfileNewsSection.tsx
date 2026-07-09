@@ -21,7 +21,7 @@ export default function PartnerProfileNewsSection({ partnerId, partnerName, part
 
   return (
     <section className="py-10 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+      <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
         <div className="flex flex-wrap items-end justify-between gap-3 mb-6">
           <div>
             <h2 className="text-2xl font-bold text-foreground">Senaste nytt från {partnerName}</h2>
