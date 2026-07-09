@@ -444,11 +444,14 @@ const handler = async (req: Request): Promise<Response> => {
             const firstName = sanitizedData.contact_name.split(" ")[0] || "";
             const confirmSubject = `Bekräftelse: din ${requestLabel.toLowerCase()} till ${partnersLabel}`;
 
-            await resend.emails.send({
+            const confirmPayload = {
               from: "d365.se <info@d365.se>",
               to: [sanitizedData.email],
               reply_to: "info@d365.se",
               subject: confirmSubject,
+            };
+            const confirmResult = await resend.emails.send({
+              ...confirmPayload,
               html: `
                 <div style="font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto; color:#111827;">
                   <div style="background: linear-gradient(135deg, #D64A1F, #B23A17); padding: 20px; border-radius: 8px 8px 0 0;">
@@ -496,7 +499,40 @@ const handler = async (req: Request): Promise<Response> => {
                 </div>
               `,
             });
-            console.log(`Visitor confirmation email sent to ${sanitizedData.email}`);
+
+            const confirmMessageId = (confirmResult as any)?.data?.id || null;
+            console.log(
+              "[visitor-confirmation-email]",
+              JSON.stringify({
+                source_type: sanitizedData.source_type,
+                to: sanitizedData.email,
+                reply_to: "info@d365.se",
+                partners: notifiedPartnerNames,
+                provider_message_id: confirmMessageId,
+              }),
+            );
+            try {
+              await supabase.from("email_send_log").insert({
+                message_id: confirmMessageId || `visitor-confirm-${Date.now()}`,
+                recipient_email: sanitizedData.email,
+                template_name: `visitor_confirmation:${sanitizedData.source_type}`,
+                subject: confirmSubject,
+                status: "sent",
+                metadata: {
+                  source_type: sanitizedData.source_type,
+                  request_label: requestLabel,
+                  partners: notifiedPartnerNames,
+                  assigned_partner_slugs: sanitizedData.assigned_partners,
+                  selected_product: sanitizedData.selected_product || null,
+                  industry: sanitizedData.industry || null,
+                  source_page: sanitizedData.source_page || null,
+                  email_fields: confirmPayload,
+                },
+              });
+            } catch (logErr) {
+              console.error("email_send_log insert failed (visitor confirm):", logErr);
+            }
+
           } catch (visitorEmailError) {
             console.error("Visitor confirmation email failed:", visitorEmailError);
           }
