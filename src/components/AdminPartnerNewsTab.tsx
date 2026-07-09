@@ -22,7 +22,8 @@ import type {
   PartnerNewsStatus,
   PartnerNewsType,
 } from "@/hooks/usePartnerNews";
-import { Plus, Pencil, Trash2, Eye, Send, Archive, CheckCircle2, XCircle, Circle, ExternalLink, RefreshCw, Inbox, Tag, Info, Upload, X, Loader2 } from "lucide-react";
+import { Plus, Pencil, Trash2, Eye, Send, Archive, CheckCircle2, XCircle, Circle, ExternalLink, RefreshCw, Inbox, Tag, Info, Upload, X, Loader2, Crop } from "lucide-react";
+import ImageCropDialog from "@/components/ImageCropDialog";
 
 interface Props {
   token: string;
