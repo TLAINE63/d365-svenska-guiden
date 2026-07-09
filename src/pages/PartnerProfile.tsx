@@ -28,7 +28,6 @@ import LeadCTA from "@/components/LeadCTA";
 import StickyContactCTA from "@/components/partner/StickyContactCTA";
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
-import PartnerProfileNewsSection from "@/components/PartnerProfileNewsSection";
 import DecisionProfile from "@/components/partner/DecisionProfile";
 import PartnerProductTabs, { resolveInitialTab } from "@/components/partner/PartnerProductTabs";
 import { RadialGlow } from "@/components/RadialGlow";
