@@ -19,7 +19,7 @@ export default function HomePartnerNewsSection() {
             Redaktionellt utvalda nyheter, kundcase och event från publicerade partners på d365.se.
           </p>
         </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+        <div className="grid gap-6 sm:grid-cols-2 max-w-6xl mx-auto">
           {data.map((item) => (
             <PartnerNewsCard key={item.id} item={item} />
           ))}
