@@ -112,7 +112,15 @@ export default function PartnerNewsCard({ item, partnerName, partnerSlug, partne
         </p>
 
         <div className="mt-auto pt-3 border-t border-border flex items-center gap-2 text-xs text-muted-foreground">
-          {logo ? (
+          {logo && slug ? (
+            <Link
+              to={`/partner/${slug}/`}
+              className="flex-shrink-0 rounded hover:opacity-80 transition-opacity"
+              title={`Visa ${name}s partnerprofil på d365.se`}
+            >
+              <img src={logo} alt={`${name} logotyp`} className="h-6 w-6 rounded object-contain bg-white" loading="lazy" />
+            </Link>
+          ) : logo ? (
             <img src={logo} alt="" className="h-6 w-6 rounded object-contain bg-white" loading="lazy" />
           ) : null}
           <span className="font-medium text-foreground">{name}</span>
