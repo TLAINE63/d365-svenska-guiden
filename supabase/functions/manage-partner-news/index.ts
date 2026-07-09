@@ -56,6 +56,8 @@ async function verifyJWT(token: string, secret: string): Promise<{ valid: boolea
   }
 }
 
+const PRODUCT_AREA_ENUM = z.enum(["business-central", "finance-scm", "crm-sales", "crm-service", "crm", "power-platform", "microsoft-ai", "ovrigt"]);
+
 const NewsSchema = z.object({
   id: z.string().uuid().optional(),
   partner_id: z.string().uuid(),
@@ -63,7 +65,8 @@ const NewsSchema = z.object({
   summary: z.string().trim().min(10).max(600),
   source_url: z.string().trim().url().max(1000),
   source_type: z.enum(["linkedin", "partner_web", "blog", "press", "webinar", "event", "other"]),
-  product_area: z.enum(["business-central", "finance-scm", "crm-sales", "crm-service", "crm", "power-platform", "microsoft-ai", "ovrigt"]),
+  product_area: PRODUCT_AREA_ENUM.optional(),
+  product_areas: z.array(PRODUCT_AREA_ENUM).min(1).max(8).optional(),
   news_type: z.enum(["kundcase", "event", "webinar", "erbjudande", "artikel", "rapport", "branschlosning", "produktnyhet", "partnernyhet", "analys"]),
   industry: z.string().trim().max(120).optional().nullable(),
   image_url: z.string().trim().url().max(1000).optional().nullable().or(z.literal("")),
@@ -73,7 +76,17 @@ const NewsSchema = z.object({
   show_on_partner_profile: z.boolean().default(true),
   show_on_product_page: z.boolean().default(false),
   status: z.enum(["draft", "review", "approved", "published", "unpublished", "archived"]).default("draft"),
+}).refine((v) => (v.product_areas && v.product_areas.length > 0) || !!v.product_area, {
+  message: "Minst ett produktområde krävs",
+  path: ["product_areas"],
 });
+
+function normalizeAreas<T extends { product_area?: string; product_areas?: string[] }>(data: T): T & { product_area: string; product_areas: string[] } {
+  const areas = (data.product_areas && data.product_areas.length > 0)
+    ? Array.from(new Set(data.product_areas))
+    : (data.product_area ? [data.product_area] : []);
+  return { ...data, product_areas: areas, product_area: areas[0] } as T & { product_area: string; product_areas: string[] };
+}
 
 serve(async (req) => {
   const cors = corsHeadersFor(req);
