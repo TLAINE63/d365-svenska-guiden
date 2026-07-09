@@ -134,7 +134,7 @@ serve(async (req) => {
         if (!parsed.success || !parsed.data.id) return new Response(JSON.stringify({ error: "Valideringsfel", details: parsed.error?.flatten().fieldErrors }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
         const norm = normalizeAreas(parsed.data);
         const { id, ...rest } = norm;
-        const patch: Record<string, unknown> = { ...rest, image_url: rest.image_url || null, industry: rest.industry || null };
+        const patch: Record<string, unknown> = { ...rest, source_url: rest.source_url || null, image_url: rest.image_url || null, industry: rest.industry || null };
         if (rest.status === "published") {
           const { data: existing } = await supabase.from("partner_news").select("published_at").eq("id", id).maybeSingle();
           if (!existing?.published_at) patch.published_at = new Date().toISOString();
