@@ -56,6 +56,8 @@ const Footer = () => {
               <li><Link to="/crm/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">CRM Översikt</Link></li>
               <li><Link to="/d365sales/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Sales</Link></li>
               <li><Link to="/d365marketing/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Customer Insights</Link></li>
+              <li><Link to="/dynamics-365-sales-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Sales-partners</Link></li>
+              <li><Link to="/dynamics-365-marketing-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Customer Insights-partners</Link></li>
               <li><Link to="/CRMbehovsanalys/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Behovsanalys Sälj & Marknad</Link></li>
             </ul>
           </div>
@@ -84,7 +86,6 @@ const Footer = () => {
               <li><Link to="/valjdynamics365partner/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Hitta din partner</Link></li>
               <li><Link to="/alla-d365-partners/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Alla D365-partners</Link></li>
               <li><Link to="/partners-per-bransch/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Partners per bransch</Link></li>
-              <li><Link to="/dynamics-365-sales-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Sales-partners</Link></li>
               <li><Link to="/partners-sitemap/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Partners-sitemap</Link></li>
             </ul>
           </div>
