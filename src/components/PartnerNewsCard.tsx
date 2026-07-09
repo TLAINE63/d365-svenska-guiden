@@ -7,6 +7,8 @@ import type { PartnerNewsItem, PartnerNewsProductArea, PartnerNewsSourceType, Pa
 const PRODUCT_LABELS: Record<PartnerNewsProductArea, string> = {
   "business-central": "Business Central",
   "finance-scm": "Finance & Supply Chain",
+  "crm-sales": "CRM – Sales & Customer Insights",
+  "crm-service": "CRM – Customer Service, Field Service & Contact Center",
   "crm": "CRM / Customer Engagement",
   "power-platform": "Power Platform",
   "microsoft-ai": "Microsoft AI",
