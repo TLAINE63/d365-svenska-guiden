@@ -22,7 +22,7 @@ import type {
   PartnerNewsStatus,
   PartnerNewsType,
 } from "@/hooks/usePartnerNews";
-import { Plus, Pencil, Trash2, Eye, Send, Archive, CheckCircle2, Circle, ExternalLink, RefreshCw } from "lucide-react";
+import { Plus, Pencil, Trash2, Eye, Send, Archive, CheckCircle2, XCircle, Circle, ExternalLink, RefreshCw, Inbox, Tag } from "lucide-react";
 
 interface Props {
   token: string;
@@ -136,11 +136,28 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
 
   const filtered = useMemo(() => {
     return items.filter((i) => {
-      if (statusFilter !== "all" && i.status !== statusFilter) return false;
+      if (statusFilter === "queue") {
+        if (i.status !== "draft" && i.status !== "review") return false;
+      } else if (statusFilter !== "all" && i.status !== statusFilter) return false;
       if (partnerFilter !== "all" && i.partner_id !== partnerFilter) return false;
       return true;
     });
   }, [items, statusFilter, partnerFilter]);
+
+  const queueCount = useMemo(
+    () => items.filter((i) => i.status === "draft" || i.status === "review").length,
+    [items],
+  );
+
+  const setType = async (item: PartnerNewsItem, news_type: PartnerNewsType) => {
+    try {
+      await invoke("update", { news: { id: item.id, partner_id: item.partner_id, editorial_title: item.editorial_title, summary: item.summary, source_url: item.source_url, source_type: item.source_type, product_area: item.product_area, news_type, industry: item.industry ?? undefined, image_url: item.image_url ?? undefined, news_date: item.news_date, is_featured: item.is_featured, show_on_home: item.show_on_home, show_on_partner_profile: item.show_on_partner_profile, show_on_product_page: item.show_on_product_page, status: item.status } });
+      toast({ title: "Typ uppdaterad", description: partnerNewsTypeLabel(news_type) });
+      await refresh();
+    } catch (err) {
+      toast({ title: "Kunde inte ändra typ", description: (err as Error).message, variant: "destructive" });
+    }
+  };
 
   const openNew = () => {
     setForm(emptyForm(publishedPartners[0]?.id ?? ""));
@@ -260,6 +277,34 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
           </div>
         </CardHeader>
         <CardContent>
+          <div className="mb-4 flex flex-wrap items-center gap-2">
+            <Button
+              variant={statusFilter === "queue" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setStatusFilter("queue")}
+              className={statusFilter === "queue" ? "bg-amber-600 hover:bg-amber-700 text-white" : ""}
+            >
+              <Inbox className="w-4 h-4 mr-1" /> Godkännandekö
+              {queueCount > 0 && (
+                <Badge className="ml-2 bg-amber-100 text-amber-900 hover:bg-amber-100">{queueCount}</Badge>
+              )}
+            </Button>
+            <Button
+              variant={statusFilter === "published" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setStatusFilter("published")}
+              className={statusFilter === "published" ? "bg-emerald-600 hover:bg-emerald-700 text-white" : ""}
+            >
+              Publicerade
+            </Button>
+            <Button
+              variant={statusFilter === "all" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setStatusFilter("all")}
+            >
+              Alla
+            </Button>
+          </div>
           <div className="flex flex-wrap gap-3 mb-4">
             <div className="min-w-[200px]">
               <Label className="text-xs">Status</Label>
@@ -267,6 +312,7 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">Alla statusar</SelectItem>
+                  <SelectItem value="queue">Godkännandekö (utkast + granskning)</SelectItem>
                   {STATUS_OPTIONS.map((s) => (
                     <SelectItem key={s} value={s}>{STATUS_LABEL[s]}</SelectItem>
                   ))}
@@ -310,9 +356,29 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
                     </a>
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
+                    <Select value={item.news_type} onValueChange={(v) => setType(item, v as PartnerNewsType)}>
+                      <SelectTrigger className="h-8 w-[150px] text-xs">
+                        <span className="inline-flex items-center gap-1"><Tag className="w-3 h-3" /><SelectValue /></span>
+                      </SelectTrigger>
+                      <SelectContent>
+                        {TYPE_OPTIONS.map((t) => (
+                          <SelectItem key={t} value={t}>{partnerNewsTypeLabel(t)}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <Button variant="outline" size="sm" onClick={() => setPreviewItem(item)}><Eye className="w-4 h-4" /></Button>
                     <Button variant="outline" size="sm" onClick={() => openEdit(item)}><Pencil className="w-4 h-4" /></Button>
-                    {item.status !== "published" && (
+                    {(item.status === "draft" || item.status === "review") && (
+                      <>
+                        <Button size="sm" onClick={() => setStatus(item.id, "published")} className="bg-emerald-600 hover:bg-emerald-700 text-white">
+                          <CheckCircle2 className="w-4 h-4 mr-1" /> Godkänn
+                        </Button>
+                        <Button variant="outline" size="sm" onClick={() => setStatus(item.id, "archived")} className="text-destructive border-destructive/40">
+                          <XCircle className="w-4 h-4 mr-1" /> Avvisa
+                        </Button>
+                      </>
+                    )}
+                    {item.status !== "published" && item.status !== "draft" && item.status !== "review" && (
                       <Button variant="outline" size="sm" onClick={() => setStatus(item.id, "published")} className="text-emerald-700">
                         <Send className="w-4 h-4 mr-1" /> Publicera
                       </Button>
