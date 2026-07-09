@@ -772,6 +772,7 @@ export type Database = {
           news_type: string
           partner_id: string
           product_area: string
+          product_areas: string[]
           published_at: string | null
           show_on_home: boolean
           show_on_partner_profile: boolean
@@ -793,6 +794,7 @@ export type Database = {
           news_type?: string
           partner_id: string
           product_area?: string
+          product_areas?: string[]
           published_at?: string | null
           show_on_home?: boolean
           show_on_partner_profile?: boolean
@@ -814,6 +816,7 @@ export type Database = {
           news_type?: string
           partner_id?: string
           product_area?: string
+          product_areas?: string[]
           published_at?: string | null
           show_on_home?: boolean
           show_on_partner_profile?: boolean
