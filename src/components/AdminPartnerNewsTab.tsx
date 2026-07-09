@@ -234,24 +234,16 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
     }
   };
 
-  const handleImageUpload = async (file: File) => {
-    if (!file.type.match(/^image\/(jpeg|png|webp|gif)$/)) {
-      toast({ title: "Ogiltigt format", description: "Använd JPG, PNG, WebP eller GIF.", variant: "destructive" });
-      return;
-    }
-    if (file.size > 5 * 1024 * 1024) {
-      toast({ title: "Bilden är för stor", description: "Max 5 MB.", variant: "destructive" });
-      return;
-    }
+  const uploadBlob = async (blob: Blob, filename: string, contentType: string) => {
     setUploadingImage(true);
     try {
       const b64 = await new Promise<string>((resolve, reject) => {
         const r = new FileReader();
         r.onload = () => resolve(String(r.result).split(",")[1] ?? "");
         r.onerror = () => reject(new Error("Kunde inte läsa filen"));
-        r.readAsDataURL(file);
+        r.readAsDataURL(blob);
       });
-      const res = await invoke("upload-image", { file_base64: b64, content_type: file.type, filename: file.name });
+      const res = await invoke("upload-image", { file_base64: b64, content_type: contentType, filename });
       if (res?.image_url) {
         setForm((f) => ({ ...f, image_url: res.image_url }));
         toast({ title: "Bild uppladdad" });
@@ -261,6 +253,32 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
     } finally {
       setUploadingImage(false);
     }
+  };
+
+  const handleImageUpload = async (file: File) => {
+    if (!file.type.match(/^image\/(jpeg|png|webp|gif)$/)) {
+      toast({ title: "Ogiltigt format", description: "Använd JPG, PNG, WebP eller GIF.", variant: "destructive" });
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast({ title: "Bilden är för stor", description: "Max 5 MB.", variant: "destructive" });
+      return;
+    }
+    // Read as data URL and open crop dialog
+    const dataUrl = await new Promise<string>((resolve, reject) => {
+      const r = new FileReader();
+      r.onload = () => resolve(String(r.result));
+      r.onerror = () => reject(new Error("Kunde inte läsa filen"));
+      r.readAsDataURL(file);
+    });
+    setCropMime(file.type === "image/png" ? "image/png" : "image/jpeg");
+    setCropSrc(dataUrl);
+  };
+
+  const handleCropped = async (blob: Blob) => {
+    const ext = cropMime === "image/png" ? "png" : "jpg";
+    setCropSrc(null);
+    await uploadBlob(blob, `crop-${Date.now()}.${ext}`, cropMime);
   };
 
   const previewFormItem: PartnerNewsItem = useMemo(() => {
