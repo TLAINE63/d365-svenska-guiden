@@ -120,7 +120,8 @@ serve(async (req) => {
       case "create": {
         const parsed = NewsSchema.safeParse(body.news);
         if (!parsed.success) return new Response(JSON.stringify({ error: "Valideringsfel", details: parsed.error.flatten().fieldErrors }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
-        const item = { ...parsed.data, image_url: parsed.data.image_url || null, industry: parsed.data.industry || null };
+        const norm = normalizeAreas(parsed.data);
+        const item = { ...norm, image_url: norm.image_url || null, industry: norm.industry || null };
         if (item.status === "published" && !("published_at" in item)) {
           (item as Record<string, unknown>).published_at = new Date().toISOString();
         }
@@ -131,7 +132,8 @@ serve(async (req) => {
       case "update": {
         const parsed = NewsSchema.safeParse(body.news);
         if (!parsed.success || !parsed.data.id) return new Response(JSON.stringify({ error: "Valideringsfel", details: parsed.error?.flatten().fieldErrors }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
-        const { id, ...rest } = parsed.data;
+        const norm = normalizeAreas(parsed.data);
+        const { id, ...rest } = norm;
         const patch: Record<string, unknown> = { ...rest, image_url: rest.image_url || null, industry: rest.industry || null };
         if (rest.status === "published") {
           const { data: existing } = await supabase.from("partner_news").select("published_at").eq("id", id).maybeSingle();
