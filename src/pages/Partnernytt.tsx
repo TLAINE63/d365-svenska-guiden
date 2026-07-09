@@ -9,6 +9,7 @@ import PartnerNewsCard, {
   partnerNewsTypeLabel,
 } from "@/components/PartnerNewsCard";
 import { usePublishedPartnerNews } from "@/hooks/usePartnerNews";
+import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
@@ -27,14 +28,20 @@ export default function Partnernytt() {
   const [sort, setSort] = useState<"latest" | "featured">("latest");
 
   const { data, isLoading } = usePublishedPartnerNews({});
+  const { data: allPartners } = useAllPartnerNames();
 
   const partners = useMemo(() => {
+    const idsWithNews = new Set((data ?? []).map((n) => n.partner_id));
     const map = new Map<string, string>();
+    (allPartners ?? []).forEach((p) => {
+      if (idsWithNews.has(p.id)) map.set(p.slug, p.name);
+    });
+    // Fallback for any items whose partner isn't in the RPC result
     (data ?? []).forEach((n) => {
-      if (n.partner?.slug) map.set(n.partner.slug, n.partner.name);
+      if (n.partner?.slug && !map.has(n.partner.slug)) map.set(n.partner.slug, n.partner.name);
     });
     return Array.from(map.entries()).sort((a, b) => a[1].localeCompare(b[1], "sv"));
-  }, [data]);
+  }, [data, allPartners]);
 
   const industries = useMemo(() => {
     const set = new Set<string>();
@@ -44,7 +51,10 @@ export default function Partnernytt() {
 
   const filtered = useMemo(() => {
     let list = data ?? [];
-    if (partnerParam !== "all") list = list.filter((n) => n.partner?.slug === partnerParam);
+    if (partnerParam !== "all") {
+      const partnerId = (allPartners ?? []).find((p) => p.slug === partnerParam)?.id;
+      list = list.filter((n) => n.partner?.slug === partnerParam || (partnerId && n.partner_id === partnerId));
+    }
     if (productParam !== "all") list = list.filter((n) => (n.product_areas && n.product_areas.length > 0 ? n.product_areas.includes(productParam as typeof n.product_area) : n.product_area === productParam));
     if (typeParam !== "all") list = list.filter((n) => n.news_type === typeParam);
     if (industryParam !== "all") list = list.filter((n) => n.industry === industryParam);
@@ -53,7 +63,7 @@ export default function Partnernytt() {
       list = [...list].sort((a, b) => Number(b.is_featured) - Number(a.is_featured));
     }
     return list;
-  }, [data, partnerParam, productParam, typeParam, industryParam, sourceParam, sort]);
+  }, [data, allPartners, partnerParam, productParam, typeParam, industryParam, sourceParam, sort]);
 
   const setParam = (key: string, value: string) => {
     const next = new URLSearchParams(searchParams);
