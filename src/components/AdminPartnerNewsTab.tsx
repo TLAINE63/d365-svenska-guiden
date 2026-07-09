@@ -22,7 +22,8 @@ import type {
   PartnerNewsStatus,
   PartnerNewsType,
 } from "@/hooks/usePartnerNews";
-import { Plus, Pencil, Trash2, Eye, Send, Archive, CheckCircle2, XCircle, Circle, ExternalLink, RefreshCw, Inbox, Tag, Info, Upload, X, Loader2 } from "lucide-react";
+import { Plus, Pencil, Trash2, Eye, Send, Archive, CheckCircle2, XCircle, Circle, ExternalLink, RefreshCw, Inbox, Tag, Info, Upload, X, Loader2, Crop } from "lucide-react";
+import ImageCropDialog from "@/components/ImageCropDialog";
 
 interface Props {
   token: string;
@@ -102,6 +103,8 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
   const [previewItem, setPreviewItem] = useState<PartnerNewsItem | null>(null);
   const [saving, setSaving] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [cropSrc, setCropSrc] = useState<string | null>(null);
+  const [cropMime, setCropMime] = useState<string>("image/jpeg");
 
   const invoke = useCallback(async (action: string, extra: Record<string, unknown> = {}) => {
     const { data, error } = await supabase.functions.invoke("manage-partner-news", {
@@ -231,24 +234,16 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
     }
   };
 
-  const handleImageUpload = async (file: File) => {
-    if (!file.type.match(/^image\/(jpeg|png|webp|gif)$/)) {
-      toast({ title: "Ogiltigt format", description: "Använd JPG, PNG, WebP eller GIF.", variant: "destructive" });
-      return;
-    }
-    if (file.size > 5 * 1024 * 1024) {
-      toast({ title: "Bilden är för stor", description: "Max 5 MB.", variant: "destructive" });
-      return;
-    }
+  const uploadBlob = async (blob: Blob, filename: string, contentType: string) => {
     setUploadingImage(true);
     try {
       const b64 = await new Promise<string>((resolve, reject) => {
         const r = new FileReader();
         r.onload = () => resolve(String(r.result).split(",")[1] ?? "");
         r.onerror = () => reject(new Error("Kunde inte läsa filen"));
-        r.readAsDataURL(file);
+        r.readAsDataURL(blob);
       });
-      const res = await invoke("upload-image", { file_base64: b64, content_type: file.type, filename: file.name });
+      const res = await invoke("upload-image", { file_base64: b64, content_type: contentType, filename });
       if (res?.image_url) {
         setForm((f) => ({ ...f, image_url: res.image_url }));
         toast({ title: "Bild uppladdad" });
@@ -258,6 +253,32 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
     } finally {
       setUploadingImage(false);
     }
+  };
+
+  const handleImageUpload = async (file: File) => {
+    if (!file.type.match(/^image\/(jpeg|png|webp|gif)$/)) {
+      toast({ title: "Ogiltigt format", description: "Använd JPG, PNG, WebP eller GIF.", variant: "destructive" });
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast({ title: "Bilden är för stor", description: "Max 5 MB.", variant: "destructive" });
+      return;
+    }
+    // Read as data URL and open crop dialog
+    const dataUrl = await new Promise<string>((resolve, reject) => {
+      const r = new FileReader();
+      r.onload = () => resolve(String(r.result));
+      r.onerror = () => reject(new Error("Kunde inte läsa filen"));
+      r.readAsDataURL(file);
+    });
+    setCropMime(file.type === "image/png" ? "image/png" : "image/jpeg");
+    setCropSrc(dataUrl);
+  };
+
+  const handleCropped = async (blob: Blob) => {
+    const ext = cropMime === "image/png" ? "png" : "jpg";
+    setCropSrc(null);
+    await uploadBlob(blob, `crop-${Date.now()}.${ext}`, cropMime);
   };
 
   const previewFormItem: PartnerNewsItem = useMemo(() => {
@@ -537,16 +558,33 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
             <div className="sm:col-span-2">
               <Label>Bild (valfritt)</Label>
               {form.image_url ? (
-                <div className="mt-2 relative inline-block">
-                  <img src={form.image_url} alt="Förhandsvisning" className="max-h-48 rounded-md border object-cover" />
-                  <button
-                    type="button"
-                    onClick={() => setForm({ ...form, image_url: "" })}
-                    className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground rounded-full p-1 shadow hover:opacity-90"
-                    aria-label="Ta bort bild"
-                  >
-                    <X className="w-3.5 h-3.5" />
-                  </button>
+                <div className="mt-2 flex items-start gap-3">
+                  <div className="relative inline-block">
+                    <img src={form.image_url} alt="Förhandsvisning" className="max-h-48 rounded-md border object-cover aspect-[16/9]" />
+                    <button
+                      type="button"
+                      onClick={() => setForm({ ...form, image_url: "" })}
+                      className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground rounded-full p-1 shadow hover:opacity-90"
+                      aria-label="Ta bort bild"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                  <label className="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-dashed border-border cursor-pointer hover:bg-muted text-sm">
+                    {uploadingImage ? <Loader2 className="w-4 h-4 animate-spin" /> : <Crop className="w-4 h-4" />}
+                    {uploadingImage ? "Laddar upp…" : "Byt / beskär bild"}
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp,image/gif"
+                      className="hidden"
+                      disabled={uploadingImage}
+                      onChange={(e) => {
+                        const f = e.target.files?.[0];
+                        if (f) handleImageUpload(f);
+                        e.target.value = "";
+                      }}
+                    />
+                  </label>
                 </div>
               ) : (
                 <div className="mt-2 flex items-center gap-2">
@@ -640,6 +678,13 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
           {previewItem && <PartnerNewsCard item={previewItem} />}
         </DialogContent>
       </Dialog>
+      <ImageCropDialog
+        open={!!cropSrc}
+        imageSrc={cropSrc}
+        aspect={16 / 9}
+        onCancel={() => setCropSrc(null)}
+        onCropped={handleCropped}
+      />
     </div>
   );
 }
