@@ -45,7 +45,7 @@ export default function Partnernytt() {
   const filtered = useMemo(() => {
     let list = data ?? [];
     if (partnerParam !== "all") list = list.filter((n) => n.partner?.slug === partnerParam);
-    if (productParam !== "all") list = list.filter((n) => n.product_area === productParam);
+    if (productParam !== "all") list = list.filter((n) => (n.product_areas && n.product_areas.length > 0 ? n.product_areas.includes(productParam as typeof n.product_area) : n.product_area === productParam));
     if (typeParam !== "all") list = list.filter((n) => n.news_type === typeParam);
     if (industryParam !== "all") list = list.filter((n) => n.industry === industryParam);
     if (sourceParam !== "all") list = list.filter((n) => n.source_type === sourceParam);
