@@ -28,14 +28,20 @@ export default function Partnernytt() {
   const [sort, setSort] = useState<"latest" | "featured">("latest");
 
   const { data, isLoading } = usePublishedPartnerNews({});
+  const { data: allPartners } = useAllPartnerNames();
 
   const partners = useMemo(() => {
+    const idsWithNews = new Set((data ?? []).map((n) => n.partner_id));
     const map = new Map<string, string>();
+    (allPartners ?? []).forEach((p) => {
+      if (idsWithNews.has(p.id)) map.set(p.slug, p.name);
+    });
+    // Fallback for any items whose partner isn't in the RPC result
     (data ?? []).forEach((n) => {
-      if (n.partner?.slug) map.set(n.partner.slug, n.partner.name);
+      if (n.partner?.slug && !map.has(n.partner.slug)) map.set(n.partner.slug, n.partner.name);
     });
     return Array.from(map.entries()).sort((a, b) => a[1].localeCompare(b[1], "sv"));
-  }, [data]);
+  }, [data, allPartners]);
 
   const industries = useMemo(() => {
     const set = new Set<string>();
