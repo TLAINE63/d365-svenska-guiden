@@ -55,6 +55,7 @@ const STATIC_ROUTES = [
   { path: "/dynamics-365-field-service-partners-sverige/", changefreq: "monthly", priority: "0.7" },
   { path: "/d365contactcenter/", changefreq: "monthly", priority: "0.8" },
   { path: "/dynamics-365-contact-center-partners-sverige/", changefreq: "monthly", priority: "0.7" },
+  { path: "/dynamics-365-ai-copilot-partners-sverige/", changefreq: "monthly", priority: "0.7" },
   { path: "/d365projectoperations/", changefreq: "monthly", priority: "0.8" },
   { path: "/d365commerce/", changefreq: "monthly", priority: "0.8" },
   { path: "/d365humanresources/", changefreq: "monthly", priority: "0.8" },
