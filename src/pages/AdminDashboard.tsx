@@ -2112,6 +2112,7 @@ Thomas`,
  </div>
  <TabsList data-active-group={activeGroup} className="flex-wrap h-auto gap-1.5 bg-slate-900/95 p-2 rounded border border-slate-700/50 [&_[data-state=active]]:bg-white [&_[data-state=active]]:text-slate-900 [&_[data-state=active]]: [&_[data-state=active]_.tab-icon]:bg-slate-900/10 [&_[data-state=active]_.tab-icon]:ring-slate-900/10 [&_[data-state=active]_.tab-icon_svg]:text-slate-900 [&>button]:text-slate-300 [&>button]:rounded [&>button]:px-3 [&>button]:py-2 [&>button]:transition-all [&>button:hover]:text-white [&>button:hover]:bg-white/5">
  <TabsTrigger value="leads" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
+
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-blue-500/20 to-blue-600/10 ring-1 ring-blue-400/20">
  <Inbox className="h-3.5 w-3.5 text-blue-300" strokeWidth={1.75} />
  </span>
