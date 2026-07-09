@@ -60,7 +60,7 @@ type FormState = {
   summary: string;
   source_url: string;
   source_type: PartnerNewsSourceType;
-  product_area: PartnerNewsProductArea;
+  product_areas: PartnerNewsProductArea[];
   news_type: PartnerNewsType;
   industry: string;
   image_url: string;
@@ -78,7 +78,7 @@ const emptyForm = (partnerId: string): FormState => ({
   summary: "",
   source_url: "",
   source_type: "linkedin",
-  product_area: "business-central",
+  product_areas: ["business-central"],
   news_type: "kundcase",
   industry: "",
   image_url: "",
@@ -172,7 +172,7 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
       summary: item.summary,
       source_url: item.source_url,
       source_type: item.source_type,
-      product_area: item.product_area,
+      product_areas: (item.product_areas && item.product_areas.length > 0) ? item.product_areas : [item.product_area],
       news_type: item.news_type,
       industry: item.industry ?? "",
       image_url: item.image_url ?? "",
@@ -238,7 +238,8 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
       summary: form.summary || "Kort sammanfattning kommer att visas här.",
       source_url: form.source_url || "https://example.com",
       source_type: form.source_type,
-      product_area: form.product_area,
+      product_area: form.product_areas[0] ?? "business-central",
+      product_areas: form.product_areas.length > 0 ? form.product_areas : ["business-central"],
       news_type: form.news_type,
       industry: form.industry || null,
       image_url: form.image_url || null,
@@ -468,16 +469,34 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
                 </SelectContent>
               </Select>
             </div>
-            <div>
-              <Label>Produktområde</Label>
-              <Select value={form.product_area} onValueChange={(v) => setForm({ ...form, product_area: v as PartnerNewsProductArea })}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  {PRODUCT_OPTIONS.map((p) => (
-                    <SelectItem key={p} value={p}>{partnerNewsProductLabel(p)}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <div className="sm:col-span-2">
+              <Label>Produktområden (välj ett eller flera)</Label>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {PRODUCT_OPTIONS.map((p) => {
+                  const checked = form.product_areas.includes(p);
+                  return (
+                    <button
+                      key={p}
+                      type="button"
+                      onClick={() => {
+                        const next = checked
+                          ? form.product_areas.filter((x) => x !== p)
+                          : [...form.product_areas, p];
+                        setForm({ ...form, product_areas: next.length > 0 ? next : form.product_areas });
+                      }}
+                      className={`px-3 py-1.5 rounded-full border text-xs transition ${
+                        checked
+                          ? "bg-[hsl(var(--cta-orange))] text-white border-[hsl(var(--cta-orange))]"
+                          : "bg-background text-foreground border-border hover:bg-muted"
+                      }`}
+                      aria-pressed={checked}
+                    >
+                      {partnerNewsProductLabel(p)}
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="text-xs text-muted-foreground mt-1">Det första valda området används som primärt (visas på kort och i filter).</p>
             </div>
             <div>
               <Label>Bransch (valfritt)</Label>
