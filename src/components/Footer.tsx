@@ -40,6 +40,8 @@ const Footer = () => {
               <li><Link to="/erp/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Business Central vs F&SCM</Link></li>
               <li><Link to="/businesscentral/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Business Central</Link></li>
               <li><Link to="/finance-supply-chain/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Finance & SCM</Link></li>
+              <li><Link to="/business-central-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Business Central-partners</Link></li>
+              <li><Link to="/finance-supply-chain-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Finance & Supply Chain-partners</Link></li>
               <li><Link to="/d365projectoperations/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Project Operations</Link></li>
               <li><Link to="/d365commerce/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Commerce</Link></li>
               <li><Link to="/d365humanresources/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Human Resources</Link></li>
@@ -82,7 +84,6 @@ const Footer = () => {
               <li><Link to="/valjdynamics365partner/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Hitta din partner</Link></li>
               <li><Link to="/alla-d365-partners/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Alla D365-partners</Link></li>
               <li><Link to="/partners-per-bransch/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Partners per bransch</Link></li>
-              <li><Link to="/business-central-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Business Central-partners</Link></li>
               <li><Link to="/dynamics-365-sales-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Sales-partners</Link></li>
               <li><Link to="/partners-sitemap/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Partners-sitemap</Link></li>
             </ul>
