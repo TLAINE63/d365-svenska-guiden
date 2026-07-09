@@ -70,7 +70,7 @@ export default function Partnernytt() {
       <SEOHead
         title="Partnernytt – utvalt från Dynamics 365-partners | d365.se"
         description="Redaktionellt utvalda nyheter, kundcase, event och erbjudanden från publicerade Dynamics 365-partners på d365.se. Länkar till originalkällan."
-        canonical="https://d365.se/partnernytt/"
+        canonicalPath="/partnernytt/"
       />
       <Navbar />
       <main className="pt-24">
