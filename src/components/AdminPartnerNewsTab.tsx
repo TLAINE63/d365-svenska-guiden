@@ -356,9 +356,29 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
                     </a>
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
+                    <Select value={item.news_type} onValueChange={(v) => setType(item, v as PartnerNewsType)}>
+                      <SelectTrigger className="h-8 w-[150px] text-xs">
+                        <span className="inline-flex items-center gap-1"><Tag className="w-3 h-3" /><SelectValue /></span>
+                      </SelectTrigger>
+                      <SelectContent>
+                        {TYPE_OPTIONS.map((t) => (
+                          <SelectItem key={t} value={t}>{partnerNewsTypeLabel(t)}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <Button variant="outline" size="sm" onClick={() => setPreviewItem(item)}><Eye className="w-4 h-4" /></Button>
                     <Button variant="outline" size="sm" onClick={() => openEdit(item)}><Pencil className="w-4 h-4" /></Button>
-                    {item.status !== "published" && (
+                    {(item.status === "draft" || item.status === "review") && (
+                      <>
+                        <Button size="sm" onClick={() => setStatus(item.id, "published")} className="bg-emerald-600 hover:bg-emerald-700 text-white">
+                          <CheckCircle2 className="w-4 h-4 mr-1" /> Godkänn
+                        </Button>
+                        <Button variant="outline" size="sm" onClick={() => setStatus(item.id, "archived")} className="text-destructive border-destructive/40">
+                          <XCircle className="w-4 h-4 mr-1" /> Avvisa
+                        </Button>
+                      </>
+                    )}
+                    {item.status !== "published" && item.status !== "draft" && item.status !== "review" && (
                       <Button variant="outline" size="sm" onClick={() => setStatus(item.id, "published")} className="text-emerald-700">
                         <Send className="w-4 h-4 mr-1" /> Publicera
                       </Button>
