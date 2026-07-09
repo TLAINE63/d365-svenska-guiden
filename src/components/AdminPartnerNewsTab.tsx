@@ -106,6 +106,20 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
   const [cropSrc, setCropSrc] = useState<string | null>(null);
   const [cropMime, setCropMime] = useState<string>("image/jpeg");
   const [lastRawImage, setLastRawImage] = useState<string | null>(null);
+  const [publishedIndustries, setPublishedIndustries] = useState<string[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const { data, error } = await supabase
+        .from("industry_pages")
+        .select("name")
+        .eq("is_published", true)
+        .order("name", { ascending: true });
+      if (!error && data) {
+        setPublishedIndustries(Array.from(new Set(data.map((r: { name: string }) => r.name).filter(Boolean))));
+      }
+    })();
+  }, []);
 
   const invoke = useCallback(async (action: string, extra: Record<string, unknown> = {}) => {
     const { data, error } = await supabase.functions.invoke("manage-partner-news", {
