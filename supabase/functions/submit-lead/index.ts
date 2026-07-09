@@ -350,7 +350,8 @@ const handler = async (req: Request): Promise<Response> => {
                     <p style="margin:0 0 16px 0;">Hej${toName ? ` ${toName.split(" ")[0]}` : ""},</p>
                     <p style="margin:0 0 16px 0;">
                       En besökare på <a href="https://www.d365.se" style="color:#D64A1F;">d365.se</a> har skickat en ${requestLabel.toLowerCase()} till <strong>${p.name}</strong>${sanitizedData.selected_product ? ` gällande <strong>${sanitizedData.selected_product}</strong>` : ""}.
-                      Svara direkt till avsändaren genom att klicka på "Svara" — d365.se är kopierad för uppföljning.
+                      d365.se är kopierad (CC/BCC) på detta mejl för uppföljning och dialogen kring förfrågan.
+                      Svara direkt till kunden genom att klicka på “Svara” — då går mejlet till ${sanitizedData.email}.
                     </p>
 
                     <h3 style="color:#111827; border-bottom: 2px solid #D64A1F; padding-bottom: 6px; margin-top:24px; font-size:15px;">Kontaktuppgifter</h3>
@@ -436,7 +437,7 @@ const handler = async (req: Request): Promise<Response> => {
                     </div>
 
                     <p style="margin-top:24px; font-size:12px; color:#6b7280;">
-                      d365.se är köparsidig och förmedlar din förfrågan neutralt. Vi är kopierade på utskicket för uppföljning och kvalitetssäkring.
+                      d365.se är köparsidig och förmedlar din förfrågan neutralt. Vi är kopierade (CC/BCC) på utskicket till partnern, så vi kan följa upp om det behövs.
                     </p>
                   </div>
                   <div style="background:#374151; padding:16px; border-radius:0 0 8px 8px; text-align:center;">
