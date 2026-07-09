@@ -1,20 +1,3 @@
-#!/usr/bin/env node
-/**
- * Generates a sitemap index + multiple sub-sitemaps under public/:
- *   - sitemap.xml         (sitemap index)
- *   - sitemap-pages.xml   (static + tool/hub routes)
- *   - sitemap-branscher.xml (industry pages)
- *   - sitemap-articles.xml  (kunskapscenter deep-dives + /artiklar blog)
- *   - sitemap-partners.xml  (per-partner profiles)
- *   - sitemap-jamfor.xml    (ERP comparison pages)
- *
- * lastmod strategy:
- *   - For grouped sitemaps: max(mtime) of the source files behind the group.
- *   - For individual <url> entries: same group mtime (we don't track per-entry).
- *   - For the sitemap index: today.
- *
- * Convention: trailing slash on every URL.
- */
 import { writeFileSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 
@@ -26,7 +9,22 @@ const STATIC_ROUTES = [
   { path: "/crm/", changefreq: "monthly", priority: "0.9" },
   { path: "/businesscentral/", changefreq: "monthly", priority: "0.9" },
   { path: "/businesscentral/roi-kalkylator/", changefreq: "monthly", priority: "0.7" },
+  { path: "/finance-supply-chain/roi-kalkylator/", changefreq: "monthly", priority: "0.7" },
+  { path: "/d365customerservice/roi-kalkylator/", changefreq: "monthly", priority: "0.7" },
+  { path: "/d365marketing/roi-kalkylator/", changefreq: "monthly", priority: "0.7" },
+  { path: "/d365contactcenter/roi-kalkylator/", changefreq: "monthly", priority: "0.7" },
+  { path: "/d365fieldservice/roi-kalkylator/", changefreq: "monthly", priority: "0.7" },
   { path: "/businesscentral/matchningstest/", changefreq: "monthly", priority: "0.7" },
+  { path: "/d365sales/matchningstest/", changefreq: "monthly", priority: "0.7" },
+  { path: "/d365sales/matchningstest/resultat/", changefreq: "monthly", priority: "0.6" },
+  { path: "/d365customerservice/matchningstest/", changefreq: "monthly", priority: "0.7" },
+  { path: "/d365customerservice/matchningstest/resultat/", changefreq: "monthly", priority: "0.6" },
+  { path: "/d365marketing/matchningstest/", changefreq: "monthly", priority: "0.7" },
+  { path: "/d365marketing/matchningstest/resultat/", changefreq: "monthly", priority: "0.6" },
+  { path: "/d365fieldservice/matchningstest/", changefreq: "monthly", priority: "0.7" },
+  { path: "/d365fieldservice/matchningstest/resultat/", changefreq: "monthly", priority: "0.6" },
+  { path: "/d365contactcenter/matchningstest/", changefreq: "monthly", priority: "0.7" },
+  { path: "/d365contactcenter/matchningstest/resultat/", changefreq: "monthly", priority: "0.6" },
   { path: "/d365sales/roi-kalkylator/", changefreq: "monthly", priority: "0.7" },
   { path: "/finance-supply-chain/", changefreq: "monthly", priority: "0.8" },
   { path: "/finance-supply-chain-management/matchningstest/", changefreq: "monthly", priority: "0.7" },
@@ -48,6 +46,9 @@ const STATIC_ROUTES = [
   { path: "/kom-igang/", changefreq: "monthly", priority: "0.8" },
   { path: "/branscher/", changefreq: "monthly", priority: "0.8" },
   { path: "/d365sales/", changefreq: "monthly", priority: "0.8" },
+  { path: "/business-central-partners-sverige/", changefreq: "monthly", priority: "0.7" },
+  { path: "/dynamics-365-sales-partners-sverige/", changefreq: "monthly", priority: "0.7" },
+  { path: "/dynamics-365-marketing-partners-sverige/", changefreq: "monthly", priority: "0.7" },
   { path: "/d365marketing/", changefreq: "monthly", priority: "0.8" },
   { path: "/d365customerservice/", changefreq: "monthly", priority: "0.8" },
   { path: "/dynamics-365-customer-service-partners-sverige/", changefreq: "monthly", priority: "0.7" },
@@ -56,6 +57,7 @@ const STATIC_ROUTES = [
   { path: "/d365contactcenter/", changefreq: "monthly", priority: "0.8" },
   { path: "/dynamics-365-contact-center-partners-sverige/", changefreq: "monthly", priority: "0.7" },
   { path: "/dynamics-365-ai-copilot-partners-sverige/", changefreq: "monthly", priority: "0.7" },
+  { path: "/finance-supply-chain-partners-sverige/", changefreq: "monthly", priority: "0.7" },
   { path: "/d365projectoperations/", changefreq: "monthly", priority: "0.8" },
   { path: "/d365commerce/", changefreq: "monthly", priority: "0.8" },
   { path: "/d365humanresources/", changefreq: "monthly", priority: "0.8" },
@@ -86,6 +88,8 @@ const STATIC_ROUTES = [
   { path: "/partners-sitemap/", changefreq: "weekly", priority: "0.5" },
   { path: "/jamfor-partners/", changefreq: "monthly", priority: "0.7" },
   { path: "/jamfor/", changefreq: "monthly", priority: "0.7" },
+  { path: "/dataskydd/", changefreq: "yearly", priority: "0.5" },
+  { path: "/friskrivning/", changefreq: "yearly", priority: "0.5" },
 ];
 
 function readText(p) {
