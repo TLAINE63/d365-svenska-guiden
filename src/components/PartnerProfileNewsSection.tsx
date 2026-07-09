@@ -8,9 +8,16 @@ interface Props {
   partnerName: string;
   partnerSlug: string;
   partnerLogoUrl?: string | null;
+  variant?: "standalone" | "inline";
 }
 
-export default function PartnerProfileNewsSection({ partnerId, partnerName, partnerSlug, partnerLogoUrl }: Props) {
+export default function PartnerProfileNewsSection({
+  partnerId,
+  partnerName,
+  partnerSlug,
+  partnerLogoUrl,
+  variant = "standalone",
+}: Props) {
   const { data, isLoading } = usePublishedPartnerNews({
     partnerId,
     showOnPartnerProfile: true,
@@ -19,37 +26,54 @@ export default function PartnerProfileNewsSection({ partnerId, partnerName, part
 
   if (isLoading || !data || data.length === 0) return null;
 
+  const heading = (
+    <div className="flex flex-wrap items-end justify-between gap-3 mb-5">
+      <div>
+        <h2 className="text-2xl font-bold text-foreground">Senaste nytt från {partnerName}</h2>
+        <p className="text-sm text-muted-foreground mt-1">
+          Redaktionellt utvalt av d365.se – länkat till originalkällan.
+        </p>
+      </div>
+      <Link
+        to={`/partnernytt/?partner=${encodeURIComponent(partnerSlug)}`}
+        className="inline-flex items-center gap-1 text-sm font-medium text-[hsl(var(--cta-orange))] hover:underline"
+      >
+        Se allt partnernytt <ArrowRight className="w-4 h-4" />
+      </Link>
+    </div>
+  );
+
+  const grid = (
+    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {data.map((item) => (
+        <PartnerNewsCard
+          key={item.id}
+          item={item}
+          partnerName={partnerName}
+          partnerSlug={partnerSlug}
+          partnerLogoUrl={partnerLogoUrl}
+          hidePartnerLink
+        />
+      ))}
+    </div>
+  );
+
+  if (variant === "inline") {
+    return (
+      <section>
+        {heading}
+        {grid}
+      </section>
+    );
+  }
+
   return (
     <section className="py-10 bg-background">
       <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
-        <div className="flex flex-wrap items-end justify-between gap-3 mb-6">
-          <div>
-            <h2 className="text-2xl font-bold text-foreground">Senaste nytt från {partnerName}</h2>
-            <p className="text-sm text-muted-foreground mt-1">
-              Redaktionellt utvalt av d365.se – länkat till originalkällan.
-            </p>
-          </div>
-          <Link
-            to={`/partnernytt/?partner=${encodeURIComponent(partnerSlug)}`}
-            className="inline-flex items-center gap-1 text-sm font-medium text-[hsl(var(--cta-orange))] hover:underline"
-          >
-            Se allt partnernytt <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-        <div className="flex flex-col gap-4">
-          {data.map((item) => (
-            <PartnerNewsCard
-              key={item.id}
-              item={item}
-              partnerName={partnerName}
-              partnerSlug={partnerSlug}
-              partnerLogoUrl={partnerLogoUrl}
-              hidePartnerLink
-              layout="horizontal"
-            />
-          ))}
-        </div>
+        {heading}
+        {grid}
       </div>
     </section>
   );
 }
+

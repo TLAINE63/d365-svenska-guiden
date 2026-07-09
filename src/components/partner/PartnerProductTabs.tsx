@@ -21,6 +21,7 @@ import {
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import type { DatabasePartner } from "@/hooks/usePartners";
 import LeadCTA from "@/components/LeadCTA";
+import PartnerProfileNewsSection from "@/components/PartnerProfileNewsSection";
 import AiProfilePublic from "@/components/partner/AiProfilePublic";
 import PartnerQuickFacts from "@/components/partner/PartnerQuickFacts";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
@@ -796,6 +797,15 @@ export default function PartnerProductTabs({
                 <AiProfilePublic profile={(partner as any).ai_profile} />
               </section>
             )}
+
+            {/* Partner news */}
+            <PartnerProfileNewsSection
+              partnerId={partner.id}
+              partnerName={partner.name}
+              partnerSlug={partner.slug}
+              partnerLogoUrl={partner.logo_url ?? null}
+              variant="inline"
+            />
 
             {/* 7. CTA */}
             <section className="rounded-xl border border-border bg-gradient-to-br from-card to-muted/40 p-6 sm:p-8">
