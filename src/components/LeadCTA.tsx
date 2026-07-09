@@ -241,6 +241,11 @@ export const LeadCTA = ({
         </Button>
       </div>
       
+      {isPartnerBound && (
+        <p className={`text-xs text-center ${variant === 'inline' ? 'text-white/70' : 'text-muted-foreground'}`}>
+          Partnern svarar direkt till din e-post. d365.se är kopierat (CC/BCC) för uppföljning.
+        </p>
+      )}
       <p className={`text-xs text-center ${variant === 'inline' ? 'text-white/60' : 'text-muted-foreground'}`}>
         Genom att skicka godkänner du vår{" "}
         <a href="/dataskydd/" className="underline hover:text-primary">
