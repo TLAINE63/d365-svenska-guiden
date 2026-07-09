@@ -897,6 +897,9 @@ case "click-stats": {
           }),
           { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
         );
+      }
+
+
 
 
       case "page-path-counts": {
