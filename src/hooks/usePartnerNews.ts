@@ -48,7 +48,7 @@ export function usePublishedPartnerNews(opts: UsePublishedPartnerNewsOpts = {}) 
         .select("*, partners:partner_id(id, name, slug, logo_url)")
         .eq("status", "published");
       if (opts.partnerId) query = query.eq("partner_id", opts.partnerId);
-      if (opts.productArea) query = query.eq("product_area", opts.productArea);
+      if (opts.productArea) query = query.contains("product_areas", [opts.productArea]);
       if (opts.showOnHome) query = query.eq("show_on_home", true);
       if (opts.showOnPartnerProfile) query = query.eq("show_on_partner_profile", true);
       if (opts.showOnProductPage) query = query.eq("show_on_product_page", true);
