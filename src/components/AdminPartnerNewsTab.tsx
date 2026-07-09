@@ -277,6 +277,34 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
           </div>
         </CardHeader>
         <CardContent>
+          <div className="mb-4 flex flex-wrap items-center gap-2">
+            <Button
+              variant={statusFilter === "queue" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setStatusFilter("queue")}
+              className={statusFilter === "queue" ? "bg-amber-600 hover:bg-amber-700 text-white" : ""}
+            >
+              <Inbox className="w-4 h-4 mr-1" /> Godkännandekö
+              {queueCount > 0 && (
+                <Badge className="ml-2 bg-amber-100 text-amber-900 hover:bg-amber-100">{queueCount}</Badge>
+              )}
+            </Button>
+            <Button
+              variant={statusFilter === "published" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setStatusFilter("published")}
+              className={statusFilter === "published" ? "bg-emerald-600 hover:bg-emerald-700 text-white" : ""}
+            >
+              Publicerade
+            </Button>
+            <Button
+              variant={statusFilter === "all" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setStatusFilter("all")}
+            >
+              Alla
+            </Button>
+          </div>
           <div className="flex flex-wrap gap-3 mb-4">
             <div className="min-w-[200px]">
               <Label className="text-xs">Status</Label>
@@ -284,6 +312,7 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">Alla statusar</SelectItem>
+                  <SelectItem value="queue">Godkännandekö (utkast + granskning)</SelectItem>
                   {STATUS_OPTIONS.map((s) => (
                     <SelectItem key={s} value={s}>{STATUS_LABEL[s]}</SelectItem>
                   ))}
