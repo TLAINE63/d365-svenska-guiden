@@ -594,7 +594,21 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
             </div>
             <div>
               <Label>Bransch (valfritt)</Label>
-              <Input value={form.industry} onChange={(e) => setForm({ ...form, industry: e.target.value })} placeholder="t.ex. Tillverkning" />
+              <Select
+                value={form.industry ? form.industry : "__none__"}
+                onValueChange={(v) => setForm({ ...form, industry: v === "__none__" ? "" : v })}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Branschoberoende" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="__none__">Branschoberoende</SelectItem>
+                  {publishedIndustries.map((name) => (
+                    <SelectItem key={name} value={name}>{name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-muted-foreground mt-1">Välj bransch om artikeln är riktad. Lämna som "Branschoberoende" annars.</p>
             </div>
 
             <div className="sm:col-span-2">
