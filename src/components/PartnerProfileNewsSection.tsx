@@ -36,7 +36,7 @@ export default function PartnerProfileNewsSection({ partnerId, partnerName, part
             Se allt partnernytt <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="flex flex-col gap-4">
           {data.map((item) => (
             <PartnerNewsCard
               key={item.id}
@@ -45,6 +45,7 @@ export default function PartnerProfileNewsSection({ partnerId, partnerName, part
               partnerSlug={partnerSlug}
               partnerLogoUrl={partnerLogoUrl}
               hidePartnerLink
+              layout="horizontal"
             />
           ))}
         </div>
