@@ -195,6 +195,7 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
     try {
       const payload = {
         ...form,
+        product_area: form.product_areas[0],
         status: statusOverride ?? form.status,
         industry: form.industry.trim() || undefined,
         image_url: form.image_url.trim() || undefined,
