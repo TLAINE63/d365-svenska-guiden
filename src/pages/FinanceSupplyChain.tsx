@@ -9,6 +9,7 @@ import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
+import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowLeft, ArrowRight, ExternalLink, FileText } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
@@ -835,6 +836,7 @@ const FinanceSupplyChain = () => {
  </section>
 
  <RelatedPages pages={fscRelatedPages} heading="Utforska vidare" />
+ <ProductPartnerNewsSection productArea="finance-scm" productLabel="Finance & Supply Chain" />
  <Footer />
  </div>
  );

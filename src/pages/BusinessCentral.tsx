@@ -8,6 +8,7 @@ import { resolvePriceTokens } from "@/lib/productPriceFormat";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
+import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowLeft, ArrowRight, ExternalLink, FileText } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
@@ -890,6 +891,7 @@ const BusinessCentral = () => {
 
 
  <RelatedPages pages={bcRelatedPages} heading="Utforska vidare" />
+ <ProductPartnerNewsSection productArea="business-central" productLabel="Business Central" />
  <Footer />
  </div>
  );
