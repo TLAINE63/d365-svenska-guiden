@@ -287,6 +287,8 @@ const handler = async (req: Request): Promise<Response> => {
         sanitizedData.assigned_partners.length > 0 &&
         sanitizedData.source_type.startsWith("partner_");
       let partnerEmailSentCount = 0;
+      const notifiedPartnerNames: string[] = [];
+      const RESPONSE_DAYS = 3;
 
       const productToKeys = (p: string): string[] => {
         const v = (p || "").toLowerCase();
