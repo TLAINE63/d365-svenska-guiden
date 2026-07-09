@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
+import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
 import ApplicationPartners from "@/components/ApplicationPartners";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
@@ -103,6 +104,7 @@ const D365HumanResources = () => {
       </section>
 
       <RelatedPages pages={fscRelatedPages} heading="Utforska vidare" />
+      <ProductPartnerNewsSection productArea="finance-scm" productLabel="Human Resources" />
       <Footer />
     </div>
   );

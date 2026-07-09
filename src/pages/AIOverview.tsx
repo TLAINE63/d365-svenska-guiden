@@ -3,6 +3,7 @@ import heroAiReadiness from "@/assets/hero-ai-readiness.jpg";
 import { useState } from "react"; // kept for selectedGoal
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
 import SEOHead from "@/components/SEOHead";
 import { WebPageSchema, BreadcrumbSchema } from "@/components/StructuredData";
 import { Card, CardContent } from "@/components/ui/card";
@@ -867,6 +868,7 @@ const AIOverview = () => {
  </section>
 
  <RelatedPages pages={aiOverviewRelatedPages} heading="Utforska vidare" />
+ <ProductPartnerNewsSection productArea="microsoft-ai" productLabel="Microsoft AI" />
  <Footer />
  </div>
  );

@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { Sparkles, Zap, Brain, Users, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -584,6 +585,7 @@ const Agents = () => {
         </div>
       </section>
 
+      <ProductPartnerNewsSection productArea="microsoft-ai" productLabel="AI-agent" />
       <Footer />
     </div>
   );

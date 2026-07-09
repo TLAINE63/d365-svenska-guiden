@@ -8,6 +8,7 @@ import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
+import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import ApplicationPartners from "@/components/ApplicationPartners";
 import BuyerManual from "@/components/BuyerManual";
@@ -354,6 +355,7 @@ const D365Sales = () => {
       </section>
 
       <RelatedPages pages={salesRelatedPages} heading="Utforska vidare" />
+      <ProductPartnerNewsSection productArea="crm-sales" productLabel="Sales" />
       <Footer />
     </div>
   );

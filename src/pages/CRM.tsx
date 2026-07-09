@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowRight, ExternalLink, FileText } from "lucide-react";
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
@@ -534,6 +535,7 @@ const CRM = () => {
  </section>
 
  <RelatedPages pages={crmRelatedPages} heading="Utforska vidare" />
+ <ProductPartnerNewsSection productArea="crm" productLabel="CRM" />
  <Footer />
  </div>
  );

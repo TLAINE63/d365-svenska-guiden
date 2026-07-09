@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
 import ContactFormDialog from "@/components/ContactFormDialog";
@@ -623,6 +624,7 @@ const Copilot = () => {
       </section>
 
       <RelatedPages pages={copilotRelatedPages} heading="Utforska vidare" />
+      <ProductPartnerNewsSection productArea="microsoft-ai" productLabel="Copilot" />
       <Footer />
     </div>
   );
