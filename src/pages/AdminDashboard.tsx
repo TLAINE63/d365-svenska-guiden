@@ -101,6 +101,8 @@ import AdminSalesPitchV2Tab from "@/components/AdminSalesPitchV2Tab";
 import AdminSalesKpiTab from "@/components/AdminSalesKpiTab";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminEmailLogTab from "@/components/AdminEmailLogTab";
+import AdminPartnerRequestsTab from "@/components/AdminPartnerRequestsTab";
+
 import AdminFeaturedArticleTab from "@/components/AdminFeaturedArticleTab";
 import AdminKnowledgeArticlesTab from "@/components/AdminKnowledgeArticlesTab";
 import AdminProductPricesTab from "@/components/AdminProductPricesTab";
@@ -261,7 +263,7 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
  id: "leads-partners",
  label: "Leads & Partners",
  icon: Building2,
- tabs: ["leads", "partners", "unprofiled-partners", "basic-partners", "invitations", "agreement"],
+ tabs: ["leads", "partner-requests", "partners", "unprofiled-partners", "basic-partners", "invitations", "agreement"],
  },
  {
  id: "innehall",
@@ -2110,10 +2112,17 @@ Thomas`,
  </div>
  <TabsList data-active-group={activeGroup} className="flex-wrap h-auto gap-1.5 bg-slate-900/95 p-2 rounded border border-slate-700/50 [&_[data-state=active]]:bg-white [&_[data-state=active]]:text-slate-900 [&_[data-state=active]]: [&_[data-state=active]_.tab-icon]:bg-slate-900/10 [&_[data-state=active]_.tab-icon]:ring-slate-900/10 [&_[data-state=active]_.tab-icon_svg]:text-slate-900 [&>button]:text-slate-300 [&>button]:rounded [&>button]:px-3 [&>button]:py-2 [&>button]:transition-all [&>button:hover]:text-white [&>button:hover]:bg-white/5">
  <TabsTrigger value="leads" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
+
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-blue-500/20 to-blue-600/10 ring-1 ring-blue-400/20">
  <Inbox className="h-3.5 w-3.5 text-blue-300" strokeWidth={1.75} />
  </span>
  Leads
+ </TabsTrigger>
+ <TabsTrigger value="partner-requests" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
+ <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-orange-500/20 to-orange-600/10 ring-1 ring-orange-400/20">
+ <Inbox className="h-3.5 w-3.5 text-orange-300" strokeWidth={1.75} />
+ </span>
+ Partnerförfrågningar
  </TabsTrigger>
  <TabsTrigger value="clicks" className={`flex items-center gap-2 ${activeGroup === "statistik" ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 ring-1 ring-emerald-400/20">
@@ -3358,6 +3367,14 @@ Thomas`,
  {/* ==================== EMAIL LOG TAB ==================== */}
  <TabsContent value="email-log">
  <AdminEmailLogTab
+ token={token || ""}
+ onSessionExpired={logout}
+ />
+ </TabsContent>
+
+ {/* ==================== PARTNER REQUESTS TAB ==================== */}
+ <TabsContent value="partner-requests">
+ <AdminPartnerRequestsTab
  token={token || ""}
  onSessionExpired={logout}
  />

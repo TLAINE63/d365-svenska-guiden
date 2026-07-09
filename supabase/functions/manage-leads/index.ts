@@ -836,6 +836,72 @@ case "click-stats": {
         );
       }
 
+      case "partner-request-emails": {
+        const {
+          limit: prLimit = 100,
+          offset: prOffset = 0,
+          sourceTypeFilter,
+          partnerSlugFilter,
+          statusFilter: prStatus,
+        } = data;
+
+        // template_name is stored as `partner_request:<source_type>`
+        let query = supabase
+          .from("email_send_log")
+          .select("id, created_at, template_name, subject, recipient_email, status, error_message, metadata", { count: "exact" })
+          .like("template_name", "partner_request:%")
+          .order("created_at", { ascending: false })
+          .range(prOffset, prOffset + prLimit - 1);
+
+        if (sourceTypeFilter && sourceTypeFilter !== "all") {
+          query = query.eq("template_name", `partner_request:${sourceTypeFilter}`);
+        }
+        if (partnerSlugFilter && partnerSlugFilter !== "all") {
+          query = query.eq("metadata->>partner_slug", partnerSlugFilter);
+        }
+        if (prStatus && prStatus !== "all") {
+          query = query.eq("status", prStatus);
+        }
+
+        const { data: rows, error: prErr, count } = await query;
+        if (prErr) throw prErr;
+
+        // Distinct facet values for filter dropdowns (last 5000 partner-request rows)
+        const { data: facetRows } = await supabase
+          .from("email_send_log")
+          .select("template_name, metadata")
+          .like("template_name", "partner_request:%")
+          .order("created_at", { ascending: false })
+          .limit(5000);
+
+        const sourceTypes = new Set<string>();
+        const partnerSlugMap = new Map<string, string>();
+        (facetRows || []).forEach((r: any) => {
+          const st = (r.template_name || "").replace(/^partner_request:/, "");
+          if (st) sourceTypes.add(st);
+          const slug = r?.metadata?.partner_slug;
+          const name = r?.metadata?.partner_name || slug;
+          if (slug) partnerSlugMap.set(slug, name);
+        });
+
+        return new Response(
+          JSON.stringify({
+            logs: rows || [],
+            total: count || 0,
+            facets: {
+              sourceTypes: Array.from(sourceTypes).sort(),
+              partners: Array.from(partnerSlugMap.entries())
+                .map(([slug, name]) => ({ slug, name }))
+                .sort((a, b) => a.name.localeCompare(b.name, "sv")),
+            },
+          }),
+          { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+        );
+      }
+
+
+
+
       case "page-path-counts": {
         const { startDate: pStart = null } = data;
         const runCount = async (filter: (q: any) => any) => {
