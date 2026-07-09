@@ -39,6 +39,7 @@ const ContactFormDialog = lazy(() => import("@/components/ContactFormDialog"));
 
 const EbookBanner = lazy(() => import("@/components/EbookBanner"));
 const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
+const HomePartnerNewsSection = lazy(() => import("@/components/HomePartnerNewsSection"));
 
 const VideoComingSoon = () => (
   <figure className="space-y-1.5">
