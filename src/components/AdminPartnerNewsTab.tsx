@@ -103,6 +103,8 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
   const [previewItem, setPreviewItem] = useState<PartnerNewsItem | null>(null);
   const [saving, setSaving] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [cropSrc, setCropSrc] = useState<string | null>(null);
+  const [cropMime, setCropMime] = useState<string>("image/jpeg");
 
   const invoke = useCallback(async (action: string, extra: Record<string, unknown> = {}) => {
     const { data, error } = await supabase.functions.invoke("manage-partner-news", {
