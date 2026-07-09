@@ -101,6 +101,7 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
   const [form, setForm] = useState<FormState>(emptyForm(publishedPartners[0]?.id ?? ""));
   const [previewItem, setPreviewItem] = useState<PartnerNewsItem | null>(null);
   const [saving, setSaving] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   const invoke = useCallback(async (action: string, extra: Record<string, unknown> = {}) => {
     const { data, error } = await supabase.functions.invoke("manage-partner-news", {
