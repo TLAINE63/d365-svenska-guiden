@@ -437,7 +437,7 @@ const handler = async (req: Request): Promise<Response> => {
                     </div>
 
                     <p style="margin-top:24px; font-size:12px; color:#6b7280;">
-                      d365.se är köparsidig och förmedlar din förfrågan neutralt. Vi är kopierade på utskicket för uppföljning och kvalitetssäkring.
+                      d365.se är köparsidig och förmedlar din förfrågan neutralt. Vi är kopierade (CC/BCC) på utskicket till partnern, så vi kan följa upp om det behövs.
                     </p>
                   </div>
                   <div style="background:#374151; padding:16px; border-radius:0 0 8px 8px; text-align:center;">
