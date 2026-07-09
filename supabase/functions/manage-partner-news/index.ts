@@ -121,7 +121,7 @@ serve(async (req) => {
         const parsed = NewsSchema.safeParse(body.news);
         if (!parsed.success) return new Response(JSON.stringify({ error: "Valideringsfel", details: parsed.error.flatten().fieldErrors }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
         const norm = normalizeAreas(parsed.data);
-        const item = { ...norm, image_url: norm.image_url || null, industry: norm.industry || null };
+        const item = { ...norm, source_url: norm.source_url || null, image_url: norm.image_url || null, industry: norm.industry || null };
         if (item.status === "published" && !("published_at" in item)) {
           (item as Record<string, unknown>).published_at = new Date().toISOString();
         }
