@@ -285,7 +285,8 @@ const handler = async (req: Request): Promise<Response> => {
       const ADMIN_EMAILS = ["info@d365.se", "thomas.laine@dynamicfactory.se"];
       const isPartnerRequest =
         sanitizedData.assigned_partners.length > 0 &&
-        sanitizedData.source_type.startsWith("partner_");
+        (sanitizedData.source_type.startsWith("partner_") ||
+          sanitizedData.source_type === "compare_partners_intro");
       let partnerEmailSentCount = 0;
       const notifiedPartnerNames: string[] = [];
       const RESPONSE_DAYS = 3;
@@ -306,6 +307,7 @@ const handler = async (req: Request): Promise<Response> => {
           case "partner_demo_request": return "Demo-/genomgångsförfrågan";
           case "partner_quote_request": return "Prisindikationsförfrågan";
           case "partner_multi_quote_request": return "Prisindikationsförfrågan";
+          case "compare_partners_intro": return "Jämförelseförfrågan";
           default: return "Förfrågan";
         }
       })();

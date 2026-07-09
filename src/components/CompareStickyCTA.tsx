@@ -313,6 +313,10 @@ const CompareStickyCTA = ({
               </Button>
 
               <p className="text-[11px] text-muted-foreground text-center">
+                Partnern/erna svarar direkt till din e-post. d365.se är kopierat (CC/BCC) för uppföljning.
+              </p>
+
+              <p className="text-[11px] text-muted-foreground text-center">
                 Genom att skicka godkänner du vår{" "}
                 <a href="/dataskydd/" className="underline">integritetspolicy</a>. Endast jobb-e-post accepteras.
               </p>
