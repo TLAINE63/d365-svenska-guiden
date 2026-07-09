@@ -161,6 +161,39 @@ serve(async (req) => {
         if (error) throw error;
         return new Response(JSON.stringify({ success: true }), { status: 200, headers: { "Content-Type": "application/json", ...cors } });
       }
+      case "upload-image": {
+        const UploadSchema = z.object({
+          file_base64: z.string().min(10),
+          content_type: z.enum(["image/jpeg", "image/png", "image/webp", "image/gif"]),
+          filename: z.string().trim().max(120).optional(),
+        });
+        const parsed = UploadSchema.safeParse(body);
+        if (!parsed.success) {
+          return new Response(JSON.stringify({ error: "Ogiltig bild", details: parsed.error.flatten().fieldErrors }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
+        }
+        const b64 = parsed.data.file_base64.replace(/^data:[^;]+;base64,/, "");
+        const bin = atob(b64);
+        // 5 MB limit
+        if (bin.length > 5 * 1024 * 1024) {
+          return new Response(JSON.stringify({ error: "Bilden är för stor (max 5 MB)" }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
+        }
+        const bytes = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        const ext = parsed.data.content_type === "image/jpeg" ? "jpg"
+          : parsed.data.content_type === "image/png" ? "png"
+          : parsed.data.content_type === "image/webp" ? "webp"
+          : "gif";
+        const key = `news/${crypto.randomUUID()}.${ext}`;
+        const { error: upErr } = await supabase.storage.from("partner-news-images").upload(key, bytes, {
+          contentType: parsed.data.content_type,
+          upsert: false,
+        });
+        if (upErr) throw upErr;
+        // 10 years signed URL
+        const { data: signed, error: signErr } = await supabase.storage.from("partner-news-images").createSignedUrl(key, 60 * 60 * 24 * 365 * 10);
+        if (signErr) throw signErr;
+        return new Response(JSON.stringify({ success: true, image_url: signed.signedUrl, path: key }), { status: 200, headers: { "Content-Type": "application/json", ...cors } });
+      }
       default:
         return new Response(JSON.stringify({ error: "Okänd åtgärd" }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
     }
