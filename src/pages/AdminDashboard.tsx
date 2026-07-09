@@ -3372,6 +3372,14 @@ Thomas`,
  />
  </TabsContent>
 
+ {/* ==================== PARTNER REQUESTS TAB ==================== */}
+ <TabsContent value="partner-requests">
+ <AdminPartnerRequestsTab
+ token={token || ""}
+ onSessionExpired={logout}
+ />
+ </TabsContent>
+
  {/* ==================== AGREEMENT TAB ==================== */}
  <TabsContent value="agreement">
  <AdminAgreementTab
