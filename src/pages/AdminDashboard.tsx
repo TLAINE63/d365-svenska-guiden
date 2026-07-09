@@ -3099,6 +3099,16 @@ Thomas`,
  />
  </TabsContent>
 
+ {/* ==================== PARTNER NEWS TAB ==================== */}
+ <TabsContent value="partner-news">
+ <AdminPartnerNewsTab
+ token={token || ""}
+ partners={fullPartners.map(p => ({ id: p.id, name: p.name, slug: p.slug, is_featured: p.is_featured ?? false, logo_url: p.logo_url ?? null }))}
+ onSessionExpired={logout}
+ />
+ </TabsContent>
+
+
  {/* ==================== PARTNER STATISTICS TAB ==================== */}
  <TabsContent value="stats">
  <div className="space-y-6">
