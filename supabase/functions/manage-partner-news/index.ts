@@ -63,7 +63,7 @@ const NewsSchema = z.object({
   partner_id: z.string().uuid(),
   editorial_title: z.string().trim().min(3).max(200),
   summary: z.string().trim().min(10).max(600),
-  source_url: z.string().trim().url().max(1000),
+  source_url: z.string().trim().url().max(1000).optional().nullable().or(z.literal("")),
   source_type: z.enum(["linkedin", "partner_web", "blog", "press", "webinar", "event", "other"]),
   product_area: PRODUCT_AREA_ENUM.optional(),
   product_areas: z.array(PRODUCT_AREA_ENUM).min(1).max(8).optional(),
@@ -121,7 +121,7 @@ serve(async (req) => {
         const parsed = NewsSchema.safeParse(body.news);
         if (!parsed.success) return new Response(JSON.stringify({ error: "Valideringsfel", details: parsed.error.flatten().fieldErrors }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
         const norm = normalizeAreas(parsed.data);
-        const item = { ...norm, image_url: norm.image_url || null, industry: norm.industry || null };
+        const item = { ...norm, source_url: norm.source_url || null, image_url: norm.image_url || null, industry: norm.industry || null };
         if (item.status === "published" && !("published_at" in item)) {
           (item as Record<string, unknown>).published_at = new Date().toISOString();
         }
@@ -134,7 +134,7 @@ serve(async (req) => {
         if (!parsed.success || !parsed.data.id) return new Response(JSON.stringify({ error: "Valideringsfel", details: parsed.error?.flatten().fieldErrors }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
         const norm = normalizeAreas(parsed.data);
         const { id, ...rest } = norm;
-        const patch: Record<string, unknown> = { ...rest, image_url: rest.image_url || null, industry: rest.industry || null };
+        const patch: Record<string, unknown> = { ...rest, source_url: rest.source_url || null, image_url: rest.image_url || null, industry: rest.industry || null };
         if (rest.status === "published") {
           const { data: existing } = await supabase.from("partner_news").select("published_at").eq("id", id).maybeSingle();
           if (!existing?.published_at) patch.published_at = new Date().toISOString();
