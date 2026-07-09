@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 
-const PRODUCT_OPTIONS = ["business-central", "finance-scm", "crm", "power-platform", "microsoft-ai", "ovrigt"] as const;
+const PRODUCT_OPTIONS = ["business-central", "finance-scm", "crm-sales", "crm-service", "power-platform", "microsoft-ai", "ovrigt"] as const;
 const TYPE_OPTIONS = ["kundcase", "event", "webinar", "erbjudande", "artikel", "rapport", "branschlosning", "produktnyhet", "partnernyhet", "analys"] as const;
 const SOURCE_OPTIONS = ["linkedin", "partner_web", "blog", "press", "webinar", "event", "other"] as const;
 
