@@ -612,21 +612,33 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
                       <X className="w-3.5 h-3.5" />
                     </button>
                   </div>
-                  <label className="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-dashed border-border cursor-pointer hover:bg-muted text-sm">
-                    {uploadingImage ? <Loader2 className="w-4 h-4 animate-spin" /> : <Crop className="w-4 h-4" />}
-                    {uploadingImage ? "Laddar upp…" : "Byt / beskär bild"}
-                    <input
-                      type="file"
-                      accept="image/jpeg,image/png,image/webp,image/gif"
-                      className="hidden"
-                      disabled={uploadingImage}
-                      onChange={(e) => {
-                        const f = e.target.files?.[0];
-                        if (f) handleImageUpload(f);
-                        e.target.value = "";
-                      }}
-                    />
-                  </label>
+                  <div className="flex flex-col gap-2">
+                    <label className="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-dashed border-border cursor-pointer hover:bg-muted text-sm">
+                      {uploadingImage ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+                      {uploadingImage ? "Laddar upp…" : "Byt bild (auto-centrerad 16:9)"}
+                      <input
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp,image/gif"
+                        className="hidden"
+                        disabled={uploadingImage}
+                        onChange={(e) => {
+                          const f = e.target.files?.[0];
+                          if (f) handleImageUpload(f);
+                          e.target.value = "";
+                        }}
+                      />
+                    </label>
+                    {lastRawImage && (
+                      <button
+                        type="button"
+                        onClick={openManualCrop}
+                        disabled={uploadingImage}
+                        className="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-border text-sm hover:bg-muted disabled:opacity-50"
+                      >
+                        <Crop className="w-4 h-4" /> Justera beskärning manuellt
+                      </button>
+                    )}
+                  </div>
                 </div>
               ) : (
                 <div className="mt-2 flex items-center gap-2">
