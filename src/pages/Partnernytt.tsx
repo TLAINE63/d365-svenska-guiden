@@ -97,7 +97,7 @@ export default function Partnernytt() {
               </Select>
 
               <Select value={productParam} onValueChange={(v) => setParam("produkt", v)}>
-                <SelectTrigger><SelectValue placeholder="Produktområde" /></SelectTrigger>
+                <SelectTrigger className="text-left"><SelectValue placeholder="Produktområde" /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">Alla produktområden</SelectItem>
                   {PRODUCT_OPTIONS.map((p) => (
