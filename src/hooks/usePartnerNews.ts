@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 export type PartnerNewsStatus = "draft" | "review" | "approved" | "published" | "unpublished" | "archived";
 export type PartnerNewsSourceType = "linkedin" | "partner_web" | "blog" | "press" | "webinar" | "event" | "other";
-export type PartnerNewsProductArea = "business-central" | "finance-scm" | "crm" | "power-platform" | "microsoft-ai" | "ovrigt";
+export type PartnerNewsProductArea = "business-central" | "finance-scm" | "crm-sales" | "crm-service" | "crm" | "power-platform" | "microsoft-ai" | "ovrigt";
 export type PartnerNewsType = "kundcase" | "event" | "webinar" | "erbjudande" | "artikel" | "rapport" | "branschlosning" | "produktnyhet" | "partnernyhet" | "analys";
 
 export interface PartnerNewsItem {
