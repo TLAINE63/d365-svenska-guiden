@@ -136,11 +136,28 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
 
   const filtered = useMemo(() => {
     return items.filter((i) => {
-      if (statusFilter !== "all" && i.status !== statusFilter) return false;
+      if (statusFilter === "queue") {
+        if (i.status !== "draft" && i.status !== "review") return false;
+      } else if (statusFilter !== "all" && i.status !== statusFilter) return false;
       if (partnerFilter !== "all" && i.partner_id !== partnerFilter) return false;
       return true;
     });
   }, [items, statusFilter, partnerFilter]);
+
+  const queueCount = useMemo(
+    () => items.filter((i) => i.status === "draft" || i.status === "review").length,
+    [items],
+  );
+
+  const setType = async (item: PartnerNewsItem, news_type: PartnerNewsType) => {
+    try {
+      await invoke("update", { news: { id: item.id, partner_id: item.partner_id, editorial_title: item.editorial_title, summary: item.summary, source_url: item.source_url, source_type: item.source_type, product_area: item.product_area, news_type, industry: item.industry ?? undefined, image_url: item.image_url ?? undefined, news_date: item.news_date, is_featured: item.is_featured, show_on_home: item.show_on_home, show_on_partner_profile: item.show_on_partner_profile, show_on_product_page: item.show_on_product_page, status: item.status } });
+      toast({ title: "Typ uppdaterad", description: partnerNewsTypeLabel(news_type) });
+      await refresh();
+    } catch (err) {
+      toast({ title: "Kunde inte ändra typ", description: (err as Error).message, variant: "destructive" });
+    }
+  };
 
   const openNew = () => {
     setForm(emptyForm(publishedPartners[0]?.id ?? ""));
