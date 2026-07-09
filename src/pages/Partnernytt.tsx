@@ -51,7 +51,10 @@ export default function Partnernytt() {
 
   const filtered = useMemo(() => {
     let list = data ?? [];
-    if (partnerParam !== "all") list = list.filter((n) => n.partner?.slug === partnerParam);
+    if (partnerParam !== "all") {
+      const partnerId = (allPartners ?? []).find((p) => p.slug === partnerParam)?.id;
+      list = list.filter((n) => n.partner?.slug === partnerParam || (partnerId && n.partner_id === partnerId));
+    }
     if (productParam !== "all") list = list.filter((n) => (n.product_areas && n.product_areas.length > 0 ? n.product_areas.includes(productParam as typeof n.product_area) : n.product_area === productParam));
     if (typeParam !== "all") list = list.filter((n) => n.news_type === typeParam);
     if (industryParam !== "all") list = list.filter((n) => n.industry === industryParam);
@@ -60,7 +63,7 @@ export default function Partnernytt() {
       list = [...list].sort((a, b) => Number(b.is_featured) - Number(a.is_featured));
     }
     return list;
-  }, [data, partnerParam, productParam, typeParam, industryParam, sourceParam, sort]);
+  }, [data, allPartners, partnerParam, productParam, typeParam, industryParam, sourceParam, sort]);
 
   const setParam = (key: string, value: string) => {
     const next = new URLSearchParams(searchParams);
