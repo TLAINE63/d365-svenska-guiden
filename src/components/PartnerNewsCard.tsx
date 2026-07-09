@@ -77,7 +77,7 @@ export default function PartnerNewsCard({ item, partnerName, partnerSlug, partne
       <Card className="overflow-hidden border-border bg-card hover:shadow-lg transition-shadow">
         <div className="flex flex-col sm:flex-row">
           {item.image_url ? (
-            <div className="sm:w-56 sm:flex-shrink-0 aspect-[16/9] sm:aspect-auto sm:self-stretch bg-muted overflow-hidden">
+            <div className="sm:w-56 sm:flex-shrink-0 aspect-[16/9] bg-muted overflow-hidden">
               <img
                 src={item.image_url}
                 alt=""
