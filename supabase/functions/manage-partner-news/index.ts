@@ -63,7 +63,7 @@ const NewsSchema = z.object({
   partner_id: z.string().uuid(),
   editorial_title: z.string().trim().min(3).max(200),
   summary: z.string().trim().min(10).max(600),
-  source_url: z.string().trim().url().max(1000),
+  source_url: z.string().trim().url().max(1000).optional().nullable().or(z.literal("")),
   source_type: z.enum(["linkedin", "partner_web", "blog", "press", "webinar", "event", "other"]),
   product_area: PRODUCT_AREA_ENUM.optional(),
   product_areas: z.array(PRODUCT_AREA_ENUM).min(1).max(8).optional(),
