@@ -172,7 +172,7 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
       summary: item.summary,
       source_url: item.source_url,
       source_type: item.source_type,
-      product_area: item.product_area,
+      product_areas: (item.product_areas && item.product_areas.length > 0) ? item.product_areas : [item.product_area],
       news_type: item.news_type,
       industry: item.industry ?? "",
       image_url: item.image_url ?? "",
