@@ -21,6 +21,7 @@ import {
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import type { DatabasePartner } from "@/hooks/usePartners";
 import LeadCTA from "@/components/LeadCTA";
+import PartnerProfileNewsSection from "@/components/PartnerProfileNewsSection";
 import AiProfilePublic from "@/components/partner/AiProfilePublic";
 import PartnerQuickFacts from "@/components/partner/PartnerQuickFacts";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
