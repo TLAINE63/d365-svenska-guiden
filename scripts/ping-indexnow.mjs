@@ -14,9 +14,24 @@ const HOST = 'd365.se';
 const KEY = '1ee300110a6717b5dec524f828e978f2';
 const KEY_LOCATION = `https://${HOST}/${KEY}.txt`;
 const SITEMAP_PATH = resolve(process.cwd(), 'dist/sitemap.xml');
+const DIST_DIR = resolve(process.cwd(), 'dist');
 
-function extractUrls(xml) {
+function extractLocs(xml) {
   return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim());
+}
+
+async function fetchXml(url) {
+  // Prefer local file in dist/ to avoid network + pre-deploy stale content.
+  const filename = url.split('/').pop();
+  try {
+    return readFileSync(resolve(DIST_DIR, filename), 'utf-8');
+  } catch {
+    try {
+      const res = await fetch(url);
+      if (res.ok) return await res.text();
+    } catch {/* ignore */}
+    return '';
+  }
 }
 
 async function main() {
@@ -28,7 +43,19 @@ async function main() {
     process.exit(0); // do not fail the deploy
   }
 
-  const urls = extractUrls(xml);
+  // If root is a sitemap index, expand into all child sitemaps' <loc> entries.
+  let urls = [];
+  if (/<sitemapindex\b/.test(xml)) {
+    const childSitemaps = extractLocs(xml);
+    for (const s of childSitemaps) {
+      const childXml = await fetchXml(s);
+      urls.push(...extractLocs(childXml));
+    }
+  } else {
+    urls = extractLocs(xml);
+  }
+  urls = [...new Set(urls)];
+
   if (urls.length === 0) {
     console.warn('⚠️  No URLs found in sitemap — nothing to ping.');
     return;
