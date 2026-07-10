@@ -802,7 +802,7 @@ const Index = () => {
           <RelatedPages pages={indexRelatedPages} heading="Utforska Microsoft Dynamics 365" />
         </section>
 
-        <TrustBanner variant="full" />
+        {/* Transparensblocket ligger som SECTION 5 högre upp — undvik dubblering här. */}
       </main>
       <Suspense fallback={null}><ScrollCTA /></Suspense>
       
