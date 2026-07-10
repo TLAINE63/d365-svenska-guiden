@@ -854,11 +854,11 @@ export default function PartnerProductTabs({
                     )}
                     {data.contact.phone && (
                       <a
-                        href={`tel:${data.contact.phone}`}
+                        href={`tel:${data.contact.phone.replace(/[\s\-()]/g, "")}`}
                         className="inline-flex items-center gap-1.5 text-sm text-foreground/80 hover:text-foreground"
                       >
                         <Phone className="w-3.5 h-3.5" />
-                        {data.contact.phone}
+                        {formatSwedishPhone(data.contact.phone)}
                       </a>
                     )}
                   </div>
