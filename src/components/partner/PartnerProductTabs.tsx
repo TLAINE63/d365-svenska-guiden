@@ -119,7 +119,7 @@ interface Props {
 }
 
 
-const GEO_ORDER = ["Sverige", "Norden", "Europa", "Globalt"];
+
 
 function mergeArrays<T>(...arrs: (T[] | undefined | null)[]): T[] {
   const set = new Set<T>();
