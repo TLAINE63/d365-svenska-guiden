@@ -30,10 +30,10 @@ import { trackPartnerClick } from "@/utils/trackPartnerClick";
 import { appToProductFilterKey, type ProductFilterKey } from "@/lib/productFilterGroup";
 
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
-import FinanceIcon from "@/assets/icons/Finance.svg";
-import SalesIcon from "@/assets/icons/Sales.svg";
-import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
-import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
+import FinanceIcon from "@/assets/icons/Finance.svg?url";
+import SalesIcon from "@/assets/icons/Sales.svg?url";
+import CustomerServiceIcon from "@/assets/icons/CustomerService.svg?url";
+import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg?url";
 import CommerceIcon from "@/assets/icons/Commerce.svg?url";
 import HumanResourcesIcon from "@/assets/icons/HumanResources.svg?url";
 
