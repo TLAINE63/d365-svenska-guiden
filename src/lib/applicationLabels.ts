@@ -7,8 +7,8 @@ import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import FieldServiceIcon from "@/assets/icons/FieldService.svg";
 import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
 import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
-import CommerceIcon from "@/assets/icons/Commerce.svg";
-import HumanResourcesIcon from "@/assets/icons/HumanResources.svg";
+import CommerceIcon from "@/assets/icons/Commerce.svg?url";
+import HumanResourcesIcon from "@/assets/icons/HumanResources.svg?url";
 import CopilotIcon from "@/assets/icons/Copilot.png";
 
 /** Canonical merged name for Finance + Supply Chain Management. */
