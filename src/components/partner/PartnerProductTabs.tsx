@@ -1,6 +1,6 @@
 import type { TabKey } from "./types";
 export type { TabKey } from "./types";
-import { swedishPossessive } from "@/lib/utils";
+import { swedishPossessive, formatSwedishPhone } from "@/lib/utils";
 import { useMemo, useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
@@ -30,14 +30,29 @@ import { trackPartnerClick } from "@/utils/trackPartnerClick";
 import { appToProductFilterKey, type ProductFilterKey } from "@/lib/productFilterGroup";
 
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
-import FinanceIcon from "@/assets/icons/Finance.svg";
-import SalesIcon from "@/assets/icons/Sales.svg";
-import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
-import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
+import FinanceIcon from "@/assets/icons/Finance.svg?url";
+import SalesIcon from "@/assets/icons/Sales.svg?url";
+import CustomerServiceIcon from "@/assets/icons/CustomerService.svg?url";
+import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg?url";
 import CommerceIcon from "@/assets/icons/Commerce.svg?url";
 import HumanResourcesIcon from "@/assets/icons/HumanResources.svg?url";
 
 const SPECIALTY_APPLICATIONS = ["Project Operations", "Commerce", "Human Resources"];
+
+const COMPANY_SIZE_ORDER = ["1-49", "50-99", "100-249", "250-999", "1.000-4.999", ">5.000"];
+const REVENUE_ORDER = ["1-24 MSEK", "25-99 MSEK", "100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"];
+const GEO_ORDER = ["Sverige", "Norden", "Europa", "Globalt", "Övriga världen", "Internationellt"];
+
+function sortByCanonical(values: string[], order: string[]): string[] {
+  return [...values].sort((a, b) => {
+    const ia = order.indexOf(a);
+    const ib = order.indexOf(b);
+    if (ia === -1 && ib === -1) return a.localeCompare(b);
+    if (ia === -1) return 1;
+    if (ib === -1) return -1;
+    return ia - ib;
+  });
+}
 
 // Safely coerce a value that may be a string, string[] or null/undefined into a trimmed string.
 const toText = (v: unknown): string => {
@@ -104,7 +119,7 @@ interface Props {
 }
 
 
-const GEO_ORDER = ["Sverige", "Norden", "Europa", "Globalt"];
+
 
 function mergeArrays<T>(...arrs: (T[] | undefined | null)[]): T[] {
   const set = new Set<T>();
@@ -213,8 +228,8 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
   );
   const fallbackIndustries = industries.length > 0 ? industries : (partner.industries || []).slice(0, 5);
 
-  const companySize = mergeArrays<string>(...keys.map((k) => pf[k]?.companySize));
-  const revenue = mergeArrays<string>(...keys.map((k) => pf[k]?.revenue));
+  const companySize = sortByCanonical(mergeArrays<string>(...keys.map((k) => pf[k]?.companySize)), COMPANY_SIZE_ORDER);
+  const revenue = sortByCanonical(mergeArrays<string>(...keys.map((k) => pf[k]?.revenue)), REVENUE_ORDER);
 
   const geoRaw = mergeArrays<string>(...keys.map((k) => {
     const g = pf[k]?.geography;
@@ -839,11 +854,11 @@ export default function PartnerProductTabs({
                     )}
                     {data.contact.phone && (
                       <a
-                        href={`tel:${data.contact.phone}`}
+                        href={`tel:${data.contact.phone.replace(/[\s\-()]/g, "")}`}
                         className="inline-flex items-center gap-1.5 text-sm text-foreground/80 hover:text-foreground"
                       >
                         <Phone className="w-3.5 h-3.5" />
-                        {data.contact.phone}
+                        {formatSwedishPhone(data.contact.phone)}
                       </a>
                     )}
                   </div>
