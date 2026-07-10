@@ -216,7 +216,7 @@ export default function PartnerNewsCard({ item, partnerName, partnerSlug, partne
               to={`/partner/${slug}/`}
               className="inline-flex items-center gap-1 font-medium text-teal-700 hover:underline"
             >
-              Se partnerprofil <ArrowRight className="w-3.5 h-3.5" />
+              {name ? `Läs mer om ${name}` : "Läs mer om denna partner"} <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           )}
         </div>
