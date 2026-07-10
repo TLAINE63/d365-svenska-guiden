@@ -90,7 +90,7 @@
     "map_url": "https://www.google.com/maps/d/edit?mid=1lqToksFfFiaeIdp1Hgub9PYB6WJk_xs&ll=59.13450631416728%2C16.462738500000004&z=5",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-07-10T07:14:15.329329+00:00",
+    "updated_at": "2026-07-10T08:04:47.268179+00:00",
     "industry_pitches": [
       {
         "text": "4PS Construction Software AB erbjuder en specialiserad lösning baserad på Microsoft Dynamics 365 Business Central, designad för bygg- och entreprenadbranschen. Partnern adresserar typiska utmaningar såsom komplex projektledning, resursallokering och uppföljning av kostnadskontroll. Genom att implementera 4PS Construct uppnås förbättrad spårbarhet i hela projektcykeln, från kalkyl till efterkalkyl. Detta system stödjer processer som anbudshantering, inköp, materialplanering och personalhantering. Lösningen tillhandahåller även realtidsdata för beslutsfattande, vilket bidrar till optimerad projektgenomförande och ökad lönsamhet. Fokus ligger på en heltäckande branschanpassning inom Dynamics 365 Business Central.",
@@ -2674,7 +2674,7 @@
           "Telekom & IT-tjänster",
           "Tillverkningsindustri"
         ],
-        "contactName": "Anton Perssson",
+        "contactName": "Anton Persson",
         "contactEmail": "anton.a.persson@vivicta.com",
         "contactPhone": "0706082121",
         "swedenCities": [],
@@ -2690,8 +2690,7 @@
         "aiBusinessImpact": "",
         "customerExamples": [
           "Åtta45",
-          "Pointsharp",
-          "Kundexempelkangespåföfrågan"
+          "Pointsharp"
         ],
         "aiCaseDescription": "Automatisk data hämtning, hantering av optimisering av lager, Digital passport, Automatisk hantering av avvikelse med lagerhantering och inköp/Sälj",
         "customerCaseLinks": [
@@ -2872,7 +2871,7 @@
         "name": "Contract Invoicing",
         "industry": "Grossist & Distribution",
         "application": "Business Central",
-        "description": "https://marketplace.microsoft.com/en-us/product/PUBID.evryswedenab1667310970025%7CAID.contract-invoicing%7CPAPPID.20a68d59-47c5-4bef-a25f-07272c15c75e?tab=Overview"
+        "description": "Contract Invoicing för Business Central automatiserar och effektiviserar hantering av abonnemangs- och avtalsfakturering, med stöd för återkommande fakturor och periodiserade intäkter."
       }
     ],
     "is_featured": true,
@@ -2887,35 +2886,15 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-03-19T08:57:20.19097+00:00",
-    "updated_at": "2026-07-07T17:46:56.361216+00:00",
+    "updated_at": "2026-07-10T08:04:47.268179+00:00",
     "industry_pitches": [
       {
-        "text": "Vivicta bistår aktörer inom jordbruk och skogsbruk med implementering och förvaltning av Microsoft Dynamics 365-lösningar. De fokuserar på att leverera skalbara affärssystem som kan stödja verksamhetens processer, från rådgivning till driftsättning. Vivictas erbjudande omfattar Dynamics 365 Finance och Supply Chain Management, vilka kan användas för att hantera finansiella processer, logistik och försörjningskedjor.\n\nFör mindre verksamheter kan Dynamics 365 Business Central vara aktuellt. De har även kompetens inom att integrera lösningar med Power Platform och Azure, vilket kan bidra till automatiserade flöden och utökad analyskapacitet. Vivictas tjänster sträcker sig från initial rådgivning och lösningsdesign till implementering och kontinuerlig förvaltning. Deras expertis omfattar även CRM-applikationer genom Dynamics 365 Customer Engagement.",
-        "product": null,
-        "industry": "Jordbruk & Skogsbruk",
-        "edited_by": "admin-bulk",
-        "generated_at": "2026-05-17T08:36:24Z"
-      },
-      {
-        "text": "Vivicta erbjuder stöd i digitaliseringen av logistik- och transportsektorn med lösningar baserade på Microsoft Dynamics 365. De levererar helhetslösningar inom ERP och CRM, inklusive implementering, vidareutveckling och förvaltning, med fokus på Dynamics 365 Business Central, Finance och Supply Chain Management. \n\nVivicta har erfarenhet av branschspecifika lösningar såsom Transport Administration för Business Central, som bidrar till att effektivisera avräkningsprocesser och förbättra datakvaliteten genom API-integrationer med befintliga transportsystem. Lösningarna kompletteras med Power Platform och Azure-integrationer för att hantera digitala flöden inom transport och supply chain. Deras erbjudande syftar till att leverera skalbara lösningar som möter kraven på effektivitet och anpassningsförmåga inom branschen.",
+        "text": "Vivicta levererar helhetslösningar inom Microsoft Dynamics 365, från rådgivning och design till implementering och förvaltning, med fokus på transport och logistik. De hanterar lösningar baserade på D365 Finance och Supply Chain Management, vilket stöder hantering av ekonomiska flöden och logistikkedjor.\n\nVivicta erbjuder även D365 Business Central för mindre transport- och logistikföretag som behöver ett integrerat affärssystem. För att optimera kundrelationer och serviceärenden använder de D365 Sales, Customer Service och Field Service. Lösningarna kompletteras med Power Platform och Azure, vilket innebär möjligheter till anpassade integrationer och utökad funktionalitet. Deras erfarenhet sträcker sig till branscher som industri, tillverkning, samt handel och service, vilket ger dem insikt i komplexa logistikbehov och distributionskedjor. Vivicta erbjuder kontinuerlig utveckling och licensrådgivning för att stödja kundens affärsnytta över tid.",
         "product": null,
         "industry": "Transport & Logistik",
-        "edited_by": "admin-bulk",
-        "generated_at": "2026-05-17T08:36:27Z"
-      },
-      {
-        "text": "Vivicta erbjuder lösningar baserade på Microsoft Dynamics 365 för att stödja digitaliseringen inom offentlig sektor. De levererar helhetsåtaganden som omfattar rådgivning, lösningsdesign, implementering, vidareutveckling och förvaltning av affärssystem.\n\nMed fokus på Dynamics 365 Finance, Supply Chain Management, Sales, Customer Service och Human Resources, syftar Vivicta till att tillgodose behov av ekonomistyrning, logistik, ärendehantering, medborgardialog och personaladministration. Vidare används Business Central för mer specifika behöv och Customer Insights för att hantera marknadsföring och medborgarinsikter. Partnerns lösningar kompletteras med Power Platform och Azure, vilket innebär potential för automatisering och integrationer med befintliga system. Vivicta har erfarenhet av att anpassa Dynamics 365-lösningar för att adressera krav på effektivitet, transparens och tillgänglighet inom offentlig verksamhet.",
-        "product": null,
-        "industry": "Offentlig sektor",
-        "edited_by": "admin-bulk",
-        "generated_at": "2026-05-17T08:36:29Z"
-      },
-      {
-        "text": "Vivicta har erfarenhet av att implementera Microsoft Dynamics 365-lösningar för organisationer inom Telekom & IT-tjänster. De bistår med rådgivning, design och implementering av ERP- (Dynamics 365 Finance och Supply Chain Management) och CRM-system (Dynamics 365 Sales, Customer Service, Field Service, Customer Insights). \n\nPartnern hanterar hela livscykeln från kravställning till förvaltning. Vivicta erbjuder stöd för prenumerationsbaserade affärsmodeller samt hantering av paketerade erbjudanden som inkluderar hårdvara, mjukvara och konsulttjänster. De levererar även lösningar för projektledning med Dynamics 365 Project Operations, resursoptimering med Human Resources och integrerar med Power Platform och Azure för att möta krav på skalbarhet och flexibilitet i molnmiljöer.",
-        "product": null,
-        "industry": "Telekom & IT-tjänster",
-        "edited_by": "admin-bulk",
-        "generated_at": "2026-05-17T08:36:32Z"
+        "edited_by": "ai",
+        "updated_at": "2026-06-16T08:13:17.887Z",
+        "generated_at": "2026-06-16T08:13:17.887Z"
       },
       {
         "text": "Vivicta erbjuder lösningar baserade på Microsoft Dynamics 365 för tillverkningsindustrin. De levererar helhetsåtaganden som omfattar rådgivning, lösningsdesign, implementering, vidareutveckling och förvaltning av affärssystem. Partnern fokuserar på standardnära och skalbara lösningar med en tyngdpunkt på Dynamics 365 Finance och Supply Chain Management, vilket är relevant för hantering av ekonomi, produktion och logistik inom tillverkande företag.\n\nVivictas kompetens sträcker sig även till Dynamics 365 Business Central, en lösning som passar mindre och medelstora tillverkningsföretag. De hanterar också kundrelationer via Dynamics 365 Sales och kan integrera data från olika källor genom Power Platform och Azure, vilket syftar till att stödja den digitala transformationen och Industri 4.0. Företag inom process-, skogs- och återvinningsindustrin kan dra nytta av deras erfarenhet. Fokus ligger på att skapa affärsnytta och att systemen kan utvecklas över tid.",
@@ -2925,12 +2904,25 @@
         "generated_at": "2026-05-17T08:36:34Z"
       },
       {
-        "text": "Vivicta levererar helhetslösningar inom Microsoft Dynamics 365, från rådgivning och design till implementering och förvaltning, med fokus på transport och logistik. De hanterar lösningar baserade på D365 Finance och Supply Chain Management, vilket stöder hantering av ekonomiska flöden och logistikkedjor.\n\nVivicta erbjuder även D365 Business Central för mindre transport- och logistikföretag som behöver ett integrerat affärssystem. För att optimera kundrelationer och serviceärenden använder de D365 Sales, Customer Service och Field Service. Lösningarna kompletteras med Power Platform och Azure, vilket innebär möjligheter till anpassade integrationer och utökad funktionalitet. Deras erfarenhet sträcker sig till branscher som industri, tillverkning, samt handel och service, vilket ger dem insikt i komplexa logistikbehov och distributionskedjor. Vivicta erbjuder kontinuerlig utveckling och licensrådgivning för att stödja kundens affärsnytta över tid.",
+        "text": "Vivicta har erfarenhet av att implementera Microsoft Dynamics 365-lösningar för organisationer inom Telekom & IT-tjänster. De bistår med rådgivning, design och implementering av ERP- (Dynamics 365 Finance och Supply Chain Management) och CRM-system (Dynamics 365 Sales, Customer Service, Field Service, Customer Insights). \n\nPartnern hanterar hela livscykeln från kravställning till förvaltning. Vivicta erbjuder stöd för prenumerationsbaserade affärsmodeller samt hantering av paketerade erbjudanden som inkluderar hårdvara, mjukvara och konsulttjänster. De levererar även lösningar för projektledning med Dynamics 365 Project Operations, resursoptimering med Human Resources och integrerar med Power Platform och Azure för att möta krav på skalbarhet och flexibilitet i molnmiljöer.",
         "product": null,
-        "industry": "Transport & Logistik",
-        "edited_by": "ai",
-        "updated_at": "2026-06-16T08:13:17.887Z",
-        "generated_at": "2026-06-16T08:13:17.887Z"
+        "industry": "Telekom & IT-tjänster",
+        "edited_by": "admin-bulk",
+        "generated_at": "2026-05-17T08:36:32Z"
+      },
+      {
+        "text": "Vivicta erbjuder lösningar baserade på Microsoft Dynamics 365 för att stödja digitaliseringen inom offentlig sektor. De levererar helhetsåtaganden som omfattar rådgivning, lösningsdesign, implementering, vidareutveckling och förvaltning av affärssystem.\n\nMed fokus på Dynamics 365 Finance, Supply Chain Management, Sales, Customer Service och Human Resources, syftar Vivicta till att tillgodose behov av ekonomistyrning, logistik, ärendehantering, medborgardialog och personaladministration. Vidare används Business Central för mer specifika behöv och Customer Insights för att hantera marknadsföring och medborgarinsikter. Partnerns lösningar kompletteras med Power Platform och Azure, vilket innebär potential för automatisering och integrationer med befintliga system. Vivicta har erfarenhet av att anpassa Dynamics 365-lösningar för att adressera krav på effektivitet, transparens och tillgänglighet inom offentlig verksamhet.",
+        "product": null,
+        "industry": "Offentlig sektor",
+        "edited_by": "admin-bulk",
+        "generated_at": "2026-05-17T08:36:29Z"
+      },
+      {
+        "text": "Vivicta bistår aktörer inom jordbruk och skogsbruk med implementering och förvaltning av Microsoft Dynamics 365-lösningar. De fokuserar på att leverera skalbara affärssystem som kan stödja verksamhetens processer, från rådgivning till driftsättning. Vivictas erbjudande omfattar Dynamics 365 Finance och Supply Chain Management, vilka kan användas för att hantera finansiella processer, logistik och försörjningskedjor.\n\nFör mindre verksamheter kan Dynamics 365 Business Central vara aktuellt. De har även kompetens inom att integrera lösningar med Power Platform och Azure, vilket kan bidra till automatiserade flöden och utökad analyskapacitet. Vivictas tjänster sträcker sig från initial rådgivning och lösningsdesign till implementering och kontinuerlig förvaltning. Deras expertis omfattar även CRM-applikationer genom Dynamics 365 Customer Engagement.",
+        "product": null,
+        "industry": "Jordbruk & Skogsbruk",
+        "edited_by": "admin-bulk",
+        "generated_at": "2026-05-17T08:36:24Z"
       }
     ],
     "agreement_signed": true,
@@ -2946,7 +2938,7 @@
       "Internationella kunder som söker en partner med egen kapacitet i alla geografier utanför Norden och Baltikum."
     ],
     "implementations_per_app": {},
-    "ai_summary": "Vivicta erbjuder ett helhetsåtagande inom Microsoft Dynamics 365, inklusive Finance, Supply Chain Management, Business Central och de flesta Customer Engagement-moduler. De har kontor i flera svenska städer och fokuserar på branscher som industri, tillverkning, process- och skogsindustri, återvinning, energi, offentlig sektor samt handel och service. Vid behov av rådgivning kring val av partnerkategori, betraktas Vivicta som en nordisk systemintegratör med riskkapitalfinansiering och fokus på snabb tillväxt.",
+    "ai_summary": "Vivicta erbjuder ett helhetsåtagande inom Microsoft Dynamics 365, inklusive Finance, Supply Chain Management, Business Central och de flesta Customer Engagement-moduler. De har kontor i flera svenska städer och fokuserar på branscher som industri, tillverkning, process- och skogsindustri, återvinning, energi, offentlig sektor samt handel och service.",
     "ai_summary_generated_at": "2026-06-29T16:18:55.448+00:00",
     "ai_profile": {
       "use_cases": [],
