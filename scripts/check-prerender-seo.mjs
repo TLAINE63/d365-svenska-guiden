@@ -98,6 +98,23 @@ export function validateHtml(route, html) {
   if (!ogUrl) errors.push("missing og:url");
   else if (ogUrl !== expectedUrl) errors.push(`og:url does not self-reference ${expectedUrl}: ${ogUrl}`);
 
+  if (route.startsWith("/partner/")) {
+    if (/data:image\/svg\+xml/i.test(html)) errors.push("partner HTML contains inline SVG data URI");
+    if (/<img\b[^>]*\bsrc=["']\s*["']/i.test(html)) errors.push("partner HTML contains an empty image src");
+  }
+
+  if (route === "/partner/vivicta") {
+    const forbidden = [
+      "Vid behov av rådgivning kring val av partnerkategori",
+      "över hela systemets livscyke",
+      "Kundexempelkangespåföfrågan",
+      "Anton Perssson",
+    ];
+    for (const text of forbidden) {
+      if (html.includes(text)) errors.push(`Vivicta forbidden string still present: ${text}`);
+    }
+  }
+
   return { route, errors, title, canonical };
 }
 
