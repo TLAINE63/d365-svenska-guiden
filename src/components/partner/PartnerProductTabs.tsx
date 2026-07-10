@@ -39,6 +39,21 @@ import HumanResourcesIcon from "@/assets/icons/HumanResources.svg?url";
 
 const SPECIALTY_APPLICATIONS = ["Project Operations", "Commerce", "Human Resources"];
 
+const COMPANY_SIZE_ORDER = ["1-49", "50-99", "100-249", "250-999", "1.000-4.999", ">5.000"];
+const REVENUE_ORDER = ["1-24 MSEK", "25-99 MSEK", "100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"];
+const GEO_ORDER = ["Sverige", "Norden", "Europa", "Globalt", "Övriga världen", "Internationellt"];
+
+function sortByCanonical(values: string[], order: string[]): string[] {
+  return [...values].sort((a, b) => {
+    const ia = order.indexOf(a);
+    const ib = order.indexOf(b);
+    if (ia === -1 && ib === -1) return a.localeCompare(b);
+    if (ia === -1) return 1;
+    if (ib === -1) return -1;
+    return ia - ib;
+  });
+}
+
 // Safely coerce a value that may be a string, string[] or null/undefined into a trimmed string.
 const toText = (v: unknown): string => {
   if (typeof v === "string") return v.trim();
