@@ -25,12 +25,6 @@ function makePartner(overrides: Partial<DatabasePartner["product_filters"]> = {}
 }
 
 describe("PartnerQuickFacts", () => {
-  it("visar sammanhängande storleksintervall med lucka korrekt", () => {
-    render(<PartnerQuickFacts partner={makePartner()} activeTab="bc" />);
-    // 1-49 + 50-99 = 1–99; hoppar över 100-249; 250-999 kvar
-    const size = screen.getByText(/anställda/);
-    expect(size.textContent).toMatch(/1[\u00A0\s]000/); // ingen 1 000 här faktiskt, kolla:
-  });
 
   it("grupperar 1-49 och 50-99 till 1–99 och visar 250–999 separat", () => {
     render(<PartnerQuickFacts partner={makePartner()} activeTab="bc" />);
