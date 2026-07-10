@@ -1,6 +1,6 @@
 import type { TabKey } from "./types";
 export type { TabKey } from "./types";
-import { swedishPossessive, formatSwedishPhone } from "@/lib/utils";
+import { swedishPossessive, formatSwedishPhone, formatSwedishBand } from "@/lib/utils";
 import { useMemo, useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
