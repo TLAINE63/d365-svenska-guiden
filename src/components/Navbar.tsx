@@ -255,6 +255,12 @@ const Navbar = () => {
                   <Sparkles className="h-4 w-4" /> AI-sök
                 </Link>
                 <Link
+                  to="/partnernytt/"
+                  className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
+                >
+                  Partnernytt
+                </Link>
+                <Link
                   to="/branscher/"
                   className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
                 >
