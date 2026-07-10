@@ -51,12 +51,10 @@ describe("PartnerQuickFacts", () => {
 
   it("faller tillbaka till revenue-baserad storleksetikett när companySize saknas", () => {
     const partner = makePartner({
-      bc: {
-        industries: [],
-        companySize: [],
-        revenue: ["1.000-4.999 MSEK"],
-        geography: ["Sverige"],
-      },
+      industries: [],
+      companySize: [],
+      revenue: ["1.000-4.999 MSEK"],
+      geography: ["Sverige"],
     });
     render(<PartnerQuickFacts partner={partner} activeTab="bc" />);
     expect(screen.getByText(/Passar främst stora företag/)).toBeInTheDocument();
@@ -64,12 +62,10 @@ describe("PartnerQuickFacts", () => {
 
   it("visar sammanhängande intervall utan lucka som ett enda spann", () => {
     const partner = makePartner({
-      bc: {
-        industries: [],
-        companySize: ["50-99", "100-249", "250-999"],
-        revenue: [],
-        geography: ["Sverige"],
-      },
+      industries: [],
+      companySize: ["50-99", "100-249", "250-999"],
+      revenue: [],
+      geography: ["Sverige"],
     });
     render(<PartnerQuickFacts partner={partner} activeTab="bc" />);
     const text = screen.getByText(/anställda/).textContent || "";
