@@ -6,6 +6,19 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 /**
+ * Konvertera lagrade band ("1.000-4.999", ">5.000", "25-99 MSEK") till
+ * svensk visning med icke-brytande mellanslag som tusentalsavgränsare
+ * och tankstreck: "1 000–4 999", ">5 000", "25–99 MSEK".
+ */
+export function formatSwedishBand(band: string): string {
+  if (!band) return "";
+  // Byt tusenpunkter mot icke-brytande mellanslag i alla numeriska grupper
+  return band
+    .replace(/(\d)\.(\d{3})/g, "$1\u00A0$2")
+    .replace(/(\d)-(\d)/g, "$1–$2");
+}
+
+/**
  * Svensk genitiv: lägg till "s" om namnet inte redan slutar på s/x/z.
  * Ex: "Fellowmind" → "Fellowminds", "Goodfellows" → "Goodfellows'",
  * "NAB Solutions" → "NAB Solutions'".
