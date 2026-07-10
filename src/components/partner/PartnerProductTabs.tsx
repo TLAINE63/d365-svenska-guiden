@@ -213,8 +213,8 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
   );
   const fallbackIndustries = industries.length > 0 ? industries : (partner.industries || []).slice(0, 5);
 
-  const companySize = mergeArrays<string>(...keys.map((k) => pf[k]?.companySize));
-  const revenue = mergeArrays<string>(...keys.map((k) => pf[k]?.revenue));
+  const companySize = sortByCanonical(mergeArrays<string>(...keys.map((k) => pf[k]?.companySize)), COMPANY_SIZE_ORDER);
+  const revenue = sortByCanonical(mergeArrays<string>(...keys.map((k) => pf[k]?.revenue)), REVENUE_ORDER);
 
   const geoRaw = mergeArrays<string>(...keys.map((k) => {
     const g = pf[k]?.geography;
