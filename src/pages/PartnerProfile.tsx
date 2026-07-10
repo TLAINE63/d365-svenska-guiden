@@ -350,8 +350,9 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  const hasFilters = selectedProduct || selectedIndustry || selectedCompanySize || selectedGeography;
 
  const seoApps = (partner.applications || []).slice(0, 3).join(", ");
+ // Kortare baseTitle så hela titeln får plats inom 60 tecken utan ellipsis.
  const seoTitle = buildMetaTitle({
- baseTitle: `${partner.name} – Microsoft Dynamics 365 Partner`,
+ baseTitle: `${partner.name} – Dynamics 365 Partner`,
  primaryKeyword: "Dynamics 365",
  }).value;
  const seoDescription = buildMetaDescription([
