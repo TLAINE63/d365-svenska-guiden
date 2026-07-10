@@ -10,8 +10,8 @@ import MarketingIcon from "@/assets/icons/Marketing.svg";
 import FieldServiceIcon from "@/assets/icons/FieldService.svg";
 import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
 import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
-import CommerceIcon from "@/assets/icons/Commerce.svg";
-import HumanResourcesIcon from "@/assets/icons/HumanResources.svg";
+import CommerceIcon from "@/assets/icons/Commerce.svg?url";
+import HumanResourcesIcon from "@/assets/icons/HumanResources.svg?url";
 
 // Map application names to Dynamics 365 icons
 const applicationIcons: Record<string, string> = {

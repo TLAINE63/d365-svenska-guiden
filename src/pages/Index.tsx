@@ -223,7 +223,7 @@ const Index = () => {
               </p>
 
               <div className="border-t border-white/10 pt-7 mb-8">
-                <h2 className="text-[22px] sm:text-[28px] font-semibold text-white leading-tight mb-3">
+                <h2 className="text-[22px] sm:text-[28px] font-semibold text-white leading-tight mb-4">
                   Välj rätt Dynamics 365-partner
                 </h2>
 
@@ -238,31 +238,20 @@ const Index = () => {
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </Link>
                   </Button>
-                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 sm:items-center">
-                    <button
-                      type="button"
-                      onClick={() => setDirectionPicker("behovsanalys")}
-                      className="inline-flex items-center justify-center gap-1.5 text-[14px] font-semibold text-white/85 hover:text-white border border-white/25 hover:border-white/50 rounded px-4 h-11 transition-colors"
-                    >
-                      Starta behovsanalys
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                    <Link
-                      to="/kunskapscenter/"
-                      className="inline-flex items-center justify-center gap-1.5 text-[14px] font-semibold text-white/70 hover:text-[hsl(var(--signature))] h-11 px-2 transition-colors"
-                    >
-                      Läs guider
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setDirectionPicker("behovsanalys")}
+                    className="inline-flex items-center justify-center gap-1.5 text-[14px] font-semibold text-white/70 hover:text-white h-11 px-2 transition-colors self-start sm:self-auto"
+                  >
+                    eller starta behovsanalys
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
                 </div>
-                <p className="text-[15px] text-white/70 leading-relaxed mt-4">
-                  👉 Få en lista med partners som matchar er verksamhet – på under en minut
-                </p>
-                <p className="text-[13px] sm:text-[14px] text-white/60 leading-relaxed mt-2 italic">
-                  • Byggt på 40+ års erfarenhet av Dynamics 365 och affärssystem
+                <p className="text-[13px] text-white/55 leading-relaxed mt-4 italic">
+                  Byggt på 40+ års erfarenhet av Dynamics 365 och affärssystem.
                 </p>
               </div>
+
 
               {/* 4-step filter hint */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 w-full">
@@ -802,7 +791,7 @@ const Index = () => {
           <RelatedPages pages={indexRelatedPages} heading="Utforska Microsoft Dynamics 365" />
         </section>
 
-        <TrustBanner variant="full" />
+        {/* Transparensblocket ligger som SECTION 5 högre upp — undvik dubblering här. */}
       </main>
       <Suspense fallback={null}><ScrollCTA /></Suspense>
       

@@ -10,7 +10,7 @@ import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
 import { FileText } from "lucide-react";
 import { useEffect } from "react";
-import CommerceIcon from "@/assets/icons/Commerce.svg";
+import CommerceIcon from "@/assets/icons/Commerce.svg?url";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";

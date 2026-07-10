@@ -111,13 +111,8 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Om d365.se – fullbredd nederst */}
+        {/* Juridiska förbehåll & disclaimers — "Om d365.se"-rubriken ligger redan högst upp i footern. */}
         <div className="border-t border-[hsl(var(--line-dark))] pt-6 mb-8">
-          <h3 className="font-semibold text-white mb-3">Om d365.se</h3>
-          <p className="text-sm text-[hsl(var(--muted-dark))] mb-2 max-w-4xl">
-            Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner.
-            Vi förmedlar kunskap – inte kontrakt – och står på köparens sida i valet av system och partner.
-          </p>
           <p className="text-xs text-[hsl(var(--muted-dark))] italic max-w-4xl mb-2">
             d365.se är fristående från Microsoft Corporation. Vi är inte anslutna till, sponsrade av eller godkända av Microsoft. Dynamics 365, Business Central och andra Microsoft-produktnamn är varumärken som tillhör Microsoft.
           </p>

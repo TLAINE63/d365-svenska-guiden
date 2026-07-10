@@ -93,14 +93,6 @@
     "updated_at": "2026-07-07T17:46:56.361216+00:00",
     "industry_pitches": [
       {
-        "text": "4PS Construction Software AB erbjuder en branschspecifik ERP-lösning, 4PS Construct, baserad på Microsoft Dynamics 365 Business Central. Lösningen är utvecklad för bygg-, installations- och serviceföretag och syftar till att leverera end-to-end-funktionalitet. Med 4PS Construct kan företag hantera projekthantering, offerter, resursplanering, inköp, ekonomi och service i en integrerad plattform. 4PS Construct tillhandahåller realtidsvisibilitet över projektprocesser, vilket bidrar till effektivare styrning och beslutsfattande inom bygg- och entreprenadbranschen. Partnern fokuserar på att möta branschens behov av smidiga digitala processer för att hantera komplexa projekt och krav på lönsamhet.",
-        "product": null,
-        "industry": "Bygg & Entreprenad",
-        "edited_by": "admin",
-        "updated_at": "2026-05-17T08:10:26.839Z",
-        "generated_at": "2026-05-17T08:10:26.839Z"
-      },
-      {
         "text": "4PS Construction Software AB erbjuder en specialiserad lösning baserad på Microsoft Dynamics 365 Business Central, designad för bygg- och entreprenadbranschen. Partnern adresserar typiska utmaningar såsom komplex projektledning, resursallokering och uppföljning av kostnadskontroll. Genom att implementera 4PS Construct uppnås förbättrad spårbarhet i hela projektcykeln, från kalkyl till efterkalkyl. Detta system stödjer processer som anbudshantering, inköp, materialplanering och personalhantering. Lösningen tillhandahåller även realtidsdata för beslutsfattande, vilket bidrar till optimerad projektgenomförande och ökad lönsamhet. Fokus ligger på en heltäckande branschanpassning inom Dynamics 365 Business Central.",
         "product": "Business Central",
         "industry": "Bygg & Entreprenad",
@@ -525,7 +517,7 @@
           "https://www.be-terna.com/sv/insikter/babybjorn-effektiviserar-sin-globala-verksamhet-med-microsoft-dynamics-365",
           "https://www.be-terna.com/sv/insikter/nordiska-kompaniet-en-ny-typ-av-e-handel",
           "https://www.be-terna.com/sv/insikter/tillsammans-med-sal-navigation-ett-projekt-som-lagger-grunden-for-framtidens-affarsprocesser",
-          "https://eur04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.be-terna.com%2Fsv%2Finsikter%2Fnordisk-effektivare-arbete-med-microsoft-dynamics-365&data=05%7C02%7Cthomas.laine%40dynamicfactory.se%7C1a6bb4feb15843f7966408de626f3b8d%7C0f2b50333424406d95323eef86ce47f0%7C0%7C0%7C639056427060653709%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=dpcnQOW73v6oGWGc0AOQNYx%2Br73l4OJJK7XowsJ8zjg%3D&reserved=0"
+          "https://www.be-terna.com/sv/insikter/nordisk-effektivare-arbete-med-microsoft-dynamics-365"
         ],
         "productDescription": "BE-terna levererar Dynamics 365 Finance & Supply Chain Management med fokus på kunder inom grossist, distribution, tillverkningsindustri och retail. Partnern erbjuder implementering, förvaltning och vidareutveckling med en stark lokal närvaro i tio europeiska länder och global leveranskapacitet. BE-terna tillhandahåller expertis inom Dynamics 365 Finance, Supply Chain Management och Commerce, och arbetar med en strukturerad metodik för att säkerställa långsiktig stabilitet och affärsnytta för sina kunder. Deras åtagande sträcker sig över hela livscykeln för lösningen.",
         "secondaryIndustries": [

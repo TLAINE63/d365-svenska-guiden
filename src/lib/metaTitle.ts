@@ -105,18 +105,16 @@ export const buildMetaTitle = ({
     }
   }
 
-  // 4. Brand-suffix om det får plats utan att överstiga max.
+  // 4. Brand-suffix om det får plats. Om suffix inte får plats: hoppa över suffixet
+  //    hellre än att trunkera basen — annars hamnar en ellipsis "…" i själva title-taggen.
   let value = withKeyword;
   if (appendBrand) {
     if (value.length + BRAND_SUFFIX.length <= META_TITLE_MAX) {
       value = value + BRAND_SUFFIX;
-    } else if (value.length > META_TITLE_MAX) {
-      // Trunkera först, lägg sedan till suffix om det fortfarande får plats.
-      value = truncateAtWord(value, META_TITLE_MAX - BRAND_SUFFIX.length);
-      value = value + BRAND_SUFFIX;
     }
-    // annars: hoppa över suffix för att inte överskrida max
-  } else if (value.length > META_TITLE_MAX) {
+    // Annars: behåll basen utan suffix. Trunkera bara om basen själv överskrider max.
+  }
+  if (value.length > META_TITLE_MAX) {
     value = truncateAtWord(value, META_TITLE_MAX);
   }
 

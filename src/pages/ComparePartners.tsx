@@ -53,8 +53,8 @@ import csIcon from "@/assets/icons/CustomerService.svg";
 import fsIcon from "@/assets/icons/FieldService.svg";
 import ccIcon from "@/assets/icons/ContactCenter.svg";
 import poIcon from "@/assets/icons/ProjectOperations.svg";
-import hrIcon from "@/assets/icons/HumanResources.svg";
-import commerceIcon from "@/assets/icons/Commerce.svg";
+import hrIcon from "@/assets/icons/HumanResources.svg?url";
+import commerceIcon from "@/assets/icons/Commerce.svg?url";
 
 const APP_ICON_MAP: Record<string, string> = {
   "business central": bcIcon,
