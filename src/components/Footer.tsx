@@ -9,25 +9,9 @@ const Footer = () => {
       style={{ borderTop: "3px solid hsl(var(--signature))" }}
     >
       <div className="container mx-auto px-4">
-        {/* Trust-modul: Så fungerar d365.se */}
-        <div className="grid md:grid-cols-2 gap-6 mb-10 pb-8 border-b border-[hsl(var(--line-dark))]">
-          <div>
-            <h3 className="font-semibold text-white mb-3 text-base">Om d365.se</h3>
-            <p className="text-sm text-[hsl(var(--muted-dark))] leading-relaxed">
-              d365.se är en köparorienterad plattform för Microsoft Dynamics 365. Vi förmedlar kunskap – inte kontrakt – och står på köparens sida i valet av system och partner.
-            </p>
-          </div>
-          <div>
-            <h3 className="font-semibold text-white mb-3 text-base">Så fungerar partnersamarbetet</h3>
-            <p className="text-sm text-[hsl(var(--muted-dark))] leading-relaxed">
-              Vi säljer inte system eller implementation. Alla partners betalar samma avgift. Rekommendationer baseras på relevans – inte betalning.{" "}
-              <Link to="/agande-och-intressen/" className="text-white underline hover:text-[hsl(var(--signature))]">
-                Läs hela metodiken
-              </Link>
-              .
-            </p>
-          </div>
-        </div>
+        {/* Trust-modulen "Så fungerar d365.se" ligger på startsidan (SECTION 5)
+            och på /agande-och-intressen. Duplicera den inte i footern. */}
+
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-8 items-start mb-8">
 
