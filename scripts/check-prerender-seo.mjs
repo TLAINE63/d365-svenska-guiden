@@ -60,6 +60,7 @@ function pick(html, re, group = 1) {
 
 export function validateHtml(route, html) {
   const errors = [];
+  const expectedUrl = `${ORIGIN}${route === "/" ? "/" : route.endsWith("/") ? route : `${route}/`}`;
 
   const title = pick(html, /<title[^>]*>([\s\S]*?)<\/title>/i);
   if (!title) errors.push("empty <title>");
@@ -76,6 +77,7 @@ export function validateHtml(route, html) {
   ) || pick(html, /<link[^>]+href=["']([^"']+)["'][^>]+rel=["']canonical["']/i);
   if (!canonical) errors.push("missing canonical");
   else if (!canonical.startsWith(ORIGIN)) errors.push(`canonical not on ${ORIGIN}: ${canonical}`);
+  else if (canonical !== expectedUrl) errors.push(`canonical does not self-reference ${expectedUrl}: ${canonical}`);
 
   const ogTitle = pick(
     html,
@@ -94,6 +96,7 @@ export function validateHtml(route, html) {
     /<meta[^>]+property=["']og:url["'][^>]*content=["']([^"']+)["']/i,
   );
   if (!ogUrl) errors.push("missing og:url");
+  else if (ogUrl !== expectedUrl) errors.push(`og:url does not self-reference ${expectedUrl}: ${ogUrl}`);
 
   return { route, errors, title, canonical };
 }
