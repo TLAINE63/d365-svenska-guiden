@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import PartnerVideoModal from "@/components/PartnerVideoModal";
 import { extractYouTubeId } from "@/lib/youtube";
+import { formatSwedishPhone } from "@/lib/utils";
 import LeadCTA from "@/components/LeadCTA";
 import StickyContactCTA from "@/components/partner/StickyContactCTA";
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
