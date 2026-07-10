@@ -416,17 +416,20 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   {/* Partner identity - logo OR name, not both; logo routes to partner landing page */}
   <div className="flex items-center justify-center mb-2">
   {partner.logo_url ? (
-  <Link
-    to={slug ? `/partner/${slug}/` : "/"}
-    className="w-48 h-28 sm:w-64 sm:h-32 flex items-center justify-center overflow-hidden rounded hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-    aria-label={`Till ${partner.name}s landningssida`}
-  >
-    <img
-    src={partner.logo_url}
-    alt={`${partner.name} logotyp`}
-    className="max-w-full max-h-full object-contain"
-    />
-  </Link>
+  <>
+    <h1 className="sr-only">{partner.name}</h1>
+    <Link
+      to={slug ? `/partner/${slug}/` : "/"}
+      className="w-48 h-28 sm:w-64 sm:h-32 flex items-center justify-center overflow-hidden rounded hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      aria-label={`Till ${partner.name}s landningssida`}
+    >
+      <img
+      src={partner.logo_url}
+      alt={`${partner.name} logotyp`}
+      className="max-w-full max-h-full object-contain"
+      />
+    </Link>
+  </>
   ) : (
   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight">
     {partner.name}
