@@ -59,11 +59,35 @@ export function usePublishedPartnerNews(opts: UsePublishedPartnerNewsOpts = {}) 
       if (opts.limit) query = query.limit(opts.limit);
       const { data, error } = await query;
       if (error) throw error;
-      return (data ?? []).map((row: Record<string, unknown>) => {
+      const rows = (data ?? []).map((row: Record<string, unknown>) => {
         const partner = (row.partners ?? null) as PartnerNewsItem["partner"];
         const { partners: _p, ...rest } = row as Record<string, unknown>;
         return { ...(rest as unknown as PartnerNewsItem), partner };
       });
+
+      // Backfill partner name/slug for rows where the RLS-protected join returned null
+      // (partners that are not is_featured). Uses SECURITY DEFINER RPC that exposes
+      // only safe fields (id, name, slug), so the "Läs mer om ..." CTA always renders.
+      const missingIds = Array.from(
+        new Set(rows.filter((r) => !r.partner?.slug && r.partner_id).map((r) => r.partner_id)),
+      );
+      if (missingIds.length > 0) {
+        try {
+          const { data: names } = await (supabase as unknown as {
+            rpc: (fn: string) => Promise<{ data: Array<{ id: string; name: string; slug: string }> | null }>;
+          }).rpc("get_all_partner_names");
+          const byId = new Map((names ?? []).map((n) => [n.id, n]));
+          for (const r of rows) {
+            if (!r.partner?.slug && r.partner_id) {
+              const n = byId.get(r.partner_id);
+              if (n) r.partner = { id: n.id, name: n.name, slug: n.slug, logo_url: null };
+            }
+          }
+        } catch (e) {
+          console.warn("partner name backfill failed", e);
+        }
+      }
+      return rows;
     },
     staleTime: 5 * 60_000,
   });
