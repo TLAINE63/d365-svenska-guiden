@@ -124,7 +124,7 @@ export const buildMetaTitle = ({
   let status: MetaTitleResult["status"] = "ok";
   if (keywordStatus === "missing") {
     status = "missing-keyword";
-  } else if (value.endsWith("…")) {
+  } else if (value.length < withKeyword.length && !value.includes(BRAND_SUFFIX.trim())) {
     status = "truncated";
     const msg = `Titel trunkerades för att rymmas inom ${META_TITLE_MAX} tecken.`;
     warnings.push(msg);
