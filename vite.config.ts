@@ -23,6 +23,13 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
+    // Force all assets to external files. Vite's default (4 KB) inlines the
+    // small D365 icon SVGs/WebPs as data: URIs, and the SVG data URIs contain
+    // HTML-encoded apostrophes (&#x27;) inside `width='…'` etc. That renders
+    // fine in browsers but trips strict HTML/AI crawlers and fails our
+    // "external asset" requirement. Keeping this at 0 ensures every icon is
+    // served as /assets/xxx.svg (or .webp).
+    assetsInlineLimit: 0,
     modulePreload: {
       resolveDependencies: () => [],
     },
