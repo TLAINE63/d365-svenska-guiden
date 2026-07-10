@@ -5,6 +5,11 @@
     "description": "4PS är en ledande leverantör av branschspecifik ERP-programvara för bygg-, installations- och serviceföretag. Deras lösning 4PS Construct är byggd på Microsoft Dynamics 365 Business Central och erbjud"
   },
   {
+    "slug": "adbriq",
+    "name": "adbriq",
+    "description": "adbriq är en Microsoft Dynamics 365-partner med fokus på Business Central. Företaget bistår kunder med digitalisering av affärsprocesser och informationsflöden, och arbetar särskilt med organisationer"
+  },
+  {
     "slug": "b3-consulting-group",
     "name": "B3 Elevate",
     "description": "B3 Elevate är ett specialistföretag inom B3 Consulting Group som lyfter kundupplevelser till nya höjder genom kraftfulla AI-baserade molnlösningar byggda på Dynamics 365 och Power BI.\nTack vare ett nä"
@@ -18,11 +23,6 @@
     "slug": "bisqo",
     "name": "Bisqo AB",
     "description": "Vi är experter på en kraftfull kombination av Dynamics 365 Business Central och CRM på Power Platform samt Power BI, där vi skapar smarta, skalbara och framtidssäkra lösningar. Vi hjälper företag att "
-  },
-  {
-    "slug": "exsitec",
-    "name": "BrightCom",
-    "description": "BrightCom är partner till Microsoft och affärssystemet Dynamics 365 Business Central med fokus på e-handels och retailbranschen. BrightCom har färdiga integrationer till de vanligaste e-handelsplattfo"
   },
   {
     "slug": "cegeka",
@@ -55,9 +55,9 @@
     "description": "Från reaktiv till prediktiv\nMånga organisationer har i dag tillgång till stora mängder data, men får sina viktigaste insikter först när det redan är för sent. Systemen är ofta silobaserade, processern"
   },
   {
-    "slug": "navipro-ab",
-    "name": "Evidi",
-    "description": ""
+    "slug": "exsitec",
+    "name": "BrightCom",
+    "description": "BrightCom är partner till Microsoft och affärssystemet Dynamics 365 Business Central med fokus på e-handels och retailbranschen. BrightCom har färdiga integrationer till de vanligaste e-handelsplattfo"
   },
   {
     "slug": "fellowmind",
@@ -105,6 +105,11 @@
     "description": "Navet är ett affärskonsultbolag specialiserat på affärssystem och digital transformation, med fokus på att hjälpa företag att optimera sina affärsprocesser genom moderna lösningar. Navet kombinerar ve"
   },
   {
+    "slug": "navipro-ab",
+    "name": "Evidi",
+    "description": ""
+  },
+  {
     "slug": "nemely",
     "name": "Nemely AB",
     "description": "Nemely är en ledande CRM-partner med djup expertis inom CRM-implementationer – från strategi och design till införande och vidareutveckling. Vårt fokus är att säkerställa lyckade implementationer som "
@@ -115,9 +120,19 @@
     "description": "Nexer är ett globalt techbolag med rötter i svensk entreprenörsanda och innovationskraft. Vi är stolta över att leda den digitala revolutionen och vara i teknikens framkant, alltid med ett agilt och f"
   },
   {
+    "slug": "point-taken",
+    "name": "Point Taken",
+    "description": "Vi är valet när du söker en skalbar CRM-lösning och smarta AI-verktyg för konsulttjänstebolag."
+  },
+  {
     "slug": "releye",
     "name": "Releye",
     "description": "Releye är en Microsoft-partner med fokus på Dynamics 365 och Power Platform."
+  },
+  {
+    "slug": "sherpas-group-ab",
+    "name": "Sherpas Group AB",
+    "description": "Sherpas Group AB erbjuder implementering och rådgivning kring Microsoft Dynamics 365 Business Central, Finance och Supply Chain Management. Företaget har kontor i Skellefteå, Stockholm, Malmö, Götebor"
   },
   {
     "slug": "sirocco-group",

@@ -86,8 +86,7 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   { from: "/beslutsmognadsindex/diagnostik", to: "/beslutsmognad/diagnostik", intendedStatus: 301 },
   { from: "/beslutsmognadsindex/tack",       to: "/beslutsmognad/tack",       intendedStatus: 301 },
 
-  // Avpublicerade partner-sidor → partnerväljaren
-  { from: "/partner/adbriq",                 to: "/valjdynamics365partner",   intendedStatus: 301 },
+  // (adbriq-profilen är återpublicerad — ingen redirect längre)
 ];
 
 const SITE_ORIGIN = "https://d365.se";

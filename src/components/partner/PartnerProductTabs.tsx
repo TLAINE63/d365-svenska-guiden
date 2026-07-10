@@ -1,5 +1,6 @@
 import type { TabKey } from "./types";
 export type { TabKey } from "./types";
+import { swedishPossessive } from "@/lib/utils";
 import { useMemo, useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
@@ -874,7 +875,7 @@ export default function PartnerProductTabs({
                     }
                     className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
                   >
-                    Läs mer om {tabMeta.label} på {partner.name}s hemsida
+                    Läs mer om {tabMeta.label} på {swedishPossessive(partner.name)} hemsida
                     <ArrowRight className="w-3.5 h-3.5" />
                   </a>
                 </div>
