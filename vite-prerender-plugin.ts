@@ -269,6 +269,17 @@ export default function prerenderPlugin(): Plugin {
 
             const filePath = join(dir, 'index.html');
             writeFileSync(filePath, page, 'utf-8');
+
+            // Also emit an extensionless-friendly HTML sibling (e.g.
+            // /partner/point-taken.html) for hosts that resolve
+            // /partner/point-taken before checking /partner/point-taken/.
+            // Without this, some no-trailing-slash partner URLs can fall back
+            // to the root SPA snapshot, which gives crawlers the homepage
+            // title/canonical even though the trailing-slash URL is correct.
+            if (routePath && !routePath.includes('.')) {
+              const htmlSibling = resolve(root, outDir, `${routePath}.html`);
+              writeFileSync(htmlSibling, page, 'utf-8');
+            }
             successCount++;
             console.log(`  ✅ ${route.path} → ${routePath || '/'}/index.html`);
 

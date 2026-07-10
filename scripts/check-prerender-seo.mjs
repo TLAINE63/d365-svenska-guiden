@@ -19,6 +19,7 @@ import { resolve, join } from "node:path";
 
 const DIST = resolve(process.cwd(), "dist");
 const ORIGIN = "https://d365.se";
+const PARTNER_DATA = resolve(process.cwd(), "src/data/partnerData.json");
 
 export const CRITICAL_ROUTES = [
   "/",
@@ -45,6 +46,11 @@ export const CRITICAL_ROUTES = [
 function htmlPathFor(route) {
   const clean = route === "/" ? "" : route.replace(/^\//, "");
   return clean ? join(DIST, clean, "index.html") : join(DIST, "index.html");
+}
+
+function htmlSiblingPathFor(route) {
+  const clean = route.replace(/^\//, "");
+  return join(DIST, `${clean}.html`);
 }
 
 function pick(html, re, group = 1) {
@@ -101,6 +107,23 @@ export function checkRoute(route) {
   return validateHtml(route, html);
 }
 
+export function checkRouteHtmlSibling(route) {
+  const file = htmlSiblingPathFor(route);
+  if (!existsSync(file)) {
+    return { route, errors: [`no-slash HTML sibling missing: ${file}`] };
+  }
+  const html = readFileSync(file, "utf-8");
+  return validateHtml(route, html);
+}
+
+export function partnerRoutes() {
+  if (!existsSync(PARTNER_DATA)) return [];
+  const partners = JSON.parse(readFileSync(PARTNER_DATA, "utf-8"));
+  return partners
+    .filter((p) => p?.slug && p?.is_featured !== false)
+    .map((p) => `/partner/${p.slug}`);
+}
+
 export function checkAll(routes = CRITICAL_ROUTES) {
   return routes.map(checkRoute);
 }
@@ -125,5 +148,21 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     console.error(`\nSEO prerender check failed for ${failed.length}/${results.length} route(s).`);
     process.exit(1);
   }
-  console.log(`\n✓ All ${results.length} critical routes have valid SEO tags.`);
+
+  const partnerSiblingResults = partnerRoutes().map(checkRouteHtmlSibling);
+  const failedPartnerSiblings = partnerSiblingResults.filter((r) => r.errors.length > 0);
+  for (const r of partnerSiblingResults) {
+    if (r.errors.length === 0) {
+      console.log(`✅ ${r.route}  →  no-slash HTML sibling OK`);
+    } else {
+      console.error(`❌ ${r.route} no-slash HTML sibling`);
+      for (const e of r.errors) console.error(`     - ${e}`);
+    }
+  }
+  if (failedPartnerSiblings.length > 0) {
+    console.error(`\nPartner no-slash prerender check failed for ${failedPartnerSiblings.length}/${partnerSiblingResults.length} route(s).`);
+    process.exit(1);
+  }
+
+  console.log(`\n✓ All ${results.length} critical routes and ${partnerSiblingResults.length} partner no-slash variants have valid SEO tags.`);
 }
