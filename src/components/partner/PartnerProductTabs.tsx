@@ -625,7 +625,7 @@ export default function PartnerProductTabs({
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-1 shrink-0" />
                     <span className="text-foreground">
-                      Företag med <strong>{data.companySize.join(", ")}</strong> anställda
+                      Företag med <strong>{data.companySize.map(formatSwedishBand).join(", ")}</strong> anställda
                     </span>
                   </li>
                 )}
@@ -633,7 +633,7 @@ export default function PartnerProductTabs({
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-1 shrink-0" />
                     <span className="text-foreground">
-                      Omsättning: <strong>{data.revenue.join(", ")}</strong>
+                      Omsättning: <strong>{data.revenue.map(formatSwedishBand).join(", ")}</strong>
                     </span>
                   </li>
                 )}
