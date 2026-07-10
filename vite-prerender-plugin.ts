@@ -78,6 +78,10 @@ export default function prerenderPlugin(): Plugin {
           build: {
             ssr: entryPath,
             outDir: tempDir,
+            // Match the client build: never inline assets. Otherwise the SSR
+            // pass emits `data:image/svg+xml,…&#x27;…` URIs for small icons,
+            // which then get baked into the prerendered HTML.
+            assetsInlineLimit: 0,
             rollupOptions: {
               output: { format: 'esm' },
               // Externalize node builtins to avoid bundling issues
