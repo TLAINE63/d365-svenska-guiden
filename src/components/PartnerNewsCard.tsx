@@ -130,8 +130,18 @@ export default function PartnerNewsCard({ item, partnerName, partnerSlug, partne
                 className="ml-auto inline-flex items-center gap-1 font-medium text-[hsl(var(--cta-orange))] hover:underline"
               >
                 Läs på originalkällan <ExternalLink className="w-3.5 h-3.5" />
-              </a>
+            </a>
             </div>
+            {!hidePartnerLink && slug && (
+              <div className="pt-1">
+                <Link
+                  to={`/partner/${slug}/`}
+                  className="inline-flex items-center gap-1 text-sm font-medium text-teal-700 hover:underline"
+                >
+                  {name ? `Läs mer om ${name}` : "Läs mer om denna partner"} <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            )}
           </CardContent>
         </div>
       </Card>
