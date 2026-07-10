@@ -304,12 +304,17 @@ function sitemapindex(items) {
 }
 
 // ---- Write sub-sitemaps + index ----
+const eventsLastmod = eventEntries.reduce(
+  (max, e) => (e.lastmod > max ? e.lastmod : max),
+  TODAY,
+);
 const groups = [
   { file: "sitemap-pages.xml", entries: pagesEntries, lastmod: pagesLastmod },
   { file: "sitemap-branscher.xml", entries: industryEntries, lastmod: industryLastmod },
   { file: "sitemap-articles.xml", entries: articleEntries, lastmod: articlesLastmod },
   { file: "sitemap-partners.xml", entries: allPartnerEntries, lastmod: partnersLastmod },
   { file: "sitemap-jamfor.xml", entries: jamforEntries, lastmod: jamforLastmod },
+  { file: "sitemap-events.xml", entries: eventEntries, lastmod: eventsLastmod },
 ];
 
 let total = 0;
