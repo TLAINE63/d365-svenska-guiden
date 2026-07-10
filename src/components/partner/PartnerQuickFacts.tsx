@@ -28,20 +28,29 @@ function parseSizeBound(value: string): { min: number; max: number | null } | nu
 
 function formatSizeRange(sizes: string[]): string {
   if (sizes.length === 0) return "";
-  if (sizes.length === 1) {
-    return `${sizes[0]} anställda`;
-  }
-  const ordered = sizes
+  const orderedIdx = sizes
     .filter((s) => SIZE_ORDER.includes(s))
-    .sort((a, b) => SIZE_ORDER.indexOf(a) - SIZE_ORDER.indexOf(b));
-  if (ordered.length === 0) return `${sizes.join(", ")} anställda`;
-  const first = parseSizeBound(ordered[0]);
-  const last = parseSizeBound(ordered[ordered.length - 1]);
-  if (!first || !last) return `${ordered.join(", ")} anställda`;
-  const min = first.min;
-  const max = last.max === null ? null : last.max;
-  if (max === null) return `${min.toLocaleString("sv-SE")}+ anställda`;
-  return `${min.toLocaleString("sv-SE")}–${max.toLocaleString("sv-SE")} anställda`;
+    .map((s) => SIZE_ORDER.indexOf(s))
+    .sort((a, b) => a - b);
+  if (orderedIdx.length === 0) return `${sizes.join(", ")} anställda`;
+
+  // Gruppera i sammanhängande segment så att luckor inte döljs.
+  // Ex: [0,1,3] → [[0,1],[3]] → "1–99, 250–999".
+  const groups: number[][] = [];
+  for (const idx of orderedIdx) {
+    const last = groups[groups.length - 1];
+    if (last && idx === last[last.length - 1] + 1) last.push(idx);
+    else groups.push([idx]);
+  }
+
+  const parts = groups.map((g) => {
+    const first = parseSizeBound(SIZE_ORDER[g[0]]);
+    const last = parseSizeBound(SIZE_ORDER[g[g.length - 1]]);
+    if (!first || !last) return SIZE_ORDER[g[0]];
+    if (last.max === null) return `${first.min.toLocaleString("sv-SE")}+`;
+    return `${first.min.toLocaleString("sv-SE")}–${last.max.toLocaleString("sv-SE")}`;
+  });
+  return `${parts.join(", ")} anställda`;
 }
 
 function dedupeStrings<T>(arr: T[]): T[] {
@@ -53,12 +62,25 @@ function formatIndustries(industries: string[]): string {
   return industries.join(", ");
 }
 
+const GEO_ORDER = ["Sverige", "Norden", "Europa", "Globalt", "Övriga världen", "Internationellt"];
+
+function sortGeography(geography: string[]): string[] {
+  return [...geography].sort((a, b) => {
+    const ia = GEO_ORDER.indexOf(a);
+    const ib = GEO_ORDER.indexOf(b);
+    if (ia === -1 && ib === -1) return a.localeCompare(b, "sv");
+    if (ia === -1) return 1;
+    if (ib === -1) return -1;
+    return ia - ib;
+  });
+}
+
 function formatGeography(geography: string[]): string {
-  if (geography.length === 0) return "";
-  if (geography.length === 1) return geography[0];
-  // Join all but the last with commas, then add " och " before the last item
-  if (geography.length === 2) return geography.join(" och ");
-  return `${geography.slice(0, -1).join(", ")} och ${geography[geography.length - 1]}`;
+  const sorted = sortGeography(geography);
+  if (sorted.length === 0) return "";
+  if (sorted.length === 1) return sorted[0];
+  if (sorted.length === 2) return sorted.join(" och ");
+  return `${sorted.slice(0, -1).join(", ")} och ${sorted[sorted.length - 1]}`;
 }
 
 function formatCompanySizeLabel(sizes: string[]): string {

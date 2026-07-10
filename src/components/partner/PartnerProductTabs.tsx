@@ -1,6 +1,6 @@
 import type { TabKey } from "./types";
 export type { TabKey } from "./types";
-import { swedishPossessive, formatSwedishPhone } from "@/lib/utils";
+import { swedishPossessive, formatSwedishPhone, formatSwedishBand } from "@/lib/utils";
 import { useMemo, useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
@@ -625,7 +625,7 @@ export default function PartnerProductTabs({
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-1 shrink-0" />
                     <span className="text-foreground">
-                      Företag med <strong>{data.companySize.join(", ")}</strong> anställda
+                      Företag med <strong>{data.companySize.map(formatSwedishBand).join(", ")}</strong> anställda
                     </span>
                   </li>
                 )}
@@ -633,7 +633,7 @@ export default function PartnerProductTabs({
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-1 shrink-0" />
                     <span className="text-foreground">
-                      Omsättning: <strong>{data.revenue.join(", ")}</strong>
+                      Omsättning: <strong>{data.revenue.map(formatSwedishBand).join(", ")}</strong>
                     </span>
                   </li>
                 )}
@@ -660,14 +660,29 @@ export default function PartnerProductTabs({
                     </div>
                   </li>
                 )}
-                {data.customerExamples.length > 0 && (
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-1 shrink-0" />
-                    <span className="text-foreground">
-                      Referenser bl.a.: <strong>{data.customerExamples.slice(0, 4).join(", ")}</strong>
-                    </span>
-                  </li>
-                )}
+                {data.customerExamples.length > 0 && (() => {
+                  // Filtrera bort tomma/platshållar-strängar ("Kundexempel kan ges på förfrågan")
+                  const placeholderRe = /^kundexempel\s+kan\s+ges/i;
+                  const real = data.customerExamples
+                    .map((s) => s.trim())
+                    .filter((s) => s && !placeholderRe.test(s));
+                  const showPlaceholder = real.length === 0 && data.customerExamples.some((s) => placeholderRe.test(s));
+                  if (real.length === 0 && !showPlaceholder) return null;
+                  const items = real.slice(0, 4);
+                  const label = items.length >= 2 ? "Referenser bl.a." : items.length === 1 ? "Referens" : "Referenser";
+                  return (
+                    <li className="flex items-start gap-3">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-1 shrink-0" />
+                      <span className="text-foreground">
+                        {showPlaceholder ? (
+                          <em className="text-muted-foreground">Kundexempel kan ges på förfrågan.</em>
+                        ) : (
+                          <>{label}: <strong>{items.join(", ")}</strong></>
+                        )}
+                      </span>
+                    </li>
+                  );
+                })()}
               {(() => {
                 const pitches = getIndustryPitchesForTab(partner, active, data.industries);
                 if (pitches.length === 0) return null;

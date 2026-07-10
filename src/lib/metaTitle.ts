@@ -35,10 +35,12 @@ const containsKeyword = (title: string, keyword: string | undefined): boolean =>
 
 const truncateAtWord = (s: string, max: number): string => {
   if (s.length <= max) return s;
-  const slice = s.slice(0, max - 1);
+  // Klipp vid ordgräns — INGEN ellipsis i själva title-taggen (den blir kvar
+  // synligt i Google-snippet och partnerprofiler; hellre en kort ren titel).
+  const slice = s.slice(0, max);
   const lastSpace = slice.lastIndexOf(" ");
   const cut = lastSpace > max * 0.6 ? slice.slice(0, lastSpace) : slice;
-  return cut.replace(/[.,;:!?–-]+$/, "") + "…";
+  return cut.replace(/[.,;:!?–-]+$/, "").trim();
 };
 
 export interface MetaTitleResult {
@@ -122,7 +124,7 @@ export const buildMetaTitle = ({
   let status: MetaTitleResult["status"] = "ok";
   if (keywordStatus === "missing") {
     status = "missing-keyword";
-  } else if (value.endsWith("…")) {
+  } else if (value.length < withKeyword.length && !value.includes(BRAND_SUFFIX.trim())) {
     status = "truncated";
     const msg = `Titel trunkerades för att rymmas inom ${META_TITLE_MAX} tecken.`;
     warnings.push(msg);

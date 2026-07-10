@@ -19,7 +19,14 @@ export const buildPartnerUrl = (
 ): string => {
   try {
     const url = new URL(partnerWebsite);
-    
+
+    // Rensa partnerns egna UTM-parametrar innan vi lägger på våra —
+    // partners länkar in med utm_source=start etc, vilket förvränger
+    // deras egen analytics när d365.se skickar trafik.
+    for (const key of Array.from(url.searchParams.keys())) {
+      if (key.toLowerCase().startsWith("utm_")) url.searchParams.delete(key);
+    }
+
     // Add UTM parameters
     url.searchParams.set('utm_source', 'd365');
     url.searchParams.set('utm_medium', 'referral');
