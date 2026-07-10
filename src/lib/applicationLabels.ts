@@ -1,15 +1,15 @@
-import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
-import FinanceIcon from "@/assets/icons/Finance.svg?url";
-import SupplyChainIcon from "@/assets/icons/SupplyChain.svg?url";
-import SalesIcon from "@/assets/icons/Sales.svg?url";
-import MarketingIcon from "@/assets/icons/Marketing.svg?url";
-import CustomerServiceIcon from "@/assets/icons/CustomerService.svg?url";
-import FieldServiceIcon from "@/assets/icons/FieldService.svg?url";
-import ContactCenterIcon from "@/assets/icons/ContactCenter.svg?url";
-import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg?url";
-import CommerceIcon from "@/assets/icons/Commerce.svg?url";
-import HumanResourcesIcon from "@/assets/icons/HumanResources.svg?url";
-import CopilotIcon from "@/assets/icons/Copilot.png";
+const BusinessCentralIcon = "/d365-icons/BusinessCentral-new.webp";
+const FinanceIcon = "/d365-icons/Finance.svg";
+const SupplyChainIcon = "/d365-icons/SupplyChain.svg";
+const SalesIcon = "/d365-icons/Sales.svg";
+const MarketingIcon = "/d365-icons/Marketing.svg";
+const CustomerServiceIcon = "/d365-icons/CustomerService.svg";
+const FieldServiceIcon = "/d365-icons/FieldService.svg";
+const ContactCenterIcon = "/d365-icons/ContactCenter.svg";
+const ProjectOperationsIcon = "/d365-icons/ProjectOperations.svg";
+const CommerceIcon = "/d365-icons/Commerce.svg";
+const HumanResourcesIcon = "/d365-icons/HumanResources.svg";
+const CopilotIcon = "/d365-icons/Copilot.png";
 
 /** Canonical merged name for Finance + Supply Chain Management. */
 export const FSCM_DISPLAY_NAME = "Finance & Supply Chain Management";

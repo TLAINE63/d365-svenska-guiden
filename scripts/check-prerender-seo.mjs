@@ -19,6 +19,7 @@ import { resolve, join } from "node:path";
 
 const DIST = resolve(process.cwd(), "dist");
 const ORIGIN = "https://d365.se";
+const PARTNER_DATA = resolve(process.cwd(), "src/data/partnerData.json");
 
 export const CRITICAL_ROUTES = [
   "/",
@@ -47,6 +48,11 @@ function htmlPathFor(route) {
   return clean ? join(DIST, clean, "index.html") : join(DIST, "index.html");
 }
 
+function htmlSiblingPathFor(route) {
+  const clean = route.replace(/^\//, "");
+  return join(DIST, `${clean}.html`);
+}
+
 function pick(html, re, group = 1) {
   const m = html.match(re);
   return m ? m[group].trim() : "";
@@ -54,6 +60,7 @@ function pick(html, re, group = 1) {
 
 export function validateHtml(route, html) {
   const errors = [];
+  const expectedUrl = `${ORIGIN}${route === "/" ? "/" : route.endsWith("/") ? route : `${route}/`}`;
 
   const title = pick(html, /<title[^>]*>([\s\S]*?)<\/title>/i);
   if (!title) errors.push("empty <title>");
@@ -70,6 +77,7 @@ export function validateHtml(route, html) {
   ) || pick(html, /<link[^>]+href=["']([^"']+)["'][^>]+rel=["']canonical["']/i);
   if (!canonical) errors.push("missing canonical");
   else if (!canonical.startsWith(ORIGIN)) errors.push(`canonical not on ${ORIGIN}: ${canonical}`);
+  else if (canonical !== expectedUrl) errors.push(`canonical does not self-reference ${expectedUrl}: ${canonical}`);
 
   const ogTitle = pick(
     html,
@@ -88,6 +96,24 @@ export function validateHtml(route, html) {
     /<meta[^>]+property=["']og:url["'][^>]*content=["']([^"']+)["']/i,
   );
   if (!ogUrl) errors.push("missing og:url");
+  else if (ogUrl !== expectedUrl) errors.push(`og:url does not self-reference ${expectedUrl}: ${ogUrl}`);
+
+  if (route.startsWith("/partner/")) {
+    if (/data:image\/svg\+xml/i.test(html)) errors.push("partner HTML contains inline SVG data URI");
+    if (/<img\b[^>]*\bsrc=["']\s*["']/i.test(html)) errors.push("partner HTML contains an empty image src");
+  }
+
+  if (route === "/partner/vivicta") {
+    const forbidden = [
+      "Vid behov av rådgivning kring val av partnerkategori",
+      "över hela systemets livscyke",
+      "Kundexempelkangespåföfrågan",
+      "Anton Perssson",
+    ];
+    for (const text of forbidden) {
+      if (html.includes(text)) errors.push(`Vivicta forbidden string still present: ${text}`);
+    }
+  }
 
   return { route, errors, title, canonical };
 }
@@ -99,6 +125,23 @@ export function checkRoute(route) {
   }
   const html = readFileSync(file, "utf-8");
   return validateHtml(route, html);
+}
+
+export function checkRouteHtmlSibling(route) {
+  const file = htmlSiblingPathFor(route);
+  if (!existsSync(file)) {
+    return { route, errors: [`no-slash HTML sibling missing: ${file}`] };
+  }
+  const html = readFileSync(file, "utf-8");
+  return validateHtml(route, html);
+}
+
+export function partnerRoutes() {
+  if (!existsSync(PARTNER_DATA)) return [];
+  const partners = JSON.parse(readFileSync(PARTNER_DATA, "utf-8"));
+  return partners
+    .filter((p) => p?.slug && p?.is_featured !== false)
+    .map((p) => `/partner/${p.slug}`);
 }
 
 export function checkAll(routes = CRITICAL_ROUTES) {
@@ -125,5 +168,21 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     console.error(`\nSEO prerender check failed for ${failed.length}/${results.length} route(s).`);
     process.exit(1);
   }
-  console.log(`\n✓ All ${results.length} critical routes have valid SEO tags.`);
+
+  const partnerSiblingResults = partnerRoutes().map(checkRouteHtmlSibling);
+  const failedPartnerSiblings = partnerSiblingResults.filter((r) => r.errors.length > 0);
+  for (const r of partnerSiblingResults) {
+    if (r.errors.length === 0) {
+      console.log(`✅ ${r.route}  →  no-slash HTML sibling OK`);
+    } else {
+      console.error(`❌ ${r.route} no-slash HTML sibling`);
+      for (const e of r.errors) console.error(`     - ${e}`);
+    }
+  }
+  if (failedPartnerSiblings.length > 0) {
+    console.error(`\nPartner no-slash prerender check failed for ${failedPartnerSiblings.length}/${partnerSiblingResults.length} route(s).`);
+    process.exit(1);
+  }
+
+  console.log(`\n✓ All ${results.length} critical routes and ${partnerSiblingResults.length} partner no-slash variants have valid SEO tags.`);
 }

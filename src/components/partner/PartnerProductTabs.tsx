@@ -29,13 +29,16 @@ import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 import { appToProductFilterKey, type ProductFilterKey } from "@/lib/productFilterGroup";
 
-import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
-import FinanceIcon from "@/assets/icons/Finance.svg?url";
-import SalesIcon from "@/assets/icons/Sales.svg?url";
-import CustomerServiceIcon from "@/assets/icons/CustomerService.svg?url";
-import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg?url";
-import CommerceIcon from "@/assets/icons/Commerce.svg?url";
-import HumanResourcesIcon from "@/assets/icons/HumanResources.svg?url";
+const BusinessCentralIcon = "/d365-icons/BusinessCentral-new.webp";
+const FinanceIcon = "/d365-icons/Finance.svg";
+const SalesIcon = "/d365-icons/Sales.svg";
+const MarketingIcon = "/d365-icons/Marketing.svg";
+const CustomerServiceIcon = "/d365-icons/CustomerService.svg";
+const FieldServiceIcon = "/d365-icons/FieldService.svg";
+const ContactCenterIcon = "/d365-icons/ContactCenter.svg";
+const ProjectOperationsIcon = "/d365-icons/ProjectOperations.svg";
+const CommerceIcon = "/d365-icons/Commerce.svg";
+const HumanResourcesIcon = "/d365-icons/HumanResources.svg";
 
 const SPECIALTY_APPLICATIONS = ["Project Operations", "Commerce", "Human Resources"];
 
@@ -69,11 +72,11 @@ const appIconSrc: Record<string, string> = {
   "Finance & Supply Chain": FinanceIcon,
   "Sales": SalesIcon,
   "Customer Service": CustomerServiceIcon,
-  "Field Service": CustomerServiceIcon,
-  "Contact Center": CustomerServiceIcon,
-  "Customer Insights": SalesIcon,
-  "Customer Insights (Marketing)": SalesIcon,
-  "Marketing": SalesIcon,
+  "Field Service": FieldServiceIcon,
+  "Contact Center": ContactCenterIcon,
+  "Customer Insights": MarketingIcon,
+  "Customer Insights (Marketing)": MarketingIcon,
+  "Marketing": MarketingIcon,
   "Project Operations": ProjectOperationsIcon,
   "Commerce": CommerceIcon,
   "Human Resources": HumanResourcesIcon,
