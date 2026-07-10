@@ -456,7 +456,9 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
           let items = raw.includes("\n")
             ? raw.split(/\r?\n+/).filter(Boolean)
             : raw.split(/\.\s+/).filter(s => s.trim().length > 8).map(s => s.replace(/\.$/, ""));
-          items = items.map(s => s.replace(/^\s*[-–—•✅\d]+\.?\s*/g, "").trim()).filter(Boolean);
+          // Strippa listmarkörer (bullets, "1.", "2)" osv). VIKTIGT: matcha bara siffror
+          // som följs av "." eller ")" — annars slukas siffror i företagsnamn (t.ex. "4PS").
+          items = items.map(s => s.replace(/^\s*(?:[-–—•✅]+\s*|\d+[.)]\s+)/, "").trim()).filter(Boolean);
           return items.slice(0, 6).map((item, idx) => (
             <li key={idx} className="flex items-start gap-2 text-sm sm:text-base text-slate-700">
               <CheckCircle2 className="w-4 h-4 text-[hsl(var(--cta-orange))] mt-0.5 shrink-0" />
