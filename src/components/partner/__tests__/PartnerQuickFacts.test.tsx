@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { PartnerQuickFacts } from "@/components/partner/PartnerQuickFacts";
 import type { DatabasePartner } from "@/hooks/usePartners";
 
-function makePartner(overrides: Partial<DatabasePartner["product_filters"]> = {}): DatabasePartner {
+function makePartner(bcOverride: Record<string, unknown> = {}): DatabasePartner {
   return {
     id: "test-id",
     name: "Testpartner",
@@ -15,11 +15,13 @@ function makePartner(overrides: Partial<DatabasePartner["product_filters"]> = {}
     product_filters: {
       bc: {
         industries: ["Tillverkningsindustri", "Grossist & Distribution"],
+        secondaryIndustries: [],
         companySize: ["1-49", "50-99", "250-999"],
         revenue: [],
         geography: ["Europa", "Sverige", "Norden"],
+        ranking: 0,
+        ...bcOverride,
       },
-      ...overrides,
     },
   } as unknown as DatabasePartner;
 }
