@@ -70,6 +70,8 @@ const STATIC_ROUTES = [
   { path: "/kunskapscenter/upphandling/", changefreq: "weekly", priority: "0.7" },
   { path: "/kunskapscenter/partners/", changefreq: "weekly", priority: "0.7" },
   { path: "/kunskapscenter/upphandlingsresan/", changefreq: "monthly", priority: "0.7" },
+  { path: "/kunskapscenter/business-central-tillagg/", changefreq: "weekly", priority: "0.7" },
+  { path: "/kunskapscenter/business-central-tillagg/katalog/", changefreq: "weekly", priority: "0.6" },
   { path: "/upphandlingsguiden/", changefreq: "monthly", priority: "0.8" },
   { path: "/kunskapscenter/video/byta-affarssystem/", changefreq: "monthly", priority: "0.6" },
   { path: "/kunskapscenter/video/crm-affarssystem-byte/", changefreq: "monthly", priority: "0.6" },
@@ -227,6 +229,30 @@ if (_supaUrl && _supaKey) {
 }
 const allPartnerEntries = [...partnerEntries, ...basicPartnerEntries];
 
+// Event-detaljsidor (approved) från databasen
+let eventEntries = [];
+if (_supaUrl && _supaKey) {
+  try {
+    const res = await fetch(
+      `${_supaUrl}/rest/v1/partner_events?select=id,updated_at&status=eq.approved&order=event_date.desc`,
+      { headers: { apikey: _supaKey, Authorization: `Bearer ${_supaKey}` } },
+    );
+    if (res.ok) {
+      const rows = await res.json();
+      eventEntries = (rows || [])
+        .filter((r) => r && r.id)
+        .map((r) => ({
+          path: `/events/${r.id}/`,
+          changefreq: "weekly",
+          priority: "0.5",
+          lastmod: (r.updated_at || "").slice(0, 10) || TODAY,
+        }));
+    }
+  } catch (e) {
+    console.warn(`[sitemap] events fetch failed: ${e.message}`);
+  }
+}
+
 // Jämför (ERP comparisons)
 const jamforSrc = "src/data/erpComparisons.ts";
 const jamforLastmod = mtimeISO(jamforSrc);
@@ -278,12 +304,17 @@ function sitemapindex(items) {
 }
 
 // ---- Write sub-sitemaps + index ----
+const eventsLastmod = eventEntries.reduce(
+  (max, e) => (e.lastmod > max ? e.lastmod : max),
+  TODAY,
+);
 const groups = [
   { file: "sitemap-pages.xml", entries: pagesEntries, lastmod: pagesLastmod },
   { file: "sitemap-branscher.xml", entries: industryEntries, lastmod: industryLastmod },
   { file: "sitemap-articles.xml", entries: articleEntries, lastmod: articlesLastmod },
   { file: "sitemap-partners.xml", entries: allPartnerEntries, lastmod: partnersLastmod },
   { file: "sitemap-jamfor.xml", entries: jamforEntries, lastmod: jamforLastmod },
+  { file: "sitemap-events.xml", entries: eventEntries, lastmod: eventsLastmod },
 ];
 
 let total = 0;
