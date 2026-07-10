@@ -115,7 +115,7 @@ export default function PartnerNewsCard({ item, partnerName, partnerSlug, partne
               {item.editorial_title}
             </h3>
 
-            <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
+            <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
               {item.summary}
             </p>
 
@@ -189,7 +189,7 @@ export default function PartnerNewsCard({ item, partnerName, partnerSlug, partne
           {item.editorial_title}
         </h3>
 
-        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+        <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
           {item.summary}
         </p>
 
