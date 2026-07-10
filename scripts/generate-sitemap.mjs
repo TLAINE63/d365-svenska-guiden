@@ -229,6 +229,30 @@ if (_supaUrl && _supaKey) {
 }
 const allPartnerEntries = [...partnerEntries, ...basicPartnerEntries];
 
+// Event-detaljsidor (approved) från databasen
+let eventEntries = [];
+if (_supaUrl && _supaKey) {
+  try {
+    const res = await fetch(
+      `${_supaUrl}/rest/v1/partner_events?select=id,updated_at&status=eq.approved&order=event_date.desc`,
+      { headers: { apikey: _supaKey, Authorization: `Bearer ${_supaKey}` } },
+    );
+    if (res.ok) {
+      const rows = await res.json();
+      eventEntries = (rows || [])
+        .filter((r) => r && r.id)
+        .map((r) => ({
+          path: `/events/${r.id}/`,
+          changefreq: "weekly",
+          priority: "0.5",
+          lastmod: (r.updated_at || "").slice(0, 10) || TODAY,
+        }));
+    }
+  } catch (e) {
+    console.warn(`[sitemap] events fetch failed: ${e.message}`);
+  }
+}
+
 // Jämför (ERP comparisons)
 const jamforSrc = "src/data/erpComparisons.ts";
 const jamforLastmod = mtimeISO(jamforSrc);
