@@ -578,11 +578,11 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   )}
   {displayPhone && (
   <a
-  href={`tel:${displayPhone}`}
+  href={`tel:${String(displayPhone).replace(/[\s\-()]/g, "")}`}
   className="inline-flex items-center gap-1.5 text-sm text-slate-700 hover:text-emerald-700 transition-colors"
   >
   <Phone className="w-3.5 h-3.5 text-emerald-600" />
-  <span className="font-medium">{displayPhone}</span>
+  <span className="font-medium">{formatSwedishPhone(String(displayPhone))}</span>
   </a>
   )}
   </div>
