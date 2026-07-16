@@ -543,6 +543,10 @@ const Index = () => {
           </div>
         </section>
 
+        <Suspense fallback={null}>
+          <HomePartnerNewsSection />
+        </Suspense>
+
         {/* SECTION 5 — TRUST */}
         <section className="section-divider py-14 sm:py-18 bg-[hsl(var(--hero-dark))] border-b border-[hsl(var(--line-dark))]">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
@@ -711,9 +715,7 @@ const Index = () => {
           </div>
         </section>
 
-        <Suspense fallback={null}>
-          <HomePartnerNewsSection />
-        </Suspense>
+
 
 
         {/* FAQ */}
