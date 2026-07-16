@@ -53,6 +53,7 @@ export default function PartnerProfileNewsSection({
           partnerSlug={partnerSlug}
           partnerLogoUrl={partnerLogoUrl}
           hidePartnerLink
+          clickSource="partner_profile"
         />
       ))}
     </div>
