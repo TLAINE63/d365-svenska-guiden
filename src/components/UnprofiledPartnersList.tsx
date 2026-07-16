@@ -93,7 +93,7 @@ const UnprofiledPartnersList = ({
 
   const heading = productKey && productLabel
     ? `Övriga partners som arbetar med ${productLabel}`
-    : "Övriga D365-partners på marknaden";
+    : "Övriga Dynamics 365-partners på den svenska marknaden";
   const intro = productKey && productLabel
     ? `För full transparens listar vi även andra partners som angett att de arbetar med ${productLabel}, men som ännu inte är publicerade med en fullständig profil på d365.se. Vill du veta mer om någon av dem – eller få hjälp att jämföra – kontakta oss så vägleder vi dig vidare.`
     : "För full transparens listar vi även andra Dynamics 365-partners som är verksamma i Sverige. Dessa har vi ännu inte profilerat på d365.se. Vill du veta mer om någon av dem – eller få hjälp att jämföra – kontakta oss så vägleder vi dig vidare.";
