@@ -1,15 +1,6 @@
 import { Link } from "react-router-dom";
-import { Building2, FileText, Globe2, Info, MapPin, Tag, Users } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import {
-  BASIC_COPY,
-  BasicPartner,
-  PRODUCT_LABEL,
-  PRODUCT_ORDER,
-  ProductKey,
-  normalizeObservedIndustries,
-} from "@/hooks/useBasicPartners";
+import { MapPin } from "lucide-react";
+import { BASIC_COPY, BasicPartner } from "@/hooks/useBasicPartners";
 
 interface PartnerBasicCardProps {
   partner: BasicPartner;
@@ -18,67 +9,14 @@ interface PartnerBasicCardProps {
    * list: shown inline in a filter/marketplace list (compact, tag "Basic", link to standalone view)
    */
   variant?: "list" | "standalone";
-  /** For list rendering: highlight a specific industry the user filtered on. */
-  highlightedIndustry?: string | null;
-}
-
-function observedProductKeys(p: BasicPartner): ProductKey[] {
-  const src = p.observed_products || {};
-  return PRODUCT_ORDER.filter((k) => !!src[k]);
-}
-
-const PRODUCT_THEME: Record<ProductKey, string> = {
-  bc: "bg-business-central text-business-central-foreground",
-  fsc: "bg-finance-supply text-finance-supply-foreground",
-  sales: "bg-sales text-sales-foreground",
-  service: "bg-customer-service text-customer-service-foreground",
-};
-
-function SectionHeader({
-  icon: Icon,
-  label,
-  tooltip,
-  tooltipLabel,
-}: {
-  icon: React.ElementType;
-  label: string;
-  tooltip?: string;
-  tooltipLabel?: string;
-}) {
-  return (
-    <div className="mb-2 flex items-center gap-1.5 border-l-2 border-accent pl-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-      <Icon className="h-3.5 w-3.5 text-accent" aria-hidden />
-      {label}
-      {tooltip && (
-        <Tooltip>
-          <TooltipTrigger asChild>
-                <button
-                  type="button"
-                  className="inline-flex text-muted-foreground/70 transition-colors hover:text-muted-foreground focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
-                  aria-label={tooltipLabel || `Om ${label.toLowerCase()}`}
-                >
-              <Info className="h-3 w-3" />
-            </button>
-          </TooltipTrigger>
-          <TooltipContent side="top" className="max-w-xs text-xs">
-            {tooltip}
-          </TooltipContent>
-        </Tooltip>
-      )}
-    </div>
-  );
 }
 
 export function PartnerBasicCard({
   partner,
   variant = "list",
-  highlightedIndustry,
 }: PartnerBasicCardProps) {
-  const products = observedProductKeys(partner);
-  const industriesByProduct = normalizeObservedIndustries(partner.observed_industries);
-  const locations = (partner.observed_locations || []).slice(0, 4);
   const isStandalone = variant === "standalone";
-  const extended = (partner.extended_content || "").trim();
+  const locations = (partner.observed_locations || []).slice(0, 4);
 
   return (
     <article
@@ -119,147 +57,6 @@ export function PartnerBasicCard({
           )}
         </div>
       </header>
-
-
-      {/* Observed products */}
-      {products.length > 0 && (
-        <section className={isStandalone ? "mb-4 rounded bg-secondary/50 p-3" : "mb-3"}>
-          <SectionHeader
-            icon={Building2}
-            label="Observerade produktområden"
-            tooltip={BASIC_COPY.productsLabel}
-            tooltipLabel="Om observerade produktområden"
-          />
-          <div className="flex flex-wrap gap-1.5">
-            {products.map((k) => (
-              <Badge
-                key={k}
-                variant="secondary"
-                className={`text-xs font-medium transition-opacity hover:opacity-90 ${PRODUCT_THEME[k]}`}
-              >
-                {PRODUCT_LABEL[k]}
-              </Badge>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Observed industries per product */}
-      {products.some((k) => (industriesByProduct[k] || []).length > 0) && (
-        <section className={isStandalone ? "mb-4 rounded bg-secondary/50 p-3" : "mb-3"}>
-          <SectionHeader
-            icon={Tag}
-            label="Observerad branschinriktning"
-            tooltip={BASIC_COPY.industriesLabel}
-            tooltipLabel="Om observerad branschinriktning"
-          />
-          <ul className="space-y-1.5">
-            {products.map((k) => {
-              const list = industriesByProduct[k] || [];
-              if (!list.length) return null;
-              return (
-                <li key={k} className="text-xs text-muted-foreground">
-                  <span className="font-medium text-foreground">
-                    {PRODUCT_LABEL[k]}:
-                  </span>{" "}
-                  {list.map((ind, i) => (
-                    <span key={ind}>
-                      <span
-                        className={
-                          highlightedIndustry === ind
-                            ? "font-semibold text-foreground underline decoration-dotted underline-offset-2"
-                            : ""
-                        }
-                      >
-                        {ind}
-                      </span>
-                      {i < list.length - 1 ? ", " : ""}
-                    </span>
-                  ))}
-                </li>
-              );
-            })}
-          </ul>
-        </section>
-      )}
-
-      {/* Målgrupp & leveransgeografi per produktområde */}
-      {(() => {
-        const sizes = partner.observed_company_sizes || {};
-        const revs = partner.observed_revenue || {};
-        const geos = partner.observed_delivery_geo || {};
-        const hasAny = products.some(
-          (k) =>
-            (sizes[k] || []).length > 0 ||
-            (revs[k] || []).length > 0 ||
-            (geos[k] || []).length > 0,
-        );
-        if (!hasAny) return null;
-        return (
-          <section className={isStandalone ? "mb-4 rounded bg-secondary/50 p-3" : "mb-3"}>
-            <SectionHeader
-              icon={Users}
-              label="Observerad målgrupp & leverans"
-              tooltip="Sammanställt från publika källor. Ej bekräftat av partnern."
-              tooltipLabel="Om observerad målgrupp och leveransgeografi"
-            />
-            <ul className="space-y-2">
-              {products.map((k) => {
-                const s = sizes[k] || [];
-                const r = revs[k] || [];
-                const g = geos[k] || [];
-                if (!s.length && !r.length && !g.length) return null;
-                return (
-                  <li key={k} className="text-xs text-muted-foreground">
-                    <div className="font-medium text-foreground">
-                      {PRODUCT_LABEL[k]}
-                    </div>
-                    <div className="mt-0.5 flex flex-wrap gap-x-3 gap-y-0.5">
-                      {s.length > 0 && (
-                        <span>
-                          <span className="text-[10px] uppercase tracking-wide">
-                            Anställda:
-                          </span>{" "}
-                          {s.join(", ")}
-                        </span>
-                      )}
-                      {r.length > 0 && (
-                        <span>
-                          <span className="text-[10px] uppercase tracking-wide">
-                            Omsättning:
-                          </span>{" "}
-                          {r.join(", ")}
-                        </span>
-                      )}
-                      {g.length > 0 && (
-                        <span className="inline-flex items-center gap-1">
-                          <Globe2 className="h-3 w-3" aria-hidden />
-                          {g.join(", ")}
-                        </span>
-                      )}
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </section>
-        );
-      })()}
-
-      {/* Extended observed description – standalone only */}
-      {isStandalone && extended && (
-        <section className="mb-4 rounded bg-secondary/50 p-3">
-          <SectionHeader
-            icon={FileText}
-            label="Fördjupning"
-            tooltip={BASIC_COPY.extendedLabel}
-            tooltipLabel="Om fördjupningstexten"
-          />
-          <div className="whitespace-pre-line text-sm leading-relaxed text-foreground/90">
-            {extended}
-          </div>
-        </section>
-      )}
 
       {/* Footer + CTA */}
       <footer className="relative z-10 mt-auto border-t border-border pt-4">
