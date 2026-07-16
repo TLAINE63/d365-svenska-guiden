@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { MapPin, FileText, Info } from "lucide-react";
+import { MapPin, FileText, ScrollText, Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { BASIC_COPY, BasicPartner } from "@/hooks/useBasicPartners";
 
