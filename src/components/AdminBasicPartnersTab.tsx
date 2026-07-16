@@ -187,6 +187,7 @@ export default function AdminBasicPartnersTab() {
         observed_locations: editing.observed_locations || [],
         observed_updated_at: new Date().toISOString(),
         extended_content: (editing.extended_content || "").trim() || null,
+        extended_summary: (editing.extended_summary || "").trim() || null,
         hide_basic_card: editing.hide_basic_card === true,
         // Basic partners never enter the paid rotation. Enforce defensively:
         is_featured: false,
