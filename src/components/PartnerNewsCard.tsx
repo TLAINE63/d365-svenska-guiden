@@ -152,7 +152,7 @@ export default function PartnerNewsCard({ item, partnerName, partnerSlug, partne
   }
 
   return (
-    <Card className="h-full flex flex-col overflow-hidden border-border bg-card hover:shadow-lg transition-shadow">
+    <Card className="group/card h-full flex flex-col overflow-hidden border-border bg-card transition-all hover:border-[hsl(var(--accent))] hover:shadow-xl hover:-translate-y-1 focus-within:ring-2 focus-within:ring-[hsl(var(--accent))] focus-within:ring-offset-2 focus-within:ring-offset-background focus-within:border-[hsl(var(--accent))]">
       {item.image_url ? (
         <div className="aspect-[16/9] w-full overflow-hidden bg-muted">
           <img
