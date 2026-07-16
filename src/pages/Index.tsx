@@ -711,9 +711,7 @@ const Index = () => {
           </div>
         </section>
 
-        <Suspense fallback={null}>
-          <HomePartnerNewsSection />
-        </Suspense>
+
 
 
         {/* FAQ */}
