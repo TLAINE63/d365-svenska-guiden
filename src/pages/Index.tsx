@@ -72,6 +72,19 @@ import LatestArticlesStrip from "@/components/LatestArticlesStrip";
 import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
 import TrustBanner from "@/components/TrustBanner";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
+import partnerData from "@/data/partnerData.json";
+
+// Endast branscher som har minst en publicerad (verifierad) partner
+const publishedPartners = (partnerData as Array<{ is_featured?: boolean; industries?: string[]; secondary_industries?: string[] }>).filter(
+  (p) => p.is_featured
+);
+const publishedIndustryNames = new Set<string>();
+publishedPartners.forEach((p) => {
+  (p.industries || []).forEach((n) => publishedIndustryNames.add(n));
+  (p.secondary_industries || []).forEach((n) => publishedIndustryNames.add(n));
+});
+const HERO_INDUSTRIES = STANDARD_INDUSTRIES.filter((i) => publishedIndustryNames.has(i.name));
+const VERIFIED_PARTNER_COUNT = publishedPartners.length;
 
 
 const homeFaqs = [
@@ -262,7 +275,7 @@ const Index = () => {
                         aria-label="Välj bransch"
                       >
                         <option value="" className="bg-[hsl(var(--hero-dark))]">Alla branscher</option>
-                        {STANDARD_INDUSTRIES.map((i) => (
+                        {HERO_INDUSTRIES.map((i) => (
                           <option key={i.slug} value={i.slug} className="bg-[hsl(var(--hero-dark))]">{i.name}</option>
                         ))}
                       </select>
@@ -318,10 +331,10 @@ const Index = () => {
               {/* Trust strip — visible above the fold */}
               <div className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
                 {[
-                  { n: "40+", t: "Verifierade D365-partners" },
-                  { n: "21", t: "Branscher" },
+                  { n: `${VERIFIED_PARTNER_COUNT}`, t: "Verifierade D365-partners" },
+                  { n: `${HERO_INDUSTRIES.length}`, t: "Branscher" },
                   { n: "8+", t: "Kostnadsfria beslutsverktyg" },
-                  { n: "0 kr", t: "Ingen partner betalar för placering" },
+                  { n: "0 kr", t: "Ingen partner betalar för en bättre placering" },
                 ].map((s) => (
                   <div key={s.t} className="bg-white/[0.04] border border-white/10 rounded px-3 py-2.5">
                     <div className="text-[15px] sm:text-[17px] font-bold text-white leading-tight">{s.n}</div>
