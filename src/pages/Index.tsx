@@ -335,25 +335,21 @@ const Index = () => {
                 </p>
               </div>
 
-              {/* Identified partners stat — visible above the fold */}
-              <div className="mb-3">
-                <div className="inline-flex items-center gap-3 bg-white/[0.04] border border-white/10 rounded px-3 py-2.5">
+              {/* Trust / stats strip — unified grid with equal height and rhythm */}
+              <div className="mb-8 grid grid-cols-2 md:grid-cols-5 gap-2 sm:gap-3 auto-rows-fr">
+                <div className="col-span-2 md:col-span-1 bg-white/[0.04] border border-white/10 rounded px-3 sm:px-4 py-2.5 sm:py-3 min-h-[72px] flex flex-col justify-center">
                   <div className="text-[15px] sm:text-[17px] font-bold text-white leading-tight">{IDENTIFIED_PARTNER_COUNT}</div>
                   <div className="text-[11px] sm:text-[12px] text-white/60 leading-tight">Identifierade Dynamics 365-partners i Sverige</div>
                 </div>
-              </div>
-
-              {/* Trust strip — visible above the fold */}
-              <div className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
                 {[
                   { n: `${VERIFIED_PARTNER_COUNT}`, t: "Verifierade Dynamics 365-partners" },
                   { n: `${HERO_INDUSTRIES.length}`, t: "Branscher" },
                   { n: "8+", t: "Kostnadsfria beslutsverktyg" },
                   { n: "0 kr", t: "Ingen partner betalar för en bättre placering" },
                 ].map((s) => (
-                  <div key={s.t} className="bg-white/[0.04] border border-white/10 rounded px-3 py-2.5">
+                  <div key={s.t} className="bg-white/[0.04] border border-white/10 rounded px-3 sm:px-4 py-2.5 sm:py-3 min-h-[72px] flex flex-col justify-center">
                     <div className="text-[15px] sm:text-[17px] font-bold text-white leading-tight">{s.n}</div>
-                    <div className="text-[11px] sm:text-[12px] text-white/60 leading-tight mt-0.5">{s.t}</div>
+                    <div className="text-[11px] sm:text-[12px] text-white/60 leading-tight">{s.t}</div>
                   </div>
                 ))}
               </div>
