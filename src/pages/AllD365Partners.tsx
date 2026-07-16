@@ -11,7 +11,9 @@ import TrustBanner from "@/components/TrustBanner";
 import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { useBasicPartners, PRODUCT_LABEL, PRODUCT_ORDER } from "@/hooks/useBasicPartners";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Search, X } from "lucide-react";
 import partnerDataJson from "@/data/partnerData.json";
 
 const breadcrumbs = [
