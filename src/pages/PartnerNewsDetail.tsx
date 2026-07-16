@@ -68,13 +68,46 @@ export default function PartnerNewsDetail() {
   const partner = item.partner;
   const productAreas = item.product_areas?.length ? item.product_areas : [item.product_area];
 
+  const cleanSummary = (item.summary || "").replace(/\s+/g, " ").trim();
+  const metaDescription = (() => {
+    const base = cleanSummary || `Redaktionellt utvalt från ${partner?.name ?? "Dynamics 365-partner"} på d365.se.`;
+    if (base.length <= 160) return base;
+    const cut = base.slice(0, 157);
+    const lastSpace = cut.lastIndexOf(" ");
+    return `${lastSpace > 100 ? cut.slice(0, lastSpace) : cut}…`;
+  })();
+
+  const titleParts = [item.editorial_title];
+  if (partner?.name) titleParts.push(partner.name);
+  titleParts.push("Partnernytt");
+  const seoTitle = titleParts.join(" | ");
+
+  const productLabels = productAreas.map((a) => partnerNewsProductLabel(a));
+  const articleTags = [
+    partnerNewsTypeLabel(item.news_type),
+    ...productLabels,
+    item.industry,
+    partner?.name,
+  ].filter((v): v is string => Boolean(v));
+
+  const ogImage = item.image_url || undefined;
+
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`${item.editorial_title} | Partnernytt | d365.se`}
-        description={item.summary?.slice(0, 160) || "Utvalt från Dynamics 365-partners."}
+        title={seoTitle}
+        description={metaDescription}
         canonicalPath={`/partnernytt/artikel/${item.id}/`}
+        ogType="article"
+        ogImage={ogImage}
+        ogImageAlt={ogImage ? item.editorial_title : undefined}
+        articlePublishedTime={item.news_date ? new Date(item.news_date).toISOString() : undefined}
+        articleModifiedTime={item.updated_at ? new Date(item.updated_at).toISOString() : undefined}
+        articleAuthor={partner?.name}
+        articleSection={productLabels[0]}
+        articleTags={articleTags}
       />
+
       <Navbar />
 
       <main className="pt-24">
