@@ -335,6 +335,14 @@ const Index = () => {
                 </p>
               </div>
 
+              {/* Identified partners stat — visible above the fold */}
+              <div className="mb-3">
+                <div className="inline-flex items-center gap-3 bg-white/[0.04] border border-white/10 rounded px-4 py-3">
+                  <div className="text-[24px] sm:text-[32px] font-bold text-white leading-none">{IDENTIFIED_PARTNER_COUNT}</div>
+                  <div className="text-[13px] sm:text-[14px] text-white/80 leading-tight">Identifierade Dynamics 365-partners i Sverige</div>
+                </div>
+              </div>
+
               {/* Trust strip — visible above the fold */}
               <div className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
                 {[
