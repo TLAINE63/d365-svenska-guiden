@@ -167,14 +167,7 @@ export async function generateCrmResultPdf(
   const tops = topCrmProfiles(score, 3);
   if (tops.length > 0) {
     y = ensureSpace(14, y);
-    doc.setDrawColor(...BRAND_PETROL);
-    doc.line(margin, y, pageW - margin, y);
-    y += 6;
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(12);
-    doc.setTextColor(...BRAND_DARK);
-    doc.text("Kort motivering – här matchar ni starkast", margin, y);
-    y += 6;
+    y = drawSectionHeading(doc, "Kort motivering – här matchar ni starkast", y + 2);
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
