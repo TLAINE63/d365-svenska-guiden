@@ -208,6 +208,7 @@ export default function PartnerNewsCard({ item, partnerName, partnerSlug, partne
 
         <Link
           to={`/partnernytt/artikel/${item.id}/`}
+          onClick={handleTitleClick}
           className="group inline-block text-lg font-semibold text-foreground leading-snug transition-colors hover:text-[hsl(var(--accent))] group-hover/card:text-[hsl(var(--accent))] focus-visible:outline-none focus-visible:text-[hsl(var(--accent))] focus-visible:underline underline-offset-4 rounded-sm"
         >
           {item.editorial_title}
