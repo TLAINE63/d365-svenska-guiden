@@ -306,18 +306,7 @@ export async function generateRoiPdf(data: RoiPdfData) {
 
 
   // ---- FOOTER on every page ----
-  const total = doc.getNumberOfPages();
-  for (let i = 1; i <= total; i++) {
-    doc.setPage(i);
-    doc.setDrawColor(...BRAND_PETROL);
-    doc.setLineWidth(0.3);
-    doc.line(margin, pageH - 13, pageW - margin, pageH - 13);
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(8);
-    doc.setTextColor(...MUTED);
-    doc.text(data.pageUrl, margin, pageH - 8);
-    doc.text(`Sida ${i} av ${total}`, pageW - margin, pageH - 8, { align: "right" });
-  }
+  finalizePdfWithFooter(doc, `ROI & TCO – ${data.productName}`);
 
   doc.save(data.fileName);
 }
