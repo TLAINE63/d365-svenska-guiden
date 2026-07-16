@@ -312,7 +312,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  className="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90"
  >
  <Building2 className="w-4 h-4" />
- Se {matchingPartners.length} partners inom {industryName.toLowerCase()}
+ Se {matchingPartners.length === 1 ? 'en partner' : `${matchingPartners.length} partners`} inom {industryName.toLowerCase()}
  <ArrowRight className="w-4 h-4" />
  </a>
  </div>
@@ -451,7 +451,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  <div className="flex items-center gap-2 mb-2">
  <Building2 className="w-5 h-5 text-primary" />
  <h2 className="text-2xl font-bold">
- {matchingPartners.length} partners inom {industryName}
+ {matchingPartners.length === 1 ? '1 partner' : `${matchingPartners.length} partners`} inom {industryName}
  </h2>
  </div>
  <p className="text-sm text-muted-foreground mb-6">
