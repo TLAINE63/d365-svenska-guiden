@@ -18,6 +18,10 @@ export function PartnerBasicCard({
 }: PartnerBasicCardProps) {
   const isStandalone = variant === "standalone";
   const locations = (partner.observed_locations || []).slice(0, 4);
+  const firstParagraph =
+    isStandalone && partner.extended_content
+      ? partner.extended_content.split(/\n\s*\n/)[0].replace(/\n+/g, " ").trim()
+      : null;
 
   return (
     <article
