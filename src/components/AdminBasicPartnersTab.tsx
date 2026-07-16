@@ -57,6 +57,7 @@ type BasicRow = {
   observed_locations: string[];
   observed_updated_at: string | null;
   extended_content: string | null;
+  extended_summary: string | null;
   hide_basic_card: boolean;
   updated_at: string;
 };
