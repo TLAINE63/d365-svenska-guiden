@@ -190,7 +190,7 @@ export default function PartnerNewsCard({ item, partnerName, partnerSlug, partne
 
         <Link
           to={`/partnernytt/artikel/${item.id}/`}
-          className="group inline-block text-lg font-semibold text-foreground leading-snug hover:text-[hsl(var(--accent))] transition-colors"
+          className="group inline-block text-lg font-semibold text-foreground leading-snug transition-colors hover:text-[hsl(var(--accent))] group-hover/card:text-[hsl(var(--accent))] focus-visible:outline-none focus-visible:text-[hsl(var(--accent))] focus-visible:underline underline-offset-4 rounded-sm"
         >
           {item.editorial_title}
         </Link>
