@@ -74,14 +74,25 @@ import TrustBanner from "@/components/TrustBanner";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import partnerData from "@/data/partnerData.json";
 
-// Endast branscher som har minst en publicerad (verifierad) partner
-const publishedPartners = (partnerData as Array<{ is_featured?: boolean; industries?: string[]; secondary_industries?: string[] }>).filter(
-  (p) => p.is_featured
-);
+// Endast branscher som har minst en publicerad (verifierad) partner.
+// Använder samma logik som /branscher (product_filters medräknas).
+const PRODUCT_KEYS = ["bc", "fsc", "sales", "service", "crm"] as const;
+type HeroPartner = {
+  is_featured?: boolean;
+  industries?: string[];
+  secondary_industries?: string[];
+  product_filters?: Record<string, { industries?: string[]; secondaryIndustries?: string[] }>;
+};
+const publishedPartners = (partnerData as HeroPartner[]).filter((p) => p.is_featured);
 const publishedIndustryNames = new Set<string>();
 publishedPartners.forEach((p) => {
   (p.industries || []).forEach((n) => publishedIndustryNames.add(n));
   (p.secondary_industries || []).forEach((n) => publishedIndustryNames.add(n));
+  const pf = p.product_filters || {};
+  PRODUCT_KEYS.forEach((k) => {
+    (pf?.[k]?.industries || []).forEach((n) => publishedIndustryNames.add(n));
+    (pf?.[k]?.secondaryIndustries || []).forEach((n) => publishedIndustryNames.add(n));
+  });
 });
 const HERO_INDUSTRIES = STANDARD_INDUSTRIES.filter((i) => publishedIndustryNames.has(i.name));
 const VERIFIED_PARTNER_COUNT = publishedPartners.length;
