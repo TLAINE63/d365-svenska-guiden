@@ -93,6 +93,7 @@ publishedPartners.forEach((p) => {
 });
 const HERO_INDUSTRIES = STANDARD_INDUSTRIES.filter((i) => publishedIndustryNames.has(i.name));
 const VERIFIED_PARTNER_COUNT = publishedPartners.length;
+const IDENTIFIED_PARTNER_COUNT = 83; // Totalt identifierade partners i Sverige (exklusive Thomas Laine / operatören)
 
 
 const homeFaqs = [
@@ -332,6 +333,14 @@ const Index = () => {
                 <p className="text-[13px] text-white/55 leading-relaxed mt-4 italic">
                   Byggt på 40+ års erfarenhet av Dynamics 365 och affärssystem.
                 </p>
+              </div>
+
+              {/* Identified partners stat — visible above the fold */}
+              <div className="mb-3">
+                <div className="inline-flex items-center gap-3 bg-white/[0.04] border border-white/10 rounded px-4 py-3">
+                  <div className="text-[24px] sm:text-[32px] font-bold text-white leading-none">{IDENTIFIED_PARTNER_COUNT}</div>
+                  <div className="text-[13px] sm:text-[14px] text-white/80 leading-tight">Identifierade Dynamics 365-partners i Sverige</div>
+                </div>
               </div>
 
               {/* Trust strip — visible above the fold */}
