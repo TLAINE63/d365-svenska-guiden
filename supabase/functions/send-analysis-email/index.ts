@@ -64,10 +64,8 @@ function sanitizeHtml(input: string): string {
 function formatAiMarkdown(input: string, maxLen = 6000): string {
   if (typeof input !== "string" || !input.trim()) return "";
   const clipped = input.slice(0, maxLen);
-  // 1) Escape allt
   const escaped = sanitizeHtml(clipped);
 
-  // 2) Radbaserad parsning (rubriker + listor)
   const lines = escaped.split(/\r?\n/);
   const out: string[] = [];
   let listType: "ul" | "ol" | null = null;
@@ -77,7 +75,8 @@ function formatAiMarkdown(input: string, maxLen = 6000): string {
   const paraBuf: string[] = [];
   const flushPara = () => {
     if (paraBuf.length) {
-      out.push(`<p style="margin:0 0 12px 0;line-height:1.55;">${paraBuf.join(" ")}</p>`);
+      // Luftig läs-typografi: större radavstånd + generöst mellanrum mellan stycken
+      out.push(`<p style="margin:0 0 18px 0;line-height:1.75;font-size:15px;color:#1a1a1a;">${paraBuf.join(" ")}</p>`);
       paraBuf.length = 0;
     }
   };
@@ -86,44 +85,41 @@ function formatAiMarkdown(input: string, maxLen = 6000): string {
     const line = rawLine.trim();
     if (!line) { flushPara(); closeList(); continue; }
 
-    // Rubriker ### / ## / #
     const h = line.match(/^(#{1,4})\s+(.+)$/);
     if (h) {
       flushPara(); closeList();
-      const level = Math.min(4, Math.max(2, h[1].length + 1)); // # -> h2, ## -> h3 osv
-      out.push(`<h${level} style="color:#0E7C86;margin:18px 0 8px 0;font-size:${level === 2 ? "17px" : "15px"};">${h[2]}</h${level}>`);
+      const level = Math.min(4, Math.max(2, h[1].length + 1));
+      const size = level === 2 ? "18px" : level === 3 ? "16px" : "15px";
+      const topMargin = level === 2 ? "28px" : "22px";
+      out.push(`<h${level} style="color:#0E7C86;margin:${topMargin} 0 10px 0;font-size:${size};font-weight:700;line-height:1.35;letter-spacing:-0.01em;">${h[2]}</h${level}>`);
       continue;
     }
 
-    // Numrerad lista "1." "2)"
     const ol = line.match(/^(\d+)[.)]\s+(.+)$/);
     if (ol) {
       flushPara();
-      if (listType !== "ol") { closeList(); out.push('<ol style="margin:0 0 12px 20px;padding:0;line-height:1.55;">'); listType = "ol"; }
-      out.push(`<li style="margin:0 0 4px 0;">${ol[2]}</li>`);
+      if (listType !== "ol") { closeList(); out.push('<ol style="margin:0 0 18px 22px;padding:0;line-height:1.7;font-size:15px;color:#1a1a1a;">'); listType = "ol"; }
+      out.push(`<li style="margin:0 0 8px 0;padding-left:4px;">${ol[2]}</li>`);
       continue;
     }
 
-    // Punktlista "- " "* " "• "
     const ul = line.match(/^[-*•]\s+(.+)$/);
     if (ul) {
       flushPara();
-      if (listType !== "ul") { closeList(); out.push('<ul style="margin:0 0 12px 20px;padding:0;line-height:1.55;">'); listType = "ul"; }
-      out.push(`<li style="margin:0 0 4px 0;">${ul[1]}</li>`);
+      if (listType !== "ul") { closeList(); out.push('<ul style="margin:0 0 18px 22px;padding:0;line-height:1.7;font-size:15px;color:#1a1a1a;">'); listType = "ul"; }
+      out.push(`<li style="margin:0 0 8px 0;padding-left:4px;">${ul[1]}</li>`);
       continue;
     }
 
-    // Vanlig text – ackumulera i stycke
     closeList();
     paraBuf.push(line);
   }
   flushPara(); closeList();
 
-  // 3) Inline-formatering: **bold**, *italic*, `code`
   let html = out.join("\n");
-  html = html.replace(/\*\*([^*\n]+?)\*\*/g, "<strong>$1</strong>");
+  html = html.replace(/\*\*([^*\n]+?)\*\*/g, "<strong style=\"color:#0d0d0d;\">$1</strong>");
   html = html.replace(/(^|[^\*])\*([^*\n]+?)\*(?!\*)/g, "$1<em>$2</em>");
-  html = html.replace(/`([^`\n]+?)`/g, '<code style="background:#f4f4f5;padding:1px 4px;border-radius:3px;font-size:13px;">$1</code>');
+  html = html.replace(/`([^`\n]+?)`/g, '<code style="background:#f4f4f5;padding:1px 5px;border-radius:3px;font-size:13px;">$1</code>');
   return html;
 }
 
