@@ -258,7 +258,7 @@ const PartnerEvents = () => {
           {!showForm && (
             <Button onClick={() => { setEditingEvent(null); setShowForm(true); }} className="mb-6">
               <Plus className="w-4 h-4 mr-2" />
-              Skapa nytt event
+              Skapa ett nytt event
             </Button>
           )}
 

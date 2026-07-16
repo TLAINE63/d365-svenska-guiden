@@ -987,7 +987,7 @@ const ValjPartner = () => {
  onClick={() => window.open('https://outlook.office.com/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ep=mlink', '_blank')}
  >
  <Calendar className="w-5 h-5 mr-2" />
- Boka möte
+ Boka ett möte
  </Button>
  <Button asChild size="lg" className="bg-muted hover:bg-muted/80 text-muted-foreground h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold transition-all rounded border border-border">
  <a href="mailto:thomas.laine@dynamicfactory.se">

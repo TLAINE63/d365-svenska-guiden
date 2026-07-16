@@ -118,13 +118,13 @@ const ScrollCTA = () => {
                 onClick={() => setExpanded(true)}
                 className="w-full sm:w-auto bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-primary-foreground"
               >
-                Boka rådgivning
+                Boka en rådgivning
               </Button>
             </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-2 pr-6">
-            <p className="font-semibold text-sm mb-1">Boka rådgivning</p>
+            <p className="font-semibold text-sm mb-1">Boka en rådgivning</p>
             <Input
               placeholder="Namn"
               value={form.contact_name}

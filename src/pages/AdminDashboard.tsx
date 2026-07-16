@@ -3690,7 +3690,7 @@ Thomas`,
  {/* Top save button */}
  <div className="flex justify-end">
  <Button type="submit" disabled={createPartner.isPending || updatePartner.isPending}>
- {editingPartner ? "Spara ändringar" : "Skapa partner"}
+{editingPartner ? "Spara ändringar" : "Skapa en partner"}
  </Button>
  </div>
 
@@ -5442,7 +5442,7 @@ Thomas`,
  Avbryt
  </Button>
  <Button type="submit" disabled={createPartner.isPending || updatePartner.isPending}>
- {editingPartner ? "Spara ändringar" : "Skapa partner"}
+ {editingPartner ? "Spara ändringar" : "Skapa en partner"}
  </Button>
  </DialogFooter>
  </form>

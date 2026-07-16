@@ -180,7 +180,7 @@ const Index = () => {
       icon: ClipboardCheck,
       title: "Vi behöver ringa in behovet",
       desc: "Börja med att klargöra vad verksamheten faktiskt behöver — innan ni jämför system och partners.",
-      cta: "Starta behovsanalys",
+      cta: "Starta en behovsanalys",
       onClick: () => setDirectionPicker("behovsanalys"),
     },
     {

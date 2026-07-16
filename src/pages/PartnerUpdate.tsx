@@ -2678,7 +2678,7 @@ const PartnerUpdate = () => {
  {savingEvent === "new" ? (
  <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Sparar...</>
  ) : (
- "Skapa event"
+ "Skapa ett event"
  )}
  </Button>
  </div>

@@ -470,7 +470,7 @@ const NextStepsList = ({
       icon: MessageSquare,
       title: "Bygg en kravspecifikation",
       body: "Använd vår kravspecifikationsgenerator för att skapa ett neutralt underlag att skicka till utvalda partners.",
-      cta: { label: "Skapa kravspecifikation", to: config.needsAnalysisPath },
+      cta: { label: "Skapa en kravspecifikation", to: config.needsAnalysisPath },
     });
   } else if (level === "partial") {
     steps.push({

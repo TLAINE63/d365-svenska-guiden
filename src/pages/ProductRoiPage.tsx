@@ -96,7 +96,7 @@ export default function ProductRoiPage({ productKey }: Props) {
                 size="lg"
                 className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white"
               >
-                <a href="#kalkyl">Starta kalkyl <ArrowRight className="ml-2 w-4 h-4" /></a>
+                <a href="#kalkyl">Starta en kalkyl <ArrowRight className="ml-2 w-4 h-4" /></a>
               </Button>
               <Button
                 variant="outline"

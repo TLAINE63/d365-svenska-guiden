@@ -269,7 +269,7 @@ export default function BcRoiCalculator() {
             </p>
             <div className="flex flex-wrap gap-3 mt-6">
               <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
-                <a href="#kalkyl">Starta kalkyl <ArrowRight className="ml-2 w-4 h-4" /></a>
+                <a href="#kalkyl">Starta en kalkyl <ArrowRight className="ml-2 w-4 h-4" /></a>
               </Button>
               <Button
                 variant="outline"
@@ -746,7 +746,7 @@ export default function BcRoiCalculator() {
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
               <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
-                <Link to="/businesscentral/matchningstest/">Starta matchningstest</Link>
+                <Link to="/businesscentral/matchningstest/">Starta ett matchningstest</Link>
               </Button>
               <Button asChild variant="outline" size="lg">
                 <Link to="/kravspecifikation/">Generera en kravspecifikation</Link>
