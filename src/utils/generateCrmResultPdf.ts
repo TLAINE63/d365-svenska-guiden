@@ -90,7 +90,7 @@ export async function generateCrmResultPdf(
   const doc = new jsPDF({ unit: "mm", format: "a4" });
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
-  const margin = 18;
+  const margin = PDF_MARGIN;
   const bodyWidth = pageW - 2 * margin;
 
   const ensureSpace = (need: number, y: number): number => {
@@ -101,18 +101,8 @@ export async function generateCrmResultPdf(
     return y;
   };
 
-  // ---- Header bar ----
-  doc.setFillColor(...BRAND_DARK);
-  doc.rect(0, 0, pageW, 28, "F");
-  doc.setTextColor(255, 255, 255);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(16);
-  doc.text(`${config.productName} – Matchningstest`, margin, 14);
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(10);
-  doc.text("d365.se · köparsidig vägledning", margin, 21);
-
-  let y = 36;
+  // ---- Header ----
+  let y = drawBrandHeader(doc, `${config.productName} – Matchningstest`);
 
   // ---- Level badge + total ----
   const level = score.level;
