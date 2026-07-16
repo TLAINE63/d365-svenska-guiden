@@ -226,7 +226,7 @@ const Branscher = () => {
                         </span>
                       )}
                       <span className="text-xs font-medium text-primary/80 mt-0.5">
-                        {count > 0 ? `${count} ${count === 1 ? "partner" : "partners"} listade` : "Kommer snart"}
+                        {count > 0 ? `${count} ${count === 1 ? "partner listad" : "partners listade"}` : "Kommer snart"}
                       </span>
                     </div>
                     <ChevronRight className="absolute bottom-2.5 right-2.5 h-4 w-4 text-muted-foreground/60 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
