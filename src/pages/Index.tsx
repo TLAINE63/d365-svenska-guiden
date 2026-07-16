@@ -318,7 +318,7 @@ const Index = () => {
                     onClick={() => setDirectionPicker("behovsanalys")}
                     className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-white/80 hover:text-white transition-colors"
                   >
-                    eller starta kostnadsfri behovsanalys
+                    eller starta en kostnadsfri behovsanalys
                     <ArrowRight className="w-4 h-4" />
                   </button>
                   <span className="hidden sm:inline text-white/25">·</span>
