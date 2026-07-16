@@ -583,6 +583,27 @@ export default function AdminBasicPartnersTab() {
                 <p className="mt-1 text-xs text-muted-foreground">
                   Redigerbart utdrag från fördjupningstexten. Visas som egen sektion ovanför fördjupningen.
                 </p>
+                {editing.extended_summary?.trim() && (
+                  <div className="mt-3">
+                    <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                      Förhandsvisning – så visas sektionen på publika kortet
+                    </p>
+                    <section
+                      className="relative rounded border border-border bg-muted/30 p-4"
+                      aria-label="Förhandsvisning sammanfattning"
+                    >
+                      <div className="mb-2 flex items-center gap-2">
+                        <ScrollText className="h-4 w-4 text-accent" aria-hidden />
+                        <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-accent">
+                          Sammanfattning
+                        </span>
+                      </div>
+                      <p className="text-sm leading-relaxed text-muted-foreground whitespace-pre-wrap">
+                        {editing.extended_summary.trim()}
+                      </p>
+                    </section>
+                  </div>
+                )}
               </div>
               <div className="rounded-md border border-amber-500/40 bg-amber-500/5 p-3">
                 <label className="flex items-start gap-2 cursor-pointer">
