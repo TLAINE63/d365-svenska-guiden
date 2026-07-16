@@ -76,6 +76,7 @@ function emptyDraft(): Partial<BasicRow> {
     observed_delivery_geo: {},
     observed_locations: [],
     extended_content: "",
+    extended_summary: "",
     hide_basic_card: false,
   };
 }
