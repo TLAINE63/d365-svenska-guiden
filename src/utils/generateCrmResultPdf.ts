@@ -249,18 +249,7 @@ export async function generateCrmResultPdf(
   }
 
   // ---- Footer ----
-  const total = doc.getNumberOfPages();
-  for (let i = 1; i <= total; i++) {
-    doc.setPage(i);
-    doc.setFontSize(8);
-    doc.setTextColor(140, 140, 140);
-    doc.text(
-      `d365.se – ${config.productName} Matchningstest · Sida ${i} av ${total}`,
-      pageW / 2,
-      pageH - 8,
-      { align: "center" },
-    );
-  }
+  finalizePdfWithFooter(doc, `${config.productName} Matchningstest`);
 
   const date = new Date().toISOString().slice(0, 10);
   doc.save(`${config.key}-matchningstest-${date}.pdf`);
