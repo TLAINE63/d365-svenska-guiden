@@ -345,43 +345,6 @@ const Index = () => {
                 ))}
               </div>
 
-              {/* 4-step filter hint */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 w-full">
-                {matchSteps.map((s, i) =>
-                  i === 0 ? (
-                    <Link
-                      key={s.n}
-                      to="/branscher/"
-                      className="group flex flex-col items-start gap-2 bg-white/5 border border-white/10 rounded px-3 py-3 sm:px-4 sm:py-4 transition-all hover:-translate-y-1 hover:border-[hsl(var(--signature))]/30 hover:bg-white/[0.07]"
-                    >
-                      <span className="flex-shrink-0 w-6 h-6 rounded bg-[hsl(var(--signature))]/20 text-[hsl(var(--signature))] text-[11px] font-bold flex items-center justify-center">
-                        {s.n}
-                      </span>
-                      <span className="text-[13px] sm:text-[14px] font-semibold text-white/90 leading-snug">
-                        {s.title}
-                      </span>
-                      <span className="text-[12px] text-white/60 leading-snug">
-                        {s.desc}
-                      </span>
-                    </Link>
-                  ) : (
-                    <div
-                      key={s.n}
-                      className="flex flex-col items-start gap-2 bg-white/5 border border-white/10 rounded px-3 py-3 sm:px-4 sm:py-4"
-                    >
-                      <span className="flex-shrink-0 w-6 h-6 rounded bg-[hsl(var(--signature))]/20 text-[hsl(var(--signature))] text-[11px] font-bold flex items-center justify-center">
-                        {s.n}
-                      </span>
-                      <span className="text-[13px] sm:text-[14px] font-semibold text-white/90 leading-snug">
-                        {s.title}
-                      </span>
-                      <span className="text-[12px] text-white/60 leading-snug">
-                        {s.desc}
-                      </span>
-                    </div>
-                  )
-                )}
-              </div>
             </div>
           </div>
         </section>
