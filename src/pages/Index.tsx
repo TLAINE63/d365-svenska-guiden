@@ -342,7 +342,7 @@ const Index = () => {
               {/* Trust strip — visible above the fold */}
               <div className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
                 {[
-                  { n: `${VERIFIED_PARTNER_COUNT}`, t: "Verifierade D365-partners" },
+                  { n: `${VERIFIED_PARTNER_COUNT}`, t: "Verifierade Dynamics 365-partners" },
                   { n: `${HERO_INDUSTRIES.length}`, t: "Branscher" },
                   { n: "8+", t: "Kostnadsfria beslutsverktyg" },
                   { n: "0 kr", t: "Ingen partner betalar för en bättre placering" },
