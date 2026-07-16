@@ -182,7 +182,10 @@ export default function AdminBasicPartnersTab() {
   );
 
   const openNew = () => setEditing(emptyDraft());
-  const openEdit = (row: BasicRow) => setEditing({ ...row });
+  const openEdit = (row: BasicRow) => {
+    const summary = row.extended_summary?.trim() ? row.extended_summary : extractSummaryFromExtended(row.extended_content);
+    setEditing({ ...row, extended_summary: summary ?? "" });
+  };
 
   const save = async () => {
     if (!editing?.name?.trim()) {
