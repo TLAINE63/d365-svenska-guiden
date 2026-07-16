@@ -93,6 +93,7 @@ publishedPartners.forEach((p) => {
 });
 const HERO_INDUSTRIES = STANDARD_INDUSTRIES.filter((i) => publishedIndustryNames.has(i.name));
 const VERIFIED_PARTNER_COUNT = publishedPartners.length;
+const IDENTIFIED_PARTNER_COUNT = 83; // Totalt identifierade partners i Sverige (exklusive Thomas Laine / operatören)
 
 
 const homeFaqs = [
