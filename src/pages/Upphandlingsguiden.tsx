@@ -96,7 +96,7 @@ const steps: Step[] = [
  description:
  "Rätt implementeringspartner är avgörande för ett lyckat införande. Granska kundexempel, certifieringar, AI-förmågor och referenser för Business Central, F&SCM, Sales, Customer Service, Field Service, Customer Insights och Contact Center.",
     links: [
-      { label: "Jämför Partner", to: "/jamfor-partners" },
+      { label: "Jämför partners", to: "/jamfor-partners" },
       { label: "Så väljer du rätt partner", to: "/valjdynamics365partner/?ai=1" },
     ],
 

@@ -797,7 +797,7 @@ const AIOverview = () => {
  to="/behovsanalys/"
  className="inline-flex items-center justify-center gap-2 border border-primary/30 text-foreground px-6 py-3 rounded font-medium text-lg hover:bg-primary/5 transition-colors"
  >
- Gör behovsanalys för Dynamics 365
+ Gör en behovsanalys för Dynamics 365
  </Link>
  </div>
  </CardContent>
