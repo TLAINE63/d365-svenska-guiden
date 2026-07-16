@@ -154,15 +154,83 @@ export default function AllD365Partners() {
               <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
                 <Badge className="bg-primary/10 text-primary border-primary/30 hover:bg-primary/10">
                   <CheckCircle2 className="w-3 h-3 mr-1" />
-                  {profiled.length} profilerade partners
+                  {profiledAll.length} profilerade partners
                 </Badge>
                 <Badge variant="outline" className="text-muted-foreground">
-                  {(basicPartners?.length ?? 0) + others.length} övriga aktörer i marknadskartan
+                  {(basicPartners?.length ?? 0)} basickort · {profiledAll.length + (basicPartners?.length ?? 0)} i marknadskartan
                 </Badge>
               </div>
             )}
           </div>
         </section>
+
+        {/* Search & filter */}
+        <section className="py-6 border-b border-border bg-background sticky top-16 z-20 backdrop-blur">
+          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+            <div className="flex flex-col gap-3">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <Input
+                  type="search"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Sök partner på namn…"
+                  className="pl-9 pr-9 h-11"
+                  aria-label="Sök partner"
+                />
+                {query && (
+                  <button
+                    type="button"
+                    onClick={() => setQuery("")}
+                    aria-label="Rensa sök"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-muted text-muted-foreground"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {productOptions.map((opt) => {
+                  const active = productFilter === opt.key;
+                  return (
+                    <button
+                      key={opt.key}
+                      type="button"
+                      onClick={() => setProductFilter(opt.key)}
+                      className={`text-xs sm:text-sm px-3 py-1.5 rounded-full border transition-colors ${
+                        active
+                          ? "bg-primary text-primary-foreground border-primary"
+                          : "bg-card text-foreground border-border hover:border-primary/40"
+                      }`}
+                      aria-pressed={active}
+                    >
+                      {opt.label}
+                    </button>
+                  );
+                })}
+                {isFiltering && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setQuery("");
+                      setProductFilter("all");
+                    }}
+                    className="text-xs sm:text-sm px-3 py-1.5 rounded-full border border-dashed border-border text-muted-foreground hover:text-foreground hover:border-foreground/40"
+                  >
+                    Rensa filter
+                  </button>
+                )}
+              </div>
+              {isFiltering && (
+                <p className="text-xs text-muted-foreground" aria-live="polite">
+                  Visar {filteredTotal} träff{filteredTotal === 1 ? "" : "ar"}
+                  {productFilter !== "all" && " (endast partners med produktdata visas när produktfilter är aktivt)"}
+                </p>
+              )}
+            </div>
+          </div>
+        </section>
+
 
 
 
