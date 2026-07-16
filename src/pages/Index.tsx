@@ -18,9 +18,6 @@ import {
   BookOpen,
   ClipboardCheck,
   Search,
-  Building2,
-  Layers,
-  Map,
   FileText,
   Compass,
 } from "lucide-react";
