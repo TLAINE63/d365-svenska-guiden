@@ -16,7 +16,7 @@ import partnerDataJson from "@/data/partnerData.json";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
-  { name: "Alla D365-partners", url: "https://d365.se/alla-d365-partners" },
+  { name: "Övriga Dynamics 365-partners", url: "https://d365.se/alla-d365-partners" },
 ];
 
 // Static snapshot of featured partners (built into the bundle so the
@@ -86,8 +86,8 @@ export default function AllD365Partners() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Alla Microsoft Dynamics 365-partners i Sverige"
-        description="Komplett lista över Microsoft Dynamics 365-partners i Sverige – profilerade leverantörer på d365.se och övriga aktörer på marknaden. Köparsidig vägledning vid partnerval."
+        title="Övriga Dynamics 365-partners på den svenska marknaden"
+        description="Övriga Dynamics 365-partners på den svenska marknaden – komplett lista med profilerade leverantörer på d365.se och övriga aktörer. Köparsidig vägledning vid partnerval."
         canonicalPath="/alla-d365-partners/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
@@ -101,10 +101,10 @@ export default function AllD365Partners() {
               <Users className="w-3.5 h-3.5" /> Marknadskarta
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Hela partnermarknaden i Sverige
+              Övriga Dynamics 365-partners på den svenska marknaden
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground mb-5">
-              För att ge er en realistisk bild av partnerlandskapet listar vi både de partners som är profilerade på d365.se och övriga svenska Dynamics 365-partners vi känner till. Vill ni veta mer om någon — eller få hjälp att smalna ner kortlistan — hör av er.
+              Här hittar ni övriga Dynamics 365-partners på den svenska marknaden – både profilerade leverantörer på d365.se och andra aktörer vi känner till. Vill ni veta mer om någon eller få hjälp att smalna ner kortlistan, hör av er.
             </p>
             {totalMarket > 0 && (
               <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
