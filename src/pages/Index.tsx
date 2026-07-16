@@ -86,7 +86,29 @@ const homeFaqs = [
 const Index = () => {
   const [directionPicker, setDirectionPicker] = useState<null | "behovsanalys" | "kravspec">(null);
   const [aiQuery, setAiQuery] = useState("");
+  const [heroIndustry, setHeroIndustry] = useState("");
+  const [heroProduct, setHeroProduct] = useState("");
   const navigate = useNavigate();
+
+  const heroProducts: { value: string; label: string; path: string }[] = [
+    { value: "bc", label: "Business Central (ERP SMB)", path: "/businesscentral/" },
+    { value: "fscm", label: "Finance & Supply Chain (ERP Enterprise)", path: "/finance-supply-chain/" },
+    { value: "sales", label: "Sales (CRM)", path: "/crm/" },
+    { value: "cs", label: "Customer Service", path: "/customer-service/" },
+    { value: "fs", label: "Field Service", path: "/field-service/" },
+    { value: "ci", label: "Customer Insights (Marketing)", path: "/customer-insights/" },
+  ];
+
+  const submitHeroFinder = () => {
+    if (heroIndustry) {
+      navigate(`/branscher/${heroIndustry}/`);
+    } else if (heroProduct) {
+      const p = heroProducts.find((x) => x.value === heroProduct);
+      if (p) navigate(p.path);
+    } else {
+      navigate("/valjdynamics365partner/");
+    }
+  };
 
   const submitAiSearch = (q: string) => {
     const trimmed = q.trim();
