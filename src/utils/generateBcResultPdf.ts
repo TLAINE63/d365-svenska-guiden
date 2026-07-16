@@ -54,14 +54,7 @@ export async function generateBcResultPdf(result: BcResult, _answers: BcAnswers,
   y += bodyLines.length * 5.2 + 4;
 
   // Section header
-  doc.setDrawColor(...BRAND_PETROL);
-  doc.setLineWidth(0.6);
-  doc.line(margin, y, pageW - margin, y);
-  y += 6;
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(12);
-  doc.text("Identifierade behov per kategori", margin, y);
-  y += 6;
+  y = drawSectionHeading(doc, "Identifierade behov per kategori", y + 2);
 
   // Sections
   doc.setFont("helvetica", "normal");
@@ -107,20 +100,6 @@ export async function generateBcResultPdf(result: BcResult, _answers: BcAnswers,
     });
   }
 
-
-  // Footer
-  const total = doc.getNumberOfPages();
-  for (let i = 1; i <= total; i++) {
-    doc.setPage(i);
-    doc.setFontSize(8);
-    doc.setTextColor(140, 140, 140);
-    doc.text(
-      `d365.se – Business Central Matchningstest · Sida ${i} av ${total}`,
-      pageW / 2,
-      pageH - 8,
-      { align: "center" },
-    );
-  }
-
+  finalizePdfWithFooter(doc, "Business Central Matchningstest");
   doc.save(`bc-matchningstest-${new Date().toISOString().slice(0, 10)}.pdf`);
 }
