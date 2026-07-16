@@ -569,6 +569,21 @@ export default function AdminBasicPartnersTab() {
                   Ej granskad av partnern. Håll neutralt, faktabaserat och kortfattat.
                 </p>
               </div>
+
+              <div>
+                <Label>Sammanfattning (visas separat på standalone-Basickortet)</Label>
+                <Textarea
+                  rows={4}
+                  value={editing.extended_summary || ""}
+                  placeholder="Kort sammanfattning, helst ett stycke. Fylls automatiskt med första stycket under 'Sammanfattning' i fördjupningstexten om det finns."
+                  onChange={(e) =>
+                    setEditing({ ...editing, extended_summary: e.target.value })
+                  }
+                />
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Redigerbart utdrag från fördjupningstexten. Visas som egen sektion ovanför fördjupningen.
+                </p>
+              </div>
               <div className="rounded-md border border-amber-500/40 bg-amber-500/5 p-3">
                 <label className="flex items-start gap-2 cursor-pointer">
                   <Checkbox
