@@ -89,6 +89,7 @@ function normalizeRaw(row: any): BasicPartner {
     observed_locations: row?.observed_locations || [],
     extended_content: row?.extended_content ?? null,
     extended_content_updated_at: row?.extended_content_updated_at ?? null,
+    extended_summary: row?.extended_summary ?? null,
   } as BasicPartner;
 }
 
