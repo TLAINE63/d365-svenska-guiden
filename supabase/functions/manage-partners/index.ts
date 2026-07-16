@@ -449,6 +449,9 @@ serve(async (req: Request): Promise<Response> => {
           updateData.extended_content = trimmed;
           updateData.extended_content_updated_at = trimmed ? new Date().toISOString() : null;
         }
+        if ((partner as any)?.extended_summary !== undefined) {
+          updateData.extended_summary = (partner as any).extended_summary?.trim() || null;
+        }
         if (partner?.profile_level !== undefined) updateData.profile_level = partner.profile_level;
         if (partner?.observed_products !== undefined) updateData.observed_products = partner.observed_products || {};
         if (partner?.observed_industries !== undefined) updateData.observed_industries = partner.observed_industries || {};
