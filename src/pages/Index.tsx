@@ -547,33 +547,8 @@ const Index = () => {
           <HomePartnerNewsSection />
         </Suspense>
 
-        {/* SECTION 5 — TRUST */}
-        <section className="section-divider py-14 sm:py-18 bg-[hsl(var(--hero-dark))] border-b border-[hsl(var(--line-dark))]">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-            <div className="max-w-2xl mb-8">
-              <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-[hsl(var(--signature))] mb-3">
-                Transparens
-              </span>
-              <h2 className="text-2xl sm:text-3xl md:text-[34px] font-bold text-white tracking-tight mb-3 leading-tight">
-                Så fungerar d365.se
-              </h2>
-              <p className="text-[15px] text-white/70 leading-relaxed">
-                Plattformen är byggd för köparen — inte för partners. Det här ska ni veta.
-              </p>
-            </div>
+        {/* SECTION 5 — TRUST (hidden) */}
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {trustPoints.map((t) => (
-                <div key={t.text} className="flex items-start gap-3 bg-white/5 border border-white/10 rounded p-5">
-                  <div className="flex-shrink-0 w-9 h-9 rounded bg-[hsl(var(--signature))]/15 flex items-center justify-center">
-                    <t.icon className="w-4.5 h-4.5 text-[hsl(var(--signature))]" />
-                  </div>
-                  <p className="text-[14px] text-white/90 leading-relaxed pt-1">{t.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* SECTION 6 — KNOWLEDGE / LATEST ARTICLES */}
         <section className="section-divider py-14 sm:py-20 bg-background border-b border-border">
