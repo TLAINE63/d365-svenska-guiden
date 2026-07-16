@@ -159,12 +159,6 @@ const Index = () => {
     },
   } as const;
 
-  const matchSteps = [
-    { n: 1, icon: Building2, title: "Börja med bransch", desc: "Tillverkning, retail, tjänster, life science m.fl." },
-    { n: 2, icon: Layers, title: "Välj Dynamics 365-Lösning", desc: "ERP, CRM eller en specifik Dynamics 365-app." },
-    { n: 3, icon: Users, title: "Ange företagsstorlek", desc: "Antal anställda och omsättning." },
-    { n: 4, icon: Map, title: "Filtrera geografi", desc: "Lokal närvaro där ni verkar." },
-  ];
 
   const situationCards = [
     {
