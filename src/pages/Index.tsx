@@ -331,10 +331,10 @@ const Index = () => {
               {/* Trust strip — visible above the fold */}
               <div className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
                 {[
-                  { n: "40+", t: "Verifierade D365-partners" },
-                  { n: "21", t: "Branscher" },
+                  { n: `${VERIFIED_PARTNER_COUNT}`, t: "Verifierade D365-partners" },
+                  { n: `${HERO_INDUSTRIES.length}`, t: "Branscher" },
                   { n: "8+", t: "Kostnadsfria beslutsverktyg" },
-                  { n: "0 kr", t: "Ingen partner betalar för placering" },
+                  { n: "0 kr", t: "Ingen partner betalar för en bättre placering" },
                 ].map((s) => (
                   <div key={s.t} className="bg-white/[0.04] border border-white/10 rounded px-3 py-2.5">
                     <div className="text-[15px] sm:text-[17px] font-bold text-white leading-tight">{s.n}</div>
