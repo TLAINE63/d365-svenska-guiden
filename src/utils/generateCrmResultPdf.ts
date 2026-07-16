@@ -4,6 +4,7 @@ import { topCrmProfiles } from "@/lib/crmMatchingScoring";
 
 // Brand colors (consistent with other PDF exports)
 import { PDF_BRAND } from "./pdfBrand";
+import { drawBrandHeader, finalizePdfWithFooter, drawSectionHeading, PDF_MARGIN } from "./pdfLayout";
 const BRAND_PETROL: [number, number, number] = PDF_BRAND.primary;
 const BRAND_DARK: [number, number, number] = [21, 19, 15]; // #15130F
 
@@ -89,7 +90,7 @@ export async function generateCrmResultPdf(
   const doc = new jsPDF({ unit: "mm", format: "a4" });
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
-  const margin = 18;
+  const margin = PDF_MARGIN;
   const bodyWidth = pageW - 2 * margin;
 
   const ensureSpace = (need: number, y: number): number => {
@@ -100,18 +101,8 @@ export async function generateCrmResultPdf(
     return y;
   };
 
-  // ---- Header bar ----
-  doc.setFillColor(...BRAND_DARK);
-  doc.rect(0, 0, pageW, 28, "F");
-  doc.setTextColor(255, 255, 255);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(16);
-  doc.text(`${config.productName} – Matchningstest`, margin, 14);
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(10);
-  doc.text("d365.se · köparsidig vägledning", margin, 21);
-
-  let y = 36;
+  // ---- Header ----
+  let y = drawBrandHeader(doc, `${config.productName} – Matchningstest`);
 
   // ---- Level badge + total ----
   const level = score.level;
@@ -144,14 +135,7 @@ export async function generateCrmResultPdf(
   y += bodyLines.length * 5 + 6;
 
   // ---- Profil per behovsområde ----
-  doc.setDrawColor(...BRAND_PETROL);
-  doc.setLineWidth(0.6);
-  doc.line(margin, y, pageW - margin, y);
-  y += 6;
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(12);
-  doc.text("Profil per behovsområde", margin, y);
-  y += 6;
+  y = drawSectionHeading(doc, "Profil per behovsområde", y + 2);
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10);
@@ -183,14 +167,7 @@ export async function generateCrmResultPdf(
   const tops = topCrmProfiles(score, 3);
   if (tops.length > 0) {
     y = ensureSpace(14, y);
-    doc.setDrawColor(...BRAND_PETROL);
-    doc.line(margin, y, pageW - margin, y);
-    y += 6;
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(12);
-    doc.setTextColor(...BRAND_DARK);
-    doc.text("Kort motivering – här matchar ni starkast", margin, y);
-    y += 6;
+    y = drawSectionHeading(doc, "Kort motivering – här matchar ni starkast", y + 2);
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
@@ -217,18 +194,7 @@ export async function generateCrmResultPdf(
   // ---- Alternativ vid oversized ----
   if (level === "oversized" && config.oversizedAlternative) {
     y = ensureSpace(20, y);
-    doc.setDrawColor(...BRAND_PETROL);
-    doc.line(margin, y, pageW - margin, y);
-    y += 6;
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(12);
-    doc.setTextColor(...BRAND_DARK);
-    const altHeadLines = doc.splitTextToSize(
-      config.oversizedAlternative.heading,
-      bodyWidth,
-    );
-    doc.text(altHeadLines, margin, y);
-    y += altHeadLines.length * 5.5 + 2;
+    y = drawSectionHeading(doc, config.oversizedAlternative.heading, y + 2);
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
@@ -244,14 +210,7 @@ export async function generateCrmResultPdf(
   // ---- Nästa steg ----
   const steps = nextStepsFor(config, level);
   y = ensureSpace(14, y);
-  doc.setDrawColor(...BRAND_PETROL);
-  doc.line(margin, y, pageW - margin, y);
-  y += 6;
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(12);
-  doc.setTextColor(...BRAND_DARK);
-  doc.text("Era nästa steg", margin, y);
-  y += 6;
+  y = drawSectionHeading(doc, "Era nästa steg", y + 2);
 
   steps.forEach((s, i) => {
     doc.setFont("helvetica", "bold");
@@ -290,18 +249,7 @@ export async function generateCrmResultPdf(
   }
 
   // ---- Footer ----
-  const total = doc.getNumberOfPages();
-  for (let i = 1; i <= total; i++) {
-    doc.setPage(i);
-    doc.setFontSize(8);
-    doc.setTextColor(140, 140, 140);
-    doc.text(
-      `d365.se – ${config.productName} Matchningstest · Sida ${i} av ${total}`,
-      pageW / 2,
-      pageH - 8,
-      { align: "center" },
-    );
-  }
+  finalizePdfWithFooter(doc, `${config.productName} Matchningstest`);
 
   const date = new Date().toISOString().slice(0, 10);
   doc.save(`${config.key}-matchningstest-${date}.pdf`);

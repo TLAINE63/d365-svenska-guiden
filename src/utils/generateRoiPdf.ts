@@ -2,6 +2,7 @@
 // Layout mirrors hero/look (petrol + deep charcoal) and ends with an assumptions appendix.
 
 import { PDF_BRAND } from "./pdfBrand";
+import { finalizePdfWithFooter, drawSectionHeading } from "./pdfLayout";
 const BRAND_PETROL: [number, number, number] = PDF_BRAND.primary;
 const BRAND_DARK: [number, number, number] = [21, 19, 15]; // #15130F
 const MUTED: [number, number, number] = [110, 110, 110];
@@ -93,15 +94,7 @@ export async function generateRoiPdf(data: RoiPdfData) {
   };
   const sectionTitle = (text: string) => {
     ensureSpace(14);
-    doc.setDrawColor(...BRAND_PETROL);
-    doc.setLineWidth(0.6);
-    doc.line(margin, y, pageW - margin, y);
-    y += 6;
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(13);
-    doc.setTextColor(...BRAND_DARK);
-    doc.text(text, margin, y);
-    y += 6;
+    y = drawSectionHeading(doc, text, y + 4);
   };
 
   // ---- COVER ----
@@ -313,18 +306,7 @@ export async function generateRoiPdf(data: RoiPdfData) {
 
 
   // ---- FOOTER on every page ----
-  const total = doc.getNumberOfPages();
-  for (let i = 1; i <= total; i++) {
-    doc.setPage(i);
-    doc.setDrawColor(...BRAND_PETROL);
-    doc.setLineWidth(0.3);
-    doc.line(margin, pageH - 13, pageW - margin, pageH - 13);
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(8);
-    doc.setTextColor(...MUTED);
-    doc.text(data.pageUrl, margin, pageH - 8);
-    doc.text(`Sida ${i} av ${total}`, pageW - margin, pageH - 8, { align: "right" });
-  }
+  finalizePdfWithFooter(doc, `ROI & TCO – ${data.productName}`);
 
   doc.save(data.fileName);
 }
