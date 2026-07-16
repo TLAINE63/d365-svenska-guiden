@@ -4,6 +4,7 @@ import { topCrmProfiles } from "@/lib/crmMatchingScoring";
 
 // Brand colors (consistent with other PDF exports)
 import { PDF_BRAND } from "./pdfBrand";
+import { drawBrandHeader, finalizePdfWithFooter, drawSectionHeading, PDF_MARGIN } from "./pdfLayout";
 const BRAND_PETROL: [number, number, number] = PDF_BRAND.primary;
 const BRAND_DARK: [number, number, number] = [21, 19, 15]; // #15130F
 
