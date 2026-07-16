@@ -93,6 +93,23 @@ function slugify(name: string) {
     .replace(/^-|-$/g, "");
 }
 
+function extractSummaryFromExtended(text: string | null | undefined): string | null {
+  if (!text) return null;
+  const paragraphs = text
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+  for (let i = 0; i < paragraphs.length; i++) {
+    const p = paragraphs[i];
+    if (/^Sammanfattning[\s:]*/i.test(p)) {
+      const contentAfter = p.replace(/^Sammanfattning[\s:]*/i, "").trim();
+      if (contentAfter) return contentAfter;
+      if (i + 1 < paragraphs.length) return paragraphs[i + 1];
+    }
+  }
+  return null;
+}
+
 async function callAdmin(action: string, payload: Record<string, unknown>) {
   const token = getAdminToken();
   if (!token) throw new Error("Ej inloggad");
