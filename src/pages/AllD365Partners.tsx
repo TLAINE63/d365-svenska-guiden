@@ -312,7 +312,7 @@ export default function AllD365Partners() {
                 </p>
               </div>
               <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
-                {basicPartners!.map((p) => {
+                {basicFiltered.map((p) => {
                   const basicProducts = PRODUCT_ORDER.filter(
                     (k) => p.observed_products?.[k],
                   );
