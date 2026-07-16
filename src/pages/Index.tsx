@@ -275,7 +275,7 @@ const Index = () => {
                         aria-label="Välj bransch"
                       >
                         <option value="" className="bg-[hsl(var(--hero-dark))]">Alla branscher</option>
-                        {STANDARD_INDUSTRIES.map((i) => (
+                        {HERO_INDUSTRIES.map((i) => (
                           <option key={i.slug} value={i.slug} className="bg-[hsl(var(--hero-dark))]">{i.name}</option>
                         ))}
                       </select>
