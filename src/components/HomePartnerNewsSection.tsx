@@ -28,42 +28,54 @@ function HomeNewsRow({ item }: { item: PartnerNewsItem }) {
   return (
     <Link
       to={`/partnernytt/artikel/${item.id}/`}
-      className="group block rounded-lg border border-border bg-card p-4 sm:p-5 transition-all hover:border-[hsl(var(--accent))]/40 hover:bg-secondary/30"
+      className="group block overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-[hsl(var(--accent))]/40 hover:bg-secondary/30"
     >
-      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-        <div className="flex-1 min-w-0">
-          <div className="flex flex-wrap items-center gap-2 mb-2">
-            <Badge variant="secondary" className="text-[11px] tracking-wide">
-              {partnerNewsTypeLabel(item.news_type)}
-            </Badge>
-            {productAreas.slice(0, 1).map((area) => (
-              <Badge
-                key={area}
-                variant="outline"
-                className="text-[11px] border-slate-300 text-slate-600"
-              >
-                {partnerNewsProductLabel(area as PartnerNewsProductArea)}
+      <div className="flex flex-col sm:flex-row">
+        {item.image_url ? (
+          <div className="sm:w-48 sm:flex-shrink-0 aspect-[16/9] sm:aspect-auto bg-muted overflow-hidden">
+            <img
+              src={item.image_url}
+              alt=""
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+          </div>
+        ) : null}
+        <div className="flex flex-1 items-start justify-between gap-3 p-4 sm:p-5">
+          <div className="flex-1 min-w-0">
+            <div className="flex flex-wrap items-center gap-2 mb-2">
+              <Badge variant="secondary" className="text-[11px] tracking-wide">
+                {partnerNewsTypeLabel(item.news_type)}
               </Badge>
-            ))}
-            {item.industry && (
-              <Badge
-                variant="outline"
-                className="text-[11px] border-teal-300 text-teal-700"
-              >
-                {item.industry}
-              </Badge>
+              {productAreas.slice(0, 1).map((area) => (
+                <Badge
+                  key={area}
+                  variant="outline"
+                  className="text-[11px] border-slate-300 text-slate-600"
+                >
+                  {partnerNewsProductLabel(area as PartnerNewsProductArea)}
+                </Badge>
+              ))}
+              {item.industry && (
+                <Badge
+                  variant="outline"
+                  className="text-[11px] border-teal-300 text-teal-700"
+                >
+                  {item.industry}
+                </Badge>
+              )}
+            </div>
+            <h3 className="text-base sm:text-lg font-semibold text-foreground leading-snug group-hover:text-[hsl(var(--accent))] transition-colors">
+              {item.editorial_title}
+            </h3>
+            {partner?.name && (
+              <p className="mt-1 text-xs text-muted-foreground">{partner.name}</p>
             )}
           </div>
-          <h3 className="text-base sm:text-lg font-semibold text-foreground leading-snug group-hover:text-[hsl(var(--accent))] transition-colors">
-            {item.editorial_title}
-          </h3>
-          {partner?.name && (
-            <p className="mt-1 text-xs text-muted-foreground">{partner.name}</p>
-          )}
-        </div>
-        <div className="flex sm:flex-col items-center sm:items-end gap-2 sm:gap-1 text-xs text-muted-foreground sm:min-w-[5.5rem] sm:text-right shrink-0">
-          <span>{formatDate(item.news_date)}</span>
-          <ArrowRight className="w-4 h-4 sm:hidden text-muted-foreground group-hover:text-[hsl(var(--accent))] transition-colors" />
+          <div className="flex flex-col items-end gap-1 text-xs text-muted-foreground min-w-[5.5rem] text-right shrink-0">
+            <span>{formatDate(item.news_date)}</span>
+            <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-[hsl(var(--accent))] transition-colors" />
+          </div>
         </div>
       </div>
     </Link>
