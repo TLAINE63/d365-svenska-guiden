@@ -174,6 +174,7 @@ interface PartnerData {
   }>;
   ai_profile?: Record<string, unknown>;
   extended_content?: string;
+  extended_summary?: string;
   profile_level?: "basic" | "profilerad";
   observed_products?: Record<string, boolean>;
   observed_industries?: Record<string, string[]>;
