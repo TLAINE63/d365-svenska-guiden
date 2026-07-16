@@ -250,31 +250,85 @@ const Index = () => {
                   Välj rätt Dynamics 365-partner
                 </h2>
 
-                <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
+                {/* Hero finder: bransch + produkt → direktnavigering */}
+                <div className="bg-white/[0.04] border border-white/10 rounded p-3 sm:p-4 mb-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+                    <label className="block">
+                      <span className="block text-[11px] font-semibold uppercase tracking-[0.12em] text-white/60 mb-1.5">Bransch</span>
+                      <select
+                        value={heroIndustry}
+                        onChange={(e) => setHeroIndustry(e.target.value)}
+                        className="w-full h-11 rounded bg-white/10 border border-white/15 text-white text-[14px] px-3 focus:outline-none focus:border-[hsl(var(--cta-orange))]"
+                        aria-label="Välj bransch"
+                      >
+                        <option value="" className="bg-[hsl(var(--hero-dark))]">Alla branscher</option>
+                        {STANDARD_INDUSTRIES.map((i) => (
+                          <option key={i.slug} value={i.slug} className="bg-[hsl(var(--hero-dark))]">{i.name}</option>
+                        ))}
+                      </select>
+                    </label>
+                    <label className="block">
+                      <span className="block text-[11px] font-semibold uppercase tracking-[0.12em] text-white/60 mb-1.5">Dynamics 365-lösning</span>
+                      <select
+                        value={heroProduct}
+                        onChange={(e) => setHeroProduct(e.target.value)}
+                        className="w-full h-11 rounded bg-white/10 border border-white/15 text-white text-[14px] px-3 focus:outline-none focus:border-[hsl(var(--cta-orange))]"
+                        aria-label="Välj Dynamics 365-lösning"
+                      >
+                        <option value="" className="bg-[hsl(var(--hero-dark))]">Alla lösningar</option>
+                        {heroProducts.map((p) => (
+                          <option key={p.value} value={p.value} className="bg-[hsl(var(--hero-dark))]">{p.label}</option>
+                        ))}
+                      </select>
+                    </label>
+                  </div>
                   <Button
-                    asChild
+                    onClick={submitHeroFinder}
                     size="lg"
-                    className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white text-base h-14 px-7 rounded font-bold hover:-translate-y-0.5 transition-all justify-center"
+                    className="w-full sm:w-auto bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white text-base h-12 px-6 rounded font-bold hover:-translate-y-0.5 transition-all"
                   >
-                    <Link to="/branscher/">
-                      Hitta rätt partner
-                      <ArrowRight className="w-5 h-5 ml-2" />
-                    </Link>
+                    Visa matchande partners
+                    <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
                   <button
                     type="button"
                     onClick={() => setDirectionPicker("behovsanalys")}
-                    className="inline-flex items-center justify-center gap-1.5 text-[14px] font-semibold text-white/70 hover:text-white h-11 px-2 transition-colors self-start sm:self-auto"
+                    className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-white/80 hover:text-white transition-colors"
                   >
-                    eller starta behovsanalys
+                    eller starta kostnadsfri behovsanalys
                     <ArrowRight className="w-4 h-4" />
                   </button>
+                  <span className="hidden sm:inline text-white/25">·</span>
+                  <Link
+                    to="/jamfor-partners/"
+                    className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-white/80 hover:text-white transition-colors"
+                  >
+                    <ArrowLeftRight className="w-4 h-4" />
+                    jämför upp till 3 partners sida vid sida
+                  </Link>
                 </div>
                 <p className="text-[13px] text-white/55 leading-relaxed mt-4 italic">
                   Byggt på 40+ års erfarenhet av Dynamics 365 och affärssystem.
                 </p>
               </div>
 
+              {/* Trust strip — visible above the fold */}
+              <div className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
+                {[
+                  { n: "40+", t: "Verifierade D365-partners" },
+                  { n: "21", t: "Branscher" },
+                  { n: "8+", t: "Kostnadsfria beslutsverktyg" },
+                  { n: "0 kr", t: "Ingen partner betalar för placering" },
+                ].map((s) => (
+                  <div key={s.t} className="bg-white/[0.04] border border-white/10 rounded px-3 py-2.5">
+                    <div className="text-[15px] sm:text-[17px] font-bold text-white leading-tight">{s.n}</div>
+                    <div className="text-[11px] sm:text-[12px] text-white/60 leading-tight mt-0.5">{s.t}</div>
+                  </div>
+                ))}
+              </div>
 
               {/* 4-step filter hint */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 w-full">
