@@ -8,6 +8,7 @@ import {
   partnerNewsTypeLabel,
 } from "@/components/PartnerNewsCard";
 import type { PartnerNewsItem, PartnerNewsProductArea } from "@/hooks/usePartnerNews";
+import { trackPartnerNewsClick } from "@/utils/trackPartnerNewsClick";
 
 function formatDate(iso: string) {
   if (!iso) return "";
