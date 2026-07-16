@@ -63,6 +63,29 @@ export function PartnerBasicCard({
         </div>
       </header>
 
+      {firstParagraph && (
+        <section className="relative mb-6 border-l-2 border-accent pl-4" aria-label="Fördjupning">
+          <div className="mb-2 flex items-center gap-2">
+            <FileText className="h-4 w-4 text-accent" aria-hidden />
+            <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-accent">
+              Fördjupning
+            </span>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info
+                  className="h-3.5 w-3.5 text-muted-foreground hover:text-foreground"
+                  aria-label="Information om källan"
+                />
+              </TooltipTrigger>
+              <TooltipContent side="top" className="max-w-xs text-xs">
+                <p>{BASIC_COPY.extendedLabel}</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
+          <p className="text-sm leading-relaxed text-muted-foreground">{firstParagraph}</p>
+        </section>
+      )}
+
       {/* Footer + CTA */}
       <footer className="relative z-10 mt-auto border-t border-border pt-4">
         <div className="space-y-2">
