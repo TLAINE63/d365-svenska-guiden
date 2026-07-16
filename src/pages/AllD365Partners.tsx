@@ -297,7 +297,7 @@ export default function AllD365Partners() {
         </section>
 
         {/* Basic partners: compact list linking to detail cards */}
-        {(basicPartners?.length ?? 0) > 0 && (
+        {basicFiltered.length > 0 && (
           <section className="py-8 sm:py-12 bg-secondary/40 border-t border-border">
             <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
               <div className="mb-6">
