@@ -1120,6 +1120,7 @@ export type Database = {
           email: string | null
           extended_content: string | null
           extended_content_updated_at: string | null
+          extended_summary: string | null
           geography: string[] | null
           hide_basic_card: boolean
           id: string
@@ -1194,6 +1195,7 @@ export type Database = {
           email?: string | null
           extended_content?: string | null
           extended_content_updated_at?: string | null
+          extended_summary?: string | null
           geography?: string[] | null
           hide_basic_card?: boolean
           id?: string
@@ -1268,6 +1270,7 @@ export type Database = {
           email?: string | null
           extended_content?: string | null
           extended_content_updated_at?: string | null
+          extended_summary?: string | null
           geography?: string[] | null
           hide_basic_card?: boolean
           id?: string
@@ -1846,6 +1849,7 @@ export type Database = {
           created_at: string | null
           extended_content: string | null
           extended_content_updated_at: string | null
+          extended_summary: string | null
           id: string | null
           name: string | null
           observed_company_sizes: Json | null
@@ -1864,6 +1868,7 @@ export type Database = {
           created_at?: string | null
           extended_content?: string | null
           extended_content_updated_at?: string | null
+          extended_summary?: string | null
           id?: string | null
           name?: string | null
           observed_company_sizes?: Json | null
@@ -1882,6 +1887,7 @@ export type Database = {
           created_at?: string | null
           extended_content?: string | null
           extended_content_updated_at?: string | null
+          extended_summary?: string | null
           id?: string | null
           name?: string | null
           observed_company_sizes?: Json | null
