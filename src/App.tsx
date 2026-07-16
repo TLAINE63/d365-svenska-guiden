@@ -101,6 +101,7 @@ const Priser = lazy(() => import("./pages/Priser"));
 const Kostnad = lazy(() => import("./pages/Kostnad"));
 const ComparePartners = lazy(() => import("./pages/ComparePartners"));
 const Partnernytt = lazy(() => import("./pages/Partnernytt"));
+const PartnerNewsDetail = lazy(() => import("./pages/PartnerNewsDetail"));
 const IsvCompare = lazy(() => import("./pages/IsvCompare"));
 const AiChatBubble = lazy(() => import("@/components/AiChatBubble"));
 
