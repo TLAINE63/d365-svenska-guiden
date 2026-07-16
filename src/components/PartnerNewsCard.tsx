@@ -111,9 +111,12 @@ export default function PartnerNewsCard({ item, partnerName, partnerSlug, partne
               )}
             </div>
 
-            <h3 className="text-base font-semibold text-foreground leading-snug">
+            <Link
+              to={`/partnernytt/artikel/${item.id}/`}
+              className="group inline-block text-base font-semibold text-foreground leading-snug hover:text-[hsl(var(--accent))] transition-colors"
+            >
               {item.editorial_title}
-            </h3>
+            </Link>
 
             <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
               {item.summary}
@@ -185,9 +188,12 @@ export default function PartnerNewsCard({ item, partnerName, partnerSlug, partne
           )}
         </div>
 
-        <h3 className="text-lg font-semibold text-foreground leading-snug">
+        <Link
+          to={`/partnernytt/artikel/${item.id}/`}
+          className="group inline-block text-lg font-semibold text-foreground leading-snug hover:text-[hsl(var(--accent))] transition-colors"
+        >
           {item.editorial_title}
-        </h3>
+        </Link>
 
         <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
           {item.summary}

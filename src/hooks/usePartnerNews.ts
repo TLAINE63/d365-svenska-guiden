@@ -92,3 +92,41 @@ export function usePublishedPartnerNews(opts: UsePublishedPartnerNewsOpts = {}) 
     staleTime: 5 * 60_000,
   });
 }
+
+export function usePartnerNewsItem(id: string | undefined) {
+  return useQuery({
+    queryKey: ["partner-news-item", id],
+    queryFn: async (): Promise<PartnerNewsItem | null> => {
+      if (!id) return null;
+      const { data, error } = await supabase
+        .from("partner_news")
+        .select("*, partners:partner_id(id, name, slug, logo_url)")
+        .eq("id", id)
+        .eq("status", "published")
+        .maybeSingle();
+      if (error) throw error;
+      if (!data) return null;
+      const row = data as Record<string, unknown>;
+      const partner = (row.partners ?? null) as PartnerNewsItem["partner"];
+      const { partners: _p, ...rest } = row;
+      const item = { ...(rest as unknown as PartnerNewsItem), partner };
+
+      // Backfill partner name/slug for non-featured partners via SECURITY DEFINER RPC
+      if (!item.partner?.slug && item.partner_id) {
+        try {
+          const { data: names } = await (supabase as unknown as {
+            rpc: (fn: string) => Promise<{ data: Array<{ id: string; name: string; slug: string }> | null }>;
+          }).rpc("get_all_partner_names");
+          const byId = new Map((names ?? []).map((n) => [n.id, n]));
+          const n = byId.get(item.partner_id);
+          if (n) item.partner = { id: n.id, name: n.name, slug: n.slug, logo_url: null };
+        } catch (e) {
+          console.warn("partner name backfill failed", e);
+        }
+      }
+      return item;
+    },
+    enabled: !!id,
+    staleTime: 5 * 60_000,
+  });
+}
