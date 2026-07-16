@@ -194,18 +194,7 @@ export async function generateCrmResultPdf(
   // ---- Alternativ vid oversized ----
   if (level === "oversized" && config.oversizedAlternative) {
     y = ensureSpace(20, y);
-    doc.setDrawColor(...BRAND_PETROL);
-    doc.line(margin, y, pageW - margin, y);
-    y += 6;
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(12);
-    doc.setTextColor(...BRAND_DARK);
-    const altHeadLines = doc.splitTextToSize(
-      config.oversizedAlternative.heading,
-      bodyWidth,
-    );
-    doc.text(altHeadLines, margin, y);
-    y += altHeadLines.length * 5.5 + 2;
+    y = drawSectionHeading(doc, config.oversizedAlternative.heading, y + 2);
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
@@ -221,14 +210,7 @@ export async function generateCrmResultPdf(
   // ---- Nästa steg ----
   const steps = nextStepsFor(config, level);
   y = ensureSpace(14, y);
-  doc.setDrawColor(...BRAND_PETROL);
-  doc.line(margin, y, pageW - margin, y);
-  y += 6;
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(12);
-  doc.setTextColor(...BRAND_DARK);
-  doc.text("Era nästa steg", margin, y);
-  y += 6;
+  y = drawSectionHeading(doc, "Era nästa steg", y + 2);
 
   steps.forEach((s, i) => {
     doc.setFont("helvetica", "bold");
