@@ -132,6 +132,7 @@ export default function AdminBasicPartnersTab() {
           observed_locations: p.observed_locations || [],
           observed_updated_at: p.observed_updated_at ?? null,
           extended_content: p.extended_content ?? null,
+          extended_summary: p.extended_summary ?? null,
           hide_basic_card: p.hide_basic_card === true,
           updated_at: p.updated_at,
         })),
