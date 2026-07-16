@@ -16,7 +16,7 @@ import partnerDataJson from "@/data/partnerData.json";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
-  { name: "Alla D365-partners", url: "https://d365.se/alla-d365-partners" },
+  { name: "Övriga Dynamics 365-partners", url: "https://d365.se/alla-d365-partners" },
 ];
 
 // Static snapshot of featured partners (built into the bundle so the
