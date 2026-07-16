@@ -245,7 +245,7 @@ export default function AllD365Partners() {
             <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
               <div className="mb-6">
                 <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
-                  Övriga aktörer på marknaden
+                  Övriga Dynamics 365-partners på den svenska marknaden
                 </h2>
                 <p className="text-sm text-muted-foreground max-w-3xl">
                   Partners vi känner till men där vi ännu inte har sammanställt
