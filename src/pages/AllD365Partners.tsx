@@ -247,8 +247,10 @@ export default function AllD365Partners() {
                 branscher, referenser och kontakt.
               </p>
             </div>
-            {profiled.length === 0 ? (
+            {profiledAll.length === 0 ? (
               <p className="text-sm text-muted-foreground">Laddar…</p>
+            ) : profiled.length === 0 ? (
+              <p className="text-sm text-muted-foreground">Inga profilerade partners matchar filtret.</p>
             ) : (
               <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {profiled.map((p) => (
