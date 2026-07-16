@@ -79,19 +79,6 @@ export function PartnerBasicCard({
   const locations = (partner.observed_locations || []).slice(0, 4);
   const isStandalone = variant === "standalone";
   const extended = (partner.extended_content || "").trim();
-  const filteredExtended = isStandalone
-    ? extended
-        .split(/\n\n+/)
-        .filter(
-          (para) =>
-            !/^Tydliga styrkor:/i.test(para) &&
-            !/^Räckvidd och segment:/i.test(para) &&
-            !/^Passar bäst:/i.test(para) &&
-            !/^Sammanfattning:/i.test(para),
-        )
-        .join("\n\n")
-        .trim()
-    : extended;
 
   return (
     <article
