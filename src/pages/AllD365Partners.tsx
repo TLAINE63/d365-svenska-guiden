@@ -5,7 +5,7 @@ import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MessageSquare, ArrowRight, Users, CheckCircle2 } from "lucide-react";
+import { MessageSquare, ArrowRight, Users, CheckCircle2, Search as SearchIcon } from "lucide-react";
 import { usePartners } from "@/hooks/usePartners";
 import TrustBanner from "@/components/TrustBanner";
 import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
