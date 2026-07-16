@@ -361,6 +361,7 @@ serve(async (req: Request): Promise<Response> => {
             implementations_per_app: (partner as any).implementations_per_app || {},
             extended_content: (partner as any).extended_content?.trim() || null,
             extended_content_updated_at: (partner as any).extended_content?.trim() ? new Date().toISOString() : null,
+            extended_summary: (partner as any).extended_summary?.trim() || null,
             profile_level: partner.profile_level || "profilerad",
             observed_products: partner.observed_products || {},
             observed_industries: partner.observed_industries || {},
