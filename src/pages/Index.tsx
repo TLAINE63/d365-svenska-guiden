@@ -72,6 +72,19 @@ import LatestArticlesStrip from "@/components/LatestArticlesStrip";
 import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
 import TrustBanner from "@/components/TrustBanner";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
+import partnerData from "@/data/partnerData.json";
+
+// Endast branscher som har minst en publicerad (verifierad) partner
+const publishedPartners = (partnerData as Array<{ is_featured?: boolean; industries?: string[]; secondary_industries?: string[] }>).filter(
+  (p) => p.is_featured
+);
+const publishedIndustryNames = new Set<string>();
+publishedPartners.forEach((p) => {
+  (p.industries || []).forEach((n) => publishedIndustryNames.add(n));
+  (p.secondary_industries || []).forEach((n) => publishedIndustryNames.add(n));
+});
+const HERO_INDUSTRIES = STANDARD_INDUSTRIES.filter((i) => publishedIndustryNames.has(i.name));
+const VERIFIED_PARTNER_COUNT = publishedPartners.length;
 
 
 const homeFaqs = [
