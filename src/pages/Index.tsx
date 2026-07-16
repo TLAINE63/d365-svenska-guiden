@@ -71,6 +71,7 @@ const VideoComingSoon = () => (
 import LatestArticlesStrip from "@/components/LatestArticlesStrip";
 import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
 import TrustBanner from "@/components/TrustBanner";
+import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 
 
 const homeFaqs = [
