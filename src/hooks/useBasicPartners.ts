@@ -31,6 +31,7 @@ export interface BasicPartner {
   observed_updated_at: string | null;
   extended_content: string | null;
   extended_content_updated_at: string | null;
+  extended_summary: string | null;
   profile_level: "basic";
   created_at: string;
   updated_at: string;
@@ -88,6 +89,7 @@ function normalizeRaw(row: any): BasicPartner {
     observed_locations: row?.observed_locations || [],
     extended_content: row?.extended_content ?? null,
     extended_content_updated_at: row?.extended_content_updated_at ?? null,
+    extended_summary: row?.extended_summary ?? null,
   } as BasicPartner;
 }
 

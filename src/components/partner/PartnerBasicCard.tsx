@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { MapPin, FileText, Info } from "lucide-react";
+import { MapPin, FileText, ScrollText, Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { BASIC_COPY, BasicPartner } from "@/hooks/useBasicPartners";
 
@@ -62,6 +62,23 @@ export function PartnerBasicCard({
           )}
         </div>
       </header>
+
+      {partner.extended_summary?.trim() && (
+        <section
+          className="relative mb-6 rounded border border-border bg-muted/30 p-4"
+          aria-label="Sammanfattning"
+        >
+          <div className="mb-2 flex items-center gap-2">
+            <ScrollText className="h-4 w-4 text-accent" aria-hidden />
+            <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-accent">
+              Sammanfattning
+            </span>
+          </div>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            {partner.extended_summary.trim()}
+          </p>
+        </section>
+      )}
 
       {firstParagraph && (
         <section className="relative mb-6 border-l-2 border-accent pl-4" aria-label="Fördjupning">

@@ -57,6 +57,7 @@ type BasicRow = {
   observed_locations: string[];
   observed_updated_at: string | null;
   extended_content: string | null;
+  extended_summary: string | null;
   hide_basic_card: boolean;
   updated_at: string;
 };
@@ -75,6 +76,7 @@ function emptyDraft(): Partial<BasicRow> {
     observed_delivery_geo: {},
     observed_locations: [],
     extended_content: "",
+    extended_summary: "",
     hide_basic_card: false,
   };
 }
@@ -89,6 +91,23 @@ function slugify(name: string) {
     .replace(/ö/g, "o")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
+}
+
+function extractSummaryFromExtended(text: string | null | undefined): string | null {
+  if (!text) return null;
+  const paragraphs = text
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+  for (let i = 0; i < paragraphs.length; i++) {
+    const p = paragraphs[i];
+    if (/^Sammanfattning[\s:]*/i.test(p)) {
+      const contentAfter = p.replace(/^Sammanfattning[\s:]*/i, "").trim();
+      if (contentAfter) return contentAfter;
+      if (i + 1 < paragraphs.length) return paragraphs[i + 1];
+    }
+  }
+  return null;
 }
 
 async function callAdmin(action: string, payload: Record<string, unknown>) {
@@ -130,6 +149,7 @@ export default function AdminBasicPartnersTab() {
           observed_locations: p.observed_locations || [],
           observed_updated_at: p.observed_updated_at ?? null,
           extended_content: p.extended_content ?? null,
+          extended_summary: p.extended_summary ?? null,
           hide_basic_card: p.hide_basic_card === true,
           updated_at: p.updated_at,
         })),
@@ -162,7 +182,10 @@ export default function AdminBasicPartnersTab() {
   );
 
   const openNew = () => setEditing(emptyDraft());
-  const openEdit = (row: BasicRow) => setEditing({ ...row });
+  const openEdit = (row: BasicRow) => {
+    const summary = row.extended_summary?.trim() ? row.extended_summary : extractSummaryFromExtended(row.extended_content);
+    setEditing({ ...row, extended_summary: summary ?? "" });
+  };
 
   const save = async () => {
     if (!editing?.name?.trim()) {
@@ -184,6 +207,7 @@ export default function AdminBasicPartnersTab() {
         observed_locations: editing.observed_locations || [],
         observed_updated_at: new Date().toISOString(),
         extended_content: (editing.extended_content || "").trim() || null,
+        extended_summary: (editing.extended_summary || "").trim() || null,
         hide_basic_card: editing.hide_basic_card === true,
         // Basic partners never enter the paid rotation. Enforce defensively:
         is_featured: false,
@@ -543,6 +567,21 @@ export default function AdminBasicPartnersTab() {
                 />
                 <p className="mt-1 text-xs text-muted-foreground">
                   Ej granskad av partnern. Håll neutralt, faktabaserat och kortfattat.
+                </p>
+              </div>
+
+              <div>
+                <Label>Sammanfattning (visas separat på standalone-Basickortet)</Label>
+                <Textarea
+                  rows={4}
+                  value={editing.extended_summary || ""}
+                  placeholder="Kort sammanfattning, helst ett stycke. Fylls automatiskt med första stycket under 'Sammanfattning' i fördjupningstexten om det finns."
+                  onChange={(e) =>
+                    setEditing({ ...editing, extended_summary: e.target.value })
+                  }
+                />
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Redigerbart utdrag från fördjupningstexten. Visas som egen sektion ovanför fördjupningen.
                 </p>
               </div>
               <div className="rounded-md border border-amber-500/40 bg-amber-500/5 p-3">
