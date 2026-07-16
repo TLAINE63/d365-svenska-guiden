@@ -135,14 +135,7 @@ export async function generateCrmResultPdf(
   y += bodyLines.length * 5 + 6;
 
   // ---- Profil per behovsområde ----
-  doc.setDrawColor(...BRAND_PETROL);
-  doc.setLineWidth(0.6);
-  doc.line(margin, y, pageW - margin, y);
-  y += 6;
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(12);
-  doc.text("Profil per behovsområde", margin, y);
-  y += 6;
+  y = drawSectionHeading(doc, "Profil per behovsområde", y + 2);
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10);
