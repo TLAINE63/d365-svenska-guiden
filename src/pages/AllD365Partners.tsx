@@ -11,7 +11,9 @@ import TrustBanner from "@/components/TrustBanner";
 import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { useBasicPartners, PRODUCT_LABEL, PRODUCT_ORDER } from "@/hooks/useBasicPartners";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Search, X } from "lucide-react";
 import partnerDataJson from "@/data/partnerData.json";
 
 const breadcrumbs = [
@@ -39,9 +41,19 @@ export default function AllD365Partners() {
   const { data: allNames } = useAllPartnerNames();
   const { data: basicPartners } = useBasicPartners();
 
-  const profiled = useMemo(() => {
-    // Prefer live DB data once loaded; otherwise fall back to the static
-    // snapshot so SSG/crawlers always see the full list.
+  const [query, setQuery] = useState("");
+  const [productFilter, setProductFilter] = useState<"all" | "bc" | "fsc" | "sales" | "service">("all");
+
+  const q = query.trim().toLowerCase();
+
+  const productMatchTokens: Record<Exclude<typeof productFilter, "all">, string[]> = {
+    bc: ["business central", "bc"],
+    fsc: ["finance", "supply chain", "f&sc", "fsc", "f&o"],
+    sales: ["sales", "marketing", "crm"],
+    service: ["service", "field service", "contact center"],
+  };
+
+  const profiledAll = useMemo(() => {
     const live = (dbPartners || [])
       .filter((p) => p.is_featured)
       .map((p) => ({
@@ -55,9 +67,27 @@ export default function AllD365Partners() {
     return [...source].sort((a, b) => a.name.localeCompare(b.name, "sv"));
   }, [dbPartners]);
 
+  const profiled = useMemo(() => {
+    return profiledAll.filter((p) => {
+      if (q && !p.name.toLowerCase().includes(q)) return false;
+      if (productFilter !== "all") {
+        const tokens = productMatchTokens[productFilter];
+        const hay = p.applications.join(" ").toLowerCase();
+        if (!tokens.some((t) => hay.includes(t))) return false;
+      }
+      return true;
+    });
+  }, [profiledAll, q, productFilter]);
+
+  const basicFiltered = useMemo(() => {
+    return (basicPartners || []).filter((p) => {
+      if (q && !p.name.toLowerCase().includes(q)) return false;
+      if (productFilter !== "all" && !p.observed_products?.[productFilter]) return false;
+      return true;
+    });
+  }, [basicPartners, q, productFilter]);
+
   const others = useMemo(() => {
-    // Names already shown as Basic cards should not be counted/listed again
-    // as "övriga aktörer" — the basic view is a subset of non-featured partners.
     const basicNames = new Set(
       (basicPartners || []).map((p) => p.name.trim().toLowerCase()),
     );
@@ -77,11 +107,25 @@ export default function AllD365Partners() {
       return true;
     });
     deduped.sort((a, b) => a.name.localeCompare(b.name, "sv"));
+    // Others have no product data → hidden when a specific product filter is active.
+    if (productFilter !== "all") return [];
+    if (q) return deduped.filter((it) => it.name.toLowerCase().includes(q));
     return deduped;
-  }, [allNames, unprofiled, basicPartners]);
+  }, [allNames, unprofiled, basicPartners, q, productFilter]);
 
   const totalMarket =
-    profiled.length + (basicPartners?.length ?? 0) + others.length;
+    profiledAll.length + (basicPartners?.length ?? 0);
+
+  const filteredTotal = profiled.length + basicFiltered.length + others.length;
+  const isFiltering = q.length > 0 || productFilter !== "all";
+
+  const productOptions: { key: "all" | "bc" | "fsc" | "sales" | "service"; label: string }[] = [
+    { key: "all", label: "Alla produkter" },
+    { key: "bc", label: "Business Central" },
+    { key: "fsc", label: "Finance & Supply Chain" },
+    { key: "sales", label: "Sales & Marketing" },
+    { key: "service", label: "Service" },
+  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -110,15 +154,83 @@ export default function AllD365Partners() {
               <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
                 <Badge className="bg-primary/10 text-primary border-primary/30 hover:bg-primary/10">
                   <CheckCircle2 className="w-3 h-3 mr-1" />
-                  {profiled.length} profilerade partners
+                  {profiledAll.length} profilerade partners
                 </Badge>
                 <Badge variant="outline" className="text-muted-foreground">
-                  {(basicPartners?.length ?? 0) + others.length} övriga aktörer i marknadskartan
+                  {(basicPartners?.length ?? 0)} basickort · {profiledAll.length + (basicPartners?.length ?? 0)} i marknadskartan
                 </Badge>
               </div>
             )}
           </div>
         </section>
+
+        {/* Search & filter */}
+        <section className="py-6 border-b border-border bg-background sticky top-16 z-20 backdrop-blur">
+          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+            <div className="flex flex-col gap-3">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <Input
+                  type="search"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Sök partner på namn…"
+                  className="pl-9 pr-9 h-11"
+                  aria-label="Sök partner"
+                />
+                {query && (
+                  <button
+                    type="button"
+                    onClick={() => setQuery("")}
+                    aria-label="Rensa sök"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-muted text-muted-foreground"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {productOptions.map((opt) => {
+                  const active = productFilter === opt.key;
+                  return (
+                    <button
+                      key={opt.key}
+                      type="button"
+                      onClick={() => setProductFilter(opt.key)}
+                      className={`text-xs sm:text-sm px-3 py-1.5 rounded-full border transition-colors ${
+                        active
+                          ? "bg-primary text-primary-foreground border-primary"
+                          : "bg-card text-foreground border-border hover:border-primary/40"
+                      }`}
+                      aria-pressed={active}
+                    >
+                      {opt.label}
+                    </button>
+                  );
+                })}
+                {isFiltering && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setQuery("");
+                      setProductFilter("all");
+                    }}
+                    className="text-xs sm:text-sm px-3 py-1.5 rounded-full border border-dashed border-border text-muted-foreground hover:text-foreground hover:border-foreground/40"
+                  >
+                    Rensa filter
+                  </button>
+                )}
+              </div>
+              {isFiltering && (
+                <p className="text-xs text-muted-foreground" aria-live="polite">
+                  Visar {filteredTotal} träff{filteredTotal === 1 ? "" : "ar"}
+                  {productFilter !== "all" && " (endast partners med produktdata visas när produktfilter är aktivt)"}
+                </p>
+              )}
+            </div>
+          </div>
+        </section>
+
 
 
 
@@ -135,8 +247,10 @@ export default function AllD365Partners() {
                 branscher, referenser och kontakt.
               </p>
             </div>
-            {profiled.length === 0 ? (
+            {profiledAll.length === 0 ? (
               <p className="text-sm text-muted-foreground">Laddar…</p>
+            ) : profiled.length === 0 ? (
+              <p className="text-sm text-muted-foreground">Inga profilerade partners matchar filtret.</p>
             ) : (
               <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {profiled.map((p) => (
@@ -183,7 +297,7 @@ export default function AllD365Partners() {
         </section>
 
         {/* Basic partners: compact list linking to detail cards */}
-        {(basicPartners?.length ?? 0) > 0 && (
+        {basicFiltered.length > 0 && (
           <section className="py-8 sm:py-12 bg-secondary/40 border-t border-border">
             <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
               <div className="mb-6">
@@ -198,7 +312,7 @@ export default function AllD365Partners() {
                 </p>
               </div>
               <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
-                {basicPartners!.map((p) => {
+                {basicFiltered.map((p) => {
                   const basicProducts = PRODUCT_ORDER.filter(
                     (k) => p.observed_products?.[k],
                   );
