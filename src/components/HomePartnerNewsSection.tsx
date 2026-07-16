@@ -28,7 +28,7 @@ function HomeNewsCard({ item }: { item: PartnerNewsItem }) {
   return (
     <Link
       to={`/partnernytt/artikel/${item.id}/`}
-      className="group flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-[hsl(var(--accent))]/40 hover:bg-secondary/30 hover:shadow-lg"
+      className="group flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-all cursor-pointer hover:border-[hsl(var(--accent))] hover:bg-secondary/30 hover:shadow-xl hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent))] focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:border-[hsl(var(--accent))]"
     >
       {item.image_url ? (
         <div className="aspect-[16/9] w-full overflow-hidden bg-muted">
