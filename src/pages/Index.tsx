@@ -118,6 +118,10 @@ const Index = () => {
     { value: "cs", label: "Customer Service", path: "/customer-service/" },
     { value: "fs", label: "Field Service", path: "/field-service/" },
     { value: "ci", label: "Customer Insights (Marketing)", path: "/customer-insights/" },
+    { value: "contact-center", label: "Contact Center", path: "/d365contactcenter/" },
+    { value: "project-operations", label: "Project Operations", path: "/d365projectoperations/" },
+    { value: "human-resources", label: "Human Resources", path: "/d365humanresources/" },
+    { value: "commerce", label: "Commerce", path: "/d365commerce/" },
   ];
 
   const submitHeroFinder = () => {
