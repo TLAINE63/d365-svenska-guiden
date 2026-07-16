@@ -94,15 +94,7 @@ export async function generateRoiPdf(data: RoiPdfData) {
   };
   const sectionTitle = (text: string) => {
     ensureSpace(14);
-    doc.setDrawColor(...BRAND_PETROL);
-    doc.setLineWidth(0.6);
-    doc.line(margin, y, pageW - margin, y);
-    y += 6;
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(13);
-    doc.setTextColor(...BRAND_DARK);
-    doc.text(text, margin, y);
-    y += 6;
+    y = drawSectionHeading(doc, text, y + 4);
   };
 
   // ---- COVER ----
