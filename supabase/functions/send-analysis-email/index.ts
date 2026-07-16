@@ -337,14 +337,14 @@ serve(async (req: Request): Promise<Response> => {
     const aiHtml = aiAnalysis
       ? `
         ${aiAnalysis.aiInterpretation ? `
-          <h2 style="color:#0E7C86;margin:20px 0 10px 0;">AI-tolkning av ert underlag</h2>
-          <div style="font-size:14px;color:#1a1a1a;">${formatAiMarkdown(String(aiAnalysis.aiInterpretation), 6000)}</div>
-          ${aiAnalysis.confidence ? `<p style="color:#666;font-size:12px;margin-top:8px;"><em>Säkerhet i analysen: ${sanitizeHtml(String(aiAnalysis.confidence))}</em></p>` : ""}
+          <h2 style="color:#D64A1F;margin:32px 0 14px 0;font-size:20px;font-weight:700;letter-spacing:-0.01em;border-top:3px solid #D64A1F;padding-top:20px;">AI-tolkning av ert underlag</h2>
+          <div style="font-size:15px;color:#1a1a1a;line-height:1.75;">${formatAiMarkdown(String(aiAnalysis.aiInterpretation), 6000)}</div>
+          ${aiAnalysis.confidence ? `<p style="color:#666;font-size:12px;margin:12px 0 0 0;padding:10px 14px;background:#f8f6f1;border-left:3px solid #007C68;"><em>Säkerhet i analysen: ${sanitizeHtml(String(aiAnalysis.confidence))}</em></p>` : ""}
         ` : ""}
-        ${(aiAnalysis.whyPoints || []).length ? `<h3 style="color:#0E7C86;margin:18px 0 8px 0;">Varför denna riktning</h3>${renderList(aiAnalysis.whyPoints)}` : ""}
-        ${(aiAnalysis.risks || []).length ? `<h3 style="color:#0E7C86;margin:18px 0 8px 0;">Risker och frågor att utreda vidare</h3>${renderList(aiAnalysis.risks)}` : ""}
-        ${aiAnalysis.partnerProfile ? `<h3 style="color:#0E7C86;margin:18px 0 8px 0;">Rekommenderad partnerprofil</h3><div style="font-size:14px;color:#1a1a1a;">${formatAiMarkdown(String(aiAnalysis.partnerProfile), 2500)}</div>` : ""}
-        ${(aiAnalysis.nextSteps || []).length ? `<h3 style="color:#0E7C86;margin:18px 0 8px 0;">Rekommenderade nästa steg</h3>${renderList(aiAnalysis.nextSteps)}` : ""}
+        ${(aiAnalysis.whyPoints || []).length ? `<h3 style="color:#0E7C86;margin:28px 0 12px 0;font-size:17px;font-weight:700;">Varför denna riktning</h3>${renderList(aiAnalysis.whyPoints)}` : ""}
+        ${(aiAnalysis.risks || []).length ? `<h3 style="color:#0E7C86;margin:28px 0 12px 0;font-size:17px;font-weight:700;">Risker och frågor att utreda vidare</h3>${renderList(aiAnalysis.risks)}` : ""}
+        ${aiAnalysis.partnerProfile ? `<h3 style="color:#0E7C86;margin:28px 0 12px 0;font-size:17px;font-weight:700;">Rekommenderad partnerprofil</h3><div style="font-size:15px;color:#1a1a1a;line-height:1.75;">${formatAiMarkdown(String(aiAnalysis.partnerProfile), 2500)}</div>` : ""}
+        ${(aiAnalysis.nextSteps || []).length ? `<h3 style="color:#0E7C86;margin:28px 0 12px 0;font-size:17px;font-weight:700;">Rekommenderade nästa steg</h3>${renderList(aiAnalysis.nextSteps)}` : ""}
       `
       : "";
 
@@ -360,11 +360,11 @@ serve(async (req: Request): Promise<Response> => {
       : (serviceSubjectMap[analysisType] || `Din Behovsanalys för ${analysisType} från D365.se`);
 
     const intro = isErp
-      ? `<p>Hej ${safeContactName},</p>
-         <p>Tack för att du genomförde ERP Behovsanalysen på d365.se. Bifogat hittar du ert köparsidiga beslutsunderlag som PDF.</p>
-         <p>Analysen ger en <strong>preliminär systemindikation</strong> baserad på era svar – inte ett definitivt systemval. Använd den som diskussionsunderlag inför kravspecifikation och dialog med ERP-partner.</p>`
-      : `<p>Hej ${safeContactName},</p>
-         <p>Tack för att du genomförde vår behovsanalys. Här är en sammanfattning av dina svar och vår rekommendation.</p>`;
+      ? `<p style="font-size:15px;line-height:1.7;margin:0 0 16px 0;color:#1a1a1a;">Hej ${safeContactName},</p>
+         <p style="font-size:15px;line-height:1.7;margin:0 0 16px 0;color:#1a1a1a;">Tack för att du genomförde ERP Behovsanalysen på d365.se. Bifogat hittar du ert köparsidiga beslutsunderlag som PDF.</p>
+         <p style="font-size:15px;line-height:1.7;margin:0 0 8px 0;color:#1a1a1a;">Analysen ger en <strong>preliminär systemindikation</strong> baserad på era svar – inte ett definitivt systemval. Använd den som diskussionsunderlag inför kravspecifikation och dialog med ERP-partner.</p>`
+      : `<p style="font-size:15px;line-height:1.7;margin:0 0 16px 0;color:#1a1a1a;">Hej ${safeContactName},</p>
+         <p style="font-size:15px;line-height:1.7;margin:0 0 8px 0;color:#1a1a1a;">Tack för att du genomförde vår behovsanalys. Här är en sammanfattning av dina svar och vår rekommendation.</p>`;
 
     const emailPayload: Record<string, unknown> = {
       from: "D365 Guiden <info@d365.se>",
@@ -373,34 +373,51 @@ serve(async (req: Request): Promise<Response> => {
       reply_to: "info@d365.se",
       subject,
       html: `
-        ${intro}
+        <div style="background:#f5f3ee;padding:24px 12px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
+          <div style="max-width:640px;margin:0 auto;background:#ffffff;border:1px solid #e6e2da;">
+            <!-- Brand header -->
+            <div style="background:#15130F;padding:24px 32px;border-bottom:3px solid #D64A1F;">
+              <div style="color:#ffffff;font-size:20px;font-weight:700;letter-spacing:-0.02em;">d365.se</div>
+              <div style="color:rgba(255,255,255,0.65);font-size:12px;margin-top:4px;letter-spacing:0.02em;">Köparsidig vägledning för Microsoft Dynamics 365</div>
+            </div>
 
-        <h2 style="color:#0E7C86;">Kontaktinformation</h2>
-        <p><strong>Företag:</strong> ${safeCompanyName}</p>
-        <p><strong>Kontaktperson:</strong> ${safeContactName}</p>
-        <p><strong>Telefon:</strong> ${safePhone}</p>
-        <p><strong>E-post:</strong> ${safeEmail}</p>
+            <!-- Body -->
+            <div style="padding:32px;color:#1a1a1a;">
+              ${intro}
 
-        ${recommendationHtml}
-        ${aiHtml}
+              <h2 style="color:#0E7C86;margin:28px 0 12px 0;font-size:17px;font-weight:700;">Kontaktinformation</h2>
+              <table style="width:100%;border-collapse:collapse;font-size:14px;line-height:1.7;">
+                <tr><td style="padding:4px 12px 4px 0;color:#666;width:130px;">Företag</td><td style="padding:4px 0;color:#1a1a1a;font-weight:600;">${safeCompanyName}</td></tr>
+                <tr><td style="padding:4px 12px 4px 0;color:#666;">Kontaktperson</td><td style="padding:4px 0;color:#1a1a1a;font-weight:600;">${safeContactName}</td></tr>
+                <tr><td style="padding:4px 12px 4px 0;color:#666;">Telefon</td><td style="padding:4px 0;color:#1a1a1a;">${safePhone}</td></tr>
+                <tr><td style="padding:4px 12px 4px 0;color:#666;">E-post</td><td style="padding:4px 0;color:#1a1a1a;">${safeEmail}</td></tr>
+              </table>
 
-        ${!isErp ? `<h2>Analysresultat</h2>${formatAnalysisData(analysisData)}` : ""}
+              ${recommendationHtml}
+              ${aiHtml}
 
-        <h2 style="color:#0E7C86;">Vill du gå vidare?</h2>
-        <p>Du är välkommen att höra av dig om du vill ha hjälp med kravarbete eller partnerdialog:</p>
-        <p>
-          <strong>Thomas Laine</strong><br>
-          Senior rådgivare – Microsoft Dynamics 365<br>
-          E-post: <a href="mailto:info@d365.se">info@d365.se</a><br>
-          Tel: 072-232 40 60
-        </p>
+              ${!isErp ? `<h2 style="color:#0E7C86;margin:28px 0 12px 0;font-size:17px;font-weight:700;">Analysresultat</h2><div style="font-size:14px;line-height:1.7;color:#1a1a1a;">${formatAnalysisData(analysisData)}</div>` : ""}
 
-        <hr>
-        <p style="color: #666; font-size: 12px;">
-          ${pdfBase64 ? "📎 PDF-rapporten är bifogad i detta mejl." : ""}
-          <br>
-          d365.se – köparsidig vägledning för Microsoft Dynamics 365.
-        </p>
+              <!-- CTA-box -->
+              <div style="margin:36px 0 8px 0;padding:24px;background:#f8f6f1;border-left:4px solid #D64A1F;">
+                <h2 style="color:#15130F;margin:0 0 10px 0;font-size:17px;font-weight:700;">Vill du gå vidare?</h2>
+                <p style="font-size:14px;line-height:1.7;margin:0 0 14px 0;color:#1a1a1a;">Hör av dig om du vill ha hjälp med kravarbete eller partnerdialog:</p>
+                <p style="font-size:14px;line-height:1.6;margin:0;color:#1a1a1a;">
+                  <strong style="color:#15130F;">Thomas Laine</strong><br>
+                  <span style="color:#555;">Senior rådgivare – Microsoft Dynamics 365</span><br>
+                  E-post: <a href="mailto:info@d365.se" style="color:#D64A1F;text-decoration:none;font-weight:600;">info@d365.se</a><br>
+                  Tel: <a href="tel:+46722324060" style="color:#D64A1F;text-decoration:none;">072-232 40 60</a>
+                </p>
+              </div>
+            </div>
+
+            <!-- Footer -->
+            <div style="background:#15130F;padding:20px 32px;color:rgba(255,255,255,0.65);font-size:12px;line-height:1.6;">
+              ${pdfBase64 ? '<div style="margin-bottom:6px;">📎 PDF-rapporten är bifogad i detta mejl.</div>' : ""}
+              <div>d365.se – köparsidig vägledning för Microsoft Dynamics 365.</div>
+            </div>
+          </div>
+        </div>
       `,
     };
 
