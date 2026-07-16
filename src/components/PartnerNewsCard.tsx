@@ -66,12 +66,28 @@ interface Props {
   partnerLogoUrl?: string | null;
   hidePartnerLink?: boolean;
   layout?: "vertical" | "horizontal";
+  clickSource?: PartnerNewsClickSource;
 }
 
-export default function PartnerNewsCard({ item, partnerName, partnerSlug, partnerLogoUrl, hidePartnerLink, layout = "vertical" }: Props) {
+export default function PartnerNewsCard({ item, partnerName, partnerSlug, partnerLogoUrl, hidePartnerLink, layout = "vertical", clickSource = "other" }: Props) {
   const name = partnerName ?? item.partner?.name ?? "";
   const slug = partnerSlug ?? item.partner?.slug ?? "";
   const logo = partnerLogoUrl ?? item.partner?.logo_url ?? null;
+
+  const productAreasForTracking = (item.product_areas && item.product_areas.length > 0
+    ? item.product_areas
+    : [item.product_area]) as string[];
+
+  const handleTitleClick = () =>
+    trackPartnerNewsClick({
+      newsId: item.id,
+      editorialTitle: item.editorial_title,
+      partnerId: item.partner?.id ?? null,
+      partnerSlug: slug || null,
+      newsType: item.news_type,
+      productAreas: productAreasForTracking,
+      source: clickSource,
+    });
 
   if (layout === "horizontal") {
     return (
