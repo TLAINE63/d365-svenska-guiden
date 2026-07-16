@@ -297,6 +297,7 @@ const AppShell = () => {
           <Route path="/jamfor-partners" element={<ComparePartners />} />
           <Route path="/compare/:slug" element={<IsvCompare />} />
           <Route path="/partnernytt" element={<Partnernytt />} />
+          <Route path="/partnernytt/artikel/:id" element={<PartnerNewsDetail />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
