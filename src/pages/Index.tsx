@@ -337,20 +337,27 @@ const Index = () => {
 
               {/* Trust / stats strip — unified grid with equal height and rhythm */}
               <div className="mb-8 grid grid-cols-2 md:grid-cols-5 gap-2 sm:gap-3 auto-rows-fr">
-                <div className="col-span-2 md:col-span-1 bg-white/[0.04] border border-white/10 rounded px-3 sm:px-4 py-2.5 sm:py-3 min-h-[72px] flex flex-col justify-center">
+                <Link
+                  to="/alla-d365-partners/"
+                  className="col-span-2 md:col-span-1 bg-white/[0.04] border border-white/10 rounded px-3 sm:px-4 py-2.5 sm:py-3 min-h-[72px] flex flex-col justify-center hover:bg-white/[0.08] hover:border-white/20 transition-colors"
+                >
                   <div className="text-[15px] sm:text-[17px] font-bold text-white leading-tight">{IDENTIFIED_PARTNER_COUNT}</div>
                   <div className="text-[11px] sm:text-[12px] text-white/60 leading-tight">Identifierade Dynamics 365-partners i Sverige</div>
-                </div>
+                </Link>
                 {[
-                  { n: `${VERIFIED_PARTNER_COUNT}`, t: "Verifierade Dynamics 365-partners" },
-                  { n: `${HERO_INDUSTRIES.length}`, t: "Branscher" },
-                  { n: "8+", t: "Kostnadsfria beslutsverktyg" },
-                  { n: "0 kr", t: "Ingen partner betalar för en bättre placering" },
+                  { n: `${VERIFIED_PARTNER_COUNT}`, t: "Verifierade Dynamics 365-partners", path: "/alla-d365-partners/" },
+                  { n: `${HERO_INDUSTRIES.length}`, t: "Branscher", path: "/branscher/" },
+                  { n: "8+", t: "Kostnadsfria beslutsverktyg", path: "/kunskapscenter/" },
+                  { n: "0 kr", t: "Ingen partner betalar för en bättre placering", path: "/kunskapscenter/" },
                 ].map((s) => (
-                  <div key={s.t} className="bg-white/[0.04] border border-white/10 rounded px-3 sm:px-4 py-2.5 sm:py-3 min-h-[72px] flex flex-col justify-center">
+                  <Link
+                    key={s.t}
+                    to={s.path}
+                    className="bg-white/[0.04] border border-white/10 rounded px-3 sm:px-4 py-2.5 sm:py-3 min-h-[72px] flex flex-col justify-center hover:bg-white/[0.08] hover:border-white/20 transition-colors"
+                  >
                     <div className="text-[15px] sm:text-[17px] font-bold text-white leading-tight">{s.n}</div>
                     <div className="text-[11px] sm:text-[12px] text-white/60 leading-tight">{s.t}</div>
-                  </div>
+                  </Link>
                 ))}
               </div>
 
