@@ -8,6 +8,7 @@ import {
   partnerNewsTypeLabel,
 } from "@/components/PartnerNewsCard";
 import type { PartnerNewsItem, PartnerNewsProductArea } from "@/hooks/usePartnerNews";
+import { trackPartnerNewsClick } from "@/utils/trackPartnerNewsClick";
 
 function formatDate(iso: string) {
   if (!iso) return "";
@@ -28,6 +29,17 @@ function HomeNewsCard({ item }: { item: PartnerNewsItem }) {
   return (
     <Link
       to={`/partnernytt/artikel/${item.id}/`}
+      onClick={() =>
+        trackPartnerNewsClick({
+          newsId: item.id,
+          editorialTitle: item.editorial_title,
+          partnerId: partner?.id ?? null,
+          partnerSlug: partner?.slug ?? null,
+          newsType: item.news_type,
+          productAreas: productAreas as string[],
+          source: "home_hero",
+        })
+      }
       className="group flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-all cursor-pointer hover:border-[hsl(var(--accent))] hover:bg-secondary/30 hover:shadow-xl hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent))] focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:border-[hsl(var(--accent))]"
     >
       {item.image_url ? (

@@ -32,7 +32,7 @@ export default function ProductPartnerNewsSection({ productArea, productLabel, c
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
           {data.map((item) => (
-            <PartnerNewsCard key={item.id} item={item} />
+            <PartnerNewsCard key={item.id} item={item} clickSource="related" />
           ))}
         </div>
         <div className="mt-8 flex justify-center">

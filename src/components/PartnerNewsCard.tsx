@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, ArrowRight, Sparkles } from "lucide-react";
 import type { PartnerNewsItem, PartnerNewsProductArea, PartnerNewsSourceType, PartnerNewsType } from "@/hooks/usePartnerNews";
+import { trackPartnerNewsClick, type PartnerNewsClickSource } from "@/utils/trackPartnerNewsClick";
 
 const PRODUCT_LABELS: Record<PartnerNewsProductArea, string> = {
   "business-central": "Business Central",
@@ -65,12 +66,28 @@ interface Props {
   partnerLogoUrl?: string | null;
   hidePartnerLink?: boolean;
   layout?: "vertical" | "horizontal";
+  clickSource?: PartnerNewsClickSource;
 }
 
-export default function PartnerNewsCard({ item, partnerName, partnerSlug, partnerLogoUrl, hidePartnerLink, layout = "vertical" }: Props) {
+export default function PartnerNewsCard({ item, partnerName, partnerSlug, partnerLogoUrl, hidePartnerLink, layout = "vertical", clickSource = "other" }: Props) {
   const name = partnerName ?? item.partner?.name ?? "";
   const slug = partnerSlug ?? item.partner?.slug ?? "";
   const logo = partnerLogoUrl ?? item.partner?.logo_url ?? null;
+
+  const productAreasForTracking = (item.product_areas && item.product_areas.length > 0
+    ? item.product_areas
+    : [item.product_area]) as string[];
+
+  const handleTitleClick = () =>
+    trackPartnerNewsClick({
+      newsId: item.id,
+      editorialTitle: item.editorial_title,
+      partnerId: item.partner?.id ?? null,
+      partnerSlug: slug || null,
+      newsType: item.news_type,
+      productAreas: productAreasForTracking,
+      source: clickSource,
+    });
 
   if (layout === "horizontal") {
     return (
@@ -113,6 +130,7 @@ export default function PartnerNewsCard({ item, partnerName, partnerSlug, partne
 
             <Link
               to={`/partnernytt/artikel/${item.id}/`}
+              onClick={handleTitleClick}
               className="group inline-block text-base font-semibold text-foreground leading-snug hover:text-[hsl(var(--accent))] transition-colors"
             >
               {item.editorial_title}
@@ -190,6 +208,7 @@ export default function PartnerNewsCard({ item, partnerName, partnerSlug, partne
 
         <Link
           to={`/partnernytt/artikel/${item.id}/`}
+          onClick={handleTitleClick}
           className="group inline-block text-lg font-semibold text-foreground leading-snug transition-colors hover:text-[hsl(var(--accent))] group-hover/card:text-[hsl(var(--accent))] focus-visible:outline-none focus-visible:text-[hsl(var(--accent))] focus-visible:underline underline-offset-4 rounded-sm"
         >
           {item.editorial_title}

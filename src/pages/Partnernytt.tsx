@@ -179,7 +179,7 @@ export default function Partnernytt() {
             {filtered.length > 0 && (
               <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {filtered.map((item) => (
-                  <PartnerNewsCard key={item.id} item={item} />
+                  <PartnerNewsCard key={item.id} item={item} clickSource="partnernytt_list" />
                 ))}
               </div>
             )}
