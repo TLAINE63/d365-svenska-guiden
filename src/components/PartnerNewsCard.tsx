@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, ArrowRight, Sparkles } from "lucide-react";
 import type { PartnerNewsItem, PartnerNewsProductArea, PartnerNewsSourceType, PartnerNewsType } from "@/hooks/usePartnerNews";
+import { trackPartnerNewsClick, type PartnerNewsClickSource } from "@/utils/trackPartnerNewsClick";
 
 const PRODUCT_LABELS: Record<PartnerNewsProductArea, string> = {
   "business-central": "Business Central",
