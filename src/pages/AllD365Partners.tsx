@@ -86,8 +86,8 @@ export default function AllD365Partners() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Alla Microsoft Dynamics 365-partners i Sverige"
-        description="Komplett lista över Microsoft Dynamics 365-partners i Sverige – profilerade leverantörer på d365.se och övriga aktörer på marknaden. Köparsidig vägledning vid partnerval."
+        title="Övriga Dynamics 365-partners på den svenska marknaden"
+        description="Övriga Dynamics 365-partners på den svenska marknaden – komplett lista med profilerade leverantörer på d365.se och övriga aktörer. Köparsidig vägledning vid partnerval."
         canonicalPath="/alla-d365-partners/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
