@@ -41,9 +41,19 @@ export default function AllD365Partners() {
   const { data: allNames } = useAllPartnerNames();
   const { data: basicPartners } = useBasicPartners();
 
-  const profiled = useMemo(() => {
-    // Prefer live DB data once loaded; otherwise fall back to the static
-    // snapshot so SSG/crawlers always see the full list.
+  const [query, setQuery] = useState("");
+  const [productFilter, setProductFilter] = useState<"all" | "bc" | "fsc" | "sales" | "service">("all");
+
+  const q = query.trim().toLowerCase();
+
+  const productMatchTokens: Record<Exclude<typeof productFilter, "all">, string[]> = {
+    bc: ["business central", "bc"],
+    fsc: ["finance", "supply chain", "f&sc", "fsc", "f&o"],
+    sales: ["sales", "marketing", "crm"],
+    service: ["service", "field service", "contact center"],
+  };
+
+  const profiledAll = useMemo(() => {
     const live = (dbPartners || [])
       .filter((p) => p.is_featured)
       .map((p) => ({
@@ -57,9 +67,27 @@ export default function AllD365Partners() {
     return [...source].sort((a, b) => a.name.localeCompare(b.name, "sv"));
   }, [dbPartners]);
 
+  const profiled = useMemo(() => {
+    return profiledAll.filter((p) => {
+      if (q && !p.name.toLowerCase().includes(q)) return false;
+      if (productFilter !== "all") {
+        const tokens = productMatchTokens[productFilter];
+        const hay = p.applications.join(" ").toLowerCase();
+        if (!tokens.some((t) => hay.includes(t))) return false;
+      }
+      return true;
+    });
+  }, [profiledAll, q, productFilter]);
+
+  const basicFiltered = useMemo(() => {
+    return (basicPartners || []).filter((p) => {
+      if (q && !p.name.toLowerCase().includes(q)) return false;
+      if (productFilter !== "all" && !p.observed_products?.[productFilter]) return false;
+      return true;
+    });
+  }, [basicPartners, q, productFilter]);
+
   const others = useMemo(() => {
-    // Names already shown as Basic cards should not be counted/listed again
-    // as "övriga aktörer" — the basic view is a subset of non-featured partners.
     const basicNames = new Set(
       (basicPartners || []).map((p) => p.name.trim().toLowerCase()),
     );
@@ -79,11 +107,25 @@ export default function AllD365Partners() {
       return true;
     });
     deduped.sort((a, b) => a.name.localeCompare(b.name, "sv"));
+    // Others have no product data → hidden when a specific product filter is active.
+    if (productFilter !== "all") return [];
+    if (q) return deduped.filter((it) => it.name.toLowerCase().includes(q));
     return deduped;
-  }, [allNames, unprofiled, basicPartners]);
+  }, [allNames, unprofiled, basicPartners, q, productFilter]);
 
   const totalMarket =
-    profiled.length + (basicPartners?.length ?? 0) + others.length;
+    profiledAll.length + (basicPartners?.length ?? 0);
+
+  const filteredTotal = profiled.length + basicFiltered.length + others.length;
+  const isFiltering = q.length > 0 || productFilter !== "all";
+
+  const productOptions: { key: "all" | "bc" | "fsc" | "sales" | "service"; label: string }[] = [
+    { key: "all", label: "Alla produkter" },
+    { key: "bc", label: "Business Central" },
+    { key: "fsc", label: "Finance & Supply Chain" },
+    { key: "sales", label: "Sales & Marketing" },
+    { key: "service", label: "Service" },
+  ];
 
   return (
     <div className="min-h-screen bg-background">
