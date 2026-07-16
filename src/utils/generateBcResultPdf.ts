@@ -4,6 +4,7 @@ import type { BcResult } from "@/lib/bcScoring";
 
 // Brand colors (consistent with other PDF exports)
 import { PDF_BRAND } from "./pdfBrand";
+import { drawBrandHeader, finalizePdfWithFooter, drawSectionHeading, PDF_MARGIN } from "./pdfLayout";
 const BRAND_PETROL: [number, number, number] = PDF_BRAND.primary;
 const BRAND_DARK: [number, number, number] = [21, 19, 15]; // #15130F
 
@@ -27,27 +28,15 @@ export async function generateBcResultPdf(result: BcResult, _answers: BcAnswers,
   const doc = new jsPDF({ unit: "mm", format: "a4" });
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
-  const margin = 18;
-  let y = margin;
+  const margin = PDF_MARGIN;
+  let y = drawBrandHeader(doc, "Business Central – Matchningstest");
 
-  // Header bar
-  doc.setFillColor(...BRAND_DARK);
-  doc.rect(0, 0, pageW, 28, "F");
-  doc.setTextColor(255, 255, 255);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(16);
-  doc.text("Business Central – Matchningstest", margin, 14);
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(10);
-  doc.text("d365.se · köparsidig vägledning", margin, 21);
-
-  y = 36;
   doc.setTextColor(...BRAND_DARK);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(14);
+  doc.setFontSize(15);
   const headlineLines = doc.splitTextToSize(result.headline, pageW - 2 * margin);
   doc.text(headlineLines, margin, y);
-  y += headlineLines.length * 6 + 2;
+  y += headlineLines.length * 6.5 + 3;
 
   if (result.segmentLabel) {
     doc.setFont("helvetica", "normal");
