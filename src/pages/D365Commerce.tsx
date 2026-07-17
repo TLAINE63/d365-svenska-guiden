@@ -85,6 +85,8 @@ const D365Commerce = () => {
       <BuyerManual product="commerce" />
       <CostBreakdown product="commerce" />
 
+      <ProductPartnerNewsSection productArea="finance-scm" productLabel="Commerce" />
+
       <ApplicationPartners applicationFilter="Commerce" pageSource="D365 Commerce" filterMode="companySize" />
 
       <section className="py-8 sm:py-12 md:py-16 bg-finance">
@@ -104,7 +106,6 @@ const D365Commerce = () => {
       </section>
 
       <RelatedPages pages={fscRelatedPages} heading="Utforska vidare" />
-      <ProductPartnerNewsSection productArea="finance-scm" productLabel="Commerce" />
       <Footer />
     </div>
   );

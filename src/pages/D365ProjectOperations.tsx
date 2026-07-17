@@ -89,6 +89,8 @@ const D365ProjectOperations = () => {
       <BuyerManual product="project-operations" />
       <CostBreakdown product="project-operations" />
 
+      <ProductPartnerNewsSection productArea="finance-scm" productLabel="Project Operations" />
+
       <ApplicationPartners applicationFilter="Project Operations" pageSource="D365 Project Operations" filterMode="companySize" />
 
       <section className="py-8 sm:py-12 md:py-16 bg-finance">
@@ -108,7 +110,6 @@ const D365ProjectOperations = () => {
       </section>
 
       <RelatedPages pages={fscRelatedPages} heading="Utforska vidare" />
-      <ProductPartnerNewsSection productArea="finance-scm" productLabel="Project Operations" />
       <Footer />
     </div>
   );
