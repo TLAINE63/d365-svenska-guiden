@@ -333,6 +333,8 @@ const D365Sales = () => {
         </div>
       </section>
 
+      <ProductPartnerNewsSection productArea="crm-sales" productLabel="Sales" />
+
       <ApplicationPartners applicationFilter="Sales" pageSource="D365 Sales" />
 
       {/* CTA Section */}
@@ -355,7 +357,6 @@ const D365Sales = () => {
       </section>
 
       <RelatedPages pages={salesRelatedPages} heading="Utforska vidare" />
-      <ProductPartnerNewsSection productArea="crm-sales" productLabel="Sales" />
       <Footer />
     </div>
   );

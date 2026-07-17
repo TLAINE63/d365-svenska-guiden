@@ -633,6 +633,8 @@ const FinanceSupplyChain = () => {
         </div>
       </section>
 
+      <ProductPartnerNewsSection productArea="finance-scm" productLabel="Finance & Supply Chain" />
+
       {/* Partners Section */}
       <section id="partners" className="py-8 sm:py-12 md:py-16 bg-background">
  <div className="container mx-auto px-4 sm:px-6">
@@ -836,7 +838,6 @@ const FinanceSupplyChain = () => {
  </section>
 
  <RelatedPages pages={fscRelatedPages} heading="Utforska vidare" />
- <ProductPartnerNewsSection productArea="finance-scm" productLabel="Finance & Supply Chain" />
  <Footer />
  </div>
  );

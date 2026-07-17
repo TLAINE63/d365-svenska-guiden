@@ -663,6 +663,8 @@ const BusinessCentral = () => {
         </div>
       </section>
 
+      <ProductPartnerNewsSection productArea="business-central" productLabel="Business Central" />
+
       {/* Partners Section */}
       <section id="partners" className="py-8 sm:py-12 md:py-16 bg-secondary/50">
  <div className="container mx-auto px-4 sm:px-6">
@@ -891,7 +893,6 @@ const BusinessCentral = () => {
 
 
  <RelatedPages pages={bcRelatedPages} heading="Utforska vidare" />
- <ProductPartnerNewsSection productArea="business-central" productLabel="Business Central" />
  <Footer />
  </div>
  );

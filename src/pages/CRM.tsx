@@ -342,6 +342,8 @@ const CRM = () => {
  </div>
  </section>
 
+ <ProductPartnerNewsSection productArea="crm" productLabel="CRM" />
+
  {/* Partners Section */}
  <section id="partners" className="py-8 sm:py-12 md:py-16 bg-secondary/50">
  <div className="container mx-auto px-4 sm:px-6">
@@ -535,7 +537,6 @@ const CRM = () => {
  </section>
 
  <RelatedPages pages={crmRelatedPages} heading="Utforska vidare" />
- <ProductPartnerNewsSection productArea="crm" productLabel="CRM" />
  <Footer />
  </div>
  );

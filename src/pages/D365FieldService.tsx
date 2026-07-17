@@ -315,6 +315,8 @@ const D365FieldService = () => {
         </div>
       </section>
 
+      <ProductPartnerNewsSection productArea="crm-service" productLabel="Field Service" />
+
       <ApplicationPartners applicationFilter="Field Service" pageSource="D365 Field Service" />
 
       {/* CTA Section */}
@@ -337,7 +339,6 @@ const D365FieldService = () => {
       </section>
 
       <RelatedPages pages={fieldServiceRelatedPages} heading="Utforska vidare" />
-      <ProductPartnerNewsSection productArea="crm-service" productLabel="Field Service" />
       <Footer />
     </div>
   );

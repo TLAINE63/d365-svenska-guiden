@@ -85,6 +85,8 @@ const D365HumanResources = () => {
       <BuyerManual product="human-resources" />
       <CostBreakdown product="human-resources" />
 
+      <ProductPartnerNewsSection productArea="finance-scm" productLabel="Human Resources" />
+
       <ApplicationPartners applicationFilter="Human Resources" pageSource="D365 Human Resources" filterMode="companySize" />
 
       <section className="py-8 sm:py-12 md:py-16 bg-finance">
@@ -104,7 +106,6 @@ const D365HumanResources = () => {
       </section>
 
       <RelatedPages pages={fscRelatedPages} heading="Utforska vidare" />
-      <ProductPartnerNewsSection productArea="finance-scm" productLabel="Human Resources" />
       <Footer />
     </div>
   );
