@@ -805,8 +805,11 @@ const AIOverview = () => {
  </section>
  </div>
  </main>
+ <ProductPartnerNewsSection productArea="microsoft-ai" productLabel="Microsoft AI" />
+
  {/* Fördjupningsartiklar – Copilot */}
  <section className="py-12 bg-secondary/20">
+
  <div className="container mx-auto px-4">
  <h2 className="text-2xl font-bold text-foreground mb-2 text-center">Fördjupningsartiklar om Copilot</h2>
  <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
@@ -868,8 +871,8 @@ const AIOverview = () => {
  </section>
 
  <RelatedPages pages={aiOverviewRelatedPages} heading="Utforska vidare" />
- <ProductPartnerNewsSection productArea="microsoft-ai" productLabel="Microsoft AI" />
  <Footer />
+
  </div>
  );
 };
