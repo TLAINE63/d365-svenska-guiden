@@ -568,6 +568,8 @@ const Copilot = () => {
         </div>
       </section>
 
+      <ProductPartnerNewsSection productArea="microsoft-ai" productLabel="Copilot" />
+
       {/* Deep Dive Articles */}
       <section className="py-8 sm:py-12 md:py-16 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6">
@@ -624,7 +626,6 @@ const Copilot = () => {
       </section>
 
       <RelatedPages pages={copilotRelatedPages} heading="Utforska vidare" />
-      <ProductPartnerNewsSection productArea="microsoft-ai" productLabel="Copilot" />
       <Footer />
     </div>
   );
