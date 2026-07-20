@@ -55,7 +55,7 @@ const EXAMPLES = [
 ];
 
 export default function AdminRelevanceTest() {
-  const { isAuthenticated, login, logout } = useAdminAuth();
+  const { isAuthenticated, login, logout, token } = useAdminAuth();
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState<string | null>(null);
 
@@ -71,7 +71,7 @@ export default function AdminRelevanceTest() {
     setResult(null);
     try {
       const { data, error: fnErr } = await supabase.functions.invoke("debug-extended-relevance", {
-        body: { query, slug },
+        body: { query, slug, token },
       });
       if (fnErr) throw fnErr;
       if ((data as any)?.error) throw new Error((data as any).error);
