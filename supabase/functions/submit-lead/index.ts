@@ -447,7 +447,7 @@ const handler = async (req: Request): Promise<Response> => {
             const confirmPayload = {
               from: "d365.se <info@d365.se>",
               to: [sanitizedData.email],
-              reply_to: "info@d365.se",
+              reply_to: "thomas.laine@dynamicfactory.se",
               subject: confirmSubject,
             };
             const confirmResult = await resend.emails.send({

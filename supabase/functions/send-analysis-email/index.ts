@@ -370,7 +370,7 @@ serve(async (req: Request): Promise<Response> => {
       from: "D365 Guiden <info@d365.se>",
       to: [email],
       cc: ["info@d365.se", "thomas.laine@dynamicfactory.se"],
-      reply_to: "info@d365.se",
+      reply_to: "thomas.laine@dynamicfactory.se",
       subject,
       html: `
         <div style="background:#f5f3ee;padding:24px 12px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
