@@ -508,26 +508,30 @@ function MonthlyStatsReportCard({ token }: { token: string | null }) {
   const [savingKey, setSavingKey] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!token) return;
     (async () => {
-      const { data } = await supabase
-        .from("site_settings")
-        .select("key, value")
-        .in("key", ["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact"]);
-      const map = new Map<string, string>((data || []).map((r: any) => [r.key, r.value || ""]));
-      setChangelog(map.get("monthly_report_changelog") || "");
-      setNextPeriod(map.get("monthly_report_next_period") || "");
-      setContact(map.get("monthly_report_contact") || "");
+      const { data } = await supabase.functions.invoke("manage-partner-reports", {
+        body: { action: "get_monthly_report_settings", token },
+      });
+      const map = (data?.settings || {}) as Record<string, string>;
+      setChangelog(map["monthly_report_changelog"] || "");
+      setNextPeriod(map["monthly_report_next_period"] || "");
+      setContact(map["monthly_report_contact"] || "");
       setSettingsLoaded(true);
     })();
-  }, []);
+  }, [token]);
 
   const saveSetting = async (key: string, value: string) => {
+    if (!token) return;
     setSavingKey(key);
-    const { error } = await supabase.from("site_settings").upsert({ key, value }, { onConflict: "key" });
+    const { data, error } = await supabase.functions.invoke("manage-partner-reports", {
+      body: { action: "save_monthly_report_setting", token, key, value },
+    });
     setSavingKey(null);
-    if (error) toast({ title: "Kunde inte spara", description: error.message, variant: "destructive" });
+    if (error || data?.error) toast({ title: "Kunde inte spara", description: data?.error || error?.message, variant: "destructive" });
     else toast({ title: "Sparat" });
   };
+
 
   const { data: partners = [] } = useAdminPartners(token);
   const sortedPartners = [...partners].sort((a: any, b: any) => (a.name || "").localeCompare(b.name || "", "sv"));
