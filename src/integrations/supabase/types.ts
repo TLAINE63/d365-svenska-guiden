@@ -370,6 +370,8 @@ export type Database = {
         Row: {
           admin_notes: string | null
           assigned_partners: string[] | null
+          attribution_news_id: string | null
+          attribution_source: string | null
           company_name: string
           company_size: string | null
           contact_name: string
@@ -389,6 +391,8 @@ export type Database = {
         Insert: {
           admin_notes?: string | null
           assigned_partners?: string[] | null
+          attribution_news_id?: string | null
+          attribution_source?: string | null
           company_name: string
           company_size?: string | null
           contact_name: string
@@ -408,6 +412,8 @@ export type Database = {
         Update: {
           admin_notes?: string | null
           assigned_partners?: string[] | null
+          attribution_news_id?: string | null
+          attribution_source?: string | null
           company_name?: string
           company_size?: string | null
           contact_name?: string
@@ -424,7 +430,15 @@ export type Database = {
           status?: string
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "leads_attribution_news_id_fkey"
+            columns: ["attribution_news_id"]
+            isOneToOne: false
+            referencedRelation: "partner_news"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       partner_ai_knowledge: {
         Row: {
