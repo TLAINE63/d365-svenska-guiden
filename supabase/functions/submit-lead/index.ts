@@ -82,10 +82,14 @@ interface LeadRequest {
   source_type?: string;
   message?: string;
   assigned_partners?: string[];
+  attribution_news_id?: string;
+  attribution_source?: string;
   _hp?: string; // Honeypot field
   pdfBase64?: string; // PDF attachment for lead magnet
   pdfFilename?: string;
 }
+
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 const handler = async (req: Request): Promise<Response> => {
   const corsHeaders = getCorsHeaders(req);
