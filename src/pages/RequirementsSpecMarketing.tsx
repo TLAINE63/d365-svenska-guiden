@@ -7,6 +7,7 @@ import RequirementsDisclaimer from "@/components/RequirementsDisclaimer";
 import Footer from "@/components/Footer";
 import RelatedPages, { requirementsCrmRelatedPages } from "@/components/RelatedPages";
 import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
+import SendUnderlagToPartners from "@/components/SendUnderlagToPartners";
 import { usePartners } from "@/hooks/usePartners";
 import { pickSuggestedPartners } from "@/lib/suggestPartners";
 import { buildCompareUrl } from "@/lib/compareUrl";
