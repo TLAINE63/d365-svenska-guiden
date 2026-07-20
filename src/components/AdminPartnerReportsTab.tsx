@@ -600,15 +600,26 @@ function MonthlyStatsReportCard({ token }: { token: string | null }) {
       </CardHeader>
       <CardContent className="space-y-4">
         <p className="text-sm text-muted-foreground">
-          Skickar månadsöversikt med profilbesök, kortklick, klick till partnerns sajt, exponeringar och topp-5 produktsidor.
-          Skickas automatiskt 1:a varje månad till publicerade partners — här kan du även köra manuellt och välja mottagare.
-          Välj en specifik partner nedan för att bara skicka till den (eller dig själv, eller båda). Lämna tomt för alla publicerade partners.
+          Månadsrapport enligt ny mall: siffror med jämförelse mot föregående period, "Vilka tittade", "Var ni syntes" samt redaktionella sektioner "Nästa period" och "Nytt på sajten" (redigeras nedan).
+          Lämna specifik period tom för att använda senaste {days} dagarna; föregående period beräknas alltid till lika lång bakåt.
         </p>
         <div className="flex flex-wrap items-end gap-3">
           <div>
             <label className="text-xs font-medium block mb-1">Period (dagar)</label>
-            <Input type="number" min={1} max={365} value={days} onChange={e => setDays(parseInt(e.target.value) || 30)} className="w-28" />
+            <Input type="number" min={1} max={365} value={days} onChange={e => setDays(parseInt(e.target.value) || 30)} className="w-28" disabled={!!(periodStart && periodEnd)} />
           </div>
+          <div>
+            <label className="text-xs font-medium block mb-1">Från (valfritt)</label>
+            <Input type="date" value={periodStart} onChange={e => setPeriodStart(e.target.value)} className="w-40" />
+          </div>
+          <div>
+            <label className="text-xs font-medium block mb-1">Till (valfritt)</label>
+            <Input type="date" value={periodEnd} onChange={e => setPeriodEnd(e.target.value)} className="w-40" />
+          </div>
+          {(periodStart || periodEnd) && (
+            <Button variant="ghost" size="sm" onClick={() => { setPeriodStart(""); setPeriodEnd(""); }}>Rensa datum</Button>
+          )}
+
           <div className="flex-1 min-w-[280px]">
             <label className="text-xs font-medium block mb-1">Välj partner (valfritt)</label>
             <div className="flex gap-2">
