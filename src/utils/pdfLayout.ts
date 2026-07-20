@@ -2,7 +2,7 @@
 // (matchningstester, ROI, kravspec, partnerguide, suggested partners) delar samma
 // header, footer och typografiska rytm som matchar sajtens brand:
 //   - Mörk header #15130F (samma som sajtens hero-dark)
-//   - Orange accent-stripe #D64A1F (logo-orange / primär CTA)
+//   - Orange accent-stripe #B23D19 (mörkad logo-orange / primär CTA)
 //   - Wordmark "d365.se" + subtitel-slogan
 //   - Diskret footer med sidnumrering och orange accent
 //
