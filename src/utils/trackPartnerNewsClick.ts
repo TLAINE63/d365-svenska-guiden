@@ -1,11 +1,7 @@
 import { trackFunnelEvent } from "./trackFunnelEvent";
+import { setNewsAttribution, type NewsAttributionSource } from "./newsAttribution";
 
-export type PartnerNewsClickSource =
-  | "home_hero"
-  | "partnernytt_list"
-  | "partner_profile"
-  | "related"
-  | "other";
+export type PartnerNewsClickSource = NewsAttributionSource;
 
 interface Args {
   newsId: string;
@@ -28,10 +24,18 @@ function getViewport(): "mobile" | "tablet" | "desktop" {
 /**
  * Fire-and-forget click tracking for partner news card links.
  * Persisted via the existing track-funnel-event edge function
- * (event_type=cta_click, event_name=partner_news_card_click).
+ * (event_type=cta_click, event_name=partner_news_card_click) and also
+ * marks this article as the current attribution source, so any following
+ * lead/CTA submission can be linked back to it.
  */
 export function trackPartnerNewsClick(args: Args): void {
   try {
+    setNewsAttribution({
+      news_id: args.newsId,
+      editorial_title: args.editorialTitle ?? null,
+      partner_slug: args.partnerSlug ?? null,
+      source: args.source,
+    });
     trackFunnelEvent({
       event_type: "cta_click",
       event_name: "partner_news_card_click",
