@@ -89,8 +89,8 @@ All colors MUST be HSL.
     
     /* ─── Microsoft Dynamics 365 officiella produktfärger ─── */
     
-    /* Business Central – cyan (officiell MS-färg) */
-    --business-central: 192 100% 35%;
+    /* Business Central – cyan (officiell MS-färg, mörkad för WCAG AA) */
+    --business-central: 192 100% 30%;
     --business-central-foreground: 0 0% 100%;
     
     /* Sales – Microsoft-blå */
