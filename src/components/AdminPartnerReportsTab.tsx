@@ -494,13 +494,45 @@ function MonthlyStatsReportCard({ token }: { token: string | null }) {
   const [busy, setBusy] = useState<"dry" | SendMode | null>(null);
   const [partnerSlug, setPartnerSlug] = useState("");
   const [days, setDays] = useState(30);
+  const [periodStart, setPeriodStart] = useState("");
+  const [periodEnd, setPeriodEnd] = useState("");
   const [lastSummary, setLastSummary] = useState<any>(null);
   const [lastResults, setLastResults] = useState<any[] | null>(null);
   const [previewHtml, setPreviewHtml] = useState<string | null>(null);
 
+  // Editorial content stored in site_settings
+  const [changelog, setChangelog] = useState("");
+  const [nextPeriod, setNextPeriod] = useState("");
+  const [contact, setContact] = useState("");
+  const [settingsLoaded, setSettingsLoaded] = useState(false);
+  const [savingKey, setSavingKey] = useState<string | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await supabase
+        .from("site_settings")
+        .select("key, value")
+        .in("key", ["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact"]);
+      const map = new Map<string, string>((data || []).map((r: any) => [r.key, r.value || ""]));
+      setChangelog(map.get("monthly_report_changelog") || "");
+      setNextPeriod(map.get("monthly_report_next_period") || "");
+      setContact(map.get("monthly_report_contact") || "");
+      setSettingsLoaded(true);
+    })();
+  }, []);
+
+  const saveSetting = async (key: string, value: string) => {
+    setSavingKey(key);
+    const { error } = await supabase.from("site_settings").upsert({ key, value }, { onConflict: "key" });
+    setSavingKey(null);
+    if (error) toast({ title: "Kunde inte spara", description: error.message, variant: "destructive" });
+    else toast({ title: "Sparat" });
+  };
+
   const { data: partners = [] } = useAdminPartners(token);
   const sortedPartners = [...partners].sort((a: any, b: any) => (a.name || "").localeCompare(b.name || "", "sv"));
   const selectedPartner = sortedPartners.find((p: any) => p.slug === partnerSlug);
+
 
   const invoke = async (
     busyKey: "dry" | SendMode,
