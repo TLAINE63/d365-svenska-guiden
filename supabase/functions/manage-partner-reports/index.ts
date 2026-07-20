@@ -1078,11 +1078,35 @@ serve(async (req) => {
         return new Response(JSON.stringify({ success: true, results }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
 
+      case "get_monthly_report_settings": {
+        const keys = ["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact"];
+        const { data: rows } = await supabase.from("site_settings").select("key, value").in("key", keys);
+        const map: Record<string, string> = {};
+        for (const r of rows || []) map[r.key] = r.value || "";
+        return new Response(JSON.stringify({ settings: map }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
+      case "save_monthly_report_setting": {
+        const { key, value } = data as { key?: string; value?: string };
+        const allowed = new Set(["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact"]);
+        if (!key || !allowed.has(key)) {
+          return new Response(JSON.stringify({ error: "Ogiltig nyckel" }), {
+            status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" }
+          });
+        }
+        const { error } = await supabase
+          .from("site_settings")
+          .upsert({ key, value: value || "", updated_at: new Date().toISOString() }, { onConflict: "key" });
+        if (error) throw error;
+        return new Response(JSON.stringify({ success: true }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
       default:
         return new Response(JSON.stringify({ error: "Okänd action" }), {
           status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" }
         });
     }
+
   } catch (e: any) {
     console.error("manage-partner-reports error:", e);
     return new Response(JSON.stringify({ error: e.message || String(e) }), {
