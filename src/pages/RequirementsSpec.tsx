@@ -25,6 +25,7 @@ import { usePartners } from "@/hooks/usePartners";
 import { pickSuggestedPartners } from "@/lib/suggestPartners";
 import { buildCompareUrl } from "@/lib/compareUrl";
 import {
+import { newsAttributionForLead } from "@/utils/newsAttribution";
   ArrowLeft, ArrowRight, FileText, Download,
   Calculator, Package, Factory, ShoppingCart, Boxes, Wrench,
   Link2, CheckCircle2, Loader2, Eye, Lock, Users, Landmark, Truck,
@@ -128,6 +129,7 @@ const RequirementsSpec = () => {
     try {
       await supabase.functions.invoke("submit-lead", {
         body: {
+          ...newsAttributionForLead(),
           email,
           company_name: "Kravspecifikation Download",
           contact_name: email.split("@")[0] || "Lead",

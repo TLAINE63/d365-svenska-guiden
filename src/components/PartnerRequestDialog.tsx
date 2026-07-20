@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
 import { AlertCircle, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { newsAttributionForLead } from "@/utils/newsAttribution";
 
 interface PartnerRequestDialogProps {
   open: boolean;
@@ -266,6 +267,7 @@ const PartnerRequestDialog = ({
         targets.map((t) =>
           supabase.functions.invoke("submit-lead", {
             body: {
+              ...newsAttributionForLead(),
               company_name: form.company_name.trim(),
               contact_name: form.contact_name.trim(),
               email: form.email.trim(),

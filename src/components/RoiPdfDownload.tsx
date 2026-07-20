@@ -7,6 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { generateRoiPdf, type RoiPdfData } from "@/utils/generateRoiPdf";
 import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
+import { newsAttributionForLead } from "@/utils/newsAttribution";
 
 interface RoiPdfDownloadProps {
   buildPdfData: (email: string) => RoiPdfData;
@@ -40,6 +41,7 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
       // Lead first – then generate PDF locally
       const res = await supabase.functions.invoke("submit-lead", {
         body: {
+          ...newsAttributionForLead(),
           email,
           company_name: data.companyName || "ROI-kalkyl",
           contact_name: email.split("@")[0] || "Lead",

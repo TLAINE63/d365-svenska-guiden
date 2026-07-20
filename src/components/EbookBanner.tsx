@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Download, BookOpen, CheckCircle } from "lucide-react";
 import ebookCover from "@/assets/ebook-partnervalet-cover.webp";
 import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
+import { newsAttributionForLead } from "@/utils/newsAttribution";
 
 interface EbookBannerProps {
  variant?: "full" | "compact";
@@ -39,6 +40,7 @@ const EbookBanner = ({ variant = "full", sourcePage = "homepage" }: EbookBannerP
  try {
  const response = await supabase.functions.invoke("submit-lead", {
  body: {
+   ...newsAttributionForLead(),
  email,
  company_name: "E-bok Download",
  contact_name: email.split("@")[0] || "Lead",

@@ -17,6 +17,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Send, CheckCircle, Filter } from "lucide-react";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
+import { newsAttributionForLead } from "@/utils/newsAttribution";
 
 interface LeadCTAProps {
   sourcePage: string;
@@ -101,6 +102,7 @@ export const LeadCTA = ({
 
       const { error } = await supabase.functions.invoke("submit-lead", {
         body: {
+          ...newsAttributionForLead(),
           ...formData,
           company_size: companySizeToSend,
           industry: selectedIndustry,

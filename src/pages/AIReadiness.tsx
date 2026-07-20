@@ -50,6 +50,7 @@ import SelectionCard from "@/components/SelectionCard";
 import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { newsAttributionForLead } from "@/utils/newsAttribution";
 
 // ─── TYPES ───────────────────────────────────────────────
 
@@ -995,6 +996,7 @@ const AIReadiness = () => {
     try {
       const { error } = await supabase.functions.invoke("submit-lead", {
         body: {
+          ...newsAttributionForLead(),
           contact_name: reportForm.name,
           company_name: reportForm.company,
           email: reportForm.email,

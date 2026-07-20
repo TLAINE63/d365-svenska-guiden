@@ -26,6 +26,7 @@ import { allIndustries } from "@/data/partners";
 
 const salesTeamSizes = ["1–5", "6–10", "11–20", "21–50", "51–100", "100+"];
 import {
+import { newsAttributionForLead } from "@/utils/newsAttribution";
   ArrowLeft, ArrowRight, FileText, Download,
   Users, Target, BarChart3, Zap, Link2, Mail,
   CheckCircle2, Loader2, Eye, Lock, TrendingUp,
@@ -126,6 +127,7 @@ const RequirementsSpecSales = () => {
     try {
       await supabase.functions.invoke("submit-lead", {
         body: {
+          ...newsAttributionForLead(),
           email,
           company_name: "Kravspecifikation Download",
           contact_name: email.split("@")[0] || "Lead",
