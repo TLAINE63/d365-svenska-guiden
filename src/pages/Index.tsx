@@ -92,7 +92,7 @@ publishedPartners.forEach((p) => {
   });
 });
 const HERO_INDUSTRIES = STANDARD_INDUSTRIES.filter((i) => publishedIndustryNames.has(i.name));
-const VERIFIED_PARTNER_COUNT = publishedPartners.length;
+
 const IDENTIFIED_PARTNER_COUNT = 83; // Totalt identifierade partners i Sverige (exklusive Thomas Laine / operatören)
 
 
@@ -336,16 +336,15 @@ const Index = () => {
               </div>
 
               {/* Trust / stats strip — unified grid with equal height and rhythm */}
-              <div className="mb-8 grid grid-cols-2 md:grid-cols-5 gap-2 sm:gap-3 auto-rows-fr">
+              <div className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 auto-rows-fr">
                 <Link
                   to="/alla-d365-partners/"
-                  className="col-span-2 md:col-span-1 bg-white/[0.04] border border-white/10 rounded px-3 sm:px-4 py-2.5 sm:py-3 min-h-[72px] flex flex-col justify-center hover:bg-white/[0.08] hover:border-white/20 transition-colors"
+                  className="bg-white/[0.04] border border-white/10 rounded px-3 sm:px-4 py-2.5 sm:py-3 min-h-[72px] flex flex-col justify-center hover:bg-white/[0.08] hover:border-white/20 transition-colors"
                 >
                   <div className="text-[15px] sm:text-[17px] font-bold text-white leading-tight">{IDENTIFIED_PARTNER_COUNT}</div>
                   <div className="text-[11px] sm:text-[12px] text-white/60 leading-tight">Identifierade Dynamics 365-partners i Sverige</div>
                 </Link>
                 {[
-                  { n: `${VERIFIED_PARTNER_COUNT}`, t: "Verifierade Dynamics 365-partners", path: "/alla-d365-partners/" },
                   { n: `${HERO_INDUSTRIES.length}`, t: "Branscher", path: "/branscher/" },
                   { n: "8+", t: "Kostnadsfria beslutsverktyg", path: "/kunskapscenter/" },
                   { n: "0 kr", t: "Ingen partner betalar för en bättre placering", path: "/kunskapscenter/" },
