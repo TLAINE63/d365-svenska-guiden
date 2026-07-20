@@ -8,14 +8,14 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* ─── d365.se Editorial palette v3 ───
-       Bakgrunder: Black #161511, Bg #F5F2EC, Warm #FBF8F2, White #FFFFFF
-       Text: Ink #181512, Muted #6F6A61, Dark muted #9A9490
-       Linjer: Line #D8D1C6, Dark border #3A332A
-       Accenter: Red #D64A1F (tags/eyebrows/logo), Green #007C68 (CTA/links),
-                 Green bg #E3F4EE (AI-label, active chips)
-       Regler: röd aldrig som löptext; radius max 4px; inga skuggor/gradienter.
-    */
+  /* ─── d365.se Editorial palette v3 ───
+     Bakgrunder: Black #161511, Bg #F5F2EC, Warm #FBF8F2, White #FFFFFF
+     Text: Ink #181512, Muted #6F6A61, Dark muted #9A9490
+     Linjer: Line #D8D1C6, Dark border #3A332A
+     Accenter: Red #B23D19 (tags/eyebrows/logo/CTA), Green #007C68 (links/indicators),
+               Green bg #E3F4EE (AI-label, active chips)
+     Regler: röd aldrig som löptext; radius max 4px; inga skuggor/gradienter.
+  */
     --background: 40 26% 94%;           /* #F5F2EC – sidbakgrund */
     --foreground: 30 14% 8%;            /* #181512 – ink */
 
@@ -25,11 +25,11 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 30 14% 8%;
 
-    /* PRIMÄR – logotypens orange. Används för CTA, primära knappar,
-       högprioriterade länkar och aktiva element. */
-    --primary: 14 75% 48%;              /* #D64A1F – logo orange */
+    /* PRIMÄR – logotypens orange, mörkad för WCAG AA-kontrast. Används för CTA,
+       primära knappar, högprioriterade länkar och aktiva element. */
+    --primary: 14 82% 38%;              /* #B23D19 – mörkare logo orange */
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 14 82% 55%;         /* Något ljusare för glow/gradient */
+    --primary-glow: 14 85% 45%;         /* Något ljusare för glow/gradient */
 
     --secondary: 40 53% 97%;            /* Warm #FBF8F2 – TAYA-band */
     --secondary-foreground: 30 14% 8%;
@@ -48,12 +48,12 @@ All colors MUST be HSL.
     --warning: 32 92% 45%;              /* Amber – separerad från CTA-orange */
     --warning-foreground: 0 0% 100%;
 
-    /* CTA-token: logo-orange med mörkare hover. Historiskt namn behålls. */
-    --cta-orange: 14 75% 48%;           /* #D64A1F */
-    --cta-orange-hover: 14 82% 38%;     /* #B23D19 – mörkare hover */
+    /* CTA-token: mörkare logo-orange med ännu mörkare hover. Historiskt namn behålls. */
+    --cta-orange: 14 82% 38%;           /* #B23D19 */
+    --cta-orange-hover: 14 85% 30%;     /* #9A3214 – mörkare hover */
 
     /* Editorial signatur – identisk med primär. Röd/orange för tags & eyebrows. */
-    --signature: 14 75% 48%;
+    --signature: 14 82% 38%;
     --signature-foreground: 0 0% 100%;
 
     /* Mörka zon-tokens (masthead, hero, footer, sidebar headers) */
@@ -75,9 +75,9 @@ All colors MUST be HSL.
     --color-dark-muted: #9A9490;
     --color-dark-border: #3A332A;
     --color-line: #D8D1C6;
-    --color-accent: #D64A1F;            /* Primär orange (CTA) */
-    --color-cta: #D64A1F;               /* Primär orange (CTA) */
-    --color-cta-hover: #B23D19;         /* Mörkare hover */
+    --color-accent: #B23D19;            /* Primär orange (CTA) – WCAG AA */
+    --color-cta: #B23D19;               /* Primär orange (CTA) – WCAG AA */
+    --color-cta-hover: #9A3214;         /* Mörkare hover */
     --color-teal: #007C68;              /* Sekundär accent (ikoner, checks) */
     --color-cta-bg: #E3F4EE;            /* Ljus teal bg för ikonchips */
 
@@ -89,8 +89,8 @@ All colors MUST be HSL.
     
     /* ─── Microsoft Dynamics 365 officiella produktfärger ─── */
     
-    /* Business Central – cyan (officiell MS-färg) */
-    --business-central: 192 100% 35%;
+    /* Business Central – cyan (officiell MS-färg, mörkad för WCAG AA) */
+    --business-central: 192 100% 30%;
     --business-central-foreground: 0 0% 100%;
     
     /* Sales – Microsoft-blå */
@@ -147,13 +147,13 @@ All colors MUST be HSL.
 
     --border: 34 22% 81%;               /* Line #D8D1C6 – diskreta avdelare */
     --input: 34 22% 81%;
-    --ring: 14 75% 48%;                 /* Orange – fokusring matchar CTA */
+    --ring: 14 82% 38%;                 /* Mörkare orange – fokusring matchar CTA */
 
     --radius: 0.25rem;                  /* max 4px – ingen SaaS-estetik */
 
     --gradient-primary: linear-gradient(135deg, hsl(30 14% 7%) 0%, hsl(30 14% 7%) 100%);
     --gradient-hero: linear-gradient(135deg, rgba(22,21,17,0.92) 0%, rgba(22,21,17,0.75) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(14 75% 48%) 0%, hsl(14 82% 38%) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(14 82% 38%) 0%, hsl(14 85% 30%) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(40 53% 97%) 0%, hsl(40 26% 94%) 100%);
     /* Inga skuggor – behåll tokens som no-op för bakåtkompatibilitet */
     --shadow-card: 0 0 0 0 transparent;

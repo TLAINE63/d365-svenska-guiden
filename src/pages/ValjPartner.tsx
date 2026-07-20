@@ -933,7 +933,7 @@ const ValjPartner = () => {
  <Badge
  key={app}
  variant="outline"
- className="text-[10px] px-1.5 py-0 border-primary/30 text-primary/80 bg-primary/5"
+ className="text-[10px] px-1.5 py-0 border-primary/30 text-primary bg-primary/5"
  >
  {app}
  </Badge>

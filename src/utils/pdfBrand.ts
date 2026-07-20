@@ -2,8 +2,8 @@
 // Håller PDF-outputen i linje med sajtens design tokens i src/index.css.
 //
 // Site tokens:
-//   --primary / --cta-orange = #D64A1F  (logo-orange, primär CTA)
-//   --cta-orange-hover       = #B23D19
+//   --primary / --cta-orange = #B23D19  (mörkad logo-orange, primär CTA)
+//   --cta-orange-hover       = #9A3214
 //   --accent (teal)          = #007C68  (sekundär accent, ikoner/rules)
 //   --hero-dark              = #15130F  (mörk header-bakgrund)
 
@@ -11,8 +11,8 @@ export type RGB = [number, number, number];
 
 export const PDF_BRAND = {
   /** Primär CTA-orange – används på länkar, CTA-boxar, aksentstreck. */
-  primary: [214, 74, 31] as RGB,           // #D64A1F
-  primaryHover: [178, 61, 25] as RGB,      // #B23D19
+  primary: [178, 61, 25] as RGB,           // #B23D19
+  primaryHover: [154, 50, 20] as RGB,      // #9A3214
   /** Sekundär teal – sektionsavdelare, ikonchips, subtila accenter. */
   accent: [0, 124, 104] as RGB,            // #007C68
   /** Mörk headerbakgrund. */
