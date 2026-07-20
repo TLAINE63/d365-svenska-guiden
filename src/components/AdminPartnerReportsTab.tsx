@@ -494,13 +494,49 @@ function MonthlyStatsReportCard({ token }: { token: string | null }) {
   const [busy, setBusy] = useState<"dry" | SendMode | null>(null);
   const [partnerSlug, setPartnerSlug] = useState("");
   const [days, setDays] = useState(30);
+  const [periodStart, setPeriodStart] = useState("");
+  const [periodEnd, setPeriodEnd] = useState("");
   const [lastSummary, setLastSummary] = useState<any>(null);
   const [lastResults, setLastResults] = useState<any[] | null>(null);
   const [previewHtml, setPreviewHtml] = useState<string | null>(null);
 
+  // Editorial content stored in site_settings
+  const [changelog, setChangelog] = useState("");
+  const [nextPeriod, setNextPeriod] = useState("");
+  const [contact, setContact] = useState("");
+  const [settingsLoaded, setSettingsLoaded] = useState(false);
+  const [savingKey, setSavingKey] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!token) return;
+    (async () => {
+      const { data } = await supabase.functions.invoke("manage-partner-reports", {
+        body: { action: "get_monthly_report_settings", token },
+      });
+      const map = (data?.settings || {}) as Record<string, string>;
+      setChangelog(map["monthly_report_changelog"] || "");
+      setNextPeriod(map["monthly_report_next_period"] || "");
+      setContact(map["monthly_report_contact"] || "");
+      setSettingsLoaded(true);
+    })();
+  }, [token]);
+
+  const saveSetting = async (key: string, value: string) => {
+    if (!token) return;
+    setSavingKey(key);
+    const { data, error } = await supabase.functions.invoke("manage-partner-reports", {
+      body: { action: "save_monthly_report_setting", token, key, value },
+    });
+    setSavingKey(null);
+    if (error || data?.error) toast({ title: "Kunde inte spara", description: data?.error || error?.message, variant: "destructive" });
+    else toast({ title: "Sparat" });
+  };
+
+
   const { data: partners = [] } = useAdminPartners(token);
   const sortedPartners = [...partners].sort((a: any, b: any) => (a.name || "").localeCompare(b.name || "", "sv"));
   const selectedPartner = sortedPartners.find((p: any) => p.slug === partnerSlug);
+
 
   const invoke = async (
     busyKey: "dry" | SendMode,
@@ -520,10 +556,13 @@ function MonthlyStatsReportCard({ token }: { token: string | null }) {
         token,
         dryRun,
         days,
+        periodStart: periodStart || undefined,
+        periodEnd: periodEnd || undefined,
         partnerSlug: partnerSlug.trim() || undefined,
         ...extras,
       },
     });
+
     setBusy(null);
     if (error || data?.error) {
       toast({ title: "Fel", description: data?.error || error?.message, variant: "destructive" });
@@ -561,15 +600,26 @@ function MonthlyStatsReportCard({ token }: { token: string | null }) {
       </CardHeader>
       <CardContent className="space-y-4">
         <p className="text-sm text-muted-foreground">
-          Skickar månadsöversikt med profilbesök, kortklick, klick till partnerns sajt, exponeringar och topp-5 produktsidor.
-          Skickas automatiskt 1:a varje månad till publicerade partners — här kan du även köra manuellt och välja mottagare.
-          Välj en specifik partner nedan för att bara skicka till den (eller dig själv, eller båda). Lämna tomt för alla publicerade partners.
+          Månadsrapport enligt ny mall: siffror med jämförelse mot föregående period, "Vilka tittade", "Var ni syntes" samt redaktionella sektioner "Nästa period" och "Nytt på sajten" (redigeras nedan).
+          Lämna specifik period tom för att använda senaste {days} dagarna; föregående period beräknas alltid till lika lång bakåt.
         </p>
         <div className="flex flex-wrap items-end gap-3">
           <div>
             <label className="text-xs font-medium block mb-1">Period (dagar)</label>
-            <Input type="number" min={1} max={365} value={days} onChange={e => setDays(parseInt(e.target.value) || 30)} className="w-28" />
+            <Input type="number" min={1} max={365} value={days} onChange={e => setDays(parseInt(e.target.value) || 30)} className="w-28" disabled={!!(periodStart && periodEnd)} />
           </div>
+          <div>
+            <label className="text-xs font-medium block mb-1">Från (valfritt)</label>
+            <Input type="date" value={periodStart} onChange={e => setPeriodStart(e.target.value)} className="w-40" />
+          </div>
+          <div>
+            <label className="text-xs font-medium block mb-1">Till (valfritt)</label>
+            <Input type="date" value={periodEnd} onChange={e => setPeriodEnd(e.target.value)} className="w-40" />
+          </div>
+          {(periodStart || periodEnd) && (
+            <Button variant="ghost" size="sm" onClick={() => { setPeriodStart(""); setPeriodEnd(""); }}>Rensa datum</Button>
+          )}
+
           <div className="flex-1 min-w-[280px]">
             <label className="text-xs font-medium block mb-1">Välj partner (valfritt)</label>
             <div className="flex gap-2">
@@ -598,7 +648,58 @@ function MonthlyStatsReportCard({ token }: { token: string | null }) {
           </div>
         </div>
 
+        <div className="border rounded-lg p-4 space-y-4 bg-muted/20">
+          <div>
+            <h3 className="text-sm font-semibold">Redaktionellt innehåll i rapporten</h3>
+            <p className="text-xs text-muted-foreground mt-1">
+              Punktlistor: skriv en rad per punkt, inled med <code>-</code>. Sparas globalt och används i alla rapporter tills du ändrar dem.
+            </p>
+          </div>
 
+          <div>
+            <label className="text-xs font-medium block mb-1">Nästa period (kommande publiceringar, uppmaningar)</label>
+            <Textarea
+              rows={5}
+              placeholder={"- Kostnadsartikeln om ... publiceras i ...\n- Partneröversikten publiceras i november: verifierade profiler får utökad plats.\n- Möjlighet till profilintervju för D365 Talks: hör av er om ni vill boka en tid."}
+              value={nextPeriod}
+              onChange={(e) => setNextPeriod(e.target.value)}
+              disabled={!settingsLoaded}
+            />
+            <Button size="sm" variant="secondary" className="mt-2" onClick={() => saveSetting("monthly_report_next_period", nextPeriod)} disabled={savingKey === "monthly_report_next_period"}>
+              {savingKey === "monthly_report_next_period" ? <Loader2 className="h-3 w-3 animate-spin mr-2" /> : null}
+              Spara
+            </Button>
+          </div>
+
+          <div>
+            <label className="text-xs font-medium block mb-1">Nytt på sajten (changelog för perioden)</label>
+            <Textarea
+              rows={6}
+              placeholder={"- Nytt: Behovsanalys för Kundservice.\n- Förbättrad ranking av partners baserat på bransch.\n- Möjlighet att skicka underlag direkt till 2–3 matchande partners."}
+              value={changelog}
+              onChange={(e) => setChangelog(e.target.value)}
+              disabled={!settingsLoaded}
+            />
+            <Button size="sm" variant="secondary" className="mt-2" onClick={() => saveSetting("monthly_report_changelog", changelog)} disabled={savingKey === "monthly_report_changelog"}>
+              {savingKey === "monthly_report_changelog" ? <Loader2 className="h-3 w-3 animate-spin mr-2" /> : null}
+              Spara
+            </Button>
+          </div>
+
+          <div>
+            <label className="text-xs font-medium block mb-1">Kontaktperson i rapporten</label>
+            <Input
+              placeholder="Thomas Laine, thomas.laine@d365.se"
+              value={contact}
+              onChange={(e) => setContact(e.target.value)}
+              disabled={!settingsLoaded}
+            />
+            <Button size="sm" variant="secondary" className="mt-2" onClick={() => saveSetting("monthly_report_contact", contact)} disabled={savingKey === "monthly_report_contact"}>
+              {savingKey === "monthly_report_contact" ? <Loader2 className="h-3 w-3 animate-spin mr-2" /> : null}
+              Spara
+            </Button>
+          </div>
+        </div>
 
 
         <div className="flex flex-wrap gap-2 pt-2">

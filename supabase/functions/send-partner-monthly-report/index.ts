@@ -43,280 +43,342 @@ function esc(s: any): string {
   return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
 }
 
-function fmtDate(iso: string) {
+// Render simple markdown-lite bullet list from a text block.
+// Lines starting with "- " or "* " become <li>; blank lines break lists; other lines become <p>.
+function renderRichText(raw: string): string {
+  if (!raw) return "";
+  const lines = raw.replace(/\r\n/g, "\n").split("\n");
+  const out: string[] = [];
+  let inList = false;
+  const flushList = () => {
+    if (inList) {
+      out.push("</ul>");
+      inList = false;
+    }
+  };
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+    if (!line) {
+      flushList();
+      continue;
+    }
+    const bullet = line.match(/^[-*•]\s+(.*)$/);
+    if (bullet) {
+      if (!inList) {
+        out.push('<ul style="margin:6px 0 12px 0;padding-left:20px;color:#334155;font-size:14px;line-height:1.6">');
+        inList = true;
+      }
+      out.push(`<li style="margin:4px 0">${esc(bullet[1])}</li>`);
+    } else {
+      flushList();
+      out.push(`<p style="margin:6px 0;color:#334155;font-size:14px;line-height:1.6">${esc(line)}</p>`);
+    }
+  }
+  flushList();
+  return out.join("");
+}
+
+function fmtIso(iso: string) {
   return iso.slice(0, 10).replace(/-/g, "/");
 }
 
-const PRODUCT_LABELS: Record<string, string> = {
-  "/business-central": "Business Central",
-  "/finance-supply-chain": "Finance & Supply Chain",
-  "/d365sales": "Sales (CRM)",
-  "/d365customerservice": "Customer Service",
-  "/d365fieldservice": "Field Service",
-  "/d365marketing": "Customer Insights – Journeys",
-  "/d365contactcenter": "Contact Center",
-  "/crm": "CRM-översikt",
-  "/erp-oversikt": "ERP-översikt",
-  "/agents": "AI-agenter",
-  "/copilot": "Copilot",
-  "/aioversikt": "AI-översikt",
-  "/branschlosningar": "Branschlösningar",
-  "/valjdynamics365partner": "Välj partner",
-  "/kom-igang": "Kom igång",
-  "/kunskapscenter": "Kunskapscenter",
-  "/": "Startsidan",
-};
-
-function labelForPath(path: string): string {
-  if (PRODUCT_LABELS[path]) return PRODUCT_LABELS[path];
-  // Strip trailing slash
-  const stripped = path.replace(/\/$/, "");
-  if (PRODUCT_LABELS[stripped]) return PRODUCT_LABELS[stripped];
-  return path;
+function bucketReferrer(ref: string | null, firstUrl?: string | null): string | null {
+  if (ref) {
+    try {
+      const u = new URL(ref);
+      const h = u.hostname.replace(/^www\./, "");
+      if (h.includes("google") || h.includes("bing") || h.includes("duckduckgo") || h.includes("yahoo")) return "Organiskt sök";
+      if (h.includes("linkedin")) return "LinkedIn";
+      if (h.includes("facebook") || h.includes("instagram")) return "Sociala medier";
+      if (h.includes("d365.se")) {
+        // fall through — treat internal as based on landing page
+      } else if (!h.includes("lovable")) {
+        return h;
+      }
+    } catch { /* ignore */ }
+  }
+  if (firstUrl) {
+    const u = firstUrl.toLowerCase();
+    if (u.includes("/jamfor-partners")) return "Jämförelsevyn";
+    if (u.includes("/branscher")) return "Branschguide";
+    if (u.includes("/behovsanalys") || u.includes("/erpbehovsanalys") || u.includes("/crmbehovsanalys")) return "Behovsanalys";
+    if (u.includes("/valjdynamics365partner") || u.includes("/valj")) return "Välj partner-guiden";
+  }
+  return "Direktlänk / okänt";
 }
 
-function aggregateTop(rows: { page_source: string | null }[], limit = 5) {
-  const m = new Map<string, number>();
-  for (const r of rows) {
-    if (!r.page_source) continue;
-    // Normalize: ignore querystring/hash
-    const path = r.page_source.split("?")[0].split("#")[0];
-    m.set(path, (m.get(path) || 0) + 1);
-  }
-  return Array.from(m.entries())
-    .map(([path, count]) => ({ path, label: labelForPath(path), count }))
-    .sort((a, b) => b.count - a.count)
-    .slice(0, limit);
+interface PeriodStats {
+  profileVisits: number;
+  compareViews: number;
+  websiteClicks: number;
+  industryListingViews: number;
 }
 
 interface PartnerStats {
   partner: any;
-  profileVisits: number;
-  cardClicks: number;
-  websiteClicks: number;
+  current: PeriodStats;
+  previous: PeriodStats;
   identifiedCompanies: number;
-  exposures: number;
-  exposuresByPage: { path: string; label: string; count: number }[];
-  topFilterContexts: { label: string; count: number }[];
-  topReferrers: { label: string; count: number }[];
-  topProductPages: { path: string; label: string; count: number }[];
-  siteEventsList: number;
-  siteEventsDetail: number;
-  siteNeedsAnalysis: number;
-  siteRequirementsSpec: number;
-  siteAssessments: number;
+  industryBreakdown: { industry: string; count: number }[];
+  activeEvaluators: number;
+  topEntryPath: string | null;
+  industryPagesListed: { slug: string; name: string; views: number }[];
+  partnerNews: { title: string; date: string; url: string | null }[];
 }
 
-function normalizeReferrer(ref: string | null): string | null {
-  if (!ref) return null;
-  try {
-    const u = new URL(ref);
-    const h = u.hostname.replace(/^www\./, "");
-    if (h.includes("google")) return "Google";
-    if (h.includes("bing")) return "Bing";
-    if (h.includes("linkedin")) return "LinkedIn";
-    if (h.includes("facebook")) return "Facebook";
-    if (h.includes("d365.se")) return null; // internal
-    if (h.includes("lovable.dev") || h.includes("lovable.app") || h.includes("lovableproject.com")) return null; // preview/dev
-    return h;
-  } catch {
-    return null;
-  }
-}
-
-async function buildStats(supabase: any, partner: any, startIso: string, siteStartIso?: string): Promise<PartnerStats> {
-  const profilePath = `/partner/${partner.slug}`;
-  const [viewsRes, clicksRes, snitcherRes, exposureRes] = await Promise.all([
+async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso: string): Promise<PeriodStats> {
+  const [viewsRes, clicksRes, exposureRes] = await Promise.all([
     supabase
       .from("partner_profile_views")
-      .select("view_type, page_source, referrer")
+      .select("view_type")
       .eq("partner_slug", partner.slug)
-      .gte("viewed_at", startIso),
+      .gte("viewed_at", startIso)
+      .lt("viewed_at", endIso),
     supabase
       .from("partner_clicks")
-      .select("page_source")
+      .select("id", { count: "exact", head: true })
       .eq("partner_name", partner.name)
-      .gte("clicked_at", startIso),
-    supabase
-      .from("snitcher_visits")
-      .select("company_name, partner_slugs, visited_urls")
-      .gte("session_started_at", startIso)
-      .limit(2000),
+      .gte("clicked_at", startIso)
+      .lt("clicked_at", endIso),
     supabase
       .from("partner_filter_exposures")
       .select("page_path, filter_context")
       .eq("partner_slug", partner.slug)
-      .gte("viewed_at", startIso),
+      .gte("viewed_at", startIso)
+      .lt("viewed_at", endIso),
   ]);
 
   const views = viewsRes.data || [];
-  const clicks = clicksRes.data || [];
+  const profileVisits = views.filter((v: any) => v.view_type === "profile_visit").length;
+
   const exposures = exposureRes.data || [];
-
-  const profileVisits = views.filter((v: any) => v.view_type === "profile_visit");
-  const cardClicks = views.filter((v: any) => v.view_type === "card_click");
-
-  // Count unique identified companies that visited this partner's profile
-  const companyNames = new Set<string>();
-  for (const r of snitcherRes.data || []) {
-    const partnerSlugs: string[] = Array.isArray(r.partner_slugs) ? r.partner_slugs : [];
-    const visitedUrls: string[] = Array.isArray(r.visited_urls)
-      ? r.visited_urls.map((u: any) => (typeof u === "string" ? u : u?.url || u?.path || "")).filter(Boolean)
-      : [];
-    const matched =
-      partnerSlugs.includes(partner.slug) ||
-      visitedUrls.some((u) => u.includes(profilePath));
-    if (!matched) continue;
-    const name = (r.company_name || "").trim().toLowerCase();
-    if (name) companyNames.add(name);
-  }
-
-  // Exposures by page (where partner card was shown after a filter)
-  const expPageMap = new Map<string, number>();
-  const filterCtxMap = new Map<string, number>();
+  let compareViews = 0;
+  let industryListingViews = 0;
   for (const e of exposures) {
-    const path = (e.page_path || "").split("?")[0].split("#")[0];
-    if (path) expPageMap.set(path, (expPageMap.get(path) || 0) + 1);
-    const fc = (e.filter_context || {}) as Record<string, string | null>;
-    const parts: string[] = [];
-    if (fc.product) parts.push(`Produkt: ${fc.product}`);
-    if (fc.industry) parts.push(`Bransch: ${fc.industry}`);
-    if (fc.geography) parts.push(`Geografi: ${fc.geography}`);
-    if (fc.size) parts.push(`Storlek: ${fc.size}`);
-    if (parts.length) {
-      const label = parts.join(" · ");
-      filterCtxMap.set(label, (filterCtxMap.get(label) || 0) + 1);
+    const p = (e.page_path || "").toLowerCase();
+    if (p.startsWith("/jamfor-partners")) compareViews++;
+    if (p.startsWith("/branscher")) {
+      industryListingViews++;
+    } else if (e.filter_context && (e.filter_context as any).industry) {
+      industryListingViews++;
     }
   }
-  const exposuresByPage = Array.from(expPageMap.entries())
-    .map(([path, count]) => ({ path, label: labelForPath(path), count }))
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 5);
-  const topFilterContexts = Array.from(filterCtxMap.entries())
-    .map(([label, count]) => ({ label, count }))
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 5);
-
-  // Referrers from profile views
-  const refMap = new Map<string, number>();
-  for (const v of views) {
-    const r = normalizeReferrer(v.referrer);
-    if (r) refMap.set(r, (refMap.get(r) || 0) + 1);
-  }
-  const topReferrers = Array.from(refMap.entries())
-    .map(([label, count]) => ({ label, count }))
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 5);
-
-  // Top product page sources combine all interaction sources (where they came from)
-  const allInteractions = [
-    ...views.map((v: any) => ({ page_source: v.page_source })),
-    ...clicks.map((c: any) => ({ page_source: c.page_source })),
-  ];
-
-  // Site-wide engagement signals (not partner-specific) — useful to show ecosystem activity
-  // Helps motivate partners to add events and shows demand on tools/assessments.
-  // Site-wide stats use a fixed 30-day window so numbers are comparable across partners
-  const siteStart = siteStartIso || new Date(Date.now() - 30 * 86400000).toISOString();
-  async function countPaths(patterns: string[]): Promise<number> {
-    let total = 0;
-    for (const p of patterns) {
-      const { count } = await supabase
-        .from("visitor_analytics")
-        .select("id", { count: "exact", head: true })
-        .gte("visited_at", siteStart)
-        .like("page_path", p);
-      total += count || 0;
-    }
-    return total;
-  }
-
-  const [siteEventsList, siteEventsDetail, siteNeedsAnalysis, siteRequirementsSpec, siteAssessments] = await Promise.all([
-    countPaths(["/events", "/events/"]),
-    countPaths(["/events/%"]),
-    countPaths(["/ERPbehovsanalys%", "/CRMbehovsanalys%", "/kundservice-behovsanalys%", "/behovsanalys%"]),
-    countPaths(["/kravspecifikation%"]),
-    countPaths(["/ai-readiness%", "/beslutsmognad%", "/Beslutsmognad%"]),
-  ]);
-  // siteEventsDetail includes the list page pattern in some DBs; subtract list to keep clean
-  const eventsDetailOnly = Math.max(0, siteEventsDetail - siteEventsList);
 
   return {
-    partner,
-    profileVisits: profileVisits.length,
-    cardClicks: cardClicks.length,
-    websiteClicks: clicks.length,
-    identifiedCompanies: companyNames.size,
-    exposures: exposures.length,
-    exposuresByPage,
-    topFilterContexts,
-    topReferrers,
-    topProductPages: aggregateTop(allInteractions, 5),
-    siteEventsList,
-    siteEventsDetail: eventsDetailOnly,
-    siteNeedsAnalysis,
-    siteRequirementsSpec,
-    siteAssessments,
+    profileVisits,
+    compareViews,
+    websiteClicks: clicksRes.count || 0,
+    industryListingViews,
   };
 }
 
+async function fetchIdentifiedCompanies(supabase: any, partner: any, startIso: string, endIso: string) {
+  const profilePath = `/partner/${partner.slug}`;
+  const { data } = await supabase
+    .from("snitcher_visits")
+    .select("company_name, company_industry, partner_slugs, visited_urls")
+    .gte("session_started_at", startIso)
+    .lt("session_started_at", endIso)
+    .limit(3000);
 
+  const companies = new Map<string, { industry: string | null; visitedTools: boolean }>();
+  for (const r of data || []) {
+    const partnerSlugs: string[] = Array.isArray(r.partner_slugs) ? r.partner_slugs : [];
+    const urls: string[] = Array.isArray(r.visited_urls)
+      ? r.visited_urls.map((u: any) => (typeof u === "string" ? u : u?.url || u?.path || "")).filter(Boolean)
+      : [];
+    const matched = partnerSlugs.includes(partner.slug) || urls.some((u) => u.includes(profilePath));
+    if (!matched) continue;
+    const key = (r.company_name || "").trim().toLowerCase();
+    if (!key) continue;
+    const visitedTools = urls.some((u) => {
+      const s = u.toLowerCase();
+      return s.includes("/behovsanalys") || s.includes("/erpbehovsanalys") || s.includes("/crmbehovsanalys")
+        || s.includes("/kravspecifikation") || s.includes("/jamfor-partners");
+    });
+    const existing = companies.get(key);
+    if (existing) {
+      existing.visitedTools = existing.visitedTools || visitedTools;
+    } else {
+      companies.set(key, { industry: (r.company_industry || "").trim() || null, visitedTools });
+    }
+  }
 
+  const industryMap = new Map<string, number>();
+  let activeEvaluators = 0;
+  for (const c of companies.values()) {
+    if (c.industry) industryMap.set(c.industry, (industryMap.get(c.industry) || 0) + 1);
+    if (c.visitedTools) activeEvaluators++;
+  }
+  const industryBreakdown = Array.from(industryMap.entries())
+    .map(([industry, count]) => ({ industry, count }))
+    .sort((a, b) => b.count - a.count);
 
-function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string, reportLabel = "Månadsrapport"): string {
-  const { partner, profileVisits, cardClicks, websiteClicks, topProductPages, identifiedCompanies, exposures, exposuresByPage, topFilterContexts, topReferrers, siteEventsList, siteEventsDetail, siteNeedsAnalysis, siteRequirementsSpec, siteAssessments } = stats;
-  const profileUrl = `${siteOrigin}/partner/${partner.slug}`;
-  const totalEngagement = profileVisits + cardClicks + websiteClicks;
-  // Site-wide stats always use a fixed 30-day window so numbers are comparable across partners
-  const siteEndLabel = new Date().toISOString().slice(0, 10).replace(/-/g, "/");
-  const siteStartLabel = new Date(Date.now() - 30 * 86400000).toISOString().slice(0, 10).replace(/-/g, "/");
-  const sitePeriodLabel = `${siteStartLabel} – ${siteEndLabel}`;
+  return { identifiedCompanies: companies.size, industryBreakdown, activeEvaluators };
+}
 
-  const topRows = topProductPages.length
-    ? topProductPages.map((p, i) => `
-        <tr>
-          <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#94a3b8;font-size:13px;width:30px">${i + 1}</td>
-          <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:14px">
-            <div style="font-weight:600">${esc(p.label)}</div>
-            <div style="color:#64748b;font-size:12px;font-family:monospace">${esc(p.path)}</div>
-          </td>
-          <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:14px;text-align:right;font-weight:600">${p.count}</td>
-        </tr>`).join("")
-    : `<tr><td colspan="3" style="padding:18px;text-align:center;color:#94a3b8;font-size:13px">Inga produktsidor registrerade under perioden</td></tr>`;
+async function fetchTopEntryPath(supabase: any, partner: any, startIso: string, endIso: string): Promise<string | null> {
+  const { data } = await supabase
+    .from("partner_profile_views")
+    .select("referrer, page_source")
+    .eq("partner_slug", partner.slug)
+    .gte("viewed_at", startIso)
+    .lt("viewed_at", endIso)
+    .limit(2000);
+  if (!data?.length) return null;
+  const map = new Map<string, number>();
+  for (const v of data) {
+    const b = bucketReferrer(v.referrer, v.page_source);
+    if (!b) continue;
+    map.set(b, (map.get(b) || 0) + 1);
+  }
+  const top = Array.from(map.entries()).sort((a, b) => b[1] - a[1])[0];
+  return top ? top[0] : null;
+}
 
-  const stat = (label: string, value: number | string, color: string) => `
-    <td style="padding:16px 8px;text-align:center;background:#f8fafc;border-radius:10px">
-      <div style="font-size:28px;font-weight:700;color:${color};line-height:1">${value}</div>
-      <div style="font-size:11px;color:#64748b;margin-top:6px;text-transform:uppercase;letter-spacing:0.5px">${label}</div>
-    </td>`;
+async function fetchIndustryPagesListed(supabase: any, partner: any, startIso: string, endIso: string) {
+  const { data: exposures } = await supabase
+    .from("partner_filter_exposures")
+    .select("page_path")
+    .eq("partner_slug", partner.slug)
+    .gte("viewed_at", startIso)
+    .lt("viewed_at", endIso);
+  const bySlug = new Map<string, number>();
+  for (const e of exposures || []) {
+    const p: string = e.page_path || "";
+    if (!p.startsWith("/branscher/")) continue;
+    const slug = p.replace(/^\/branscher\//, "").replace(/\/.*$/, "").replace(/[?#].*$/, "");
+    if (!slug) continue;
+    bySlug.set(slug, (bySlug.get(slug) || 0) + 1);
+  }
+  if (bySlug.size === 0) return [];
+  const slugs = Array.from(bySlug.keys());
+  const { data: pages } = await supabase
+    .from("industry_pages")
+    .select("slug, name")
+    .in("slug", slugs);
+  const nameMap = new Map<string, string>((pages || []).map((p: any) => [p.slug, p.name]));
+  return slugs
+    .map((slug) => ({ slug, name: nameMap.get(slug) || slug, views: bySlug.get(slug) || 0 }))
+    .sort((a, b) => b.views - a.views)
+    .slice(0, 8);
+}
 
-  const exposurePagesRows = exposuresByPage.length
-    ? exposuresByPage.map((p) => `
-        <tr>
-          <td style="padding:8px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">
-            <div style="font-weight:600">${esc(p.label)}</div>
-            <div style="color:#64748b;font-size:11px;font-family:monospace">${esc(p.path)}</div>
-          </td>
-          <td style="padding:8px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${p.count}</td>
-        </tr>`).join("")
+async function fetchPartnerNews(supabase: any, partner: any, startIso: string, endIso: string) {
+  const { data } = await supabase
+    .from("partner_news")
+    .select("id, editorial_title, published_at, news_date, source_url, status")
+    .eq("partner_id", partner.id)
+    .eq("status", "published")
+    .gte("published_at", startIso)
+    .lt("published_at", endIso)
+    .order("published_at", { ascending: false })
+    .limit(10);
+  return (data || []).map((n: any) => ({
+    title: n.editorial_title || "(namnlös)",
+    date: (n.published_at || n.news_date || "").slice(0, 10),
+    url: `https://www.d365.se/partnernytt/artikel/${n.id}`,
+  }));
+}
+
+async function fetchSiteSettings(supabase: any) {
+  const keys = ["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact"];
+  const { data } = await supabase.from("site_settings").select("key, value").in("key", keys);
+  const map = new Map<string, string>();
+  for (const r of data || []) map.set(r.key, r.value || "");
+  return {
+    changelog: map.get("monthly_report_changelog") || "",
+    nextPeriod: map.get("monthly_report_next_period") || "",
+    contact: map.get("monthly_report_contact") || "",
+  };
+}
+
+async function buildStats(supabase: any, partner: any, currentStart: string, currentEnd: string, previousStart: string, previousEnd: string): Promise<PartnerStats> {
+  const [current, previous, ident, entryPath, industryPagesListed, partnerNews] = await Promise.all([
+    fetchPeriod(supabase, partner, currentStart, currentEnd),
+    fetchPeriod(supabase, partner, previousStart, previousEnd),
+    fetchIdentifiedCompanies(supabase, partner, currentStart, currentEnd),
+    fetchTopEntryPath(supabase, partner, currentStart, currentEnd),
+    fetchIndustryPagesListed(supabase, partner, currentStart, currentEnd),
+    fetchPartnerNews(supabase, partner, currentStart, currentEnd),
+  ]);
+  return {
+    partner,
+    current,
+    previous,
+    identifiedCompanies: ident.identifiedCompanies,
+    industryBreakdown: ident.industryBreakdown,
+    activeEvaluators: ident.activeEvaluators,
+    topEntryPath: entryPath,
+    industryPagesListed,
+    partnerNews,
+  };
+}
+
+function delta(current: number, previous: number): string {
+  if (previous === 0 && current === 0) return `<span style="color:#94a3b8">–</span>`;
+  if (previous === 0) return `<span style="color:#16a34a">Nytt</span>`;
+  const diff = current - previous;
+  const pct = Math.round((diff / previous) * 100);
+  if (pct === 0) return `<span style="color:#94a3b8">±0%</span>`;
+  const color = pct > 0 ? "#16a34a" : "#dc2626";
+  const arrow = pct > 0 ? "▲" : "▼";
+  return `<span style="color:${color};font-weight:600">${arrow} ${pct > 0 ? "+" : ""}${pct}%</span>`;
+}
+
+function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: string, settings: { changelog: string; nextPeriod: string; contact: string }, reportLabel = "Månadsrapport"): string {
+  const { partner, current, previous, identifiedCompanies, industryBreakdown, activeEvaluators, topEntryPath, industryPagesListed, partnerNews } = stats;
+  const profileUrl = `https://www.d365.se/partner/${partner.slug}`;
+
+  const statRow = (label: string, cur: number, prev: number) => `
+    <tr>
+      <td style="padding:12px 14px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:14px;font-weight:600">${esc(label)}</td>
+      <td style="padding:12px 14px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:14px;text-align:right;font-weight:700">${cur}</td>
+      <td style="padding:12px 14px;border-bottom:1px solid #eef0f3;color:#64748b;font-size:14px;text-align:right">${prev}</td>
+      <td style="padding:12px 14px;border-bottom:1px solid #eef0f3;font-size:13px;text-align:right;white-space:nowrap">${delta(cur, prev)}</td>
+    </tr>`;
+
+  // "Vilka tittade" bullets
+  const bullets: string[] = [];
+  if (identifiedCompanies > 0) {
+    const top2 = industryBreakdown.slice(0, 2);
+    const industryStr = top2.length
+      ? `, varav ${top2.map((b) => `${b.count} inom ${esc(b.industry)}`).join(" och ")}`
+      : "";
+    bullets.push(`<strong>${identifiedCompanies}</strong> identifierade företag besökte er profil${industryStr}.`);
+    if (activeEvaluators > 0) {
+      bullets.push(`<strong>${activeEvaluators}</strong> av dessa besökte även behovsanalysen, kravspecifikationen eller jämförelsevyn – vilket brukar indikera aktiv utvärdering.`);
+    }
+  } else {
+    bullets.push(`Under perioden kunde inga företag identifieras bland besökarna på er profil. Det är inte ovanligt – mobil- och privattrafik förblir anonym.`);
+  }
+  if (topEntryPath) {
+    bullets.push(`Vanligaste vägen in till er profil: <strong>${esc(topEntryPath)}</strong>.`);
+  }
+  const bulletsHtml = bullets.map((b) => `<li style="margin:6px 0;line-height:1.55">${b}</li>`).join("");
+
+  // "Var ni syntes"
+  const industryRows = industryPagesListed
+    .map((p) => `<li style="margin:4px 0;line-height:1.55">Branschguiden för <strong>${esc(p.name)}</strong> — ${p.views} visningar med ert kort under perioden.</li>`)
+    .join("");
+  const newsRows = partnerNews
+    .map((n) => `<li style="margin:4px 0;line-height:1.55">Partnernytt ${esc(n.date)}: <a href="${esc(n.url)}" style="color:#0f1f3d">${esc(n.title)}</a></li>`)
+    .join("");
+  const visibilityHtml = (industryRows || newsRows)
+    ? `<ul style="margin:6px 0 0 0;padding-left:20px;color:#334155;font-size:14px">${industryRows}${newsRows}</ul>`
+    : `<p style="margin:6px 0 0 0;color:#64748b;font-size:14px">Inga redaktionella exponeringar under perioden.</p>`;
+
+  const nextPeriodHtml = settings.nextPeriod
+    ? renderRichText(settings.nextPeriod)
+    : `<p style="margin:6px 0;color:#64748b;font-size:14px">Inga aviserade publiceringar just nu.</p>`;
+
+  const changelogHtml = settings.changelog
+    ? renderRichText(settings.changelog)
     : "";
 
-  const filterCtxRows = topFilterContexts.length
-    ? topFilterContexts.map((c) => `
-        <tr>
-          <td style="padding:8px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">${esc(c.label)}</td>
-          <td style="padding:8px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${c.count}</td>
-        </tr>`).join("")
-    : "";
-
-  const referrerRows = topReferrers.length
-    ? topReferrers.map((r) => `
-        <tr>
-          <td style="padding:8px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">${esc(r.label)}</td>
-          <td style="padding:8px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${r.count}</td>
-        </tr>`).join("")
-    : "";
-
+  const contactLine = settings.contact
+    ? esc(settings.contact)
+    : "Thomas Laine, thomas.laine@d365.se";
 
   return `<!DOCTYPE html>
 <html lang="sv">
@@ -324,12 +386,11 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string,
 <body style="margin:0;padding:0;background:#eef2f7;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#0f172a">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#eef2f7" style="background:#eef2f7">
     <tr><td align="center" style="padding:24px 12px">
-
       <table role="presentation" width="640" cellpadding="0" cellspacing="0" border="0" style="max-width:640px;width:100%;background:#ffffff;border-radius:14px;overflow:hidden;box-shadow:0 4px 14px rgba(15,23,42,0.08)">
 
         <!-- Header -->
         <tr>
-          <td bgcolor="#0f1f3d" style="background-color:#0f1f3d;background:#0f1f3d;padding:28px 28px 24px">
+          <td bgcolor="#0f1f3d" style="background:#0f1f3d;padding:28px 28px 24px">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
               <tr>
                 <td style="vertical-align:middle">
@@ -343,132 +404,67 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string,
                 </td>
               </tr>
             </table>
-
             <div style="height:1px;background:#1e3a5f;margin:20px 0 18px"></div>
             <div style="color:#ffffff;font-size:24px;font-weight:700;line-height:1.2">${esc(partner.name)}</div>
-            <div style="color:#cbd5e1;font-size:14px;margin-top:6px">Period: ${esc(periodLabel)}</div>
+            <div style="color:#cbd5e1;font-size:14px;margin-top:6px">Denna period: ${esc(currentLabel)}</div>
+            <div style="color:#94a3b8;font-size:12px;margin-top:2px">Föregående period: ${esc(previousLabel)}</div>
           </td>
         </tr>
 
-        <!-- Orange accent strip -->
         <tr><td bgcolor="#ea580c" style="background:#ea580c;height:4px;line-height:4px;font-size:0">&nbsp;</td></tr>
 
-        <!-- Body -->
         <tr><td style="padding:28px">
 
-          <p style="margin:0 0 18px;color:#334155;font-size:15px;line-height:1.5">
-            Hej! Här kommer er översikt över aktiviteten på er partnerprofil hos D365.se under perioden.
-            Totalt registrerade vi <strong>${totalEngagement}</strong> interaktioner kopplade till er.
-          </p>
-
-          <table style="width:100%;border-collapse:separate;border-spacing:6px 0;margin:20px 0">
-            <tr>
-              ${stat("Exponeringar", exposures, "#0f1f3d")}
-              ${stat("Profilbesök", profileVisits, "#1e3a5f")}
-              ${stat("Kortklick", cardClicks, "#2d5a87")}
-              ${stat("Klick till er sajt", websiteClicks, "#ea580c")}
-            </tr>
-          </table>
-
-          <p style="margin:18px 0 8px;color:#64748b;font-size:13px;line-height:1.5">
-            <strong>Exponeringar</strong> = antal gånger ert kort visades i en filtrerad partnerlista.<br>
-            <strong>Profilbesök</strong> = personer som öppnade er fullständiga partnerprofil.<br>
-            <strong>Kortklick</strong> = klick på ert partnerkort i sökresultat och listor.<br>
-            <strong>Klick till er sajt</strong> = klick på er webblänk eller produktlandningssida.
-          </p>
-
-          ${exposurePagesRows ? `
-          <h2 style="margin:28px 0 8px;font-size:17px;color:#0f172a">Var visades ert kort?</h2>
-          <p style="margin:0 0 12px;color:#64748b;font-size:13px">Sidor där ert partnerkort exponerades efter att en besökare filtrerat.</p>
-          <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
-            <tbody>${exposurePagesRows}</tbody>
-          </table>` : ""}
-
-          ${filterCtxRows ? `
-          <h2 style="margin:28px 0 8px;font-size:17px;color:#0f172a">Vilka filter ledde till exponering?</h2>
-          <p style="margin:0 0 12px;color:#64748b;font-size:13px">Topp filterkombinationer (bransch, produkt, geografi, storlek) som matchade er profil. Visar vad köparna faktiskt sökte efter.</p>
-          <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
-            <tbody>${filterCtxRows}</tbody>
-          </table>` : ""}
-
-          <h2 style="margin:28px 0 12px;font-size:17px;color:#0f172a">Vad var besökarna intresserade av?</h2>
-          <p style="margin:0 0 12px;color:#64748b;font-size:13px">
-            Topp 5 sidor på D365.se där besökarna kom från innan de interagerade med er.
-          </p>
-
+          <!-- Siffror -->
+          <h2 style="margin:0 0 12px;font-size:18px;color:#0f172a">Siffror</h2>
           <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
             <thead>
               <tr style="background:#f8fafc">
-                <th style="padding:10px 12px;text-align:left;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">#</th>
-                <th style="padding:10px 12px;text-align:left;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Produktsida / område</th>
-                <th style="padding:10px 12px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Antal</th>
+                <th style="padding:10px 14px;text-align:left;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Mätpunkt</th>
+                <th style="padding:10px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Denna period</th>
+                <th style="padding:10px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Föregående</th>
+                <th style="padding:10px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Utveckling</th>
               </tr>
             </thead>
-            <tbody>${topRows}</tbody>
-          </table>
-
-          ${referrerRows ? `
-          <h2 style="margin:28px 0 8px;font-size:17px;color:#0f172a">Externa trafikkällor</h2>
-          <p style="margin:0 0 12px;color:#64748b;font-size:13px">Externa sajter som skickade besökare till er profil.</p>
-          <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
-            <tbody>${referrerRows}</tbody>
-          </table>` : ""}
-
-          <h2 style="margin:28px 0 4px;font-size:17px;color:#0f172a">Aktivitet i ekosystemet <span style="font-weight:400;color:#64748b;font-size:13px">(senaste 30 dagarna)</span></h2>
-          <p style="margin:0 0 4px;color:#0f172a;font-size:13px;font-weight:600">Period: ${sitePeriodLabel}</p>
-          <p style="margin:0 0 12px;color:#64748b;font-size:13px">
-            Totalt antal besök på olika delar av D365.se (alla partners sammanlagt) under de senaste 30 dagarna. Visar var köparna lägger sin tid – och var det är värt att synas eller publicera innehåll/events.
-          </p>
-          <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
             <tbody>
-              <tr>
-                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">
-                  <div style="font-weight:600">Eventkalendern</div>
-                  <div style="color:#64748b;font-size:11px">Besök på /events – synligt både i Kunskapscentret och på partnerprofiler. Lägg gärna upp alla era events.</div>
-                </td>
-                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${siteEventsList}</td>
-              </tr>
-              <tr>
-                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">
-                  <div style="font-weight:600">Behovsanalyser</div>
-                  <div style="color:#64748b;font-size:11px">ERP, CRM och Kundservice behovsanalys.</div>
-                </td>
-                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${siteNeedsAnalysis}</td>
-              </tr>
-              <tr>
-                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">
-                  <div style="font-weight:600">Kravspecifikationer</div>
-                  <div style="color:#64748b;font-size:11px">Alla kravspec-mallar (ERP, Sales, Marketing, Kundservice).</div>
-                </td>
-                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${siteRequirementsSpec}</td>
-              </tr>
-              <tr>
-                <td style="padding:10px 12px;color:#0f172a;font-size:13px">
-                  <div style="font-weight:600">Assessments</div>
-                  <div style="color:#64748b;font-size:11px">AI-readiness och Beslutsmognadsindex.</div>
-                </td>
-                <td style="padding:10px 12px;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${siteAssessments}</td>
-              </tr>
+              ${statRow("Profilvisningar", current.profileVisits, previous.profileVisits)}
+              ${statRow("Visningar i jämförelsevyn", current.compareViews, previous.compareViews)}
+              ${statRow("Klick till er webbplats", current.websiteClicks, previous.websiteClicks)}
+              ${statRow("Visningar av er i branschlistor", current.industryListingViews, previous.industryListingViews)}
             </tbody>
           </table>
+          <p style="margin:10px 2px 0;color:#64748b;font-size:12px;line-height:1.5">
+            Kontaktförfrågningar skickas till er i realtid via e-post. Raden ovan är summan för perioden.
+          </p>
 
+          <!-- Vilka tittade -->
+          <h2 style="margin:28px 0 8px;font-size:18px;color:#0f172a">Vilka tittade</h2>
+          <p style="margin:0 0 10px;color:#64748b;font-size:13px;line-height:1.55">
+            Aggregerad bild av identifierade företagsbesökare på er profil under perioden. Vi lämnar aldrig ut enskilda företagsnamn: köpare ska kunna researcha ostört, och det är den tryggheten som gör att de befinner sig här överhuvudtaget.
+          </p>
+          <ul style="margin:6px 0 0 0;padding-left:20px;color:#334155;font-size:14px">
+            ${bulletsHtml}
+          </ul>
+          ${identifiedCompanies > 0 ? `
+          <p style="margin:12px 0 0;padding:10px 12px;background:#fff7ed;border-left:3px solid #ea580c;border-radius:4px;color:#7c2d12;font-size:13px;line-height:1.5">
+            Vill ni ha en aggregerad genomgång av branscher och storlekar bland besökarna? Svara på detta mejl.
+          </p>` : ""}
 
+          <!-- Var ni syntes -->
+          <h2 style="margin:28px 0 8px;font-size:18px;color:#0f172a">Var ni syntes</h2>
+          ${visibilityHtml}
 
+          <!-- Nästa period -->
+          <h2 style="margin:28px 0 8px;font-size:18px;color:#0f172a">Nästa period</h2>
+          ${nextPeriodHtml}
 
-          <div style="margin:28px 0 0;padding:18px;background:#fff7ed;border-left:4px solid #ea580c;border-radius:6px">
-            <div style="font-weight:600;color:#9a3412;margin-bottom:6px;font-size:14px">Vill ni veta vilka företag som besökt er?</div>
-            <div style="color:#7c2d12;font-size:13px;line-height:1.5">
-              <div style="margin-bottom:8px;padding:8px 12px;background:#fed7aa;border-radius:4px;color:#7c2d12;font-weight:600">
-                ${identifiedCompanies > 0
-                  ? `✓ Vi har identifierat <strong>${identifiedCompanies}</strong> ${identifiedCompanies === 1 ? "företag" : "företag"} som besökt er profil under perioden. Svara på detta mejl så delar vi listan (namn, bransch, storlek).`
-                  : `Under denna period kunde <strong>0 företag</strong> identifieras bland besökarna på er profil. Det är inte ovanligt – många besök kommer från mobil- eller privattrafik som förblir anonym.`}
-              </div>
-              Identifieringen sker via vårt verktyg för uppslag av webbplatsbesökare. Alla besök går inte att koppla till ett företag – t.ex. mobil- eller privattrafik förblir anonym – men för de som identifieras får ni namn, bransch och storlek.
-            </div>
-          </div>
-
-
-
+          ${changelogHtml ? `
+          <!-- Nytt på sajten -->
+          <h2 style="margin:28px 0 8px;font-size:18px;color:#0f172a">Nytt på sajten</h2>
+          <p style="margin:0 0 8px;color:#64748b;font-size:13px;line-height:1.55">
+            Funktioner och förbättringar som lanserats under perioden.
+          </p>
+          ${changelogHtml}` : ""}
 
           <div style="text-align:center;margin:28px 0 8px">
             <a href="${esc(profileUrl)}" style="display:inline-block;background:#ea580c;color:#ffffff;text-decoration:none;padding:13px 26px;border-radius:8px;font-weight:600;font-size:14px">
@@ -476,27 +472,24 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string,
             </a>
           </div>
 
-          <p style="margin:24px 0 0;color:#94a3b8;font-size:12px;text-align:center;line-height:1.5">
-            Rapporten genereras automatiskt månadsvis. Har ni frågor eller vill ändra mottagare?<br>
-            Svara direkt på detta mejl eller hör av er till <a href="mailto:info@d365.se" style="color:#1e3a5f">info@d365.se</a>.
+          <p style="margin:24px 0 0;color:#94a3b8;font-size:12px;text-align:center;line-height:1.55">
+            Frågor om rapporten eller er profil: ${contactLine}.<br>
+            Rapporten skickas månadsvis till er angivna kontaktperson.
           </p>
         </td></tr>
 
-        <!-- Footer band -->
         <tr><td bgcolor="#0f1f3d" style="background:#0f1f3d;padding:18px 28px;text-align:center;color:#94a3b8;font-size:11px;letter-spacing:0.5px">
           D365.se · Guiden till Microsoft Dynamics 365-partners
         </td></tr>
 
       </table>
-
     </td></tr>
   </table>
 </body>
 </html>`;
 }
 
-
-async function sendOne(supabase: any, partner: any, startIso: string | null, siteOrigin: string, dryRun: boolean, overrideRecipient?: string, reportLabel = "Månadsrapport", sinceBeginning = false, extraRecipients: string[] = []) {
+async function sendOne(supabase: any, partner: any, currentStart: string, currentEnd: string, previousStart: string, previousEnd: string, settings: { changelog: string; nextPeriod: string; contact: string }, dryRun: boolean, overrideRecipient?: string, reportLabel = "Månadsrapport", extraRecipients: string[] = []) {
   const primary = overrideRecipient || partner.admin_contact_email || partner.email;
   const recipients: string[] = [];
   if (primary) recipients.push(primary);
@@ -509,45 +502,18 @@ async function sendOne(supabase: any, partner: any, startIso: string | null, sit
   }
   const recipient = recipients[0];
 
-  // Compute per-partner start date when sinceBeginning is requested.
-  // Priority: 1) partner.published_at (when the partner was first published),
-  // 2) earliest tracked event for the partner, 3) 30 days ago as last resort.
-  let effectiveStartIso = startIso;
-  if (sinceBeginning) {
-    if (partner.published_at) {
-      effectiveStartIso = partner.published_at;
-    } else {
-      const [pv, pc, fe] = await Promise.all([
-        supabase.from("partner_profile_views").select("viewed_at").eq("partner_slug", partner.slug).order("viewed_at", { ascending: true }).limit(1),
-        supabase.from("partner_clicks").select("clicked_at").eq("partner_name", partner.name).order("clicked_at", { ascending: true }).limit(1),
-        supabase.from("partner_filter_exposures").select("viewed_at").eq("partner_slug", partner.slug).order("viewed_at", { ascending: true }).limit(1),
-      ]);
-      const candidates = [
-        pv.data?.[0]?.viewed_at,
-        pc.data?.[0]?.clicked_at,
-        fe.data?.[0]?.viewed_at,
-      ].filter(Boolean) as string[];
-      const earliest = candidates.sort()[0];
-      effectiveStartIso = earliest || new Date(Date.now() - 30 * 86400000).toISOString();
-    }
-  }
-  if (!effectiveStartIso) {
-    return { partner: partner.name, status: "skipped", reason: "no_start_date" };
-  }
+  const currentLabel = `${fmtIso(currentStart)} – ${fmtIso(currentEnd)}`;
+  const previousLabel = `${fmtIso(previousStart)} – ${fmtIso(previousEnd)}`;
 
-  const endLabel = new Date().toISOString().slice(0, 10).replace(/-/g, "/");
-  const startLabel = effectiveStartIso.slice(0, 10).replace(/-/g, "/");
-  const periodLabel = `${startLabel} – ${endLabel}`;
+  const stats = await buildStats(supabase, partner, currentStart, currentEnd, previousStart, previousEnd);
 
-  const stats = await buildStats(supabase, partner, effectiveStartIso, new Date(Date.now() - 30 * 86400000).toISOString());
-
-  // Skip if no activity at all
-  if (stats.profileVisits + stats.cardClicks + stats.websiteClicks + stats.exposures === 0) {
+  const totalActivity = stats.current.profileVisits + stats.current.compareViews + stats.current.websiteClicks + stats.current.industryListingViews;
+  if (!dryRun && totalActivity === 0) {
     return { partner: partner.name, status: "skipped", reason: "no_activity" };
   }
 
-  const html = buildHtml(stats, periodLabel, siteOrigin, reportLabel);
-  const subject = `${reportLabel} för ${partner.name} – ${periodLabel}`;
+  const html = buildHtml(stats, currentLabel, previousLabel, settings, reportLabel);
+  const subject = `${reportLabel} för ${partner.name} – ${currentLabel}`;
 
   if (dryRun) {
     return { partner: partner.name, status: "preview", recipient, recipients, stats, html };
@@ -569,7 +535,6 @@ async function sendOne(supabase: any, partner: any, startIso: string | null, sit
     }),
   });
 
-
   const body = await res.json();
 
   await supabase.from("email_send_log").insert({
@@ -581,11 +546,11 @@ async function sendOne(supabase: any, partner: any, startIso: string | null, sit
     metadata: {
       partner_slug: partner.slug,
       partner_name: partner.name,
-      period_start: effectiveStartIso,
+      period_start: currentStart,
+      period_end: currentEnd,
       recipients,
-      profile_visits: stats.profileVisits,
-      card_clicks: stats.cardClicks,
-      website_clicks: stats.websiteClicks,
+      current: stats.current,
+      previous: stats.previous,
     },
   });
 
@@ -594,11 +559,10 @@ async function sendOne(supabase: any, partner: any, startIso: string | null, sit
     status: res.ok ? "sent" : "failed",
     recipient,
     recipients,
-    stats: { profileVisits: stats.profileVisits, cardClicks: stats.cardClicks, websiteClicks: stats.websiteClicks },
+    stats: { current: stats.current, previous: stats.previous },
     error: res.ok ? undefined : body,
   };
 }
-
 
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
@@ -609,26 +573,20 @@ serve(async (req) => {
       adminPassword,
       token: adminToken,
       cronSecret,
-      partnerSlug,        // optional: send to a single partner
-      dryRun = false,     // if true: don't send, return preview HTML
-      days = 30,          // lookback window
-      sinceBeginning = false, // if true: use the earliest tracked date as start
-      reportLabel: reportLabelOverride, // optional override (e.g. "Slutrapport")
-      siteOrigin = "https://www.d365.se",
-      overrideRecipient,  // optional: send to this email instead of partner's
-      extraRecipients,    // optional: array of additional emails to add as 'to'
+      partnerSlug,
+      dryRun = false,
+      days = 30,
+      periodStart,      // optional ISO date "YYYY-MM-DD" – overrides `days`
+      periodEnd,        // optional ISO date "YYYY-MM-DD"
+      reportLabel: reportLabelOverride,
+      overrideRecipient,
+      extraRecipients,
     } = body || {};
-
-
-
 
     const supabase = createClient(SUPABASE_URL, SERVICE_ROLE);
 
-    // Auth: admin password, admin JWT token (from logged-in admin UI), or cron secret
     let isAdmin = !!(ADMIN_PASSWORD && adminPassword === ADMIN_PASSWORD);
-    if (!isAdmin && adminToken) {
-      isAdmin = await verifyAdminJWT(adminToken);
-    }
+    if (!isAdmin && adminToken) isAdmin = await verifyAdminJWT(adminToken);
     let isCron = false;
     if (!isAdmin && cronSecret) {
       const { data: secretRow } = await supabase
@@ -644,14 +602,26 @@ serve(async (req) => {
       });
     }
 
-    let startIso: string | null = null;
-    if (!sinceBeginning) {
-      const startDate = new Date(Date.now() - days * 86400000);
-      startIso = startDate.toISOString();
+    // Compute period windows
+    const now = new Date();
+    let currentEndDate: Date;
+    let currentStartDate: Date;
+    if (periodStart && periodEnd) {
+      currentStartDate = new Date(`${periodStart}T00:00:00Z`);
+      currentEndDate = new Date(`${periodEnd}T23:59:59Z`);
+    } else {
+      currentEndDate = now;
+      currentStartDate = new Date(now.getTime() - days * 86400000);
     }
-    const reportLabel = reportLabelOverride || (sinceBeginning ? "Slutrapport" : "Månadsrapport");
+    const currentStart = currentStartDate.toISOString();
+    const currentEnd = currentEndDate.toISOString();
+    const spanMs = currentEndDate.getTime() - currentStartDate.getTime();
+    const previousEnd = currentStart;
+    const previousStart = new Date(currentStartDate.getTime() - spanMs).toISOString();
 
-    // Fetch featured partners
+    const reportLabel = reportLabelOverride || "Månadsrapport";
+    const settings = await fetchSiteSettings(supabase);
+
     let query = supabase
       .from("partners")
       .select("id, slug, name, email, admin_contact_email, is_featured")
@@ -669,7 +639,16 @@ serve(async (req) => {
     const results: any[] = [];
     for (const p of partners) {
       try {
-        results.push(await sendOne(supabase, p, startIso, siteOrigin, dryRun, overrideRecipient, reportLabel, sinceBeginning, Array.isArray(extraRecipients) ? extraRecipients : []));
+        results.push(await sendOne(
+          supabase, p,
+          currentStart, currentEnd,
+          previousStart, previousEnd,
+          settings,
+          dryRun,
+          overrideRecipient,
+          reportLabel,
+          Array.isArray(extraRecipients) ? extraRecipients : [],
+        ));
       } catch (e: any) {
         console.error("Partner failed:", p.slug, e);
         results.push({ partner: p.name, status: "error", error: e?.message });
