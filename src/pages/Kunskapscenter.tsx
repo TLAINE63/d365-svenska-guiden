@@ -756,8 +756,8 @@ const Kunskapscenter = () => {
   return "bg-[hsl(var(--primary))] text-white border-[hsl(var(--primary))]";
  case "video":
  return "bg-rose-600 text-white border-rose-600";
- case "branscher":
- return "bg-amber-600 text-white border-amber-600";
+  case "branscher":
+  return "bg-amber-700 text-white border-amber-700";
  default:
  return "bg-muted text-muted-foreground border-border";
  }

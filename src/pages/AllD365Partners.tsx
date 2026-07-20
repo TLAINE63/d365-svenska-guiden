@@ -279,7 +279,7 @@ export default function AllD365Partners() {
                               <Badge
                                 key={app}
                                 variant="outline"
-                                className="text-[10px] px-1.5 py-0 border-primary/30 text-primary/80 bg-primary/5"
+                                className="text-[10px] px-1.5 py-0 border-primary/30 text-primary bg-primary/5"
                               >
                                 {app}
                               </Badge>
@@ -332,7 +332,7 @@ export default function AllD365Partners() {
                                 <Badge
                                   key={k}
                                   variant="outline"
-                                  className="text-[10px] px-1.5 py-0 border-accent/30 text-accent/80 bg-accent/5"
+                                  className="text-[10px] px-1.5 py-0 border-accent/30 text-accent bg-accent/5"
                                 >
                                   {PRODUCT_LABEL[k]}
                                 </Badge>

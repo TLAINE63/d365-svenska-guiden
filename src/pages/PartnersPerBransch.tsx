@@ -241,7 +241,7 @@ const PartnersPerBransch = () => {
                                           <Badge
                                             key={k}
                                             variant="outline"
-                                            className="text-[10px] px-1.5 py-0 border-accent/30 text-accent/80 bg-accent/5"
+                                            className="text-[10px] px-1.5 py-0 border-accent/30 text-accent bg-accent/5"
                                           >
                                             {PRODUCT_LABEL[k]}
                                           </Badge>
