@@ -29,6 +29,28 @@ export default function PartnerNewsDetail() {
   const { id } = useParams<{ id: string }>();
   const { data: item, isLoading, error } = usePartnerNewsItem(id);
 
+  useEffect(() => {
+    if (!item?.id) return;
+    setNewsAttribution({
+      news_id: item.id,
+      editorial_title: item.editorial_title ?? null,
+      partner_slug: item.partner?.slug ?? null,
+      source: "detail_view",
+    });
+    trackFunnelEvent({
+      event_type: "content_view",
+      event_name: "partner_news_view",
+      metadata: {
+        news_id: item.id,
+        editorial_title: item.editorial_title ?? null,
+        partner_id: item.partner?.id ?? null,
+        partner_slug: item.partner?.slug ?? null,
+        news_type: item.news_type ?? null,
+        product_areas: item.product_areas ?? null,
+      },
+    });
+  }, [item?.id, item?.editorial_title, item?.partner?.id, item?.partner?.slug, item?.news_type, item?.product_areas]);
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background">
