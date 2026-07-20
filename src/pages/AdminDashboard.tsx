@@ -90,6 +90,7 @@ import AdminPartnerStatsTab from "@/components/AdminPartnerStatsTab";
 import AdminPartnerAgreementTab from "@/components/AdminPartnerAgreementTab";
 import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminPartnerNewsTab from "@/components/AdminPartnerNewsTab";
+import AdminPartnerFeedsTab from "@/components/AdminPartnerFeedsTab";
 import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
 import AdminAllVisitorsTab from "@/components/AdminAllVisitorsTab";
 import AdminPartnerProfileVisitsTab from "@/components/AdminPartnerProfileVisitsTab";
@@ -2161,12 +2162,18 @@ Thomas`,
  </span>
  Events
  </TabsTrigger>
- <TabsTrigger value="partner-news" className={`flex items-center gap-2 ${activeGroup === "innehall" ? "" : "hidden"}`}>
- <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-pink-500/20 to-pink-600/10 ring-1 ring-pink-400/20">
- <Megaphone className="h-3.5 w-3.5 text-pink-300" strokeWidth={1.75} />
- </span>
- Partnernytt
- </TabsTrigger>
+              <TabsTrigger value="partner-news" className={`flex items-center gap-2 ${activeGroup === "innehall" ? "" : "hidden"}`}>
+                <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-pink-500/20 to-pink-600/10 ring-1 ring-pink-400/20">
+                  <Megaphone className="h-3.5 w-3.5 text-pink-300" strokeWidth={1.75} />
+                </span>
+                Partnernytt
+              </TabsTrigger>
+              <TabsTrigger value="partner-feeds" className={`flex items-center gap-2 ${activeGroup === "innehall" ? "" : "hidden"}`}>
+                <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-orange-500/20 to-orange-600/10 ring-1 ring-orange-400/20">
+                  <Megaphone className="h-3.5 w-3.5 text-orange-300" strokeWidth={1.75} />
+                </span>
+                Auto-inläsning
+              </TabsTrigger>
  <TabsTrigger value="stats" className={`flex items-center gap-2 ${activeGroup === "statistik" ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-cyan-500/20 to-cyan-600/10 ring-1 ring-cyan-400/20">
  <BarChart3 className="h-3.5 w-3.5 text-cyan-300" strokeWidth={1.75} />
@@ -3116,13 +3123,22 @@ Thomas`,
  </TabsContent>
 
  {/* ==================== PARTNER NEWS TAB ==================== */}
- <TabsContent value="partner-news">
- <AdminPartnerNewsTab
- token={token || ""}
- partners={fullPartners.map(p => ({ id: p.id, name: p.name, slug: p.slug, is_featured: p.is_featured ?? false, logo_url: p.logo_url ?? null }))}
- onSessionExpired={logout}
- />
- </TabsContent>
+              <TabsContent value="partner-news">
+                <AdminPartnerNewsTab
+                  token={token || ""}
+                  partners={fullPartners.map(p => ({ id: p.id, name: p.name, slug: p.slug, is_featured: p.is_featured ?? false, logo_url: p.logo_url ?? null }))}
+                  onSessionExpired={logout}
+                />
+              </TabsContent>
+
+              <TabsContent value="partner-feeds">
+                <AdminPartnerFeedsTab
+                  token={token || ""}
+                  partners={fullPartners.map(p => ({ id: p.id, name: p.name, slug: p.slug }))}
+                  onSessionExpired={logout}
+                />
+              </TabsContent>
+
 
 
  {/* ==================== PARTNER STATISTICS TAB ==================== */}
