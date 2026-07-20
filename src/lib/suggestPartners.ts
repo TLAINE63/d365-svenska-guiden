@@ -1,21 +1,31 @@
 import type { DatabasePartner } from "@/hooks/usePartners";
 import {
   filterAndSortPartners,
-  hasProduct,
+  getSizeMatchBonus,
   type ProductKey,
 } from "@/hooks/usePartnerFilters";
 
 /**
  * Returnerar upp till `limit` partners som passar en given produkt/bransch.
- * Använder samma rank-motor som KomIgang/PartnerGuide (agreement-signed först,
- * bransch/produkt hårda filter, geografi kan relaxas). Om industri anges men
- * ger < limit träffar backar vi av branschfiltret så vi alltid kan visa 3.
+ *
+ * PRIORITETSORDNING (enligt `partner-ranking-priority-order-sv`):
+ *   1. Produkt (hårt filter – relaxas ALDRIG)
+ *   2. Bransch (hårt filter – relaxas ALDRIG)
+ *   3. Storlek/omsättning (mjuk bonus, tiebreaker)
+ *   4. Geografi (mjuk bonus, tiebreaker)
+ *
+ * Om färre än `limit` partners matchar produkt+bransch returnerar vi bara de
+ * som faktiskt passar. Vi fyller ALDRIG ut listan med random partners som
+ * saknar branschen – hellre färre förslag än fel förslag (TAYA).
  */
 export const pickSuggestedPartners = (
   partners: DatabasePartner[],
   opts: {
     product: ProductKey | ProductKey[];
     industry?: string | null;
+    companySize?: string | null;
+    revenue?: string | null;
+    geography?: string | null;
     limit?: number;
   },
 ): DatabasePartner[] => {
@@ -24,47 +34,37 @@ export const pickSuggestedPartners = (
     ? opts.product
     : [opts.product];
 
-  const collect = (industry?: string | null): DatabasePartner[] => {
-    const seen = new Set<string>();
-    const out: DatabasePartner[] = [];
-    for (const pk of productKeys) {
-      const list = filterAndSortPartners(
-        partners,
-        pk,
-        industry || null,
-        null,
-        null,
-        null,
-        true,
-        null,
-      );
-      for (const p of list) {
-        if (seen.has(p.slug)) continue;
-        seen.add(p.slug);
-        out.push(p);
-      }
-    }
-    return out;
-  };
+  const seen = new Set<string>();
+  const scored: { partner: DatabasePartner; product: ProductKey; bonus: number }[] = [];
 
-  let result = collect(opts.industry);
-  if (result.length < limit && opts.industry) {
-    // Relaxa branschfilter för att alltid ge 3 förslag.
-    const withoutIndustry = collect(null).filter(
-      (p) => !result.find((r) => r.slug === p.slug),
+  for (const pk of productKeys) {
+    // Hårda filter: produkt + bransch. Geografi lämnas oanvänt här (mjuk bonus).
+    const list = filterAndSortPartners(
+      partners,
+      pk,
+      opts.industry || null,
+      null,
+      null,
+      null,
+      true,
+      null,
     );
-    result = [...result, ...withoutIndustry];
-  }
-  if (result.length < limit) {
-    // Sista utväg: alla partners som har produkten (utan sortering).
-    const fallback = partners.filter((p) =>
-      productKeys.some((pk) => hasProduct(p, pk)),
-    );
-    for (const p of fallback) {
-      if (result.find((r) => r.slug === p.slug)) continue;
-      result.push(p);
-      if (result.length >= limit) break;
+    for (const p of list) {
+      if (seen.has(p.slug)) continue;
+      seen.add(p.slug);
+      const bonus = getSizeMatchBonus(p, pk, opts.companySize ?? null, opts.revenue ?? null);
+      scored.push({ partner: p, product: pk, bonus });
     }
   }
-  return result.slice(0, limit);
+
+  // Sortera: avtalspartner först, sedan storleks-/omsättningsbonus, behåll
+  // filterAndSortPartners inre ordning för lika bonus.
+  scored.sort((a, b) => {
+    const agA = a.partner.agreement_signed ? 1 : 0;
+    const agB = b.partner.agreement_signed ? 1 : 0;
+    if (agA !== agB) return agB - agA;
+    return b.bonus - a.bonus;
+  });
+
+  return scored.slice(0, limit).map((s) => s.partner);
 };
