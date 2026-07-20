@@ -335,44 +335,7 @@ interface ResultProps {
 }
 
 const ResultView = ({ result, answers, onRestart, onBack, onPdf }: ResultProps) => {
-  const [leadOpen, setLeadOpen] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [sent, setSent] = useState(false);
-  const [form, setForm] = useState({ company: "", name: "", email: "", phone: "" });
-  const { toast } = useToast();
 
-  const onLeadSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!form.company || !form.name || !form.email) return;
-    setSubmitting(true);
-    try {
-      const summary = CLASS_ORDER.map(
-        (c) =>
-          `${bcClassificationLabel(c)}: ${result.byClassification[c].map((s) => s.area).join(", ") || "—"}`,
-      ).join(" | ");
-      const { error } = await supabase.functions.invoke("submit-lead", {
-        body: {
-          company_name: form.company,
-          contact_name: form.name,
-          email: form.email,
-          phone: form.phone,
-          selected_product: "Business Central",
-          industry: result.segmentLabel,
-          source_page: "/businesscentral/matchningstest",
-          source_type: "bc_matchningstest",
-          message: `BC-matchningstest – ${result.headline}. ${summary}`,
-        },
-      });
-      if (error) throw error;
-      setSent(true);
-      toast({ title: "Tack!", description: "Vi återkommer med matchande partners." });
-    } catch (err) {
-      console.error(err);
-      toast({ title: "Något gick fel", description: "Försök igen om en stund.", variant: "destructive" });
-    } finally {
-      setSubmitting(false);
-    }
-  };
 
   return (
     <div className="space-y-8">
