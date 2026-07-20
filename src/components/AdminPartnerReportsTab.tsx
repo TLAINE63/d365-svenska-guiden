@@ -556,10 +556,13 @@ function MonthlyStatsReportCard({ token }: { token: string | null }) {
         token,
         dryRun,
         days,
+        periodStart: periodStart || undefined,
+        periodEnd: periodEnd || undefined,
         partnerSlug: partnerSlug.trim() || undefined,
         ...extras,
       },
     });
+
     setBusy(null);
     if (error || data?.error) {
       toast({ title: "Fel", description: data?.error || error?.message, variant: "destructive" });
