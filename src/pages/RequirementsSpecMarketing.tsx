@@ -7,6 +7,7 @@ import RequirementsDisclaimer from "@/components/RequirementsDisclaimer";
 import Footer from "@/components/Footer";
 import RelatedPages, { requirementsCrmRelatedPages } from "@/components/RelatedPages";
 import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
+import SendUnderlagToPartners from "@/components/SendUnderlagToPartners";
 import { usePartners } from "@/hooks/usePartners";
 import { pickSuggestedPartners } from "@/lib/suggestPartners";
 import { buildCompareUrl } from "@/lib/compareUrl";
@@ -444,6 +445,26 @@ const RequirementsSpecMarketing = () => {
                   </div>
                 </CardContent>
               </Card>
+
+              <SendUnderlagToPartners
+                sourcePage="/kravspecifikation-marketing"
+                assessmentType={"kravspec_marketing"}
+                products={["sales"]}
+                industry={result.industry || industry}
+                companySize={companySize}
+                underlagSummary={`Kravspecifikation – ${result.industry}
+
+Företagsstorlek: ${companySize}
+Valda områden: ${selectedAreas.join(", ")}
+
+${
+                  result.aiEnrichment?.industryRequirements
+                    ?.map((r) => `• ${r.area} (${r.priority}): ${r.items.slice(0, 3).join("; ")}`)
+                    .join("
+") || ""
+                }`}
+                resultUrl={typeof window !== "undefined" ? window.location.href : undefined}
+              />
 
               <div className="text-center">
                 <Button variant="ghost" onClick={() => { setStep(1); setResult(null); }}>

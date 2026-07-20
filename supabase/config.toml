@@ -66,3 +66,7 @@ verify_jwt = false
 [functions.track-contact-blocked]
 verify_jwt = false
 
+[functions.send-underlag-to-partners]
+verify_jwt = false
+
+

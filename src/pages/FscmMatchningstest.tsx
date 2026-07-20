@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
+import SendUnderlagToPartners from "@/components/SendUnderlagToPartners";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -471,6 +472,15 @@ const ResultView = ({ score, onRestart, onBack }: ResultViewProps) => {
  </ul>
  </CardContent>
  </Card>
+
+ <SendUnderlagToPartners
+   sourcePage="/fscm-matchningstest"
+   assessmentType="fscm_matching"
+   products={["fsc"]}
+   underlagSummary={`F&SCM matchningstest – ${level.headline}\n\nSammanvägd matchning: ${score.total}/100.\n\n${level.body}\n\nStarkaste områden: ${tops.map((t) => PROFILE_STRONG_COPY[t.key]).join("; ") || "—"}`}
+   resultUrl={typeof window !== "undefined" ? window.location.href : undefined}
+ />
+
 
  <div className="flex flex-wrap gap-3 pt-2">
  <Button variant="ghost" onClick={onBack}>

@@ -28,6 +28,8 @@ import {
 import { buildCompareUrl } from "@/lib/compareUrl";
 import PartnerCard from "@/components/PartnerCard";
 import { trackFunnelEvent, trackFunnelEventOnce } from "@/lib/funnelTracking";
+import SendUnderlagToPartners from "@/components/SendUnderlagToPartners";
+import type { ProductKey } from "@/hooks/usePartnerFilters";
 
 interface Props {
   productKey: ProductConfig["key"];
@@ -369,6 +371,24 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
                   <NextStepsList config={config} level={score.level} />
                 </CardContent>
               </Card>
+
+              {/* Skicka underlaget till 2–3 matchande partners */}
+              <SendUnderlagToPartners
+                sourcePage={`${config.canonicalPath}/resultat`}
+                assessmentType={`crm_matching_${config.key}`}
+                products={[
+                  (config.key === "customer-service" ||
+                  config.key === "field-service" ||
+                  config.key === "contact-center"
+                    ? "service"
+                    : "sales") as ProductKey,
+                ]}
+                underlagSummary={`Behovsanalys – ${config.productName}\n\n${level.headline} (matchningsgrad ${score.total}/100)\n\n${level.body}\n\nStarkaste behovsområden: ${tops
+                  .map((t) => t.key)
+                  .join(", ") || "—"}`}
+                resultUrl={typeof window !== "undefined" ? window.location.href : undefined}
+              />
+
 
               {/* Vidare läsning */}
               <Card>
