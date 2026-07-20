@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -11,6 +12,8 @@ import {
   partnerNewsSourceLabel,
 } from "@/components/PartnerNewsCard";
 import { ArrowLeft, ExternalLink, Calendar, Building2 } from "lucide-react";
+import { setNewsAttribution } from "@/utils/newsAttribution";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 function formatDate(iso: string) {
   if (!iso) return "";
