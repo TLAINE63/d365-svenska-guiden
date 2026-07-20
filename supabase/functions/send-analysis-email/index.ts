@@ -405,7 +405,7 @@ serve(async (req: Request): Promise<Response> => {
                 <p style="font-size:14px;line-height:1.6;margin:0;color:#1a1a1a;">
                   <strong style="color:#15130F;">Thomas Laine</strong><br>
                   <span style="color:#555;">Senior rådgivare – Microsoft Dynamics 365</span><br>
-                  E-post: <a href="mailto:info@d365.se" style="color:#D64A1F;text-decoration:none;font-weight:600;">info@d365.se</a><br>
+                  E-post: <a href="mailto:thomas.laine@dynamicfactory.se" style="color:#D64A1F;text-decoration:none;font-weight:600;">thomas.laine@dynamicfactory.se</a><br>
                   Tel: <a href="tel:+46722324060" style="color:#D64A1F;text-decoration:none;">072-232 40 60</a>
                 </p>
               </div>
