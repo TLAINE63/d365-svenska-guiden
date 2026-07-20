@@ -165,6 +165,11 @@ const handler = async (req: Request): Promise<Response> => {
             .filter(Boolean)
             .slice(0, 5)
         : [],
+      attribution_news_id:
+        typeof data.attribution_news_id === "string" && UUID_RE.test(data.attribution_news_id.trim())
+          ? data.attribution_news_id.trim()
+          : null,
+      attribution_source: sanitizeInput(data.attribution_source).slice(0, 50) || null,
     };
 
     // Create Supabase client with service role
