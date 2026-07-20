@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -11,6 +12,8 @@ import {
   partnerNewsSourceLabel,
 } from "@/components/PartnerNewsCard";
 import { ArrowLeft, ExternalLink, Calendar, Building2 } from "lucide-react";
+import { setNewsAttribution } from "@/utils/newsAttribution";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 function formatDate(iso: string) {
   if (!iso) return "";
@@ -25,6 +28,28 @@ function formatDate(iso: string) {
 export default function PartnerNewsDetail() {
   const { id } = useParams<{ id: string }>();
   const { data: item, isLoading, error } = usePartnerNewsItem(id);
+
+  useEffect(() => {
+    if (!item?.id) return;
+    setNewsAttribution({
+      news_id: item.id,
+      editorial_title: item.editorial_title ?? null,
+      partner_slug: item.partner?.slug ?? null,
+      source: "detail_view",
+    });
+    trackFunnelEvent({
+      event_type: "content_view",
+      event_name: "partner_news_view",
+      metadata: {
+        news_id: item.id,
+        editorial_title: item.editorial_title ?? null,
+        partner_id: item.partner?.id ?? null,
+        partner_slug: item.partner?.slug ?? null,
+        news_type: item.news_type ?? null,
+        product_areas: item.product_areas ?? null,
+      },
+    });
+  }, [item?.id, item?.editorial_title, item?.partner?.id, item?.partner?.slug, item?.news_type, item?.product_areas]);
 
   if (isLoading) {
     return (
@@ -185,7 +210,24 @@ export default function PartnerNewsDetail() {
                 asChild
                 className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white"
               >
-                <a href={item.source_url} target="_blank" rel="noopener nofollow">
+                <a
+                  href={item.source_url}
+                  target="_blank"
+                  rel="noopener nofollow"
+                  onClick={() =>
+                    trackFunnelEvent({
+                      event_type: "cta_click",
+                      event_name: "partner_news_source_click",
+                      metadata: {
+                        news_id: item.id,
+                        editorial_title: item.editorial_title,
+                        partner_slug: item.partner?.slug ?? null,
+                        news_type: item.news_type ?? null,
+                        source_url: item.source_url,
+                      },
+                    })
+                  }
+                >
                   Läs originalartikeln <ExternalLink className="w-4 h-4 ml-1.5" />
                 </a>
               </Button>

@@ -95,6 +95,7 @@ import AdminAllVisitorsTab from "@/components/AdminAllVisitorsTab";
 import AdminPartnerProfileVisitsTab from "@/components/AdminPartnerProfileVisitsTab";
 import AdminPartnerEngagementTab from "@/components/AdminPartnerEngagementTab";
 import AdminFunnelTab from "@/components/AdminFunnelTab";
+import AdminPartnerNewsPerformanceTab from "@/components/AdminPartnerNewsPerformanceTab";
 import AdminSalesOverview from "@/components/AdminSalesOverview";
 import AdminSalesPitchTab from "@/components/AdminSalesPitchTab";
 import AdminSalesPitchV2Tab from "@/components/AdminSalesPitchV2Tab";
@@ -2202,6 +2203,12 @@ Thomas`,
  </span>
  Funnel
  </TabsTrigger>
+ <TabsTrigger value="news-performance" className={`flex items-center gap-2 ${activeGroup === "statistik" ? "" : "hidden"}`}>
+ <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-pink-500/20 to-pink-600/10 ring-1 ring-pink-400/20">
+ <TrendingUp className="h-3.5 w-3.5 text-pink-300" strokeWidth={1.75} />
+ </span>
+ Partnernytt-prestanda
+ </TabsTrigger>
  <TabsTrigger value="summary" className={`flex items-center gap-2 ${activeGroup === "statistik" ? "" : "hidden"}`}>
   <span className="tab-icon p-1.5 rounded bg-emerald-600/15 ring-1 ring-emerald-400/20">
   <LayoutDashboard className="h-3.5 w-3.5 text-emerald-300" strokeWidth={1.75} />
@@ -3349,6 +3356,11 @@ Thomas`,
  {/* ==================== PARTNER ENGAGEMENT TAB ==================== */}
  <TabsContent value="partner-engagement">
  <AdminPartnerEngagementTab token={token || null} />
+ </TabsContent>
+
+ {/* ==================== PARTNER NEWS PERFORMANCE TAB ==================== */}
+ <TabsContent value="news-performance">
+ <AdminPartnerNewsPerformanceTab token={token || null} onSessionExpired={logout} />
  </TabsContent>
 
  {/* ==================== FUNNEL TAB ==================== */}

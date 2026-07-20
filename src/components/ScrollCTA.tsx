@@ -6,6 +6,7 @@ import { X, MessageCircle, CheckCircle2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
 import { useToast } from "@/hooks/use-toast";
+import { newsAttributionForLead } from "@/utils/newsAttribution";
 
 const DISMISS_KEY = "scroll-cta-dismissed";
 
@@ -59,6 +60,7 @@ const ScrollCTA = () => {
     try {
       const { error } = await supabase.functions.invoke("submit-lead", {
         body: {
+          ...newsAttributionForLead(),
           contact_name: form.contact_name,
           company_name: form.company_name,
           email: form.email,

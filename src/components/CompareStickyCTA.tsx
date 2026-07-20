@@ -15,6 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
+import { newsAttributionForLead } from "@/utils/newsAttribution";
 
 interface ComparePartner {
   slug: string;
@@ -109,6 +110,7 @@ const CompareStickyCTA = ({
 
       const { error } = await supabase.functions.invoke("submit-lead", {
         body: {
+          ...newsAttributionForLead(),
           ...form,
           message: composedMessage,
           industry: selectedIndustry,

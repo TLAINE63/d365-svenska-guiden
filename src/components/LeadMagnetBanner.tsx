@@ -8,6 +8,7 @@ import { Download, FileText, CheckCircle, X } from "lucide-react";
 import { generatePartnerGuide } from "@/utils/generatePartnerGuide";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
+import { newsAttributionForLead } from "@/utils/newsAttribution";
 
 interface LeadMagnetBannerProps {
   sourcePage: string;
@@ -76,6 +77,7 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
       
       const response = await supabase.functions.invoke("submit-lead", {
         body: {
+          ...newsAttributionForLead(),
           email,
           company_name: "Lead Magnet Download",
           contact_name: email.split("@")[0] || "Lead",

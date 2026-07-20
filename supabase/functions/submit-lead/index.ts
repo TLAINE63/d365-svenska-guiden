@@ -82,10 +82,14 @@ interface LeadRequest {
   source_type?: string;
   message?: string;
   assigned_partners?: string[];
+  attribution_news_id?: string;
+  attribution_source?: string;
   _hp?: string; // Honeypot field
   pdfBase64?: string; // PDF attachment for lead magnet
   pdfFilename?: string;
 }
+
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 const handler = async (req: Request): Promise<Response> => {
   const corsHeaders = getCorsHeaders(req);
@@ -161,6 +165,11 @@ const handler = async (req: Request): Promise<Response> => {
             .filter(Boolean)
             .slice(0, 5)
         : [],
+      attribution_news_id:
+        typeof data.attribution_news_id === "string" && UUID_RE.test(data.attribution_news_id.trim())
+          ? data.attribution_news_id.trim()
+          : null,
+      attribution_source: sanitizeInput(data.attribution_source).slice(0, 50) || null,
     };
 
     // Create Supabase client with service role
@@ -183,6 +192,8 @@ const handler = async (req: Request): Promise<Response> => {
         source_type: sanitizedData.source_type,
         message: sanitizedData.message || null,
         assigned_partners: sanitizedData.assigned_partners,
+        attribution_news_id: sanitizedData.attribution_news_id,
+        attribution_source: sanitizedData.attribution_source,
         status: "new",
       })
       .select()

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { newsAttributionForLead } from "@/utils/newsAttribution";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { useLocation } from "react-router-dom";
 import heroKravspecSales from "@/assets/hero-kravspec-sales.jpg";
@@ -126,6 +127,7 @@ const RequirementsSpecSales = () => {
     try {
       await supabase.functions.invoke("submit-lead", {
         body: {
+          ...newsAttributionForLead(),
           email,
           company_name: "Kravspecifikation Download",
           contact_name: email.split("@")[0] || "Lead",

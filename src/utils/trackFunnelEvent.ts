@@ -41,7 +41,8 @@ export type FunnelEventType =
   | "analysis_start"
   | "analysis_step"
   | "analysis_complete"
-  | "pdf_download";
+  | "pdf_download"
+  | "content_view";
 
 export interface FunnelEventPayload {
   event_type: FunnelEventType;
