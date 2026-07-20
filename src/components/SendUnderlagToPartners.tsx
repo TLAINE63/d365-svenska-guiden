@@ -26,7 +26,7 @@ import { usePartners, type DatabasePartner } from "@/hooks/usePartners";
 import { pickSuggestedPartners } from "@/lib/suggestPartners";
 import { hasProduct, type ProductKey } from "@/hooks/usePartnerFilters";
 import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
-import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { trackFunnelEvent } from "@/lib/funnelTracking";
 
 interface Props {
   sourcePage: string;
