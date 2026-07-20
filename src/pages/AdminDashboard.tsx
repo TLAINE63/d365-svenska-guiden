@@ -3358,6 +3358,11 @@ Thomas`,
  <AdminPartnerEngagementTab token={token || null} />
  </TabsContent>
 
+ {/* ==================== PARTNER NEWS PERFORMANCE TAB ==================== */}
+ <TabsContent value="news-performance">
+ <AdminPartnerNewsPerformanceTab token={token || null} onSessionExpired={logout} />
+ </TabsContent>
+
  {/* ==================== FUNNEL TAB ==================== */}
  <TabsContent value="funnel">
  <AdminFunnelTab token={token || null} onSessionExpired={logout} />
