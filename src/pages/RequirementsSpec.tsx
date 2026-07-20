@@ -20,6 +20,7 @@ import { allIndustries } from "@/data/partners";
 import { isServicesIndustry } from "@/lib/industryFilters";
 import RelatedPages, { requirementsErpRelatedPages } from "@/components/RelatedPages";
 import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
+import SendUnderlagToPartners from "@/components/SendUnderlagToPartners";
 import { usePartners } from "@/hooks/usePartners";
 import { pickSuggestedPartners } from "@/lib/suggestPartners";
 import { buildCompareUrl } from "@/lib/compareUrl";
@@ -464,6 +465,20 @@ const RequirementsSpec = () => {
                   </div>
                 </CardContent>
               </Card>
+
+              <SendUnderlagToPartners
+                sourcePage="/kravspecifikation"
+                assessmentType="kravspec_erp"
+                products={["bc", "fsc"]}
+                industry={result.industry || industry}
+                companySize={companySize}
+                underlagSummary={`Kravspecifikation ERP – ${result.industry}\n\nFöretagsstorlek: ${companySize}\nValda områden: ${selectedAreas.join(", ")}\n\n${
+                  result.aiEnrichment?.industryRequirements
+                    ?.map((r) => `• ${r.area} (${r.priority}): ${r.items.slice(0, 3).join("; ")}`)
+                    .join("\n") || ""
+                }`}
+                resultUrl={typeof window !== "undefined" ? window.location.href : undefined}
+              />
 
               <div className="text-center">
                 <Button variant="ghost" onClick={() => { setStep(1); setResult(null); }}>
