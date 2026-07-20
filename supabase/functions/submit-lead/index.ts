@@ -192,6 +192,8 @@ const handler = async (req: Request): Promise<Response> => {
         source_type: sanitizedData.source_type,
         message: sanitizedData.message || null,
         assigned_partners: sanitizedData.assigned_partners,
+        attribution_news_id: sanitizedData.attribution_news_id,
+        attribution_source: sanitizedData.attribution_source,
         status: "new",
       })
       .select()
