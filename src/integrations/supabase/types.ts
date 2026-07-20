@@ -674,6 +674,79 @@ export type Database = {
           },
         ]
       }
+      partner_feeds: {
+        Row: {
+          created_at: string
+          default_news_type: string
+          default_product_areas: string[]
+          feed_type: string
+          feed_url: string
+          id: string
+          is_active: boolean
+          items_imported: number
+          last_error: string | null
+          last_fetched_at: string | null
+          last_success_at: string | null
+          partner_id: string
+          source_type: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          default_news_type?: string
+          default_product_areas?: string[]
+          feed_type?: string
+          feed_url: string
+          id?: string
+          is_active?: boolean
+          items_imported?: number
+          last_error?: string | null
+          last_fetched_at?: string | null
+          last_success_at?: string | null
+          partner_id: string
+          source_type?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          default_news_type?: string
+          default_product_areas?: string[]
+          feed_type?: string
+          feed_url?: string
+          id?: string
+          is_active?: boolean
+          items_imported?: number
+          last_error?: string | null
+          last_fetched_at?: string | null
+          last_success_at?: string | null
+          partner_id?: string
+          source_type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_feeds_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_feeds_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_basic_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_feeds_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       partner_filter_exposures: {
         Row: {
           filter_context: Json
@@ -791,6 +864,8 @@ export type Database = {
           show_on_home: boolean
           show_on_partner_profile: boolean
           show_on_product_page: boolean
+          source_feed_id: string | null
+          source_guid: string | null
           source_type: string
           source_url: string
           status: string
@@ -813,6 +888,8 @@ export type Database = {
           show_on_home?: boolean
           show_on_partner_profile?: boolean
           show_on_product_page?: boolean
+          source_feed_id?: string | null
+          source_guid?: string | null
           source_type?: string
           source_url: string
           status?: string
@@ -835,6 +912,8 @@ export type Database = {
           show_on_home?: boolean
           show_on_partner_profile?: boolean
           show_on_product_page?: boolean
+          source_feed_id?: string | null
+          source_guid?: string | null
           source_type?: string
           source_url?: string
           status?: string
@@ -861,6 +940,13 @@ export type Database = {
             columns: ["partner_id"]
             isOneToOne: false
             referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_news_source_feed_id_fkey"
+            columns: ["source_feed_id"]
+            isOneToOne: false
+            referencedRelation: "partner_feeds"
             referencedColumns: ["id"]
           },
         ]
