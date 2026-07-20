@@ -648,7 +648,58 @@ function MonthlyStatsReportCard({ token }: { token: string | null }) {
           </div>
         </div>
 
+        <div className="border rounded-lg p-4 space-y-4 bg-muted/20">
+          <div>
+            <h3 className="text-sm font-semibold">Redaktionellt innehåll i rapporten</h3>
+            <p className="text-xs text-muted-foreground mt-1">
+              Punktlistor: skriv en rad per punkt, inled med <code>-</code>. Sparas globalt och används i alla rapporter tills du ändrar dem.
+            </p>
+          </div>
 
+          <div>
+            <label className="text-xs font-medium block mb-1">Nästa period (kommande publiceringar, uppmaningar)</label>
+            <Textarea
+              rows={5}
+              placeholder={"- Kostnadsartikeln om ... publiceras i ...\n- Partneröversikten publiceras i november: verifierade profiler får utökad plats.\n- Möjlighet till profilintervju för D365 Talks: hör av er om ni vill boka en tid."}
+              value={nextPeriod}
+              onChange={(e) => setNextPeriod(e.target.value)}
+              disabled={!settingsLoaded}
+            />
+            <Button size="sm" variant="secondary" className="mt-2" onClick={() => saveSetting("monthly_report_next_period", nextPeriod)} disabled={savingKey === "monthly_report_next_period"}>
+              {savingKey === "monthly_report_next_period" ? <Loader2 className="h-3 w-3 animate-spin mr-2" /> : null}
+              Spara
+            </Button>
+          </div>
+
+          <div>
+            <label className="text-xs font-medium block mb-1">Nytt på sajten (changelog för perioden)</label>
+            <Textarea
+              rows={6}
+              placeholder={"- Nytt: Behovsanalys för Kundservice.\n- Förbättrad ranking av partners baserat på bransch.\n- Möjlighet att skicka underlag direkt till 2–3 matchande partners."}
+              value={changelog}
+              onChange={(e) => setChangelog(e.target.value)}
+              disabled={!settingsLoaded}
+            />
+            <Button size="sm" variant="secondary" className="mt-2" onClick={() => saveSetting("monthly_report_changelog", changelog)} disabled={savingKey === "monthly_report_changelog"}>
+              {savingKey === "monthly_report_changelog" ? <Loader2 className="h-3 w-3 animate-spin mr-2" /> : null}
+              Spara
+            </Button>
+          </div>
+
+          <div>
+            <label className="text-xs font-medium block mb-1">Kontaktperson i rapporten</label>
+            <Input
+              placeholder="Thomas Laine, thomas.laine@d365.se"
+              value={contact}
+              onChange={(e) => setContact(e.target.value)}
+              disabled={!settingsLoaded}
+            />
+            <Button size="sm" variant="secondary" className="mt-2" onClick={() => saveSetting("monthly_report_contact", contact)} disabled={savingKey === "monthly_report_contact"}>
+              {savingKey === "monthly_report_contact" ? <Loader2 className="h-3 w-3 animate-spin mr-2" /> : null}
+              Spara
+            </Button>
+          </div>
+        </div>
 
 
         <div className="flex flex-wrap gap-2 pt-2">
