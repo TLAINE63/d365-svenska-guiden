@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { newsAttributionForLead } from "@/utils/newsAttribution";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { useLocation } from "react-router-dom";
 import heroKravspecMarketing from "@/assets/hero-kravspec-marketing.jpg";
@@ -23,7 +24,6 @@ import { useToast } from "@/hooks/use-toast";
 import { generateRequirementsSpec, type RequirementsData } from "@/utils/generateRequirementsSpec";
 import { allIndustries, companySizes } from "@/data/partners";
 import {
-import { newsAttributionForLead } from "@/utils/newsAttribution";
   ArrowLeft, ArrowRight, FileText, Download,
   Users, Target, BarChart3, Zap, Link2, Mail,
   CheckCircle2, Loader2, Eye, Lock, MousePointer,

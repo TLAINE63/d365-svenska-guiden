@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { newsAttributionForLead } from "@/utils/newsAttribution";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { useLocation } from "react-router-dom";
 import heroKravspecKundservice from "@/assets/hero-kravspec-kundservice.jpg";
@@ -26,7 +27,6 @@ import { isServicesIndustry } from "@/lib/industryFilters";
 
 const serviceTeamSizes = ["1–5", "6–10", "11–20", "21–50", "51–100", "100+"];
 import {
-import { newsAttributionForLead } from "@/utils/newsAttribution";
   ArrowLeft, ArrowRight, FileText, Download,
   Users, BarChart3, Zap, Link2, Headphones,
   CheckCircle2, Loader2, Eye, Lock, Phone,

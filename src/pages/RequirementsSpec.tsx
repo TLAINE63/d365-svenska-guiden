@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { newsAttributionForLead } from "@/utils/newsAttribution";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { useLocation } from "react-router-dom";
 import heroKravspecErp from "@/assets/hero-kravspec-erp.jpg";
@@ -25,7 +26,6 @@ import { usePartners } from "@/hooks/usePartners";
 import { pickSuggestedPartners } from "@/lib/suggestPartners";
 import { buildCompareUrl } from "@/lib/compareUrl";
 import {
-import { newsAttributionForLead } from "@/utils/newsAttribution";
   ArrowLeft, ArrowRight, FileText, Download,
   Calculator, Package, Factory, ShoppingCart, Boxes, Wrench,
   Link2, CheckCircle2, Loader2, Eye, Lock, Users, Landmark, Truck,
