@@ -460,8 +460,7 @@ Valda områden: ${selectedAreas.join(", ")}
 ${
                   result.aiEnrichment?.industryRequirements
                     ?.map((r) => `• ${r.area} (${r.priority}): ${r.items.slice(0, 3).join("; ")}`)
-                    .join("
-") || ""
+                    .join("\n") || ""
                 }`}
                 resultUrl={typeof window !== "undefined" ? window.location.href : undefined}
               />
