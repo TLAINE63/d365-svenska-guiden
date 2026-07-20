@@ -210,7 +210,24 @@ export default function PartnerNewsDetail() {
                 asChild
                 className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white"
               >
-                <a href={item.source_url} target="_blank" rel="noopener nofollow">
+                <a
+                  href={item.source_url}
+                  target="_blank"
+                  rel="noopener nofollow"
+                  onClick={() =>
+                    trackFunnelEvent({
+                      event_type: "cta_click",
+                      event_name: "partner_news_source_click",
+                      metadata: {
+                        news_id: item.id,
+                        editorial_title: item.editorial_title,
+                        partner_slug: item.partner?.slug ?? null,
+                        news_type: item.news_type ?? null,
+                        source_url: item.source_url,
+                      },
+                    })
+                  }
+                >
                   Läs originalartikeln <ExternalLink className="w-4 h-4 ml-1.5" />
                 </a>
               </Button>
