@@ -1,0 +1,12 @@
+update site_settings set value = 'Så har d365.se förbättrats de senaste månaderna:
+- Ny hero-sektion på startsidan med live-antal identifierade Dynamics 365-partners och klickbara insiktsboxar direkt till branschguide, alla partners och kunskapscenter.
+- Redesignade partnerprofilkort med tydligare kompetenssignaler, agreement-badges och nya CTA-vägar (boka möte, ladda ner underlag, skicka behovsanalys).
+- Ny "Jämför partners"-funktion där kunden kan ställa 2–3 partners sida vid sida med AI-genererade insikter.
+- Redesignat och sökbart Partnernytt med bild-thumbnails, artikelvy per publicering, klickspårning och separat sektion på produkt- och AI-sidor. Vi försöker aktivt fånga upp LinkedIn-inlägg och webinarier som partner publicerar så att de visas i Partnernytt – tipsa oss gärna om innehåll som saknas.
+- Nyheter märkta med Microsoft AI visas nu även under Copilot & Agenter, och produktnyheter visas ovanför "Övriga partners"-listan på respektive produktsida.
+- Nytt sökbart arkiv "Övriga Dynamics 365-partners i Sverige" med filter på produktområde.
+- Enhetlig PDF-branding (färger, typografi, header) i alla behovsanalyser, kravspecifikationer, ROI-rapporter och partnerguider.
+- Nya "Skicka underlaget till 2–3 matchande partners"-flöden i behovsanalyser och kravspecifikationer.
+- Strikt matchning: behovsanalys och kravspec föreslår aldrig partners som saknar rätt produkt eller bransch – hellre färre men rätt förslag.
+- Ny månadsrapport (den här) med jämförelseperiod, identifierade företag, aktiva utvärderare, branschfördelning och exponeringar per branschguide.
+- SEO: kortare title/meta på arkivsidor, unika self-referencing canonicals på alla publika sidor, artikelsidorna har nu dynamiska Open Graph-taggar.' where key = 'monthly_report_changelog';
