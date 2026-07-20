@@ -219,7 +219,7 @@ const PartnerEvents = () => {
       <SEOHead
         title={`Hantera events – ${partner?.name ?? "Partner"}`}
         description={`Adminvy för ${partner?.name ?? "partnern"} att lägga till och uppdatera kommande Microsoft Dynamics 365-events och webinarier på d365.se.`}
-        canonicalPath="/partner-events"
+        canonicalPath={`/partner-events/${token}`}
         noIndex
       />
 
