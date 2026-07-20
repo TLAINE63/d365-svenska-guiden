@@ -447,7 +447,7 @@ const handler = async (req: Request): Promise<Response> => {
             const confirmPayload = {
               from: "d365.se <info@d365.se>",
               to: [sanitizedData.email],
-              reply_to: "info@d365.se",
+              reply_to: "thomas.laine@dynamicfactory.se",
               subject: confirmSubject,
             };
             const confirmResult = await resend.emails.send({
@@ -483,8 +483,8 @@ const handler = async (req: Request): Promise<Response> => {
                     <div style="background:#f9fafb; border-radius:8px; padding:16px; margin-top:24px;">
                       <h4 style="color:#111827; margin:0 0 8px 0; font-size:15px;">Hör inte partnern av sig?</h4>
                       <p style="color:#4b5563; font-size:14px; margin:0;">
-                        Om du inte har fått svar inom ${RESPONSE_DAYS} arbetsdagar – hör av dig till oss på
-                        <a href="mailto:info@d365.se" style="color:#D64A1F;">info@d365.se</a> så hjälper vi dig vidare,
+                        Om du inte har fått svar inom ${RESPONSE_DAYS} arbetsdagar – hör av dig till Thomas Laine på
+                        <a href="mailto:thomas.laine@dynamicfactory.se" style="color:#D64A1F;">thomas.laine@dynamicfactory.se</a> så hjälper vi dig vidare,
                         antingen genom att påminna partnern eller föreslå ett bättre alternativ.
                       </p>
                     </div>

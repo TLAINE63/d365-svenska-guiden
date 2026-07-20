@@ -378,7 +378,7 @@ function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: str
 
   const contactLine = settings.contact
     ? esc(settings.contact)
-    : "Thomas Laine, thomas.laine@d365.se";
+    : "Thomas Laine, thomas.laine@dynamicfactory.se";
 
   return `<!DOCTYPE html>
 <html lang="sv">
