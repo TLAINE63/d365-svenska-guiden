@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, ArrowRight, CheckCircle2, RotateCcw, FileDown, Mail } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, RotateCcw, FileDown } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
+import SendUnderlagToPartners from "@/components/SendUnderlagToPartners";
 import { usePartners } from "@/hooks/usePartners";
 import { pickSuggestedPartners } from "@/lib/suggestPartners";
 import { buildCompareUrl } from "@/lib/compareUrl";
@@ -436,53 +437,27 @@ const ResultView = ({ result, answers, onRestart, onBack, onPdf }: ResultProps) 
               <FileDown className="w-4 h-4 mr-2" />
               Ladda ned resultat som PDF
             </Button>
-            {!leadOpen && !sent && (
-              <Button
-                onClick={() => setLeadOpen(true)}
-                className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange-hover))]"
-              >
-                <Mail className="w-4 h-4 mr-2" />
-                Få matchande BC-partners
-              </Button>
-            )}
             <Button asChild variant="outline">
               <Link to={`/valjpartner/?product=BC${result.segmentLabel ? `&industry=${encodeURIComponent(result.segmentLabel)}` : ""}`}>
                 Se BC-partners direkt
               </Link>
             </Button>
           </div>
-
-          {leadOpen && !sent && (
-            <form onSubmit={onLeadSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t border-border">
-              <div>
-                <Label htmlFor="company">Företag *</Label>
-                <Input id="company" value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} required />
-              </div>
-              <div>
-                <Label htmlFor="name">Namn *</Label>
-                <Input id="name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
-              </div>
-              <div>
-                <Label htmlFor="email">E-post *</Label>
-                <Input id="email" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required />
-              </div>
-              <div>
-                <Label htmlFor="phone">Telefon</Label>
-                <Input id="phone" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
-              </div>
-              <div className="sm:col-span-2 flex gap-2 justify-end pt-2">
-                <Button type="button" variant="ghost" onClick={() => setLeadOpen(false)}>Avbryt</Button>
-                <Button type="submit" disabled={submitting} className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange-hover))]">
-                  {submitting ? "Skickar..." : "Skicka och få matchning"}
-                </Button>
-              </div>
-            </form>
-          )}
-          {sent && (
-            <p className="text-sm text-foreground">Tack — vi återkommer inom 1–2 arbetsdagar med matchande BC-partners.</p>
-          )}
         </CardContent>
       </Card>
+
+      <SendUnderlagToPartners
+        sourcePage="/businesscentral/matchningstest"
+        assessmentType="bc_matching"
+        products={["bc"]}
+        industry={result.segmentLabel}
+        underlagSummary={`BC-matchningstest – ${result.headline}\n\n${result.body}\n\n${CLASS_ORDER.map(
+          (c) =>
+            `${bcClassificationLabel(c)}: ${result.byClassification[c].map((s) => s.area).join(", ") || "—"}`,
+        ).join("\n")}`}
+        resultUrl={typeof window !== "undefined" ? window.location.href : undefined}
+      />
+
 
       <div className="flex flex-wrap gap-3 pt-2">
         <Button variant="ghost" onClick={onBack}>
