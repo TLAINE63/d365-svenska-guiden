@@ -455,6 +455,26 @@ const RequirementsSpecCustomerService = () => {
                 </CardContent>
               </Card>
 
+              <SendUnderlagToPartners
+                sourcePage="/kravspecifikation-kundservice"
+                assessmentType={"kravspec_customer_service"}
+                products={["service"]}
+                industry={result.industry || industry}
+                companySize={companySize}
+                underlagSummary={`Kravspecifikation – ${result.industry}
+
+Företagsstorlek: ${companySize}
+Valda områden: ${selectedAreas.join(", ")}
+
+${
+                  result.aiEnrichment?.industryRequirements
+                    ?.map((r) => `• ${r.area} (${r.priority}): ${r.items.slice(0, 3).join("; ")}`)
+                    .join("
+") || ""
+                }`}
+                resultUrl={typeof window !== "undefined" ? window.location.href : undefined}
+              />
+
               <div className="text-center">
                 <Button variant="ghost" onClick={() => { setStep(1); setResult(null); }}>
                   <ArrowLeft className="mr-2 h-4 w-4" /> Skapa ny kravspecifikation
