@@ -1,68 +1,88 @@
+## Mål
 
-# Internationell sajt på d365guide.com – plan
+Bygga en internationell version av d365.se på en ny .com-domän i ett **separat projekt** (remix). Den svenska sajten på d365.se lämnas orörd.
 
-Mål: En separat .com-sajt (remix av dagens kodbas) som täcker flera länder via URL-prefix `/no`, `/nl`, `/dk` osv. Sverige stannar på nuvarande `d365.se`. Användaren kan välja land och språk oberoende av varandra. Partners, nyheter och artiklar kan taggas för flera länder.
+Språk/routning:
+- `d365guide.com/` → engelska (global default)
+- `d365guide.com/no` → norska
+- `d365guide.com/dk` → danska (förberedd, kan aktiveras senare)
+- Fler länder (`/nl`, `/de` …) läggs till med samma mönster
 
-## Arkitektur
+Fas 1 innehåller **endast Norge + engelsk global**. Danmark, Nederländerna m.fl. läggs till efter att mönstret är verifierat.
 
-- **Ny sajt via Remix** av nuvarande kodbas → egen backend (Lovable Cloud), egen databas, egen dom­än `d365guide.com`.
-- **Ingen koppling** till svenska databasen. Sverige-innehåll migreras inte hit – `d365.se` fortsätter som idag.
-- **URL-struktur**: `/{country}/{path}` t.ex. `/no/partners`, `/nl/erp`. Root `/` visar landväljare (eller autodetektering via `Accept-Language` + IP).
-- **Språkval separat från land**: t.ex. `/no?lang=en` eller cookie `preferred_lang`. UI-komponent i header med två dropdowns (Land / Språk).
+## Förutsättning innan bygget startar
 
-## Land + språk-modell
+Detta måste ske i ett **nytt projekt** (Remix av det här). Skäl: routes, databas, admin och SEO-struktur ändras djupt — att göra det här skulle påverka live-sajten d365.se.
 
-- **Land** styr vilka partners, nyheter, priser och lokala sidor som visas.
-- **Språk** styr översatt UI + översatt content (om översättning finns; annars fallback till engelska).
-- Startspråk per land: `no → nb`, `nl → nl`, `dk → da`. Engelska (`en`) alltid tillgänglig som fallback.
-- **Fas 1 lansering**: Norge (`/no`) + Nederländerna (`/nl`) med engelska + lokalt språk.
+Steg du gör manuellt:
+1. Högerklicka projektet i sidopanelen → **Remix** → namn t.ex. `d365guide-international`.
+2. Öppna det nya projektet och skriv: "Kör Fas 1 enligt planen från d365.se".
+3. Koppla `d365guide.com` under Project Settings → Domains i det nya projektet när Fas 1 är klar.
 
-## Datamodell (ny backend)
+Resten av planen beskriver vad som byggs i det nya projektet.
 
-Alla content-tabeller får en `countries text[]`-kolumn (taggar) i stället för `country text`:
+## Fas 1 – Grundstruktur (nytt projekt)
 
-- `partners.countries` (t.ex. `{no, nl}`)
-- `partner_news.countries`
-- `knowledge_articles.countries`
-- `industry_pages.countries`
-- Filter i alla queries: `WHERE '{country}' = ANY(countries)`
-- Admin får multi-select på land per post.
+### 1. Routing och språkdetektering
+- Ny route-struktur i `App.tsx`: alla routes wrappas i `/:locale?` där `locale ∈ {'', 'no', 'dk'}`. Tomt = engelska.
+- Ny komponent `LocaleProvider` som läser `:locale` från URL och exponerar `locale`, `country`, `t()` via context.
+- Redirect-logik på `/` (client-side i `LocaleRedirect.tsx`):
+  1. Läs cookie `preferred_locale` — om satt, respektera.
+  2. Annars läs `navigator.language`: `nb`/`no` → redirect till `/no`, `da` → `/dk`, annars stanna på `/` (engelska).
+  3. Cookie sätts när användaren aktivt byter språk (aldrig av autodetektering, för att undvika låsning).
+- Språkväljare i header (flagga + kod) som byter locale-prefix på nuvarande path och sätter cookien.
 
-Nya/kompletterande tabeller: `countries` (kod, namn, valuta, defaultspråk), `translations` (nyckel, språk, text) för UI-strängar.
+### 2. i18n-lager
+- Installera `i18next` + `react-i18next`.
+- Nycklar per språk i `src/i18n/{en,no,dk}.json`. Start: alla UI-strängar från nav, hero, CTA, formulär, footer, admin skippas i Fas 1.
+- Wrapper `useT()` runt `useTranslation` med typade nycklar.
 
-## i18n
+### 3. Databas – landsdimension
+Migration i det nya projektets Lovable Cloud:
+- Ny kolumn `country_code text not null default 'no'` på `partners`, `partner_news`, `knowledge_articles`, `industry_pages`, `leads`, `partner_feeds`.
+- Ny kolumn `content_locale text not null default 'en'` på samma tabeller (för översatt innehåll).
+- Index på `(country_code, content_locale)` för snabb filtrering.
+- Alla queries i frontend filtreras på nuvarande `country_code` (härlett från locale: `no`→`no`, `dk`→`dk`, `''`→visa alla eller "global"-flaggade).
+- RLS-policies uppdateras så publika vyer respekterar country_code.
 
-- **`react-i18next`** för UI-strängar. Alla hårdkodade svenska texter extraheras till `src/i18n/locales/{lang}.json`.
-- **Basspråk för nya sajten = engelska**. Övriga språk (nb, nl, da) genereras via AI-översättning + manuell granskning av strategiska sidor.
-- **Route-wrapper**: `<Route path="/:country/*">` läser land från URL, språk från query/cookie, sätter context.
-- **SEO**: `hreflang`-taggar per land+språk-kombination, canonical per URL, separat `sitemap.xml` per land.
+### 4. SEO per språk
+- `<html lang>` sätts dynamiskt av `LocaleProvider`.
+- `hreflang`-taggar i `index.html` + per-route (`en`, `nb-NO`, `da-DK`, `x-default`).
+- `sitemap.xml` byggs med alla routes × alla aktiva locales.
+- `robots.txt` tillåter allt.
+- Metadata (title/description/OG) översätts per locale.
 
-## Faser
+### 5. Ta bort Sverige-specifikt
+- Priser i SEK → visas som "Contact for pricing" i engelska; NOK i /no.
+- Referenser till "Sverige", svenska myndigheter, Bolagsverket etc. tas bort eller flyttas till svenska sajten.
+- E-postmallar och PDF-mallar översätts.
 
-**Fas 1 – Grund (denna leverans)**
-1. Remix till `d365guide.com`, ny backend.
-2. Route-struktur `/:country/*`, header med land+språk-väljare, landing på `/`.
-3. `react-i18next` uppsatt, UI-strängar extraherade, engelska + norska + nederländska.
-4. Datamodell konverterad till `countries text[]`, admin uppdaterad.
-5. Landa Norge (`/no`) och Nederländerna (`/nl`) tomma – redo för partners.
+### 6. Admin
+- Admin-dashboarden får en `country_code`-väljare (Norge / Global) längst upp; all data filtreras på den.
 
-**Fas 2 – Innehåll (separat prompt)**
-- AI-översätta artiklar, produktsidor, e-post- och PDF-mallar.
-- Lokala priser (NOK, EUR), lokala partners onboardade.
-- SEO per land: hreflang, sitemap, robots.
+## Fas 2 – Innehållsmigrering (efter Fas 1 är live)
 
-**Fas 3 – Fler länder**
-- Lägg till `/dk`, `/fi` osv. genom att lägga till rad i `countries`-tabellen + översättning.
+- Norska partners läggs in manuellt eller importeras från lista du levererar.
+- Nyheter/artiklar översätts via AI (Lovable AI Gateway, batch) med manuell granskning av strategiska sidor.
+- Kunskapscenter översätts först till engelska, sedan till norska.
 
-## Tekniska detaljer
+## Fas 3 – Fler länder
 
-- **Ny dom­än**: `d365guide.com` kopplas efter Fas 1 publicerats.
-- **Sverige oförändrad**: Länk från `d365guide.com` → `d365.se` för svenska besökare, och omvänt.
-- **Delad admin?** Nej i Fas 1 – separata admin per sajt. Kan konsolideras senare vid behov.
-- **E-post/PDF**: Mallar per språk, avsändare kvar på Thomas Laine tills lokal kontakt finns per land.
+När Norge fungerar: lägg till `/dk`, `/nl`, `/de` genom att:
+1. Lägga till locale-nyckeln i `LocaleProvider`.
+2. Lägga till översättningsfil `src/i18n/xx.json`.
+3. Importera landets partners med rätt `country_code`.
 
-## Att bekräfta innan bygget startar
+Ingen kodstruktur behöver ändras.
 
-1. **Domännamn**: `d365guide.com` – ska jag anta det, eller vill du välja slutgiltigt först?
-2. **Landing på `/`**: autodetektera land via browser/IP och redirect, eller alltid visa väljar-sida?
-3. **Ska Fas 1 börja nu** (remix + grundstruktur + tom Norge/Nederländerna) eller vill du ha en kostnadsuppskattning först?
+## Vad du gör nu
+
+1. Remixa detta projekt → nytt projekt `d365guide-international`.
+2. Öppna det och be mig starta Fas 1.
+3. Svara här när det är gjort, eller om du vill ändra något i planen först.
+
+## Vad som INTE händer
+
+- Ingenting ändras i detta projekt (`d365.se`).
+- Ingen databas rörs här.
+- Inga edge functions ändras här.
