@@ -19,7 +19,7 @@ const OPTION_LABELS: Record<Locale, string> = {
   en: "Global | EN",
 };
 
-const OPTION_ORDER: Locale[] = ["sv", "no", "fi", "dk", "en"];
+const OPTION_ORDER: Locale[] = ["sv", "no", "en"];
 
 const FLAG_CC: Record<Locale, string | null> = {
   sv: "se",
