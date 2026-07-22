@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 const companyLogo = "/d365-logo.svg";
 import { Menu, ChevronDown, Sparkles } from "lucide-react";
+import RegionLanguageSwitcher from "./RegionLanguageSwitcher";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -80,6 +81,7 @@ const Navbar = () => {
             >
               Kontakt
             </Link>
+            <RegionLanguageSwitcher />
           </div>
         </div>
       </div>
@@ -251,6 +253,11 @@ const Navbar = () => {
             </SheetTrigger>
             <SheetContent className="overflow-y-auto">
               <div className="flex flex-col gap-4 mt-8 pb-8">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-muted-foreground">Välj land / språk</span>
+                  <RegionLanguageSwitcher />
+                </div>
+                <div className="h-px bg-border" />
                 <Link to="/AI-sok/" className="inline-flex items-center gap-2 text-lg font-medium text-primary hover:text-[hsl(var(--signature))] transition-colors">
                   <Sparkles className="h-4 w-4" /> AI-sök
                 </Link>
