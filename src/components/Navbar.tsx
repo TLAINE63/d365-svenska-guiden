@@ -81,6 +81,7 @@ const Navbar = () => {
             >
               Kontakt
             </Link>
+            <RegionLanguageSwitcher />
           </div>
         </div>
       </div>
