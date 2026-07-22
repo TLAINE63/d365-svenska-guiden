@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 const companyLogo = "/d365-logo.svg";
 import { Menu, ChevronDown, Sparkles } from "lucide-react";
+import RegionLanguageSwitcher from "./RegionLanguageSwitcher";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
