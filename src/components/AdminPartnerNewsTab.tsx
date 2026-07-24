@@ -475,8 +475,8 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
                         ))}
                       </SelectContent>
                     </Select>
-                    <Button variant="outline" size="sm" onClick={() => setPreviewItem(item)}><Eye className="w-4 h-4" /></Button>
-                    <Button variant="outline" size="sm" onClick={() => openEdit(item)}><Pencil className="w-4 h-4" /></Button>
+                    <Button variant="outline" size="sm" onClick={() => setPreviewItem(item)} aria-label="Visa förhandsvisning"><Eye className="w-4 h-4" /></Button>
+                    <Button variant="outline" size="sm" onClick={() => openEdit(item)} aria-label="Redigera nyhet"><Pencil className="w-4 h-4" /></Button>
                     {(item.status === "draft" || item.status === "review") && (
                       <>
                         <Button size="sm" onClick={() => setStatus(item.id, "published")} className="bg-emerald-600 hover:bg-emerald-700 text-white">
@@ -497,10 +497,10 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
                         Avpublicera
                       </Button>
                     )}
-                    <Button variant="outline" size="sm" onClick={() => setStatus(item.id, "archived")}>
+                    <Button variant="outline" size="sm" onClick={() => setStatus(item.id, "archived")} aria-label="Arkivera nyhet">
                       <Archive className="w-4 h-4" />
                     </Button>
-                    <Button variant="outline" size="sm" onClick={() => remove(item.id)} className="text-destructive">
+                    <Button variant="outline" size="sm" onClick={() => remove(item.id)} className="text-destructive" aria-label="Ta bort nyhet">
                       <Trash2 className="w-4 h-4" />
                     </Button>
                   </div>
