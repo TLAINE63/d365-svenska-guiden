@@ -274,7 +274,7 @@ const Index = () => {
                 <div className="bg-white/[0.04] border border-white/10 rounded p-3 sm:p-4 mb-5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
                     <label className="block">
-                      <span className="block text-[11px] font-semibold uppercase tracking-[0.12em] text-white/60 mb-1.5">Bransch</span>
+                      <span className="block text-[11px] font-semibold uppercase tracking-[0.12em] text-white/60 mb-1.5">Välj bransch</span>
                       <select
                         value={heroIndustry}
                         onChange={(e) => setHeroIndustry(e.target.value)}
@@ -288,7 +288,7 @@ const Index = () => {
                       </select>
                     </label>
                     <label className="block">
-                      <span className="block text-[11px] font-semibold uppercase tracking-[0.12em] text-white/60 mb-1.5">Dynamics 365-lösning</span>
+                      <span className="block text-[11px] font-semibold uppercase tracking-[0.12em] text-white/60 mb-1.5">Välj Dynamics 365-lösning</span>
                       <select
                         value={heroProduct}
                         onChange={(e) => setHeroProduct(e.target.value)}
