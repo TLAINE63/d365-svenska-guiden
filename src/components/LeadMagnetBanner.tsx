@@ -143,7 +143,7 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
                 onClick={() => generatePartnerGuide()}
                 className="text-primary hover:underline font-medium"
               >
-                Ladda ner guiden direkt här
+                Ladda ner partnerguiden som PDF
               </button>
             </p>
           </div>

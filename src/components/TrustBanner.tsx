@@ -38,7 +38,7 @@ export default function TrustBanner({ variant = "full", className = "" }: Props)
               to="/agande-och-intressen/"
               className="inline-flex items-center gap-1 font-semibold text-[hsl(var(--cta-orange))] hover:underline shrink-0"
             >
-              Läs mer <ArrowRight className="w-3.5 h-3.5" />
+              Läs mer om ägande och intressen <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>

@@ -1270,17 +1270,17 @@ const Kunskapscenter = () => {
  {formatDate(item.date)}
  </span>
  )}
- <span className="text-xs text-primary font-medium flex items-center gap-1 ml-auto">
- {item.isExternal ? (
- <>
- Öppna <ExternalLink className="w-3 h-3" />
- </>
- ) : (
- <>
- Läs mer <ArrowRight className="w-3 h-3" />
- </>
- )}
- </span>
+  <span className="text-xs text-primary font-medium flex items-center gap-1 ml-auto">
+  {item.isExternal ? (
+  <>
+  Öppna <ExternalLink className="w-3 h-3" />
+  </>
+  ) : (
+  <>
+  {item.title ? `Läs mer om ${item.title}` : "Läs artikeln"} <ArrowRight className="w-3 h-3" />
+  </>
+  )}
+  </span>
  </div>
  </CardContent>
  </Card>

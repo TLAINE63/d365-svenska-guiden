@@ -206,10 +206,10 @@ export default function AdminPartnerFeedsTab({ token, partners, onSessionExpired
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="flex items-center gap-2"><Switch checked={f.is_active} onCheckedChange={() => toggleActive(f)} /><span className="text-xs">Aktiv</span></div>
-                    <Button size="sm" variant="outline" onClick={() => runNow(f.id)} disabled={runningId !== null}>
+                    <Button size="sm" variant="outline" onClick={() => runNow(f.id)} disabled={runningId !== null} aria-label="Kör feed nu">
                       {runningId === f.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <Play className="h-4 w-4" />}
                     </Button>
-                    <Button size="sm" variant="ghost" onClick={() => deleteFeed(f.id)}><Trash2 className="h-4 w-4 text-destructive" /></Button>
+                    <Button size="sm" variant="ghost" onClick={() => deleteFeed(f.id)} aria-label="Ta bort feed"><Trash2 className="h-4 w-4 text-destructive" /></Button>
                   </div>
                 </div>
               ))}

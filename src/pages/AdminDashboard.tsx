@@ -4126,11 +4126,11 @@ Thomas`,
  <Label>Logotyp</Label>
  <div className="flex items-center gap-4 mt-2">
  {partnerFormData.logo_url ? (
- <img 
- src={partnerFormData.logo_url} 
- alt="Logo" 
- className="h-16 w-16 object-contain border rounded"
- />
+  <img 
+  src={partnerFormData.logo_url} 
+  alt={`${partnerFormData.name || 'Partnerns'} logotyp`} 
+  className="h-16 w-16 object-contain border rounded"
+  />
  ) : (
  <div className="h-16 w-16 bg-muted rounded flex items-center justify-center">
  <ImageIcon className="h-8 w-8 text-muted-foreground" />

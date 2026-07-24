@@ -88,13 +88,13 @@ const EbookBanner = ({ variant = "full", sourcePage = "homepage" }: EbookBannerP
  <h3 className="font-semibold text-foreground">Tack! E-boken laddas ner.</h3>
  <p className="text-sm text-muted-foreground">
  Fick du inte filen?{" "}
- <a
- href="/ebooks/det-viktiga-partnervalet.pdf"
- download="Det-viktiga-partnervalet-d365.pdf"
- className="text-primary hover:underline font-medium"
- >
- Ladda ner direkt här
- </a>
+  <a
+  href="/ebooks/det-viktiga-partnervalet.pdf"
+  download="Det-viktiga-partnervalet-d365.pdf"
+  className="text-primary hover:underline font-medium"
+  >
+  Ladda ner e-boken direkt här
+  </a>
  </p>
  </div>
  </div>

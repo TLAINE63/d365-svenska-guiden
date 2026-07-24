@@ -96,7 +96,7 @@ const Navbar = () => {
           >
             <img 
               src={companyLogo} 
-              alt="d365.se logo" 
+              alt="d365.se - Guide för Dynamics 365" 
               className="h-10 lg:h-12 w-auto object-contain relative z-10"
               width="225"
               height="60"
