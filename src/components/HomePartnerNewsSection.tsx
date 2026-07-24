@@ -20,11 +20,12 @@ function formatDate(iso: string) {
   return `${y}/${m}/${day}`;
 }
 
-function HomeNewsCard({ item }: { item: PartnerNewsItem }) {
+function HomeNewsCard({ item, index }: { item: PartnerNewsItem; index: number }) {
   const productAreas = item.product_areas?.length
     ? item.product_areas
     : [item.product_area];
   const partner = item.partner;
+  const isFirst = index === 0;
 
   return (
     <Link
@@ -47,7 +48,11 @@ function HomeNewsCard({ item }: { item: PartnerNewsItem }) {
           <img
             src={item.image_url}
             alt=""
-            loading="lazy"
+            width={640}
+            height={360}
+            loading={isFirst ? "eager" : "lazy"}
+            fetchPriority={isFirst ? "high" : "auto"}
+            decoding={isFirst ? "sync" : "async"}
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
         </div>
@@ -112,8 +117,8 @@ export default function HomePartnerNewsSection() {
           </p>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
-          {data.map((item) => (
-            <HomeNewsCard key={item.id} item={item} />
+          {data.map((item, index) => (
+            <HomeNewsCard key={item.id} item={item} index={index} />
           ))}
         </div>
         <div className="mt-10 flex justify-center">
