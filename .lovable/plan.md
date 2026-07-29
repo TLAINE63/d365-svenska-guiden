@@ -1,69 +1,39 @@
-# Edge functions att anpassa i det internationella projektet
+## Mål
+Byta amerikanska em-streck (—) mot svenskt tankstreck (– med mellanslag runt) i all **publik svensk copy** på sajten. Em-strecket är inte svensk typografisk standard och är ett välkänt AI-tell, särskilt i löpande meningar som "Välj område — så får ni...". Svensk konvention är en-streck (–) med mellanslag: "Välj område – så får ni...".
 
-När du remixar följer alla 60+ edge functions med. De flesta fungerar teknik-agnostiskt, men följande grupper behöver anpassas för flerspråkighet, ny domän och landskontext.
+## Omfattning
 
-## 1. Måste översättas (svensk text i output till användare/kunder)
+**Inkluderas** (publik copy som besökare/leads ser):
+- Sidor i `src/pages/` (t.ex. `Index.tsx`, `Branschlosningar.tsx`, `Priser.tsx`, produktsidor, artikelsidor)
+- Presentationskomponenter i `src/components/` som renderas publikt (hero, kort, banners, footer, nyhetssektion, jämförelse-CTA, etc.)
+- Artikel- och datafiler med publik text: `src/data/blogArticles.tsx` (~400 träffar), `src/data/buyerManuals.ts` (~101), `src/data/productStandardSections.ts` (~36), `src/data/salesArticles.tsx`, `bcArticles.tsx`, `agentsArticles.tsx`, `copilotArticles.tsx`, `csArticles.tsx`, `fsArticles.tsx`, `fscArticles.tsx`, `ccArticles.tsx`, `ciArticles.tsx`, `bcTillaggArticles.tsx`, `bcIsvSolutions.ts`, `productQA.ts`, `beslutsmognadQuestions.ts`, `bcMatchningstest.ts`, m.fl.
+- Publika e-postmallar och PDF-strängar (`supabase/functions/send-analysis-email/`, `send-partner-monthly-report/`, `submit-lead/`, `src/utils/generate*Pdf.ts` – men bara textinnehåll, inte layoutkonstanter)
 
-Dessa genererar e-post, PDF eller AI-svar med hårdkodad svensk copy — behöver språkvariant per land (en/no/da/nl):
+**Undantas** (enligt ditt val "endast publik svensk copy"):
+- Admin-tabellernas platshållare `{value || "—"}` i `src/components/Admin*.tsx` (t.ex. `AdminAllVisitorsTab`, `AdminGscTab`, `AdminSalesKpiTab`, `AdminAgreementTab`, `AdminCompetitorInsightsTab`, `AdminProductPricesTab`, `AdminUnprofiledPartnersTab`, `AdminPartnerNewsTab`, `AdminEventsTab`, `AdminSemrush*`, `AdminSeoRankingsTab`, `AdminKeywordTrendsTab`, `AdminPartnerAgreementTab`) – lämnas orörda
+- Rubriker på admin-flikar (t.ex. "Konkurrentinsikter — vad gör de...")
+- JS/TS-kommentarer (`// SECTION 1 — HERO`, `/* ... */`)
+- Tekniska strängar, loggar, testfixturer (`src/pages/__tests__/`, `src/lib/__tests__/`)
+- Engelska strängar (ovanliga men förekommer i vissa util-filer)
 
-- `send-analysis-email` — behovsanalys-mailet
-- `send-partner-monthly-report` — månadsrapport till partners
-- `send-contact-email` — kontaktformulär
-- `send-underlag-to-partners` — skickar underlag till matchande partners
-- `submit-lead` — bekräftelsemail
-- `submit-assessment-notify` — AI-assessment notifiering
-- `process-email-queue` — mall-rendering
-- `partner-invitations` — inbjudningsmail
-- `generate-erp-analysis` — AI-prompt på svenska
-- `generate-customer-service-analysis` — AI-prompt på svenska
-- `generate-requirements` — kravspec-generering
-- `generate-industry-page` — branschsidor
-- `generate-partner-*` (7 st: summary, positioning, why-keypoints, industry-pitch, ai-experience-summary, ai-notafit) — AI-prompter
-- `compare-partners-insights`, `competitor-insights` — AI-analyser
-- `pillar-seo-followup` — SEO-copy
-- `ai-chat` — chatbot systemprompt
+## Regel för ersättning
+- ` — ` (mellanslag-em-mellanslag) → ` – ` (mellanslag-en-mellanslag)
+- `—` intill ord utan mellanslag (t.ex. `ord—ord`) → `ord – ord`
+- Undantag: värdet är exakt `"—"` som platshållare → behålls (men förekommer bara i admin, som redan är exkluderat)
 
-## 2. Behöver landsfilter (multi-country logik)
+## Genomförande
+1. **Kartlägg publika filer.** Bygg en explicit filjobblista utifrån de kategorier ovan (allt i `src/pages/` + `src/data/*Articles*` + publika komponenter + publika edge-functions/e-postmallar). Exkludera `src/components/Admin*.tsx` och `__tests__/`.
+2. **Kör riktade `sed`-ersättningar per fil** (inte globalt, för att inte träffa admin/tester).
+3. **Manuell granskning** av ~10 slumpade träffar via `rg -n ' – '` efteråt för att bekräfta att kontexten läser rätt.
+4. **Bygg + snabb visuell verifiering** av hero, en artikelsida och en produktsida via Playwright-screenshot för att säkerställa att inget textflöde ser trasigt ut.
+5. **Ingen ändring av CSS, ingen logikändring.** Rent copy-jobb.
 
-Dessa frågar partners/nyheter — måste filtrera på aktuellt land (`country` eller `countries` kolumn):
+## Teknisk not
+- Både `—` (U+2014) och `–` (U+2013) är rena Unicode-tecken i källkod; ingen escape behövs och byggkedjan hanterar dem oförändrat.
+- SEO: inga URL-, title- eller strukturerade data-fält ändras semantiskt; endast tecknet i description/title-strängar (om det förekommer där) byts.
+- Diff-omfång: uppskattningsvis ~700–900 ändrade rader fördelat över ~40–60 filer. Inga funktionella tester påverkas.
 
-- `match-partners`
-- `manage-partners`, `manage-unprofiled-partners`
-- `manage-partner-news`, `manage-events`, `manage-knowledge-articles`
-- `manage-industry-pages`, `manage-product-prices`
-- `partner-public-stats`, `partner-dashboard`, `partner-sales-summary`
-- `smart-search`
-- `ingest-partner-feeds` — utkast per land
-- `refresh-sitemaps` — en sitemap per språk/land
-
-## 3. Domän-/URL-beroende (hårdkodade d365.se-referenser)
-
-Behöver bytas till `d365guide.com` + språkprefix (`/no`, `/dk`):
-
-- Alla `send-*`-funktioner (länkar i mail)
-- `refresh-sitemaps`
-- `partner-invitations` (invite-länk)
-- `track-partner-click`, `track-partner-view`, `track-contact-blocked`, `track-visitor`, `track-funnel-event`, `track-filter-exposure` — CORS-origin
-
-## 4. Priser/valuta
-
-- `manage-product-prices` — SEK idag; behöver stödja EUR/NOK/DKK
-- `send-partner-monthly-report` — fakturabelopp
-
-## 5. Externa integrationer (fungerar as-is, men verifiera)
-
-- `gsc-stats`, `manage-semrush-stats`, `manage-seo-rankings`, `semrush-daily-rankings`, `track-keywords-weekly` — koppla till nya domänens property
-- `sync-snitcher-visits` — nytt Snitcher-konto för .com
-- `site-traffic-stats`, `funnel-stats` — GA4 property per land
-
-## 6. Kan följa med oförändrat
-
-Rena admin-/interna funktioner utan användartext:
-
-- `admin-login`, `manage-leads`, `manage-partner-reports`, `manage-partner-feeds`, `partner-agreement-config`, `upload-partner-logo`, `upload-partner-document`, `import-partners`, `apply-source-docs`, `partner-news-performance`, `debug-extended-relevance`, `mcp`, `track-partner-click` (logiken), `funnel-stats`
-
-## Rekommendation
-
-Ta med **listan i grupp 1 + 2** som första prioritet i Fas 3 (Översättning) och Fas 2 (Multi-country DB) i det nya projektet. Grupp 3 (domän) hanteras när `.com` kopplas in.
-
-Vill du att jag också förbereder en export-JSON av alla svenska partners + nyheter som seed-data till det nya projektet innan du remixar?
+## Utanför scope
+- Admin-UI:s platshållare
+- Kodkommentarer
+- Byte av andra typografiska tecken (t.ex. rak citation → typografisk), skiljetecken, mellanslag före `%`, o.s.v. – kan tas som separat städ senare om du vill.
