@@ -90,6 +90,31 @@ export default function OwnershipAndInterests() {
 
         <section className="mb-10 rounded-lg border border-border bg-muted/30 p-6">
           <h2 className="text-xl font-bold mb-3 text-foreground flex items-center gap-2">
+            <ExternalLink className="h-5 w-5 text-primary" /> Relaterade initiativ
+          </h2>
+          <p className="text-muted-foreground leading-relaxed">
+            Vi driver också{" "}
+            <a
+              href="https://fpaa.se"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              fpaa.se
+            </a>{" "}
+            – en självständig sajt om finansiell planering och analys (FP&A) som utbildar och
+            vägleder besökare.
+          </p>
+          <p className="text-muted-foreground leading-relaxed mt-3">
+            fpaa.se ägs av samma personer som d365.se. Syftet är att vägleda nyfikna kunder och
+            tänkbara återförsäljare, och i förlängningen skapa intresse för produkten Aimplan –
+            en produkt där vi har ett ekonomiskt intresse. Länken finns här för transparens, så
+            att du som besökare kan bedöma relationen själv.
+          </p>
+        </section>
+
+        <section className="mb-10 rounded-lg border border-border bg-muted/30 p-6">
+          <h2 className="text-xl font-bold mb-3 text-foreground flex items-center gap-2">
             <Mail className="h-5 w-5 text-primary" /> Vill du som partner finnas med?
           </h2>
           <p className="text-muted-foreground leading-relaxed">
