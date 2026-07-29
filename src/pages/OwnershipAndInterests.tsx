@@ -106,10 +106,9 @@ export default function OwnershipAndInterests() {
             vägleder besökare.
           </p>
           <p className="text-muted-foreground leading-relaxed mt-3">
-            fpaa.se ägs av samma personer som d365.se. Syftet är att vägleda nyfikna kunder och
-            tänkbara återförsäljare, och i förlängningen skapa intresse för produkten Aimplan –
-            en produkt där vi har ett ekonomiskt intresse. Länken finns här för transparens, så
-            att du som besökare kan bedöma relationen själv.
+            fpaa.se ägs av samma personer som d365.se. Den kan väcka intresse för produkten Aimplan,
+            men vi äger inte Aimplan och har inget ekonomiskt intresse i produkten. Länken finns
+            här för transparens, så att du som besökare kan bedöma relationen själv.
           </p>
         </section>
 
