@@ -106,9 +106,8 @@ export default function OwnershipAndInterests() {
             vägleder besökare.
           </p>
           <p className="text-muted-foreground leading-relaxed mt-3">
-            fpaa.se ägs av samma personer som d365.se. Den kan väcka intresse för produkten Aimplan,
-            men vi äger inte Aimplan och har inget ekonomiskt intresse i produkten. Länken finns
-            här för transparens, så att du som besökare kan bedöma relationen själv.
+            fpaa.se är ett samarbete inom finansiell planering och analys (FP&A) som vägleder
+            besökare i ämnet. Länken finns här för den som vill utforska området vidare.
           </p>
         </section>
 
