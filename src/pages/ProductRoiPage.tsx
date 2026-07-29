@@ -82,11 +82,11 @@ export default function ProductRoiPage({ productKey }: Props) {
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground max-w-3xl">
               Få en indikativ uppskattning av investering, årlig nytta, payback och 5-årig
-              TCO baserat på era egna nyckeltal — användare, omsättning, bransch och
+              TCO baserat på era egna nyckeltal – användare, omsättning, bransch och
               komplexitet.
             </p>
             <p className="text-xs text-muted-foreground mt-4 max-w-3xl italic">
-              Kalkylen är en förenklad uppskattning och bör användas som beslutsstöd — inte
+              Kalkylen är en förenklad uppskattning och bör användas som beslutsstöd – inte
               som en slutlig offert eller affärskalkyl. Validera alltid utfall med två–tre
               relevanta partners.
             </p>

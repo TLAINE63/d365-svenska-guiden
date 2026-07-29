@@ -253,7 +253,7 @@ const AppShell = () => {
           <Route path="/kunskapscenter/upphandlingsresan" element={<Upphandlingsresan />} />
           <Route path="/upphandlingsguiden" element={<Upphandlingsguiden />} />
           <Route path="/kunskapscenter/video/:slug" element={<VideoLanding />} />
-          {/* Topical hubs — explicit slugs (registered before the generic 2-segment article route) */}
+          {/* Topical hubs – explicit slugs (registered before the generic 2-segment article route) */}
           <Route path="/kunskapscenter/business-central" element={<KunskapscenterHub slug="business-central" />} />
           <Route path="/kunskapscenter/business-central-tillagg" element={<KunskapscenterHub slug="business-central-tillagg" />} />
           <Route path="/kunskapscenter/business-central-tillagg/katalog" element={<BCTillaggKatalog />} />
@@ -283,7 +283,7 @@ const AppShell = () => {
           <Route path="/partner-statistik" element={<PartnerStats />} />
           <Route path="/avtalssida" element={<PartnerAgreement />} />
           <Route path="/partner-avtal" element={<PartnerAgreement />} />
-          {/* Beslutsmognad — editorial publication (kortad från /beslutsmognadsindex) */}
+          {/* Beslutsmognad – editorial publication (kortad från /beslutsmognadsindex) */}
           <Route path="/beslutsmognad" element={<Beslutsmognadsindex />} />
           <Route path="/beslutsmognad/diagnostik" element={<BeslutsmognadDiagnostik />} />
           <Route path="/beslutsmognad/tack" element={<BeslutsmognadTack />} />

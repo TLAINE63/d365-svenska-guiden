@@ -137,7 +137,7 @@ REGLER (mycket viktigt):
 - Ingen säljjargong, inga superlativ ("bäst", "ledande", "marknadsledande", "premium", "experter").
 - Nämn inte pris, antal anställda eller konkurrenter.
 - Använd inte ordet "oberoende".
-- Skriv inte ut "Vi är valet när vi …" — meningen ska beskriva KUNDENS situation, inte er aktivitet.
+- Skriv inte ut "Vi är valet när vi …" – meningen ska beskriva KUNDENS situation, inte er aktivitet.
 - Avsluta med punkt.
 
 PARTNERDATA:
@@ -154,7 +154,7 @@ Branscher inom denna produkt: ${productIndustries || "(ej angett)"}
 Kundexempel: ${customerEx || "(ej angett)"}
 Produktbeskrivning från partnern: ${productDesc || "(saknas)"}
 
-WEBBKONTEXT (utdrag från partnerns webbplats, kan vara brus — använd försiktigt):
+WEBBKONTEXT (utdrag från partnerns webbplats, kan vara brus – använd försiktigt):
 ${webContext ? webContext.slice(0, 6000) : "(ingen webbkontext)"}
 
 Skriv positioneringsmeningen nu. Endast meningen, ingen rubrik, ingen förklaring, inga citattecken.`;

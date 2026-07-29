@@ -106,7 +106,7 @@ const D365FieldService = () => {
 
       <ShortAnswer title="Vad är Dynamics 365 Field Service">
         <p>
-          Dynamics 365 Field Service är Microsofts kompletta lösning för serviceorganisationer som har tekniker, montörer eller installatörer ute hos kund — från VVS, fastighet och energi till tillverkningsindustri, medicinteknik och telekom.
+          Dynamics 365 Field Service är Microsofts kompletta lösning för serviceorganisationer som har tekniker, montörer eller installatörer ute hos kund – från VVS, fastighet och energi till tillverkningsindustri, medicinteknik och telekom.
         </p>
         <p>
           Plattformen täcker hela kedjan: arbetsorderhantering, AI-driven schemaläggning och dispatch som matchar rätt tekniker med rätt kompetens till rätt jobb, optimerade körrutter, mobilapp för fält med offline-stöd, digitala checklistor och bildbevis, samt fjärrassistans via Dynamics 365 Remote Assist och HoloLens där en senior tekniker kan guida en juniorkollega i realtid.
@@ -115,7 +115,7 @@ const D365FieldService = () => {
           Med inbyggt IoT-stöd kan uppkopplade maskiner själva larma och boka in förebyggande service innan de havererar, och Copilot samt autonoma fältagenter sammanfattar ärenden, föreslår reservdelar och förbereder rapporter automatiskt. Field Service är djupt integrerat med Dynamics 365 Customer Service, Sales, Business Central och Finance & Supply Chain Management, vilket gör att fakturering, lager och kundhistorik hänger ihop utan dubbelregistrering.
         </p>
         <p>
-          Resultatet är högre andel ärenden lösta vid första besöket, mindre körtid, lägre kostnad per ärende och en kundupplevelse som matchar det allra bästa i branschen — förutsatt att partnern bygger schemaläggningsregler, kompetensmatris och integrationer rätt från start.
+          Resultatet är högre andel ärenden lösta vid första besöket, mindre körtid, lägre kostnad per ärende och en kundupplevelse som matchar det allra bästa i branschen – förutsatt att partnern bygger schemaläggningsregler, kompetensmatris och integrationer rätt från start.
         </p>
       </ShortAnswer>
 
@@ -287,7 +287,7 @@ const D365FieldService = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4">Fördjupningsartiklar</h2>
           <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Utforska Field Service i detalj — från intelligent schemaläggning och IoT till hållbarhet och integration med Finance.
+            Utforska Field Service i detalj – från intelligent schemaläggning och IoT till hållbarhet och integration med Finance.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
             {FS_ARTICLES.map((article) => (

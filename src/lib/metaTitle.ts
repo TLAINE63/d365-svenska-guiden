@@ -35,7 +35,7 @@ const containsKeyword = (title: string, keyword: string | undefined): boolean =>
 
 const truncateAtWord = (s: string, max: number): string => {
   if (s.length <= max) return s;
-  // Klipp vid ordgräns — INGEN ellipsis i själva title-taggen (den blir kvar
+  // Klipp vid ordgräns – INGEN ellipsis i själva title-taggen (den blir kvar
   // synligt i Google-snippet och partnerprofiler; hellre en kort ren titel).
   const slice = s.slice(0, max);
   const lastSpace = slice.lastIndexOf(" ");
@@ -53,7 +53,7 @@ export interface MetaTitleResult {
 export interface BuildMetaTitleOptions {
   /** Råtitel från artikeln (article.title eller article.metaTitle). */
   baseTitle: string;
-  /** Primärt sökord — ofta artikelns category eller första tag. */
+  /** Primärt sökord – ofta artikelns category eller första tag. */
   primaryKeyword?: string;
   /** Sätt till true när användaren landade via KC-bannern. */
   fromKcBanner?: boolean;
@@ -108,7 +108,7 @@ export const buildMetaTitle = ({
   }
 
   // 4. Brand-suffix om det får plats. Om suffix inte får plats: hoppa över suffixet
-  //    hellre än att trunkera basen — annars hamnar en ellipsis "…" i själva title-taggen.
+  //    hellre än att trunkera basen – annars hamnar en ellipsis "…" i själva title-taggen.
   let value = withKeyword;
   if (appendBrand) {
     if (value.length + BRAND_SUFFIX.length <= META_TITLE_MAX) {

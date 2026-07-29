@@ -33,7 +33,7 @@ export default function ProductRoiCta({ productKey, id = "roi-tco" }: Props) {
             </h2>
             <p className="text-white/75 text-sm sm:text-base max-w-2xl leading-relaxed">
               Räkna fram en indikativ TCO över 5 år, årlig nytta och payback utifrån era
-              egna förutsättningar — användare, omsättning, bransch och komplexitet.
+              egna förutsättningar – användare, omsättning, bransch och komplexitet.
               Resultatet är ett beslutsstöd, inte en offert.
             </p>
           </div>

@@ -59,7 +59,7 @@ export default function Kostnad() {
               användare och månad), <strong>implementation</strong> (en engångs­kostnad hos
               er partner) och <strong>löpande kostnader</strong> efter go-live
               (förvaltning, vidareutveckling, AI-konsumtion). Här är typiska intervall för
-              svenska införanden — använd dem som sanity-check mot partner­offerterna, inte
+              svenska införanden – använd dem som sanity-check mot partner­offerterna, inte
               som facit.
             </p>
             <div className="flex flex-wrap gap-3 text-sm">
@@ -129,7 +129,7 @@ export default function Kostnad() {
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground mb-6">
               Vi är på köparens sida. Använd vår behovsanalys för att få en mognads­profil
-              och konkreta rekommendationer — eller låt partnerfiltret föreslå 2–4 partners
+              och konkreta rekommendationer – eller låt partnerfiltret föreslå 2–4 partners
               som matchar ert behov.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">

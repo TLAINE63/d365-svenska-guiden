@@ -160,7 +160,7 @@ const STEP3: BcQuestion[] = [
       { value: "1", label: "Ett bolag", signals: [{ area: "Ett bolag", classification: "essentials" }] },
       { value: "2-5", label: "2–5 bolag", signals: [{ area: "Multi-bolag (2–5)", classification: "essentials", note: "Hanteras i BC med intercompany-funktioner i standard." }] },
       { value: "6-15", label: "6–15 bolag", signals: [{ area: "Multi-bolag (6–15) och konsolidering", classification: "config", note: "Kräver tydlig kontoplansstrategi och ev. konsolideringsverktyg." }] },
-      { value: "15+", label: "Fler än 15 bolag", signals: [{ area: "Koncern med > 15 bolag", classification: "outside", note: "Ofta för komplext för BC — F&SCM eller separat konsolideringsverktyg är mer rimligt." }] },
+      { value: "15+", label: "Fler än 15 bolag", signals: [{ area: "Koncern med > 15 bolag", classification: "outside", note: "Ofta för komplext för BC – F&SCM eller separat konsolideringsverktyg är mer rimligt." }] },
     ],
   },
   {
@@ -170,7 +170,7 @@ const STEP3: BcQuestion[] = [
     options: [
       { value: "se", label: "Nej, enbart Sverige", signals: [{ area: "Endast Sverige", classification: "essentials" }] },
       { value: "norden", label: "Ja, i Norden", signals: [{ area: "Multi-land Norden", classification: "essentials", note: "Lokaliseringar finns för alla nordiska länder." }] },
-      { value: "europa", label: "Ja, i Europa utanför Norden", signals: [{ area: "Europa utanför Norden", classification: "config", note: "Lokaliseringar varierar i mognad — kräver utvärdering per land." }] },
+      { value: "europa", label: "Ja, i Europa utanför Norden", signals: [{ area: "Europa utanför Norden", classification: "config", note: "Lokaliseringar varierar i mognad – kräver utvärdering per land." }] },
       { value: "global", label: "Ja, globalt på flera kontinenter", signals: [{ area: "Global verksamhet", classification: "outside", note: "Global rollout med många lokaliseringar passar oftare F&SCM." }] },
     ],
   },
@@ -178,14 +178,14 @@ const STEP3: BcQuestion[] = [
     id: "q_reporting",
     block: 3,
     text: "Vilka rapporteringskrav har ni?",
-    help: "Flerval — välj alla som stämmer.",
+    help: "Flerval – välj alla som stämmer.",
     multi: true,
     options: [
       { value: "monad", label: "Månadsrapport per bolag", signals: [{ area: "Månadsrapport per bolag", classification: "essentials" }] },
       { value: "koncern", label: "Konsoliderad koncernredovisning", signals: [{ area: "Konsoliderad koncernredovisning", classification: "config", note: "BC har grundläggande konsolidering, men ofta behövs Jet Reports/Power BI eller ISV." }] },
       { value: "ifrs", label: "IFRS-rapportering", signals: [{ area: "IFRS-rapportering", classification: "isv", note: "Kräver oftast tilläggsverktyg eller manuella mappningar." }] },
       { value: "dim", label: "Dimensionsanalys (avdelning, projekt, kostnadsbärare)", signals: [{ area: "Dimensionsanalys flera nivåer", classification: "essentials", note: "BC har starkt dimensionsstöd i standard." }] },
-      { value: "budget", label: "Avancerad budgetering och rullande prognoser", signals: [{ area: "Avancerad budget och prognos", classification: "isv", note: "BC har enkel budget — för rullande prognoser används oftast Jedox, Solver eller liknande." }] },
+      { value: "budget", label: "Avancerad budgetering och rullande prognoser", signals: [{ area: "Avancerad budget och prognos", classification: "isv", note: "BC har enkel budget – för rullande prognoser används oftast Jedox, Solver eller liknande." }] },
     ],
   },
   {
@@ -193,7 +193,7 @@ const STEP3: BcQuestion[] = [
     block: 3,
     text: "Hur hanterar ni leverantörsfakturor idag?",
     options: [
-      { value: "manuellt", label: "Manuellt — vi skriver in eller e-postar vidare", signals: [{ area: "AP-automation saknas", classification: "isv", note: "Continia Document Capture eller ExFlow rekommenderas i BC-projekt." }] },
+      { value: "manuellt", label: "Manuellt – vi skriver in eller e-postar vidare", signals: [{ area: "AP-automation saknas", classification: "isv", note: "Continia Document Capture eller ExFlow rekommenderas i BC-projekt." }] },
       { value: "skanning", label: "Vi skannar och läser av", signals: [{ area: "Skanningslösning för leverantörsfakturor", classification: "isv" }] },
       { value: "automation-byta", label: "Vi har AP-automation men vill byta", signals: [{ area: "Befintlig AP-automation ska ersättas", classification: "isv" }] },
       { value: "ok", label: "Det fungerar okej som det är" },
@@ -204,9 +204,9 @@ const STEP3: BcQuestion[] = [
     block: 3,
     text: "Vilket system kör ni idag?",
     options: [
-      { value: "fortnox-visma", label: "Fortnox, Visma eller liknande ekonomisystem", signals: [{ area: "Migration från SMB-ekonomisystem", classification: "essentials", note: "Klassisk uppgradering till BC — välbeprövat scenario." }] },
+      { value: "fortnox-visma", label: "Fortnox, Visma eller liknande ekonomisystem", signals: [{ area: "Migration från SMB-ekonomisystem", classification: "essentials", note: "Klassisk uppgradering till BC – välbeprövat scenario." }] },
       { value: "old-dynamics", label: "Äldre Dynamics (NAV, GP, AX)", signals: [{ area: "Uppgradering från äldre Dynamics", classification: "config", note: "NAV-uppgradering har tydliga migrationsverktyg; AX/GP är mer omfattande." }] },
-      { value: "sap-oracle", label: "SAP eller Oracle", signals: [{ area: "Byte från SAP/Oracle", classification: "outside", note: "Om SAP/Oracle valts av storleksskäl är det inte säkert att BC räcker — utvärdera F&SCM." }] },
+      { value: "sap-oracle", label: "SAP eller Oracle", signals: [{ area: "Byte från SAP/Oracle", classification: "outside", note: "Om SAP/Oracle valts av storleksskäl är det inte säkert att BC räcker – utvärdera F&SCM." }] },
       { value: "egen", label: "Egenutvecklat system", signals: [{ area: "Migration från egenutvecklat system", classification: "config", note: "Kräver tydlig kartläggning av befintliga processer." }] },
       { value: "inget", label: "Inget sammanhållet system ännu", signals: [{ area: "Första ERP-implementationen", classification: "essentials" }] },
     ],
@@ -225,10 +225,10 @@ const STEP4_T: BcQuestion[] = [
     text: "Vilken typ av tillverkning beskriver er bäst?",
     showIf: (a) => seg(a, "tillverkning"),
     options: [
-      { value: "diskret", label: "Diskret — vi monterar identifierbara enheter", signals: [{ area: "Diskret tillverkning", classification: "premium", note: "Kräver BC Premium (Manufacturing)." }] },
-      { value: "process", label: "Processindustri — recept/formler", signals: [{ area: "Processindustri med recept/formler", classification: "isv", note: "BC har ingen renodlad processtillverkning — kräver ISV som SI Foodware, LS Central Food eller liknande." }] },
-      { value: "repetitiv", label: "Repetitiv — hög volym standardprodukter", signals: [{ area: "Repetitiv produktion med hög volym", classification: "premium" }] },
-      { value: "eto", label: "Projektbaserad / kundspecifik (ETO/CTO)", signals: [{ area: "ETO/CTO-tillverkning", classification: "isv", note: "BC Premium klarar enkel projekttillverkning — avancerad ETO kräver ISV." }] },
+      { value: "diskret", label: "Diskret – vi monterar identifierbara enheter", signals: [{ area: "Diskret tillverkning", classification: "premium", note: "Kräver BC Premium (Manufacturing)." }] },
+      { value: "process", label: "Processindustri – recept/formler", signals: [{ area: "Processindustri med recept/formler", classification: "isv", note: "BC har ingen renodlad processtillverkning – kräver ISV som SI Foodware, LS Central Food eller liknande." }] },
+      { value: "repetitiv", label: "Repetitiv – hög volym standardprodukter", signals: [{ area: "Repetitiv produktion med hög volym", classification: "premium" }] },
+      { value: "eto", label: "Projektbaserad / kundspecifik (ETO/CTO)", signals: [{ area: "ETO/CTO-tillverkning", classification: "isv", note: "BC Premium klarar enkel projekttillverkning – avancerad ETO kräver ISV." }] },
       { value: "ravara", label: "Vi förädlar råvaror (jordbruk, skog)", signals: [{ area: "Råvaruförädling", classification: "isv" }] },
     ],
   },
@@ -239,9 +239,9 @@ const STEP4_T: BcQuestion[] = [
     showIf: (a) => seg(a, "tillverkning"),
     options: [
       { value: "enkla", label: "Enkla artiklar utan strukturer", signals: [{ area: "Inga BOM-strukturer", classification: "essentials" }] },
-      { value: "bom1", label: "Enkel BOM — en nivå", signals: [{ area: "Enkel produktstruktur (1-nivå BOM)", classification: "premium" }] },
+      { value: "bom1", label: "Enkel BOM – en nivå", signals: [{ area: "Enkel produktstruktur (1-nivå BOM)", classification: "premium" }] },
       { value: "bomN", label: "Flernivå-BOM med komponenter och halvfabrikat", signals: [{ area: "Flernivå-BOM", classification: "premium" }] },
-      { value: "konfig", label: "Produktkonfigurator — kunden väljer varianter som styr BOM och kalkyl", signals: [{ area: "Produktkonfigurator", classification: "isv", note: "BC har ingen avancerad konfigurator i standard — Experlogix, To-Increase eller liknande." }] },
+      { value: "konfig", label: "Produktkonfigurator – kunden väljer varianter som styr BOM och kalkyl", signals: [{ area: "Produktkonfigurator", classification: "isv", note: "BC har ingen avancerad konfigurator i standard – Experlogix, To-Increase eller liknande." }] },
       { value: "recept", label: "Recept och formler med samprodukter eller biprodukter", signals: [{ area: "Recept med sam-/biprodukter", classification: "isv" }] },
     ],
   },
@@ -254,7 +254,7 @@ const STEP4_T: BcQuestion[] = [
       { value: "excel", label: "Excel eller inget formellt system", signals: [{ area: "Behov av MRP", classification: "premium" }] },
       { value: "separat", label: "Planeringsverktyg frikopplat från ekonomin", signals: [{ area: "MRP integrerat med ekonomi", classification: "premium" }] },
       { value: "mrp", label: "Vi behöver MRP/MPS integrerat i ERP", signals: [{ area: "MRP/MPS integrerat i ERP", classification: "premium", note: "Ingår i BC Premium." }] },
-      { value: "aps", label: "Vi behöver avancerad kapacitets- och resursoptimering (APS)", signals: [{ area: "Avancerad APS-planering", classification: "isv", note: "BC har ingen riktig APS — kräver ISV som Netronic eller Insight Works." }] },
+      { value: "aps", label: "Vi behöver avancerad kapacitets- och resursoptimering (APS)", signals: [{ area: "Avancerad APS-planering", classification: "isv", note: "BC har ingen riktig APS – kräver ISV som Netronic eller Insight Works." }] },
     ],
   },
   {
@@ -266,7 +266,7 @@ const STEP4_T: BcQuestion[] = [
       { value: "nej", label: "Nej" },
       { value: "inkop", label: "Ja, på inköpta komponenter", signals: [{ area: "Spårbarhet på inköpta komponenter", classification: "essentials" }] },
       { value: "fardig", label: "Ja, på färdiga produkter", signals: [{ area: "Spårbarhet på färdiga produkter", classification: "premium" }] },
-      { value: "regulatorisk", label: "Ja, fullständig spårbarhet — regulatoriska krav (GMP, UDI, ISO)", signals: [{ area: "Regulatorisk spårbarhet (GMP/UDI/ISO)", classification: "isv", note: "Kräver branschspecifika ISV som Aptean, SI Foodware eller validerings­paket för Life Science." }] },
+      { value: "regulatorisk", label: "Ja, fullständig spårbarhet – regulatoriska krav (GMP, UDI, ISO)", signals: [{ area: "Regulatorisk spårbarhet (GMP/UDI/ISO)", classification: "isv", note: "Kräver branschspecifika ISV som Aptean, SI Foodware eller validerings­paket för Life Science." }] },
     ],
   },
   {
@@ -279,7 +279,7 @@ const STEP4_T: BcQuestion[] = [
       { value: "2-3", label: "2–3", signals: [{ area: "Multi-site produktion (2–3)", classification: "premium" }] },
       { value: "4-10", label: "4–10", signals: [{ area: "Multi-site produktion (4–10)", classification: "config", note: "Hanterbart i BC men kräver tydlig dimensionsstrategi." }] },
       { value: "10+", label: "Fler än 10", signals: [{ area: "10+ produktionssiter", classification: "outside", note: "Vid > 10 siter brukar F&SCM ge bättre stöd." }] },
-      { value: "ingen", label: "Ingen egen produktion — vi styr tillverkning externt", signals: [{ area: "Legotillverkning utan egen produktion", classification: "config" }] },
+      { value: "ingen", label: "Ingen egen produktion – vi styr tillverkning externt", signals: [{ area: "Legotillverkning utan egen produktion", classification: "config" }] },
     ],
   },
   {
@@ -292,7 +292,7 @@ const STEP4_T: BcQuestion[] = [
       { value: "2-3", label: "2–3", signals: [{ area: "Multi-lager (2–3)", classification: "essentials" }] },
       { value: "4-10", label: "4–10", signals: [{ area: "Multi-lager (4–10)", classification: "premium" }] },
       { value: "10+", label: "Fler än 10", signals: [{ area: "10+ lager", classification: "outside" }] },
-      { value: "3pl", label: "Inga egna lager — allt via 3PL", signals: [{ area: "3PL-integration", classification: "isv" }] },
+      { value: "3pl", label: "Inga egna lager – allt via 3PL", signals: [{ area: "3PL-integration", classification: "isv" }] },
     ],
   },
   {
@@ -317,10 +317,10 @@ const STEP4_H: BcQuestion[] = [
     text: "Hur ser er affärsmodell ut?",
     showIf: (a) => seg(a, "grossist"),
     options: [
-      { value: "b2b", label: "Grossist — B2B mot återförsäljare eller industri", signals: [{ area: "B2B-grossist", classification: "essentials" }] },
-      { value: "b2c", label: "Retail — B2C i butik eller online", signals: [{ area: "B2C-retail", classification: "outside", note: "Renodlad butiks-POS hanteras bäst i LS Central eller Dynamics 365 Commerce." }] },
-      { value: "omni", label: "Omnichannel — fysisk butik och e-handel parallellt", signals: [{ area: "Omnichannel butik+e-handel", classification: "outside", note: "Kräver LS Central eller Dynamics 365 Commerce ovanpå BC." }] },
-      { value: "3pl", label: "Distribution/3PL — vi lagrar och transporterar åt andra", signals: [{ area: "3PL/distribution", classification: "isv" }] },
+      { value: "b2b", label: "Grossist – B2B mot återförsäljare eller industri", signals: [{ area: "B2B-grossist", classification: "essentials" }] },
+      { value: "b2c", label: "Retail – B2C i butik eller online", signals: [{ area: "B2C-retail", classification: "outside", note: "Renodlad butiks-POS hanteras bäst i LS Central eller Dynamics 365 Commerce." }] },
+      { value: "omni", label: "Omnichannel – fysisk butik och e-handel parallellt", signals: [{ area: "Omnichannel butik+e-handel", classification: "outside", note: "Kräver LS Central eller Dynamics 365 Commerce ovanpå BC." }] },
+      { value: "3pl", label: "Distribution/3PL – vi lagrar och transporterar åt andra", signals: [{ area: "3PL/distribution", classification: "isv" }] },
       { value: "medtech", label: "Medtech-distribution med regulatoriska krav", signals: [{ area: "Medtech-distribution med regulatoriska krav", classification: "isv", note: "Kräver validerad ISV (t.ex. Aptean Medical)." }] },
     ],
   },
@@ -345,14 +345,14 @@ const STEP4_H: BcQuestion[] = [
       { value: "ett", label: "Ett pris per artikel", signals: [{ area: "Enkel prissättning", classification: "essentials" }] },
       { value: "kund", label: "Kundspecifika priser och rabatter", signals: [{ area: "Kundspecifik prissättning", classification: "essentials" }] },
       { value: "volym", label: "Volymrabatter, kampanjpriser, avtalsbaserad prissättning", signals: [{ area: "Avancerad prissättning", classification: "config" }] },
-      { value: "problem", label: "Kombination — prissättning är ett problemområde idag", signals: [{ area: "Komplex prissättning som problemområde", classification: "isv", note: "Avancerad prissättning kräver ofta ISV (t.ex. Pricing Suite, NORRIQ)." }] },
+      { value: "problem", label: "Kombination – prissättning är ett problemområde idag", signals: [{ area: "Komplex prissättning som problemområde", classification: "isv", note: "Avancerad prissättning kräver ofta ISV (t.ex. Pricing Suite, NORRIQ)." }] },
     ],
   },
   {
     id: "qh_lager",
     block: 4,
     text: "Vilka lagerkrav har ni?",
-    help: "Flerval — välj alla som stämmer.",
+    help: "Flerval – välj alla som stämmer.",
     multi: true,
     showIf: (a) => seg(a, "grossist"),
     options: [
@@ -370,7 +370,7 @@ const STEP4_H: BcQuestion[] = [
     showIf: (a) => seg(a, "grossist"),
     options: [
       { value: "1", label: "En kanal" },
-      { value: "separata", label: "Flera kanaler men separata — ingen gemensam lagervy", signals: [{ area: "Separata kanaler utan lagersynk", classification: "config" }] },
+      { value: "separata", label: "Flera kanaler men separata – ingen gemensam lagervy", signals: [{ area: "Separata kanaler utan lagersynk", classification: "config" }] },
       { value: "integrerade", label: "Integrerade kanaler med gemensam lagervy och orderbild", signals: [{ area: "Integrerade kanaler med gemensam lagervy", classification: "isv" }] },
     ],
   },
@@ -397,7 +397,7 @@ const STEP4_H: BcQuestion[] = [
       { value: "2-3", label: "2–3" },
       { value: "4-10", label: "4–10", signals: [{ area: "Multi-lager (4–10)", classification: "premium" }] },
       { value: "10+", label: "Fler än 10", signals: [{ area: "10+ lager", classification: "outside" }] },
-      { value: "3pl", label: "Inga egna lager — allt via 3PL", signals: [{ area: "3PL-flöden", classification: "isv" }] },
+      { value: "3pl", label: "Inga egna lager – allt via 3PL", signals: [{ area: "3PL-flöden", classification: "isv" }] },
     ],
   },
 ];
@@ -410,7 +410,7 @@ const STEP4_B: BcQuestion[] = [
     text: "Vad beskriver er verksamhet bäst?",
     showIf: (a) => seg(a, "bygg"),
     options: [
-      { value: "byggentreprenor", label: "Byggentreprenör — bygg- och anläggningsprojekt", signals: [{ area: "Byggentreprenad", classification: "isv", note: "BC saknar bygg-specifik funktionalitet i standard — kräver ISV som NAVET, Pyramid, EG eller liknande." }] },
+      { value: "byggentreprenor", label: "Byggentreprenör – bygg- och anläggningsprojekt", signals: [{ area: "Byggentreprenad", classification: "isv", note: "BC saknar bygg-specifik funktionalitet i standard – kräver ISV som NAVET, Pyramid, EG eller liknande." }] },
       { value: "ue", label: "Underentreprenör eller hantverkare", signals: [{ area: "Underentreprenör / hantverkare", classification: "isv" }] },
       { value: "utvecklare", label: "Fastighetsutvecklare", signals: [{ area: "Fastighetsutveckling", classification: "isv" }] },
       { value: "forvaltning", label: "Fastighetsförvaltning", signals: [{ area: "Fastighetsförvaltning", classification: "isv", note: "Kräver fastighets-ISV (t.ex. To-Increase RE, Vitec)." }] },
@@ -423,7 +423,7 @@ const STEP4_B: BcQuestion[] = [
     text: "Hur hanterar ni ÄTA-arbeten?",
     showIf: (a) => seg(a, "bygg"),
     options: [
-      { value: "informellt", label: "Informellt — Excel eller e-post", signals: [{ area: "ÄTA-hantering saknas", classification: "isv" }] },
+      { value: "informellt", label: "Informellt – Excel eller e-post", signals: [{ area: "ÄTA-hantering saknas", classification: "isv" }] },
       { value: "separat", label: "Vi har ett system frikopplat från ekonomin", signals: [{ area: "ÄTA frikopplat från ekonomi", classification: "isv" }] },
       { value: "problem", label: "ÄTA-hantering är ett av våra största problemområden", signals: [{ area: "ÄTA är kritiskt problemområde", classification: "isv" }] },
     ],
@@ -447,7 +447,7 @@ const STEP4_B: BcQuestion[] = [
     options: [
       { value: "nej", label: "Nej" },
       { value: "enstaka", label: "Ja, enstaka", signals: [{ area: "Enkel UE-hantering", classification: "essentials" }] },
-      { value: "manga", label: "Ja, många UE parallellt — kontroll mot projektbudget är kritiskt", signals: [{ area: "UE-uppföljning mot projektbudget", classification: "isv" }] },
+      { value: "manga", label: "Ja, många UE parallellt – kontroll mot projektbudget är kritiskt", signals: [{ area: "UE-uppföljning mot projektbudget", classification: "isv" }] },
     ],
   },
   {
@@ -506,13 +506,13 @@ const STEP4_P: BcQuestion[] = [
     id: "qp_processer",
     block: 4,
     text: "Vilka processer behöver systemet stödja?",
-    help: "Flerval — välj alla som stämmer.",
+    help: "Flerval – välj alla som stämmer.",
     multi: true,
     showIf: (a) => seg(a, "tjanste"),
     options: [
-      { value: "sales", label: "Säljstöd och anbudshantering", signals: [{ area: "Säljstöd / anbud", classification: "outside", note: "Hanteras bättre i Dynamics 365 Sales — integreras mot BC." }] },
+      { value: "sales", label: "Säljstöd och anbudshantering", signals: [{ area: "Säljstöd / anbud", classification: "outside", note: "Hanteras bättre i Dynamics 365 Sales – integreras mot BC." }] },
       { value: "projekt", label: "Projektstyrning (faser, budget, tidplaner)", signals: [{ area: "Projektstyrning", classification: "premium", note: "Jobs ingår i BC Essentials, projektstruktur i Premium." }] },
-      { value: "tid", label: "Tid- och utläggsrapportering", signals: [{ area: "Tid- och utläggsrapportering", classification: "isv", note: "BC har enkel tidrapportering — för konsultverksamhet används oftast Continia Expense, Timeapp eller liknande." }] },
+      { value: "tid", label: "Tid- och utläggsrapportering", signals: [{ area: "Tid- och utläggsrapportering", classification: "isv", note: "BC har enkel tidrapportering – för konsultverksamhet används oftast Continia Expense, Timeapp eller liknande." }] },
       { value: "fakturering", label: "Projektfakturering", signals: [{ area: "Projektfakturering", classification: "premium" }] },
       { value: "lonsamhet", label: "Projektredovisning och lönsamhetsuppföljning per projekt", signals: [{ area: "Projektlönsamhet per uppdrag", classification: "premium" }] },
       { value: "resurs", label: "Resurs- och beläggningsplanering per konsult/resurs", signals: [{ area: "Resurs- och beläggningsplanering", classification: "isv", note: "Avancerad beläggning kräver ISV (Cinode, TimeLog, Projectum)." }] },
@@ -524,7 +524,7 @@ const STEP4_P: BcQuestion[] = [
     id: "qp_fakturering",
     block: 4,
     text: "Hur fakturerar ni era kunder?",
-    help: "Flerval — välj alla som stämmer.",
+    help: "Flerval – välj alla som stämmer.",
     multi: true,
     showIf: (a) => seg(a, "tjanste"),
     options: [
@@ -601,7 +601,7 @@ const STEP4_P: BcQuestion[] = [
     showIf: (a) => seg(a, "tjanste"),
     options: [
       { value: "nej", label: "Nej" },
-      { value: "enstaka", label: "Ja, enstaka — enkla inköpsorder räcker", signals: [{ area: "Enkel underkonsult-hantering", classification: "essentials" }] },
+      { value: "enstaka", label: "Ja, enstaka – enkla inköpsorder räcker", signals: [{ area: "Enkel underkonsult-hantering", classification: "essentials" }] },
       { value: "vidare", label: "Ja, och vi vidarefakturerar tid och utlägg till kund", signals: [{ area: "Vidarefakturering av tid/utlägg", classification: "isv" }] },
     ],
   },
@@ -638,7 +638,7 @@ const STEP4_O: BcQuestion[] = [
     id: "qo_ekonomi",
     block: 4,
     text: "Vilka ekonomiska särkrav har ni?",
-    help: "Flerval — välj alla som stämmer.",
+    help: "Flerval – välj alla som stämmer.",
     multi: true,
     showIf: (a) => seg(a, "offentlig"),
     options: [
@@ -695,7 +695,7 @@ const STEP4_F: BcQuestion[] = [
     text: "Vad beskriver er verksamhet bäst?",
     showIf: (a) => seg(a, "finans"),
     options: [
-      { value: "bank", label: "Bank eller kreditinstitut", signals: [{ area: "Bank/kreditinstitut", classification: "outside", note: "Kärnverksamhet kräver branschsystem — BC kan användas för intern ekonomi." }] },
+      { value: "bank", label: "Bank eller kreditinstitut", signals: [{ area: "Bank/kreditinstitut", classification: "outside", note: "Kärnverksamhet kräver branschsystem – BC kan användas för intern ekonomi." }] },
       { value: "forsakring", label: "Försäkringsbolag", signals: [{ area: "Försäkringsbolag", classification: "outside" }] },
       { value: "kap", label: "Kapitalförvaltning", signals: [{ area: "Kapitalförvaltning", classification: "outside" }] },
       { value: "fintech", label: "Finansiellt tjänstebolag (leasing, factoring, fintech)", signals: [{ area: "Finansiellt tjänstebolag", classification: "isv" }] },
@@ -708,8 +708,8 @@ const STEP4_F: BcQuestion[] = [
     text: "Är er primära systemutmaning inom CRM eller ERP?",
     showIf: (a) => seg(a, "finans"),
     options: [
-      { value: "crm", label: "Primärt CRM — kundhantering, pipeline, KYC/AML", signals: [{ area: "CRM-utmaning (KYC/AML)", classification: "outside", note: "Hör hemma i Dynamics 365 Sales/Customer Insights, inte i BC." }] },
-      { value: "erp", label: "Primärt ERP — ekonomi, rapportering, interna processer", signals: [{ area: "ERP-fokus internt", classification: "essentials" }] },
+      { value: "crm", label: "Primärt CRM – kundhantering, pipeline, KYC/AML", signals: [{ area: "CRM-utmaning (KYC/AML)", classification: "outside", note: "Hör hemma i Dynamics 365 Sales/Customer Insights, inte i BC." }] },
+      { value: "erp", label: "Primärt ERP – ekonomi, rapportering, interna processer", signals: [{ area: "ERP-fokus internt", classification: "essentials" }] },
       { value: "bade", label: "Bådadera", signals: [{ area: "Både CRM och ERP", classification: "config" }] },
     ],
   },
@@ -717,7 +717,7 @@ const STEP4_F: BcQuestion[] = [
     id: "qf_reg",
     block: 4,
     text: "Har ni regulatoriska systemkrav?",
-    help: "Flerval — välj alla som stämmer.",
+    help: "Flerval – välj alla som stämmer.",
     multi: true,
     showIf: (a) => seg(a, "finans"),
     options: [
@@ -734,15 +734,15 @@ const STEP4_F: BcQuestion[] = [
 // STEG 5 – Nuläge (per segment, förenklat)
 // ============================================================
 const supportOpts = (label: string): BcOption[] => [
-  { value: "bra", label: "Mycket bra — systemet täcker det vi behöver" },
+  { value: "bra", label: "Mycket bra – systemet täcker det vi behöver" },
   { value: "ok", label: "Acceptabelt men med tydliga luckor", signals: [{ area: `Tydliga luckor i nuvarande ${label}`, classification: "config" }] },
-  { value: "daligt", label: "Otillräckligt — stora brister", signals: [{ area: `Stora brister i nuvarande ${label}`, classification: "outside", note: "Bör driva på ett snabbare byte." }] },
+  { value: "daligt", label: "Otillräckligt – stora brister", signals: [{ area: `Stora brister i nuvarande ${label}`, classification: "outside", note: "Bör driva på ett snabbare byte." }] },
 ];
 
 const masterDataOpts: BcOption[] = [
   { value: "bra", label: "God struktur och aktuell data" },
   { value: "ok", label: "Fungerar men kräver manuellt underhåll", signals: [{ area: "Masterdata kräver manuellt arbete", classification: "config" }] },
-  { value: "daligt", label: "Stora brister — data är spridd, inaktuell eller duplicerad", signals: [{ area: "Masterdata har stora brister", classification: "config", note: "Bör adresseras tidigt — höjer både projektrisk och kostnad." }] },
+  { value: "daligt", label: "Stora brister – data är spridd, inaktuell eller duplicerad", signals: [{ area: "Masterdata har stora brister", classification: "config", note: "Bör adresseras tidigt – höjer både projektrisk och kostnad." }] },
 ];
 
 const STEP5: BcQuestion[] = [
@@ -768,7 +768,7 @@ const STEP6: BcQuestion[] = [
     id: "i1",
     block: 6,
     text: "Vilka kringliggande system använder ni idag?",
-    help: "Flerval — välj alla som stämmer.",
+    help: "Flerval – välj alla som stämmer.",
     multi: true,
     options: [
       { value: "mes", label: "MES / produktionsuppföljning", signals: [{ area: "MES-integration", classification: "isv" }] },
@@ -790,7 +790,7 @@ const STEP6: BcQuestion[] = [
     id: "i2",
     block: 6,
     text: "Vilka system behöver integreras med nytt ERP?",
-    help: "Flerval — välj alla som stämmer.",
+    help: "Flerval – välj alla som stämmer.",
     multi: true,
     options: [
       { value: "lon", label: "Lönehantering (Hogia, Visma Lon, etc.)", signals: [{ area: "Lönesystem-integration", classification: "config" }] },
@@ -808,9 +808,9 @@ const STEP6: BcQuestion[] = [
     block: 6,
     text: "Hur komplex är integrationsbilden?",
     options: [
-      { value: "enkel", label: "Enkelt — filöverföring eller manuell synk räcker" },
-      { value: "mellan", label: "Mellannivå — ett par realtidsintegrationer mot viktiga system", signals: [{ area: "Realtidsintegrationer mot några system", classification: "config" }] },
-      { value: "komplex", label: "Komplext — många system i realtid, affärskritiska flöden", signals: [{ area: "Komplex integrationsbild i realtid", classification: "isv", note: "Bör adresseras med tydlig integrationsplattform." }] },
+      { value: "enkel", label: "Enkelt – filöverföring eller manuell synk räcker" },
+      { value: "mellan", label: "Mellannivå – ett par realtidsintegrationer mot viktiga system", signals: [{ area: "Realtidsintegrationer mot några system", classification: "config" }] },
+      { value: "komplex", label: "Komplext – många system i realtid, affärskritiska flöden", signals: [{ area: "Komplex integrationsbild i realtid", classification: "isv", note: "Bör adresseras med tydlig integrationsplattform." }] },
     ],
   },
   {
@@ -818,10 +818,10 @@ const STEP6: BcQuestion[] = [
     block: 6,
     text: "Hur brådskande är behovet av förändring?",
     options: [
-      { value: "lag", label: "Låg brådska — vi planerar långsiktigt" },
-      { value: "12-18", label: "Viktigt men inte akut — inom 12–18 månader" },
-      { value: "6", label: "Brådskande — vi behöver agera inom 6 månader", signals: [{ area: "Brådskande tidsplan (< 6 mån)", classification: "config", note: "Korta tidsramar minskar utrymme för avancerade ISV-anpassningar." }] },
-      { value: "kritisk", label: "Affärskritiskt — nuvarande situation är ohållbar", signals: [{ area: "Affärskritisk situation", classification: "config" }] },
+      { value: "lag", label: "Låg brådska – vi planerar långsiktigt" },
+      { value: "12-18", label: "Viktigt men inte akut – inom 12–18 månader" },
+      { value: "6", label: "Brådskande – vi behöver agera inom 6 månader", signals: [{ area: "Brådskande tidsplan (< 6 mån)", classification: "config", note: "Korta tidsramar minskar utrymme för avancerade ISV-anpassningar." }] },
+      { value: "kritisk", label: "Affärskritiskt – nuvarande situation är ohållbar", signals: [{ area: "Affärskritisk situation", classification: "config" }] },
     ],
   },
 ];

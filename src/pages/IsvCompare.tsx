@@ -44,7 +44,7 @@ const IsvCompare = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`${comparison.title} — jämförelse | d365.se`}
+        title={`${comparison.title} – jämförelse | d365.se`}
         description={comparison.intro}
         canonicalPath={`/compare/${comparison.slug}/`}
       />
@@ -201,7 +201,7 @@ const IsvCompare = () => {
                   >
                     {c.title}
                   </Link>
-                  <span className="text-muted-foreground"> — {c.category}</span>
+                  <span className="text-muted-foreground"> – {c.category}</span>
                 </li>
               ))}
           </ul>

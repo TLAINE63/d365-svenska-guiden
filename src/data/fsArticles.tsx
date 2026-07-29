@@ -27,7 +27,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
           <em>
             Manuell schemaläggning av fälttekniker är tidskrävande och suboptimal. Field Service 
             Schedule Assistant och AI-optimering matchar rätt tekniker med rätt kompetens till rätt jobb 
-            — och minimerar restid och koldioxidutsläpp.
+            – och minimerar restid och koldioxidutsläpp.
           </em>
         </p>
 
@@ -38,7 +38,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
         </p>
         <p>
           RSO (Resource Scheduling Optimization) kör automatisk omoptimering av hela dagsschemat 
-          när nya jobb tillkommer eller störningar uppstår — utan manuell intervention.
+          när nya jobb tillkommer eller störningar uppstår – utan manuell intervention.
         </p>
 
         <h2>Kompetensbaserad matchning</h2>
@@ -47,14 +47,14 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
           automatiskt mot teknikerprofiler och säkerställer att rätt person skickas.
         </p>
         <p>
-          Ingen manuell kontroll av kompetensdatabaser behövs — systemet hanterar 
+          Ingen manuell kontroll av kompetensdatabaser behövs – systemet hanterar 
           detta automatiskt.
         </p>
 
         <h2>Realtidsövervakning och dynamisk ombokning</h2>
         <p>
           Teknikerernas GPS-position uppdateras kontinuerligt. Vid försening ombokas automatiskt 
-          nästa jobb om nödvändigt — kunden notifieras proaktivt med ny beräknad ankomsttid.
+          nästa jobb om nödvändigt – kunden notifieras proaktivt med ny beräknad ankomsttid.
         </p>
 
         <h3>Viktiga funktioner</h3>
@@ -70,7 +70,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
   {
     slug: "mobil-faltapp-och-offlinekapacitet",
     title: "Mobil fältapp och offline-kapacitet",
-    description: "Full funktionalitet för tekniker oavsett uppkoppling — med automatisk synkronisering.",
+    description: "Full funktionalitet för tekniker oavsett uppkoppling – med automatisk synkronisering.",
     product: "Dynamics 365 Field Service",
     productSlug: "d365fieldservice",
     parentPath: "/d365fieldservice/",
@@ -83,20 +83,20 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
           <em>
             Fälttekniker arbetar i källare, serverhallar och avlägsna platser utan mobilnät. 
             Field Service mobilappen ger full jobbinformation, checklistor och reservdelsinformation 
-            offline — och synkroniserar automatiskt när uppkoppling återupprättas.
+            offline – och synkroniserar automatiskt när uppkoppling återupprättas.
           </em>
         </p>
 
         <h2>Jobbinformation och arbetsordrar offline</h2>
         <p>
           Tekniker laddar ned jobbdetaljer, kundhistorik, installerade produkter, servicemanualer 
-          och checklister till enheten. Allt tillgängligt utan internet — fullständig jobbkontext i fickan.
+          och checklister till enheten. Allt tillgängligt utan internet – fullständig jobbkontext i fickan.
         </p>
 
         <h2>Checklistor, inspektioner och fotodokumentation</h2>
         <p>
           Digitala checklistor ersätter pappersformulär. Tekniker fotograferar arbete och 
-          komponenter direkt i appen — foton kopplas automatiskt till serviceordern.
+          komponenter direkt i appen – foton kopplas automatiskt till serviceordern.
         </p>
         <p>
           Kundunderskrift samlas in digitalt på plats, vilket eliminerar behovet 
@@ -133,7 +133,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
       <>
         <p>
           <em>
-            Reaktiv service är dyr — nödleveranser, övertid och missnöjda kunder. Field Service 
+            Reaktiv service är dyr – nödleveranser, övertid och missnöjda kunder. Field Service 
             servicekontrakt och underhållsplaner möjliggör systematiskt förebyggande underhåll 
             som minskar haverier med upp till 70 %.
           </em>
@@ -153,7 +153,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
         <p>
           Underhållsplaner baserade på tid (kvartalsvis), drifttimmar eller mätarvärden 
           genererar automatiskt arbetsordrar med rätt resursallokering och reservdelsbehov 
-          — i god tid för planering.
+          – i god tid för planering.
         </p>
 
         <h2>Kundkommunikation och portaltillgång</h2>
@@ -188,14 +188,14 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
           <em>
             Varje minut av oplanerat produktionsstopp kostar pengar. Connected Field Service 
             kopplar ihop Dynamics 365 med Azure IoT Hub för att detektera anomalier i ansluten 
-            utrustning och dispatcha teknikern automatiskt — innan kunden rapporterar problemet.
+            utrustning och dispatcha teknikern automatiskt – innan kunden rapporterar problemet.
           </em>
         </p>
 
         <h2>IoT-signaler och anomalidetektering</h2>
         <p>
           Azure IoT Hub tar emot telemetridata från anslutna enheter. Regler och ML-modeller 
-          identifierar avvikelser — temperatur utanför normalintervall, vibration över threshold, 
+          identifierar avvikelser – temperatur utanför normalintervall, vibration över threshold, 
           spänningsvariationer.
         </p>
         <p>
@@ -241,7 +241,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
         <p>
           <em>
             Att flyga ut en specialist kostar tid och pengar. Remote Assist i Field Service 
-            låter en expert guida en fälttekniker via HoloLens eller smartphone — med annotations 
+            låter en expert guida en fälttekniker via HoloLens eller smartphone – med annotations 
             och diagrams projicerade direkt i teknikerns synfält.
           </em>
         </p>
@@ -253,7 +253,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
         </p>
         <p>
           Experten kan rita annotations, peka på komponenter och visa reparationssteg 
-          direkt i teknikerns synfält — som att ha specialisten bredvid sig.
+          direkt i teknikerns synfält – som att ha specialisten bredvid sig.
         </p>
 
         <h2>Integration med arbetsordrar och kunskapsbas</h2>
@@ -282,7 +282,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
   {
     slug: "reservdelslogistik-och-lageroptimering",
     title: "Reservdelslogistik och lageroptimering",
-    description: "Rätt reservdel på rätt plats i rätt tid — för maximal first-time fix rate.",
+    description: "Rätt reservdel på rätt plats i rätt tid – för maximal first-time fix rate.",
     product: "Dynamics 365 Field Service",
     productSlug: "d365fieldservice",
     parentPath: "/d365fieldservice/",
@@ -295,7 +295,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
           <em>
             Reservdelsbrist är den vanligaste orsaken till missade servicejobb och second visits. 
             Field Service integrerar lager-, inköps- och logistikhantering för att säkerställa 
-            att teknikern alltid har vad som behövs — inte mer, inte mindre.
+            att teknikern alltid har vad som behövs – inte mer, inte mindre.
           </em>
         </p>
 
@@ -305,7 +305,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
           Systemet spårar förbrukning i realtid.
         </p>
         <p>
-          Påfyllnadsorder genereras automatiskt när miniminivåer underskrids — 
+          Påfyllnadsorder genereras automatiskt när miniminivåer underskrids – 
           teknikern behöver aldrig själv bevaka lagernivåer.
         </p>
 
@@ -346,7 +346,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
       <>
         <p>
           <em>
-            Den vanligaste klagomålet i fältservice är inte den tekniska lösningen — det är 
+            Den vanligaste klagomålet i fältservice är inte den tekniska lösningen – det är 
             kommunikationen. Field Service kundkommunikationsmodul skapar proaktiva, transparenta 
             kundupplevelser från bokning till avslutat jobb.
           </em>
@@ -355,7 +355,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
         <h2>Kundbokningsportal och tidsfönsterval</h2>
         <p>
           Kunder bokar servicetid via en självserviceportal med tillgängliga tidsfönster. 
-          Realtidskalender visar teknikerens faktiska tillgänglighet — inga tomma löften 
+          Realtidskalender visar teknikerens faktiska tillgänglighet – inga tomma löften 
           om tider som inte håller.
         </p>
 
@@ -365,13 +365,13 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
           är 30 minuter bort.
         </p>
         <p>
-          Kunden ser teknikerns position på en karta i realtid — liksom Uber för service.
+          Kunden ser teknikerns position på en karta i realtid – liksom Uber för service.
         </p>
 
         <h2>Kundunderskrift och digital feedback</h2>
         <p>
           Tekniker samlar in kundunderskrift på slutfört jobb direkt i appen. Omedelbart efter 
-          avslutat besök skickas en kort NPS-enkät — svarsfrekvensen är markant högre 
+          avslutat besök skickas en kort NPS-enkät – svarsfrekvensen är markant högre 
           direkt efter besöket.
         </p>
 
@@ -401,7 +401,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
           <em>
             Fältservicechefer behöver tydliga KPI:er för att driva kontinuerlig förbättring. 
             Field Service Analytics ger en komplett bild av teknikerproduktivitet, servicekvalitet 
-            och kostnadseffektivitet — per individ, team och region.
+            och kostnadseffektivitet – per individ, team och region.
           </em>
         </p>
 
@@ -464,7 +464,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
         </p>
         <p>
           Månadsvis koldioxidrapport genereras automatiskt för ESG-rapportering 
-          — inga manuella beräkningar behövs.
+          – inga manuella beräkningar behövs.
         </p>
 
         <h2>Ruttoptimering för lägst utsläpp</h2>
@@ -509,7 +509,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
         <p>
           <em>
             Fältserviceoperationer genererar fakturor, förbrukar lager och driver garantikrav 
-            — data som måste flöda sömlöst till Finance och Supply Chain. Den inbyggda integrationen 
+            – data som måste flöda sömlöst till Finance och Supply Chain. Den inbyggda integrationen 
             eliminerar manuell dataöverföring och säkerställer korrekt redovisning.
           </em>
         </p>
@@ -520,7 +520,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
           på kontraktsvillkor: tid och material, fast pris eller abonnemang.
         </p>
         <p>
-          Ingen manuell handpåläggning krävs för standardjobb — vilket sparar tid 
+          Ingen manuell handpåläggning krävs för standardjobb – vilket sparar tid 
           och eliminerar felkällor.
         </p>
 
@@ -533,7 +533,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
         <h2>Garantihantering och kreditnotor</h2>
         <p>
           Garantikrav hanteras som kreditnotor mot kund eller inköpskrav mot leverantör 
-          — med automatisk koppling till Financial-modulen för korrekt redovisning.
+          – med automatisk koppling till Financial-modulen för korrekt redovisning.
         </p>
 
         <h3>Viktiga funktioner</h3>

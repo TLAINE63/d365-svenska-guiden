@@ -108,7 +108,7 @@ const steps: Step[] = [
  title: "Fördjupa dig innan ni bestämmer er",
  highlight: "produktjämförelser, guider & insikter",
  description:
- "Innan ni skriver på avtalet är det värt att ha koll på produktskillnaderna, vad marknaden faktiskt erbjuder och vad liknande verksamheter har lärt sig på vägen. Här hittar ni produktjämförelser, guider, videos och ett kunskapscenter — utan säljfilter.",
+ "Innan ni skriver på avtalet är det värt att ha koll på produktskillnaderna, vad marknaden faktiskt erbjuder och vad liknande verksamheter har lärt sig på vägen. Här hittar ni produktjämförelser, guider, videos och ett kunskapscenter – utan säljfilter.",
  links: [
  { label: "Kunskapscenter", to: "/kunskapscenter" },
  ],

@@ -489,7 +489,7 @@ const ValjPartner = () => {
   />
 
   <ShortAnswer title="Vad är en Dynamics 365-partner">
- Rätt Dynamics 365-partner har bevisad erfarenhet av respektive produktområde (Business Central, Finance & Supply Chain, Sales, Customer Service m.fl.), er bransch och en storlek som matchar er. På d365.se kan ni jämföra Microsoft-partners för er bransch, geografi och AI-mognad — och få rekommendationer via vår köparsidiga partnerguide.
+ Rätt Dynamics 365-partner har bevisad erfarenhet av respektive produktområde (Business Central, Finance & Supply Chain, Sales, Customer Service m.fl.), er bransch och en storlek som matchar er. På d365.se kan ni jämföra Microsoft-partners för er bransch, geografi och AI-mognad – och få rekommendationer via vår köparsidiga partnerguide.
  </ShortAnswer>
 
 
@@ -875,7 +875,7 @@ const ValjPartner = () => {
           Jämför upp till tre partners innan ni kontaktar dem
         </h2>
         <p className="text-base sm:text-lg text-white/70 mb-8 max-w-2xl mx-auto">
-          Välj två till tre partners i listan ovan och få en jämförelsevy över produktområden, branscher, geografisk närvaro, storlek och AI-mognad — så att ni kan gå vidare med rätt kortlista.
+          Välj två till tre partners i listan ovan och få en jämförelsevy över produktområden, branscher, geografisk närvaro, storlek och AI-mognad – så att ni kan gå vidare med rätt kortlista.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button

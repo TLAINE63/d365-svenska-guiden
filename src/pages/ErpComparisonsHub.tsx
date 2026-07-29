@@ -38,8 +38,8 @@ const ErpComparisonsHub = () => {
             </h1>
             <p className="text-base sm:text-lg text-white/85 max-w-3xl">
               Strukturerade köparsidiga jämförelser av Microsoft Dynamics 365 mot etablerade
-              alternativ — för ERP, CRM, kundservice, marketing/CDP, kontaktcenter och fältservice.
-              Samma rader, samma frågor — och alltid &quot;när passar inte&quot;. {PRODUCT_COMPARISONS.length}{" "}
+              alternativ – för ERP, CRM, kundservice, marketing/CDP, kontaktcenter och fältservice.
+              Samma rader, samma frågor – och alltid &quot;när passar inte&quot;. {PRODUCT_COMPARISONS.length}{" "}
               jämförelser totalt.
             </p>
           </div>

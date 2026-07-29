@@ -37,7 +37,7 @@ const IndustryBig5FAQ = ({ items, industryLabel }: Props) => {
       <div className="flex items-center gap-2 mb-4">
         <HelpCircle className="w-5 h-5 text-primary" />
         <h2 className="!text-[1.35rem] md:!text-[1.625rem] font-bold tracking-tight !text-[#1F4E79] !m-0">
-          Vanliga frågor{industryLabel ? ` — ${industryLabel}` : ""}
+          Vanliga frågor{industryLabel ? ` – ${industryLabel}` : ""}
         </h2>
       </div>
       <p className="text-sm text-muted-foreground mb-5">

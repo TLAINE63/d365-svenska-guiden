@@ -17,7 +17,7 @@ export interface PartnerNameRow {
  * (both featured/published and unpublished). Used for marketplace overview lists.
  *
  * Uses a SECURITY DEFINER RPC (`get_all_partner_names`) because anon RLS on
- * `partners` only exposes featured rows — the RPC returns only non-sensitive
+ * `partners` only exposes featured rows – the RPC returns only non-sensitive
  * fields (name, slug, status flags) for every partner.
  */
 export function useAllPartnerNames() {

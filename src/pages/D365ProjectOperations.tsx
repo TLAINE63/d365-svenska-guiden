@@ -48,8 +48,8 @@ const D365ProjectOperations = () => {
         icon={ProjectOperationsIcon}
         eyebrow="Dynamics 365 Project Operations"
         title="Project Operations."
-        titleAccent="Projekt, resurser och ekonomi i ett sammanhang — när partnern kan er leveransmodell."
-        subhead="Project Operations är inte ett verktyg du installerar och kör igång — det är en spegling av hur ert tjänsteföretag säljer, bemannar och fakturerar projekt. Skillnaden mellan ett system som verkligen lyfter marginalen och ett som bara ersätter Excel ligger i partnervalet: en partner som förstår tid & utlägg, resursoptimering, work-in-progress, milstolps­fakturering och hur det hänger ihop med er ERP är guld värd."
+        titleAccent="Projekt, resurser och ekonomi i ett sammanhang – när partnern kan er leveransmodell."
+        subhead="Project Operations är inte ett verktyg du installerar och kör igång – det är en spegling av hur ert tjänsteföretag säljer, bemannar och fakturerar projekt. Skillnaden mellan ett system som verkligen lyfter marginalen och ett som bara ersätter Excel ligger i partnervalet: en partner som förstår tid & utlägg, resursoptimering, work-in-progress, milstolps­fakturering och hur det hänger ihop med er ERP är guld värd."
         primary={{
           label: "Jämför Project Operations-partners",
           onClick: () => document.getElementById("partners")?.scrollIntoView({ behavior: "smooth" }),
@@ -58,9 +58,9 @@ const D365ProjectOperations = () => {
       />
 
       <ShortAnswer title="Vad är Dynamics 365 Project Operations">
-        <p>Dynamics 365 Project Operations är Microsofts samlade projektmodul för konsult-, ingenjörs- och tjänsteföretag — en plattform som binder ihop sälj, leverans och ekonomi i ett enda flöde från första offert till slutfaktura.</p>
+        <p>Dynamics 365 Project Operations är Microsofts samlade projektmodul för konsult-, ingenjörs- och tjänsteföretag – en plattform som binder ihop sälj, leverans och ekonomi i ett enda flöde från första offert till slutfaktura.</p>
         <p>Affären kvalificeras i Dynamics 365 Sales, planeras med resurskapacitet och kompetensmatchning, levereras genom uppgifter, tidrapporter och utlägg i Teams och mobilen, och faktureras via fast pris, löpande räkning eller milstolpar med full koppling till projektekonomi, work-in-progress och intäktsavräkning.</p>
-        <p>Inbyggda funktioner för portföljstyrning, prognos, marginal­uppföljning per projekt och utilization av konsulter ger ledningen realtidsbild av lönsamheten — medan Copilot och AI-agenter hjälper projektledare att sammanfatta statusrapporter, identifiera risk och föreslå nästa åtgärd.</p>
+        <p>Inbyggda funktioner för portföljstyrning, prognos, marginal­uppföljning per projekt och utilization av konsulter ger ledningen realtidsbild av lönsamheten – medan Copilot och AI-agenter hjälper projektledare att sammanfatta statusrapporter, identifiera risk och föreslå nästa åtgärd.</p>
         <p>Project Operations är fristående men blomstrar när det integreras djupt med Finance & Supply Chain Management eller Business Central för redovisning, Sales för CRM och Customer Service för support efter projektet. Precis som med övriga D365-appar avgör partnerns förmåga att modellera er specifika leveransmodell hur stor effekten faktiskt blir.</p>
       </ShortAnswer>
 
@@ -77,7 +77,7 @@ const D365ProjectOperations = () => {
               För tjänsteföretag som lever på fakturerbar tid
             </p>
             <p className="text-base sm:text-lg text-muted-foreground mb-4">
-              Project Operations passar organisationer där projekten är produkten: managementkonsulter, IT-konsulter, byggprojektledning, ingenjörsbolag, arkitektkontor, marknads­byråer och professional services-divisioner inom större koncerner. Plattformen hanterar både interna projekt och externa kunduppdrag — med stöd för fasta priser, löpande räkning, abonnemang och milstolps­fakturering.
+              Project Operations passar organisationer där projekten är produkten: managementkonsulter, IT-konsulter, byggprojektledning, ingenjörsbolag, arkitektkontor, marknads­byråer och professional services-divisioner inom större koncerner. Plattformen hanterar både interna projekt och externa kunduppdrag – med stöd för fasta priser, löpande räkning, abonnemang och milstolps­fakturering.
             </p>
             <p className="text-base sm:text-lg text-muted-foreground">
               Den unika styrkan ligger i kopplingen mellan resursplanering och ekonomi: när en konsult bokas på ett uppdrag genereras automatiskt prognosintäkter och beläggning, när tid godkänns triggas fakturaunderlag och WIP-bokföring, och när projektet avslutas är marginalen klar. Resultatet är att projektkontoret slipper Excel-sammanställningar och ekonomi får realtidsdata i stället för månadsbokslut.

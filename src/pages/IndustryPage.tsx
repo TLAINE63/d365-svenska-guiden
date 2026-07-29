@@ -325,7 +325,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
           val av app (Business Central, Finance &amp; Supply Chain, Sales, Customer Service m.fl.) och
           partner spelar större roll än produkten i sig. På d365.se hittar du {matchingPartners.length}{' '}
           {matchingPartners.length === 1 ? 'partner' : 'partners'} med dokumenterad erfarenhet av{' '}
-          {industryName.toLowerCase()} — jämför kompetens, branschreferenser och geografisk närvaro
+          {industryName.toLowerCase()} – jämför kompetens, branschreferenser och geografisk närvaro
           köparsidigt, utan att bli kontaktad förrän du själv väljer det.
         </ShortAnswer>
       )}

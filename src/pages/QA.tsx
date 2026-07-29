@@ -127,7 +127,7 @@ const QA = () => {
     {
       id: "recensioner",
       question: "Vad säger recensioner och kunder om Microsoft Dynamics 365?",
-      answer: "Microsoft Dynamics 365 får genomgående höga betyg på fristående reviewsajter som Gartner Peer Insights, G2 och TrustRadius — typiskt 4,3–4,5 av 5 över Sales, Customer Service, Business Central och Finance & Supply Chain.\n\n**Vad uppskattas mest**\n\nDjup integration med Microsoft 365 (Outlook, Teams, Excel, SharePoint), inbyggd Copilot AI utan extra licens i flera Enterprise-versioner, samt möjligheten att kombinera CRM och ERP i en plattform.\n\n**Vanlig kritik**\n\nInitial konfiguration kan upplevas tung och kräver erfaren partner. Användargränssnittet är funktionsrikt men har en brantare inlärningskurva än renodlade nischverktyg som HubSpot eller Zendesk.\n\n**Kundprofiler**\n\nStark närvaro i mellanstora och stora bolag inom tillverkning, finans, professionella tjänster, offentlig sektor och hälso- och sjukvård – ofta där Microsoft-stacken redan är etablerad och regelefterlevnad är viktig.",
+      answer: "Microsoft Dynamics 365 får genomgående höga betyg på fristående reviewsajter som Gartner Peer Insights, G2 och TrustRadius – typiskt 4,3–4,5 av 5 över Sales, Customer Service, Business Central och Finance & Supply Chain.\n\n**Vad uppskattas mest**\n\nDjup integration med Microsoft 365 (Outlook, Teams, Excel, SharePoint), inbyggd Copilot AI utan extra licens i flera Enterprise-versioner, samt möjligheten att kombinera CRM och ERP i en plattform.\n\n**Vanlig kritik**\n\nInitial konfiguration kan upplevas tung och kräver erfaren partner. Användargränssnittet är funktionsrikt men har en brantare inlärningskurva än renodlade nischverktyg som HubSpot eller Zendesk.\n\n**Kundprofiler**\n\nStark närvaro i mellanstora och stora bolag inom tillverkning, finans, professionella tjänster, offentlig sektor och hälso- och sjukvård – ofta där Microsoft-stacken redan är etablerad och regelefterlevnad är viktig.",
     },
   ];
 
@@ -166,7 +166,7 @@ const QA = () => {
                 Frågorna ni faktiskt behöver svar på
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-white/95">
-                Svar på det som är viktigt att förstå om Microsoft Dynamics 365 innan partnerdialogen börjar — licens, implementation, ansvar och totalkostnad.
+                Svar på det som är viktigt att förstå om Microsoft Dynamics 365 innan partnerdialogen börjar – licens, implementation, ansvar och totalkostnad.
               </p>
             </div>
           </div>

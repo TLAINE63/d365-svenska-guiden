@@ -5,7 +5,7 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
 import { scoreExtendedRelevance, cleanSnippet } from '../_shared/extended-relevance.ts';
 
 // Fetch internal AI matching knowledge (partner_ai_knowledge) for the given partner ids.
-// Data is internal-only and never returned to the client — used only to enrich the AI prompt.
+// Data is internal-only and never returned to the client – used only to enrich the AI prompt.
 async function fetchPartnerAiKnowledge(partnerIds: string[]) {
   const url = Deno.env.get('SUPABASE_URL');
   const key = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
@@ -191,7 +191,7 @@ Deno.serve(async (req) => {
       const pfIndustries = allPfIndustries.slice(0, 5).map((s: any) => sanitizeUntrusted(s, 80)).join(', ') || '';
       const industryFocusCount = allPfIndustries.length;
       const industryFocusLine = industryFocusCount > 0
-        ? `\nBranschfokus-bredd för ${criteria.application}: ${industryFocusCount} bransch${industryFocusCount === 1 ? ' (extremt nischad — endast 1 bransch vald, max är 3)' : industryFocusCount === 2 ? 'er (fokuserad — 2 av max 3)' : 'er (bred profil — alla 3 möjliga branscher valda)'}`
+        ? `\nBranschfokus-bredd för ${criteria.application}: ${industryFocusCount} bransch${industryFocusCount === 1 ? ' (extremt nischad – endast 1 bransch vald, max är 3)' : industryFocusCount === 2 ? 'er (fokuserad – 2 av max 3)' : 'er (bred profil – alla 3 möjliga branscher valda)'}`
         : '';
       
       // AI capability summary
@@ -246,7 +246,7 @@ Deno.serve(async (req) => {
         ? `\nLeverantörsstorlek (intern): tier ${tierNum} – ${SIZE_TIER_LABELS[tierNum]}${tierNeedsReview ? ' (osäker – behandla som svag signal)' : ''}`
         : '\nLeverantörsstorlek (intern): ej klassad (neutral)';
 
-      // Build a "query bag" from the customer's criteria — the more of these
+      // Build a "query bag" from the customer's criteria – the more of these
       // terms that show up in the partner's fördjupning, the more we boost it.
       const queryBag = [
         criteria.application,
@@ -307,16 +307,16 @@ PARTNERS ATT UTVÄRDERA:
 ${partnerSummaries}
 
 INSTRUKTIONER:
-1. RANGORDNINGSPRIORITET (viktigast först — denna ordning är ALLTID giltig):
+1. RANGORDNINGSPRIORITET (viktigast först – denna ordning är ALLTID giltig):
    a) BRANSCH är ALLTID den viktigaste faktorn. En partner med dokumenterad erfarenhet i kundens bransch ("${criteria.industry || 'Ej specificerat'}") ska ALLTID rankas högre än en partner utan branschfokus, även om den senare har starkare övrig profil. Branschmatch baseras på partnerns "Branschfokus för ${criteria.application}" och kundexempel.
    b) PRODUKT är näst viktigast${criteria.application && criteria.application !== 'Alla' ? ` (kunden har valt ${criteria.application})` : ' när kunden valt en specifik applikation'}. En partner med tydlig specialisering på den valda applikationen ska rankas högre än en partner med svagare/bredare produktfokus. Använd produktbeskrivning, AI-kompetens för produkten och kundexempel som signaler.
-   c) NISCHFOKUS-BONUS (max 3 branscher per produkt är möjligt): Om en partner har angett ENDAST 1 bransch för ${criteria.application} (se "Branschfokus-bredd") OCH den branschen matchar kundens bransch ("${criteria.industry || 'Ej specificerat'}"), ge +6-10 extra poäng — de är extremt fokuserade och därmed en mycket starkare match. Partners med 2 matchande branscher får +3-5. Partners med 3 branscher (max) som matchar får +1-2 (bredare profil).
+   c) NISCHFOKUS-BONUS (max 3 branscher per produkt är möjligt): Om en partner har angett ENDAST 1 bransch för ${criteria.application} (se "Branschfokus-bredd") OCH den branschen matchar kundens bransch ("${criteria.industry || 'Ej specificerat'}"), ge +6-10 extra poäng – de är extremt fokuserade och därmed en mycket starkare match. Partners med 2 matchande branscher får +3-5. Partners med 3 branscher (max) som matchar får +1-2 (bredare profil).
    d) Övriga faktorer (geografi, storlek, AI-intresse, plattform, lokal närvaro etc.) är mindre viktiga och används endast för att finjustera rankingen MELLAN partners som är likvärdiga på bransch och produkt.
    e) LEVERANTÖRSSTORLEK (tier 1–5) är en mjuk kompletterande signal. Använd den bara för att finjustera mellan i övrigt likvärdiga partners när det finns en tydlig storleks-missmatch mot kunden: stora enterprise-kunder (>1.000 anställda eller >1.000 MSEK) kan gynnas milt av tier 1–2, SMB-kunder (<100 anställda) kan gynnas milt av tier 3–4. Max ±5 poäng. Denna signal får ALDRIG överskugga bransch, produkt eller nischfokus, och tier "ej klassad" eller tier 5 med "osäker klassning" ska behandlas som neutralt.
 
 2. Ge varje partner ett matchningspoäng 0-100 enligt följande viktning:
-   - Branscherfarenhet (40%) — HÖGSTA PRIO. Stark match = +30-40, bred branschtäckning = +20-30, ingen branschmatch men relevant erfarenhet = +5-15, ingen matchning alls = 0-5.
-   - Produktspecialisering / workload-matchning (${criteria.application && criteria.application !== 'Alla' ? '30%' : '20%'}) — Hur väl partnern är specialiserad på ${criteria.application}.
+   - Branscherfarenhet (40%) – HÖGSTA PRIO. Stark match = +30-40, bred branschtäckning = +20-30, ingen branschmatch men relevant erfarenhet = +5-15, ingen matchning alls = 0-5.
+   - Produktspecialisering / workload-matchning (${criteria.application && criteria.application !== 'Alla' ? '30%' : '20%'}) – Hur väl partnern är specialiserad på ${criteria.application}.
    - Kundexempel och referensers relevans (10%)
    - Geografi och storlek (${criteria.localPreference === 'very' ? '5%' : '10%'})${criteria.localPreference === 'very' ? `
    - Lokal närvaro (10%): Partners med fler kontorsorter och kontor nära kundens geografi ska premieras. Bred rikstäckning är en fördel. Partners utan angiven kontorsort får lägre poäng.` : criteria.localPreference === 'somewhat' ? `

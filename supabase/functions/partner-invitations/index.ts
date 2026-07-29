@@ -320,14 +320,14 @@ serve(async (req: Request): Promise<Response> => {
         
         for (const event of submissionData.events) {
           if (event._deleted && event.id) {
-            // Delete existing event — must belong to this partner
+            // Delete existing event – must belong to this partner
             await supabase
               .from("partner_events")
               .delete()
               .eq("id", event.id)
               .eq("partner_id", partnerId);
           } else if (event.id) {
-            // Update existing event — must belong to this partner; use explicit allowlist
+            // Update existing event – must belong to this partner; use explicit allowlist
             // to prevent partners from setting admin-only fields (status, admin_notes,
             // reviewed_at, reviewed_by, recording_url, recording_available, etc.).
             const eventData = {
@@ -350,7 +350,7 @@ serve(async (req: Request): Promise<Response> => {
               .eq("id", event.id)
               .eq("partner_id", partnerId);
           } else if (event.title && event.event_date) {
-            // Create new event — explicit allowlist; force pending status server-side
+            // Create new event – explicit allowlist; force pending status server-side
             const eventData = {
               title: event.title,
               description: event.description,
@@ -1959,7 +1959,7 @@ D365.se`;
       }
     }
 
-    // Admin: Send "profile refresh" email — creates a fresh 90-day invitation per
+    // Admin: Send "profile refresh" email – creates a fresh 90-day invitation per
     // partner and sends an editable email with subject/body overrides.
     if (action === "send-profile-refresh" && req.method === "POST") {
       const body = await req.json();

@@ -53,7 +53,7 @@ const STAGES: Stage[] = [
  phase: "TIDIGA SIGNALER",
  title: "Det skaver i vardagen, men ni vet inte var problemet ligger",
  paragraphs: [
- "Rapporteringen tar för lång tid. Manuellt arbete växer. Säljarna jobbar i Excel vid sidan av CRM, marknad saknar koll på leads, kundservice tappar ärenden mellan kanaler, eller fältteknikerna kör på egna listor. Något bromsar — frågan är om det är ERP, CRM, kundserviceplattformen, processen, datakvaliteten eller en kombination.",
+ "Rapporteringen tar för lång tid. Manuellt arbete växer. Säljarna jobbar i Excel vid sidan av CRM, marknad saknar koll på leads, kundservice tappar ärenden mellan kanaler, eller fältteknikerna kör på egna listor. Något bromsar – frågan är om det är ERP, CRM, kundserviceplattformen, processen, datakvaliteten eller en kombination.",
  "Det är ett vanligt och underskattat läge. Att gå direkt till partnerdialog här leder ofta till ett systembyte som inte löser grundproblemet.",
  ],
  recommendation: "Fördjupningar om hur ni skiljer processproblem från systembegränsningar",
@@ -61,7 +61,7 @@ const STAGES: Stage[] = [
  nextStep: {
  label: "Gör en behovsanalys",
  href: "/ERPbehovsanalys",
- helper: "Välj vilket område som skaver mest — analysen anpassas efter det.",
+ helper: "Välj vilket område som skaver mest – analysen anpassas efter det.",
  options: [
  { label: "ERP (ekonomi, operations)", href: "/ERPbehovsanalys" },
  { label: "Sälj & Marknad", href: "/CRMbehovsanalys" },
@@ -75,7 +75,7 @@ const STAGES: Stage[] = [
  phase: "BEHOVET AKTIVERAS",
  title: "Något har hänt som tvingar fram en utvärdering",
  paragraphs: [
- "Ett förvärv, en ny ägare, en version som tas ur stöd, ett regelkrav, en koncernkonsolidering, en ny kommersiell strategi eller ett uttalat mål om bättre kundupplevelse. Det kan handla om ERP lika mycket som om Sales, Marketing/Customer Insights, Customer Service, Field Service eller Contact Center. Frågan är inte längre om — utan när och hur. Tidsfönstret är oftast snävare än beslutsgruppen först inser.",
+ "Ett förvärv, en ny ägare, en version som tas ur stöd, ett regelkrav, en koncernkonsolidering, en ny kommersiell strategi eller ett uttalat mål om bättre kundupplevelse. Det kan handla om ERP lika mycket som om Sales, Marketing/Customer Insights, Customer Service, Field Service eller Contact Center. Frågan är inte längre om – utan när och hur. Tidsfönstret är oftast snävare än beslutsgruppen först inser.",
  "Största risken här är att hoppa direkt till partnerdialog innan en intern nulägesanalys är gjord. Ordningen avgör hur försvarbart beslutet blir senare.",
  ],
  recommendation: "Tematiska guider per triggertyp och mall för intern nulägesanalys",
@@ -92,7 +92,7 @@ const STAGES: Stage[] = [
  phase: "BEHOVET AKTIVERAS",
  title: "Vi behöver strukturera vad vi faktiskt behöver",
  paragraphs: [
- "Mandatet finns. Men kraven är spridda. Ekonomi ser ett problem. IT ser ett annat. Operations, sälj, marknad, kundservice och fältservice har egna prioriteringar — och kraven på ERP, CRM och kundserviceplattformarna hänger ofta ihop mer än man tror. Risken är att gå ut till marknaden med en kravbild som inte representerar hela verksamheten.",
+ "Mandatet finns. Men kraven är spridda. Ekonomi ser ett problem. IT ser ett annat. Operations, sälj, marknad, kundservice och fältservice har egna prioriteringar – och kraven på ERP, CRM och kundserviceplattformarna hänger ofta ihop mer än man tror. Risken är att gå ut till marknaden med en kravbild som inte representerar hela verksamheten.",
  "Det här arbetet sker bäst internt, innan partners blandas in. När alla funktioner är representerade i underlaget blir partnerdialogen helt annorlunda.",
  ],
  recommendation: "Strukturmall för intern behovsanalys och workshop-underlag",
@@ -100,7 +100,7 @@ const STAGES: Stage[] = [
  nextStep: {
  label: "Bygg en kravspecifikation",
  href: "/kravspecifikation",
- helper: "Välj område — varje kravspec är anpassad efter sin verksamhet.",
+ helper: "Välj område – varje kravspec är anpassad efter sin verksamhet.",
  options: [
  { label: "ERP (Business Central, F&SCM)", href: "/kravspecifikation" },
  { label: "Sales", href: "/kravspecifikation-sales" },
@@ -132,7 +132,7 @@ const STAGES: Stage[] = [
  phase: "PARTNERVAL",
  title: "Vi jämför partners, eller är på väg att göra det",
  paragraphs: [
- "Partnerdialogen är igång. Eller också är ni på väg att sätta en kortlista. Frågan är vilka som faktiskt passar er bransch, er storlek, det område ni prioriterar (ERP, Sales, Marketing/Customer Insights, Customer Service, Field Service eller Contact Center) och er metodik — och hur ni jämför dem på rättvisa grunder.",
+ "Partnerdialogen är igång. Eller också är ni på väg att sätta en kortlista. Frågan är vilka som faktiskt passar er bransch, er storlek, det område ni prioriterar (ERP, Sales, Marketing/Customer Insights, Customer Service, Field Service eller Contact Center) och er metodik – och hur ni jämför dem på rättvisa grunder.",
  "Det är här d365.se gör störst skillnad. Den traditionella RFP-processen jämför ofta fel saker, och kortlistan formas tidigare än de flesta tror.",
  ],
  recommendation: "Matchning mot partners som passar er bransch och era förutsättningar – vi står på köparens sida",
@@ -150,9 +150,9 @@ const STAGES: Stage[] = [
  title: "Vi är nära ett beslut, men det måste hålla över tid",
  paragraphs: [
  "Samsynen finns. Budget och inriktning är klara. En partner ligger främst. Men beslutet ska försvaras både i styrelsen och under tre till fem år framåt.",
- "Det är nu valet kan stresstestas — metodiken, scope, leveransmodellen, och hur partnern hanterar avvikelser. Det är också nu det är billigast att justera.",
+ "Det är nu valet kan stresstestas – metodiken, scope, leveransmodellen, och hur partnern hanterar avvikelser. Det är också nu det är billigast att justera.",
  ],
- recommendation: "Beslutsmognadsindex — stresstesta mognaden inför viktiga investeringsbeslut",
+ recommendation: "Beslutsmognadsindex – stresstesta mognaden inför viktiga investeringsbeslut",
  recommendationHref: "/beslutsmognad",
  nextStep: {
  label: "Gå till Beslutsmognadsindex",
@@ -164,7 +164,7 @@ const STAGES: Stage[] = [
 ];
 
 const STEP1_OPTIONS = [
- { label: "Allt fungerar — vi vill bara hålla oss orienterade", result: 1 as const },
+ { label: "Allt fungerar – vi vill bara hålla oss orienterade", result: 1 as const },
  { label: "Det skaver i vardagen, men inget är akut", result: 2 as const },
  { label: "En specifik händelse har gjort frågan akut", result: 3 as const },
  { label: "Vi har redan mandat och har påbörjat en upphandling", result: "next" as const },
@@ -232,7 +232,7 @@ const STAGE_BULLETS: Record<number, string[]> = {
  "Excel kringgår systemet",
  "Kundbilden är spridd",
  "Säljpipen svår att överblicka",
- "System eller process — oklart",
+ "System eller process – oklart",
  ],
  3: [
  "Förvärv eller ny ägare",
@@ -331,7 +331,7 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
  Den typiska upphandlingsresan
  </h3>
  <p className="text-sm text-muted-foreground">
- Klicka på det stadie ni känner igen er i — så öppnas detaljerna och nästa steg.
+ Klicka på det stadie ni känner igen er i – så öppnas detaljerna och nästa steg.
  </p>
  </div>
  

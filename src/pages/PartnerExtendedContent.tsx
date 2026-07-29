@@ -14,7 +14,7 @@ import { buildMetaDescription } from "@/lib/metaDescription";
  * The `extended_content` text is an AI-aggregated research summary from
  * public sources. It is used internally by the on-site AI matching and
  * is exposed to search engines / AI crawlers via JSON-LD structured
- * data (articleBody) for SEO/AIO purposes only — it is NOT rendered
+ * data (articleBody) for SEO/AIO purposes only – it is NOT rendered
  * as visible body text to users.
  */
 const PartnerExtendedContent = () => {

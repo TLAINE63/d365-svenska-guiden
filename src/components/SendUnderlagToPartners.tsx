@@ -176,7 +176,7 @@ export const SendUnderlagToPartners = ({
         source_page: sourcePage,
       });
       toast({
-        title: "Tack — underlaget är skickat!",
+        title: "Tack – underlaget är skickat!",
         description: `${delivered} av ${total} partners har fått ditt underlag och rådgivningsteamet är kopierat.`,
       });
     } catch (err) {
@@ -198,7 +198,7 @@ export const SendUnderlagToPartners = ({
           <div className="flex items-start gap-3">
             <CheckCircle2 className="w-6 h-6 text-primary shrink-0 mt-0.5" />
             <div>
-              <h3 className="text-lg font-semibold text-foreground mb-1">Tack — underlaget är skickat</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-1">Tack – underlaget är skickat</h3>
               <p className="text-sm text-muted-foreground">
                 Vi har skickat underlaget till {sent.delivered} av {sent.total} valda partners. Ni får normalt svar
                 inom 1–3 arbetsdagar och rådgivningsteamet på d365.se följer upp för att säkerställa att ni får svar.
@@ -231,7 +231,7 @@ export const SendUnderlagToPartners = ({
           </p>
           {suggested.length === 0 && (
             <p className="text-sm text-muted-foreground italic">
-              Vi kunde inte matcha automatiskt — lägg till partners nedan.
+              Vi kunde inte matcha automatiskt – lägg till partners nedan.
             </p>
           )}
           <div className="space-y-2">

@@ -16,7 +16,7 @@ interface FilteredListActionsProps {
   visiblePartners: FilteredListActionsPartner[];
   /** Number of partners to send the multi-quote to when no compare selection exists. */
   topN?: number;
-  /** Active filter context — surfaced in the dialog for clarity. */
+  /** Active filter context – surfaced in the dialog for clarity. */
   selectedProduct?: string;
   industry?: string;
   geography?: string;
@@ -85,7 +85,7 @@ const FilteredListActions = ({
               Hittade flera intressanta partners?
             </p>
             <p className="text-xs text-muted-foreground mt-0.5">
-              Få vägledning köparsidigt — eller låt d365.se förmedla samma förfrågan
+              Få vägledning köparsidigt – eller låt d365.se förmedla samma förfrågan
               till {recipientLabel} på en gång.
             </p>
           </div>

@@ -104,7 +104,7 @@ const D365CustomerService = () => {
         icon={CustomerServiceIcon}
         eyebrow="Dynamics 365 Customer Service"
         title="Dynamics 365 Customer Service – ärendehantering, kanaler och partner"
-        subhead="En e-handelssupport med 5 000 ärenden i veckan behöver något annat än en B2B-organisation med 200 komplexa ärenden. Funktionerna är desamma — men hur partnern designar ärendefördelning, kunskapsbas och självservice avgör om systemet sänker handläggningstiden eller bara flyttar admin mellan avdelningar. Här jämför ni partners som faktiskt levererat Customer Service i er volym och er bransch."
+        subhead="En e-handelssupport med 5 000 ärenden i veckan behöver något annat än en B2B-organisation med 200 komplexa ärenden. Funktionerna är desamma – men hur partnern designar ärendefördelning, kunskapsbas och självservice avgör om systemet sänker handläggningstiden eller bara flyttar admin mellan avdelningar. Här jämför ni partners som faktiskt levererat Customer Service i er volym och er bransch."
         primary={{
           label: "Jämför CS-partners",
           onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
@@ -118,13 +118,13 @@ const D365CustomerService = () => {
 
       <ShortAnswer title="Vad är Dynamics 365 Customer Service">
         <p>
-          Dynamics 365 Customer Service är Microsofts moderna plattform för kundservice och support — byggd för organisationer som vill leverera snabb, träffsäker och personlig hjälp oavsett om kunden hör av sig via telefon, chatt, e-post, webbformulär, sociala medier eller självbetjäningsportal.
+          Dynamics 365 Customer Service är Microsofts moderna plattform för kundservice och support – byggd för organisationer som vill leverera snabb, träffsäker och personlig hjälp oavsett om kunden hör av sig via telefon, chatt, e-post, webbformulär, sociala medier eller självbetjäningsportal.
         </p>
         <p>
           Plattformen samlar hela ärendelivscykeln på ett ställe: intelligent ärendefördelning baserad på kompetens och tillgänglighet, SLA- och rättighetsuppföljning, en gemensam kunskapsbas som både handläggare och kunder kan söka i, samt en 360°-vy av kundens hela historik från alla kanaler.
         </p>
         <p>
-          Inbyggd Copilot och autonoma serviceagenter sammanfattar långa ärendetrådar på sekunder, föreslår svar baserat på kunskapsbasen, dirigerar enkla ärenden automatiskt och hjälper handläggaren att avsluta samtal snabbare med högre kvalitet — vilket frigör tid till de komplexa fallen där människan gör störst skillnad.
+          Inbyggd Copilot och autonoma serviceagenter sammanfattar långa ärendetrådar på sekunder, föreslår svar baserat på kunskapsbasen, dirigerar enkla ärenden automatiskt och hjälper handläggaren att avsluta samtal snabbare med högre kvalitet – vilket frigör tid till de komplexa fallen där människan gör störst skillnad.
         </p>
         <p>
           Lösningen passar lika väl volymdriven konsumentsupport som komplex B2B-service med avtalsstyrning, och växer sömlöst tillsammans med Dynamics 365 Sales, Field Service och Contact Center i samma datamodell. Men hur partnern designar ärendeflöden, SLA:er, kunskapsstruktur och Copilot-funktioner avgör om handläggningstiden faktiskt sjunker och kundnöjdheten lyfter.
@@ -341,7 +341,7 @@ const D365CustomerService = () => {
 
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center mb-3">Fördjupningsartiklar</h2>
-          <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">Utforska Dynamics 365 Customer Service på djupet — från omnikanal och AI-assistans till workforce management och kvalitetssäkring.</p>
+          <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">Utforska Dynamics 365 Customer Service på djupet – från omnikanal och AI-assistans till workforce management och kvalitetssäkring.</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
             {CS_ARTICLES.map((article) => (
               <Link

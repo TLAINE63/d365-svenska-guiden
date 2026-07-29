@@ -336,7 +336,7 @@ const BlogArticle = () => {
                     Redaktionell not
                   </p>
                   <p className="text-sm leading-relaxed text-foreground/80">
-                    Dynamics 365-marknaden förändras snabbt — särskilt inom AI, Copilot, agenter och prissättning.
+                    Dynamics 365-marknaden förändras snabbt – särskilt inom AI, Copilot, agenter och prissättning.
                     Den här artikeln granskades senast {formatDateSv(reviewDate)}. Hittar ni en uppgift som inte
                     längre stämmer? <Link to="/kontakt/" className="text-primary underline underline-offset-2 hover:text-primary/80">Hör av er</Link> så uppdaterar vi.
                   </p>
@@ -482,7 +482,7 @@ const BlogArticle = () => {
             <div className="container mx-auto px-4 max-w-4xl">
               <h2 className="text-lg font-semibold text-foreground mb-1">Rekommenderat utifrån denna artikel</h2>
               <p className="text-sm text-muted-foreground mb-4">
-                Liknande ämnen och taggar — för att fördjupa dig vidare.
+                Liknande ämnen och taggar – för att fördjupa dig vidare.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {related.map((r) => {

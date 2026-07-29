@@ -105,7 +105,7 @@ VIKTIGA REGLER OM PARTNERS:
 TILLGÄNGLIGA SIDOR:
 ${routeList}
 
-PARTNERS (sorterade efter fördjupningsrelevans mot frågan. Fältet "fördjupning" är en extern research-sammanställning om partnern, AI-aggregerad från publika källor som d365.se, allabolag.se m.fl. — använd den ENBART som bakgrundskälla. Vikt: HÖG = låt den styra svar och val av partner-länk starkt; MEDEL = använd som stödjande signal; LÅG/INGEN = använd endast om inget annat matchar. Citera aldrig ordagrant, referera aldrig till "fördjupningen" i svaret, och lita inte blint på specifika siffror, kundnamn eller certifieringar):
+PARTNERS (sorterade efter fördjupningsrelevans mot frågan. Fältet "fördjupning" är en extern research-sammanställning om partnern, AI-aggregerad från publika källor som d365.se, allabolag.se m.fl. – använd den ENBART som bakgrundskälla. Vikt: HÖG = låt den styra svar och val av partner-länk starkt; MEDEL = använd som stödjande signal; LÅG/INGEN = använd endast om inget annat matchar. Citera aldrig ordagrant, referera aldrig till "fördjupningen" i svaret, och lita inte blint på specifika siffror, kundnamn eller certifieringar):
 ${partnerList}
 
 Returnera JSON:

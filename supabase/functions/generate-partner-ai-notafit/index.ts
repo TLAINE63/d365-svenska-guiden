@@ -168,8 +168,8 @@ function buildPrompt(p: any, webContext: string): string {
   const teamSize = p.team_size_sweden || p.employees_sweden || "okänt";
 
   return `Du hjälper att fylla i två sektioner i en Microsoft Dynamics 365-partners publika profil på d365.se:
-1) "AI, Copilot & Automation" (ai_profile) — partnerns AI/automations-kapacitet.
-2) "När vi inte är rätt val" (not_a_fit) — 3–5 ärliga situationer där partnern INTE är rätt val.
+1) "AI, Copilot & Automation" (ai_profile) – partnerns AI/automations-kapacitet.
+2) "När vi inte är rätt val" (not_a_fit) – 3–5 ärliga situationer där partnern INTE är rätt val.
 
 Basera valen enbart på PARTNERDATA + WEBBKONTEXT nedan. Var konservativ: när det saknas underlag, välj färre alternativ eller lämna fältet tomt.
 
@@ -181,7 +181,7 @@ ${DELIVERY_MODELS.map(v => `- "${v}"`).join("\n")}
 capabilities (0–6 st):
 ${AI_CAPABILITIES.map(v => `- "${v}"`).join("\n")}
 
-relevant_areas (0–8 st — normalt de områden partnern faktiskt jobbar med utifrån sina D365-appar):
+relevant_areas (0–8 st – normalt de områden partnern faktiskt jobbar med utifrån sina D365-appar):
 ${AI_RELEVANT_AREAS.map(v => `- "${v}"`).join("\n")}
 
 use_cases (0–6 st):
@@ -221,7 +221,7 @@ Positioneringsmening: ${positioning || "(saknas)"}
 AI-sammanfattning från d365.se: ${aiSummary || "(saknas)"}
 Föreslagna relevant_areas utifrån appar: ${suggestedAreas}
 
-WEBBKONTEXT (utdrag från partnerns webbplats, kan vara brus — använd försiktigt):
+WEBBKONTEXT (utdrag från partnerns webbplats, kan vara brus – använd försiktigt):
 ${webContext ? webContext.slice(0, 6000) : "(ingen webbkontext)"}
 
 Svara med ENDAST giltig JSON i exakt detta schema (inga kommentarer, ingen text runt om, inga markdown-block):

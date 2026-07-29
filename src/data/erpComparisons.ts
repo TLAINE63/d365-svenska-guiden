@@ -872,7 +872,7 @@ const BC_COMPARISONS: ProductComparison[] = [
     metaDescription:
       "Jämför Microsoft Dynamics 365 Business Central med SAP Business One. Funktioner, pris, implementationstid, AI och partnerekosystem för svenska små och medelstora bolag.",
     intro:
-      "SAP Business One är SAP:s ERP för små och medelstora bolag — inte att förväxla med SAP S/4HANA som riktar sig till storföretag. Business Central är Microsofts motsvarighet och är ofta den tydligaste konkurrenten i SMB-segmentet i Sverige.",
+      "SAP Business One är SAP:s ERP för små och medelstora bolag – inte att förväxla med SAP S/4HANA som riktar sig till storföretag. Business Central är Microsofts motsvarighet och är ofta den tydligaste konkurrenten i SMB-segmentet i Sverige.",
     productSummary:
       "Business Central står starkast när bolaget redan kör Microsoft 365, vill ha Copilot inbyggt och söker en bred, modern molnplattform med stort svenskt partnernätverk.",
     competitorSummary:
@@ -913,7 +913,7 @@ const BC_COMPARISONS: ProductComparison[] = [
     faqs: [
       {
         q: "Är SAP Business One samma sak som SAP S/4HANA?",
-        a: "Nej. Business One är SAP:s SMB-ERP (10–500 användare). S/4HANA är för storföretag. Det är Business One — inte S/4HANA — som är reell konkurrent till Business Central.",
+        a: "Nej. Business One är SAP:s SMB-ERP (10–500 användare). S/4HANA är för storföretag. Det är Business One – inte S/4HANA – som är reell konkurrent till Business Central.",
       },
       {
         q: "Är SAP Business One dyrare än Business Central?",

@@ -62,7 +62,7 @@ export default function StandardProductSections({ productName, data }: Props) {
             Vad Microsoft Dynamics 365 löser
           </h2>
           <p className="text-sm md:text-base text-muted-foreground mb-4 max-w-3xl">
-            Sakligt — utan Microsofts marknadsföringsord.
+            Sakligt – utan Microsofts marknadsföringsord.
           </p>
           <ul className="space-y-2.5">
             {data.whatItSolves.map((item, i) => (
@@ -136,7 +136,7 @@ export default function StandardProductSections({ productName, data }: Props) {
             {[
               {
                 title: "1. Gör en behovsanalys",
-                body: "Ringa in vad ni faktiskt behöver — innan ni jämför produkter.",
+                body: "Ringa in vad ni faktiskt behöver – innan ni jämför produkter.",
                 href: "/behovsanalys/",
                 cta: "Skapa en behovsanalys",
               },
@@ -148,7 +148,7 @@ export default function StandardProductSections({ productName, data }: Props) {
               },
               {
                 title: "3. Hitta rätt partner",
-                body: "Utgå från er bransch och era processer — inte från vilken partner som syns mest.",
+                body: "Utgå från er bransch och era processer – inte från vilken partner som syns mest.",
                 href: "/branscher/",
                 cta: "Hitta partner",
               },

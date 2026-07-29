@@ -154,7 +154,7 @@ const Branscher = () => {
         <section className="py-5 md:py-6 bg-gradient-to-b from-muted/30 to-background border-b border-border">
           <div className="container mx-auto px-4 max-w-6xl">
             <h1 className="text-xl md:text-2xl font-bold text-foreground mb-2">
-              Välj bransch först — annars jämför ni Dynamics 365 på fel grunder
+              Välj bransch först – annars jämför ni Dynamics 365 på fel grunder
             </h1>
             <p className="text-xs md:text-sm text-muted-foreground max-w-4xl">
               Dynamics 365 ser olika ut i tillverkning, handel, fastighet, service, konsultverksamhet och andra branscher. Rätt lösning beror inte bara på produktvalet, utan på processer, integrationsbehov, rapportering, regelverk och vilken typ av partner som krävs för att lyckas.
@@ -169,7 +169,7 @@ const Branscher = () => {
             </h2>
             <div className="space-y-3 text-sm md:text-[15px] text-muted-foreground max-w-4xl leading-relaxed">
               <p>
-                Två företag kan välja exakt samma Dynamics 365-produkt — och ändå hamna i två helt olika projekt. Implementationen, kravspecifikationen och vilken partnerprofil som faktiskt klarar uppdraget styrs i hög grad av branschens processer, terminologi och regelverk.
+                Två företag kan välja exakt samma Dynamics 365-produkt – och ändå hamna i två helt olika projekt. Implementationen, kravspecifikationen och vilken partnerprofil som faktiskt klarar uppdraget styrs i hög grad av branschens processer, terminologi och regelverk.
               </p>
               <p>
                 I flera branscher avgörs Dynamics 365-valet inte bara av Microsofts standardfunktionalitet, utan av vilka branschlösningar som krävs runt plattformen. Det kan handla om allergen- och etikettkrav i livsmedel, GMP/GxP-validering i Life Science, hyreslogik i fastighet, rental fleet management, EDI mot retailkedjor eller mobil lagerhantering.
@@ -178,7 +178,7 @@ const Branscher = () => {
                 Därför är ISV-frågan också en partnerfråga. En partner som är stark på Business Central eller Finance & Supply Chain Management är inte automatiskt rätt om lösningen kräver en specifik branschapplikation, certifiering eller implementeringserfarenhet.
               </p>
               <p>
-                Att börja med branschen — innan ni jämför produkter eller partners — gör att utvärderingen sker på rätt grunder: era processer, era integrationsbehov och de partners som faktiskt har levererat i er typ av verksamhet tidigare.
+                Att börja med branschen – innan ni jämför produkter eller partners – gör att utvärderingen sker på rätt grunder: era processer, era integrationsbehov och de partners som faktiskt har levererat i er typ av verksamhet tidigare.
               </p>
             </div>
           </div>

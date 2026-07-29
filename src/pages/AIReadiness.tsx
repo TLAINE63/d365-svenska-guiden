@@ -1599,7 +1599,7 @@ const AIReadiness = () => {
                 AI Impact & Readiness Assessment
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
-                Är er verksamhet redo för AI — egentligen?
+                Är er verksamhet redo för AI – egentligen?
               </h1>
               <p className="text-lg text-white/80 mb-3">
                 En diagnostik som visar var data, processer och organisation faktiskt står innan ni investerar i Copilot och agenter
@@ -1941,7 +1941,7 @@ const AIReadiness = () => {
                 </CollapsibleTrigger>
                 <CollapsibleContent>
                   <div className="mt-3 p-3 rounded-lg bg-muted/40 border border-border/50 text-xs text-muted-foreground space-y-2">
-                    <p>Beräkningen baseras på era svar och ger en <strong>indikativ uppskattning</strong> — inte en exakt prognos.</p>
+                    <p>Beräkningen baseras på era svar och ger en <strong>indikativ uppskattning</strong> – inte en exakt prognos.</p>
                     <ul className="list-disc pl-4 space-y-1">
                       <li><strong>Tre AI-dimensioner</strong> poängsätts (Automation, Augmentation, Prediktion) baserat på era svar om nuvarande processer och verktyg.</li>
                       <li><strong>Tidsbesparingen</strong> interpoleras inom ett branschbaserat spann för er valda roll, viktat mot ert AI-mognadsvärde.</li>

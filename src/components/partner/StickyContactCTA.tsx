@@ -19,7 +19,7 @@ export const StickyContactCTA = ({ partnerName, onBookMeeting, onIntro }: Sticky
 
   useEffect(() => {
     const onScroll = () => {
-      // Show after 600px scroll — user is past the hero
+      // Show after 600px scroll – user is past the hero
       setVisible(window.scrollY > 600);
     };
     onScroll();

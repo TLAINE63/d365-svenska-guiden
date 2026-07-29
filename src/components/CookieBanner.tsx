@@ -148,7 +148,7 @@ const CookieBanner = () => {
                       Nödvändiga <span className="text-xs text-muted-foreground">(alltid på)</span>
                     </label>
                     <p className="text-xs text-muted-foreground">
-                      Krävs för att webbplatsen ska fungera — sessionshantering, säkerhet och
+                      Krävs för att webbplatsen ska fungera – sessionshantering, säkerhet och
                       sparat samtycke.
                     </p>
                   </div>
@@ -169,7 +169,7 @@ const CookieBanner = () => {
                       Statistik
                     </label>
                     <p className="text-xs text-muted-foreground">
-                      Google Analytics 4 med anonymiserad IP — hjälper oss förstå vilka sidor
+                      Google Analytics 4 med anonymiserad IP – hjälper oss förstå vilka sidor
                       som används.
                     </p>
                   </div>
@@ -190,7 +190,7 @@ const CookieBanner = () => {
                       Marknadsföring
                     </label>
                     <p className="text-xs text-muted-foreground">
-                      Google Ads-konvertering, B2B-besökaridentifiering (Snitcher — identifierar
+                      Google Ads-konvertering, B2B-besökaridentifiering (Snitcher – identifierar
                       företag, inte individer) och klickstatistik på partnerlänkar.
                     </p>
                   </div>

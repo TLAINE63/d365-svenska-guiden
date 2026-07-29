@@ -47,7 +47,7 @@ const snapshotBySlug: Record<string, IndustryPage> = {};
 export function useIndustryPage(slug: string | undefined) {
   const initial = slug ? snapshotBySlug[slug] || null : null;
   const [page, setPage] = useState<IndustryPage | null>(initial);
-  // If we have a static snapshot, never show loading state — we already have content.
+  // If we have a static snapshot, never show loading state – we already have content.
   const [loading, setLoading] = useState(!initial);
   const [error, setError] = useState<string | null>(null);
 
@@ -68,7 +68,7 @@ export function useIndustryPage(slug: string | undefined) {
       if (cancelled) return;
       if (error) {
         setError(error.message);
-        // Keep snapshot value on error — do not blank out content.
+        // Keep snapshot value on error – do not blank out content.
       } else if (data) {
         setPage(data as unknown as IndustryPage);
       } else if (!initial) {

@@ -149,7 +149,7 @@ interface AiMatchResult {
 
 const TOTAL_STEPS = 6;
 
-// Step 6: Company size — short, friendly labels mapped to the canonical buckets
+// Step 6: Company size – short, friendly labels mapped to the canonical buckets
 const sizeOptions: { value: string; label: string; desc: string }[] = [
   { value: "1-49", label: "1–49 anställda", desc: "Mindre bolag" },
   { value: "50-99", label: "50–99 anställda", desc: "SMB" },
@@ -200,7 +200,7 @@ const KomIgang = () => {
     "",
     "",
     "Detta hjälper oss avgöra vilken nivå av lösning och partner som passar",
-    "Vi prioriterar partners med erfarenhet av organisationer i er storlek — hoppa över om du är osäker",
+    "Vi prioriterar partners med erfarenhet av organisationer i er storlek – hoppa över om du är osäker",
   ];
 
   const findPartners = async () => {
@@ -457,9 +457,9 @@ const KomIgang = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-muted/40 to-muted/80" />
           <div className="container mx-auto px-4 sm:px-6 text-center relative z-10">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-1">
-              Några frågor — sedan en kortlista att gå vidare med
+              Några frågor – sedan en kortlista att gå vidare med
             </h1>
-            <p className="text-sm sm:text-base text-muted-foreground">Vi ringar in bransch, behov och ambitionsnivå och visar vilka partners som faktiskt matchar — utan säljpåverkan.</p>
+            <p className="text-sm sm:text-base text-muted-foreground">Vi ringar in bransch, behov och ambitionsnivå och visar vilka partners som faktiskt matchar – utan säljpåverkan.</p>
           </div>
         </section>
 
@@ -755,7 +755,7 @@ const KomIgang = () => {
                     }}
                     className="mt-4 mx-auto block text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
                   >
-                    Hoppa över — visa alla relevanta partners
+                    Hoppa över – visa alla relevanta partners
                   </button>
                 </div>
               )}

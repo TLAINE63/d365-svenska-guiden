@@ -4,12 +4,12 @@
 //
 // Intervallen är typiska partner­offerter på den svenska marknaden för
 // genomsnittliga införanden. Komplexa branscher, många integrationer eller
-// dålig datakvalitet kan flytta projekt över det övre spannet — och tvärtom.
+// dålig datakvalitet kan flytta projekt över det övre spannet – och tvärtom.
 
 export type CostRange = {
   /** S, M eller L. */
   size: "S" | "M" | "L";
-  /** Etikett ovanför kortet, t.ex. "Liten — 5–25 användare". */
+  /** Etikett ovanför kortet, t.ex. "Liten – 5–25 användare". */
   label: string;
   /** Vad som typiskt ingår i denna storlek. */
   scope: string;
@@ -24,7 +24,7 @@ export type CostBreakdownContent = {
   pricingModel: string;
   /** Implementations­intervall (S/M/L). */
   ranges: CostRange[];
-  /** Vanliga kostnadsdrivare — checklista. */
+  /** Vanliga kostnadsdrivare – checklista. */
   drivers: string[];
   /** Löpande kostnader efter go-live (förvaltning, vidareutveckling, AI-tillägg etc). */
   ongoing: string[];
@@ -33,7 +33,7 @@ export type CostBreakdownContent = {
 };
 
 const SHARED_NOTE =
-  "Intervallen är typiska partnerprojekt på svenska marknaden. Komplex bransch, många integrationer eller dålig datakvalitet flyttar projekt över det övre spannet — och tvärtom. Be alltid om en fast­prisad upptäcktsfas innan ni signerar hela projektet.";
+  "Intervallen är typiska partnerprojekt på svenska marknaden. Komplex bransch, många integrationer eller dålig datakvalitet flyttar projekt över det övre spannet – och tvärtom. Be alltid om en fast­prisad upptäcktsfas innan ni signerar hela projektet.";
 
 export const costBreakdowns: Record<string, CostBreakdownContent> = {
   "business-central": {
@@ -42,21 +42,21 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
     ranges: [
       {
         size: "S",
-        label: "Liten — 5–25 användare",
+        label: "Liten – 5–25 användare",
         scope: "Standard ekonomi + inköp/försäljning, 1–2 integrationer, mall-baserad migrering.",
         oneTime: "400 000 – 900 000 kr",
         weeks: "8–14 veckor",
       },
       {
         size: "M",
-        label: "Medel — 25–75 användare",
+        label: "Medel – 25–75 användare",
         scope: "Lager, produktion eller projekt, 3–5 integrationer, branschapp och Power BI.",
         oneTime: "900 000 – 2 500 000 kr",
         weeks: "14–24 veckor",
       },
       {
         size: "L",
-        label: "Stor — 75–200 användare",
+        label: "Stor – 75–200 användare",
         scope: "Flera bolag/valutor, EDI, e-handel, avancerad lager/produktion, flera roll-outs.",
         oneTime: "2 500 000 – 6 000 000 kr",
         weeks: "24–40 veckor",
@@ -81,25 +81,25 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
 
   "finance-scm": {
     pricingModel:
-      "F&SCM är Microsofts tunga ERP — både licens­kostnad och implementations­kostnad ligger en bra bit över Business Central. Räkna med licens från ~2 000 kr/användare/månad (Finance eller Supply Chain) plus en engångs­kostnad där implementationen ofta är 2–5x årslicensen.",
+      "F&SCM är Microsofts tunga ERP – både licens­kostnad och implementations­kostnad ligger en bra bit över Business Central. Räkna med licens från ~2 000 kr/användare/månad (Finance eller Supply Chain) plus en engångs­kostnad där implementationen ofta är 2–5x årslicensen.",
     ranges: [
       {
         size: "S",
-        label: "Liten — 50–150 användare",
+        label: "Liten – 50–150 användare",
         scope: "1 bolag, standard­processer, 3–5 integrationer, en geografi.",
         oneTime: "3 000 000 – 7 000 000 kr",
         weeks: "20–36 veckor",
       },
       {
         size: "M",
-        label: "Medel — 150–500 användare",
+        label: "Medel – 150–500 användare",
         scope: "Flera bolag/länder, WMS eller produktion, 6–12 integrationer, master data-projekt.",
         oneTime: "7 000 000 – 20 000 000 kr",
         weeks: "9–18 månader",
       },
       {
         size: "L",
-        label: "Stor — 500+ användare",
+        label: "Stor – 500+ användare",
         scope: "Global koncern, flera roll-outs, MES/EDI/avancerad lager, omfattande change-program.",
         oneTime: "20 000 000 – 60 000 000+ kr",
         weeks: "18–36 månader",
@@ -124,25 +124,25 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
 
   "sales": {
     pricingModel:
-      "CRM-kostnaden består av licens (Sales Professional ~620 kr, Enterprise ~1 000 kr eller Premium ~1 435 kr per användare/månad) plus en engångs­kostnad för implementationen. Sales­projekt är typiskt mindre och snabbare än ERP — men 'litet' betyder inte 'gratis'.",
+      "CRM-kostnaden består av licens (Sales Professional ~620 kr, Enterprise ~1 000 kr eller Premium ~1 435 kr per användare/månad) plus en engångs­kostnad för implementationen. Sales­projekt är typiskt mindre och snabbare än ERP – men 'litet' betyder inte 'gratis'.",
     ranges: [
       {
         size: "S",
-        label: "Liten — 10–30 säljare",
+        label: "Liten – 10–30 säljare",
         scope: "Standard sales­process, 1–2 integrationer, mall-baserad migrering från befintligt CRM.",
         oneTime: "250 000 – 600 000 kr",
         weeks: "6–12 veckor",
       },
       {
         size: "M",
-        label: "Medel — 30–100 säljare",
+        label: "Medel – 30–100 säljare",
         scope: "Flera affärs­områden, ERP-integration, säljkår med distrikt och produkt­grupper.",
         oneTime: "600 000 – 1 500 000 kr",
         weeks: "12–22 veckor",
       },
       {
         size: "L",
-        label: "Stor — 100+ säljare",
+        label: "Stor – 100+ säljare",
         scope: "Global säljkår, Copilot for Sales, Sales Premium med samtals­intelligens, omfattande integration.",
         oneTime: "1 500 000 – 4 000 000 kr",
         weeks: "20–32 veckor",
@@ -167,25 +167,25 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
 
   "customer-service": {
     pricingModel:
-      "Customer Service prissätts per agent och månad (Professional ~480 kr, Enterprise ~1 000 kr, Premium ~1 865 kr — de två sistnämnda har 40 % kampanj­rabatt under perioden okt 2025 – jun 2026). Implementationen är en engångs­kostnad där omnikanal, kunskapsbas och Copilot är de stora drivarna.",
+      "Customer Service prissätts per agent och månad (Professional ~480 kr, Enterprise ~1 000 kr, Premium ~1 865 kr – de två sistnämnda har 40 % kampanj­rabatt under perioden okt 2025 – jun 2026). Implementationen är en engångs­kostnad där omnikanal, kunskapsbas och Copilot är de stora drivarna.",
     ranges: [
       {
         size: "S",
-        label: "Liten — 5–20 agenter",
+        label: "Liten – 5–20 agenter",
         scope: "Ärende­hantering, en kanal (e-post eller chatt), enkel kunskapsbas, enkla SLA:er.",
         oneTime: "250 000 – 600 000 kr",
         weeks: "6–12 veckor",
       },
       {
         size: "M",
-        label: "Medel — 20–75 agenter",
+        label: "Medel – 20–75 agenter",
         scope: "Omnikanal (e-post, chatt, telefoni), kunskapsbas, SLA, ERP-integration, första Copilot-användning.",
         oneTime: "600 000 – 1 800 000 kr",
         weeks: "12–22 veckor",
       },
       {
         size: "L",
-        label: "Stor — 75+ agenter",
+        label: "Stor – 75+ agenter",
         scope: "Multi-brand, flera språk, integrerad röstkanal, IVR, agentassistent, kund­portal.",
         oneTime: "1 800 000 – 5 000 000 kr",
         weeks: "20–36 veckor",
@@ -201,7 +201,7 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
     ],
     ongoing: [
       "Förvaltning hos partner: typiskt 15–20 % av projekt­kostnad per år",
-      "Underhåll av kunskapsbasen — annars tappar Copilot och självbetjäning värde",
+      "Underhåll av kunskapsbasen – annars tappar Copilot och självbetjäning värde",
       "Justering av SLA, köer och kompetens­routning",
       "AI-tillägg (Copilot, agenter, sentiment, sammanfattningar)",
     ],
@@ -214,21 +214,21 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
     ranges: [
       {
         size: "S",
-        label: "Liten — 10–30 agenter",
+        label: "Liten – 10–30 agenter",
         scope: "En kanal (röst eller digital), enkel IVR, standard­routning, en geografi.",
         oneTime: "500 000 – 1 200 000 kr",
         weeks: "10–16 veckor",
       },
       {
         size: "M",
-        label: "Medel — 30–100 agenter",
+        label: "Medel – 30–100 agenter",
         scope: "Omnikanal (röst + digital + self-service), AI-routning, kunskapsbas, ERP-integration.",
         oneTime: "1 200 000 – 3 000 000 kr",
         weeks: "16–28 veckor",
       },
       {
         size: "L",
-        label: "Stor — 100+ agenter",
+        label: "Stor – 100+ agenter",
         scope: "Flera varumärken/länder, avancerad IVR, agent­assistans, WFM och kvalitetsuppföljning.",
         oneTime: "3 000 000 – 8 000 000 kr",
         weeks: "24–40 veckor",
@@ -257,21 +257,21 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
     ranges: [
       {
         size: "S",
-        label: "Liten — 10–30 tekniker",
+        label: "Liten – 10–30 tekniker",
         scope: "Standard arbets­order, schemaläggning, mobil­app, en integration mot ERP.",
         oneTime: "400 000 – 1 000 000 kr",
         weeks: "10–16 veckor",
       },
       {
         size: "M",
-        label: "Medel — 30–100 tekniker",
+        label: "Medel – 30–100 tekniker",
         scope: "Resurs­optimerad schemaläggning, kontrakts­hantering, lager i bil, IoT-larm.",
         oneTime: "1 000 000 – 2 500 000 kr",
         weeks: "16–26 veckor",
       },
       {
         size: "L",
-        label: "Stor — 100+ tekniker",
+        label: "Stor – 100+ tekniker",
         scope: "Flera länder, sub­kontraktörer, avancerad SLA, Remote Assist, Copilot för fältarbete.",
         oneTime: "2 500 000 – 6 000 000 kr",
         weeks: "24–36 veckor",
@@ -296,25 +296,25 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
 
   "commerce": {
     pricingModel:
-      "Commerce är en av Microsofts mest omfattande Dynamics 365-applikationer — POS, e-handel, lojalitet och back-office i ett. Licens ~2 000 kr/användare/månad plus en e-handels­tilläggs­licens (~38 000 kr/månad) för nät­handeln. Implementationen är alltid ett större program.",
+      "Commerce är en av Microsofts mest omfattande Dynamics 365-applikationer – POS, e-handel, lojalitet och back-office i ett. Licens ~2 000 kr/användare/månad plus en e-handels­tilläggs­licens (~38 000 kr/månad) för nät­handeln. Implementationen är alltid ett större program.",
     ranges: [
       {
         size: "S",
-        label: "Liten — 5–20 butiker / mindre e-handel",
+        label: "Liten – 5–20 butiker / mindre e-handel",
         scope: "POS i butik, enkel e-handel, en marknad, standard­lojalitet.",
         oneTime: "1 500 000 – 3 500 000 kr",
         weeks: "16–28 veckor",
       },
       {
         size: "M",
-        label: "Medel — 20–100 butiker / multikanal",
+        label: "Medel – 20–100 butiker / multikanal",
         scope: "POS + e-handel + clienteling, flera marknader, lojalitet, integration mot 3PL/WMS.",
         oneTime: "3 500 000 – 9 000 000 kr",
         weeks: "9–15 månader",
       },
       {
         size: "L",
-        label: "Stor — 100+ butiker / global multibrand",
+        label: "Stor – 100+ butiker / global multibrand",
         scope: "Flera varumärken, länder, valutor, avancerad pris/promo, kund­data­plattform.",
         oneTime: "9 000 000 – 25 000 000+ kr",
         weeks: "15–30 månader",
@@ -339,25 +339,25 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
 
   "project-operations": {
     pricingModel:
-      "Project Operations kostar ~1 290 kr per användare/månad i licens. Implementationen drivs av hur ni säljer och levererar projekt — fastprist, löpande räkning, abonnemang — och hur tätt det ska integreras mot ekonomi och resurs­planering.",
+      "Project Operations kostar ~1 290 kr per användare/månad i licens. Implementationen drivs av hur ni säljer och levererar projekt – fastprist, löpande räkning, abonnemang – och hur tätt det ska integreras mot ekonomi och resurs­planering.",
     ranges: [
       {
         size: "S",
-        label: "Liten — 20–75 användare",
+        label: "Liten – 20–75 användare",
         scope: "Standard projekt­säljprocess, tidrapport, faktura­underlag, integration mot ekonomi.",
         oneTime: "400 000 – 900 000 kr",
         weeks: "10–16 veckor",
       },
       {
         size: "M",
-        label: "Medel — 75–250 användare",
+        label: "Medel – 75–250 användare",
         scope: "Resurs­planering, kontrakts­hantering, intäkts­avräkning, integration mot ERP och HR.",
         oneTime: "900 000 – 2 200 000 kr",
         weeks: "16–28 veckor",
       },
       {
         size: "L",
-        label: "Stor — 250+ användare",
+        label: "Stor – 250+ användare",
         scope: "Global konsultorganisation, multivaluta, IFRS 15-intäkts­avräkning, flera affärs­modeller.",
         oneTime: "2 200 000 – 5 000 000 kr",
         weeks: "24–36 veckor",
@@ -386,21 +386,21 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
     ranges: [
       {
         size: "S",
-        label: "Liten — upp till 500 anställda",
+        label: "Liten – upp till 500 anställda",
         scope: "Personal­akt, frånvaro, semester, integration mot ett lönesystem.",
         oneTime: "300 000 – 700 000 kr",
         weeks: "8–14 veckor",
       },
       {
         size: "M",
-        label: "Medel — 500–2 500 anställda",
+        label: "Medel – 500–2 500 anställda",
         scope: "Rekrytering, onboarding, mål/lön, kompetens, integration mot lön och AD/Entra.",
         oneTime: "700 000 – 1 500 000 kr",
         weeks: "14–22 veckor",
       },
       {
         size: "L",
-        label: "Stor — 2 500+ anställda",
+        label: "Stor – 2 500+ anställda",
         scope: "Flera länder, kollektiv­avtal, succession, lärande­plattform, integration mot flera lönesystem.",
         oneTime: "1 500 000 – 3 000 000 kr",
         weeks: "22–36 veckor",
@@ -429,21 +429,21 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
     ranges: [
       {
         size: "S",
-        label: "Liten — 1–2 marknader, enkla utskick",
+        label: "Liten – 1–2 marknader, enkla utskick",
         scope: "Standard e-postutskick, enkla segment, integration mot CRM, enkel landnings­sida.",
         oneTime: "250 000 – 600 000 kr",
         weeks: "6–12 veckor",
       },
       {
         size: "M",
-        label: "Medel — flera resor och kanaler",
+        label: "Medel – flera resor och kanaler",
         scope: "Triggade kund­resor, lead scoring, event­hantering, integration mot CMS och webb­analys.",
         oneTime: "600 000 – 1 200 000 kr",
         weeks: "10–18 veckor",
       },
       {
         size: "L",
-        label: "Stor — multi-brand, multi-marknad",
+        label: "Stor – multi-brand, multi-marknad",
         scope: "Avancerad personalisering, Customer Insights – Data, AI-segment, content­ops i stor skala.",
         oneTime: "1 200 000 – 3 000 000 kr",
         weeks: "18–28 veckor",
@@ -468,25 +468,25 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
 
   "copilot": {
     pricingModel:
-      "Copilot för Dynamics 365 består av två delar: (1) inkluderade funktioner i licensen (sammanfattningar, e-postförslag, sökningar) och (2) konsumtions­baserade agenter och egna Copilots som mäts i meddelanden/credits. Implementationen är typiskt mycket mindre än en ny applikation — men förvaltning och adoption är kritiska för att få värde.",
+      "Copilot för Dynamics 365 består av två delar: (1) inkluderade funktioner i licensen (sammanfattningar, e-postförslag, sökningar) och (2) konsumtions­baserade agenter och egna Copilots som mäts i meddelanden/credits. Implementationen är typiskt mycket mindre än en ny applikation – men förvaltning och adoption är kritiska för att få värde.",
     ranges: [
       {
         size: "S",
-        label: "Pilot — 10–50 användare, 1 use-case",
+        label: "Pilot – 10–50 användare, 1 use-case",
         scope: "Aktivera inkluderade Copilot-funktioner, en agent eller egen Copilot på avgränsat område.",
         oneTime: "100 000 – 300 000 kr",
         weeks: "4–8 veckor",
       },
       {
         size: "M",
-        label: "Utrullning — flera team / use-cases",
+        label: "Utrullning – flera team / use-cases",
         scope: "3–5 use-cases, kunskaps­källor strukturerade, mätning och guardrails på plats.",
         oneTime: "300 000 – 1 000 000 kr",
         weeks: "8–16 veckor",
       },
       {
         size: "L",
-        label: "Enterprise — agenter i produktion",
+        label: "Enterprise – agenter i produktion",
         scope: "Egna agenter mot processer (service, sälj, ekonomi), integration mot fler system, governance och säkerhets­modell.",
         oneTime: "1 000 000 – 3 000 000+ kr",
         weeks: "12–28 veckor",
@@ -498,10 +498,10 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
       "Datasäkerhet: vem får se vad, hur sätts behörigheter",
       "Antal egna agenter och hur djupt de integreras",
       "Konsumtion: meddelanden/credits per agent och månad",
-      "Förändrings­ledning och utbildning — annars används Copilot inte",
+      "Förändrings­ledning och utbildning – annars används Copilot inte",
     ],
     ongoing: [
-      "Konsumtion (meddelanden/credits) — kan svänga kraftigt med användning",
+      "Konsumtion (meddelanden/credits) – kan svänga kraftigt med användning",
       "Förvaltning av prompts, kunskaps­källor och guardrails",
       "Uppföljning av kvalitet: hallucinationer, fel­svar, känsliga ämnen",
       "Vidareutveckling när Microsoft släpper nya funktioner och agent-mallar",

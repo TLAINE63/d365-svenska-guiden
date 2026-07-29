@@ -35,7 +35,7 @@ const UnprofiledPartnersList = ({
 
   const combined = useMemo<ListItem[]>(() => {
     const items: ListItem[] = [];
-    // Basic partners first — they have a real basic-profile page, so they win
+    // Basic partners first – they have a real basic-profile page, so they win
     // dedupe over name-only entries and can be linked.
     (basicPartners || [])
       .filter((p) => {

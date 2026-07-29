@@ -368,7 +368,7 @@ const handler = async (req: Request): Promise<Response> => {
                     <p style="margin:0 0 16px 0;">
                       En besökare på <a href="https://www.d365.se" style="color:#D64A1F;">d365.se</a> har skickat en ${requestLabel.toLowerCase()} till <strong>${p.name}</strong>${sanitizedData.selected_product ? ` gällande <strong>${sanitizedData.selected_product}</strong>` : ""}.
                       d365.se är kopierad (CC/BCC) på detta mejl för uppföljning och dialogen kring förfrågan.
-                      Svara direkt till kunden genom att klicka på "Svara" — då går mejlet till ${sanitizedData.email}.
+                      Svara direkt till kunden genom att klicka på "Svara" – då går mejlet till ${sanitizedData.email}.
                     </p>
 
                     <h3 style="color:#111827; border-bottom: 2px solid #D64A1F; padding-bottom: 6px; margin-top:24px; font-size:15px;">Kontaktuppgifter</h3>

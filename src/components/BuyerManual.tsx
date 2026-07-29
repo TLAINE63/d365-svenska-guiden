@@ -15,7 +15,7 @@ const blocks = [
     key: "notFit" as const,
     icon: AlertTriangle,
     title: "När passar det inte?",
-    description: "Scenarier där den här produkten är fel verktyg — eller fel tidpunkt.",
+    description: "Scenarier där den här produkten är fel verktyg – eller fel tidpunkt.",
   },
   {
     key: "underestimated" as const,

@@ -23,7 +23,7 @@
 export type LegacyRedirect = {
   from: string;
   to: string;
-  /** Documented intent — 301 (permanent) for renamed canonical URLs. */
+  /** Documented intent – 301 (permanent) for renamed canonical URLs. */
   intendedStatus: 301 | 308;
 };
 
@@ -81,12 +81,12 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   { from: "/dynamics-365-customer-engagement-crm", to: "/crm",            intendedStatus: 301 },
   { from: "/dynamics-365-erp-business-central",    to: "/businesscentral", intendedStatus: 301 },
 
-  // Beslutsmognad — kortat namn (gammalt: beslutsmognadsindex)
+  // Beslutsmognad – kortat namn (gammalt: beslutsmognadsindex)
   { from: "/beslutsmognadsindex",            to: "/beslutsmognad",           intendedStatus: 301 },
   { from: "/beslutsmognadsindex/diagnostik", to: "/beslutsmognad/diagnostik", intendedStatus: 301 },
   { from: "/beslutsmognadsindex/tack",       to: "/beslutsmognad/tack",       intendedStatus: 301 },
 
-  // (adbriq-profilen är återpublicerad — ingen redirect längre)
+  // (adbriq-profilen är återpublicerad – ingen redirect längre)
 ];
 
 const SITE_ORIGIN = "https://d365.se";

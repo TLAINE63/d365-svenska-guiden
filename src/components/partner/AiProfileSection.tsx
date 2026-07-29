@@ -183,7 +183,7 @@ export default function AiProfileSection({ value, onChange }: Props) {
           <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
             Beskriv hur ni hjälper kunder med AI, Copilot och automation i Microsoft Dynamics 365- och
             Power Platform-miljöer. Markera endast områden där ni har faktisk erfarenhet från
-            rådgivning, pilot eller kundprojekt. Ni behöver inte ange kundnamn — kundreferenser kan
+            rådgivning, pilot eller kundprojekt. Ni behöver inte ange kundnamn – kundreferenser kan
             anges som "lämnas på förfrågan".
           </p>
         </div>

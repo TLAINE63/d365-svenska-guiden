@@ -64,7 +64,7 @@ const roles = [
 ];
 
 const benefits = [
- { icon: Brain, text: "AI-effekten beror på datakvaliteten — inte på licensen" },
+ { icon: Brain, text: "AI-effekten beror på datakvaliteten – inte på licensen" },
  { icon: Cog, text: "Copilot fungerar bäst när CRM/ERP-data är komplett och strukturerad" },
  { icon: Bot, text: "Agenter kräver tydliga processer och ett namngivet ägarskap" },
  { icon: ShieldAlert, text: "Automatisering utan processkontroll skapar nya problem, inte färre" },
@@ -181,7 +181,7 @@ const erpScenarios = [
 ];
 
 const practicalEffects = [
- "Datakvalitet i CRM/ERP är på plats — annars hallucinerar Copilot",
+ "Datakvalitet i CRM/ERP är på plats – annars hallucinerar Copilot",
  "Processerna är dokumenterade innan en agent automatiserar dem",
  "Ett namngivet ägarskap finns för varje AI-funktion som aktiveras",
  "Governance och behörigheter är genomgångna före utrullning",
@@ -225,7 +225,7 @@ const AIOverview = () => {
   AI i Dynamics 365 kräver mer än Copilot-licenser
   </h1>
   <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
-  Copilot och agenter kräver data, process och ansvar. Utan den grunden uteblir effekten — oavsett hur många licenser ni köper. Den här sidan reder ut vad Copilot och agenter faktiskt kräver — och var partnervalet börjar spela roll.
+  Copilot och agenter kräver data, process och ansvar. Utan den grunden uteblir effekten – oavsett hur många licenser ni köper. Den här sidan reder ut vad Copilot och agenter faktiskt kräver – och var partnervalet börjar spela roll.
   </p>
   <div className="flex flex-col sm:flex-row gap-3">
   <Link
@@ -731,7 +731,7 @@ const AIOverview = () => {
  ))}
  </div>
  <p className="text-xs text-muted-foreground text-center mt-6 italic">
- Effektsiffror som "20–40% tidsbesparing" varierar kraftigt mellan organisationer och bör behandlas som exempel — inte som löften. Bedöm potentialen i er egen kontext via AI-mognadstestet.
+ Effektsiffror som "20–40% tidsbesparing" varierar kraftigt mellan organisationer och bör behandlas som exempel – inte som löften. Bedöm potentialen i er egen kontext via AI-mognadstestet.
  </p>
  </section>
 
@@ -781,10 +781,10 @@ const AIOverview = () => {
  <CardContent className="p-6 sm:p-10 text-center">
  <span className="text-4xl mb-4 block">🧠</span>
  <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
- Innan ni investerar — bedöm er AI-mognad
+ Innan ni investerar – bedöm er AI-mognad
  </h2>
  <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
- Större AI-investeringar bör baseras på faktisk mognad i data, processer och ägarskap — inte på licenstillgänglighet. Testa er mognad eller börja med en strukturerad behovsanalys.
+ Större AI-investeringar bör baseras på faktisk mognad i data, processer och ägarskap – inte på licenstillgänglighet. Testa er mognad eller börja med en strukturerad behovsanalys.
  </p>
  <div className="flex flex-col sm:flex-row gap-3 justify-center">
  <Link

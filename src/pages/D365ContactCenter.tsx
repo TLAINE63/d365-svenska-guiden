@@ -91,7 +91,7 @@ const D365ContactCenter = () => {
         eyebrow="Dynamics 365 Contact Center"
         title="Contact Center."
         titleAccent="Omnichannel är inte plug-and-play. Partnervalet avgör projektframgången."
-        subhead="En bank med hård regelefterlevnad och identitetsverifiering driver Contact Center helt annorlunda än en e-handelsaktör med säsongstoppar och returer. AI:n och kanalerna är samma — men hur partnern designar röstflöden, automatiseringen och anpassningarna till era branschkrav avgör om systemet sänker samtalstid och höjer kundnöjdhet eller bara läggs ovanpå ett gammalt arbetssätt. Här jämför ni partners som faktiskt levererat Contact Center i er bransch och samtalsvolym."
+        subhead="En bank med hård regelefterlevnad och identitetsverifiering driver Contact Center helt annorlunda än en e-handelsaktör med säsongstoppar och returer. AI:n och kanalerna är samma – men hur partnern designar röstflöden, automatiseringen och anpassningarna till era branschkrav avgör om systemet sänker samtalstid och höjer kundnöjdhet eller bara läggs ovanpå ett gammalt arbetssätt. Här jämför ni partners som faktiskt levererat Contact Center i er bransch och samtalsvolym."
         primary={{
           label: "Jämför CC-partners",
           onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
@@ -105,7 +105,7 @@ const D365ContactCenter = () => {
 
       <ShortAnswer title="Vad är Dynamics 365 Contact Center">
         <p>
-          Dynamics 365 Contact Center är Microsofts AI-drivna omnikanal-plattform för moderna kundservicecenter — en fristående lösning som kan användas ovanpå ett befintligt CRM (Salesforce, ServiceNow eller Dynamics 365) eller som en del av en samlad Microsoft-värld.
+          Dynamics 365 Contact Center är Microsofts AI-drivna omnikanal-plattform för moderna kundservicecenter – en fristående lösning som kan användas ovanpå ett befintligt CRM (Salesforce, ServiceNow eller Dynamics 365) eller som en del av en samlad Microsoft-värld.
         </p>
         <p>
           Plattformen samlar röst, chatt, SMS, e-post, sociala medier, WhatsApp och digital självbetjäning i en enda agentupplevelse, med inbyggd telefoni via Azure Communication Services och avancerad IVR där kunden kan beskriva sitt ärende i klartext istället för att navigera knappval.
@@ -117,7 +117,7 @@ const D365ContactCenter = () => {
           Realtidsdashboards och historiska analyser ger driftansvariga full kontroll på SLA, bemanning, första-svarstid och kundnöjdhet, medan integration med Microsoft 365, Teams, Dataverse och Power Platform gör det enkelt att bygga skräddarsydda flöden och rapporter.
         </p>
         <p>
-          Lösningen passar både rena callcenter och bredare kundserviceorganisationer som vill konsolidera kanaler, sänka samtalstider och låta AI ta hand om den enkla volymen — men design av röstflöden, kunskapsbas och integrationer avgör hur stort lyftet faktiskt blir.
+          Lösningen passar både rena callcenter och bredare kundserviceorganisationer som vill konsolidera kanaler, sänka samtalstider och låta AI ta hand om den enkla volymen – men design av röstflöden, kunskapsbas och integrationer avgör hur stort lyftet faktiskt blir.
         </p>
       </ShortAnswer>
 
@@ -288,7 +288,7 @@ const D365ContactCenter = () => {
 
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center mb-3">Fördjupningsartiklar</h2>
-          <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">Utforska Dynamics 365 Contact Center på djupet — från AI-drivna voicebots och intelligent routing till compliance och conversational intelligence.</p>
+          <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">Utforska Dynamics 365 Contact Center på djupet – från AI-drivna voicebots och intelligent routing till compliance och conversational intelligence.</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
             {CC_ARTICLES.map((article) => (
               <Link

@@ -91,7 +91,7 @@ function bucketReferrer(ref: string | null, firstUrl?: string | null): string | 
       if (h.includes("linkedin")) return "LinkedIn";
       if (h.includes("facebook") || h.includes("instagram")) return "Sociala medier";
       if (h.includes("d365.se")) {
-        // fall through — treat internal as based on landing page
+        // fall through – treat internal as based on landing page
       } else if (!h.includes("lovable")) {
         return h;
       }
@@ -359,7 +359,7 @@ function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: str
 
   // "Var ni syntes"
   const industryRows = industryPagesListed
-    .map((p) => `<li style="margin:4px 0;line-height:1.55">Branschguiden för <strong>${esc(p.name)}</strong> — ${p.views} visningar med ert kort under perioden.</li>`)
+    .map((p) => `<li style="margin:4px 0;line-height:1.55">Branschguiden för <strong>${esc(p.name)}</strong> – ${p.views} visningar med ert kort under perioden.</li>`)
     .join("");
   const newsRows = partnerNews
     .map((n) => `<li style="margin:4px 0;line-height:1.55">Partnernytt ${esc(n.date)}: <a href="${esc(n.url)}" style="color:#0f1f3d">${esc(n.title)}</a></li>`)

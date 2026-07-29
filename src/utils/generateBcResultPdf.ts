@@ -79,7 +79,7 @@ export async function generateBcResultPdf(result: BcResult, _answers: BcAnswers,
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     for (const s of items) {
-      const txt = s.note ? `• ${s.area} — ${s.note}` : `• ${s.area}`;
+      const txt = s.note ? `• ${s.area} – ${s.note}` : `• ${s.area}`;
       const lines = doc.splitTextToSize(txt, pageW - 2 * margin - 4);
       if (y + lines.length * 4.6 > pageH - 20) {
         doc.addPage();
