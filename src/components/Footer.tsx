@@ -120,6 +120,15 @@ const Footer = () => {
               Så fungerar partnersamarbetet
             </Link>
             <span className="text-[hsl(var(--line-dark))]">|</span>
+            <a
+              href="https://fpaa.se"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              FPAA – finansiell planering & analys
+            </a>
+            <span className="text-[hsl(var(--line-dark))]">|</span>
             <Link to="/friskrivning/" className="hover:text-white transition-colors">
               Friskrivning
             </Link>

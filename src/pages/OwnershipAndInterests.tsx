@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import { Mail, CheckCircle2, Users, Scale, BookOpen } from "lucide-react";
+import { Mail, CheckCircle2, Users, Scale, BookOpen, ExternalLink } from "lucide-react";
 
 export default function OwnershipAndInterests() {
   return (
