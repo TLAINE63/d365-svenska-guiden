@@ -509,7 +509,7 @@ serve(async (req: Request): Promise<Response> => {
       }
 
       case "list-contact-blocked-counts": {
-        // Aggregated counter for admin — count of anonymous blocked contact
+        // Aggregated counter for admin – count of anonymous blocked contact
         // attempts per Basic partner. No buyer data is stored, so nothing
         // beyond raw counts can be returned even in principle.
         const { data, error } = await supabase

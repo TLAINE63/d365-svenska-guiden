@@ -271,7 +271,7 @@ const PartnerCard = ({
  }
  };
 
- // Clean URL — query context is preserved via sessionStorage
+ // Clean URL – query context is preserved via sessionStorage
  const cleanProfileUrl = profileUrl.split("?")[0];
 
  // Get product-specific data - handle both data types

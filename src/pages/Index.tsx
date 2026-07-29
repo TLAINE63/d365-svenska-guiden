@@ -145,7 +145,7 @@ const Index = () => {
   const directionOptions = {
     behovsanalys: {
       title: "Vilken behovsanalys vill ni göra?",
-      desc: "Välj område — så får ni rätt frågor och en rekommendation som faktiskt passar er situation.",
+      desc: "Välj område – så får ni rätt frågor och en rekommendation som faktiskt passar er situation.",
       options: [
         { label: "ERP / Affärssystem", sub: "Business Central eller Finance & SCM", link: "/ERPbehovsanalys/" },
         { label: "Sälj & Marknad (CRM)", sub: "Sales, Customer Insights (Marketing)", link: "/CRMbehovsanalys/" },
@@ -154,7 +154,7 @@ const Index = () => {
     },
     kravspec: {
       title: "Vilken kravspec vill ni bygga?",
-      desc: "Välj område — så genererar vi ett underlag som matchar rätt Dynamics 365-applikation.",
+      desc: "Välj område – så genererar vi ett underlag som matchar rätt Dynamics 365-applikation.",
       options: [
         { label: "ERP / Affärssystem", sub: "Business Central eller Finance & SCM", link: "/kravspecifikation/" },
         { label: "Försäljning (Sales)", sub: "Dynamics 365 Sales", link: "/kravspecifikation-sales/" },
@@ -179,7 +179,7 @@ const Index = () => {
       eyebrow: "Förstå behov",
       icon: ClipboardCheck,
       title: "Vi behöver ringa in behovet",
-      desc: "Börja med att klargöra vad verksamheten faktiskt behöver — innan ni jämför system och partners.",
+      desc: "Börja med att klargöra vad verksamheten faktiskt behöver – innan ni jämför system och partners.",
       cta: "Starta en behovsanalys",
       onClick: () => setDirectionPicker("behovsanalys"),
     },
@@ -250,7 +250,7 @@ const Index = () => {
       <Navbar />
 
       <main>
-        {/* SECTION 1 — HERO */}
+        {/* SECTION 1 – HERO */}
         <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 relative overflow-hidden border-b border-[hsl(var(--line-dark))]">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
             <div className="max-w-4xl">
@@ -335,7 +335,7 @@ const Index = () => {
                 </p>
               </div>
 
-              {/* Trust / stats strip — unified grid with equal height and rhythm */}
+              {/* Trust / stats strip – unified grid with equal height and rhythm */}
               <div className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 auto-rows-fr">
                 <Link
                   to="/alla-d365-partners/"
@@ -364,10 +364,10 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Transparency strip — svar på "säljer ni något?" */}
+        {/* Transparency strip – svar på "säljer ni något?" */}
         <TrustBanner variant="compact" />
 
-        {/* SECTION 3 — WHERE ARE YOU */}
+        {/* SECTION 3 – WHERE ARE YOU */}
         <section className="section-divider py-14 sm:py-20 bg-secondary/40 border-b border-border">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <div className="max-w-2xl mb-10">
@@ -378,7 +378,7 @@ const Index = () => {
                 Var står ni i processen?
               </h2>
               <p className="text-[15px] text-muted-foreground leading-relaxed">
-                Tre vanliga utgångslägen — välj det som matchar var ni befinner er idag.
+                Tre vanliga utgångslägen – välj det som matchar var ni befinner er idag.
               </p>
             </div>
 
@@ -429,7 +429,7 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Compare partners CTA section — black background */}
+        {/* Compare partners CTA section – black background */}
         <section className="relative py-12 sm:py-16 md:py-20 bg-[hsl(var(--hero-dark))] overflow-hidden border-b border-border">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent opacity-60" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/15 via-transparent to-transparent opacity-40" />
@@ -442,7 +442,7 @@ const Index = () => {
               Jämför upp till tre partners innan ni kontaktar dem
             </h2>
             <p className="text-base sm:text-lg text-white/70 mb-8 max-w-2xl mx-auto">
-              Välj två till tre partners i listan och få en jämförelsevy över produktområden, branscher, geografisk närvaro, storlek och AI-mognad — så att ni kan gå vidare med rätt kortlista.
+              Välj två till tre partners i listan och få en jämförelsevy över produktområden, branscher, geografisk närvaro, storlek och AI-mognad – så att ni kan gå vidare med rätt kortlista.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button
@@ -459,7 +459,7 @@ const Index = () => {
           </div>
         </section>
 
-        {/* SECTION 4 — TOOLS */}
+        {/* SECTION 4 – TOOLS */}
         <section className="section-divider py-14 sm:py-20 bg-secondary/40 border-b border-border">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <div className="max-w-2xl mb-10">
@@ -470,7 +470,7 @@ const Index = () => {
                 Fördjupa analysen
               </h2>
               <p className="text-[15px] text-muted-foreground leading-relaxed">
-                Fyra kostnadsfria verktyg som stärker beslutet — använd ett eller alla.
+                Fyra kostnadsfria verktyg som stärker beslutet – använd ett eller alla.
               </p>
             </div>
 
@@ -549,10 +549,10 @@ const Index = () => {
           <HomePartnerNewsSection />
         </Suspense>
 
-        {/* SECTION 5 — TRUST (hidden) */}
+        {/* SECTION 5 – TRUST (hidden) */}
 
 
-        {/* SECTION 6 — KNOWLEDGE / LATEST ARTICLES */}
+        {/* SECTION 6 – KNOWLEDGE / LATEST ARTICLES */}
         <section className="section-divider py-14 sm:py-20 bg-background border-b border-border">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
@@ -564,7 +564,7 @@ const Index = () => {
                   Guider och insikter
                 </h2>
                 <p className="text-[15px] text-muted-foreground leading-relaxed">
-                  ERP, CRM, AI och partnerval — uppdaterat löpande.
+                  ERP, CRM, AI och partnerval – uppdaterat löpande.
                 </p>
               </div>
               <Link
@@ -579,14 +579,14 @@ const Index = () => {
           </div>
         </section>
 
-        {/* SECTION 7 — FINAL CTA */}
+        {/* SECTION 7 – FINAL CTA */}
         <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] py-16 sm:py-20 relative overflow-hidden">
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative text-center">
             <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-white tracking-tight mb-4 leading-[1.15]">
               Redo att hitta rätt partner?
             </h2>
             <p className="text-base sm:text-lg text-white/70 font-light leading-relaxed mb-8 max-w-xl mx-auto">
-              Hitta rätt partner — eller boka en kostnadsfri rådgivning först.
+              Hitta rätt partner – eller boka en kostnadsfri rådgivning först.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
               <Button
@@ -678,7 +678,7 @@ const Index = () => {
                   </div>
                 </div>
                 <p className="text-[15px] text-muted-foreground leading-relaxed">
-                  Ett Dynamics 365-val handlar sällan bara om systemfunktioner. Det handlar om rätt omfattning, rätt vägval och framför allt rätt partner. d365.se är byggt för att hjälpa svenska företag komma in i den processen med bättre struktur — innan dialogen blir för bred, för teknisk eller för säljorienterad.
+                  Ett Dynamics 365-val handlar sällan bara om systemfunktioner. Det handlar om rätt omfattning, rätt vägval och framför allt rätt partner. d365.se är byggt för att hjälpa svenska företag komma in i den processen med bättre struktur – innan dialogen blir för bred, för teknisk eller för säljorienterad.
                 </p>
                 <p className="mt-3 inline-flex items-center gap-2 text-[12.5px] sm:text-[13px] text-muted-foreground">
                   <Sparkles className="w-3.5 h-3.5 text-[hsl(var(--signature))]" />
@@ -840,7 +840,7 @@ const Index = () => {
           <RelatedPages pages={indexRelatedPages} heading="Utforska Microsoft Dynamics 365" />
         </section>
 
-        {/* Transparensblocket ligger som SECTION 5 högre upp — undvik dubblering här. */}
+        {/* Transparensblocket ligger som SECTION 5 högre upp – undvik dubblering här. */}
       </main>
       <Suspense fallback={null}><ScrollCTA /></Suspense>
       

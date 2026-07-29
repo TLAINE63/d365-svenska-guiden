@@ -66,7 +66,7 @@ export interface BlogArticle {
   content: ReactNode;
   /** If true, lyfts som "Nytt i Kunskapscentret"-banner på startsidan */
   featured?: boolean;
-  /** Big 5 FAQ — visas som fast modul längst ner i branschartiklar */
+  /** Big 5 FAQ – visas som fast modul längst ner i branschartiklar */
   bigFiveFaq?: { question: string; answer: string }[];
   /**
    * Aktualitetsstatus. Sätts på äldre AI/Copilot-artiklar för att markera att
@@ -189,7 +189,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h2>Vad det innebär för dig som investerar i Dynamics 365</h2>
         <p>Om du planerar att investera i Dynamics 365 bör du utvärdera:</p>
         <ul>
-          <li>Om lösningen designas för agenter — inte bara användare</li>
+          <li>Om lösningen designas för agenter – inte bara användare</li>
           <li>Om partnern har kompetens inom Work IQ och Copilot</li>
           <li>Hur datastyrning och governance hanteras</li>
           <li>Hur M365 och D365 kopplas samman</li>
@@ -199,13 +199,13 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h2>Sammanfattning</h2>
         <p>
           <strong>Rekommendation:</strong> Välj en partner som redan tänker i
-          agenter — inte bara i användare.
+          agenter – inte bara i användare.
         </p>
 
         <h2>Work IQ vs traditionell Dynamics 365-implementation</h2>
         <p>
           Skillnaden mellan Work IQ och traditionell implementation handlar
-          inte om teknik — utan om hur arbete faktiskt utförs.
+          inte om teknik – utan om hur arbete faktiskt utförs.
         </p>
 
         <div className="my-6 overflow-x-auto">
@@ -321,22 +321,22 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h3>Snabb tolkning</h3>
         <ul>
           <li>
-            <strong>0–4 poäng — Relativt redo.</strong> Fortsätt med
+            <strong>0–4 poäng – Relativt redo.</strong> Fortsätt med
             prioriterade piloter.
           </li>
           <li>
-            <strong>5–10 poäng — Delvis redo.</strong> Börja med pilot och
+            <strong>5–10 poäng – Delvis redo.</strong> Börja med pilot och
             åtgärdsplan.
           </li>
           <li>
-            <strong>11–16 poäng — Inte redo att skala.</strong> Stärk
+            <strong>11–16 poäng – Inte redo att skala.</strong> Stärk
             grundförmågan först.
           </li>
         </ul>
 
         <p>
           <strong>Slutsats:</strong> De organisationer som lyckas bäst börjar
-          med datakvalitet, processmognad och governance — innan de skalar
+          med datakvalitet, processmognad och governance – innan de skalar
           Dynamics 365 och AI.
         </p>
 
@@ -354,7 +354,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
             >
               Beslutsmognadsindex på d365.se
             </a>{" "}
-            — en kostnadsfri självskattning som hjälper er bedöma om data,
+            – en kostnadsfri självskattning som hjälper er bedöma om data,
             processer och organisation är redo för AI-agenter i Dynamics 365.
           </p>
         </aside>
@@ -670,7 +670,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           >
             Copilot Cowork is now generally available
           </a>{" "}
-          — Microsoft 365 Blog, 16 juni 2026.
+          – Microsoft 365 Blog, 16 juni 2026.
         </p>
 
 
@@ -689,7 +689,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
             >
               Beslutsmognadsindex på d365.se
             </a>{" "}
-            — en kostnadsfri självskattning som hjälper er bedöma om data,
+            – en kostnadsfri självskattning som hjälper er bedöma om data,
             processer och organisation är redo för AI-agenter i Dynamics 365.
           </p>
         </aside>
@@ -699,13 +699,13 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "frontier-firm-dynamics-365-erp-crm",
     title:
-      "Frontier Firm: vad Microsoft menar — och vad du bör förstå inför valet av ERP eller CRM",
+      "Frontier Firm: vad Microsoft menar – och vad du bör förstå inför valet av ERP eller CRM",
     metaTitle:
       "Frontier Firm och Dynamics 365 – vad Microsoft menar inför ERP- eller CRM-val | d365.se",
     metaDescription:
       "Frontier Firm är Microsofts nya begrepp för framtidens AI-drivna organisation. Läs vad det betyder, hur det påverkar Dynamics 365 och vilka frågor du bör ställa inför valet av ERP eller CRM.",
     summary:
-      "Vad menar Microsoft egentligen med Frontier Firm — och varför spelar det roll inför ett ERP- eller CRM-val? Här går vi igenom begreppet, kopplingen till Dynamics 365 och vilka frågor du bör ställa till en partner.",
+      "Vad menar Microsoft egentligen med Frontier Firm – och varför spelar det roll inför ett ERP- eller CRM-val? Här går vi igenom begreppet, kopplingen till Dynamics 365 och vilka frågor du bör ställa till en partner.",
     category: "Strategi",
     tags: [
       "frontier firm",
@@ -763,7 +763,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Microsofts plattformsstrategi rör sig snabbt från assistenter som
           svarar på frågor till agenter som utför arbete. Frontier Firm är det
           språk Microsoft använder för att beskriva den organisation som drar
-          mest nytta av den utvecklingen — och som därför också är den naturliga
+          mest nytta av den utvecklingen – och som därför också är den naturliga
           målgruppen för Dynamics 365, Copilot och de nya agentfunktionerna.
         </p>
         <p>
@@ -788,13 +788,13 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           från IT-projektet till verksamhets­agendan.
         </p>
 
-        <h3>2. Processfrågan blir “vad ska automatiseras — och hur långt?”</h3>
+        <h3>2. Processfrågan blir “vad ska automatiseras – och hur långt?”</h3>
         <p>
           Tidigare handlade kravställningen om vilka funktioner systemet skulle
           stödja. Nu tillkommer en ny fråga: vilka delar av processen vill ni
           att en agent ska utföra själv, vilka ska den föreslå, och vilka ska
           en människa alltid äga? Den frågan går inte att outsourca till
-          partnern — den måste ledningen själv ta ställning till.
+          partnern – den måste ledningen själv ta ställning till.
         </p>
 
         <h3>3. Partnerns roll förskjuts</h3>
@@ -815,7 +815,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <ul>
           <li>
             Hur ser en kund hos er ut som faktiskt arbetar i en Frontier
-            Firm-modell idag — vad gör agenterna, vad gör människorna?
+            Firm-modell idag – vad gör agenterna, vad gör människorna?
           </li>
           <li>
             Vilka delar av Dynamics 365 är mogna nog för agentdrift i vår
@@ -827,7 +827,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           </li>
           <li>
             Hur säkerställer ni att vi behåller kontroll över processer som
-            agenter lär sig — även om vi en dag byter leverantör?
+            agenter lär sig – även om vi en dag byter leverantör?
           </li>
         </ul>
         <p>
@@ -838,7 +838,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <h2>Vad ledningen bör göra nu</h2>
         <p>
-          Frontier Firm är inget skäl att stressa fram ett systemval — men det
+          Frontier Firm är inget skäl att stressa fram ett systemval – men det
           är ett skäl att höja blicken. Tre saker förtjänar en plats på
           agendan innan en upphandling drar i gång:
         </p>
@@ -846,7 +846,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           <strong>Bedöm er egen mognad ärligt.</strong> Var står ni när det
           gäller data, processer, styrning och förändringsförmåga? Ett ERP-
           eller CRM-projekt som drivs i en omogen organisation blir sällan en
-          Frontier Firm — oavsett vilken plattform ni väljer.
+          Frontier Firm – oavsett vilken plattform ni väljer.
         </p>
         <p>
           <strong>Bestäm vilken roll AI ska ha hos er.</strong> Stödjande,
@@ -855,7 +855,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           <strong>Använd valet som ett ledningsbeslut, inte ett IT-beslut.</strong>{" "}
-          Det är där Frontier Firm-tänkandet faktiskt landar — i hur ni leder,
+          Det är där Frontier Firm-tänkandet faktiskt landar – i hur ni leder,
           inte i vilken licens ni tecknar.
         </p>
 
@@ -863,7 +863,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Frontier Firm är Microsofts sätt att beskriva den organisation som
           drar verklig nytta av AI i sina kärnprocesser. För er som står inför
-          ett ERP- eller CRM-val är begreppet användbart — men bara om ni
+          ett ERP- eller CRM-val är begreppet användbart – men bara om ni
           översätter det till era egna förutsättningar i stället för att köpa
           det som färdig bild. Då blir Dynamics 365 ett möjligt verktyg, inte
           ett självändamål, och partnerdialogen handlar om er verksamhet
@@ -884,7 +884,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
             >
               Beslutsmognadsindex på d365.se
             </a>{" "}
-            — en kostnadsfri självskattning för organisationer som vill bedöma
+            – en kostnadsfri självskattning för organisationer som vill bedöma
             sin beredskap inför systemval och partnerval.
           </p>
         </aside>
@@ -893,7 +893,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   },
   {
     slug: "ai-skiftet-dynamics-365-build-2026",
-    title: "AI-skiftet i Dynamics 365 — vad ledningsgruppen behöver förstå efter Microsoft Build 2026",
+    title: "AI-skiftet i Dynamics 365 – vad ledningsgruppen behöver förstå efter Microsoft Build 2026",
     metaTitle: "Dynamics 365 efter Build 2026: AI-agenter, data och partnerval",
     metaDescription:
       "Efter Microsoft Build 2026 blir AI-agenter en större del av Dynamics 365. Läs vad det betyder för data, styrning, affärsprocesser och val av partner.",
@@ -901,7 +901,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     socialDescription:
       "Microsoft gör AI-agenter till en viktigare del av Dynamics 365. Artikeln visar vad företag behöver förstå om datakvalitet, styrning, affärsprocesser och partnerval efter Build 2026.",
     summary:
-      "Microsoft Build 2026 blev startskottet för en plattform där AI-agenter inte bara assisterar utan utför arbete i Dynamics 365. Här är vad ledningsgrupper bör göra med data, styrning och partnerval — i lugn och ro, men nu.",
+      "Microsoft Build 2026 blev startskottet för en plattform där AI-agenter inte bara assisterar utan utför arbete i Dynamics 365. Här är vad ledningsgrupper bör göra med data, styrning och partnerval – i lugn och ro, men nu.",
     category: "Strategi",
     tags: ["dynamics365", "ai", "agenter", "copilot", "microsoft build", "ledning"],
     products: [
@@ -1048,8 +1048,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           agenterna gör rätt saker säkert.
         </p>
         <p>
-          Det betyder att klassiska urvalskriterier — antal konsulter, antal
-          genomförda projekt och certifieringar — säger allt mindre om vad ni
+          Det betyder att klassiska urvalskriterier – antal konsulter, antal
+          genomförda projekt och certifieringar – säger allt mindre om vad ni
           faktiskt får. De frågor som skiljer agnarna från vetet 2026 låter
           snarare så här:
         </p>
@@ -1132,7 +1132,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
               >
                 Microsoft Build 2026: Be yourself at work
               </a>{" "}
-              — The Official Microsoft Blog.
+              – The Official Microsoft Blog.
             </li>
           </ul>
         </aside>
@@ -1141,12 +1141,12 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   },
   {
     slug: "dynamics-365-release-wave-1-2026",
-    title: "Dynamics 365 Release Wave 1 2026 — vad som faktiskt kommer, per produkt",
+    title: "Dynamics 365 Release Wave 1 2026 – vad som faktiskt kommer, per produkt",
     metaTitle: "Dynamics 365 Release Wave 1 2026: nyheter per produkt | d365.se",
     metaDescription:
       "Köparsidig sammanställning av Microsofts Release Wave 1 2026 för Dynamics 365. Per produkt: vad som rullas ut april–september 2026, och vad som redan finns inom AI, Copilot och agenter.",
     summary:
-      "Microsoft publicerade Release Wave 1 2026 den 18 mars. Här är d365.se:s köparsidiga genomgång — per produkt: vad som rullas ut mellan april och september, och vad som redan är på plats inom AI, Copilot och agenter.",
+      "Microsoft publicerade Release Wave 1 2026 den 18 mars. Här är d365.se:s köparsidiga genomgång – per produkt: vad som rullas ut mellan april och september, och vad som redan är på plats inom AI, Copilot och agenter.",
     category: "Produktnyheter",
     tags: ["dynamics365", "release wave", "ai", "copilot", "agenter", "roadmap"],
     products: [
@@ -1185,7 +1185,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Microsoft publicerade Release Wave 1 2026 för Dynamics 365 den{" "}
           <strong>18 mars 2026</strong>. Planen omfattar uppdateringar som rullas
           ut mellan 1 april och september 2026. Här är en köparsidig
-          sammanställning per produkt — både det som kommer och det som redan
+          sammanställning per produkt – både det som kommer och det som redan
           finns inom AI, Copilot och agenter.
         </p>
 
@@ -1194,17 +1194,17 @@ export const BLOG_ARTICLES: BlogArticle[] = [
             Nyckeldatum
           </p>
           <ul className="!my-0 !pl-7 !space-y-2 list-disc marker:text-[#1F4E79] !text-foreground/90">
-            <li>18 mars 2026 — release-planer publicerade</li>
-            <li>1 april 2026 — General Availability startar regionalt</li>
-            <li>3 april 2026 — plan tillgänglig på svenska</li>
-            <li>September 2026 — slutpunkt för Release Wave 1</li>
+            <li>18 mars 2026 – release-planer publicerade</li>
+            <li>1 april 2026 – General Availability startar regionalt</li>
+            <li>3 april 2026 – plan tillgänglig på svenska</li>
+            <li>September 2026 – slutpunkt för Release Wave 1</li>
           </ul>
         </aside>
 
         <h2>Genomgående tema i RW1 2026</h2>
         <ul>
           <li>
-            <strong>Agentic experiences</strong> — autonoma agenter över Sales,
+            <strong>Agentic experiences</strong> – autonoma agenter över Sales,
             Service, Finance, Supply Chain och fler.
           </li>
           <li>
@@ -1212,7 +1212,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
             Microsoft 365.
           </li>
           <li>
-            <strong>Model Context Protocol (MCP)</strong> — agenter får direkt
+            <strong>Model Context Protocol (MCP)</strong> – agenter får direkt
             access till D365-data.
           </li>
           <li>
@@ -1222,9 +1222,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </ul>
 
         <h2>Dynamics 365 Sales</h2>
-        <h3>Nyheter — RW1 2026</h3>
+        <h3>Nyheter – RW1 2026</h3>
         <ul>
-          <li>Utökad Copilot på data från CRM och Microsoft 365 — mejl, mötesreferat och kalendrar.</li>
+          <li>Utökad Copilot på data från CRM och Microsoft 365 – mejl, mötesreferat och kalendrar.</li>
           <li>AI-rekommendationer som hjälper säljare bygga pipeline, berika opportunities och accelerera avslut.</li>
           <li>Proaktiva notiser med tydligt nästa steg.</li>
           <li>Enhetlig Copilot-upplevelse mellan Dynamics 365 och Microsoft 365-appar.</li>
@@ -1235,7 +1235,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p><strong>Agenter:</strong> Sales Qualification Agent, Sales Close Agent (Research &amp; Engage), Sales Research Agent.</p>
 
         <h2>Dynamics 365 Customer Service</h2>
-        <h3>Nyheter — RW1 2026</h3>
+        <h3>Nyheter – RW1 2026</h3>
         <ul>
           <li>Förstärkta agentiska kapabiliteter inom case management, e-post, kundintent, kvalitetsutvärdering och kunskapshantering.</li>
           <li>AI-stärkta admin- och supervisor-upplevelser för snabbare time-to-value.</li>
@@ -1247,19 +1247,19 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p><strong>Agenter:</strong> Case Management Agent, Customer Knowledge Management Agent, Quality Evaluation Agent, Customer Intent Agent, intent-based routing, Rollout Manager.</p>
 
         <h2>Dynamics 365 Contact Center</h2>
-        <h3>Nyheter — RW1 2026</h3>
+        <h3>Nyheter – RW1 2026</h3>
         <ul>
           <li>Agentic contact center med djupare automation och högre containment.</li>
           <li>Stöd för framväxande kanaler utöver röst och chatt.</li>
           <li>Förbättrade supervisor-insikter i realtid.</li>
-          <li>Custom Neural Voices — egna märkesröster för text-till-tal.</li>
+          <li>Custom Neural Voices – egna märkesröster för text-till-tal.</li>
         </ul>
         <h3>AI, Copilot och agenter idag</h3>
         <p><strong>Copilot:</strong> realtidssammanfattning av röst och chatt, ask a question, svarsmejl-drafter, resolutionsanteckningar, kunskapsartiklar från cases.</p>
         <p><strong>Agenter:</strong> Customer Intent Agent for voice, Quality Evaluation Agent, Case Management Agent, Customer Knowledge Management Agent, agent insights dashboard.</p>
 
         <h2>Dynamics 365 Field Service</h2>
-        <h3>Nyheter — RW1 2026</h3>
+        <h3>Nyheter – RW1 2026</h3>
         <ul>
           <li>Förbättrad mobil användbarhet för tekniker i fält.</li>
           <li>Intelligent schemaläggning via Scheduling Operations Agent.</li>
@@ -1267,10 +1267,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </ul>
         <h3>AI, Copilot och agenter idag</h3>
         <p><strong>Copilot:</strong> naturligt språk mot Field Service-data, AI-uppdatering av work orders via tal/text, on-demand work order-sammanfattningar, inspektionsmallar från PDF/bild.</p>
-        <p><strong>Agenter:</strong> Scheduling Operations Agent — optimerar schema, hanterar avbokningar och förseningar utan manuell omplanering.</p>
+        <p><strong>Agenter:</strong> Scheduling Operations Agent – optimerar schema, hanterar avbokningar och förseningar utan manuell omplanering.</p>
 
         <h2>Customer Insights (Data + Journeys)</h2>
-        <h3>Nyheter — RW1 2026</h3>
+        <h3>Nyheter – RW1 2026</h3>
         <ul>
           <li>Data: AI-färdig datakärna som grund för CRM-Copilots och agenter.</li>
           <li>Data: realtids unified customer profiles.</li>
@@ -1280,7 +1280,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>Conversational journeys som kombinerar Customer Insights – Journeys, Contact Center och agenter byggda i Copilot Studio.</p>
 
         <h2>Dynamics 365 Finance</h2>
-        <h3>Nyheter — RW1 2026</h3>
+        <h3>Nyheter – RW1 2026</h3>
         <ul>
           <li>Global scale-förbättringar för stora och internationella organisationer.</li>
           <li>Ökad finansiell automation över hela close-cykeln.</li>
@@ -1292,7 +1292,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p><strong>Agenter:</strong> Account Reconciliation Agent, Finance Agent i M365 Copilot (Outlook och Excel).</p>
 
         <h2>Dynamics 365 Supply Chain Management</h2>
-        <h3>Nyheter — RW1 2026</h3>
+        <h3>Nyheter – RW1 2026</h3>
         <ul>
           <li>Demand and supply planning med price-demand correlation.</li>
           <li>Capacity-to-promise (CTP) date protection.</li>
@@ -1301,20 +1301,20 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </ul>
         <h3>AI, Copilot och agenter idag</h3>
         <p><strong>Copilot:</strong> analysera demand plans, workload insights i Warehouse Management mobile app, chat with finance and operations data.</p>
-        <p><strong>Agenter:</strong> Supplier Communications Agent — automatiserar leverantörsuppföljning och inköpsorderhantering.</p>
+        <p><strong>Agenter:</strong> Supplier Communications Agent – automatiserar leverantörsuppföljning och inköpsorderhantering.</p>
 
         <h2>Dynamics 365 Project Operations</h2>
-        <h3>Nyheter — RW1 2026</h3>
+        <h3>Nyheter – RW1 2026</h3>
         <ul>
           <li>Stöd för change orders och smartare projektplanering.</li>
           <li>Smidigare flöden för offert, budget och kontrakt.</li>
           <li>Mobile expense management och subscription billing.</li>
         </ul>
         <h3>Agenter idag</h3>
-        <p>Time Entry Agent, Expense Agent, Approvals Agent — autoutkast och förgranskning mot policy.</p>
+        <p>Time Entry Agent, Expense Agent, Approvals Agent – autoutkast och förgranskning mot policy.</p>
 
         <h2>Dynamics 365 Commerce</h2>
-        <h3>Nyheter — RW1 2026</h3>
+        <h3>Nyheter – RW1 2026</h3>
         <ul>
           <li>B2B: multi-outlet ordering, enhetlig sign-in, outlet-specifika kataloger.</li>
           <li>B2B: inbyggd credit management.</li>
@@ -1326,7 +1326,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
 
         <h2>Dynamics 365 Human Resources</h2>
-        <h3>Nyheter — RW1 2026</h3>
+        <h3>Nyheter – RW1 2026</h3>
         <ul>
           <li>Vidareutveckling av rekrytering och onboarding.</li>
           <li>Förbättrad rapportering och integrerad workforce management.</li>
@@ -1338,19 +1338,19 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
 
         <h2>Dynamics 365 Business Central</h2>
-        <h3>Nyheter — RW1 2026</h3>
+        <h3>Nyheter – RW1 2026</h3>
         <ul>
           <li>Förstärkta AI-agenter som automatiserar sales- och purchase-scenarios.</li>
-          <li>Acceleration mot agentic ERP — fler autonoma flöden.</li>
+          <li>Acceleration mot agentic ERP – fler autonoma flöden.</li>
           <li>Förbättrad AL-testning och debugging för utvecklare.</li>
-          <li>Copilot-extensibility — bygg egna Copilot-upplevelser.</li>
+          <li>Copilot-extensibility – bygg egna Copilot-upplevelser.</li>
         </ul>
         <h3>AI, Copilot och agenter idag</h3>
         <p><strong>Copilot:</strong> bankkontoavstämning, föreslå rader på säljdokument, alternativa artiklar vid lagerbrist, nummerserier, record-sammanfattningar.</p>
         <p><strong>Agenter:</strong> Sales Order Agent (fångar order från inkommande e-post), Payables Agent (analyserar leverantörsfakturor).</p>
 
         <h2>Microsoft Sustainability Manager</h2>
-        <h3>Nyheter — RW1 2026</h3>
+        <h3>Nyheter – RW1 2026</h3>
         <ul>
           <li>Mer intuitiv navigering.</li>
           <li>Advanced calculation versioning och granular data-locking.</li>
@@ -1361,7 +1361,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h2>Vad d365.se tar med sig</h2>
         <p>
           Två observationer värda att lyfta: <strong>agenter går från demo till
-          leverans</strong> i den här vågen — flera av dem är redan i
+          leverans</strong> i den här vågen – flera av dem är redan i
           produktionsmogen förhandsversion eller GA. Och{" "}
           <strong>MCP-servern</strong> som ger agenter direkt access till
           D365-data är den arkitektoniska förändring som mest sannolikt påverkar
@@ -1382,10 +1382,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
               target="_blank"
               rel="noopener noreferrer"
             >
-              Microsoft Dynamics 365 — 2026 release wave 1 plan
+              Microsoft Dynamics 365 – 2026 release wave 1 plan
             </a>
           </li>
-          <li>Microsoft Dynamics 365-bloggen — 2026 release wave 1 plans (18 mars 2026).</li>
+          <li>Microsoft Dynamics 365-bloggen – 2026 release wave 1 plans (18 mars 2026).</li>
           <li>Produktspecifika release wave-översikter på learn.microsoft.com.</li>
         </ul>
       </>
@@ -1393,12 +1393,12 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   },
   {
     slug: "owned-intelligence-dynamics-365",
-    title: "Owned Intelligence — vad Microsofts senaste rapport säger till Dynamics 365-köpare",
+    title: "Owned Intelligence – vad Microsofts senaste rapport säger till Dynamics 365-köpare",
     metaTitle: "Owned Intelligence: Microsofts rapport och Dynamics 365 | d365.se",
     metaDescription:
       "Microsofts Work Trend Index 2026 lyfter Owned Intelligence som den verkliga konkurrensfördelen. Vad innebär det för dig som står inför ett Dynamics 365-val?",
     summary:
-      "Microsofts Work Trend Index 2026 introducerar begreppet Owned Intelligence — den institutionella kunskap som inte kan kopieras. Här är vad det betyder för Dynamics 365-köpare när agenter tar över mer av exekveringen.",
+      "Microsofts Work Trend Index 2026 introducerar begreppet Owned Intelligence – den institutionella kunskap som inte kan kopieras. Här är vad det betyder för Dynamics 365-köpare när agenter tar över mer av exekveringen.",
     category: "Strategi",
     tags: ["dynamics365", "ai", "agenter", "copilot", "upphandling", "owned intelligence"],
     products: ["Business Central", "Finance & SCM", "Sales", "Customer Service", "AI/Copilot/Agents"],
@@ -1409,7 +1409,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     featured: false,
     freshness: {
       status: "older",
-      note: "Skriven i maj 2026 utifrån Microsofts Work Trend Index. Den bredare AI-bilden i Dynamics 365 har förtydligats genom Build 2026 och GA av Copilot Cowork — läs vidare där.",
+      note: "Skriven i maj 2026 utifrån Microsofts Work Trend Index. Den bredare AI-bilden i Dynamics 365 har förtydligats genom Build 2026 och GA av Copilot Cowork – läs vidare där.",
       newerArticles: [
         {
           slug: "ai-skiftet-dynamics-365-build-2026",
@@ -1421,7 +1421,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         },
         {
           slug: "frontier-firm-dynamics-365-erp-crm",
-          label: "Frontier Firm — vad ERP- och CRM-köpare behöver göra nu",
+          label: "Frontier Firm – vad ERP- och CRM-köpare behöver göra nu",
         },
       ],
     },
@@ -1429,7 +1429,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
       <>
         <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] italic text-foreground/85 !mb-8">
-          I maj släppte Microsoft sin Work Trend Index 2026 — en omfattande
+          I maj släppte Microsoft sin Work Trend Index 2026 – en omfattande
           rapport baserad på 20 000 enkätsvar i tio länder och biljoner
           anonymiserade signaler från Microsoft 365. Ett begrepp sticker ut och
           är värt att stanna upp vid: <strong>Owned Intelligence</strong>.
@@ -1445,7 +1445,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
               tid, är unik för bolaget och svår att kopiera.
             </li>
             <li>
-              Frågan är inte "bygga själv eller köpa färdigt" — utan var
+              Frågan är inte "bygga själv eller köpa färdigt" – utan var
               skiljelinjen mellan standardkapacitet och egen utveckling ska gå.
             </li>
             <li>
@@ -1462,7 +1462,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           agenter tar över allt mer av exekveringen.
         </p>
         <p>
-          För Dynamics 365-köpare är det här mer relevant än det låter — och det
+          För Dynamics 365-köpare är det här mer relevant än det låter – och det
           rör vid en fråga som de flesta upphandlingsprocesser idag inte är
           riktigt byggda för att hantera.
         </p>
@@ -1477,7 +1477,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Samtidigt visar Microsofts egen rapport en obekväm sak: bara{" "}
           <strong>19 procent</strong> av AI-användarna befinner sig i det
-          Microsoft kallar "Frontier-zonen" — där både individuell förmåga och
+          Microsoft kallar "Frontier-zonen" – där både individuell förmåga och
           organisatorisk beredskap är på plats. 65 procent är oroliga för att
           hamna efter, men 45 procent tycker det känns säkrare att fokusera på
           nuvarande mål än att designa om arbetet. Endast 13 procent säger att
@@ -1494,7 +1494,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           organisationer faktiskt har deployat AI-agenter, även om över 60
           procent säger sig planera det inom två år. Än mer påtagligt: Gartner
           förutspår att <strong>över 40 procent av alla agentic AI-projekt
-          kommer avbrytas till slutet av 2027</strong> — ofta för att kostnader
+          kommer avbrytas till slutet av 2027</strong> – ofta för att kostnader
           skenar, affärsvärdet inte blir tillräckligt tydligt eller för att
           governance och riskkontroller inte hinner byggas i samma takt som
           tekniken.
@@ -1503,14 +1503,14 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           McKinseys State of AI-rapport pekar i samma riktning: 88 procent av
           organisationer använder AI i någon funktion, men bara 6 procent
           kvalificerar som "AI high performers" med mätbar EBIT-effekt. Resten
-          har piloter, demos och initiativ — men inte transformation.
+          har piloter, demos och initiativ – men inte transformation.
         </p>
         <p>
           Det här är samma fenomen sett från olika håll. Microsoft kallar det
           Transformationsparadoxen, Gartner talar om gapet mellan ambition och
           leverans, McKinsey beskriver "pilot purgatory". Alla pekar på samma
           sak: organisationer har tillgång till verktygen, men har inte byggt
-          om det runt omkring — och då stannar värdet ute.
+          om det runt omkring – och då stannar värdet ute.
         </p>
 
         <h3>Utvärderingsdialogen idag</h3>
@@ -1522,7 +1522,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           sätt att jämföra alternativ.
         </p>
         <p>
-          När Copilot eller agenter kommer upp visas möjligheten — att man kan
+          När Copilot eller agenter kommer upp visas möjligheten – att man kan
           bygga egna agenter, att Copilot kan kopplas in i flöden, att Power
           Platform står redo för utveckling. Men diskussionen blir lätt "light"
           och glider tillbaka till grundfunktionaliteten i systemet. Det är
@@ -1537,7 +1537,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h2>Det är inte en fråga om att bygga själv eller köpa färdigt</h2>
         <p>
           Här ligger en vanlig missuppfattning. "Owned Intelligence" tolkas
-          lätt som att man måste bygga allt själv — egna agenter, egna
+          lätt som att man måste bygga allt själv – egna agenter, egna
           integrationer, eget AI-team. Det är inte vad det handlar om.
         </p>
         <p>Den verkliga frågan är förmåga.</p>
@@ -1554,7 +1554,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           vidareutvecklas i praktiken uteslutande sitter externt, är det
           svårare att bygga den långsiktiga intelligensen i bolaget. Här vill
           jag vara tydlig: många partners är duktiga på kompetensöverföring och
-          vill att kunden ska bli starkare — men det behöver göras till en
+          vill att kunden ska bli starkare – men det behöver göras till en
           uttalad del av upplägget, inte något man hoppas ska "hända av sig
           själv".
         </p>
@@ -1563,7 +1563,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           observationer: organisatoriska faktorer som kultur, chefsstöd och
           kompetensutveckling står för ungefär <strong>67 procent</strong> av
           AI:s reella påverkan, medan individuell mindset och beteende står för
-          cirka 32 procent. Med andra ord — det är inte i första hand de
+          cirka 32 procent. Med andra ord – det är inte i första hand de
           enskilda medarbetarnas AI-kunskaper som avgör utfallet. Det är hur
           organisationen som helhet är riggad för att fånga upp och bygga
           vidare på det som agenter producerar.
@@ -1572,12 +1572,12 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           McKinsey publicerade i januari 2026 en analys specifikt om AI-agenter
           och ERP som kommer till en näraliggande slutsats. Deras rekommendation
           är att köparen tydligt skiljer på två saker: standardiserade
-          kapaciteter som kan köpas in färdigt — och egen utveckling som
+          kapaciteter som kan köpas in färdigt – och egen utveckling som
           reserveras för de områden där bolagets domänspecifika logik eller
           egna processer faktiskt skapar en konkurrensfördel. Det är samma
           princip som ligger bakom Owned Intelligence, formulerad från
           ERP-perspektivet. Värdet ligger inte i att bygga allt själv, och inte
-          i att köpa allt färdigt — utan i att veta var skiljelinjen ska gå.
+          i att köpa allt färdigt – utan i att veta var skiljelinjen ska gå.
         </p>
 
         <figure className="my-10">
@@ -1601,8 +1601,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <h3>Risk 1: Eget bygge som blir personberoende</h3>
         <p>
-          Bolag som väljer att bygga mycket själva — egna agenter, egna
-          automationsflöden i Power Automate, egna integrationer — kan snabbt
+          Bolag som väljer att bygga mycket själva – egna agenter, egna
+          automationsflöden i Power Automate, egna integrationer – kan snabbt
           få fram värde. Men risken finns att kapaciteten samlas hos ett par
           nyckelpersoner internt. När en av dem byter jobb försvinner stora
           delar av förståelsen med dem. Dokumentationen halkar efter,
@@ -1614,7 +1614,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h3>Risk 2: Total partnerlutning som tappar fart</h3>
         <p>
           Lutar man sig helt mot partnern kan utvecklingstakten ändå bli lägre
-          än man tror — inte för att partnern saknar vilja, utan för att
+          än man tror – inte för att partnern saknar vilja, utan för att
           köparens interna prioriteringar lätt fylls av vardagsbehov som
           uppgraderingar, säkerhet och support. Om det saknas en gemensam
           roadmap, tydliga produktägare på köparsidan och en finansierad
@@ -1640,7 +1640,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h3>Bredd i engagemanget</h3>
         <p>
           Det räcker inte att en eller två eldsjälar driver frågan internt.
-          Flera delar av organisationen behöver vara med — IT, verksamheten,
+          Flera delar av organisationen behöver vara med – IT, verksamheten,
           ledningen. Annars blir den ägda intelligensen i praktiken ett par
           personers projekt, inte bolagets. Microsofts rapport bekräftar detta
           indirekt: bara 26 procent av AI-användarna säger att deras ledning är
@@ -1660,7 +1660,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <h3>Insikt i den befintliga miljön</h3>
         <p>
-          Här finns intern IT:s verkliga värde — insikten i den befintliga
+          Här finns intern IT:s verkliga värde – insikten i den befintliga
           miljön, i historiska beslut, i hur verksamheten faktiskt fungerar i
           praktiken. Den kunskapen är inte något en partner kan ta med sig in i
           projektet. Den måste bäras av köparen, oavsett hur kompetent partnern
@@ -1679,7 +1679,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           handlar om funktion, ekonomi och leveransförmåga. Det är en bra och
           beprövad struktur, men frågan om var den långsiktiga intelligensen
           ska byggas upp ställer sig inte själv i den ramen. Den behöver komma
-          från köparsidan — och tidigt nog för att påverka hur projektet
+          från köparsidan – och tidigt nog för att påverka hur projektet
           faktiskt sätts upp.
         </p>
         <p>
@@ -1695,7 +1695,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
             finns kvar hos oss?
           </li>
           <li>
-            Hur ser vår egen organisation ut under och efter projektet — vilka
+            Hur ser vår egen organisation ut under och efter projektet – vilka
             roller behöver vi, och vilken mandatstruktur?
           </li>
           <li>
@@ -1704,13 +1704,13 @@ export const BLOG_ARTICLES: BlogArticle[] = [
             dagliga närvaro?
           </li>
           <li>
-            Vilken kompetensöverföring är inplanerad — inte som en bisak i
+            Vilken kompetensöverföring är inplanerad – inte som en bisak i
             slutet, utan som en löpande del av projektet?
           </li>
         </ul>
         <p>
           Frågorna är inte tänkta att misstro partnern. De är tänkta att
-          tydliggöra ansvar och kunskapsflöde tidigt — något som gynnar både
+          tydliggöra ansvar och kunskapsflöde tidigt – något som gynnar både
           köpare och partner.
         </p>
         <p>
@@ -1719,7 +1719,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           Microsofts rapport ger en bra anledning att lyfta in den frågan
-          tidigt — innan funktioner och integrationer har lagt sig som ramen
+          tidigt – innan funktioner och integrationer har lagt sig som ramen
           för hela diskussionen.
         </p>
 
@@ -1732,20 +1732,20 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           </p>
           <ul className="!my-0 !pl-5 !space-y-2 text-sm text-muted-foreground list-disc">
             <li>
-              Microsoft Work Trend Index 2026 — <em>Agents, human agency, and
+              Microsoft Work Trend Index 2026 – <em>Agents, human agency, and
               the opportunity for every organization</em> (maj 2026).
             </li>
             <li>
-              Gartner — Hype Cycle for Artificial Intelligence, 2026
+              Gartner – Hype Cycle for Artificial Intelligence, 2026
               (agent-adoption samt prognos om avbrutna agentic AI-projekt till
               slutet av 2027).
             </li>
             <li>
-              McKinsey — The State of AI in 2026 (Global Survey) (andel "AI
+              McKinsey – The State of AI in 2026 (Global Survey) (andel "AI
               high performers" och koppling till mätbar EBIT-effekt).
             </li>
             <li>
-              McKinsey — analys om AI-agenter och ERP (januari 2026)
+              McKinsey – analys om AI-agenter och ERP (januari 2026)
               (rekommendationen att skilja på standardkapacitet vs.
               domänspecifik utveckling).
             </li>
@@ -1787,7 +1787,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
       <>
         <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] italic text-foreground/85 !mb-8">
-          AI i affärssystem är på väg att byta karaktär — från att svara på
+          AI i affärssystem är på väg att byta karaktär – från att svara på
           frågor till att utföra uppgifter. I ERP är det inte bara en teknisk
           utveckling. Det är ett skifte i riskbild som förändrar vad god
           styrning måste omfatta.
@@ -1821,7 +1821,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           När systemet börjar agera förändras inte bara vad ERP-plattformen kan
           göra. Det förändrar också vilka frågor som måste ställas innan det
-          sker. Den här artikeln handlar om just det skiftet — vad det innebär,
+          sker. Den här artikeln handlar om just det skiftet – vad det innebär,
           varför ERP är ett särfall och vilka tre områden som avgör om
           agentbaserad AI blir en kontrollerad förbättring eller en ny
           riskkälla.
@@ -1854,8 +1854,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           </p>
           <p className="!my-0 !text-foreground/90 leading-[1.75]">
             En agent kan övervaka avvikelser i order och leverans, föreslå
-            korrigeringar, trigga en uppgift till rätt roll och — om ni tillåter
-            det — skapa ett utkast till kreditnota, uppdatera leveransdatum eller
+            korrigeringar, trigga en uppgift till rätt roll och – om ni tillåter
+            det – skapa ett utkast till kreditnota, uppdatera leveransdatum eller
             initiera en attestkedja. Poängen är inte att den <em>kan</em> göra
             det, utan vad den <em>får</em> göra utan mänskligt beslut.
           </p>
@@ -1894,7 +1894,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           biprodukt. Det är grundförutsättningen.
         </p>
 
-        <h2>Governance är inte en bilaga — det är själva leveransen</h2>
+        <h2>Governance är inte en bilaga – det är själva leveransen</h2>
         <p>
           När AI börjar agera i eller runt ERP blir governance inte en bilaga
           till projektet. Den blir en del av själva leveransen.
@@ -1929,7 +1929,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           för att bära mer handlande automation.
         </p>
 
-        <h3>3) Vilka behörigheter får agenten — i praktiken?</h3>
+        <h3>3) Vilka behörigheter får agenten – i praktiken?</h3>
         <p>
           Behörigheter har länge varit en kontrollfråga. I en agentbaserad
           kontext blir de också en AI-säkerhetsfråga. En agent ser och agerar
@@ -1945,7 +1945,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h2>Skiftet förändrar också vad ett bra partnerval måste innehålla</h2>
         <p>
           Ett skifte av den här typen syns inte bara i tekniken. Det syns i hur
-          ERP-projekt måste utformas, styras och följas upp över tid — och
+          ERP-projekt måste utformas, styras och följas upp över tid – och
           därmed också i vad ni ska kräva av den partner som bygger lösningen åt
           er.
         </p>
@@ -1980,7 +1980,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] italic text-foreground/85 !mb-8">
           I många upphandlingar läggs den största delen av tiden på produktvalet.
           Men när ERP- eller CRM-projekt inte levererar som tänkt handlar det
-          oftast mindre om produkten — och mer om genomförandet. Och
+          oftast mindre om produkten – och mer om genomförandet. Och
           genomförandet avgörs i hög grad av partnern.
         </p>
 
@@ -2003,7 +2003,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <p>
           Vilket affärssystem passar bäst? Hur står sig Dynamics 365 mot
-          alternativen? Vilka moduler behövs? Vilka funktioner är kritiska — och
+          alternativen? Vilka moduler behövs? Vilka funktioner är kritiska – och
           vilka är egentligen bara nice-to-have?
         </p>
         <p>
@@ -2072,7 +2072,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h2>2. Systemet införs – men används inte som tänkt</h2>
         <p>
           Det dyraste systemet är inte alltid det med högst licenskostnad. Det
-          är systemet som köps in, implementeras — och sedan inte används som
+          är systemet som köps in, implementeras – och sedan inte används som
           det var tänkt.
         </p>
         <p>
@@ -2088,7 +2088,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           Har partnern förstått hur verksamheten faktiskt arbetar? Har
-          processerna utmanats — eller bara ritats av? Har slutanvändarna
+          processerna utmanats – eller bara ritats av? Har slutanvändarna
           involverats tidigt nog? Har utbildningen kopplats till verkliga
           arbetsflöden, eller bara till funktioner i systemet?
         </p>
@@ -2116,7 +2116,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Fanns en strukturerad utvärdering? Fanns relevanta referenser? Fanns
           en tydlig koppling mellan partnerns erfarenhet och verksamhetens
-          behov? Fanns neutralt underlag — eller byggde valet mest på pris,
+          behov? Fanns neutralt underlag – eller byggde valet mest på pris,
           relationer och presentationer?
         </p>
         <p>
@@ -2208,7 +2208,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           faktiskt leveransupplägg.
         </p>
         <p>
-          Målet är att beslutet inte bara ska kännas rätt i upphandlingen — utan
+          Målet är att beslutet inte bara ska kännas rätt i upphandlingen – utan
           också vara möjligt att förklara och försvara när projektet möter
           verkligheten.
         </p>
@@ -2222,7 +2222,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     metaDescription:
       "Dynamics 365 för retail & e-handel ger POS, lager, omnikanal och kunddata i en plattform. Köparsidig guide med kostnad, fallgropar och svenska partners.",
     summary:
-      "Dynamics 365 (BC, F&SCM och Commerce) fungerar som back-office för retail- och e-handelsbolag — ekonomi, lager, kund och kanal i samma plattform. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 (BC, F&SCM och Commerce) fungerar som back-office för retail- och e-handelsbolag – ekonomi, lager, kund och kanal i samma plattform. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["retail", "e-handel", "dynamics365", "business central", "commerce", "customer insights"],
     products: [
@@ -2255,7 +2255,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           omvandling. Gränsen mellan fysisk butik och digital kanal suddas ut,
           och kundernas förväntningar sätter press på hela värdekedjan. Snabba
           leveranser, rätt lagersaldo i realtid, personaliserade erbjudanden och
-          en konsekvent upplevelse oavsett kanal — det är inte längre
+          en konsekvent upplevelse oavsett kanal – det är inte längre
           differentiering utan ett grundkrav.
         </p>
         <p>
@@ -2283,8 +2283,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Dynamics 365 Business Central är det naturliga valet för små och
           medelstora handelsföretag som behöver ett sammanhållet system för
           ekonomi, inköp, lagerstyrning och försäljning. Systemet hanterar hela
-          ordercykeln — från inköpsorder och inleverans till fakturering och
-          bokföring — i ett och samma flöde.
+          ordercykeln – från inköpsorder och inleverans till fakturering och
+          bokföring – i ett och samma flöde.
         </p>
         <ul>
           <li>Orderhantering från flera kanaler med koppling till lager och ekonomi</li>
@@ -2323,7 +2323,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           tillgång. Dynamics 365 Customer Insights aggregerar kunddata från
           butik, webb och kundtjänst till en enhetlig kundprofil. Det möjliggör
           segmentering, lojalitetsprogram och riktade kampanjer baserade på
-          faktiskt beteende — inte antaganden.
+          faktiskt beteende – inte antaganden.
         </p>
         <ul>
           <li>Samling av kunddata från alla kanaler till en enhetlig profil</li>
@@ -2332,8 +2332,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </ul>
         <p>
           Dynamics 365 Sales används av handelsföretag med en mer komplex
-          B2B-försäljning — till exempel grossister eller varumärken som säljer
-          direkt till återförsäljare — där pipeline-hantering och
+          B2B-försäljning – till exempel grossister eller varumärken som säljer
+          direkt till återförsäljare – där pipeline-hantering och
           relationsuppföljning är centralt.
         </p>
 
@@ -2342,7 +2342,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           En välhanterad kundservice är i detaljhandeln direkt kopplad till
           lojalitet och återköp. Dynamics 365 Customer Service och Contact
           Center ger kundtjänstteamet en samlad bild av kundens historia oavsett
-          kontaktväg — telefon, e-post, chatt eller sociala medier.
+          kontaktväg – telefon, e-post, chatt eller sociala medier.
         </p>
         <ul>
           <li>Ärendehantering med koppling till kundprofil och orderhistorik</li>
@@ -2389,7 +2389,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Goodfellows profilerar sig på trygghet och kontroll i leveransen.
           Deras erfarenhet från handel, produktion och distribution gör dem till
           ett relevant val för handelsföretag som prioriterar en partner som tar
-          tydligt ansvar för att lösningen fungerar i praktiken — inte enbart i
+          tydligt ansvar för att lösningen fungerar i praktiken – inte enbart i
           projektplanen.
         </p>
 
@@ -2418,7 +2418,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Fellowmind är en av de större europeiska Microsoft-partnerna och en
           av få i listan som täcker hela spektret från ERP till CRM. För
           retail-organisationer som vill ha en enda partner med kapacitet att
-          hantera hela plattformen — inklusive marknadsföring och försäljning —
+          hantera hela plattformen – inklusive marknadsföring och försäljning —
           är Fellowmind ett relevant alternativ. Styrkan ligger i bredd och
           geografisk täckning.
         </p>
@@ -2434,7 +2434,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Nexer har den bredaste kompetensportföljen av de listade partners och
           täcker samtliga relevanta Dynamics 365-applikationer för branschen.
           För retail-organisationer som planerar en mer ambitiös
-          plattformssatsning — där ERP, CRM och kontaktcenter ska hänga samman —
+          plattformssatsning – där ERP, CRM och kontaktcenter ska hänga samman —
           erbjuder Nexer kapacitet att hålla ihop hela arkitekturen. Som AI
           Integration Partner har de även ett tydligt fokus på nästa generations
           systemleveranser.
@@ -2452,14 +2452,14 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           En BC-implementation för ett medelstort handelsbolag med 50 miljoner
           i omsättning ställer andra krav på partner än en F&amp;SCM-
           implementation med Commerce för en kedja med 30 butiker och ett
-          centrallager. Frågan är inte bara vilket system — utan vilken partner
+          centrallager. Frågan är inte bara vilket system – utan vilken partner
           som faktiskt har gjort det du planerar att göra, i en organisation som
           liknar din.
         </p>
         <p>
           På d365.se kan du filtrera partners per produktområde, läsa deras
           branschbeskrivningar och jämföra kompetenser sida vid sida.
-          Plattformen är köparsidig — vägledningen är skriven utifrån köparens
+          Plattformen är köparsidig – vägledningen är skriven utifrån köparens
           perspektiv och inga partners betalar för att synas högre eller
           beskrivas mer fördelaktigt.
         </p>
@@ -2473,27 +2473,27 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vad kostar Dynamics 365 för en retail- eller e-handelsverksamhet?",
         answer:
-          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Essentials ligger på {{price:bc-essentials:short}} och Premium på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}}, Supply Chain Management {{price:supply-chain-management:short}} och Commerce {{price:commerce:short}} — relevant för retailkedjor med POS och omnikanal. Customer Insights ligger på {{price:customer-insights:default}}.\n\nImplementationskostnaden för ett medelstort retail- eller e-handelsbolag landar typiskt i intervallet 800 000 – 4 000 000 kr beroende på POS-integrationer, antal butiker, e-handelsplattform och behov av branschtillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Essentials ligger på {{price:bc-essentials:short}} och Premium på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}}, Supply Chain Management {{price:supply-chain-management:short}} och Commerce {{price:commerce:short}} – relevant för retailkedjor med POS och omnikanal. Customer Insights ligger på {{price:customer-insights:default}}.\n\nImplementationskostnaden för ett medelstort retail- eller e-handelsbolag landar typiskt i intervallet 800 000 – 4 000 000 kr beroende på POS-integrationer, antal butiker, e-handelsplattform och behov av branschtillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
       },
       {
         question: "Vilka problem stöter retail- och e-handelsbolag på i en Dynamics 365-implementation?",
         answer:
-          "De vanligaste fallgroparna är (1) underskattad integration mot POS, e-handelsplattform (Shopify, Magento, Centra) och marknadsplatser; (2) lager- och prislogik som inte synkroniseras i realtid mellan kanaler vilket skapar översålda artiklar; (3) returflöden och lojalitetshantering som inte modelleras tidigt; och (4) att masterdata för artiklar, varianter och kampanjpriser hanteras i olika system.\n\nDet är också vanligt att man underskattar förändringsarbetet i butiksleden — kassapersonal behöver utbildning och tydliga processer för det nya systemet.",
+          "De vanligaste fallgroparna är (1) underskattad integration mot POS, e-handelsplattform (Shopify, Magento, Centra) och marknadsplatser; (2) lager- och prislogik som inte synkroniseras i realtid mellan kanaler vilket skapar översålda artiklar; (3) returflöden och lojalitetshantering som inte modelleras tidigt; och (4) att masterdata för artiklar, varianter och kampanjpriser hanteras i olika system.\n\nDet är också vanligt att man underskattar förändringsarbetet i butiksleden – kassapersonal behöver utbildning och tydliga processer för det nya systemet.",
       },
       {
-        question: "Dynamics 365 Commerce vs Shopify, Centra och specialiserade retail-system — vad ska vi välja?",
+        question: "Dynamics 365 Commerce vs Shopify, Centra och specialiserade retail-system – vad ska vi välja?",
         answer:
-          "Det är inte ett antingen-eller. Specialiserade e-handelsplattformar (Shopify, Centra, Litium) och retail-POS (LS Retail, K3, Tasklet) har djup branschfunktionalitet och kommer ofta snabbare i drift. Dynamics 365 Commerce är en bredare plattform som täcker hela kedjan från lager och ekonomi till POS, e-handel och CRM i ett gemensamt dataekosystem.\n\nDen vanligaste arkitekturen i medelstora retailbolag är att behålla en specialiserad e-handelsplattform och låta D365 (BC eller F&SCM) vara back-office för ekonomi, lager och kund — med integration däremellan. För större kedjor med många butiker och behov av enhetlig POS är D365 Commerce eller LS Central (BC-baserat) ofta motiverat. Frågan att ställa: hur mycket av kanalspecifik logik klarar D365 utan kostsam särutveckling?",
+          "Det är inte ett antingen-eller. Specialiserade e-handelsplattformar (Shopify, Centra, Litium) och retail-POS (LS Retail, K3, Tasklet) har djup branschfunktionalitet och kommer ofta snabbare i drift. Dynamics 365 Commerce är en bredare plattform som täcker hela kedjan från lager och ekonomi till POS, e-handel och CRM i ett gemensamt dataekosystem.\n\nDen vanligaste arkitekturen i medelstora retailbolag är att behålla en specialiserad e-handelsplattform och låta D365 (BC eller F&SCM) vara back-office för ekonomi, lager och kund – med integration däremellan. För större kedjor med många butiker och behov av enhetlig POS är D365 Commerce eller LS Central (BC-baserat) ofta motiverat. Frågan att ställa: hur mycket av kanalspecifik logik klarar D365 utan kostsam särutveckling?",
       },
       {
         question: "Vad säger andra retail- och e-handelsbolag som infört Dynamics 365?",
         answer:
-          "Erfarenheterna varierar med scope. Bolag som infört D365 som back-office med specialiserad e-handel och POS framför rapporterar generellt god utväxling — särskilt på lager, inköp, ekonomi och kunddata. Bolag som försökt täcka hela kedjan inklusive POS och e-handel direkt i D365 utan branschtillägg har oftare stött på dyr särutveckling och förlängda projekt.\n\nEn återkommande lärdom är att tidigt definiera vilken systemkomponent som äger artikeldata, pris och lager, och att be partnern uppvisa konkreta referenscase från retail eller e-handel med liknande volym, kanalmix och butiksantal.",
+          "Erfarenheterna varierar med scope. Bolag som infört D365 som back-office med specialiserad e-handel och POS framför rapporterar generellt god utväxling – särskilt på lager, inköp, ekonomi och kunddata. Bolag som försökt täcka hela kedjan inklusive POS och e-handel direkt i D365 utan branschtillägg har oftare stött på dyr särutveckling och förlängda projekt.\n\nEn återkommande lärdom är att tidigt definiera vilken systemkomponent som äger artikeldata, pris och lager, och att be partnern uppvisa konkreta referenscase från retail eller e-handel med liknande volym, kanalmix och butiksantal.",
       },
       {
         question: "Vilken Dynamics 365-partner är bäst för retail & e-handel?",
         answer:
-          "Det beror på er kanalmix och storlek. På d365.se listar vi flera partners inom retail och e-handel — vissa är specialiserade på BC med LS Central för butikskedjor, andra arbetar med F&SCM och Commerce för större aktörer, och andra fokuserar på CRM och Customer Insights för att förstå kundbeteende över kanaler.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i retail eller e-handel av jämförbar storlek, (2) vilka POS- och e-handelsintegrationer de genomfört och mot vilka system, och (3) en tydlig arkitekturskiss över vad D365 ska göra respektive vad specialistsystemen behåller.",
+          "Det beror på er kanalmix och storlek. På d365.se listar vi flera partners inom retail och e-handel – vissa är specialiserade på BC med LS Central för butikskedjor, andra arbetar med F&SCM och Commerce för större aktörer, och andra fokuserar på CRM och Customer Insights för att förstå kundbeteende över kanaler.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i retail eller e-handel av jämförbar storlek, (2) vilka POS- och e-handelsintegrationer de genomfört och mot vilka system, och (3) en tydlig arkitekturskiss över vad D365 ska göra respektive vad specialistsystemen behåller.",
       },
     ],
   },
@@ -2504,7 +2504,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     metaDescription:
       "Dynamics 365 för tillverkning täcker MRP, BOM, kvalitet, spårbarhet och MES-integration. Köparsidig guide med kostnad, fallgropar och svenska partners.",
     summary:
-      "Dynamics 365 (F&SCM eller BC Premium) är ryggraden för svenska tillverkningsbolag — planering, inköp, lager, kvalitet och ekonomi i en plattform, kompletterad med MES och PLM. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 (F&SCM eller BC Premium) är ryggraden för svenska tillverkningsbolag – planering, inköp, lager, kvalitet och ekonomi i en plattform, kompletterad med MES och PLM. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["tillverkning", "industri", "dynamics365", "business central", "finance scm", "field service"],
     products: [
@@ -2527,12 +2527,12 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Tillverkningsindustri
         </p>
         <p className="italic text-foreground/85 !mb-8">
-          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+          Arbetsprocesser, systemstöd och en genomgång av listade partners – skriven ur köparens perspektiv.
         </p>
 
         <h2>Branschens verklighet</h2>
         <p>
-          Svensk tillverkningsindustri är bred — diskret produktion,
+          Svensk tillverkningsindustri är bred – diskret produktion,
           processtillverkning, projektbaserad tillverkning, make-to-order,
           engineer-to-order. Det som är gemensamt är att komplexiteten är hög
           och att konsekvenserna av ett affärssystem som inte håller måttet
@@ -2543,7 +2543,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Branschen befinner sig mitt i en strukturell omvandling. Industri 4.0
           är inte längre ett framtidsbegrepp utan ett konkurrenskrav. Uppkopplade
           produktionsmiljöer, realtidsdata från golvet, integration mot MES och
-          SCADA — det ställer helt andra krav på affärssystemet än vad som
+          SCADA – det ställer helt andra krav på affärssystemet än vad som
           gällde för tio år sedan. Samtidigt pressas marginaler av volatila
           råvarupriser och störningar i leverantörskedjor, vilket kräver
           snabbare beslut och bättre prognoser.
@@ -2570,7 +2570,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           med hög precision och stödjer alla vanliga tillverkningsprinciper.
         </p>
         <ul>
-          <li>Produktionsplanering med MRP/MPS — materialbehovsplanering och kapacitetsplanering i ett sammanhållet flöde</li>
+          <li>Produktionsplanering med MRP/MPS – materialbehovsplanering och kapacitetsplanering i ett sammanhållet flöde</li>
           <li>Avancerad lagerhantering (WMS) med stöd för serienummer- och batchspårbarhet genom hela kedjan</li>
           <li>Kvalitetskontroll med obligatoriska kontrollpunkter, avvikelsehantering och karantänlager</li>
           <li>Produktkonfiguration för komplexa varianter (Configure-to-Order) och korrekta för- och efterkalkyler</li>
@@ -2594,8 +2594,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <h3>Field Service: Eftermarknad och serviceaffär</h3>
         <p>
-          För tillverkande företag som vill växa sin serviceaffär — serviceavtal,
-          förebyggande underhåll, fältservicetekniker, reservdelshantering — är
+          För tillverkande företag som vill växa sin serviceaffär – serviceavtal,
+          förebyggande underhåll, fältservicetekniker, reservdelshantering – är
           Field Service det naturliga valet. Systemet hanterar hela serviceflödet
           från ärendeskapande till fakturering.
         </p>
@@ -2615,7 +2615,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           marknadskommunikation.
         </p>
         <ul>
-          <li>Offerthantering med produktkonfigurator (CPQ — Configure, Price, Quote)</li>
+          <li>Offerthantering med produktkonfigurator (CPQ – Configure, Price, Quote)</li>
           <li>Pipeline-hantering och aktivitetsuppföljning för långa säljcykler</li>
           <li>Kunddata aggregerad från flera källor för segmentering och riktad kommunikation</li>
         </ul>
@@ -2648,7 +2648,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Fellowmind täcker hela spannet från BC till F&amp;SCM och kombinerar
           ERP-kompetens med CRM. För tillverkande företag som vill ha en enda
-          partner för hela plattformen — inklusive sälj och kundinsikt — är
+          partner för hela plattformen – inklusive sälj och kundinsikt – är
           Fellowmind ett relevant alternativ. Styrkan är bred portfölj och
           europeisk leveranskapacitet.
         </p>
@@ -2683,7 +2683,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Nexer har en av de bredaste kompetensportföljerna i listan och
           täcker samtliga relevanta Dynamics 365-applikationer för branschen.
           För tillverkande organisationer som planerar en ambitiös
-          plattformssatsning — där ERP, eftermarknad och CRM ska hänga samman —
+          plattformssatsning – där ERP, eftermarknad och CRM ska hänga samman —
           erbjuder Nexer kapacitet att hålla ihop hela arkitekturen. AI
           Integration Partner-certifieringen indikerar ett aktivt fokus på
           nästa generations systemleveranser.
@@ -2709,7 +2709,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Sirocco Group är en tydlig CRM- och servicespecialist i listan.
           För tillverkande företag som hanterar komplex
           B2B-försäljning, eftermarknadsservice och projektbaserade leveranser
-          — och som redan har eller planerar ett separat ERP — är Sirocco ett
+          – och som redan har eller planerar ett separat ERP – är Sirocco ett
           relevant val för CRM- och servicesidan av plattformen.
         </p>
 
@@ -2774,19 +2774,19 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
           Tillverkningsindustrin är d365.se:s bransch med flest listade
-          partners — 19 totalt. Det speglar att branschen är komplex, bred och
+          partners – 19 totalt. Det speglar att branschen är komplex, bred och
           har höga krav på systemstöd. Men fler alternativ innebär inte ett
           enklare val.
         </p>
         <p>
           Avgörande frågor att ställa: Vilken tillverkningsprincip är
-          dominerande i er verksamhet — diskret, process, projektbaserad? Hur
+          dominerande i er verksamhet – diskret, process, projektbaserad? Hur
           ser behovet av eftermarknad och service ut? Är ERP det primära
           behovet eller behöver CRM och sälj hanteras parallellt? Hur många
           juridiska entiteter och länder berörs?
         </p>
         <p>
-          Svaren på de frågorna styr valet av applikation — och därmed vilka
+          Svaren på de frågorna styr valet av applikation – och därmed vilka
           partners som är relevanta. En BC-implementation för ett medelstort
           verkstadsföretag ställer helt andra krav än en F&amp;SCM-implementation
           för en tillverkningskoncern med tio bolag i fyra länder.
@@ -2801,27 +2801,27 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vad kostar Dynamics 365 för ett tillverkningsföretag?",
         answer:
-          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Premium (som inkluderar tillverkning) ligger på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}} och Supply Chain Management {{price:supply-chain-management:short}} — relevant för större tillverkare med avancerad MES-, kvalitets- och spårbarhetslogik. Field Service ligger på {{price:field-service:short}}.\n\nImplementationskostnaden för ett medelstort tillverkningsföretag landar typiskt i intervallet 1 200 000 – 5 000 000 kr beroende på antal anläggningar, integrationer mot MES, PLM och CAD samt behov av branschspecifika tillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Premium (som inkluderar tillverkning) ligger på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}} och Supply Chain Management {{price:supply-chain-management:short}} – relevant för större tillverkare med avancerad MES-, kvalitets- och spårbarhetslogik. Field Service ligger på {{price:field-service:short}}.\n\nImplementationskostnaden för ett medelstort tillverkningsföretag landar typiskt i intervallet 1 200 000 – 5 000 000 kr beroende på antal anläggningar, integrationer mot MES, PLM och CAD samt behov av branschspecifika tillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
       },
       {
         question: "Vilka problem stöter tillverkningsföretag på i en Dynamics 365-implementation?",
         answer:
-          "De vanligaste fallgroparna är (1) underskattad komplexitet i produktstrukturer (BOM) med varianter och konfigurationer; (2) integration mot MES, maskindata och PLM som lämnas till slutet av projektet; (3) kvalitets- och spårbarhetslogik som inte byggs in från start; och (4) planering i flera nivåer (MPS, MRP, capacity) som inte stöds av masterdata med tillräcklig kvalitet.\n\nDet är också vanligt att man underskattar förändringsarbetet i produktion — operatörer behöver enkla gränssnitt för rapportering, annars blir datakvaliteten lidande.",
+          "De vanligaste fallgroparna är (1) underskattad komplexitet i produktstrukturer (BOM) med varianter och konfigurationer; (2) integration mot MES, maskindata och PLM som lämnas till slutet av projektet; (3) kvalitets- och spårbarhetslogik som inte byggs in från start; och (4) planering i flera nivåer (MPS, MRP, capacity) som inte stöds av masterdata med tillräcklig kvalitet.\n\nDet är också vanligt att man underskattar förändringsarbetet i produktion – operatörer behöver enkla gränssnitt för rapportering, annars blir datakvaliteten lidande.",
       },
       {
-        question: "Dynamics 365 vs specialiserade MES- och PLM-system — vad ska vi välja?",
+        question: "Dynamics 365 vs specialiserade MES- och PLM-system – vad ska vi välja?",
         answer:
-          "Det är inte ett antingen-eller. Specialiserade MES-system (t.ex. Siemens Opcenter, Aptean) och PLM-system (PTC, Siemens Teamcenter) har djup verkstadsgolv- och produktdatafunktionalitet som Dynamics 365 inte fullt ut levererar ur lådan. Dynamics 365 (F&SCM eller BC Premium) är en bredare affärsplattform för ekonomi, planering, inköp, lager och kund.\n\nDen vanligaste arkitekturen i medelstora till större tillverkningsbolag är att behålla MES för maskindata och realtidsproduktion och låta D365 vara back-office för planering, ekonomi och supply chain — med integration däremellan. För mindre eller mer standardiserade tillverkare kan BC Premium med integration mot ett mindre MES räcka. Frågan att ställa: hur mycket av verkstadsgolvets realtidsstyrning klarar D365 utan kostsam särutveckling?",
+          "Det är inte ett antingen-eller. Specialiserade MES-system (t.ex. Siemens Opcenter, Aptean) och PLM-system (PTC, Siemens Teamcenter) har djup verkstadsgolv- och produktdatafunktionalitet som Dynamics 365 inte fullt ut levererar ur lådan. Dynamics 365 (F&SCM eller BC Premium) är en bredare affärsplattform för ekonomi, planering, inköp, lager och kund.\n\nDen vanligaste arkitekturen i medelstora till större tillverkningsbolag är att behålla MES för maskindata och realtidsproduktion och låta D365 vara back-office för planering, ekonomi och supply chain – med integration däremellan. För mindre eller mer standardiserade tillverkare kan BC Premium med integration mot ett mindre MES räcka. Frågan att ställa: hur mycket av verkstadsgolvets realtidsstyrning klarar D365 utan kostsam särutveckling?",
       },
       {
         question: "Vad säger andra tillverkningsföretag som infört Dynamics 365?",
         answer:
-          "Erfarenheterna varierar med scope. Bolag som använt D365 som planerings- och ekonomiplattform med integration mot specialiserade MES- och PLM-system rapporterar generellt god utväxling — särskilt på MRP, leveransprecision och kostnadsuppföljning per order. Bolag som försökt täcka all verkstadsgolvslogik direkt i D365 utan branschtillägg har oftare stött på dyr särutveckling och förlängda projekt.\n\nEn återkommande lärdom är att börja med masterdata och planering, och att be partnern uppvisa konkreta referenscase med jämförbar produkttyp (diskret, process, varianter) och produktionsupplägg.",
+          "Erfarenheterna varierar med scope. Bolag som använt D365 som planerings- och ekonomiplattform med integration mot specialiserade MES- och PLM-system rapporterar generellt god utväxling – särskilt på MRP, leveransprecision och kostnadsuppföljning per order. Bolag som försökt täcka all verkstadsgolvslogik direkt i D365 utan branschtillägg har oftare stött på dyr särutveckling och förlängda projekt.\n\nEn återkommande lärdom är att börja med masterdata och planering, och att be partnern uppvisa konkreta referenscase med jämförbar produkttyp (diskret, process, varianter) och produktionsupplägg.",
       },
       {
         question: "Vilken Dynamics 365-partner är bäst för tillverkningsindustri?",
         answer:
-          "Det beror på er produkttyp och storlek. På d365.se listar vi flera partners med tillverkningsfokus — vissa är specialiserade på BC Premium för medelstora diskreta tillverkare, andra arbetar med F&SCM och avancerad supply chain för större aktörer, och andra har dokumenterade ISV-tillägg för specifika tillverkningsnischer.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i tillverkningsindustri med liknande produkt- och produktionsupplägg, (2) vilka MES- och PLM-integrationer de genomfört, och (3) en tydlig arkitekturskiss över vad D365 ska göra respektive vad specialistsystemen behåller.",
+          "Det beror på er produkttyp och storlek. På d365.se listar vi flera partners med tillverkningsfokus – vissa är specialiserade på BC Premium för medelstora diskreta tillverkare, andra arbetar med F&SCM och avancerad supply chain för större aktörer, och andra har dokumenterade ISV-tillägg för specifika tillverkningsnischer.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i tillverkningsindustri med liknande produkt- och produktionsupplägg, (2) vilka MES- och PLM-integrationer de genomfört, och (3) en tydlig arkitekturskiss över vad D365 ska göra respektive vad specialistsystemen behåller.",
       },
     ],
   },
@@ -2832,7 +2832,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     metaDescription:
       "Dynamics 365 för livsmedel & processindustri hanterar batch, recept, HACCP och spårbarhet från råvara till färdig produkt. Köparsidig guide med svenska partners.",
     summary:
-      "Dynamics 365 (F&SCM eller BC Premium med livsmedelstillägg) stödjer batch, recept, hållbarhet, HACCP och spårbarhet från råvara till färdig produkt. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 (F&SCM eller BC Premium med livsmedelstillägg) stödjer batch, recept, hållbarhet, HACCP och spårbarhet från råvara till färdig produkt. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["livsmedel", "processindustri", "dynamics365", "business central", "finance scm", "spårbarhet"],
     products: [
@@ -2855,7 +2855,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Livsmedel &amp; Processindustri
         </p>
         <p className="italic text-foreground/85 !mb-8">
-          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+          Arbetsprocesser, systemstöd och en genomgång av listade partners – skriven ur köparens perspektiv.
         </p>
 
         <h2>Branschens verklighet</h2>
@@ -2865,7 +2865,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           råvarupriser och internationell konkurrens, samtidigt som konsumenternas
           krav på transparens, lokalt producerade varor och hållbarhet ständigt
           ökar. Att hantera allt detta kräver systemstöd som är byggt för
-          branschens verklighet — inte ett generellt affärssystem med påklistrade
+          branschens verklighet – inte ett generellt affärssystem med påklistrade
           anpassningar.
         </p>
         <p>
@@ -2873,7 +2873,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           recept snarare än stycklistor, batchhantering snarare än serienummer,
           hållbarhetstider som styr lagerlogiken, och produktionsplanering som tar
           hänsyn till sanitering och allergenhantering. En återkallelse måste kunna
-          hanteras inom timmar — med full spårbarhet från råvara till slutkund.
+          hanteras inom timmar – med full spårbarhet från råvara till slutkund.
         </p>
         <p>
           Microsoft Dynamics 365 används av svenska livsmedels- och processföretag
@@ -2898,7 +2898,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           <li>Kvalitetskontroller med obligatoriska kontrollpunkter vid ankomst, under produktion och på färdigvaror</li>
           <li>Lagerstyrning med hållbarhetstider och FEFO-plockstrategi (First-Expired, First-Out)</li>
           <li>Produktionsplanering med hänsyn till kapacitet, materialtillgång och saniterings- eller rengöringsintervall</li>
-          <li>Kalkylering med stöd för viktsvinn, utbyte och processvariation — grunden för korrekt marginalanalys</li>
+          <li>Kalkylering med stöd för viktsvinn, utbyte och processvariation – grunden för korrekt marginalanalys</li>
           <li>Integration mot produktionsutrustning (MES/SCADA) via standardiserade API:er för realtidsdata</li>
         </ul>
 
@@ -2966,8 +2966,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Sirocco Group är en renodlad CRM- och servicespecialist. För
           livsmedelsföretag med komplex B2B-försäljning mot handelskedjor,
-          distributörer eller restauranger — och som söker en partner med djup
-          CRM-kompetens snarare än ERP — är Sirocco ett relevant alternativ. De
+          distributörer eller restauranger – och som söker en partner med djup
+          CRM-kompetens snarare än ERP – är Sirocco ett relevant alternativ. De
           hanterar kundrelationer, fältservice och kontaktcenter på Dynamics
           365-plattformen.
         </p>
@@ -2993,7 +2993,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Livsmedels- och processindustrin är en bransch där partnerns
           branscherfarenhet väger tyngre än i de flesta andra segment. Krav på
           spårbarhet, FEFO-styrning, kvalitetsdokumentation och certifieringsstöd
-          (BRC, IFS) är inte standardfunktioner i alla system — de kräver antingen
+          (BRC, IFS) är inte standardfunktioner i alla system – de kräver antingen
           djupare konfiguration eller branschspecifika tillägg som partnern måste
           behärska.
         </p>
@@ -3003,7 +3003,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           processtillverkning som kärnkompetens, andra är breda plattformspartners
           med livsmedelserfarenhet som ett av flera segment. En relevant fråga att
           ställa till varje partner är hur många livsmedelsimplementationer de
-          genomfört — och om de kan visa referenskunder med liknande produktionsform
+          genomfört – och om de kan visa referenskunder med liknande produktionsform
           och komplexitet.
         </p>
         <p>
@@ -3016,27 +3016,27 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vad kostar Dynamics 365 för ett livsmedels- eller processindustribolag?",
         answer:
-          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Premium ligger på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}} och Supply Chain Management {{price:supply-chain-management:short}} — i princip standardvalet för livsmedel och processindustri med batch-, spårbarhets- och HACCP-krav.\n\nImplementationskostnaden för ett medelstort livsmedels- eller processindustribolag landar typiskt i intervallet 1 500 000 – 6 000 000 kr beroende på antal anläggningar, integrationer mot vågsystem, MES och laboratorier samt behov av branschspecifika tillägg (t.ex. ToIncrease Food, Aptean, LS Central Food). Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Premium ligger på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}} och Supply Chain Management {{price:supply-chain-management:short}} – i princip standardvalet för livsmedel och processindustri med batch-, spårbarhets- och HACCP-krav.\n\nImplementationskostnaden för ett medelstort livsmedels- eller processindustribolag landar typiskt i intervallet 1 500 000 – 6 000 000 kr beroende på antal anläggningar, integrationer mot vågsystem, MES och laboratorier samt behov av branschspecifika tillägg (t.ex. ToIncrease Food, Aptean, LS Central Food). Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
       },
       {
         question: "Vilka problem stöter livsmedels- och processindustribolag på i en Dynamics 365-implementation?",
         answer:
-          "De vanligaste fallgroparna är (1) underskattad komplexitet i batch-, recept- och hållbarhetslogik; (2) spårbarhet (forward/backward) som inte byggs in i hela kedjan från råvara till färdig produkt; (3) HACCP, kvalitetstester och avvikelsehantering som lämnas i parallella system; och (4) integration mot vågsystem, MES, etiketteringssystem och kund-EDI som underskattas.\n\nDet är också vanligt att man underskattar regelefterlevnaden — märkning, allergener, ursprung och spårbarhet kräver att datamodellen byggs rätt från start.",
+          "De vanligaste fallgroparna är (1) underskattad komplexitet i batch-, recept- och hållbarhetslogik; (2) spårbarhet (forward/backward) som inte byggs in i hela kedjan från råvara till färdig produkt; (3) HACCP, kvalitetstester och avvikelsehantering som lämnas i parallella system; och (4) integration mot vågsystem, MES, etiketteringssystem och kund-EDI som underskattas.\n\nDet är också vanligt att man underskattar regelefterlevnaden – märkning, allergener, ursprung och spårbarhet kräver att datamodellen byggs rätt från start.",
       },
       {
-        question: "Dynamics 365 vs specialiserade livsmedelssystem — vad ska vi välja?",
+        question: "Dynamics 365 vs specialiserade livsmedelssystem – vad ska vi välja?",
         answer:
-          "Det är inte ett antingen-eller. Specialiserade livsmedelssystem (Aptean Process, CSB, Infor M3 Food) har djup branschfunktionalitet ur lådan. Dynamics 365 (F&SCM eller BC Premium med ToIncrease Food eller LS Central Food) är en bredare plattform som med rätt branschtillägg täcker batch, recept, spårbarhet och HACCP — och kompletteras med Microsofts ekosystem för analys, kund och AI.\n\nDen vanligaste vägen för medelstora till större livsmedelsbolag är att välja D365 + ISV-tillägg snarare än ett renodlat specialistsystem, för att få plattformsbredden. Frågan att ställa: vilket ISV-tillägg rekommenderar partnern, och vilka konkreta livsmedelsreferenser har de på just det tillägget?",
+          "Det är inte ett antingen-eller. Specialiserade livsmedelssystem (Aptean Process, CSB, Infor M3 Food) har djup branschfunktionalitet ur lådan. Dynamics 365 (F&SCM eller BC Premium med ToIncrease Food eller LS Central Food) är en bredare plattform som med rätt branschtillägg täcker batch, recept, spårbarhet och HACCP – och kompletteras med Microsofts ekosystem för analys, kund och AI.\n\nDen vanligaste vägen för medelstora till större livsmedelsbolag är att välja D365 + ISV-tillägg snarare än ett renodlat specialistsystem, för att få plattformsbredden. Frågan att ställa: vilket ISV-tillägg rekommenderar partnern, och vilka konkreta livsmedelsreferenser har de på just det tillägget?",
       },
       {
         question: "Vad säger andra livsmedels- och processindustribolag som infört Dynamics 365?",
         answer:
-          "Erfarenheterna varierar med val av ISV-tillägg och scope. Bolag som infört D365 + ett etablerat livsmedelstillägg rapporterar generellt god utväxling — särskilt på batch-spårbarhet, hållbarhetshantering och rapportering till myndigheter och kunder. Bolag som försökt täcka all branschspecifik logik med standard-D365 utan tillägg har oftare stött på dyr särutveckling och brister i spårbarhet.\n\nEn återkommande lärdom är att kravarbetet ska involvera både produktion, kvalitet, ekonomi och försäljning — och att tidigt validera branschtillägget mot verkliga processer, inte bara demo.",
+          "Erfarenheterna varierar med val av ISV-tillägg och scope. Bolag som infört D365 + ett etablerat livsmedelstillägg rapporterar generellt god utväxling – särskilt på batch-spårbarhet, hållbarhetshantering och rapportering till myndigheter och kunder. Bolag som försökt täcka all branschspecifik logik med standard-D365 utan tillägg har oftare stött på dyr särutveckling och brister i spårbarhet.\n\nEn återkommande lärdom är att kravarbetet ska involvera både produktion, kvalitet, ekonomi och försäljning – och att tidigt validera branschtillägget mot verkliga processer, inte bara demo.",
       },
       {
         question: "Vilken Dynamics 365-partner är bäst för livsmedel & processindustri?",
         answer:
-          "Det beror på vilket ISV-tillägg ni väljer och er storlek. På d365.se listar vi flera partners med livsmedelsfokus — vissa är specialiserade på BC med LS Central Food eller ToIncrease Food, andra arbetar med F&SCM för större process- och livsmedelstillverkare.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i livsmedel eller processindustri med liknande produkttyp och spårbarhetskrav, (2) vilka livsmedelstillägg de arbetar med och varför, och (3) hur de hanterar batch, recept, hållbarhet och HACCP i sin lösning.",
+          "Det beror på vilket ISV-tillägg ni väljer och er storlek. På d365.se listar vi flera partners med livsmedelsfokus – vissa är specialiserade på BC med LS Central Food eller ToIncrease Food, andra arbetar med F&SCM för större process- och livsmedelstillverkare.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i livsmedel eller processindustri med liknande produkttyp och spårbarhetskrav, (2) vilka livsmedelstillägg de arbetar med och varför, och (3) hur de hanterar batch, recept, hållbarhet och HACCP i sin lösning.",
       },
     ],
   },
@@ -3047,7 +3047,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     metaDescription:
       "Dynamics 365 för grossist & distribution stöttar lager, WMS, prislogik och EDI i en plattform. Köparsidig guide med kostnad, fallgropar och svenska partners.",
     summary:
-      "Dynamics 365 (BC Premium eller F&SCM) är en stark ryggrad för svenska grossister och distributörer — ekonomi, lager, prislogik, EDI och kund i samma plattform. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 (BC Premium eller F&SCM) är en stark ryggrad för svenska grossister och distributörer – ekonomi, lager, prislogik, EDI och kund i samma plattform. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["grossist", "distribution", "dynamics365", "business central", "finance scm", "wms"],
     products: [
@@ -3070,7 +3070,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Grossist &amp; Distribution
         </p>
         <p className="italic text-foreground/85 !mb-8">
-          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+          Arbetsprocesser, systemstöd och en genomgång av listade partners – skriven ur köparens perspektiv.
         </p>
 
         <h2>Branschens verklighet</h2>
@@ -3078,7 +3078,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Grossist- och distributionshandeln binder samman producenter med
           återförsäljare och slutkunder och är en bransch med konstant press på
           marginalerna. Kundernas förväntningar på snabba, precisa och spårbara
-          leveranser är en hygienfaktor snarare än ett konkurrensmedel — det är
+          leveranser är en hygienfaktor snarare än ett konkurrensmedel – det är
           vad som krävs bara för att vara med i spelet.
         </p>
         <p>
@@ -3087,7 +3087,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           realtidsdata och omnikanalsförsäljning. Manuella flöden och
           silobaserade system bromsar tillväxt och lönsamhet. Affärssystemet är
           ryggraden som håller ihop inköp, lager, logistik, orderhantering och
-          ekonomi — och i en distributionsverksamhet märks det direkt i
+          ekonomi – och i en distributionsverksamhet märks det direkt i
           verksamheten när det brister.
         </p>
         <p>
@@ -3134,8 +3134,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <h3>Sales &amp; Customer Insights: Kundrelationer och segmentering</h3>
         <p>
-          Grossistföretag med ett komplext säljled — KAM-relationer,
-          avtalsförhandlingar, kategoriutveckling mot handelskedjor — drar nytta
+          Grossistföretag med ett komplext säljled – KAM-relationer,
+          avtalsförhandlingar, kategoriutveckling mot handelskedjor – drar nytta
           av Dynamics 365 Sales för strukturerad pipeline- och kundhantering.
           Customer Insights samlar kunddata för segmentering och personaliserade
           kampanjer.
@@ -3148,8 +3148,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <h3>Customer Service: Ärende- och returhantering</h3>
         <p>
-          Distributionsföretag med en aktiv kundtjänst — frågor om orderstatus,
-          leveransavvikelser och returer — behöver ett system som ger
+          Distributionsföretag med en aktiv kundtjänst – frågor om orderstatus,
+          leveransavvikelser och returer – behöver ett system som ger
           kundtjänstteamet direkt åtkomst till order- och leveransinformation.
           Customer Service hanterar ärenden från alla kanaler i ett enhetligt
           flöde och kopplar dem till relevant ERP-data.
@@ -3182,7 +3182,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Fellowmind täcker hela spannet från BC till F&amp;SCM och kombinerar
           ERP-kompetens med CRM. För distributionsföretag som vill ha en enda
-          partner för hela plattformen — inklusive sälj och kundinsikt — är
+          partner för hela plattformen – inklusive sälj och kundinsikt – är
           Fellowmind ett relevant alternativ. Styrkan är bred portfölj,
           dokumenterad erfarenhet från grossist och distribution, och europeisk
           leveranskapacitet för bolag med internationell verksamhet.
@@ -3196,7 +3196,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Goodfellows är en BC-specialist med djup erfarenhet från handel,
           distribution och produktion. Deras profil är tydlig: förutsägbar
           leverans, nära samarbete med kundens team och fokus på att lösningen
-          fungerar i praktiken — inte bara i projektplanen. För medelstora
+          fungerar i praktiken – inte bara i projektplanen. För medelstora
           grossister med komplexa lagerflöden, avancerad prissättning och krav
           på leveranssäkerhet är Goodfellows ett starkt alternativ bland
           BC-partnerna.
@@ -3223,7 +3223,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Nexer har en av de bredaste kompetensportföljerna i listan och täcker
           samtliga relevanta Dynamics 365-applikationer för branschen. För
           distributionsorganisationer som planerar en ambitiös plattformssatsning
-          — där ERP, kundservice och CRM ska hänga samman i realtid — erbjuder
+          – där ERP, kundservice och CRM ska hänga samman i realtid – erbjuder
           Nexer kapacitet att hålla ihop hela arkitekturen. AI Integration
           Partner-certifieringen pekar mot ett aktivt fokus på nästa generations
           systemleveranser.
@@ -3250,7 +3250,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Bisqo är en BC-partner med erfarenhet från grossist och distribution.
           Deras fokus ligger på att leverera anpassade BC-lösningar som möter de
-          operativa krav som präglar distributionsverksamheter — lagerflöden,
+          operativa krav som präglar distributionsverksamheter – lagerflöden,
           orderhantering och prissättning. Relevant för medelstora
           distributionsföretag i SMB-segmentet som söker en hands-on BC-partner
           med god branschförståelse.
@@ -3277,7 +3277,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Knowit har ett renodlat F&amp;SCM-fokus med djup ERP-kompetens för
           grossist och distribution. Deras leveransmodell integrerar ERP med
-          data, AI och intelligenta arbetsflöden — med målet att koppla samman
+          data, AI och intelligenta arbetsflöden – med målet att koppla samman
           affärssystem och analys för bättre beslut och effektivare processer.
           AI Enabled-certifieringen understryker att de aktivt arbetar med
           AI-integration i sina leveranser. Relevant för medelstora till stora
@@ -3289,13 +3289,13 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
           Grossist och distribution är en bransch där affärssystemet är direkt
-          kopplat till verksamhetens lönsamhet — fel lagernivåer, bristande
+          kopplat till verksamhetens lönsamhet – fel lagernivåer, bristande
           leveransprecision eller manuella flöden syns omedelbart på marginalen.
           Det ställer höga krav på att partnern förstår distributionslogik: hur
           inköpsplanering, WMS, prissättning och orderflöden hänger samman.
         </p>
         <p>
-          Med tolv listade partners spänner urvalet brett — från renodlade
+          Med tolv listade partners spänner urvalet brett – från renodlade
           BC-specialister för SMB-segmentet till partners med F&amp;SCM-kapacitet
           för komplexa distributionskoncerner. En central fråga är om BC räcker
           för er komplexitet, eller om ni behöver F&amp;SCM:s avancerade WMS och
@@ -3312,27 +3312,27 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vad kostar Dynamics 365 för ett grossist- och distributionsbolag?",
         answer:
-          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Essentials ligger på {{price:bc-essentials:short}} och Premium på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}} och Supply Chain Management {{price:supply-chain-management:short}} — relevant för större grossister med avancerad lager- (WMS) och prislogik.\n\nImplementationskostnaden för ett medelstort grossist- och distributionsbolag landar typiskt i intervallet 800 000 – 3 500 000 kr beroende på antal lager, EDI-integrationer mot kunder och leverantörer samt komplexitet i pris- och rabattlogik. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Essentials ligger på {{price:bc-essentials:short}} och Premium på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}} och Supply Chain Management {{price:supply-chain-management:short}} – relevant för större grossister med avancerad lager- (WMS) och prislogik.\n\nImplementationskostnaden för ett medelstort grossist- och distributionsbolag landar typiskt i intervallet 800 000 – 3 500 000 kr beroende på antal lager, EDI-integrationer mot kunder och leverantörer samt komplexitet i pris- och rabattlogik. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
       },
       {
         question: "Vilka problem stöter grossist- och distributionsbolag på i en Dynamics 365-implementation?",
         answer:
-          "De vanligaste fallgroparna är (1) komplex pris- och rabattlogik (kundavtal, volym, kampanj) som inte modelleras tillräckligt; (2) WMS- och plocklogik som inte täcks av standard utan kräver tillägg eller integration; (3) EDI mot stora kunder och leverantörer som underskattas i tid och kostnad; och (4) artikelmaster med många leverantörer, varianter och prisstrukturer som inte städas inför migrering.\n\nDet är också vanligt att returflöden, kreditfakturor och kvalitetsavvikelser inte modelleras tidigt — vilket skapar manuella processer efter golive.",
+          "De vanligaste fallgroparna är (1) komplex pris- och rabattlogik (kundavtal, volym, kampanj) som inte modelleras tillräckligt; (2) WMS- och plocklogik som inte täcks av standard utan kräver tillägg eller integration; (3) EDI mot stora kunder och leverantörer som underskattas i tid och kostnad; och (4) artikelmaster med många leverantörer, varianter och prisstrukturer som inte städas inför migrering.\n\nDet är också vanligt att returflöden, kreditfakturor och kvalitetsavvikelser inte modelleras tidigt – vilket skapar manuella processer efter golive.",
       },
       {
-        question: "Dynamics 365 vs specialiserade WMS- och grossistsystem — vad ska vi välja?",
+        question: "Dynamics 365 vs specialiserade WMS- och grossistsystem – vad ska vi välja?",
         answer:
-          "Det är inte ett antingen-eller. Specialiserade WMS-system (Astro, Consafe Logistics, Manhattan) och grossistplattformar har djup branschfunktionalitet ur lådan. Dynamics 365 (F&SCM eller BC Premium) är en bredare plattform med solid funktionalitet för grossistlogik och WMS som ofta räcker — särskilt med rätt branschtillägg.\n\nDen vanligaste arkitekturen i medelstora grossister är att låta D365 vara hela ryggraden, kompletterad med tilläggsmoduler för WMS eller EDI. För större aktörer med komplexa flöden och hög volym kan ett separat WMS vara motiverat. Frågan att ställa: hur mycket av lager- och plocklogiken klarar D365 utan särutveckling eller separat WMS?",
+          "Det är inte ett antingen-eller. Specialiserade WMS-system (Astro, Consafe Logistics, Manhattan) och grossistplattformar har djup branschfunktionalitet ur lådan. Dynamics 365 (F&SCM eller BC Premium) är en bredare plattform med solid funktionalitet för grossistlogik och WMS som ofta räcker – särskilt med rätt branschtillägg.\n\nDen vanligaste arkitekturen i medelstora grossister är att låta D365 vara hela ryggraden, kompletterad med tilläggsmoduler för WMS eller EDI. För större aktörer med komplexa flöden och hög volym kan ett separat WMS vara motiverat. Frågan att ställa: hur mycket av lager- och plocklogiken klarar D365 utan särutveckling eller separat WMS?",
       },
       {
         question: "Vad säger andra grossist- och distributionsbolag som infört Dynamics 365?",
         answer:
-          "Erfarenheterna är generellt positiva när scope hålls realistiskt. Bolag som använt D365 som hel ryggrad med BC Premium eller F&SCM rapporterar god utväxling — särskilt på orderhantering, lager, EDI och kunduppföljning. Bolag som inte städat masterdata (artiklar, kunder, leverantörer) inför migrering har oftare brottats med långa stabiliseringsfaser efter golive.\n\nEn återkommande lärdom är att lägga tid på masterdata- och prislogik tidigt, och att be partnern uppvisa konkreta referenscase i grossist- och distributionsbranschen med liknande volym, sortiment och kundstruktur.",
+          "Erfarenheterna är generellt positiva när scope hålls realistiskt. Bolag som använt D365 som hel ryggrad med BC Premium eller F&SCM rapporterar god utväxling – särskilt på orderhantering, lager, EDI och kunduppföljning. Bolag som inte städat masterdata (artiklar, kunder, leverantörer) inför migrering har oftare brottats med långa stabiliseringsfaser efter golive.\n\nEn återkommande lärdom är att lägga tid på masterdata- och prislogik tidigt, och att be partnern uppvisa konkreta referenscase i grossist- och distributionsbranschen med liknande volym, sortiment och kundstruktur.",
       },
       {
         question: "Vilken Dynamics 365-partner är bäst för grossist & distribution?",
         answer:
-          "Det beror på er storlek och komplexitet. På d365.se listar vi flera partners med grossist- och distributionsfokus — vissa är specialiserade på BC för medelstora aktörer, andra arbetar med F&SCM och avancerad supply chain för större distributörer, och andra har dokumenterade ISV-tillägg för WMS, EDI eller branschspecifika prislogiker.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i grossist eller distribution av jämförbar storlek, (2) hur de hanterar komplex pris- och rabattlogik samt EDI, och (3) en tydlig arkitekturskiss över vilka delar D365 äger respektive vad eventuella tilläggssystem behåller.",
+          "Det beror på er storlek och komplexitet. På d365.se listar vi flera partners med grossist- och distributionsfokus – vissa är specialiserade på BC för medelstora aktörer, andra arbetar med F&SCM och avancerad supply chain för större distributörer, och andra har dokumenterade ISV-tillägg för WMS, EDI eller branschspecifika prislogiker.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i grossist eller distribution av jämförbar storlek, (2) hur de hanterar komplex pris- och rabattlogik samt EDI, och (3) en tydlig arkitekturskiss över vilka delar D365 äger respektive vad eventuella tilläggssystem behåller.",
       },
     ],
   },
@@ -3343,7 +3343,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     metaDescription:
       "Dynamics 365 för jordbruk & skogsbruk täcker säsong, maskinpark, lager, fältservice och avräkning. Köparsidig guide med kostnad och svenska partners.",
     summary:
-      "Dynamics 365 fungerar som back-office för svenska jord- och skogsbruksbolag — ekonomi, anläggningsregister, fältservice och kund, integrerat med branschens specialistsystem. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 fungerar som back-office för svenska jord- och skogsbruksbolag – ekonomi, anläggningsregister, fältservice och kund, integrerat med branschens specialistsystem. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["jordbruk", "skogsbruk", "dynamics365", "business central", "finance scm", "field service"],
     products: [
@@ -3366,7 +3366,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Jordbruk &amp; Skogsbruk
         </p>
         <p className="italic text-foreground/85 !mb-8">
-          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+          Arbetsprocesser, systemstöd och en genomgång av listade partners – skriven ur köparens perspektiv.
         </p>
 
         <h2>Branschens verklighet</h2>
@@ -3375,8 +3375,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           kombinerar tradition med ett växande behov av digitalisering.
           Precisionsodling, skogsbruksplanering, maskinuppkoppling och krav på
           spårbarhet från producent till konsument driver på behovet av modernare
-          systemstöd. Fragmenterade och isolerade system — ett för ekonomi, ett
-          för lager, ett för maskinuppföljning — skapar ineffektivitet och
+          systemstöd. Fragmenterade och isolerade system – ett för ekonomi, ett
+          för lager, ett för maskinuppföljning – skapar ineffektivitet och
           bristande beslutsunderlag.
         </p>
         <p>
@@ -3390,7 +3390,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Microsoft Dynamics 365 erbjuder en integrerad plattform som kan samla
           ekonomi, lager, inköp, försäljning och service i ett sammanhållet
-          system — och skalas från ett litet lantbruksföretag på Business Central
+          system – och skalas från ett litet lantbruksföretag på Business Central
           till en stor skogsbrukskoncern på Finance &amp; Supply Chain Management.
           Plattformens öppenhet mot externa system möjliggör även integration av
           IoT-data från maskiner och sensorer via anpassade lösningar.
@@ -3430,7 +3430,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           För jordbruks- och skogsbruksföretag med en intern eller extern
           serviceorganisation för maskinpark och utrustning är Field Service ett
           viktigt komplement. Systemet hanterar planerat och avhjälpande
-          underhåll, schemaläggning av tekniker och arbetsorder — och ger
+          underhåll, schemaläggning av tekniker och arbetsorder – och ger
           fältpersonal tillgång till relevant information via mobila enheter.
         </p>
         <ul>
@@ -3462,7 +3462,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Vivicta är en partner med ett helhetsåtagande inom Dynamics
           365-plattformen och ett branschfokus som explicit inkluderar process-
-          och skogsindustri. De täcker hela applikationsportföljen — från BC och
+          och skogsindustri. De täcker hela applikationsportföljen – från BC och
           F&amp;SCM för ekonomi och supply chain till Sales, Customer Service och
           Field Service för kundrelationer och serviceorganisation, samt HR för
           personalprocesser. Som AI Integration Partner arbetar de aktivt med att
@@ -3477,7 +3477,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
           Jordbruk och skogsbruk är en av de branscher på d365.se med färst
-          listade partners — vilket speglar att det är ett specialiserat segment
+          listade partners – vilket speglar att det är ett specialiserat segment
           där få partners aktivt profilerar sig. Det begränsade antalet
           alternativ innebär att urvalsprocessen ser annorlunda ut jämfört med
           exempelvis tillverkning eller distribution.
@@ -3490,7 +3490,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           processindustri. Navcite är en renodlad BC-specialist med lång
           plattformserfarenhet. För organisationer med mer komplexa krav kan det
           också vara värt att titta bredare på partners som är listade under
-          angränsande branscher som tillverkning eller livsmedel — och utvärdera
+          angränsande branscher som tillverkning eller livsmedel – och utvärdera
           deras erfarenhet av jordbruks- och skogsbruksnära processer.
         </p>
         <p>
@@ -3503,22 +3503,22 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vad kostar Dynamics 365 för ett jordbruks- eller skogsbruksbolag?",
         answer:
-          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Essentials ligger på {{price:bc-essentials:short}} och Premium på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}} och Supply Chain Management {{price:supply-chain-management:short}} — relevant för större aktörer med komplex lager-, säsongs- och maskinparkslogik. Field Service ligger på {{price:field-service:short}}.\n\nImplementationskostnaden för ett medelstort jordbruks- eller skogsbruksbolag landar typiskt i intervallet 700 000 – 3 000 000 kr beroende på integrationer mot maskinsystem, vägning, IoT-sensorer och branschspecifika tillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Essentials ligger på {{price:bc-essentials:short}} och Premium på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}} och Supply Chain Management {{price:supply-chain-management:short}} – relevant för större aktörer med komplex lager-, säsongs- och maskinparkslogik. Field Service ligger på {{price:field-service:short}}.\n\nImplementationskostnaden för ett medelstort jordbruks- eller skogsbruksbolag landar typiskt i intervallet 700 000 – 3 000 000 kr beroende på integrationer mot maskinsystem, vägning, IoT-sensorer och branschspecifika tillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
       },
       {
         question: "Vilka problem stöter jordbruks- och skogsbruksbolag på i en Dynamics 365-implementation?",
         answer:
-          "De vanligaste fallgroparna är (1) säsongs- och väderberoende processer som inte modelleras i standardlogiken; (2) maskinpark, fordon och utrustning vars underhåll och driftekonomi inte kopplas mot affärssystemet; (3) spårbarhet från jord/skog till leverans som kräver branschspecifika tillägg; och (4) integration mot vägning, terminalsystem och avräkning som underskattas.\n\nDet är också vanligt att man underskattar förändringsarbetet i fält — operatörer och förare behöver enkla mobila gränssnitt, annars blir datakvaliteten lidande.",
+          "De vanligaste fallgroparna är (1) säsongs- och väderberoende processer som inte modelleras i standardlogiken; (2) maskinpark, fordon och utrustning vars underhåll och driftekonomi inte kopplas mot affärssystemet; (3) spårbarhet från jord/skog till leverans som kräver branschspecifika tillägg; och (4) integration mot vägning, terminalsystem och avräkning som underskattas.\n\nDet är också vanligt att man underskattar förändringsarbetet i fält – operatörer och förare behöver enkla mobila gränssnitt, annars blir datakvaliteten lidande.",
       },
       {
-        question: "Dynamics 365 vs specialiserade jordbruks- och skogsbrukssystem — vad ska vi välja?",
+        question: "Dynamics 365 vs specialiserade jordbruks- och skogsbrukssystem – vad ska vi välja?",
         answer:
-          "Det är inte ett antingen-eller. Specialiserade system (Pyrocco, Dataväxt, Näsgård, skogsbrukets terminalsystem) har djup branschfunktionalitet för säsong, växtföljd, virkesmätning och avräkning. Dynamics 365 är en bredare affärsplattform för ekonomi, inköp, lager, fältservice och kund.\n\nDen vanligaste arkitekturen är att behålla specialistsystem för operativ branschlogik och låta D365 vara back-office för ekonomi, projekt, anläggningsregister och kund — med integration däremellan. Frågan att ställa: hur mycket av den specifika jord- eller skogsbrukslogiken klarar D365 utan kostsam särutveckling?",
+          "Det är inte ett antingen-eller. Specialiserade system (Pyrocco, Dataväxt, Näsgård, skogsbrukets terminalsystem) har djup branschfunktionalitet för säsong, växtföljd, virkesmätning och avräkning. Dynamics 365 är en bredare affärsplattform för ekonomi, inköp, lager, fältservice och kund.\n\nDen vanligaste arkitekturen är att behålla specialistsystem för operativ branschlogik och låta D365 vara back-office för ekonomi, projekt, anläggningsregister och kund – med integration däremellan. Frågan att ställa: hur mycket av den specifika jord- eller skogsbrukslogiken klarar D365 utan kostsam särutveckling?",
       },
       {
         question: "Vad säger andra jordbruks- och skogsbruksbolag som infört Dynamics 365?",
         answer:
-          "Erfarenheterna varierar med scope. Bolag som använt D365 som ekonomi- och projektplattform med integration mot specialiserade branschsystem rapporterar generellt god utväxling — särskilt på ekonomistyrning, maskinparksunderhåll och kundhantering. Bolag som försökt täcka all operativ branschlogik direkt i D365 utan branschtillägg har oftare stött på dyr särutveckling.\n\nEn återkommande lärdom är att tidigt definiera vad D365 äger respektive vad specialistsystemet behåller — och att be partnern uppvisa konkreta referenscase i branschen med liknande verksamhetsprofil.",
+          "Erfarenheterna varierar med scope. Bolag som använt D365 som ekonomi- och projektplattform med integration mot specialiserade branschsystem rapporterar generellt god utväxling – särskilt på ekonomistyrning, maskinparksunderhåll och kundhantering. Bolag som försökt täcka all operativ branschlogik direkt i D365 utan branschtillägg har oftare stött på dyr särutveckling.\n\nEn återkommande lärdom är att tidigt definiera vad D365 äger respektive vad specialistsystemet behåller – och att be partnern uppvisa konkreta referenscase i branschen med liknande verksamhetsprofil.",
       },
       {
         question: "Vilken Dynamics 365-partner är bäst för jordbruk & skogsbruk?",
@@ -3534,7 +3534,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     metaDescription:
       "Dynamics 365 för bygg & entreprenad stöttar projektredovisning, ÄTA, underentreprenörer och tidrapportering. Köparsidig guide med svenska partners.",
     summary:
-      "Dynamics 365 (Project Operations + BC Premium eller F&SCM) stödjer projektredovisning, ÄTA, underentreprenörer och kostnadskontroll för svenska bygg- och entreprenadbolag. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 (Project Operations + BC Premium eller F&SCM) stödjer projektredovisning, ÄTA, underentreprenörer och kostnadskontroll för svenska bygg- och entreprenadbolag. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["bygg", "entreprenad", "dynamics365", "business central", "finance scm", "field service", "projektredovisning"],
     products: [
@@ -3556,12 +3556,12 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Bygg &amp; Entreprenad
         </p>
         <p className="italic text-foreground/85 !mb-8">
-          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+          Arbetsprocesser, systemstöd och en genomgång av listade partners – skriven ur köparens perspektiv.
         </p>
 
         <h2>Branschens verklighet</h2>
         <p>
-          Bygg- och entreprenadbranschen är projektdriven till sin natur — och
+          Bygg- och entreprenadbranschen är projektdriven till sin natur – och
           det ställer helt andra krav på affärssystemet än vad som gäller för
           produktions- eller handelsföretag. Varje projekt är unikt: eget scope,
           egna resurser, egna leverantörer och sin egen ekonomi. Att hålla koll
@@ -3572,8 +3572,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           Branschen präglas av långa projektcykler, små marginaler och en
-          komplex intressentbild. Fragmenterad projektdata — kalkyl i ett
-          system, planering i ett annat, ekonomi i ett tredje — är en av de
+          komplex intressentbild. Fragmenterad projektdata – kalkyl i ett
+          system, planering i ett annat, ekonomi i ett tredje – är en av de
           vanligaste orsakerna till att projekt tappar kontrollen. Utan
           realtidsöversikt av kostnader mot budget är det svårt att agera i
           tid. Och i en bransch med ÄTA-hantering, underentreprenörer och
@@ -3582,9 +3582,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           Microsoft Dynamics 365 används av svenska bygg- och
-          entreprenadföretag för att samla hela projektkedjan — från anbud och
+          entreprenadföretag för att samla hela projektkedjan – från anbud och
           kalkyl till projektuppföljning, inköp, resursstyrning och ekonomisk
-          rapportering — i ett gemensamt system. Plattformen kan kompletteras
+          rapportering – i ett gemensamt system. Plattformen kan kompletteras
           med branschspecifika tillägg och integreras mot specialiserade
           kalkylprogram och mätningssystem.
         </p>
@@ -3625,8 +3625,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h3>Field Service: Service- och underhållsverksamhet</h3>
         <p>
           För bygg- och entreprenadföretag med en serviceaffär vid sidan av
-          nyproduktion — till exempel installations- eller teknikföretag med
-          serviceavtal — hanterar Field Service schemaläggning av tekniker,
+          nyproduktion – till exempel installations- eller teknikföretag med
+          serviceavtal – hanterar Field Service schemaläggning av tekniker,
           serviceorder och förebyggande underhåll. Mobilapp för tekniker i
           fält är inbyggd.
         </p>
@@ -3663,7 +3663,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           byggd direkt på Business Central och utvecklad specifikt för bygg-,
           installations- och serviceföretag. Det gör dem unika i listan: i
           stället för ett generellt BC som konfigureras för branschen levererar
-          de ett system med inbyggd branschlogik från start — projekthantering,
+          de ett system med inbyggd branschlogik från start – projekthantering,
           ÄTA, resursplanering, service och ekonomi i ett sammanhållet flöde
           med realtidssynlighet per projekt. Rätt val för bygg- och
           installationsföretag som prioriterar branschanpassad funktionalitet
@@ -3679,8 +3679,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Enqore täcker hela Dynamics 365-plattformen med ett tydligt fokus på
           datadrivna och AI-stödda processer. För byggföretag innebär deras
-          profil — att koppla samman affärssystem med analys för att gå från
-          reaktiv till prediktiv drift — konkret värde i projektuppföljning
+          profil – att koppla samman affärssystem med analys för att gå från
+          reaktiv till prediktiv drift – konkret värde i projektuppföljning
           och avvikelsedetektering. De kombinerar ERP-kompetens med CRM och
           fältservice, vilket gör dem relevanta för entreprenaföretag som
           hanterar både projekt och en löpande serviceaffär.
@@ -3695,7 +3695,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           på projektstyrning, resursplanering och ekonomiuppföljning, och
           arbetar med integration mot Microsofts övriga ekosystem för en
           sammanhållen digital arbetsmiljö. De erbjuder stöd från
-          implementation till löpande vidareutveckling — ett stabilt alternativ
+          implementation till löpande vidareutveckling – ett stabilt alternativ
           för SMB-entreprenadet som söker en erfaren BC-partner med tydligt
           leveransansvar.
         </p>
@@ -3707,7 +3707,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           leverera konkret affärsnytta av systemsinvesteringen. Deras
           leveransmodell kombinerar lång erfarenhet med personligt engagemang
           och en ambition att systemet ska bidra aktivt till ökad effektivitet
-          och bättre beslut — inte bara stödja befintliga processer. Passar
+          och bättre beslut – inte bara stödja befintliga processer. Passar
           medelstora bygg- och entreprenadföretag som söker en partner med
           djup BC-kompetens, stabil leverans och ett hands-on förhållningssätt
           till implementation och förvaltning.
@@ -3733,8 +3733,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
           Bygg och entreprenad är en bransch där systemets förmåga att hantera
-          projektlogik — ÄTA, successiv vinstavräkning, resursstyrning per
-          projekt, inköp kopplat till projektbudget — är avgörande. Det är en
+          projektlogik – ÄTA, successiv vinstavräkning, resursstyrning per
+          projekt, inköp kopplat till projektbudget – är avgörande. Det är en
           annan typ av komplexitet än lager- eller produktionsstyrning, och
           det kräver en partner som faktiskt förstår hur byggprojekt fungerar
           i praktiken.
@@ -3762,27 +3762,27 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vad kostar Dynamics 365 för ett bygg- och entreprenadbolag?",
         answer:
-          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Premium ligger på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}}, Supply Chain Management {{price:supply-chain-management:short}} och Project Operations {{price:project-operations:short}} — central för projektredovisning, ÄTA och underentreprenörer.\n\nImplementationskostnaden för ett medelstort bygg- och entreprenadbolag landar typiskt i intervallet 1 000 000 – 4 000 000 kr beroende på antal projekt parallellt, integrationer mot kalkyl- och tidrapporteringssystem samt branschspecifika tillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Premium ligger på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}}, Supply Chain Management {{price:supply-chain-management:short}} och Project Operations {{price:project-operations:short}} – central för projektredovisning, ÄTA och underentreprenörer.\n\nImplementationskostnaden för ett medelstort bygg- och entreprenadbolag landar typiskt i intervallet 1 000 000 – 4 000 000 kr beroende på antal projekt parallellt, integrationer mot kalkyl- och tidrapporteringssystem samt branschspecifika tillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
       },
       {
         question: "Vilka problem stöter bygg- och entreprenadbolag på i en Dynamics 365-implementation?",
         answer:
-          "De vanligaste fallgroparna är (1) projektredovisning och ÄTA-hantering som inte modelleras tillräckligt detaljerat; (2) underentreprenörshantering, avtal och avrop som lämnas i parallella system; (3) tidrapportering från fält som inte integreras hela vägen till löneunderlag och projektkostnad; och (4) integration mot kalkylsystem (Bidcon, Sterling, MAP) som underskattas.\n\nDet är också vanligt att man underskattar förändringsarbetet — platschefer och projektledare behöver enkla mobila gränssnitt och tydliga processer för att adoptera systemet.",
+          "De vanligaste fallgroparna är (1) projektredovisning och ÄTA-hantering som inte modelleras tillräckligt detaljerat; (2) underentreprenörshantering, avtal och avrop som lämnas i parallella system; (3) tidrapportering från fält som inte integreras hela vägen till löneunderlag och projektkostnad; och (4) integration mot kalkylsystem (Bidcon, Sterling, MAP) som underskattas.\n\nDet är också vanligt att man underskattar förändringsarbetet – platschefer och projektledare behöver enkla mobila gränssnitt och tydliga processer för att adoptera systemet.",
       },
       {
-        question: "Dynamics 365 vs specialiserade byggsystem — vad ska vi välja?",
+        question: "Dynamics 365 vs specialiserade byggsystem – vad ska vi välja?",
         answer:
           "Det är inte ett antingen-eller. Specialiserade byggsystem (Vitec/Entré, Mercur, Hogia Bygg, Next) har djup branschfunktionalitet för svensk byggekonomi, ÄTA och underentreprenörer. Dynamics 365 (Project Operations + BC Premium eller F&SCM) är en bredare affärsplattform med stark projektredovisning som kompletteras med Microsofts ekosystem för CRM, fältservice och AI.\n\nDen vanligaste vägen för medelstora byggbolag är att utvärdera D365 + ISV-tillägg mot ett renodlat byggsystem. Frågan att ställa: vilken ISV eller branschanpassning rekommenderar partnern, och hur löser de underentreprenörshantering, ÄTA och förskottsfakturering i sin lösning?",
       },
       {
         question: "Vad säger andra bygg- och entreprenadbolag som infört Dynamics 365?",
         answer:
-          "Erfarenheterna varierar med scope och tilläggsval. Bolag som infört D365 med Project Operations och ett byggspecifikt tillägg rapporterar generellt god utväxling — särskilt på projektredovisning, kostnadskontroll och kundhantering. Bolag som försökt täcka all branschspecifik logik med standard-D365 har oftare stött på dyr särutveckling.\n\nEn återkommande lärdom är att tidigt involvera ekonomi, projektledning och inköp i kravarbetet, och att be partnern uppvisa konkreta referenscase i bygg och entreprenad med liknande projekttyp och storlek.",
+          "Erfarenheterna varierar med scope och tilläggsval. Bolag som infört D365 med Project Operations och ett byggspecifikt tillägg rapporterar generellt god utväxling – särskilt på projektredovisning, kostnadskontroll och kundhantering. Bolag som försökt täcka all branschspecifik logik med standard-D365 har oftare stött på dyr särutveckling.\n\nEn återkommande lärdom är att tidigt involvera ekonomi, projektledning och inköp i kravarbetet, och att be partnern uppvisa konkreta referenscase i bygg och entreprenad med liknande projekttyp och storlek.",
       },
       {
         question: "Vilken Dynamics 365-partner är bäst för bygg & entreprenad?",
         answer:
-          "Det beror på er projektprofil och storlek. På d365.se listar vi flera partners med erfarenhet av bygg och entreprenad — vissa är specialiserade på Project Operations + BC, andra arbetar med F&SCM för större aktörer, och andra har dokumenterade ISV-tillägg för svensk byggekonomi.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i bygg eller entreprenad av jämförbar storlek, (2) hur de hanterar ÄTA, underentreprenörer och projektredovisning, och (3) vilka kalkyl- och tidrapporteringssystem de integrerat mot tidigare.",
+          "Det beror på er projektprofil och storlek. På d365.se listar vi flera partners med erfarenhet av bygg och entreprenad – vissa är specialiserade på Project Operations + BC, andra arbetar med F&SCM för större aktörer, och andra har dokumenterade ISV-tillägg för svensk byggekonomi.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i bygg eller entreprenad av jämförbar storlek, (2) hur de hanterar ÄTA, underentreprenörer och projektredovisning, och (3) vilka kalkyl- och tidrapporteringssystem de integrerat mot tidigare.",
       },
     ],
   },
@@ -3793,7 +3793,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     metaDescription:
       "Dynamics 365 för energi & utilities stöttar fältservice, ärenden, projekt och kund med CIS/MDM-integration. Köparsidig guide med svenska partners.",
     summary:
-      "Dynamics 365 fungerar som plattform för svenska energi- och utilitiesbolag — ekonomi, projekt, fältservice och kund, integrerat med CIS/MDM och GIS/NIS. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 fungerar som plattform för svenska energi- och utilitiesbolag – ekonomi, projekt, fältservice och kund, integrerat med CIS/MDM och GIS/NIS. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["energi", "utilities", "el", "fjärrvärme", "vatten", "dynamics365", "business central", "finance scm", "field service"],
     products: [
@@ -3816,7 +3816,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Energi &amp; Utilities
         </p>
         <p className="italic text-foreground/85 !mb-8">
-          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+          Arbetsprocesser, systemstöd och en genomgång av listade partners – skriven ur köparens perspektiv.
         </p>
 
         <h2>Branschens verklighet</h2>
@@ -3899,7 +3899,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h3>Customer Service &amp; Contact Center: Kundärenden och driftstörningskommunikation</h3>
         <p>
           Energibolag med direktkundkontakt behöver ett system som ger
-          kundtjänst en 360-gradersvy av kunden — avtalsstatus, mätdata,
+          kundtjänst en 360-gradersvy av kunden – avtalsstatus, mätdata,
           fakturahistorik och pågående ärenden. Customer Service och Contact
           Center hanterar ärenden från alla kanaler och möjliggör proaktiv
           kommunikation vid planerade och oplanerade driftstörningar.
@@ -3927,7 +3927,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           försörjningskedjor, och de arbetar med systemstöd för att hantera de
           processer som är specifika för tillgångstunga, reglerade verksamheter.
           Som AI Integration Partner arbetar de aktivt med att integrera AI i
-          sina leveranser — relevant för energibolag som vill nyttja driftsdata
+          sina leveranser – relevant för energibolag som vill nyttja driftsdata
           för prediktivt underhåll och bättre kapacitetsplanering.
         </p>
 
@@ -3939,7 +3939,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Sopra Steria är en etablerad partner med erfarenhet av komplexa
           implementationsprojekt i energisektorn. Deras styrka är förmågan att
           se verksamheten ur ett process- och effektperspektiv och arbeta
-          metodiskt för att säkerställa affärsnytta — inte bara teknisk
+          metodiskt för att säkerställa affärsnytta – inte bara teknisk
           leverans. Kombinationen av BC/F&amp;SCM-kompetens med ett av Sveriges
           större CRM-team ger dem kapacitet att täcka hela kundresan, från
           back-office till kundservice. Det globala nätverket med
@@ -3961,7 +3961,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           För energibolag med komplexa krav kan det också vara värt att titta
-          på partners listade under angränsande branscher — exempelvis Vivicta
+          på partners listade under angränsande branscher – exempelvis Vivicta
           under Jordbruk &amp; Skogsbruk, som explicit nämner process- och
           skogsindustri som branschfokus. Frågan att ställa till varje partner
           är hur många energibolag av liknande typ och storlek de har
@@ -3978,27 +3978,27 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vad kostar Dynamics 365 för ett energi- eller utilitiesbolag?",
         answer:
-          "Licenskostnaden styrs av plattformsval och antal användare. Finance kostar {{price:finance:short}} och Supply Chain Management {{price:supply-chain-management:short}} — i princip standardvalet för större energi- och utilitiesbolag. Field Service ligger på {{price:field-service:short}} och Customer Service Enterprise på {{price:customer-service-enterprise:short}}.\n\nImplementationskostnaden för ett medelstort energi- eller utilitiesbolag landar typiskt i intervallet 1 500 000 – 6 000 000 kr beroende på integrationer mot mätvärdesinsamling (CIS/MDM), nätinformationssystem (GIS/NIS) och fakturering. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+          "Licenskostnaden styrs av plattformsval och antal användare. Finance kostar {{price:finance:short}} och Supply Chain Management {{price:supply-chain-management:short}} – i princip standardvalet för större energi- och utilitiesbolag. Field Service ligger på {{price:field-service:short}} och Customer Service Enterprise på {{price:customer-service-enterprise:short}}.\n\nImplementationskostnaden för ett medelstort energi- eller utilitiesbolag landar typiskt i intervallet 1 500 000 – 6 000 000 kr beroende på integrationer mot mätvärdesinsamling (CIS/MDM), nätinformationssystem (GIS/NIS) och fakturering. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
       },
       {
         question: "Vilka problem stöter energi- och utilitiesbolag på i en Dynamics 365-implementation?",
         answer:
-          "De vanligaste fallgroparna är (1) komplex faktureringslogik för energi, nät och tilläggstjänster som inte fullt ut täcks av standard utan branschtillägg; (2) integration mot mätvärdes- och nätinformationssystem som underskattas; (3) fältservice för nätunderhåll och anslutningsärenden som inte kopplas hela vägen till ekonomi och kund; och (4) regelefterlevnad mot Ei och elmarknadens roller som kräver att datamodellen byggs rätt.\n\nDet är också vanligt att man underskattar förändringsarbetet — fältpersonal och kundtjänst behöver enkla gränssnitt och tydliga processer för att adoptera systemet.",
+          "De vanligaste fallgroparna är (1) komplex faktureringslogik för energi, nät och tilläggstjänster som inte fullt ut täcks av standard utan branschtillägg; (2) integration mot mätvärdes- och nätinformationssystem som underskattas; (3) fältservice för nätunderhåll och anslutningsärenden som inte kopplas hela vägen till ekonomi och kund; och (4) regelefterlevnad mot Ei och elmarknadens roller som kräver att datamodellen byggs rätt.\n\nDet är också vanligt att man underskattar förändringsarbetet – fältpersonal och kundtjänst behöver enkla gränssnitt och tydliga processer för att adoptera systemet.",
       },
       {
-        question: "Dynamics 365 vs specialiserade energi- och utilitiessystem — vad ska vi välja?",
+        question: "Dynamics 365 vs specialiserade energi- och utilitiessystem – vad ska vi välja?",
         answer:
-          "Det är inte ett antingen-eller. Specialiserade energi- och utilitiessystem (CIS/MDM som Mecoms, Tieto/Tietoevry, Hansen) har djup branschfunktionalitet för mätvärdeshantering, avräkning och fakturering enligt elmarknadens regler. Dynamics 365 är en bredare affärsplattform för ekonomi, fältservice, kund och projekt.\n\nDen vanligaste arkitekturen är att behålla specialistsystem för mätvärden och fakturering och låta D365 vara back-office för ekonomi, fältservice, kund och projekt — med integration däremellan. Frågan att ställa: hur mycket av branschspecifik fakturerings- och avräkningslogik klarar D365 utan kostsam särutveckling?",
+          "Det är inte ett antingen-eller. Specialiserade energi- och utilitiessystem (CIS/MDM som Mecoms, Tieto/Tietoevry, Hansen) har djup branschfunktionalitet för mätvärdeshantering, avräkning och fakturering enligt elmarknadens regler. Dynamics 365 är en bredare affärsplattform för ekonomi, fältservice, kund och projekt.\n\nDen vanligaste arkitekturen är att behålla specialistsystem för mätvärden och fakturering och låta D365 vara back-office för ekonomi, fältservice, kund och projekt – med integration däremellan. Frågan att ställa: hur mycket av branschspecifik fakturerings- och avräkningslogik klarar D365 utan kostsam särutveckling?",
       },
       {
         question: "Vad säger andra energi- och utilitiesbolag som infört Dynamics 365?",
         answer:
-          "Erfarenheterna är generellt positiva när scope hålls realistiskt. Bolag som använt D365 som ekonomi-, fältservice- och kundplattform med integration mot specialiserade CIS/MDM rapporterar god utväxling — särskilt på fältservice, kundhantering och projektredovisning för investeringar i nät och produktion. Bolag som försökt täcka all branschspecifik fakturering direkt i D365 utan tillägg har oftare stött på dyr särutveckling.\n\nEn återkommande lärdom är att tidigt definiera vad D365 äger respektive vad branschsystemen behåller, och att be partnern uppvisa konkreta referenscase i energi- och utilitiesbranschen.",
+          "Erfarenheterna är generellt positiva när scope hålls realistiskt. Bolag som använt D365 som ekonomi-, fältservice- och kundplattform med integration mot specialiserade CIS/MDM rapporterar god utväxling – särskilt på fältservice, kundhantering och projektredovisning för investeringar i nät och produktion. Bolag som försökt täcka all branschspecifik fakturering direkt i D365 utan tillägg har oftare stött på dyr särutveckling.\n\nEn återkommande lärdom är att tidigt definiera vad D365 äger respektive vad branschsystemen behåller, och att be partnern uppvisa konkreta referenscase i energi- och utilitiesbranschen.",
       },
       {
         question: "Vilken Dynamics 365-partner är bäst för energi & utilities?",
         answer:
-          "Det beror på er roll i värdekedjan (produktion, nät, försäljning) och er storlek. På d365.se listar vi flera partners med erfarenhet av energi och utilities — vissa är specialiserade på Field Service och Customer Service för nät- och kundärenden, andra arbetar med F&SCM för större aktörer med komplex ekonomi och projektportfölj.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i energi eller utilities av jämförbar storlek, (2) vilka CIS/MDM- och GIS/NIS-integrationer de genomfört, och (3) hur de hanterar elmarknadens roller och regelefterlevnad.",
+          "Det beror på er roll i värdekedjan (produktion, nät, försäljning) och er storlek. På d365.se listar vi flera partners med erfarenhet av energi och utilities – vissa är specialiserade på Field Service och Customer Service för nät- och kundärenden, andra arbetar med F&SCM för större aktörer med komplex ekonomi och projektportfölj.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i energi eller utilities av jämförbar storlek, (2) vilka CIS/MDM- och GIS/NIS-integrationer de genomfört, och (3) hur de hanterar elmarknadens roller och regelefterlevnad.",
       },
     ],
   },
@@ -4009,7 +4009,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     metaDescription:
       "Dynamics 365 för konsultbolag (Project Operations + BC) ger tid, projekt, prognoser, sälj och ekonomi i samma plattform. Köparsidig guide med svenska partners.",
     summary:
-      "Dynamics 365 (Project Operations + BC eller F&SCM) är en stark plattform för svenska konsult- och tjänsteföretag — tid, projekt, prognoser, sälj och ekonomi i samma datamiljö. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 (Project Operations + BC eller F&SCM) är en stark plattform för svenska konsult- och tjänsteföretag – tid, projekt, prognoser, sälj och ekonomi i samma datamiljö. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["konsult", "tjänsteföretag", "projekt", "dynamics365", "business central", "finance scm", "sales", "progressus"],
     products: [
@@ -4031,7 +4031,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Konsultbolag &amp; Tjänsteföretag
         </p>
         <p className="italic text-foreground/85 !mb-8">
-          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+          Arbetsprocesser, systemstöd och en genomgång av listade partners – skriven ur köparens perspektiv.
         </p>
 
         <h2>Branschens verklighet</h2>
@@ -4039,7 +4039,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Konsultbranschen är kunskapsintensiv och marginaldriven. Det som
           avgör lönsamheten är inte produktionsvolym utan beläggningsgrad,
           faktureringsprecision och förmågan att leverera projekt inom budget.
-          Det är en enkel ekvation i teorin — men komplex att styra i praktiken
+          Det är en enkel ekvation i teorin – men komplex att styra i praktiken
           när man hanterar dussintals projekt, hundratals konsulter och en
           pipeline som ständigt förändras.
         </p>
@@ -4049,15 +4049,15 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           ett fjärde. Informationsglapp mellan sälj och leverans leder till
           felaktiga förväntningar och resursbrist. Utan realtidsinsikt i
           projektens ekonomi är det svårt att identifiera avvikelser i tid. Och
-          komplexa faktureringsmodeller — fastpris, löpande räkning, a conto,
-          retainers — hanteras manuellt med alla de felkällor det innebär.
+          komplexa faktureringsmodeller – fastpris, löpande räkning, a conto,
+          retainers – hanteras manuellt med alla de felkällor det innebär.
         </p>
         <p>
           Microsoft Dynamics 365 används av svenska konsultföretag för att
           koppla samman hela kedjan från första kundkontakt till slutfaktura i
           ett sammanhållet system. Plattformen täcker CRM och säljstöd, resurs-
           och kompetensplanering, projektledning, tid- och utläggsrapportering,
-          projektredovisning och fakturering — och kan kompletteras med
+          projektredovisning och fakturering – och kan kompletteras med
           branschspecifika tillägg för djupare projekthanteringsfunktionalitet.
         </p>
 
@@ -4138,8 +4138,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Fellowmind täcker hela spannet från BC till F&amp;SCM och kombinerar
           ERP-kompetens med CRM. För konsultorganisationer som växer i
-          komplexitet — fler enheter, internationell verksamhet, avancerade
-          krav på koncernredovisning — erbjuder Fellowmind kapacitet att följa
+          komplexitet – fler enheter, internationell verksamhet, avancerade
+          krav på koncernredovisning – erbjuder Fellowmind kapacitet att följa
           med. Deras europeiska leveranskapacitet och breda portfölj gör dem
           till ett relevant alternativ för konsultföretag med ambitiösa
           tillväxtplaner.
@@ -4165,7 +4165,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           Goodfellows har ett uttalat fokus på konsult- och projektbolag och
-          levererar BC förstärkt med Progressus Advanced Projects — ett
+          levererar BC förstärkt med Progressus Advanced Projects – ett
           integrerat tillägg för djupare projekthantering från Pryme. Deras
           erbjudande täcker tidrapportering, resursplanering, projektekonomi
           och fakturering i ett sammanhållet flöde. Leveransmodellen är tydlig
@@ -4212,7 +4212,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           En central fråga för konsultföretag är om BC räcker som projektsystem,
           eller om ni behöver ett dedikerat projekthanteringstillägg som
           Progressus Advanced Projects. Goodfellows och Sopra Steria lyfter
-          båda fram detta alternativ — vilket är ett tecken på att de mött
+          båda fram detta alternativ – vilket är ett tecken på att de mött
           konsultföretag vars projektbehov överskrider BC-standardens kapacitet.
         </p>
         <p>
@@ -4231,27 +4231,27 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vad kostar Dynamics 365 för ett konsult- eller tjänsteföretag?",
         answer:
-          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Essentials ligger på {{price:bc-essentials:short}} och Premium på {{price:bc-premium:short}}. Project Operations kostar {{price:project-operations:short}} och är central för tid-, projekt- och faktureringsstyrning. Sales Enterprise ligger på {{price:sales-enterprise:short}}. Finance kostar {{price:finance:short}} — relevant för större konsultbolag.\n\nImplementationskostnaden för ett medelstort konsultbolag landar typiskt i intervallet 500 000 – 2 500 000 kr beroende på antal användare, integrationer mot lön/HR och komplexitet i prismodell och utlandsverksamhet. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Essentials ligger på {{price:bc-essentials:short}} och Premium på {{price:bc-premium:short}}. Project Operations kostar {{price:project-operations:short}} och är central för tid-, projekt- och faktureringsstyrning. Sales Enterprise ligger på {{price:sales-enterprise:short}}. Finance kostar {{price:finance:short}} – relevant för större konsultbolag.\n\nImplementationskostnaden för ett medelstort konsultbolag landar typiskt i intervallet 500 000 – 2 500 000 kr beroende på antal användare, integrationer mot lön/HR och komplexitet i prismodell och utlandsverksamhet. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
       },
       {
         question: "Vilka problem stöter konsult- och tjänsteföretag på i en Dynamics 365-implementation?",
         answer:
-          "De vanligaste fallgroparna är (1) tidrapporterings- och godkännandeflöden som inte är friktionsfria för konsulterna; (2) komplexa prismodeller (fastpris, löpande, retainer, prenumeration) som inte modelleras tillräckligt; (3) projektprognoser och beläggning som inte uppdateras i realtid; och (4) integration mot HR/lön, expense management och kund-CRM som underskattas.\n\nDet är också vanligt att man underskattar förändringsarbetet — om tidrapporteringen är klumpig sker den för sent och projektekonomin blir oprecis.",
+          "De vanligaste fallgroparna är (1) tidrapporterings- och godkännandeflöden som inte är friktionsfria för konsulterna; (2) komplexa prismodeller (fastpris, löpande, retainer, prenumeration) som inte modelleras tillräckligt; (3) projektprognoser och beläggning som inte uppdateras i realtid; och (4) integration mot HR/lön, expense management och kund-CRM som underskattas.\n\nDet är också vanligt att man underskattar förändringsarbetet – om tidrapporteringen är klumpig sker den för sent och projektekonomin blir oprecis.",
       },
       {
-        question: "Dynamics 365 vs Maconomy, Visma.net Project och Cinode — vad ska vi välja?",
+        question: "Dynamics 365 vs Maconomy, Visma.net Project och Cinode – vad ska vi välja?",
         answer:
-          "Det är inte ett antingen-eller. Specialiserade PSA-system (Maconomy, Visma.net Project, Certinia, Cinode för kompetenshantering) har djup branschfunktionalitet ur lådan och kommer ofta snabbare i drift. Dynamics 365 (Project Operations + BC eller F&SCM) är en bredare plattform med stark projekt- och tidlogik som kompletteras med Microsofts ekosystem för CRM, Office, Teams och AI.\n\nValet styrs av ambitionsnivå: behöver ni främst PSA är ett specialistsystem ofta tillräckligt. Behöver ni ett gemensamt dataekosystem där sälj, leverans, ekonomi och kund ligger i samma plattform — och där ni vill bygga vidare med automation och Copilot — är D365 motiverat. Frågan att ställa: hur mycket utöver PSA vill ni att plattformen ska göra de närmaste 3–5 åren?",
+          "Det är inte ett antingen-eller. Specialiserade PSA-system (Maconomy, Visma.net Project, Certinia, Cinode för kompetenshantering) har djup branschfunktionalitet ur lådan och kommer ofta snabbare i drift. Dynamics 365 (Project Operations + BC eller F&SCM) är en bredare plattform med stark projekt- och tidlogik som kompletteras med Microsofts ekosystem för CRM, Office, Teams och AI.\n\nValet styrs av ambitionsnivå: behöver ni främst PSA är ett specialistsystem ofta tillräckligt. Behöver ni ett gemensamt dataekosystem där sälj, leverans, ekonomi och kund ligger i samma plattform – och där ni vill bygga vidare med automation och Copilot – är D365 motiverat. Frågan att ställa: hur mycket utöver PSA vill ni att plattformen ska göra de närmaste 3–5 åren?",
       },
       {
         question: "Vad säger andra konsult- och tjänsteföretag som infört Dynamics 365?",
         answer:
-          "Erfarenheterna är generellt positiva när scope hålls realistiskt. Bolag som infört Project Operations + BC eller F&SCM rapporterar god utväxling — särskilt på beläggning, projektprognoser, fakturering och kundhantering. Bolag som försökt ersätta även HR/lön och avancerad kompetenshantering med D365 direkt har oftare stött på begränsningar och kompletterat med specialistsystem i efterhand.\n\nEn återkommande lärdom är att börja med tid, projekt och fakturering, säkra adoption hos konsulterna, och därefter bygga ut med sälj, prognoser och AI-stöd.",
+          "Erfarenheterna är generellt positiva när scope hålls realistiskt. Bolag som infört Project Operations + BC eller F&SCM rapporterar god utväxling – särskilt på beläggning, projektprognoser, fakturering och kundhantering. Bolag som försökt ersätta även HR/lön och avancerad kompetenshantering med D365 direkt har oftare stött på begränsningar och kompletterat med specialistsystem i efterhand.\n\nEn återkommande lärdom är att börja med tid, projekt och fakturering, säkra adoption hos konsulterna, och därefter bygga ut med sälj, prognoser och AI-stöd.",
       },
       {
         question: "Vilken Dynamics 365-partner är bäst för konsult- och tjänsteföretag?",
         answer:
-          "Det beror på er storlek och prismodell. På d365.se listar vi flera partners med erfarenhet av konsultbolag — vissa är specialiserade på Project Operations + BC för medelstora aktörer, andra arbetar med F&SCM för större internationella konsultkoncerner, och andra har djup CRM- och Customer Insights-profil för säljdrivna konsultbolag.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i konsult- eller tjänsteföretag av jämförbar storlek, (2) hur de modellerar er prismodell (fastpris, löpande, retainer), och (3) hur de säkrar adoption av tidrapportering hos konsulterna.",
+          "Det beror på er storlek och prismodell. På d365.se listar vi flera partners med erfarenhet av konsultbolag – vissa är specialiserade på Project Operations + BC för medelstora aktörer, andra arbetar med F&SCM för större internationella konsultkoncerner, och andra har djup CRM- och Customer Insights-profil för säljdrivna konsultbolag.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i konsult- eller tjänsteföretag av jämförbar storlek, (2) hur de modellerar er prismodell (fastpris, löpande, retainer), och (3) hur de säkrar adoption av tidrapportering hos konsulterna.",
       },
     ],
   },
@@ -4262,7 +4262,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     metaDescription:
       "Dynamics 365 för finans & försäkring stöttar distribution, CRM, kundtjänst och Customer Insights mot kärnsystem. Köparsidig guide med svenska partners.",
     summary:
-      "Dynamics 365 stödjer svenska finans- och försäkringsbolag på CRM-sidan — distribution, kundtjänst, Customer Insights och compliance — med integration mot bank- och försäkringskärnsystem. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 stödjer svenska finans- och försäkringsbolag på CRM-sidan – distribution, kundtjänst, Customer Insights och compliance – med integration mot bank- och försäkringskärnsystem. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["finans", "försäkring", "bank", "dynamics365", "business central", "finance scm", "customer insights", "compliance"],
     products: [
@@ -4286,7 +4286,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Finans &amp; Försäkring
         </p>
         <p className="italic text-foreground/85 !mb-8">
-          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+          Arbetsprocesser, systemstöd och en genomgång av listade partners – skriven ur köparens perspektiv.
         </p>
 
         <h2>Branschens verklighet</h2>
@@ -4294,14 +4294,14 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Finans- och försäkringsbranschen är hårt reglerad, dataintensiv och
           under konstant transformationstryck. FinTech-utmanare, nya
           kundförväntningar på digital service och ett regulatoriskt landskap
-          som kontinuerligt förändras — IFRS 17, Solvens II, MiFID II, AML —
+          som kontinuerligt förändras – IFRS 17, Solvens II, MiFID II, AML —
           ställer höga krav på systemstödets flexibilitet och spårbarhet.
           Äldre, isolerade kärnsystem är en av de största bromsklossarna: de är
           kostsamma att underhålla, svåra att integrera och producerar inte den
           realtidsdata som krävs för att styra verksamheten.
         </p>
         <p>
-          Utmaningen är inte att hitta ett system som löser allt — det finns
+          Utmaningen är inte att hitta ett system som löser allt – det finns
           inget sådant. Dynamics 365 fungerar typiskt som ett övergripande skal
           för CRM, ekonomistyrning och kundservice, integrerat med befintliga
           kärnsystem för portföljhantering, skadehantering eller avräkning. Det
@@ -4313,7 +4313,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           För banker, försäkringsbolag och finansiella rådgivningsföretag är
           den centrala affärsnyttan densamma: en 360-gradersvy av kunden,
           automatiserade compliance-flöden, och ett kundservicesystem som ger
-          rätt information vid rätt tidpunkt — oavsett kanal.
+          rätt information vid rätt tidpunkt – oavsett kanal.
         </p>
 
         <h2>Centrala arbetsprocesser och systemstöd</h2>
@@ -4351,7 +4351,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h3>Customer Service &amp; Contact Center: Skadehantering och kundservice</h3>
         <p>
           Customer Service ger kundtjänst och skadereglerare en enhetlig bild av
-          kunden och ärendet — oavsett vilken kanal kunden kontaktar bolaget
+          kunden och ärendet – oavsett vilken kanal kunden kontaktar bolaget
           via. Contact Center optimerar dirigering av inkommande kontakter
           baserat på ärendetyp och ger agenter AI-stöd i realtid. Tillsammans
           skapar de ett kundserviceflöde som möter branschens krav på snabb,
@@ -4368,7 +4368,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           I en bransch med stora datamängder men ofta fragmenterade kundbilder
           är Customer Insights en strategisk komponent. Applikationen aggregerar
-          data från olika källor — transaktionssystem, CRM, kundservice — till
+          data från olika källor – transaktionssystem, CRM, kundservice – till
           en enhetlig kundprofil som möjliggör segmentering, proaktiv service
           och personaliserade erbjudanden.
         </p>
@@ -4408,9 +4408,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           kombinerar BC med ett brett CRM- och serviceuttag. För finansbolag
           och försäkringsförmedlare som prioriterar kundrelationer,
           rådgivningsdokumentation och effektiv kundservice är NAB Solutions
-          ett relevant alternativ. Deras portfölj täcker hela kundresan — från
+          ett relevant alternativ. Deras portfölj täcker hela kundresan – från
           marknadsföring och försäljning till ärendehantering och kontaktcenter
-          — i ett sammanhållet Dynamics 365-ekosystem.
+          – i ett sammanhållet Dynamics 365-ekosystem.
         </p>
 
         <h3>Enqore AB</h3>
@@ -4419,8 +4419,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           Enqore täcker hela Dynamics 365-plattformen med ett tydligt fokus på
-          datadrivna och AI-stödda processer. I finansbranschen — där stora
-          datamängder finns men insikterna ofta kommer för sent — är deras
+          datadrivna och AI-stödda processer. I finansbranschen – där stora
+          datamängder finns men insikterna ofta kommer för sent – är deras
           profil direkt relevant: de kopplar samman affärssystem med analys och
           AI för att möjliggöra prediktivt beslutsfattande snarare än reaktivt.
           Relevant för finansbolag som vill nyttja sin data mer aktivt för
@@ -4443,7 +4443,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           tydligt åtskilda: Sopra Steria med processorienterad metodstyrning
           och global specialistkompetens, NAB Solutions med djup CRM- och
           servicefokus, Enqore med datadrivet och AI-orienterat angreppssätt.
-          Ingen av dem är en renodlad finansspecialist — de är alla bredare
+          Ingen av dem är en renodlad finansspecialist – de är alla bredare
           Dynamics 365-partners som arbetar i branschen.
         </p>
         <p>
@@ -4462,27 +4462,27 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vad kostar Dynamics 365 för ett finans- eller försäkringsbolag?",
         answer:
-          "Licenskostnaden styrs av plattformsval och antal användare. Sales Enterprise ligger på {{price:sales-enterprise:short}}, Customer Service Enterprise på {{price:customer-service-enterprise:short}} och Customer Insights (Data + Journeys) på {{price:customer-insights:default}}. Finance kostar {{price:finance:short}} — relevant för intern ekonomistyrning. Contact Center kostar {{price:contact-center-komplett:short}}.\n\nImplementationskostnaden för ett medelstort finans- eller försäkringsbolag landar typiskt i intervallet 1 000 000 – 5 000 000 kr beroende på integrationer mot kärnsystem (försäkrings-/banksystem), KYC/AML-system samt regulatoriska rapporteringskrav. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+          "Licenskostnaden styrs av plattformsval och antal användare. Sales Enterprise ligger på {{price:sales-enterprise:short}}, Customer Service Enterprise på {{price:customer-service-enterprise:short}} och Customer Insights (Data + Journeys) på {{price:customer-insights:default}}. Finance kostar {{price:finance:short}} – relevant för intern ekonomistyrning. Contact Center kostar {{price:contact-center-komplett:short}}.\n\nImplementationskostnaden för ett medelstort finans- eller försäkringsbolag landar typiskt i intervallet 1 000 000 – 5 000 000 kr beroende på integrationer mot kärnsystem (försäkrings-/banksystem), KYC/AML-system samt regulatoriska rapporteringskrav. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
       },
       {
         question: "Vilka problem stöter finans- och försäkringsbolag på i en Dynamics 365-implementation?",
         answer:
-          "De vanligaste fallgroparna är (1) compliance, KYC och AML som inte byggs in tidigt nog i kundprocesserna; (2) integration mot kärnsystem (försäkringssystem, banksystem) som underskattas; (3) regulatorisk rapportering till Finansinspektionen som inte modelleras i datamodellen; och (4) data- och rollsegregation som krävs för att uppfylla GDPR och branschens säkerhetsregler.\n\nDet är också vanligt att man underskattar arkitekturkraven — finans och försäkring har högre krav på spårbarhet, åtkomstkontroll och dataskydd än de flesta branscher.",
+          "De vanligaste fallgroparna är (1) compliance, KYC och AML som inte byggs in tidigt nog i kundprocesserna; (2) integration mot kärnsystem (försäkringssystem, banksystem) som underskattas; (3) regulatorisk rapportering till Finansinspektionen som inte modelleras i datamodellen; och (4) data- och rollsegregation som krävs för att uppfylla GDPR och branschens säkerhetsregler.\n\nDet är också vanligt att man underskattar arkitekturkraven – finans och försäkring har högre krav på spårbarhet, åtkomstkontroll och dataskydd än de flesta branscher.",
       },
       {
-        question: "Dynamics 365 vs Salesforce Financial Services Cloud och specialiserade försäkringssystem — vad ska vi välja?",
+        question: "Dynamics 365 vs Salesforce Financial Services Cloud och specialiserade försäkringssystem – vad ska vi välja?",
         answer:
           "Det är inte ett antingen-eller. Specialiserade försäkrings- och bankkärnsystem hanterar produkthantering, försäkringsmatematik och regulatorisk logik. Dynamics 365 och Salesforce Financial Services Cloud är CRM-plattformar för kundhantering, distribution, säljstöd och kundtjänst.\n\nValet mellan D365 och Salesforce styrs ofta av integration mot övrig IT-miljö: är ni Microsoft-tunga med Azure, Microsoft 365 och Teams är D365 en naturlig matchning. Salesforce har starkare branschspecifika moduler men kräver ett separat ekosystem. Frågan att ställa: hur väl integrerar plattformen med vår befintliga arkitektur, och vilka regulatoriska krav uppfylls ur lådan?",
       },
       {
         question: "Vad säger andra finans- och försäkringsbolag som infört Dynamics 365?",
         answer:
-          "Erfarenheterna är generellt positiva när scope hålls till CRM, distribution och kundtjänst, med integration mot kärnsystemen. Bolag som infört D365 som distribution- och kundplattform rapporterar god utväxling — särskilt på distributionseffektivitet, kundservice och kampanjautomation. Bolag som försökt täcka även produkthantering eller försäkringsmatematik direkt i D365 har oftare stött på begränsningar.\n\nEn återkommande lärdom är att tidigt klargöra rollfördelningen mellan D365 och kärnsystemen, samt att involvera compliance och dataskydd från start i kravarbetet.",
+          "Erfarenheterna är generellt positiva när scope hålls till CRM, distribution och kundtjänst, med integration mot kärnsystemen. Bolag som infört D365 som distribution- och kundplattform rapporterar god utväxling – särskilt på distributionseffektivitet, kundservice och kampanjautomation. Bolag som försökt täcka även produkthantering eller försäkringsmatematik direkt i D365 har oftare stött på begränsningar.\n\nEn återkommande lärdom är att tidigt klargöra rollfördelningen mellan D365 och kärnsystemen, samt att involvera compliance och dataskydd från start i kravarbetet.",
       },
       {
         question: "Vilken Dynamics 365-partner är bäst för finans & försäkring?",
         answer:
-          "Det beror på er verksamhetstyp (bank, försäkring, fondförvaltning) och storlek. På d365.se listar vi flera partners med erfarenhet av finans och försäkring — vissa är specialiserade på CRM, distribution och Customer Insights, andra har bredare plattformskompetens med F&SCM för internationella aktörer.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i finans eller försäkring av jämförbar storlek, (2) hur de hanterar integration mot ert kärnsystem och compliance-krav, och (3) erfarenhet av regulatorisk rapportering och dataskydd.",
+          "Det beror på er verksamhetstyp (bank, försäkring, fondförvaltning) och storlek. På d365.se listar vi flera partners med erfarenhet av finans och försäkring – vissa är specialiserade på CRM, distribution och Customer Insights, andra har bredare plattformskompetens med F&SCM för internationella aktörer.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i finans eller försäkring av jämförbar storlek, (2) hur de hanterar integration mot ert kärnsystem och compliance-krav, och (3) erfarenhet av regulatorisk rapportering och dataskydd.",
       },
     ],
   },
@@ -4493,7 +4493,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     metaDescription:
       "Dynamics 365 för offentlig sektor stöttar ärenden, fältservice, projekt och medborgarkontakt med diarie-integration. Köparsidig guide med svenska partners.",
     summary:
-      "Dynamics 365 är en plattform för svenska kommuner, regioner och myndigheter — ärendehantering, fältservice, projekt och medborgarkontakt, integrerat med diariesystem och ekonomi. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 är en plattform för svenska kommuner, regioner och myndigheter – ärendehantering, fältservice, projekt och medborgarkontakt, integrerat med diariesystem och ekonomi. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["offentlig sektor", "kommun", "myndighet", "dynamics365", "business central", "finance scm", "customer service", "lou"],
     products: [
@@ -4516,7 +4516,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Offentlig sektor
         </p>
         <p className="italic text-foreground/85 !mb-8">
-          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+          Arbetsprocesser, systemstöd och en genomgång av listade partners – skriven ur köparens perspektiv.
         </p>
 
         <h2>Branschens verklighet</h2>
@@ -4526,7 +4526,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           medborgarförväntningar på tillgänglighet och effektivitet, och ett
           konstant krav på ansvarsfull förvaltning av skattemedel. Det gör
           it-investeringar i offentlig sektor fundamentalt annorlunda än i
-          privat: det räcker inte att ett system är effektivt — det måste också
+          privat: det räcker inte att ett system är effektivt – det måste också
           vara rättssäkert, spårbart och upphandlat i enlighet med LOU.
         </p>
         <p>
@@ -4535,9 +4535,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           helhetsbild och samarbete mellan förvaltningar, och ett
           systemlandskap med inbyggd komplexitet som härstammar från decennier
           av punktlösningar. Därtill hanterar kommuner och myndigheter ofta
-          parallella logiker i samma organisation — skattefinansierad
+          parallella logiker i samma organisation – skattefinansierad
           kärnverksamhet och avgiftsfinansierade tjänster som VA, renhållning
-          och barnomsorg — vilket ställer krav på systemets flexibilitet.
+          och barnomsorg – vilket ställer krav på systemets flexibilitet.
         </p>
         <p>
           Microsoft Dynamics 365 används av offentliga aktörer som vill samla
@@ -4581,8 +4581,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Customer Service ger handläggare ett strukturerat stöd för
           ärendehantering med spårbarhet från inkommen handling till beslut och
           arkivering. Contact Center optimerar dirigeringen av inkommande
-          medborgarfrågor och felanmälningar oavsett kanal — telefon, e-post,
-          webb eller sociala medier — och kopplar ärendet till rätt funktion i
+          medborgarfrågor och felanmälningar oavsett kanal – telefon, e-post,
+          webb eller sociala medier – och kopplar ärendet till rätt funktion i
           organisationen.
         </p>
         <ul>
@@ -4626,7 +4626,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           verksamhetsprocesser och anpassning av systemstödet mot krav på
           rättssäkerhet, transparens och tillgänglighet. Det globala nätverket
           med specialister inom förändringsledning och analys ger kapacitet att
-          hantera komplexa transformationsprogram — vilket ofta är verkligheten
+          hantera komplexa transformationsprogram – vilket ofta är verkligheten
           när offentliga organisationer byter ut sina kärnsystem.
         </p>
 
@@ -4638,8 +4638,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Vivicta täcker hela Dynamics 365-plattformen med ett helhetsåtagande
           från rådgivning och lösningsdesign till implementering och
           förvaltning. Offentlig sektor är ett av deras uttalade
-          fokusområden, och de kombinerar bred applikationskapacitet — ERP,
-          CRM, kundservice, fältservice och HR — med Power Platform och
+          fokusområden, och de kombinerar bred applikationskapacitet – ERP,
+          CRM, kundservice, fältservice och HR – med Power Platform och
           Azure-integrationer för automatisering och koppling mot befintliga
           system. Som AI Integration Partner arbetar de aktivt med att
           integrera AI i sina leveranser. Passar offentliga organisationer som
@@ -4653,9 +4653,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           Enqore täcker hela plattformsspannet med ett tydligt fokus på
-          datadrivna och AI-stödda processer. Deras profil — att koppla samman
+          datadrivna och AI-stödda processer. Deras profil – att koppla samman
           affärssystem med analys och AI för att gå från reaktiv till prediktiv
-          verksamhetsstyrning — är relevant för offentliga organisationer som
+          verksamhetsstyrning – är relevant för offentliga organisationer som
           vill nyttja sin data mer aktivt för resursoptimering, ärendeanalys
           och proaktiv service. Relevant för organisationer som vill kombinera
           Dynamics 365 med ett starkare analyslager.
@@ -4698,27 +4698,27 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vad kostar Dynamics 365 för en offentlig organisation?",
         answer:
-          "Licenskostnaden styrs av plattformsval och antal användare. Finance kostar {{price:finance:short}} och Supply Chain Management {{price:supply-chain-management:short}} — relevant för större offentliga organisationer med upphandlings- och anläggningsregister. Customer Service Enterprise ligger på {{price:customer-service-enterprise:short}}, Field Service på {{price:field-service:short}} och Customer Insights (Data + Journeys) på {{price:customer-insights:default}}. Microsoft erbjuder särskild prissättning för offentlig sektor.\n\nImplementationskostnaden för en medelstor offentlig organisation landar typiskt i intervallet 1 000 000 – 5 000 000 kr beroende på integrationer mot diariesystem, ekonomisystem, e-arkiv och behov av branschspecifika tillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+          "Licenskostnaden styrs av plattformsval och antal användare. Finance kostar {{price:finance:short}} och Supply Chain Management {{price:supply-chain-management:short}} – relevant för större offentliga organisationer med upphandlings- och anläggningsregister. Customer Service Enterprise ligger på {{price:customer-service-enterprise:short}}, Field Service på {{price:field-service:short}} och Customer Insights (Data + Journeys) på {{price:customer-insights:default}}. Microsoft erbjuder särskild prissättning för offentlig sektor.\n\nImplementationskostnaden för en medelstor offentlig organisation landar typiskt i intervallet 1 000 000 – 5 000 000 kr beroende på integrationer mot diariesystem, ekonomisystem, e-arkiv och behov av branschspecifika tillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
       },
       {
         question: "Vilka problem stöter offentliga organisationer på i en Dynamics 365-implementation?",
         answer:
-          "De vanligaste fallgroparna är (1) integration mot befintliga diariesystem (Public360, W3D3, Lex) och e-arkiv som underskattas; (2) krav på offentlighet, diarieföring och bevarande som inte byggs in tidigt; (3) upphandling enligt LOU som påverkar både inköp och leverantörshantering; och (4) GDPR och informationssäkerhet med särskilda krav på spårbarhet och åtkomstkontroll.\n\nDet är också vanligt att man underskattar förändringsarbetet — offentliga organisationer har ofta starka silos och formella processer som kräver tydligt mandat och stegvis införande.",
+          "De vanligaste fallgroparna är (1) integration mot befintliga diariesystem (Public360, W3D3, Lex) och e-arkiv som underskattas; (2) krav på offentlighet, diarieföring och bevarande som inte byggs in tidigt; (3) upphandling enligt LOU som påverkar både inköp och leverantörshantering; och (4) GDPR och informationssäkerhet med särskilda krav på spårbarhet och åtkomstkontroll.\n\nDet är också vanligt att man underskattar förändringsarbetet – offentliga organisationer har ofta starka silos och formella processer som kräver tydligt mandat och stegvis införande.",
       },
       {
-        question: "Dynamics 365 vs UBW (Agresso), Public360 och specialiserade offentliga system — vad ska vi välja?",
+        question: "Dynamics 365 vs UBW (Agresso), Public360 och specialiserade offentliga system – vad ska vi välja?",
         answer:
-          "Det är inte ett antingen-eller. Specialiserade offentliga ekonomi- och diariesystem (UBW/Agresso, Public360, W3D3, Lex, Visma) har djup branschfunktionalitet för svensk offentlig förvaltning. Dynamics 365 är en bredare plattform med fokus på ärendehantering, fältservice, kund/medborgare och projekt.\n\nDen vanligaste arkitekturen i offentlig sektor är att behålla diarie- och ekonomisystem och låta D365 vara plattform för medborgar-/kundärenden, fältservice för förvaltningar (gata/park/fastighet) och projektportföljer — med integration däremellan. Frågan att ställa: hur väl integrerar partnern D365 med era befintliga diarier och ekonomisystem?",
+          "Det är inte ett antingen-eller. Specialiserade offentliga ekonomi- och diariesystem (UBW/Agresso, Public360, W3D3, Lex, Visma) har djup branschfunktionalitet för svensk offentlig förvaltning. Dynamics 365 är en bredare plattform med fokus på ärendehantering, fältservice, kund/medborgare och projekt.\n\nDen vanligaste arkitekturen i offentlig sektor är att behålla diarie- och ekonomisystem och låta D365 vara plattform för medborgar-/kundärenden, fältservice för förvaltningar (gata/park/fastighet) och projektportföljer – med integration däremellan. Frågan att ställa: hur väl integrerar partnern D365 med era befintliga diarier och ekonomisystem?",
       },
       {
         question: "Vad säger andra offentliga organisationer som infört Dynamics 365?",
         answer:
-          "Erfarenheterna är generellt positiva när scope hålls till medborgarärenden, fältservice och kundnära processer, med integration mot befintliga kärnsystem. Organisationer som infört D365 som ärende- och fältserviceplattform rapporterar god utväxling — särskilt på ärendeflöden, mobil tillgång för fältpersonal och spårbarhet. Organisationer som försökt täcka även diarieföring eller komplex offentlig ekonomi direkt i D365 har oftare stött på regulatoriska och funktionella begränsningar.\n\nEn återkommande lärdom är att tidigt involvera arkivansvarig, dataskyddsombud och verksamhetsledning i kravarbetet.",
+          "Erfarenheterna är generellt positiva när scope hålls till medborgarärenden, fältservice och kundnära processer, med integration mot befintliga kärnsystem. Organisationer som infört D365 som ärende- och fältserviceplattform rapporterar god utväxling – särskilt på ärendeflöden, mobil tillgång för fältpersonal och spårbarhet. Organisationer som försökt täcka även diarieföring eller komplex offentlig ekonomi direkt i D365 har oftare stött på regulatoriska och funktionella begränsningar.\n\nEn återkommande lärdom är att tidigt involvera arkivansvarig, dataskyddsombud och verksamhetsledning i kravarbetet.",
       },
       {
         question: "Vilken Dynamics 365-partner är bäst för offentlig sektor?",
         answer:
-          "Det beror på er typ av organisation (kommun, region, myndighet, statligt bolag) och storlek. På d365.se listar vi flera partners med erfarenhet av offentlig sektor — vissa är specialiserade på ärende- och medborgarprocesser med Customer Service och Field Service, andra arbetar med F&SCM för större statliga aktörer med komplex ekonomi.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i offentlig sektor av jämförbar storlek, (2) hur de hanterar integration mot diariesystem, e-arkiv och ekonomisystem, och (3) erfarenhet av LOU-anpassade upphandlingsprocesser och offentlighetslagstiftning.",
+          "Det beror på er typ av organisation (kommun, region, myndighet, statligt bolag) och storlek. På d365.se listar vi flera partners med erfarenhet av offentlig sektor – vissa är specialiserade på ärende- och medborgarprocesser med Customer Service och Field Service, andra arbetar med F&SCM för större statliga aktörer med komplex ekonomi.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i offentlig sektor av jämförbar storlek, (2) hur de hanterar integration mot diariesystem, e-arkiv och ekonomisystem, och (3) erfarenhet av LOU-anpassade upphandlingsprocesser och offentlighetslagstiftning.",
       },
     ],
   },
@@ -4729,7 +4729,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     metaDescription:
       "Dynamics 365 för Life Science & Medtech hanterar GxP, validering, spårbarhet och kvalitetsstyrning med ISV-tillägg. Köparsidig guide med svenska partners.",
     summary:
-      "Dynamics 365 (F&SCM eller BC Premium med life science-tillägg) hanterar GxP, validering, spårbarhet och kvalitetsstyrning för svenska life science- och medtech-bolag. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 (F&SCM eller BC Premium med life science-tillägg) hanterar GxP, validering, spårbarhet och kvalitetsstyrning för svenska life science- och medtech-bolag. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["life science", "medtech", "läkemedel", "dynamics365", "business central", "finance scm", "gxp", "mdr", "udi", "validering"],
     products: [
@@ -4753,14 +4753,14 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Life Science &amp; Medtech
         </p>
         <p className="italic text-foreground/85 !mb-8">
-          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+          Arbetsprocesser, systemstöd och en genomgång av listade partners – skriven ur köparens perspektiv.
         </p>
 
         <h2>Branschens verklighet</h2>
         <p>
           Life Science och Medtech är en av de mest krävande branscherna för
           affärssystemsval. Det är inte primärt processernas komplexitet som
-          gör det svårt — det är de regulatoriska kraven som omgärdar dem.
+          gör det svårt – det är de regulatoriska kraven som omgärdar dem.
           MDR, IVDR, ISO 13485, GxP, FDA 21 CFR Part 11: alla ställer krav på
           fullständig spårbarhet, audit trails, kontrollerad dokumenthantering
           och i många fall validering av systemförändringar. Det innebär att
@@ -4769,7 +4769,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           tid.
         </p>
         <p>
-          Svenska Life Science-företag spänner över ett brett spektrum — från
+          Svenska Life Science-företag spänner över ett brett spektrum – från
           globala läkemedelsbolag med komplexa tillverkningsprocesser och
           internationella leveranskedjor till nischade Medtech-startups som
           säljer medicinteknisk utrustning som kräver service, kalibrering och
@@ -4795,7 +4795,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Medtech-företag med komplexa krav på batch/serienummerspårbarhet,
           produktionsplanering och global supply chain. Systemet hanterar hela
           kedjan från inköp av råvaror och komponenter till produktion,
-          lagerhantering med utgångsdatum, och distribution — med full
+          lagerhantering med utgångsdatum, och distribution – med full
           spårbarhet för UDI-krav och återkallningsprocesser.
         </p>
         <ul>
@@ -4812,7 +4812,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Business Central passar små till medelstora Life Science-företag och
           Medtech-bolag som behöver ett sammanhållet system för ekonomi, lager
           och logistik utan F&amp;SCM:s komplexitet. Med rätt branschspecifika
-          tillägg — exempelvis för batchhantering, kvalitetssäkring och UDI —
+          tillägg – exempelvis för batchhantering, kvalitetssäkring och UDI —
           kan BC möta branschkraven för de flesta SMB-aktörer i sektorn.
         </p>
         <ul>
@@ -4825,7 +4825,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h3>Field Service: Medicinteknisk utrustning i fält</h3>
         <p>
           För Medtech-företag som säljer utrustning som kräver installation,
-          kalibrering och löpande underhåll är Field Service kritiskt — och i
+          kalibrering och löpande underhåll är Field Service kritiskt – och i
           en regulatorisk kontext är det inte valfritt. Servicehistorik,
           kalibreringsprotokoll och underhållsdokumentation är en del av
           regelefterlevnaden, och Field Service tillhandahåller det digitala
@@ -4844,7 +4844,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           och regioner, upphandlingsprocesser och avtalsstyrning kräver ett
           strukturerat CRM-stöd. Customer Service hanterar därtill
           reklamationer och avvikelser som en del av Post-Market Surveillance
-          — en regulatorisk skyldighet som kräver systematisk insamling och
+          – en regulatorisk skyldighet som kräver systematisk insamling och
           dokumentation av produktfeedback från fält.
         </p>
 
@@ -4877,7 +4877,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           Navet AB kombinerar BC med branschspecifika tillägg för Life Science
-          — däribland Yaveon 365 Lot Management för avancerad batchhantering,
+          – däribland Yaveon 365 Lot Management för avancerad batchhantering,
           spårbarhet och lagerflöden. De täcker också kundrelationssidan med
           Sales, Customer Service och Field Service, vilket gör dem relevanta
           för Medtech-bolag som hanterar både supply chain och
@@ -4897,8 +4897,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           behöver stöd för komplexa logistikkedjor, projektstyrning av FoU och
           ekonomisk kontroll i en reglerad miljö erbjuder de gedigen
           F&amp;SCM-kompetens. Deras profil är mer generalist än
-          branschspecialist inom Life Science — de saknar dedikerade Life
-          Science-tillägg — men är ett relevant alternativ för organisationer
+          branschspecialist inom Life Science – de saknar dedikerade Life
+          Science-tillägg – men är ett relevant alternativ för organisationer
           vars primära behov är avancerad supply chain och projektredovisning
           snarare än regulatorisk valideringsstöd.
         </p>
@@ -4910,14 +4910,14 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Life Science och Medtech är den bransch på d365.se där skillnaden
           mellan partners är som störst. Skillnaden mellan en förkonfigurerad
           branschlösning med inbyggd GxP-compliance och valideringsstöd och en
-          standardimplementation med branschanpassning är fundamental — den
+          standardimplementation med branschanpassning är fundamental – den
           första reducerar implementationsrisk och valideringsbörda markant,
           men är sannolikt dimensionerat för medelstora till stora aktörer
           snarare än startups.
         </p>
         <p>
           COSMO CONSULT och Navet AB erbjuder BC med branschspecifika tillägg
-          för UDI, batchhantering och kvalitetssäkring — relevant för
+          för UDI, batchhantering och kvalitetssäkring – relevant för
           SMB-segmentet. Implema har djup F&amp;SCM-kompetens men utan
           dedikerade Life Science-tillägg.
         </p>
@@ -4939,27 +4939,27 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vad kostar Dynamics 365 för ett life science- eller medtech-bolag?",
         answer:
-          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Premium ligger på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}} och Supply Chain Management {{price:supply-chain-management:short}} — i princip standardvalet för bolag med GxP-krav, spårbarhet och kvalitetsstyrning. Sales Enterprise ligger på {{price:sales-enterprise:short}} och Field Service på {{price:field-service:short}}.\n\nImplementationskostnaden för ett medelstort life science- eller medtech-bolag landar typiskt i intervallet 1 500 000 – 7 000 000 kr beroende på GxP-validering, integrationer mot LIMS/QMS samt branschspecifika tillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år samt revalideringskostnader.",
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Premium ligger på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}} och Supply Chain Management {{price:supply-chain-management:short}} – i princip standardvalet för bolag med GxP-krav, spårbarhet och kvalitetsstyrning. Sales Enterprise ligger på {{price:sales-enterprise:short}} och Field Service på {{price:field-service:short}}.\n\nImplementationskostnaden för ett medelstort life science- eller medtech-bolag landar typiskt i intervallet 1 500 000 – 7 000 000 kr beroende på GxP-validering, integrationer mot LIMS/QMS samt branschspecifika tillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år samt revalideringskostnader.",
       },
       {
         question: "Vilka problem stöter life science- och medtech-bolag på i en Dynamics 365-implementation?",
         answer:
-          "De vanligaste fallgroparna är (1) underskattad valideringsinsats för GxP-miljöer (IQ/OQ/PQ) som påverkar både tidsplan och kostnad; (2) spårbarhet i hela kedjan från råvara till patient som inte byggs in från start; (3) integration mot LIMS, QMS och elektroniska signaturer som lämnas sent i projektet; och (4) regulatorisk rapportering till EMA, FDA och andra myndigheter som inte modelleras tidigt.\n\nDet är också vanligt att man underskattar dokumentationskraven — varje förändring i ett validerat system kräver formell change control.",
+          "De vanligaste fallgroparna är (1) underskattad valideringsinsats för GxP-miljöer (IQ/OQ/PQ) som påverkar både tidsplan och kostnad; (2) spårbarhet i hela kedjan från råvara till patient som inte byggs in från start; (3) integration mot LIMS, QMS och elektroniska signaturer som lämnas sent i projektet; och (4) regulatorisk rapportering till EMA, FDA och andra myndigheter som inte modelleras tidigt.\n\nDet är också vanligt att man underskattar dokumentationskraven – varje förändring i ett validerat system kräver formell change control.",
       },
       {
-        question: "Dynamics 365 vs SAP, Oracle och specialiserade life science-system — vad ska vi välja?",
+        question: "Dynamics 365 vs SAP, Oracle och specialiserade life science-system – vad ska vi välja?",
         answer:
           "Det är inte ett antingen-eller. SAP, Oracle och specialiserade life science-system (Veeva, BatchMaster, Aptean) har djup branschfunktionalitet ur lådan och ett etablerat ekosystem av valideringsexpertis. Dynamics 365 (F&SCM eller BC Premium med life science-tillägg) är en bredare plattform som med rätt branschtillägg och valideringspartner täcker GxP-kraven.\n\nValet styrs ofta av storlek och internationell närvaro: globala läkemedelsbolag väljer ofta SAP, medan medtech-bolag och nordiska life science-aktörer alltmer väljer D365 + branschtillägg. Frågan att ställa: vilken erfarenhet har partnern av GxP-validering, och vilka konkreta referenser har de i life science eller medtech?",
       },
       {
         question: "Vad säger andra life science- och medtech-bolag som infört Dynamics 365?",
         answer:
-          "Erfarenheterna varierar med valideringsansats och scope. Bolag som infört D365 med rätt life science-tillägg och en erfaren valideringspartner rapporterar generellt god utväxling — särskilt på spårbarhet, kvalitetsstyrning och regulatorisk rapportering. Bolag som underskattat valideringsinsatsen har oftare stött på förlängda projekt och oväntade kostnader.\n\nEn återkommande lärdom är att tidigt involvera kvalitets- och regulatoriskt ansvarig i kravarbetet, och att be partnern uppvisa konkreta GxP-validerade referenscase i life science eller medtech.",
+          "Erfarenheterna varierar med valideringsansats och scope. Bolag som infört D365 med rätt life science-tillägg och en erfaren valideringspartner rapporterar generellt god utväxling – särskilt på spårbarhet, kvalitetsstyrning och regulatorisk rapportering. Bolag som underskattat valideringsinsatsen har oftare stött på förlängda projekt och oväntade kostnader.\n\nEn återkommande lärdom är att tidigt involvera kvalitets- och regulatoriskt ansvarig i kravarbetet, och att be partnern uppvisa konkreta GxP-validerade referenscase i life science eller medtech.",
       },
       {
         question: "Vilken Dynamics 365-partner är bäst för life science & medtech?",
         answer:
-          "Det beror på er verksamhetstyp (läkemedel, medtech, diagnostik) och storlek. På d365.se listar vi flera partners med erfarenhet av life science och medtech — vissa är specialiserade på F&SCM med GxP-validering, andra arbetar med BC Premium + branschtillägg för mindre och medelstora bolag.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta GxP-validerade referenscase i life science eller medtech av jämförbar storlek, (2) hur de hanterar validering, spårbarhet och change control, och (3) vilka branschspecifika tillägg de arbetar med och varför.",
+          "Det beror på er verksamhetstyp (läkemedel, medtech, diagnostik) och storlek. På d365.se listar vi flera partners med erfarenhet av life science och medtech – vissa är specialiserade på F&SCM med GxP-validering, andra arbetar med BC Premium + branschtillägg för mindre och medelstora bolag.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta GxP-validerade referenscase i life science eller medtech av jämförbar storlek, (2) hur de hanterar validering, spårbarhet och change control, och (3) vilka branschspecifika tillägg de arbetar med och varför.",
       },
     ],
   },
@@ -4970,7 +4970,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     metaDescription:
       "Dynamics 365 för telekom & IT-tjänster stöttar abonnemang, CPQ, ärenden och SLA mot fakturasystem. Köparsidig guide med kostnad och svenska partners.",
     summary:
-      "Dynamics 365 fungerar som ryggrad för svenska telekom- och IT-tjänsteföretag — sälj, leverans, ärenden, SLA och ekonomi, integrerat med abonnemangs- och faktureringssystem. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 fungerar som ryggrad för svenska telekom- och IT-tjänsteföretag – sälj, leverans, ärenden, SLA och ekonomi, integrerat med abonnemangs- och faktureringssystem. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["telekom", "it-tjänster", "prenumeration", "arr", "dynamics365", "business central", "finance scm", "project operations", "ifrs15"],
     products: [
@@ -4996,7 +4996,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Telekom &amp; IT-tjänster
         </p>
         <p className="italic text-foreground/85 !mb-8">
-          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+          Arbetsprocesser, systemstöd och en genomgång av listade partners – skriven ur köparens perspektiv.
         </p>
 
         <h2>Branschens verklighet</h2>
@@ -5006,7 +5006,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           mot prenumerationsbaserade tjänster, managerade driftlösningar och
           paketerade erbjudanden som kombinerar hårdvara, mjukvara, support och
           konsulttjänster i ett abonnemang. Det ställer systemstödet inför en
-          ny typ av komplexitet — inte teknisk, utan kommersiell.
+          ny typ av komplexitet – inte teknisk, utan kommersiell.
         </p>
         <p>
           Att hantera en blandning av ARR-baserade prenumerationer, löpande
@@ -5059,7 +5059,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h3>Project Operations: Från sälj till projektleverans</h3>
         <p>
           Project Operations kopplar samman säljpipeline, resursplanering och
-          projektleverans i ett sammanhållet flöde — en kritisk integration för
+          projektleverans i ett sammanhållet flöde – en kritisk integration för
           IT-konsultbolag och managerade tjänster där rätt resurs vid rätt
           tidpunkt direkt påverkar lönsamheten. Systemet hanterar
           tidrapportering, resursoptimering och projektekonomin från
@@ -5075,7 +5075,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h3>Sales &amp; Customer Service: Komplexa offerter och SLA-styrning</h3>
         <p>
           Dynamics 365 Sales hanterar komplexa offertprocesser med paketerade
-          erbjudanden och långa säljcykler — relevant för IT-bolag som säljer
+          erbjudanden och långa säljcykler – relevant för IT-bolag som säljer
           mot enterprise-kunder. Customer Service säkerställer SLA-efterlevnad
           och ger supportteamet en 360-gradersvy av kunden med komplett
           ärendehistorik, kontraktsstatus och faktureringsinformation.
@@ -5110,7 +5110,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Vivicta täcker hela Dynamics 365-plattformen med ett helhetsåtagande
           som explicit inkluderar telekom och IT-tjänster som branschfokus. De
           hanterar prenumerationsbaserade affärsmodeller och paketerade
-          erbjudanden med hårdvara, mjukvara och konsulttjänster — och täcker
+          erbjudanden med hårdvara, mjukvara och konsulttjänster – och täcker
           hela kedjan från ERP och projekthantering via CRM och kundservice
           till HR och Power Platform-integrationer. Som AI Integration Partner
           arbetar de aktivt med att bygga in AI i sina leveranser. Passar
@@ -5128,7 +5128,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           IT-tjänster bidrar de med kompetens inom ekonomistyrning,
           prenumerationshantering och kundrelationer. Det globala nätverket med
           specialister inom förändringsledning och analys är ett mervärde för
-          IT-bolag som driver en bredare digital transformation — exempelvis en
+          IT-bolag som driver en bredare digital transformation – exempelvis en
           övergång från projektbaserad till prenumerationsbaserad affärsmodell
           som kräver processomstrukturering snarare än bara ett nytt system.
         </p>
@@ -5154,7 +5154,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Det begränsade urvalet är också ett argument för att bredda sökningen
           och titta på partners listade i angränsande branscher som
-          Konsulttjänster — många av dem har dokumenterad erfarenhet av
+          Konsulttjänster – många av dem har dokumenterad erfarenhet av
           IT-tjänstebolag och prenumerationsmodeller.
         </p>
         <p>
@@ -5167,27 +5167,27 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vad kostar Dynamics 365 för ett telekom- eller IT-tjänsteföretag?",
         answer:
-          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Essentials ligger på {{price:bc-essentials:short}} och Premium på {{price:bc-premium:short}}. Project Operations kostar {{price:project-operations:short}} och Sales Enterprise {{price:sales-enterprise:short}}. Customer Service Enterprise ligger på {{price:customer-service-enterprise:short}} och Field Service på {{price:field-service:short}} — central för installations- och fältarbete.\n\nImplementationskostnaden för ett medelstort telekom- eller IT-tjänsteföretag landar typiskt i intervallet 800 000 – 3 500 000 kr beroende på integrationer mot CPQ, faktureringssystem för abonnemang och ärendesystem. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Essentials ligger på {{price:bc-essentials:short}} och Premium på {{price:bc-premium:short}}. Project Operations kostar {{price:project-operations:short}} och Sales Enterprise {{price:sales-enterprise:short}}. Customer Service Enterprise ligger på {{price:customer-service-enterprise:short}} och Field Service på {{price:field-service:short}} – central för installations- och fältarbete.\n\nImplementationskostnaden för ett medelstort telekom- eller IT-tjänsteföretag landar typiskt i intervallet 800 000 – 3 500 000 kr beroende på integrationer mot CPQ, faktureringssystem för abonnemang och ärendesystem. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
       },
       {
         question: "Vilka problem stöter telekom- och IT-tjänsteföretag på i en Dynamics 365-implementation?",
         answer:
-          "De vanligaste fallgroparna är (1) komplex abonnemangs- och prenumerationslogik som inte modelleras tillräckligt (uppgraderingar, periodiseringar, terminering); (2) CPQ för paketerade erbjudanden med hårdvara, mjukvara och tjänster som lämnas i parallella system; (3) ärende- och SLA-hantering som inte kopplas till abonnemangs- och avtalsdata; och (4) integration mot Microsoft 365/Azure-marketplace, betalningstjänster och kund-portaler som underskattas.\n\nDet är också vanligt att man underskattar förändringsarbetet — säljare, leverans och kundtjänst behöver gemensam datamodell för att kunna agera på abonnemangshändelser.",
+          "De vanligaste fallgroparna är (1) komplex abonnemangs- och prenumerationslogik som inte modelleras tillräckligt (uppgraderingar, periodiseringar, terminering); (2) CPQ för paketerade erbjudanden med hårdvara, mjukvara och tjänster som lämnas i parallella system; (3) ärende- och SLA-hantering som inte kopplas till abonnemangs- och avtalsdata; och (4) integration mot Microsoft 365/Azure-marketplace, betalningstjänster och kund-portaler som underskattas.\n\nDet är också vanligt att man underskattar förändringsarbetet – säljare, leverans och kundtjänst behöver gemensam datamodell för att kunna agera på abonnemangshändelser.",
       },
       {
-        question: "Dynamics 365 vs Salesforce och specialiserade abonnemangssystem — vad ska vi välja?",
+        question: "Dynamics 365 vs Salesforce och specialiserade abonnemangssystem – vad ska vi välja?",
         answer:
           "Det är inte ett antingen-eller. Specialiserade abonnemangssystem (Zuora, Stripe Billing, Chargebee) har djup funktionalitet för komplex prenumerationsfakturering. Dynamics 365 (BC eller F&SCM + Sales + Customer Service) är en bredare plattform där prenumerationslogiken konfigureras eller hanteras via tillägg.\n\nDen vanligaste arkitekturen är att behålla ett specialiserat abonnemangssystem för fakturering och låta D365 vara ryggrad för sälj, leverans, ekonomi och kund. För mindre bolag med standardiserade prenumerationer kan D365 räcka som helhetslösning. Frågan att ställa: hur mycket av abonnemangslogiken klarar D365 utan kostsam särutveckling?",
       },
       {
         question: "Vad säger andra telekom- och IT-tjänsteföretag som infört Dynamics 365?",
         answer:
-          "Erfarenheterna är generellt positiva när scope hålls realistiskt. Bolag som infört D365 som ryggrad för sälj, leverans, ärendehantering och ekonomi — med integration mot ett specialiserat abonnemangssystem — rapporterar god utväxling. Bolag som försökt täcka all komplex abonnemangsfakturering direkt i D365 utan tillägg har oftare stött på dyr särutveckling.\n\nEn återkommande lärdom är att tidigt definiera datamodellen för kunder, abonnemang, avtal och ärenden, och att be partnern uppvisa konkreta referenscase i telekom eller IT-tjänster med liknande affärsmodell.",
+          "Erfarenheterna är generellt positiva när scope hålls realistiskt. Bolag som infört D365 som ryggrad för sälj, leverans, ärendehantering och ekonomi – med integration mot ett specialiserat abonnemangssystem – rapporterar god utväxling. Bolag som försökt täcka all komplex abonnemangsfakturering direkt i D365 utan tillägg har oftare stött på dyr särutveckling.\n\nEn återkommande lärdom är att tidigt definiera datamodellen för kunder, abonnemang, avtal och ärenden, och att be partnern uppvisa konkreta referenscase i telekom eller IT-tjänster med liknande affärsmodell.",
       },
       {
         question: "Vilken Dynamics 365-partner är bäst för telekom & IT-tjänster?",
         answer:
-          "Det beror på er affärsmodell och storlek. På d365.se listar vi flera partners med erfarenhet av IT-tjänster och prenumerationsmodeller — vissa är specialiserade på Project Operations + BC för IT-konsultbolag, andra arbetar med F&SCM och Sales för större telekom- och MSP-aktörer.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och bredda sökningen till partners i Konsulttjänster — många har dokumenterad erfarenhet av IT-tjänstebolag och prenumerationsmodeller. Be om: (1) konkreta referenscase i telekom eller IT-tjänster av jämförbar storlek, (2) hur de hanterar abonnemangs- och CPQ-logik, och (3) integrationsstrategi mot ert faktureringssystem.",
+          "Det beror på er affärsmodell och storlek. På d365.se listar vi flera partners med erfarenhet av IT-tjänster och prenumerationsmodeller – vissa är specialiserade på Project Operations + BC för IT-konsultbolag, andra arbetar med F&SCM och Sales för större telekom- och MSP-aktörer.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och bredda sökningen till partners i Konsulttjänster – många har dokumenterad erfarenhet av IT-tjänstebolag och prenumerationsmodeller. Be om: (1) konkreta referenscase i telekom eller IT-tjänster av jämförbar storlek, (2) hur de hanterar abonnemangs- och CPQ-logik, och (3) integrationsstrategi mot ert faktureringssystem.",
       },
     ],
   },
@@ -5198,7 +5198,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     metaDescription:
       "Dynamics 365 för uthyrning hanterar hyresavtal, beläggning, underhåll och fältservice med branschtillägg. Köparsidig guide med svenska partners.",
     summary:
-      "Dynamics 365 (BC eller F&SCM med uthyrningstillägg) stödjer hyresavtal, beläggning, underhåll och fältservice för svenska uthyrningsbolag — maskiner, fordon, verktyg och event. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 (BC eller F&SCM med uthyrningstillägg) stödjer hyresavtal, beläggning, underhåll och fältservice för svenska uthyrningsbolag – maskiner, fordon, verktyg och event. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["uthyrning", "rental", "eqm 365", "dynamics365", "business central", "field service", "tillgångshantering"],
     products: [
@@ -5222,7 +5222,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Uthyrningsverksamhet
         </p>
         <p className="italic text-foreground/85 !mb-8">
-          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+          Arbetsprocesser, systemstöd och en genomgång av listade partners – skriven ur köparens perspektiv.
         </p>
 
         <h2>Branschens verklighet</h2>
@@ -5230,16 +5230,16 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Uthyrningsbranschen i Sverige växer, drivet av ökad efterfrågan på
           flexibla lösningar och ett hållbarhetsperspektiv där företag väljer
           att hyra istället för att äga. Maskiner, fordon, verktyg,
-          eventutrustning — gemensamt för alla uthyrningssegment är att
+          eventutrustning – gemensamt för alla uthyrningssegment är att
           lönsamheten styrs av beläggningsgraden, och att beläggningsgraden
           kräver realtidsöversikt över varje tillgångs status, var den befinner
           sig och när den behöver service.
         </p>
         <p>
           Det är en annan affärslogik än handel eller tillverkning. Systemet
-          måste hantera tillgångars livscykel som det centrala objektet — från
+          måste hantera tillgångars livscykel som det centrala objektet – från
           inköp och avskrivning via bokning, leverans och retur till service
-          och slutligen utrangering — och koppla det till ekonomi,
+          och slutligen utrangering – och koppla det till ekonomi,
           kundrelationer och fältservice i ett sammanhållet flöde. Manuella
           processer för bokning, fakturering och underhållsplanering är de
           vanligaste källorna till ineffektivitet och intäktsläckage.
@@ -5250,7 +5250,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Standardfunktionaliteten i Business Central täcker grundläggande
           ekonomi och lagerstyrning, men den specifika uthyrningslogiken —
           bokningskalendrar, periodisk fakturering, tillgänglighetsstyrning och
-          returinspektion — kräver vanligen ett branschspecifikt tillägg för
+          returinspektion – kräver vanligen ett branschspecifikt tillägg för
           att systemet ska fungera optimalt.
         </p>
 
@@ -5262,7 +5262,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           täcker ekonomi, lager och grundläggande kundhantering, men behöver
           kompletteras med ett uthyrningsspecifikt tillägg för att hantera
           branschens kärnprocesser fullt ut. EQM 365 Rental är ett exempel på
-          ett sådant tillägg — en ISV-lösning byggd på BC som tillhandahåller
+          ett sådant tillägg – en ISV-lösning byggd på BC som tillhandahåller
           dedikerad funktionalitet för avtal, tillgänglighet, logistik, service
           och fakturering inom uthyrning.
         </p>
@@ -5278,7 +5278,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h3>Field Service: Underhåll och service av uthyrningsobjekt</h3>
         <p>
           Förebyggande och avhjälpande underhåll av en tillgångsflotta är
-          direkt kopplat till beläggningsgrad och lönsamhet — ett objekt som är
+          direkt kopplat till beläggningsgrad och lönsamhet – ett objekt som är
           på oplanerad reparation är ett objekt som inte genererar hyresintäkt.
           Field Service hanterar underhållsscheman, serviceorder och
           teknikerplanering, och kopplar servicehistoriken tillbaka till
@@ -5294,7 +5294,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h3>Sales &amp; Customer Service: Kundrelationer och ärendehantering</h3>
         <p>
           Sales ger uthyrnings- och säljpersonal en samlad bild av kunden med
-          fullständig hyreshistorik, aktiva avtal och kommunikation — vilket
+          fullständig hyreshistorik, aktiva avtal och kommunikation – vilket
           underlättar merförsäljning och avtalsförnyelse. Customer Service
           hanterar inkommande ärenden kring skador, leveransavvikelser och
           fakturaärenden.
@@ -5319,7 +5319,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Navet AB är den partner i listan med ett konkret uthyrningsspecifikt
           tillägg: EQM 365 Rental för Business Central, som hanterar avtal,
           tillgänglighet, logistik, service och fakturering i ett sammanhållet
-          flöde. Det är en relevant distinktion — det innebär att Navet inte
+          flöde. Det är en relevant distinktion – det innebär att Navet inte
           enbart konfigurerar standard-BC för uthyrningslogik utan levererar
           ett beprövat branschlager ovanpå plattformen. Navet ingår sedan 2023
           i Aderian Group med ett bredare nordiskt IT-erbjudande. Som AI
@@ -5363,8 +5363,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Det begränsade antalet listade partners speglar att uthyrning är ett
           nischsegment på d365.se. Beroende på vilken typ av uthyrning ni
-          bedriver — maskiner och fordon kräver annan systemlogik än
-          eventutrustning eller verktyg — kan det vara värt att titta bredare
+          bedriver – maskiner och fordon kräver annan systemlogik än
+          eventutrustning eller verktyg – kan det vara värt att titta bredare
           och utvärdera om det finns specialiserade uthyrningssystem som
           integrerar mot Dynamics 365 snarare än system som löser allt inom
           samma plattform.
@@ -5379,7 +5379,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vad kostar Dynamics 365 för en uthyrningsverksamhet?",
         answer:
-          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Essentials ligger på {{price:bc-essentials:short}} och Premium på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}} och Supply Chain Management {{price:supply-chain-management:short}} — relevant för större uthyrare med komplex hyresekonomi och underhållsplanering. Field Service ligger på {{price:field-service:short}} och är central för fordon, maskiner och underhåll.\n\nImplementationskostnaden för ett medelstort uthyrningsbolag landar typiskt i intervallet 700 000 – 3 000 000 kr beroende på integrationer mot eventuella specialiserade uthyrningssystem och behov av branschspecifika tillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Essentials ligger på {{price:bc-essentials:short}} och Premium på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}} och Supply Chain Management {{price:supply-chain-management:short}} – relevant för större uthyrare med komplex hyresekonomi och underhållsplanering. Field Service ligger på {{price:field-service:short}} och är central för fordon, maskiner och underhåll.\n\nImplementationskostnaden för ett medelstort uthyrningsbolag landar typiskt i intervallet 700 000 – 3 000 000 kr beroende på integrationer mot eventuella specialiserade uthyrningssystem och behov av branschspecifika tillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
       },
       {
         question: "Vilka problem stöter uthyrningsbolag på i en Dynamics 365-implementation?",
@@ -5387,19 +5387,19 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           "De vanligaste fallgroparna är (1) hyresavtals- och beläggningslogik som inte fullt ut täcks av standard utan branschtillägg; (2) underhåll och kontroll av uthyrningsobjekt mellan uppdrag som inte modelleras tidigt; (3) komplex prissättning (dagshyra, dygnshyra, periodpris, försäkring, frakt) som lämnas till särutveckling; och (4) integration mot bokningsportaler, GPS/telematik och fakturering som underskattas.\n\nDet är också vanligt att retur- och skadehantering inte byggs in från start, vilket skapar manuella processer efter golive.",
       },
       {
-        question: "Dynamics 365 vs specialiserade uthyrningssystem — vad ska vi välja?",
+        question: "Dynamics 365 vs specialiserade uthyrningssystem – vad ska vi välja?",
         answer:
           "Det är inte ett antingen-eller. Specialiserade uthyrningssystem (Wynne Systems, MCS Rental Software, Hire Track, Husky Software) har djup branschfunktionalitet för beläggning, kontrollistor, prissättning och underhåll. Dynamics 365 är en bredare plattform där uthyrningslogik konfigureras eller hanteras via branschtillägg (t.ex. To-Increase, Dynaway).\n\nValet styrs av uthyrningsobjektets karaktär: maskiner och fordon med komplext underhåll matchar ofta specialistsystem bättre, medan event- och verktygsuthyrning ofta klaras med D365 + branschtillägg. Frågan att ställa: vilket branschtillägg rekommenderar partnern, och vilka konkreta uthyrningsreferenser har de på det?",
       },
       {
         question: "Vad säger andra uthyrningsbolag som infört Dynamics 365?",
         answer:
-          "Erfarenheterna varierar med val av branschtillägg och scope. Bolag som infört D365 med ett etablerat uthyrningstillägg rapporterar generellt god utväxling — särskilt på beläggning, prissättning och integrerad ekonomi. Bolag som försökt täcka uthyrningslogiken med standard-D365 utan tillägg har oftare stött på dyr särutveckling.\n\nEn återkommande lärdom är att kravarbetet ska involvera både uthyrning, verkstad/underhåll och ekonomi, och att be partnern uppvisa konkreta referenscase i samma typ av uthyrning som ni bedriver.",
+          "Erfarenheterna varierar med val av branschtillägg och scope. Bolag som infört D365 med ett etablerat uthyrningstillägg rapporterar generellt god utväxling – särskilt på beläggning, prissättning och integrerad ekonomi. Bolag som försökt täcka uthyrningslogiken med standard-D365 utan tillägg har oftare stött på dyr särutveckling.\n\nEn återkommande lärdom är att kravarbetet ska involvera både uthyrning, verkstad/underhåll och ekonomi, och att be partnern uppvisa konkreta referenscase i samma typ av uthyrning som ni bedriver.",
       },
       {
         question: "Vilken Dynamics 365-partner är bäst för uthyrningsverksamhet?",
         answer:
-          "Uthyrning är ett nischsegment på d365.se med få listade partners. Vår rekommendation är att utvärdera de partners som finns på branschsidan och komplettera med utvärdering av specialiserade uthyrningssystem — beroende på vilken typ av uthyrning ni bedriver kan ett specialistsystem med D365-integration vara ett bättre alternativ än D365 som hel ryggrad.\n\nBe partnern uppvisa: (1) konkreta referenscase i uthyrning av samma typ (maskiner, fordon, verktyg, event) och storlek, (2) vilket uthyrningstillägg de arbetar med och varför, och (3) hur de hanterar beläggning, prissättning, kontrollistor och underhåll.",
+          "Uthyrning är ett nischsegment på d365.se med få listade partners. Vår rekommendation är att utvärdera de partners som finns på branschsidan och komplettera med utvärdering av specialiserade uthyrningssystem – beroende på vilken typ av uthyrning ni bedriver kan ett specialistsystem med D365-integration vara ett bättre alternativ än D365 som hel ryggrad.\n\nBe partnern uppvisa: (1) konkreta referenscase i uthyrning av samma typ (maskiner, fordon, verktyg, event) och storlek, (2) vilket uthyrningstillägg de arbetar med och varför, och (3) hur de hanterar beläggning, prissättning, kontrollistor och underhåll.",
       },
     ],
   },
@@ -5410,7 +5410,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     metaDescription:
       "Dynamics 365 för mode, sport & textil hanterar storlek/färg-matriser, säsong, kollektion och kanal med ISV-tillägg. Köparsidig guide med svenska partners.",
     summary:
-      "Dynamics 365 med modetillägg (Bisqo, K3 Pebblestone, LS Retail Fashion) hanterar storlek/färg-matriser, säsong, kollektion och kanal för svenska mode-, sport- och textilbolag. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 med modetillägg (Bisqo, K3 Pebblestone, LS Retail Fashion) hanterar storlek/färg-matriser, säsong, kollektion och kanal för svenska mode-, sport- och textilbolag. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["mode", "sport", "textil", "fashion", "dynamics365", "business central", "commerce", "omnichannel", "sku"],
     products: [
@@ -5433,19 +5433,19 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Mode, sport &amp; textil
         </p>
         <p className="italic text-foreground/85 !mb-8">
-          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+          Arbetsprocesser, systemstöd och en genomgång av listade partners – skriven ur köparens perspektiv.
         </p>
 
         <h2>Branschens verklighet</h2>
         <p>
           Mode, sport och textil är en bransch med ett systemlandskap som
-          ställer helt egna krav. Variantkomplexiteten — varje artikel i
-          storlek, färg och modell — skapar en SKU-flora som generella
+          ställer helt egna krav. Variantkomplexiteten – varje artikel i
+          storlek, färg och modell – skapar en SKU-flora som generella
           affärssystem inte hanterar väl ur lådan. Lägg till säsongslogik,
           kollektion- och inköpsplanering mot globala leverantörer med långa
           ledtider, snabba markdowns när säsongen vänder, och omnichannel-krav
           där lager, priser och kampanjer behöver vara konsekventa oavsett om
-          kunden köper i butik, via e-handel eller på marketplace — och det är
+          kunden köper i butik, via e-handel eller på marketplace – och det är
           tydligt varför branschspecifik konfiguration är ett minimum, och ett
           branschspecifikt tillägg ofta nödvändigt.
         </p>
@@ -5454,7 +5454,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           smalt utbud av relevanta affärssystemslösningar. Dynamics 365
           Business Central med branschanpassningar är ett alternativ som
           används av en del aktörer, men konkurrensen om plattformsval är hård
-          — specialiserade modeERP-system utmanar. Det avgörande valet är inte
+          – specialiserade modeERP-system utmanar. Det avgörande valet är inte
           bara vilket system utan vilken partner som faktiskt förstår
           branschens processer: inköpsplanering per kollektion, allokering per
           butik, retur- och cirkulationsflöden och integration mot Shopify,
@@ -5487,7 +5487,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <h3>Dynamics 365 Commerce: Omnichannel för butikskedjor</h3>
         <p>
-          Commerce är Microsoft Dynamics-svaret på omnichannel retail — en
+          Commerce är Microsoft Dynamics-svaret på omnichannel retail – en
           plattform som integrerar POS, e-handel, lojalitetsprogram,
           lagerstyrning och kunddata i ett ekosystem. Relevant för modeaktörer
           med egna butikskedjor som vill ha en enhetlig plattform snarare än
@@ -5528,7 +5528,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           adbriq är en BC-specialist med ett uttalat och exklusivt branschfokus
-          på mode, sport och textil — det är inte ett av flera segment utan
+          på mode, sport och textil – det är inte ett av flera segment utan
           deras primära marknad. De arbetar med digitalisering av
           informationsflöden och affärsprocesser för bolag i branschen, med
           specifik kompetens inom produktlivscykelhantering, kollektionshantering,
@@ -5537,7 +5537,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           sportbolag som väljer BC som systemplattform är adbriq det enda
           alternativet i listan med den kombinationen av branschdjup och
           plattformsspecialisering. Att de är den enda listade partnern för
-          branschen gör dem till det naturliga första samtalet — men det
+          branschen gör dem till det naturliga första samtalet – men det
           innebär också att en bred partnerutvärdering bör inkludera aktörer
           utanför d365.se:s lista.
         </p>
@@ -5545,7 +5545,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
           Mode, sport och textil är den bransch på d365.se med minst listade
-          partners — en partner. Det är ett utpräglat nischsegment där
+          partners – en partner. Det är ett utpräglat nischsegment där
           relativt få Dynamics 365-partners aktivt profilerar sig, och där
           konkurrensen om systemplattformsval är bredare: specialiserade
           modeERP-system som Apparel21, Infor M3, Futura och liknande är
@@ -5556,7 +5556,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           ett aktivt val som kräver en partner med genuin branschkompetens.
           adbriq har den profilen och är ett naturligt startläge för en
           BC-utvärdering. Utöver dem kan det vara värt att titta på partners i
-          Retail &amp; E-handel-segmentet på d365.se — flera av dem, som
+          Retail &amp; E-handel-segmentet på d365.se – flera av dem, som
           Cepheo och Bisqo, arbetar med BC för handelsföretag och kan ha
           relevant erfarenhet av mode- och textilprocesser.
         </p>
@@ -5575,7 +5575,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vad kostar Dynamics 365 för ett mode-, sport- eller textilbolag?",
         answer:
-          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Premium ligger på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}}, Supply Chain Management {{price:supply-chain-management:short}} och Commerce {{price:commerce:short}} — relevant för aktörer med egna butiker, e-handel och POS.\n\nImplementationskostnaden för ett medelstort mode-, sport- eller textilbolag landar typiskt i intervallet 1 000 000 – 4 500 000 kr beroende på storlek på sortiment, säsongsplanering, integrationer mot PLM/leverantörsportaler och behov av branschspecifika tillägg (Bisqo, K3 Pebblestone, LS Retail Fashion). Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Premium ligger på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}}, Supply Chain Management {{price:supply-chain-management:short}} och Commerce {{price:commerce:short}} – relevant för aktörer med egna butiker, e-handel och POS.\n\nImplementationskostnaden för ett medelstort mode-, sport- eller textilbolag landar typiskt i intervallet 1 000 000 – 4 500 000 kr beroende på storlek på sortiment, säsongsplanering, integrationer mot PLM/leverantörsportaler och behov av branschspecifika tillägg (Bisqo, K3 Pebblestone, LS Retail Fashion). Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
       },
       {
         question: "Vilka problem stöter mode-, sport- och textilbolag på i en Dynamics 365-implementation?",
@@ -5583,19 +5583,19 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           "De vanligaste fallgroparna är (1) storlek/färg-matriser (variantkomplexitet) som inte hanteras av standard utan branschtillägg; (2) säsongs-, kollektion- och inköpsplanering mot långa ledtider från globala leverantörer; (3) returflöden och nedmarkeringscykler som inte modelleras tidigt; och (4) integration mot PLM, designsystem och e-handel som underskattas.\n\nDet är också vanligt att masterdata för artiklar med säsong, kollektion, leverantör och variant inte städas inför migrering, vilket skapar långa stabiliseringsfaser efter golive.",
       },
       {
-        question: "Dynamics 365 vs specialiserade mode- och textilsystem — vad ska vi välja?",
+        question: "Dynamics 365 vs specialiserade mode- och textilsystem – vad ska vi välja?",
         answer:
           "Det är inte ett antingen-eller. Specialiserade mode- och textilsystem (Centric PLM, Itera, Bsmart) och branschtillägg på D365 (K3 Pebblestone, Bisqo, LS Retail Fashion) hanterar variantkomplexitet, säsong och kollektion. Dynamics 365 utan branschtillägg räcker sällan för en renodlad modeverksamhet.\n\nDen vanligaste vägen är D365 + branschtillägg snarare än renodlat D365 eller helt fristående system. Frågan att ställa: vilket branschtillägg rekommenderar partnern, och har de konkreta referenser i mode, sport eller textil på just det tillägget?",
       },
       {
         question: "Vad säger andra mode-, sport- och textilbolag som infört Dynamics 365?",
         answer:
-          "Erfarenheterna varierar med val av branschtillägg och scope. Bolag som infört D365 + ett etablerat modetillägg (K3 Pebblestone, Bisqo, LS Retail Fashion) rapporterar generellt god utväxling — särskilt på variant- och säsongshantering, inköpsplanering och integrerad e-handel/POS. Bolag som försökt täcka modelogiken med standard-D365 har oftare stött på dyr särutveckling.\n\nEn återkommande lärdom är att kravarbetet ska involvera inköp, design, lager och försäljning, och att validera branschtillägget mot verkliga processer tidigt.",
+          "Erfarenheterna varierar med val av branschtillägg och scope. Bolag som infört D365 + ett etablerat modetillägg (K3 Pebblestone, Bisqo, LS Retail Fashion) rapporterar generellt god utväxling – särskilt på variant- och säsongshantering, inköpsplanering och integrerad e-handel/POS. Bolag som försökt täcka modelogiken med standard-D365 har oftare stött på dyr särutveckling.\n\nEn återkommande lärdom är att kravarbetet ska involvera inköp, design, lager och försäljning, och att validera branschtillägget mot verkliga processer tidigt.",
       },
       {
         question: "Vilken Dynamics 365-partner är bäst för mode, sport & textil?",
         answer:
-          "Det beror på er storlek och kanalmix. På d365.se listar vi få partners specifikt inom mode, sport och textil — det kan vara värt att också titta på partners i Retail & E-handel-segmentet (t.ex. Cepheo och Bisqo) som arbetar med BC för handelsföretag och kan ha relevant erfarenhet av mode- och textilprocesser.\n\nVår rekommendation är att utvärdera 2–3 partners och be om: (1) konkreta referenscase i mode, sport eller textil av jämförbar storlek, (2) hur de hanterar storlek/färg-matriser och säsong, och (3) vilket branschtillägg de rekommenderar och varför.",
+          "Det beror på er storlek och kanalmix. På d365.se listar vi få partners specifikt inom mode, sport och textil – det kan vara värt att också titta på partners i Retail & E-handel-segmentet (t.ex. Cepheo och Bisqo) som arbetar med BC för handelsföretag och kan ha relevant erfarenhet av mode- och textilprocesser.\n\nVår rekommendation är att utvärdera 2–3 partners och be om: (1) konkreta referenscase i mode, sport eller textil av jämförbar storlek, (2) hur de hanterar storlek/färg-matriser och säsong, och (3) vilket branschtillägg de rekommenderar och varför.",
       },
     ],
   },
@@ -5606,7 +5606,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     metaDescription:
       "Dynamics 365 för fastighet & förvaltning täcker ekonomi, anläggningsregister, fältservice och hyresgästkontakt. Köparsidig guide med svenska partners.",
     summary:
-      "Dynamics 365 (BC eller F&SCM + Field Service) hanterar ekonomi, anläggningsregister, underhåll och hyresgästkontakt för svenska fastighets- och förvaltningsbolag — integrerat med specialiserade hyresadministrationssystem. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 (BC eller F&SCM + Field Service) hanterar ekonomi, anläggningsregister, underhåll och hyresgästkontakt för svenska fastighets- och förvaltningsbolag – integrerat med specialiserade hyresadministrationssystem. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["fastighet", "förvaltning", "proptech", "dynamics365", "business central", "finance scm", "field service", "hyresadministration"],
     products: [
@@ -5630,7 +5630,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Fastighet &amp; Förvaltning
         </p>
         <p className="italic text-foreground/85 !mb-8">
-          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+          Arbetsprocesser, systemstöd och en genomgång av listade partners – skriven ur köparens perspektiv.
         </p>
 
         <h2>Branschens verklighet</h2>
@@ -5641,7 +5641,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           förvaltningens kvalitet är direkt kopplad till fastighetsvärdet. Det
           ställer krav på systemstöd som kan hantera allt från hyresadministration
           och underhållsplanering till investeringsprojekt och
-          hållbarhetsrapportering — ofta över en portfölj med många fastigheter
+          hållbarhetsrapportering – ofta över en portfölj med många fastigheter
           och olika ägarstrukturer.
         </p>
         <p>
@@ -5649,15 +5649,15 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           för ekonomi, ett för hyresadministration, ett för felanmälan och
           arbetsorder, och ett separat för hyresgästkommunikation. Det skapar
           informationssiloer, manuella flöden och bristande helhetsbild.
-          Proptech-utvecklingen — IoT, digitala nyckelhanteringssystem, smarta
-          mätare — driver på behovet av ett back-office system som kan ta emot
+          Proptech-utvecklingen – IoT, digitala nyckelhanteringssystem, smarta
+          mätare – driver på behovet av ett back-office system som kan ta emot
           och agera på data från fastigheternas tekniska infrastruktur.
         </p>
         <p>
           Microsoft Dynamics 365 kan fungera som det sammanhållande lagret för
           ekonomistyrning, hyresadministration, underhåll, fältservice och
           hyresgästkommunikation. Systemet integreras med branschspecifika
-          fastighetssystem via öppna API:er — det är inte en fullständig
+          fastighetssystem via öppna API:er – det är inte en fullständig
           ersättning för specialiserade hyresadministrationssystem utan en
           plattform som kan samla data och processer i ett enhetligt
           ekosystem.
@@ -5701,7 +5701,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Field Service är centralt för fastighetsbolag med intern
           driftorganisation eller egna tekniker. Systemet hanterar
           felanmälningar från hyresgäster, skapar arbetsorder, schemalägger
-          tekniker och dokumenterar utfört arbete — och kopplar kostnaden
+          tekniker och dokumenterar utfört arbete – och kopplar kostnaden
           tillbaka till respektive fastighet i ekonomisystemet.
         </p>
         <ul>
@@ -5715,7 +5715,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h3>Customer Service &amp; Sales: Hyresgästkommunikation och uthyrning</h3>
         <p>
           Customer Service strukturerar hyresgästkommunikation och
-          ärendehantering i ett enhetligt gränssnitt — oavsett om hyresgästen
+          ärendehantering i ett enhetligt gränssnitt – oavsett om hyresgästen
           kontaktar förvaltaren via telefon, e-post eller portal. Sales stödjer
           uthyrningsprocessen med pipeline-hantering för vakanta lokaler och
           hyresgästprospektering.
@@ -5749,8 +5749,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
           Fastighet och förvaltning är en bransch där specialiserade
-          fastighetssystem — Vitec Fastighet, MRI Software, Raindance och
-          liknande — traditionellt dominerat hyresadministrationen. Dynamics
+          fastighetssystem – Vitec Fastighet, MRI Software, Raindance och
+          liknande – traditionellt dominerat hyresadministrationen. Dynamics
           365 konkurrerar i detta segment primärt som ett ekonomi- och
           processystem som integrerar med dessa specialistsystem, snarare än
           som en komplett fastighetslösning ur lådan.
@@ -5759,7 +5759,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Med en enda listad partner är urvalsprocessen på d365.se begränsad.
           Fellowmind är ett välkänt alternativ med god plattformsbredd, men en
           gedigen partnerutvärdering för ett fastighetsbolag bör inkludera
-          partners utanför listan — exempelvis aktörer med specifika
+          partners utanför listan – exempelvis aktörer med specifika
           fastighetstillägg eller ISV-lösningar byggda på BC eller F&amp;SCM
           för fastighetsförvaltning.
         </p>
@@ -5779,22 +5779,22 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vad kostar Dynamics 365 för ett fastighetsbolag?",
         answer:
-          "Licenskostnaden styrs av val av plattform och antal användare. Business Central Essentials ligger på {{price:bc-essentials:short}} och Premium på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}} och Supply Chain Management {{price:supply-chain-management:short}} — relevant för större fastighetsbolag med komplex ekonomi och investeringsprojekt. Field Service ligger på {{price:field-service:short}} och Customer Service Enterprise på {{price:customer-service-enterprise:short}}.\n\nTill licenserna tillkommer implementationskostnaden, som för ett medelstort fastighetsbolag typiskt landar i intervallet 800 000 – 3 000 000 kr beroende på omfattning, integrationer mot hyresadministration (Vitec, MRI, Raindance) och behov av branschspecifika tillägg. Räkna också med löpande förvaltningskostnad på 10–20 % av implementationen per år.",
+          "Licenskostnaden styrs av val av plattform och antal användare. Business Central Essentials ligger på {{price:bc-essentials:short}} och Premium på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}} och Supply Chain Management {{price:supply-chain-management:short}} – relevant för större fastighetsbolag med komplex ekonomi och investeringsprojekt. Field Service ligger på {{price:field-service:short}} och Customer Service Enterprise på {{price:customer-service-enterprise:short}}.\n\nTill licenserna tillkommer implementationskostnaden, som för ett medelstort fastighetsbolag typiskt landar i intervallet 800 000 – 3 000 000 kr beroende på omfattning, integrationer mot hyresadministration (Vitec, MRI, Raindance) och behov av branschspecifika tillägg. Räkna också med löpande förvaltningskostnad på 10–20 % av implementationen per år.",
       },
       {
         question: "Vilka problem stöter fastighetsbolag på i en Dynamics 365-implementation?",
         answer:
-          "De vanligaste fallgroparna är (1) underskattad integration mot befintligt hyresadministrationssystem — datamodeller och avtalslogik skiljer sig markant; (2) otydlig rolldelning mellan D365 och specialistsystem, vilket leder till dubbla register; (3) felanmälansflödet från hyresgäst till tekniker som inte kopplas hela vägen tillbaka till ekonomi för kostnadsallokering per fastighet; och (4) bristfällig hantering av anläggningsregister och avskrivningar när fastighetsportföljen växer eller omstruktureras.\n\nDet är också vanligt att proptech-data (IoT, smarta mätare) hamnar i en separat silo istället för att triggas in i D365 som automatiserade arbetsorder eller avvikelser.",
+          "De vanligaste fallgroparna är (1) underskattad integration mot befintligt hyresadministrationssystem – datamodeller och avtalslogik skiljer sig markant; (2) otydlig rolldelning mellan D365 och specialistsystem, vilket leder till dubbla register; (3) felanmälansflödet från hyresgäst till tekniker som inte kopplas hela vägen tillbaka till ekonomi för kostnadsallokering per fastighet; och (4) bristfällig hantering av anläggningsregister och avskrivningar när fastighetsportföljen växer eller omstruktureras.\n\nDet är också vanligt att proptech-data (IoT, smarta mätare) hamnar i en separat silo istället för att triggas in i D365 som automatiserade arbetsorder eller avvikelser.",
       },
       {
-        question: "Dynamics 365 vs Vitec, MRI Software och Raindance — vad ska vi välja?",
+        question: "Dynamics 365 vs Vitec, MRI Software och Raindance – vad ska vi välja?",
         answer:
-          "Det är inte ett antingen-eller. Vitec, MRI och Raindance är specialiserade fastighetssystem som dominerar hyresadministrationen i Sverige med djup branschfunktionalitet ur lådan. Dynamics 365 är en bredare affärsplattform för ekonomi, projekt, fältservice och kundrelationer.\n\nDen vanligaste arkitekturen i större fastighetsbolag är att behålla specialistsystemet för hyresadministration och låta Dynamics 365 vara back-office för ekonomi, anläggningsregister, investeringsprojekt och servicelogik — med integration däremellan. För mindre bolag eller bolag med okomplicerad portfölj kan Business Central räcka som helhetslösning. Frågan att ställa: hur mycket av hyresadministrationens särlogik klarar en D365-implementation utan att bli kostsam särutveckling?",
+          "Det är inte ett antingen-eller. Vitec, MRI och Raindance är specialiserade fastighetssystem som dominerar hyresadministrationen i Sverige med djup branschfunktionalitet ur lådan. Dynamics 365 är en bredare affärsplattform för ekonomi, projekt, fältservice och kundrelationer.\n\nDen vanligaste arkitekturen i större fastighetsbolag är att behålla specialistsystemet för hyresadministration och låta Dynamics 365 vara back-office för ekonomi, anläggningsregister, investeringsprojekt och servicelogik – med integration däremellan. För mindre bolag eller bolag med okomplicerad portfölj kan Business Central räcka som helhetslösning. Frågan att ställa: hur mycket av hyresadministrationens särlogik klarar en D365-implementation utan att bli kostsam särutveckling?",
       },
       {
         question: "Vad säger andra fastighetsbolag som infört Dynamics 365?",
         answer:
-          "Erfarenheterna varierar med scope. Bolag som använt D365 som ekonomi- och projektplattform med integration mot ett specialiserat fastighetssystem rapporterar generellt god utväxling — särskilt på investeringsuppföljning, koncernredovisning och fältservice. Bolag som försökt ersätta hela hyresadministrationen med D365 utan branschtillägg har oftare stött på dyr särutveckling och förlängda projekt.\n\nEn återkommande lärdom är att tidigt involvera både ekonomi-, förvaltnings- och driftorganisationen i kravarbetet, och att be partnern uppvisa konkreta referenscase med liknande portföljstorlek och systemlandskap.",
+          "Erfarenheterna varierar med scope. Bolag som använt D365 som ekonomi- och projektplattform med integration mot ett specialiserat fastighetssystem rapporterar generellt god utväxling – särskilt på investeringsuppföljning, koncernredovisning och fältservice. Bolag som försökt ersätta hela hyresadministrationen med D365 utan branschtillägg har oftare stött på dyr särutveckling och förlängda projekt.\n\nEn återkommande lärdom är att tidigt involvera både ekonomi-, förvaltnings- och driftorganisationen i kravarbetet, och att be partnern uppvisa konkreta referenscase med liknande portföljstorlek och systemlandskap.",
       },
       {
         question: "Vilken Dynamics 365-partner är bäst för fastighet & förvaltning?",
@@ -5810,7 +5810,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     metaDescription:
       "Dynamics 365 för transport & logistik stöttar WMS, uppdragsekonomi, fakturering och TMS-integration. Köparsidig guide med kostnad och svenska partners.",
     summary:
-      "Dynamics 365 (F&SCM eller BC) är ekonomi- och operativt nav för svenska transport- och logistikbolag — WMS, uppdragsekonomi, fakturering och fältservice, integrerat med specialiserade TMS-system. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 (F&SCM eller BC) är ekonomi- och operativt nav för svenska transport- och logistikbolag – WMS, uppdragsekonomi, fakturering och fältservice, integrerat med specialiserade TMS-system. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["transport", "logistik", "tms", "wms", "dynamics365", "business central", "finance scm", "supply chain"],
     products: [
@@ -5834,7 +5834,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Transport &amp; Logistik
         </p>
         <p className="italic text-foreground/85 !mb-8">
-          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+          Arbetsprocesser, systemstöd och en genomgång av listade partners – skriven ur köparens perspektiv.
         </p>
 
         <h2>Branschens verklighet</h2>
@@ -5842,8 +5842,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Transport- och logistikbranschen är en infrastrukturnäring som präglas
           av hård prispress, tunna marginaler och ett konstant krav på operativ
           effektivitet. Konkurrensen är global, kundförväntningarna på
-          transparens och leveransprecision ökar, och hållbarhetskraven — att
-          mäta och rapportera CO2 per transport — lägger ytterligare ett lager
+          transparens och leveransprecision ökar, och hållbarhetskraven – att
+          mäta och rapportera CO2 per transport – lägger ytterligare ett lager
           av systemkrav ovanpå en redan komplex verksamhet.
         </p>
         <p>
@@ -5853,7 +5853,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           visibilitet i supply chain, sena insikter om uppdragsekonomin och
           tidskrävande faktureringsprocesser. För att veta om ett enskilt
           transportuppdrag är lönsamt behöver man kunna tagga intäkter och
-          kostnader — bränsle, vägtullar, förarlön, underleverantör — mot just
+          kostnader – bränsle, vägtullar, förarlön, underleverantör – mot just
           det uppdraget i realtid.
         </p>
         <p>
@@ -5917,8 +5917,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h3>Field Service: Mobila resurser och fordonsservice</h3>
         <p>
           Field Service kan användas för att schemalägga och hantera mobila
-          resurser — budbilsförare, installationstekniker eller servicepersonal
-          — och för fordonsunderhåll i företag med egna verkstäder.
+          resurser – budbilsförare, installationstekniker eller servicepersonal
+          – och för fordonsunderhåll i företag med egna verkstäder.
         </p>
 
         <h2>Listade partners inom Transport &amp; Logistik</h2>
@@ -5933,8 +5933,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           Enqore täcker hela plattformsspannet med ett tydligt fokus på
-          datadrivna och AI-stödda processer. I transport och logistik — där
-          stora datamängder finns men insikterna ofta kommer för sent — är
+          datadrivna och AI-stödda processer. I transport och logistik – där
+          stora datamängder finns men insikterna ofta kommer för sent – är
           deras profil direkt relevant: de kopplar samman affärssystem med
           analys och AI för att möjliggöra prediktiv verksamhetsstyrning. Det
           innebär konkret att de kan hjälpa logistikföretag att gå från reaktiv
@@ -5965,7 +5965,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Vivicta erbjuder ett helhetsåtagande inom Dynamics 365 med ett brett
           branschfokus som inkluderar handel och service. De täcker hela
-          plattformen — ERP, CRM, fältservice och HR — och kompletterar med
+          plattformen – ERP, CRM, fältservice och HR – och kompletterar med
           Power Platform och Azure-integrationer. Som AI Integration Partner
           arbetar de aktivt med att bygga in AI i sina leveranser. Passar
           logistikföretag som söker en partner med bred plattformskapacitet och
@@ -5979,7 +5979,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Transport och logistik är en bransch där systemets förmåga att
           integrera mot externa TMS-, WMS- och fordonssystem är lika viktig som
           dess interna funktionalitet. Ingen av de tre listade partnerna är en
-          renodlad transportspecialist — de är alla bredare Dynamics
+          renodlad transportspecialist – de är alla bredare Dynamics
           365-partners som arbetar i branschen. Det innebär att frågan om
           integrationskompetens och erfarenhet av branschspecifika
           tredjepartssystem är central i en partnerutvärdering.
@@ -6000,22 +6000,22 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vad kostar Dynamics 365 för ett transport- och logistikföretag?",
         answer:
-          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Essentials ligger på {{price:bc-essentials:short}} och Premium på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}} och Supply Chain Management {{price:supply-chain-management:short}} — relevant för större logistikbolag med WMS- och uppdragsekonomi-behov. Field Service ligger på {{price:field-service:short}} och Customer Service Enterprise på {{price:customer-service-enterprise:short}}.\n\nImplementationskostnaden för ett medelstort transport- eller logistikföretag landar typiskt i intervallet 1 000 000 – 4 000 000 kr beroende på antal integrationer mot TMS, WMS, fordonsdatorer och tullsystem. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Essentials ligger på {{price:bc-essentials:short}} och Premium på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}} och Supply Chain Management {{price:supply-chain-management:short}} – relevant för större logistikbolag med WMS- och uppdragsekonomi-behov. Field Service ligger på {{price:field-service:short}} och Customer Service Enterprise på {{price:customer-service-enterprise:short}}.\n\nImplementationskostnaden för ett medelstort transport- eller logistikföretag landar typiskt i intervallet 1 000 000 – 4 000 000 kr beroende på antal integrationer mot TMS, WMS, fordonsdatorer och tullsystem. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
       },
       {
         question: "Vilka problem stöter transport- och logistikföretag på i en Dynamics 365-implementation?",
         answer:
-          "De vanligaste fallgroparna är (1) underskattad integration mot specialiserade TMS- och ruttoptimeringssystem; (2) otydlig modell för uppdragsekonomi — vilka kostnader (bränsle, vägtullar, förarlön, underentreprenör) ska taggas mot vilket uppdrag och i vilket system; (3) avräkning mot åkerier och underleverantörer som inte matchas mot utförda uppdrag i realtid; och (4) tull- och regelefterlevnad för gränsöverskridande transporter som ofta kräver branschspecifika tillägg.\n\nDet är också vanligt att data från fordonsdatorer och GPS hamnar i en separat silo istället för att triggas in i D365 som händelser för fakturering eller avvikelsehantering.",
+          "De vanligaste fallgroparna är (1) underskattad integration mot specialiserade TMS- och ruttoptimeringssystem; (2) otydlig modell för uppdragsekonomi – vilka kostnader (bränsle, vägtullar, förarlön, underentreprenör) ska taggas mot vilket uppdrag och i vilket system; (3) avräkning mot åkerier och underleverantörer som inte matchas mot utförda uppdrag i realtid; och (4) tull- och regelefterlevnad för gränsöverskridande transporter som ofta kräver branschspecifika tillägg.\n\nDet är också vanligt att data från fordonsdatorer och GPS hamnar i en separat silo istället för att triggas in i D365 som händelser för fakturering eller avvikelsehantering.",
       },
       {
-        question: "Dynamics 365 vs specialiserade TMS- och WMS-system — vad ska vi välja?",
+        question: "Dynamics 365 vs specialiserade TMS- och WMS-system – vad ska vi välja?",
         answer:
           "Det är inte ett antingen-eller. Specialiserade TMS- och WMS-system (t.ex. Memnon, Hogia Transport, Astro, Manhattan) har djup branschfunktionalitet för ruttoptimering, lagerlogik och fordonsstyrning som Dynamics 365 inte fullt ut levererar ur lådan. Dynamics 365 är en bredare affärsplattform för ekonomi, uppdragsekonomi, kundrelationer och fältservice.\n\nDen vanligaste arkitekturen i medelstora till större logistikbolag är att behålla specialistsystemen för transport- och lagerlogik och låta D365 vara back-office för ekonomi, uppdragslönsamhet och kund. För mindre eller mer standardiserade verksamheter kan Business Central med integration mot ett mindre TMS räcka. Frågan att ställa: hur mycket av den operativa transportlogiken klarar D365 utan kostsam särutveckling?",
       },
       {
         question: "Vad säger andra transport- och logistikföretag som infört Dynamics 365?",
         answer:
-          "Erfarenheterna varierar med scope. Bolag som använt D365 som ekonomi- och uppdragsplattform med integration mot ett specialiserat TMS rapporterar generellt god utväxling — särskilt på uppdragslönsamhet, automatiserad fakturering med komplexa prisavtal och avräkning mot underleverantörer. Bolag som försökt täcka all operativ transportlogik direkt i D365 utan branschtillägg har oftare stött på dyr särutveckling och förlängda projekt.\n\nEn återkommande lärdom är att tidigt definiera vilken systemkomponent som äger vilken process — och att be partnern uppvisa konkreta referenscase med liknande volym, geografisk räckvidd och integrationslandskap.",
+          "Erfarenheterna varierar med scope. Bolag som använt D365 som ekonomi- och uppdragsplattform med integration mot ett specialiserat TMS rapporterar generellt god utväxling – särskilt på uppdragslönsamhet, automatiserad fakturering med komplexa prisavtal och avräkning mot underleverantörer. Bolag som försökt täcka all operativ transportlogik direkt i D365 utan branschtillägg har oftare stött på dyr särutveckling och förlängda projekt.\n\nEn återkommande lärdom är att tidigt definiera vilken systemkomponent som äger vilken process – och att be partnern uppvisa konkreta referenscase med liknande volym, geografisk räckvidd och integrationslandskap.",
       },
       {
         question: "Vilken Dynamics 365-partner är bäst för transport & logistik?",
@@ -6031,7 +6031,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     metaDescription:
       "Dynamics 365 för medlemsorganisationer stöttar medlemsresan, segmentering, kommunikation och avgiftshantering. Köparsidig guide med svenska partners.",
     summary:
-      "Dynamics 365 (Sales + Customer Insights + Customer Service, ev. BC för avgifter) hanterar medlemsresan, segmentering, kommunikation och service för svenska fackförbund, branschorganisationer och föreningar. Guiden går igenom arbetsprocesser, systemstöd och listade partners — skriven ur köparens perspektiv.",
+      "Dynamics 365 (Sales + Customer Insights + Customer Service, ev. BC för avgifter) hanterar medlemsresan, segmentering, kommunikation och service för svenska fackförbund, branschorganisationer och föreningar. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["medlemsorganisationer", "fackförbund", "branschorganisationer", "dynamics365", "sales", "customer insights", "customer service", "business central"],
     products: [
@@ -6055,13 +6055,13 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Medlemsorganisationer
         </p>
         <p className="italic text-foreground/85 !mb-8">
-          Arbetsprocesser, systemstöd och en genomgång av listade partners — skriven ur köparens perspektiv.
+          Arbetsprocesser, systemstöd och en genomgång av listade partners – skriven ur köparens perspektiv.
         </p>
 
         <h2>Branschens verklighet</h2>
         <p>
-          Medlemsorganisationer — fackförbund, branschorganisationer,
-          intresseföreningar och ideella stiftelser — har ett systemstödbehov
+          Medlemsorganisationer – fackförbund, branschorganisationer,
+          intresseföreningar och ideella stiftelser – har ett systemstödbehov
           som liknar företagens i struktur men skiljer sig fundamentalt i
           logik. Fokus är inte på att sälja produkter utan på att leverera och
           kommunicera medlemsnytta. Systemet behöver hantera en relation, inte
@@ -6079,7 +6079,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Microsoft Dynamics 365 kan fungera som den sammanhållande
           plattformen för medlemshantering, kommunikation, evenemang och
-          service. Systemet är inte ett specialiserat medlemssystem — det är en
+          service. Systemet är inte ett specialiserat medlemssystem – det är en
           generell CRM- och ERP-plattform som konfigureras för organisationens
           logik. Det innebär flexibilitet, men också att implementationen
           kräver en partner med förståelse för hur medlemsorganisationer
@@ -6091,7 +6091,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h3>Sales: Medlemsresan från rekrytering till förnyelse</h3>
         <p>
           Dynamics 365 Sales används i medlemsorganisationskontext för att
-          hantera hela relationen med varje medlem — från första kontakt som
+          hantera hela relationen med varje medlem – från första kontakt som
           potentiell medlem via onboarding, löpande engagemang och förnyelse.
           Terminologin lånas från B2B-försäljning men logiken är densamma: en
           strukturerad process med pipeline-vy och uppföljning av varje enskild
@@ -6123,7 +6123,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h3>Customer Service &amp; Contact Center: Medlemsservice och ärendehantering</h3>
         <p>
           Customer Service strukturerar hanteringen av inkommande frågor och
-          ärenden från medlemmar — oavsett kanal — i ett enhetligt gränssnitt
+          ärenden från medlemmar – oavsett kanal – i ett enhetligt gränssnitt
           med spårbarhet och servicenivåuppföljning. Contact Center optimerar
           dirigeringen av inkommande kontakter och ger handläggarna ett
           fullständigt sammanhang för varje medlem direkt vid kontakt.
@@ -6136,8 +6136,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <h3>Business Central / Finance &amp; Supply Chain: Ekonomi och avgiftshantering</h3>
         <p>
-          Avgiftshanteringen — avisering, betalningsuppföljning,
-          reskontradhantering och bokföring — hanteras vanligen i ERP-delen av
+          Avgiftshanteringen – avisering, betalningsuppföljning,
+          reskontradhantering och bokföring – hanteras vanligen i ERP-delen av
           plattformen. BC passar medelstora organisationer, F&amp;SCM de med
           mer komplex ekonomistyrning. Integrationen mot CRM-sidan skapar ett
           sammanhållet flöde där avgiftsstatus är synlig direkt i
@@ -6162,8 +6162,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Power BI. De arbetar med AI-baserade molnlösningar och har erfarenhet
           av hur digitala verktyg kan anpassas för att hantera medlemsresor,
           segmentering, kommunikation och ärendehantering. Deras
-          applikationsprofil är uteslutande CRM-orienterad — Sales, Customer
-          Insights, Customer Service och Contact Center — utan ERP-komponent
+          applikationsprofil är uteslutande CRM-orienterad – Sales, Customer
+          Insights, Customer Service och Contact Center – utan ERP-komponent
           (BC eller F&amp;SCM). Det innebär att de passar organisationer vars
           primära behov är att modernisera medlems- och relationshanteringen,
           medan avgiftsadministrationen och ekonomin hanteras i ett befintligt
@@ -6185,7 +6185,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Dynamics 365 för medlemshantering: specialiserade medlemssystem som
           Lime CRM, SuperOffice och liknande har inbyggd medlemslogik och kan
           vara ett snabbare alternativ att komma igång med. Valet att gå på
-          Dynamics 365 motiveras primärt av bredden i plattformen — om
+          Dynamics 365 motiveras primärt av bredden i plattformen – om
           organisationen vill ha ett ekosystem som även täcker evenemang,
           kommunikation, service och ekonomi i en gemensam datamiljö.
         </p>
@@ -6199,27 +6199,27 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vad kostar Dynamics 365 för en medlemsorganisation?",
         answer:
-          "Licenskostnaden styrs av plattformsval och antal användare. På CRM-sidan ligger Sales Enterprise på {{price:sales-enterprise:short}}, Customer Service Enterprise på {{price:customer-service-enterprise:short}} och Customer Insights (Data + Journeys) på {{price:customer-insights:default}}. På ERP-sidan kostar Business Central Essentials {{price:bc-essentials:short}} och Premium {{price:bc-premium:short}} — relevant om avgiftshantering och ekonomi ska ligga i samma plattform.\n\nImplementationskostnaden för en medelstor medlemsorganisation landar typiskt i intervallet 600 000 – 2 500 000 kr beroende på om både CRM och ERP ingår, integrationer mot e-postplattformar, evenemangssystem och befintligt ekonomisystem. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+          "Licenskostnaden styrs av plattformsval och antal användare. På CRM-sidan ligger Sales Enterprise på {{price:sales-enterprise:short}}, Customer Service Enterprise på {{price:customer-service-enterprise:short}} och Customer Insights (Data + Journeys) på {{price:customer-insights:default}}. På ERP-sidan kostar Business Central Essentials {{price:bc-essentials:short}} och Premium {{price:bc-premium:short}} – relevant om avgiftshantering och ekonomi ska ligga i samma plattform.\n\nImplementationskostnaden för en medelstor medlemsorganisation landar typiskt i intervallet 600 000 – 2 500 000 kr beroende på om både CRM och ERP ingår, integrationer mot e-postplattformar, evenemangssystem och befintligt ekonomisystem. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
       },
       {
         question: "Vilka problem stöter medlemsorganisationer på i en Dynamics 365-implementation?",
         answer:
-          "De vanligaste fallgroparna är (1) att man försöker tvinga in medlemslogik i en standardkonfiguration av Sales utan att modellera medlemsresan tydligt; (2) att avgiftshanteringen lämnas i ett separat ekonomisystem utan integration, så avgiftsstatus inte syns på medlemskortet; (3) GDPR-hantering med samtycken och dataminimering som inte byggs in från start; och (4) att evenemangs- och kommunikationsdata aldrig aggregeras till en enhetlig medlemsprofil — vilket var hela poängen med plattformsbytet.\n\nDet är också vanligt att man underskattar förändringsarbetet — terminologi och processer från B2B-försäljning behöver översättas till organisationens språk för att kansli och handläggare ska adoptera systemet.",
+          "De vanligaste fallgroparna är (1) att man försöker tvinga in medlemslogik i en standardkonfiguration av Sales utan att modellera medlemsresan tydligt; (2) att avgiftshanteringen lämnas i ett separat ekonomisystem utan integration, så avgiftsstatus inte syns på medlemskortet; (3) GDPR-hantering med samtycken och dataminimering som inte byggs in från start; och (4) att evenemangs- och kommunikationsdata aldrig aggregeras till en enhetlig medlemsprofil – vilket var hela poängen med plattformsbytet.\n\nDet är också vanligt att man underskattar förändringsarbetet – terminologi och processer från B2B-försäljning behöver översättas till organisationens språk för att kansli och handläggare ska adoptera systemet.",
       },
       {
-        question: "Dynamics 365 vs Lime CRM, SuperOffice och specialiserade medlemssystem — vad ska vi välja?",
+        question: "Dynamics 365 vs Lime CRM, SuperOffice och specialiserade medlemssystem – vad ska vi välja?",
         answer:
-          "Det är inte ett antingen-eller. Specialiserade medlemssystem (eller Lime CRM/SuperOffice med medlemstillägg) har inbyggd medlemslogik och kommer ofta snabbare i drift med lägre initialkostnad. Dynamics 365 är en bredare plattform där medlemslogiken konfigureras — det tar längre tid men ger ett sammanhållet ekosystem för CRM, ERP, kommunikation, service och analys.\n\nValet styrs av ambitionsnivå: behöver ni främst ett medlemsregister med kommunikationsstöd är ett specialistsystem ofta tillräckligt och billigare. Behöver ni ett gemensamt dataekosystem där medlemsdata, ekonomi, evenemang och service ligger i samma plattform — och där ni vill bygga vidare med automation, AI och Copilot — är D365 motiverat. Frågan att ställa: hur mycket utöver grundläggande medlemshantering vill ni att plattformen ska göra de närmaste 3–5 åren?",
+          "Det är inte ett antingen-eller. Specialiserade medlemssystem (eller Lime CRM/SuperOffice med medlemstillägg) har inbyggd medlemslogik och kommer ofta snabbare i drift med lägre initialkostnad. Dynamics 365 är en bredare plattform där medlemslogiken konfigureras – det tar längre tid men ger ett sammanhållet ekosystem för CRM, ERP, kommunikation, service och analys.\n\nValet styrs av ambitionsnivå: behöver ni främst ett medlemsregister med kommunikationsstöd är ett specialistsystem ofta tillräckligt och billigare. Behöver ni ett gemensamt dataekosystem där medlemsdata, ekonomi, evenemang och service ligger i samma plattform – och där ni vill bygga vidare med automation, AI och Copilot – är D365 motiverat. Frågan att ställa: hur mycket utöver grundläggande medlemshantering vill ni att plattformen ska göra de närmaste 3–5 åren?",
       },
       {
         question: "Vad säger andra medlemsorganisationer som infört Dynamics 365?",
         answer:
-          "Erfarenheterna varierar med scope. Organisationer som infört D365 som ett samlat CRM med Customer Insights för segmentering rapporterar generellt god utväxling — särskilt på riktad kommunikation, förnyelseprocesser och att kunna mäta engagemang över tid. Organisationer som försökt täcka både CRM, ERP och evenemangslogik i ett enda första steg har oftare stött på förlängda projekt och justerat scope under vägen.\n\nEn återkommande lärdom är att börja med medlemskortet och 360-gradersvyn, säkra GDPR-hanteringen, och därefter bygga ut med segmentering, automation och eventuellt ERP. Be partnern uppvisa konkreta referenscase från fackförbund, branschorganisationer eller intresseföreningar av jämförbar storlek.",
+          "Erfarenheterna varierar med scope. Organisationer som infört D365 som ett samlat CRM med Customer Insights för segmentering rapporterar generellt god utväxling – särskilt på riktad kommunikation, förnyelseprocesser och att kunna mäta engagemang över tid. Organisationer som försökt täcka både CRM, ERP och evenemangslogik i ett enda första steg har oftare stött på förlängda projekt och justerat scope under vägen.\n\nEn återkommande lärdom är att börja med medlemskortet och 360-gradersvyn, säkra GDPR-hanteringen, och därefter bygga ut med segmentering, automation och eventuellt ERP. Be partnern uppvisa konkreta referenscase från fackförbund, branschorganisationer eller intresseföreningar av jämförbar storlek.",
       },
       {
         question: "Vilken Dynamics 365-partner är bäst för medlemsorganisationer?",
         answer:
-          "På d365.se är B3 Elevate den enda listade partnern med en tydlig profil mot branschen. De är CRM-specialiserade på Sales, Customer Insights, Customer Service och Contact Center, med erfarenhet av medlemsresor och segmentering — men de täcker inte ERP (BC eller F&SCM). Behöver ni även avgiftshantering och ekonomi i samma plattform behöver utvärderingen kompletteras med en ERP-kompetent partner eller en partner som täcker båda domänerna.\n\nVår rekommendation är att utvärdera 2–3 partners och be om: (1) konkreta referenscase från medlemsorganisationer av jämförbar storlek, (2) hur de modellerar medlemsresan i Sales och Customer Insights, och (3) en tydlig plan för integration mellan CRM och ert ekonomi-/avgiftssystem.",
+          "På d365.se är B3 Elevate den enda listade partnern med en tydlig profil mot branschen. De är CRM-specialiserade på Sales, Customer Insights, Customer Service och Contact Center, med erfarenhet av medlemsresor och segmentering – men de täcker inte ERP (BC eller F&SCM). Behöver ni även avgiftshantering och ekonomi i samma plattform behöver utvärderingen kompletteras med en ERP-kompetent partner eller en partner som täcker båda domänerna.\n\nVår rekommendation är att utvärdera 2–3 partners och be om: (1) konkreta referenscase från medlemsorganisationer av jämförbar storlek, (2) hur de modellerar medlemsresan i Sales och Customer Insights, och (3) en tydlig plan för integration mellan CRM och ert ekonomi-/avgiftssystem.",
       },
     ],
   },

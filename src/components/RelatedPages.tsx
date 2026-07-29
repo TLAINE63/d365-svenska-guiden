@@ -70,7 +70,7 @@ export const fscRelatedPages: RelatedPage[] = [
 
 // MOFU – teknisk jämförelse Business Central vs Finance & SCM.
 // Länkar FRAMÅT till produktsidor (BOFU) och stödjande sidor.
-// Innehåller INTE /affarssystem (TOFU) — skickar inte tillbaka köpmogna besökare.
+// Innehåller INTE /affarssystem (TOFU) – skickar inte tillbaka köpmogna besökare.
 export const erpRelatedPages: RelatedPage[] = [
   { title: "Business Central – pris & funktioner", description: "Produktdetaljer, licensnivåer och paketering för SMB", href: "/businesscentral/" },
   { title: "Finance & Supply Chain", description: "Enterprise-ERP för koncerner med global drift och avancerad produktion", href: "/finance-supply-chain/" },

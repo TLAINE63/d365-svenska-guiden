@@ -26,14 +26,14 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
         <p>
           <em>
             Kundtjänstmedarbetare tappar värdefull tid när de hoppar mellan system för olika kanaler. 
-            Dynamics 365 Customer Service samlar alla kanaler i en enda arbetsyta — med fullständig 
+            Dynamics 365 Customer Service samlar alla kanaler i en enda arbetsyta – med fullständig 
             kontexthistorik oavsett var kunden senast kontaktade.
           </em>
         </p>
 
         <h2>Unified Routing och intelligent köhantering</h2>
         <p>
-          Ärenden från alla kanaler — telefon, chatt, e-post, WhatsApp, Facebook Messenger — dirigeras 
+          Ärenden från alla kanaler – telefon, chatt, e-post, WhatsApp, Facebook Messenger – dirigeras 
           automatiskt till rätt handläggare baserat på kompetens, arbetsbelastning och ärendets art.
         </p>
         <p>
@@ -47,7 +47,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
           Handläggaren behöver aldrig växla system för att lösa ett ärende.
         </p>
         <p>
-          Arbetsytan är fullt anpassningsbar — varje team kan konfigurera vilka paneler och 
+          Arbetsytan är fullt anpassningsbar – varje team kan konfigurera vilka paneler och 
           datakällor som visas baserat på deras specifika arbetsflöde.
         </p>
 
@@ -82,7 +82,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
         <p>
           <em>
             Copilot i Dynamics 365 Customer Service är handläggarens AI-assistent som i realtid 
-            analyserar kundens fråga, söker i kunskapsbasen och föreslår svarsutkast — så handläggaren 
+            analyserar kundens fråga, söker i kunskapsbasen och föreslår svarsutkast – så handläggaren 
             kan fokusera på relationen, inte informationssökningen.
           </em>
         </p>
@@ -93,7 +93,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
           och genererar ett svarsutkast som handläggaren kan redigera och skicka med ett klick.
         </p>
         <p>
-          Utkastet är baserat på faktainformation från kunskapsbasen, inte hallucination — 
+          Utkastet är baserat på faktainformation från kunskapsbasen, inte hallucination – 
           vilket ger hög tillförlitlighet och konsekvent kvalitet i svaren.
         </p>
 
@@ -104,7 +104,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
         </p>
         <p>
           Vid ärendeöverföring läser mottagaren den kompakta sammanfattningen istället för 
-          hela historiken — vilket sparar tid och minskar risken att viktig information missas.
+          hela historiken – vilket sparar tid och minskar risken att viktig information missas.
         </p>
 
         <h2>Sentimentanalys och eskaleringsstöd</h2>
@@ -138,7 +138,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
       <>
         <p>
           <em>
-            En välskött kunskapsbas är den effektivaste investeringen i kundservice — rätt svar 
+            En välskött kunskapsbas är den effektivaste investeringen i kundservice – rätt svar 
             på rätt ställe minskar ärendevolymen med upp till 40 %. Customer Service Knowledge Management 
             integrerar skapande, godkännande och leverans i ett flöde.
           </em>
@@ -146,7 +146,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
 
         <h2>AI-assisterat innehållsskapande</h2>
         <p>
-          Copilot analyserar lösta ärenden och identifierar kunskapsluckor — kategorier där 
+          Copilot analyserar lösta ärenden och identifierar kunskapsluckor – kategorier där 
           handläggare ofta löser liknande problem utan att det finns en artikel.
         </p>
         <p>
@@ -163,7 +163,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
         <h2>Omnikanal-leverans</h2>
         <p>
           Samma kunskapsbas driver handläggarens sökning, kundportalen och Copilot-chatboten 
-          — en källa till sanning för hela organisationen.
+          – en källa till sanning för hela organisationen.
         </p>
 
         <h3>Viktiga funktioner</h3>
@@ -192,7 +192,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
           <em>
             Brutna SLA-löften skadar kundrelationer och kan ha kontraktuella konsekvenser. 
             Customer Service SLA-motorn säkerställer att varje ärende hanteras inom avtalad tid 
-            — med automatiska eskaleringar innan det är för sent.
+            – med automatiska eskaleringar innan det är för sent.
           </em>
         </p>
 
@@ -202,14 +202,14 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
           kritiska ärende har en annan SLA än ett standardärende.
         </p>
         <p>
-          Systemet hanterar detta automatiskt baserat på kundprofilen — ingen manuell 
+          Systemet hanterar detta automatiskt baserat på kundprofilen – ingen manuell 
           bedömning av prioritet behövs vid ärendeskapning.
         </p>
 
         <h2>Automatisk eskalering och varningsflöden</h2>
         <p>
           När ett ärende riskerar att bryta SLA skickas automatisk varning till handläggaren, 
-          sedan till teamledaren och slutligen till chefen — med fördefinierade tidsintervall.
+          sedan till teamledaren och slutligen till chefen – med fördefinierade tidsintervall.
         </p>
         <p>
           Varje eskalering dokumenteras i ärendet, vilket ger full spårbarhet för 
@@ -235,7 +235,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
   {
     slug: "sjalvserviceportalen-och-chatboten",
     title: "Självserviceportalen och chatboten",
-    description: "Lös 60 % av ärenden utan mänsklig handläggare — dygnet runt.",
+    description: "Lös 60 % av ärenden utan mänsklig handläggare – dygnet runt.",
     product: "Dynamics 365 Customer Service",
     productSlug: "d365customerservice",
     parentPath: "/d365customerservice/",
@@ -248,7 +248,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
           <em>
             Kunder föredrar att lösa problem själva om det går snabbt och enkelt. Customer Service 
             självserviceportal och AI-chatbot ger kunder tillgång till rätt information och handlingar 
-            dygnet runt — och minskar behovet av mänsklig handläggning markant.
+            dygnet runt – och minskar behovet av mänsklig handläggning markant.
           </em>
         </p>
 
@@ -265,17 +265,17 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
         <h2>Copilot-chatbot med generativ AI</h2>
         <p>
           Chatboten drivs av Copilot Studio och använder generativ AI för att svara på komplexa 
-          frågor baserade på kunskapsbasen — inte bara enkel FAQ-matchning.
+          frågor baserade på kunskapsbasen – inte bara enkel FAQ-matchning.
         </p>
         <p>
-          Omskolning krävs inte vid produktuppdateringar — chatboten lär sig automatiskt 
+          Omskolning krävs inte vid produktuppdateringar – chatboten lär sig automatiskt 
           från uppdaterade kunskapsartiklar.
         </p>
 
         <h2>Eskalering och smidig övergång till handläggare</h2>
         <p>
           När chatboten inte kan lösa ärendet överförs samtalet sömlöst till en mänsklig 
-          handläggare — med hela konversationshistoriken medföljande.
+          handläggare – med hela konversationshistoriken medföljande.
         </p>
 
         <h3>Viktiga funktioner</h3>
@@ -331,7 +331,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
         <h2>Realtidsövervakning och intradag-justering</h2>
         <p>
           Under dagen jämförs faktisk ärendevolym mot prognos. Vid avvikelse kan scheman 
-          justeras i realtid — pauser omplaneras, övertid aktiveras eller trafik omdirigeras 
+          justeras i realtid – pauser omplaneras, övertid aktiveras eller trafik omdirigeras 
           till andra kanaler.
         </p>
 
@@ -437,7 +437,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
         <h2>Benchmarking och prestandamål</h2>
         <p>
           Prestandamål (KPI) sätts per team och individ. Handläggare ser sin egen scorecard 
-          med mål och historisk trend — vilket skapar transparens och motivation.
+          med mål och historisk trend – vilket skapar transparens och motivation.
         </p>
 
         <h3>Viktiga funktioner</h3>
@@ -466,13 +466,13 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
           <em>
             Den bästa kundservicen är den kunden aldrig behöver kontakta. Genom IoT-integration 
             kan Customer Service detektera problem i anslutna produkter och initiera serviceärenden 
-            automatiskt — innan kunden ens märkt av problemet.
+            automatiskt – innan kunden ens märkt av problemet.
           </em>
         </p>
 
         <h2>IoT-signaler och automatisk ärendeskapning</h2>
         <p>
-          Anslutna enheter — produkter, maskiner, fordon — sänder telemetridata till Azure IoT Hub. 
+          Anslutna enheter – produkter, maskiner, fordon – sänder telemetridata till Azure IoT Hub. 
           Avvikande mätvärden triggar automatiskt ett serviceärende i Customer Service med 
           diagnostikinformation bifogad.
         </p>
@@ -484,7 +484,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
         </p>
         <p>
           Servicebesök kan planeras under kundbekväma tider istället för i krisläge 
-          — vilket ökar kundnöjdheten och minskar akutkostnader.
+          – vilket ökar kundnöjdheten och minskar akutkostnader.
         </p>
 
         <h2>Fältservice-integration</h2>
@@ -529,7 +529,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
           procedurföljning och empati.
         </p>
         <p>
-          Endast avvikande ärenden flaggas för manuell granskning av supervisorn — vilket 
+          Endast avvikande ärenden flaggas för manuell granskning av supervisorn – vilket 
           sparar tid och säkerställer att inget viktigt missas.
         </p>
 

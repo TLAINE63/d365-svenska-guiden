@@ -157,7 +157,7 @@ export default function BeslutsmognadResultat() {
           </section>
         )}
 
-        {/* Peer-jämförelse — placeholder tills datavolym finns */}
+        {/* Peer-jämförelse – placeholder tills datavolym finns */}
         <section className="border-t border-bm-rule pt-10 mb-12">
           <p className="font-bm-body uppercase tracking-[0.18em] text-[10px] text-bm-ink-muted mb-3">
             Peer-jämförelse
@@ -206,7 +206,7 @@ export default function BeslutsmognadResultat() {
           </div>
         </section>
 
-        {/* Nästa steg — diagnostisk, inte säljande */}
+        {/* Nästa steg – diagnostisk, inte säljande */}
         <section className="border-t border-bm-rule pt-10">
           <p className="font-bm-body uppercase tracking-[0.18em] text-[10px] text-bm-ink-muted mb-3">
             Nästa steg
@@ -217,7 +217,7 @@ export default function BeslutsmognadResultat() {
           >
             Vi sammanställer er fullständiga rapport manuellt och mailar den
             inom 24–48 timmar. Rekommendationerna ovan handlar om gruppens egen
-            beredskap — inte om att välja en specifik partner. När ni känner er
+            beredskap – inte om att välja en specifik partner. När ni känner er
             beslutsklara finns en separat partnerguide att gå vidare till.
           </p>
           <div className="flex flex-wrap gap-4">

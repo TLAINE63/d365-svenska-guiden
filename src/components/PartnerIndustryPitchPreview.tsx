@@ -103,7 +103,7 @@ export function PartnerIndustryPitchPreview({
         )}
       </div>
 
-      {/* Prioriteringsregel — speglar PartnerCard.tsx exakt */}
+      {/* Prioriteringsregel – speglar PartnerCard.tsx exakt */}
       <p className="text-[11px] text-muted-foreground bg-muted/40 border border-border rounded-md px-3 py-2">
         <span className="font-semibold text-foreground">Prioritering:</span> produktspecifik
         text vinner alltid över allmän bransch-text. Saknas produktvariant används
@@ -192,7 +192,7 @@ export function PartnerIndustryPitchPreview({
               Sökresultat / partnerkort
             </p>
           </div>
-          {/* Mock kortets ram (utan logo etc) — fokus på pitch-rutan */}
+          {/* Mock kortets ram (utan logo etc) – fokus på pitch-rutan */}
           <div className="rounded-lg border border-border/60 p-3 bg-background space-y-3">
             <p className="text-sm font-semibold text-foreground">{partnerName || "Partner"}</p>
 
@@ -208,7 +208,7 @@ export function PartnerIndustryPitchPreview({
               </div>
             ) : (
               <div className="p-3 rounded-lg border border-dashed border-border text-xs text-muted-foreground text-center">
-                Ingen branschtext — kortet visar bara den generella beskrivningen.
+                Ingen branschtext – kortet visar bara den generella beskrivningen.
               </div>
             )}
 
@@ -249,7 +249,7 @@ export function PartnerIndustryPitchPreview({
               </div>
             ) : (
               <div className="p-3 rounded-lg border border-dashed border-border text-xs text-muted-foreground text-center">
-                Ingen branschtext för {selectedIndustry} — sektionen döljs på profilen.
+                Ingen branschtext för {selectedIndustry} – sektionen döljs på profilen.
               </div>
             )}
           </div>

@@ -82,7 +82,7 @@ Redaktionen · d365.se`;
     await resend.emails.send({
       from: "d365.se <hej@d365.se>",
       to: [body.contact_email],
-      subject: "Er sammanställning är registrerad — Beslutsmognadsindex",
+      subject: "Er sammanställning är registrerad – Beslutsmognadsindex",
       text: respondentBody,
     });
 
@@ -126,7 +126,7 @@ ${body.free_text ?? "(ingen)"}
       from: "d365.se Notify <hej@d365.se>",
       to: [TEAM_INBOX],
       reply_to: body.contact_email,
-      subject: `Ny ifylld Beslutsmognadsindex — ${escape(body.contact_name)}, ${escape(body.company)}`,
+      subject: `Ny ifylld Beslutsmognadsindex – ${escape(body.contact_name)}, ${escape(body.company)}`,
       text: internalBody,
     });
 

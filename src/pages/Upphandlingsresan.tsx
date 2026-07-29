@@ -47,7 +47,7 @@ const Upphandlingsresan = () => {
               {[
                 { num: "I", title: "Personlig mognadsprofil", body: "Er position på fem dimensioner: behovsbild, intern samsyn, riskinsikt, partnermarknad, beslutsstruktur." },
                 { num: "II", title: "Peer benchmark", body: "Jämförelse mot andra svenska beslutsgrupper som genomfört diagnostiken." },
-                { num: "III", title: "Tre konkreta rekommendationer", body: "Inriktade på där hävstången är störst i ert nuvarande skede — inte på era svagheter." },
+                { num: "III", title: "Tre konkreta rekommendationer", body: "Inriktade på där hävstången är störst i ert nuvarande skede – inte på era svagheter." },
               ].map((c) => (
                 <div key={c.num} className="rounded border border-white/15 bg-white/5 p-5">
                   <div className="text-2xl font-serif italic text-[hsl(var(--cta-orange))] mb-2 leading-none">{c.num}</div>

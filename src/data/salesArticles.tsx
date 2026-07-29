@@ -28,7 +28,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
           <em>
             En välskött pipeline är grunden för förutsägbar tillväxt. Dynamics 365 Sales ger säljchefer 
             och säljare en gemensam sanningskälla med AI-prioriterade leads och automatiserade uppföljningar 
-            — så att ingen affär faller mellan stolarna.
+            – så att ingen affär faller mellan stolarna.
           </em>
         </p>
 
@@ -36,7 +36,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
         <p>
           Dynamics 365 Sales samlar alla affärsmöjligheter i en strukturerad pipeline med anpassade säljsteg. 
           Säljchefer ser i realtid var varje affär befinner sig, sannolikheten för avslut och det prognostiserade 
-          värdet — utan att behöva fråga säljarna.
+          värdet – utan att behöva fråga säljarna.
         </p>
         <p>
           Visuella vyer gör det enkelt att identifiera flaskhalsar och stagnerade affärer. Drag-and-drop 
@@ -50,14 +50,14 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
           signaler och föreslår konkreta nästa steg för varje affärsmöjlighet.
         </p>
         <p>
-          Resultatet är att säljare spenderar sin tid på de affärer som har störst potential — 
+          Resultatet är att säljare spenderar sin tid på de affärer som har störst potential – 
           inte de som råkar vara senast uppdaterade.
         </p>
 
         <h2>Aktivitetsautomation och sekvenser</h2>
         <p>
           Säljsekvenser automatiserar uppföljningsprocessen: rätt e-post, samtal eller LinkedIn-meddelande 
-          vid rätt tidpunkt — utan att säljaren behöver komma ihåg.
+          vid rätt tidpunkt – utan att säljaren behöver komma ihåg.
         </p>
 
         <h3>Viktiga funktioner</h3>
@@ -86,13 +86,13 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
           <em>
             Säljteam drunknar ofta i leads utan tydlig prioritering. AI-driven lead scoring i 
             Dynamics 365 Sales analyserar hundratals beteendesignaler och historiska mönster 
-            för att ranka varje lead — så säljaren vet exakt var de ska börja.
+            för att ranka varje lead – så säljaren vet exakt var de ska börja.
           </em>
         </p>
 
         <h2>Hur lead scoring fungerar</h2>
         <p>
-          Modellen tränas automatiskt på din organisations historiska data — vilka leads som 
+          Modellen tränas automatiskt på din organisations historiska data – vilka leads som 
           konverterade, vilka som inte gjorde det, och vilka attribut som skilde dem åt.
         </p>
         <p>
@@ -144,7 +144,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
           <em>
             Komplexa produktkonfigurationer och prisregler saktar ned säljprocessen och skapar fel. 
             Med Configure-Price-Quote i Dynamics 365 Sales kan säljare skapa felfria, varumärkesprofilerade 
-            offerter på minuter — direkt från affärsmöjligheten.
+            offerter på minuter – direkt från affärsmöjligheten.
           </em>
         </p>
 
@@ -165,7 +165,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
         </p>
         <p>
           Offerter som överstiger säljarnivåns mandat dirigeras automatiskt till rätt godkännare 
-          innan de skickas till kunden — inga manuella eskaleringar behövs.
+          innan de skickas till kunden – inga manuella eskaleringar behövs.
         </p>
 
         <h2>Digital offert och e-signering</h2>
@@ -199,7 +199,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
         <p>
           <em>
             De bästa säljcheferna coachar baserat på fakta, inte magkänsla. Conversation Intelligence 
-            i Dynamics 365 Sales transkriberar, analyserar och betygsätter varje säljsamtal — 
+            i Dynamics 365 Sales transkriberar, analyserar och betygsätter varje säljsamtal – 
             och identifierar vad de bästa säljarna gör annorlunda.
           </em>
         </p>
@@ -210,13 +210,13 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
           samtalsstruktur, talets känsla, konkurrentnämnanden och kundinvändningar.
         </p>
         <p>
-          Systemet identifierar även om säljaren pratade mer än kunden — en vanlig indikator 
+          Systemet identifierar även om säljaren pratade mer än kunden – en vanlig indikator 
           på att lyssningsförmågan kan förbättras.
         </p>
 
         <h2>Nyckelord och konkurrentinsikter</h2>
         <p>
-          Chefer konfigurerar ord och fraser att övervaka — produktnamn, konkurrenter och 
+          Chefer konfigurerar ord och fraser att övervaka – produktnamn, konkurrenter och 
           prisrelaterade fraser. Systemet visar hur ofta dessa nämns och i vilket sammanhang.
         </p>
         <p>
@@ -256,7 +256,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
           <em>
             Manuella Excel-prognoser är opålitliga och tidskrävande. Dynamics 365 Sales 
             automatiserar prognostisering med AI som väger affärsdata, historiska mönster 
-            och säljarnas egna bedömningar — för en prognos du faktiskt kan lita på.
+            och säljarnas egna bedömningar – för en prognos du faktiskt kan lita på.
           </em>
         </p>
 
@@ -277,7 +277,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
         </p>
         <p>
           Chefer får insikt i om enskilda säljare tenderar att överskatta eller underskatta 
-          sina affärer historiskt — en ovärderlig signal vid kvartalsslut.
+          sina affärer historiskt – en ovärderlig signal vid kvartalsslut.
         </p>
 
         <h2>Kvothantering och uppföljning</h2>
@@ -324,7 +324,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
         </p>
         <p>
           Kartläggningen visualiseras grafiskt, vilket gör det enkelt att identifiera luckor 
-          i bearbetningen — exempelvis om ingen i säljteamet har kontakt med den ekonomiska beslutsfattaren.
+          i bearbetningen – exempelvis om ingen i säljteamet har kontakt med den ekonomiska beslutsfattaren.
         </p>
 
         <h2>Relationship Intelligence</h2>
@@ -333,7 +333,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
           relationsstyrkan mellan säljteamet och varje kontakt.
         </p>
         <p>
-          Systemet identifierar relationsrisker när aktiviteten minskar — och föreslår 
+          Systemet identifierar relationsrisker när aktiviteten minskar – och föreslår 
           proaktiva åtgärder innan relationen svalnar.
         </p>
 
@@ -368,7 +368,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
         <p>
           <em>
             Säljare är sällan vid skrivbordet. Dynamics 365 Sales mobilapp ger full tillgång 
-            till kunddata, affärsmöjligheter och aktiviteter oavsett uppkoppling — 
+            till kunddata, affärsmöjligheter och aktiviteter oavsett uppkoppling – 
             och loggningen tar sekunder, inte minuter.
           </em>
         </p>
@@ -380,7 +380,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
         </p>
         <p>
           Ändringar görs offline och synkroniseras automatiskt när uppkoppling återupprättas 
-          — utan konflikter eller dubbletter.
+          – utan konflikter eller dubbletter.
         </p>
 
         <h2>Röstloggning och snabbregistrering</h2>
@@ -390,7 +390,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
         </p>
         <p>
           AI extraherar åtaganden från dikteringen och skapar uppföljningsaktiviteter 
-          — så ingenting glöms bort på vägen tillbaka till kontoret.
+          – så ingenting glöms bort på vägen tillbaka till kontoret.
         </p>
 
         <h2>Visitkortsskanning och kontaktskapande</h2>
@@ -432,7 +432,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
         <h2>Inbyggd LinkedIn-panel i CRM</h2>
         <p>
           I varje kontakt- och leadvy visas en inbyggd LinkedIn-panel med aktuell jobbtitel, 
-          bolagsinfo, gemensamma kopplingar och nyheter — utan att öppna en ny flik.
+          bolagsinfo, gemensamma kopplingar och nyheter – utan att öppna en ny flik.
         </p>
         <p>
           Kontaktinformation hålls uppdaterad automatiskt, vilket eliminerar risken för 
@@ -445,13 +445,13 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
           nyheter om kontaktens bolag och delade LinkedIn-kopplingar.
         </p>
         <p>
-          Rätt kontakt, rätt budskap, rätt tidpunkt — det är receptet för högre svarsfrekvens 
+          Rätt kontakt, rätt budskap, rätt tidpunkt – det är receptet för högre svarsfrekvens 
           och bättre första intryck.
         </p>
 
         <h2>TeamLink och varma introduktioner</h2>
         <p>
-          TeamLink visar om någon i det egna bolaget har en relation med målkontakten — 
+          TeamLink visar om någon i det egna bolaget har en relation med målkontakten – 
           och möjliggör varma introduktioner som ökar svarsfrekvensen markant jämfört med kalla utskick.
         </p>
 
@@ -505,7 +505,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
         <h2>Utbildning och certifiering</h2>
         <p>
           Partnerportalen inkluderar ett LMS för produktutbildning med automatisk 
-          certifieringsspårning — viktigt för att upprätthålla partnernivåer och 
+          certifieringsspårning – viktigt för att upprätthålla partnernivåer och 
           säkerställa konsekvent kvalitet i kundmöten.
         </p>
 
@@ -534,7 +534,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
         <p>
           <em>
             Data utan insikter är bara brus. Revenue Intelligence i Dynamics 365 Sales förvandlar 
-            CRM-data till handlingsbara insikter om vad som driver tillväxt — och var det 
+            CRM-data till handlingsbara insikter om vad som driver tillväxt – och var det 
             finns risker i pipeline.
           </em>
         </p>
@@ -545,7 +545,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
           genomsnittlig affärsstorlek och säljcykellängd.
         </p>
         <p>
-          Alla mätvärden bryts ned per säljare, team, produkt och tidsperiod — 
+          Alla mätvärden bryts ned per säljare, team, produkt och tidsperiod – 
           vilket ger chefer möjlighet att snabbt identifiera var insatser behövs.
         </p>
 
@@ -555,7 +555,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
           affärer mot en viss konkurrent, i en viss bransch, eller vid en viss affärsstorlek?
         </p>
         <p>
-          Dessa insikter driver produktstrategi och säljträning — och hjälper teamet 
+          Dessa insikter driver produktstrategi och säljträning – och hjälper teamet 
           att undvika samma misstag nästa gång.
         </p>
 

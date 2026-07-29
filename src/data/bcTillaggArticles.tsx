@@ -9,7 +9,7 @@ const CompareLinks = ({ articleSlug }: { articleSlug: string }) => {
     <aside className="comparison-links my-10 p-6 rounded border border-border bg-card not-prose">
       <h3 className="text-base font-semibold text-foreground mb-1">Jämför lösningar</h3>
       <p className="text-sm text-muted-foreground mb-4">
-        Sida vid sida — vad respektive lösning är, när den passar och vilka BC-partners som är offentligt
+        Sida vid sida – vad respektive lösning är, när den passar och vilka BC-partners som är offentligt
         kopplade.
       </p>
       <ul className="space-y-2 text-sm">
@@ -102,8 +102,8 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
           <strong> SignUp Software ExFlow</strong>.
         </Lead>
         <p>
-          Båda är byggda inuti Business Central och hanterar fakturaflödet — från inläsning och
-          tolkning till attest, kontering och betalning — direkt i BC.
+          Båda är byggda inuti Business Central och hanterar fakturaflödet – från inläsning och
+          tolkning till attest, kontering och betalning – direkt i BC.
         </p>
         <Disclaimer />
 
@@ -365,10 +365,10 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Integrationer och partners</h2>
         <ul>
-          <li><strong>nShift</strong> — BC-partner offentligt kopplad: BrightCom / Exsitec.</li>
-          <li><strong>Shipmondo</strong> — BC-partner offentligt kopplad: Abakion.</li>
-          <li><strong>Sendcloud / ShipIT 365</strong> — BC-partners offentligt kopplade: IDYN, N.Vision.</li>
-          <li><strong>Cargoson</strong> — egen connector och BC-partners.</li>
+          <li><strong>nShift</strong> – BC-partner offentligt kopplad: BrightCom / Exsitec.</li>
+          <li><strong>Shipmondo</strong> – BC-partner offentligt kopplad: Abakion.</li>
+          <li><strong>Sendcloud / ShipIT 365</strong> – BC-partners offentligt kopplade: IDYN, N.Vision.</li>
+          <li><strong>Cargoson</strong> – egen connector och BC-partners.</li>
         </ul>
 
         <h2>När är det relevant?</h2>
@@ -527,7 +527,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
 
         <h2>4PS Construct</h2>
         <p>
-          Branschpaket ovanpå BC för bygg-, installations- och serviceföretag — projektstyrning,
+          Branschpaket ovanpå BC för bygg-, installations- och serviceföretag – projektstyrning,
           resursplanering, servicekontrakt och underentreprenörer i realtid.
         </p>
         <p><strong>BC-partner:</strong> 4PS Construction Software AB.</p>
@@ -568,7 +568,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
           Plattform för dokumentdesign, transformation och distribution.
         </p>
         <p>
-          Lasernet kommunicerar ny/utökad BC-satsning — version och SKU bör verifieras i varje
+          Lasernet kommunicerar ny/utökad BC-satsning – version och SKU bör verifieras i varje
           affär.
         </p>
         <PartnerList

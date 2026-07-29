@@ -9,7 +9,7 @@ import {
 interface Props {
   /** En eller flera produktnycklar att visa jämförelser för. */
   productKeys: ProductKey | ProductKey[];
-  /** Visuell variant — kompakt eller fullbredd. Default 'full'. */
+  /** Visuell variant – kompakt eller fullbredd. Default 'full'. */
   variant?: "full" | "compact";
   /** Override-rubrik. */
   heading?: string;

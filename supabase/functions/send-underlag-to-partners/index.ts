@@ -287,7 +287,7 @@ serve(async (req) => {
           <div style="font-family:Arial,Helvetica,sans-serif;max-width:640px;margin:0 auto;background:#ffffff;">
             <div style="background:#15130F;padding:22px 28px;">
               <div style="height:3px;background:#D64A1F;width:60px;margin-bottom:14px;"></div>
-              <h1 style="margin:0;color:#ffffff;font-size:20px;font-weight:600;">Tack — underlaget är skickat</h1>
+              <h1 style="margin:0;color:#ffffff;font-size:20px;font-weight:600;">Tack – underlaget är skickat</h1>
               <p style="margin:6px 0 0 0;color:#c9c4bb;font-size:13px;">${sanitize(assessmentLabel)}</p>
             </div>
             <div style="padding:24px 28px;color:#1a1a1a;line-height:1.6;">

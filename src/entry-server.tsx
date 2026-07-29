@@ -253,7 +253,7 @@ const LEGACY_HUB_REDIRECTS: LegacyRedirect[] = [
   { from: '/kunskapscenter/d365-field-service',    to: '/d365fieldservice',                intendedStatus: 301 },
   { from: '/kunskapscenter/d365-contact-center',   to: '/d365contactcenter',               intendedStatus: 301 },
   // /kunskapscenter/business-central/ and /finance-supply-chain/ are valid
-  // hub paths (slugs match KNOWLEDGE_HUBS) — don't redirect those.
+  // hub paths (slugs match KNOWLEDGE_HUBS) – don't redirect those.
 ];
 
 const DYNAMIC_ARTICLE_REDIRECTS: LegacyRedirect[] = [];

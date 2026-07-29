@@ -72,7 +72,7 @@ export function recommendCrmPartners(
   limit = 3,
 ): CrmPartnerRecommendation[] {
   const productKey = CRM_TEST_TO_PRODUCT_KEY[config.key];
-  // Base: alla partners med produkten. Ingen bransch/geo/storlek här — den
+  // Base: alla partners med produkten. Ingen bransch/geo/storlek här – den
   // filtreringen sker på jämförelse-sidan där användaren styr dropdowns.
   const base = filterAndSortPartners(partners, productKey, null, null, null, null, true);
 

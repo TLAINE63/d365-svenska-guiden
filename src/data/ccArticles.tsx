@@ -26,14 +26,14 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
         <p>
           <em>
             Dynamics 365 Contact Center är Microsofts nästa generations molnbaserade contactcenter-lösning 
-            — byggd på Azure Communication Services och integrerad med Copilot AI för varje interaktion, 
+            – byggd på Azure Communication Services och integrerad med Copilot AI för varje interaktion, 
             i varje kanal.
           </em>
         </p>
 
         <h2>Azure Communication Services som grund</h2>
         <p>
-          Contact Center är byggt på Azure Communication Services — Microsofts molnbaserade 
+          Contact Center är byggt på Azure Communication Services – Microsofts molnbaserade 
           kommunikationsplattform. Det innebär global räckvidd, elastisk skalbarhet och inbyggd 
           säkerhet utan on-premise-hårdvara.
         </p>
@@ -48,7 +48,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
         <h2>Microsoft Teams-integration</h2>
         <p>
           Contact Center integreras nativt med Microsoft Teams för intern kommunikation, 
-          experteskalering och supervisor-coaching — utan att behöva separata telefonisystem.
+          experteskalering och supervisor-coaching – utan att behöva separata telefonisystem.
         </p>
 
         <h3>Viktiga funktioner</h3>
@@ -75,7 +75,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
       <>
         <p>
           <em>
-            Copilot är inte ett tillägg till Contact Center — det är inbyggt i plattformens kärna. 
+            Copilot är inte ett tillägg till Contact Center – det är inbyggt i plattformens kärna. 
             Varje samtal, chatt och e-post assisteras av generativ AI som minskar hanteringstiden, 
             ökar First Contact Resolution och förbättrar kundupplevelsen.
           </em>
@@ -88,7 +88,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
           handläggarens arbetsyta.
         </p>
         <p>
-          Handläggaren behöver aldrig söka manuellt — rätt information presenteras 
+          Handläggaren behöver aldrig söka manuellt – rätt information presenteras 
           automatiskt baserat på vad kunden berättar.
         </p>
 
@@ -96,13 +96,13 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
         <p>
           Vid chatt och e-post genererar Copilot ett komplett svarsutkast baserat på kundens 
           fråga och relevant kunskapsbasinformation. Handläggaren granskar, justerar och skickar 
-          — processen tar sekunder, inte minuter.
+          – processen tar sekunder, inte minuter.
         </p>
 
         <h2>Ärendesammanfattning och dokumentation</h2>
         <p>
           Vid samtalsslut genererar Copilot en strukturerad ärendesammanfattning med orsak, 
-          åtgärder och resolution — ett klick dokumenterar hela interaktionen.
+          åtgärder och resolution – ett klick dokumenterar hela interaktionen.
         </p>
 
         <h3>Viktiga funktioner</h3>
@@ -131,14 +131,14 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
           <em>
             Traditionella IVR-system frustrerar kunder med rigida menyer. Contact Centers 
             AI-drivna voicebot förstår naturligt tal, hanterar komplexa frågor och löser ärenden 
-            självständigt — och eskalerar sömlöst till handläggare när det behövs.
+            självständigt – och eskalerar sömlöst till handläggare när det behövs.
           </em>
         </p>
 
         <h2>Naturlig språkförståelse och dialog</h2>
         <p>
           Voiceboten drivs av Azure Cognitive Services och generativ AI. Kunden behöver inte 
-          välja siffror i menyer — de beskriver sitt ärende naturligt och boten förstår, 
+          välja siffror i menyer – de beskriver sitt ärende naturligt och boten förstår, 
           klarifierar och agerar.
         </p>
 
@@ -151,7 +151,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
         <h2>Sömlös övergång till mänsklig handläggare</h2>
         <p>
           När voiceboten når sin kompetensgräns eller kunden begär mänsklig hjälp sker 
-          övergången sömlöst — hela konversationshistoriken och autentiseringsresultatet medföljer.
+          övergången sömlöst – hela konversationshistoriken och autentiseringsresultatet medföljer.
         </p>
 
         <h3>Viktiga funktioner</h3>
@@ -167,7 +167,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
   {
     slug: "intelligent-routing-och-kooptimering",
     title: "Intelligent routing och köoptimering",
-    description: "Rätt handläggare, rätt ärende, rätt tidpunkt — varje gång med AI-matchning.",
+    description: "Rätt handläggare, rätt ärende, rätt tidpunkt – varje gång med AI-matchning.",
     product: "Dynamics 365 Contact Center",
     productSlug: "d365contactcenter",
     parentPath: "/d365contactcenter/",
@@ -191,7 +191,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
         </p>
         <p>
           Kompetens, erfarenhet, workload och kundrelation vägs samman i matchningsalgoritmen 
-          — vilket ger bättre resultat än enkel round-robin-fördelning.
+          – vilket ger bättre resultat än enkel round-robin-fördelning.
         </p>
 
         <h2>Prioriterade köer och VIP-hantering</h2>
@@ -298,7 +298,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
           väntetider och sentimentdistribution i realtid.
         </p>
         <p>
-          Wallboard-vyn visas på skärmar i contact centret för teamöverblick — så att alla 
+          Wallboard-vyn visas på skärmar i contact centret för teamöverblick – så att alla 
           ser det aktuella läget.
         </p>
 
@@ -360,7 +360,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Asynkrona kanaler och konversationshantering</h2>
         <p>
-          WhatsApp och SMS-konversationer är asynkrona — kunden skickar när det passar dem. 
+          WhatsApp och SMS-konversationer är asynkrona – kunden skickar när det passar dem. 
           Systemet håller konversationskontexten aktiv i dagar och möjliggör sömlösa återupptag.
         </p>
 
@@ -383,7 +383,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
   {
     slug: "sakerhet-compliance-och-inspelning",
     title: "Säkerhet, compliance och inspelning",
-    description: "Hantera regulatoriska krav utan operativ komplexitet — GDPR, PCI DSS och mer.",
+    description: "Hantera regulatoriska krav utan operativ komplexitet – GDPR, PCI DSS och mer.",
     product: "Dynamics 365 Contact Center",
     productSlug: "d365contactcenter",
     parentPath: "/d365contactcenter/",
@@ -395,7 +395,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
         <p>
           <em>
             Contact centers hanterar känslig kunddata och lyder under strikta regulatoriska krav 
-            — GDPR, PCI DSS, MiFID II och branschspecifika regler. Contact Centers compliance-funktioner 
+            – GDPR, PCI DSS, MiFID II och branschspecifika regler. Contact Centers compliance-funktioner 
             hanterar krav utan att påverka operativ effektivitet.
           </em>
         </p>
@@ -463,7 +463,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
           produktnämnanden, konkurrentnämnanden och kundklagomål.
         </p>
         <p>
-          Resultaten aggregeras och visualiseras per vecka, månad och kvartal — 
+          Resultaten aggregeras och visualiseras per vecka, månad och kvartal – 
           så att trender blir tydliga.
         </p>
 
@@ -476,7 +476,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
         <h2>Insiktsdelning till produktutveckling och marknad</h2>
         <p>
           Automatiserade insiktsrapporter skickas till produktteamet, marknadsavdelningen 
-          och kundservicechefen — var vecka — baserade på vad kunderna faktiskt säger.
+          och kundservicechefen – var vecka – baserade på vad kunderna faktiskt säger.
         </p>
 
         <h3>Viktiga funktioner</h3>
@@ -505,7 +505,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
           <em>
             Ett contact center isolerat från CRM-systemet ger handläggare halvt blinda. 
             Contact Centers djupa integration med Dynamics 365 Sales, Customer Service och 
-            Customer Insights ger handläggaren fullständig kundkontext — automatiskt och i realtid.
+            Customer Insights ger handläggaren fullständig kundkontext – automatiskt och i realtid.
           </em>
         </p>
 
@@ -516,7 +516,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
           affärsmöjligheter och senaste köp i handläggarens arbetsyta.
         </p>
         <p>
-          Allt sker innan handläggaren ens svarar — så att de kan hälsa kunden vid namn 
+          Allt sker innan handläggaren ens svarar – så att de kan hälsa kunden vid namn 
           och vara redo med rätt kontext.
         </p>
 

@@ -196,7 +196,7 @@ Deno.serve(async (req) => {
     const uniqueSessions = new Set<string>();
     for (const r of filtered) if (r.session_id) uniqueSessions.add(r.session_id);
 
-    // Top topics — group knowledge-center / product pages
+    // Top topics – group knowledge-center / product pages
     const topicCount = new Map<string, number>();
     for (const r of filtered) {
       const p = (r.page_path || "").replace(/\/$/, "") || "/";

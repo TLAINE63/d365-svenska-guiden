@@ -43,7 +43,7 @@ export interface MetaDescriptionResult {
  */
 export const buildMetaDescriptionDetailed = (
   candidates: Array<string | undefined | null>,
-  fallback = "Köparsidig kunskap om Microsoft Dynamics 365 — ERP, CRM och partnerval.",
+  fallback = "Köparsidig kunskap om Microsoft Dynamics 365 – ERP, CRM och partnerval.",
 ): MetaDescriptionResult => {
   const warnings: string[] = [];
   const cleaned = candidates
@@ -83,7 +83,7 @@ export const buildMetaDescriptionDetailed = (
     return { value: first, length: first.length, status: "too-short", warnings };
   }
 
-  const msg = "Ingen meta description tillgänglig — använder fallback.";
+  const msg = "Ingen meta description tillgänglig – använder fallback.";
   warnings.push(msg);
   warn(msg, { fallback });
   return {

@@ -59,15 +59,15 @@ const eventsBreadcrumbs = [
 const eventsFaqs = [
  {
  question: "Vilka Dynamics 365-event passar för företag som ska byta affärssystem?",
- answer: "Företag som står inför ett byte av affärssystem har störst nytta av webinars och seminarier som går igenom Business Central och Finance & Supply Chain Management — gärna kombinerade med branschspecifika exempel (tillverkning, grossist, fastighet, tjänstebolag). Titta också efter event som tar upp datamigrering, integration och förändringsledning, eftersom det är där de flesta ERP-projekt fastnar. På d365.se markerar vi vilka event som är relevanta för ERP-beslut, och du kan kombinera dem med vår ERP-behovsanalys för att förbereda valet av partner."
+ answer: "Företag som står inför ett byte av affärssystem har störst nytta av webinars och seminarier som går igenom Business Central och Finance & Supply Chain Management – gärna kombinerade med branschspecifika exempel (tillverkning, grossist, fastighet, tjänstebolag). Titta också efter event som tar upp datamigrering, integration och förändringsledning, eftersom det är där de flesta ERP-projekt fastnar. På d365.se markerar vi vilka event som är relevanta för ERP-beslut, och du kan kombinera dem med vår ERP-behovsanalys för att förbereda valet av partner."
  },
  {
  question: "Finns det webinars om Business Central och Finance & Supply Chain?",
- answer: "Ja. Svenska Microsoft-partners arrangerar regelbundet webinars om både Business Central (för mindre och medelstora bolag) och Finance & Supply Chain Management (för stora, internationella organisationer). Innehållet varierar från produktdemos och Release Wave-genomgångar till djupare sessioner om finansiella konsolideringar, lager- och produktionsstyrning, AP/AR-automation och Copilot. De flesta webinars är kostnadsfria och hålls online — du anmäler dig direkt via arrangörens länk på respektive event."
+ answer: "Ja. Svenska Microsoft-partners arrangerar regelbundet webinars om både Business Central (för mindre och medelstora bolag) och Finance & Supply Chain Management (för stora, internationella organisationer). Innehållet varierar från produktdemos och Release Wave-genomgångar till djupare sessioner om finansiella konsolideringar, lager- och produktionsstyrning, AP/AR-automation och Copilot. De flesta webinars är kostnadsfria och hålls online – du anmäler dig direkt via arrangörens länk på respektive event."
  },
  {
  question: "Kan man få hjälp att välja rätt event eller partner?",
- answer: "Ja. Vi på d365.se hjälper köparsidigt och kostnadsfritt — beskriv kort vad ni utvärderar så tipsar vi om relevanta event och 2–3 partners som matchar er bransch och storlek. Använd kontaktformuläret eller starta med vår partnerguide så vägleder vi er vidare utan säljpåverkan."
+ answer: "Ja. Vi på d365.se hjälper köparsidigt och kostnadsfritt – beskriv kort vad ni utvärderar så tipsar vi om relevanta event och 2–3 partners som matchar er bransch och storlek. Använd kontaktformuläret eller starta med vår partnerguide så vägleder vi er vidare utan säljpåverkan."
  },
  {
  question: "Var hittar jag Microsoft Dynamics 365 events och webinars i Sverige?",

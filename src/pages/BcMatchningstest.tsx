@@ -45,7 +45,7 @@ const CLASS_COLOR: Record<BcClassification, string> = {
 const BcMatchningstest = () => {
   useNavigate();
   const { toast } = useToast();
-  // Starta alltid tomt — testet ska kännas färskt varje gång.
+  // Starta alltid tomt – testet ska kännas färskt varje gång.
   const [answers, setAnswers] = useState<BcAnswers>({});
   const [index, setIndex] = useState(0);
   const [showResult, setShowResult] = useState(false);
@@ -174,7 +174,7 @@ const BcMatchningstest = () => {
             <p className="text-white/70 text-base sm:text-lg max-w-3xl leading-relaxed">
               Ett funktionsorienterat matchningstest. Först några generella frågor om storlek och bransch,
               därefter en fördjupning utifrån just ert segment. Resultatet visar vad som ingår i BC i standard,
-              vad som kräver Premium, konfiguration eller ISV-tillägg — och vad som faktiskt ligger utanför BC.
+              vad som kräver Premium, konfiguration eller ISV-tillägg – och vad som faktiskt ligger utanför BC.
             </p>
           </div>
         </section>
@@ -352,7 +352,7 @@ const ResultView = ({ result, answers, onRestart, onBack, onPdf }: ResultProps) 
           <h3 className="text-lg font-semibold text-foreground mb-4">Identifierade behov per kategori</h3>
           <p className="text-sm text-muted-foreground mb-6">
             Listan visar de behov som era svar pekar på, grupperade efter hur de typiskt löses i en
-            Business Central-implementation. Det är ingen offert eller produktrekommendation — det är
+            Business Central-implementation. Det är ingen offert eller produktrekommendation – det är
             ett underlag inför partnerdialog.
           </p>
           <div className="space-y-5">
@@ -366,7 +366,7 @@ const ResultView = ({ result, answers, onRestart, onBack, onPdf }: ResultProps) 
                     {items.map((s) => (
                       <li key={`${c}-${s.area}`} className="text-sm">
                         <span className="font-medium">{s.area}</span>
-                        {s.note && <span className="opacity-80"> — {s.note}</span>}
+                        {s.note && <span className="opacity-80"> – {s.note}</span>}
                       </li>
                     ))}
                   </ul>
@@ -376,7 +376,7 @@ const ResultView = ({ result, answers, onRestart, onBack, onPdf }: ResultProps) 
                       <Link to="/kunskapscenter/business-central-tillagg/" className="underline underline-offset-2 font-medium">
                         ISV-katalog för Business Central
                       </Link>{" "}
-                      — där hittar ni de vanligaste svenska tilläggen kategoriserade. Hittar ni inget som passar finns fler appar på Microsoft Marketplace.
+                      – där hittar ni de vanligaste svenska tilläggen kategoriserade. Hittar ni inget som passar finns fler appar på Microsoft Marketplace.
                     </p>
                   )}
                 </div>
@@ -385,7 +385,7 @@ const ResultView = ({ result, answers, onRestart, onBack, onPdf }: ResultProps) 
             {result.signals.length === 0 && (
               <p className="text-sm text-muted-foreground">
                 Era svar pekar inte på några specifika behov som driver klassificering. BC i standard är
-                ofta en bra utgångspunkt — fördjupa er i partner- och implementationsfrågorna istället.
+                ofta en bra utgångspunkt – fördjupa er i partner- och implementationsfrågorna istället.
               </p>
             )}
           </div>

@@ -95,7 +95,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
           <em>
             Traditionell segmentering baseras på enkla demografiska filter. Customer Insights AI 
             bygger prediktiva segment som uppdateras automatiskt baserat på realtidsbeteende 
-            — och hittar mönster ingen människa skulle se.
+            – och hittar mönster ingen människa skulle se.
           </em>
         </p>
 
@@ -105,13 +105,13 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
           "Kunder som köpt sneakers de senaste 90 dagarna men inte besökt sajten på 30 dagar."
         </p>
         <p>
-          Inga SQL-kunskaper krävs — systemet tolkar frågan och bygger segmentet automatiskt.
+          Inga SQL-kunskaper krävs – systemet tolkar frågan och bygger segmentet automatiskt.
         </p>
 
         <h2>Prediktiva och beteendebaserade segment</h2>
         <p>
           AI-segmentering identifierar kunder med hög churn-risk, hög CLV-potential eller 
-          benägenhet att köpa en specifik produktkategori — baserat på hundratals beteendesignaler.
+          benägenhet att köpa en specifik produktkategori – baserat på hundratals beteendesignaler.
         </p>
 
         <h2>Aktivering i alla kanaler</h2>
@@ -133,7 +133,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
   {
     slug: "churnprediktion-och-retention",
     title: "Churn-prediktion och retention",
-    description: "Identifiera kunder på väg att lämna — innan det händer.",
+    description: "Identifiera kunder på väg att lämna – innan det händer.",
     product: "Dynamics 365 Customer Insights",
     productSlug: "d365marketing",
     parentPath: "/d365marketing/",
@@ -153,11 +153,11 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Automatisk churn-modellträning</h2>
         <p>
-          Modellen tränas automatiskt på din organisations historik — vilka kunder lämnade, 
+          Modellen tränas automatiskt på din organisations historik – vilka kunder lämnade, 
           vilka stannade, och vilka beteendesignaler föregick avhoppen.
         </p>
         <p>
-          Modellen uppdateras kontinuerligt och förbättras med mer data — 
+          Modellen uppdateras kontinuerligt och förbättras med mer data – 
           utan manuell intervention.
         </p>
 
@@ -203,7 +203,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
         <p>
           <em>
             Inte alla kunder är lika lönsamma. CLV-modellering i Customer Insights identifierar 
-            de kunder som har störst framtida värde — och hjälper organisationen att allokera 
+            de kunder som har störst framtida värde – och hjälper organisationen att allokera 
             resurser dit de ger bäst avkastning.
           </em>
         </p>
@@ -214,7 +214,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
           och prediktiv CLV (vad kunden förväntas generera de närmaste 12 månaderna).
         </p>
         <p>
-          Prediktionen uppdateras kontinuerligt med ny köpdata — så att segmenteringen 
+          Prediktionen uppdateras kontinuerligt med ny köpdata – så att segmenteringen 
           alltid är aktuell.
         </p>
 
@@ -224,7 +224,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
           Risk (50–75 %) och Low Value (botten 25 %).
         </p>
         <p>
-          Varje segment kräver en helt annan strategi och kommunikation — Champions 
+          Varje segment kräver en helt annan strategi och kommunikation – Champions 
           ska behållas, Growth ska utvecklas.
         </p>
 
@@ -261,7 +261,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
           <em>
             Kunder förväntar sig relevanta upplevelser i varje kontaktpunkt. Customer Insights 
             realtids-API levererar personaliserade produktrekommendationer, erbjudanden och innehåll 
-            på under 50 millisekunder — vid varje webbesök, app-öppning och kassainteraktion.
+            på under 50 millisekunder – vid varje webbesök, app-öppning och kassainteraktion.
           </em>
         </p>
 
@@ -272,7 +272,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
           produktrekommendationer och anpassade erbjudanden.
         </p>
         <p>
-          Allt baseras på realtidsprofilen — så att rekommendationerna reflekterar 
+          Allt baseras på realtidsprofilen – så att rekommendationerna reflekterar 
           kundens senaste beteende.
         </p>
 
@@ -317,7 +317,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
       <>
         <p>
           <em>
-            Rätt budskap, rätt kanal, rätt tidpunkt — det är löftet med journey automation. 
+            Rätt budskap, rätt kanal, rätt tidpunkt – det är löftet med journey automation. 
             Customer Insights Journeys orkestrerar automatiserade kundresor som reagerar på 
             verkliga beteenden i realtid.
           </em>
@@ -329,7 +329,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
           ett formulär, överger en varukorg, öppnar ett supportärende eller når en ny CLV-nivå.
         </p>
         <p>
-          Systemet reagerar på sekunder och levererar rätt kommunikation — 
+          Systemet reagerar på sekunder och levererar rätt kommunikation – 
           inte dagar senare som i traditionella batch-utskick.
         </p>
 
@@ -371,7 +371,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
       <>
         <p>
           <em>
-            Kunddata är organisationens mest värdefulla tillgång — och dess största ansvar. 
+            Kunddata är organisationens mest värdefulla tillgång – och dess största ansvar. 
             Customer Insights hanterar samtycke, rättighetsförfrågningar och dataminimering 
             inbyggt, utan externa lösningar.
           </em>
@@ -383,7 +383,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
           Preferenscentret ger kunder full kontroll över sin data och kommunikationspreferenser.
         </p>
         <p>
-          Samtyckesstatus synkroniseras i realtid till alla kampanjsystem — 
+          Samtyckesstatus synkroniseras i realtid till alla kampanjsystem – 
           så att inga utskick sker i strid med kundens val.
         </p>
 
@@ -393,7 +393,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
           Systemet identifierar automatiskt all data kopplad till en individ.
         </p>
         <p>
-          Svarspaket genereras inom juridiskt krävd tid — utan manuell dataletning 
+          Svarspaket genereras inom juridiskt krävd tid – utan manuell dataletning 
           i multipla system.
         </p>
 
@@ -429,7 +429,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
         <p>
           <em>
             Marknadsförare kämpar med att bevisa sitt värde. Customer Insights attributionsmodeller 
-            kopplar ihop marknadsföringsaktiviteter med faktiska affärsresultat — bortom sista-klick 
+            kopplar ihop marknadsföringsaktiviteter med faktiska affärsresultat – bortom sista-klick 
             och vanity metrics.
           </em>
         </p>
@@ -440,7 +440,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
         </p>
         <p>
           Data-Driven Attribution använder maskininlärning för att fördela intäktskrediten 
-          till de kontaktpunkter som faktiskt påverkade köpbeslutet — inte bara den sista.
+          till de kontaktpunkter som faktiskt påverkade köpbeslutet – inte bara den sista.
         </p>
 
         <h2>Kampanjmätning och experiment</h2>
@@ -480,7 +480,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
       <>
         <p>
           <em>
-            I B2B-försäljning är det hela organisationer — inte enskilda individer — som är kunderna. 
+            I B2B-försäljning är det hela organisationer – inte enskilda individer – som är kunderna. 
             Customer Insights B2B-läge bygger kontoprofiler som aggregerar alla kontakters beteenden 
             till kontonivå för en komplett bild av köparorganisationen.
           </em>
@@ -492,13 +492,13 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
         </p>
         <p>
           Moderbolag-dotterbolag-hierarkier hanteras automatiskt för korrekt global kontoöversikt 
-          — viktigt för enterprise-kunder med komplexa strukturer.
+          – viktigt för enterprise-kunder med komplexa strukturer.
         </p>
 
         <h2>Intent data och köpsignaler</h2>
         <p>
           Integration med externa intent-data-leverantörer (Bombora, G2) visar när en kund 
-          aktivt forskar kring lösningar inom din kategori — ett starkt köpsignal för säljteamet.
+          aktivt forskar kring lösningar inom din kategori – ett starkt köpsignal för säljteamet.
         </p>
 
         <h2>ABM-integration och kontobaserad marknadsföring</h2>
@@ -532,7 +532,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
       <>
         <p>
           <em>
-            Customer Insights är inte ett isolerat system — det är navet i din kunddata-arkitektur. 
+            Customer Insights är inte ett isolerat system – det är navet i din kunddata-arkitektur. 
             Öppna API:er, Azure-integration och ett rikt partnerekosystem gör det enkelt att koppla 
             ihop befintliga och framtida system.
           </em>
@@ -544,7 +544,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
           med Dynamics 365 Sales, Customer Service, Marketing och Power Platform.
         </p>
         <p>
-          Ingen separat API-koppling eller dataduplikation behövs — allt delar samma 
+          Ingen separat API-koppling eller dataduplikation behövs – allt delar samma 
           underliggande dataplattform.
         </p>
 
@@ -555,7 +555,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
         </p>
         <p>
           Datascientister kan arbeta med rådata i Synapse och skicka tillbaka modellresultat 
-          till Customer Insights — en komplett feedback-loop.
+          till Customer Insights – en komplett feedback-loop.
         </p>
 
         <h2>Tredjepartsintegrationer och ISV-ekosystem</h2>

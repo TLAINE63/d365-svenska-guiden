@@ -47,7 +47,7 @@ export interface ProductRoiConfig {
   implUserScale: number;
   /** Förvaltningsandel av implementation/år (steady state). */
   supportPctYearly: number;
-  /** Förvaltningsandel år 1 (lägre — projektet pågår). */
+  /** Förvaltningsandel år 1 (lägre – projektet pågår). */
   supportPctYear1: number;
   /** Default omsättning. */
   defaultRevenue: number;

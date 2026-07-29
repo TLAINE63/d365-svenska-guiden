@@ -117,7 +117,7 @@ const D365Sales = () => {
         eyebrow="Dynamics 365 Sales"
         title="Dynamics 365 Sales."
         titleAccent="Verktyget är en sak. Partnern som sätter era säljprocesser är en annan."
-        subhead="En konsultverksamhets säljprocess ser inte ut som en distributörs. Funktionerna är desamma — men hur partnern bygger Sales runt er specifika modell avgör om det blir er pipeline eller bara ett dyrt CRM. Här jämför ni partners som faktiskt levererat Sales i er typ av verksamhet."
+        subhead="En konsultverksamhets säljprocess ser inte ut som en distributörs. Funktionerna är desamma – men hur partnern bygger Sales runt er specifika modell avgör om det blir er pipeline eller bara ett dyrt CRM. Här jämför ni partners som faktiskt levererat Sales i er typ av verksamhet."
         primary={{
           label: "Jämför Sales-partners",
           onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
@@ -132,9 +132,9 @@ const D365Sales = () => {
       <ShortAnswer title="Vad är Dynamics 365 Sales">
         <p>Dynamics 365 Sales är Microsofts moderna CRM för B2B-säljorganisationer som vill lyfta sitt sälj från magkänsla och spridda Excel-listor till en gemensam, datadriven affärsprocess.</p>
         <p>Plattformen samlar leads, kontakter, affärsmöjligheter, offerter, order och prognoser i en strukturerad pipeline där varje säljare ser sina viktigaste affärer, nästa-bästa-åtgärd och realtidsinsikter om kundens engagemang.</p>
-        <p>Genom djup integration med Outlook, Teams, Excel, SharePoint och LinkedIn Sales Navigator arbetar säljaren kvar i sina vana verktyg samtidigt som all aktivitet automatiskt loggas i CRM:et — inga dubbla registreringar, ingen administrativ friktion.</p>
+        <p>Genom djup integration med Outlook, Teams, Excel, SharePoint och LinkedIn Sales Navigator arbetar säljaren kvar i sina vana verktyg samtidigt som all aktivitet automatiskt loggas i CRM:et – inga dubbla registreringar, ingen administrativ friktion.</p>
         <p>Inbyggd AI via Microsoft Copilot och nya autonoma säljagenter sammanfattar mejlkonversationer, förbereder mötesunderlag, föreslår rätt budskap baserat på affärsläge och kan till och med kvalificera inkommande leads och boka in möten på egen hand. Resultatet är mer kvalitativ säljtid, snabbare offertprocesser, bättre prognosprecision och en pipeline som faktiskt speglar verkligheten.</p>
-        <p>Det blir riktigt vasst när partnern modellerar er specifika säljprocess, era kvalificeringskriterier och era nyckeltal — standardinstallationen ger sällan full effekt på egen hand, men rätt konfigurerad blir Dynamics 365 Sales motorn som skalar hela er säljorganisation.</p>
+        <p>Det blir riktigt vasst när partnern modellerar er specifika säljprocess, era kvalificeringskriterier och era nyckeltal – standardinstallationen ger sällan full effekt på egen hand, men rätt konfigurerad blir Dynamics 365 Sales motorn som skalar hela er säljorganisation.</p>
       </ShortAnswer>
 
       {/* Introduction Section */}
@@ -308,7 +308,7 @@ const D365Sales = () => {
       <section className="py-8 sm:py-12 bg-secondary/30">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center mb-3">Fördjupningsartiklar</h2>
-          <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">Utforska Dynamics 365 Sales på djupet — från AI-driven pipeline-hantering till LinkedIn-integration och Revenue Intelligence.</p>
+          <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">Utforska Dynamics 365 Sales på djupet – från AI-driven pipeline-hantering till LinkedIn-integration och Revenue Intelligence.</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
             {SALES_ARTICLES.map((article) => (
               <Link

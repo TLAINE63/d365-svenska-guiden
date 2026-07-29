@@ -16,7 +16,7 @@ const CLASS_LABEL: Record<BcClassification, string> = {
   premium: "Kräver BC Premium",
   config: "Kräver konfiguration",
   isv: "Kräver tilläggsapp (Microsoft Marketplace)",
-  outside: "Ligger utanför BC — annan plattform",
+  outside: "Ligger utanför BC – annan plattform",
 };
 
 const SEGMENT_LABEL: Record<string, string> = {
@@ -71,24 +71,24 @@ export function calculateBcResult(answers: BcAnswers): BcResult {
     headline = "Business Central är sannolikt inte rätt val";
     body =
       "Era svar pekar på flera områden som ligger utanför Business Centrals naturliga räckvidd. " +
-      "Det betyder inte att BC är fel överallt — men dimensionerande behov bör utvärderas mot Finance & Supply Chain Management eller specialiserade branschsystem innan ni går vidare.";
+      "Det betyder inte att BC är fel överallt – men dimensionerande behov bör utvärderas mot Finance & Supply Chain Management eller specialiserade branschsystem innan ni går vidare.";
   } else if (outsideCount >= 1 && (outsideCount + isvCount) >= 4) {
     overall = "stretch";
-    headline = "Business Central räcker — men kräver beslut om gränser";
+    headline = "Business Central räcker – men kräver beslut om gränser";
     body =
       "BC kan täcka huvuddelen av era behov, men några av era krav ligger på gränsen eller utanför. " +
       "Ni behöver tidigt i utvärderingen avgöra om dessa behov löses i BC (med ISV/konfiguration) eller om de hör hemma i andra system.";
   } else if (isvCount >= 3) {
     overall = "fit_with_isv";
-    headline = "Business Central passar — kombinerat med branschtillägg";
+    headline = "Business Central passar – kombinerat med branschtillägg";
     body =
-      "Era svar indikerar att BC är en bra grund, men att ni behöver komplettera med ett par tilläggsappar för att täcka branschspecifika behov. Börja med att titta i vår ISV-katalog för Business Central — där hittar ni de vanligaste svenska alternativen kategoriserade. " +
+      "Era svar indikerar att BC är en bra grund, men att ni behöver komplettera med ett par tilläggsappar för att täcka branschspecifika behov. Börja med att titta i vår ISV-katalog för Business Central – där hittar ni de vanligaste svenska alternativen kategoriserade. " +
       "Om inget passar finns fler appar att söka via Microsoft Marketplace.";
   } else {
     overall = "good_fit";
     headline = "Business Central matchar era behov väl";
     body =
-      "Era svar tyder på att Business Central — främst i Essentials- eller Premium-form — täcker era behov utan tunga branschtillägg. " +
+      "Era svar tyder på att Business Central – främst i Essentials- eller Premium-form – täcker era behov utan tunga branschtillägg. " +
       "Fokus i utvärderingen blir då snarare partner, implementationsmetod och pris än produktval.";
   }
 

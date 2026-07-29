@@ -117,9 +117,9 @@ const ERPOverview = () => {
  {/* Header */}
  <ProductHero
  eyebrow="Pelarsida · Köparsidig guide"
- title="Affärssystem (ERP) — vad det är."
+ title="Affärssystem (ERP) – vad det är."
  titleAccent="Så väljer ni rätt utan säljpåverkan."
- subhead="Vad är ett affärssystem, vad kostar det, hur lång tid tar det att införa och vilket av Microsofts två alternativ — Business Central eller Finance & Supply Chain Management — passar er bäst? Här får ni svaren utan säljpress."
+ subhead="Vad är ett affärssystem, vad kostar det, hur lång tid tar det att införa och vilket av Microsofts två alternativ – Business Central eller Finance & Supply Chain Management – passar er bäst? Här får ni svaren utan säljpress."
  primary={{ label: "Gör en kostnadsfri behovsanalys", to: "/ERPbehovsanalys/", icon: ClipboardList }}
  secondary={{ label: "Jämför Business Central vs Finance & Supply Chain", href: "#comparison" }}
  />
@@ -146,7 +146,7 @@ const ERPOverview = () => {
  <p className="text-lg text-muted-foreground">
  Microsoft erbjuder två affärssystem inom Dynamics 365-familjen:&nbsp;
  <Link to="/businesscentral/" className="text-primary font-medium hover:underline">Business Central</Link> för mindre och medelstora bolag, och&nbsp;
- <Link to="/finance-supply-chain/" className="text-primary font-medium hover:underline">Finance &amp; Supply Chain Management</Link> för stora, internationella organisationer. Jämförelsen längre ned visar var skillnaderna får praktisk betydelse — i ekonomi, supply chain, internationell drift och i hur mycket som kan konfigureras kontra utvecklas.
+ <Link to="/finance-supply-chain/" className="text-primary font-medium hover:underline">Finance &amp; Supply Chain Management</Link> för stora, internationella organisationer. Jämförelsen längre ned visar var skillnaderna får praktisk betydelse – i ekonomi, supply chain, internationell drift och i hur mycket som kan konfigureras kontra utvecklas.
  </p>
  </div>
  </div>
@@ -189,7 +189,7 @@ const ERPOverview = () => {
  Vilket ERP passar er verksamhet?
  </h2>
  <p className="text-lg text-muted-foreground mb-8">
- Båda systemen tillhör Dynamics 365-familjen, men de är konstruerade för olika typer av komplexitet. Nedanstående jämförelse visar var skillnaderna faktiskt får praktisk betydelse — i ekonomihantering, supply chain, internationell drift och i hur stor del av lösningen som behöver konfigureras kontra utvecklas.
+ Båda systemen tillhör Dynamics 365-familjen, men de är konstruerade för olika typer av komplexitet. Nedanstående jämförelse visar var skillnaderna faktiskt får praktisk betydelse – i ekonomihantering, supply chain, internationell drift och i hur stor del av lösningen som behöver konfigureras kontra utvecklas.
  </p>
  
  {/* Industry Comparison Widget */}

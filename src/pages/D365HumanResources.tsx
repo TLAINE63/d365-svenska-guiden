@@ -47,7 +47,7 @@ const D365HumanResources = () => {
         eyebrow="Dynamics 365 Human Resources"
         title="Human Resources."
         titleAccent="HR-data, organisation och kompensation som en del av affärssystemet."
-        subhead="Microsofts HR-modul är inte ett självständigt HR-system i klass med Workday eller SuccessFactors — den är ett strategiskt nav för medarbetardata, organisations­struktur och kompensation som lever tätt ihop med ekonomi, planering och Microsoft 365. För organisationer som redan kör Finance & Supply Chain Management eller Business Central ger det en sammanhängande datamodell där personalkostnader, projektresurser och organisations­förändringar speglas i realtid. Partnervalet handlar om att hitta någon som förstår både HR-processer och ert affärssystem."
+        subhead="Microsofts HR-modul är inte ett självständigt HR-system i klass med Workday eller SuccessFactors – den är ett strategiskt nav för medarbetardata, organisations­struktur och kompensation som lever tätt ihop med ekonomi, planering och Microsoft 365. För organisationer som redan kör Finance & Supply Chain Management eller Business Central ger det en sammanhängande datamodell där personalkostnader, projektresurser och organisations­förändringar speglas i realtid. Partnervalet handlar om att hitta någon som förstår både HR-processer och ert affärssystem."
         primary={{
           label: "Jämför HR-partners",
           onClick: () => document.getElementById("partners")?.scrollIntoView({ behavior: "smooth" }),
@@ -57,10 +57,10 @@ const D365HumanResources = () => {
 
       <ShortAnswer title="Vad är Dynamics 365 Human Resources">
         <p>Dynamics 365 Human Resources är Microsofts HR-plattform för att hantera medarbetardata, organisations­struktur, anställningsavtal, kompensation, förmåner, frånvaro, prestations­utvärdering och kompetensutveckling i en samlad lösning.</p>
-        <p>Funktionellt täcker den hela medarbetar­livscykeln — onboarding, befordringar, lönerevisioner, certifieringar, successions­planering och offboarding — och ger HR-avdelningen ett strukturerat sätt att förvalta organisations­hierarkier, befattningar och positions­budgetar över flera bolag och länder.</p>
+        <p>Funktionellt täcker den hela medarbetar­livscykeln – onboarding, befordringar, lönerevisioner, certifieringar, successions­planering och offboarding – och ger HR-avdelningen ett strukturerat sätt att förvalta organisations­hierarkier, befattningar och positions­budgetar över flera bolag och länder.</p>
         <p>Plattformen är nu integrerad som en del av Dynamics 365 Finance & Supply Chain Management, vilket gör att medarbetar­data flödar sömlöst till projektresursplanering (Project Operations), produktionsplanering, ekonomi och rapportering i Power BI.</p>
-        <p>Självservice för chefer och medarbetare sker i Microsoft Teams och Outlook där Copilot kan hjälpa till med vanliga HR-frågor, sammanställningar och beslutsstöd — i stället för att tvinga in användarna i ett separat HR-portalgränssnitt.</p>
-        <p>För svenska organisationer kompletteras lösningen oftast med externa lönesystem (Hogia, Visma, Agda) och rekryteringsverktyg via öppna API:er — och en partner som förstår både svensk arbetsrätt och Microsofts integrationer är avgörande för att helheten ska sitta.</p>
+        <p>Självservice för chefer och medarbetare sker i Microsoft Teams och Outlook där Copilot kan hjälpa till med vanliga HR-frågor, sammanställningar och beslutsstöd – i stället för att tvinga in användarna i ett separat HR-portalgränssnitt.</p>
+        <p>För svenska organisationer kompletteras lösningen oftast med externa lönesystem (Hogia, Visma, Agda) och rekryteringsverktyg via öppna API:er – och en partner som förstår både svensk arbetsrätt och Microsofts integrationer är avgörande för att helheten ska sitta.</p>
       </ShortAnswer>
 
       <section className="py-8 sm:py-12 md:py-16 bg-background">
@@ -73,10 +73,10 @@ const D365HumanResources = () => {
               HR i samma datamodell som ekonomi och drift
             </p>
             <p className="text-base sm:text-lg text-muted-foreground mb-4">
-              HR-modulen riktar sig till medelstora och stora organisationer som vill ha medarbetardata, organisations­hierarkier och kompensation i samma plattform som ekonomi, projekt och produktion — i stället för fristående HR-system som synkar via filer eller integrationer. Det blir särskilt värdefullt för bolag med flera juridiska enheter, internationell verksamhet eller komplexa befattnings­strukturer där positions­budgetar och kompensations­band behöver styras centralt.
+              HR-modulen riktar sig till medelstora och stora organisationer som vill ha medarbetardata, organisations­hierarkier och kompensation i samma plattform som ekonomi, projekt och produktion – i stället för fristående HR-system som synkar via filer eller integrationer. Det blir särskilt värdefullt för bolag med flera juridiska enheter, internationell verksamhet eller komplexa befattnings­strukturer där positions­budgetar och kompensations­band behöver styras centralt.
             </p>
             <p className="text-base sm:text-lg text-muted-foreground">
-              Microsoft har de senaste åren konsoliderat den fristående HR-appen in i Finance & Supply Chain Management, vilket innebär att HR-funktionaliteten i praktiken är en modul i samma molntjänst snarare än en separat produkt. För svensk marknad kombineras den nästan alltid med ett externt lönesystem för faktisk lönekörning och AGI-rapportering — Dynamics 365 ansvarar för struktur, regelverk och rapportering, lönesystemet för utbetalning och myndighetsfiler.
+              Microsoft har de senaste åren konsoliderat den fristående HR-appen in i Finance & Supply Chain Management, vilket innebär att HR-funktionaliteten i praktiken är en modul i samma molntjänst snarare än en separat produkt. För svensk marknad kombineras den nästan alltid med ett externt lönesystem för faktisk lönekörning och AGI-rapportering – Dynamics 365 ansvarar för struktur, regelverk och rapportering, lönesystemet för utbetalning och myndighetsfiler.
             </p>
           </div>
         </div>

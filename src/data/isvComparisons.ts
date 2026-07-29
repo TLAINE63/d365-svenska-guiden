@@ -96,7 +96,7 @@ export const ISV_COMPARISONS: IsvComparison[] = [
     slug: "trimit-vs-pebblestone",
     title: "TRIMIT vs Pebblestone (Fashion)",
     intro:
-      "Två etablerade branschpaket för mode och textil ovanpå Business Central. Båda hanterar style/color/size, säsong och PLM-flöden — valet styrs av processdjup och var ni redan har partnernärvaro.",
+      "Två etablerade branschpaket för mode och textil ovanpå Business Central. Båda hanterar style/color/size, säsong och PLM-flöden – valet styrs av processdjup och var ni redan har partnernärvaro.",
     solutionIds: ["trimit-fashion", "pebblestone"],
     category: "Branschpaket",
     parentArticleSlug: "tillagg-branschpaket",
@@ -124,7 +124,7 @@ export const ISV_COMPARISONS: IsvComparison[] = [
     slug: "bizview-vs-solver-vs-aimplan",
     title: "Bizview vs Solver vs Aimplan",
     intro:
-      "Tre FP&A-alternativ ovanpå Business Central. Bizview och Solver är globala plattformar med stark Sverige-närvaro. Aimplan är en svensk molnplattform med nordiskt fokus. Cloud Aheads (som driver d365.se) har ägarintresse i Aimplan — se /agande-och-intressen.",
+      "Tre FP&A-alternativ ovanpå Business Central. Bizview och Solver är globala plattformar med stark Sverige-närvaro. Aimplan är en svensk molnplattform med nordiskt fokus. Cloud Aheads (som driver d365.se) har ägarintresse i Aimplan – se /agande-och-intressen.",
     solutionIds: ["bizview", "solver", "aimplan"],
     category: "Rapportering / FP&A",
     parentArticleSlug: "tillagg-rapportering-budget",

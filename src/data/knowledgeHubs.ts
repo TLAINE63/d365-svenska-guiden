@@ -5,7 +5,7 @@
  * all relevant resources (deep-dive articles, blog articles, tools,
  * videos) in plain HTML for crawlers and AI search engines.
  *
- * Filters are pure functions evaluated at render time — no async data.
+ * Filters are pure functions evaluated at render time – no async data.
  */
 
 import { ALL_DEEP_DIVE_ARTICLES } from "./bcArticles";
@@ -136,7 +136,7 @@ const tools = {
     id: "tool-bc-matchningstest",
     type: "verktyg" as const,
     title: "Business Central matchningstest",
-    description: "Sex frågor med branschspecifik fördjupning. Få en bedömning om Business Central matchar era behov — och var ni eventuellt behöver ISV-tillägg eller annan plattform.",
+    description: "Sex frågor med branschspecifik fördjupning. Få en bedömning om Business Central matchar era behov – och var ni eventuellt behöver ISV-tillägg eller annan plattform.",
     url: "/businesscentral/matchningstest/",
     category: "Behovsanalys",
   },
@@ -309,7 +309,7 @@ export const KNOWLEDGE_HUBS: KnowledgeHubConfig[] = [
       "Se alla viktiga tillägg till Microsoft Dynamics Business Central i Sverige – från AP automation och WMS till retail, EDI och branschlösningar.",
     h1: "Tillägg och ISV-ekosystem för Business Central",
     intro:
-      "Business Central räcker långt — men i nästan alla affärer kompletteras BC med ett antal ISV-tillägg. Här är de tio vanligaste kategorierna på svenska marknaden, vilka ISV:er som dominerar och vilka BC-partners som är offentligt listade. Skriven ur köparens perspektiv.",
+      "Business Central räcker långt – men i nästan alla affärer kompletteras BC med ett antal ISV-tillägg. Här är de tio vanligaste kategorierna på svenska marknaden, vilka ISV:er som dominerar och vilka BC-partners som är offentligt listade. Skriven ur köparens perspektiv.",
     breadcrumbLabel: "BC-tilläggsapplikationer",
     resources: [
       tools.bcMatchningstest,
@@ -351,7 +351,7 @@ export const KNOWLEDGE_HUBS: KnowledgeHubConfig[] = [
       "Allt om Dynamics 365 Sales och Customer Insights: produktfördjupningar, artiklar, behovsanalys CRM och kravspecifikationer för sälj och marknad.",
     h1: "Sales & CRM – kunskap, guider och fördjupningar",
     intro:
-      "Här hittar du allt vi publicerat om Dynamics 365 Sales och Customer Insights (marknad). Behovsanalyser, kravspecar, produktfördjupningar och artiklar — samlat för dig som utvärderar CRM.",
+      "Här hittar du allt vi publicerat om Dynamics 365 Sales och Customer Insights (marknad). Behovsanalyser, kravspecar, produktfördjupningar och artiklar – samlat för dig som utvärderar CRM.",
     breadcrumbLabel: "Sales & CRM",
     resources: [
       tools.behovsanalysCrm,

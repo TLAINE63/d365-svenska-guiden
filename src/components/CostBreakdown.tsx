@@ -104,7 +104,7 @@ const CostBreakdown = ({ product, heading, hideOverviewLink = false }: CostBreak
                   Löpande kostnader efter go-live
                 </h3>
                 <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">
-                  Det syns sällan i offerten — men det är här totalkostnaden växer.
+                  Det syns sällan i offerten – men det är här totalkostnaden växer.
                 </p>
               </div>
             </div>

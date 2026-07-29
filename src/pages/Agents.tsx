@@ -531,7 +531,7 @@ const Agents = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4">Fördjupningsartiklar</h2>
           <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Utforska autonoma agenter i detalj — från säljagenter och kundservice till hur du bygger egna agenter.
+            Utforska autonoma agenter i detalj – från säljagenter och kundservice till hur du bygger egna agenter.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
             {AGENTS_ARTICLES.map((article) => (

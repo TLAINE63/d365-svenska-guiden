@@ -58,7 +58,7 @@ const ContactUs = () => {
                 Ett samtal innan partnerdialogen börjar
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-white/95 drop-shadow">
-                Ställ frågor om Dynamics 365, hur en upphandling brukar se ut, eller bolla vilka partners som rimligen bör finnas på er kortlista — från köparens perspektiv.
+                Ställ frågor om Dynamics 365, hur en upphandling brukar se ut, eller bolla vilka partners som rimligen bör finnas på er kortlista – från köparens perspektiv.
               </p>
             </div>
           </div>
@@ -75,7 +75,7 @@ const ContactUs = () => {
                 Ett Dynamics 365-val avgörs sällan av funktioner ensam.
               </p>
               <p className="text-base sm:text-lg text-muted-foreground">
-                Det avgörs av rätt vägval, rätt omfattning och rätt partner — utifrån er verksamhet, er komplexitet och det ansvar ni själva vill ta över tid.
+                Det avgörs av rätt vägval, rätt omfattning och rätt partner – utifrån er verksamhet, er komplexitet och det ansvar ni själva vill ta över tid.
               </p>
               <p className="text-base sm:text-lg text-muted-foreground">
                 d365.se bygger på lång erfarenhet av Microsofts affärsapplikationer, partnerlandskapet och hur svenska företag faktiskt väljer, upphandlar och utvecklar ERP- och CRM-lösningar.

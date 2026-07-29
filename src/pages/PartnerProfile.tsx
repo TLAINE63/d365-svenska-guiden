@@ -447,7 +447,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
 
 
-  {/* AI-generated summary — condensed checklist */}
+  {/* AI-generated summary – condensed checklist */}
   {(partner as any).ai_summary && (
     <div className="max-w-3xl w-full mb-4 rounded-lg border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-3 sm:p-4 text-left">
       <div className="flex items-center gap-2 mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
@@ -462,7 +462,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
             ? raw.split(/\r?\n+/).filter(Boolean)
             : raw.split(/\.\s+/).filter(s => s.trim().length > 8).map(s => s.replace(/\.$/, ""));
           // Strippa listmarkörer (bullets, "1.", "2)" osv). VIKTIGT: matcha bara siffror
-          // som följs av "." eller ")" — annars slukas siffror i företagsnamn (t.ex. "4PS").
+          // som följs av "." eller ")" – annars slukas siffror i företagsnamn (t.ex. "4PS").
           items = items.map(s => s.replace(/^\s*(?:[-–—•✅]+\s*|\d+[.)]\s+)/, "").trim()).filter(Boolean);
           return items.slice(0, 6).map((item, idx) => (
             <li key={idx} className="flex items-start gap-2 text-sm sm:text-base text-slate-700">
@@ -478,7 +478,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
     </div>
   )}
 
-  {/* Lead CTA block moved under product tabs — see PartnerProductTabs */}
+  {/* Lead CTA block moved under product tabs – see PartnerProductTabs */}
 
 
   <PartnerRequestDialog

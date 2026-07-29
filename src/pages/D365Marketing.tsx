@@ -101,7 +101,7 @@ const D365Marketing = () => {
       <ProductHero
         icon={MarketingIcon}
         eyebrow="Dynamics 365 Customer Insights"
-        title="Customer Insights — Journeys & Data."
+        title="Customer Insights – Journeys & Data."
         titleAccent="Två samverkande moduler. Välj partner med omsorg."
         subhead="Microsoft levererar plattformen och AI-segmenteringen. Partnern hjälper er att skapa datamodellen, integrationerna och de poängregler som faktiskt avgör om leads får rätt mejl vid rätt tid. Det är där projekt med marketing automation vinns eller förloras. Här jämför ni partners som faktiskt levererat den här typen av flöden i er typ av verksamhet."
         primary={{
@@ -117,10 +117,10 @@ const D365Marketing = () => {
 
       <ShortAnswer title="Vad är Dynamics 365 Customer Insights">
         <p>Dynamics 365 Customer Insights är Microsofts moderna marknads- och kunddataplattform och består av två tätt integrerade delar som tillsammans täcker både datasidan och aktiveringssidan av modern marknadsföring.</p>
-        <p><strong>Customer Insights — Data</strong> är en kraftfull Customer Data Platform (CDP) som samlar och förenar kunddata från CRM, ERP, webb, e-handel, lojalitetsprogram och tredjepartskällor till en gemensam, AI-berikad kundprofil med segment, livstidsvärde och nästa-bästa-åtgärd.</p>
-        <p><strong>Customer Insights — Journeys</strong> är en automationsmotor för marknadsföring som orkestrerar personaliserade kundresor i realtid över e-post, SMS, push, Teams, webb och annonskanaler.</p>
+        <p><strong>Customer Insights – Data</strong> är en kraftfull Customer Data Platform (CDP) som samlar och förenar kunddata från CRM, ERP, webb, e-handel, lojalitetsprogram och tredjepartskällor till en gemensam, AI-berikad kundprofil med segment, livstidsvärde och nästa-bästa-åtgärd.</p>
+        <p><strong>Customer Insights – Journeys</strong> är en automationsmotor för marknadsföring som orkestrerar personaliserade kundresor i realtid över e-post, SMS, push, Teams, webb och annonskanaler.</p>
         <p>Plattformen vänder sig till både B2B- och B2C-organisationer som vill gå från spridda utskick och magkänsla till datadriven marknadsföring där rätt budskap når rätt person i rätt kanal vid rätt tillfälle.</p>
-        <p>Inbyggd Copilot och autonoma marknadsagenter låter marknadsförare beskriva ett segment eller en kampanj i klartext och få färdiga målgrupper, ämnesrader, innehåll och kundresor genererade på sekunder — i stället för att lägga dagar på manuell segmentering och utkast.</p>
+        <p>Inbyggd Copilot och autonoma marknadsagenter låter marknadsförare beskriva ett segment eller en kampanj i klartext och få färdiga målgrupper, ämnesrader, innehåll och kundresor genererade på sekunder – i stället för att lägga dagar på manuell segmentering och utkast.</p>
         <p>Genom djup integration med Dynamics 365 Sales, Customer Service, Dataverse, Fabric och Microsoft 365 ser sälj, marknad och service samma kundbild. Men datamodell, källsystem och integrationer som partnern sätter upp är det som faktiskt avgör om plattformen blir en sann tillväxtmotor eller bara ännu ett verktyg.</p>
       </ShortAnswer>
 
@@ -291,7 +291,7 @@ const D365Marketing = () => {
 
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center mb-3">Fördjupningsartiklar</h2>
-          <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">Utforska Dynamics 365 Customer Insights på djupet — från enhetliga kundprofiler och AI-segmentering till journey automation och GDPR-compliance.</p>
+          <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">Utforska Dynamics 365 Customer Insights på djupet – från enhetliga kundprofiler och AI-segmentering till journey automation och GDPR-compliance.</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
             {CI_ARTICLES.map((article) => (
               <Link

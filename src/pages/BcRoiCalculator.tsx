@@ -110,7 +110,7 @@ export default function BcRoiCalculator() {
   const ess = priceMap.get("bc-essentials");
   const prem = priceMap.get("bc-premium");
   const team = priceMap.get("bc-team-members");
-  const DEVICE_FALLBACK = 380; // SEK/mån — fallback om SKU saknas i prisregistret
+  const DEVICE_FALLBACK = 380; // SEK/mån – fallback om SKU saknas i prisregistret
   const essPrice = ess?.price_sek ?? null;
   const premPrice = prem?.price_sek ?? null;
   const teamPrice = team?.price_sek ?? null;

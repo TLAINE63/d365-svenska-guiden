@@ -121,7 +121,7 @@ const EbookBanner = ({ variant = "full", sourcePage = "homepage" }: EbookBannerP
  </span>
  <h3 className="font-semibold text-foreground text-sm mb-1">Det viktiga partnervalet</h3>
  <p className="text-xs text-muted-foreground mb-2 line-clamp-2">
- Varför systemval och partnerval måste göras tillsammans — och hur du gör det rätt.
+ Varför systemval och partnerval måste göras tillsammans – och hur du gör det rätt.
  </p>
  <form onSubmit={handleSubmit} className="flex gap-2">
  <input type="text" name="website" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} className="absolute -left-[9999px] opacity-0 pointer-events-none" tabIndex={-1} autoComplete="off" aria-hidden="true" />

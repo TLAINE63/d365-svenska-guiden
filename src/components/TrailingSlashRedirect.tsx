@@ -10,7 +10,7 @@ import { useLocation, Navigate } from "react-router-dom";
  *   every route)
  *
  * This client-side guard handles in-app SPA navigations and any external
- * link that lands on `/crm` after the SPA has already booted — we replace
+ * link that lands on `/crm` after the SPA has already booted – we replace
  * the URL with the trailing-slash variant so Google never sees two
  * canonicalised variants from internal navigation.
  *

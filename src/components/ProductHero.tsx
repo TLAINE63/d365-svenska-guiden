@@ -14,11 +14,11 @@ interface ProductHeroProps {
   /** Small product icon (Microsoft logo). Kept intentionally minimal. */
   icon?: string;
   eyebrow?: string;
-  /** First line of H1 — rendered in white. */
+  /** First line of H1 – rendered in white. */
   title: string;
-  /** Second line of H1 — rendered in italic signature accent. Forced linebreak between. */
+  /** Second line of H1 – rendered in italic signature accent. Forced linebreak between. */
   titleAccent?: string;
-  /** d365.se-voice subhead — independent perspective, not Microsoft blurb. */
+  /** d365.se-voice subhead – independent perspective, not Microsoft blurb. */
   subhead: string;
   /** Primary CTA (orange). */
   primary: CTA;

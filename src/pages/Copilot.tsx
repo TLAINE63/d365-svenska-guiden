@@ -107,7 +107,7 @@ const Copilot = () => {
                 Microsoft Copilot för Dynamics 365
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-4 sm:mb-6">
-                Inbäddad AI i affärssystemet — vad som ingår, vad som kräver tillägg och vad ni behöver göra först för att effekten ska bli verklig
+                Inbäddad AI i affärssystemet – vad som ingår, vad som kräver tillägg och vad ni behöver göra först för att effekten ska bli verklig
               </p>
               
               <ContactFormDialog>
@@ -575,7 +575,7 @@ const Copilot = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4">Fördjupningsartiklar</h2>
           <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Utforska hur Copilot förstärker varje Dynamics 365-modul — från Sales och Finance till HR och Project Operations.
+            Utforska hur Copilot förstärker varje Dynamics 365-modul – från Sales och Finance till HR och Project Operations.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
             {COPILOT_ARTICLES.map((article) => (

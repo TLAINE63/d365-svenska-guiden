@@ -275,7 +275,7 @@ const PartnerUpdate = () => {
   const [notAFitInput, setNotAFitInput] = useState("");
   const [aiProfile, setAiProfile] = useState<import("@/lib/aiProfile").AiProfile>({});
 
-  // Per-produkt beslutsprofil (positionering + leveransbild) — en post per aktiv D365-applikation
+  // Per-produkt beslutsprofil (positionering + leveransbild) – en post per aktiv D365-applikation
   type ProductProfile = {
     positioning: string;
     methodology: string;
@@ -515,7 +515,7 @@ const PartnerUpdate = () => {
   if (Array.isArray(ed.not_a_fit)) setNotAFitInput(ed.not_a_fit.join("\n"));
   if (ed.ai_profile && typeof ed.ai_profile === "object") setAiProfile(ed.ai_profile);
 
-  // Per-produkt beslutsprofil — hydrera från product_profiles, fall tillbaka på legacy positioning/delivery_profile
+  // Per-produkt beslutsprofil – hydrera från product_profiles, fall tillbaka på legacy positioning/delivery_profile
   if (ed.product_profiles && typeof ed.product_profiles === "object" && !Array.isArray(ed.product_profiles)) {
     const normalized: Record<string, ProductProfile> = {};
     for (const [app, raw] of Object.entries(ed.product_profiles as Record<string, any>)) {
@@ -960,7 +960,7 @@ const PartnerUpdate = () => {
  .map(c => c.trim())
  .filter(Boolean);
 
- // Per-produkt beslutsprofil — sanera och behåll endast aktiva applikationer
+ // Per-produkt beslutsprofil – sanera och behåll endast aktiva applikationer
  const sanitizedProductProfiles: Record<string, any> = {};
  for (const app of applications) {
    const pp = productProfiles[app];
@@ -1166,7 +1166,7 @@ const PartnerUpdate = () => {
           </CardContent>
         </Card>
 
-        {/* View statistics for this partner — temporarily hidden from partners */}
+        {/* View statistics for this partner – temporarily hidden from partners */}
 
   <form onSubmit={handleSubmit} className="space-y-8">
   <div className="flex justify-end">
@@ -1630,7 +1630,7 @@ const PartnerUpdate = () => {
    return (
      <div className="rounded-lg border border-border bg-muted/30 p-3">
        <div className="flex items-center justify-between mb-2">
-         <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Kvalitetspoäng — {section.label}</span>
+         <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Kvalitetspoäng – {section.label}</span>
          <span className="text-sm font-bold">{pct}% komplett</span>
        </div>
        <div className="h-1.5 rounded-full bg-border overflow-hidden mb-2">
@@ -2818,7 +2818,7 @@ const PartnerUpdate = () => {
        <div className="border-t border-border pt-4 space-y-4">
          <div>
            <h4 className="font-semibold text-sm flex items-center gap-2">
-             <Target className="w-4 h-4 text-[hsl(var(--cta-orange))]" /> Positionering & leveransbild — per Dynamics 365-produkt
+             <Target className="w-4 h-4 text-[hsl(var(--cta-orange))]" /> Positionering & leveransbild – per Dynamics 365-produkt
            </h4>
            <p className="text-xs text-muted-foreground mt-1">
              Köpare ser olika beslutsprofiler beroende på vilken produkt de tittar på. Fyll i en kort positionering och er typiska leveransbild för varje aktiv produkt.
@@ -2834,7 +2834,7 @@ const PartnerUpdate = () => {
                </div>
 
                <div>
-                 <Label htmlFor={`pp_pos_${app}`} className="text-xs">Positionering — en mening</Label>
+                 <Label htmlFor={`pp_pos_${app}`} className="text-xs">Positionering – en mening</Label>
                  <p className="text-[11px] text-muted-foreground mb-1">
                    Börja gärna med "Vi är valet när …". Konkret om bransch, storlek eller utmaning för {app}.
                  </p>
@@ -2860,7 +2860,7 @@ const PartnerUpdate = () => {
                     />
                   </div>
                  <div>
-                   <Label htmlFor={`pp_wmin_${app}`} className="text-xs">Typisk projektlängd — min (veckor)</Label>
+                   <Label htmlFor={`pp_wmin_${app}`} className="text-xs">Typisk projektlängd – min (veckor)</Label>
                    <Input
                      id={`pp_wmin_${app}`}
                      type="number"
@@ -2871,7 +2871,7 @@ const PartnerUpdate = () => {
                    />
                  </div>
                  <div>
-                   <Label htmlFor={`pp_wmax_${app}`} className="text-xs">Typisk projektlängd — max (veckor)</Label>
+                   <Label htmlFor={`pp_wmax_${app}`} className="text-xs">Typisk projektlängd – max (veckor)</Label>
                    <Input
                      id={`pp_wmax_${app}`}
                      type="number"

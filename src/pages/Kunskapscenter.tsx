@@ -177,7 +177,7 @@ const STATIC_TOOLS: Array<{
  {
  id: "tool-bc-matchningstest",
  title: "Business Central matchningstest",
- description: "Sex frågor med branschspecifik fördjupning. Få en bedömning om Business Central matchar era behov — och var ni eventuellt behöver ISV-tillägg eller annan plattform.",
+ description: "Sex frågor med branschspecifik fördjupning. Få en bedömning om Business Central matchar era behov – och var ni eventuellt behöver ISV-tillägg eller annan plattform.",
  type: "behovsanalys",
  url: "/businesscentral/matchningstest",
  image_url: behovsErpImage,
@@ -840,7 +840,7 @@ const Kunskapscenter = () => {
  </div>
  <div className="container mx-auto px-4 max-w-4xl relative z-10">
  <h1 className="text-2xl md:text-4xl font-bold text-white mb-2 tracking-tight">
- Förstå Dynamics 365 — innan partnerdialogen börjar
+ Förstå Dynamics 365 – innan partnerdialogen börjar
  </h1>
  <p className="text-sm md:text-base text-white/80 leading-relaxed max-w-2xl">
  Guider, analyser, behovsanalyser och kravspecifikationer för ledning, IT, ekonomi, sälj och verksamhetsansvariga som vill gå in i en partnerdialog med ett genomtänkt underlag.
@@ -848,7 +848,7 @@ const Kunskapscenter = () => {
  </div>
  </section>
 
- {/* Innehållsspår — kuraterade tracks genom kunskapscentret */}
+ {/* Innehållsspår – kuraterade tracks genom kunskapscentret */}
  <section className="border-b border-border bg-[hsl(var(--bg-card))]">
   <div className="container mx-auto px-4 py-8">
    <div className="flex items-baseline justify-between gap-4 mb-4">
@@ -917,7 +917,7 @@ const Kunskapscenter = () => {
 
  <div ref={tracksGridRef} />
 
- {/* Topical hubs — crawl-friendly internal links */}
+ {/* Topical hubs – crawl-friendly internal links */}
  <section className="border-b border-border bg-muted/30">
   <div className="container mx-auto px-4 py-6">
    <h2 className="text-sm font-semibold text-[hsl(var(--signature))] uppercase tracking-wider mb-3">

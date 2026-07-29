@@ -31,7 +31,7 @@ const MODE_CONFIG = {
   contact: {
     title: (name: string) => `Ställ en fråga till ${name}`,
     description: (name: string, product?: string, industry?: string) =>
-      `Låg tröskel — beskriv kort vad du undrar över${product ? ` inom ${product}` : ""}${industry ? ` (${industry})` : ""}. ${name} svarar dig direkt, d365.se får kopia för uppföljning.`,
+      `Låg tröskel – beskriv kort vad du undrar över${product ? ` inom ${product}` : ""}${industry ? ` (${industry})` : ""}. ${name} svarar dig direkt, d365.se får kopia för uppföljning.`,
     sourceType: "partner_contact_request",
     messagePrefix: (name: string) => `Fråga till ${name}.`,
     toastTitle: "Frågan är skickad",
@@ -43,7 +43,7 @@ const MODE_CONFIG = {
     description: (name: string, product?: string, industry?: string) =>
       `De flesta seriösa partners vill förstå behovet innan de visar system. Beskriv kort vad ni vill se eller diskutera${product ? ` inom ${product}` : ""}${industry ? ` (${industry})` : ""}, så återkommer ${name} med förslag på upplägg.`,
     sourceType: "partner_demo_request",
-    messagePrefix: (name: string) => `Genomgång/demo — förfrågan till ${name}.`,
+    messagePrefix: (name: string) => `Genomgång/demo – förfrågan till ${name}.`,
     toastTitle: "Förfrågan skickad",
     toastDescription: (name: string) => `${name} återkommer med förslag på tid för genomgång eller demo.`,
     submitLabel: "Be partnern föreslå tid",
@@ -51,9 +51,9 @@ const MODE_CONFIG = {
   quote: {
     title: (name: string) => `Få en uppskattning av tid och kostnad från ${name}`,
     description: (name: string, product?: string, industry?: string) =>
-      `En exakt offert kräver normalt fördjupad avstämning — men ${name} kan ge en första uppskattning av tid och kostnad${product ? ` för ${product}` : ""}${industry ? ` (${industry})` : ""} utifrån ert underlag.`,
+      `En exakt offert kräver normalt fördjupad avstämning – men ${name} kan ge en första uppskattning av tid och kostnad${product ? ` för ${product}` : ""}${industry ? ` (${industry})` : ""} utifrån ert underlag.`,
     sourceType: "partner_quote_request",
-    messagePrefix: (name: string) => `Prisindikation — förfrågan till ${name}.`,
+    messagePrefix: (name: string) => `Prisindikation – förfrågan till ${name}.`,
     toastTitle: "Förfrågan skickad",
     toastDescription: (name: string) => `${name} återkommer med första uppskattning av tid och kostnad.`,
     submitLabel: "Begär första uppskattning",
@@ -623,7 +623,7 @@ const PartnerRequestDialog = ({
           </div>
 
           <p className="text-xs text-slate-500 border-t border-slate-100 pt-3">
-            Kostnadsfritt. Du väljer själv vilka partners som kontaktas. Varje partner kontaktas separat — aldrig i samma tråd. d365.se säljer inte implementationer; förfrågan går direkt till partnern med kopia till dig och d365.se.
+            Kostnadsfritt. Du väljer själv vilka partners som kontaktas. Varje partner kontaktas separat – aldrig i samma tråd. d365.se säljer inte implementationer; förfrågan går direkt till partnern med kopia till dig och d365.se.
           </p>
 
 

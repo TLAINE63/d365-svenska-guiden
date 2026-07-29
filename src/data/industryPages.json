@@ -340,7 +340,7 @@
       },
       {
         "title": "Branschspecifika behov utanför standard-D365",
-        "description": "Standard Business Central och Finance täcker ekonomi men saknar djup fastighetsfunktionalitet — kräver ISV-tillägg (4PS, Nectar/MVI, To-Increase) eller egen utveckling."
+        "description": "Standard Business Central och Finance täcker ekonomi men saknar djup fastighetsfunktionalitet – kräver ISV-tillägg (4PS, Nectar/MVI, To-Increase) eller egen utveckling."
       },
       {
         "title": "BC vs F&SCM för fastighetsbolag",
@@ -2482,7 +2482,7 @@
       },
       {
         "title": "XaaS & förbrukningsbaserad fakturering",
-        "description": "Mätning, ratering och fakturering av användning (API-anrop, GB, användare, minuter) inklusive trösklar, tak och rabatter — som komplement till fasta abonnemang."
+        "description": "Mätning, ratering och fakturering av användning (API-anrop, GB, användare, minuter) inklusive trösklar, tak och rabatter – som komplement till fasta abonnemang."
       },
       {
         "title": "ITSM-integration mot ServiceNow/Jira",
@@ -2516,7 +2516,7 @@
       },
       {
         "title": "D365 saknar djup billing för usage/XaaS",
-        "description": "Standard Sales/CS hanterar abonnemang men inte avancerad mätning, ratering och dispute management — många bolag kompletterar med en specialiserad billing-motor (Zuora, BillingPlatform, Stripe Billing) som integreras mot ekonomin i BC/F&SCM."
+        "description": "Standard Sales/CS hanterar abonnemang men inte avancerad mätning, ratering och dispute management – många bolag kompletterar med en specialiserad billing-motor (Zuora, BillingPlatform, Stripe Billing) som integreras mot ekonomin i BC/F&SCM."
       },
       {
         "title": "ITSM kontra CRM-överlapp",
@@ -2601,7 +2601,7 @@
         "q": "Hur stödjer Dynamics 365 försäljning av paketerade lösningar (hårdvara, mjukvara, tjänster)?"
       },
       {
-        "a": "För enklare prenumerationer ja — både BC och F&SCM hanterar återkommande fakturering. För avancerad usage-baserad ratering, mätaravläsning och komplexa pris­modeller används ofta en dedikerad billing-plattform (Zuora, BillingPlatform, Stripe Billing) som skickar fakturerade belopp till D365 för ekonomi och redovisning.",
+        "a": "För enklare prenumerationer ja – både BC och F&SCM hanterar återkommande fakturering. För avancerad usage-baserad ratering, mätaravläsning och komplexa pris­modeller används ofta en dedikerad billing-plattform (Zuora, BillingPlatform, Stripe Billing) som skickar fakturerade belopp till D365 för ekonomi och redovisning.",
         "q": "Klarar Dynamics 365 förbrukningsbaserad/XaaS-fakturering?"
       },
       {
@@ -2696,7 +2696,7 @@
       },
       {
         "title": "Komplexitet i produktkonfigurator",
-        "description": "Att modellera regler, prissättning och tekniska beroenden i Product Configuration Models tar tid och kräver dedikerad förvaltning — annars eroderar lösningen snabbt när produktsortimentet ändras."
+        "description": "Att modellera regler, prissättning och tekniska beroenden i Product Configuration Models tar tid och kräver dedikerad förvaltning – annars eroderar lösningen snabbt när produktsortimentet ändras."
       }
     ],
     "roles": [
@@ -2777,7 +2777,7 @@
         "q": "Hur fungerar produktkonfiguratorn i Dynamics 365?"
       },
       {
-        "a": "Ja. Båda produkterna har MRP. F&SCM kompletterar med Planning Optimization — en separat tjänst som kör planeringen i molnet på minuter istället för timmar och stödjer komplexa scenarier. För enklare tillverkning räcker BC:s standard-MRP.",
+        "a": "Ja. Båda produkterna har MRP. F&SCM kompletterar med Planning Optimization – en separat tjänst som kör planeringen i molnet på minuter istället för timmar och stödjer komplexa scenarier. För enklare tillverkning räcker BC:s standard-MRP.",
         "q": "Kan vi köra MRP/behovsplanering i Dynamics 365?"
       }
     ],
@@ -2984,11 +2984,11 @@
       },
       {
         "title": "Standard-D365 saknar rental-funktionalitet",
-        "description": "Varken Business Central eller Finance & Supply Chain har färdig uthyrning ur lådan — det krävs en rental-ISV eller egen utveckling för att hantera tillgänglighetskalender, hyresavtal och periodisk fakturering."
+        "description": "Varken Business Central eller Finance & Supply Chain har färdig uthyrning ur lådan – det krävs en rental-ISV eller egen utveckling för att hantera tillgänglighetskalender, hyresavtal och periodisk fakturering."
       },
       {
         "title": "Val mellan rental-ISV och egenutvecklat",
-        "description": "To-Increase DynaRent (på F&SCM) och olika BC-baserade rentallösningar löser 80 % direkt men låser fast vid en leverantör — eget bygge ger flexibilitet men ökar förvaltningskostnaden."
+        "description": "To-Increase DynaRent (på F&SCM) och olika BC-baserade rentallösningar löser 80 % direkt men låser fast vid en leverantör – eget bygge ger flexibilitet men ökar förvaltningskostnaden."
       }
     ],
     "roles": [

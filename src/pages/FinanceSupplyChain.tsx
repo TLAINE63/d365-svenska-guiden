@@ -194,7 +194,7 @@ const FinanceSupplyChain = () => {
   icon={FinanceIcon}
   eyebrow="Finance & Supply Chain Management"
         title="Finance & Supply Chain Management."
-        titleAccent="Byggt för internationell komplexitet — och kräver en partner med motsvarande erfarenhet."
+        titleAccent="Byggt för internationell komplexitet – och kräver en partner med motsvarande erfarenhet."
   subhead="Microsoft levererar en kraftfull Enterpriseplattform. Partnern skapar branschmodellen, integrationerna mot era befintliga system och den förändringsledning som faktiskt ger användarnytta. Det är där F&SCM-projekt blir framgångsrika - eller missar målet. Här jämför ni partners som levererat F&SCM i er bransch."
   primary={{
     label: "Jämför F&SCM-partners",
@@ -211,7 +211,7 @@ const FinanceSupplyChain = () => {
  <p>Dynamics 365 Finance & Supply Chain Management är Microsofts enterprise-affärssystem för större och internationella organisationer med avancerad ekonomi, supply chain, flera juridiska bolag, flera valutor och hög grad av regelefterlevnad.</p>
  <p>Plattformen täcker hela värdekedjan: global ekonomistyrning och konsolidering, avancerad tillverkning med MRP/MPS, lager- och warehouse management (WMS), inköp, transportplanering samt finansiell rapportering enligt lokala regelverk i fler än 40 länder.</p>
  <p>Genom de tillhörande modulerna kan ni bygga ut lösningen efter verksamhetens behov: <strong>Dynamics 365 Commerce</strong> hanterar omnikanal-handel med integrerad POS, e-handel och clienteling för retail- och B2B-verksamheter. <strong>Dynamics 365 Human Resources</strong> ger stöd för medarbetarregister, kompetens och organisationsstruktur i större bolag. <strong>Dynamics 365 Project Operations</strong> binder ihop projektförsäljning, resursplanering, tidrapportering och projektredovisning i samma plattform.</p>
- <p>Inbyggd Copilot och autonoma agenter automatiserar repetitiva flöden — från leverantörsavstämning och prognoser till kund- och projektkommunikation — så att medarbetarna kan lägga tiden på analys och beslut i stället för manuellt arbete.</p>
+ <p>Inbyggd Copilot och autonoma agenter automatiserar repetitiva flöden – från leverantörsavstämning och prognoser till kund- och projektkommunikation – så att medarbetarna kan lägga tiden på analys och beslut i stället för manuellt arbete.</p>
  <p>Hela sviten bygger på Microsofts moln med Power Platform, Fabric och Azure i botten, vilket gör F&SCM till ett tryggt val för organisationer med höga krav på skalbarhet, integration och styrning.</p>
  </ShortAnswer>
 
@@ -227,7 +227,7 @@ const FinanceSupplyChain = () => {
            Matchar F&amp;SCM era behov?
          </h2>
          <p className="text-white/75 text-sm sm:text-base max-w-2xl leading-relaxed">
-           Ett funktionsorienterat test som tittar på vilka konkreta behov ni har — inte ett mognadsbetyg.
+           Ett funktionsorienterat test som tittar på vilka konkreta behov ni har – inte ett mognadsbetyg.
            Testet är ärligt även när svaret är att F&amp;SCM är överdimensionerat för er. Då pekar vi i stället
            på Business Central eller andra alternativ.
          </p>

@@ -4,7 +4,7 @@ export type PartnerViewType = "card_click" | "profile_visit";
 
 /**
  * Tracks a partner profile view (card click in lists or direct profile visit).
- * Fire-and-forget — never blocks UI.
+ * Fire-and-forget – never blocks UI.
  */
 export const trackPartnerView = async (
   partnerSlug: string,

@@ -3,7 +3,7 @@ import { DatabasePartner } from "@/hooks/usePartners";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const TEAM_SIZE_HELP =
-  "Många partners förstärker leveransteamet med kollegor från nordiska/europeiska kontor. Fråga partnern hur många som faktiskt arbetar med er valda applikation och bransch — det är mer relevant än totalsiffran i Sverige.";
+  "Många partners förstärker leveransteamet med kollegor från nordiska/europeiska kontor. Fråga partnern hur många som faktiskt arbetar med er valda applikation och bransch – det är mer relevant än totalsiffran i Sverige.";
 
 type DeliveryProfile = {
   typical_length?: string;
@@ -115,7 +115,7 @@ const DecisionProfile = ({ partner }: Props) => {
               <Table2 className="w-4 h-4 text-[hsl(var(--cta-orange))]" />
               Snabbfakta
               <span className="ml-2 normal-case tracking-normal text-[11px] font-normal text-slate-600">
-                samma rader för alla partners — jämför enkelt
+                samma rader för alla partners – jämför enkelt
               </span>
             </div>
             <dl className="divide-y divide-slate-100 text-sm">
@@ -137,7 +137,7 @@ const DecisionProfile = ({ partner }: Props) => {
                     p.implementations_done || null
                   ),
                 help:
-                  "Antal genomförda D365-implementationer per applikation. Säger något om volym, inte om kvalitet eller branschpassning — be alltid om referenser i den bransch ni befinner er i.",
+                  "Antal genomförda D365-implementationer per applikation. Säger något om volym, inte om kvalitet eller branschpassning – be alltid om referenser i den bransch ni befinner er i.",
               },
               { label: "Branschfokus", value: (partner.industries || []).slice(0, 3).join(", ") || null },
               {
@@ -148,7 +148,7 @@ const DecisionProfile = ({ partner }: Props) => {
               {
                 label: "Typisk total projektkostnad (BC)",
                 value: formatBcCost(p.delivery_profile),
-                help: "Partnerns egna kostnadsband för typisk Business Central-implementation (exkl. licenser). Använd som indikation — slutpriset beror på scope, integrationer, datamigrering och förändringsledning.",
+                help: "Partnerns egna kostnadsband för typisk Business Central-implementation (exkl. licenser). Använd som indikation – slutpriset beror på scope, integrationer, datamigrering och förändringsledning.",
               },
               
               

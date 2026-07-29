@@ -133,7 +133,7 @@ const getIndustryIcon = (name: string): string | null => {
 
 const TEAM_SIZE_HELP =
 
-  "Många partners förstärker leveransteamet med kollegor från nordiska/europeiska kontor. Fråga partnern hur många som faktiskt arbetar med er valda applikation och bransch — det är mer relevant än totalsiffran i Sverige.";
+  "Många partners förstärker leveransteamet med kollegor från nordiska/europeiska kontor. Fråga partnern hur många som faktiskt arbetar med er valda applikation och bransch – det är mer relevant än totalsiffran i Sverige.";
 
 type DeliveryProfile = {
   typical_length?: string;
@@ -1292,7 +1292,7 @@ const ComparePartners = () => {
       return parts.join(" i ");
     })();
 
-    // 1) Produktportfölj (D365) — vilka produktgrupper varje partner har profilerat
+    // 1) Produktportfölj (D365) – vilka produktgrupper varje partner har profilerat
     const allKeys = Object.keys(PRODUCT_FILTER_GROUP) as ProductFilterKey[];
     const shortLabel: Record<ProductFilterKey, string> = {
       bc: "Business Central",
@@ -1320,7 +1320,7 @@ const ComparePartners = () => {
       );
     }
 
-    // 2) Branschfokus inom vald produkt — bredd vs specialisering
+    // 2) Branschfokus inom vald produkt – bredd vs specialisering
     if (productActive) {
       productFilters.forEach((key) => {
         const label = PRODUCT_KEY_LABEL[key] || key;
@@ -1366,7 +1366,7 @@ const ComparePartners = () => {
       });
     }
 
-    // 4) Branschlösningar för valt filter — nämn endast partners som HAR lösningar
+    // 4) Branschlösningar för valt filter – nämn endast partners som HAR lösningar
     if (productActive || industryFilter) {
       const withSolutions = sides.filter((s) => s.F.industryApps.length > 0);
       if (withSolutions.length > 0) {
@@ -1379,7 +1379,7 @@ const ComparePartners = () => {
       }
     }
 
-    // 5) Projektlängd + kostnad per vald produkt — endast partners med data
+    // 5) Projektlängd + kostnad per vald produkt – endast partners med data
     if (productActive) {
       productFilters.forEach((key) => {
         const label = PRODUCT_KEY_LABEL[key] || key;
@@ -1404,7 +1404,7 @@ const ComparePartners = () => {
       });
     }
 
-    // 6) AI-förmågor — bryt ut förmågor, projektvolym och impact
+    // 6) AI-förmågor – bryt ut förmågor, projektvolym och impact
     const aiSides = sides.map((s) => {
       const relevant = productActive
         ? s.P.ai.filter((x) => productFilters.includes(x.productKey as ProductFilterKey))
@@ -1488,7 +1488,7 @@ const ComparePartners = () => {
       }
     }
 
-    // 7) Geografi — endast partners med angiven geografi
+    // 7) Geografi – endast partners med angiven geografi
     const geoSides = sides.filter((s) => s.P.geography.length > 0);
     if (
       geoSides.length >= 2 &&
@@ -1536,7 +1536,7 @@ const ComparePartners = () => {
               <div className="text-center text-muted-foreground py-10">Laddar partner…</div>
             ) : (
               <>
-                {/* Step 1 — Filter by product and industry */}
+                {/* Step 1 – Filter by product and industry */}
                 <div className="mb-6">
                   <label className="block text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] mb-1.5 ml-1">
                     1. Välj produkt
@@ -1685,7 +1685,7 @@ const ComparePartners = () => {
                   )}
                 </div>
 
-                {/* Step 3 — Pick 2-3 partners (filtered by step 1) */}
+                {/* Step 3 – Pick 2-3 partners (filtered by step 1) */}
                 <div className="mb-2">
                   <p className="text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] ml-1">
                     3. Välj 2–3 partners att jämföra
@@ -1693,7 +1693,7 @@ const ComparePartners = () => {
                   <p className="text-sm text-[hsl(var(--muted-foreground))] ml-1 mt-0.5">
                     {productActive || industryFilter
                       ? `${eligiblePartners.length} partner${eligiblePartners.length === 1 ? "" : "s"} matchar urvalet`
-                      : "Visar alla publicerade partners — välj produkt och bransch ovan för att smalna av"}
+                      : "Visar alla publicerade partners – välj produkt och bransch ovan för att smalna av"}
                   </p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
@@ -1810,7 +1810,7 @@ const ComparePartners = () => {
                                   <span className="font-medium">{ia.name}</span>
                                   {(ia.application || ia.industry) && (
                                     <span className="text-slate-500">
-                                      {" — "}
+                                      {" – "}
                                       {[ia.application, ia.industry].filter(Boolean).join(" · ")}
                                     </span>
                                   )}
@@ -1836,7 +1836,7 @@ const ComparePartners = () => {
                         label="Kompetens inom Dynamics 365"
                         subtitle="Överblick över samtliga Dynamics 365-applikationer som partnern arbetar med."
                         warn
-                        help="Alla Dynamics 365-applikationer som partnern arbetar med — oavsett vilka produkter som är valda i jämförelsen."
+                        help="Alla Dynamics 365-applikationer som partnern arbetar med – oavsett vilka produkter som är valda i jämförelsen."
                         a={renderAppList(A.apps, "Inga Dynamics 365-applikationer uppgivna")}
                         b={renderAppList(B.apps, "Inga Dynamics 365-applikationer uppgivna")}
                         c={renderAppList(C.apps, "Inga Dynamics 365-applikationer uppgivna")}
@@ -1929,7 +1929,7 @@ const ComparePartners = () => {
                         return rows;
                       })()}
 
-                      {/* Längre innehåll längst ned — AI-profil, produktbeskrivningar och branschpitchar */}
+                      {/* Längre innehåll längst ned – AI-profil, produktbeskrivningar och branschpitchar */}
                       <R
                         label="AI, Copilot & Automation"
                         help="Partnerns samlade AI- och automationsprofil: leveransmodell, förmågor, relevanta områden, use cases, erfarenhet och underlag. Bygger på partnerns egna uppgifter."
@@ -2032,8 +2032,8 @@ const ComparePartners = () => {
                           return renderValue(fallback);
                         };
                         const helpText = allowedApps
-                          ? "Antal genomförda implementationer för den valda produktens applikationer. Säger något om volym, inte om kvalitet eller branschpassning — be alltid om referenser i den bransch ni befinner er i."
-                          : "Antal genomförda D365-implementationer per applikation. Säger något om volym, inte om kvalitet eller branschpassning — be alltid om referenser i den bransch ni befinner er i.";
+                          ? "Antal genomförda implementationer för den valda produktens applikationer. Säger något om volym, inte om kvalitet eller branschpassning – be alltid om referenser i den bransch ni befinner er i."
+                          : "Antal genomförda D365-implementationer per applikation. Säger något om volym, inte om kvalitet eller branschpassning – be alltid om referenser i den bransch ni befinner er i.";
                         return (
                           <R
                             label="Genomförda implementationer"
@@ -2082,10 +2082,10 @@ const ComparePartners = () => {
                           return (
                             <div className="rounded-xl border border-slate-200 bg-white p-5">
                               <p className="text-sm text-slate-700 mb-1">
-                                Skicka samma förfrågan till <span className="font-semibold">{joined}</span> — du får jämförbara svar.
+                                Skicka samma förfrågan till <span className="font-semibold">{joined}</span> – du får jämförbara svar.
                               </p>
                               <p className="text-xs text-slate-500 mb-4">
-                                Varje partner kontaktas separat och ser bara sin egen förfrågan — aldrig samma tråd.
+                                Varje partner kontaktas separat och ser bara sin egen förfrågan – aldrig samma tråd.
                               </p>
                               <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-600 mb-2">
                                 Hur vill du gå vidare?
@@ -2121,7 +2121,7 @@ const ComparePartners = () => {
                                 </div>
                               </div>
                               <p className="text-xs text-slate-500 mt-3">
-                                Kostnadsfritt. d365.se säljer inte implementationer — förfrågan går direkt till respektive partner med kopia till dig och d365.se.
+                                Kostnadsfritt. d365.se säljer inte implementationer – förfrågan går direkt till respektive partner med kopia till dig och d365.se.
                               </p>
                             </div>
                           );

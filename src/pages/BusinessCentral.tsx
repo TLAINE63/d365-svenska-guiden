@@ -229,9 +229,9 @@ const BusinessCentral = () => {
   />
 
  <ShortAnswer title="Vad är Microsoft Dynamics 365 Business Central">
- <p>Dynamics 365 Business Central är Microsofts moderna molnbaserade affärssystem för mindre och medelstora företag som vill samla ekonomi, inköp, lager, försäljning och produktion i en plattform — i stället för att hålla ihop en flora av separata system som inte pratar med varandra.</p>
- <p>Inbyggd AI via Microsoft Copilot och nya autonoma agenter automatiserar repetitiva uppgifter direkt i systemet. Det kan handla om orderregistrering, produktbeskrivningar, försäljnings- och kundtjänstflöden eller leverantörsavstämningar — moment som tidigare krävt manuell handpåläggning kan nu hanteras med stöd av AI inifrån affärssystemet.</p>
- <p>Genom Microsoft Marketplace finns dessutom över 7 000 certifierade tilläggsappar som ger djup branschanpassning utan kostsam specialutveckling — oavsett om ni är inom tillverkning, handel, tjänster eller bygg. Det gör att lösningen kan formas efter er verksamhet snarare än tvärtom.</p>
+ <p>Dynamics 365 Business Central är Microsofts moderna molnbaserade affärssystem för mindre och medelstora företag som vill samla ekonomi, inköp, lager, försäljning och produktion i en plattform – i stället för att hålla ihop en flora av separata system som inte pratar med varandra.</p>
+ <p>Inbyggd AI via Microsoft Copilot och nya autonoma agenter automatiserar repetitiva uppgifter direkt i systemet. Det kan handla om orderregistrering, produktbeskrivningar, försäljnings- och kundtjänstflöden eller leverantörsavstämningar – moment som tidigare krävt manuell handpåläggning kan nu hanteras med stöd av AI inifrån affärssystemet.</p>
+ <p>Genom Microsoft Marketplace finns dessutom över 7 000 certifierade tilläggsappar som ger djup branschanpassning utan kostsam specialutveckling – oavsett om ni är inom tillverkning, handel, tjänster eller bygg. Det gör att lösningen kan formas efter er verksamhet snarare än tvärtom.</p>
  <p>Business Central är tillgängligt i över 160 länder med lokaliseringar från Microsoft och partners, vilket gör det till ett tryggt val även för bolag med internationella ambitioner eller dotterbolag i flera länder.</p>
  </ShortAnswer>
 
@@ -247,7 +247,7 @@ const BusinessCentral = () => {
            Matchar Business Central era behov?
          </h2>
          <p className="text-white/75 text-sm sm:text-base max-w-2xl leading-relaxed">
-           20–25 frågor — först generella, sedan branschspecifika. Resultatet visar vad som ingår i BC i
+           20–25 frågor – först generella, sedan branschspecifika. Resultatet visar vad som ingår i BC i
            standard, vad som kräver Premium, konfiguration eller ISV-tillägg, och vad som ligger utanför BC.
          </p>
        </div>
@@ -878,7 +878,7 @@ const BusinessCentral = () => {
               Saknar Business Central något? Utforska ISV-katalogen
             </h3>
             <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Filtrera 40+ ISV-lösningar på kategori, typ och bransch — från WMS och e-handel till
+              Filtrera 40+ ISV-lösningar på kategori, typ och bransch – från WMS och e-handel till
               tidrapportering, fastighet och svenska lokalanpassningar.
             </p>
             <Link to="/kunskapscenter/business-central-tillagg/">

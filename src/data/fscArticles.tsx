@@ -48,15 +48,15 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Vad är finansiell konsolidering?</h2>
         <p>
-          Konsolidering innebär att slå ihop bokföringen från flera juridiska enheter — dotterbolag, filialer, affärsenheter — till en sammanhållen rapport för koncernen. Traditionellt är detta en manuell process med Excel-filer, felkällor och fördröjningar på dagar eller veckor.
+          Konsolidering innebär att slå ihop bokföringen från flera juridiska enheter – dotterbolag, filialer, affärsenheter – till en sammanhållen rapport för koncernen. Traditionellt är detta en manuell process med Excel-filer, felkällor och fördröjningar på dagar eller veckor.
         </p>
 
         <h2>Intercompany-eliminering</h2>
         <p>
-          En av de viktigaste funktionerna är automatisk eliminering av transaktioner mellan koncernbolag. Om Enhet A säljer till Enhet B ska denna intäkt och kostnad tas bort i konsoliderade siffrorna. Dynamics 365 hanterar detta regelbaserat — inga manuella justeringsposter behövs.
+          En av de viktigaste funktionerna är automatisk eliminering av transaktioner mellan koncernbolag. Om Enhet A säljer till Enhet B ska denna intäkt och kostnad tas bort i konsoliderade siffrorna. Dynamics 365 hanterar detta regelbaserat – inga manuella justeringsposter behövs.
         </p>
         <p>
-          Systemet stöder flera konsolideringsmetoder: proportionell konsolidering, kapitalandelsmetoden och fullständig konsolidering — allt konfigureras per enhet och period.
+          Systemet stöder flera konsolideringsmetoder: proportionell konsolidering, kapitalandelsmetoden och fullständig konsolidering – allt konfigureras per enhet och period.
         </p>
 
         <h2>Valutaomräkning</h2>
@@ -66,7 +66,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Dimensionsanalys i realtid</h2>
         <p>
-          Finansiella dimensioner — som affärsenhet, kostnadsställe och projekt — flödar igenom hela konsolideringen. Ledningen kan borra ned i realtidsdata utan att vänta på månadsrapporter.
+          Finansiella dimensioner – som affärsenhet, kostnadsställe och projekt – flödar igenom hela konsolideringen. Ledningen kan borra ned i realtidsdata utan att vänta på månadsrapporter.
         </p>
         <ul>
           <li>Inbyggd Financial Reporter för interaktiva rapporter</li>
@@ -102,7 +102,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     content: (
       <>
         <p>
-          <strong>Att ha rätt vara på rätt plats i rätt tid är kärnan i supply chain.</strong> MRP-motorn i Dynamics 365 SCM beräknar exakt vad som behöver köpas in eller tillverkas — och när — baserat på efterfrågan, lagernivåer och ledtider.
+          <strong>Att ha rätt vara på rätt plats i rätt tid är kärnan i supply chain.</strong> MRP-motorn i Dynamics 365 SCM beräknar exakt vad som behöver köpas in eller tillverkas – och när – baserat på efterfrågan, lagernivåer och ledtider.
         </p>
 
         <div className="my-8 grid grid-cols-3 gap-4 text-center">
@@ -130,7 +130,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           Varje artikel konfigureras med en täckningsstrategi: krav-till-krav (make-to-order), minimax, fast orderkvantitet eller ekonomisk orderkvantitet (EOQ). Systemet respekterar ledtider, säkerhetslager och kalendrar automatiskt.
         </p>
         <p>
-          Planning Optimization — Dynamics 365:s molnbaserade planeringsmotor — kan köra en fullständig MRP-beräkning för tusentals artiklar på minuter istället för timmar.
+          Planning Optimization – Dynamics 365:s molnbaserade planeringsmotor – kan köra en fullständig MRP-beräkning för tusentals artiklar på minuter istället för timmar.
         </p>
 
         <h2>Efterfrågeprognoser med maskininlärning</h2>
@@ -171,7 +171,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     content: (
       <>
         <p>
-          <strong>Leverantörsfakturering är en av de mest resurskrävande processerna i ekonomiavdelningen.</strong> Med AI-assisterad automatisering kan organisationer bearbeta 10 gånger fler fakturor med samma personalstyrka — från inkommen faktura till bokförd post på under 2 minuter.
+          <strong>Leverantörsfakturering är en av de mest resurskrävande processerna i ekonomiavdelningen.</strong> Med AI-assisterad automatisering kan organisationer bearbeta 10 gånger fler fakturor med samma personalstyrka – från inkommen faktura till bokförd post på under 2 minuter.
         </p>
 
         <div className="my-8 grid grid-cols-3 gap-4 text-center">
@@ -191,7 +191,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Intelligent dokumenttolkning</h2>
         <p>
-          Document Intelligence (AI Builder) extraherar automatiskt leverantörsnamn, fakturanummer, belopp, moms och radposter från inkomna PDF-fakturor — oavsett format. Noggrannheten överstiger 95% redan från start och förbättras kontinuerligt.
+          Document Intelligence (AI Builder) extraherar automatiskt leverantörsnamn, fakturanummer, belopp, moms och radposter från inkomna PDF-fakturor – oavsett format. Noggrannheten överstiger 95% redan från start och förbättras kontinuerligt.
         </p>
 
         <h2>Trevägsmatchning</h2>
@@ -199,7 +199,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           Systemet matchar automatiskt fakturan mot inköpsorder och produktinleveransen (trevägsmatchning). Om pris, kvantitet och leverantör stämmer överens godkänns fakturan utan manuell åtgärd.
         </p>
         <p>
-          Toleransregler konfigureras per leverantör och belopp — en avvikelse på 2% på en liten faktura kräver inte samma godkännandeprocess som en avvikelse på 0,1% på en stor.
+          Toleransregler konfigureras per leverantör och belopp – en avvikelse på 2% på en liten faktura kräver inte samma godkännandeprocess som en avvikelse på 0,1% på en stor.
         </p>
 
         <h2>Godkännandeflöden och eskalering</h2>
@@ -240,7 +240,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     content: (
       <>
         <p>
-          <strong>Warehouse Management System i Dynamics 365 SCM ger fullständig kontroll över lagerprocesser</strong> — från mottagning och inlagring till plockning, packning och leverans. Varje pall och låda spåras i realtid.
+          <strong>Warehouse Management System i Dynamics 365 SCM ger fullständig kontroll över lagerprocesser</strong> – från mottagning och inlagring till plockning, packning och leverans. Varje pall och låda spåras i realtid.
         </p>
 
         <div className="my-8 p-4 bg-secondary/50 rounded-lg border border-border">
@@ -259,7 +259,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           Systemet genererar plocklistor baserade på order och lastuppbyggnad. Lageroperatörer får steg-för-steg-instruktioner på handhållna RF-terminaler eller glasögon. Klusterplockning optimerar rutter för att minimera förflyttning.
         </p>
         <p>
-          License Plate (LP) tracking ger spårbarhet ner till pallnivå — varje förflyttning registreras med tid, användare och position.
+          License Plate (LP) tracking ger spårbarhet ner till pallnivå – varje förflyttning registreras med tid, användare och position.
         </p>
 
         <h2>Cross-docking och återfyllnad</h2>
@@ -320,7 +320,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>En plattform, alla kanaler</h2>
         <p>
-          Traditionella detaljhandelsystem har separata databaser för fysisk butik och e-handel. Commerce löser detta med Commerce Scale Unit — en central dataplattform som synkar produkter, priser, lagersaldon och kunddata i realtid över alla kanaler.
+          Traditionella detaljhandelsystem har separata databaser för fysisk butik och e-handel. Commerce löser detta med Commerce Scale Unit – en central dataplattform som synkar produkter, priser, lagersaldon och kunddata i realtid över alla kanaler.
         </p>
 
         <h2>Modern Point of Sale (MPOS/CPOS)</h2>
@@ -359,7 +359,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
   {
     slug: "prismotorn-och-kampanjhantering",
     title: "Prismotorn och kampanjhantering",
-    description: "Komplexa prisregler utan ett enda kalkylblad — realtidsprisberäkning i alla kanaler.",
+    description: "Komplexa prisregler utan ett enda kalkylblad – realtidsprisberäkning i alla kanaler.",
     product: "Finance & Supply Chain",
     productSlug: "financesupplychain",
     parentPath: "/finance-supply-chain/",
@@ -369,17 +369,17 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     content: (
       <>
         <p>
-          <strong>Priset är detaljhandelns mest kraftfulla verktyg.</strong> Dynamics 365 Commerce prismotorn hanterar miljontals prisuträkningar per dag med sub-millisekund svarstider — och replikerar kampanjförändringar i realtid till alla kanaler.
+          <strong>Priset är detaljhandelns mest kraftfulla verktyg.</strong> Dynamics 365 Commerce prismotorn hanterar miljontals prisuträkningar per dag med sub-millisekund svarstider – och replikerar kampanjförändringar i realtid till alla kanaler.
         </p>
 
         <h2>Prioriterad prisregelmotor</h2>
         <p>Prismotorn arbetar med prioriterade regler: kundspecifika priser slår kampanjpriser som slår prislistor som slår baslistpris. För varje köptillfälle beräknas bästa möjliga pris automatiskt baserat på kundens tillhörighet, tidpunkt och kanalval.</p>
 
         <h2>Kampanjtyper och kombinationsregler</h2>
-        <p>Commerce stöder köp-N-betala-M, tröskelrabatter (köp för 500 kr — få 10 % rabatt), mix-och-matcha-kampanjer och kombinationsrabatter. Concurrency-regler styr om kampanjer kan kombineras eller om bästa priset väljs. Affinity-baserade kampanjer riktas mot kundsegment definierade i Customer Insights.</p>
+        <p>Commerce stöder köp-N-betala-M, tröskelrabatter (köp för 500 kr – få 10 % rabatt), mix-och-matcha-kampanjer och kombinationsrabatter. Concurrency-regler styr om kampanjer kan kombineras eller om bästa priset väljs. Affinity-baserade kampanjer riktas mot kundsegment definierade i Customer Insights.</p>
 
         <h2>Realtidsuppdatering</h2>
-        <p>Prisändringar och nya kampanjer publiceras omedelbart i Commerce Headquarters och replikeras till POS-terminaler, e-handelssajten och mobila kanaler på sekunder — inga nattliga prisuppdateringar behövs.</p>
+        <p>Prisändringar och nya kampanjer publiceras omedelbart i Commerce Headquarters och replikeras till POS-terminaler, e-handelssajten och mobila kanaler på sekunder – inga nattliga prisuppdateringar behövs.</p>
         <ul>
           <li>Inbyggt stöd för clearance-prissättning och markdowns</li>
           <li>Automatiska prisaviseringar till kunder (önskelista)</li>
@@ -411,7 +411,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     content: (
       <>
         <p>
-          <strong>Dynamics 365 Human Resources är en komplett HCM-plattform</strong> som stöder hela medarbetarresan — från det första jobbannonsen till pensionering — med data-driven beslutsfattning och automation i varje steg.
+          <strong>Dynamics 365 Human Resources är en komplett HCM-plattform</strong> som stöder hela medarbetarresan – från det första jobbannonsen till pensionering – med data-driven beslutsfattning och automation i varje steg.
         </p>
 
         <div className="my-8 grid grid-cols-3 gap-4 text-center">
@@ -436,7 +436,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Kompetensutveckling och utbildning</h2>
         <p>
-          Kompetensmatriser kopplar roller till kompetenskrav. Medarbetare ser sina kompetensgap och kan anmäla sig till kurser direkt i Employee Self-Service. Integration med LinkedIn Learning ger tillgång till 16 000+ kurser — avslutade utbildningar uppdaterar automatiskt medarbetarens kompetensprofil.
+          Kompetensmatriser kopplar roller till kompetenskrav. Medarbetare ser sina kompetensgap och kan anmäla sig till kurser direkt i Employee Self-Service. Integration med LinkedIn Learning ger tillgång till 16 000+ kurser – avslutade utbildningar uppdaterar automatiskt medarbetarens kompetensprofil.
         </p>
 
         <h2>Prestandahantering och succession</h2>
@@ -477,7 +477,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     content: (
       <>
         <p>
-          <strong>Employee Self-Service och Manager Self-Service minskar HR-administrationens arbetsbörda med upp till 70%</strong> — medarbetare och chefer hanterar det dagliga utan att belasta HR-avdelningen, dygnet runt via mobil eller dator.
+          <strong>Employee Self-Service och Manager Self-Service minskar HR-administrationens arbetsbörda med upp till 70%</strong> – medarbetare och chefer hanterar det dagliga utan att belasta HR-avdelningen, dygnet runt via mobil eller dator.
         </p>
 
         <div className="my-8 grid grid-cols-3 gap-4 text-center">
@@ -510,7 +510,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Chatbot och AI-assistans</h2>
         <p>
-          En inbyggd AI-chatbot (Power Virtual Agents) svarar på vanliga HR-frågor som semesterdagar, föräldraledighetspolicy och pensionsregler — dygnet runt och på medarbetarens språk.
+          En inbyggd AI-chatbot (Power Virtual Agents) svarar på vanliga HR-frågor som semesterdagar, föräldraledighetspolicy och pensionsregler – dygnet runt och på medarbetarens språk.
         </p>
         <ul>
           <li>Lönespecifikationer och skatteunderlag i PDF</li>
@@ -546,7 +546,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     content: (
       <>
         <p>
-          <strong>Project Operations förenar projektledning, resurshantering, tidrapportering och ekonomi i en plattform.</strong> Projektledare och ekonomichefer ser alltid samma siffror — i realtid — från offert till bokförd intäkt.
+          <strong>Project Operations förenar projektledning, resurshantering, tidrapportering och ekonomi i en plattform.</strong> Projektledare och ekonomichefer ser alltid samma siffror – i realtid – från offert till bokförd intäkt.
         </p>
 
         <div className="my-8 grid grid-cols-3 gap-4 text-center">
@@ -612,7 +612,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     content: (
       <>
         <p>
-          <strong>I tjänsteföretag är medarbetarna den viktigaste resursen.</strong> Project Operations resursplanering balanserar efterfrågan och kapacitet med precision — och AI-matchning hittar rätt konsult för varje uppdrag på sekunder.
+          <strong>I tjänsteföretag är medarbetarna den viktigaste resursen.</strong> Project Operations resursplanering balanserar efterfrågan och kapacitet med precision – och AI-matchning hittar rätt konsult för varje uppdrag på sekunder.
         </p>
 
         <div className="my-8 grid grid-cols-3 gap-4 text-center">
@@ -637,7 +637,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Kompetensbaserad matchning</h2>
         <p>
-          AI-motorn matchar projektbehov mot kompetensprofiler, certifieringsnivåer, plats, preferenser och befintliga åtaganden. Resurschefen får en rankad lista av kandidater med förklaring till matchningen — och kan boka med ett klick.
+          AI-motorn matchar projektbehov mot kompetensprofiler, certifieringsnivåer, plats, preferenser och befintliga åtaganden. Resurschefen får en rankad lista av kandidater med förklaring till matchningen – och kan boka med ett klick.
         </p>
         <p>
           Universal Resource Scheduling (URS) används som planeringsmotor.

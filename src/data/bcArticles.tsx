@@ -33,7 +33,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     content: (
       <>
         <p>
-          <strong>En komplett introduktion till Sveriges populäraste affärssystem för mindre och medelstora företag.</strong> Microsoft Dynamics 365 Business Central är ett molnbaserat affärssystem (ERP) utvecklat för att ge mindre och medelstora företag full kontroll över sin verksamhet — från ekonomi och inköp till lager, produktion och försäljning. Det är en modern efterföljare till det välkända Dynamics NAV (Navision) och ingår i Microsofts breda Dynamics 365-svit.
+          <strong>En komplett introduktion till Sveriges populäraste affärssystem för mindre och medelstora företag.</strong> Microsoft Dynamics 365 Business Central är ett molnbaserat affärssystem (ERP) utvecklat för att ge mindre och medelstora företag full kontroll över sin verksamhet – från ekonomi och inköp till lager, produktion och försäljning. Det är en modern efterföljare till det välkända Dynamics NAV (Navision) och ingår i Microsofts breda Dynamics 365-svit.
         </p>
 
         <h2>Varför väljer svenska företag Business Central?</h2>
@@ -55,12 +55,12 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Molnbaserat och alltid uppdaterat</h2>
         <p>
-          Business Central levereras som molntjänst (SaaS) via Microsoft Azure — ni har alltid tillgång till de senaste funktionerna utan kostsamma uppgraderingsprojekt. Microsoft släpper löpande uppdateringar med nya funktioner och AI-drivna verktyg som Copilot.
+          Business Central levereras som molntjänst (SaaS) via Microsoft Azure – ni har alltid tillgång till de senaste funktionerna utan kostsamma uppgraderingsprojekt. Microsoft släpper löpande uppdateringar med nya funktioner och AI-drivna verktyg som Copilot.
         </p>
 
         <h2>För vem passar Business Central?</h2>
         <p>
-          Systemet passar företag med ungefär 10–500 anställda som vill ha ett professionellt affärssystem utan den komplexitet som traditionella enterprise-lösningar medför. Det är flexibelt nog för de flesta branscher — handel, tillverkning, tjänster och distribution. Business Central implementeras av certifierade Microsoft-partners i Sverige. Du hittar mer information och kan hitta en passande partner här: <Link to="/businesscentral/" className="text-primary underline hover:text-primary/80">Business Central pris – Licenser &amp; partners | d365.se</Link>
+          Systemet passar företag med ungefär 10–500 anställda som vill ha ett professionellt affärssystem utan den komplexitet som traditionella enterprise-lösningar medför. Det är flexibelt nog för de flesta branscher – handel, tillverkning, tjänster och distribution. Business Central implementeras av certifierade Microsoft-partners i Sverige. Du hittar mer information och kan hitta en passande partner här: <Link to="/businesscentral/" className="text-primary underline hover:text-primary/80">Business Central pris – Licenser &amp; partners | d365.se</Link>
         </p>
 
         <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
@@ -78,7 +78,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
   {
     slug: "ekonomi-redovisning",
     title: "Business Central för ekonomi och redovisning",
-    description: "Så ger Business Central din ekonomiavdelning full kontroll — i realtid",
+    description: "Så ger Business Central din ekonomiavdelning full kontroll – i realtid",
     headerLabel: "Ekonomi & redovisning",
     product: "Business Central",
     productSlug: "businesscentral",
@@ -87,17 +87,17 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     content: (
       <>
         <p>
-          <strong>Så ger Business Central din ekonomiavdelning full kontroll — i realtid.</strong> För många företag är ekonomiavdelningen hjärtat i verksamheten. Microsoft Dynamics 365 Business Central är byggt med ekonomifunktioner i centrum och ger ekonomiteamet kraftfulla verktyg för att arbeta effektivt, träffsäkert och i realtid.
+          <strong>Så ger Business Central din ekonomiavdelning full kontroll – i realtid.</strong> För många företag är ekonomiavdelningen hjärtat i verksamheten. Microsoft Dynamics 365 Business Central är byggt med ekonomifunktioner i centrum och ger ekonomiteamet kraftfulla verktyg för att arbeta effektivt, träffsäkert och i realtid.
         </p>
 
         <h2>Redovisning och bokföring</h2>
         <p>
-          Business Central hanterar hela redovisningscykeln — från dagliga transaktioner och periodisering till månads- och årsbokslut. Du kan sätta upp kontoplaner, kostnadsdimensioner och bokföringsmallar som speglar exakt hur din verksamhet är organiserad. Systemet stöder automatisk kontering, vilket minskar manuella fel och sparar tid.
+          Business Central hanterar hela redovisningscykeln – från dagliga transaktioner och periodisering till månads- och årsbokslut. Du kan sätta upp kontoplaner, kostnadsdimensioner och bokföringsmallar som speglar exakt hur din verksamhet är organiserad. Systemet stöder automatisk kontering, vilket minskar manuella fel och sparar tid.
         </p>
 
         <h2>Kund- och leverantörsreskontra</h2>
         <p>
-          Hantera fakturor, betalningar och påminnelser i ett sammanhängande flöde. Business Central kan automatisera stora delar av fakturaprocessen — från att skicka kundpåminnelser till att matcha inkommande bankbetalningar mot öppna poster.
+          Hantera fakturor, betalningar och påminnelser i ett sammanhängande flöde. Business Central kan automatisera stora delar av fakturaprocessen – från att skicka kundpåminnelser till att matcha inkommande bankbetalningar mot öppna poster.
         </p>
 
         <h2>Kassaflöde och likviditetsstyrning</h2>
@@ -112,7 +112,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Dimensioner och rapportering</h2>
         <p>
-          En av systemets styrkor är möjligheten att analysera data i flera dimensioner — till exempel avdelning, projekt, kostnadsställe eller geografi. Med Excel-integrationen och Power BI skapar ni skräddarsydda rapporter som uppdateras i realtid.
+          En av systemets styrkor är möjligheten att analysera data i flera dimensioner – till exempel avdelning, projekt, kostnadsställe eller geografi. Med Excel-integrationen och Power BI skapar ni skräddarsydda rapporter som uppdateras i realtid.
         </p>
 
         <h2>Regelefterlevnad och revision</h2>
@@ -123,7 +123,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
         <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
           <h3 className="text-xl font-bold text-foreground mb-2">Få kontroll över er ekonomi</h3>
           <p className="text-muted-foreground mb-4">
-            Vi hjälper er att komma igång — från implementation till löpande support.
+            Vi hjälper er att komma igång – från implementation till löpande support.
           </p>
           <p>
             <Link to="/kontakt/" className="font-semibold text-primary hover:underline">
@@ -146,7 +146,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     content: (
       <>
         <p>
-          <strong>Optimera din lagerhantering och minska kostnaderna med smarta verktyg.</strong> Effektiv lagerhantering är avgörande för lönsamheten — för mycket lager binder kapital, för lite leder till förlorad försäljning. Microsoft Dynamics 365 Business Central ger dig precis rätt verktyg för att hitta den optimala balansen.
+          <strong>Optimera din lagerhantering och minska kostnaderna med smarta verktyg.</strong> Effektiv lagerhantering är avgörande för lönsamheten – för mycket lager binder kapital, för lite leder till förlorad försäljning. Microsoft Dynamics 365 Business Central ger dig precis rätt verktyg för att hitta den optimala balansen.
         </p>
 
         <h2>Lagerstyrning i realtid</h2>
@@ -156,7 +156,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Automatisk påfyllning med AI-stöd</h2>
         <p>
-          Med inbyggd AI och efterfrågeprognoser kan Business Central föreslå när och hur mycket som behöver beställas hem — baserat på historisk försäljning, säsongsvariation och aktuell lagernivå. Det eliminerar gissningar och minskar risken för både överlager och brist.
+          Med inbyggd AI och efterfrågeprognoser kan Business Central föreslå när och hur mycket som behöver beställas hem – baserat på historisk försäljning, säsongsvariation och aktuell lagernivå. Det eliminerar gissningar och minskar risken för både överlager och brist.
         </p>
 
         <h2>Godsmottagning och utleveranser</h2>
@@ -166,7 +166,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Flera lagerplatser och lagerstrukturer</h2>
         <p>
-          Oavsett om ni har ett centrallager, flera regionala lager eller ett komplext lagerupplägg med zoner och hyllplatser — Business Central hanterar det. Ni kan konfigurera lagerstrukturen exakt som ert fysiska lager ser ut och styra plockordning efter era egna regler.
+          Oavsett om ni har ett centrallager, flera regionala lager eller ett komplext lagerupplägg med zoner och hyllplatser – Business Central hanterar det. Ni kan konfigurera lagerstrukturen exakt som ert fysiska lager ser ut och styra plockordning efter era egna regler.
         </p>
 
         <h2>Integration med transportlösningar</h2>
@@ -176,13 +176,13 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Montering och enkel produktion</h2>
         <p>
-          Business Central stöder monteringsorder — perfekt för företag som sätter ihop produkter från komponenter. Systemet håller koll på materialåtgång och kostnad per monteringsorder.
+          Business Central stöder monteringsorder – perfekt för företag som sätter ihop produkter från komponenter. Systemet håller koll på materialåtgång och kostnad per monteringsorder.
         </p>
 
         <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
           <h3 className="text-xl font-bold text-foreground mb-2">Optimera ert lager med Business Central</h3>
           <p className="text-muted-foreground mb-4">
-            Vi hjälper er att sätta upp en lösning som passar era flöden — från dag ett.
+            Vi hjälper er att sätta upp en lösning som passar era flöden – från dag ett.
           </p>
           <p>
             <Link to="/kontakt/" className="font-semibold text-primary hover:underline">
@@ -196,7 +196,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
   {
     slug: "forsaljning-crm",
     title: "Försäljning och CRM i Business Central",
-    description: "Från offert till betalad faktura — hela säljprocessen i ett system",
+    description: "Från offert till betalad faktura – hela säljprocessen i ett system",
     headerLabel: "Försäljning & CRM",
     product: "Business Central",
     productSlug: "businesscentral",
@@ -205,7 +205,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     content: (
       <>
         <p>
-          <strong>Från offert till betalad faktura — hela säljprocessen i ett system.</strong> Att ha full koll på säljprocesser och kundrelationer är avgörande för tillväxt. Microsoft Dynamics 365 Business Central innehåller inbyggd CRM-funktionalitet och ett komplett flöde för försäljning — från den första kontakten med en prospekt till att fakturan är betald.
+          <strong>Från offert till betalad faktura – hela säljprocessen i ett system.</strong> Att ha full koll på säljprocesser och kundrelationer är avgörande för tillväxt. Microsoft Dynamics 365 Business Central innehåller inbyggd CRM-funktionalitet och ett komplett flöde för försäljning – från den första kontakten med en prospekt till att fakturan är betald.
         </p>
 
         <h2>Kontakt- och kundhantering</h2>
@@ -215,17 +215,17 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Offert och orderflöde</h2>
         <p>
-          Säljarna kan enkelt skapa offerter, konvertera dem till ordrar och följa dem hela vägen till leverans och fakturering — utan att behöva byta system. Prissättning, rabatter och betalningsvillkor hanteras per kund eller kundgrupp.
+          Säljarna kan enkelt skapa offerter, konvertera dem till ordrar och följa dem hela vägen till leverans och fakturering – utan att behöva byta system. Prissättning, rabatter och betalningsvillkor hanteras per kund eller kundgrupp.
         </p>
 
         <h2>Marknadsföring och kampanjer</h2>
         <p>
-          Business Central har stöd för att segmentera din kundbas, skapa kampanjer och följa upp aktiviteter. Du kan registrera interaktioner — samtal, möten, e-post — direkt kopplade till kontakter och affärsmöjligheter.
+          Business Central har stöd för att segmentera din kundbas, skapa kampanjer och följa upp aktiviteter. Du kan registrera interaktioner – samtal, möten, e-post – direkt kopplade till kontakter och affärsmöjligheter.
         </p>
 
         <h2>Realtidsinsikter för säljaren</h2>
         <p>
-          Varje säljare har tillgång till sin egen dashboard med nyckeltal — öppna ordrar, vunna affärer, utestående offerter och prognoser. Med Power BI-integrationen kan dessa insikter visualiseras i interaktiva rapporter.
+          Varje säljare har tillgång till sin egen dashboard med nyckeltal – öppna ordrar, vunna affärer, utestående offerter och prognoser. Med Power BI-integrationen kan dessa insikter visualiseras i interaktiva rapporter.
         </p>
 
         <h2>Integration med Outlook och Teams</h2>
@@ -235,7 +235,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Skalbar CRM-funktionalitet</h2>
         <p>
-          Behöver ni mer avancerad CRM — leadhantering, pipeline-styrning eller marknadsautomatisering — kan Business Central kombineras med Dynamics 365 Sales för ett komplett säljstödsystem.
+          Behöver ni mer avancerad CRM – leadhantering, pipeline-styrning eller marknadsautomatisering – kan Business Central kombineras med Dynamics 365 Sales för ett komplett säljstödsystem.
         </p>
 
         <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
@@ -255,7 +255,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
   {
     slug: "produktion",
     title: "Produktion i Business Central",
-    description: "Styr din tillverkning med full kontroll — från produktionsorder till färdig produkt",
+    description: "Styr din tillverkning med full kontroll – från produktionsorder till färdig produkt",
     headerLabel: "Produktion",
     product: "Business Central",
     productSlug: "businesscentral",
@@ -264,12 +264,12 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     content: (
       <>
         <p>
-          <strong>Styr din tillverkning med full kontroll — från produktionsorder till färdig produkt.</strong> För tillverkande företag är förmågan att planera, genomföra och följa upp produktionen avgörande. Microsoft Dynamics 365 Business Central erbjuder en komplett uppsättning produktionsfunktioner som täcker hela tillverkningscykeln.
+          <strong>Styr din tillverkning med full kontroll – från produktionsorder till färdig produkt.</strong> För tillverkande företag är förmågan att planera, genomföra och följa upp produktionen avgörande. Microsoft Dynamics 365 Business Central erbjuder en komplett uppsättning produktionsfunktioner som täcker hela tillverkningscykeln.
         </p>
 
         <h2>Produktstruktur och stycklistor</h2>
         <p>
-          Grundstenen i produktionsmodulen är stycklistorna (BOM – Bill of Materials). Här definierar ni exakt vilka material och komponenter som ingår i varje produkt, i vilka mängder och i vilken ordning. Business Central stöder flera nivåer av stycklistor — perfekt för komplexa sammansatta produkter.
+          Grundstenen i produktionsmodulen är stycklistorna (BOM – Bill of Materials). Här definierar ni exakt vilka material och komponenter som ingår i varje produkt, i vilka mängder och i vilken ordning. Business Central stöder flera nivåer av stycklistor – perfekt för komplexa sammansatta produkter.
         </p>
 
         <h2>Produktionsplanering och kapacitetsstyrning</h2>
@@ -284,7 +284,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Kostnadskalkylering</h2>
         <p>
-          Business Central beräknar produktionskostnaden baserat på materialåtgång, maskintid och direkt lön. Ni kan jämföra faktisk kostnad mot standardkostnad och analysera avvikelser — ett viktigt verktyg för att förbättra lönsamheten.
+          Business Central beräknar produktionskostnaden baserat på materialåtgång, maskintid och direkt lön. Ni kan jämföra faktisk kostnad mot standardkostnad och analysera avvikelser – ett viktigt verktyg för att förbättra lönsamheten.
         </p>
 
         <h2>Montering vid beställning</h2>
@@ -294,7 +294,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Spårbarhet och kvalitet</h2>
         <p>
-          Med stöd för serie- och partinummer kan ni spåra enskilda artiklar och råvarupartier genom hela tillverkningskedjan — viktigt för kvalitetskontroll, återkallelser och spårbarhetskrav i reglerade branscher.
+          Med stöd för serie- och partinummer kan ni spåra enskilda artiklar och råvarupartier genom hela tillverkningskedjan – viktigt för kvalitetskontroll, återkallelser och spårbarhetskrav i reglerade branscher.
         </p>
 
         <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
@@ -328,12 +328,12 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Leverantörsregister och avtalshantering</h2>
         <p>
-          I Business Central samlar ni all leverantörsinformation på ett ställe — kontaktuppgifter, betalningsvillkor, valuta, prisavtal och köphistorik. Ni kan sätta upp leverantörsspecifika priser och rabatter som tillämpas automatiskt vid beställning.
+          I Business Central samlar ni all leverantörsinformation på ett ställe – kontaktuppgifter, betalningsvillkor, valuta, prisavtal och köphistorik. Ni kan sätta upp leverantörsspecifika priser och rabatter som tillämpas automatiskt vid beställning.
         </p>
 
         <h2>Inköpsförslag och behovsstyrning</h2>
         <p>
-          Systemet genererar automatiska inköpsförslag baserade på aktuella lagernivåer, försäljningsprognoser och minimigränser. Inköparen granskar förslaget, justerar vid behov och konverterar till inköpsorder med ett knapptryck — utan manuell beräkning.
+          Systemet genererar automatiska inköpsförslag baserade på aktuella lagernivåer, försäljningsprognoser och minimigränser. Inköparen granskar förslaget, justerar vid behov och konverterar till inköpsorder med ett knapptryck – utan manuell beräkning.
         </p>
 
         <h2>Inköpsorder och godsmottagning</h2>
@@ -343,7 +343,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Elektronisk fakturahantering</h2>
         <p>
-          Via tillägg som Continia Document Capture kan Business Central ta emot och tolka elektroniska leverantörsfakturor (e-faktura, PDF eller skannade dokument) och automatiskt matcha dem mot inköpsorder och godsmottagning — vilket radikalt minskar manuellt arbete och fel.
+          Via tillägg som Continia Document Capture kan Business Central ta emot och tolka elektroniska leverantörsfakturor (e-faktura, PDF eller skannade dokument) och automatiskt matcha dem mot inköpsorder och godsmottagning – vilket radikalt minskar manuellt arbete och fel.
         </p>
 
         <h2>Återkommande inköp</h2>
@@ -382,7 +382,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     content: (
       <>
         <p>
-          <strong>Styr projekt lönsamt från start till faktura.</strong> Projektbaserade företag — konsultfirmor, bygg- och anläggningsbolag, ingenjörsföretag och IT-bolag — har särskilda krav på sina affärssystem. Microsoft Dynamics 365 Business Central har en dedikerad projektmodul som täcker hela projektlivscykeln.
+          <strong>Styr projekt lönsamt från start till faktura.</strong> Projektbaserade företag – konsultfirmor, bygg- och anläggningsbolag, ingenjörsföretag och IT-bolag – har särskilda krav på sina affärssystem. Microsoft Dynamics 365 Business Central har en dedikerad projektmodul som täcker hela projektlivscykeln.
         </p>
 
         <h2>Projektstruktur och budgetering</h2>
@@ -392,7 +392,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Tidrapportering och resursplanering</h2>
         <p>
-          Konsulter och projektmedarbetare rapporterar tid direkt i Business Central — per projekt och aktivitet. Systemet visar resursbelastning och tillgänglighet, vilket underlättar planeringen av nästa projekt och förhindrar överbookning.
+          Konsulter och projektmedarbetare rapporterar tid direkt i Business Central – per projekt och aktivitet. Systemet visar resursbelastning och tillgänglighet, vilket underlättar planeringen av nästa projekt och förhindrar överbookning.
         </p>
 
         <h2>PIA och projektredovisning</h2>
@@ -402,7 +402,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Utfall mot budget</h2>
         <p>
-          Projektledaren har alltid tillgång till en realtidsvy över hur projektet förhåller sig till budget — för tid, material och övriga kostnader. Avvikelser identifieras tidigt, vilket ger möjlighet att korrigera kursen innan kostnaderna skenar.
+          Projektledaren har alltid tillgång till en realtidsvy över hur projektet förhåller sig till budget – för tid, material och övriga kostnader. Avvikelser identifieras tidigt, vilket ger möjlighet att korrigera kursen innan kostnaderna skenar.
         </p>
 
         <h2>Fakturering av projekt</h2>
@@ -431,7 +431,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
   },
   {
     slug: "ai-copilot",
-    title: "Business Central och AI — Copilot i affärssystemet",
+    title: "Business Central och AI – Copilot i affärssystemet",
     description: "Hur artificiell intelligens gör Business Central smartare varje dag",
     headerLabel: "AI & Copilot",
     product: "Business Central",
@@ -441,17 +441,17 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     content: (
       <>
         <p>
-          <strong>Hur artificiell intelligens gör Business Central smartare varje dag.</strong> Artificiell intelligens är inte längre framtidsmusik i affärssystem — det är verklighet. Microsoft har integrerat AI djupt i Dynamics 365 Business Central via sin Copilot-teknik, och det förändrar hur användarna arbetar med allt från ordrar till lagerstyrning.
+          <strong>Hur artificiell intelligens gör Business Central smartare varje dag.</strong> Artificiell intelligens är inte längre framtidsmusik i affärssystem – det är verklighet. Microsoft har integrerat AI djupt i Dynamics 365 Business Central via sin Copilot-teknik, och det förändrar hur användarna arbetar med allt från ordrar till lagerstyrning.
         </p>
 
         <h2>Vad är Copilot i Business Central?</h2>
         <p>
-          Copilot är Microsofts AI-assistent som är inbyggd direkt i Business Central. Den kan hjälpa användare att utföra uppgifter snabbare, generera innehåll automatiskt och fatta bättre beslut baserat på data — allt utan att lämna affärssystemet.
+          Copilot är Microsofts AI-assistent som är inbyggd direkt i Business Central. Den kan hjälpa användare att utföra uppgifter snabbare, generera innehåll automatiskt och fatta bättre beslut baserat på data – allt utan att lämna affärssystemet.
         </p>
 
         <h2>Automatisering av försäljningsordrar</h2>
         <p>
-          En av de mest efterfrågade Copilot-funktionerna är automatisk orderhantering. Copilot kan tolka en inkommande e-post med beställningsinformation och automatiskt föreslå en försäljningsorder med rätt artiklar, kvantiteter och priser — vilket sparar säljaren ett betydande handpåläggning.
+          En av de mest efterfrågade Copilot-funktionerna är automatisk orderhantering. Copilot kan tolka en inkommande e-post med beställningsinformation och automatiskt föreslå en försäljningsorder med rätt artiklar, kvantiteter och priser – vilket sparar säljaren ett betydande handpåläggning.
         </p>
 
         <h2>AI-genererade produkttexter</h2>
@@ -466,7 +466,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Automatisering av leverantörsreskontra</h2>
         <p>
-          Copilot kan matcha inkommande leverantörsfakturor mot inköpsorder och godsmottagning automatiskt — och flagga avvikelser för manuell hantering. Det frigör tid för ekonomiavdelningen och minskar risken för felaktiga betalningar.
+          Copilot kan matcha inkommande leverantörsfakturor mot inköpsorder och godsmottagning automatiskt – och flagga avvikelser för manuell hantering. Det frigör tid för ekonomiavdelningen och minskar risken för felaktiga betalningar.
         </p>
 
         <h2>Kontinuerlig AI-utveckling</h2>
@@ -490,7 +490,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
   },
   {
     slug: "licenser-priser",
-    title: "Licensmodellen för Business Central — Essential, Premium och Team Member",
+    title: "Licensmodellen för Business Central – Essential, Premium och Team Member",
     description: "Förstå hur licenserna fungerar och välj rätt nivå för din verksamhet",
     headerLabel: "Licensmodellen",
     product: "Business Central",
@@ -505,7 +505,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Essential-licensen</h2>
         <p>
-          Essential är grundlicensen för fullständiga användare och inkluderar kärnfunktionalitet för de flesta verksamheter: ekonomihantering och redovisning, försäljning och orderhantering, inköp och leverantörsreskontra, lagerhantering och logistik, grundläggande projekthantering, bankhantering och kassaflöde samt CRM-funktionalitet. Essential passar de flesta medarbetare som arbetar aktivt i affärssystemet — ekonomer, inköpare, lagermedarbetare och säljare.
+          Essential är grundlicensen för fullständiga användare och inkluderar kärnfunktionalitet för de flesta verksamheter: ekonomihantering och redovisning, försäljning och orderhantering, inköp och leverantörsreskontra, lagerhantering och logistik, grundläggande projekthantering, bankhantering och kassaflöde samt CRM-funktionalitet. Essential passar de flesta medarbetare som arbetar aktivt i affärssystemet – ekonomer, inköpare, lagermedarbetare och säljare.
         </p>
 
         <h2>Premium-licensen</h2>
@@ -515,7 +515,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Team Member-licensen</h2>
         <p>
-          Team Member är en begränsad licens för användare som behöver läsa information, delta i godkännandeflöden och göra enklare registreringar — men inte arbeta aktivt i systemet. Det är en kostnadseffektiv lösning för exempelvis chefer som godkänner inköp eller anställda som rapporterar tid.
+          Team Member är en begränsad licens för användare som behöver läsa information, delta i godkännandeflöden och göra enklare registreringar – men inte arbeta aktivt i systemet. Det är en kostnadseffektiv lösning för exempelvis chefer som godkänner inköp eller anställda som rapporterar tid.
         </p>
 
         <h2>Device-licensen</h2>
@@ -544,7 +544,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
   },
   {
     slug: "valja-partner",
-    title: "Att välja Business Central-partner i Sverige — vad ska man tänka på?",
+    title: "Att välja Business Central-partner i Sverige – vad ska man tänka på?",
     description: "Rätt partner är lika viktig som rätt system",
     headerLabel: "Att välja partner",
     product: "Business Central",
@@ -558,7 +558,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
         </p>
 
         <p>
-          <strong>Rätt partner är lika viktig som rätt system.</strong> Att välja Microsoft Dynamics 365 Business Central som affärssystem är ett klokt beslut för många svenska företag. Men valet av implementeringspartner är minst lika viktigt — kanske viktigare. En erfaren och engagerad partner ser till att implementeringen lyckas, att systemet anpassas efter era unika behov och att ni får värde av er investering långsiktigt.
+          <strong>Rätt partner är lika viktig som rätt system.</strong> Att välja Microsoft Dynamics 365 Business Central som affärssystem är ett klokt beslut för många svenska företag. Men valet av implementeringspartner är minst lika viktigt – kanske viktigare. En erfaren och engagerad partner ser till att implementeringen lyckas, att systemet anpassas efter era unika behov och att ni får värde av er investering långsiktigt.
         </p>
 
         <h2>Vad gör en Business Central-partner?</h2>
@@ -573,12 +573,12 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Branschkunnande</h2>
         <p>
-          En partner som förstår er bransch — handel, tillverkning, tjänster, distribution — kan hjälpa er att identifiera bästa praxis och undvika onödiga anpassningar. Branscherfarenhet innebär kortare projekttid och bättre resultat.
+          En partner som förstår er bransch – handel, tillverkning, tjänster, distribution – kan hjälpa er att identifiera bästa praxis och undvika onödiga anpassningar. Branscherfarenhet innebär kortare projekttid och bättre resultat.
         </p>
 
         <h2>Leveransmodell</h2>
         <p>
-          Fråga hur partnern genomför implementeringen. Bra partners har en tydlig och beprövad metod — gärna agil — som ger er insyn och kontroll under hela projektet. Fråga om de erbjuder fast pris eller löpande räkning, och vad som händer om projektet drar ut på tiden.
+          Fråga hur partnern genomför implementeringen. Bra partners har en tydlig och beprövad metod – gärna agil – som ger er insyn och kontroll under hela projektet. Fråga om de erbjuder fast pris eller löpande räkning, och vad som händer om projektet drar ut på tiden.
         </p>
 
         <h2>Stöd efter go-live</h2>
@@ -588,7 +588,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Be om referenser</h2>
         <p>
-          Be om att få prata med befintliga kunder som liknar er verksamhet. Det ger den bästa bilden av vad ni kan förvänta er — hur partnern hanterar utmaningar, håller tidplaner och kommunicerar under projektet.
+          Be om att få prata med befintliga kunder som liknar er verksamhet. Det ger den bästa bilden av vad ni kan förvänta er – hur partnern hanterar utmaningar, håller tidplaner och kommunicerar under projektet.
         </p>
 
         <h2>Svenska partners med stark kompetens</h2>
@@ -616,7 +616,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "BC – ISV & tillägg",
     title: "Tilläggsapplikationer (ISV) för Business Central på svenska marknaden",
     description:
-      "10 tilläggskategorier som återkommer i nästan varje svensk BC-affär — och svenska/nordiska BC-partners som är offentligt listade av respektive ISV.",
+      "10 tilläggskategorier som återkommer i nästan varje svensk BC-affär – och svenska/nordiska BC-partners som är offentligt listade av respektive ISV.",
     product: "Business Central",
     productSlug: "businesscentral",
     parentPath: "/businesscentral/",
@@ -637,23 +637,23 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>De 10 tilläggskategorierna</h2>
         <ol className="space-y-3">
-          <li><Link to="/kunskapscenter/business-central/tillagg-fakturahantering/" className="text-primary underline hover:text-primary/80 font-semibold">1. Fakturahantering &amp; AP Automation</Link> — Continia, SignUp ExFlow.</li>
-          <li><Link to="/kunskapscenter/business-central/tillagg-svensk-lokalisering/" className="text-primary underline hover:text-primary/80 font-semibold">2. Svensk lokalisering &amp; moms</Link> — Swebase, Smart Swedish VAT.</li>
-          <li><Link to="/kunskapscenter/business-central/tillagg-wms-lager/" className="text-primary underline hover:text-primary/80 font-semibold">3. WMS, lager &amp; handdatorer</Link> — Tasklet, Ongoing WMS.</li>
-          <li><Link to="/kunskapscenter/business-central/tillagg-edi-efaktura/" className="text-primary underline hover:text-primary/80 font-semibold">4. EDI &amp; e-faktura</Link> — Golden EDI, TrueCommerce, Peppol720, Continia e-dokument.</li>
-          <li><Link to="/kunskapscenter/business-central/tillagg-frakt-ta/" className="text-primary underline hover:text-primary/80 font-semibold">5. Frakt, transport &amp; TA</Link> — nShift, Shipmondo, Sendcloud, Cargoson.</li>
-          <li><Link to="/kunskapscenter/business-central/tillagg-ehandel/" className="text-primary underline hover:text-primary/80 font-semibold">6. E-handel B2B/B2C</Link> — Sana Commerce och connector-alternativ.</li>
-          <li><Link to="/kunskapscenter/business-central/tillagg-retail-pos/" className="text-primary underline hover:text-primary/80 font-semibold">7. Retail, POS &amp; hospitality</Link> — LS Central.</li>
-          <li><Link to="/kunskapscenter/business-central/tillagg-branschpaket/" className="text-primary underline hover:text-primary/80 font-semibold">8. Branschpaket</Link> — Aptean, TRIMIT, COSMO.</li>
-          <li><Link to="/kunskapscenter/business-central/tillagg-dokument-output/" className="text-primary underline hover:text-primary/80 font-semibold">9. Dokument &amp; output management</Link> — Lasernet, Continia Document Output.</li>
-          <li><Link to="/kunskapscenter/business-central/tillagg-rapportering-budget/" className="text-primary underline hover:text-primary/80 font-semibold">10. Rapportering, budget &amp; FP&amp;A</Link> — Jet/insightsoftware, Bizview, Solver, Power BI/Fabric.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-fakturahantering/" className="text-primary underline hover:text-primary/80 font-semibold">1. Fakturahantering &amp; AP Automation</Link> – Continia, SignUp ExFlow.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-svensk-lokalisering/" className="text-primary underline hover:text-primary/80 font-semibold">2. Svensk lokalisering &amp; moms</Link> – Swebase, Smart Swedish VAT.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-wms-lager/" className="text-primary underline hover:text-primary/80 font-semibold">3. WMS, lager &amp; handdatorer</Link> – Tasklet, Ongoing WMS.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-edi-efaktura/" className="text-primary underline hover:text-primary/80 font-semibold">4. EDI &amp; e-faktura</Link> – Golden EDI, TrueCommerce, Peppol720, Continia e-dokument.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-frakt-ta/" className="text-primary underline hover:text-primary/80 font-semibold">5. Frakt, transport &amp; TA</Link> – nShift, Shipmondo, Sendcloud, Cargoson.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-ehandel/" className="text-primary underline hover:text-primary/80 font-semibold">6. E-handel B2B/B2C</Link> – Sana Commerce och connector-alternativ.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-retail-pos/" className="text-primary underline hover:text-primary/80 font-semibold">7. Retail, POS &amp; hospitality</Link> – LS Central.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-branschpaket/" className="text-primary underline hover:text-primary/80 font-semibold">8. Branschpaket</Link> – Aptean, TRIMIT, COSMO.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-dokument-output/" className="text-primary underline hover:text-primary/80 font-semibold">9. Dokument &amp; output management</Link> – Lasernet, Continia Document Output.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-rapportering-budget/" className="text-primary underline hover:text-primary/80 font-semibold">10. Rapportering, budget &amp; FP&amp;A</Link> – Jet/insightsoftware, Bizview, Solver, Power BI/Fabric.</li>
         </ol>
 
         <h2>Hur vi tolkar "offentligt listad" vs "auktoriserad"</h2>
         <p>
           På d365.se undviker vi att skriva att en partner är "auktoriserad för produkten" om det inte går att verifiera
           i ISV:ns partnerkatalog eller via ett skriftligt partnerintyg. Det vi visar är partners som är
-          <strong> offentligt listade av ISV:n</strong> — vilket inte alltid är samma sak som certifierad, auktoriserad
+          <strong> offentligt listade av ISV:n</strong> – vilket inte alltid är samma sak som certifierad, auktoriserad
           eller exklusiv återförsäljare.
         </p>
 

@@ -200,7 +200,7 @@ const SolutionDetail = ({ s, onClose }: { s: IsvSolution | null; onClose: () => 
                     Jämför sida vid sida
                   </h4>
                   <p className="text-xs text-muted-foreground mb-3">
-                    Gå direkt till beslutsunderlaget — samma struktur, samma fält, så ni kan välja.
+                    Gå direkt till beslutsunderlaget – samma struktur, samma fält, så ni kan välja.
                   </p>
                   <ul className="space-y-1.5">
                     {matches.map((c) => (
@@ -267,7 +267,7 @@ const BCTillaggKatalog = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Tillägg för Business Central (ISV)"
-        description="Interaktiv katalog över ISV-lösningar för Microsoft Dynamics 365 Business Central — AP automation, WMS, EDI, retail, e-handel, branschpaket m.m. Filtrera på kategori, typ, bransch och geografi."
+        description="Interaktiv katalog över ISV-lösningar för Microsoft Dynamics 365 Business Central – AP automation, WMS, EDI, retail, e-handel, branschpaket m.m. Filtrera på kategori, typ, bransch och geografi."
         canonicalPath="/kunskapscenter/business-central-tillagg/katalog/"
       />
       <Navbar />
@@ -286,7 +286,7 @@ const BCTillaggKatalog = () => {
           </h1>
           <p className="text-white/80 text-lg max-w-3xl leading-relaxed">
             Interaktiv översikt av ISV-lösningar i BC-ekosystemet. Filtrera fram det som matchar
-            er bransch, ert behov och era flöden — och se vilka kombinationer som faktiskt
+            er bransch, ert behov och era flöden – och se vilka kombinationer som faktiskt
             återkommer i svenska affärer.
           </p>
           <p className="text-white/60 text-xs mt-3">

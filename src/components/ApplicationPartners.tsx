@@ -136,7 +136,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  </p>
  </div>
 
- {/* Industry Filter — döljs när filterMode = companySize */}
+ {/* Industry Filter – döljs när filterMode = companySize */}
  {filterMode === "industry" && (
  <FilterButtons
  title="Filtrera på bransch"
@@ -148,7 +148,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  />
  )}
 
- {/* Company size filter — visas när filterMode = companySize */}
+ {/* Company size filter – visas när filterMode = companySize */}
  {filterMode === "companySize" && (
  <FilterButtons
  title="Filtrera på er storlek – antal anställda"

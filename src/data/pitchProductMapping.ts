@@ -35,7 +35,7 @@ export const PRODUCT_KEY_TO_PITCH_LABEL: Record<PitchProductKey, string> = {
   service: "Customer Service / Field Service / Contact Center",
 };
 
-/** Unique labels used in stored pitches — useful for validation. */
+/** Unique labels used in stored pitches – useful for validation. */
 export const PITCH_PRODUCT_LABELS: readonly string[] = Array.from(
   new Set(Object.values(PRODUCT_KEY_TO_PITCH_LABEL)),
 );

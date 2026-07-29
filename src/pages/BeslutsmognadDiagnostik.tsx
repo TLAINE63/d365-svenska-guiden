@@ -223,7 +223,7 @@ const Likert = ({
       </span>
     </div>
     <p className="text-center font-bm-display text-bm-ink-soft text-base mt-6">
-      Välj det som ligger närmast sanningen — ni behöver inte tveka.
+      Välj det som ligger närmast sanningen – ni behöver inte tveka.
     </p>
   </div>
 );
@@ -545,7 +545,7 @@ export default function BeslutsmognadDiagnostik() {
                 value={freeText}
                 onChange={(e) => setFreeText(e.target.value)}
                 rows={3}
-                placeholder="Skriv kort om ni vill — det hjälper oss att förbereda er rapport."
+                placeholder="Skriv kort om ni vill – det hjälper oss att förbereda er rapport."
                 className="w-full bg-transparent border-0 border-b border-bm-rule-strong py-3 font-bm-display text-bm-ink placeholder:italic placeholder:text-bm-ink-muted focus:outline-none focus:border-bm-accent-deep resize-none"
                 style={{ fontWeight: 320, fontSize: "1.05rem" }}
               />

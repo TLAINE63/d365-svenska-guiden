@@ -53,20 +53,20 @@ const PrivacyPolicy = () => {
               </h2>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <strong>Kontaktuppgifter du själv lämnar</strong> — namn, e-post, telefon,
+                  <strong>Kontaktuppgifter du själv lämnar</strong> – namn, e-post, telefon,
                   företag, befattning och meddelandetext via kontaktformulär, partneransökningar,
                   e-boksnedladdningar och leadformulär.
                 </li>
                 <li>
-                  <strong>Teknisk information</strong> — IP-adress (lagras anonymiserat, se
+                  <strong>Teknisk information</strong> – IP-adress (lagras anonymiserat, se
                   avsnitt 7), webbläsartyp, enhet, referrer och besökta sidor.
                 </li>
                 <li>
-                  <strong>Interaktionsdata</strong> — klick på partnerlänkar, val i
+                  <strong>Interaktionsdata</strong> – klick på partnerlänkar, val i
                   matchningsguider, exponering för filteralternativ.
                 </li>
                 <li>
-                  <strong>Cookies och liknande tekniker</strong> — se avsnitt 9.
+                  <strong>Cookies och liknande tekniker</strong> – se avsnitt 9.
                 </li>
               </ul>
             </section>
@@ -166,7 +166,7 @@ const PrivacyPolicy = () => {
                       <td className="p-3 align-top">Google (Analytics 4, Ads)</td>
                       <td className="p-3 align-top">Statistik och konverteringsmätning</td>
                       <td className="p-3 align-top">
-                        USA — överförs med EU-U.S. Data Privacy Framework + SCC
+                        USA – överförs med EU-U.S. Data Privacy Framework + SCC
                       </td>
                     </tr>
                     <tr className="border-b border-border">
@@ -194,16 +194,16 @@ const PrivacyPolicy = () => {
               <h2 className="text-2xl font-bold text-foreground mb-4">5. Delning av personuppgifter</h2>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <strong>Partners du aktivt väljer att kontakta</strong> — när du skickar en
+                  <strong>Partners du aktivt väljer att kontakta</strong> – när du skickar en
                   förfrågan via vår plattform vidarebefordras dina uppgifter till den valda
                   Dynamics 365-partnern. Vi länkar aldrig direkt till partners webbplatser; all
                   kontakt går via vårt förmedlade leadsystem.
                 </li>
                 <li>
-                  <strong>Underleverantörer</strong> — enligt avsnitt 4.
+                  <strong>Underleverantörer</strong> – enligt avsnitt 4.
                 </li>
                 <li>
-                  <strong>Myndigheter</strong> — när vi enligt lag är skyldiga att lämna ut
+                  <strong>Myndigheter</strong> – när vi enligt lag är skyldiga att lämna ut
                   uppgifter.
                 </li>
               </ul>
@@ -213,13 +213,13 @@ const PrivacyPolicy = () => {
               <h2 className="text-2xl font-bold text-foreground mb-4">6. Dina rättigheter</h2>
               <p className="leading-relaxed mb-4">Enligt GDPR har du rätt till:</p>
               <ul className="list-disc pl-6 space-y-2">
-                <li><strong>Tillgång</strong> — få besked om vilka uppgifter vi behandlar om dig.</li>
-                <li><strong>Rättelse</strong> — få felaktiga uppgifter korrigerade.</li>
-                <li><strong>Radering</strong> — bli glömd när uppgifterna inte längre behövs.</li>
-                <li><strong>Begränsning</strong> — pausa behandlingen i vissa fall.</li>
-                <li><strong>Dataportabilitet</strong> — få ut dina uppgifter i strukturerat format.</li>
-                <li><strong>Invändning</strong> — invända mot behandling som grundas på berättigat intresse.</li>
-                <li><strong>Återkalla samtycke</strong> — när som helst, utan att tidigare laglig behandling påverkas.</li>
+                <li><strong>Tillgång</strong> – få besked om vilka uppgifter vi behandlar om dig.</li>
+                <li><strong>Rättelse</strong> – få felaktiga uppgifter korrigerade.</li>
+                <li><strong>Radering</strong> – bli glömd när uppgifterna inte längre behövs.</li>
+                <li><strong>Begränsning</strong> – pausa behandlingen i vissa fall.</li>
+                <li><strong>Dataportabilitet</strong> – få ut dina uppgifter i strukturerat format.</li>
+                <li><strong>Invändning</strong> – invända mot behandling som grundas på berättigat intresse.</li>
+                <li><strong>Återkalla samtycke</strong> – när som helst, utan att tidigare laglig behandling påverkas.</li>
               </ul>
               <p className="leading-relaxed mt-4">
                 Kontakta oss enligt avsnitt 12. Du har också rätt att klaga till
@@ -235,11 +235,11 @@ const PrivacyPolicy = () => {
               </p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <strong>Maskerad IP-adress</strong> — endast de två första segmenten lagras
+                  <strong>Maskerad IP-adress</strong> – endast de två första segmenten lagras
                   (t.ex. "192.168.x.x"), vilket gör att enskilda användare inte kan identifieras.
                 </li>
                 <li>
-                  <strong>Klickdata</strong> — vilken partner, tidpunkt och källsida.
+                  <strong>Klickdata</strong> – vilken partner, tidpunkt och källsida.
                 </li>
               </ul>
               <p className="leading-relaxed mt-4">
@@ -252,7 +252,7 @@ const PrivacyPolicy = () => {
               <h2 className="text-2xl font-bold text-foreground mb-4">8. B2B-besökaridentifiering</h2>
               <p className="leading-relaxed mb-4">
                 Med ditt samtycke (kategori "Marknadsföring") använder vi Snitcher för att
-                identifiera vilka <em>företag</em> som besöker webbplatsen — baserat på publika
+                identifiera vilka <em>företag</em> som besöker webbplatsen – baserat på publika
                 IP-register. Tjänsten identifierar inte enskilda individer, namn eller e-post.
               </p>
               <p className="leading-relaxed">
@@ -279,15 +279,15 @@ const PrivacyPolicy = () => {
               <p className="leading-relaxed mb-4">Vi använder följande kategorier:</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <strong>Nödvändiga</strong> — sessionshantering, säkerhet, sparat samtyckesval.
+                  <strong>Nödvändiga</strong> – sessionshantering, säkerhet, sparat samtyckesval.
                   Inget samtycke krävs.
                 </li>
                 <li>
-                  <strong>Statistik</strong> — Google Analytics 4 med anonymiserad IP. Lagras i
+                  <strong>Statistik</strong> – Google Analytics 4 med anonymiserad IP. Lagras i
                   14 månader.
                 </li>
                 <li>
-                  <strong>Marknadsföring</strong> — Google Ads konverteringsspårning och
+                  <strong>Marknadsföring</strong> – Google Ads konverteringsspårning och
                   Snitcher B2B-identifiering. Lagras i upp till 13 månader.
                 </li>
               </ul>

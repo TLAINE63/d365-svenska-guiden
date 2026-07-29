@@ -249,7 +249,7 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
     ...keys.map((k) => pf[k]?.customerCaseLinks),
   );
 
-  // Product description — first non-empty
+  // Product description – first non-empty
   let productDescription: TabData["productDescription"] = null;
   for (const k of keys) {
     const txt = toText(pf[k]?.productDescription);
@@ -259,14 +259,14 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
     }
   }
 
-  // Why choose (per product) — first non-empty
+  // Why choose (per product) – first non-empty
   let whyChoose: string | null = null;
   for (const k of keys) {
     const txt = toText(pf[k]?.whyChoose);
     if (txt) { whyChoose = txt; break; }
   }
 
-  // Key points (per product) — first non-empty, split into lines
+  // Key points (per product) – first non-empty, split into lines
   let keyPoints: string[] = [];
   for (const k of keys) {
     const raw = pf[k]?.keyPoints;
@@ -318,7 +318,7 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
     }
   }
 
-  // Per-product beslutsprofil — pick first matching app's product_profile
+  // Per-product beslutsprofil – pick first matching app's product_profile
   const productProfilesMap = ((partner as any).product_profiles || {}) as Record<string, any>;
   let productProfile: TabData["productProfile"] = null;
   for (const app of apps) {
@@ -539,7 +539,7 @@ export default function PartnerProductTabs({
               </section>
             )}
 
-            {/* Lead CTA — auto-fills active product */}
+            {/* Lead CTA – auto-fills active product */}
             {onRequest && (
               <section className="w-full">
                 <div className="flex flex-col gap-2">
@@ -568,12 +568,12 @@ export default function PartnerProductTabs({
                   </div>
                 </div>
                 <p className="mt-3 text-xs text-center text-muted-foreground">
-                  Din förfrågan gäller <span className="font-semibold text-foreground">{tabMeta.label}</span>. Kostnadsfritt — {partner.name} svarar dig direkt, d365.se är kopierad för uppföljning. Inga privata e-postadresser accepteras.
+                  Din förfrågan gäller <span className="font-semibold text-foreground">{tabMeta.label}</span>. Kostnadsfritt – {partner.name} svarar dig direkt, d365.se är kopierad för uppföljning. Inga privata e-postadresser accepteras.
                 </p>
               </section>
             )}
 
-            {/* Quick facts — helps customers compare themselves against the partner */}
+            {/* Quick facts – helps customers compare themselves against the partner */}
             <PartnerQuickFacts partner={partner} activeTab={active} />
 
             {/* 1. Varför välja */}

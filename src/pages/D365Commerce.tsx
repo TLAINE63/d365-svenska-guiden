@@ -46,8 +46,8 @@ const D365Commerce = () => {
         icon={CommerceIcon}
         eyebrow="Dynamics 365 Commerce"
         title="Commerce."
-        titleAccent="Butik, e-handel och kundklubb i en plattform — när partnern kan retail."
-        subhead="Commerce är Microsofts svar på det fragmenterade retail-landskapet där separata system för kassa, e-handel, lager och CRM skapar dubbla prislistor, fel saldon och en kundupplevelse som spricker mellan kanalerna. Plattformen är kraftfull — men exceptionellt komplex att implementera. Skillnaden mellan ett retail-projekt som lyfter omsättningen och ett som blir en mardröm ligger i partnerns retail-erfarenhet: kan de POS, lojalitet, kampanjlogik, BOPIS-flöden och integration mot dina logistikpartners?"
+        titleAccent="Butik, e-handel och kundklubb i en plattform – när partnern kan retail."
+        subhead="Commerce är Microsofts svar på det fragmenterade retail-landskapet där separata system för kassa, e-handel, lager och CRM skapar dubbla prislistor, fel saldon och en kundupplevelse som spricker mellan kanalerna. Plattformen är kraftfull – men exceptionellt komplex att implementera. Skillnaden mellan ett retail-projekt som lyfter omsättningen och ett som blir en mardröm ligger i partnerns retail-erfarenhet: kan de POS, lojalitet, kampanjlogik, BOPIS-flöden och integration mot dina logistikpartners?"
         primary={{
           label: "Jämför Commerce-partners",
           onClick: () => document.getElementById("partners")?.scrollIntoView({ behavior: "smooth" }),
@@ -56,11 +56,11 @@ const D365Commerce = () => {
       />
 
       <ShortAnswer title="Vad är Dynamics 365 Commerce">
-        <p>Dynamics 365 Commerce är Microsofts omnikanal-plattform för retail och konsument­varor — en lösning som samlar fysisk butik, e-handel, mobil och kundklubb i en gemensam datamodell med en enda produktkatalog, prismotorn och kundprofil.</p>
+        <p>Dynamics 365 Commerce är Microsofts omnikanal-plattform för retail och konsument­varor – en lösning som samlar fysisk butik, e-handel, mobil och kundklubb i en gemensam datamodell med en enda produktkatalog, prismotorn och kundprofil.</p>
         <p>Kärnan är <strong>Commerce Scale Unit</strong>, en central dataplattform som synkar produkter, priser, lagersaldon och kunddata i realtid över alla kanaler så att butikspersonal, e-handel och kundtjänst alltid ser samma bild.</p>
         <p>På topp ligger <strong>Commerce POS</strong>, en modern kassalösning som fungerar både online och offline med automatisk synkronisering. Pris- och kampanjmotorn hanterar miljontals prisuträkningar per dag med stöd för köp-N-betala-M, tröskelrabatter, mix-och-matcha, kundklubbs­priser och affinity-baserade kampanjer. <strong>Sites Builder</strong> ger drag-and-drop e-handel eller headless-arkitektur mot React/Next.js-frontends.</p>
         <p>Lojalitets­programmet hanterar poäng, nivåer och förmåner kopplade till en samlad kundprofil i Dataverse. Med Customer Insights kan retail-kedjor bygga personaliserade kampanjer och AI-prediktioner som driver återköp och ökar snittkvitto.</p>
-        <p>Commerce är djupt integrerat med Finance & Supply Chain Management för redovisning, inköp, lager och varuförsörjning, vilket gör helhetslösningen särskilt stark för retail-kedjor som vill konsolidera bort separata kassa-, lager- och e-handelssystem — men implementationen är ett betydande åtagande och kräver en partner med dokumenterad retail-erfarenhet.</p>
+        <p>Commerce är djupt integrerat med Finance & Supply Chain Management för redovisning, inköp, lager och varuförsörjning, vilket gör helhetslösningen särskilt stark för retail-kedjor som vill konsolidera bort separata kassa-, lager- och e-handelssystem – men implementationen är ett betydande åtagande och kräver en partner med dokumenterad retail-erfarenhet.</p>
       </ShortAnswer>
 
       <section className="py-8 sm:py-12 md:py-16 bg-background">
@@ -73,10 +73,10 @@ const D365Commerce = () => {
               Omnikanal retail på en samlad plattform
             </p>
             <p className="text-base sm:text-lg text-muted-foreground mb-4">
-              Commerce passar retail-kedjor, mode- och sportbolag, dagligvaror, detalj­handel och konsument­varumärken med flera butiker, e-handel och behov av kundklubb. Plattformen är särskilt stark för organisationer som vill bort från en lapptäckes­arkitektur med separata system för kassa (NCR, Sitoo), e-handel (Shopify, Magento), kundklubb (Voyado) och ERP — och samla det i en Microsoft-stack med Finance & Supply Chain Management för logistik och redovisning.
+              Commerce passar retail-kedjor, mode- och sportbolag, dagligvaror, detalj­handel och konsument­varumärken med flera butiker, e-handel och behov av kundklubb. Plattformen är särskilt stark för organisationer som vill bort från en lapptäckes­arkitektur med separata system för kassa (NCR, Sitoo), e-handel (Shopify, Magento), kundklubb (Voyado) och ERP – och samla det i en Microsoft-stack med Finance & Supply Chain Management för logistik och redovisning.
             </p>
             <p className="text-base sm:text-lg text-muted-foreground">
-              Värt att veta innan ni går vidare: Commerce är en av de mest omfattande Dynamics 365-apparna och kräver oftast 9–18 månaders implementation för en fullskalig retail-kedja. Det är inte en plug-and-play e-handel utan en hel retail-platform — vilket gör partnervalet kritiskt. Leta efter partners med referenser från liknande retail-segment (mode, sport, dagligvaror, konsument­elektronik) snarare än generella Dynamics 365-konsulter.
+              Värt att veta innan ni går vidare: Commerce är en av de mest omfattande Dynamics 365-apparna och kräver oftast 9–18 månaders implementation för en fullskalig retail-kedja. Det är inte en plug-and-play e-handel utan en hel retail-platform – vilket gör partnervalet kritiskt. Leta efter partners med referenser från liknande retail-segment (mode, sport, dagligvaror, konsument­elektronik) snarare än generella Dynamics 365-konsulter.
             </p>
           </div>
         </div>

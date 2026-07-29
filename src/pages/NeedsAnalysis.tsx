@@ -1386,10 +1386,10 @@ const NeedsAnalysis = () => {
     // Cap growthScore
     growthScore = Math.min(100, growthScore);
 
-    // Weighted total (0-100) — growth/integration nu egen vikt
+    // Weighted total (0-100) – growth/integration nu egen vikt
     const weightedTotal = (structureScore * 0.25) + (operativeScore * 0.28) + (maturityScore * 0.17) + (growthScore * 0.30);
 
-    // Complexity level 1-4 — lägre tröskel för att undvika att medelstora bolag hamnar i nivå 1
+    // Complexity level 1-4 – lägre tröskel för att undvika att medelstora bolag hamnar i nivå 1
     let complexityLevel: number;
     if (weightedTotal < 15) complexityLevel = 1;
     else if (weightedTotal < 35) complexityLevel = 2;
@@ -4298,7 +4298,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         <main className="flex-grow pt-28 pb-12">
   
       <ShortAnswer title="Vad är en behovsanalys för ERP">
-        En ERP-behovsanalys hjälper er klargöra vilka processer, integrationer och rapporter ert affärssystem ska stötta — innan ni pratar med leverantörer. Vår kostnadsfria analys ger en köparsidig rekommendation av lämplig D365-inriktning (Business Central eller Finance & Supply Chain Management) baserat på bransch, storlek och komplexitet.
+        En ERP-behovsanalys hjälper er klargöra vilka processer, integrationer och rapporter ert affärssystem ska stötta – innan ni pratar med leverantörer. Vår kostnadsfria analys ger en köparsidig rekommendation av lämplig D365-inriktning (Business Central eller Finance & Supply Chain Management) baserat på bransch, storlek och komplexitet.
       </ShortAnswer>
 
         <div className="container mx-auto px-4 max-w-4xl">
@@ -4591,7 +4591,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative container mx-auto px-4 max-w-4xl text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
-              Ringa in behovet — innan partnerdialogen börjar
+              Ringa in behovet – innan partnerdialogen börjar
             </h1>
             <p className="text-white/85 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
               En strukturerad behovsanalys för ERP/affärssystem som ger er ett systemneutralt underlag att jämföra partners och offerter på lika villkor.

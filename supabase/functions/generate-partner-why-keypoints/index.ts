@@ -113,10 +113,10 @@ function buildPrompt(p: any, section: { key: string; label: string; apps: string
   const teamSize = p.team_size_sweden || p.employees_sweden || "okänt";
 
   return `Du fyller i två fält i en Microsoft Dynamics 365-partners publika profil på d365.se för produktområdet "${section.label}":
-1) whyChoose — kort text "Varför välja er för ${section.label}?" (2–4 meningar, max ~450 tecken).
-2) keyPoints — 3–4 konkreta punkter (varje punkt en kort mening, max ~120 tecken per punkt).
+1) whyChoose – kort text "Varför välja er för ${section.label}?" (2–4 meningar, max ~450 tecken).
+2) keyPoints – 3–4 konkreta punkter (varje punkt en kort mening, max ~120 tecken per punkt).
 
-Basera enbart på PARTNERDATA + WEBBKONTEXT nedan. Var konservativ — hittar du inte tydligt underlag, håll texten generell men trovärdig utifrån partnerns branscher, geografi och profil. Skriv ALDRIG saker som inte har stöd i datan.
+Basera enbart på PARTNERDATA + WEBBKONTEXT nedan. Var konservativ – hittar du inte tydligt underlag, håll texten generell men trovärdig utifrån partnerns branscher, geografi och profil. Skriv ALDRIG saker som inte har stöd i datan.
 
 REGLER för whyChoose:
 - Svenska, 2–4 meningar.
@@ -148,7 +148,7 @@ Orter: ${cities}
 Kundexempel inom ${section.label}: ${customerEx || "(ej angett)"}
 Produktbeskrivning från partnern: ${productDesc || "(saknas)"}
 
-WEBBKONTEXT (utdrag från partnerns webbplats, kan vara brus — använd försiktigt):
+WEBBKONTEXT (utdrag från partnerns webbplats, kan vara brus – använd försiktigt):
 ${webContext ? webContext.slice(0, 6000) : "(ingen webbkontext)"}
 
 Svara med ENDAST giltig JSON i exakt detta schema (inga kommentarer, ingen markdown):
