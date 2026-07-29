@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import { Mail, CheckCircle2, Users, Scale, BookOpen } from "lucide-react";
+import { Mail, CheckCircle2, Users, Scale, BookOpen, ExternalLink } from "lucide-react";
 
 export default function OwnershipAndInterests() {
   return (
@@ -85,6 +85,31 @@ export default function OwnershipAndInterests() {
           <p className="text-muted-foreground leading-relaxed mt-3">
             När du är redo tar du själv kontakt med de partners du vill prata med, i din egen
             takt. Vi förmedlar kunskap – inte kontrakt.
+          </p>
+        </section>
+
+        <section className="mb-10 rounded-lg border border-border bg-muted/30 p-6">
+          <h2 className="text-xl font-bold mb-3 text-foreground flex items-center gap-2">
+            <ExternalLink className="h-5 w-5 text-primary" /> Relaterade initiativ
+          </h2>
+          <p className="text-muted-foreground leading-relaxed">
+            Vi driver också{" "}
+            <a
+              href="https://fpaa.se"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              fpaa.se
+            </a>{" "}
+            – en självständig sajt om finansiell planering och analys (FP&A) som utbildar och
+            vägleder besökare.
+          </p>
+          <p className="text-muted-foreground leading-relaxed mt-3">
+            fpaa.se ägs av samma personer som d365.se. Syftet är att vägleda nyfikna kunder och
+            tänkbara återförsäljare, och i förlängningen skapa intresse för produkten Aimplan –
+            en produkt där vi har ett ekonomiskt intresse. Länken finns här för transparens, så
+            att du som besökare kan bedöma relationen själv.
           </p>
         </section>
 

@@ -1,39 +1,31 @@
-## Mål
-Byta amerikanska em-streck (—) mot svenskt tankstreck (– med mellanslag runt) i all **publik svensk copy** på sajten. Em-strecket är inte svensk typografisk standard och är ett välkänt AI-tell, särskilt i löpande meningar som "Välj område — så får ni...". Svensk konvention är en-streck (–) med mellanslag: "Välj område – så får ni...".
+Plan: Länk till fpaa.se + byggfel
 
-## Omfattning
+1. Byggfel
+- `supabase/functions/mcp/index.ts` är en autogenererad fil som Vite-pluginet vägrar skriva över eftersom den betraktas som användarägd. Byggfel: "refusing to overwrite user-authored file".
+- Åtgärd: Ta bort `supabase/functions/mcp/index.ts`. Pluginet regenererar filen vid nästa bygge.
+- Verifiera att `vite build --mode development` går igenom utan fel.
 
-**Inkluderas** (publik copy som besökare/leads ser):
-- Sidor i `src/pages/` (t.ex. `Index.tsx`, `Branschlosningar.tsx`, `Priser.tsx`, produktsidor, artikelsidor)
-- Presentationskomponenter i `src/components/` som renderas publikt (hero, kort, banners, footer, nyhetssektion, jämförelse-CTA, etc.)
-- Artikel- och datafiler med publik text: `src/data/blogArticles.tsx` (~400 träffar), `src/data/buyerManuals.ts` (~101), `src/data/productStandardSections.ts` (~36), `src/data/salesArticles.tsx`, `bcArticles.tsx`, `agentsArticles.tsx`, `copilotArticles.tsx`, `csArticles.tsx`, `fsArticles.tsx`, `fscArticles.tsx`, `ccArticles.tsx`, `ciArticles.tsx`, `bcTillaggArticles.tsx`, `bcIsvSolutions.ts`, `productQA.ts`, `beslutsmognadQuestions.ts`, `bcMatchningstest.ts`, m.fl.
-- Publika e-postmallar och PDF-strängar (`supabase/functions/send-analysis-email/`, `send-partner-monthly-report/`, `submit-lead/`, `src/utils/generate*Pdf.ts` – men bara textinnehåll, inte layoutkonstanter)
+2. Länk till fpaa.se – placering och redovisning
 
-**Undantas** (enligt ditt val "endast publik svensk copy"):
-- Admin-tabellernas platshållare `{value || "—"}` i `src/components/Admin*.tsx` (t.ex. `AdminAllVisitorsTab`, `AdminGscTab`, `AdminSalesKpiTab`, `AdminAgreementTab`, `AdminCompetitorInsightsTab`, `AdminProductPricesTab`, `AdminUnprofiledPartnersTab`, `AdminPartnerNewsTab`, `AdminEventsTab`, `AdminSemrush*`, `AdminSeoRankingsTab`, `AdminKeywordTrendsTab`, `AdminPartnerAgreementTab`) – lämnas orörda
-- Rubriker på admin-flikar (t.ex. "Konkurrentinsikter — vad gör de...")
-- JS/TS-kommentarer (`// SECTION 1 — HERO`, `/* ... */`)
-- Tekniska strängar, loggar, testfixturer (`src/pages/__tests__/`, `src/lib/__tests__/`)
-- Engelska strängar (ovanliga men förekommer i vissa util-filer)
+2.1 /agande-och-intressen (primär plats)
+Sidan förklarar redan hur partnersamarbetet fungerar och att d365.se står på köparens sida. Där är det naturligt att lägga till en sektion "Relaterade initiativ" eller "Andra projekt vi driver" som:
+- Kort beskriver fpaa.se som en satsning på utbildning och vägledning inom finansiell planering och analys (FP&A).
+- Redovisar öppet att fpaa.se ägs av samma personer som d365.se.
+- Förklarar att syftet är att vägleda besökare, men att länken kan leda till intresse för Aimplan (en produkt där Cloud Ahead/d365.se-ägarna har intresse).
+- Länkar textuellt till fpaa.se med `target="_blank"` och `rel="noopener noreferrer"`.
+- Använder `related_party`-mönstret i enlighet med projektminnet om intressekonflikter.
 
-## Regel för ersättning
-- ` — ` (mellanslag-em-mellanslag) → ` – ` (mellanslag-en-mellanslag)
-- `—` intill ord utan mellanslag (t.ex. `ord—ord`) → `ord – ord`
-- Undantag: värdet är exakt `"—"` som platshållare → behålls (men förekommer bara i admin, som redan är exkluderat)
+2.2 Footer
+- Lägg till en länk till fpaa.se i footerns nedre länkrad, bredvid "Så fungerar partnersamarbetet", "Friskrivning" och "Dataskyddspolicy".
+- Länktext: "FPAA – finansiell planering & analys" eller motsvarande kort beskrivning.
+- Samma säkerhetsattribut (`noopener noreferrer`) och extern-länk-hantering.
 
-## Genomförande
-1. **Kartlägg publika filer.** Bygg en explicit filjobblista utifrån de kategorier ovan (allt i `src/pages/` + `src/data/*Articles*` + publika komponenter + publika edge-functions/e-postmallar). Exkludera `src/components/Admin*.tsx` och `__tests__/`.
-2. **Kör riktade `sed`-ersättningar per fil** (inte globalt, för att inte träffa admin/tester).
-3. **Manuell granskning** av ~10 slumpade träffar via `rg -n ' – '` efteråt för att bekräfta att kontexten läser rätt.
-4. **Bygg + snabb visuell verifiering** av hero, en artikelsida och en produktsida via Playwright-screenshot för att säkerställa att inget textflöde ser trasigt ut.
-5. **Ingen ändring av CSS, ingen logikändring.** Rent copy-jobb.
+3. Material som uppdateras
+- `src/pages/OwnershipAndInterests.tsx` – ny sektion med text och länk.
+- `src/components/Footer.tsx` – ny länk i den nedre länkraden.
+- `supabase/functions/mcp/index.ts` – raderas för att lösa byggfelet.
 
-## Teknisk not
-- Både `—` (U+2014) och `–` (U+2013) är rena Unicode-tecken i källkod; ingen escape behövs och byggkedjan hanterar dem oförändrat.
-- SEO: inga URL-, title- eller strukturerade data-fält ändras semantiskt; endast tecknet i description/title-strängar (om det förekommer där) byts.
-- Diff-omfång: uppskattningsvis ~700–900 ändrade rader fördelat över ~40–60 filer. Inga funktionella tester påverkas.
-
-## Utanför scope
-- Admin-UI:s platshållare
-- Kodkommentarer
-- Byte av andra typografiska tecken (t.ex. rak citation → typografisk), skiljetecken, mellanslag före `%`, o.s.v. – kan tas som separat städ senare om du vill.
+4. Validering
+- Kör byggkommandot för att bekräfta att MCP-filen regenereras och bygget lyckas.
+- Kontrollera att länken syns både på /agande-och-intressen och i footern, samt att den öppnas korrekt.
+- Säkerställ att texten inte använder ordet "oberoende" (projektminne) och att intressekonflikten redovisas tydligt.
