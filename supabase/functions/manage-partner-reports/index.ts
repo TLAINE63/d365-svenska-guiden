@@ -1007,8 +1007,9 @@ serve(async (req) => {
           }
           const excluded = new Set<string>(d.excluded_organisation_uuids || []);
           const companies: CompanyEntry[] = (d.companies as any[]).filter((c: any) => !excluded.has(c.organisation_uuid));
-          if (companies.length === 0) {
-            await supabase.from("partner_report_drafts").update({ status: "skipped", error_message: "Inga företag att rapportera efter exkludering" }).eq("id", d.id);
+          const hasStats = !!(d as any).stats?.current;
+          if (companies.length === 0 && !hasStats) {
+            await supabase.from("partner_report_drafts").update({ status: "skipped", error_message: "Inget innehåll att rapportera efter exkludering" }).eq("id", d.id);
             results.push({ id: d.id, ok: false, error: "empty_after_exclusions" });
             continue;
           }
@@ -1142,7 +1143,7 @@ serve(async (req) => {
         for (const d of drafts || []) {
           const excluded = new Set<string>(d.excluded_organisation_uuids || []);
           const companies = (d.companies as any[]).filter((c: any) => !excluded.has(c.organisation_uuid));
-          if (companies.length === 0) {
+          if (companies.length === 0 && !(d as any).stats?.current) {
             results.push({ id: d.id, ok: false, error: "empty_after_exclusions" });
             continue;
           }
