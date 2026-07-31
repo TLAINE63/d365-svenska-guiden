@@ -24,6 +24,18 @@ function getCorsHeaders(req: Request) {
   };
 }
 
+// Endast besök på vår egen svenska sajt räknas. Snitcher-sessioner innehåller ofta
+// besök på d365guide.com (internationella sajten) – de ska aldrig ge partnerstatistik här.
+const OWN_SITE_RE = /^(https?:\/\/)?(www\.)?(d365\.se|d365-svenska-guiden\.lovable\.app|id-preview--[a-z0-9-]+\.lovable\.app)(\/|$)/i;
+function isOwnSiteUrl(url: unknown): boolean {
+  const u = typeof url === "string" ? url.trim() : "";
+  if (!u) return false;
+  if (u.startsWith("/")) return true;
+  return OWN_SITE_RE.test(u);
+}
+
+
+
 function base64UrlToBase64(str: string) {
   let b = str.replace(/-/g, '+').replace(/_/g, '/');
   while (b.length % 4) b += '=';
