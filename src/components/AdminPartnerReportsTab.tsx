@@ -303,33 +303,67 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
   return (
     <div className="space-y-6">
     <Card>
-
-      <CardHeader className="flex flex-row items-start justify-between gap-4 flex-wrap">
+      <CardHeader className="space-y-3">
         <div>
-          <CardTitle>Månadsrapporter till partners</CardTitle>
-          <CardDescription>Ett utkast per partner och period – granska och skicka manuellt. Företagsnamn anonymiseras i utskicket.</CardDescription>
+          <CardTitle>Månadsrapport – ett utkast per partner</CardTitle>
+          <CardDescription>
+            Det här är hela utskicksprocessen. Inget skickas automatiskt – du granskar och skickar varje utkast själv.
+          </CardDescription>
         </div>
+
+        <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
+          <li><span className="font-semibold text-foreground">1.</span> Synka Snitcher</li>
+          <li aria-hidden="true">→</li>
+          <li><span className="font-semibold text-foreground">2.</span> Generera utkast</li>
+          <li aria-hidden="true">→</li>
+          <li><span className="font-semibold text-foreground">3.</span> Granska</li>
+          <li aria-hidden="true">→</li>
+          <li><span className="font-semibold text-foreground">4.</span> Skicka till partnern</li>
+        </ol>
+
         <div className="flex gap-2 flex-wrap">
           <Button variant="outline" size="sm" onClick={syncSnitcher} disabled={busy === "sync"}>
             {busy === "sync" ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
-            <span className="ml-2">Synka Snitcher</span>
+            <span className="ml-2">1. Synka Snitcher</span>
           </Button>
           <Button variant="outline" size="sm" onClick={() => callAction("generate", {}, "Utkast genererade")} disabled={busy === "generate"}>
             {busy === "generate" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
-            <span className="ml-2">Generera utkast (förra månaden)</span>
+            <span className="ml-2">2. Generera utkast (förra månaden)</span>
           </Button>
           <Button variant="outline" size="sm" onClick={sendSelectedForApproval} disabled={selected.size === 0 || busy === "approval"}>
             {busy === "approval" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Eye className="h-4 w-4" />}
-            <span className="ml-2">Skicka markerade till mig för godkännande</span>
+            <span className="ml-2">3. Skicka markerade till mig för godkännande</span>
           </Button>
           <Button size="sm" onClick={sendSelected} disabled={selected.size === 0 || busy === "send"}>
             {busy === "send" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-            <span className="ml-2">Skicka markerade ({selected.size})</span>
+            <span className="ml-2">4. Skicka markerade ({selected.size})</span>
           </Button>
         </div>
+
+        <details className="rounded-md border bg-muted/30 p-3 text-xs">
+          <summary className="cursor-pointer font-medium text-foreground flex items-center gap-2">
+            <ShieldCheck className="h-4 w-4 text-accent" />
+            Datakälla och anonymisering
+          </summary>
+          <div className="mt-2 grid gap-3 md:grid-cols-2 text-muted-foreground">
+            <ul className="list-disc pl-4 space-y-1">
+              <li>Profilvisningar och klick från d365.se egen mätning</li>
+              <li>Exponering i filter, på branschsidor och i Partnernytt</li>
+              <li>Identifierade besökande företag via Snitcher</li>
+              <li>Redaktionellt innehåll (changelog, nästa period) från inställningarna nedan</li>
+            </ul>
+            <ul className="list-disc pl-4 space-y-1">
+              <li>Partnern ser <strong>aldrig</strong> företagsnamn eller domäner</li>
+              <li>Besökare visas som bransch + storlek, t.ex. "Computer Software · 51–200 employees"</li>
+              <li>Besökta sidor (URL:er) på d365.se visas</li>
+              <li>Namnen syns bara här i admin, för din granskning</li>
+            </ul>
+          </div>
+        </details>
       </CardHeader>
       <CardContent>
         {loading ? (
+
           <div className="py-8 text-center text-muted-foreground"><Loader2 className="h-5 w-5 animate-spin inline mr-2" />Laddar…</div>
         ) : drafts.length === 0 ? (
           <div className="py-12 text-center text-muted-foreground space-y-2">
