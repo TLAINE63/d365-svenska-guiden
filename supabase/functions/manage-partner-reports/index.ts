@@ -223,19 +223,19 @@ function buildEmailHtml(opts: {
 
     return `
       <tr><td style="padding:0 0 14px">
-        <table style="width:100%;border-collapse:separate;background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden">
+        <table width="100%" style="width:100%;border-collapse:separate;background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden">
           <tr>
-            <td style="padding:18px 20px;vertical-align:top">
+            <td class="card-pad" style="padding:18px 20px;vertical-align:top">
               <table style="width:100%;border-collapse:collapse"><tr>
-                <td style="vertical-align:top;width:48px;padding-right:14px">
+                <td class="avatar-cell" style="vertical-align:top;width:48px;padding-right:14px">
                   <div style="width:44px;height:44px;border-radius:10px;background:#15130F;color:#fff;font-weight:700;font-size:18px;text-align:center;line-height:44px;font-family:-apple-system,'Segoe UI',sans-serif">&#9679;</div>
                 </td>
-                <td style="vertical-align:top">
+                <td class="title-cell" style="vertical-align:top">
                   <div style="font-weight:700;font-size:16px;color:#0f172a;line-height:1.3">${esc(anonTitle)}</div>
                   <div style="margin-top:8px">${meta(c)}</div>
                 </td>
 
-                <td style="vertical-align:top;text-align:right;white-space:nowrap;padding-left:12px">
+                <td class="visits-cell" style="vertical-align:top;text-align:right;white-space:nowrap;padding-left:12px">
                   <div style="display:inline-block;background:#fff7ed;color:#9a3412;border-radius:999px;padding:4px 12px;font-weight:600;font-size:12px">${c.visit_count} besök</div>
                 </td>
               </tr></table>
@@ -261,11 +261,31 @@ function buildEmailHtml(opts: {
     </td>`;
 
   return `<!DOCTYPE html>
-<html lang="sv"><head><meta charset="utf-8"><title>Månadsrapport ${esc(partnerName)}</title></head>
+<html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="x-apple-disable-message-reformatting"><title>Månadsrapport ${esc(partnerName)}</title>
+<style>
+  img{max-width:100%}
+  table{table-layout:auto}
+  a{word-break:break-word}
+  @media only screen and (max-width:600px){
+    .wrap{padding:12px 8px !important}
+    .hd{padding:22px 18px 18px !important}
+    .hd h1{font-size:21px !important}
+    .pad{padding:20px 18px !important}
+    .card-pad{padding:14px 14px !important}
+    .avatar-cell{display:none !important}
+    .visits-cell{display:block !important;width:100% !important;text-align:left !important;padding:8px 0 0 0 !important}
+    .title-cell{display:block !important;width:100% !important}
+    .stats-tbl .col-prev{display:none !important}
+    .stats-tbl .cell{padding:10px 10px !important;font-size:13px !important}
+    .btn{display:block !important;width:100% !important;box-sizing:border-box;text-align:center}
+    h1,h2,h3{word-break:break-word}
+  }
+</style>
+</head>
 <body style="margin:0;padding:0;background:#f1f5f9;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#0f172a">
-  <div style="max-width:660px;margin:0 auto;padding:24px 16px">
+  <div class="wrap" style="max-width:660px;margin:0 auto;padding:24px 16px">
 
-    <div style="background:#15130F;color:#ffffff;padding:30px 28px 26px;border-radius:14px 14px 0 0">
+    <div class="hd" style="background:#15130F;color:#ffffff;padding:30px 28px 26px;border-radius:14px 14px 0 0">
       <div style="font-size:12px;color:#F0A88C;letter-spacing:1.4px;text-transform:uppercase;font-weight:700">D365.se · Månadsrapport</div>
       <h1 style="margin:10px 0 6px;font-size:26px;line-height:1.2;color:#ffffff;font-weight:700">${esc(partnerName)}</h1>
       <div style="font-size:14px;color:#E7E3DC">Period: ${esc(periodLabel)}</div>
@@ -273,7 +293,7 @@ function buildEmailHtml(opts: {
     <div style="height:4px;background:#B23D19;line-height:4px;font-size:0">&nbsp;</div>
 
 
-    <div style="background:#ffffff;padding:28px;border-radius:0 0 14px 14px;box-shadow:0 1px 3px rgba(15,23,42,0.06)">
+    <div class="pad" style="background:#ffffff;padding:28px;border-radius:0 0 14px 14px;box-shadow:0 1px 3px rgba(15,23,42,0.06)">
 
       <p style="margin:0 0 22px;color:#2A2724;font-size:16px;line-height:1.65">${esc(intro)}</p>
 
@@ -300,7 +320,7 @@ function buildEmailHtml(opts: {
       </div>
 
       <div style="text-align:center;margin:26px 0 8px">
-        <a href="${esc(profileUrl)}" style="display:inline-block;background:#B23D19;color:#ffffff;text-decoration:none;padding:13px 28px;border-radius:8px;font-weight:600;font-size:14px">
+        <a class="btn" href="${esc(profileUrl)}" style="display:inline-block;background:#B23D19;color:#ffffff;text-decoration:none;padding:13px 28px;border-radius:8px;font-weight:600;font-size:14px">
           Öppna er partnerprofil →
         </a>
       </div>
