@@ -1019,6 +1019,7 @@ serve(async (req) => {
             companies,
             periodLabel: monthLabel(new Date(`${d.period_start}T00:00:00Z`)),
             siteOrigin: "https://www.d365.se",
+            stats: (d as any).stats ?? null,
           });
 
           try {
@@ -1072,6 +1073,7 @@ serve(async (req) => {
           companies,
           periodLabel: monthLabel(new Date(`${d.period_start}T00:00:00Z`)),
           siteOrigin: "https://www.d365.se",
+            stats: (d as any).stats ?? null,
         });
         return new Response(JSON.stringify({ html }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
@@ -1097,6 +1099,7 @@ serve(async (req) => {
           companies,
           periodLabel: monthLabel(new Date(`${d.period_start}T00:00:00Z`)),
           siteOrigin: "https://www.d365.se",
+            stats: (d as any).stats ?? null,
         });
         const subject = `[TEST] ${d.subject}`;
         const { error: sendErr } = await resend.emails.send({
@@ -1150,6 +1153,7 @@ serve(async (req) => {
             companies,
             periodLabel: monthLabel(new Date(`${d.period_start}T00:00:00Z`)),
             siteOrigin: "https://www.d365.se",
+            stats: (d as any).stats ?? null,
           });
           const subject = `[GODKÄNN] ${d.subject} → ${d.recipient_email || "saknar mottagare"}`;
           try {
