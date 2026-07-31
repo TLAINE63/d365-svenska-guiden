@@ -261,12 +261,12 @@ function buildEmailHtml(opts: {
     </td>`;
 
   return `<!DOCTYPE html>
-<html lang="sv"><head><meta charset="utf-8"><title>Besöksrapport ${esc(partnerName)}</title></head>
+<html lang="sv"><head><meta charset="utf-8"><title>Månadsrapport ${esc(partnerName)}</title></head>
 <body style="margin:0;padding:0;background:#f1f5f9;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#0f172a">
   <div style="max-width:660px;margin:0 auto;padding:24px 16px">
 
     <div style="background:linear-gradient(135deg,#1e3a5f 0%,#2d5a87 100%);color:#fff;padding:28px;border-radius:14px 14px 0 0">
-      <div style="font-size:12px;opacity:0.85;letter-spacing:1.2px;text-transform:uppercase">D365.se · Besöksrapport</div>
+      <div style="font-size:12px;opacity:0.85;letter-spacing:1.2px;text-transform:uppercase">D365.se · Månadsrapport</div>
       <h1 style="margin:6px 0 4px;font-size:24px;line-height:1.25">${esc(partnerName)}</h1>
       <div style="font-size:14px;opacity:0.9">Period: ${esc(periodLabel)}</div>
     </div>
@@ -275,7 +275,11 @@ function buildEmailHtml(opts: {
 
       <p style="margin:0 0 22px;color:#334155;font-size:15px;line-height:1.55">${esc(intro)}</p>
 
-      <h2 style="margin:0 0 8px;font-size:17px;color:#0f172a">Företag som besökt er profil</h2>
+      ${renderStatsHtml(stats)}
+
+      ${renderVisibilityHtml(stats)}
+
+      <h2 style="margin:26px 0 8px;font-size:17px;color:#0f172a">Företag som besökt er profil</h2>
       <div style="margin:0 0 16px;padding:10px 14px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;font-size:12px;color:#1e3a8a">
         <strong>Så här redovisar vi:</strong> vi lämnar aldrig ut enskilda företagsnamn eller domäner. Varje kort nedan visar bara
         bransch och storlek. Urvalet är företag vars session innehåller en URL som matchar
