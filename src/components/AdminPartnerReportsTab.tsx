@@ -184,6 +184,50 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
 
   return (
     <div className="space-y-6">
+    <Card className="border-accent/40 bg-accent/5">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2 text-base">
+          <Info className="h-4 w-4 text-accent" />
+          En enda månadsrapport – ett utkast per partner
+        </CardTitle>
+        <CardDescription>
+          Det finns bara en rapportprocess. Varje partner får ett (1) utkast per period som du granskar och skickar härifrån.
+          Inget skickas automatiskt.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4 text-sm">
+        <ol className="list-decimal pl-5 space-y-1 text-muted-foreground">
+          <li><strong className="text-foreground">Synka Snitcher</strong> – hämtar periodens besöksdata.</li>
+          <li><strong className="text-foreground">Generera utkast</strong> – ett utkast per partner med besök eller trafik.</li>
+          <li><strong className="text-foreground">Granska</strong> – öppna utkastet, eller skicka det till dig själv för godkännande.</li>
+          <li><strong className="text-foreground">Skicka</strong> – markera utkast och skicka till partnerns kontaktperson.</li>
+        </ol>
+
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="rounded-md border bg-card p-3">
+            <p className="font-medium mb-1">Datakälla</p>
+            <ul className="list-disc pl-4 space-y-1 text-muted-foreground text-xs">
+              <li>Profilvisningar och klick från d365.se egen mätning</li>
+              <li>Exponering i filter, på branschsidor och i Partnernytt</li>
+              <li>Identifierade besökande företag via Snitcher</li>
+              <li>Redaktionellt innehåll (changelog, nästa period) från inställningarna längre ner</li>
+            </ul>
+          </div>
+          <div className="rounded-md border bg-card p-3">
+            <p className="font-medium mb-1 flex items-center gap-2">
+              <ShieldCheck className="h-4 w-4 text-accent" />
+              Anonymisering
+            </p>
+            <ul className="list-disc pl-4 space-y-1 text-muted-foreground text-xs">
+              <li>Partnern ser <strong>aldrig</strong> företagsnamn eller domäner</li>
+              <li>Besökare visas som bransch + storlek, t.ex. "Computer Software · 51–200 employees"</li>
+              <li>Besökta sidor (URL:er) på d365.se visas</li>
+              <li>Namnen syns bara här i admin, för din granskning</li>
+            </ul>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
     <PartnerStatsMatrix token={token} />
     <MonthlyStatsReportCard token={token} />
     <Card>
