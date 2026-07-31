@@ -24,6 +24,18 @@ function getCorsHeaders(req: Request) {
   };
 }
 
+// Endast besök på vår egen svenska sajt räknas. Snitcher-sessioner innehåller ofta
+// besök på d365guide.com (internationella sajten) – de ska aldrig ge partnerstatistik här.
+const OWN_SITE_RE = /^(https?:\/\/)?(www\.)?(d365\.se|d365-svenska-guiden\.lovable\.app|id-preview--[a-z0-9-]+\.lovable\.app)(\/|$)/i;
+function isOwnSiteUrl(url: unknown): boolean {
+  const u = typeof url === "string" ? url.trim() : "";
+  if (!u) return false;
+  if (u.startsWith("/")) return true;
+  return OWN_SITE_RE.test(u);
+}
+
+
+
 function base64UrlToBase64(str: string) {
   let b = str.replace(/-/g, '+').replace(/_/g, '/');
   while (b.length % 4) b += '=';
@@ -414,10 +426,12 @@ async function generateDrafts(supabase: any, opts: { period_start?: string; peri
     // Group by organisation_uuid
     const byOrg = new Map<string, CompanyEntry>();
     for (const v of partnerVisits) {
-      const urls: { url: string }[] = (v.visited_urls || []) as any;
+      const urls: { url: string }[] = ((v.visited_urls || []) as any[]).filter((u: any) => isOwnSiteUrl(u?.url || u));
       const profileRe = new RegExp(`/partner/${partner.slug}(?:/|$|\\?)`, "i");
       const profile_urls = urls.map(u => u.url).filter(u => profileRe.test(u));
       const other_urls = urls.map(u => u.url).filter(u => !profileRe.test(u));
+      if (profile_urls.length === 0) continue;
+
 
       let entry = byOrg.get(v.organisation_uuid);
       if (!entry) {
@@ -656,9 +670,11 @@ serve(async (req) => {
         const bySlug = new Map<string, { partner_slug: string; partner_name: string; is_featured: boolean; companies: Map<string, any> }>();
 
         for (const v of visits || []) {
-          const urls: { url: string }[] = (v.visited_urls || []) as any;
+          const urls: { url: string }[] = ((v.visited_urls || []) as any[]).filter((u: any) => isOwnSiteUrl(u?.url || u));
           for (const slug of v.partner_slugs || []) {
             const partner = partnerBySlug.get(slug);
+            // Skippa slugs som inte finns som partner i denna databas (t.ex. d365guide.com-profiler)
+            if (!partner) continue;
             let bucket = bySlug.get(slug);
             if (!bucket) {
               bucket = {
@@ -672,6 +688,8 @@ serve(async (req) => {
             const profileRe = new RegExp(`/partner/${slug}(?:/|$|\\?)`, "i");
             const profile_urls = urls.map(u => u.url).filter(u => profileRe.test(u));
             const other_urls = urls.map(u => u.url).filter(u => !profileRe.test(u));
+            if (profile_urls.length === 0) continue;
+
 
             let entry = bucket.companies.get(v.organisation_uuid);
             if (!entry) {
@@ -742,7 +760,8 @@ serve(async (req) => {
         const byOrg = new Map<string, any>();
         for (const v of visits || []) {
           const urls: { url: string }[] = (v.visited_urls || []) as any;
-          const urlList = urls.map(u => u.url).filter(Boolean);
+          const urlList = urls.map(u => u.url).filter((u: string) => u && isOwnSiteUrl(u));
+
           let entry = byOrg.get(v.organisation_uuid);
           if (!entry) {
             entry = {
@@ -762,8 +781,12 @@ serve(async (req) => {
             byOrg.set(v.organisation_uuid, entry);
           }
           for (const s of v.partner_slugs || []) {
-            if (publishedSlugs.has(s)) entry.partner_slugs.add(s);
+            if (!publishedSlugs.has(s)) continue;
+            // Kräv att profilbesöket faktiskt skedde på d365.se
+            if (!urlList.some((u: string) => new RegExp(`/partner/${s}(?:/|$|\\?)`, "i").test(u))) continue;
+            entry.partner_slugs.add(s);
           }
+
           urlList.forEach(u => entry.urls.add(u));
           entry.session_count += 1;
           if (v.session_started_at && (!entry.first_seen || v.session_started_at < entry.first_seen)) entry.first_seen = v.session_started_at;
@@ -934,14 +957,15 @@ serve(async (req) => {
           if (inPrimary(c.clicked_at)) primary.get(slug)!.websiteClicks++;
         }
         for (const r of snitcher) {
-          const slugs: string[] = Array.isArray(r.partner_slugs) ? r.partner_slugs : [];
+          
           const urls: string[] = Array.isArray(r.visited_urls)
-            ? r.visited_urls.map((u: any) => (typeof u === "string" ? u : u?.url || u?.path || "")).filter(Boolean)
+            ? r.visited_urls.map((u: any) => (typeof u === "string" ? u : u?.url || u?.path || "")).filter((u: string) => u && isOwnSiteUrl(u))
             : [];
           const company = (r.company_name || "").trim().toLowerCase();
           if (!company) continue;
           for (const p of partners || []) {
-            const matched = slugs.includes(p.slug) || urls.some((u) => u.includes(`/partner/${p.slug}`));
+            const matched = urls.some((u) => new RegExp(`/partner/${p.slug}(?:/|$|\\?)`, "i").test(u));
+
             if (!matched) continue;
             compare.get(p.slug)!.identified.add(company);
             if (inPrimary(r.session_started_at)) primary.get(p.slug)!.identified.add(company);
