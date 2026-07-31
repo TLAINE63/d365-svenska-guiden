@@ -113,6 +113,63 @@ function initials(name: string | null): string {
   return parts.map(p => p[0]?.toUpperCase() || "").join("") || "?";
 }
 
+function renderRichText(raw: string): string {
+  if (!raw) return "";
+  const lines = raw.replace(/\r\n/g, "\n").split("\n");
+  const out: string[] = [];
+  let inList = false;
+  const flushList = () => {
+    if (inList) { out.push("</ul>"); inList = false; }
+  };
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+    if (!line) { flushList(); continue; }
+    const bullet = line.match(/^[-*•]\s+(.*)$/);
+    if (bullet) {
+      if (!inList) {
+        out.push('<ul style="margin:6px 0 12px 0;padding-left:20px;color:#334155;font-size:14px;line-height:1.6">');
+        inList = true;
+      }
+      out.push(`<li style="margin:4px 0">${esc(bullet[1])}</li>`);
+    } else {
+      flushList();
+      out.push(`<p style="margin:6px 0 10px;color:#334155;font-size:14px;line-height:1.6">${esc(line)}</p>`);
+    }
+  }
+  flushList();
+  return out.join("");
+}
+
+async function fetchReportSettings(supabase: any): Promise<{ changelog: string; nextPeriod: string; contact: string }> {
+  try {
+    const { data } = await supabase
+      .from("site_settings")
+      .select("key, value")
+      .in("key", ["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact"]);
+    const map = new Map<string, string>();
+    for (const r of data || []) map.set(r.key, r.value || "");
+    return {
+      changelog: map.get("monthly_report_changelog") || "",
+      nextPeriod: map.get("monthly_report_next_period") || "",
+      contact: map.get("monthly_report_contact") || "",
+    };
+  } catch {
+    return { changelog: "", nextPeriod: "", contact: "" };
+  }
+}
+
+async function renderDraftEmail(supabase: any, opts: {
+  partnerName: string;
+  partnerSlug: string;
+  intro: string;
+  companies: CompanyEntry[];
+  periodLabel: string;
+  siteOrigin: string;
+}): Promise<string> {
+  const settings = await fetchReportSettings(supabase);
+  return buildEmailHtml({ ...opts, settings });
+}
+
 function buildEmailHtml(opts: {
   partnerName: string;
   partnerSlug: string;
@@ -120,8 +177,11 @@ function buildEmailHtml(opts: {
   companies: CompanyEntry[];
   periodLabel: string;
   siteOrigin: string;
+  settings?: { changelog: string; nextPeriod: string; contact: string };
 }): string {
   const { partnerName, partnerSlug, intro, companies, periodLabel, siteOrigin } = opts;
+  const settings = opts.settings || { changelog: "", nextPeriod: "", contact: "" };
+
   const profileUrl = `${siteOrigin}/partner/${partnerSlug}`;
   const totalVisits = companies.reduce((s, c) => s + c.visit_count, 0);
   const withIndustry = companies.filter(c => c.company_industry).length;
