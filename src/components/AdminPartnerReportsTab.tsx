@@ -483,9 +483,46 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
         </DialogContent>
       </Dialog>
     </Card>
+
+    <div className="space-y-2">
+      <div>
+        <h3 className="text-sm font-semibold text-foreground">Stöd och underlag</h3>
+        <p className="text-xs text-muted-foreground">
+          Separata vyer – de skickar inget själva. Det redaktionella innehållet ingår i alla utkast ovan.
+        </p>
+      </div>
+      <Accordion type="multiple" className="rounded-lg border divide-y">
+        <AccordionItem value="editorial" className="border-b-0 px-4">
+          <AccordionTrigger className="text-sm">
+            Redaktionellt innehåll i månadsrapporten
+            <Badge variant="secondary" className="ml-2 font-normal">ingår i alla utkast</Badge>
+          </AccordionTrigger>
+          <AccordionContent>
+            <MonthlyStatsReportCard token={token} />
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="stats" className="border-b-0 px-4">
+          <AccordionTrigger className="text-sm">
+            Statistik per partner
+            <Badge variant="outline" className="ml-2 font-normal">endast för din granskning</Badge>
+          </AccordionTrigger>
+          <AccordionContent>
+            <PartnerStatsMatrix token={token} />
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="companies" className="border-b-0 px-4">
+          <AccordionTrigger className="text-sm">
+            Företag som besökt partnerprofiler
+            <Badge variant="outline" className="ml-2 font-normal">namnen skickas aldrig</Badge>
+          </AccordionTrigger>
+          <AccordionContent>{exploreSection}</AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    </div>
     </div>
   );
 }
+
 
 const THOMAS_EMAIL = "thomas.laine@dynamicfactory.se";
 function MonthlyStatsReportCard({ token }: { token: string | null }) {
