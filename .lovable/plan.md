@@ -1,57 +1,31 @@
-## Mål
+## Problem
 
-Ett enda månadsbrev per partner, byggt på utkastsflödet med godkännande. Statistiksiffrorna från "Månadsrapport per partner" flyttas in i besöksrapporten, och det separata direktutskicket tas bort ur admin.
+Fliken Månadsrapporter innehåller fem kort som ser likvärdiga ut, trots att bara ett av dem är själva utskicksprocessen:
 
-## Så ser det sammanslagna mejlet ut
+1. Infoboxen "En enda månadsrapport"
+2. `PartnerStatsMatrix` (statistiköversikt)
+3. "Redaktionellt innehåll i månadsrapporten" (changelog m.m.)
+4. "Företag som besökt partnerprofiler" (Snitcher-utforskare, egen datumperiod)
+5. "Månadsrapporter till partners" (utkasten – den faktiska processen)
 
-```text
-D365.SE · MÅNADSRAPPORT
-Sherpas Group AB
-Period: juli 2026 (2026-07-01 – 2026-07-31)
+Kort 2 och 4 är rena granskningsvyer, kort 3 är en inställning. Eftersom kort 4 har sina egna datumfält och en egen "Uppdatera"-knapp ser den ut som ett parallellt rapportspår.
 
-[intro-text, redigerbar per utkast]
+## Lösning: ett arbetsflöde överst, stöd nedanför
 
-NYCKELTAL (med +/- mot föregående lika lång period)
-  Profilvisningar  ·  Jämförelseklick  ·  Webbplatsklick  ·  Branschlistningar
+**Sektion A – Arbetsflöde (alltid synligt, överst)**
+- Slå ihop infoboxen och utkastlistan till ett kort: "Månadsrapport – utkast per partner".
+- Stegen 1–4 (Synka Snitcher → Generera → Granska → Skicka) visas som en kompakt stegrad direkt ovanför knapparna, så knapparna hör visuellt ihop med stegen.
+- Anonymiseringsrutan blir en kort rad med en "Läs mer"-utfällning i stället för ett eget kort.
 
-VILKA TITTADE
-  X identifierade företag – anonymiserade kort:
-  ● Computer Software · 51-200 employees · Sverige      1 besök
-       ✓ Matchade profil-URL:er
-       Andra sidor de tittade på
+**Sektion B – Underlag och inställningar (hopfällda accordions under en rubrik "Stöd och underlag – påverkar inte utskicket")**
+- "Redaktionellt innehåll i månadsrapporten" (märkt: *ingår i alla utkast*)
+- "Statistik per partner" (`PartnerStatsMatrix`, märkt: *endast för din granskning*)
+- "Företag som besökt partnerprofiler" (märkt: *endast admin – namnen skickas aldrig*)
 
-VAR NI SYNTES
-  Vanligaste vägen in, branschsidor ni listades på, era partnernyheter
-
-NÄSTA PERIOD          (redaktionellt, från inställningarna)
-NYTT PÅ SAJTEN        (changelog, från inställningarna)
-Kontakt
-```
-
-## Ändringar
-
-**1. Slå ihop mallen**
-- `manage-partner-reports/index.ts` blir enda rapportmotorn. Dess `buildEmailHtml` byggs ut med statistikblocket, "Var ni syntes" och jämförelsesiffror – logiken flyttas över från `send-partner-monthly-report/index.ts` (`fetchPeriod`, `fetchTopEntryPath`, `fetchIndustryPagesListed`, `fetchPartnerNews`, `delta`, `buildStats`).
-- Företagskorten behåller den anonymisering vi nyss införde (bransch + storlek + land, aldrig namn/domän).
-- Redaktionella sektionerna ("Nästa period", "Nytt på sajten", kontakt) läses redan från `site_settings` – oförändrat.
-
-**2. Utkastgenereringen**
-- Vid `generate` beräknas även periodens statistik och föregående periods siffror, och sparas på utkastet så att förhandsgranskning och utskick visar samma siffror.
-- Nytt fält `stats jsonb` på `partner_report_drafts` (migration). Utkast utan fältet renderas utan statistikblocket.
-- Partners **utan** identifierade besök men **med** trafiksiffror får nu också utkast (idag hoppas de över) – annars tappar vi hela statistikdelen för dem.
-
-**3. Admin-UI**
-- Kortet "Månadsrapport per partner (statistik)" tas bort, inklusive knapparna Förhandsgranska / Skicka till partner / Skicka till Thomas / Skicka till partner + Thomas.
-- Rutan "Redaktionellt innehåll i rapporten" (Nästa period, Nytt på sajten, Kontaktperson) **flyttas upp** i kortet "Månadsrapporter till partners" – den behövs fortfarande.
-- Periodväljaren (Från/Till) flyttas till utkastgenereringen, så du kan generera för valfri period, inte bara "förra månaden".
-- Rubriken byter namn till "Månadsrapporter till partners" med underrubrik som förklarar flödet: generera utkast → granska/redigera → testmejl → skicka.
-
-**4. Städning**
-- Edge-funktionen `send-partner-monthly-report` slutar användas från admin. Jag låter filen ligga kvar (ingen risk, den kan inte triggas från UI) om du inte vill att jag raderar den.
+Alla tre är stängda som standard, så fliken öppnar med bara ett synligt arbetsflöde.
 
 ## Teknisk detalj
 
-- Migration: `ALTER TABLE public.partner_report_drafts ADD COLUMN stats jsonb NOT NULL DEFAULT '{}'::jsonb;`
-- Berörda filer: `supabase/functions/manage-partner-reports/index.ts`, `src/components/AdminPartnerReportsTab.tsx`.
-- `manage-partner-reports` deployas om; jag verifierar med förhandsgranskning + testmejl på ett juli-utkast.
-- Befintliga juli-utkast saknar `stats`. Jag regenererar juli efter ändringen så att alla utkast får full data.
+- Ändringarna sker enbart i `src/components/AdminPartnerReportsTab.tsx`; ingen logik, inget datahämtande och inga edge-funktioner ändras.
+- Använder befintlig `Accordion` från shadcn för sektion B.
+- `PartnerStatsMatrix` och `MonthlyStatsReportCard` behålls som komponenter men renderas inuti accordion-items utan eget `Card`-omslag (eller med `border-none`) så att de inte ser ut som fristående processer.
