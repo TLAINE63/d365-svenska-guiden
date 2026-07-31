@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, RefreshCw, Send, Eye, Trash2, Sparkles } from "lucide-react";
+import { Loader2, RefreshCw, Send, Eye, Trash2, Sparkles, Info, ShieldCheck } from "lucide-react";
 import PartnerStatsMatrix from "@/components/PartnerStatsMatrix";
 
 interface Draft {
