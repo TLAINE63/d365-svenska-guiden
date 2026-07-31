@@ -228,7 +228,7 @@ function buildEmailHtml(opts: {
             <td style="padding:18px 20px;vertical-align:top">
               <table style="width:100%;border-collapse:collapse"><tr>
                 <td style="vertical-align:top;width:48px;padding-right:14px">
-                  <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#1e3a5f,#2d5a87);color:#fff;font-weight:700;font-size:18px;text-align:center;line-height:44px;font-family:-apple-system,'Segoe UI',sans-serif">&#9679;</div>
+                  <div style="width:44px;height:44px;border-radius:10px;background:#15130F;color:#fff;font-weight:700;font-size:18px;text-align:center;line-height:44px;font-family:-apple-system,'Segoe UI',sans-serif">&#9679;</div>
                 </td>
                 <td style="vertical-align:top">
                   <div style="font-weight:700;font-size:16px;color:#0f172a;line-height:1.3">${esc(anonTitle)}</div>
@@ -275,17 +275,17 @@ function buildEmailHtml(opts: {
 
     <div style="background:#ffffff;padding:28px;border-radius:0 0 14px 14px;box-shadow:0 1px 3px rgba(15,23,42,0.06)">
 
-      <p style="margin:0 0 22px;color:#334155;font-size:15px;line-height:1.55">${esc(intro)}</p>
+      <p style="margin:0 0 22px;color:#2A2724;font-size:16px;line-height:1.65">${esc(intro)}</p>
 
       ${renderStatsHtml(stats)}
 
       ${renderVisibilityHtml(stats)}
 
       <h2 style="margin:26px 0 8px;font-size:17px;color:#0f172a">Företag som besökt er profil</h2>
-      <div style="margin:0 0 16px;padding:10px 14px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;font-size:12px;color:#1e3a8a">
+      <div style="margin:0 0 16px;padding:10px 14px;background:#F4FAF8;border:1px solid #BFE0D8;border-radius:8px;font-size:13px;line-height:1.55;color:#0F4F44">
         <strong>Så här redovisar vi:</strong> vi lämnar aldrig ut enskilda företagsnamn eller domäner. Varje kort nedan visar bara
         bransch och storlek. Urvalet är företag vars session innehåller en URL som matchar
-        <code style="background:#dbeafe;padding:1px 6px;border-radius:4px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">d365.se/partner/${esc(partnerSlug)}</code>.
+        <code style="background:#DCEFEA;padding:1px 6px;border-radius:4px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">d365.se/partner/${esc(partnerSlug)}</code>.
       </div>
 
 
@@ -293,14 +293,14 @@ function buildEmailHtml(opts: {
         ${rows || `<tr><td style="padding:24px;color:#94a3b8;text-align:center;background:#f8fafc;border-radius:10px">Inga identifierade besök denna period.</td></tr>`}
       </table>
 
-      <div style="margin:22px 0 0;padding:16px 18px;background:#f8fafc;border-left:4px solid #1e3a5f;border-radius:6px">
+      <div style="margin:22px 0 0;padding:16px 18px;background:#f8fafc;border-left:4px solid #B23D19;border-radius:6px">
         <div style="color:#475569;font-size:13px;line-height:1.55">
           <strong style="color:#0f172a">Hur tolkar vi datan?</strong> Listan visar anonymiserade företag som har besökt <em>just er partnerprofil</em> (<code style="background:#e2e8f0;padding:1px 5px;border-radius:4px;font-size:12px">/partner/${esc(partnerSlug)}</code>) på d365.se. Av integritetsskäl redovisas endast bransch och storlek – aldrig företagsnamn eller domän. "Andra sidor" visar vilka produktområden samma besökare tittade på i samma session – ofta en signal om vad de undersöker.
         </div>
       </div>
 
       <div style="text-align:center;margin:26px 0 8px">
-        <a href="${esc(profileUrl)}" style="display:inline-block;background:#1e3a5f;color:#fff;text-decoration:none;padding:12px 26px;border-radius:8px;font-weight:600;font-size:14px">
+        <a href="${esc(profileUrl)}" style="display:inline-block;background:#B23D19;color:#ffffff;text-decoration:none;padding:13px 28px;border-radius:8px;font-weight:600;font-size:14px">
           Öppna er partnerprofil →
         </a>
       </div>
