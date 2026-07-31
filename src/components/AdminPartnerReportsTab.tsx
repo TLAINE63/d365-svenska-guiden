@@ -371,7 +371,7 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
       <Dialog open={!!viewing} onOpenChange={(o) => !o && setViewing(null)}>
         <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{viewing?.partner_name} — {viewing?.period_start}</DialogTitle>
+            <DialogTitle>{viewing?.partner_name} — {viewing?.period_start} → {viewing?.period_end}</DialogTitle>
           </DialogHeader>
           {viewing && (
             <div className="grid lg:grid-cols-2 gap-6">
