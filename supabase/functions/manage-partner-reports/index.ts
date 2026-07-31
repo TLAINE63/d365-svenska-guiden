@@ -993,7 +993,7 @@ serve(async (req) => {
             results.push({ id: d.id, ok: false, error: "empty_after_exclusions" });
             continue;
           }
-          const html = buildEmailHtml({
+          const html = await renderDraftEmail(supabase, {
             partnerName: d.partner_name,
             partnerSlug: d.partner_slug,
             intro: d.intro_text || "",
@@ -1046,7 +1046,7 @@ serve(async (req) => {
         if (error || !d) throw error || new Error("Hittades ej");
         const excluded = new Set<string>(d.excluded_organisation_uuids || []);
         const companies = (d.companies as any[]).filter((c: any) => !excluded.has(c.organisation_uuid));
-        const html = buildEmailHtml({
+        const html = await renderDraftEmail(supabase, {
           partnerName: d.partner_name,
           partnerSlug: d.partner_slug,
           intro: d.intro_text || "",
@@ -1071,7 +1071,7 @@ serve(async (req) => {
         if (error || !d) throw error || new Error("Hittades ej");
         const excluded = new Set<string>(d.excluded_organisation_uuids || []);
         const companies = (d.companies as any[]).filter((c: any) => !excluded.has(c.organisation_uuid));
-        const html = buildEmailHtml({
+        const html = await renderDraftEmail(supabase, {
           partnerName: d.partner_name,
           partnerSlug: d.partner_slug,
           intro: d.intro_text || "",
@@ -1124,7 +1124,7 @@ serve(async (req) => {
             results.push({ id: d.id, ok: false, error: "empty_after_exclusions" });
             continue;
           }
-          const html = buildEmailHtml({
+          const html = await renderDraftEmail(supabase, {
             partnerName: d.partner_name,
             partnerSlug: d.partner_slug,
             intro: d.intro_text || "",
