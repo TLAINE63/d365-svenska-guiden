@@ -79,7 +79,9 @@ interface Payload {
   result_url?: string;
   pdf_base64?: string;
   pdf_filename?: string;
+  honeypot?: string;
 }
+
 
 const ASSESSMENT_LABELS: Record<string, string> = {
   bc_matching: "Behovsanalys – Business Central (ERP)",
