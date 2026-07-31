@@ -954,12 +954,13 @@ serve(async (req) => {
         for (const r of snitcher) {
           const slugs: string[] = Array.isArray(r.partner_slugs) ? r.partner_slugs : [];
           const urls: string[] = Array.isArray(r.visited_urls)
-            ? r.visited_urls.map((u: any) => (typeof u === "string" ? u : u?.url || u?.path || "")).filter(Boolean)
+            ? r.visited_urls.map((u: any) => (typeof u === "string" ? u : u?.url || u?.path || "")).filter((u: string) => u && isOwnSiteUrl(u))
             : [];
           const company = (r.company_name || "").trim().toLowerCase();
           if (!company) continue;
           for (const p of partners || []) {
-            const matched = slugs.includes(p.slug) || urls.some((u) => u.includes(`/partner/${p.slug}`));
+            const matched = urls.some((u) => new RegExp(`/partner/${p.slug}(?:/|$|\\?)`, "i").test(u));
+
             if (!matched) continue;
             compare.get(p.slug)!.identified.add(company);
             if (inPrimary(r.session_started_at)) primary.get(p.slug)!.identified.add(company);
