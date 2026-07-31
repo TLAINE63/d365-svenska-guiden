@@ -656,9 +656,11 @@ serve(async (req) => {
         const bySlug = new Map<string, { partner_slug: string; partner_name: string; is_featured: boolean; companies: Map<string, any> }>();
 
         for (const v of visits || []) {
-          const urls: { url: string }[] = (v.visited_urls || []) as any;
+          const urls: { url: string }[] = ((v.visited_urls || []) as any[]).filter((u: any) => isOwnSiteUrl(u?.url || u));
           for (const slug of v.partner_slugs || []) {
             const partner = partnerBySlug.get(slug);
+            // Skippa slugs som inte finns som partner i denna databas (t.ex. d365guide.com-profiler)
+            if (!partner) continue;
             let bucket = bySlug.get(slug);
             if (!bucket) {
               bucket = {
@@ -672,6 +674,8 @@ serve(async (req) => {
             const profileRe = new RegExp(`/partner/${slug}(?:/|$|\\?)`, "i");
             const profile_urls = urls.map(u => u.url).filter(u => profileRe.test(u));
             const other_urls = urls.map(u => u.url).filter(u => !profileRe.test(u));
+            if (profile_urls.length === 0) continue;
+
 
             let entry = bucket.companies.get(v.organisation_uuid);
             if (!entry) {
