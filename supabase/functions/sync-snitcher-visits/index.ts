@@ -65,15 +65,29 @@ async function snitcherFetch(path: string, token: string): Promise<any> {
   return res.json();
 }
 
+// Only URLs on our own Swedish site count as partner profile visits.
+// Snitcher-sessioner kan innehålla besök på d365guide.com (internationella sajten)
+// – de ska aldrig skapa partners eller statistik här.
+const OWN_SITE_RE = /^(https?:\/\/)?(www\.)?(d365\.se|d365-svenska-guiden\.lovable\.app|id-preview--[a-z0-9-]+\.lovable\.app)(\/|$)/i;
+
+function isOwnSiteUrl(url: string): boolean {
+  const u = (url || "").trim();
+  if (!u) return false;
+  if (u.startsWith("/")) return true; // relativ path = egen sajt
+  return OWN_SITE_RE.test(u);
+}
+
 function extractPartnerSlugs(urls: string[]): string[] {
   const slugs = new Set<string>();
   const re = /\/partner\/([a-z0-9-]+)\/?(?:\?|#|$)/i;
   for (const u of urls || []) {
+    if (!isOwnSiteUrl(u)) continue;
     const m = (u || "").match(re);
     if (m) slugs.add(m[1].toLowerCase());
   }
   return Array.from(slugs);
 }
+
 
 serve(async (req) => {
   const corsHeaders = getCorsHeaders(req);
