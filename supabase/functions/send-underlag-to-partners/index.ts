@@ -108,6 +108,13 @@ serve(async (req) => {
   try {
     const payload = (await req.json()) as Payload;
 
+    // Honeypot – tyst avvisning av botar
+    if (payload?.honeypot && String(payload.honeypot).length > 0) {
+      return new Response(JSON.stringify({ success: true }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     // Basic validation
     if (
       !payload?.contact?.email ||
@@ -117,14 +124,49 @@ serve(async (req) => {
       !Array.isArray(payload.partner_slugs) ||
       payload.partner_slugs.length === 0 ||
       payload.partner_slugs.length > 6 ||
+      !payload.partner_slugs.every((s) => typeof s === "string" && /^[a-z0-9-]{1,120}$/i.test(s)) ||
       !payload.assessment_type ||
-      !payload.underlag_summary
+      typeof payload.underlag_summary !== "string" ||
+      !payload.underlag_summary ||
+      payload.underlag_summary.length > 20000
     ) {
       return new Response(JSON.stringify({ error: "Ogiltiga indata" }), {
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
+
+    // Blockera fria/personliga e-postdomäner (samma policy som övriga lead-formulär)
+    if (isFreeEmailDomain(payload.contact.email)) {
+      return new Response(JSON.stringify({ error: FREE_EMAIL_ERROR_SV }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    // Validera ev. PDF-bilaga (magic bytes + storlek)
+    if (payload.pdf_base64) {
+      const pdfCheck = validatePdfBase64(payload.pdf_base64);
+      if (!pdfCheck.ok) {
+        return new Response(JSON.stringify({ error: pdfCheck.error }), {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      if (!payload.pdf_filename || !/\.pdf$/i.test(payload.pdf_filename)) {
+        payload.pdf_filename = "underlag.pdf";
+      }
+    }
+
+    // Rate limiting per IP och dygn
+    const quota = await checkAndLogQuota(req, "send-underlag-to-partners", 5);
+    if (!quota.allowed) {
+      return new Response(
+        JSON.stringify({ error: "För många förfrågningar. Försök igen imorgon eller kontakta oss direkt." }),
+        { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+      );
+    }
+
 
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
