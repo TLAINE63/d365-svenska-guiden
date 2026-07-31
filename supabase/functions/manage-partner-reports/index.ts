@@ -414,10 +414,12 @@ async function generateDrafts(supabase: any, opts: { period_start?: string; peri
     // Group by organisation_uuid
     const byOrg = new Map<string, CompanyEntry>();
     for (const v of partnerVisits) {
-      const urls: { url: string }[] = (v.visited_urls || []) as any;
+      const urls: { url: string }[] = ((v.visited_urls || []) as any[]).filter((u: any) => isOwnSiteUrl(u?.url || u));
       const profileRe = new RegExp(`/partner/${partner.slug}(?:/|$|\\?)`, "i");
       const profile_urls = urls.map(u => u.url).filter(u => profileRe.test(u));
       const other_urls = urls.map(u => u.url).filter(u => !profileRe.test(u));
+      if (profile_urls.length === 0) continue;
+
 
       let entry = byOrg.get(v.organisation_uuid);
       if (!entry) {
