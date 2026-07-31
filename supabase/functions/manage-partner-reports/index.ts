@@ -388,7 +388,6 @@ async function generateDrafts(supabase: any, opts: { period_start?: string; peri
 
   for (const partner of partners || []) {
     const partnerVisits = visitsBySlug.get(partner.slug) || [];
-    if (partnerVisits.length === 0) { skipped++; continue; }
 
     // Group by organisation_uuid
     const byOrg = new Map<string, CompanyEntry>();
@@ -421,10 +420,20 @@ async function generateDrafts(supabase: any, opts: { period_start?: string; peri
     }
 
     const companies = Array.from(byOrg.values()).sort((a,b) => b.visit_count - a.visit_count);
+
+    // Trafikstatistik (sammanslagen rapport: statistik + identifierade företag)
+    const stats = await buildDraftStats(supabase, partner, start, end, companies);
+    const c = stats.current;
+    const hasTraffic = c.profileVisits + c.compareViews + c.websiteClicks + c.industryListingViews > 0;
+    if (companies.length === 0 && !hasTraffic) { skipped++; continue; }
+
     const recipient = partner.admin_contact_email || partner.email;
 
-    const subject = `Besöksrapport ${periodLabel} – ${companies.length} identifierade företag`;
-    const intro = `Här kommer din månadsrapport för ${periodLabel}. Under perioden identifierades ${companies.length} företag som besökt din profil på d365.se. Rapporten visar även vilka andra sidor besökarna tittade på i samma session – ofta en signal om vilka produktområden de undersöker.`;
+    const subject = `Månadsrapport ${periodLabel} – d365.se`;
+    const intro = `Här kommer din månadsrapport för ${periodLabel}. Under perioden hade din profil på d365.se ${c.profileVisits} visningar och ${c.websiteClicks} klick vidare till er webbplats.` +
+      (companies.length > 0
+        ? ` Vi identifierade dessutom ${companies.length} företag som besökt din profil – redovisade anonymiserat med bransch och storlek.`
+        : ``);
 
     const { error: upErr } = await supabase
       .from("partner_report_drafts")
@@ -438,6 +447,7 @@ async function generateDrafts(supabase: any, opts: { period_start?: string; peri
         subject,
         intro_text: intro,
         companies,
+        stats,
         status: "pending_review",
       }, { onConflict: "partner_slug,period_start" });
     if (upErr) console.error("Draft upsert error", partner.slug, upErr);
