@@ -1,6 +1,29 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { Resend } from "https://esm.sh/resend@2.0.0";
+import { isFreeEmailDomain, FREE_EMAIL_ERROR_SV } from "../_shared/freeEmailDomains.ts";
+import { checkAndLogQuota } from "../_shared/ai-quota.ts";
+
+const MAX_PDF_BYTES = 10 * 1024 * 1024; // 10 MB
+
+/** Validates that a base64 payload is a real PDF within the size cap. */
+function validatePdfBase64(b64: string): { ok: true; bytes: Uint8Array } | { ok: false; error: string } {
+  const clean = b64.replace(/^data:[^;]+;base64,/, "").replace(/\s/g, "");
+  if (!/^[A-Za-z0-9+/]+={0,2}$/.test(clean)) return { ok: false, error: "Ogiltig bilaga" };
+  if (clean.length * 0.75 > MAX_PDF_BYTES) return { ok: false, error: "Bilagan är för stor (max 10 MB)" };
+  let bin: string;
+  try {
+    bin = atob(clean);
+  } catch {
+    return { ok: false, error: "Ogiltig bilaga" };
+  }
+  if (bin.length > MAX_PDF_BYTES) return { ok: false, error: "Bilagan är för stor (max 10 MB)" };
+  if (!bin.startsWith("%PDF-")) return { ok: false, error: "Endast PDF-filer tillåts som bilaga" };
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return { ok: true, bytes };
+}
+
 
 const ADVISOR_BCC = ["thomas.laine@dynamicfactory.se", "info@d365.se"];
 
