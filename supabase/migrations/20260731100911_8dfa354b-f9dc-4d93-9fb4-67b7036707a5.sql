@@ -1,0 +1,1 @@
+ALTER TABLE public.partner_report_drafts ADD COLUMN IF NOT EXISTS stats jsonb NOT NULL DEFAULT '{}'::jsonb;
