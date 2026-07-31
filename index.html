@@ -28,29 +28,40 @@
       })();
     </script>
 
-    <!-- Snitcher visitor identification (alla sidor, inkl. SSG-prerendrade) -->
+    <!-- Snitcher visitor identification (laddas efter LCP för att inte blockera första rendering) -->
     <script>
       (function () {
         try {
           var host = location.hostname;
           // Kör endast på produktionsdomänen, inte preview/staging
           if (host !== 'd365.se' && host !== 'www.d365.se') return;
+          var started = false;
+          function startSnitcher() {
+            if (started) return;
+            started = true;
           !function(e){"use strict";var t=e&&e.namespace;if(t&&e.profileId&&e.cdn){var i=window[t];if(i&&Array.isArray(i)||(i=window[t]=[]),!i.initialized&&!i._loaded)if(i._loaded)console&&console.warn("[Radar] Duplicate initialization attempted");else{i._loaded=!0;["track","page","identify","group","alias","ready","debug","on","off","once","trackClick","trackSubmit","trackLink","trackForm","pageview","screen","reset","register","setAnonymousId","addSourceMiddleware","addIntegrationMiddleware","addDestinationMiddleware","giveCookieConsent"].forEach((function(e){var a;i[e]=(a=e,function(){var e=window[t];if(e.initialized)return e[a].apply(e,arguments);var i=[].slice.call(arguments);return i.unshift(a),e.push(i),e})})),-1===e.apiEndpoint.indexOf("http")&&(e.apiEndpoint="https://"+e.apiEndpoint),i.bootstrap=function(){var t,i=document.createElement("script");i.async=!0,i.type="text/javascript",i.id="__radar__",i.setAttribute("data-settings",JSON.stringify(e)),i.src=[-1!==(t=e.cdn).indexOf("http")?"":"https://",t,"/releases/latest/radar.min.js"].join("");var a=document.scripts[0];a.parentNode.insertBefore(i,a)},i.bootstrap()}}else"undefined"!=typeof console&&console.error("[Radar] Configuration incomplete")}({
             "apiEndpoint": "radar.snitcher.com",
             "cdn": "cdn.snitcher.com",
             "namespace": "Snitcher",
             "profileId": "sisWjf3iiU"
           });
+          }
+          if (document.readyState === 'complete') {
+            setTimeout(startSnitcher, 1200);
+          } else {
+            window.addEventListener('load', function () { setTimeout(startSnitcher, 1200); });
+          }
         } catch (e) {}
       })();
     </script>
 
+
     <!-- Editorial fonts for /beslutsmognadsindex publication -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTLYgFE_.woff2" type="font/woff2" crossorigin />
-    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgA.woff2" type="font/woff2" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Geist:wght@300..600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" />
+    <!-- Playfair-woff2 preloadas inte: fonten används bara på /beslutsmognadsindex och konkurrerade med LCP-resurserna på startsidan. -->
+
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Geist:wght@300..600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" media="print" onload="this.media='all'" />
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Geist:wght@300..600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" /></noscript>
 
@@ -88,10 +99,10 @@
       .mb-8{margin-bottom:2rem}
       .relative{position:relative}
       .px-4{padding-left:1rem;padding-right:1rem}
-      /* Critical H1 styles to eliminate LCP render delay */
-      h1{margin:0;font-weight:600;font-size:1.25rem;line-height:1.75rem;letter-spacing:-.025em}
-      @media(min-width:640px){h1{font-size:1.5rem;line-height:2rem}.sm\:pt-28{padding-top:7rem}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:pb-10{padding-bottom:2.5rem}}
-      @media(min-width:768px){h1{font-size:32px;line-height:1.2}.md\:pt-28{padding-top:7rem}.md\:pb-12{padding-bottom:3rem}.md\:mb-10{margin-bottom:2.5rem}}
+      /* Critical H1 styles to eliminate LCP render delay – matchar hero-typografin exakt */
+      h1{margin:0;font-weight:700;font-size:26px;line-height:1.15;letter-spacing:-.025em}
+      @media(min-width:640px){h1{font-size:34px}.sm\:pt-28{padding-top:7rem}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:pb-10{padding-bottom:2.5rem}}
+      @media(min-width:768px){h1{font-size:40px}.md\:pt-28{padding-top:7rem}.md\:pb-12{padding-bottom:3rem}.md\:mb-10{margin-bottom:2.5rem}}
       .text-white{color:#fff}
       .text-white\/70{color:hsla(0,0%,100%,.7)}
       /* Grid basics for hero */
