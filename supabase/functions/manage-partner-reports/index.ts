@@ -166,6 +166,7 @@ async function renderDraftEmail(supabase: any, opts: {
   companies: CompanyEntry[];
   periodLabel: string;
   siteOrigin: string;
+  stats?: DraftStats | null;
 }): Promise<string> {
   const settings = await fetchReportSettings(supabase);
   return buildEmailHtml({ ...opts, settings });
@@ -178,10 +179,12 @@ function buildEmailHtml(opts: {
   companies: CompanyEntry[];
   periodLabel: string;
   siteOrigin: string;
+  stats?: DraftStats | null;
   settings?: { changelog: string; nextPeriod: string; contact: string };
 }): string {
   const { partnerName, partnerSlug, intro, companies, periodLabel, siteOrigin } = opts;
   const settings = opts.settings || { changelog: "", nextPeriod: "", contact: "" };
+  const stats = opts.stats || null;
 
   const profileUrl = `${siteOrigin}/partner/${partnerSlug}`;
   const totalVisits = companies.reduce((s, c) => s + c.visit_count, 0);
