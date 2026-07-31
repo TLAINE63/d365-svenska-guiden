@@ -294,6 +294,24 @@ function buildEmailHtml(opts: {
         </a>
       </div>
 
+      ${settings.changelog ? `
+      <div style="margin:28px 0 0;padding-top:20px;border-top:1px solid #e2e8f0">
+        <h3 style="margin:0 0 8px;font-size:16px;color:#0f172a">Nytt på sajten</h3>
+        <p style="margin:0 0 8px;color:#64748b;font-size:12px;line-height:1.5">Förbättringar vi genomfört på d365.se som påverkar er synlighet.</p>
+        ${renderRichText(settings.changelog)}
+      </div>` : ""}
+
+      ${settings.nextPeriod ? `
+      <div style="margin:22px 0 0;padding-top:18px;border-top:1px solid #e2e8f0">
+        <h3 style="margin:0 0 8px;font-size:16px;color:#0f172a">Nästa period</h3>
+        ${renderRichText(settings.nextPeriod)}
+      </div>` : ""}
+
+      ${settings.contact ? `
+      <p style="margin:18px 0 0;color:#475569;font-size:13px;line-height:1.6">
+        Frågor eller önskemål om innehåll? Kontakta ${esc(settings.contact)}.
+      </p>` : ""}
+
       <p style="color:#475569;font-size:13px;line-height:1.6;margin:28px 0 6px">
         Vänliga hälsningar,<br/>
         <strong style="color:#0f172a">Thomas Laine &amp; Michael Uhman</strong><br/>
