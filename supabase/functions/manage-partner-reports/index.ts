@@ -285,7 +285,7 @@ function buildEmailHtml(opts: {
 
       <div style="margin:22px 0 0;padding:16px 18px;background:#f8fafc;border-left:4px solid #1e3a5f;border-radius:6px">
         <div style="color:#475569;font-size:13px;line-height:1.55">
-          <strong style="color:#0f172a">Hur tolkar vi datan?</strong> Listan visar bara företag som Snitcher har sett besöka <em>just er partnerprofil</em> (<code style="background:#e2e8f0;padding:1px 5px;border-radius:4px;font-size:12px">/partner/${esc(partnerSlug)}</code>) på d365.se. "Andra sidor" visar vilka produktområden samma företag tittade på i samma session – ofta en signal om vad de undersöker.
+          <strong style="color:#0f172a">Hur tolkar vi datan?</strong> Listan visar anonymiserade företag som har besökt <em>just er partnerprofil</em> (<code style="background:#e2e8f0;padding:1px 5px;border-radius:4px;font-size:12px">/partner/${esc(partnerSlug)}</code>) på d365.se. Av integritetsskäl redovisas endast bransch och storlek – aldrig företagsnamn eller domän. "Andra sidor" visar vilka produktområden samma besökare tittade på i samma session – ofta en signal om vad de undersöker.
         </div>
       </div>
 
