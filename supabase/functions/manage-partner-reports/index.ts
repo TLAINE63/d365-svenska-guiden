@@ -760,7 +760,8 @@ serve(async (req) => {
         const byOrg = new Map<string, any>();
         for (const v of visits || []) {
           const urls: { url: string }[] = (v.visited_urls || []) as any;
-          const urlList = urls.map(u => u.url).filter(Boolean);
+          const urlList = urls.map(u => u.url).filter((u: string) => u && isOwnSiteUrl(u));
+
           let entry = byOrg.get(v.organisation_uuid);
           if (!entry) {
             entry = {
