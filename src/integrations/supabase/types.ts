@@ -1024,6 +1024,7 @@ export type Database = {
           period_start: string
           recipient_email: string | null
           sent_at: string | null
+          stats: Json
           status: string
           subject: string
           updated_at: string
@@ -1042,6 +1043,7 @@ export type Database = {
           period_start: string
           recipient_email?: string | null
           sent_at?: string | null
+          stats?: Json
           status?: string
           subject: string
           updated_at?: string
@@ -1060,6 +1062,7 @@ export type Database = {
           period_start?: string
           recipient_email?: string | null
           sent_at?: string | null
+          stats?: Json
           status?: string
           subject?: string
           updated_at?: string

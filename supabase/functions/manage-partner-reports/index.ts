@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { Resend } from "https://esm.sh/resend@2.0.0";
+import { buildDraftStats, renderStatsHtml, renderVisibilityHtml, type DraftStats } from "./stats.ts";
 
 function isAllowedOrigin(origin: string): boolean {
   if (!origin) return false;
@@ -165,6 +166,7 @@ async function renderDraftEmail(supabase: any, opts: {
   companies: CompanyEntry[];
   periodLabel: string;
   siteOrigin: string;
+  stats?: DraftStats | null;
 }): Promise<string> {
   const settings = await fetchReportSettings(supabase);
   return buildEmailHtml({ ...opts, settings });
@@ -177,10 +179,12 @@ function buildEmailHtml(opts: {
   companies: CompanyEntry[];
   periodLabel: string;
   siteOrigin: string;
+  stats?: DraftStats | null;
   settings?: { changelog: string; nextPeriod: string; contact: string };
 }): string {
   const { partnerName, partnerSlug, intro, companies, periodLabel, siteOrigin } = opts;
   const settings = opts.settings || { changelog: "", nextPeriod: "", contact: "" };
+  const stats = opts.stats || null;
 
   const profileUrl = `${siteOrigin}/partner/${partnerSlug}`;
   const totalVisits = companies.reduce((s, c) => s + c.visit_count, 0);
@@ -257,12 +261,12 @@ function buildEmailHtml(opts: {
     </td>`;
 
   return `<!DOCTYPE html>
-<html lang="sv"><head><meta charset="utf-8"><title>Besöksrapport ${esc(partnerName)}</title></head>
+<html lang="sv"><head><meta charset="utf-8"><title>Månadsrapport ${esc(partnerName)}</title></head>
 <body style="margin:0;padding:0;background:#f1f5f9;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#0f172a">
   <div style="max-width:660px;margin:0 auto;padding:24px 16px">
 
     <div style="background:linear-gradient(135deg,#1e3a5f 0%,#2d5a87 100%);color:#fff;padding:28px;border-radius:14px 14px 0 0">
-      <div style="font-size:12px;opacity:0.85;letter-spacing:1.2px;text-transform:uppercase">D365.se · Besöksrapport</div>
+      <div style="font-size:12px;opacity:0.85;letter-spacing:1.2px;text-transform:uppercase">D365.se · Månadsrapport</div>
       <h1 style="margin:6px 0 4px;font-size:24px;line-height:1.25">${esc(partnerName)}</h1>
       <div style="font-size:14px;opacity:0.9">Period: ${esc(periodLabel)}</div>
     </div>
@@ -271,7 +275,11 @@ function buildEmailHtml(opts: {
 
       <p style="margin:0 0 22px;color:#334155;font-size:15px;line-height:1.55">${esc(intro)}</p>
 
-      <h2 style="margin:0 0 8px;font-size:17px;color:#0f172a">Företag som besökt er profil</h2>
+      ${renderStatsHtml(stats)}
+
+      ${renderVisibilityHtml(stats)}
+
+      <h2 style="margin:26px 0 8px;font-size:17px;color:#0f172a">Företag som besökt er profil</h2>
       <div style="margin:0 0 16px;padding:10px 14px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;font-size:12px;color:#1e3a8a">
         <strong>Så här redovisar vi:</strong> vi lämnar aldrig ut enskilda företagsnamn eller domäner. Varje kort nedan visar bara
         bransch och storlek. Urvalet är företag vars session innehåller en URL som matchar
@@ -380,7 +388,6 @@ async function generateDrafts(supabase: any, opts: { period_start?: string; peri
 
   for (const partner of partners || []) {
     const partnerVisits = visitsBySlug.get(partner.slug) || [];
-    if (partnerVisits.length === 0) { skipped++; continue; }
 
     // Group by organisation_uuid
     const byOrg = new Map<string, CompanyEntry>();
@@ -413,10 +420,20 @@ async function generateDrafts(supabase: any, opts: { period_start?: string; peri
     }
 
     const companies = Array.from(byOrg.values()).sort((a,b) => b.visit_count - a.visit_count);
+
+    // Trafikstatistik (sammanslagen rapport: statistik + identifierade företag)
+    const stats = await buildDraftStats(supabase, partner, start, end, companies);
+    const c = stats.current;
+    const hasTraffic = c.profileVisits + c.compareViews + c.websiteClicks + c.industryListingViews > 0;
+    if (companies.length === 0 && !hasTraffic) { skipped++; continue; }
+
     const recipient = partner.admin_contact_email || partner.email;
 
-    const subject = `Besöksrapport ${periodLabel} – ${companies.length} identifierade företag`;
-    const intro = `Här kommer din månadsrapport för ${periodLabel}. Under perioden identifierades ${companies.length} företag som besökt din profil på d365.se. Rapporten visar även vilka andra sidor besökarna tittade på i samma session – ofta en signal om vilka produktområden de undersöker.`;
+    const subject = `Månadsrapport ${periodLabel} – d365.se`;
+    const intro = `Här kommer din månadsrapport för ${periodLabel}. Under perioden hade din profil på d365.se ${c.profileVisits} visningar och ${c.websiteClicks} klick vidare till er webbplats.` +
+      (companies.length > 0
+        ? ` Vi identifierade dessutom ${companies.length} företag som besökt din profil – redovisade anonymiserat med bransch och storlek.`
+        : ``);
 
     const { error: upErr } = await supabase
       .from("partner_report_drafts")
@@ -430,6 +447,7 @@ async function generateDrafts(supabase: any, opts: { period_start?: string; peri
         subject,
         intro_text: intro,
         companies,
+        stats,
         status: "pending_review",
       }, { onConflict: "partner_slug,period_start" });
     if (upErr) console.error("Draft upsert error", partner.slug, upErr);
@@ -989,8 +1007,9 @@ serve(async (req) => {
           }
           const excluded = new Set<string>(d.excluded_organisation_uuids || []);
           const companies: CompanyEntry[] = (d.companies as any[]).filter((c: any) => !excluded.has(c.organisation_uuid));
-          if (companies.length === 0) {
-            await supabase.from("partner_report_drafts").update({ status: "skipped", error_message: "Inga företag att rapportera efter exkludering" }).eq("id", d.id);
+          const hasStats = !!(d as any).stats?.current;
+          if (companies.length === 0 && !hasStats) {
+            await supabase.from("partner_report_drafts").update({ status: "skipped", error_message: "Inget innehåll att rapportera efter exkludering" }).eq("id", d.id);
             results.push({ id: d.id, ok: false, error: "empty_after_exclusions" });
             continue;
           }
@@ -1001,6 +1020,7 @@ serve(async (req) => {
             companies,
             periodLabel: monthLabel(new Date(`${d.period_start}T00:00:00Z`)),
             siteOrigin: "https://www.d365.se",
+            stats: (d as any).stats ?? null,
           });
 
           try {
@@ -1054,6 +1074,7 @@ serve(async (req) => {
           companies,
           periodLabel: monthLabel(new Date(`${d.period_start}T00:00:00Z`)),
           siteOrigin: "https://www.d365.se",
+            stats: (d as any).stats ?? null,
         });
         return new Response(JSON.stringify({ html }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
@@ -1079,6 +1100,7 @@ serve(async (req) => {
           companies,
           periodLabel: monthLabel(new Date(`${d.period_start}T00:00:00Z`)),
           siteOrigin: "https://www.d365.se",
+            stats: (d as any).stats ?? null,
         });
         const subject = `[TEST] ${d.subject}`;
         const { error: sendErr } = await resend.emails.send({
@@ -1121,7 +1143,7 @@ serve(async (req) => {
         for (const d of drafts || []) {
           const excluded = new Set<string>(d.excluded_organisation_uuids || []);
           const companies = (d.companies as any[]).filter((c: any) => !excluded.has(c.organisation_uuid));
-          if (companies.length === 0) {
+          if (companies.length === 0 && !(d as any).stats?.current) {
             results.push({ id: d.id, ok: false, error: "empty_after_exclusions" });
             continue;
           }
@@ -1132,6 +1154,7 @@ serve(async (req) => {
             companies,
             periodLabel: monthLabel(new Date(`${d.period_start}T00:00:00Z`)),
             siteOrigin: "https://www.d365.se",
+            stats: (d as any).stats ?? null,
           });
           const subject = `[GODKÄNN] ${d.subject} → ${d.recipient_email || "saknar mottagare"}`;
           try {
