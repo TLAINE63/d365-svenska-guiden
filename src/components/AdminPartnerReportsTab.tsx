@@ -348,9 +348,11 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
     </Card>
 
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between gap-4 flex-wrap">
-        <CardTitle>Månadsrapporter till partners</CardTitle>
-        <div className="flex gap-2">
+      <CardHeader className="flex flex-row items-start justify-between gap-4 flex-wrap">
+        <div>
+          <CardTitle>Månadsrapporter till partners</CardTitle>
+          <CardDescription>Ett utkast per partner och period – granska och skicka manuellt. Företagsnamn anonymiseras i utskicket.</CardDescription>
+        </div>
           <Button variant="outline" size="sm" onClick={syncSnitcher} disabled={busy === "sync"}>
             {busy === "sync" ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
             <span className="ml-2">Synka Snitcher</span>
