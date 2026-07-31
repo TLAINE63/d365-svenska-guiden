@@ -781,8 +781,12 @@ serve(async (req) => {
             byOrg.set(v.organisation_uuid, entry);
           }
           for (const s of v.partner_slugs || []) {
-            if (publishedSlugs.has(s)) entry.partner_slugs.add(s);
+            if (!publishedSlugs.has(s)) continue;
+            // Kräv att profilbesöket faktiskt skedde på d365.se
+            if (!urlList.some((u: string) => new RegExp(`/partner/${s}(?:/|$|\\?)`, "i").test(u))) continue;
+            entry.partner_slugs.add(s);
           }
+
           urlList.forEach(u => entry.urls.add(u));
           entry.session_count += 1;
           if (v.session_started_at && (!entry.first_seen || v.session_started_at < entry.first_seen)) entry.first_seen = v.session_started_at;
