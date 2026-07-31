@@ -265,11 +265,13 @@ function buildEmailHtml(opts: {
 <body style="margin:0;padding:0;background:#f1f5f9;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#0f172a">
   <div style="max-width:660px;margin:0 auto;padding:24px 16px">
 
-    <div style="background:linear-gradient(135deg,#1e3a5f 0%,#2d5a87 100%);color:#fff;padding:28px;border-radius:14px 14px 0 0">
-      <div style="font-size:12px;opacity:0.85;letter-spacing:1.2px;text-transform:uppercase">D365.se · Månadsrapport</div>
-      <h1 style="margin:6px 0 4px;font-size:24px;line-height:1.25">${esc(partnerName)}</h1>
-      <div style="font-size:14px;opacity:0.9">Period: ${esc(periodLabel)}</div>
+    <div style="background:#15130F;color:#ffffff;padding:30px 28px 26px;border-radius:14px 14px 0 0">
+      <div style="font-size:12px;color:#F0A88C;letter-spacing:1.4px;text-transform:uppercase;font-weight:700">D365.se · Månadsrapport</div>
+      <h1 style="margin:10px 0 6px;font-size:26px;line-height:1.2;color:#ffffff;font-weight:700">${esc(partnerName)}</h1>
+      <div style="font-size:14px;color:#E7E3DC">Period: ${esc(periodLabel)}</div>
     </div>
+    <div style="height:4px;background:#B23D19;line-height:4px;font-size:0">&nbsp;</div>
+
 
     <div style="background:#ffffff;padding:28px;border-radius:0 0 14px 14px;box-shadow:0 1px 3px rgba(15,23,42,0.06)">
 
