@@ -10,7 +10,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, RefreshCw, Send, Eye, Trash2, Sparkles } from "lucide-react";
 import PartnerStatsMatrix from "@/components/PartnerStatsMatrix";
-import { useAdminPartners } from "@/hooks/useAdminPartners";
 
 interface Draft {
   id: string;
