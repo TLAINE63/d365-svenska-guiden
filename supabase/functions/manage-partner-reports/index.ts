@@ -186,11 +186,13 @@ function buildEmailHtml(opts: {
   const totalVisits = companies.reduce((s, c) => s + c.visit_count, 0);
   const withIndustry = companies.filter(c => c.company_industry).length;
 
+  // Anonymiserat: aldrig företagsnamn eller domän i mejlet till partner.
   const meta = (c: CompanyEntry) =>
-    [c.company_domain, c.company_industry, c.company_size, c.company_country]
+    [c.company_size, c.company_country]
       .filter(Boolean)
       .map(v => `<span style="display:inline-block;background:#f1f5f9;color:#475569;font-size:11px;padding:3px 8px;border-radius:999px;margin:2px 4px 0 0">${esc(v as string)}</span>`)
       .join("");
+
 
   const rows = companies.map((c, idx) => {
     const allOther = new Set<string>();
