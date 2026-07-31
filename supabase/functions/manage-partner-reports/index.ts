@@ -215,9 +215,7 @@ function buildEmailHtml(opts: {
       return `<li style="margin:3px 0;font-size:12px;color:#475569;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"><a href="${esc(u)}" style="color:#15803d;text-decoration:none">${esc(pathOnly)}</a></li>`;
     }).join("");
 
-    const domainLink = c.company_domain
-      ? `<a href="https://${esc(c.company_domain)}" style="color:#64748b;text-decoration:none;font-size:12px">${esc(c.company_domain)} ↗</a>`
-      : "";
+    const anonTitle = (c.company_industry || "").trim() || "Identifierat företag";
 
     return `
       <tr><td style="padding:0 0 14px">
@@ -226,13 +224,13 @@ function buildEmailHtml(opts: {
             <td style="padding:18px 20px;vertical-align:top">
               <table style="width:100%;border-collapse:collapse"><tr>
                 <td style="vertical-align:top;width:48px;padding-right:14px">
-                  <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#1e3a5f,#2d5a87);color:#fff;font-weight:700;font-size:16px;text-align:center;line-height:44px;font-family:-apple-system,'Segoe UI',sans-serif">${esc(initials(c.company_name))}</div>
+                  <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#1e3a5f,#2d5a87);color:#fff;font-weight:700;font-size:18px;text-align:center;line-height:44px;font-family:-apple-system,'Segoe UI',sans-serif">&#9679;</div>
                 </td>
                 <td style="vertical-align:top">
-                  <div style="font-weight:700;font-size:16px;color:#0f172a;line-height:1.3">${esc(c.company_name || "Okänt företag")}</div>
-                  ${domainLink ? `<div style="margin-top:2px">${domainLink}</div>` : ""}
+                  <div style="font-weight:700;font-size:16px;color:#0f172a;line-height:1.3">${esc(anonTitle)}</div>
                   <div style="margin-top:8px">${meta(c)}</div>
                 </td>
+
                 <td style="vertical-align:top;text-align:right;white-space:nowrap;padding-left:12px">
                   <div style="display:inline-block;background:#fff7ed;color:#9a3412;border-radius:999px;padding:4px 12px;font-weight:600;font-size:12px">${c.visit_count} besök</div>
                 </td>
