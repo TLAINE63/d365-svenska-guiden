@@ -957,7 +957,7 @@ serve(async (req) => {
           if (inPrimary(c.clicked_at)) primary.get(slug)!.websiteClicks++;
         }
         for (const r of snitcher) {
-          const slugs: string[] = Array.isArray(r.partner_slugs) ? r.partner_slugs : [];
+          
           const urls: string[] = Array.isArray(r.visited_urls)
             ? r.visited_urls.map((u: any) => (typeof u === "string" ? u : u?.url || u?.path || "")).filter((u: string) => u && isOwnSiteUrl(u))
             : [];
