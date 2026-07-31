@@ -1,31 +1,38 @@
-Plan: Länk till fpaa.se + byggfel
+## Bakgrund
 
-1. Byggfel
-- `supabase/functions/mcp/index.ts` är en autogenererad fil som Vite-pluginet vägrar skriva över eftersom den betraktas som användarägd. Byggfel: "refusing to overwrite user-authored file".
-- Åtgärd: Ta bort `supabase/functions/mcp/index.ts`. Pluginet regenererar filen vid nästa bygge.
-- Verifiera att `vite build --mode development` går igenom utan fel.
+Du har rätt – jag beskrev fel funktion tidigare. Den rapport du ser i förhandsgranskningen byggs av `manage-partner-reports` (funktionen `buildEmailHtml`), och den skickar idag **företagsnamn, klickbar domän, bransch, storlek, land och besökta URL:er** till partnern. Den gamla `send-partner-monthly-report` är den som bara aggregerar.
 
-2. Länk till fpaa.se – placering och redovisning
+## Vad som ändras
 
-2.1 /agande-och-intressen (primär plats)
-Sidan förklarar redan hur partnersamarbetet fungerar och att d365.se står på köparens sida. Där är det naturligt att lägga till en sektion "Relaterade initiativ" eller "Andra projekt vi driver" som:
-- Kort beskriver fpaa.se som en satsning på utbildning och vägledning inom finansiell planering och analys (FP&A).
-- Redovisar öppet att fpaa.se ägs av samma personer som d365.se.
-- Förklarar att syftet är att vägleda besökare, men att länken kan leda till intresse för Aimplan (en produkt där Cloud Ahead/d365.se-ägarna har intresse).
-- Länkar textuellt till fpaa.se med `target="_blank"` och `rel="noopener noreferrer"`.
-- Använder `related_party`-mönstret i enlighet med projektminnet om intressekonflikter.
+Mejlet till partner anonymiseras. Varje kort visar i stället:
 
-2.2 Footer
-- Lägg till en länk till fpaa.se i footerns nedre länkrad, bredvid "Så fungerar partnersamarbetet", "Friskrivning" och "Dataskyddspolicy".
-- Länktext: "FPAA – finansiell planering & analys" eller motsvarande kort beskrivning.
-- Samma säkerhetsattribut (`noopener noreferrer`) och extern-länk-hantering.
+```text
+[ikon]  Tillverkande företag · 51–200 anställda        1 besök
+        Sverige
+        ✓ Matchade profil-URL:er (2)
+          /partner/sherpas-group-ab/
+        ANDRA SIDOR DE TITTADE PÅ
+          /kunskapscenter/d365sales/  ...
+```
 
-3. Material som uppdateras
-- `src/pages/OwnershipAndInterests.tsx` – ny sektion med text och länk.
-- `src/components/Footer.tsx` – ny länk i den nedre länkraden.
-- `supabase/functions/mcp/index.ts` – raderas för att lösa byggfelet.
+Konkret i e-postmallen:
+- **Företagsnamn tas bort** ur rubriken – ersätts av bransch (fallback "Identifierat företag" om bransch saknas).
+- **Domänen tas bort** helt (både text och länk).
+- **Storlek och land behålls** som underrad/pills.
+- **Initialbrickan** (som idag visar företagets initialer) byts mot en neutral, generisk ikon.
+- **"Andra sidor de tittade på" behålls oförändrat** – inklusive matchade profil-URL:er.
+- Förklaringstexten uppdateras: rapporten anger uttryckligen att enskilda företagsnamn inte lämnas ut, bara bransch och storlek.
+- Ämnesrad och intro-text ("X identifierade företag") kan vara kvar – de innehåller inga namn.
 
-4. Validering
-- Kör byggkommandot för att bekräfta att MCP-filen regenereras och bygget lyckas.
-- Kontrollera att länken syns både på /agande-och-intressen och i footern, samt att den öppnas korrekt.
-- Säkerställ att texten inte använder ordet "oberoende" (projektminne) och att intressekonflikten redovisas tydligt.
+## Vad som INTE ändras
+
+- **Admin-vyn behåller företagsnamnen.** Du måste kunna se vilka företag som ingår för att kunna bocka av/exkludera rader före utskick. Anonymiseringen sker bara i det mejl som går till partnern.
+- Datainsamlingen i `snitcher_visits` rörs inte.
+- Den gamla `send-partner-monthly-report` rörs inte.
+
+## Teknisk detalj
+
+- Fil: `supabase/functions/manage-partner-reports/index.ts`, funktionen `buildEmailHtml` (kortrenderingen ca rad 190–255 samt förklaringsrutorna).
+- Samma funktion används för både förhandsgranskning, testutskick och skarpt utskick, så en ändring täcker alla tre flöden.
+- Redan sparade utkast i `partner_report_drafts` behåller sin `companies`-JSON med namn – renderingen filtrerar bort dem vid utskick, så inga data behöver migreras.
+- Funktionen deployas om efter ändringen och jag verifierar med en förhandsgranskning av ett juli-utkast.

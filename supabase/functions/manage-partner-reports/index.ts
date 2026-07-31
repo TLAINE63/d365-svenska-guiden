@@ -186,11 +186,13 @@ function buildEmailHtml(opts: {
   const totalVisits = companies.reduce((s, c) => s + c.visit_count, 0);
   const withIndustry = companies.filter(c => c.company_industry).length;
 
+  // Anonymiserat: aldrig företagsnamn eller domän i mejlet till partner.
   const meta = (c: CompanyEntry) =>
-    [c.company_domain, c.company_industry, c.company_size, c.company_country]
+    [c.company_size, c.company_country]
       .filter(Boolean)
       .map(v => `<span style="display:inline-block;background:#f1f5f9;color:#475569;font-size:11px;padding:3px 8px;border-radius:999px;margin:2px 4px 0 0">${esc(v as string)}</span>`)
       .join("");
+
 
   const rows = companies.map((c, idx) => {
     const allOther = new Set<string>();
@@ -213,9 +215,7 @@ function buildEmailHtml(opts: {
       return `<li style="margin:3px 0;font-size:12px;color:#475569;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"><a href="${esc(u)}" style="color:#15803d;text-decoration:none">${esc(pathOnly)}</a></li>`;
     }).join("");
 
-    const domainLink = c.company_domain
-      ? `<a href="https://${esc(c.company_domain)}" style="color:#64748b;text-decoration:none;font-size:12px">${esc(c.company_domain)} ↗</a>`
-      : "";
+    const anonTitle = (c.company_industry || "").trim() || "Identifierat företag";
 
     return `
       <tr><td style="padding:0 0 14px">
@@ -224,13 +224,13 @@ function buildEmailHtml(opts: {
             <td style="padding:18px 20px;vertical-align:top">
               <table style="width:100%;border-collapse:collapse"><tr>
                 <td style="vertical-align:top;width:48px;padding-right:14px">
-                  <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#1e3a5f,#2d5a87);color:#fff;font-weight:700;font-size:16px;text-align:center;line-height:44px;font-family:-apple-system,'Segoe UI',sans-serif">${esc(initials(c.company_name))}</div>
+                  <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#1e3a5f,#2d5a87);color:#fff;font-weight:700;font-size:18px;text-align:center;line-height:44px;font-family:-apple-system,'Segoe UI',sans-serif">&#9679;</div>
                 </td>
                 <td style="vertical-align:top">
-                  <div style="font-weight:700;font-size:16px;color:#0f172a;line-height:1.3">${esc(c.company_name || "Okänt företag")}</div>
-                  ${domainLink ? `<div style="margin-top:2px">${domainLink}</div>` : ""}
+                  <div style="font-weight:700;font-size:16px;color:#0f172a;line-height:1.3">${esc(anonTitle)}</div>
                   <div style="margin-top:8px">${meta(c)}</div>
                 </td>
+
                 <td style="vertical-align:top;text-align:right;white-space:nowrap;padding-left:12px">
                   <div style="display:inline-block;background:#fff7ed;color:#9a3412;border-radius:999px;padding:4px 12px;font-weight:600;font-size:12px">${c.visit_count} besök</div>
                 </td>
@@ -273,10 +273,11 @@ function buildEmailHtml(opts: {
 
       <h2 style="margin:0 0 8px;font-size:17px;color:#0f172a">Företag som besökt er profil</h2>
       <div style="margin:0 0 16px;padding:10px 14px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;font-size:12px;color:#1e3a8a">
-        <strong>Filtreringsregel:</strong> endast företag vars Snitcher-session innehåller en URL som matchar
-        <code style="background:#dbeafe;padding:1px 6px;border-radius:4px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">d365.se/partner/${esc(partnerSlug)}</code>
-        listas nedan. Varje företagskort visar exakt vilka URL:er som matchade (grön ruta) så ni kan kontrollera.
+        <strong>Så här redovisar vi:</strong> vi lämnar aldrig ut enskilda företagsnamn eller domäner. Varje kort nedan visar bara
+        bransch och storlek. Urvalet är företag vars session innehåller en URL som matchar
+        <code style="background:#dbeafe;padding:1px 6px;border-radius:4px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">d365.se/partner/${esc(partnerSlug)}</code>.
       </div>
+
 
       <table style="width:100%;border-collapse:collapse">
         ${rows || `<tr><td style="padding:24px;color:#94a3b8;text-align:center;background:#f8fafc;border-radius:10px">Inga identifierade besök denna period.</td></tr>`}
@@ -284,7 +285,7 @@ function buildEmailHtml(opts: {
 
       <div style="margin:22px 0 0;padding:16px 18px;background:#f8fafc;border-left:4px solid #1e3a5f;border-radius:6px">
         <div style="color:#475569;font-size:13px;line-height:1.55">
-          <strong style="color:#0f172a">Hur tolkar vi datan?</strong> Listan visar bara företag som Snitcher har sett besöka <em>just er partnerprofil</em> (<code style="background:#e2e8f0;padding:1px 5px;border-radius:4px;font-size:12px">/partner/${esc(partnerSlug)}</code>) på d365.se. "Andra sidor" visar vilka produktområden samma företag tittade på i samma session – ofta en signal om vad de undersöker.
+          <strong style="color:#0f172a">Hur tolkar vi datan?</strong> Listan visar anonymiserade företag som har besökt <em>just er partnerprofil</em> (<code style="background:#e2e8f0;padding:1px 5px;border-radius:4px;font-size:12px">/partner/${esc(partnerSlug)}</code>) på d365.se. Av integritetsskäl redovisas endast bransch och storlek – aldrig företagsnamn eller domän. "Andra sidor" visar vilka produktområden samma besökare tittade på i samma session – ofta en signal om vad de undersöker.
         </div>
       </div>
 
