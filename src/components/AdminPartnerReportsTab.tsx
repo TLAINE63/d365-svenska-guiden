@@ -183,12 +183,9 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
   const totalCompanies = filteredExplore.reduce((s, p) => s + p.companies.length, 0);
 
   const exploreSection = (
+    <Card className="border-none shadow-none">
+      <CardContent className="space-y-4 p-0">
 
-    <Card>
-      <CardHeader>
-        <CardTitle>Företag som besökt partnerprofiler</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
         <div className="flex flex-wrap items-end gap-3">
           <div>
             <label className="text-xs font-medium block mb-1">Från</label>
