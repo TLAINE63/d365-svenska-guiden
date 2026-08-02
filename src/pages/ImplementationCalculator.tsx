@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
+import CalculatorDrafts from "@/components/CalculatorDrafts";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -494,6 +495,41 @@ export default function ImplementationCalculator() {
 
                 </CardContent>
               </Card>
+
+              <CalculatorDrafts
+                inputs={{
+                  solutions,
+                  users,
+                  premiumLicense,
+                  complexity,
+                  integrations,
+                  legalEntities,
+                  dataMigration,
+                  customDevelopment,
+                  training,
+                  hourlyRate,
+                }}
+                summary={{
+                  costLow: result.costLow,
+                  costHigh: result.costHigh,
+                  hours: result.hours,
+                  months: result.months,
+                  licenseMonthly: result.licenseMonthly,
+                  threeYearTotal: result.threeYearTotal,
+                }}
+                onLoad={(i) => {
+                  setSolutions(i.solutions);
+                  setUsers(i.users);
+                  setPremiumLicense(i.premiumLicense);
+                  setComplexity(i.complexity);
+                  setIntegrations(i.integrations);
+                  setLegalEntities(i.legalEntities);
+                  setDataMigration(i.dataMigration);
+                  setCustomDevelopment(i.customDevelopment);
+                  setTraining(i.training);
+                  setHourlyRate(i.hourlyRate);
+                }}
+              />
             </div>
           </div>
         </section>
