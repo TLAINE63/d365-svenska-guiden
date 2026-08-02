@@ -66,6 +66,47 @@ export async function generateImplementationPdf(data: ImplementationPdfData): Pr
   doc.text(safe(`Framtagen ${dateStr} - vägledande estimat, inte en offert.`), PDF_MARGIN, y);
   y += 8;
 
+  // ---- Offertuppgifter (redigerbara fält) ----
+  const meta = data.meta ?? {};
+  const metaRows: { label: string; value: string }[] = [
+    { label: "Företag", value: (meta.company ?? "").trim() },
+    { label: "Kontaktperson", value: (meta.contact ?? "").trim() },
+    { label: "Referens / projekt", value: (meta.reference ?? "").trim() },
+  ].filter((row) => row.value.length > 0);
+
+  if (metaRows.length > 0 || (meta.notes ?? "").trim()) {
+    y = drawSectionHeading(doc, "Underlag för", y + 2);
+
+    doc.setFontSize(10);
+    for (const row of metaRows) {
+      ensureSpace(8);
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(...PDF_BRAND.textMuted);
+      doc.text(safe(row.label), PDF_MARGIN, y);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(...PDF_BRAND.dark);
+      const valueLines = doc.splitTextToSize(safe(row.value), contentW * 0.6);
+      doc.text(valueLines, pageW - PDF_MARGIN, y, { align: "right" });
+      y += valueLines.length * 5 + 2;
+      doc.setDrawColor(...PDF_BRAND.cardBorder);
+      doc.setLineWidth(0.2);
+      doc.line(PDF_MARGIN, y - 2.5, pageW - PDF_MARGIN, y - 2.5);
+    }
+
+    const notes = (meta.notes ?? "").trim();
+    if (notes) {
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(9.5);
+      doc.setTextColor(...PDF_BRAND.textMuted);
+      const noteLines = doc.splitTextToSize(safe(notes), contentW);
+      ensureSpace(noteLines.length * 5 + 4);
+      y += 2;
+      doc.text(noteLines, PDF_MARGIN, y);
+      y += noteLines.length * 5 + 2;
+    }
+    y += 4;
+  }
+
   // ---- Sammanfattning ----
   y = drawSectionHeading(doc, "Sammanfattning", y + 2);
 
