@@ -384,6 +384,7 @@ export function render(url: string) {
               <Route path="/kunskapscenter" element={<Kunskapscenter />} />
               <Route path="/priser" element={<Priser />} />
               <Route path="/kostnad" element={<Kostnad />} />
+              <Route path="/implementationskalkylator" element={<ImplementationCalculator />} />
               <Route path="/kunskapscenter/upphandlingsresan" element={<Upphandlingsresan />} />
               <Route path="/upphandlingsguiden" element={<Upphandlingsguiden />} />
               <Route path="/om-thomas-laine" element={<OmThomasLaine />} />
