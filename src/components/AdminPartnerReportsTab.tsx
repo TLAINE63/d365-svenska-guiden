@@ -259,7 +259,7 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
                             <div>
                               <div className="font-medium text-sm">{c.company_name || "Okänt"}</div>
                               <div className="text-xs text-muted-foreground">
-                                {[c.company_domain, c.company_industry, c.company_size].filter(Boolean).join(" • ")}
+                                {[c.company_domain, c.company_industry, c.company_size, c.company_country].filter(Boolean).join(" • ")}
                               </div>
                             </div>
                             <div className="text-xs text-muted-foreground text-right">
