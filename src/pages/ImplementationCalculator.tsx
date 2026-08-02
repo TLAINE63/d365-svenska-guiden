@@ -12,6 +12,13 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
 import { toast } from "sonner";
 import { usePriceMap } from "@/hooks/usePriceMap";
 import type { ProductKey } from "@/hooks/usePartnerFilters";
@@ -531,6 +538,68 @@ export default function ImplementationCalculator() {
                   <Badge variant="secondary">Vägledande estimat</Badge>
                   <Badge variant="secondary">Inte en offert</Badge>
                 </div>
+
+                <div className="mt-6 border-t border-border pt-6">
+                  <h3 className="text-base font-semibold text-foreground mb-1">
+                    Granska varje beräkningssteg
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Öppna ett steg för att se formeln, vilka av era val som driver resultatet och
+                    varför regeln ser ut som den gör. Allt uppdateras direkt när ni ändrar
+                    inställningarna ovan.
+                  </p>
+                  <Accordion type="multiple" className="w-full">
+                    {result.steps.map((step, i) => (
+                      <AccordionItem key={step.label} value={`step-${i}`}>
+                        <AccordionTrigger className="text-left hover:no-underline">
+                          <span className="flex flex-1 flex-wrap items-center justify-between gap-2 pr-3">
+                            <span className="text-sm font-medium text-foreground">
+                              {step.label}
+                            </span>
+                            <span className="text-sm font-semibold text-foreground whitespace-nowrap">
+                              {step.value}
+                            </span>
+                          </span>
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          <div className="space-y-3 pb-1">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <Badge variant="outline" className="capitalize">
+                                Påverkar: {step.impact}
+                              </Badge>
+                            </div>
+                            <div className="rounded-lg border border-border bg-card p-3">
+                              <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">
+                                Beräkning
+                              </p>
+                              <p className="text-sm font-medium text-foreground break-words">
+                                {step.formula}
+                              </p>
+                            </div>
+                            <div>
+                              <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
+                                Datapunkter som driver steget
+                              </p>
+                              <ul className="space-y-1">
+                                {step.drivers.map((d) => (
+                                  <li
+                                    key={d.label}
+                                    className="flex flex-wrap justify-between gap-2 border-b border-border/60 py-1 text-sm last:border-0"
+                                  >
+                                    <span className="text-muted-foreground">{d.label}</span>
+                                    <span className="font-medium text-foreground">{d.value}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                            <p className="text-sm text-muted-foreground">{step.note}</p>
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </div>
+
               </CardContent>
             </Card>
           </div>
