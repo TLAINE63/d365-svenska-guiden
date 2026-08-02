@@ -464,6 +464,16 @@ export default function ImplementationCalculator() {
                   </div>
 
                   <div className="flex flex-col gap-2">
+                    <Button
+                      type="button"
+                      size="lg"
+                      variant="secondary"
+                      onClick={handleDownloadPdf}
+                      disabled={downloading}
+                    >
+                      <Download className="mr-2 h-4 w-4" aria-hidden="true" />
+                      {downloading ? "Skapar PDF …" : "Ladda ned som PDF"}
+                    </Button>
                     <Button asChild size="lg">
                       <Link to="/behovsanalys/">
                         Starta en kostnadsfri behovsanalys
@@ -474,6 +484,7 @@ export default function ImplementationCalculator() {
                       <Link to="/kostnad/">Läs mer om vad Dynamics 365 kostar</Link>
                     </Button>
                   </div>
+
                 </CardContent>
               </Card>
             </div>
