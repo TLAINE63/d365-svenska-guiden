@@ -251,6 +251,8 @@ const AppShell = () => {
           <Route path="/kunskapscenter" element={<Kunskapscenter />} />
           <Route path="/priser" element={<Priser />} />
           <Route path="/kostnad" element={<Kostnad />} />
+          <Route path="/implementationskalkylator" element={<ImplementationCalculator />} />
+          <Route path="/kostnadskalkylator" element={<Navigate to="/implementationskalkylator" replace />} />
           <Route path="/kunskapscenter/upphandlingsresan" element={<Upphandlingsresan />} />
           <Route path="/upphandlingsguiden" element={<Upphandlingsguiden />} />
           <Route path="/kunskapscenter/video/:slug" element={<VideoLanding />} />
