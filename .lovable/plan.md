@@ -1,19 +1,26 @@
-Plan: Add implementation calculator to "Verktyg & guider" menu
+## Bakgrund
 
-Current state
-- The implementation calculator page exists at `/implementationskalkylator/` and is lazy-loaded in `src/App.tsx`.
-- The main navigation has a desktop dropdown and a mobile sheet named "Verktyg & guider" that already contains tools, needs analyses, AI readiness, decision-maturity index, and guide links.
+Google visar i dag Microsofts YouTube-miniatyr ("Drive sales with AI-generated product descriptions", video-ID `ayXdXFyFEjY`) som bild vid sökträffen för `/businesscentral/`. Videon bäddas in via `src/data/knowledgeVideos.ts` och dess `img.youtube.com`-miniatyr är den enda stora, indexerbara bilden på sidan – sidans egen `og:image` (`/og-business-central.png`) är bara ett abstrakt turkost vågmönster utan motiv, vilket Google sällan väljer.
 
-Changes to make
-1. `src/components/Navbar.tsx` – Desktop dropdown
-   - Add a new menu item in the "Verktyg & guider" dropdown, linking to `/implementationskalkylator/`.
-   - Place it in a logical group, e.g. under a new "Kalkylatorer" heading or alongside the other planning tools, so it does not get mixed with the needs analyses.
+## Vad som byggs
 
-2. `src/components/Navbar.tsx` – Mobile sheet
-   - Add the same link in the mobile menu's "Verktyg & guider" section, mirroring the desktop order and grouping.
+1. **Ny primärbild för Business Central-sidan**
+   - Generera en egen 1200×630-grafik i d365.se:s designspråk (mörk bakgrund, orange accent, "Dynamics 365 Business Central – pris, funktioner & partners i Sverige") och lägg den i `public/`.
+   - Ersätt `public/og-business-central.png` med den nya bilden så att og:image och sidbilden är samma motiv (starkast signal till Google).
 
-3. Verify
-   - Confirm the route is already registered in `src/App.tsx` (it is, at `/implementationskalkylator/`).
-   - Check that the link label is consistent with the page title/breadcrumbs ("Pris- och omfattningskalkylator" / "Implementationskalkylator").
+2. **Visa bilden högt upp i sidans innehåll**
+   - Lägg in bilden som en synlig, redaktionell bild i hero-/introsektionen i `src/pages/BusinessCentral.tsx`, före videosektionen.
+   - Sätt `width`/`height` (1200×630), beskrivande `alt`, `loading="eager"` och `fetchPriority="high"` så den inte skadar LCP.
 
-No backend, database, or edge-function changes are needed. This is a navigation-only change in the frontend.
+3. **Strukturerad data som pekar ut rätt bild**
+   - Lägg till/utöka JSON-LD på sidan med `primaryImageOfPage` (ImageObject med absolut URL, bredd, höjd, caption) samt `image`-fältet på sidans befintliga schema.
+   - Behåll `og:image`/`twitter:image` pekande på samma absoluta URL.
+
+4. **Nedprioritera videominiatyrerna som bildkandidat**
+   - Flytta videosektionen längre ner på sidan (under fördjupningsartiklarna) så den egna bilden ligger tydligt högre i DOM:en. Videorna finns kvar, bara senare i flödet.
+
+## Teknisk detalj
+
+- Filer: `src/pages/BusinessCentral.tsx`, `public/og-business-central.png` (ersätts), ev. `src/components/StructuredData.tsx`.
+- Miniatyren i sökresultatet uppdateras först när Google crawlar om sidan – ingen omedelbar effekt. Efter deploy kan vi begära omindexering via Search Console/IndexNow (`scripts/ping-indexnow.mjs` finns redan).
+- Google garanterar aldrig vilken bild som väljs; detta maximerar sannolikheten men är inte en hård kontroll.
