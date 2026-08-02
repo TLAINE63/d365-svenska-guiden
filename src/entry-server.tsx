@@ -60,6 +60,7 @@ import OmMichaelUhman from './pages/OmMichaelUhman';
 import OwnershipAndInterests from './pages/OwnershipAndInterests';
 import Priser from './pages/Priser';
 import Kostnad from './pages/Kostnad';
+import ImplementationCalculator from './pages/ImplementationCalculator';
 import Upphandlingsresan from './pages/Upphandlingsresan';
 import Upphandlingsguiden from './pages/Upphandlingsguiden';
 import { PRODUCT_PARTNERS_SVERIGE } from './data/productPartnersSverige';
