@@ -324,6 +324,10 @@ const Navbar = () => {
                   <Link to="/beslutsmognad/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     📋 Beslutsmognadsindex
                   </Link>
+                  <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide mt-2">Kalkylatorer</span>
+                  <Link to="/implementationskalkylator/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
+                    🧮 Pris- och omfattningskalkylator
+                  </Link>
                   <Link to="/kunskapscenter/upphandlingsresan" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     🗺️ Upphandlingsresan
                   </Link>
