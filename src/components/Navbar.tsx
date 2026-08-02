@@ -174,6 +174,15 @@ const Navbar = () => {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
+                <div className="px-2 py-1.5">
+                  <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Kalkylatorer</p>
+                </div>
+                <DropdownMenuItem asChild>
+                  <Link to="/implementationskalkylator/" className="cursor-pointer">
+                    🧮 Pris- och omfattningskalkylator
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                   <Link to="/kunskapscenter/upphandlingsresan" className="cursor-pointer">
                     🗺️ Upphandlingsresan
@@ -314,6 +323,10 @@ const Navbar = () => {
                   </Link>
                   <Link to="/beslutsmognad/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     📋 Beslutsmognadsindex
+                  </Link>
+                  <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide mt-2">Kalkylatorer</span>
+                  <Link to="/implementationskalkylator/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
+                    🧮 Pris- och omfattningskalkylator
                   </Link>
                   <Link to="/kunskapscenter/upphandlingsresan" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     🗺️ Upphandlingsresan

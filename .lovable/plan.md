@@ -1,18 +1,19 @@
-## Mål
-Bekräfta att de tidigare rapporterade sårbarheterna i beroenden (särskilt dompurify via jspdf) inte längre dyker upp i säkerhetsskanningen.
+Plan: Add implementation calculator to "Verktyg & guider" menu
 
-## Bakgrund (verifierat i projektet)
-- `package.json`: `jspdf: ^4.2.1` (senaste versionen)
-- `package.json`: `overrides` och `resolutions` sätter `dompurify: ^3.4.12`
-- `bun.lock`: löser `dompurify@3.4.12` (patchad version)
-- Full build kördes efter ändringen och gick igenom (306/306 rutter prerenderade)
+Current state
+- The implementation calculator page exists at `/implementationskalkylator/` and is lazy-loaded in `src/App.tsx`.
+- The main navigation has a desktop dropdown and a mobile sheet named "Verktyg & guider" that already contains tools, needs analyses, AI readiness, decision-maturity index, and guide links.
 
-## Steg
-1. Kör en ny säkerhetsskanning av projektet.
-2. Hämta resultatet och jämför mot de tidigare fynden för `jspdf`/`dompurify`, `react-router-dom` och `@lovable.dev/mcp-js`.
-3. Markera de fynd som nu är verifierat åtgärdade som fixade (skannern verifierar dependency-fynd mot textlockfilen `bun.lock`).
-4. Sammanfatta eventuella kvarvarande fynd med severitet och föreslagen åtgärd – inga kodändringar görs utan att du godkänner dem.
+Changes to make
+1. `src/components/Navbar.tsx` – Desktop dropdown
+   - Add a new menu item in the "Verktyg & guider" dropdown, linking to `/implementationskalkylator/`.
+   - Place it in a logical group, e.g. under a new "Kalkylatorer" heading or alongside the other planning tools, so it does not get mixed with the needs analyses.
 
-## Tekniska noteringar
-- Inga kodändringar planeras i detta steg; det är en verifiering.
-- Om något fynd kvarstår beror det troligen på ett annat paket i beroendeträdet, och då återkommer jag med ett separat åtgärdsförslag.
+2. `src/components/Navbar.tsx` – Mobile sheet
+   - Add the same link in the mobile menu's "Verktyg & guider" section, mirroring the desktop order and grouping.
+
+3. Verify
+   - Confirm the route is already registered in `src/App.tsx` (it is, at `/implementationskalkylator/`).
+   - Check that the link label is consistent with the page title/breadcrumbs ("Pris- och omfattningskalkylator" / "Implementationskalkylator").
+
+No backend, database, or edge-function changes are needed. This is a navigation-only change in the frontend.
