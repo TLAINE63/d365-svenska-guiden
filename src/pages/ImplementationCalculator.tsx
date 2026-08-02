@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { Calculator, Clock, Info, Wallet, Layers, ArrowRight } from "lucide-react";
+import { Calculator, Clock, Info, Wallet, Layers, ArrowRight, Download } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -12,8 +12,10 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
+import { toast } from "sonner";
 import { usePriceMap } from "@/hooks/usePriceMap";
 import type { ProductKey } from "@/hooks/usePartnerFilters";
+import { generateImplementationPdf } from "@/utils/generateImplementationPdf";
 import {
   SOLUTIONS,
   COMPLEXITY_OPTIONS,
@@ -21,6 +23,16 @@ import {
   type Complexity,
   type SolutionKey,
 } from "@/lib/implementationEstimate";
+
+const ASSUMPTIONS = [
+  "Grundomfattningen utgår från typiska projekt per lösning och skalas med antal användare (inte linjärt – stora projekt blir effektivare per användare).",
+  "Komplexitetsvalet multiplicerar omfattningen med 1,0 / 1,35 / 1,85.",
+  "Varje integration räknas som ca 45 timmar, varje extra bolag som ca 60 timmar.",
+  "Datamigrering +12 %, egen utveckling +20 %, utbildning tillkommer utifrån antal användare.",
+  "Spannet visas som −20 % / +30 % kring mittvärdet. Förvaltning uppskattas till 15 % av implementationskostnaden per år.",
+  "Licenskostnaden hämtas från våra publicerade listpriser för Dynamics 365 och antar en licens per användare. Verkliga priser påverkas av avtalsform och mix av licenstyper.",
+];
+
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
