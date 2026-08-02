@@ -130,17 +130,17 @@ const Navbar = () => {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/partners-per-bransch/" className="cursor-pointer">
-                    🏭 Partners per bransch
+                    Partners per bransch
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/jamfor-partners/" className="cursor-pointer">
-                    ⚖️ Jämför partners
+                    Jämför partners
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/upphandlingsguiden/" className="cursor-pointer font-medium text-primary">
-                    🗺️ Upphandlingsguiden
+                    Upphandlingsguiden
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
@@ -149,28 +149,28 @@ const Navbar = () => {
                 </div>
                 <DropdownMenuItem asChild>
                   <Link to="/ERPbehovsanalys/" className="cursor-pointer">
-                    📊 ERP (Affärssystem)
+                    ERP (Affärssystem)
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/CRMbehovsanalys/" className="cursor-pointer">
-                    📈 Sälj & Marknad (CRM)
+                    Sälj & Marknad (CRM)
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/kundservice-behovsanalys/" className="cursor-pointer">
-                    🎧 Kundservice (Ärendehantering), Fältservice & Contact Center
+                    Kundservice (Ärendehantering), Fältservice & Contact Center
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                   <Link to="/ai-readiness/" className="cursor-pointer">
-                    🤖 AI Readiness Assessment
+                    AI Readiness Assessment
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/beslutsmognad/" className="cursor-pointer">
-                    📋 Beslutsmognadsindex
+                    Beslutsmognadsindex
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
@@ -179,13 +179,13 @@ const Navbar = () => {
                 </div>
                 <DropdownMenuItem asChild>
                   <Link to="/implementationskalkylator/" className="cursor-pointer">
-                    🧮 Pris- och omfattningskalkylator
+                    Pris- och omfattningskalkylator
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                   <Link to="/kunskapscenter/upphandlingsresan" className="cursor-pointer">
-                    🗺️ Upphandlingsresan
+                    Upphandlingsresan
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
@@ -194,7 +194,7 @@ const Navbar = () => {
                 </div>
                 <DropdownMenuItem asChild>
                   <Link to="/valjdynamics365partner/?ai=1" className="cursor-pointer">
-                    📘 Så väljer du rätt Dynamics&nbsp;365-partner
+                    Så väljer du rätt Dynamics&nbsp;365-partner
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -293,47 +293,47 @@ const Navbar = () => {
                   to="/partners-per-bransch/"
                   className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
                 >
-                  🏭 Partners per bransch
+                  Partners per bransch
                 </Link>
                 <Link
                   to="/jamfor-partners/"
                   className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
                 >
-                  ⚖️ Jämför partners
+                  Jämför partners
                 </Link>
                 <Link
                   to="/upphandlingsguiden/"
                   className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
                 >
-                  🗺️ Upphandlingsguiden
+                  Upphandlingsguiden
                 </Link>
                 <div className="flex flex-col gap-2 ml-4">
                   <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Börja med en behovsanalys</span>
                   <Link to="/ERPbehovsanalys/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    📊 ERP (Affärssystem)
+                    ERP (Affärssystem)
                   </Link>
                   <Link to="/CRMbehovsanalys/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    📈 Sälj & Marknad (CRM)
+                    Sälj & Marknad (CRM)
                   </Link>
                   <Link to="/kundservice-behovsanalys/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    🎧 Kundservice (Ärendehantering), Fältservice & Contact Center
+                    Kundservice (Ärendehantering), Fältservice & Contact Center
                   </Link>
                   <Link to="/ai-readiness/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    🤖 AI Readiness Assessment
+                    AI Readiness Assessment
                   </Link>
                   <Link to="/beslutsmognad/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    📋 Beslutsmognadsindex
+                    Beslutsmognadsindex
                   </Link>
                   <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide mt-2">Kalkylatorer</span>
                   <Link to="/implementationskalkylator/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    🧮 Pris- och omfattningskalkylator
+                    Pris- och omfattningskalkylator
                   </Link>
                   <Link to="/kunskapscenter/upphandlingsresan" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    🗺️ Upphandlingsresan
+                    Upphandlingsresan
                   </Link>
                   <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide mt-2">Guide</span>
                   <Link to="/valjdynamics365partner/?ai=1" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    📘 Så väljer du rätt Dynamics&nbsp;365-partner
+                    Så väljer du rätt Dynamics&nbsp;365-partner
                   </Link>
                 </div>
                 <div className="flex flex-col gap-2">
