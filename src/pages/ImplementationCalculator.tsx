@@ -495,6 +495,58 @@ export default function ImplementationCalculator() {
                     </ul>
                   </div>
 
+                  <div className="rounded-lg border border-border p-3 space-y-3">
+                    <div>
+                      <h3 className="text-sm font-semibold text-foreground">
+                        Uppgifter till PDF-offerten
+                      </h3>
+                      <p className="text-xs text-muted-foreground">
+                        Frivilligt – fyll i det ni vill ha med överst i PDF:en.
+                      </p>
+                    </div>
+                    <div className="space-y-1">
+                      <Label htmlFor="pdf-company" className="text-xs">Företagsnamn</Label>
+                      <Input
+                        id="pdf-company"
+                        value={pdfCompany}
+                        onChange={(e) => setPdfCompany(e.target.value)}
+                        placeholder="T.ex. Nordic Industri AB"
+                        maxLength={80}
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <Label htmlFor="pdf-contact" className="text-xs">Kontaktperson</Label>
+                      <Input
+                        id="pdf-contact"
+                        value={pdfContact}
+                        onChange={(e) => setPdfContact(e.target.value)}
+                        placeholder="T.ex. Anna Andersson, CFO"
+                        maxLength={80}
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <Label htmlFor="pdf-reference" className="text-xs">Referens / projekt</Label>
+                      <Input
+                        id="pdf-reference"
+                        value={pdfReference}
+                        onChange={(e) => setPdfReference(e.target.value)}
+                        placeholder="T.ex. ERP-projekt 2026"
+                        maxLength={80}
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <Label htmlFor="pdf-notes" className="text-xs">Egen notering</Label>
+                      <Textarea
+                        id="pdf-notes"
+                        value={pdfNotes}
+                        onChange={(e) => setPdfNotes(e.target.value)}
+                        placeholder="T.ex. Underlag inför styrelsemöte i september."
+                        maxLength={400}
+                        rows={3}
+                      />
+                    </div>
+                  </div>
+
                   <div className="flex flex-col gap-2">
                     <Button
                       type="button"
