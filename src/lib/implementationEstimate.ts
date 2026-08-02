@@ -38,7 +38,7 @@ export const SOLUTIONS: SolutionOption[] = [
   {
     key: "fscm",
     label: "Finance & Supply Chain",
-    baseHours: 900,
+    baseHours: 1500,
     licenseKeys: { standard: "finance", premium: "finance-premium" },
     standardLabel: "Finance",
     premiumLabel: "Finance Premium",
