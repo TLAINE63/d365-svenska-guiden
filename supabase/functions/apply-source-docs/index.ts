@@ -50,10 +50,13 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    const url = "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-documents/_internal/source_docs.json";
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`fetch failed: ${res.status}`);
-    const docs = await res.json() as Record<string, string>;
+    const { data: fileData, error: downloadError } = await supabase.storage
+      .from("partner-documents-internal")
+      .download("_internal/source_docs.json");
+    if (downloadError || !fileData) {
+      throw new Error(`download failed: ${downloadError?.message ?? "no data"}`);
+    }
+    const docs = JSON.parse(await fileData.text()) as Record<string, string>;
 
     const results: Record<string, string> = {};
     for (const [slug, text] of Object.entries(docs)) {
