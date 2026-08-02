@@ -21,6 +21,13 @@ const safe = (s: string): string =>
     .replace(/\u2026/g, "...")
     .replace(/\u2022/g, "-");
 
+export interface ImplementationPdfMeta {
+  company?: string;
+  contact?: string;
+  reference?: string;
+  notes?: string;
+}
+
 export interface ImplementationPdfData {
   result: EstimateResult;
   /** Rader med besökarens val, t.ex. { label: "Antal användare", value: "25 st" } */
@@ -30,6 +37,8 @@ export interface ImplementationPdfData {
   assumptions: string[];
   pageUrl: string;
   fileName?: string;
+  /** Redigerbara offertuppgifter (företag, kontaktperson, referens, egen notering). */
+  meta?: ImplementationPdfMeta;
 }
 
 export async function generateImplementationPdf(data: ImplementationPdfData): Promise<void> {
