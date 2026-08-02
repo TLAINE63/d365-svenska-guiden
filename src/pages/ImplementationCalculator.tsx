@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
 import CalculatorDrafts from "@/components/CalculatorDrafts";
+import CalculatorCompare from "@/components/CalculatorCompare";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -607,6 +608,22 @@ export default function ImplementationCalculator() {
                   setTraining(i.training);
                   setHourlyRate(i.hourlyRate);
                 }}
+              />
+
+              <CalculatorCompare
+                currentInputs={{
+                  solutions,
+                  users,
+                  premiumLicense,
+                  complexity,
+                  integrations,
+                  legalEntities,
+                  dataMigration,
+                  customDevelopment,
+                  training,
+                  hourlyRate,
+                }}
+                priceLookup={priceLookup}
               />
             </div>
           </div>
