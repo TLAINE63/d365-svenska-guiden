@@ -12,6 +12,13 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
 import { toast } from "sonner";
 import { usePriceMap } from "@/hooks/usePriceMap";
 import type { ProductKey } from "@/hooks/usePartnerFilters";
