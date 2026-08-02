@@ -132,11 +132,27 @@ export default function ImplementationCalculator() {
 
   const [downloading, setDownloading] = useState(false);
 
+  // Redigerbara fält som följer med i PDF-offerten
+  const [pdfCompany, setPdfCompany] = useState("");
+  const [pdfContact, setPdfContact] = useState("");
+  const [pdfReference, setPdfReference] = useState("");
+  const [pdfNotes, setPdfNotes] = useState("");
+
+  const slugify = (s: string) =>
+    s
+      .toLowerCase()
+      .replace(/[åä]/g, "a")
+      .replace(/ö/g, "o")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")
+      .slice(0, 40);
+
   const handleDownloadPdf = async () => {
     setDownloading(true);
     try {
       const complexityLabel =
         COMPLEXITY_OPTIONS.find((c) => c.key === complexity)?.label ?? complexity;
+      const namePart = slugify(pdfCompany || pdfReference);
       await generateImplementationPdf({
         result,
         solutionsLabel: SOLUTIONS.filter((s) => solutions.includes(s.key))
@@ -158,7 +174,15 @@ export default function ImplementationCalculator() {
         ],
         assumptions: ASSUMPTIONS,
         pageUrl: "https://d365.se/implementationskalkylator/",
-        fileName: "d365-prisuppskattning.pdf",
+        meta: {
+          company: pdfCompany,
+          contact: pdfContact,
+          reference: pdfReference,
+          notes: pdfNotes,
+        },
+        fileName: namePart
+          ? `d365-prisuppskattning-${namePart}.pdf`
+          : "d365-prisuppskattning.pdf",
       });
       toast.success("PDF:en har laddats ned");
     } catch {
