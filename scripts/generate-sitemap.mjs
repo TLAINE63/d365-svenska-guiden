@@ -87,6 +87,7 @@ const STATIC_ROUTES = [
   { path: "/om-michael-uhman/", changefreq: "yearly", priority: "0.5" },
   { path: "/priser/", changefreq: "monthly", priority: "0.8" },
   { path: "/kostnad/", changefreq: "monthly", priority: "0.8" },
+  { path: "/implementationskalkylator/", changefreq: "monthly", priority: "0.8" },
   { path: "/partners-sitemap/", changefreq: "weekly", priority: "0.5" },
   { path: "/jamfor-partners/", changefreq: "monthly", priority: "0.7" },
   { path: "/partnernytt/", changefreq: "daily", priority: "0.8" },

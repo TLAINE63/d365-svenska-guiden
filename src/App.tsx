@@ -99,6 +99,7 @@ const OwnershipAndInterests = lazy(() => import("./pages/OwnershipAndInterests")
 const Friskrivning = lazy(() => import("./pages/Friskrivning"));
 const Priser = lazy(() => import("./pages/Priser"));
 const Kostnad = lazy(() => import("./pages/Kostnad"));
+const ImplementationCalculator = lazy(() => import("./pages/ImplementationCalculator"));
 const ComparePartners = lazy(() => import("./pages/ComparePartners"));
 const Partnernytt = lazy(() => import("./pages/Partnernytt"));
 const PartnerNewsDetail = lazy(() => import("./pages/PartnerNewsDetail"));
@@ -250,6 +251,8 @@ const AppShell = () => {
           <Route path="/kunskapscenter" element={<Kunskapscenter />} />
           <Route path="/priser" element={<Priser />} />
           <Route path="/kostnad" element={<Kostnad />} />
+          <Route path="/implementationskalkylator" element={<ImplementationCalculator />} />
+          <Route path="/kostnadskalkylator" element={<Navigate to="/implementationskalkylator" replace />} />
           <Route path="/kunskapscenter/upphandlingsresan" element={<Upphandlingsresan />} />
           <Route path="/upphandlingsguiden" element={<Upphandlingsguiden />} />
           <Route path="/kunskapscenter/video/:slug" element={<VideoLanding />} />

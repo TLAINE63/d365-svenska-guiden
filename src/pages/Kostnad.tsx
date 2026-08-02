@@ -64,6 +64,12 @@ export default function Kostnad() {
             </p>
             <div className="flex flex-wrap gap-3 text-sm">
               <Link
+                to="/implementationskalkylator/"
+                className="inline-flex items-center px-4 py-2 rounded bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium"
+              >
+                Räkna ut pris och omfattning →
+              </Link>
+              <Link
                 to="/priser/"
                 className="inline-flex items-center px-4 py-2 rounded border border-border bg-card hover:bg-secondary/60 transition-colors"
               >
