@@ -122,6 +122,45 @@ export default function ImplementationCalculator() {
     [solutions],
   );
 
+  const [downloading, setDownloading] = useState(false);
+
+  const handleDownloadPdf = async () => {
+    setDownloading(true);
+    try {
+      const complexityLabel =
+        COMPLEXITY_OPTIONS.find((c) => c.key === complexity)?.label ?? complexity;
+      await generateImplementationPdf({
+        result,
+        solutionsLabel: SOLUTIONS.filter((s) => solutions.includes(s.key))
+          .map((s) => s.label)
+          .join(", "),
+        inputs: [
+          { label: "Antal användare", value: `${users} st` },
+          {
+            label: "Licensnivå",
+            value: premiumLicense ? "Premium/Enterprise" : "Standard",
+          },
+          { label: "Grad av anpassning", value: complexityLabel },
+          { label: "Integrationer", value: `${integrations} st` },
+          { label: "Bolag / juridiska enheter", value: `${legalEntities} st` },
+          { label: "Datamigrering", value: dataMigration ? "Ja" : "Nej" },
+          { label: "Egen utveckling", value: customDevelopment ? "Ja" : "Nej" },
+          { label: "Utbildning av användare", value: training ? "Ja" : "Nej" },
+          { label: "Konsultpris per timme", value: `${fmtSek(hourlyRate)}/tim` },
+        ],
+        assumptions: ASSUMPTIONS,
+        pageUrl: "https://d365.se/implementationskalkylator/",
+        fileName: "d365-prisuppskattning.pdf",
+      });
+      toast.success("PDF:en har laddats ned");
+    } catch {
+      toast.error("Kunde inte skapa PDF:en. Försök igen.");
+    } finally {
+      setDownloading(false);
+    }
+  };
+
+
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
