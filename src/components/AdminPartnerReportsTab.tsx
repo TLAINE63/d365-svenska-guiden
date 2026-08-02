@@ -445,7 +445,7 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
                           <div className="flex-1 min-w-0">
                             <div className="font-medium text-sm truncate">{c.company_name || "Okänt"}</div>
                             <div className="text-xs text-muted-foreground truncate">
-                              {[c.company_domain, c.company_industry, c.company_size].filter(Boolean).join(" • ")} • {c.visit_count} besök
+                              {[c.company_domain, c.company_industry, c.company_size, c.company_country].filter(Boolean).join(" • ")} • {c.visit_count} besök
                             </div>
                           </div>
                         </label>
