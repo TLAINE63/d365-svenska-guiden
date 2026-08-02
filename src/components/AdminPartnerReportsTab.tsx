@@ -144,10 +144,22 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
 
   const sendSelected = async () => {
     if (selected.size === 0) return;
-    if (!confirm(`Skicka ${selected.size} mejl?`)) return;
+    const chosen = drafts.filter(d => selected.has(d.id));
+    const bySlug = new Map<string, number>();
+    for (const d of chosen) bySlug.set(d.partner_slug, (bySlug.get(d.partner_slug) || 0) + 1);
+    const dupes = Array.from(bySlug.entries()).filter(([, n]) => n > 1);
+    if (dupes.length > 0) {
+      const list = dupes.map(([slug, n]) => `• ${slug} (${n} perioder)`).join("\n");
+      if (!confirm(
+        `Varning: markeringen innehåller flera utkast för samma partner – de får då flera mejl:\n\n${list}\n\nVill du ändå skicka ${selected.size} mejl?`,
+      )) return;
+    } else if (!confirm(`Skicka ${selected.size} mejl?`)) {
+      return;
+    }
     await callAction("send", { ids: Array.from(selected) }, "Utskick startat");
     setSelected(new Set());
   };
+
 
   const sendSelectedForApproval = async () => {
     if (selected.size === 0) return;
