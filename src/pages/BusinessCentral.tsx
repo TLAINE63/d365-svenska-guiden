@@ -205,7 +205,32 @@ const BusinessCentral = () => {
  description="Molnbaserat ERP-system för mindre och medelstora företag. Inkluderar ekonomi, lager, försäljning, inköp och produktion med inbyggd Microsoft Copilot AI. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
  />
  <BreadcrumbSchema items={bcBreadcrumbs} />
+ <script
+   type="application/ld+json"
+   dangerouslySetInnerHTML={{
+     __html: JSON.stringify({
+       "@context": "https://schema.org",
+       "@type": "WebPage",
+       "@id": "https://d365.se/businesscentral/#webpage",
+       url: "https://d365.se/businesscentral/",
+       name: "Dynamics 365 Business Central – pris, funktioner och partners i Sverige",
+       primaryImageOfPage: {
+         "@type": "ImageObject",
+         "@id": "https://d365.se/businesscentral/#primaryimage",
+         url: "https://d365.se/og-business-central.png",
+         contentUrl: "https://d365.se/og-business-central.png",
+         width: 1200,
+         height: 630,
+         caption: "Dynamics 365 Business Central – pris, funktioner och partners i Sverige",
+       },
+       image: {
+         "@id": "https://d365.se/businesscentral/#primaryimage",
+       },
+     }),
+   }}
+ />
  <Navbar />
+
  
  {/* Hero */}
   <ProductHero
@@ -226,7 +251,29 @@ const BusinessCentral = () => {
   label: "Gör en estimerad TCO/ROI-kalkyl",
   to: "/businesscentral/roi-kalkylator/",
   }}
-  />
+   />
+
+      <section className="bg-background py-6 sm:py-8">
+        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <figure className="m-0">
+            <img
+              src="/og-business-central.png"
+              alt="Dynamics 365 Business Central – pris, funktioner och partners i Sverige"
+              width={1200}
+              height={630}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              className="w-full h-auto rounded-lg border border-border"
+            />
+            <figcaption className="mt-2 text-xs text-muted-foreground">
+              Dynamics 365 Business Central – pris, funktioner och partners i Sverige.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+
 
  <ShortAnswer title="Vad är Microsoft Dynamics 365 Business Central">
  <p>Dynamics 365 Business Central är Microsofts moderna molnbaserade affärssystem för mindre och medelstora företag som vill samla ekonomi, inköp, lager, försäljning och produktion i en plattform – i stället för att hålla ihop en flora av separata system som inte pratar med varandra.</p>
@@ -422,24 +469,6 @@ const BusinessCentral = () => {
  </div>
  </section>
 
- {/* Videos Section */}
- <section id="videos" className="py-8 sm:py-12 md:py-16 bg-background">
- <div className="container mx-auto px-4 sm:px-6">
- <div className="text-center mb-8 sm:mb-10 md:mb-12">
- <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
- Korta inspirationsvideos
- </h2>
- <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
- Här har vi samlat ett antal väldigt korta videos som kan ge en viss inblick i möjligheterna med Business Central
- </p>
- </div>
- <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
- {bcVideos.map((video, index) => (
- <VideoCard key={index} {...video} />
- ))}
- </div>
- </div>
- </section>
 
  {/* AI & Agents Section for Business Central */}
  <section className="py-8 sm:py-12 md:py-16 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10">
@@ -662,6 +691,27 @@ const BusinessCentral = () => {
           </div>
         </div>
       </section>
+
+      {/* Videos Section */}
+      <section id="videos" className="py-8 sm:py-12 md:py-16 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+              Korta inspirationsvideos
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
+              Här har vi samlat ett antal väldigt korta videos som kan ge en viss inblick i möjligheterna med Business Central
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {bcVideos.map((video, index) => (
+              <VideoCard key={index} {...video} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+
 
       <ProductPartnerNewsSection productArea="business-central" productLabel="Business Central" />
 
