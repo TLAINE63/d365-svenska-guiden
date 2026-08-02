@@ -180,6 +180,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/agande-och-intressen', priority: '0.5', changefreq: 'yearly' },
   { path: '/priser', priority: '0.8', changefreq: 'monthly' },
   { path: '/kostnad', priority: '0.8', changefreq: 'monthly' },
+  { path: '/implementationskalkylator', priority: '0.8', changefreq: 'monthly' },
   { path: '/dataskydd', priority: '0.3', changefreq: 'yearly', sitemap: false },
   { path: '/kom-igang', priority: '0.8', changefreq: 'monthly' },
   { path: '/kunskapscenter', priority: '0.7', changefreq: 'weekly' },
