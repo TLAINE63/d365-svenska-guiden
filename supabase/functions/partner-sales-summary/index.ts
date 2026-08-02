@@ -518,7 +518,7 @@ async function buildSummary(
     lines.push("");
     lines.push(`IDENTIFIERADE FÖRETAG (90d) – ${identifiedCompanies.length} st${maskCompanyNames ? " (företagsnamn maskerade)" : ""}`);
     for (const c of identifiedCompanies) {
-      const meta = [c.industry, c.size, c.country].filter(Boolean).join(", ");
+      const meta = [c.industry, c.size].filter(Boolean).join(", ");
       const hit = c.matchedProfile ? "[profil]" : "[relaterad sida]";
       lines.push(`  • ${c.name} ${hit} – ${meta || "okänd profil"} – ${c.sessions} sessioner`);
       if (c.visitedPaths.length) {
@@ -628,7 +628,7 @@ ${identifiedCompanies.length ? `
 <tbody>
 ${identifiedCompanies.map((c) => `
 <tr style="border-top:1px solid #eef0f3">
-<td style="padding:8px"><strong>${esc(c.name)}</strong>${c.country ? `<br><span style="color:#94a3b8;font-size:11px">${esc(c.country)}</span>` : ""}</td>
+<td style="padding:8px"><strong>${esc(c.name)}</strong></td>
 <td style="padding:8px;color:#475569">${esc([c.industry, c.size].filter(Boolean).join(" · ") || "—")}</td>
 <td style="padding:8px;text-align:right;font-weight:600">${c.sessions}</td>
 <td style="padding:8px;color:#64748b;font-size:11px">${c.matchedProfile ? "Profil" : "Relaterad"}</td>
