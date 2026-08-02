@@ -99,6 +99,7 @@ const OwnershipAndInterests = lazy(() => import("./pages/OwnershipAndInterests")
 const Friskrivning = lazy(() => import("./pages/Friskrivning"));
 const Priser = lazy(() => import("./pages/Priser"));
 const Kostnad = lazy(() => import("./pages/Kostnad"));
+const ImplementationCalculator = lazy(() => import("./pages/ImplementationCalculator"));
 const ComparePartners = lazy(() => import("./pages/ComparePartners"));
 const Partnernytt = lazy(() => import("./pages/Partnernytt"));
 const PartnerNewsDetail = lazy(() => import("./pages/PartnerNewsDetail"));
