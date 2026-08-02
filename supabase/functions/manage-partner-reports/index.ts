@@ -204,7 +204,7 @@ function buildEmailHtml(opts: {
 
   // Anonymiserat: aldrig företagsnamn eller domän i mejlet till partner.
   const meta = (c: CompanyEntry) =>
-    [c.company_size, c.company_country]
+    [c.company_size]
       .filter(Boolean)
       .map(v => `<span style="display:inline-block;background:#f1f5f9;color:#475569;font-size:11px;padding:3px 8px;border-radius:999px;margin:2px 4px 0 0">${esc(v as string)}</span>`)
       .join("");
