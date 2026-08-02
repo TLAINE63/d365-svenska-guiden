@@ -128,6 +128,22 @@ export interface PhaseBreakdown {
   cost: number;
 }
 
+/** Ett granskningsbart steg i beräkningen – visas i UI:t så att besökaren kan följa hela kedjan. */
+export interface CalculationStep {
+  /** Kort rubrik, t.ex. "Grundomfattning per lösning". */
+  label: string;
+  /** Resultatet efter steget, t.ex. "412 tim". */
+  value: string;
+  /** Vilken formel/regel som används. */
+  formula: string;
+  /** Vilka av besökarens val som driver steget. */
+  drivers: { label: string; value: string }[];
+  /** Fri text som förklarar varför regeln ser ut som den gör. */
+  note: string;
+  /** Vad steget påverkar: omfattning/timmar, pengar eller tid. */
+  impact: "timmar" | "kostnad" | "tid" | "licens";
+}
+
 export interface EstimateResult {
   hours: number;
   costMid: number;
@@ -139,7 +155,10 @@ export interface EstimateResult {
   licenseYearly: number | null;
   threeYearTotal: number | null;
   supportYearly: number;
+  /** Steg-för-steg-spår över hur timmar, kostnad och tid räknas fram. */
+  steps: CalculationStep[];
 }
+
 
 const PHASES: { name: string; share: number }[] = [
   { name: "Förstudie & lösningsdesign", share: 0.15 },
