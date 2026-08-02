@@ -145,7 +145,7 @@ const Navbar = () => {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <div className="px-2 py-1.5">
-                  <p className="text-xs text-muted-foreground font-bold uppercase tracking-wide">Börja med en behovsanalys</p>
+                  <p className="text-xs text-foreground font-bold uppercase tracking-wide">Börja med en behovsanalys</p>
                 </div>
                 <DropdownMenuItem asChild>
                   <Link to="/ERPbehovsanalys/" className="cursor-pointer">
@@ -175,7 +175,7 @@ const Navbar = () => {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <div className="px-2 py-1.5">
-                  <p className="text-xs text-muted-foreground font-bold uppercase tracking-wide">Kalkylatorer</p>
+                  <p className="text-xs text-foreground font-bold uppercase tracking-wide">Kalkylatorer</p>
                 </div>
                 <DropdownMenuItem asChild>
                   <Link to="/implementationskalkylator/" className="cursor-pointer">
@@ -184,7 +184,7 @@ const Navbar = () => {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <div className="px-2 py-1.5">
-                  <p className="text-xs text-muted-foreground font-bold uppercase tracking-wide">Guider</p>
+                  <p className="text-xs text-foreground font-bold uppercase tracking-wide">Guider</p>
                 </div>
                 <DropdownMenuItem asChild>
                   <Link to="/kunskapscenter/upphandlingsresan" className="cursor-pointer">
@@ -307,7 +307,7 @@ const Navbar = () => {
                   Upphandlingsguiden
                 </Link>
                 <div className="flex flex-col gap-2 ml-4">
-                  <span className="text-xs text-muted-foreground font-bold uppercase tracking-wide">Börja med en behovsanalys</span>
+                  <span className="text-xs text-foreground font-bold uppercase tracking-wide">Börja med en behovsanalys</span>
                   <Link to="/ERPbehovsanalys/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     ERP (Affärssystem)
                   </Link>
@@ -323,11 +323,11 @@ const Navbar = () => {
                   <Link to="/beslutsmognad/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     Beslutsmognadsindex
                   </Link>
-                  <span className="text-xs text-muted-foreground font-bold uppercase tracking-wide mt-2">Kalkylatorer</span>
+                  <span className="text-xs text-foreground font-bold uppercase tracking-wide mt-2">Kalkylatorer</span>
                   <Link to="/implementationskalkylator/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     Pris- och omfattningskalkylator
                   </Link>
-                  <span className="text-xs text-muted-foreground font-bold uppercase tracking-wide mt-2">Guider</span>
+                  <span className="text-xs text-foreground font-bold uppercase tracking-wide mt-2">Guider</span>
                   <Link to="/kunskapscenter/upphandlingsresan" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     Upphandlingsresan
                   </Link>
