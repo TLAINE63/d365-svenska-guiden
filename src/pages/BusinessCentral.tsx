@@ -205,7 +205,32 @@ const BusinessCentral = () => {
  description="Molnbaserat ERP-system för mindre och medelstora företag. Inkluderar ekonomi, lager, försäljning, inköp och produktion med inbyggd Microsoft Copilot AI. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
  />
  <BreadcrumbSchema items={bcBreadcrumbs} />
+ <script
+   type="application/ld+json"
+   dangerouslySetInnerHTML={{
+     __html: JSON.stringify({
+       "@context": "https://schema.org",
+       "@type": "WebPage",
+       "@id": "https://d365.se/businesscentral/#webpage",
+       url: "https://d365.se/businesscentral/",
+       name: "Dynamics 365 Business Central – pris, funktioner och partners i Sverige",
+       primaryImageOfPage: {
+         "@type": "ImageObject",
+         "@id": "https://d365.se/businesscentral/#primaryimage",
+         url: "https://d365.se/og-business-central.png",
+         contentUrl: "https://d365.se/og-business-central.png",
+         width: 1200,
+         height: 630,
+         caption: "Dynamics 365 Business Central – pris, funktioner och partners i Sverige",
+       },
+       image: {
+         "@id": "https://d365.se/businesscentral/#primaryimage",
+       },
+     }),
+   }}
+ />
  <Navbar />
+
  
  {/* Hero */}
   <ProductHero
