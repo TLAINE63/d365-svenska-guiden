@@ -251,7 +251,29 @@ const BusinessCentral = () => {
   label: "Gör en estimerad TCO/ROI-kalkyl",
   to: "/businesscentral/roi-kalkylator/",
   }}
-  />
+   />
+
+      <section className="bg-background py-6 sm:py-8">
+        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <figure className="m-0">
+            <img
+              src="/og-business-central.png"
+              alt="Dynamics 365 Business Central – pris, funktioner och partners i Sverige"
+              width={1200}
+              height={630}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              className="w-full h-auto rounded-lg border border-border"
+            />
+            <figcaption className="mt-2 text-xs text-muted-foreground">
+              Dynamics 365 Business Central – pris, funktioner och partners i Sverige.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+
 
  <ShortAnswer title="Vad är Microsoft Dynamics 365 Business Central">
  <p>Dynamics 365 Business Central är Microsofts moderna molnbaserade affärssystem för mindre och medelstora företag som vill samla ekonomi, inköp, lager, försäljning och produktion i en plattform – i stället för att hålla ihop en flora av separata system som inte pratar med varandra.</p>
