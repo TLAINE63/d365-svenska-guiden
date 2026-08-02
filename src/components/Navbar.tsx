@@ -183,15 +183,14 @@ const Navbar = () => {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
+                <div className="px-2 py-1.5">
+                  <p className="text-xs text-muted-foreground font-bold uppercase tracking-wide">Guider</p>
+                </div>
                 <DropdownMenuItem asChild>
                   <Link to="/kunskapscenter/upphandlingsresan" className="cursor-pointer">
                     Upphandlingsresan
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <div className="px-2 py-1.5">
-                  <p className="text-xs text-muted-foreground font-bold uppercase tracking-wide">Guide</p>
-                </div>
                 <DropdownMenuItem asChild>
                   <Link to="/valjdynamics365partner/?ai=1" className="cursor-pointer">
                     Så väljer du rätt Dynamics&nbsp;365-partner
@@ -328,10 +327,10 @@ const Navbar = () => {
                   <Link to="/implementationskalkylator/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     Pris- och omfattningskalkylator
                   </Link>
+                  <span className="text-xs text-muted-foreground font-bold uppercase tracking-wide mt-2">Guider</span>
                   <Link to="/kunskapscenter/upphandlingsresan" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     Upphandlingsresan
                   </Link>
-                  <span className="text-xs text-muted-foreground font-bold uppercase tracking-wide mt-2">Guide</span>
                   <Link to="/valjdynamics365partner/?ai=1" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     Så väljer du rätt Dynamics&nbsp;365-partner
                   </Link>
