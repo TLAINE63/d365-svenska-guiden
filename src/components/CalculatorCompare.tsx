@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import { GitCompareArrows, ArrowUp, ArrowDown, Minus } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -324,8 +324,8 @@ export default function CalculatorCompare({ currentInputs, priceLookup }: Props)
               </thead>
               <tbody>
                 {sections.map((section) => (
-                  <>
-                    <tr key={section.section} className="bg-secondary/50">
+                  <Fragment key={section.section}>
+                    <tr className="bg-secondary/50">
                       <th
                         scope="colgroup"
                         colSpan={4}
@@ -349,7 +349,7 @@ export default function CalculatorCompare({ currentInputs, priceLookup }: Props)
                         </td>
                       </tr>
                     ))}
-                  </>
+                  </Fragment>
                 ))}
               </tbody>
             </table>
