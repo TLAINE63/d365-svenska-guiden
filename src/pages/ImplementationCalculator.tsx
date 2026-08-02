@@ -494,6 +494,41 @@ export default function ImplementationCalculator() {
 
                 </CardContent>
               </Card>
+
+              <CalculatorDrafts
+                inputs={{
+                  solutions,
+                  users,
+                  premiumLicense,
+                  complexity,
+                  integrations,
+                  legalEntities,
+                  dataMigration,
+                  customDevelopment,
+                  training,
+                  hourlyRate,
+                }}
+                summary={{
+                  costLow: result.costLow,
+                  costHigh: result.costHigh,
+                  hours: result.hours,
+                  months: result.months,
+                  licenseMonthly: result.licenseMonthly,
+                  threeYearTotal: result.threeYearTotal,
+                }}
+                onLoad={(i) => {
+                  setSolutions(i.solutions);
+                  setUsers(i.users);
+                  setPremiumLicense(i.premiumLicense);
+                  setComplexity(i.complexity);
+                  setIntegrations(i.integrations);
+                  setLegalEntities(i.legalEntities);
+                  setDataMigration(i.dataMigration);
+                  setCustomDevelopment(i.customDevelopment);
+                  setTraining(i.training);
+                  setHourlyRate(i.hourlyRate);
+                }}
+              />
             </div>
           </div>
         </section>
