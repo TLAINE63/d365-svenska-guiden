@@ -174,6 +174,15 @@ const Navbar = () => {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
+                <div className="px-2 py-1.5">
+                  <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Kalkylatorer</p>
+                </div>
+                <DropdownMenuItem asChild>
+                  <Link to="/implementationskalkylator/" className="cursor-pointer">
+                    🧮 Pris- och omfattningskalkylator
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                   <Link to="/kunskapscenter/upphandlingsresan" className="cursor-pointer">
                     🗺️ Upphandlingsresan
