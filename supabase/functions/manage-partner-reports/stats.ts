@@ -140,8 +140,10 @@ async function fetchAllPartnersPeriod(supabase: any, startIso: string, endIso: s
     cardClicks: views.filter((v: any) => v.view_type === "card_click").length,
     compareViews,
     guideListingViews,
+    newsClicks: newsClicksRes?.count || 0,
     websiteClicks: clicksRes.count || 0,
     industryListingViews,
+
   };
 }
 
