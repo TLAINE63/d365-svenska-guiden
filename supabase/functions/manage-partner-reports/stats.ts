@@ -6,6 +6,8 @@ export interface PeriodStats {
   compareViews: number;
   websiteClicks: number;
   industryListingViews: number;
+  cardClicks?: number;
+  guideListingViews?: number;
   sitePageViews?: number;
   siteUniqueVisitors?: number;
 }
@@ -66,12 +68,15 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
 
   const views = viewsRes.data || [];
   const profileVisits = views.filter((v: any) => v.view_type === "profile_visit").length;
+  const cardClicks = views.filter((v: any) => v.view_type === "card_click").length;
 
   let compareViews = 0;
   let industryListingViews = 0;
+  let guideListingViews = 0;
   for (const e of exposureRes.data || []) {
     const p = (e.page_path || "").toLowerCase();
     if (p.startsWith("/jamfor-partners")) compareViews++;
+    else if (p.startsWith("/valjdynamics365partner") || p.startsWith("/valj")) guideListingViews++;
     if (p.startsWith("/branscher")) industryListingViews++;
     else if (e.filter_context && (e.filter_context as any).industry) industryListingViews++;
   }
@@ -85,6 +90,8 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
   return {
     profileVisits,
     compareViews,
+    cardClicks,
+    guideListingViews,
     websiteClicks: clicksRes.count || 0,
     industryListingViews,
     sitePageViews: sitePvRes.count || 0,
@@ -234,8 +241,10 @@ export function renderStatsHtml(stats: DraftStats | null): string {
         </thead>
         <tbody>
           ${row("Profilvisningar", current.profileVisits, previous?.profileVisits ?? 0)}
+          ${(current.cardClicks ?? 0) + (previous?.cardClicks ?? 0) > 0 ? row("Klick på ert partnerkort", current.cardClicks ?? 0, previous?.cardClicks ?? 0) : ""}
+          ${(current.guideListingViews ?? 0) + (previous?.guideListingViews ?? 0) > 0 ? row("Visningar i partnerguiden", current.guideListingViews ?? 0, previous?.guideListingViews ?? 0) : ""}
           ${row("Visningar i jämförelsevyn", current.compareViews, previous?.compareViews ?? 0)}
-          ${row("Klick till er webbplats", current.websiteClicks, previous?.websiteClicks ?? 0)}
+          ${current.websiteClicks + (previous?.websiteClicks ?? 0) > 0 ? row("Klick till er webbplats", current.websiteClicks, previous?.websiteClicks ?? 0) : ""}
           ${row("Visningar av er i branschlistor", current.industryListingViews, previous?.industryListingViews ?? 0)}
           ${current.sitePageViews != null ? row("Totalt antal sidvisningar på d365.se", current.sitePageViews, previous?.sitePageViews ?? 0) : ""}
           ${current.siteUniqueVisitors != null ? row("Unika besökare på d365.se", current.siteUniqueVisitors, previous?.siteUniqueVisitors ?? 0) : ""}

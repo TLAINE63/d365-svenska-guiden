@@ -460,13 +460,15 @@ async function generateDrafts(supabase: any, opts: { period_start?: string; peri
     // Trafikstatistik (sammanslagen rapport: statistik + identifierade företag)
     const stats = await buildDraftStats(supabase, partner, start, end, companies);
     const c = stats.current;
-    const hasTraffic = c.profileVisits + c.compareViews + c.websiteClicks + c.industryListingViews > 0;
+    const hasTraffic = c.profileVisits + c.compareViews + c.websiteClicks + c.industryListingViews
+      + (c.cardClicks ?? 0) + (c.guideListingViews ?? 0) > 0;
     if (companies.length === 0 && !hasTraffic) { skipped++; continue; }
 
     const recipient = partner.admin_contact_email || partner.email;
 
     const subject = `Månadsrapport ${periodLabel} – d365.se`;
-    const intro = `Här kommer din månadsrapport för ${periodLabel}. Under perioden hade din profil på d365.se ${c.profileVisits} visningar och ${c.websiteClicks} klick vidare till er webbplats.` +
+    const exposure = (c.guideListingViews ?? 0) + c.compareViews + c.industryListingViews;
+    const intro = `Här kommer din månadsrapport för ${periodLabel}. Under perioden hade din profil på d365.se ${c.profileVisits} visningar och ni visades ${exposure} gånger i partnerguiden, jämförelsevyn och branschlistor.` +
       (companies.length > 0
         ? ` Vi identifierade dessutom ${companies.length} företag som besökt din profil – redovisade anonymiserat med bransch och storlek.`
         : ``);
