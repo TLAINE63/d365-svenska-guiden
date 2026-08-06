@@ -8,6 +8,7 @@ export interface PeriodStats {
   industryListingViews: number;
   cardClicks?: number;
   guideListingViews?: number;
+  newsClicks?: number;
   sitePageViews?: number;
   siteUniqueVisitors?: number;
 }
@@ -55,7 +56,7 @@ function bucketReferrer(ref: string | null, firstUrl?: string | null): string | 
 }
 
 async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso: string): Promise<PeriodStats> {
-  const [viewsRes, clicksRes, exposureRes, sitePvRes, sessionsRes] = await Promise.all([
+  const [viewsRes, clicksRes, exposureRes, sitePvRes, sessionsRes, newsClicksRes] = await Promise.all([
     supabase.from("partner_profile_views").select("view_type")
       .eq("partner_slug", partner.slug).gte("viewed_at", startIso).lt("viewed_at", endIso),
     supabase.from("partner_clicks").select("id", { count: "exact", head: true })
@@ -66,6 +67,10 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
       .gte("visited_at", startIso).lt("visited_at", endIso),
     supabase.from("visitor_analytics").select("session_id, ip_anonymized")
       .gte("visited_at", startIso).lt("visited_at", endIso).limit(50000),
+    supabase.from("funnel_events").select("id", { count: "exact", head: true })
+      .eq("event_name", "partner_news_card_click")
+      .eq("metadata->>partner_slug", partner.slug)
+      .gte("occurred_at", startIso).lt("occurred_at", endIso),
   ]);
 
   const views = viewsRes.data || [];
@@ -94,6 +99,7 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
     compareViews,
     cardClicks,
     guideListingViews,
+    newsClicks: newsClicksRes?.count || 0,
     websiteClicks: clicksRes.count || 0,
     industryListingViews,
     sitePageViews: sitePvRes.count || 0,
@@ -101,16 +107,21 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
   };
 }
 
+
 /** Summan för samtliga partners under samma period (utan partnerfilter). */
 async function fetchAllPartnersPeriod(supabase: any, startIso: string, endIso: string): Promise<PeriodStats> {
-  const [viewsRes, clicksRes, exposureRes] = await Promise.all([
+  const [viewsRes, clicksRes, exposureRes, newsClicksRes] = await Promise.all([
     supabase.from("partner_profile_views").select("view_type")
       .gte("viewed_at", startIso).lt("viewed_at", endIso).limit(100000),
     supabase.from("partner_clicks").select("id", { count: "exact", head: true })
       .gte("clicked_at", startIso).lt("clicked_at", endIso),
     supabase.from("partner_filter_exposures").select("page_path, filter_context")
       .gte("viewed_at", startIso).lt("viewed_at", endIso).limit(100000),
+    supabase.from("funnel_events").select("id", { count: "exact", head: true })
+      .eq("event_name", "partner_news_card_click")
+      .gte("occurred_at", startIso).lt("occurred_at", endIso),
   ]);
+
 
   const views = viewsRes.data || [];
   let compareViews = 0;
@@ -129,8 +140,10 @@ async function fetchAllPartnersPeriod(supabase: any, startIso: string, endIso: s
     cardClicks: views.filter((v: any) => v.view_type === "card_click").length,
     compareViews,
     guideListingViews,
+    newsClicks: newsClicksRes?.count || 0,
     websiteClicks: clicksRes.count || 0,
     industryListingViews,
+
   };
 }
 
@@ -274,6 +287,7 @@ export function renderStatsHtml(stats: DraftStats | null): string {
           ${row("Visningar i jämförelsevyn", current.compareViews, benchmark?.compareViews ?? null)}
           ${current.websiteClicks + (benchmark?.websiteClicks ?? 0) > 0 ? row("Klick till er webbplats", current.websiteClicks, benchmark?.websiteClicks ?? null) : ""}
           ${row("Visningar av er i branschlistor", current.industryListingViews, benchmark?.industryListingViews ?? null)}
+          ${(current.newsClicks ?? 0) + (benchmark?.newsClicks ?? 0) > 0 ? row("Klick på era nyhetsartiklar", current.newsClicks ?? 0, benchmark?.newsClicks ?? null) : ""}
           ${current.sitePageViews != null ? row("Totalt antal sidvisningar på d365.se", current.sitePageViews, null) : ""}
           ${current.siteUniqueVisitors != null ? row("Unika besökare på d365.se", current.siteUniqueVisitors, null) : ""}
         </tbody>
