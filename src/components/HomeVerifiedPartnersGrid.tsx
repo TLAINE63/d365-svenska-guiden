@@ -18,7 +18,7 @@ type RawPartner = {
   secondary_industries?: string[];
   is_featured?: boolean;
   product_filters?: Record<string, { industries?: string[] } | null>;
-  industry_apps?: Record<string, unknown>;
+  industry_apps?: Record<string, unknown> | unknown[];
 };
 
 const APP_BADGES: Array<{ match: (a: string[]) => boolean; label: string }> = [
