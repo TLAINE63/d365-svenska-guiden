@@ -241,8 +241,10 @@ export function renderStatsHtml(stats: DraftStats | null): string {
         </thead>
         <tbody>
           ${row("Profilvisningar", current.profileVisits, previous?.profileVisits ?? 0)}
+          ${(current.cardClicks ?? 0) + (previous?.cardClicks ?? 0) > 0 ? row("Klick på ert partnerkort", current.cardClicks ?? 0, previous?.cardClicks ?? 0) : ""}
+          ${(current.guideListingViews ?? 0) + (previous?.guideListingViews ?? 0) > 0 ? row("Visningar i partnerguiden", current.guideListingViews ?? 0, previous?.guideListingViews ?? 0) : ""}
           ${row("Visningar i jämförelsevyn", current.compareViews, previous?.compareViews ?? 0)}
-          ${row("Klick till er webbplats", current.websiteClicks, previous?.websiteClicks ?? 0)}
+          ${current.websiteClicks + (previous?.websiteClicks ?? 0) > 0 ? row("Klick till er webbplats", current.websiteClicks, previous?.websiteClicks ?? 0) : ""}
           ${row("Visningar av er i branschlistor", current.industryListingViews, previous?.industryListingViews ?? 0)}
           ${current.sitePageViews != null ? row("Totalt antal sidvisningar på d365.se", current.sitePageViews, previous?.sitePageViews ?? 0) : ""}
           ${current.siteUniqueVisitors != null ? row("Unika besökare på d365.se", current.siteUniqueVisitors, previous?.siteUniqueVisitors ?? 0) : ""}
