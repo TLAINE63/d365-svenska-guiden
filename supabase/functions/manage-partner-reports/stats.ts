@@ -6,6 +6,7 @@ export interface PeriodStats {
   compareViews: number;
   websiteClicks: number;
   industryListingViews: number;
+  sitePageViews?: number;
 }
 
 export interface DraftStats {
@@ -49,13 +50,15 @@ function bucketReferrer(ref: string | null, firstUrl?: string | null): string | 
 }
 
 async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso: string): Promise<PeriodStats> {
-  const [viewsRes, clicksRes, exposureRes] = await Promise.all([
+  const [viewsRes, clicksRes, exposureRes, sitePvRes] = await Promise.all([
     supabase.from("partner_profile_views").select("view_type")
       .eq("partner_slug", partner.slug).gte("viewed_at", startIso).lt("viewed_at", endIso),
     supabase.from("partner_clicks").select("id", { count: "exact", head: true })
       .eq("partner_name", partner.name).gte("clicked_at", startIso).lt("clicked_at", endIso),
     supabase.from("partner_filter_exposures").select("page_path, filter_context")
       .eq("partner_slug", partner.slug).gte("viewed_at", startIso).lt("viewed_at", endIso),
+    supabase.from("visitor_analytics").select("id", { count: "exact", head: true })
+      .gte("visited_at", startIso).lt("visited_at", endIso),
   ]);
 
   const views = viewsRes.data || [];
@@ -70,7 +73,13 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
     else if (e.filter_context && (e.filter_context as any).industry) industryListingViews++;
   }
 
-  return { profileVisits, compareViews, websiteClicks: clicksRes.count || 0, industryListingViews };
+  return {
+    profileVisits,
+    compareViews,
+    websiteClicks: clicksRes.count || 0,
+    industryListingViews,
+    sitePageViews: sitePvRes.count || 0,
+  };
 }
 
 async function fetchTopEntryPath(supabase: any, partner: any, startIso: string, endIso: string): Promise<string | null> {
@@ -217,6 +226,7 @@ export function renderStatsHtml(stats: DraftStats | null): string {
           ${row("Visningar i jämförelsevyn", current.compareViews, previous?.compareViews ?? 0)}
           ${row("Klick till er webbplats", current.websiteClicks, previous?.websiteClicks ?? 0)}
           ${row("Visningar av er i branschlistor", current.industryListingViews, previous?.industryListingViews ?? 0)}
+          ${current.sitePageViews != null ? row("Totalt antal sidvisningar på d365.se", current.sitePageViews, previous?.sitePageViews ?? 0) : ""}
         </tbody>
       </table>
       <p style="margin:10px 2px 22px;color:#64748b;font-size:12px;line-height:1.5">
