@@ -14,6 +14,8 @@ export interface PeriodStats {
 
 export interface DraftStats {
   current: PeriodStats;
+  /** Summan för samtliga partners under samma period (jämförelsebas). */
+  benchmark?: PeriodStats;
   previous?: PeriodStats;
   topEntryPath: string | null;
   activeEvaluators: number;
