@@ -429,6 +429,11 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Verifierade partners – alla publicerade profiler */}
+        <Suspense fallback={<div className="py-16" />}>
+          <HomeVerifiedPartnersGrid />
+        </Suspense>
+
         {/* Compare partners CTA section – black background */}
         <section className="relative py-12 sm:py-16 md:py-20 bg-[hsl(var(--hero-dark))] overflow-hidden border-b border-border">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent opacity-60" />
