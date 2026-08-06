@@ -238,6 +238,7 @@ export function renderStatsHtml(stats: DraftStats | null): string {
           ${row("Klick till er webbplats", current.websiteClicks, previous?.websiteClicks ?? 0)}
           ${row("Visningar av er i branschlistor", current.industryListingViews, previous?.industryListingViews ?? 0)}
           ${current.sitePageViews != null ? row("Totalt antal sidvisningar på d365.se", current.sitePageViews, previous?.sitePageViews ?? 0) : ""}
+          ${current.siteUniqueVisitors != null ? row("Unika besökare på d365.se", current.siteUniqueVisitors, previous?.siteUniqueVisitors ?? 0) : ""}
         </tbody>
       </table>
       <p style="margin:10px 2px 22px;color:#64748b;font-size:12px;line-height:1.5">
