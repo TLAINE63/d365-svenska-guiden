@@ -275,8 +275,9 @@ export function renderStatsHtml(stats: DraftStats | null): string {
         <thead>
           <tr style="background:#f8fafc">
             <th style="padding:9px 14px;text-align:left;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px" class="cell">Mätpunkt</th>
-            <th style="padding:9px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Er siffra</th>
-            ${cmp ? `<th class="col-prev" style="padding:9px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Alla partners</th>
+            <th style="padding:9px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Er siffra (alla partners)</th>
+            ${cmp ? `<th style="padding:9px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Er andel</th>` : ""}
+
             <th style="padding:9px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Er andel</th>` : ""}
           </tr>
         </thead>
