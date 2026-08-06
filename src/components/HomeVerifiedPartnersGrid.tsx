@@ -78,7 +78,9 @@ const partnerIndustries = (p: RawPartner) => {
   Object.values(p.product_filters || {}).forEach((f) =>
     (f?.industries || []).forEach((i) => set.add(i))
   );
-  Object.keys(p.industry_apps || {}).forEach((i) => set.add(i));
+  if (p.industry_apps && !Array.isArray(p.industry_apps)) {
+    Object.keys(p.industry_apps).forEach((i) => set.add(i));
+  }
   return [...set];
 };
 
