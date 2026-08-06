@@ -231,13 +231,13 @@ const Events = () => {
  Partner-events
  </Badge>
  <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
- Dynamics 365-event, webinars och seminarier
+ Kostnadsfria Dynamics 365-webinars och seminarier
  </h1>
  <p className="text-lg text-white/85 max-w-3xl mx-auto">
- Här samlar vi kommande och tidigare webinars och event om Microsoft Dynamics 365 —
- Business Central, Finance &amp; Supply Chain, Sales, Customer Service, AI och Copilot.
- Arrangeras av svenska Microsoft-partners och av d365.se. De flesta är kostnadsfria
- och hålls online; du anmäler dig direkt via arrangörens länk.
+ Lär dig vad du behöver veta innan du investerar: hur Business Central, Finance &amp; Supply Chain,
+ Sales, Customer Service, AI och Copilot fungerar i praktiken, vad de kostar och vilka fallgropar
+ andra har mött. Sessionerna arrangeras av svenska Microsoft-partners och av d365.se, de flesta är
+ kostnadsfria och hålls online – du anmäler dig direkt via arrangörens länk.
  </p>
  </div>
  </section>
