@@ -221,9 +221,9 @@ export async function buildDraftStats(
   const previousStart = `${shiftDays(start, -lengthDays)}T00:00:00Z`;
   const previousEnd = currentStart;
 
-  const [current, previous, topEntryPath, industryPagesListed, partnerNews] = await Promise.all([
+  const [current, benchmark, topEntryPath, industryPagesListed, partnerNews] = await Promise.all([
     fetchPeriod(supabase, partner, currentStart, currentEnd),
-    opts.skipPrevious ? Promise.resolve(undefined) : fetchPeriod(supabase, partner, previousStart, previousEnd),
+    fetchAllPartnersPeriod(supabase, currentStart, currentEnd),
     fetchTopEntryPath(supabase, partner, currentStart, currentEnd),
     fetchIndustryPagesListed(supabase, partner, currentStart, currentEnd),
     fetchPartnerNews(supabase, partner, currentStart, currentEnd),
@@ -231,13 +231,12 @@ export async function buildDraftStats(
 
   return {
     current,
-    previous,
+    benchmark,
     topEntryPath,
     activeEvaluators: countActiveEvaluators(companies),
     industryPagesListed,
     partnerNews,
     currentLabel: `${start} – ${end}`,
-    previousLabel: opts.skipPrevious ? undefined : `${shiftDays(start, -lengthDays)} – ${shiftDays(start, -1)}`,
   };
 }
 
