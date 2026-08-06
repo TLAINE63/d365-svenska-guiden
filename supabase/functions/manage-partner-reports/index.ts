@@ -1202,7 +1202,7 @@ serve(async (req) => {
           if (!RESEND_API_KEY) throw new Error("RESEND_API_KEY saknas");
           const resend = new Resend(RESEND_API_KEY);
           await resend.emails.send({
-            from: "d365.se <rapport@d365.se>",
+            from: "D365.se Rapporter <noreply@d365.se>",
             to: [test_email],
             subject: `Totalrapport ${partner.name} – d365.se`,
             html,
