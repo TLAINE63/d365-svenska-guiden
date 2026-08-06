@@ -66,12 +66,15 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
 
   const views = viewsRes.data || [];
   const profileVisits = views.filter((v: any) => v.view_type === "profile_visit").length;
+  const cardClicks = views.filter((v: any) => v.view_type === "card_click").length;
 
   let compareViews = 0;
   let industryListingViews = 0;
+  let guideListingViews = 0;
   for (const e of exposureRes.data || []) {
     const p = (e.page_path || "").toLowerCase();
     if (p.startsWith("/jamfor-partners")) compareViews++;
+    else if (p.startsWith("/valjdynamics365partner") || p.startsWith("/valj")) guideListingViews++;
     if (p.startsWith("/branscher")) industryListingViews++;
     else if (e.filter_context && (e.filter_context as any).industry) industryListingViews++;
   }
@@ -85,6 +88,8 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
   return {
     profileVisits,
     compareViews,
+    cardClicks,
+    guideListingViews,
     websiteClicks: clicksRes.count || 0,
     industryListingViews,
     sitePageViews: sitePvRes.count || 0,
