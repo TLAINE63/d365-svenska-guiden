@@ -14,6 +14,8 @@ export interface PeriodStats {
 
 export interface DraftStats {
   current: PeriodStats;
+  /** Summan för samtliga partners under samma period (jämförelsebas). */
+  benchmark?: PeriodStats;
   previous?: PeriodStats;
   topEntryPath: string | null;
   activeEvaluators: number;
@@ -99,6 +101,39 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
   };
 }
 
+/** Summan för samtliga partners under samma period (utan partnerfilter). */
+async function fetchAllPartnersPeriod(supabase: any, startIso: string, endIso: string): Promise<PeriodStats> {
+  const [viewsRes, clicksRes, exposureRes] = await Promise.all([
+    supabase.from("partner_profile_views").select("view_type")
+      .gte("viewed_at", startIso).lt("viewed_at", endIso).limit(100000),
+    supabase.from("partner_clicks").select("id", { count: "exact", head: true })
+      .gte("clicked_at", startIso).lt("clicked_at", endIso),
+    supabase.from("partner_filter_exposures").select("page_path, filter_context")
+      .gte("viewed_at", startIso).lt("viewed_at", endIso).limit(100000),
+  ]);
+
+  const views = viewsRes.data || [];
+  let compareViews = 0;
+  let industryListingViews = 0;
+  let guideListingViews = 0;
+  for (const e of exposureRes.data || []) {
+    const p = (e.page_path || "").toLowerCase();
+    if (p.startsWith("/jamfor-partners")) compareViews++;
+    else if (p.startsWith("/valjdynamics365partner") || p.startsWith("/valj")) guideListingViews++;
+    if (p.startsWith("/branscher")) industryListingViews++;
+    else if (e.filter_context && (e.filter_context as any).industry) industryListingViews++;
+  }
+
+  return {
+    profileVisits: views.filter((v: any) => v.view_type === "profile_visit").length,
+    cardClicks: views.filter((v: any) => v.view_type === "card_click").length,
+    compareViews,
+    guideListingViews,
+    websiteClicks: clicksRes.count || 0,
+    industryListingViews,
+  };
+}
+
 
 async function fetchTopEntryPath(supabase: any, partner: any, startIso: string, endIso: string): Promise<string | null> {
   const { data } = await supabase.from("partner_profile_views").select("referrer, page_source")
@@ -179,16 +214,12 @@ export async function buildDraftStats(
 ): Promise<DraftStats> {
   const currentStart = `${start}T00:00:00Z`;
   const currentEnd = `${shiftDays(end, 1)}T00:00:00Z`;
-  const lengthDays = Math.max(
-    1,
-    Math.round((new Date(currentEnd).getTime() - new Date(currentStart).getTime()) / 86400000),
-  );
-  const previousStart = `${shiftDays(start, -lengthDays)}T00:00:00Z`;
-  const previousEnd = currentStart;
 
-  const [current, previous, topEntryPath, industryPagesListed, partnerNews] = await Promise.all([
+
+
+  const [current, benchmark, topEntryPath, industryPagesListed, partnerNews] = await Promise.all([
     fetchPeriod(supabase, partner, currentStart, currentEnd),
-    opts.skipPrevious ? Promise.resolve(undefined) : fetchPeriod(supabase, partner, previousStart, previousEnd),
+    fetchAllPartnersPeriod(supabase, currentStart, currentEnd),
     fetchTopEntryPath(supabase, partner, currentStart, currentEnd),
     fetchIndustryPagesListed(supabase, partner, currentStart, currentEnd),
     fetchPartnerNews(supabase, partner, currentStart, currentEnd),
@@ -196,61 +227,55 @@ export async function buildDraftStats(
 
   return {
     current,
-    previous,
+    benchmark,
     topEntryPath,
     activeEvaluators: countActiveEvaluators(companies),
     industryPagesListed,
     partnerNews,
     currentLabel: `${start} – ${end}`,
-    previousLabel: opts.skipPrevious ? undefined : `${shiftDays(start, -lengthDays)} – ${shiftDays(start, -1)}`,
   };
 }
 
-function delta(current: number, previous: number): string {
-  if (previous === 0 && current === 0) return `<span style="color:#94a3b8">–</span>`;
-  if (previous === 0) return `<span style="color:#16a34a">Nytt</span>`;
-  const pct = Math.round(((current - previous) / previous) * 100);
-  if (pct === 0) return `<span style="color:#94a3b8">±0%</span>`;
-  const color = pct > 0 ? "#16a34a" : "#dc2626";
-  const arrow = pct > 0 ? "▲" : "▼";
-  return `<span style="color:${color};font-weight:600">${arrow} ${pct > 0 ? "+" : ""}${pct}%</span>`;
+function share(cur: number, total: number): string {
+  if (!total || total <= 0) return `<span style="color:#94a3b8">–</span>`;
+  const pct = Math.round((cur / total) * 100);
+  return `<span style="color:#334155;font-weight:600">${pct}%</span>`;
 }
 
-/** Tabell med nyckeltal + jämförelse mot föregående lika lång period. */
+/** Tabell med nyckeltal + jämförelse mot samtliga partners under samma period. */
 export function renderStatsHtml(stats: DraftStats | null): string {
   if (!stats?.current) return "";
-  const { current, previous } = stats;
-  const cmp = !!previous;
-  const row = (label: string, cur: number, prev: number) => `
+  const { current, benchmark } = stats;
+  const cmp = !!benchmark;
+  const row = (label: string, cur: number, total: number | null) => `
     <tr>
       <td class="cell" style="padding:11px 14px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:14px;font-weight:600">${esc(label)}</td>
       <td class="cell" style="padding:11px 14px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:14px;text-align:right;font-weight:700">${cur}</td>
-      ${cmp ? `<td class="cell col-prev" style="padding:11px 14px;border-bottom:1px solid #eef0f3;color:#64748b;font-size:14px;text-align:right">${prev}</td>
-      <td class="cell" style="padding:11px 14px;border-bottom:1px solid #eef0f3;font-size:13px;text-align:right;white-space:nowrap">${delta(cur, prev)}</td>` : ""}
+      ${cmp ? `<td class="cell col-prev" style="padding:11px 14px;border-bottom:1px solid #eef0f3;color:#64748b;font-size:14px;text-align:right">${total == null ? "–" : total}</td>
+      <td class="cell" style="padding:11px 14px;border-bottom:1px solid #eef0f3;font-size:13px;text-align:right;white-space:nowrap">${total == null ? `<span style="color:#94a3b8">–</span>` : share(cur, total)}</td>` : ""}
     </tr>`;
 
   return `
       <h2 style="margin:0 0 8px;font-size:17px;color:#0f172a">Nyckeltal</h2>
-      ${stats.previousLabel ? `<p style="margin:0 0 10px;color:#64748b;font-size:12px">Jämförelse mot föregående lika långa period (${esc(stats.previousLabel)}).</p>` : ""}
-      ${!cmp && stats.currentLabel ? `<p style="margin:0 0 10px;color:#64748b;font-size:12px">Ackumulerat för hela perioden ${esc(stats.currentLabel)}.</p>` : ""}
+      ${stats.currentLabel ? `<p style="margin:0 0 10px;color:#64748b;font-size:12px">Perioden ${esc(stats.currentLabel)}${cmp ? ", jämfört med summan för samtliga partners på d365.se under samma period." : "."}</p>` : ""}
       <table class="stats-tbl" width="100%" style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
         <thead>
           <tr style="background:#f8fafc">
             <th style="padding:9px 14px;text-align:left;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px" class="cell">Mätpunkt</th>
-            <th style="padding:9px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">${cmp ? "Denna period" : "Totalt"}</th>
-            ${cmp ? `<th class="col-prev" style="padding:9px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Föregående</th>
-            <th style="padding:9px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Utveckling</th>` : ""}
+            <th style="padding:9px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Er siffra</th>
+            ${cmp ? `<th class="col-prev" style="padding:9px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Alla partners</th>
+            <th style="padding:9px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Er andel</th>` : ""}
           </tr>
         </thead>
         <tbody>
-          ${row("Profilvisningar", current.profileVisits, previous?.profileVisits ?? 0)}
-          ${(current.cardClicks ?? 0) + (previous?.cardClicks ?? 0) > 0 ? row("Klick på ert partnerkort", current.cardClicks ?? 0, previous?.cardClicks ?? 0) : ""}
-          ${(current.guideListingViews ?? 0) + (previous?.guideListingViews ?? 0) > 0 ? row("Visningar i partnerguiden", current.guideListingViews ?? 0, previous?.guideListingViews ?? 0) : ""}
-          ${row("Visningar i jämförelsevyn", current.compareViews, previous?.compareViews ?? 0)}
-          ${current.websiteClicks + (previous?.websiteClicks ?? 0) > 0 ? row("Klick till er webbplats", current.websiteClicks, previous?.websiteClicks ?? 0) : ""}
-          ${row("Visningar av er i branschlistor", current.industryListingViews, previous?.industryListingViews ?? 0)}
-          ${current.sitePageViews != null ? row("Totalt antal sidvisningar på d365.se", current.sitePageViews, previous?.sitePageViews ?? 0) : ""}
-          ${current.siteUniqueVisitors != null ? row("Unika besökare på d365.se", current.siteUniqueVisitors, previous?.siteUniqueVisitors ?? 0) : ""}
+          ${row("Profilvisningar", current.profileVisits, benchmark?.profileVisits ?? null)}
+          ${(current.cardClicks ?? 0) + (benchmark?.cardClicks ?? 0) > 0 ? row("Klick på ert partnerkort", current.cardClicks ?? 0, benchmark?.cardClicks ?? null) : ""}
+          ${(current.guideListingViews ?? 0) + (benchmark?.guideListingViews ?? 0) > 0 ? row("Visningar i partnerguiden", current.guideListingViews ?? 0, benchmark?.guideListingViews ?? null) : ""}
+          ${row("Visningar i jämförelsevyn", current.compareViews, benchmark?.compareViews ?? null)}
+          ${current.websiteClicks + (benchmark?.websiteClicks ?? 0) > 0 ? row("Klick till er webbplats", current.websiteClicks, benchmark?.websiteClicks ?? null) : ""}
+          ${row("Visningar av er i branschlistor", current.industryListingViews, benchmark?.industryListingViews ?? null)}
+          ${current.sitePageViews != null ? row("Totalt antal sidvisningar på d365.se", current.sitePageViews, null) : ""}
+          ${current.siteUniqueVisitors != null ? row("Unika besökare på d365.se", current.siteUniqueVisitors, null) : ""}
         </tbody>
       </table>
       <p style="margin:10px 2px 22px;color:#64748b;font-size:12px;line-height:1.5">
