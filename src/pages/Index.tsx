@@ -37,6 +37,7 @@ const ContactFormDialog = lazy(() => import("@/components/ContactFormDialog"));
 const EbookBanner = lazy(() => import("@/components/EbookBanner"));
 const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
 const HomePartnerNewsSection = lazy(() => import("@/components/HomePartnerNewsSection"));
+const HomeVerifiedPartnersGrid = lazy(() => import("@/components/HomeVerifiedPartnersGrid"));
 
 const VideoComingSoon = () => (
   <figure className="space-y-1.5">
@@ -428,6 +429,11 @@ const Index = () => {
             </div>
           </div>
         </section>
+
+        {/* Verifierade partners – alla publicerade profiler */}
+        <Suspense fallback={<div className="py-16" />}>
+          <HomeVerifiedPartnersGrid />
+        </Suspense>
 
         {/* Compare partners CTA section – black background */}
         <section className="relative py-12 sm:py-16 md:py-20 bg-[hsl(var(--hero-dark))] overflow-hidden border-b border-border">
