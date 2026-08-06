@@ -315,6 +315,52 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
   return (
     <div className="space-y-6">
     <Card>
+      <CardHeader>
+        <CardTitle>Totalrapport – sedan publicering</CardTitle>
+        <CardDescription>
+          Ackumulerad statistik för en enskild partner från publiceringsdatum till idag. Används på begäran – sparas inte som utkast.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-3">
+        <div className="flex flex-wrap items-center gap-2">
+          <select
+            className="h-9 rounded-md border bg-background px-3 text-sm min-w-[240px]"
+            value={totalSlug}
+            onChange={(e) => setTotalSlug(e.target.value)}
+            aria-label="Välj partner för totalrapport"
+          >
+            <option value="">Välj partner…</option>
+            {allPartners.map(p => (
+              <option key={p.slug} value={p.slug}>{p.name}</option>
+            ))}
+          </select>
+          <Button size="sm" variant="outline" onClick={() => buildTotalReport()} disabled={!totalSlug || totalBusy}>
+            {totalBusy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Eye className="h-4 w-4" />}
+            <span className="ml-2">Visa totalrapport</span>
+          </Button>
+          <Button size="sm" variant="outline" onClick={() => buildTotalReport("thomas.laine@dynamicfactory.se")} disabled={!totalSlug || totalBusy}>
+            <Send className="h-4 w-4" />
+            <span className="ml-2">Mejla till mig</span>
+          </Button>
+        </div>
+        {totalMeta && (
+          <p className="text-xs text-muted-foreground">
+            Period: {totalMeta.period_start} → {totalMeta.period_end} • {totalMeta.companies} identifierade företag
+          </p>
+        )}
+      </CardContent>
+
+      <Dialog open={!!totalHtml} onOpenChange={(o) => !o && setTotalHtml("")}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Totalrapport – {allPartners.find(p => p.slug === totalSlug)?.name}</DialogTitle>
+          </DialogHeader>
+          <iframe title="Totalrapport" srcDoc={totalHtml} className="w-full h-[70vh] border rounded" />
+        </DialogContent>
+      </Dialog>
+    </Card>
+
+    <Card>
       <CardHeader className="space-y-3">
         <div>
           <CardTitle>Månadsrapport – ett utkast per partner</CardTitle>
