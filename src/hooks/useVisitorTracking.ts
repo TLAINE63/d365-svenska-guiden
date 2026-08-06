@@ -18,10 +18,9 @@ export function setExcludeFromTracking(exclude: boolean): void {
   }
 }
 
-// Check if user has accepted cookies
-function hasCookieConsent(): boolean {
-  return localStorage.getItem(COOKIE_CONSENT_KEY) === "true";
-}
+// Anonym statistik mäts utan samtycke (ingen cookie, anonymiserad IP).
+// Nyckeln behålls för bakåtkompatibilitet med cookiebannern.
+void COOKIE_CONSENT_KEY;
 
 // Generate or retrieve session ID
 function getSessionId(): string {
@@ -43,12 +42,11 @@ export function useVisitorTracking() {
   useEffect(() => {
     const currentPath = location.pathname;
 
-    // Don't track: admin pages, excluded visitors, no cookie consent, or already tracked this path
+    // Don't track: admin pages, excluded visitors, or already tracked this path
     if (
-      currentPath.startsWith("/admin") || 
+      currentPath.startsWith("/admin") ||
       hasTrackedPage.current === currentPath ||
-      isExcludedFromTracking() ||
-      !hasCookieConsent()
+      isExcludedFromTracking()
     ) {
       return;
     }
