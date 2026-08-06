@@ -6,6 +6,8 @@ export interface PeriodStats {
   compareViews: number;
   websiteClicks: number;
   industryListingViews: number;
+  cardClicks?: number;
+  guideListingViews?: number;
   sitePageViews?: number;
   siteUniqueVisitors?: number;
 }
