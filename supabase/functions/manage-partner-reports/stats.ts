@@ -214,12 +214,8 @@ export async function buildDraftStats(
 ): Promise<DraftStats> {
   const currentStart = `${start}T00:00:00Z`;
   const currentEnd = `${shiftDays(end, 1)}T00:00:00Z`;
-  const lengthDays = Math.max(
-    1,
-    Math.round((new Date(currentEnd).getTime() - new Date(currentStart).getTime()) / 86400000),
-  );
-  const previousStart = `${shiftDays(start, -lengthDays)}T00:00:00Z`;
-  const previousEnd = currentStart;
+
+
 
   const [current, benchmark, topEntryPath, industryPagesListed, partnerNews] = await Promise.all([
     fetchPeriod(supabase, partner, currentStart, currentEnd),
