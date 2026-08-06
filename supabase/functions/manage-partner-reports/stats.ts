@@ -110,14 +110,18 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
 
 /** Summan för samtliga partners under samma period (utan partnerfilter). */
 async function fetchAllPartnersPeriod(supabase: any, startIso: string, endIso: string): Promise<PeriodStats> {
-  const [viewsRes, clicksRes, exposureRes] = await Promise.all([
+  const [viewsRes, clicksRes, exposureRes, newsClicksRes] = await Promise.all([
     supabase.from("partner_profile_views").select("view_type")
       .gte("viewed_at", startIso).lt("viewed_at", endIso).limit(100000),
     supabase.from("partner_clicks").select("id", { count: "exact", head: true })
       .gte("clicked_at", startIso).lt("clicked_at", endIso),
     supabase.from("partner_filter_exposures").select("page_path, filter_context")
       .gte("viewed_at", startIso).lt("viewed_at", endIso).limit(100000),
+    supabase.from("funnel_events").select("id", { count: "exact", head: true })
+      .eq("event_name", "partner_news_card_click")
+      .gte("occurred_at", startIso).lt("occurred_at", endIso),
   ]);
+
 
   const views = viewsRes.data || [];
   let compareViews = 0;
