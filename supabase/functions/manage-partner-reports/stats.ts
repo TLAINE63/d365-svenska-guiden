@@ -263,10 +263,10 @@ export function renderStatsHtml(stats: DraftStats | null): string {
   const row = (label: string, cur: number, total: number | null) => `
     <tr>
       <td class="cell" style="padding:11px 14px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:14px;font-weight:600">${esc(label)}</td>
-      <td class="cell" style="padding:11px 14px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:14px;text-align:right;font-weight:700">${cur}</td>
-      ${cmp ? `<td class="cell col-prev" style="padding:11px 14px;border-bottom:1px solid #eef0f3;color:#64748b;font-size:14px;text-align:right">${total == null ? "–" : total}</td>
-      <td class="cell" style="padding:11px 14px;border-bottom:1px solid #eef0f3;font-size:13px;text-align:right;white-space:nowrap">${total == null ? `<span style="color:#94a3b8">–</span>` : share(cur, total)}</td>` : ""}
+      <td class="cell" style="padding:11px 14px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:14px;text-align:right;font-weight:700;white-space:nowrap">${cur}${total == null ? "" : ` <span style="color:#64748b;font-weight:500;font-size:13px">(av ${total})</span>`}</td>
+      ${cmp ? `<td class="cell" style="padding:11px 14px;border-bottom:1px solid #eef0f3;font-size:13px;text-align:right;white-space:nowrap">${total == null ? `<span style="color:#94a3b8">–</span>` : share(cur, total)}</td>` : ""}
     </tr>`;
+
 
   return `
       <h2 style="margin:0 0 8px;font-size:17px;color:#0f172a">Nyckeltal</h2>
