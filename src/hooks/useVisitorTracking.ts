@@ -68,6 +68,9 @@ export function useVisitorTracking() {
               session_id: getSessionId(),
               is_bounce: isFirstPage.current,
             }),
+            // keepalive gör att pingen slutförs även om besökaren
+            // navigerar bort direkt efter sidladdning.
+            keepalive: true,
           }
         );
       } catch (error) {

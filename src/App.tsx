@@ -16,7 +16,9 @@ const Toaster = lazy(() => import("@/components/ui/toaster").then(m => ({ defaul
 const Sonner = lazy(() => import("@/components/ui/sonner").then(m => ({ default: m.Toaster })));
 const CookieBanner = lazy(() => import("@/components/CookieBanner"));
 const SnitcherTracking = lazy(() => import("@/components/SnitcherTracking"));
-const VisitorTracking = lazy(() => import("@/components/VisitorTracking"));
+// Besöksmätningen laddas eagerly (mycket liten) – som lazy chunk tappades
+// sidvisningar från besökare som lämnade innan chunken hunnit laddas.
+import VisitorTracking from "@/components/VisitorTracking";
 
 // Lazy load pages for code splitting
 const NotFound = lazy(() => import("./pages/NotFound"));
