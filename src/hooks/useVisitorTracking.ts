@@ -18,10 +18,9 @@ export function setExcludeFromTracking(exclude: boolean): void {
   }
 }
 
-// Check if user has accepted cookies
-function hasCookieConsent(): boolean {
-  return localStorage.getItem(COOKIE_CONSENT_KEY) === "true";
-}
+// Anonym statistik mäts utan samtycke (ingen cookie, anonymiserad IP).
+// Nyckeln behålls för bakåtkompatibilitet med cookiebannern.
+void COOKIE_CONSENT_KEY;
 
 // Generate or retrieve session ID
 function getSessionId(): string {
