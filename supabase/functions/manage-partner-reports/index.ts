@@ -1127,6 +1127,95 @@ serve(async (req) => {
         return new Response(JSON.stringify({ html }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
 
+      // Totalrapport: ackumulerad statistik sedan partnern publicerades.
+      case "total_report": {
+        const { partner_slug, test_email } = data as { partner_slug: string; test_email?: string };
+        const { data: partner, error: pErr } = await supabase
+          .from("partners")
+          .select("id, slug, name, email, admin_contact_email, published_at, created_at")
+          .eq("slug", partner_slug).single();
+        if (pErr || !partner) throw pErr || new Error("Partner hittades ej");
+
+        const start = String(partner.published_at || partner.created_at).slice(0, 10);
+        const end = new Date().toISOString().slice(0, 10);
+
+        const { data: visits } = await supabase
+          .from("snitcher_visits")
+          .select("organisation_uuid, company_name, company_domain, company_industry, company_size, company_country, session_uuid, session_started_at, session_ended_at, visited_urls, partner_slugs")
+          .contains("partner_slugs", [partner.slug])
+          .gte("session_ended_at", `${start}T00:00:00Z`)
+          .lte("session_ended_at", `${end}T23:59:59Z`);
+
+        const byOrg = new Map<string, CompanyEntry>();
+        const profileRe = new RegExp(`/partner/${partner.slug}(?:/|$|\\?)`, "i");
+        for (const v of visits || []) {
+          const urls: any[] = ((v.visited_urls || []) as any[]).filter((u: any) => isOwnSiteUrl(u?.url || u));
+          const profile_urls = urls.map((u: any) => u.url).filter((u: string) => profileRe.test(u));
+          const other_urls = urls.map((u: any) => u.url).filter((u: string) => !profileRe.test(u));
+          if (profile_urls.length === 0) continue;
+          let entry = byOrg.get(v.organisation_uuid);
+          if (!entry) {
+            entry = {
+              organisation_uuid: v.organisation_uuid,
+              company_name: v.company_name,
+              company_domain: v.company_domain,
+              company_industry: v.company_industry,
+              company_size: v.company_size,
+              company_country: v.company_country,
+              visit_count: 0,
+              sessions: [],
+            };
+            byOrg.set(v.organisation_uuid, entry);
+          }
+          entry.visit_count++;
+          entry.sessions.push({ started_at: v.session_started_at, profile_urls, other_urls });
+        }
+        const companies = Array.from(byOrg.values()).sort((a, b) => b.visit_count - a.visit_count);
+
+        const stats = await buildDraftStats(supabase, partner, start, end, companies, { skipPrevious: true });
+        const c = stats.current;
+        const exposure = (c.guideListingViews ?? 0) + c.compareViews + c.industryListingViews;
+        const periodLabel = `${start} – ${end}`;
+        const intro = `Här kommer er totalrapport för hela perioden sedan ni publicerades på d365.se (${periodLabel}). ` +
+          `Under perioden har er profil haft ${c.profileVisits} visningar och ni har visats ${exposure} gånger i partnerguiden, jämförelsevyn och branschlistor.` +
+          (companies.length > 0
+            ? ` Vi har dessutom identifierat ${companies.length} företag som besökt er profil – redovisade anonymiserat med bransch och storlek.`
+            : ``);
+
+        const html = await renderDraftEmail(supabase, {
+          partnerName: partner.name,
+          partnerSlug: partner.slug,
+          intro,
+          companies,
+          periodLabel,
+          siteOrigin: "https://www.d365.se",
+          stats,
+        });
+
+        if (test_email) {
+          if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(test_email)) {
+            return new Response(JSON.stringify({ error: "Ogiltig e-postadress" }), {
+              status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+            });
+          }
+          const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+          if (!RESEND_API_KEY) throw new Error("RESEND_API_KEY saknas");
+          const resend = new Resend(RESEND_API_KEY);
+          await resend.emails.send({
+            from: "D365.se Rapporter <noreply@d365.se>",
+            to: [test_email],
+            subject: `Totalrapport ${partner.name} – d365.se`,
+            html,
+          });
+        }
+
+        return new Response(JSON.stringify({ html, period_start: start, period_end: end, companies: companies.length, stats }), {
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+
+
+
       case "send-test": {
         const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
         if (!RESEND_API_KEY) throw new Error("RESEND_API_KEY saknas");
