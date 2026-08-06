@@ -101,6 +101,39 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
   };
 }
 
+/** Summan för samtliga partners under samma period (utan partnerfilter). */
+async function fetchAllPartnersPeriod(supabase: any, startIso: string, endIso: string): Promise<PeriodStats> {
+  const [viewsRes, clicksRes, exposureRes] = await Promise.all([
+    supabase.from("partner_profile_views").select("view_type")
+      .gte("viewed_at", startIso).lt("viewed_at", endIso).limit(100000),
+    supabase.from("partner_clicks").select("id", { count: "exact", head: true })
+      .gte("clicked_at", startIso).lt("clicked_at", endIso),
+    supabase.from("partner_filter_exposures").select("page_path, filter_context")
+      .gte("viewed_at", startIso).lt("viewed_at", endIso).limit(100000),
+  ]);
+
+  const views = viewsRes.data || [];
+  let compareViews = 0;
+  let industryListingViews = 0;
+  let guideListingViews = 0;
+  for (const e of exposureRes.data || []) {
+    const p = (e.page_path || "").toLowerCase();
+    if (p.startsWith("/jamfor-partners")) compareViews++;
+    else if (p.startsWith("/valjdynamics365partner") || p.startsWith("/valj")) guideListingViews++;
+    if (p.startsWith("/branscher")) industryListingViews++;
+    else if (e.filter_context && (e.filter_context as any).industry) industryListingViews++;
+  }
+
+  return {
+    profileVisits: views.filter((v: any) => v.view_type === "profile_visit").length,
+    cardClicks: views.filter((v: any) => v.view_type === "card_click").length,
+    compareViews,
+    guideListingViews,
+    websiteClicks: clicksRes.count || 0,
+    industryListingViews,
+  };
+}
+
 
 async function fetchTopEntryPath(supabase: any, partner: any, startIso: string, endIso: string): Promise<string | null> {
   const { data } = await supabase.from("partner_profile_views").select("referrer, page_source")
