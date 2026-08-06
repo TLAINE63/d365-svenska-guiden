@@ -42,12 +42,11 @@ export function useVisitorTracking() {
   useEffect(() => {
     const currentPath = location.pathname;
 
-    // Don't track: admin pages, excluded visitors, no cookie consent, or already tracked this path
+    // Don't track: admin pages, excluded visitors, or already tracked this path
     if (
-      currentPath.startsWith("/admin") || 
+      currentPath.startsWith("/admin") ||
       hasTrackedPage.current === currentPath ||
-      isExcludedFromTracking() ||
-      !hasCookieConsent()
+      isExcludedFromTracking()
     ) {
       return;
     }
