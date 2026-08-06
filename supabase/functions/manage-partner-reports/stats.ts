@@ -263,10 +263,10 @@ export function renderStatsHtml(stats: DraftStats | null): string {
   const row = (label: string, cur: number, total: number | null) => `
     <tr>
       <td class="cell" style="padding:11px 14px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:14px;font-weight:600">${esc(label)}</td>
-      <td class="cell" style="padding:11px 14px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:14px;text-align:right;font-weight:700">${cur}</td>
-      ${cmp ? `<td class="cell col-prev" style="padding:11px 14px;border-bottom:1px solid #eef0f3;color:#64748b;font-size:14px;text-align:right">${total == null ? "–" : total}</td>
-      <td class="cell" style="padding:11px 14px;border-bottom:1px solid #eef0f3;font-size:13px;text-align:right;white-space:nowrap">${total == null ? `<span style="color:#94a3b8">–</span>` : share(cur, total)}</td>` : ""}
+      <td class="cell" style="padding:11px 14px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:14px;text-align:right;font-weight:700;white-space:nowrap">${cur}${total == null ? "" : ` <span style="color:#64748b;font-weight:500;font-size:13px">(av ${total})</span>`}</td>
+      ${cmp ? `<td class="cell" style="padding:11px 14px;border-bottom:1px solid #eef0f3;font-size:13px;text-align:right;white-space:nowrap">${total == null ? `<span style="color:#94a3b8">–</span>` : share(cur, total)}</td>` : ""}
     </tr>`;
+
 
   return `
       <h2 style="margin:0 0 8px;font-size:17px;color:#0f172a">Nyckeltal</h2>
@@ -275,9 +275,8 @@ export function renderStatsHtml(stats: DraftStats | null): string {
         <thead>
           <tr style="background:#f8fafc">
             <th style="padding:9px 14px;text-align:left;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px" class="cell">Mätpunkt</th>
-            <th style="padding:9px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Er siffra</th>
-            ${cmp ? `<th class="col-prev" style="padding:9px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Alla partners</th>
-            <th style="padding:9px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Er andel</th>` : ""}
+            <th style="padding:9px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Er siffra (alla partners)</th>
+            ${cmp ? `<th style="padding:9px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Er andel</th>` : ""}
           </tr>
         </thead>
         <tbody>
