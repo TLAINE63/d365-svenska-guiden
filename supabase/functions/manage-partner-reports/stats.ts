@@ -7,6 +7,7 @@ export interface PeriodStats {
   websiteClicks: number;
   industryListingViews: number;
   sitePageViews?: number;
+  siteUniqueVisitors?: number;
 }
 
 export interface DraftStats {
