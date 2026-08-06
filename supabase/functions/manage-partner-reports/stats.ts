@@ -51,7 +51,7 @@ function bucketReferrer(ref: string | null, firstUrl?: string | null): string | 
 }
 
 async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso: string): Promise<PeriodStats> {
-  const [viewsRes, clicksRes, exposureRes, sitePvRes] = await Promise.all([
+  const [viewsRes, clicksRes, exposureRes, sitePvRes, sessionsRes] = await Promise.all([
     supabase.from("partner_profile_views").select("view_type")
       .eq("partner_slug", partner.slug).gte("viewed_at", startIso).lt("viewed_at", endIso),
     supabase.from("partner_clicks").select("id", { count: "exact", head: true })
@@ -60,6 +60,8 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
       .eq("partner_slug", partner.slug).gte("viewed_at", startIso).lt("viewed_at", endIso),
     supabase.from("visitor_analytics").select("id", { count: "exact", head: true })
       .gte("visited_at", startIso).lt("visited_at", endIso),
+    supabase.from("visitor_analytics").select("session_id, ip_anonymized")
+      .gte("visited_at", startIso).lt("visited_at", endIso).limit(50000),
   ]);
 
   const views = viewsRes.data || [];
@@ -74,14 +76,22 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
     else if (e.filter_context && (e.filter_context as any).industry) industryListingViews++;
   }
 
+  const uniqueKeys = new Set<string>();
+  for (const r of sessionsRes.data || []) {
+    const key = r.session_id || r.ip_anonymized;
+    if (key) uniqueKeys.add(String(key));
+  }
+
   return {
     profileVisits,
     compareViews,
     websiteClicks: clicksRes.count || 0,
     industryListingViews,
     sitePageViews: sitePvRes.count || 0,
+    siteUniqueVisitors: uniqueKeys.size,
   };
 }
+
 
 async function fetchTopEntryPath(supabase: any, partner: any, startIso: string, endIso: string): Promise<string | null> {
   const { data } = await supabase.from("partner_profile_views").select("referrer, page_source")
