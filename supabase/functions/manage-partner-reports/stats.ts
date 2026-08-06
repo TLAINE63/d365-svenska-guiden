@@ -8,6 +8,7 @@ export interface PeriodStats {
   industryListingViews: number;
   cardClicks?: number;
   guideListingViews?: number;
+  newsClicks?: number;
   sitePageViews?: number;
   siteUniqueVisitors?: number;
 }
