@@ -71,10 +71,14 @@ const shortText = (p: RawPartner) => {
   return clean.length > 150 ? `${clean.slice(0, 147).trimEnd()}…` : clean;
 };
 
-const partnerIndustries = (p: RawPartner) => [
-  ...(p.industries || []),
-  ...(p.secondary_industries || []),
-];
+const partnerIndustries = (p: RawPartner) => {
+  const set = new Set<string>([...(p.industries || []), ...(p.secondary_industries || [])]);
+  Object.values(p.product_filters || {}).forEach((f) =>
+    (f?.industries || []).forEach((i) => set.add(i))
+  );
+  Object.keys(p.industry_apps || {}).forEach((i) => set.add(i));
+  return [...set];
+};
 
 export default function HomeVerifiedPartnersGrid() {
   const { selected, isSelected, toggle, clear, max } = usePartnerCompare();
