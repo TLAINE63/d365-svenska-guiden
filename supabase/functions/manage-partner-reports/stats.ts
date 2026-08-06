@@ -14,7 +14,7 @@ export interface PeriodStats {
 
 export interface DraftStats {
   current: PeriodStats;
-  previous: PeriodStats;
+  previous?: PeriodStats;
   topEntryPath: string | null;
   activeEvaluators: number;
   industryPagesListed: { slug: string; name: string; views: number }[];
