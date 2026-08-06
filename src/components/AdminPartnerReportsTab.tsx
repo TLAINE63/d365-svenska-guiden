@@ -59,6 +59,37 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const [showFeaturedOnly, setShowFeaturedOnly] = useState(false);
 
+  // Totalrapport (sedan publicering)
+  const [allPartners, setAllPartners] = useState<{ slug: string; name: string }[]>([]);
+  const [totalSlug, setTotalSlug] = useState("");
+  const [totalBusy, setTotalBusy] = useState(false);
+  const [totalHtml, setTotalHtml] = useState("");
+  const [totalMeta, setTotalMeta] = useState<{ period_start: string; period_end: string; companies: number } | null>(null);
+
+  useEffect(() => {
+    supabase.rpc("get_all_partner_names").then(({ data }) => {
+      setAllPartners(((data as any[]) || [])
+        .filter((p) => p.is_featured)
+        .map((p) => ({ slug: p.slug, name: p.name })));
+    });
+  }, []);
+
+  const buildTotalReport = async (testEmailTo?: string) => {
+    if (!totalSlug || !token) return;
+    setTotalBusy(true);
+    const { data, error } = await supabase.functions.invoke("manage-partner-reports", {
+      body: { action: "total_report", token, partner_slug: totalSlug, test_email: testEmailTo },
+    });
+    setTotalBusy(false);
+    if (error || data?.error) {
+      toast({ title: "Kunde inte skapa totalrapport", description: data?.error || error?.message, variant: "destructive" });
+      return;
+    }
+    setTotalMeta({ period_start: data.period_start, period_end: data.period_end, companies: data.companies });
+    if (testEmailTo) toast({ title: `Totalrapport mejlad till ${testEmailTo}` });
+    else setTotalHtml(data.html || "");
+  };
+
   const load = async () => {
     if (!token) return;
     setLoading(true);
