@@ -191,9 +191,19 @@ Deno.serve(async (req) => {
       return true;
     });
 
+    // Unik besökare = anonymiserad IP + dag (fallback: session-id + dag)
+    const visitorKey = (r: { ip_anonymized: string | null; session_id: string | null; visited_at: string }) => {
+      const day = (r.visited_at || "").slice(0, 10);
+      const base = r.ip_anonymized && r.ip_anonymized !== "unknown" ? r.ip_anonymized : r.session_id;
+      return base ? `${base}|${day}` : null;
+    };
+
     function totals(rows: typeof filtered) {
       const s = new Set<string>();
-      for (const r of rows) if (r.session_id) s.add(r.session_id);
+      for (const r of rows) {
+        const k = visitorKey(r);
+        if (k) s.add(k);
+      }
       return { pageViews: rows.length, uniqueVisitors: s.size };
     }
     function topPages(rows: typeof filtered, limit = 20) {
@@ -206,7 +216,8 @@ Deno.serve(async (req) => {
           map.set(key, m);
         }
         m.views++;
-        if (r.session_id) m.sessions.add(r.session_id);
+        const k = visitorKey(r);
+        if (k) m.sessions.add(k);
       }
       return Array.from(map.entries())
         .map(([path, v]) => ({ path, views: v.views, uniqueVisitors: v.sessions.size }))

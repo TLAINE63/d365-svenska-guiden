@@ -193,8 +193,13 @@ Deno.serve(async (req) => {
       return true;
     });
 
+    // Unik besökare = anonymiserad IP + dag (fallback: session-id + dag)
     const uniqueSessions = new Set<string>();
-    for (const r of filtered) if (r.session_id) uniqueSessions.add(r.session_id);
+    for (const r of filtered) {
+      const day = (r.visited_at || "").slice(0, 10);
+      const base = r.ip_anonymized && r.ip_anonymized !== "unknown" ? r.ip_anonymized : r.session_id;
+      if (base) uniqueSessions.add(`${base}|${day}`);
+    }
 
     // Top topics – group knowledge-center / product pages
     const topicCount = new Map<string, number>();

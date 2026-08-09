@@ -65,7 +65,7 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
       .eq("partner_slug", partner.slug).gte("viewed_at", startIso).lt("viewed_at", endIso),
     supabase.from("visitor_analytics").select("id", { count: "exact", head: true })
       .gte("visited_at", startIso).lt("visited_at", endIso),
-    supabase.from("visitor_analytics").select("session_id, ip_anonymized")
+    supabase.from("visitor_analytics").select("session_id, ip_anonymized, visited_at")
       .gte("visited_at", startIso).lt("visited_at", endIso).limit(50000),
     supabase.from("funnel_events").select("id", { count: "exact", head: true })
       .eq("event_name", "partner_news_card_click")
@@ -90,8 +90,10 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
 
   const uniqueKeys = new Set<string>();
   for (const r of sessionsRes.data || []) {
-    const key = r.session_id || r.ip_anonymized;
-    if (key) uniqueKeys.add(String(key));
+    // Unik besökare = anonymiserad IP + dag (fallback: session-id + dag)
+    const day = String(r.visited_at || "").slice(0, 10);
+    const base = r.ip_anonymized && r.ip_anonymized !== "unknown" ? r.ip_anonymized : r.session_id;
+    if (base) uniqueKeys.add(`${base}|${day}`);
   }
 
   return {
