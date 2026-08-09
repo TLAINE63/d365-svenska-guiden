@@ -8,6 +8,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { generateRoiPdf, type RoiPdfData } from "@/utils/generateRoiPdf";
 import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
+import { useCtaTracking } from "@/hooks/useCtaTracking";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 interface RoiPdfDownloadProps {
   buildPdfData: (email: string) => RoiPdfData;
@@ -23,6 +25,7 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
   const [honeypot, setHoneypot] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [done, setDone] = useState(false);
+  const { ref: ctaRef, trackClick } = useCtaTracking<HTMLDivElement>("roi_pdf_download", { source: sourceKey });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,6 +38,7 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
       setDone(true);
       return;
     }
+    trackClick();
     setIsSubmitting(true);
     try {
       const data = buildPdfData(email);
@@ -55,6 +59,7 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
       if (res.data?.error) throw new Error(res.data.error);
 
       await generateRoiPdf(data);
+      trackFunnelEvent({ event_type: "pdf_download", event_name: `roi_pdf_${sourceKey}`, metadata: { product: productLabel } });
       setDone(true);
       toast({
         title: "PDF laddas ned",
@@ -96,7 +101,7 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
   }
 
   return (
-    <Card className="bg-[hsl(var(--hero-dark))] border-[hsl(var(--line-dark))] text-white overflow-hidden">
+    <Card ref={ctaRef} className="bg-[hsl(var(--hero-dark))] border-[hsl(var(--line-dark))] text-white overflow-hidden">
       <CardContent className="p-6 sm:p-7">
         <div className="flex items-start gap-4 mb-4">
           <div className="bg-[hsl(var(--cta-orange))] rounded-md p-2.5 flex-shrink-0">

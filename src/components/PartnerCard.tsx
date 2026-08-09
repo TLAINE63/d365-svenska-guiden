@@ -28,6 +28,7 @@ import { DatabasePartner, type ProductFilterInput, type ProductFilters } from "@
 
 import { trackPartnerView } from "@/utils/trackPartnerView";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 import { displayApplicationName, getApplicationIcon, sortApplications, normalizeApplications } from "@/lib/applicationLabels";
 import PartnerCardSummary from "@/components/partner/PartnerCardSummary";

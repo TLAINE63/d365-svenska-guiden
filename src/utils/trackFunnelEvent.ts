@@ -7,16 +7,18 @@
  * falls back to fetch() with keepalive.
  */
 
-const COOKIE_CONSENT_KEY = "cookie-consent-accepted";
 const EXCLUDE_TRACKING_KEY = "d365_exclude_from_tracking";
 
-function hasConsent(): boolean {
+/**
+ * Anonymous measurement – no cookies, no personal data.
+ * Only the internal exclusion flag stops tracking.
+ */
+function isTrackingAllowed(): boolean {
   try {
     if (typeof window === "undefined") return false;
-    if (localStorage.getItem(EXCLUDE_TRACKING_KEY) === "true") return false;
-    return localStorage.getItem(COOKIE_CONSENT_KEY) === "true";
+    return localStorage.getItem(EXCLUDE_TRACKING_KEY) !== "true";
   } catch {
-    return false;
+    return true;
   }
 }
 
@@ -54,7 +56,7 @@ export interface FunnelEventPayload {
 
 export function trackFunnelEvent(payload: FunnelEventPayload): void {
   try {
-    if (!hasConsent()) return;
+    if (!isTrackingAllowed()) return;
     if (typeof window === "undefined") return;
 
     // Skip admin pages

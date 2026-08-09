@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import PageOfferBanner from "@/components/PageOfferBanner";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema } from "@/components/StructuredData";
@@ -102,6 +103,11 @@ export default function Priser() {
         </section>
       </main>
 
+      <section className="py-8">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <PageOfferBanner />
+        </div>
+      </section>
       <Footer />
     </div>
   );

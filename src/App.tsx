@@ -15,6 +15,7 @@ import Index from "./pages/Index";
 const Toaster = lazy(() => import("@/components/ui/toaster").then(m => ({ default: m.Toaster })));
 const Sonner = lazy(() => import("@/components/ui/sonner").then(m => ({ default: m.Toaster })));
 const CookieBanner = lazy(() => import("@/components/CookieBanner"));
+const ExitIntentOffer = lazy(() => import("@/components/ExitIntentOffer"));
 const SnitcherTracking = lazy(() => import("@/components/SnitcherTracking"));
 // Besöksmätningen laddas eagerly (mycket liten) – som lazy chunk tappades
 // sidvisningar från besökare som lämnade innan chunken hunnit laddas.
@@ -316,6 +317,7 @@ const AppShell = () => {
           <SnitcherTracking />
           <VisitorTracking />
           <AiChatBubble />
+          <ExitIntentOffer />
         </Suspense>
       )}
     </>

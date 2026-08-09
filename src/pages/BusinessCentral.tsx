@@ -1,4 +1,5 @@
 import RelatedPages, { bcRelatedPages } from "@/components/RelatedPages";
+import PageOfferBanner from "@/components/PageOfferBanner";
 import { BC_ARTICLES } from "@/data/bcArticles";
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
@@ -943,6 +944,11 @@ const BusinessCentral = () => {
 
 
  <RelatedPages pages={bcRelatedPages} heading="Utforska vidare" />
+ <section className="py-8">
+   <div className="container mx-auto px-4 max-w-6xl">
+     <PageOfferBanner />
+   </div>
+ </section>
  <Footer />
  </div>
  );

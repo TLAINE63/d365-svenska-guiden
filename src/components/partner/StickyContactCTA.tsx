@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Calendar, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 interface StickyContactCTAProps {
   partnerName: string;
@@ -27,6 +28,27 @@ export const StickyContactCTA = ({ partnerName, onBookMeeting, onIntro }: Sticky
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const viewTracked = useRef(false);
+  useEffect(() => {
+    if (!visible || viewTracked.current) return;
+    viewTracked.current = true;
+    trackFunnelEvent({
+      event_type: "cta_view",
+      event_name: "partner_sticky_contact",
+      metadata: { partner: partnerName },
+    });
+  }, [visible, partnerName]);
+
+  const handle = (action: "book" | "intro") => {
+    trackFunnelEvent({
+      event_type: "cta_click",
+      event_name: "partner_sticky_contact",
+      metadata: { partner: partnerName, action },
+    });
+    if (action === "book") onBookMeeting();
+    else onIntro();
+  };
+
   if (!visible) return null;
 
   return (
@@ -39,7 +61,7 @@ export const StickyContactCTA = ({ partnerName, onBookMeeting, onIntro }: Sticky
       >
         <div className="flex gap-2">
           <Button
-            onClick={onIntro}
+            onClick={() => handle("intro")}
             variant="outline"
             className="flex-1 h-11 text-sm font-semibold"
           >
@@ -47,7 +69,7 @@ export const StickyContactCTA = ({ partnerName, onBookMeeting, onIntro }: Sticky
             Be om intro
           </Button>
           <Button
-            onClick={onBookMeeting}
+            onClick={() => handle("book")}
             className="flex-1 h-11 text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90"
           >
             <Calendar className="w-4 h-4 mr-1.5" aria-hidden="true" />
@@ -64,14 +86,14 @@ export const StickyContactCTA = ({ partnerName, onBookMeeting, onIntro }: Sticky
               Kontakta {partnerName}
             </p>
             <Button
-              onClick={onBookMeeting}
+              onClick={() => handle("book")}
               className="justify-start h-11 px-4 bg-primary text-primary-foreground hover:bg-primary/90 font-semibold shadow-md"
             >
               <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
               Boka första möte
             </Button>
             <Button
-              onClick={onIntro}
+              onClick={() => handle("intro")}
               variant="outline"
               className="justify-start h-11 px-4 font-semibold"
             >

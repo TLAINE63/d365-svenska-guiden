@@ -146,6 +146,22 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
                 Ladda ner partnerguiden som PDF
               </button>
             </p>
+            <p className="text-sm text-muted-foreground mt-2">
+              Nästa steg:{" "}
+              <a
+                href="/valjdynamics365partner/"
+                onClick={() =>
+                  trackFunnelEvent({
+                    event_type: "cta_click",
+                    event_name: "lead_magnet_next_step",
+                    metadata: { source_page: sourcePage },
+                  })
+                }
+                className="text-primary hover:underline font-medium"
+              >
+                låt oss skicka ditt underlag till 2–3 matchande partners
+              </a>
+            </p>
           </div>
         </div>
       </Card>
@@ -180,6 +196,12 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
           <p className="text-sm text-white/75">
             Lär dig vilka frågor du ska ställa och vad du ska tänka på. Ange din e-post så skickar vi guiden direkt.
           </p>
+          <ul className="mt-2 grid gap-1 text-xs text-white/70 sm:grid-cols-2">
+            <li>1. De 12 frågorna du bör ställa varje partner</li>
+            <li>2. Så jämför du offerter rättvist</li>
+            <li>3. Varningssignaler i upphandlingen</li>
+            <li>4. Checklista inför beslut</li>
+          </ul>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto mt-2 sm:mt-0">
