@@ -27,6 +27,7 @@ import { pickSuggestedPartners } from "@/lib/suggestPartners";
 import { hasProduct, type ProductKey } from "@/hooks/usePartnerFilters";
 import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
 import { trackFunnelEvent } from "@/lib/funnelTracking";
+import { useCtaTracking } from "@/hooks/useCtaTracking";
 
 interface Props {
   sourcePage: string;
@@ -101,6 +102,11 @@ export const SendUnderlagToPartners = ({
     new Set([...selectedSlugs, ...extraSlugs]),
   ).filter((s) => partnersBySlug.has(s));
 
+  const { ref: ctaRef, trackClick: trackCtaClick } = useCtaTracking<HTMLDivElement>(
+    "send_underlag_to_partners",
+    { assessment_type: assessmentType, source_page: sourcePage },
+  );
+
   const toggleSuggested = (slug: string) => {
     setSelectedSlugs((prev) => (prev.includes(slug) ? prev.filter((s) => s !== slug) : [...prev, slug]));
   };
@@ -120,6 +126,7 @@ export const SendUnderlagToPartners = ({
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    trackCtaClick({ assessment_type: assessmentType });
     e.preventDefault();
     if (!form.company || !form.name || !form.email) {
       toast({ title: "Fyll i företag, namn och e-post", variant: "destructive" });
@@ -212,7 +219,7 @@ export const SendUnderlagToPartners = ({
   }
 
   return (
-    <Card className="border-primary/20">
+    <Card ref={ctaRef} className="border-primary/20">
       <CardContent className="p-6 sm:p-8 space-y-5">
         <div className="flex items-start gap-3">
           <div className="w-9 h-9 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">

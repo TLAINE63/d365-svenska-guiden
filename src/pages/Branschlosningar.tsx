@@ -1,4 +1,5 @@
 import RelatedPages, { branschRelatedPages } from "@/components/RelatedPages";
+import PageOfferBanner from "@/components/PageOfferBanner";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useMemo } from "react";
 import Navbar from "@/components/Navbar";
@@ -674,6 +675,11 @@ const Branschlosningar = () => {
  )}
 
  <RelatedPages pages={branschRelatedPages} heading="Utforska vidare" />
+ <section className="py-8">
+   <div className="container mx-auto px-4 max-w-6xl">
+     <PageOfferBanner />
+   </div>
+ </section>
  <Footer />
 
  {/* No Partner Dialog */}

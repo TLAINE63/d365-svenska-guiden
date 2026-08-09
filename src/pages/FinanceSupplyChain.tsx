@@ -1,4 +1,5 @@
 import ProductHero from "@/components/ProductHero";
+import PageOfferBanner from "@/components/PageOfferBanner";
 import StandardProductSections from "@/components/product/StandardProductSections";
 import { PRODUCT_STANDARD_SECTIONS } from "@/data/productStandardSections";
 import { FSC_ARTICLES } from "@/data/fscArticles";
@@ -838,6 +839,11 @@ const FinanceSupplyChain = () => {
  </section>
 
  <RelatedPages pages={fscRelatedPages} heading="Utforska vidare" />
+ <section className="py-8">
+   <div className="container mx-auto px-4 max-w-6xl">
+     <PageOfferBanner />
+   </div>
+ </section>
  <Footer />
  </div>
  );

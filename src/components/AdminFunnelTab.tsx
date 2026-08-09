@@ -178,6 +178,56 @@ export default function AdminFunnelTab({ token, onSessionExpired }: Props) {
             </CardContent>
           </Card>
 
+          {(() => {
+            const views = stats.by_event_name?.cta_view || {};
+            const clicks = stats.by_event_name?.cta_click || {};
+            const names = Array.from(new Set([...Object.keys(views), ...Object.keys(clicks)]));
+            if (names.length === 0) return null;
+            const rows = names
+              .map((name) => {
+                const v = views[name] || 0;
+                const c = clicks[name] || 0;
+                return { name, views: v, clicks: c, rate: v > 0 ? (c / v) * 100 : null };
+              })
+              .sort((a, b) => b.views + b.clicks - (a.views + a.clicks));
+            return (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Konverteringsvägar per CTA</CardTitle>
+                  <p className="text-xs text-muted-foreground">
+                    Visningar, klick och klickfrekvens per enskild CTA – visar vilka som är värda att skala upp.
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="text-left text-xs text-muted-foreground border-b border-border">
+                          <th className="py-2 pr-4 font-medium">CTA</th>
+                          <th className="py-2 pr-4 font-medium text-right">Visningar</th>
+                          <th className="py-2 pr-4 font-medium text-right">Klick</th>
+                          <th className="py-2 font-medium text-right">Klickfrekvens</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {rows.map((r) => (
+                          <tr key={r.name} className="border-b border-border/60 last:border-0">
+                            <td className="py-2 pr-4 font-medium">{r.name}</td>
+                            <td className="py-2 pr-4 text-right tabular-nums">{r.views.toLocaleString("sv-SE")}</td>
+                            <td className="py-2 pr-4 text-right tabular-nums">{r.clicks.toLocaleString("sv-SE")}</td>
+                            <td className="py-2 text-right tabular-nums">
+                              {r.rate === null ? "–" : `${r.rate.toFixed(1)} %`}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })()}
+
           {stats.by_event_name && Object.keys(stats.by_event_name).length > 0 && (
             <Card>
               <CardHeader><CardTitle className="text-lg">Händelser per typ</CardTitle></CardHeader>

@@ -1,4 +1,5 @@
 import ProductHero from "@/components/ProductHero";
+import PageOfferBanner from "@/components/PageOfferBanner";
 import ShortAnswer from "@/components/ShortAnswer";
 import RelatedPages, { crmRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
@@ -537,6 +538,11 @@ const CRM = () => {
  </section>
 
  <RelatedPages pages={crmRelatedPages} heading="Utforska vidare" />
+ <section className="py-8">
+   <div className="container mx-auto px-4 max-w-6xl">
+     <PageOfferBanner />
+   </div>
+ </section>
  <Footer />
  </div>
  );

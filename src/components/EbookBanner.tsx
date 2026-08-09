@@ -8,6 +8,8 @@ import { Download, BookOpen, CheckCircle } from "lucide-react";
 import ebookCover from "@/assets/ebook-partnervalet-cover.webp";
 import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
+import { useCtaTracking } from "@/hooks/useCtaTracking";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 interface EbookBannerProps {
  variant?: "full" | "compact";
@@ -20,9 +22,11 @@ const EbookBanner = ({ variant = "full", sourcePage = "homepage" }: EbookBannerP
  const [honeypot, setHoneypot] = useState("");
  const [isSubmitting, setIsSubmitting] = useState(false);
  const [isSubmitted, setIsSubmitted] = useState(false);
+ const { ref: ctaRef, trackClick } = useCtaTracking<HTMLDivElement>("ebook_banner", { source_page: sourcePage, variant });
 
  const handleSubmit = async (e: React.FormEvent) => {
  e.preventDefault();
+ trackClick();
 
  const emailError = validateBusinessEmail(email);
  if (emailError) {
@@ -55,6 +59,7 @@ const EbookBanner = ({ variant = "full", sourcePage = "homepage" }: EbookBannerP
  if (response.data?.error) throw new Error(response.data.error);
 
  // Trigger PDF download
+ trackFunnelEvent({ event_type: "pdf_download", event_name: "ebook_partnervalet", metadata: { source_page: sourcePage } });
  const link = document.createElement("a");
  link.href = "/ebooks/det-viktiga-partnervalet.pdf";
  link.download = "Det-viktiga-partnervalet-d365.pdf";
@@ -104,7 +109,7 @@ const EbookBanner = ({ variant = "full", sourcePage = "homepage" }: EbookBannerP
 
  if (variant === "compact") {
  return (
- <Card className="bg-gradient-to-br from-primary/10 via-primary/5 to-accent/10 border-primary/30 p-5 rounded shadow-primary/10 overflow-hidden relative">
+ <Card ref={ctaRef} className="bg-gradient-to-br from-primary/10 via-primary/5 to-accent/10 border-primary/30 p-5 rounded shadow-primary/10 overflow-hidden relative">
  <div className="absolute -right-6 -top-6 w-28 h-28 bg-primary/5 rounded " />
  <div className="flex items-center gap-4 relative">
  <img
@@ -137,7 +142,7 @@ const EbookBanner = ({ variant = "full", sourcePage = "homepage" }: EbookBannerP
  }
 
   return (
-    <section className="py-10 sm:py-12 bg-[hsl(var(--hero-dark))] border-y border-[hsl(var(--line-dark))] text-white">
+    <section ref={ctaRef as unknown as React.RefObject<HTMLElement>} className="py-10 sm:py-12 bg-[hsl(var(--hero-dark))] border-y border-[hsl(var(--line-dark))] text-white">
       <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
           {/* Book image */}
