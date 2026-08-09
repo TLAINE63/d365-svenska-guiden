@@ -1,26 +1,53 @@
-## Bakgrund
+# Fler leads: mät först, konvertera sedan
 
-Google visar i dag Microsofts YouTube-miniatyr ("Drive sales with AI-generated product descriptions", video-ID `ayXdXFyFEjY`) som bild vid sökträffen för `/businesscentral/`. Videon bäddas in via `src/data/knowledgeVideos.ts` och dess `img.youtube.com`-miniatyr är den enda stora, indexerbara bilden på sidan – sidans egen `og:image` (`/og-business-central.png`) är bara ett abstrakt turkost vågmönster utan motiv, vilket Google sällan väljer.
+## Nuläge (verifierat i databasen)
 
-## Vad som byggs
+- 74 leads totalt, varav bara **8 de senaste 90 dagarna** (41 av alla kom i januari).
+- Fördelning per källa: lead_magnet 37, cta 11, kravspec 8, ebook 7, AI-readiness 4, ROI-PDF 1.
+- **34 partnerklick** på 90 dagar.
+- `funnel_events` innehåller **0 rader** – all CTA-mätning (visning → klick → PDF → lead) är död eftersom `trackFunnelEvent` kräver cookie-samtycke som nästan ingen ger. Samma orsak som besöksspårningen hade.
 
-1. **Ny primärbild för Business Central-sidan**
-   - Generera en egen 1200×630-grafik i d365.se:s designspråk (mörk bakgrund, orange accent, "Dynamics 365 Business Central – pris, funktioner & partners i Sverige") och lägg den i `public/`.
-   - Ersätt `public/og-business-central.png` med den nya bilden så att og:image och sidbilden är samma motiv (starkast signal till Google).
+Slutsatsen: vi kan inte optimera det vi inte mäter, och de tre konverteringsvägarna (partnerklick, mejl till partner, PDF mot e-post) är idag utspridda och lågt exponerade.
 
-2. **Visa bilden högt upp i sidans innehåll**
-   - Lägg in bilden som en synlig, redaktionell bild i hero-/introsektionen i `src/pages/BusinessCentral.tsx`, före videosektionen.
-   - Sätt `width`/`height` (1200×630), beskrivande `alt`, `loading="eager"` och `fetchPriority="high"` så den inte skadar LCP.
+## Steg 1 – Få igång mätningen (förutsättning)
 
-3. **Strukturerad data som pekar ut rätt bild**
-   - Lägg till/utöka JSON-LD på sidan med `primaryImageOfPage` (ImageObject med absolut URL, bredd, höjd, caption) samt `image`-fältet på sidans befintliga schema.
-   - Behåll `og:image`/`twitter:image` pekande på samma absoluta URL.
+- Ta bort samtyckeskravet i `trackFunnelEvent` och mät anonymt på samma sätt som besöksspårningen (maskerad IP, sessions-id i sessionStorage, ingen cookie).
+- Lägg till `cta_view`/`cta_click` på de CTA:er som saknar det: `ScrollCTA`, `EbookBanner`, `RoiPdfDownload`, `SendUnderlagToPartners`, partnerkortens kontakt- och webbplatsknappar.
+- Ny admin-vy "Konverteringsvägar" som visar per CTA: visningar, klick, konverteringsgrad och leads – så vi ser vilka som är värda att skala.
 
-4. **Nedprioritera videominiatyrerna som bildkandidat**
-   - Flytta videosektionen längre ner på sidan (under fördjupningsartiklarna) så den egna bilden ligger tydligt högre i DOM:en. Videorna finns kvar, bara senare i flödet.
+## Steg 2 – Sänk tröskeln i själva lead-momentet
 
-## Teknisk detalj
+- **Ett fält i taget.** ScrollCTA kräver idag namn + företag + e-post. Byt till enbart jobb-e-post i steg 1, resten efter att leadet är sparat.
+- **Visa värdet före formuläret.** PDF-nedladdningarna får en liten förhandsvisning (miniatyr + innehållsförteckning) i stället för bara en knapp.
+- **Bekräftelsesteget blir ett nytt erbjudande.** Efter varje nedladdning/analys: "Vill du att vi skickar underlaget till 2–3 matchande partners?" med ett klick – återanvänder befintlig `SendUnderlagToPartners`.
+- **Exit-intent på höga sidor** (produktsidor, ROI-kalkylatorer, kostnadssidan): en enda, dämpad ruta med guiden – max en gång per session.
 
-- Filer: `src/pages/BusinessCentral.tsx`, `public/og-business-central.png` (ersätts), ev. `src/components/StructuredData.tsx`.
-- Miniatyren i sökresultatet uppdateras först när Google crawlar om sidan – ingen omedelbar effekt. Efter deploy kan vi begära omindexering via Search Console/IndexNow (`scripts/ping-indexnow.mjs` finns redan).
-- Google garanterar aldrig vilken bild som väljs; detta maximerar sannolikheten men är inte en hård kontroll.
+## Steg 3 – Fler och bättre kontaktytor mot partner
+
+- **Sticky kontaktfält på partnerprofilen** som följer med vid scroll (kontakta + besök webbplats), i dag ligger knapparna bara högt upp.
+- **Kontakta flera samtidigt** från jämförelsevyn och från partnerlistorna: kryssa i 2–3 partners, ett formulär, en förfrågan.
+- **Kontextuell CTA i partnerkorten** i listor: i dag måste man in på profilen först.
+- **Tydligare värdeord** vid partnerklick ("Se deras kundcase" i stället för "Besök webbplats") – testas mot mätningen från steg 1.
+
+## Steg 4 – Rätt erbjudande på rätt sida
+
+- Varje pelarsida får ett **sidspecifikt lead-erbjudande** i stället för samma generella partnerguide: BC-sidan → BC-kravspecmall, kostnadssidan → prischecklista, branschsidor → branschens upphandlingsfrågor.
+- Kunskapscenterartiklar får ett inbäddat erbjudande mitt i texten (inte bara i botten).
+- Nyhetsartiklar från partner avslutas med kontaktknapp till just den partnern.
+
+## Steg 5 – Uppföljning som skapar fler klick
+
+- Automatiskt uppföljningsmejl 2 dagar efter en nedladdning: "Här är 3 partners som matchar det du läste om" – med spårade länkar tillbaka till profiler.
+- Alla lead-mejl får en tydlig nästa-åtgärd i stället för enbart bilagan.
+
+## Tekniska noteringar
+
+- `src/utils/trackFunnelEvent.ts` – ta bort `hasConsent()`-spärren, behåll exkluderingsflaggan för intern trafik.
+- Ny hook för exit-intent + sessionStorage-spärr, återanvänds av alla sidor.
+- Progressiv profilering kräver ett `lead_id` tillbaka från `submit-lead` så att steg 2 kan uppdatera samma rad.
+- Fleravalskontakt bygger på befintlig `PartnerCompareContext` och `submit-lead`/`send-underlag-to-partners`.
+- Ingen ny tabell behövs; `funnel_events` och `leads` räcker.
+
+## Föreslagen ordning
+
+Steg 1 först (utan mätning är resten gissningar), därefter steg 2 och 3 som ger snabbast effekt, sedan 4 och 5.
