@@ -211,10 +211,11 @@ interface ColProps {
   onChange: (slug: string) => void;
   onClear: () => void;
   onRequestQuote?: () => void;
+  onBasicInquiry?: () => void;
   quoteSubmitting?: boolean;
 }
 
-const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onRequestQuote, quoteSubmitting }: ColProps) => {
+const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onRequestQuote, onBasicInquiry, quoteSubmitting }: ColProps) => {
   const basic = isBasicPartner(partner);
   return (
   <div className="rounded-xl border border-slate-200 bg-white p-3 sm:p-4">
@@ -301,10 +302,23 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
         </SelectContent>
       </Select>
       {partner && basic && (
-        <p className="text-[11px] leading-relaxed text-slate-500">
-          Kontaktväg via d365.se är ännu inte aktiverad för denna partner. Uppgifterna nedan är
-          sammanställda av d365.se från publika källor.
-        </p>
+        <>
+          <p className="text-[11px] leading-relaxed text-slate-500">
+            Kontaktväg via d365.se är inte aktiverad för denna Basic-profil. Uppgifterna nedan är
+            sammanställda av d365.se från publika källor.
+          </p>
+          {onBasicInquiry && (
+            <Button
+              type="button"
+              size="sm"
+              onClick={onBasicInquiry}
+              className="w-full h-8 bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
+            >
+              <Mail className="w-4 h-4 mr-1.5" />
+              Kontakta d365.se för vägledning
+            </Button>
+          )}
+        </>
       )}
       {partner && !basic && onRequestQuote && (
         <Button
@@ -1856,6 +1870,7 @@ const ComparePartners = () => {
                     onChange={(s) => setSlot("a", s)}
                     onClear={() => setSlot("a", "")}
                     onRequestQuote={a ? () => setQuoteFor({ recipients: [{ slug: a.slug, name: a.name }], mode: "quote" }) : undefined}
+                    onBasicInquiry={a ? () => setBasicInquiryFor({ slug: a.slug, name: a.name }) : undefined}
                     quoteSubmitting={isSubmittingQuote}
                   />
                   <PartnerColumnHeader
@@ -1865,6 +1880,7 @@ const ComparePartners = () => {
                     onChange={(s) => setSlot("b", s)}
                     onClear={() => setSlot("b", "")}
                     onRequestQuote={b ? () => setQuoteFor({ recipients: [{ slug: b.slug, name: b.name }], mode: "quote" }) : undefined}
+                    onBasicInquiry={b ? () => setBasicInquiryFor({ slug: b.slug, name: b.name }) : undefined}
                     quoteSubmitting={isSubmittingQuote}
                   />
                   <PartnerColumnHeader
@@ -1874,6 +1890,7 @@ const ComparePartners = () => {
                     onChange={(s) => setSlot("c", s)}
                     onClear={() => setSlot("c", "")}
                     onRequestQuote={c ? () => setQuoteFor({ recipients: [{ slug: c.slug, name: c.name }], mode: "quote" }) : undefined}
+                    onBasicInquiry={c ? () => setBasicInquiryFor({ slug: c.slug, name: c.name }) : undefined}
                     quoteSubmitting={isSubmittingQuote}
                   />
                 </div>
@@ -2316,10 +2333,24 @@ const ComparePartners = () => {
                           );
                         }
                         return (
-                          <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-5 text-sm text-slate-600 space-y-2">
+                          <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-5 text-sm text-slate-600 space-y-3">
                             <p>
                               Välj minst två verifierade partners ovan för att skicka samma förfrågan till alla och få jämförbara svar. Basic-profiler kan inte kontaktas direkt via d365.se.
                             </p>
+                            {anyBasicSelected && (
+                              <Button
+                                type="button"
+                                size="sm"
+                                onClick={() => {
+                                  const first = [a, b, c].find((p) => p && isBasicPartner(p));
+                                  if (first) setBasicInquiryFor({ slug: first.slug, name: first.name });
+                                }}
+                                className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
+                              >
+                                <Mail className="w-4 h-4 mr-1.5" />
+                                Kontakta d365.se för vägledning
+                              </Button>
+                            )}
                           </div>
                         );
                       })()}
