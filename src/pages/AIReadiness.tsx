@@ -1860,7 +1860,7 @@ const AIReadiness = () => {
           {/* 1️⃣ AI Effect Potential – 3 dimensions */}
           <div className="border rounded overflow-hidden  mt-8">
             <div className="bg-slate-800 px-5 py-3">
-              <h3 className="font-bold text-white text-sm tracking-wide">🎯 AI-effektpotential</h3>
+              <h2 className="font-bold text-white text-sm tracking-wide">🎯 AI-effektpotential</h2>
             </div>
             <div className="p-5 bg-background space-y-4">
               <p className="text-sm text-muted-foreground mb-2">{pd.description}</p>
