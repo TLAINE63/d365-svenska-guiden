@@ -1353,17 +1353,44 @@ const ComparePartners = () => {
 
   const [showAllRows, setShowAllRows] = useState(false);
 
-  const R = (props: { label: string; a: React.ReactNode; b: React.ReactNode; c?: React.ReactNode; warn?: boolean; help?: string; subtitle?: string }) => {
-    if (!showAllRows && !props.warn) {
+  const aIsBasic = isBasicPartner(a);
+  const bIsBasic = isBasicPartner(b);
+  const cIsBasic = isBasicPartner(c);
+  const anyBasicSelected = aIsBasic || bIsBasic || cIsBasic;
+
+  const R = (props: {
+    label: string;
+    a: React.ReactNode;
+    b: React.ReactNode;
+    c?: React.ReactNode;
+    warn?: boolean;
+    help?: string;
+    subtitle?: string;
+    /** Raden bygger på observerade uppgifter och kan visas även för Basic-profiler. */
+    basicOk?: boolean;
+    /** Neutral text som visas i Basic-kolumner. */
+    basicLabel?: string;
+  }) => {
+    const { basicOk, basicLabel, ...rest } = props;
+    const forBasic = (node: React.ReactNode, isBasic: boolean) =>
+      isBasic && !basicOk ? <BasicMissing label={basicLabel} /> : node;
+    const next = {
+      ...rest,
+      a: forBasic(props.a, aIsBasic),
+      b: forBasic(props.b, bIsBasic),
+      c: forBasic(props.c, cIsBasic),
+    };
+    if (!showAllRows && !next.warn) {
       try {
-        const sa = JSON.stringify(props.a);
-        const sb = JSON.stringify(props.b);
-        const sc = hasC ? JSON.stringify(props.c) : sa;
+        const sa = JSON.stringify(next.a);
+        const sb = JSON.stringify(next.b);
+        const sc = hasC ? JSON.stringify(next.c) : sa;
         if (sa && sa === sb && sa === sc) return null;
       } catch {}
     }
-    return <Row {...props} aName={aName} bName={bName} cName={cName} showC={hasC} />;
+    return <Row {...next} aName={aName} bName={bName} cName={cName} showC={hasC} />;
   };
+
 
   // Heuristik: bygg skillnadspunkter mellan valda partners (utan AI-anrop).
   // När produkt- eller branschfilter är aktivt fokuseras punkterna på just
