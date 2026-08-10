@@ -1929,11 +1929,11 @@ const ComparePartners = () => {
                       <section className="mb-6 rounded-lg border border-slate-200 bg-slate-50 p-5">
                         <h2 className="text-base font-semibold text-slate-800 mb-1.5 flex items-center gap-2">
                           <Info className="w-4 h-4 text-slate-500" />
-                          Verifierad partner och Basic-profil visas olika
+                          Verifierade och ej verifierade profiler visas olika
                         </h2>
                         <p className="text-sm text-slate-600 leading-relaxed">
                           {[a, b, c].filter(isBasicPartner).map((p) => p!.name).join(", ")} har en
-                          Basic-profil. Där visas endast uppgifter som d365.se sammanställt från
+                          ej verifierad profil. Där visas endast uppgifter som d365.se sammanställt från
                           publika källor – de är inte bekräftade av partnern, och fält som
                           positionering, kundcase, projektlängd, kostnadsspann och AI-kompetens
                           finns inte att jämföra. För verifierade partners är uppgifterna lämnade
@@ -1950,7 +1950,7 @@ const ComparePartners = () => {
                       {diffPoints.length === 0 ? (
                         <p className="text-sm text-muted-foreground">
                           {anyBasicSelected
-                            ? "Skillnadsanalysen bygger på partnerbekräftade uppgifter och kräver minst två verifierade partners. Basic-profiler visas i tabellen nedan med de uppgifter som finns."
+                            ? "Skillnadsanalysen bygger på partnerbekräftade uppgifter och kräver minst två verifierade partners. Ej verifierade profiler visas i tabellen nedan med de uppgifter som finns."
                             : "Partnerna liknar varandra mycket på nyckelattributen ovan. Se fullständig jämförelse nedan för fler detaljer."}
                         </p>
                       ) : (
