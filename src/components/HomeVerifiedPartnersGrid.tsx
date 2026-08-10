@@ -343,7 +343,10 @@ export default function HomeVerifiedPartnersGrid() {
                         {product !== "all" && !industry && (
                           <p className="text-[11px] text-muted-foreground leading-snug line-clamp-2 mb-1">
                             {(() => {
-                              const ind = partnerIndustries(p);
+                              const key = PRODUCT_FILTER_KEY[product];
+                              const ind = key
+                                ? (p.product_filters?.[key]?.industries || [])
+                                : partnerIndustries(p);
                               return ind.length > 0
                                 ? `${ind.slice(0, 4).join(" · ")}${ind.length > 4 ? ` +${ind.length - 4}` : ""}`
                                 : null;
