@@ -329,9 +329,30 @@ export default function HomeVerifiedPartnersGrid() {
 
                         {product !== "all" ? (
                           <div className="flex flex-wrap gap-1 mb-2">
-                            <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-[hsl(var(--cta-orange))]/10 text-[hsl(var(--cta-orange))] border border-[hsl(var(--cta-orange))]/20">
+                            <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-[hsl(var(--cta-orange))] text-white border border-[hsl(var(--cta-orange))]">
                               {PRODUCT_FILTERS.find((f) => f.id === product)?.label}
                             </span>
+                            {(() => {
+                              const selectedArea = PRODUCT_AREA_LABEL[product];
+                              const others = areas.filter((a) => a !== selectedArea);
+                              return (
+                                <>
+                                  {others.slice(0, 2).map((a) => (
+                                    <span
+                                      key={a}
+                                      className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-accent/10 text-accent border border-accent/20"
+                                    >
+                                      {a}
+                                    </span>
+                                  ))}
+                                  {others.length > 2 && (
+                                    <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
+                                      +{others.length - 2}
+                                    </span>
+                                  )}
+                                </>
+                              );
+                            })()}
                           </div>
                         ) : (
                           <div className="flex flex-wrap gap-1 mb-2">
