@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { CheckCircle2, Download, FileText, Loader2, Lock, ShieldCheck } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,7 @@ import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
 import { useToast } from "@/hooks/use-toast";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
+import { setPdfDelivery } from "@/lib/pdfDeliveryRegistry";
 import {
   companyFromEmail,
   deriveLeadContext,
