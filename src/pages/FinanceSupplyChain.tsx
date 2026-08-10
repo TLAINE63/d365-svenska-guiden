@@ -749,6 +749,16 @@ const FinanceSupplyChain = () => {
  </div>
  )}
 
+ <ProductBasicPartnersSection
+ applications={["Finance & SCM"]}
+ industry={selectedIndustry}
+ geography={selectedGeography}
+ companySize={selectedCompanySize}
+ revenue={selectedRevenue}
+ verifiedCount={fscPartners.length}
+ />
+
+
  {/* Lead CTA - shows when partners are filtered */}
  {selectedIndustry && (
  <div className="max-w-xl mx-auto mt-12">
