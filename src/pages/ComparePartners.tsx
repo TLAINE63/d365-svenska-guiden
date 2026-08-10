@@ -2442,6 +2442,21 @@ const ComparePartners = () => {
         />
       )}
 
+      {basicInquiryFor && (
+        <BasicPartnerInquiryDialog
+          open={!!basicInquiryFor}
+          onOpenChange={(o) => { if (!o) setBasicInquiryFor(null); }}
+          partnerName={basicInquiryFor.name}
+          partnerSlug={basicInquiryFor.slug}
+          selectedProduct={
+            productFilters.length === 1
+              ? PRODUCT_FILTER_GROUP[productFilters[0]].label
+              : undefined
+          }
+          selectedIndustry={industryFilter || undefined}
+        />
+      )}
+
       <CompareStickyCTA
         partners={[a, b, c].filter(Boolean).map((p: any) => ({ slug: p.slug, name: p.name }))}
         selectedProduct={productFilters.length === 1 ? PRODUCT_FILTER_GROUP[productFilters[0]].label : undefined}
