@@ -56,8 +56,8 @@ const branschFaqs = [
  answer: "Välj först den Dynamics 365-lösning du är intresserad av (Business Central, Finance & SCM eller CRM) och sedan din bransch. Vi visar partners med dokumenterad erfarenhet inom just din kombination av produkt och bransch. Du kan också använda vår kostnadsfria behovsanalys för personliga rekommendationer."
  },
  {
- question: "Dynamics 365 för bygg och entreprenad – vad ska jag välja?",
- answer: "Business Central med branschspecifika tillägg är vanligast för svenska bygg- och entreprenadföretag. Det finns etablerade ISV-lösningar för projektekonomi, ÄTA-hantering, resursplanering och maskintid. Finance & SCM används av större byggkoncerner med komplexa projektstrukturer. Dynamics 365 Field Service passar för serviceorganisationer inom bygg med fälttekniker."
+  question: "Dynamics 365 för bygg, entreprenad och installation – vad ska jag välja?",
+  answer: "Business Central med branschspecifika tillägg är vanligast för svenska bygg-, entreprenad- och installationsföretag. Det finns etablerade ISV-lösningar för projektekonomi, ÄTA-hantering, resursplanering och maskintid. Finance & SCM används av större byggkoncerner med komplexa projektstrukturer. Dynamics 365 Field Service passar för serviceorganisationer inom bygg med fälttekniker."
  },
  {
  question: "Varför är branschkunskap viktigt vid val av Dynamics 365-partner?",
