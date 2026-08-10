@@ -96,6 +96,9 @@ const PartnersPerBransch = () => {
               Alla listade partners grupperade efter bransch. Klicka på en partner
               för att se profil, referenscase och kontaktväg.
             </p>
+            <div className="mt-5">
+              <VerifiedOnlyToggle checked={verifiedOnly} onChange={setVerifiedOnly} />
+            </div>
           </div>
         </section>
 
