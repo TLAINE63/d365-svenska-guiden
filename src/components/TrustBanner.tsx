@@ -9,9 +9,7 @@ interface Props {
 }
 
 const POINTS = [
-  "Vi säljer inte implementation eller system",
-  "Matchningen bygger på relevans utifrån produkt, bransch och behov. AI används inte för att välja bort partners – grundurvalet bygger på strukturerade kriterier; AI tolkar signaler och förklarar relevans",
-  "Alla identifierade partners kan visas. Verifierade partners betalar samma fasta avgift för en egen profil – ingen kan köpa bättre placering",
+  "Vi säljer inte system. Alla relevanta Dynamics 365-partners finns med på d365.se. Partners vi samarbetar med har möjlighet att presentera sin verksamhet mer utförligt. Rekommendationer och matchningar baseras alltid på relevans.",
 ];
 
 /**
