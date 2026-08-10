@@ -1972,6 +1972,8 @@ const ComparePartners = () => {
 
                       <R
                         label="Kompetens inom Dynamics 365"
+                        basicOk
+
                         subtitle="Överblick över samtliga Dynamics 365-applikationer som partnern arbetar med."
                         warn
                         help="Alla Dynamics 365-applikationer som partnern arbetar med – oavsett vilka produkter som är valda i jämförelsen."
