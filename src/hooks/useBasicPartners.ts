@@ -159,7 +159,10 @@ export const BASIC_COPY = {
     "Vill ni säkerställa att er kompetens, branschinriktning och kontaktvägar visas rätt för kunder som jämför Dynamics 365-partners?",
   cta: "Komplettera partnerprofilen",
   standaloneNoContact:
-    "Kontakt via d365.se är ännu inte aktiverad för denna partner. Informationen är sammanställd av d365.se från publika källor och kan vara begränsad.",
+    "Kontaktväg via d365.se är inte aktiverad för denna Basic-profil. Hör av dig till d365.se så hjälper vi dig vidare.",
+  buyerGuidanceCta: "Kontakta d365.se för vägledning",
+  buyerGuidanceBody:
+    "Denna partner har en Basic-profil och kan inte kontaktas direkt via d365.se. Vi hjälper dig vidare.",
   matchingLimited: "Begränsad data: partnern kan inte bedömas fullt ut.",
   compareMissing: "data saknas",
 } as const;

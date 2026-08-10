@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { MapPin, FileText, ScrollText, Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { BASIC_COPY, BasicPartner } from "@/hooks/useBasicPartners";
 import BasicPartnerBadge, { BASIC_PROFILE_DISCLAIMER } from "@/components/BasicPartnerBadge";
+import BasicPartnerInquiryDialog from "@/components/BasicPartnerInquiryDialog";
+import { Button } from "@/components/ui/button";
+import { Mail } from "lucide-react";
 
 interface PartnerBasicCardProps {
   partner: BasicPartner;
@@ -18,6 +22,7 @@ export function PartnerBasicCard({
   variant = "list",
 }: PartnerBasicCardProps) {
   const isStandalone = variant === "standalone";
+  const [inquiryOpen, setInquiryOpen] = useState(false);
   const locations = (partner.observed_locations || []).slice(0, 4);
   const firstParagraph =
     isStandalone && partner.extended_content
@@ -113,8 +118,32 @@ export function PartnerBasicCard({
         </section>
       )}
 
-      {/* Footer + CTA */}
-      <footer className="relative z-10 mt-auto border-t border-border pt-4">
+      {/* Köparsidig CTA – Basic-profiler hänvisas alltid till d365.se */}
+      <div className="relative z-10 mt-auto space-y-2 rounded-lg border border-border bg-background/60 p-3">
+        <p className="text-[11px] leading-snug text-muted-foreground">
+          {BASIC_COPY.buyerGuidanceBody}
+        </p>
+        <Button
+          type="button"
+          size="sm"
+          onClick={() => setInquiryOpen(true)}
+          className="w-full bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
+        >
+          <Mail className="mr-1.5 h-3.5 w-3.5" aria-hidden />
+          {BASIC_COPY.buyerGuidanceCta}
+        </Button>
+      </div>
+
+      <BasicPartnerInquiryDialog
+        open={inquiryOpen}
+        onOpenChange={setInquiryOpen}
+        partnerName={partner.name}
+        partnerSlug={partner.slug}
+        sourcePage={isStandalone ? `/basic/${partner.slug}/` : "partnerlista"}
+      />
+
+      {/* Footer + partneranmälan */}
+      <footer className="relative z-10 mt-4 border-t border-border pt-4">
         <div className="space-y-2">
           <h4 className="text-sm font-semibold text-foreground">
             {BASIC_COPY.partnerRepHeading}
