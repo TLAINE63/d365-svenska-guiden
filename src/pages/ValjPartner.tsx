@@ -701,6 +701,15 @@ const ValjPartner = () => {
  colorScheme="amber"
  />
 
+ {/* Visningsfilter: endast verifierade partners */}
+ <div className="flex justify-center mb-8">
+  <VerifiedOnlyToggle
+   checked={verifiedOnly}
+   onChange={setVerifiedOnly}
+   count={filteredPartners.length}
+  />
+ </div>
+
  {/* Filter Results Summary */}
  {(selectedApplications.length > 0 || selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue) && (
  <div className="text-center mb-8">
