@@ -125,16 +125,14 @@ export default function HomeVerifiedPartnersGrid() {
       <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
         <div className="flex items-end justify-between gap-6 mb-8 flex-wrap">
           <div>
-            <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground mb-2">
-              Verifierade partners
-            </span>
             <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-foreground tracking-tight leading-tight max-w-3xl">
-              {allPartners.length} verifierade Dynamics 365-partners
+              Sök fram rätt partners för din bransch
             </h2>
             <p className="text-[15px] text-muted-foreground mt-2 max-w-2xl">
               Publicerade partnerprofiler med produktområden, branscherfarenhet och fördjupning – markera upp till {max} partners och jämför dem sida vid sida.
             </p>
           </div>
+
           <Link
             to="/valjdynamics365partner/"
             className="text-sm font-semibold text-[hsl(var(--cta-orange))] inline-flex items-center gap-1.5 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--cta-orange))] rounded"
