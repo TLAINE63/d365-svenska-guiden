@@ -69,11 +69,6 @@ const matchesProduct = (apps: string[] = [], id: ProductId) => {
 const productAreas = (apps: string[] = []) =>
   APP_BADGES.filter((b) => b.match(apps)).map((b) => b.label);
 
-const shortText = (p: RawPartner) => {
-  const raw = p.positioning_statement || p.description || p.ai_summary || "";
-  const clean = raw.replace(/\s+/g, " ").trim();
-  return clean.length > 150 ? `${clean.slice(0, 147).trimEnd()}…` : clean;
-};
 
 const partnerIndustries = (p: RawPartner) => {
   const set = new Set<string>([...(p.industries || []), ...(p.secondary_industries || [])]);
@@ -300,9 +295,15 @@ export default function HomeVerifiedPartnersGrid() {
                         </h3>
 
 
-                        {areas.length > 0 && (
+                        {product !== "all" ? (
                           <div className="flex flex-wrap gap-1 mb-2">
-                            {areas.slice(0, 3).map((a) => (
+                            <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-[hsl(var(--cta-orange))]/10 text-[hsl(var(--cta-orange))] border border-[hsl(var(--cta-orange))]/20">
+                              {PRODUCT_FILTERS.find((f) => f.id === product)?.label}
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="flex flex-wrap gap-1 mb-2">
+                            {areas.slice(0, 2).map((a) => (
                               <span
                                 key={a}
                                 className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-accent/10 text-accent border border-accent/20"
@@ -310,17 +311,24 @@ export default function HomeVerifiedPartnersGrid() {
                                 {a}
                               </span>
                             ))}
-                            {areas.length > 3 && (
+                            {areas.length > 2 && (
                               <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
-                                +{areas.length - 3}
+                                +{areas.length - 2}
                               </span>
                             )}
                           </div>
                         )}
 
-                        <p className="text-[12.5px] text-muted-foreground leading-relaxed line-clamp-4 flex-1">
-                          {shortText(p)}
-                        </p>
+                        {product !== "all" && !industry && (
+                          <p className="text-[11px] text-muted-foreground leading-snug line-clamp-2">
+                            {(() => {
+                              const ind = partnerIndustries(p);
+                              return ind.length > 0
+                                ? `${ind.slice(0, 4).join(" · ")}${ind.length > 4 ? ` +${ind.length - 4}` : ""}`
+                                : null;
+                            })()}
+                          </p>
+                        )}
                       </Link>
 
                       <button
