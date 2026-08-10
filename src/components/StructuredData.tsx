@@ -646,3 +646,46 @@ export const SoftwareApplicationSchema = ({
   );
 };
 
+
+interface CollectionPageSchemaProps {
+  name: string;
+  description: string;
+  url: string;
+  items?: { name: string; url: string }[];
+}
+
+export const CollectionPageSchema = ({ name, description, url, items = [] }: CollectionPageSchemaProps) => {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name,
+    description,
+    url,
+    inLanguage: "sv-SE",
+    isPartOf: { "@type": "WebSite", name: "d365.se", url: "https://d365.se" },
+    publisher: {
+      "@type": "Organization",
+      name: "d365.se",
+      url: "https://d365.se",
+      logo: { "@type": "ImageObject", url: "https://d365.se/d365guide-logo.png" },
+    },
+    ...(items.length
+      ? {
+          mainEntity: {
+            "@type": "ItemList",
+            itemListElement: items.map((item, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              name: item.name,
+              url: item.url,
+            })),
+          },
+        }
+      : {}),
+  };
+  return (
+    <Helmet>
+      <script type="application/ld+json">{JSON.stringify(schema)}</script>
+    </Helmet>
+  );
+};
