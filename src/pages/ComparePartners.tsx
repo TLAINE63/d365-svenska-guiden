@@ -177,7 +177,7 @@ const formatBcCost = (dp?: DeliveryProfile | null): string => {
 const EMPTY = <span className="text-slate-600 italic">—</span>;
 
 /** Basic-profiler saknar partnerbekräftade uppgifter – visas neutralt, aldrig som brist. */
-const BASIC_MISSING_LABEL = "Uppgift saknas i Basic-profil";
+const BASIC_MISSING_LABEL = "Uppgift saknas";
 const BASIC_UNVERIFIED_LABEL = "Inte verifierad uppgift";
 
 const BasicMissing = ({ label = BASIC_MISSING_LABEL }: { label?: string }) => (
@@ -241,12 +241,7 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
           )}
         </Link>
         <p className="mt-2 text-sm font-semibold text-slate-800">{partner.name}</p>
-        {basic ? (
-          <span className="mt-1 inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-[11px] font-medium text-slate-600">
-            <Info className="w-3 h-3" />
-            Basic-profil
-          </span>
-        ) : (
+        {!basic && (
           <span className="mt-1 inline-flex items-center gap-1.5 rounded-full border border-[hsl(var(--accent))]/30 bg-[hsl(var(--accent))]/10 px-2.5 py-0.5 text-[11px] font-medium text-[hsl(var(--accent))]">
             <BadgeCheck className="w-3 h-3" />
             Verifierad partner
@@ -299,7 +294,7 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
       {partner && basic && (
         <>
           <p className="text-[11px] leading-relaxed text-slate-500">
-            Kontaktväg via d365.se är inte aktiverad för denna Basic-profil. Uppgifterna nedan är
+            Kontaktväg via d365.se är inte aktiverad för denna ej verifierade profil. Uppgifterna nedan är
             sammanställda av d365.se från publika källor.
           </p>
           {onBasicInquiry && (
