@@ -67,6 +67,12 @@ export function PartnerBasicCard({
         </div>
       </header>
 
+      <p className="relative mb-4 text-xs leading-snug text-muted-foreground">
+        {BASIC_PROFILE_DISCLAIMER}
+      </p>
+
+
+
       {partner.extended_summary?.trim() && (
         <section
           className="relative mb-6 rounded border border-border bg-muted/30 p-4"
