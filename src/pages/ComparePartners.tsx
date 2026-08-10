@@ -1372,8 +1372,17 @@ const ComparePartners = () => {
     basicLabel?: string;
   }) => {
     const { basicOk, basicLabel, ...rest } = props;
-    const forBasic = (node: React.ReactNode, isBasic: boolean) =>
-      isBasic && !basicOk ? <BasicMissing label={basicLabel} /> : node;
+    const forBasic = (node: React.ReactNode, isBasic: boolean) => {
+      if (!isBasic) return node;
+      if (!basicOk) return <BasicMissing label={basicLabel} />;
+      return (
+        <div className="space-y-1.5">
+          {node}
+          <p className="text-[11px] text-slate-500">{BASIC_UNVERIFIED_LABEL}</p>
+        </div>
+      );
+    };
+
     const next = {
       ...rest,
       a: forBasic(props.a, aIsBasic),
