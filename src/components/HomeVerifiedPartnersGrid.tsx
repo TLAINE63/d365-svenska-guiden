@@ -115,6 +115,28 @@ export default function HomeVerifiedPartnersGrid() {
     [allPartners, product, industry]
   );
 
+  /** Behåll filtrering + partnerval hela vägen till jämförelsesidan. */
+  const COMPARE_PRODUCT_KEY: Partial<Record<ProductId, string>> = {
+    bc: "bc",
+    fscm: "fsc",
+    sales: "sales",
+    "customer-service": "service",
+    "field-service": "service",
+    "contact-center": "service",
+    marketing: "sales",
+  };
+  const compareHref = (() => {
+    const sp = new URLSearchParams();
+    const slots = ["a", "b", "c"] as const;
+    selected.slice(0, 3).forEach((s, i) => sp.set(slots[i], s.slug));
+    if (industry) sp.set("industry", industry);
+    const pk = COMPARE_PRODUCT_KEY[product];
+    if (pk) sp.set("product", pk);
+    const qs = sp.toString();
+    return `/jamfor-partners/${qs ? `?${qs}` : ""}`;
+  })();
+
+
   if (allPartners.length === 0) return null;
 
   const chipBase =
