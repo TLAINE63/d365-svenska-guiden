@@ -281,8 +281,20 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
         <SelectContent className="max-h-80">
           {partners.map((p) => (
             <SelectItem key={p.slug} value={p.slug}>
-              {p.name}
-              {isBasicPartner(p) ? " · Basic-profil" : ""}
+              <span className="flex items-center gap-1.5">
+                <span>{p.name}</span>
+                {isBasicPartner(p) ? (
+                  <span className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[10px] font-medium text-slate-600">
+                    <Info className="w-2.5 h-2.5" />
+                    Basic-profil
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1 rounded-full border border-[hsl(var(--accent))]/30 bg-[hsl(var(--accent))]/10 px-1.5 py-0.5 text-[10px] font-medium text-[hsl(var(--accent))]">
+                    <BadgeCheck className="w-2.5 h-2.5" />
+                    Verifierad
+                  </span>
+                )}
+              </span>
             </SelectItem>
           ))}
         </SelectContent>
@@ -1893,6 +1905,13 @@ const ComparePartners = () => {
                           partners={aiPartners}
                           productFilters={productFilters}
                           industry={industryFilter || ""}
+                          columnSlots={[a, b, ...(c ? [c] : [])]
+                            .filter((p): p is DatabasePartner => Boolean(p))
+                            .map((p) => ({
+                              name: p.name,
+                              slug: p.slug,
+                              basic: isBasicPartner(p),
+                            }))}
                         />
                       ) : null;
                     })()}
