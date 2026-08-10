@@ -269,9 +269,14 @@ export default function HomeVerifiedPartnersGrid() {
                           )}
                         </div>
 
+                        <div className="mb-1.5">
+                          <VerifiedPartnerBadge />
+                        </div>
+
                         <h3 className="text-[15px] font-semibold text-foreground leading-snug mb-1.5">
                           {p.name}
                         </h3>
+
 
                         {areas.length > 0 && (
                           <div className="flex flex-wrap gap-1 mb-2">
