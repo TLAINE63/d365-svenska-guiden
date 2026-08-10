@@ -1908,7 +1908,7 @@ const AIReadiness = () => {
           {/* 2️⃣ ROI Estimate */}
           <div className="border rounded overflow-hidden  mt-6">
             <div className="bg-emerald-700 px-5 py-3">
-              <h3 className="font-bold text-white text-sm tracking-wide">💰 Uppskattad AI-effekt</h3>
+              <h2 className="font-bold text-white text-sm tracking-wide">💰 Uppskattad AI-effekt</h2>
             </div>
             <div className="p-5 bg-background">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
@@ -1960,7 +1960,7 @@ const AIReadiness = () => {
           {/* 3️⃣ Role-specific AI Results */}
           <div className="border rounded overflow-hidden  mt-6">
             <div className={`px-5 py-3 ${track!.headerBg}`}>
-              <h3 className="font-bold text-white text-sm tracking-wide">⚡ AI-möjlighet inom {track!.label}</h3>
+              <h2 className="font-bold text-white text-sm tracking-wide">⚡ AI-möjlighet inom {track!.label}</h2>
             </div>
             <div className="p-5 bg-background space-y-1">
               <p className="text-sm text-muted-foreground mb-4">Baserat på era svar finns potential inom:</p>
@@ -1994,7 +1994,7 @@ const AIReadiness = () => {
           {/* 4️⃣ System Recommendation */}
           <div className="border rounded overflow-hidden  mt-6">
             <div className="bg-slate-700 px-5 py-3">
-              <h3 className="font-bold text-white text-sm tracking-wide flex items-center gap-2">
+              <h2 className="font-bold text-white text-sm tracking-wide flex items-center gap-2">
                 <Lightbulb className="h-4 w-4" /> Systemrekommendation
               </h3>
             </div>
@@ -2022,7 +2022,7 @@ const AIReadiness = () => {
           {activeRisks.length > 0 && (
             <div className="border rounded overflow-hidden  mt-6">
               <div className="bg-red-600 px-5 py-3">
-                <h3 className="font-bold text-white text-sm tracking-wide">⚠️ Riskområden</h3>
+                <h2 className="font-bold text-white text-sm tracking-wide">⚠️ Riskområden</h2>
               </div>
               <div className="p-5 bg-background space-y-3">
                 {activeRisks.map((risk, i) => (
@@ -2038,7 +2038,7 @@ const AIReadiness = () => {
           {/* Recommended next step */}
           <div className="border rounded overflow-hidden  mt-6">
             <div className="bg-emerald-600 px-5 py-3">
-              <h3 className="font-bold text-white text-sm tracking-wide">🧭 Rekommenderat nästa steg</h3>
+              <h2 className="font-bold text-white text-sm tracking-wide">🧭 Rekommenderat nästa steg</h2>
             </div>
             <div className="p-5 bg-background space-y-4">
               <div className={`inline-flex items-center gap-2 px-4 py-2 rounded border font-semibold text-sm ${
@@ -2077,7 +2077,7 @@ const AIReadiness = () => {
           {/* 12-month Roadmap */}
           <div className="border rounded overflow-hidden  mt-6">
             <div className="bg-slate-700 px-5 py-3">
-              <h3 className="font-bold text-white text-sm tracking-wide">🗓️ 12-månaders AI-roadmap – {track!.label}</h3>
+              <h2 className="font-bold text-white text-sm tracking-wide">🗓️ 12-månaders AI-roadmap – {track!.label}</h2>
             </div>
             <div className="p-5 bg-background">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -2105,7 +2105,7 @@ const AIReadiness = () => {
           {/* Partner matching */}
           <div className="border rounded overflow-hidden  mt-6">
             <div className="bg-primary px-5 py-3">
-              <h3 className="font-bold text-primary-foreground text-sm tracking-wide">🤝 Rekommenderad partnertyp</h3>
+              <h2 className="font-bold text-primary-foreground text-sm tracking-wide">🤝 Rekommenderad partnertyp</h2>
             </div>
             <div className="p-5 bg-background space-y-3">
               <p className="text-sm text-muted-foreground mb-4">
