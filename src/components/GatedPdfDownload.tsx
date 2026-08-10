@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { CheckCircle2, Download, FileText, Loader2, Lock, ShieldCheck } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,7 @@ import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
 import { useToast } from "@/hooks/use-toast";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
+import { setPdfDelivery } from "@/lib/pdfDeliveryRegistry";
 import {
   companyFromEmail,
   deriveLeadContext,
@@ -56,6 +57,7 @@ const GatedPdfDownload = ({
   className,
 }: Props) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { toast } = useToast();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const viewedRef = useRef(false);
@@ -192,6 +194,20 @@ const GatedPdfDownload = ({
       track("gated_pdf_lead_submitted", 3);
       setStep("delivered");
       await deliver();
+
+      // Tack-sida med nästa steg (PDF:en kan laddas ned igen därifrån).
+      const deliveryKey = `${sourceType}:${Date.now()}`;
+      setPdfDelivery(deliveryKey, deliver);
+      navigate("/tack-nedladdning", {
+        state: {
+          documentName,
+          sourceType,
+          deliveryKey,
+          firstName: name.split(" ")[0],
+          product: context.product ?? null,
+          returnTo: location.pathname,
+        },
+      });
     } catch (err) {
       console.error("GatedPdfDownload submit error", err);
       toast({

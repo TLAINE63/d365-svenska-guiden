@@ -97,6 +97,7 @@ const AskAi = lazy(() => import("./pages/AskAi"));
 const Beslutsmognadsindex = lazy(() => import("./pages/Beslutsmognadsindex"));
 const BeslutsmognadDiagnostik = lazy(() => import("./pages/BeslutsmognadDiagnostik"));
 const BeslutsmognadTack = lazy(() => import("./pages/BeslutsmognadTack"));
+const TackNedladdning = lazy(() => import("./pages/TackNedladdning"));
 const BeslutsmognadResultat = lazy(() => import("./pages/BeslutsmognadResultat"));
 const OwnershipAndInterests = lazy(() => import("./pages/OwnershipAndInterests"));
 const Friskrivning = lazy(() => import("./pages/Friskrivning"));
@@ -294,6 +295,7 @@ const AppShell = () => {
           <Route path="/beslutsmognad/diagnostik" element={<BeslutsmognadDiagnostik />} />
           <Route path="/beslutsmognad/tack" element={<BeslutsmognadTack />} />
           <Route path="/beslutsmognad/resultat" element={<BeslutsmognadResultat />} />
+          <Route path="/tack-nedladdning" element={<TackNedladdning />} />
           <Route path="/beslutsmognadsindex" element={<Navigate to="/beslutsmognad" replace />} />
           <Route path="/beslutsmognadsindex/diagnostik" element={<Navigate to="/beslutsmognad/diagnostik" replace />} />
           <Route path="/beslutsmognadsindex/tack" element={<Navigate to="/beslutsmognad/tack" replace />} />
