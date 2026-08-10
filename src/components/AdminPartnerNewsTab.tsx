@@ -84,10 +84,10 @@ const emptyForm = (partnerId: string): FormState => ({
   industry: "",
   image_url: "",
   news_date: new Date().toISOString().slice(0, 10),
-  is_featured: false,
-  show_on_home: false,
+  is_featured: true,
+  show_on_home: true,
   show_on_partner_profile: true,
-  show_on_product_page: false,
+  show_on_product_page: true,
   status: "draft",
 });
 
