@@ -16,7 +16,7 @@ interface ProductBasicPartnersSectionProps {
 }
 
 /**
- * Visar Basic-profiler (observerad, ej verifierad data) som matchar samma filter
+ * Visar ej verifierade profiler (observerad, ej verifierad data) som matchar samma filter
  * som de verifierade partnerkorten på en produktsida. Inkluderar en toggle för
  * att visa endast verifierade partners.
  */
@@ -53,7 +53,7 @@ export default function ProductBasicPartnersSection({
         <>
           <div className="max-w-3xl mb-6">
             <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
-              Basic-profiler som matchar din filtrering ({filtered.length})
+              Profiler som matchar din filtrering ({filtered.length})
             </h3>
             <p className="text-sm text-muted-foreground">
               Grundläggande information om partnern baserad på offentligt tillgängliga uppgifter.
