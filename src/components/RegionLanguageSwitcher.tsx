@@ -83,7 +83,7 @@ export default function RegionLanguageSwitcher() {
           className="gap-1.5 h-8 px-2.5"
           aria-label="Välj land och språk"
         >
-          <FlagOrGlobe locale={currentLocale} />
+          <FlagOrGlobe locale={currentLocale} eager />
           <span className="text-xs font-semibold tracking-wide">SV</span>
           <ChevronDown className="h-3.5 w-3.5 opacity-60" aria-hidden="true" />
         </Button>
