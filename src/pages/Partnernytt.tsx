@@ -127,7 +127,7 @@ export default function Partnernytt() {
                 <SelectTrigger><SelectValue placeholder="Nyhetstyp" /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">Alla typer</SelectItem>
-                  {TYPE_OPTIONS.map((t) => (
+                  {types.map((t) => (
                     <SelectItem key={t} value={t}>{partnerNewsTypeLabel(t)}</SelectItem>
                   ))}
                 </SelectContent>
