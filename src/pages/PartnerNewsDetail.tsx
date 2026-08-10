@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { ArticleSchema, BreadcrumbSchema } from "@/components/StructuredData";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { usePartnerNewsItem } from "@/hooks/usePartnerNews";
@@ -131,6 +132,24 @@ export default function PartnerNewsDetail() {
         articleAuthor={partner?.name}
         articleSection={productLabels[0]}
         articleTags={articleTags}
+      />
+      <ArticleSchema
+        headline={item.editorial_title}
+        description={metaDescription}
+        url={`https://d365.se/partnernytt/artikel/${item.id}/`}
+        image={ogImage}
+        datePublished={item.news_date ? new Date(item.news_date).toISOString() : undefined}
+        dateModified={item.updated_at ? new Date(item.updated_at).toISOString() : undefined}
+        authorName={partner?.name || "d365.se"}
+        authorType={partner?.name ? "Organization" : "Person"}
+        section={productLabels[0]}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Hem", url: "https://d365.se/" },
+          { name: "Partnernytt", url: "https://d365.se/partnernytt/" },
+          { name: item.editorial_title, url: `https://d365.se/partnernytt/artikel/${item.id}/` },
+        ]}
       />
 
       <Navbar />

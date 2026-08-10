@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
+import { BreadcrumbSchema, FAQSchema, ArticleSchema } from "@/components/StructuredData";
 import PartnerCard from "@/components/PartnerCard";
 import WhyTheseResults from "@/components/WhyTheseResults";
 import RelatedPages, { branschRelatedPages } from "@/components/RelatedPages";
@@ -260,6 +260,18 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  { name: "Branscher", url: "https://d365.se/branscher" },
  { name: industryName, url: `https://d365.se/branscher/${slug}` },
  ]}
+ />
+ <ArticleSchema
+ headline={(page as any)?.h1 || `${industryName} – Microsoft Dynamics 365`}
+ description={
+ page?.meta_description ||
+ `Microsoft Dynamics 365 för ${industryName.toLowerCase()}: affärsprocesser, utmaningar, roller och partners.`
+ }
+ url={`https://d365.se/branscher/${slug}/`}
+ image={heroImage}
+ datePublished={(page as any)?.created_at || (page as any)?.updated_at || "2024-01-01T00:00:00+01:00"}
+ dateModified={(page as any)?.updated_at || "2024-01-01T00:00:00+01:00"}
+ section={industryName}
  />
  {page?.faq && page.faq.length > 0 && (
  <FAQSchema faqs={page.faq.map((f) => ({ question: f.q, answer: f.a }))} />
