@@ -449,6 +449,16 @@ const CRM = () => {
  ))}
  </div>
 
+ <ProductBasicPartnersSection
+ applications={selectedApplications.length > 0 ? selectedApplications : ["Sales", "Customer Service"]}
+ industry={selectedIndustry}
+ geography={selectedGeography}
+ companySize={selectedCompanySize}
+ revenue={selectedRevenue}
+ verifiedCount={crmPartners.length}
+ />
+
+
  {/* Lead CTA - shows when partners are filtered */}
  {(selectedApplications.length > 0 || selectedIndustry || selectedGeography) && (
  <div className="max-w-xl mx-auto mt-12">
