@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { MapPin, FileText, ScrollText, Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { BASIC_COPY, BasicPartner } from "@/hooks/useBasicPartners";
+import BasicPartnerBadge, { BASIC_PROFILE_DISCLAIMER } from "@/components/BasicPartnerBadge";
 
 interface PartnerBasicCardProps {
   partner: BasicPartner;
@@ -36,6 +37,9 @@ export function PartnerBasicCard({
       {/* Header: name replaces logo per spec */}
       <header className="mb-4 flex items-start justify-between gap-3">
         <div className="min-w-0">
+          <div className="mb-2">
+            <BasicPartnerBadge size={isStandalone ? "md" : "sm"} />
+          </div>
           <h3
             className={
               isStandalone
@@ -62,6 +66,12 @@ export function PartnerBasicCard({
           )}
         </div>
       </header>
+
+      <p className="relative mb-4 text-xs leading-snug text-muted-foreground">
+        {BASIC_PROFILE_DISCLAIMER}
+      </p>
+
+
 
       {partner.extended_summary?.trim() && (
         <section
