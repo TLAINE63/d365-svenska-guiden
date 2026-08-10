@@ -805,7 +805,32 @@ const ValjPartner = () => {
  })}
   </div>
   </>
- )}
+)}
+
+{/* Basic-partners som matchar samma filter */}
+{selectedApplications.length > 0 && filteredBasicPartners.length > 0 && (
+ <div className="mt-12 border-t border-dashed border-border pt-8">
+  <div className="max-w-3xl mb-6">
+   <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
+    Basic-profiler som matchar din filtrering ({filteredBasicPartners.length})
+   </h3>
+   <p className="text-sm text-muted-foreground">
+    Grundläggande information om partnern baserad på offentligt tillgängliga uppgifter.
+    Profilerna har ännu inte verifierats av partnern och innehåller därför varken
+    kontaktperson, kontaktuppgifter, kundcase eller detaljerade kompetenser – och kan
+    inte väljas till jämförelse. Vill du komma i kontakt med någon av dem, hör av dig
+    till oss så hjälper vi till.
+   </p>
+  </div>
+  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+   {filteredBasicPartners.map((p) => (
+    <PartnerBasicCard key={p.id} partner={p} variant="list" />
+   ))}
+  </div>
+ </div>
+)}
+
+
 
  {/* Lead CTA with urgency badge */}
  <div className="max-w-xl mx-auto mt-12">
