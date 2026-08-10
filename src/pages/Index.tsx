@@ -358,7 +358,7 @@ const Index = () => {
                 {[
                   { n: `${HERO_INDUSTRIES.length}`, t: "Branscher", path: "/branscher/" },
                   { n: "8+", t: "Kostnadsfria beslutsverktyg", path: "/kunskapscenter/" },
-                  { n: "0 kr", t: "Ingen partner betalar för en bättre placering", path: "/kunskapscenter/" },
+                  { n: "0 kr", t: "Informationen och rådgivningen på denna sajt är kostnadsfri", path: "/kunskapscenter/" },
                 ].map((s) => (
                   <Link
                     key={s.t}
