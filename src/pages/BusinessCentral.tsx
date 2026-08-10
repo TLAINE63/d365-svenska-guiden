@@ -41,6 +41,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { allIndustries } from "@/data/partners";
 import { usePartners } from "@/hooks/usePartners";
+import { useIndustryDeepLink } from "@/hooks/useIndustryDeepLink";
 import { filterAndSortPartners, getProductIndustries } from "@/hooks/usePartnerFilters";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 import {
@@ -104,9 +105,12 @@ const BusinessCentral = () => {
  // Fetch partners from database (only featured partners)
  const { data: partners = [], isLoading } = usePartners();
 
+ const { skipTopScroll } = useIndustryDeepLink(setSelectedIndustry);
+
  useEffect(() => {
- window.scrollTo(0, 0);
- }, []);
+ if (!skipTopScroll) window.scrollTo(0, 0);
+ }, [skipTopScroll]);
+
 
  // Filter partners for Business Central (including Sweden regions)
  const bcPartners = useMemo(() => {

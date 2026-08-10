@@ -1,3 +1,4 @@
+import { useIndustryDeepLink } from "@/hooks/useIndustryDeepLink";
 import ProductHero from "@/components/ProductHero";
 import PageOfferBanner from "@/components/PageOfferBanner";
 import StandardProductSections from "@/components/product/StandardProductSections";
@@ -77,9 +78,12 @@ const FinanceSupplyChain = () => {
  // Fetch partners from database (only featured partners)
  const { data: partners = [], isLoading } = usePartners();
 
+ const { skipTopScroll } = useIndustryDeepLink(setSelectedIndustry);
+
  useEffect(() => {
- window.scrollTo(0, 0);
- }, []);
+ if (!skipTopScroll) window.scrollTo(0, 0);
+ }, [skipTopScroll]);
+
 
  // Filter partners for Finance & Supply Chain
  const fscPartners = useMemo(() => {

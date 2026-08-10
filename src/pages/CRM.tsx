@@ -1,3 +1,4 @@
+import { useIndustryDeepLink } from "@/hooks/useIndustryDeepLink";
 import ProductHero from "@/components/ProductHero";
 import PageOfferBanner from "@/components/PageOfferBanner";
 import ShortAnswer from "@/components/ShortAnswer";
@@ -94,9 +95,12 @@ const CRM = () => {
  );
  };
 
+ const { skipTopScroll } = useIndustryDeepLink(setSelectedIndustry);
+
  useEffect(() => {
- window.scrollTo(0, 0);
- }, []);
+ if (!skipTopScroll) window.scrollTo(0, 0);
+ }, [skipTopScroll]);
+
 
  // Filter partners for CRM (using sales and service product keys)
  const crmPartners = useMemo(() => {
