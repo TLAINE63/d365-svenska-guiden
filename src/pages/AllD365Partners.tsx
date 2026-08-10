@@ -213,12 +213,18 @@ export default function AllD365Partners() {
                     </button>
                   );
                 })}
+                <VerifiedOnlyToggle
+                  checked={verifiedOnly}
+                  onChange={setVerifiedOnly}
+                  count={profiled.length}
+                />
                 {isFiltering && (
                   <button
                     type="button"
                     onClick={() => {
                       setQuery("");
                       setProductFilter("all");
+                      setVerifiedOnly(false);
                     }}
                     className="text-xs sm:text-sm px-3 py-1.5 rounded-full border border-dashed border-border text-muted-foreground hover:text-foreground hover:border-foreground/40"
                   >
