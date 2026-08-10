@@ -91,6 +91,7 @@ export default function AllD365Partners() {
 
 
   const others = useMemo(() => {
+    if (verifiedOnly) return [];
     const basicNames = new Set(
       (basicPartners || []).map((p) => p.name.trim().toLowerCase()),
     );
@@ -114,13 +115,14 @@ export default function AllD365Partners() {
     if (productFilter !== "all") return [];
     if (q) return deduped.filter((it) => it.name.toLowerCase().includes(q));
     return deduped;
-  }, [allNames, unprofiled, basicPartners, q, productFilter]);
+  }, [allNames, unprofiled, basicPartners, q, productFilter, verifiedOnly]);
 
   const totalMarket =
     profiledAll.length + (basicPartners?.length ?? 0);
 
   const filteredTotal = profiled.length + basicFiltered.length + others.length;
-  const isFiltering = q.length > 0 || productFilter !== "all";
+  const isFiltering = q.length > 0 || productFilter !== "all" || verifiedOnly;
+
 
   const productOptions: { key: "all" | "bc" | "fsc" | "sales" | "service"; label: string }[] = [
     { key: "all", label: "Alla produkter" },
