@@ -21,9 +21,7 @@ export default function WhyTheseResults({ className = "" }: Props) {
       </div>
       <div className="text-[13px] leading-relaxed text-foreground/85 italic">
         <p>
-          Vi visar partners som matchar era val av bransch, lösning och geografi.
-          Resultatet sorteras efter hur väl de passar er profil.
-          AI kan hjälpa till att förklara relevansen – men påverkar inte vilka partners som visas.
+          Vi säljer inte system. Alla relevanta Dynamics 365-partners finns med på d365.se. Partners vi samarbetar med har möjlighet att presentera sin verksamhet mer utförligt. Rekommendationer och matchningar baseras alltid på relevans.
           {" "}
           <Link to="/agande-och-intressen/" className="text-[hsl(var(--cta-orange))] hover:underline font-semibold not-italic">
             Läs mer om metodiken

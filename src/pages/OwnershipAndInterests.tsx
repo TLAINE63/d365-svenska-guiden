@@ -22,9 +22,9 @@ export default function OwnershipAndInterests() {
             Så fungerar partnersamarbetet på d365.se
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            d365.se hjälper organisationer att välja rätt partner för Microsoft Dynamics 365.
-            För att du ska kunna lita på det vi visar förklarar den här sidan hur
-            partnersamarbetet fungerar – och vilka partners du faktiskt möter på sajten.
+            Vi säljer inte system. Alla relevanta Dynamics 365-partners finns med på d365.se.
+            Partners vi samarbetar med har möjlighet att presentera sin verksamhet mer utförligt.
+            Rekommendationer och matchningar baseras alltid på relevans.
           </p>
         </div>
 
@@ -33,13 +33,11 @@ export default function OwnershipAndInterests() {
             <Users className="h-6 w-6 text-primary" /> Vilka partners som finns med
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            De partners du ser på d365.se är de som valt att delta på plattformen.
-            Det är alltså inte en heltäckande förteckning över samtliga Dynamics 365-partners
-            i Sverige, utan ett urval av de partners som anslutit sig.
-          </p>
-          <p className="text-muted-foreground leading-relaxed mt-3">
-            Vi är öppna med det, eftersom du ska kunna värdera våra jämförelser med rätt
-            förväntan: de gäller de deltagande partnerna, presenterade på lika villkor.
+            På d365.se finns alla relevanta Dynamics 365-partners som är aktiva på den svenska
+            marknaden. Det innebär att du kan se både partners vi samarbetar med
+            (och därmed presenteras mer utförligt) och övriga identifierade aktörer.
+            För partners vi samarbetar med gäller samma villkor: avgiften är densamma oavsett
+            storlek, och ingen kan köpa bättre placering.
           </p>
         </section>
 
