@@ -1931,6 +1931,8 @@ const ComparePartners = () => {
 
                       <R
                         label="Fokusbranscher"
+                        basicOk
+
                         subtitle="Branscher där partnern har valt att bygga särskild djupkompetens – ofta baserat på referensprojekt och branschspecifika lösningar."
                         a={renderIndustryList(scopedFocusIndustries(A), "Inga fokusbranscher uppgivna")}
                         b={renderIndustryList(scopedFocusIndustries(B), "Inga fokusbranscher uppgivna")}
