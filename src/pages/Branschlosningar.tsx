@@ -33,7 +33,7 @@ const branschBreadcrumbs = [
 const branschFaqs = [
  {
  question: "Vilka Dynamics 365 branschlösningar finns för svenska företag?",
- answer: "Dynamics 365 erbjuder branschanpassade lösningar för 18+ branscher i Sverige: tillverkning, grossist & distribution, bygg & entreprenad, fastighet, handel & e-handel, konsultbolag, life science, IT & tech, transport & logistik, energi, finans & försäkring, hälsa & sjukvård, media, jordbruk, offentlig sektor, utbildning, uthyrning och ideella organisationer. Varje bransch kan kombineras med Business Central (SMB), Finance & Supply Chain (enterprise) eller CRM (Sales, Customer Service) beroende på verksamhetens storlek och processer."
+ answer: "Dynamics 365 erbjuder branschanpassade lösningar för 18+ branscher i Sverige: tillverkning, grossist & distribution, bygg, entreprenad & installation, fastighet, handel & e-handel, konsultbolag, life science, IT & tech, transport & logistik, energi, finans & försäkring, hälsa & sjukvård, media, jordbruk, offentlig sektor, utbildning, uthyrning och ideella organisationer. Varje bransch kan kombineras med Business Central (SMB), Finance & Supply Chain (enterprise) eller CRM (Sales, Customer Service) beroende på verksamhetens storlek och processer."
  },
  {
  question: "Vilket Microsoft ERP passar för tillverkning i Sverige?",
@@ -118,7 +118,7 @@ const industries: Industry[] = [
  { name: "Retail & E-handel", slug: "retail-ehandel", image: detaljhandelImg, description: "Lösningar för detaljhandel och e-handel", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Retail & E-handel"] },
  { name: "Mode, Sport & Textil", slug: "mode-sport-textil", image: modeSportTextilImg, description: "Affärssystem för mode-, sport- och textilbranschen", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Mode, Sport & Textil"] },
  { name: "Konsulttjänster", slug: "konsulttjanster", image: konsultforetagImg, description: "System för konsultbolag och tjänsteföretag", products: ["bc", "crm-sales", "crm-service"], partnerIndustries: ["Konsulttjänster"] },
- { name: "Bygg & Entreprenad", slug: "bygg-entreprenad", image: byggEntreprenadImg, description: "Affärssystem för bygg- och entreprenadföretag", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Bygg & Entreprenad"] },
+ { name: "Bygg, Entreprenad & Installation", slug: "bygg-entreprenad", image: byggEntreprenadImg, description: "Affärssystem för bygg-, entreprenad- och installationsföretag", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Bygg, Entreprenad & Installation"] },
  { name: "Fastighet & Förvaltning", slug: "fastighet-forvaltning", image: fastigheterImg, description: "Lösningar för fastighets- och förvaltningsbranschen", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Fastighet & Förvaltning"] },
  { name: "Energi & Utilities", slug: "energi-utilities", image: energiImg, description: "System för energisektorn och utilities", products: ["fsc", "crm-sales", "crm-service"], partnerIndustries: ["Energi & Utilities"] },
  { name: "Finans & Försäkring", slug: "finans-forsakring", image: finansForsakringImg, description: "Lösningar för bank, finans och försäkring", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Finans & Försäkring"] },

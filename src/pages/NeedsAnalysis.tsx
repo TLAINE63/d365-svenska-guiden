@@ -448,7 +448,7 @@ const industryOptions = [
   "Retail & E-handel",
   "Mode, Sport & Textil",
   "Konsulttjänster",
-  "Bygg & Entreprenad",
+  "Bygg, Entreprenad & Installation",
   "Fastighet & Förvaltning",
   "Energi & Utilities",
   "Finans & Försäkring",
@@ -565,7 +565,7 @@ const industryKpiMapping: Record<string, string[]> = {
     "Pipeline-värde",
     "Genomsnittlig projekttid",
   ],
-  "Bygg & Entreprenad": [
+  "Bygg, Entreprenad & Installation": [
     "Projektlönsamhet",
     "Leveransprecision material",
     "Resursbeläggning",

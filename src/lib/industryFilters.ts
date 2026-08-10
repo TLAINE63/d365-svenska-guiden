@@ -34,7 +34,7 @@ const PRODUCT_INDUSTRIES = new Set<string>([
   "Transport & Logistik",
   "Jordbruk & Skogsbruk",
   "Energi & Utilities",
-  "Bygg & Entreprenad",
+  "Bygg, Entreprenad & Installation",
   "Uthyrningsverksamhet",
 ]);
 

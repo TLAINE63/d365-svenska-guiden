@@ -125,8 +125,8 @@ function getPartnerIndicators(
    indicators.push({ icon: "🏭", label: "Tillverkningsexpert", tooltip: "Specialist på tillverkningsindustri" });
   } else if (industry === "Retail & E-handel") {
    indicators.push({ icon: "🛒", label: "Retail-specialist", tooltip: "Specialist på retail & e-handel" });
-  } else if (industry === "Bygg & Entreprenad") {
-   indicators.push({ icon: "🏗️", label: "Byggspecialist", tooltip: "Specialist på bygg & entreprenad" });
+  } else if (industry === "Bygg, Entreprenad & Installation") {
+   indicators.push({ icon: "🏗️", label: "Byggspecialist", tooltip: "Specialist på bygg, entreprenad & installation" });
   } else if (industry === "Livsmedel & Processindustri") {
    indicators.push({ icon: "🍽️", label: "Livsmedelsexpert", tooltip: "Specialist på livsmedel & processindustri" });
   } else {
@@ -140,8 +140,8 @@ function getPartnerIndicators(
    indicators.push({ icon: "🏭", label: "Tillverkningsexpert", tooltip: "Har tydlig kompetens inom tillverkningsindustri" });
   } else if (highlightedIndustry === "Retail & E-handel") {
    indicators.push({ icon: "🛒", label: "Retail-specialist", tooltip: "Har tydlig kompetens inom retail & e-handel" });
-  } else if (highlightedIndustry === "Bygg & Entreprenad") {
-   indicators.push({ icon: "🏗️", label: "Byggspecialist", tooltip: "Har tydlig kompetens inom bygg & entreprenad" });
+  } else if (highlightedIndustry === "Bygg, Entreprenad & Installation") {
+   indicators.push({ icon: "🏗️", label: "Byggspecialist", tooltip: "Har tydlig kompetens inom bygg, entreprenad & installation" });
   } else if (highlightedIndustry === "Livsmedel & Processindustri") {
    indicators.push({ icon: "🍽️", label: "Livsmedelsexpert", tooltip: "Har tydlig kompetens inom livsmedel & processindustri" });
   } else {

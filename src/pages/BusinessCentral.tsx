@@ -62,7 +62,7 @@ const bcFaqsRaw = [
  },
  {
  question: "Vilket företag passar Business Central bäst för?",
- answer: "Microsoft Dynamics 365 Business Central är designat för mindre och medelstora företag med 5–300 användare som behöver ett komplett molnbaserat affärssystem för ekonomi, lager, försäljning, inköp och produktion. Det är Microsofts mest populära ERP-system i Sverige och används brett inom tillverkning, grossist & distribution, konsultbolag och bygg & entreprenad."
+ answer: "Microsoft Dynamics 365 Business Central är designat för mindre och medelstora företag med 5–300 användare som behöver ett komplett molnbaserat affärssystem för ekonomi, lager, försäljning, inköp och produktion. Det är Microsofts mest populära ERP-system i Sverige och används brett inom tillverkning, grossist & distribution, konsultbolag och bygg, entreprenad & installation."
  },
  {
  question: "Vad är skillnaden mellan Business Central Essentials och Premium?",

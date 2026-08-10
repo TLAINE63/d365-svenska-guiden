@@ -68,7 +68,7 @@ const INDUSTRY_OPTIONS = [
  "Retail & E-handel",
  "Mode, Sport & Textil",
  "Konsulttjänster",
- "Bygg & Entreprenad",
+ "Bygg, Entreprenad & Installation",
  "Fastighet & Förvaltning",
  "Energi & Utilities",
  "Finans & Försäkring",
