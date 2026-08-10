@@ -232,11 +232,6 @@ const Index = () => {
     },
   ];
 
-  const trustPoints = [
-    { icon: Shield, text: "Vi säljer inte system eller implementation." },
-    { icon: Check, text: "Matchningen bygger på bransch, behov och relevans." },
-    { icon: Compass, text: "Ingen partner kan köpa bättre placering." },
-  ];
 
   return (
     <div className="min-h-screen bg-background">
