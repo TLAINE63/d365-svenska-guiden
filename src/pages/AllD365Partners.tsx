@@ -81,12 +81,14 @@ export default function AllD365Partners() {
   }, [profiledAll, q, productFilter]);
 
   const basicFiltered = useMemo(() => {
+    if (verifiedOnly) return [];
     return (basicPartners || []).filter((p) => {
       if (q && !p.name.toLowerCase().includes(q)) return false;
       if (productFilter !== "all" && !p.observed_products?.[productFilter]) return false;
       return true;
     });
-  }, [basicPartners, q, productFilter]);
+  }, [basicPartners, q, productFilter, verifiedOnly]);
+
 
   const others = useMemo(() => {
     const basicNames = new Set(
