@@ -56,7 +56,7 @@ const SuggestedPartnersCTA = ({
         </h2>
         <p className="text-sm sm:text-base text-muted-foreground mb-6 max-w-3xl">
           {intro ||
-            `Utifrån ${industry ? `er bransch (${industry}) och ` : ""}er valda produktinriktning har vi plockat fram tre partners som är profilerade för det ni behöver. Jämför dem sida vid sida innan ni tar kontakt – då pressar ni både pris och funktion.`}
+            `Utifrån ${industry ? `er bransch (${industry}) och ` : ""}er valda produktinriktning har vi plockat fram tre verifierade partners som matchar det ni behöver. Jämför dem sida vid sida innan ni tar kontakt – då pressar ni både pris och funktion.`}
         </p>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-6">

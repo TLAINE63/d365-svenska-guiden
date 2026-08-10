@@ -137,7 +137,7 @@ export default function AllD365Partners() {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Övriga Dynamics 365-partners i Sverige"
-        description="Hitta Dynamics 365-partners i Sverige. Profilerade leverantörer och övriga aktörer på d365.se – köparsidig vägledning."
+        description="Hitta Dynamics 365-partners i Sverige. Verifierade leverantörer och övriga aktörer på d365.se – köparsidig vägledning."
         canonicalPath="/alla-d365-partners/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
@@ -154,13 +154,13 @@ export default function AllD365Partners() {
               Övriga Dynamics 365-partners på den svenska marknaden
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground mb-5">
-              Här hittar ni övriga Dynamics 365-partners på den svenska marknaden – både profilerade leverantörer på d365.se och andra aktörer vi känner till. Vill ni veta mer om någon eller få hjälp att smalna ner kortlistan, hör av er.
+              Här hittar ni övriga Dynamics 365-partners på den svenska marknaden – både verifierade leverantörer på d365.se och andra aktörer vi känner till. Vill ni veta mer om någon eller få hjälp att smalna ner kortlistan, hör av er.
             </p>
             {totalMarket > 0 && (
               <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
                 <Badge className="bg-primary/10 text-primary border-primary/30 hover:bg-primary/10">
                   <CheckCircle2 className="w-3 h-3 mr-1" />
-                  {profiledAll.length} profilerade partners
+                  {profiledAll.length} verifierade partners
                 </Badge>
                 <Badge variant="outline" className="text-muted-foreground">
                   {(basicPartners?.length ?? 0)} basickort · {profiledAll.length + (basicPartners?.length ?? 0)} i marknadskartan
@@ -252,7 +252,7 @@ export default function AllD365Partners() {
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
             <div className="mb-8">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
-                Profilerade partners på d365.se
+                Verifierade partners på d365.se
               </h2>
               <p className="text-sm text-muted-foreground">
                 Dessa partners har egna profilsidor med fördjupad info om kompetens,
@@ -262,7 +262,7 @@ export default function AllD365Partners() {
             {profiledAll.length === 0 ? (
               <p className="text-sm text-muted-foreground">Laddar…</p>
             ) : profiled.length === 0 ? (
-              <p className="text-sm text-muted-foreground">Inga profilerade partners matchar filtret.</p>
+              <p className="text-sm text-muted-foreground">Inga verifierade partners matchar filtret.</p>
             ) : (
               <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {profiled.map((p) => (
