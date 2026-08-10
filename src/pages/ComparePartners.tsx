@@ -699,22 +699,20 @@ const ComparePartners = () => {
         const applications = Array.from(
           new Set(productKeys.flatMap((k) => BASIC_PRODUCT_APPS[k] || [])),
         );
-        const industries = Array.from(
-          new Set(
-            Object.values(bp.observed_industries || {})
-              .flatMap((arr) => arr || [])
-              .map((s) => (s || "").trim())
-              .filter(Boolean),
-          ),
-        );
-        const geography = Array.from(
-          new Set(
-            Object.values(bp.observed_delivery_geo || {})
-              .flatMap((arr) => arr || [])
-              .map((s) => (s || "").trim())
-              .filter(Boolean),
-          ),
-        );
+        const flattenObserved = (
+          map: Partial<Record<string, string[]>> | null | undefined,
+        ): string[] =>
+          Array.from(
+            new Set(
+              Object.values(map || {})
+                .flatMap((arr) => (Array.isArray(arr) ? arr : []))
+                .map((s) => String(s || "").trim())
+                .filter(Boolean),
+            ),
+          );
+        const industries = flattenObserved(bp.observed_industries);
+        const geography = flattenObserved(bp.observed_delivery_geo);
+
         return {
           id: bp.id,
           slug: bp.slug,
