@@ -213,8 +213,10 @@ serve(async (req: Request): Promise<Response> => {
 
     const supabase = createClient(supabaseUrl, supabaseKey);
     const contentType = isPdf ? PDF_MIME : DOCX_MIME;
+    // Source documents are internal material and must never be publicly readable.
+    const bucket = kind === "source" ? "partner-documents-internal" : "partner-documents";
     const { error: upErr } = await supabase.storage
-      .from("partner-documents")
+      .from(bucket)
       .upload(filename, buffer, { contentType, upsert: true });
 
     if (upErr) {
@@ -225,10 +227,17 @@ serve(async (req: Request): Promise<Response> => {
       });
     }
 
-    const { data: urlData } = supabase.storage
-      .from("partner-documents")
-      .getPublicUrl(filename);
-    const publicUrl = urlData.publicUrl;
+    let publicUrl = "";
+    if (kind === "source") {
+      // Short-lived signed URL (1h) – only for the authenticated admin session.
+      const { data: signed } = await supabase.storage
+        .from(bucket)
+        .createSignedUrl(filename, 3600);
+      publicUrl = signed?.signedUrl ?? "";
+    } else {
+      const { data: urlData } = supabase.storage.from(bucket).getPublicUrl(filename);
+      publicUrl = urlData.publicUrl;
+    }
 
     // Extract text (only for source-document uploads).
     let extractedText: string | null = null;
