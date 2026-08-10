@@ -255,8 +255,9 @@ export default function AllD365Partners() {
                 Verifierade partners på d365.se
               </h2>
               <p className="text-sm text-muted-foreground">
-                Dessa partners har egna profilsidor med fördjupad info om kompetens,
-                branscher, referenser och kontakt.
+                Vi säljer inte system. Alla relevanta Dynamics 365-partners finns med på d365.se.
+                Partners vi samarbetar med har möjlighet att presentera sin verksamhet mer utförligt.
+                Rekommendationer och matchningar baseras alltid på relevans.
               </p>
             </div>
             {profiledAll.length === 0 ? (
