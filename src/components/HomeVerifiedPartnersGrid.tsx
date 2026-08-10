@@ -238,7 +238,7 @@ export default function HomeVerifiedPartnersGrid() {
                   </button>
                 )}
                 <Link
-                  to="/jamfor-partners/"
+                  to={compareHref}
                   aria-disabled={selected.length < 2}
                   onClick={(e) => {
                     if (selected.length < 2) e.preventDefault();
