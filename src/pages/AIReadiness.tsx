@@ -1996,7 +1996,7 @@ const AIReadiness = () => {
             <div className="bg-slate-700 px-5 py-3">
               <h2 className="font-bold text-white text-sm tracking-wide flex items-center gap-2">
                 <Lightbulb className="h-4 w-4" /> Systemrekommendation
-              </h3>
+              </h2>
             </div>
             <div className="p-5 bg-background">
               <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded border text-xs font-semibold mb-4 ${
