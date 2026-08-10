@@ -11,7 +11,7 @@ interface Props {
 const POINTS = [
   "Vi säljer inte implementation eller system",
   "Matchningen bygger på relevans utifrån produkt, bransch och behov. AI används inte för att välja bort partners – grundurvalet bygger på strukturerade kriterier; AI tolkar signaler och förklarar relevans",
-  "Ingen partner kan köpa bättre placering, alla verifierade partners betalar samma fasta avgift",
+  "Alla identifierade partners kan visas. Verifierade partners betalar samma fasta avgift för en egen profil – ingen kan köpa bättre placering",
 ];
 
 /**
@@ -32,7 +32,7 @@ export default function TrustBanner({ variant = "full", className = "" }: Props)
               Så fungerar d365.se:
             </span>
             <span className="flex-1">
-              Vi säljer inte system. Alla partners betalar samma avgift. Rekommendationer baseras på relevans – inte betalning.
+              Vi säljer inte system. Alla identifierade partners kan visas. Verifierade partners betalar för en egen profil. Rekommendationer baseras på relevans – inte betalning.
             </span>
             <Link
               to="/agande-och-intressen/"
