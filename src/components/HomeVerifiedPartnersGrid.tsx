@@ -66,6 +66,17 @@ const matchesProduct = (apps: string[] = [], id: ProductId) => {
   return true;
 };
 
+const PRODUCT_AREA_LABEL: Record<ProductId, string> = {
+  all: "",
+  bc: "Business Central",
+  fscm: "Finance & SCM",
+  sales: "Sales",
+  "customer-service": "Customer Service",
+  "field-service": "Field Service",
+  "contact-center": "Contact Center",
+  marketing: "Marketing",
+};
+
 const PRODUCT_FILTER_KEY: Record<ProductId, string | null> = {
   all: null,
   bc: "bc",
