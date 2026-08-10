@@ -40,6 +40,7 @@ import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 import { filterBasicPartners } from "@/lib/basicPartnerMatch";
 import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
+import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
 
 // Partner FAQs for schema – priser hämtas från product_prices via resolvePriceTokens
 const partnerFaqsRaw = [
