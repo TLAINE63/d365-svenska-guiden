@@ -11,6 +11,7 @@ import TrustBanner from "@/components/TrustBanner";
 import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { useBasicPartners, PRODUCT_LABEL, PRODUCT_ORDER } from "@/hooks/useBasicPartners";
+import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
 import { useMemo, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Search, X } from "lucide-react";
@@ -43,6 +44,7 @@ export default function AllD365Partners() {
 
   const [query, setQuery] = useState("");
   const [productFilter, setProductFilter] = useState<"all" | "bc" | "fsc" | "sales" | "service">("all");
+  const [verifiedOnly, setVerifiedOnly] = useState(false);
 
   const q = query.trim().toLowerCase();
 
@@ -80,14 +82,17 @@ export default function AllD365Partners() {
   }, [profiledAll, q, productFilter]);
 
   const basicFiltered = useMemo(() => {
+    if (verifiedOnly) return [];
     return (basicPartners || []).filter((p) => {
       if (q && !p.name.toLowerCase().includes(q)) return false;
       if (productFilter !== "all" && !p.observed_products?.[productFilter]) return false;
       return true;
     });
-  }, [basicPartners, q, productFilter]);
+  }, [basicPartners, q, productFilter, verifiedOnly]);
+
 
   const others = useMemo(() => {
+    if (verifiedOnly) return [];
     const basicNames = new Set(
       (basicPartners || []).map((p) => p.name.trim().toLowerCase()),
     );
@@ -111,13 +116,14 @@ export default function AllD365Partners() {
     if (productFilter !== "all") return [];
     if (q) return deduped.filter((it) => it.name.toLowerCase().includes(q));
     return deduped;
-  }, [allNames, unprofiled, basicPartners, q, productFilter]);
+  }, [allNames, unprofiled, basicPartners, q, productFilter, verifiedOnly]);
 
   const totalMarket =
     profiledAll.length + (basicPartners?.length ?? 0);
 
   const filteredTotal = profiled.length + basicFiltered.length + others.length;
-  const isFiltering = q.length > 0 || productFilter !== "all";
+  const isFiltering = q.length > 0 || productFilter !== "all" || verifiedOnly;
+
 
   const productOptions: { key: "all" | "bc" | "fsc" | "sales" | "service"; label: string }[] = [
     { key: "all", label: "Alla produkter" },
@@ -208,12 +214,18 @@ export default function AllD365Partners() {
                     </button>
                   );
                 })}
+                <VerifiedOnlyToggle
+                  checked={verifiedOnly}
+                  onChange={setVerifiedOnly}
+                  count={profiled.length}
+                />
                 {isFiltering && (
                   <button
                     type="button"
                     onClick={() => {
                       setQuery("");
                       setProductFilter("all");
+                      setVerifiedOnly(false);
                     }}
                     className="text-xs sm:text-sm px-3 py-1.5 rounded-full border border-dashed border-border text-muted-foreground hover:text-foreground hover:border-foreground/40"
                   >

@@ -9,6 +9,8 @@ import { collectPartnerIndustries } from "@/lib/partnerIndustries";
 import { ArrowRight, Building2 } from "lucide-react";
 import partnerDataJson from "@/data/partnerData.json";
 import { useBasicPartners, PRODUCT_LABEL, PRODUCT_ORDER } from "@/hooks/useBasicPartners";
+import { useState } from "react";
+import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
 import { Badge } from "@/components/ui/badge";
 
 // Static featured-partner snapshot bundled at build time. Used as the
@@ -21,6 +23,7 @@ const STATIC_FEATURED = (partnerDataJson as any[]).filter(
 const PartnersPerBransch = () => {
   const { data: livePartners = [], isLoading } = usePartners();
   const { data: basicPartners = [] } = useBasicPartners();
+  const [verifiedOnly, setVerifiedOnly] = useState(false);
   // Use live DB data when available, otherwise the static snapshot so the
   // prerendered HTML always contains the full partner-per-bransch grid.
   const partners: DatabasePartner[] = livePartners.length > 0 ? livePartners : STATIC_FEATURED;
@@ -96,6 +99,9 @@ const PartnersPerBransch = () => {
               Alla listade partners grupperade efter bransch. Klicka på en partner
               för att se profil, referenscase och kontaktväg.
             </p>
+            <div className="mt-5">
+              <VerifiedOnlyToggle checked={verifiedOnly} onChange={setVerifiedOnly} />
+            </div>
           </div>
         </section>
 
@@ -186,7 +192,7 @@ const PartnersPerBransch = () => {
         </section>
 
         {/* Basic partners per bransch – observed data, same layout as /alla-d365-partners/ */}
-        {basicPartners.length > 0 && (
+        {!verifiedOnly && basicPartners.length > 0 && (
           <section className="py-10 bg-secondary/40 border-t border-border">
             <div className="container mx-auto px-4 max-w-5xl">
               <div className="mb-8">

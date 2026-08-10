@@ -40,6 +40,7 @@ import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 import { filterBasicPartners } from "@/lib/basicPartnerMatch";
 import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
+import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
 
 // Partner FAQs for schema – priser hämtas från product_prices via resolvePriceTokens
 const partnerFaqsRaw = [
@@ -225,6 +226,7 @@ const ValjPartner = () => {
  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
  const [selectedRevenue, setSelectedRevenue] = useState<string | null>(null);
  const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
+ const [verifiedOnly, setVerifiedOnly] = useState(false);
 
  // Publish current filters to the partner-compare context so a "Jämför"
  // navigation carries product/industry/geo/size into the compare page.
@@ -701,6 +703,15 @@ const ValjPartner = () => {
  colorScheme="amber"
  />
 
+ {/* Visningsfilter: endast verifierade partners */}
+ <div className="flex justify-center mb-8">
+  <VerifiedOnlyToggle
+   checked={verifiedOnly}
+   onChange={setVerifiedOnly}
+   count={filteredPartners.length}
+  />
+ </div>
+
  {/* Filter Results Summary */}
  {(selectedApplications.length > 0 || selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue) && (
  <div className="text-center mb-8">
@@ -808,7 +819,7 @@ const ValjPartner = () => {
 )}
 
 {/* Basic-partners som matchar samma filter */}
-{selectedApplications.length > 0 && filteredBasicPartners.length > 0 && (
+{!verifiedOnly && selectedApplications.length > 0 && filteredBasicPartners.length > 0 && (
  <div className="mt-12 border-t border-dashed border-border pt-8">
   <div className="max-w-3xl mb-6">
    <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
