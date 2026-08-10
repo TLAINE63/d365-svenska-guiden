@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
+import ProductBasicPartnersSection from "@/components/partner/ProductBasicPartnersSection";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowRight, ExternalLink, FileText } from "lucide-react";
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
@@ -447,6 +448,16 @@ const CRM = () => {
  />
  ))}
  </div>
+
+ <ProductBasicPartnersSection
+ applications={selectedApplications.length > 0 ? selectedApplications : ["Sales", "Customer Service"]}
+ industry={selectedIndustry}
+ geography={selectedGeography}
+ companySize={selectedCompanySize}
+ revenue={selectedRevenue}
+ verifiedCount={crmPartners.length}
+ />
+
 
  {/* Lead CTA - shows when partners are filtered */}
  {(selectedApplications.length > 0 || selectedIndustry || selectedGeography) && (
