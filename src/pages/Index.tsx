@@ -113,10 +113,10 @@ const Index = () => {
   const [heroProduct, setHeroProduct] = useState("");
   const navigate = useNavigate();
 
-  const heroProducts: { value: string; label: string; path: string }[] = [
-    { value: "bc", label: "Business Central (ERP SMB)", path: "/businesscentral/" },
-    { value: "fscm", label: "Finance & Supply Chain (ERP Enterprise)", path: "/finance-supply-chain/" },
-    { value: "sales", label: "Sales (CRM)", path: "/crm/" },
+  const heroProducts: { value: string; label: string; path: string; hasPartnerFilter?: boolean }[] = [
+    { value: "bc", label: "Business Central (ERP SMB)", path: "/businesscentral/", hasPartnerFilter: true },
+    { value: "fscm", label: "Finance & Supply Chain (ERP Enterprise)", path: "/finance-supply-chain/", hasPartnerFilter: true },
+    { value: "sales", label: "Sales (CRM)", path: "/crm/", hasPartnerFilter: true },
     { value: "cs", label: "Customer Service", path: "/customer-service/" },
     { value: "fs", label: "Field Service", path: "/field-service/" },
     { value: "ci", label: "Customer Insights (Marketing)", path: "/customer-insights/" },
@@ -127,15 +127,25 @@ const Index = () => {
   ];
 
   const submitHeroFinder = () => {
+    const product = heroProducts.find((x) => x.value === heroProduct);
+    const industryName = heroIndustry
+      ? HERO_INDUSTRIES.find((i) => i.slug === heroIndustry)?.name || ""
+      : "";
+
+    // Produkt vald → gå till produktsidans partnersektion med branschvalet förvalt.
+    if (product) {
+      const qs = industryName ? `?industry=${encodeURIComponent(industryName)}` : "";
+      navigate(`${product.path}${qs}${product.hasPartnerFilter ? "#partners" : ""}`);
+      return;
+    }
+    // Endast bransch vald → branschsidan.
     if (heroIndustry) {
       navigate(`/branscher/${heroIndustry}/`);
-    } else if (heroProduct) {
-      const p = heroProducts.find((x) => x.value === heroProduct);
-      if (p) navigate(p.path);
-    } else {
-      navigate("/valjdynamics365partner/");
+      return;
     }
+    navigate("/valjdynamics365partner/");
   };
+
 
   const submitAiSearch = (q: string) => {
     const trimmed = q.trim();
