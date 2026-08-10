@@ -27,6 +27,8 @@ import { toast } from "sonner";
 import { usePriceMap } from "@/hooks/usePriceMap";
 import type { ProductKey } from "@/hooks/usePartnerFilters";
 import { generateImplementationPdf } from "@/utils/generateImplementationPdf";
+import QuickLeadForm from "@/components/QuickLeadForm";
+
 import {
   SOLUTIONS,
   COMPLEXITY_OPTIONS,
