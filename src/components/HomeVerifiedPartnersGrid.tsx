@@ -4,6 +4,8 @@ import { ArrowRight, ArrowLeftRight, Check } from "lucide-react";
 import partnerDataJson from "@/data/partnerData.json";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
+import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
+
 
 type RawPartner = {
   slug: string;
