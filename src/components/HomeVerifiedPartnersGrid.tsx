@@ -151,7 +151,7 @@ export default function HomeVerifiedPartnersGrid() {
               Sök fram rätt partners för din bransch
             </h2>
             <p className="text-[15px] text-muted-foreground mt-2 max-w-2xl">
-              Publicerade partnerprofiler med produktområden, branscherfarenhet och fördjupning – markera upp till {max} partners och jämför dem sida vid sida.
+              Verifierade partnerprofiler med produktområden, branscherfarenhet och fördjupning – markera upp till {max} partners och jämför dem sida vid sida.
             </p>
           </div>
 
