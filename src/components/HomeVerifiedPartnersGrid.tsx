@@ -69,11 +69,6 @@ const matchesProduct = (apps: string[] = [], id: ProductId) => {
 const productAreas = (apps: string[] = []) =>
   APP_BADGES.filter((b) => b.match(apps)).map((b) => b.label);
 
-const shortText = (p: RawPartner) => {
-  const raw = p.positioning_statement || p.description || p.ai_summary || "";
-  const clean = raw.replace(/\s+/g, " ").trim();
-  return clean.length > 150 ? `${clean.slice(0, 147).trimEnd()}…` : clean;
-};
 
 const partnerIndustries = (p: RawPartner) => {
   const set = new Set<string>([...(p.industries || []), ...(p.secondary_industries || [])]);
