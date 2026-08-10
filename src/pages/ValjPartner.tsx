@@ -440,6 +440,21 @@ const ValjPartner = () => {
  enabled: !isLoading,
  });
 
+ // Basic-partners (observerad data) som matchar samma filter
+ const filteredBasicPartners = useMemo(
+  () =>
+   filterBasicPartners(basicPartners || [], {
+    applications: selectedApplications,
+    industry: selectedIndustry,
+    companySize: selectedCompanySize,
+    revenue: selectedRevenue,
+    geography: selectedGeography,
+   }),
+  [basicPartners, selectedApplications, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography],
+ );
+
+
+
  if (isLoading) {
  return (
  <div className="min-h-screen bg-background flex items-center justify-center">
