@@ -121,7 +121,7 @@ const STEP2: BcQuestion[] = [
     text: "Vilken bransch stämmer bäst?",
     showIf: (a) => seg(a, "bygg"),
     options: [
-      { value: "bygg", label: "Bygg & Entreprenad" },
+      { value: "bygg", label: "Bygg, Entreprenad & Installation" },
       { value: "fastighet", label: "Fastighet & Förvaltning" },
     ],
   },

@@ -15,7 +15,7 @@ export const STANDARD_INDUSTRIES: StandardIndustry[] = [
   { slug: "tillverkning", name: "Tillverkningsindustri", short: "Tillverkning", sniCode: "13" },
   { slug: "life-science-medtech", name: "Life Science / Medtech", short: "Life Science", sniCode: "21" },
   { slug: "energi-utilities", name: "Energi & Utilities", short: "Energi", sniCode: "35" },
-  { slug: "bygg-entreprenad", name: "Bygg & Entreprenad", short: "Bygg", sniCode: "41" },
+  { slug: "bygg-entreprenad", name: "Bygg, Entreprenad & Installation", short: "Bygg", sniCode: "41" },
   { slug: "grossist-distribution", name: "Grossist & Distribution", short: "Grossist", sniCode: "46" },
   { slug: "retail-ehandel", name: "Retail & E-handel", short: "Retail", sniCode: "47" },
   { slug: "mode-sport-textil", name: "Mode, Sport & Textil", short: "Mode & Textil", sniCode: "47m" },

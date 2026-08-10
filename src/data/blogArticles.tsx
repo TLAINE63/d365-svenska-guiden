@@ -3529,12 +3529,12 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   },
   {
     slug: "dynamics-365-bygg-entreprenad",
-    title: "Dynamics 365 för bygg & entreprenad",
-    metaTitle: "ERP för bygg & entreprenad 2026 – Dynamics 365 guide",
+    title: "Dynamics 365 för bygg, entreprenad & installation",
+    metaTitle: "ERP för bygg, entreprenad & installation 2026 – Dynamics 365 guide",
     metaDescription:
-      "Jämför ERP för bygg & entreprenad: ÄTA, projektredovisning, UE och tidrapportering i Dynamics 365. Kostnader, fallgropar och svenska partners – köparsidigt.",
+      "Jämför ERP för bygg, entreprenad & installation: ÄTA, projektredovisning, UE och tidrapportering i Dynamics 365. Kostnader, fallgropar och svenska partners – köparsidigt.",
     summary:
-      "Dynamics 365 (Project Operations + BC Premium eller F&SCM) stödjer projektredovisning, ÄTA, underentreprenörer och kostnadskontroll för svenska bygg- och entreprenadbolag. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
+      "Dynamics 365 (Project Operations + BC Premium eller F&SCM) stödjer projektredovisning, ÄTA, underentreprenörer och kostnadskontroll för svenska bygg-, entreprenad- och installationsbolag. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
     tags: ["bygg", "entreprenad", "dynamics365", "business central", "finance scm", "field service", "projektredovisning"],
     products: [
@@ -3624,7 +3624,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <h3>Field Service: Service- och underhållsverksamhet</h3>
         <p>
-          För bygg- och entreprenadföretag med en serviceaffär vid sidan av
+          För bygg-, entreprenad- och installationsföretag med en serviceaffär vid sidan av
           nyproduktion – till exempel installations- eller teknikföretag med
           serviceavtal – hanterar Field Service schemaläggning av tekniker,
           serviceorder och förebyggande underhåll. Mobilapp för tekniker i
@@ -3691,7 +3691,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Navcite implementerar Business Central för företag inom projekt,
           tillverkning och distribution och har lång erfarenhet av
-          Dynamics-plattformen. I bygg- och entreprenadbranschen fokuserar de
+          Dynamics-plattformen. I bygg-, entreprenad- och installationsbranschen fokuserar de
           på projektstyrning, resursplanering och ekonomiuppföljning, och
           arbetar med integration mot Microsofts övriga ekosystem för en
           sammanhållen digital arbetsmiljö. De erbjuder stöd från
@@ -3708,7 +3708,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           leveransmodell kombinerar lång erfarenhet med personligt engagemang
           och en ambition att systemet ska bidra aktivt till ökad effektivitet
           och bättre beslut – inte bara stödja befintliga processer. Passar
-          medelstora bygg- och entreprenadföretag som söker en partner med
+          medelstora bygg-, entreprenad- och installationsföretag som söker en partner med
           djup BC-kompetens, stabil leverans och ett hands-on förhållningssätt
           till implementation och förvaltning.
         </p>
@@ -3728,7 +3728,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           av datadriven styrning framöver.
         </p>
 
-        <IndustryPartnerListInline industry="Bygg & Entreprenad" />
+        <IndustryPartnerListInline industry="Bygg, Entreprenad & Installation" />
 
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
@@ -3748,24 +3748,24 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           standardnära implementation ni kan hantera med rätt konfiguration.
         </p>
         <p>
-          En relevant fråga att ställa varje partner: hur många bygg- och
-          entreprenadprojekt har ni genomfört, och kan ni visa referenskunder
+          En relevant fråga att ställa varje partner: hur många bygg-, entreprenad- och
+          installationsprojekt har ni genomfört, och kan ni visa referenskunder
           med liknande projekttyper och komplexitetsnivå som er verksamhet?
         </p>
         <p>
           Läs mer och jämför partners:{" "}
-          <a href="/branscher/bygg-entreprenad/">d365.se/branscher/bygg-entreprenad</a>
+          <a href="/branscher/bygg-entreprenad/">Bygg, Entreprenad & Installation</a>
         </p>
       </>
     ),
     bigFiveFaq: [
       {
-        question: "Vad kostar Dynamics 365 för ett bygg- och entreprenadbolag?",
+        question: "Vad kostar Dynamics 365 för ett bygg-, entreprenad- och installationsbolag?",
         answer:
-          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Premium ligger på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}}, Supply Chain Management {{price:supply-chain-management:short}} och Project Operations {{price:project-operations:short}} – central för projektredovisning, ÄTA och underentreprenörer.\n\nImplementationskostnaden för ett medelstort bygg- och entreprenadbolag landar typiskt i intervallet 1 000 000 – 4 000 000 kr beroende på antal projekt parallellt, integrationer mot kalkyl- och tidrapporteringssystem samt branschspecifika tillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Premium ligger på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}}, Supply Chain Management {{price:supply-chain-management:short}} och Project Operations {{price:project-operations:short}} – central för projektredovisning, ÄTA och underentreprenörer.\n\nImplementationskostnaden för ett medelstort bygg-, entreprenad- och installationsbolag landar typiskt i intervallet 1 000 000 – 4 000 000 kr beroende på antal projekt parallellt, integrationer mot kalkyl- och tidrapporteringssystem samt branschspecifika tillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
       },
       {
-        question: "Vilka problem stöter bygg- och entreprenadbolag på i en Dynamics 365-implementation?",
+        question: "Vilka problem stöter bygg-, entreprenad- och installationsbolag på i en Dynamics 365-implementation?",
         answer:
           "De vanligaste fallgroparna är (1) projektredovisning och ÄTA-hantering som inte modelleras tillräckligt detaljerat; (2) underentreprenörshantering, avtal och avrop som lämnas i parallella system; (3) tidrapportering från fält som inte integreras hela vägen till löneunderlag och projektkostnad; och (4) integration mot kalkylsystem (Bidcon, Sterling, MAP) som underskattas.\n\nDet är också vanligt att man underskattar förändringsarbetet – platschefer och projektledare behöver enkla mobila gränssnitt och tydliga processer för att adoptera systemet.",
       },
@@ -3775,14 +3775,14 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           "Det är inte ett antingen-eller. Specialiserade byggsystem (Vitec/Entré, Mercur, Hogia Bygg, Next) har djup branschfunktionalitet för svensk byggekonomi, ÄTA och underentreprenörer. Dynamics 365 (Project Operations + BC Premium eller F&SCM) är en bredare affärsplattform med stark projektredovisning som kompletteras med Microsofts ekosystem för CRM, fältservice och AI.\n\nDen vanligaste vägen för medelstora byggbolag är att utvärdera D365 + ISV-tillägg mot ett renodlat byggsystem. Frågan att ställa: vilken ISV eller branschanpassning rekommenderar partnern, och hur löser de underentreprenörshantering, ÄTA och förskottsfakturering i sin lösning?",
       },
       {
-        question: "Vad säger andra bygg- och entreprenadbolag som infört Dynamics 365?",
+        question: "Vad säger andra bygg-, entreprenad- och installationsbolag som infört Dynamics 365?",
         answer:
-          "Erfarenheterna varierar med scope och tilläggsval. Bolag som infört D365 med Project Operations och ett byggspecifikt tillägg rapporterar generellt god utväxling – särskilt på projektredovisning, kostnadskontroll och kundhantering. Bolag som försökt täcka all branschspecifik logik med standard-D365 har oftare stött på dyr särutveckling.\n\nEn återkommande lärdom är att tidigt involvera ekonomi, projektledning och inköp i kravarbetet, och att be partnern uppvisa konkreta referenscase i bygg och entreprenad med liknande projekttyp och storlek.",
+          "Erfarenheterna varierar med scope och tilläggsval. Bolag som infört D365 med Project Operations och ett byggspecifikt tillägg rapporterar generellt god utväxling – särskilt på projektredovisning, kostnadskontroll och kundhantering. Bolag som försökt täcka all branschspecifik logik med standard-D365 har oftare stött på dyr särutveckling.\n\nEn återkommande lärdom är att tidigt involvera ekonomi, projektledning och inköp i kravarbetet, och att be partnern uppvisa konkreta referenscase i bygg, entreprenad eller installation med liknande projekttyp och storlek.",
       },
       {
-        question: "Vilken Dynamics 365-partner är bäst för bygg & entreprenad?",
+        question: "Vilken Dynamics 365-partner är bäst för bygg, entreprenad & installation?",
         answer:
-          "Det beror på er projektprofil och storlek. På d365.se listar vi flera partners med erfarenhet av bygg och entreprenad – vissa är specialiserade på Project Operations + BC, andra arbetar med F&SCM för större aktörer, och andra har dokumenterade ISV-tillägg för svensk byggekonomi.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i bygg eller entreprenad av jämförbar storlek, (2) hur de hanterar ÄTA, underentreprenörer och projektredovisning, och (3) vilka kalkyl- och tidrapporteringssystem de integrerat mot tidigare.",
+          "Det beror på er projektprofil och storlek. På d365.se listar vi flera partners med erfarenhet av bygg, entreprenad och installation – vissa är specialiserade på Project Operations + BC, andra arbetar med F&SCM för större aktörer, och andra har dokumenterade ISV-tillägg för svensk byggekonomi.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i bygg, entreprenad eller installation av jämförbar storlek, (2) hur de hanterar ÄTA, underentreprenörer och projektredovisning, och (3) vilka kalkyl- och tidrapporteringssystem de integrerat mot tidigare.",
       },
     ],
   },

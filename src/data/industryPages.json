@@ -2,11 +2,11 @@
   {
     "id": "892ff835-7aa0-41ee-a746-128c06350297",
     "slug": "bygg-entreprenad",
-    "name": "Bygg & Entreprenad",
-    "meta_title": "Bygg & Entreprenad och Microsoft Dynamics 365",
-    "meta_description": "En guide för beslutsfattare i bygg- & entreprenadbranschen. Lär dig hur Dynamics 365 kan stödja era projekt, processer och utmaningar.",
+    "name": "Bygg, Entreprenad & Installation",
+    "meta_title": "Bygg, Entreprenad & Installation och Microsoft Dynamics 365",
+    "meta_description": "En guide för beslutsfattare i bygg-, entreprenad- och installationsbranschen. Lär dig hur Dynamics 365 kan stödja era projekt, processer och utmaningar.",
     "hero_image_url": null,
-    "intro": "\nBygg- och entreprenadbranschen i Sverige är en dynamisk och konkurrensutsatt marknad som präglas av stora investeringar i infrastruktur och bostadsbyggande. Samtidigt ställs allt högre krav på effektivitet, hållbarhet och digitalisering. Företag i branschen verkar i en komplex verklighet med långa projektcykler, många intressenter och små marginaler, vilket gör robust systemstöd till en kritisk framgångsfaktor.\n\nDigitaliseringen har gått från att vara en möjlighet till att bli en nödvändighet för att hantera allt från projektkalkyler och resursplanering till regelefterlevnad och ekonomisk uppföljning. Ett modernt affärssystem måste kunna erbjuda en samlad bild av verksamheten, från anbud till slutbesiktning. Förmågan att fatta datadrivna beslut i realtid är avgörande för att säkerställa projektens lönsamhet och företagets konkurrenskraft.\n\nMicrosoft Dynamics 365 erbjuder en plattform med applikationer för hela värdekedjan, från ekonomistyrning och projekthantering (ERP) till kundrelationer och service (CRM). Plattformen är byggd för att kunna anpassas och skalas i takt med att verksamheten och marknadens krav förändras, vilket ger företag i bygg- & entreprenadsektorn verktygen att navigera i en komplex omvärld.\n",
+    "intro": "\nbygg-, entreprenad- och installationbranschen i Sverige är en dynamisk och konkurrensutsatt marknad som präglas av stora investeringar i infrastruktur och bostadsbyggande. Samtidigt ställs allt högre krav på effektivitet, hållbarhet och digitalisering. Företag i branschen verkar i en komplex verklighet med långa projektcykler, många intressenter och små marginaler, vilket gör robust systemstöd till en kritisk framgångsfaktor.\n\nDigitaliseringen har gått från att vara en möjlighet till att bli en nödvändighet för att hantera allt från projektkalkyler och resursplanering till regelefterlevnad och ekonomisk uppföljning. Ett modernt affärssystem måste kunna erbjuda en samlad bild av verksamheten, från anbud till slutbesiktning. Förmågan att fatta datadrivna beslut i realtid är avgörande för att säkerställa projektens lönsamhet och företagets konkurrenskraft.\n\nMicrosoft Dynamics 365 erbjuder en plattform med applikationer för hela värdekedjan, från ekonomistyrning och projekthantering (ERP) till kundrelationer och service (CRM). Plattformen är byggd för att kunna anpassas och skalas i takt med att verksamheten och marknadens krav förändras, vilket ger företag i bygg-, entreprenad- och installationsektorn verktygen att navigera i en komplex omvärld.\n",
     "processes": [
       {
         "title": "Projektkalkylering och anbud",
@@ -92,7 +92,7 @@
       },
       {
         "app": "Business Central",
-        "relevance": "En helhetslösning för små och medelstora bygg- och entreprenadföretag som täcker allt från projektledning och ekonomi till inköp och lager."
+        "relevance": "En helhetslösning för små och medelstora bygg-, entreprenad- och installationföretag som täcker allt från projektledning och ekonomi till inköp och lager."
       },
       {
         "app": "Field Service",
@@ -133,7 +133,7 @@
     "is_published": true,
     "ai_generated_at": "2026-05-16T17:02:17.347+00:00",
     "created_at": "2026-05-16T17:02:17.423208+00:00",
-    "updated_at": "2026-05-16T17:04:20.78846+00:00"
+    "updated_at": "2026-08-10T13:01:31.629238+00:00"
   },
   {
     "id": "cdcb9fef-3a6c-4b4a-8686-5bf02ac015b4",

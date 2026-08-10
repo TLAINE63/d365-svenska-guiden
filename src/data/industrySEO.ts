@@ -62,10 +62,10 @@ export const INDUSTRY_SEO: Record<string, IndustrySEO> = {
     h1: "Dynamics 365 för konsultbolag & tjänsteföretag",
   },
   "bygg-entreprenad": {
-    title: "Dynamics 365 för bygg- & entreprenadbolag",
+    title: "Dynamics 365 för bygg-, entreprenad- & installationsbolag",
     description:
       "Projektredovisning, kalkyl, ÄTA, underentreprenörer och fält­service: hur Dynamics 365 Business Central, F&SCM och Field Service stödjer svenska byggbolag.",
-    h1: "Dynamics 365 för bygg & entreprenad",
+    h1: "Dynamics 365 för bygg, entreprenad & installation",
   },
   "fastighet-forvaltning": {
     title: "Dynamics 365 för fastighet & förvaltning",

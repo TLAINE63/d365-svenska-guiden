@@ -94,12 +94,12 @@ const staticPartners = [
     website: "https://www.4ps.se/",
     description: "4PS är en ledande leverantör av branschspecifik ERP-programvara för bygg-, installations- och serviceföretag. Deras lösning 4PS Construct är byggd på Microsoft Dynamics 365 Business Central och erbjuder end-to-end-funktionalitet med 100% realtidsvisibilitet på projekt.",
     applications: ["Business Central"],
-    industries: ["Bygg & Entreprenad"],
+    industries: ["Bygg, Entreprenad & Installation"],
     secondary_industries: [],
     geography: "Norden",
     product_filters: {
       bc: {
-        industries: ["Bygg & Entreprenad"],
+        industries: ["Bygg, Entreprenad & Installation"],
         secondaryIndustries: [],
         companySize: ["100-249", "250-999", "1.000-4.999"],
         geography: "Norden",
@@ -161,12 +161,12 @@ const staticPartners = [
     website: "https://jma.se/affarssystem/",
     description: "JMA Maskindata är specialister på affärssystem för tillverkande företag med lång erfarenhet av Microsoft Dynamics.",
     applications: ["Business Central"],
-    industries: ["Bygg & Entreprenad", "Grossist & Distribution"],
+    industries: ["Bygg, Entreprenad & Installation", "Grossist & Distribution"],
     secondary_industries: [],
     geography: "Sverige",
     product_filters: {
       bc: {
-        industries: ["Bygg & Entreprenad", "Grossist & Distribution"],
+        industries: ["Bygg, Entreprenad & Installation", "Grossist & Distribution"],
         secondaryIndustries: [],
         companySize: ["50-99", "100-249", "250-999"],
         geography: "Sverige",
@@ -181,12 +181,12 @@ const staticPartners = [
     website: "https://www.knowit.se/vart-erbjudande/solutions/",
     description: "Knowit är en nordisk digitaliseringskonsult med bred Microsoft-kompetens och fokus på hållbar digitalisering.",
     applications: ["Business Central", "Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tillverkningsindustri", "Bygg & Entreprenad", "Finans & Försäkring", "Grossist & Distribution"],
+    industries: ["Tillverkningsindustri", "Bygg, Entreprenad & Installation", "Finans & Försäkring", "Grossist & Distribution"],
     secondary_industries: [],
     geography: "Norden",
     product_filters: {
       bc: {
-        industries: ["Tillverkningsindustri", "Bygg & Entreprenad"],
+        industries: ["Tillverkningsindustri", "Bygg, Entreprenad & Installation"],
         secondaryIndustries: [],
         companySize: ["100-249", "250-999", "1.000-4.999"],
         geography: "Norden",
@@ -200,7 +200,7 @@ const staticPartners = [
         ranking: 1
       },
       crm: {
-        industries: ["Bygg & Entreprenad", "Grossist & Distribution"],
+        industries: ["Bygg, Entreprenad & Installation", "Grossist & Distribution"],
         secondaryIndustries: [],
         companySize: ["100-249", "250-999", "1.000-4.999"],
         geography: "Norden",

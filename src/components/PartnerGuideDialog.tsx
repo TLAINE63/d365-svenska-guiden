@@ -70,7 +70,7 @@ const industryImages: Record<string, string> = {
   "Retail & E-handel": detaljhandelImg,
   "Mode, Sport & Textil": modeSportTextilImg,
   "Konsulttjänster": konsultforetagImg,
-  "Bygg & Entreprenad": byggEntreprenadImg,
+  "Bygg, Entreprenad & Installation": byggEntreprenadImg,
   "Fastighet & Förvaltning": fastigheterImg,
   "Energi & Utilities": energiImg,
   "Finans & Försäkring": finansForsakringImg,

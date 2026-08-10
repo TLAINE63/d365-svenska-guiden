@@ -26,7 +26,7 @@
         "keyPoints": "Branschspecifik ERP-lösning för bygg-, installations- och serviceföretag.\nFull projektkontroll och 100% realtidsvisibilitet baserad på Business Central.\nStödjer kärnprocesser inklusive CRM, upphandling, resursplanering och fältservice.\nLokal närvaro i Norrköping och Göteborg för nära samarbete.",
         "whyChoose": "Vi erbjuder 4PS Construct, en branschspecifik ERP-lösning byggd på Microsoft Dynamics 365 Business Central. Vår lösning ger full kontroll över komplexa projekt inom bygg, installation och service. Vi stödjer alla kärnprocesser för att du ska få en helhetsöversikt i realtid.",
         "industries": [
-          "Bygg & Entreprenad"
+          "Bygg, Entreprenad & Installation"
         ],
         "companySize": [
           "100-249",
@@ -76,7 +76,7 @@
       {
         "url": "https://marketplace.microsoft.com/en-us/product/TYPE.connect%7CPUBID.4psbv_ah%7CAID.4ps_construct%7CPAPPID.c4c07c94-073e-442a-8337-c362726014fa?tab=Overview",
         "name": "4PS",
-        "industry": "Bygg & Entreprenad",
+        "industry": "Bygg, Entreprenad & Installation",
         "application": "Business Central",
         "description": "4PS Construct all-in-one cloud solution for Construction"
       }
@@ -90,20 +90,20 @@
     "map_url": "https://www.google.com/maps/d/edit?mid=1lqToksFfFiaeIdp1Hgub9PYB6WJk_xs&ll=59.13450631416728%2C16.462738500000004&z=5",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-07-10T08:04:47.268179+00:00",
+    "updated_at": "2026-08-10T13:01:31.629238+00:00",
     "industry_pitches": [
       {
-        "text": "4PS Construction Software AB erbjuder en specialiserad lösning baserad på Microsoft Dynamics 365 Business Central, designad för bygg- och entreprenadbranschen. Partnern adresserar typiska utmaningar såsom komplex projektledning, resursallokering och uppföljning av kostnadskontroll. Genom att implementera 4PS Construct uppnås förbättrad spårbarhet i hela projektcykeln, från kalkyl till efterkalkyl. Detta system stödjer processer som anbudshantering, inköp, materialplanering och personalhantering. Lösningen tillhandahåller även realtidsdata för beslutsfattande, vilket bidrar till optimerad projektgenomförande och ökad lönsamhet. Fokus ligger på en heltäckande branschanpassning inom Dynamics 365 Business Central.",
+        "text": "4PS Construction Software AB erbjuder en specialiserad lösning baserad på Microsoft Dynamics 365 Business Central, designad för bygg-, entreprenad- och installationbranschen. Partnern adresserar typiska utmaningar såsom komplex projektledning, resursallokering och uppföljning av kostnadskontroll. Genom att implementera 4PS Construct uppnås förbättrad spårbarhet i hela projektcykeln, från kalkyl till efterkalkyl. Detta system stödjer processer som anbudshantering, inköp, materialplanering och personalhantering. Lösningen tillhandahåller även realtidsdata för beslutsfattande, vilket bidrar till optimerad projektgenomförande och ökad lönsamhet. Fokus ligger på en heltäckande branschanpassning inom Dynamics 365 Business Central.",
         "product": "Business Central",
-        "industry": "Bygg & Entreprenad",
+        "industry": "Bygg, Entreprenad & Installation",
         "edited_by": "partner",
         "updated_at": "2026-06-29T15:49:06.700Z",
         "generated_at": "2026-06-29T15:49:06.700Z"
       },
       {
-        "text": "4PS Construction Software AB erbjuder en branschspecifik ERP-lösning, 4PS Construct, baserad på Microsoft Dynamics 365 Business Central. Lösningen är utvecklad för bygg-, installations- och serviceföretag och syftar till att leverera end-to-end-funktionalitet. Med 4PS Construct kan företag hantera projekthantering, offerter, resursplanering, inköp, ekonomi och service i en integrerad plattform. 4PS Construct tillhandahåller realtidsvisibilitet över projektprocesser, vilket bidrar till effektivare styrning och beslutsfattande inom bygg- och entreprenadbranschen. Partnern fokuserar på att möta branschens behov av smidiga digitala processer för att hantera komplexa projekt och krav på lönsamhet.",
+        "text": "4PS Construction Software AB erbjuder en branschspecifik ERP-lösning, 4PS Construct, baserad på Microsoft Dynamics 365 Business Central. Lösningen är utvecklad för bygg-, installations- och serviceföretag och syftar till att leverera end-to-end-funktionalitet. Med 4PS Construct kan företag hantera projekthantering, offerter, resursplanering, inköp, ekonomi och service i en integrerad plattform. 4PS Construct tillhandahåller realtidsvisibilitet över projektprocesser, vilket bidrar till effektivare styrning och beslutsfattande inom bygg-, entreprenad- och installationbranschen. Partnern fokuserar på att möta branschens behov av smidiga digitala processer för att hantera komplexa projekt och krav på lönsamhet.",
         "product": null,
-        "industry": "Bygg & Entreprenad",
+        "industry": "Bygg, Entreprenad & Installation",
         "edited_by": "admin",
         "updated_at": "2026-05-17T08:10:26.839Z",
         "generated_at": "2026-05-17T08:10:26.839Z"
@@ -147,14 +147,14 @@
         "Power Platform"
       ],
       "ai_generated_at": "2026-07-02T10:48:17.035Z",
-      "card_ai_summary": "4PS Construction Software AB erbjuder en branschspecifik ERP-lösning för bygg- och entreprenadbranschen.",
+      "card_ai_summary": "4PS Construction Software AB erbjuder en branschspecifik ERP-lösning för bygg-, entreprenad- och installationbranschen.",
       "experience_level": "advisory",
       "project_count_range": null,
       "ai_experience_summary": "Partnern erbjuder rådgivning och workshops för AI-strategi och implementering, med fokus på AI-readiness, datakvalitet och styrning. Detta passar organisationer som vill bygga en grund för ansvarsfull AI-användning, särskilt med inriktning på Copilot-förberedelser och ERP-processer.",
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:29.767Z"
     },
-    "extended_content": "4PS är en vertikal Business Central-/ISV-partner för bygg, installation, service och entreprenad, med den egna branschlösningen 4PS Construct byggd ovanpå Business Central. Sedan 2023 ägs 4PS Group av Hilti, vilket ger en stark internationell produktgrupp bakom en relativt liten svensk juridisk enhet. Precis som Adbriq är 4PS en renodlad vertikal specialist snarare än en generell BC-partner, men här är branschen bygg/entreprenad i stället för fashion, och skalan bakom (Hilti-koncernen) betydligt större.\n\nAktiva produktområden: Business Central som huvudplattform genom 4PS Construct, med fokus på branschspecifik construction ERP snarare än generell BC-implementation. Sekundärt: Power Platform, AI-readiness, dashboards, rapportering, mobil/field-processer och integrationsnära flöden. CRM och fältservice förekommer som funktionalitet inom 4PS Construct men ska inte tolkas som fristående D365 CE/Field Service-erbjudande. Viktig avgränsning: F&SCM, fristående CE/CRM, Customer Service, Field Service, Contact Center, Commerce, HR och Project Operations är inte verifierade som självständiga d365.se-filter.\n\nTydliga styrkor: Egen vertikal IP/ISV-lösning (4PS Construct) med end-to-end-processer från anbud till eftermarknad, stark branschspecialisering inom bygg och installation, samt Hilti-ägande som ger internationell finansiell stabilitet och produktutveckling. Microsoft Inner Circle 2025/2026-status stärker Microsoft-närheten ytterligare. Stark förvaltningskapacitet som branschprodukt-/plattformspartner: 4PS designar, bygger, implementerar och underhåller programvaran själva.\n\nRäckvidd och segment: Huvudkontor i Göteborg, med d365.se-kontor även i Norrköping. Den svenska enheten är dock liten: 4 618 KSEK omsättning och 16 anställda 2024 enligt Bolagsfakta, vilket inte ska tolkas som koncernens storlek. 4PS Group anger globalt över 400 software engineers/application consultants och över 450 kunder. Segment: medelstora till större bygg-, installations- och serviceföretag (d365.se anger 100–4 999 anställda som relevant kundstorlek). Branschfokus: bygg & entreprenad, installationsteknik samt service/underhåll.\n\nPassar bäst: Bygg-, entreprenad-, installations- och serviceföretag som behöver en branschspecifik ERP-lösning på Business Central, kunder där projektlönsamhet, marginalkontroll, resursplanering och realtidsöversikt är centrala frågor, samt organisationer som tycker standard-BC kräver för mycket anpassning för bygg- och serviceprocesser. Mindre lämplig för mycket små företag som bara behöver enkel ekonomilösning, kunder som söker ren F&SCM, CRM/CE eller andra fristående Dynamics 365-lösningar utan byggkoppling, organisationer utanför bygg/installation/entreprenad, samt kunder där lägsta pris väger tyngre än branschfunktionalitet.\n\nTre saker jag skulle flagga innan publik användning:\n\nFörst skalan: den svenska juridiska enhetens omsättning (4 618 KSEK, 16 anställda) speglar bara den svenska etableringen och ska inte förväxlas med den internationella 4PS/Hilti-gruppens storlek — håll dessa åtskilda i publik text.\n\nSedan etableringsår i Sverige: 4PS grundades 2000 i Nederländerna, men exakt etableringsår för den svenska juridiska enheten bör verifieras separat.\n\nSlutligen kontaktpersonen: Anders Östby anges enligt d365.se, men e-post och telefon bör verifieras innan publik eller operativ användning, liksom vilka kontor (Sverige vs 4PS Group/Hilti-resurs) som ansvarar för vad.\n\nSammanfattning: En vertikal produkt-/ISV-partner för bygg och installation med stark internationell produktutveckling via Hilti-ägandet, men en relativt liten svensk juridisk enhet. Rätt jämförelsegrupp är andra BC-vertikaler och branschpaket med bygg-/entreprenadfokus, med rena CRM-specialister och globala SI:er utan bygg-ERP-fokus som lägre relevans i jämförelsen.",
+    "extended_content": "4PS är en vertikal Business Central-/ISV-partner för bygg, installation, service och entreprenad, med den egna branschlösningen 4PS Construct byggd ovanpå Business Central. Sedan 2023 ägs 4PS Group av Hilti, vilket ger en stark internationell produktgrupp bakom en relativt liten svensk juridisk enhet. Precis som Adbriq är 4PS en renodlad vertikal specialist snarare än en generell BC-partner, men här är branschen bygg/entreprenad i stället för fashion, och skalan bakom (Hilti-koncernen) betydligt större.\n\nAktiva produktområden: Business Central som huvudplattform genom 4PS Construct, med fokus på branschspecifik construction ERP snarare än generell BC-implementation. Sekundärt: Power Platform, AI-readiness, dashboards, rapportering, mobil/field-processer och integrationsnära flöden. CRM och fältservice förekommer som funktionalitet inom 4PS Construct men ska inte tolkas som fristående D365 CE/Field Service-erbjudande. Viktig avgränsning: F&SCM, fristående CE/CRM, Customer Service, Field Service, Contact Center, Commerce, HR och Project Operations är inte verifierade som självständiga d365.se-filter.\n\nTydliga styrkor: Egen vertikal IP/ISV-lösning (4PS Construct) med end-to-end-processer från anbud till eftermarknad, stark branschspecialisering inom bygg och installation, samt Hilti-ägande som ger internationell finansiell stabilitet och produktutveckling. Microsoft Inner Circle 2025/2026-status stärker Microsoft-närheten ytterligare. Stark förvaltningskapacitet som branschprodukt-/plattformspartner: 4PS designar, bygger, implementerar och underhåller programvaran själva.\n\nRäckvidd och segment: Huvudkontor i Göteborg, med d365.se-kontor även i Norrköping. Den svenska enheten är dock liten: 4 618 KSEK omsättning och 16 anställda 2024 enligt Bolagsfakta, vilket inte ska tolkas som koncernens storlek. 4PS Group anger globalt över 400 software engineers/application consultants och över 450 kunder. Segment: medelstora till större bygg-, installations- och serviceföretag (d365.se anger 100–4 999 anställda som relevant kundstorlek). Branschfokus: bygg, entreprenad & installation, installationsteknik samt service/underhåll.\n\nPassar bäst: Bygg-, entreprenad-, installations- och serviceföretag som behöver en branschspecifik ERP-lösning på Business Central, kunder där projektlönsamhet, marginalkontroll, resursplanering och realtidsöversikt är centrala frågor, samt organisationer som tycker standard-BC kräver för mycket anpassning för bygg- och serviceprocesser. Mindre lämplig för mycket små företag som bara behöver enkel ekonomilösning, kunder som söker ren F&SCM, CRM/CE eller andra fristående Dynamics 365-lösningar utan byggkoppling, organisationer utanför bygg/installation/entreprenad, samt kunder där lägsta pris väger tyngre än branschfunktionalitet.\n\nTre saker jag skulle flagga innan publik användning:\n\nFörst skalan: den svenska juridiska enhetens omsättning (4 618 KSEK, 16 anställda) speglar bara den svenska etableringen och ska inte förväxlas med den internationella 4PS/Hilti-gruppens storlek — håll dessa åtskilda i publik text.\n\nSedan etableringsår i Sverige: 4PS grundades 2000 i Nederländerna, men exakt etableringsår för den svenska juridiska enheten bör verifieras separat.\n\nSlutligen kontaktpersonen: Anders Östby anges enligt d365.se, men e-post och telefon bör verifieras innan publik eller operativ användning, liksom vilka kontor (Sverige vs 4PS Group/Hilti-resurs) som ansvarar för vad.\n\nSammanfattning: En vertikal produkt-/ISV-partner för bygg och installation med stark internationell produktutveckling via Hilti-ägandet, men en relativt liten svensk juridisk enhet. Rätt jämförelsegrupp är andra BC-vertikaler och branschpaket med bygg-/entreprenadfokus, med rena CRM-specialister och globala SI:er utan bygg-ERP-fokus som lägre relevans i jämförelsen.",
     "extended_content_updated_at": "2026-07-07T17:46:56.361216+00:00",
     "partner_size_tier": 3,
     "partner_size_tier_needs_review": false
@@ -2317,11 +2317,11 @@
           "Norden",
           "Europa"
         ],
-        "keyPoints": "Specialiserade på Business Central för tillverkning, bygg & entreprenad samt energi & utilities.\nBred geografisk närvaro med kontor i Skellefteå, Stockholm, Malmö, Göteborg och Västerås.\nAnpassar systemet för att möta specifika branschbehov, inklusive finansiell styrning och projekthantering.\nSupport för integration med Dynamics 365 Finance och Supply Chain Management.",
-        "whyChoose": "Vi levererar Dynamics 365 Business Central med ett specifikt fokus på lösningar för tillverkningsindustrin, bygg- och entreprenadbranschen samt energi- och energiförsörjningsföretag. Vårt arbetssätt innefattar implementation, anpassning och support för att optimera kundernas processer. Vi strävar efter att leverera en affärslösning som möter branschers specifika behov genom hela digitaliseringsresan.",
+        "keyPoints": "Specialiserade på Business Central för tillverkning, bygg, entreprenad & installation samt energi & utilities.\nBred geografisk närvaro med kontor i Skellefteå, Stockholm, Malmö, Göteborg och Västerås.\nAnpassar systemet för att möta specifika branschbehov, inklusive finansiell styrning och projekthantering.\nSupport för integration med Dynamics 365 Finance och Supply Chain Management.",
+        "whyChoose": "Vi levererar Dynamics 365 Business Central med ett specifikt fokus på lösningar för tillverkningsindustrin, bygg-, entreprenad- och installationbranschen samt energi- och energiförsörjningsföretag. Vårt arbetssätt innefattar implementation, anpassning och support för att optimera kundernas processer. Vi strävar efter att leverera en affärslösning som möter branschers specifika behov genom hela digitaliseringsresan.",
         "industries": [
           "Tillverkningsindustri",
-          "Bygg & Entreprenad",
+          "Bygg, Entreprenad & Installation",
           "Energi & Utilities"
         ],
         "companySize": [
@@ -2348,7 +2348,7 @@
         "customerExamples": [],
         "aiCaseDescription": "",
         "customerCaseLinks": [],
-        "productDescription": "Sherpas Group AB levererar Dynamics 365 Business Central med fokus på lösningar för tillverkningsindustrin, bygg- och entreprenadbranschen samt energi- och energiförsörjningsföretag. De erbjuder implementation, anpassning och support för att optimera processer inom bland annat finansiell styrning, projekthantering och supply chain. Genom expertis inom dessa sektorer strävar Sherpas Group AB efter att tillhandahålla en affärslösning som möter specifika branschbehov, kompletterat med stöd för integration med Dynamics 365 Finance och Supply Chain Management. Lösningarna anpassas för att stödja kundernas dagliga verksamhet och långsiktiga mål.",
+        "productDescription": "Sherpas Group AB levererar Dynamics 365 Business Central med fokus på lösningar för tillverkningsindustrin, bygg-, entreprenad- och installationbranschen samt energi- och energiförsörjningsföretag. De erbjuder implementation, anpassning och support för att optimera processer inom bland annat finansiell styrning, projekthantering och supply chain. Genom expertis inom dessa sektorer strävar Sherpas Group AB efter att tillhandahålla en affärslösning som möter specifika branschbehov, kompletterat med stöd för integration med Dynamics 365 Finance och Supply Chain Management. Lösningarna anpassas för att stödja kundernas dagliga verksamhet och långsiktiga mål.",
         "aiPredictiveDetails": [],
         "aiSegmentationDetails": [],
         "ai_generated_why_keypoints": true,
@@ -2416,12 +2416,12 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-07-07T17:46:56.361216+00:00",
+    "updated_at": "2026-08-10T13:01:31.629238+00:00",
     "industry_pitches": [
       {
-        "text": "Sherpas Group AB levererar lösningar baserade på Microsoft Dynamics 365, särskilt Business Central, Finance och Supply Chain Management, till företag inom bygg- och entreprenadbranschen. De bistår med system som kan hantera projektstyrning, resursallokering, ekonomiuppföljning och logistikflöden specifika för branschens behov. Fokus ligger på att optimera processer för tidrapportering, materialhantering och fakturering för att möta krav på effektivitet och lönsamhet.\n\nGenom att integrera funktioner för budgetering, prognostisering och avvikelseanalys i Dynamics 365 Finance kan Sherpas Group AB hjälpa byggföretag att få bättre kontroll över projektkostnader och intäkter. Dessutom kan Supply Chain Management användas för att effektivisera inköpsprocesser och lagerhantering av byggmaterial. Detta bidrar till ökad transparens och bättre beslutsunderlag i komplexa projekt.",
+        "text": "Sherpas Group AB levererar lösningar baserade på Microsoft Dynamics 365, särskilt Business Central, Finance och Supply Chain Management, till företag inom bygg-, entreprenad- och installationbranschen. De bistår med system som kan hantera projektstyrning, resursallokering, ekonomiuppföljning och logistikflöden specifika för branschens behov. Fokus ligger på att optimera processer för tidrapportering, materialhantering och fakturering för att möta krav på effektivitet och lönsamhet.\n\nGenom att integrera funktioner för budgetering, prognostisering och avvikelseanalys i Dynamics 365 Finance kan Sherpas Group AB hjälpa byggföretag att få bättre kontroll över projektkostnader och intäkter. Dessutom kan Supply Chain Management användas för att effektivisera inköpsprocesser och lagerhantering av byggmaterial. Detta bidrar till ökad transparens och bättre beslutsunderlag i komplexa projekt.",
         "product": null,
-        "industry": "Bygg & Entreprenad",
+        "industry": "Bygg, Entreprenad & Installation",
         "edited_by": "admin-bulk",
         "generated_at": "2026-05-17T08:35:55Z"
       },
@@ -2442,7 +2442,7 @@
     ],
     "agreement_signed": true,
     "related_party": false,
-    "positioning_statement": "Vi är valet när du driver tillverkning, bygg & entreprenad, eller energi & utilities och söker helhet.",
+    "positioning_statement": "Vi är valet när du driver tillverkning, bygg, entreprenad & installation, eller energi & utilities och söker helhet.",
     "delivery_profile": {},
     "team_size_sweden": null,
     "implementations_done": null,
@@ -2887,7 +2887,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-03-19T08:57:20.19097+00:00",
-    "updated_at": "2026-07-10T13:17:53.798534+00:00",
+    "updated_at": "2026-08-10T12:55:45.188876+00:00",
     "industry_pitches": [
       {
         "text": "Vivicta levererar helhetslösningar inom Microsoft Dynamics 365, från rådgivning och design till implementering och förvaltning, med fokus på transport och logistik. De hanterar lösningar baserade på D365 Finance och Supply Chain Management, vilket stöder hantering av ekonomiska flöden och logistikkedjor.\n\nVivicta erbjuder även D365 Business Central för mindre transport- och logistikföretag som behöver ett integrerat affärssystem. För att optimera kundrelationer och serviceärenden använder de D365 Sales, Customer Service och Field Service. Lösningarna kompletteras med Power Platform och Azure, vilket innebär möjligheter till anpassade integrationer och utökad funktionalitet. Deras erfarenhet sträcker sig till branscher som industri, tillverkning, samt handel och service, vilket ger dem insikt i komplexa logistikbehov och distributionskedjor. Vivicta erbjuder kontinuerlig utveckling och licensrådgivning för att stödja kundens affärsnytta över tid.",
@@ -3005,7 +3005,7 @@
         "industries": [
           "Tillverkningsindustri",
           "Grossist & Distribution",
-          "Bygg & Entreprenad"
+          "Bygg, Entreprenad & Installation"
         ],
         "contactName": "Jonas Grunditz",
         "contactEmail": "jonas.grunditz@yellowsolution.se",
@@ -3040,12 +3040,12 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-03-25T10:51:24.706444+00:00",
-    "updated_at": "2026-07-07T17:46:56.361216+00:00",
+    "updated_at": "2026-08-10T13:01:31.629238+00:00",
     "industry_pitches": [
       {
-        "text": "Yellow Solution AB erbjuder lösningar baserade på Microsoft Dynamics 365 Business Central till företag inom bygg- och entreprenadbranschen. Partnern fokuserar på att optimera affärsprocesser för ökad effektivitet och tillväxt. De har erfarenhet av att anpassa Business Central för att möta branschens specifika krav, vilket inkluderar hantering av projekt, ekonomi och resursplanering. Genom sitt engagemang syftar Yellow Solution AB till att hjälpa företag att utnyttja affärssystemets fulla potential för bättre beslutsfattande och hållbar utveckling. Deras tjänster bidrar till att säkerställa att investeringar i affärssystemet ger konkret nytta i en komplex bransch.",
+        "text": "Yellow Solution AB erbjuder lösningar baserade på Microsoft Dynamics 365 Business Central till företag inom bygg-, entreprenad- och installationbranschen. Partnern fokuserar på att optimera affärsprocesser för ökad effektivitet och tillväxt. De har erfarenhet av att anpassa Business Central för att möta branschens specifika krav, vilket inkluderar hantering av projekt, ekonomi och resursplanering. Genom sitt engagemang syftar Yellow Solution AB till att hjälpa företag att utnyttja affärssystemets fulla potential för bättre beslutsfattande och hållbar utveckling. Deras tjänster bidrar till att säkerställa att investeringar i affärssystemet ger konkret nytta i en komplex bransch.",
         "product": null,
-        "industry": "Bygg & Entreprenad",
+        "industry": "Bygg, Entreprenad & Installation",
         "edited_by": "admin-bulk",
         "generated_at": "2026-05-17T08:36:38Z"
       },
