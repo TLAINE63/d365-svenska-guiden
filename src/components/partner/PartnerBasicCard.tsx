@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { MapPin, FileText, ScrollText, Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { BASIC_COPY, BasicPartner } from "@/hooks/useBasicPartners";
-import BasicPartnerBadge, { BASIC_PROFILE_DISCLAIMER } from "@/components/BasicPartnerBadge";
+import { BASIC_PROFILE_DISCLAIMER } from "@/components/BasicPartnerBadge";
 import BasicPartnerInquiryDialog from "@/components/BasicPartnerInquiryDialog";
 import { Button } from "@/components/ui/button";
 import { Mail } from "lucide-react";
@@ -42,9 +42,6 @@ export function PartnerBasicCard({
       {/* Header: name replaces logo per spec */}
       <header className="mb-4 flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <div className="mb-2">
-            <BasicPartnerBadge size={isStandalone ? "md" : "sm"} />
-          </div>
           <h3
             className={
               isStandalone

@@ -229,7 +229,7 @@ const AiCompareInsights = ({ partners, productFilters, industry, columnSlots }: 
                           </ul>
                         ) : (
                           <p className="text-sm text-muted-foreground">
-                            Basic-profil – underlag saknas för AI-jämförelse.
+                            Ej verifierad profil – underlag saknas för AI-jämförelse.
                           </p>
                         )}
                       </div>
@@ -259,9 +259,9 @@ const AiCompareInsights = ({ partners, productFilters, industry, columnSlots }: 
                         <div className="font-semibold text-foreground mb-1">{slot.name}</div>
                         <p className="text-sm text-foreground/85">
                           {d ? d.text : (
-                            <span className="text-muted-foreground">
-                              Basic-profil – ingen partnerbekräftad information.
-                            </span>
+                          <span className="text-muted-foreground">
+                            Ej verifierad profil – ingen partnerbekräftad information.
+                          </span>
                           )}
                         </p>
                       </div>

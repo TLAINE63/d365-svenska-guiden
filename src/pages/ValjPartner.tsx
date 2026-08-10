@@ -822,9 +822,9 @@ const ValjPartner = () => {
 {!verifiedOnly && selectedApplications.length > 0 && filteredBasicPartners.length > 0 && (
  <div className="mt-12 border-t border-dashed border-border pt-8">
   <div className="max-w-3xl mb-6">
-   <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
-    Basic-profiler som matchar din filtrering ({filteredBasicPartners.length})
-   </h3>
+    <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
+     Profiler som matchar din filtrering ({filteredBasicPartners.length})
+    </h3>
    <p className="text-sm text-muted-foreground">
     Grundläggande information om partnern baserad på offentligt tillgängliga uppgifter.
     Profilerna har ännu inte verifierats av partnern och innehåller därför varken
