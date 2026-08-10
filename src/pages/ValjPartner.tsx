@@ -37,6 +37,9 @@ import { useTrackFilterExposure } from "@/hooks/useTrackFilterExposure";
 import partnerMapSweden from "@/assets/partner-map-sweden.png";
 import staticPartnerData from "@/data/partnerData.json";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
+import { useBasicPartners } from "@/hooks/useBasicPartners";
+import { filterBasicPartners } from "@/lib/basicPartnerMatch";
+import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
 
 // Partner FAQs for schema – priser hämtas från product_prices via resolvePriceTokens
 const partnerFaqsRaw = [
