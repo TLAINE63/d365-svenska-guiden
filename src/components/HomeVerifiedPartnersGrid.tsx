@@ -148,7 +148,7 @@ export default function HomeVerifiedPartnersGrid() {
         <div className="flex items-end justify-between gap-6 mb-8 flex-wrap">
           <div>
             <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-foreground tracking-tight leading-tight max-w-3xl">
-              Sök fram rätt partners för din bransch
+              Sök fram rätt verifierad partner för din bransch
             </h2>
             <p className="text-[15px] text-muted-foreground mt-2 max-w-2xl">
               Verifierade partnerprofiler med produktområden, branscherfarenhet och fördjupning – markera upp till {max} partners och jämför dem sida vid sida.
