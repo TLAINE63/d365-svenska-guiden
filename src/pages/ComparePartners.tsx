@@ -29,6 +29,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
+import BasicPartnerInquiryDialog from "@/components/BasicPartnerInquiryDialog";
 import CompareStickyCTA from "@/components/CompareStickyCTA";
 import AiCompareInsights from "@/components/AiCompareInsights";
 import { describeAiCapabilities } from "@/utils/aiScoring";
@@ -693,6 +694,7 @@ const ComparePartners = () => {
   const bSlug = params.get("b") || "";
   const cSlug = params.get("c") || "";
   const [quoteFor, setQuoteFor] = useState<{ recipients: Array<{ slug: string; name: string }>; mode: "contact" | "demo" | "quote" } | null>(null);
+  const [basicInquiryFor, setBasicInquiryFor] = useState<{ slug: string; name: string } | null>(null);
   const [isSubmittingQuote, setIsSubmittingQuote] = useState(false);
 
   const { data: partners = [], isLoading } = usePartners();
@@ -2315,7 +2317,9 @@ const ComparePartners = () => {
                         }
                         return (
                           <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-5 text-sm text-slate-600 space-y-2">
-                            <p>Välj minst två anslutna partners ovan för att kunna skicka samma förfrågan till alla och få jämförbara svar.</p>
+                            <p>
+                              Välj minst två verifierade partners ovan för att skicka samma förfrågan till alla och få jämförbara svar. Basic-profiler kan inte kontaktas direkt via d365.se.
+                            </p>
                           </div>
                         );
                       })()}
@@ -2325,6 +2329,7 @@ const ComparePartners = () => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 items-stretch">
                           {[A, B, C].map((side, idx) => {
                             if (!side.partner) return null;
+                            const basic = isBasicPartner(side.partner);
                             return (
                               <div key={idx} className="rounded-lg border border-slate-200 bg-white p-4 flex flex-col justify-between">
                                 <div>
@@ -2335,53 +2340,76 @@ const ComparePartners = () => {
                                     {side.partner.name}
                                   </div>
                                 </div>
-                                <div className="flex flex-wrap gap-2">
-                                  <Button
-                                    type="button"
-                                    size="sm"
-                                    variant="outline"
-                                    onClick={() =>
-                                      setQuoteFor({
-                                        recipients: [{ slug: side.partner!.slug, name: side.partner!.name }],
-                                        mode: "contact",
-                                      })
-                                    }
-                                    disabled={isSubmittingQuote}
-                                    className="text-xs min-h-[40px]"
-                                  >
-                                    Ställ en fråga till denna partner
-                                  </Button>
-                                  <Button
-                                    type="button"
-                                    size="sm"
-                                    variant="outline"
-                                    onClick={() =>
-                                      setQuoteFor({
-                                        recipients: [{ slug: side.partner!.slug, name: side.partner!.name }],
-                                        mode: "demo",
-                                      })
-                                    }
-                                    disabled={isSubmittingQuote}
-                                    className="text-xs min-h-[40px]"
-                                  >
-                                    Boka Demo/Genomgång
-                                  </Button>
-                                  <Button
-                                    type="button"
-                                    size="sm"
-                                    variant="outline"
-                                    onClick={() =>
-                                      setQuoteFor({
-                                        recipients: [{ slug: side.partner!.slug, name: side.partner!.name }],
-                                        mode: "quote",
-                                      })
-                                    }
-                                    disabled={isSubmittingQuote}
-                                    className="text-xs min-h-[40px]"
-                                  >
-                                    Få en Prisindikation
-                                  </Button>
-                                </div>
+                                {basic ? (
+                                  <div className="space-y-2">
+                                    <p className="text-[11px] text-slate-500 leading-relaxed">
+                                      Kontaktväg via d365.se är inte aktiverad för denna Basic-profil. d365.se kan hjälpa dig vidare.
+                                    </p>
+                                    <Button
+                                      type="button"
+                                      size="sm"
+                                      onClick={() =>
+                                        setBasicInquiryFor({
+                                          slug: side.partner!.slug,
+                                          name: side.partner!.name,
+                                        })
+                                      }
+                                      disabled={isSubmittingQuote}
+                                      className="w-full text-xs min-h-[40px] bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
+                                    >
+                                      <Mail className="w-3.5 h-3.5 mr-1.5" />
+                                      Kontakta d365.se för vägledning
+                                    </Button>
+                                  </div>
+                                ) : (
+                                  <div className="flex flex-wrap gap-2">
+                                    <Button
+                                      type="button"
+                                      size="sm"
+                                      variant="outline"
+                                      onClick={() =>
+                                        setQuoteFor({
+                                          recipients: [{ slug: side.partner!.slug, name: side.partner!.name }],
+                                          mode: "contact",
+                                        })
+                                      }
+                                      disabled={isSubmittingQuote}
+                                      className="text-xs min-h-[40px]"
+                                    >
+                                      Ställ en fråga till denna partner
+                                    </Button>
+                                    <Button
+                                      type="button"
+                                      size="sm"
+                                      variant="outline"
+                                      onClick={() =>
+                                        setQuoteFor({
+                                          recipients: [{ slug: side.partner!.slug, name: side.partner!.name }],
+                                          mode: "demo",
+                                        })
+                                      }
+                                      disabled={isSubmittingQuote}
+                                      className="text-xs min-h-[40px]"
+                                    >
+                                      Boka Demo/Genomgång
+                                    </Button>
+                                    <Button
+                                      type="button"
+                                      size="sm"
+                                      variant="outline"
+                                      onClick={() =>
+                                        setQuoteFor({
+                                          recipients: [{ slug: side.partner!.slug, name: side.partner!.name }],
+                                          mode: "quote",
+                                        })
+                                      }
+                                      disabled={isSubmittingQuote}
+                                      className="text-xs min-h-[40px]"
+                                    >
+                                      Få en Prisindikation
+                                    </Button>
+                                  </div>
+                                )}
                               </div>
                             );
                           })}
@@ -2416,8 +2444,25 @@ const ComparePartners = () => {
         />
       )}
 
+      {basicInquiryFor && (
+        <BasicPartnerInquiryDialog
+          open={!!basicInquiryFor}
+          onOpenChange={(o) => { if (!o) setBasicInquiryFor(null); }}
+          partnerName={basicInquiryFor.name}
+          partnerSlug={basicInquiryFor.slug}
+          selectedProduct={
+            productFilters.length === 1
+              ? PRODUCT_FILTER_GROUP[productFilters[0]].label
+              : undefined
+          }
+          selectedIndustry={industryFilter || undefined}
+        />
+      )}
+
       <CompareStickyCTA
-        partners={[a, b, c].filter(Boolean).map((p: any) => ({ slug: p.slug, name: p.name }))}
+        partners={[a, b, c]
+          .filter((p): p is DatabasePartner => Boolean(p) && !isBasicPartner(p))
+          .map((p) => ({ slug: p.slug, name: p.name }))}
         selectedProduct={productFilters.length === 1 ? PRODUCT_FILTER_GROUP[productFilters[0]].label : undefined}
         selectedIndustry={industryFilter || undefined}
         sourcePage="compare-partners"
