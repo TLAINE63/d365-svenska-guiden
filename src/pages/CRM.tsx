@@ -94,9 +94,12 @@ const CRM = () => {
  );
  };
 
+ const { skipTopScroll } = useIndustryDeepLink(setSelectedIndustry);
+
  useEffect(() => {
- window.scrollTo(0, 0);
- }, []);
+ if (!skipTopScroll) window.scrollTo(0, 0);
+ }, [skipTopScroll]);
+
 
  // Filter partners for CRM (using sales and service product keys)
  const crmPartners = useMemo(() => {
