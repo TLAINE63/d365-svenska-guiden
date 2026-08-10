@@ -210,6 +210,7 @@ interface ColProps {
 }
 
 const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onRequestQuote, quoteSubmitting }: ColProps) => {
+  const basic = isBasicPartner(partner);
   return (
   <div className="rounded-xl border border-slate-200 bg-white p-3 sm:p-4">
     {partner ? (
@@ -219,7 +220,7 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
           className="group block"
           aria-label={`Gå till ${partner.name}s profil`}
         >
-          {partner.logo_url ? (
+          {partner.logo_url && !basic ? (
             <img
               src={partner.logo_url}
               alt={`${partner.name} logotyp`}
@@ -233,6 +234,18 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
             </div>
           )}
         </Link>
+        <p className="mt-2 text-sm font-semibold text-slate-800">{partner.name}</p>
+        {basic ? (
+          <span className="mt-1 inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-[11px] font-medium text-slate-600">
+            <Info className="w-3 h-3" />
+            Basic-profil
+          </span>
+        ) : (
+          <span className="mt-1 inline-flex items-center gap-1.5 rounded-full border border-[hsl(var(--accent))]/30 bg-[hsl(var(--accent))]/10 px-2.5 py-0.5 text-[11px] font-medium text-[hsl(var(--accent))]">
+            <BadgeCheck className="w-3 h-3" />
+            Verifierad partner
+          </span>
+        )}
         <button
           onClick={onClear}
           className="absolute top-0 right-0 text-slate-600 hover:text-slate-900 shrink-0 p-1"
@@ -265,11 +278,18 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
           {partners.map((p) => (
             <SelectItem key={p.slug} value={p.slug}>
               {p.name}
+              {isBasicPartner(p) ? " · Basic-profil" : ""}
             </SelectItem>
           ))}
         </SelectContent>
       </Select>
-      {partner && onRequestQuote && (
+      {partner && basic && (
+        <p className="text-[11px] leading-relaxed text-slate-500">
+          Kontaktväg via d365.se är ännu inte aktiverad för denna partner. Uppgifterna nedan är
+          sammanställda av d365.se från publika källor.
+        </p>
+      )}
+      {partner && !basic && onRequestQuote && (
         <Button
           type="button"
           size="sm"
@@ -286,6 +306,7 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
   </div>
   );
 };
+
 
 
 const Cell = ({ children, mobileLabel }: { children: React.ReactNode; mobileLabel?: string }) => (
