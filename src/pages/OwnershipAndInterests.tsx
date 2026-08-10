@@ -22,9 +22,7 @@ export default function OwnershipAndInterests() {
             Så fungerar partnersamarbetet på d365.se
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Vi säljer inte system. Alla relevanta Dynamics 365-partners finns med på d365.se.
-            Partners vi samarbetar med har möjlighet att presentera sin verksamhet mer utförligt.
-            Rekommendationer och matchningar baseras alltid på relevans.
+            d365.se kartlägger den svenska Dynamics 365-partnermarknaden. Alla relevanta partners finns med, medan partners vi samarbetar med kan komplettera sin profil med mer information. Vilka partners som matchar ett företag avgörs av relevans och behov.
           </p>
         </div>
 
