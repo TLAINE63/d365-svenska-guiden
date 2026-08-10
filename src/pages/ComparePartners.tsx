@@ -1886,7 +1886,7 @@ const ComparePartners = () => {
                   <>
                     {(() => {
                       const aiPartners = [a, b, ...(c ? [c] : [])].filter(
-                        (p): p is DatabasePartner => !!p,
+                        (p): p is DatabasePartner => !!p && !isBasicPartner(p),
                       );
                       return aiPartners.length >= 2 ? (
                         <AiCompareInsights
@@ -1896,6 +1896,24 @@ const ComparePartners = () => {
                         />
                       ) : null;
                     })()}
+
+                    {anyBasicSelected && (
+                      <section className="mb-6 rounded-lg border border-slate-200 bg-slate-50 p-5">
+                        <h2 className="text-base font-semibold text-slate-800 mb-1.5 flex items-center gap-2">
+                          <Info className="w-4 h-4 text-slate-500" />
+                          Verifierad partner och Basic-profil visas olika
+                        </h2>
+                        <p className="text-sm text-slate-600 leading-relaxed">
+                          {[a, b, c].filter(isBasicPartner).map((p) => p!.name).join(", ")} har en
+                          Basic-profil. Där visas endast uppgifter som d365.se sammanställt från
+                          publika källor – de är inte bekräftade av partnern, och fält som
+                          positionering, kundcase, projektlängd, kostnadsspann och AI-kompetens
+                          finns inte att jämföra. För verifierade partners är uppgifterna lämnade
+                          och godkända av partnern själv, med kontaktväg via d365.se.
+                        </p>
+                      </section>
+                    )}
+
                     {/* Heuristisk diff-sammanfattning (regelbaserad, faktakontroll) */}
                     <section className="mb-6 rounded-lg border border-primary/30 bg-primary/5 p-5">
                       <h2 className="text-lg font-bold text-foreground mb-2">
@@ -1903,8 +1921,9 @@ const ComparePartners = () => {
                       </h2>
                       {diffPoints.length === 0 ? (
                         <p className="text-sm text-muted-foreground">
-                          Partnerna liknar varandra mycket på nyckelattributen ovan. Se
-                          fullständig jämförelse nedan för fler detaljer.
+                          {anyBasicSelected
+                            ? "Skillnadsanalysen bygger på partnerbekräftade uppgifter och kräver minst två verifierade partners. Basic-profiler visas i tabellen nedan med de uppgifter som finns."
+                            : "Partnerna liknar varandra mycket på nyckelattributen ovan. Se fullständig jämförelse nedan för fler detaljer."}
                         </p>
                       ) : (
                         <ul className="space-y-1.5 text-sm text-foreground/90 list-disc pl-5">
@@ -1914,6 +1933,7 @@ const ComparePartners = () => {
                         </ul>
                       )}
                     </section>
+
 
                     {/* Positionering: partnerns beslutsprofil (visas alltid ovanför toggle) */}
                     <section className="space-y-3 mb-6">
