@@ -282,16 +282,16 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
         </SelectTrigger>
         <SelectContent className="max-h-80">
           {partners.map((p) => (
-            <SelectItem key={p.slug} value={p.slug}>
+            <SelectItem key={p.slug} value={p.slug} className="group">
               <span className="flex items-center gap-1.5">
                 <span>{p.name}</span>
                 {isBasicPartner(p) ? (
-                  <span className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[10px] font-medium text-slate-600">
+                  <span className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[10px] font-medium text-slate-600 group-data-[state=checked]:border-white/40 group-data-[state=checked]:bg-white/15 group-data-[state=checked]:text-white">
                     <Info className="w-2.5 h-2.5" />
                     Basic-profil
                   </span>
                 ) : (
-                  <span className="inline-flex items-center gap-1 rounded-full border border-[hsl(var(--accent))]/30 bg-[hsl(var(--accent))]/10 px-1.5 py-0.5 text-[10px] font-medium text-[hsl(var(--accent))]">
+                  <span className="inline-flex items-center gap-1 rounded-full border border-[hsl(var(--accent))]/30 bg-[hsl(var(--accent))]/10 px-1.5 py-0.5 text-[10px] font-medium text-[hsl(var(--accent))] group-data-[state=checked]:border-white/40 group-data-[state=checked]:bg-white/15 group-data-[state=checked]:text-white">
                     <BadgeCheck className="w-2.5 h-2.5" />
                     Verifierad
                   </span>
