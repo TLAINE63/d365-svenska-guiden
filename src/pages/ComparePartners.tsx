@@ -2317,7 +2317,9 @@ const ComparePartners = () => {
                         }
                         return (
                           <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-5 text-sm text-slate-600 space-y-2">
-                            <p>Välj minst två anslutna partners ovan för att kunna skicka samma förfrågan till alla och få jämförbara svar.</p>
+                            <p>
+                              Välj minst två verifierade partners ovan för att skicka samma förfrågan till alla och få jämförbara svar. Basic-profiler kan inte kontaktas direkt via d365.se.
+                            </p>
                           </div>
                         );
                       })()}
