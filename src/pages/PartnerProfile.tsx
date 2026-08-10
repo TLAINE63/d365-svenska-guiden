@@ -1,5 +1,7 @@
 
 import { useState, useEffect, useMemo } from "react";
+import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
+
 import { useParams, Link, useSearchParams, useNavigate, Navigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
