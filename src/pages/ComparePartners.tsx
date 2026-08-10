@@ -2460,7 +2460,9 @@ const ComparePartners = () => {
       )}
 
       <CompareStickyCTA
-        partners={[a, b, c].filter(Boolean).map((p: any) => ({ slug: p.slug, name: p.name }))}
+        partners={[a, b, c]
+          .filter((s) => s.partner && !isBasicPartner(s.partner))
+          .map((s: any) => ({ slug: s.partner.slug, name: s.partner.name }))}
         selectedProduct={productFilters.length === 1 ? PRODUCT_FILTER_GROUP[productFilters[0]].label : undefined}
         selectedIndustry={industryFilter || undefined}
         sourcePage="compare-partners"
