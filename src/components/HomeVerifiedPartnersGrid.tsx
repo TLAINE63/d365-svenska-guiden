@@ -19,7 +19,7 @@ type RawPartner = {
   industries?: string[];
   secondary_industries?: string[];
   is_featured?: boolean;
-  product_filters?: Record<string, { industries?: string[] } | null>;
+  product_filters?: Record<string, { industries?: string[]; companySize?: string[] } | null>;
   industry_apps?: Record<string, unknown> | unknown[];
 };
 
@@ -66,8 +66,29 @@ const matchesProduct = (apps: string[] = [], id: ProductId) => {
   return true;
 };
 
+const PRODUCT_FILTER_KEY: Record<ProductId, string | null> = {
+  all: null,
+  bc: "bc",
+  fscm: "fsc",
+  sales: "sales",
+  "customer-service": "service",
+  "field-service": "service",
+  "contact-center": "service",
+  marketing: "sales",
+};
+
 const productAreas = (apps: string[] = []) =>
   APP_BADGES.filter((b) => b.match(apps)).map((b) => b.label);
+
+
+const partnerCustomerSizes = (p: RawPartner, product: ProductId) => {
+  const key = PRODUCT_FILTER_KEY[product];
+  if (!key) return [];
+  return p.product_filters?.[key]?.companySize || [];
+};
+
+
+
 
 
 const partnerIndustries = (p: RawPartner) => {
@@ -320,11 +341,22 @@ export default function HomeVerifiedPartnersGrid() {
                         )}
 
                         {product !== "all" && !industry && (
-                          <p className="text-[11px] text-muted-foreground leading-snug line-clamp-2">
+                          <p className="text-[11px] text-muted-foreground leading-snug line-clamp-2 mb-1">
                             {(() => {
                               const ind = partnerIndustries(p);
                               return ind.length > 0
                                 ? `${ind.slice(0, 4).join(" · ")}${ind.length > 4 ? ` +${ind.length - 4}` : ""}`
+                                : null;
+                            })()}
+                          </p>
+                        )}
+
+                        {product !== "all" && (
+                          <p className="text-[11px] text-muted-foreground leading-snug">
+                            {(() => {
+                              const sizes = partnerCustomerSizes(p, product);
+                              return sizes.length > 0
+                                ? `Inriktad på: ${sizes.slice(0, 4).join(" · ")}${sizes.length > 4 ? ` +${sizes.length - 4}` : ""}`
                                 : null;
                             })()}
                           </p>
