@@ -2325,7 +2325,7 @@ const ComparePartners = () => {
                         return (
                           <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-5 text-sm text-slate-600 space-y-3">
                             <p>
-                              Välj minst två verifierade partners ovan för att skicka samma förfrågan till alla och få jämförbara svar. Basic-profiler kan inte kontaktas direkt via d365.se.
+                              Välj minst två verifierade partners ovan för att skicka samma förfrågan till alla och få jämförbara svar. Ej verifierade profiler kan inte kontaktas direkt via d365.se.
                             </p>
                             {anyBasicSelected && (
                               <Button
@@ -2364,7 +2364,7 @@ const ComparePartners = () => {
                                 {basic ? (
                                   <div className="space-y-2">
                                     <p className="text-[11px] text-slate-500 leading-relaxed">
-                                      Kontaktväg via d365.se är inte aktiverad för denna Basic-profil. d365.se kan hjälpa dig vidare.
+                                      Kontaktväg via d365.se är inte aktiverad för denna ej verifierade profil. d365.se kan hjälpa dig vidare.
                                     </p>
                                     <Button
                                       type="button"
