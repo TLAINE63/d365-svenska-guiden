@@ -57,6 +57,7 @@ const GatedPdfDownload = ({
   className,
 }: Props) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { toast } = useToast();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const viewedRef = useRef(false);
@@ -193,6 +194,20 @@ const GatedPdfDownload = ({
       track("gated_pdf_lead_submitted", 3);
       setStep("delivered");
       await deliver();
+
+      // Tack-sida med nästa steg (PDF:en kan laddas ned igen därifrån).
+      const deliveryKey = `${sourceType}:${Date.now()}`;
+      setPdfDelivery(deliveryKey, deliver);
+      navigate("/tack-nedladdning", {
+        state: {
+          documentName,
+          sourceType,
+          deliveryKey,
+          firstName: name.split(" ")[0],
+          product: context.product ?? null,
+          returnTo: location.pathname,
+        },
+      });
     } catch (err) {
       console.error("GatedPdfDownload submit error", err);
       toast({
