@@ -372,7 +372,7 @@ const KomIgang = () => {
                           )}
                           {partner.slug && (
                             <Button size="sm" variant="ghost" asChild>
-                              <Link to={`/partner/${partner.slug}`}>Läs mer</Link>
+                              <Link to={`/partner/${partner.slug}`}>{`Läs mer om ${partner.name}`}</Link>
                             </Button>
                           )}
                         </div>
