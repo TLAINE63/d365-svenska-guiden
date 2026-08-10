@@ -12,8 +12,6 @@ import {
   ArrowRight,
   ArrowLeftRight,
   BarChart3,
-  Shield,
-  Check,
   Sparkles,
   BookOpen,
   ClipboardCheck,
