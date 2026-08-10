@@ -77,7 +77,18 @@ const PRODUCT_FILTER_KEY: Record<ProductId, string | null> = {
   marketing: "sales",
 };
 
+const productAreas = (apps: string[] = []) =>
   APP_BADGES.filter((b) => b.match(apps)).map((b) => b.label);
+
+
+const partnerCustomerSizes = (p: RawPartner, product: ProductId) => {
+  const key = PRODUCT_FILTER_KEY[product];
+  if (!key) return [];
+  return p.product_filters?.[key]?.companySize || [];
+};
+
+
+
 
 
 const partnerIndustries = (p: RawPartner) => {
