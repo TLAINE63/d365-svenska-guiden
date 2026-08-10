@@ -27,6 +27,8 @@ import { toast } from "sonner";
 import { usePriceMap } from "@/hooks/usePriceMap";
 import type { ProductKey } from "@/hooks/usePartnerFilters";
 import { generateImplementationPdf } from "@/utils/generateImplementationPdf";
+import QuickLeadForm from "@/components/QuickLeadForm";
+
 import {
   SOLUTIONS,
   COMPLEXITY_OPTIONS,
@@ -550,6 +552,15 @@ export default function ImplementationCalculator() {
                     </div>
                   </div>
 
+                  <QuickLeadForm
+                    className="border-[hsl(var(--cta-orange))]/30 bg-[hsl(var(--cta-orange))]/5"
+                    title="Få prisuppskattningen som PDF"
+                    description="Fyll i tre fält så startar nedladdningen direkt – och vi kan matcha er mot rätt partners."
+                    sourceType="implementation_calculator_pdf"
+                    contextNote={`Kalkyl: ${users} användare, ${integrations} integrationer`}
+                    destination={{ type: "pdf", run: handleDownloadPdf, label: "Ladda ned PDF" }}
+                  />
+
                   <div className="flex flex-col gap-2">
                     <Button
                       type="button"
@@ -571,6 +582,7 @@ export default function ImplementationCalculator() {
                       <Link to="/kostnad/">Läs mer om vad Dynamics 365 kostar</Link>
                     </Button>
                   </div>
+
 
                 </CardContent>
               </Card>
