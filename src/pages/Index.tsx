@@ -17,7 +17,6 @@ import {
   ClipboardCheck,
   Search,
   FileText,
-  Compass,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import thomasLaine from "@/assets/thomas-laine.jpeg";
