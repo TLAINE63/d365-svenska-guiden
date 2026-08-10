@@ -23,6 +23,7 @@ const STATIC_FEATURED = (partnerDataJson as any[]).filter(
 const PartnersPerBransch = () => {
   const { data: livePartners = [], isLoading } = usePartners();
   const { data: basicPartners = [] } = useBasicPartners();
+  const [verifiedOnly, setVerifiedOnly] = useState(false);
   // Use live DB data when available, otherwise the static snapshot so the
   // prerendered HTML always contains the full partner-per-bransch grid.
   const partners: DatabasePartner[] = livePartners.length > 0 ? livePartners : STATIC_FEATURED;
