@@ -29,6 +29,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
+import BasicPartnerInquiryDialog from "@/components/BasicPartnerInquiryDialog";
 import CompareStickyCTA from "@/components/CompareStickyCTA";
 import AiCompareInsights from "@/components/AiCompareInsights";
 import { describeAiCapabilities } from "@/utils/aiScoring";
