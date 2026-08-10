@@ -32,7 +32,7 @@ export default function TrustBanner({ variant = "full", className = "" }: Props)
               Så fungerar d365.se:
             </span>
             <span className="flex-1">
-              Vi säljer inte system. Alla partners betalar samma avgift. Rekommendationer baseras på relevans – inte betalning.
+              Vi säljer inte system. Alla identifierade partners kan visas. Verifierade partners betalar för en egen profil. Rekommendationer baseras på relevans – inte betalning.
             </span>
             <Link
               to="/agande-och-intressen/"
