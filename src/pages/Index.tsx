@@ -352,21 +352,15 @@ const Index = () => {
                   { n: `${IDENTIFIED_PARTNER_COUNT}`, t: "Identifierade Dynamics 365-partners i Sverige", path: "/alla-d365-partners/" },
                   { n: `${HERO_INDUSTRIES.length}`, t: "Branscher", path: "/branscher/" },
                   { n: "8+", t: "Kostnadsfria beslutsverktyg", path: "/kunskapscenter/" },
-                  { n: null, t: "Informationen och rådgivningen på denna sajt är kostnadsfri", path: "/kunskapscenter/" },
+                  { n: "0 kr", t: "Informationen och rådgivningen på denna sajt är kostnadsfri", path: "/kunskapscenter/" },
                 ].map((s) => (
                   <Link
                     key={s.t}
                     to={s.path}
                     className="bg-white/[0.04] border border-white/10 rounded px-3 sm:px-4 py-2.5 sm:py-3 min-h-[72px] flex flex-col justify-center hover:bg-white/[0.08] hover:border-white/20 transition-colors"
                   >
-                    {s.n !== null ? (
-                      <>
-                        <div className="text-[15px] sm:text-[17px] font-bold text-white leading-tight">{s.n}</div>
-                        <div className="text-[11px] sm:text-[12px] text-white/60 leading-tight">{s.t}</div>
-                      </>
-                    ) : (
-                      <div className="text-[13px] sm:text-[14px] text-white leading-tight">{s.t}</div>
-                    )}
+                    <div className="text-[15px] sm:text-[17px] font-bold text-white leading-tight">{s.n}</div>
+                    <div className="text-[11px] sm:text-[12px] text-white/60 leading-tight">{s.t}</div>
                   </Link>
                 ))}
               </div>
