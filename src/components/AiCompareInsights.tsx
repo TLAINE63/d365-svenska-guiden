@@ -93,16 +93,24 @@ const buildPartnerPayload = (
   };
 };
 
+interface ColumnSlot {
+  name: string;
+  slug: string;
+  basic?: boolean;
+}
+
 interface Props {
   partners: DatabasePartner[]; // 2 or 3 partners in display order
   productFilters: string[];
   industry: string;
+  /** Alla valda kolumner i samma ordning som rubrikerna högst upp (inkl. Basic-profiler). */
+  columnSlots?: ColumnSlot[];
 }
 
 const productLabel = (keys: string[]) =>
   keys.map((k) => (PRODUCT_FILTER_GROUP as any)[k]?.label || k).join(" / ");
 
-const AiCompareInsights = ({ partners, productFilters, industry }: Props) => {
+const AiCompareInsights = ({ partners, productFilters, industry, columnSlots }: Props) => {
   const slugs = useMemo(() => partners.map((p) => p.slug), [partners]);
   const cacheKey = useMemo(
     () => buildKey(slugs, productFilters, industry),
@@ -154,6 +162,19 @@ const AiCompareInsights = ({ partners, productFilters, industry }: Props) => {
 
   if (partners.length < 2) return null;
 
+  const slots: ColumnSlot[] =
+    columnSlots && columnSlots.length > 0
+      ? columnSlots
+      : partners.map((p) => ({ name: p.name, slug: p.slug }));
+
+  const gridCols =
+    slots.length >= 3 ? "md:grid-cols-2 lg:grid-cols-3" : "md:grid-cols-2";
+
+  const matchFor = <T extends { partner: string }>(list: T[], slot: ColumnSlot) =>
+    list.find(
+      (d) => (d.partner || "").trim().toLowerCase() === slot.name.trim().toLowerCase(),
+    );
+
   return (
     <section className="mb-6 space-y-4">
       {/* AI-insikter */}
@@ -187,22 +208,33 @@ const AiCompareInsights = ({ partners, productFilters, industry }: Props) => {
                 <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-3">
                   Vad skiljer partnerna åt?
                 </h3>
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                  {data.differences.map((d) => (
-                    <div
-                      key={d.partner}
-                      className="rounded-md border border-border bg-card p-4"
-                    >
-                      <div className="font-semibold text-foreground mb-2">
-                        {d.partner}
+                <div className={`grid gap-4 ${gridCols}`}>
+                  {slots.map((slot) => {
+                    const d = matchFor(data.differences, slot);
+                    return (
+                      <div
+                        key={slot.slug}
+                        className={
+                          d
+                            ? "rounded-md border border-border bg-card p-4"
+                            : "rounded-md border border-dashed border-border bg-muted/30 p-4"
+                        }
+                      >
+                        <div className="font-semibold text-foreground mb-2">{slot.name}</div>
+                        {d ? (
+                          <ul className="space-y-1.5 text-sm text-foreground/85 list-disc pl-4">
+                            {d.points.map((pt, i) => (
+                              <li key={i}>{pt}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className="text-sm text-muted-foreground">
+                            Basic-profil – underlag saknas för AI-jämförelse.
+                          </p>
+                        )}
                       </div>
-                      <ul className="space-y-1.5 text-sm text-foreground/85 list-disc pl-4">
-                        {d.points.map((pt, i) => (
-                          <li key={i}>{pt}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -212,18 +244,29 @@ const AiCompareInsights = ({ partners, productFilters, industry }: Props) => {
                 <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-3">
                   Passar bäst för
                 </h3>
-                <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-                  {data.bestFitFor.map((d) => (
-                    <div
-                      key={d.partner}
-                      className="rounded-md border border-accent/30 bg-accent/5 p-4"
-                    >
-                      <div className="font-semibold text-foreground mb-1">
-                        {d.partner}
+                <div className={`grid gap-3 ${gridCols}`}>
+                  {slots.map((slot) => {
+                    const d = matchFor(data.bestFitFor, slot);
+                    return (
+                      <div
+                        key={slot.slug}
+                        className={
+                          d
+                            ? "rounded-md border border-accent/30 bg-accent/5 p-4"
+                            : "rounded-md border border-dashed border-border bg-muted/30 p-4"
+                        }
+                      >
+                        <div className="font-semibold text-foreground mb-1">{slot.name}</div>
+                        <p className="text-sm text-foreground/85">
+                          {d ? d.text : (
+                            <span className="text-muted-foreground">
+                              Basic-profil – ingen partnerbekräftad information.
+                            </span>
+                          )}
+                        </p>
                       </div>
-                      <p className="text-sm text-foreground/85">{d.text}</p>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             )}
