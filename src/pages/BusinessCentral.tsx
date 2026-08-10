@@ -809,6 +809,16 @@ const BusinessCentral = () => {
  </div>
  )}
 
+ <ProductBasicPartnersSection
+ applications={["Business Central"]}
+ industry={selectedIndustry}
+ geography={selectedGeography}
+ companySize={selectedCompanySize}
+ revenue={selectedRevenue}
+ verifiedCount={bcPartners.length}
+ />
+
+
  {/* Lead CTA - shows when partners are filtered */}
  {selectedIndustry && (
  <div className="max-w-xl mx-auto mt-12">
