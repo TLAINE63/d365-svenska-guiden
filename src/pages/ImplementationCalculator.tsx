@@ -552,16 +552,23 @@ export default function ImplementationCalculator() {
                     </div>
                   </div>
 
-                  <QuickLeadForm
-                    className="border-[hsl(var(--cta-orange))]/30 bg-[hsl(var(--cta-orange))]/5"
-                    title="Få prisuppskattningen som PDF"
-                    description="Fyll i tre fält så startar nedladdningen direkt – och vi kan matcha er mot rätt partners."
+                  <GatedPdfDownload
+                    documentName="Prisuppskattning som PDF"
+                    title="Ta med hela kalkylen till budgetmötet"
+                    intro="Vi visar först vad du får – sedan levereras PDF:en direkt i webbläsaren."
+                    benefits={[
+                      "Total investering och löpande licenskostnad, uppdelat per post",
+                      "Tidsplan och timmar per projektfas – underlag för resursplanering",
+                      "Alla antaganden dokumenterade så att partners kan offerera mot samma bas",
+                      "Din egen företagsinfo och notering med i dokumentet",
+                    ]}
                     sourceType="implementation_calculator_pdf"
                     contextNote={`Kalkyl: ${users} användare, ${integrations} integrationer`}
-                    destination={{ type: "pdf", run: handleDownloadPdf, label: "Ladda ned PDF" }}
+                    onDeliver={handleDownloadPdf}
                   />
 
                   <div className="flex flex-col gap-2">
+
                     <Button
                       type="button"
                       size="lg"
