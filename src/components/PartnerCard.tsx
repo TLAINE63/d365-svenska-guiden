@@ -16,6 +16,8 @@ import {
 } from "lucide-react";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 import RelatedPartyBadge from "@/components/RelatedPartyBadge";
+import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
+
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import {
  Tooltip,
