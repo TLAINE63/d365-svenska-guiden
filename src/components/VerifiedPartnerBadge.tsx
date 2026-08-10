@@ -25,8 +25,8 @@ export default function VerifiedPartnerBadge({
 }: VerifiedPartnerBadgeProps) {
   const sizing =
     size === "md"
-      ? "text-xs px-2.5 py-1 gap-1.5"
-      : "text-[10px] px-2 py-0.5 gap-1";
+      ? "text-[11px] px-3 py-1.5 gap-1.5"
+      : "text-[10px] px-2.5 py-1 gap-1.5";
   const iconSize = size === "md" ? "h-4 w-4" : "h-3.5 w-3.5";
 
   return (
@@ -35,12 +35,16 @@ export default function VerifiedPartnerBadge({
         <TooltipTrigger asChild>
           <span
             aria-label="Verifierad partner"
-            className={`inline-flex items-center rounded-full border border-accent/40 bg-accent/10 font-semibold uppercase tracking-wide text-accent ${
-              iconOnly ? "p-1" : sizing
+            className={`group/vb relative inline-flex items-center overflow-hidden rounded-full border border-accent/60 bg-accent text-accent-foreground font-bold uppercase tracking-[0.1em] shadow-[0_2px_10px_-2px_hsl(var(--accent)/0.55)] ring-1 ring-inset ring-white/20 ${
+              iconOnly ? "p-1.5" : sizing
             } ${className}`}
           >
-            <BadgeCheck className={iconSize} aria-hidden="true" />
-            {!iconOnly && <span>Verifierad</span>}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-white/35 to-transparent -translate-x-full group-hover/vb:translate-x-full transition-transform duration-[1200ms] ease-out"
+            />
+            <BadgeCheck className={`${iconSize} relative shrink-0`} aria-hidden="true" />
+            {!iconOnly && <span className="relative">Verifierad</span>}
           </span>
         </TooltipTrigger>
         <TooltipContent side="top" className="max-w-[260px] text-xs">
@@ -51,3 +55,4 @@ export default function VerifiedPartnerBadge({
     </TooltipProvider>
   );
 }
+
