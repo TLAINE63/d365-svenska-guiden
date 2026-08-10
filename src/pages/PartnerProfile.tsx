@@ -437,6 +437,11 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   )}
   </div>
 
+  <div className="mb-4">
+    <VerifiedPartnerBadge size="md" />
+  </div>
+
+
   {/* Partnerns egen övergripande text */}
   {partner.description && (
     <p className="max-w-3xl w-full mb-4 text-base sm:text-lg text-slate-700 leading-relaxed">
