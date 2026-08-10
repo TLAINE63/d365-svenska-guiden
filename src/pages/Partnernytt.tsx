@@ -43,6 +43,13 @@ export default function Partnernytt() {
     return Array.from(map.entries()).sort((a, b) => a[1].localeCompare(b[1], "sv"));
   }, [data, allPartners]);
 
+  // Visa endast nyhetstyper som faktiskt har publicerat innehåll.
+  const types = useMemo(() => {
+    const set = new Set<string>();
+    (data ?? []).forEach((n) => n.news_type && set.add(n.news_type));
+    return TYPE_OPTIONS.filter((t) => set.has(t));
+  }, [data]);
+
   const industries = useMemo(() => {
     const set = new Set<string>();
     (data ?? []).forEach((n) => n.industry && set.add(n.industry));
