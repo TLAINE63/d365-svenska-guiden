@@ -16,6 +16,8 @@ import {
 } from "lucide-react";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 import RelatedPartyBadge from "@/components/RelatedPartyBadge";
+import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
+
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import {
  Tooltip,
@@ -414,11 +416,11 @@ const PartnerCard = ({
  {partner.name || 'Partner'}
  </h3>
  </Link>
- {isDatabasePartner(partner) && (partner as any).related_party && (
-  <div className="mb-2 -mt-1">
-   <RelatedPartyBadge />
-  </div>
- )}
+ <div className="flex flex-wrap items-center gap-1.5 mb-2 -mt-1">
+  {(!isDatabasePartner(partner) || partner.is_featured !== false) && <VerifiedPartnerBadge />}
+  {isDatabasePartner(partner) && (partner as any).related_party && <RelatedPartyBadge />}
+ </div>
+
 
 
  {/* Matchar din sökning – visas när användaren har aktiva filter */}
