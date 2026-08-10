@@ -356,7 +356,7 @@ export default function HomeVerifiedPartnersGrid() {
                             {(() => {
                               const sizes = partnerCustomerSizes(p, product);
                               return sizes.length > 0
-                                ? `Inriktad på: ${sizes.slice(0, 4).join(" · ")}${sizes.length > 4 ? ` +${sizes.length - 4}` : ""}`
+                                ? `Kundsegmentsinriktning (ant. anställda): ${sizes.slice(0, 4).join(" · ")}${sizes.length > 4 ? ` +${sizes.length - 4}` : ""}`
                                 : null;
                             })()}
                           </p>
