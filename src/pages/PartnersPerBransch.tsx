@@ -192,7 +192,7 @@ const PartnersPerBransch = () => {
         </section>
 
         {/* Basic partners per bransch – observed data, same layout as /alla-d365-partners/ */}
-        {basicPartners.length > 0 && (
+        {!verifiedOnly && basicPartners.length > 0 && (
           <section className="py-10 bg-secondary/40 border-t border-border">
             <div className="container mx-auto px-4 max-w-5xl">
               <div className="mb-8">
