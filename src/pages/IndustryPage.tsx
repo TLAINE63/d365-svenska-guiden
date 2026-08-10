@@ -262,7 +262,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  ]}
  />
  <ArticleSchema
- headline={page?.h1 || `${industryName} – Microsoft Dynamics 365`}
+ headline={(page as any)?.h1 || `${industryName} – Microsoft Dynamics 365`}
  description={
  page?.meta_description ||
  `Microsoft Dynamics 365 för ${industryName.toLowerCase()}: affärsprocesser, utmaningar, roller och partners.`
