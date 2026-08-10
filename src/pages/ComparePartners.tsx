@@ -2187,17 +2187,20 @@ const ComparePartners = () => {
                       })()}
                       <R
                         label="Kontor (städer)"
+                        basicOk
                         a={renderList(A.offices)}
                         b={renderList(B.offices)}
                         c={renderList(C.offices)}
                       />
                       <R
                         label="Geografi"
+                        basicOk
                         help="Områden där partnern levererar projekt."
                         a={renderList(A.geography)}
                         b={renderList(B.geography)}
                         c={renderList(C.geography)}
                       />
+
                     </section>
                     </>
                     )}
