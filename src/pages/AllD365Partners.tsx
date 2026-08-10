@@ -43,6 +43,7 @@ export default function AllD365Partners() {
 
   const [query, setQuery] = useState("");
   const [productFilter, setProductFilter] = useState<"all" | "bc" | "fsc" | "sales" | "service">("all");
+  const [verifiedOnly, setVerifiedOnly] = useState(false);
 
   const q = query.trim().toLowerCase();
 
