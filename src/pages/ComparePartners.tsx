@@ -2233,7 +2233,10 @@ const ComparePartners = () => {
                     <section className="space-y-3">
                       <SectionTitle icon={Mail} title="Kontakta valda partners" />
                       {(() => {
-                        const selected = [A, B, C].filter((s) => s.partner);
+                        const selected = [A, B, C].filter(
+                          (s) => s.partner && !isBasicPartner(s.partner),
+                        );
+
                         const recipients = selected.map((s) => ({ slug: s.partner!.slug, name: s.partner!.name }));
 
                         if (selected.length >= 2) {
