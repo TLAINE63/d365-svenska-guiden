@@ -171,6 +171,31 @@ const formatBcCost = (dp?: DeliveryProfile | null): string => {
 
 const EMPTY = <span className="text-slate-600 italic">—</span>;
 
+/** Basic-profiler saknar partnerbekräftade uppgifter – visas neutralt, aldrig som brist. */
+const BASIC_MISSING_LABEL = "Uppgift saknas i Basic-profil";
+const BASIC_UNVERIFIED_LABEL = "Inte verifierad uppgift";
+
+const BasicMissing = ({ label = BASIC_MISSING_LABEL }: { label?: string }) => (
+  <span className="inline-flex items-start gap-2 text-xs text-slate-500">
+    <span className="mt-[1px] inline-flex items-center justify-center w-4 h-4 rounded-full bg-slate-100 text-slate-400 shrink-0">
+      <Info className="w-3 h-3" />
+    </span>
+    <span>{label}</span>
+  </span>
+);
+
+const isBasicPartner = (p?: DatabasePartner | null): boolean =>
+  Boolean((p as any)?.is_basic_profile);
+
+/** Observerade produktnycklar → applikationsnamn som resten av sidan förstår. */
+const BASIC_PRODUCT_APPS: Record<string, string[]> = {
+  bc: ["Business Central"],
+  fsc: ["Finance & Supply Chain Management"],
+  sales: ["Sales"],
+  service: ["Customer Service"],
+};
+
+
 const cleanList = (arr?: string[] | null): string[] =>
   (arr || []).map((s) => (s || "").trim()).filter(Boolean);
 
