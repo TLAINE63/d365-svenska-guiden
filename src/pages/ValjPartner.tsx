@@ -199,6 +199,7 @@ const getDbProductRanking = (partner: DatabasePartner, productKey: ProductKey): 
 
 const ValjPartner = () => {
  const { data: dbPartners, isLoading } = usePartners();
+ const { data: basicPartners } = useBasicPartners();
  const [searchParams] = useSearchParams();
  const aiParam = searchParams.get("ai");
  const [showLeadMagnet, setShowLeadMagnet] = useState(true);
