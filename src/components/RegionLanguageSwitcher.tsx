@@ -29,7 +29,15 @@ const FLAG_CC: Record<Locale, string | null> = {
   en: null,
 };
 
-function FlagOrGlobe({ locale, className }: { locale: Locale; className?: string }) {
+function FlagOrGlobe({
+  locale,
+  className,
+  eager = false,
+}: {
+  locale: Locale;
+  className?: string;
+  eager?: boolean;
+}) {
   const cc = FLAG_CC[locale];
   if (!cc) return <Globe className={className ?? "h-4 w-4"} aria-hidden="true" />;
   return (
@@ -37,8 +45,11 @@ function FlagOrGlobe({ locale, className }: { locale: Locale; className?: string
       src={`https://flagcdn.com/${cc}.svg`}
       alt=""
       aria-hidden="true"
+      width="20"
+      height="14"
       className={className ?? "h-3.5 w-5 rounded-sm object-cover"}
-      loading="lazy"
+      loading={eager ? "eager" : "lazy"}
+      decoding="async"
     />
   );
 }
