@@ -694,6 +694,7 @@ const ComparePartners = () => {
   const bSlug = params.get("b") || "";
   const cSlug = params.get("c") || "";
   const [quoteFor, setQuoteFor] = useState<{ recipients: Array<{ slug: string; name: string }>; mode: "contact" | "demo" | "quote" } | null>(null);
+  const [basicInquiryFor, setBasicInquiryFor] = useState<{ slug: string; name: string } | null>(null);
   const [isSubmittingQuote, setIsSubmittingQuote] = useState(false);
 
   const { data: partners = [], isLoading } = usePartners();
