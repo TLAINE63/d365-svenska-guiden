@@ -3559,6 +3559,36 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Arbetsprocesser, systemstöd och en genomgång av listade partners – skriven ur köparens perspektiv.
         </p>
 
+        <div className="!mb-10 rounded-lg border border-border bg-muted/40 p-5">
+          <p className="!mt-0 !mb-3 !font-semibold">Kort svar för dig som ska välja system</p>
+          <ul className="!mb-0">
+            <li>
+              <strong>Projektredovisning:</strong> budget, prognos och successiv
+              vinstavräkning per projekt – i BC Premium för mindre bolag, i F&amp;SCM
+              för koncerner med flera bolag.
+            </li>
+            <li>
+              <strong>ÄTA-hantering:</strong> ändrings- och tilläggsarbeten
+              dokumenteras, prissätts och faktureras kopplat till projektet i stället
+              för i lösa kalkylark.
+            </li>
+            <li>
+              <strong>Underentreprenörer:</strong> inköp, attest av
+              leverantörsfakturor och avstämning mot projektbudget i samma flöde.
+            </li>
+            <li>
+              <strong>Mobil tid- och materialrapportering:</strong> tid, material och
+              maskintimmar rapporteras från arbetsplatsen och når ekonomin samma dag.
+            </li>
+            <li>
+              <strong>Kostnad:</strong> licens från ca 765 kr/användare och månad för
+              Business Central Essentials, mer för Premium, F&amp;SCM och Project
+              Operations – implementationen är den större posten.
+            </li>
+          </ul>
+        </div>
+
+
         <h2>Branschens verklighet</h2>
         <p>
           Bygg- och entreprenadbranschen är projektdriven till sin natur – och
