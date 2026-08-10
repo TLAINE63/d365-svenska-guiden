@@ -819,7 +819,7 @@ const ValjPartner = () => {
 )}
 
 {/* Basic-partners som matchar samma filter */}
-{selectedApplications.length > 0 && filteredBasicPartners.length > 0 && (
+{!verifiedOnly && selectedApplications.length > 0 && filteredBasicPartners.length > 0 && (
  <div className="mt-12 border-t border-dashed border-border pt-8">
   <div className="max-w-3xl mb-6">
    <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
