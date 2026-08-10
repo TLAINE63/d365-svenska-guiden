@@ -682,13 +682,65 @@ const ComparePartners = () => {
   const [isSubmittingQuote, setIsSubmittingQuote] = useState(false);
 
   const { data: partners = [], isLoading } = usePartners();
+  const { data: basicPartners = [] } = useBasicPartners();
 
-  const allPartners = useMemo(() => partners, [partners]);
+  /**
+   * Basic-partners görs jämförbara genom att endast observerade uppgifter
+   * mappas in. Övriga fält lämnas tomma och visas neutralt i tabellen.
+   */
+  const basicAsPartners = useMemo(
+    () =>
+      basicPartners.map((bp) => {
+        const productKeys = Object.entries(bp.observed_products || {})
+          .filter(([, v]) => v === true)
+          .map(([k]) => k);
+        const applications = Array.from(
+          new Set(productKeys.flatMap((k) => BASIC_PRODUCT_APPS[k] || [])),
+        );
+        const industries = Array.from(
+          new Set(
+            Object.values(bp.observed_industries || {})
+              .flatMap((arr) => arr || [])
+              .map((s) => (s || "").trim())
+              .filter(Boolean),
+          ),
+        );
+        const geography = Array.from(
+          new Set(
+            Object.values(bp.observed_delivery_geo || {})
+              .flatMap((arr) => arr || [])
+              .map((s) => (s || "").trim())
+              .filter(Boolean),
+          ),
+        );
+        return {
+          id: bp.id,
+          slug: bp.slug,
+          name: bp.name,
+          logo_url: null,
+          description: "",
+          applications,
+          industries,
+          secondary_industries: [],
+          geography,
+          office_cities: bp.observed_locations || [],
+          industry_apps: [],
+          is_basic_profile: true,
+        } as unknown as DatabasePartner;
+      }),
+    [basicPartners],
+  );
+
+  const allPartners = useMemo(
+    () => [...partners, ...basicAsPartners],
+    [partners, basicAsPartners],
+  );
 
   const sortedPartners = useMemo(
     () => [...allPartners].sort((x, y) => x.name.localeCompare(y.name, "sv")),
     [allPartners]
   );
+
 
   const a = allPartners.find((p) => p.slug === aSlug);
   const b = allPartners.find((p) => p.slug === bSlug);
