@@ -23,6 +23,7 @@ interface BasicPartnerInquiryDialogProps {
   partnerSlug: string;
   selectedProduct?: string;
   selectedIndustry?: string;
+  sourcePage?: string;
 }
 
 export const BasicPartnerInquiryDialog = ({
@@ -32,6 +33,7 @@ export const BasicPartnerInquiryDialog = ({
   partnerSlug,
   selectedProduct,
   selectedIndustry,
+  sourcePage = "compare-partners",
 }: BasicPartnerInquiryDialogProps) => {
   const { toast } = useToast();
   const [submitting, setSubmitting] = useState(false);
@@ -79,7 +81,7 @@ export const BasicPartnerInquiryDialog = ({
           ].join(""),
           selected_product: selectedProduct,
           industry: selectedIndustry,
-          source_page: "compare-partners",
+          source_page: sourcePage,
           source_type: "basic_partner_inquiry",
           interest_partner: partnerSlug,
         },
