@@ -42,9 +42,6 @@ export function PartnerBasicCard({
       {/* Header: name replaces logo per spec */}
       <header className="mb-4 flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <div className="mb-2">
-            <BasicPartnerBadge size={isStandalone ? "md" : "sm"} />
-          </div>
           <h3
             className={
               isStandalone
