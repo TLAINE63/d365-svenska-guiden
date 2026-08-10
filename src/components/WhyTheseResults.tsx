@@ -21,7 +21,7 @@ export default function WhyTheseResults({ className = "" }: Props) {
       </div>
       <div className="text-[13px] leading-relaxed text-foreground/85 italic">
         <p>
-          Vi säljer inte system. Alla relevanta Dynamics 365-partners finns med på d365.se. Partners vi samarbetar med har möjlighet att presentera sin verksamhet mer utförligt. Rekommendationer och matchningar baseras alltid på relevans.
+          d365.se kartlägger den svenska Dynamics 365-partnermarknaden. Alla relevanta partners finns med, medan partners vi samarbetar med kan komplettera sin profil med mer information. Vilka partners som matchar ett företag avgörs av relevans och behov.
           {" "}
           <Link to="/agande-och-intressen/" className="text-[hsl(var(--cta-orange))] hover:underline font-semibold not-italic">
             Läs mer om metodiken
