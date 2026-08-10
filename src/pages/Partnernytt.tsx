@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { CollectionPageSchema } from "@/components/StructuredData";
 import PartnerNewsCard, {
   partnerNewsProductLabel,
   partnerNewsSourceLabel,
@@ -88,6 +89,15 @@ export default function Partnernytt() {
         title="Partnernytt – utvalt från Dynamics 365-partners | d365.se"
         description="Redaktionellt utvalda nyheter, kundcase, event och erbjudanden från publicerade Dynamics 365-partners på d365.se. Länkar till originalkällan."
         canonicalPath="/partnernytt/"
+      />
+      <CollectionPageSchema
+        name="Partnernytt – utvalt från Dynamics 365-partners"
+        description="Redaktionellt utvalda nyheter, kundcase, event och erbjudanden från publicerade Dynamics 365-partners på d365.se."
+        url="https://d365.se/partnernytt/"
+        items={filtered.slice(0, 20).map((item) => ({
+          name: item.editorial_title,
+          url: `https://d365.se/partnernytt/artikel/${item.id}/`,
+        }))}
       />
       <Navbar />
       <main className="pt-24">
