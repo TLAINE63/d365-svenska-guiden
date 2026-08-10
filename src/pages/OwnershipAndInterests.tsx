@@ -22,9 +22,9 @@ export default function OwnershipAndInterests() {
             Så fungerar partnersamarbetet på d365.se
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            d365.se hjälper organisationer att välja rätt partner för Microsoft Dynamics 365.
-            För att du ska kunna lita på det vi visar förklarar den här sidan hur
-            partnersamarbetet fungerar – och vilka partners du faktiskt möter på sajten.
+            Vi säljer inte system. Alla relevanta Dynamics 365-partners finns med på d365.se.
+            Partners vi samarbetar med har möjlighet att presentera sin verksamhet mer utförligt.
+            Rekommendationer och matchningar baseras alltid på relevans.
           </p>
         </div>
 
