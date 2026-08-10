@@ -3762,7 +3762,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vad kostar Dynamics 365 för ett bygg-, entreprenad- och installationsbolag?",
         answer:
-          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Premium ligger på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}}, Supply Chain Management {{price:supply-chain-management:short}} och Project Operations {{price:project-operations:short}} – central för projektredovisning, ÄTA och underentreprenörer.\n\nImplementationskostnaden för ett medelstort bygg- och entreprenadbolag landar typiskt i intervallet 1 000 000 – 4 000 000 kr beroende på antal projekt parallellt, integrationer mot kalkyl- och tidrapporteringssystem samt branschspecifika tillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
+          "Licenskostnaden styrs av plattformsval och antal användare. Business Central Premium ligger på {{price:bc-premium:short}}. Finance kostar {{price:finance:short}}, Supply Chain Management {{price:supply-chain-management:short}} och Project Operations {{price:project-operations:short}} – central för projektredovisning, ÄTA och underentreprenörer.\n\nImplementationskostnaden för ett medelstort bygg-, entreprenad- och installationsbolag landar typiskt i intervallet 1 000 000 – 4 000 000 kr beroende på antal projekt parallellt, integrationer mot kalkyl- och tidrapporteringssystem samt branschspecifika tillägg. Räkna också med löpande förvaltning på 10–20 % av implementationen per år.",
       },
       {
         question: "Vilka problem stöter bygg-, entreprenad- och installationsbolag på i en Dynamics 365-implementation?",
