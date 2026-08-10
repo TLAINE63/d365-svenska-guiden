@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { MapPin, FileText, ScrollText, Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { BASIC_COPY, BasicPartner } from "@/hooks/useBasicPartners";
 import { BASIC_PROFILE_DISCLAIMER } from "@/components/BasicPartnerBadge";
 import BasicPartnerInquiryDialog from "@/components/BasicPartnerInquiryDialog";
 import { Button } from "@/components/ui/button";
