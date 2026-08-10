@@ -20,7 +20,9 @@ import {
   Sparkles,
   Globe2,
   Mail,
+  BadgeCheck,
 } from "lucide-react";
+
 
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -31,6 +33,8 @@ import CompareStickyCTA from "@/components/CompareStickyCTA";
 import AiCompareInsights from "@/components/AiCompareInsights";
 import { describeAiCapabilities } from "@/utils/aiScoring";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
+import { useBasicPartners } from "@/hooks/useBasicPartners";
+
 import { useTrackFilterExposure } from "@/hooks/useTrackFilterExposure";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import {
@@ -171,6 +175,31 @@ const formatBcCost = (dp?: DeliveryProfile | null): string => {
 
 const EMPTY = <span className="text-slate-600 italic">—</span>;
 
+/** Basic-profiler saknar partnerbekräftade uppgifter – visas neutralt, aldrig som brist. */
+const BASIC_MISSING_LABEL = "Uppgift saknas i Basic-profil";
+const BASIC_UNVERIFIED_LABEL = "Inte verifierad uppgift";
+
+const BasicMissing = ({ label = BASIC_MISSING_LABEL }: { label?: string }) => (
+  <span className="inline-flex items-start gap-2 text-xs text-slate-500">
+    <span className="mt-[1px] inline-flex items-center justify-center w-4 h-4 rounded-full bg-slate-100 text-slate-400 shrink-0">
+      <Info className="w-3 h-3" />
+    </span>
+    <span>{label}</span>
+  </span>
+);
+
+const isBasicPartner = (p?: DatabasePartner | null): boolean =>
+  Boolean((p as any)?.is_basic_profile);
+
+/** Observerade produktnycklar → applikationsnamn som resten av sidan förstår. */
+const BASIC_PRODUCT_APPS: Record<string, string[]> = {
+  bc: ["Business Central"],
+  fsc: ["Finance & Supply Chain Management"],
+  sales: ["Sales"],
+  service: ["Customer Service"],
+};
+
+
 const cleanList = (arr?: string[] | null): string[] =>
   (arr || []).map((s) => (s || "").trim()).filter(Boolean);
 
@@ -185,6 +214,7 @@ interface ColProps {
 }
 
 const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onRequestQuote, quoteSubmitting }: ColProps) => {
+  const basic = isBasicPartner(partner);
   return (
   <div className="rounded-xl border border-slate-200 bg-white p-3 sm:p-4">
     {partner ? (
@@ -194,7 +224,7 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
           className="group block"
           aria-label={`Gå till ${partner.name}s profil`}
         >
-          {partner.logo_url ? (
+          {partner.logo_url && !basic ? (
             <img
               src={partner.logo_url}
               alt={`${partner.name} logotyp`}
@@ -208,6 +238,18 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
             </div>
           )}
         </Link>
+        <p className="mt-2 text-sm font-semibold text-slate-800">{partner.name}</p>
+        {basic ? (
+          <span className="mt-1 inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-[11px] font-medium text-slate-600">
+            <Info className="w-3 h-3" />
+            Basic-profil
+          </span>
+        ) : (
+          <span className="mt-1 inline-flex items-center gap-1.5 rounded-full border border-[hsl(var(--accent))]/30 bg-[hsl(var(--accent))]/10 px-2.5 py-0.5 text-[11px] font-medium text-[hsl(var(--accent))]">
+            <BadgeCheck className="w-3 h-3" />
+            Verifierad partner
+          </span>
+        )}
         <button
           onClick={onClear}
           className="absolute top-0 right-0 text-slate-600 hover:text-slate-900 shrink-0 p-1"
@@ -240,11 +282,18 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
           {partners.map((p) => (
             <SelectItem key={p.slug} value={p.slug}>
               {p.name}
+              {isBasicPartner(p) ? " · Basic-profil" : ""}
             </SelectItem>
           ))}
         </SelectContent>
       </Select>
-      {partner && onRequestQuote && (
+      {partner && basic && (
+        <p className="text-[11px] leading-relaxed text-slate-500">
+          Kontaktväg via d365.se är ännu inte aktiverad för denna partner. Uppgifterna nedan är
+          sammanställda av d365.se från publika källor.
+        </p>
+      )}
+      {partner && !basic && onRequestQuote && (
         <Button
           type="button"
           size="sm"
@@ -261,6 +310,7 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
   </div>
   );
 };
+
 
 
 const Cell = ({ children, mobileLabel }: { children: React.ReactNode; mobileLabel?: string }) => (
@@ -634,13 +684,63 @@ const ComparePartners = () => {
   const [isSubmittingQuote, setIsSubmittingQuote] = useState(false);
 
   const { data: partners = [], isLoading } = usePartners();
+  const { data: basicPartners = [] } = useBasicPartners();
 
-  const allPartners = useMemo(() => partners, [partners]);
+  /**
+   * Basic-partners görs jämförbara genom att endast observerade uppgifter
+   * mappas in. Övriga fält lämnas tomma och visas neutralt i tabellen.
+   */
+  const basicAsPartners = useMemo(
+    () =>
+      basicPartners.map((bp) => {
+        const productKeys = Object.entries(bp.observed_products || {})
+          .filter(([, v]) => v === true)
+          .map(([k]) => k);
+        const applications = Array.from(
+          new Set(productKeys.flatMap((k) => BASIC_PRODUCT_APPS[k] || [])),
+        );
+        const flattenObserved = (
+          map: Partial<Record<string, string[]>> | null | undefined,
+        ): string[] =>
+          Array.from(
+            new Set(
+              Object.values(map || {})
+                .flatMap((arr) => (Array.isArray(arr) ? arr : []))
+                .map((s) => String(s || "").trim())
+                .filter(Boolean),
+            ),
+          );
+        const industries = flattenObserved(bp.observed_industries);
+        const geography = flattenObserved(bp.observed_delivery_geo);
+
+        return {
+          id: bp.id,
+          slug: bp.slug,
+          name: bp.name,
+          logo_url: null,
+          description: "",
+          applications,
+          industries,
+          secondary_industries: [],
+          geography,
+          office_cities: bp.observed_locations || [],
+          industry_apps: [],
+          is_basic_profile: true,
+        } as unknown as DatabasePartner;
+      }),
+    [basicPartners],
+  );
+
+  const allPartners = useMemo(
+    () => [...partners, ...basicAsPartners],
+    [partners, basicAsPartners],
+  );
 
   const sortedPartners = useMemo(
     () => [...allPartners].sort((x, y) => x.name.localeCompare(y.name, "sv")),
     [allPartners]
   );
+
 
   const a = allPartners.find((p) => p.slug === aSlug);
   const b = allPartners.find((p) => p.slug === bSlug);
@@ -1253,17 +1353,53 @@ const ComparePartners = () => {
 
   const [showAllRows, setShowAllRows] = useState(false);
 
-  const R = (props: { label: string; a: React.ReactNode; b: React.ReactNode; c?: React.ReactNode; warn?: boolean; help?: string; subtitle?: string }) => {
-    if (!showAllRows && !props.warn) {
+  const aIsBasic = isBasicPartner(a);
+  const bIsBasic = isBasicPartner(b);
+  const cIsBasic = isBasicPartner(c);
+  const anyBasicSelected = aIsBasic || bIsBasic || cIsBasic;
+
+  const R = (props: {
+    label: string;
+    a: React.ReactNode;
+    b: React.ReactNode;
+    c?: React.ReactNode;
+    warn?: boolean;
+    help?: string;
+    subtitle?: string;
+    /** Raden bygger på observerade uppgifter och kan visas även för Basic-profiler. */
+    basicOk?: boolean;
+    /** Neutral text som visas i Basic-kolumner. */
+    basicLabel?: string;
+  }) => {
+    const { basicOk, basicLabel, ...rest } = props;
+    const forBasic = (node: React.ReactNode, isBasic: boolean) => {
+      if (!isBasic) return node;
+      if (!basicOk) return <BasicMissing label={basicLabel} />;
+      return (
+        <div className="space-y-1.5">
+          {node}
+          <p className="text-[11px] text-slate-500">{BASIC_UNVERIFIED_LABEL}</p>
+        </div>
+      );
+    };
+
+    const next = {
+      ...rest,
+      a: forBasic(props.a, aIsBasic),
+      b: forBasic(props.b, bIsBasic),
+      c: forBasic(props.c, cIsBasic),
+    };
+    if (!showAllRows && !next.warn) {
       try {
-        const sa = JSON.stringify(props.a);
-        const sb = JSON.stringify(props.b);
-        const sc = hasC ? JSON.stringify(props.c) : sa;
+        const sa = JSON.stringify(next.a);
+        const sb = JSON.stringify(next.b);
+        const sc = hasC ? JSON.stringify(next.c) : sa;
         if (sa && sa === sb && sa === sc) return null;
       } catch {}
     }
-    return <Row {...props} aName={aName} bName={bName} cName={cName} showC={hasC} />;
+    return <Row {...next} aName={aName} bName={bName} cName={cName} showC={hasC} />;
   };
+
 
   // Heuristik: bygg skillnadspunkter mellan valda partners (utan AI-anrop).
   // När produkt- eller branschfilter är aktivt fokuseras punkterna på just
@@ -1276,7 +1412,9 @@ const ComparePartners = () => {
       { P: A, F: AF, name: A.partner?.name || "Partner 1", partner: a },
       { P: B, F: BF, name: B.partner?.name || "Partner 2", partner: b },
       ...(hasC ? [{ P: C, F: CF, name: C.partner?.name || "Partner 3", partner: c }] : []),
-    ];
+    ].filter((s) => !isBasicPartner(s.partner));
+    if (sides.length < 2) return [] as React.ReactNode[];
+
 
 
     const filterLabel = (() => {
@@ -1748,7 +1886,7 @@ const ComparePartners = () => {
                   <>
                     {(() => {
                       const aiPartners = [a, b, ...(c ? [c] : [])].filter(
-                        (p): p is DatabasePartner => !!p,
+                        (p): p is DatabasePartner => !!p && !isBasicPartner(p),
                       );
                       return aiPartners.length >= 2 ? (
                         <AiCompareInsights
@@ -1758,6 +1896,24 @@ const ComparePartners = () => {
                         />
                       ) : null;
                     })()}
+
+                    {anyBasicSelected && (
+                      <section className="mb-6 rounded-lg border border-slate-200 bg-slate-50 p-5">
+                        <h2 className="text-base font-semibold text-slate-800 mb-1.5 flex items-center gap-2">
+                          <Info className="w-4 h-4 text-slate-500" />
+                          Verifierad partner och Basic-profil visas olika
+                        </h2>
+                        <p className="text-sm text-slate-600 leading-relaxed">
+                          {[a, b, c].filter(isBasicPartner).map((p) => p!.name).join(", ")} har en
+                          Basic-profil. Där visas endast uppgifter som d365.se sammanställt från
+                          publika källor – de är inte bekräftade av partnern, och fält som
+                          positionering, kundcase, projektlängd, kostnadsspann och AI-kompetens
+                          finns inte att jämföra. För verifierade partners är uppgifterna lämnade
+                          och godkända av partnern själv, med kontaktväg via d365.se.
+                        </p>
+                      </section>
+                    )}
+
                     {/* Heuristisk diff-sammanfattning (regelbaserad, faktakontroll) */}
                     <section className="mb-6 rounded-lg border border-primary/30 bg-primary/5 p-5">
                       <h2 className="text-lg font-bold text-foreground mb-2">
@@ -1765,8 +1921,9 @@ const ComparePartners = () => {
                       </h2>
                       {diffPoints.length === 0 ? (
                         <p className="text-sm text-muted-foreground">
-                          Partnerna liknar varandra mycket på nyckelattributen ovan. Se
-                          fullständig jämförelse nedan för fler detaljer.
+                          {anyBasicSelected
+                            ? "Skillnadsanalysen bygger på partnerbekräftade uppgifter och kräver minst två verifierade partners. Basic-profiler visas i tabellen nedan med de uppgifter som finns."
+                            : "Partnerna liknar varandra mycket på nyckelattributen ovan. Se fullständig jämförelse nedan för fler detaljer."}
                         </p>
                       ) : (
                         <ul className="space-y-1.5 text-sm text-foreground/90 list-disc pl-5">
@@ -1776,6 +1933,7 @@ const ComparePartners = () => {
                         </ul>
                       )}
                     </section>
+
 
                     {/* Positionering: partnerns beslutsprofil (visas alltid ovanför toggle) */}
                     <section className="space-y-3 mb-6">
@@ -1795,6 +1953,8 @@ const ComparePartners = () => {
 
                       <R
                         label="Fokusbranscher"
+                        basicOk
+
                         subtitle="Branscher där partnern har valt att bygga särskild djupkompetens – ofta baserat på referensprojekt och branschspecifika lösningar."
                         a={renderIndustryList(scopedFocusIndustries(A), "Inga fokusbranscher uppgivna")}
                         b={renderIndustryList(scopedFocusIndustries(B), "Inga fokusbranscher uppgivna")}
@@ -1834,6 +1994,8 @@ const ComparePartners = () => {
 
                       <R
                         label="Kompetens inom Dynamics 365"
+                        basicOk
+
                         subtitle="Överblick över samtliga Dynamics 365-applikationer som partnern arbetar med."
                         warn
                         help="Alla Dynamics 365-applikationer som partnern arbetar med – oavsett vilka produkter som är valda i jämförelsen."
@@ -2047,17 +2209,20 @@ const ComparePartners = () => {
                       })()}
                       <R
                         label="Kontor (städer)"
+                        basicOk
                         a={renderList(A.offices)}
                         b={renderList(B.offices)}
                         c={renderList(C.offices)}
                       />
                       <R
                         label="Geografi"
+                        basicOk
                         help="Områden där partnern levererar projekt."
                         a={renderList(A.geography)}
                         b={renderList(B.geography)}
                         c={renderList(C.geography)}
                       />
+
                     </section>
                     </>
                     )}
@@ -2068,7 +2233,10 @@ const ComparePartners = () => {
                     <section className="space-y-3">
                       <SectionTitle icon={Mail} title="Kontakta valda partners" />
                       {(() => {
-                        const selected = [A, B, C].filter((s) => s.partner);
+                        const selected = [A, B, C].filter(
+                          (s) => s.partner && !isBasicPartner(s.partner),
+                        );
+
                         const recipients = selected.map((s) => ({ slug: s.partner!.slug, name: s.partner!.name }));
 
                         if (selected.length >= 2) {
