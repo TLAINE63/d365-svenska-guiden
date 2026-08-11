@@ -105,11 +105,6 @@ export default function PartnerNewsCard({ item, partnerName, partnerSlug, partne
           ) : null}
           <CardContent className="flex flex-1 flex-col gap-2 p-4">
             <div className="flex flex-wrap items-center gap-1.5">
-              {item.is_featured && (
-                <Badge className="bg-[hsl(var(--cta-orange))] text-white gap-1">
-                  <Sparkles className="w-3 h-3" /> Utvald
-                </Badge>
-              )}
               <Badge variant="secondary" className="bg-slate-100 text-slate-700 hover:bg-slate-100">
                 {TYPE_LABELS[item.news_type]}
               </Badge>
