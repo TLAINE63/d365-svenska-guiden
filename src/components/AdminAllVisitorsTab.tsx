@@ -98,11 +98,15 @@ export default function AdminAllVisitorsTab({ token }: { token: string | null })
     const q = search.trim().toLowerCase();
     return companies.filter(c => {
       if (onlyPartner && !c.visited_partner) return false;
+      const sig = nordicSignal(c);
+      if (region === "nordic" && !sig) return false;
+      if (region === "nordic_strict" && sig !== "country") return false;
+      if (region === "outside" && sig) return false;
       if (!q) return true;
       return [c.company_name, c.company_domain, c.company_industry, c.company_country]
         .filter(Boolean).some(v => String(v).toLowerCase().includes(q));
     });
-  }, [companies, search, onlyPartner]);
+  }, [companies, search, onlyPartner, region]);
 
   const includedCount = filtered.filter(c => included.has(c.organisation_uuid)).length;
 
