@@ -528,10 +528,7 @@
           "https://www.be-terna.com/sv/insikter/nordisk-effektivare-arbete-med-microsoft-dynamics-365"
         ],
         "productDescription": "BE-terna levererar Dynamics 365 Finance & Supply Chain Management med fokus på kunder inom grossist, distribution, tillverkningsindustri och retail. Partnern erbjuder implementering, förvaltning och vidareutveckling med en stark lokal närvaro i tio europeiska länder och global leveranskapacitet. BE-terna tillhandahåller expertis inom Dynamics 365 Finance, Supply Chain Management och Commerce, och arbetar med en strukturerad metodik för att säkerställa långsiktig stabilitet och affärsnytta för sina kunder. Deras åtagande sträcker sig över hela livscykeln för lösningen.",
-        "secondaryIndustries": [
-          "Livsmedel & Processindustri",
-          "Tillverkningsindustri"
-        ],
+        "secondaryIndustries": [],
         "ai_generated_why_keypoints": true,
         "ai_generated_why_keypoints_at": "2026-07-02T10:48:51.413Z",
         "productDescriptionAiGenerated": true,
@@ -548,7 +545,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-07-10T08:20:33.619592+00:00",
+    "updated_at": "2026-08-11T07:41:14.122197+00:00",
     "industry_pitches": [
       {
         "text": "BE-terna har erfarenhet av leveranser av Microsoft Dynamics 365 till grossist- och distributionsbranschen. Med Dynamics 365 Finance och Supply Chain Management stödjer de företag i att hantera komplexa leveranskedjor och optimera sin distribution. Deras arbete omfattar implementering och förvaltning av dessa system, med fokus på att förbättra finansiell överblick och operativ effektivitet. De har även kompetens inom Dynamics 365 Commerce för företag som vill integrera sina säljkanaler. BE-terna tillämpar en strukturerad metodik för sitt arbete, med syftet att leverera långsiktig affärsnytta. De kombinerar lokal närvaro i tio europeiska länder med global leveransförmåga.",
@@ -707,10 +704,7 @@
         ],
         "customerCaseLinks": [],
         "productDescription": "Bisqo erbjuder ett standardiserat och paketerat Business Central-erbjudande som täcker implementering, konfiguration och rådgivning. Lösningen bygger på beprövade processer, snabb leverans och tydlig omfattning, med fokus på effektiv ekonomistyrning, skalbarhet och låg risk för kunden.",
-        "secondaryIndustries": [
-          "Tillverkningsindustri",
-          "Konsulttjänster"
-        ],
+        "secondaryIndustries": [],
         "ai_generated_why_keypoints": true,
         "ai_generated_why_keypoints_at": "2026-07-02T10:49:19.570Z"
       }
@@ -725,7 +719,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-07-07T17:46:56.361216+00:00",
+    "updated_at": "2026-08-11T07:41:14.122197+00:00",
     "industry_pitches": [
       {
         "text": "Bisqo AB erbjuder molnbaserade lösningar för grossist- och distributionsbranschen med fokus på Microsoft Dynamics 365 Business Central. Partnern har kompetens inom att effektivisera affärsprocesser som är centrala för branschen, inklusive lagerhantering, orderhantering och logistik. De arbetar med att implementera och optimera dessa system för att möta krav på snabba och precisa leveranser. Bisqo AB levererar även lösningar för kundrelationshantering (CRM) baserade på Power Platform samt analysverktyg med Power BI, vilka bidrar till förbättrad överblick och beslutsfattande i komplexa logistikkedjor. Deras arbetssätt syftar till att leverera snabba och förutsägbara implementationer som ger affärsvärde för distributionsföretag som strävar efter digitalisering och effektivisering av sina processer.",
@@ -1319,10 +1313,7 @@
         "customerCaseLinks": [],
         "productDescription": "InBiz levererar Dynamics 365 Business Central med fokus på att skapa värde genom effektiva affärsprocesser. Partnern tillhandahåller lösningar för företag inom tillverkningsindustrin samt grossist- och distributionsbranschen. Med ett långsiktigt perspektiv anpassar InBiz Business Central för att möta specifika verksamhetsbehov, vilket inkluderar allt från optimering av logistik till finansiell styrning. InBiz strävar efter att implementera Business Central för att förbättra beslutsfattande och operativa flöden, vilket bidrar till ökad effektivitet och konkurrenskraft för deras kunder.",
         "aiPredictiveDetails": [],
-        "secondaryIndustries": [
-          "Livsmedel & Processindustri",
-          "Konsulttjänster"
-        ],
+        "secondaryIndustries": [],
         "aiSegmentationDetails": [],
         "ai_generated_why_keypoints": true,
         "ai_generated_why_keypoints_at": "2026-07-02T10:47:58.683Z",
@@ -1339,7 +1330,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-07-10T08:20:33.619592+00:00",
+    "updated_at": "2026-08-11T07:41:14.122197+00:00",
     "industry_pitches": [
       {
         "text": "InBiz har sedan 2005 erfarenhet av att implementera Microsoft Dynamics 365 Business Central för företag inom olika branscher, inklusive grossist- och distributionssektorn. De erbjuder lösningar som stödjer optimering av bland annat lagerhantering, logistik, inköpsprocesser och försäljning, vilket är centralt för grossisters operativa effektivitet. Genom att anpassa Business Central kan InBiz bidra till förbättrad spårbarhet och precision i leveranskedjan. Fokus ligger på att leverera stabila systemlösningar som möter de krav på snabba och precisa flöden som kännetecknar distributionsbranschen. InBiz strävar efter att underlätta för företag att hantera sina verksamhetsprocesser mer effektivt.",
@@ -1637,10 +1628,7 @@
         "customerCaseLinks": [],
         "productDescription": "Kom igång snabbt med Business Central Start – en fastprislösning för dig som vill ha grunderna i redovisning och fakturering. Bygg ut systemet när verksamheten växer. Har du mer avancerade behov, som flera lager eller stora transaktionsvolymer? Vi anpassar Business Central efter dina krav.",
         "aiPredictiveDetails": [],
-        "secondaryIndustries": [
-          "Life Science / Medtech",
-          "Konsulttjänster"
-        ],
+        "secondaryIndustries": [],
         "aiSegmentationDetails": [],
         "ai_generated_why_keypoints": true,
         "ai_generated_why_keypoints_at": "2026-07-02T10:48:55.324Z"
@@ -1746,7 +1734,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-07-07T17:46:56.361216+00:00",
+    "updated_at": "2026-08-11T07:41:14.122197+00:00",
     "industry_pitches": [
       {
         "text": "NAB Solutions erbjuder lösningar baserade på Microsoft Dynamics 365 för den svenska finans- och försäkringsbranschen. Partnern levererar systemstöd som adresserar branschens krav på digitalisering, effektivisering av processer och hantering av höga kundförväntningar. Med erfarenhet av Dynamics 365 Business Central kan de bidra till modernisering av kärnsystem för finansiell styrning.\n\nFör att möta behovet av förbättrade kundrelationer och personaliserade upplevelser implementerar NAB Solutions applikationer som Dynamics 365 Sales, Customer Service och Customer Insights (Marketing). Dessa lösningar kan stödja försäljningsprocesser, kundsupport och datadriven marknadsföring, vilket är relevant för företag som vill förstärka sin position i en konkurrensutsatt marknad. De arbetar även med Contact Center-lösningar för att effektivisera kundkommunikationen. Partnern har sedan 2001 fokuserat på Microsofts produkter och bistår företag med digitalisering.",
