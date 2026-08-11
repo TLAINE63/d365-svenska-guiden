@@ -49,11 +49,9 @@ export function usePublishedPartnerNews(opts: UsePublishedPartnerNewsOpts = {}) 
         .eq("status", "published");
       if (opts.partnerId) query = query.eq("partner_id", opts.partnerId);
       if (opts.productArea) query = query.contains("product_areas", [opts.productArea]);
-      if (opts.showOnHome) query = query.eq("show_on_home", true);
-      if (opts.showOnPartnerProfile) query = query.eq("show_on_partner_profile", true);
-      if (opts.showOnProductPage) query = query.eq("show_on_product_page", true);
+      // Placeringsflaggorna (show_on_home / show_on_partner_profile / show_on_product_page)
+      // sparas fortfarande men filtrerar inte längre – allt publicerat visas överallt.
       query = query
-        .order("is_featured", { ascending: false })
         .order("news_date", { ascending: false })
         .order("published_at", { ascending: false });
       if (opts.limit) query = query.limit(opts.limit);
