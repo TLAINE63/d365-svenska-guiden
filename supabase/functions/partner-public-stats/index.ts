@@ -1,6 +1,8 @@
-// Public site-traffic stats for partners (no auth, hidden URL).
-// Mirrors site-traffic-stats logic but without admin JWT.
+// Site-traffic stats for partners.
+// Access requires either an admin JWT or the shared partner access code
+// (PARTNER_STATS_ACCESS_CODE) – never just knowledge of the URL.
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
+
 
 function isAllowedOrigin(origin: string): boolean {
   if (!origin) return false;
