@@ -53,6 +53,7 @@ export default function AdminAllVisitorsTab({ token }: { token: string | null })
   const [companies, setCompanies] = useState<Company[]>([]);
   const [search, setSearch] = useState("");
   const [onlyPartner, setOnlyPartner] = useState(false);
+  const [region, setRegion] = useState<"all" | "nordic" | "nordic_strict" | "outside">("all");
   const [included, setIncluded] = useState<Set<string>>(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
