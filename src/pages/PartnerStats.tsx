@@ -63,7 +63,18 @@ export default function PartnerStats() {
     let cancelled = false;
     (async () => {
       setLoading(true);
-      const { data: res, error: err } = await supabase.functions.invoke("partner-public-stats", { body: {} });
+      const accessCode =
+        typeof window !== "undefined"
+          ? new URLSearchParams(window.location.search).get("kod") || ""
+          : "";
+      if (!accessCode) {
+        setError("Åtkomstkod saknas. Använd länken du fått från d365.se.");
+        setLoading(false);
+        return;
+      }
+      const { data: res, error: err } = await supabase.functions.invoke("partner-public-stats", {
+        body: { accessCode },
+      });
       if (cancelled) return;
       if (err || !res || res.error) {
         setError(err?.message || res?.error || "Kunde inte ladda statistik");
@@ -75,6 +86,7 @@ export default function PartnerStats() {
     })();
     return () => { cancelled = true; };
   }, []);
+
 
   const config = data?.config || DEFAULT_CONFIG;
   const totals = data?.totals?.[range];

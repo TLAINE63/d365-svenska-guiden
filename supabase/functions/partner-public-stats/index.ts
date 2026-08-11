@@ -1,6 +1,8 @@
-// Public site-traffic stats for partners (no auth, hidden URL).
-// Mirrors site-traffic-stats logic but without admin JWT.
+// Site-traffic stats for partners.
+// Access requires either an admin JWT or the shared partner access code
+// (PARTNER_STATS_ACCESS_CODE) – never just knowledge of the URL.
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
+
 
 function isAllowedOrigin(origin: string): boolean {
   if (!origin) return false;
@@ -37,11 +39,58 @@ const ANALYSIS_PATHS = [
   "/ai-readiness",
 ];
 
+function b64ToBin(s: string) {
+  let b = s.replace(/-/g, "+").replace(/_/g, "/");
+  while (b.length % 4) b += "=";
+  return atob(b);
+}
+
+async function verifyAdminJWT(token: string, secret: string): Promise<boolean> {
+  try {
+    const [h, p, sig] = token.split(".");
+    if (!h || !p || !sig) return false;
+    const enc = new TextEncoder();
+    const key = await crypto.subtle.importKey(
+      "raw", enc.encode(secret), { name: "HMAC", hash: "SHA-256" }, false, ["verify"],
+    );
+    const sigBin = b64ToBin(sig);
+    const sigBytes = new Uint8Array(sigBin.length);
+    for (let i = 0; i < sigBin.length; i++) sigBytes[i] = sigBin.charCodeAt(i);
+    const ok = await crypto.subtle.verify(
+      "HMAC", key, sigBytes as unknown as BufferSource, enc.encode(`${h}.${p}`),
+    );
+    if (!ok) return false;
+    const payload = JSON.parse(b64ToBin(p));
+    if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) return false;
+    return payload.role === "admin";
+  } catch {
+    return false;
+  }
+}
+
 Deno.serve(async (req) => {
   const cors = getCorsHeaders(req);
   if (req.method === "OPTIONS") return new Response(null, { headers: cors });
 
   try {
+    const body = await req.json().catch(() => ({} as Record<string, unknown>));
+    const accessCode = typeof body?.accessCode === "string" ? body.accessCode : "";
+    const adminToken = typeof body?.token === "string" ? body.token : "";
+    const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+    const expectedCode = Deno.env.get("PARTNER_STATS_ACCESS_CODE") ?? "";
+
+    const codeOk = expectedCode.length > 0 && accessCode === expectedCode;
+    const adminOk = !codeOk && adminToken.length > 0 && serviceRoleKey.length > 0
+      && await verifyAdminJWT(adminToken, serviceRoleKey);
+
+    if (!codeOk && !adminOk) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { ...cors, "Content-Type": "application/json" },
+      });
+    }
+
+
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""

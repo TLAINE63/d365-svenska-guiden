@@ -209,12 +209,15 @@ serve(async (req: Request): Promise<Response> => {
       .replace(/^-|-$/g, "")
       .slice(0, 60) || defaultBase;
     const stamp = new Date().toISOString().replace(/[-:T.]/g, "").slice(0, 14);
-    const filename = `${safeBase}-${stamp}.${ext}`;
+    const baseName = `${safeBase}-${stamp}.${ext}`;
 
     const supabase = createClient(supabaseUrl, supabaseKey);
     const contentType = isPdf ? PDF_MIME : DOCX_MIME;
     // Source documents are internal material and must never be publicly readable.
     const bucket = kind === "source" ? "partner-documents-internal" : "partner-documents";
+    // Public readability is decided by folder, not by filename: only files under
+    // `public/` in the partner-documents bucket are readable without auth.
+    const filename = kind === "source" ? baseName : `public/${baseName}`;
     const { error: upErr } = await supabase.storage
       .from(bucket)
       .upload(filename, buffer, { contentType, upsert: true });

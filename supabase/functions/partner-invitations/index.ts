@@ -1496,7 +1496,7 @@ D365.se`;
       }
 
       const resend = new Resend(resendApiKey);
-      let pdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/D365_Partner_Agreement_2026.pdf`;
+      let pdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/public/D365_Partner_Agreement_2026.pdf`;
       try {
         const { data: agrSetting } = await supabase
           .from("site_settings").select("value")
@@ -1702,7 +1702,7 @@ D365.se`;
 
       const resend = new Resend(resendApiKey);
       const baseUrl = PUBLIC_BASE_URL;
-      let pdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/D365_Partner_Agreement_2026.pdf`;
+      let pdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/public/D365_Partner_Agreement_2026.pdf`;
       try {
         const { data: agrSetting } = await supabase
           .from("site_settings").select("value")
@@ -1883,7 +1883,7 @@ D365.se`;
       }
 
       const resend = new Resend(resendApiKey);
-      const pdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/D365_Partner_Agreement_2026.pdf`;
+      const pdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/public/D365_Partner_Agreement_2026.pdf`;
       const emailSubject = customSubject || "d365.se växer – vill ni också finnas med?";
       const emailBody = customBody || "";
       const ccList: string[] = Array.isArray(cc) ? cc : (cc ? [cc] : []);
@@ -2202,7 +2202,7 @@ d365.se`;
       }
 
       // Resolve agreement PDF url (from site_settings > partner_agreement_page_config)
-      let agreementPdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/D365_Partner_Agreement_2026.pdf`;
+      let agreementPdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/public/D365_Partner_Agreement_2026.pdf`;
       try {
         const { data: agrSetting } = await supabase
           .from("site_settings")
