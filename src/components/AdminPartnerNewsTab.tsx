@@ -453,7 +453,6 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <Badge className={STATUS_STYLE[item.status]}>{STATUS_LABEL[item.status]}</Badge>
-                      {item.is_featured && <Badge className="bg-[hsl(var(--cta-orange))] text-white">Utvald</Badge>}
                       <span className="text-xs text-muted-foreground">
                         {item.partner?.name ?? "—"} · {item.news_date} · {partnerNewsTypeLabel(item.news_type)} · {partnerNewsProductLabel(item.product_area)} · {partnerNewsSourceLabel(item.source_type)}
                       </span>
@@ -700,7 +699,7 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
               <div className="rounded-md bg-muted/50 p-3 text-xs text-muted-foreground mb-3">
                 <p className="flex items-start gap-2 mb-1.5">
                   <Info className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
-                  <span><strong>Utvald</strong> – markerar nyheten som redaktionellt utvald. Den får en orange “Utvald”-badge, sorteras överst i listor och visas extra framträdande.</span>
+                  <span>Allt publicerat innehåll visas automatiskt på startsidan, produktområdessidor och partnerprofiler. Placeringsvalen nedan sparas för framtida bruk (när partners själva publicerar) men styr inte visningen just nu.</span>
                 </p>
                 <p className="flex items-start gap-2 mb-1.5">
                   <Info className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
@@ -716,7 +715,6 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
                 </p>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <label className="flex items-center gap-2"><Switch checked={form.is_featured} onCheckedChange={(v) => setForm({ ...form, is_featured: v })} /> Utvald</label>
                 <label className="flex items-center gap-2"><Switch checked={form.show_on_home} onCheckedChange={(v) => setForm({ ...form, show_on_home: v })} /> Visa på startsidan</label>
                 <label className="flex items-center gap-2"><Switch checked={form.show_on_partner_profile} onCheckedChange={(v) => setForm({ ...form, show_on_partner_profile: v })} /> Visa på partnerprofil</label>
                 <label className="flex items-center gap-2"><Switch checked={form.show_on_product_page} onCheckedChange={(v) => setForm({ ...form, show_on_product_page: v })} /> Visa på produktområdessida</label>

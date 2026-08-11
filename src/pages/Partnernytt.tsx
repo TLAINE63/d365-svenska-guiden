@@ -26,7 +26,7 @@ export default function Partnernytt() {
   const typeParam = searchParams.get("typ") ?? "all";
   const industryParam = searchParams.get("bransch") ?? "all";
   const sourceParam = searchParams.get("kalla") ?? "all";
-  const [sort, setSort] = useState<"latest" | "featured">("latest");
+  const [sort, setSort] = useState<"latest">("latest");
 
   const { data, isLoading } = usePublishedPartnerNews({});
   const { data: allPartners } = useAllPartnerNames();
@@ -67,9 +67,6 @@ export default function Partnernytt() {
     if (typeParam !== "all") list = list.filter((n) => n.news_type === typeParam);
     if (industryParam !== "all") list = list.filter((n) => n.industry === industryParam);
     if (sourceParam !== "all") list = list.filter((n) => n.source_type === sourceParam);
-    if (sort === "featured") {
-      list = [...list].sort((a, b) => Number(b.is_featured) - Number(a.is_featured));
-    }
     return list;
   }, [data, allPartners, partnerParam, productParam, typeParam, industryParam, sourceParam, sort]);
 
@@ -87,12 +84,12 @@ export default function Partnernytt() {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Partnernytt – utvalt från Dynamics 365-partners | d365.se"
-        description="Redaktionellt utvalda nyheter, kundcase, event och erbjudanden från publicerade Dynamics 365-partners på d365.se. Länkar till originalkällan."
+        description="Nyheter, kundcase, event och erbjudanden från publicerade Dynamics 365-partners på d365.se. Länkar till originalkällan."
         canonicalPath="/partnernytt/"
       />
       <CollectionPageSchema
         name="Partnernytt – utvalt från Dynamics 365-partners"
-        description="Redaktionellt utvalda nyheter, kundcase, event och erbjudanden från publicerade Dynamics 365-partners på d365.se."
+        description="Nyheter, kundcase, event och erbjudanden från publicerade Dynamics 365-partners på d365.se."
         url="https://d365.se/partnernytt/"
         items={filtered.slice(0, 20).map((item) => ({
           name: item.editorial_title,
@@ -103,9 +100,9 @@ export default function Partnernytt() {
       <main className="pt-24">
         <section className="bg-[hsl(var(--hero-dark))] text-white py-14">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-            <h1 className="text-3xl sm:text-4xl font-bold">Utvalt från Dynamics 365-partners</h1>
+            <h1 className="text-3xl sm:text-4xl font-bold">Aktuellt från Dynamics 365-partners</h1>
             <p className="mt-4 text-lg text-white/80">
-              Nyheter, kundcase, event och erbjudanden från publicerade partners på d365.se – redaktionellt utvalda och länkade till originalkällan.
+              Nyheter, kundcase, event och erbjudanden från publicerade partners på d365.se – länkade till originalkällan.
             </p>
           </div>
         </section>
@@ -163,11 +160,10 @@ export default function Partnernytt() {
                 </SelectContent>
               </Select>
 
-              <Select value={sort} onValueChange={(v) => setSort(v as "latest" | "featured")}>
+              <Select value={sort} onValueChange={(v) => setSort(v as "latest")}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="latest">Senast publicerad först</SelectItem>
-                  <SelectItem value="featured">Utvalda nyheter först</SelectItem>
                 </SelectContent>
               </Select>
             </div>
