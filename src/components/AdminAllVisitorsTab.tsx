@@ -27,6 +27,19 @@ interface Company {
 
 const STORAGE_KEY = "admin-included-visitors";
 
+const NORDIC_COUNTRIES = ["sweden", "norway", "denmark", "finland", "iceland", "åland", "aland", "faroe"];
+const NORDIC_TLDS = [".se", ".no", ".dk", ".fi", ".is", ".ax", ".fo"];
+
+type NordicSignal = "country" | "domain" | null;
+
+function nordicSignal(c: { company_country: string | null; company_domain: string | null }): NordicSignal {
+  const country = (c.company_country || "").toLowerCase();
+  if (NORDIC_COUNTRIES.some((n) => country.includes(n))) return "country";
+  const domain = (c.company_domain || "").toLowerCase().replace(/^https?:\/\//, "").replace(/\/.*$/, "");
+  if (NORDIC_TLDS.some((t) => domain.endsWith(t))) return "domain";
+  return null;
+}
+
 export default function AdminAllVisitorsTab({ token }: { token: string | null }) {
   const { toast } = useToast();
   const today = new Date();
@@ -40,6 +53,7 @@ export default function AdminAllVisitorsTab({ token }: { token: string | null })
   const [companies, setCompanies] = useState<Company[]>([]);
   const [search, setSearch] = useState("");
   const [onlyPartner, setOnlyPartner] = useState(false);
+  const [region, setRegion] = useState<"all" | "nordic" | "nordic_strict" | "outside">("all");
   const [included, setIncluded] = useState<Set<string>>(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -84,11 +98,15 @@ export default function AdminAllVisitorsTab({ token }: { token: string | null })
     const q = search.trim().toLowerCase();
     return companies.filter(c => {
       if (onlyPartner && !c.visited_partner) return false;
+      const sig = nordicSignal(c);
+      if (region === "nordic" && !sig) return false;
+      if (region === "nordic_strict" && sig !== "country") return false;
+      if (region === "outside" && sig) return false;
       if (!q) return true;
       return [c.company_name, c.company_domain, c.company_industry, c.company_country]
         .filter(Boolean).some(v => String(v).toLowerCase().includes(q));
     });
-  }, [companies, search, onlyPartner]);
+  }, [companies, search, onlyPartner, region]);
 
   const includedCount = filtered.filter(c => included.has(c.organisation_uuid)).length;
 
@@ -163,6 +181,19 @@ export default function AdminAllVisitorsTab({ token }: { token: string | null })
             <label className="text-xs font-medium block mb-1">Sök</label>
             <Input value={search} onChange={e => setSearch(e.target.value)} placeholder="Företag, domän, bransch…" />
           </div>
+          <div>
+            <label className="text-xs font-medium block mb-1">Region</label>
+            <select
+              value={region}
+              onChange={(e) => setRegion(e.target.value as typeof region)}
+              className="h-10 rounded-md border border-input bg-background px-3 text-sm"
+            >
+              <option value="all">Alla länder</option>
+              <option value="nordic">Nordiska företag (land eller domän)</option>
+              <option value="nordic_strict">Endast nordiskt registrerat land</option>
+              <option value="outside">Utanför Norden</option>
+            </select>
+          </div>
           <label className="flex items-center gap-2 text-sm">
             <Checkbox checked={onlyPartner} onCheckedChange={(v) => setOnlyPartner(!!v)} />
             Endast partnerbesök
@@ -232,7 +263,16 @@ export default function AdminAllVisitorsTab({ token }: { token: string | null })
                     </td>
                     <td className="p-2 text-muted-foreground">{c.company_industry || "—"}</td>
                     <td className="p-2 text-muted-foreground">{c.company_size || "—"}</td>
-                    <td className="p-2 text-muted-foreground">{c.company_country || "—"}</td>
+                    <td className="p-2 text-muted-foreground">
+                      <div className="flex items-center gap-1.5">
+                        <span>{c.company_country || "—"}</span>
+                        {nordicSignal(c) === "domain" && (
+                          <Badge variant="outline" className="text-[10px]" title="Landet anges utanför Norden men domänen är nordisk – troligen ett nordiskt besök.">
+                            Nordisk domän
+                          </Badge>
+                        )}
+                      </div>
+                    </td>
                     <td className="p-2 text-right">{c.url_count}</td>
                     <td className="p-2">
                       {c.partner_slugs.length > 0 ? (
