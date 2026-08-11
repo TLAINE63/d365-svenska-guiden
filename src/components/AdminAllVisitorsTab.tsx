@@ -181,6 +181,19 @@ export default function AdminAllVisitorsTab({ token }: { token: string | null })
             <label className="text-xs font-medium block mb-1">Sök</label>
             <Input value={search} onChange={e => setSearch(e.target.value)} placeholder="Företag, domän, bransch…" />
           </div>
+          <div>
+            <label className="text-xs font-medium block mb-1">Region</label>
+            <select
+              value={region}
+              onChange={(e) => setRegion(e.target.value as typeof region)}
+              className="h-10 rounded-md border border-input bg-background px-3 text-sm"
+            >
+              <option value="all">Alla länder</option>
+              <option value="nordic">Nordiska företag (land eller domän)</option>
+              <option value="nordic_strict">Endast nordiskt registrerat land</option>
+              <option value="outside">Utanför Norden</option>
+            </select>
+          </div>
           <label className="flex items-center gap-2 text-sm">
             <Checkbox checked={onlyPartner} onCheckedChange={(v) => setOnlyPartner(!!v)} />
             Endast partnerbesök
