@@ -250,7 +250,16 @@ export default function AdminAllVisitorsTab({ token }: { token: string | null })
                     </td>
                     <td className="p-2 text-muted-foreground">{c.company_industry || "—"}</td>
                     <td className="p-2 text-muted-foreground">{c.company_size || "—"}</td>
-                    <td className="p-2 text-muted-foreground">{c.company_country || "—"}</td>
+                    <td className="p-2 text-muted-foreground">
+                      <div className="flex items-center gap-1.5">
+                        <span>{c.company_country || "—"}</span>
+                        {nordicSignal(c) === "domain" && (
+                          <Badge variant="outline" className="text-[10px]" title="Landet anges utanför Norden men domänen är nordisk – troligen ett nordiskt besök.">
+                            Nordisk domän
+                          </Badge>
+                        )}
+                      </div>
+                    </td>
                     <td className="p-2 text-right">{c.url_count}</td>
                     <td className="p-2">
                       {c.partner_slugs.length > 0 ? (
