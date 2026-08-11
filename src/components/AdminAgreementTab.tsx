@@ -305,7 +305,7 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
       ? "Platshållare: {{INVITATION_LINK}}, {{PDF_LINK}}"
       : "Platshållare: {{PDF_LINK}}";
 
-  const pdfUrl = `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/partner-documents/D365_Partner_Agreement_2026.pdf`;
+  const pdfUrl = `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/partner-documents/public/D365_Partner_Agreement_2026.pdf`;
 
   // All partners with an email, filtered
   const allWithEmail = partners.filter((p) => p.admin_contact_email || p.email);
