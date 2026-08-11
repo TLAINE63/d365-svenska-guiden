@@ -699,7 +699,7 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
               <div className="rounded-md bg-muted/50 p-3 text-xs text-muted-foreground mb-3">
                 <p className="flex items-start gap-2 mb-1.5">
                   <Info className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
-                  <span><strong>Utvald</strong> – markerar nyheten som redaktionellt utvald. Den får en orange “Utvald”-badge, sorteras överst i listor och visas extra framträdande.</span>
+                  <span>Allt publicerat innehåll visas automatiskt på startsidan, produktområdessidor och partnerprofiler. Placeringsvalen nedan sparas för framtida bruk (när partners själva publicerar) men styr inte visningen just nu.</span>
                 </p>
                 <p className="flex items-start gap-2 mb-1.5">
                   <Info className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />

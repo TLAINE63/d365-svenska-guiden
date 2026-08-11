@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, ArrowRight, Sparkles } from "lucide-react";
+import { ExternalLink, ArrowRight } from "lucide-react";
 import type { PartnerNewsItem, PartnerNewsProductArea, PartnerNewsSourceType, PartnerNewsType } from "@/hooks/usePartnerNews";
 import { trackPartnerNewsClick, type PartnerNewsClickSource } from "@/utils/trackPartnerNewsClick";
 
