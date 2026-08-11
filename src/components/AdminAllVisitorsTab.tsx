@@ -27,6 +27,19 @@ interface Company {
 
 const STORAGE_KEY = "admin-included-visitors";
 
+const NORDIC_COUNTRIES = ["sweden", "norway", "denmark", "finland", "iceland", "åland", "aland", "faroe"];
+const NORDIC_TLDS = [".se", ".no", ".dk", ".fi", ".is", ".ax", ".fo"];
+
+type NordicSignal = "country" | "domain" | null;
+
+function nordicSignal(c: { company_country: string | null; company_domain: string | null }): NordicSignal {
+  const country = (c.company_country || "").toLowerCase();
+  if (NORDIC_COUNTRIES.some((n) => country.includes(n))) return "country";
+  const domain = (c.company_domain || "").toLowerCase().replace(/^https?:\/\//, "").replace(/\/.*$/, "");
+  if (NORDIC_TLDS.some((t) => domain.endsWith(t))) return "domain";
+  return null;
+}
+
 export default function AdminAllVisitorsTab({ token }: { token: string | null }) {
   const { toast } = useToast();
   const today = new Date();
