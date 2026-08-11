@@ -1760,15 +1760,6 @@ Thomas`,
  updateProductFilter(product, { industries: newIndustries });
  };
 
- const toggleProductSecondaryIndustry = (product: ProductKey, ind: string) => {
- const current = getProductFilter(product);
- const newIndustries = current.secondaryIndustries.includes(ind)
- ? current.secondaryIndustries.filter((i) => i !== ind)
- : current.secondaryIndustries.length < 2
- ? [...current.secondaryIndustries, ind]
- : current.secondaryIndustries; // Max 2
- updateProductFilter(product, { secondaryIndustries: newIndustries });
- };
 
  const isProductActive = (product: ProductKey): boolean => {
  const filter = getProductFilter(product);
