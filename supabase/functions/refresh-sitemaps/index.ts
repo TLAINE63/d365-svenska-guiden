@@ -97,6 +97,35 @@ async function pingIndexNow(urls: string[]) {
   return { status: res.status, ok: res.ok, urls: urls.length, error };
 }
 
+function b64ToBin(s: string) {
+  let b = s.replace(/-/g, "+").replace(/_/g, "/");
+  while (b.length % 4) b += "=";
+  return atob(b);
+}
+
+async function verifyAdminJWT(token: string, secret: string): Promise<boolean> {
+  try {
+    const [h, p, sig] = token.split(".");
+    if (!h || !p || !sig) return false;
+    const enc = new TextEncoder();
+    const key = await crypto.subtle.importKey(
+      "raw", enc.encode(secret), { name: "HMAC", hash: "SHA-256" }, false, ["verify"],
+    );
+    const sigBin = b64ToBin(sig);
+    const sigBytes = new Uint8Array(sigBin.length);
+    for (let i = 0; i < sigBin.length; i++) sigBytes[i] = sigBin.charCodeAt(i);
+    const ok = await crypto.subtle.verify(
+      "HMAC", key, sigBytes as unknown as BufferSource, enc.encode(`${h}.${p}`),
+    );
+    if (!ok) return false;
+    const payload = JSON.parse(b64ToBin(p));
+    if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) return false;
+    return payload.role === "admin";
+  } catch {
+    return false;
+  }
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
@@ -104,6 +133,25 @@ Deno.serve(async (req) => {
 
   const lovableKey = Deno.env.get("LOVABLE_API_KEY");
   const gscKey = Deno.env.get("GOOGLE_SEARCH_CONSOLE_API_KEY");
+  const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+
+  // Authorization: either the scheduled cron job (service role key) or an admin JWT.
+  const body = await req.json().catch(() => ({} as Record<string, unknown>));
+  const bearer = (req.headers.get("Authorization") || "").replace(/^Bearer\s+/i, "").trim();
+  const cronToken = typeof body?.cron_token === "string" ? body.cron_token : "";
+  const adminToken = typeof body?.token === "string" ? body.token : "";
+
+  const isCron = serviceRoleKey.length > 0 && (bearer === serviceRoleKey || cronToken === serviceRoleKey);
+  const isAdmin = !isCron && adminToken.length > 0 && serviceRoleKey.length > 0
+    && await verifyAdminJWT(adminToken, serviceRoleKey);
+
+  if (!isCron && !isAdmin) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), {
+      status: 401,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+
 
   if (!lovableKey) {
     return new Response(JSON.stringify({ error: "LOVABLE_API_KEY not configured" }), {
