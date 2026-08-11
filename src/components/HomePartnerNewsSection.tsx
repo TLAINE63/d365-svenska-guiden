@@ -59,11 +59,6 @@ function HomeNewsCard({ item, index }: { item: PartnerNewsItem; index: number })
       ) : null}
       <div className="flex flex-1 flex-col gap-3 p-5">
         <div className="flex flex-wrap items-center gap-1.5">
-          {item.is_featured && (
-            <Badge className="bg-[hsl(var(--cta-orange))] text-white gap-1">
-              <Sparkles className="w-3 h-3" /> Utvald
-            </Badge>
-          )}
           <Badge variant="secondary" className="text-[11px] tracking-wide">
             {partnerNewsTypeLabel(item.news_type)}
           </Badge>
