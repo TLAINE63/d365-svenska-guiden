@@ -484,7 +484,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  <div className="flex items-center gap-2 mb-2">
  <Building2 className="w-5 h-5 text-primary" />
  <h2 className="text-2xl font-bold">
- {matchingPartners.length === 1 ? '1 partner' : `${matchingPartners.length} partners`} inom {industryName}
+ {matchingPartners.length === 1 ? '1 verifierad partner' : `${matchingPartners.length} verifierade partners`} inom {industryName}
  </h2>
  </div>
  <p className="text-sm text-muted-foreground mb-6">
