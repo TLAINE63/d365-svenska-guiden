@@ -204,6 +204,23 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  return seededShuffle(filtered, seed);
  }, [partners, meta, selected, slug, selectedGeography, selectedCompanySize]);
 
+ const matchingBasicPartners = useMemo(() => {
+  if (!meta) return [];
+  const underlyingSelected = Array.from(new Set(selected.map((k) => FILTER_TO_UNDERLYING[k])));
+  const labelByKey: Record<string, string> = {
+   bc: "Business Central",
+   fsc: "Finance & SCM",
+   sales: "Sales",
+   service: "Customer Service",
+  };
+  return filterBasicPartners(basicPartners || [], {
+   applications: underlyingSelected.map((k) => labelByKey[k]).filter(Boolean),
+   industry: meta.name,
+   companySize: selectedCompanySize,
+   geography: selectedGeography,
+  });
+ }, [basicPartners, meta, selected, selectedGeography, selectedCompanySize]);
+
  if (!loading && !page) {
  return (
  <>
