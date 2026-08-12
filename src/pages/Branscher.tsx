@@ -11,6 +11,8 @@ import { collectPartnerIndustries } from "@/lib/partnerIndustries";
 import { FilterButtons } from "@/components/FilterButtons";
 import { companySizes, geographyOptions } from "@/data/partners";
 import type { DatabasePartner } from "@/hooks/usePartners";
+import { useBasicPartners } from "@/hooks/useBasicPartners";
+import { filterBasicPartners } from "@/lib/basicPartnerMatch";
 
 const INDUSTRY_CONTEXT: Record<string, string> = {
  "tillverkning": "MES, spårbarhet, kvalitet",
