@@ -570,6 +570,27 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
   </div>
    </>
    )}
+
+ {matchingBasicPartners.length > 0 && (
+  <div className="mt-10 border-t border-dashed border-border pt-8">
+   <h3 className="text-lg md:text-xl font-bold text-foreground mb-2">
+    {matchingBasicPartners.length === 1
+     ? "1 identifierad partner"
+     : `${matchingBasicPartners.length} identifierade partners`}{" "}
+    inom {industryName}
+   </h3>
+   <p className="text-sm text-muted-foreground mb-5 max-w-3xl">
+    Grundläggande information sammanställd av d365.se från publika källor. Profilerna är
+    ännu inte verifierade av partnern och saknar därför kontaktuppgifter och detaljerade
+    kompetenser. Hör av dig till oss så hjälper vi dig vidare.
+   </p>
+   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {matchingBasicPartners.map((bp) => (
+     <PartnerBasicCard key={bp.id} partner={bp} variant="list" />
+    ))}
+   </div>
+  </div>
+ )}
  </div>
  </section>
 
