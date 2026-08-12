@@ -139,6 +139,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  const meta = slug ? findIndustryBySlug(slug) : undefined;
  const { page, loading } = useIndustryPage(slug);
  const { data: partnersLive } = usePartners();
+ const { data: basicPartners } = useBasicPartners();
  // Prefer live data after hydration; fall back to SSR-injected partners
  const partners = partnersLive ?? initialPartners ?? undefined;
  const [selected, setSelected] = useState<FilterKey[]>([]);
