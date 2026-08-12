@@ -6,6 +6,9 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, FAQSchema, ArticleSchema } from "@/components/StructuredData";
 import PartnerCard from "@/components/PartnerCard";
+import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
+import { useBasicPartners } from "@/hooks/useBasicPartners";
+import { filterBasicPartners } from "@/lib/basicPartnerMatch";
 import WhyTheseResults from "@/components/WhyTheseResults";
 import RelatedPages, { branschRelatedPages } from "@/components/RelatedPages";
 import { useIndustryPage } from "@/hooks/useIndustryPage";
@@ -136,6 +139,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  const meta = slug ? findIndustryBySlug(slug) : undefined;
  const { page, loading } = useIndustryPage(slug);
  const { data: partnersLive } = usePartners();
+ const { data: basicPartners } = useBasicPartners();
  // Prefer live data after hydration; fall back to SSR-injected partners
  const partners = partnersLive ?? initialPartners ?? undefined;
  const [selected, setSelected] = useState<FilterKey[]>([]);
@@ -203,6 +207,23 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  const seed = hashString(`${slug}-${selected.join(",")}-${selectedGeography || ""}-${selectedCompanySize || ""}`);
  return seededShuffle(filtered, seed);
  }, [partners, meta, selected, slug, selectedGeography, selectedCompanySize]);
+
+ const matchingBasicPartners = useMemo(() => {
+  if (!meta) return [];
+  const underlyingSelected = Array.from(new Set(selected.map((k) => FILTER_TO_UNDERLYING[k])));
+  const labelByKey: Record<string, string> = {
+   bc: "Business Central",
+   fsc: "Finance & SCM",
+   sales: "Sales",
+   service: "Customer Service",
+  };
+  return filterBasicPartners(basicPartners || [], {
+   applications: underlyingSelected.map((k) => labelByKey[k]).filter(Boolean),
+   industry: meta.name,
+   companySize: selectedCompanySize,
+   geography: selectedGeography,
+  });
+ }, [basicPartners, meta, selected, selectedGeography, selectedCompanySize]);
 
  if (!loading && !page) {
  return (
@@ -463,7 +484,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  <div className="flex items-center gap-2 mb-2">
  <Building2 className="w-5 h-5 text-primary" />
  <h2 className="text-2xl font-bold">
- {matchingPartners.length === 1 ? '1 partner' : `${matchingPartners.length} partners`} inom {industryName}
+ {matchingPartners.length === 1 ? '1 verifierad partner' : `${matchingPartners.length} verifierade partners`} inom {industryName}
  </h2>
  </div>
  <p className="text-sm text-muted-foreground mb-6">
@@ -570,6 +591,27 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
   </div>
    </>
    )}
+
+ {matchingBasicPartners.length > 0 && (
+  <div className="mt-10 border-t border-dashed border-border pt-8">
+   <h3 className="text-lg md:text-xl font-bold text-foreground mb-2">
+    {matchingBasicPartners.length === 1
+     ? "1 identifierad partner"
+     : `${matchingBasicPartners.length} identifierade partners`}{" "}
+    inom {industryName}
+   </h3>
+   <p className="text-sm text-muted-foreground mb-5 max-w-3xl">
+    Grundläggande information sammanställd av d365.se från publika källor. Profilerna är
+    ännu inte verifierade av partnern och saknar därför kontaktuppgifter och detaljerade
+    kompetenser. Hör av dig till oss så hjälper vi dig vidare.
+   </p>
+   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {matchingBasicPartners.map((bp) => (
+     <PartnerBasicCard key={bp.id} partner={bp} variant="list" />
+    ))}
+   </div>
+  </div>
+ )}
  </div>
  </section>
 

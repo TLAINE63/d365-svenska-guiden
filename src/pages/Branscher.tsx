@@ -11,6 +11,8 @@ import { collectPartnerIndustries } from "@/lib/partnerIndustries";
 import { FilterButtons } from "@/components/FilterButtons";
 import { companySizes, geographyOptions } from "@/data/partners";
 import type { DatabasePartner } from "@/hooks/usePartners";
+import { useBasicPartners } from "@/hooks/useBasicPartners";
+import { filterBasicPartners } from "@/lib/basicPartnerMatch";
 
 const INDUSTRY_CONTEXT: Record<string, string> = {
  "tillverkning": "MES, spårbarhet, kvalitet",
@@ -121,13 +123,15 @@ const partnerMatchesIndustryFilters = (
 const Branscher = () => {
   const { covered } = useCoveredIndustries();
   const { data: partners } = usePartners();
+  const { data: basicPartners } = useBasicPartners();
   const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
   const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
 
   const visibleIndustries = STANDARD_INDUSTRIES.filter((i) => covered.has(i.name));
 
-  const { filteredIndustries, filteredPartnerCounts } = useMemo(() => {
+  const { filteredIndustries, filteredPartnerCounts, basicPartnerCounts } = useMemo(() => {
     const counts: Record<string, number> = {};
+    const basicCounts: Record<string, number> = {};
     const filtered = visibleIndustries.filter((ind) => {
       const count = (partners || [])
         .filter((p) => p.is_featured === true)
@@ -135,10 +139,20 @@ const Branscher = () => {
           partnerMatchesIndustryFilters(p, ind.name, selectedGeography, selectedCompanySize)
         ).length;
       counts[ind.name] = count;
+      basicCounts[ind.name] = filterBasicPartners(basicPartners || [], {
+        applications: [],
+        industry: ind.name,
+        companySize: selectedCompanySize,
+        geography: selectedGeography,
+      }).length;
       return count > 0;
     });
-    return { filteredIndustries: filtered, filteredPartnerCounts: counts };
-  }, [visibleIndustries, partners, selectedGeography, selectedCompanySize]);
+    return {
+      filteredIndustries: filtered,
+      filteredPartnerCounts: counts,
+      basicPartnerCounts: basicCounts,
+    };
+  }, [visibleIndustries, partners, basicPartners, selectedGeography, selectedCompanySize]);
 
   const hasActiveFilters = selectedGeography || selectedCompanySize;
 
@@ -192,6 +206,7 @@ const Branscher = () => {
                 const img = INDUSTRY_IMAGES[ind.slug];
                 const context = INDUSTRY_CONTEXT[ind.slug];
                 const count = filteredPartnerCounts[ind.name] || 0;
+                const basicCount = basicPartnerCounts[ind.name] || 0;
                 return (
                   <Link
                     key={ind.slug}
@@ -226,8 +241,15 @@ const Branscher = () => {
                         </span>
                       )}
                       <span className="text-xs font-medium text-primary/80 mt-0.5">
-                        {count > 0 ? `${count} ${count === 1 ? "partner listad" : "partners listade"}` : "Kommer snart"}
+                        {count > 0
+                          ? `${count} ${count === 1 ? "verifierad partner" : "verifierade partners"}`
+                          : "Kommer snart"}
                       </span>
+                      {basicCount > 0 && (
+                        <span className="text-xs text-muted-foreground">
+                          {basicCount} {basicCount === 1 ? "identifierad partner" : "identifierade partners"}
+                        </span>
+                      )}
                     </div>
                     <ChevronRight className="absolute bottom-2.5 right-2.5 h-4 w-4 text-muted-foreground/60 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
                   </Link>
