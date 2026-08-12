@@ -206,6 +206,7 @@ const Branscher = () => {
                 const img = INDUSTRY_IMAGES[ind.slug];
                 const context = INDUSTRY_CONTEXT[ind.slug];
                 const count = filteredPartnerCounts[ind.name] || 0;
+                const basicCount = basicPartnerCounts[ind.name] || 0;
                 return (
                   <Link
                     key={ind.slug}
