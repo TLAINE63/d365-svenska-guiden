@@ -362,48 +362,69 @@ export type Database = {
       }
       isv_solution_overrides: {
         Row: {
+          admin_contact_email: string | null
+          admin_contact_name: string | null
+          admin_contact_phone: string | null
           combos: string[] | null
           created_at: string
           industries: string[]
           products: string[]
+          sales_contact_email: string | null
+          sales_contact_name: string | null
+          sales_contact_phone: string | null
           short_description: string | null
           solution_id: string
           updated_at: string
           use_cases: string[] | null
           vendor_contact_email: string | null
           vendor_contact_name: string | null
+          vendor_name: string | null
           vendor_updated_at: string | null
           vendor_website: string | null
           what: string | null
           when_fits: string | null
         }
         Insert: {
+          admin_contact_email?: string | null
+          admin_contact_name?: string | null
+          admin_contact_phone?: string | null
           combos?: string[] | null
           created_at?: string
           industries?: string[]
           products?: string[]
+          sales_contact_email?: string | null
+          sales_contact_name?: string | null
+          sales_contact_phone?: string | null
           short_description?: string | null
           solution_id: string
           updated_at?: string
           use_cases?: string[] | null
           vendor_contact_email?: string | null
           vendor_contact_name?: string | null
+          vendor_name?: string | null
           vendor_updated_at?: string | null
           vendor_website?: string | null
           what?: string | null
           when_fits?: string | null
         }
         Update: {
+          admin_contact_email?: string | null
+          admin_contact_name?: string | null
+          admin_contact_phone?: string | null
           combos?: string[] | null
           created_at?: string
           industries?: string[]
           products?: string[]
+          sales_contact_email?: string | null
+          sales_contact_name?: string | null
+          sales_contact_phone?: string | null
           short_description?: string | null
           solution_id?: string
           updated_at?: string
           use_cases?: string[] | null
           vendor_contact_email?: string | null
           vendor_contact_name?: string | null
+          vendor_name?: string | null
           vendor_updated_at?: string | null
           vendor_website?: string | null
           what?: string | null
