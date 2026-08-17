@@ -91,6 +91,34 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
       "Vidareutveckling: nya rapporter, automatiseringar, Copilot-funktioner",
     ],
     note: SHARED_NOTE,
+    examples: [
+      {
+        title: "Mindre standardimplementationer",
+        scope: "Standarduppsättning med begränsade anpassningar",
+        range: "150 000 – 400 000 kr",
+        bullets: [
+          "2–4 månaders projekt",
+          "Standardprocesser och funktionalitet",
+          "Grundläggande utbildning",
+          "Datamigration från enklare system",
+          "Få eller inga integrationer",
+          "5–20 användare",
+        ],
+      },
+      {
+        title: "Mer avancerade implementationer",
+        scope: "Anpassad lösning med integrationer och komplexitet",
+        range: "500 000 – 1 500 000 kr",
+        bullets: [
+          "4–8 månaders projekt",
+          "Anpassade processer och workflows",
+          "Omfattande utbildning",
+          "Komplex datamigration",
+          "Flera systemintegrationer",
+          "20–200 användare",
+        ],
+      },
+    ],
   },
 
   "finance-scm": {
