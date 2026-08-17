@@ -101,6 +101,17 @@ export default function AdminIsvInvitationsTab({ token, onSessionExpired, onAppr
 
   useEffect(() => { load(); /* eslint-disable-next-line */ }, [token]);
 
+  // Använd uppdaterat leverantörsnamn från ISV-katalogen när det finns
+  const solutionOptions = useMemo(
+    () =>
+      BC_ISV_SOLUTIONS.map((s) => ({
+        id: s.id,
+        name: s.name,
+        vendor: contacts?.[s.id]?.vendor?.trim() || s.vendor,
+      })).sort((a, b) => a.vendor.localeCompare(b.vendor, "sv") || a.name.localeCompare(b.name, "sv")),
+    [contacts]
+  );
+
   const pending = useMemo(() => submissions.filter((s) => s.status === "pending"), [submissions]);
 
   const create = async () => {
