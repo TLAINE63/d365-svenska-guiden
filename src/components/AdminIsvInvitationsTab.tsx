@@ -193,7 +193,7 @@ export default function AdminIsvInvitationsTab({ token, onSessionExpired, onAppr
                 onChange={(e) => selectSolution(e.target.value)}
               >
                 <option value="">Välj lösning…</option>
-                {BC_ISV_SOLUTIONS.map((s) => (
+                {solutionOptions.map((s) => (
                   <option key={s.id} value={s.id}>{s.name} ({s.vendor})</option>
                 ))}
               </select>
