@@ -9,7 +9,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { ArrowLeft, X, Filter } from "lucide-react";
 import {
-  BC_ISV_SOLUTIONS,
   CATEGORIES,
   TYPES,
   INDUSTRIES,
@@ -20,6 +19,7 @@ import {
   type SolutionIndustry,
   type SolutionGeo,
 } from "@/data/bcIsvSolutions";
+import { useIsvSolutions } from "@/hooks/useIsvSolutions";
 import { ISV_COMPARISONS } from "@/data/isvComparisons";
 
 const TYPE_BADGE: Record<SolutionType, string> = {
@@ -244,6 +244,8 @@ const BCTillaggKatalog = () => {
     setter(next);
   };
 
+  const BC_ISV_SOLUTIONS = useIsvSolutions();
+
   const filtered = useMemo(() => {
     return BC_ISV_SOLUTIONS.filter((s) => {
       if (cats.size && !cats.has(s.category)) return false;
@@ -252,7 +254,7 @@ const BCTillaggKatalog = () => {
       if (geos.size && !s.geo.some((g) => geos.has(g))) return false;
       return true;
     });
-  }, [cats, types, industries, geos]);
+  }, [BC_ISV_SOLUTIONS, cats, types, industries, geos]);
 
   const activeCount = cats.size + types.size + industries.size + geos.size;
 

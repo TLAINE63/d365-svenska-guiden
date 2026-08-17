@@ -108,6 +108,7 @@ import AdminPartnerRequestsTab from "@/components/AdminPartnerRequestsTab";
 import AdminFeaturedArticleTab from "@/components/AdminFeaturedArticleTab";
 import AdminKnowledgeArticlesTab from "@/components/AdminKnowledgeArticlesTab";
 import AdminProductPricesTab from "@/components/AdminProductPricesTab";
+import AdminIsvCatalogTab from "@/components/AdminIsvCatalogTab";
 import AdminUnprofiledPartnersTab from "@/components/AdminUnprofiledPartnersTab";
 import AdminBasicPartnersTab from "@/components/AdminBasicPartnersTab";
 import AdminIndustryPagesTab from "@/components/AdminIndustryPagesTab";
@@ -2279,6 +2280,12 @@ Thomas`,
  </span>
  Branschsidor
  </TabsTrigger>
+ <TabsTrigger value="isv-catalog" className={`flex items-center gap-2 ${activeGroup === "innehall" ? "" : "hidden"}`}>
+ <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-orange-500/20 to-orange-600/10 ring-1 ring-orange-400/20">
+ <FileText className="h-3.5 w-3.5 text-orange-300" strokeWidth={1.75} />
+ </span>
+ ISV-katalog
+ </TabsTrigger>
  <TabsTrigger value="product-prices" className={`flex items-center gap-2 ${activeGroup === "innehall" ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 ring-1 ring-emerald-400/20">
  <FileText className="h-3.5 w-3.5 text-emerald-300" strokeWidth={1.75} />
@@ -3451,7 +3458,11 @@ Thomas`,
  <AdminKnowledgeArticlesTab token={token || null} onSessionExpired={logout} />
  </TabsContent>
 
- <TabsContent value="industry-pages">
+ <TabsContent value="isv-catalog">
+              <AdminIsvCatalogTab token={token || null} onSessionExpired={logout} />
+            </TabsContent>
+
+            <TabsContent value="industry-pages">
  <AdminIndustryPagesTab token={token || null} onSessionExpired={logout} />
  </TabsContent>
 
