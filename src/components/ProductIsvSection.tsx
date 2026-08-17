@@ -33,10 +33,9 @@ const ProductIsvSection = ({
     [all, product]
   );
 
-  if (!solutions.length) return null;
-
   const catalogUrl = `/kunskapscenter/dynamics-365-tillagg/?produkt=${encodeURIComponent(product)}`;
   const shown = solutions.slice(0, limit);
+  const hasSolutions = solutions.length > 0;
 
   return (
     <section className={`py-14 md:py-16 bg-muted/30 border-y border-border ${className}`}>
@@ -51,18 +50,21 @@ const ProductIsvSection = ({
             </h2>
             <p className="text-sm md:text-base text-muted-foreground mt-2 max-w-2xl">
               {description ||
-                `Standardfunktionerna räcker inte alltid hela vägen. Här är ett urval av ISV-lösningar som kompletterar ${product} – hela katalogen finns i Kunskapscentret.`}
+                (hasSolutions
+                  ? `Standardfunktionerna räcker inte alltid hela vägen. Här är ett urval av ISV-lösningar som kompletterar ${product} – hela katalogen finns i Kunskapscentret.`
+                  : `Standardfunktionerna räcker inte alltid hela vägen. I Kunskapscentrets tilläggskatalog kan du filtrera fram ISV-lösningar som kompletterar ${product} och övriga Dynamics 365-appar.`)}
             </p>
           </div>
           <Link
             to={catalogUrl}
             className="inline-flex items-center gap-2 shrink-0 px-5 py-2.5 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition"
           >
-            Se alla {solutions.length} tillägg
+            {hasSolutions ? `Se alla ${solutions.length} tillägg` : "Öppna tilläggskatalogen"}
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
+        {hasSolutions && (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {shown.map((s) => (
             <Link
@@ -88,6 +90,7 @@ const ProductIsvSection = ({
             </Link>
           ))}
         </div>
+        )}
       </div>
     </section>
   );
