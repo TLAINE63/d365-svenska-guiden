@@ -190,7 +190,7 @@ export default function AdminIsvInvitationsTab({ token, onSessionExpired, onAppr
               <select
                 className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
                 value={solutionId}
-                onChange={(e) => setSolutionId(e.target.value)}
+                onChange={(e) => selectSolution(e.target.value)}
               >
                 <option value="">Välj lösning…</option>
                 {BC_ISV_SOLUTIONS.map((s) => (
