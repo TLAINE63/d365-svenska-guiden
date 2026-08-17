@@ -5,7 +5,6 @@ import ProductHero from "@/components/ProductHero";
 import PageOfferBanner from "@/components/PageOfferBanner";
 import StandardProductSections from "@/components/product/StandardProductSections";
 import { PRODUCT_STANDARD_SECTIONS } from "@/data/productStandardSections";
-import { FSC_ARTICLES } from "@/data/fscArticles";
 import RelatedPages, { fscRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
