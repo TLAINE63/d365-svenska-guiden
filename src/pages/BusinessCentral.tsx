@@ -22,7 +22,7 @@ import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
 import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
 import ProductRoiCta from "@/components/ProductRoiCta";
-import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
+
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
