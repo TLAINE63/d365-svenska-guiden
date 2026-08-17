@@ -138,6 +138,84 @@ serve(async (req) => {
       return json({ success: true }, 200, corsHeaders);
     }
 
+    // ── Lösningar skapade i admin (tabellen isv_solutions) ────────────────
+    if (action === "list_solutions" && req.method === "GET") {
+      const { data, error } = await supabase
+        .from("isv_solutions")
+        .select("*")
+        .order("vendor", { ascending: true })
+        .order("name", { ascending: true });
+      if (error) throw error;
+      return json({ solutions: data || [] }, 200, corsHeaders);
+    }
+
+    if ((action === "create_solution" || action === "update_solution") && req.method === "POST") {
+      const body = await req.json();
+      const solution_id = clean(body?.solution_id, 100)
+        ?.toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+      const name = clean(body?.name, 200);
+      const vendor = clean(body?.vendor, 200);
+      if (!solution_id || !name || !vendor) {
+        return json({ error: "solution_id, namn och leverantör krävs" }, 400, corsHeaders);
+      }
+
+      const payload: Record<string, unknown> = {
+        solution_id,
+        name,
+        vendor,
+        short_description: clean(body?.short_description, 400),
+        category: clean(body?.category, 100) || "Integration / iPaaS",
+        type: clean(body?.type, 100) || "BC-native (ISV)",
+        tier: clean(body?.tier, 40) || "Tier 2",
+        tags: cleanList(body?.tags, 15) || [],
+        industries: cleanList(body?.industries, 15) || [],
+        geo: cleanList(body?.geo, 5) || [],
+        what: clean(body?.what),
+        use_cases: cleanList(body?.use_cases, 20) || [],
+        when_fits: clean(body?.when_fits),
+        combos: cleanList(body?.combos, 20) || [],
+        products: cleanList(body?.products, 12) || [],
+        industry_focus: cleanList(body?.industry_focus, 25) || [],
+        partner_slugs: cleanList(body?.partner_slugs, 100) || [],
+        vendor_website: clean(body?.vendor_website, 300),
+        is_published: body?.is_published !== false,
+        sort_order: Number.isFinite(body?.sort_order) ? Number(body.sort_order) : 0,
+        updated_at: new Date().toISOString(),
+      };
+
+      const { data, error } = await supabase
+        .from("isv_solutions")
+        .upsert(payload, { onConflict: "solution_id" })
+        .select()
+        .single();
+      if (error) return json({ error: error.message }, 400, corsHeaders);
+      return json({ solution: data }, 200, corsHeaders);
+    }
+
+    if (action === "toggle_solution" && req.method === "POST") {
+      const body = await req.json();
+      const id = clean(body?.solution_id, 100);
+      if (!id) return json({ error: "solution_id krävs" }, 400, corsHeaders);
+      const { data, error } = await supabase
+        .from("isv_solutions")
+        .update({ is_published: body?.is_published === true, updated_at: new Date().toISOString() })
+        .eq("solution_id", id)
+        .select()
+        .single();
+      if (error) return json({ error: error.message }, 400, corsHeaders);
+      return json({ solution: data }, 200, corsHeaders);
+    }
+
+    if (action === "delete_solution" && req.method === "DELETE") {
+      const id = url.searchParams.get("solution_id");
+      if (!id) return json({ error: "solution_id krävs" }, 400, corsHeaders);
+      const { error } = await supabase.from("isv_solutions").delete().eq("solution_id", id);
+      if (error) return json({ error: error.message }, 400, corsHeaders);
+      return json({ success: true }, 200, corsHeaders);
+    }
+
     return json({ error: "Unknown action" }, 400, corsHeaders);
   } catch (e) {
     console.error("manage-isv-solutions error", e);
