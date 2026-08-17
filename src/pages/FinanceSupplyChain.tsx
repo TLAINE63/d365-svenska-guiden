@@ -1,10 +1,10 @@
 import ProductIsvSection from "@/components/ProductIsvSection";
+import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
 import { useIndustryDeepLink } from "@/hooks/useIndustryDeepLink";
 import ProductHero from "@/components/ProductHero";
 import PageOfferBanner from "@/components/PageOfferBanner";
 import StandardProductSections from "@/components/product/StandardProductSections";
 import { PRODUCT_STANDARD_SECTIONS } from "@/data/productStandardSections";
-import { FSC_ARTICLES } from "@/data/fscArticles";
 import RelatedPages, { fscRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
@@ -609,36 +609,7 @@ const FinanceSupplyChain = () => {
 
       <ProductRoiCta productKey="finance-scm" />
 
-      {/* Fördjupningsartiklar */}
-      <section className="py-12 bg-secondary/20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold text-foreground mb-2 text-center">Fördjupningsartiklar om Finance & Supply Chain</h2>
-          <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
-            Läs mer om varje modul och funktionsområde inom Finance, Supply Chain, Commerce, HR och Project Operations
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
-            {FSC_ARTICLES.map((article) => (
-              <Link
-                key={article.slug}
-                to={`/kunskapscenter/${article.productSlug}/${article.slug}/`}
-                className="group flex items-start gap-3 p-4 rounded-lg border border-border bg-card hover:border-primary/50 transition-all"
-              >
-                {article.image && (
-                  <img src={article.image} alt={article.title} className="w-16 h-16 rounded object-contain flex-shrink-0 bg-secondary/50 p-1" />
-                )}
-                <div className="min-w-0">
-                  <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-snug">
-                    {article.headerLabel || article.title}
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
-                    {article.description}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ProductDeepDiveLink product="Finance & Supply Chain" label="Finance & Supply Chain Management" />
 
       <ProductPartnerNewsSection productArea="finance-scm" productLabel="Finance & Supply Chain" />
 

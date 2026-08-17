@@ -1,4 +1,5 @@
 import RelatedPages, { copilotRelatedPages } from "@/components/RelatedPages";
+import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import Navbar from "@/components/Navbar";
@@ -11,7 +12,6 @@ import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import CopilotLogo from "@/assets/icons/Copilot.png";
 import SEOHead from "@/components/SEOHead";
-import { COPILOT_ARTICLES } from "@/data/copilotArticles";
 import { ServiceSchema, FAQSchema, BreadcrumbSchema } from "@/components/StructuredData";
 
 // Breadcrumb items
@@ -570,38 +570,7 @@ const Copilot = () => {
 
       <ProductPartnerNewsSection productArea="microsoft-ai" productLabel="Copilot" />
 
-      {/* Deep Dive Articles */}
-      <section className="py-8 sm:py-12 md:py-16 bg-muted/30">
-        <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4">Fördjupningsartiklar</h2>
-          <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Utforska hur Copilot förstärker varje Dynamics 365-modul – från Sales och Finance till HR och Project Operations.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
-            {COPILOT_ARTICLES.map((article) => (
-              <Link
-                key={article.slug}
-                to={`/kunskapscenter/${article.productSlug}/${article.slug}/`}
-                className="group flex items-start gap-4 rounded border bg-card p-4   transition-all hover:border-primary/30"
-              >
-                <img
-                  src={article.image}
-                  alt={article.title}
-                  className="w-16 h-16 rounded object-contain bg-secondary/50 p-1 shrink-0"
-                />
-                <div className="min-w-0">
-                  <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2">
-                    {article.headerLabel || article.title}
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
-                    {article.description}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ProductDeepDiveLink product="Microsoft Copilot – Dynamics 365" label="Copilot" />
 
       <BuyerManual product="copilot" />
       <CostBreakdown product="copilot" />
