@@ -165,6 +165,9 @@ Returnera JSON:
     const fixPath = (path: string, label?: string): string | null => {
       if (!path || typeof path !== 'string') return null;
       if (validRoutes.has(path)) return path;
+      // ISV-djuplänk: /kunskapscenter/dynamics-365-tillagg?losning=<id>
+      const [base, qs] = path.split('?');
+      if (validRoutes.has(base)) return qs ? `${base}?${qs}` : base;
       if (path.startsWith('/partner/')) {
         const slug = path.split('/')[2];
         if (partnerSlugs.has(slug)) return path;
