@@ -16,6 +16,11 @@ import {
 import { useIsvSolutions } from "@/hooks/useIsvSolutions";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { ISV_COMPARISONS } from "@/data/isvComparisons";
+import { ISV_PRODUCTS } from "@/data/isvProfileOptions";
+
+/** Lösningar utan angivna produkter räknas som Business Central-tillägg. */
+const solutionProducts = (s: IsvSolution): string[] =>
+  s.products?.length ? s.products : ["Business Central"];
 
 const TYPE_BADGE: Record<SolutionType, string> = {
   "BC-native (ISV)": "bg-primary/10 text-primary border-primary/30",
@@ -292,12 +297,18 @@ const SolutionDetail = ({ s, onClose }: { s: IsvSolution | null; onClose: () => 
 interface BcIsvCatalogProps {
   defaultFiltersOpen?: boolean;
   showCta?: boolean;
+  /** Förvalda Dynamics 365-produkter. Tom = alla produkter. */
+  defaultProducts?: string[];
+  /** Visa produktfiltret överst (gemensam D365-katalog). */
+  showProductFilter?: boolean;
 }
 
-const BcIsvCatalog = (_: BcIsvCatalogProps = {}) => {
+const BcIsvCatalog = ({ defaultProducts = [], showProductFilter = false }: BcIsvCatalogProps = {}) => {
   const [cats, setCats] = useState<Set<SolutionCategory>>(new Set());
   const [types, setTypes] = useState<Set<SolutionType>>(new Set());
   const [industries, setIndustries] = useState<Set<SolutionIndustry>>(new Set());
+  const [products, setProducts] = useState<Set<string>>(new Set(defaultProducts));
+  const [groupByVendor, setGroupByVendor] = useState(true);
   const [open, setOpen] = useState<IsvSolution | null>(null);
 
   const toggle = <T,>(set: Set<T>, setter: (s: Set<T>) => void) => (v: T) => {
@@ -308,21 +319,47 @@ const BcIsvCatalog = (_: BcIsvCatalogProps = {}) => {
 
   const BC_ISV_SOLUTIONS = useIsvSolutions();
 
+  // När produktfiltret visas är defaultProducts bara ett förval, inte en hård avgränsning.
+  const scoped = useMemo(() => {
+    if (showProductFilter || !defaultProducts.length) return BC_ISV_SOLUTIONS;
+    return BC_ISV_SOLUTIONS.filter((s) =>
+      solutionProducts(s).some((p) => defaultProducts.includes(p))
+    );
+  }, [BC_ISV_SOLUTIONS, defaultProducts, showProductFilter]);
+
   const filtered = useMemo(() => {
-    return BC_ISV_SOLUTIONS.filter((s) => {
+    return scoped.filter((s) => {
       if (cats.size && !cats.has(s.category)) return false;
       if (types.size && !types.has(s.type)) return false;
       if (industries.size && !s.industries.some((i) => industries.has(i))) return false;
+      if (products.size && !solutionProducts(s).some((p) => products.has(p))) return false;
       return true;
     });
-  }, [BC_ISV_SOLUTIONS, cats, types, industries]);
+  }, [scoped, cats, types, industries, products]);
 
-  const activeCount = cats.size + types.size + industries.size;
+  // Leverantörer med fler än en lösning grupperas under egen rubrik
+  const { vendorGroups, singles } = useMemo(() => {
+    const map = new Map<string, IsvSolution[]>();
+    for (const s of filtered) {
+      const key = s.vendor.trim() || "Övriga";
+      map.set(key, [...(map.get(key) || []), s]);
+    }
+    const groups = [...map.entries()]
+      .filter(([, list]) => list.length > 1)
+      .sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0], "sv"));
+    const rest = [...map.entries()]
+      .filter(([, list]) => list.length === 1)
+      .flatMap(([, list]) => list);
+    return { vendorGroups: groups, singles: rest };
+  }, [filtered]);
+
+  const activeCount = cats.size + types.size + industries.size + (showProductFilter ? products.size : 0);
 
   const clearAll = () => {
     setCats(new Set());
     setTypes(new Set());
     setIndustries(new Set());
+    if (showProductFilter) setProducts(new Set());
   };
 
   return (
@@ -341,7 +378,7 @@ const BcIsvCatalog = (_: BcIsvCatalogProps = {}) => {
           <div className="flex items-center gap-3 text-xs shrink-0">
             <span className="text-muted-foreground hidden sm:inline">
               <strong className="text-foreground text-sm font-semibold">{filtered.length}</strong>
-              <span className="text-muted-foreground"> / {BC_ISV_SOLUTIONS.length}</span>
+              <span className="text-muted-foreground"> / {scoped.length}</span>
             </span>
             {activeCount > 0 && (
               <button
@@ -356,6 +393,18 @@ const BcIsvCatalog = (_: BcIsvCatalogProps = {}) => {
         </div>
 
         <div className="space-y-5">
+          {showProductFilter && (
+            <>
+              <FilterRow
+                label="Dynamics 365-produkt"
+                options={ISV_PRODUCTS}
+                selected={products}
+                onToggle={toggle(products, setProducts)}
+                onClear={() => setProducts(new Set())}
+              />
+              <div className="h-px bg-border/60" />
+            </>
+          )}
           <FilterRow
             label="Kategori"
             options={CATEGORIES}
@@ -380,20 +429,82 @@ const BcIsvCatalog = (_: BcIsvCatalogProps = {}) => {
             onClear={() => setIndustries(new Set())}
           />
         </div>
+
+        {vendorGroups.length > 0 && (
+          <div className="mt-5 pt-4 border-t border-border/60">
+            <label className="inline-flex items-center gap-2 text-sm text-muted-foreground cursor-pointer">
+              <input
+                type="checkbox"
+                checked={groupByVendor}
+                onChange={(e) => setGroupByVendor(e.target.checked)}
+                className="h-4 w-4 rounded border-border accent-[hsl(var(--cta-orange))]"
+              />
+              Gruppera per leverantör
+            </label>
+          </div>
+        )}
       </div>
 
-      {filtered.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filtered.map((s) => (
-            <SolutionCard key={s.id} s={s} onOpen={() => setOpen(s)} />
-          ))}
-        </div>
-      ) : (
+      {filtered.length === 0 ? (
         <div className="text-center py-12 text-muted-foreground border border-dashed border-border rounded">
           <p>Inga lösningar matchar valda filter.</p>
           <button onClick={clearAll} className="text-primary hover:underline mt-2 text-sm">
             Rensa filter
           </button>
+        </div>
+      ) : groupByVendor && vendorGroups.length > 0 ? (
+        <div className="space-y-10">
+          {vendorGroups.map(([vendor, list]) => (
+            <section key={vendor}>
+              <div className="flex flex-wrap items-baseline justify-between gap-2 mb-4 pb-2 border-b border-border">
+                <h3 className="text-lg font-semibold text-foreground">
+                  {vendor}
+                  <span className="ml-2 text-sm font-normal text-muted-foreground">
+                    {list.length} lösningar
+                  </span>
+                </h3>
+                {list[0]?.vendorWebsite && (
+                  <a
+                    href={list[0].vendorWebsite}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-primary hover:underline"
+                  >
+                    Leverantörens webbplats
+                  </a>
+                )}
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {list.map((s) => (
+                  <SolutionCard key={s.id} s={s} onOpen={() => setOpen(s)} />
+                ))}
+              </div>
+            </section>
+          ))}
+
+          {singles.length > 0 && (
+            <section>
+              <div className="flex items-baseline justify-between gap-2 mb-4 pb-2 border-b border-border">
+                <h3 className="text-lg font-semibold text-foreground">
+                  Övriga lösningar
+                  <span className="ml-2 text-sm font-normal text-muted-foreground">
+                    {singles.length} st
+                  </span>
+                </h3>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {singles.map((s) => (
+                  <SolutionCard key={s.id} s={s} onOpen={() => setOpen(s)} />
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {filtered.map((s) => (
+            <SolutionCard key={s.id} s={s} onOpen={() => setOpen(s)} />
+          ))}
         </div>
       )}
 

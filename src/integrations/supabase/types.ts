@@ -435,6 +435,84 @@ export type Database = {
         }
         Relationships: []
       }
+      isv_solutions: {
+        Row: {
+          category: string
+          combos: string[]
+          created_at: string
+          geo: string[]
+          id: string
+          industries: string[]
+          industry_focus: string[]
+          is_published: boolean
+          name: string
+          partner_slugs: string[]
+          products: string[]
+          short_description: string | null
+          solution_id: string
+          sort_order: number
+          tags: string[]
+          tier: string
+          type: string
+          updated_at: string
+          use_cases: string[]
+          vendor: string
+          vendor_website: string | null
+          what: string | null
+          when_fits: string | null
+        }
+        Insert: {
+          category?: string
+          combos?: string[]
+          created_at?: string
+          geo?: string[]
+          id?: string
+          industries?: string[]
+          industry_focus?: string[]
+          is_published?: boolean
+          name: string
+          partner_slugs?: string[]
+          products?: string[]
+          short_description?: string | null
+          solution_id: string
+          sort_order?: number
+          tags?: string[]
+          tier?: string
+          type?: string
+          updated_at?: string
+          use_cases?: string[]
+          vendor: string
+          vendor_website?: string | null
+          what?: string | null
+          when_fits?: string | null
+        }
+        Update: {
+          category?: string
+          combos?: string[]
+          created_at?: string
+          geo?: string[]
+          id?: string
+          industries?: string[]
+          industry_focus?: string[]
+          is_published?: boolean
+          name?: string
+          partner_slugs?: string[]
+          products?: string[]
+          short_description?: string | null
+          solution_id?: string
+          sort_order?: number
+          tags?: string[]
+          tier?: string
+          type?: string
+          updated_at?: string
+          use_cases?: string[]
+          vendor?: string
+          vendor_website?: string | null
+          what?: string | null
+          when_fits?: string | null
+        }
+        Relationships: []
+      }
       isv_submissions: {
         Row: {
           combos: string[]
