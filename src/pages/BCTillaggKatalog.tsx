@@ -163,25 +163,6 @@ const SolutionDetail = ({ s, onClose }: { s: IsvSolution | null; onClose: () => 
               </section>
             )}
 
-            <section>
-              <h4 className="font-semibold text-foreground mb-1">
-                Partners i Sverige
-                {s.partnerSource && (
-                  <span className="text-xs font-normal text-muted-foreground ml-2">
-                    (offentligt listade av {s.partnerSource})
-                  </span>
-                )}
-              </h4>
-              {s.partnersSE.length > 0 ? (
-                <ul className="list-disc pl-5 space-y-1 text-foreground/80">
-                  {s.partnersSE.map((p) => <li key={p}>{p}</li>)}
-                </ul>
-              ) : (
-                <p className="text-muted-foreground italic text-xs">
-                  Levereras direkt av ISV:n eller via BC-partner i varje affär. Verifiera per kund.
-                </p>
-              )}
-            </section>
 
             <section className="flex flex-wrap gap-1.5 pt-2 border-t border-border">
               {s.tags.map((t) => (

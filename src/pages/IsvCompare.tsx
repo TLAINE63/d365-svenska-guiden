@@ -147,28 +147,6 @@ const IsvCompare = () => {
                     </ul>
                   </section>
                 )}
-
-                <section>
-                  <h3 className="font-semibold text-foreground mb-1">
-                    Partners i Sverige
-                    {s.partnerSource && (
-                      <span className="block text-[10px] font-normal text-muted-foreground mt-0.5">
-                        offentligt listade av {s.partnerSource}
-                      </span>
-                    )}
-                  </h3>
-                  {s.partnersSE.length > 0 ? (
-                    <ul className="list-disc pl-5 space-y-0.5">
-                      {s.partnersSE.map((p) => (
-                        <li key={p}>{p}</li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className="text-xs italic text-muted-foreground">
-                      Levereras direkt av ISV:n eller via BC-partner i varje affär. Verifiera per kund.
-                    </p>
-                  )}
-                </section>
               </div>
             </article>
           ))}
