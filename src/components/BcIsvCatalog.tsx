@@ -380,7 +380,8 @@ const BcIsvCatalog = ({
     return { vendorGroups: groups, singles: rest };
   }, [filtered]);
 
-  const activeCount = cats.size + types.size + industries.size + (showProductFilter ? products.size : 0);
+  const activeCount =
+    cats.size + types.size + industries.size + (showProductFilter ? products.size : 0) + (query.trim() ? 1 : 0);
 
   const clearAll = () => {
     setCats(new Set());

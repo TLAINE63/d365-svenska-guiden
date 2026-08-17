@@ -16,6 +16,8 @@ const D365TillaggKatalog = () => {
   const preselected = requested
     .map((p) => ISV_PRODUCTS.find((o) => o.toLowerCase() === p.trim().toLowerCase()))
     .filter((p): p is string => Boolean(p));
+  const solutionId = params.get("losning") || params.get("solution") || undefined;
+  const defaultQuery = params.get("q") || params.get("sok") || "";
 
   return (
     <div className="min-h-screen bg-background">
@@ -48,7 +50,12 @@ const D365TillaggKatalog = () => {
             </p>
           </header>
 
-          <BcIsvCatalog showProductFilter defaultProducts={preselected} />
+          <BcIsvCatalog
+            showProductFilter
+            defaultProducts={preselected}
+            openSolutionId={solutionId}
+            defaultQuery={defaultQuery}
+          />
         </div>
       </main>
 
