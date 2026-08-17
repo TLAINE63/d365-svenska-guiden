@@ -323,14 +323,46 @@ const BcIsvCatalog = ({
   }, [BC_ISV_SOLUTIONS, defaultProducts, showProductFilter]);
 
   const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
     return scoped.filter((s) => {
       if (cats.size && !cats.has(s.category)) return false;
       if (types.size && !types.has(s.type)) return false;
       if (industries.size && !s.industries.some((i) => industries.has(i))) return false;
       if (products.size && !solutionProducts(s).some((p) => products.has(p))) return false;
+      if (q) {
+        const hay = [
+          s.name,
+          s.vendor,
+          s.category,
+          s.type,
+          s.shortDescription,
+          s.what,
+          s.whenFits,
+          ...(s.tags || []),
+          ...(s.useCases || []),
+          ...(s.industries || []),
+          ...solutionProducts(s),
+        ]
+          .join(" ")
+          .toLowerCase();
+        if (!hay.includes(q)) return false;
+      }
       return true;
     });
-  }, [scoped, cats, types, industries, products]);
+  }, [scoped, cats, types, industries, products, query]);
+
+  // Djuplänk: öppna en specifik lösning direkt (t.ex. från AI-sök)
+  useEffect(() => {
+    if (autoOpened || !openSolutionId || !BC_ISV_SOLUTIONS.length) return;
+    const key = slugify(openSolutionId);
+    const match = BC_ISV_SOLUTIONS.find(
+      (s) => slugify(s.id) === key || slugify(s.name) === key
+    );
+    if (match) {
+      setOpen(match);
+      setAutoOpened(true);
+    }
+  }, [openSolutionId, BC_ISV_SOLUTIONS, autoOpened]);
 
   // Leverantörer med fler än en lösning grupperas under egen rubrik
   const { vendorGroups, singles } = useMemo(() => {
