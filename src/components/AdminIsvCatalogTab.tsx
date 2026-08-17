@@ -30,6 +30,14 @@ interface EditState {
   combos: string;
   products: string[];
   industries: string[];
+  vendor_name: string;
+  vendor_website: string;
+  admin_contact_name: string;
+  admin_contact_email: string;
+  admin_contact_phone: string;
+  sales_contact_name: string;
+  sales_contact_email: string;
+  sales_contact_phone: string;
 }
 
 const toEdit = (s: IsvSolution, o?: IsvOverride): EditState => ({
@@ -42,6 +50,14 @@ const toEdit = (s: IsvSolution, o?: IsvOverride): EditState => ({
   combos: (o?.combos ?? s.combos).join("\n"),
   products: o?.products ?? s.products ?? [],
   industries: o?.industries ?? s.industryFocus ?? [],
+  vendor_name: o?.vendor_name ?? s.vendor ?? "",
+  vendor_website: o?.vendor_website ?? s.vendorWebsite ?? "",
+  admin_contact_name: o?.admin_contact_name ?? "",
+  admin_contact_email: o?.admin_contact_email ?? "",
+  admin_contact_phone: o?.admin_contact_phone ?? "",
+  sales_contact_name: o?.sales_contact_name ?? "",
+  sales_contact_email: o?.sales_contact_email ?? "",
+  sales_contact_phone: o?.sales_contact_phone ?? "",
 });
 
 export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
@@ -107,6 +123,14 @@ export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
           combos: editing.combos.split("\n").map((s) => s.trim()).filter(Boolean),
           products: editing.products,
           industries: editing.industries,
+          vendor_name: editing.vendor_name,
+          vendor_website: editing.vendor_website,
+          admin_contact_name: editing.admin_contact_name,
+          admin_contact_email: editing.admin_contact_email,
+          admin_contact_phone: editing.admin_contact_phone,
+          sales_contact_name: editing.sales_contact_name,
+          sales_contact_email: editing.sales_contact_email,
+          sales_contact_phone: editing.sales_contact_phone,
         }),
       });
       if (res.status === 401) return onSessionExpired();
@@ -154,7 +178,17 @@ export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
 
   return (
     <div className="space-y-6">
-      <AdminIsvInvitationsTab token={token} onSessionExpired={onSessionExpired} onApproved={load} />
+      <AdminIsvInvitationsTab
+        token={token}
+        onSessionExpired={onSessionExpired}
+        onApproved={load}
+        contacts={Object.fromEntries(
+          Object.entries(overrides).map(([id, o]) => [
+            id,
+            { email: o.admin_contact_email || "", vendor: o.vendor_name || "" },
+          ])
+        )}
+      />
     <Card>
       <CardHeader className="flex flex-row items-start justify-between gap-4">
         <div>
@@ -184,8 +218,9 @@ export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
                 <TableRow>
                   <TableHead>Lösning</TableHead>
                   <TableHead>Leverantör</TableHead>
+                  <TableHead>Kontaktperson (admin)</TableHead>
+                  <TableHead>Säljkontakt</TableHead>
                   <TableHead>Kategori</TableHead>
-                  <TableHead>Kort beskrivning</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead className="text-right">Åtgärd</TableHead>
                 </TableRow>
@@ -196,11 +231,48 @@ export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
                   return (
                     <TableRow key={s.id}>
                       <TableCell className="font-medium">{s.name}</TableCell>
-                      <TableCell className="text-muted-foreground">{s.vendor}</TableCell>
-                      <TableCell><Badge variant="outline">{s.category}</Badge></TableCell>
-                      <TableCell className="max-w-md text-sm text-muted-foreground">
-                        {(o?.short_description || s.shortDescription).slice(0, 120)}
+                      <TableCell className="text-muted-foreground">
+                        <div>{o?.vendor_name || s.vendor}</div>
+                        {(o?.vendor_website || s.vendorWebsite) && (
+                          <a
+                            href={o?.vendor_website || s.vendorWebsite}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-[hsl(var(--cta-orange))] hover:underline"
+                          >
+                            {(o?.vendor_website || s.vendorWebsite || "").replace(/^https?:\/\//, "")}
+                          </a>
+                        )}
                       </TableCell>
+                      <TableCell className="text-sm">
+                        {o?.admin_contact_name || o?.admin_contact_email ? (
+                          <div>
+                            <div>{o?.admin_contact_name || "–"}</div>
+                            {o?.admin_contact_email && (
+                              <a href={`mailto:${o.admin_contact_email}`} className="text-xs text-muted-foreground hover:underline">
+                                {o.admin_contact_email}
+                              </a>
+                            )}
+                          </div>
+                        ) : (
+                          <span className="text-xs text-muted-foreground">Saknas</span>
+                        )}
+                      </TableCell>
+                      <TableCell className="text-sm">
+                        {o?.sales_contact_name || o?.sales_contact_email ? (
+                          <div>
+                            <div>{o?.sales_contact_name || "–"}</div>
+                            {o?.sales_contact_email && (
+                              <a href={`mailto:${o.sales_contact_email}`} className="text-xs text-muted-foreground hover:underline">
+                                {o.sales_contact_email}
+                              </a>
+                            )}
+                          </div>
+                        ) : (
+                          <span className="text-xs text-muted-foreground">Saknas</span>
+                        )}
+                      </TableCell>
+                      <TableCell><Badge variant="outline">{s.category}</Badge></TableCell>
                       <TableCell>
                         {o ? (
                           <Badge className="bg-[hsl(var(--cta-orange))]/10 text-[hsl(var(--cta-orange))] border-[hsl(var(--cta-orange))]/30" variant="outline">
@@ -238,6 +310,77 @@ export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
           </DialogHeader>
           {editing && (
             <div className="space-y-4">
+              <div className="rounded-lg border p-4 space-y-3 bg-muted/30">
+                <p className="text-sm font-semibold">Leverantör och kontakter</p>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <div>
+                    <Label>Leverantör</Label>
+                    <Input
+                      value={editing.vendor_name}
+                      onChange={(e) => setEditing({ ...editing, vendor_name: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Hemsida</Label>
+                    <Input
+                      placeholder="https://…"
+                      value={editing.vendor_website}
+                      onChange={(e) => setEditing({ ...editing, vendor_website: e.target.value })}
+                    />
+                  </div>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Kontaktpersonen (admin) är den vi skickar profileringslänken till och håller kontakten med.
+                </p>
+                <div className="grid sm:grid-cols-3 gap-3">
+                  <div>
+                    <Label>Kontaktperson (admin)</Label>
+                    <Input
+                      value={editing.admin_contact_name}
+                      onChange={(e) => setEditing({ ...editing, admin_contact_name: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>E-post (admin)</Label>
+                    <Input
+                      type="email"
+                      value={editing.admin_contact_email}
+                      onChange={(e) => setEditing({ ...editing, admin_contact_email: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Telefon (admin)</Label>
+                    <Input
+                      value={editing.admin_contact_phone}
+                      onChange={(e) => setEditing({ ...editing, admin_contact_phone: e.target.value })}
+                    />
+                  </div>
+                </div>
+                <div className="grid sm:grid-cols-3 gap-3">
+                  <div>
+                    <Label>Säljkontakt</Label>
+                    <Input
+                      value={editing.sales_contact_name}
+                      onChange={(e) => setEditing({ ...editing, sales_contact_name: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>E-post (sälj)</Label>
+                    <Input
+                      type="email"
+                      value={editing.sales_contact_email}
+                      onChange={(e) => setEditing({ ...editing, sales_contact_email: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Telefon (sälj)</Label>
+                    <Input
+                      value={editing.sales_contact_phone}
+                      onChange={(e) => setEditing({ ...editing, sales_contact_phone: e.target.value })}
+                    />
+                  </div>
+                </div>
+              </div>
               <div>
                 <Label>Kort beskrivning (kortet)</Label>
                 <Textarea
