@@ -1,3 +1,4 @@
+import ProductIsvSection from "@/components/ProductIsvSection";
 import ProductHero from "@/components/ProductHero";
 import StandardProductSections from "@/components/product/StandardProductSections";
 import { PRODUCT_STANDARD_SECTIONS } from "@/data/productStandardSections";
@@ -31,7 +32,6 @@ const marketingBreadcrumbs = [
   { name: "Customer Insights (Marketing)", url: "https://d365.se/d365marketing" },
 ];
 import {
-import ProductIsvSection from "@/components/ProductIsvSection";
   Accordion,
   AccordionContent,
   AccordionItem,

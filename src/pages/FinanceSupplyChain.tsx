@@ -1,3 +1,4 @@
+import ProductIsvSection from "@/components/ProductIsvSection";
 import { useIndustryDeepLink } from "@/hooks/useIndustryDeepLink";
 import ProductHero from "@/components/ProductHero";
 import PageOfferBanner from "@/components/PageOfferBanner";
@@ -44,7 +45,6 @@ const fscBreadcrumbs = [
  { name: "Finance & Supply Chain", url: "https://d365.se/finance-supply-chain" },
 ];
 import {
-import ProductIsvSection from "@/components/ProductIsvSection";
  Accordion,
  AccordionContent,
  AccordionItem,

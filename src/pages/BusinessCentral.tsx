@@ -1,3 +1,4 @@
+import ProductIsvSection from "@/components/ProductIsvSection";
 import RelatedPages, { bcRelatedPages } from "@/components/RelatedPages";
 import PageOfferBanner from "@/components/PageOfferBanner";
 import { BC_ARTICLES } from "@/data/bcArticles";
@@ -46,7 +47,6 @@ import { useIndustryDeepLink } from "@/hooks/useIndustryDeepLink";
 import { filterAndSortPartners, getProductIndustries } from "@/hooks/usePartnerFilters";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 import {
-import ProductIsvSection from "@/components/ProductIsvSection";
  Accordion,
  AccordionContent,
  AccordionItem,

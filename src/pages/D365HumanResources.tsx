@@ -1,3 +1,4 @@
+import ProductIsvSection from "@/components/ProductIsvSection";
 import ProductHero from "@/components/ProductHero";
 import RelatedPages, { fscRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
@@ -14,7 +15,6 @@ import HumanResourcesIcon from "@/assets/icons/HumanResources.svg?url";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
-import ProductIsvSection from "@/components/ProductIsvSection";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },

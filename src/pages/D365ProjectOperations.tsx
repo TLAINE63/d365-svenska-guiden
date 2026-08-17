@@ -1,3 +1,4 @@
+import ProductIsvSection from "@/components/ProductIsvSection";
 import ProductHero from "@/components/ProductHero";
 import StandardProductSections from "@/components/product/StandardProductSections";
 import { PRODUCT_STANDARD_SECTIONS } from "@/data/productStandardSections";
@@ -16,7 +17,6 @@ import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
-import ProductIsvSection from "@/components/ProductIsvSection";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
