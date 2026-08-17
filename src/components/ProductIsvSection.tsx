@@ -37,6 +37,9 @@ const ProductIsvSection = ({
   const shown = solutions.slice(0, limit);
   const hasSolutions = solutions.length > 0;
 
+  // Visa bara sektionen om det finns minst en ISV-lösning för produkten
+  if (!hasSolutions) return null;
+
   return (
     <section className={`py-14 md:py-16 bg-muted/30 border-y border-border ${className}`}>
       <div className="container mx-auto px-4 max-w-6xl">
@@ -50,21 +53,18 @@ const ProductIsvSection = ({
             </h2>
             <p className="text-sm md:text-base text-muted-foreground mt-2 max-w-2xl">
               {description ||
-                (hasSolutions
-                  ? `Standardfunktionerna räcker inte alltid hela vägen. Här är ett urval av ISV-lösningar som kompletterar ${product} – hela katalogen finns i Kunskapscentret.`
-                  : `Standardfunktionerna räcker inte alltid hela vägen. I Kunskapscentrets tilläggskatalog kan du filtrera fram ISV-lösningar som kompletterar ${product} och övriga Dynamics 365-appar.`)}
+                `Standardfunktionerna räcker inte alltid hela vägen. Här är ett urval av ISV-lösningar som kompletterar ${product} – hela katalogen finns i Kunskapscentret.`}
             </p>
           </div>
           <Link
             to={catalogUrl}
             className="inline-flex items-center gap-2 shrink-0 px-5 py-2.5 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition"
           >
-            {hasSolutions ? `Se alla ${solutions.length} tillägg` : "Öppna tilläggskatalogen"}
+            {`Se alla ${solutions.length} tillägg`}
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
-        {hasSolutions && (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {shown.map((s) => (
             <Link
@@ -90,7 +90,6 @@ const ProductIsvSection = ({
             </Link>
           ))}
         </div>
-        )}
       </div>
     </section>
   );
