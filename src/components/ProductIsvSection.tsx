@@ -53,9 +53,7 @@ const ProductIsvSection = ({
             </h2>
             <p className="text-sm md:text-base text-muted-foreground mt-2 max-w-2xl">
               {description ||
-                (hasSolutions
-                  ? `Standardfunktionerna räcker inte alltid hela vägen. Här är ett urval av ISV-lösningar som kompletterar ${product} – hela katalogen finns i Kunskapscentret.`
-                  : `Standardfunktionerna räcker inte alltid hela vägen. I Kunskapscentrets tilläggskatalog kan du filtrera fram ISV-lösningar som kompletterar ${product} och övriga Dynamics 365-appar.`)}
+                `Standardfunktionerna räcker inte alltid hela vägen. Här är ett urval av ISV-lösningar som kompletterar ${product} – hela katalogen finns i Kunskapscentret.`}
             </p>
           </div>
           <Link
