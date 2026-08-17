@@ -208,6 +208,7 @@ const SolutionDetail = ({ s, onClose }: { s: IsvSolution | null; onClose: () => 
                 </ul>
               </section>
             )}
+            <IsvResellers slugs={s.partnerSlugs || []} />
             <section>
               <h4 className="font-semibold text-foreground mb-1">
                 Partners i Sverige
