@@ -547,7 +547,13 @@ function MultiSelectDropdown<T extends string>({
 // ── Main component ─────────────────────────────────────
 
 const Kunskapscenter = () => {
- const [activeCategory, setActiveCategory] = useState<CategoryFilter>("alla");
+ const [activeCategory, setActiveCategory] = useState<CategoryFilter>(() => {
+   if (typeof window === "undefined") return "alla";
+   const params = new URLSearchParams(window.location.search);
+   return params.get("kategori") === "fordjupning" || params.get("produkt")
+     ? "fordjupning"
+     : "alla";
+ });
  const [activeTrack, setActiveTrack] = useState<TrackValue | null>(null);
  const tracksGridRef = useRef<HTMLDivElement>(null);
  const [selectedFormats, setSelectedFormats] = useState<FormatValue[]>([]);
