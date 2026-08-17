@@ -13,7 +13,7 @@ import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
-import ProductBasicPartnersSection from "@/components/partner/ProductBasicPartnersSection";
+import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowLeft, ArrowRight, ExternalLink, FileText } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
@@ -750,14 +750,12 @@ const FinanceSupplyChain = () => {
  </div>
  )}
 
- <ProductBasicPartnersSection
- applications={["Finance & SCM"]}
- industry={selectedIndustry}
- geography={selectedGeography}
- companySize={selectedCompanySize}
- revenue={selectedRevenue}
- verifiedCount={fscPartners.length}
- />
+  <UnprofiledPartnersList
+  variant="teaser"
+  showSeeAllLink
+  productKey="fsc"
+  productLabel="Finance & SCM"
+  />
 
 
  {/* Lead CTA - shows when partners are filtered */}

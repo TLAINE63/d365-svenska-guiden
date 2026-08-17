@@ -11,7 +11,7 @@ import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
-import ProductBasicPartnersSection from "@/components/partner/ProductBasicPartnersSection";
+import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowLeft, ArrowRight, ExternalLink, FileText } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
@@ -811,14 +811,12 @@ const BusinessCentral = () => {
  </div>
  )}
 
- <ProductBasicPartnersSection
- applications={["Business Central"]}
- industry={selectedIndustry}
- geography={selectedGeography}
- companySize={selectedCompanySize}
- revenue={selectedRevenue}
- verifiedCount={bcPartners.length}
- />
+  <UnprofiledPartnersList
+  variant="teaser"
+  showSeeAllLink
+  productKey="bc"
+  productLabel="Business Central"
+  />
 
 
  {/* Lead CTA - shows when partners are filtered */}
