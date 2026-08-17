@@ -82,6 +82,7 @@ const RequirementsSpecCustomerService = lazy(() => import("./pages/RequirementsS
 const Kunskapscenter = lazy(() => import("./pages/Kunskapscenter"));
 const KunskapscenterHub = lazy(() => import("./pages/KunskapscenterHub"));
 const BCTillaggKatalog = lazy(() => import("./pages/BCTillaggKatalog"));
+const D365TillaggKatalog = lazy(() => import("./pages/D365TillaggKatalog"));
 const Upphandlingsresan = lazy(() => import("./pages/Upphandlingsresan"));
 const Upphandlingsguiden = lazy(() => import("./pages/Upphandlingsguiden"));
 const VideoLanding = lazy(() => import("./pages/VideoLanding"));
