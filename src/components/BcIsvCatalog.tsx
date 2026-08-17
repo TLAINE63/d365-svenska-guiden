@@ -158,6 +158,34 @@ const SolutionDetail = ({ s, onClose }: { s: IsvSolution | null; onClose: () => 
           </DialogHeader>
 
           <div className="space-y-5 mt-2 text-sm leading-relaxed">
+            {Boolean(s.products?.length || s.industryFocus?.length) && (
+              <section className="space-y-3">
+                {s.products?.length ? (
+                  <div>
+                    <h4 className="font-semibold text-foreground mb-1">Byggd för</h4>
+                    <div className="flex flex-wrap gap-1.5">
+                      {s.products.map((p) => (
+                        <Badge key={p} variant="outline" className="text-[11px] border-primary/40 text-primary">
+                          {p}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+                {s.industryFocus?.length ? (
+                  <div>
+                    <h4 className="font-semibold text-foreground mb-1">Branschinriktning</h4>
+                    <div className="flex flex-wrap gap-1.5">
+                      {s.industryFocus.map((i) => (
+                        <Badge key={i} variant="outline" className="text-[11px]">
+                          {i}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+              </section>
+            )}
             <section>
               <h4 className="font-semibold text-foreground mb-1">Vad lösningen är</h4>
               <p className="text-foreground/80">{s.what}</p>

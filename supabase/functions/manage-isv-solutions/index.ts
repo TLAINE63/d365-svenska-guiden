@@ -104,6 +104,8 @@ serve(async (req) => {
         when_fits: clean(body?.when_fits),
         use_cases: cleanList(body?.use_cases),
         combos: cleanList(body?.combos),
+        products: cleanList(body?.products, 12) || [],
+        industries: cleanList(body?.industries, 25) || [],
         updated_at: new Date().toISOString(),
       };
 

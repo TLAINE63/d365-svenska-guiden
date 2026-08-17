@@ -10,7 +10,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { useToast } from "@/hooks/use-toast";
 import { Pencil, Puzzle, RotateCcw } from "lucide-react";
 import { BC_ISV_SOLUTIONS, type IsvSolution } from "@/data/bcIsvSolutions";
+import { Checkbox } from "@/components/ui/checkbox";
 import type { IsvOverride } from "@/hooks/useIsvSolutions";
+import AdminIsvInvitationsTab from "@/components/AdminIsvInvitationsTab";
+import { ISV_PRODUCTS, ISV_INDUSTRIES } from "@/data/isvProfileOptions";
 
 interface Props {
   token: string | null;
@@ -25,6 +28,8 @@ interface EditState {
   when_fits: string;
   use_cases: string;
   combos: string;
+  products: string[];
+  industries: string[];
 }
 
 const toEdit = (s: IsvSolution, o?: IsvOverride): EditState => ({
@@ -35,6 +40,8 @@ const toEdit = (s: IsvSolution, o?: IsvOverride): EditState => ({
   when_fits: o?.when_fits ?? s.whenFits,
   use_cases: (o?.use_cases ?? s.useCases).join("\n"),
   combos: (o?.combos ?? s.combos).join("\n"),
+  products: o?.products ?? s.products ?? [],
+  industries: o?.industries ?? s.industryFocus ?? [],
 });
 
 export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
@@ -98,6 +105,8 @@ export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
           when_fits: editing.when_fits,
           use_cases: editing.use_cases.split("\n").map((s) => s.trim()).filter(Boolean),
           combos: editing.combos.split("\n").map((s) => s.trim()).filter(Boolean),
+          products: editing.products,
+          industries: editing.industries,
         }),
       });
       if (res.status === 401) return onSessionExpired();
@@ -131,7 +140,21 @@ export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
     }
   };
 
+  const toggleEdit = (key: "products" | "industries", value: string) =>
+    setEditing((prev) =>
+      prev
+        ? {
+            ...prev,
+            [key]: prev[key].includes(value)
+              ? prev[key].filter((v) => v !== value)
+              : [...prev[key], value],
+          }
+        : prev
+    );
+
   return (
+    <div className="space-y-6">
+      <AdminIsvInvitationsTab token={token} onSessionExpired={onSessionExpired} onApproved={load} />
     <Card>
       <CardHeader className="flex flex-row items-start justify-between gap-4">
         <div>
@@ -248,6 +271,34 @@ export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
                 />
               </div>
               <div>
+                <Label>Produktinriktning (Dynamics 365-appar)</Label>
+                <div className="grid sm:grid-cols-2 gap-2 mt-2">
+                  {ISV_PRODUCTS.map((p) => (
+                    <label key={p} className="flex items-center gap-2 text-sm cursor-pointer">
+                      <Checkbox
+                        checked={editing.products.includes(p)}
+                        onCheckedChange={() => toggleEdit("products", p)}
+                      />
+                      {p}
+                    </label>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <Label>Branschinriktning (lämna tomt om generell)</Label>
+                <div className="grid sm:grid-cols-2 gap-2 mt-2">
+                  {ISV_INDUSTRIES.map((i) => (
+                    <label key={i} className="flex items-center gap-2 text-sm cursor-pointer">
+                      <Checkbox
+                        checked={editing.industries.includes(i)}
+                        onCheckedChange={() => toggleEdit("industries", i)}
+                      />
+                      {i}
+                    </label>
+                  ))}
+                </div>
+              </div>
+              <div>
                 <Label>Vanliga kombinationer (en rad per punkt)</Label>
                 <Textarea
                   rows={3}
@@ -264,5 +315,6 @@ export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
         </DialogContent>
       </Dialog>
     </Card>
+    </div>
   );
 }

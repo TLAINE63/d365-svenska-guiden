@@ -315,38 +315,169 @@ export type Database = {
         }
         Relationships: []
       }
+      isv_invitations: {
+        Row: {
+          created_at: string
+          email: string
+          expires_at: string
+          id: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          solution_id: string
+          solution_name: string
+          status: string
+          submitted_at: string | null
+          token: string
+          vendor_name: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          expires_at?: string
+          id?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          solution_id: string
+          solution_name: string
+          status?: string
+          submitted_at?: string | null
+          token: string
+          vendor_name?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          expires_at?: string
+          id?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          solution_id?: string
+          solution_name?: string
+          status?: string
+          submitted_at?: string | null
+          token?: string
+          vendor_name?: string | null
+        }
+        Relationships: []
+      }
       isv_solution_overrides: {
         Row: {
           combos: string[] | null
           created_at: string
+          industries: string[]
+          products: string[]
           short_description: string | null
           solution_id: string
           updated_at: string
           use_cases: string[] | null
+          vendor_contact_email: string | null
+          vendor_contact_name: string | null
+          vendor_updated_at: string | null
+          vendor_website: string | null
           what: string | null
           when_fits: string | null
         }
         Insert: {
           combos?: string[] | null
           created_at?: string
+          industries?: string[]
+          products?: string[]
           short_description?: string | null
           solution_id: string
           updated_at?: string
           use_cases?: string[] | null
+          vendor_contact_email?: string | null
+          vendor_contact_name?: string | null
+          vendor_updated_at?: string | null
+          vendor_website?: string | null
           what?: string | null
           when_fits?: string | null
         }
         Update: {
           combos?: string[] | null
           created_at?: string
+          industries?: string[]
+          products?: string[]
           short_description?: string | null
           solution_id?: string
           updated_at?: string
           use_cases?: string[] | null
+          vendor_contact_email?: string | null
+          vendor_contact_name?: string | null
+          vendor_updated_at?: string | null
+          vendor_website?: string | null
           what?: string | null
           when_fits?: string | null
         }
         Relationships: []
+      }
+      isv_submissions: {
+        Row: {
+          combos: string[]
+          contact_email: string | null
+          contact_name: string | null
+          id: string
+          industries: string[]
+          invitation_id: string
+          notes: string | null
+          products: string[]
+          reviewed_at: string | null
+          short_description: string | null
+          solution_id: string
+          status: string
+          submitted_at: string
+          use_cases: string[]
+          vendor_website: string | null
+          what: string | null
+          when_fits: string | null
+        }
+        Insert: {
+          combos?: string[]
+          contact_email?: string | null
+          contact_name?: string | null
+          id?: string
+          industries?: string[]
+          invitation_id: string
+          notes?: string | null
+          products?: string[]
+          reviewed_at?: string | null
+          short_description?: string | null
+          solution_id: string
+          status?: string
+          submitted_at?: string
+          use_cases?: string[]
+          vendor_website?: string | null
+          what?: string | null
+          when_fits?: string | null
+        }
+        Update: {
+          combos?: string[]
+          contact_email?: string | null
+          contact_name?: string | null
+          id?: string
+          industries?: string[]
+          invitation_id?: string
+          notes?: string | null
+          products?: string[]
+          reviewed_at?: string | null
+          short_description?: string | null
+          solution_id?: string
+          status?: string
+          submitted_at?: string
+          use_cases?: string[]
+          vendor_website?: string | null
+          what?: string | null
+          when_fits?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "isv_submissions_invitation_id_fkey"
+            columns: ["invitation_id"]
+            isOneToOne: false
+            referencedRelation: "isv_invitations"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       knowledge_articles: {
         Row: {
