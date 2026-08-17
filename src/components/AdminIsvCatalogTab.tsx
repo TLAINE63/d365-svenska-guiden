@@ -446,6 +446,15 @@ export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
                 </div>
               </div>
               <div>
+                <Label>Återförsäljare / partners</Label>
+                <div className="mt-2">
+                  <IsvPartnerPicker
+                    value={editing.partner_slugs}
+                    onChange={(partner_slugs) => setEditing({ ...editing, partner_slugs })}
+                  />
+                </div>
+              </div>
+              <div>
                 <Label>Vanliga kombinationer (en rad per punkt)</Label>
                 <Textarea
                   rows={3}
