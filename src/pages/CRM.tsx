@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
-import ProductBasicPartnersSection from "@/components/partner/ProductBasicPartnersSection";
+import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowRight, ExternalLink, FileText } from "lucide-react";
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
