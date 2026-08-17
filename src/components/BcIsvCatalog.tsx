@@ -386,6 +386,7 @@ const BcIsvCatalog = ({
     setCats(new Set());
     setTypes(new Set());
     setIndustries(new Set());
+    setQuery("");
     if (showProductFilter) setProducts(new Set());
   };
 
