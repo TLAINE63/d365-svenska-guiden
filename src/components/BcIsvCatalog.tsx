@@ -424,7 +424,7 @@ const BcIsvCatalog = ({
         <div className="relative mb-6">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <input
-            type="search"
+            type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Sök på lösning, leverantör, funktion eller nyckelord…"
