@@ -6,11 +6,12 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { getComparisonBySlug, ISV_COMPARISONS } from "@/data/isvComparisons";
-import { BC_ISV_SOLUTIONS } from "@/data/bcIsvSolutions";
+import { useIsvSolutions } from "@/hooks/useIsvSolutions";
 
 const IsvCompare = () => {
   const { slug } = useParams<{ slug: string }>();
   const comparison = slug ? getComparisonBySlug(slug) : undefined;
+  const BC_ISV_SOLUTIONS = useIsvSolutions();
 
   if (!comparison) {
     return <Navigate to="/kunskapscenter/business-central-tillagg/katalog/" replace />;

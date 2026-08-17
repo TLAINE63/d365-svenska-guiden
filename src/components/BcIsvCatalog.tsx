@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { X, ArrowRight } from "lucide-react";
 import {
-  BC_ISV_SOLUTIONS,
   CATEGORIES,
   TYPES,
   INDUSTRIES,
@@ -14,6 +13,7 @@ import {
   type SolutionType,
   type SolutionIndustry,
 } from "@/data/bcIsvSolutions";
+import { useIsvSolutions } from "@/hooks/useIsvSolutions";
 import { ISV_COMPARISONS } from "@/data/isvComparisons";
 
 const TYPE_BADGE: Record<SolutionType, string> = {
@@ -256,6 +256,8 @@ const BcIsvCatalog = (_: BcIsvCatalogProps = {}) => {
     setter(next);
   };
 
+  const BC_ISV_SOLUTIONS = useIsvSolutions();
+
   const filtered = useMemo(() => {
     return BC_ISV_SOLUTIONS.filter((s) => {
       if (cats.size && !cats.has(s.category)) return false;
@@ -263,7 +265,7 @@ const BcIsvCatalog = (_: BcIsvCatalogProps = {}) => {
       if (industries.size && !s.industries.some((i) => industries.has(i))) return false;
       return true;
     });
-  }, [cats, types, industries]);
+  }, [BC_ISV_SOLUTIONS, cats, types, industries]);
 
   const activeCount = cats.size + types.size + industries.size;
 
