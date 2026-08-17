@@ -2047,6 +2047,48 @@ export type Database = {
       }
     }
     Views: {
+      isv_solution_overrides_public: {
+        Row: {
+          combos: string[] | null
+          industries: string[] | null
+          products: string[] | null
+          short_description: string | null
+          solution_id: string | null
+          use_cases: string[] | null
+          vendor_name: string | null
+          vendor_updated_at: string | null
+          vendor_website: string | null
+          what: string | null
+          when_fits: string | null
+        }
+        Insert: {
+          combos?: string[] | null
+          industries?: string[] | null
+          products?: string[] | null
+          short_description?: string | null
+          solution_id?: string | null
+          use_cases?: string[] | null
+          vendor_name?: string | null
+          vendor_updated_at?: string | null
+          vendor_website?: string | null
+          what?: string | null
+          when_fits?: string | null
+        }
+        Update: {
+          combos?: string[] | null
+          industries?: string[] | null
+          products?: string[] | null
+          short_description?: string | null
+          solution_id?: string | null
+          use_cases?: string[] | null
+          vendor_name?: string | null
+          vendor_updated_at?: string | null
+          vendor_website?: string | null
+          what?: string | null
+          when_fits?: string | null
+        }
+        Relationships: []
+      }
       partner_events_public: {
         Row: {
           created_at: string | null
