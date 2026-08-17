@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { X, ArrowRight } from "lucide-react";
+import { X, ArrowRight, Search } from "lucide-react";
 import {
   CATEGORIES,
   TYPES,
