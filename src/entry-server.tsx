@@ -191,6 +191,16 @@ export const routes: PrerenderRoute[] = [
     meta: { title: hub.metaTitle, description: hub.metaDescription },
   })),
   { path: '/kunskapscenter/upphandlingsresan', priority: '0.7', changefreq: 'monthly' },
+  {
+    path: '/kunskapscenter/dynamics-365-tillagg',
+    priority: '0.7',
+    changefreq: 'weekly' as const,
+    meta: {
+      title: 'Dynamics 365-tillägg: katalog över ISV-lösningar',
+      description:
+        'Katalog över ISV- och tilläggslösningar för Dynamics 365 – Business Central, Finance & Supply Chain, Sales, Customer Service med flera. Filtrera på produkt, kategori och bransch.',
+    },
+  },
   { path: '/upphandlingsguiden', priority: '0.8', changefreq: 'monthly' },
   { path: '/kravspecifikation', priority: '0.7', changefreq: 'monthly' },
   { path: '/kravspecifikation-sales', priority: '0.7', changefreq: 'monthly' },
