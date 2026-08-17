@@ -19,6 +19,17 @@ export type CostRange = {
   weeks: string;
 };
 
+export type CostProjectExample = {
+  /** Rubrik, t.ex. "Mindre standardimplementation". */
+  title: string;
+  /** Kort beskrivning av typfallet. */
+  scope: string;
+  /** Prisintervall i SEK, t.ex. "150 000 – 400 000 kr". */
+  range: string;
+  /** Punktlista med typiska förutsättningar. */
+  bullets: string[];
+};
+
 export type CostBreakdownContent = {
   /** Intro som förklarar prismodellen för just den här produkten. */
   pricingModel: string;
@@ -30,7 +41,10 @@ export type CostBreakdownContent = {
   ongoing: string[];
   /** Valfri fotnot under sektionen. */
   note?: string;
+  /** Valfria typexempel på faktiska projekt (visas på /kostnad/). */
+  examples?: CostProjectExample[];
 };
+
 
 const SHARED_NOTE =
   "Intervallen är typiska partnerprojekt på svenska marknaden. Komplex bransch, många integrationer eller dålig datakvalitet flyttar projekt över det övre spannet – och tvärtom. Be alltid om en fast­prisad upptäcktsfas innan ni signerar hela projektet.";
@@ -77,6 +91,34 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
       "Vidareutveckling: nya rapporter, automatiseringar, Copilot-funktioner",
     ],
     note: SHARED_NOTE,
+    examples: [
+      {
+        title: "Mindre standardimplementationer",
+        scope: "Standarduppsättning med begränsade anpassningar",
+        range: "150 000 – 400 000 kr",
+        bullets: [
+          "2–4 månaders projekt",
+          "Standardprocesser och funktionalitet",
+          "Grundläggande utbildning",
+          "Datamigration från enklare system",
+          "Få eller inga integrationer",
+          "5–20 användare",
+        ],
+      },
+      {
+        title: "Mer avancerade implementationer",
+        scope: "Anpassad lösning med integrationer och komplexitet",
+        range: "500 000 – 1 500 000 kr",
+        bullets: [
+          "4–8 månaders projekt",
+          "Anpassade processer och workflows",
+          "Omfattande utbildning",
+          "Komplex datamigration",
+          "Flera systemintegrationer",
+          "20–200 användare",
+        ],
+      },
+    ],
   },
 
   "finance-scm": {

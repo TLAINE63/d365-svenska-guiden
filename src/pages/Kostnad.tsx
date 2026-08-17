@@ -5,6 +5,7 @@ import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import { Link } from "react-router-dom";
 import CostBreakdown from "@/components/CostBreakdown";
+import CostProjectExamples from "@/components/CostProjectExamples";
 import { costBreakdowns } from "@/data/costBreakdown";
 
 const breadcrumbs = [
@@ -126,6 +127,7 @@ export default function Kostnad() {
               </div>
             </div>
             <CostBreakdown product={p.key} hideOverviewLink />
+            <CostProjectExamples product={p.key} />
           </div>
         ))}
 
