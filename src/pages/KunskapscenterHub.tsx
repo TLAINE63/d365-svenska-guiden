@@ -7,7 +7,6 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowLeft, ArrowRight, ExternalLink, BookOpen, Wrench, FileText, Play, Sparkles, Puzzle } from "lucide-react";
 import { HUB_BY_SLUG, type HubResourceCard } from "@/data/knowledgeHubs";
-import BcIsvCatalog from "@/components/BcIsvCatalog";
 import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
 import type { ProductKey } from "@/data/erpComparisons";
 
