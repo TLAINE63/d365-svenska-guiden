@@ -162,7 +162,36 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
       "Tillägg över tid: Copilot, agenter, Customer Insights, Project Operations",
     ],
     note: SHARED_NOTE,
+    examples: [
+      {
+        title: "Mindre standardimplementationer",
+        scope: "Grundläggande uppsättning med standardfunktionalitet",
+        range: "1 500 000 – 3 000 000 kr",
+        bullets: [
+          "6–9 månaders projekt",
+          "Standardprocesser med mindre anpassningar",
+          "Strukturerad utbildning",
+          "Datamigration och validering",
+          "Grundläggande integrationer",
+          "50–200 användare",
+        ],
+      },
+      {
+        title: "Mer avancerade implementationer",
+        scope: "Globala implementationer med hög komplexitet",
+        range: "3 000 000 – 10 000 000+ kr",
+        bullets: [
+          "9–18+ månaders projekt",
+          "Omfattande anpassningar och utveckling",
+          "Global rollout och change management",
+          "Komplex datamigration",
+          "Många systemintegrationer",
+          "200–2 000+ användare",
+        ],
+      },
+    ],
   },
+
 
   "sales": {
     pricingModel:
