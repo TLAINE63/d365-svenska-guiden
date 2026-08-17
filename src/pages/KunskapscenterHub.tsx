@@ -143,7 +143,7 @@ const KunskapscenterHub = ({ slug }: Props) => {
                   bransch och geografi.
                 </p>
               </div>
-              <BcIsvCatalog defaultFiltersOpen showCta={false} />
+              <BcIsvCatalog defaultFiltersOpen showCta={false} defaultProducts={["Business Central"]} />
             </div>
           </section>
         )}
