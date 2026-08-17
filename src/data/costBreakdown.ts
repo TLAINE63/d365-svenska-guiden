@@ -19,6 +19,17 @@ export type CostRange = {
   weeks: string;
 };
 
+export type CostProjectExample = {
+  /** Rubrik, t.ex. "Mindre standardimplementation". */
+  title: string;
+  /** Kort beskrivning av typfallet. */
+  scope: string;
+  /** Prisintervall i SEK, t.ex. "150 000 – 400 000 kr". */
+  range: string;
+  /** Punktlista med typiska förutsättningar. */
+  bullets: string[];
+};
+
 export type CostBreakdownContent = {
   /** Intro som förklarar prismodellen för just den här produkten. */
   pricingModel: string;
@@ -30,7 +41,10 @@ export type CostBreakdownContent = {
   ongoing: string[];
   /** Valfri fotnot under sektionen. */
   note?: string;
+  /** Valfria typexempel på faktiska projekt (visas på /kostnad/). */
+  examples?: CostProjectExample[];
 };
+
 
 const SHARED_NOTE =
   "Intervallen är typiska partnerprojekt på svenska marknaden. Komplex bransch, många integrationer eller dålig datakvalitet flyttar projekt över det övre spannet – och tvärtom. Be alltid om en fast­prisad upptäcktsfas innan ni signerar hela projektet.";
