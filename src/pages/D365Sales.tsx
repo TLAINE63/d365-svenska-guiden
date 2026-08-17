@@ -31,6 +31,7 @@ const salesBreadcrumbs = [
   { name: "Dynamics 365 Sales", url: "https://d365.se/d365sales" },
 ];
 import {
+import ProductIsvSection from "@/components/ProductIsvSection";
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -357,6 +358,8 @@ const D365Sales = () => {
       </section>
 
       <RelatedPages pages={salesRelatedPages} heading="Utforska vidare" />
+      <ProductIsvSection product="Sales" />
+
       <Footer />
     </div>
   );

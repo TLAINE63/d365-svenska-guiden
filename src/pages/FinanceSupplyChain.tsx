@@ -44,6 +44,7 @@ const fscBreadcrumbs = [
  { name: "Finance & Supply Chain", url: "https://d365.se/finance-supply-chain" },
 ];
 import {
+import ProductIsvSection from "@/components/ProductIsvSection";
  Accordion,
  AccordionContent,
  AccordionItem,
@@ -859,6 +860,8 @@ const FinanceSupplyChain = () => {
      <PageOfferBanner />
    </div>
  </section>
+ <ProductIsvSection product="Finance & Supply Chain Management" />
+
  <Footer />
  </div>
  );

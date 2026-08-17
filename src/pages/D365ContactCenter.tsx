@@ -30,6 +30,7 @@ const contactCenterBreadcrumbs = [
   { name: "Dynamics 365 Contact Center", url: "https://d365.se/d365contactcenter" },
 ];
 import {
+import ProductIsvSection from "@/components/ProductIsvSection";
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -337,6 +338,8 @@ const D365ContactCenter = () => {
       </section>
 
       <RelatedPages pages={contactCenterRelatedPages} heading="Utforska vidare" />
+      <ProductIsvSection product="Contact Center" />
+
       <Footer />
     </div>
   );

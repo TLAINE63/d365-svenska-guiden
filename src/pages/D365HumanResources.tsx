@@ -14,6 +14,7 @@ import HumanResourcesIcon from "@/assets/icons/HumanResources.svg?url";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import ProductIsvSection from "@/components/ProductIsvSection";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
@@ -106,6 +107,8 @@ const D365HumanResources = () => {
       </section>
 
       <RelatedPages pages={fscRelatedPages} heading="Utforska vidare" />
+      <ProductIsvSection product="Human Resources" />
+
       <Footer />
     </div>
   );

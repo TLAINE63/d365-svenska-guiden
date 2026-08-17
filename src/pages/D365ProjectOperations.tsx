@@ -16,6 +16,7 @@ import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import ProductIsvSection from "@/components/ProductIsvSection";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
@@ -110,6 +111,8 @@ const D365ProjectOperations = () => {
       </section>
 
       <RelatedPages pages={fscRelatedPages} heading="Utforska vidare" />
+      <ProductIsvSection product="Project Operations" />
+
       <Footer />
     </div>
   );

@@ -31,6 +31,7 @@ const fieldServiceBreadcrumbs = [
   { name: "Dynamics 365 Field Service", url: "https://d365.se/d365fieldservice" },
 ];
 import {
+import ProductIsvSection from "@/components/ProductIsvSection";
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -339,6 +340,8 @@ const D365FieldService = () => {
       </section>
 
       <RelatedPages pages={fieldServiceRelatedPages} heading="Utforska vidare" />
+      <ProductIsvSection product="Field Service" />
+
       <Footer />
     </div>
   );

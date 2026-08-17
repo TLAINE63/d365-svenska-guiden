@@ -31,6 +31,7 @@ const marketingBreadcrumbs = [
   { name: "Customer Insights (Marketing)", url: "https://d365.se/d365marketing" },
 ];
 import {
+import ProductIsvSection from "@/components/ProductIsvSection";
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -340,6 +341,8 @@ const D365Marketing = () => {
       </section>
 
       <RelatedPages pages={marketingRelatedPages} heading="Utforska vidare" />
+      <ProductIsvSection product="Customer Insights (Marketing)" />
+
       <Footer />
     </div>
   );

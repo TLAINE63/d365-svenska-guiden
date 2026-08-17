@@ -46,6 +46,7 @@ import { useIndustryDeepLink } from "@/hooks/useIndustryDeepLink";
 import { filterAndSortPartners, getProductIndustries } from "@/hooks/usePartnerFilters";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 import {
+import ProductIsvSection from "@/components/ProductIsvSection";
  Accordion,
  AccordionContent,
  AccordionItem,
@@ -945,6 +946,8 @@ const BusinessCentral = () => {
      <PageOfferBanner />
    </div>
  </section>
+ <ProductIsvSection product="Business Central" />
+
  <Footer />
  </div>
  );
