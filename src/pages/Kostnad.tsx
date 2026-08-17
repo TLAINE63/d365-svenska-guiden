@@ -126,6 +126,7 @@ export default function Kostnad() {
               </div>
             </div>
             <CostBreakdown product={p.key} hideOverviewLink />
+            <CostProjectExamples product={p.key} />
           </div>
         ))}
 
