@@ -1,0 +1,2 @@
+ALTER TABLE public.isv_solution_overrides ADD COLUMN IF NOT EXISTS partner_slugs text[] NOT NULL DEFAULT '{}'::text[];
+ALTER TABLE public.isv_submissions ADD COLUMN IF NOT EXISTS partner_slugs text[] NOT NULL DEFAULT '{}'::text[];
