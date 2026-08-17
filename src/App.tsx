@@ -265,7 +265,7 @@ const AppShell = () => {
           {/* Topical hubs – explicit slugs (registered before the generic 2-segment article route) */}
           <Route path="/kunskapscenter/business-central" element={<KunskapscenterHub slug="business-central" />} />
           <Route path="/kunskapscenter/business-central-tillagg" element={<KunskapscenterHub slug="business-central-tillagg" />} />
-          <Route path="/kunskapscenter/business-central-tillagg/katalog" element={<BCTillaggKatalog />} />
+          <Route path="/kunskapscenter/business-central-tillagg/katalog" element={<Navigate to="/kunskapscenter/dynamics-365-tillagg/?produkt=Business%20Central" replace />} />
           <Route path="/kunskapscenter/dynamics-365-tillagg" element={<D365TillaggKatalog />} />
           <Route path="/kunskapscenter/finance-supply-chain" element={<KunskapscenterHub slug="finance-supply-chain" />} />
           <Route path="/kunskapscenter/sales" element={<KunskapscenterHub slug="sales" />} />

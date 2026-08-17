@@ -28,14 +28,14 @@ VIKTIGA SIDOR du kan länka till:
 - Behovsanalys Kundservice: [/kundservice-behovsanalys](/kundservice-behovsanalys)
 - AI Readiness: [/ai-readiness](/ai-readiness)
 - Kunskapscenter: [/kunskapscenter](/kunskapscenter)
-- ISV-/tilläggskatalog (appar som kompletterar Dynamics 365): [/kunskapscenter/business-central-tillagg](/kunskapscenter/business-central-tillagg)
+- ISV-/tilläggskatalog (appar som kompletterar Dynamics 365): [/kunskapscenter/dynamics-365-tillagg](/kunskapscenter/dynamics-365-tillagg)
 - Kontakt: [/kontakt](/kontakt)
 - Produkter: /business-central, /finance-supply-chain, /erp, /crm, /d365sales, /d365marketing, /d365customerservice, /d365fieldservice, /d365contactcenter, /aioversikt
 
 REGLER:
 - Nämn ALDRIG Power Platform som en separat produkt vi täcker.
 - Lova inga priser utan att hänvisa till /kunskapscenter eller /kontakt.
-- Vid frågor om tillägg, appar, add-ons, ISV-lösningar eller funktionalitet som saknas i standard: använd ISV-LISTAN nedan, nämn 2-4 relevanta lösningar med leverantör och länka till [/kunskapscenter/business-central-tillagg](/kunskapscenter/business-central-tillagg). Hitta aldrig på ISV-lösningar.
+- Vid frågor om tillägg, appar, add-ons, ISV-lösningar eller funktionalitet som saknas i standard: använd ISV-LISTAN nedan, nämn 2-4 relevanta lösningar med leverantör och länka till [/kunskapscenter/dynamics-365-tillagg](/kunskapscenter/dynamics-365-tillagg). Hitta aldrig på ISV-lösningar.
 - Om frågan ligger utanför Dynamics 365 – säg det vänligt och föreslå /kontakt.`;
 
 Deno.serve(async (req) => {

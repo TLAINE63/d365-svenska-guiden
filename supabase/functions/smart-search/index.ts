@@ -34,7 +34,7 @@ const ROUTES = [
   { path: '/kunskapscenter', label: 'Kunskapscenter – artiklar, fördjupningar, events' },
   { path: '/events', label: 'Events och webbinarier' },
   { path: '/qa', label: 'Frågor & svar (FAQ)' },
-  { path: '/kunskapscenter/business-central-tillagg', label: 'ISV- och tilläggskatalog – appar som kompletterar Dynamics 365 (fakturahantering, WMS, EDI, lokalisering, e-handel, CPQ m.m.)' },
+  { path: '/kunskapscenter/dynamics-365-tillagg', label: 'ISV- och tilläggskatalog – appar som kompletterar Dynamics 365 (fakturahantering, WMS, EDI, lokalisering, e-handel, CPQ m.m.)' },
   { path: '/kontakt', label: 'Kontakta oss / rådgivare' },
 ];
 

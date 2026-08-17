@@ -71,7 +71,6 @@ const STATIC_ROUTES = [
   { path: "/kunskapscenter/partners/", changefreq: "weekly", priority: "0.7" },
   { path: "/kunskapscenter/upphandlingsresan/", changefreq: "monthly", priority: "0.7" },
   { path: "/kunskapscenter/business-central-tillagg/", changefreq: "weekly", priority: "0.7" },
-  { path: "/kunskapscenter/business-central-tillagg/katalog/", changefreq: "weekly", priority: "0.6" },
   { path: "/kunskapscenter/dynamics-365-tillagg/", changefreq: "weekly", priority: "0.7" },
   { path: "/upphandlingsguiden/", changefreq: "monthly", priority: "0.8" },
   { path: "/kunskapscenter/video/byta-affarssystem/", changefreq: "monthly", priority: "0.6" },

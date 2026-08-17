@@ -2,7 +2,7 @@
 // Statisk katalog (genererad från src/data/bcIsvSolutions.ts) + ev. leverantörsredigerade texter.
 import CATALOG from './isv-catalog.json' with { type: 'json' };
 
-export const ISV_CATALOG_PATH = '/kunskapscenter/business-central-tillagg';
+export const ISV_CATALOG_PATH = '/kunskapscenter/dynamics-365-tillagg';
 
 interface IsvEntry {
   id: string;
