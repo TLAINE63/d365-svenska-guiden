@@ -104,8 +104,10 @@ VIKTIGA REGLER OM PARTNERS:
 - Använd ALDRIG ordet "oberoende" om d365.se.
 
 VIKTIGA REGLER OM ISV-/TILLÄGGSLÖSNINGAR:
-- Om frågan handlar om tillägg, appar, add-ons, ISV, integrationer eller funktionalitet som saknas i standard – använd listan ISV-LÖSNINGAR nedan, nämn relevanta lösningar vid namn i "answer" och sätt primary.path till ${ISV_CATALOG_PATH}.
-- Hitta ALDRIG på ISV-lösningar som inte finns i listan. ISV-lösningar har inga egna sidor – länka alltid till katalogen.`;
+- Om frågan handlar om tillägg, appar, add-ons, ISV, integrationer eller funktionalitet som saknas i standard – använd listan ISV-LÖSNINGAR nedan och nämn relevanta lösningar vid namn i "answer".
+- Om EN specifik lösning i listan tydligt matchar frågan: sätt primary.path till ${ISV_CATALOG_PATH}?losning=<id> där <id> är lösningens id exakt som det står i listan (fältet id:). Då öppnas lösningen direkt i katalogen.
+- Om ingen enskild lösning matchar: sätt primary.path till ${ISV_CATALOG_PATH}.
+- Hitta ALDRIG på ISV-lösningar som inte finns i listan.`;
 
 
     const userPrompt = `Användarens fråga: "${query}"

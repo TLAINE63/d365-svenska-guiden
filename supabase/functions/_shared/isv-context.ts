@@ -51,9 +51,9 @@ export async function buildIsvContextBlock(): Promise<string> {
     .map((s) => {
       const prod = s.products?.length ? ` | produkter: ${s.products.join(', ')}` : '';
       const ind = s.industries?.length ? ` | branscher: ${s.industries.join(', ')}` : '';
-      return `- ${s.name} (leverantör: ${s.vendor}) | kategori: ${s.category} | typ: ${s.type}${prod}${ind} | ${s.shortDescription}`;
+      return `- id: ${s.id} | ${s.name} (leverantör: ${s.vendor}) | kategori: ${s.category} | typ: ${s.type}${prod}${ind} | ${s.shortDescription}`;
     })
     .join('\n');
 
-  return `\n\nISV- OCH TILLÄGGSLÖSNINGAR (appar som kompletterar Dynamics 365, t.ex. fakturahantering, WMS, EDI, lokalisering, e-handel, CPQ). Använd ENDAST dessa när användaren frågar efter tillägg, appar, add-ons, ISV, integrationer eller specifik funktionalitet som saknas i standard. Länka alltid till katalogen [${ISV_CATALOG_PATH}](${ISV_CATALOG_PATH}) – ISV-lösningar har inga egna sidor på d365.se. Hitta aldrig på lösningar utanför listan:\n${list}`;
+  return `\n\nISV- OCH TILLÄGGSLÖSNINGAR (appar som kompletterar Dynamics 365, t.ex. fakturahantering, WMS, EDI, lokalisering, e-handel, CPQ). Använd ENDAST dessa när användaren frågar efter tillägg, appar, add-ons, ISV, integrationer eller specifik funktionalitet som saknas i standard. Länka till katalogen [${ISV_CATALOG_PATH}](${ISV_CATALOG_PATH}), eller direkt till en specifik lösning med ${ISV_CATALOG_PATH}?losning=<id> (id enligt listan). Hitta aldrig på lösningar utanför listan:\n${list}`;
 }
