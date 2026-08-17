@@ -16,6 +16,11 @@ import {
 import { useIsvSolutions } from "@/hooks/useIsvSolutions";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { ISV_COMPARISONS } from "@/data/isvComparisons";
+import { ISV_PRODUCTS } from "@/data/isvProfileOptions";
+
+/** Lösningar utan angivna produkter räknas som Business Central-tillägg. */
+const solutionProducts = (s: IsvSolution): string[] =>
+  s.products?.length ? s.products : ["Business Central"];
 
 const TYPE_BADGE: Record<SolutionType, string> = {
   "BC-native (ISV)": "bg-primary/10 text-primary border-primary/30",
