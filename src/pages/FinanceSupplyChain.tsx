@@ -750,14 +750,12 @@ const FinanceSupplyChain = () => {
  </div>
  )}
 
- <ProductBasicPartnersSection
- applications={["Finance & SCM"]}
- industry={selectedIndustry}
- geography={selectedGeography}
- companySize={selectedCompanySize}
- revenue={selectedRevenue}
- verifiedCount={fscPartners.length}
- />
+  <UnprofiledPartnersList
+  variant="teaser"
+  showSeeAllLink
+  productKey="fsc"
+  productLabel="Finance & SCM"
+  />
 
 
  {/* Lead CTA - shows when partners are filtered */}

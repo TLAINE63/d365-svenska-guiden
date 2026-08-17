@@ -811,14 +811,12 @@ const BusinessCentral = () => {
  </div>
  )}
 
- <ProductBasicPartnersSection
- applications={["Business Central"]}
- industry={selectedIndustry}
- geography={selectedGeography}
- companySize={selectedCompanySize}
- revenue={selectedRevenue}
- verifiedCount={bcPartners.length}
- />
+  <UnprofiledPartnersList
+  variant="teaser"
+  showSeeAllLink
+  productKey="bc"
+  productLabel="Business Central"
+  />
 
 
  {/* Lead CTA - shows when partners are filtered */}
