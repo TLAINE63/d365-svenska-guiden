@@ -237,8 +237,30 @@ export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Lösning</TableHead>
-                  <TableHead>Leverantör</TableHead>
+                  <TableHead>
+                    <button
+                      type="button"
+                      onClick={() => toggleSort("name")}
+                      className="inline-flex items-center gap-1 hover:text-foreground"
+                    >
+                      Lösning
+                      <span className="text-xs">
+                        {sortKey === "name" ? (sortDir === "asc" ? "▲" : "▼") : "↕"}
+                      </span>
+                    </button>
+                  </TableHead>
+                  <TableHead>
+                    <button
+                      type="button"
+                      onClick={() => toggleSort("vendor")}
+                      className="inline-flex items-center gap-1 hover:text-foreground"
+                    >
+                      Leverantör
+                      <span className="text-xs">
+                        {sortKey === "vendor" ? (sortDir === "asc" ? "▲" : "▼") : "↕"}
+                      </span>
+                    </button>
+                  </TableHead>
                   <TableHead>Kontaktperson (admin)</TableHead>
                   <TableHead>Säljkontakt</TableHead>
                   <TableHead>Kategori</TableHead>
