@@ -1,3 +1,4 @@
+import ProductIsvSection from "@/components/ProductIsvSection";
 import ProductHero from "@/components/ProductHero";
 import StandardProductSections from "@/components/product/StandardProductSections";
 import { PRODUCT_STANDARD_SECTIONS } from "@/data/productStandardSections";
@@ -339,6 +340,8 @@ const D365FieldService = () => {
       </section>
 
       <RelatedPages pages={fieldServiceRelatedPages} heading="Utforska vidare" />
+      <ProductIsvSection product="Field Service" />
+
       <Footer />
     </div>
   );

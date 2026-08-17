@@ -1,3 +1,4 @@
+import ProductIsvSection from "@/components/ProductIsvSection";
 import { useIndustryDeepLink } from "@/hooks/useIndustryDeepLink";
 import ProductHero from "@/components/ProductHero";
 import PageOfferBanner from "@/components/PageOfferBanner";
@@ -859,6 +860,8 @@ const FinanceSupplyChain = () => {
      <PageOfferBanner />
    </div>
  </section>
+ <ProductIsvSection product="Finance & Supply Chain Management" />
+
  <Footer />
  </div>
  );

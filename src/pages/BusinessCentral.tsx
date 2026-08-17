@@ -1,3 +1,4 @@
+import ProductIsvSection from "@/components/ProductIsvSection";
 import RelatedPages, { bcRelatedPages } from "@/components/RelatedPages";
 import PageOfferBanner from "@/components/PageOfferBanner";
 import { BC_ARTICLES } from "@/data/bcArticles";
@@ -945,6 +946,8 @@ const BusinessCentral = () => {
      <PageOfferBanner />
    </div>
  </section>
+ <ProductIsvSection product="Business Central" />
+
  <Footer />
  </div>
  );
