@@ -915,28 +915,8 @@ const BusinessCentral = () => {
  </div>
       </section>
 
-      {/* ISV catalog link */}
-      <section className="py-12 bg-secondary/30 border-t border-border">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-              Tilläggsapplikationer
-            </span>
-            <h3 className="text-2xl md:text-3xl font-semibold text-foreground mt-3 mb-3">
-              Saknar Business Central något? Utforska ISV-katalogen
-            </h3>
-            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Filtrera 40+ ISV-lösningar på kategori, typ och bransch – från WMS och e-handel till
-              tidrapportering, fastighet och svenska lokalanpassningar.
-            </p>
-            <Link to="/kunskapscenter/business-central-tillagg/">
-              <Button variant="outline" size="lg" className="rounded">
-                Öppna ISV-katalogen →
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
+
+
 
 
 
