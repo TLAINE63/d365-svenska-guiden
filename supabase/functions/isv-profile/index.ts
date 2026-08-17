@@ -64,6 +64,7 @@ serve(async (req) => {
         combos: cleanList(body?.combos, 12, 300),
         products: cleanList(body?.products, 12, 100),
         industries: cleanList(body?.industries, 25, 100),
+        partner_slugs: cleanList(body?.partner_slugs, 100, 120),
         vendor_website: cleanText(body?.vendor_website, 300),
         contact_name: cleanText(body?.contact_name, 200),
         contact_email: cleanText(body?.contact_email, 200),
