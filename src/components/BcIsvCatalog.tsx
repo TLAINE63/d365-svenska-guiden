@@ -14,6 +14,7 @@ import {
   type SolutionIndustry,
 } from "@/data/bcIsvSolutions";
 import { useIsvSolutions } from "@/hooks/useIsvSolutions";
+import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { ISV_COMPARISONS } from "@/data/isvComparisons";
 
 const TYPE_BADGE: Record<SolutionType, string> = {
