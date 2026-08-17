@@ -297,12 +297,18 @@ const SolutionDetail = ({ s, onClose }: { s: IsvSolution | null; onClose: () => 
 interface BcIsvCatalogProps {
   defaultFiltersOpen?: boolean;
   showCta?: boolean;
+  /** Förvalda Dynamics 365-produkter. Tom = alla produkter. */
+  defaultProducts?: string[];
+  /** Visa produktfiltret överst (gemensam D365-katalog). */
+  showProductFilter?: boolean;
 }
 
-const BcIsvCatalog = (_: BcIsvCatalogProps = {}) => {
+const BcIsvCatalog = ({ defaultProducts = [], showProductFilter = false }: BcIsvCatalogProps = {}) => {
   const [cats, setCats] = useState<Set<SolutionCategory>>(new Set());
   const [types, setTypes] = useState<Set<SolutionType>>(new Set());
   const [industries, setIndustries] = useState<Set<SolutionIndustry>>(new Set());
+  const [products, setProducts] = useState<Set<string>>(new Set(defaultProducts));
+  const [groupByVendor, setGroupByVendor] = useState(true);
   const [open, setOpen] = useState<IsvSolution | null>(null);
 
   const toggle = <T,>(set: Set<T>, setter: (s: Set<T>) => void) => (v: T) => {
@@ -313,21 +319,46 @@ const BcIsvCatalog = (_: BcIsvCatalogProps = {}) => {
 
   const BC_ISV_SOLUTIONS = useIsvSolutions();
 
+  const scoped = useMemo(() => {
+    if (!defaultProducts.length) return BC_ISV_SOLUTIONS;
+    return BC_ISV_SOLUTIONS.filter((s) =>
+      solutionProducts(s).some((p) => defaultProducts.includes(p))
+    );
+  }, [BC_ISV_SOLUTIONS, defaultProducts]);
+
   const filtered = useMemo(() => {
-    return BC_ISV_SOLUTIONS.filter((s) => {
+    return scoped.filter((s) => {
       if (cats.size && !cats.has(s.category)) return false;
       if (types.size && !types.has(s.type)) return false;
       if (industries.size && !s.industries.some((i) => industries.has(i))) return false;
+      if (products.size && !solutionProducts(s).some((p) => products.has(p))) return false;
       return true;
     });
-  }, [BC_ISV_SOLUTIONS, cats, types, industries]);
+  }, [scoped, cats, types, industries, products]);
 
-  const activeCount = cats.size + types.size + industries.size;
+  // Leverantörer med fler än en lösning grupperas under egen rubrik
+  const { vendorGroups, singles } = useMemo(() => {
+    const map = new Map<string, IsvSolution[]>();
+    for (const s of filtered) {
+      const key = s.vendor.trim() || "Övriga";
+      map.set(key, [...(map.get(key) || []), s]);
+    }
+    const groups = [...map.entries()]
+      .filter(([, list]) => list.length > 1)
+      .sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0], "sv"));
+    const rest = [...map.entries()]
+      .filter(([, list]) => list.length === 1)
+      .flatMap(([, list]) => list);
+    return { vendorGroups: groups, singles: rest };
+  }, [filtered]);
+
+  const activeCount = cats.size + types.size + industries.size + (showProductFilter ? products.size : 0);
 
   const clearAll = () => {
     setCats(new Set());
     setTypes(new Set());
     setIndustries(new Set());
+    if (showProductFilter) setProducts(new Set());
   };
 
   return (
