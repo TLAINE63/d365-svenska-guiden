@@ -640,7 +640,7 @@ export default function BcRoiCalculator() {
                 <p className="text-sm text-muted-foreground mt-1">Baserat på bransch ({v.industry}) och dina val.</p>
               </div>
               <Button asChild variant="outline" size="sm">
-                <Link to="/kunskapscenter/business-central-tillagg/katalog/">Hela ISV-katalogen</Link>
+                <Link to="/kunskapscenter/dynamics-365-tillagg/?produkt=Business%20Central">Hela ISV-katalogen</Link>
               </Button>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

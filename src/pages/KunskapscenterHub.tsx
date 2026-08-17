@@ -7,7 +7,6 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowLeft, ArrowRight, ExternalLink, BookOpen, Wrench, FileText, Play, Sparkles, Puzzle } from "lucide-react";
 import { HUB_BY_SLUG, type HubResourceCard } from "@/data/knowledgeHubs";
-import BcIsvCatalog from "@/components/BcIsvCatalog";
 import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
 import type { ProductKey } from "@/data/erpComparisons";
 
@@ -127,11 +126,11 @@ const KunskapscenterHub = ({ slug }: Props) => {
           </div>
         </section>
 
-        {/* Hub-specific: inline ISV-katalog för BC-tillägg */}
+        {/* Hub-specific: hänvisning till den gemensamma D365-tilläggskatalogen */}
         {hub.slug === "business-central-tillagg" && (
           <section className="border-b border-border bg-background">
             <div className="container mx-auto px-4 py-8 md:py-10 max-w-6xl">
-              <div className="mb-6">
+              <div className="rounded-lg border border-border bg-muted/30 p-6 md:p-8">
                 <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary mb-1">
                   <Puzzle className="w-3.5 h-3.5" /> Interaktiv katalog
                 </div>
@@ -139,11 +138,16 @@ const KunskapscenterHub = ({ slug }: Props) => {
                   Filtrera fram rätt tilläggsapplikation
                 </h2>
                 <p className="text-sm text-muted-foreground mt-1 max-w-2xl">
-                  Bläddra alla ISV-lösningar i BC-ekosystemet och filtrera på kategori, typ,
-                  bransch och geografi.
+                  Alla ISV-lösningar – för Business Central och övriga Dynamics 365-produkter –
+                  finns nu samlade i den gemensamma tilläggskatalogen.
                 </p>
+                <Link
+                  to="/kunskapscenter/dynamics-365-tillagg/?produkt=Business%20Central"
+                  className="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90"
+                >
+                  Öppna tilläggskatalogen →
+                </Link>
               </div>
-              <BcIsvCatalog defaultFiltersOpen showCta={false} defaultProducts={["Business Central"]} />
             </div>
           </section>
         )}

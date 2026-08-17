@@ -1,9 +1,9 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { X, ArrowRight } from "lucide-react";
+import { X, ArrowRight, Search } from "lucide-react";
 import {
   CATEGORIES,
   TYPES,
@@ -282,15 +282,29 @@ interface BcIsvCatalogProps {
   defaultProducts?: string[];
   /** Visa produktfiltret överst (gemensam D365-katalog). */
   showProductFilter?: boolean;
+  /** Öppna en specifik lösning direkt (id, namn eller slug från t.ex. AI-sök). */
+  openSolutionId?: string;
+  /** Förifylld fritextsökning. */
+  defaultQuery?: string;
 }
 
-const BcIsvCatalog = ({ defaultProducts = [], showProductFilter = false }: BcIsvCatalogProps = {}) => {
+const slugify = (v: string) =>
+  v.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+
+const BcIsvCatalog = ({
+  defaultProducts = [],
+  showProductFilter = false,
+  openSolutionId,
+  defaultQuery = "",
+}: BcIsvCatalogProps = {}) => {
   const [cats, setCats] = useState<Set<SolutionCategory>>(new Set());
   const [types, setTypes] = useState<Set<SolutionType>>(new Set());
   const [industries, setIndustries] = useState<Set<SolutionIndustry>>(new Set());
   const [products, setProducts] = useState<Set<string>>(new Set(defaultProducts));
+  const [query, setQuery] = useState(defaultQuery);
   const [groupByVendor, setGroupByVendor] = useState(true);
   const [open, setOpen] = useState<IsvSolution | null>(null);
+  const [autoOpened, setAutoOpened] = useState(false);
 
   const toggle = <T,>(set: Set<T>, setter: (s: Set<T>) => void) => (v: T) => {
     const next = new Set(set);
@@ -309,14 +323,46 @@ const BcIsvCatalog = ({ defaultProducts = [], showProductFilter = false }: BcIsv
   }, [BC_ISV_SOLUTIONS, defaultProducts, showProductFilter]);
 
   const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
     return scoped.filter((s) => {
       if (cats.size && !cats.has(s.category)) return false;
       if (types.size && !types.has(s.type)) return false;
       if (industries.size && !s.industries.some((i) => industries.has(i))) return false;
       if (products.size && !solutionProducts(s).some((p) => products.has(p))) return false;
+      if (q) {
+        const hay = [
+          s.name,
+          s.vendor,
+          s.category,
+          s.type,
+          s.shortDescription,
+          s.what,
+          s.whenFits,
+          ...(s.tags || []),
+          ...(s.useCases || []),
+          ...(s.industries || []),
+          ...solutionProducts(s),
+        ]
+          .join(" ")
+          .toLowerCase();
+        if (!hay.includes(q)) return false;
+      }
       return true;
     });
-  }, [scoped, cats, types, industries, products]);
+  }, [scoped, cats, types, industries, products, query]);
+
+  // Djuplänk: öppna en specifik lösning direkt (t.ex. från AI-sök)
+  useEffect(() => {
+    if (autoOpened || !openSolutionId || !BC_ISV_SOLUTIONS.length) return;
+    const key = slugify(openSolutionId);
+    const match = BC_ISV_SOLUTIONS.find(
+      (s) => slugify(s.id) === key || slugify(s.name) === key
+    );
+    if (match) {
+      setOpen(match);
+      setAutoOpened(true);
+    }
+  }, [openSolutionId, BC_ISV_SOLUTIONS, autoOpened]);
 
   // Leverantörer med fler än en lösning grupperas under egen rubrik
   const { vendorGroups, singles } = useMemo(() => {
@@ -334,12 +380,14 @@ const BcIsvCatalog = ({ defaultProducts = [], showProductFilter = false }: BcIsv
     return { vendorGroups: groups, singles: rest };
   }, [filtered]);
 
-  const activeCount = cats.size + types.size + industries.size + (showProductFilter ? products.size : 0);
+  const activeCount =
+    cats.size + types.size + industries.size + (showProductFilter ? products.size : 0) + (query.trim() ? 1 : 0);
 
   const clearAll = () => {
     setCats(new Set());
     setTypes(new Set());
     setIndustries(new Set());
+    setQuery("");
     if (showProductFilter) setProducts(new Set());
   };
 
@@ -371,6 +419,27 @@ const BcIsvCatalog = ({ defaultProducts = [], showProductFilter = false }: BcIsv
               </button>
             )}
           </div>
+        </div>
+
+        <div className="relative mb-6">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Sök på lösning, leverantör, funktion eller nyckelord…"
+            className="w-full pl-9 pr-9 py-2.5 text-sm rounded-md border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50"
+          />
+          {query && (
+            <button
+              type="button"
+              onClick={() => setQuery("")}
+              aria-label="Rensa sökning"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
         </div>
 
         <div className="space-y-5">

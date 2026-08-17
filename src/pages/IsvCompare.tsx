@@ -14,7 +14,7 @@ const IsvCompare = () => {
   const BC_ISV_SOLUTIONS = useIsvSolutions();
 
   if (!comparison) {
-    return <Navigate to="/kunskapscenter/business-central-tillagg/katalog/" replace />;
+    return <Navigate to="/kunskapscenter/dynamics-365-tillagg/?produkt=Business%20Central" replace />;
   }
 
   const solutions = comparison.solutionIds
