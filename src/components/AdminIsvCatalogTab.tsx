@@ -109,14 +109,21 @@ export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
 
   const visible = useMemo(() => {
     const q = search.trim().toLowerCase();
-    if (!q) return BC_ISV_SOLUTIONS;
-    return BC_ISV_SOLUTIONS.filter(
-      (s) =>
-        s.name.toLowerCase().includes(q) ||
-        s.vendor.toLowerCase().includes(q) ||
-        s.category.toLowerCase().includes(q)
-    );
-  }, [search]);
+    const list = !q
+      ? [...BC_ISV_SOLUTIONS]
+      : BC_ISV_SOLUTIONS.filter(
+          (s) =>
+            s.name.toLowerCase().includes(q) ||
+            s.vendor.toLowerCase().includes(q) ||
+            s.category.toLowerCase().includes(q)
+        );
+    const val = (s: (typeof BC_ISV_SOLUTIONS)[number]) =>
+      sortKey === "name" ? s.name : (overrides[s.id]?.vendor_name || s.vendor);
+    return list.sort((a, b) => {
+      const cmp = val(a).localeCompare(val(b), "sv", { sensitivity: "base" });
+      return sortDir === "asc" ? cmp : -cmp;
+    });
+  }, [search, sortKey, sortDir, overrides]);
 
   const save = async () => {
     if (!editing) return;
