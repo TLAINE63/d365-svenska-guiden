@@ -147,10 +147,6 @@ const IsvCompare = () => {
                     </ul>
                   </section>
                 )}
-
-                <section className="hidden">
-                  {null}
-                </section>
               </div>
             </article>
           ))}
