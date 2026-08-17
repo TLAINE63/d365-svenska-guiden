@@ -319,12 +319,13 @@ const BcIsvCatalog = ({ defaultProducts = [], showProductFilter = false }: BcIsv
 
   const BC_ISV_SOLUTIONS = useIsvSolutions();
 
+  // När produktfiltret visas är defaultProducts bara ett förval, inte en hård avgränsning.
   const scoped = useMemo(() => {
-    if (!defaultProducts.length) return BC_ISV_SOLUTIONS;
+    if (showProductFilter || !defaultProducts.length) return BC_ISV_SOLUTIONS;
     return BC_ISV_SOLUTIONS.filter((s) =>
       solutionProducts(s).some((p) => defaultProducts.includes(p))
     );
-  }, [BC_ISV_SOLUTIONS, defaultProducts]);
+  }, [BC_ISV_SOLUTIONS, defaultProducts, showProductFilter]);
 
   const filtered = useMemo(() => {
     return scoped.filter((s) => {
