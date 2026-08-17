@@ -552,7 +552,10 @@ const Kunskapscenter = () => {
  const tracksGridRef = useRef<HTMLDivElement>(null);
  const [selectedFormats, setSelectedFormats] = useState<FormatValue[]>([]);
  const [selectedProducts, setSelectedProducts] = useState<ProductValue[]>([]);
- const [deepDiveProduct, setDeepDiveProduct] = useState<string | null>(null);
+ const [deepDiveProduct, setDeepDiveProduct] = useState<string | null>(() => {
+   if (typeof window === "undefined") return null;
+   return new URLSearchParams(window.location.search).get("produkt");
+ });
  const [deepDiveView, setDeepDiveView] = useState<"articles" | "prices">("articles");
  const [articles, setArticles] = useState<KnowledgeArticle[]>([]);
  const [events, setEvents] = useState<EventItem[]>([]);
