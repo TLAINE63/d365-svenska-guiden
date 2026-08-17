@@ -315,6 +315,39 @@ export type Database = {
         }
         Relationships: []
       }
+      isv_solution_overrides: {
+        Row: {
+          combos: string[] | null
+          created_at: string
+          short_description: string | null
+          solution_id: string
+          updated_at: string
+          use_cases: string[] | null
+          what: string | null
+          when_fits: string | null
+        }
+        Insert: {
+          combos?: string[] | null
+          created_at?: string
+          short_description?: string | null
+          solution_id: string
+          updated_at?: string
+          use_cases?: string[] | null
+          what?: string | null
+          when_fits?: string | null
+        }
+        Update: {
+          combos?: string[] | null
+          created_at?: string
+          short_description?: string | null
+          solution_id?: string
+          updated_at?: string
+          use_cases?: string[] | null
+          what?: string | null
+          when_fits?: string | null
+        }
+        Relationships: []
+      }
       knowledge_articles: {
         Row: {
           category: string
