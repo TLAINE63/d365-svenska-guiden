@@ -37,6 +37,9 @@ const ProductIsvSection = ({
   const shown = solutions.slice(0, limit);
   const hasSolutions = solutions.length > 0;
 
+  // Visa bara sektionen om det finns minst en ISV-lösning för produkten
+  if (!hasSolutions) return null;
+
   return (
     <section className={`py-14 md:py-16 bg-muted/30 border-y border-border ${className}`}>
       <div className="container mx-auto px-4 max-w-6xl">
