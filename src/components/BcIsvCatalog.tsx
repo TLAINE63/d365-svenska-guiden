@@ -282,15 +282,29 @@ interface BcIsvCatalogProps {
   defaultProducts?: string[];
   /** Visa produktfiltret överst (gemensam D365-katalog). */
   showProductFilter?: boolean;
+  /** Öppna en specifik lösning direkt (id, namn eller slug från t.ex. AI-sök). */
+  openSolutionId?: string;
+  /** Förifylld fritextsökning. */
+  defaultQuery?: string;
 }
 
-const BcIsvCatalog = ({ defaultProducts = [], showProductFilter = false }: BcIsvCatalogProps = {}) => {
+const slugify = (v: string) =>
+  v.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+
+const BcIsvCatalog = ({
+  defaultProducts = [],
+  showProductFilter = false,
+  openSolutionId,
+  defaultQuery = "",
+}: BcIsvCatalogProps = {}) => {
   const [cats, setCats] = useState<Set<SolutionCategory>>(new Set());
   const [types, setTypes] = useState<Set<SolutionType>>(new Set());
   const [industries, setIndustries] = useState<Set<SolutionIndustry>>(new Set());
   const [products, setProducts] = useState<Set<string>>(new Set(defaultProducts));
+  const [query, setQuery] = useState(defaultQuery);
   const [groupByVendor, setGroupByVendor] = useState(true);
   const [open, setOpen] = useState<IsvSolution | null>(null);
+  const [autoOpened, setAutoOpened] = useState(false);
 
   const toggle = <T,>(set: Set<T>, setter: (s: Set<T>) => void) => (v: T) => {
     const next = new Set(set);
