@@ -71,6 +71,13 @@ export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
   const [saving, setSaving] = useState(false);
   const [search, setSearch] = useState("");
   const [editing, setEditing] = useState<EditState | null>(null);
+  const [sortKey, setSortKey] = useState<"name" | "vendor">("name");
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+
+  const toggleSort = (key: "name" | "vendor") => {
+    if (sortKey === key) setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+    else { setSortKey(key); setSortDir("asc"); }
+  };
 
   const baseUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-isv-solutions`;
   const apikey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
