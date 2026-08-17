@@ -65,7 +65,6 @@ const ProductIsvSection = ({
           </Link>
         </div>
 
-        {hasSolutions && (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {shown.map((s) => (
             <Link
@@ -91,7 +90,6 @@ const ProductIsvSection = ({
             </Link>
           ))}
         </div>
-        )}
       </div>
     </section>
   );
