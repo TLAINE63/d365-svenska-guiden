@@ -11,8 +11,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Loader2, CheckCircle2, AlertCircle, Package, Building2 } from "lucide-react";
+import { Loader2, CheckCircle2, AlertCircle, Package, Building2, Handshake } from "lucide-react";
 import { ISV_PRODUCTS, ISV_INDUSTRIES } from "@/data/isvProfileOptions";
+import IsvPartnerPicker from "@/components/IsvPartnerPicker";
 
 interface Invitation {
   solution_id: string;
@@ -31,6 +32,7 @@ interface FormState {
   combos: string;
   products: string[];
   industries: string[];
+  partner_slugs: string[];
   vendor_website: string;
   contact_name: string;
   contact_email: string;
@@ -45,6 +47,7 @@ const emptyForm: FormState = {
   combos: "",
   products: [],
   industries: [],
+  partner_slugs: [],
   vendor_website: "",
   contact_name: "",
   contact_email: "",
@@ -86,6 +89,7 @@ export default function IsvProfile() {
             combos: (src.combos || []).join("\n"),
             products: src.products || [],
             industries: src.industries || [],
+            partner_slugs: src.partner_slugs || [],
             vendor_website: src.vendor_website || "",
             contact_name: src.contact_name || src.vendor_contact_name || "",
             contact_email: src.contact_email || src.vendor_contact_email || data.invitation?.email || "",
@@ -230,6 +234,24 @@ export default function IsvProfile() {
                     {i}
                   </label>
                 ))}
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <Handshake className="w-4 h-4" /> Återförsäljare / partners
+                </CardTitle>
+                <CardDescription>
+                  Vilka svenska Dynamics 365-partners säljer eller implementerar lösningen? Filtrera
+                  per produktområde och kryssa i de som stämmer.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <IsvPartnerPicker
+                  value={form.partner_slugs}
+                  onChange={(partner_slugs) => setForm((f) => ({ ...f, partner_slugs }))}
+                />
               </CardContent>
             </Card>
 
