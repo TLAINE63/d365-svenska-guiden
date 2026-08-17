@@ -14,6 +14,7 @@ import {
   type SolutionIndustry,
 } from "@/data/bcIsvSolutions";
 import { useIsvSolutions } from "@/hooks/useIsvSolutions";
+import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { ISV_COMPARISONS } from "@/data/isvComparisons";
 
 const TYPE_BADGE: Record<SolutionType, string> = {
@@ -140,6 +141,26 @@ const SolutionCard = ({ s, onOpen }: { s: IsvSolution; onOpen: () => void }) => 
   </button>
 );
 
+/** Återförsäljare/partners som ISV:n själv angett (slugs mot partnerdatabasen). */
+const IsvResellers = ({ slugs }: { slugs: string[] }) => {
+  const { data: partners = [] } = useAllPartnerNames();
+  if (!slugs.length) return null;
+  const names = slugs.map((slug) => partners.find((p) => p.slug === slug) || { slug, name: slug, is_featured: false });
+  return (
+    <section>
+      <h4 className="font-semibold text-foreground mb-1">Återförsäljare / partners</h4>
+      <div className="flex flex-wrap gap-1.5">
+        {names.map((p) => (
+          <Badge key={p.slug} variant="outline" className="text-[11px] bg-muted/50 text-foreground border-border">
+            {p.name}
+          </Badge>
+        ))}
+      </div>
+      <p className="text-xs text-muted-foreground mt-1">Angivet av leverantören.</p>
+    </section>
+  );
+};
+
 const SolutionDetail = ({ s, onClose }: { s: IsvSolution | null; onClose: () => void }) => (
   <Dialog open={!!s} onOpenChange={(o) => !o && onClose()}>
     <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
@@ -208,6 +229,7 @@ const SolutionDetail = ({ s, onClose }: { s: IsvSolution | null; onClose: () => 
                 </ul>
               </section>
             )}
+            <IsvResellers slugs={s.partnerSlugs || []} />
             <section>
               <h4 className="font-semibold text-foreground mb-1">
                 Partners i Sverige

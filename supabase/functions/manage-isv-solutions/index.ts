@@ -106,6 +106,7 @@ serve(async (req) => {
         combos: cleanList(body?.combos),
         products: cleanList(body?.products, 12) || [],
         industries: cleanList(body?.industries, 25) || [],
+        partner_slugs: cleanList(body?.partner_slugs, 100, 120) || [],
         vendor_name: clean(body?.vendor_name, 200),
         vendor_website: clean(body?.vendor_website, 300),
         admin_contact_name: clean(body?.admin_contact_name, 200),

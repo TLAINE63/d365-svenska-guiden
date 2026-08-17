@@ -368,6 +368,7 @@ export type Database = {
           combos: string[] | null
           created_at: string
           industries: string[]
+          partner_slugs: string[]
           products: string[]
           sales_contact_email: string | null
           sales_contact_name: string | null
@@ -391,6 +392,7 @@ export type Database = {
           combos?: string[] | null
           created_at?: string
           industries?: string[]
+          partner_slugs?: string[]
           products?: string[]
           sales_contact_email?: string | null
           sales_contact_name?: string | null
@@ -414,6 +416,7 @@ export type Database = {
           combos?: string[] | null
           created_at?: string
           industries?: string[]
+          partner_slugs?: string[]
           products?: string[]
           sales_contact_email?: string | null
           sales_contact_name?: string | null
@@ -441,6 +444,7 @@ export type Database = {
           industries: string[]
           invitation_id: string
           notes: string | null
+          partner_slugs: string[]
           products: string[]
           reviewed_at: string | null
           short_description: string | null
@@ -460,6 +464,7 @@ export type Database = {
           industries?: string[]
           invitation_id: string
           notes?: string | null
+          partner_slugs?: string[]
           products?: string[]
           reviewed_at?: string | null
           short_description?: string | null
@@ -479,6 +484,7 @@ export type Database = {
           industries?: string[]
           invitation_id?: string
           notes?: string | null
+          partner_slugs?: string[]
           products?: string[]
           reviewed_at?: string | null
           short_description?: string | null
@@ -2051,6 +2057,7 @@ export type Database = {
         Row: {
           combos: string[] | null
           industries: string[] | null
+          partner_slugs: string[] | null
           products: string[] | null
           short_description: string | null
           solution_id: string | null
@@ -2064,6 +2071,7 @@ export type Database = {
         Insert: {
           combos?: string[] | null
           industries?: string[] | null
+          partner_slugs?: string[] | null
           products?: string[] | null
           short_description?: string | null
           solution_id?: string | null
@@ -2077,6 +2085,7 @@ export type Database = {
         Update: {
           combos?: string[] | null
           industries?: string[] | null
+          partner_slugs?: string[] | null
           products?: string[] | null
           short_description?: string | null
           solution_id?: string | null

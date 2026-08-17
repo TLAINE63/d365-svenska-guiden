@@ -14,6 +14,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import type { IsvOverride } from "@/hooks/useIsvSolutions";
 import AdminIsvInvitationsTab from "@/components/AdminIsvInvitationsTab";
 import { ISV_PRODUCTS, ISV_INDUSTRIES } from "@/data/isvProfileOptions";
+import IsvPartnerPicker from "@/components/IsvPartnerPicker";
 
 interface Props {
   token: string | null;
@@ -30,6 +31,7 @@ interface EditState {
   combos: string;
   products: string[];
   industries: string[];
+  partner_slugs: string[];
   vendor_name: string;
   vendor_website: string;
   admin_contact_name: string;
@@ -50,6 +52,7 @@ const toEdit = (s: IsvSolution, o?: IsvOverride): EditState => ({
   combos: (o?.combos ?? s.combos).join("\n"),
   products: o?.products ?? s.products ?? [],
   industries: o?.industries ?? s.industryFocus ?? [],
+  partner_slugs: o?.partner_slugs ?? [],
   vendor_name: o?.vendor_name ?? s.vendor ?? "",
   vendor_website: o?.vendor_website ?? s.vendorWebsite ?? "",
   admin_contact_name: o?.admin_contact_name ?? "",
@@ -123,6 +126,7 @@ export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
           combos: editing.combos.split("\n").map((s) => s.trim()).filter(Boolean),
           products: editing.products,
           industries: editing.industries,
+          partner_slugs: editing.partner_slugs,
           vendor_name: editing.vendor_name,
           vendor_website: editing.vendor_website,
           admin_contact_name: editing.admin_contact_name,
@@ -439,6 +443,15 @@ export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
                       {i}
                     </label>
                   ))}
+                </div>
+              </div>
+              <div>
+                <Label>Återförsäljare / partners</Label>
+                <div className="mt-2">
+                  <IsvPartnerPicker
+                    value={editing.partner_slugs}
+                    onChange={(partner_slugs) => setEditing({ ...editing, partner_slugs })}
+                  />
                 </div>
               </div>
               <div>
