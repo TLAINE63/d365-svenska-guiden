@@ -50,12 +50,63 @@ export function applyIsvOverrides(
   });
 }
 
+/** Rå rad från tabellen isv_solutions (lösningar skapade i admin). */
+export interface IsvSolutionRow {
+  solution_id: string;
+  name: string;
+  vendor: string;
+  short_description: string | null;
+  category: string;
+  type: string;
+  tier: string;
+  tags: string[] | null;
+  industries: string[] | null;
+  geo: string[] | null;
+  what: string | null;
+  use_cases: string[] | null;
+  when_fits: string | null;
+  combos: string[] | null;
+  products: string[] | null;
+  industry_focus: string[] | null;
+  partner_slugs: string[] | null;
+  vendor_website: string | null;
+  is_published?: boolean;
+  sort_order?: number;
+}
+
+/** Konverterar en databasrad till katalogens IsvSolution-format. */
+export function rowToSolution(r: IsvSolutionRow): IsvSolution {
+  return {
+    id: r.solution_id,
+    name: r.name,
+    vendor: r.vendor,
+    shortDescription: r.short_description || "",
+    type: r.type as IsvSolution["type"],
+    category: r.category as IsvSolution["category"],
+    tier: r.tier as IsvSolution["tier"],
+    tags: r.tags || [],
+    industries: (r.industries || []) as IsvSolution["industries"],
+    geo: (r.geo || []) as IsvSolution["geo"],
+    what: r.what || "",
+    useCases: r.use_cases || [],
+    whenFits: r.when_fits || "",
+    combos: r.combos || [],
+    partnersSE: [],
+    products: r.products || undefined,
+    industryFocus: r.industry_focus || undefined,
+    partnerSlugs: r.partner_slugs || undefined,
+    vendorWebsite: r.vendor_website || undefined,
+  };
+}
+
 /**
- * Returnerar ISV-katalogen med eventuella admin- eller leverantörsredigerade texter pålagda.
+ * Returnerar ISV-katalogen: statisk kodkatalog + lösningar skapade i admin,
+ * med eventuella admin- eller leverantörsredigerade texter pålagda.
  * Faller alltid tillbaka på den statiska katalogen (viktigt för SSG).
  */
 export function useIsvSolutions(): IsvSolution[] {
   const [overrides, setOverrides] = useState<Record<string, IsvOverride>>({});
+  const [dbSolutions, setDbSolutions] = useState<IsvSolution[]>([]);
 
   useEffect(() => {
     let cancelled = false;
@@ -70,10 +121,26 @@ export function useIsvSolutions(): IsvSolution[] {
       for (const row of data as IsvOverride[]) map[row.solution_id] = row;
       setOverrides(map);
     })();
+
+    (async () => {
+      const { data, error } = await supabase
+        .from("isv_solutions")
+        .select("*")
+        .eq("is_published", true)
+        .order("sort_order", { ascending: true })
+        .order("name", { ascending: true });
+      if (error || cancelled || !data) return;
+      setDbSolutions((data as unknown as IsvSolutionRow[]).map(rowToSolution));
+    })();
+
     return () => {
       cancelled = true;
     };
   }, []);
 
-  return useMemo(() => applyIsvOverrides(BC_ISV_SOLUTIONS, overrides), [overrides]);
+  return useMemo(() => {
+    const staticIds = new Set(BC_ISV_SOLUTIONS.map((s) => s.id));
+    const merged = [...BC_ISV_SOLUTIONS, ...dbSolutions.filter((s) => !staticIds.has(s.id))];
+    return applyIsvOverrides(merged, overrides);
+  }, [overrides, dbSolutions]);
 }
