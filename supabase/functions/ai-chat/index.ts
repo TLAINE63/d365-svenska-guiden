@@ -2,6 +2,7 @@
 import { checkAndLogQuota } from '../_shared/ai-quota.ts';
 import { D365_MARKET_CONTEXT_SV } from '../_shared/market-context.ts';
 import { getCorsHeaders } from '../_shared/cors.ts';
+import { buildIsvContextBlock, ISV_CATALOG_PATH } from '../_shared/isv-context.ts';
 
 const DAILY_LIMIT = 50;
 
@@ -27,12 +28,14 @@ VIKTIGA SIDOR du kan länka till:
 - Behovsanalys Kundservice: [/kundservice-behovsanalys](/kundservice-behovsanalys)
 - AI Readiness: [/ai-readiness](/ai-readiness)
 - Kunskapscenter: [/kunskapscenter](/kunskapscenter)
+- ISV-/tilläggskatalog (appar som kompletterar Dynamics 365): [/kunskapscenter/business-central-tillagg](/kunskapscenter/business-central-tillagg)
 - Kontakt: [/kontakt](/kontakt)
 - Produkter: /business-central, /finance-supply-chain, /erp, /crm, /d365sales, /d365marketing, /d365customerservice, /d365fieldservice, /d365contactcenter, /aioversikt
 
 REGLER:
 - Nämn ALDRIG Power Platform som en separat produkt vi täcker.
 - Lova inga priser utan att hänvisa till /kunskapscenter eller /kontakt.
+- Vid frågor om tillägg, appar, add-ons, ISV-lösningar eller funktionalitet som saknas i standard: använd ISV-LISTAN nedan, nämn 2-4 relevanta lösningar med leverantör och länka till [/kunskapscenter/business-central-tillagg](/kunskapscenter/business-central-tillagg). Hitta aldrig på ISV-lösningar.
 - Om frågan ligger utanför Dynamics 365 – säg det vänligt och föreslå /kontakt.`;
 
 Deno.serve(async (req) => {
@@ -84,7 +87,9 @@ Deno.serve(async (req) => {
       console.error('Failed to load partners for ai-chat', e);
     }
 
-    const systemPrompt = SYSTEM_PROMPT_BASE + '\n\n' + D365_MARKET_CONTEXT_SV + partnerBlock;
+    const isvBlock = await buildIsvContextBlock();
+
+    const systemPrompt = SYSTEM_PROMPT_BASE + '\n\n' + D365_MARKET_CONTEXT_SV + partnerBlock + isvBlock;
 
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',

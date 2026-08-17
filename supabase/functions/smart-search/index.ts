@@ -2,6 +2,7 @@
 import { checkAndLogQuota } from '../_shared/ai-quota.ts';
 import { getCorsHeaders } from '../_shared/cors.ts';
 import { scoreExtendedRelevance, cleanSnippet } from '../_shared/extended-relevance.ts';
+import { buildIsvContextBlock, ISV_CATALOG_PATH } from '../_shared/isv-context.ts';
 
 const DAILY_LIMIT = 30;
 
@@ -33,6 +34,7 @@ const ROUTES = [
   { path: '/kunskapscenter', label: 'Kunskapscenter – artiklar, fördjupningar, events' },
   { path: '/events', label: 'Events och webbinarier' },
   { path: '/qa', label: 'Frågor & svar (FAQ)' },
+  { path: '/kunskapscenter/business-central-tillagg', label: 'ISV- och tilläggskatalog – appar som kompletterar Dynamics 365 (fakturahantering, WMS, EDI, lokalisering, e-handel, CPQ m.m.)' },
   { path: '/kontakt', label: 'Kontakta oss / rådgivare' },
 ];
 
@@ -89,6 +91,8 @@ Deno.serve(async (req) => {
 
     const routeList = ROUTES.map(r => `- ${r.path} | ${r.label}`).join('\n');
 
+    const isvBlock = await buildIsvContextBlock();
+
     const systemPrompt = `Du är en sökassistent för d365.se, en köparsidig guide till Microsoft Dynamics 365 i Sverige.
 Användaren ställer en fri fråga – din uppgift är att föreslå den BÄSTA sidan att skicka dem till, plus 2-3 alternativa förslag.
 Svara ALLTID på svenska och ALLTID i giltig JSON.
@@ -97,7 +101,11 @@ VIKTIGA REGLER OM PARTNERS:
 - Hitta ALDRIG på fakta om partners. Använd ENDAST information som finns i listan PARTNERS nedan.
 - Påstå ALDRIG att en partner har bytt namn, blivit uppköpt, fusionerat eller "numera heter" något annat – även om du tror dig veta det från träningsdata. Sådana påståenden kan vara felaktiga.
 - Om användaren söker efter ett företagsnamn som INTE finns i listan PARTNERS: säg neutralt att företaget inte finns med i vår partnerkatalog på d365.se och hänvisa till partnerguiden (/valjdynamics365partner). Spekulera INTE om varför, och föreslå INTE ett annat företag som "ersättare".
-- Använd ALDRIG ordet "oberoende" om d365.se.`;
+- Använd ALDRIG ordet "oberoende" om d365.se.
+
+VIKTIGA REGLER OM ISV-/TILLÄGGSLÖSNINGAR:
+- Om frågan handlar om tillägg, appar, add-ons, ISV, integrationer eller funktionalitet som saknas i standard – använd listan ISV-LÖSNINGAR nedan, nämn relevanta lösningar vid namn i "answer" och sätt primary.path till ${ISV_CATALOG_PATH}.
+- Hitta ALDRIG på ISV-lösningar som inte finns i listan. ISV-lösningar har inga egna sidor – länka alltid till katalogen.`;
 
 
     const userPrompt = `Användarens fråga: "${query}"
@@ -107,6 +115,8 @@ ${routeList}
 
 PARTNERS (sorterade efter fördjupningsrelevans mot frågan. Fältet "fördjupning" är en extern research-sammanställning om partnern, AI-aggregerad från publika källor som d365.se, allabolag.se m.fl. – använd den ENBART som bakgrundskälla. Vikt: HÖG = låt den styra svar och val av partner-länk starkt; MEDEL = använd som stödjande signal; LÅG/INGEN = använd endast om inget annat matchar. Citera aldrig ordagrant, referera aldrig till "fördjupningen" i svaret, och lita inte blint på specifika siffror, kundnamn eller certifieringar):
 ${partnerList}
+
+${isvBlock}
 
 Returnera JSON:
 {
