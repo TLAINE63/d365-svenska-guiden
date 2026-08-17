@@ -71,6 +71,13 @@ export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
   const [saving, setSaving] = useState(false);
   const [search, setSearch] = useState("");
   const [editing, setEditing] = useState<EditState | null>(null);
+  const [sortKey, setSortKey] = useState<"name" | "vendor">("name");
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+
+  const toggleSort = (key: "name" | "vendor") => {
+    if (sortKey === key) setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+    else { setSortKey(key); setSortDir("asc"); }
+  };
 
   const baseUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-isv-solutions`;
   const apikey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
@@ -102,14 +109,21 @@ export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
 
   const visible = useMemo(() => {
     const q = search.trim().toLowerCase();
-    if (!q) return BC_ISV_SOLUTIONS;
-    return BC_ISV_SOLUTIONS.filter(
-      (s) =>
-        s.name.toLowerCase().includes(q) ||
-        s.vendor.toLowerCase().includes(q) ||
-        s.category.toLowerCase().includes(q)
-    );
-  }, [search]);
+    const list = !q
+      ? [...BC_ISV_SOLUTIONS]
+      : BC_ISV_SOLUTIONS.filter(
+          (s) =>
+            s.name.toLowerCase().includes(q) ||
+            s.vendor.toLowerCase().includes(q) ||
+            s.category.toLowerCase().includes(q)
+        );
+    const val = (s: (typeof BC_ISV_SOLUTIONS)[number]) =>
+      sortKey === "name" ? s.name : (overrides[s.id]?.vendor_name || s.vendor);
+    return list.sort((a, b) => {
+      const cmp = val(a).localeCompare(val(b), "sv", { sensitivity: "base" });
+      return sortDir === "asc" ? cmp : -cmp;
+    });
+  }, [search, sortKey, sortDir, overrides]);
 
   const save = async () => {
     if (!editing) return;
@@ -223,8 +237,30 @@ export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Lösning</TableHead>
-                  <TableHead>Leverantör</TableHead>
+                  <TableHead>
+                    <button
+                      type="button"
+                      onClick={() => toggleSort("name")}
+                      className="inline-flex items-center gap-1 hover:text-foreground"
+                    >
+                      Lösning
+                      <span className="text-xs">
+                        {sortKey === "name" ? (sortDir === "asc" ? "▲" : "▼") : "↕"}
+                      </span>
+                    </button>
+                  </TableHead>
+                  <TableHead>
+                    <button
+                      type="button"
+                      onClick={() => toggleSort("vendor")}
+                      className="inline-flex items-center gap-1 hover:text-foreground"
+                    >
+                      Leverantör
+                      <span className="text-xs">
+                        {sortKey === "vendor" ? (sortDir === "asc" ? "▲" : "▼") : "↕"}
+                      </span>
+                    </button>
+                  </TableHead>
                   <TableHead>Kontaktperson (admin)</TableHead>
                   <TableHead>Säljkontakt</TableHead>
                   <TableHead>Kategori</TableHead>
