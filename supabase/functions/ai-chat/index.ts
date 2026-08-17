@@ -2,7 +2,7 @@
 import { checkAndLogQuota } from '../_shared/ai-quota.ts';
 import { D365_MARKET_CONTEXT_SV } from '../_shared/market-context.ts';
 import { getCorsHeaders } from '../_shared/cors.ts';
-import { buildIsvContextBlock, ISV_CATALOG_PATH } from '../_shared/isv-context.ts';
+import { buildIsvContextBlock } from '../_shared/isv-context.ts';
 
 const DAILY_LIMIT = 50;
 
