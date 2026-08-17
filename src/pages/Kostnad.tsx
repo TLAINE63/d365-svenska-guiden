@@ -5,6 +5,7 @@ import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import { Link } from "react-router-dom";
 import CostBreakdown from "@/components/CostBreakdown";
+import CostProjectExamples from "@/components/CostProjectExamples";
 import { costBreakdowns } from "@/data/costBreakdown";
 
 const breadcrumbs = [
