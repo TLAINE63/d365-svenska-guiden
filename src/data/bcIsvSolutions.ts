@@ -51,6 +51,10 @@ export interface IsvSolution {
   combos: string[];               // Vanliga kombinationer
   partnersSE: string[];           // Partners i Sverige (max 5)
   partnerSource?: string;         // Vem listar partnerskapet offentligt
+  products?: string[];            // Dynamics 365-produkter lösningen är byggd för (angivet av ISV:n)
+  industryFocus?: string[];       // Svenska branscher lösningen är inriktad mot (angivet av ISV:n)
+  vendorWebsite?: string;         // Länk angiven av ISV:n
+  vendorUpdatedAt?: string;       // När ISV:n senast uppdaterade texten
 }
 
 export const BC_ISV_SOLUTIONS: IsvSolution[] = [

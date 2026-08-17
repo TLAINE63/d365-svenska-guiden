@@ -9,6 +9,12 @@ export interface IsvOverride {
   when_fits: string | null;
   use_cases: string[] | null;
   combos: string[] | null;
+  products?: string[] | null;
+  industries?: string[] | null;
+  vendor_website?: string | null;
+  vendor_contact_name?: string | null;
+  vendor_contact_email?: string | null;
+  vendor_updated_at?: string | null;
 }
 
 export function applyIsvOverrides(
@@ -26,12 +32,16 @@ export function applyIsvOverrides(
       whenFits: o.when_fits?.trim() || s.whenFits,
       useCases: o.use_cases?.length ? o.use_cases : s.useCases,
       combos: o.combos?.length ? o.combos : s.combos,
+      products: o.products?.length ? o.products : s.products,
+      industryFocus: o.industries?.length ? o.industries : s.industryFocus,
+      vendorWebsite: o.vendor_website?.trim() || s.vendorWebsite,
+      vendorUpdatedAt: o.vendor_updated_at || s.vendorUpdatedAt,
     };
   });
 }
 
 /**
- * Returnerar ISV-katalogen med eventuella admin-redigerade texter pålagda.
+ * Returnerar ISV-katalogen med eventuella admin- eller leverantörsredigerade texter pålagda.
  * Faller alltid tillbaka på den statiska katalogen (viktigt för SSG).
  */
 export function useIsvSolutions(): IsvSolution[] {
@@ -42,7 +52,9 @@ export function useIsvSolutions(): IsvSolution[] {
     (async () => {
       const { data, error } = await supabase
         .from("isv_solution_overrides")
-        .select("solution_id, short_description, what, when_fits, use_cases, combos");
+        .select(
+          "solution_id, short_description, what, when_fits, use_cases, combos, products, industries, vendor_website, vendor_updated_at"
+        );
       if (error || cancelled || !data) return;
       const map: Record<string, IsvOverride> = {};
       for (const row of data as IsvOverride[]) map[row.solution_id] = row;
