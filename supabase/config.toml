@@ -70,3 +70,9 @@ verify_jwt = false
 verify_jwt = false
 
 
+
+[functions.manage-isv-invitations]
+verify_jwt = false
+
+[functions.isv-profile]
+verify_jwt = false
