@@ -158,7 +158,7 @@ const SolutionDetail = ({ s, onClose }: { s: IsvSolution | null; onClose: () => 
           </DialogHeader>
 
           <div className="space-y-5 mt-2 text-sm leading-relaxed">
-            {(s.products?.length || s.industryFocus?.length) && (
+            {Boolean(s.products?.length || s.industryFocus?.length) && (
               <section className="space-y-3">
                 {s.products?.length ? (
                   <div>
