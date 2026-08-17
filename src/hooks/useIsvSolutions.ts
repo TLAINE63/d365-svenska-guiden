@@ -11,9 +11,16 @@ export interface IsvOverride {
   combos: string[] | null;
   products?: string[] | null;
   industries?: string[] | null;
+  vendor_name?: string | null;
   vendor_website?: string | null;
   vendor_contact_name?: string | null;
   vendor_contact_email?: string | null;
+  admin_contact_name?: string | null;
+  admin_contact_email?: string | null;
+  admin_contact_phone?: string | null;
+  sales_contact_name?: string | null;
+  sales_contact_email?: string | null;
+  sales_contact_phone?: string | null;
   vendor_updated_at?: string | null;
 }
 
@@ -34,6 +41,7 @@ export function applyIsvOverrides(
       combos: o.combos?.length ? o.combos : s.combos,
       products: o.products?.length ? o.products : s.products,
       industryFocus: o.industries?.length ? o.industries : s.industryFocus,
+      vendor: o.vendor_name?.trim() || s.vendor,
       vendorWebsite: o.vendor_website?.trim() || s.vendorWebsite,
       vendorUpdatedAt: o.vendor_updated_at || s.vendorUpdatedAt,
     };
@@ -51,9 +59,9 @@ export function useIsvSolutions(): IsvSolution[] {
     let cancelled = false;
     (async () => {
       const { data, error } = await supabase
-        .from("isv_solution_overrides")
+        .from("isv_solution_overrides_public")
         .select(
-          "solution_id, short_description, what, when_fits, use_cases, combos, products, industries, vendor_website, vendor_updated_at"
+          "solution_id, short_description, what, when_fits, use_cases, combos, products, industries, vendor_name, vendor_website, vendor_updated_at"
         );
       if (error || cancelled || !data) return;
       const map: Record<string, IsvOverride> = {};

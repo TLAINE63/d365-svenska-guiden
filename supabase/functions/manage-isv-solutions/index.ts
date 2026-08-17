@@ -106,6 +106,14 @@ serve(async (req) => {
         combos: cleanList(body?.combos),
         products: cleanList(body?.products, 12) || [],
         industries: cleanList(body?.industries, 25) || [],
+        vendor_name: clean(body?.vendor_name, 200),
+        vendor_website: clean(body?.vendor_website, 300),
+        admin_contact_name: clean(body?.admin_contact_name, 200),
+        admin_contact_email: clean(body?.admin_contact_email, 200),
+        admin_contact_phone: clean(body?.admin_contact_phone, 60),
+        sales_contact_name: clean(body?.sales_contact_name, 200),
+        sales_contact_email: clean(body?.sales_contact_email, 200),
+        sales_contact_phone: clean(body?.sales_contact_phone, 60),
         updated_at: new Date().toISOString(),
       };
 

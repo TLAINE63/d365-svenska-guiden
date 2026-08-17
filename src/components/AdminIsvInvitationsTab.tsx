@@ -15,6 +15,7 @@ interface Props {
   token: string | null;
   onSessionExpired: () => void;
   onApproved?: () => void;
+  contacts?: Record<string, { email: string; vendor: string }>;
 }
 
 interface Invitation {
@@ -52,7 +53,7 @@ interface Submission {
 const PUBLIC_BASE = "https://www.d365.se";
 const fmt = (d?: string | null) => (d ? new Date(d).toISOString().slice(0, 10).replace(/-/g, "/") : "–");
 
-export default function AdminIsvInvitationsTab({ token, onSessionExpired, onApproved }: Props) {
+export default function AdminIsvInvitationsTab({ token, onSessionExpired, onApproved, contacts }: Props) {
   const { toast } = useToast();
   const [invitations, setInvitations] = useState<Invitation[]>([]);
   const [submissions, setSubmissions] = useState<Submission[]>([]);
@@ -63,6 +64,15 @@ export default function AdminIsvInvitationsTab({ token, onSessionExpired, onAppr
   const [vendorName, setVendorName] = useState("");
   const [sendEmail, setSendEmail] = useState(true);
   const [review, setReview] = useState<Submission | null>(null);
+
+  // Förifyll leverantör och e-post från sparade kontaktuppgifter i ISV-katalogen
+  const selectSolution = (id: string) => {
+    setSolutionId(id);
+    const sol = BC_ISV_SOLUTIONS.find((s) => s.id === id);
+    const c = contacts?.[id];
+    setVendorName(c?.vendor || sol?.vendor || "");
+    if (c?.email) setEmail(c.email);
+  };
 
   const baseUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-isv-invitations`;
   const apikey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
@@ -180,7 +190,7 @@ export default function AdminIsvInvitationsTab({ token, onSessionExpired, onAppr
               <select
                 className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
                 value={solutionId}
-                onChange={(e) => setSolutionId(e.target.value)}
+                onChange={(e) => selectSolution(e.target.value)}
               >
                 <option value="">Välj lösning…</option>
                 {BC_ISV_SOLUTIONS.map((s) => (
