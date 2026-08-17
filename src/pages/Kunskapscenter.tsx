@@ -925,14 +925,15 @@ const Kunskapscenter = () => {
    </h2>
  <div className="flex flex-wrap gap-2">
  {[
- { slug: "business-central", label: "Business Central" },
- { slug: "business-central-tillagg", label: "BC-tilläggsapplikationer (ISV)" },
- { slug: "finance-supply-chain", label: "Finance & Supply Chain" },
- { slug: "sales", label: "Sales & CRM" },
- { slug: "customer-service", label: "Kundservice & Field Service" },
- { slug: "copilot", label: "Copilot & AI" },
- { slug: "upphandling", label: "Upphandling" },
- { slug: "partners", label: "Partnerval" },
+  { slug: "business-central", label: "Business Central" },
+  { slug: "business-central-tillagg", label: "BC-tilläggsapplikationer (ISV)" },
+  { slug: "dynamics-365-tillagg", label: "Dynamics 365-tillägg (ISV)" },
+  { slug: "finance-supply-chain", label: "Finance & Supply Chain" },
+  { slug: "sales", label: "Sales & CRM" },
+  { slug: "customer-service", label: "Kundservice & Field Service" },
+  { slug: "copilot", label: "Copilot & AI" },
+  { slug: "upphandling", label: "Upphandling" },
+  { slug: "partners", label: "Partnerval" },
  ].map((hub) => (
  <Link
  key={hub.slug}
