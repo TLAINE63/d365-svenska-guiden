@@ -108,6 +108,7 @@ const ComparePartners = lazy(() => import("./pages/ComparePartners"));
 const Partnernytt = lazy(() => import("./pages/Partnernytt"));
 const PartnerNewsDetail = lazy(() => import("./pages/PartnerNewsDetail"));
 const IsvCompare = lazy(() => import("./pages/IsvCompare"));
+const IsvProfile = lazy(() => import("./pages/IsvProfile"));
 const AiChatBubble = lazy(() => import("@/components/AiChatBubble"));
 
 const queryClient = new QueryClient();
@@ -304,6 +305,7 @@ const AppShell = () => {
           <Route path="/friskrivning" element={<Friskrivning />} />
           <Route path="/jamfor-partners" element={<ComparePartners />} />
           <Route path="/compare/:slug" element={<IsvCompare />} />
+          <Route path="/isv-profil/:token" element={<IsvProfile />} />
           <Route path="/partnernytt" element={<Partnernytt />} />
           <Route path="/partnernytt/artikel/:id" element={<PartnerNewsDetail />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
