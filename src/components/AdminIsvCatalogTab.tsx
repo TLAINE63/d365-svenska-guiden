@@ -15,6 +15,7 @@ import type { IsvOverride } from "@/hooks/useIsvSolutions";
 import AdminIsvInvitationsTab from "@/components/AdminIsvInvitationsTab";
 import { ISV_PRODUCTS, ISV_INDUSTRIES } from "@/data/isvProfileOptions";
 import IsvPartnerPicker from "@/components/IsvPartnerPicker";
+import AdminIsvNewSolutions from "@/components/AdminIsvNewSolutions";
 
 interface Props {
   token: string | null;
