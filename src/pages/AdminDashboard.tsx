@@ -2405,7 +2405,13 @@ Thomas`,
  <Mail className="h-3.5 w-3.5 text-emerald-300" strokeWidth={1.75} />
  </span>
  Månadsrapporter
- </TabsTrigger>
+              </TabsTrigger>
+              <TabsTrigger value="partner-performance" className={`flex items-center gap-2 ${activeGroup === "partnerportal" ? "" : "hidden"}`}>
+                <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-amber-500/20 to-amber-600/10 ring-1 ring-amber-400/20">
+                  <LineChart className="h-3.5 w-3.5 text-amber-300" strokeWidth={1.75} />
+                </span>
+                Partner Performance
+              </TabsTrigger>
  <TabsTrigger value="seo-rankings" className={`flex items-center gap-2 ${activeGroup === "seo" ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-sky-500/20 to-sky-600/10 ring-1 ring-sky-400/20">
  <LineChart className="h-3.5 w-3.5 text-sky-300" strokeWidth={1.75} />
@@ -3580,7 +3586,12 @@ Thomas`,
  {/* ==================== PARTNER REPORTS TAB ==================== */}
  <TabsContent value="partner-reports">
  <AdminPartnerReportsTab token={token || null} />
- </TabsContent>
+                </TabsContent>
+
+                {/* ==================== PARTNER PERFORMANCE TAB ==================== */}
+                <TabsContent value="partner-performance">
+                  <AdminPartnerPerformanceTab token={token || null} />
+                </TabsContent>
 
  {/* ==================== SEMRUSH DAILY TAB ==================== */}
  <TabsContent value="semrush-daily">
