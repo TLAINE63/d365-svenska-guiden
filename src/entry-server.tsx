@@ -183,6 +183,16 @@ export const routes: PrerenderRoute[] = [
   { path: '/implementationskalkylator', priority: '0.8', changefreq: 'monthly' },
   { path: '/dataskydd', priority: '0.3', changefreq: 'yearly', sitemap: false },
   { path: '/kom-igang', priority: '0.8', changefreq: 'monthly' },
+  {
+    path: '/partnerprogram',
+    priority: '0.7',
+    changefreq: 'monthly',
+    meta: {
+      title: 'För Dynamics 365-partners | Profilera er på d365.se',
+      description:
+        'd365.se kartlägger Sveriges Dynamics 365-partners. Se hur en profilerad partnerprofil kan stärka er position i köpresan, er digitala synlighet och ert beslutsunderlag när kunder jämför partners.',
+    },
+  },
   { path: '/kunskapscenter', priority: '0.7', changefreq: 'weekly' },
   ...KNOWLEDGE_HUBS.map((hub) => ({
     path: `/kunskapscenter/${hub.slug}`,
