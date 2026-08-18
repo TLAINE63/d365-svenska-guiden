@@ -18,6 +18,10 @@ interface SEOHeadProps {
   articleAuthor?: string;
   articleSection?: string;
   articleTags?: string[];
+  /** Emit WebPage JSON-LD automatically (default true). */
+  webPageSchema?: boolean;
+  /** Breadcrumb trail. Ange endast på sidor som inte redan renderar BreadcrumbSchema. */
+  breadcrumbs?: { name: string; url: string }[];
 }
 
 const SEOHead = ({
@@ -37,6 +41,8 @@ const SEOHead = ({
   articleAuthor,
   articleSection,
   articleTags,
+  webPageSchema = true,
+  breadcrumbs,
 }: SEOHeadProps) => {
   const baseUrl = "https://d365.se";
 
@@ -46,6 +52,38 @@ const SEOHead = ({
 
   const resolvedOgImage = ogImage.startsWith("http") ? ogImage : `${baseUrl}${ogImage}`;
   const isArticle = ogType === "article";
+
+  const webPageLd = webPageSchema
+    ? {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: fullTitle,
+        description,
+        url: canonicalUrl,
+        inLanguage: "sv-SE",
+        isPartOf: { "@type": "WebSite", name: "d365.se", url: baseUrl },
+        primaryImageOfPage: { "@type": "ImageObject", url: resolvedOgImage },
+        publisher: {
+          "@type": "Organization",
+          name: "Dynamic Factory",
+          url: baseUrl,
+          logo: { "@type": "ImageObject", url: `${baseUrl}/d365guide-logo.png` },
+        },
+      }
+    : null;
+
+  const breadcrumbLd = breadcrumbs?.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: breadcrumbs.map((b, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: b.name,
+          item: b.url.startsWith("http") ? b.url : `${baseUrl}${b.url}`,
+        })),
+      }
+    : null;
 
   return (
     <Helmet>
@@ -100,6 +138,14 @@ const SEOHead = ({
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={resolvedOgImage} />
       {ogImageAlt && <meta name="twitter:image:alt" content={ogImageAlt} />}
+
+      {/* Structured data */}
+      {webPageLd && (
+        <script type="application/ld+json">{JSON.stringify(webPageLd)}</script>
+      )}
+      {breadcrumbLd && (
+        <script type="application/ld+json">{JSON.stringify(breadcrumbLd)}</script>
+      )}
     </Helmet>
   );
 };
