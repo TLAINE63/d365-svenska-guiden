@@ -163,7 +163,7 @@ const arr = (a) => `ARRAY[${a.map((x) => `'${esc(x)}'`).join(", ")}]::text[]`;
 
 async function main() {
   const only = process.argv.slice(2);
-  const { data: partners, error } = await supabase.from("partners").select("*").eq("is_featured", true).order("name");
+  const { data: partners, error } = await supabase.from("partners_public").select("*").eq("is_featured", true).order("name");
   if (error) throw error;
 
   const targets = partners.filter(
