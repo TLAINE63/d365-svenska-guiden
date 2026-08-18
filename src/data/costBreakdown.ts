@@ -58,21 +58,21 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
         size: "S",
         label: "Liten – 5–25 användare",
         scope: "Standard ekonomi + inköp/försäljning, 1–2 integrationer, mall-baserad migrering.",
-        oneTime: "200 000 – 900 000 kr"
+        oneTime: "200 000 – 900 000 kr",
         weeks: "8–14 veckor",
       },
       {
         size: "M",
         label: "Medel – 25–75 användare",
         scope: "Lager, produktion eller projekt, 3–5 integrationer, branschapp och Power BI.",
-        oneTime: "450 000 – 2 500 000 kr"
+        oneTime: "450 000 – 2 500 000 kr",
         weeks: "14–24 veckor",
       },
       {
         size: "L",
         label: "Stor – 75–200 användare",
         scope: "Flera bolag/valutor, EDI, e-handel, avancerad lager/produktion, flera roll-outs.",
-        oneTime: "1 250 000 – 6 000 000+ kr"
+        oneTime: "1 250 000 – 6 000 000+ kr",
         weeks: "24–40 veckor",
       },
     ],
@@ -129,21 +129,21 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
         size: "S",
         label: "Liten – 50–150 användare",
         scope: "1 bolag, standard­processer, 3–5 integrationer, en geografi.",
-        oneTime: "1 500 000 – 7 000 000 kr"
+        oneTime: "1 500 000 – 7 000 000 kr",
         weeks: "20–36 veckor",
       },
       {
         size: "M",
         label: "Medel – 150–500 användare",
         scope: "Flera bolag/länder, WMS eller produktion, 6–12 integrationer, master data-projekt.",
-        oneTime: "3 500 000 – 20 000 000 kr"
+        oneTime: "3 500 000 – 20 000 000 kr",
         weeks: "9–18 månader",
       },
       {
         size: "L",
         label: "Stor – 500+ användare",
         scope: "Global koncern, flera roll-outs, MES/EDI/avancerad lager, omfattande change-program.",
-        oneTime: "10 000 000 – 60 000 000+ kr"
+        oneTime: "10 000 000 – 60 000 000+ kr",
         weeks: "18–36 månader",
       },
     ],
@@ -201,21 +201,21 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
         size: "S",
         label: "Liten – 10–30 säljare",
         scope: "Standard sales­process, 1–2 integrationer, mall-baserad migrering från befintligt CRM.",
-        oneTime: "125 000 – 600 000 kr"
+        oneTime: "125 000 – 600 000 kr",
         weeks: "6–12 veckor",
       },
       {
         size: "M",
         label: "Medel – 30–100 säljare",
         scope: "Flera affärs­områden, ERP-integration, säljkår med distrikt och produkt­grupper.",
-        oneTime: "300 000 – 1 500 000 kr"
+        oneTime: "300 000 – 1 500 000 kr",
         weeks: "12–22 veckor",
       },
       {
         size: "L",
         label: "Stor – 100+ säljare",
         scope: "Global säljkår, Copilot for Sales, Sales Premium med samtals­intelligens, omfattande integration.",
-        oneTime: "750 000 – 4 000 000+ kr"
+        oneTime: "750 000 – 4 000 000+ kr",
         weeks: "20–32 veckor",
       },
     ],
@@ -244,21 +244,21 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
         size: "S",
         label: "Liten – 5–20 agenter",
         scope: "Ärende­hantering, en kanal (e-post eller chatt), enkel kunskapsbas, enkla SLA:er.",
-        oneTime: "125 000 – 600 000 kr"
+        oneTime: "125 000 – 600 000 kr",
         weeks: "6–12 veckor",
       },
       {
         size: "M",
         label: "Medel – 20–75 agenter",
         scope: "Omnikanal (e-post, chatt, telefoni), kunskapsbas, SLA, ERP-integration, första Copilot-användning.",
-        oneTime: "300 000 – 1 800 000 kr"
+        oneTime: "300 000 – 1 800 000 kr",
         weeks: "12–22 veckor",
       },
       {
         size: "L",
         label: "Stor – 75+ agenter",
         scope: "Multi-brand, flera språk, integrerad röstkanal, IVR, agentassistent, kund­portal.",
-        oneTime: "900 000 – 5 000 000+ kr"
+        oneTime: "900 000 – 5 000 000+ kr",
         weeks: "20–36 veckor",
       },
     ],
@@ -287,21 +287,21 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
         size: "S",
         label: "Liten – 10–30 agenter",
         scope: "En kanal (röst eller digital), enkel IVR, standard­routning, en geografi.",
-        oneTime: "250 000 – 1 200 000 kr"
+        oneTime: "250 000 – 1 200 000 kr",
         weeks: "10–16 veckor",
       },
       {
         size: "M",
         label: "Medel – 30–100 agenter",
         scope: "Omnikanal (röst + digital + self-service), AI-routning, kunskapsbas, ERP-integration.",
-        oneTime: "600 000 – 3 000 000 kr"
+        oneTime: "600 000 – 3 000 000 kr",
         weeks: "16–28 veckor",
       },
       {
         size: "L",
         label: "Stor – 100+ agenter",
         scope: "Flera varumärken/länder, avancerad IVR, agent­assistans, WFM och kvalitetsuppföljning.",
-        oneTime: "1 500 000 – 8 000 000+ kr"
+        oneTime: "1 500 000 – 8 000 000+ kr",
         weeks: "24–40 veckor",
       },
     ],
@@ -330,21 +330,21 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
         size: "S",
         label: "Liten – 10–30 tekniker",
         scope: "Standard arbets­order, schemaläggning, mobil­app, en integration mot ERP.",
-        oneTime: "200 000 – 1 000 000 kr"
+        oneTime: "200 000 – 1 000 000 kr",
         weeks: "10–16 veckor",
       },
       {
         size: "M",
         label: "Medel – 30–100 tekniker",
         scope: "Resurs­optimerad schemaläggning, kontrakts­hantering, lager i bil, IoT-larm.",
-        oneTime: "500 000 – 2 500 000 kr"
+        oneTime: "500 000 – 2 500 000 kr",
         weeks: "16–26 veckor",
       },
       {
         size: "L",
         label: "Stor – 100+ tekniker",
         scope: "Flera länder, sub­kontraktörer, avancerad SLA, Remote Assist, Copilot för fältarbete.",
-        oneTime: "1 250 000 – 6 000 000+ kr"
+        oneTime: "1 250 000 – 6 000 000+ kr",
         weeks: "24–36 veckor",
       },
     ],
@@ -373,21 +373,21 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
         size: "S",
         label: "Liten – 5–20 butiker / mindre e-handel",
         scope: "POS i butik, enkel e-handel, en marknad, standard­lojalitet.",
-        oneTime: "750 000 – 3 500 000 kr"
+        oneTime: "750 000 – 3 500 000 kr",
         weeks: "16–28 veckor",
       },
       {
         size: "M",
         label: "Medel – 20–100 butiker / multikanal",
         scope: "POS + e-handel + clienteling, flera marknader, lojalitet, integration mot 3PL/WMS.",
-        oneTime: "1 750 000 – 9 000 000 kr"
+        oneTime: "1 750 000 – 9 000 000 kr",
         weeks: "9–15 månader",
       },
       {
         size: "L",
         label: "Stor – 100+ butiker / global multibrand",
         scope: "Flera varumärken, länder, valutor, avancerad pris/promo, kund­data­plattform.",
-        oneTime: "4 500 000 – 25 000 000+ kr"
+        oneTime: "4 500 000 – 25 000 000+ kr",
         weeks: "15–30 månader",
       },
     ],
@@ -416,21 +416,21 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
         size: "S",
         label: "Liten – 20–75 användare",
         scope: "Standard projekt­säljprocess, tidrapport, faktura­underlag, integration mot ekonomi.",
-        oneTime: "200 000 – 900 000 kr"
+        oneTime: "200 000 – 900 000 kr",
         weeks: "10–16 veckor",
       },
       {
         size: "M",
         label: "Medel – 75–250 användare",
         scope: "Resurs­planering, kontrakts­hantering, intäkts­avräkning, integration mot ERP och HR.",
-        oneTime: "450 000 – 2 200 000 kr"
+        oneTime: "450 000 – 2 200 000 kr",
         weeks: "16–28 veckor",
       },
       {
         size: "L",
         label: "Stor – 250+ användare",
         scope: "Global konsultorganisation, multivaluta, IFRS 15-intäkts­avräkning, flera affärs­modeller.",
-        oneTime: "1 100 000 – 5 000 000+ kr"
+        oneTime: "1 100 000 – 5 000 000+ kr",
         weeks: "24–36 veckor",
       },
     ],
@@ -459,21 +459,21 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
         size: "S",
         label: "Liten – upp till 500 anställda",
         scope: "Personal­akt, frånvaro, semester, integration mot ett lönesystem.",
-        oneTime: "150 000 – 700 000 kr"
+        oneTime: "150 000 – 700 000 kr",
         weeks: "8–14 veckor",
       },
       {
         size: "M",
         label: "Medel – 500–2 500 anställda",
         scope: "Rekrytering, onboarding, mål/lön, kompetens, integration mot lön och AD/Entra.",
-        oneTime: "350 000 – 1 500 000 kr"
+        oneTime: "350 000 – 1 500 000 kr",
         weeks: "14–22 veckor",
       },
       {
         size: "L",
         label: "Stor – 2 500+ anställda",
         scope: "Flera länder, kollektiv­avtal, succession, lärande­plattform, integration mot flera lönesystem.",
-        oneTime: "750 000 – 3 000 000+ kr"
+        oneTime: "750 000 – 3 000 000+ kr",
         weeks: "22–36 veckor",
       },
     ],
@@ -502,21 +502,21 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
         size: "S",
         label: "Liten – 1–2 marknader, enkla utskick",
         scope: "Standard e-postutskick, enkla segment, integration mot CRM, enkel landnings­sida.",
-        oneTime: "125 000 – 600 000 kr"
+        oneTime: "125 000 – 600 000 kr",
         weeks: "6–12 veckor",
       },
       {
         size: "M",
         label: "Medel – flera resor och kanaler",
         scope: "Triggade kund­resor, lead scoring, event­hantering, integration mot CMS och webb­analys.",
-        oneTime: "300 000 – 1 200 000 kr"
+        oneTime: "300 000 – 1 200 000 kr",
         weeks: "10–18 veckor",
       },
       {
         size: "L",
         label: "Stor – multi-brand, multi-marknad",
         scope: "Avancerad personalisering, Customer Insights – Data, AI-segment, content­ops i stor skala.",
-        oneTime: "600 000 – 3 000 000+ kr"
+        oneTime: "600 000 – 3 000 000+ kr",
         weeks: "18–28 veckor",
       },
     ],
@@ -545,21 +545,21 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
         size: "S",
         label: "Pilot – 10–50 användare, 1 use-case",
         scope: "Aktivera inkluderade Copilot-funktioner, en agent eller egen Copilot på avgränsat område.",
-        oneTime: "50 000 – 300 000 kr"
+        oneTime: "50 000 – 300 000 kr",
         weeks: "4–8 veckor",
       },
       {
         size: "M",
         label: "Utrullning – flera team / use-cases",
         scope: "3–5 use-cases, kunskaps­källor strukturerade, mätning och guardrails på plats.",
-        oneTime: "150 000 – 1 000 000 kr"
+        oneTime: "150 000 – 1 000 000 kr",
         weeks: "8–16 veckor",
       },
       {
         size: "L",
         label: "Enterprise – agenter i produktion",
         scope: "Egna agenter mot processer (service, sälj, ekonomi), integration mot fler system, governance och säkerhets­modell.",
-        oneTime: "500 000 – 3 000 000+ kr"
+        oneTime: "500 000 – 3 000 000+ kr",
         weeks: "12–28 veckor",
       },
     ],
