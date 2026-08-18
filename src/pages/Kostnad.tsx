@@ -6,6 +6,7 @@ import { BreadcrumbSchema } from "@/components/StructuredData";
 import { Link } from "react-router-dom";
 import CostBreakdown from "@/components/CostBreakdown";
 import CostProjectExamples from "@/components/CostProjectExamples";
+import CostContactForm from "@/components/CostContactForm";
 import { costBreakdowns } from "@/data/costBreakdown";
 
 const breadcrumbs = [
@@ -157,6 +158,8 @@ export default function Kostnad() {
             </div>
           </div>
         </section>
+
+        <CostContactForm />
       </main>
 
       <section className="py-8">
