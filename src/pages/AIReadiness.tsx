@@ -1575,7 +1575,7 @@ const AIReadiness = () => {
   if (step === "intro") {
     return (
       <div className="min-h-screen bg-background">
-        <SEOHead
+        <SEOHead webPageSchema={false}
           title="AI Readiness Assessment – Mät AI-effekt | d365.se"
           description="Rollbaserad AI-analys: mät automation och prediktion, få uppskattat ROI och rollspecifik roadmap. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
           canonicalPath="/ai-readiness"

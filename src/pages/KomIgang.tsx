@@ -296,7 +296,7 @@ const KomIgang = () => {
   if (showResults) {
     return (
       <div className="min-h-screen bg-background">
-        <SEOHead title="Dina partnerförslag – d365.se" description="Anpassade partnerrekommendationer baserat på din verksamhet. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner." canonicalPath="/kom-igang" noIndex />
+        <SEOHead webPageSchema={false} title="Dina partnerförslag – d365.se" description="Anpassade partnerrekommendationer baserat på din verksamhet. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner." canonicalPath="/kom-igang" noIndex />
         <Navbar />
         <main className="pt-12 lg:pt-28 pb-10">
           <div className="container mx-auto px-4 sm:px-6">

@@ -219,7 +219,7 @@ const Partnerprogram = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead
+      <SEOHead webPageSchema={false}
         title="För Dynamics 365-partners | Profilera er på d365.se"
         description="d365.se kartlägger Sveriges Dynamics 365-partners. Se hur en profilerad partnerprofil stärker er synlighet när kunder jämför och väljer partner."
         canonicalPath="/partnerprogram"
