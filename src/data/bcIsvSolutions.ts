@@ -107,7 +107,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
   {
     id: "swebase",
     name: "Swebase",
-    vendor: "Update AB",
+    vendor: "Programekonomi",
     shortDescription: "Svensk BC-extension som täcker krav och ekonomifunktioner som standard saknar.",
     type: "BC-native (ISV)",
     category: "Lokalisering",
@@ -119,8 +119,8 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["Svenska ekonomi- och bokföringsflöden", "Anpassningar för svensk redovisning"],
     whenFits: "När ni vill minimera anpassningar i kärnsystemet men behöver svenska specifika ekonomiflöden.",
     combos: ["BC + Swebase + Continia"],
-    partnersSE: ["Update"],
-    partnerSource: "Update AB",
+    partnersSE: ["Programekonomi"],
+    partnerSource: "Programekonomi",
   },
   {
     id: "smart-swedish-vat",
