@@ -53,10 +53,19 @@ export default function Partnernytt() {
   }, [data, allPartners]);
 
   // Visa endast nyhetstyper som faktiskt har publicerat innehåll.
+  // Rapport och Analys slås ihop till ett enda val ("Rapport & Analys").
   const types = useMemo(() => {
     const set = new Set<string>();
     (data ?? []).forEach((n) => n.news_type && set.add(n.news_type));
-    return TYPE_OPTIONS.filter((t) => set.has(t));
+    const result: { value: string; label: string }[] = [];
+    TYPE_OPTIONS.forEach((t) => {
+      if (t === "rapport" || t === "analys") return; // hanteras som merged
+      if (set.has(t)) result.push({ value: t, label: partnerNewsTypeLabel(t) });
+    });
+    if (set.has("rapport") || set.has("analys")) {
+      result.push({ value: "rapport-analys", label: MERGED_TYPE_LABELS["rapport-analys"] });
+    }
+    return result;
   }, [data]);
 
   const industries = useMemo(() => {
