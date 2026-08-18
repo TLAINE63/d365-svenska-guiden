@@ -75,6 +75,10 @@ const PartnerAiInsights = ({ partner }: Props) => {
                       </li>
                     ))}
                   </ul>
+                  <p className="mt-3 text-[11px] leading-snug text-slate-500">
+                    Betyder inte att partnern saknar kompetens inom området, utan att tillgänglig
+                    data ger mindre stöd för att rekommendera dem för just dessa behov.
+                  </p>
                 </article>
               )}
             </div>
