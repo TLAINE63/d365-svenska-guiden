@@ -136,8 +136,8 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
  Här är ett urval av partners som arbetar med {applicationFilter} i Sverige.
  {filterMode === "companySize"
- ? " Filtrera på er företagsstorlek och geografi för att hitta partners som passar dig bäst."
- : " Filtrera på bransch och företagsstorlek för att hitta partners som passar dig bäst."}
+ ? " Filtrera på er storlek (antal anställda och omsättning) och geografi för att hitta partners som passar dig bäst."
+ : " Filtrera på bransch, storlek (antal anställda och omsättning) och geografi för att hitta partners som passar dig bäst."}
  </p>
  </div>
 
@@ -153,17 +153,14 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  />
  )}
 
- {/* Company size filter – visas när filterMode = companySize */}
- {filterMode === "companySize" && (
- <FilterButtons
- title="Filtrera på er storlek – antal anställda"
- icon="employees"
- options={companySizes.map(s => ({ label: `${s} anställda`, value: s }))}
- selectedValue={selectedCompanySize}
- onSelect={setSelectedCompanySize}
+ {/* Storleksfilter – antal anställda och omsättning visas alltid */}
+ <SizeFilters
+ selectedCompanySize={selectedCompanySize}
+ selectedRevenue={selectedRevenue}
+ onCompanySizeChange={setSelectedCompanySize}
+ onRevenueChange={setSelectedRevenue}
  colorScheme="crm"
  />
- )}
 
  {/* Geography Filter */}
  <FilterButtons
@@ -177,7 +174,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
 
 
  {/* Resultathuvud – användarens sökning visas en gång ovanför korten */}
- {(selectedIndustry || selectedGeography || selectedCompanySize) && (
+ {(selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue) && (
  <>
  <SearchResultSummary
  count={filteredPartners.length}
@@ -186,6 +183,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  selectedIndustry,
  selectedGeography,
  selectedCompanySize ? `${selectedCompanySize} anställda` : null,
+ selectedRevenue,
  ]}
  onChangeFilters={() => {
  if (typeof document !== "undefined") {
@@ -201,6 +199,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  setSelectedIndustry(null);
  setSelectedGeography(null);
  setSelectedCompanySize(null);
+ setSelectedRevenue(null);
  }}
  className="text-muted-foreground hover:text-foreground"
  >
@@ -209,6 +208,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  </div>
  </>
  )}
+
 
   <WhyTheseResults className="mb-6 max-w-4xl mx-auto" />
 
