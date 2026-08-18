@@ -63,6 +63,12 @@ export const PartnerCompareProvider = ({ children }: { children: ReactNode }) =>
       if (prev.some((s) => s.slug === entry.slug)) {
         return prev.filter((s) => s.slug !== entry.slug);
       }
+      // Anonymous measurement: partner added to comparison (shortlist signal)
+      trackFunnelEvent({
+        event_type: "cta_click",
+        event_name: "partner_compare_add",
+        metadata: { partner_slug: entry.slug },
+      });
       if (prev.length >= MAX) {
         // Replace oldest (FIFO) so user can keep switching
         return [...prev.slice(1), entry];
