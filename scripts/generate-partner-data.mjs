@@ -64,6 +64,14 @@ try {
     throw new Error("Empty response — refusing to overwrite existing snapshot");
   }
   writeFileSync(OUTPUT_PATH, JSON.stringify(rows, null, 2) + "\n");
+  const routes = rows
+    .filter((p) => p.slug && p.name)
+    .map((p) => ({
+      slug: p.slug,
+      name: p.name,
+      description: (p.description || "").slice(0, 200),
+    }));
+  writeFileSync(ROUTES_PATH, JSON.stringify(routes, null, 2) + "\n");
   console.log(
     `[generate-partner-data] Wrote ${rows.length} featured partners → src/data/partnerData.json`,
   );
