@@ -261,6 +261,21 @@ const PartnerCard = ({
 
  const indicators = useMemo(() => getPartnerIndicators(partner, productKey, highlightedIndustry || null), [partner, productKey, highlightedIndustry]);
 
+ const assessment = useMemo(() => (resultView ? getResultAssessment(partner) : null), [resultView, partner]);
+ const relevanceFactors = useMemo(
+  () =>
+   resultView
+    ? getRelevanceFactors(partner, {
+       highlightedIndustry: highlightedIndustry || null,
+       highlightedProduct: highlightedProduct || null,
+      })
+    : [],
+  [resultView, partner, highlightedIndustry, highlightedProduct],
+ );
+ const evidence = useMemo(() => (resultView ? getDocumentedEvidence(partner) : null), [resultView, partner]);
+
+
+
 
 
  // Track click into partner profile (card click)
