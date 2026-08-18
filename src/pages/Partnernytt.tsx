@@ -17,7 +17,7 @@ import { X } from "lucide-react";
 import PartnernyttEventsSection from "@/components/PartnernyttEventsSection";
 
 const PRODUCT_OPTIONS = ["business-central", "finance-scm", "crm-sales", "crm-service", "power-platform", "microsoft-ai", "ovrigt"] as const;
-const TYPE_OPTIONS = ["kundcase", "event", "webinar", "erbjudande", "artikel", "rapport", "branschlosning", "produktnyhet", "partnernyhet", "analys"] as const;
+const TYPE_OPTIONS = ["kundcase", "event", "webinar", "erbjudande", "artikel", "rapport", "branschlosning", "produktnyhet", "analys"] as const;
 // Rapport och Analys slås ihop till ett enda filterval.
 const MERGED_TYPES: Record<string, string[]> = {
   "rapport-analys": ["rapport", "analys"],
