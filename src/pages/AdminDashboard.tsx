@@ -681,6 +681,11 @@ const AdminDashboard = () => {
     youtube_video_id?: string;
     ai_profile?: import("@/lib/aiProfile").AiProfile;
     extended_content?: string;
+    ai_summary?: string;
+    ai_summary_full?: string;
+    best_fit_for?: string[];
+    ai_tags?: string[];
+    not_a_fit?: string[];
     source_document_text?: string;
     source_document_url?: string;
     source_document_filename?: string;
@@ -720,6 +725,11 @@ const AdminDashboard = () => {
    legal_name: "",
    youtube_video_id: "",
     extended_content: "",
+    ai_summary: "",
+    ai_summary_full: "",
+    best_fit_for: [],
+    ai_tags: [],
+    not_a_fit: [],
     source_document_text: "",
     source_document_url: "",
     source_document_filename: "",
@@ -1387,6 +1397,11 @@ Thomas`,
   org_number: "",
   legal_name: "",
   extended_content: "",
+  ai_summary: "",
+  ai_summary_full: "",
+  best_fit_for: [],
+  ai_tags: [],
+  not_a_fit: [],
   partner_size_tier: null,
   partner_size_tier_needs_review: false,
   });
@@ -1474,6 +1489,11 @@ Thomas`,
    youtube_video_id: (partner as any).youtube_video_id || "",
     ai_profile: (partner as any).ai_profile || {},
     extended_content: (partner as any).extended_content || "",
+    ai_summary: (partner as any).ai_summary || "",
+    ai_summary_full: (partner as any).ai_summary_full || "",
+    best_fit_for: (partner as any).best_fit_for || [],
+    ai_tags: (partner as any).ai_tags || [],
+    not_a_fit: (partner as any).not_a_fit || [],
     source_document_text: (partner as any).source_document_text || "",
     source_document_url: (partner as any).source_document_url || "",
     source_document_filename: (partner as any).source_document_filename || "",
