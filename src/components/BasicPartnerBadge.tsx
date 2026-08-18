@@ -12,7 +12,7 @@ interface BasicPartnerBadgeProps {
 }
 
 export const BASIC_PROFILE_DISCLAIMER =
-  "Grundläggande information om partnern baserad på offentligt tillgängliga uppgifter. Profilen har ännu inte verifierats av partnern.";
+  "Grundläggande information om partnern baserad på publikt tillgängliga uppgifter. Informationen har ännu inte verifierats tillsammans med partnern.";
 
 /**
  * Neutral markering för partners utan verifierad profil.
