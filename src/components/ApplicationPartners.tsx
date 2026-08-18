@@ -232,6 +232,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  highlightedGeography={selectedGeography || undefined}
  highlightedCompanySize={selectedCompanySize || undefined}
  showRandomIndicator={true}
+ resultView
  />
  );
  })}
