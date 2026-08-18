@@ -40,6 +40,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
 import { allIndustries, geographyOptions, getCumulativeGeographyDisplay, companySizes, revenueOptions } from "@/data/partners";
+import { toggleContiguousRange } from "@/lib/segmentRange";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import AiProfileSection from "@/components/partner/AiProfileSection";
 import DeliveryProfileEditor from "@/components/partner/DeliveryProfileEditor";
