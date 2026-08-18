@@ -18,6 +18,13 @@ import PartnernyttEventsSection from "@/components/PartnernyttEventsSection";
 
 const PRODUCT_OPTIONS = ["business-central", "finance-scm", "crm-sales", "crm-service", "power-platform", "microsoft-ai", "ovrigt"] as const;
 const TYPE_OPTIONS = ["kundcase", "event", "webinar", "erbjudande", "artikel", "rapport", "branschlosning", "produktnyhet", "partnernyhet", "analys"] as const;
+// Rapport och Analys slås ihop till ett enda filterval.
+const MERGED_TYPES: Record<string, string[]> = {
+  "rapport-analys": ["rapport", "analys"],
+};
+const MERGED_TYPE_LABELS: Record<string, string> = {
+  "rapport-analys": "Rapport & Analys",
+};
 const SOURCE_OPTIONS = ["linkedin", "partner_web", "blog", "press", "webinar", "event", "other"] as const;
 
 export default function Partnernytt() {
