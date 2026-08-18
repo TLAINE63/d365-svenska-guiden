@@ -90,6 +90,7 @@ const IndustryPage = lazy(() => import("./pages/IndustryPage"));
 const DeepDiveArticle = lazy(() => import("./pages/DeepDiveArticle"));
 const BlogArticle = lazy(() => import("./pages/BlogArticle"));
 const KomIgang = lazy(() => import("./pages/KomIgang"));
+const Partnerprogram = lazy(() => import("./pages/Partnerprogram"));
 const PartnerStats = lazy(() => import("./pages/PartnerStats"));
 const PartnerAgreement = lazy(() => import("./pages/PartnerAgreement"));
 const SmartSearch = lazy(() => import("./pages/SmartSearch"));
@@ -196,6 +197,7 @@ const AppShell = () => {
           <Route path="/ERPbehovsanalys" element={<NeedsAnalysis />} />
           <Route path="/behovsanalys" element={<Navigate to="/ERPbehovsanalys" replace />} />
           <Route path="/kom-igang" element={<KomIgang />} />
+          <Route path="/partnerprogram" element={<Partnerprogram />} />
           
           <Route path="/CRMbehovsanalys" element={<SalesMarketingNeedsAnalysis />} />
           <Route path="/salj-marknad-behovsanalys" element={<Navigate to="/CRMbehovsanalys" replace />} />
