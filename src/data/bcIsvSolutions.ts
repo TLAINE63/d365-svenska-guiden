@@ -119,7 +119,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: ["Svenska ekonomi- och bokföringsflöden", "Anpassningar för svensk redovisning"],
     whenFits: "När ni vill minimera anpassningar i kärnsystemet men behöver svenska specifika ekonomiflöden.",
     combos: ["BC + Swebase + Continia"],
-    partnersSE: ["Update"],
+    partnersSE: ["Programekonomi"],
     partnerSource: "Programekonomi",
   },
   {
