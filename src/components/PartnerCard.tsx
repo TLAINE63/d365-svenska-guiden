@@ -195,9 +195,14 @@ interface PartnerCardProps {
  highlightedGeography?: string;
  showRandomIndicator?: boolean;
  // When true, show a single longer industry-pitch text block instead of the positioning statement
- showIndustryPitch?: boolean;
+  showIndustryPitch?: boolean;
  // When true, show only the positioning statement as a "Passar bäst för" block (product pages)
  showBestFitOnly?: boolean;
+ /**
+  * Sökresultatsläge: filterkriterierna visas en gång ovanför listan, kortet fokuserar
+  * på d365.se:s bedömning, "Särskilt relevant för" och dokumenterad erfarenhet.
+  */
+ resultView?: boolean;
 }
 
 const PartnerCard = ({ 
@@ -213,7 +218,9 @@ const PartnerCard = ({
  showRandomIndicator = false,
  showIndustryPitch = false,
  showBestFitOnly = false,
+ resultView = false,
 }: PartnerCardProps) => {
+
   const [showAiDetails, setShowAiDetails] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const { isSelected: isCompareSelected, toggle: toggleCompare } = usePartnerCompare();
