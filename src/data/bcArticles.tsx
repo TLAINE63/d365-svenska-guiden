@@ -637,7 +637,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>De 10 tilläggskategorierna</h2>
         <ol className="space-y-3">
-          <li><Link to="/kunskapscenter/business-central/tillagg-fakturahantering/" className="text-primary underline hover:text-primary/80 font-semibold">1. Fakturahantering &amp; AP Automation</Link> – Continia, SignUp ExFlow.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-fakturahantering/" className="text-primary underline hover:text-primary/80 font-semibold">1. Fakturahantering &amp; AP Automation</Link> – Continia, ExFlow (Truvio).</li>
           <li><Link to="/kunskapscenter/business-central/tillagg-svensk-lokalisering/" className="text-primary underline hover:text-primary/80 font-semibold">2. Svensk lokalisering &amp; moms</Link> – Swebase, Smart Swedish VAT.</li>
           <li><Link to="/kunskapscenter/business-central/tillagg-wms-lager/" className="text-primary underline hover:text-primary/80 font-semibold">3. WMS, lager &amp; handdatorer</Link> – Tasklet, Ongoing WMS.</li>
           <li><Link to="/kunskapscenter/business-central/tillagg-edi-efaktura/" className="text-primary underline hover:text-primary/80 font-semibold">4. EDI &amp; e-faktura</Link> – Golden EDI, TrueCommerce, Peppol720, Continia e-dokument.</li>

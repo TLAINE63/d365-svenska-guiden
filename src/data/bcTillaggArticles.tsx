@@ -99,7 +99,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
       <>
         <Lead>
           Två lösningar dominerar svenska BC-affärer: <strong>Continia</strong> och
-          <strong> SignUp Software ExFlow</strong>.
+          <strong> ExFlow (Truvio)</strong>.
         </Lead>
         <p>
           Båda är byggda inuti Business Central och hanterar fakturaflödet – från inläsning och
@@ -125,17 +125,17 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
             "Flank Speed",
             "dizparc Värnamo ERP",
             "Navet / Aderian",
-            "Update",
+            "Programekonomi",
           ]}
         />
 
-        <h2>SignUp Software ExFlow</h2>
+        <h2>ExFlow (Truvio)</h2>
         <p>
           Svensk ISV med stark BC- och F&amp;O-närvaro. ExFlow täcker AP Automation, Data Capture,
           Travel &amp; Expense samt E-invoicing och är byggt direkt i BC.
         </p>
         <PartnerList
-          source="SignUp Software"
+          source="Truvio"
           partners={[
             "NAB Solutions",
             "Mibusoft",
@@ -192,7 +192,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
         </p>
         <p>Programekonomi är leverantör av lösningen.</p>
 
-        <h2>Smart Swedish VAT (SmartApps / NAB Solutions)</h2>
+        <h2>Smart Swedish VAT (SmartApps)</h2>
         <p>Specifikt tillägg för svensk momsrapportering.</p>
         <p>
           SmartApps har även bredare BC-tillägg som Eagle, Spider, Parrot och StoryPoint med
@@ -258,7 +258,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
             "COSMO CONSULT Sweden",
             "THINKNINE",
             "TietoEVRY Sweden",
-            "Update",
+            "Programekonomi",
             "twoday",
           ]}
         />
