@@ -778,18 +778,7 @@ export default function PartnerProductTabs({
               </section>
             )}
 
-            {/* Geografi */}
-            {data.geography.length > 0 && (
-              <section>
-                <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
-                  <Globe className="w-5 h-5 text-primary" />
-                  Geografi
-                </h2>
-                <p className="text-foreground">
-                  Levererar i <strong>{data.geography.join(", ")}</strong>
-                </p>
-              </section>
-            )}
+            {/* Geografi redovisas i Partnerfakta – ingen dubblering här */}
 
             {/* Kontor */}
             {(() => {
@@ -814,12 +803,16 @@ export default function PartnerProductTabs({
               ) : null;
             })()}
 
-            {/* AI, Copilot & Automation – partner-level public view */}
+            {/* AI, Copilot & automation – partnerns dokumenterade AI-kompetens */}
             {(partner as any).ai_profile && (
               <section>
+                <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">
+                  AI, Copilot &amp; automation
+                </h2>
                 <AiProfilePublic profile={(partner as any).ai_profile} />
               </section>
             )}
+
 
             {/* Partner news */}
             <PartnerProfileNewsSection
