@@ -64,10 +64,31 @@ function normalizeFactor(raw: string): string | null {
   // Behåll bara första ledet i längre meningar
   t = t.split(/[.;–—]|\s+samt\s+/)[0].trim();
   t = t.replace(/^(bolag|företag|kunder|verksamheter)\s+(som|med|inom)\s+/i, "");
+  t = t.replace(/^dynamics 365\s+/i, "").replace(/^d365\s+/i, "");
   t = shortenIndustry(t);
   if (t.length > 34) t = `${t.slice(0, 33).trimEnd()}…`;
   if (isGeneric(t)) return null;
   return t.charAt(0).toUpperCase() + t.slice(1);
+}
+
+/** Nyckelord som motsvarar användarens valda produktområde – dessa upprepar filtret. */
+function productEchoPatterns(product?: string | null): RegExp[] {
+  if (!product) return [];
+  const p = product.toLowerCase();
+  if (/finance|scm|supply/.test(p)) {
+    return [/finance/i, /supply chain/i, /f&scm/i, /fscm/i];
+  }
+  if (/business central|\bbc\b/.test(p)) {
+    return [/business central/i, /^bc$/i];
+  }
+  if (/sales|sälj|marknad|crm/.test(p)) {
+    return [/^sales$/i, /^crm$/i, /customer insights/i];
+  }
+  if (/service/.test(p)) {
+    return [/customer service/i, /field service/i, /kundservice/i];
+  }
+  if (/commerce/.test(p)) return [/commerce/i];
+  return [];
 }
 
 /**
@@ -82,6 +103,7 @@ export function getRelevanceFactors(
       .filter(Boolean)
       .map((v) => shortenIndustry(String(v)).toLowerCase()),
   );
+  const echoes = productEchoPatterns(opts.highlightedProduct);
 
   const candidates: string[] = [];
   if (isDatabasePartner(p)) {
@@ -96,12 +118,16 @@ export function getRelevanceFactors(
     if (!n) continue;
     const key = n.toLowerCase();
     if (seen.has(key) || skip.has(key)) continue;
+    // Kombinationer (t.ex. "BC + F&SCM", "ERP + CRM") är differentierande och behålls
+    const isCombination = /[+&]|\boch\b/.test(n) && n.length <= 34;
+    if (!isCombination && echoes.some((re) => re.test(n))) continue;
     seen.add(key);
     out.push(n);
     if (out.length === 3) break;
   }
   return out;
 }
+
 
 /**
  * "Dokumenterad erfarenhet" – visas bara när det finns strukturerad data att belägga.
