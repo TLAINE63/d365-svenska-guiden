@@ -1673,7 +1673,8 @@ Thomas`,
   filter.industries?.length > 0 ||
   filter.productDescription?.trim() ||
   filter.whyChoose?.trim() ||
-  filter.keyPoints?.trim()
+  filter.keyPoints?.trim() ||
+  Object.values(((filter as any).deliveryProfile || {}) as Record<string, string>).some((x) => typeof x === "string" && x.trim())
   );
   if (hasContent) {
   cleanedProductFilters[key] = filter;
