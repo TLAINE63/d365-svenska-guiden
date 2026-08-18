@@ -460,7 +460,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
     <div className="max-w-3xl w-full mb-4 rounded-lg border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-3 sm:p-4 text-left">
       <div className="flex items-center gap-2 mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
         <Sparkles className="w-3.5 h-3.5 text-[hsl(var(--cta-orange))]" />
-        AI-sammanfattning
+        Kort AI-sammanfattning
       </div>
       <ul className="space-y-1.5">
         {(() => {

@@ -27,7 +27,7 @@ const PartnerAiInsights = ({ partner }: Props) => {
             <article className="rounded-xl border border-slate-200 bg-white p-5 sm:p-6">
               <h2 className="flex items-center gap-2 mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
                 <Sparkles className="w-4 h-4 text-[hsl(var(--cta-orange))]" />
-                Fördjupad AI-sammanfattning
+                Fördjupad AI-analys
               </h2>
               <div className="space-y-3">
                 {paragraphs.map((p, i) => (
