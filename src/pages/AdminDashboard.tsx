@@ -398,6 +398,7 @@ const AdminDashboard = () => {
   const [generatingPositioningId, setGeneratingPositioningId] = useState<string | null>(null);
   const [generatingAiNotAFit, setGeneratingAiNotAFit] = useState(false);
   const [generatingWhyKeypoints, setGeneratingWhyKeypoints] = useState(false);
+  const [generatingDeliverySummary, setGeneratingDeliverySummary] = useState<string | null>(null);
   const [generatingAiExperienceSummary, setGeneratingAiExperienceSummary] = useState(false);
 
   const handleGenerateAllAiExperienceSummary = async () => {
