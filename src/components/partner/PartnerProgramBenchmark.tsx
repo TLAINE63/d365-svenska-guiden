@@ -111,11 +111,12 @@ const benchmarkRows: { label: string; basic: string; profiled: string }[] = [
 
 interface Props {
   partnerSlug?: string | null;
-  /** Anropas när primär CTA klickas (för sidans egna events). */
-  onBookClick?: () => void;
+  /** Renderar primär CTA (t.ex. inbäddad i sidans kontaktdialog). */
+  renderBookCta?: (onClick: () => void) => React.ReactNode;
 }
 
-export default function PartnerProgramBenchmark({ partnerSlug, onBookClick }: Props) {
+export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: Props) {
+
   const { data: basicPartners } = useBasicPartners();
   const [category, setCategory] = useState<BenchmarkCategory>("bc_specialist");
   const [userPicked, setUserPicked] = useState(false);
