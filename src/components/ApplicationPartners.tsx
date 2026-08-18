@@ -174,16 +174,24 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  />
 
 
- {/* Filter Results Summary */}
+ {/* Resultathuvud – användarens sökning visas en gång ovanför korten */}
  {(selectedIndustry || selectedGeography || selectedCompanySize) && (
- <div className="text-center mb-8">
- <p className="text-sm text-muted-foreground">
- Visar <span className="font-semibold text-foreground">{filteredPartners.length}</span> partners
- {selectedIndustry && <> inom <span className="font-semibold text-crm">{selectedIndustry}</span></>}
- {selectedCompanySize && <> för organisationer med <span className="font-semibold text-crm">{selectedCompanySize} anställda</span></>}
- {((selectedIndustry || selectedCompanySize) && selectedGeography) && <> och</>}
- {selectedGeography && <> med täckning i <span className="font-semibold text-crm">{selectedGeography}</span></>}
- </p>
+ <>
+ <SearchResultSummary
+ count={filteredPartners.length}
+ criteria={[
+ applicationFilter,
+ selectedIndustry,
+ selectedGeography,
+ selectedCompanySize ? `${selectedCompanySize} anställda` : null,
+ ]}
+ onChangeFilters={() => {
+ if (typeof document !== "undefined") {
+ document.getElementById("partners")?.scrollIntoView({ behavior: "smooth", block: "start" });
+ }
+ }}
+ />
+ <div className="text-center -mt-4 mb-8">
  <Button
  variant="ghost"
  size="sm"
@@ -192,11 +200,12 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  setSelectedGeography(null);
  setSelectedCompanySize(null);
  }}
- className="mt-2 text-muted-foreground hover:text-foreground"
+ className="text-muted-foreground hover:text-foreground"
  >
  Rensa alla filter
  </Button>
  </div>
+ </>
  )}
 
   <WhyTheseResults className="mb-6 max-w-4xl mx-auto" />
