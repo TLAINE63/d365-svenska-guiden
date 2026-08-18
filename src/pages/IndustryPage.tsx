@@ -7,6 +7,7 @@ import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, FAQSchema, ArticleSchema } from "@/components/StructuredData";
 import PartnerCard from "@/components/PartnerCard";
 import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
+import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 import { filterBasicPartners } from "@/lib/basicPartnerMatch";
 import WhyTheseResults from "@/components/WhyTheseResults";
