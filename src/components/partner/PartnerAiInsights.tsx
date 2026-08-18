@@ -60,8 +60,13 @@ function buildMatchFacts(partner: DatabasePartner): string[] {
   const industries = (partner.industries || []).slice(0, 2);
   facts.push(...industries);
 
-  const size = sizeSummary(partner.companySize || []);
+  const pf = (partner.product_filters || {}) as Record<string, { companySize?: string[] } | undefined>;
+  const sizes = Array.from(
+    new Set(Object.values(pf).flatMap((f) => f?.companySize || [])),
+  );
+  const size = sizeSummary(sizes);
   if (size) facts.push(size);
+
 
   const geo = (partner.geography || []).filter(Boolean);
   if (geo.length > 0) facts.push(geo.slice(0, 2).join(" / "));
