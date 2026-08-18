@@ -24,7 +24,6 @@ const PARTNER_DATA = resolve(process.cwd(), "src/data/partnerData.json");
 export const CRITICAL_ROUTES = [
   "/",
   "/erp",
-  "/affarssystem",
   "/businesscentral",
   "/priser",
   "/kom-igang",
@@ -42,6 +41,11 @@ export const CRITICAL_ROUTES = [
   "/valjdynamics365partner",
   "/alla-d365-partners",
   "/partners-per-bransch",
+  "/partnernytt",
+  "/jamfor",
+  "/jamfor-partners",
+  "/beslutsmognad",
+  "/friskrivning",
 ];
 
 function htmlPathFor(route) {

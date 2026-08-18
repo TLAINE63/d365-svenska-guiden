@@ -48,6 +48,9 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   // Branscher (gammalt namn)
   { from: "/branschlosningar",          to: "/branscher",           intendedStatus: 301 },
 
+  // Affärssystem-pelaren konsoliderad in i /erp
+  { from: "/affarssystem",              to: "/erp",                 intendedStatus: 301 },
+
   // Tidigare admin-paths
   { from: "/partner-admin",             to: "/admin",               intendedStatus: 301 },
   { from: "/lead-admin",                to: "/admin",               intendedStatus: 301 },
