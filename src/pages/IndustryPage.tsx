@@ -597,32 +597,55 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
                 </div>
               </div>
 
-              {partner.applications?.length > 0 && (
-                <div className="mt-3 flex flex-wrap gap-1">
-                  {partner.applications.slice(0, 3).map((a: string) => (
-                    <Badge
-                      key={a}
-                      variant="outline"
-                      className="text-[10px] px-1.5 py-0 border-border text-muted-foreground"
-                    >
-                      {a}
-                    </Badge>
-                  ))}
-                  {partner.applications.length > 3 && (
-                    <Badge
-                      variant="outline"
-                      className="text-[10px] px-1.5 py-0 border-border text-muted-foreground"
-                    >
-                      +{partner.applications.length - 3}
-                    </Badge>
-                  )}
+              {(partner.ai_summary || partner.short_description) && (
+                <div className="mt-3 rounded-lg bg-muted/50 p-3">
+                  <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground mb-1">
+                    d365.se:s bedömning
+                  </p>
+                  <p className="text-xs leading-relaxed text-foreground/90 line-clamp-4">
+                    {partner.ai_summary || partner.short_description}
+                  </p>
                 </div>
               )}
 
-              <span className="mt-auto pt-3 inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors group-hover:text-primary">
+              {partner.applications?.length > 0 && (
+                <div className="mt-3">
+                  <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground mb-1">
+                    Dokumenterad erfarenhet
+                  </p>
+                  <div className="flex flex-wrap gap-1">
+                    {partner.applications.slice(0, 4).map((a: string) => (
+                      <Badge
+                        key={a}
+                        variant="outline"
+                        className="text-[10px] px-1.5 py-0 border-border text-muted-foreground"
+                      >
+                        {a}
+                      </Badge>
+                    ))}
+                    {partner.applications.length > 4 && (
+                      <Badge
+                        variant="outline"
+                        className="text-[10px] px-1.5 py-0 border-border text-muted-foreground"
+                      >
+                        +{partner.applications.length - 4}
+                      </Badge>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {partner.geographic_scope?.length > 0 && (
+                <p className="mt-3 text-[11px] text-muted-foreground">
+                  Geografi: {partner.geographic_scope.slice(0, 3).join(", ")}
+                </p>
+              )}
+
+              <span className="mt-auto pt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">
                 Se partnerprofil
-                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden />
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
               </span>
+
             </article>
           </li>
         );
