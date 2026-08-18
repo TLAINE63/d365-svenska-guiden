@@ -15,6 +15,7 @@ import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import { SizeFilters } from "@/components/SizeFilters";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerCard from "@/components/PartnerCard";
+import SearchResultSummary from "@/components/partner/SearchResultSummary";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import SalesIcon from "@/assets/icons/Sales.svg";

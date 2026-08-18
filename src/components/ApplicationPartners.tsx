@@ -6,6 +6,7 @@ import { ArrowRight, Loader2 } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerCard from "@/components/PartnerCard";
+import SearchResultSummary from "@/components/partner/SearchResultSummary";
 import WhyTheseResults from "@/components/WhyTheseResults";
 import { allIndustries, companySizes } from "@/data/partners";
 import { usePartners } from "@/hooks/usePartners";
