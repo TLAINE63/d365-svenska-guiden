@@ -8,10 +8,13 @@ import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { collectPartnerIndustries } from "@/lib/partnerIndustries";
 import { ArrowRight, Building2 } from "lucide-react";
 import partnerDataJson from "@/data/partnerData.json";
-import { useBasicPartners, PRODUCT_LABEL, PRODUCT_ORDER } from "@/hooks/useBasicPartners";
+import { useBasicPartners } from "@/hooks/useBasicPartners";
 import { useState } from "react";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
+import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
+import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
 import { Badge } from "@/components/ui/badge";
+
 
 // Static featured-partner snapshot bundled at build time. Used as the
 // source for the initial render (SSG/crawlers) so partnernamn, branscher
@@ -151,37 +154,67 @@ const PartnersPerBransch = () => {
                           för vägledning.
                         </p>
                       ) : (
-                        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                           {list.map((p) => (
                             <li key={p.id}>
-                              <Link
-                                to={`/partner/${p.slug}/`}
-                                className="group flex items-center gap-3 p-3 rounded-lg border border-border bg-card hover:border-primary/50  transition-all"
-                              >
-                                {p.logo_url ? (
-                                  <img
-                                    src={p.logo_url}
-                                    alt={`${p.name} logotyp`}
-                                    loading="lazy"
-                                    className="w-10 h-10 rounded object-contain bg-white p-1 shrink-0"
-                                  />
-                                ) : (
-                                  <div className="w-10 h-10 rounded bg-muted shrink-0" />
-                                )}
-                                <div className="min-w-0 flex-1">
-                                  <span className="font-medium text-foreground group-hover:text-primary truncate block">
-                                    {p.name}
-                                  </span>
-                                  {p.applications?.length > 0 && (
-                                    <p className="text-xs text-muted-foreground truncate">
-                                      {p.applications.slice(0, 3).join(", ")}
-                                    </p>
+                              <article className="group relative flex h-full flex-col rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/50 hover:shadow-md">
+                                <div className="flex items-start gap-3">
+                                  {p.logo_url ? (
+                                    <img
+                                      src={p.logo_url}
+                                      alt={`${p.name} logotyp`}
+                                      loading="lazy"
+                                      className="h-11 w-11 shrink-0 rounded-md object-contain bg-white p-1 ring-1 ring-border"
+                                    />
+                                  ) : (
+                                    <div className="h-11 w-11 shrink-0 rounded-md bg-muted" />
                                   )}
+                                  <div className="min-w-0 flex-1">
+                                    <h3 className="truncate font-semibold text-foreground transition-colors group-hover:text-primary">
+                                      <Link
+                                        to={`/partner/${p.slug}/`}
+                                        className="before:absolute before:inset-0 before:content-['']"
+                                      >
+                                        {p.name}
+                                      </Link>
+                                    </h3>
+                                    <div className="mt-1">
+                                      <VerifiedPartnerBadge size="sm" />
+                                    </div>
+                                  </div>
                                 </div>
-                              </Link>
+
+                                {p.applications?.length > 0 && (
+                                  <div className="mt-3 flex flex-wrap gap-1">
+                                    {p.applications.slice(0, 3).map((a) => (
+                                      <Badge
+                                        key={a}
+                                        variant="outline"
+                                        className="text-[10px] px-1.5 py-0 border-border text-muted-foreground"
+                                      >
+                                        {a}
+                                      </Badge>
+                                    ))}
+                                    {p.applications.length > 3 && (
+                                      <Badge
+                                        variant="outline"
+                                        className="text-[10px] px-1.5 py-0 border-border text-muted-foreground"
+                                      >
+                                        +{p.applications.length - 3}
+                                      </Badge>
+                                    )}
+                                  </div>
+                                )}
+
+                                <span className="mt-auto pt-3 inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors group-hover:text-primary">
+                                  Se partnerprofil
+                                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden />
+                                </span>
+                              </article>
                             </li>
                           ))}
                         </ul>
+
                       )}
                     </div>
                   );
@@ -226,41 +259,14 @@ const PartnersPerBransch = () => {
                             </span>
                           </h3>
                         </div>
-                        <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                          {list.map((p) => {
-                            const basicProducts = PRODUCT_ORDER.filter(
-                              (k) => p.observed_products?.[k],
-                            );
-                            return (
-                              <li key={p.id}>
-                                <Link
-                                  to={`/basic/${p.slug}/`}
-                                  className="group relative flex items-center justify-between gap-3 p-4 rounded-lg border border-dashed border-border bg-card hover:border-muted-foreground/40 hover:shadow-sm transition-all"
-                                >
-                                  <div className="min-w-0">
-                                    <div className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
-                                      {p.name}
-                                    </div>
-                                    {basicProducts.length > 0 && (
-                                      <div className="mt-2 flex flex-wrap gap-1">
-                                        {basicProducts.map((k) => (
-                                          <Badge
-                                            key={k}
-                                            variant="outline"
-                                            className="text-[10px] px-1.5 py-0 border-accent/30 text-accent bg-accent/5"
-                                          >
-                                            {PRODUCT_LABEL[k]}
-                                          </Badge>
-                                        ))}
-                                      </div>
-                                    )}
-                                  </div>
-                                  <ArrowRight className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
-                                </Link>
-                              </li>
-                            );
-                          })}
+                        <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                          {list.map((p) => (
+                            <li key={p.id}>
+                              <PartnerBasicCard partner={p} variant="list" />
+                            </li>
+                          ))}
                         </ul>
+
                       </div>
                     );
                   })}
