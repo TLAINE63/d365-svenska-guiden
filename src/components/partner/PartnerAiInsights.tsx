@@ -53,25 +53,44 @@ function sizeSummary(sizes: string[]): string | null {
 /** Centrala matchningsfakta – kort, faktabaserat, utan värderande språk. */
 function buildMatchFacts(partner: DatabasePartner): string[] {
   const facts: string[] = [];
-  const apps = partner.applications || [];
-  const products = PRODUCT_LABELS.filter((p) => p.match.some((m) => apps.includes(m))).map((p) => p.label);
-  facts.push(...products.slice(0, 2));
+  const pf = (partner.product_filters || {}) as Record<
+    string,
+    { companySize?: string[]; industries?: string[]; geography?: string[] } | undefined
+  >;
+  const activeKeys = Object.entries(pf)
+    .filter(([, v]) => v && Object.keys(v).length > 0)
+    .map(([k]) => k);
 
-  const industries = (partner.industries || []).slice(0, 2);
+  const apps = partner.applications || [];
+  const products = PRODUCT_LABELS.filter(
+    (p) => p.match.some((m) => apps.some((a) => a.includes(m))),
+  ).map((p) => p.label);
+  const keyLabels: Record<string, string> = {
+    bc: "Dynamics 365 Business Central",
+    fsc: "Dynamics 365 F&SCM",
+    sales: "Dynamics 365 Sales",
+    service: "Dynamics 365 Customer Service",
+    crm: "Dynamics 365 CRM",
+  };
+  const fromKeys = activeKeys.map((k) => keyLabels[k]).filter(Boolean);
+  facts.push(...Array.from(new Set([...products, ...fromKeys])).slice(0, 2));
+
+  const industries = Array.from(
+    new Set([...(partner.industries || []), ...Object.values(pf).flatMap((f) => f?.industries || [])]),
+  ).slice(0, 2);
   facts.push(...industries);
 
-  const pf = (partner.product_filters || {}) as Record<string, { companySize?: string[] } | undefined>;
-  const sizes = Array.from(
-    new Set(Object.values(pf).flatMap((f) => f?.companySize || [])),
-  );
+  const sizes = Array.from(new Set(Object.values(pf).flatMap((f) => f?.companySize || [])));
   const size = sizeSummary(sizes);
   if (size) facts.push(size);
 
-
-  const geo = (partner.geography || []).filter(Boolean);
+  const geo = Array.from(
+    new Set([...(partner.geography || []), ...Object.values(pf).flatMap((f) => f?.geography || [])]),
+  ).filter(Boolean);
   if (geo.length > 0) facts.push(geo.slice(0, 2).join(" / "));
 
   return Array.from(new Set(facts.filter(Boolean)));
+
 }
 
 const PartnerAiInsights = ({ partner }: Props) => {
