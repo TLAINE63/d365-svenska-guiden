@@ -92,7 +92,7 @@ const D365ProjectOperations = () => {
 
       <ProductPartnerNewsSection productArea="finance-scm" productLabel="Project Operations" />
 
-      <ApplicationPartners applicationFilter="Project Operations" pageSource="D365 Project Operations" filterMode="companySize" />
+      <ApplicationPartners applicationFilter="Project Operations" pageSource="D365 Project Operations" filterMode="companySize" showUnprofiledList={false} />
 
       <section className="py-8 sm:py-12 md:py-16 bg-finance">
         <div className="container mx-auto px-4 sm:px-6 text-center">
