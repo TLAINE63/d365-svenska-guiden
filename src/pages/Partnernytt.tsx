@@ -232,7 +232,7 @@ export default function Partnernytt() {
         </section>
         )}
 
-        <PartnernyttEventsSection />
+        {eventsOnly && <PartnernyttEventsSection />}
       </main>
       <Footer />
     </div>
