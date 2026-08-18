@@ -32,7 +32,7 @@ const PRODUCT_AREAS = [
 ] as const;
 
 const SOURCE_TYPES = ["linkedin","webinar","blog","press","partner_web","event","other"];
-const NEWS_TYPES = ["artikel","webinar","event","artikel","kundcase","erbjudande","rapport","branschlosning","produktnyhet","analys"];
+const NEWS_TYPES = ["artikel","webinar","event","kundcase","erbjudande","rapport","branschlosning","produktnyhet","analys"];
 
 interface Props { token: string; partners: PartnerLite[]; onSessionExpired: () => void; }
 
