@@ -5,7 +5,7 @@ import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, FAQSchema, ArticleSchema } from "@/components/StructuredData";
-import PartnerCard from "@/components/PartnerCard";
+
 import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
 import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
