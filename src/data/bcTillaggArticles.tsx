@@ -185,12 +185,12 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
         </Lead>
         <Disclaimer />
 
-        <h2>Swebase (Update AB)</h2>
+        <h2>Swebase (Programekonomi)</h2>
         <p>
           Svensk BC/NAV-extension för svenska marknadens krav och praktiska ekonomifunktioner
           som ofta saknas i standard.
         </p>
-        <p>Update är huvudpartner.</p>
+        <p>Programekonomi är leverantör av lösningen.</p>
 
         <h2>Smart Swedish VAT (SmartApps / NAB Solutions)</h2>
         <p>Specifikt tillägg för svensk momsrapportering.</p>
