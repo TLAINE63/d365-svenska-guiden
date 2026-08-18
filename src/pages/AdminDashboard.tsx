@@ -4617,6 +4617,30 @@ Thomas`,
   </p>
   </div>
 
+  {/* Leveransprofil per produktområde */}
+  <div className="rounded-lg border border-border p-3 space-y-3">
+    <DeliveryProfileEditor
+      productLabel={section.label}
+      value={(filter as any).deliveryProfile}
+      onChange={(next) => updateProductFilter(section.key, { deliveryProfile: next } as any)}
+    />
+    <Button
+      type="button"
+      variant="outline"
+      size="sm"
+      disabled={generatingDeliverySummary === section.key}
+      onClick={() => handleGenerateDeliverySummary(section.key, section.label)}
+    >
+      {generatingDeliverySummary === section.key ? "Genererar…" : "Generera neutral AI-sammanfattning"}
+    </Button>
+    <p className="text-xs text-muted-foreground">
+      Spara partnern först. Sammanfattningen skrivs om varje gång du klickar.
+    </p>
+  </div>
+
+
+
+
 
  {/* Sales Contact for this product area */}
  <div className="rounded-lg border border-border p-3 space-y-3">
