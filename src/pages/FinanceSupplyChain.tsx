@@ -576,17 +576,25 @@ const FinanceSupplyChain = () => {
  colorScheme="finance-supply"
  />
 
- {/* Filter Results Summary */}
+ {/* Resultathuvud – användarens sökning visas en gång ovanför korten */}
  {(selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue) && (
- <div className="text-center mb-8">
- <p className="text-sm text-muted-foreground">
- Visar <span className="font-semibold text-foreground">{fscPartners.length}</span> partners
- {selectedIndustry && <> inom <span className="font-semibold text-finance-supply">{selectedIndustry}</span></>}
- {(selectedIndustry && selectedGeography) && <> och</>}
- {selectedGeography && <> med täckning i <span className="font-semibold text-finance-supply">{selectedGeography}</span></>}
- {selectedCompanySize && <> · storlek <span className="font-semibold text-finance-supply">{selectedCompanySize}</span></>}
- {selectedRevenue && <> · omsättning <span className="font-semibold text-finance-supply">{selectedRevenue}</span></>}
- </p>
+ <>
+ <SearchResultSummary
+  count={fscPartners.length}
+  criteria={[
+   "Finance & SCM",
+   selectedIndustry,
+   selectedGeography,
+   selectedCompanySize ? `${selectedCompanySize} anställda` : null,
+   selectedRevenue,
+  ]}
+  onChangeFilters={() => {
+   if (typeof document !== "undefined") {
+    document.getElementById("fsc-partner-filter")?.scrollIntoView({ behavior: "smooth", block: "start" });
+   }
+  }}
+ />
+ <div className="text-center -mt-4 mb-8">
  <Button 
  variant="ghost" 
  size="sm" 
@@ -596,12 +604,14 @@ const FinanceSupplyChain = () => {
  setSelectedCompanySize(null);
  setSelectedRevenue(null);
  }}
- className="mt-2 text-muted-foreground hover:text-foreground"
+ className="text-muted-foreground hover:text-foreground"
  >
  Rensa alla filter
  </Button>
  </div>
+ </>
  )}
+
 
  {fscPartners.length === 0 ? (
  <div className="text-center py-6">
