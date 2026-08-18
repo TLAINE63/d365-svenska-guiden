@@ -10,8 +10,9 @@ import { usePartners } from "@/hooks/usePartners";
 import TrustBanner from "@/components/TrustBanner";
 import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
-import { useBasicPartners, PRODUCT_LABEL, PRODUCT_ORDER } from "@/hooks/useBasicPartners";
+import { useBasicPartners } from "@/hooks/useBasicPartners";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
+import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
 import { useMemo, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Search, X } from "lucide-react";
@@ -90,6 +91,11 @@ export default function AllD365Partners() {
     });
   }, [basicPartners, q, productFilter, verifiedOnly]);
 
+
+  const basicSorted = useMemo(
+    () => [...basicFiltered].sort((a, b) => a.name.localeCompare(b.name, "sv")),
+    [basicFiltered],
+  );
 
   const others = useMemo(() => {
     if (verifiedOnly) return [];
@@ -313,53 +319,21 @@ export default function AllD365Partners() {
             <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
               <div className="mb-6">
                 <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
-                  Övriga D365-partners – Basickort
+                  Fler partners som arbetar med Dynamics 365
                 </h2>
                 <p className="text-sm text-muted-foreground max-w-3xl">
-                  Dessa partners har ännu inte en egen profil på d365.se. Vi visar
-                  observerad data (branscher, produktområden, orter) sammanställd
-                  från publika källor – för att ge en realistisk bild av marknaden.
-                  Klicka på ett namn för att se detaljer.
+                  Profilerna bygger på publikt tillgängliga uppgifter och har ännu inte
+                  verifierats tillsammans med partnern. De innehåller därför varken
+                  kontaktperson, kundcase eller detaljerade kompetenser.
                 </p>
-              </div>
-              <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
-                {basicFiltered.map((p) => {
-                  const basicProducts = PRODUCT_ORDER.filter(
-                    (k) => p.observed_products?.[k],
-                  );
-                  return (
-                    <li key={p.id}>
-                      <Link
-                        to={`/basic/${p.slug}/`}
-                        className="group relative flex items-center justify-between gap-3 p-4 rounded-lg border border-dashed border-border bg-card hover:border-muted-foreground/40 hover:shadow-sm transition-all"
-                      >
-                        <div className="min-w-0">
-                          <div className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
-                            {p.name}
-                          </div>
-                          {basicProducts.length > 0 && (
-                            <div className="mt-2 flex flex-wrap gap-1">
-                              {basicProducts.map((k) => (
-                                <Badge
-                                  key={k}
-                                  variant="outline"
-                                  className="text-[10px] px-1.5 py-0 border-accent/30 text-accent bg-accent/5"
-                                >
-                                  {PRODUCT_LABEL[k]}
-                                </Badge>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                        <div className="flex shrink-0 items-center">
-                          <ArrowRight className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
-                        </div>
 
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
+              </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                {basicSorted.map((p) => (
+                  <PartnerBasicCard key={p.id} partner={p} variant="list" />
+                ))}
+              </div>
+
             </div>
           </section>
         )}
