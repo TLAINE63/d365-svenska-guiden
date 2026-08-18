@@ -581,7 +581,7 @@ const PartnerCard = ({
 
 
  <div className="mt-auto pt-3 space-y-2">
- {productLandingPageUrl && (
+ {!resultView && productLandingPageUrl && (
  <a
  href={productLandingPageUrl}
  target="_blank"
