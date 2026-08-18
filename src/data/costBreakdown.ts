@@ -58,14 +58,14 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
         size: "S",
         label: "Liten – 5–25 användare",
         scope: "Standard ekonomi + inköp/försäljning, 1–2 integrationer, mall-baserad migrering.",
-        oneTime: "200 000 – 450 000 kr",
+        oneTime: "100 000 – 250 000 kr",
         weeks: "8–14 veckor",
       },
       {
         size: "M",
         label: "Medel – 25–75 användare",
         scope: "Lager, produktion eller projekt, 3–5 integrationer, branschapp och Power BI.",
-        oneTime: "450 000 – 1 250 000 kr",
+        oneTime: "250 000 – 1 250 000 kr",
         weeks: "14–24 veckor",
       },
       {
