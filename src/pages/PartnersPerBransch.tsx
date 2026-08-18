@@ -11,7 +11,10 @@ import partnerDataJson from "@/data/partnerData.json";
 import { useBasicPartners, PRODUCT_LABEL, PRODUCT_ORDER } from "@/hooks/useBasicPartners";
 import { useState } from "react";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
+import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
+import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
 import { Badge } from "@/components/ui/badge";
+
 
 // Static featured-partner snapshot bundled at build time. Used as the
 // source for the initial render (SSG/crawlers) so partnernamn, branscher
