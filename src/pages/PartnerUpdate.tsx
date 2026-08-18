@@ -18,6 +18,8 @@ import Footer from "@/components/Footer";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
 import PartnerIndustryPitchesEditor, { type IndustryPitch } from "@/components/PartnerIndustryPitchesEditor";
 import AiProfileSection from "@/components/partner/AiProfileSection";
+import DeliveryProfileEditor from "@/components/partner/DeliveryProfileEditor";
+import type { DeliveryProfileValue } from "@/data/deliveryProfileFields";
 
 // Import product icons
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
