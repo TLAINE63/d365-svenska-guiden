@@ -16,6 +16,12 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_PATH = resolve(__dirname, "../src/data/partnerData.json");
+/**
+ * Route-listan MÅSTE spegla samma urval som partnerData.json – annars
+ * prerenderas /partner/<slug>-sidor utan data ("Laddar partnerinformation…")
+ * och hamnar i sitemap trots att de saknar innehåll för crawlers.
+ */
+const ROUTES_PATH = resolve(__dirname, "../src/data/partnerRoutes.json");
 
 function loadEnv() {
   try {
