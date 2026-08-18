@@ -33,6 +33,43 @@ import { getAiOptionsForProduct } from "@/utils/aiScoring";
 import { companySizes, revenueOptions } from "@/data/partners";
 import { assertPitchLabelsConsistency } from "@/data/pitchProductMapping";
 
+/**
+ * Segmentval ska vara max 3 alternativ som ligger i rad efter varandra i listan.
+ * Returnerar nästa urval, eller ett felmeddelande om valet inte är tillåtet.
+ */
+const toggleContiguousRange = (
+  options: string[],
+  current: string[],
+  value: string,
+): { next: string[] } | { error: string } => {
+  const idx = options.indexOf(value);
+  const selectedIdx = current
+    .map((v) => options.indexOf(v))
+    .filter((i) => i >= 0)
+    .sort((a, b) => a - b);
+
+  if (selectedIdx.includes(idx)) {
+    // Avmarkering: bara ytterkanterna får tas bort så att urvalet förblir sammanhängande.
+    const isEdge = idx === selectedIdx[0] || idx === selectedIdx[selectedIdx.length - 1];
+    if (!isEdge) {
+      return { error: "Ta bort från början eller slutet – valen måste ligga i rad." };
+    }
+    return { next: current.filter((v) => v !== value) };
+  }
+
+  if (selectedIdx.length >= 3) {
+    return { error: "Max 3 val – ta bort ett val först." };
+  }
+  if (selectedIdx.length > 0) {
+    const min = selectedIdx[0];
+    const max = selectedIdx[selectedIdx.length - 1];
+    if (idx !== min - 1 && idx !== max + 1) {
+      return { error: "Valen måste ligga i rad efter varandra." };
+    }
+  }
+  return { next: [...current, value] };
+};
+
 // Product sections matching admin structure
 type ProductKey = 'bc' | 'fsc' | 'sales' | 'service';
 
@@ -2019,96 +2056,95 @@ const PartnerUpdate = () => {
            <div className="rounded-lg border border-border p-3 space-y-3 bg-muted/30">
              <div>
                <Label className="text-sm font-semibold">Välj de kundsegment ni oftast arbetar med</Label>
-               <p className="text-xs text-muted-foreground mt-1">
-                 Inom respektive produktområde. Max 3 val per kategori. Detta används för matchning:
-               </p>
-               <div className="mt-2 rounded-md bg-background/70 border border-border/60 p-2 text-xs text-muted-foreground space-y-1">
-                 <p>
-                   <span className="font-medium text-foreground">Ju mer träffsäkert → desto bättre synlighet.</span>
-                 </p>
-                 <p>
-                   <span className="font-medium text-foreground">Tips:</span>
-                 </p>
-                 <ul className="list-disc pl-4 space-y-0.5">
-                   <li>Markera endast där ni har tydlig erfarenhet</li>
-                   <li>Lämna tomt om ni arbetar brett</li>
-                 </ul>
-               </div>
-             </div>
-             <div>
-               <div className="flex items-center justify-between">
-                 <Label className="text-xs text-muted-foreground">Antal anställda</Label>
-                 <span className={`text-xs font-medium px-2 py-0.5 rounded ${(filter.companySize?.length || 0) > 0 ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`}>
-                   {filter.companySize?.length || 0}/3
-                 </span>
-               </div>
-               <div className="flex flex-wrap gap-1.5 mt-1.5">
-                 {companySizes.map((size) => {
-                   const isSelected = (filter.companySize || []).includes(size);
-                   const atLimit = (filter.companySize?.length || 0) >= 3 && !isSelected;
-                   return (
-                     <Badge
-                       key={size}
-                       variant={isSelected ? "default" : "outline"}
-                       className={`text-xs ${atLimit ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}
-                       onClick={() => {
-                         const current = filter.companySize || [];
-                         if (!isSelected && current.length >= 3) {
-                           toast.error("Max 3 val för antal anställda");
-                           return;
-                         }
-                         const next = isSelected
-                           ? current.filter((s) => s !== size)
-                           : [...current, size];
-                         updateProductFilter(productKey, { companySize: next });
-                       }}
-                     >
-                       {size}
-                     </Badge>
-                   );
-                 })}
-               </div>
-               <p className="text-[11px] text-muted-foreground mt-1.5">
-                 Inget val = ni matchar kunder av alla storlekar.
-               </p>
-             </div>
-             <div>
-               <div className="flex items-center justify-between">
-                 <Label className="text-xs text-muted-foreground">Omsättning (MSEK)</Label>
-                 <span className={`text-xs font-medium px-2 py-0.5 rounded ${(filter.revenue?.length || 0) > 0 ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`}>
-                   {filter.revenue?.length || 0}/3
-                 </span>
-               </div>
-               <div className="flex flex-wrap gap-1.5 mt-1.5">
-                 {revenueOptions.map((rev) => {
-                   const isSelected = (filter.revenue || []).includes(rev);
-                   const atLimit = (filter.revenue?.length || 0) >= 3 && !isSelected;
-                   return (
-                     <Badge
-                       key={rev}
-                       variant={isSelected ? "default" : "outline"}
-                       className={`text-xs ${atLimit ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}
-                       onClick={() => {
-                         const current = filter.revenue || [];
-                         if (!isSelected && current.length >= 3) {
-                           toast.error("Max 3 val för omsättning");
-                           return;
-                         }
-                         const next = isSelected
-                           ? current.filter((r) => r !== rev)
-                           : [...current, rev];
-                         updateProductFilter(productKey, { revenue: next });
-                       }}
-                     >
-                       {rev}
-                     </Badge>
-                   );
-                 })}
-               </div>
-               <p className="text-[11px] text-muted-foreground mt-1.5">
-                 Inget val = ni matchar kunder oavsett omsättning.
-               </p>
-             </div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Inom respektive produktområde. Max 3 val per kategori, och valen måste ligga i rad
+                  efter varandra (ett sammanhängande intervall). Detta används för matchning:
+                </p>
+                <div className="mt-2 rounded-md bg-background/70 border border-border/60 p-2 text-xs text-muted-foreground space-y-1">
+                  <p>
+                    <span className="font-medium text-foreground">Ju mer träffsäkert → desto bättre synlighet.</span>
+                  </p>
+                  <p>
+                    <span className="font-medium text-foreground">Tips:</span>
+                  </p>
+                  <ul className="list-disc pl-4 space-y-0.5">
+                    <li>Markera endast där ni har tydlig erfarenhet</li>
+                    <li>Välj ett sammanhängande spann, t.ex. 50–99, 100–249 och 250–999</li>
+                    <li>Hoppa inte över steg i skalan – valen måste sitta ihop</li>
+                    <li>Lämna tomt om ni arbetar brett</li>
+                  </ul>
+                </div>
+              </div>
+              <div>
+                <div className="flex items-center justify-between">
+                  <Label className="text-xs text-muted-foreground">Antal anställda</Label>
+                  <span className={`text-xs font-medium px-2 py-0.5 rounded ${(filter.companySize?.length || 0) > 0 ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`}>
+                    {filter.companySize?.length || 0}/3
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-1.5 mt-1.5">
+                  {companySizes.map((size) => {
+                    const current = filter.companySize || [];
+                    const isSelected = current.includes(size);
+                    const blocked = !isSelected && "error" in toggleContiguousRange(companySizes, current, size);
+                    return (
+                      <Badge
+                        key={size}
+                        variant={isSelected ? "default" : "outline"}
+                        className={`text-xs ${blocked ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}
+                        onClick={() => {
+                          const result = toggleContiguousRange(companySizes, current, size);
+                          if ("error" in result) {
+                            toast.error(result.error);
+                            return;
+                          }
+                          updateProductFilter(productKey, { companySize: result.next });
+                        }}
+                      >
+                        {size}
+                      </Badge>
+                    );
+                  })}
+                </div>
+                <p className="text-[11px] text-muted-foreground mt-1.5">
+                  Max 3 val i rad efter varandra. Inget val = ni matchar kunder av alla storlekar.
+                </p>
+              </div>
+              <div>
+                <div className="flex items-center justify-between">
+                  <Label className="text-xs text-muted-foreground">Omsättning (MSEK)</Label>
+                  <span className={`text-xs font-medium px-2 py-0.5 rounded ${(filter.revenue?.length || 0) > 0 ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`}>
+                    {filter.revenue?.length || 0}/3
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-1.5 mt-1.5">
+                  {revenueOptions.map((rev) => {
+                    const current = filter.revenue || [];
+                    const isSelected = current.includes(rev);
+                    const blocked = !isSelected && "error" in toggleContiguousRange(revenueOptions, current, rev);
+                    return (
+                      <Badge
+                        key={rev}
+                        variant={isSelected ? "default" : "outline"}
+                        className={`text-xs ${blocked ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}
+                        onClick={() => {
+                          const result = toggleContiguousRange(revenueOptions, current, rev);
+                          if ("error" in result) {
+                            toast.error(result.error);
+                            return;
+                          }
+                          updateProductFilter(productKey, { revenue: result.next });
+                        }}
+                      >
+                        {rev}
+                      </Badge>
+                    );
+                  })}
+                </div>
+                <p className="text-[11px] text-muted-foreground mt-1.5">
+                  Max 3 val i rad efter varandra. Inget val = ni matchar kunder oavsett omsättning.
+                </p>
+              </div>
            </div>
          </div>
        )}
