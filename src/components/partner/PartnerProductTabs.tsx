@@ -631,6 +631,17 @@ export default function PartnerProductTabs({
               )}
             </section>
 
+            {/* 1b. Leveransprofil per produktområde */}
+            {data.deliveryProfile && (
+              <ProductDeliveryProfile
+                value={data.deliveryProfile}
+                productLabel={tabMeta.label}
+                partnerName={partner.name}
+              />
+            )}
+
+
+
             {/* 2. Branscherfarenhet – storlek/omsättning ligger i Partnerfakta */}
             <section>
               <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
