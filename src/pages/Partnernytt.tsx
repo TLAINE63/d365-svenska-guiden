@@ -14,6 +14,7 @@ import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
+import PartnernyttEventsSection from "@/components/PartnernyttEventsSection";
 
 const PRODUCT_OPTIONS = ["business-central", "finance-scm", "crm-sales", "crm-service", "power-platform", "microsoft-ai", "ovrigt"] as const;
 const TYPE_OPTIONS = ["kundcase", "event", "webinar", "erbjudande", "artikel", "rapport", "branschlosning", "produktnyhet", "partnernyhet", "analys"] as const;
@@ -198,6 +199,8 @@ export default function Partnernytt() {
             )}
           </div>
         </section>
+
+        <PartnernyttEventsSection />
       </main>
       <Footer />
     </div>
