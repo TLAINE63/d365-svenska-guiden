@@ -21,13 +21,15 @@ const geographyFilters = [
 ];
 
 interface ApplicationPartnersProps {
- applicationFilter: string;
- pageSource: string;
- /** "industry" (default) shows bransch-filter, "companySize" shows storleksfilter istället. */
- filterMode?: "industry" | "companySize";
+  applicationFilter: string;
+  pageSource: string;
+  /** "industry" (default) shows bransch-filter, "companySize" shows storleksfilter istället. */
+  filterMode?: "industry" | "companySize";
+  /** Visa sektionen "Övriga partners som arbetar med ...". Standard true. */
+  showUnprofiledList?: boolean;
 }
 
-const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "industry" }: ApplicationPartnersProps) => {
+const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "industry", showUnprofiledList = true }: ApplicationPartnersProps) => {
  const { data: dbPartners, isLoading } = usePartners();
  const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
  const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
@@ -311,15 +313,15 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  )}
  </div>
 
- {/* Övriga partners som angett att de arbetar med denna produkt men inte är publicerade */}
- {productKey && (
- <UnprofiledPartnersList
- variant="teaser"
- showSeeAllLink
- productKey={productKey}
- productLabel={applicationFilter}
- />
- )}
+  {/* Övriga partners som angett att de arbetar med denna produkt men inte är publicerade */}
+  {productKey && showUnprofiledList && (
+    <UnprofiledPartnersList
+      variant="teaser"
+      showSeeAllLink
+      productKey={productKey}
+      productLabel={applicationFilter}
+    />
+  )}
  </section>
  );
 };
