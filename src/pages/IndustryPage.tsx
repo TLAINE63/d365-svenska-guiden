@@ -224,9 +224,10 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
    applications: underlyingSelected.map((k) => labelByKey[k]).filter(Boolean),
    industry: meta.name,
    companySize: selectedCompanySize,
+   revenue: selectedRevenue,
    geography: selectedGeography,
   });
- }, [basicPartners, meta, selected, selectedGeography, selectedCompanySize]);
+ }, [basicPartners, meta, selected, selectedGeography, selectedCompanySize, selectedRevenue]);
 
  if (!loading && !page) {
  return (
