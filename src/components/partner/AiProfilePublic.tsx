@@ -126,14 +126,14 @@ export default function AiProfilePublic({ profile, compact = false }: Props) {
         </div>
 
         {summary && (
-          <div className="mt-4 pt-4 border-t border-primary/15">
-            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-primary" aria-hidden="true" />
-              AI:s sammanfattning
+          <div className="mt-4 pt-4 border-t border-border">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+              Bedömning
             </p>
-            <p className="text-sm leading-relaxed text-foreground/90 italic">
+            <p className="text-sm leading-relaxed text-foreground/90">
               {summary}
             </p>
+
             <p className="text-[11px] text-muted-foreground mt-1.5">
               Genererad av d365.se utifrån partnerns AI-profil. Verifieras alltid i dialog.
             </p>
