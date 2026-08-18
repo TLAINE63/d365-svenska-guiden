@@ -1,0 +1,7 @@
+update public.partners set extended_summary = v.s from (values
+ ('engage-group','Publika källor beskriver Engage Group som en Dynamics 365-partner med inriktning mot större implementationer inom bland annat Finance & Operations och Customer Engagement. Tillgänglig information visar närvaro i flera svenska städer samt verksamhet internationellt.'),
+ ('active-business-solutions','Publika källor beskriver Active Business Solutions som en nordisk Microsoft-partner med kontor i Danmark, Norge, Sverige och USA. Enligt företagets publika information är arbetet inriktat på Business Central (tidigare Dynamics NAV) för små och medelstora företag.'),
+ ('acumant','Publika källor beskriver Acumant som en Microsoft-partner med huvudkontor i Solna. Tillgänglig information anger arbete med data, AI och Microsoft-lösningar samt automation och datadriven affärsutveckling.'),
+ ('cepheo','Publika källor beskriver Cepheo som en nordisk Microsoft Dynamics 365-partner med danskt ursprung, bildad genom sammanslagning av flera Dynamics-bolag. Tillgänglig information anger cirka 400–500 anställda och verksamhet i flera nordiska länder.'),
+ ('cgi','Publika källor beskriver CGI som ett globalt IT- och affärskonsultföretag med huvudkontor i Kanada och verksamhet i ett fyrtiotal länder. Enligt företagets publika information finns omkring 3 000 medarbetare i Sverige med kontor i bland annat Stockholm, Göteborg och Malmö.')
+) as v(slug,s) where partners.slug = v.slug;

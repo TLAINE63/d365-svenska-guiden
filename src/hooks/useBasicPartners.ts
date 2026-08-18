@@ -151,21 +151,22 @@ export const BASIC_COPY = {
   productsLabel:
     "Observerade produktområden baserade på partnerns publika information.",
   extendedLabel:
-    "Utökad beskrivning sammanställd av d365.se från publika källor. Ej granskad av partnern.",
+    "Publik information sammanställd av d365.se från publikt tillgängliga källor.",
   footer:
     "Den här översikten är sammanställd av d365.se utifrån publika källor.",
   partnerRepHeading: "Representerar du denna partner?",
   partnerRepBody:
-    "Vill ni säkerställa att er kompetens, branschinriktning och kontaktvägar visas rätt för kunder som jämför Dynamics 365-partners?",
+    "Verifiera och komplettera informationen så att kunder får ett korrekt underlag när de jämför Dynamics 365-partners.",
   cta: "Komplettera partnerprofilen",
   standaloneNoContact:
-    "Kontaktväg via d365.se är inte aktiverad för denna profil. Hör av dig till d365.se så hjälper vi dig vidare.",
+    "Kontaktväg via d365.se är inte aktiverad för denna profil.",
   buyerGuidanceCta: "Kontakta d365.se för vägledning",
   buyerGuidanceBody:
-    "Denna partner har en ej verifierad profil och kan inte kontaktas direkt via d365.se. Vi hjälper dig vidare.",
+    "d365.se har inte en verifierad direktkontakt kopplad till denna profil, men vi kan hjälpa dig att bedöma alternativen och komma vidare.",
   matchingLimited: "Begränsad data: partnern kan inte bedömas fullt ut.",
   compareMissing: "data saknas",
 } as const;
+
 
 export const PRODUCT_LABEL: Record<ProductKey, string> = {
   bc: "Business Central",
