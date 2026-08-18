@@ -11,9 +11,8 @@ import partnerDataJson from "@/data/partnerData.json";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 import { useState } from "react";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
-import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
+import PartnerCard from "@/components/PartnerCard";
 import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
-import { Badge } from "@/components/ui/badge";
 
 
 // Static featured-partner snapshot bundled at build time. Used as the
@@ -156,61 +155,14 @@ const PartnersPerBransch = () => {
                       ) : (
                         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                           {list.map((p) => (
-                            <li key={p.id}>
-                              <article className="group relative flex h-full flex-col rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/50 hover:shadow-md">
-                                <div className="flex items-start gap-3">
-                                  {p.logo_url ? (
-                                    <img
-                                      src={p.logo_url}
-                                      alt={`${p.name} logotyp`}
-                                      loading="lazy"
-                                      className="h-11 w-11 shrink-0 rounded-md object-contain bg-white p-1 ring-1 ring-border"
-                                    />
-                                  ) : (
-                                    <div className="h-11 w-11 shrink-0 rounded-md bg-muted" />
-                                  )}
-                                  <div className="min-w-0 flex-1">
-                                    <h3 className="truncate font-semibold text-foreground transition-colors group-hover:text-primary">
-                                      <Link
-                                        to={`/partner/${p.slug}/`}
-                                        className="before:absolute before:inset-0 before:content-['']"
-                                      >
-                                        {p.name}
-                                      </Link>
-                                    </h3>
-                                    <div className="mt-1">
-                                      <VerifiedPartnerBadge size="sm" />
-                                    </div>
-                                  </div>
-                                </div>
-
-                                {p.applications?.length > 0 && (
-                                  <div className="mt-3 flex flex-wrap gap-1">
-                                    {p.applications.slice(0, 3).map((a) => (
-                                      <Badge
-                                        key={a}
-                                        variant="outline"
-                                        className="text-[10px] px-1.5 py-0 border-border text-muted-foreground"
-                                      >
-                                        {a}
-                                      </Badge>
-                                    ))}
-                                    {p.applications.length > 3 && (
-                                      <Badge
-                                        variant="outline"
-                                        className="text-[10px] px-1.5 py-0 border-border text-muted-foreground"
-                                      >
-                                        +{p.applications.length - 3}
-                                      </Badge>
-                                    )}
-                                  </div>
-                                )}
-
-                                <span className="mt-auto pt-3 inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors group-hover:text-primary">
-                                  Se partnerprofil
-                                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden />
-                                </span>
-                              </article>
+                            <li key={p.id} className="h-full">
+                              <PartnerCard
+                                partner={p}
+                                profileUrl={`/partner/${p.slug}/`}
+                                colorScheme="primary"
+                                highlightedIndustry={industry.name}
+                                resultView
+                              />
                             </li>
                           ))}
                         </ul>
