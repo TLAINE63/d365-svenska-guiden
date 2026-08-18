@@ -423,6 +423,46 @@ const PartnerCard = ({
 
 
 
+ {resultView ? (
+  <>
+   {assessment && (
+    <div className="mb-3 rounded-md border-l-2 border-primary bg-primary/5 px-3 py-2">
+     <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-1">
+      d365.se:s bedömning
+     </p>
+     <p className="text-[13px] leading-snug text-foreground line-clamp-3">{assessment}</p>
+    </div>
+   )}
+
+   {relevanceFactors.length > 0 && (
+    <div className="mb-3">
+     <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1.5">
+      Särskilt relevant för
+     </p>
+     <div className="flex flex-wrap gap-1.5">
+      {relevanceFactors.map((factor) => (
+       <span
+        key={factor}
+        className="inline-flex items-center rounded-full border border-accent/25 bg-accent/10 px-2 py-0.5 text-[11px] font-medium text-accent"
+       >
+        {factor}
+       </span>
+      ))}
+     </div>
+    </div>
+   )}
+
+   {evidence && (
+    <div className="mb-3">
+     <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1">
+      Dokumenterad erfarenhet
+     </p>
+     <p className="text-[12px] leading-snug text-muted-foreground line-clamp-2">{evidence}</p>
+    </div>
+   )}
+  </>
+ ) : (
+  <>
  {/* Matchar din sökning – visas när användaren har aktiva filter */}
  {(highlightedProduct || highlightedIndustry || highlightedGeography || highlightedCompanySize) && (
   <div className="mb-3 rounded-md border border-primary/20 bg-primary/5 px-3 py-2">
@@ -507,6 +547,9 @@ const PartnerCard = ({
            </div>
          </div>
        )}
+  </>
+ )}
+
 
 
  <div className="mt-auto pt-3 space-y-2">
