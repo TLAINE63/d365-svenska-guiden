@@ -95,7 +95,7 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
       {
         title: "Mindre standardimplementationer",
         scope: "Standarduppsättning med begränsade anpassningar",
-        range: "75 000 – 400 000 kr",
+        range: "100 000 – 400 000 kr",
         bullets: [
           "2–4 månaders projekt",
           "Standardprocesser och funktionalitet",
