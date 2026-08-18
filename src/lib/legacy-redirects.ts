@@ -48,6 +48,9 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   // Branscher (gammalt namn)
   { from: "/branschlosningar",          to: "/branscher",           intendedStatus: 301 },
 
+  // Affärssystem-pelaren konsoliderad in i /erp
+  { from: "/affarssystem",              to: "/erp",                 intendedStatus: 301 },
+
   // Tidigare admin-paths
   { from: "/partner-admin",             to: "/admin",               intendedStatus: 301 },
   { from: "/lead-admin",                to: "/admin",               intendedStatus: 301 },
@@ -87,6 +90,24 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   { from: "/beslutsmognadsindex/tack",       to: "/beslutsmognad/tack",       intendedStatus: 301 },
 
   // (adbriq-profilen är återpublicerad – ingen redirect längre)
+
+  // Avpublicerade partnerprofiler → motsvarande Basic-profil.
+  // Dessa /partner/-sidor saknade data och renderade tom "Laddar…"-HTML.
+  { from: "/partner/cegeka",          to: "/basic/cegeka",          intendedStatus: 301 },
+  { from: "/partner/cepheo",          to: "/basic/cepheo",          intendedStatus: 301 },
+  { from: "/partner/cosmo-consult",   to: "/basic/cosmo-consult",   intendedStatus: 301 },
+  { from: "/partner/dizparc",         to: "/basic/dizparc",         intendedStatus: 301 },
+  { from: "/partner/ecit-sverige-ab", to: "/basic/ecit-sverige-ab", intendedStatus: 301 },
+  { from: "/partner/enqore-ab",       to: "/basic/enqore-ab",       intendedStatus: 301 },
+  { from: "/partner/exsitec",         to: "/basic/exsitec",         intendedStatus: 301 },
+  { from: "/partner/hay-it",          to: "/basic/hay-it",          intendedStatus: 301 },
+  { from: "/partner/implema",         to: "/basic/implema",         intendedStatus: 301 },
+  { from: "/partner/navcite",         to: "/basic/navcite",         intendedStatus: 301 },
+  { from: "/partner/navet-ab",        to: "/basic/navet-ab",        intendedStatus: 301 },
+  { from: "/partner/navipro-ab",      to: "/basic/navipro-ab",      intendedStatus: 301 },
+  { from: "/partner/nemely",          to: "/basic/nemely",          intendedStatus: 301 },
+  { from: "/partner/releye",          to: "/basic/releye",          intendedStatus: 301 },
+  { from: "/partner/sopra-steria",    to: "/basic/sopra-steria",    intendedStatus: 301 },
 ];
 
 const SITE_ORIGIN = "https://d365.se";

@@ -12,6 +12,7 @@ const Upphandlingsresan = () => {
   return (
     <>
       <SEOHead
+        breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Kunskapscenter", url: "/kunskapscenter/" }, { name: "Upphandlingsresan", url: "/kunskapscenter/upphandlingsresan/" }]}
         title="Upphandlingsresan – 7 stadier för ERP & CRM"
         description="Frågor som avslöjar var ni står i upphandlingsresan för Dynamics 365 (ERP och CRM). Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
         canonicalPath="/kunskapscenter/upphandlingsresan"

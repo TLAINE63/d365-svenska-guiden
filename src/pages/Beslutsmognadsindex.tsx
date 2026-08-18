@@ -72,6 +72,31 @@ export default function Beslutsmognadsindex() {
         />
         <meta property="og:url" content="https://d365.se/beslutsmognad/" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://d365.se/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://d365.se/og-image.png" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Beslutsmognadsindex – diagnostik inför partnerval | d365.se",
+            description:
+              "Beslutsmognadsindex: diagnostik för svenska beslutsgrupper inför ERP- eller CRM-investering. 8–10 minuter, 25 frågor, konfidentiell sammanställning.",
+            url: "https://d365.se/beslutsmognad/",
+            inLanguage: "sv-SE",
+            isPartOf: { "@type": "WebSite", name: "d365.se", url: "https://d365.se" },
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Hem", item: "https://d365.se/" },
+              { "@type": "ListItem", position: 2, name: "Beslutsmognadsindex", item: "https://d365.se/beslutsmognad/" },
+            ],
+          })}
+        </script>
       </Helmet>
 
       <TopBar />

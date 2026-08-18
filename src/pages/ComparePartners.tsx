@@ -1698,6 +1698,7 @@ const ComparePartners = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
+        breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Jämför partners", url: "/jamfor-partners/" }]}
         title="Jämför Dynamics 365-partner sida vid sida | d365.se"
         description="Jämför två till tre Microsoft Dynamics 365-partner mot samma beslutsprofil: positionering, leveransbild, fakta och 'när passar vi inte'."
         canonicalPath="/jamfor-partners"

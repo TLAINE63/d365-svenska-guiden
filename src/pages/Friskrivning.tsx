@@ -18,6 +18,7 @@ export default function Friskrivning() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
+        breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Friskrivning", url: "/friskrivning/" }]}
         title="Friskrivning & tolkningar | d365.se"
         description="Samlade friskrivningar för d365.se: information, behovsanalyser, kravspecifikationer, ROI-kalkyler, jämförelser och hur partnerinformation presenteras och tolkas."
         canonicalPath="/friskrivning"

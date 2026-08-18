@@ -27,6 +27,7 @@ const SRC = join(ROOT, "src");
 // Filer där det är OK att referera de gamla logotyperna (endast som
 // schema.org / SEO-metadata, aldrig som visuell <img>).
 const SEO_ALLOWLIST = new Set([
+  "src/components/SEOHead.tsx",
   "src/components/StructuredData.tsx",
   "src/pages/BlogArticle.tsx",
   "src/data/knowledgeVideos.ts",

@@ -8,6 +8,7 @@ export default function OwnershipAndInterests() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
+        breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Ägande och intressen", url: "/agande-och-intressen/" }]}
         title="Så fungerar partnersamarbetet på d365.se"
         description="Hur partnersamarbetet på d365.se fungerar: vilka partners som finns med, hur de presenteras, och hur vi står på köparens sida i valet av Dynamics 365-partner."
         canonicalPath="/agande-och-intressen"

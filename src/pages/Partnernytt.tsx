@@ -113,6 +113,7 @@ export default function Partnernytt() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
+        breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Partnernytt", url: "/partnernytt/" }]}
         title="Partnernytt – utvalt från Dynamics 365-partners | d365.se"
         description="Nyheter, kundcase, event och erbjudanden från publicerade Dynamics 365-partners på d365.se. Länkar till originalkällan."
         canonicalPath="/partnernytt/"

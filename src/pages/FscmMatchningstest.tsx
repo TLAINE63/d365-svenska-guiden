@@ -179,6 +179,7 @@ const FscmMatchningstest = () => {
  return (
  <div className="min-h-screen flex flex-col bg-background">
  <SEOHead
+        breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Finance & Supply Chain", url: "/finance-supply-chain-management/" }, { name: "Matchningstest", url: "/finance-supply-chain-management/matchningstest/" }]}
  title="Matchar F&SCM era behov? – Matchningstest | d365.se"
  description="Tio minuter, 26 frågor. Funktionsorienterat matchningstest som visar om Dynamics 365 Finance & Supply Chain Management passar er – eller om enklare alternativ räcker."
  canonicalPath="/finance-supply-chain-management/matchningstest"

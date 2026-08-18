@@ -6,7 +6,7 @@
   "scripts": {
     "predev": "node scripts/check-logo-usage.mjs && node scripts/generate-sitemap.mjs && node scripts/generate-industry-pages.mjs && node scripts/generate-partner-data.mjs",
     "dev": "vite",
-    "prebuild": "node scripts/check-logo-usage.mjs && node scripts/generate-sitemap.mjs && node scripts/generate-industry-pages.mjs && node scripts/generate-partner-data.mjs",
+    "prebuild": "node scripts/check-logo-usage.mjs && node scripts/generate-partner-data.mjs && node scripts/generate-sitemap.mjs && node scripts/generate-industry-pages.mjs",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",

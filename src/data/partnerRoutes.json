@@ -25,39 +25,9 @@
     "description": "Vi är experter på en kraftfull kombination av Dynamics 365 Business Central och CRM på Power Platform samt Power BI, där vi skapar smarta, skalbara och framtidssäkra lösningar. Vi hjälper företag att "
   },
   {
-    "slug": "cegeka",
-    "name": "Cegeka",
-    "description": "Cegeka är en ledande Microsoft partner inom Dynamics 365, data och AI. Microsoft utsåg oss 2025 till global vinnare av Microsoft Dynamics 365 Supply Chain Partner of the Year. Med stark branschkompete"
-  },
-  {
-    "slug": "cepheo",
-    "name": "Cepheo",
-    "description": "Cepheo är en av Nordens största och mest respekterade leverantörer av Microsoft Dynamics 365-lösningar. Vi levererar heltäckande molnlösningar som kombinerar ERP, CRM, AI, BI & analytics och low-code-"
-  },
-  {
-    "slug": "cosmo-consult",
-    "name": "COSMO CONSULT",
-    "description": "COSMO CONSULT är en av världens ledande Microsoft-partner som specialiserar sig på implementering och systemhantering av industri- och affärslösningar baserade på avancerad programvaruteknik. Med 1600"
-  },
-  {
-    "slug": "dizparc",
-    "name": "Dizparc",
-    "description": "Hos Dizparc hittar du ett stort gäng experter med specialistkunskap och både lång och bred erfarenhet av att arbeta med Microsoft Business Central. Oavsett om du står i startgroparna att implementera "
-  },
-  {
-    "slug": "ecit-sverige-ab",
-    "name": "ECIT Sverige AB",
-    "description": "På ECIT kombinerar vi vår kunskap inom ekonomi, lön, IT och modern teknik för att förstå hur ditt företags vardag faktiskt fungerar. Det gör att vi kan möta både dina processer, dina möjligheter och d"
-  },
-  {
-    "slug": "enqore-ab",
-    "name": "Enqore AB",
-    "description": "Från reaktiv till prediktiv\nMånga organisationer har i dag tillgång till stora mängder data, men får sina viktigaste insikter först när det redan är för sent. Systemen är ofta silobaserade, processern"
-  },
-  {
-    "slug": "exsitec",
-    "name": "BrightCom",
-    "description": "BrightCom är partner till Microsoft och affärssystemet Dynamics 365 Business Central med fokus på e-handels och retailbranschen. BrightCom har färdiga integrationer till de vanligaste e-handelsplattfo"
+    "slug": "crm-konsulterna",
+    "name": "CRM Konsulterna",
+    "description": "CRM Konsulterna utsågs till Dynamics 365 Customer Engagement Partner of the Year 2023 av Microsoft Sverige."
   },
   {
     "slug": "fellowmind",
@@ -67,22 +37,12 @@
   {
     "slug": "goodfellows",
     "name": "Goodfellows",
-    "description": "Full kontroll och trygg leverans av affärssystem – utan överraskningar längs vägen.\nGoodfellows arbetar nära ditt team och tar tydligt ansvar för att affärssystemet fungerar i praktiken, inte bara på "
-  },
-  {
-    "slug": "hay-it",
-    "name": "Hay IT",
-    "description": "Varmt välkomna till Hay IT! Vi är företaget som hjälper er i er digitala resa genom att erbjuda helhetslösningar för bland annat  Microsoft Dynamics 365. Genom våra tjänster Projektledning, Webb- och "
-  },
-  {
-    "slug": "implema",
-    "name": "Implema AB",
-    "description": "Implema hjälper företag att accelerera sin affär med mottot 'Snabbt, säkert och redo för framtiden'. Affärsnyttan börjar med rätt partner."
+    "description": "Full kontroll och trygg leverans av affärssystem – utan överraskningar längs vägen.\nGoodfellows arbetar nära ditt team och du behåller dina Goodfellows konsulter, som lär känna dig väl, från förstudie"
   },
   {
     "slug": "inbiz",
     "name": "InBiz",
-    "description": "InBiz är din trygga partner för Microsoft Dynamics 365 Business Central sedan 2005."
+    "description": "InBiz erbjuder tjänster inom Microsoft Dynamics 365 Business Central och har sedan 2005 fokuserat på systemimplementering och förvaltning. Företaget riktar sig främst mot verksamheter inom tillverknin"
   },
   {
     "slug": "knowit",
@@ -95,26 +55,6 @@
     "description": "Vi är stolta nördar som brinner för hjärtat i din verksamhet! Vi har nördat ner oss i Microsofts produkter sedan 2001. I över 20 år har vi digitaliserat företag så att de kan ta klivet närmre sina drö"
   },
   {
-    "slug": "navcite",
-    "name": "Navcite",
-    "description": "Navcite implementerar Microsoft Dynamics 365 Business Central. Med lång erfarenhet av affärssystem hjälper vi företag inom projekt, tillverkning och distribution att effektivisera processer, integrera"
-  },
-  {
-    "slug": "navet-ab",
-    "name": "Navet AB",
-    "description": "Navet är ett affärskonsultbolag specialiserat på affärssystem och digital transformation, med fokus på att hjälpa företag att optimera sina affärsprocesser genom moderna lösningar. Navet kombinerar ve"
-  },
-  {
-    "slug": "navipro-ab",
-    "name": "Evidi",
-    "description": ""
-  },
-  {
-    "slug": "nemely",
-    "name": "Nemely AB",
-    "description": "Nemely är en ledande CRM-partner med djup expertis inom CRM-implementationer – från strategi och design till införande och vidareutveckling. Vårt fokus är att säkerställa lyckade implementationer som "
-  },
-  {
     "slug": "nexer",
     "name": "Nexer",
     "description": "Nexer är ett globalt techbolag med rötter i svensk entreprenörsanda och innovationskraft. Vi är stolta över att leda den digitala revolutionen och vara i teknikens framkant, alltid med ett agilt och f"
@@ -122,12 +62,7 @@
   {
     "slug": "point-taken",
     "name": "Point Taken",
-    "description": "Vi är valet när du söker en skalbar CRM-lösning och smarta AI-verktyg för konsulttjänstebolag."
-  },
-  {
-    "slug": "releye",
-    "name": "Releye",
-    "description": "Releye är en Microsoft-partner med fokus på Dynamics 365 och Power Platform."
+    "description": ""
   },
   {
     "slug": "sherpas-group-ab",
@@ -137,12 +72,7 @@
   {
     "slug": "sirocco-group",
     "name": "Sirocco Group",
-    "description": "Sirocco Group är en internationell boutique-konsult och utvecklingsbyrå specialiserad på CRM och digital transformation."
-  },
-  {
-    "slug": "sopra-steria",
-    "name": "Sopra Steria",
-    "description": "Vår styrka ligger i vår förmåga att se hela kundens verksamhet ur ett process- och effektperspektiv. Vi arbetar metodiskt för att säkerställa att varje implementation ger maximal affärsnytta, oavsett "
+    "description": "Sirocco Group är en konsult- och utvecklingsbyrå med verksamhet i Stockholm. Företaget arbetar med Microsoft Dynamics 365-applikationer inom Sales, Customer Insights (Marketing), Customer Service, Fie"
   },
   {
     "slug": "vivicta",
@@ -152,6 +82,6 @@
   {
     "slug": "yellow-solution",
     "name": "Yellow Solution AB",
-    "description": "Vi på Yellow är ett konsultföretag som tillsammans med framgångsrika kunder skapar konkurrenskraft och driver tillväxt med Microsofts Affärssystem Dynamics 365 Business Central. Med vår långa erfarenh"
+    "description": "Dynamics 365 Business Central är kärnan i hur vi på Yellow hjälper framgångsrika företag att skapa konkurrenskraft och driva tillväxt. Som konsultföretag kombinerar vi lång erfarenhet med ett starkt p"
   }
 ]

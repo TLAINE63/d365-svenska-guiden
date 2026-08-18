@@ -194,7 +194,7 @@ const AIOverview = () => {
 
  return (
  <div className="min-h-screen bg-background">
- <SEOHead
+ <SEOHead webPageSchema={false}
  title="AI i Dynamics 365 – data, process, ansvar"
  description="Copilot och agenter i Dynamics 365 kräver mer än licenser. Vad som krävs av data, processer och ägarskap innan AI-effekten infinner sig."
  canonicalPath="/aioversikt"
