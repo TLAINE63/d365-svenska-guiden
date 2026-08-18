@@ -451,35 +451,18 @@ const PartnerCard = ({
 
 
 
- {resultView ? (
-  <>
-   {assessment && (
-    <div className="mb-3 rounded-md border-l-2 border-primary bg-primary/5 px-3 py-2.5">
-     <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-1">
-      d365.se:s bedömning
-     </p>
-     <p className="text-[13px] leading-relaxed text-foreground line-clamp-6 min-h-[5.5rem]">{assessment}</p>
-    </div>
-
-   )}
-
-   {relevanceFactors.length > 0 && (
-    <div className="mb-3">
-     <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1.5">
-      Särskilt relevant för
-     </p>
-     <div className="flex flex-wrap gap-1.5">
-      {relevanceFactors.map((factor) => (
-       <span
-        key={factor}
-        className="inline-flex items-center rounded-full border border-accent/25 bg-accent/10 px-2 py-0.5 text-[11px] font-medium text-accent"
-       >
-        {factor}
-       </span>
-      ))}
+  {resultView ? (
+   <>
+    {assessment && (
+     <div className="mb-3 rounded-md border-l-2 border-primary bg-primary/5 px-3 py-2.5">
+      <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-1">
+       d365.se:s bedömning
+      </p>
+      <p className="text-[13px] leading-relaxed text-foreground line-clamp-8 min-h-[7.5rem]">{assessment}</p>
      </div>
-    </div>
-   )}
+
+    )}
+
 
    {evidence && (
     <div className="mb-3">
