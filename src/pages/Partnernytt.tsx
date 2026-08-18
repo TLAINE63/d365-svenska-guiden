@@ -18,6 +18,13 @@ import PartnernyttEventsSection from "@/components/PartnernyttEventsSection";
 
 const PRODUCT_OPTIONS = ["business-central", "finance-scm", "crm-sales", "crm-service", "power-platform", "microsoft-ai", "ovrigt"] as const;
 const TYPE_OPTIONS = ["kundcase", "event", "webinar", "erbjudande", "artikel", "rapport", "branschlosning", "produktnyhet", "partnernyhet", "analys"] as const;
+// Rapport och Analys slås ihop till ett enda filterval.
+const MERGED_TYPES: Record<string, string[]> = {
+  "rapport-analys": ["rapport", "analys"],
+};
+const MERGED_TYPE_LABELS: Record<string, string> = {
+  "rapport-analys": "Rapport & Analys",
+};
 const SOURCE_OPTIONS = ["linkedin", "partner_web", "blog", "press", "webinar", "event", "other"] as const;
 
 export default function Partnernytt() {
@@ -46,10 +53,19 @@ export default function Partnernytt() {
   }, [data, allPartners]);
 
   // Visa endast nyhetstyper som faktiskt har publicerat innehåll.
+  // Rapport och Analys slås ihop till ett enda val ("Rapport & Analys").
   const types = useMemo(() => {
     const set = new Set<string>();
     (data ?? []).forEach((n) => n.news_type && set.add(n.news_type));
-    return TYPE_OPTIONS.filter((t) => set.has(t));
+    const result: { value: string; label: string }[] = [];
+    TYPE_OPTIONS.forEach((t) => {
+      if (t === "rapport" || t === "analys") return; // hanteras som merged
+      if (set.has(t)) result.push({ value: t, label: partnerNewsTypeLabel(t) });
+    });
+    if (set.has("rapport") || set.has("analys")) {
+      result.push({ value: "rapport-analys", label: MERGED_TYPE_LABELS["rapport-analys"] });
+    }
+    return result;
   }, [data]);
 
   const industries = useMemo(() => {
@@ -72,7 +88,10 @@ export default function Partnernytt() {
       list = list.filter((n) => n.partner?.slug === partnerParam || (partnerId && n.partner_id === partnerId));
     }
     if (productParam !== "all") list = list.filter((n) => (n.product_areas && n.product_areas.length > 0 ? n.product_areas.includes(productParam as typeof n.product_area) : n.product_area === productParam));
-    if (typeParam !== "all") list = list.filter((n) => n.news_type === typeParam);
+    if (typeParam !== "all") {
+      const merged = MERGED_TYPES[typeParam];
+      list = merged ? list.filter((n) => merged.includes(n.news_type)) : list.filter((n) => n.news_type === typeParam);
+    }
     if (industryParam !== "all") list = list.filter((n) => n.industry === industryParam);
     if (sourceParam !== "all") list = list.filter((n) => n.source_type === sourceParam);
     return list;
@@ -143,7 +162,7 @@ export default function Partnernytt() {
                 <SelectContent>
                   <SelectItem value="all">Alla typer</SelectItem>
                   {types.map((t) => (
-                    <SelectItem key={t} value={t}>{partnerNewsTypeLabel(t)}</SelectItem>
+                    <SelectItem key={t.value} value={t.value}>{t.label}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
