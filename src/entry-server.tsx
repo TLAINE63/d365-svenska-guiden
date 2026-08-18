@@ -196,7 +196,7 @@ export const routes: PrerenderRoute[] = [
     meta: {
       title: 'För Dynamics 365-partners | Profilera er på d365.se',
       description:
-        'd365.se kartlägger Sveriges Dynamics 365-partners. Se hur en profilerad partnerprofil kan stärka er position i köpresan, er digitala synlighet och ert beslutsunderlag när kunder jämför partners.',
+        'd365.se kartlägger Sveriges Dynamics 365-partners. Se hur en profilerad partnerprofil stärker er synlighet när kunder jämför och väljer partner.',
     },
   },
   { path: '/kunskapscenter', priority: '0.7', changefreq: 'weekly' },
