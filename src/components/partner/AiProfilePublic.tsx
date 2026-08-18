@@ -1,7 +1,7 @@
 // Public display of a partner's AI, Copilot & Automation profile.
 // Never shows internal AI score, confidence, badges, tiers or numerical levels.
 
-import { Sparkles, Bot } from "lucide-react";
+import { Bot } from "lucide-react";
 import {
   AiProfile,
   labelForDelivery,
@@ -66,18 +66,19 @@ export default function AiProfilePublic({ profile, compact = false }: Props) {
   return (
     <section className={`rounded-lg border border-border bg-card ${compact ? "p-4" : "p-5 sm:p-6"} space-y-5`}>
       {/* Highlighted buyer-oriented "AI-erfarenhet" panel */}
-      <div className="rounded-md border border-primary/25 bg-primary/[0.04] p-4 sm:p-5">
+      <div className="rounded-md border border-border bg-muted/30 p-4 sm:p-5">
         <header className="flex items-center justify-between gap-3 mb-3">
           <div className="flex items-center gap-2">
-            <Bot className="w-4 h-4 text-primary" aria-hidden="true" />
-            <h3 className="text-sm sm:text-base font-semibold">AI-erfarenhet</h3>
+            <Bot className="w-4 h-4 text-muted-foreground" aria-hidden="true" />
+            <h3 className="text-sm sm:text-base font-semibold">Dokumenterade områden</h3>
           </div>
           {maturity && (
-            <span className="text-xs font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/25">
-              AI-mognad: {maturity}
+            <span className="text-xs font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full bg-muted text-foreground/80 border border-border">
+              Bedömd AI-nivå: {maturity}
             </span>
           )}
         </header>
+
 
         <div className="grid gap-4 sm:grid-cols-2">
           {topCaps.length > 0 && (
@@ -125,14 +126,14 @@ export default function AiProfilePublic({ profile, compact = false }: Props) {
         </div>
 
         {summary && (
-          <div className="mt-4 pt-4 border-t border-primary/15">
-            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-primary" aria-hidden="true" />
-              AI:s sammanfattning
+          <div className="mt-4 pt-4 border-t border-border">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+              Bedömning
             </p>
-            <p className="text-sm leading-relaxed text-foreground/90 italic">
+            <p className="text-sm leading-relaxed text-foreground/90">
               {summary}
             </p>
+
             <p className="text-[11px] text-muted-foreground mt-1.5">
               Genererad av d365.se utifrån partnerns AI-profil. Verifieras alltid i dialog.
             </p>

@@ -576,7 +576,7 @@ export default function PartnerProductTabs({
             {/* Quick facts – helps customers compare themselves against the partner */}
             <PartnerQuickFacts partner={partner} activeTab={active} />
 
-            {/* 1. Varför välja */}
+            {/* 1. Partnerns eget erbjudande */}
 
             <section>
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight mb-2">
@@ -617,29 +617,14 @@ export default function PartnerProductTabs({
               )}
             </section>
 
-            {/* 2. Passar bäst för */}
+            {/* 2. Branscherfarenhet – storlek/omsättning ligger i Partnerfakta */}
             <section>
               <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
                 <Users className="w-5 h-5 text-primary" />
-                Branscherfarenhet och målgrupp
+                Branscherfarenhet
               </h2>
               <ul className="space-y-2.5">
-                {data.companySize.length > 0 && (
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-1 shrink-0" />
-                    <span className="text-foreground">
-                      Företag med <strong>{data.companySize.map(formatSwedishBand).join(", ")}</strong> anställda
-                    </span>
-                  </li>
-                )}
-                {data.revenue.length > 0 && (
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-1 shrink-0" />
-                    <span className="text-foreground">
-                      Omsättning: <strong>{data.revenue.map(formatSwedishBand).join(", ")}</strong>
-                    </span>
-                  </li>
-                )}
+
 
                 {data.industries.length > 0 && (
                   <li className="flex flex-col gap-2">
@@ -707,20 +692,23 @@ export default function PartnerProductTabs({
             </ul>
           </section>
 
-            {/* 3. Kompetenser */}
+            {/* 3. Kompetenser – max 8 primära, övriga taggar används bara för matchning/sök */}
             <section>
               <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
                 <Briefcase className="w-5 h-5 text-primary" />
-                Kompetenser och teknik
+                Kompetenser
               </h2>
 
               {(() => {
                 const allApps = getAllProductCompetencies(partner);
-                if (allApps.length === 0) return null;
+                const extraTags = ((partner as unknown as { ai_tags?: string[] }).ai_tags || [])
+                  .filter((t) => t && !allApps.includes(t));
+                const shown = Array.from(new Set([...allApps, ...extraTags])).slice(0, 8);
+                if (shown.length === 0) return null;
                 return (
                   <div className="mb-4">
                     <div className="flex flex-wrap gap-2">
-                      {allApps.map((app) => (
+                      {shown.map((app) => (
                         <Badge key={app} className="bg-primary text-primary-foreground border-0 py-1.5 px-3 text-sm inline-flex items-center gap-1.5">
                           {appIconSrc[app] && (
                             <img src={appIconSrc[app]} alt="" aria-hidden="true" className="w-4 h-4" />
@@ -732,6 +720,7 @@ export default function PartnerProductTabs({
                   </div>
                 );
               })()}
+
 
 
               {data.industryApps.length > 0 && (
@@ -789,18 +778,7 @@ export default function PartnerProductTabs({
               </section>
             )}
 
-            {/* Geografi */}
-            {data.geography.length > 0 && (
-              <section>
-                <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
-                  <Globe className="w-5 h-5 text-primary" />
-                  Geografi
-                </h2>
-                <p className="text-foreground">
-                  Levererar i <strong>{data.geography.join(", ")}</strong>
-                </p>
-              </section>
-            )}
+            {/* Geografi redovisas i Partnerfakta – ingen dubblering här */}
 
             {/* Kontor */}
             {(() => {
@@ -825,12 +803,16 @@ export default function PartnerProductTabs({
               ) : null;
             })()}
 
-            {/* AI, Copilot & Automation – partner-level public view */}
+            {/* AI, Copilot & automation – partnerns dokumenterade AI-kompetens */}
             {(partner as any).ai_profile && (
               <section>
+                <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">
+                  AI, Copilot &amp; automation
+                </h2>
                 <AiProfilePublic profile={(partner as any).ai_profile} />
               </section>
             )}
+
 
             {/* Partner news */}
             <PartnerProfileNewsSection
