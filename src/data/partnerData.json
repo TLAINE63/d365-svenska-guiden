@@ -994,8 +994,8 @@
     "logo_url": "https://crmkonsulterna.se/wp-content/uploads/2023/01/crmk-logo.svg",
     "logo_dark_bg": false,
     "website": "https://www.crmkonsulterna.se/dynamics-365/",
-    "email": null,
-    "contact_person": null,
+    "email": "andreas.franzen@crmk.se",
+    "contact_person": "Andreas Franzén",
     "contact_photo_url": null,
     "phone": null,
     "applications": [
@@ -1012,7 +1012,8 @@
     ],
     "secondary_industries": [],
     "geography": [
-      "Sverige"
+      "Sverige",
+      "Norden"
     ],
     "product_filters": {
       "sales": {
@@ -1101,11 +1102,13 @@
     "industry_apps": [],
     "is_featured": true,
     "customer_examples": [],
-    "office_cities": [],
+    "office_cities": [
+      "Stockholm"
+    ],
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-08-18T13:24:17.100514+00:00",
+    "updated_at": "2026-08-18T13:42:50.844977+00:00",
     "industry_pitches": [
       {
         "text": "CRM Konsulterna bistår konsultbolag med att optimera sin kundresa och interna processer med Dynamics 365. De adresserar typiska utmaningar som fragmenterad kundkommunikation och ineffektiv projektförsäljning. Genom att implementera Dynamics 365 Sales förbättrar de säljprocesser från prospektering till affärsavslut, vilket möjliggör bättre uppföljning och pipelinesynlighet. Med Dynamics 365 Customer Insights (Marketing) kan konsultbolag segmentera kunder och leverera relevanta budskap, vilket stärker varumärket och genererar nya affärsmöjligheter. De hjälper också med Dynamics 365 Customer Service för att hantera kundförfrågningar effektivt och säkerställa hög kundnöjdhet. Fokus ligger på att skapa en enhetlig kundbild och förbättra samarbetet internt, vilket frigör tid för konsultens kärnverksamhet.",
@@ -1166,9 +1169,9 @@
       "project_count_range": null
     },
     "extended_content": "CRM Konsulterna (CRMK) är ett svenskt CRM-specialistbolag grundat 2010, med huvudkontor i Stockholm. Bolaget har cirka 40 medarbetare och fokuserar uteslutande på Microsoft Dynamics 365 Customer Engagement, Power Platform och AI. CRMK profilerar sig som expert på kundcentrerad digitalisering.\n\nAktiva produktområden: Microsoft Dynamics 365 Customer Engagement – Sales, Customer Service, Customer Insights (Marketing). Power Platform med stark profil inom Power Apps, Power Automate och Power BI. Microsoft Fabric för dataanalys. AI och Copilot för intelligent automation och agentbyggande.\n\nTydliga styrkor: Renodlad CRM-specialist – gör ingenting annat vilket ger djup expertis. Stark AI- och automationskompetens med fokus på Microsoft Copilot och intelligenta agenter. Kombination av implementation, förvaltning och utbildning. Grundare Gustaf Westerlund är välkänd profil i Microsoft-communityn.\n\nRäckvidd och segment: Sverige med fokus på Stockholm. Segment: mellanstora företag (100-1000 anställda) med fokuserat CRM-behov. Branscher: bred exponering men ofta B2B-företag med försäljnings- och servicefokus.\n\nPassar bäst: Företag som prioriterar CRM och kundhantering högt och söker en specialistpartner. Organisationer som vill dra nytta av AI i sin kundhantering. Kunder som behöver CRM-transformation oberoende av ERP. Mindre lämplig för ERP-behov (BC/F&SCM) eller kunder som söker generell IT-partner.\n\nSammanfattning: Ledande svensk CRM-specialist med stark AI-profil. Jämförbar med Nemely och Sundet CRM som CRM-nischpartners.",
-    "extended_content_updated_at": "2026-08-18T13:21:12.72+00:00",
+    "extended_content_updated_at": "2026-08-18T13:42:50.697+00:00",
     "partner_size_tier": 3,
-    "partner_size_tier_needs_review": false,
+    "partner_size_tier_needs_review": true,
     "ai_summary_full": "CRM Konsulterna är en partner med tydlig inriktning mot Microsofts kundnära applikationer, framför allt Dynamics 365 Sales och Dynamics 365 Customer Service. Partnern utsågs till Dynamics 365 Customer Engagement Partner of the Year 2023 av Microsoft Sverige, vilket indikerar en etablerad position inom CRM-området på den svenska marknaden.\n\nKundbasen beskrivs som medelstora till större organisationer med 100 till 4 999 anställda och en omsättning från 100 MSEK upp till 4 999 MSEK. Branschmässigt ligger fokus på konsulttjänster samt grossist och distribution. Geografiskt arbetar partnern i Sverige och Norden.\n\nArbetet är koncentrerat till CRM- och kundserviceprocesser: att strukturera säljarbetet i Dynamics 365 Sales och att effektivisera ärendehantering och kundservice i Dynamics 365 Customer Service. Partnern anger även erfarenhet inom Dynamics 365 Field Service, Customer Insights samt angränsande delar av Microsoft-plattformen som Power Platform och Microsoft 365 Copilot.\n\nUnderlaget för AI-området är begränsat och självdeklarerat. Partnern anger relevanta områden kring Copilot och Power Platform kopplat till CRM- och serviceprocesser, men utan detaljerade uppgifter om specifika AI-projekt eller egna agenter. Organisationer med långtgående AI-krav bör därför verifiera omfattningen direkt med partnern.",
     "best_fit_for": [
       "Organisationer inom konsulttjänster som söker en partner med tydlig CRM-inriktning inom Dynamics 365 Sales.",
