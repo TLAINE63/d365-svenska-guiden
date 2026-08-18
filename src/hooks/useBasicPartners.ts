@@ -67,6 +67,10 @@ function normalizeStringArrayMap(
   return out;
 }
 
+export function normalizeBasicPartnerRow(row: any): BasicPartner {
+  return normalizeRaw(row);
+}
+
 function normalizeRaw(row: any): BasicPartner {
   const products = expandLegacyProducts<boolean>(
     row?.observed_products || {},

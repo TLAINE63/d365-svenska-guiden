@@ -28,6 +28,7 @@ export const CRITICAL_ROUTES = [
   "/businesscentral",
   "/priser",
   "/kom-igang",
+  "/partnerprogram",
   "/kunskapscenter",
   "/kunskapscenter/upphandling",
   "/kunskapscenter/upphandlingsresan",

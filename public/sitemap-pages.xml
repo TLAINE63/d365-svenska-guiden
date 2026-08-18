@@ -235,6 +235,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://d365.se/partnerprogram/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://d365.se/branscher/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>

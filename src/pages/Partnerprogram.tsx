@@ -41,8 +41,8 @@ const VERIFIED_PARTNERS = (partnerData as SimplePartner[]).filter((p) => p.is_fe
 const IDENTIFIED_PARTNER_FLOOR = 83;
 
 const breadcrumbs = [
-  { name: "Hem", url: "https://d365.se" },
-  { name: "För partners", url: "https://d365.se/partnerprogram" },
+  { name: "Hem", url: "https://d365.se/" },
+  { name: "För partners", url: "https://d365.se/partnerprogram/" },
 ];
 
 const faqs = [
@@ -219,7 +219,7 @@ const Partnerprogram = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="För Dynamics 365-partners | Profilera er på d365.se"
-        description="d365.se kartlägger Sveriges Dynamics 365-partners. Se hur en profilerad partnerprofil kan stärka er position i köpresan, er digitala synlighet och ert beslutsunderlag när kunder jämför partners."
+        description="d365.se kartlägger Sveriges Dynamics 365-partners. Se hur en profilerad partnerprofil stärker er synlighet när kunder jämför och väljer partner."
         canonicalPath="/partnerprogram"
         keywords="Dynamics 365 partner, partnerprofil, partnerprogram, Microsoft-partner Sverige"
       />
