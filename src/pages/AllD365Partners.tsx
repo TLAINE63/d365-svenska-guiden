@@ -10,7 +10,7 @@ import { usePartners } from "@/hooks/usePartners";
 import TrustBanner from "@/components/TrustBanner";
 import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
-import { useBasicPartners, PRODUCT_LABEL, PRODUCT_ORDER } from "@/hooks/useBasicPartners";
+import { useBasicPartners } from "@/hooks/useBasicPartners";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
 import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
 import { useMemo, useState } from "react";
