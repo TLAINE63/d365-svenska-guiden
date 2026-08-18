@@ -71,6 +71,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  if (!pf) return false;
  if (selectedIndustry && !pf.industries?.includes(selectedIndustry)) return false;
  if (selectedCompanySize && !pf.companySize?.includes(selectedCompanySize)) return false;
+ if (selectedRevenue && !(pf as any).revenue?.includes(selectedRevenue)) return false;
  if (selectedGeography) {
  // Geography is now an array - check if partner covers the selected geography
  const partnerGeo = Array.isArray(pf.geography) ? pf.geography : (pf.geography ? [pf.geography] : ["Sverige"]);
