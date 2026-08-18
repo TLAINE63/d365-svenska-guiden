@@ -612,6 +612,8 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
  {/* <DecisionProfile partner={partner} /> tillfälligt dold */}
 
+ <PartnerAiInsights partner={partner as any} />
+
 
 
 
