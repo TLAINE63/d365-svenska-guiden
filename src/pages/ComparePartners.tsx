@@ -1274,14 +1274,17 @@ const ComparePartners = () => {
     return counts;
   }, [sortedPartners, productFilters]);
 
-  // Clear selected industry if it no longer has any published partners
+  // Clear selected industry if it no longer has any published partners.
+  // Vänta tills partnerdata är laddad, annars nollställs ett medskickat
+  // branschfilter direkt vid första renderingen.
   useEffect(() => {
+    if (isLoading || sortedPartners.length === 0) return;
     if (industryFilter && (industryPartnerCounts[industryFilter] || 0) === 0) {
       const next = new URLSearchParams(params);
       next.delete("industry");
       setParams(next, { replace: true });
     }
-  }, [industryFilter, industryPartnerCounts, params, setParams]);
+  }, [isLoading, sortedPartners.length, industryFilter, industryPartnerCounts, params, setParams]);
 
   const allIndustryEligibleCount = useMemo(() => {
     if (productFilters.length === 0) return sortedPartners.length;
@@ -1715,6 +1718,46 @@ const ComparePartners = () => {
                   Alla partner i jämförelsen är relevanta kandidater. Här ser ni var de skiljer sig åt och vilken typ av företag de passar bäst för.
                 </p>
             </header>
+
+            {(() => {
+              // Filter som följt med från listan/sök (utöver produkt & bransch nedan)
+              const carried = [
+                { key: "geography", label: "Geografi", value: params.get("geography") || "" },
+                { key: "companySize", label: "Antal anställda", value: params.get("companySize") || "" },
+                { key: "revenue", label: "Omsättning", value: params.get("revenue") || "" },
+              ].filter((c) => c.value);
+              if (carried.length === 0) return null;
+              const clearOne = (key: string) => {
+                const next = new URLSearchParams(params);
+                next.delete(key);
+                setParams(next, { replace: true });
+              };
+              return (
+                <div className="mb-6 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--muted)/0.3)] px-4 py-3">
+                  <p className="text-[11px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))] mb-2">
+                    Dina val från sökningen
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {carried.map((c) => (
+                      <span
+                        key={c.key}
+                        className="inline-flex items-center gap-1.5 rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-3 py-1 text-xs font-medium text-[hsl(var(--foreground))]"
+                      >
+                        <span className="text-[hsl(var(--muted-foreground))]">{c.label}:</span> {c.value}
+                        <button
+                          type="button"
+                          onClick={() => clearOne(c.key)}
+                          aria-label={`Ta bort filtret ${c.label}`}
+                          className="text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]"
+                        >
+                          ×
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
 
             {isLoading ? (
               <div className="text-center text-muted-foreground py-10">Laddar partner…</div>

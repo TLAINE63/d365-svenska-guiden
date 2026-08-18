@@ -159,8 +159,9 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
    industry: industryName,
    geography: selectedGeography || null,
    companySize: selectedCompanySize || null,
+   revenue: selectedRevenue || null,
   });
- }, [selected, meta, selectedGeography, selectedCompanySize, setCompareFilters]);
+ }, [selected, meta, selectedGeography, selectedCompanySize, selectedRevenue, setCompareFilters]);
 
  const industryName = page?.name || meta?.name || "Bransch";
  const heroImage = slug ? INDUSTRY_IMAGES[slug] : undefined;

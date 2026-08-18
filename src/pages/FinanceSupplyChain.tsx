@@ -34,6 +34,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { allIndustries } from "@/data/partners";
 import { usePartners } from "@/hooks/usePartners";
+import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 import { filterAndSortPartners, getProductIndustries } from "@/hooks/usePartnerFilters";
 import SEOHead from "@/components/SEOHead";
 import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
@@ -77,6 +78,18 @@ const FinanceSupplyChain = () => {
  const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
  const [selectedRevenue, setSelectedRevenue] = useState<string | null>(null);
+
+ // Aktiva filter följer med till jämförelsesidan
+ const { setFilterContext: setCompareFilters } = usePartnerCompare();
+ useEffect(() => {
+  setCompareFilters({
+   product: "fsc",
+   industry: selectedIndustry || null,
+   geography: selectedGeography || null,
+   companySize: selectedCompanySize || null,
+   revenue: selectedRevenue || null,
+  });
+ }, [selectedIndustry, selectedGeography, selectedCompanySize, selectedRevenue, setCompareFilters]);
  
  // Fetch partners from database (only featured partners)
  const { data: partners = [], isLoading } = usePartners();

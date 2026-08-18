@@ -12,6 +12,8 @@ export type CompareFilterContext = {
   geography?: string | null;
   /** Company size bucket. */
   companySize?: string | null;
+  /** Revenue bucket. */
+  revenue?: string | null;
 };
 
 interface PartnerCompareContextValue {
@@ -26,6 +28,7 @@ interface PartnerCompareContextValue {
 }
 
 const STORAGE_KEY = "partner-compare-selection";
+const FILTER_STORAGE_KEY = "partner-compare-filters";
 const MAX = 3;
 
 
@@ -85,12 +88,28 @@ export const PartnerCompareProvider = ({ children }: { children: ReactNode }) =>
   const clear = useCallback(() => setSelected([]), []);
 
   const [filterContext, setFilterContextState] = useState<CompareFilterContext>({});
+
+  // Restore the last used filter context so it survives page reloads within the session.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const raw = sessionStorage.getItem(FILTER_STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === "object") setFilterContextState(parsed);
+      }
+    } catch {}
+  }, []);
+
   const setFilterContext = useCallback((patch: CompareFilterContext) => {
     setFilterContextState((prev) => {
       const next = { ...prev, ...patch };
       // Shallow-equal check to avoid needless re-renders
-      const keys = ["product", "industry", "geography", "companySize"] as const;
+      const keys = ["product", "industry", "geography", "companySize", "revenue"] as const;
       if (keys.every((k) => (prev[k] ?? null) === (next[k] ?? null))) return prev;
+      try {
+        sessionStorage.setItem(FILTER_STORAGE_KEY, JSON.stringify(next));
+      } catch {}
       return next;
     });
   }, []);
