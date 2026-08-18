@@ -162,7 +162,7 @@ export default function Partnernytt() {
                 <SelectTrigger><SelectValue placeholder="Källa" /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">Alla källor</SelectItem>
-                  {SOURCE_OPTIONS.map((s) => (
+                  {sources.map((s) => (
                     <SelectItem key={s} value={s}>{partnerNewsSourceLabel(s)}</SelectItem>
                   ))}
                 </SelectContent>
