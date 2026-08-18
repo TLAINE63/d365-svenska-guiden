@@ -111,7 +111,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  ...seededShuffle(signed, sessionSeed),
  ...seededShuffle(unsigned, sessionSeed + 1),
  ];
- }, [productKey, partners, selectedIndustry, selectedCompanySize, selectedGeography, sessionSeed]);
+ }, [productKey, partners, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography, sessionSeed]);
 
  // Show all 18 industries in the filter
  const availableIndustries = allIndustries;
