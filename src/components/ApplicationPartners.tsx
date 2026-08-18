@@ -35,6 +35,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
  const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
+ const [selectedRevenue, setSelectedRevenue] = useState<string | null>(null);
 
  // Filter to only show featured partners
  const partners = useMemo(() => {
