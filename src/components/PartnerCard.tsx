@@ -36,7 +36,6 @@ import { displayApplicationName, getApplicationIcon, sortApplications, normalize
 import PartnerCardSummary from "@/components/partner/PartnerCardSummary";
 import {
   getResultAssessment,
-  getRelevanceFactors,
   getDocumentedEvidence,
 } from "@/lib/partnerResultCard";
 
