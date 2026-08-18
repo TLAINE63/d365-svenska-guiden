@@ -33,6 +33,7 @@ import BasicPartnerInquiryDialog from "@/components/BasicPartnerInquiryDialog";
 import CompareStickyCTA from "@/components/CompareStickyCTA";
 import AiCompareInsights from "@/components/AiCompareInsights";
 import { describeAiCapabilities } from "@/utils/aiScoring";
+import { getResultAssessment, getDocumentedEvidence } from "@/lib/partnerResultCard";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 
