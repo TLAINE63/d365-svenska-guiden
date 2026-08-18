@@ -28,6 +28,8 @@ import PartnerQuickFacts from "@/components/partner/PartnerQuickFacts";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 import { appToProductFilterKey, type ProductFilterKey } from "@/lib/productFilterGroup";
+import ProductDeliveryProfile from "@/components/partner/ProductDeliveryProfile";
+import { isDeliveryProfileFilled, type DeliveryProfileValue } from "@/data/deliveryProfileFields";
 
 const BusinessCentralIcon = "/d365-icons/BusinessCentral-new.webp";
 const FinanceIcon = "/d365-icons/Finance.svg";
@@ -209,6 +211,7 @@ interface TabData {
   industryApps: Array<{ name: string; url: string; application: string; industry: string; description: string }>;
   contact: { name?: string; email?: string; phone?: string } | null;
   landingPageUrl: string | null;
+  deliveryProfile: DeliveryProfileValue | null;
   productProfile: {
     app: string;
     positioning: string | null;
@@ -338,6 +341,16 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
     }
   }
 
+  // Leveransprofil per produktområde – första ifyllda sektionen för fliken
+  let deliveryProfile: DeliveryProfileValue | null = null;
+  for (const k of keys) {
+    const raw = pf[k]?.deliveryProfile;
+    if (raw && typeof raw === "object" && isDeliveryProfileFilled(raw)) {
+      deliveryProfile = raw as DeliveryProfileValue;
+      break;
+    }
+  }
+
   return {
     industries: fallbackIndustries,
     geography,
@@ -352,6 +365,7 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
     industryApps,
     contact,
     landingPageUrl,
+    deliveryProfile,
     productProfile,
   };
 }
@@ -616,6 +630,17 @@ export default function PartnerProductTabs({
                 </div>
               )}
             </section>
+
+            {/* 1b. Leveransprofil per produktområde */}
+            {data.deliveryProfile && (
+              <ProductDeliveryProfile
+                value={data.deliveryProfile}
+                productLabel={tabMeta.label}
+                partnerName={partner.name}
+              />
+            )}
+
+
 
             {/* 2. Branscherfarenhet – storlek/omsättning ligger i Partnerfakta */}
             <section>

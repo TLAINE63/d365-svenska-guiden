@@ -76,3 +76,6 @@ verify_jwt = false
 
 [functions.isv-profile]
 verify_jwt = false
+
+[functions.generate-partner-delivery-summary]
+verify_jwt = false

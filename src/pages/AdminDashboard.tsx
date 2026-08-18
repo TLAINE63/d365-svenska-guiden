@@ -42,6 +42,7 @@ import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
 import { allIndustries, geographyOptions, getCumulativeGeographyDisplay, companySizes, revenueOptions } from "@/data/partners";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import AiProfileSection from "@/components/partner/AiProfileSection";
+import DeliveryProfileEditor from "@/components/partner/DeliveryProfileEditor";
 import {
  usePartners,
  useCreatePartner,
@@ -397,6 +398,7 @@ const AdminDashboard = () => {
   const [generatingPositioningId, setGeneratingPositioningId] = useState<string | null>(null);
   const [generatingAiNotAFit, setGeneratingAiNotAFit] = useState(false);
   const [generatingWhyKeypoints, setGeneratingWhyKeypoints] = useState(false);
+  const [generatingDeliverySummary, setGeneratingDeliverySummary] = useState<string | null>(null);
   const [generatingAiExperienceSummary, setGeneratingAiExperienceSummary] = useState(false);
 
   const handleGenerateAllAiExperienceSummary = async () => {
@@ -449,6 +451,46 @@ const AdminDashboard = () => {
       setGeneratingWhyKeypoints(false);
     }
   };
+
+  /** Genererar neutral AI-sammanfattning av leveransprofilen för ett produktområde. */
+  const handleGenerateDeliverySummary = async (sectionKey: string, sectionLabel: string) => {
+    if (!editingPartner) {
+      toast({ title: "Spara först", description: "Spara partnern innan du genererar sammanfattningen.", variant: "destructive" });
+      return;
+    }
+    setGeneratingDeliverySummary(sectionKey);
+    try {
+      const { data, error } = await invokeAdminEdgeWithRetry("generate-partner-delivery-summary", {
+        token,
+        partnerId: editingPartner.id,
+        sectionKey,
+        overwrite: true,
+      });
+      if (error) throw error;
+      if ((data as any)?.error) throw new Error((data as any).error);
+      const gen = (data as any)?.generatedCount ?? 0;
+      toast({
+        title: gen > 0 ? "Sammanfattning klar" : "Inget att generera",
+        description: gen > 0
+          ? `Leveransprofil för ${sectionLabel} har sammanfattats. Öppna partnern igen för att se texten.`
+          : "Fyll i minst ett fält i leveransprofilen och spara innan du genererar.",
+      });
+      refetchPartners();
+    } catch (e: any) {
+      const msg = e?.message || "Okänt fel";
+      toast({
+        title: "Kunde inte generera",
+        description: msg === "RATE_LIMIT" ? "AI-tjänsten är överbelastad – försök igen om en stund."
+          : msg === "PAYMENT_REQUIRED" ? "AI-krediter slut. Lägg till krediter under Settings → Workspace → Usage."
+          : msg,
+        variant: "destructive",
+      });
+    } finally {
+      setGeneratingDeliverySummary(null);
+    }
+  };
+
+
 
   const handleGenerateAllAiAndNotAFit = async () => {
     if (!confirm("Fyll AI-profil och 'När vi inte är rätt val' för alla publicerade partners som saknar det? Befintligt innehåll rörs ej.")) return;
@@ -1631,7 +1673,8 @@ Thomas`,
   filter.industries?.length > 0 ||
   filter.productDescription?.trim() ||
   filter.whyChoose?.trim() ||
-  filter.keyPoints?.trim()
+  filter.keyPoints?.trim() ||
+  Object.values(((filter as any).deliveryProfile || {}) as Record<string, string>).some((x) => typeof x === "string" && x.trim())
   );
   if (hasContent) {
   cleanedProductFilters[key] = filter;
@@ -4574,6 +4617,30 @@ Thomas`,
     Undvik “vi erbjuder” och generell företagsbeskrivning. Visas som punktlista under produktfliken.
   </p>
   </div>
+
+  {/* Leveransprofil per produktområde */}
+  <div className="rounded-lg border border-border p-3 space-y-3">
+    <DeliveryProfileEditor
+      productLabel={section.label}
+      value={(filter as any).deliveryProfile}
+      onChange={(next) => updateProductFilter(section.key, { deliveryProfile: next } as any)}
+    />
+    <Button
+      type="button"
+      variant="outline"
+      size="sm"
+      disabled={generatingDeliverySummary === section.key}
+      onClick={() => handleGenerateDeliverySummary(section.key, section.label)}
+    >
+      {generatingDeliverySummary === section.key ? "Genererar…" : "Generera neutral AI-sammanfattning"}
+    </Button>
+    <p className="text-xs text-muted-foreground">
+      Spara partnern först. Sammanfattningen skrivs om varje gång du klickar.
+    </p>
+  </div>
+
+
+
 
 
  {/* Sales Contact for this product area */}

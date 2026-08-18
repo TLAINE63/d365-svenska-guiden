@@ -18,6 +18,8 @@ import Footer from "@/components/Footer";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
 import PartnerIndustryPitchesEditor, { type IndustryPitch } from "@/components/PartnerIndustryPitchesEditor";
 import AiProfileSection from "@/components/partner/AiProfileSection";
+import DeliveryProfileEditor from "@/components/partner/DeliveryProfileEditor";
+import type { DeliveryProfileValue } from "@/data/deliveryProfileFields";
 
 // Import product icons
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
@@ -106,6 +108,8 @@ interface ProductFilter {
   productDescription: string;
   whyChoose: string;
   keyPoints: string;
+  /** Leveransprofil per produktområde – hur partnern engageras under och efter go-live. */
+  deliveryProfile?: DeliveryProfileValue;
   // AI capability fields
  aiCapabilities: string[];
  aiProjectCount: string;
@@ -1750,7 +1754,21 @@ const PartnerUpdate = () => {
              <p className="text-xs text-muted-foreground mt-1">
                Undvik "vi erbjuder" och generell företagsbeskrivning. Visas som punktlista på er produktflik.
              </p>
-           </div>
+            </div>
+
+            {/* Leveransprofil per produktområde */}
+            <div className="pt-4 border-t border-border">
+              <DeliveryProfileEditor
+                productLabel={section.label}
+                value={filter.deliveryProfile}
+                onChange={(next) => updateProductFilter(productKey, { deliveryProfile: next })}
+              />
+              <p className="text-xs text-muted-foreground mt-3">
+                d365.se genererar därefter en neutral sammanfattning av er profil som visas på partnerprofilen.
+              </p>
+            </div>
+
+
 
             {/* Legacy per-product AI block – hidden in favour of partner-level AI profile */}
             {false && (
