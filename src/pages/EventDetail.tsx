@@ -145,7 +145,7 @@ const EventDetail = () => {
         <SEOHead
           title="Dynamics 365-event – webinar och seminarium"
           description="Detaljer om ett Dynamics 365-event: innehåll, datum, format och anmälan. Kostnadsfria webinars och seminarier från Microsoft-partners i Sverige."
-          canonicalPath={`/events/${id ?? ""}`}
+          canonicalPath={`/events/${eventId ?? ""}`}
           breadcrumbs={[
             { name: "Hem", url: "/" },
             { name: "Events", url: "/events/" },
