@@ -1754,7 +1754,21 @@ const PartnerUpdate = () => {
              <p className="text-xs text-muted-foreground mt-1">
                Undvik "vi erbjuder" och generell företagsbeskrivning. Visas som punktlista på er produktflik.
              </p>
-           </div>
+            </div>
+
+            {/* Leveransprofil per produktområde */}
+            <div className="pt-4 border-t border-border">
+              <DeliveryProfileEditor
+                productLabel={section.label}
+                value={filter.deliveryProfile}
+                onChange={(next) => updateProductFilter(productKey, { deliveryProfile: next })}
+              />
+              <p className="text-xs text-muted-foreground mt-3">
+                d365.se genererar därefter en neutral sammanfattning av er profil som visas på partnerprofilen.
+              </p>
+            </div>
+
+
 
             {/* Legacy per-product AI block – hidden in favour of partner-level AI profile */}
             {false && (
