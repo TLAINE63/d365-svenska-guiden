@@ -172,7 +172,7 @@ export default function HomePartnersTeaser() {
 
 
           <Link
-            to="/valjdynamics365partner/"
+to="/valjdynamics365partner/#alla-partners-rubrik"
             className="bg-[hsl(var(--cta-orange))] text-white font-semibold text-sm px-5 py-2.5 rounded inline-flex items-center gap-1.5 hover:brightness-110 transition-all shadow"
           >
             Se alla partners <ArrowRight className="w-4 h-4" />
@@ -231,7 +231,7 @@ export default function HomePartnersTeaser() {
         {filtered.length === 0 ? (
           <div className="bg-white/5 border border-white/10 rounded p-8 text-center text-sm text-white/60">
             Inga partners matchar valet just nu.{" "}
-            <Link to="/valjdynamics365partner/" className="text-[hsl(var(--cta-orange))] font-semibold hover:underline">
+<Link to="/valjdynamics365partner/#alla-partners-rubrik" className="text-[hsl(var(--cta-orange))] font-semibold hover:underline">
               Se alla partners
             </Link>
             .

@@ -183,7 +183,7 @@ export default function HomeVerifiedPartnersGrid() {
           </div>
 
           <Link
-            to="/valjdynamics365partner/"
+to="/valjdynamics365partner/#alla-partners-rubrik"
             className="text-sm font-semibold text-[hsl(var(--cta-orange))] inline-flex items-center gap-1.5 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--cta-orange))] rounded"
           >
             Se alla partners med fler filter <ArrowRight className="w-4 h-4" />
@@ -285,7 +285,7 @@ export default function HomeVerifiedPartnersGrid() {
             {filtered.length === 0 ? (
               <div className="rounded border border-border bg-card p-8 text-center text-sm text-muted-foreground">
                 Inga partners matchar valet just nu.{" "}
-                <Link to="/valjdynamics365partner/" className="text-[hsl(var(--cta-orange))] font-semibold hover:underline">
+<Link to="/valjdynamics365partner/#alla-partners-rubrik" className="text-[hsl(var(--cta-orange))] font-semibold hover:underline">
                   Se alla partners
                 </Link>
                 .
