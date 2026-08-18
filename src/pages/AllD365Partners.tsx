@@ -12,6 +12,7 @@ import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { useBasicPartners, PRODUCT_LABEL, PRODUCT_ORDER } from "@/hooks/useBasicPartners";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
+import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
 import { useMemo, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Search, X } from "lucide-react";
@@ -90,6 +91,11 @@ export default function AllD365Partners() {
     });
   }, [basicPartners, q, productFilter, verifiedOnly]);
 
+
+  const basicSorted = useMemo(
+    () => [...basicFiltered].sort((a, b) => a.name.localeCompare(b.name, "sv")),
+    [basicFiltered],
+  );
 
   const others = useMemo(() => {
     if (verifiedOnly) return [];
