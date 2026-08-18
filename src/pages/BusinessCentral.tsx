@@ -743,6 +743,7 @@ const BusinessCentral = () => {
  highlightedRevenue={selectedRevenue || undefined}
  showRandomIndicator={true}
  showBestFitOnly
+ resultView
  />
  );
  })}
