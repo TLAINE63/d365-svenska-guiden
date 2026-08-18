@@ -41,8 +41,8 @@ const VERIFIED_PARTNERS = (partnerData as SimplePartner[]).filter((p) => p.is_fe
 const IDENTIFIED_PARTNER_FLOOR = 83;
 
 const breadcrumbs = [
-  { name: "Hem", url: "https://d365.se" },
-  { name: "För partners", url: "https://d365.se/partnerprogram" },
+  { name: "Hem", url: "https://d365.se/" },
+  { name: "För partners", url: "https://d365.se/partnerprogram/" },
 ];
 
 const faqs = [
