@@ -341,6 +341,16 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
     }
   }
 
+  // Leveransprofil per produktområde – första ifyllda sektionen för fliken
+  let deliveryProfile: DeliveryProfileValue | null = null;
+  for (const k of keys) {
+    const raw = pf[k]?.deliveryProfile;
+    if (raw && typeof raw === "object" && isDeliveryProfileFilled(raw)) {
+      deliveryProfile = raw as DeliveryProfileValue;
+      break;
+    }
+  }
+
   return {
     industries: fallbackIndustries,
     geography,
@@ -355,6 +365,7 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
     industryApps,
     contact,
     landingPageUrl,
+    deliveryProfile,
     productProfile,
   };
 }
