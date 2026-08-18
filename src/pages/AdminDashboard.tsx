@@ -40,6 +40,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
 import { allIndustries, geographyOptions, getCumulativeGeographyDisplay, companySizes, revenueOptions } from "@/data/partners";
+import { toggleContiguousRange } from "@/lib/segmentRange";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import AiProfileSection from "@/components/partner/AiProfileSection";
 import DeliveryProfileEditor from "@/components/partner/DeliveryProfileEditor";
@@ -4862,21 +4863,24 @@ Thomas`,
   </div>
   </div>
  <div>
- <Label className="text-xs text-muted-foreground">Antal anställda</Label>
+ <Label className="text-xs text-muted-foreground">Antal anställda ({(filter.companySize || []).length}/3)</Label>
  <div className="flex flex-wrap gap-1.5 mt-1.5">
  {companySizes.map((size) => {
- const isSelected = (filter.companySize || []).includes(size);
+ const current = filter.companySize || [];
+ const isSelected = current.includes(size);
+ const blocked = !isSelected && "error" in toggleContiguousRange(companySizes, current, size);
  return (
  <Badge
  key={size}
  variant={isSelected ? "default" : "outline"}
- className="cursor-pointer text-xs"
+ className={`text-xs ${blocked ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}
  onClick={() => {
- const current = filter.companySize || [];
- const next = isSelected
- ? current.filter((s) => s !== size)
- : [...current, size];
- updateProductFilter(section.key, { companySize: next });
+ const result = toggleContiguousRange(companySizes, current, size);
+ if ("error" in result) {
+ toast({ title: "Ogiltigt val", description: result.error, variant: "destructive" });
+ return;
+ }
+ updateProductFilter(section.key, { companySize: result.next });
  }}
  >
  {size}
@@ -4885,25 +4889,28 @@ Thomas`,
  })}
  </div>
  <p className="text-[11px] text-muted-foreground mt-1.5">
- Inget val = ni matchar kunder av alla storlekar.
+ Max 3 val i rad efter varandra. Inget val = ni matchar kunder av alla storlekar.
  </p>
  </div>
  <div>
- <Label className="text-xs text-muted-foreground">Omsättning (MSEK)</Label>
+ <Label className="text-xs text-muted-foreground">Omsättning (MSEK) ({(filter.revenue || []).length}/3)</Label>
  <div className="flex flex-wrap gap-1.5 mt-1.5">
  {revenueOptions.map((rev) => {
- const isSelected = (filter.revenue || []).includes(rev);
+ const current = filter.revenue || [];
+ const isSelected = current.includes(rev);
+ const blocked = !isSelected && "error" in toggleContiguousRange(revenueOptions, current, rev);
  return (
  <Badge
  key={rev}
  variant={isSelected ? "default" : "outline"}
- className="cursor-pointer text-xs"
+ className={`text-xs ${blocked ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}
  onClick={() => {
- const current = filter.revenue || [];
- const next = isSelected
- ? current.filter((r) => r !== rev)
- : [...current, rev];
- updateProductFilter(section.key, { revenue: next });
+ const result = toggleContiguousRange(revenueOptions, current, rev);
+ if ("error" in result) {
+ toast({ title: "Ogiltigt val", description: result.error, variant: "destructive" });
+ return;
+ }
+ updateProductFilter(section.key, { revenue: result.next });
  }}
  >
  {rev}
@@ -4912,9 +4919,10 @@ Thomas`,
  })}
  </div>
  <p className="text-[11px] text-muted-foreground mt-1.5">
- Inget val = ni matchar kunder oavsett omsättning.
+ Max 3 val i rad efter varandra. Inget val = ni matchar kunder oavsett omsättning.
  </p>
  </div>
+
  </div>
 
   <div>

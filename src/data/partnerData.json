@@ -3204,11 +3204,26 @@
     ],
     "industries": [],
     "secondary_industries": [],
-    "geography": [],
+    "geography": [
+      "Sverige",
+      "Norden",
+      "Europa",
+      "Globalt"
+    ],
     "product_filters": {
       "sales": {
         "ranking": 1,
-        "geography": "Norden",
+        "revenue": [
+          "100-499 MSEK",
+          "500-999 MSEK",
+          "1.000-4.999 MSEK"
+        ],
+        "geography": [
+          "Norden",
+          "Sverige",
+          "Europa",
+          "Globalt"
+        ],
         "keyPoints": "Fokuserar på livsmedels- och tillverkningsindustrin för Sales och Customer Insights.\nSkräddarsydda Dynamics 365-lösningar med stark integration till befintliga system.\nArbetar med agil implementeringsmetodik för att matcha kundens unika behov.\nStödjer digital transformation och anpassning för kundspecifika krav.",
         "whyChoose": "Vi implementerar Dynamics 365 Sales och Customer Insights för att effektivisera era säljprocesser, främst inom livsmedels- och tillverkningsindustrin. Vårt arbete fokuserar på att skräddarsy lösningar som integreras med befintliga system, för en komplett överblick och för att skapa individanpassade kundupplevelser. Vi använder en agil metodik för att anpassa Dynamics 365 efter ert unika behov och era målsättningar.",
         "industries": [
@@ -3220,8 +3235,26 @@
           "250-999",
           "1.000-4.999"
         ],
+        "contactName": "",
+        "contactEmail": "",
+        "contactPhone": "",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [],
+        "aiOtherPartner": "",
+        "aiProjectCount": "",
+        "hasBuiltAgents": false,
+        "youtubeVideoId": "",
+        "aiOtherAdvanced": "",
+        "contactPhotoUrl": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [],
         "productDescription": "Sirocco Group levererar Dynamics 365 Sales med fokus på effektivisering av säljprocesser inom livsmedels-, tillverknings- och processindustrin. Partnern erbjuder skräddarsydda lösningar som integreras sömlöst med befintliga system, i den omfattning kunden önskar. Deras expertis sträcker sig från grundläggande säljautomatisering till avancerad kundinsikt och servicehantering, ofta i kombination med Dynamics 365 Customer Insights för en komplett överblick. Sirocco Group tillämpar en agil implementeringsmetodik för att säkerställa att lösningen anpassas efter varje kunds unika behov och målsättningar.",
+        "aiPredictiveDetails": [],
         "secondaryIndustries": [],
+        "aiSegmentationDetails": [],
         "ai_generated_why_keypoints": true,
         "ai_generated_why_keypoints_at": "2026-07-02T10:48:06.239Z",
         "productDescriptionAiGenerated": true,
@@ -3229,7 +3262,17 @@
       },
       "service": {
         "ranking": 1,
-        "geography": "Norden",
+        "revenue": [
+          "100-499 MSEK",
+          "500-999 MSEK",
+          "1.000-4.999 MSEK"
+        ],
+        "geography": [
+          "Norden",
+          "Sverige",
+          "Europa",
+          "Globalt"
+        ],
         "keyPoints": "Optimerar kundserviceprocesser med Dynamics 365 för livsmedels- och tillverkningsindustrin.\nSkräddarsyr lösningar för fältservice och kontaktcenter för specifika branschbehov.\nStödjer digital transformation och förbättrade kundinteraktioner, från första kontakt till service.\nExpertis i att anpassa Dynamics 365-moduler för att möta unika branschutmaningar.",
         "whyChoose": "Vi stöttar organisationer med att implementera och anpassa Dynamics 365 Customer Service, Field Service och Contact Center. Vår leveransmodell fokuserar på att skräddarsy lösningar som optimerar kundserviceprocesser specifikt för branscher som livsmedel, process- och tillverkningsindustrin. Detta bidrar till digitaliserade kundinteraktioner och effektiv fältservicehantering. Vi hjälper er uppnå en helhetssyn för effektiv kundhantering.",
         "industries": [
@@ -3241,8 +3284,26 @@
           "250-999",
           "1.000-4.999"
         ],
+        "contactName": "",
+        "contactEmail": "",
+        "contactPhone": "",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [],
+        "aiOtherPartner": "",
+        "aiProjectCount": "",
+        "hasBuiltAgents": false,
+        "youtubeVideoId": "",
+        "aiOtherAdvanced": "",
+        "contactPhotoUrl": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [],
         "productDescription": "Sirocco Group implementerar Dynamics 365 Customer Service, Field Service och Contact Center för att digitalisera och förbättra kundinteraktioner. Företaget fokuserar på att skräddarsy lösningar som optimerar kundserviceprocesser, fältservicehantering och kontaktcenterfunktioner. Sirocco Group arbetar primärt med kunder inom livsmedels- och processindustrin samt tillverkningsindustrin. Deras expertis ligger i att anpassa Dynamics 365:s moduler för att möta specifika branschbehov, vilket säkerställer en helhetssyn för att uppnå effektiv kundhantering, från första kontakt till efterföljande serviceinsatser.",
+        "aiPredictiveDetails": [],
         "secondaryIndustries": [],
+        "aiSegmentationDetails": [],
         "ai_generated_why_keypoints": true,
         "ai_generated_why_keypoints_at": "2026-07-02T10:48:08.741Z",
         "productDescriptionAiGenerated": true,
@@ -3258,7 +3319,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-08-18T13:23:24.259555+00:00",
+    "updated_at": "2026-08-18T14:57:27.134935+00:00",
     "industry_pitches": [
       {
         "text": "Sirocco Group bistår företag inom livsmedels- och processindustrin med att utveckla och implementera digitala lösningar som möter branschens specifika krav. Med fokus på CRM och digital transformation, använder de Microsoft Dynamics 365 Sales, Customer Insights, Customer Service, Field Service och Project Operations för att optimera processer. Detta inkluderar hantering av kundrelationer, personal på fältet samt service, vilket kan vara relevant för företag med komplexa distributionskedjor eller servicebehov. Partnern har erfarenhet av att anpassa dessa applikationer för att stödja effektivare interaktioner med kunder och partners, samt för att strömlinjeforma interna arbetsflöden. Målet är att bidra till ökad effektivitet och förbättrad service inom en konkurrensutsatt bransch.",
@@ -3330,9 +3391,9 @@
       "ai_experience_summary_generated_at": "2026-07-03T14:03:45.262Z"
     },
     "extended_content": "Sirocco Group är en internationell Microsoft Dynamics 365 CRM-specialist grundad 2008 i Sverige, med huvudkontor i Stockholm och närvaro i Mellanöstern, Iberiska halvön, Italien och USA. Bolaget har cirka 100 medarbetare globalt varav hälften är Microsoft-certifierade, med över 100 certifieringar i mer än 20 kategorier. Sirocco har genomfört över 300 kundprojekt och mer än 150 Microsoft-projekt sedan starten, vilket ger en solid erfarenhetsbas.\n\nAktiva produktområden: Dynamics 365 Customer Engagement utgör kärnan – Sales, Customer Service, Customer Insights (Marketing), Field Service, Project Operations och Commerce. Power Platform (Power BI, Power Apps, Power Automate, Power Virtual Agents) är starkt integrerat i erbjudandet. Bolaget har även certifieringar inom Finance & Operations och Azure. Sirocco profilerar sig tydligt som CRM-specialist snarare än ERP-partner och arbetar köparsidigt – de hjälper kunder avgöra om Dynamics är rätt val.\n\nTydliga styrkor: Lång erfarenhet (sedan 2008) med bred internationell närvaro, stark certifieringsgrad (50% av personalen Microsoft-certifierad), agil implementeringsmetodik med SAFe-ramverk, AI-mognad klassad som \"Etablerad\" med fokus på Power Platform-automation, Azure AI och AI-readiness. Dokumenterad branschbredd: tillverkning, fastighet/bostäder, försvar, energi, retail, telekom, finans och logistik.\n\nRäckvidd och segment: Levererar i Sverige och Norden med internationell kapacitet. Passar medelstora till större företag (100–4 999 anställda) inom framför allt livsmedels-/processindustri och tillverkningsindustri enligt d365.se-profilen. Kan stödja internationella utrullningar tack vare global närvaro.\n\nPassar bäst: Tillverknings- och livsmedelsföretag som behöver Dynamics 365 Sales och Customer Insights, organisationer som vill ha en erfaren CRM-specialist med agil metodik, företag med internationella ambitioner där partnern kan följa med ut, samt verksamheter som prioriterar AI-mognad och automation i CRM-processerna. Mindre lämplig för företag som primärt söker ERP-lösning (Business Central/F&SCM), små företag under 100 anställda, eller organisationer som vill ha en lokal \"enbart Sverige\"-partner utan internationell komplexitet.\n\nJämförelsegrupp: Andra CRM-/CE-specialister som Point Taken, Sundet CRM och B3 Elevate, samt större generalister med stark CE-kompetens som Fellowmind, NAB Solutions och Nexer.",
-    "extended_content_updated_at": "2026-07-07T17:46:56.361216+00:00",
+    "extended_content_updated_at": "2026-08-18T14:57:26.927+00:00",
     "partner_size_tier": 3,
-    "partner_size_tier_needs_review": false,
+    "partner_size_tier_needs_review": true,
     "ai_summary_full": "Sirocco Group, baserat i Stockholm, är en konsult- och utvecklingsbyrå specialiserad på Microsoft Dynamics 365-applikationer. Företaget fokuserar på implementering och utveckling av CRM-lösningar, inklusive Dynamics 365 Sales, Customer Insights (Marketing), Customer Service, Field Service, Contact Center och Project Operations. Partnern stödjer organisationer i deras digitala transformation genom att anpassa och vidareutveckla Dynamics 365-plattformen.\n\nTypiska kunder för Sirocco Group återfinns primärt inom livsmedels- och processindustrin samt tillverkningsindustrin. Partnern riktar sig mot medelstora och stora organisationer med mellan 100 och 4 999 anställda. De erbjuder skräddarsydda lösningar för att optimera processer inom sälj, marknadsföring och kundservice, ofta med en stark koppling till befintliga system.\n\nSirocco Group arbetar med en agil implementeringsmetodik för att säkerställa att lösningarna anpassas efter varje kunds unika behov och målsättningar. Deras expertis sträcker sig från grundläggande säljautomatisering till avancerad kundinsikt och servicehantering. Företaget bidrar till att digitalisera kundinteraktioner och effektivisera fältservicehantering, med en helhetssyn på kundhantering.\n\nPartnern har erfarenhet av att införa AI-drivna funktioner inom Dynamics 365, med fokus på CRM- och kundserviceprocesser. Detta innefattar användning av data och AI för att förbättra kundinsikter, möjliggöra personalisering i marknadsföring samt öka effektiviteten i sälj- och kundtjänst. Sirocco Group arbetar med prediktiv analys och avancerad segmentering för att driva kundrelationer och tillväxt, och har praktisk erfarenhet av att bygga AI-understödda processer med stöd av Power Platform och Azure AI.",
     "best_fit_for": [
       "Organisationer inom livsmedels- eller processindustrin som söker effektivisering av säljprocesser med Dynamics 365 Sales.",
