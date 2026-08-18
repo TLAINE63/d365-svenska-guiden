@@ -138,12 +138,20 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
 
   const basic = ownBasic ?? exampleBasic;
 
-  // Förvälj kategori utifrån partnerns observerade områden.
+  // Förvälj kategori utifrån partnerns observerade/verifierade produktområden.
   useEffect(() => {
     if (userPicked) return;
-    const derived = deriveCategory(ownBasic);
+    let derived = deriveCategory(ownBasic);
+    if (!derived && partnerSlug) {
+      const verified = VERIFIED.find((p) => p.slug === partnerSlug);
+      const pf = verified?.product_filters || {};
+      if (pf.bc) derived = "bc_specialist";
+      else if (pf.fsc) derived = "fscm_specialist";
+      else if (pf.sales || pf.service || pf.crm) derived = "ce_specialist";
+    }
     if (derived) setCategory(derived);
-  }, [ownBasic, userPicked]);
+  }, [ownBasic, userPicked, partnerSlug]);
+
 
   const cfg = CATEGORIES.find((c) => c.id === category)!;
   const reference = useMemo(() => referenceFor(cfg), [cfg]);
