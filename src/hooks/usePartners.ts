@@ -126,6 +126,12 @@ export interface DatabasePartner {
   implementations_done?: string | null;
   implementations_per_app?: Record<string, string> | null;
   not_a_fit?: string[] | null;
+  /** Fördjupad AI-sammanfattning (flera stycken, radbrytningsseparerade). */
+  ai_summary_full?: string | null;
+  /** Punktlista: vilka kunder partnern passar bäst för. */
+  best_fit_for?: string[] | null;
+  /** Fria kompetens-/AI-taggar. */
+  ai_tags?: string[] | null;
   ai_profile?: AiProfile | null;
   /** Grov leverantörsstorlek 1..5 (intern signal – ingen publik filter-UI). */
   partner_size_tier?: number | null;
