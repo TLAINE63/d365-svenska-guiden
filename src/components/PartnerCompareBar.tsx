@@ -124,6 +124,7 @@ const PartnerCompareBar = () => {
     if (filterContext.industry) qs.set("industry", filterContext.industry);
     if (filterContext.geography) qs.set("geography", filterContext.geography);
     if (filterContext.companySize) qs.set("companySize", filterContext.companySize);
+    if (filterContext.revenue) qs.set("revenue", filterContext.revenue);
     navigate(`/jamfor-partners?${qs.toString()}`);
   };
 
