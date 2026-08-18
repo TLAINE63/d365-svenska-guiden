@@ -88,6 +88,7 @@ export default function Partnernytt() {
       list = list.filter((n) => n.partner?.slug === partnerParam || (partnerId && n.partner_id === partnerId));
     }
     if (productParam !== "all") list = list.filter((n) => (n.product_areas && n.product_areas.length > 0 ? n.product_areas.includes(productParam as typeof n.product_area) : n.product_area === productParam));
+    if (typeParam === "partnerevents") return [];
     if (typeParam !== "all") {
       const merged = MERGED_TYPES[typeParam];
       list = merged ? list.filter((n) => merged.includes(n.news_type)) : list.filter((n) => n.news_type === typeParam);
@@ -103,6 +104,8 @@ export default function Partnernytt() {
     else next.set(key, value);
     setSearchParams(next, { replace: true });
   };
+
+  const eventsOnly = typeParam === "partnerevents";
 
   const hasFilters = [partnerParam, productParam, typeParam, industryParam, sourceParam].some((v) => v !== "all");
   const clearFilters = () => setSearchParams(new URLSearchParams(), { replace: true });
@@ -161,6 +164,7 @@ export default function Partnernytt() {
                 <SelectTrigger className="w-full min-w-0 [&>span]:truncate"><SelectValue placeholder="Nyhetstyp" /></SelectTrigger>
                 <SelectContent className="max-w-[min(90vw,28rem)]">
                   <SelectItem value="all">Alla typer</SelectItem>
+                  <SelectItem value="partnerevents">Partnerevents</SelectItem>
                   {types.map((t) => (
                     <SelectItem key={t.value} value={t.value}>{t.label}</SelectItem>
                   ))}
@@ -204,6 +208,7 @@ export default function Partnernytt() {
           </div>
         </section>
 
+        {!eventsOnly && (
         <section className="py-12">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             {isLoading && (
@@ -225,6 +230,7 @@ export default function Partnernytt() {
             )}
           </div>
         </section>
+        )}
 
         <PartnernyttEventsSection />
       </main>
