@@ -259,41 +259,14 @@ const PartnersPerBransch = () => {
                             </span>
                           </h3>
                         </div>
-                        <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                          {list.map((p) => {
-                            const basicProducts = PRODUCT_ORDER.filter(
-                              (k) => p.observed_products?.[k],
-                            );
-                            return (
-                              <li key={p.id}>
-                                <Link
-                                  to={`/basic/${p.slug}/`}
-                                  className="group relative flex items-center justify-between gap-3 p-4 rounded-lg border border-dashed border-border bg-card hover:border-muted-foreground/40 hover:shadow-sm transition-all"
-                                >
-                                  <div className="min-w-0">
-                                    <div className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
-                                      {p.name}
-                                    </div>
-                                    {basicProducts.length > 0 && (
-                                      <div className="mt-2 flex flex-wrap gap-1">
-                                        {basicProducts.map((k) => (
-                                          <Badge
-                                            key={k}
-                                            variant="outline"
-                                            className="text-[10px] px-1.5 py-0 border-accent/30 text-accent bg-accent/5"
-                                          >
-                                            {PRODUCT_LABEL[k]}
-                                          </Badge>
-                                        ))}
-                                      </div>
-                                    )}
-                                  </div>
-                                  <ArrowRight className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
-                                </Link>
-                              </li>
-                            );
-                          })}
+                        <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                          {list.map((p) => (
+                            <li key={p.id}>
+                              <PartnerBasicCard partner={p} variant="list" />
+                            </li>
+                          ))}
                         </ul>
+
                       </div>
                     );
                   })}
