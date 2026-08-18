@@ -1512,7 +1512,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-07-07T17:46:56.361216+00:00",
+    "updated_at": "2026-08-18T07:55:11.19529+00:00",
     "industry_pitches": [
       {
         "text": "Knowit bistår organisationer inom grossist- och distributionsbranschen med att utveckla och modernisera sina affärssystem baserade på Microsoft Dynamics 365. Genom att implementera och optimera applikationer som Dynamics 365 Finance och Supply Chain Management, strävar Knowit efter att förbättra verksamhetsprocesser, datainsamling och automatisering. De fokuserar på att integrera ERP-system med data och intelligenta arbetsflöden för att möjliggöra effektivare beslutsfattande och en mer hållbar verksamhetsutveckling. Knowit har kompetens att anpassa lösningar för att möta branschens krav på optimerade leveranskedjor och finansiell kontroll, vilket kan stödja grossister och distributörer i en konkurrensutsatt marknad.",
@@ -1536,14 +1536,14 @@
     "team_size_sweden": null,
     "implementations_done": null,
     "not_a_fit": [
-      "Kunder som söker en partner med uttalat vertikalt fokus utanför tillverknings- och distributionsindustrin.",
-      "Projekt där tyngdpunkten ligger på D365 Sales, Customer Service eller Field Service.",
-      "Organisationer som önskar en partner med djup erfarenhet av Business Central.",
-      "Kunder som förväntar sig en global utrullningskapacitet bortom nordiska förhållanden."
+      "Mindre företag med relativt enkla ERP-behov där Dynamics 365 Business Central sannolikt är mer proportionerligt än Finance & Supply Chain Management.",
+      "Företag vars huvudsakliga behov ligger inom Dynamics 365 Sales, Customer Service, Field Service eller Customer Insights, eftersom dessa lösningar inte framgår som huvudområden i den analyserade ERP-verksamheten.",
+      "Organisationer som enbart söker ett mindre, avgränsat standardprojekt utan större krav på integration, verksamhetsförändring eller långsiktig förvaltning.",
+      "Företag där huvudkravet är avancerade kundspecifika AI-agenter eller fristående generativa AI-lösningar. Det finns belägg för AI-, Copilot- och automationskompetens, men inte tillräckligt underlag för en sådan specialistklassificering."
     ],
     "implementations_per_app": {},
-    "ai_summary": "Knowit bistår med att utveckla och modernisera affärssystem med D365 Finance och Supply Chain Management som grund. Vidare erbjuder de kompetens inom D365 med fokus på att integrera ERP, data och automation för att optimera processer och verksamhetsutveckling. Knowit har kontor i Stockholm, Göteborg och Malmö.",
-    "ai_summary_generated_at": "2026-06-29T16:18:44.007+00:00",
+    "ai_summary": "Knowit arbetar främst med Dynamics 365 Finance & Supply Chain Management för medelstora och större verksamheter med krav på ekonomi, produktion, distribution, logistik och komplexa integrationer.\nTillgängliga kundcase visar erfarenhet från bland annat tillverkningsindustri, grossist/distribution, energi, handel och internationella koncernmiljöer.\nKnowit levererar både nyimplementationer, modernisering från äldre ERP-system, integrations- och dataprojekt samt långsiktig förvaltning och vidareutveckling.",
+    "ai_summary_generated_at": "2026-08-18T07:55:11.19529+00:00",
     "ai_profile": {
       "use_cases": [],
       "description": null,
@@ -1569,9 +1569,47 @@
     "extended_content_updated_at": "2026-07-07T17:46:56.361216+00:00",
     "partner_size_tier": 1,
     "partner_size_tier_needs_review": false,
-    "ai_summary_full": null,
-    "best_fit_for": [],
-    "ai_tags": []
+    "ai_summary_full": "Knowits Dynamics 365-erbjudande är tydligt koncentrerat till Dynamics 365 Finance och Supply Chain Management. Partnern arbetar genom hela ERP-livscykeln, från verksamhetsanalys, lösningsdesign och implementation till migrering, integration, förvaltning och kontinuerlig vidareutveckling.\nTillgängliga kundreferenser pekar framför allt mot verksamheter med relativt komplexa flöden och flera organisatoriska eller geografiska enheter. Det finns exempel på kunder med B2B-, B2C-, produktions-, distributions- och internationella verksamhetsflöden samt koncerner där flera bolag samlas på en gemensam plattform.\nBranschmässigt finns tydligast belägg för tillverkning/industri och grossist/distribution. Kundreferenser visar därutöver erfarenhet från energi, handel, shipping och verksamheter med internationell försäljning och distribution.\nKnowit passar även organisationer som redan använder Dynamics 365 och söker en partner för förvaltning och kontinuerlig förbättring. Tillgängliga referenser visar arbete med bland annat SLA-struktur, roadmap, optimeringsprojekt och vidareutveckling av befintliga Dynamics 365 Finance & Supply Chain-miljöer.\nDen tekniska kompetens som beskrivs omfattar bland annat Azure Service Bus, Dataverse, Dual Write, Power Automate och Microsoft Fabric, vilket är relevant för organisationer där ERP behöver integreras med CRM, dataplattformar och andra verksamhetssystem.\nNär det gäller AI finns stöd för kompetens kring Microsoft Copilot, prediktiv analys, automatiserade processer och AI som en integrerad del av ERP, data och automation. Det tillgängliga underlaget ger däremot inte tillräckligt stöd för att klassificera Knowit som specialist på avancerade fristående AI-agenter eller kundspecifika generativa AI-lösningar.",
+    "best_fit_for": [
+      "Medelstora och större företag, ungefär 100–4 999 anställda.",
+      "Tillverkande företag med krav på produktion, ekonomi, supply chain, integrationer och internationella flöden.",
+      "Grossister och distributörer med komplex logistik, lager, inköp, försäljning och finansiell styrning.",
+      "Organisationer som vill införa eller modernisera Dynamics 365 Finance & Supply Chain Management.",
+      "Företag som migrerar från äldre ERP-system såsom AX, NAV, IFS, Jeeves, Unit4, Monitor eller Visma.",
+      "Koncerner och internationella organisationer som behöver gemensamma processer och system över flera bolag eller länder.",
+      "Befintliga Dynamics 365-kunder som behöver förvaltning, SLA, roadmap, optimering och kontinuerlig vidareutveckling.",
+      "Organisationer där ERP, integration, data, Microsoft Fabric, Power Automate och Copilot behöver fungera som en sammanhängande Microsoft-plattform."
+    ],
+    "ai_tags": [
+      "Dynamics 365 Finance",
+      "Dynamics 365 Supply Chain Management",
+      "F&SCM",
+      "ERP",
+      "Tillverkningsindustri",
+      "Grossist & Distribution",
+      "Energi",
+      "Handel",
+      "Internationell verksamhet",
+      "Koncernlösningar",
+      "Produktion",
+      "Supply Chain",
+      "Ekonomi",
+      "ERP-modernisering",
+      "AX-migrering",
+      "ERP-implementation",
+      "ERP-förvaltning",
+      "Managed Services",
+      "Integrationer",
+      "Dataverse",
+      "Azure Service Bus",
+      "Dual Write",
+      "Power Automate",
+      "Microsoft Fabric",
+      "Microsoft Copilot",
+      "Prediktiv analys",
+      "ERP-automation",
+      "ERP-rådgivning"
+    ]
   },
   {
     "id": "4097cfef-2af6-4aaf-8fbe-69c388c16d8d",
