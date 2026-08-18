@@ -319,14 +319,14 @@ export default function AllD365Partners() {
             <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
               <div className="mb-6">
                 <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
-                  Övriga D365-partners – Basickort
+                  Fler partners som arbetar med Dynamics 365
                 </h2>
                 <p className="text-sm text-muted-foreground max-w-3xl">
-                  Dessa partners har ännu inte en egen profil på d365.se. Vi visar
-                  observerad data (branscher, produktområden, orter) sammanställd
-                  från publika källor – för att ge en realistisk bild av marknaden.
-                  Klicka på ett namn för att se detaljer.
+                  Profilerna bygger på publikt tillgängliga uppgifter och har ännu inte
+                  verifierats tillsammans med partnern. De innehåller därför varken
+                  kontaktperson, kundcase eller detaljerade kompetenser.
                 </p>
+
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
                 {basicSorted.map((p) => (
