@@ -5558,7 +5558,7 @@ Thomas`,
  onClick={handleGenerateInsights}
  >
  {generatingInsights ? (
- <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Genererar...</>
+ <><RefreshCw className="w-4 h-4 mr-2 animate-spin" />Genererar...</>
  ) : (
  <><Sparkles className="w-4 h-4 mr-2" />Återgenerera med AI</>
  )}
