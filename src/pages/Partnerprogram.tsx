@@ -321,7 +321,27 @@ const Partnerprogram = () => {
         </div>
       </section>
 
+      {/* 2b. BENCHMARK: Basic vs profilerad referensprofil */}
+      <PartnerProgramBenchmark
+        partnerSlug={partnerSlug}
+        renderBookCta={(onClick) => (
+          <ContactFormDialog>
+            <Button
+              size="lg"
+              onClick={() => {
+                onClick();
+                bookClick("benchmark");
+              }}
+            >
+              <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
+              Boka en 20 min partnergenomgång
+            </Button>
+          </ContactFormDialog>
+        )}
+      />
+
       {/* 3. KÖPRESAN */}
+
       <section className="py-14 md:py-20 bg-secondary/30 border-y border-border">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">
