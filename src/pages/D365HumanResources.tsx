@@ -88,7 +88,7 @@ const D365HumanResources = () => {
 
       <ProductPartnerNewsSection productArea="finance-scm" productLabel="Human Resources" />
 
-      <ApplicationPartners applicationFilter="Human Resources" pageSource="D365 Human Resources" filterMode="companySize" />
+      <ApplicationPartners applicationFilter="Human Resources" pageSource="D365 Human Resources" filterMode="companySize" showUnprofiledList={false} />
 
       <section className="py-8 sm:py-12 md:py-16 bg-finance">
         <div className="container mx-auto px-4 sm:px-6 text-center">

@@ -88,7 +88,7 @@ const D365Commerce = () => {
 
       <ProductPartnerNewsSection productArea="finance-scm" productLabel="Commerce" />
 
-      <ApplicationPartners applicationFilter="Commerce" pageSource="D365 Commerce" filterMode="companySize" />
+      <ApplicationPartners applicationFilter="Commerce" pageSource="D365 Commerce" filterMode="companySize" showUnprofiledList={false} />
 
       <section className="py-8 sm:py-12 md:py-16 bg-finance">
         <div className="container mx-auto px-4 sm:px-6 text-center">
