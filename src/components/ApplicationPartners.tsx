@@ -8,7 +8,8 @@ import LeadCTA from "@/components/LeadCTA";
 import PartnerCard from "@/components/PartnerCard";
 import SearchResultSummary from "@/components/partner/SearchResultSummary";
 import WhyTheseResults from "@/components/WhyTheseResults";
-import { allIndustries, companySizes } from "@/data/partners";
+import { allIndustries } from "@/data/partners";
+import { SizeFilters } from "@/components/SizeFilters";
 import { usePartners } from "@/hooks/usePartners";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
@@ -35,6 +36,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
  const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
+ const [selectedRevenue, setSelectedRevenue] = useState<string | null>(null);
 
  // Filter to only show featured partners
  const partners = useMemo(() => {
@@ -70,6 +72,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  if (!pf) return false;
  if (selectedIndustry && !pf.industries?.includes(selectedIndustry)) return false;
  if (selectedCompanySize && !pf.companySize?.includes(selectedCompanySize)) return false;
+ if (selectedRevenue && !(pf as any).revenue?.includes(selectedRevenue)) return false;
  if (selectedGeography) {
  // Geography is now an array - check if partner covers the selected geography
  const partnerGeo = Array.isArray(pf.geography) ? pf.geography : (pf.geography ? [pf.geography] : ["Sverige"]);
@@ -109,7 +112,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  ...seededShuffle(signed, sessionSeed),
  ...seededShuffle(unsigned, sessionSeed + 1),
  ];
- }, [productKey, partners, selectedIndustry, selectedCompanySize, selectedGeography, sessionSeed]);
+ }, [productKey, partners, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography, sessionSeed]);
 
  // Show all 18 industries in the filter
  const availableIndustries = allIndustries;
@@ -134,8 +137,8 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
  Här är ett urval av partners som arbetar med {applicationFilter} i Sverige.
  {filterMode === "companySize"
- ? " Filtrera på er företagsstorlek och geografi för att hitta partners som passar dig bäst."
- : " Filtrera på bransch och företagsstorlek för att hitta partners som passar dig bäst."}
+ ? " Filtrera på er storlek (antal anställda och omsättning) och geografi för att hitta partners som passar dig bäst."
+ : " Filtrera på bransch, storlek (antal anställda och omsättning) och geografi för att hitta partners som passar dig bäst."}
  </p>
  </div>
 
@@ -151,17 +154,14 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  />
  )}
 
- {/* Company size filter – visas när filterMode = companySize */}
- {filterMode === "companySize" && (
- <FilterButtons
- title="Filtrera på er storlek – antal anställda"
- icon="employees"
- options={companySizes.map(s => ({ label: `${s} anställda`, value: s }))}
- selectedValue={selectedCompanySize}
- onSelect={setSelectedCompanySize}
+ {/* Storleksfilter – antal anställda och omsättning visas alltid */}
+ <SizeFilters
+ selectedCompanySize={selectedCompanySize}
+ selectedRevenue={selectedRevenue}
+ onCompanySizeChange={setSelectedCompanySize}
+ onRevenueChange={setSelectedRevenue}
  colorScheme="crm"
  />
- )}
 
  {/* Geography Filter */}
  <FilterButtons
@@ -175,7 +175,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
 
 
  {/* Resultathuvud – användarens sökning visas en gång ovanför korten */}
- {(selectedIndustry || selectedGeography || selectedCompanySize) && (
+ {(selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue) && (
  <>
  <SearchResultSummary
  count={filteredPartners.length}
@@ -184,6 +184,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  selectedIndustry,
  selectedGeography,
  selectedCompanySize ? `${selectedCompanySize} anställda` : null,
+ selectedRevenue,
  ]}
  onChangeFilters={() => {
  if (typeof document !== "undefined") {
@@ -199,6 +200,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  setSelectedIndustry(null);
  setSelectedGeography(null);
  setSelectedCompanySize(null);
+ setSelectedRevenue(null);
  }}
  className="text-muted-foreground hover:text-foreground"
  >
@@ -207,6 +209,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  </div>
  </>
  )}
+
 
   <WhyTheseResults className="mb-6 max-w-4xl mx-auto" />
 

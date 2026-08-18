@@ -21,7 +21,7 @@ import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ArrowRight, Briefcase, Users, AlertTriangle, Layers, HelpCircle, Filter, Building2, Sparkles } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
-import { companySizes, geographyOptions } from "@/data/partners";
+import { companySizes, geographyOptions, revenueOptions } from "@/data/partners";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 
 const GEOGRAPHY_HIERARCHY = ["Sverige", "Norden", "Europa", "Globalt"];
@@ -146,6 +146,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  const [selected, setSelected] = useState<FilterKey[]>([]);
  const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
+ const [selectedRevenue, setSelectedRevenue] = useState<string | null>(null);
 
  // Publish current filters to partner-compare so a "Jämför"-navigering
  // carries product/industry/geo/size into the compare page.
@@ -190,7 +191,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  if (!industryMatch) return false;
 
  // Geografi/storlek: kräver att MINST EN produkt (av de relevanta) uppfyller filtren
- if (selectedGeography || selectedCompanySize) {
+ if (selectedGeography || selectedCompanySize || selectedRevenue) {
  return productKeysToCheck.some((k) => {
  const f = pf[k];
  if (!f) return false;
@@ -199,15 +200,16 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  if (!inds.includes(industryName) && !sec.includes(industryName)) return false;
  if (selectedGeography && !matchesGeography(f.geography, selectedGeography)) return false;
  if (selectedCompanySize && !(f.companySize || []).includes(selectedCompanySize)) return false;
+ if (selectedRevenue && !((f as any).revenue || []).includes(selectedRevenue)) return false;
  return true;
  });
  }
  return true;
  });
 
- const seed = hashString(`${slug}-${selected.join(",")}-${selectedGeography || ""}-${selectedCompanySize || ""}`);
+ const seed = hashString(`${slug}-${selected.join(",")}-${selectedGeography || ""}-${selectedCompanySize || ""}-${selectedRevenue || ""}`);
  return seededShuffle(filtered, seed);
- }, [partners, meta, selected, slug, selectedGeography, selectedCompanySize]);
+ }, [partners, meta, selected, slug, selectedGeography, selectedCompanySize, selectedRevenue]);
 
  const matchingBasicPartners = useMemo(() => {
   if (!meta) return [];
@@ -222,9 +224,10 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
    applications: underlyingSelected.map((k) => labelByKey[k]).filter(Boolean),
    industry: meta.name,
    companySize: selectedCompanySize,
+   revenue: selectedRevenue,
    geography: selectedGeography,
   });
- }, [basicPartners, meta, selected, selectedGeography, selectedCompanySize]);
+ }, [basicPartners, meta, selected, selectedGeography, selectedCompanySize, selectedRevenue]);
 
  if (!loading && !page) {
  return (
@@ -535,7 +538,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  <div className="mb-6 rounded-lg border border-border bg-background p-4">
  <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground uppercase tracking-wide mb-3">
  <Filter className="w-3.5 h-3.5" />
- Filtrera ytterligare – företagsstorlek och geografi
+ Filtrera ytterligare – antal anställda, omsättning och geografi
  </div>
  <FilterButtons
  title="Företagsstorlek – antal anställda"
@@ -543,6 +546,14 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  options={companySizes.map((s) => ({ label: s, value: s }))}
  selectedValue={selectedCompanySize}
  onSelect={setSelectedCompanySize}
+ colorScheme="primary"
+ />
+ <FilterButtons
+ title="Omsättning i MSEK"
+ icon="revenue"
+ options={revenueOptions.map((r) => ({ label: r, value: r }))}
+ selectedValue={selectedRevenue}
+ onSelect={setSelectedRevenue}
  colorScheme="primary"
  />
  <FilterButtons
