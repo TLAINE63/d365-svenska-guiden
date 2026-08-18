@@ -119,6 +119,7 @@ const Upphandlingsguiden = () => {
  return (
  <>
  <SEOHead
+        breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Upphandlingsguiden", url: "/upphandlingsguiden/" }]}
  title="Upphandlingsguiden – Microsoft Dynamics 365"
  description="Köparsidig vägledning genom hela upphandlingen av Microsoft Dynamics 365 – från behovsanalys och kravspec till partnerval, införande och avtal."
  canonicalPath="/upphandlingsguiden"

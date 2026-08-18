@@ -22,6 +22,7 @@ const D365TillaggKatalog = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
+        breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Kunskapscenter", url: "/kunskapscenter/" }, { name: "Dynamics 365-tillägg", url: "/kunskapscenter/dynamics-365-tillagg/" }]}
         title="Dynamics 365-tillägg: katalog över ISV-lösningar"
         description="Katalog över ISV- och tilläggslösningar för Dynamics 365 – Business Central, Finance & Supply Chain, Sales, Customer Service med flera. Filtrera på produkt, kategori och bransch."
         canonicalPath="/kunskapscenter/dynamics-365-tillagg"

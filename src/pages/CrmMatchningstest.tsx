@@ -102,6 +102,7 @@ const CrmMatchningstest = ({ productKey }: Props) => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
+        breadcrumbs={[{ name: "Hem", url: "/" }, { name: config.h1, url: config.canonicalPath }]}
         title={config.seoTitle}
         description={config.seoDescription}
         canonicalPath={config.canonicalPath}

@@ -77,6 +77,7 @@ import BcRoiCalculator from './pages/BcRoiCalculator';
 import SalesRoiCalculator from './pages/SalesRoiCalculator';
 import ProductRoiPage from './pages/ProductRoiPage';
 import Beslutsmognadsindex from './pages/Beslutsmognadsindex';
+import D365TillaggKatalog from './pages/D365TillaggKatalog';
 import Partnernytt from './pages/Partnernytt';
 import Friskrivning from './pages/Friskrivning';
 import ComparePartners from './pages/ComparePartners';
@@ -507,6 +508,7 @@ export function render(url: string) {
               <Route path="/d365contactcenter/matchningstest/resultat" element={<CrmMatchningstestResultat productKey="contact-center" />} />
               <Route path="/d365contactcenter/roi-kalkylator" element={<ProductRoiPage productKey="contact-center" />} />
               <Route path="/beslutsmognad" element={<Beslutsmognadsindex />} />
+              <Route path="/kunskapscenter/dynamics-365-tillagg" element={<D365TillaggKatalog />} />
               <Route path="/partnernytt" element={<Partnernytt />} />
               <Route path="/friskrivning" element={<Friskrivning />} />
               <Route path="/jamfor-partners" element={<ComparePartners />} />

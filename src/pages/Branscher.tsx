@@ -159,6 +159,7 @@ const Branscher = () => {
  return (
  <>
  <SEOHead
+        breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Branscher", url: "/branscher/" }]}
  title="Microsoft Dynamics 365 per bransch – branschguide"
  description="Microsoft Dynamics 365 per bransch: processer, roller, applikationer och partners. Köparsidig branschguide för ERP- och CRM-val i Sverige."
  canonicalPath="/branscher/"
