@@ -504,19 +504,29 @@ export default function PartnerProgramBenchmark({ partnerSlug, onBookClick }: Pr
             verksamhet.
           </p>
           <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-            <Button
-              size="lg"
-              onClick={() => {
+            {renderBookCta ? (
+              renderBookCta(() =>
                 trackFunnelEvent({
                   event_type: "cta_click",
                   event_name: "partner_benchmark_cta_click",
                   metadata: trackMeta,
-                });
-                onBookClick?.();
-              }}
-            >
-              Boka en 20 min partnergenomgång
-            </Button>
+                }),
+              )
+            ) : (
+              <Button
+                size="lg"
+                onClick={() =>
+                  trackFunnelEvent({
+                    event_type: "cta_click",
+                    event_name: "partner_benchmark_cta_click",
+                    metadata: trackMeta,
+                  })
+                }
+              >
+                Boka en 20 min partnergenomgång
+              </Button>
+            )}
+
             <Button asChild variant="outline" size="lg">
               <Link to={basic ? `/basic/${basic.slug}/` : "/valjdynamics365partner/"}>
                 {ownBasic ? "Se vår nuvarande profil" : "Se en Basic-profil"}
