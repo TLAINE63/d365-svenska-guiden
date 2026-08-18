@@ -198,6 +198,8 @@ export default function Partnernytt() {
             )}
           </div>
         </section>
+
+        <PartnernyttEventsSection />
       </main>
       <Footer />
     </div>
