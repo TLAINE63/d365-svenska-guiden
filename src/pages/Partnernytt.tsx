@@ -58,6 +58,13 @@ export default function Partnernytt() {
     return Array.from(set).sort((a, b) => a.localeCompare(b, "sv"));
   }, [data]);
 
+  // Visa endast källor som faktiskt har publicerat innehåll.
+  const sources = useMemo(() => {
+    const set = new Set<string>();
+    (data ?? []).forEach((n) => n.source_type && set.add(n.source_type));
+    return SOURCE_OPTIONS.filter((s) => set.has(s));
+  }, [data]);
+
   const filtered = useMemo(() => {
     let list = data ?? [];
     if (partnerParam !== "all") {
@@ -155,7 +162,7 @@ export default function Partnernytt() {
                 <SelectTrigger><SelectValue placeholder="Källa" /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">Alla källor</SelectItem>
-                  {SOURCE_OPTIONS.map((s) => (
+                  {sources.map((s) => (
                     <SelectItem key={s} value={s}>{partnerNewsSourceLabel(s)}</SelectItem>
                   ))}
                 </SelectContent>
