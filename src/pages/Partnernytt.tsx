@@ -136,10 +136,10 @@ export default function Partnernytt() {
 
         <section className="py-8 border-b border-border bg-card/40">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
               <Select value={partnerParam} onValueChange={(v) => setParam("partner", v)}>
-                <SelectTrigger><SelectValue placeholder="Partner" /></SelectTrigger>
-                <SelectContent>
+                <SelectTrigger className="w-full min-w-0 [&>span]:truncate"><SelectValue placeholder="Partner" /></SelectTrigger>
+                <SelectContent className="max-w-[min(90vw,28rem)]">
                   <SelectItem value="all">Alla partners</SelectItem>
                   {partners.map(([slug, name]) => (
                     <SelectItem key={slug} value={slug}>{name}</SelectItem>
@@ -148,8 +148,8 @@ export default function Partnernytt() {
               </Select>
 
               <Select value={productParam} onValueChange={(v) => setParam("produkt", v)}>
-                <SelectTrigger className="text-left min-w-max"><SelectValue placeholder="Produktområde" /></SelectTrigger>
-                <SelectContent>
+                <SelectTrigger className="w-full min-w-0 text-left [&>span]:truncate"><SelectValue placeholder="Produktområde" /></SelectTrigger>
+                <SelectContent className="max-w-[min(90vw,28rem)]">
                   <SelectItem value="all">Alla produktområden</SelectItem>
                   {PRODUCT_OPTIONS.map((p) => (
                     <SelectItem key={p} value={p}>{partnerNewsProductLabel(p)}</SelectItem>
@@ -158,8 +158,8 @@ export default function Partnernytt() {
               </Select>
 
               <Select value={typeParam} onValueChange={(v) => setParam("typ", v)}>
-                <SelectTrigger><SelectValue placeholder="Nyhetstyp" /></SelectTrigger>
-                <SelectContent>
+                <SelectTrigger className="w-full min-w-0 [&>span]:truncate"><SelectValue placeholder="Nyhetstyp" /></SelectTrigger>
+                <SelectContent className="max-w-[min(90vw,28rem)]">
                   <SelectItem value="all">Alla typer</SelectItem>
                   {types.map((t) => (
                     <SelectItem key={t.value} value={t.value}>{t.label}</SelectItem>
@@ -168,8 +168,8 @@ export default function Partnernytt() {
               </Select>
 
               <Select value={industryParam} onValueChange={(v) => setParam("bransch", v)}>
-                <SelectTrigger><SelectValue placeholder="Bransch" /></SelectTrigger>
-                <SelectContent>
+                <SelectTrigger className="w-full min-w-0 [&>span]:truncate"><SelectValue placeholder="Bransch" /></SelectTrigger>
+                <SelectContent className="max-w-[min(90vw,28rem)]">
                   <SelectItem value="all">Alla branscher</SelectItem>
                   {industries.map((i) => (
                     <SelectItem key={i} value={i}>{i}</SelectItem>
@@ -178,8 +178,8 @@ export default function Partnernytt() {
               </Select>
 
               <Select value={sourceParam} onValueChange={(v) => setParam("kalla", v)}>
-                <SelectTrigger><SelectValue placeholder="Källa" /></SelectTrigger>
-                <SelectContent>
+                <SelectTrigger className="w-full min-w-0 [&>span]:truncate"><SelectValue placeholder="Källa" /></SelectTrigger>
+                <SelectContent className="max-w-[min(90vw,28rem)]">
                   <SelectItem value="all">Alla källor</SelectItem>
                   {sources.map((s) => (
                     <SelectItem key={s} value={s}>{partnerNewsSourceLabel(s)}</SelectItem>
@@ -188,8 +188,8 @@ export default function Partnernytt() {
               </Select>
 
               <Select value={sort} onValueChange={(v) => setSort(v as "latest")}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>
+                <SelectTrigger className="w-full min-w-0 [&>span]:truncate"><SelectValue /></SelectTrigger>
+                <SelectContent className="max-w-[min(90vw,28rem)]">
                   <SelectItem value="latest">Senast publicerad först</SelectItem>
                 </SelectContent>
               </Select>
