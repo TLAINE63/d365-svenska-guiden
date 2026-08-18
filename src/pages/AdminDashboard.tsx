@@ -452,6 +452,46 @@ const AdminDashboard = () => {
     }
   };
 
+  /** Genererar neutral AI-sammanfattning av leveransprofilen för ett produktområde. */
+  const handleGenerateDeliverySummary = async (sectionKey: string, sectionLabel: string) => {
+    if (!editingPartner) {
+      toast({ title: "Spara först", description: "Spara partnern innan du genererar sammanfattningen.", variant: "destructive" });
+      return;
+    }
+    setGeneratingDeliverySummary(sectionKey);
+    try {
+      const { data, error } = await invokeAdminEdgeWithRetry("generate-partner-delivery-summary", {
+        token,
+        partnerId: editingPartner.id,
+        sectionKey,
+        overwrite: true,
+      });
+      if (error) throw error;
+      if ((data as any)?.error) throw new Error((data as any).error);
+      const gen = (data as any)?.generatedCount ?? 0;
+      toast({
+        title: gen > 0 ? "Sammanfattning klar" : "Inget att generera",
+        description: gen > 0
+          ? `Leveransprofil för ${sectionLabel} har sammanfattats. Öppna partnern igen för att se texten.`
+          : "Fyll i minst ett fält i leveransprofilen och spara innan du genererar.",
+      });
+      refetchPartners();
+    } catch (e: any) {
+      const msg = e?.message || "Okänt fel";
+      toast({
+        title: "Kunde inte generera",
+        description: msg === "RATE_LIMIT" ? "AI-tjänsten är överbelastad – försök igen om en stund."
+          : msg === "PAYMENT_REQUIRED" ? "AI-krediter slut. Lägg till krediter under Settings → Workspace → Usage."
+          : msg,
+        variant: "destructive",
+      });
+    } finally {
+      setGeneratingDeliverySummary(null);
+    }
+  };
+
+
+
   const handleGenerateAllAiAndNotAFit = async () => {
     if (!confirm("Fyll AI-profil och 'När vi inte är rätt val' för alla publicerade partners som saknar det? Befintligt innehåll rörs ej.")) return;
     setGeneratingAiNotAFit(true);
