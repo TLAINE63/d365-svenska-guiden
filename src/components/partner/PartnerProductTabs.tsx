@@ -692,20 +692,23 @@ export default function PartnerProductTabs({
             </ul>
           </section>
 
-            {/* 3. Kompetenser */}
+            {/* 3. Kompetenser – max 8 primära, övriga taggar används bara för matchning/sök */}
             <section>
               <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
                 <Briefcase className="w-5 h-5 text-primary" />
-                Kompetenser och teknik
+                Kompetenser
               </h2>
 
               {(() => {
                 const allApps = getAllProductCompetencies(partner);
-                if (allApps.length === 0) return null;
+                const extraTags = ((partner as unknown as { ai_tags?: string[] }).ai_tags || [])
+                  .filter((t) => t && !allApps.includes(t));
+                const shown = Array.from(new Set([...allApps, ...extraTags])).slice(0, 8);
+                if (shown.length === 0) return null;
                 return (
                   <div className="mb-4">
                     <div className="flex flex-wrap gap-2">
-                      {allApps.map((app) => (
+                      {shown.map((app) => (
                         <Badge key={app} className="bg-primary text-primary-foreground border-0 py-1.5 px-3 text-sm inline-flex items-center gap-1.5">
                           {appIconSrc[app] && (
                             <img src={appIconSrc[app]} alt="" aria-hidden="true" className="w-4 h-4" />
@@ -717,6 +720,7 @@ export default function PartnerProductTabs({
                   </div>
                 );
               })()}
+
 
 
               {data.industryApps.length > 0 && (
