@@ -95,7 +95,7 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
       {
         title: "Mindre standardimplementationer",
         scope: "Standarduppsättning med begränsade anpassningar",
-        range: "150 000 – 400 000 kr",
+        range: "75 000 – 400 000 kr",
         bullets: [
           "2–4 månaders projekt",
           "Standardprocesser och funktionalitet",
@@ -108,7 +108,7 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
       {
         title: "Mer avancerade implementationer",
         scope: "Anpassad lösning med integrationer och komplexitet",
-        range: "500 000 – 1 500 000 kr",
+        range: "250 000 – 1 500 000+ kr",
         bullets: [
           "4–8 månaders projekt",
           "Anpassade processer och workflows",
@@ -166,7 +166,7 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
       {
         title: "Mindre standardimplementationer",
         scope: "Grundläggande uppsättning med standardfunktionalitet",
-        range: "1 500 000 – 3 000 000 kr",
+        range: "750 000 – 3 000 000 kr",
         bullets: [
           "6–9 månaders projekt",
           "Standardprocesser med mindre anpassningar",
@@ -179,7 +179,7 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
       {
         title: "Mer avancerade implementationer",
         scope: "Globala implementationer med hög komplexitet",
-        range: "3 000 000 – 10 000 000+ kr",
+        range: "1 500 000 – 10 000 000+ kr",
         bullets: [
           "9–18+ månaders projekt",
           "Omfattande anpassningar och utveckling",
