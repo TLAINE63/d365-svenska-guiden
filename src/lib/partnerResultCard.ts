@@ -119,7 +119,7 @@ export function getRelevanceFactors(
     const key = n.toLowerCase();
     if (seen.has(key) || skip.has(key)) continue;
     // Kombinationer (t.ex. "BC + F&SCM", "ERP + CRM") är differentierande och behålls
-    const isCombination = /[+&]|\boch\b/.test(n) && n.length <= 34;
+    const isCombination = /\s(\+|&|och)\s/.test(n) && n.length <= 34;
     if (!isCombination && echoes.some((re) => re.test(n))) continue;
     seen.add(key);
     out.push(n);
