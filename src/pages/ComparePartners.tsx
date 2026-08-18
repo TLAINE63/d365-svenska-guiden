@@ -255,6 +255,33 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
         >
           <X className="w-4 h-4" />
         </button>
+
+        {/* d365.se:s bedömning – rikare kort (samma design som resultView) */}
+        {!basic && (() => {
+          const assessment = getResultAssessment(partner!);
+          const evidence = getDocumentedEvidence(partner!);
+          if (!assessment && !evidence) return null;
+          return (
+            <div className="mt-3 w-full text-left">
+              {assessment && (
+                <div className="mb-2 rounded-md border-l-2 border-[hsl(var(--cta-orange))] bg-[hsl(var(--cta-orange))]/5 px-3 py-2.5">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-[hsl(var(--cta-orange))] mb-1">
+                    d365.se:s bedömning
+                  </p>
+                  <p className="text-[12px] leading-relaxed text-[hsl(var(--foreground))] line-clamp-5">{assessment}</p>
+                </div>
+              )}
+              {evidence && (
+                <div className="mb-1">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-[hsl(var(--muted-foreground))] mb-1">
+                    Dokumenterad erfarenhet
+                  </p>
+                  <p className="text-[11px] leading-snug text-[hsl(var(--muted-foreground))] line-clamp-2">{evidence}</p>
+                </div>
+              )}
+            </div>
+          );
+        })()}
       </div>
     ) : (
       <div className="space-y-1.5">
