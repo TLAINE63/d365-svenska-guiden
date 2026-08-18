@@ -591,7 +591,7 @@ const FinanceSupplyChain = () => {
   ]}
   onChangeFilters={() => {
    if (typeof document !== "undefined") {
-    document.getElementById("fsc-partner-filter")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.getElementById("partners")?.scrollIntoView({ behavior: "smooth", block: "start" });
    }
   }}
  />
