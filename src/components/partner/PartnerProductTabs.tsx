@@ -580,7 +580,7 @@ export default function PartnerProductTabs({
 
             <section>
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight mb-2">
-                Varför välja {partner.name} för {tabMeta.label}?
+                {swedishPossessive(partner.name)} erbjudande inom {tabMeta.label}
               </h2>
               {(data.productProfile?.positioning || partner.positioning_statement) ? (
                 <p className="text-base text-muted-foreground mb-5 max-w-[68ch] leading-relaxed">
@@ -621,7 +621,7 @@ export default function PartnerProductTabs({
             <section>
               <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
                 <Users className="w-5 h-5 text-primary" />
-                Passar bäst för verksamheter inom
+                Branscherfarenhet och målgrupp
               </h2>
               <ul className="space-y-2.5">
                 {data.companySize.length > 0 && (
@@ -711,7 +711,7 @@ export default function PartnerProductTabs({
             <section>
               <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
                 <Briefcase className="w-5 h-5 text-primary" />
-                Kompetenser
+                Kompetenser och teknik
               </h2>
 
               {(() => {

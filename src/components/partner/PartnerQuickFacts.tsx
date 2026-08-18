@@ -165,22 +165,42 @@ export function PartnerQuickFacts({ partner, activeTab }: PartnerQuickFactsProps
     bullets.push({ icon: "📈", text: sizeText });
   }
 
-  if (bullets.length === 0) return null;
+  const facts: { label: string; value: string }[] = [
+    { label: "Primärt område", value: TAB_PRODUCT_TYPE[activeTab] },
+  ];
+  if (companySize.length > 0) {
+    facts.push({ label: "Företagsstorlek", value: formatSizeRange(companySize) });
+  } else if (revenue.length > 0) {
+    facts.push({ label: "Företagsstorlek", value: formatSizeLabelFromRevenue(revenue) });
+  }
+  if (industries.length > 0) {
+    facts.push({ label: "Branscher", value: formatIndustries(industries) });
+  }
+  if (geography.length > 0) {
+    facts.push({ label: "Geografi", value: formatGeography(geography) });
+  }
+  if (revenue.length > 0 && companySize.length > 0) {
+    facts.push({ label: "Omsättning", value: revenue.join(", ") });
+  }
+
+  if (facts.length <= 1) return null;
 
   return (
     <Card className="bg-[hsl(var(--color-warm))] border-[hsl(var(--color-line))] text-foreground overflow-hidden shadow-sm">
       <CardContent className="p-0">
         <div className="px-5 py-3 border-b border-[hsl(var(--color-line))]">
-          <h3 className="text-sm font-semibold tracking-wide text-foreground">Kort profil</h3>
+          <h3 className="text-sm font-semibold tracking-wide text-foreground">Partnerfakta</h3>
         </div>
-        <ul className="py-3 px-5 space-y-3 text-sm" aria-label="Kort profil">
-          {bullets.map((bullet) => (
-            <li key={bullet.text} className="flex items-start gap-3 text-foreground">
-              <span className="shrink-0" aria-hidden="true">{bullet.icon}</span>
-              <span>{bullet.text}</span>
-            </li>
+        <dl className="grid gap-x-6 gap-y-3 px-5 py-4 text-sm sm:grid-cols-2" aria-label="Partnerfakta">
+          {facts.map((fact) => (
+            <div key={fact.label} className="min-w-0">
+              <dt className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                {fact.label}
+              </dt>
+              <dd className="text-foreground">{fact.value}</dd>
+            </div>
           ))}
-        </ul>
+        </dl>
       </CardContent>
     </Card>
   );
