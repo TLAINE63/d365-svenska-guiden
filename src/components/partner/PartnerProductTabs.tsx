@@ -617,29 +617,14 @@ export default function PartnerProductTabs({
               )}
             </section>
 
-            {/* 2. Passar bäst för */}
+            {/* 2. Branscherfarenhet – storlek/omsättning ligger i Partnerfakta */}
             <section>
               <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
                 <Users className="w-5 h-5 text-primary" />
-                Branscherfarenhet och målgrupp
+                Branscherfarenhet
               </h2>
               <ul className="space-y-2.5">
-                {data.companySize.length > 0 && (
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-1 shrink-0" />
-                    <span className="text-foreground">
-                      Företag med <strong>{data.companySize.map(formatSwedishBand).join(", ")}</strong> anställda
-                    </span>
-                  </li>
-                )}
-                {data.revenue.length > 0 && (
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-1 shrink-0" />
-                    <span className="text-foreground">
-                      Omsättning: <strong>{data.revenue.map(formatSwedishBand).join(", ")}</strong>
-                    </span>
-                  </li>
-                )}
+
 
                 {data.industries.length > 0 && (
                   <li className="flex flex-col gap-2">
