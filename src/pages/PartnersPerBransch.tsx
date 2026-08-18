@@ -182,14 +182,16 @@ const PartnersPerBransch = () => {
             <div className="container mx-auto px-4 max-w-5xl">
               <div className="mb-8">
                 <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-                  Övriga D365-partners per bransch – Basickort
+                  Fler partners som arbetar med Dynamics 365
                 </h2>
                 <p className="text-sm text-muted-foreground max-w-3xl">
-                  Dessa partners har ännu inte en egen profil på d365.se. Vi visar
-                  observerad data (branscher, produktområden, orter) sammanställd
-                  från publika källor – grupperat per bransch.
+                  Profilerna bygger på publikt tillgängliga uppgifter och har ännu inte
+                  verifierats tillsammans med partnern. De innehåller därför varken
+                  kontaktperson, kundcase eller detaljerade kompetenser – här visas de
+                  grupperade per bransch.
                 </p>
               </div>
+
               <div className="space-y-10">
                 {[...STANDARD_INDUSTRIES]
                   .sort((a, b) => {
