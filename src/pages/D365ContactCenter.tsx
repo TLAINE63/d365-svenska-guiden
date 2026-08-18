@@ -288,7 +288,7 @@ const D365ContactCenter = () => {
 
       <ProductPartnerNewsSection productArea="crm-service" productLabel="Contact Center" />
 
-      <ApplicationPartners applicationFilter="Contact Center" pageSource="D365 Contact Center" />
+      <ApplicationPartners applicationFilter="Contact Center" pageSource="D365 Contact Center" showUnprofiledList={false} />
 
       {/* CTA Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-contact-center">
