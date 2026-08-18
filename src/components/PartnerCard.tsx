@@ -34,6 +34,12 @@ import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 import { displayApplicationName, getApplicationIcon, sortApplications, normalizeApplications } from "@/lib/applicationLabels";
 import PartnerCardSummary from "@/components/partner/PartnerCardSummary";
+import {
+  getResultAssessment,
+  getRelevanceFactors,
+  getDocumentedEvidence,
+} from "@/lib/partnerResultCard";
+
 
 
 // (AI labels and badge styles now come from aiScoring.ts)
