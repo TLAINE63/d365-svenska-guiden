@@ -209,6 +209,7 @@ interface TabData {
   industryApps: Array<{ name: string; url: string; application: string; industry: string; description: string }>;
   contact: { name?: string; email?: string; phone?: string } | null;
   landingPageUrl: string | null;
+  deliveryProfile: DeliveryProfileValue | null;
   productProfile: {
     app: string;
     positioning: string | null;
