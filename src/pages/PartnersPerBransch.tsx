@@ -11,9 +11,8 @@ import partnerDataJson from "@/data/partnerData.json";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 import { useState } from "react";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
-import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
+import PartnerCard from "@/components/PartnerCard";
 import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
-import { Badge } from "@/components/ui/badge";
 
 
 // Static featured-partner snapshot bundled at build time. Used as the
