@@ -450,6 +450,29 @@ serve(async (req: Request): Promise<Response> => {
           updateData.extended_content = trimmed;
           updateData.extended_content_updated_at = trimmed ? new Date().toISOString() : null;
         }
+        if ((partner as any)?.ai_summary !== undefined) {
+          const trimmed = (partner as any).ai_summary?.trim() || null;
+          updateData.ai_summary = trimmed;
+          updateData.ai_summary_generated_at = trimmed ? new Date().toISOString() : null;
+        }
+        if ((partner as any)?.ai_summary_full !== undefined) {
+          updateData.ai_summary_full = (partner as any).ai_summary_full?.trim() || null;
+        }
+        if ((partner as any)?.best_fit_for !== undefined) {
+          updateData.best_fit_for = Array.isArray((partner as any).best_fit_for)
+            ? (partner as any).best_fit_for.map((s: unknown) => String(s).trim()).filter(Boolean)
+            : [];
+        }
+        if ((partner as any)?.ai_tags !== undefined) {
+          updateData.ai_tags = Array.isArray((partner as any).ai_tags)
+            ? (partner as any).ai_tags.map((s: unknown) => String(s).trim()).filter(Boolean)
+            : [];
+        }
+        if ((partner as any)?.not_a_fit !== undefined) {
+          updateData.not_a_fit = Array.isArray((partner as any).not_a_fit)
+            ? (partner as any).not_a_fit.map((s: unknown) => String(s).trim()).filter(Boolean)
+            : [];
+        }
         if ((partner as any)?.extended_summary !== undefined) {
           updateData.extended_summary = (partner as any).extended_summary?.trim() || null;
         }

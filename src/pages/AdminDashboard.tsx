@@ -391,6 +391,7 @@ const AdminDashboard = () => {
 
   // AI summary generation state
   const [generatingSummaryId, setGeneratingSummaryId] = useState<string | null>(null);
+  const [generatingInsights, setGeneratingInsights] = useState(false);
   const [generatingAllSummaries, setGeneratingAllSummaries] = useState(false);
   const [summaryMode, setSummaryMode] = useState<"all" | "stale">("stale");
   const SUMMARY_STALE_DAYS = 90;
@@ -588,6 +589,42 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleGenerateInsights = async () => {
+    if (!editingPartner) {
+      toast({ title: "Spara partnern först", description: "Analysen kan bara genereras för en sparad partner.", variant: "destructive" });
+      return;
+    }
+    setGeneratingInsights(true);
+    try {
+      const { data, error } = await invokeAdminEdgeWithRetry("generate-partner-insights", {
+        token,
+        partnerId: editingPartner.id,
+      });
+      if (error) throw error;
+      if ((data as any)?.error) throw new Error((data as any).error);
+      const insights = (data as any)?.insights || {};
+      setPartnerFormData((prev) => ({
+        ...prev,
+        ai_summary_full: insights.ai_summary_full || "",
+        best_fit_for: insights.best_fit_for || [],
+        ai_tags: insights.ai_tags || [],
+      }));
+      toast({ title: "Analysen är genererad", description: "Granska texten och spara partnern." });
+      refetchPartners();
+    } catch (e: any) {
+      const msg = e?.message || "Okänt fel";
+      toast({
+        title: "Kunde inte generera analysen",
+        description: msg === "RATE_LIMIT" ? "AI-tjänsten är överbelastad – försök igen om en stund."
+          : msg === "PAYMENT_REQUIRED" ? "AI-krediter slut. Lägg till krediter under Settings → Workspace → Usage."
+          : msg,
+        variant: "destructive",
+      });
+    } finally {
+      setGeneratingInsights(false);
+    }
+  };
+
   const handleGenerateAllMissingSummaries = async () => {
     setGeneratingAllSummaries(true);
     try {
@@ -681,6 +718,11 @@ const AdminDashboard = () => {
     youtube_video_id?: string;
     ai_profile?: import("@/lib/aiProfile").AiProfile;
     extended_content?: string;
+    ai_summary?: string;
+    ai_summary_full?: string;
+    best_fit_for?: string[];
+    ai_tags?: string[];
+    not_a_fit?: string[];
     source_document_text?: string;
     source_document_url?: string;
     source_document_filename?: string;
@@ -720,6 +762,11 @@ const AdminDashboard = () => {
    legal_name: "",
    youtube_video_id: "",
     extended_content: "",
+    ai_summary: "",
+    ai_summary_full: "",
+    best_fit_for: [],
+    ai_tags: [],
+    not_a_fit: [],
     source_document_text: "",
     source_document_url: "",
     source_document_filename: "",
@@ -1387,6 +1434,11 @@ Thomas`,
   org_number: "",
   legal_name: "",
   extended_content: "",
+  ai_summary: "",
+  ai_summary_full: "",
+  best_fit_for: [],
+  ai_tags: [],
+  not_a_fit: [],
   partner_size_tier: null,
   partner_size_tier_needs_review: false,
   });
@@ -1474,6 +1526,11 @@ Thomas`,
    youtube_video_id: (partner as any).youtube_video_id || "",
     ai_profile: (partner as any).ai_profile || {},
     extended_content: (partner as any).extended_content || "",
+    ai_summary: (partner as any).ai_summary || "",
+    ai_summary_full: (partner as any).ai_summary_full || "",
+    best_fit_for: (partner as any).best_fit_for || [],
+    ai_tags: (partner as any).ai_tags || [],
+    not_a_fit: (partner as any).not_a_fit || [],
     source_document_text: (partner as any).source_document_text || "",
     source_document_url: (partner as any).source_document_url || "",
     source_document_filename: (partner as any).source_document_filename || "",
@@ -5484,6 +5541,104 @@ Thomas`,
  placeholder="Skriv en fördjupande text om partnern – bakgrund, specialistområden, arbetssätt, kundexempel, filosofi..."
  />
  </div>
+
+ <div className="rounded-lg border border-accent/30 bg-accent/5 p-4 space-y-4">
+ <div className="flex items-center justify-between gap-2 flex-wrap">
+ <div>
+ <Label className="font-semibold">d365.se:s analys</Label>
+ <p className="text-xs text-muted-foreground">
+ Redaktionell analys som visas överst på partnerprofilen (sammanfattning, fördjupning, passar bäst för och taggar).
+ </p>
+ </div>
+ <Button
+ type="button"
+ variant="outline"
+ size="sm"
+ disabled={generatingInsights || !editingPartner}
+ onClick={handleGenerateInsights}
+ >
+ {generatingInsights ? (
+ <><RefreshCw className="w-4 h-4 mr-2 animate-spin" />Genererar...</>
+ ) : (
+ <><Sparkles className="w-4 h-4 mr-2" />Återgenerera med AI</>
+ )}
+ </Button>
+ </div>
+
+ <div className="space-y-1.5">
+ <Label htmlFor="ai_summary" className="text-sm">Kort sammanfattning</Label>
+ <Textarea
+ id="ai_summary"
+ value={partnerFormData.ai_summary || ""}
+ onChange={(e) => setPartnerFormData({ ...partnerFormData, ai_summary: e.target.value })}
+ rows={5}
+ maxLength={2000}
+ placeholder="Kort analys – de första meningarna visas på profilen."
+ />
+ </div>
+
+ <div className="space-y-1.5">
+ <Label htmlFor="ai_summary_full" className="text-sm">Fördjupad analys</Label>
+ <Textarea
+ id="ai_summary_full"
+ value={partnerFormData.ai_summary_full || ""}
+ onChange={(e) => setPartnerFormData({ ...partnerFormData, ai_summary_full: e.target.value })}
+ rows={8}
+ maxLength={6000}
+ placeholder="Ett stycke per rad. Visas under 'Visa fördjupad analys'."
+ />
+ </div>
+
+ <div className="grid gap-4 md:grid-cols-2">
+ <div className="space-y-1.5">
+ <Label htmlFor="best_fit_for" className="text-sm">Passar bäst för (en per rad)</Label>
+ <Textarea
+ id="best_fit_for"
+ value={(partnerFormData.best_fit_for || []).join("\n")}
+ onChange={(e) =>
+ setPartnerFormData({
+ ...partnerFormData,
+ best_fit_for: e.target.value.split("\n").map((s) => s.replace(/^\s*[-•]\s*/, "")),
+ })
+ }
+ rows={6}
+ placeholder={"Medelstora bolag inom tillverkning\nBusiness Central-implementationer"}
+ />
+ </div>
+ <div className="space-y-1.5">
+ <Label htmlFor="not_a_fit" className="text-sm">Mindre lämplig för (en per rad)</Label>
+ <Textarea
+ id="not_a_fit"
+ value={(partnerFormData.not_a_fit || []).join("\n")}
+ onChange={(e) =>
+ setPartnerFormData({
+ ...partnerFormData,
+ not_a_fit: e.target.value.split("\n").map((s) => s.replace(/^\s*[-•]\s*/, "")),
+ })
+ }
+ rows={6}
+ placeholder={"Mycket små bolag\nRena Power Platform-projekt"}
+ />
+ </div>
+ </div>
+
+ <div className="space-y-1.5">
+ <Label htmlFor="ai_tags" className="text-sm">AI-taggar (kommaseparerade)</Label>
+ <Input
+ id="ai_tags"
+ value={(partnerFormData.ai_tags || []).join(", ")}
+ onChange={(e) =>
+ setPartnerFormData({
+ ...partnerFormData,
+ ai_tags: e.target.value.split(",").map((s) => s.trim()),
+ })
+ }
+ placeholder="Business Central, Tillverkning, AI och Copilot"
+ />
+ </div>
+ </div>
+
+
 
  {partnerFormData.source_document_text && (
  <div className="rounded-lg border border-slate-200 bg-slate-50/50 p-4 space-y-2">
