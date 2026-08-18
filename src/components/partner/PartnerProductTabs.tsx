@@ -711,7 +711,7 @@ export default function PartnerProductTabs({
             <section>
               <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
                 <Briefcase className="w-5 h-5 text-primary" />
-                Kompetenser
+                Kompetenser och teknik
               </h2>
 
               {(() => {
