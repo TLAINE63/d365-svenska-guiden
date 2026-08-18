@@ -1274,14 +1274,17 @@ const ComparePartners = () => {
     return counts;
   }, [sortedPartners, productFilters]);
 
-  // Clear selected industry if it no longer has any published partners
+  // Clear selected industry if it no longer has any published partners.
+  // Vänta tills partnerdata är laddad, annars nollställs ett medskickat
+  // branschfilter direkt vid första renderingen.
   useEffect(() => {
+    if (isLoading || sortedPartners.length === 0) return;
     if (industryFilter && (industryPartnerCounts[industryFilter] || 0) === 0) {
       const next = new URLSearchParams(params);
       next.delete("industry");
       setParams(next, { replace: true });
     }
-  }, [industryFilter, industryPartnerCounts, params, setParams]);
+  }, [isLoading, sortedPartners.length, industryFilter, industryPartnerCounts, params, setParams]);
 
   const allIndustryEligibleCount = useMemo(() => {
     if (productFilters.length === 0) return sortedPartners.length;
