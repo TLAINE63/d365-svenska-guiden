@@ -69,6 +69,15 @@ import Kostnad from './pages/Kostnad';
 import ImplementationCalculator from './pages/ImplementationCalculator';
 import Upphandlingsresan from './pages/Upphandlingsresan';
 import Upphandlingsguiden from './pages/Upphandlingsguiden';
+import Beslutsmognadsindex from './pages/Beslutsmognadsindex';
+import Partnernytt from './pages/Partnernytt';
+import Friskrivning from './pages/Friskrivning';
+import ComparePartners from './pages/ComparePartners';
+import ErpComparisonsHub from './pages/ErpComparisonsHub';
+import ErpComparisonPage from './pages/ErpComparisonPage';
+import VideoLanding from './pages/VideoLanding';
+import { PRODUCT_COMPARISONS } from './data/erpComparisons';
+import { KNOWLEDGE_VIDEOS } from './data/knowledgeVideos';
 import { PRODUCT_PARTNERS_SVERIGE } from './data/productPartnersSverige';
 import { ALL_DEEP_DIVE_ARTICLES } from './data/bcArticles';
 import { BLOG_ARTICLES } from './data/blogArticles';
@@ -222,6 +231,21 @@ export const routes: PrerenderRoute[] = [
   { path: '/kravspecifikation-sales', priority: '0.7', changefreq: 'monthly' },
   { path: '/kravspecifikation-marketing', priority: '0.7', changefreq: 'monthly' },
   { path: '/kravspecifikation-kundservice', priority: '0.7', changefreq: 'monthly' },
+  { path: '/partnernytt', priority: '0.7', changefreq: 'weekly' },
+  { path: '/friskrivning', priority: '0.3', changefreq: 'yearly' },
+  { path: '/jamfor-partners', priority: '0.7', changefreq: 'weekly' },
+  { path: '/jamfor', priority: '0.7', changefreq: 'monthly' },
+  ...PRODUCT_COMPARISONS.map((c) => ({
+    path: `/jamfor/${c.slug}`,
+    priority: '0.6',
+    changefreq: 'monthly' as const,
+    meta: { title: `${c.title} | d365.se`, description: c.metaDescription },
+  })),
+  ...KNOWLEDGE_VIDEOS.map((v) => ({
+    path: `/kunskapscenter/video/${v.slug}`,
+    priority: '0.6',
+    changefreq: 'monthly' as const,
+  })),
   { path: '/partners-sitemap', priority: '0.6', changefreq: 'weekly' },
   { path: '/alla-d365-partners', priority: '0.6', changefreq: 'monthly' },
   { path: '/partners-per-bransch', priority: '0.7', changefreq: 'weekly' },
@@ -437,6 +461,13 @@ export function render(url: string) {
               <Route path="/kravspecifikation-kundservice" element={<RequirementsSpecCustomerService />} />
               <Route path="/partner/:slug" element={<PartnerProfile initialData={mappedPartnerData as any} />} />
               <Route path="/partner/:slug/:productSlug" element={<PartnerProfile initialData={mappedPartnerData as any} />} />
+              <Route path="/beslutsmognad" element={<Beslutsmognadsindex />} />
+              <Route path="/partnernytt" element={<Partnernytt />} />
+              <Route path="/friskrivning" element={<Friskrivning />} />
+              <Route path="/jamfor-partners" element={<ComparePartners />} />
+              <Route path="/jamfor" element={<ErpComparisonsHub />} />
+              <Route path="/jamfor/:slug" element={<ErpComparisonPage />} />
+              <Route path="/kunskapscenter/video/:slug" element={<VideoLanding />} />
               <Route path="/partners-sitemap" element={<PartnersSitemap />} />
               <Route path="/alla-d365-partners" element={<AllD365Partners />} />
               <Route path="/partners-per-bransch" element={<PartnersPerBransch />} />
