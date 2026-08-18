@@ -1478,8 +1478,11 @@ export type Database = {
           agreement_signed_at: string | null
           ai_profile: Json
           ai_summary: string | null
+          ai_summary_full: string | null
           ai_summary_generated_at: string | null
+          ai_tags: string[]
           applications: string[] | null
+          best_fit_for: string[]
           cancellation_date: string | null
           contact_person: string | null
           contact_photo_url: string | null
@@ -1553,8 +1556,11 @@ export type Database = {
           agreement_signed_at?: string | null
           ai_profile?: Json
           ai_summary?: string | null
+          ai_summary_full?: string | null
           ai_summary_generated_at?: string | null
+          ai_tags?: string[]
           applications?: string[] | null
+          best_fit_for?: string[]
           cancellation_date?: string | null
           contact_person?: string | null
           contact_photo_url?: string | null
@@ -1628,8 +1634,11 @@ export type Database = {
           agreement_signed_at?: string | null
           ai_profile?: Json
           ai_summary?: string | null
+          ai_summary_full?: string | null
           ai_summary_generated_at?: string | null
+          ai_tags?: string[]
           applications?: string[] | null
+          best_fit_for?: string[]
           cancellation_date?: string | null
           contact_person?: string | null
           contact_photo_url?: string | null
@@ -2326,8 +2335,11 @@ export type Database = {
           agreement_signed: boolean | null
           ai_profile: Json | null
           ai_summary: string | null
+          ai_summary_full: string | null
           ai_summary_generated_at: string | null
+          ai_tags: string[] | null
           applications: string[] | null
+          best_fit_for: string[] | null
           contact_person: string | null
           contact_photo_url: string | null
           created_at: string | null
@@ -2368,8 +2380,11 @@ export type Database = {
           agreement_signed?: boolean | null
           ai_profile?: Json | null
           ai_summary?: string | null
+          ai_summary_full?: string | null
           ai_summary_generated_at?: string | null
+          ai_tags?: string[] | null
           applications?: string[] | null
+          best_fit_for?: string[] | null
           contact_person?: string | null
           contact_photo_url?: string | null
           created_at?: string | null
@@ -2410,8 +2425,11 @@ export type Database = {
           agreement_signed?: boolean | null
           ai_profile?: Json | null
           ai_summary?: string | null
+          ai_summary_full?: string | null
           ai_summary_generated_at?: string | null
+          ai_tags?: string[] | null
           applications?: string[] | null
+          best_fit_for?: string[] | null
           contact_person?: string | null
           contact_photo_url?: string | null
           created_at?: string | null

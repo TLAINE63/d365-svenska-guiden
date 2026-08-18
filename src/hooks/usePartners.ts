@@ -126,6 +126,12 @@ export interface DatabasePartner {
   implementations_done?: string | null;
   implementations_per_app?: Record<string, string> | null;
   not_a_fit?: string[] | null;
+  /** Fördjupad AI-sammanfattning (flera stycken, radbrytningsseparerade). */
+  ai_summary_full?: string | null;
+  /** Punktlista: vilka kunder partnern passar bäst för. */
+  best_fit_for?: string[] | null;
+  /** Fria kompetens-/AI-taggar. */
+  ai_tags?: string[] | null;
   ai_profile?: AiProfile | null;
   /** Grov leverantörsstorlek 1..5 (intern signal – ingen publik filter-UI). */
   partner_size_tier?: number | null;
@@ -222,6 +228,9 @@ export function usePartners() {
               implementations_done: (p as any).implementations_done ?? null,
               implementations_per_app: ((p as any).implementations_per_app ?? {}) as Record<string, string>,
               not_a_fit: ((p as any).not_a_fit ?? []) as string[],
+              ai_summary_full: (p as any).ai_summary_full ?? null,
+              best_fit_for: ((p as any).best_fit_for ?? []) as string[],
+              ai_tags: ((p as any).ai_tags ?? []) as string[],
               ai_profile: ((p as any).ai_profile ?? null) as AiProfile | null,
               partner_size_tier: (p as any).partner_size_tier ?? null,
               partner_size_tier_needs_review: (p as any).partner_size_tier_needs_review ?? false,
@@ -284,6 +293,9 @@ export function usePartner(slug: string | undefined) {
         implementations_done: (data as any).implementations_done ?? null,
         implementations_per_app: ((data as any).implementations_per_app ?? {}) as Record<string, string>,
         not_a_fit: ((data as any).not_a_fit ?? []) as string[],
+        ai_summary_full: (data as any).ai_summary_full ?? null,
+        best_fit_for: ((data as any).best_fit_for ?? []) as string[],
+        ai_tags: ((data as any).ai_tags ?? []) as string[],
         ai_profile: ((data as any).ai_profile ?? null) as AiProfile | null,
         partner_size_tier: (data as any).partner_size_tier ?? null,
         partner_size_tier_needs_review: (data as any).partner_size_tier_needs_review ?? false,

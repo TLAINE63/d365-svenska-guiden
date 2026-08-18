@@ -32,6 +32,7 @@ import StickyContactCTA from "@/components/partner/StickyContactCTA";
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
 import DecisionProfile from "@/components/partner/DecisionProfile";
+import PartnerAiInsights from "@/components/partner/PartnerAiInsights";
 import PartnerProductTabs, { resolveInitialTab } from "@/components/partner/PartnerProductTabs";
 import { RadialGlow } from "@/components/RadialGlow";
 import type { TabKey } from "@/components/partner/types";
@@ -611,6 +612,8 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  </header>
 
  {/* <DecisionProfile partner={partner} /> tillfälligt dold */}
+
+ <PartnerAiInsights partner={partner as any} />
 
 
 
