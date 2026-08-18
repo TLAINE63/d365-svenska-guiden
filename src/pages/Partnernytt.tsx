@@ -159,7 +159,7 @@ export default function Partnernytt() {
                 <SelectContent>
                   <SelectItem value="all">Alla typer</SelectItem>
                   {types.map((t) => (
-                    <SelectItem key={t} value={t}>{partnerNewsTypeLabel(t)}</SelectItem>
+                    <SelectItem key={t.value} value={t.value}>{t.label}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
