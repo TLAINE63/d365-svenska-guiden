@@ -106,6 +106,8 @@ interface ProductFilter {
   productDescription: string;
   whyChoose: string;
   keyPoints: string;
+  /** Leveransprofil per produktområde – hur partnern engageras under och efter go-live. */
+  deliveryProfile?: DeliveryProfileValue;
   // AI capability fields
  aiCapabilities: string[];
  aiProjectCount: string;
