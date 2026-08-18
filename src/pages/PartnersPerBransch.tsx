@@ -8,7 +8,7 @@ import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { collectPartnerIndustries } from "@/lib/partnerIndustries";
 import { ArrowRight, Building2 } from "lucide-react";
 import partnerDataJson from "@/data/partnerData.json";
-import { useBasicPartners, PRODUCT_LABEL, PRODUCT_ORDER } from "@/hooks/useBasicPartners";
+import { useBasicPartners } from "@/hooks/useBasicPartners";
 import { useState } from "react";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
 import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
