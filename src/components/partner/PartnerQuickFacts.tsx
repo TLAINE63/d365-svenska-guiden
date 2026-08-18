@@ -166,7 +166,7 @@ export function PartnerQuickFacts({ partner, activeTab }: PartnerQuickFactsProps
   }
 
   const facts: { label: string; value: string }[] = [
-    { label: "Primärt område", value: TAB_PRODUCT_TYPE[activeTab] },
+    { label: "Primärt Dynamics 365-område", value: TAB_PRODUCT_TYPE[activeTab] },
   ];
   if (companySize.length > 0) {
     facts.push({ label: "Företagsstorlek", value: formatSizeRange(companySize) });
@@ -174,16 +174,39 @@ export function PartnerQuickFacts({ partner, activeTab }: PartnerQuickFactsProps
     facts.push({ label: "Företagsstorlek", value: formatSizeLabelFromRevenue(revenue) });
   }
   if (industries.length > 0) {
-    facts.push({ label: "Branscher", value: formatIndustries(industries) });
+    facts.push({ label: "Huvudbranscher", value: formatIndustries(industries) });
   }
   if (geography.length > 0) {
-    facts.push({ label: "Geografi", value: formatGeography(geography) });
+    facts.push({ label: "Geografi", value: sortGeography(geography).join(" / ") });
   }
   if (revenue.length > 0 && companySize.length > 0) {
     facts.push({ label: "Omsättning", value: revenue.join(", ") });
   }
 
+  // Vanliga projekttyper – härleds ur partnerns taggar, annars utelämnas raden.
+  const PROJECT_TYPE_KEYWORDS = [
+    "Implementation",
+    "ERP-modernisering",
+    "Integration",
+    "Integrationer",
+    "Förvaltning",
+    "Vidareutveckling",
+    "Uppgradering",
+    "Migrering",
+    "Support",
+  ];
+  const tags = ((partner as unknown as { ai_tags?: string[] }).ai_tags || []).filter(Boolean);
+  const projectTypes = dedupeStrings(
+    tags.filter((t) =>
+      PROJECT_TYPE_KEYWORDS.some((k) => t.toLowerCase().includes(k.toLowerCase())),
+    ),
+  ).slice(0, 4);
+  if (projectTypes.length > 0) {
+    facts.push({ label: "Vanliga projekttyper", value: projectTypes.join(", ") });
+  }
+
   if (facts.length <= 1) return null;
+
 
   return (
     <Card className="bg-[hsl(var(--color-warm))] border-[hsl(var(--color-line))] text-foreground overflow-hidden shadow-sm">
