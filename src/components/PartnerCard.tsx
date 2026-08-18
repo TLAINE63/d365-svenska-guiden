@@ -454,12 +454,13 @@ const PartnerCard = ({
  {resultView ? (
   <>
    {assessment && (
-    <div className="mb-3 rounded-md border-l-2 border-primary bg-primary/5 px-3 py-2">
+    <div className="mb-3 rounded-md border-l-2 border-primary bg-primary/5 px-3 py-2.5">
      <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-1">
       d365.se:s bedömning
      </p>
-     <p className="text-[13px] leading-snug text-foreground line-clamp-3">{assessment}</p>
+     <p className="text-[13px] leading-relaxed text-foreground line-clamp-6 min-h-[5.5rem]">{assessment}</p>
     </div>
+
    )}
 
    {relevanceFactors.length > 0 && (
