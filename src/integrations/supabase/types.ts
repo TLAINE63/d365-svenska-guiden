@@ -1220,6 +1220,79 @@ export type Database = {
           },
         ]
       }
+      partner_performance_reports: {
+        Row: {
+          admin_comment: string | null
+          approved_at: string | null
+          created_at: string
+          id: string
+          metrics: Json
+          partner_id: string | null
+          partner_name: string
+          partner_slug: string
+          period_month: string
+          recipient_email: string | null
+          recommendations: Json
+          sent_at: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          admin_comment?: string | null
+          approved_at?: string | null
+          created_at?: string
+          id?: string
+          metrics?: Json
+          partner_id?: string | null
+          partner_name: string
+          partner_slug: string
+          period_month: string
+          recipient_email?: string | null
+          recommendations?: Json
+          sent_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          admin_comment?: string | null
+          approved_at?: string | null
+          created_at?: string
+          id?: string
+          metrics?: Json
+          partner_id?: string | null
+          partner_name?: string
+          partner_slug?: string
+          period_month?: string
+          recipient_email?: string | null
+          recommendations?: Json
+          sent_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_performance_reports_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_performance_reports_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_basic_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_performance_reports_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       partner_profile_views: {
         Row: {
           id: string
