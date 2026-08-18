@@ -123,6 +123,7 @@ import AdminKeywordTrendsTab from "@/components/AdminKeywordTrendsTab";
 import AdminGscTab from "@/components/AdminGscTab";
 import AdminPillarFollowupTab from "@/components/AdminPillarFollowupTab";
 import AdminPartnerDashboardTab from "@/components/AdminPartnerDashboardTab";
+import AdminPartnerPerformanceTab from "@/components/AdminPartnerPerformanceTab";
 import AdminPartnerReportsTab from "@/components/AdminPartnerReportsTab";
 import PartnerStatsMatrix from "@/components/PartnerStatsMatrix";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
@@ -298,7 +299,7 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
  id: "partnerportal",
  label: "Partnerportal",
  icon: LayoutDashboard,
- tabs: ["partner-stats-page", "partner-agreement-page", "partner-dashboard", "partner-reports"],
+ tabs: ["partner-stats-page", "partner-agreement-page", "partner-dashboard", "partner-reports", "partner-performance"],
  },
 ];
 
