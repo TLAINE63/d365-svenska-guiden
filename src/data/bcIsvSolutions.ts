@@ -84,8 +84,8 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
   },
   {
     id: "exflow",
-    name: "SignUp ExFlow",
-    vendor: "SignUp Software",
+    name: "ExFlow",
+    vendor: "Truvio",
     shortDescription: "Svensk ISV för AP Automation, Data Capture och Travel & Expense i BC.",
     type: "BC-native (ISV)",
     category: "AP automation",
@@ -102,7 +102,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     whenFits: "Större volymer leverantörsfakturor där ni vill ha svensk ISV med stark BC- och F&O-närvaro.",
     combos: ["BC + ExFlow + Power BI", "BC + ExFlow + svensk lokalisering"],
     partnersSE: ["4PS Construction Software", "Fellowmind", "Implema", "NAB Solutions", "Sherpas Group", "Yellow Solution"],
-    partnerSource: "SignUp Software",
+    partnerSource: "Truvio",
   },
   {
     id: "swebase",
@@ -125,7 +125,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
   {
     id: "smart-swedish-vat",
     name: "Smart Swedish VAT",
-    vendor: "SmartApps / NAB Solutions",
+    vendor: "SmartApps",
     shortDescription: "Specifikt tillägg för svensk momsrapportering i BC.",
     type: "BC-native (ISV)",
     category: "Lokalisering",
@@ -138,7 +138,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     whenFits: "När momsen är komplex och standard-BC inte räcker.",
     combos: ["BC + Smart Swedish VAT + Swebase"],
     partnersSE: ["NAB Solutions"],
-    partnerSource: "SmartApps / NAB",
+    partnerSource: "SmartApps",
   },
   {
     id: "tasklet-wms",
