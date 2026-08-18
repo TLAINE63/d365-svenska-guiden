@@ -79,3 +79,6 @@ verify_jwt = false
 
 [functions.generate-partner-delivery-summary]
 verify_jwt = false
+
+[functions.partner-performance-report]
+verify_jwt = false
