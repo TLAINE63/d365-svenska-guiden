@@ -648,6 +648,7 @@ const FinanceSupplyChain = () => {
  highlightedRevenue={selectedRevenue || undefined}
  showRandomIndicator={true}
  showBestFitOnly
+ resultView
  />
  );
  })}
