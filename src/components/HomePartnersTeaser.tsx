@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import partnerDataJson from "@/data/partnerData.json";
@@ -7,6 +7,7 @@ import { companySizes, revenueOptions } from "@/data/partners";
 import PartnerCard from "@/components/PartnerCard";
 import FilteredListActions from "@/components/FilteredListActions";
 import type { DatabasePartner } from "@/hooks/usePartners";
+import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 
 
 type RawPartner = {
@@ -144,6 +145,16 @@ export default function HomePartnersTeaser() {
   const [industry, setIndustry] = useState<string>("");
   const [size, setSize] = useState<string>("");
   const [revenue, setRevenue] = useState<string>("");
+
+  // Filtren följer med till jämförelsesidan
+  const { setFilterContext: setCompareFilters } = usePartnerCompare();
+  useEffect(() => {
+    setCompareFilters({
+      industry: industry || null,
+      companySize: size || null,
+      revenue: revenue || null,
+    });
+  }, [industry, size, revenue, setCompareFilters]);
 
   // Daily seed
   const seed = useMemo(() => {

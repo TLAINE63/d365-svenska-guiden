@@ -238,8 +238,9 @@ const ValjPartner = () => {
    industry: selectedIndustry || null,
    geography: selectedGeography || null,
    companySize: selectedCompanySize || null,
+   revenue: selectedRevenue || null,
   });
- }, [selectedApplications, selectedIndustry, selectedGeography, selectedCompanySize, setCompareFilters]);
+ }, [selectedApplications, selectedIndustry, selectedGeography, selectedCompanySize, selectedRevenue, setCompareFilters]);
 
  // Filter to only show featured partners from database
  const partners = useMemo(() => {
