@@ -391,6 +391,7 @@ const AdminDashboard = () => {
 
   // AI summary generation state
   const [generatingSummaryId, setGeneratingSummaryId] = useState<string | null>(null);
+  const [generatingInsights, setGeneratingInsights] = useState(false);
   const [generatingAllSummaries, setGeneratingAllSummaries] = useState(false);
   const [summaryMode, setSummaryMode] = useState<"all" | "stale">("stale");
   const SUMMARY_STALE_DAYS = 90;
@@ -585,6 +586,42 @@ const AdminDashboard = () => {
       });
     } finally {
       setGeneratingSummaryId(null);
+    }
+  };
+
+  const handleGenerateInsights = async () => {
+    if (!editingPartner) {
+      toast({ title: "Spara partnern först", description: "Analysen kan bara genereras för en sparad partner.", variant: "destructive" });
+      return;
+    }
+    setGeneratingInsights(true);
+    try {
+      const { data, error } = await invokeAdminEdgeWithRetry("generate-partner-insights", {
+        token,
+        partnerId: editingPartner.id,
+      });
+      if (error) throw error;
+      if ((data as any)?.error) throw new Error((data as any).error);
+      const insights = (data as any)?.insights || {};
+      setPartnerFormData((prev) => ({
+        ...prev,
+        ai_summary_full: insights.ai_summary_full || "",
+        best_fit_for: insights.best_fit_for || [],
+        ai_tags: insights.ai_tags || [],
+      }));
+      toast({ title: "Analysen är genererad", description: "Granska texten och spara partnern." });
+      refetchPartners();
+    } catch (e: any) {
+      const msg = e?.message || "Okänt fel";
+      toast({
+        title: "Kunde inte generera analysen",
+        description: msg === "RATE_LIMIT" ? "AI-tjänsten är överbelastad – försök igen om en stund."
+          : msg === "PAYMENT_REQUIRED" ? "AI-krediter slut. Lägg till krediter under Settings → Workspace → Usage."
+          : msg,
+        variant: "destructive",
+      });
+    } finally {
+      setGeneratingInsights(false);
     }
   };
 
