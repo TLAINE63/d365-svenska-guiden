@@ -1,7 +1,7 @@
 // Public display of a partner's AI, Copilot & Automation profile.
 // Never shows internal AI score, confidence, badges, tiers or numerical levels.
 
-import { Sparkles, Bot } from "lucide-react";
+import { Bot } from "lucide-react";
 import {
   AiProfile,
   labelForDelivery,

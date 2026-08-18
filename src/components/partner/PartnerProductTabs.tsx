@@ -576,7 +576,7 @@ export default function PartnerProductTabs({
             {/* Quick facts – helps customers compare themselves against the partner */}
             <PartnerQuickFacts partner={partner} activeTab={active} />
 
-            {/* 1. Varför välja */}
+            {/* 1. Partnerns eget erbjudande */}
 
             <section>
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight mb-2">
