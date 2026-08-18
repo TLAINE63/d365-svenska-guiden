@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import partnerDataJson from "@/data/partnerData.json";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
-import { companySizes } from "@/data/partners";
+import { companySizes, revenueOptions } from "@/data/partners";
 import PartnerCard from "@/components/PartnerCard";
 import FilteredListActions from "@/components/FilteredListActions";
 import type { DatabasePartner } from "@/hooks/usePartners";
@@ -20,7 +20,7 @@ type RawPartner = {
   office_cities?: string[];
   is_featured?: boolean;
   agreement_signed?: boolean;
-  product_filters?: Record<string, { companySize?: string[]; industries?: string[] }>;
+  product_filters?: Record<string, { companySize?: string[]; revenue?: string[]; industries?: string[] }>;
 };
 
 const PRODUCT_KEYS = ["bc", "fsc", "sales", "service"] as const;
@@ -118,6 +118,12 @@ const partnerMatchesSize = (p: RawPartner, size: string) => {
   return Object.values(pf).some((f) => (f?.companySize || []).includes(size));
 };
 
+const partnerMatchesRevenue = (p: RawPartner, revenue: string) => {
+  if (!revenue) return true;
+  const pf = p.product_filters || {};
+  return Object.values(pf).some((f) => (f?.revenue || []).includes(revenue));
+};
+
 export default function HomePartnersTeaser() {
   const allPartners = (partnerDataJson as RawPartner[]).filter((p) => p.is_featured && p.agreement_signed);
   const totalCount = allPartners.length;
@@ -137,6 +143,7 @@ export default function HomePartnersTeaser() {
   const [quick, setQuick] = useState<Quick>("all");
   const [industry, setIndustry] = useState<string>("");
   const [size, setSize] = useState<string>("");
+  const [revenue, setRevenue] = useState<string>("");
 
   // Daily seed
   const seed = useMemo(() => {
@@ -146,10 +153,10 @@ export default function HomePartnersTeaser() {
 
   const filtered = useMemo(() => {
     const matched = allPartners.filter(
-      (p) => partnerMatchesQuick(p, quick) && partnerMatchesIndustry(p, industry) && partnerMatchesSize(p, size)
+      (p) => partnerMatchesQuick(p, quick) && partnerMatchesIndustry(p, industry) && partnerMatchesSize(p, size) && partnerMatchesRevenue(p, revenue)
     );
     return seededShuffle(matched, seed).slice(0, 3);
-  }, [allPartners, quick, industry, size, seed]);
+  }, [allPartners, quick, industry, size, revenue, seed]);
 
   const baseChip =
     "px-4 py-2 rounded text-[13px] font-semibold border transition-all whitespace-nowrap";
@@ -216,10 +223,27 @@ to="/valjdynamics365partner/#alla-partners-rubrik"
               className={`${baseChip} ${size ? activeChip : inactiveChip} appearance-none pr-8 cursor-pointer`}
               aria-label="Filtrera på storlek"
             >
-              <option value="">Storlek</option>
+              <option value="">Antal anställda</option>
               {companySizes.map((s) => (
                 <option key={s} value={s}>
                   {s}
+                </option>
+              ))}
+            </select>
+            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs">▾</span>
+          </div>
+
+          <div className="relative">
+            <select
+              value={revenue}
+              onChange={(e) => setRevenue(e.target.value)}
+              className={`${baseChip} ${revenue ? activeChip : inactiveChip} appearance-none pr-8 cursor-pointer`}
+              aria-label="Filtrera på omsättning"
+            >
+              <option value="">Omsättning</option>
+              {revenueOptions.map((r) => (
+                <option key={r} value={r}>
+                  {r}
                 </option>
               ))}
             </select>
@@ -244,6 +268,7 @@ to="/valjdynamics365partner/#alla-partners-rubrik"
                 selectedProduct={quick !== "all" ? QUICK_FILTERS.find((f) => f.id === quick)?.label : undefined}
                 industry={industry || undefined}
                 companySize={size || undefined}
+                revenue={revenue || undefined}
                 analyticsSource="home-teaser"
                 variant="compact"
               />
