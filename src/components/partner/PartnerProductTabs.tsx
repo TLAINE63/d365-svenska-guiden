@@ -580,7 +580,7 @@ export default function PartnerProductTabs({
 
             <section>
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight mb-2">
-                Varför välja {partner.name} för {tabMeta.label}?
+                {swedishPossessive(partner.name)} erbjudande inom {tabMeta.label}
               </h2>
               {(data.productProfile?.positioning || partner.positioning_statement) ? (
                 <p className="text-base text-muted-foreground mb-5 max-w-[68ch] leading-relaxed">
