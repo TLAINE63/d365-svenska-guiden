@@ -1,5 +1,11 @@
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
+import Partnerprogram from './pages/Partnerprogram';
+import PartnerBasicProfile from './pages/PartnerBasicProfile';
+import { normalizeBasicPartnerRow, type BasicPartner } from './hooks/useBasicPartners';
+
+/** Filled by getDynamicRoutes() before prerendering so /basic/:slug renders real HTML. */
+const BASIC_PARTNERS_BY_SLUG: Record<string, BasicPartner> = {};
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -306,6 +312,10 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
 
 
 export function render(url: string) {
+  const basicMatch = url.match(/^\/basic\/([^/?#]+)/);
+  const basicSlug = basicMatch ? basicMatch[1].replace(/\/$/, '') : null;
+  const basicInitialData = basicSlug ? BASIC_PARTNERS_BY_SLUG[basicSlug] || null : null;
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: { retry: false, enabled: false },
@@ -378,6 +388,8 @@ export function render(url: string) {
               <Route path="/ERPbehovsanalys" element={<NeedsAnalysis />} />
               <Route path="/behovsanalys" element={<Navigate to="/ERPbehovsanalys" replace />} />
               <Route path="/kom-igang" element={<KomIgang />} />
+              <Route path="/partnerprogram" element={<Partnerprogram />} />
+              <Route path="/basic/:slug" element={<PartnerBasicProfile initialData={basicInitialData} />} />
               <Route path="/CRMbehovsanalys" element={<SalesMarketingNeedsAnalysis />} />
               <Route path="/salj-marknad-behovsanalys" element={<Navigate to="/CRMbehovsanalys" replace />} />
               <Route path="/kundservice-behovsanalys" element={<CustomerServiceNeedsAnalysis />} />
@@ -482,7 +494,7 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
     const supaUrl = process.env.VITE_SUPABASE_URL;
     const supaKey = process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
     if (supaUrl && supaKey) {
-      const url = `${supaUrl}/rest/v1/partners_basic_public?select=slug,name,extended_content,updated_at&order=name.asc`;
+      const url = `${supaUrl}/rest/v1/partners_basic_public?select=*&order=name.asc`;
       const res = await fetch(url, {
         headers: { apikey: supaKey, Authorization: `Bearer ${supaKey}` },
       });
@@ -495,6 +507,7 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
         }>;
         for (const r of rows) {
           if (!r.slug || !r.name) continue;
+          BASIC_PARTNERS_BY_SLUG[r.slug] = normalizeBasicPartnerRow(r);
           const desc = (r.extended_content || '')
             .replace(/\s+/g, ' ')
             .trim()

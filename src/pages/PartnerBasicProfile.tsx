@@ -6,7 +6,7 @@ import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import { useBasicPartner, PRODUCT_LABEL, PRODUCT_ORDER } from "@/hooks/useBasicPartners";
+import { useBasicPartner, PRODUCT_LABEL, PRODUCT_ORDER, type BasicPartner } from "@/hooks/useBasicPartners";
 import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
 
 function excerpt(text: string | null | undefined, max = 155): string {
@@ -16,9 +16,16 @@ function excerpt(text: string | null | undefined, max = 155): string {
   return clean.slice(0, max - 1).replace(/\s+\S*$/, "") + "…";
 }
 
-export default function PartnerBasicProfile() {
+export default function PartnerBasicProfile({
+  initialData = null,
+}: {
+  /** Prerender/SSR fallback so crawlers get real content without JS. */
+  initialData?: BasicPartner | null;
+}) {
   const { slug } = useParams<{ slug: string }>();
-  const { data: partner, isLoading } = useBasicPartner(slug);
+  const { data, isLoading: queryLoading } = useBasicPartner(slug);
+  const partner = data ?? initialData;
+  const isLoading = queryLoading && !initialData;
 
   const observedApps = partner
     ? PRODUCT_ORDER.filter((k) => partner.observed_products?.[k]).map(
