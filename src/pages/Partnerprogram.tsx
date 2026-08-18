@@ -33,6 +33,8 @@ import {
 import { BreadcrumbSchema, FAQSchema, WebPageSchema } from "@/components/StructuredData";
 import { trackFunnelEvent, type FunnelEventType } from "@/utils/trackFunnelEvent";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
+import PartnerProgramBenchmark from "@/components/partner/PartnerProgramBenchmark";
+
 import partnerData from "@/data/partnerData.json";
 
 type SimplePartner = { slug: string; name: string; is_featured: boolean; logo_url?: string | null };
