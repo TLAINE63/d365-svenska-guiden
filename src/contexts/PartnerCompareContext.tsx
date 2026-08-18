@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, ReactNode } from "react";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 type CompareEntry = { slug: string; name: string };
 
