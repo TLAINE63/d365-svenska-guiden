@@ -13,6 +13,8 @@ import { SizeFilters } from "@/components/SizeFilters";
 import { usePartners } from "@/hooks/usePartners";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
+import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
+import { appToProductFilterKey } from "@/lib/productFilterGroup";
 
 // Geography filter options
 const geographyFilters = [
@@ -37,6 +39,18 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
  const [selectedRevenue, setSelectedRevenue] = useState<string | null>(null);
+
+ // Låt aktiva filter följa med till jämförelsesidan
+ const { setFilterContext: setCompareFilters } = usePartnerCompare();
+ useEffect(() => {
+  setCompareFilters({
+   product: appToProductFilterKey(applicationFilter),
+   industry: selectedIndustry || null,
+   geography: selectedGeography || null,
+   companySize: selectedCompanySize || null,
+   revenue: selectedRevenue || null,
+  });
+ }, [applicationFilter, selectedIndustry, selectedGeography, selectedCompanySize, selectedRevenue, setCompareFilters]);
 
  // Filter to only show featured partners
  const partners = useMemo(() => {
