@@ -606,12 +606,48 @@ const PartnerCard = ({
  className="w-full relative overflow-hidden bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground font-semibold transition-all duration-300 group/btn"
  >
   <Link to={cleanProfileUrl} onClick={handleCardClick} className="flex items-center justify-center gap-1.5 whitespace-nowrap px-2">
-  <span className="relative z-10">Visa partnerprofil</span>
+  <span className="relative z-10">{resultView ? 'Se partnerprofil' : 'Visa partnerprofil'}</span>
   <ArrowRight className="h-4 w-4 relative z-10 transition-transform duration-300 group-hover/btn:translate-x-1 shrink-0" />
  {/* Button shimmer effect */}
  <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/20 to-transparent" />
  </Link>
  </Button>
+ {resultView ? (
+  compareSlug && (
+   <div className="flex items-center gap-2">
+    <button
+     type="button"
+     onClick={(e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleCompare({ slug: compareSlug, name: partner.name || 'Partner' });
+     }}
+     aria-pressed={compareActive}
+     className={`flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-md text-xs font-medium border transition-all ${
+      compareActive
+       ? 'border-[hsl(var(--cta-orange))] text-[hsl(var(--cta-orange))] bg-[hsl(var(--cta-orange))]/10'
+       : 'bg-transparent text-muted-foreground border-border hover:text-foreground hover:border-foreground/30'
+     }`}
+    >
+     <ArrowLeftRight className="h-3.5 w-3.5" />
+     {compareActive ? 'Vald' : 'Jämför'}
+    </button>
+    <button
+     type="button"
+     onClick={(e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setContactOpen(true);
+     }}
+     className="flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-md text-xs font-medium border border-border bg-transparent text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all"
+    >
+     <Mail className="h-3.5 w-3.5" />
+     Få kontakt
+    </button>
+   </div>
+  )
+ ) : (
+  <>
  {compareSlug && (
   <button
    type="button"
@@ -645,6 +681,9 @@ const PartnerCard = ({
    {compareActive ? 'Vald för jämförelse' : 'Jämför partners (välj upp till 3)'}
   </button>
  )}
+  </>
+ )}
+
  </div>
  </div>
  </div>
