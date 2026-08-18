@@ -32,7 +32,7 @@ const PRODUCT_AREAS = [
 ] as const;
 
 const SOURCE_TYPES = ["linkedin","webinar","blog","press","partner_web","event","other"];
-const NEWS_TYPES = ["partnernyhet","webinar","event","artikel","kundcase","erbjudande","rapport","branschlosning","produktnyhet","analys"];
+const NEWS_TYPES = ["artikel","webinar","event","kundcase","erbjudande","rapport","branschlosning","produktnyhet","analys"];
 
 interface Props { token: string; partners: PartnerLite[]; onSessionExpired: () => void; }
 
@@ -45,7 +45,7 @@ export default function AdminPartnerFeedsTab({ token, partners, onSessionExpired
     partner_id: "",
     feed_url: "",
     source_type: "linkedin",
-    default_news_type: "partnernyhet",
+    default_news_type: "artikel",
     default_product_area: "ovrigt",
     is_active: true,
   });
