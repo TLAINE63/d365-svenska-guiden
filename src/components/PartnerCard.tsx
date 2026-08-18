@@ -34,6 +34,12 @@ import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 import { displayApplicationName, getApplicationIcon, sortApplications, normalizeApplications } from "@/lib/applicationLabels";
 import PartnerCardSummary from "@/components/partner/PartnerCardSummary";
+import {
+  getResultAssessment,
+  getRelevanceFactors,
+  getDocumentedEvidence,
+} from "@/lib/partnerResultCard";
+
 
 
 // (AI labels and badge styles now come from aiScoring.ts)
@@ -195,9 +201,14 @@ interface PartnerCardProps {
  highlightedGeography?: string;
  showRandomIndicator?: boolean;
  // When true, show a single longer industry-pitch text block instead of the positioning statement
- showIndustryPitch?: boolean;
+  showIndustryPitch?: boolean;
  // When true, show only the positioning statement as a "Passar bäst för" block (product pages)
  showBestFitOnly?: boolean;
+ /**
+  * Sökresultatsläge: filterkriterierna visas en gång ovanför listan, kortet fokuserar
+  * på d365.se:s bedömning, "Särskilt relevant för" och dokumenterad erfarenhet.
+  */
+ resultView?: boolean;
 }
 
 const PartnerCard = ({ 
@@ -213,7 +224,9 @@ const PartnerCard = ({
  showRandomIndicator = false,
  showIndustryPitch = false,
  showBestFitOnly = false,
+ resultView = false,
 }: PartnerCardProps) => {
+
   const [showAiDetails, setShowAiDetails] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const { isSelected: isCompareSelected, toggle: toggleCompare } = usePartnerCompare();
@@ -253,6 +266,21 @@ const PartnerCard = ({
  const colors = getColorClasses();
 
  const indicators = useMemo(() => getPartnerIndicators(partner, productKey, highlightedIndustry || null), [partner, productKey, highlightedIndustry]);
+
+ const assessment = useMemo(() => (resultView ? getResultAssessment(partner) : null), [resultView, partner]);
+ const relevanceFactors = useMemo(
+  () =>
+   resultView
+    ? getRelevanceFactors(partner, {
+       highlightedIndustry: highlightedIndustry || null,
+       highlightedProduct: highlightedProduct || null,
+      })
+    : [],
+  [resultView, partner, highlightedIndustry, highlightedProduct],
+ );
+ const evidence = useMemo(() => (resultView ? getDocumentedEvidence(partner) : null), [resultView, partner]);
+
+
 
 
 
@@ -423,6 +451,46 @@ const PartnerCard = ({
 
 
 
+ {resultView ? (
+  <>
+   {assessment && (
+    <div className="mb-3 rounded-md border-l-2 border-primary bg-primary/5 px-3 py-2">
+     <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-1">
+      d365.se:s bedömning
+     </p>
+     <p className="text-[13px] leading-snug text-foreground line-clamp-3">{assessment}</p>
+    </div>
+   )}
+
+   {relevanceFactors.length > 0 && (
+    <div className="mb-3">
+     <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1.5">
+      Särskilt relevant för
+     </p>
+     <div className="flex flex-wrap gap-1.5">
+      {relevanceFactors.map((factor) => (
+       <span
+        key={factor}
+        className="inline-flex items-center rounded-full border border-accent/25 bg-accent/10 px-2 py-0.5 text-[11px] font-medium text-accent"
+       >
+        {factor}
+       </span>
+      ))}
+     </div>
+    </div>
+   )}
+
+   {evidence && (
+    <div className="mb-3">
+     <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1">
+      Dokumenterad erfarenhet
+     </p>
+     <p className="text-[12px] leading-snug text-muted-foreground line-clamp-2">{evidence}</p>
+    </div>
+   )}
+  </>
+ ) : (
+  <>
  {/* Matchar din sökning – visas när användaren har aktiva filter */}
  {(highlightedProduct || highlightedIndustry || highlightedGeography || highlightedCompanySize) && (
   <div className="mb-3 rounded-md border border-primary/20 bg-primary/5 px-3 py-2">
@@ -507,10 +575,13 @@ const PartnerCard = ({
            </div>
          </div>
        )}
+  </>
+ )}
+
 
 
  <div className="mt-auto pt-3 space-y-2">
- {productLandingPageUrl && (
+ {!resultView && productLandingPageUrl && (
  <a
  href={productLandingPageUrl}
  target="_blank"
@@ -535,12 +606,48 @@ const PartnerCard = ({
  className="w-full relative overflow-hidden bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground font-semibold transition-all duration-300 group/btn"
  >
   <Link to={cleanProfileUrl} onClick={handleCardClick} className="flex items-center justify-center gap-1.5 whitespace-nowrap px-2">
-  <span className="relative z-10">Visa partnerprofil</span>
+  <span className="relative z-10">{resultView ? 'Se partnerprofil' : 'Visa partnerprofil'}</span>
   <ArrowRight className="h-4 w-4 relative z-10 transition-transform duration-300 group-hover/btn:translate-x-1 shrink-0" />
  {/* Button shimmer effect */}
  <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/20 to-transparent" />
  </Link>
  </Button>
+ {resultView ? (
+  compareSlug && (
+   <div className="flex items-center gap-2">
+    <button
+     type="button"
+     onClick={(e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleCompare({ slug: compareSlug, name: partner.name || 'Partner' });
+     }}
+     aria-pressed={compareActive}
+     className={`flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-md text-xs font-medium border transition-all ${
+      compareActive
+       ? 'border-[hsl(var(--cta-orange))] text-[hsl(var(--cta-orange))] bg-[hsl(var(--cta-orange))]/10'
+       : 'bg-transparent text-muted-foreground border-border hover:text-foreground hover:border-foreground/30'
+     }`}
+    >
+     <ArrowLeftRight className="h-3.5 w-3.5" />
+     {compareActive ? 'Vald' : 'Jämför'}
+    </button>
+    <button
+     type="button"
+     onClick={(e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setContactOpen(true);
+     }}
+     className="flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-md text-xs font-medium border border-border bg-transparent text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all"
+    >
+     <Mail className="h-3.5 w-3.5" />
+     Få kontakt
+    </button>
+   </div>
+  )
+ ) : (
+  <>
  {compareSlug && (
   <button
    type="button"
@@ -574,6 +681,9 @@ const PartnerCard = ({
    {compareActive ? 'Vald för jämförelse' : 'Jämför partners (välj upp till 3)'}
   </button>
  )}
+  </>
+ )}
+
  </div>
  </div>
  </div>
