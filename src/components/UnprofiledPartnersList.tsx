@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MessageSquare, ArrowRight } from "lucide-react";
 import { useMemo } from "react";
@@ -92,11 +91,10 @@ const UnprofiledPartnersList = ({
   if (combined.length === 0) return null;
 
   const heading = productKey && productLabel
-    ? `Övriga partners som arbetar med ${productLabel}`
-    : "Övriga Dynamics 365-partners på den svenska marknaden";
-  const intro = productKey && productLabel
-    ? `För full transparens listar vi även andra partners som angett att de arbetar med ${productLabel}, men som ännu inte är publicerade med en fullständig profil på d365.se. Vill du veta mer om någon av dem – eller få hjälp att jämföra – kontakta oss så vägleder vi dig vidare.`
-    : "För full transparens listar vi även andra Dynamics 365-partners som är verksamma i Sverige. Dessa har vi ännu inte profilerat på d365.se. Vill du veta mer om någon av dem – eller få hjälp att jämföra – kontakta oss så vägleder vi dig vidare.";
+    ? `Fler partners som arbetar med ${productLabel}`
+    : "Fler Dynamics 365-partners på den svenska marknaden";
+  const areaText = productKey && productLabel ? productLabel : "Dynamics 365";
+  const intro = `d365.se listar även partners som enligt tillgänglig information arbetar med ${areaText} men som ännu inte har en verifierad partnerprofil. Informationen bygger på publikt tillgängliga uppgifter och kan därför vara mindre komplett än för verifierade profiler.`;
 
   return (
     <section className="py-8 sm:py-12 bg-background border-t border-border">
@@ -112,30 +110,41 @@ const UnprofiledPartnersList = ({
 
         <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
           {combined.map((p) => {
+            const additional = (p.products || []).filter(
+              (label) => !productKey || label !== PRODUCT_LABEL[productKey],
+            );
             const content = (
               <>
                 <div className="min-w-0 flex-1">
-                  <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors truncate mb-2">
+                  <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
                     {p.name}
                   </h3>
-                  {p.products && p.products.length > 0 && (
-                    <div className="flex flex-wrap gap-1">
-                      {p.products.map((label) => (
-                        <Badge
-                          key={label}
-                          variant="outline"
-                          className="text-[10px] px-1.5 py-0 border-accent/30 text-accent bg-accent/5"
-                        >
-                          {label}
-                        </Badge>
-                      ))}
+                  <p className="mt-1 text-[11px] uppercase tracking-wide text-muted-foreground">
+                    Ej verifierad profil
+                  </p>
+                  {additional.length > 0 ? (
+                    <div className="mt-2">
+                      <p className="text-[11px] font-medium text-muted-foreground">
+                        {productKey ? "Även dokumenterat" : "Dokumenterade områden"}
+                      </p>
+                      <ul className="mt-0.5 space-y-0.5 text-sm text-foreground/80">
+                        {additional.map((label) => (
+                          <li key={label}>{label}</li>
+                        ))}
+                      </ul>
                     </div>
+                  ) : (
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      Ingen ytterligare produktinformation dokumenterad.
+                    </p>
+                  )}
+                  {p.slug && (
+                    <span className="mt-2 inline-flex items-center gap-1 text-xs text-muted-foreground group-hover:text-primary transition-colors">
+                      Visa grundinformation
+                      <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+                    </span>
                   )}
                 </div>
-                <div className="flex shrink-0 items-center">
-                  <ArrowRight className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
-                </div>
-
               </>
             );
             return (
@@ -144,12 +153,12 @@ const UnprofiledPartnersList = ({
                   <Link
                     to={`/basic/${p.slug}/`}
                     aria-label={`Öppna basickort för ${p.name}`}
-                    className="group relative flex items-center justify-between gap-3 p-4 rounded-lg border border-dashed border-border bg-card hover:border-muted-foreground/40 hover:shadow-sm transition-all"
+                    className="group relative flex h-full items-start gap-3 p-4 rounded-lg border border-border bg-card hover:border-muted-foreground/40 transition-colors"
                   >
                     {content}
                   </Link>
                 ) : (
-                  <div className="group relative flex items-center justify-between gap-3 p-4 rounded-lg border border-dashed border-border bg-card">
+                  <div className="group relative flex h-full items-start gap-3 p-4 rounded-lg border border-border bg-card">
                     {content}
                   </div>
                 )}
