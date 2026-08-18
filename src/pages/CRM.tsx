@@ -15,6 +15,7 @@ import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import { SizeFilters } from "@/components/SizeFilters";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerCard from "@/components/PartnerCard";
+import SearchResultSummary from "@/components/partner/SearchResultSummary";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import SalesIcon from "@/assets/icons/Sales.svg";
@@ -401,18 +402,25 @@ const CRM = () => {
  colorScheme="crm"
  />
 
- {/* Filter Results Summary */}
+ {/* Resultathuvud – användarens sökning visas en gång ovanför korten */}
  {(selectedApplications.length > 0 || selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue) && (
- <div className="text-center mb-8">
- <p className="text-sm text-muted-foreground">
- Visar <span className="font-semibold text-foreground">{crmPartners.length}</span> partners
- {selectedApplications.length > 0 && <> som levererar <span className="font-semibold text-crm">{selectedApplications.join(', ')}</span></>}
- {selectedApplications.length > 0 && selectedIndustry && <>,</>}
- {selectedIndustry && <> inom <span className="font-semibold text-crm">{selectedIndustry}</span></>}
- {selectedGeography && <> i <span className="font-semibold text-crm">{selectedGeography}</span></>}
- {selectedCompanySize && <> · storlek <span className="font-semibold text-crm">{selectedCompanySize}</span></>}
- {selectedRevenue && <> · omsättning <span className="font-semibold text-crm">{selectedRevenue}</span></>}
- </p>
+ <>
+ <SearchResultSummary
+ count={crmPartners.length}
+ criteria={[
+ selectedApplications.length > 0 ? selectedApplications.join(', ') : "Marknad, Sälj & Service",
+ selectedIndustry,
+ selectedGeography,
+ selectedCompanySize ? `${selectedCompanySize} anställda` : null,
+ selectedRevenue,
+ ]}
+ onChangeFilters={() => {
+ if (typeof document !== "undefined") {
+ document.getElementById("partners")?.scrollIntoView({ behavior: "smooth", block: "start" });
+ }
+ }}
+ />
+ <div className="text-center -mt-4 mb-8">
  <Button 
  variant="ghost" 
  size="sm" 
@@ -423,11 +431,12 @@ const CRM = () => {
  setSelectedCompanySize(null);
  setSelectedRevenue(null);
  }}
- className="mt-2 text-muted-foreground hover:text-foreground"
+ className="text-muted-foreground hover:text-foreground"
  >
  Rensa alla filter
  </Button>
  </div>
+ </>
  )}
 
  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -445,6 +454,7 @@ const CRM = () => {
  highlightedGeography={selectedGeography || undefined}
  showRandomIndicator={true}
  showBestFitOnly
+ resultView
  />
  ))}
  </div>

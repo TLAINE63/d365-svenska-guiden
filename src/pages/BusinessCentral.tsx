@@ -18,6 +18,7 @@ import { FilterButtons } from "@/components/FilterButtons";
 import { SizeFilters } from "@/components/SizeFilters";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerCard from "@/components/PartnerCard";
+import SearchResultSummary from "@/components/partner/SearchResultSummary";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
 import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
@@ -672,17 +673,25 @@ const BusinessCentral = () => {
  colorScheme="business-central"
  />
 
- {/* Filter Results Summary */}
+ {/* Resultathuvud – användarens sökning visas en gång ovanför korten */}
  {(selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue) && (
- <div className="text-center mb-8">
- <p className="text-sm text-muted-foreground">
- Visar <span className="font-semibold text-foreground">{bcPartners.length}</span> partners
- {selectedIndustry && <> inom <span className="font-semibold text-business-central">{selectedIndustry}</span></>}
- {(selectedIndustry && selectedGeography) && <> och</>}
- {selectedGeography && <> med täckning i <span className="font-semibold text-business-central">{selectedGeography}</span></>}
- {selectedCompanySize && <> · storlek <span className="font-semibold text-business-central">{selectedCompanySize}</span></>}
- {selectedRevenue && <> · omsättning <span className="font-semibold text-business-central">{selectedRevenue}</span></>}
- </p>
+ <>
+ <SearchResultSummary
+ count={bcPartners.length}
+ criteria={[
+ "Business Central",
+ selectedIndustry,
+ selectedGeography,
+ selectedCompanySize ? `${selectedCompanySize} anställda` : null,
+ selectedRevenue,
+ ]}
+ onChangeFilters={() => {
+ if (typeof document !== "undefined") {
+ document.getElementById("partners")?.scrollIntoView({ behavior: "smooth", block: "start" });
+ }
+ }}
+ />
+ <div className="text-center -mt-4 mb-8">
  <Button 
  variant="ghost"
  size="sm" 
@@ -692,11 +701,12 @@ const BusinessCentral = () => {
  setSelectedCompanySize(null);
  setSelectedRevenue(null);
  }}
- className="mt-2 text-muted-foreground hover:text-foreground"
+ className="text-muted-foreground hover:text-foreground"
  >
  Rensa alla filter
  </Button>
  </div>
+ </>
  )}
 
  {bcPartners.length === 0 ? (
@@ -733,6 +743,7 @@ const BusinessCentral = () => {
  highlightedRevenue={selectedRevenue || undefined}
  showRandomIndicator={true}
  showBestFitOnly
+ resultView
  />
  );
  })}
