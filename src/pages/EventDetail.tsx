@@ -142,8 +142,24 @@ const EventDetail = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
+        <SEOHead
+          title="Dynamics 365-event – webinar och seminarium"
+          description="Detaljer om ett Dynamics 365-event: innehåll, datum, format och anmälan. Kostnadsfria webinars och seminarier från Microsoft-partners i Sverige."
+          canonicalPath={`/events/${id ?? ""}`}
+          breadcrumbs={[
+            { name: "Hem", url: "/" },
+            { name: "Events", url: "/events/" },
+          ]}
+        />
         <Navbar />
-        <div className="container mx-auto px-4 py-10 mt-16 flex items-center justify-center">
+        <div className="container mx-auto px-4 py-10 mt-16">
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+            Dynamics 365-event
+          </h1>
+          <p className="text-muted-foreground mb-8 max-w-2xl">
+            Hämtar information om eventet. Se alla kommande webinars och seminarier på{" "}
+            <Link to="/events/" className="underline">eventsidan</Link>.
+          </p>
           <Loader2 className="w-8 h-8 animate-spin text-primary" />
         </div>
         <Footer />

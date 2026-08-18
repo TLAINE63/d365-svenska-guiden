@@ -171,9 +171,17 @@ const Events = () => {
  canonicalPath="/events"
  keywords="Dynamics 365 webinar, Dynamics 365 seminarium, Dynamics 365 event Sverige, Business Central webinar, Microsoft ERP webinar Sverige, Copilot webinar"
  ogImage="https://d365.se/og-events.png"
+ breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Events", url: "/events/" }]}
  />
+ <BreadcrumbSchema items={eventsBreadcrumbs} />
  <Navbar />
- <div className="container mx-auto px-4 py-10 mt-16 flex items-center justify-center">
+ <div className="container mx-auto px-4 py-10 mt-16">
+ <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+ Dynamics 365 webinars och seminarier
+ </h1>
+ <p className="text-muted-foreground mb-8 max-w-2xl">
+ Kostnadsfria webinars och seminarier om Dynamics 365 från Microsoft-partners i Sverige.
+ </p>
  <Loader2 className="w-8 h-8 animate-spin text-primary" />
  </div>
  <Footer />
