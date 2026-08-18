@@ -1,3 +1,4 @@
+import SearchResultSummary from "@/components/partner/SearchResultSummary";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
 import { useIndustryDeepLink } from "@/hooks/useIndustryDeepLink";
