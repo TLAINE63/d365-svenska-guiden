@@ -44,19 +44,35 @@ function firstSentences(text: string, maxSentences = 2, maxChars = 190): string 
 }
 
 /**
- * "d365.se:s bedömning" – kort, saklig och differentierande text för resultatkortet.
- * AI är metoden bakom, men lyfts inte som huvudbudskap.
+ * "d365.se:s bedömning" – saklig och differentierande text för resultatkortet.
+ * Prioriterar den fördjupade analysen (mer substans) och faller tillbaka på
+ * kortsammanfattning, positionering eller beskrivning.
  */
 export function getResultAssessment(p: CardPartner): string | null {
-  const card = getCardAiSummary(p);
-  if (card) return firstSentences(card, 3, 210);
+  const MAX_SENTENCES = 3;
+  const MAX_CHARS = 360;
+
   if (isDatabasePartner(p)) {
-    if (p.ai_summary_full?.trim()) return firstSentences(p.ai_summary_full.trim());
-    if (p.positioning_statement?.trim()) return firstSentences(p.positioning_statement.trim());
+    const full = p.ai_summary_full?.trim();
+    if (full) {
+      const text = firstSentences(full, MAX_SENTENCES, MAX_CHARS);
+      // Om fördjupningen är för mager, komplettera med kortsammanfattningen
+      if (text.length >= 120) return text;
+      const card = getCardAiSummary(p);
+      if (card && card.length > text.length) return firstSentences(card, MAX_SENTENCES, MAX_CHARS);
+      return text;
+    }
   }
-  if (p.description?.trim()) return firstSentences(p.description.trim());
+
+  const card = getCardAiSummary(p);
+  if (card) return firstSentences(card, MAX_SENTENCES, MAX_CHARS);
+  if (isDatabasePartner(p) && p.positioning_statement?.trim()) {
+    return firstSentences(p.positioning_statement.trim(), MAX_SENTENCES, MAX_CHARS);
+  }
+  if (p.description?.trim()) return firstSentences(p.description.trim(), MAX_SENTENCES, MAX_CHARS);
   return null;
 }
+
 
 function normalizeFactor(raw: string): string | null {
   let t = raw.replace(/\s+/g, " ").trim();
