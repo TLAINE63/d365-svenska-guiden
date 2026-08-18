@@ -520,8 +520,8 @@ const CRM = () => {
 
  <div className="text-center mt-8">
  <Button asChild variant="outline" size="lg">
- <Link to="/valjdynamics365partner/">
- Se alla partners
+<Link to="/valjdynamics365partner/#alla-partners-rubrik">
+  Se alla partners
  <ArrowRight className="ml-2 h-4 w-4" />
  </Link>
  </Button>

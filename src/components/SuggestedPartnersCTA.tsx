@@ -107,7 +107,7 @@ const SuggestedPartnersCTA = ({
             </Link>
           </Button>
           <Button asChild variant="outline" size="lg">
-            <Link to="/valjpartner">
+<Link to="/valjdynamics365partner/#alla-partners-rubrik">
               Se alla partners
               <ArrowRight className="w-4 h-4 ml-1" />
             </Link>
