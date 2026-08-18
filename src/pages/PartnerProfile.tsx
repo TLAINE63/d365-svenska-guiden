@@ -445,45 +445,11 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   </div>
 
 
-  {/* Partnerns egen övergripande text */}
+  {/* Partnerns egen övergripande text – kort intro, analysen ligger nedanför */}
   {partner.description && (
-    <p className="max-w-3xl w-full mb-4 text-base sm:text-lg text-slate-700 leading-relaxed">
+    <p className="max-w-3xl w-full mb-4 text-base sm:text-lg text-slate-700 leading-relaxed line-clamp-3">
       {partner.description}
     </p>
-  )}
-
-
-
-
-  {/* AI-generated summary – condensed checklist */}
-  {(partner as any).ai_summary && (
-    <div className="max-w-3xl w-full mb-4 rounded-lg border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-3 sm:p-4 text-left">
-      <div className="flex items-center gap-2 mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
-        <Sparkles className="w-3.5 h-3.5 text-[hsl(var(--cta-orange))]" />
-        Kort AI-sammanfattning
-      </div>
-      <ul className="space-y-1.5">
-        {(() => {
-          const raw = String((partner as any).ai_summary || "");
-          // Split by newlines, then by sentences if no newlines, and strip list markers
-          let items = raw.includes("\n")
-            ? raw.split(/\r?\n+/).filter(Boolean)
-            : raw.split(/\.\s+/).filter(s => s.trim().length > 8).map(s => s.replace(/\.$/, ""));
-          // Strippa listmarkörer (bullets, "1.", "2)" osv). VIKTIGT: matcha bara siffror
-          // som följs av "." eller ")" – annars slukas siffror i företagsnamn (t.ex. "4PS").
-          items = items.map(s => s.replace(/^\s*(?:[-–—•✅]+\s*|\d+[.)]\s+)/, "").trim()).filter(Boolean);
-          return items.slice(0, 6).map((item, idx) => (
-            <li key={idx} className="flex items-start gap-2 text-sm sm:text-base text-slate-700">
-              <CheckCircle2 className="w-4 h-4 text-[hsl(var(--cta-orange))] mt-0.5 shrink-0" />
-              <span>{item}</span>
-            </li>
-          ));
-        })()}
-      </ul>
-      <p className="mt-2 text-[11px] text-slate-500">
-        Genererad av d365.se utifrån partnerdata. Uppdateras löpande.
-      </p>
-    </div>
   )}
 
   {/* Lead CTA block moved under product tabs – see PartnerProductTabs */}
