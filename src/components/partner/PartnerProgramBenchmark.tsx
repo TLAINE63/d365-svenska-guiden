@@ -419,6 +419,66 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
                     <p className="mt-1 text-muted-foreground">{reference.not_a_fit[0]}</p>
                   </div>
                 )}
+                {reference.ai_summary_full && (
+                  <div>
+                    <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                      d365.se:s analys
+                    </p>
+                    <p className="mt-1 line-clamp-4 text-foreground/80">
+                      {reference.ai_summary_full}
+                    </p>
+                  </div>
+                )}
+                {(reference.team_size_sweden || reference.implementations_done) && (
+                  <div className="grid grid-cols-2 gap-3">
+                    {reference.team_size_sweden && (
+                      <div>
+                        <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                          Team i Sverige
+                        </p>
+                        <p className="mt-1 text-foreground/80">{reference.team_size_sweden}</p>
+                      </div>
+                    )}
+                    {reference.implementations_done && (
+                      <div>
+                        <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                          Implementationer
+                        </p>
+                        <p className="mt-1 text-foreground/80">{reference.implementations_done}</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+                {!!reference.customer_examples?.length && (
+                  <div>
+                    <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                      Kundexempel
+                    </p>
+                    <p className="mt-1 text-foreground/80">
+                      {reference.customer_examples
+                        .slice(0, 5)
+                        .map((c: any) => (typeof c === "string" ? c : c?.name))
+                        .filter(Boolean)
+                        .join(" · ")}
+                    </p>
+                  </div>
+                )}
+                {!!reference.office_cities?.length && (
+                  <p className="flex items-center gap-1.5 text-muted-foreground">
+                    <MapPin className="h-4 w-4 shrink-0" aria-hidden />
+                    {reference.office_cities.slice(0, 5).join(" · ")}
+                  </p>
+                )}
+                {!!reference.ai_tags?.length && (
+                  <div className="flex flex-wrap gap-1.5">
+                    {reference.ai_tags.slice(0, 8).map((t: string) => (
+                      <Badge key={t} variant="outline" className="text-[11px] font-normal">
+                        {t}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+
                 <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
                   {reference.contact_person && (
                     <span className="inline-flex items-center gap-1.5">
