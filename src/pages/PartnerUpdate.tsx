@@ -2284,18 +2284,22 @@ const PartnerUpdate = () => {
  </div>
  </PremiumCollapsibleSection>
 
- {/* AI, Copilot & Automation – partner-level */}
+ {/* AI, Automation & Power Platform – underlag för d365.se:s bedömning */}
  <PremiumCollapsibleSection
-   title="AI, Copilot & Automation"
-   description="En gemensam AI-profil för hela ert företag – ersätter den gamla per-produkt-modellen."
+   title="AI, Automation & Power Platform"
+   description="Underlag för d365.se:s bedömning inom Power Platform, Copilot & AI samt Copilot Studio & agenter."
    icon={Sparkles}
    accent="crm"
-    status={(aiProfile.capabilities || []).length > 0 ? "complete" : "empty"}
+    status={COMPETENCY_AREAS.some((a) => (competencyInput[a.key] || "").trim()) ? "complete" : "empty"}
     open={openSections.ai}
     onOpenChange={() => toggleSection("ai")}
 
  >
-   <AiProfileSection value={aiProfile} onChange={setAiProfile} />
+   <ExtendedCompetencyInputSection
+     levels={competencyLevels}
+     value={competencyInput}
+     onChange={setCompetencyInput}
+   />
  </PremiumCollapsibleSection>
 
 
