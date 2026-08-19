@@ -1,6 +1,8 @@
 // Utökade kompetensområden (Power Platform, Copilot & AI, Copilot Studio & agenter).
 // Nivåerna sätts av d365.se – aldrig av partnern själv.
 
+import type { AiProfile } from "@/lib/aiProfile";
+
 export const COMPETENCY_LEVELS = [
   "unverified",
   "documented_competence",
@@ -24,23 +26,27 @@ export type ExtendedCompetencyEvidence = Partial<Record<CompetencyArea, string>>
 export const COMPETENCY_AREAS: Array<{
   key: CompetencyArea;
   label: string;
+  shortLabel: string;
   description: string;
 }> = [
   {
     key: "power_platform",
     label: "Power Platform",
+    shortLabel: "Power Platform",
     description:
       "Förmåga att använda Power Platform som en del av Dynamics 365-lösningen – appar, automation, Dataverse, rapportering och processutveckling.",
   },
   {
     key: "copilot_ai",
     label: "Copilot & AI",
+    shortLabel: "Copilot & AI",
     description:
       "Förmåga att implementera och använda Microsofts inbyggda Copilot- och AI-funktioner i Dynamics 365 och integrera dem i verksamhetsprocesser.",
   },
   {
     key: "copilot_studio_agents",
     label: "Copilot Studio & agenter",
+    shortLabel: "Copilot Studio",
     description:
       "Förmåga att utveckla egna agenter, bygga lösningar i Copilot Studio och automatisera processer med AI-agenter kopplade till Dynamics 365.",
   },
@@ -48,10 +54,11 @@ export const COMPETENCY_AREAS: Array<{
 
 export const LEVEL_META: Record<
   CompetencyLevel,
-  { label: string; rank: number; description: string; className: string; dot: string }
+  { label: string; shortLabel: string; rank: number; description: string; className: string; dot: string }
 > = {
   unverified: {
     label: "Ej verifierad",
+    shortLabel: "Ej verifierad",
     rank: 1,
     description: "Partnern uppger kompetens men d365.se har inte kunnat verifiera den.",
     className: "bg-muted text-muted-foreground border-border",
@@ -59,6 +66,7 @@ export const LEVEL_META: Record<
   },
   documented_competence: {
     label: "Dokumenterad kompetens",
+    shortLabel: "Dok. kompetens",
     rank: 2,
     description:
       "Kompetensen stöds av erbjudanden, expertområden, certifieringar eller dokumenterad specialistkunskap.",
@@ -67,6 +75,7 @@ export const LEVEL_META: Record<
   },
   documented_delivery: {
     label: "Dokumenterad leverans",
+    shortLabel: "Dok. leverans",
     rank: 3,
     description:
       "Det finns dokumenterade kundprojekt, referenser, kundcase eller verifierade implementationer.",
@@ -76,6 +85,7 @@ export const LEVEL_META: Record<
   },
   leading_competence: {
     label: "Ledande kompetens",
+    shortLabel: "Ledande",
     rank: 4,
     description:
       "Omfattande erfarenhet, flera dokumenterade leveranser, referenser, thought leadership och tydlig marknadsposition inom området.",
@@ -187,4 +197,51 @@ export function competencyNarrative(
   const restText =
     rest.length === 1 ? rest[0] : `${rest.slice(0, -1).join(", ")} och ${rest[rest.length - 1]}`;
   return `${subject} ${first}. Därutöver ${restText}.`;
+}
+
+/**
+ * Föreslår nivåer per område utifrån partnerns ai_profile (capabilities,
+ * erfarenhet, evidens, projektantal) och eventuell egen beskrivning (input).
+ * Syftet är en utgångspunkt som d365.se granskar och justerar i admin – inte ett
+ * slutgiltigt betyg. Konservativ: utan underlag lämnas området obedömt (null).
+ */
+export function suggestExtendedCompetencies(
+  ai?: AiProfile | null,
+  input?: ExtendedCompetencyEvidence | null,
+): ExtendedCompetencies {
+  const caps = ai?.capabilities || [];
+  const exp = ai?.experience_level || "";
+  const ev = ai?.evidence_level || [];
+  const proj = ai?.project_count_range || "";
+
+  const strongEv = ev.some((e) =>
+    ["public-case", "reviewed", "reference-on-request"].includes(e),
+  );
+  const deliveryExp = ["delivered", "multiple", "packaged", "established"].includes(exp);
+  const someExp = !!exp;
+  const hasCap = (codes: string[]) => caps.some((c) => codes.includes(c));
+  const inputText = (area: CompetencyArea) => (input?.[area]?.trim() || "");
+  const hasInput = (area: CompetencyArea) => inputText(area).length > 80;
+
+  const levelFor = (area: CompetencyArea, capCodes: string[]): CompetencyLevel | null => {
+    const capPresent = hasCap(capCodes);
+    const claimed = capPresent || hasInput(area);
+    if (!claimed) return null;
+    // Ledande: etablerad leveransmodell + stark evidens + flera projekt
+    if (exp === "established" && strongEv && ["6-10", "10+"].includes(proj)) {
+      return "leading_competence";
+    }
+    // Dokumenterad leverans: kundprojekt påvisade
+    if (deliveryExp || strongEv) return "documented_delivery";
+    // Dokumenterad kompetens: erfarenhet angiven (rådgivning/pilot räknas)
+    if (someExp) return "documented_competence";
+    // Uppger kompetens men saknar verifierbar erfarenhet
+    return "unverified";
+  };
+
+  return {
+    power_platform: levelFor("power_platform", ["power-platform"]),
+    copilot_ai: levelFor("copilot_ai", ["standard-copilot", "azure-ai", "fabric-bi"]),
+    copilot_studio_agents: levelFor("copilot_studio_agents", ["copilot-studio"]),
+  };
 }

@@ -1,0 +1,17 @@
+update public.partners set extended_competencies = '{"power_platform":null,"copilot_ai":null,"copilot_studio_agents":null}'::jsonb where slug = '4ps-sweden';
+update public.partners set extended_competencies = '{"power_platform":null,"copilot_ai":null,"copilot_studio_agents":null}'::jsonb where slug = 'adbriq';
+update public.partners set extended_competencies = '{"power_platform":"documented_delivery","copilot_ai":"documented_delivery","copilot_studio_agents":"documented_delivery"}'::jsonb where slug = 'b3-consulting-group';
+update public.partners set extended_competencies = '{"power_platform":"documented_delivery","copilot_ai":"documented_delivery","copilot_studio_agents":"documented_delivery"}'::jsonb where slug = 'be-terna';
+update public.partners set extended_competencies = '{"power_platform":null,"copilot_ai":null,"copilot_studio_agents":null}'::jsonb where slug = 'bisqo';
+update public.partners set extended_competencies = '{"power_platform":null,"copilot_ai":null,"copilot_studio_agents":null}'::jsonb where slug = 'crm-konsulterna';
+update public.partners set extended_competencies = '{"power_platform":"documented_delivery","copilot_ai":"documented_delivery","copilot_studio_agents":"documented_delivery"}'::jsonb where slug = 'fellowmind';
+update public.partners set extended_competencies = '{"power_platform":null,"copilot_ai":"unverified","copilot_studio_agents":"unverified"}'::jsonb where slug = 'goodfellows';
+update public.partners set extended_competencies = '{"power_platform":"documented_competence","copilot_ai":null,"copilot_studio_agents":null}'::jsonb where slug = 'inbiz';
+update public.partners set extended_competencies = '{"power_platform":null,"copilot_ai":"unverified","copilot_studio_agents":null}'::jsonb where slug = 'knowit';
+update public.partners set extended_competencies = '{"power_platform":"documented_competence","copilot_ai":null,"copilot_studio_agents":null}'::jsonb where slug = 'nab-solutions';
+update public.partners set extended_competencies = '{"power_platform":null,"copilot_ai":"unverified","copilot_studio_agents":"unverified"}'::jsonb where slug = 'nexer';
+update public.partners set extended_competencies = '{"power_platform":null,"copilot_ai":null,"copilot_studio_agents":null}'::jsonb where slug = 'point-taken';
+update public.partners set extended_competencies = '{"power_platform":null,"copilot_ai":"unverified","copilot_studio_agents":"unverified"}'::jsonb where slug = 'sherpas-group-ab';
+update public.partners set extended_competencies = '{"power_platform":"documented_delivery","copilot_ai":"documented_delivery","copilot_studio_agents":null}'::jsonb where slug = 'sirocco-group';
+update public.partners set extended_competencies = '{"power_platform":"unverified","copilot_ai":"unverified","copilot_studio_agents":"unverified"}'::jsonb where slug = 'vivicta';
+update public.partners set extended_competencies = '{"power_platform":null,"copilot_ai":null,"copilot_studio_agents":null}'::jsonb where slug = 'yellow-solution';

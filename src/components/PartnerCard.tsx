@@ -38,6 +38,12 @@ import {
   getResultAssessment,
   getDocumentedEvidence,
 } from "@/lib/partnerResultCard";
+import {
+  COMPETENCY_AREAS,
+  LEVEL_META,
+  normalizeCompetencies,
+  hasAnyCompetency,
+} from "@/lib/extendedCompetencies";
 
 
 
@@ -433,10 +439,42 @@ const PartnerCard = ({
  {partner.name || 'Partner'}
  </h3>
  </Link>
- <div className="flex flex-wrap items-center gap-1.5 mb-2 -mt-1">
-  {(!isDatabasePartner(partner) || partner.is_featured !== false) && <VerifiedPartnerBadge />}
-  {isDatabasePartner(partner) && (partner as any).related_party && <RelatedPartyBadge />}
- </div>
+  <div className="flex flex-wrap items-center gap-1.5 mb-2 -mt-1">
+   {(!isDatabasePartner(partner) || partner.is_featured !== false) && <VerifiedPartnerBadge />}
+   {isDatabasePartner(partner) && (partner as any).related_party && <RelatedPartyBadge />}
+  </div>
+
+  {isDatabasePartner(partner) && partner.is_featured !== false && (() => {
+   const comp = normalizeCompetencies((partner as any).extended_competencies);
+   if (!hasAnyCompetency(comp)) return null;
+   return (
+    <TooltipProvider delayDuration={100}>
+     <div className="flex flex-wrap gap-1 mb-2.5">
+      {COMPETENCY_AREAS.map((area) => {
+       const lvl = comp[area.key];
+       if (!lvl) return null;
+       const meta = LEVEL_META[lvl];
+       return (
+        <Tooltip key={area.key}>
+         <TooltipTrigger asChild>
+          <span
+           className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full border text-[10px] font-semibold leading-none ${meta.className}`}
+          >
+           <span className={`w-1 h-1 rounded-full ${meta.dot}`} aria-hidden="true" />
+           {area.shortLabel}: {meta.shortLabel}
+          </span>
+         </TooltipTrigger>
+         <TooltipContent side="top" sideOffset={6} className="z-[100] text-xs max-w-[240px] bg-popover text-popover-foreground border">
+          <p className="font-semibold">{area.label}</p>
+          <p className="mt-0.5">{meta.label}. {meta.description}</p>
+         </TooltipContent>
+        </Tooltip>
+       );
+      })}
+     </div>
+    </TooltipProvider>
+   );
+  })()}
 
 
 

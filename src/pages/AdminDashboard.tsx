@@ -38,7 +38,7 @@ import { Separator } from "@/components/ui/separator";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { COMPETENCY_AREAS, COMPETENCY_LEVELS, LEVEL_META } from "@/lib/extendedCompetencies";
+import { COMPETENCY_AREAS, COMPETENCY_LEVELS, LEVEL_META, suggestExtendedCompetencies } from "@/lib/extendedCompetencies";
 import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
 import { allIndustries, geographyOptions, getCumulativeGeographyDisplay, companySizes, revenueOptions } from "@/data/partners";
 import { toggleContiguousRange } from "@/lib/segmentRange";
@@ -5709,10 +5709,30 @@ Thomas`,
 
  <div className="space-y-3 rounded-lg border border-border bg-muted/20 p-4">
  <div>
- <Label className="font-semibold text-sm">AI, Automation &amp; Power Platform – bedömd nivå</Label>
+ <div className="flex items-center justify-between gap-2 flex-wrap">
+  <Label className="font-semibold text-sm">AI, Automation &amp; Power Platform – bedömd nivå</Label>
+  <Button
+   type="button"
+   variant="outline"
+   size="sm"
+   onClick={() => {
+    const suggested = suggestExtendedCompetencies(
+     (partnerFormData.ai_profile || {}) as any,
+     (partnerFormData.extended_competency_input || {}) as any,
+    );
+    setPartnerFormData((prev) => ({
+     ...prev,
+     extended_competencies: suggested,
+    }));
+   }}
+  >
+   Generera förslag
+  </Button>
+ </div>
  <p className="text-xs text-muted-foreground mt-1">
- Nivåerna sätts av d365.se utifrån kundcase, referenser, certifieringar och publikt underlag.
- Bedömningsunderlaget är internt och visas aldrig publikt. Dynamics 365-kompetens är alltid primär.
+  Nivåerna sätts av d365.se utifrån kundcase, referenser, certifieringar och publikt underlag.
+  Bedömningsunderlaget är internt och visas aldrig publikt. Dynamics 365-kompetens är alltid primär.
+  "Generera förslag" fyller nivåerna utifrån partnerns AI-profil – granska och justera innan sparning.
  </p>
  </div>
  {COMPETENCY_AREAS.map((area) => (
