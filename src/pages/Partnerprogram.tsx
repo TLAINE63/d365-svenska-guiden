@@ -40,7 +40,6 @@ import partnerData from "@/data/partnerData.json";
 type SimplePartner = { slug: string; name: string; is_featured: boolean; logo_url?: string | null };
 
 const VERIFIED_PARTNERS = (partnerData as SimplePartner[]).filter((p) => p.is_featured);
-const IDENTIFIED_PARTNER_FLOOR = 83;
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se/" },
