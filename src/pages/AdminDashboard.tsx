@@ -728,6 +728,7 @@ const AdminDashboard = () => {
     not_a_fit?: string[];
     extended_competencies?: import("@/lib/extendedCompetencies").ExtendedCompetencies;
     extended_competency_evidence?: Record<string, string>;
+    extended_competency_input?: Record<string, string>;
     source_document_text?: string;
     source_document_url?: string;
     source_document_filename?: string;
@@ -774,6 +775,8 @@ const AdminDashboard = () => {
     not_a_fit: [],
     extended_competencies: {},
     extended_competency_evidence: {},
+  extended_competency_input: {},
+    extended_competency_input: {},
     source_document_text: "",
     source_document_url: "",
     source_document_filename: "",
@@ -1542,6 +1545,7 @@ Thomas`,
     not_a_fit: (partner as any).not_a_fit || [],
     extended_competencies: (partner as any).extended_competencies || {},
     extended_competency_evidence: (partner as any).extended_competency_evidence || {},
+    extended_competency_input: (partner as any).extended_competency_input || {},
     source_document_text: (partner as any).source_document_text || "",
     source_document_url: (partner as any).source_document_url || "",
     source_document_filename: (partner as any).source_document_filename || "",
@@ -5714,6 +5718,12 @@ Thomas`,
  maxLength={2000}
  placeholder="Internt underlag: kundcase, referenser, certifieringar, publika källor…"
  />
+ {partnerFormData.extended_competency_input?.[area.key] ? (
+ <div className="rounded-md border border-border bg-background p-2">
+ <p className="text-[11px] font-semibold text-muted-foreground">Partnerns egen beskrivning (från profileringslänken)</p>
+ <p className="text-xs whitespace-pre-wrap mt-1">{partnerFormData.extended_competency_input[area.key]}</p>
+ </div>
+ ) : null}
  </div>
  </div>
  ))}
