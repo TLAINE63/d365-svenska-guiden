@@ -61,7 +61,7 @@ const faqs = [
   {
     question: "Kan vi själva påverka innehållet?",
     answer:
-      "Ja. Profilerade partners får verifiera och komplettera informationen innan publicering.",
+      "Ja. Profilerade partners får en egen profileringslänk och kan när som helst gå in och uppdatera sina delar – beskrivningar, kompetenser, branscher, kundexempel och kontaktvägar. Utöver det lägger d365.se till en egen AI-baserad analys och sammanfattning för att göra profiler jämförbara; den delen är redaktionell och godkänns inte av partnern, men bygger på den information ni själva lagt in och kan alltid kommenteras eller korrigeras vid faktafel.",
   },
   {
     question: "Kan ni garantera leads?",
