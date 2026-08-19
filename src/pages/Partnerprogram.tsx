@@ -366,7 +366,11 @@ const Partnerprogram = () => {
       <PartnerProgramBenchmark
         partnerSlug={partnerSlug}
         renderBookCta={(onClick) => (
-          <ContactFormDialog>
+          <ContactFormDialog
+            title="Ansök om en egen profileringslänk"
+            description="Fyll i era kontaktuppgifter så skickar vi en profileringslänk där ni kan uppdatera er partnerprofil på d365.se."
+            subject="Profileringslänk"
+          >
             <Button
               size="lg"
               onClick={() => {
@@ -375,7 +379,7 @@ const Partnerprogram = () => {
               }}
             >
               <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
-              Boka en 20 min partnergenomgång
+              Ansök om en egen profileringslänk
             </Button>
           </ContactFormDialog>
         )}
