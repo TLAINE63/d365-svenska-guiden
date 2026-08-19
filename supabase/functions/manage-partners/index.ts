@@ -473,6 +473,32 @@ serve(async (req: Request): Promise<Response> => {
             ? (partner as any).not_a_fit.map((s: unknown) => String(s).trim()).filter(Boolean)
             : [];
         }
+        if ((partner as any)?.extended_competencies !== undefined) {
+          const allowedAreas = ["power_platform", "copilot_ai", "copilot_studio_agents"];
+          const allowedLevels = [
+            "unverified",
+            "documented_competence",
+            "documented_delivery",
+            "leading_competence",
+          ];
+          const raw = (partner as any).extended_competencies || {};
+          const clean: Record<string, string> = {};
+          for (const area of allowedAreas) {
+            const v = raw[area];
+            if (typeof v === "string" && allowedLevels.includes(v)) clean[area] = v;
+          }
+          updateData.extended_competencies = clean;
+        }
+        if ((partner as any)?.extended_competency_evidence !== undefined) {
+          const allowedAreas = ["power_platform", "copilot_ai", "copilot_studio_agents"];
+          const raw = (partner as any).extended_competency_evidence || {};
+          const clean: Record<string, string> = {};
+          for (const area of allowedAreas) {
+            const v = raw[area];
+            if (typeof v === "string" && v.trim()) clean[area] = v.trim().slice(0, 2000);
+          }
+          updateData.extended_competency_evidence = clean;
+        }
         if ((partner as any)?.extended_summary !== undefined) {
           updateData.extended_summary = (partner as any).extended_summary?.trim() || null;
         }
