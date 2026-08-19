@@ -293,9 +293,11 @@ const Partnerprogram = () => {
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Varför profilera er?</h2>
           <p className="text-base text-muted-foreground mb-8 max-w-3xl leading-relaxed">
             En verifierad partnerprofil hjälper företag, sökmotorer och AI-tjänster att förstå er
-            verksamhet, era specialistområden, era kundsegment och vilka Dynamics 365-lösningar ni
-            arbetar med.
+            verksamhet, era specialistområden, er branscherfarenhet, era kundsegment och vilka Dynamics
+            365-lösningar ni arbetar med – Business Central, Finance, Supply Chain Management, Customer
+            Engagement (Sales, Customer Service), Power Platform och Copilot.
           </p>
+
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {[
               {
