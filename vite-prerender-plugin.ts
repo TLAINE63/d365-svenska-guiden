@@ -424,7 +424,26 @@ export default function prerenderPlugin(): Plugin {
           console.log('\n🔍 SEO lint: ✅ all pages passed');
         }
 
+        // ── 12. Guard: every /partner/ och /basic/ route MUST have HTML ──
+        // Utan detta kan en route som kastar fel tyst hoppas över och då
+        // serveras SPA-skalet (startsidans title/canonical) till crawlers.
+        const missingProfiles: string[] = [];
+        for (const route of allRoutes) {
+          if (!route.path.startsWith('/partner/') && !route.path.startsWith('/basic/')) continue;
+          const rel = route.path.replace(/^\//, '');
+          if (!existsSync(resolve(root, outDir, rel, 'index.html'))) {
+            missingProfiles.push(route.path);
+          }
+        }
+        if (missingProfiles.length) {
+          console.error(`\n❌ Prerender: ${missingProfiles.length} partnerprofil(er) saknar statisk HTML och skulle serveras som startsidan:`);
+          for (const p of missingProfiles) console.error(`  ❌ ${p}`);
+        } else {
+          console.log('  ✅ Alla partnerprofiler har statisk HTML');
+        }
+
         console.log(`\n✅ Prerendering complete – ${successCount}/${allRoutes.length} routes\n`);
+
       } catch (err: any) {
         console.error('❌ Prerender failed:', err.message || err);
         // Don't throw - let the build succeed even if prerendering fails
