@@ -4,6 +4,7 @@ import { resolve, join } from 'path';
 import { readFileSync, writeFileSync, mkdirSync, rmSync, readdirSync, existsSync } from 'fs';
 import { pathToFileURL } from 'url';
 import react from '@vitejs/plugin-react-swc';
+import { buildSeoTitle, truncateSeoTitle } from './src/lib/seoTitle';
 
 /**
  * Vite plugin that prerenders static HTML for all defined routes after the
@@ -203,13 +204,14 @@ export default function prerenderPlugin(): Plugin {
             const helmetHasUsefulTitle =
               head.title && !head.title.includes('></title>') && head.title.includes('</title>');
             if (route.meta && !helmetHasUsefulTitle) {
+              const metaTitle = buildSeoTitle(route.meta.title);
               const trailing = route.path.endsWith('/') ? route.path : route.path + '/';
               const isArticle = route.path.startsWith('/artiklar/') || route.path.startsWith('/kunskapscenter/');
               const customHead = [
-                `<title>${route.meta.title}</title>`,
+                `<title>${metaTitle}</title>`,
                 `<meta name="description" content="${route.meta.description.replace(/"/g, '&quot;')}" />`,
                 `<link rel="canonical" href="https://d365.se${trailing}" />`,
-                `<meta property="og:title" content="${route.meta.title}" />`,
+                `<meta property="og:title" content="${metaTitle}" />`,
                 `<meta property="og:description" content="${route.meta.description.replace(/"/g, '&quot;')}" />`,
                 `<meta property="og:url" content="https://d365.se${trailing}" />`,
                 `<meta property="og:type" content="${isArticle ? 'article' : 'website'}" />`,
