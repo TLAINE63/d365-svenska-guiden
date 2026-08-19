@@ -773,20 +773,15 @@ const Partnerprogram = () => {
       {showSticky && (
         <>
           <div className="hidden md:block fixed top-20 right-6 z-40">
-            <ContactFormDialog>
-              <Button size="sm" className="shadow-lg" onClick={() => bookClick("sticky_desktop")}>
-                <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
-                Boka partnergenomgång
-              </Button>
-            </ContactFormDialog>
+            <CheckButton placement="sticky_desktop" size="sm" className="shadow-lg" label="Se er profil idag" />
           </div>
           <div className="md:hidden fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 backdrop-blur px-3 py-2">
-            <ContactFormDialog>
-              <Button className="w-full h-11" onClick={() => bookClick("sticky_mobile")}>
-                <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
-                Boka 20 min
-              </Button>
-            </ContactFormDialog>
+            <CheckButton
+              placement="sticky_mobile"
+              size="default"
+              className="w-full h-11"
+              label="Se hur ni presenteras idag"
+            />
           </div>
           <div className="md:hidden h-16" aria-hidden="true" />
         </>
