@@ -2809,7 +2809,17 @@ Thomas`,
       <Sparkles className={`mr-2 h-4 w-4 ${generatingAiExperienceSummary ? "animate-pulse" : ""}`} />
       {generatingAiExperienceSummary ? "Genererar AI-sammanfattning…" : "AI: 'AI:s sammanfattning'"}
     </Button>
+    <Button
+      variant="outline"
+      onClick={handleAutofillAllProfiles}
+      disabled={autofillingProfiles}
+      title="Fyll tomma profilfält (beskrivning, positionering, produkttexter, leveransprofil, kompetensunderlag) för publicerade partners. Befintlig text rörs ej."
+    >
+      <Sparkles className={`mr-2 h-4 w-4 ${autofillingProfiles ? "animate-pulse" : ""}`} />
+      {autofillingProfiles ? "Fyller profilfält…" : "AI: Fyll tomma profilfält"}
+    </Button>
   </div>
+
 
  {selectedForWelcome.size > 0 && (
  <DropdownMenu>
