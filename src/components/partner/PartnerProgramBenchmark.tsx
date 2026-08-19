@@ -29,20 +29,23 @@ interface CategoryConfig {
   label: string;
   /** Produktnycklar i product_filters som kvalificerar en partner som referens. */
   productKeys: string[];
+  /** Fast vald referensprofil (slug). Faller tillbaka på poängsättning om den saknas. */
+  preferredSlug?: string;
   /** Visas i UI i denna version. */
   visible: boolean;
 }
 
 const CATEGORIES: CategoryConfig[] = [
-  { id: "bc_specialist", label: "BC-specialist", productKeys: ["bc"], visible: true },
-  { id: "fscm_specialist", label: "F&SCM-specialist", productKeys: ["fsc"], visible: true },
-  { id: "ce_specialist", label: "CRM / CE-specialist", productKeys: ["sales", "service", "crm"], visible: true },
+  { id: "bc_specialist", label: "BC-specialist", productKeys: ["bc"], preferredSlug: "nab-solutions", visible: true },
+  { id: "fscm_specialist", label: "F&SCM-specialist", productKeys: ["fsc"], preferredSlug: "knowit", visible: true },
+  { id: "ce_specialist", label: "CRM / CE-specialist", productKeys: ["sales", "service", "crm"], preferredSlug: "b3-consulting-group", visible: true },
   { id: "fullservice", label: "Fullservicepartner", productKeys: ["bc", "fsc", "sales", "service"], visible: false },
   { id: "niche", label: "Nischspecialist", productKeys: [], visible: false },
   { id: "regional", label: "Regional partner", productKeys: [], visible: false },
 ];
 
 const VISIBLE_CATEGORIES = CATEGORIES.filter((c) => c.visible);
+
 
 type RawPartner = Record<string, any>;
 
