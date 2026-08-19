@@ -197,20 +197,43 @@ const Partnerprogram = () => {
 
   const bookClick = (placement: string) => track("partnerprogram_book_demo_click", "cta_click", partnerSlug, { placement });
   const profileClick = (placement: string) => track("partnerprogram_view_profile_click", "cta_click", partnerSlug, { placement });
+  const checkClick = (placement: string) => track("partnerprogram_profile_check_click", "cta_click", partnerSlug, { placement });
 
-  const BookButton = ({
+  /** Primär CTA: låg tröskel – visa nuvarande presentation i stället för att be om möte. */
+  const CheckButton = ({
     placement,
     className = "",
     size = "lg",
-    label = "Boka en 20-minuters genomgång",
+    label = "Se hur ert företag presenteras idag",
   }: {
     placement: string;
     className?: string;
     size?: "default" | "lg" | "sm";
     label?: string;
   }) => (
+    <Button asChild size={size} className={className} onClick={() => checkClick(placement)}>
+      <a href="#profilkoll">
+        <Eye className="w-4 h-4 mr-2" aria-hidden="true" />
+        {label}
+      </a>
+    </Button>
+  );
+
+  const BookButton = ({
+    placement,
+    className = "",
+    size = "lg",
+    variant = "outline",
+    label = "Boka en 20-minuters genomgång",
+  }: {
+    placement: string;
+    className?: string;
+    size?: "default" | "lg" | "sm";
+    variant?: "default" | "outline";
+    label?: string;
+  }) => (
     <ContactFormDialog>
-      <Button size={size} className={className} onClick={() => bookClick(placement)}>
+      <Button size={size} variant={variant} className={className} onClick={() => bookClick(placement)}>
         <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
         {label}
       </Button>
