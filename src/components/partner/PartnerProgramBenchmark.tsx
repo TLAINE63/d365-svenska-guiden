@@ -515,7 +515,6 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
             {reference && (
               <Button
                 asChild
-                variant="outline"
                 className="mt-6 self-start"
                 onClick={() =>
                   trackFunnelEvent({
@@ -531,7 +530,9 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
                 </Link>
               </Button>
             )}
+            </div>
           </article>
+
         </div>
 
         {/* Benchmark-tabell */}
