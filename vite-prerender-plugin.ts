@@ -383,10 +383,14 @@ export default function prerenderPlugin(): Plugin {
               );
             }
           }
-          const nfTags = [nfHead.title, nfHead.meta, nfHead.link, nfHead.script].filter(Boolean).join('\n    ');
+          let nfTags = [nfHead.title, nfHead.meta, nfHead.link, nfHead.script].filter(Boolean).join('\n    ');
+          // Ta bort tomma <title></title> som annars ger tom titel på 404-sidan
+          nfTags = nfTags.replace(/<title[^>]*>\s*<\/title>/gi, '');
+          const hasTitle = /<title[^>]*>\s*\S[\s\S]*?<\/title>/i.test(nfTags);
+          const titleTag = hasTitle ? '' : '<title>Sidan hittades inte | d365.se</title>\n    ';
           page = page.replace(
             '</head>',
-            `    ${nfTags || '<title>Sidan hittades inte | d365.se</title>'}\n    <meta name="robots" content="noindex, follow" />\n  </head>`
+            `    ${titleTag}${nfTags}\n    <meta name="robots" content="noindex, follow" />\n  </head>`
           );
           const marker = '<div id="root">';
           const rootStart = page.indexOf(marker);
