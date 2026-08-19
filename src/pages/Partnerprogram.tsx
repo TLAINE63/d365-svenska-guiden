@@ -288,18 +288,8 @@ const Partnerprogram = () => {
               </p>
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <div className="rounded-lg border border-border bg-card px-4 py-3">
-                <div className="text-2xl font-bold text-foreground">{identifiedCount}+</div>
-                <div className="text-xs text-muted-foreground">
-                  identifierade Dynamics 365-partners i Sverige
-                </div>
-              </div>
-              <div className="rounded-lg border border-border bg-card px-4 py-3">
-                <div className="text-2xl font-bold text-foreground">{VERIFIED_PARTNERS.length}</div>
-                <div className="text-xs text-muted-foreground">verifierade partnerprofiler</div>
-              </div>
-            </div>
+
+
           </div>
         </div>
       </header>
