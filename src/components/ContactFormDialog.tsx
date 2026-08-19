@@ -49,10 +49,13 @@ const formSchema = z.object({
 });
 
 interface ContactFormDialogProps {
- children: React.ReactNode;
+  children: React.ReactNode;
+  title?: string;
+  description?: string;
+  subject?: string;
 }
 
-const ContactFormDialog = ({ children }: ContactFormDialogProps) => {
+const ContactFormDialog = ({ children, title, description, subject }: ContactFormDialogProps) => {
  const [open, setOpen] = useState(false);
  const [isSubmitting, setIsSubmitting] = useState(false);
  const { toast } = useToast();
