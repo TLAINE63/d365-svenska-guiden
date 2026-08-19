@@ -75,8 +75,13 @@ function categoryScore(partner: RawPartner, cfg: CategoryConfig): number {
 }
 
 function referenceFor(cfg: CategoryConfig): RawPartner | null {
+  if (cfg.preferredSlug) {
+    const pinned = VERIFIED.find((p) => p.slug === cfg.preferredSlug);
+    if (pinned) return pinned;
+  }
   let best: RawPartner | null = null;
   let bestScore = -Infinity;
+
   for (const p of VERIFIED) {
     const s = categoryScore(p, cfg);
     if (s > bestScore) {
