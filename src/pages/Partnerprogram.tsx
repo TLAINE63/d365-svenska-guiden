@@ -458,12 +458,15 @@ const Partnerprogram = () => {
       <section ref={seoRef} className="py-14 md:py-20">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-5">
-            Bygg fler relevanta digitala signaler om ert företag
+            Bygg fler relevanta signaler för sökmotorer och AI
           </h2>
           <p className="max-w-3xl text-muted-foreground mb-8">
             På er egen webbplats berättar ni själva vilka ni är. En profilerad närvaro på d365.se skapar
-            ytterligare en extern, indexerbar källa i ett sammanhang helt fokuserat på Dynamics 365.
+            ytterligare en extern, indexerbar källa i ett sammanhang helt fokuserat på Dynamics 365 –
+            Business Central, Finance, Supply Chain Management, Customer Engagement (Sales, Customer
+            Service, Field Service), Power Platform och Copilot.
           </p>
+
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {[
               {
