@@ -88,6 +88,7 @@ interface ContactEmailRequest {
   phone?: string;
   description: string;
   honeypot?: string; // Honeypot field - should always be empty
+  subject?: string; // Optional custom email subject prefix
 }
 
 serve(async (req: Request): Promise<Response> => {
