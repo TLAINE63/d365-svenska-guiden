@@ -280,10 +280,10 @@ const Partnerprogram = () => {
               kundreferenser och erbjudanden presenteras korrekt, aktuellt och tydligt.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
-              <BookButton placement="hero" />
+              <CheckButton placement="hero" />
               <Button asChild variant="outline" size="lg" onClick={() => profileClick("hero")}>
                 <Link to={profileExampleUrl}>
-                  Se exempelprofil
+                  Jämför med en verifierad partner
                   <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
                 </Link>
               </Button>
@@ -293,6 +293,16 @@ const Partnerprogram = () => {
               behov och relevans – verifierade partners kan komplettera sin profil med mer information,
               men betalning påverkar inte rankingen.
             </p>
+            <div className="mt-5 flex flex-col gap-2 max-w-2xl">
+              <p className="text-sm font-medium text-foreground border-l-4 border-primary pl-3">
+                För att inkluderas i årets Partneröversikt behöver profilen vara verifierad senast
+                14 november.
+              </p>
+              <p className="text-sm text-muted-foreground border-l-4 border-border pl-3">
+                Partnerprofiler kommer även att kunna exponeras på den norska versionen av
+                plattformen.
+              </p>
+            </div>
 
             <div className="mt-8 flex flex-wrap gap-3">
               <div className="rounded-lg border border-border bg-card px-4 py-3">
