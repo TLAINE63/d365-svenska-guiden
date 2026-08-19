@@ -429,7 +429,7 @@ const PartnerCard = ({
  onClick={handleCardClick}
  className="group/link mb-3"
  >
- <h3 className="text-lg font-bold text-foreground group-hover/link:text-primary transition-colors duration-300 leading-tight truncate">
+ <h3 className="text-lg font-bold text-foreground group-hover/link:text-primary transition-colors duration-300 leading-tight break-words hyphens-auto">
  {partner.name || 'Partner'}
  </h3>
  </Link>
