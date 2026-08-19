@@ -1186,7 +1186,22 @@ const PartnerUpdate = () => {
         {/* View statistics for this partner – temporarily hidden from partners */}
 
   <form onSubmit={handleSubmit} className="space-y-8">
+  <Card className="border-primary/20 bg-primary/5">
+    <CardContent className="p-4 flex flex-col sm:flex-row sm:items-center gap-3 justify-between">
+      <div>
+        <p className="text-sm font-semibold text-foreground">Fyll tomma fält med AI</p>
+        <p className="text-xs text-muted-foreground mt-1">
+          AI föreslår text för de rutor ni lämnat tomma, baserat på er befintliga profil. Ifylld text rörs aldrig – granska och justera innan ni sparar.
+        </p>
+      </div>
+      <Button type="button" variant="outline" onClick={handleAutofill} disabled={autofilling} className="gap-2 shrink-0">
+        <Sparkles className={`w-4 h-4 ${autofilling ? "animate-pulse" : ""}`} />
+        {autofilling ? "Fyller i…" : "Fyll tomma fält med AI"}
+      </Button>
+    </CardContent>
+  </Card>
   <div className="flex justify-end">
+
     <Button
       type="button"
       variant="outline"
