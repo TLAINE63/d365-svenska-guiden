@@ -153,6 +153,82 @@ export function checkAll(routes = CRITICAL_ROUTES) {
   return routes.map(checkRoute);
 }
 
+/**
+ * SEO-regressionstest för 404-sidan (dist/404.html).
+ * Kontrollerar att sidan är noindex, saknar canonical/og:url som pekar på
+ * någon annan sida (soft 404) och inte innehåller kvarvarande JSON-LD.
+ */
+export function validate404Html(html) {
+  const errors = [];
+
+  const title = pick(html, /<title[^>]*>([\s\S]*?)<\/title>/i);
+  if (!title) errors.push("empty <title>");
+
+  const robots = pick(
+    html,
+    /<meta[^>]+name=["']robots["'][^>]*content=["']([^"']*)["']/i,
+  );
+  if (!robots) errors.push("missing robots meta");
+  else if (!/noindex/i.test(robots)) errors.push(`robots meta is not noindex: "${robots}"`);
+
+  const robotsCount = (html.match(/<meta[^>]+name=["']robots["']/gi) || []).length;
+  if (robotsCount > 1) errors.push(`multiple robots meta tags (${robotsCount})`);
+
+  const canonicals = html.match(/<link[^>]+rel=["']canonical["'][^>]*>/gi) || [];
+  for (const tag of canonicals) {
+    const href = pick(tag, /href=["']([^"']+)["']/i);
+    if (href && href !== `${ORIGIN}/404` && href !== `${ORIGIN}/404/`) {
+      errors.push(`404 page has canonical pointing elsewhere (soft 404): ${href}`);
+    }
+  }
+
+  const ogUrl = pick(
+    html,
+    /<meta[^>]+property=["']og:url["'][^>]*content=["']([^"']+)["']/i,
+  );
+  if (ogUrl && !/\/404/.test(ogUrl)) {
+    errors.push(`404 page has og:url pointing elsewhere (soft 404): ${ogUrl}`);
+  }
+
+  const jsonLd = html.match(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi) || [];
+  for (const block of jsonLd) {
+    const body = block.replace(/^[\s\S]*?>/, "").replace(/<\/script>$/i, "").trim();
+    if (!body) {
+      errors.push("empty JSON-LD block on 404 page");
+      continue;
+    }
+    let parsed;
+    try {
+      parsed = JSON.parse(body);
+    } catch {
+      errors.push("invalid JSON-LD on 404 page");
+      continue;
+    }
+    const types = (Array.isArray(parsed) ? parsed : [parsed])
+      .map((n) => n?.["@type"])
+      .flat()
+      .filter(Boolean);
+    const forbidden = types.filter((t) =>
+      ["Article", "Product", "FAQPage", "WebSite", "ItemList", "BreadcrumbList"].includes(t),
+    );
+    if (forbidden.length) {
+      errors.push(`404 page carries indexable JSON-LD: ${forbidden.join(", ")}`);
+    }
+  }
+
+  return { route: "/404.html", errors, title };
+}
+
+export function check404() {
+  const file = join(DIST, "404.html");
+  if (!existsSync(file)) {
+    return { route: "/404.html", errors: [`404.html missing: ${file}`] };
+  }
+  return validate404Html(readFileSync(file, "utf-8"));
+}
+
+
+
 // CLI entry
 if (import.meta.url === `file://${process.argv[1]}`) {
   if (!existsSync(DIST)) {
@@ -188,6 +264,17 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     console.error(`\nPartner no-slash prerender check failed for ${failedPartnerSiblings.length}/${partnerSiblingResults.length} route(s).`);
     process.exit(1);
   }
+
+  const nf = check404();
+  if (nf.errors.length === 0) {
+    console.log(`✅ /404.html  →  noindex, ingen canonical/JSON-LD-läckage`);
+  } else {
+    console.error(`❌ /404.html`);
+    for (const e of nf.errors) console.error(`     - ${e}`);
+    console.error(`\n404 SEO-regressionstest misslyckades.`);
+    process.exit(1);
+  }
+
 
   console.log(`\n✓ All ${results.length} critical routes and ${partnerSiblingResults.length} partner no-slash variants have valid SEO tags.`);
 }
