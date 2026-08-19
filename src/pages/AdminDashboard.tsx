@@ -775,7 +775,6 @@ const AdminDashboard = () => {
     not_a_fit: [],
     extended_competencies: {},
     extended_competency_evidence: {},
-  extended_competency_input: {},
     extended_competency_input: {},
     source_document_text: "",
     source_document_url: "",
