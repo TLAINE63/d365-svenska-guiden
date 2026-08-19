@@ -201,11 +201,6 @@ const sizeOptions = [
   { value: ">5.000", label: "Mer än 5.000 anställda" }
 ];
 
-const aiInterestOptions = [
-  { value: "high", label: "Ja, det är viktigt", description: "Vi vill ha en partner med stark kompetens inom Copilot, AI-agenter och/eller Copilot Studio" },
-  { value: "medium", label: "Intressant men inte avgörande", description: "Vi vill veta mer, men det är inte ett krav för val av partner" },
-  { value: "none", label: "Nej, inte aktuellt just nu", description: "AI är inte prioriterat i vår implementering" },
-];
 
 const localPresenceOptions = [
   { value: "very", label: "Mycket viktigt", description: "Vi vill ha en partner med lokal närvaro i vår region – nära kontor och personliga möten" },
