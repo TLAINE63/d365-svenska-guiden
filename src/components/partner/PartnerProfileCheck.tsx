@@ -451,9 +451,13 @@ const PartnerProfileCheck = ({ initialSlug }: { initialSlug?: string | null }) =
                   Så ser en verifierad profil ut
                 </p>
                 <p className="text-sm text-muted-foreground mb-4">
-                  {reference.p.name} är ett exempel på en komplett verifierad profil. Den innehåller
-                  följande information som köpare kan väga in:
+                  {reference.p.name} är ett exempel på en komplett verifierad profil
+                  {referenceProducts.length
+                    ? ` inom ${referenceProducts.join(", ")} – samma produktområde som ni arbetar med`
+                    : ""}
+                  . Den innehåller följande information som köpare kan väga in:
                 </p>
+
                 <ul className="grid gap-2 md:grid-cols-2 mb-6">
                   {referenceRows
                     .filter((r) => r.present)
