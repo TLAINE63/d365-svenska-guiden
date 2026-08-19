@@ -264,7 +264,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
         {/* Visuell jämförelse */}
         <div className="mt-6 grid gap-5 lg:grid-cols-2">
           {/* Vänster: Basic */}
-          <article className="flex h-full flex-col rounded-xl border border-border bg-card p-6">
+          <article className="flex h-full flex-col rounded-2xl border border-dashed border-border bg-muted/30 p-6 opacity-95">
             <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
               {ownBasic ? "Er profil idag" : "Basic-profil"}
             </p>
