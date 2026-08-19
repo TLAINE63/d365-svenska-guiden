@@ -266,7 +266,9 @@ const Partnerprogram = () => {
               </Button>
             </div>
             <p className="text-sm text-muted-foreground mt-5 max-w-2xl">
-              Partnerrekommendationer baseras på behov, kompetens och relevans – inte på sponsring.
+              Alla relevanta partners finns med i kartläggningen. Rekommendationer baseras på köparens
+              behov och relevans – verifierade partners kan komplettera sin profil med mer information,
+              men betalning påverkar inte rankingen.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
