@@ -581,6 +581,16 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
  <PartnerAiInsights partner={partner as any} />
 
+ <section className="py-6">
+  <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+   <ExtendedCompetenciesSection
+    competencies={(partner as any)?.extended_competencies}
+    partnerName={partner?.name}
+   />
+  </div>
+ </section>
+
+
 
 
 
