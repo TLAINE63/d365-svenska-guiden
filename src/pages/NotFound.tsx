@@ -9,7 +9,16 @@ const NotFound = () => {
 
   useEffect(() => {
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
+
+    // SPA-fallback: värden levererar startsidans prerenderade HTML för okända
+    // URL:er. Ta bort kvarvarande SEO-taggar (canonical/og/JSON-LD) som annars
+    // får sökmotorer att tolka 404-sidan som startsidan (soft 404).
+    const stale = document.querySelectorAll(
+      'link[rel="canonical"]:not([data-rh]), meta[property^="og:"]:not([data-rh]), meta[name^="twitter:"]:not([data-rh]), script[type="application/ld+json"]:not([data-rh])'
+    );
+    stale.forEach((el) => el.parentElement?.removeChild(el));
   }, [location.pathname]);
+
 
   return (
     <>
