@@ -284,6 +284,64 @@ const PartnerUpdate = () => {
   const [aiProfile, setAiProfile] = useState<import("@/lib/aiProfile").AiProfile>({});
   const [competencyLevels, setCompetencyLevels] = useState<ExtendedCompetencies>({});
   const [competencyInput, setCompetencyInput] = useState<Record<string, string>>({});
+  const [autofilling, setAutofilling] = useState(false);
+
+  /** Låter AI föreslå text för de fält partnern lämnat tomma. Ifyllda fält rörs aldrig. */
+  const handleAutofill = async () => {
+    setAutofilling(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("autofill-partner-profile", {
+        body: {
+          inviteToken: token,
+          draft: {
+            name: formData.name,
+            website: formData.website,
+            description: formData.description,
+            positioning_statement: positioningStatement,
+            applications: activeProducts,
+            industries: Array.from(
+              new Set(Object.values(productFilters).flatMap((f: any) => f?.industries || []))
+            ),
+            product_filters: productFilters,
+            extended_competency_input: competencyInput,
+          },
+        },
+      });
+      if (error) throw error;
+      if ((data as any)?.error) throw new Error((data as any).error);
+
+      const patch = ((data as any)?.patch || {}) as Record<string, any>;
+      if (typeof patch.description === "string") {
+        setFormData((prev) => ({ ...prev, description: patch.description }));
+      }
+      if (typeof patch.positioning_statement === "string") {
+        setPositioningStatement(patch.positioning_statement);
+      }
+      if (patch.product_filters && typeof patch.product_filters === "object") {
+        setProductFilters(patch.product_filters);
+      }
+      if (patch.extended_competency_input && typeof patch.extended_competency_input === "object") {
+        setCompetencyInput(patch.extended_competency_input);
+      }
+
+      const filled = (data as any)?.filledCount ?? 0;
+      toast[filled > 0 ? "success" : "info"](
+        filled > 0 ? `${filled} fält ifyllda med AI` : "Inga tomma fält att fylla i",
+        { description: filled > 0 ? "Granska texterna och spara profilen." : undefined }
+      );
+    } catch (e: any) {
+      const msg = e?.message || "Okänt fel";
+      toast.error("Kunde inte fylla i med AI", {
+        description:
+          msg === "RATE_LIMIT" ? "AI-tjänsten är överbelastad – försök igen om en stund." :
+          msg === "PAYMENT_REQUIRED" ? "AI-krediter är slut." : msg,
+      });
+    } finally {
+      setAutofilling(false);
+    }
+  };
+
+
 
   // Per-produkt beslutsprofil (positionering + leveransbild) – en post per aktiv D365-applikation
   type ProductProfile = {
