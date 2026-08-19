@@ -404,6 +404,34 @@ const AdminDashboard = () => {
   const [generatingWhyKeypoints, setGeneratingWhyKeypoints] = useState(false);
   const [generatingDeliverySummary, setGeneratingDeliverySummary] = useState<string | null>(null);
   const [generatingAiExperienceSummary, setGeneratingAiExperienceSummary] = useState(false);
+  const [autofillingProfiles, setAutofillingProfiles] = useState(false);
+
+  /** Fyller alla tomma textfält i profileringsformuläret för publicerade partners. */
+  const handleAutofillAllProfiles = async () => {
+    if (!confirm("Fyll tomma profilfält (beskrivning, positionering, produkttexter, leveransprofil och kompetensunderlag) med AI för alla publicerade partners? Befintlig text rörs ej.")) return;
+    setAutofillingProfiles(true);
+    try {
+      const { data, error } = await invokeAdminEdgeWithRetry("autofill-partner-profile", { token, all: true });
+      if (error) throw error;
+      if ((data as any)?.error) throw new Error((data as any).error);
+      const filled = (data as any)?.filledCount ?? 0;
+      const pc = (data as any)?.partnerCount ?? 0;
+      toast({ title: "Profiler ifyllda", description: `${filled} fält ifyllda över ${pc} partners.` });
+      refetchPartners();
+    } catch (e: any) {
+      const msg = e?.message || "Okänt fel";
+      toast({
+        title: "Kunde inte fylla i",
+        description: msg === "RATE_LIMIT" ? "AI-tjänsten är överbelastad – försök igen om en stund."
+          : msg === "PAYMENT_REQUIRED" ? "AI-krediter slut. Lägg till krediter under Settings → Workspace → Usage."
+          : msg,
+        variant: "destructive",
+      });
+    } finally {
+      setAutofillingProfiles(false);
+    }
+  };
+
 
   const handleGenerateAllAiExperienceSummary = async () => {
     if (!confirm("Generera köparorienterad 'AI:s sammanfattning' för alla publicerade partners med AI-profil som saknar text? Befintliga texter rörs ej.")) return;
