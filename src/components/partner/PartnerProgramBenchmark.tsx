@@ -327,7 +327,10 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
           </article>
 
           {/* Höger: profilerad referens */}
-          <article className="flex h-full flex-col rounded-xl border-2 border-accent/40 bg-card p-6 shadow-sm">
+          <article className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-accent/30 bg-card shadow-[0_20px_60px_-25px_hsl(var(--accent)/0.45)] ring-1 ring-accent/20">
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-accent via-primary to-accent" />
+            <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-accent/10 blur-3xl" />
+            <div className="relative p-6 pt-7">
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-start gap-3">
                 {reference?.logo_url && (
@@ -335,16 +338,16 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
                     src={reference.logo_url}
                     alt={`${reference.name} logotyp`}
                     loading="lazy"
-                    className={`h-12 w-12 shrink-0 rounded-md object-contain p-1 ${
-                      reference.logo_dark_bg ? "bg-foreground" : "bg-background border border-border"
+                    className={`h-14 w-14 shrink-0 rounded-lg object-contain p-1.5 shadow-sm ring-1 ring-border ${
+                      reference.logo_dark_bg ? "bg-foreground" : "bg-background"
                     }`}
                   />
                 )}
                 <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-wide text-accent">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-accent">
                     Exempel på profilerad partner
                   </p>
-                  <h3 className="mt-1 text-xl font-semibold text-foreground">
+                  <h3 className="mt-1 text-2xl font-semibold tracking-tight text-foreground">
                     {reference?.name ?? "Referensprofil"}
                   </h3>
                 </div>
@@ -355,6 +358,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
               Referensprofil som visar hur en komplett partnerprofil kan se ut. Inget omdöme om
               partnerns kvalitet.
             </p>
+
 
 
             {reference && (
