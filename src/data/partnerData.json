@@ -179,7 +179,8 @@
       "ERP",
       "Copilot",
       "AI-readiness"
-    ]
+    ],
+    "extended_competencies": {}
   },
   {
     "id": "67211d79-5e9e-4113-b6c2-ac77f54fc17b",
@@ -355,7 +356,8 @@
       "Distribution",
       "Integrationer",
       "ERP"
-    ]
+    ],
+    "extended_competencies": {}
   },
   {
     "id": "de93854a-6402-4f4a-8901-82bf355d0f0b",
@@ -533,7 +535,8 @@
       "Power Platform",
       "Azure AI",
       "CRM-automation"
-    ]
+    ],
+    "extended_competencies": {}
   },
   {
     "id": "e97862ae-7d14-44da-9ea3-7e2de1140a10",
@@ -733,7 +736,8 @@
       "Azure AI",
       "Microsoft Fabric",
       "Power Platform"
-    ]
+    ],
+    "extended_competencies": {}
   },
   {
     "id": "d51765db-7ab6-4cb6-8c53-384f1ffee552",
@@ -903,7 +907,8 @@
       "Standardnära ERP",
       "Fast scope",
       "ERP-förvaltning"
-    ]
+    ],
+    "extended_competencies": {}
   },
   {
     "id": "f89e80b2-a124-4768-8eaf-2b185b5bf093",
@@ -1118,7 +1123,8 @@
       "AI-readiness",
       "Customer Experience",
       "Omnichannel"
-    ]
+    ],
+    "extended_competencies": {}
   },
   {
     "id": "42f8b63b-a4c9-480d-81e5-a322652b3af4",
@@ -1443,7 +1449,8 @@
       "Microsoft Cloud",
       "Copilot",
       "Data & AI"
-    ]
+    ],
+    "extended_competencies": {}
   },
   {
     "id": "731f9c05-c293-4842-ac40-19fb610eaeac",
@@ -1618,7 +1625,8 @@
       "Support",
       "Processoptimering",
       "Copilot Studio"
-    ]
+    ],
+    "extended_competencies": {}
   },
   {
     "id": "47db240f-0e3c-4ef7-8532-ddd914a990de",
@@ -1799,7 +1807,8 @@
       "Copilot",
       "AI-readiness",
       "Datakvalitet"
-    ]
+    ],
+    "extended_competencies": {}
   },
   {
     "id": "fe117b80-6acd-49c0-bab0-6fda75f25894",
@@ -1975,7 +1984,8 @@
       "Prediktiv analys",
       "ERP-automation",
       "ERP-rådgivning"
-    ]
+    ],
+    "extended_competencies": {}
   },
   {
     "id": "4097cfef-2af6-4aaf-8fbe-69c388c16d8d",
@@ -2286,7 +2296,8 @@
       "Power Platform",
       "Copilot",
       "AI-readiness"
-    ]
+    ],
+    "extended_competencies": {}
   },
   {
     "id": "674e19f3-b48c-4bf1-86ea-81c2170b178b",
@@ -2611,7 +2622,8 @@
       "Microsoft-ekosystem",
       "Copilot",
       "AI-integration"
-    ]
+    ],
+    "extended_competencies": {}
   },
   {
     "id": "5faf2ae1-e0a4-4481-a209-6e75e82c7efa",
@@ -2768,7 +2780,8 @@
       "Customer Engagement",
       "Projektorienterad verksamhet",
       "CRM-automation"
-    ]
+    ],
+    "extended_competencies": {}
   },
   {
     "id": "f1947f70-3320-43b0-af09-8387d7546fa3",
@@ -2987,7 +3000,8 @@
       "AX-migrering",
       "Power Platform",
       "Copilot"
-    ]
+    ],
+    "extended_competencies": {}
   },
   {
     "id": "14adea7a-3dcb-403e-8d8e-0d8481e0fec4",
@@ -3222,7 +3236,8 @@
       "Azure AI",
       "Prediktiv analys",
       "CRM-automation"
-    ]
+    ],
+    "extended_competencies": {}
   },
   {
     "id": "cfe135f8-b2bf-4740-9f26-389bca040715",
@@ -3589,7 +3604,8 @@
       "Copilot Studio",
       "AI-agenter",
       "Annata A365"
-    ]
+    ],
+    "extended_competencies": {}
   },
   {
     "id": "d863d43e-f5a7-461a-a289-ba285b905d9e",
@@ -3743,6 +3759,7 @@
       "Lager",
       "Projektstyrning",
       "Copilot"
-    ]
+    ],
+    "extended_competencies": {}
   }
 ]
