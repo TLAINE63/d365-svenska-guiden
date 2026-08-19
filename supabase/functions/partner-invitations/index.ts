@@ -221,6 +221,7 @@ serve(async (req: Request): Promise<Response> => {
             industry_pitches,
             positioning_statement, delivery_profile, team_size_sweden,
             implementations_done, implementations_per_app, not_a_fit, ai_profile, product_profiles,
+            extended_competencies, extended_competency_input,
             created_at, updated_at
           `)
           .eq("id", invitation.partner_id)
@@ -281,6 +282,16 @@ serve(async (req: Request): Promise<Response> => {
 
       // Allow re-submissions for open invitations (no status blocking)
 
+      const AREAS = ["power_platform", "copilot_ai", "copilot_studio_agents"];
+      const competencyInput: Record<string, string> = {};
+      const rawCompetencyInput = submissionData.extended_competency_input;
+      if (rawCompetencyInput && typeof rawCompetencyInput === "object") {
+        for (const key of AREAS) {
+          const v = (rawCompetencyInput as Record<string, unknown>)[key];
+          if (typeof v === "string" && v.trim()) competencyInput[key] = v.trim().slice(0, 800);
+        }
+      }
+
       // Create submission
       const { error: subError } = await supabase
         .from("partner_submissions")
@@ -312,6 +323,7 @@ serve(async (req: Request): Promise<Response> => {
           ai_profile: submissionData.ai_profile || {},
           product_profiles: submissionData.product_profiles || {},
           implementations_per_app: submissionData.implementations_per_app || {},
+          extended_competency_input: competencyInput,
         });
 
       // Handle events if provided
@@ -409,6 +421,7 @@ serve(async (req: Request): Promise<Response> => {
         team_size_sweden: submissionData.team_size_sweden ?? null,
         implementations_done: submissionData.implementations_done ?? null,
         not_a_fit: submissionData.not_a_fit || [],
+        extended_competency_input: competencyInput,
         updated_at: new Date().toISOString(),
       };
 
