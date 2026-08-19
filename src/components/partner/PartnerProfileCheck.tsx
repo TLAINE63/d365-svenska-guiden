@@ -221,17 +221,72 @@ const PartnerProfileCheck = ({ initialSlug }: { initialSlug?: string | null }) =
 
   const missing = result?.rows.filter((r) => !r.present) ?? [];
   const present = result?.rows.filter((r) => r.present) ?? [];
+
+  /** Produktområden för vald partner (basic eller verifierad). */
+  const selectedProducts = useMemo<ProductKey[]>(() => {
+    if (!selected) return [];
+    const v = VERIFIED.find((p) => p.slug === selected);
+    if (v) return PRODUCT_ORDER.filter((k) => Boolean((v.product_filters || {})[k]));
+    const b = (basicPartners || []).find((p) => p.slug === selected);
+    if (b) return PRODUCT_ORDER.filter((k) => Boolean(b.observed_products?.[k]));
+    return [];
+  }, [selected, basicPartners]);
+
+  /**
+   * Exempelprofilen ska spegla den valda partnerns produktområden:
+   * BC → NAB Solutions, F&SCM → Fellowmind, CRM (Sales/Service) → B3 Elevate.
+   * Saknas match väljs den mest kompletta verifierade profilen med överlapp.
+   */
   const reference = useMemo(() => {
-    let best: { p: RawPartner; rows: CheckRow[]; score: number } | null = null;
-    for (const p of VERIFIED) {
+    const buildEntry = (p: RawPartner) => {
       const rows = verifiedRows(p);
-      const score = scoreOf(rows);
-      if (!best || score > best.score) best = { p, rows, score };
+      return { p, rows, score: scoreOf(rows) };
+    };
+    const bestOf = (list: RawPartner[]) => {
+      let best: { p: RawPartner; rows: CheckRow[]; score: number } | null = null;
+      for (const p of list) {
+        const entry = buildEntry(p);
+        if (!best || entry.score > best.score) best = entry;
+      }
+      return best;
+    };
+
+    const candidates = VERIFIED.filter((p) => p.slug !== selected);
+
+    const preferredBySlug: Partial<Record<ProductKey, string>> = {
+      bc: "nab-solutions",
+      fsc: "fellowmind",
+      sales: "b3-consulting-group",
+      service: "b3-consulting-group",
+    };
+
+    for (const key of PRODUCT_ORDER) {
+      if (!selectedProducts.includes(key)) continue;
+      const slug = preferredBySlug[key];
+      const match = candidates.find((p) => p.slug === slug && (p.product_filters || {})[key]);
+      if (match) return buildEntry(match);
     }
-    return best;
-  }, []);
+
+    if (selectedProducts.length) {
+      const overlap = candidates.filter((p) =>
+        selectedProducts.some((k) => Boolean((p.product_filters || {})[k])),
+      );
+      const best = bestOf(overlap);
+      if (best) return best;
+    }
+
+    return bestOf(candidates);
+  }, [selected, selectedProducts]);
   const referenceRows = reference?.rows ?? [];
   const referenceScore = reference?.score ?? 0;
+  const referenceProducts = useMemo(
+    () =>
+      PRODUCT_ORDER.filter(
+        (k) => selectedProducts.includes(k) && Boolean((reference?.p.product_filters || {})[k]),
+      ).map((k) => PRODUCT_LABEL[k]),
+    [reference, selectedProducts],
+  );
+
 
   return (
     <section id="profilkoll" className="py-14 md:py-20 scroll-mt-24">
@@ -396,9 +451,13 @@ const PartnerProfileCheck = ({ initialSlug }: { initialSlug?: string | null }) =
                   Så ser en verifierad profil ut
                 </p>
                 <p className="text-sm text-muted-foreground mb-4">
-                  {reference.p.name} är ett exempel på en komplett verifierad profil. Den innehåller
-                  följande information som köpare kan väga in:
+                  {reference.p.name} är ett exempel på en komplett verifierad profil
+                  {referenceProducts.length
+                    ? ` inom ${referenceProducts.join(", ")} – samma produktområde som ni arbetar med`
+                    : ""}
+                  . Den innehåller följande information som köpare kan väga in:
                 </p>
+
                 <ul className="grid gap-2 md:grid-cols-2 mb-6">
                   {referenceRows
                     .filter((r) => r.present)
