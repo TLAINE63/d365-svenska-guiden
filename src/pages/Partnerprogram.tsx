@@ -202,7 +202,7 @@ const Partnerprogram = () => {
     placement,
     className = "",
     size = "lg",
-    label = "Boka en 20 min genomgång",
+    label = "Boka en 20-minuters genomgång",
   }: {
     placement: string;
     className?: string;
@@ -249,25 +249,24 @@ const Partnerprogram = () => {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-foreground mb-5">
               Ni finns redan på d365.se.
               <br />
-              Se till att ni blir rätt förstådda.
+              Se till att kunder och AI förstår er kompetens.
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground mb-7">
-              d365.se kartlägger den svenska Dynamics 365-partnermarknaden. Som profilerad partner kan
-              ni verifiera och utveckla bilden av er kompetens, specialisering, kundcase och erbjudande
-              – där företag söker och jämför partners.
+              d365.se hjälper företag att hitta och jämföra Dynamics 365-partners i Sverige. Med en
+              verifierad partnerprofil kan ni säkerställa att er kompetens, specialiseringar,
+              kundreferenser och erbjudanden presenteras korrekt, aktuellt och tydligt.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <BookButton placement="hero" />
               <Button asChild variant="outline" size="lg" onClick={() => profileClick("hero")}>
                 <Link to={profileExampleUrl}>
-                  Se profilerad partner
+                  Se exempelprofil
                   <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
                 </Link>
               </Button>
             </div>
             <p className="text-sm text-muted-foreground mt-5 max-w-2xl">
-              Alla relevanta partners finns med. Matchningar baseras på köparens behov och relevans –
-              inte på köpt ranking.
+              Partnerrekommendationer baseras på behov, kompetens och relevans – inte på sponsring.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
@@ -289,7 +288,12 @@ const Partnerprogram = () => {
       {/* 2. FYRA HUVUDVÄRDEN */}
       <section className="py-14 md:py-20">
         <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">Varför profilera er?</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Varför profilera er?</h2>
+          <p className="text-base text-muted-foreground mb-8 max-w-3xl leading-relaxed">
+            En verifierad partnerprofil hjälper företag, sökmotorer och AI-tjänster att förstå er
+            verksamhet, era specialistområden, era kundsegment och vilka Dynamics 365-lösningar ni
+            arbetar med.
+          </p>
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {[
               {
