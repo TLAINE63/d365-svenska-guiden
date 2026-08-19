@@ -4,7 +4,6 @@ import {
   ArrowRight,
   Calendar,
   Check,
-  Minus,
   Search,
   SlidersHorizontal,
   Columns3,
@@ -79,21 +78,6 @@ const faqs = [
     answer:
       "En redaktionell intervju med en eller flera av partnerns experter som kan publiceras på d365.se och YouTube och användas som innehåll på partnerprofilen.",
   },
-];
-
-const comparisonRows: { label: string; basic: string; profiled: string }[] = [
-  { label: "Finns med på d365.se", basic: "Ja", profiled: "Ja" },
-  { label: "Grundläggande partnerinformation", basic: "Ja", profiled: "Ja" },
-  { label: "Detaljerad kompetensprofil", basic: "Begränsad", profiled: "Ja" },
-  { label: "Branscher och målgrupper", basic: "Begränsat", profiled: "Ja" },
-  { label: "Kundcase och referenser", basic: "Begränsat", profiled: "Ja" },
-  { label: "Erbjudanden och specialisering", basic: "–", profiled: "Ja" },
-  { label: "Namngiven kontaktperson", basic: "–", profiled: "Ja" },
-  { label: "Kontaktvägar och CTA", basic: "–", profiled: "Ja" },
-  { label: "Expertintervju / video", basic: "–", profiled: "Ja" },
-  { label: "Publicering på YouTube", basic: "–", profiled: "Ja" },
-  { label: "Utökad indexerbar partnerprofil", basic: "Begränsad", profiled: "Ja" },
-  { label: "Möjlighet att verifiera information", basic: "–", profiled: "Ja" },
 ];
 
 const journeySteps = [
@@ -192,7 +176,6 @@ const Partnerprogram = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, [partnerSlug]);
 
-  const compareRef = useSectionView("partnerprogram_basic_vs_profiled_view", partnerSlug);
   const seoRef = useSectionView("partnerprogram_seo_section_view", partnerSlug);
   const videoRef = useSectionView("partnerprogram_video_section_view", partnerSlug);
 
