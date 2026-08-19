@@ -37,7 +37,7 @@ interface CategoryConfig {
 
 const CATEGORIES: CategoryConfig[] = [
   { id: "bc_specialist", label: "BC-specialist", productKeys: ["bc"], preferredSlug: "nab-solutions", visible: true },
-  { id: "fscm_specialist", label: "F&SCM-specialist", productKeys: ["fsc"], preferredSlug: "knowit", visible: true },
+  { id: "fscm_specialist", label: "F&SCM-specialist", productKeys: ["fsc"], preferredSlug: "fellowmind", visible: true },
   { id: "ce_specialist", label: "CRM / CE-specialist", productKeys: ["sales", "service", "crm"], preferredSlug: "b3-consulting-group", visible: true },
   { id: "fullservice", label: "Fullservicepartner", productKeys: ["bc", "fsc", "sales", "service"], visible: false },
   { id: "niche", label: "Nischspecialist", productKeys: [], visible: false },
@@ -83,6 +83,7 @@ function referenceFor(cfg: CategoryConfig): RawPartner | null {
   let bestScore = -Infinity;
 
   for (const p of VERIFIED) {
+    if (p.slug === "knowit") continue; // inte som exempel
     const s = categoryScore(p, cfg);
     if (s > bestScore) {
       bestScore = s;
