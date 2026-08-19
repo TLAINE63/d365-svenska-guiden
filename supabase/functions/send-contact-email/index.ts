@@ -191,7 +191,7 @@ serve(async (req: Request): Promise<Response> => {
         from: "D365 Guiden <info@d365.se>",
         to: ["info@d365.se"],
         reply_to: email.trim(),
-        subject: `[Kontaktformulär] ${safeName} - Ny förfrågan`,
+        subject: subject ? `[${subject}] ${safeName} - Ny förfrågan` : `[Kontaktformulär] ${safeName} - Ny förfrågan`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
             <div style="background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%); color: white; padding: 20px; border-radius: 8px 8px 0 0; margin: -20px -20px 20px -20px;">
