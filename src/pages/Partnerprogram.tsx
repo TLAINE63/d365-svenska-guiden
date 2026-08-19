@@ -634,34 +634,49 @@ const Partnerprogram = () => {
               </div>
             ))}
           </div>
-          <div className="mt-8">
+          <h3 className="text-lg font-semibold text-foreground mt-10 mb-4">Vad vi åtar oss</h3>
+          <ul className="grid gap-3 md:grid-cols-2 max-w-4xl">
+            {[
+              "Publicering inom 10 arbetsdagar från att underlaget är komplett",
+              "Uppdateringar av er profil genomförs inom 3 arbetsdagar",
+              "Kvartalsvis genomgång av profilen tillsammans med er",
+              "Statistik över profilvisningar",
+              "En namngiven kontaktperson på d365.se",
+            ].map((i) => (
+              <li key={i} className="flex gap-2 text-sm text-foreground">
+                <Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />
+                {i}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-8 flex flex-col sm:flex-row gap-3">
+            <CheckButton placement="process" />
             <BookButton placement="process" label="Boka en genomgång" />
           </div>
         </div>
       </section>
 
-      {/* 10. VAD FÅR VI */}
+      {/* 10. SOCIAL PROOF */}
       <section className="py-14 md:py-20">
         <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">
-            Som profilerad partner får ni
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+            Partners med verifierad profil på d365.se
           </h2>
-          <ul className="grid gap-3 md:grid-cols-2 max-w-4xl">
-            {[
-              "komplett och verifierad partnerprofil",
-              "tydligare positionering inom Dynamics 365",
-              "kontaktperson och direkta kontaktvägar",
-              "bättre beslutsunderlag när köpare jämför partners",
-              "expertintervju/videoprofil",
-              "publicering på d365.se och YouTube",
-              "mer unikt indexerbart innehåll om företaget",
-              "möjlighet att verifiera kompetenser, branscher och kundtyper",
-              "möjlighet att visa case, referenser och erbjudanden",
-              "närvaro tidigare i kundens köpresa",
-            ].map((i) => (
-              <li key={i} className="flex gap-2 text-sm text-foreground">
-                <Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />
-                {i}
+          <p className="text-muted-foreground mb-8 max-w-3xl">
+            {VERIFIED_PARTNERS.length} Dynamics 365-partners har idag en verifierad profil där
+            kompetens, branscherfarenhet och kundcase är granskade och publicerade.
+          </p>
+          <ul className="grid gap-3 grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
+            {VERIFIED_PARTNERS.map((p) => (
+              <li key={p.slug}>
+                <Link
+                  to={`/partner/${p.slug}/`}
+                  onClick={() => profileClick("social_proof")}
+                  className="h-full flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-3 hover:border-accent/60 transition-colors"
+                >
+                  <BadgeCheck className="w-4 h-4 text-accent shrink-0" aria-hidden="true" />
+                  <span className="text-sm font-medium text-foreground leading-tight">{p.name}</span>
+                </Link>
               </li>
             ))}
           </ul>
@@ -670,6 +685,7 @@ const Partnerprogram = () => {
           </p>
         </div>
       </section>
+
 
       {/* 11. TRANSPARENS */}
       <section className="py-14 md:py-20 bg-secondary/30 border-y border-border">
