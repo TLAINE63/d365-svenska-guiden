@@ -1421,6 +1421,7 @@ export type Database = {
           delivery_profile: Json | null
           description: string | null
           email: string | null
+          extended_competency_input: Json
           geography: string[] | null
           id: string
           implementations_done: string | null
@@ -1453,6 +1454,7 @@ export type Database = {
           delivery_profile?: Json | null
           description?: string | null
           email?: string | null
+          extended_competency_input?: Json
           geography?: string[] | null
           id?: string
           implementations_done?: string | null
@@ -1485,6 +1487,7 @@ export type Database = {
           delivery_profile?: Json | null
           description?: string | null
           email?: string | null
+          extended_competency_input?: Json
           geography?: string[] | null
           id?: string
           implementations_done?: string | null
@@ -1568,6 +1571,7 @@ export type Database = {
           email: string | null
           extended_competencies: Json
           extended_competency_evidence: Json
+          extended_competency_input: Json
           extended_content: string | null
           extended_content_updated_at: string | null
           extended_summary: string | null
@@ -1648,6 +1652,7 @@ export type Database = {
           email?: string | null
           extended_competencies?: Json
           extended_competency_evidence?: Json
+          extended_competency_input?: Json
           extended_content?: string | null
           extended_content_updated_at?: string | null
           extended_summary?: string | null
@@ -1728,6 +1733,7 @@ export type Database = {
           email?: string | null
           extended_competencies?: Json
           extended_competency_evidence?: Json
+          extended_competency_input?: Json
           extended_content?: string | null
           extended_content_updated_at?: string | null
           extended_summary?: string | null
