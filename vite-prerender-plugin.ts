@@ -365,15 +365,44 @@ export default function prerenderPlugin(): Plugin {
           console.log('  ✅ sitemap.xml (mirrors index for backwards compatibility)');
         }
 
-        // ── 8. Generate 404.html for GitHub Pages SPA fallback ─────────
+        // ── 8. Generate a real prerendered 404.html (noindex) ────────────
         try {
-          // Try to render the NotFound-like page, or fall back to root index.html
-          const notFoundHtml = readFileSync(resolve(root, outDir, 'index.html'), 'utf-8');
-          writeFileSync(resolve(root, outDir, '404.html'), notFoundHtml, 'utf-8');
-          console.log('  ✅ 404.html (GitHub Pages fallback)');
-        } catch {
-          console.warn('  ⚠️  Could not generate 404.html');
+          const { html: nfHtml, head: nfHead } = render('/__not-found__');
+          let page = template;
+          page = page.replace(/<title>.*?<\/title>/gs, '');
+          page = page.replace(/<meta\s+name="description"[^>]*\/?>/g, '');
+          page = page.replace(/<meta\s+name="robots"[^>]*\/?>/g, '');
+          page = page.replace(/<meta\s+property="og:[^"]*"[^>]*\/?>/g, '');
+          page = page.replace(/<meta\s+name="twitter:[^"]*"[^>]*\/?>/g, '');
+          page = page.replace(/<link\s+rel="canonical"[^>]*\/?>/g, '');
+          for (const cssFile of cssFiles) {
+            if (!page.includes(cssFile)) {
+              page = page.replace(
+                '</head>',
+                `    <link rel="preload" href="${cssFile}" as="style" onload="this.onload=null;this.rel='stylesheet'" />\n    <noscript><link rel="stylesheet" href="${cssFile}" /></noscript>\n  </head>`
+              );
+            }
+          }
+          const nfTags = [nfHead.title, nfHead.meta, nfHead.link, nfHead.script].filter(Boolean).join('\n    ');
+          page = page.replace(
+            '</head>',
+            `    ${nfTags || '<title>Sidan hittades inte | d365.se</title>'}\n    <meta name="robots" content="noindex, follow" />\n  </head>`
+          );
+          const marker = '<div id="root">';
+          const rootStart = page.indexOf(marker);
+          if (rootStart !== -1) {
+            const contentStart = rootStart + marker.length;
+            const closingDiv = page.indexOf('</div>', contentStart);
+            if (closingDiv !== -1) {
+              page = page.substring(0, contentStart) + nfHtml + page.substring(closingDiv);
+            }
+          }
+          writeFileSync(resolve(root, outDir, '404.html'), page, 'utf-8');
+          console.log('  ✅ 404.html (prerendad NotFound, noindex)');
+        } catch (err) {
+          console.warn('  ⚠️  Could not generate 404.html', err);
         }
+
 
         // ── 9. Generate .nojekyll for GitHub Pages ───────────────────────
         writeFileSync(resolve(root, outDir, '.nojekyll'), '', 'utf-8');
