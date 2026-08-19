@@ -472,18 +472,19 @@ const Partnerprogram = () => {
               {
                 icon: FileText,
                 title: "Partnerprofil",
-                text: "Strukturerad information om produkter, kompetenser, branscher, kundtyper och erbjudande.",
+                text: "Strukturerad information om produkter (Business Central, Finance, Supply Chain Management, Sales, Customer Service), branscherfarenhet, kundtyper och erbjudande.",
               },
               {
                 icon: Users,
                 title: "Expertinnehåll",
-                text: "Förstahandsinformation och perspektiv från partnerns egna specialister.",
+                text: "Förstahandsinformation och perspektiv från partnerns egna specialister inom ERP, CRM, Power Platform och Copilot.",
               },
               {
                 icon: BadgeCheck,
                 title: "Kundcase",
-                text: "Konkreta exempel som hjälper både människor och söksystem att förstå er erfarenhet.",
+                text: "Konkreta exempel som hjälper både människor och söksystem att förstå er branscherfarenhet.",
               },
+
               {
                 icon: Video,
                 title: "Video",
