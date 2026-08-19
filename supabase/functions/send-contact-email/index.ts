@@ -132,7 +132,7 @@ serve(async (req: Request): Promise<Response> => {
       );
     }
 
-    const { name, email, phone, description, honeypot } = body;
+    const { name, email, phone, description, honeypot, subject } = body;
 
     // Honeypot check - if filled, it's likely a bot
     if (honeypot && honeypot.length > 0) {
