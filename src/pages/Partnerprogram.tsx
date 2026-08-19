@@ -320,7 +320,34 @@ const Partnerprogram = () => {
         </div>
       </header>
 
-      {/* 2. FYRA HUVUDVÄRDEN */}
+      {/* 2. RISK ATT BLI BORTVALD */}
+      <section className="py-14 md:py-20 bg-slate-900 text-slate-100">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-3xl">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6">Vad riskerar ni med att avvakta?</h2>
+            <p className="text-slate-300 mb-8">
+              Potentiella kunder kan redan hitta och jämföra ert företag på d365.se. Med en
+              Basic-profil är beslutsunderlaget om er begränsat, samtidigt som profilerade konkurrenter
+              kan visa sin specialisering, sina kundcase, sina experter och en tydlig väg till kontakt.
+            </p>
+            <p className="text-lg md:text-2xl font-semibold leading-snug border-l-4 border-primary pl-5 mb-8">
+              Den största risken är inte att missa ett klick – utan att bli bortvald från en shortlist
+              utan att veta att affärsmöjligheten fanns.
+            </p>
+            <Button asChild size="lg" onClick={() => checkClick("risk")}>
+              <a href="#profilkoll">
+                <Eye className="w-4 h-4 mr-2" aria-hidden="true" />
+                Se hur ert företag presenteras idag
+              </a>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. PROFILKOLL */}
+      <PartnerProfileCheck initialSlug={partnerSlug} />
+
+      {/* 4. FYRA HUVUDVÄRDEN */}
       <section className="py-14 md:py-20">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Varför profilera er?</h2>
