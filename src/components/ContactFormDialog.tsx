@@ -128,13 +128,13 @@ const ContactFormDialog = ({ children, title, description, subject }: ContactFor
  <DialogTrigger asChild>
  {children}
  </DialogTrigger>
- <DialogContent className="sm:max-w-[500px] bg-card">
- <DialogHeader>
- <DialogTitle className="text-2xl text-card-foreground">Boka in en kostnadsfri rådgivning</DialogTitle>
- <DialogDescription className="text-muted-foreground">
- Fyll i formuläret så återkommer vi till dig så snart som möjligt.
- </DialogDescription>
- </DialogHeader>
+      <DialogContent className="sm:max-w-[500px] bg-card">
+        <DialogHeader>
+          <DialogTitle className="text-2xl text-card-foreground">{title ?? "Boka in en kostnadsfri rådgivning"}</DialogTitle>
+          <DialogDescription className="text-muted-foreground">
+            {description ?? "Fyll i formuläret så återkommer vi till dig så snart som möjligt."}
+          </DialogDescription>
+        </DialogHeader>
  <Form {...form}>
  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
  <FormField
