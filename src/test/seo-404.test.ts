@@ -1,8 +1,9 @@
 import { describe, it, expect } from "vitest";
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
-// @ts-expect-error - plain JS script without types
+// @ts-ignore - plain JS script without types
 import { validate404Html } from "../../scripts/check-prerender-seo.mjs";
+
 
 const GOOD_404 = `<!doctype html><html lang="sv"><head>
 <title>Sidan hittades inte | d365.se</title>
