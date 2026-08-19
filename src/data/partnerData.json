@@ -395,6 +395,14 @@
         "companySize": [],
         "swedenCities": [],
         "swedenRegions": [],
+        "deliveryProfile": {
+          "aiAutomation": "B3 Elevate använder AI och automation för att stödja sälj- och marknadsprocesser i Dynamics 365 Sales och Customer Insights. Det kan omfatta automatisering av återkommande uppgifter, datadrivna kundinsikter och stöd för användare i CRM-arbetet. Med Power Automate och Copilot Studio kan arbetsflöden och AI-agenter kopplas till verksamhetens processer och data.",
+          "deliveryModel": "Leveransen kombinerar verksamhets- och teknikkompetens genom hela projektet, från strategi och kravarbete till utveckling, test och införande. Arbetet kan inkludera förändringsledning och testautomatisering med Playwright. B3 Elevate kan vid behov använda kompetens från B3 Consulting Group inom exempelvis verksamhetsutveckling och cybersäkerhet.",
+          "managedServices": "Efter produktionssättning kan B3 Elevate ansvara för förvaltning av Dynamics 365 Sales och Customer Insights. Arbetet omfattar stöd, uppföljning, felhantering och löpande anpassningar av lösningen. Förvaltningen kan även omfatta relaterade komponenter i Power Platform, Power BI, Microsoft Fabric och Azure när dessa ingår i kundens CRM-miljö.",
+          "typicalProjects": "Typiska projekt omfattar införande eller modernisering av Dynamics 365 Sales och Customer Insights, från målbild och processkartläggning till konfiguration, integration, test och lansering. Uppdragen kan omfatta automatiserade säljflöden, segmentering, kundinsikter, rapportering samt kopplingar till Customer Service och andra delar av kundresan.",
+          "typicalCustomers": "Typiska kunder är medelstora och större svenska organisationer som vill modernisera CRM, säljprocesser, marknadsföring och kunddialog. B3 Elevate har ett särskilt fokus på medlemsorganisationer med behov av samlad information om relationer och aktiviteter. Erbjudandet passar även verksamheter som vill kombinera Dynamics 365 Sales och Customer Insights med AI och automation.",
+          "furtherDevelopment": "Vidareutveckling sker utifrån verksamhetens förändrade behov och uppföljning av hur lösningen används. Det kan innebära justerade säljprocesser, nya integrationer, förbättrad datakvalitet, rapportering och utökad automation. B3 Elevate kan också vidareutveckla lösningen med Customer Insights, Power Platform och AI-baserat stöd i befintliga arbetsflöden."
+        },
         "customerExamples": [],
         "customerCaseLinks": [],
         "productDescription": "B3 Elevate arbetar med att implementera och optimera Dynamics 365 Sales för att stödja organisationer i att effektivisera sina säljprocesser och utveckla datadriven marknadsföring, ofta med integration av AI-funktionalitet. Deras lösningar är utformade för att förbättra hanteringen av kundrelationer, automatisera säljuppgifter och ge insikter som kan driva försäljningstillväxt. Partnern tillhandahåller även expertis inom närliggande Dynamics 365-applikationer som Customer Insights (Marketing), Customer Service, Field Service och Contact Center, vilket möjliggör en integrerad kundresa. Detta stöder främst medelstora till stora företag som strävar efter att förvalta sin säljcykel från prospektering till affärsavslut på ett mer effektivt sätt.",
@@ -417,6 +425,14 @@
         "companySize": [],
         "swedenCities": [],
         "swedenRegions": [],
+        "deliveryProfile": {
+          "aiAutomation": "AI och automation kan användas för att effektivisera ärendehantering, kunddialog och internt kunskapsarbete i Dynamics 365 Customer Service, Field Service och Contact Center. B3 Elevate kan kombinera inbyggda AI-funktioner med Power Automate och Copilot Studio för att automatisera arbetsmoment, ge handläggarstöd och skapa agenter kopplade till serviceprocesser och verksamhetsdata.",
+          "deliveryModel": "B3 Elevate arbetar med team som förenar verksamhetsförståelse och teknisk kompetens, från strategi och design till konfiguration, integration, test och införande. Leveransen kan omfatta förändringsledning och automatiserade tester med Playwright. Vid bredare behov kan arbetet kompletteras med kompetens från B3 Consulting Group inom bland annat verksamhetsutveckling och cybersäkerhet.",
+          "managedServices": "Efter go-live kan B3 Elevate tillhandahålla förvaltning av Customer Service, Field Service och Contact Center samt tillhörande integrationer och automationer. Arbetet kan omfatta användarstöd, felhantering, uppföljning och mindre förbättringar. Inriktningen är att följa lösningens resultat och fortsätta anpassa den när serviceprocesser och verksamhetsbehov förändras.",
+          "typicalProjects": "Typiska projekt omfattar införande eller utveckling av Dynamics 365 Customer Service, Field Service och Contact Center. Arbetet kan inkludera processkartläggning, ärendehantering, kunskapsstöd, kanaler för kunddialog, planering av fältarbete samt integration med Sales och Customer Insights. Projekten kan även omfatta AI-stöd, automation, test och förändringsledning.",
+          "typicalCustomers": "Typiska kunder är medelstora och större organisationer som vill samordna kundservice, medlemsservice, fältservice eller kontaktcenter i en gemensam lösning. Medlemsorganisationer är en särskilt relevant målgrupp. Erbjudandet passar verksamheter med behov av strukturerad ärendehantering, samlad kundinformation, kunskapsdelning och effektivare serviceprocesser.",
+          "furtherDevelopment": "Vidareutveckling kan utgå från användning, återkoppling och mätning av serviceprocessernas resultat. Det kan omfatta nya ärendeflöden, kanaler, integrationer, kunskapsstöd och funktioner för fältservice eller kontaktcenter. Lösningen kan också byggas ut med Power Platform, rapportering och AI-stöd för att möta nya krav på kund- och medlemsservice."
+        },
         "customerExamples": [],
         "customerCaseLinks": [],
         "productDescription": "B3 Elevate är specialiserade på att implementera och optimera Dynamics 365 Customer Service för organisationer som önskar effektivisera sin kund- och medlemsservice. De fokuserar på lösningar som integrerar intelligenta funktioner, inklusive AI-stöd, för att förbättra serviceupplevelsen och automatisera processer. Detta inkluderar hantering av ärenden, kundinteraktioner och kunskapsdelning inom organisationen. Deras expertis sträcker sig till att koppla Dynamics 365 Customer Service med andra applikationer som Sales, Customer Insights och Field Service för en mer sammanhängande kundresa. De assisterar kunder med att designa och implementera skalbara serviceplattformar som kan anpassas efter varierande affärsbehov.",
@@ -445,7 +461,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-08-19T09:04:18.929382+00:00",
+    "updated_at": "2026-08-19T11:20:49.171334+00:00",
     "industry_pitches": [
       {
         "text": "För medlemsorganisationer kan B3 Elevate leverera lösningar baserade på Microsoft Dynamics 365, med fokus på att optimera medlemsresan och medvetenheten om organisationens värde. De har kompetens inom applikationer som Dynamics 365 Sales, Customer Insights (Marketing), Customer Service och Contact Center.\n\nGenom att arbeta med Dynamics 365 kan organisationer effektivisera medlemskommunikation, hantera medlemsregister och förbättra servicen. B3 Elevate bistår med att utveckla och implementera system för att underlätta dessa processer, från strategi till förvaltning. Deras expertis omfattar hur digitala verktyg kan anpassas för att möta medlemmarnas förväntningar och hantera enskilda medlemsärenden mer effektivt. De arbetar också med att integrera AI-baserade lösningar för att utveckla kundupplevelsen, vilket kan bidra till en ökad relevans för medlemmarna.",
@@ -951,6 +967,8 @@
           "Sverige",
           "Norden"
         ],
+        "keyPoints": "Dynamics 365 Sales och Customer Insights (Marketing)\nPower Apps, Power Automate och Power BI\nCRM, kunddata och säljprocesser\nImplementation, utbildning och förvaltning",
+        "whyChoose": "CRM Konsulterna fokuserar på Microsofts plattform för CRM, kundhantering och AI. Kunder kan anlita samma partner för implementation, integrationer, automation, utbildning och löpande förvaltning av lösningar för försäljning och marknadsföring.",
         "industries": [
           "Konsulttjänster",
           "Grossist & Distribution"
@@ -972,11 +990,19 @@
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "",
+        "deliveryProfile": {
+          "aiAutomation": "CRM Konsulterna arbetar med Copilot, AI och intelligent automation i anslutning till CRM. Inom försäljning och marknadsföring kan detta användas för att förenkla återkommande arbetsmoment, stödja användare och automatisera informationsflöden. Power Automate och Copilot Studio kan ingå i lösningen.",
+          "deliveryModel": "Leveransen kan omfatta analys av verksamhetens behov, konfiguration, anpassning, integration, datamigrering, test och utbildning. CRM Konsulterna arbetar med specialistkompetens inom Dynamics 365 Customer Engagement och Power Platform och kan följa lösningen från införande till förvaltning och fortsatt utveckling.",
+          "managedServices": "Efter driftsättning kan CRM Konsulterna ge stöd med förvaltning av Dynamics 365 Sales och Customer Insights (Marketing). Arbetet kan omfatta support, justeringar, felsökning, administration och utbildning samt hantering av nya behov i takt med att arbetssätt, processer och Microsofts plattform förändras.",
+          "typicalProjects": "Typiska projekt omfattar införande eller vidareutveckling av Dynamics 365 Sales, strukturering av kund- och kontaktdata samt stöd för affärsmöjligheter, aktiviteter och uppföljning. Uppdrag kan även omfatta Customer Insights (Marketing), integrationer, rapportering och automatiserade arbetsflöden.",
+          "typicalCustomers": "Typiska kunder är mellanstora B2B-företag där försäljning och kundrelationer har stor betydelse. Det kan vara konsultföretag, grossister och distributörer med flera säljroller, återkommande kunddialoger och behov av en gemensam struktur för kunddata, aktiviteter, affärsmöjligheter och marknadsföring.",
+          "furtherDevelopment": "Vidareutveckling kan ske genom nya funktioner, anpassade appar, automatiserade flöden, rapportering och integrationer. Utvecklingen kan utgå från förändrade säljprocesser och marknadsbehov, med Dynamics 365, Power Apps, Power Automate och Power BI som delar av den samlade lösningen."
+        },
         "aiBusinessImpact": "",
         "customerExamples": [],
         "aiCaseDescription": "",
         "customerCaseLinks": [],
-        "productDescription": "",
+        "productDescription": "CRM Konsulterna erbjuder införande och utveckling av Dynamics 365 Sales och Customer Insights (Marketing). Lösningarna stödjer hantering av kunddata, säljprocesser, aktiviteter och marknadsföring, med kompletterande automation och analys via Power Platform.",
         "aiPredictiveDetails": [],
         "secondaryIndustries": [],
         "aiSegmentationDetails": []
@@ -992,6 +1018,8 @@
           "Sverige",
           "Norden"
         ],
+        "keyPoints": "Customer Service, Field Service och Contact Center\nÄrendehantering och kunddialog\nPower Apps och Power Automate\nAI, Copilot och intelligenta agenter",
+        "whyChoose": "Kunder väljer CRM Konsulterna för bolagets fokus på Dynamics 365 Customer Engagement, Power Platform och AI. Partnern kan kombinera verksamhetsnära CRM-kompetens med implementation, automatiserade flöden, anpassade appar, utbildning och förvaltning inom serviceområdet.",
         "industries": [
           "Konsulttjänster",
           "Grossist & Distribution"
@@ -1013,11 +1041,19 @@
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "",
+        "deliveryProfile": {
+          "aiAutomation": "CRM Konsulterna kan använda Copilot, Power Automate och Copilot Studio för att komplettera serviceprocesser med AI och automation. Det kan handla om att stödja användare i återkommande moment, styra informationsflöden eller skapa agenter för avgränsade uppgifter inom kundservice och intern hantering.",
+          "deliveryModel": "Leveransen kan omfatta behovsanalys, processkartläggning, konfiguration, anpassning, integration, test och utbildning. Specialistteam inom Dynamics 365 Customer Engagement och Power Platform kan arbeta med både verksamhetsprocesser och teknisk lösning samt fortsätta med förvaltning efter driftsättning.",
+          "managedServices": "Efter go-live kan CRM Konsulterna hantera löpande förvaltning av lösningar inom Customer Service, Field Service och Contact Center. Insatserna kan omfatta support, felsökning, administration, mindre förbättringar och utbildning samt anpassning till nya verksamhetsbehov och förändringar i Microsofts tjänster.",
+          "typicalProjects": "Typiska projekt omfattar införande och utveckling av ärendehantering i Customer Service, kontaktcenterlösningar eller stöd för planering och genomförande av fältservice. Uppdragen kan även innehålla datamigrering, integrationer, rapportering, automatiserade arbetsflöden och anpassade appar för olika användarroller.",
+          "typicalCustomers": "Typiska kunder är mellanstora organisationer med strukturerade serviceflöden och behov av samlad information om kunder, ärenden och aktiviteter. Det kan vara konsultföretag, grossister och distributörer som hanterar många kundkontakter, interna överlämningar, serviceärenden eller arbete som utförs ute på fältet.",
+          "furtherDevelopment": "Vidareutveckling kan omfatta nya serviceflöden, formulär, appar, integrationer, rapporter och automatiseringar. Lösningen kan byggas ut stegvis när organisationens ärendehantering, kontaktcenter eller fältservice förändras, med Dynamics 365 och Power Platform som teknisk grund."
+        },
         "aiBusinessImpact": "",
         "customerExamples": [],
         "aiCaseDescription": "",
         "customerCaseLinks": [],
-        "productDescription": "",
+        "productDescription": "CRM Konsulterna erbjuder lösningar baserade på Dynamics 365 Customer Service, Field Service och Contact Center. Erbjudandet omfattar stöd för kundservice, ärendehantering, kontaktcenter och fältarbete, kompletterat med appar, automation, analys och AI.",
         "aiPredictiveDetails": [],
         "secondaryIndustries": [],
         "aiSegmentationDetails": []
@@ -1032,7 +1068,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-08-19T09:04:18.929382+00:00",
+    "updated_at": "2026-08-19T11:22:02.464878+00:00",
     "industry_pitches": [
       {
         "text": "CRM Konsulterna bistår konsultbolag med att optimera sin kundresa och interna processer med Dynamics 365. De adresserar typiska utmaningar som fragmenterad kundkommunikation och ineffektiv projektförsäljning. Genom att implementera Dynamics 365 Sales förbättrar de säljprocesser från prospektering till affärsavslut, vilket möjliggör bättre uppföljning och pipelinesynlighet. Med Dynamics 365 Customer Insights (Marketing) kan konsultbolag segmentera kunder och leverera relevanta budskap, vilket stärker varumärket och genererar nya affärsmöjligheter. De hjälper också med Dynamics 365 Customer Service för att hantera kundförfrågningar effektivt och säkerställa hög kundnöjdhet. Fokus ligger på att skapa en enhetlig kundbild och förbättra samarbetet internt, vilket frigör tid för konsultens kärnverksamhet.",
@@ -1532,6 +1568,14 @@
         "landingPageUrl": "https://goodfellows.se/tjanster/affarssystem/",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/goodfellows-contact-bc.png?t=1780299930525",
+        "deliveryProfile": {
+          "aiAutomation": "Underlaget beskriver inte något särskilt erbjudande inom AI. Automation kan främst kopplas till de affärsflöden som hanteras i Business Central och dess integrationer, exempelvis order, lager, EDI, frakt och leverantörsreskontra. Behov av Copilot, AI-baserade funktioner eller mer avancerad automation behöver därför avgränsas och bedömas i dialog med Goodfellows.",
+          "deliveryModel": "Leveransen inleds normalt med analys och förstudie för att avgränsa behov, processer, integrationer och projektupplägg. Därefter följer genomförande, driftsättning och framtidssäkring. Goodfellows betonar en kundnära arbetsform där samma konsulter kan följa verksamheten från projektstart till support och förvaltning.",
+          "managedServices": "Efter driftsättning erbjuder Goodfellows support och löpande förvaltning av Business Central. Arbetet kan omfatta hantering av frågor och fel, anpassningar, integrationer samt stöd i den dagliga användningen. Kontinuiteten i konsultteamet ger förvaltningen kännedom om kundens processer, tidigare vägval och tekniska lösning.",
+          "typicalProjects": "Typiska projekt omfattar förstudie, processkartläggning och införande av Business Central för ekonomi, order, inköp, lager och rapportering. Projekten kan även innehålla integrationer mot e-handel, WMS, frakt- och transportsystem, EDI eller leverantörsreskontra. Goodfellows arbetar också med uppgraderingar och utveckling av befintliga miljöer.",
+          "typicalCustomers": "Typiska kunder är små och medelstora företag inom grossist, distribution, handel, e-handel, produktion och konsulttjänster. De söker ofta ett sammanhållet stöd för ekonomi, order, lager, logistik, projekt och rapportering. Goodfellows passar särskilt när kunden värdesätter kontinuitet i konsultteamet och löpande stöd efter införandet.",
+          "furtherDevelopment": "Vidareutveckling sker utifrån förändrade verksamhetsbehov och kan omfatta nya funktioner, processförbättringar, rapportering och kompletterande integrationer. Business Central kan successivt byggas ut med stöd för exempelvis WMS, EDI, frakt, e-handel och leverantörsreskontra. Arbetet hanteras inom den löpande förvaltningen eller som avgränsade projekt."
+        },
         "aiBusinessImpact": "",
         "customerExamples": [
           "Kundexempel kan ges på förfrågan"
@@ -1558,7 +1602,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-08-19T09:04:18.929382+00:00",
+    "updated_at": "2026-08-19T11:21:36.814109+00:00",
     "industry_pitches": [
       {
         "text": "Goodfellows levererar affärssystemlösningar med fokus på Microsoft Dynamics 365 Business Central. Partnern har erfarenhet av att arbeta med företag inom handel och distribution. De strävar efter att leverera lösningar som fungerar i praktiken och bidrar med affärsförståelse för att säkerställa relevanta vägval. Goodfellows kan erbjuda stöd för processer som rör omnikanalstrategier, kundresor, logistik och lagerhantering, vilka är centrala för aktörer inom retail och e-handel. De arbetar nära sina kunder för att implementera lösningar som skapar affärsnytta, med målet att systemet ska fungera utan oväntade utmaningar.",
@@ -2090,6 +2134,14 @@
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "",
+        "deliveryProfile": {
+          "aiAutomation": "AI och automation kan användas som komplement till Business Central för att minska manuellt arbete och ge stöd i återkommande processer. NAB Solutions arbetar med Microsofts Copilot- och automationsverktyg samt integrationer runt affärssystemet. Vilka funktioner som är lämpliga bedöms utifrån process, datakvalitet, behörigheter och verksamhetsnytta.",
+          "deliveryModel": "Leveransen kan inledas med en avgränsad fastprislösning för grundläggande ekonomifunktioner eller utformas som ett mer anpassat införande. Arbetet bedrivs med etablerad metodik, tydlig omfattning och stegvis driftsättning. Teamets sammansättning anpassas efter behov inom verksamhetsprocesser, migrering, integration och teknisk utveckling.",
+          "managedServices": "Efter driftsättning kan NAB Solutions ansvara för support, licenshantering, löpande förvaltning och tekniska uppdateringar. Förvaltningen kan även omfatta felsökning, mindre ändringar och stöd till användare. Upplägget passar verksamheter som vill ha en långsiktig kontakt för både den dagliga driften och planerade förändringar i Business Central.",
+          "typicalProjects": "Vanliga projekt är införanden av Business Central för ekonomi, fakturering, order och lager samt migreringar från NAV eller Navision till molnet. Uppdrag kan börja med en fastprisbaserad startlösning och senare omfatta flera lager, fler bolag, större transaktionsvolymer, verksamhetsanpassningar och integrationer till andra system.",
+          "typicalCustomers": "Typiska kunder är små och medelstora företag som vill använda Business Central som sitt primära affärssystem. Det omfattar grossister, distributörer och uthyrningsföretag med behov inom ekonomi, lager och order samt NAV- eller Navision-kunder som vill flytta till en molnbaserad lösning och därefter bygga ut den stegvis.",
+          "furtherDevelopment": "Business Central kan vidareutvecklas när verksamheten får nya krav eller växer. Det kan handla om fler bolag och lager, utökade flöden, nya integrationer eller anpassningar för exempelvis grossist- och uthyrningsverksamhet. NAB Solutions kombinerar Business Central med en tilläggsportfölj och kan planera förändringar i etapper efter införandet."
+        },
         "aiBusinessImpact": "",
         "customerExamples": [],
         "aiCaseDescription": "",
@@ -2140,6 +2192,14 @@
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "",
+        "deliveryProfile": {
+          "aiAutomation": "Inbyggda AI- och Copilot-funktioner kan användas för att stödja arbete med kunddata, försäljningsaktiviteter och uppföljning. Automation kan även koppla samman återkommande steg mellan Sales, Customer Insights och andra Microsoft-tjänster. NAB Solutions bedömer användningsområdena per scenario, med hänsyn till datakvalitet, åtkomst och processernas utformning.",
+          "deliveryModel": "Leveransen utgår från verksamhetens kund- och försäljningsprocesser och avgränsas efter vilka funktioner som ska införas. Arbetet kan delas upp i etapper för konfiguration, datamigrering, integration, test och driftsättning. Eftersom Sales och Customer Insights är sekundära områden för NAB Solutions bör team och omfattning verifieras för det aktuella uppdraget.",
+          "managedServices": "Efter driftsättning kan förvaltningen omfatta support, justering av konfiguration, behörigheter, integrationer och löpande förbättringar. NAB Solutions kan även samordna förändringar mellan CRM-lösningen och Business Central. Omfattning, servicenivåer och ansvar för Sales respektive Customer Insights behöver fastställas för varje kund och lösning.",
+          "typicalProjects": "Vanliga projekt omfattar införande eller anpassning av Dynamics 365 Sales och Customer Insights för kundregister, aktiviteter, affärsmöjligheter och riktade kundinsatser. Arbetet kan även omfatta datamigrering, integration med Business Central, rapportering och utformning av processer som ger sälj- och marknadsteam tillgång till gemensam information.",
+          "typicalCustomers": "Typiska kunder är medelstora grossist-, distributions- och konsultföretag som behöver samla kund-, marknadsförings- och försäljningsdata. Lösningen passar verksamheter som vill ge säljorganisationen en gemensam bild av kunder, aktiviteter och affärsmöjligheter, särskilt när CRM ska kopplas till Business Central eller andra Microsoft-tjänster.",
+          "furtherDevelopment": "Lösningen kan byggas ut när sälj- och marknadsprocesserna förändras. Vidareutveckling kan exempelvis omfatta nya datakällor, justerade kundsegment, fler automatiserade aktiviteter, rapportering och tätare integration med Business Central. Prioritering och införande kan ske stegvis utifrån användarnas behov och kvaliteten i tillgängliga kunddata."
+        },
         "aiBusinessImpact": "",
         "customerExamples": [],
         "aiCaseDescription": "",
@@ -2179,6 +2239,14 @@
           "Väst",
           "Sydost"
         ],
+        "deliveryProfile": {
+          "aiAutomation": "AI och automation kan ge stöd vid sortering, sammanställning och uppföljning av kundärenden samt minska manuella moment i återkommande serviceflöden. Inbyggda Microsoft-funktioner och kompletterande automation bedöms utifrån process och datakvalitet. Stöd för mer avancerade kontaktcenter- eller agentlösningar behöver verifieras för det enskilda projektet.",
+          "deliveryModel": "Leveransen utgår från kundens serviceprocesser och kan delas upp i analys, konfiguration, integration, test och driftsättning. Omfattningen anpassas efter om behovet gäller ärendehantering, fältservice eller flera sammanhängande flöden. Eftersom serviceområdet är sekundärt för NAB Solutions behöver tillgängligt team och stöd för Contact Center bekräftas per uppdrag.",
+          "managedServices": "Efter införandet kan förvaltningen omfatta support, behörigheter, mindre konfigurationsändringar, integrationer och löpande anpassning av serviceflöden. För verksamheter där lösningen är kopplad till Business Central kan förändringar samordnas mellan systemen. Servicenivåer och ansvar för respektive applikation fastställs i det aktuella förvaltningsupplägget.",
+          "typicalProjects": "Vanliga projekt kan omfatta konfigurering av ärendehantering i Customer Service, planering och uppföljning av fältarbete i Field Service samt integration med kund- och affärsdata. Uppdragen kan även innehålla datamigrering, behörigheter, rapportering och stöd för kommunikationskanaler. Contact Center verifieras separat utifrån projektets krav.",
+          "typicalCustomers": "Typiska kunder är medelstora tjänste- och konsultföretag som behöver strukturera kundärenden, serviceprocesser och kommunikation i gemensamma arbetsflöden. Lösningen kan även vara relevant för företag som vill koppla kundservice eller fältarbete till övriga kund- och affärsdata. Exakt stöd för Contact Center bör bekräftas för varje uppdrag.",
+          "furtherDevelopment": "Serviceplattformen kan utvecklas vidare med fler ärendetyper, justerade arbetsflöden, nya integrationer och förbättrad rapportering. Field Service kan byggas ut när planering och uppföljning av arbete på plats förändras. Utökningar inom Contact Center bör föregås av en särskild verifiering av krav, funktioner och NAB Solutions leveransomfattning."
+        },
         "customerExamples": [],
         "customerCaseLinks": [
           "https://nabsolutions.com/se/kundcase/sales/serit-nidaros/"
@@ -2202,7 +2270,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-08-19T09:04:18.929382+00:00",
+    "updated_at": "2026-08-19T11:21:20.469686+00:00",
     "industry_pitches": [
       {
         "text": "NAB Solutions erbjuder lösningar baserade på Microsoft Dynamics 365 för den svenska finans- och försäkringsbranschen. Partnern levererar systemstöd som adresserar branschens krav på digitalisering, effektivisering av processer och hantering av höga kundförväntningar. Med erfarenhet av Dynamics 365 Business Central kan de bidra till modernisering av kärnsystem för finansiell styrning.\n\nFör att möta behovet av förbättrade kundrelationer och personaliserade upplevelser implementerar NAB Solutions applikationer som Dynamics 365 Sales, Customer Service och Customer Insights (Marketing). Dessa lösningar kan stödja försäljningsprocesser, kundsupport och datadriven marknadsföring, vilket är relevant för företag som vill förstärka sin position i en konkurrensutsatt marknad. De arbetar även med Contact Center-lösningar för att effektivisera kundkommunikationen. Partnern har sedan 2001 fokuserat på Microsofts produkter och bistår företag med digitalisering.",
@@ -3095,6 +3163,14 @@
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "",
+        "deliveryProfile": {
+          "aiAutomation": "Sirocco arbetar med automation och AI i anslutning till CRM-processer, med stöd av Power Platform och Azure AI. Inom Sales och Customer Insights (Marketing) kan arbetet inriktas på automatiserade arbetsflöden, databehandling och stöd i återkommande aktiviteter. Sirocco kan även bidra med bedömning av organisationens förutsättningar för att införa AI.",
+          "deliveryModel": "Leveransen bedrivs agilt och anpassas efter verksamhetens processer, tekniska miljö och mål. Sirocco arbetar med team inom Dynamics 365 Customer Engagement, Power Platform och integration. SAFe kan användas som ramverk i större initiativ. Den internationella organisationen ger möjlighet att bemanna och samordna utrullningar i flera länder.",
+          "managedServices": "Efter produktionssättning kan Sirocco stödja förvaltning av Dynamics 365 Sales och Customer Insights (Marketing). Arbetet kan omfatta hantering av fel och ändringsbehov, justering av konfiguration, stöd till användare samt löpande förbättringar. Förvaltningen anpassas efter lösningens omfattning och kundens interna organisation.",
+          "typicalProjects": "Projekten omfattar införande eller vidareutveckling av Dynamics 365 Sales och Customer Insights (Marketing). Vanliga delar är säljautomatisering, strukturering av kund- och aktivitetsdata, anpassning av arbetsflöden samt integration med befintliga system. Uppdragen kan genomföras som svenska införanden eller internationella utrullningar.",
+          "typicalCustomers": "Typiska kunder är medelstora och större organisationer med etablerade säljprocesser och behov av samlad kundinformation. Erfarenheten omfattar särskilt tillverkningsföretag samt verksamheter inom livsmedels- och processindustrin. Sirocco kan även stödja företag med internationell verksamhet och utrullningar i flera länder.",
+          "furtherDevelopment": "Vidareutveckling kan ske stegvis utifrån nya verksamhetskrav, användarbehov och förändrade säljprocesser. Det kan omfatta nya funktioner, anpassningar, integrationer, datamodeller och rapportering. Siroccos arbete inom Dynamics 365 och Power Platform gör det möjligt att utveckla CRM-lösningen över tid utan att hela införandet behöver göras om."
+        },
         "aiBusinessImpact": "",
         "customerExamples": [],
         "aiCaseDescription": "",
@@ -3144,6 +3220,14 @@
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "",
+        "deliveryProfile": {
+          "aiAutomation": "Sirocco arbetar med AI och automation genom Power Platform och Azure AI, med fokus på verksamhetens beredskap och konkreta processbehov. Inom serviceområdet kan detta användas för att automatisera återkommande flöden, bearbeta information och ge stöd i kund- och serviceärenden. Införandet kan ske stegvis efter bedömning av data, processer och styrning.",
+          "deliveryModel": "Sirocco genomför leveranser med en agil metodik och team med kompetens inom Dynamics 365 Customer Engagement, Power Platform och integration. Arbetssättet anpassas efter verksamhetens serviceprocesser och projektets omfattning, medan SAFe kan användas i större initiativ. Den internationella närvaron ger stöd för utrullningar över flera marknader.",
+          "managedServices": "Efter go-live kan Sirocco stödja förvaltning av Customer Service, Field Service och Contact Center. Insatserna kan omfatta felhantering, konfigurationsändringar, stöd kring integrationer och löpande anpassning av serviceflöden. Omfattning och arbetssätt utformas efter lösningens komplexitet, användarnas behov och kundens egen förvaltningsorganisation.",
+          "typicalProjects": "Vanliga projekt omfattar införande och anpassning av Dynamics 365 Customer Service, Field Service eller Contact Center. Arbetet kan beröra ärendehantering, kunddialog, planering av fältresurser och uppföljning av serviceinsatser. Projekten kan även innehålla integrationer och gemensamma processer från första kundkontakt till genomförd service.",
+          "typicalCustomers": "Typiska kunder är medelstora och större organisationer med omfattande kundservice, kontaktcenter eller servicearbete i fält. Det gäller särskilt tillverkningsföretag och verksamheter inom livsmedels- och processindustrin, där ärenden, resurser och serviceinsatser behöver samordnas. Internationella verksamheter kan också stödjas.",
+          "furtherDevelopment": "Lösningen kan vidareutvecklas stegvis när serviceprocesser, kanalbehov eller arbetssätt förändras. Det kan innebära nya ärendeflöden, justerad resursplanering, fler integrationer eller utökad rapportering. Sirocco kan kombinera Dynamics 365 med Power Platform för att komplettera standardfunktionerna och automatisera återkommande moment."
+        },
         "aiBusinessImpact": "",
         "customerExamples": [],
         "aiCaseDescription": "",
@@ -3167,7 +3251,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-08-19T09:04:18.929382+00:00",
+    "updated_at": "2026-08-19T11:22:23.518257+00:00",
     "industry_pitches": [
       {
         "text": "Sirocco Group bistår företag inom livsmedels- och processindustrin med att utveckla och implementera digitala lösningar som möter branschens specifika krav. Med fokus på CRM och digital transformation, använder de Microsoft Dynamics 365 Sales, Customer Insights, Customer Service, Field Service och Project Operations för att optimera processer. Detta inkluderar hantering av kundrelationer, personal på fältet samt service, vilket kan vara relevant för företag med komplexa distributionskedjor eller servicebehov. Partnern har erfarenhet av att anpassa dessa applikationer för att stödja effektivare interaktioner med kunder och partners, samt för att strömlinjeforma interna arbetsflöden. Målet är att bidra till ökad effektivitet och förbättrad service inom en konkurrensutsatt bransch.",
