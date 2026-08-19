@@ -134,10 +134,8 @@ const Partnerprogram = () => {
   const { data: basicPartners } = useBasicPartners();
   const [showSticky, setShowSticky] = useState(false);
 
-  const identifiedCount = useMemo(() => {
-    const total = VERIFIED_PARTNERS.length + (basicPartners?.length ?? 0);
-    return Math.max(IDENTIFIED_PARTNER_FLOOR, total);
-  }, [basicPartners]);
+
+
 
   const matchedPartner = useMemo(() => {
     if (!partnerSlug) return null;
