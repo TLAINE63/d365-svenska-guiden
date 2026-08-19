@@ -33,6 +33,7 @@ import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
 import DecisionProfile from "@/components/partner/DecisionProfile";
 import PartnerAiInsights from "@/components/partner/PartnerAiInsights";
+import ExtendedCompetenciesSection from "@/components/partner/ExtendedCompetenciesSection";
 import PartnerProductTabs, { resolveInitialTab } from "@/components/partner/PartnerProductTabs";
 import { RadialGlow } from "@/components/RadialGlow";
 import type { TabKey } from "@/components/partner/types";
@@ -580,6 +581,16 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  {/* <DecisionProfile partner={partner} /> tillfälligt dold */}
 
  <PartnerAiInsights partner={partner as any} />
+
+ <section className="py-6">
+  <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+   <ExtendedCompetenciesSection
+    competencies={(partner as any)?.extended_competencies}
+    partnerName={partner?.name}
+   />
+  </div>
+ </section>
+
 
 
 

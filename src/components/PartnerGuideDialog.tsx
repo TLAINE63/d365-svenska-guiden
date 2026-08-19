@@ -26,6 +26,16 @@ import { Partner } from "@/data/partners";
 import { DatabasePartner } from "@/hooks/usePartners";
 import PartnerCardSummary from "@/components/partner/PartnerCardSummary";
 import { supabase } from "@/integrations/supabase/client";
+import {
+  COMPETENCY_AREAS,
+  COMPETENCY_LEVELS,
+  LEVEL_META,
+  meetsLevel,
+  competencyRankBonus,
+  normalizeCompetencies,
+  type CompetencyArea,
+  type CompetencyLevel,
+} from "@/lib/extendedCompetencies";
 import { useToast } from "@/hooks/use-toast";
 
 // Product icons
@@ -191,11 +201,6 @@ const sizeOptions = [
   { value: ">5.000", label: "Mer än 5.000 anställda" }
 ];
 
-const aiInterestOptions = [
-  { value: "high", label: "Ja, det är viktigt", description: "Vi vill ha en partner med stark kompetens inom Copilot, AI-agenter och/eller Copilot Studio" },
-  { value: "medium", label: "Intressant men inte avgörande", description: "Vi vill veta mer, men det är inte ett krav för val av partner" },
-  { value: "none", label: "Nej, inte aktuellt just nu", description: "AI är inte prioriterat i vår implementering" },
-];
 
 const localPresenceOptions = [
   { value: "very", label: "Mycket viktigt", description: "Vi vill ha en partner med lokal närvaro i vår region – nära kontor och personliga möten" },
@@ -290,6 +295,8 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
   const [selectedAiInterest, setSelectedAiInterest] = useState<string>(initialAiInterest || "");
   const [selectedLocalPreference, setSelectedLocalPreference] = useState<string>("");
   const [selectedPlatformNeeds, setSelectedPlatformNeeds] = useState<string[]>([]);
+  // Utökade kompetensområden – sekundära signaler, Dynamics 365 är alltid primärt
+  const [competencyPrefs, setCompetencyPrefs] = useState<Partial<Record<CompetencyArea, CompetencyLevel>>>({});
   const [selectedAdditionalApps, setSelectedAdditionalApps] = useState<string[]>([]);
   const [customCountries, setCustomCountries] = useState<string>("");
   const [suggestedPartners, setSuggestedPartners] = useState<PartnerData[]>([]);
@@ -387,6 +394,21 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
       matchingPartners = filterPartners(true);
     }
 
+    // Utökade kompetensområden – tillämpas EFTER Dynamics-filtren (produkt +
+    // bransch är alltid primära) och relaxas om resultatet blir för tunt.
+    const activePrefs = Object.entries(competencyPrefs).filter(([, v]) => !!v) as Array<
+      [CompetencyArea, CompetencyLevel]
+    >;
+    if (activePrefs.length > 0) {
+      const withCompetency = matchingPartners.filter((p) => {
+        const comps = normalizeCompetencies((p as any).extended_competencies);
+        return activePrefs.every(([area, min]) => meetsLevel(comps, area, min));
+      });
+      if (withCompetency.length >= MIN_RESULTS) {
+        matchingPartners = withCompetency;
+      }
+    }
+
     // For CRM apps: ensure at least one CRM-only partner in the set
     // We do this by promoting a CRM-only partner if none exists in current results
     let finalPartners = [...matchingPartners];
@@ -432,6 +454,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
             platform_capabilities: (p as any).platform_capabilities || [],
             partner_size_tier: (p as any).partner_size_tier ?? null,
             partner_size_tier_needs_review: (p as any).partner_size_tier_needs_review === true,
+            extended_competencies: normalizeCompetencies((p as any).extended_competencies),
           }));
 
         if (partnerPayload.length === 0) {
@@ -454,6 +477,9 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
               aiInterest: aiInterest || undefined,
               localPreference: selectedLocalPreference || undefined,
               platformNeeds: selectedPlatformNeeds.length > 0 ? selectedPlatformNeeds : undefined,
+              extendedCompetencies: activePrefs.length > 0
+                ? Object.fromEntries(activePrefs.map(([a, l]) => [a, LEVEL_META[l].label]))
+                : undefined,
               additionalApps: selectedAdditionalApps.length > 0 ? selectedAdditionalApps : undefined,
             },
           },
@@ -475,11 +501,19 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
         if (matches.length > 0) {
           const scoreMap = new Map(matches.map(m => [m.id, m.score]));
 
-          let sorted = [...finalPartners].sort((a, b) => {
-            const scoreA = isDatabasePartner(a) ? (scoreMap.get(a.id) ?? 0) : 0;
-            const scoreB = isDatabasePartner(b) ? (scoreMap.get(b.id) ?? 0) : 0;
-            return scoreB - scoreA;
-          });
+          const prefsMap = Object.fromEntries(activePrefs) as Partial<
+            Record<CompetencyArea, CompetencyLevel>
+          >;
+          const totalScore = (p: PartnerData) => {
+            const base = isDatabasePartner(p) ? (scoreMap.get(p.id) ?? 0) : 0;
+            // Sekundär signal – kan aldrig väga upp svag Dynamics-matchning
+            const bonus = activePrefs.length
+              ? competencyRankBonus(normalizeCompetencies((p as any).extended_competencies), prefsMap)
+              : 0;
+            return base + bonus;
+          };
+
+          let sorted = [...finalPartners].sort((a, b) => totalScore(b) - totalScore(a));
 
           // For CRM apps: if no CRM-only partner is in top 3, swap one in
           if (isCrmSpecialistApp && sorted.length >= MIN_RESULTS) {
@@ -552,7 +586,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
       case 'size': return selectedSize !== "";
       case 'local': return selectedLocalPreference !== "";
       case 'platform': return true; // optional multi-select, always can proceed
-      case 'ai': return selectedAiInterest !== "";
+      case 'ai': return true; // valfria kompetensfilter
       default: return true;
     }
   };
@@ -805,32 +839,61 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
         {/* AI interest step – auto-submits on click */}
         {getContentStep(step) === 'ai' && !isResultStep && (
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Hur viktigt är AI i ert val av partner?</h3>
+            <h3 className="text-lg font-semibold">AI, Automation &amp; Power Platform</h3>
             <p className="text-sm text-muted-foreground">
-              Microsoft erbjuder AI-funktioner som Copilot, AI-agenter, Copilot Studio och Azure AI Foundry. Vill ni att partnern har kompetens inom dessa?
+              Utöver Dynamics 365 kan partnern ha kompetens inom Power Platform, Copilot &amp; AI samt
+              Copilot Studio och agenter. Välj vilken nivå ni vill att partnern ska ha – nivåerna är
+              bedömda av d365.se. Dynamics 365-kompetensen väger alltid tyngst.
             </p>
             <div className="space-y-3">
-              {aiInterestOptions.map(option => (
-                <div
-                  key={option.value}
-                  className={`flex items-start space-x-3 p-4 rounded-lg border cursor-pointer transition-colors ${
-                    selectedAiInterest === option.value
-                      ? "border-primary bg-primary/10"
-                      : "border-border hover:border-primary/50"
-                  }`}
-                  onClick={() => {
-                    setSelectedAiInterest(option.value);
-                    findBestPartnersWithAi(option.value);
-                  }}
-                >
-                  <div className={`w-4 h-4 mt-0.5 rounded border-2 flex-shrink-0 ${selectedAiInterest === option.value ? 'border-primary bg-primary' : 'border-muted-foreground/40'}`} />
+              {COMPETENCY_AREAS.map(area => (
+                <div key={area.key} className="rounded-lg border border-border p-3 space-y-2">
                   <div>
-                    <span className="text-base font-medium">{option.label}</span>
-                    <p className="text-sm text-muted-foreground mt-0.5">{option.description}</p>
+                    <span className="text-sm font-medium">{area.label}</span>
+                    <p className="text-xs text-muted-foreground leading-snug">{area.description}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setCompetencyPrefs(prev => ({ ...prev, [area.key]: undefined }))}
+                      className={`px-2.5 py-1 rounded-full border text-xs transition-colors ${
+                        !competencyPrefs[area.key]
+                          ? "border-primary bg-primary/10 text-foreground"
+                          : "border-border text-muted-foreground hover:border-primary/50"
+                      }`}
+                    >
+                      Ingen preferens
+                    </button>
+                    {COMPETENCY_LEVELS.filter(l => l !== "unverified").map(level => {
+                      const isSelected = competencyPrefs[area.key] === level;
+                      return (
+                        <button
+                          key={level}
+                          type="button"
+                          title={LEVEL_META[level].description}
+                          onClick={() =>
+                            setCompetencyPrefs(prev => ({
+                              ...prev,
+                              [area.key]: isSelected ? undefined : level,
+                            }))
+                          }
+                          className={`px-2.5 py-1 rounded-full border text-xs transition-colors ${
+                            isSelected
+                              ? "border-primary bg-primary/10 text-foreground font-medium"
+                              : "border-border text-muted-foreground hover:border-primary/50"
+                          }`}
+                        >
+                          {LEVEL_META[level].label}{level !== "leading_competence" ? " eller högre" : ""}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               ))}
             </div>
+            <p className="text-xs text-muted-foreground">
+              Om för få partners uppfyller kraven visar vi ändå de bäst matchande på Dynamics 365.
+            </p>
           </div>
         )}
 
@@ -857,8 +920,14 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                 <span className="font-medium">{localPresenceOptions.find(o => o.value === selectedLocalPreference)?.label || '–'}</span>
                 <span className="text-muted-foreground">Plattformsbehov:</span>
                 <span className="font-medium">{selectedPlatformNeeds.length > 0 ? selectedPlatformNeeds.join(', ') : 'Inga valda'}</span>
-                <span className="text-muted-foreground">AI-fokus:</span>
-                <span className="font-medium">{aiInterestOptions.find(o => o.value === selectedAiInterest)?.label || '–'}</span>
+                <span className="text-muted-foreground">AI, Automation &amp; Power Platform:</span>
+                <span className="font-medium">
+                  {Object.entries(competencyPrefs).filter(([, v]) => !!v).length > 0
+                    ? COMPETENCY_AREAS.filter(a => competencyPrefs[a.key])
+                        .map(a => `${a.label}: ${LEVEL_META[competencyPrefs[a.key]!].label}`)
+                        .join(' · ')
+                    : 'Ingen preferens'}
+                </span>
               </div>
             </div>
 
@@ -1056,7 +1125,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
             <div />
           )}
           
-          {!isResultStep && getContentStep(step) !== 'ai' && (
+          {!isResultStep && (
             <Button onClick={handleNext} disabled={!canProceed()}>
               Nästa
               <ArrowRight className="ml-2 h-4 w-4" />

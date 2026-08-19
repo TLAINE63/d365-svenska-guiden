@@ -38,6 +38,7 @@ import { Separator } from "@/components/ui/separator";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { COMPETENCY_AREAS, COMPETENCY_LEVELS, LEVEL_META } from "@/lib/extendedCompetencies";
 import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
 import { allIndustries, geographyOptions, getCumulativeGeographyDisplay, companySizes, revenueOptions } from "@/data/partners";
 import { toggleContiguousRange } from "@/lib/segmentRange";
@@ -725,6 +726,8 @@ const AdminDashboard = () => {
     best_fit_for?: string[];
     ai_tags?: string[];
     not_a_fit?: string[];
+    extended_competencies?: import("@/lib/extendedCompetencies").ExtendedCompetencies;
+    extended_competency_evidence?: Record<string, string>;
     source_document_text?: string;
     source_document_url?: string;
     source_document_filename?: string;
@@ -769,6 +772,8 @@ const AdminDashboard = () => {
     best_fit_for: [],
     ai_tags: [],
     not_a_fit: [],
+    extended_competencies: {},
+    extended_competency_evidence: {},
     source_document_text: "",
     source_document_url: "",
     source_document_filename: "",
@@ -1441,6 +1446,8 @@ Thomas`,
   best_fit_for: [],
   ai_tags: [],
   not_a_fit: [],
+  extended_competencies: {},
+  extended_competency_evidence: {},
   partner_size_tier: null,
   partner_size_tier_needs_review: false,
   });
@@ -1533,6 +1540,8 @@ Thomas`,
     best_fit_for: (partner as any).best_fit_for || [],
     ai_tags: (partner as any).ai_tags || [],
     not_a_fit: (partner as any).not_a_fit || [],
+    extended_competencies: (partner as any).extended_competencies || {},
+    extended_competency_evidence: (partner as any).extended_competency_evidence || {},
     source_document_text: (partner as any).source_document_text || "",
     source_document_url: (partner as any).source_document_url || "",
     source_document_filename: (partner as any).source_document_filename || "",
@@ -5655,6 +5664,59 @@ Thomas`,
  }
  placeholder="Business Central, Tillverkning, AI och Copilot"
  />
+ </div>
+
+ <div className="space-y-3 rounded-lg border border-border bg-muted/20 p-4">
+ <div>
+ <Label className="font-semibold text-sm">AI, Automation &amp; Power Platform – bedömd nivå</Label>
+ <p className="text-xs text-muted-foreground mt-1">
+ Nivåerna sätts av d365.se utifrån kundcase, referenser, certifieringar och publikt underlag.
+ Bedömningsunderlaget är internt och visas aldrig publikt. Dynamics 365-kompetens är alltid primär.
+ </p>
+ </div>
+ {COMPETENCY_AREAS.map((area) => (
+ <div key={area.key} className="grid gap-2 md:grid-cols-[220px_1fr] md:items-start">
+ <div>
+ <Label className="text-sm">{area.label}</Label>
+ <p className="text-[11px] text-muted-foreground leading-snug">{area.description}</p>
+ </div>
+ <div className="space-y-2">
+ <select
+ className="w-full h-9 rounded-md border border-input bg-background px-2 text-sm"
+ value={partnerFormData.extended_competencies?.[area.key] || ""}
+ onChange={(e) =>
+ setPartnerFormData({
+ ...partnerFormData,
+ extended_competencies: {
+ ...(partnerFormData.extended_competencies || {}),
+ [area.key]: (e.target.value || undefined) as any,
+ },
+ })
+ }
+ >
+ <option value="">Ej bedömt (visas inte)</option>
+ {COMPETENCY_LEVELS.map((lvl) => (
+ <option key={lvl} value={lvl}>{LEVEL_META[lvl].label}</option>
+ ))}
+ </select>
+ <Textarea
+ value={partnerFormData.extended_competency_evidence?.[area.key] || ""}
+ onChange={(e) =>
+ setPartnerFormData({
+ ...partnerFormData,
+ extended_competency_evidence: {
+ ...(partnerFormData.extended_competency_evidence || {}),
+ [area.key]: e.target.value,
+ },
+ })
+ }
+ rows={2}
+ maxLength={2000}
+ placeholder="Internt underlag: kundcase, referenser, certifieringar, publika källor…"
+ />
+ </div>
+ </div>
+ ))}
  </div>
  </div>
 

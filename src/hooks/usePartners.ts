@@ -132,6 +132,8 @@ export interface DatabasePartner {
   best_fit_for?: string[] | null;
   /** Fria kompetens-/AI-taggar. */
   ai_tags?: string[] | null;
+  extended_competencies?: import("@/lib/extendedCompetencies").ExtendedCompetencies | null;
+  extended_competency_evidence?: Record<string, string> | null;
   ai_profile?: AiProfile | null;
   /** Grov leverantörsstorlek 1..5 (intern signal – ingen publik filter-UI). */
   partner_size_tier?: number | null;
@@ -231,6 +233,7 @@ export function usePartners() {
               ai_summary_full: (p as any).ai_summary_full ?? null,
               best_fit_for: ((p as any).best_fit_for ?? []) as string[],
               ai_tags: ((p as any).ai_tags ?? []) as string[],
+              extended_competencies: ((p as any).extended_competencies ?? {}) as DatabasePartner["extended_competencies"],
               ai_profile: ((p as any).ai_profile ?? null) as AiProfile | null,
               partner_size_tier: (p as any).partner_size_tier ?? null,
               partner_size_tier_needs_review: (p as any).partner_size_tier_needs_review ?? false,
@@ -296,6 +299,7 @@ export function usePartner(slug: string | undefined) {
         ai_summary_full: (data as any).ai_summary_full ?? null,
         best_fit_for: ((data as any).best_fit_for ?? []) as string[],
         ai_tags: ((data as any).ai_tags ?? []) as string[],
+        extended_competencies: ((data as any).extended_competencies ?? {}) as DatabasePartner["extended_competencies"],
         ai_profile: ((data as any).ai_profile ?? null) as AiProfile | null,
         partner_size_tier: (data as any).partner_size_tier ?? null,
         partner_size_tier_needs_review: (data as any).partner_size_tier_needs_review ?? false,
