@@ -251,7 +251,7 @@ const PartnerProfileCheck = ({ initialSlug }: { initialSlug?: string | null }) =
       return best;
     };
 
-    const candidates = VERIFIED.filter((p) => p.slug !== selected);
+    const candidates = VERIFIED.filter((p) => p.slug !== selected && p.slug !== "knowit");
 
     const preferredBySlug: Partial<Record<ProductKey, string>> = {
       bc: "nab-solutions",
