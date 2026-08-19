@@ -509,6 +509,60 @@ const Partnerprogram = () => {
         </div>
       </section>
 
+      {/* 6b. HUR AI ANVÄNDER PARTNERPROFILEN */}
+      <section className="py-14 md:py-20 bg-secondary/30 border-y border-border">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-5">
+            Hur använder AI er partnerprofil?
+          </h2>
+          <div className="max-w-3xl space-y-4 text-muted-foreground">
+            <p>
+              AI-baserade söktjänster som Microsoft Copilot, ChatGPT, Gemini och Google AI använder
+              innehållet på webbplatser för att förstå företags kompetenser, branscherfarenhet,
+              specialistområden och kundsegment.
+            </p>
+            <p>
+              En verifierad partnerprofil ger mer strukturerad information om produkter, branscher,
+              kundtyper, erbjudanden och kundcase, vilket kan göra det enklare för AI-system att förstå
+              när er verksamhet är relevant.
+            </p>
+            <p>
+              I praktiken handlar det om frågor som ”vilken Dynamics 365-partner i Sverige har erfarenhet
+              av Business Central inom tillverkning?”, ”vem arbetar med Finance och Supply Chain
+              Management för grossister?” eller ”vilka partners kan Customer Engagement med Sales och
+              Customer Service samt Power Platform och Copilot?”. Ju tydligare produkter, branscherfarenhet
+              och kundcase beskrivs, desto större är chansen att era styrkor kommer med i svaret.
+            </p>
+          </div>
+          <div className="grid gap-5 md:grid-cols-3 mt-8">
+            {[
+              {
+                t: "Produkter",
+                d: "Business Central, Finance, Supply Chain Management, Sales, Customer Service, Field Service, Power Platform och Copilot – namngivna, inte underförstådda.",
+              },
+              {
+                t: "Branscherfarenhet",
+                d: "Vilka branscher ni faktiskt levererat i, och vilken typ av verksamhet lösningarna stöttat.",
+              },
+              {
+                t: "Kundsegment och case",
+                d: "Storlek, komplexitet och konkreta kundexempel som gör bedömningen kontrollerbar.",
+              },
+            ].map((c) => (
+              <div key={c.t} className="rounded-xl border border-border bg-card p-6">
+                <h3 className="text-lg font-semibold text-foreground mb-2">{c.t}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{c.d}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-6 text-sm text-muted-foreground max-w-3xl">
+            d365.se kan inte lova att en profil citeras av en AI-tjänst. Men strukturerad, faktabaserad
+            och verifierad information är en förutsättning för att bli korrekt förstådd.
+          </p>
+        </div>
+      </section>
+
+
       {/* 7. VIDEOPROFIL */}
       <section ref={videoRef} className="py-14 md:py-20 bg-secondary/30 border-y border-border">
         <div className="container mx-auto px-4 sm:px-6 grid gap-10 lg:grid-cols-2">
