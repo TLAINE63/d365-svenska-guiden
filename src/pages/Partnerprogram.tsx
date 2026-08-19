@@ -40,7 +40,6 @@ import partnerData from "@/data/partnerData.json";
 type SimplePartner = { slug: string; name: string; is_featured: boolean; logo_url?: string | null };
 
 const VERIFIED_PARTNERS = (partnerData as SimplePartner[]).filter((p) => p.is_featured);
-const IDENTIFIED_PARTNER_FLOOR = 83;
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se/" },
@@ -134,10 +133,8 @@ const Partnerprogram = () => {
   const { data: basicPartners } = useBasicPartners();
   const [showSticky, setShowSticky] = useState(false);
 
-  const identifiedCount = useMemo(() => {
-    const total = VERIFIED_PARTNERS.length + (basicPartners?.length ?? 0);
-    return Math.max(IDENTIFIED_PARTNER_FLOOR, total);
-  }, [basicPartners]);
+
+
 
   const matchedPartner = useMemo(() => {
     if (!partnerSlug) return null;
@@ -288,18 +285,8 @@ const Partnerprogram = () => {
               </p>
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <div className="rounded-lg border border-border bg-card px-4 py-3">
-                <div className="text-2xl font-bold text-foreground">{identifiedCount}+</div>
-                <div className="text-xs text-muted-foreground">
-                  identifierade Dynamics 365-partners i Sverige
-                </div>
-              </div>
-              <div className="rounded-lg border border-border bg-card px-4 py-3">
-                <div className="text-2xl font-bold text-foreground">{VERIFIED_PARTNERS.length}</div>
-                <div className="text-xs text-muted-foreground">verifierade partnerprofiler</div>
-              </div>
-            </div>
+
+
           </div>
         </div>
       </header>
