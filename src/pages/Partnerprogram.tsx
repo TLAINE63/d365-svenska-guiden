@@ -4,7 +4,6 @@ import {
   ArrowRight,
   Calendar,
   Check,
-  Minus,
   Search,
   SlidersHorizontal,
   Columns3,
@@ -34,6 +33,7 @@ import { BreadcrumbSchema, FAQSchema, WebPageSchema } from "@/components/Structu
 import { trackFunnelEvent, type FunnelEventType } from "@/utils/trackFunnelEvent";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 import PartnerProgramBenchmark from "@/components/partner/PartnerProgramBenchmark";
+import PartnerProfileCheck from "@/components/partner/PartnerProfileCheck";
 
 import partnerData from "@/data/partnerData.json";
 
@@ -78,21 +78,6 @@ const faqs = [
     answer:
       "En redaktionell intervju med en eller flera av partnerns experter som kan publiceras på d365.se och YouTube och användas som innehåll på partnerprofilen.",
   },
-];
-
-const comparisonRows: { label: string; basic: string; profiled: string }[] = [
-  { label: "Finns med på d365.se", basic: "Ja", profiled: "Ja" },
-  { label: "Grundläggande partnerinformation", basic: "Ja", profiled: "Ja" },
-  { label: "Detaljerad kompetensprofil", basic: "Begränsad", profiled: "Ja" },
-  { label: "Branscher och målgrupper", basic: "Begränsat", profiled: "Ja" },
-  { label: "Kundcase och referenser", basic: "Begränsat", profiled: "Ja" },
-  { label: "Erbjudanden och specialisering", basic: "–", profiled: "Ja" },
-  { label: "Namngiven kontaktperson", basic: "–", profiled: "Ja" },
-  { label: "Kontaktvägar och CTA", basic: "–", profiled: "Ja" },
-  { label: "Expertintervju / video", basic: "–", profiled: "Ja" },
-  { label: "Publicering på YouTube", basic: "–", profiled: "Ja" },
-  { label: "Utökad indexerbar partnerprofil", basic: "Begränsad", profiled: "Ja" },
-  { label: "Möjlighet att verifiera information", basic: "–", profiled: "Ja" },
 ];
 
 const journeySteps = [
@@ -191,26 +176,48 @@ const Partnerprogram = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, [partnerSlug]);
 
-  const compareRef = useSectionView("partnerprogram_basic_vs_profiled_view", partnerSlug);
   const seoRef = useSectionView("partnerprogram_seo_section_view", partnerSlug);
   const videoRef = useSectionView("partnerprogram_video_section_view", partnerSlug);
 
   const bookClick = (placement: string) => track("partnerprogram_book_demo_click", "cta_click", partnerSlug, { placement });
   const profileClick = (placement: string) => track("partnerprogram_view_profile_click", "cta_click", partnerSlug, { placement });
+  const checkClick = (placement: string) => track("partnerprogram_profile_check_click", "cta_click", partnerSlug, { placement });
 
-  const BookButton = ({
+  /** Primär CTA: låg tröskel – visa nuvarande presentation i stället för att be om möte. */
+  const CheckButton = ({
     placement,
     className = "",
     size = "lg",
-    label = "Boka en 20-minuters genomgång",
+    label = "Se hur ert företag presenteras idag",
   }: {
     placement: string;
     className?: string;
     size?: "default" | "lg" | "sm";
     label?: string;
   }) => (
+    <Button asChild size={size} className={className} onClick={() => checkClick(placement)}>
+      <a href="#profilkoll">
+        <Eye className="w-4 h-4 mr-2" aria-hidden="true" />
+        {label}
+      </a>
+    </Button>
+  );
+
+  const BookButton = ({
+    placement,
+    className = "",
+    size = "lg",
+    variant = "outline",
+    label = "Boka en 20-minuters genomgång",
+  }: {
+    placement: string;
+    className?: string;
+    size?: "default" | "lg" | "sm";
+    variant?: "default" | "outline";
+    label?: string;
+  }) => (
     <ContactFormDialog>
-      <Button size={size} className={className} onClick={() => bookClick(placement)}>
+      <Button size={size} variant={variant} className={className} onClick={() => bookClick(placement)}>
         <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
         {label}
       </Button>
@@ -257,10 +264,10 @@ const Partnerprogram = () => {
               kundreferenser och erbjudanden presenteras korrekt, aktuellt och tydligt.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
-              <BookButton placement="hero" />
+              <CheckButton placement="hero" />
               <Button asChild variant="outline" size="lg" onClick={() => profileClick("hero")}>
                 <Link to={profileExampleUrl}>
-                  Se exempelprofil
+                  Jämför med en verifierad partner
                   <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
                 </Link>
               </Button>
@@ -270,6 +277,16 @@ const Partnerprogram = () => {
               behov och relevans – verifierade partners kan komplettera sin profil med mer information,
               men betalning påverkar inte rankingen.
             </p>
+            <div className="mt-5 flex flex-col gap-2 max-w-2xl">
+              <p className="text-sm font-medium text-foreground border-l-4 border-primary pl-3">
+                För att inkluderas i årets Partneröversikt behöver profilen vara verifierad senast
+                14 november.
+              </p>
+              <p className="text-sm text-muted-foreground border-l-4 border-border pl-3">
+                Partnerprofiler kommer även att kunna exponeras på den norska versionen av
+                plattformen.
+              </p>
+            </div>
 
             <div className="mt-8 flex flex-wrap gap-3">
               <div className="rounded-lg border border-border bg-card px-4 py-3">
@@ -287,7 +304,34 @@ const Partnerprogram = () => {
         </div>
       </header>
 
-      {/* 2. FYRA HUVUDVÄRDEN */}
+      {/* 2. RISK ATT BLI BORTVALD */}
+      <section className="py-14 md:py-20 bg-slate-900 text-slate-100">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-3xl">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6">Vad riskerar ni med att avvakta?</h2>
+            <p className="text-slate-300 mb-8">
+              Potentiella kunder kan redan hitta och jämföra ert företag på d365.se. Med en
+              Basic-profil är beslutsunderlaget om er begränsat, samtidigt som profilerade konkurrenter
+              kan visa sin specialisering, sina kundcase, sina experter och en tydlig väg till kontakt.
+            </p>
+            <p className="text-lg md:text-2xl font-semibold leading-snug border-l-4 border-primary pl-5 mb-8">
+              Den största risken är inte att missa ett klick – utan att bli bortvald från en shortlist
+              utan att veta att affärsmöjligheten fanns.
+            </p>
+            <Button asChild size="lg" onClick={() => checkClick("risk")}>
+              <a href="#profilkoll">
+                <Eye className="w-4 h-4 mr-2" aria-hidden="true" />
+                Se hur ert företag presenteras idag
+              </a>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. PROFILKOLL */}
+      <PartnerProfileCheck initialSlug={partnerSlug} />
+
+      {/* 4. FYRA HUVUDVÄRDEN */}
       <section className="py-14 md:py-20">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Varför profilera er?</h2>
@@ -380,81 +424,6 @@ const Partnerprogram = () => {
         </div>
       </section>
 
-      {/* 4. BASIC VS PROFILERAD */}
-      <section ref={compareRef} className="py-14 md:py-20">
-        <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">
-            Ni finns redan med – men hur mycket får köparen veta?
-          </h2>
-          <div className="overflow-x-auto rounded-xl border border-border">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="bg-secondary/50">
-                  <th scope="col" className="text-left font-semibold text-foreground px-4 py-3">
-                    Vad köparen ser
-                  </th>
-                  <th scope="col" className="text-left font-semibold text-muted-foreground px-4 py-3 w-32">
-                    Basic
-                  </th>
-                  <th scope="col" className="text-left font-semibold text-foreground px-4 py-3 w-40">
-                    Profilerad partner
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {comparisonRows.map((row, i) => (
-                  <tr key={row.label} className={i % 2 ? "bg-muted/30" : ""}>
-                    <td className="px-4 py-3 text-foreground">{row.label}</td>
-                    <td className="px-4 py-3 text-muted-foreground">
-                      {row.basic === "–" ? (
-                        <span className="inline-flex items-center gap-1.5">
-                          <Minus className="w-4 h-4" aria-hidden="true" />
-                          <span className="sr-only">Ingår ej</span>
-                        </span>
-                      ) : (
-                        row.basic
-                      )}
-                    </td>
-                    <td className="px-4 py-3 font-medium text-foreground">
-                      <span className="inline-flex items-center gap-1.5">
-                        <Check className="w-4 h-4 text-accent" aria-hidden="true" />
-                        {row.profiled}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. FOMO */}
-      <section className="py-14 md:py-20 bg-slate-900 text-slate-100">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6">Vad riskerar ni med att avvakta?</h2>
-            <p className="text-slate-300 mb-4">
-              Potentiella kunder kan redan hitta och jämföra ert företag på d365.se.
-            </p>
-            <p className="text-slate-300 mb-8">
-              Med en Basic-profil är beslutsunderlaget om er begränsat, samtidigt som profilerade
-              konkurrenter kan visa sin specialisering, sina kundcase, sina experter och en tydlig väg
-              till kontakt.
-            </p>
-            <p className="text-lg md:text-2xl font-semibold leading-snug border-l-4 border-primary pl-5 mb-8">
-              Den största risken är inte att missa ett klick – utan att bli bortvald från en shortlist
-              utan att veta att affärsmöjligheten fanns.
-            </p>
-            <Button asChild size="lg" onClick={() => profileClick("fomo")}>
-              <Link to={secondaryProfileUrl}>
-                {matchedPartner ? "Se hur vår profil ser ut" : "Se hur en profil ser ut"}
-                <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
 
       {/* 6. SEO + AI-SÖK */}
       <section ref={seoRef} className="py-14 md:py-20">
@@ -616,55 +585,6 @@ const Partnerprogram = () => {
         </div>
       </section>
 
-      {/* 8. SÅ SER EN PROFILERAD PARTNER UT */}
-      <section className="py-14 md:py-20">
-        <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">
-            Så ser en profilerad partnerprofil ut
-          </h2>
-          <div className="rounded-xl border border-border bg-card overflow-hidden">
-            <div className="p-6 md:p-8 border-b border-border bg-secondary/30">
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="w-12 h-12 rounded-lg bg-background border border-border flex items-center justify-center text-sm font-bold text-foreground">
-                  Logo
-                </span>
-                <div>
-                  <p className="text-lg font-semibold text-foreground">Partnernamn AB</p>
-                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent">
-                    <BadgeCheck className="w-4 h-4" aria-hidden="true" />
-                    Verifierad partnerprofil
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="grid md:grid-cols-2 gap-6 p-6 md:p-8">
-              {[
-                { t: "Produktområden", d: "Business Central, Finance & Supply Chain, Sales, Customer Service" },
-                { t: "Branscher och målgrupper", d: "Tillverkning, Grossist & Distribution, Retail – med typisk kundstorlek" },
-                { t: "Passar bäst för", d: "Konkreta projekttyper, storlekar och komplexitet där partnern är stark." },
-                { t: "Mindre lämplig för", d: "Öppen redovisning av när en annan partner passar bättre." },
-                { t: "Kundcase och referenser", d: "Namngivna case och länkar som styrker erfarenheten." },
-                { t: "Kontaktperson", d: "Namngiven person med direkta kontaktvägar via d365.se." },
-                { t: "Video", d: "Expertintervju inbäddad direkt på profilen." },
-                { t: "Jämförelsefunktion", d: "Partnern kan väljas in i köparens sida-vid-sida-jämförelse." },
-              ].map((b) => (
-                <div key={b.t} className="rounded-lg border border-border p-4">
-                  <p className="text-sm font-semibold text-foreground mb-1">{b.t}</p>
-                  <p className="text-sm text-muted-foreground">{b.d}</p>
-                </div>
-              ))}
-            </div>
-            <div className="px-6 md:px-8 pb-6 md:pb-8">
-              <Button asChild variant="outline" onClick={() => profileClick("preview")}>
-                <Link to={profileExampleUrl}>
-                  Se en komplett partnerprofil
-                  <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* 9. SÅ FUNGERAR DET */}
       <section className="py-14 md:py-20 bg-secondary/30 border-y border-border">
@@ -697,34 +617,49 @@ const Partnerprogram = () => {
               </div>
             ))}
           </div>
-          <div className="mt-8">
+          <h3 className="text-lg font-semibold text-foreground mt-10 mb-4">Vad vi åtar oss</h3>
+          <ul className="grid gap-3 md:grid-cols-2 max-w-4xl">
+            {[
+              "Publicering inom 10 arbetsdagar från att underlaget är komplett",
+              "Uppdateringar av er profil genomförs inom 3 arbetsdagar",
+              "Kvartalsvis genomgång av profilen tillsammans med er",
+              "Statistik över profilvisningar",
+              "En namngiven kontaktperson på d365.se",
+            ].map((i) => (
+              <li key={i} className="flex gap-2 text-sm text-foreground">
+                <Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />
+                {i}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-8 flex flex-col sm:flex-row gap-3">
+            <CheckButton placement="process" />
             <BookButton placement="process" label="Boka en genomgång" />
           </div>
         </div>
       </section>
 
-      {/* 10. VAD FÅR VI */}
+      {/* 10. SOCIAL PROOF */}
       <section className="py-14 md:py-20">
         <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">
-            Som profilerad partner får ni
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+            Partners med verifierad profil på d365.se
           </h2>
-          <ul className="grid gap-3 md:grid-cols-2 max-w-4xl">
-            {[
-              "komplett och verifierad partnerprofil",
-              "tydligare positionering inom Dynamics 365",
-              "kontaktperson och direkta kontaktvägar",
-              "bättre beslutsunderlag när köpare jämför partners",
-              "expertintervju/videoprofil",
-              "publicering på d365.se och YouTube",
-              "mer unikt indexerbart innehåll om företaget",
-              "möjlighet att verifiera kompetenser, branscher och kundtyper",
-              "möjlighet att visa case, referenser och erbjudanden",
-              "närvaro tidigare i kundens köpresa",
-            ].map((i) => (
-              <li key={i} className="flex gap-2 text-sm text-foreground">
-                <Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />
-                {i}
+          <p className="text-muted-foreground mb-8 max-w-3xl">
+            {VERIFIED_PARTNERS.length} Dynamics 365-partners har idag en verifierad profil där
+            kompetens, branscherfarenhet och kundcase är granskade och publicerade.
+          </p>
+          <ul className="grid gap-3 grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
+            {VERIFIED_PARTNERS.map((p) => (
+              <li key={p.slug}>
+                <Link
+                  to={`/partner/${p.slug}/`}
+                  onClick={() => profileClick("social_proof")}
+                  className="h-full flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-3 hover:border-accent/60 transition-colors"
+                >
+                  <BadgeCheck className="w-4 h-4 text-accent shrink-0" aria-hidden="true" />
+                  <span className="text-sm font-medium text-foreground leading-tight">{p.name}</span>
+                </Link>
               </li>
             ))}
           </ul>
@@ -733,6 +668,7 @@ const Partnerprogram = () => {
           </p>
         </div>
       </section>
+
 
       {/* 11. TRANSPARENS */}
       <section className="py-14 md:py-20 bg-secondary/30 border-y border-border">
@@ -794,7 +730,11 @@ const Partnerprogram = () => {
                 : "Vi visar gärna hur er nuvarande profil ser ut och hur en profilerad närvaro skulle kunna utvecklas."}
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
-              <BookButton placement="footer" />
+              <CheckButton placement="footer" />
+              <BookButton
+                placement="footer"
+                className="bg-transparent border-slate-500 text-slate-100 hover:bg-slate-800 hover:text-slate-50"
+              />
               <Button
                 asChild
                 variant="outline"
@@ -816,20 +756,15 @@ const Partnerprogram = () => {
       {showSticky && (
         <>
           <div className="hidden md:block fixed top-20 right-6 z-40">
-            <ContactFormDialog>
-              <Button size="sm" className="shadow-lg" onClick={() => bookClick("sticky_desktop")}>
-                <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
-                Boka partnergenomgång
-              </Button>
-            </ContactFormDialog>
+            <CheckButton placement="sticky_desktop" size="sm" className="shadow-lg" label="Se er profil idag" />
           </div>
           <div className="md:hidden fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 backdrop-blur px-3 py-2">
-            <ContactFormDialog>
-              <Button className="w-full h-11" onClick={() => bookClick("sticky_mobile")}>
-                <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
-                Boka 20 min
-              </Button>
-            </ContactFormDialog>
+            <CheckButton
+              placement="sticky_mobile"
+              size="default"
+              className="w-full h-11"
+              label="Se hur ni presenteras idag"
+            />
           </div>
           <div className="md:hidden h-16" aria-hidden="true" />
         </>
