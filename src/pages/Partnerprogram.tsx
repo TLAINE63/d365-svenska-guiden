@@ -602,55 +602,6 @@ const Partnerprogram = () => {
         </div>
       </section>
 
-      {/* 8. SÅ SER EN PROFILERAD PARTNER UT */}
-      <section className="py-14 md:py-20">
-        <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">
-            Så ser en profilerad partnerprofil ut
-          </h2>
-          <div className="rounded-xl border border-border bg-card overflow-hidden">
-            <div className="p-6 md:p-8 border-b border-border bg-secondary/30">
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="w-12 h-12 rounded-lg bg-background border border-border flex items-center justify-center text-sm font-bold text-foreground">
-                  Logo
-                </span>
-                <div>
-                  <p className="text-lg font-semibold text-foreground">Partnernamn AB</p>
-                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent">
-                    <BadgeCheck className="w-4 h-4" aria-hidden="true" />
-                    Verifierad partnerprofil
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="grid md:grid-cols-2 gap-6 p-6 md:p-8">
-              {[
-                { t: "Produktområden", d: "Business Central, Finance & Supply Chain, Sales, Customer Service" },
-                { t: "Branscher och målgrupper", d: "Tillverkning, Grossist & Distribution, Retail – med typisk kundstorlek" },
-                { t: "Passar bäst för", d: "Konkreta projekttyper, storlekar och komplexitet där partnern är stark." },
-                { t: "Mindre lämplig för", d: "Öppen redovisning av när en annan partner passar bättre." },
-                { t: "Kundcase och referenser", d: "Namngivna case och länkar som styrker erfarenheten." },
-                { t: "Kontaktperson", d: "Namngiven person med direkta kontaktvägar via d365.se." },
-                { t: "Video", d: "Expertintervju inbäddad direkt på profilen." },
-                { t: "Jämförelsefunktion", d: "Partnern kan väljas in i köparens sida-vid-sida-jämförelse." },
-              ].map((b) => (
-                <div key={b.t} className="rounded-lg border border-border p-4">
-                  <p className="text-sm font-semibold text-foreground mb-1">{b.t}</p>
-                  <p className="text-sm text-muted-foreground">{b.d}</p>
-                </div>
-              ))}
-            </div>
-            <div className="px-6 md:px-8 pb-6 md:pb-8">
-              <Button asChild variant="outline" onClick={() => profileClick("preview")}>
-                <Link to={profileExampleUrl}>
-                  Se en komplett partnerprofil
-                  <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* 9. SÅ FUNGERAR DET */}
       <section className="py-14 md:py-20 bg-secondary/30 border-y border-border">
