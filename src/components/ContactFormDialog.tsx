@@ -87,15 +87,16 @@ const ContactFormDialog = ({ children, title, description, subject }: ContactFor
  setIsSubmitting(true);
  
  try {
- const { data, error } = await supabase.functions.invoke("send-contact-email", {
- body: {
- name: values.name,
- email: values.email,
- phone: values.phone || "",
- description: values.description,
- honeypot: values.website || "", // Send honeypot for server-side check
- },
- });
+    const { data, error } = await supabase.functions.invoke("send-contact-email", {
+      body: {
+        name: values.name,
+        email: values.email,
+        phone: values.phone || "",
+        description: values.description,
+        honeypot: values.website || "",
+        subject: subject ?? "",
+      },
+    });
 
  if (error) {
  console.error("Error sending email:", error);
