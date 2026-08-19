@@ -330,7 +330,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
           <article className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-accent/30 bg-card shadow-[0_20px_60px_-25px_hsl(var(--accent)/0.45)] ring-1 ring-accent/20">
             <div className="pointer-events-none absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-accent via-primary to-accent" />
             <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-accent/10 blur-3xl" />
-            <div className="relative p-6 pt-7">
+            <div className="relative flex flex-1 flex-col p-6 pt-7">
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-start gap-3">
                 {reference?.logo_url && (
