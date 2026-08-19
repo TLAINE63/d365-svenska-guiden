@@ -21,12 +21,6 @@ type RawPartner = Record<string, any>;
 
 const VERIFIED: RawPartner[] = (partnerData as RawPartner[]).filter((p) => p.is_featured);
 
-/** Referensprofil som visar hur en komplett verifierad profil ser ut. */
-const REFERENCE =
-  VERIFIED.find((p) => p.slug === "knowit") ??
-  VERIFIED.find((p) => p.youtube_video_id && p.customer_examples?.length) ??
-  VERIFIED[0];
-
 const PRODUCT_ORDER: ProductKey[] = ["bc", "fsc", "sales", "service"];
 
 interface CheckRow {
@@ -227,8 +221,17 @@ const PartnerProfileCheck = ({ initialSlug }: { initialSlug?: string | null }) =
 
   const missing = result?.rows.filter((r) => !r.present) ?? [];
   const present = result?.rows.filter((r) => r.present) ?? [];
-  const referenceRows = REFERENCE ? verifiedRows(REFERENCE) : [];
-  const referenceScore = scoreOf(referenceRows);
+  const reference = useMemo(() => {
+    let best: { p: RawPartner; rows: CheckRow[]; score: number } | null = null;
+    for (const p of VERIFIED) {
+      const rows = verifiedRows(p);
+      const score = scoreOf(rows);
+      if (!best || score > best.score) best = { p, rows, score };
+    }
+    return best;
+  }, []);
+  const referenceRows = reference?.rows ?? [];
+  const referenceScore = reference?.score ?? 0;
 
   return (
     <section id="profilkoll" className="py-14 md:py-20 scroll-mt-24">
@@ -329,9 +332,9 @@ const PartnerProfileCheck = ({ initialSlug }: { initialSlug?: string | null }) =
                   </p>
                 </div>
                 <Progress value={result.score} className="h-2" aria-label="Informationspoäng" />
-                {REFERENCE && (
+                {referenceScore > result.score && (
                   <p className="text-xs text-muted-foreground mt-2">
-                    En komplett verifierad profil ligger på {referenceScore}/100.
+                    Den mest kompletta verifierade profilen på d365.se ligger på {referenceScore}/100.
                   </p>
                 )}
               </div>
@@ -387,13 +390,13 @@ const PartnerProfileCheck = ({ initialSlug }: { initialSlug?: string | null }) =
             </div>
 
             {/* Exempel: verifierad profil */}
-            {REFERENCE && (
+            {reference && (
               <div className="rounded-xl border border-border bg-card p-6">
                 <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
                   Så ser en verifierad profil ut
                 </p>
                 <p className="text-sm text-muted-foreground mb-4">
-                  {REFERENCE.name} är ett exempel på en komplett verifierad profil. Den innehåller
+                  {reference.p.name} är ett exempel på en komplett verifierad profil. Den innehåller
                   följande information som köpare kan väga in:
                 </p>
                 <ul className="grid gap-2 md:grid-cols-2 mb-6">
@@ -408,7 +411,7 @@ const PartnerProfileCheck = ({ initialSlug }: { initialSlug?: string | null }) =
                 </ul>
                 <div className="flex flex-col sm:flex-row gap-3">
                   <Button asChild variant="outline" size="sm">
-                    <Link to={`/partner/${REFERENCE.slug}/`}>
+                    <Link to={`/partner/${reference.p.slug}/`}>
                       Öppna exempelprofilen
                       <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
                     </Link>
