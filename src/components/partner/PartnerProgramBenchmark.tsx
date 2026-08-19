@@ -321,13 +321,25 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
           {/* Höger: profilerad referens */}
           <article className="flex h-full flex-col rounded-xl border-2 border-accent/40 bg-card p-6 shadow-sm">
             <div className="flex items-start justify-between gap-3">
-              <div>
-                <p className="text-[11px] font-semibold uppercase tracking-wide text-accent">
-                  Exempel på profilerad partner
-                </p>
-                <h3 className="mt-1 text-xl font-semibold text-foreground">
-                  {reference?.name ?? "Referensprofil"}
-                </h3>
+              <div className="flex items-start gap-3">
+                {reference?.logo_url && (
+                  <img
+                    src={reference.logo_url}
+                    alt={`${reference.name} logotyp`}
+                    loading="lazy"
+                    className={`h-12 w-12 shrink-0 rounded-md object-contain p-1 ${
+                      reference.logo_dark_bg ? "bg-foreground" : "bg-background border border-border"
+                    }`}
+                  />
+                )}
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-wide text-accent">
+                    Exempel på profilerad partner
+                  </p>
+                  <h3 className="mt-1 text-xl font-semibold text-foreground">
+                    {reference?.name ?? "Referensprofil"}
+                  </h3>
+                </div>
               </div>
               <VerifiedPartnerBadge size="sm" />
             </div>
@@ -335,6 +347,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
               Referensprofil som visar hur en komplett partnerprofil kan se ut. Inget omdöme om
               partnerns kvalitet.
             </p>
+
 
             {reference && (
               <div className="mt-5 space-y-4 text-sm">
