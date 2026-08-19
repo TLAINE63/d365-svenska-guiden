@@ -83,6 +83,7 @@ function referenceFor(cfg: CategoryConfig): RawPartner | null {
   let bestScore = -Infinity;
 
   for (const p of VERIFIED) {
+    if (p.slug === "knowit") continue; // inte som exempel
     const s = categoryScore(p, cfg);
     if (s > bestScore) {
       bestScore = s;
