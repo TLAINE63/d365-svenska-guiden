@@ -265,5 +265,16 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     process.exit(1);
   }
 
+  const nf = check404();
+  if (nf.errors.length === 0) {
+    console.log(`✅ /404.html  →  noindex, ingen canonical/JSON-LD-läckage`);
+  } else {
+    console.error(`❌ /404.html`);
+    for (const e of nf.errors) console.error(`     - ${e}`);
+    console.error(`\n404 SEO-regressionstest misslyckades.`);
+    process.exit(1);
+  }
+
+
   console.log(`\n✓ All ${results.length} critical routes and ${partnerSiblingResults.length} partner no-slash variants have valid SEO tags.`);
 }
