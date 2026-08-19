@@ -224,6 +224,20 @@ export default function prerenderPlugin(): Plugin {
               page = page.replace('</head>', `    ${headTags}\n  </head>`);
             }
 
+            // Säkerhetsnät: trunkera alla titlar som ändå blivit för långa
+            page = page.replace(
+              /<title([^>]*)>([\s\S]*?)<\/title>/gi,
+              (_m, attrs, inner) => `<title${attrs}>${truncateSeoTitle(inner)}</title>`
+            );
+            page = page.replace(
+              /(<meta\s+property="og:title"\s+content=")([^"]*)("\s*\/?>)/gi,
+              (_m, pre, val, post) => `${pre}${truncateSeoTitle(val)}${post}`
+            );
+            page = page.replace(
+              /(<meta\s+name="twitter:title"\s+content=")([^"]*)("\s*\/?>)/gi,
+              (_m, pre, val, post) => `${pre}${truncateSeoTitle(val)}${post}`
+            );
+
             // Inject rendered HTML into the root div
             // Use indexOf-based approach instead of regex to avoid:
             // 1. Regex not matching due to quote style variations (id="root" vs id='root' vs id=root)
