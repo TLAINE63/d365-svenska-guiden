@@ -321,13 +321,25 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
           {/* Höger: profilerad referens */}
           <article className="flex h-full flex-col rounded-xl border-2 border-accent/40 bg-card p-6 shadow-sm">
             <div className="flex items-start justify-between gap-3">
-              <div>
-                <p className="text-[11px] font-semibold uppercase tracking-wide text-accent">
-                  Exempel på profilerad partner
-                </p>
-                <h3 className="mt-1 text-xl font-semibold text-foreground">
-                  {reference?.name ?? "Referensprofil"}
-                </h3>
+              <div className="flex items-start gap-3">
+                {reference?.logo_url && (
+                  <img
+                    src={reference.logo_url}
+                    alt={`${reference.name} logotyp`}
+                    loading="lazy"
+                    className={`h-12 w-12 shrink-0 rounded-md object-contain p-1 ${
+                      reference.logo_dark_bg ? "bg-foreground" : "bg-background border border-border"
+                    }`}
+                  />
+                )}
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-wide text-accent">
+                    Exempel på profilerad partner
+                  </p>
+                  <h3 className="mt-1 text-xl font-semibold text-foreground">
+                    {reference?.name ?? "Referensprofil"}
+                  </h3>
+                </div>
               </div>
               <VerifiedPartnerBadge size="sm" />
             </div>
@@ -335,6 +347,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
               Referensprofil som visar hur en komplett partnerprofil kan se ut. Inget omdöme om
               partnerns kvalitet.
             </p>
+
 
             {reference && (
               <div className="mt-5 space-y-4 text-sm">
@@ -406,6 +419,66 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
                     <p className="mt-1 text-muted-foreground">{reference.not_a_fit[0]}</p>
                   </div>
                 )}
+                {reference.ai_summary_full && (
+                  <div>
+                    <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                      d365.se:s analys
+                    </p>
+                    <p className="mt-1 line-clamp-4 text-foreground/80">
+                      {reference.ai_summary_full}
+                    </p>
+                  </div>
+                )}
+                {(reference.team_size_sweden || reference.implementations_done) && (
+                  <div className="grid grid-cols-2 gap-3">
+                    {reference.team_size_sweden && (
+                      <div>
+                        <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                          Team i Sverige
+                        </p>
+                        <p className="mt-1 text-foreground/80">{reference.team_size_sweden}</p>
+                      </div>
+                    )}
+                    {reference.implementations_done && (
+                      <div>
+                        <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                          Implementationer
+                        </p>
+                        <p className="mt-1 text-foreground/80">{reference.implementations_done}</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+                {!!reference.customer_examples?.length && (
+                  <div>
+                    <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                      Kundexempel
+                    </p>
+                    <p className="mt-1 text-foreground/80">
+                      {reference.customer_examples
+                        .slice(0, 5)
+                        .map((c: any) => (typeof c === "string" ? c : c?.name))
+                        .filter(Boolean)
+                        .join(" · ")}
+                    </p>
+                  </div>
+                )}
+                {!!reference.office_cities?.length && (
+                  <p className="flex items-center gap-1.5 text-muted-foreground">
+                    <MapPin className="h-4 w-4 shrink-0" aria-hidden />
+                    {reference.office_cities.slice(0, 5).join(" · ")}
+                  </p>
+                )}
+                {!!reference.ai_tags?.length && (
+                  <div className="flex flex-wrap gap-1.5">
+                    {reference.ai_tags.slice(0, 8).map((t: string) => (
+                      <Badge key={t} variant="outline" className="text-[11px] font-normal">
+                        {t}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+
                 <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
                   {reference.contact_person && (
                     <span className="inline-flex items-center gap-1.5">
