@@ -747,7 +747,11 @@ const Partnerprogram = () => {
                 : "Vi visar gärna hur er nuvarande profil ser ut och hur en profilerad närvaro skulle kunna utvecklas."}
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
-              <BookButton placement="footer" />
+              <CheckButton placement="footer" />
+              <BookButton
+                placement="footer"
+                className="bg-transparent border-slate-500 text-slate-100 hover:bg-slate-800 hover:text-slate-50"
+              />
               <Button
                 asChild
                 variant="outline"
