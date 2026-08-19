@@ -11,7 +11,6 @@ import {
   labelForUseCase,
   labelForExperience,
   isAiProfileEmpty,
-  aiMaturityLabel,
 } from "@/lib/aiProfile";
 
 interface Props {
@@ -29,7 +28,6 @@ export default function AiProfilePublic({ profile, compact = false }: Props) {
   const caps = capItems.map((c) => c.label);
   const areas = (p.relevant_areas || []).map(labelForArea).filter(Boolean);
   const cases = (p.use_cases || []).map(labelForUseCase).filter(Boolean);
-  const maturity = aiMaturityLabel(p);
   const topCaps = capItems.slice(0, 3);
   const topCases = cases.slice(0, 4);
   const summary = (p.ai_experience_summary || "").trim();
@@ -72,11 +70,6 @@ export default function AiProfilePublic({ profile, compact = false }: Props) {
             <Bot className="w-4 h-4 text-muted-foreground" aria-hidden="true" />
             <h3 className="text-sm sm:text-base font-semibold">Dokumenterade områden</h3>
           </div>
-          {maturity && (
-            <span className="text-xs font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full bg-muted text-foreground/80 border border-border">
-              Bedömd AI-nivå: {maturity}
-            </span>
-          )}
         </header>
 
 
