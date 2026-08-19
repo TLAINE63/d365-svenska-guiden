@@ -49,7 +49,7 @@ const SEOHead = ({
 
   const trailingPath = canonicalPath.endsWith("/") ? canonicalPath : `${canonicalPath}/`;
   const canonicalUrl = `${baseUrl}${trailingPath}`;
-  const fullTitle = title.includes("d365.se") ? title : `${title} | d365.se`;
+  const fullTitle = buildSeoTitle(title);
 
   const resolvedOgImage = ogImage.startsWith("http") ? ogImage : `${baseUrl}${ogImage}`;
   const isArticle = ogType === "article";
