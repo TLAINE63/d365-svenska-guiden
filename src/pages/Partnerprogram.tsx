@@ -249,7 +249,7 @@ const Partnerprogram = () => {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-foreground mb-5">
               Ni finns redan på d365.se.
               <br />
-              Se till att ni blir rätt förstådda.
+              Se till att kunder och AI förstår er kompetens.
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground mb-7">
               d365.se hjälper företag att hitta och jämföra Dynamics 365-partners i Sverige. Med en
