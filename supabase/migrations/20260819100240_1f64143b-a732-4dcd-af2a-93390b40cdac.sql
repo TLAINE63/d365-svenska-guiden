@@ -1,0 +1,2 @@
+ALTER TABLE public.partners ADD COLUMN IF NOT EXISTS extended_competency_input jsonb NOT NULL DEFAULT '{}'::jsonb;
+ALTER TABLE public.partner_submissions ADD COLUMN IF NOT EXISTS extended_competency_input jsonb NOT NULL DEFAULT '{}'::jsonb;

@@ -17,7 +17,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
 import PartnerIndustryPitchesEditor, { type IndustryPitch } from "@/components/PartnerIndustryPitchesEditor";
-import AiProfileSection from "@/components/partner/AiProfileSection";
+import ExtendedCompetencyInputSection from "@/components/partner/ExtendedCompetencyInputSection";
+import { COMPETENCY_AREAS, normalizeCompetencies, type ExtendedCompetencies } from "@/lib/extendedCompetencies";
 import DeliveryProfileEditor from "@/components/partner/DeliveryProfileEditor";
 import type { DeliveryProfileValue } from "@/data/deliveryProfileFields";
 
@@ -281,6 +282,8 @@ const PartnerUpdate = () => {
   const [implementationsPerApp, setImplementationsPerApp] = useState<Record<string, string>>({});
   const [notAFitInput, setNotAFitInput] = useState("");
   const [aiProfile, setAiProfile] = useState<import("@/lib/aiProfile").AiProfile>({});
+  const [competencyLevels, setCompetencyLevels] = useState<ExtendedCompetencies>({});
+  const [competencyInput, setCompetencyInput] = useState<Record<string, string>>({});
 
   // Per-produkt beslutsprofil (positionering + leveransbild) – en post per aktiv D365-applikation
   type ProductProfile = {
@@ -521,6 +524,10 @@ const PartnerUpdate = () => {
   }
   if (Array.isArray(ed.not_a_fit)) setNotAFitInput(ed.not_a_fit.join("\n"));
   if (ed.ai_profile && typeof ed.ai_profile === "object") setAiProfile(ed.ai_profile);
+  setCompetencyLevels(normalizeCompetencies(ed.extended_competencies));
+  if (ed.extended_competency_input && typeof ed.extended_competency_input === "object") {
+    setCompetencyInput(ed.extended_competency_input as Record<string, string>);
+  }
 
   // Per-produkt beslutsprofil – hydrera från product_profiles, fall tillbaka på legacy positioning/delivery_profile
   if (ed.product_profiles && typeof ed.product_profiles === "object" && !Array.isArray(ed.product_profiles)) {
@@ -1025,6 +1032,9 @@ const PartnerUpdate = () => {
  ),
   not_a_fit: notAFitInput.split("\n").map(s => s.trim()).filter(Boolean),
   ai_profile: aiProfile,
+  extended_competency_input: Object.fromEntries(
+    COMPETENCY_AREAS.map((a) => [a.key, (competencyInput[a.key] || "").trim().slice(0, 800)]).filter(([, v]) => v)
+  ),
   };
 
  const response = await fetch(
@@ -2284,18 +2294,22 @@ const PartnerUpdate = () => {
  </div>
  </PremiumCollapsibleSection>
 
- {/* AI, Copilot & Automation – partner-level */}
+ {/* AI, Automation & Power Platform – underlag för d365.se:s bedömning */}
  <PremiumCollapsibleSection
-   title="AI, Copilot & Automation"
-   description="En gemensam AI-profil för hela ert företag – ersätter den gamla per-produkt-modellen."
+   title="AI, Automation & Power Platform"
+   description="Underlag för d365.se:s bedömning inom Power Platform, Copilot & AI samt Copilot Studio & agenter."
    icon={Sparkles}
    accent="crm"
-    status={(aiProfile.capabilities || []).length > 0 ? "complete" : "empty"}
+    status={COMPETENCY_AREAS.some((a) => (competencyInput[a.key] || "").trim()) ? "complete" : "empty"}
     open={openSections.ai}
     onOpenChange={() => toggleSection("ai")}
 
  >
-   <AiProfileSection value={aiProfile} onChange={setAiProfile} />
+   <ExtendedCompetencyInputSection
+     levels={competencyLevels}
+     value={competencyInput}
+     onChange={setCompetencyInput}
+   />
  </PremiumCollapsibleSection>
 
 
