@@ -1566,6 +1566,8 @@ export type Database = {
           description_ai_generated: boolean | null
           description_generated_at: string | null
           email: string | null
+          extended_competencies: Json
+          extended_competency_evidence: Json
           extended_content: string | null
           extended_content_updated_at: string | null
           extended_summary: string | null
@@ -1644,6 +1646,8 @@ export type Database = {
           description_ai_generated?: boolean | null
           description_generated_at?: string | null
           email?: string | null
+          extended_competencies?: Json
+          extended_competency_evidence?: Json
           extended_content?: string | null
           extended_content_updated_at?: string | null
           extended_summary?: string | null
@@ -1722,6 +1726,8 @@ export type Database = {
           description_ai_generated?: boolean | null
           description_generated_at?: string | null
           email?: string | null
+          extended_competencies?: Json
+          extended_competency_evidence?: Json
           extended_content?: string | null
           extended_content_updated_at?: string | null
           extended_summary?: string | null
@@ -2420,6 +2426,7 @@ export type Database = {
           delivery_profile: Json | null
           description: string | null
           email: string | null
+          extended_competencies: Json | null
           extended_content: string | null
           extended_content_updated_at: string | null
           geography: string[] | null
@@ -2465,6 +2472,7 @@ export type Database = {
           delivery_profile?: Json | null
           description?: string | null
           email?: string | null
+          extended_competencies?: Json | null
           extended_content?: string | null
           extended_content_updated_at?: string | null
           geography?: string[] | null
@@ -2510,6 +2518,7 @@ export type Database = {
           delivery_profile?: Json | null
           description?: string | null
           email?: string | null
+          extended_competencies?: Json | null
           extended_content?: string | null
           extended_content_updated_at?: string | null
           geography?: string[] | null
