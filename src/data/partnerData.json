@@ -1169,7 +1169,11 @@
           "Konsulttjänster",
           "Retail & E-handel"
         ],
-        "companySize": [],
+        "companySize": [
+          "100-249",
+          "250-999",
+          "50-99"
+        ],
         "contactName": "Caroline Rasmussen",
         "contactEmail": "caroline.rasmussen@fellowmind.se",
         "contactPhone": "",
@@ -1230,7 +1234,11 @@
           "Grossist & Distribution",
           "Life Science / Medtech"
         ],
-        "companySize": [],
+        "companySize": [
+          "250-999",
+          "1.000-4.999",
+          ">5.000"
+        ],
         "contactName": "Katarina Pärsson",
         "contactEmail": "katarina.parsson@fellowmind.se",
         "contactPhone": "076-001 98 78",
@@ -1239,8 +1247,9 @@
         "aiCapabilities": [],
         "aiOtherPartner": "",
         "aiProjectCount": "",
-        "hasBuiltAgents": null,
+        "hasBuiltAgents": false,
         "landingPageUrl": "https://www.fellowmind.com/sv-se/losningar/business-applications-erp/dynamics-365-finance-and-supply-chain-management/",
+        "youtubeVideoId": "",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/fellowmind-contact-fsc.jpg?t=1781084585989",
         "aiBusinessImpact": "",
@@ -1257,6 +1266,7 @@
         ],
         "productDescription": "Fellowmind assisterar företag med att implementera och optimera Microsoft Dynamics 365 Finance & Supply Chain Management för att uppnå datadriven verksamhetsstyrning. De tillhandahåller expertis inom områden som ekonomi, produktion, logistik och leveranskedja, och strävar efter att skapa skalbara lösningar som möter olika verksamhetsbehov. Genom att integrera data och processer i ett enhetligt system, kan organisationer optimera sin supply chain och fatta mer informerade beslut. Partnerns erbjudande täcker en bred funktionalitet, från finansiell planering till lagerhantering, och utgör en viktig del i att effektivisera affärsprocesser för deras kunder. Deras arbete omfattar implementering, anpassning och support för systemet.",
         "aiPredictiveDetails": [],
+        "secondaryIndustries": [],
         "aiSegmentationDetails": [],
         "ai_generated_why_keypoints": true,
         "ai_generated_why_keypoints_at": "2026-07-02T10:48:30.506Z",
@@ -1336,7 +1346,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T20:38:52.813808+00:00",
-    "updated_at": "2026-08-19T09:04:18.929382+00:00",
+    "updated_at": "2026-08-19T11:08:50.057512+00:00",
     "industry_pitches": [
       {
         "text": "Fellowmind erbjuder lösningar baserade på Microsoft Dynamics 365 för grossist- och distributionsbranschen. Med inriktning på att optimera leveranskedjor och finansiella processer, implementerar Fellowmind Dynamics 365 Finance och Supply Chain Management. Deras expertis omfattar att stödja företag i att hantera komplexa logistikflöden, förbättra lagereffektiviteten och säkerställa transparenta ekonomiska transaktioner. Fellowmind arbetar med att anpassa Microsoft-plattformen för att möta specifika krav gällande priskonfigurationer, integration med tredjepartslogistik (3PL) och optimering av order-till-leveransprocesser. De strävar efter att leverera hållbara lösningar som bidrar till ökad operativ effektivitet och datadrivna beslutsunderlag.",
@@ -1346,43 +1356,44 @@
         "generated_at": "2026-05-17T08:34:10Z"
       },
       {
-        "text": "Fellowmind erbjuder specialistkompetens inom Microsoft Dynamics 365 för tillverkningsindustrin. De arbetar med applikationerna Finance och Supply Chain Management för att stötta företag i att effektivisera sin ekonomistyrning, optimera produktionsflöden och hantera komplexa leverantörskedjor. \n\nGenom att implementera och anpassa dessa lösningar hjälper Fellowmind tillverkningsföretag att förbättra beslutsfattandet genom datadriven insikt och automatisera tidskrävande processer. Deras erfarenhet sträcker sig över olika segment inom tillverkningsindustrin, där fokus ligger på att skapa skalbara och anpassningsbara system som möter specifika branschbehov. De har kapacitet att hantera projekt för kunder av varierande storlek.",
-        "product": null,
-        "industry": "Tillverkningsindustri",
-        "edited_by": "admin-bulk",
-        "generated_at": "2026-05-17T08:34:12Z"
-      },
-      {
-        "text": "Fellowmind är en europeisk Microsoft-partner som levererar lösningar baserade på Dynamics 365, inklusive Business Central, Finance, Supply Chain Management, Sales och Customer Insights. De har erfarenhet av att kombinera molnbaserad teknologi med kompetens inom Data & AI för att möta behoven inom fastighets- och förvaltningsbranschen. Partnern fokuserar på att stödja organisationer med att effektivisera fastighetsförvaltning, optimera resursanvändning och hantera kundrelationer. Fellowmind arbetar med den fullständiga Microsoft-plattformen och strävar efter långsiktiga samarbeten för att adressera de utmaningar och möjligheter som digitaliseringen innebär för fastighetssektorn. De kan bistå med integration av affärssystem för att förbättra beslutsfattande och operativa processer.",
-        "product": null,
-        "industry": "Fastighet & Förvaltning",
-        "edited_by": "ai",
-        "updated_at": "2026-06-16T08:13:17.887Z",
-        "generated_at": "2026-06-16T08:13:17.887Z"
-      },
-      {
-        "text": "Fellowmind levererar konsulttjänster avseende Microsoft Dynamics 365, med fokus på funktioner inom ekonomi, logistik och försäljning. De har kompetens inom Business Central, Finance, Supply Chain Management, Sales och Customer Insights (Marketing). Dessa applikationer kan anpassas för att stödja konsultföretagens kärnprocesser, inklusive projektstyrning, resursplanering och kundrelationer.\n\nPartnern har erfarenhet av att arbeta med organisationer som behöver effektiva system för hantering av personal, intäktsströmmar och leveranskedjor i en föränderlig marknad. Fellowmind kombinerar djup branschkunskap med teknisk expertis inom molnbaserade lösningar och Microsoft-plattformen. De har som mål att bistå konsultföretag i att optimera sin verksamhet för att hantera digitaliseringens och hållbarhetsomställningens krav. Partnern stödjer även utvecklingen av datadrivna insikter och AI-lösningar för att möta behovet av specialistkompetens. Deras tjänster riktar sig till kunder som söker långsiktiga partnerskap för att utveckla sina affärssystem.",
-        "product": null,
-        "industry": "Konsulttjänster",
-        "edited_by": "ai",
-        "updated_at": "2026-06-16T08:13:17.887Z",
-        "generated_at": "2026-06-16T08:13:17.887Z"
-      },
-      {
-        "text": "Fellowmind erbjuder stöd till Life Science- och Medtech-företag som använder Dynamics 365. De tillhandahåller expertis inom molnbaserad teknologi, Data & AI, samt hela Microsofts plattform. Partnern implementerar och förvaltar Dynamics 365-applikationer som Business Central, Finance och Supply Chain Management, vilket kan bidra till att optimera processer inom bland annat produktion, lagerhantering och regelefterlevnad. De arbetar även med Dynamics 365 Sales och Customer Insights (Marketing) för att stödja kundrelationer och marknadsföringsstrategier. Fellowmind har även erfarenhet av att hjälpa kunder att hantera komplexa datamängder och utnyttja AI för bättre beslutsfattande, vilket är relevant för branschens krav på spårbarhet och dataanalys. Deras verksamhet spänner över flera länder, vilket ger erfarenhet av att hantera internationella krav.",
+        "text": "Fellowmind stöder Life Science- och Medtech-företag att effektivisera verksamheten med Dynamics 365. Partnern hjälper till att hantera komplexa regelverk och kvalitetskrav genom att förbättra spårbarhet och dokumentationsprocesser, ofta med stöd från Dynamics 365 Supply Chain Management. De adresserar problem som fragmenterad data och flaskhalsar i produktutveckling och distribution.\n\nGenom att implementera Dynamics 365 Finance bidrar Fellowmind till stärkt finansiell kontroll och regelefterlevnad. De använder Dynamics 365 Sales och Customer Insights för att optimera kundrelationer och marknadsföringsinsatser, vilket är avgörande för att nå rätt målgrupper med specialistprodukter. För mindre och medelstora företag anpassas ofta Dynamics 365 Business Central. Fellowmind utnyttjar Microsoft-plattformen för integrationer som säkerställer sömlöst informationsflöde mellan olika system.",
         "product": null,
         "industry": "Life Science / Medtech",
         "edited_by": "ai",
-        "updated_at": "2026-06-16T08:13:17.887Z",
-        "generated_at": "2026-06-16T08:13:17.887Z"
+        "updated_at": "2026-08-19T11:06:35.843Z",
+        "generated_at": "2026-08-19T11:06:35.843Z"
       },
       {
-        "text": "Fellowmind bistår företag inom Retail & E-handel med implementering och optimering av Microsoft Dynamics 365-lösningar. De har kompetens inom Business Central, Finance, Supply Chain Management, Sales och Customer Insights (Marketing), vilket möjliggör stöd för olika delar av retailverksamheten. Deras tjänster omfattar bland annat hantering av finansiella processer och logistikkedjor, samt kundrelationer och marknadsföring, för att underlätta en integrerad kundupplevelse. Partnern hjälper företag att effektivisera processer och utnyttja data för att möta krav från dagens kunder angående personalisering och kanaloberoende. Deras tillvägagångssätt fokuserar på att kombinera branschkunskap med Microsofts molnbaserade teknologi och AI-lösningar.",
+        "text": "Fellowmind stödjer tillverkningsindustrin med implementering av Dynamics 365 för att effektivisera processer från produktion till leverans. De adresserar utmaningar som optimering av produktionsplanering och lagerhantering genom Dynamics 365 Supply Chain Management. Med Finance hanteras komplexa kostnadsstrukturer och globala transaktioner, vilket förbättrar ekonomisk insikt.\n\nGenom att integrera Business Central får mindre tillverkare en komplett lösning för orderhantering och projektstyrning. För att stärka kundrelationer och försäljningsprocesser använder Fellowmind Dynamics 365 Sales och Customer Insights (Marketing), vilket möjliggör datadrivna kundstrategier. De fokuserar på att skapa en enhetlig plattform för realtidsdata, förbättrad beslutsfattning och ökad operativ effektivitet inom hela tillverkningskedjan.",
+        "product": null,
+        "industry": "Tillverkningsindustri",
+        "edited_by": "admin-bulk",
+        "updated_at": "2026-08-19T11:07:30.542Z",
+        "generated_at": "2026-08-19T11:07:30.542Z"
+      },
+      {
+        "text": "Fellowmind stödjer detaljhandels- och e-handelsföretag att hantera en föränderlig marknad med hjälp av Microsoft Dynamics 365. Genom lösningar som Dynamics 365 Business Central, Finance och Supply Chain Management effektiviserar Fellowmind processer för lagerhantering, logistik och ekonomistyrning. Detta förbättrar kontrollen över varuflöden och leveranskedjor, vilket är avgörande för att möta kundernas förväntningar på snabba leveranser.\n\nMed Dynamics 365 Sales och Customer Insights hjälper Fellowmind företag att skapa en enhetlig kundupplevelse. De bidrar till att samla och analysera kunddata för personaliserade erbjudanden och målinriktad marknadsföring, oavsett om kunden interagerar via fysisk butik eller e-handel. Fellowmind möjliggör insikter för att hantera utmaningar som fragmenterad kunddata och för att stödja en sammanhållen omnichannel-strategi.",
         "product": null,
         "industry": "Retail & E-handel",
         "edited_by": "ai",
-        "updated_at": "2026-06-16T08:13:17.887Z",
-        "generated_at": "2026-06-16T08:13:17.887Z"
+        "updated_at": "2026-08-19T11:07:35.012Z",
+        "generated_at": "2026-08-19T11:07:35.012Z"
+      },
+      {
+        "text": "Fellowmind stöder konsulttjänstföretag med att optimera sin verksamhet genom Microsoft Dynamics 365. Partnern adresserar typiska utmaningar som att säkerställa lönsamhet i projekt, hantera resursallokering och bibehålla en hög grad av kundnöjdhet. Genom Dynamics 365 Sales förbättras processer för säljledning och kundrelationer, medan Business Central och Finance bidrar till effektiv projektstyrning, tidsrapportering och ekonomihantering. De levererar lösningar som underlättar insamling av affärsdata och ger insikter i projektstatus, resursutnyttjande och kundbehov. Detta bidrar till att konsultföretag kan fokusera på sin kärnverksamhet, fatta databaserade beslut och hantera sin tillväxt mer effektivt. Deras fokus ligger på att förbättra operativ effektivitet och stärka kundrelationer med stöd av Dynamics 365.",
+        "product": null,
+        "industry": "Konsulttjänster",
+        "edited_by": "ai",
+        "updated_at": "2026-08-19T11:07:40.798Z",
+        "generated_at": "2026-08-19T11:07:40.798Z"
+      },
+      {
+        "text": "Fellowmind bistår fastighets- och förvaltningsbolag med att effektivisera kärnverksamheten med Microsoft Dynamics 365. De adresserar utmaningar som fragmenterad data och manuella processer genom att integrera finansiell hantering med fastighets- och projektrelaterade flöden. Genom lösningar baserade på Dynamics 365 Finance och Business Central kan bolag automatisera fakturering, hyresaviseringar och uppföljning av driftskostnader.\n\nFör att förbättra kundrelationer och service används Dynamics 365 Sales och Customer Insights. Detta möjliggör en centraliserad hantering av hyresgästers ärenden, kontrakt och kommunikation, samt segmentering för riktad marknadsföring. De kan också koppla ihop supply chain-processer för underhåll och förvaltning via Dynamics 365 Supply Chain Management, vilket optimerar inköp och lagerhållning av material och tjänster. Integrationer bidrar till en enhetlig plattform för översikt och beslutsfattande.",
+        "product": null,
+        "industry": "Fastighet & Förvaltning",
+        "edited_by": "ai",
+        "updated_at": "2026-08-19T11:07:44.935Z",
+        "generated_at": "2026-08-19T11:07:44.935Z"
       }
     ],
     "agreement_signed": true,
@@ -1398,57 +1409,73 @@
     ],
     "implementations_per_app": {},
     "ai_summary": "Fellowmind har ett brett Microsoft-erbjudande och arbetar med både Dynamics 365 Business Central, Finance & Supply Chain Management och Customer Engagement. Partnern passar främst medelstora och större organisationer som behöver kombinera ERP, CRM, data och Microsoft-plattformen över flera verksamhetsområden.",
-    "ai_summary_generated_at": "2026-06-29T16:19:24.319+00:00",
+    "ai_summary_generated_at": "2026-08-19T11:08:49.977+00:00",
     "ai_profile": {
-      "use_cases": [],
+      "use_cases": [
+        "readiness",
+        "copilot-studio-agent",
+        "service-ai",
+        "data-quality",
+        "sales-automation",
+        "industry-agent",
+        "fabric-analytics",
+        "scm-ai"
+      ],
       "description": null,
       "migrated_at": "2026-06-30T09:25:49.082462+00:00",
       "capabilities": [
         "copilot-studio",
-        "standard-copilot"
+        "standard-copilot",
+        "power-platform",
+        "azure-ai",
+        "fabric-bi",
+        "ai-readiness"
       ],
-      "delivery_model": null,
+      "delivery_model": "combined",
       "evidence_level": [
         "self-declared"
       ],
       "relevant_areas": [
-        "Business Central"
+        "Business Central",
+        "Dynamics 365 Finance",
+        "Dynamics 365 Supply Chain Management",
+        "Dynamics 365 Sales",
+        "Power Platform",
+        "Microsoft 365 Copilot",
+        "Azure / Fabric",
+        "ERP-processer",
+        "CRM-processer",
+        "Supply chain-processer",
+        "Kundserviceprocesser"
       ],
       "card_ai_summary": "Fellowmind optimerar processer för grossist- och konsulttjänsteföretag med Dynamics 365 Business Central.",
-      "experience_level": null,
-      "project_count_range": null,
+      "experience_level": "established",
+      "project_count_range": "3-5",
       "ai_experience_summary": "Partnern fokuserar på att integrera Microsofts standards AI-lösningar, inklusive Copilot Studio och inbyggd Copilot, primärt för Business Central-miljöer. Detta passar organisationer som vill förstärka befintliga processer med omedelbara och beprövade AI-funktioner.",
       "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
       "ai_experience_summary_generated_at": "2026-07-03T14:03:46.870Z"
     },
     "extended_content": "Fellowmind är en av Europas ledande Microsoft-partner med cirka 2 000 anställda i sex länder: Sverige, Finland, Danmark, Nederländerna, Tyskland och Polen. Bolaget är medlem i Microsoft Inner Circle och den svenska verksamheten har sitt ursprung i Orango, en av Sveriges mest etablerade Dynamics-partner.\n\nAktiva produktområden: Microsoft Dynamics 365 Business Central för SMB och mellansegment. Dynamics 365 Finance & Supply Chain för större verksamheter. Dynamics 365 Customer Engagement (Sales, Service). Power Platform, Microsoft 365 och Copilot. Certifierad CSP-partner med licensrådgivning och managed services.\n\nTydliga styrkor: Microsoft Inner Circle-status – bland de främsta partnerna globalt. Bredd över både ERP (Business Central och Finance & SCM) och CRM i samma leveransorganisation. Paneuropeisk leveranskapacitet med lokal svensk närvaro. Dokumenterad erfarenhet av komplexa, internationella utrullningar i många länder och bolag.\n\nRäckvidd och segment: Paneuropeisk med stark svensk och nordisk närvaro. Segment: mellanstora till stora företag. Branscher: tillverkning, distribution, energi/utilities, retail och professionella tjänster.\n\nPassar bäst: Företag som vill ha en stor, stabil partner med både ERP- och CRM-kompetens under samma tak. Internationella verksamheter som behöver utrullning i flera länder. Kunder som värdesätter helhetsansvar från licens till förvaltning. Mindre lämplig för de minsta bolagen som prioriterar en liten lokal partner.\n\nSammanfattning: Paneuropeisk Inner Circle-partner med brett Dynamics 365-erbjudande och svenska rötter i Orango. Ett tryggt val för mellanstora och stora verksamheter.",
-    "extended_content_updated_at": "2026-07-07T17:46:56.361216+00:00",
+    "extended_content_updated_at": "2026-08-19T11:08:49.977+00:00",
     "partner_size_tier": 1,
     "partner_size_tier_needs_review": false,
-    "ai_summary_full": "Fellowminds styrka i partnerjämförelsen är bredden. De arbetar med såväl Business Central som Finance & SCM och CRM-applikationer och kan därför vara relevanta där flera Microsoft Business Applications behöver samverka.\nDokumenterad branscherfarenhet finns bland annat inom grossist/distribution, tillverkning, retail/e-handel, konsulttjänster och life science/medtech. Den europeiska organisationen ger även stöd för kunder med verksamhet i flera länder. AI-arbetet är kopplat till Microsofts Copilot- och automationsplattform samt data/AI som del av det bredare Microsoft-erbjudandet.",
+    "ai_summary_full": "Fellowmind positionerar sig som en paneuropeisk Microsoft-partner med en bred kompetens inom Dynamics 365, Power Platform, Microsoft 365 och Copilot. Bolaget, som har sina svenska rötter i Orango, är medlem i Microsoft Inner Circle, vilket indikerar en hög nivå av strategisk betydelse och expertis inom Microsofts partnernätverk. De erbjuder leveranser inom både Dynamics 365 Business Central (för SMB och mellanstora bolag) och Dynamics 365 Finance & Supply Chain (för större verksamheter), samt Dynamics 365 Customer Engagement.\n\nMed kontor på flera platser i Sverige och en etablerad närvaro i fem andra europeiska länder har Fellowmind kapacitet för både lokal och internationell utrullning, vilket är en av deras tydliga styrkor. De har dokumenterad erfarenhet av komplexa, internationella projekt. Deras strategi inkluderar ett helhetsansvar från licensrådgivning till förvaltning och managed services. Denna bredd gör dem relevanta för organisationer som söker en partner som kan hantera en stor del av Microsofts ekosystem under ett och samma tak.\n\nFellowmind ingår i kategorin nordiska systemintegratörer som växer via förvärv, och erbjuder en full-service approach inom Microsoft-ekosystemet. Konsolideringen i marknaden innebär att bolag som Fellowmind kan erbjuda en omfattande tjänsteportfölj och geografisk räckvidd. För kunder är det viktigt att verifiera den faktiska leveranskapaciteten och teamens branschspecifika kompetens, då profilerna kan suddas ut något genom snabba förvärv.\n\nPartnern fokuserar på mellanstora till stora företag inom branscher som tillverkning, distribution, energi/utilities, retail och professionella tjänster. De är ett lämpligt val för verksamheter som behöver en stabil och stor partner med både ERP- och CRM-kompetens, samt för internationella organisationer som kräver utrullning i flera länder. De kan upplevas som mindre lämpliga för de allra minsta bolagen som prioriterar en mindre och mer lokal partner med begränsad portfölj.",
     "best_fit_for": [
-      "Medelstora och större företag",
-      "Organisationer som kombinerar ERP och CRM",
-      "Grossist, distribution, tillverkning och retail",
-      "Nordiska och internationella verksamheter",
-      "Företag som vill samla Dynamics 365, Microsoft Cloud, data och AI hos en bred Microsoft-partner"
+      "Mellanstora till stora företag med komplexa behov.",
+      "Internationella organisationer med europeisk utrullning.",
+      "Företag som söker bred D365- och Microsoft-kompetens.",
+      "Behov av helhetsansvar från licens till förvaltning.",
+      "Verksamheter inom tillverkning, distribution och retail."
     ],
     "ai_tags": [
-      "Business Central",
-      "Dynamics 365 Finance",
-      "Supply Chain Management",
-      "Sales",
-      "Customer Insights",
-      "ERP",
-      "CRM",
-      "Grossist",
-      "Tillverkning",
-      "Retail",
-      "Life Science",
-      "Internationell verksamhet",
-      "Microsoft Cloud",
-      "Copilot",
-      "Data & AI"
+      "D365 F&SCM",
+      "D365 Business Central",
+      "D365 Customer Engagement",
+      "Power Platform",
+      "Paneuropeisk",
+      "Systemintegratör",
+      "Microsoft Inner Circle",
+      "Digital transformation"
     ],
     "extended_competencies": {}
   },
