@@ -468,7 +468,7 @@ serve(async (req: Request): Promise<Response> => {
       // Verify token
       const { data: tokenData, error: tokenError } = await supabase
         .from("partner_event_tokens")
-        .select("*, partners:partner_id (*)")
+        .select("*, partners:partner_id (id, name, slug, logo_url, website, is_featured)")
         .eq("token", token)
         .single();
 
