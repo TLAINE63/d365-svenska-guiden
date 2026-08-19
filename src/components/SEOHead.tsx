@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { buildSeoTitle } from "@/lib/seoTitle";
 
 interface SEOHeadProps {
   title: string;
