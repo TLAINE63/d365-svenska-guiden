@@ -335,6 +335,7 @@ const AdminDashboard = () => {
  // Partner management state
  const { data: dbPartners = [], isLoading: isLoadingPartners, refetch: refetchPartners } = usePartners();
  const [fullPartners, setFullPartners] = useState<FullPartner[]>([]);
+ const [isBulkSuggestingCompetencies, setIsBulkSuggestingCompetencies] = useState(false);
  const [isLoadingFullPartners, setIsLoadingFullPartners] = useState(false);
   const [partnerSortBy, setPartnerSortBy] = useState<'name' | 'updated_at'>('updated_at');
   const [partnerSortDir, setPartnerSortDir] = useState<'asc' | 'desc'>('desc');
