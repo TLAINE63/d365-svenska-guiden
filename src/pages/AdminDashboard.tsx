@@ -335,6 +335,7 @@ const AdminDashboard = () => {
  // Partner management state
  const { data: dbPartners = [], isLoading: isLoadingPartners, refetch: refetchPartners } = usePartners();
  const [fullPartners, setFullPartners] = useState<FullPartner[]>([]);
+ const [isBulkSuggestingCompetencies, setIsBulkSuggestingCompetencies] = useState(false);
  const [isLoadingFullPartners, setIsLoadingFullPartners] = useState(false);
   const [partnerSortBy, setPartnerSortBy] = useState<'name' | 'updated_at'>('updated_at');
   const [partnerSortDir, setPartnerSortDir] = useState<'asc' | 'desc'>('desc');
@@ -1718,6 +1719,56 @@ Thomas`,
  e.target.value = "";
  }
  };
+ // Bulk: föreslå nivåer inom AI/Power Platform för alla partners som saknar bedömning
+ const handleBulkSuggestCompetencies = async () => {
+  if (!token) {
+   toast({ title: "Fel", description: "Sessionen har gått ut. Logga in igen.", variant: "destructive" });
+   logout();
+   return;
+  }
+  setIsBulkSuggestingCompetencies(true);
+  let updated = 0;
+  try {
+   for (const p of fullPartners) {
+    const current = ((p as any).extended_competencies || {}) as Record<string, string>;
+    const suggested = suggestExtendedCompetencies(
+     ((p as any).ai_profile || {}) as any,
+     ((p as any).extended_competency_input || {}) as any,
+     { productKeys: Object.keys((p as any).product_filters || {}) },
+    );
+    const merged: Record<string, string> = { ...current };
+    let changed = false;
+    for (const area of COMPETENCY_AREAS) {
+     const value = suggested[area.key];
+     if (!current[area.key] && value) {
+      merged[area.key] = value;
+      changed = true;
+     }
+    }
+    if (!changed) continue;
+    await updatePartner.mutateAsync({
+     id: p.id,
+     partner: { extended_competencies: merged } as any,
+     token,
+    });
+    updated++;
+   }
+   toast({
+    title: "Förslag genererade",
+    description: `${updated} partner${updated === 1 ? "" : "s"} fick förslag på nivåer. Granska och justera vid behov.`,
+   });
+   if (updated > 0) fetchFullPartners();
+  } catch (error: any) {
+   toast({
+    title: "Fel",
+    description: error?.message || "Kunde inte generera förslag för alla partners",
+    variant: "destructive",
+   });
+  } finally {
+   setIsBulkSuggestingCompetencies(false);
+  }
+ };
+
  const handlePartnerSubmit = async (e: React.FormEvent) => {
  e.preventDefault();
  if (!token) {
@@ -5726,28 +5777,42 @@ Thomas`,
  <div>
  <div className="flex items-center justify-between gap-2 flex-wrap">
   <Label className="font-semibold text-sm">AI, Automation &amp; Power Platform – bedömd nivå</Label>
-  <Button
-   type="button"
-   variant="outline"
-   size="sm"
-   onClick={() => {
-    const suggested = suggestExtendedCompetencies(
-     (partnerFormData.ai_profile || {}) as any,
-     (partnerFormData.extended_competency_input || {}) as any,
-    );
-    setPartnerFormData((prev) => ({
-     ...prev,
-     extended_competencies: suggested,
-    }));
-   }}
-  >
-   Generera förslag
-  </Button>
+  <div className="flex flex-wrap gap-2">
+   <Button
+    type="button"
+    variant="outline"
+    size="sm"
+    onClick={() => {
+     const suggested = suggestExtendedCompetencies(
+      (partnerFormData.ai_profile || {}) as any,
+      (partnerFormData.extended_competency_input || {}) as any,
+      { productKeys: Object.keys(partnerFormData.product_filters || {}) },
+     );
+     setPartnerFormData((prev) => ({
+      ...prev,
+      extended_competencies: suggested,
+     }));
+    }}
+   >
+    Generera förslag
+   </Button>
+   <Button
+    type="button"
+    variant="secondary"
+    size="sm"
+    disabled={isBulkSuggestingCompetencies}
+    onClick={handleBulkSuggestCompetencies}
+   >
+    {isBulkSuggestingCompetencies ? "Beräknar…" : "Föreslå för alla utan bedömning"}
+   </Button>
+  </div>
  </div>
  <p className="text-xs text-muted-foreground mt-1">
   Nivåerna sätts av d365.se utifrån kundcase, referenser, certifieringar och publikt underlag.
   Bedömningsunderlaget är internt och visas aldrig publikt. Dynamics 365-kompetens är alltid primär.
-  "Generera förslag" fyller nivåerna utifrån partnerns AI-profil – granska och justera innan sparning.
+  "Generera förslag" väger samman grundnivå per produktområde (CE bygger på Power Platform),
+  partnerns egna ikryssade signaler och AI-profilen – granska och justera innan sparning.
+  Bulkknappen sätter samma förslag för alla partners som saknar bedömning inom ett område.
  </p>
  </div>
  {COMPETENCY_AREAS.map((area) => (
