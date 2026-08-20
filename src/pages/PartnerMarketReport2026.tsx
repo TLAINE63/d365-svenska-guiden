@@ -1,10 +1,12 @@
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { ArrowRight, Search } from "lucide-react";
 import {
   REPORT_STATS,
   REPORT_FAQ,
