@@ -7,6 +7,12 @@ import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Search, Download, FileSpreadsheet } from "lucide-react";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
 import { toast } from "sonner";
 import {
   generateMarketReportPdf,
