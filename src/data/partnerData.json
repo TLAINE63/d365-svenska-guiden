@@ -949,32 +949,25 @@
   {
     "id": "f89e80b2-a124-4768-8eaf-2b185b5bf093",
     "slug": "crm-konsulterna",
-    "name": "CRM Konsulterna",
-    "description": "CRM Konsulterna utsågs till Dynamics 365 Customer Engagement Partner of the Year 2023 av Microsoft Sverige.",
-    "logo_url": "https://crmkonsulterna.se/wp-content/uploads/2023/01/crmk-logo.svg",
+    "name": "CRMK (CRM-Konsulterna)",
+    "description": "CRMK (CRM-Konsulterna) är Microsoft Solutions Partner med djup expertis inom Dynamics 365 Customer Engagement, Power Platform, Microsoft Fabric och AI. Med teknisk spetskompetens, stor verksamhetsförståelse och ett helhetsperspektiv hjälper CRMK organisationer från strategi och implementation till vidareutveckling, support och kompetensutveckling. CRMK utmanar och utvecklar både teknik och människor för att skapa hållbara kundrelationer och verkligt affärsvärde. Bolaget grundades 2010 och 7 medarbetare har fått utmärkelsen MVP av Microsoft.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/crm-konsulterna.png",
     "logo_dark_bg": false,
-    "website": "https://www.crmkonsulterna.se/dynamics-365/",
+    "website": "https://www.crmk.se",
     "email": "andreas.franzen@crmk.se",
     "contact_person": "Andreas Franzén",
-    "contact_photo_url": null,
-    "phone": null,
+    "contact_photo_url": "",
+    "phone": "070-3349535",
     "applications": [
       "Sales",
       "Customer Insights (Marketing)",
       "Customer Service",
       "Field Service",
-      "Contact Center",
-      "Project Operations"
+      "Contact Center"
     ],
-    "industries": [
-      "Konsulttjänster",
-      "Grossist & Distribution"
-    ],
+    "industries": [],
     "secondary_industries": [],
-    "geography": [
-      "Sverige",
-      "Norden"
-    ],
+    "geography": [],
     "product_filters": {
       "sales": {
         "ranking": 5,
@@ -985,44 +978,55 @@
         ],
         "geography": [
           "Sverige",
-          "Norden"
+          "Norden",
+          "Europa"
         ],
-        "keyPoints": "Dynamics 365 Sales och Customer Insights (Marketing)\nPower Apps, Power Automate och Power BI\nCRM, kunddata och säljprocesser\nImplementation, utbildning och förvaltning",
-        "whyChoose": "CRM Konsulterna fokuserar på Microsofts plattform för CRM, kundhantering och AI. Kunder kan anlita samma partner för implementation, integrationer, automation, utbildning och löpande förvaltning av lösningar för försäljning och marknadsföring.",
+        "keyPoints": "Dynamics 365 Sales, Customer Insights (Marketing) Journeys och Data\nCRM, kunddata och säljprocesser\nImplementation, förändringsledning, utbildning och förvaltning",
+        "whyChoose": "CRMK fokuserar på Microsofts plattform för CRM, kundhantering och AI. Kunder kan anlita samma partner för implementation, integrationer, automation, utbildning och löpande förvaltning av lösningar för försäljning och marknadsföring.",
         "industries": [
-          "Konsulttjänster",
-          "Grossist & Distribution"
+          "Finans & Försäkring",
+          "Medlemsorganisationer",
+          "Life Science / Medtech"
         ],
         "companySize": [
           "100-249",
           "250-999",
           "1.000-4.999"
         ],
-        "contactName": "",
-        "contactEmail": "",
-        "contactPhone": "",
+        "contactName": "Andreas Franzén",
+        "contactEmail": "andreas@crmk.se",
+        "contactPhone": "070-3349535",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [],
         "aiOtherPartner": "",
         "aiProjectCount": "",
         "hasBuiltAgents": false,
+        "landingPageUrl": "https://crmk.se/losningar/salj-och-marknad",
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
-        "contactPhotoUrl": "",
+        "contactPhotoUrl": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/crm-konsulterna-contact-sales.png?t=1787214737793",
         "deliveryProfile": {
-          "aiAutomation": "CRM Konsulterna arbetar med Copilot, AI och intelligent automation i anslutning till CRM. Inom försäljning och marknadsföring kan detta användas för att förenkla återkommande arbetsmoment, stödja användare och automatisera informationsflöden. Power Automate och Copilot Studio kan ingå i lösningen.",
-          "deliveryModel": "Leveransen kan omfatta analys av verksamhetens behov, konfiguration, anpassning, integration, datamigrering, test och utbildning. CRM Konsulterna arbetar med specialistkompetens inom Dynamics 365 Customer Engagement och Power Platform och kan följa lösningen från införande till förvaltning och fortsatt utveckling.",
+          "aiAutomation": "CRMK har erfarenhet av att implementera Copilot, AI-agenter och automation i kundlösningar baserade på Dynamics 365 CE och Power Platform. Leveranser omfattar bland annat agenter för verksamhetsprocesser, automatiserade arbetsflöden med Power Automate och AI-stöd integrerat i befintliga lösningar. Fokus ligger på agenter och automation som effektiviserar arbetssätt och skapar nytta i verksamheten.",
+          "deliveryModel": "CRMK arbetar i tvärfunktionella team med verksamhets- och teknisk kompetens, anpassade efter uppdragets behov. Leveransen sker agilt och iterativt, vanligtvis i sprintar, med Microsoft Success by Design som ramverk. Arbetet sker både på distans och på plats i nära samarbete med kundens team, där kundens delaktighet är en viktig del genom hela projektet.",
           "managedServices": "Efter driftsättning kan CRM Konsulterna ge stöd med förvaltning av Dynamics 365 Sales och Customer Insights (Marketing). Arbetet kan omfatta support, justeringar, felsökning, administration och utbildning samt hantering av nya behov i takt med att arbetssätt, processer och Microsofts plattform förändras.",
-          "typicalProjects": "Typiska projekt omfattar införande eller vidareutveckling av Dynamics 365 Sales, strukturering av kund- och kontaktdata samt stöd för affärsmöjligheter, aktiviteter och uppföljning. Uppdrag kan även omfatta Customer Insights (Marketing), integrationer, rapportering och automatiserade arbetsflöden.",
-          "typicalCustomers": "Typiska kunder är mellanstora B2B-företag där försäljning och kundrelationer har stor betydelse. Det kan vara konsultföretag, grossister och distributörer med flera säljroller, återkommande kunddialoger och behov av en gemensam struktur för kunddata, aktiviteter, affärsmöjligheter och marknadsföring.",
-          "furtherDevelopment": "Vidareutveckling kan ske genom nya funktioner, anpassade appar, automatiserade flöden, rapportering och integrationer. Utvecklingen kan utgå från förändrade säljprocesser och marknadsbehov, med Dynamics 365, Power Apps, Power Automate och Power BI som delar av den samlade lösningen."
+          "typicalProjects": "CRMK genomför nyimplementationer och vidareutveckling inom Dynamics 365 Sales, Customer Insights – Journeys och Data samt Power Platform. Uppdragen omfattar även rollouts, integrationer, migrering, AI och automation. Projekten sträcker sig från kortare förstudier och insatser till större implementationer och långsiktiga samarbeten med kontinuerlig utveckling och förvaltning.",
+          "typicalCustomers": "CRMK arbetar med medelstora och stora organisationer i flera olika branscher, ofta med komplexa verksamhetsprocesser och höga krav på kundrelationer, data och systemstöd. Kunderna befinner sig i olika faser – från organisationer som ska införa Dynamics 365 Sales och Customer Insights till de som vill utveckla, effektivisera och få större värde ur befintliga lösningar. CRMK har kunder i Sverige och internationellt, med verksamhet både lokalt och på flera marknader.",
+          "furtherDevelopment": "Efter go-live erbjuder CRMK flexibla support- och förvaltningsavtal anpassade efter verksamhetens behov och önskad servicenivå. Förvaltningen omfattar löpande support, vidareutveckling, rådgivning och uppföljning samt planering och hantering av Microsofts releaser. Målet är en stabil och säker lösning som fortsätter utvecklas i takt med verksamheten och plattformen."
         },
         "aiBusinessImpact": "",
-        "customerExamples": [],
+        "customerExamples": [
+          "Apollo",
+          "Bixia",
+          "Triolab",
+          "Chefakademin"
+        ],
         "aiCaseDescription": "",
-        "customerCaseLinks": [],
-        "productDescription": "CRM Konsulterna erbjuder införande och utveckling av Dynamics 365 Sales och Customer Insights (Marketing). Lösningarna stödjer hantering av kunddata, säljprocesser, aktiviteter och marknadsföring, med kompletterande automation och analys via Power Platform.",
+        "customerCaseLinks": [
+          "https://crmk.se/kundcase/bixia",
+          "https://crmk.se/kundcase/triolab"
+        ],
+        "productDescription": "CRMK erbjuder införande och utveckling av Dynamics 365 Sales och Customer Insights (Marketing). Lösningarna stödjer hantering av kunddata, säljprocesser, aktiviteter och marknadsföring, med kompletterande automation och analys via Power Platform.",
         "aiPredictiveDetails": [],
         "secondaryIndustries": [],
         "aiSegmentationDetails": []
@@ -1036,44 +1040,56 @@
         ],
         "geography": [
           "Sverige",
-          "Norden"
+          "Norden",
+          "Europa"
         ],
-        "keyPoints": "Customer Service, Field Service och Contact Center\nÄrendehantering och kunddialog\nPower Apps och Power Automate\nAI, Copilot och intelligenta agenter",
-        "whyChoose": "Kunder väljer CRM Konsulterna för bolagets fokus på Dynamics 365 Customer Engagement, Power Platform och AI. Partnern kan kombinera verksamhetsnära CRM-kompetens med implementation, automatiserade flöden, anpassade appar, utbildning och förvaltning inom serviceområdet.",
+        "keyPoints": "Customer Service och Contact Center, Field Service\nÄrendehantering och kunddialog\nPower Apps och Power Automate\nAI-agenter, Copilot",
+        "whyChoose": "CRMK kombinerar djup kompetens inom Dynamics 365 Customer Service, Field Service och Contact Center med förståelse för hela serviceprocessen. De hjälper kunder att skapa sammanhängande lösningar där kunddialog, ärendehantering, fältservice, data, automation och AI samverkar – från behov och implementation till vidareutveckling och förvaltning.",
         "industries": [
-          "Konsulttjänster",
-          "Grossist & Distribution"
+          "Life Science / Medtech",
+          "Medlemsorganisationer",
+          "Non-profit / Organisationer"
         ],
         "companySize": [
           "100-249",
           "250-999",
           "1.000-4.999"
         ],
-        "contactName": "",
-        "contactEmail": "",
-        "contactPhone": "",
+        "contactName": "Andreas Franzén",
+        "contactEmail": "andreas@crmk.se",
+        "contactPhone": "070-3349535",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [],
         "aiOtherPartner": "",
         "aiProjectCount": "",
         "hasBuiltAgents": false,
+        "landingPageUrl": "https://crmk.se/losningar/service",
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "",
         "deliveryProfile": {
-          "aiAutomation": "CRM Konsulterna kan använda Copilot, Power Automate och Copilot Studio för att komplettera serviceprocesser med AI och automation. Det kan handla om att stödja användare i återkommande moment, styra informationsflöden eller skapa agenter för avgränsade uppgifter inom kundservice och intern hantering.",
-          "deliveryModel": "Leveransen kan omfatta behovsanalys, processkartläggning, konfiguration, anpassning, integration, test och utbildning. Specialistteam inom Dynamics 365 Customer Engagement och Power Platform kan arbeta med både verksamhetsprocesser och teknisk lösning samt fortsätta med förvaltning efter driftsättning.",
+          "aiAutomation": "CRMK har erfarenhet av att implementera Copilot, AI-agenter och automation i kundlösningar baserade på Dynamics 365 CE och Power Platform. Leveranser omfattar bland annat agenter för verksamhetsprocesser, automatiserade arbetsflöden med Power Automate och AI-stöd integrerat i befintliga lösningar. Fokus ligger på agenter och automation som effektiviserar arbetssätt och skapar nytta i verksamheten.",
+          "deliveryModel": "CRMK arbetar i tvärfunktionella team med verksamhets- och teknisk kompetens, anpassade efter uppdragets behov. Leveransen sker agilt och iterativt, vanligtvis i sprintar, med Microsoft Success by Design som ramverk. Arbetet sker både på distans och på plats i nära samarbete med kundens team, där kundens delaktighet är en viktig del genom hela projektet.",
           "managedServices": "Efter go-live kan CRM Konsulterna hantera löpande förvaltning av lösningar inom Customer Service, Field Service och Contact Center. Insatserna kan omfatta support, felsökning, administration, mindre förbättringar och utbildning samt anpassning till nya verksamhetsbehov och förändringar i Microsofts tjänster.",
-          "typicalProjects": "Typiska projekt omfattar införande och utveckling av ärendehantering i Customer Service, kontaktcenterlösningar eller stöd för planering och genomförande av fältservice. Uppdragen kan även innehålla datamigrering, integrationer, rapportering, automatiserade arbetsflöden och anpassade appar för olika användarroller.",
-          "typicalCustomers": "Typiska kunder är mellanstora organisationer med strukturerade serviceflöden och behov av samlad information om kunder, ärenden och aktiviteter. Det kan vara konsultföretag, grossister och distributörer som hanterar många kundkontakter, interna överlämningar, serviceärenden eller arbete som utförs ute på fältet.",
-          "furtherDevelopment": "Vidareutveckling kan omfatta nya serviceflöden, formulär, appar, integrationer, rapporter och automatiseringar. Lösningen kan byggas ut stegvis när organisationens ärendehantering, kontaktcenter eller fältservice förändras, med Dynamics 365 och Power Platform som teknisk grund."
+          "typicalProjects": "Typiska uppdrag omfattar nyimplementation och vidareutveckling av Dynamics 365 Customer Service, Field Service och Contact Center, samt rollouts, integrationer, dataflyttar, AI och automation. Projekten varierar från avgränsade förstudier och insatser på några veckor till större implementationer och transformationsprojekt över flera månader eller år.",
+          "typicalCustomers": "CRMK arbetar med medelstora och stora organisationer i flera olika branscher, ofta med komplexa verksamhetsprocesser och höga krav på kundrelationer, data och systemstöd. Kunderna befinner sig i olika faser – från organisationer som ska införa Dynamics 365 Customer Service och Contact Center eller Field Service till de som vill utveckla, effektivisera och få större värde ur befintliga lösningar. CRMK har kunder i Sverige och internationellt, med verksamhet både lokalt och på flera marknader.",
+          "furtherDevelopment": "Efter go-live erbjuder CRMK flexibla support- och förvaltningsavtal anpassade efter verksamhetens behov och önskad servicenivå. Förvaltningen omfattar löpande support, vidareutveckling, rådgivning och uppföljning samt planering och hantering av Microsofts releaser. Målet är en stabil och säker lösning som fortsätter utvecklas i takt med verksamheten och plattformen."
         },
         "aiBusinessImpact": "",
-        "customerExamples": [],
+        "customerExamples": [
+          "Rödakorset",
+          "Apollo",
+          "Bixia",
+          "Växa",
+          "Chefakademin"
+        ],
         "aiCaseDescription": "",
-        "customerCaseLinks": [],
-        "productDescription": "CRM Konsulterna erbjuder lösningar baserade på Dynamics 365 Customer Service, Field Service och Contact Center. Erbjudandet omfattar stöd för kundservice, ärendehantering, kontaktcenter och fältarbete, kompletterat med appar, automation, analys och AI.",
+        "customerCaseLinks": [
+          "https://crmk.se/kundcase/svenska-roda-korset",
+          "https://crmk.se/kundcase/vaxa"
+        ],
+        "productDescription": "CRMK erbjuder lösningar baserade på Dynamics 365 Customer Service, Field Service och Contact Center. Erbjudandet omfattar stöd för kundservice, ärendehantering, kontaktcenter och fältarbete, kompletterat med appar, automation, analys och AI.",
         "aiPredictiveDetails": [],
         "secondaryIndustries": [],
         "aiSegmentationDetails": []
@@ -1083,12 +1099,13 @@
     "is_featured": true,
     "customer_examples": [],
     "office_cities": [
-      "Stockholm"
+      "Stockholm",
+      "Kalmar"
     ],
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-08-19T13:55:26.359193+00:00",
+    "updated_at": "2026-08-20T09:42:14.934604+00:00",
     "industry_pitches": [
       {
         "text": "CRM Konsulterna bistår konsultbolag med att optimera sin kundresa och interna processer med Dynamics 365. De adresserar typiska utmaningar som fragmenterad kundkommunikation och ineffektiv projektförsäljning. Genom att implementera Dynamics 365 Sales förbättrar de säljprocesser från prospektering till affärsavslut, vilket möjliggör bättre uppföljning och pipelinesynlighet. Med Dynamics 365 Customer Insights (Marketing) kan konsultbolag segmentera kunder och leverera relevanta budskap, vilket stärker varumärket och genererar nya affärsmöjligheter. De hjälper också med Dynamics 365 Customer Service för att hantera kundförfrågningar effektivt och säkerställa hög kundnöjdhet. Fokus ligger på att skapa en enhetlig kundbild och förbättra samarbetet internt, vilket frigör tid för konsultens kärnverksamhet.",
@@ -1113,20 +1130,64 @@
         "edited_by": "admin",
         "updated_at": "2026-08-18T13:21:04.948Z",
         "generated_at": "2026-08-18T13:21:04.948Z"
+      },
+      {
+        "text": "CRMK hjälper företag inom finans och försäkring att möta höga krav på kundupplevelse, effektiva processer och regelefterlevnad med Dynamics 365. Genom Sales, Customer Service och Customer Insights skapar de smartare flöden från prospekt och rådgivning till kommunikation, ärendehantering och service. Integrationer med befintliga kärnsystem knyter ihop data och ger en mer sammanhållen kundbild – med bättre insikter, mindre manuellt arbete och starkare kundrelationer som resultat.",
+        "product": null,
+        "industry": "Finans & Försäkring",
+        "edited_by": "partner",
+        "updated_at": "2026-08-20T09:09:54.513Z",
+        "generated_at": "2026-08-20T09:05:30.156Z"
+      },
+      {
+        "text": "CRMK hjälper företag inom Life Science och Medtech att skapa sammanhängande och spårbara kundprocesser med Dynamics 365. Med Sales, Customer Insights, Customer Service och Field Service effektiviserar de hela flödet – från försäljning och riktad kommunikation till produktsupport, reklamationer, installation och service av medicinteknisk utrustning. Resultatet är bättre överblick, effektivare arbetssätt och tydligare dokumentation i en bransch med höga krav på kvalitet och efterlevnad.",
+        "product": null,
+        "industry": "Life Science / Medtech",
+        "edited_by": "partner",
+        "updated_at": "2026-08-20T09:10:40.811Z",
+        "generated_at": "2026-08-20T09:06:16.605Z"
+      },
+      {
+        "text": "CRMK hjälper medlemsorganisationer att skapa en smartare och mer sammanhållen medlemsresa med Dynamics 365. Med Sales, Customer Insights, Customer Service och Contact Center samlas medlemsdata som effektiviserar kommunikation och ärendehantering och skapar mer relevanta medlemsdialoger i flera kanaler. Genom bättre struktur, analys och rapportering får organisationen samtidigt tydligare insikter om engagemang och medlemsnytta – vilket ger bättre underlag för datadrivna beslut.",
+        "product": null,
+        "industry": "Medlemsorganisationer",
+        "edited_by": "partner",
+        "updated_at": "2026-08-20T09:12:18.741Z",
+        "generated_at": "2026-08-20T09:10:54.313Z"
+      },
+      {
+        "text": "CRMK hjälper non-profit- och ideella organisationer att få mer kraft bakom sitt engagemang med Dynamics 365. Genom Sales, Customer Insights och Customer Service samlar vi data om medlemmar, givare och andra intressenter, effektiviserar insamling, kommunikation och ärendehantering och skapar mer relevanta dialoger. Projekt och insatser planeras och följas upp – för smartare resursanvändning, bättre transparens och starkare relationer.",
+        "product": null,
+        "industry": "Non-profit / Organisationer",
+        "edited_by": "partner",
+        "updated_at": "2026-08-20T09:13:45.944Z",
+        "generated_at": "2026-08-20T09:12:27.243Z"
       }
     ],
     "agreement_signed": true,
     "related_party": false,
-    "positioning_statement": "Passar särskilt konsultföretag och grossister som vill effektivisera säljprocessen och stärka kundrelationerna.",
-    "delivery_profile": {},
-    "team_size_sweden": null,
+    "positioning_statement": "Vi är valet när era konsulttjänster eller distributionsbolag behöver omvandla kunddata till riktad, engagerande marknadsföring.",
+    "delivery_profile": {
+      "methodology": "",
+      "typical_length": "",
+      "bc_project_cost_band": null,
+      "bc_project_weeks_max": null,
+      "bc_project_weeks_min": null
+    },
+    "team_size_sweden": "11–25",
     "implementations_done": null,
     "not_a_fit": [
       "Organisationer vars huvudbehov är Business Central",
       "Finance & Supply Chain Management-projekt",
       "ERP-tunga projekt inom produktion, lager och supply chain"
     ],
-    "implementations_per_app": {},
+    "implementations_per_app": {
+      "Sales": "100+",
+      "Field Service": "10–25",
+      "Contact Center": "10–25",
+      "Customer Service": "25–100",
+      "Customer Insights (Marketing)": "25–100"
+    },
     "ai_summary": "CRMK är specialiserat på Dynamics 365 Customer Engagement, Power Platform, AI och agenter. Erbjudandet omfattar bland annat Sales, Customer Insights, Customer Service, Contact Center och Field Service samt Power Apps, Power Automate och Copilot Studio.",
     "ai_summary_generated_at": "2026-08-18T13:21:48.139+00:00",
     "ai_profile": {
