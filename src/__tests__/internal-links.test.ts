@@ -15,7 +15,10 @@ function routePatterns(): RegExp[] {
     .map((m) => m[1])
     .filter((p) => !p.includes("*"));
   return paths.map(
-    (p) => new RegExp(`^${p.replace(/:[^/]+/g, "[^/]+").replace(/\/$/, "")}$`),
+    (p) =>
+      new RegExp(
+        `^${(p.replace(/:[^/]+/g, "[^/]+").replace(/\/$/, "") || "/")}$`,
+      ),
   );
 }
 
