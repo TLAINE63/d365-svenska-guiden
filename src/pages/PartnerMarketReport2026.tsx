@@ -19,9 +19,7 @@ import {
   downloadMarketReportCsv,
 } from "@/utils/generateMarketReportPdf";
 import {
-  REPORT_STATS,
   REPORT_FAQ,
-  REPORT_UPDATED,
   type ReportStat,
 } from "@/data/partnerMarketReport2026";
 import { useMarketReportStats } from "@/hooks/useMarketReportStats";
