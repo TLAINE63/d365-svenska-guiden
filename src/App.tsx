@@ -50,6 +50,7 @@ const ValjPartner = lazy(() => import("./pages/ValjPartner"));
 const AllD365Partners = lazy(() => import("./pages/AllD365Partners"));
 const PartnersPerBransch = lazy(() => import("./pages/PartnersPerBransch"));
 const ProductPartnersSverige = lazy(() => import("./pages/ProductPartnersSverige"));
+const PartnerMarketReport2026 = lazy(() => import("./pages/PartnerMarketReport2026"));
 const PartnersSitemap = lazy(() => import("./pages/PartnersSitemap"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const NeedsAnalysis = lazy(() => import("./pages/NeedsAnalysis"));
@@ -193,6 +194,7 @@ const AppShell = () => {
           <Route path="/dynamics-365-field-service-partners-sverige" element={<ProductPartnersSverige configSlug="dynamics-365-field-service-partners-sverige" />} />
           <Route path="/dynamics-365-contact-center-partners-sverige" element={<ProductPartnersSverige configSlug="dynamics-365-contact-center-partners-sverige" />} />
           <Route path="/dynamics-365-ai-copilot-partners-sverige" element={<ProductPartnersSverige configSlug="dynamics-365-ai-copilot-partners-sverige" />} />
+          <Route path="/rapporter/dynamics-365-partnersverige-2026" element={<PartnerMarketReport2026 />} />
           <Route path="/dataskydd" element={<PrivacyPolicy />} />
           <Route path="/ERPbehovsanalys" element={<NeedsAnalysis />} />
           <Route path="/behovsanalys" element={<Navigate to="/ERPbehovsanalys" replace />} />
