@@ -78,7 +78,7 @@ export const PRODUCT_META: Record<ProductKey, ProductMeta> = {
   sales: {
     name: "Dynamics 365 Sales",
     short: "D365 Sales",
-    path: "/dynamics365-sales/",
+    path: "/d365sales/",
     breadcrumb: "Sales",
     ctaPrimary: { label: "Behovsanalys CRM", url: "/CRMbehovsanalys/" },
     ctaSecondary: { label: "ROI-kalkylator Sales", url: "/dynamics365-sales/roi-kalkylator/" },
@@ -86,7 +86,7 @@ export const PRODUCT_META: Record<ProductKey, ProductMeta> = {
   "customer-service": {
     name: "Dynamics 365 Customer Service",
     short: "D365 Customer Service",
-    path: "/dynamics365-customer-service/",
+    path: "/d365customerservice/",
     breadcrumb: "Customer Service",
     ctaPrimary: { label: "Behovsanalys Kundservice", url: "/kundservice-behovsanalys/" },
     ctaSecondary: { label: "Kravspec Kundservice", url: "/kravspecifikation-kundservice/" },
@@ -94,7 +94,7 @@ export const PRODUCT_META: Record<ProductKey, ProductMeta> = {
   "customer-insights": {
     name: "Dynamics 365 Customer Insights",
     short: "Customer Insights",
-    path: "/dynamics365-customer-insights/",
+    path: "/d365marketing/",
     breadcrumb: "Customer Insights",
     ctaPrimary: { label: "Behovsanalys CRM", url: "/CRMbehovsanalys/" },
     ctaSecondary: { label: "Kravspec Marknad", url: "/kravspecifikation-marketing/" },
@@ -102,14 +102,14 @@ export const PRODUCT_META: Record<ProductKey, ProductMeta> = {
   "contact-center": {
     name: "Dynamics 365 Contact Center",
     short: "D365 Contact Center",
-    path: "/dynamics365-contact-center/",
+    path: "/d365contactcenter/",
     breadcrumb: "Contact Center",
     ctaPrimary: { label: "Behovsanalys Kundservice", url: "/kundservice-behovsanalys/" },
   },
   "field-service": {
     name: "Dynamics 365 Field Service",
     short: "D365 Field Service",
-    path: "/dynamics365-field-service/",
+    path: "/d365fieldservice/",
     breadcrumb: "Field Service",
     ctaPrimary: { label: "Behovsanalys Service", url: "/kundservice-behovsanalys/" },
   },

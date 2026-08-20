@@ -822,7 +822,7 @@ const Index = () => {
                           <p>• <strong>Customer Service:</strong> Föreslår svar och hämtar kunskapsartiklar under pågående ärende.</p>
                           <p>• <strong>Business Central & F&SCM:</strong> Automatiserar bokföring, prognoser och inköpsförslag.</p>
                           <p className="pt-1">
-                            → Läs mer i vår <Link to="/ai-oversikt/" className="text-primary hover:underline font-semibold">AI-översikt</Link> eller gör en <Link to="/ai-mognadsanalys/" className="text-primary hover:underline font-semibold">AI-mognadsanalys</Link>.
+                            → Läs mer i vår <Link to="/ai-oversikt/" className="text-primary hover:underline font-semibold">AI-översikt</Link> eller gör en <Link to="/ai-readiness/" className="text-primary hover:underline font-semibold">AI-mognadsanalys</Link>.
                           </p>
                         </div>
                         <VideoComingSoon />

@@ -229,7 +229,7 @@ export const needsAnalysisCrmRelatedPages: RelatedPage[] = [
 ];
 
 export const needsAnalysisCsRelatedPages: RelatedPage[] = [
-  { title: "Kravspecifikation Customer Service", description: "Bygg en strukturerad kravspec för kundservice", href: "/kravspecifikation-customer-service/" },
+  { title: "Kravspecifikation Customer Service", description: "Bygg en strukturerad kravspec för kundservice", href: "/kravspecifikation-kundservice/" },
   { title: "Customer Service", description: "Helpdesk och ärendehantering – pris och funktioner", href: "/d365customerservice/" },
   { title: "Contact Center", description: "AI-drivet omnikanal-kontaktcenter", href: "/d365contactcenter/" },
   { title: "Field Service", description: "Fältservicehantering med schemaläggning och IoT", href: "/d365fieldservice/" },
