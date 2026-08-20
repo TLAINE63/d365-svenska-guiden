@@ -709,6 +709,45 @@ export type Database = {
           },
         ]
       }
+      market_report_stats: {
+        Row: {
+          created_at: string
+          group_key: string
+          id: string
+          is_active: boolean
+          label: string
+          note: string
+          sort_order: number
+          suffix: string | null
+          updated_at: string
+          value: number
+        }
+        Insert: {
+          created_at?: string
+          group_key?: string
+          id?: string
+          is_active?: boolean
+          label: string
+          note?: string
+          sort_order?: number
+          suffix?: string | null
+          updated_at?: string
+          value?: number
+        }
+        Update: {
+          created_at?: string
+          group_key?: string
+          id?: string
+          is_active?: boolean
+          label?: string
+          note?: string
+          sort_order?: number
+          suffix?: string | null
+          updated_at?: string
+          value?: number
+        }
+        Relationships: []
+      }
       not_found_events: {
         Row: {
           full_url: string | null
