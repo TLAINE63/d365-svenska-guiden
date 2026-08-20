@@ -31,9 +31,12 @@ serve(async (req) => {
     }
 
     if (req.method === "GET") {
+      // Endast leverantörens egna fält – aldrig interna admin-/säljkontakter
       const { data: override } = await supabase
         .from("isv_solution_overrides")
-        .select("*")
+        .select(
+          "solution_id, short_description, what, when_fits, use_cases, combos, products, industries, partner_slugs, vendor_name, vendor_website, vendor_contact_name, vendor_contact_email, vendor_updated_at"
+        )
         .eq("solution_id", invitation.solution_id)
         .maybeSingle();
       const { data: submission } = await supabase
