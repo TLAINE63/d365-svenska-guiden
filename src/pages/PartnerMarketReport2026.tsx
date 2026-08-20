@@ -145,6 +145,20 @@ export default function PartnerMarketReport2026() {
               Finance &amp; Supply Chain, CRM och Power Platform/AI, samt vilka
               branscher och bolagsstorlekar som dominerar.
             </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Button onClick={handlePdf} disabled={pdfLoading} size="lg">
+                <Download className="mr-2 h-4 w-4" />
+                {pdfLoading ? "Skapar PDF …" : "Ladda ner rapporten (PDF)"}
+              </Button>
+              <Button onClick={handleCsv} variant="outline" size="lg">
+                <FileSpreadsheet className="mr-2 h-4 w-4" />
+                Ladda ner data (CSV)
+              </Button>
+            </div>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Exporten följer dina filter nedan – {visibleStats.length} av{" "}
+              {REPORT_STATS.length} nyckeltal.
+            </p>
             <figure className="mt-8">
               <img
                 src={reportCover}
