@@ -58,6 +58,7 @@ import DeepDiveArticle from './pages/DeepDiveArticle';
 import BlogArticle from './pages/BlogArticle';
 import SmartSearch from './pages/SmartSearch';
 import ProductPartnersSverige from './pages/ProductPartnersSverige';
+import PartnerMarketReport2026 from './pages/PartnerMarketReport2026';
 import PartnersSitemap from './pages/PartnersSitemap';
 import AllD365Partners from './pages/AllD365Partners';
 import PartnersPerBransch from './pages/PartnersPerBransch';
@@ -283,6 +284,16 @@ export const routes: PrerenderRoute[] = [
     changefreq: 'weekly' as const,
     meta: { title: c.metaTitle, description: c.metaDescription },
   })),
+  {
+    path: '/rapporter/dynamics-365-partnersverige-2026',
+    priority: '0.8',
+    changefreq: 'monthly' as const,
+    meta: {
+      title: 'Svenska Dynamics 365-partnermarknaden 2026 – rapport',
+      description:
+        'Rapport om Dynamics 365-partners i Sverige 2026: 84 identifierade partners fördelat på Business Central, F&SCM, CRM, Power Platform/AI, bransch och bolagsstorlek.',
+    },
+  },
   // Deep-dive article routes (generated from data)
   ...ALL_DEEP_DIVE_ARTICLES.map((a) => ({
     path: `/kunskapscenter/${a.productSlug}/${a.slug}`,
@@ -535,6 +546,11 @@ export function render(url: string) {
                   element={<ProductPartnersSverige configSlug={c.slug} />}
                 />
               ))}
+              <Route
+                path="/rapporter/dynamics-365-partnersverige-2026"
+                element={<PartnerMarketReport2026 />}
+              />
+
             </Routes>
           </StaticRouter>
         </TooltipProvider>
