@@ -1,10 +1,12 @@
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { ArrowRight, Search } from "lucide-react";
 import {
   REPORT_STATS,
   REPORT_FAQ,
@@ -58,8 +60,43 @@ const StatRow = ({ stat, max }: { stat: ReportStat; max: number }) => (
   </div>
 );
 
+type SortMode = "storlek" | "namn" | "minst";
+
+const SORTS: { id: SortMode; label: string }[] = [
+  { id: "storlek", label: "Flest partners" },
+  { id: "minst", label: "Färst partners" },
+  { id: "namn", label: "A–Ö" },
+];
+
 export default function PartnerMarketReport2026() {
   const max = Math.max(...REPORT_STATS.map((s) => s.value));
+  const [query, setQuery] = useState("");
+  const [activeGroups, setActiveGroups] = useState<ReportStat["group"][]>([]);
+  const [sort, setSort] = useState<SortMode>("storlek");
+
+  const visibleStats = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    const filtered = REPORT_STATS.filter((s) => {
+      const groupOk = activeGroups.length === 0 || activeGroups.includes(s.group);
+      const textOk =
+        !q ||
+        s.label.toLowerCase().includes(q) ||
+        s.note.toLowerCase().includes(q);
+      return groupOk && textOk;
+    });
+    return [...filtered].sort((a, b) => {
+      if (sort === "namn") return a.label.localeCompare(b.label, "sv");
+      if (sort === "minst") return a.value - b.value;
+      return b.value - a.value;
+    });
+  }, [query, activeGroups, sort]);
+
+  const toggleGroup = (id: ReportStat["group"]) =>
+    setActiveGroups((prev) =>
+      prev.includes(id) ? prev.filter((g) => g !== id) : [...prev, id],
+    );
+
+
 
   return (
     <div className="min-h-screen bg-background">
@@ -125,8 +162,84 @@ export default function PartnerMarketReport2026() {
 
         <section className="py-10 sm:py-14">
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl space-y-12">
+            <div className="rounded-xl border border-border bg-card p-4 sm:p-5 space-y-4">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Sök i statistiken, t.ex. Business Central eller tillverkning"
+                  aria-label="Sök i partnerstatistiken"
+                  className="pl-9"
+                />
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {GROUPS.map((g) => {
+                  const active = activeGroups.includes(g.id);
+                  return (
+                    <button
+                      key={g.id}
+                      type="button"
+                      onClick={() => toggleGroup(g.id)}
+                      aria-pressed={active}
+                      className={`rounded-full border px-3 py-1.5 text-sm transition-colors ${
+                        active
+                          ? "border-accent bg-accent text-accent-foreground"
+                          : "border-border bg-background text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      {g.title}
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-sm text-muted-foreground">Sortera:</span>
+                {SORTS.map((s) => (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => setSort(s.id)}
+                    aria-pressed={sort === s.id}
+                    className={`rounded-md border px-3 py-1.5 text-sm transition-colors ${
+                      sort === s.id
+                        ? "border-accent text-foreground font-medium"
+                        : "border-border text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {s.label}
+                  </button>
+                ))}
+                {(query || activeGroups.length > 0 || sort !== "storlek") && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setQuery("");
+                      setActiveGroups([]);
+                      setSort("storlek");
+                    }}
+                    className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
+                  >
+                    Rensa filter
+                  </button>
+                )}
+                <span className="ml-auto text-sm text-muted-foreground">
+                  {visibleStats.length} av {REPORT_STATS.length} nyckeltal
+                </span>
+              </div>
+            </div>
+
+            {visibleStats.length === 0 && (
+              <p className="text-muted-foreground">
+                Inga nyckeltal matchar din sökning. Prova ett bredare sökord
+                eller rensa filtren – eller hör av dig till oss så tar vi fram
+                underlaget.
+              </p>
+            )}
+
             {GROUPS.map((g) => {
-              const stats = REPORT_STATS.filter((s) => s.group === g.id);
+              const stats = visibleStats.filter((s) => s.group === g.id);
+              if (stats.length === 0) return null;
               return (
                 <div key={g.id}>
                   <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">
@@ -141,6 +254,7 @@ export default function PartnerMarketReport2026() {
                 </div>
               );
             })}
+
 
             <div>
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
