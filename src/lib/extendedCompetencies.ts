@@ -199,15 +199,116 @@ export function competencyNarrative(
   return `${subject} ${first}. Därutöver ${restText}.`;
 }
 
+/* ------------------------------------------------------------------ *
+ * 1. Strukturerade signaler som partnern själv kryssar i
+ * ------------------------------------------------------------------ */
+
+export interface CompetencySignal {
+  id: string;
+  label: string;
+  /** Högsta nivå som signalen kan motivera. */
+  level: CompetencyLevel;
+}
+
+export const COMPETENCY_SIGNALS: Record<CompetencyArea, CompetencySignal[]> = {
+  power_platform: [
+    { id: "pp_part_of_delivery", label: "Power Platform ingår regelbundet i våra Dynamics 365-leveranser (appar, flows, Dataverse)", level: "documented_competence" },
+    { id: "pp_certified", label: "Vi har certifierade konsulter (PL-100/200/400/600)", level: "documented_competence" },
+    { id: "pp_cases", label: "Vi har dokumenterade kundprojekt där Power Platform är en tydlig del", level: "documented_delivery" },
+    { id: "pp_team", label: "Fem eller fler konsulter har Power Platform som huvudinriktning", level: "documented_delivery" },
+    { id: "pp_leading", label: "Publika kundcase, MVP:er eller talaruppdrag inom Power Platform", level: "leading_competence" },
+  ],
+  copilot_ai: [
+    { id: "ai_advisory", label: "Vi rådger kunder om Copilot och AI-funktioner i Dynamics 365", level: "documented_competence" },
+    { id: "ai_certified", label: "Vi har AI-certifieringar (t.ex. AI-102) eller Microsoft AI-kompetensbeteckning", level: "documented_competence" },
+    { id: "ai_cases", label: "Vi har genomfört kundleveranser med Copilot/AI i Dynamics 365", level: "documented_delivery" },
+    { id: "ai_packaged", label: "Vi har ett paketerat erbjudande för Copilot/AI", level: "documented_delivery" },
+    { id: "ai_leading", label: "Publika kundcase eller Microsoft-utmärkelse inom AI", level: "leading_competence" },
+  ],
+  copilot_studio_agents: [
+    { id: "cs_built", label: "Vi har byggt agenter i Copilot Studio (internt eller som PoC)", level: "documented_competence" },
+    { id: "cs_live", label: "Vi har agenter i drift hos kund", level: "documented_delivery" },
+    { id: "cs_multi", label: "Tre eller fler kundleveranser med agenter", level: "documented_delivery" },
+    { id: "cs_leading", label: "Publika kundcase eller thought leadership inom agenter", level: "leading_competence" },
+  ],
+};
+
+/** Nyckeln i extended_competency_input där kryssade signaler lagras. */
+export function signalsKey(area: CompetencyArea): string {
+  return `${area}__signals`;
+}
+
+export function readSignals(
+  input: ExtendedCompetencyEvidence | null | undefined,
+  area: CompetencyArea,
+): string[] {
+  const raw = input?.[signalsKey(area) as CompetencyArea] as unknown as string | undefined;
+  if (typeof raw !== "string" || !raw.trim()) return [];
+  const valid = new Set(COMPETENCY_SIGNALS[area].map((s) => s.id));
+  return raw
+    .split(",")
+    .map((s) => s.trim())
+    .filter((s) => valid.has(s));
+}
+
+function levelFromSignals(
+  input: ExtendedCompetencyEvidence | null | undefined,
+  area: CompetencyArea,
+): CompetencyLevel | null {
+  const chosen = readSignals(input, area);
+  if (chosen.length === 0) return null;
+  let best: CompetencyLevel = "unverified";
+  for (const signal of COMPETENCY_SIGNALS[area]) {
+    if (chosen.includes(signal.id) && LEVEL_META[signal.level].rank > LEVEL_META[best].rank) {
+      best = signal.level;
+    }
+  }
+  return best;
+}
+
+/* ------------------------------------------------------------------ *
+ * 2. Automatisk grundnivå utifrån produktområden
+ * ------------------------------------------------------------------ */
+
 /**
- * Föreslår nivåer per område utifrån partnerns ai_profile (capabilities,
- * erfarenhet, evidens, projektantal) och eventuell egen beskrivning (input).
- * Syftet är en utgångspunkt som d365.se granskar och justerar i admin – inte ett
- * slutgiltigt betyg. Konservativ: utan underlag lämnas området obedömt (null).
+ * CE/CRM bygger tekniskt på Power Platform och Dataverse – en partner som
+ * levererar Sales/Service har därför per definition grundläggande dokumenterad
+ * Power Platform-kompetens. Nivån är medvetet konservativ och höjs bara av
+ * signaler eller manuell bedömning.
+ */
+export function baselineExtendedCompetencies(productKeys: string[]): ExtendedCompetencies {
+  const keys = new Set(productKeys.filter(Boolean));
+  const isCe = ["sales", "service", "crm", "marketing", "field-service", "contact-center"].some((k) =>
+    keys.has(k),
+  );
+  const isErp = ["bc", "fsc"].some((k) => keys.has(k));
+  const out: ExtendedCompetencies = {};
+  if (isCe) out.power_platform = "documented_competence";
+  if (isCe || isErp) out.copilot_ai = "unverified";
+  return out;
+}
+
+function highest(...levels: Array<CompetencyLevel | null | undefined>): CompetencyLevel | null {
+  let best: CompetencyLevel | null = null;
+  for (const level of levels) {
+    if (level && levelRank(level) > levelRank(best)) best = level;
+  }
+  return best;
+}
+
+/* ------------------------------------------------------------------ *
+ * 3. Sammanvägt förslag
+ * ------------------------------------------------------------------ */
+
+/**
+ * Föreslår nivåer per område utifrån (a) grundnivå per produktområde,
+ * (b) partnerns egna kryssade signaler och (c) ai_profile + fritext.
+ * Högsta motiverade nivå vinner. Alltid ett förslag som d365.se granskar.
  */
 export function suggestExtendedCompetencies(
   ai?: AiProfile | null,
   input?: ExtendedCompetencyEvidence | null,
+  opts?: { productKeys?: string[] },
 ): ExtendedCompetencies {
   const caps = ai?.capabilities || [];
   const exp = ai?.experience_level || "";
@@ -223,25 +324,26 @@ export function suggestExtendedCompetencies(
   const inputText = (area: CompetencyArea) => (input?.[area]?.trim() || "");
   const hasInput = (area: CompetencyArea) => inputText(area).length > 80;
 
-  const levelFor = (area: CompetencyArea, capCodes: string[]): CompetencyLevel | null => {
+  const aiLevelFor = (area: CompetencyArea, capCodes: string[]): CompetencyLevel | null => {
     const capPresent = hasCap(capCodes);
     const claimed = capPresent || hasInput(area);
     if (!claimed) return null;
-    // Ledande: etablerad leveransmodell + stark evidens + flera projekt
     if (exp === "established" && strongEv && ["6-10", "10+"].includes(proj)) {
       return "leading_competence";
     }
-    // Dokumenterad leverans: kundprojekt påvisade
     if (deliveryExp || strongEv) return "documented_delivery";
-    // Dokumenterad kompetens: erfarenhet angiven (rådgivning/pilot räknas)
     if (someExp) return "documented_competence";
-    // Uppger kompetens men saknar verifierbar erfarenhet
     return "unverified";
   };
 
+  const baseline = baselineExtendedCompetencies(opts?.productKeys || []);
+
+  const combine = (area: CompetencyArea, capCodes: string[]): CompetencyLevel | null =>
+    highest(baseline[area], levelFromSignals(input, area), aiLevelFor(area, capCodes));
+
   return {
-    power_platform: levelFor("power_platform", ["power-platform"]),
-    copilot_ai: levelFor("copilot_ai", ["standard-copilot", "azure-ai", "fabric-bi"]),
-    copilot_studio_agents: levelFor("copilot_studio_agents", ["copilot-studio"]),
+    power_platform: combine("power_platform", ["power-platform"]),
+    copilot_ai: combine("copilot_ai", ["standard-copilot", "azure-ai", "fabric-bi"]),
+    copilot_studio_agents: combine("copilot_studio_agents", ["copilot-studio"]),
   };
 }
