@@ -98,4 +98,36 @@ export const REPORT_FAQ = [
     q: "Hur är siffrorna framtagna?",
     a: "Underlaget är d365.se:s löpande kartläggning av svenska Dynamics 365-partners: partnerprofiler, publika källor och uppgifter partners själva lämnat. En partner kan räknas i flera kategorier eftersom många täcker flera produktområden och branscher.",
   },
+  {
+    q: "Vilka datakällor används i kartläggningen?",
+    a: "Kartläggningen bygger på tre typer av källor: (1) Microsofts officiella partnerkatalog och lösningsregister, (2) publika källor som företagssajter, årsredovisningar, pressmeddelanden och LinkedIn, samt (3) uppgifter som partners själva lämnar när de verifierar sin profil på d365.se. För verifierade partners väger vi självrapporterad information högst eftersom den är granskad och godkänd av partnern. För identifierade partners bygger vi på externa källor och observation av faktiska leveranser på marknaden.",
+  },
+  {
+    q: "Vad är skillnaden mellan identifierade och verifierade partners?",
+    a: "Identifierade partners är företag som d365.se har kartlagt utifrån publika källor och som bedöms leverera Dynamics 365 i Sverige. Verifierade partners har därtill gått in på d365.se, granskat sin profil, fyllt i leveransprofil per produktområde, uppgivit referenser och bekräftat sin AI-erfarenhet. Endast verifierade partners kan kontaktas direkt via plattformen; för identifierade partners sker kontakt genom d365.se som mellanhand.",
+  },
+  {
+    q: "Hur räknas en partner in i ett produktområde?",
+    a: "En partner räknas in i ett produktområde (t.ex. Business Central eller CRM) om de har dokumenterad leverans av den produkten i Sverige – antingen genom uppgifter i Microsofts partnerkatalog, referenser på den egna sajten eller genom att partnern själv har markerat produkten i sin verifierade profil. Detta betyder att en partner kan räknas i flera produktområden samtidigt, vilket är varför summan av produktkategorierna överstiger det totala antalet partners.",
+  },
+  {
+    q: "Hur mäts branschtillhörighet?",
+    a: "Varje partner kan ange upp till tre primära fokusbranscher och ett antal sekundära branscher i sin profil. I rapporten räknas en partner in i en bransch om den är uppgiven som primär fokusbransch. Branschindelningen följer en standardiserad lista på 20 branscher för att säkerställa jämförbarhet mellan partners.",
+  },
+  {
+    q: "Hur definieras små specialistpartners och stora globala partners?",
+    a: "Små specialistpartners definieras som bolag med typiskt under ca 50 Dynamics 365-konsulter i Sverige och en tydlig nisch inom ett eller två produktområden. Stora globala partners är internationella aktörer med flera hundra konsulter och en global leveransmodell. Mittpartners – medelstora svenska bolag med 50–200 konsulter – utgör en implicit tredje kategori men redovisas inte separat i denna rapport.",
+  },
+  {
+    q: "Hur ofta uppdateras siffrorna?",
+    a: "Kartläggningen uppdateras löpande i takt med att nya partners identifieras och profiler verifieras. Siffrorna i rapporten hämtas live från d365.se:s partnerdatabas och stämpeln \"uppdaterad\" visar datum för senaste stora revision. Mindre justeringar sker kontinuerligt utan att datumet ändras.",
+  },
+  {
+    q: "Varför stämmer inte summan av kategorierna överens med totalen?",
+    a: "Eftersom en partner kan räknas i flera produktområden och branscher samtidigt blir summan av underkategorierna alltid större än det totala antalet partners. Detta är en egenskap hos datan, inte ett fel – det speglar att många partners är breda och arbetar över flera områden.",
+  },
+  {
+    q: "Kan jag använda siffrorna i min egen rapport eller presentation?",
+    a: "Ja, du får referera till siffrorna med källhänvisning till d365.se. Ladda ner datan som PDF eller CSV ovan och ange källan som \"d365.se – Dynamics 365 Partner Landscape Sweden 2026\". Om du behöver mer detaljerade uppgifter eller en skräddarsydd analys kan du kontakta oss via behovsanalysen.",
+  },
 ];

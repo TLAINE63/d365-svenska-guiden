@@ -7,6 +7,12 @@ import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Search, Download, FileSpreadsheet } from "lucide-react";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
 import { toast } from "sonner";
 import {
   generateMarketReportPdf,
@@ -317,17 +323,29 @@ export default function PartnerMarketReport2026() {
             </div>
 
             <div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
-                Vanliga frågor
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
+                Vanliga frågor om rapporten
               </h2>
-              <div className="space-y-6">
-                {REPORT_FAQ.map((f) => (
-                  <div key={f.q}>
-                    <h3 className="font-semibold text-foreground mb-1">{f.q}</h3>
-                    <p className="text-muted-foreground">{f.a}</p>
-                  </div>
+              <p className="text-sm text-muted-foreground mb-6">
+                Hur siffrorna samlas in, vilka källor som används och hur statistiken
+                beräknas.
+              </p>
+              <Accordion
+                type="single"
+                collapsible
+                className="rounded-xl border border-border bg-card px-5"
+              >
+                {REPORT_FAQ.map((f, i) => (
+                  <AccordionItem key={f.q} value={`item-${i}`}>
+                    <AccordionTrigger className="text-left text-foreground">
+                      {f.q}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground">
+                      {f.a}
+                    </AccordionContent>
+                  </AccordionItem>
                 ))}
-              </div>
+              </Accordion>
             </div>
 
             <div>
