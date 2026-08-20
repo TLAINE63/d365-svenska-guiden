@@ -416,7 +416,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
    {/* Fördjupningstext används enbart för AI/SEO/AIO – ingen publik länk. */}
 
   {/* Main content - centered layout */}
-  <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+  <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
   {/* Partner identity - logo OR name, not both; logo routes to partner landing page */}
   <div className="flex items-center justify-center mb-2">
   {partner.logo_url ? (
