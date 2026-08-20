@@ -416,7 +416,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
    {/* Fördjupningstext används enbart för AI/SEO/AIO – ingen publik länk. */}
 
   {/* Main content - centered layout */}
-  <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+  <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
   {/* Partner identity - logo OR name, not both; logo routes to partner landing page */}
   <div className="flex items-center justify-center mb-2">
   {partner.logo_url ? (
@@ -448,7 +448,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
   {/* Partnerns egen övergripande text – kort intro, analysen ligger nedanför */}
   {partner.description && (
-    <p className="max-w-3xl w-full mb-4 text-base sm:text-lg text-slate-700 leading-relaxed">
+    <p className="max-w-5xl w-full mb-4 whitespace-pre-line break-words text-base sm:text-lg text-slate-700 leading-relaxed [overflow-wrap:anywhere]">
       {partner.description}
     </p>
   )}

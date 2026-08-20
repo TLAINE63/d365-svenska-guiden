@@ -956,7 +956,7 @@
     "website": "https://www.crmk.se",
     "email": "andreas.franzen@crmk.se",
     "contact_person": "Andreas Franzén",
-    "contact_photo_url": "",
+    "contact_photo_url": null,
     "phone": "070-3349535",
     "applications": [
       "Sales",
@@ -967,7 +967,11 @@
     ],
     "industries": [],
     "secondary_industries": [],
-    "geography": [],
+    "geography": [
+      "Sverige",
+      "Norden",
+      "Europa"
+    ],
     "product_filters": {
       "sales": {
         "ranking": 5,
@@ -1105,7 +1109,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-08-20T09:42:14.934604+00:00",
+    "updated_at": "2026-08-20T12:16:10.578124+00:00",
     "industry_pitches": [
       {
         "text": "CRM Konsulterna bistår konsultbolag med att optimera sin kundresa och interna processer med Dynamics 365. De adresserar typiska utmaningar som fragmenterad kundkommunikation och ineffektiv projektförsäljning. Genom att implementera Dynamics 365 Sales förbättrar de säljprocesser från prospektering till affärsavslut, vilket möjliggör bättre uppföljning och pipelinesynlighet. Med Dynamics 365 Customer Insights (Marketing) kan konsultbolag segmentera kunder och leverera relevanta budskap, vilket stärker varumärket och genererar nya affärsmöjligheter. De hjälper också med Dynamics 365 Customer Service för att hantera kundförfrågningar effektivt och säkerställa hög kundnöjdhet. Fokus ligger på att skapa en enhetlig kundbild och förbättra samarbetet internt, vilket frigör tid för konsultens kärnverksamhet.",
@@ -1189,7 +1193,7 @@
       "Customer Insights (Marketing)": "25–100"
     },
     "ai_summary": "CRMK är specialiserat på Dynamics 365 Customer Engagement, Power Platform, AI och agenter. Erbjudandet omfattar bland annat Sales, Customer Insights, Customer Service, Contact Center och Field Service samt Power Apps, Power Automate och Copilot Studio.",
-    "ai_summary_generated_at": "2026-08-18T13:21:48.139+00:00",
+    "ai_summary_generated_at": "2026-08-20T12:16:09.96+00:00",
     "ai_profile": {
       "use_cases": [],
       "description": null,
@@ -1214,7 +1218,7 @@
       "project_count_range": null
     },
     "extended_content": "CRM Konsulterna (CRMK) är ett svenskt CRM-specialistbolag grundat 2010, med huvudkontor i Stockholm. Bolaget har cirka 40 medarbetare och fokuserar uteslutande på Microsoft Dynamics 365 Customer Engagement, Power Platform och AI. CRMK profilerar sig som expert på kundcentrerad digitalisering.\n\nAktiva produktområden: Microsoft Dynamics 365 Customer Engagement – Sales, Customer Service, Customer Insights (Marketing). Power Platform med stark profil inom Power Apps, Power Automate och Power BI. Microsoft Fabric för dataanalys. AI och Copilot för intelligent automation och agentbyggande.\n\nTydliga styrkor: Renodlad CRM-specialist – gör ingenting annat vilket ger djup expertis. Stark AI- och automationskompetens med fokus på Microsoft Copilot och intelligenta agenter. Kombination av implementation, förvaltning och utbildning. Grundare Gustaf Westerlund är välkänd profil i Microsoft-communityn.\n\nRäckvidd och segment: Sverige med fokus på Stockholm. Segment: mellanstora företag (100-1000 anställda) med fokuserat CRM-behov. Branscher: bred exponering men ofta B2B-företag med försäljnings- och servicefokus.\n\nPassar bäst: Företag som prioriterar CRM och kundhantering högt och söker en specialistpartner. Organisationer som vill dra nytta av AI i sin kundhantering. Kunder som behöver CRM-transformation oberoende av ERP. Mindre lämplig för ERP-behov (BC/F&SCM) eller kunder som söker generell IT-partner.\n\nSammanfattning: Ledande svensk CRM-specialist med stark AI-profil. Jämförbar med Nemely och Sundet CRM som CRM-nischpartners.",
-    "extended_content_updated_at": "2026-08-18T13:42:50.697+00:00",
+    "extended_content_updated_at": "2026-08-20T12:16:09.96+00:00",
     "partner_size_tier": 3,
     "partner_size_tier_needs_review": true,
     "ai_summary_full": "CRMK är en tydlig CRM- och Customer Engagement-specialist snarare än ERP-partner. Partnern arbetar från analys och implementation till utveckling, utbildning och långsiktig vidareutveckling.\nDokumenterade kundcase omfattar bland annat Dynamics 365 Sales och Customer Service, och erbjudandet inom Customer Service och Contact Center inkluderar omnikanal, routing och Copilot. AI-kompetensen är tydligt dokumenterad genom Copilot Studio, kundanpassade AI-agenter, Power Platform och AI-readiness.",
@@ -1242,9 +1246,9 @@
       "Omnichannel"
     ],
     "extended_competencies": {
-      "copilot_ai": null,
-      "power_platform": null,
-      "copilot_studio_agents": null
+      "copilot_ai": "documented_delivery",
+      "power_platform": "documented_delivery",
+      "copilot_studio_agents": "documented_competence"
     }
   },
   {
