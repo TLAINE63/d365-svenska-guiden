@@ -92,12 +92,12 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     slug: "ai-sok-dynamics-365-partners",
     title: "Fem sekunder till svaret, ett år till beslutet",
     metaTitle:
-      "AI-sök förändrar hur köpare hittar Dynamics 365-partners | d365.se",
+      "AI-sök förändrar hur köpare hittar Dynamics 365-partners",
     metaDescription:
       "AI-sök påverkar hur företag hittar, jämför och väljer Dynamics 365-partners. Artikeln visar varför tydliga tredjepartsbeskrivningar, nischad positionering och konkret erfarenhet av Copilot och agenter blir avgörande.",
     summary:
       "AI-sök gör att köpare formar sin bild av Dynamics 365-partners långt innan första mötet. Här är varför nischad positionering, tredjepartsbeskrivningar och konkret Copilot-erfarenhet blir viktigare än traditionell SEO.",
-    category: "Strategi",
+    category: "Partnerurval / AI och Dynamics 365",
     tags: [
       "ai-sök",
       "aio",
