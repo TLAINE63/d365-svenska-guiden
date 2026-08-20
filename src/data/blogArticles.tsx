@@ -337,7 +337,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           hur hjälper ni kunden bestämma vad en agent får och inte får göra.
           Det är också de frågor en påläst köpare kommer att ställa, eftersom
           de börjat dyka upp i de svar hon får. Mer om det landskapet finns i{" "}
-          <a href="/ai-oversikt/">vår översikt över AI, Copilot och agenter</a>.
+          <a href="/aioversikt/">vår översikt över AI, Copilot och agenter</a>.
         </p>
         <p>
           Det finns ett andra led här som är värt att förbereda sig på. Köparna
