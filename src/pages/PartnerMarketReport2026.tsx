@@ -114,7 +114,6 @@ export default function PartnerMarketReport2026() {
                 alt="Dynamics 365 Partner Landscape Sweden 2026 – karta över svenska partners, d365.se"
                 width={1600}
                 height={900}
-                fetchPriority="high"
                 className="w-full rounded-xl border border-border"
               />
               <figcaption className="mt-2 text-xs text-muted-foreground">
