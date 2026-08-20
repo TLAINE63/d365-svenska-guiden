@@ -140,7 +140,7 @@ export async function generateMarketReportPdf(
 
   // FAQ
   ensureSpace(24);
-  y = drawSectionHeading(doc, "Vanliga fragor", y);
+  y = drawSectionHeading(doc, "Vanliga frågor", y);
   for (const f of REPORT_FAQ) {
     ensureSpace(20);
     doc.setFont("helvetica", "bold");
@@ -166,7 +166,7 @@ export async function generateMarketReportPdf(
   doc.setFont("helvetica", "bold");
   doc.setFontSize(9.5);
   doc.setTextColor(...PDF_BRAND.text);
-  doc.text("Hitta ratt partner for ert projekt", PDF_MARGIN + 5, y + 7);
+  doc.text(safe("Hitta rätt partner för ert projekt"), PDF_MARGIN + 5, y + 7);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8.5);
   doc.setTextColor(...PDF_BRAND.textMuted);
@@ -178,6 +178,6 @@ export async function generateMarketReportPdf(
     y + 13,
   );
 
-  finalizePdfWithFooter(doc, safe(`d365.se · ${REPORT_TITLE}`));
+  finalizePdfWithFooter(doc, safe(REPORT_TITLE));
   doc.save("dynamics-365-partner-landscape-sweden-2026.pdf");
 }
