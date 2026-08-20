@@ -6,7 +6,12 @@ import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, Search } from "lucide-react";
+import { ArrowRight, Search, Download, FileSpreadsheet } from "lucide-react";
+import { toast } from "sonner";
+import {
+  generateMarketReportPdf,
+  downloadMarketReportCsv,
+} from "@/utils/generateMarketReportPdf";
 import {
   REPORT_STATS,
   REPORT_FAQ,
@@ -96,6 +101,26 @@ export default function PartnerMarketReport2026() {
       prev.includes(id) ? prev.filter((g) => g !== id) : [...prev, id],
     );
 
+  const [pdfLoading, setPdfLoading] = useState(false);
+
+  const exportStats = visibleStats.length > 0 ? visibleStats : REPORT_STATS;
+
+  const handlePdf = async () => {
+    setPdfLoading(true);
+    try {
+      await generateMarketReportPdf(exportStats);
+      toast.success("Rapporten laddas ner som PDF.");
+    } catch {
+      toast.error("Kunde inte skapa PDF:en. Försök igen.");
+    } finally {
+      setPdfLoading(false);
+    }
+  };
+
+  const handleCsv = () => {
+    downloadMarketReportCsv(exportStats);
+    toast.success("Statistiken laddas ner som CSV.");
+  };
 
 
   return (
@@ -144,6 +169,20 @@ export default function PartnerMarketReport2026() {
               partners som finns, hur de fördelar sig mellan Business Central,
               Finance &amp; Supply Chain, CRM och Power Platform/AI, samt vilka
               branscher och bolagsstorlekar som dominerar.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Button onClick={handlePdf} disabled={pdfLoading} size="lg">
+                <Download className="mr-2 h-4 w-4" />
+                {pdfLoading ? "Skapar PDF …" : "Ladda ner rapporten (PDF)"}
+              </Button>
+              <Button onClick={handleCsv} variant="outline" size="lg">
+                <FileSpreadsheet className="mr-2 h-4 w-4" />
+                Ladda ner data (CSV)
+              </Button>
+            </div>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Exporten följer dina filter nedan – {visibleStats.length} av{" "}
+              {REPORT_STATS.length} nyckeltal.
             </p>
             <figure className="mt-8">
               <img
