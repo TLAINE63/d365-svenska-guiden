@@ -1718,6 +1718,56 @@ Thomas`,
  e.target.value = "";
  }
  };
+ // Bulk: föreslå nivåer inom AI/Power Platform för alla partners som saknar bedömning
+ const handleBulkSuggestCompetencies = async () => {
+  if (!token) {
+   toast({ title: "Fel", description: "Sessionen har gått ut. Logga in igen.", variant: "destructive" });
+   logout();
+   return;
+  }
+  setIsBulkSuggestingCompetencies(true);
+  let updated = 0;
+  try {
+   for (const p of fullPartners) {
+    const current = ((p as any).extended_competencies || {}) as Record<string, string>;
+    const suggested = suggestExtendedCompetencies(
+     ((p as any).ai_profile || {}) as any,
+     ((p as any).extended_competency_input || {}) as any,
+     { productKeys: Object.keys((p as any).product_filters || {}) },
+    );
+    const merged: Record<string, string> = { ...current };
+    let changed = false;
+    for (const area of COMPETENCY_AREAS) {
+     const value = suggested[area.key];
+     if (!current[area.key] && value) {
+      merged[area.key] = value;
+      changed = true;
+     }
+    }
+    if (!changed) continue;
+    await updatePartner.mutateAsync({
+     id: p.id,
+     partner: { extended_competencies: merged } as any,
+     token,
+    });
+    updated++;
+   }
+   toast({
+    title: "Förslag genererade",
+    description: `${updated} partner${updated === 1 ? "" : "s"} fick förslag på nivåer. Granska och justera vid behov.`,
+   });
+   if (updated > 0) fetchFullPartners();
+  } catch (error: any) {
+   toast({
+    title: "Fel",
+    description: error?.message || "Kunde inte generera förslag för alla partners",
+    variant: "destructive",
+   });
+  } finally {
+   setIsBulkSuggestingCompetencies(false);
+  }
+ };
+
  const handlePartnerSubmit = async (e: React.FormEvent) => {
  e.preventDefault();
  if (!token) {
