@@ -283,10 +283,12 @@ serve(async (req: Request): Promise<Response> => {
       // Allow re-submissions for open invitations (no status blocking)
 
       const AREAS = ["power_platform", "copilot_ai", "copilot_studio_agents"];
+      // Partnern kryssar även i strukturerade signaler per område (`<area>__signals`).
+      const COMPETENCY_INPUT_KEYS = [...AREAS, ...AREAS.map((a) => `${a}__signals`)];
       const competencyInput: Record<string, string> = {};
       const rawCompetencyInput = submissionData.extended_competency_input;
       if (rawCompetencyInput && typeof rawCompetencyInput === "object") {
-        for (const key of AREAS) {
+        for (const key of COMPETENCY_INPUT_KEYS) {
           const v = (rawCompetencyInput as Record<string, unknown>)[key];
           if (typeof v === "string" && v.trim()) competencyInput[key] = v.trim().slice(0, 800);
         }
