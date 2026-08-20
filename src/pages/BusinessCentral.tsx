@@ -214,8 +214,8 @@ const BusinessCentral = () => {
  return (
  <div className="min-h-screen">
  <SEOHead 
- title="Business Central ERP – pris, funktioner & partner"
- description={resolvePriceTokens("Business Central är Microsofts ERP-system för små och medelstora bolag. Se pris ({{price:bc-essentials:short}}–{{price:bc-premium:short}}/användare), funktioner, implementationstid – och jämför partners i Sverige.")}
+ title="Business Central ERP – pris 2026 och partners"
+ description={resolvePriceTokens("Business Central ERP: pris från {{price:bc-essentials:short}}/användare och månad, implementering 150 000–800 000 kr och 3–6 månader. Jämför funktioner mot andra ERP-system och hitta rätt partner i Sverige – kostnadsfritt.")}
  canonicalPath="/businesscentral"
  keywords="business central erp, business central affärssystem, dynamics 365 business central, erp business central, business central pris, business central licens, business central essentials, business central premium, business central partner sverige, business central implementering"
  ogImage="https://d365.se/og-business-central.png"
@@ -283,6 +283,54 @@ const BusinessCentral = () => {
  <p>Genom Microsoft Marketplace finns dessutom över 7 000 certifierade tilläggsappar som ger djup branschanpassning utan kostsam specialutveckling – oavsett om ni är inom tillverkning, handel, tjänster eller bygg. Det gör att lösningen kan formas efter er verksamhet snarare än tvärtom.</p>
  <p>Business Central är tillgängligt i över 160 länder med lokaliseringar från Microsoft och partners, vilket gör det till ett tryggt val även för bolag med internationella ambitioner eller dotterbolag i flera länder.</p>
  </ShortAnswer>
+
+ {/* Snabbfakta – svarar direkt på pris-, tids- och passformsfrågor */}
+ <section className="py-10 sm:py-12 bg-background">
+  <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+   <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+    Business Central ERP – snabbfakta
+   </h2>
+   <p className="text-muted-foreground mb-6 text-sm sm:text-base">
+    Det som flest frågar om innan de jämför Business Central med andra affärssystem.
+   </p>
+   <div className="overflow-x-auto rounded-lg border border-border">
+    <table className="w-full text-sm">
+     <tbody>
+      {[
+       ["Typ av system", "Molnbaserat ERP (affärssystem) från Microsoft"],
+       ["Passar", "5–300 användare, små och medelstora bolag"],
+       ["Licenspris", resolvePriceTokens("Essentials {{price:bc-essentials:exact}}, Premium {{price:bc-premium:exact}}, Team Member {{price:bc-team-members:exact}} per användare/månad exkl. moms")],
+       ["Implementeringskostnad", "Typiskt 150 000–800 000 kr beroende på omfattning"],
+       ["Införandetid", "3–6 månader (2–3 månader med startpaket)"],
+       ["Ingår i Premium", "Tillverkning (MRP, kapacitetsplanering) och servicehantering"],
+       ["AI", "Microsoft Copilot ingår utan extra licensavgift"],
+       ["Vanliga alternativ", "Dynamics 365 Finance & Supply Chain, Fortnox, Visma, Monitor"],
+       ["Införs av", "Microsoft-certifierad partner – jämför partners nedan"],
+      ].map(([label, value]) => (
+       <tr key={label} className="border-b border-border last:border-0">
+        <th scope="row" className="text-left align-top font-medium text-foreground py-3 px-4 w-[42%] bg-muted/30">
+         {label}
+        </th>
+        <td className="py-3 px-4 text-muted-foreground">{value}</td>
+       </tr>
+      ))}
+     </tbody>
+    </table>
+   </div>
+   <p className="text-sm text-muted-foreground mt-4">
+    Vill ni ställa Business Central mot ett större ERP-system? Läs{" "}
+    <Link to="/erp/" className="text-primary underline underline-offset-2">
+     jämförelsen mellan Business Central och Finance &amp; Supply Chain
+    </Link>{" "}
+    eller se{" "}
+    <Link to="/kostnad/" className="text-primary underline underline-offset-2">
+     vad ett affärssystem kostar
+    </Link>.
+   </p>
+  </div>
+ </section>
+
+
 
  {/* Matchningstest CTA */}
  <section className="py-10 sm:py-12 bg-[hsl(var(--hero-dark))] border-y border-primary/20">
