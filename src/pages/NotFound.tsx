@@ -10,6 +10,29 @@ const NotFound = () => {
   useEffect(() => {
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
 
+    // Logga 404:an så att gamla/trasiga URL:er kan följas upp i admin.
+    try {
+      fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/track-404`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+        },
+        body: JSON.stringify({
+          path: location.pathname,
+          full_url: typeof window !== "undefined" ? window.location.href : null,
+          referrer: typeof document !== "undefined" ? document.referrer || null : null,
+          session_id:
+            typeof sessionStorage !== "undefined"
+              ? sessionStorage.getItem("visitor_session_id")
+              : null,
+        }),
+        keepalive: true,
+      }).catch(() => {});
+    } catch {
+      /* tracking får aldrig krascha sidan */
+    }
+
     // SPA-fallback: värden levererar startsidans prerenderade HTML för okända
     // URL:er. Ta bort kvarvarande SEO-taggar (canonical/og/JSON-LD) som annars
     // får sökmotorer att tolka 404-sidan som startsidan (soft 404).
@@ -18,6 +41,7 @@ const NotFound = () => {
     );
     stale.forEach((el) => el.parentElement?.removeChild(el));
   }, [location.pathname]);
+
 
 
   return (
