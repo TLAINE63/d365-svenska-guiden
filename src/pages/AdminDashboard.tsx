@@ -5726,28 +5726,42 @@ Thomas`,
  <div>
  <div className="flex items-center justify-between gap-2 flex-wrap">
   <Label className="font-semibold text-sm">AI, Automation &amp; Power Platform – bedömd nivå</Label>
-  <Button
-   type="button"
-   variant="outline"
-   size="sm"
-   onClick={() => {
-    const suggested = suggestExtendedCompetencies(
-     (partnerFormData.ai_profile || {}) as any,
-     (partnerFormData.extended_competency_input || {}) as any,
-    );
-    setPartnerFormData((prev) => ({
-     ...prev,
-     extended_competencies: suggested,
-    }));
-   }}
-  >
-   Generera förslag
-  </Button>
+  <div className="flex flex-wrap gap-2">
+   <Button
+    type="button"
+    variant="outline"
+    size="sm"
+    onClick={() => {
+     const suggested = suggestExtendedCompetencies(
+      (partnerFormData.ai_profile || {}) as any,
+      (partnerFormData.extended_competency_input || {}) as any,
+      { productKeys: Object.keys(partnerFormData.product_filters || {}) },
+     );
+     setPartnerFormData((prev) => ({
+      ...prev,
+      extended_competencies: suggested,
+     }));
+    }}
+   >
+    Generera förslag
+   </Button>
+   <Button
+    type="button"
+    variant="secondary"
+    size="sm"
+    disabled={isBulkSuggestingCompetencies}
+    onClick={handleBulkSuggestCompetencies}
+   >
+    {isBulkSuggestingCompetencies ? "Beräknar…" : "Föreslå för alla utan bedömning"}
+   </Button>
+  </div>
  </div>
  <p className="text-xs text-muted-foreground mt-1">
   Nivåerna sätts av d365.se utifrån kundcase, referenser, certifieringar och publikt underlag.
   Bedömningsunderlaget är internt och visas aldrig publikt. Dynamics 365-kompetens är alltid primär.
-  "Generera förslag" fyller nivåerna utifrån partnerns AI-profil – granska och justera innan sparning.
+  "Generera förslag" väger samman grundnivå per produktområde (CE bygger på Power Platform),
+  partnerns egna ikryssade signaler och AI-profilen – granska och justera innan sparning.
+  Bulkknappen sätter samma förslag för alla partners som saknar bedömning inom ett område.
  </p>
  </div>
  {COMPETENCY_AREAS.map((area) => (
