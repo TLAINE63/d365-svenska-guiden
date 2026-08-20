@@ -60,8 +60,43 @@ const StatRow = ({ stat, max }: { stat: ReportStat; max: number }) => (
   </div>
 );
 
+type SortMode = "storlek" | "namn" | "minst";
+
+const SORTS: { id: SortMode; label: string }[] = [
+  { id: "storlek", label: "Flest partners" },
+  { id: "minst", label: "Färst partners" },
+  { id: "namn", label: "A–Ö" },
+];
+
 export default function PartnerMarketReport2026() {
   const max = Math.max(...REPORT_STATS.map((s) => s.value));
+  const [query, setQuery] = useState("");
+  const [activeGroups, setActiveGroups] = useState<ReportStat["group"][]>([]);
+  const [sort, setSort] = useState<SortMode>("storlek");
+
+  const visibleStats = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    const filtered = REPORT_STATS.filter((s) => {
+      const groupOk = activeGroups.length === 0 || activeGroups.includes(s.group);
+      const textOk =
+        !q ||
+        s.label.toLowerCase().includes(q) ||
+        s.note.toLowerCase().includes(q);
+      return groupOk && textOk;
+    });
+    return [...filtered].sort((a, b) => {
+      if (sort === "namn") return a.label.localeCompare(b.label, "sv");
+      if (sort === "minst") return a.value - b.value;
+      return b.value - a.value;
+    });
+  }, [query, activeGroups, sort]);
+
+  const toggleGroup = (id: ReportStat["group"]) =>
+    setActiveGroups((prev) =>
+      prev.includes(id) ? prev.filter((g) => g !== id) : [...prev, id],
+    );
+
+
 
   return (
     <div className="min-h-screen bg-background">
