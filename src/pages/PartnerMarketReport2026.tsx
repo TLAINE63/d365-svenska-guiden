@@ -6,7 +6,12 @@ import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, Search } from "lucide-react";
+import { ArrowRight, Search, Download, FileSpreadsheet } from "lucide-react";
+import { toast } from "sonner";
+import {
+  generateMarketReportPdf,
+  downloadMarketReportCsv,
+} from "@/utils/generateMarketReportPdf";
 import {
   REPORT_STATS,
   REPORT_FAQ,
