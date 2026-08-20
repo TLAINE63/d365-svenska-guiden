@@ -3540,7 +3540,13 @@ Thomas`,
  {/* ==================== FUNNEL TAB ==================== */}
  <TabsContent value="funnel">
  <AdminFunnelTab token={token || null} onSessionExpired={logout} />
- </TabsContent>
+  </TabsContent>
+
+  {/* ==================== 404-LOGG ==================== */}
+  <TabsContent value="not-found">
+  <Admin404Tab token={token || null} onSessionExpired={logout} />
+  </TabsContent>
+
 
  {/* ==================== EMAIL SUMMARY TAB ==================== */}
  <TabsContent value="summary">
