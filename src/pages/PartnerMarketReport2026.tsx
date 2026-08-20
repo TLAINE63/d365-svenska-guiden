@@ -19,11 +19,10 @@ import {
   downloadMarketReportCsv,
 } from "@/utils/generateMarketReportPdf";
 import {
-  REPORT_STATS,
   REPORT_FAQ,
-  REPORT_UPDATED,
   type ReportStat,
 } from "@/data/partnerMarketReport2026";
+import { useMarketReportStats } from "@/hooks/useMarketReportStats";
 import reportCover from "@/assets/reports/dynamics-365-partner-landscape-sweden-2026.jpg";
 
 const CANONICAL = "/rapporter/dynamics-365-partnersverige-2026/";
@@ -80,14 +79,15 @@ const SORTS: { id: SortMode; label: string }[] = [
 ];
 
 export default function PartnerMarketReport2026() {
-  const max = Math.max(...REPORT_STATS.map((s) => s.value));
+  const { stats: reportStats, updated: reportUpdated } = useMarketReportStats();
+  const max = Math.max(...reportStats.map((s) => s.value));
   const [query, setQuery] = useState("");
   const [activeGroups, setActiveGroups] = useState<ReportStat["group"][]>([]);
   const [sort, setSort] = useState<SortMode>("storlek");
 
   const visibleStats = useMemo(() => {
     const q = query.trim().toLowerCase();
-    const filtered = REPORT_STATS.filter((s) => {
+    const filtered = reportStats.filter((s) => {
       const groupOk = activeGroups.length === 0 || activeGroups.includes(s.group);
       const textOk =
         !q ||
@@ -100,7 +100,7 @@ export default function PartnerMarketReport2026() {
       if (sort === "minst") return a.value - b.value;
       return b.value - a.value;
     });
-  }, [query, activeGroups, sort]);
+  }, [reportStats, query, activeGroups, sort]);
 
   const toggleGroup = (id: ReportStat["group"]) =>
     setActiveGroups((prev) =>
@@ -109,7 +109,7 @@ export default function PartnerMarketReport2026() {
 
   const [pdfLoading, setPdfLoading] = useState(false);
 
-  const exportStats = visibleStats.length > 0 ? visibleStats : REPORT_STATS;
+  const exportStats = visibleStats.length > 0 ? visibleStats : reportStats;
 
   const handlePdf = async () => {
     setPdfLoading(true);
@@ -164,7 +164,7 @@ export default function PartnerMarketReport2026() {
               <span aria-current="page">Rapporter</span>
             </nav>
             <p className="text-xs font-semibold uppercase tracking-wide text-accent mb-3">
-              Rapport · uppdaterad {REPORT_UPDATED}
+              Rapport · uppdaterad {reportUpdated}
             </p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
               Svenska Dynamics 365-partnermarknaden 2026
@@ -188,7 +188,7 @@ export default function PartnerMarketReport2026() {
             </div>
             <p className="mt-2 text-xs text-muted-foreground">
               Exporten följer dina filter nedan – {visibleStats.length} av{" "}
-              {REPORT_STATS.length} nyckeltal.
+              {reportStats.length} nyckeltal.
             </p>
             <figure className="mt-8">
               <img
@@ -269,7 +269,7 @@ export default function PartnerMarketReport2026() {
                   </button>
                 )}
                 <span className="ml-auto text-sm text-muted-foreground">
-                  {visibleStats.length} av {REPORT_STATS.length} nyckeltal
+                  {visibleStats.length} av {reportStats.length} nyckeltal
                 </span>
               </div>
             </div>

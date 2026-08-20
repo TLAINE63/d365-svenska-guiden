@@ -113,6 +113,7 @@ import AdminPartnerRequestsTab from "@/components/AdminPartnerRequestsTab";
 import AdminFeaturedArticleTab from "@/components/AdminFeaturedArticleTab";
 import AdminKnowledgeArticlesTab from "@/components/AdminKnowledgeArticlesTab";
 import AdminProductPricesTab from "@/components/AdminProductPricesTab";
+import AdminMarketReportTab from "@/components/AdminMarketReportTab";
 import AdminIsvCatalogTab from "@/components/AdminIsvCatalogTab";
 import AdminUnprofiledPartnersTab from "@/components/AdminUnprofiledPartnersTab";
 import AdminBasicPartnersTab from "@/components/AdminBasicPartnersTab";
@@ -278,7 +279,7 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
  id: "innehall",
  label: "Innehåll & Events",
  icon: CalendarDays,
- tabs: ["events", "featured-article", "knowledge-articles", "industry-pages", "product-prices"],
+ tabs: ["events", "featured-article", "knowledge-articles", "industry-pages", "product-prices", "market-report"],
  },
  {
  id: "salj",
@@ -2488,6 +2489,12 @@ Thomas`,
  </span>
  ISV-katalog
  </TabsTrigger>
+ <TabsTrigger value="market-report" className={`flex items-center gap-2 ${activeGroup === "innehall" ? "" : "hidden"}`}>
+ <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-sky-500/20 to-sky-600/10 ring-1 ring-sky-400/20">
+ <FileText className="h-3.5 w-3.5 text-sky-300" strokeWidth={1.75} />
+ </span>
+ Marknadsrapport
+ </TabsTrigger>
  <TabsTrigger value="product-prices" className={`flex items-center gap-2 ${activeGroup === "innehall" ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 ring-1 ring-emerald-400/20">
  <FileText className="h-3.5 w-3.5 text-emerald-300" strokeWidth={1.75} />
@@ -3690,6 +3697,9 @@ Thomas`,
  <AdminIndustryPagesTab token={token || null} onSessionExpired={logout} />
  </TabsContent>
 
+ <TabsContent value="market-report">
+ <AdminMarketReportTab token={token || null} onSessionExpired={logout} />
+ </TabsContent>
  <TabsContent value="product-prices">
  <AdminProductPricesTab token={token || null} onSessionExpired={logout} />
  </TabsContent>
