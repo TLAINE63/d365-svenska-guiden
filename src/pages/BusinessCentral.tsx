@@ -5,7 +5,7 @@ import PageOfferBanner from "@/components/PageOfferBanner";
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
-import { Price } from "@/components/Price";
+
 import { resolvePriceTokens } from "@/lib/productPriceFormat";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
@@ -360,164 +360,28 @@ const BusinessCentral = () => {
 
  <StandardProductSections productName="Business Central" data={PRODUCT_STANDARD_SECTIONS["business-central"]} />
 
- {/* FAQ Section */}
- <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
- <div className="container mx-auto px-4 sm:px-6">
- <div className="max-w-4xl mx-auto">
- <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-8 sm:mb-10 md:mb-12 text-center">
- Vanliga frågor om Dynamics 365 Business Central
- </h2>
- 
- <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
- <AccordionItem value="item-1" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
- <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
- ❓ Vad kostar Business Central – och vad påverkar priset?
- </AccordionTrigger>
- <AccordionContent className="text-muted-foreground pb-6 space-y-4">
- <p>
- Business Central har i praktiken <strong className="text-foreground">två typer av användare</strong>:
- </p>
- <ul className="list-disc pl-5 space-y-2">
- <li><strong className="text-foreground">"Vanlig" användare</strong> – Full tillgång (styrs av behörighetsroller)</li>
- <li><strong className="text-foreground">Team Member</strong> – Begränsade arbetsuppgifter</li>
- </ul>
- <p>
- Den vanliga användaren finns i två varianter:
- </p>
- <ul className="list-disc pl-5 space-y-2">
- <li><strong className="text-foreground">Essentials</strong> – Standardfunktioner för ekonomi, försäljning, inköp och lager</li>
- <li><strong className="text-foreground">Premium</strong> – Allt i Essentials plus tillverkning och serviceorderhantering</li>
- </ul>
- <div className="bg-secondary/50 rounded-lg p-4 mt-4">
- <p className="font-semibold text-foreground mb-2">💰 Licenspriser (prenumeration):</p>
- <ul className="space-y-1">
- <li>• Team Member: <strong className="text-foreground"><Price productKey="bc-team-members" mode="exact" /></strong></li>
- <li>• Essentials: <strong className="text-foreground"><Price productKey="bc-essentials" mode="exact" /></strong></li>
- <li>• Premium: <strong className="text-foreground"><Price productKey="bc-premium" mode="exact" /></strong></li>
- </ul>
- <p className="text-xs text-muted-foreground mt-2 italic">
- Microsofts officiella listpris exkl. moms vid årsvis betalning. Källa: microsoft.com/sv-se.
- </p>
- </div>
- <p className="text-sm italic">
- Till detta tillkommer implementeringskostnader som varierar beroende på omfattning, integrationer och anpassningsbehov.
- </p>
- </AccordionContent>
- </AccordionItem>
-
- <AccordionItem value="item-2" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
- <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
- ❓ Är Business Central rätt för mitt företag?
- </AccordionTrigger>
- <AccordionContent className="text-muted-foreground pb-6 space-y-4">
- <p>
- Business Central är optimerat för <strong className="text-foreground">mindre och medelstora företag</strong> (10–300 användare) med behov av ett komplett affärssystem (ERP).
- </p>
- <p className="font-semibold text-foreground">Det passar särskilt bra för företag som:</p>
- <ul className="list-disc pl-5 space-y-2">
- <li>Redan använder Microsoft 365</li>
- <li>Vill ha en integrerad lösning för ekonomi, lager, försäljning, inköp och produktion</li>
- </ul>
- <p>
- Oavsett bransch – <em>tillverkning, handel, tjänster eller projekt</em> – kan Business Central anpassas till era specifika behov.
- </p>
- </AccordionContent>
- </AccordionItem>
-
- <AccordionItem value="item-3" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
- <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
- ❓ Hur lång tid tar det att implementera Business Central?
- </AccordionTrigger>
- <AccordionContent className="text-muted-foreground pb-6 space-y-4">
- <p>
- En typisk Business Central-implementering tar <strong className="text-foreground">3–6 månader</strong> beroende på komplexitet och omfattning.
- </p>
- <div className="bg-secondary/50 rounded-lg p-4">
- <p className="font-semibold text-foreground mb-2">⏱️ Tidsuppskattningar:</p>
- <ul className="space-y-2">
- <li>• <strong className="text-foreground">Mindre företag</strong> med standardprocesser: <strong>2–3 månader</strong></li>
- <li>• <strong className="text-foreground">Större projekt</strong> med omfattande anpassningar: <strong>6–12 månader</strong></li>
- </ul>
- </div>
- <p>
- 💡 <em>Vissa rekommenderar en fasad implementering där ni får grundfunktionaliteten först och sedan bygger på med mer avancerade funktioner.</em>
- </p>
- </AccordionContent>
- </AccordionItem>
-
- <AccordionItem value="item-4" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
- <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
- ❓ Hur fungerar Business Central med Microsoft 365 och andra system?
- </AccordionTrigger>
- <AccordionContent className="text-muted-foreground pb-6 space-y-4">
- <p>
- Business Central är byggt för att fungera <strong className="text-foreground">sömlöst med Microsoft 365-paketet</strong>.
- </p>
- <p className="font-semibold text-foreground">Arbeta direkt i:</p>
- <ul className="list-disc pl-5 space-y-1">
- <li>📧 Outlook</li>
- <li>📊 Excel</li>
- <li>💬 Teams</li>
- </ul>
- <p className="font-semibold text-foreground mt-4">Integreras enkelt med:</p>
- <ul className="list-disc pl-5 space-y-1">
- <li>E-handelsplattformar</li>
- <li>CRM-system (som Dynamics 365 Sales)</li>
- <li>Tidrapporteringssystem</li>
- <li>Branschspecifika tilläggslösningar</li>
- </ul>
- </AccordionContent>
- </AccordionItem>
-
- <AccordionItem value="item-5" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
- <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
- ❓ Hur anpassningsbart är Business Central för våra behov?
- </AccordionTrigger>
- <AccordionContent className="text-muted-foreground pb-6 space-y-4">
- <p>
- Business Central är <strong className="text-foreground">mycket flexibelt</strong> och kan anpassas utan omfattande programmering tack vare Power Platform.
- </p>
- <p className="font-semibold text-foreground">Ni kan enkelt:</p>
- <ul className="list-disc pl-5 space-y-1">
- <li>Skapa egna arbetsflöden</li>
- <li>Bygga rapporter och dashboards</li>
- <li>Anpassa processer efter era behov</li>
- </ul>
- <div className="bg-secondary/50 rounded-lg p-4 mt-4">
- <p className="font-semibold text-foreground mb-2">🔌 Marketplace – hundratals tillägg:</p>
- <p>Branschspecifika lösningar för bygg, tillverkning, detaljhandel och professionella tjänster.</p>
- </div>
- <p className="text-sm italic">
- För mer avancerade anpassningar finns möjligheten till utveckling med AL-språket.
- </p>
- </AccordionContent>
- </AccordionItem>
-
- <AccordionItem value="item-6" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
- <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
- ❓ Vilken partner borde passa vår verksamhet bäst?
- </AccordionTrigger>
- <AccordionContent className="text-muted-foreground pb-6 space-y-4">
- <p>
- Rätt partner beror på er <strong className="text-foreground">bransch, företagsstorlek och specifika behov</strong>.
- </p>
- <p className="font-semibold text-foreground">Vi rekommenderar att ni väljer en partner som:</p>
- <ul className="list-disc pl-5 space-y-1">
- <li>Har erfarenhet från liknande implementeringar i er bransch</li>
- <li>Har certifieringar för Business Central</li>
- </ul>
- <div className="bg-business-central/10 border border-business-central/30 rounded-lg p-4 mt-4">
- <p className="font-semibold text-foreground mb-2">🔍 Hitta rätt partner:</p>
- <p>
- På vår <a href="/valjdynamics365partner/" className="text-business-central hover:underline font-semibold">partnerkatalog</a> kan ni filtrera på bransch, företagsstorlek och applikationer för att hitta partners som matchar era krav.
- </p>
- </div>
- </AccordionContent>
- </AccordionItem>
- </Accordion>
- </div>
- </div>
- </section>
+  {/* FAQ Section – rendered from bcFaqs so visible content matches FAQSchema JSON-LD exactly */}
+  <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
+  <div className="container mx-auto px-4 sm:px-6">
+  <div className="max-w-4xl mx-auto">
+  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-8 sm:mb-10 md:mb-12 text-center">
+  Vanliga frågor om Dynamics 365 Business Central
+  </h2>
+  <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
+  {bcFaqs.map((faq, idx) => (
+  <AccordionItem key={idx} value={`faq-${idx}`} className="bg-card rounded-lg px-4 sm:px-6 border border-border">
+  <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
+  {faq.question}
+  </AccordionTrigger>
+  <AccordionContent className="text-muted-foreground pb-6">
+  <p style={{ whiteSpace: "pre-wrap" }} className="leading-relaxed">{faq.answer}</p>
+  </AccordionContent>
+  </AccordionItem>
+  ))}
+  </Accordion>
+  </div>
+  </div>
+  </section>
 
 
  {/* AI & Agents Section for Business Central */}
