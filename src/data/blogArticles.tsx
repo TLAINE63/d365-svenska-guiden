@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import IndustryPartnerListInline from "@/components/IndustryPartnerListInline";
 import aiErpRiskbildHero from "@/assets/articles/ai-erp-riskbild-hero.jpg";
+import aiSokPartnersHero from "@/assets/articles/ai-sok-dynamics-365-partners-hero.jpg";
 import partnervaletAvgorHero from "@/assets/articles/partnervalet-avgor-hero.jpg";
 import ownedIntelligenceHero from "@/assets/articles/owned-intelligence-hero.jpg";
 import ownedIntelligenceSkiljelinje from "@/assets/articles/owned-intelligence-skiljelinje.jpg";
@@ -87,6 +88,488 @@ const THOMAS_LAINE: BlogArticleAuthor = {
 };
 
 export const BLOG_ARTICLES: BlogArticle[] = [
+  {
+    slug: "ai-sok-dynamics-365-partners",
+    title: "Fem sekunder till svaret, ett år till beslutet",
+    metaTitle:
+      "AI-sök förändrar hur köpare hittar Dynamics 365-partners | d365.se",
+    metaDescription:
+      "AI-sök påverkar hur företag hittar, jämför och väljer Dynamics 365-partners. Artikeln visar varför tydliga tredjepartsbeskrivningar, nischad positionering och konkret erfarenhet av Copilot och agenter blir avgörande.",
+    summary:
+      "AI-sök gör att köpare formar sin bild av Dynamics 365-partners långt innan första mötet. Här är varför nischad positionering, tredjepartsbeskrivningar och konkret Copilot-erfarenhet blir viktigare än traditionell SEO.",
+    category: "Strategi",
+    tags: [
+      "ai-sök",
+      "aio",
+      "geo",
+      "dynamics 365-partner",
+      "business central",
+      "crm",
+      "customer engagement",
+      "power platform",
+      "copilot",
+      "agenter",
+      "partnerprofilering",
+    ],
+    products: [
+      "Business Central",
+      "Finance & SCM",
+      "Sales",
+      "Customer Service",
+      "AI/Copilot/Agents",
+    ],
+    publishedAt: "2026-08-20",
+    author: THOMAS_LAINE,
+    heroImage: aiSokPartnersHero,
+    readingTimeMinutes: 11,
+    featured: true,
+    content: (
+      <>
+        <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] !text-foreground/85 !mb-4 !font-medium">
+          Vad AI-driven sökning gör med synligheten för partners inom
+          affärssystem, CRM och Copilot
+        </p>
+
+        <aside className="my-8 rounded-md border border-[#9CC2E5] bg-[#DEEBF7] px-7 py-6">
+          <p className="!text-[1.05rem] !font-bold !text-[#1F4E79] !mb-2 !mt-0">
+            AI-sammanfattning
+          </p>
+          <p className="!my-0 !text-foreground/90">
+            AI-sök förändrar hur köpare hittar, jämför och förstår Dynamics
+            365-partners. Den här artikeln visar varför
+            tredjepartsbeskrivningar, nischad positionering och konkret
+            Copilot- och agentkompetens blir viktigare än traditionell SEO när
+            beslutsgrupper bygger sina shortlists.
+          </p>
+        </aside>
+
+        <p>
+          En köpare skriver en fråga i en AI-chatt och får ett svar på fem
+          sekunder. Tre eller fyra leverantörer, en förklaring av vad som
+          skiljer dem, en rekommendation om vad hon borde titta närmare på.
+        </p>
+        <p>
+          Sedan tar projektet vid. Medianen för ERP-projekt ligger enligt
+          Panorama på drygt femton månader. Ett CRM-införande går snabbare, men
+          sällan under tre, och forskningen på området är obarmhärtig – en
+          systematisk översikt anger att omkring 70 procent av
+          CRM-implementeringarna inte når sina förväntade mål.
+        </p>
+        <p>
+          Det är i glappet mellan de fem sekunderna och de månader som följer
+          som det intressanta händer. Köparen hinner bilda sig en uppfattning,
+          förankra den internt och göra den till gruppens gemensamma
+          utgångspunkt – allt innan någon leverantör vet att frågan ens
+          ställdes.
+        </p>
+        <p>
+          Det här är skrivet för dem som levererar Dynamics 365 i vid mening:
+          affärssystem, säljstöd, marketing automation, kundservice och det som
+          nu byggs ovanpå i form av Copilot och agenter. Det finns en
+          spegelbild för köparen längre ner, och den är minst lika obekväm.
+        </p>
+
+        <h2>Vad som faktiskt hänt i köpprocessen</h2>
+        <p>
+          G2 frågade 1 076 B2B-köpare i mars 2026 hur de gör sin research. 51
+          procent inleder numera oftare i en AI-chatt än i Google. Ett år
+          tidigare var siffran 29 procent. 71 procent använder en AI-chatt
+          någonstans i processen.
+        </p>
+        <p>
+          Sedan kommer siffran som brukar få det tyst i rummet:{" "}
+          <strong>
+            69 procent valde en annan leverantör än de först tänkt sig
+          </strong>
+          , efter att AI:n pekat åt annat håll. Var tredje köpte av någon de
+          aldrig hört talas om innan.
+        </p>
+        <p>
+          En reservation direkt, eftersom den påverkar hur siffrorna ska läsas.
+          Många av de köpen är självbetjänade – man tecknar ett verktyg, loggar
+          in och börjar använda det. Ingen partner, inget införandeprojekt,
+          ingen förändringsledning. Ett Dynamics-val ser inte ut så, även om
+          leveransmodellen är densamma.
+        </p>
+        <p>
+          Skillnaden gör inte siffrorna irrelevanta. Den gör dem ojämnt
+          fördelade. Den intressanta frågan är därför inte om AI påverkar, utan
+          var i ett partnerlett köp den gör det.
+        </p>
+
+        <h2>Varför SEO-logiken inte överförs rakt av</h2>
+        <p>
+          Ett vanligt antagande är att AIO är SEO under nytt namn. Skriv bra
+          innehåll, strukturera det, håll det uppdaterat, så följer synligheten
+          med.
+        </p>
+        <p>
+          Delvis stämmer det. Rankning på Google är fortfarande en av vägarna
+          in i ett AI-svar. Men bara delvis.
+        </p>
+        <p>
+          Ahrefs analyserade 75 000 varumärken för att se vilka signaler som
+          hänger ihop med synlighet i AI-genererade svar:
+        </p>
+        <ul>
+          <li>Omnämnanden av varumärket på andra sajter: 0,664</li>
+          <li>Antal backlinks: 0,218</li>
+          <li>Antal sidor på den egna webbplatsen: 0,17</li>
+        </ul>
+        <p>
+          Notera vad som ligger sist. Att publicera mer på sin egen sajt har
+          nästan inget samband alls med om en AI nämner en. Ahrefs är själva
+          tydliga med att korrelation inte är kausalitet, och den reservationen
+          är värd att ta på allvar – starka varumärken samlar både omnämnanden
+          och synlighet av samma underliggande skäl.
+        </p>
+        <p>
+          Men riktningen är svår att bortse från. Länkgrafen var Googles sätt
+          att mäta förtroende. En språkmodell läser text och bygger sin bild av
+          ett bolag utifrån hur andra beskriver det, inte utifrån hur bolaget
+          beskriver sig självt.
+        </p>
+
+        <h2>Vad som är detsamma, oavsett område och segment</h2>
+
+        <h3>Plattformen är välbeskriven. Partnern är det inte.</h3>
+        <p>
+          Fråga en AI om skillnaden mellan{" "}
+          <a href="/businesscentral/">Business Central</a> och Finance &amp;
+          Operations, eller mellan Sales och Customer Insights, och du får ett
+          rimligt svar. Microsoft har producerat enorma textmängder, på många
+          språk, under lång tid. Plattformslagret klarar sig.
+        </p>
+        <p>
+          Fråga sedan vilken partner som passar för ett tillverkande bolag med
+          120 anställda, eller vem som faktiskt kan bygga ett fungerande
+          säljstöd för en organisation med både direktförsäljning och
+          återförsäljarled. Där tar underlaget slut.
+        </p>
+        <p>
+          Slå upp en genomsnittlig svensk Microsoftpartner och räkna vad som
+          finns skrivet om dem av någon annan än dem själva. Ofta: en egen
+          sajt, en LinkedIn-sida, kanske ett par pressnotiser om en rekrytering
+          eller ett förvärv, en katalogpost hos Microsoft. Det är hela
+          underlaget en modell har att arbeta med.
+        </p>
+        <p>
+          Vilket betyder att AI-synlighet spelar större roll för en
+          implementationspartner än för en produktleverantör. Systemfrågan är
+          redan besvarad i modellen. Partnerfrågan är öppen – och det är där
+          valet faktiskt avgörs.
+        </p>
+
+        <h3>Alla i beslutsgruppen frågar var för sig</h3>
+        <p>
+          Tio till tretton personer är typiskt involverade. De frågar inte
+          tillsammans. Var och en ställer sina frågor privat, från sitt eget
+          perspektiv och sin egen oro.
+        </p>
+        <p>
+          Ekonomichefen frågar vad projekt av den här typen brukar kosta och
+          varför de spricker. IT-chefen frågar om integrationer, arkitektur och
+          inlåsning. Verksamhetschefen frågar vad som brukar gå fel vid
+          driftsättning. Säljchefen frågar varför säljare slutar använda CRM
+          efter ett halvår. Marknadschefen frågar hur data faktiskt flödar
+          mellan marketing automation och säljsystemet. Kundservicechefen
+          frågar hur ärendeflöden brukar se ut i praktiken.
+        </p>
+        <p>
+          Skadan för en leverantör är sällan att man missar en shortlist. Det
+          är att man aldrig kommer med i det interna samtalet, under de månader
+          då gruppen bygger sin gemensamma bild.
+        </p>
+
+        <h3>Riskfrågorna är obesatta</h3>
+        <p>
+          "Vad brukar gå fel i ERP-projekt" och "varför misslyckas
+          CRM-införanden" hör till de vanligaste frågorna en beslutsgrupp
+          ställer. Svaren domineras av generisk misslyckandestatistik –
+          budgetöverdrag, förseningar, låg adoption.
+        </p>
+        <p>
+          Nästan ingen partner är beskriven i termer av hur de hanterar just de
+          riskerna. Det är den yta där köparen är mest orolig och där det finns
+          minst skrivet. För den som vill bli beskriven av tredje part är det
+          den öppnaste dörren som finns.
+        </p>
+
+        <h2>Var CRM-sidan beter sig annorlunda</h2>
+        <p>
+          Mycket är gemensamt, men tre saker skiljer, och de pekar alla åt
+          samma håll: AI-svaret väger tyngre på CRM-sidan än på ERP-sidan.
+        </p>
+        <p>
+          För det första är beslutsvägen kortare och mindre formell. Ett
+          CRM-initiativ startar ofta hos säljchefen eller marknadschefen, inte
+          i en styrgrupp med upphandlingsmall. Färre formella spärrar betyder
+          att det första svaret får större genomslag.
+        </p>
+        <p>
+          För det andra är leverantörsbilden rörigare. Ett säljstöd kan
+          levereras av en klassisk Microsoftpartner, av en digitalbyrå, av en
+          specialist på marketing automation eller av en kombination. En modell
+          som ska rekommendera "partner för Dynamics 365 Sales" har svårt att
+          skilja aktörstyperna åt, eftersom få har beskrivit skillnaden i text.
+        </p>
+        <p>
+          För det tredje är köparen själv van vid verktygen. Marknadsfunktionen
+          tillhör de yrkesgrupper som snabbast tagit till sig AI-sök. De
+          utvärderar er i samma verktyg de använder dagligen, och de är bättre
+          än de flesta på att se när ett svar bara upprepar en
+          marknadsföringstext.
+        </p>
+
+        <h3>Copilot och agenter – frågan alla ställer och ingen är beskriven i</h3>
+        <p>Det här är det tydligaste exemplet på hela artikelns tes.</p>
+        <p>
+          Copilot och agenter är den fråga varje köpare ställer just nu.
+          Samtidigt är det den yta där partnerbeskrivningarna är som mest
+          utbytbara. Ungefär alla säger sig hjälpa till med Copilot. Nästan
+          ingen är beskriven i termer av vad de faktiskt har satt i produktion,
+          hos vilken typ av kund, med vilket resultat och vilken styrning.
+        </p>
+        <p>
+          Det som skiljer i en AI-genererad jämförelse är precis det som
+          saknas: har ni agenter i drift hos kunder, hur arbetar ni med
+          datakvalitet som förutsättning snarare än efterhandskorrigering, och
+          hur hjälper ni kunden bestämma vad en agent får och inte får göra.
+          Det är också de frågor en påläst köpare kommer att ställa, eftersom
+          de börjat dyka upp i de svar hon får. Mer om det landskapet finns i{" "}
+          <a href="/aioversikt/">vår översikt över AI, Copilot och agenter</a>.
+        </p>
+        <p>
+          Det finns ett andra led här som är värt att förbereda sig på. Köparna
+          använder inte bara chattar. G2 rapporterar att de vanligaste
+          användningsområdena för agenter i köpprocessen är att bedöma total
+          ägandekostnad, bygga shortlists, göra research och utvärdera redan
+          listade leverantörer. Endast en liten minoritet är beredd att låta en
+          agent genomföra själva köpet.
+        </p>
+        <p>
+          En agent klickar sig inte igenom en snygg webbplats. Den hämtar text,
+          jämför påståenden mot varandra och letar efter något konkret att
+          väga. Är det enda som finns om er ett antal formuleringar om
+          engagemang och lång erfarenhet, blir ni svåra att placera i en
+          jämförelse – inte bortvalda, bara ohanterliga.
+        </p>
+
+        <h2>Vad som skiljer mellan segmenten</h2>
+
+        <h3>Mindre bolag: störst exponering, kortast väg</h3>
+        <p>
+          Här väger AI-svaret tyngst. Det finns minst intern erfarenhet att
+          väga det emot, färre personer att bli oense med, och partnervalet
+          görs ofta bland de namn som faktiskt dök upp.
+        </p>
+
+        <h3>Mellansegmentet: AI avgör vem som får svara</h3>
+        <p>
+          Här formas en riktig beslutsgrupp och ofta en formell förfrågan. AI
+          avgör sällan valet, men avgör i hög grad vem som bjuds in att svara,
+          eftersom longlistan byggs under den period då gruppen orienterar sig
+          på egen hand.
+        </p>
+
+        <h3>Enterprise: AI påverkar karaktäriseringen, inte inbjudan</h3>
+        <p>
+          Formell upphandling, ofta en extern rådgivare, etablerade relationer
+          och Microsofts egen säljorganisation. Vilka som kommer med styrs av
+          annat. Men hur ni karaktäriseras under utvärderingen påverkas, och
+          köparen kommer beväpnad med frågor som formulerats någon annanstans.
+        </p>
+
+        <h3>Branschdimensionen: där logiken vänds upp och ner</h3>
+        <p>
+          Traditionell sökmotoroptimering belönade bredd. Ju fler termer man
+          täckte, desto mer trafik. Därför positionerar sig de flesta partners
+          brett: alla branscher, alla storlekar, hela produktportföljen.
+        </p>
+        <p>AI inverterar det.</p>
+        <p>
+          En modell matchar en specifik fråga mot specifika beskrivningar. "Vi
+          levererar Dynamics 365 till alla typer av verksamheter" matchar
+          ingenting, eftersom det inte utesluter något. "Spårbarhet i
+          livsmedelsindustrin, Business Central, bolag med 50–300 anställda"
+          matchar en smal men verklig uppsättning frågor. Detsamma gäller
+          CRM-sidan: "kundservice i abonnemangsaffärer med hög ärendevolym" är
+          matchbart på ett sätt som "modern kundupplevelse" aldrig blir.
+        </p>
+        <p>
+          Konsekvensen är att nischade partners har ett strukturellt övertag i
+          AI-synlighet som de aldrig hade i vanlig sökmotoroptimering. Och att
+          bred positionering, som var fullt rationell när köparen var en
+          människa som bläddrade på en webbplats, numera kostar.
+        </p>
+        <p>
+          Det innebär inte att man ska sluta leverera brett. Det innebär att
+          man behöver bli beskriven smalt, på flera ställen, med varje nisch
+          för sig. Bredd i leveransen, precision i beskrivningen.
+        </p>
+
+        <h2>Språket är både en risk och en öppning</h2>
+        <p>
+          Den svenska textmassan är liten. För en partner som verkar i Sverige
+          betyder det att modellerna har lite att gå på, men också att
+          konkurrensen om att vara den som faktiskt är beskriven är
+          förhållandevis låg.
+        </p>
+        <p>
+          Räkna samtidigt med att delar av beslutsgruppen ställer sina frågor
+          på engelska. Då hamnar ni i en jämförelse där internationella aktörer
+          är betydligt bättre beskrivna än ni.
+        </p>
+
+        <h2>Vad som faktiskt påverkar</h2>
+        <ul>
+          <li>
+            Bli beskriven av andra, i text som går att citera. Inte omnämnd i
+            förbifarten – beskriven: vad ni gör, för vem, med vilket resultat.
+          </li>
+          <li>
+            Var specifik nog att kunna särskiljas. En namngiven bransch, ett
+            storleksspann och en konkret processproblematik är matchbart. "Lång
+            erfarenhet" är osynligt.
+          </li>
+          <li>
+            Beskriv Copilot- och agentarbete i termer av vad som är i drift,
+            inte vad som är möjligt.
+          </li>
+          <li>
+            Låt siffror och källor finnas i själva texten. Den akademiska
+            GEO-studien från Princeton, Georgia Tech och IIT Delhi fann att
+            tillägg av statistik och källhänvisningar hörde till de metoder som
+            höjde synligheten mest.
+          </li>
+          <li>
+            Håll tredjepartsprofilerna levande. G2:s köpare uppger att
+            citeringar från recensionssajter är den signal som gör dem tryggast
+            med ett AI-svar.
+          </li>
+          <li>
+            Var konsekvent i hur ni beskrivs. Modeller bygger sin bild genom
+            upprepning. Fem olika självbeskrivningar blir till slut ingen alls.
+          </li>
+          <li>
+            Räkna med fördröjning. Modeller tränas i cykler och omnämnanden
+            behöver tid att ackumuleras.
+          </li>
+        </ul>
+
+        <h2>Läs statistiken med samma skepsis som allt annat</h2>
+        <p>
+          Det mesta som skrivs om AIO och GEO produceras av bolag som säljer
+          AIO- och GEO-tjänster. Siffrorna är ofta korrekta, men urvalet är
+          sällan neutralt och slutsatsen landar påfallande ofta i att man
+          behöver köpa en synlighetsplattform.
+        </p>
+        <p>
+          Ahrefs säljer SEO-verktyg. G2 säljer synlighet på en recensionssajt.
+          Det gör inte deras data ogiltig, metodiken är redovisad i båda
+          fallen, men det påverkar vilka frågor som ställs och vilka som inte
+          gör det.
+        </p>
+        <p>
+          Och en nyktrande sak: att synas i ett AI-svar ger inträde, inte
+          affär. G2 konstaterar att utvärderingsfasen numera är den längsta
+          delen av köpresan för fyra av tio köpare. AI:n kortade vägen till
+          listan. Den kortade inte vägen till beslutet – och i ett ERP- eller
+          CRM-projekt är det den långa delen som avgör allt.
+        </p>
+
+        <h2>Och för köparen</h2>
+        <p>
+          Jag har tillbringat större delen av mitt yrkesliv på köparens sida av
+          bordet, och där finns en spegelbild som är värd att se.
+        </p>
+        <p>
+          Den lista en AI ger er när ni ber om lämpliga Dynamics-partners är
+          inte en rankning av vem som är bäst. Det är en rankning av vem som är
+          bäst beskriven av tredje part.
+        </p>
+        <p>
+          I en marknad där det skrivs lite om de flesta partners är det två
+          olika saker. Den partner som passar er verksamhet bäst kan mycket väl
+          vara den som ingen har skrivit om.
+        </p>
+        <p>
+          Använd AI för att bredda listan, inte för att fastställa den. Fråga
+          vad rekommendationen bygger på. Och lägg märke till om svaret säger
+          något konkret om partnern, eller bara upprepar deras egen
+          marknadsföringstext. Det är den typen av fråga jag arbetar med på
+          d365.se – bland annat i{" "}
+          <a href="/valjdynamics365partner/">
+            översikten över svenska Dynamics 365-partners
+          </a>
+          .
+        </p>
+
+        <h2>Slutsats</h2>
+        <p>
+          Den gamla ordningen belönade den som ägde bäst yta och täckte flest
+          termer. Den nya belönar den som andra beskriver tydligast och
+          smalast.
+        </p>
+        <p>
+          Det är en obekvämare position, eftersom man inte kontrollerar den.
+          Man kan bara förtjäna den, och det tar tid.
+        </p>
+        <p>
+          Fem sekunder räcker för att bilda en uppfattning. Femton månader
+          räcker för att ångra den. Det är den första sortens tid som avgör
+          vilka som får chansen att bevisa något under den andra.
+        </p>
+
+        <aside className="my-10 rounded-md border border-border bg-muted/40 px-7 py-6">
+          <p className="!mt-0 !mb-3 !font-semibold">
+            Vill du förstå hur din partnerprofil uppfattas av AI-sök och
+            beslutsfattare?
+          </p>
+          <p className="!my-0">
+            På d365.se analyserar vi hur Dynamics 365-partners beskrivs,
+            jämförs och matchas mot verkliga kundbehov – från affärssystem och
+            CRM till Power Platform, Copilot och agenter. Läs mer om{" "}
+            <a href="/partnerprogram/">partnerprogrammet</a>.
+          </p>
+        </aside>
+
+        <h2>Källor</h2>
+        <ul>
+          <li>
+            G2 – The Answer Economy: How AI Search Is Rewiring B2B Software
+            Buying (mars 2026, 1 076 B2B-köpare).
+          </li>
+          <li>
+            G2 – 2026 Buyer Behavior Report: The Evaluation Maze.
+            Utvärderingsfasen samt agenternas användningsområden i
+            köpprocessen.
+          </li>
+          <li>
+            Ahrefs – An Analysis of AI Overview Brand Visibility Factors (75
+            000 varumärken) samt uppföljningen Top Brand Visibility Factors in
+            ChatGPT, AI Mode, and AI Overviews.
+          </li>
+          <li>
+            Aggarwal m.fl. – GEO: Generative Engine Optimization (Princeton,
+            Georgia Tech, IIT Delhi).
+          </li>
+          <li>Panorama Consulting – ERP Report, projektlängd i median.</li>
+          <li>
+            Farhan, Abed &amp; Abd Ellatif (2018) – A systematic review for the
+            determination and classification of the CRM critical success
+            factors. Future Computing and Informatics Journal.
+          </li>
+        </ul>
+        <p className="text-sm text-muted-foreground">
+          Thomas Laine har arbetat med affärssystem och CRM i snart 40 år,
+          varav de senaste knappt 30 med det som i dag är Microsoft Dynamics
+          365, Power Platform och Copilot. Han driver d365.se, en guide för
+          organisationer som står inför ett Dynamics 365-val.
+        </p>
+      </>
+    ),
+  },
   {
     slug: "work-iq-apis-dynamics-365",
     title:
