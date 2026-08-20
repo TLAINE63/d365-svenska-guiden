@@ -200,7 +200,7 @@ const RequirementsSpecCustomerService = () => {
       <SoftwareApplicationSchema
         name="Kravspecifikation Customer Service"
         description="Webbaserat verktyg som skapar en kravspecifikation för kundservicesystem och Dynamics 365 Customer Service / Contact Center."
-        url="https://d365.se/kravspecifikation-customer-service"
+        url="https://d365.se/kravspecifikation-kundservice"
       />
       <Navbar />
       <main className="min-h-screen bg-background pb-12">

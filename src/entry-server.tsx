@@ -458,6 +458,16 @@ export function render(url: string) {
               <Route path="/d365-field-service" element={<Navigate to="/d365fieldservice" replace />} />
               <Route path="/d365contactcenter" element={<D365ContactCenter />} />
               <Route path="/d365-contact-center" element={<Navigate to="/d365contactcenter" replace />} />
+              <Route path="/customer-service" element={<Navigate to="/d365customerservice" replace />} />
+              <Route path="/field-service" element={<Navigate to="/d365fieldservice" replace />} />
+              <Route path="/customer-insights" element={<Navigate to="/d365marketing" replace />} />
+              <Route path="/ai-mognadsanalys" element={<Navigate to="/ai-readiness" replace />} />
+              <Route path="/dynamics365-sales" element={<Navigate to="/d365sales" replace />} />
+              <Route path="/dynamics365-customer-service" element={<Navigate to="/d365customerservice" replace />} />
+              <Route path="/dynamics365-customer-insights" element={<Navigate to="/d365marketing" replace />} />
+              <Route path="/dynamics365-contact-center" element={<Navigate to="/d365contactcenter" replace />} />
+              <Route path="/dynamics365-field-service" element={<Navigate to="/d365fieldservice" replace />} />
+              <Route path="/kravspecifikation-customer-service" element={<Navigate to="/kravspecifikation-kundservice" replace />} />
               <Route path="/d365projectoperations" element={<D365ProjectOperations />} />
               <Route path="/d365commerce" element={<D365Commerce />} />
               <Route path="/d365humanresources" element={<D365HumanResources />} />

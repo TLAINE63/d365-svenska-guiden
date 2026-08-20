@@ -41,6 +41,18 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   { from: "/d365-field-service",        to: "/d365fieldservice",    intendedStatus: 301 },
   { from: "/d365-contact-center",       to: "/d365contactcenter",   intendedStatus: 301 },
 
+  // Felaktiga interna länkar som legat publicerade (produktsidor)
+  { from: "/customer-service",                     to: "/d365customerservice", intendedStatus: 301 },
+  { from: "/field-service",                        to: "/d365fieldservice",    intendedStatus: 301 },
+  { from: "/customer-insights",                    to: "/d365marketing",       intendedStatus: 301 },
+  { from: "/ai-mognadsanalys",                     to: "/ai-readiness",        intendedStatus: 301 },
+  { from: "/dynamics365-sales",                    to: "/d365sales",           intendedStatus: 301 },
+  { from: "/dynamics365-customer-service",         to: "/d365customerservice", intendedStatus: 301 },
+  { from: "/dynamics365-customer-insights",        to: "/d365marketing",       intendedStatus: 301 },
+  { from: "/dynamics365-contact-center",           to: "/d365contactcenter",   intendedStatus: 301 },
+  { from: "/dynamics365-field-service",            to: "/d365fieldservice",    intendedStatus: 301 },
+  { from: "/kravspecifikation-customer-service",   to: "/kravspecifikation-kundservice", intendedStatus: 301 },
+
   // Partnerväljare aliases
   { from: "/valj-partner",              to: "/valjdynamics365partner", intendedStatus: 301 },
   { from: "/partner",                   to: "/valjdynamics365partner", intendedStatus: 301 },

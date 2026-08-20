@@ -114,9 +114,9 @@ const Index = () => {
     { value: "bc", label: "Business Central (ERP SMB)", path: "/businesscentral/", hasPartnerFilter: true },
     { value: "fscm", label: "Finance & Supply Chain (ERP Enterprise)", path: "/finance-supply-chain/", hasPartnerFilter: true },
     { value: "sales", label: "Sales (CRM)", path: "/crm/", hasPartnerFilter: true },
-    { value: "cs", label: "Customer Service", path: "/customer-service/" },
-    { value: "fs", label: "Field Service", path: "/field-service/" },
-    { value: "ci", label: "Customer Insights (Marketing)", path: "/customer-insights/" },
+    { value: "cs", label: "Customer Service", path: "/d365customerservice/" },
+    { value: "fs", label: "Field Service", path: "/d365fieldservice/" },
+    { value: "ci", label: "Customer Insights (Marketing)", path: "/d365marketing/" },
     { value: "contact-center", label: "Contact Center", path: "/d365contactcenter/" },
     { value: "project-operations", label: "Project Operations", path: "/d365projectoperations/" },
     { value: "human-resources", label: "Human Resources", path: "/d365humanresources/" },
@@ -822,7 +822,7 @@ const Index = () => {
                           <p>• <strong>Customer Service:</strong> Föreslår svar och hämtar kunskapsartiklar under pågående ärende.</p>
                           <p>• <strong>Business Central & F&SCM:</strong> Automatiserar bokföring, prognoser och inköpsförslag.</p>
                           <p className="pt-1">
-                            → Läs mer i vår <Link to="/ai-oversikt/" className="text-primary hover:underline font-semibold">AI-översikt</Link> eller gör en <Link to="/ai-mognadsanalys/" className="text-primary hover:underline font-semibold">AI-mognadsanalys</Link>.
+                            → Läs mer i vår <Link to="/ai-oversikt/" className="text-primary hover:underline font-semibold">AI-översikt</Link> eller gör en <Link to="/ai-readiness/" className="text-primary hover:underline font-semibold">AI-mognadsanalys</Link>.
                           </p>
                         </div>
                         <VideoComingSoon />
