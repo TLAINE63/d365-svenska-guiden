@@ -101,6 +101,26 @@ export default function PartnerMarketReport2026() {
       prev.includes(id) ? prev.filter((g) => g !== id) : [...prev, id],
     );
 
+  const [pdfLoading, setPdfLoading] = useState(false);
+
+  const exportStats = visibleStats.length > 0 ? visibleStats : REPORT_STATS;
+
+  const handlePdf = async () => {
+    setPdfLoading(true);
+    try {
+      await generateMarketReportPdf(exportStats);
+      toast.success("Rapporten laddas ner som PDF.");
+    } catch {
+      toast.error("Kunde inte skapa PDF:en. Försök igen.");
+    } finally {
+      setPdfLoading(false);
+    }
+  };
+
+  const handleCsv = () => {
+    downloadMarketReportCsv(exportStats);
+    toast.success("Statistiken laddas ner som CSV.");
+  };
 
 
   return (
