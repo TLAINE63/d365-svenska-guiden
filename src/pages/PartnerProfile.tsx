@@ -448,7 +448,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
   {/* Partnerns egen övergripande text – kort intro, analysen ligger nedanför */}
   {partner.description && (
-    <p className="max-w-3xl w-full mb-4 text-base sm:text-lg text-slate-700 leading-relaxed">
+    <p className="max-w-5xl w-full mb-4 whitespace-pre-line break-words text-base sm:text-lg text-slate-700 leading-relaxed [overflow-wrap:anywhere]">
       {partner.description}
     </p>
   )}
