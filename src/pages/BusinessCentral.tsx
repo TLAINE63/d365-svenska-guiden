@@ -5,7 +5,7 @@ import PageOfferBanner from "@/components/PageOfferBanner";
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
-import { Price } from "@/components/Price";
+
 import { resolvePriceTokens } from "@/lib/productPriceFormat";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
