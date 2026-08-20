@@ -709,6 +709,54 @@ export type Database = {
           },
         ]
       }
+      not_found_events: {
+        Row: {
+          full_url: string | null
+          geo_country: string | null
+          geo_country_code: string | null
+          id: string
+          ip_anonymized: string | null
+          is_bot: boolean
+          occurred_at: string
+          path: string
+          referrer: string | null
+          resolved: boolean
+          resolved_note: string | null
+          session_id: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          full_url?: string | null
+          geo_country?: string | null
+          geo_country_code?: string | null
+          id?: string
+          ip_anonymized?: string | null
+          is_bot?: boolean
+          occurred_at?: string
+          path: string
+          referrer?: string | null
+          resolved?: boolean
+          resolved_note?: string | null
+          session_id?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          full_url?: string | null
+          geo_country?: string | null
+          geo_country_code?: string | null
+          id?: string
+          ip_anonymized?: string | null
+          is_bot?: boolean
+          occurred_at?: string
+          path?: string
+          referrer?: string | null
+          resolved?: boolean
+          resolved_note?: string | null
+          session_id?: string | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       partner_ai_knowledge: {
         Row: {
           created_at: string

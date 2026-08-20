@@ -82,3 +82,9 @@ verify_jwt = false
 
 [functions.partner-performance-report]
 verify_jwt = false
+
+[functions.track-404]
+verify_jwt = false
+
+[functions.manage-404-log]
+verify_jwt = false

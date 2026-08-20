@@ -99,6 +99,8 @@ import AdminAllVisitorsTab from "@/components/AdminAllVisitorsTab";
 import AdminPartnerProfileVisitsTab from "@/components/AdminPartnerProfileVisitsTab";
 import AdminPartnerEngagementTab from "@/components/AdminPartnerEngagementTab";
 import AdminFunnelTab from "@/components/AdminFunnelTab";
+import Admin404Tab from "@/components/Admin404Tab";
+
 import AdminPartnerNewsPerformanceTab from "@/components/AdminPartnerNewsPerformanceTab";
 import AdminSalesOverview from "@/components/AdminSalesOverview";
 import AdminSalesPitchTab from "@/components/AdminSalesPitchTab";
@@ -2343,7 +2345,14 @@ Thomas`,
  <TrendingUp className="h-3.5 w-3.5 text-orange-300" strokeWidth={1.75} />
  </span>
  Funnel
- </TabsTrigger>
+  </TabsTrigger>
+  <TabsTrigger value="not-found" className={`flex items-center gap-2 ${activeGroup === "statistik" ? "" : "hidden"}`}>
+  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-amber-500/20 to-amber-600/10 ring-1 ring-amber-400/20">
+  <AlertTriangle className="h-3.5 w-3.5 text-amber-300" strokeWidth={1.75} />
+  </span>
+  404-sidor
+  </TabsTrigger>
+
  <TabsTrigger value="news-performance" className={`flex items-center gap-2 ${activeGroup === "statistik" ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-pink-500/20 to-pink-600/10 ring-1 ring-pink-400/20">
  <TrendingUp className="h-3.5 w-3.5 text-pink-300" strokeWidth={1.75} />
@@ -3538,7 +3547,13 @@ Thomas`,
  {/* ==================== FUNNEL TAB ==================== */}
  <TabsContent value="funnel">
  <AdminFunnelTab token={token || null} onSessionExpired={logout} />
- </TabsContent>
+  </TabsContent>
+
+  {/* ==================== 404-LOGG ==================== */}
+  <TabsContent value="not-found">
+  <Admin404Tab token={token || null} onSessionExpired={logout} />
+  </TabsContent>
+
 
  {/* ==================== EMAIL SUMMARY TAB ==================== */}
  <TabsContent value="summary">
