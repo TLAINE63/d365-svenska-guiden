@@ -99,6 +99,8 @@ import AdminAllVisitorsTab from "@/components/AdminAllVisitorsTab";
 import AdminPartnerProfileVisitsTab from "@/components/AdminPartnerProfileVisitsTab";
 import AdminPartnerEngagementTab from "@/components/AdminPartnerEngagementTab";
 import AdminFunnelTab from "@/components/AdminFunnelTab";
+import Admin404Tab from "@/components/Admin404Tab";
+
 import AdminPartnerNewsPerformanceTab from "@/components/AdminPartnerNewsPerformanceTab";
 import AdminSalesOverview from "@/components/AdminSalesOverview";
 import AdminSalesPitchTab from "@/components/AdminSalesPitchTab";
