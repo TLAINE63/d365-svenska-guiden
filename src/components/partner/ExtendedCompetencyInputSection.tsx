@@ -1,11 +1,16 @@
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Info } from "lucide-react";
 import {
   COMPETENCY_AREAS,
+  COMPETENCY_SIGNALS,
   LEVEL_META,
   ASSESSMENT_DISCLAIMER,
+  readSignals,
+  signalsKey,
+  type CompetencyArea,
   type ExtendedCompetencies,
 } from "@/lib/extendedCompetencies";
 
