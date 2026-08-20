@@ -214,10 +214,10 @@ const BusinessCentral = () => {
  return (
  <div className="min-h-screen">
  <SEOHead 
- title="Dynamics 365 Business Central – pris & partner"
- description={resolvePriceTokens("Jämför Microsoft Dynamics 365 Business Central: pris ({{price:bc-essentials:short}}–{{price:bc-premium:short}}), funktioner, implementationstid och hitta rätt Microsoft-partner i Sverige.")}
+ title="Business Central ERP – pris, funktioner & partner"
+ description={resolvePriceTokens("Business Central är Microsofts ERP-system för små och medelstora bolag. Se pris ({{price:bc-essentials:short}}–{{price:bc-premium:short}}/användare), funktioner, implementationstid – och jämför partners i Sverige.")}
  canonicalPath="/businesscentral"
- keywords="business central, dynamics 365 business central, d365 bc, dynamics 365 bc, business central pris, business central licens, business central essentials, business central premium, business central partner sverige, business central implementering"
+ keywords="business central erp, business central affärssystem, dynamics 365 business central, erp business central, business central pris, business central licens, business central essentials, business central premium, business central partner sverige, business central implementering"
  ogImage="https://d365.se/og-business-central.png"
  />
  <FAQSchema faqs={bcFaqs} />
@@ -257,7 +257,7 @@ const BusinessCentral = () => {
   <ProductHero
   icon={BusinessCentralIcon}
   eyebrow="Business Central"
-  title="Dynamics 365 Business Central – pris, funktioner och rätt partner i Sverige"
+  title="Business Central ERP – pris, funktioner och rätt partner i Sverige"
   subhead="Microsoft levererar det kraftfulla affärssystemet. Partnern bygger processerna, väljer rätt branschspecifika tillägg och designar integrationerna mot era befintliga system. Det är nyckeln till framgångsrika BC-projekt. Här jämför ni partners som faktiskt levererat Business Central i er bransch."
   primary={{
     label: "Jämför Business Central-partners",
@@ -277,8 +277,8 @@ const BusinessCentral = () => {
 
 
 
- <ShortAnswer title="Vad är Microsoft Dynamics 365 Business Central">
- <p>Dynamics 365 Business Central är Microsofts moderna molnbaserade affärssystem för mindre och medelstora företag som vill samla ekonomi, inköp, lager, försäljning och produktion i en plattform – i stället för att hålla ihop en flora av separata system som inte pratar med varandra.</p>
+ <ShortAnswer title="Vad är Business Central som ERP-system">
+ <p>Dynamics 365 Business Central är Microsofts moderna molnbaserade ERP-system (affärssystem) för mindre och medelstora företag som vill samla ekonomi, inköp, lager, försäljning och produktion i en plattform – i stället för att hålla ihop en flora av separata system som inte pratar med varandra.</p>
  <p>Inbyggd AI via Microsoft Copilot och nya autonoma agenter automatiserar repetitiva uppgifter direkt i systemet. Det kan handla om orderregistrering, produktbeskrivningar, försäljnings- och kundtjänstflöden eller leverantörsavstämningar – moment som tidigare krävt manuell handpåläggning kan nu hanteras med stöd av AI inifrån affärssystemet.</p>
  <p>Genom Microsoft Marketplace finns dessutom över 7 000 certifierade tilläggsappar som ger djup branschanpassning utan kostsam specialutveckling – oavsett om ni är inom tillverkning, handel, tjänster eller bygg. Det gör att lösningen kan formas efter er verksamhet snarare än tvärtom.</p>
  <p>Business Central är tillgängligt i över 160 länder med lokaliseringar från Microsoft och partners, vilket gör det till ett tryggt val även för bolag med internationella ambitioner eller dotterbolag i flera länder.</p>
