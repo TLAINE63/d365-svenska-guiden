@@ -81,7 +81,7 @@ export const PRODUCT_META: Record<ProductKey, ProductMeta> = {
     path: "/d365sales/",
     breadcrumb: "Sales",
     ctaPrimary: { label: "Behovsanalys CRM", url: "/CRMbehovsanalys/" },
-    ctaSecondary: { label: "ROI-kalkylator Sales", url: "/dynamics365-sales/roi-kalkylator/" },
+    ctaSecondary: { label: "ROI-kalkylator Sales", url: "/d365sales/roi-kalkylator/" },
   },
   "customer-service": {
     name: "Dynamics 365 Customer Service",
