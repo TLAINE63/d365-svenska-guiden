@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 
 const ALLOWED_ORIGINS = [
   "https://d365.se",
@@ -74,10 +75,15 @@ serve(async (req) => {
       "Content-Type": "application/json",
     };
 
-    // Date range: last 90 days, ending 3 days ago (GSC delay)
+    // Period (dagar) – valbar från admin
+    const reqBody = await req.json().catch(() => ({}));
+    const allowedDays = [7, 28, 90, 180];
+    const days = allowedDays.includes(Number(reqBody?.days)) ? Number(reqBody.days) : 90;
+
+    // Date range: ending 3 days ago (GSC delay)
     const now = new Date();
     const end = new Date(now.getTime() - 3 * 24 * 3600 * 1000);
-    const start = new Date(end.getTime() - 89 * 24 * 3600 * 1000);
+    const start = new Date(end.getTime() - (days - 1) * 24 * 3600 * 1000);
     const fmt = (d: Date) => d.toISOString().slice(0, 10);
 
     // Parallel fetches
@@ -102,8 +108,70 @@ serve(async (req) => {
     const queries = queryRes.ok ? await queryRes.json() : { error: await queryRes.text() };
     const pages = pageRes.ok ? await pageRes.json() : { error: await pageRes.text() };
 
+    // ── Unika besökare (egen mätning) för samma period ──
+    let visitors: { unique: number; pageviews: number; daily: { date: string; visitors: number }[] } | null = null;
+    try {
+      const supabase = createClient(
+        Deno.env.get("SUPABASE_URL") ?? "",
+        Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
+      );
+      const sinceIso = new Date(now.getTime() - days * 86400000).toISOString();
+      const rows: { visited_at: string; session_id: string | null; ip_anonymized: string | null; referrer: string | null }[] = [];
+      const pageSize = 1000;
+      for (let from = 0; from < 200000; from += pageSize) {
+        const { data, error } = await supabase
+          .from("visitor_analytics")
+          .select("visited_at, session_id, ip_anonymized, referrer")
+          .gte("visited_at", sinceIso)
+          .order("visited_at", { ascending: false })
+          .range(from, from + pageSize - 1);
+        if (error || !data || data.length === 0) break;
+        rows.push(...data);
+        if (data.length < pageSize) break;
+      }
+
+      // Exkludera interna besök (Lovable-preview + admin/partneruppdaterings-IP)
+      const excludedPrefixes = new Set<string>();
+      const { data: puVisits } = await supabase
+        .from("visitor_analytics")
+        .select("ip_anonymized")
+        .like("page_path", "%partner-uppdatering%");
+      for (const r of puVisits || []) {
+        if (r.ip_anonymized && r.ip_anonymized !== "unknown") {
+          excludedPrefixes.add(r.ip_anonymized.split(".").slice(0, 2).join("."));
+        }
+      }
+
+      const perDay = new Map<string, Set<string>>();
+      let pageviews = 0;
+      for (const r of rows) {
+        const ref = (r.referrer || "").toLowerCase();
+        if (ref.includes("lovableproject.com") || ref.includes("lovable.dev") || ref.includes("lovable.app")) continue;
+        const ip = r.ip_anonymized && r.ip_anonymized !== "unknown" ? r.ip_anonymized : null;
+        if (ip && excludedPrefixes.has(ip.split(".").slice(0, 2).join("."))) continue;
+        pageviews++;
+        const day = (r.visited_at || "").slice(0, 10);
+        const key = ip || r.session_id;
+        if (!day || !key) continue;
+        if (!perDay.has(day)) perDay.set(day, new Set());
+        perDay.get(day)!.add(key);
+      }
+      const daily = Array.from(perDay.entries())
+        .map(([date, set]) => ({ date, visitors: set.size }))
+        .sort((a, b) => a.date.localeCompare(b.date));
+      visitors = {
+        unique: daily.reduce((a, d) => a + d.visitors, 0),
+        pageviews,
+        daily,
+      };
+    } catch (e) {
+      console.error("visitor stats error", e);
+    }
+
     return json({
       site: SITE,
+      days,
+      visitors,
       range: { startDate: fmt(start), endDate: fmt(end) },
       sitemaps: sitemaps.sitemap || [],
       sitemapsError: sitemaps.error || null,
