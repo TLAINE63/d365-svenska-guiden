@@ -273,7 +273,7 @@ export default function AllD365Partners() {
             ) : (
               <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {profiled.map((p) => (
-                  <li key={p.id}>
+                  <li key={p.id} className="h-full">
                     <Link
                       to={`/partner/${p.slug}`}
                       aria-label={p.name}
