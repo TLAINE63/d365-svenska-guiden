@@ -68,6 +68,9 @@ import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
 import TrustBanner from "@/components/TrustBanner";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import partnerData from "@/data/partnerData.json";
+import { FREE_TOOL_COUNT } from "@/data/freeTools";
+import { usePartners } from "@/hooks/usePartners";
+import { useBasicPartners } from "@/hooks/useBasicPartners";
 
 // Endast branscher som har minst en publicerad (verifierad) partner.
 // Använder samma logik som /branscher (product_filters medräknas).
