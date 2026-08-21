@@ -444,78 +444,8 @@ D365.se`;
     }
   };
 
-  // Bulk email state
-  const [bulkEmailOpen, setBulkEmailOpen] = useState(false);
-  const [bulkCustomMessage, setBulkCustomMessage] = useState("");
-  const [bulkSending, setBulkSending] = useState(false);
-  const [selectedPartnerIds, setSelectedPartnerIds] = useState<Set<string>>(new Set());
-
   const featuredPartners = partners.filter(p => p.is_featured);
-  const featuredWithEmail = featuredPartners.filter(p => p.admin_contact_email || p.email);
 
-  const handleOpenBulkEmail = () => {
-    // Pre-select all featured partners with email
-    setSelectedPartnerIds(new Set(featuredWithEmail.map(p => p.id)));
-    setBulkEmailOpen(true);
-  };
-
-  const togglePartnerSelection = (id: string) => {
-    setSelectedPartnerIds(prev => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  };
-
-  const toggleAllPartners = () => {
-    if (selectedPartnerIds.size === featuredWithEmail.length) {
-      setSelectedPartnerIds(new Set());
-    } else {
-      setSelectedPartnerIds(new Set(featuredWithEmail.map(p => p.id)));
-    }
-  };
-
-  const handleBulkSendEventEmail = async () => {
-    setBulkSending(true);
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-events?action=bulk-send-event-email`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ 
-            custom_message: bulkCustomMessage || undefined,
-            partner_ids: Array.from(selectedPartnerIds),
-          }),
-        }
-      );
-      const data = await response.json();
-      if (!response.ok) {
-        if (data.error?.includes("gått ut") || data.error?.includes("session")) {
-          onSessionExpired();
-        }
-        throw new Error(data.error || "Kunde inte skicka e-post");
-      }
-      toast({
-        title: "Utskick klart!",
-        description: `${data.sent} av ${data.total} e-postmeddelanden skickade.${data.failed ? ` ${data.failed} misslyckades.` : ''}`,
-      });
-      setBulkEmailOpen(false);
-      setBulkCustomMessage("");
-    } catch (error: any) {
-      toast({
-        title: "Fel",
-        description: error.message || "Kunde inte skicka e-post",
-        variant: "destructive",
-      });
-    } finally {
-      setBulkSending(false);
-    }
-  };
 
   return (
     <Card>
