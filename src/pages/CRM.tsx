@@ -578,6 +578,7 @@ const CRM = () => {
      <PageOfferBanner />
    </div>
  </section>
+ <RelevantVideosSection productGroups={["crm-sales", "crm-service", "customer-insights"]} title="Videor om Dynamics 365 CRM" />
  <Footer />
  </div>
  );

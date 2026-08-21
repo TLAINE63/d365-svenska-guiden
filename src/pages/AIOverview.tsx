@@ -812,6 +812,7 @@ const AIOverview = () => {
  <ProductDeepDiveLink product="Microsoft Agents – Dynamics 365" label="AI-agenter" />
 
  <RelatedPages pages={aiOverviewRelatedPages} heading="Utforska vidare" />
+ <RelevantVideosSection productGroups={["microsoft-ai", "power-platform"]} title="Videor om Copilot och AI i Dynamics 365" />
  <Footer />
 
  </div>
