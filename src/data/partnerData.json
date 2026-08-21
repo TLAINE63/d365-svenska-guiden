@@ -275,11 +275,13 @@
     ],
     "is_featured": true,
     "customer_examples": [],
-    "office_cities": [],
+    "office_cities": [
+      "Borås"
+    ],
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-05-26T11:20:39.922112+00:00",
-    "updated_at": "2026-08-19T13:55:26.359193+00:00",
+    "updated_at": "2026-08-21T10:08:35.82565+00:00",
     "industry_pitches": [
       {
         "text": "adbriq erbjuder stöd för företag inom mode, sport och textil som använder Microsoft Dynamics 365 Business Central. De fokuserar på att optimera affärsprocesser kopplade till produktlivscykelhantering, lageroptimering och distributionskedjan. Med förståelse för branschens specifika krav, som exempelvis säsongsvariationer, kollektionshantering och flera försäljningskanaler, arbetar adbriq med att anpassa Business Central för en effektiv hantering av dessa flöden. De kan även bistå med integrationer mot externa e-handelsplattformar och logistikpartners för en sammanhållen IT-miljö. adbriq stödjer företag i att hantera data för bland annat artikelvariationer, kundordrar och returer i Business Central.",
@@ -392,6 +394,11 @@
     "product_filters": {
       "sales": {
         "ranking": 999,
+        "revenue": [
+          "100-499 MSEK",
+          "500-999 MSEK",
+          "1.000-4.999 MSEK"
+        ],
         "geography": [
           "Sverige"
         ],
@@ -400,7 +407,11 @@
         "industries": [
           "Medlemsorganisationer"
         ],
-        "companySize": [],
+        "companySize": [
+          "100-249",
+          "250-999",
+          "1.000-4.999"
+        ],
         "swedenCities": [],
         "swedenRegions": [],
         "deliveryProfile": {
@@ -422,6 +433,11 @@
       },
       "service": {
         "ranking": 999,
+        "revenue": [
+          "100-499 MSEK",
+          "500-999 MSEK",
+          "1.000-4.999 MSEK"
+        ],
         "geography": [
           "Sverige"
         ],
@@ -430,7 +446,11 @@
         "industries": [
           "Medlemsorganisationer"
         ],
-        "companySize": [],
+        "companySize": [
+          "100-249",
+          "250-999",
+          "1.000-4.999"
+        ],
         "swedenCities": [],
         "swedenRegions": [],
         "deliveryProfile": {
@@ -455,21 +475,12 @@
     "is_featured": true,
     "customer_examples": [],
     "office_cities": [
-      "Stockholm",
-      "Göteborg",
-      "Malmö",
-      "Gävle",
-      "Borlänge",
-      "Linköping",
-      "Sundsvall",
-      "Umeå",
-      "Uppsala",
-      "Västerås och Örebro"
+      "Stockholm"
     ],
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-08-19T13:55:26.359193+00:00",
+    "updated_at": "2026-08-21T10:03:59.948588+00:00",
     "industry_pitches": [
       {
         "text": "För medlemsorganisationer kan B3 Elevate leverera lösningar baserade på Microsoft Dynamics 365, med fokus på att optimera medlemsresan och medvetenheten om organisationens värde. De har kompetens inom applikationer som Dynamics 365 Sales, Customer Insights (Marketing), Customer Service och Contact Center.\n\nGenom att arbeta med Dynamics 365 kan organisationer effektivisera medlemskommunikation, hantera medlemsregister och förbättra servicen. B3 Elevate bistår med att utveckla och implementera system för att underlätta dessa processer, från strategi till förvaltning. Deras expertis omfattar hur digitala verktyg kan anpassas för att möta medlemmarnas förväntningar och hantera enskilda medlemsärenden mer effektivt. De arbetar också med att integrera AI-baserade lösningar för att utveckla kundupplevelsen, vilket kan bidra till en ökad relevans för medlemmarna.",
@@ -2530,6 +2541,11 @@
     "product_filters": {
       "bc": {
         "ranking": 999,
+        "revenue": [
+          "100-499 MSEK",
+          "500-999 MSEK",
+          "1.000-4.999 MSEK"
+        ],
         "geography": [
           "Sverige",
           "Norden",
@@ -2543,7 +2559,11 @@
           "Grossist & Distribution",
           "Retail & E-handel"
         ],
-        "companySize": [],
+        "companySize": [
+          "50-99",
+          "100-249",
+          "250-999"
+        ],
         "contactName": "Mikael Carle",
         "contactEmail": "mikael.carle@nexergroup.com",
         "contactPhone": "0708208871",
@@ -2701,28 +2721,17 @@
     "is_featured": true,
     "customer_examples": [],
     "office_cities": [
-      "Alingsås",
-      "Borås",
-      "Eskilstuna",
-      "Göteborg",
-      "Helsingborg",
-      "Jönköping",
-      "Karlskrona",
-      "Karlstad",
-      "Lidköping",
-      "Linköping",
-      "Lund",
-      "Malmö",
-      "Skövde",
       "Stockholm",
-      "Umeå",
-      "Västerås",
-      "Växjö"
+      "Göteborg",
+      "Malmö",
+      "Lund",
+      "Eskilstuna",
+      "Västerås"
     ],
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-08-19T13:55:26.359193+00:00",
+    "updated_at": "2026-08-21T10:08:35.82565+00:00",
     "industry_pitches": [
       {
         "text": "Nexer levererar affärssystemslösningar baserade på Microsoft Dynamics 365 till företag inom grossist- och distributionsbranschen. Med fokus på applikationer som Business Central, Finance och Supply Chain Management stödjer de kunder i att optimera processer som orderhantering, lagerstyrning och logistik. Deras erbjudande omfattar även stöd för kundrelationer genom Dynamics 365 Sales och Customer Service, vilket kan bidra till förbättrad kundkommunikation och service. Nexer har erfarenhet av att implementera system för hantering av globala leveranskedjor och kan bistå med integrationer för att möta krav på spårbarhet och effektivitet i en konkurrensutsatt marknad. De arbetar för att hjälpa företag att hantera marginalpress och möta höga förväntningar på leveransprecision.",
@@ -2934,11 +2943,13 @@
     "industry_apps": [],
     "is_featured": true,
     "customer_examples": [],
-    "office_cities": [],
+    "office_cities": [
+      "Stockholm"
+    ],
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-08-19T13:55:26.359193+00:00",
+    "updated_at": "2026-08-21T10:08:35.82565+00:00",
     "industry_pitches": [
       {
         "text": "Point Taken hjälper konsultföretag att effektivisera sin verksamhet med Microsoft Dynamics 365, särskilt genom fokus på projekt- och resurshantering. De adresserar problem som ineffektiva resursallokeringar och bristande överblick över projektlönsamhet. Point Taken implementerar lösningar som samlar kundrelationer, projektplanering och ekonomiska flöden för att skapa en enhetlig plattform.\n\nDe arbetar med att automatisera tidrapportering och fakturering, vilket reducerar administrativ börda och förbättrar kassaflödet. Genom att optimera användningen av Dynamics 365 for Project Operations och Sales, kan Point Taken underlätta för konsultbolag att fatta datadrivna beslut. Detta förbättrar i sin tur resursutnyttjande och bidrar till ökad lönsamhet per projekt.",
@@ -3069,9 +3080,9 @@
       "fsc": {
         "ranking": 999,
         "revenue": [
-          ">5.000 MSEK",
           "500-999 MSEK",
-          "1.000-4.999 MSEK"
+          "1.000-4.999 MSEK",
+          ">5.000 MSEK"
         ],
         "geography": [
           "Sverige",
@@ -3085,8 +3096,9 @@
           "Energi & Utilities"
         ],
         "companySize": [
+          "100-249",
           "250-999",
-          "100-249"
+          "1.000-4.999"
         ],
         "contactName": "Peter Selin",
         "contactEmail": "peter.selin@sherpas.se",
@@ -3118,15 +3130,12 @@
     "customer_examples": [],
     "office_cities": [
       "Skellefteå",
-      "Stockholm",
-      "Malmö",
-      "Göteborg",
-      "Västerås"
+      "Stockholm"
     ],
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-08-19T13:55:26.359193+00:00",
+    "updated_at": "2026-08-21T10:08:35.82565+00:00",
     "industry_pitches": [
       {
         "text": "Sherpas Group AB levererar lösningar baserade på Microsoft Dynamics 365, särskilt Business Central, Finance och Supply Chain Management, till företag inom bygg-, entreprenad- och installationbranschen. De bistår med system som kan hantera projektstyrning, resursallokering, ekonomiuppföljning och logistikflöden specifika för branschens behov. Fokus ligger på att optimera processer för tidrapportering, materialhantering och fakturering för att möta krav på effektivitet och lönsamhet.\n\nGenom att integrera funktioner för budgetering, prognostisering och avvikelseanalys i Dynamics 365 Finance kan Sherpas Group AB hjälpa byggföretag att få bättre kontroll över projektkostnader och intäkter. Dessutom kan Supply Chain Management användas för att effektivisera inköpsprocesser och lagerhantering av byggmaterial. Detta bidrar till ökad transparens och bättre beslutsunderlag i komplexa projekt.",
@@ -3505,6 +3514,11 @@
     "product_filters": {
       "bc": {
         "ranking": 999,
+        "revenue": [
+          "100-499 MSEK",
+          "500-999 MSEK",
+          "1.000-4.999 MSEK"
+        ],
         "geography": [
           "Sverige",
           "Norden"
@@ -3515,6 +3529,11 @@
           "Transport & Logistik",
           "Telekom & IT-tjänster",
           "Tillverkningsindustri"
+        ],
+        "companySize": [
+          "50-99",
+          "100-249",
+          "250-999"
         ],
         "contactName": "Anton Persson",
         "contactEmail": "anton.a.persson@vivicta.com",
@@ -3546,6 +3565,11 @@
       },
       "fsc": {
         "ranking": 999,
+        "revenue": [
+          "500-999 MSEK",
+          "1.000-4.999 MSEK",
+          ">5.000 MSEK"
+        ],
         "geography": [
           "Sverige",
           "Norden"
@@ -3556,6 +3580,11 @@
           "Tillverkningsindustri",
           "Jordbruk & Skogsbruk",
           "Transport & Logistik"
+        ],
+        "companySize": [
+          "250-999",
+          "1.000-4.999",
+          ">5.000"
         ],
         "contactName": "Peter Andersson",
         "contactEmail": "peter.b.andersson@vivicta.com",
@@ -3604,6 +3633,11 @@
       },
       "sales": {
         "ranking": 999,
+        "revenue": [
+          "500-999 MSEK",
+          "1.000-4.999 MSEK",
+          ">5.000 MSEK"
+        ],
         "geography": [
           "Sverige",
           "Norden"
@@ -3614,6 +3648,11 @@
           "Tillverkningsindustri",
           "Transport & Logistik",
           "Offentlig sektor"
+        ],
+        "companySize": [
+          "250-999",
+          "1.000-4.999",
+          ">5.000"
         ],
         "contactName": "Peter Andersson",
         "contactEmail": "peter.b.andersson@vivicta.com",
@@ -3652,6 +3691,11 @@
       },
       "service": {
         "ranking": 999,
+        "revenue": [
+          "500-999 MSEK",
+          "1.000-4.999 MSEK",
+          ">5.000 MSEK"
+        ],
         "geography": [
           "Sverige",
           "Norden"
@@ -3662,6 +3706,11 @@
           "Tillverkningsindustri",
           "Jordbruk & Skogsbruk",
           "Transport & Logistik"
+        ],
+        "companySize": [
+          "250-999",
+          "1.000-4.999",
+          ">5.000"
         ],
         "contactName": "Peter Andersson",
         "contactEmail": "peter.b.andersson@vivicta.com",
@@ -3722,13 +3771,16 @@
       "Stockholm",
       "Göteborg",
       "Malmö",
+      "Jönköping",
       "Skellefteå",
-      "Jönköping"
+      "Linköping",
+      "Örebro",
+      "Sundsvall"
     ],
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-03-19T08:57:20.19097+00:00",
-    "updated_at": "2026-08-19T13:55:26.359193+00:00",
+    "updated_at": "2026-08-21T10:08:35.82565+00:00",
     "industry_pitches": [
       {
         "text": "Vivicta levererar helhetslösningar inom Microsoft Dynamics 365, från rådgivning och design till implementering och förvaltning, med fokus på transport och logistik. De hanterar lösningar baserade på D365 Finance och Supply Chain Management, vilket stöder hantering av ekonomiska flöden och logistikkedjor.\n\nVivicta erbjuder även D365 Business Central för mindre transport- och logistikföretag som behöver ett integrerat affärssystem. För att optimera kundrelationer och serviceärenden använder de D365 Sales, Customer Service och Field Service. Lösningarna kompletteras med Power Platform och Azure, vilket innebär möjligheter till anpassade integrationer och utökad funktionalitet. Deras erfarenhet sträcker sig till branscher som industri, tillverkning, samt handel och service, vilket ger dem insikt i komplexa logistikbehov och distributionskedjor. Vivicta erbjuder kontinuerlig utveckling och licensrådgivning för att stödja kundens affärsnytta över tid.",
@@ -3868,6 +3920,11 @@
     "product_filters": {
       "bc": {
         "ranking": 999,
+        "revenue": [
+          "25-99 MSEK",
+          "100-499 MSEK",
+          "500-999 MSEK"
+        ],
         "geography": [
           "Sverige",
           "Norden",
@@ -3879,6 +3936,11 @@
           "Tillverkningsindustri",
           "Grossist & Distribution",
           "Bygg, Entreprenad & Installation"
+        ],
+        "companySize": [
+          "1-49",
+          "50-99",
+          "100-249"
         ],
         "contactName": "Jonas Grunditz",
         "contactEmail": "jonas.grunditz@yellowsolution.se",
@@ -3913,7 +3975,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-03-25T10:51:24.706444+00:00",
-    "updated_at": "2026-08-19T13:55:26.359193+00:00",
+    "updated_at": "2026-08-21T10:03:59.948588+00:00",
     "industry_pitches": [
       {
         "text": "Yellow Solution AB erbjuder lösningar baserade på Microsoft Dynamics 365 Business Central till företag inom bygg-, entreprenad- och installationbranschen. Partnern fokuserar på att optimera affärsprocesser för ökad effektivitet och tillväxt. De har erfarenhet av att anpassa Business Central för att möta branschens specifika krav, vilket inkluderar hantering av projekt, ekonomi och resursplanering. Genom sitt engagemang syftar Yellow Solution AB till att hjälpa företag att utnyttja affärssystemets fulla potential för bättre beslutsfattande och hållbar utveckling. Deras tjänster bidrar till att säkerställa att investeringar i affärssystemet ger konkret nytta i en komplex bransch.",
