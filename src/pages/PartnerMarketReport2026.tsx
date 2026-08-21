@@ -155,7 +155,7 @@ export default function PartnerMarketReport2026() {
       <FAQSchema faqs={REPORT_FAQ.map((f) => ({ question: f.q, answer: f.a }))} />
       <Navbar />
 
-      <main className="pt-10">
+      <main className="pt-24 sm:pt-28">
         <section className="py-10 sm:py-14 bg-gradient-to-br from-secondary/60 to-background">
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
             <nav aria-label="Brödsmulor" className="text-xs text-muted-foreground mb-4">
