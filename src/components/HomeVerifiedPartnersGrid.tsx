@@ -31,6 +31,9 @@ const APP_BADGES: Array<{ match: (a: string[]) => boolean; label: string }> = [
   { match: (a) => a.includes("Field Service"), label: "Field Service" },
   { match: (a) => a.includes("Contact Center"), label: "Contact Center" },
   { match: (a) => a.includes("Customer Insights (Marketing)"), label: "Customer Insights (Marketing Automation)" },
+  { match: (a) => a.includes("Project Operations"), label: "Project Operations" },
+  { match: (a) => a.includes("Commerce"), label: "Commerce" },
+  { match: (a) => a.includes("Human Resources"), label: "Human Resources" },
 ];
 
 type ProductId =
@@ -41,7 +44,10 @@ type ProductId =
   | "customer-service"
   | "field-service"
   | "contact-center"
-  | "marketing";
+  | "marketing"
+  | "project-operations"
+  | "commerce"
+  | "human-resources";
 
 const PRODUCT_FILTERS: Array<{ id: ProductId; label: string }> = [
   { id: "all", label: "Alla lösningar" },
@@ -52,6 +58,9 @@ const PRODUCT_FILTERS: Array<{ id: ProductId; label: string }> = [
   { id: "field-service", label: "Field Service" },
   { id: "contact-center", label: "Contact Center" },
   { id: "marketing", label: "Customer Insights (Marketing Automation)" },
+  { id: "project-operations", label: "Project Operations" },
+  { id: "commerce", label: "Commerce" },
+  { id: "human-resources", label: "Human Resources" },
 ];
 
 const matchesProduct = (apps: string[] = [], id: ProductId) => {
@@ -63,6 +72,9 @@ const matchesProduct = (apps: string[] = [], id: ProductId) => {
   if (id === "field-service") return apps.includes("Field Service");
   if (id === "contact-center") return apps.includes("Contact Center");
   if (id === "marketing") return apps.includes("Customer Insights (Marketing)");
+  if (id === "project-operations") return apps.includes("Project Operations");
+  if (id === "commerce") return apps.includes("Commerce");
+  if (id === "human-resources") return apps.includes("Human Resources");
   return true;
 };
 
@@ -75,6 +87,9 @@ const PRODUCT_AREA_LABEL: Record<ProductId, string> = {
   "field-service": "Field Service",
   "contact-center": "Contact Center",
   marketing: "Customer Insights (Marketing Automation)",
+  "project-operations": "Project Operations",
+  commerce: "Commerce",
+  "human-resources": "Human Resources",
 };
 
 const PRODUCT_FILTER_KEY: Record<ProductId, string | null> = {
@@ -86,6 +101,9 @@ const PRODUCT_FILTER_KEY: Record<ProductId, string | null> = {
   "field-service": "service",
   "contact-center": "service",
   marketing: "sales",
+  "project-operations": "fsc",
+  commerce: "fsc",
+  "human-resources": "fsc",
 };
 
 const productAreas = (apps: string[] = []) =>
