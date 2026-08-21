@@ -271,14 +271,6 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
                   <p className="text-[12px] leading-relaxed text-[hsl(var(--foreground))] line-clamp-5">{assessment}</p>
                 </div>
               )}
-              {evidence && (
-                <div className="mb-1">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-[hsl(var(--muted-foreground))] mb-1">
-                    Dokumenterad erfarenhet
-                  </p>
-                  <p className="text-[11px] leading-snug text-[hsl(var(--muted-foreground))] line-clamp-2">{evidence}</p>
-                </div>
-              )}
             </div>
           );
         })()}
