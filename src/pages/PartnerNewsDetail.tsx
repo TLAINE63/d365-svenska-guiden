@@ -125,12 +125,12 @@ export default function PartnerNewsDetail() {
       label: "Dynamics 365 Business Central – pris, funktioner och partners i Sverige",
     },
     "finance-scm": {
-      path: "/financesupplychain/",
+      path: "/finance-supply-chain/",
       label: "Dynamics 365 Finance & Supply Chain Management",
     },
-    crm: { path: "/dynamics365sales/", label: "Dynamics 365 Sales – CRM för säljorganisationen" },
-    "crm-sales": { path: "/dynamics365sales/", label: "Dynamics 365 Sales – CRM för säljorganisationen" },
-    "crm-service": { path: "/dynamics365customerservice/", label: "Dynamics 365 Customer Service" },
+    crm: { path: "/d365sales/", label: "Dynamics 365 Sales – CRM för säljorganisationen" },
+    "crm-sales": { path: "/d365sales/", label: "Dynamics 365 Sales – CRM för säljorganisationen" },
+    "crm-service": { path: "/d365customerservice/", label: "Dynamics 365 Customer Service" },
     "microsoft-ai": { path: "/ai-oversikt/", label: "AI och Copilot i Dynamics 365" },
   };
   const productPageLinks = Array.from(
