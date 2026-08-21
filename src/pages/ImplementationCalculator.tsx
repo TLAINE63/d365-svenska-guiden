@@ -573,7 +573,7 @@ export default function ImplementationCalculator() {
                     </h3>
                     <ol className="space-y-1.5 text-sm text-muted-foreground list-decimal pl-4">
                       <li>
-                        {complexity === "standard"
+                        {complexity === "standardnara"
                           ? "Bekräfta att standardflödena räcker – lista de undantag som ändå måste hanteras."
                           : complexity === "anpassad"
                             ? "Prioritera vilka anpassningar som är affärskritiska och vilka som kan vänta till fas 2."
