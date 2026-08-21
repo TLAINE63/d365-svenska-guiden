@@ -594,8 +594,8 @@ const BusinessCentral = () => {
  />
 
  {/* Geography Filter */}
- <FilterButtons
- title="Ange var geografiskt du har din verksamhet och som är relevant för denna lösning (organisation, kontor/personal)"
+  <FilterButtons
+  title="Var behöver du leverans och support? (Sverige, Norden, Europa, Globalt)"
  icon="geography"
  options={geographyFilters.map(g => ({ label: g.label, value: g.value }))}
  selectedValue={selectedGeography}

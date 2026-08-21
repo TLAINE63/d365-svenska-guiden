@@ -564,8 +564,8 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  onSelect={setSelectedRevenue}
  colorScheme="primary"
  />
- <FilterButtons
- title="Geografi"
+  <FilterButtons
+  title="Var behöver du leverans och support? (Sverige, Norden, Europa, Globalt)"
  icon="geography"
  options={geographyOptions.map((g) => ({ label: g, value: g }))}
  selectedValue={selectedGeography}
