@@ -93,12 +93,6 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
   });
   const [isSaving, setIsSaving] = useState(false);
 
-  // Email template state
-  const [showTemplateEditor, setShowTemplateEditor] = useState(false);
-  const [eventTemplate, setEventTemplate] = useState("");
-  const [eventTemplateOriginal, setEventTemplateOriginal] = useState("");
-  const [loadingTemplate, setLoadingTemplate] = useState(false);
-  const [savingTemplate, setSavingTemplate] = useState(false);
 
   const fetchEvents = async () => {
     setIsLoading(true);
@@ -139,72 +133,6 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
     fetchEvents();
   }, [token]);
 
-  const fetchEventTemplate = async () => {
-    setLoadingTemplate(true);
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template&template_key=event_invitation_email_body`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-          },
-        }
-      );
-      const data = await res.json();
-      setEventTemplate(data.template || getDefaultEventTemplate());
-      setEventTemplateOriginal(data.template || getDefaultEventTemplate());
-    } catch (err) {
-      console.error("Fetch template error:", err);
-      toast({ title: "Fel", description: "Kunde inte hämta e-postmall", variant: "destructive" });
-    } finally {
-      setLoadingTemplate(false);
-    }
-  };
-
-  const saveEventTemplate = async () => {
-    setSavingTemplate(true);
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=update-email-template`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-          },
-          body: JSON.stringify({ template: eventTemplate, template_key: "event_invitation_email_body" }),
-        }
-      );
-      if (!res.ok) throw new Error("Kunde inte spara mall");
-      setEventTemplateOriginal(eventTemplate);
-      toast({ title: "Sparat!", description: "Event-inbjudningsmallen har sparats." });
-    } catch (err) {
-      toast({ title: "Fel", description: "Kunde inte spara e-postmall", variant: "destructive" });
-    } finally {
-      setSavingTemplate(false);
-    }
-  };
-
-  const getDefaultEventTemplate = () => `Hej {{contact_name}},
-
-Nu har ni möjlighet att publicera era events och webbinarier direkt på D365.se! Via er dedikerade event-portal kan ni enkelt lägga till, redigera och hantera era kommande events.
-
-{{custom_message}}
-
-📅 RIKTLINJER FÖR EVENTS
-Events ska fokusera på Microsoft Dynamics 365 eller närliggande områden som AI, Copilot, Agents, BI och Power Platform.
-
-{{PORTAL_LINK}}
-
-Spara gärna länken – den är unik för {{partner_name}} och kan användas när ni vill lägga till eller uppdatera events. Inskickade events granskas och godkänns innan de publiceras.
-
-Med vänliga hälsningar,
-Thomas Laine
-Senior Rådgivare inom Microsoft CRM- och Affärssystem
-D365.se`;
 
   const handleSaveEvent = async () => {
     if (!selectedPartner || !formData.title || !formData.event_date || !formData.event_link) {
@@ -444,78 +372,8 @@ D365.se`;
     }
   };
 
-  // Bulk email state
-  const [bulkEmailOpen, setBulkEmailOpen] = useState(false);
-  const [bulkCustomMessage, setBulkCustomMessage] = useState("");
-  const [bulkSending, setBulkSending] = useState(false);
-  const [selectedPartnerIds, setSelectedPartnerIds] = useState<Set<string>>(new Set());
-
   const featuredPartners = partners.filter(p => p.is_featured);
-  const featuredWithEmail = featuredPartners.filter(p => p.admin_contact_email || p.email);
 
-  const handleOpenBulkEmail = () => {
-    // Pre-select all featured partners with email
-    setSelectedPartnerIds(new Set(featuredWithEmail.map(p => p.id)));
-    setBulkEmailOpen(true);
-  };
-
-  const togglePartnerSelection = (id: string) => {
-    setSelectedPartnerIds(prev => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  };
-
-  const toggleAllPartners = () => {
-    if (selectedPartnerIds.size === featuredWithEmail.length) {
-      setSelectedPartnerIds(new Set());
-    } else {
-      setSelectedPartnerIds(new Set(featuredWithEmail.map(p => p.id)));
-    }
-  };
-
-  const handleBulkSendEventEmail = async () => {
-    setBulkSending(true);
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-events?action=bulk-send-event-email`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ 
-            custom_message: bulkCustomMessage || undefined,
-            partner_ids: Array.from(selectedPartnerIds),
-          }),
-        }
-      );
-      const data = await response.json();
-      if (!response.ok) {
-        if (data.error?.includes("gått ut") || data.error?.includes("session")) {
-          onSessionExpired();
-        }
-        throw new Error(data.error || "Kunde inte skicka e-post");
-      }
-      toast({
-        title: "Utskick klart!",
-        description: `${data.sent} av ${data.total} e-postmeddelanden skickade.${data.failed ? ` ${data.failed} misslyckades.` : ''}`,
-      });
-      setBulkEmailOpen(false);
-      setBulkCustomMessage("");
-    } catch (error: any) {
-      toast({
-        title: "Fel",
-        description: error.message || "Kunde inte skicka e-post",
-        variant: "destructive",
-      });
-    } finally {
-      setBulkSending(false);
-    }
-  };
 
   return (
     <Card>
@@ -523,87 +381,10 @@ D365.se`;
         {/* Bulk send + filter header */}
         <div className="flex items-center justify-between flex-wrap gap-2">
           <p className="text-sm text-muted-foreground">
-            {featuredWithEmail.length} publicerade partners med e-post
+            Här publiceras partners egna events med länk till deras eventsida.
           </p>
-          <div className="flex gap-2">
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className="gap-2"
-              onClick={() => {
-                if (!showTemplateEditor) fetchEventTemplate();
-                setShowTemplateEditor(!showTemplateEditor);
-              }}
-            >
-              <FileEdit className="h-4 w-4" />
-              {showTemplateEditor ? "Dölj mailmall" : "Redigera mailmall"}
-            </Button>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className="gap-2"
-              onClick={() => handleOpenBulkEmail()}
-            >
-              <Mail className="h-4 w-4" />
-              Skicka event-inbjudan till alla partners
-            </Button>
-          </div>
         </div>
 
-        {/* Email template editor */}
-        {showTemplateEditor && (
-          <Card className="border-dashed">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-base flex items-center gap-2">
-                <FileEdit className="h-4 w-4" />
-                E-postmall för event-inbjudan
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              {loadingTemplate ? (
-                <div className="flex items-center justify-center py-8">
-                  <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
-                </div>
-              ) : (
-                <>
-                  <Textarea
-                    value={eventTemplate}
-                    onChange={(e) => setEventTemplate(e.target.value)}
-                    rows={14}
-                    className="font-mono text-sm"
-                  />
-                  <div className="flex flex-wrap gap-1.5 text-xs text-muted-foreground">
-                    <span className="font-medium">Platshållare:</span>
-                    <Badge variant="outline" className="text-xs font-mono">{"{{contact_name}}"}</Badge>
-                    <Badge variant="outline" className="text-xs font-mono">{"{{partner_name}}"}</Badge>
-                    <Badge variant="outline" className="text-xs font-mono">{"{{PORTAL_LINK}}"}</Badge>
-                    <Badge variant="outline" className="text-xs font-mono">{"{{custom_message}}"}</Badge>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button 
-                      size="sm" 
-                      onClick={saveEventTemplate} 
-                      disabled={savingTemplate || eventTemplate === eventTemplateOriginal}
-                      className="gap-2"
-                    >
-                      {savingTemplate ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-                      Spara mall
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => setEventTemplate(getDefaultEventTemplate())}
-                      className="gap-2"
-                    >
-                      <RotateCcw className="h-4 w-4" />
-                      Återställ standard
-                    </Button>
-                  </div>
-                </>
-              )}
-            </CardContent>
-          </Card>
-        )}
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex-1">
@@ -691,18 +472,6 @@ D365.se`;
                   >
                     {sendingEmail ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
                     Skicka via e-post
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="gap-2"
-                    onClick={() => {
-                      setSelectedPartnerIds(new Set([selectedPartner.id]));
-                      setBulkEmailOpen(true);
-                    }}
-                  >
-                    <Mail className="h-4 w-4" />
-                    Skicka event-inbjudan
                   </Button>
                   <Button 
                     variant="outline" 
@@ -962,71 +731,6 @@ D365.se`;
           </DialogContent>
         </Dialog>
 
-        {/* Bulk Email Dialog */}
-        <Dialog open={bulkEmailOpen} onOpenChange={(open) => !open && setBulkEmailOpen(false)}>
-          <DialogContent className="sm:max-w-lg max-h-[85vh] flex flex-col">
-            <DialogHeader>
-              <DialogTitle>Skicka event-inbjudan till partners</DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4 py-4 flex-1 overflow-hidden flex flex-col">
-              {/* Select/deselect all */}
-              <div className="flex items-center justify-between">
-                <Label className="text-sm">Välj mottagare ({selectedPartnerIds.size} av {featuredWithEmail.length})</Label>
-                <Button variant="ghost" size="sm" onClick={toggleAllPartners}>
-                  {selectedPartnerIds.size === featuredWithEmail.length ? "Avmarkera alla" : "Markera alla"}
-                </Button>
-              </div>
-
-              {/* Partner list with checkboxes */}
-              <div className="border rounded-lg overflow-y-auto max-h-[240px] divide-y">
-                {featuredWithEmail.map(p => (
-                  <label
-                    key={p.id}
-                    className="flex items-center gap-3 px-3 py-2 hover:bg-muted/50 cursor-pointer"
-                  >
-                    <Checkbox
-                      checked={selectedPartnerIds.has(p.id)}
-                      onCheckedChange={() => togglePartnerSelection(p.id)}
-                    />
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium truncate">{p.name}</p>
-                      <p className="text-xs text-muted-foreground truncate">{p.admin_contact_email || p.email}</p>
-                    </div>
-                  </label>
-                ))}
-              </div>
-              
-              <div className="space-y-2">
-                <Label>Valfritt meddelande (visas i mailet)</Label>
-                <Textarea
-                  value={bulkCustomMessage}
-                  onChange={(e) => setBulkCustomMessage(e.target.value)}
-                  placeholder="T.ex. 'Vi uppmanar alla partners att lägga till sina kommande events inför hösten...'"
-                  rows={3}
-                />
-              </div>
-
-              <div className="p-3 rounded-lg border bg-muted/30">
-                <p className="text-xs text-muted-foreground">
-                  <strong>Mailet innehåller:</strong> En inbjudan att publicera events på D365.se, riktlinjer för events, och en unik länk till partnerns event-portal.
-                </p>
-              </div>
-            </div>
-            <DialogFooter>
-              <Button variant="outline" onClick={() => setBulkEmailOpen(false)} disabled={bulkSending}>
-                Avbryt
-              </Button>
-              <Button 
-                onClick={handleBulkSendEventEmail} 
-                disabled={bulkSending || selectedPartnerIds.size === 0}
-                className="gap-2"
-              >
-                {bulkSending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
-                {bulkSending ? "Skickar..." : `Skicka till ${selectedPartnerIds.size} partners`}
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
       </CardContent>
     </Card>
   );
