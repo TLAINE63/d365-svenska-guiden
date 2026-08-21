@@ -96,6 +96,29 @@ export default function ExtendedCompetencyInputSection({
               ))}
             </div>
 
+            {suggestion && (
+              <div className="rounded-md border border-dashed border-primary/40 bg-primary/5 p-3 space-y-2">
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-xs font-semibold text-foreground">
+                    Förslag från d365.se (visas aldrig publikt)
+                  </p>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    onClick={() =>
+                      onChange({ ...(value || {}), [area.key]: suggestion.slice(0, maxLength) })
+                    }
+                  >
+                    Använd förslaget
+                  </Button>
+                </div>
+                <p className="text-xs text-muted-foreground whitespace-pre-wrap leading-snug">
+                  {suggestion}
+                </p>
+              </div>
+            )}
+
             <Textarea
               id={`comp-${area.key}`}
               rows={4}
@@ -110,6 +133,24 @@ export default function ExtendedCompetencyInputSection({
           </div>
         );
       })}
+
+      {hasAnySuggestion && (
+        <Button
+          type="button"
+          variant="secondary"
+          size="sm"
+          onClick={() => {
+            const next = { ...(value || {}) };
+            for (const area of COMPETENCY_AREAS) {
+              const s = (value?.[`suggestion_${area.key}`] || "").trim();
+              if (s && !(next[area.key] || "").trim()) next[area.key] = s.slice(0, maxLength);
+            }
+            onChange(next);
+          }}
+        >
+          Fyll tomma fält med förslagen
+        </Button>
+      )}
     </div>
   );
 }
