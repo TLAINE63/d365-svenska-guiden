@@ -30,6 +30,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Checkbox } from "@/components/ui/checkbox";
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import BasicPartnerInquiryDialog from "@/components/BasicPartnerInquiryDialog";
+import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
 import CompareStickyCTA from "@/components/CompareStickyCTA";
 import AiCompareInsights from "@/components/AiCompareInsights";
 import { describeAiCapabilities } from "@/utils/aiScoring";
@@ -1157,6 +1158,7 @@ const ComparePartners = () => {
 
   const industryFilter = params.get("industry") || "";
   const productFilterRaw = params.get("product") || "";
+  const verifiedOnly = params.get("verified") === "1";
   const normalizeProductFilterKey = (raw: string): string => {
     const k = raw.trim() as ProductFilterKey;
     if (PRODUCT_FILTER_GROUP[k]) return k;
@@ -1243,19 +1245,21 @@ const ComparePartners = () => {
       const inds = partnerIndustriesFor(p);
       if (!inds.includes(industryFilter)) return false;
     }
+    if (verifiedOnly && isBasicPartner(p)) return false;
     return true;
   };
 
   const eligiblePartners = useMemo(
     () => sortedPartners.filter(partnerMatchesFilters),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [sortedPartners, productFilterRaw, industryFilter],
+    [sortedPartners, productFilterRaw, industryFilter, verifiedOnly],
   );
 
   const industryPartnerCounts = useMemo(() => {
     const counts: Record<string, number> = {};
     STANDARD_INDUSTRIES.forEach((ind) => {
       counts[ind.name] = sortedPartners.filter((p) => {
+        if (verifiedOnly && isBasicPartner(p)) return false;
         if (productFilters.length > 0) {
           const keys = partnerProductKeys(p);
           if (!productFilters.some((k) => keys.includes(k))) return false;
@@ -1264,7 +1268,7 @@ const ComparePartners = () => {
       }).length;
     });
     return counts;
-  }, [sortedPartners, productFilters]);
+  }, [sortedPartners, productFilters, verifiedOnly]);
 
   // Clear selected industry if it no longer has any published partners.
   // Vänta tills partnerdata är laddad, annars nollställs ett medskickat
@@ -1279,12 +1283,29 @@ const ComparePartners = () => {
   }, [isLoading, sortedPartners.length, industryFilter, industryPartnerCounts, params, setParams]);
 
   const allIndustryEligibleCount = useMemo(() => {
-    if (productFilters.length === 0) return sortedPartners.length;
     return sortedPartners.filter((p) => {
+      if (verifiedOnly && isBasicPartner(p)) return false;
+      if (productFilters.length === 0) return true;
       const keys = partnerProductKeys(p);
       return productFilters.some((k) => keys.includes(k));
     }).length;
-  }, [sortedPartners, productFilters]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sortedPartners, productFilters, verifiedOnly]);
+
+  const verifiedEligibleCount = useMemo(
+    () =>
+      sortedPartners.filter((p) => {
+        if (isBasicPartner(p)) return false;
+        if (productFilters.length > 0) {
+          const keys = partnerProductKeys(p);
+          if (!productFilters.some((k) => keys.includes(k))) return false;
+        }
+        if (industryFilter && !partnerIndustriesFor(p).includes(industryFilter)) return false;
+        return true;
+      }).length,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [sortedPartners, productFilterRaw, industryFilter],
+  );
 
   // Auto-clear picked partner if it no longer matches the active filters
   useEffect(() => {
@@ -1887,7 +1908,23 @@ const ComparePartners = () => {
                       );
                     })}
                   </div>
-                  {(productActive || industryFilter) && (
+                  <div className="mt-4 flex flex-wrap items-center gap-3 ml-1">
+                    <VerifiedOnlyToggle
+                      checked={verifiedOnly}
+                      onChange={(val) => {
+                        const next = new URLSearchParams(params);
+                        if (val) next.set("verified", "1");
+                        else next.delete("verified");
+                        setParams(next, { replace: true });
+                      }}
+                      count={verifiedEligibleCount}
+                    />
+                    <span className="text-xs text-[hsl(var(--muted-foreground))]">
+                      Verifierade partners har en komplett, granskad profil. Övriga är identifierade partners med
+                      begränsad information.
+                    </span>
+                  </div>
+                  {(productActive || industryFilter || verifiedOnly) && (
                     <div className="mt-3 flex justify-end">
                       <button
                         type="button"
@@ -1895,6 +1932,7 @@ const ComparePartners = () => {
                           const next = new URLSearchParams(params);
                           next.delete("product");
                           next.delete("industry");
+                          next.delete("verified");
                           setParams(next, { replace: true });
                         }}
                         className="text-xs text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] underline self-start"
