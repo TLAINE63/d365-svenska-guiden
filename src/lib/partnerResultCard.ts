@@ -148,30 +148,81 @@ export function getRelevanceFactors(
 /**
  * "Dokumenterad erfarenhet" – visas bara när det finns strukturerad data att belägga.
  * Aldrig påhittade kund- eller projektantal.
+ *
+ * När användaren filtrerat på en bransch (focusIndustry) visas bara erfarenhet
+ * som gäller den branschen – annars döljs raden, så att kortet inte pekar på
+ * andra branscher än den som söktes fram.
  */
-export function getDocumentedEvidence(p: CardPartner): string | null {
+export function getDocumentedEvidence(
+  p: CardPartner,
+  opts?: { productKey?: string | null; focusIndustry?: string | null },
+): string | null {
   if (!isDatabasePartner(p)) return null;
 
-  const industries = (p.industries || []).slice(0, 2).map(shortenIndustry);
+  const focus = opts?.focusIndustry?.trim() || null;
+  const productKey = opts?.productKey || null;
+  const pf = productKey ? (p.product_filters as Record<string, { industries?: string[] }> | undefined)?.[productKey] : undefined;
 
-  if ((p.customer_examples || []).length > 0) {
-    return industries.length
-      ? `Kundcase inom ${industries.join(" och ")}.`
-      : "Dokumenterade kundcase via d365.se.";
+  const uniq = (arr: string[]) => Array.from(new Set(arr.map((s) => (s || "").trim()).filter(Boolean)));
+  const same = (a: string, b: string) => a.toLowerCase() === b.toLowerCase();
+
+  // Branscher som är relevanta i den aktuella vyn
+  const contextIndustries = uniq([
+    ...((pf?.industries as string[]) || []),
+    ...((p.industries as string[]) || []),
+    ...((p.secondary_industries as string[]) || []),
+  ]);
+
+  const pitchIndustries = uniq(
+    ((p.industry_pitches || []) as Array<{ industry?: string }>).map((x) => x?.industry || ""),
+  );
+  const appIndustries = uniq(
+    ((p.industry_apps || []) as Array<{ industry?: string }>).map((x) => x?.industry || ""),
+  );
+
+  // Alla branscher partnern kan beläggas inom
+  const documented = uniq([...pitchIndustries, ...appIndustries, ...contextIndustries]);
+
+  if (focus) {
+    const hasFocus = documented.some((i) => same(i, focus));
+    if (!hasFocus) return null;
+    const label = shortenIndustry(focus);
+    if (appIndustries.some((i) => same(i, focus))) {
+      return `Specialiserad branschlösning för ${label}.`;
+    }
+    if ((p.customer_examples || []).length > 0) {
+      return `Kundcase inom ${label}.`;
+    }
+    if (pitchIndustries.some((i) => same(i, focus))) {
+      return `Dokumenterad leveranserfarenhet inom ${label}.`;
+    }
+    return null;
   }
 
-  if ((p.industry_apps || []).length > 0) {
-    const appIndustries = Array.from(
-      new Set((p.industry_apps || []).map((a) => shortenIndustry(a.industry)).filter(Boolean)),
-    ).slice(0, 2);
-    return appIndustries.length
-      ? `Specialiserad branschlösning för ${appIndustries.join(" och ")}.`
+  // Utan branschfilter: beskriv erfarenheten inom det aktuella produktområdet
+  const scope = uniq(
+    (pf?.industries as string[])?.length
+      ? (pf!.industries as string[])
+      : [...pitchIndustries, ...appIndustries, ...((p.industries as string[]) || [])],
+  )
+    .slice(0, 2)
+    .map(shortenIndustry);
+
+  if ((p.customer_examples || []).length > 0) {
+    return scope.length ? `Kundcase inom ${scope.join(" och ")}.` : "Dokumenterade kundcase via d365.se.";
+  }
+
+  if (appIndustries.length > 0) {
+    const apps = appIndustries.slice(0, 2).map(shortenIndustry);
+    return apps.length
+      ? `Specialiserad branschlösning för ${apps.join(" och ")}.`
       : "Egen branschlösning på Microsoft Marketplace.";
   }
 
-  if ((p.industry_pitches || []).length > 0 && industries.length) {
-    return `Dokumenterad leveranserfarenhet inom ${industries.join(" och ")}.`;
+  if (pitchIndustries.length > 0 && scope.length) {
+    return `Dokumenterad leveranserfarenhet inom ${scope.join(" och ")}.`;
   }
 
   return null;
 }
+
