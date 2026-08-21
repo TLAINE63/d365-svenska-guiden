@@ -326,6 +326,13 @@ to="/valjdynamics365partner/#alla-partners-rubrik"
                           {p.name}
                         </h3>
 
+                        {(p.ai_summary || p.positioning_statement) && (
+                          <p className="text-[11px] text-muted-foreground leading-snug line-clamp-2 mb-2">
+                            {p.ai_summary || p.positioning_statement}
+                          </p>
+                        )}
+
+
 
                         {product !== "all" ? (
                           <div className="flex flex-wrap gap-1 mb-2">
