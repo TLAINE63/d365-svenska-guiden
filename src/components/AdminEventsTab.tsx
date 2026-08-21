@@ -545,18 +545,6 @@ D365.se`;
                     {sendingEmail ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
                     Skicka via e-post
                   </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="gap-2"
-                    onClick={() => {
-                      setSelectedPartnerIds(new Set([selectedPartner.id]));
-                      setBulkEmailOpen(true);
-                    }}
-                  >
-                    <Mail className="h-4 w-4" />
-                    Skicka event-inbjudan
-                  </Button>
                   <Button 
                     variant="outline" 
                     size="sm" 
