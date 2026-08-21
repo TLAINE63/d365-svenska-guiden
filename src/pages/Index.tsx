@@ -355,9 +355,10 @@ const Index = () => {
               {/* Trust / stats strip – unified grid with equal height and rhythm */}
               <div className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 auto-rows-fr">
                 {[
-                  { n: `${IDENTIFIED_PARTNER_COUNT}`, t: "Identifierade Dynamics 365-partners i Sverige", path: "/alla-d365-partners/" },
-                  { n: `${HERO_INDUSTRIES.length}`, t: "Branscher", path: "/branscher/" },
-                  { n: "8+", t: "Kostnadsfria beslutsverktyg", path: "/kunskapscenter/" },
+                  { n: `${identifiedPartnerCount}`, t: "Identifierade Dynamics 365-partners i Sverige", path: "/alla-d365-partners/" },
+                  { n: `${verifiedPartnerCount}`, t: "Verifierade partnerprofiler", path: "/valjdynamics365partner/" },
+                  { n: `${HERO_INDUSTRIES.length}`, t: "Branscher med verifierade partners", path: "/branscher/" },
+                  { n: `${FREE_TOOL_COUNT}`, t: "Kostnadsfria beslutsverktyg", path: "/kunskapscenter/" },
                   { n: "0 kr", t: "Informationen och rådgivningen på denna sajt är kostnadsfri", path: "/kunskapscenter/" },
                 ].map((s) => (
                   <Link
