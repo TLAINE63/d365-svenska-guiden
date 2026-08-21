@@ -77,8 +77,8 @@ serve(async (req) => {
 
     // Period (dagar) – valbar från admin
     const reqBody = await req.json().catch(() => ({}));
-    const allowedDays = [7, 28, 90, 180];
-    const days = allowedDays.includes(Number(reqBody?.days)) ? Number(reqBody.days) : 90;
+    const allowedDays = [7, 28, 30, 90, 180];
+    const days = allowedDays.includes(Number(reqBody?.days)) ? Number(reqBody.days) : 30;
 
     // Date range: ending 3 days ago (GSC delay)
     const now = new Date();
