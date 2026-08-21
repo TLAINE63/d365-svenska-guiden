@@ -390,7 +390,7 @@ const BusinessCentral = () => {
  <div className="max-w-5xl mx-auto">
  <div className="text-center mb-8 sm:mb-10">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3">
- AI & Agenter för Business Central
+ AI och agenter i Dynamics 365 Business Central
  </h2>
  <p className="text-lg text-muted-foreground">
  Copilot hjälper dig, Agenter arbetar för dig
@@ -504,7 +504,7 @@ const BusinessCentral = () => {
  <div className="container mx-auto px-4 sm:px-6">
  <div className="text-center mb-10 sm:mb-12 md:mb-16">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
- Business Central Essentials vs Premium
+ Dynamics 365 Business Central – Essentials vs Premium
  </h2>
  <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
  Vilken licens passar bäst för ditt företag?
@@ -562,7 +562,7 @@ const BusinessCentral = () => {
  <div className="container mx-auto px-4 sm:px-6">
  <div className="text-center mb-8 sm:mb-10 md:mb-12">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
- Business Central-partners
+ Dynamics 365 Business Central-partners i Sverige
  </h2>
  <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
  Här är ett urval av partners som arbetar med Dynamics 365 Business Central i Sverige. Välj vilken bransch du tillhör och din företagsstorlek (antal anställda), så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
