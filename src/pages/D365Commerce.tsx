@@ -77,7 +77,7 @@ const D365Commerce = () => {
               Commerce passar retail-kedjor, mode- och sportbolag, dagligvaror, detalj­handel och konsument­varumärken med flera butiker, e-handel och behov av kundklubb. Plattformen är särskilt stark för organisationer som vill bort från en lapptäckes­arkitektur med separata system för kassa (NCR, Sitoo), e-handel (Shopify, Magento), kundklubb (Voyado) och ERP – och samla det i en Microsoft-stack med Finance & Supply Chain Management för logistik och redovisning.
             </p>
             <p className="text-base sm:text-lg text-muted-foreground">
-              Värt att veta innan ni går vidare: Commerce är en av de mest omfattande Dynamics 365-apparna och kräver oftast 9–18 månaders implementation för en fullskalig retail-kedja. Det är inte en plug-and-play e-handel utan en hel retail-platform – vilket gör partnervalet kritiskt. Leta efter partners med referenser från liknande retail-segment (mode, sport, dagligvaror, konsument­elektronik) snarare än generella Dynamics 365-konsulter.
+              Värt att veta innan du går vidare: Commerce är en av de mest omfattande Dynamics 365-apparna och kräver oftast 9–18 månaders implementation för en fullskalig retail-kedja. Det är inte en plug-and-play e-handel utan en hel retail-platform – vilket gör partnervalet kritiskt. Leta efter partners med referenser från liknande retail-segment (mode, sport, dagligvaror, konsument­elektronik) snarare än generella Dynamics 365-konsulter.
             </p>
           </div>
         </div>

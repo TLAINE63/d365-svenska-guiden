@@ -151,7 +151,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
  Här är ett urval av partners som arbetar med {applicationFilter} i Sverige.
  {filterMode === "companySize"
- ? " Filtrera på er storlek (antal anställda och omsättning) och geografi för att hitta partners som passar dig bäst."
+ ? " Filtrera på din storlek (antal anställda och omsättning) och geografi för att hitta partners som passar dig bäst."
  : " Filtrera på bransch, storlek (antal anställda och omsättning) och geografi för att hitta partners som passar dig bäst."}
  </p>
  </div>
@@ -179,7 +179,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
 
  {/* Geography Filter */}
  <FilterButtons
- title="Ange var geografiskt ni har er verksamhet och som är relevant för denna lösning (organisation, kontor/personal)"
+ title="Ange var geografiskt du har din verksamhet och som är relevant för denna lösning (organisation, kontor/personal)"
  icon="geography"
  options={geographyFilters.map(g => ({ label: g.label, value: g.value }))}
  selectedValue={selectedGeography}

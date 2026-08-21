@@ -29,13 +29,13 @@ export default function BeslutsmognadTack() {
           className="font-bm-display text-bm-ink leading-tight tracking-tight mb-8"
           style={{ fontSize: "clamp(2.25rem, 5vw, 3.5rem)", fontWeight: 360 }}
         >
-          Er sammanställning <em className="italic text-bm-accent-deep" style={{ fontWeight: 360 }}>är hos oss</em>.
+          Din sammanställning <em className="italic text-bm-accent-deep" style={{ fontWeight: 360 }}>är hos oss</em>.
         </h1>
         <p
           className="font-bm-display italic text-bm-ink-soft leading-relaxed max-w-[560px] mx-auto"
           style={{ fontSize: "1.125rem", fontWeight: 320 }}
         >
-          Vi går igenom era svar manuellt innan vi skickar er den personliga
+          Vi går igenom dina svar manuellt innan vi skickar dig den personliga
           rapporten. Det tar normalt 24–48 timmar och säkerställer att
           kommentarerna är meningsfulla och inte bara genererade.
         </p>
@@ -60,7 +60,7 @@ export default function BeslutsmognadTack() {
             {
               num: "III",
               title: "Andra frågor?",
-              body: "Hör av er direkt.",
+              body: "Hör av dig direkt.",
               to: "mailto:hej@d365.se",
               external: true,
             },

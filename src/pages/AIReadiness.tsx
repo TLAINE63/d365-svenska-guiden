@@ -125,8 +125,8 @@ const systemTrackData: Record<SystemTrack, { label: string; emoji: string; color
     label: "Optimeringsspår",
     emoji: "🟢",
     color: "text-emerald-600",
-    description: "Ni använder redan en plattform med inbyggd AI-kapacitet. Nästa steg är att aktivera och strukturera nyttjandet – inte att byta system, utan att maximera värdet ur er nuvarande investering.",
-    recommendation: "Fokusera på att aktivera Copilot och AI-agenter inom er befintliga Dynamics 365-miljö. Prioritera de funktioner som ger snabbast ROI baserat på er rollanalys.",
+    description: "Du använder redan en plattform med inbyggd AI-kapacitet. Nästa steg är att aktivera och strukturera nyttjandet – inte att byta system, utan att maximera värdet ur din nuvarande investering.",
+    recommendation: "Fokusera på att aktivera Copilot och AI-agenter inom din befintliga Dynamics 365-miljö. Prioritera de funktioner som ger snabbast ROI baserat på din rollanalys.",
   },
   transformation: {
     label: "Transformationsspår",
@@ -140,7 +140,7 @@ const systemTrackData: Record<SystemTrack, { label: string; emoji: string; color
     emoji: "🧭",
     color: "text-purple-600",
     description: "Systemsituationen är oklar, vilket ofta indikerar att en strategisk kartläggning behövs innan AI-initiativ startas. Rätt beslut nu sparar betydande tid och resurser längre fram.",
-    recommendation: "Börja med att kartlägga det nuvarande systemlandskapet och identifiera var AI kan ge störst effekt. En kvalificerad partner kan hjälpa er navigera alternativen.",
+    recommendation: "Börja med att kartlägga det nuvarande systemlandskapet och identifiera var AI kan ge störst effekt. En kvalificerad partner kan hjälpa din navigera alternativen.",
   },
 };
 
@@ -190,7 +190,7 @@ interface FoundationQuestion {
 const foundationQuestions: FoundationQuestion[] = [
   {
     id: "system",
-    question: "Vilket/vilka CRM- och ERP/Affärssystem använder ni idag?",
+    question: "Vilket/vilka CRM- och ERP/Affärssystem använder du idag?",
     index: null,
     multiSelect: true,
     options: [
@@ -203,7 +203,7 @@ const foundationQuestions: FoundationQuestion[] = [
   },
   {
     id: "industry",
-    question: "Vilken bransch verkar ni inom?",
+    question: "Vilken bransch verkar du inom?",
     index: null,
     options: industryOptions.map((i) => ({ label: i, score: 0 })),
   },
@@ -215,7 +215,7 @@ const foundationQuestions: FoundationQuestion[] = [
   },
   {
     id: "repetitive",
-    question: "Hur stor andel av ert dagliga arbete är repetitivt och regelstyrt?",
+    question: "Hur stor andel av ditt dagliga arbete är repetitivt och regelstyrt?",
     index: "automation",
     options: [
       { label: "Under 20%", score: 1 },
@@ -270,10 +270,10 @@ const roleTracks: RoleTrack[] = [
     forecastImprovement: "10–25%",
     riskReduction: "Minskad churn-risk",
     questions: [
-      { id: "sales_forecast", question: "Hur exakt är era säljprognoser (± avvikelse)?", index: "prediction", options: [{ label: "Inom ±10%", score: 1 }, { label: "Inom ±25%", score: 2 }, { label: "Över ±25% eller ingen prognos", score: 3 }] },
+      { id: "sales_forecast", question: "Hur exakt är dina säljprognoser (± avvikelse)?", index: "prediction", options: [{ label: "Inom ±10%", score: 1 }, { label: "Inom ±25%", score: 2 }, { label: "Över ±25% eller ingen prognos", score: 3 }] },
       { id: "sales_admin", question: "Hur mycket tid lägger säljare på CRM-administration per vecka?", index: "automation", options: [{ label: "Under 2 timmar", score: 1 }, { label: "2–5 timmar", score: 2 }, { label: "Över 5 timmar", score: 3 }] },
       { id: "sales_pipeline", question: "Uppdateras pipeline i realtid?", index: "augmentation", options: [{ label: "Ja, automatiserat", score: 1 }, { label: "Delvis, varierar mellan säljare", score: 2 }, { label: "Nej, sporadiskt", score: 3 }] },
-      { id: "sales_churn", question: "Kan ni identifiera vilka affärer som sannolikt faller bort?", index: "prediction", options: [{ label: "Ja, med datadrivna varningar", score: 1 }, { label: "Delvis, erfarenhetsbaserat", score: 2 }, { label: "Nej, det överraskar oss", score: 3 }] },
+      { id: "sales_churn", question: "Kan du identifiera vilka affärer som sannolikt faller bort?", index: "prediction", options: [{ label: "Ja, med datadrivna varningar", score: 1 }, { label: "Delvis, erfarenhetsbaserat", score: 2 }, { label: "Nej, det överraskar oss", score: 3 }] },
       { id: "sales_nba", question: "Får säljare automatiska rekommendationer om nästa steg?", index: "augmentation", options: [{ label: "Ja, AI-drivna förslag", score: 1 }, { label: "Viss vägledning via playbooks", score: 2 }, { label: "Nej, helt manuellt", score: 3 }] },
     ],
     aiResults: [
@@ -328,11 +328,11 @@ const roleTracks: RoleTrack[] = [
     forecastImprovement: "N/A",
     riskReduction: "Minskad säkerhetsrisk",
     questions: [
-      { id: "it_policy", question: "Har ni definierat en AI-policy?", index: "governance", options: [{ label: "Ja, formaliserad och kommunicerad", score: 1 }, { label: "Under utveckling", score: 2 }, { label: "Nej", score: 3 }] },
+      { id: "it_policy", question: "Har du definierat en AI-policy?", index: "governance", options: [{ label: "Ja, formaliserad och kommunicerad", score: 1 }, { label: "Under utveckling", score: 2 }, { label: "Nej", score: 3 }] },
       { id: "it_logging", question: "Loggas AI-genererade beslut och rekommendationer?", index: "governance", options: [{ label: "Ja, systematiskt", score: 1 }, { label: "Delvis", score: 2 }, { label: "Nej", score: 3 }] },
-      { id: "it_classified", question: "Är er data klassificerad (känslig, intern, publik)?", index: "augmentation", options: [{ label: "Ja, fullständig klassificering", score: 1 }, { label: "Delvis", score: 2 }, { label: "Nej", score: 3 }] },
+      { id: "it_classified", question: "Är din data klassificerad (känslig, intern, publik)?", index: "augmentation", options: [{ label: "Ja, fullständig klassificering", score: 1 }, { label: "Delvis", score: 2 }, { label: "Nej", score: 3 }] },
       { id: "it_platform", question: "Finns en central dataplattform?", index: "automation", options: [{ label: "Ja, med enhetlig datamodell", score: 1 }, { label: "Delvis centraliserad", score: 2 }, { label: "Silobaserad", score: 3 }] },
-      { id: "it_sandbox", question: "Har ni testmiljö för AI-initiativ?", index: "automation", options: [{ label: "Ja, dedikerad sandbox", score: 1 }, { label: "Delvis", score: 2 }, { label: "Nej", score: 3 }] },
+      { id: "it_sandbox", question: "Har du testmiljö för AI-initiativ?", index: "automation", options: [{ label: "Ja, dedikerad sandbox", score: 1 }, { label: "Delvis", score: 2 }, { label: "Nej", score: 3 }] },
     ],
     aiResults: [
       { label: "Responsible AI Readiness", labelEn: "Responsible AI", description: "Strukturerat ramverk för ansvarsfull AI-användning", d365Context: "Microsoft Responsible AI-ramverket är integrerat i plattformen" },
@@ -414,9 +414,9 @@ const roleTracks: RoleTrack[] = [
     forecastImprovement: "20–40%",
     riskReduction: "Minskad lagerbindning",
     questions: [
-      { id: "log_forecast_err", question: "Hur stor är avvikelsen i era efterfrågeprognoser?", index: "prediction", options: [{ label: "Under 10%", score: 1 }, { label: "10–25%", score: 2 }, { label: "Över 25% eller ingen prognos", score: 3 }] },
+      { id: "log_forecast_err", question: "Hur stor är avvikelsen i dina efterfrågeprognoser?", index: "prediction", options: [{ label: "Under 10%", score: 1 }, { label: "10–25%", score: 2 }, { label: "Över 25% eller ingen prognos", score: 3 }] },
       { id: "log_overstock", question: "Uppstår ofta överlager?", index: "automation", options: [{ label: "Sällan, proaktiv styrning", score: 1 }, { label: "Ibland", score: 2 }, { label: "Regelbundet", score: 3 }] },
-      { id: "log_late", question: "Hur ofta drabbas ni av sena leveranser?", index: "prediction", options: [{ label: "Under 5% av leveranser", score: 1 }, { label: "5–15%", score: 2 }, { label: "Över 15%", score: 3 }] },
+      { id: "log_late", question: "Hur ofta drabbas du av sena leveranser?", index: "prediction", options: [{ label: "Under 5% av leveranser", score: 1 }, { label: "5–15%", score: 2 }, { label: "Över 15%", score: 3 }] },
       { id: "log_anomaly", question: "Hanteras avvikelser i leveranskedjan manuellt?", index: "augmentation", options: [{ label: "Nej, automatiserade larm", score: 1 }, { label: "Delvis", score: 2 }, { label: "Ja, helt manuellt", score: 3 }] },
       { id: "log_history", question: "Finns strukturerad historisk efterfrågedata (2+ år)?", index: "prediction", options: [{ label: "Ja, kvalitetssäkrad", score: 1 }, { label: "Ja, men ofullständig", score: 2 }, { label: "Begränsat", score: 3 }] },
     ],
@@ -443,7 +443,7 @@ const roleTracks: RoleTrack[] = [
     forecastImprovement: "15–30%",
     riskReduction: "Minskad kassation och stillestånd",
     questions: [
-      { id: "prod_downtime", question: "Hur ofta drabbas ni av oplanerade produktionsstopp?", index: "prediction", options: [{ label: "Sällan, prediktivt underhåll", score: 1 }, { label: "Ibland, planerat underhåll", score: 2 }, { label: "Regelbundet, reaktivt", score: 3 }] },
+      { id: "prod_downtime", question: "Hur ofta drabbas du av oplanerade produktionsstopp?", index: "prediction", options: [{ label: "Sällan, prediktivt underhåll", score: 1 }, { label: "Ibland, planerat underhåll", score: 2 }, { label: "Regelbundet, reaktivt", score: 3 }] },
       { id: "prod_quality", question: "Hur identifieras kvalitetsavvikelser i produktionen?", index: "augmentation", options: [{ label: "Automatiskt via sensorer/system", score: 1 }, { label: "Vid stickprov och slutkontroll", score: 2 }, { label: "Ofta först hos kund", score: 3 }] },
       { id: "prod_planning", question: "Hur hanteras produktionsplanering och sekvensering?", index: "automation", options: [{ label: "Automatiserat med optimering", score: 1 }, { label: "Delvis manuellt med systemstöd", score: 2 }, { label: "Helt manuellt (Excel/whiteboard)", score: 3 }] },
       { id: "prod_oee", question: "Mäts OEE (Overall Equipment Effectiveness) systematiskt?", index: "augmentation", options: [{ label: "Ja, i realtid med dashboards", score: 1 }, { label: "Ja, men manuellt/periodvis", score: 2 }, { label: "Nej", score: 3 }] },
@@ -684,7 +684,7 @@ function getPartnerSuggestions(
     suggestions.push({
       icon: "🧭",
       type: "Strategisk rådgivare",
-      description: "Partner som kan hjälpa er kartlägga nuläge och bygga en stabil grund innan AI-satsning",
+      description: "Partner som kan hjälpa din kartlägga nuläge och bygga en stabil grund innan AI-satsning",
     });
   } else if (profile === "scaling") {
     suggestions.push({
@@ -796,7 +796,7 @@ function generateRoadmap(role: RoleId, profile: ProfileId, system: string | stri
   const rm = roadmaps[role][profile];
   const d365App = d365RoleApp[role];
   const footnote = hasDynamics
-    ? `Dessa steg stöds av AI-funktionalitet i er befintliga ${d365App}-miljö.`
+    ? `Dessa steg stöds av AI-funktionalitet i din befintliga ${d365App}-miljö.`
     : `Dessa steg stöds av AI-funktionalitet i moderna affärssystem såsom ${d365App}.`;
 
   return {
@@ -1180,7 +1180,7 @@ const AIReadiness = () => {
     doc.setFontSize(14);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(slate400.r, slate400.g, slate400.b);
-    doc.text("Hur stor effekt kan AI skapa i er roll?", lm, 112);
+    doc.text("Hur stor effekt kan AI skapa i din roll?", lm, 112);
 
     // Summary info cards
     const cardY = 140;
@@ -1309,7 +1309,7 @@ const AIReadiness = () => {
     else insights.push("Automation delvis pa plats – fokusera pa avancerade AI-anvandningsfall");
     if (scores.prediction >= 55) insights.push("Tydlig potential for prediktiv AI – historisk data kan ge battre prognoser");
     else insights.push("Prediktiv kapacitet finns – vidareutveckla med mer strukturerad data");
-    if (scores.augmentation >= 55) insights.push("AI kan markbart forbattra beslutsstod och insikter i er roll");
+    if (scores.augmentation >= 55) insights.push("AI kan markbart forbattra beslutsstod och insikter i din roll");
     else insights.push("Beslutsstod ar redan relativt starkt – overväg avancerad AI-analys");
 
     insights.forEach((insight) => {
@@ -1328,7 +1328,7 @@ const AIReadiness = () => {
     const tc = trackColors[selectedRole!];
     newPage(`AI-potential inom ${track!.label}`, tc);
 
-    addText("Baserat pa era svar finns foljande AI-mojligheter:");
+    addText("Baserat pa dina svar finns foljande AI-mojligheter:");
     y += 3;
 
     track!.aiResults.forEach((ar, i) => {
@@ -1602,7 +1602,7 @@ const AIReadiness = () => {
                 Är er verksamhet redo för AI – egentligen?
               </h1>
               <p className="text-lg text-white/80 mb-3">
-                En diagnostik som visar var data, processer och organisation faktiskt står innan ni investerar i Copilot och agenter
+                En diagnostik som visar var data, processer och organisation faktiskt står innan du investerar i Copilot och agenter
               </p>
               <p className="text-white/70 mb-6 max-w-lg mx-auto">
                 Denna analys mäter tre AI-dimensioner i er verksamhet och ger konkreta svar på:
@@ -1941,11 +1941,11 @@ const AIReadiness = () => {
                 </CollapsibleTrigger>
                 <CollapsibleContent>
                   <div className="mt-3 p-3 rounded-lg bg-muted/40 border border-border/50 text-xs text-muted-foreground space-y-2">
-                    <p>Beräkningen baseras på era svar och ger en <strong>indikativ uppskattning</strong> – inte en exakt prognos.</p>
+                    <p>Beräkningen baseras på dina svar och ger en <strong>indikativ uppskattning</strong> – inte en exakt prognos.</p>
                     <ul className="list-disc pl-4 space-y-1">
-                      <li><strong>Tre AI-dimensioner</strong> poängsätts (Automation, Augmentation, Prediktion) baserat på era svar om nuvarande processer och verktyg.</li>
-                      <li><strong>Tidsbesparingen</strong> interpoleras inom ett branschbaserat spann för er valda roll, viktat mot ert AI-mognadsvärde.</li>
-                      <li><strong>Årlig besparing</strong> = uppskattad teamstorlek × genomsnittlig personalkostnad × tidsbesparing. Teamstorlek och kostnad baseras på branschgenomsnitt för er organisationsstorlek.</li>
+                      <li><strong>Tre AI-dimensioner</strong> poängsätts (Automation, Augmentation, Prediktion) baserat på dina svar om nuvarande processer och verktyg.</li>
+                      <li><strong>Tidsbesparingen</strong> interpoleras inom ett branschbaserat spann för din valda roll, viktat mot ditt AI-mognadsvärde.</li>
+                      <li><strong>Årlig besparing</strong> = uppskattad teamstorlek × genomsnittlig personalkostnad × tidsbesparing. Teamstorlek och kostnad baseras på branschgenomsnitt för din organisationsstorlek.</li>
                       {roi.forecastImprovePct > 0 && (
                         <li><strong>Prognosprecision</strong> beräknas på samma sätt inom rollens definierade förbättringsspann.</li>
                       )}
@@ -1963,7 +1963,7 @@ const AIReadiness = () => {
               <h2 className="font-bold text-white text-sm tracking-wide">⚡ AI-möjlighet inom {track!.label}</h2>
             </div>
             <div className="p-5 bg-background space-y-1">
-              <p className="text-sm text-muted-foreground mb-4">Baserat på era svar finns potential inom:</p>
+              <p className="text-sm text-muted-foreground mb-4">Baserat på dina svar finns potential inom:</p>
               {track!.aiResults.map((ar, i) => {
                 const effect = getEffectLevel(scores, i);
                 const badge = getEffectBadge(effect);

@@ -276,7 +276,7 @@ const QuickLeadForm = ({
                 {submitting ? "Skickar …" : (destination.label ?? defaultLabel)}
               </Button>
               <p className="text-xs text-muted-foreground">
-                Vi använder uppgifterna för att hjälpa er vidare – aldrig för massutskick.
+                Vi använder uppgifterna för att hjälpa dig vidare – aldrig för massutskick.
               </p>
             </div>
           </form>

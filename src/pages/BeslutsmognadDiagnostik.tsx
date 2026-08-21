@@ -223,7 +223,7 @@ const Likert = ({
       </span>
     </div>
     <p className="text-center font-bm-display text-bm-ink-soft text-base mt-6">
-      Välj det som ligger närmast sanningen – ni behöver inte tveka.
+      Välj det som ligger närmast sanningen – du behöver inte tveka.
     </p>
   </div>
 );
@@ -476,7 +476,7 @@ export default function BeslutsmognadDiagnostik() {
 
     } catch (e) {
       setErrorMsg(
-        "Något gick fel. Försök igen, eller hör av er till hej@d365.se så löser vi det manuellt."
+        "Något gick fel. Försök igen, eller hör av dig till hej@d365.se så löser vi det manuellt."
       );
       setSubmitting(false);
     }
@@ -511,7 +511,7 @@ export default function BeslutsmognadDiagnostik() {
               className="font-bm-display italic text-bm-ink mb-10 leading-snug"
               style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)", fontWeight: 360 }}
             >
-              Var ska vi skicka er rapport?
+              Var ska vi skicka din rapport?
             </h2>
 
             <div className="flex flex-col gap-7">
@@ -539,13 +539,13 @@ export default function BeslutsmognadDiagnostik() {
 
             <div className="mt-10">
               <p className="font-bm-display italic text-bm-ink-muted text-xs uppercase tracking-wider mb-3">
-                Vad är er enskilt största utmaning på 12–18 månaders sikt?
+                Vad är din enskilt största utmaning på 12–18 månaders sikt?
               </p>
               <textarea
                 value={freeText}
                 onChange={(e) => setFreeText(e.target.value)}
                 rows={3}
-                placeholder="Skriv kort om ni vill – det hjälper oss att förbereda er rapport."
+                placeholder="Skriv kort om du vill – det hjälper oss att förbereda din rapport."
                 className="w-full bg-transparent border-0 border-b border-bm-rule-strong py-3 font-bm-display text-bm-ink placeholder:italic placeholder:text-bm-ink-muted focus:outline-none focus:border-bm-accent-deep resize-none"
                 style={{ fontWeight: 320, fontSize: "1.05rem" }}
               />
@@ -553,7 +553,7 @@ export default function BeslutsmognadDiagnostik() {
 
             <div className="mt-10">
               <p className="font-bm-display italic text-bm-ink-muted text-xs uppercase tracking-wider mb-4">
-                Hur vill ni få ut resultatet?
+                Hur vill du få ut resultatet?
               </p>
               <div className="flex flex-col gap-3">
                 {["Rapport via mail", "30 min genomgång med rådgivare", "Workshop med beslutsgruppen"].map((opt) => {

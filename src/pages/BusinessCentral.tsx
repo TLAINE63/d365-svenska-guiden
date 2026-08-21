@@ -258,7 +258,7 @@ const BusinessCentral = () => {
   icon={BusinessCentralIcon}
   eyebrow="Business Central"
   title="Microsoft Dynamics 365 Business Central – ERP-pris, funktioner och rätt partner i Sverige"
-  subhead="Microsoft levererar det kraftfulla affärssystemet. Partnern bygger processerna, väljer rätt branschspecifika tillägg och designar integrationerna mot era befintliga system. Det är nyckeln till framgångsrika BC-projekt. Här jämför ni partners som faktiskt levererat Business Central i er bransch."
+  subhead="Microsoft levererar det kraftfulla affärssystemet. Partnern bygger processerna, väljer rätt branschspecifika tillägg och designar integrationerna mot dina befintliga system. Det är nyckeln till framgångsrika BC-projekt. Här jämför du partners som faktiskt levererat Business Central i din bransch."
   primary={{
     label: "Jämför Business Central-partners",
     onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
@@ -280,7 +280,7 @@ const BusinessCentral = () => {
  <ShortAnswer title="Vad är Business Central som ERP-system">
  <p>Dynamics 365 Business Central är Microsofts moderna molnbaserade ERP-system (affärssystem) för mindre och medelstora företag som vill samla ekonomi, inköp, lager, försäljning och produktion i en plattform – i stället för att hålla ihop en flora av separata system som inte pratar med varandra.</p>
  <p>Inbyggd AI via Microsoft Copilot och nya autonoma agenter automatiserar repetitiva uppgifter direkt i systemet. Det kan handla om orderregistrering, produktbeskrivningar, försäljnings- och kundtjänstflöden eller leverantörsavstämningar – moment som tidigare krävt manuell handpåläggning kan nu hanteras med stöd av AI inifrån affärssystemet.</p>
- <p>Genom Microsoft Marketplace finns dessutom över 7 000 certifierade tilläggsappar som ger djup branschanpassning utan kostsam specialutveckling – oavsett om ni är inom tillverkning, handel, tjänster eller bygg. Det gör att lösningen kan formas efter er verksamhet snarare än tvärtom.</p>
+ <p>Genom Microsoft Marketplace finns dessutom över 7 000 certifierade tilläggsappar som ger djup branschanpassning utan kostsam specialutveckling – oavsett om du är inom tillverkning, handel, tjänster eller bygg. Det gör att lösningen kan formas efter din verksamhet snarare än tvärtom.</p>
  <p>Business Central är tillgängligt i över 160 länder med lokaliseringar från Microsoft och partners, vilket gör det till ett tryggt val även för bolag med internationella ambitioner eller dotterbolag i flera länder.</p>
  </ShortAnswer>
 
@@ -326,12 +326,12 @@ const BusinessCentral = () => {
     ligger i det övre spannet.
    </p>
    <p className="text-sm text-muted-foreground mt-3">
-    Införandet görs alltid av en Microsoft-certifierad partner. På d365.se jämför ni svenska Business
+    Införandet görs alltid av en Microsoft-certifierad partner. På d365.se jämför du svenska Business
     Central-partners på dokumenterad branscherfarenhet, kundstorlek och kontorsorter – och ser vilka som
-    har levererat i just er bransch innan ni tar kontakt.
+    har levererat i just din bransch innan du tar kontakt.
    </p>
    <p className="text-sm text-muted-foreground mt-3">
-    Vill ni ställa Business Central mot ett större ERP-system? Läs{" "}
+    Vill du ställa Business Central mot ett större ERP-system? Läs{" "}
     <Link to="/erp/" className="text-primary underline underline-offset-2">
      jämförelsen mellan Business Central och Finance &amp; Supply Chain
     </Link>{" "}
@@ -355,7 +355,7 @@ const BusinessCentral = () => {
            Matchningstest
          </p>
          <h2 className="text-xl sm:text-2xl md:text-[28px] font-semibold text-white leading-snug mb-2">
-           Matchar Business Central era behov?
+           Matchar Business Central dina behov?
          </h2>
          <p className="text-white/75 text-sm sm:text-base max-w-2xl leading-relaxed">
            20–25 frågor – först generella, sedan branschspecifika. Resultatet visar vad som ingår i BC i
@@ -595,7 +595,7 @@ const BusinessCentral = () => {
 
  {/* Geography Filter */}
  <FilterButtons
- title="Ange var geografiskt ni har er verksamhet och som är relevant för denna lösning (organisation, kontor/personal)"
+ title="Ange var geografiskt du har din verksamhet och som är relevant för denna lösning (organisation, kontor/personal)"
  icon="geography"
  options={geographyFilters.map(g => ({ label: g.label, value: g.value }))}
  selectedValue={selectedGeography}

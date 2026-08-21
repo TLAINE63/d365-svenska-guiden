@@ -536,7 +536,7 @@ const Agents = () => {
               Redo att utforska Microsoft Agenter?
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Kontakta oss för att diskutera hur autonoma AI-agenter kan transformera era affärsprocesser
+              Kontakta oss för att diskutera hur autonoma AI-agenter kan transformera dina affärsprocesser
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <ContactFormDialog>

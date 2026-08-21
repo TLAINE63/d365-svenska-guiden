@@ -62,7 +62,7 @@ const partnerFaqsRaw = [
  },
  {
  question: "Har partnern erfarenhet av vår bransch?",
- answer: "Välj en partner med erfarenhet från liknande projekt och som förstår era specifika krav inom er bransch. Många partners har branschspecifika lösningar och acceleratorer som kortar implementationstiden. Be alltid om 2–3 referensuppdrag från liknande bolag i er bransch."
+ answer: "Välj en partner med erfarenhet från liknande projekt och som förstår dina specifika krav inom din bransch. Många partners har branschspecifika lösningar och acceleratorer som kortar implementationstiden. Be alltid om 2–3 referensuppdrag från liknande bolag i din bransch."
  },
  {
  question: "Hur ser en bra Dynamics 365-implementationsmetodik ut?",
@@ -503,7 +503,7 @@ const ValjPartner = () => {
  />
  
   <ProductHero
-  title="Hitta Dynamics 365-partners som matchar era behov"
+  title="Hitta Dynamics 365-partners som matchar dina behov"
   subhead="Använd filtret som en första shortlist, inte ett facit. Rätt partner handlar om applikation, bransch, metodik, team, kemi och ansvar efter go-live."
   primary={{ label: "Guidad väg till rätt partner", onClick: () => setGuideOpen(true), icon: ArrowRight }}
   secondary={{ label: "Jämför tre partners sida vid sida", to: "/jamfor-partners/", icon: ArrowLeftRight }}
@@ -511,7 +511,7 @@ const ValjPartner = () => {
   />
 
   <ShortAnswer title="Vad är en Dynamics 365-partner">
- Rätt Dynamics 365-partner har bevisad erfarenhet av respektive produktområde (Business Central, Finance & Supply Chain, Sales, Customer Service m.fl.), er bransch och en storlek som matchar er. På d365.se kan ni jämföra Microsoft-partners för er bransch, geografi och AI-mognad – och få rekommendationer via vår köparsidiga partnerguide.
+ Rätt Dynamics 365-partner har bevisad erfarenhet av respektive produktområde (Business Central, Finance & Supply Chain, Sales, Customer Service m.fl.), din bransch och en storlek som matchar dig. På d365.se kan du jämföra Microsoft-partners för din bransch, geografi och AI-mognad – och få rekommendationer via vår köparsidiga partnerguide.
  </ShortAnswer>
 
 
@@ -528,7 +528,7 @@ const ValjPartner = () => {
  En bra partner kan vara skillnaden mellan ett framgångsrikt projekt och ett som kostar mer tid och pengar än planerat.
  </p>
  <p className="text-base sm:text-lg text-muted-foreground px-2">
- Här är fem viktiga frågor du (eller din organisation) bör ställa er själva inför valet av implementationspartner för Dynamics 365
+ Här är fem viktiga frågor du (eller din organisation) bör ställa din själva inför valet av implementationspartner för Dynamics 365
  </p>
  </div>
 
@@ -646,7 +646,7 @@ const ValjPartner = () => {
 
  <div className="text-center md:text-left flex-1">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
- Så hittar ni 2–4 relevanta partners att kontakta
+ Så hittar du 2–4 relevanta partners att kontakta
  </h2>
  <p className="text-base sm:text-lg text-muted-foreground">
  Använd filtreringen nedan för att ta fram en första shortlist av Microsoft Dynamics 365-partners som arbetar i Sverige och som har kontor på platserna kartan visar. Tänk på att rätt partner handlar om mer än bara filter – kompetens inom applikationsområdet, branschförståelse, metodik, team och kemi väger minst lika tungt.
@@ -687,7 +687,7 @@ const ValjPartner = () => {
 
  {/* Geography Filter */}
  <FilterButtons
- title="Ange var geografiskt ni har er verksamhet och som är relevant för denna lösning (organisation, kontor/personal)"
+ title="Ange var geografiskt du har din verksamhet och som är relevant för denna lösning (organisation, kontor/personal)"
  icon="geography"
  options={geographyFilters.map(f => ({ label: f.label, value: f.value }))}
  selectedValue={selectedGeography}
@@ -919,10 +919,10 @@ const ValjPartner = () => {
           Sida vid sida
         </div>
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
-          Jämför upp till tre partners innan ni kontaktar dem
+          Jämför upp till tre partners innan du kontaktar dem
         </h2>
         <p className="text-base sm:text-lg text-white/70 mb-8 max-w-2xl mx-auto">
-          Välj två till tre partners i listan ovan och få en jämförelsevy över produktområden, branscher, geografisk närvaro, storlek och AI-mognad – så att ni kan gå vidare med rätt kortlista.
+          Välj två till tre partners i listan ovan och få en jämförelsevy över produktområden, branscher, geografisk närvaro, storlek och AI-mognad – så att du kan gå vidare med rätt kortlista.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button
@@ -1047,7 +1047,7 @@ const ValjPartner = () => {
  </div>
  </section>
 
- <RelatedPages heading="Skapa underlag innan ni kontaktar partners" pages={valjPartnerRelatedPages} />
+ <RelatedPages heading="Skapa underlag innan du kontaktar partners" pages={valjPartnerRelatedPages} />
  <Footer />
  </div>
  );

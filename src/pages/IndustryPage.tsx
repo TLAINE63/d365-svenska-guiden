@@ -350,7 +350,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  <Link to="/businesscentral/" className="text-primary hover:underline font-medium">
  Business Central som ERP-system
  </Link>{" "}
- – läs om pris, funktioner och implementationstid innan ni jämför partners nedan.
+ – läs om pris, funktioner och implementationstid innan du jämför partners nedan.
  </p>
  <a
  href="#partners"

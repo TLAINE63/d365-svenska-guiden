@@ -33,7 +33,7 @@ const blocks = [
     key: "partnerProof" as const,
     icon: ShieldCheck,
     title: "Vad ska partnern bevisa?",
-    description: "Krav att ställa på partnern innan ni skriver på.",
+    description: "Krav att ställa på partnern innan du skriver på.",
   },
 ];
 

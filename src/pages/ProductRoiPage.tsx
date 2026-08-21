@@ -51,7 +51,7 @@ export default function ProductRoiPage({ productKey }: Props) {
   ];
 
   const title = `${meta.productShort} ROI/TCO-kalkylator – payback & 5-årig totalkostnad`;
-  const description = `Indikativ ROI- och TCO-kalkyl för ${meta.productName}. Räkna licens, implementation, payback och 5-årig totalkostnad utifrån era nyckeltal.`;
+  const description = `Indikativ ROI- och TCO-kalkyl för ${meta.productName}. Räkna licens, implementation, payback och 5-årig totalkostnad utifrån dina nyckeltal.`;
 
   return (
     <div className="min-h-screen bg-background">
@@ -59,7 +59,7 @@ export default function ProductRoiPage({ productKey }: Props) {
       <BreadcrumbSchema items={breadcrumbs} />
       <SoftwareApplicationSchema
         name={`${meta.productShort} ROI/TCO-kalkylator`}
-        description={`Räkna fram payback, 5-årig totalkostnad och årlig nytta för ${meta.productName} baserat på era förutsättningar.`}
+        description={`Räkna fram payback, 5-årig totalkostnad och årlig nytta för ${meta.productName} baserat på dina förutsättningar.`}
         url={fullUrl}
       />
       <Navbar />
@@ -82,7 +82,7 @@ export default function ProductRoiPage({ productKey }: Props) {
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground max-w-3xl">
               Få en indikativ uppskattning av investering, årlig nytta, payback och 5-årig
-              TCO baserat på era egna nyckeltal – användare, omsättning, bransch och
+              TCO baserat på dina egna nyckeltal – användare, omsättning, bransch och
               komplexitet.
             </p>
             <p className="text-xs text-muted-foreground mt-4 max-w-3xl italic">
@@ -143,7 +143,7 @@ export default function ProductRoiPage({ productKey }: Props) {
                   (projektet pågår). Från år 2 ≈ {(cfg.supportPctYearly * 100).toFixed(0)} % per år.
                 </Assumption>
                 <Assumption title="Årlig nytta">
-                  Nyttan summeras från de drivare ni bockat i. Varje drivare har en grundnivå
+                  Nyttan summeras från de drivare du bockat i. Varje drivare har en grundnivå
                   (fast belopp eller andel av omsättning) som skalas med antal användare
                   (baseline 25 användare = 1,0×, sublinjärt). Summan justeras med andelen manuella
                   processer (0,5×–1,5×) och komplexitetsfaktor (0,6 / 1,0 / 1,3). Integrationer

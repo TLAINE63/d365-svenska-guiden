@@ -213,13 +213,13 @@ const RequirementsSpec = () => {
               En kravspec som gör offerter jämförbara
             </h1>
             <p className="text-white/80 max-w-2xl mx-auto">
-              Fånga era verksamhetskrav systemneutralt – så att partnernas svar går att läsa sida vid sida. AI-berikad med branschspecifika krav och KPI:er anpassade efter bransch och storlek.
+              Fånga dina verksamhetskrav systemneutralt – så att partnernas svar går att läsa sida vid sida. AI-berikad med branschspecifika krav och KPI:er anpassade efter bransch och storlek.
             </p>
           </div>
         </div>
 
       <ShortAnswer title="Vad är en kravspecifikation">
-        En ERP-kravspecifikation är ett strukturerat dokument där ni beskriver verksamhetens behov, processer och KPI:er – innan ni väljer system och partner. Vår generator skapar ett systemneutralt underlag med branschspecifika krav som AI-berikar listan, så ni kan jämföra Business Central, Finance & Supply Chain Management och andra alternativ på lika villkor.
+        En ERP-kravspecifikation är ett strukturerat dokument där du beskriver verksamhetens behov, processer och KPI:er – innan du väljer system och partner. Vår generator skapar ett systemneutralt underlag med branschspecifika krav som AI-berikar listan, så du kan jämföra Business Central, Finance & Supply Chain Management och andra alternativ på lika villkor.
       </ShortAnswer>
 
         <div className="container mx-auto px-4 max-w-4xl">

@@ -67,7 +67,7 @@ const eventsFaqs = [
  },
  {
  question: "Kan man få hjälp att välja rätt event eller partner?",
- answer: "Ja. Vi på d365.se hjälper köparsidigt och kostnadsfritt – beskriv kort vad ni utvärderar så tipsar vi om relevanta event och 2–3 partners som matchar er bransch och storlek. Använd kontaktformuläret eller starta med vår partnerguide så vägleder vi er vidare utan säljpåverkan."
+ answer: "Ja. Vi på d365.se hjälper köparsidigt och kostnadsfritt – beskriv kort vad du utvärderar så tipsar vi om relevanta event och 2–3 partners som matchar din bransch och storlek. Använd kontaktformuläret eller starta med vår partnerguide så vägleder vi dig vidare utan säljpåverkan."
  },
  {
  question: "Var hittar jag Microsoft Dynamics 365 events och webinars i Sverige?",

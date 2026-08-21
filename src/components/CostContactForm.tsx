@@ -36,16 +36,16 @@ export default function CostContactForm() {
       <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
         <div className="text-center mb-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
-            Få en kostnadsbild för er situation
+            Få en kostnadsbild för din situation
           </h2>
           <p className="text-muted-foreground">
-            Berätta vilken produkt ni tittar på så återkommer vi med realistiska
-            kostnadsintervall och förslag på partners som matchar ert behov.
+            Berätta vilken produkt du tittar på så återkommer vi med realistiska
+            kostnadsintervall och förslag på partners som matchar ditt behov.
           </p>
         </div>
 
         <div className="mb-4">
-          <Label htmlFor="cost-product">Vilken produkt är ni intresserade av?</Label>
+          <Label htmlFor="cost-product">Vilken produkt är du intresserad av?</Label>
           <Select value={product} onValueChange={setProduct}>
             <SelectTrigger id="cost-product" className="mt-1.5">
               <SelectValue placeholder="Välj produkt" />

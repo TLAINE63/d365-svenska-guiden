@@ -49,8 +49,8 @@ const D365ProjectOperations = () => {
         icon={ProjectOperationsIcon}
         eyebrow="Dynamics 365 Project Operations"
         title="Project Operations."
-        titleAccent="Projekt, resurser och ekonomi i ett sammanhang – när partnern kan er leveransmodell."
-        subhead="Project Operations är inte ett verktyg du installerar och kör igång – det är en spegling av hur ert tjänsteföretag säljer, bemannar och fakturerar projekt. Skillnaden mellan ett system som verkligen lyfter marginalen och ett som bara ersätter Excel ligger i partnervalet: en partner som förstår tid & utlägg, resursoptimering, work-in-progress, milstolps­fakturering och hur det hänger ihop med er ERP är guld värd."
+        titleAccent="Projekt, resurser och ekonomi i ett sammanhang – när partnern kan din leveransmodell."
+        subhead="Project Operations är inte ett verktyg du installerar och kör igång – det är en spegling av hur ditt tjänsteföretag säljer, bemannar och fakturerar projekt. Skillnaden mellan ett system som verkligen lyfter marginalen och ett som bara ersätter Excel ligger i partnervalet: en partner som förstår tid & utlägg, resursoptimering, work-in-progress, milstolps­fakturering och hur det hänger ihop med din ERP är guld värd."
         primary={{
           label: "Jämför Project Operations-partners",
           onClick: () => document.getElementById("partners")?.scrollIntoView({ behavior: "smooth" }),
@@ -62,7 +62,7 @@ const D365ProjectOperations = () => {
         <p>Dynamics 365 Project Operations är Microsofts samlade projektmodul för konsult-, ingenjörs- och tjänsteföretag – en plattform som binder ihop sälj, leverans och ekonomi i ett enda flöde från första offert till slutfaktura.</p>
         <p>Affären kvalificeras i Dynamics 365 Sales, planeras med resurskapacitet och kompetensmatchning, levereras genom uppgifter, tidrapporter och utlägg i Teams och mobilen, och faktureras via fast pris, löpande räkning eller milstolpar med full koppling till projektekonomi, work-in-progress och intäktsavräkning.</p>
         <p>Inbyggda funktioner för portföljstyrning, prognos, marginal­uppföljning per projekt och utilization av konsulter ger ledningen realtidsbild av lönsamheten – medan Copilot och AI-agenter hjälper projektledare att sammanfatta statusrapporter, identifiera risk och föreslå nästa åtgärd.</p>
-        <p>Project Operations är fristående men blomstrar när det integreras djupt med Finance & Supply Chain Management eller Business Central för redovisning, Sales för CRM och Customer Service för support efter projektet. Precis som med övriga D365-appar avgör partnerns förmåga att modellera er specifika leveransmodell hur stor effekten faktiskt blir.</p>
+        <p>Project Operations är fristående men blomstrar när det integreras djupt med Finance & Supply Chain Management eller Business Central för redovisning, Sales för CRM och Customer Service för support efter projektet. Precis som med övriga D365-appar avgör partnerns förmåga att modellera din specifika leveransmodell hur stor effekten faktiskt blir.</p>
       </ShortAnswer>
 
       <section className="py-8 sm:py-12 md:py-16 bg-background">
@@ -97,7 +97,7 @@ const D365ProjectOperations = () => {
       <section className="py-8 sm:py-12 md:py-16 bg-finance">
         <div className="container mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
-            Redo att professionalisera er projektleverans?
+            Redo att professionalisera din projektleverans?
           </h2>
           <p className="text-base sm:text-lg text-white/90 max-w-2xl mx-auto mb-6 sm:mb-8">
             Hitta din bransch och en partner som verkligen kan Project Operations.

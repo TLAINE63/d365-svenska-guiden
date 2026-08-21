@@ -508,7 +508,7 @@ export default function PartnerProductTabs({
             {filterBadges.length > 0 && (
               <section className="rounded-lg border border-border bg-card/60 p-5 sm:p-6">
                 <h2 className="text-lg sm:text-xl font-bold text-foreground tracking-tight mb-4">
-                  Denna partner matchar er profil:
+                  Denna partner matchar din profil:
                 </h2>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">

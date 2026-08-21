@@ -51,7 +51,7 @@ export const ISV_COMPARISONS: IsvComparison[] = [
     slug: "peppol720-vs-continia-edocs",
     title: "Peppol720 vs Continia e-dokument",
     intro:
-      "Båda hanterar Peppol och e-faktura. Peppol720 är fokuserat på själva Peppol-flödet. Continia e-dokument är naturligt om ni redan kör Continias svit.",
+      "Båda hanterar Peppol och e-faktura. Peppol720 är fokuserat på själva Peppol-flödet. Continia e-dokument är naturligt om du redan kör Continias svit.",
     solutionIds: ["peppol720", "continia-edocs"],
     category: "EDI / e-faktura",
     parentArticleSlug: "tillagg-edi-efaktura",
@@ -60,7 +60,7 @@ export const ISV_COMPARISONS: IsvComparison[] = [
     slug: "nshift-vs-shipmondo-vs-sendcloud-vs-cargoson",
     title: "nShift vs Shipmondo vs Sendcloud vs Cargoson",
     intro:
-      "Valet av TA-system styrs av transportörsmix, volym, etiketter, returer och hur djup integration mot BC ni behöver.",
+      "Valet av TA-system styrs av transportörsmix, volym, etiketter, returer och hur djup integration mot BC du behöver.",
     solutionIds: ["nshift", "shipmondo", "sendcloud", "cargoson"],
     category: "Frakt & TA",
     parentArticleSlug: "tillagg-frakt-ta",
@@ -69,7 +69,7 @@ export const ISV_COMPARISONS: IsvComparison[] = [
     slug: "sana-vs-dynamicweb-vs-shopify",
     title: "Sana Commerce vs Dynamicweb vs Shopify-connector",
     intro:
-      "Sana och Dynamicweb integrerar djupt mot BC. Shopify används som extern frontend när ni vill ha en lättare e-handelsplattform och låta BC vara backend.",
+      "Sana och Dynamicweb integrerar djupt mot BC. Shopify används som extern frontend när du vill ha en lättare e-handelsplattform och låta BC vara backend.",
     solutionIds: ["sana-commerce", "dynamicweb", "shopify-connector"],
     category: "E-handel",
     parentArticleSlug: "tillagg-ehandel",
@@ -96,7 +96,7 @@ export const ISV_COMPARISONS: IsvComparison[] = [
     slug: "trimit-vs-pebblestone",
     title: "TRIMIT vs Pebblestone (Fashion)",
     intro:
-      "Två etablerade branschpaket för mode och textil ovanpå Business Central. Båda hanterar style/color/size, säsong och PLM-flöden – valet styrs av processdjup och var ni redan har partnernärvaro.",
+      "Två etablerade branschpaket för mode och textil ovanpå Business Central. Båda hanterar style/color/size, säsong och PLM-flöden – valet styrs av processdjup och var du redan har partnernärvaro.",
     solutionIds: ["trimit-fashion", "pebblestone"],
     category: "Branschpaket",
     parentArticleSlug: "tillagg-branschpaket",
@@ -115,7 +115,7 @@ export const ISV_COMPARISONS: IsvComparison[] = [
     slug: "lasernet-vs-continia-output",
     title: "Lasernet vs Continia Document Output",
     intro:
-      "Lasernet är en bred dokumentplattform för design, transformation och distribution. Continia Document Output är naturligt om ni redan kör Continias svit.",
+      "Lasernet är en bred dokumentplattform för design, transformation och distribution. Continia Document Output är naturligt om du redan kör Continias svit.",
     solutionIds: ["lasernet", "continia-output"],
     category: "Dokument & output",
     parentArticleSlug: "tillagg-dokument-output",

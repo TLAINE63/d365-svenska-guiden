@@ -26,7 +26,7 @@ export const DELIVERY_PROFILE_FIELDS: DeliveryProfileField[] = [
   {
     key: "typicalCustomers",
     label: "Typiska kunder",
-    help: "Beskriv kundtyper: bransch, storlek, organisationsmognad och geografisk spridning. Inga påståenden om att ni är bäst.",
+    help: "Beskriv kundtyper: bransch, storlek, organisationsmognad och geografisk spridning. Inga påståenden om att du är bäst.",
     placeholder:
       "Exempel: Kunderna är främst tillverkande bolag med 100–500 anställda och en till tre produktionsenheter i Norden. Flera har tidigare kört äldre AX-versioner. Kunderna har egen IT-funktion men saknar intern D365-kompetens och köper därför både projekt och löpande förvaltning.",
   },

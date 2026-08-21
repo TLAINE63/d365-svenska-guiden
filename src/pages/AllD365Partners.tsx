@@ -162,7 +162,7 @@ export default function AllD365Partners() {
               Microsoft Dynamics 365-partners på den svenska marknaden
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground mb-5">
-              Här hittar ni en översikt över Dynamics 365-partners på den svenska marknaden – både verifierade leverantörer på d365.se och andra aktörer vi känner till. Vill ni veta mer om någon eller få hjälp att smalna ner kortlistan, hör av er.
+              Här hittar du en översikt över Dynamics 365-partners på den svenska marknaden – både verifierade leverantörer på d365.se och andra aktörer vi känner till. Vill du veta mer om någon eller få hjälp att smalna ner kortlistan, hör av dig.
             </p>
             {totalMarket > 0 && (
               <div className="flex flex-wrap items-center justify-center gap-2 text-xs">

@@ -32,11 +32,11 @@ const steps: Step[] = [
  {
  num: 1,
  icon: ClipboardList,
- tag: "Steg 1 · Vad behöver ni?",
+ tag: "Steg 1 · Vad behöver du?",
  title: "Behovsanalys",
  highlight: "förankrad i verksamheten",
  description:
- "Kartlägg processer, utmaningar och förbättringspotential innan ni ställer krav eller väljer system. Resultatet är en prioriterad bild av vilka förmågor som är mest affärskritiska – ett stabilt beslutsunderlag som vässar kravbilden och styr upphandlingen mot rätt lösning från start.",
+ "Kartlägg processer, utmaningar och förbättringspotential innan du ställer krav eller väljer system. Resultatet är en prioriterad bild av vilka förmågor som är mest affärskritiska – ett stabilt beslutsunderlag som vässar kravbilden och styr upphandlingen mot rätt lösning från start.",
  links: [
  { label: "ERP-behovsanalys", to: "/ERPbehovsanalys/" },
  { label: "CRM-behovsanalys", to: "/CRMbehovsanalys/" },
@@ -50,7 +50,7 @@ const steps: Step[] = [
  title: "Kravspecifikation",
  highlight: "som leverantörerna förstår",
  description:
- "En tydlig, prioriterad och verksamhetsförankrad kravspecifikation säkerställer att Dynamics 365-partnerna kan visa hur deras lösning faktiskt stödjer era processer. Mindre risk för missförstånd – och betydligt enklare att utvärdera anbuden.",
+ "En tydlig, prioriterad och verksamhetsförankrad kravspecifikation säkerställer att Dynamics 365-partnerna kan visa hur deras lösning faktiskt stödjer dina processer. Mindre risk för missförstånd – och betydligt enklare att utvärdera anbuden.",
  links: [
  { label: "Kravspec ERP", to: "/kravspecifikation/" },
  { label: "Kravspec Sales", to: "/kravspecifikation-sales/" },
@@ -65,7 +65,7 @@ const steps: Step[] = [
  title: "Hitta rätt typ av Dynamics 365-partner",
  highlight: "med köparsidig vägledning",
  description:
- "Få en strukturerad överblick över vilka partners som matchar er bransch, era produktområden, er geografi och er storlek. Vi står på köparens sida – inga direktlänkar till leverantörer, all kontakt går via plattformens mediarade matchning.",
+ "Få en strukturerad överblick över vilka partners som matchar din bransch, dina produktområden, din geografi och din storlek. Vi står på köparens sida – inga direktlänkar till leverantörer, all kontakt går via plattformens mediarade matchning.",
     links: [
       { label: "Hitta Dynamics 365-partner", to: "/valjdynamics365partner/" },
       { label: "Hitta partner för din bransch", to: "/branscher/" },
@@ -81,7 +81,7 @@ const steps: Step[] = [
  title: "Utvärdering av lösning och partner",
  highlight: "transparent och faktabaserad",
  description:
- "Jämför partners och lösningar utifrån funktionalitet, branschdjup, AI-mognad, leveransförmåga och risk. Vår AI-guide ger en strukturerad rekommendation baserad på era svar – och du ser tydligt varför varje partner föreslås.",
+ "Jämför partners och lösningar utifrån funktionalitet, branschdjup, AI-mognad, leveransförmåga och risk. Vår AI-guide ger en strukturerad rekommendation baserad på dina svar – och du ser tydligt varför varje partner föreslås.",
  links: [
  { label: "Starta AI-guiden", to: "/valjdynamics365partner/?ai=1" },
  { label: "AI Readiness Assessment", to: "/ai-readiness/" },
@@ -105,10 +105,10 @@ const steps: Step[] = [
  num: 6,
  icon: Rocket,
  tag: "Fördjupning & resurser",
- title: "Fördjupa dig innan ni bestämmer er",
+ title: "Fördjupa dig innan du bestämmer dig",
  highlight: "produktjämförelser, guider & insikter",
  description:
- "Innan ni skriver på avtalet är det värt att ha koll på produktskillnaderna, vad marknaden faktiskt erbjuder och vad liknande verksamheter har lärt sig på vägen. Här hittar ni produktjämförelser, guider, videos och ett kunskapscenter – utan säljfilter.",
+ "Innan du skriver på avtalet är det värt att ha koll på produktskillnaderna, vad marknaden faktiskt erbjuder och vad liknande verksamheter har lärt sig på vägen. Här hittar du produktjämförelser, guider, videos och ett kunskapscenter – utan säljfilter.",
  links: [
  { label: "Kunskapscenter", to: "/kunskapscenter" },
  ],
@@ -141,7 +141,7 @@ const Upphandlingsguiden = () => {
   <span className="block text-white/90 mt-1">– från behov till val av Microsoftpartner</span>
   </h1>
   <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
-  På d365.se får din verksamhet vägledning genom hela upphandlingsresan – från behovsanalys och hjälp att skriva kravspecifikation, till jämförelser av Dynamics 365-partners och fördjupade insikter i Dynamics 365-applikationerna. Allt samlat på ett ställe, så att ni kan fatta trygga beslut hela vägen fram till avtal och införande.
+  På d365.se får din verksamhet vägledning genom hela upphandlingsresan – från behovsanalys och hjälp att skriva kravspecifikation, till jämförelser av Dynamics 365-partners och fördjupade insikter i Dynamics 365-applikationerna. Allt samlat på ett ställe, så att du kan fatta trygga beslut hela vägen fram till avtal och införande.
   </p>
   <div className="flex flex-col sm:flex-row gap-3">
   <Button
@@ -171,7 +171,7 @@ const Upphandlingsguiden = () => {
  {[
  { icon: ShieldCheck, title: "Köparens sida", text: "Vi vägleder utan att sälja in en specifik partner." },
  { icon: Check, title: "Strukturerad metodik", text: "Sex tydliga steg från behov till val av Microsoftpartner." },
- { icon: Sparkles, title: "AI-stödd matchning", text: "Datadriven rekommendation baserad på era behov." },
+ { icon: Sparkles, title: "AI-stödd matchning", text: "Datadriven rekommendation baserad på dina behov." },
  ].map(({ icon: Icon, title, text }) => (
  <div key={title} className="flex items-start gap-3 p-4 rounded bg-white border border-border ">
  <div className="shrink-0 w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
@@ -194,7 +194,7 @@ const Upphandlingsguiden = () => {
  Vår metodik – från krav till kontrakt
  </h2>
  <p className="text-[15px] text-muted-foreground leading-relaxed">
- Sex steg som tar er tryggt genom upphandlingen av Microsoft Dynamics 365. Varje steg länkar vidare till verktyg och guider på sajten så ni kan komma igång direkt.
+ Sex steg som tar din tryggt genom upphandlingen av Microsoft Dynamics 365. Varje steg länkar vidare till verktyg och guider på sajten så du kan komma igång direkt.
  </p>
  </div>
 
@@ -288,7 +288,7 @@ const Upphandlingsguiden = () => {
   <RadialGlow />
   <div className="relative">
  <h2 className="text-2xl sm:text-3xl md:text-[34px] font-bold text-white leading-tight tracking-tight mb-4">
- Redo att starta er upphandling?
+ Redo att starta din upphandling?
  </h2>
  <p className="text-[15px] sm:text-base text-white/80 leading-relaxed mb-7 max-w-2xl mx-auto">
  Börja med en behovsanalys eller hoppa direkt till partnermatchningen. Båda är gratis och tar bara några minuter.

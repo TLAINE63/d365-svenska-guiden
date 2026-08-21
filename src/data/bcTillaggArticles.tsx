@@ -35,7 +35,7 @@ const Disclaimer = () => (
     <p className="text-sm leading-relaxed text-foreground/80">
       Vi skriver medvetet <em>"offentligt listad av ISV:n som partner"</em> snarare än
       <em> "auktoriserad återförsäljare"</em>. Aktuell partnerstatus, certifieringsnivå, version
-      och svensk lokalisering bör alltid verifieras direkt med ISV:n och er BC-partner inför en affär.
+      och svensk lokalisering bör alltid verifieras direkt med ISV:n och din BC-partner inför en affär.
     </p>
   </aside>
 );
@@ -51,9 +51,9 @@ const BackToOverview = () => (
 
 const CTA = () => (
   <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border not-prose">
-    <h3 className="text-xl font-bold text-foreground mb-2">Vill ni jämföra BC-partners för detta tillägg?</h3>
+    <h3 className="text-xl font-bold text-foreground mb-2">Vill du jämföra BC-partners för detta tillägg?</h3>
     <p className="text-muted-foreground mb-4">
-      Många BC-partners är specialiserade på vissa ISV-lösningar. Vi hjälper er hitta partners som matchar er
+      Många BC-partners är specialiserade på vissa ISV-lösningar. Vi hjälper dig hitta partners som matchar dig
       kombination av bransch, processer och tilläggsbehov.
     </p>
     <p>
@@ -154,7 +154,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
           När volymen leverantörsfakturor och attestkedjor gör manuell hantering i BC kostsam.
         </p>
         <p>
-          Eller när ni behöver starkare stöd för Peppol, e-faktura samt kvitto- och
+          Eller när du behöver starkare stöd för Peppol, e-faktura samt kvitto- och
           reseräkningshantering än vad standard-BC ger.
         </p>
 
@@ -205,9 +205,9 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
 
         <h2>När är det relevant?</h2>
         <ul>
-          <li>När ni har komplex svensk moms (omvänd skattskyldighet, EU-handel, OSS).</li>
-          <li>När ni behöver specifika svenska ekonomi- eller rapportflöden.</li>
-          <li>När ni vill minimera anpassningar i kärnsystemet.</li>
+          <li>När du har komplex svensk moms (omvänd skattskyldighet, EU-handel, OSS).</li>
+          <li>När du behöver specifika svenska ekonomi- eller rapportflöden.</li>
+          <li>När du vill minimera anpassningar i kärnsystemet.</li>
         </ul>
 
         <CompareLinks articleSlug="tillagg-svensk-lokalisering" />
@@ -265,7 +265,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Ongoing WMS (via Golden EDI)</h2>
         <p>
-          Relevant när lagerdriften ligger hos 3PL eller när ni vill köra ett separat WMS-system
+          Relevant när lagerdriften ligger hos 3PL eller när du vill köra ett separat WMS-system
           parallellt med BC.
         </p>
         <p>Integration sker via Golden EDI:s connector.</p>
@@ -273,7 +273,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
         <h2>När är det relevant?</h2>
         <ul>
           <li>När lagervolym, antal artiklar eller plockfrekvens överstiger vad standard-BC klarar effektivt.</li>
-          <li>När ni behöver streckkods- och handdatorflöden i lagerprocessen.</li>
+          <li>När du behöver streckkods- och handdatorflöden i lagerprocessen.</li>
         </ul>
 
         <CompareLinks articleSlug="tillagg-wms-lager" />
@@ -325,14 +325,14 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Continia e-dokument</h2>
         <p>
-          Ingår i Continias svit och är ett naturligt val om ni redan kör Continia Document
+          Ingår i Continias svit och är ett naturligt val om du redan kör Continia Document
           Capture eller Document Output.
         </p>
 
         <h2>När är det relevant?</h2>
         <ul>
-          <li>När ni har återkommande EDI-flöden (ordrar, leveransaviseringar, fakturor) mot kedjor eller leverantörer.</li>
-          <li>När ni behöver hantera Peppol/e-faktura mot offentlig sektor.</li>
+          <li>När du har återkommande EDI-flöden (ordrar, leveransaviseringar, fakturor) mot kedjor eller leverantörer.</li>
+          <li>När du behöver hantera Peppol/e-faktura mot offentlig sektor.</li>
         </ul>
 
         <CompareLinks articleSlug="tillagg-edi-efaktura" />
@@ -373,7 +373,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
 
         <h2>När är det relevant?</h2>
         <p>
-          När ni skickar volym mot flera transportörer och behöver automatiserad fraktbokning,
+          När du skickar volym mot flera transportörer och behöver automatiserad fraktbokning,
           etiketter, track &amp; trace och returer direkt från BC.
         </p>
 
@@ -419,15 +419,15 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Connector-alternativ</h2>
         <p>
-          Om ni redan kör Shopify, Magento eller WooCommerce finns flera lättare connector-tillägg
+          Om du redan kör Shopify, Magento eller WooCommerce finns flera lättare connector-tillägg
           på AppSource som synkroniserar artiklar, lager och order mot BC.
         </p>
-        <p>Valet beror på hur djup integration ni behöver.</p>
+        <p>Valet beror på hur djup integration du behöver.</p>
 
         <h2>När är det relevant?</h2>
         <ul>
           <li>När e-handeln är affärskritisk och pris-/lagerlogik bor i BC.</li>
-          <li>När ni vill konsolidera order- och kundhantering till ett system.</li>
+          <li>När du vill konsolidera order- och kundhantering till ett system.</li>
         </ul>
 
         <CompareLinks articleSlug="tillagg-ehandel" />
@@ -534,7 +534,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
 
         <h2>När är det relevant?</h2>
         <p>
-          När er bransch har specifika krav som standard-BC inte täcker, men där ni vill behålla
+          När din bransch har specifika krav som standard-BC inte täcker, men där du vill behålla
           BC som plattform i stället för att byta till ett dedikerat branschsystem.
         </p>
 
@@ -578,7 +578,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Continia Document Output</h2>
         <p>
-          Naturligt val om ni redan kör Continia Document Capture eller andra delar av Continias
+          Naturligt val om du redan kör Continia Document Capture eller andra delar av Continias
           svit.
         </p>
         <p>
@@ -588,7 +588,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
 
         <h2>När är det relevant?</h2>
         <p>
-          När ni har många dokumentmallar, varumärkeskrav eller behöver distribuera dokument i
+          När du har många dokumentmallar, varumärkeskrav eller behöver distribuera dokument i
           olika format till olika mottagare (e-post, Peppol, EDI, print).
         </p>
 
@@ -648,7 +648,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
         <h2>När är det relevant?</h2>
         <ul>
           <li>När standardrapporter i BC inte räcker.</li>
-          <li>När ni behöver budget-/prognosflöden.</li>
+          <li>När du behöver budget-/prognosflöden.</li>
           <li>När rapportering ska kombineras med data från andra system.</li>
         </ul>
 

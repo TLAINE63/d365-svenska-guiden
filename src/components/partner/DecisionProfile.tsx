@@ -3,7 +3,7 @@ import { DatabasePartner } from "@/hooks/usePartners";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const TEAM_SIZE_HELP =
-  "Många partners förstärker leveransteamet med kollegor från nordiska/europeiska kontor. Fråga partnern hur många som faktiskt arbetar med er valda applikation och bransch – det är mer relevant än totalsiffran i Sverige.";
+  "Många partners förstärker leveransteamet med kollegor från nordiska/europeiska kontor. Fråga partnern hur många som faktiskt arbetar med din valda applikation och bransch – det är mer relevant än totalsiffran i Sverige.";
 
 type DeliveryProfile = {
   typical_length?: string;
@@ -137,7 +137,7 @@ const DecisionProfile = ({ partner }: Props) => {
                     p.implementations_done || null
                   ),
                 help:
-                  "Antal genomförda D365-implementationer per applikation. Säger något om volym, inte om kvalitet eller branschpassning – be alltid om referenser i den bransch ni befinner er i.",
+                  "Antal genomförda D365-implementationer per applikation. Säger något om volym, inte om kvalitet eller branschpassning – be alltid om referenser i den bransch du befinner dig i.",
               },
               { label: "Branschfokus", value: (partner.industries || []).slice(0, 3).join(", ") || null },
               {

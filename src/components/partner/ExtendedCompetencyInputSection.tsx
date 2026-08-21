@@ -49,13 +49,13 @@ export default function ExtendedCompetencyInputSection({
         <Info className="h-4 w-4 mt-0.5 text-muted-foreground shrink-0" />
         <div className="text-sm text-muted-foreground space-y-1">
           <p>
-            Här beskriver ni er kompetens inom <strong>Power Platform</strong>,{" "}
+            Här beskriver du din kompetens inom <strong>Power Platform</strong>,{" "}
             <strong>Copilot &amp; AI</strong> och <strong>Copilot Studio &amp; agenter</strong> som
             komplement till Dynamics 365.
           </p>
           <p>
             Kryssa i det som stämmer och komplettera med en kort beskrivning. Nivån sätts av
-            d365.se – inte av er själva. {ASSESSMENT_DISCLAIMER} Er text används som underlag och
+            d365.se – inte av din själva. {ASSESSMENT_DISCLAIMER} Din text används som underlag och
             publiceras inte ordagrant.
           </p>
         </div>
@@ -82,7 +82,7 @@ export default function ExtendedCompetencyInputSection({
             <p className="text-xs text-muted-foreground leading-snug">{area.description}</p>
 
             <div className="space-y-2 rounded-md border border-border bg-muted/20 p-3">
-              <p className="text-xs font-semibold text-foreground">Vad stämmer för er?</p>
+              <p className="text-xs font-semibold text-foreground">Vad stämmer för din?</p>
               {COMPETENCY_SIGNALS[area.key].map((signal) => (
                 <label
                   key={signal.id}

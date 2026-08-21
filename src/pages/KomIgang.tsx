@@ -186,21 +186,21 @@ const KomIgang = () => {
   const selectedApp = selectedProduct || "";
 
   const stepLabels = [
-    "Vilken bransch är ni verksamma inom?",
-    "Vilken Dynamics 365-produkt är ni intresserade av?",
+    "Vilken bransch är du verksam inom?",
+    "Vilken Dynamics 365-produkt är du intresserad av?",
     "Vad vill du förbättra?",
-    "Var befinner ni er idag?",
+    "Var befinner du dig idag?",
     "Hur ser er verksamhet ut?",
     "Hur stor är er organisation?",
   ];
 
   const stepSubtexts = [
     "Vi använder detta för att hitta relevanta partners",
-    "Välj den produkt som passar bäst eller hoppa över om ni inte vet",
+    "Välj den produkt som passar bäst eller hoppa över om du inte vet",
     "",
     "",
     "Detta hjälper oss avgöra vilken nivå av lösning och partner som passar",
-    "Vi prioriterar partners med erfarenhet av organisationer i er storlek – hoppa över om du är osäker",
+    "Vi prioriterar partners med erfarenhet av organisationer i din storlek – hoppa över om du är osäker",
   ];
 
   const findPartners = async () => {

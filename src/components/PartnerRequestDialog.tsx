@@ -41,7 +41,7 @@ const MODE_CONFIG = {
   demo: {
     title: (name: string) => `Boka Demo/Genomgång med ${name}`,
     description: (name: string, product?: string, industry?: string) =>
-      `De flesta seriösa partners vill förstå behovet innan de visar system. Beskriv kort vad ni vill se eller diskutera${product ? ` inom ${product}` : ""}${industry ? ` (${industry})` : ""}, så återkommer ${name} med förslag på upplägg.`,
+      `De flesta seriösa partners vill förstå behovet innan de visar system. Beskriv kort vad du vill se eller diskutera${product ? ` inom ${product}` : ""}${industry ? ` (${industry})` : ""}, så återkommer ${name} med förslag på upplägg.`,
     sourceType: "partner_demo_request",
     messagePrefix: (name: string) => `Genomgång/demo – förfrågan till ${name}.`,
     toastTitle: "Förfrågan skickad",
@@ -51,7 +51,7 @@ const MODE_CONFIG = {
   quote: {
     title: (name: string) => `Få en uppskattning av tid och kostnad från ${name}`,
     description: (name: string, product?: string, industry?: string) =>
-      `En exakt offert kräver normalt fördjupad avstämning – men ${name} kan ge en första uppskattning av tid och kostnad${product ? ` för ${product}` : ""}${industry ? ` (${industry})` : ""} utifrån ert underlag.`,
+      `En exakt offert kräver normalt fördjupad avstämning – men ${name} kan ge en första uppskattning av tid och kostnad${product ? ` för ${product}` : ""}${industry ? ` (${industry})` : ""} utifrån ditt underlag.`,
     sourceType: "partner_quote_request",
     messagePrefix: (name: string) => `Prisindikation – förfrågan till ${name}.`,
     toastTitle: "Förfrågan skickad",
@@ -140,7 +140,7 @@ const validateForm = (form: FormState, mode: "contact" | "demo" | "quote"): Fiel
       errors.demo_audience = "Max 200 tecken.";
     }
     if (!form.demo_features.trim()) {
-      errors.demo_features = "Ange vilka funktioner ni vill se.";
+      errors.demo_features = "Ange vilka funktioner du vill se.";
     } else if (form.demo_features.length > MAX_DETAIL) {
       errors.demo_features = `Max ${MAX_DETAIL} tecken.`;
     }
@@ -555,7 +555,7 @@ const PartnerRequestDialog = ({
               </div>
               <div className="space-y-1.5">
                 <div className="flex items-baseline justify-between">
-                  <Label htmlFor="prq-demo-features">Vad vill ni se i demon? *</Label>
+                  <Label htmlFor="prq-demo-features">Vad vill du se i demon? *</Label>
                   <span className={cn(
                     "text-xs",
                     form.demo_features.length > MAX_DETAIL - 60 ? "text-amber-600" : "text-muted-foreground",

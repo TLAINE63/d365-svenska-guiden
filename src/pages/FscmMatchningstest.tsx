@@ -64,7 +64,7 @@ const LEVEL_COPY: Record<
  strong: {
  headline: "Stark matchning",
  body:
- "Era svar pekar på en verksamhet där Dynamics 365 Finance & Supply Chain Management och dess närliggande moduler täcker behov som mindre system har svårt att hantera samlat. Det betyder inte automatiskt att F&SCM är rätt val – men att det är ett rimligt alternativ att utvärdera på allvar.",
+ "Dina svar pekar på en verksamhet där Dynamics 365 Finance & Supply Chain Management och dess närliggande moduler täcker behov som mindre system har svårt att hantera samlat. Det betyder inte automatiskt att F&SCM är rätt val – men att det är ett rimligt alternativ att utvärdera på allvar.",
  },
  partial: {
  headline: "Delvis matchning",
@@ -74,7 +74,7 @@ const LEVEL_COPY: Record<
  oversized: {
  headline: "Sannolikt överdimensionerat",
  body:
- "Era svar pekar på en verksamhet där ett enklare system, som Business Central, troligen täcker behoven väl idag. F&SCM:s styrkor inom flerbolagsstruktur och avancerad supply chain blir mest relevanta först om koncernen växer i komplexitet.",
+ "Dina svar pekar på en verksamhet där ett enklare system, som Business Central, troligen täcker behoven väl idag. F&SCM:s styrkor inom flerbolagsstruktur och avancerad supply chain blir mest relevanta först om koncernen växer i komplexitet.",
  },
 };
 
@@ -180,8 +180,8 @@ const FscmMatchningstest = () => {
  <div className="min-h-screen flex flex-col bg-background">
  <SEOHead
         breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Finance & Supply Chain", url: "/finance-supply-chain/" }, { name: "Matchningstest", url: "/finance-supply-chain-management/matchningstest/" }]}
- title="Matchar F&SCM era behov? – Matchningstest | d365.se"
- description="Tio minuter, 26 frågor. Funktionsorienterat matchningstest som visar om Dynamics 365 Finance & Supply Chain Management passar er – eller om enklare alternativ räcker."
+ title="Matchar F&SCM dina behov? – Matchningstest | d365.se"
+ description="Tio minuter, 26 frågor. Funktionsorienterat matchningstest som visar om Dynamics 365 Finance & Supply Chain Management passar dig – eller om enklare alternativ räcker."
  canonicalPath="/finance-supply-chain-management/matchningstest"
  keywords="Dynamics 365 Finance matchningstest, F&SCM behovsanalys, ERP-test, Business Central vs F&SCM"
  ogImage="https://d365.se/og-finance-scm.png"
@@ -195,11 +195,11 @@ const FscmMatchningstest = () => {
  Finance & Supply Chain Management
  </span>
  <h1 className="text-2xl sm:text-3xl md:text-[40px] font-semibold leading-tight text-white mt-3 mb-3">
- Matchar F&SCM era behov?
+ Matchar F&SCM dina behov?
  </h1>
  <p className="text-white/70 text-base sm:text-lg max-w-3xl leading-relaxed">
  Ett funktionsorienterat matchningstest – inte ett mognadsbetyg. Vi tittar på vilka konkreta
- behov ni har inom koncernekonomi, supply chain, projekt och handel, och visar ärligt om
+ behov du har inom koncernekonomi, supply chain, projekt och handel, och visar ärligt om
  F&SCM matchar – eller om ett enklare system räcker.
  </p>
  </div>
@@ -355,9 +355,9 @@ const ResultView = ({ score, onRestart, onBack }: ResultViewProps) => {
 
  const futureNote =
  score.maturity > 60
- ? "Givet era svar om tillväxt och AI-relevans är skalbarhet och inbyggda AI-funktioner extra viktiga i utvärderingen framöver."
+ ? "Givet dina svar om tillväxt och AI-relevans är skalbarhet och inbyggda AI-funktioner extra viktiga i utvärderingen framöver."
  : score.maturity < 40
- ? "Era svar pekar mer på dagens behov än ett tydligt framtida AI-tryck – fokusera utvärderingen på vad ni behöver lösa nu."
+ ? "Dina svar pekar mer på dagens behov än ett tydligt framtida AI-tryck – fokusera utvärderingen på vad du behöver lösa nu."
  : "AI och skalbarhet är värda att ha med i utvärderingen, men inget som ensamt bör styra valet.";
 
  const profileBars: { key: ProfileKey; value: number | "not_applicable" }[] = [
@@ -418,7 +418,7 @@ const ResultView = ({ score, onRestart, onBack }: ResultViewProps) => {
  Områden där F&SCM sannolikt ger störst nytta
  </h3>
  <p className="text-sm text-muted-foreground mb-4">
- Baserat på era svar är dessa områden där F&SCM och tillhörande moduler matchar starkast:
+ Baserat på dina svar är dessa områden där F&SCM och tillhörande moduler matchar starkast:
  </p>
  <ul className="space-y-3">
  {tops.map((t) => (
@@ -443,8 +443,8 @@ const ResultView = ({ score, onRestart, onBack }: ResultViewProps) => {
  Är Business Central ett bättre alternativ?
  </h3>
  <p className="text-foreground/85 leading-relaxed mb-4">
- Era svar pekar på att F&SCM:s funktioner för flerbolagsstruktur, avancerad lagerstyrning och
- global compliance sannolikt är överdimensionerade för er i dag. Business Central täcker
+ Dina svar pekar på att F&SCM:s funktioner för flerbolagsstruktur, avancerad lagerstyrning och
+ global compliance sannolikt är överdimensionerade för dig i dag. Business Central täcker
  normalt motsvarande behov till en bråkdel av kostnaden och med kortare implementationstid.
  </p>
  <Button asChild variant="outline">

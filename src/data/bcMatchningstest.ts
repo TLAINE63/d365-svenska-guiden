@@ -39,9 +39,9 @@ export interface BcQuestion {
 
 export const BC_BLOCKS: Record<1 | 2 | 3 | 4 | 5 | 6, { title: string; description: string }> = {
   1: { title: "Storlek och segment", description: "Övergripande bild av verksamheten." },
-  2: { title: "Bransch", description: "Vilken bransch ni tillhör inom valt segment." },
+  2: { title: "Bransch", description: "Vilken bransch du tillhör inom valt segment." },
   3: { title: "Juridik och geografi", description: "Bolagsstruktur, geografi, rapportering och nuvarande system." },
-  4: { title: "Branschspecifika behov", description: "Funktionella krav i er bransch." },
+  4: { title: "Branschspecifika behov", description: "Funktionella krav i din bransch." },
   5: { title: "Nuläge och utmaningar", description: "Vad fungerar och vad fungerar inte i dag." },
   6: { title: "Integrationer och brådska", description: "Systemlandskap, masterdata och tidshorisont." },
 };
@@ -61,7 +61,7 @@ const STEP1: BcQuestion[] = [
   {
     id: "q_employees",
     block: 1,
-    text: "Hur många anställda har ni?",
+    text: "Hur många anställda har du?",
     options: [
       { value: "u20", label: "Under 20" },
       { value: "20-100", label: "20–100" },
@@ -155,7 +155,7 @@ const STEP3: BcQuestion[] = [
   {
     id: "q_companies",
     block: 3,
-    text: "Hur många juridiska bolag behöver ni hantera?",
+    text: "Hur många juridiska bolag behöver du hantera?",
     options: [
       { value: "1", label: "Ett bolag", signals: [{ area: "Ett bolag", classification: "essentials" }] },
       { value: "2-5", label: "2–5 bolag", signals: [{ area: "Multi-bolag (2–5)", classification: "essentials", note: "Hanteras i BC med intercompany-funktioner i standard." }] },
@@ -177,7 +177,7 @@ const STEP3: BcQuestion[] = [
   {
     id: "q_reporting",
     block: 3,
-    text: "Vilka rapporteringskrav har ni?",
+    text: "Vilka rapporteringskrav har du?",
     help: "Flerval – välj alla som stämmer.",
     multi: true,
     options: [
@@ -191,7 +191,7 @@ const STEP3: BcQuestion[] = [
   {
     id: "q_ap",
     block: 3,
-    text: "Hur hanterar ni leverantörsfakturor idag?",
+    text: "Hur hanterar du leverantörsfakturor idag?",
     options: [
       { value: "manuellt", label: "Manuellt – vi skriver in eller e-postar vidare", signals: [{ area: "AP-automation saknas", classification: "isv", note: "Continia Document Capture eller ExFlow rekommenderas i BC-projekt." }] },
       { value: "skanning", label: "Vi skannar och läser av", signals: [{ area: "Skanningslösning för leverantörsfakturor", classification: "isv" }] },
@@ -202,7 +202,7 @@ const STEP3: BcQuestion[] = [
   {
     id: "q_current_system",
     block: 3,
-    text: "Vilket system kör ni idag?",
+    text: "Vilket system kör du idag?",
     options: [
       { value: "fortnox-visma", label: "Fortnox, Visma eller liknande ekonomisystem", signals: [{ area: "Migration från SMB-ekonomisystem", classification: "essentials", note: "Klassisk uppgradering till BC – välbeprövat scenario." }] },
       { value: "old-dynamics", label: "Äldre Dynamics (NAV, GP, AX)", signals: [{ area: "Uppgradering från äldre Dynamics", classification: "config", note: "NAV-uppgradering har tydliga migrationsverktyg; AX/GP är mer omfattande." }] },
@@ -222,7 +222,7 @@ const STEP4_T: BcQuestion[] = [
   {
     id: "qt_typ",
     block: 4,
-    text: "Vilken typ av tillverkning beskriver er bäst?",
+    text: "Vilken typ av tillverkning beskriver dig bäst?",
     showIf: (a) => seg(a, "tillverkning"),
     options: [
       { value: "diskret", label: "Diskret – vi monterar identifierbara enheter", signals: [{ area: "Diskret tillverkning", classification: "premium", note: "Kräver BC Premium (Manufacturing)." }] },
@@ -235,7 +235,7 @@ const STEP4_T: BcQuestion[] = [
   {
     id: "qt_bom",
     block: 4,
-    text: "Hur komplex är er produktstruktur?",
+    text: "Hur komplex är din produktstruktur?",
     showIf: (a) => seg(a, "tillverkning"),
     options: [
       { value: "enkla", label: "Enkla artiklar utan strukturer", signals: [{ area: "Inga BOM-strukturer", classification: "essentials" }] },
@@ -248,7 +248,7 @@ const STEP4_T: BcQuestion[] = [
   {
     id: "qt_mrp",
     block: 4,
-    text: "Hur hanterar ni produktionsplanering och MRP idag?",
+    text: "Hur hanterar du produktionsplanering och MRP idag?",
     showIf: (a) => seg(a, "tillverkning"),
     options: [
       { value: "excel", label: "Excel eller inget formellt system", signals: [{ area: "Behov av MRP", classification: "premium" }] },
@@ -272,7 +272,7 @@ const STEP4_T: BcQuestion[] = [
   {
     id: "qt_sites",
     block: 4,
-    text: "Hur många produktionssiter har ni?",
+    text: "Hur många produktionssiter har du?",
     showIf: (a) => seg(a, "tillverkning"),
     options: [
       { value: "1", label: "1" },
@@ -285,7 +285,7 @@ const STEP4_T: BcQuestion[] = [
   {
     id: "qt_warehouses",
     block: 4,
-    text: "Hur många lager- eller distributionsanläggningar har ni?",
+    text: "Hur många lager- eller distributionsanläggningar har du?",
     showIf: (a) => seg(a, "tillverkning"),
     options: [
       { value: "1", label: "1" },
@@ -298,7 +298,7 @@ const STEP4_T: BcQuestion[] = [
   {
     id: "qt_service",
     block: 4,
-    text: "Hanterar ni eftermarknad, service eller reservdelar?",
+    text: "Hanterar du eftermarknad, service eller reservdelar?",
     showIf: (a) => seg(a, "tillverkning"),
     options: [
       { value: "nej", label: "Nej" },
@@ -327,7 +327,7 @@ const STEP4_H: BcQuestion[] = [
   {
     id: "qh_sortiment",
     block: 4,
-    text: "Hur stort är ert artikelsortiment?",
+    text: "Hur stort är ditt artikelsortiment?",
     showIf: (a) => seg(a, "grossist"),
     options: [
       { value: "u1k", label: "Under 1 000 artiklar", signals: [{ area: "Litet sortiment", classification: "essentials" }] },
@@ -339,7 +339,7 @@ const STEP4_H: BcQuestion[] = [
   {
     id: "qh_pris",
     block: 4,
-    text: "Hur komplex är er prissättning?",
+    text: "Hur komplex är din prissättning?",
     showIf: (a) => seg(a, "grossist"),
     options: [
       { value: "ett", label: "Ett pris per artikel", signals: [{ area: "Enkel prissättning", classification: "essentials" }] },
@@ -351,7 +351,7 @@ const STEP4_H: BcQuestion[] = [
   {
     id: "qh_lager",
     block: 4,
-    text: "Vilka lagerkrav har ni?",
+    text: "Vilka lagerkrav har du?",
     help: "Flerval – välj alla som stämmer.",
     multi: true,
     showIf: (a) => seg(a, "grossist"),
@@ -366,7 +366,7 @@ const STEP4_H: BcQuestion[] = [
   {
     id: "qh_kanaler",
     block: 4,
-    text: "Hur många försäljningskanaler har ni?",
+    text: "Hur många försäljningskanaler har du?",
     showIf: (a) => seg(a, "grossist"),
     options: [
       { value: "1", label: "En kanal" },
@@ -377,7 +377,7 @@ const STEP4_H: BcQuestion[] = [
   {
     id: "qh_online",
     block: 4,
-    text: "Säljer ni online?",
+    text: "Säljer du online?",
     showIf: (a) => seg(a, "grossist"),
     options: [
       { value: "nej", label: "Nej" },
@@ -390,7 +390,7 @@ const STEP4_H: BcQuestion[] = [
   {
     id: "qh_warehouses",
     block: 4,
-    text: "Hur många lager- eller distributionsanläggningar har ni?",
+    text: "Hur många lager- eller distributionsanläggningar har du?",
     showIf: (a) => seg(a, "grossist"),
     options: [
       { value: "1", label: "1" },
@@ -420,7 +420,7 @@ const STEP4_B: BcQuestion[] = [
   {
     id: "qb_ata",
     block: 4,
-    text: "Hur hanterar ni ÄTA-arbeten?",
+    text: "Hur hanterar du ÄTA-arbeten?",
     showIf: (a) => seg(a, "bygg"),
     options: [
       { value: "informellt", label: "Informellt – Excel eller e-post", signals: [{ area: "ÄTA-hantering saknas", classification: "isv" }] },
@@ -431,7 +431,7 @@ const STEP4_B: BcQuestion[] = [
   {
     id: "qb_vinst",
     block: 4,
-    text: "Kräver ni successiv vinstavräkning?",
+    text: "Kräver du successiv vinstavräkning?",
     showIf: (a) => seg(a, "bygg"),
     options: [
       { value: "nej", label: "Nej, vi redovisar vid projektavslut" },
@@ -442,7 +442,7 @@ const STEP4_B: BcQuestion[] = [
   {
     id: "qb_ue",
     block: 4,
-    text: "Arbetar ni med underentreprenörer?",
+    text: "Arbetar du med underentreprenörer?",
     showIf: (a) => seg(a, "bygg"),
     options: [
       { value: "nej", label: "Nej" },
@@ -453,7 +453,7 @@ const STEP4_B: BcQuestion[] = [
   {
     id: "qb_projekt",
     block: 4,
-    text: "Hur många aktiva projekt har ni samtidigt?",
+    text: "Hur många aktiva projekt har du samtidigt?",
     showIf: (a) => seg(a, "bygg"),
     options: [
       { value: "u10", label: "Under 10", signals: [{ area: "Få parallella projekt", classification: "premium" }] },
@@ -465,7 +465,7 @@ const STEP4_B: BcQuestion[] = [
   {
     id: "qb_hyra",
     block: 4,
-    text: "Hanterar ni hyreskontrakt och avisering?",
+    text: "Hanterar du hyreskontrakt och avisering?",
     showIf: (a) => seg(a, "bygg"),
     options: [
       { value: "nej", label: "Ej aktuellt" },
@@ -477,7 +477,7 @@ const STEP4_B: BcQuestion[] = [
   {
     id: "qb_bestand",
     block: 4,
-    text: "Hur stort är ert fastighetsbestånd?",
+    text: "Hur stort är ditt fastighetsbestånd?",
     showIf: (a) => seg(a, "bygg"),
     options: [
       { value: "na", label: "Ej aktuellt" },
@@ -490,7 +490,7 @@ const STEP4_B: BcQuestion[] = [
   {
     id: "qb_imd",
     block: 4,
-    text: "Hanterar ni individuell mätning och debitering (IMD)?",
+    text: "Hanterar du individuell mätning och debitering (IMD)?",
     showIf: (a) => seg(a, "bygg"),
     options: [
       { value: "nej", label: "Nej" },
@@ -523,7 +523,7 @@ const STEP4_P: BcQuestion[] = [
   {
     id: "qp_fakturering",
     block: 4,
-    text: "Hur fakturerar ni era kunder?",
+    text: "Hur fakturerar du dina kunder?",
     help: "Flerval – välj alla som stämmer.",
     multi: true,
     showIf: (a) => seg(a, "tjanste"),
@@ -550,7 +550,7 @@ const STEP4_P: BcQuestion[] = [
   {
     id: "qp_intakt",
     block: 4,
-    text: "Hur hanterar ni intäktsredovisning per projekt?",
+    text: "Hur hanterar du intäktsredovisning per projekt?",
     showIf: (a) => seg(a, "tjanste"),
     options: [
       { value: "ingen", label: "Vi redovisar inte per projekt" },
@@ -561,7 +561,7 @@ const STEP4_P: BcQuestion[] = [
   {
     id: "qp_konsulter",
     block: 4,
-    text: "Hur många fakturerbara konsulter eller resurser har ni?",
+    text: "Hur många fakturerbara konsulter eller resurser har du?",
     showIf: (a) => seg(a, "tjanste"),
     options: [
       { value: "u20", label: "Under 20", signals: [{ area: "Liten konsultorganisation", classification: "premium" }] },
@@ -573,7 +573,7 @@ const STEP4_P: BcQuestion[] = [
   {
     id: "qp_uppdrag",
     block: 4,
-    text: "Hur många aktiva uppdrag eller projekt har ni samtidigt?",
+    text: "Hur många aktiva uppdrag eller projekt har du samtidigt?",
     showIf: (a) => seg(a, "tjanste"),
     options: [
       { value: "u20", label: "Under 20" },
@@ -585,7 +585,7 @@ const STEP4_P: BcQuestion[] = [
   {
     id: "qp_prenumeration",
     block: 4,
-    text: "Hur många aktiva prenumerationer eller löpande kontrakt förvaltar ni?",
+    text: "Hur många aktiva prenumerationer eller löpande kontrakt förvaltar du?",
     showIf: (a) => seg(a, "tjanste"),
     options: [
       { value: "na", label: "Ej aktuellt" },
@@ -597,7 +597,7 @@ const STEP4_P: BcQuestion[] = [
   {
     id: "qp_underkonsult",
     block: 4,
-    text: "Arbetar ni med underkonsulter som ni vidarefakturerar?",
+    text: "Arbetar du med underkonsulter som du vidarefakturerar?",
     showIf: (a) => seg(a, "tjanste"),
     options: [
       { value: "nej", label: "Nej" },
@@ -626,7 +626,7 @@ const STEP4_O: BcQuestion[] = [
   {
     id: "qo_lou",
     block: 4,
-    text: "Omfattas ni av LOU?",
+    text: "Omfattas du av LOU?",
     showIf: (a) => seg(a, "offentlig"),
     options: [
       { value: "ja", label: "Ja, fullt ut", signals: [{ area: "LOU-krav", classification: "config", note: "BC kan användas men inköpsprocess kan behöva ISV för avrop mot ramavtal." }] },
@@ -637,7 +637,7 @@ const STEP4_O: BcQuestion[] = [
   {
     id: "qo_ekonomi",
     block: 4,
-    text: "Vilka ekonomiska särkrav har ni?",
+    text: "Vilka ekonomiska särkrav har du?",
     help: "Flerval – välj alla som stämmer.",
     multi: true,
     showIf: (a) => seg(a, "offentlig"),
@@ -652,7 +652,7 @@ const STEP4_O: BcQuestion[] = [
   {
     id: "qo_medlem",
     block: 4,
-    text: "Hanterar ni medlemmar, kontingenter eller volontärer?",
+    text: "Hanterar du medlemmar, kontingenter eller volontärer?",
     showIf: (a) => seg(a, "offentlig"),
     options: [
       { value: "nej", label: "Nej" },
@@ -664,7 +664,7 @@ const STEP4_O: BcQuestion[] = [
   {
     id: "qo_volym",
     block: 4,
-    text: "Hur många medlemmar eller bidragsmottagare hanterar ni?",
+    text: "Hur många medlemmar eller bidragsmottagare hanterar du?",
     showIf: (a) => seg(a, "offentlig"),
     options: [
       { value: "na", label: "Ej aktuellt" },
@@ -677,7 +677,7 @@ const STEP4_O: BcQuestion[] = [
   {
     id: "qo_portal",
     block: 4,
-    text: "Har ni krav på Mina Sidor eller självserviceportal?",
+    text: "Har du krav på Mina Sidor eller självserviceportal?",
     showIf: (a) => seg(a, "offentlig"),
     options: [
       { value: "nej", label: "Nej" },
@@ -705,7 +705,7 @@ const STEP4_F: BcQuestion[] = [
   {
     id: "qf_crm_erp",
     block: 4,
-    text: "Är er primära systemutmaning inom CRM eller ERP?",
+    text: "Är din primära systemutmaning inom CRM eller ERP?",
     showIf: (a) => seg(a, "finans"),
     options: [
       { value: "crm", label: "Primärt CRM – kundhantering, pipeline, KYC/AML", signals: [{ area: "CRM-utmaning (KYC/AML)", classification: "outside", note: "Hör hemma i Dynamics 365 Sales/Customer Insights, inte i BC." }] },
@@ -716,7 +716,7 @@ const STEP4_F: BcQuestion[] = [
   {
     id: "qf_reg",
     block: 4,
-    text: "Har ni regulatoriska systemkrav?",
+    text: "Har du regulatoriska systemkrav?",
     help: "Flerval – välj alla som stämmer.",
     multi: true,
     showIf: (a) => seg(a, "finans"),
@@ -755,7 +755,7 @@ const STEP5: BcQuestion[] = [
   {
     id: "n4",
     block: 5,
-    text: "Hur fungerar er masterdata (kunder, artiklar, avtal etc.)?",
+    text: "Hur fungerar din masterdata (kunder, artiklar, avtal etc.)?",
     options: masterDataOpts,
   },
 ];
@@ -767,7 +767,7 @@ const STEP6: BcQuestion[] = [
   {
     id: "i1",
     block: 6,
-    text: "Vilka kringliggande system använder ni idag?",
+    text: "Vilka kringliggande system använder du idag?",
     help: "Flerval – välj alla som stämmer.",
     multi: true,
     options: [

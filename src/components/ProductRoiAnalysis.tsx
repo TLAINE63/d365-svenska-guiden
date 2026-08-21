@@ -179,7 +179,7 @@ export default function ProductRoiAnalysis({
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground">
             Räkna fram licenskostnad, implementation, 5-årig totalkostnad, payback och årlig
-            nytta utifrån era nyckeltal. Kalkylen är medvetet förenklad – den ska ge
+            nytta utifrån dina nyckeltal. Kalkylen är medvetet förenklad – den ska ge
             storleksordning, inte ersätta en business case-analys.
           </p>
         </div>
@@ -283,7 +283,7 @@ export default function ProductRoiAnalysis({
                   <div>
                     <Label>Effektiviseringsdrivare</Label>
                     <p className="text-xs text-muted-foreground mt-1">
-                      Bocka i de områden där ni ser potential. Värdena är konservativa
+                      Bocka i de områden där du ser potential. Värdena är konservativa
                       och skalas med antal användare ({totalUsers} st →{" "}
                       {calc.userFactor.toFixed(2)}×).
                     </p>

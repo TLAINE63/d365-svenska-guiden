@@ -30,7 +30,7 @@ export const PRODUCT_PARTNERS_SVERIGE: ProductPartnersSverigeConfig[] = [
     faq: [
       {
         q: "Hur väljer jag rätt Business Central-partner?",
-        a: "Utgå från bransch, bolagets storlek och hur stor anpassning ni behöver. En partner som genomfört flera implementationer i just er bransch hittar fallgroparna snabbare än en generalist. Be om referenser från liknande projekt och om en transparent prismodell.",
+        a: "Utgå från bransch, bolagets storlek och hur stor anpassning du behöver. En partner som genomfört flera implementationer i just din bransch hittar fallgroparna snabbare än en generalist. Be om referenser från liknande projekt och om en transparent prismodell.",
       },
       {
         q: "Vad kostar ett Business Central-projekt i Sverige?",
@@ -53,7 +53,7 @@ export const PRODUCT_PARTNERS_SVERIGE: ProductPartnersSverigeConfig[] = [
     faq: [
       {
         q: "När passar F&SCM bättre än Business Central?",
-        a: "F&SCM passar när ni har flera bolag i koncern, internationell verksamhet med avancerade valuta- och skatteflöden, eller mycket komplex tillverkning/logistik. Business Central räcker för de flesta svenska medelstora bolag.",
+        a: "F&SCM passar när du har flera bolag i koncern, internationell verksamhet med avancerade valuta- och skatteflöden, eller mycket komplex tillverkning/logistik. Business Central räcker för de flesta svenska medelstora bolag.",
       },
     ],
   },
@@ -128,7 +128,7 @@ export const PRODUCT_PARTNERS_SVERIGE: ProductPartnersSverigeConfig[] = [
     faq: [
       {
         q: "Hur viktig är ERP-integrationen för Field Service?",
-        a: "Mycket viktig. Order, artiklar, lager och fakturering bör flöda mellan Field Service och ert ERP (Business Central eller F&SCM). Välj en partner som behärskar båda sidor av integrationen.",
+        a: "Mycket viktig. Order, artiklar, lager och fakturering bör flöda mellan Field Service och ditt ERP (Business Central eller F&SCM). Välj en partner som behärskar båda sidor av integrationen.",
       },
     ],
   },

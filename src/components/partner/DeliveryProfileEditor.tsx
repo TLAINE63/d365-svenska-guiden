@@ -39,7 +39,7 @@ const DeliveryProfileEditor = ({ productLabel, value, onChange }: Props) => {
       <div>
         <Label className="text-sm font-semibold">Leveransprofil – {productLabel}</Label>
         <p className="text-xs text-muted-foreground mt-1">
-          Beskriv hur ni normalt engageras under och efter go-live. Skriv om kundtyper, uppdragstyper,
+          Beskriv hur du normalt engageras under och efter go-live. Skriv om kundtyper, uppdragstyper,
           arbetsformer och dokumenterad erfarenhet – inte generella marknadsföringspåståenden.
           Varje fält {DELIVERY_PROFILE_MIN}–{DELIVERY_PROFILE_MAX} tecken.
         </p>

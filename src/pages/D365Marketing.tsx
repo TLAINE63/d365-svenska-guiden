@@ -104,7 +104,7 @@ const D365Marketing = () => {
         eyebrow="Dynamics 365 Customer Insights"
         title="Customer Insights – Journeys & Data."
         titleAccent="Två samverkande moduler. Välj partner med omsorg."
-        subhead="Microsoft levererar plattformen och AI-segmenteringen. Partnern hjälper er att skapa datamodellen, integrationerna och de poängregler som faktiskt avgör om leads får rätt mejl vid rätt tid. Det är där projekt med marketing automation vinns eller förloras. Här jämför ni partners som faktiskt levererat den här typen av flöden i er typ av verksamhet."
+        subhead="Microsoft levererar plattformen och AI-segmenteringen. Partnern hjälper dig att skapa datamodellen, integrationerna och de poängregler som faktiskt avgör om leads får rätt mejl vid rätt tid. Det är där projekt med marketing automation vinns eller förloras. Här jämför du partners som faktiskt levererat den här typen av flöden i din typ av verksamhet."
         primary={{
           label: "Jämför Customer Insights-partners",
           onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),

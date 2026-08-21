@@ -177,7 +177,7 @@ const STATIC_TOOLS: Array<{
  {
  id: "tool-bc-matchningstest",
  title: "Business Central matchningstest",
- description: "Sex frågor med branschspecifik fördjupning. Få en bedömning om Business Central matchar era behov – och var ni eventuellt behöver ISV-tillägg eller annan plattform.",
+ description: "Sex frågor med branschspecifik fördjupning. Få en bedömning om Business Central matchar dina behov – och var du eventuellt behöver ISV-tillägg eller annan plattform.",
  type: "behovsanalys",
  url: "/businesscentral/matchningstest",
  image_url: behovsErpImage,
@@ -257,7 +257,7 @@ const STATIC_TOOLS: Array<{
  {
  id: "tool-upphandlingsresan",
  title: "Den typiska upphandlingsresan – 7 stadier",
- description: "Var i systemlivscykeln står ni? Upptäck de sju stadierna i en typisk upphandlingsresa för ERP och CRM.",
+ description: "Var i systemlivscykeln står du? Upptäck de sju stadierna i en typisk upphandlingsresa för ERP och CRM.",
  type: "guide",
  url: "/kunskapscenter/upphandlingsresan",
  image_url: upphandlingsresanImage,
@@ -372,7 +372,7 @@ const TRACKS: TrackDef[] = [
   value: "tidig-fas",
   title: "Tidig fas",
   description:
-   "Var står ni? Filmer, beslutsmognad, upphandlingsresan och branschorientering – innan ni låser scopet.",
+   "Var står du? Filmer, beslutsmognad, upphandlingsresan och branschorientering – innan du låser scopet.",
   icon: Compass,
   match: (i) =>
    i.type === "video" ||
@@ -455,7 +455,7 @@ const TRACKS: TrackDef[] = [
   value: "partnerurval",
   title: "Partnerurval",
   description:
-   "Guider, e-bok och film om hur ni utvärderar och väljer rätt Microsoft Dynamics 365-partner.",
+   "Guider, e-bok och film om hur du utvärderar och väljer rätt Microsoft Dynamics 365-partner.",
   icon: Handshake,
   match: (i) =>
    ["tool-guide-valj-partner", "tool-ebook-partnervalet", "video-partners-skillnader"].includes(
@@ -866,7 +866,7 @@ const Kunskapscenter = () => {
       Innehållsspår
      </h2>
      <p className="text-sm text-muted-foreground mt-1">
-      Sex tydliga vägar genom materialet. Välj det spår som matchar var ni står just nu.
+      Sex tydliga vägar genom materialet. Välj det spår som matchar var du står just nu.
      </p>
     </div>
     {activeTrack && (

@@ -33,7 +33,7 @@ const steps = [
   {
     num: "3",
     title: "Boka avstämning",
-    body: "Vi hör av oss om vi ser att någon partner passar särskilt väl för er situation.",
+    body: "Vi hör av oss om vi ser att någon partner passar särskilt väl för din situation.",
   },
 ];
 
@@ -88,7 +88,7 @@ export default function TackNedladdning() {
               Tack{state.firstName ? ` ${state.firstName}` : ""}! {state.documentName} är nedladdad.
             </h1>
             <p className="text-muted-foreground mt-2">
-              Filen laddades ned automatiskt i webbläsaren. Här är vad vi rekommenderar att ni gör härnäst.
+              Filen laddades ned automatiskt i webbläsaren. Här är vad vi rekommenderar att du gör härnäst.
             </p>
           </div>
         </div>

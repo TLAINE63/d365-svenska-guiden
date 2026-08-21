@@ -67,7 +67,7 @@ export const SendUnderlagToPartners = ({
   pdfBlob,
   pdfFileName,
   heading = "Skicka underlaget till 2–3 matchande partners",
-  description = "Vi har valt ut de partners som passar bäst utifrån era svar. Ni kan avmarkera eller lägga till fler nedan – därefter skickar vi ert underlag och rådgivningsteamet följer upp.",
+  description = "Vi har valt ut de partners som passar bäst utifrån dina svar. Du kan avmarkera eller lägga till fler nedan – därefter skickar vi ditt underlag och rådgivningsteamet följer upp.",
 }: Props) => {
   const { toast } = useToast();
   const { data: allPartners = [] } = usePartners();
@@ -207,8 +207,8 @@ export const SendUnderlagToPartners = ({
             <div>
               <h3 className="text-lg font-semibold text-foreground mb-1">Tack – underlaget är skickat</h3>
               <p className="text-sm text-muted-foreground">
-                Vi har skickat underlaget till {sent.delivered} av {sent.total} valda partners. Ni får normalt svar
-                inom 1–3 arbetsdagar och rådgivningsteamet på d365.se följer upp för att säkerställa att ni får svar.
+                Vi har skickat underlaget till {sent.delivered} av {sent.total} valda partners. Du får normalt svar
+                inom 1–3 arbetsdagar och rådgivningsteamet på d365.se följer upp för att säkerställa att du får svar.
                 En bekräftelse har skickats till <strong>{form.email}</strong>.
               </p>
             </div>
@@ -234,7 +234,7 @@ export const SendUnderlagToPartners = ({
         {/* Suggested partners */}
         <div className="space-y-2">
           <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            Föreslagna partners (matchade på era svar)
+            Föreslagna partners (matchade på dina svar)
           </p>
           {suggested.length === 0 && (
             <p className="text-sm text-muted-foreground italic">

@@ -151,14 +151,14 @@ const BcMatchningstest = () => {
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
         breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Business Central", url: "/businesscentral/" }, { name: "Matchningstest", url: "/businesscentral/matchningstest/" }]}
-        title="Matchar Business Central era behov? – Test | d365.se"
+        title="Matchar Business Central dina behov? – Test | d365.se"
         description="Funktionsorienterat matchningstest för Microsoft Dynamics 365 Business Central. 20–25 frågor som visar vad som ingår i standard, kräver Premium, ISV eller ligger utanför BC."
         canonicalPath="/businesscentral/matchningstest"
         keywords="Business Central matchningstest, BC behovsanalys, Dynamics 365 Business Central, Essentials Premium ISV"
       />
       <SoftwareApplicationSchema
         name="Business Central matchningstest"
-        description="Funktionsorienterat 20–25-frågors matchningstest som visar hur väl Dynamics 365 Business Central täcker era behov – standard, Premium, ISV eller utanför BC."
+        description="Funktionsorienterat 20–25-frågors matchningstest som visar hur väl Dynamics 365 Business Central täcker dina behov – standard, Premium, ISV eller utanför BC."
         url="https://d365.se/businesscentral/matchningstest/"
       />
       <Navbar />
@@ -170,11 +170,11 @@ const BcMatchningstest = () => {
               Business Central
             </span>
             <h1 className="text-2xl sm:text-3xl md:text-[40px] font-semibold leading-tight text-white mt-3 mb-3">
-              Matchar Business Central era behov?
+              Matchar Business Central dina behov?
             </h1>
             <p className="text-white/70 text-base sm:text-lg max-w-3xl leading-relaxed">
               Ett funktionsorienterat matchningstest. Först några generella frågor om storlek och bransch,
-              därefter en fördjupning utifrån just ert segment. Resultatet visar vad som ingår i BC i standard,
+              därefter en fördjupning utifrån just ditt segment. Resultatet visar vad som ingår i BC i standard,
               vad som kräver Premium, konfiguration eller ISV-tillägg – och vad som faktiskt ligger utanför BC.
             </p>
           </div>
@@ -352,7 +352,7 @@ const ResultView = ({ result, answers, onRestart, onBack, onPdf }: ResultProps) 
         <CardContent className="p-6 sm:p-8">
           <h3 className="text-lg font-semibold text-foreground mb-4">Identifierade behov per kategori</h3>
           <p className="text-sm text-muted-foreground mb-6">
-            Listan visar de behov som era svar pekar på, grupperade efter hur de typiskt löses i en
+            Listan visar de behov som dina svar pekar på, grupperade efter hur de typiskt löses i en
             Business Central-implementation. Det är ingen offert eller produktrekommendation – det är
             ett underlag inför partnerdialog.
           </p>
@@ -377,7 +377,7 @@ const ResultView = ({ result, answers, onRestart, onBack, onPdf }: ResultProps) 
                       <Link to="/kunskapscenter/business-central-tillagg/" className="underline underline-offset-2 font-medium">
                         ISV-katalog för Business Central
                       </Link>{" "}
-                      – där hittar ni de vanligaste svenska tilläggen kategoriserade. Hittar ni inget som passar finns fler appar på Microsoft Marketplace.
+                      – där hittar du de vanligaste svenska tilläggen kategoriserade. Hittar du inget som passar finns fler appar på Microsoft Marketplace.
                     </p>
                   )}
                 </div>
@@ -385,8 +385,8 @@ const ResultView = ({ result, answers, onRestart, onBack, onPdf }: ResultProps) 
             })}
             {result.signals.length === 0 && (
               <p className="text-sm text-muted-foreground">
-                Era svar pekar inte på några specifika behov som driver klassificering. BC i standard är
-                ofta en bra utgångspunkt – fördjupa er i partner- och implementationsfrågorna istället.
+                Dina svar pekar inte på några specifika behov som driver klassificering. BC i standard är
+                ofta en bra utgångspunkt – fördjupa dig i partner- och implementationsfrågorna istället.
               </p>
             )}
           </div>

@@ -220,7 +220,7 @@ export const LeadCTA = ({
           id="message"
           value={formData.message}
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-          placeholder="Beskriv kort vad ni söker hjälp med..."
+          placeholder="Beskriv kort vad du söker hjälp med..."
           rows={3}
           maxLength={1000}
         />

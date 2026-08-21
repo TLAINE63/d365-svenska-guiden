@@ -635,9 +635,9 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
         {/* Step 2 (CRM only): Workload focus */}
         {step === 2 && isCrmApp && workloadOptions[selectedApp] && (
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Vilket workload-fokus är viktigast för er?</h3>
+            <h3 className="text-lg font-semibold">Vilket workload-fokus är viktigast för din?</h3>
             <p className="text-sm text-muted-foreground">
-              Välj det som bäst beskriver era behov inom <strong>{selectedApp}</strong>
+              Välj det som bäst beskriver dina behov inom <strong>{selectedApp}</strong>
             </p>
             <RadioGroup value={selectedWorkload} onValueChange={setSelectedWorkload}>
               <div className="space-y-3">
@@ -711,8 +711,8 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
             </h3>
             <p className="text-sm text-muted-foreground">
               {isErpApp
-                ? "Välj de CRM-applikationer som kan vara relevanta utöver er ERP-satsning. Ni kan välja flera eller hoppa vidare."
-                : "Välj de applikationer som kan vara aktuella utöver er primära CRM-applikation. Ni kan välja flera eller hoppa vidare."}
+                ? "Välj de CRM-applikationer som kan vara relevanta utöver din ERP-satsning. Du kan välja flera eller hoppa vidare."
+                : "Välj de applikationer som kan vara aktuella utöver din primära CRM-applikation. Du kan välja flera eller hoppa vidare."}
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {(isErpApp ? crmAdditionalOptions : erpAdditionalOptions)
@@ -771,7 +771,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
         {/* Local presence step */}
         {getContentStep(step) === 'local' && !isResultStep && (
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Hur viktigt är det att partnern finns lokalt nära er?</h3>
+            <h3 className="text-lg font-semibold">Hur viktigt är det att partnern finns lokalt nära din?</h3>
             <p className="text-sm text-muted-foreground">
               En lokal partner kan innebära personliga möten och snabbare tillgänglighet, medan en rikstäckande partner kan ha bredare kompetens.
             </p>
@@ -800,9 +800,9 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
         {/* Platform capabilities step (multi-select, optional) */}
         {getContentStep(step) === 'platform' && !isResultStep && (
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Behöver ni hjälp med fler delar av Microsofts plattform?</h3>
+            <h3 className="text-lg font-semibold">Behöver du hjälp med fler delar av Microsofts plattform?</h3>
             <p className="text-sm text-muted-foreground">
-              Välj de områden ni vill att partnern har kompetens inom. Ni kan välja flera eller hoppa vidare.
+              Välj de områden du vill att partnern har kompetens inom. Du kan välja flera eller hoppa vidare.
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {platformOptions.map(option => {
@@ -842,7 +842,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
             <h3 className="text-lg font-semibold">AI, Automation &amp; Power Platform</h3>
             <p className="text-sm text-muted-foreground">
               Utöver Dynamics 365 kan partnern ha kompetens inom Power Platform, Copilot &amp; AI samt
-              Copilot Studio och agenter. Välj vilken nivå ni vill att partnern ska ha – nivåerna är
+              Copilot Studio och agenter. Välj vilken nivå du vill att partnern ska ha – nivåerna är
               bedömda av d365.se. Dynamics 365-kompetensen väger alltid tyngst.
             </p>
             <div className="space-y-3">
@@ -953,7 +953,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
               <CheckCircle className="h-6 w-6" />
               <h3 className="text-lg font-semibold">
                 {suggestedPartners.length > 0 
-                  ? "Baserat på dina val skulle följande partners kunna passa er verksamhet:"
+                  ? "Baserat på dina val skulle följande partners kunna passa din verksamhet:"
                   : "Inga partner listas med denna filtrering"}
               </h3>
             </div>

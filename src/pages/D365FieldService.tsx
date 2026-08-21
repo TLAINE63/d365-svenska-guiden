@@ -93,7 +93,7 @@ const D365FieldService = () => {
         icon={FieldServiceIcon}
         eyebrow="Dynamics 365 Field Service"
         title="Dynamics 365 Field Service – planering, mobilitet och integration med ERP"
-        subhead="Microsoft levererar plattformen och mobilappen. Partnern bygger schemaläggningsreglerna, kompetensmatchningen och IoT-integrationerna som kan höja andelen lösta ärenden vid första besök och sänker körtiden. Det är där fältprojekt vinns. Här jämför ni partners som faktiskt levererat Field Service i er bransch."
+        subhead="Microsoft levererar plattformen och mobilappen. Partnern bygger schemaläggningsreglerna, kompetensmatchningen och IoT-integrationerna som kan höja andelen lösta ärenden vid första besök och sänker körtiden. Det är där fältprojekt vinns. Här jämför du partners som faktiskt levererat Field Service i din bransch."
         primary={{
           label: "Jämför FS-partners",
           onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),

@@ -58,7 +58,7 @@ const ContactUs = () => {
                 Ett samtal innan partnerdialogen börjar
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-white/95 drop-shadow">
-                Ställ frågor om Dynamics 365, hur en upphandling brukar se ut, eller bolla vilka partners som rimligen bör finnas på er kortlista – från köparens perspektiv.
+                Ställ frågor om Dynamics 365, hur en upphandling brukar se ut, eller bolla vilka partners som rimligen bör finnas på din kortlista – från köparens perspektiv.
               </p>
             </div>
           </div>
@@ -75,7 +75,7 @@ const ContactUs = () => {
                 Ett Dynamics 365-val avgörs sällan av funktioner ensam.
               </p>
               <p className="text-base sm:text-lg text-muted-foreground">
-                Det avgörs av rätt vägval, rätt omfattning och rätt partner – utifrån er verksamhet, er komplexitet och det ansvar ni själva vill ta över tid.
+                Det avgörs av rätt vägval, rätt omfattning och rätt partner – utifrån din verksamhet, din komplexitet och det ansvar du själv vill ta över tid.
               </p>
               <p className="text-base sm:text-lg text-muted-foreground">
                 d365.se bygger på lång erfarenhet av Microsofts affärsapplikationer, partnerlandskapet och hur svenska företag faktiskt väljer, upphandlar och utvecklar ERP- och CRM-lösningar.
@@ -237,7 +237,7 @@ const ContactUs = () => {
                     </div>
                     <div>
                       <h4 className="font-semibold text-foreground mb-1">Kostnadsfri rådgivning</h4>
-                      <p className="text-sm text-muted-foreground">Boka ett kostnadsfritt samtal med en senior rådgivare som hjälper dig förstå vilken lösning och Microsoftpartner som borde passa er verksamhet</p>
+                      <p className="text-sm text-muted-foreground">Boka ett kostnadsfritt samtal med en senior rådgivare som hjälper dig förstå vilken lösning och Microsoftpartner som borde passa din verksamhet</p>
                     </div>
                   </div>
 
@@ -249,7 +249,7 @@ const ContactUs = () => {
                     </div>
                     <div>
                       <h4 className="font-semibold text-foreground mb-1">Upphandlingsstöd</h4>
-                      <p className="text-sm text-muted-foreground">Vi står vid er sida genom hela processen för att undvika vanliga fallgropar</p>
+                      <p className="text-sm text-muted-foreground">Vi står vid din sida genom hela processen för att undvika vanliga fallgropar</p>
                     </div>
                   </div>
 

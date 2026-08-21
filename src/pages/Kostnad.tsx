@@ -60,7 +60,7 @@ export default function Kostnad() {
             <p className="text-base sm:text-lg text-muted-foreground mb-6">
               Total­kostnaden består av tre delar: <strong>abonnemang</strong> (licens per
               användare och månad), <strong>implementation</strong> (en engångs­kostnad hos
-              er partner) och <strong>löpande kostnader</strong> efter go-live
+              din partner) och <strong>löpande kostnader</strong> efter go-live
               (förvaltning, vidareutveckling, AI-konsumtion). Här är typiska intervall för
               svenska införanden – använd dem som sanity-check mot partner­offerterna, inte
               som facit.
@@ -135,12 +135,12 @@ export default function Kostnad() {
         <section className="py-8 sm:py-12">
           <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
-              Behöver ni hjälp att tolka offerterna?
+              Behöver du hjälp att tolka offerterna?
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground mb-6">
               Vi är på köparens sida. Använd vår behovsanalys för att få en mognads­profil
               och konkreta rekommendationer – eller låt partnerfiltret föreslå 2–4 partners
-              som matchar ert behov.
+              som matchar ditt behov.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
               <Link

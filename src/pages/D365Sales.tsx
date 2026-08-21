@@ -117,8 +117,8 @@ const D365Sales = () => {
         icon={SalesIcon}
         eyebrow="Dynamics 365 Sales"
         title="Dynamics 365 Sales."
-        titleAccent="Verktyget är en sak. Partnern som sätter era säljprocesser är en annan."
-        subhead="En konsultverksamhets säljprocess ser inte ut som en distributörs. Funktionerna är desamma – men hur partnern bygger Sales runt er specifika modell avgör om det blir er pipeline eller bara ett dyrt CRM. Här jämför ni partners som faktiskt levererat Sales i er typ av verksamhet."
+        titleAccent="Verktyget är en sak. Partnern som sätter dina säljprocesser är en annan."
+        subhead="En konsultverksamhets säljprocess ser inte ut som en distributörs. Funktionerna är desamma – men hur partnern bygger Sales runt din specifika modell avgör om det blir din pipeline eller bara ett dyrt CRM. Här jämför du partners som faktiskt levererat Sales i din typ av verksamhet."
         primary={{
           label: "Jämför Sales-partners",
           onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
@@ -135,7 +135,7 @@ const D365Sales = () => {
         <p>Plattformen samlar leads, kontakter, affärsmöjligheter, offerter, order och prognoser i en strukturerad pipeline där varje säljare ser sina viktigaste affärer, nästa-bästa-åtgärd och realtidsinsikter om kundens engagemang.</p>
         <p>Genom djup integration med Outlook, Teams, Excel, SharePoint och LinkedIn Sales Navigator arbetar säljaren kvar i sina vana verktyg samtidigt som all aktivitet automatiskt loggas i CRM:et – inga dubbla registreringar, ingen administrativ friktion.</p>
         <p>Inbyggd AI via Microsoft Copilot och nya autonoma säljagenter sammanfattar mejlkonversationer, förbereder mötesunderlag, föreslår rätt budskap baserat på affärsläge och kan till och med kvalificera inkommande leads och boka in möten på egen hand. Resultatet är mer kvalitativ säljtid, snabbare offertprocesser, bättre prognosprecision och en pipeline som faktiskt speglar verkligheten.</p>
-        <p>Det blir riktigt vasst när partnern modellerar er specifika säljprocess, era kvalificeringskriterier och era nyckeltal – standardinstallationen ger sällan full effekt på egen hand, men rätt konfigurerad blir Dynamics 365 Sales motorn som skalar hela er säljorganisation.</p>
+        <p>Det blir riktigt vasst när partnern modellerar din specifika säljprocess, dina kvalificeringskriterier och dina nyckeltal – standardinstallationen ger sällan full effekt på egen hand, men rätt konfigurerad blir Dynamics 365 Sales motorn som skalar hela din säljorganisation.</p>
       </ShortAnswer>
 
       {/* Introduction Section */}
@@ -221,7 +221,7 @@ const D365Sales = () => {
                   ❓ Hur lång tid tar det att implementera Dynamics 365 Sales?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
-                  En standardimplementering av Dynamics 365 Sales för 10-30 användare tar normalt 2-4 månader. Tiden kan variera beroende på om ni har möjlighet att lägga den interna tiden som ofta krävs och om ni har en god bild över hur ni vill att säljprocessen skall se ut. Detta inkluderar grundkonfiguration, datamigrering, användarutbildning och integrationer. Större implementeringar för en större verksamhet och med mer omfattande anpassningar kan ta 6-12 månader eller mer.
+                  En standardimplementering av Dynamics 365 Sales för 10-30 användare tar normalt 2-4 månader. Tiden kan variera beroende på om du har möjlighet att lägga den interna tiden som ofta krävs och om du har en god bild över hur du vill att säljprocessen skall se ut. Detta inkluderar grundkonfiguration, datamigrering, användarutbildning och integrationer. Större implementeringar för en större verksamhet och med mer omfattande anpassningar kan ta 6-12 månader eller mer.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

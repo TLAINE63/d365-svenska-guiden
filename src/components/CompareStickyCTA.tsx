@@ -302,7 +302,7 @@ const CompareStickyCTA = ({
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
                   rows={3}
                   maxLength={1000}
-                  placeholder="Kort om vad ni söker hjälp med..."
+                  placeholder="Kort om vad du söker hjälp med..."
                 />
               </div>
 

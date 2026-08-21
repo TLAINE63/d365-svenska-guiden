@@ -119,8 +119,8 @@ const ERPOverview = () => {
  <ProductHero
  eyebrow="Pelarsida · Köparsidig guide"
  title="Affärssystem (ERP) – vad det är."
- titleAccent="Så väljer ni rätt utan säljpåverkan."
- subhead="Vad är ett affärssystem, vad kostar det, hur lång tid tar det att införa och vilket av Microsofts två alternativ – Business Central eller Finance & Supply Chain Management – passar er bäst? Här får ni svaren utan säljpress."
+ titleAccent="Så väljer du rätt utan säljpåverkan."
+ subhead="Vad är ett affärssystem, vad kostar det, hur lång tid tar det att införa och vilket av Microsofts två alternativ – Business Central eller Finance & Supply Chain Management – passar dig bäst? Här får du svaren utan säljpress."
  primary={{ label: "Gör en kostnadsfri behovsanalys", to: "/ERPbehovsanalys/", icon: ClipboardList }}
  secondary={{ label: "Jämför Business Central vs Finance & Supply Chain", href: "#comparison" }}
  />
@@ -158,7 +158,7 @@ const ERPOverview = () => {
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-5xl mx-auto">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 text-center">
- Det här säger ingen leverantör – men ni behöver veta det
+ Det här säger ingen leverantör – men du behöver veta det
  </h2>
  <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
  Vi tror på radikal transparens. Här är de sex sakerna som avgör om ett ERP-projekt blir lyckat

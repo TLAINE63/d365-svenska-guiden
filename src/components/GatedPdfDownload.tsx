@@ -344,7 +344,7 @@ const GatedPdfDownload = ({
 
             <p className="text-xs text-muted-foreground flex items-start gap-1.5">
               <ShieldCheck className="h-3.5 w-3.5 mt-0.5 flex-shrink-0" aria-hidden="true" />
-              Vi använder uppgifterna för att hjälpa er vidare – aldrig för massutskick.
+              Vi använder uppgifterna för att hjälpa dig vidare – aldrig för massutskick.
             </p>
           </form>
         )}

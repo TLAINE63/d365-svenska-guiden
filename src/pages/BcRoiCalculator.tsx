@@ -233,7 +233,7 @@ export default function BcRoiCalculator() {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Business Central ROI-kalkylator – kostnad & nytta"
-        description="Indikativ ROI- och TCO-kalkyl för Microsoft Dynamics 365 Business Central. Räkna licens, implementation, payback och 5-årig totalkostnad utifrån era nyckeltal."
+        description="Indikativ ROI- och TCO-kalkyl för Microsoft Dynamics 365 Business Central. Räkna licens, implementation, payback och 5-årig totalkostnad utifrån dina nyckeltal."
         canonicalPath="/businesscentral/roi-kalkylator/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
@@ -413,7 +413,7 @@ export default function BcRoiCalculator() {
                       <div>
                         <Label>Effektiviseringar för {v.industry.toLowerCase()}</Label>
                         <p className="text-xs text-muted-foreground mt-1">
-                          Bocka i de områden där ni ser potential. Estimaten baseras på Microsofts Business Value Assessment och svenska partnerbenchmarks.
+                          Bocka i de områden där du ser potential. Estimaten baseras på Microsofts Business Value Assessment och svenska partnerbenchmarks.
                         </p>
                       </div>
                       <div className="space-y-2">
@@ -607,7 +607,7 @@ export default function BcRoiCalculator() {
                       { title: "Licens", body: `Priser hämtas från d365.se centrala prisregister (Microsofts listpriser, SEK/mån exkl. moms). Faktiskt pris beror på avtalsform (EA, CSP), volym och förhandling. Device-licens använder fallback ${fmtSek(DEVICE_FALLBACK)}/mån om SKU saknas i prisregistret.` },
                       { title: "Implementation", body: "Bas: Låg 250 000 kr, Medel 500 000 kr, Hög 1 000 000 kr. Skalas mjukt med antal användare (+1,2 % per användare över 25) och med en branschfaktor som speglar typisk projekttyngd: Tillverkning 1,4× · Distribution 1,2× · Handel 1,0× · Annan 1,0× · Tjänster 0,8×. Därtill + 30 000 kr per integration, + en engångskostnad per vald effektiviseringsdrivare (50–200 000 kr beroende på område), + 200 000 kr om Premium krävs." },
                       { title: "Förvaltning", body: "År 1 antas löpande förvaltning vara cirka 8 % av implementationskostnaden, eftersom huvuddelen av insatsen går till själva projektet. Från år 2 och framåt antas normal förvaltningsnivå om cirka 18 % per år." },
-                      { title: "Årlig nytta", body: "Nyttan summeras från de drivare ni bockat i för er bransch. Varje drivare har en grundnivå (fast belopp eller andel av omsättning, taklagd) som skalas med antal användare – baseline 25 användare = 1,0×, sublinjärt så att 10 användare ger ~0,55× och 100 användare ~2,3×. Summan justeras sedan med andelen manuella processer (0,5×–1,5×) och komplexitetsfaktor (0,6 / 1,0 / 1,3). Integrationer ger dessutom 50 000 kr/år vardera. Estimaten är baserade på Microsofts Business Value Assessment (oktober 2025) och svenska partnerbenchmarks." },
+                      { title: "Årlig nytta", body: "Nyttan summeras från de drivare du bockat i för din bransch. Varje drivare har en grundnivå (fast belopp eller andel av omsättning, taklagd) som skalas med antal användare – baseline 25 användare = 1,0×, sublinjärt så att 10 användare ger ~0,55× och 100 användare ~2,3×. Summan justeras sedan med andelen manuella processer (0,5×–1,5×) och komplexitetsfaktor (0,6 / 1,0 / 1,3). Integrationer ger dessutom 50 000 kr/år vardera. Estimaten är baserade på Microsofts Business Value Assessment (oktober 2025) och svenska partnerbenchmarks." },
                       { title: "Payback & TCO", body: "Payback = implementation / (årlig nettonytta inkl. ersatt IT-kostnad). 5-årig TCO = implementation + 5 × (licens + förvaltning). 5-årig ROI = (5 × årlig nytta + 5 × ersatt IT-kostnad − TCO) / implementation." },
                       { title: "Vad ingår inte", body: "Förändringsledning, datakvalitet, intern tidsåtgång, integrationsplattform (iPaaS), ISV-licenser och hårdvara hanteras separat." },
                       { title: "Disclaimer", body: "Kalkylen är en förenklad uppskattning och bör användas som beslutsstöd – inte som en slutlig offert eller affärskalkyl. Validera alltid utfall med två–tre relevanta partners." },
@@ -719,7 +719,7 @@ export default function BcRoiCalculator() {
                   går till själva projektet. Från år 2 och framåt antas normal förvaltningsnivå om cirka 18 % per år.
                 </Assumption>
                 <Assumption title="Årlig nytta">
-                  Nyttan summeras från de drivare ni bockat i för er bransch. Varje drivare har en grundnivå (fast belopp eller andel
+                  Nyttan summeras från de drivare du bockat i för din bransch. Varje drivare har en grundnivå (fast belopp eller andel
                   av omsättning, taklagd) som skalas med <strong>antal användare</strong> – baseline 25 användare = 1,0×, sublinjärt så att
                   10 användare ger ~0,55× och 100 användare ~2,3×. Summan justeras sedan med andelen manuella processer (0,5×–1,5×) och
                   komplexitetsfaktor (0,6 / 1,0 / 1,3). Integrationer ger dessutom 50 000 kr/år vardera. Estimaten är baserade på

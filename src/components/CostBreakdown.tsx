@@ -83,7 +83,7 @@ const CostBreakdown = ({ product, heading, hideOverviewLink = false }: CostBreak
                   Vanliga kostnads­drivare
                 </h3>
                 <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">
-                  Det här flyttar er över eller under spannet ovan.
+                  Det här flyttar din över eller under spannet ovan.
                 </p>
               </div>
             </div>
