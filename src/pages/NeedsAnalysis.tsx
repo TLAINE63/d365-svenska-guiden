@@ -4298,7 +4298,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         <main className="flex-grow pt-28 pb-12">
   
       <ShortAnswer title="Vad är en behovsanalys för ERP">
-        En ERP-behovsanalys hjälper din klargöra vilka processer, integrationer och rapporter ditt affärssystem ska stötta – innan du pratar med leverantörer. Vår kostnadsfria analys ger en köparsidig rekommendation av lämplig D365-inriktning (Business Central eller Finance & Supply Chain Management) baserat på bransch, storlek och komplexitet.
+        En ERP-behovsanalys hjälper dig klargöra vilka processer, integrationer och rapporter ditt affärssystem ska stötta – innan du pratar med leverantörer. Vår kostnadsfria analys ger en köparsidig rekommendation av lämplig D365-inriktning (Business Central eller Finance & Supply Chain Management) baserat på bransch, storlek och komplexitet.
       </ShortAnswer>
 
         <div className="container mx-auto px-4 max-w-4xl">
