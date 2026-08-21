@@ -277,7 +277,7 @@ export default function AllD365Partners() {
                     <Link
                       to={`/partner/${p.slug}`}
                       aria-label={p.name}
-                      className="group relative flex items-center justify-between gap-3 p-4 rounded-lg border-2 border-primary/25 bg-card shadow-sm hover:border-primary hover:shadow-md transition-all"
+                      className="group relative flex items-start justify-between gap-3 p-4 h-full rounded-lg border-2 border-primary/25 bg-card shadow-sm hover:border-primary hover:shadow-md transition-all"
                     >
                       <div className="min-w-0 flex-1">
                         {p.logo_url ? (
@@ -291,6 +291,11 @@ export default function AllD365Partners() {
                           <div className="font-semibold text-foreground group-hover:text-primary transition-colors truncate mb-2">
                             {p.name}
                           </div>
+                        )}
+                        {p.description && (
+                          <p className="text-xs text-muted-foreground leading-relaxed mb-2 line-clamp-4">
+                            {p.description}
+                          </p>
                         )}
                         {p.applications.length > 0 && (
                           <div className="flex flex-wrap gap-1">
