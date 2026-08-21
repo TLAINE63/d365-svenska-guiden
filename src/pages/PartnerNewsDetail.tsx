@@ -118,6 +118,31 @@ export default function PartnerNewsDetail() {
 
   const ogImage = item.image_url || undefined;
 
+  /** Interna fördjupningslänkar per produktområde (stärker pelarsidorna). */
+  const PRODUCT_PAGE_MAP: Record<string, { path: string; label: string }> = {
+    "business-central": {
+      path: "/businesscentral/",
+      label: "Dynamics 365 Business Central – pris, funktioner och partners i Sverige",
+    },
+    "finance-scm": {
+      path: "/finance-supply-chain/",
+      label: "Dynamics 365 Finance & Supply Chain Management",
+    },
+    crm: { path: "/d365sales/", label: "Dynamics 365 Sales – CRM för säljorganisationen" },
+    "crm-sales": { path: "/d365sales/", label: "Dynamics 365 Sales – CRM för säljorganisationen" },
+    "crm-service": { path: "/d365customerservice/", label: "Dynamics 365 Customer Service" },
+    "microsoft-ai": { path: "/ai-oversikt/", label: "AI och Copilot i Dynamics 365" },
+  };
+  const productPageLinks = Array.from(
+    new Map(
+      productAreas
+        .map((a) => (a ? PRODUCT_PAGE_MAP[a] : undefined))
+        .filter((v): v is { path: string; label: string } => Boolean(v))
+        .map((v) => [v.path, v]),
+    ).values(),
+  );
+
+
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
@@ -251,6 +276,22 @@ export default function PartnerNewsDetail() {
                 </a>
               </Button>
             </div>
+
+            {productPageLinks.length > 0 && (
+              <div className="mt-8 pt-6 border-t border-border">
+                <p className="text-sm font-semibold text-foreground mb-2">Fördjupa dig</p>
+                <ul className="space-y-1.5">
+                  {productPageLinks.map((l) => (
+                    <li key={l.path}>
+                      <Link to={l.path} className="text-sm text-primary hover:underline font-medium">
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
           </div>
         </section>
       </main>
