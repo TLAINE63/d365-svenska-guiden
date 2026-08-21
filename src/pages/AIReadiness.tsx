@@ -140,7 +140,7 @@ const systemTrackData: Record<SystemTrack, { label: string; emoji: string; color
     emoji: "🧭",
     color: "text-purple-600",
     description: "Systemsituationen är oklar, vilket ofta indikerar att en strategisk kartläggning behövs innan AI-initiativ startas. Rätt beslut nu sparar betydande tid och resurser längre fram.",
-    recommendation: "Börja med att kartlägga det nuvarande systemlandskapet och identifiera var AI kan ge störst effekt. En kvalificerad partner kan hjälpa din navigera alternativen.",
+    recommendation: "Börja med att kartlägga det nuvarande systemlandskapet och identifiera var AI kan ge störst effekt. En kvalificerad partner kan hjälpa dig navigera alternativen.",
   },
 };
 
