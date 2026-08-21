@@ -1,54 +1,42 @@
-# Videoindex för Dynamics 365 — automatisk gruppering per produkt och fråga
+# Automatiserat videoindex – Dynamics 365 på YouTube
 
-## Placeringsbeslut (svaret på din fråga)
-
-Videoindexet ska ligga **inom Kunskapscentret** som en egen sida på `/kunskapscenter/videor/`, inte som en fristående top-rutt. Skälet:
-
-- Den befintliga videoinfrastrukturen lever redan där — `src/data/kunskapVideos.ts` (4 kuraterade Shorts), `/kunskapscenter/video/:slug` (SSG-landningssida med VideoObject JSON-LD) och `src/lib/youtube.ts` (ID-/thumbnail-/embed-verktyg). Allt återanvänds.
-- Kunskapscentret är sajtenens hem för utbildningsinnehåll; den nuvarande "Videor"-filtret blir naturlig ingång till ett bredare index.
-- En fristående rutt skulle skapa en konkurrerande innehållssilo och bryta mot internal-linking-strategin (pelare → kunskapscenter → djuplänkar).
-
-Därtill byggs en **återanvändbar sektionskomponent** `RelevantVideosSection` som varje produktsida (Business Central, F&SCM, Sales, Customer Service, Copilot etc.) kan bädda in för att visa auto-grupperade videor för sin produktgrupp, med rekommendationer baserade på vanliga frågor.
+Samla in videor automatiskt från utvalda YouTube-kanaler, låt AI klassificera dem per produktgrupp och frågeställning, och publicera dem i Kunskapscentret med filter och rekommendationer på produktsidorna.
 
 ## Vad som byggs
 
-1. **Databastabell `d365_videos`** — videometadata med auto-klassade fält:
-   - `youtube_id`, `title`, `description`, `channel_title`, `published_at`, `duration`
-   - `product_groups text[]` (BC, F&SCM, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Commerce, HR, Project Operations, AI/Copilot)
-   - `question_tags text[]` (t.ex. "byta system", "implementeringskostnad", "crm vs erp", "ai-readiness")
-   - `status` (`pending` | `published` | `rejected`) — för manuell godkännandeflöde
-   - `ai_summary text` — neutral sammanfattning genererad av Gemini
-   - RLS: anon SELECT endast `status = 'published'`; authenticated/admin full CRUD via service role.
+**1. Videobibliotek i databasen**
+Ny tabell `d365_videos` som lagrar video-id, titel, beskrivning, kanal, publiceringsdatum, längd, thumbnail, språk samt AI-genererade fält: produktgrupper (BC, F&SCM, Sales, Customer Service, Customer Insights, HR, Project Operations, Commerce, Power Platform, Copilot/AI), frågetyp (t.ex. "Vad är X", "Pris & licens", "Implementering", "Demo", "Nyheter", "Integration"), svensk sammanfattning, relevanspoäng och status (ny/publicerad/dold).
+Publikt läsbara är bara publicerade videor; skrivning sker via edge-funktion.
 
-2. **Edge-funktion `ingest-youtube-videos`** — schemalagd inläsning från utvalda YouTube-kanaler (Microsoft Dynamics 365-kanalen + partnerkanaler) via YouTube Data API. Hämtar nya uppladdningar, lagrar som `pending`, anropar Gemini för att föreslå `product_groups` och `question_tags` utifrån titel + transkript. Spegelar mönstret från `ingest-partner-feeds`.
+**2. Kanalregister**
+Tabell `d365_video_sources` för de kanaler som ska bevakas (Microsoft Dynamics 365, Microsoft Mechanics, utvalda partner-/community-kanaler). Aktiv/inaktiv, senaste hämtning, antal importerade.
 
-3. **Admin-gränssnitt** i AdminDashboard — ny flik "Videor" (`AdminVideosTab.tsx`):
-   - Lista pending videor, godkänn/avvisa/redigera föreslagna produkt- och frågetaggar
-   - Lägg till YouTube-URL manuellt (använder `extractYouTubeId` från `youtube.ts`)
-   - Bulk-regenerera AI-taggar
+**3. Automatisk inläsning (edge-funktion `ingest-d365-videos`)**
+Hämtar nya videor per kanal via YouTube Data API, hoppar över redan importerade (unikt video-id), begränsad batch per körning, låsrad så två körningar inte krockar, och pausas automatiskt vid kvot-/kreditfel. Nya videor klassificeras av Gemini via Lovable AI: produktgrupper, frågetyp, svensk sammanfattning och relevanspoäng. Irrelevanta videor markeras som dolda istället för att raderas. Schemaläggs dagligen och kan köras manuellt från admin.
 
-4. **Sida `/kunskapscenter/videor/`** (`VideoIndex.tsx`):
-   - Grid med videokort (thumbnail + titel + produktchips + frågechips)
-   - Filter: produktgrupp (flerval), frågetyp, kanal
-   - Rekommendationsrad: "Mest relevanta för [produkt]" + "Vanliga frågor"-gruppering
-   - SEO: SSG-prerenderad, VideoObject JSON-LD per video, faq-länkar till Kunskapscenter-artiklar
+**4. Admin – fliken "Videor"**
+Lista med filter på status/produkt/kanal, möjlighet att publicera, dölja, redigera taggar och sammanfattning, samt "Hämta nu"-knapp och hantering av bevakade kanaler.
 
-5. **Sektionskomponent `RelevantVideosSection`** — visas på produktsidor:
-   - Hämtar publicerade videor för sidans produktgrupp
-   - Grupperat per frågetag, max 6 videor
-   - Länkar vidare till `/kunskapscenter/videor/?produkt=<grupp>` för full index
+**5. Publikt videoindex `/kunskapscenter/videor/`**
+Filter på produktgrupp och frågetyp, sökfält, kort med thumbnail, svensk sammanfattning, kanal och längd. Klick öppnar videon i modal/på YouTube. Sidan är prerenderad med SEO-titel, beskrivning och `ItemList` + `VideoObject` JSON-LD.
 
-6. **Koppling till befintliga landningssidor** — `/kunskapscenter/video/:slug` (`VideoLanding.tsx`) behålls och läser nu från databas om videon finns där, annars fallback till `knowledgeVideos.ts` (bakåtkompatibel).
+**6. Rekommenderade videor på produktsidor**
+Återanvändbar sektion `RelevantVideosSection` som visar 3–4 mest relevanta videor per produktgrupp, placerad på BC-, F&SCM-, CRM- och AI-sidorna samt i befintliga kunskapshubbar. Befintliga manuella Shorts i `src/data/knowledgeVideos.ts` behålls och visas tillsammans med de automatiskt inlästa.
 
 ## Tekniska detaljer
 
-- **YouTube Data API:** kräver API-nyckel — läggs via `add_secret` som `YOUTUBE_API_KEY`. Inläsning schemaläggs via `pg_cron` (samma mönster som `email_queue_dispatch`).
-- **AI-klassning:** Gemini via Lovable AI Gateway (`/chat/completions`) — prompten ber om JSON med `product_groups[]` och `question_tags[]` utifrån kanalens kända innehåll + videots titel/beskrivning. Samma mönster som `generate-partner-insights`.
-- **SSG:** nya rutt läggs i `entry-server.tsx` prerender-listan; `/kunskapscenter/videor/` prerenderas statiskt med alla publicerade videor inbäddade som JSON (samma mönster som `partnerData.json`).
-- **Databas-migration** följer GRANT-ordningen: CREATE TABLE → GRANT → ENABLE RLS → CREATE POLICY.
-- **Färger/tokens:** videokort använder `--accent` (teal) för frågechips och `--primary` för produktchips, enligt designminne — aldrig lila (endast AI/Copilot) eller amber (endast insight).
+- Databas: två nya tabeller med RLS (publik SELECT endast på `status = 'published'`), GRANTs och `updated_at`-trigger.
+- Edge-funktion: `supabase/functions/ingest-d365-videos/`, batchstorlek ~25 videor/körning, idempotent via unikt `youtube_id`, kretsbrytare vid 402/403 från AI-gatewayen och vid YouTube-kvotfel.
+- Nyckel: kräver en `YOUTUBE_API_KEY` (YouTube Data API v3) – begärs som secret innan implementation.
+- AI-klassificering via Lovable AI (Gemini) med kompakt JSON-schema utan hårda längdgränser; fallback vid ogiltigt svar sätter status "ny" för manuell granskning.
+- Frontend: ny route i router + prerender-listan, hook `useD365Videos`, komponenter `VideoIndex`-sida, `VideoFilterBar`, `VideoCard`, `RelevantVideosSection`.
+- Design följer befintliga tokens och Kunskapscentrets kortstil.
 
-## Berörda filer
+## Ordning
 
-- Ny: `src/pages/VideoIndex.tsx`, `src/components/RelevantVideosSection.tsx`, `src/components/AdminVideosTab.tsx`, `supabase/functions/ingest-youtube-videos/index.ts`, DB-migration
-- Ändras: `src/App.tsx` (ny rutt), `src/entry-server.tsx` (SSG + prerender), `src/components/Navbar.tsx` (länk under Kunskapscenter), `src/pages/Kunskapscenter.tsx` ("Videor"-filter länkar till index), produktsidor (bäddar in `RelevantVideosSection`), `src/pages/VideoLanding.tsx` (läser från DB)
+1. Migration (tabeller, RLS, grants)
+2. Secret för YouTube API
+3. Edge-funktion för inläsning + AI-taggning, testkörning
+4. Admin-flik
+5. Publik indexsida + SEO
+6. Rekommendationssektion på produktsidor
