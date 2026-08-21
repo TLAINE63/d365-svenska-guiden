@@ -68,6 +68,9 @@ import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
 import TrustBanner from "@/components/TrustBanner";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import partnerData from "@/data/partnerData.json";
+import { FREE_TOOL_COUNT } from "@/data/freeTools";
+import { usePartners } from "@/hooks/usePartners";
+import { useBasicPartners } from "@/hooks/useBasicPartners";
 
 // Endast branscher som har minst en publicerad (verifierad) partner.
 // Använder samma logik som /branscher (product_filters medräknas).
@@ -91,7 +94,9 @@ publishedPartners.forEach((p) => {
 });
 const HERO_INDUSTRIES = STANDARD_INDUSTRIES.filter((i) => publishedIndustryNames.has(i.name));
 
-const IDENTIFIED_PARTNER_COUNT = 83; // Totalt identifierade partners i Sverige (exklusive Thomas Laine / operatören)
+// Fallback som används vid SSG/innan data laddats – ersätts av live-siffror i klienten.
+const VERIFIED_PARTNER_COUNT_FALLBACK = publishedPartners.length;
+const IDENTIFIED_PARTNER_COUNT_FALLBACK = 83; // Totalt identifierade partners i Sverige (exkl. operatören)
 
 
 const homeFaqs = [
@@ -109,6 +114,15 @@ const Index = () => {
   const [heroIndustry, setHeroIndustry] = useState("");
   const [heroProduct, setHeroProduct] = useState("");
   const navigate = useNavigate();
+
+  // Dynamisk statistik – speglar vad sajten faktiskt innehåller just nu.
+  const { data: verifiedPartners } = usePartners();
+  const { data: basicPartners } = useBasicPartners();
+  const liveIdentifiedCount =
+    (verifiedPartners?.length || 0) + (basicPartners?.length || 0);
+  const identifiedPartnerCount =
+    liveIdentifiedCount > 0 ? liveIdentifiedCount : IDENTIFIED_PARTNER_COUNT_FALLBACK;
+  const verifiedPartnerCount = verifiedPartners?.length || VERIFIED_PARTNER_COUNT_FALLBACK;
 
   const heroProducts: { value: string; label: string; path: string; hasPartnerFilter?: boolean }[] = [
     { value: "bc", label: "Business Central (ERP SMB)", path: "/businesscentral/", hasPartnerFilter: true },
@@ -341,10 +355,11 @@ const Index = () => {
               {/* Trust / stats strip – unified grid with equal height and rhythm */}
               <div className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 auto-rows-fr">
                 {[
-                  { n: `${IDENTIFIED_PARTNER_COUNT}`, t: "Identifierade Dynamics 365-partners i Sverige", path: "/alla-d365-partners/" },
-                  { n: `${HERO_INDUSTRIES.length}`, t: "Branscher", path: "/branscher/" },
-                  { n: "8+", t: "Kostnadsfria beslutsverktyg", path: "/kunskapscenter/" },
-                  { n: "0 kr", t: "Informationen och rådgivningen på denna sajt är kostnadsfri", path: "/kunskapscenter/" },
+                  { n: `${identifiedPartnerCount}`, t: "Identifierade Dynamics 365-partners i Sverige", path: "/alla-d365-partners/" },
+                  { n: `${verifiedPartnerCount}`, t: "Verifierade partnerprofiler", path: "/valjdynamics365partner/" },
+                  { n: `${HERO_INDUSTRIES.length}`, t: "Branscher med verifierade partners", path: "/branscher/" },
+                  { n: `${FREE_TOOL_COUNT}`, t: "Kostnadsfria beslutsverktyg", path: "/kunskapscenter/" },
+                  
                 ].map((s) => (
                   <Link
                     key={s.t}
