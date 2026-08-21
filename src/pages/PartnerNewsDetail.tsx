@@ -251,6 +251,22 @@ export default function PartnerNewsDetail() {
                 </a>
               </Button>
             </div>
+
+            {productPageLinks.length > 0 && (
+              <div className="mt-8 pt-6 border-t border-border">
+                <p className="text-sm font-semibold text-foreground mb-2">Fördjupa dig</p>
+                <ul className="space-y-1.5">
+                  {productPageLinks.map((l) => (
+                    <li key={l.path}>
+                      <Link to={l.path} className="text-sm text-primary hover:underline font-medium">
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
           </div>
         </section>
       </main>
