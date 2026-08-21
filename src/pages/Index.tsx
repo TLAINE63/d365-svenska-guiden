@@ -359,7 +359,7 @@ const Index = () => {
                   { n: `${verifiedPartnerCount}`, t: "Verifierade partnerprofiler", path: "/valjdynamics365partner/" },
                   { n: `${HERO_INDUSTRIES.length}`, t: "Branscher med verifierade partners", path: "/branscher/" },
                   { n: `${FREE_TOOL_COUNT}`, t: "Kostnadsfria beslutsverktyg", path: "/kunskapscenter/" },
-                  { n: "0 kr", t: "Informationen och rådgivningen på denna sajt är kostnadsfri", path: "/kunskapscenter/" },
+                  
                 ].map((s) => (
                   <Link
                     key={s.t}
