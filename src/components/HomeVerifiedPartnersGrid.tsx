@@ -30,7 +30,7 @@ const APP_BADGES: Array<{ match: (a: string[]) => boolean; label: string }> = [
   { match: (a) => a.includes("Customer Service"), label: "Customer Service" },
   { match: (a) => a.includes("Field Service"), label: "Field Service" },
   { match: (a) => a.includes("Contact Center"), label: "Contact Center" },
-  { match: (a) => a.includes("Customer Insights (Marketing)"), label: "Marketing" },
+  { match: (a) => a.includes("Customer Insights (Marketing)"), label: "Customer Insights (Marketing Automation)" },
 ];
 
 type ProductId =
@@ -51,7 +51,7 @@ const PRODUCT_FILTERS: Array<{ id: ProductId; label: string }> = [
   { id: "customer-service", label: "Customer Service" },
   { id: "field-service", label: "Field Service" },
   { id: "contact-center", label: "Contact Center" },
-  { id: "marketing", label: "Marketing" },
+  { id: "marketing", label: "Customer Insights (Marketing Automation)" },
 ];
 
 const matchesProduct = (apps: string[] = [], id: ProductId) => {
@@ -74,7 +74,7 @@ const PRODUCT_AREA_LABEL: Record<ProductId, string> = {
   "customer-service": "Customer Service",
   "field-service": "Field Service",
   "contact-center": "Contact Center",
-  marketing: "Marketing",
+  marketing: "Customer Insights (Marketing Automation)",
 };
 
 const PRODUCT_FILTER_KEY: Record<ProductId, string | null> = {
