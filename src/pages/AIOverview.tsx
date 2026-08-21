@@ -1,5 +1,6 @@
 import RelatedPages, { aiOverviewRelatedPages } from "@/components/RelatedPages";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
+import RelevantVideosSection from "@/components/RelevantVideosSection";
 import heroAiReadiness from "@/assets/hero-ai-readiness.jpg";
 import { useState } from "react"; // kept for selectedGoal
 import Navbar from "@/components/Navbar";

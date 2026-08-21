@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import RelevantVideosSection from "@/components/RelevantVideosSection";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import ContactFormDialog from "@/components/ContactFormDialog";
