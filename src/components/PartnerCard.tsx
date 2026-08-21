@@ -275,6 +275,16 @@ const PartnerCard = ({
   const assessment = useMemo(() => (resultView ? getResultAssessment(partner) : null), [resultView, partner]);
  const evidence = useMemo(() => (resultView ? getDocumentedEvidence(partner) : null), [resultView, partner]);
 
+ /** Kontor, branscher och storleksfokus att visa på produktsidornas kort. */
+ const resultMeta = useMemo(() => {
+  if (!resultView || !isDatabasePartner(partner)) return null;
+  const pf = productKey ? partner.product_filters?.[productKey] : undefined;
+  const offices = (partner.office_cities || []) as string[];
+  const industries = (pf?.industries?.length ? pf.industries : partner.industries || []) as string[];
+  const sizes = ((pf?.companySize || []) as string[]);
+  return { offices, industries, sizes };
+ }, [resultView, partner, productKey]);
+
 
 
 
