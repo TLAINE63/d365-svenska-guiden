@@ -509,7 +509,33 @@ const PartnerCard = ({
      <p className="text-[12px] leading-snug text-muted-foreground line-clamp-2">{evidence}</p>
     </div>
    )}
+
+   {resultMeta && (
+    <div className="mb-3 space-y-1.5">
+     {resultMeta.offices.length > 0 && (
+      <p className="text-[12px] leading-snug text-muted-foreground">
+       <span className="font-semibold text-foreground/80">Kontor: </span>
+       {resultMeta.offices.slice(0, 4).join(", ")}
+       {resultMeta.offices.length > 4 ? ` +${resultMeta.offices.length - 4}` : ""}
+      </p>
+     )}
+     {!highlightedIndustry && resultMeta.industries.length > 0 && (
+      <p className="text-[12px] leading-snug text-muted-foreground">
+       <span className="font-semibold text-foreground/80">Branscher: </span>
+       {resultMeta.industries.slice(0, 4).join(", ")}
+       {resultMeta.industries.length > 4 ? ` +${resultMeta.industries.length - 4}` : ""}
+      </p>
+     )}
+     {!highlightedCompanySize && resultMeta.sizes.length > 0 && (
+      <p className="text-[12px] leading-snug text-muted-foreground">
+       <span className="font-semibold text-foreground/80">Kundstorlek: </span>
+       {resultMeta.sizes.join(", ")} anställda
+      </p>
+     )}
+    </div>
+   )}
   </>
+
  ) : (
   <>
  {/* Matchar din sökning – visas när användaren har aktiva filter */}
