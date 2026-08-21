@@ -22,23 +22,23 @@ import {
 // Per-level explanations: what counts as this level + how it affects the internal 0–100 score.
 const EXPERIENCE_LEVEL_INFO: Record<string, { what: string; points: string }> = {
   advisory: {
-    what: "Ni har hållit rådgivning, workshops eller utbildningar kring AI/Copilot – men ännu inga skarpa kundprojekt.",
+    what: "Du har hållit rådgivning, workshops eller utbildningar kring AI/Copilot – men ännu inga skarpa kundprojekt.",
     points: "Bidrar med 5 poäng till delpoäng B (erfarenhet, max 25 av 100).",
   },
   pilot: {
-    what: "Ni har genomfört minst en pilot eller proof-of-concept där AI/Copilot använts i en kundmiljö.",
+    what: "Du har genomfört minst en pilot eller proof-of-concept där AI/Copilot använts i en kundmiljö.",
     points: "Bidrar med 10 poäng till delpoäng B (erfarenhet, max 25 av 100).",
   },
   delivered: {
-    what: "Ni har minst ett skarpt kundprojekt där AI/Copilot är i produktion.",
+    what: "Du har minst ett skarpt kundprojekt där AI/Copilot är i produktion.",
     points: "Bidrar med 15 poäng till delpoäng B (erfarenhet, max 25 av 100).",
   },
   multiple: {
-    what: "Ni har flera kundprojekt i produktion och återanvänder erfarenhet mellan dem.",
+    what: "Du har flera kundprojekt i produktion och återanvänder erfarenhet mellan dem.",
     points: "Bidrar med 20 poäng till delpoäng B (erfarenhet, max 25 av 100).",
   },
   packaged: {
-    what: "Ni har minst ett paketerat AI/Copilot-erbjudande med tydligt scope, leveransmodell och pris.",
+    what: "Du har minst ett paketerat AI/Copilot-erbjudande med tydligt scope, leveransmodell och pris.",
     points: "Bidrar med 22 poäng till delpoäng B (erfarenhet, max 25 av 100).",
   },
   established: {
@@ -159,12 +159,12 @@ export default function AiProfileSection({ value, onChange }: Props) {
   const warnings: string[] = [];
   if (caps.includes("azure-ai") && (!desc.trim() || evidence.length === 0 || useCases.length === 0)) {
     warnings.push(
-      "Ni har markerat avancerad AI. Lägg gärna till en kort beskrivning, use case eller underlag så att kunderna förstår er erfarenhet."
+      "Du har markerat avancerad AI. Lägg gärna till en kort beskrivning, use case eller underlag så att kunderna förstår din erfarenhet."
     );
   }
   if (caps.length > 6 && !desc.trim()) {
     warnings.push(
-      "Ni har markerat många AI-förmågor. Lägg gärna till en kort beskrivning för att göra profilen mer trovärdig."
+      "Du har markerat många AI-förmågor. Lägg gärna till en kort beskrivning för att göra profilen mer trovärdig."
     );
   }
   if ((v.relevant_areas || []).length >= 4 && useCases.length === 0) {
@@ -181,9 +181,9 @@ export default function AiProfileSection({ value, onChange }: Props) {
             AI, Copilot &amp; Automation
           </h3>
           <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
-            Beskriv hur ni hjälper kunder med AI, Copilot och automation i Microsoft Dynamics 365- och
-            Power Platform-miljöer. Markera endast områden där ni har faktisk erfarenhet från
-            rådgivning, pilot eller kundprojekt. Ni behöver inte ange kundnamn – kundreferenser kan
+            Beskriv hur du hjälper kunder med AI, Copilot och automation i Microsoft Dynamics 365- och
+            Power Platform-miljöer. Markera endast områden där du har faktisk erfarenhet från
+            rådgivning, pilot eller kundprojekt. Du behöver inte ange kundnamn – kundreferenser kan
             anges som "lämnas på förfrågan".
           </p>
         </div>
@@ -192,9 +192,9 @@ export default function AiProfileSection({ value, onChange }: Props) {
 
       {/* 1. Delivery model */}
       <div>
-        <Label className="text-sm font-semibold">Hur levererar ni AI-relaterade tjänster?</Label>
+        <Label className="text-sm font-semibold">Hur levererar du AI-relaterade tjänster?</Label>
         <p className="text-xs text-muted-foreground mt-0.5 mb-2">
-          Välj det alternativ som bäst beskriver hur AI-kompetensen är organiserad hos er.
+          Välj det alternativ som bäst beskriver hur AI-kompetensen är organiserad hos dig.
         </p>
         <div className="space-y-1.5">
           {DELIVERY_MODELS.map((opt) => (
@@ -217,9 +217,9 @@ export default function AiProfileSection({ value, onChange }: Props) {
 
       {/* 2. Capabilities */}
       <div>
-        <Label className="text-sm font-semibold">Vilka AI-förmågor har ni faktisk erfarenhet av?</Label>
+        <Label className="text-sm font-semibold">Vilka AI-förmågor har du faktisk erfarenhet av?</Label>
         <p className="text-xs text-muted-foreground mt-0.5 mb-2">
-          Markera de områden där ni har praktisk erfarenhet från rådgivning, pilot eller kundprojekt.
+          Markera de områden där du har praktisk erfarenhet från rådgivning, pilot eller kundprojekt.
         </p>
         <div className="grid sm:grid-cols-2 gap-2">
           {AI_CAPABILITIES.map((opt) => (
@@ -242,10 +242,10 @@ export default function AiProfileSection({ value, onChange }: Props) {
       {/* 3. Relevant areas */}
       <div>
         <Label className="text-sm font-semibold">
-          Inom vilka Dynamics-/Microsoft-områden är er AI-kompetens mest relevant?
+          Inom vilka Dynamics-/Microsoft-områden är din AI-kompetens mest relevant?
         </Label>
         <p className="text-xs text-muted-foreground mt-0.5 mb-2">
-          Ni behöver inte ange separata AI-nivåer per produkt.
+          Du behöver inte ange separata AI-nivåer per produkt.
         </p>
         <div className="flex flex-wrap gap-1.5">
           {AI_RELEVANT_AREAS.map((opt) => {
@@ -271,10 +271,10 @@ export default function AiProfileSection({ value, onChange }: Props) {
       {/* 4. Use cases */}
       <div>
         <Label className="text-sm font-semibold">
-          Vilka typer av AI-use cases hjälper ni kunder med?
+          Vilka typer av AI-use cases hjälper du kunder med?
         </Label>
         <p className="text-xs text-muted-foreground mt-0.5 mb-2">
-          Välj upp till {MAX_USE_CASES} typiska use cases som ni har erfarenhet av. (
+          Välj upp till {MAX_USE_CASES} typiska use cases som du har erfarenhet av. (
           {useCases.length}/{MAX_USE_CASES})
         </p>
         <div className="grid sm:grid-cols-2 gap-1.5">
@@ -304,7 +304,7 @@ export default function AiProfileSection({ value, onChange }: Props) {
         <div>
           <Label className="text-sm font-semibold">Erfarenhetsnivå</Label>
           <p className="text-xs text-muted-foreground mt-0.5 mb-2">
-            Välj den nivå som bäst motsvarar er nuvarande erfarenhet. Inte framtida planer.
+            Välj den nivå som bäst motsvarar din nuvarande erfarenhet. Inte framtida planer.
             Klicka på <Info className="inline w-3 h-3 align-[-2px]" /> för att se vad varje nivå
             innebär och hur den påverkar AI-poängen.
           </p>
@@ -358,9 +358,9 @@ export default function AiProfileSection({ value, onChange }: Props) {
 
       {/* 7. Evidence */}
       <div>
-        <Label className="text-sm font-semibold">Underlag för er AI-erfarenhet</Label>
+        <Label className="text-sm font-semibold">Underlag för din AI-erfarenhet</Label>
         <p className="text-xs text-muted-foreground mt-0.5 mb-2">
-          Ni behöver inte publicera kundnamn. Ange gärna om referens eller anonymiserat exempel kan
+          Du behöver inte publicera kundnamn. Ange gärna om referens eller anonymiserat exempel kan
           lämnas vid kontakt.
         </p>
         <div className="grid sm:grid-cols-2 gap-1.5">
@@ -387,7 +387,7 @@ export default function AiProfileSection({ value, onChange }: Props) {
       {/* 8. Short description */}
       <div>
         <Label className="text-sm font-semibold">
-          Kort beskrivning av hur ni hjälper kunder med AI, Copilot eller automation
+          Kort beskrivning av hur du hjälper kunder med AI, Copilot eller automation
         </Label>
         <p className="text-xs text-muted-foreground mt-0.5 mb-2">
           Max {MAX_DESCRIPTION_LENGTH} tecken. Beskriv gärna kundproblem, teknikområden och
@@ -419,7 +419,7 @@ export default function AiProfileSection({ value, onChange }: Props) {
       <div className="flex items-start gap-2 text-[11px] text-muted-foreground border-t border-border pt-3">
         <Info className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
         <span>
-          Uppgifterna används för att visa er AI-profil på partnerprofilen och för att matcha kunder
+          Uppgifterna används för att visa din AI-profil på partnerprofilen och för att matcha kunder
           som söker AI/Copilot-erfarenhet. AI-poäng och AI-nivå visas aldrig publikt.
         </span>
       </div>

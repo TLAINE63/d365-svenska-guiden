@@ -399,7 +399,7 @@ const focusConfig: Record<FocusKey, {
  "Bjud in relevanta partners till lösningsdialog.",
  ],
  solutionHypothesis:
- "Utifrån era svar framstår Dynamics 365 Customer Service som en relevant lösningsväg att utvärdera vidare. Fokus bör ligga på ärendehantering, SLA, köstyrning, kunskapsdatabas, kundhistorik, self-service och integrationer mot övriga system.",
+ "Utifrån dina svar framstår Dynamics 365 Customer Service som en relevant lösningsväg att utvärdera vidare. Fokus bör ligga på ärendehantering, SLA, köstyrning, kunskapsdatabas, kundhistorik, self-service och integrationer mot övriga system.",
  },
  field_service: {
  pdfTitle: "BEHOVSANALYS",
@@ -423,7 +423,7 @@ const focusConfig: Record<FocusKey, {
  "Bjud in partners med erfarenhet av fältservice och ERP-integrationer.",
  ],
  solutionHypothesis:
- "Utifrån era svar finns tydliga behov inom fältservice, teknikerplanering och serviceuppdrag. Dynamics 365 Field Service bör därför ingå i den fortsatta utvärderingen, särskilt om ni behöver hantera serviceorder, schemaläggning, installerad bas, reservdelar och mobil åtkomst för tekniker.",
+ "Utifrån dina svar finns tydliga behov inom fältservice, teknikerplanering och serviceuppdrag. Dynamics 365 Field Service bör därför ingå i den fortsatta utvärderingen, särskilt om du behöver hantera serviceorder, schemaläggning, installerad bas, reservdelar och mobil åtkomst för tekniker.",
  },
  contact_center: {
  pdfTitle: "BEHOVSANALYS",
@@ -447,7 +447,7 @@ const focusConfig: Record<FocusKey, {
  "Bjud in partners med erfarenhet av contact center och CRM-integrationer.",
  ],
  solutionHypothesis:
- "Utifrån era svar finns tydliga behov inom contact center, telefoni, chatt, routing och agentstöd. Dynamics 365 Contact Center och/eller Dynamics 365 Customer Service bör ingå i den fortsatta utvärderingen beroende på hur nära contact center-flödet behöver kopplas till ärendehantering, kundhistorik och övriga CRM-processer.",
+ "Utifrån dina svar finns tydliga behov inom contact center, telefoni, chatt, routing och agentstöd. Dynamics 365 Contact Center och/eller Dynamics 365 Customer Service bör ingå i den fortsatta utvärderingen beroende på hur nära contact center-flödet behöver kopplas till ärendehantering, kundhistorik och övriga CRM-processer.",
  },
  multi: {
  pdfTitle: "BEHOVSANALYS",
@@ -471,7 +471,7 @@ const focusConfig: Record<FocusKey, {
  "Ta fram en gemensam kravspecifikation för kundservice, contact center och fältservice.",
  ],
  solutionHypothesis:
- "Utifrån era svar bör Customer Service, Contact Center och Field Service utvärderas som ett sammanhängande kundserviceflöde. Behovet verkar omfatta både ärendehantering, kanalhantering, kundhistorik, serviceuppdrag, teknikerplanering och integrationer mot ERP, lager och fakturering.",
+ "Utifrån dina svar bör Customer Service, Contact Center och Field Service utvärderas som ett sammanhängande kundserviceflöde. Behovet verkar omfatta både ärendehantering, kanalhantering, kundhistorik, serviceuppdrag, teknikerplanering och integrationer mot ERP, lager och fakturering.",
  },
 };
 
@@ -1250,7 +1250,7 @@ const CustomerServiceNeedsAnalysis = () => {
  if (recommendAiAssessment) {
  checkPage(40);
  addSectionHeader("REKOMMENDERAD FÖRDJUPNING: AI ASSESSMENT", 168, 85, 247);
- addTextBlock("Era svar visar att AI, automation eller agenter kan vara relevanta i den fortsatta lösningsdiskussionen. Samtidigt kräver AI och agenter god datakvalitet, tydliga processer, rätt behörigheter, integrationer och kontrollpunkter. Vi rekommenderar därför att ni genomför ett separat AI Assessment som nästa steg för att bedöma AI-mognad, datagrund, möjliga use cases och risker innan AI eller agenter byggs in i lösningen.");
+ addTextBlock("Dina svar visar att AI, automation eller agenter kan vara relevanta i den fortsatta lösningsdiskussionen. Samtidigt kräver AI och agenter god datakvalitet, tydliga processer, rätt behörigheter, integrationer och kontrollpunkter. Vi rekommenderar därför att du genomför ett separat AI Assessment som nästa steg för att bedöma AI-mognad, datagrund, möjliga use cases och risker innan AI eller agenter byggs in i lösningen.");
  } else if (data.aiUseCases.length === 0) {
  checkPage(20);
  addTextBlock("AI och agenter kan bevakas som framtida möjlighet, men bör sannolikt inte vara första prioritet i nästa steg.");
@@ -1264,7 +1264,7 @@ const CustomerServiceNeedsAnalysis = () => {
  } else {
  addTextBlock(focusCfg.solutionHypothesis);
  }
- addTextBlock("Detta är en preliminär lösningshypotes baserad på era svar. Ett slutligt val av Dynamics 365-applikationer, tillägg, AI-stöd och integrationsarkitektur bör föregås av en fördjupad fit-gap, kravspecifikation och partnerdialog.");
+ addTextBlock("Detta är en preliminär lösningshypotes baserad på dina svar. Ett slutligt val av Dynamics 365-applikationer, tillägg, AI-stöd och integrationsarkitektur bör föregås av en fördjupad fit-gap, kravspecifikation och partnerdialog.");
 
  // ══════════════════════════════════════════════════════════════════════
  // REKOMMENDERAD PARTNERPROFIL (focus-driven)
@@ -1380,7 +1380,7 @@ const CustomerServiceNeedsAnalysis = () => {
  const fsNeeds = [...(data.fieldServiceNeeds || [])];
  if (data.fieldServiceNeedsOther?.trim()) fsNeeds.push(`Övriga: ${data.fieldServiceNeedsOther.trim()}`);
  addAppendixSection("Steg 3b – Fältservice", [
- ["Har ni fältservice?", data.hasFieldService || ""],
+ ["Har du fältservice?", data.hasFieldService || ""],
  ["Fältservice-behov", fsNeeds.join(", ")],
  ]);
  }
@@ -1491,7 +1491,7 @@ const CustomerServiceNeedsAnalysis = () => {
  return (
  <div className="space-y-6">
  <div>
- <Label className="text-base font-semibold mb-3 block">Hur många anställda har ni?</Label>
+ <Label className="text-base font-semibold mb-3 block">Hur många anställda har du?</Label>
  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
  {employeeOptions.map((opt) => (
  <SelectionCard key={opt} label={opt} selected={data.employees === opt} onClick={() => setData({ ...data, employees: opt })} type="radio" />
@@ -1499,7 +1499,7 @@ const CustomerServiceNeedsAnalysis = () => {
  </div>
  </div>
  <div>
- <Label className="text-base font-semibold mb-3 block">Vilken bransch verkar ni i?</Label>
+ <Label className="text-base font-semibold mb-3 block">Vilken bransch verkar du i?</Label>
  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
  {industryOptions.map((opt) => (
  <SelectionCard key={opt} label={opt} selected={data.industry === opt} onClick={() => setData({ ...data, industry: opt })} type="radio" />
@@ -1509,12 +1509,12 @@ const CustomerServiceNeedsAnalysis = () => {
  {data.industry === "Annat" && (
  <div className="mt-3">
  <Label>Ange bransch</Label>
- <Input value={data.industryOther} onChange={(e) => setData({ ...data, industryOther: e.target.value })} placeholder="Beskriv er bransch" />
+ <Input value={data.industryOther} onChange={(e) => setData({ ...data, industryOther: e.target.value })} placeholder="Beskriv din bransch" />
  </div>
  )}
  </div>
  <div>
- <Label className="text-base font-semibold mb-3 block">Hur stort är ert kundserviceteam?</Label>
+ <Label className="text-base font-semibold mb-3 block">Hur stort är ditt kundserviceteam?</Label>
  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
  {teamSizeOptions.map((opt) => (
  <SelectionCard key={opt} label={opt} selected={data.serviceTeamSize === opt} onClick={() => setData({ ...data, serviceTeamSize: opt })} type="radio" />
@@ -1522,7 +1522,7 @@ const CustomerServiceNeedsAnalysis = () => {
  </div>
  </div>
  <div>
- <Label className="text-base font-semibold mb-3 block">Vilka system använder ni idag för kundservice? (valfritt)</Label>
+ <Label className="text-base font-semibold mb-3 block">Vilka system använder du idag för kundservice? (valfritt)</Label>
  <div className="space-y-3">
  {data.currentSystems.map((sys, index) => (
  <div key={index} className="grid grid-cols-2 gap-3">
@@ -1540,10 +1540,10 @@ const CustomerServiceNeedsAnalysis = () => {
  <div className="space-y-6">
  <div>
  <Label className="text-base font-semibold mb-1 block">Vilket område gäller behovsanalysen främst?</Label>
- <p className="text-sm text-muted-foreground mb-4">Välj det område som bäst beskriver ert nuläge. Svaren styr vilka följdfrågor som visas och hur analysen tolkar er preliminära lösningsinriktning.</p>
+ <p className="text-sm text-muted-foreground mb-4">Välj det område som bäst beskriver ditt nuläge. Svaren styr vilka följdfrågor som visas och hur analysen tolkar din preliminära lösningsinriktning.</p>
  <div className="grid grid-cols-1 gap-3">
  {[
- { value: "Ärendebaserad kundservice", label: "Kundservice / Ärendehantering", description: "Kunder kontaktar er och ni hanterar ärenden, SLA, kunskapsdatabas och eskaleringar" },
+ { value: "Ärendebaserad kundservice", label: "Kundservice / Ärendehantering", description: "Kunder kontaktar dig och du hanterar ärenden, SLA, kunskapsdatabas och eskaleringar" },
  { value: "Fältservice med tekniker", label: "Fältservice / Tekniker och serviceuppdrag", description: "Service utförs hos kund med teknikerplanering, installerad bas och reservdelar" },
  { value: "Volymbaserad kundservice / Contact Center", label: "Contact Center / Telefoni, chatt och omnichannel", description: "Hög volym av inkommande kontakter via flera kanaler, agentstöd och routing" },
  { value: "Kombination av flera", label: "Flera av områdena ovan", description: "Sammanhängande flöde mellan contact center, kundservice och/eller fältservice" },
@@ -1556,7 +1556,7 @@ const CustomerServiceNeedsAnalysis = () => {
 
  {data.serviceModel === "Osäkert – vi vill förstå behovet bättre" && (
  <div>
- <Label className="text-base font-semibold mb-1 block">Var upplever ni störst problem idag?</Label>
+ <Label className="text-base font-semibold mb-1 block">Var upplever du störst problem idag?</Label>
  <p className="text-sm text-muted-foreground mb-4">Välj alla som stämmer. Analysen använder svaren för att föreslå vilket område som verkar mest centralt.</p>
  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
  {unsureIssueOptions.map((opt) => (
@@ -1603,12 +1603,12 @@ const CustomerServiceNeedsAnalysis = () => {
  {showCs && (
  <>
  <div>
- <Label className="text-base font-semibold mb-3 block">Hur många ärenden hanterar ni per månad?</Label>
+ <Label className="text-base font-semibold mb-3 block">Hur många ärenden hanterar du per månad?</Label>
  {makeRadioGroup("ticketsPerMonth", ["Färre än 100", "100–500", "500–2 000", "2 000–10 000", "Mer än 10 000"])}
  </div>
  <div>
  <Label className="text-base font-semibold mb-3 block">Vilka KPI:er är viktigast för kundservicen?</Label>
- <p className="text-sm text-muted-foreground mb-3">Välj de mått ni följer eller vill kunna följa.</p>
+ <p className="text-sm text-muted-foreground mb-3">Välj de mått du följer eller vill kunna följa.</p>
  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
  {["SLA-uppfyllnad", "First Contact Resolution (FCR)", "Genomsnittlig hanteringstid (AHT)", "Backlog / öppna ärenden", "Kundnöjdhet (CSAT)", "NPS", "Återöppnade ärenden"].map((opt) => (
  <SelectionCard key={opt} label={opt} selected={(data.csKpis || []).includes(opt)} onClick={() => handleCheckboxChange("csKpis", opt)} type="checkbox" />
@@ -1616,15 +1616,15 @@ const CustomerServiceNeedsAnalysis = () => {
  </div>
  </div>
  <div>
- <Label className="text-base font-semibold mb-3 block">Har ni SLA-krav eller avtalade svarstider?</Label>
+ <Label className="text-base font-semibold mb-3 block">Har du SLA-krav eller avtalade svarstider?</Label>
  {makeRadioGroup("slaRequirements", ["Nej, vi hanterar ärenden i den ordning de kommer", "Ja, informella mål men inga kontrakt", "Ja, strikta krav med avtalade svarstider"])}
  </div>
  <div>
- <Label className="text-base font-semibold mb-3 block">Har ni en self-service portal för kunder?</Label>
+ <Label className="text-base font-semibold mb-3 block">Har du en self-service portal för kunder?</Label>
  {makeRadioGroup("selfServicePortal", ["Ja, kunder kan logga in och se sina ärenden", "Nej, men vi vill ha det", "Nej, och vi behöver det inte"])}
  </div>
  <div>
- <Label className="text-base font-semibold mb-3 block">Hur ser er kunskapsdatabas ut idag?</Label>
+ <Label className="text-base font-semibold mb-3 block">Hur ser din kunskapsdatabas ut idag?</Label>
  {makeRadioGroup("knowledgeBase", ["Ja, strukturerad och tillgänglig för alla", "Delvis – spridd i dokument och e-post", "Nej, kunskapen sitter hos individerna"])}
  </div>
  </>
@@ -1633,11 +1633,11 @@ const CustomerServiceNeedsAnalysis = () => {
  {showCc && (
  <>
  <div>
- <Label className="text-base font-semibold mb-3 block">Hur hög är er inkommande volym per dag?</Label>
+ <Label className="text-base font-semibold mb-3 block">Hur hög är din inkommande volym per dag?</Label>
  {makeRadioGroup("inboundVolume", ["Färre än 100 kontakter/dag", "100–500 kontakter/dag", "500–2 000 kontakter/dag", "Mer än 2 000 kontakter/dag"])}
  </div>
  <div>
- <Label className="text-base font-semibold mb-3 block">Vilka kanaler hanterar ni? (välj alla som gäller)</Label>
+ <Label className="text-base font-semibold mb-3 block">Vilka kanaler hanterar du? (välj alla som gäller)</Label>
  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
  {["Röst/telefoni", "E-post", "Live chat", "Social media", "SMS", "WhatsApp / Messenger", "Videomöte"].map((opt) => (
  <SelectionCard key={opt} label={opt} selected={data.contactCenterChannels.includes(opt)} onClick={() => handleCheckboxChange("contactCenterChannels", opt)} type="checkbox" />
@@ -1645,7 +1645,7 @@ const CustomerServiceNeedsAnalysis = () => {
  </div>
  </div>
  <div>
- <Label className="text-base font-semibold mb-3 block">Vilka KPI:er är viktigast för ert contact center?</Label>
+ <Label className="text-base font-semibold mb-3 block">Vilka KPI:er är viktigast för ditt contact center?</Label>
  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
  {["Service Level (% besvarade inom X sek)", "Average Speed of Answer (ASA)", "Abandonment rate", "Genomsnittlig hanteringstid (AHT)", "Occupancy / utnyttjandegrad", "Kundnöjdhet (CSAT)", "First Contact Resolution"].map((opt) => (
  <SelectionCard key={opt} label={opt} selected={(data.ccKpis || []).includes(opt)} onClick={() => handleCheckboxChange("ccKpis", opt)} type="checkbox" />
@@ -1653,7 +1653,7 @@ const CustomerServiceNeedsAnalysis = () => {
  </div>
  </div>
  <div>
- <Label className="text-base font-semibold mb-3 block">Behöver ni realtidsstyrning och supervisor-dashboard?</Label>
+ <Label className="text-base font-semibold mb-3 block">Behöver du realtidsstyrning och supervisor-dashboard?</Label>
  {makeRadioGroup("realtimeManagement", ["Ja, kritiskt för oss", "Vore bra men inte krav", "Nej, vi behöver det inte"])}
  </div>
  </>
@@ -1674,23 +1674,23 @@ const CustomerServiceNeedsAnalysis = () => {
  )}
 
  <div>
- <Label className="text-base font-semibold mb-3 block">Verkar ni i flera länder?</Label>
+ <Label className="text-base font-semibold mb-3 block">Verkar du i flera länder?</Label>
  {makeRadioGroup("multiCountry", ["Nej, bara Sverige", "Ja, Norden", "Ja, Europa", "Ja, globalt"])}
  </div>
  <div>
- <Label className="text-base font-semibold mb-3 block">Erbjuder ni kundservice på flera språk?</Label>
+ <Label className="text-base font-semibold mb-3 block">Erbjuder du kundservice på flera språk?</Label>
  {makeRadioGroup("multiLanguage", ["Nej, bara svenska", "Ja, svenska + engelska", "Ja, 3–5 språk", "Ja, mer än 5 språk"])}
  </div>
  <div>
- <Label className="text-base font-semibold mb-3 block">Har ni SLA-kontrakt med kunder?</Label>
+ <Label className="text-base font-semibold mb-3 block">Har du SLA-kontrakt med kunder?</Label>
  {makeRadioGroup("slaContracts", ["Nej, inga formella SLA", "Ja, informella mål", "Ja, kontraktuella SLA eventuellt med viten", "Ja, komplexa SLA per kundsegment"])}
  </div>
  <div>
- <Label className="text-base font-semibold mb-3 block">Prioriterar ni kunder olika beroende på kundtyp/avtal?</Label>
+ <Label className="text-base font-semibold mb-3 block">Prioriterar du kunder olika beroende på kundtyp/avtal?</Label>
  {makeRadioGroup("customerPrioritization", ["Nej, alla kunder behandlas lika", "Ja, vi delar in kunder i 2–3 nivåer", "Ja, vi har komplexa prioriteringsregler"])}
  </div>
  <div>
- <Label className="text-base font-semibold mb-3 block">Hur många produktlinjer/tjänster stödjer ni?</Label>
+ <Label className="text-base font-semibold mb-3 block">Hur många produktlinjer/tjänster stödjer du?</Label>
  {makeRadioGroup("multipleProductLines", ["En enda produkt/tjänst", "Ja, 2–5 produktlinjer", "Ja, mer än 5 produktlinjer", "Ja, och de kräver specialistkompetens"])}
  </div>
  </div>
@@ -1709,10 +1709,10 @@ const CustomerServiceNeedsAnalysis = () => {
  return (
  <div className="space-y-8">
  <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
- <p className="text-sm text-primary font-medium">🔧 Har ni tekniker som arbetar ute hos kund?</p>
+ <p className="text-sm text-primary font-medium">🔧 Har du tekniker som arbetar ute hos kund?</p>
  </div>
  <div>
- <Label className="text-base font-semibold mb-3 block">Hur många tekniker har ni i fält?</Label>
+ <Label className="text-base font-semibold mb-3 block">Hur många tekniker har du i fält?</Label>
  {makeRadioGroup4("numberOfTechnicians", ["Vi har inga fältservicetekniker", "Färre än 10 tekniker", "10–50 tekniker", "51–200 tekniker", "Mer än 200 tekniker"])}
  </div>
  {!hasNoFieldTechnicians && data.numberOfTechnicians && (
@@ -1726,11 +1726,11 @@ const CustomerServiceNeedsAnalysis = () => {
  {makeRadioGroup4("sparepartsManagement", ["Inte relevant", "Viktigt men inte kritiskt", "Kritisk – tekniker måste ha rätt delar vid besöket"])}
  </div>
  <div>
- <Label className="text-base font-semibold mb-3 block">Har ni serviceavtal med garanterade svarstider?</Label>
+ <Label className="text-base font-semibold mb-3 block">Har du serviceavtal med garanterade svarstider?</Label>
  {makeRadioGroup4("serviceAgreements", ["Nej, inga formella avtal", "Ja, informella SLA", "Ja, med garanterade svarstider och tillgänglighet"])}
  </div>
  <div>
- <Label className="text-base font-semibold mb-3 block">Hur stor är er geografiska spridning?</Label>
+ <Label className="text-base font-semibold mb-3 block">Hur stor är din geografiska spridning?</Label>
  {makeRadioGroup4("geographicSpread", ["Lokalt – en stad/region", "Regionalt – delar av Sverige", "Nationellt – hela Sverige", "Nordiska länder", "Globalt"])}
  </div>
  </>
@@ -1814,14 +1814,14 @@ const CustomerServiceNeedsAnalysis = () => {
  <Label className="text-base font-semibold mb-1 block">Datamognad för AI och agenter</Label>
  <p className="text-sm text-muted-foreground mb-4">Bedömningen påverkar AI-/agentpotential, risknivå och rekommenderad partnerprofil.</p>
 
- <Label className="text-sm font-medium mb-2 block">Har ni tillräcklig ordning på den data som AI eller agenter skulle behöva använda?</Label>
+ <Label className="text-sm font-medium mb-2 block">Har du tillräcklig ordning på den data som AI eller agenter skulle behöva använda?</Label>
  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
  {dataMaturityOptions.map((opt) => (
  <SelectionCard key={opt} label={opt} selected={data.dataMaturity === opt} onClick={() => setData({ ...data, dataMaturity: opt })} type="radio" />
  ))}
  </div>
 
- <Label className="text-sm font-medium mb-2 block">Hur tillförlitligt är ert underlag (kund-, ärende-, service-, kunskapsdata) idag?</Label>
+ <Label className="text-sm font-medium mb-2 block">Hur tillförlitligt är ditt underlag (kund-, ärende-, service-, kunskapsdata) idag?</Label>
  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
  {dataReliabilityOptions.map((opt) => (
  <SelectionCard key={opt} label={opt} selected={data.dataReliability === opt} onClick={() => setData({ ...data, dataReliability: opt })} type="radio" />
@@ -1851,8 +1851,8 @@ const CustomerServiceNeedsAnalysis = () => {
  return (
  <div className="space-y-6">
  <div>
- <Label className="text-base font-semibold mb-1 block">Vilka AI-användningsområden är intressanta för er?</Label>
- <p className="text-sm text-muted-foreground mb-4">Välj alla som känns relevanta för er serviceverksamhet</p>
+ <Label className="text-base font-semibold mb-1 block">Vilka AI-användningsområden är intressanta för din?</Label>
+ <p className="text-sm text-muted-foreground mb-4">Välj alla som känns relevanta för din serviceverksamhet</p>
  <div className="space-y-3">
  {aiUseCaseCategories.map((cat) => (
  <div
@@ -1875,7 +1875,7 @@ const CustomerServiceNeedsAnalysis = () => {
  </div>
  </div>
  <div>
- <Label className="text-base font-semibold mb-3 block">Vilka automatiseringsfunktioner prioriterar ni? (välj alla som gäller)</Label>
+ <Label className="text-base font-semibold mb-3 block">Vilka automatiseringsfunktioner prioriterar du? (välj alla som gäller)</Label>
  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
  {[
  { id: "auto_routing", label: "Automatisk ärenderouting" },
@@ -1891,7 +1891,7 @@ const CustomerServiceNeedsAnalysis = () => {
  </div>
 
  <div className="border-t pt-6">
- <Label className="text-base font-semibold mb-1 block">Hur långt vill ni att AI/agenter ska få agera?</Label>
+ <Label className="text-base font-semibold mb-1 block">Hur långt vill du att AI/agenter ska få agera?</Label>
  <p className="text-sm text-muted-foreground mb-3">AI och agenter kan effektivisera serviceflöden, men nyttan beror på datakvalitet, processer, integrationer, behörigheter och kontrollpunkter.</p>
  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
  {aiAutonomyOptions.map((opt) => (
@@ -1951,7 +1951,7 @@ const CustomerServiceNeedsAnalysis = () => {
  const transformationComments: Record<number, { text: string; strengths: string[]; gaps: string[] }> = {
  1: { text: "Er serviceorganisation är i ett tidigt skede med begränsat systemstöd och manuella processer. Det finns stor potential att skapa struktur och effektivitet med rätt plattform.", strengths: ["Flexibelt och anpassningsbart arbetssätt", "Kort beslutsväg i organisationen"], gaps: ["Ingen strukturerad ärendehantering", "Begränsad uppföljning av servicekvalitet", "Manuella processer och spridd information", "Saknar self-service för kunder"] },
  2: { text: "Er serviceorganisation har grundläggande processer på plats men saknar ännu fullt systemstöd och automatisering. Nästa steg är att samla ärendehantering och data på en plattform.", strengths: ["Etablerade serviceprocesser", "Viss uppföljning av ärenden", "Tydlig ansvarsfördelning"], gaps: ["Begränsad integration mellan system", "Ingen automatisering av ärenderouting", "Begränsad self-service för kunder", "Manuell rapportering"] },
- 3: { text: "Er serviceorganisation är strukturerad och digitaliserad med tydlig ärendehantering och systemstöd. Ni har etablerade processer och uppföljning, men automatisering och AI-stöd är ännu inte fullt utnyttjat.", strengths: ["Tydliga SLA och serviceavtal", "Systemstöd för ärendehantering", "Mobil åtkomst för tekniker", "Central uppföljning av servicekvalitet"], gaps: ["Begränsad automatisering av ärenderouting", "Ingen prediktiv planering", "Begränsad self-service för kunder", "Manuell samordning mellan service och lager"] },
+ 3: { text: "Din serviceorganisation är strukturerad och digitaliserad med tydlig ärendehantering och systemstöd. Du har etablerade processer och uppföljning, men automatisering och AI-stöd är ännu inte fullt utnyttjat.", strengths: ["Tydliga SLA och serviceavtal", "Systemstöd för ärendehantering", "Mobil åtkomst för tekniker", "Central uppföljning av servicekvalitet"], gaps: ["Begränsad automatisering av ärenderouting", "Ingen prediktiv planering", "Begränsad self-service för kunder", "Manuell samordning mellan service och lager"] },
  4: { text: "Er serviceorganisation är mogen och datadrivet med hög grad av automatisering och AI-stöd. Fokus handlar nu om att förfina och optimera snarare än att bygga grundstruktur.", strengths: ["Hög automationsgrad", "AI-drivet beslutsstöd", "Proaktiv och prediktiv service", "Sömlösa integrationer mellan system"], gaps: ["Kontinuerlig optimering av AI-modeller", "Skalning till nya marknader och kanaler"] },
  };
  const transformationData = transformationComments[transformationLevel2];
@@ -1981,7 +1981,7 @@ const CustomerServiceNeedsAnalysis = () => {
  return (
  <div className="space-y-6">
  <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
- <p className="text-sm text-primary font-medium">🎯 Baserat på era svar har vi sammanställt er kundserviceprofil. Fyll i kontaktuppgifter nedan för att ladda ner analysen som PDF.</p>
+ <p className="text-sm text-primary font-medium">🎯 Baserat på dina svar har vi sammanställt din kundserviceprofil. Fyll i kontaktuppgifter nedan för att ladda ner analysen som PDF.</p>
  </div>
 
  <AnalysisDisclaimer />
@@ -2071,7 +2071,7 @@ const CustomerServiceNeedsAnalysis = () => {
  <span className="text-3xl">{profile.icon}</span>
  <div>
  <p className={`text-lg font-bold ${profile.color}`}>{profile.label}</p>
- <p className="text-xs text-muted-foreground">Primär service-modell baserat på era svar</p>
+ <p className="text-xs text-muted-foreground">Primär service-modell baserat på dina svar</p>
  </div>
  </div>
  </div>
@@ -2158,7 +2158,7 @@ const CustomerServiceNeedsAnalysis = () => {
  {/* APPENDIX */}
  <div className="border rounded overflow-hidden ">
  <div className="bg-muted px-5 py-3 border-b border-border">
- <h3 className="font-bold text-foreground text-sm tracking-wide">📎 Appendix – Era svar</h3>
+ <h3 className="font-bold text-foreground text-sm tracking-wide">📎 Appendix – Dina svar</h3>
  </div>
  <div className="overflow-x-auto">
  <table className="w-full text-xs">
@@ -2177,7 +2177,7 @@ const CustomerServiceNeedsAnalysis = () => {
  { label: "Nuvarande system", value: data.currentSystems.filter(s => s.product.trim()).map(s => s.year ? `${s.product} (${s.year})` : s.product).join(", ") },
  { section: true, label: "Steg 2 – Service-modell" },
  { label: "Serviceupplägg", value: data.serviceModel },
- { section: true, label: "Steg 3 – Er situation & komplexitet" },
+ { section: true, label: "Steg 3 – Din situation & komplexitet" },
  { label: "Ärendevolym/mån", value: data.ticketsPerMonth },
  { label: "SLA-krav (digital)", value: data.slaRequirements },
  { label: "Self-service portal", value: data.selfServicePortal },
@@ -2400,7 +2400,7 @@ const CustomerServiceNeedsAnalysis = () => {
  </div>
  </div>
  </main>
- <RelatedPages heading="Fortsätt utvärdera er kundservice" pages={needsAnalysisCsRelatedPages} />
+ <RelatedPages heading="Fortsätt utvärdera din kundservice" pages={needsAnalysisCsRelatedPages} />
  <Footer />
  </div>
  );

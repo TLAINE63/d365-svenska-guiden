@@ -179,7 +179,7 @@ const businessModelOptions = [
   {
     value: "Distribution",
     label: "Grossist / Distribution",
-    subQuestion: "Hur komplex är er lager- och leveransstruktur?",
+    subQuestion: "Hur komplex är din lager- och leveransstruktur?",
     subcategories: [
       "Enkel (1–2 lager, lokal verksamhet)",
       "Flera lager inom Norden",
@@ -192,7 +192,7 @@ const businessModelOptions = [
   {
     value: "Retail",
     label: "Retail / Handel",
-    subQuestion: "Hur ser er försäljningsmodell ut?",
+    subQuestion: "Hur ser din försäljningsmodell ut?",
     subcategories: [
       "Enbart fysisk butik",
       "Enbart e-handel",
@@ -205,7 +205,7 @@ const businessModelOptions = [
   {
     value: "Projekt",
     label: "Projektverksamhet / Entreprenad",
-    subQuestion: "Hur ser era projekt ut?",
+    subQuestion: "Hur ser dina projekt ut?",
     subcategories: [
       "Korta uppdrag (< 3 mån)",
       "Längre projekt (3–12 mån)",
@@ -217,7 +217,7 @@ const businessModelOptions = [
   {
     value: "Konsult",
     label: "Konsult / Tjänsteverksamhet",
-    subQuestion: "Hur tar ni betalt huvudsakligen?",
+    subQuestion: "Hur tar du betalt huvudsakligen?",
     subcategories: [
       "Löpande timdebitering",
       "Fastpris per uppdrag",
@@ -241,7 +241,7 @@ const businessModelOptions = [
   {
     value: "Uthyrning",
     label: "Uthyrning / Leasing",
-    subQuestion: "Vad hyr ni ut?",
+    subQuestion: "Vad hyr du ut?",
     subcategories: [
       "Maskiner / fordon / utrustning",
       "Lokaler / fastigheter",
@@ -2208,7 +2208,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         gaps: ["Begränsat systemstöd idag", "Manuella processer kan skalas bort", "Potential att standardisera mer"],
       },
       2: {
-        text: "Er organisation har en standardiserad ERP-bas men tydliga tillväxt-, integrations- och effektiviseringsbehov. Rätt plattform behöver kunna stödja både dagens flöden och nästa skalningssteg utan onödig komplexitet.",
+        text: "Din organisation har en standardiserad ERP-bas men tydliga tillväxt-, integrations- och effektiviseringsbehov. Rätt plattform behöver kunna stödja både dagens flöden och nästa skalningssteg utan onödig komplexitet.",
         strengths: ["Etablerade affärsprocesser", "Viss systemerfarenhet", "Tydlig ansvarsfördelning"],
         gaps: ["Integrationsbehov mellan flera system", "Manuell rapportering att automatisera", "Processer behöver standardiseras inför skalning"],
       },
@@ -2407,10 +2407,10 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       "För tidigt att avgöra": "För tidigt att avgöra lösningsväg – kompletterande underlag behövs",
     };
     const directionLeadMap: Record<string, string> = {
-      "Business Central": "Utifrån era svar framstår Business Central som en relevant lösningsväg att utvärdera vidare. Detta är en lösningshypotes, inte ett slutligt systemval.",
-      "Business Central med tillägg": "Utifrån era svar framstår Business Central som en relevant lösningsväg att utvärdera vidare, sannolikt tillsammans med relevanta bransch- eller tilläggslösningar. Särskilt krav inom EDI, lager, service, rapportering och integrationer bör valideras i en fit-gap innan lösningsarkitektur beslutas.",
-      "Finance & Supply Chain Management": "Utifrån era svar bör Finance & Supply Chain Management ingå i den fortsatta utvärderingen. Detta är en lösningshypotes, inte ett slutligt systemval.",
-      "Båda bör utvärderas": "Utifrån era svar bör både Business Central (eventuellt med tillägg) och Finance & Supply Chain Management prövas i en fit-gap innan lösningsarkitektur beslutas.",
+      "Business Central": "Utifrån dina svar framstår Business Central som en relevant lösningsväg att utvärdera vidare. Detta är en lösningshypotes, inte ett slutligt systemval.",
+      "Business Central med tillägg": "Utifrån dina svar framstår Business Central som en relevant lösningsväg att utvärdera vidare, sannolikt tillsammans med relevanta bransch- eller tilläggslösningar. Särskilt krav inom EDI, lager, service, rapportering och integrationer bör valideras i en fit-gap innan lösningsarkitektur beslutas.",
+      "Finance & Supply Chain Management": "Utifrån dina svar bör Finance & Supply Chain Management ingå i den fortsatta utvärderingen. Detta är en lösningshypotes, inte ett slutligt systemval.",
+      "Båda bör utvärderas": "Utifrån dina svar bör både Business Central (eventuellt med tillägg) och Finance & Supply Chain Management prövas i en fit-gap innan lösningsarkitektur beslutas.",
       "För tidigt att avgöra": "Underlaget räcker inte för att peka ut en tydlig lösningsväg. Genomför en fördjupad nulägeskartläggning och kravspecifikation innan plattformsval övervägs.",
     };
     const directionTitle = directionHeadingMap[recommendation.outcome] || directionHeadingMap["Business Central"];
@@ -2457,7 +2457,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     // Lösningshypotes-disclaimer
     pdf.setFillColor(252, 248, 235);
     const disclaimerLines = pdf.splitTextToSize(
-      "Detta är en preliminär lösningshypotes baserad på era svar. Ett slutligt val mellan Business Central, Business Central med tillägg, Finance & Supply Chain Management eller annan lösningsarkitektur bör föregås av en fördjupad fit-gap, kravspecifikation och partnerdialog.",
+      "Detta är en preliminär lösningshypotes baserad på dina svar. Ett slutligt val mellan Business Central, Business Central med tillägg, Finance & Supply Chain Management eller annan lösningsarkitektur bör föregås av en fördjupad fit-gap, kravspecifikation och partnerdialog.",
       contentWidth - 8,
     );
     const disclaimerH = disclaimerLines.length * 5.0 + 8;
@@ -2574,7 +2574,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     if (secondaryService.length > 0) {
       pdf.setFillColor(245, 248, 252);
       const noteLines = pdf.splitTextToSize(
-        "Eftersom service/eftermarknad har markerats som kompletterande verksamhetsmodell bör ni klargöra om behovet rör enklare servicehantering, reservdelar och fakturering – eller mer avancerad fältservice med teknikerplanering, SLA och installerad bas.",
+        "Eftersom service/eftermarknad har markerats som kompletterande verksamhetsmodell bör du klargöra om behovet rör enklare servicehantering, reservdelar och fakturering – eller mer avancerad fältservice med teknikerplanering, SLA och installerad bas.",
         contentWidth - 8,
       );
       const noteH = noteLines.length * 5.0 + 8;
@@ -2609,8 +2609,8 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     competenceAreas.push("långsiktig förvaltning och förändringsledning");
 
     const partnerProse = isBC || recommendation.outcome === "Business Central med tillägg"
-      ? `Ni bör söka en Dynamics 365-partner med erfarenhet av ${competenceAreas.slice(0, 6).join(", ")} samt Business Central med relevanta tilläggslösningar. Partnern bör kunna genomföra en strukturerad fit-gap och bedöma när standardfunktionalitet räcker, när tillägg behövs och när Finance & Supply Chain Management bör övervägas.`
-      : `Ni bör söka en Dynamics 365-partner med erfarenhet av ${competenceAreas.slice(0, 6).join(", ")} samt Finance & Supply Chain Management i organisationer av er storlek. Partnern bör kombinera funktionell rådgivning med arkitekturkompetens och dokumenterad förmåga inom förändringsledning.`;
+      ? `Du bör söka en Dynamics 365-partner med erfarenhet av ${competenceAreas.slice(0, 6).join(", ")} samt Business Central med relevanta tilläggslösningar. Partnern bör kunna genomföra en strukturerad fit-gap och bedöma när standardfunktionalitet räcker, när tillägg behövs och när Finance & Supply Chain Management bör övervägas.`
+      : `Du bör söka en Dynamics 365-partner med erfarenhet av ${competenceAreas.slice(0, 6).join(", ")} samt Finance & Supply Chain Management i organisationer av din storlek. Partnern bör kombinera funktionell rådgivning med arkitekturkompetens och dokumenterad förmåga inom förändringsledning.`;
 
     addProse(partnerProse, 9, 5.4);
 
@@ -2666,7 +2666,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       if (data.aiAmbitions.length) {
         checkPage(12);
         pdf.setFont("helvetica", "bold");
-        pdf.text("Vad ni vill uppnå med AI:", margin, yPos); yPos += 5;
+        pdf.text("Vad du vill uppnå med AI:", margin, yPos); yPos += 5;
         pdf.setFont("helvetica", "normal");
         const amb = pdf.splitTextToSize("- " + data.aiAmbitions.join("\n- "), contentWidth - 4);
         amb.forEach((l: string) => { checkPage(6); pdf.text(l, margin + 2, yPos); yPos += 5; });
@@ -2809,7 +2809,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       );
     } else if (/utvärderas|tidigt/i.test(productKey)) {
       combinedNextSteps.push(
-        "Genomför en jämförande fit-gap där både Business Central (med eventuella tillägg) och Finance & Supply Chain Management värderas mot era prioriterade processer och datakrav."
+        "Genomför en jämförande fit-gap där både Business Central (med eventuella tillägg) och Finance & Supply Chain Management värderas mot dina prioriterade processer och datakrav."
       );
     }
 
@@ -3017,7 +3017,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.text("Dynamic Factory", margin + 8, yPos + 10);
     pdf.setFont("helvetica", "normal");
     pdf.setFontSize(9);
-    pdf.text("Din köpar-sidiga guide till rätt Dynamics 365-lösning", margin + 8, yPos + 18);
+    pdf.text("Din köparsidiga guide till rätt Dynamics 365-lösning", margin + 8, yPos + 18);
     pdf.text("+46 72 232 40 60", pageWidth - margin - 55, yPos + 10);
     pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
     pdf.text("d365.se", pageWidth - margin - 55, yPos + 26);
@@ -3140,7 +3140,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         const selectedModel = businessModelOptions.find(m => m.value === data.businessModel);
         return (
           <div className="space-y-6">
-            <p className="text-muted-foreground">Hur skapar ni huvudsakligen intäkter och levererar värde till era kunder? Valet hjälper oss att förstå vilka processer som är mest affärskritiska i ett ERP-projekt.</p>
+            <p className="text-muted-foreground">Hur skapar du huvudsakligen intäkter och levererar värde till dina kunder? Valet hjälper oss att förstå vilka processer som är mest affärskritiska i ett ERP-projekt.</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {businessModelOptions.map((option) => (
                 <SelectionCard
@@ -3198,7 +3198,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             )}
             {data.businessModel && (
               <div>
-                <h3 className="text-lg font-semibold mb-1">Har ni betydande sekundära verksamhetsmodeller?</h3>
+                <h3 className="text-lg font-semibold mb-1">Har du betydande sekundära verksamhetsmodeller?</h3>
                 <p className="text-sm text-muted-foreground mb-3">Valfritt – välj de som också utgör en väsentlig del av affären. Detta påverkar bedömningen av systemkomplexitet.</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {businessModelOptions
@@ -3308,7 +3308,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         return (
           <div className="space-y-8">
             <p className="text-muted-foreground">
-              Denna bedömning hjälper oss att förstå er verksamhets komplexitet och ge en mer träffsäker rekommendation. 
+              Denna bedömning hjälper oss att förstå din verksamhets komplexitet och ge en mer träffsäker rekommendation. 
               Operativ komplexitet väger tyngst i analysen.
             </p>
 
@@ -3337,7 +3337,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   {renderComplexityRadio("consolidation", complexityStructureOptions.consolidation)}
                 </div>
                 <div>
-                  <Label className="text-sm font-medium mb-2 block">Antal valutor ni hanterar</Label>
+                  <Label className="text-sm font-medium mb-2 block">Antal valutor du hanterar</Label>
                   {renderComplexityRadio("currencies", complexityStructureOptions.currencies)}
                 </div>
                 <div>
@@ -3463,12 +3463,12 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   {renderComplexityRadio("itOrganization", complexityMaturityOptions.itOrganization)}
                 </div>
                 <div>
-                  <Label className="text-sm font-medium mb-2 block">Hur omfattande är ert behov av att koppla ERP/Affärssystem till andra system?</Label>
+                  <Label className="text-sm font-medium mb-2 block">Hur omfattande är ditt behov av att koppla ERP/Affärssystem till andra system?</Label>
                   {renderComplexityRadio("integrationPlatform", complexityMaturityOptions.integrationPlatform)}
                   
                   {(data.complexity.integrationPlatform === "nagra" || data.complexity.integrationPlatform === "manga") && (
                     <div className="mt-4 p-4 border rounded-lg bg-muted/30 space-y-3">
-                      <Label className="text-sm font-medium">Vilka system behöver ni integrera med?</Label>
+                      <Label className="text-sm font-medium">Vilka system behöver du integrera med?</Label>
                       <div className="border-2 border-border rounded-lg overflow-hidden">
                         <div className="bg-muted border-b-2 border-border">
                           <div className="p-3 font-medium text-sm">Applikation / Systemnamn</div>
@@ -3501,7 +3501,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       case 5:
         return (
           <div className="space-y-6">
-            <p className="text-muted-foreground">Var bedriver ni er verksamhet?</p>
+            <p className="text-muted-foreground">Var bedriver du din verksamhet?</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {geographyOptions.map((option) => (
                 <SelectionCard
@@ -3596,7 +3596,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             <h3 className="text-lg font-semibold mb-4">Vad är anledningen till att du är ute och söker efter alternativa ERP/Affärssystem?</h3>
             <Textarea
               id="currentSituationReason"
-              placeholder="Beskriv er nuvarande situation och varför ni överväger ett nytt affärssystem..."
+              placeholder="Beskriv din nuvarande situation och varför du överväger ett nytt affärssystem..."
               value={data.currentSituationReason}
               onChange={(e) => setData({ ...data, currentSituationReason: e.target.value })}
               className="min-h-[150px]"
@@ -3668,7 +3668,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
             {/* Översiktligt intresse */}
             <div>
-              <h3 className="text-lg font-semibold mb-2">Hur intresserade är ni av AI i affärssystemet?</h3>
+              <h3 className="text-lg font-semibold mb-2">Hur intresserade är du av AI i affärssystemet?</h3>
               <div className="grid grid-cols-1 gap-3">
                 {aiInterestOptions.map((option) => (
                   <SelectionCard
@@ -3684,11 +3684,11 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
             {/* Fråga 1 - Ambitioner */}
             <div>
-              <h3 className="text-lg font-semibold mb-1">Vad vill ni främst uppnå med AI och automation?</h3>
+              <h3 className="text-lg font-semibold mb-1">Vad vill du främst uppnå med AI och automation?</h3>
               <p className="text-sm text-muted-foreground mb-3">
-                Tänk på det affärsmässiga målet – inte tekniken. Vill ni kapa tid i repetitiva flöden,
+                Tänk på det affärsmässiga målet – inte tekniken. Vill du kapa tid i repetitiva flöden,
                 få bättre beslutsunderlag, höja servicekvaliteten eller helt enkelt börja förstå vad
-                AI kan göra för er? Det går bra att välja flera; era svar styr hur Copilot- och
+                AI kan göra för dig? Det går bra att välja flera; dina svar styr hur Copilot- och
                 agentscenarier prioriteras längre fram. <em>Flera val möjliga.</em>
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -3705,11 +3705,11 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
             {/* Fråga 2 - Prioriterade AI-use cases (grupperade) */}
             <div>
-              <h3 className="text-lg font-semibold mb-1">Vilka AI-områden är mest intressanta för er?</h3>
+              <h3 className="text-lg font-semibold mb-1">Vilka AI-områden är mest intressanta för din?</h3>
               <p className="text-sm text-muted-foreground mb-3">
                 Områdena är grupperade per funktion i Dynamics 365 – från Ekonomi och Supply chain till
                 Marknad, Service och de nya <strong>Copilot</strong>- och <strong>autonoma agenter</strong> som
-                Microsoft släpper. Välj allt som ni redan idag ser ett konkret behov av, eller som ni vill
+                Microsoft släpper. Välj allt som du redan idag ser ett konkret behov av, eller som du vill
                 utforska närmare. Det är okej att kryssa brett – syftet är att fånga intresse, inte att
                 lova en investering. <em>Flera val möjliga.</em>
               </p>
@@ -3734,7 +3734,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
             {/* Fråga 3 - Datamognad */}
             <div>
-              <h3 className="text-lg font-semibold mb-1">Hur bedömer ni kvaliteten på er data idag?</h3>
+              <h3 className="text-lg font-semibold mb-1">Hur bedömer du kvaliteten på din data idag?</h3>
               <p className="text-sm text-muted-foreground mb-2">
                 Bedöm varje område utifrån fyra kriterier: <strong>komplett</strong> (inga viktiga fält saknas),
                 <strong> korrekt</strong> (stämmer med verkligheten), <strong>uppdaterad</strong> (aktuell, inte gammal)
@@ -3745,7 +3745,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 <div><strong>Bra</strong> – mestadels komplett, korrekt och uppdaterad. Få dubbletter.</div>
                 <div><strong>Blandad</strong> – fungerar i vardagen men har kända luckor, fel eller dubbletter.</div>
                 <div><strong>Bristfällig</strong> – stora luckor, mycket manuell rättning eller låg tilltro till datan.</div>
-                <div><strong>Vet ej</strong> – området finns men ni har inte överblick över kvaliteten.</div>
+                <div><strong>Vet ej</strong> – området finns men du har inte överblick över kvaliteten.</div>
               </div>
               <div className="space-y-3">
                 {aiDataAreas.map((area) => (
@@ -3767,10 +3767,10 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 ))}
               </div>
               <div className="mt-5">
-                <h4 className="font-semibold text-sm mb-1">Vilka dataproblem upplever ni idag?</h4>
+                <h4 className="font-semibold text-sm mb-1">Vilka dataproblem upplever du idag?</h4>
                 <p className="text-xs text-muted-foreground mb-2">
                   Det här handlar inte om perfektion – de flesta verksamheter har någon form av dataskuld.
-                  Markera de problem som ni känner igen er i. Bilden hjälper oss att förstå vilka
+                  Markera de problem som du känner igen dig i. Bilden hjälper oss att förstå vilka
                   AI-scenarier som är realistiska att börja med och vilka som först kräver lite städning
                   i grunddatan. <em>Flera val möjliga.</em>
                 </p>
@@ -3789,9 +3789,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
             {/* Fråga 4 - Processmognad */}
             <div>
-              <h3 className="text-lg font-semibold mb-1">Hur mogna är era processer för AI och automation?</h3>
+              <h3 className="text-lg font-semibold mb-1">Hur mogna är dina processer för AI och automation?</h3>
               <p className="text-sm text-muted-foreground mb-3">
-                Bedöm hur väl varje påstående stämmer för er idag. Alla påståenden är formulerade så att
+                Bedöm hur väl varje påstående stämmer för dig idag. Alla påståenden är formulerade så att
                 <strong> "Stämmer helt" är den starkaste utgångspunkten för AI och automation</strong> – inga "trick"-frågor.
               </p>
               <div className="space-y-3">
@@ -3819,7 +3819,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             <div>
               <h3 className="text-lg font-semibold mb-1">Finns riktlinjer eller krav kopplade till AI-användning?</h3>
               <p className="text-sm text-muted-foreground mb-3">
-                Många organisationer har ännu inte landat sin AI-policy. Vi vill veta var ni står idag
+                Många organisationer har ännu inte landat sin AI-policy. Vi vill veta var du står idag
                 – inte för att döma, utan för att kunna föreslå en lagom ambitionsnivå för governance,
                 säkerhet och regelefterlevnad (t.ex. EU AI Act, GDPR, branschkrav).
               </p>
@@ -3838,8 +3838,8 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 <h4 className="font-semibold text-sm mb-1">Vilka AI-risker eller frågor behöver hanteras?</h4>
                 <p className="text-xs text-muted-foreground mb-2">
                   AI öppnar nya möjligheter – men också nya frågor kring datasäkerhet, sekretess,
-                  ansvarsfördelning och hur medarbetare uppfattar förändringen. Markera de områden ni
-                  redan vet att ni behöver hantera, eller där ni vill ha extra stöd från en partner.
+                  ansvarsfördelning och hur medarbetare uppfattar förändringen. Markera de områden du
+                  redan vet att du behöver hantera, eller där du vill ha extra stöd från en partner.
                   <em> Flera val möjliga.</em>
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -3860,7 +3860,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               <Label htmlFor="aiDetails">Egna kommentarer om AI i er verksamhet (valfritt)</Label>
               <Textarea
                 id="aiDetails"
-                placeholder="Beskriv era tankar, hinder eller önskemål kring AI..."
+                placeholder="Beskriv dina tankar, hinder eller önskemål kring AI..."
                 value={data.aiDetails}
                 onChange={(e) => setData({ ...data, aiDetails: e.target.value })}
                 className="mt-2"
@@ -3869,7 +3869,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
             {/* Beslutstidslinje */}
             <div>
-              <h3 className="text-lg font-semibold mb-4">Var skulle du säga att ni ligger i beslutsprocessen?</h3>
+              <h3 className="text-lg font-semibold mb-4">Var skulle du säga att du ligger i beslutsprocessen?</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {decisionTimelineOptions.map((option) => (
                   <SelectionCard
@@ -3904,7 +3904,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             gaps: ["Begränsat systemstöd idag", "Manuella processer kan skalas bort", "Potential att standardisera mer"],
           },
           2: {
-            text: "Er organisation har en måttlig komplexitet med etablerade affärsprocesser. Rätt ERP-plattform ger er möjlighet att effektivisera och automatisera utan onödig komplexitet.",
+            text: "Din organisation har en måttlig komplexitet med etablerade affärsprocesser. Rätt ERP-plattform ger dig möjlighet att effektivisera och automatisera utan onödig komplexitet.",
             strengths: ["Etablerade affärsprocesser", "Viss systemerfarenhet", "Tydlig ansvarsfördelning"],
             gaps: ["Begränsad integrationskapacitet", "Manuell rapportering", "Processer ej fullt standardiserade"],
           },
@@ -3949,7 +3949,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           <div className="space-y-6">
             <div className="bg-finance-supply/5 border border-finance-supply/20 rounded-lg p-4">
               <p className="text-sm text-finance-supply font-medium">
-                🎯 Baserat på era svar har vi sammanställt er ERP-profil. Fyll i kontaktuppgifter längst ned för att ladda ner den fullständiga analysen som PDF.
+                🎯 Baserat på dina svar har vi sammanställt din ERP-profil. Fyll i kontaktuppgifter längst ned för att ladda ner den fullständiga analysen som PDF.
               </p>
             </div>
 
@@ -4054,7 +4054,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 <span className="text-3xl">{isBC ? "📗" : "📘"}</span>
                 <div>
                   <p className={`text-lg font-bold ${productColor}`}>Microsoft Dynamics 365 {rec.product}</p>
-                  <p className="text-xs text-muted-foreground">{rec.isCloseCall ? "Preliminär rekommendation – ni befinner er i gränslandet" : "Primär plattformsrekommendation baserat på era svar"}</p>
+                  <p className="text-xs text-muted-foreground">{rec.isCloseCall ? "Preliminär rekommendation – du befinner dig i gränslandet" : "Primär plattformsrekommendation baserat på dina svar"}</p>
                 </div>
               </div>
               {rec.isCloseCall && (
@@ -4074,7 +4074,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 Preliminär systemindikation
               </h3>
               <p className="text-sm font-medium text-foreground mb-3">
-                Baserat på er ERP-profil rekommenderas en plattform med fokus på:
+                Baserat på din ERP-profil rekommenderas en plattform med fokus på:
               </p>
               <div className="space-y-2">
                 {focusItems.map(focus => (
@@ -4298,7 +4298,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         <main className="flex-grow pt-28 pb-12">
   
       <ShortAnswer title="Vad är en behovsanalys för ERP">
-        En ERP-behovsanalys hjälper er klargöra vilka processer, integrationer och rapporter ert affärssystem ska stötta – innan ni pratar med leverantörer. Vår kostnadsfria analys ger en köparsidig rekommendation av lämplig D365-inriktning (Business Central eller Finance & Supply Chain Management) baserat på bransch, storlek och komplexitet.
+        En ERP-behovsanalys hjälper dig klargöra vilka processer, integrationer och rapporter ditt affärssystem ska stötta – innan du pratar med leverantörer. Vår kostnadsfria analys ger en köparsidig rekommendation av lämplig D365-inriktning (Business Central eller Finance & Supply Chain Management) baserat på bransch, storlek och komplexitet.
       </ShortAnswer>
 
         <div className="container mx-auto px-4 max-w-4xl">
@@ -4386,7 +4386,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   <div className="flex items-start gap-3">
                     <AlertTriangle className="w-6 h-6 text-amber-600 flex-shrink-0 mt-0.5" />
                     <div>
-                      <h3 className="font-bold text-amber-800 dark:text-amber-300 mb-2">Ni befinner er i gränslandet mellan plattformarna</h3>
+                      <h3 className="font-bold text-amber-800 dark:text-amber-300 mb-2">Du befinner dig i gränslandet mellan plattformarna</h3>
                       <p className="text-sm text-amber-700 dark:text-amber-400 mb-3">
                         Poängskillnaden mellan Business Central ({recommendation.bcScore}p) och Finance & Supply Chain ({recommendation.fscScore}p) är liten.
                         Partnerns arkitekturkompetens blir avgörande för att säkerställa rätt val.
@@ -4414,7 +4414,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               <CardHeader className={`${isBC ? 'bg-business-central' : 'bg-finance-supply'} text-white rounded-t-lg`}>
                 <CardTitle className="flex items-center gap-3 text-xl">
                   <Sparkles className="w-6 h-6" />
-                  {recommendation.isCloseCall ? "Preliminär bedömning" : "Baserat på era svar lutar det mot"}
+                  {recommendation.isCloseCall ? "Preliminär bedömning" : "Baserat på dina svar lutar det mot"}
                 </CardTitle>
               </CardHeader>
               <CardContent className="pt-6">
@@ -4424,7 +4424,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 <p className="text-sm text-muted-foreground mb-6">
                   {recommendation.isCloseCall 
                     ? "Observera att skillnaden är liten – båda plattformarna kan vara aktuella."
-                    : "Denna bedömning är baserad på de svar ni angett och ska ses som vägledande, inte absolut."
+                    : "Denna bedömning är baserad på de svar du angett och ska ses som vägledande, inte absolut."
                   }
                 </p>
                 
@@ -4517,7 +4517,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground mb-4">
-                  Har du frågor om din behovsanalys eller vill diskutera hur Dynamics 365 kan hjälpa er verksamhet? Tveka inte att kontakta mig.
+                  Har du frågor om din behovsanalys eller vill diskutera hur Dynamics 365 kan hjälpa din verksamhet? Tveka inte att kontakta mig.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3">
                   <Button asChild className="flex-1" variant="outline">
@@ -4594,7 +4594,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               Ringa in behovet – innan partnerdialogen börjar
             </h1>
             <p className="text-white/85 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-              En strukturerad behovsanalys för ERP/affärssystem som ger er ett systemneutralt underlag att jämföra partners och offerter på lika villkor.
+              En strukturerad behovsanalys för ERP/affärssystem som ger dig ett systemneutralt underlag att jämföra partners och offerter på lika villkor.
             </p>
           </div>
         </div>
@@ -4684,7 +4684,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         </div>
       </main>
 
-      <RelatedPages heading="Fortsätt utvärdera ert ERP" pages={needsAnalysisErpRelatedPages} />
+      <RelatedPages heading="Fortsätt utvärdera ditt ERP" pages={needsAnalysisErpRelatedPages} />
       <Footer />
     </div>
   );

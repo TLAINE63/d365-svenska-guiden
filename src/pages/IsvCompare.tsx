@@ -155,10 +155,10 @@ const IsvCompare = () => {
         {/* CTA */}
         <div className="mt-12 p-6 md:p-8 rounded-lg border border-border bg-secondary/40 text-center">
           <h2 className="text-xl font-bold text-foreground mb-2">
-            Behöver ni en BC-partner som faktiskt jobbar med dessa tillägg?
+            Behöver du en BC-partner som faktiskt jobbar med dessa tillägg?
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto mb-5">
-            Vi matchar er mot Business Central-partners som har dokumenterad erfarenhet av rätt
+            Vi matchar dig mot Business Central-partners som har dokumenterad erfarenhet av rätt
             ISV-lösning, bransch och processdjup. Ingen partner betalar för att rankas högre.
           </p>
           <Button asChild>

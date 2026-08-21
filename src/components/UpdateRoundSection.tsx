@@ -247,7 +247,7 @@ const UpdateRoundSection = ({ token, partners, invitations, onSessionExpired, on
               Uppdateringsrunda
             </CardTitle>
             <CardDescription>
-              Starta en runda när ni gjort ändringar i profilformuläret (t.ex. lagt till AI-fält). 
+              Starta en runda när du gjort ändringar i profilformuläret (t.ex. lagt till AI-fält). 
               Systemet visar vilka partners som behöver uppdatera.
             </CardDescription>
           </div>

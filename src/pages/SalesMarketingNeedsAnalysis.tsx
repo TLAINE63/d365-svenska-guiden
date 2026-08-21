@@ -803,7 +803,7 @@ const SalesMarketingNeedsAnalysis = () => {
  : focusKey === "both"
  ? "Dynamics 365 Sales och Customer Insights bör utvärderas tillsammans"
  : focusKey === "unsure"
- ? "För tidigt att avgöra – preliminär riktning baseras på era utmaningar"
+ ? "För tidigt att avgöra – preliminär riktning baseras på dina utmaningar"
  : scoringProduct;
 
 
@@ -863,12 +863,12 @@ const SalesMarketingNeedsAnalysis = () => {
  else if (pdfIsMid) pdfAssessmentIntro += ` i en organisation där strukturerade arbetsflöden börjar bli affärskritiska`;
  else if (pdfIsSmall) pdfAssessmentIntro += ` i ett tillväxtskede där rätt plattform lägger grunden för skalbarhet`;
  pdfAssessmentIntro += ".";
- if (pdfHasPipeline) pdfAssessmentIntro += " Ni har en väldefinierad och gemensam säljprocess – en stark utgångspunkt.";
- else if (pdfHasBasicPipeline) pdfAssessmentIntro += " Ni har definierade säljsteg men det finns potential att göra processen mer enhetlig och datadriven.";
+ if (pdfHasPipeline) pdfAssessmentIntro += " Du har en väldefinierad och gemensam säljprocess – en stark utgångspunkt.";
+ else if (pdfHasBasicPipeline) pdfAssessmentIntro += " Du har definierade säljsteg men det finns potential att göra processen mer enhetlig och datadriven.";
  else if (pdfHasNoProcess) pdfAssessmentIntro += " Säljprocessen saknar i dagsläget en gemensam struktur, vilket är en av de viktigaste sakerna att adressera.";
  if (pdfSpreadData) pdfAssessmentIntro += " Kundinformationen är spridd i flera system, vilket begränsar möjligheten att agera på rätt underlag vid rätt tillfälle.";
- else if (pdfPartialData) pdfAssessmentIntro += " Ni har en delvis samlad kundbild men det finns luckor som påverkar möjligheten till personalisering.";
- else if (pdfUnifiedData) pdfAssessmentIntro += " Ni har redan en samlad kundbild – nu handlar det om att omsätta den i automatisering och AI-driven insikt.";
+ else if (pdfPartialData) pdfAssessmentIntro += " Du har en delvis samlad kundbild men det finns luckor som påverkar möjligheten till personalisering.";
+ else if (pdfUnifiedData) pdfAssessmentIntro += " Du har redan en samlad kundbild – nu handlar det om att omsätta den i automatisering och AI-driven insikt.";
 
  const pdfAssessmentPoints: string[] = [];
  if (pdfHasNoProcess || pdfHasBasicPipeline) pdfAssessmentPoints.push("Strukturera och standardisera er säljprocess");
@@ -1060,12 +1060,12 @@ const SalesMarketingNeedsAnalysis = () => {
  gaps: ["Ingen strukturerad saljprocess", "Begransad uppfoljning av pipeline", "Kunddata spridd i flera system", "Manuell kommunikation och uppfoljning"],
  },
  2: {
- text: "Er saljorganisation har grundlaggande processer pa plats men saknar annu fullt systemstod. Nasta steg ar att samla kunddata och saljaktiviteter pa en plattform.",
+ text: "Din saljorganisation har grundlaggande processer pa plats men saknar annu fullt systemstod. Nasta steg ar att samla kunddata och saljaktiviteter pa en plattform.",
  strengths: ["Definierade saljsteg finns", "Viss uppfoljning av affarer", "Tydlig ansvarsfordelning"],
  gaps: ["Begransad integration mellan system", "Ingen automatisering av kommunikation", "Forecast bygger pa magkansla", "Manuell rapportering"],
  },
  3: {
- text: "Er kommersiella organisation ar strukturerad med tydlig saljprocess och systemstod. Ni har god datamognad men har annu inte fullt utnyttjat AI och automatisering.",
+ text: "Din kommersiella organisation ar strukturerad med tydlig saljprocess och systemstod. Du har god datamognad men har annu inte fullt utnyttjat AI och automatisering.",
  strengths: ["Tydlig saljprocess och metodik", "God pipeline-synlighet", "Systematisk kunduppfoljning", "Central kunddata"],
  gaps: ["Begransad AI-driven insikt", "Automation kan byggas ut", "Prediktiv prognos ej implementerat"],
  },
@@ -1446,7 +1446,7 @@ const SalesMarketingNeedsAnalysis = () => {
  pdf.setFont("helvetica", "italic");
  pdf.setTextColor(110, 110, 110);
  const discLines = pdf.splitTextToSize(
- "Detta är en preliminär lösningshypotes baserad på era svar. Slutligt val av Dynamics 365 Sales, Customer Insights eller annan lösningsarkitektur bör föregås av en fördjupad fit-gap, kravspecifikation och partnerdialog.",
+ "Detta är en preliminär lösningshypotes baserad på dina svar. Slutligt val av Dynamics 365 Sales, Customer Insights eller annan lösningsarkitektur bör föregås av en fördjupad fit-gap, kravspecifikation och partnerdialog.",
  contentWidth
  );
  pdf.text(discLines, margin, yPos);
@@ -1569,12 +1569,12 @@ const SalesMarketingNeedsAnalysis = () => {
  addSection("Steg 2 – Antal anställda i företaget", data.employees || "Ej angivet");
  addSection("Bransch", data.industry || data.industryOther || "Ej angivet");
  addSection("Storlek på säljteam", data.salesTeamSize || "Ej angivet");
- if (data.multiCountry) addSection("Är ni verksamma i flera länder?", data.multiCountry);
+ if (data.multiCountry) addSection("Är du verksam i flera länder?", data.multiCountry);
  if (data.globalCommercialModel) addSection("Hur enhetligt ska sälj- och marknadsarbetet vara?", data.globalCommercialModel);
  if (data.marketingOrgStructure) addSection("Central eller lokal marknadsorganisation?", data.marketingOrgStructure);
 
  // ── STEG 3: Nuvarande arbetssätt & system ─────────────────────────────
- if (data.currentCrmUsage) addSection("Steg 3 – Använder ni något CRM-system idag?", data.currentCrmUsage);
+ if (data.currentCrmUsage) addSection("Steg 3 – Använder du något CRM-system idag?", data.currentCrmUsage);
  if (data.customerDataSpread) addSection("Är kunddata samlad eller spridd?", data.customerDataSpread);
  if (data.followUpMethod) addSection("Hur sker uppföljning idag?", data.followUpMethod);
 
@@ -1583,7 +1583,7 @@ const SalesMarketingNeedsAnalysis = () => {
  if (data.multipleDataSources) addSection("Samlas kunddata från flera källor?", data.multipleDataSources);
 
  // ── STEG 5: Customer Insights & Marketing Automation ──────────────────
- if (data.ciCurrentMarketing) addSection("Steg 5 – Hur arbetar ni med marknadsföring idag?", data.ciCurrentMarketing);
+ if (data.ciCurrentMarketing) addSection("Steg 5 – Hur arbetar du med marknadsföring idag?", data.ciCurrentMarketing);
  if (data.marketingNeeds.length > 0) {
  const mktgNeeds = [...data.marketingNeeds];
  if (data.marketingNeedsOther?.trim()) mktgNeeds.push(`Övriga: ${data.marketingNeedsOther.trim()}`);
@@ -1641,7 +1641,7 @@ const SalesMarketingNeedsAnalysis = () => {
  }
 
  // ── STEG 7: AI & Framtid ──────────────────────────────────────────────
- if (data.aiInterest) addSection("Steg 7 – Hur intresserade är ni av AI i CRM-systemet?", data.aiInterest);
+ if (data.aiInterest) addSection("Steg 7 – Hur intresserade är du av AI i CRM-systemet?", data.aiInterest);
  if ((data.aiUseCases || []).length > 0) addBulletSection("Vilka AI-användningsområden är mest intressanta?", data.aiUseCases);
  if (data.aiDataMaturity) addSection("AI- och datamognad", data.aiDataMaturity);
  if (data.aiDetails) addSection("Beskriv hur AI skulle kunna hjälpa er verksamhet", data.aiDetails);
@@ -1807,7 +1807,7 @@ const SalesMarketingNeedsAnalysis = () => {
  <strong>Vilket område gäller behovsanalysen främst?</strong>
  </p>
  <p className="text-sm text-muted-foreground mb-6">
- Välj det område som bäst beskriver ert nuläge. Svaren styr vilka följdfrågor som visas och hur analysen tolkar er preliminära lösningsinriktning.
+ Välj det område som bäst beskriver ditt nuläge. Svaren styr vilka följdfrågor som visas och hur analysen tolkar din preliminära lösningsinriktning.
  </p>
  <div className="grid grid-cols-1 gap-3">
  {focusAreaOptions.map((option) => (
@@ -1826,7 +1826,7 @@ const SalesMarketingNeedsAnalysis = () => {
  {data.focusArea === "unsure" && (
  <div className="mt-6 space-y-3 border-l-4 border-primary/40 pl-5 animate-in slide-in-from-top-2 duration-300">
  <Label className="text-sm font-semibold mb-1 block">
- Var upplever ni störst problem idag? (Flera val möjliga)
+ Var upplever du störst problem idag? (Flera val möjliga)
  </Label>
  <p className="text-xs text-muted-foreground mb-2">
  Svaren hjälper analysen att avgöra om behovet främst är säljdrivet, marknadsdrivet, datadrivet, integrationsdrivet eller gemensamt för sälj och marknad.
@@ -1858,10 +1858,10 @@ const SalesMarketingNeedsAnalysis = () => {
  <div>
  <p className="text-muted-foreground mb-6">
  {focus === "sales"
- ? "Välj den B2B-/partner-modell som bäst beskriver er försäljning. Marknadstunga modeller är dolda eftersom ni valt fokus på Sälj."
+ ? "Välj den B2B-/partner-modell som bäst beskriver din försäljning. Marknadstunga modeller är dolda eftersom du valt fokus på Sälj."
  : focus === "marketing"
- ? "Välj den marknads-/digitala modell som bäst beskriver er affär. Renodlade säljmodeller är dolda eftersom ni valt fokus på Marknad."
- : "Välj det alternativ som bäst beskriver hur er verksamhet primärt genererar affärer. Det hjälper oss att anpassa analysen till er situation."}
+ ? "Välj den marknads-/digitala modell som bäst beskriver din affär. Renodlade säljmodeller är dolda eftersom du valt fokus på Marknad."
+ : "Välj det alternativ som bäst beskriver hur din verksamhet primärt genererar affärer. Det hjälper oss att anpassa analysen till din situation."}
  </p>
  <div className="grid grid-cols-1 gap-3">
  {visibleCommercialModels.map((option) => (
@@ -1880,7 +1880,7 @@ const SalesMarketingNeedsAnalysis = () => {
  {/* Conditional follow-up questions for Relationsbaserad B2B */}
  {data.commercialModel === "b2b_relational" && (
  <div className="mt-6 space-y-6 border-l-4 border-primary/40 pl-5 animate-in slide-in-from-top-2 duration-300">
- <p className="text-sm font-medium text-primary">Berätta lite mer om er B2B-försäljning:</p>
+ <p className="text-sm font-medium text-primary">Berätta lite mer om din B2B-försäljning:</p>
 
  {/* Strukturerad säljprocess */}
  <div>
@@ -1940,7 +1940,7 @@ const SalesMarketingNeedsAnalysis = () => {
  {/* Conditional follow-up questions for Komplex B2B */}
  {data.commercialModel === "b2b_complex" && (
  <div className="mt-6 space-y-6 border-l-4 border-primary/40 pl-5 animate-in slide-in-from-top-2 duration-300">
- <p className="text-sm font-medium text-primary">Berätta lite mer om er komplexa B2B-försäljning:</p>
+ <p className="text-sm font-medium text-primary">Berätta lite mer om din komplexa B2B-försäljning:</p>
 
  {/* Parallella affärer */}
  <div>
@@ -1954,7 +1954,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
  {/* Rollbaserad säljstyrning */}
  <div>
- <Label className="text-sm font-semibold mb-3 block">Behöver ni rollbaserad säljstyrning?</Label>
+ <Label className="text-sm font-semibold mb-3 block">Behöver du rollbaserad säljstyrning?</Label>
  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
  {["Ja, vi har tydliga roller (AE, SDR, CSM...)", "Delvis, vi växer mot det", "Nej, alla gör allt idag"].map((opt) => (
  <SelectionCard key={opt} label={opt} selected={data.b2bComplexRoleBased === opt} onClick={() => setData({ ...data, b2bComplexRoleBased: opt })} type="radio" />
@@ -1974,7 +1974,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
  {/* Partner/kanalförsäljning */}
  <div>
- <Label className="text-sm font-semibold mb-3 block">Säljer ni via partners eller kanaler?</Label>
+ <Label className="text-sm font-semibold mb-3 block">Säljer du via partners eller kanaler?</Label>
  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
  {["Ja, partners är en stor del", "Delvis, hybrid direkt/partner", "Nej, enbart direktförsäljning"].map((opt) => (
  <SelectionCard key={opt} label={opt} selected={data.b2bComplexPartnerChannel === opt} onClick={() => setData({ ...data, b2bComplexPartnerChannel: opt })} type="radio" />
@@ -1988,7 +1988,7 @@ const SalesMarketingNeedsAnalysis = () => {
  <div>
  <p className="text-sm font-semibold text-primary">Stark lutning mot Dynamics 365 Sales</p>
  <p className="text-xs text-muted-foreground mt-1">
- Med komplex affärsstruktur, parallella affärer och rollbaserat säljarbete passar Dynamics 365 Sales utmärkt – med avancerad pipeline-hantering, AI-prognos och inbyggt stöd för partner/kanalförsäljning. Har ni även behov av marketing automation pekar det dessutom mot Customer Insights.
+ Med komplex affärsstruktur, parallella affärer och rollbaserat säljarbete passar Dynamics 365 Sales utmärkt – med avancerad pipeline-hantering, AI-prognos och inbyggt stöd för partner/kanalförsäljning. Har du även behov av marketing automation pekar det dessutom mot Customer Insights.
  </p>
  </div>
  </div>
@@ -1998,11 +1998,11 @@ const SalesMarketingNeedsAnalysis = () => {
  {/* Conditional follow-up questions for Digital affär */}
  {data.commercialModel === "digital_market" && (
  <div className="mt-6 space-y-6 border-l-4 border-primary/40 pl-5 animate-in slide-in-from-top-2 duration-300">
- <p className="text-sm font-medium text-primary">Berätta lite mer om er digitala affär:</p>
+ <p className="text-sm font-medium text-primary">Berätta lite mer om din digitala affär:</p>
 
  {/* Flera datakällor */}
  <div>
- <Label className="text-sm font-semibold mb-3 block">Hanterar ni data från flera källor idag?</Label>
+ <Label className="text-sm font-semibold mb-3 block">Hanterar du data från flera källor idag?</Label>
  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
  {["Ja, webb, app, CRM, e-handel m.fl.", "Ja, men bara 1–2 källor", "Nej, all data i ett system"].map((opt) => (
  <SelectionCard key={opt} label={opt} selected={data.digitalDataSources === opt} onClick={() => setData({ ...data, digitalDataSources: opt })} type="radio" />
@@ -2012,7 +2012,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
  {/* Beteendebaserad segmentering */}
  <div>
- <Label className="text-sm font-semibold mb-3 block">Arbetar ni med beteendebaserad segmentering?</Label>
+ <Label className="text-sm font-semibold mb-3 block">Arbetar du med beteendebaserad segmentering?</Label>
  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
  {["Ja, realtidssegment", "Delvis, regelbaserade segment", "Nej, manuell eller ingen segmentering"].map((opt) => (
  <SelectionCard key={opt} label={opt} selected={data.digitalBehaviorSegmentation === opt} onClick={() => setData({ ...data, digitalBehaviorSegmentation: opt })} type="radio" />
@@ -2022,7 +2022,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
  {/* Automatisk kommunikation */}
  <div>
- <Label className="text-sm font-semibold mb-3 block">Har ni automatisk kommunikation baserat på beteende?</Label>
+ <Label className="text-sm font-semibold mb-3 block">Har du automatisk kommunikation baserat på beteende?</Label>
  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
  {["Ja, triggers och kundresor", "Delvis, enkla flöden", "Nej, manuella utskick"].map((opt) => (
  <SelectionCard key={opt} label={opt} selected={data.digitalAutoCommunication === opt} onClick={() => setData({ ...data, digitalAutoCommunication: opt })} type="radio" />
@@ -2032,7 +2032,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
  {/* CDP-behov */}
  <div>
- <Label className="text-sm font-semibold mb-3 block">Behöver ni en enhetlig kundprofil (CDP)?</Label>
+ <Label className="text-sm font-semibold mb-3 block">Behöver du en enhetlig kundprofil (CDP)?</Label>
  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
  {["Ja, kritiskt – data är fragmenterad", "Ja, det skulle förbättra vår insikt", "Nej, vi har redan samlad kunddata"].map((opt) => (
  <SelectionCard key={opt} label={opt} selected={data.digitalCDPNeed === opt} onClick={() => setData({ ...data, digitalCDPNeed: opt })} type="radio" />
@@ -2056,11 +2056,11 @@ const SalesMarketingNeedsAnalysis = () => {
  {/* Conditional follow-up questions for Partner/kanalförsäljning */}
  {data.commercialModel === "partner_channel" && (
  <div className="mt-6 space-y-6 border-l-4 border-primary/40 pl-5 animate-in slide-in-from-top-2 duration-300">
- <p className="text-sm font-medium text-primary">Berätta lite mer om er partner- och kanalförsäljning:</p>
+ <p className="text-sm font-medium text-primary">Berätta lite mer om din partner- och kanalförsäljning:</p>
 
  {/* Partnerportal */}
  <div>
- <Label className="text-sm font-semibold mb-3 block">Behöver ni en partnerportal för era återförsäljare/agenter?</Label>
+ <Label className="text-sm font-semibold mb-3 block">Behöver du en partnerportal för dina återförsäljare/agenter?</Label>
  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
  {["Ja, kritiskt – partners måste kunna självbetjäna", "Ja, det vore värdefullt", "Nej, vi hanterar allt direkt med partnerna"].map((opt) => (
  <SelectionCard key={opt} label={opt} selected={data.partnerPortalNeed === opt} onClick={() => setData({ ...data, partnerPortalNeed: opt })} type="radio" />
@@ -2070,7 +2070,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
  {/* Deal registration */}
  <div>
- <Label className="text-sm font-semibold mb-3 block">Behöver ni deal registration (partners registrerar affärer)?</Label>
+ <Label className="text-sm font-semibold mb-3 block">Behöver du deal registration (partners registrerar affärer)?</Label>
  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
  {["Ja, vi behöver kontrollera överlapp", "Delvis, på vissa affärer", "Nej, inget sådant behov idag"].map((opt) => (
  <SelectionCard key={opt} label={opt} selected={data.partnerDealRegistration === opt} onClick={() => setData({ ...data, partnerDealRegistration: opt })} type="radio" />
@@ -2080,7 +2080,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
  {/* Kanalrapportering */}
  <div>
- <Label className="text-sm font-semibold mb-3 block">Behöver ni kanalrapportering per partner/region?</Label>
+ <Label className="text-sm font-semibold mb-3 block">Behöver du kanalrapportering per partner/region?</Label>
  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
  {["Ja, per partner och region", "Ja, övergripande kanalöversikt", "Nej, vi har tillräcklig insyn idag"].map((opt) => (
  <SelectionCard key={opt} label={opt} selected={data.partnerChannelReporting === opt} onClick={() => setData({ ...data, partnerChannelReporting: opt })} type="radio" />
@@ -2094,7 +2094,7 @@ const SalesMarketingNeedsAnalysis = () => {
  <div>
  <p className="text-sm font-semibold text-primary">Lutning mot Dynamics 365 Sales (partnerhantering)</p>
  <p className="text-xs text-muted-foreground mt-1">
- Dynamics 365 Sales har inbyggt stöd för partnerhantering, deal registration och kanalöversikt. Är er kanalstrategi komplex med marketing mot partners pekar det dessutom mot en kombination med Customer Insights för marketing automation.
+ Dynamics 365 Sales har inbyggt stöd för partnerhantering, deal registration och kanalöversikt. Är din kanalstrategi komplex med marketing mot partners pekar det dessutom mot en kombination med Customer Insights för marketing automation.
  </p>
  </div>
  </div>
@@ -2104,10 +2104,10 @@ const SalesMarketingNeedsAnalysis = () => {
  {/* Conditional follow-up questions for Volymbaserad B2C */}
  {data.commercialModel === "b2c_volume" && (
  <div className="mt-6 space-y-6 border-l-4 border-primary/40 pl-5 animate-in slide-in-from-top-2 duration-300">
- <p className="text-sm font-medium text-primary">Berätta lite mer om er B2C-affär:</p>
+ <p className="text-sm font-medium text-primary">Berätta lite mer om din B2C-affär:</p>
 
  <div>
- <Label className="text-sm font-semibold mb-3 block">Arbetar ni med kundsegmentering idag?</Label>
+ <Label className="text-sm font-semibold mb-3 block">Arbetar du med kundsegmentering idag?</Label>
  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
  {["Ja, avancerad segmentering", "Ja, basic segmentering", "Nej, saknas idag"].map((opt) => (
  <SelectionCard key={opt} label={opt} selected={data.b2cSegmentation === opt} onClick={() => setData({ ...data, b2cSegmentation: opt })} type="radio" />
@@ -2116,7 +2116,7 @@ const SalesMarketingNeedsAnalysis = () => {
  </div>
 
  <div>
- <Label className="text-sm font-semibold mb-3 block">Arbetar ni med kampanjautomation?</Label>
+ <Label className="text-sm font-semibold mb-3 block">Arbetar du med kampanjautomation?</Label>
  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
  {["Ja, i flera kanaler", "Delvis / enklare flöden", "Nej, manuella kampanjer"].map((opt) => (
  <SelectionCard key={opt} label={opt} selected={data.b2cCampaignAutomation === opt} onClick={() => setData({ ...data, b2cCampaignAutomation: opt })} type="radio" />
@@ -2125,7 +2125,7 @@ const SalesMarketingNeedsAnalysis = () => {
  </div>
 
  <div>
- <Label className="text-sm font-semibold mb-3 block">Skickar ni personaliserade utskick idag?</Label>
+ <Label className="text-sm font-semibold mb-3 block">Skickar du personaliserade utskick idag?</Label>
  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
  {["Ja, dynamiskt innehåll", "Ibland, enkel personalisering", "Nej, samma budskap till alla"].map((opt) => (
  <SelectionCard key={opt} label={opt} selected={data.b2cPersonalization === opt} onClick={() => setData({ ...data, b2cPersonalization: opt })} type="radio" />
@@ -2134,7 +2134,7 @@ const SalesMarketingNeedsAnalysis = () => {
  </div>
 
  <div>
- <Label className="text-sm font-semibold mb-3 block">Har ni en enhetlig kundvy idag?</Label>
+ <Label className="text-sm font-semibold mb-3 block">Har du en enhetlig kundvy idag?</Label>
  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
  {["Ja, samlad i ett system", "Delvis, data är utspridd", "Nej, fragmenterad kunddata"].map((opt) => (
  <SelectionCard key={opt} label={opt} selected={data.b2cUnifiedView === opt} onClick={() => setData({ ...data, b2cUnifiedView: opt })} type="radio" />
@@ -2147,7 +2147,7 @@ const SalesMarketingNeedsAnalysis = () => {
  <div>
  <p className="text-sm font-semibold text-primary">Lutning mot Dynamics 365 Customer Insights</p>
  <p className="text-xs text-muted-foreground mt-1">
- Baserat på er profil passar Dynamics 365 Customer Insights bra – med enhetlig kunddata, AI-driven segmentering, personaliserade kundresor och realtidsaktivering i alla kanaler.
+ Baserat på din profil passar Dynamics 365 Customer Insights bra – med enhetlig kunddata, AI-driven segmentering, personaliserade kundresor och realtidsaktivering i alla kanaler.
  </p>
  </div>
  </div>
@@ -2218,7 +2218,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
  {/* Internationell närvaro */}
  <div>
- <Label className="text-base font-semibold mb-3 block">Är ni verksamma i flera länder?</Label>
+ <Label className="text-base font-semibold mb-3 block">Är du verksam i flera länder?</Label>
  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
  {["Ja, flera länder", "Planerar expansion", "Nej, enbart Sverige"].map((opt) => (
  <SelectionCard
@@ -2234,7 +2234,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
  {/* Gemensam kommersiell modell */}
  <div>
- <Label className="text-base font-semibold mb-3 block">Hur enhetligt ska sälj- och marknadsarbetet vara mellan era länder/bolag?</Label>
+ <Label className="text-base font-semibold mb-3 block">Hur enhetligt ska sälj- och marknadsarbetet vara mellan dina länder/bolag?</Label>
  <div className="grid grid-cols-1 gap-2">
  {[
  "Varje enhet arbetar relativt självständigt",
@@ -2276,7 +2276,7 @@ const SalesMarketingNeedsAnalysis = () => {
  <div className="space-y-6">
  {focus !== "marketing" && (
  <div>
- <Label className="text-base font-semibold mb-3 block">Använder ni något CRM-system idag?</Label>
+ <Label className="text-base font-semibold mb-3 block">Använder du något CRM-system idag?</Label>
  <div className="grid grid-cols-1 gap-3">
  {[
  "Nej",
@@ -2334,7 +2334,7 @@ const SalesMarketingNeedsAnalysis = () => {
  <div className="space-y-6">
  {/* Enhetlig kundvy */}
  <div>
- <Label className="text-base font-semibold mb-3 block">Har ni samlad och tillförlitlig information om era kunder på ett ställe?</Label>
+ <Label className="text-base font-semibold mb-3 block">Har du samlad och tillförlitlig information om dina kunder på ett ställe?</Label>
  <div className="grid grid-cols-1 gap-2">
  {[
  "Nej, informationen är spridd",
@@ -2377,11 +2377,11 @@ const SalesMarketingNeedsAnalysis = () => {
  return (
  <div className="space-y-6">
  <p className="text-sm text-muted-foreground">
- Eftersom ni valt fokus på Sälj går vi djupare i säljspecifika frågor och hoppar över marknadsfrågorna.
+ Eftersom du valt fokus på Sälj går vi djupare i säljspecifika frågor och hoppar över marknadsfrågorna.
  </p>
 
  <div>
- <Label className="text-base font-semibold mb-3 block">Hur arbetar ni med territory- och kontoplanering?</Label>
+ <Label className="text-base font-semibold mb-3 block">Hur arbetar du med territory- och kontoplanering?</Label>
  <div className="grid grid-cols-1 gap-2">
  {[
  "Ostrukturerat – säljarna bestämmer själva",
@@ -2394,7 +2394,7 @@ const SalesMarketingNeedsAnalysis = () => {
  </div>
 
  <div>
- <Label className="text-base font-semibold mb-3 block">Hur ser ert sales enablement ut idag?</Label>
+ <Label className="text-base font-semibold mb-3 block">Hur ser ditt sales enablement ut idag?</Label>
  <div className="grid grid-cols-1 gap-2">
  {[
  "Vi saknar strukturerat säljmaterial och playbooks",
@@ -2407,7 +2407,7 @@ const SalesMarketingNeedsAnalysis = () => {
  </div>
 
  <div>
- <Label className="text-base font-semibold mb-3 block">Behöver ni stöd för säljcoaching baserat på data?</Label>
+ <Label className="text-base font-semibold mb-3 block">Behöver du stöd för säljcoaching baserat på data?</Label>
  <div className="grid grid-cols-1 gap-2">
  {[
  "Nej, coachning sker informellt",
@@ -2420,7 +2420,7 @@ const SalesMarketingNeedsAnalysis = () => {
  </div>
 
  <div>
- <Label className="text-base font-semibold mb-3 block">Behöver ni stöd för offert, prissättning och konfiguration (CPQ)?</Label>
+ <Label className="text-base font-semibold mb-3 block">Behöver du stöd för offert, prissättning och konfiguration (CPQ)?</Label>
  <div className="grid grid-cols-1 gap-2">
  {[
  "Nej, enkla offerter i Word/Excel räcker",
@@ -2433,7 +2433,7 @@ const SalesMarketingNeedsAnalysis = () => {
  </div>
 
  <div>
- <Label className="text-base font-semibold mb-3 block">Hur hanterar ni säljincitament och provisioner?</Label>
+ <Label className="text-base font-semibold mb-3 block">Hur hanterar du säljincitament och provisioner?</Label>
  <div className="grid grid-cols-1 gap-2">
  {[
  "Manuellt utanför CRM",
@@ -2464,7 +2464,7 @@ const SalesMarketingNeedsAnalysis = () => {
  <div className="space-y-6">
  {/* Nuvarande marknadsföring */}
  <div>
- <Label className="text-base font-semibold mb-3 block">Hur arbetar ni med marknadsföring idag?</Label>
+ <Label className="text-base font-semibold mb-3 block">Hur arbetar du med marknadsföring idag?</Label>
  <div className="grid grid-cols-1 gap-2">
  {[
  "Mest manuellt (nyhetsbrev, enstaka kampanjer)",
@@ -2484,7 +2484,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
  {/* Funktioner inom marketing automation */}
  <div>
- <Label className="text-base font-semibold mb-3 block">Vilka funktioner inom marketing automation är viktigast för er? (välj alla som stämmer)</Label>
+ <Label className="text-base font-semibold mb-3 block">Vilka funktioner inom marketing automation är viktigast för din? (välj alla som stämmer)</Label>
  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
  {marketingNeedOptions.map((opt) => (
  <SelectionCard
@@ -2530,7 +2530,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
  {/* Lead scoring */}
  <div>
- <Label className="text-base font-semibold mb-3 block">Behöver ni lead scoring och nurturing?</Label>
+ <Label className="text-base font-semibold mb-3 block">Behöver du lead scoring och nurturing?</Label>
  <div className="grid grid-cols-1 gap-2">
  {[
  "Nej, våra leads hanteras direkt av sälj",
@@ -2550,7 +2550,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
  {/* Personalisering */}
  <div>
- <Label className="text-base font-semibold mb-3 block">Hur viktigt är personaliserat och beteendeanpassat innehåll i er kommunikation?</Label>
+ <Label className="text-base font-semibold mb-3 block">Hur viktigt är personaliserat och beteendeanpassat innehåll i din kommunikation?</Label>
  <div className="grid grid-cols-1 gap-2">
  {[
  "I begränsad utsträckning",
@@ -2570,7 +2570,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
  {/* Event management */}
  <div>
- <Label className="text-base font-semibold mb-3 block">Behöver ni hantera event (fysiska eller digitala) via marknadsplattformen?</Label>
+ <Label className="text-base font-semibold mb-3 block">Behöver du hantera event (fysiska eller digitala) via marknadsplattformen?</Label>
  <div className="grid grid-cols-1 gap-2">
  {[
  "Nej, det är inte relevant för oss",
@@ -2590,7 +2590,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
  {/* Kanaler */}
  <div>
- <Label className="text-base font-semibold mb-3 block">Vilka kanaler vill ni kommunicera via? (välj alla som stämmer)</Label>
+ <Label className="text-base font-semibold mb-3 block">Vilka kanaler vill du kommunicera via? (välj alla som stämmer)</Label>
  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
  {marketingChannelOptions.map((opt) => (
  <SelectionCard
@@ -2606,7 +2606,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
  {/* Mätning */}
  <div>
- <Label className="text-base font-semibold mb-3 block">Hur mäter ni marknadsföringens effekt idag?</Label>
+ <Label className="text-base font-semibold mb-3 block">Hur mäter du marknadsföringens effekt idag?</Label>
  <div className="grid grid-cols-1 gap-2">
  {[
  "Vi mäter inte systematiskt",
@@ -2627,11 +2627,11 @@ const SalesMarketingNeedsAnalysis = () => {
  {focus === "marketing" && (
  <div className="space-y-6 pt-6 border-t border-border/60">
  <p className="text-sm text-muted-foreground">
- Eftersom ni valt fokus på Marknad fördjupar vi oss i marknadsspecifika frågor.
+ Eftersom du valt fokus på Marknad fördjupar vi oss i marknadsspecifika frågor.
  </p>
 
  <div>
- <Label className="text-base font-semibold mb-3 block">Arbetar ni med Account-Based Marketing (ABM)?</Label>
+ <Label className="text-base font-semibold mb-3 block">Arbetar du med Account-Based Marketing (ABM)?</Label>
  <div className="grid grid-cols-1 gap-2">
  {[
  "Nej, vi kör generella kampanjer",
@@ -2644,7 +2644,7 @@ const SalesMarketingNeedsAnalysis = () => {
  </div>
 
  <div>
- <Label className="text-base font-semibold mb-3 block">Hur ser er content- och kampanjproduktion ut?</Label>
+ <Label className="text-base font-semibold mb-3 block">Hur ser din content- och kampanjproduktion ut?</Label>
  <div className="grid grid-cols-1 gap-2">
  {[
  "Ad hoc, ofta i sista minuten",
@@ -2657,7 +2657,7 @@ const SalesMarketingNeedsAnalysis = () => {
  </div>
 
  <div>
- <Label className="text-base font-semibold mb-3 block">Hur hanterar ni samtycke (consent), preferenser och GDPR?</Label>
+ <Label className="text-base font-semibold mb-3 block">Hur hanterar du samtycke (consent), preferenser och GDPR?</Label>
  <div className="grid grid-cols-1 gap-2">
  {[
  "Vi har grundläggande opt-out i utskick",
@@ -2683,7 +2683,7 @@ const SalesMarketingNeedsAnalysis = () => {
  </div>
 
  <div>
- <Label className="text-base font-semibold mb-3 block">Hur vill ni mäta marknadens bidrag till intäkt?</Label>
+ <Label className="text-base font-semibold mb-3 block">Hur vill du mäta marknadens bidrag till intäkt?</Label>
  <div className="grid grid-cols-1 gap-2">
  {[
  "Det räcker med leads och MQL",
@@ -2704,7 +2704,7 @@ const SalesMarketingNeedsAnalysis = () => {
  <div className="space-y-6">
  {/* Integrationsbehov */}
  <div>
- <Label className="text-base font-semibold mb-3 block">Hur omfattande är ert behov av att CRM samverkar med andra system?</Label>
+ <Label className="text-base font-semibold mb-3 block">Hur omfattande är ditt behov av att CRM samverkar med andra system?</Label>
  <div className="grid grid-cols-1 gap-3">
  {["Begränsat", "Till viss del kan det vara bra", "Omfattande och affärskritiskt"].map((opt) => (
  <SelectionCard
@@ -2824,14 +2824,14 @@ const SalesMarketingNeedsAnalysis = () => {
  });
 
  const aiInterestLabel =
- focus === "sales" ? "Hur intresserade är ni av AI i säljarbetet?"
- : focus === "marketing" ? "Hur intresserade är ni av AI i marknadsarbetet?"
- : "Hur intresserade är ni av AI i CRM-systemet?";
+ focus === "sales" ? "Hur intresserade är du av AI i säljarbetet?"
+ : focus === "marketing" ? "Hur intresserade är du av AI i marknadsarbetet?"
+ : "Hur intresserade är du av AI i CRM-systemet?";
 
  const aiUseCaseLabel =
  focus === "sales" ? "Vilka AI-användningsområden för sälj är mest intressanta?"
  : focus === "marketing" ? "Vilka AI-användningsområden för marknad är mest intressanta?"
- : "Vilka AI-användningsområden ser ni som mest intressanta?";
+ : "Vilka AI-användningsområden ser du som mest intressanta?";
 
  return (
  <div className="space-y-6">
@@ -3096,12 +3096,12 @@ const SalesMarketingNeedsAnalysis = () => {
  else if (isMid) assessmentIntro += ` i en organisation där strukturerade arbetsflöden börjar bli affärskritiska`;
  else if (isSmall) assessmentIntro += ` i ett tillväxtskede där rätt plattform lägger grunden för skalbarhet`;
  assessmentIntro += ".";
- if (hasPipeline) assessmentIntro += " Ni har en väldefinierad och gemensam säljprocess – en stark utgångspunkt för att maximera effekten av en CRM-plattform.";
- else if (hasBasicPipeline) assessmentIntro += " Ni har definierade säljsteg men det finns potential att göra processen mer enhetlig och datadriven.";
+ if (hasPipeline) assessmentIntro += " Du har en väldefinierad och gemensam säljprocess – en stark utgångspunkt för att maximera effekten av en CRM-plattform.";
+ else if (hasBasicPipeline) assessmentIntro += " Du har definierade säljsteg men det finns potential att göra processen mer enhetlig och datadriven.";
  else if (hasNoProcess) assessmentIntro += " Säljprocessen saknar i dagsläget en gemensam struktur, vilket är en av de viktigaste sakerna att adressera.";
  if (hasSpreadData) assessmentIntro += " Kundinformationen är spridd i flera system, vilket begränsar möjligheten att agera på rätt underlag vid rätt tillfälle.";
- else if (hasPartialData) assessmentIntro += " Ni har en delvis samlad kundbild men det finns luckor som påverkar möjligheten till personalisering och proaktivt agerande.";
- else if (hasUnifiedData) assessmentIntro += " Ni har redan en samlad kundbild – nu handlar det om att omsätta den i automatisering och AI-driven insikt.";
+ else if (hasPartialData) assessmentIntro += " Du har en delvis samlad kundbild men det finns luckor som påverkar möjligheten till personalisering och proaktivt agerande.";
+ else if (hasUnifiedData) assessmentIntro += " Du har redan en samlad kundbild – nu handlar det om att omsätta den i automatisering och AI-driven insikt.";
 
  const assessmentPoints: string[] = [];
  if (hasNoProcess || hasBasicPipeline) assessmentPoints.push("Strukturera och standardisera er säljprocess");
@@ -3164,7 +3164,7 @@ const SalesMarketingNeedsAnalysis = () => {
  gaps: ["Begränsad integration mellan system", "Ingen automatisering av kommunikation", "Forecast bygger på magkänsla", "Manuell rapportering"],
  },
  3: {
- text: "Er kommersiella organisation är strukturerad med tydlig säljprocess och systemstöd. Ni har god datamognad men har ännu inte fullt utnyttjat AI och automatisering.",
+ text: "Din kommersiella organisation är strukturerad med tydlig säljprocess och systemstöd. Du har god datamognad men har ännu inte fullt utnyttjat AI och automatisering.",
  strengths: ["Tydlig säljprocess och metodik", "God pipeline-synlighet", "Systematisk kunduppföljning", "Central kunddata"],
  gaps: ["Begränsad AI-driven insikt", "Automation kan byggas ut", "Prediktiv prognos ej implementerat"],
  },
@@ -3199,7 +3199,7 @@ const SalesMarketingNeedsAnalysis = () => {
  <div className="space-y-6">
  <div className="bg-crm/5 border border-crm/20 rounded-lg p-4">
  <p className="text-sm text-crm font-medium">
- 🎯 Baserat på era svar har vi sammanställt er kommersiella profil. Fyll i kontaktuppgifter längst ned för att ladda ner den fullständiga analysen som PDF.
+ 🎯 Baserat på dina svar har vi sammanställt din kommersiella profil. Fyll i kontaktuppgifter längst ned för att ladda ner den fullständiga analysen som PDF.
  </p>
  </div>
 
@@ -3258,7 +3258,7 @@ const SalesMarketingNeedsAnalysis = () => {
  <div className="flex items-start gap-2 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg px-4 py-3">
  <span className="text-base mt-0.5">⚠️</span>
  <p className="text-xs text-foreground leading-snug">
- <strong>AI-ambition vs datamognad:</strong> Ni har hög AI-ambition men kundinformationen är fortfarande spridd. En lyckad AI-satsning kräver att datagrunden konsolideras först.
+ <strong>AI-ambition vs datamognad:</strong> Du har hög AI-ambition men kundinformationen är fortfarande spridd. En lyckad AI-satsning kräver att datagrunden konsolideras först.
  </p>
  </div>
  )}
@@ -3297,22 +3297,22 @@ const SalesMarketingNeedsAnalysis = () => {
 
  <div className="border-t border-border pt-2" />
 
- {/* Sammanställning av era svar */}
+ {/* Sammanställning av dina svar */}
  <div className="border rounded p-5 space-y-4 bg-background ">
  <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
  <span className="w-6 h-6 rounded bg-crm text-crm-foreground text-xs flex items-center justify-center font-bold">1</span>
- Sammanställning av era svar
+ Sammanställning av dina svar
  </h3>
  <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
  <span className="text-3xl">📊</span>
  <div>
  <p className="text-sm font-semibold text-foreground">Vägledande Marknad &amp; Sälj-Analys</p>
  <p className="text-xs text-muted-foreground mt-1">
- Marknad och sälj är två sidor av samma kommersiella motor. I de flesta moderna affärsmodeller är båda lika viktiga – sälj utan marknadsföring tappar fart, och marknadsföring utan struktur i sälj ger sällan affär. Sammanställningen nedan beskriver var era svar pekar utan att förorda en specifik produkt.
+ Marknad och sälj är två sidor av samma kommersiella motor. I de flesta moderna affärsmodeller är båda lika viktiga – sälj utan marknadsföring tappar fart, och marknadsföring utan struktur i sälj ger sällan affär. Sammanställningen nedan beskriver var dina svar pekar utan att förorda en specifik produkt.
  </p>
  </div>
  </div>
- <p className="text-sm font-medium text-foreground">Era svar visar att ni framför allt behöver stöd för:</p>
+ <p className="text-sm font-medium text-foreground">Dina svar visar att du framför allt behöver stöd för:</p>
  <div className="space-y-2">
  {crmFocusItems.map(focus => (
  <div key={focus.label} className="flex items-center gap-3 px-3 py-2 rounded-lg bg-crm/5 border border-crm/10">
@@ -3488,7 +3488,7 @@ const SalesMarketingNeedsAnalysis = () => {
  <main className="pt-28 pb-12">
  
  <ShortAnswer title="Vad är en behovsanalys för Sales & Marketing">
- En CRM-behovsanalys för sälj och marknad klargör hur er pipeline, leadshantering, kampanjer och kunddata ska fungera – innan ni jämför verktyg. Vår kostnadsfria analys ger en köparsidig rekommendation om Dynamics 365 Sales och Customer Insights baserat på er säljmodell, B2B/B2C-fokus och datamognad.
+ En CRM-behovsanalys för sälj och marknad klargör hur din pipeline, leadshantering, kampanjer och kunddata ska fungera – innan du jämför verktyg. Vår kostnadsfria analys ger en köparsidig rekommendation om Dynamics 365 Sales och Customer Insights baserat på din säljmodell, B2B/B2C-fokus och datamognad.
  </ShortAnswer>
 
  <div className="container mx-auto px-4 max-w-4xl">
@@ -3505,7 +3505,7 @@ const SalesMarketingNeedsAnalysis = () => {
  <CardContent className="pt-8">
  {recommendation.products.length > 0 && (
  <div className="mb-8">
- <h3 className="text-xl font-bold text-center mb-6">Baserat på era svar lutar det mot</h3>
+ <h3 className="text-xl font-bold text-center mb-6">Baserat på dina svar lutar det mot</h3>
  <div className="space-y-4">
  {recommendation.products.map((product, index) => (
  <Card key={product.name} className={`border-2 ${index === 0 ? 'border-crm bg-crm/5' : 'border-border'}`}>
@@ -3672,7 +3672,7 @@ const SalesMarketingNeedsAnalysis = () => {
  </div>
  </div>
  </main>
- <RelatedPages heading="Fortsätt utvärdera ert CRM" pages={needsAnalysisCrmRelatedPages} />
+ <RelatedPages heading="Fortsätt utvärdera ditt CRM" pages={needsAnalysisCrmRelatedPages} />
  <Footer />
  </div>
  );

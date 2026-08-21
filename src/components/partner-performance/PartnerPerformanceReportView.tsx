@@ -189,7 +189,7 @@ export default function PartnerPerformanceReportView({
 
       {/* Executive summary */}
       <section className="space-y-3">
-        <h3 className="text-lg font-semibold">Er aktivitet i {formatMonthLabel(data.month)}</h3>
+        <h3 className="text-lg font-semibold">Din aktivitet i {formatMonthLabel(data.month)}</h3>
         {!hasData && (
           <p className="text-sm text-muted-foreground">
             {dataStartLabel
@@ -208,8 +208,8 @@ export default function PartnerPerformanceReportView({
               <KpiCard icon={Handshake} label="Förfrågningar" value={m.leads} current={m.leads} previous={prev.leads} />
             </div>
             <p className="text-xs text-muted-foreground">
-              Jämförelse mot {formatMonthLabel(data.previous_month)}. Exponering = ert kort har visats i
-              filtrerade partnerresultat eller partnerlistor. Profilbesök = någon har aktivt öppnat er profil.
+              Jämförelse mot {formatMonthLabel(data.previous_month)}. Exponering = ditt kort har visats i
+              filtrerade partnerresultat eller partnerlistor. Profilbesök = någon har aktivt öppnat din profil.
             </p>
           </>
         )}
@@ -229,7 +229,7 @@ export default function PartnerPerformanceReportView({
             </div>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between border-b py-2"><span>Klick på partnerkort</span><span className="font-medium">{m.cardClicks}</span></div>
-              <div className="flex justify-between border-b py-2"><span>Klick till er webbplats</span><span className="font-medium">{m.websiteClicks}</span></div>
+              <div className="flex justify-between border-b py-2"><span>Klick till din webbplats</span><span className="font-medium">{m.websiteClicks}</span></div>
               <div className="flex justify-between border-b py-2"><span>Kontaktaktiviteter (e-post, telefon, formulär)</span><span className="font-medium">{m.contactClicks}</span></div>
               <div className="flex justify-between border-b py-2"><span>Skickade förfrågningar</span><span className="font-medium">{m.leads}</span></div>
               <p className="text-xs text-muted-foreground pt-2">
@@ -246,7 +246,7 @@ export default function PartnerPerformanceReportView({
         data.current.breakdowns.size.length > 0 ||
         data.current.breakdowns.geography.length > 0) && (
         <section className="space-y-3">
-          <h3 className="text-lg font-semibold">Vad gjorde att köparna hittade er?</h3>
+          <h3 className="text-lg font-semibold">Vad gjorde att köparna hittade din?</h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <BreakdownList title="Produktområden" items={data.current.breakdowns.product} />
             <BreakdownList title="Branscher" items={data.current.breakdowns.industry} />
@@ -259,9 +259,9 @@ export default function PartnerPerformanceReportView({
       {/* Comparison */}
       {m.comparisons > 0 && (
         <section className="space-y-3">
-          <h3 className="text-lg font-semibold">När köpare jämför er</h3>
+          <h3 className="text-lg font-semibold">När köpare jämför din</h3>
           <p className="text-sm">
-            Ni deltog i <strong>{m.comparisons}</strong> jämförelser den här månaden
+            Du deltog i <strong>{m.comparisons}</strong> jämförelser den här månaden
             {shortlistRate !== null && m.compareAdds > 0 && (
               <> och valdes vidare till shortlist i <strong>{m.compareAdds}</strong> av dem ({shortlistRate} %)</>
             )}
@@ -269,7 +269,7 @@ export default function PartnerPerformanceReportView({
           </p>
           {data.current.comparedWith.length > 0 && (
             <div>
-              <h4 className="text-sm font-semibold mb-2">Partners ni oftast jämfördes med</h4>
+              <h4 className="text-sm font-semibold mb-2">Partners du oftast jämfördes med</h4>
               <ul className="space-y-1 text-sm">
                 {data.current.comparedWith.map((c) => (
                   <li key={c.name} className="flex items-center justify-between border-b py-1.5">

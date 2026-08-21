@@ -34,9 +34,9 @@ const STAGES: Stage[] = [
  {
  id: 1,
  phase: "TIDIGA SIGNALER",
- title: "Allt fungerar, men ni vill hålla er orienterade",
+ title: "Allt fungerar, men du vill hålla dig orienterad",
  paragraphs: [
- "Verksamheten rullar. Driften är stabil. Inget tvingar fram en utvärdering just nu. Men ni vill förstå hur marknaden för affärssystem och kundnära system (ERP, Sales, Marketing/Customer Insights, Customer Service, Field Service, Contact Center) rör sig, vad andra organisationer ser i ett tidigt skede, och vilka signaler som brukar gå före en faktisk förändring.",
+ "Verksamheten rullar. Driften är stabil. Inget tvingar fram en utvärdering just nu. Men du vill förstå hur marknaden för affärssystem och kundnära system (ERP, Sales, Marketing/Customer Insights, Customer Service, Field Service, Contact Center) rör sig, vad andra organisationer ser i ett tidigt skede, och vilka signaler som brukar gå före en faktisk förändring.",
  "Poängen i det här läget är inte att förbereda ett beslut. Det är att inte stå oförberedd den dagen frågan blir aktuell.",
  ],
  recommendation: "Orienterande artiklar och löpande bevakning av branschen",
@@ -44,19 +44,19 @@ const STAGES: Stage[] = [
  nextStep: {
  label: "Bevaka marknaden i Kunskapscentret",
  href: "/kunskapscenter",
- helper: "Läs orienterande artiklar och håll er uppdaterade utan att binda upp er.",
+ helper: "Läs orienterande artiklar och håll din uppdaterade utan att binda upp dig.",
  },
  Icon: Lightbulb,
  },
  {
  id: 2,
  phase: "TIDIGA SIGNALER",
- title: "Det skaver i vardagen, men ni vet inte var problemet ligger",
+ title: "Det skaver i vardagen, men du vet inte var problemet ligger",
  paragraphs: [
  "Rapporteringen tar för lång tid. Manuellt arbete växer. Säljarna jobbar i Excel vid sidan av CRM, marknad saknar koll på leads, kundservice tappar ärenden mellan kanaler, eller fältteknikerna kör på egna listor. Något bromsar – frågan är om det är ERP, CRM, kundserviceplattformen, processen, datakvaliteten eller en kombination.",
  "Det är ett vanligt och underskattat läge. Att gå direkt till partnerdialog här leder ofta till ett systembyte som inte löser grundproblemet.",
  ],
- recommendation: "Fördjupningar om hur ni skiljer processproblem från systembegränsningar",
+ recommendation: "Fördjupningar om hur du skiljer processproblem från systembegränsningar",
  recommendationHref: "/kunskapscenter",
  nextStep: {
  label: "Gör en behovsanalys",
@@ -81,9 +81,9 @@ const STAGES: Stage[] = [
  recommendation: "Tematiska guider per triggertyp och mall för intern nulägesanalys",
  recommendationHref: "/kom-igang",
  nextStep: {
- label: "Starta er nulägesanalys",
+ label: "Starta din nulägesanalys",
  href: "/kom-igang",
- helper: "Strukturera triggern internt innan ni öppnar dialogen med partners.",
+ helper: "Strukturera triggern internt innan du öppnar dialogen med partners.",
  },
  Icon: Zap,
  },
@@ -115,8 +115,8 @@ const STAGES: Stage[] = [
  phase: "BEHOVET AKTIVERAS",
  title: "Vi väger olika vägar framåt",
  paragraphs: [
- "Uppgradera befintligt? Byta system? Konsolidera flera system till en plattform? Ta ERP och CRM i samma program eller i olika spår? Lägga till Customer Insights, Field Service eller Contact Center på det ni redan har? Varje väg har olika riskprofil, olika kompetenskrav hos partnern, och olika konsekvenser för verksamheten under själva genomförandet.",
- "Det är sällan en ren teknisk fråga. Den hänger ihop med verksamhetens komplexitet, tillväxttakt och vilken förvaltningsmodell ni klarar av att bära långsiktigt.",
+ "Uppgradera befintligt? Byta system? Konsolidera flera system till en plattform? Ta ERP och CRM i samma program eller i olika spår? Lägga till Customer Insights, Field Service eller Contact Center på det du redan har? Varje väg har olika riskprofil, olika kompetenskrav hos partnern, och olika konsekvenser för verksamheten under själva genomförandet.",
+ "Det är sällan en ren teknisk fråga. Den hänger ihop med verksamhetens komplexitet, tillväxttakt och vilken förvaltningsmodell du klarar av att bära långsiktigt.",
  ],
  recommendation: "Översikt över de olika vägarna och hur valet brukar landa",
  recommendationHref: "/aioversikt",
@@ -132,10 +132,10 @@ const STAGES: Stage[] = [
  phase: "PARTNERVAL",
  title: "Vi jämför partners, eller är på väg att göra det",
  paragraphs: [
- "Partnerdialogen är igång. Eller också är ni på väg att sätta en kortlista. Frågan är vilka som faktiskt passar er bransch, er storlek, det område ni prioriterar (ERP, Sales, Marketing/Customer Insights, Customer Service, Field Service eller Contact Center) och er metodik – och hur ni jämför dem på rättvisa grunder.",
+ "Partnerdialogen är igång. Eller också är du på väg att sätta en kortlista. Frågan är vilka som faktiskt passar din bransch, din storlek, det område du prioriterar (ERP, Sales, Marketing/Customer Insights, Customer Service, Field Service eller Contact Center) och din metodik – och hur du jämför dem på rättvisa grunder.",
  "Det är här d365.se gör störst skillnad. Den traditionella RFP-processen jämför ofta fel saker, och kortlistan formas tidigare än de flesta tror.",
  ],
- recommendation: "Matchning mot partners som passar er bransch och era förutsättningar – vi står på köparens sida",
+ recommendation: "Matchning mot partners som passar din bransch och dina förutsättningar – vi står på köparens sida",
  recommendationHref: "/valjdynamics365partner",
  nextStep: {
  label: "Hitta matchande partners",
@@ -157,7 +157,7 @@ const STAGES: Stage[] = [
  nextStep: {
  label: "Gå till Beslutsmognadsindex",
  href: "/beslutsmognad",
- helper: "Mät er beslutsmognad och få en objektiv bedömning av hur väl förberedda ni är innan kontraktet skrivs under.",
+ helper: "Mät din beslutsmognad och få en objektiv bedömning av hur väl förberedda du är innan kontraktet skrivs under.",
  },
  Icon: CheckCircle,
  },
@@ -331,7 +331,7 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
  Den typiska upphandlingsresan
  </h3>
  <p className="text-sm text-muted-foreground">
- Klicka på det stadie ni känner igen er i – så öppnas detaljerna och nästa steg.
+ Klicka på det stadie du känner igen dig i – så öppnas detaljerna och nästa steg.
  </p>
  </div>
  
@@ -518,7 +518,7 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
  De sju stadierna i en köpresa för ERP och CRM
  </h3>
  <p className="text-base text-muted-foreground leading-relaxed">
- Klicka på det stadie som känns mest likt er situation just nu.
+ Klicka på det stadie som känns mest likt din situation just nu.
  </p>
  </header>
 

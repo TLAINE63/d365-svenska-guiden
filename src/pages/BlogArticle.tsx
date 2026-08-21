@@ -337,8 +337,8 @@ const BlogArticle = () => {
                   </p>
                   <p className="text-sm leading-relaxed text-foreground/80">
                     Dynamics 365-marknaden förändras snabbt – särskilt inom AI, Copilot, agenter och prissättning.
-                    Den här artikeln granskades senast {formatDateSv(reviewDate)}. Hittar ni en uppgift som inte
-                    längre stämmer? <Link to="/kontakt/" className="text-primary underline underline-offset-2 hover:text-primary/80">Hör av er</Link> så uppdaterar vi.
+                    Den här artikeln granskades senast {formatDateSv(reviewDate)}. Hittar du en uppgift som inte
+                    längre stämmer? <Link to="/kontakt/" className="text-primary underline underline-offset-2 hover:text-primary/80">Hör av din</Link> så uppdaterar vi.
                   </p>
                 </aside>
               );
@@ -365,7 +365,7 @@ const BlogArticle = () => {
                       Testa behovsanalysen
                     </div>
                     <p className="text-sm text-primary-foreground/70">
-                      Kartlägg ert nuläge och få en prioriterad rekommendation.
+                      Kartlägg ditt nuläge och få en prioriterad rekommendation.
                     </p>
                   </div>
                   <span className="mt-4 text-sm font-semibold text-primary group-hover:translate-x-1 transition-transform">

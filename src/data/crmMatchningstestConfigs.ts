@@ -116,10 +116,10 @@ const salesConfig: ProductConfig = {
   key: "sales",
   productName: "Dynamics 365 Sales",
   eyebrow: "Dynamics 365 Sales",
-  h1: "Matchar Dynamics 365 Sales era behov?",
+  h1: "Matchar Dynamics 365 Sales dina behov?",
   intro:
-    "Ett funktionsorienterat matchningstest – inte ett mognadsbetyg. Vi tittar på hur ni säljer i dag och visar ärligt om Dynamics 365 Sales matchar era behov – eller om ett enklare CRM räcker.",
-  seoTitle: "Matchar Dynamics 365 Sales era behov? – Matchningstest | d365.se",
+    "Ett funktionsorienterat matchningstest – inte ett mognadsbetyg. Vi tittar på hur du säljer i dag och visar ärligt om Dynamics 365 Sales matchar dina behov – eller om ett enklare CRM räcker.",
+  seoTitle: "Matchar Dynamics 365 Sales dina behov? – Matchningstest | d365.se",
   seoDescription:
     "10 minuter, 12 frågor. Funktionsorienterat matchningstest som visar om Dynamics 365 Sales passar er säljorganisation.",
   canonicalPath: "/d365sales/matchningstest",
@@ -143,7 +143,7 @@ const salesConfig: ProductConfig = {
       strongCopy:
         "Strukturerad B2B-försäljning med flera säljsteg, långa cykler och behov av tydliga forecasts",
       partnerHint:
-        "Här ger Dynamics 365 Sales störst nytta. Partnern bör ha erfarenhet av att konfigurera säljprocesser, forecasts och dashboards – gärna med referenscase från er bransch.",
+        "Här ger Dynamics 365 Sales störst nytta. Partnern bör ha erfarenhet av att konfigurera säljprocesser, forecasts och dashboards – gärna med referenscase från din bransch.",
     },
     {
       key: "org",
@@ -165,24 +165,24 @@ const salesConfig: ProductConfig = {
     },
   ],
   questions: [
-    scale("pipeline", "s1", 0, "Har ni en definierad säljprocess med tydliga steg från lead till avslut?"),
-    scale("pipeline", "s2", 0, "Behöver ni forecast och pipeline-uppföljning över kvartal/år?"),
-    scale("pipeline", "s3", 0, "Har ni långa säljcykler (över 1 månad) med flera intressenter per affär?"),
-    yn("pipeline", "s4", 0, "Arbetar ni med offerter, konfigurerade produkter eller prislistor?", 2),
+    scale("pipeline", "s1", 0, "Har du en definierad säljprocess med tydliga steg från lead till avslut?"),
+    scale("pipeline", "s2", 0, "Behöver du forecast och pipeline-uppföljning över kvartal/år?"),
+    scale("pipeline", "s3", 0, "Har du långa säljcykler (över 1 månad) med flera intressenter per affär?"),
+    yn("pipeline", "s4", 0, "Arbetar du med offerter, konfigurerade produkter eller prislistor?", 2),
     scale("org", "s5", 1, "Hur många personer i säljorganisationen ska använda systemet?", "0 = under 5, 3 = över 50."),
-    scale("org", "s6", 1, "Har ni flera säljteam, territorier eller landsuppdelningar att hantera?"),
-    yn("org", "s7", 1, "Säljer ni via återförsäljare eller partners där lead-registrering krävs?", 2),
+    scale("org", "s6", 1, "Har du flera säljteam, territorier eller landsuppdelningar att hantera?"),
+    yn("org", "s7", 1, "Säljer du via återförsäljare eller partners där lead-registrering krävs?", 2),
     scale("ai", "s8", 2, "Hur viktigt är AI-stöd (Copilot, samtalsanalys, nästa-bäst-åtgärd) i säljarbetet?"),
     yn("ai", "s9", 2, "Ska CRM integreras djupt med Outlook, Teams och kalender?", 2),
-    yn("ai", "s10", 2, "Ska CRM integreras med ert affärssystem (order, fakturor, kunddata)?", 3),
-    scale("ai", "s11", 2, "Har ni behov av rapportering, dashboards och analys på säljdata?"),
-    yn("ai", "s12", 2, "Är LinkedIn Sales Navigator ett verktyg ni använder eller planerar att införa?", 2),
+    yn("ai", "s10", 2, "Ska CRM integreras med ditt affärssystem (order, fakturor, kunddata)?", 3),
+    scale("ai", "s11", 2, "Har du behov av rapportering, dashboards och analys på säljdata?"),
+    yn("ai", "s12", 2, "Är LinkedIn Sales Navigator ett verktyg du använder eller planerar att införa?", 2),
   ],
   levelCopy: {
     strong: {
       headline: "Stark matchning",
       body:
-        "Era svar pekar på en B2B-säljorganisation där Dynamics 365 Sales, gärna med Sales Premium och Copilot for Sales, är ett rimligt val att utvärdera på allvar. Det är fortfarande värt att jämföra mot HubSpot Sales Hub och Salesforce Sales Cloud för att pressa pris och funktion.",
+        "Dina svar pekar på en B2B-säljorganisation där Dynamics 365 Sales, gärna med Sales Premium och Copilot for Sales, är ett rimligt val att utvärdera på allvar. Det är fortfarande värt att jämföra mot HubSpot Sales Hub och Salesforce Sales Cloud för att pressa pris och funktion.",
     },
     partial: {
       headline: "Delvis matchning",
@@ -192,13 +192,13 @@ const salesConfig: ProductConfig = {
     oversized: {
       headline: "Sannolikt överdimensionerat",
       body:
-        "Era svar pekar på en säljorganisation där ett enklare CRM (t.ex. HubSpot Sales Hub eller Pipedrive) troligen täcker behoven väl. Dynamics 365 Sales blir mest motiverat när ni har djup Microsoft-integration, större team eller tydliga AI-behov.",
+        "Dina svar pekar på en säljorganisation där ett enklare CRM (t.ex. HubSpot Sales Hub eller Pipedrive) troligen täcker behoven väl. Dynamics 365 Sales blir mest motiverat när du har djup Microsoft-integration, större team eller tydliga AI-behov.",
     },
   },
   oversizedAlternative: {
     heading: "Är ett enklare CRM ett bättre alternativ?",
     body:
-      "Era svar pekar på att Dynamics 365 Sales sannolikt är överdimensionerat för er i dag. Enklare alternativ som HubSpot Sales Hub eller Pipedrive täcker normalt motsvarande behov till lägre kostnad och kortare implementationstid. Om Microsoft-integration och AI blir viktigare framöver är det lätt att byta upp sig.",
+      "Dina svar pekar på att Dynamics 365 Sales sannolikt är överdimensionerat för dig i dag. Enklare alternativ som HubSpot Sales Hub eller Pipedrive täcker normalt motsvarande behov till lägre kostnad och kortare implementationstid. Om Microsoft-integration och AI blir viktigare framöver är det lätt att byta upp sig.",
     ctaLabel: "Läs om Dynamics 365 Sales",
     ctaTo: "/d365sales/",
   },
@@ -216,12 +216,12 @@ const customerServiceConfig: ProductConfig = {
   key: "customer-service",
   productName: "Dynamics 365 Customer Service",
   eyebrow: "Dynamics 365 Customer Service",
-  h1: "Matchar Dynamics 365 Customer Service era behov?",
+  h1: "Matchar Dynamics 365 Customer Service dina behov?",
   intro:
-    "Funktionsorienterat matchningstest av ert supportbehov. Vi tittar på volym, kanaler, självbetjäning och AI-behov – och visar ärligt om Dynamics 365 Customer Service matchar er, eller om ett enklare helpdesk-verktyg räcker.",
-  seoTitle: "Matchar Dynamics 365 Customer Service era behov? – Matchningstest | d365.se",
+    "Funktionsorienterat matchningstest av ditt supportbehov. Vi tittar på volym, kanaler, självbetjäning och AI-behov – och visar ärligt om Dynamics 365 Customer Service matchar dig, eller om ett enklare helpdesk-verktyg räcker.",
+  seoTitle: "Matchar Dynamics 365 Customer Service dina behov? – Matchningstest | d365.se",
   seoDescription:
-    "10 minuter, 12 frågor. Funktionsorienterat matchningstest som visar om Dynamics 365 Customer Service passar er kundserviceorganisation.",
+    "10 minuter, 12 frågor. Funktionsorienterat matchningstest som visar om Dynamics 365 Customer Service passar din kundserviceorganisation.",
   canonicalPath: "/d365customerservice/matchningstest",
   ogImage: "https://d365.se/og-customer-service.png",
   keywords: "Dynamics 365 Customer Service matchningstest, helpdesk utvärdering, kundservice CRM",
@@ -231,7 +231,7 @@ const customerServiceConfig: ProductConfig = {
   needsAnalysisPath: "/kundservice-behovsanalys",
   partnerFilterPath: "/dynamics-365-customer-service-partners-sverige/",
   blocks: [
-    { title: "Ärendevolym och kanaler", description: "Hur många ärenden ni hanterar och via vilka kanaler." },
+    { title: "Ärendevolym och kanaler", description: "Hur många ärenden du hanterar och via vilka kanaler." },
     { title: "Kunskap, SLA och struktur", description: "Kunskapsdatabas, SLA-hantering och organisatorisk struktur." },
     { title: "AI, självbetjäning och integration", description: "Copilot, virtuella agenter, portaler och integration mot andra system." },
   ],
@@ -265,40 +265,40 @@ const customerServiceConfig: ProductConfig = {
     },
   ],
   questions: [
-    scale("volume", "cs1", 0, "Hur stor är er årliga ärendevolym?", "0 = under 500, 3 = över 20 000."),
-    scale("volume", "cs2", 0, "Hur många kanaler tar ni emot ärenden via (e-post, chatt, telefon, sociala medier, formulär)?"),
-    yn("volume", "cs3", 0, "Behöver ni realtidschatt och integrerad telefoni?", 3),
+    scale("volume", "cs1", 0, "Hur stor är din årliga ärendevolym?", "0 = under 500, 3 = över 20 000."),
+    scale("volume", "cs2", 0, "Hur många kanaler tar du emot ärenden via (e-post, chatt, telefon, sociala medier, formulär)?"),
+    yn("volume", "cs3", 0, "Behöver du realtidschatt och integrerad telefoni?", 3),
     scale("volume", "cs4", 0, "Hur viktigt är en enhetlig agent-vy över kanaler (omnikanal)?"),
-    scale("sla", "cs5", 1, "Har ni formella SLA:er som måste följas per kundsegment eller ärendetyp?"),
-    yn("sla", "cs6", 1, "Använder ni – eller vill använda – en strukturerad kunskapsdatabas för agenterna?", 3),
-    scale("sla", "cs7", 1, "Har ni flera supportteam eller nivåer (1st, 2nd, 3rd line) som samarbetar på samma ärende?"),
+    scale("sla", "cs5", 1, "Har du formella SLA:er som måste följas per kundsegment eller ärendetyp?"),
+    yn("sla", "cs6", 1, "Använder du – eller vill använda – en strukturerad kunskapsdatabas för agenterna?", 3),
+    scale("sla", "cs7", 1, "Har du flera supportteam eller nivåer (1st, 2nd, 3rd line) som samarbetar på samma ärende?"),
     yn("ai", "cs8", 2, "Är det viktigt med AI-stöd (Copilot for Service, förslag på svar, sammanfattningar) för agenterna?", 3),
-    yn("ai", "cs9", 2, "Vill ni erbjuda en självbetjäningsportal eller virtuell agent för kunderna?", 3),
-    yn("ai", "cs10", 2, "Ska Customer Service integreras med ert affärssystem (order, leveranser, fakturor)?", 3),
+    yn("ai", "cs9", 2, "Vill du erbjuda en självbetjäningsportal eller virtuell agent för kunderna?", 3),
+    yn("ai", "cs10", 2, "Ska Customer Service integreras med ditt affärssystem (order, leveranser, fakturor)?", 3),
     scale("ai", "cs11", 2, "Hur viktigt är avancerad rapportering, dashboards och kvalitetsuppföljning?"),
-    yn("ai", "cs12", 2, "Använder eller ska ni använda Dynamics 365 Sales eller Field Service parallellt?", 2),
+    yn("ai", "cs12", 2, "Använder eller ska du använda Dynamics 365 Sales eller Field Service parallellt?", 2),
   ],
   levelCopy: {
     strong: {
       headline: "Stark matchning",
       body:
-        "Era svar pekar på en supportorganisation där Dynamics 365 Customer Service – gärna med omnikanal-tillägg och Copilot for Service – är ett rimligt val att utvärdera på allvar. Det är fortfarande värt att jämföra mot Zendesk och ServiceNow för pris och användarvänlighet.",
+        "Dina svar pekar på en supportorganisation där Dynamics 365 Customer Service – gärna med omnikanal-tillägg och Copilot for Service – är ett rimligt val att utvärdera på allvar. Det är fortfarande värt att jämföra mot Zendesk och ServiceNow för pris och användarvänlighet.",
     },
     partial: {
       headline: "Delvis matchning",
       body:
-        "Vissa delar av er support talar för Dynamics 365 Customer Service, andra pekar mot ett enklare helpdesk-verktyg. Fokusera utvärderingen på volym, kanalmix och grad av integration – det är där skillnaden i totalkostnad blir störst.",
+        "Vissa delar av din support talar för Dynamics 365 Customer Service, andra pekar mot ett enklare helpdesk-verktyg. Fokusera utvärderingen på volym, kanalmix och grad av integration – det är där skillnaden i totalkostnad blir störst.",
     },
     oversized: {
       headline: "Sannolikt överdimensionerat",
       body:
-        "Era svar pekar på ett supportbehov där ett enklare helpdesk-verktyg (t.ex. Zendesk Suite eller Freshdesk) troligen täcker behoven väl. Dynamics 365 Customer Service blir mest motiverat när ni har hög volym, omnikanal och tät Microsoft-integration.",
+        "Dina svar pekar på ett supportbehov där ett enklare helpdesk-verktyg (t.ex. Zendesk Suite eller Freshdesk) troligen täcker behoven väl. Dynamics 365 Customer Service blir mest motiverat när du har hög volym, omnikanal och tät Microsoft-integration.",
     },
   },
   oversizedAlternative: {
     heading: "Är ett enklare helpdesk-verktyg ett bättre alternativ?",
     body:
-      "Era svar pekar på att Dynamics 365 Customer Service sannolikt är överdimensionerat i dag. Enklare alternativ som Zendesk Suite eller Freshdesk täcker normalt motsvarande behov till lägre kostnad och snabbare införande. Om ni senare växer in i omnikanal, AI och Microsoft-integration är det möjligt att byta upp sig.",
+      "Dina svar pekar på att Dynamics 365 Customer Service sannolikt är överdimensionerat i dag. Enklare alternativ som Zendesk Suite eller Freshdesk täcker normalt motsvarande behov till lägre kostnad och snabbare införande. Om du senare växer in i omnikanal, AI och Microsoft-integration är det möjligt att byta upp sig.",
     ctaLabel: "Läs om Dynamics 365 Customer Service",
     ctaTo: "/d365customerservice/",
   },
@@ -316,10 +316,10 @@ const marketingConfig: ProductConfig = {
   key: "marketing",
   productName: "Dynamics 365 Customer Insights",
   eyebrow: "Dynamics 365 Customer Insights (Marketing + Data)",
-  h1: "Matchar Dynamics 365 Customer Insights era behov?",
+  h1: "Matchar Dynamics 365 Customer Insights dina behov?",
   intro:
-    "Funktionsorienterat matchningstest för marknad/CDP. Vi tittar på hur ni arbetar med kunddata, journeys och kampanjer – och visar om Customer Insights passar er, eller om ett enklare marketing automation-verktyg räcker.",
-  seoTitle: "Matchar Dynamics 365 Customer Insights era behov? – Matchningstest | d365.se",
+    "Funktionsorienterat matchningstest för marknad/CDP. Vi tittar på hur du arbetar med kunddata, journeys och kampanjer – och visar om Customer Insights passar dig, eller om ett enklare marketing automation-verktyg räcker.",
+  seoTitle: "Matchar Dynamics 365 Customer Insights dina behov? – Matchningstest | d365.se",
   seoDescription:
     "10 minuter, 12 frågor. Funktionsorienterat matchningstest för Dynamics 365 Customer Insights (Journeys + Data).",
   canonicalPath: "/d365marketing/matchningstest",
@@ -331,8 +331,8 @@ const marketingConfig: ProductConfig = {
   needsAnalysisPath: "/CRMbehovsanalys",
   partnerFilterPath: "/dynamics-365-marketing-partners-sverige/",
   blocks: [
-    { title: "Kunddata och segmentering", description: "Hur ni samlar, enar och segmenterar kunddata i dag." },
-    { title: "Kampanjer och journeys", description: "Utskicksvolym, kanaler och komplexitet i era kundresor." },
+    { title: "Kunddata och segmentering", description: "Hur du samlar, enar och segmenterar kunddata i dag." },
+    { title: "Kampanjer och journeys", description: "Utskicksvolym, kanaler och komplexitet i dina kundresor." },
     { title: "AI, integration och analys", description: "AI-genererat innehåll, prediktion och integration mot CRM/webb." },
   ],
   profiles: [
@@ -365,40 +365,40 @@ const marketingConfig: ProductConfig = {
     },
   ],
   questions: [
-    scale("data", "m1", 0, "Har ni behov av att ena kunddata från flera källor (CRM, webb, e-handel, order)?"),
+    scale("data", "m1", 0, "Har du behov av att ena kunddata från flera källor (CRM, webb, e-handel, order)?"),
     scale("data", "m2", 0, "Hur viktigt är avancerad segmentering på beteende och transaktioner?"),
-    yn("data", "m3", 0, "Behöver ni hantera GDPR-samtycken centralt över kanaler?", 2),
-    scale("data", "m4", 0, "Har ni behov av realtidsevents (t.ex. övergivna varukorgar, webbeteende)?"),
-    scale("campaigns", "m5", 1, "Hur många utskick per månad gör ni ungefär?", "0 = under 5, 3 = över 50."),
-    scale("campaigns", "m6", 1, "Hur många kanaler använder ni (e-post, SMS, push, webb, sociala)?"),
-    scale("campaigns", "m7", 1, "Hur komplexa är era kundresor (single-shot vs fleretapps med förgreningar)?"),
-    yn("campaigns", "m8", 1, "Vill ni kunna göra event- och webinar-hantering integrerat?", 2),
+    yn("data", "m3", 0, "Behöver du hantera GDPR-samtycken centralt över kanaler?", 2),
+    scale("data", "m4", 0, "Har du behov av realtidsevents (t.ex. övergivna varukorgar, webbeteende)?"),
+    scale("campaigns", "m5", 1, "Hur många utskick per månad gör du ungefär?", "0 = under 5, 3 = över 50."),
+    scale("campaigns", "m6", 1, "Hur många kanaler använder du (e-post, SMS, push, webb, sociala)?"),
+    scale("campaigns", "m7", 1, "Hur komplexa är dina kundresor (single-shot vs fleretapps med förgreningar)?"),
+    yn("campaigns", "m8", 1, "Vill du kunna göra event- och webinar-hantering integrerat?", 2),
     yn("ai", "m9", 2, "Är AI-genererat innehåll och Copilot viktigt i marknadsarbetet?", 3),
     yn("ai", "m10", 2, "Ska Marketing integreras djupt med Dynamics 365 Sales eller Service?", 3),
     scale("ai", "m11", 2, "Hur viktigt är prediktiv scoring (lead scoring, churn, next best offer)?"),
-    yn("ai", "m12", 2, "Använder ni Power BI för marknadsrapportering – eller vill göra det?", 2),
+    yn("ai", "m12", 2, "Använder du Power BI för marknadsrapportering – eller vill göra det?", 2),
   ],
   levelCopy: {
     strong: {
       headline: "Stark matchning",
       body:
-        "Era svar pekar på en marknadsorganisation där Dynamics 365 Customer Insights (Journeys + Data) är ett rimligt val att utvärdera. Jämför gärna mot HubSpot Marketing Hub Enterprise och Salesforce Marketing Cloud för att pressa pris och användarvänlighet.",
+        "Dina svar pekar på en marknadsorganisation där Dynamics 365 Customer Insights (Journeys + Data) är ett rimligt val att utvärdera. Jämför gärna mot HubSpot Marketing Hub Enterprise och Salesforce Marketing Cloud för att pressa pris och användarvänlighet.",
     },
     partial: {
       headline: "Delvis matchning",
       body:
-        "Vissa delar av marknadsarbetet talar för Customer Insights, andra pekar mot ett enklare marketing automation-verktyg. Fokusera utvärderingen på hur viktig kundprofil-enande (CDP) och Sales-integration faktiskt är för er.",
+        "Vissa delar av marknadsarbetet talar för Customer Insights, andra pekar mot ett enklare marketing automation-verktyg. Fokusera utvärderingen på hur viktig kundprofil-enande (CDP) och Sales-integration faktiskt är för dig.",
     },
     oversized: {
       headline: "Sannolikt överdimensionerat",
       body:
-        "Era svar pekar på ett marknadsbehov där ett enklare verktyg (t.ex. HubSpot Marketing Hub, Mailchimp, ActiveCampaign) troligen täcker behoven. Customer Insights blir mest motiverat vid CDP-behov, större utskicksvolym eller tät Dynamics 365-integration.",
+        "Dina svar pekar på ett marknadsbehov där ett enklare verktyg (t.ex. HubSpot Marketing Hub, Mailchimp, ActiveCampaign) troligen täcker behoven. Customer Insights blir mest motiverat vid CDP-behov, större utskicksvolym eller tät Dynamics 365-integration.",
     },
   },
   oversizedAlternative: {
     heading: "Är ett enklare marketing automation-verktyg ett bättre alternativ?",
     body:
-      "Era svar pekar på att Customer Insights sannolikt är överdimensionerat i dag. Enklare alternativ som HubSpot Marketing Hub eller Mailchimp täcker normalt behoven till lägre kostnad. Byt upp er när CDP-behov eller Sales-integration blir centralt.",
+      "Dina svar pekar på att Customer Insights sannolikt är överdimensionerat i dag. Enklare alternativ som HubSpot Marketing Hub eller Mailchimp täcker normalt behoven till lägre kostnad. Byt upp dig när CDP-behov eller Sales-integration blir centralt.",
     ctaLabel: "Läs om Customer Insights",
     ctaTo: "/d365marketing/",
   },
@@ -416,10 +416,10 @@ const fieldServiceConfig: ProductConfig = {
   key: "field-service",
   productName: "Dynamics 365 Field Service",
   eyebrow: "Dynamics 365 Field Service",
-  h1: "Matchar Dynamics 365 Field Service era behov?",
+  h1: "Matchar Dynamics 365 Field Service dina behov?",
   intro:
-    "Funktionsorienterat matchningstest för fältservice. Vi tittar på tekniker, ruttoptimering, arbetsorderflöde och koppling till kundservice/ERP – och visar om Field Service matchar er, eller om ett enklare planeringssystem räcker.",
-  seoTitle: "Matchar Dynamics 365 Field Service era behov? – Matchningstest | d365.se",
+    "Funktionsorienterat matchningstest för fältservice. Vi tittar på tekniker, ruttoptimering, arbetsorderflöde och koppling till kundservice/ERP – och visar om Field Service matchar dig, eller om ett enklare planeringssystem räcker.",
+  seoTitle: "Matchar Dynamics 365 Field Service dina behov? – Matchningstest | d365.se",
   seoDescription:
     "10 minuter, 12 frågor. Funktionsorienterat matchningstest för Dynamics 365 Field Service.",
   canonicalPath: "/d365fieldservice/matchningstest",
@@ -443,7 +443,7 @@ const fieldServiceConfig: ProductConfig = {
       strongCopy:
         "Många tekniker i fält, hög arbetsordervolym och behov av tydlig ärendespårning från skapelse till fakturering",
       partnerHint:
-        "Field Service kommer till sin rätt först vid tillräcklig volym. Fråga partnern om ärendeflöde, roller och rapportering – gärna med referenscase från er bransch.",
+        "Field Service kommer till sin rätt först vid tillräcklig volym. Fråga partnern om ärendeflöde, roller och rapportering – gärna med referenscase från din bransch.",
     },
     {
       key: "planning",
@@ -466,23 +466,23 @@ const fieldServiceConfig: ProductConfig = {
   ],
   questions: [
     scale("workforce", "fs1", 0, "Hur många tekniker/fältarbetare ska använda systemet?", "0 = under 10, 3 = över 100."),
-    scale("workforce", "fs2", 0, "Hur många arbetsordrar hanterar ni per månad?", "0 = under 100, 3 = över 5000."),
-    yn("workforce", "fs3", 0, "Har ni behov av reservdelshantering och lager per servicebil?", 3),
+    scale("workforce", "fs2", 0, "Hur många arbetsordrar hanterar du per månad?", "0 = under 100, 3 = över 5000."),
+    yn("workforce", "fs3", 0, "Har du behov av reservdelshantering och lager per servicebil?", 3),
     scale("workforce", "fs4", 0, "Hur viktigt är att koppla arbetsorder till order/fakturering i ERP?"),
     scale("planning", "fs5", 1, "Hur viktigt är automatisk ruttoptimering och schemaläggning?"),
-    yn("planning", "fs6", 1, "Behöver era tekniker en fullvärdig mobilapp offline?", 3),
-    yn("planning", "fs7", 1, "Har ni serviceavtal/SLA:er som styr prioritering av ärenden?", 3),
-    scale("planning", "fs8", 1, "Hur ofta har ni akuta ärenden som kräver omplanering samma dag?"),
-    yn("ai", "fs9", 2, "Använder eller ska ni använda Dynamics 365 Customer Service parallellt?", 3),
-    yn("ai", "fs10", 2, "Har ni IoT-utrustning eller sensorer som ska generera ärenden automatiskt?", 3),
-    yn("ai", "fs11", 2, "Är AI-stöd (Copilot for Field Service, prediktivt underhåll) viktigt för er?", 2),
+    yn("planning", "fs6", 1, "Behöver dina tekniker en fullvärdig mobilapp offline?", 3),
+    yn("planning", "fs7", 1, "Har du serviceavtal/SLA:er som styr prioritering av ärenden?", 3),
+    scale("planning", "fs8", 1, "Hur ofta har du akuta ärenden som kräver omplanering samma dag?"),
+    yn("ai", "fs9", 2, "Använder eller ska du använda Dynamics 365 Customer Service parallellt?", 3),
+    yn("ai", "fs10", 2, "Har du IoT-utrustning eller sensorer som ska generera ärenden automatiskt?", 3),
+    yn("ai", "fs11", 2, "Är AI-stöd (Copilot for Field Service, prediktivt underhåll) viktigt för dig?", 2),
     scale("ai", "fs12", 2, "Hur viktigt är avancerad rapportering på tekniker, SLA och kostnad per ärende?"),
   ],
   levelCopy: {
     strong: {
       headline: "Stark matchning",
       body:
-        "Era svar pekar på en fältserviceorganisation där Dynamics 365 Field Service är ett rimligt val att utvärdera på allvar – särskilt om ni redan använder Customer Service eller Business Central. Jämför gärna mot ServiceNow FSM och Salesforce Field Service för att pressa pris och funktion.",
+        "Dina svar pekar på en fältserviceorganisation där Dynamics 365 Field Service är ett rimligt val att utvärdera på allvar – särskilt om du redan använder Customer Service eller Business Central. Jämför gärna mot ServiceNow FSM och Salesforce Field Service för att pressa pris och funktion.",
     },
     partial: {
       headline: "Delvis matchning",
@@ -492,13 +492,13 @@ const fieldServiceConfig: ProductConfig = {
     oversized: {
       headline: "Sannolikt överdimensionerat",
       body:
-        "Era svar pekar på en fältverksamhet där enklare planerings-/serviceverktyg (t.ex. ServiceMax Core, Jobber eller egen planering i Outlook/Teams) troligen räcker. Field Service blir motiverat först vid större teknikerteam, IoT-behov och Microsoft-integration.",
+        "Dina svar pekar på en fältverksamhet där enklare planerings-/serviceverktyg (t.ex. ServiceMax Core, Jobber eller egen planering i Outlook/Teams) troligen räcker. Field Service blir motiverat först vid större teknikerteam, IoT-behov och Microsoft-integration.",
     },
   },
   oversizedAlternative: {
     heading: "Är enklare serviceverktyg ett bättre alternativ?",
     body:
-      "Era svar pekar på att Dynamics 365 Field Service sannolikt är överdimensionerat i dag. Enklare planeringsverktyg kan täcka behoven till lägre kostnad. Byt upp er när ni skalar volym, IoT eller Microsoft-integration.",
+      "Dina svar pekar på att Dynamics 365 Field Service sannolikt är överdimensionerat i dag. Enklare planeringsverktyg kan täcka behoven till lägre kostnad. Byt upp dig när du skalar volym, IoT eller Microsoft-integration.",
     ctaLabel: "Läs om Dynamics 365 Field Service",
     ctaTo: "/d365fieldservice/",
   },
@@ -516,10 +516,10 @@ const contactCenterConfig: ProductConfig = {
   key: "contact-center",
   productName: "Dynamics 365 Contact Center",
   eyebrow: "Dynamics 365 Contact Center",
-  h1: "Matchar Dynamics 365 Contact Center era behov?",
+  h1: "Matchar Dynamics 365 Contact Center dina behov?",
   intro:
-    "Funktionsorienterat matchningstest för AI-drivet kontaktcenter. Vi tittar på volym, kanaler, telefoni och AI-behov – och visar om Contact Center är rätt för er, eller om ni klarar er med Customer Service eller ett annat CCaaS-verktyg.",
-  seoTitle: "Matchar Dynamics 365 Contact Center era behov? – Matchningstest | d365.se",
+    "Funktionsorienterat matchningstest för AI-drivet kontaktcenter. Vi tittar på volym, kanaler, telefoni och AI-behov – och visar om Contact Center är rätt för dig, eller om du klarar dig med Customer Service eller ett annat CCaaS-verktyg.",
+  seoTitle: "Matchar Dynamics 365 Contact Center dina behov? – Matchningstest | d365.se",
   seoDescription:
     "10 minuter, 12 frågor. Funktionsorienterat matchningstest för Dynamics 365 Contact Center.",
   canonicalPath: "/d365contactcenter/matchningstest",
@@ -565,15 +565,15 @@ const contactCenterConfig: ProductConfig = {
     },
   ],
   questions: [
-    scale("volume", "cc1", 0, "Hur många interaktioner (samtal, chatt, mejl) hanterar ni per månad?", "0 = under 2 000, 3 = över 50 000."),
-    scale("volume", "cc2", 0, "Hur många kanaler tar ni emot interaktioner via?"),
-    yn("volume", "cc3", 0, "Behöver ni inbyggd telefoni med IVR och köhantering?", 3),
-    yn("volume", "cc4", 0, "Ska ni hantera sociala kanaler (WhatsApp, Messenger, Apple Business Chat)?", 2),
+    scale("volume", "cc1", 0, "Hur många interaktioner (samtal, chatt, mejl) hanterar du per månad?", "0 = under 2 000, 3 = över 50 000."),
+    scale("volume", "cc2", 0, "Hur många kanaler tar du emot interaktioner via?"),
+    yn("volume", "cc3", 0, "Behöver du inbyggd telefoni med IVR och köhantering?", 3),
+    yn("volume", "cc4", 0, "Ska du hantera sociala kanaler (WhatsApp, Messenger, Apple Business Chat)?", 2),
     scale("workforce", "cc5", 1, "Hur många agenter ska använda systemet?", "0 = under 20, 3 = över 200."),
-    yn("workforce", "cc6", 1, "Behöver ni skiftplanering och workforce management (WFM) integrerat?", 3),
-    yn("workforce", "cc7", 1, "Är kvalitetsuppföljning (samtalsinspelning, scoring) viktigt för er?", 2),
+    yn("workforce", "cc6", 1, "Behöver du skiftplanering och workforce management (WFM) integrerat?", 3),
+    yn("workforce", "cc7", 1, "Är kvalitetsuppföljning (samtalsinspelning, scoring) viktigt för dig?", 2),
     scale("workforce", "cc8", 1, "Hur viktigt är realtidsdashboards för teamledare?"),
-    yn("ai", "cc9", 2, "Vill ni använda virtuella agenter/röstbotar för self-service?", 3),
+    yn("ai", "cc9", 2, "Vill du använda virtuella agenter/röstbotar för self-service?", 3),
     yn("ai", "cc10", 2, "Är realtidsstöd till agenten (Copilot for Service, förslag på svar) viktigt?", 3),
     yn("ai", "cc11", 2, "Ska Contact Center integreras djupt med Dynamics 365 Customer Service eller Sales?", 3),
     scale("ai", "cc12", 2, "Hur viktigt är sentimentanalys och AI-driven kvalitetsuppföljning?"),
@@ -582,7 +582,7 @@ const contactCenterConfig: ProductConfig = {
     strong: {
       headline: "Stark matchning",
       body:
-        "Era svar pekar på ett kontaktcenter där Dynamics 365 Contact Center är ett rimligt val att utvärdera på allvar. Jämför gärna mot Genesys Cloud, NICE CXone och Amazon Connect för att pressa pris och funktion.",
+        "Dina svar pekar på ett kontaktcenter där Dynamics 365 Contact Center är ett rimligt val att utvärdera på allvar. Jämför gärna mot Genesys Cloud, NICE CXone och Amazon Connect för att pressa pris och funktion.",
     },
     partial: {
       headline: "Delvis matchning",
@@ -592,13 +592,13 @@ const contactCenterConfig: ProductConfig = {
     oversized: {
       headline: "Sannolikt överdimensionerat",
       body:
-        "Era svar pekar på ett servicebehov där Dynamics 365 Customer Service (utan Contact Center) eller ett enklare CCaaS-verktyg troligen räcker. Contact Center blir motiverat först vid större volym, inbyggd telefoni och tydliga AI-behov.",
+        "Dina svar pekar på ett servicebehov där Dynamics 365 Customer Service (utan Contact Center) eller ett enklare CCaaS-verktyg troligen räcker. Contact Center blir motiverat först vid större volym, inbyggd telefoni och tydliga AI-behov.",
     },
   },
   oversizedAlternative: {
     heading: "Är Customer Service ensamt ett bättre alternativ?",
     body:
-      "Era svar pekar på att Dynamics 365 Contact Center sannolikt är överdimensionerat. Dynamics 365 Customer Service utan Contact Center-tillägg – eller ett dedikerat CCaaS-verktyg – kan räcka till lägre kostnad. Byt upp er när volym, AI-behov eller telefoni-integration ökar.",
+      "Dina svar pekar på att Dynamics 365 Contact Center sannolikt är överdimensionerat. Dynamics 365 Customer Service utan Contact Center-tillägg – eller ett dedikerat CCaaS-verktyg – kan räcka till lägre kostnad. Byt upp dig när volym, AI-behov eller telefoni-integration ökar.",
     ctaLabel: "Läs om Dynamics 365 Contact Center",
     ctaTo: "/d365contactcenter/",
   },

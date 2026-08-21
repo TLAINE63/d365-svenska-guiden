@@ -12,7 +12,7 @@ import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import partnerData from "@/data/partnerData.json";
 
 /**
- * "Se er profil idag" – kostnadsfri profilkoll. Partnern anger företagsnamn och ser
+ * "Se din profil idag" – kostnadsfri profilkoll. Partnern anger företagsnamn och ser
  * direkt en sammanfattning av nuvarande profil, en informationspoäng, vilka fält som
  * saknas och hur en verifierad profil ser ut. Endast redan publik information visas.
  */
@@ -59,14 +59,14 @@ function basicRows(p: BasicPartner): CheckRow[] {
       label: "Företaget finns med i kartläggningen",
       present: true,
       weight: 5,
-      detail: "Köpare kan hitta och jämföra er redan idag.",
+      detail: "Köpare kan hitta och jämföra dig redan idag.",
     },
     {
       label: "Produktområden",
       present: products.length > 0,
       weight: 10,
       detail: products.length
-        ? `${products.map((k) => PRODUCT_LABEL[k]).join(", ")} – observerat av d365.se, ej bekräftat av er.`
+        ? `${products.map((k) => PRODUCT_LABEL[k]).join(", ")} – observerat av d365.se, ej bekräftat av dig.`
         : "Inga produktområden kunde säkerställas utifrån publika källor.",
     },
     {
@@ -83,7 +83,7 @@ function basicRows(p: BasicPartner): CheckRow[] {
       weight: 5,
       detail: locations.length ? locations.slice(0, 5).join(", ") : undefined,
     },
-    { label: "Verifierad beskrivning av er specialisering", present: false, weight: 12 },
+    { label: "Verifierad beskrivning av din specialisering", present: false, weight: 12 },
     { label: "Kundcase och referenser", present: false, weight: 12 },
     { label: "Passar bäst för / mindre lämplig för", present: false, weight: 10 },
     { label: "Typiska kunder, projekt och leveransprofil", present: false, weight: 10 },
@@ -113,7 +113,7 @@ function verifiedRows(p: RawPartner): CheckRow[] {
       detail: industries.length ? industries.slice(0, 4).join(", ") : undefined,
     },
     { label: "Orter och närvaro", present: Boolean(p.office_cities?.length), weight: 5 },
-    { label: "Beskrivning av er specialisering", present: Boolean(p.positioning_statement || p.description), weight: 12 },
+    { label: "Beskrivning av din specialisering", present: Boolean(p.positioning_statement || p.description), weight: 12 },
     { label: "Kundcase och referenser", present: Boolean(p.customer_examples?.length), weight: 12 },
     {
       label: "Passar bäst för / mindre lämplig för",
@@ -145,12 +145,12 @@ function basicSummary(p: BasicPartner) {
   ];
   parts.push(
     products.length
-      ? `Köpare ser att ni arbetar med ${products.join(", ")}.`
+      ? `Köpare ser att du arbetar med ${products.join(", ")}.`
       : "Köpare ser inga bekräftade produktområden.",
   );
   if (industries.length) parts.push(`Branscherfarenhet anges som ${industries.slice(0, 4).join(", ")}.`);
   parts.push(
-    "Beskrivning, kundcase, kontaktperson och er egen positionering saknas, vilket gör att en köpare har begränsat underlag när ert företag jämförs med profilerade partners.",
+    "Beskrivning, kundcase, kontaktperson och din egen positionering saknas, vilket gör att en köpare har begränsat underlag när ditt företag jämförs med profilerade partners.",
   );
   return parts.join(" ");
 }
@@ -296,10 +296,10 @@ const PartnerProfileCheck = ({ initialSlug }: { initialSlug?: string | null }) =
             Kostnadsfri profilkoll
           </p>
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-            Se er profil idag – så här ser köpare ert företag
+            Se din profil idag – så här ser köpare ditt företag
           </h2>
           <p className="text-muted-foreground mb-6">
-            Skriv in ert företagsnamn så visar vi direkt en sammanfattning av er nuvarande profil,
+            Skriv in ditt företagsnamn så visar vi direkt en sammanfattning av din nuvarande profil,
             en informationspoäng, vilka fält som saknas och hur en verifierad profil ser ut.
           </p>
         </div>
@@ -338,7 +338,7 @@ const PartnerProfileCheck = ({ initialSlug }: { initialSlug?: string | null }) =
           )}
           {query.length >= 2 && suggestions.length === 0 && (
             <p className="mt-3 text-sm text-muted-foreground">
-              Vi hittar inget företag med det namnet i kartläggningen. Hör av er så lägger vi till er.
+              Vi hittar inget företag med det namnet i kartläggningen. Hör av dig så lägger vi till dig.
             </p>
           )}
         </div>
@@ -453,7 +453,7 @@ const PartnerProfileCheck = ({ initialSlug }: { initialSlug?: string | null }) =
                 <p className="text-sm text-muted-foreground mb-4">
                   {reference.p.name} är ett exempel på en komplett verifierad profil
                   {referenceProducts.length
-                    ? ` inom ${referenceProducts.join(", ")} – samma produktområde som ni arbetar med`
+                    ? ` inom ${referenceProducts.join(", ")} – samma produktområde som du arbetar med`
                     : ""}
                   . Den innehåller följande information som köpare kan väga in:
                 </p>
@@ -487,7 +487,7 @@ const PartnerProfileCheck = ({ initialSlug }: { initialSlug?: string | null }) =
                       }
                     >
                       <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
-                      Boka en genomgång av er profil
+                      Boka en genomgång av din profil
                     </Button>
                   </ContactFormDialog>
                 </div>

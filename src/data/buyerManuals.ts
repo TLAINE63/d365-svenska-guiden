@@ -1,5 +1,5 @@
 // Köparmanual-innehåll per Dynamics 365-produkt.
-// Tonen är köparsidig: vad ni ska titta efter innan ni väljer produkt och partner.
+// Tonen är köparsidig: vad du ska titta efter innan du väljer produkt och partner.
 
 export type BuyerManualContent = {
   /** Kort intro som sätter tonen för köparmanualen på sidan. */
@@ -10,14 +10,14 @@ export type BuyerManualContent = {
   underestimated: string[];
   /** Vad totalkostnaden faktiskt består av – utöver listpris. */
   realCost: string[];
-  /** Krav att ställa på partnern innan ni skriver på. */
+  /** Krav att ställa på partnern innan du skriver på. */
   partnerProof: string[];
 };
 
 export const buyerManuals: Record<string, BuyerManualContent> = {
   "business-central": {
     intro:
-      "Business Central är ett kompetent ERP för små och medelstora bolag – men 'enkel' är inte samma sak som 'billig' eller 'snabb'. Här är vad ni bör trycka på innan ni väljer produkt och partner.",
+      "Business Central är ett kompetent ERP för små och medelstora bolag – men 'enkel' är inte samma sak som 'billig' eller 'snabb'. Här är vad du bör trycka på innan du väljer produkt och partner.",
     notFit: [
       "Mycket komplex tillverkning, avancerad WMS eller global koncernredovisning – F&SCM är ofta rätt verktyg istället.",
       "Bolag som vill ha minimal förändring och bara byta ut ett fungerande system 'för att det är gammalt'.",
@@ -26,9 +26,9 @@ export const buyerManuals: Record<string, BuyerManualContent> = {
     ],
     underestimated: [
       "Datamigreringen från det gamla systemet – kvaliteten i artiklar, kunder, leverantörer och saldon avgör hela införandet.",
-      "Mängden anpassningar (extensions) som krävs för att täcka era verkliga processer, och vad de kostar att förvalta vid uppgraderingar.",
+      "Mängden anpassningar (extensions) som krävs för att täcka dina verkliga processer, och vad de kostar att förvalta vid uppgraderingar.",
       "Change management och utbildning – Business Central byter UX, rapporter och rutiner samtidigt.",
-      "Rapportering och BI – standardrapporter räcker sällan, ni behöver oftast Power BI och en datamodell.",
+      "Rapportering och BI – standardrapporter räcker sällan, du behöver oftast Power BI och en datamodell.",
     ],
     realCost: [
       "Licens (Essentials/Premium) per användare/månad – men implementationen är typiskt 3–10x årslicensen första året.",
@@ -37,7 +37,7 @@ export const buyerManuals: Record<string, BuyerManualContent> = {
       "Förvaltning efter go-live: minst en partner­dag/månad för uppgraderingar, småändringar och support – räkna med 15–25 % av implementations­kostnaden årligen.",
     ],
     partnerProof: [
-      "Referenser från bolag i er storlek och bransch som varit live i minst ett bokslut – inte 'gick live förra månaden'.",
+      "Referenser från bolag i din storlek och bransch som varit live i minst ett bokslut – inte 'gick live förra månaden'.",
       "Konkret införande­metodik: hur kör de design, test, datamigrering, cutover och hyper­care?",
       "Namnen på personerna som faktiskt ska leverera – inte bara säljare och account manager.",
       "Hur de hanterar uppgraderingar (BC är SaaS) och hur deras kunder klarat de senaste två release-vågorna.",
@@ -46,12 +46,12 @@ export const buyerManuals: Record<string, BuyerManualContent> = {
 
   "finance-scm": {
     intro:
-      "Finance & Supply Chain är Microsofts tunga ERP-plattform. Den klarar väldigt mycket – men är också ett av de mer komplexa systemen ni kan välja. Ställ tuffa frågor innan ni signerar.",
+      "Finance & Supply Chain är Microsofts tunga ERP-plattform. Den klarar väldigt mycket – men är också ett av de mer komplexa systemen du kan välja. Ställ tuffa frågor innan du signerar.",
     notFit: [
       "Bolag under ~50 användare eller utan flera juridiska enheter – Business Central räcker oftast och blir betydligt billigare.",
       "Snabba 'lyft och flytta'-projekt – F&SCM kräver gedigen process­design och datakvalitet för att leverera värde.",
       "Verksamheter som inte är beredda att förändra processer för att passa standard – anpassningar i F&SCM är dyra att äga över tid.",
-      "Organisationer utan intern projektkapacitet (process­ägare, IT, ekonomi) som kan driva sitt eget införande – partnern kan inte göra det åt er.",
+      "Organisationer utan intern projektkapacitet (process­ägare, IT, ekonomi) som kan driva sitt eget införande – partnern kan inte göra det åt dig.",
     ],
     underestimated: [
       "Master data management – artiklar, BOM, leverantörer och kunder måste städas i grunden, det är ofta 3–6 månaders arbete i sig.",
@@ -66,16 +66,16 @@ export const buyerManuals: Record<string, BuyerManualContent> = {
       "Application Management efter go-live: 10–20 % av implementations­kostnaden årligen för att hantera 2 årliga releaser, nya legala krav och förändringsbehov.",
     ],
     partnerProof: [
-      "Minst 3 jämförbara F&SCM-referenser i er bransch som varit live i 12+ månader och som ni får prata med utan partnerns närvaro.",
+      "Minst 3 jämförbara F&SCM-referenser i din bransch som varit live i 12+ månader och som du får prata med utan partnerns närvaro.",
       "Tydlig metodik för data­migrering, integrationer och cutover – inte bara 'vi följer Sure Step / FastTrack'.",
       "CV på den faktiska leveransorganisationen: lösningsarkitekt, ekonomikonsult, SCM-konsult, tekniker – och deras tillgänglighet under hela projektet.",
-      "Hur de hanterar Microsofts två årliga releaser, regressionstester och regulatoriska uppdateringar för er.",
+      "Hur de hanterar Microsofts två årliga releaser, regressionstester och regulatoriska uppdateringar för dig.",
     ],
   },
 
   "sales": {
     intro:
-      "Dynamics 365 Sales är en kompetent CRM-plattform – men ett CRM levererar inte värde av sig självt. Det som avgör om ni får pipeline eller bara ett dyrt system är hur partnern bygger det runt er säljmodell.",
+      "Dynamics 365 Sales är en kompetent CRM-plattform – men ett CRM levererar inte värde av sig självt. Det som avgör om du får pipeline eller bara ett dyrt system är hur partnern bygger det runt din säljmodell.",
     notFit: [
       "Säljteam under 5–10 personer utan tydlig process – då är HubSpot eller Pipedrive ofta snabbare och billigare att komma igång med.",
       "Rent transaktionellt B2C där en e-handelsplattform räcker.",
@@ -86,7 +86,7 @@ export const buyerManuals: Record<string, BuyerManualContent> = {
       "Datakvalitet i kunder, kontakter och historik – ofta är CRM-projektet i praktiken ett städprojekt först.",
       "Integration mot ERP/orderdata, marknadsplattform och e-post – utan dem blir CRM en isolerad ö.",
       "Säljarnas faktiska adoption – utbildning, coaching och chefer som följer upp i systemet är 50 % av framgången.",
-      "Anpassning av prognos, pipeline-stadier och Copilot-prompts till er specifika säljmodell.",
+      "Anpassning av prognos, pipeline-stadier och Copilot-prompts till din specifika säljmodell.",
     ],
     realCost: [
       "Licens per säljare/månad (Professional/Enterprise/Premium) – Enterprise behövs ofta för Copilot och avancerade flöden.",
@@ -95,16 +95,16 @@ export const buyerManuals: Record<string, BuyerManualContent> = {
       "Tilläggsmoduler (Sales Premium, Conversation Intelligence, Customer Insights) som ofta läggs till efter ett år.",
     ],
     partnerProof: [
-      "Referenser från säljorganisationer i er modell (B2B-konsult, distributör, SaaS, fält­sälj) – inte bara 'Sverige-kunder generellt'.",
+      "Referenser från säljorganisationer i din modell (B2B-konsult, distributör, SaaS, fält­sälj) – inte bara 'Sverige-kunder generellt'.",
       "Hur de mäter och driver adoption efter go-live, inte bara hur de bygger lösningen.",
-      "Konkret förslag på prognos­modell, stadier och Copilot-användning utifrån er försäljning.",
-      "Vilka personer som faktiskt leder workshops och konfigurerar – och deras CRM-erfarenhet i ert segment.",
+      "Konkret förslag på prognos­modell, stadier och Copilot-användning utifrån din försäljning.",
+      "Vilka personer som faktiskt leder workshops och konfigurerar – och deras CRM-erfarenhet i ditt segment.",
     ],
   },
 
   "customer-service": {
     intro:
-      "Customer Service ger er kraftfull ärende­hantering, omnikanal och Copilot. Men det är processerna, kunskaps­basen och bemanningen som avgör om kundnöjdheten faktiskt går upp.",
+      "Customer Service ger din kraftfull ärende­hantering, omnikanal och Copilot. Men det är processerna, kunskaps­basen och bemanningen som avgör om kundnöjdheten faktiskt går upp.",
     notFit: [
       "Mycket små supportteam (under 5 agenter) med få ärenden – då räcker oftast Outlook + en delad inbox.",
       "Organisationer där det inte finns en ägare för supportprocesser, SLA:er och kunskapsbas.",
@@ -121,12 +121,12 @@ export const buyerManuals: Record<string, BuyerManualContent> = {
       "Licens per agent/månad (Enterprise/Premium) – Premium behövs för Copilot, röst och Customer Insights-koppling.",
       "Implementation: 200–800 kkr beroende på kanaler, integrationer och migration av befintliga ärenden.",
       "Kunskaps­bas, AI-prompts och kontinuerlig förvaltning av makron, vyer och rapporter.",
-      "Telefoni/Contact Center-tillägg om ni behöver röst, IVR eller WFM utöver baspaketet.",
+      "Telefoni/Contact Center-tillägg om du behöver röst, IVR eller WFM utöver baspaketet.",
     ],
     partnerProof: [
-      "Konkreta referenser från support­organisationer i er storlek – gärna med mätbara förbättringar (AHT, FCR, CSAT).",
+      "Konkreta referenser från support­organisationer i din storlek – gärna med mätbara förbättringar (AHT, FCR, CSAT).",
       "Hur de tar sig an kunskapsbas-projektet och Copilot-konfiguration – inte bara hur de installerar produkten.",
-      "Erfarenhet av integration mot era kanaler (web, e-post, chatt, sociala medier, ev. röst).",
+      "Erfarenhet av integration mot dina kanaler (web, e-post, chatt, sociala medier, ev. röst).",
       "Plan för adoption, super­användare och förvaltning under första 6–12 månaderna efter go-live.",
     ],
   },
@@ -156,13 +156,13 @@ export const buyerManuals: Record<string, BuyerManualContent> = {
       "Riktiga CCaaS-referenser – inte bara CRM-implementationer. Be om bevis på röstprojekt i drift.",
       "Erfarenhet av nummer­portering, SIP-trunkar och svensk telefoni­leverantör.",
       "Konkret plan för IVR-design, röst-AI och rapportering – inte bara 'vi konfigurerar enligt best practice'.",
-      "Tydligt ansvar mellan Microsoft-licens, telefoni och WFM så att ni vet vem ni ringer när det brinner.",
+      "Tydligt ansvar mellan Microsoft-licens, telefoni och WFM så att du vet vem du ringer när det brinner.",
     ],
   },
 
   "field-service": {
     intro:
-      "Field Service automatiserar planering, dispatch och tekniker i fält. Den största risken är inte produkten – det är hur väl partnern förstår ert servicelöfte, era SLA:er och era integrationer mot ERP och IoT.",
+      "Field Service automatiserar planering, dispatch och tekniker i fält. Den största risken är inte produkten – det är hur väl partnern förstår ditt servicelöfte, dina SLA:er och dina integrationer mot ERP och IoT.",
     notFit: [
       "Färre än ~10 fälttekniker utan komplex planering – då räcker ofta enklare verktyg eller manuellt schema.",
       "Bolag utan tydligt definierade arbets­order­typer, SLA:er och prislogik.",
@@ -182,10 +182,10 @@ export const buyerManuals: Record<string, BuyerManualContent> = {
       "Förvaltning och vidareutveckling – schema­motorer och mobilappar kräver löpande tuning.",
     ],
     partnerProof: [
-      "Live-referenser från service­organisationer i er typ av fältverksamhet (installation, underhåll, leverans, energi).",
-      "Erfarenhet av integration mot ert ERP (Business Central, F&SCM eller annat) – inte bara CRM-bakgrund.",
-      "Konkret förslag på dispatch-process, SLA-design och optimerings­strategi för era jobbtyper.",
-      "Plan för pilot i en region/affärsenhet innan bred utrullning – och hur ni mäter värdet.",
+      "Live-referenser från service­organisationer i din typ av fältverksamhet (installation, underhåll, leverans, energi).",
+      "Erfarenhet av integration mot ditt ERP (Business Central, F&SCM eller annat) – inte bara CRM-bakgrund.",
+      "Konkret förslag på dispatch-process, SLA-design och optimerings­strategi för dina jobbtyper.",
+      "Plan för pilot i en region/affärsenhet innan bred utrullning – och hur du mäter värdet.",
     ],
   },
 
@@ -199,8 +199,8 @@ export const buyerManuals: Record<string, BuyerManualContent> = {
       "Verksamheter där POS-leverantören inte kan bytas inom rimlig tid – då fungerar inte den samlade plattformstanken.",
     ],
     underestimated: [
-      "Produkt­katalog, varianter, attribut och prishierarkier – datamodellen måste designas innan ni bygger något.",
-      "Integration mot logistik, betalning, lojalitet och 3:e-parts e-handel om ni inte använder Sites Builder.",
+      "Produkt­katalog, varianter, attribut och prishierarkier – datamodellen måste designas innan du bygger något.",
+      "Integration mot logistik, betalning, lojalitet och 3:e-parts e-handel om du inte använder Sites Builder.",
       "POS-utrullning i butik – hårdvara, nätverk, utbildning, hyper­care och fallback-rutiner.",
       "Kampanj- och prislogik – tröskelrabatter, kundklubbs­priser, mix-och-matcha kräver gedigen design och test.",
     ],
@@ -211,7 +211,7 @@ export const buyerManuals: Record<string, BuyerManualContent> = {
       "Application Management efter go-live – Microsofts två releaser per år kräver regressionstester och uppdateringar.",
     ],
     partnerProof: [
-      "Minst 2–3 retail-referenser i er kategori (mode, sport, dagligvaror, konsument­elektronik) som varit live i 12+ månader.",
+      "Minst 2–3 retail-referenser i din kategori (mode, sport, dagligvaror, konsument­elektronik) som varit live i 12+ månader.",
       "Bevisad kompetens på POS, prismotorn, lojalitet och Sites Builder – inte bara F&SCM.",
       "Konkret pilot­strategi: börja med 1–3 butiker innan bred utrullning.",
       "Tydligt ansvar mellan partner, betaloperatör, logistik och hårdvaru­leverantör.",
@@ -240,9 +240,9 @@ export const buyerManuals: Record<string, BuyerManualContent> = {
       "Förvaltning och vidare­utveckling – projekt­modellen ändras över tid och systemet ska följa med.",
     ],
     partnerProof: [
-      "Referenser från projekt­drivna bolag i er bransch (konsult, bygg, ingenjör, IT-tjänster).",
-      "Konkret förslag på kontrakts­typer, prislogik och intäkts­avräkning utifrån er affär.",
-      "Plan för integration mot er ekonomi (BC eller F&SCM) och Power BI-modell.",
+      "Referenser från projekt­drivna bolag i din bransch (konsult, bygg, ingenjör, IT-tjänster).",
+      "Konkret förslag på kontrakts­typer, prislogik och intäkts­avräkning utifrån din affär.",
+      "Plan för integration mot din ekonomi (BC eller F&SCM) och Power BI-modell.",
       "Erfarenhet av att driva adoption hos konsulter – inte bara teknisk implementation.",
     ],
   },
@@ -269,8 +269,8 @@ export const buyerManuals: Record<string, BuyerManualContent> = {
       "Förvaltning och löpande uppdateringar – regelverk, kompensations­band och organisations­förändringar.",
     ],
     partnerProof: [
-      "Live-referenser från HR-implementationer i er storlek – inte bara F&SCM-projekt där HR ingick som biroll.",
-      "Tydlig erfarenhet av integration mot er löne­leverantör (Hogia, Visma, ADP, etc.).",
+      "Live-referenser från HR-implementationer i din storlek – inte bara F&SCM-projekt där HR ingick som biroll.",
+      "Tydlig erfarenhet av integration mot din löne­leverantör (Hogia, Visma, ADP, etc.).",
       "Konkret förslag på master­data, positions­struktur och kompensations­design.",
       "Plan för GDPR, behörigheter och historik­hantering.",
     ],
@@ -278,7 +278,7 @@ export const buyerManuals: Record<string, BuyerManualContent> = {
 
   "marketing": {
     intro:
-      "Customer Insights (Journeys + Data) är Microsofts marknads­plattform. Den är kraftfull – men kräver att ni har en marknadsorganisation som kan segment, kampanjer och datakvalitet, annars blir det en dyr e-postmotor.",
+      "Customer Insights (Journeys + Data) är Microsofts marknads­plattform. Den är kraftfull – men kräver att du har en marknadsorganisation som kan segment, kampanjer och datakvalitet, annars blir det en dyr e-postmotor.",
     notFit: [
       "Mindre B2B-bolag med få kampanjer per år – Mailchimp/HubSpot Starter är ofta tillräckligt.",
       "Bolag utan dedikerad marknadsfunktion som kan äga segment, journeys och innehåll.",
@@ -287,7 +287,7 @@ export const buyerManuals: Record<string, BuyerManualContent> = {
     ],
     underestimated: [
       "Data­modellen i Customer Insights Data – att förena kunddata från CRM, ERP, web och e-handel är ett eget projekt.",
-      "Segment-, kampanj- och content-design – verktyget gör inte marknadsföringen åt er.",
+      "Segment-, kampanj- och content-design – verktyget gör inte marknadsföringen åt dig.",
       "GDPR, samtycken och preferens­hantering – måste designas in från start.",
       "Integration mot säljteam (Dynamics 365 Sales) och rapportering på pipeline-bidrag.",
     ],
@@ -299,7 +299,7 @@ export const buyerManuals: Record<string, BuyerManualContent> = {
     ],
     partnerProof: [
       "Marknads­förings­referenser – inte bara CRM-implementationer. Be om exempel på kampanjer i drift.",
-      "Erfarenhet av Customer Insights Data om ni vill bygga CDP – det är en helt egen kompetens.",
+      "Erfarenhet av Customer Insights Data om du vill bygga CDP – det är en helt egen kompetens.",
       "Konkret förslag på lead­scoring, MQL-definition och överlämning till sälj.",
       "Plan för GDPR, samtyckes­hantering och rapportering på affärsbidrag.",
     ],
@@ -316,7 +316,7 @@ export const buyerManuals: Record<string, BuyerManualContent> = {
     ],
     underestimated: [
       "Datakvalitet och behörigheter – Copilot ser det användaren ser, inklusive känslig data om behörigheter slarvats.",
-      "Prompt-design och anpassning till era processer – out-of-the-box är ofta för generiskt.",
+      "Prompt-design och anpassning till dina processer – out-of-the-box är ofta för generiskt.",
       "Adoption och utbildning – utan löpande coaching faller användandet snabbt.",
       "Mätning av faktisk produktivitets­vinst – utan baseline går det inte att bevisa värdet.",
     ],
@@ -328,8 +328,8 @@ export const buyerManuals: Record<string, BuyerManualContent> = {
     ],
     partnerProof: [
       "Konkreta use case-referenser i drift – inte bara demo­miljöer eller pilot­projekt.",
-      "Erfarenhet av Copilot Studio och egna agenter om ni har ambition utöver standard­Copilot.",
-      "Plan för datakvalitet, behörigheter och GDPR/AI-policy innan ni rullar ut brett.",
+      "Erfarenhet av Copilot Studio och egna agenter om du har ambition utöver standard­Copilot.",
+      "Plan för datakvalitet, behörigheter och GDPR/AI-policy innan du rullar ut brett.",
       "Konkret förslag på mät­metod för produktivitets­vinst och adoption.",
     ],
   },

@@ -87,9 +87,9 @@ const ErpComparisonsHub = () => {
               <p className="text-sm text-muted-foreground">
                 <strong className="text-foreground">Observera:</strong> Priser, licensvillkor och
                 funktionalitet kan ändras över tid. Kontrollera aktuella uppgifter direkt med
-                respektive leverantör eller partner innan ni fattar beslut. Jämförelserna är
+                respektive leverantör eller partner innan du fattar beslut. Jämförelserna är
                 köparsidiga vägledningar, inte garantier för att enskilda funktioner eller priser är
-                identiska vid ert köptillfälle.
+                identiska vid ditt köptillfälle.
               </p>
             </div>
           </div>

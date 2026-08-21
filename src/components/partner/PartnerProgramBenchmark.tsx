@@ -224,7 +224,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
     <section ref={sectionRef} className="py-14 md:py-20 bg-secondary/20 border-y border-border">
       <div className="container mx-auto px-4 sm:px-6">
         <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
-          Hur står sig er profil när kunden jämför?
+          Hur står sig din profil när kunden jämför?
         </h2>
         <p className="max-w-3xl text-base text-muted-foreground">
           Alla relevanta Dynamics 365-partners finns redan på d365.se. Med en Basic-profil visas
@@ -267,7 +267,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
           {/* Vänster: Basic */}
           <article className="flex h-full flex-col rounded-2xl border border-dashed border-border bg-muted/30 p-6 opacity-95">
             <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-              {ownBasic ? "Er profil idag" : "Basic-profil"}
+              {ownBasic ? "Din profil idag" : "Basic-profil"}
             </p>
             <h3 className="mt-1 text-xl font-semibold text-foreground">{ownLabel}</h3>
             <p className="mt-1 text-xs text-muted-foreground">
@@ -321,7 +321,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
                 }
                 className="mt-6 inline-flex items-center gap-1 text-sm text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
               >
-                {ownBasic ? "Se er nuvarande profil" : "Se Basic-profilen"}
+                {ownBasic ? "Se din nuvarande profil" : "Se Basic-profilen"}
                 <ArrowRight className="h-3.5 w-3.5" aria-hidden />
               </Link>
             )}
@@ -593,10 +593,10 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
         {/* CTA efter jämförelsen */}
         <div className="mt-8 rounded-xl border border-border bg-card p-6 md:p-8">
           <h3 className="text-xl font-semibold text-foreground">
-            Hur skulle er kompletta profil kunna se ut?
+            Hur skulle din kompletta profil kunna se ut?
           </h3>
           <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-            Vi tar gärna fram ett första förslag baserat på information som redan finns om er
+            Vi tar gärna fram ett första förslag baserat på information som redan finns om dig
             verksamhet.
           </p>
           <div className="mt-5 flex flex-col gap-3 sm:flex-row">

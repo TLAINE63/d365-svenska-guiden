@@ -76,7 +76,7 @@ export const questions: Question[] = [
   },
   {
     id: "b2", section: "Bakgrund", type: "single_select",
-    text: "Vilken är er ungefärliga årsomsättning?",
+    text: "Vilken är din ungefärliga årsomsättning?",
     options: [
       { value: "u100", label: "Under 100 MSEK" },
       { value: "100-500", label: "100–500 MSEK" },
@@ -100,7 +100,7 @@ export const questions: Question[] = [
   },
   {
     id: "b4", section: "Bakgrund", type: "multi_select",
-    text: "Vilka ERP-system använder ni idag?",
+    text: "Vilka ERP-system använder du idag?",
     hint: "Välj ett eller flera – många organisationer har flera system parallellt.",
     options: [
       { value: "d365fo", label: "Dynamics 365 Finance & Supply Chain Management" },
@@ -117,7 +117,7 @@ export const questions: Question[] = [
   },
   {
     id: "b5", section: "Bakgrund", type: "single_select",
-    text: "Var i utvärderingsprocessen befinner ni er?",
+    text: "Var i utvärderingsprocessen befinner du dig?",
     options: [
       { value: "borjat", label: "Vi har precis börjat diskutera ett byte" },
       { value: "analys", label: "Vi har gjort en första intern analys" },
@@ -130,11 +130,11 @@ export const questions: Question[] = [
 
   // ───── SEKTION II: BEHOVSBILD ─────
   { id: "q1", section: "Behovsbild", type: "likert_5", dimension: "behovsbild",
-    text: "Hur tydligt formulerade är de affärsproblem ni vill lösa med ett nytt {systemterm}?",
+    text: "Hur tydligt formulerade är de affärsproblem du vill lösa med ett nytt {systemterm}?",
     anchor_low: "Ingen dokumentation finns",
     anchor_high: "Dokumenterade, kvantifierade och prioriterade" },
   { id: "q2", section: "Behovsbild", type: "likert_5", dimension: "behovsbild",
-    text: "Hur tydligt skiljer ni mellan absoluta krav och önskemål i kravbilden?",
+    text: "Hur tydligt skiljer du mellan absoluta krav och önskemål i kravbilden?",
     anchor_low: "Allt känns lika viktigt",
     anchor_high: "Tydlig prioritering med uttalade avvägningar" },
   { id: "q3", section: "Behovsbild", type: "likert_5", dimension: "behovsbild",
@@ -146,7 +146,7 @@ export const questions: Question[] = [
     anchor_low: "Stora förväntansgap finns",
     anchor_high: "Realistisk förståelse hos alla nyckelroller" },
   { id: "q4b", section: "Behovsbild", type: "likert_5", dimension: "behovsbild",
-    text: "Hur tydligt har ni definierat hur ni ska mäta om investeringen blev lyckad?",
+    text: "Hur tydligt har du definierat hur du ska mäta om investeringen blev lyckad?",
     anchor_low: "Inga framgångsmått definierade",
     anchor_high: "Mätbara framgångsmått fastställda i förväg" },
 
@@ -161,12 +161,12 @@ export const questions: Question[] = [
     text: "Hur regelbundet möts beslutsgruppen specifikt för att diskutera den här frågan?",
     anchor_low: "Inga regelbundna forum", anchor_high: "Etablerat forum med dagordning" },
   { id: "q8", section: "Intern samsyn", type: "likert_5", dimension: "samsyn",
-    text: "I vilken grad finns en gemensam förståelse av vad som händer om ni inte gör något?",
+    text: "I vilken grad finns en gemensam förståelse av vad som händer om du inte gör något?",
     anchor_low: "Ej diskuterat", anchor_high: "Tydligt formulerat och prioriterat" },
 
   // ───── SEKTION IV: RISKINSIKT ─────
   { id: "q9", section: "Riskinsikt", type: "likert_5", dimension: "riskinsikt",
-    text: "Hur tydligt har ni identifierat de största riskerna med ett systembyte?",
+    text: "Hur tydligt har du identifierat de största riskerna med ett systembyte?",
     anchor_low: "Ej diskuterat", anchor_high: "Dokumenterad riskmatris" },
   { id: "q10", section: "Riskinsikt", type: "likert_5", dimension: "riskinsikt",
     text: "Hur stor del av dessa risker har en utpekad ägare med åtgärdsmandat?",
@@ -175,32 +175,32 @@ export const questions: Question[] = [
     text: "Hur balanserat behandlas organisatoriska risker – förändringsmotstånd, kompetensbrist, adoption – i förhållande till de tekniska?",
     anchor_low: "Endast tekniska risker diskuteras", anchor_high: "Båda balanseras i bedömningen" },
   { id: "q12", section: "Riskinsikt", type: "likert_5", dimension: "riskinsikt",
-    text: "Hur planerar ni för det vanligaste – att scope växer och budget överskrids?",
+    text: "Hur planerar du för det vanligaste – att scope växer och budget överskrids?",
     anchor_low: "Antas inte hända", anchor_high: "Buffrar och tröskelvärden definierade på förhand" },
 
   // ───── SEKTION V: PARTNERMARKNAD ─────
   { id: "q13", section: "Partnermarknad", type: "likert_5", dimension: "partnermarknad",
-    text: "Hur god är er överblick över de partners som är aktiva inom Dynamics 365 i Sverige?",
+    text: "Hur god är din överblick över de partners som är aktiva inom Dynamics 365 i Sverige?",
     anchor_low: "Vi känner någon enstaka", anchor_high: "Strukturerad bild av marknaden" },
   { id: "q14", section: "Partnermarknad", type: "likert_5", dimension: "partnermarknad",
-    text: "Hur väl förstår ni skillnaderna mellan olika typer av partners – storlek, branschfokus, leveransmodell, ägarstruktur?",
+    text: "Hur väl förstår du skillnaderna mellan olika typer av partners – storlek, branschfokus, leveransmodell, ägarstruktur?",
     anchor_low: "Vi ser inte skillnaderna", anchor_high: "Tydlig segmenteringsbild" },
   { id: "q15", section: "Partnermarknad", type: "likert_5", dimension: "partnermarknad",
-    text: "Hur djupgående har er hittillsvarande utvärdering av partners varit?",
+    text: "Hur djupgående har din hittillsvarande utvärdering av partners varit?",
     anchor_low: "Säljmaterial och presentationer", anchor_high: "Referenser, metodikgenomgång, teamintervjuer" },
   { id: "q16", section: "Partnermarknad", type: "likert_5", dimension: "partnermarknad",
-    text: "Hur väl känner ni till de vanligaste fallgroparna i större partnerleveranser?",
+    text: "Hur väl känner du till de vanligaste fallgroparna i större partnerleveranser?",
     anchor_low: "Vi vet inte vad vi inte vet", anchor_high: "Vi har en konkret lista att utvärdera mot" },
 
   // ───── SEKTION VI: BESLUTSSTRUKTUR ─────
   { id: "q17", section: "Beslutsstruktur", type: "likert_5", dimension: "beslutsstruktur",
-    text: "Hur strukturerat är ert sätt att jämföra partners?",
+    text: "Hur strukturerat är ditt sätt att jämföra partners?",
     anchor_low: "Magkänsla och möten", anchor_high: "Formell metodik med viktade kriterier" },
   { id: "q18", section: "Beslutsstruktur", type: "likert_5", dimension: "beslutsstruktur",
     text: "Hur försvarbart skulle beslutsunderlaget vara om en extern part – styrelse, ägare, revisor – granskade det?",
     anchor_low: "Inte dokumenterat", anchor_high: "Fullständigt försvarbart vid granskning" },
   { id: "q19", section: "Beslutsstruktur", type: "likert_5", dimension: "beslutsstruktur",
-    text: "Hur tydligt täcker er utvärdering tiden efter avtal – implementation och förvaltning – och inte bara själva valet?",
+    text: "Hur tydligt täcker din utvärdering tiden efter avtal – implementation och förvaltning – och inte bara själva valet?",
     anchor_low: "Vi fokuserar på signaturen", anchor_high: "Hela livscykeln vägs in" },
   { id: "q20", section: "Beslutsstruktur", type: "likert_5", dimension: "beslutsstruktur",
     text: "Hur tydligt är en beslutspunkt definierad – vem säger ja, när, baserat på vad?",

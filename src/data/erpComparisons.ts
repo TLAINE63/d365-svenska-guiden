@@ -686,7 +686,7 @@ const BC_COMPARISONS: ProductComparison[] = [
     metaDescription:
       "Jämför Microsoft Dynamics 365 Business Central med Monitor ERP. Funktioner, pris, implementationstid, AI och partnerekosystem för svenska tillverkande bolag.",
     intro:
-      "Monitor ERP är ett svenskt affärssystem byggt för diskret tillverkning. Business Central är Microsofts molnbaserade ERP för små och medelstora bolag i alla branscher. Båda är reella val för svenska tillverkare – frågan är vad ni värdesätter mest: bransch-djup eller bredd och Microsoft-ekosystem.",
+      "Monitor ERP är ett svenskt affärssystem byggt för diskret tillverkning. Business Central är Microsofts molnbaserade ERP för små och medelstora bolag i alla branscher. Båda är reella val för svenska tillverkare – frågan är vad du värdesätter mest: bransch-djup eller bredd och Microsoft-ekosystem.",
     productSummary:
       "Business Central är bredare och starkare i ekonomi, integration mot Microsoft 365 och Copilot. Vid komplex tillverkning kompletteras BC ofta med ISV som Bitlog (WMS), Continia (ekonomi) eller branschapp från svensk partner.",
     competitorSummary:
@@ -716,13 +716,13 @@ const BC_COMPARISONS: ProductComparison[] = [
       partnerEko: "Levereras främst av Monitor själva, mindre ekosystem av tredjepartspartners.",
     }),
     productLimits: [
-      "Om ni har djup, komplex svensk verkstadstillverkning utan vilja att lägga ISV ovanpå.",
+      "Om du har djup, komplex svensk verkstadstillverkning utan vilja att lägga ISV ovanpå.",
       "Om det är avgörande att hela leverantörskedjan – inklusive produktägaren – är svensk (Business Centrals produktägare är Microsoft, även om svenska partners står för implementation och support).",
     ],
     competitorLimits: [
-      "Om ni har process- eller livsmedelstillverkning – Monitor är optimerat för diskret tillverkning.",
-      "Om ni har e-handel, B2C eller komplex tjänsteförsäljning utöver tillverkningen.",
-      "Om Microsoft 365 / Copilot är centralt i er digitaliseringsstrategi.",
+      "Om du har process- eller livsmedelstillverkning – Monitor är optimerat för diskret tillverkning.",
+      "Om du har e-handel, B2C eller komplex tjänsteförsäljning utöver tillverkningen.",
+      "Om Microsoft 365 / Copilot är centralt i din digitaliseringsstrategi.",
     ],
     faqs: [
       {
@@ -778,18 +778,18 @@ const BC_COMPARISONS: ProductComparison[] = [
       partnerEko: "Egen direktförsäljning + ett mindre nät av nordiska partners.",
     }),
     productLimits: [
-      "Om ni vill ha ett enkelt, färdigt system utan stora val eller anpassningar.",
-      "Om ni redan kör Visma Lön och vill ha en sömlös lön/ekonomi-koppling.",
+      "Om du vill ha ett enkelt, färdigt system utan stora val eller anpassningar.",
+      "Om du redan kör Visma Lön och vill ha en sömlös lön/ekonomi-koppling.",
     ],
     competitorLimits: [
-      "Om ni har internationell verksamhet eller flera bolag i olika valutor.",
-      "Om ni behöver tillverkning, projekt eller djup lagerstyrning utöver standardekonomi.",
+      "Om du har internationell verksamhet eller flera bolag i olika valutor.",
+      "Om du behöver tillverkning, projekt eller djup lagerstyrning utöver standardekonomi.",
       "Om Microsoft 365 / Copilot är en strategisk plattform.",
     ],
     faqs: [
       {
         q: "Är Visma.net billigare än Business Central?",
-        a: "Licenspriserna ligger ofta i samma härad. Visma.net har lägre implementationskostnad eftersom det är mindre konfigurerbart – men det blir dyrare om ni senare måste byta plattform när ni växer.",
+        a: "Licenspriserna ligger ofta i samma härad. Visma.net har lägre implementationskostnad eftersom det är mindre konfigurerbart – men det blir dyrare om du senare måste byta plattform när du växer.",
       },
       {
         q: "Vilket system är bäst för internationell expansion?",
@@ -840,13 +840,13 @@ const BC_COMPARISONS: ProductComparison[] = [
       partnerEko: "Levereras främst av Jeeves själva och ett mindre nät av svenska partners.",
     }),
     productLimits: [
-      "Om ni har en mycket specifik svensk branschnisch där Jeeves har färdig modul.",
+      "Om du har en mycket specifik svensk branschnisch där Jeeves har färdig modul.",
       "Om det är avgörande att även produktägaren är svensk (Business Centrals produktägare är Microsoft, även om svenska partners står för implementation och support på samma sätt som för Jeeves).",
     ],
     competitorLimits: [
-      "Om ni har internationell verksamhet eller flera bolag i olika länder/valutor.",
+      "Om du har internationell verksamhet eller flera bolag i olika länder/valutor.",
       "Om Microsoft 365 / Copilot är central plattform i organisationen.",
-      "Om ni vill ha stort utbud av globala tilläggsappar via marketplace.",
+      "Om du vill ha stort utbud av globala tilläggsappar via marketplace.",
     ],
     faqs: [
       {
@@ -902,13 +902,13 @@ const BC_COMPARISONS: ProductComparison[] = [
       partnerEko: "Mindre svenskt partnernät (handfull aktiva), större internationellt.",
     }),
     productLimits: [
-      "Om ni är dotterbolag i en SAP-koncern där koncernen kräver SAP i hela kedjan.",
-      "Om ni har starkt SAP-kompetensberoende internt och vill behålla det.",
+      "Om du är dotterbolag i en SAP-koncern där koncernen kräver SAP i hela kedjan.",
+      "Om du har starkt SAP-kompetensberoende internt och vill behålla det.",
     ],
     competitorLimits: [
       "Om Microsoft 365 / Copilot är central plattform i organisationen.",
-      "Om ni vill ha brett urval av svenska partners att jämföra och förhandla med.",
-      "Om ni söker en modern molnförst-arkitektur utan beroende av on-prem-historik.",
+      "Om du vill ha brett urval av svenska partners att jämföra och förhandla med.",
+      "Om du söker en modern molnförst-arkitektur utan beroende av on-prem-historik.",
     ],
     faqs: [
       {
@@ -964,13 +964,13 @@ const BC_COMPARISONS: ProductComparison[] = [
       partnerEko: "Få NetSuite-partners i Sverige (handfull). Direktförsäljning från Oracle vanligt.",
     }),
     productLimits: [
-      "Om ni har komplex internationell konsolidering med 20+ bolag i många valutor.",
+      "Om du har komplex internationell konsolidering med 20+ bolag i många valutor.",
       "Om amerikansk redovisning (ASC 606) och revenue recognition är kärnkrav.",
     ],
     competitorLimits: [
-      "Om ni har svenskt huvudkontor och vill ha stark lokal redovisning ur lådan.",
+      "Om du har svenskt huvudkontor och vill ha stark lokal redovisning ur lådan.",
       "Om Microsoft 365 / Copilot är central plattform i organisationen.",
-      "Om ni vill ha brett urval av svenska partners att jämföra och förhandla med.",
+      "Om du vill ha brett urval av svenska partners att jämföra och förhandla med.",
     ],
     faqs: [
       {
@@ -979,7 +979,7 @@ const BC_COMPARISONS: ProductComparison[] = [
       },
       {
         q: "När är NetSuite ett bättre val än Business Central?",
-        a: "Vid amerikanska ägare som kräver NetSuite, vid komplex internationell intercompany-konsolidering, eller om ni behöver advanced revenue recognition (ASC 606) inbyggt.",
+        a: "Vid amerikanska ägare som kräver NetSuite, vid komplex internationell intercompany-konsolidering, eller om du behöver advanced revenue recognition (ASC 606) inbyggt.",
       },
       {
         q: "Finns det svensk support för NetSuite?",
@@ -1026,14 +1026,14 @@ const BC_COMPARISONS: ProductComparison[] = [
       partnerEko: "Växande svenskt partnernät (handfull aktiva Odoo Gold/Silver-partners). Mindre än BC.",
     }),
     productLimits: [
-      "Om ni har stark teknisk profil internt och värdesätter öppen källkod-arkitektur.",
-      "Om ni har begränsad budget och vill starta smalt med låg licenskostnad.",
-      "Om ni vill ha full kontroll på databas och möjlighet till on-prem-drift.",
+      "Om du har stark teknisk profil internt och värdesätter öppen källkod-arkitektur.",
+      "Om du har begränsad budget och vill starta smalt med låg licenskostnad.",
+      "Om du vill ha full kontroll på databas och möjlighet till on-prem-drift.",
     ],
     competitorLimits: [
       "Om Microsoft 365 / Copilot är central plattform i organisationen.",
-      "Om ni vill ha brett svenskt partnerutbud och svensk redovisning ur lådan.",
-      "Om ni är ett medelstort/större bolag med komplexa krav på revision, kontroll och SLA.",
+      "Om du vill ha brett svenskt partnerutbud och svensk redovisning ur lådan.",
+      "Om du är ett medelstort/större bolag med komplexa krav på revision, kontroll och SLA.",
     ],
     faqs: [
       {
@@ -1107,13 +1107,13 @@ const FSCM_COMPARISONS: ProductComparison[] = [
     }),
     productLimits: [
       "Om er koncern redan har S/4HANA i moderbolaget och kräver konsolidering på SAP.",
-      "Om ni har extremt djup processindustri (kemi, läkemedel, raffinaderi) där SAP-modulerna är industristandard.",
-      "Om er IT-organisation är byggd kring SAP-kompetens och en plattformsbyte skulle kräva omfattande omskolning.",
+      "Om du har extremt djup processindustri (kemi, läkemedel, raffinaderi) där SAP-modulerna är industristandard.",
+      "Om din IT-organisation är byggd kring SAP-kompetens och en plattformsbyte skulle kräva omfattande omskolning.",
     ],
     competitorLimits: [
-      "Om ni redan är djupt inne i Microsoft 365, Azure och Power Platform – integrationsvinsten med F&SCM är stor.",
-      "Om ni vill ha snabbare time-to-value på Copilot och AI ovanpå ERP-data.",
-      "Om ni föredrar en transparent SaaS-licensmodell framför SAP:s FUE-baserade kalkyler.",
+      "Om du redan är djupt inne i Microsoft 365, Azure och Power Platform – integrationsvinsten med F&SCM är stor.",
+      "Om du vill ha snabbare time-to-value på Copilot och AI ovanpå ERP-data.",
+      "Om du föredrar en transparent SaaS-licensmodell framför SAP:s FUE-baserade kalkyler.",
     ],
     faqs: [
       {
@@ -1185,14 +1185,14 @@ const FSCM_COMPARISONS: ProductComparison[] = [
         "Aktivt svenskt nät kring M3 (Columbus, Itelligence/NTT, Cinteros, m.fl.). Mindre än F&SCM-nätet men mycket erfaret.",
     }),
     productLimits: [
-      "Om er kärnverksamhet är mode/textil med komplex storlek/färg-matrix där M3 är industristandard.",
-      "Om ni har djupa receptkrav, säsongsplanering eller spårbarhet där M3-modulen är mer mogen.",
-      "Om er befintliga organisation har stark M3-kompetens som skulle kräva fullständig omskolning.",
+      "Om din kärnverksamhet är mode/textil med komplex storlek/färg-matrix där M3 är industristandard.",
+      "Om du har djupa receptkrav, säsongsplanering eller spårbarhet där M3-modulen är mer mogen.",
+      "Om din befintliga organisation har stark M3-kompetens som skulle kräva fullständig omskolning.",
     ],
     competitorLimits: [
       "Om Microsoft 365, Power Platform och Copilot är strategiska för organisationen.",
-      "Om ni vill bygga en gemensam datamodell (Dataverse) över ERP, CRM och AI.",
-      "Om ni föredrar Microsofts globala AI-investeringstakt över Infors.",
+      "Om du vill bygga en gemensam datamodell (Dataverse) över ERP, CRM och AI.",
+      "Om du föredrar Microsofts globala AI-investeringstakt över Infors.",
     ],
     faqs: [
       {
@@ -1264,13 +1264,13 @@ const SALES_COMPARISONS: ProductComparison[] = [
     }),
     productLimits: [
       "Om er organisation redan har Salesforce med hög adoption och stora investeringar i AppExchange-appar.",
-      "Om ni jobbar i branscher där Salesforce har överlägsen branschmolnsfunktionalitet (t.ex. Financial Services Cloud).",
-      "Om er IT-strategi är medvetet Microsoft-oberoende.",
+      "Om du jobbar i branscher där Salesforce har överlägsen branschmolnsfunktionalitet (t.ex. Financial Services Cloud).",
+      "Om din IT-strategi är medvetet Microsoft-oberoende.",
     ],
     competitorLimits: [
       "Om Microsoft 365 är navet i organisationens dagliga arbete – D365 Sales sparar mycket säljartid via Copilot.",
-      "Om ni vill köra Sales, Service och ERP på samma plattform (Dataverse).",
-      "Om ni vill undvika dubbla licensspår för CDP/marketing automation.",
+      "Om du vill köra Sales, Service och ERP på samma plattform (Dataverse).",
+      "Om du vill undvika dubbla licensspår för CDP/marketing automation.",
     ],
     faqs: [
       {
@@ -1341,12 +1341,12 @@ const SALES_COMPARISONS: ProductComparison[] = [
     }),
     productLimits: [
       "Om er säljprocess är enkel, B2C-orienterad eller inbound-driven – HubSpot kommer snabbare till värde.",
-      "Om budgeten är begränsad och ni inte är beroende av Microsoft 365.",
-      "Om ni vill ha samma verktyg för marknad och sälj utan separat licens för CDP.",
+      "Om budgeten är begränsad och du inte är beroende av Microsoft 365.",
+      "Om du vill ha samma verktyg för marknad och sälj utan separat licens för CDP.",
     ],
     competitorLimits: [
       "Om er säljprocess har många produkter, prislistor, affärsenheter eller komplexa territorier.",
-      "Om ni vill koppla CRM djupt mot ERP (Business Central / F&SCM).",
+      "Om du vill koppla CRM djupt mot ERP (Business Central / F&SCM).",
       "Om Microsoft 365 + Copilot är strategisk plattform och säljarna lever där.",
     ],
     faqs: [
@@ -1382,7 +1382,7 @@ const CS_COMPARISONS: ProductComparison[] = [
     metaDescription:
       "Jämför Dynamics 365 Customer Service med Zendesk. Funktioner, pris, AI, omnikanal och vilken plattform som passar svenska kundserviceorganisationer bäst.",
     intro:
-      "Zendesk är världens mest kända ticketing-plattform och vanlig hos svenska SaaS-bolag, e-handel och konsumentvarumärken. D365 Customer Service är Microsofts svar med djupare B2B-koppling, ERP-/CRM-integration och Copilot. Valet handlar oftast om var ni vill att kundservicen ska 'leva'.",
+      "Zendesk är världens mest kända ticketing-plattform och vanlig hos svenska SaaS-bolag, e-handel och konsumentvarumärken. D365 Customer Service är Microsofts svar med djupare B2B-koppling, ERP-/CRM-integration och Copilot. Valet handlar oftast om var du vill att kundservicen ska 'leva'.",
     productSummary:
       "D365 Customer Service är starkast när kundservice är ett av flera lager (sälj, service, fält, ERP) på samma plattform och när Copilot-effektivisering är viktigt.",
     competitorSummary:
@@ -1422,13 +1422,13 @@ const CS_COMPARISONS: ProductComparison[] = [
         "Växande svenskt nät (RevOps-byråer, e-handelskonsulter). Mindre än D365.",
     }),
     productLimits: [
-      "Om ni har enkel B2C-ärendehantering med fokus på snabb onboarding.",
-      "Om ni inte använder Microsoft 365 eller andra D365-applikationer.",
-      "Om ni värdesätter Zendesks bevisade self-service-/community-erbjudande.",
+      "Om du har enkel B2C-ärendehantering med fokus på snabb onboarding.",
+      "Om du inte använder Microsoft 365 eller andra D365-applikationer.",
+      "Om du värdesätter Zendesks bevisade self-service-/community-erbjudande.",
     ],
     competitorLimits: [
-      "Om ni vill koppla service mot Sales, Field Service och ERP på samma plattform.",
-      "Om ni har komplexa B2B-SLA, kontoplaner och escalation-flöden.",
+      "Om du vill koppla service mot Sales, Field Service och ERP på samma plattform.",
+      "Om du har komplexa B2B-SLA, kontoplaner och escalation-flöden.",
       "Om Copilot och Microsoft 365 är centralt i organisationen.",
     ],
     faqs: [
@@ -1495,12 +1495,12 @@ const CS_COMPARISONS: ProductComparison[] = [
         "Stort svenskt enterprise-nät (Accenture, Cognizant, NTT, Capgemini, Sopra Steria m.fl.).",
     }),
     productLimits: [
-      "Om er IT-organisation redan har ServiceNow och vill ha kundservice på samma plattform.",
-      "Om ni har mycket tunga workflow-flöden mellan kundservice, IT och drift.",
-      "Om ni har specifika ServiceNow-investeringar (egna apps på Now Platform) ni vill bygga vidare på.",
+      "Om din IT-organisation redan har ServiceNow och vill ha kundservice på samma plattform.",
+      "Om du har mycket tunga workflow-flöden mellan kundservice, IT och drift.",
+      "Om du har specifika ServiceNow-investeringar (egna apps på Now Platform) du vill bygga vidare på.",
     ],
     competitorLimits: [
-      "Om ni vill ha tät koppling mellan Service, Sales, Marketing och ERP.",
+      "Om du vill ha tät koppling mellan Service, Sales, Marketing och ERP.",
       "Om Microsoft 365 + Copilot är strategisk plattform.",
       "Om budget är begränsad – ServiceNow är som regel märkbart dyrare över livscykeln.",
     ],
@@ -1515,7 +1515,7 @@ const CS_COMPARISONS: ProductComparison[] = [
       },
       {
         q: "Kan D365 Customer Service hantera enterprise-volymer?",
-        a: "Ja. Plattformen klarar 1000+ agenter och miljontals ärenden/år. Det handlar mer om vilket ekosystem som passar er övriga IT-strategi.",
+        a: "Ja. Plattformen klarar 1000+ agenter och miljontals ärenden/år. Det handlar mer om vilket ekosystem som passar din övriga IT-strategi.",
       },
     ],
   }),
@@ -1568,14 +1568,14 @@ const CS_COMPARISONS: ProductComparison[] = [
         "Stort svenskt nät (Capgemini, IBM, Accenture, Deloitte, Sopra Steria m.fl.).",
     }),
     productLimits: [
-      "Om er Salesforce-investering redan är djup och migrering skulle förlora värde.",
-      "Om ni jobbar i branscher där Salesforce branschmoln har överlägsen funktionalitet.",
-      "Om er IT-strategi medvetet är Microsoft-oberoende.",
+      "Om din Salesforce-investering redan är djup och migrering skulle förlora värde.",
+      "Om du jobbar i branscher där Salesforce branschmoln har överlägsen funktionalitet.",
+      "Om din IT-strategi medvetet är Microsoft-oberoende.",
     ],
     competitorLimits: [
       "Om Microsoft 365 + Copilot är navet i agentens vardag.",
-      "Om ni vill köra Service, Sales och ERP på samma plattform och datamodell.",
-      "Om ni vill ha lägre TCO över livscykeln – D365 är ofta märkbart billigare.",
+      "Om du vill köra Service, Sales och ERP på samma plattform och datamodell.",
+      "Om du vill ha lägre TCO över livscykeln – D365 är ofta märkbart billigare.",
     ],
     faqs: [
       {
@@ -1646,13 +1646,13 @@ const CI_COMPARISONS: ProductComparison[] = [
         "Stort svenskt enterprise-nät (Capgemini, IBM, Accenture, Sopra Steria m.fl.).",
     }),
     productLimits: [
-      "Om ni redan har djup Salesforce-investering med Marketing Cloud i drift.",
-      "Om ni har extremt höga kontaktvolymer i ren B2C där Marketing Cloud är industristandard.",
-      "Om ni behöver bredd i 'martech-stack' med Mulesoft, Tableau och hela Salesforce-ekosystemet.",
+      "Om du redan har djup Salesforce-investering med Marketing Cloud i drift.",
+      "Om du har extremt höga kontaktvolymer i ren B2C där Marketing Cloud är industristandard.",
+      "Om du behöver bredd i 'martech-stack' med Mulesoft, Tableau och hela Salesforce-ekosystemet.",
     ],
     competitorLimits: [
-      "Om er CRM-plattform är D365 – integrationsvinsten med Customer Insights är stor.",
-      "Om ni vill ha en mindre komplex prismodell och snabbare time-to-value.",
+      "Om din CRM-plattform är D365 – integrationsvinsten med Customer Insights är stor.",
+      "Om du vill ha en mindre komplex prismodell och snabbare time-to-value.",
       "Om Copilot, Fabric och Microsoft AI-stack är strategiskt.",
     ],
     faqs: [
@@ -1720,13 +1720,13 @@ const CI_COMPARISONS: ProductComparison[] = [
     }),
     productLimits: [
       "Om er organisation är SMB och vill ha snabbast möjliga time-to-value.",
-      "Om ni driver tung inbound-/content-marketing och SEO – HubSpots arv där är svårslaget.",
-      "Om ni vill ha sälj + marketing i samma agentupplevelse (Sales Hub + Marketing Hub).",
+      "Om du driver tung inbound-/content-marketing och SEO – HubSpots arv där är svårslaget.",
+      "Om du vill ha sälj + marketing i samma agentupplevelse (Sales Hub + Marketing Hub).",
     ],
     competitorLimits: [
-      "Om ni har behov av dedikerad CDP-funktionalitet med många datakällor.",
-      "Om ni redan kör D365 Sales/Service och vill ha gemensam datamodell.",
-      "Om er kontaktvolym är stor – HubSpot blir snabbt dyrt över tid.",
+      "Om du har behov av dedikerad CDP-funktionalitet med många datakällor.",
+      "Om du redan kör D365 Sales/Service och vill ha gemensam datamodell.",
+      "Om din kontaktvolym är stor – HubSpot blir snabbt dyrt över tid.",
     ],
     faqs: [
       {
@@ -1797,14 +1797,14 @@ const CC_COMPARISONS: ProductComparison[] = [
         "Aktivt svenskt nät av Genesys-partners (Telavox, Sigma, Dstny, Aurenav m.fl.).",
     }),
     productLimits: [
-      "Om ni driver ett dedikerat enterprise-kontaktcenter där röst är kärnan i affären.",
-      "Om ni behöver djup WFM, kvalitetsuppföljning och prediktiv routing 'ur lådan'.",
-      "Om ni har komplexa SIP-/teleoperatörsförhållanden där Genesys mognad ger lägre risk.",
+      "Om du driver ett dedikerat enterprise-kontaktcenter där röst är kärnan i affären.",
+      "Om du behöver djup WFM, kvalitetsuppföljning och prediktiv routing 'ur lådan'.",
+      "Om du har komplexa SIP-/teleoperatörsförhållanden där Genesys mognad ger lägre risk.",
     ],
     competitorLimits: [
       "Om CRM/service ska köras på D365 – integration förenklas avsevärt med D365 Contact Center.",
-      "Om ni vill ha Copilot inbyggt i agentens vardag.",
-      "Om ni redan har M365 + Teams brett utrullat.",
+      "Om du vill ha Copilot inbyggt i agentens vardag.",
+      "Om du redan har M365 + Teams brett utrullat.",
     ],
     faqs: [
       {
@@ -1870,8 +1870,8 @@ const CC_COMPARISONS: ProductComparison[] = [
         "Mindre svenskt partnernät än Genesys, men växande. Direktförsäljning vanlig.",
     }),
     productLimits: [
-      "Om ni driver outsourcing/BPO med tunga WFM- och QM-krav.",
-      "Om ni behöver bästa-i-klassen talanalys och beteendestyrning.",
+      "Om du driver outsourcing/BPO med tunga WFM- och QM-krav.",
+      "Om du behöver bästa-i-klassen talanalys och beteendestyrning.",
       "Om compliance/inspelning är affärskritiskt på en nivå där NICE är industristandard.",
     ],
     competitorLimits: [
@@ -1943,14 +1943,14 @@ const CC_COMPARISONS: ProductComparison[] = [
         "Egen direktförsäljning i Sverige + ett mindre nät av implementationspartners.",
     }),
     productLimits: [
-      "Om ni vill ha en nordisk leverantör med svensk lokalpresens och snabb support.",
-      "Om ni har 20–200 agenter och söker enkel paketering utan stor teknisk komplexitet.",
+      "Om du vill ha en nordisk leverantör med svensk lokalpresens och snabb support.",
+      "Om du har 20–200 agenter och söker enkel paketering utan stor teknisk komplexitet.",
       "Om kortare time-to-value är viktigare än bredast möjliga AI-funktionalitet.",
     ],
     competitorLimits: [
-      "Om ni vill köra CRM + service + kontaktcenter på samma Microsoft-plattform.",
+      "Om du vill köra CRM + service + kontaktcenter på samma Microsoft-plattform.",
       "Om Copilot och Nuance-baserad AI är strategiskt.",
-      "Om er IT-strategi är global Microsoft-stack över lång tid.",
+      "Om din IT-strategi är global Microsoft-stack över lång tid.",
     ],
     faqs: [
       {
@@ -2016,14 +2016,14 @@ const CC_COMPARISONS: ProductComparison[] = [
         "Telia själva + ett mindre nät av svenska systempartners.",
     }),
     productLimits: [
-      "Om ni är svensk myndighet, kommun eller vårdcentral där svensk leverantör är viktigt.",
-      "Om ni redan kör Telia-telefoni och vill ha en konsoliderad leverantör.",
-      "Om ni värdesätter svensk produktägare och svensk support 24/7.",
+      "Om du är svensk myndighet, kommun eller vårdcentral där svensk leverantör är viktigt.",
+      "Om du redan kör Telia-telefoni och vill ha en konsoliderad leverantör.",
+      "Om du värdesätter svensk produktägare och svensk support 24/7.",
     ],
     competitorLimits: [
-      "Om ni driver internationell verksamhet eller har en global Microsoft-strategi.",
+      "Om du driver internationell verksamhet eller har en global Microsoft-strategi.",
       "Om Copilot och M365 är basen i organisationens dagliga arbete.",
-      "Om ni vill ha bredd i AI och CCaaS-funktioner som NICE/Genesys/D365 erbjuder.",
+      "Om du vill ha bredd i AI och CCaaS-funktioner som NICE/Genesys/D365 erbjuder.",
     ],
     faqs: [
       {
@@ -2094,12 +2094,12 @@ const FS_COMPARISONS: ProductComparison[] = [
         "Stort svenskt nät (Capgemini, IBM, Accenture, Sopra Steria m.fl.).",
     }),
     productLimits: [
-      "Om er Salesforce-investering är djup med Service Cloud i drift.",
-      "Om ni har specifika AppExchange-appar för field service som är affärskritiska.",
-      "Om ni medvetet driver en Salesforce-first-strategi.",
+      "Om din Salesforce-investering är djup med Service Cloud i drift.",
+      "Om du har specifika AppExchange-appar för field service som är affärskritiska.",
+      "Om du medvetet driver en Salesforce-first-strategi.",
     ],
     competitorLimits: [
-      "Om ni redan kör D365 Customer Service eller Sales – integration är märkbart enklare med D365 Field Service.",
+      "Om du redan kör D365 Customer Service eller Sales – integration är märkbart enklare med D365 Field Service.",
       "Om IoT, Mixed Reality och Azure-stack är strategiska.",
       "Om Copilot för tekniker (mobil) är en uttalad ambition.",
     ],

@@ -35,7 +35,7 @@ export const KNOWLEDGE_VIDEOS: KnowledgeVideo[] = [
     description:
       "Kort film där Thomas Laine resonerar kring de vanligaste drivkrafterna bakom ett byte av affärssystem (ERP).",
     longDescription:
-      "I den här korta filmen går Thomas Laine igenom de vanligaste signalerna och drivkrafterna bakom att en organisation beslutar sig för att byta affärssystem (ERP). Det handlar ofta om en kombination av att det gamla systemet inte längre stödjer verksamhetens processer, att integrationer blir kostsamma att underhålla, att rapportering och uppföljning är otillräcklig och att molnbaserade lösningar som Microsoft Dynamics 365 Business Central eller Finance & Supply Chain Management öppnar nya möjligheter. Filmen ger en kort introduktion till hur du själv kan börja kartlägga om er nuvarande lösning är mogen att bytas ut.",
+      "I den här korta filmen går Thomas Laine igenom de vanligaste signalerna och drivkrafterna bakom att en organisation beslutar sig för att byta affärssystem (ERP). Det handlar ofta om en kombination av att det gamla systemet inte längre stödjer verksamhetens processer, att integrationer blir kostsamma att underhålla, att rapportering och uppföljning är otillräcklig och att molnbaserade lösningar som Microsoft Dynamics 365 Business Central eller Finance & Supply Chain Management öppnar nya möjligheter. Filmen ger en kort introduktion till hur du själv kan börja kartlägga om din nuvarande lösning är mogen att bytas ut.",
     products: ["Business Central", "Finance & SCM"],
     uploadDate: "2026-04-26",
     duration: "PT1M30S",
@@ -86,14 +86,14 @@ export const KNOWLEDGE_VIDEOS: KnowledgeVideo[] = [
     description:
       "Kort film om vikten av att förstå att alla Dynamics 365-partners skiljer sig åt – och varför rätt val av partner är avgörande för projektets framgång.",
     longDescription:
-      "Valet av Dynamics 365-partner är ett av de viktigaste strategiska besluten i ett IT-projekt, men många underskattar hur stora skillnaderna faktiskt är mellan olika partners. I den här korta filmen går vi igenom varför partners inte är utbytbara: kompetensdjup, branscherfarenhet, certifieringar, organisationens storlek och vilken plattform de primärt jobbar med. Oavsett om du ska implementera Microsoft Dynamics 365 Business Central, Finance & Supply Chain Management, Sales, Customer Service eller AI/Copilot-lösningar, är det avgörande att välja en partner som matchar er specifika situation.",
+      "Valet av Dynamics 365-partner är ett av de viktigaste strategiska besluten i ett IT-projekt, men många underskattar hur stora skillnaderna faktiskt är mellan olika partners. I den här korta filmen går vi igenom varför partners inte är utbytbara: kompetensdjup, branscherfarenhet, certifieringar, organisationens storlek och vilken plattform de primärt jobbar med. Oavsett om du ska implementera Microsoft Dynamics 365 Business Central, Finance & Supply Chain Management, Sales, Customer Service eller AI/Copilot-lösningar, är det avgörande att välja en partner som matchar din specifika situation.",
     products: ["Business Central", "Finance & SCM", "Sales", "Customer Insights", "Customer Service", "Field Service", "Contact Center", "AI/Copilot/Agents"],
     uploadDate: "2026-05-17",
     duration: "PT1M35S",
     transcript: [
       "Många utgår från att Dynamics 365-partners är ungefär likvärdiga – att det främst handlar om timpris och geografisk närhet. I praktiken är skillnaderna betydligt större och påverkar både projektets risk och slutresultat.",
       "Den viktigaste skillnaden ligger i kompetensdjup och branscherfarenhet. En partner som genomfört tio implementationer i din bransch hittar fallgroparna direkt, medan en generalist behöver lära sig dem på din bekostnad. Certifieringar, referensprojekt och vilken Dynamics 365-applikation de fokuserar på säger mer än storlek.",
-      "Även arbetssätt skiljer sig: vissa partners är vassa på Business Central för medelstora bolag, andra på Finance & Supply Chain Management i större koncerner, och en tredje grupp på Sales, Customer Service eller AI och Copilot. Att välja en partner som matchar just er situation är ofta det enskilt viktigaste beslutet i hela projektet.",
+      "Även arbetssätt skiljer sig: vissa partners är vassa på Business Central för medelstora bolag, andra på Finance & Supply Chain Management i större koncerner, och en tredje grupp på Sales, Customer Service eller AI och Copilot. Att välja en partner som matchar just din situation är ofta det enskilt viktigaste beslutet i hela projektet.",
     ],
   },
 ];

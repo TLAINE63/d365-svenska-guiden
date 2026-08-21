@@ -166,8 +166,8 @@ const Index = () => {
 
   const directionOptions = {
     behovsanalys: {
-      title: "Vilken behovsanalys vill ni göra?",
-      desc: "Välj område – så får ni rätt frågor och en rekommendation som faktiskt passar er situation.",
+      title: "Vilken behovsanalys vill du göra?",
+      desc: "Välj område – så får du rätt frågor och en rekommendation som faktiskt passar din situation.",
       options: [
         { label: "ERP / Affärssystem", sub: "Business Central eller Finance & SCM", link: "/ERPbehovsanalys/" },
         { label: "Sälj & Marknad (CRM)", sub: "Sales, Customer Insights (Marketing)", link: "/CRMbehovsanalys/" },
@@ -175,7 +175,7 @@ const Index = () => {
       ],
     },
     kravspec: {
-      title: "Vilken kravspec vill ni bygga?",
+      title: "Vilken kravspec vill du bygga?",
       desc: "Välj område – så genererar vi ett underlag som matchar rätt Dynamics 365-applikation.",
       options: [
         { label: "ERP / Affärssystem", sub: "Business Central eller Finance & SCM", link: "/kravspecifikation/" },
@@ -192,7 +192,7 @@ const Index = () => {
       eyebrow: "Hitta partner",
       icon: Users,
       title: "Vi vet vad vi vill",
-      desc: "Ni har ringat in behovet och vill jämföra partners utifrån bransch, produkt, storlek och geografi.",
+      desc: "Du har ringat in behovet och vill jämföra partners utifrån bransch, produkt, storlek och geografi.",
       cta: "Hitta rätt partner",
       to: "/valjdynamics365partner/",
       primary: true,
@@ -201,7 +201,7 @@ const Index = () => {
       eyebrow: "Förstå behov",
       icon: ClipboardCheck,
       title: "Vi behöver ringa in behovet",
-      desc: "Börja med att klargöra vad verksamheten faktiskt behöver – innan ni jämför system och partners.",
+      desc: "Börja med att klargöra vad verksamheten faktiskt behöver – innan du jämför system och partners.",
       cta: "Starta en behovsanalys",
       onClick: () => setDirectionPicker("behovsanalys"),
     },
@@ -231,8 +231,8 @@ const Index = () => {
     },
     {
       icon: BarChart3,
-      title: "Hur redo är ni?",
-      desc: "Diagnostik som visar var ni står i beslutsprocessen.",
+      title: "Hur redo är du?",
+      desc: "Diagnostik som visar var du står i beslutsprocessen.",
       to: "/beslutsmognad/",
     },
     {
@@ -279,7 +279,7 @@ const Index = () => {
                 Microsoft Dynamics 365 i Sverige – guide, kostnader och partnerval
               </h1>
               <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
-                Har ni valt – eller överväger – Dynamics 365? d365.se hjälper er förstå behovet,
+                Har du valt – eller överväger – Dynamics 365? d365.se hjälper dig förstå behovet,
                 välja rätt lösning och framför allt hitta rätt partner.
               </p>
 
@@ -378,7 +378,7 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Transparency strip – svar på "säljer ni något?" */}
+        {/* Transparency strip – svar på "säljer du något?" */}
         <TrustBanner variant="compact" />
 
         {/* SECTION 3 – WHERE ARE YOU */}
@@ -386,13 +386,13 @@ const Index = () => {
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <div className="max-w-2xl mb-10">
               <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-[hsl(var(--signature))] mb-3">
-                Var står ni?
+                Var står du?
               </span>
               <h2 className="text-2xl sm:text-3xl md:text-[34px] font-bold text-foreground tracking-tight mb-3 leading-tight">
-                Var står ni i processen?
+                Var står du i processen?
               </h2>
               <p className="text-[15px] text-muted-foreground leading-relaxed">
-                Tre vanliga utgångslägen – välj det som matchar var ni befinner er idag.
+                Tre vanliga utgångslägen – välj det som matchar var du befinner dig idag.
               </p>
             </div>
 
@@ -458,10 +458,10 @@ const Index = () => {
               Sida vid sida
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
-              Jämför upp till tre partners innan ni kontaktar dem
+              Jämför upp till tre partners innan du kontaktar dem
             </h2>
             <p className="text-base sm:text-lg text-white/70 mb-8 max-w-2xl mx-auto">
-              Välj två till tre partners i listan och få en jämförelsevy över produktområden, branscher, geografisk närvaro, storlek och AI-mognad – så att ni kan gå vidare med rätt kortlista.
+              Välj två till tre partners i listan och få en jämförelsevy över produktområden, branscher, geografisk närvaro, storlek och AI-mognad – så att du kan gå vidare med rätt kortlista.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button
@@ -756,7 +756,7 @@ const Index = () => {
                     <AccordionContent className="pb-6">
                       <div className="grid gap-6 lg:grid-cols-[1fr,minmax(0,340px)] lg:items-start">
                         <div className="space-y-3 text-muted-foreground">
-                          <p>Det beror på om ni primärt behöver ett <strong>affärssystem (ERP)</strong> eller ett <strong>CRM-system</strong> – eller båda.</p>
+                          <p>Det beror på om du primärt behöver ett <strong>affärssystem (ERP)</strong> eller ett <strong>CRM-system</strong> – eller båda.</p>
                           <p>• <Link to="/businesscentral/" className="text-primary hover:underline font-semibold">Dynamics 365 Business Central</Link> – Microsofts ERP-system för mindre och medelstora företag (ca 10–300 anställda). Se pris, funktioner och partners.</p>
                           <p>• <strong>Finance & Supply Chain Management</strong> för större koncerner med komplexa globala flöden.</p>
                           <p>• <strong>Sales / Customer Service / Field Service</strong> för säljorganisation respektive ärende- och fälthantering.</p>
@@ -809,7 +809,7 @@ const Index = () => {
                       <div className="grid gap-6 lg:grid-cols-[1fr,minmax(0,340px)] lg:items-start">
                         <div className="space-y-3 text-muted-foreground">
                           <p>Att välja rätt partner är minst lika viktigt som att välja rätt system.</p>
-                          <p>• <strong>Branschkunskap:</strong> Välj en partner med referenskunder i er bransch.</p>
+                          <p>• <strong>Branschkunskap:</strong> Välj en partner med referenskunder i din bransch.</p>
                           <p>• <strong>Applikationsfokus:</strong> Kontrollera att partnern är specialiserad på rätt app.</p>
                           <p>• <strong>Storlek och kapacitet:</strong> Matcha partnerns kapacitet med projektets storlek.</p>
                           <p className="pt-2">

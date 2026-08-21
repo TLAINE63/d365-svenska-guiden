@@ -139,7 +139,7 @@ const getIndustryIcon = (name: string): string | null => {
 
 const TEAM_SIZE_HELP =
 
-  "Många partners förstärker leveransteamet med kollegor från nordiska/europeiska kontor. Fråga partnern hur många som faktiskt arbetar med er valda applikation och bransch – det är mer relevant än totalsiffran i Sverige.";
+  "Många partners förstärker leveransteamet med kollegor från nordiska/europeiska kontor. Fråga partnern hur många som faktiskt arbetar med din valda applikation och bransch – det är mer relevant än totalsiffran i Sverige.";
 
 type DeliveryProfile = {
   typical_length?: string;
@@ -1708,7 +1708,7 @@ const ComparePartners = () => {
                   Hitta rätt Dynamics 365-partner
                 </h1>
                 <p className="text-sm text-slate-600 mt-2 max-w-2xl mx-auto">
-                  Alla partner i jämförelsen är relevanta kandidater. Här ser ni var de skiljer sig åt och vilken typ av företag de passar bäst för.
+                  Alla partner i jämförelsen är relevanta kandidater. Här ser du var de skiljer sig åt och vilken typ av företag de passar bäst för.
                 </p>
             </header>
 
@@ -1956,7 +1956,7 @@ const ComparePartners = () => {
 
                 {eligiblePartners.length === 0 && (productActive || industryFilter) && (
                   <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-sm text-slate-600 mb-6">
-                    Inga partners matchar er kombination av produkt och bransch. Bredda urvalet ovan.
+                    Inga partners matchar din kombination av produkt och bransch. Bredda urvalet ovan.
                   </div>
                 )}
 
@@ -2103,7 +2103,7 @@ const ComparePartners = () => {
                       <p className="text-xs text-muted-foreground">
                         {showAllRows
                           ? "Visar fördjupade partnerdetaljer nedan."
-                          : "Positioneringen och fokus ovan räcker ofta för ett första beslut. Öppna mer om ni vill fördjupa."}
+                          : "Positioneringen och fokus ovan räcker ofta för ett första beslut. Öppna mer om du vill fördjupa."}
                       </p>
                       <button
                         type="button"
@@ -2286,8 +2286,8 @@ const ComparePartners = () => {
                           return renderValue(fallback);
                         };
                         const helpText = allowedApps
-                          ? "Antal genomförda implementationer för den valda produktens applikationer. Säger något om volym, inte om kvalitet eller branschpassning – be alltid om referenser i den bransch ni befinner er i."
-                          : "Antal genomförda D365-implementationer per applikation. Säger något om volym, inte om kvalitet eller branschpassning – be alltid om referenser i den bransch ni befinner er i.";
+                          ? "Antal genomförda implementationer för den valda produktens applikationer. Säger något om volym, inte om kvalitet eller branschpassning – be alltid om referenser i den bransch du befinner dig i."
+                          : "Antal genomförda D365-implementationer per applikation. Säger något om volym, inte om kvalitet eller branschpassning – be alltid om referenser i den bransch du befinner dig i.";
                         return (
                           <R
                             label="Genomförda implementationer"

@@ -14,7 +14,7 @@ const Upphandlingsresan = () => {
       <SEOHead
         breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Kunskapscenter", url: "/kunskapscenter/" }, { name: "Upphandlingsresan", url: "/kunskapscenter/upphandlingsresan/" }]}
         title="Upphandlingsresan – 7 stadier för ERP & CRM"
-        description="Frågor som avslöjar var ni står i upphandlingsresan för Dynamics 365 (ERP och CRM). Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+        description="Frågor som avslöjar var du står i upphandlingsresan för Dynamics 365 (ERP och CRM). Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
         canonicalPath="/kunskapscenter/upphandlingsresan"
       />
       <Navbar />
@@ -23,7 +23,7 @@ const Upphandlingsresan = () => {
           eyebrow="Kunskapscenter"
           title="Upphandlingsresan"
           titleAccent="7 stadier för ERP & CRM"
-          subhead="Frågor som avslöjar var ni står i upphandlingsresan för Dynamics 365 (ERP och CRM). Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+          subhead="Frågor som avslöjar var du står i upphandlingsresan för Dynamics 365 (ERP och CRM). Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
           primary={{
             label: "Hitta rätt partner",
             to: "/valjdynamics365partner/",
@@ -46,9 +46,9 @@ const Upphandlingsresan = () => {
           <div className="relative container mx-auto px-4 sm:px-6 max-w-5xl">
             <div className="grid sm:grid-cols-3 gap-4 mb-8">
               {[
-                { num: "I", title: "Personlig mognadsprofil", body: "Er position på fem dimensioner: behovsbild, intern samsyn, riskinsikt, partnermarknad, beslutsstruktur." },
+                { num: "I", title: "Personlig mognadsprofil", body: "Din position på fem dimensioner: behovsbild, intern samsyn, riskinsikt, partnermarknad, beslutsstruktur." },
                 { num: "II", title: "Peer benchmark", body: "Jämförelse mot andra svenska beslutsgrupper som genomfört diagnostiken." },
-                { num: "III", title: "Tre konkreta rekommendationer", body: "Inriktade på där hävstången är störst i ert nuvarande skede – inte på era svagheter." },
+                { num: "III", title: "Tre konkreta rekommendationer", body: "Inriktade på där hävstången är störst i ditt nuvarande skede – inte på dina svagheter." },
               ].map((c) => (
                 <div key={c.num} className="rounded border border-white/15 bg-white/5 p-5">
                   <div className="text-2xl font-serif italic text-[hsl(var(--cta-orange))] mb-2 leading-none">{c.num}</div>
@@ -81,13 +81,13 @@ const Upphandlingsresan = () => {
           <div className="relative container mx-auto max-w-6xl px-4 sm:px-6">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-white/10 border border-white/20 text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6">
               <Check className="w-3 h-3" />
-              Steg 1 · Vad behöver ni?
+              Steg 1 · Vad behöver du?
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 leading-tight tracking-tight max-w-3xl">
-              Kom igång med er <span className="text-[hsl(var(--accent))]">kravspecifikation</span>
+              Kom igång med din <span className="text-[hsl(var(--accent))]">kravspecifikation</span>
             </h2>
             <p className="text-base sm:text-lg text-white/75 leading-relaxed mb-8 max-w-3xl">
-              Få ett strukturerat underlag som hjälper er att beskriva behov, processer och prioriteringar inför dialogen med Dynamics 365-partners. Välj område och börja direkt.
+              Få ett strukturerat underlag som hjälper dig att beskriva behov, processer och prioriteringar inför dialogen med Dynamics 365-partners. Välj område och börja direkt.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -121,13 +121,13 @@ const Upphandlingsresan = () => {
           <div className="relative container mx-auto max-w-6xl px-4 sm:px-6">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-[hsl(var(--cta-orange))] text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6">
               <Sparkles className="w-3 h-3" />
-              Steg 2 · Vem ska ni prata med?
+              Steg 2 · Vem ska du prata med?
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 leading-tight tracking-tight max-w-3xl">
               Hitta rätt typ av <span className="text-[hsl(var(--cta-orange))]">Dynamics 365-partner</span>
             </h2>
             <p className="text-base sm:text-lg text-white/75 leading-relaxed mb-8 max-w-2xl">
-              Svara på några frågor om er verksamhet, ert behov och er situation. På ett par minuter får ni en rekommendation från köparens sida om vilken typ av partner som passar bäst.
+              Svara på några frågor om din verksamhet, ditt behov och din situation. På ett par minuter får du en rekommendation från köparens sida om vilken typ av partner som passar bäst.
             </p>
 
             <div className="grid grid-cols-3 gap-4 mb-8 py-5 border-y border-white/10 max-w-xl">

@@ -176,12 +176,12 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
               Resultat · {config.eyebrow}
             </span>
             <h1 className="text-2xl sm:text-3xl md:text-[40px] font-semibold leading-tight text-white mt-3 mb-3">
-              {complete ? "Er matchningsprofil" : "Vi hittade inget färdigt resultat"}
+              {complete ? "Din matchningsprofil" : "Vi hittade inget färdigt resultat"}
             </h1>
             <p className="text-white/70 text-base sm:text-lg max-w-3xl leading-relaxed">
               {complete
-                ? `Baserat på era svar visar vi hur ${config.productName} matchar era behov, kort motivering och konkreta nästa steg.`
-                : `Ni behöver först fylla i matchningstestet för ${config.productName} för att kunna se ett resultat.`}
+                ? `Baserat på dina svar visar vi hur ${config.productName} matchar dina behov, kort motivering och konkreta nästa steg.`
+                : `Du behöver först fylla i matchningstestet för ${config.productName} för att kunna se ett resultat.`}
             </p>
           </div>
         </section>
@@ -250,7 +250,7 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
                 <Card>
                   <CardContent className="p-6 sm:p-8">
                     <h3 className="text-lg font-semibold text-foreground mb-3">
-                      Kort motivering – här matchar ni starkast
+                      Kort motivering – här matchar du starkast
                     </h3>
                     <ul className="space-y-3">
                       {tops.map((t) => {
@@ -278,10 +278,10 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
                     <div className="flex items-start justify-between gap-4 mb-4 flex-wrap">
                       <div>
                         <h3 className="text-lg font-semibold text-foreground">
-                          Rekommenderade partners för er profil
+                          Rekommenderade partners för din profil
                         </h3>
                         <p className="text-sm text-muted-foreground mt-1">
-                          Ett urval baserat på er matchningsprofil för {config.productName}.
+                          Ett urval baserat på din matchningsprofil för {config.productName}.
                           Filtrera på bransch, geografi och storlek i partnerlistan för att
                           skräddarsy jämförelsen ytterligare.
                         </p>
@@ -367,7 +367,7 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
               {/* Nästa steg */}
               <Card className="border-primary/30 bg-primary/[0.03]">
                 <CardContent className="p-6 sm:p-8">
-                  <h3 className="text-lg font-semibold text-foreground mb-4">Era nästa steg</h3>
+                  <h3 className="text-lg font-semibold text-foreground mb-4">Dina nästa steg</h3>
                   <NextStepsList config={config} level={score.level} />
                 </CardContent>
               </Card>
@@ -445,7 +445,7 @@ const EmptyState = ({ config }: { config: ProductConfig }) => (
     <CardContent className="p-6 sm:p-8 space-y-4">
       <p className="text-foreground/85">
         Vi hittar inga sparade svar för matchningstestet för {config.productName}. Gör testet först
-        – det tar cirka 10 minuter – så visar vi er matchningsprofil, motivering och nästa steg
+        – det tar cirka 10 minuter – så visar vi din matchningsprofil, motivering och nästa steg
         här.
       </p>
       <div className="flex flex-wrap gap-3">
@@ -483,7 +483,7 @@ const NextStepsList = ({
     steps.push({
       icon: Users,
       title: "Jämför partners för " + config.productName,
-      body: "Ni har en tydlig matchning. Nästa steg är att jämföra 2–3 Microsoft-partners sida vid sida med rätt bransch- och storleksprofil.",
+      body: "Du har en tydlig matchning. Nästa steg är att jämföra 2–3 Microsoft-partners sida vid sida med rätt bransch- och storleksprofil.",
       cta: { label: `Jämför ${config.productName}-partners`, to: config.partnerFilterPath, primary: true },
     });
     steps.push({
@@ -496,7 +496,7 @@ const NextStepsList = ({
     steps.push({
       icon: MessageSquare,
       title: "Fördjupa behovsanalysen",
-      body: "Er profil är blandad. Gör en fördjupad behovsanalys så att ni utvärderar rätt saker och inte betalar för funktioner ni inte behöver.",
+      body: "Din profil är blandad. Gör en fördjupad behovsanalys så att du utvärderar rätt saker och inte betalar för funktioner du inte behöver.",
       cta: { label: "Fördjupa behovsanalysen", to: config.needsAnalysisPath, primary: true },
     });
     steps.push({
@@ -511,7 +511,7 @@ const NextStepsList = ({
       title: "Utvärdera enklare alternativ först",
       body:
         config.oversizedAlternative?.body ??
-        "Er profil pekar mot att ett enklare verktyg räcker. Utvärdera det innan ni går vidare med Dynamics 365.",
+        "Din profil pekar mot att ett enklare verktyg räcker. Utvärdera det innan du går vidare med Dynamics 365.",
       cta: {
         label: config.oversizedAlternative?.ctaLabel ?? `Läs om ${config.productName}`,
         to: config.oversizedAlternative?.ctaTo ?? config.productPagePath,
@@ -520,8 +520,8 @@ const NextStepsList = ({
     });
     steps.push({
       icon: Users,
-      title: "Behöver ni en second opinion?",
-      body: "Vill ni ändå ha en oberoende genomgång av valet, kontakta oss så guidar vi utan agenda.",
+      title: "Behöver du en second opinion?",
+      body: "Vill du ändå ha en oberoende genomgång av valet, kontakta oss så guidar vi utan agenda.",
       cta: { label: "Kontakta oss", to: "/kontakt" },
     });
   }

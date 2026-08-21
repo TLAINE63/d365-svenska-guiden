@@ -182,7 +182,7 @@ const AiCompareInsights = ({ partners, productFilters, industry, columnSlots }: 
         <div className="flex items-center gap-2 mb-3">
           <Sparkles className="h-5 w-5 text-primary" />
           <h2 className="text-lg font-bold text-foreground">
-            AI-insikter baserat på ert val
+            AI-insikter baserat på ditt val
           </h2>
         </div>
         {loading && (

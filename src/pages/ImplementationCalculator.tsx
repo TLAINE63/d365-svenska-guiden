@@ -202,7 +202,7 @@ export default function ImplementationCalculator() {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Kalkylator: pris & omfattning för Dynamics 365"
-        description="Räkna fram en realistisk budget för er Dynamics 365-implementation: licenskostnad per månad, engångskostnad för införandet, tidplan och fasfördelning – baserat på antal användare, integrationer och komplexitet."
+        description="Räkna fram en realistisk budget för din Dynamics 365-implementation: licenskostnad per månad, engångskostnad för införandet, tidplan och fasfördelning – baserat på antal användare, integrationer och komplexitet."
         canonicalPath="/implementationskalkylator/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
@@ -225,8 +225,8 @@ export default function ImplementationCalculator() {
               Pris- och omfattningskalkylator för Dynamics 365
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground max-w-3xl">
-              Ställ in er situation så får ni ett realistiskt spann för
-              implementationskostnad, licenskostnad och tidplan – innan ni pratar med
+              Ställ in din situation så får du ett realistiskt spann för
+              implementationskostnad, licenskostnad och tidplan – innan du pratar med
               en enda leverantör. Alla antaganden redovisas öppet längst ned.
             </p>
           </div>
@@ -297,7 +297,7 @@ export default function ImplementationCalculator() {
                   </div>
 
                   <div>
-                    <Label className="mb-2 block">Hur nära standard kan ni jobba?</Label>
+                    <Label className="mb-2 block">Hur nära standard kan du jobba?</Label>
                     <div className="grid gap-2 sm:grid-cols-3">
                       {COMPLEXITY_OPTIONS.map((c) => {
                         const active = complexity === c.key;
@@ -419,7 +419,7 @@ export default function ImplementationCalculator() {
                 <CardContent className="pt-6 space-y-5">
                   <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
                     <Calculator className="h-5 w-5 text-primary" aria-hidden="true" />
-                    Er uppskattning
+                    Din uppskattning
                   </h2>
 
                   <div>
@@ -506,7 +506,7 @@ export default function ImplementationCalculator() {
                         Uppgifter till PDF-offerten
                       </h3>
                       <p className="text-xs text-muted-foreground">
-                        Frivilligt – fyll i det ni vill ha med överst i PDF:en.
+                        Frivilligt – fyll i det du vill ha med överst i PDF:en.
                       </p>
                     </div>
                     <div className="space-y-1">
@@ -684,8 +684,8 @@ export default function ImplementationCalculator() {
                     Granska varje beräkningssteg
                   </h3>
                   <p className="text-sm text-muted-foreground mb-4">
-                    Öppna ett steg för att se formeln, vilka av era val som driver resultatet och
-                    varför regeln ser ut som den gör. Allt uppdateras direkt när ni ändrar
+                    Öppna ett steg för att se formeln, vilka av dina val som driver resultatet och
+                    varför regeln ser ut som den gör. Allt uppdateras direkt när du ändrar
                     inställningarna ovan.
                   </p>
                   <Accordion type="multiple" className="w-full">
@@ -749,7 +749,7 @@ export default function ImplementationCalculator() {
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <SuggestedPartnersCTA
               product={partnerProducts}
-              intro="Vill ni stämma av kalkylen mot verkliga offerter? Dessa partners arbetar med de lösningar ni valt."
+              intro="Vill du stämma av kalkylen mot verkliga offerter? Dessa partners arbetar med de lösningar du valt."
             />
           </div>
         </section>

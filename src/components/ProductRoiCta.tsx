@@ -32,7 +32,7 @@ export default function ProductRoiCta({ productKey, id = "roi-tco" }: Props) {
               Hur ser totalkostnad och payback ut för {meta.productShort}?
             </h2>
             <p className="text-white/75 text-sm sm:text-base max-w-2xl leading-relaxed">
-              Räkna fram en indikativ TCO över 5 år, årlig nytta och payback utifrån era
+              Räkna fram en indikativ TCO över 5 år, årlig nytta och payback utifrån dina
               egna förutsättningar – användare, omsättning, bransch och komplexitet.
               Resultatet är ett beslutsstöd, inte en offert.
             </p>

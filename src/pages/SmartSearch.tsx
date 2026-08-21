@@ -61,8 +61,8 @@ export default function SmartSearch() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-primary/10 text-primary text-sm font-medium mb-4">
             <Sparkles className="h-4 w-4" /> AI-driven sökning
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-3 text-foreground">Ställ frågan ni egentligen vill ha svar på</h1>
-          <p className="text-muted-foreground">Beskriv ert behov i fri text – så guidar AI-sökningen er till rätt guide, behovsanalys, produktområde eller partnerfilter.</p>
+          <h1 className="text-3xl md:text-4xl font-bold mb-3 text-foreground">Ställ frågan du egentligen vill ha svar på</h1>
+          <p className="text-muted-foreground">Beskriv ditt behov i fri text – så guidar AI-sökningen dig till rätt guide, behovsanalys, produktområde eller partnerfilter.</p>
         </div>
 
         <form

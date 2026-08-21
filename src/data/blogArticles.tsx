@@ -329,7 +329,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           För det tredje är köparen själv van vid verktygen. Marknadsfunktionen
           tillhör de yrkesgrupper som snabbast har tagit till sig AI-sök. De
-          utvärderar er i samma verktyg de använder dagligen, och de är bättre
+          utvärderar dig i samma verktyg de använder dagligen, och de är bättre
           än de flesta på att se när ett svar bara upprepar en
           marknadsföringstext.
         </p>
@@ -345,9 +345,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           Det som skiljer i en AI-genererad jämförelse är just det som saknas:
-          har ni agenter i drift hos kunder, hur arbetar ni med datakvalitet
+          har du agenter i drift hos kunder, hur arbetar du med datakvalitet
           som förutsättning snarare än efterhandskorrigering, och hur hjälper
-          ni kunden att bestämma vad en agent får och inte får göra? Det är
+          du kunden att bestämma vad en agent får och inte får göra? Det är
           också de frågor en påläst köpare kommer att ställa, eftersom de redan
           har börjat dyka upp i svaren hon får.
         </p>
@@ -362,8 +362,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           En agent klickar sig inte igenom en snygg webbplats. Den hämtar text,
           jämför påståenden och letar efter något konkret att väga. Är det enda
-          som finns om er ett antal formuleringar om engagemang och lång
-          erfarenhet, blir ni svåra att placera i en jämförelse – inte
+          som finns om din ett antal formuleringar om engagemang och lång
+          erfarenhet, blir du svåra att placera i en jämförelse – inte
           bortvalda, bara ohanterliga.
         </p>
         <p>
@@ -396,7 +396,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Här finns formell upphandling, ofta extern rådgivning, etablerade
           relationer och Microsofts egen säljorganisation. Vilka som bjuds in
-          styrs därför av fler faktorer än AI-synlighet. Men hur ni beskrivs
+          styrs därför av fler faktorer än AI-synlighet. Men hur du beskrivs
           under utvärderingen påverkas, och köparen kommer beväpnad med frågor
           som formulerats någon annanstans.
         </p>
@@ -438,15 +438,15 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           Räkna samtidigt med att delar av beslutsgruppen ställer sina frågor
-          på engelska. Då hamnar ni i en jämförelse där internationella aktörer
-          är betydligt bättre beskrivna än ni.
+          på engelska. Då hamnar du i en jämförelse där internationella aktörer
+          är betydligt bättre beskrivna än du.
         </p>
 
         <h2>Vad som faktiskt påverkar</h2>
         <ul>
           <li>
             Bli beskriven av andra, i text som går att citera. Inte omnämnd i
-            förbifarten – beskriven: vad ni gör, för vem, med vilket resultat.
+            förbifarten – beskriven: vad du gör, för vem, med vilket resultat.
           </li>
           <li>
             Var specifik nog att kunna särskiljas. En namngiven bransch, ett
@@ -469,7 +469,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
             med ett AI-svar.
           </li>
           <li>
-            Var konsekvent i hur ni beskrivs. Modeller bygger sin bild genom
+            Var konsekvent i hur du beskrivs. Modeller bygger sin bild genom
             upprepning. Fem olika självbeskrivningar blir till slut ingen alls.
           </li>
           <li>
@@ -505,7 +505,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           bordet, och där finns en spegelbild som är värd att se.
         </p>
         <p>
-          Den lista en AI ger er när ni ber om lämpliga Dynamics-partners är
+          Den lista en AI ger dig när du ber om lämpliga Dynamics-partners är
           inte en rankning av vem som är bäst. Det är en rankning av vem som är
           bäst beskriven av tredje part.
         </p>
@@ -864,7 +864,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
             >
               Beslutsmognadsindex på d365.se
             </a>{" "}
-            – en kostnadsfri självskattning som hjälper er bedöma om data,
+            – en kostnadsfri självskattning som hjälper dig bedöma om data,
             processer och organisation är redo för AI-agenter i Dynamics 365.
           </p>
         </aside>
@@ -1199,7 +1199,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
             >
               Beslutsmognadsindex på d365.se
             </a>{" "}
-            – en kostnadsfri självskattning som hjälper er bedöma om data,
+            – en kostnadsfri självskattning som hjälper dig bedöma om data,
             processer och organisation är redo för AI-agenter i Dynamics 365.
           </p>
         </aside>
@@ -1277,7 +1277,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           målgruppen för Dynamics 365, Copilot och de nya agentfunktionerna.
         </p>
         <p>
-          För er som överväger ett system­byte är detta värt att notera.
+          För dig som överväger ett system­byte är detta värt att notera.
           Microsofts produktutveckling, partner­ekosystem och prissättning
           formas av den här ambitionen. Den organisation som väljer Dynamics
           365 i dag väljer också, på sikt, in sig i den riktningen.
@@ -1301,7 +1301,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h3>2. Processfrågan blir “vad ska automatiseras – och hur långt?”</h3>
         <p>
           Tidigare handlade kravställningen om vilka funktioner systemet skulle
-          stödja. Nu tillkommer en ny fråga: vilka delar av processen vill ni
+          stödja. Nu tillkommer en ny fråga: vilka delar av processen vill du
           att en agent ska utföra själv, vilka ska den föreslå, och vilka ska
           en människa alltid äga? Den frågan går inte att outsourca till
           partnern – den måste ledningen själv ta ställning till.
@@ -1311,32 +1311,32 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           När mer av det tekniska standardarbetet automatiseras flyttas en
           implementations­partners värde till annat: att förstå er verksamhet,
-          hjälpa er sätta ramar för agenter och bygga styrning som gör att rätt
+          hjälpa dig sätta ramar för agenter och bygga styrning som gör att rätt
           saker händer säkert. Antal konsulter och certifieringar säger allt
-          mindre om vad ni faktiskt får ut.
+          mindre om vad du faktiskt får ut.
         </p>
 
         <h2>Frågor att ställa till en partner</h2>
         <p>
-          Innan ni låter Frontier Firm-retoriken styra ett ERP- eller CRM-val
+          Innan du låter Frontier Firm-retoriken styra ett ERP- eller CRM-val
           är det rimligt att be partnern landa i konkretion. Några frågor som
           brukar skilja:
         </p>
         <ul>
           <li>
-            Hur ser en kund hos er ut som faktiskt arbetar i en Frontier
+            Hur ser en kund hos dig ut som faktiskt arbetar i en Frontier
             Firm-modell idag – vad gör agenterna, vad gör människorna?
           </li>
           <li>
             Vilka delar av Dynamics 365 är mogna nog för agentdrift i vår
-            bransch, och vilka är ni ärliga med att vänta med?
+            bransch, och vilka är du ärliga med att vänta med?
           </li>
           <li>
-            Hur arbetar ni med datakvalitet och styrning som en del av
+            Hur arbetar du med datakvalitet och styrning som en del av
             införandet, inte som efterhandsprojekt?
           </li>
           <li>
-            Hur säkerställer ni att vi behåller kontroll över processer som
+            Hur säkerställer du att vi behåller kontroll över processer som
             agenter lär sig – även om vi en dag byter leverantör?
           </li>
         </ul>
@@ -1353,28 +1353,28 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           agendan innan en upphandling drar i gång:
         </p>
         <p>
-          <strong>Bedöm er egen mognad ärligt.</strong> Var står ni när det
+          <strong>Bedöm din egen mognad ärligt.</strong> Var står du när det
           gäller data, processer, styrning och förändringsförmåga? Ett ERP-
           eller CRM-projekt som drivs i en omogen organisation blir sällan en
-          Frontier Firm – oavsett vilken plattform ni väljer.
+          Frontier Firm – oavsett vilken plattform du väljer.
         </p>
         <p>
-          <strong>Bestäm vilken roll AI ska ha hos er.</strong> Stödjande,
+          <strong>Bestäm vilken roll AI ska ha hos din.</strong> Stödjande,
           drivande eller verkställande? Svaret påverkar både kravbild,
           partnerprofil och budget.
         </p>
         <p>
           <strong>Använd valet som ett ledningsbeslut, inte ett IT-beslut.</strong>{" "}
-          Det är där Frontier Firm-tänkandet faktiskt landar – i hur ni leder,
-          inte i vilken licens ni tecknar.
+          Det är där Frontier Firm-tänkandet faktiskt landar – i hur du leder,
+          inte i vilken licens du tecknar.
         </p>
 
         <h2>Slutsats</h2>
         <p>
           Frontier Firm är Microsofts sätt att beskriva den organisation som
-          drar verklig nytta av AI i sina kärnprocesser. För er som står inför
-          ett ERP- eller CRM-val är begreppet användbart – men bara om ni
-          översätter det till era egna förutsättningar i stället för att köpa
+          drar verklig nytta av AI i sina kärnprocesser. För dig som står inför
+          ett ERP- eller CRM-val är begreppet användbart – men bara om du
+          översätter det till dina egna förutsättningar i stället för att köpa
           det som färdig bild. Då blir Dynamics 365 ett möjligt verktyg, inte
           ett självändamål, och partnerdialogen handlar om er verksamhet
           snarare än om en plattformsvision.
@@ -1457,7 +1457,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           från andra aktörer.
         </p>
         <p>
-          Vad betyder det för er? Inte i morgon, men de kommande åren. Det är
+          Vad betyder det för dig? Inte i morgon, men de kommande åren. Det är
           vad den här artikeln handlar om.
         </p>
 
@@ -1474,10 +1474,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           att utföra till att besluta och kontrollera.
         </p>
         <p>
-          Det är en större förändring än det låter som. Den påverkar hur era
-          processer ser ut, vilken kompetens ni behöver och hur ni mäter
+          Det är en större förändring än det låter som. Den påverkar hur dina
+          processer ser ut, vilken kompetens du behöver och hur du mäter
           effektivitet. Och den kommer inte som ett stort släpp en viss dag,
-          utan gradvis, funktion för funktion, in i det system ni redan
+          utan gradvis, funktion för funktion, in i det system du redan
           använder.
         </p>
 
@@ -1488,7 +1488,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           att göra det.
         </p>
 
-        <h3>1. Er data avgör resultatet</h3>
+        <h3>1. Din data avgör resultatet</h3>
         <p>
           En agent är aldrig bättre än den data den arbetar med. Om
           kundregistret innehåller dubbletter, om artikeldata är inkonsekvent
@@ -1503,9 +1503,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           andra får se investeringen ge betydligt mindre tillbaka.
         </p>
         <p>
-          Frågan till er egen organisation är enkel: skulle ni våga låta en ny
-          medarbetare fatta beslut enbart utifrån det som står i era system i
-          dag? Om svaret är nej har ni hittat ert första projekt.
+          Frågan till din egen organisation är enkel: skulle du våga låta en ny
+          medarbetare fatta beslut enbart utifrån det som står i dina system i
+          dag? Om svaret är nej har du hittat ditt första projekt.
         </p>
 
         <h3>2. Någon måste bestämma vad agenterna får göra</h3>
@@ -1531,12 +1531,12 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h3>3. Bindningen till plattformen blir djupare</h3>
         <p>
           En del av det Microsoft visade handlar om agenter som lär sig just
-          er verksamhet: era processer, era undantag, ert sätt att arbeta. Ju
-          längre de är i drift, desto bättre blir de på er vardag.
+          din verksamhet: dina processer, dina undantag, ditt sätt att arbeta. Ju
+          längre de är i drift, desto bättre blir de på din vardag.
         </p>
         <p>
           Det är värdefullt. Men det innebär också att den kunskapen inte
-          flyttar med om ni en dag byter plattform. Bindningen till Microsoft,
+          flyttar med om du en dag byter plattform. Bindningen till Microsoft,
           som redan är stark genom data och anpassningar, blir starkare.
         </p>
         <p>
@@ -1545,35 +1545,35 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           handlingsutrymmet finns.
         </p>
 
-        <h2>Vad det betyder för ert partnerval</h2>
+        <h2>Vad det betyder för ditt partnerval</h2>
         <p>
           Här ser vi kanske den största praktiska konsekvensen, och det är
           också här många utvärderingar fortfarande ställer fel frågor.
         </p>
         <p>
           När mer av det tekniska standardarbetet automatiseras flyttas en
-          implementationspartners värde till annat: att förstå vilka av era
+          implementationspartners värde till annat: att förstå vilka av dina
           processer som passar för agenter och vilka som inte gör det, att
-          hjälpa er få ordning på datagrunden, och att bygga styrning så att
+          hjälpa dig få ordning på datagrunden, och att bygga styrning så att
           agenterna gör rätt saker säkert.
         </p>
         <p>
           Det betyder att klassiska urvalskriterier – antal konsulter, antal
-          genomförda projekt och certifieringar – säger allt mindre om vad ni
+          genomförda projekt och certifieringar – säger allt mindre om vad du
           faktiskt får. De frågor som skiljer agnarna från vetet 2026 låter
           snarare så här:
         </p>
         <ul>
           <li>
-            Har ni satt agenter i produktion hos kunder, och vad blev
+            Har du satt agenter i produktion hos kunder, och vad blev
             resultatet?
           </li>
           <li>
-            Hur arbetar ni med datakvalitet som förutsättning, inte som
+            Hur arbetar du med datakvalitet som förutsättning, inte som
             efterhandskorrigering?
           </li>
           <li>
-            Hur hjälper ni kunden bestämma vad agenter får och inte får göra?
+            Hur hjälper du kunden bestämma vad agenter får och inte får göra?
           </li>
         </ul>
         <p>
@@ -1588,41 +1588,41 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           plats på agendan under hösten.
         </p>
         <p>
-          <strong>Gör en ärlig bedömning av er datagrund.</strong> Inte en
+          <strong>Gör en ärlig bedömning av din datagrund.</strong> Inte en
           teknisk genomgång, utan en verksamhetsfråga: litar vi på det som
           står i våra system? Om inte, börja där. Allt annat bygger på det.
         </p>
         <p>
-          <strong>Bestäm hur ni vill styra agenter innan ni har några.</strong>{" "}
+          <strong>Bestäm hur du vill styra agenter innan du har några.</strong>{" "}
           Vilka typer av beslut kan automatiseras, vilka kräver alltid en
           människa? Ett kort principdokument från ledningen räcker långt och
           sparar svåra diskussioner senare.
         </p>
         <p>
-          <strong>Uppdatera kraven på er partner.</strong> Oavsett om ni står
+          <strong>Uppdatera kraven på din partner.</strong> Oavsett om du står
           inför en upphandling eller har en etablerad leverantör: ställ
-          agentfrågorna. Svaren säger mycket om vem ni har att göra med.
+          agentfrågorna. Svaren säger mycket om vem du har att göra med.
         </p>
 
         <h2>Slutsats</h2>
         <p>
           Microsoft Build 2026 blev startskottet för en plattform där
-          AI-agenter utför arbete i era affärsprocesser, lär sig hur er
+          AI-agenter utför arbete i dina affärsprocesser, lär sig hur dig
           verksamhet fungerar och behöver styras mer som medarbetare än som
           traditionell programvara. Förändringen kommer gradvis, men
           riktningen är tydlig.
         </p>
         <p>
-          Det avgörande för er är inte tekniken i sig. Det är om er data
-          håller, om styrningen finns på plats och om er partner faktiskt
+          Det avgörande för dig är inte tekniken i sig. Det är om din data
+          håller, om styrningen finns på plats och om din partner faktiskt
           behärskar detta bortom presentationer och löften. De organisationer
           som tar tag i de frågorna i lugn och ro nu har ett tydligt försprång
           när AI-agenter blir en naturlig del av vardagen.
         </p>
         <p>
-          Står ni inför ett partnerval, eller vill ni pröva er nuvarande
+          Står du inför ett partnerval, eller vill du pröva din nuvarande
           leverantörs förmåga på området? Det är precis den typen av beslut
-          som d365.se hjälper er att strukturera.
+          som d365.se hjälper dig att strukturera.
         </p>
 
         <aside
@@ -2364,7 +2364,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           </p>
           <p className="!my-0 !text-foreground/90 leading-[1.75]">
             En agent kan övervaka avvikelser i order och leverans, föreslå
-            korrigeringar, trigga en uppgift till rätt roll och – om ni tillåter
+            korrigeringar, trigga en uppgift till rätt roll och – om du tillåter
             det – skapa ett utkast till kreditnota, uppdatera leveransdatum eller
             initiera en attestkedja. Poängen är inte att den <em>kan</em> göra
             det, utan vad den <em>får</em> göra utan mänskligt beslut.
@@ -2456,8 +2456,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Ett skifte av den här typen syns inte bara i tekniken. Det syns i hur
           ERP-projekt måste utformas, styras och följas upp över tid – och
-          därmed också i vad ni ska kräva av den partner som bygger lösningen åt
-          er.
+          därmed också i vad du ska kräva av den partner som bygger lösningen åt
+          dig.
         </p>
         <p>
           Partnerfrågan är inte ett separat spår vid sidan av AI-diskussionen.
@@ -3003,7 +3003,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vilken Dynamics 365-partner är bäst för retail & e-handel?",
         answer:
-          "Det beror på er kanalmix och storlek. På d365.se listar vi flera partners inom retail och e-handel – vissa är specialiserade på BC med LS Central för butikskedjor, andra arbetar med F&SCM och Commerce för större aktörer, och andra fokuserar på CRM och Customer Insights för att förstå kundbeteende över kanaler.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i retail eller e-handel av jämförbar storlek, (2) vilka POS- och e-handelsintegrationer de genomfört och mot vilka system, och (3) en tydlig arkitekturskiss över vad D365 ska göra respektive vad specialistsystemen behåller.",
+          "Det beror på din kanalmix och storlek. På d365.se listar vi flera partners inom retail och e-handel – vissa är specialiserade på BC med LS Central för butikskedjor, andra arbetar med F&SCM och Commerce för större aktörer, och andra fokuserar på CRM och Customer Insights för att förstå kundbeteende över kanaler.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i retail eller e-handel av jämförbar storlek, (2) vilka POS- och e-handelsintegrationer de genomfört och mot vilka system, och (3) en tydlig arkitekturskiss över vad D365 ska göra respektive vad specialistsystemen behåller.",
       },
     ],
   },
@@ -3331,7 +3331,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vilken Dynamics 365-partner är bäst för tillverkningsindustri?",
         answer:
-          "Det beror på er produkttyp och storlek. På d365.se listar vi flera partners med tillverkningsfokus – vissa är specialiserade på BC Premium för medelstora diskreta tillverkare, andra arbetar med F&SCM och avancerad supply chain för större aktörer, och andra har dokumenterade ISV-tillägg för specifika tillverkningsnischer.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i tillverkningsindustri med liknande produkt- och produktionsupplägg, (2) vilka MES- och PLM-integrationer de genomfört, och (3) en tydlig arkitekturskiss över vad D365 ska göra respektive vad specialistsystemen behåller.",
+          "Det beror på din produkttyp och storlek. På d365.se listar vi flera partners med tillverkningsfokus – vissa är specialiserade på BC Premium för medelstora diskreta tillverkare, andra arbetar med F&SCM och avancerad supply chain för större aktörer, och andra har dokumenterade ISV-tillägg för specifika tillverkningsnischer.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i tillverkningsindustri med liknande produkt- och produktionsupplägg, (2) vilka MES- och PLM-integrationer de genomfört, och (3) en tydlig arkitekturskiss över vad D365 ska göra respektive vad specialistsystemen behåller.",
       },
     ],
   },
@@ -3546,7 +3546,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vilken Dynamics 365-partner är bäst för livsmedel & processindustri?",
         answer:
-          "Det beror på vilket ISV-tillägg ni väljer och er storlek. På d365.se listar vi flera partners med livsmedelsfokus – vissa är specialiserade på BC med LS Central Food eller ToIncrease Food, andra arbetar med F&SCM för större process- och livsmedelstillverkare.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i livsmedel eller processindustri med liknande produkttyp och spårbarhetskrav, (2) vilka livsmedelstillägg de arbetar med och varför, och (3) hur de hanterar batch, recept, hållbarhet och HACCP i sin lösning.",
+          "Det beror på vilket ISV-tillägg du väljer och din storlek. På d365.se listar vi flera partners med livsmedelsfokus – vissa är specialiserade på BC med LS Central Food eller ToIncrease Food, andra arbetar med F&SCM för större process- och livsmedelstillverkare.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i livsmedel eller processindustri med liknande produkttyp och spårbarhetskrav, (2) vilka livsmedelstillägg de arbetar med och varför, och (3) hur de hanterar batch, recept, hållbarhet och HACCP i sin lösning.",
       },
     ],
   },
@@ -3808,7 +3808,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Med tolv listade partners spänner urvalet brett – från renodlade
           BC-specialister för SMB-segmentet till partners med F&amp;SCM-kapacitet
           för komplexa distributionskoncerner. En central fråga är om BC räcker
-          för er komplexitet, eller om ni behöver F&amp;SCM:s avancerade WMS och
+          för din komplexitet, eller om du behöver F&amp;SCM:s avancerade WMS och
           supply chain-funktionalitet. Svaret på den frågan styr vilka partners
           som är relevanta att gå vidare med.
         </p>
@@ -3842,7 +3842,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vilken Dynamics 365-partner är bäst för grossist & distribution?",
         answer:
-          "Det beror på er storlek och komplexitet. På d365.se listar vi flera partners med grossist- och distributionsfokus – vissa är specialiserade på BC för medelstora aktörer, andra arbetar med F&SCM och avancerad supply chain för större distributörer, och andra har dokumenterade ISV-tillägg för WMS, EDI eller branschspecifika prislogiker.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i grossist eller distribution av jämförbar storlek, (2) hur de hanterar komplex pris- och rabattlogik samt EDI, och (3) en tydlig arkitekturskiss över vilka delar D365 äger respektive vad eventuella tilläggssystem behåller.",
+          "Det beror på din storlek och komplexitet. På d365.se listar vi flera partners med grossist- och distributionsfokus – vissa är specialiserade på BC för medelstora aktörer, andra arbetar med F&SCM och avancerad supply chain för större distributörer, och andra har dokumenterade ISV-tillägg för WMS, EDI eller branschspecifika prislogiker.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i grossist eller distribution av jämförbar storlek, (2) hur de hanterar komplex pris- och rabattlogik samt EDI, och (3) en tydlig arkitekturskiss över vilka delar D365 äger respektive vad eventuella tilläggssystem behåller.",
       },
     ],
   },
@@ -3994,8 +3994,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           Med bara två listade partners är den centrala frågan inte vilket av
-          dem man ska välja, utan snarare om de listade alternativen matchar er
-          komplexitet och era specifika processbehov. Vivicta erbjuder hela
+          dem man ska välja, utan snarare om de listade alternativen matchar dig
+          komplexitet och dina specifika processbehov. Vivicta erbjuder hela
           plattformens bredd och ett uttalat branschfokus på skog och
           processindustri. Navcite är en renodlad BC-specialist med lång
           plattformserfarenhet. För organisationer med mer komplexa krav kan det
@@ -4285,11 +4285,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           levererar BC eller F&amp;SCM med konfiguration och eventuella
           tillägg för branschen. Valet handlar delvis om hur pass
           branschanpassad lösningen behöver vara från start kontra hur mycket
-          standardnära implementation ni kan hantera med rätt konfiguration.
+          standardnära implementation du kan hantera med rätt konfiguration.
         </p>
         <p>
           En relevant fråga att ställa varje partner: hur många bygg-, entreprenad- och
-          installationsprojekt har ni genomfört, och kan ni visa referenskunder
+          installationsprojekt har du genomfört, och kan du visa referenskunder
           med liknande projekttyper och komplexitetsnivå som er verksamhet?
         </p>
         <p>
@@ -4322,7 +4322,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vilken Dynamics 365-partner är bäst för bygg, entreprenad & installation?",
         answer:
-          "Det beror på er projektprofil och storlek. På d365.se listar vi flera partners med erfarenhet av bygg, entreprenad och installation – vissa är specialiserade på Project Operations + BC, andra arbetar med F&SCM för större aktörer, och andra har dokumenterade ISV-tillägg för svensk byggekonomi.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i bygg, entreprenad eller installation av jämförbar storlek, (2) hur de hanterar ÄTA, underentreprenörer och projektredovisning, och (3) vilka kalkyl- och tidrapporteringssystem de integrerat mot tidigare.",
+          "Det beror på din projektprofil och storlek. På d365.se listar vi flera partners med erfarenhet av bygg, entreprenad och installation – vissa är specialiserade på Project Operations + BC, andra arbetar med F&SCM för större aktörer, och andra har dokumenterade ISV-tillägg för svensk byggekonomi.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i bygg, entreprenad eller installation av jämförbar storlek, (2) hur de hanterar ÄTA, underentreprenörer och projektredovisning, och (3) vilka kalkyl- och tidrapporteringssystem de integrerat mot tidigare.",
       },
     ],
   },
@@ -4538,7 +4538,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vilken Dynamics 365-partner är bäst för energi & utilities?",
         answer:
-          "Det beror på er roll i värdekedjan (produktion, nät, försäljning) och er storlek. På d365.se listar vi flera partners med erfarenhet av energi och utilities – vissa är specialiserade på Field Service och Customer Service för nät- och kundärenden, andra arbetar med F&SCM för större aktörer med komplex ekonomi och projektportfölj.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i energi eller utilities av jämförbar storlek, (2) vilka CIS/MDM- och GIS/NIS-integrationer de genomfört, och (3) hur de hanterar elmarknadens roller och regelefterlevnad.",
+          "Det beror på din roll i värdekedjan (produktion, nät, försäljning) och din storlek. På d365.se listar vi flera partners med erfarenhet av energi och utilities – vissa är specialiserade på Field Service och Customer Service för nät- och kundärenden, andra arbetar med F&SCM för större aktörer med komplex ekonomi och projektportfölj.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i energi eller utilities av jämförbar storlek, (2) vilka CIS/MDM- och GIS/NIS-integrationer de genomfört, och (3) hur de hanterar elmarknadens roller och regelefterlevnad.",
       },
     ],
   },
@@ -4750,14 +4750,14 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           En central fråga för konsultföretag är om BC räcker som projektsystem,
-          eller om ni behöver ett dedikerat projekthanteringstillägg som
+          eller om du behöver ett dedikerat projekthanteringstillägg som
           Progressus Advanced Projects. Goodfellows och Sopra Steria lyfter
           båda fram detta alternativ – vilket är ett tecken på att de mött
           konsultföretag vars projektbehov överskrider BC-standardens kapacitet.
         </p>
         <p>
           En annan relevant fråga: hur viktig är kopplingen mellan sälj och
-          leverans? Om er pipeline direkt styr resursbeläggning och ni vill ha
+          leverans? Om din pipeline direkt styr resursbeläggning och du vill ha
           ett sammanhållet flöde från offert till projektavslut är
           Sales-kompetensen hos partnern lika viktig som ERP-kompetensen.
         </p>
@@ -4781,7 +4781,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Dynamics 365 vs Maconomy, Visma.net Project och Cinode – vad ska vi välja?",
         answer:
-          "Det är inte ett antingen-eller. Specialiserade PSA-system (Maconomy, Visma.net Project, Certinia, Cinode för kompetenshantering) har djup branschfunktionalitet ur lådan och kommer ofta snabbare i drift. Dynamics 365 (Project Operations + BC eller F&SCM) är en bredare plattform med stark projekt- och tidlogik som kompletteras med Microsofts ekosystem för CRM, Office, Teams och AI.\n\nValet styrs av ambitionsnivå: behöver ni främst PSA är ett specialistsystem ofta tillräckligt. Behöver ni ett gemensamt dataekosystem där sälj, leverans, ekonomi och kund ligger i samma plattform – och där ni vill bygga vidare med automation och Copilot – är D365 motiverat. Frågan att ställa: hur mycket utöver PSA vill ni att plattformen ska göra de närmaste 3–5 åren?",
+          "Det är inte ett antingen-eller. Specialiserade PSA-system (Maconomy, Visma.net Project, Certinia, Cinode för kompetenshantering) har djup branschfunktionalitet ur lådan och kommer ofta snabbare i drift. Dynamics 365 (Project Operations + BC eller F&SCM) är en bredare plattform med stark projekt- och tidlogik som kompletteras med Microsofts ekosystem för CRM, Office, Teams och AI.\n\nValet styrs av ambitionsnivå: behöver du främst PSA är ett specialistsystem ofta tillräckligt. Behöver du ett gemensamt dataekosystem där sälj, leverans, ekonomi och kund ligger i samma plattform – och där du vill bygga vidare med automation och Copilot – är D365 motiverat. Frågan att ställa: hur mycket utöver PSA vill du att plattformen ska göra de närmaste 3–5 åren?",
       },
       {
         question: "Vad säger andra konsult- och tjänsteföretag som infört Dynamics 365?",
@@ -4791,7 +4791,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vilken Dynamics 365-partner är bäst för konsult- och tjänsteföretag?",
         answer:
-          "Det beror på er storlek och prismodell. På d365.se listar vi flera partners med erfarenhet av konsultbolag – vissa är specialiserade på Project Operations + BC för medelstora aktörer, andra arbetar med F&SCM för större internationella konsultkoncerner, och andra har djup CRM- och Customer Insights-profil för säljdrivna konsultbolag.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i konsult- eller tjänsteföretag av jämförbar storlek, (2) hur de modellerar er prismodell (fastpris, löpande, retainer), och (3) hur de säkrar adoption av tidrapportering hos konsulterna.",
+          "Det beror på din storlek och prismodell. På d365.se listar vi flera partners med erfarenhet av konsultbolag – vissa är specialiserade på Project Operations + BC för medelstora aktörer, andra arbetar med F&SCM för större internationella konsultkoncerner, och andra har djup CRM- och Customer Insights-profil för säljdrivna konsultbolag.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i konsult- eller tjänsteföretag av jämförbar storlek, (2) hur de modellerar din prismodell (fastpris, löpande, retainer), och (3) hur de säkrar adoption av tidrapportering hos konsulterna.",
       },
     ],
   },
@@ -4989,7 +4989,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           En relevant fråga att ställa varje partner är hur de hanterar
           integration mot befintliga kärnsystem, och om de har referenskunder i
-          finansbranschen med liknande regulatorisk komplexitet som er
+          finansbranschen med liknande regulatorisk komplexitet som dig
           verksamhet.
         </p>
         <p>
@@ -5012,7 +5012,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Dynamics 365 vs Salesforce Financial Services Cloud och specialiserade försäkringssystem – vad ska vi välja?",
         answer:
-          "Det är inte ett antingen-eller. Specialiserade försäkrings- och bankkärnsystem hanterar produkthantering, försäkringsmatematik och regulatorisk logik. Dynamics 365 och Salesforce Financial Services Cloud är CRM-plattformar för kundhantering, distribution, säljstöd och kundtjänst.\n\nValet mellan D365 och Salesforce styrs ofta av integration mot övrig IT-miljö: är ni Microsoft-tunga med Azure, Microsoft 365 och Teams är D365 en naturlig matchning. Salesforce har starkare branschspecifika moduler men kräver ett separat ekosystem. Frågan att ställa: hur väl integrerar plattformen med vår befintliga arkitektur, och vilka regulatoriska krav uppfylls ur lådan?",
+          "Det är inte ett antingen-eller. Specialiserade försäkrings- och bankkärnsystem hanterar produkthantering, försäkringsmatematik och regulatorisk logik. Dynamics 365 och Salesforce Financial Services Cloud är CRM-plattformar för kundhantering, distribution, säljstöd och kundtjänst.\n\nValet mellan D365 och Salesforce styrs ofta av integration mot övrig IT-miljö: är du Microsoft-tunga med Azure, Microsoft 365 och Teams är D365 en naturlig matchning. Salesforce har starkare branschspecifika moduler men kräver ett separat ekosystem. Frågan att ställa: hur väl integrerar plattformen med vår befintliga arkitektur, och vilka regulatoriska krav uppfylls ur lådan?",
       },
       {
         question: "Vad säger andra finans- och försäkringsbolag som infört Dynamics 365?",
@@ -5022,7 +5022,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vilken Dynamics 365-partner är bäst för finans & försäkring?",
         answer:
-          "Det beror på er verksamhetstyp (bank, försäkring, fondförvaltning) och storlek. På d365.se listar vi flera partners med erfarenhet av finans och försäkring – vissa är specialiserade på CRM, distribution och Customer Insights, andra har bredare plattformskompetens med F&SCM för internationella aktörer.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i finans eller försäkring av jämförbar storlek, (2) hur de hanterar integration mot ert kärnsystem och compliance-krav, och (3) erfarenhet av regulatorisk rapportering och dataskydd.",
+          "Det beror på din verksamhetstyp (bank, försäkring, fondförvaltning) och storlek. På d365.se listar vi flera partners med erfarenhet av finans och försäkring – vissa är specialiserade på CRM, distribution och Customer Insights, andra har bredare plattformskompetens med F&SCM för internationella aktörer.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i finans eller försäkring av jämförbar storlek, (2) hur de hanterar integration mot ditt kärnsystem och compliance-krav, och (3) erfarenhet av regulatorisk rapportering och dataskydd.",
       },
     ],
   },
@@ -5210,7 +5210,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           den rättsliga kontexten kring ärendehantering och OSL, och förmågan
           att hantera integrationer mot nationell infrastruktur och befintliga
           verksamhetssystem. Dessa frågor bör stå högt på agendan i en
-          partner-RFI oavsett vilket av de tre alternativen ni utvärderar.
+          partner-RFI oavsett vilket av de tre alternativen du utvärderar.
         </p>
         <p>
           Vivicta är den partner med bredast applikationstäckning och ett
@@ -5248,7 +5248,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Dynamics 365 vs UBW (Agresso), Public360 och specialiserade offentliga system – vad ska vi välja?",
         answer:
-          "Det är inte ett antingen-eller. Specialiserade offentliga ekonomi- och diariesystem (UBW/Agresso, Public360, W3D3, Lex, Visma) har djup branschfunktionalitet för svensk offentlig förvaltning. Dynamics 365 är en bredare plattform med fokus på ärendehantering, fältservice, kund/medborgare och projekt.\n\nDen vanligaste arkitekturen i offentlig sektor är att behålla diarie- och ekonomisystem och låta D365 vara plattform för medborgar-/kundärenden, fältservice för förvaltningar (gata/park/fastighet) och projektportföljer – med integration däremellan. Frågan att ställa: hur väl integrerar partnern D365 med era befintliga diarier och ekonomisystem?",
+          "Det är inte ett antingen-eller. Specialiserade offentliga ekonomi- och diariesystem (UBW/Agresso, Public360, W3D3, Lex, Visma) har djup branschfunktionalitet för svensk offentlig förvaltning. Dynamics 365 är en bredare plattform med fokus på ärendehantering, fältservice, kund/medborgare och projekt.\n\nDen vanligaste arkitekturen i offentlig sektor är att behålla diarie- och ekonomisystem och låta D365 vara plattform för medborgar-/kundärenden, fältservice för förvaltningar (gata/park/fastighet) och projektportföljer – med integration däremellan. Frågan att ställa: hur väl integrerar partnern D365 med dina befintliga diarier och ekonomisystem?",
       },
       {
         question: "Vad säger andra offentliga organisationer som infört Dynamics 365?",
@@ -5258,7 +5258,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vilken Dynamics 365-partner är bäst för offentlig sektor?",
         answer:
-          "Det beror på er typ av organisation (kommun, region, myndighet, statligt bolag) och storlek. På d365.se listar vi flera partners med erfarenhet av offentlig sektor – vissa är specialiserade på ärende- och medborgarprocesser med Customer Service och Field Service, andra arbetar med F&SCM för större statliga aktörer med komplex ekonomi.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i offentlig sektor av jämförbar storlek, (2) hur de hanterar integration mot diariesystem, e-arkiv och ekonomisystem, och (3) erfarenhet av LOU-anpassade upphandlingsprocesser och offentlighetslagstiftning.",
+          "Det beror på din typ av organisation (kommun, region, myndighet, statligt bolag) och storlek. På d365.se listar vi flera partners med erfarenhet av offentlig sektor – vissa är specialiserade på ärende- och medborgarprocesser med Customer Service och Field Service, andra arbetar med F&SCM för större statliga aktörer med komplex ekonomi.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta referenscase i offentlig sektor av jämförbar storlek, (2) hur de hanterar integration mot diariesystem, e-arkiv och ekonomisystem, och (3) erfarenhet av LOU-anpassade upphandlingsprocesser och offentlighetslagstiftning.",
       },
     ],
   },
@@ -5462,7 +5462,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           dedikerade Life Science-tillägg.
         </p>
         <p>
-          En central fråga i er partnerutvärdering bör vara: hur hanterar
+          En central fråga i din partnerutvärdering bör vara: hur hanterar
           partnern systemvalidering, och kan de uppvisa referenskunder som
           framgångsrikt genomfört en CSV-process för en Dynamics
           365-implementation i en GxP-reglerad miljö? Det är den frågan som
@@ -5499,7 +5499,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vilken Dynamics 365-partner är bäst för life science & medtech?",
         answer:
-          "Det beror på er verksamhetstyp (läkemedel, medtech, diagnostik) och storlek. På d365.se listar vi flera partners med erfarenhet av life science och medtech – vissa är specialiserade på F&SCM med GxP-validering, andra arbetar med BC Premium + branschtillägg för mindre och medelstora bolag.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta GxP-validerade referenscase i life science eller medtech av jämförbar storlek, (2) hur de hanterar validering, spårbarhet och change control, och (3) vilka branschspecifika tillägg de arbetar med och varför.",
+          "Det beror på din verksamhetstyp (läkemedel, medtech, diagnostik) och storlek. På d365.se listar vi flera partners med erfarenhet av life science och medtech – vissa är specialiserade på F&SCM med GxP-validering, andra arbetar med BC Premium + branschtillägg för mindre och medelstora bolag.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och be om: (1) konkreta GxP-validerade referenscase i life science eller medtech av jämförbar storlek, (2) hur de hanterar validering, spårbarhet och change control, och (3) vilka branschspecifika tillägg de arbetar med och varför.",
       },
     ],
   },
@@ -5727,7 +5727,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vilken Dynamics 365-partner är bäst för telekom & IT-tjänster?",
         answer:
-          "Det beror på er affärsmodell och storlek. På d365.se listar vi flera partners med erfarenhet av IT-tjänster och prenumerationsmodeller – vissa är specialiserade på Project Operations + BC för IT-konsultbolag, andra arbetar med F&SCM och Sales för större telekom- och MSP-aktörer.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och bredda sökningen till partners i Konsulttjänster – många har dokumenterad erfarenhet av IT-tjänstebolag och prenumerationsmodeller. Be om: (1) konkreta referenscase i telekom eller IT-tjänster av jämförbar storlek, (2) hur de hanterar abonnemangs- och CPQ-logik, och (3) integrationsstrategi mot ert faktureringssystem.",
+          "Det beror på din affärsmodell och storlek. På d365.se listar vi flera partners med erfarenhet av IT-tjänster och prenumerationsmodeller – vissa är specialiserade på Project Operations + BC för IT-konsultbolag, andra arbetar med F&SCM och Sales för större telekom- och MSP-aktörer.\n\nVår rekommendation är att utvärdera 2–3 partners från branschsidan och bredda sökningen till partners i Konsulttjänster – många har dokumenterad erfarenhet av IT-tjänstebolag och prenumerationsmodeller. Be om: (1) konkreta referenscase i telekom eller IT-tjänster av jämförbar storlek, (2) hur de hanterar abonnemangs- och CPQ-logik, och (3) integrationsstrategi mot ditt faktureringssystem.",
       },
     ],
   },
@@ -5902,7 +5902,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           Det begränsade antalet listade partners speglar att uthyrning är ett
-          nischsegment på d365.se. Beroende på vilken typ av uthyrning ni
+          nischsegment på d365.se. Beroende på vilken typ av uthyrning du
           bedriver – maskiner och fordon kräver annan systemlogik än
           eventutrustning eller verktyg – kan det vara värt att titta bredare
           och utvärdera om det finns specialiserade uthyrningssystem som
@@ -5934,12 +5934,12 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vad säger andra uthyrningsbolag som infört Dynamics 365?",
         answer:
-          "Erfarenheterna varierar med val av branschtillägg och scope. Bolag som infört D365 med ett etablerat uthyrningstillägg rapporterar generellt god utväxling – särskilt på beläggning, prissättning och integrerad ekonomi. Bolag som försökt täcka uthyrningslogiken med standard-D365 utan tillägg har oftare stött på dyr särutveckling.\n\nEn återkommande lärdom är att kravarbetet ska involvera både uthyrning, verkstad/underhåll och ekonomi, och att be partnern uppvisa konkreta referenscase i samma typ av uthyrning som ni bedriver.",
+          "Erfarenheterna varierar med val av branschtillägg och scope. Bolag som infört D365 med ett etablerat uthyrningstillägg rapporterar generellt god utväxling – särskilt på beläggning, prissättning och integrerad ekonomi. Bolag som försökt täcka uthyrningslogiken med standard-D365 utan tillägg har oftare stött på dyr särutveckling.\n\nEn återkommande lärdom är att kravarbetet ska involvera både uthyrning, verkstad/underhåll och ekonomi, och att be partnern uppvisa konkreta referenscase i samma typ av uthyrning som du bedriver.",
       },
       {
         question: "Vilken Dynamics 365-partner är bäst för uthyrningsverksamhet?",
         answer:
-          "Uthyrning är ett nischsegment på d365.se med få listade partners. Vår rekommendation är att utvärdera de partners som finns på branschsidan och komplettera med utvärdering av specialiserade uthyrningssystem – beroende på vilken typ av uthyrning ni bedriver kan ett specialistsystem med D365-integration vara ett bättre alternativ än D365 som hel ryggrad.\n\nBe partnern uppvisa: (1) konkreta referenscase i uthyrning av samma typ (maskiner, fordon, verktyg, event) och storlek, (2) vilket uthyrningstillägg de arbetar med och varför, och (3) hur de hanterar beläggning, prissättning, kontrollistor och underhåll.",
+          "Uthyrning är ett nischsegment på d365.se med få listade partners. Vår rekommendation är att utvärdera de partners som finns på branschsidan och komplettera med utvärdering av specialiserade uthyrningssystem – beroende på vilken typ av uthyrning du bedriver kan ett specialistsystem med D365-integration vara ett bättre alternativ än D365 som hel ryggrad.\n\nBe partnern uppvisa: (1) konkreta referenscase i uthyrning av samma typ (maskiner, fordon, verktyg, event) och storlek, (2) vilket uthyrningstillägg de arbetar med och varför, och (3) hur de hanterar beläggning, prissättning, kontrollistor och underhåll.",
       },
     ],
   },
@@ -6135,7 +6135,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vilken Dynamics 365-partner är bäst för mode, sport & textil?",
         answer:
-          "Det beror på er storlek och kanalmix. På d365.se listar vi få partners specifikt inom mode, sport och textil – det kan vara värt att också titta på partners i Retail & E-handel-segmentet (t.ex. Cepheo och Bisqo) som arbetar med BC för handelsföretag och kan ha relevant erfarenhet av mode- och textilprocesser.\n\nVår rekommendation är att utvärdera 2–3 partners och be om: (1) konkreta referenscase i mode, sport eller textil av jämförbar storlek, (2) hur de hanterar storlek/färg-matriser och säsong, och (3) vilket branschtillägg de rekommenderar och varför.",
+          "Det beror på din storlek och kanalmix. På d365.se listar vi få partners specifikt inom mode, sport och textil – det kan vara värt att också titta på partners i Retail & E-handel-segmentet (t.ex. Cepheo och Bisqo) som arbetar med BC för handelsföretag och kan ha relevant erfarenhet av mode- och textilprocesser.\n\nVår rekommendation är att utvärdera 2–3 partners och be om: (1) konkreta referenscase i mode, sport eller textil av jämförbar storlek, (2) hur de hanterar storlek/färg-matriser och säsong, och (3) vilket branschtillägg de rekommenderar och varför.",
       },
     ],
   },
@@ -6305,8 +6305,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           En central fråga att ställa: hur hanterar partnern integrationen mot
-          ert befintliga hyresadministrationssystem, och har de referenskunder
-          inom fastighetsförvaltning av liknande storlek och portföljtyp som er
+          ditt befintliga hyresadministrationssystem, och har de referenskunder
+          inom fastighetsförvaltning av liknande storlek och portföljtyp som dig
           organisation?
         </p>
         <p>
@@ -6339,7 +6339,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vilken Dynamics 365-partner är bäst för fastighet & förvaltning?",
         answer:
-          "På d365.se är Fellowmind den enda listade partnern för branschen. De har bred plattformsbredd över BC, F&SCM, Sales och Customer Insights och stor europeisk leveranskapacitet, men fastighet är ett av flera segment snarare än uttalat primärfokus. För en gedigen utvärdering bör ni därför komplettera med partners utanför listan som har dokumenterade ISV-lösningar eller egna fastighetstillägg på BC eller F&SCM.\n\nVår rekommendation är att utvärdera 2–3 partners och be om: (1) konkreta referenscase i fastighetsförvaltning av jämförbar storlek, (2) integrationsmodell mot ert hyresadministrationssystem och (3) en tydlig avgränsning av vad D365 ska göra respektive vad specialistsystemet behåller.",
+          "På d365.se är Fellowmind den enda listade partnern för branschen. De har bred plattformsbredd över BC, F&SCM, Sales och Customer Insights och stor europeisk leveranskapacitet, men fastighet är ett av flera segment snarare än uttalat primärfokus. För en gedigen utvärdering bör du därför komplettera med partners utanför listan som har dokumenterade ISV-lösningar eller egna fastighetstillägg på BC eller F&SCM.\n\nVår rekommendation är att utvärdera 2–3 partners och be om: (1) konkreta referenscase i fastighetsförvaltning av jämförbar storlek, (2) integrationsmodell mot ditt hyresadministrationssystem och (3) en tydlig avgränsning av vad D365 ska göra respektive vad specialistsystemet behåller.",
       },
     ],
   },
@@ -6749,7 +6749,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Dynamics 365 vs Lime CRM, SuperOffice och specialiserade medlemssystem – vad ska vi välja?",
         answer:
-          "Det är inte ett antingen-eller. Specialiserade medlemssystem (eller Lime CRM/SuperOffice med medlemstillägg) har inbyggd medlemslogik och kommer ofta snabbare i drift med lägre initialkostnad. Dynamics 365 är en bredare plattform där medlemslogiken konfigureras – det tar längre tid men ger ett sammanhållet ekosystem för CRM, ERP, kommunikation, service och analys.\n\nValet styrs av ambitionsnivå: behöver ni främst ett medlemsregister med kommunikationsstöd är ett specialistsystem ofta tillräckligt och billigare. Behöver ni ett gemensamt dataekosystem där medlemsdata, ekonomi, evenemang och service ligger i samma plattform – och där ni vill bygga vidare med automation, AI och Copilot – är D365 motiverat. Frågan att ställa: hur mycket utöver grundläggande medlemshantering vill ni att plattformen ska göra de närmaste 3–5 åren?",
+          "Det är inte ett antingen-eller. Specialiserade medlemssystem (eller Lime CRM/SuperOffice med medlemstillägg) har inbyggd medlemslogik och kommer ofta snabbare i drift med lägre initialkostnad. Dynamics 365 är en bredare plattform där medlemslogiken konfigureras – det tar längre tid men ger ett sammanhållet ekosystem för CRM, ERP, kommunikation, service och analys.\n\nValet styrs av ambitionsnivå: behöver du främst ett medlemsregister med kommunikationsstöd är ett specialistsystem ofta tillräckligt och billigare. Behöver du ett gemensamt dataekosystem där medlemsdata, ekonomi, evenemang och service ligger i samma plattform – och där du vill bygga vidare med automation, AI och Copilot – är D365 motiverat. Frågan att ställa: hur mycket utöver grundläggande medlemshantering vill du att plattformen ska göra de närmaste 3–5 åren?",
       },
       {
         question: "Vad säger andra medlemsorganisationer som infört Dynamics 365?",
@@ -6759,7 +6759,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         question: "Vilken Dynamics 365-partner är bäst för medlemsorganisationer?",
         answer:
-          "På d365.se är B3 Elevate den enda listade partnern med en tydlig profil mot branschen. De är CRM-specialiserade på Sales, Customer Insights, Customer Service och Contact Center, med erfarenhet av medlemsresor och segmentering – men de täcker inte ERP (BC eller F&SCM). Behöver ni även avgiftshantering och ekonomi i samma plattform behöver utvärderingen kompletteras med en ERP-kompetent partner eller en partner som täcker båda domänerna.\n\nVår rekommendation är att utvärdera 2–3 partners och be om: (1) konkreta referenscase från medlemsorganisationer av jämförbar storlek, (2) hur de modellerar medlemsresan i Sales och Customer Insights, och (3) en tydlig plan för integration mellan CRM och ert ekonomi-/avgiftssystem.",
+          "På d365.se är B3 Elevate den enda listade partnern med en tydlig profil mot branschen. De är CRM-specialiserade på Sales, Customer Insights, Customer Service och Contact Center, med erfarenhet av medlemsresor och segmentering – men de täcker inte ERP (BC eller F&SCM). Behöver du även avgiftshantering och ekonomi i samma plattform behöver utvärderingen kompletteras med en ERP-kompetent partner eller en partner som täcker båda domänerna.\n\nVår rekommendation är att utvärdera 2–3 partners och be om: (1) konkreta referenscase från medlemsorganisationer av jämförbar storlek, (2) hur de modellerar medlemsresan i Sales och Customer Insights, och (3) en tydlig plan för integration mellan CRM och ditt ekonomi-/avgiftssystem.",
       },
     ],
   },

@@ -55,7 +55,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Molnbaserat och alltid uppdaterat</h2>
         <p>
-          Business Central levereras som molntjänst (SaaS) via Microsoft Azure – ni har alltid tillgång till de senaste funktionerna utan kostsamma uppgraderingsprojekt. Microsoft släpper löpande uppdateringar med nya funktioner och AI-drivna verktyg som Copilot.
+          Business Central levereras som molntjänst (SaaS) via Microsoft Azure – du har alltid tillgång till de senaste funktionerna utan kostsamma uppgraderingsprojekt. Microsoft släpper löpande uppdateringar med nya funktioner och AI-drivna verktyg som Copilot.
         </p>
 
         <h2>För vem passar Business Central?</h2>
@@ -107,12 +107,12 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Koncernkonsolidering</h2>
         <p>
-          Har ni flera bolag? Business Central stöder koncernkonsolidering, där dotterbolag och intressebolag sammanfogas i en gemensam finansiell rapport. Ni sätter upp ett separat konsolideringsbolag och kan hämta in data från övriga bolag automatiskt.
+          Har du flera bolag? Business Central stöder koncernkonsolidering, där dotterbolag och intressebolag sammanfogas i en gemensam finansiell rapport. Du sätter upp ett separat konsolideringsbolag och kan hämta in data från övriga bolag automatiskt.
         </p>
 
         <h2>Dimensioner och rapportering</h2>
         <p>
-          En av systemets styrkor är möjligheten att analysera data i flera dimensioner – till exempel avdelning, projekt, kostnadsställe eller geografi. Med Excel-integrationen och Power BI skapar ni skräddarsydda rapporter som uppdateras i realtid.
+          En av systemets styrkor är möjligheten att analysera data i flera dimensioner – till exempel avdelning, projekt, kostnadsställe eller geografi. Med Excel-integrationen och Power BI skapar du skräddarsydda rapporter som uppdateras i realtid.
         </p>
 
         <h2>Regelefterlevnad och revision</h2>
@@ -121,9 +121,9 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
         </p>
 
         <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
-          <h3 className="text-xl font-bold text-foreground mb-2">Få kontroll över er ekonomi</h3>
+          <h3 className="text-xl font-bold text-foreground mb-2">Få kontroll över din ekonomi</h3>
           <p className="text-muted-foreground mb-4">
-            Vi hjälper er att komma igång – från implementation till löpande support.
+            Vi hjälper dig att komma igång – från implementation till löpande support.
           </p>
           <p>
             <Link to="/kontakt/" className="font-semibold text-primary hover:underline">
@@ -161,12 +161,12 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Godsmottagning och utleveranser</h2>
         <p>
-          Systemet hanterar hela flödet från inleverans till utleverans. Ni kan registrera godsmottagning mot inköpsorder, genomföra kvalitetskontroller och märka upp artiklar. Vid utleverans genereras plocklistor, fraktsedlar och leveransdokument automatiskt.
+          Systemet hanterar hela flödet från inleverans till utleverans. Du kan registrera godsmottagning mot inköpsorder, genomföra kvalitetskontroller och märka upp artiklar. Vid utleverans genereras plocklistor, fraktsedlar och leveransdokument automatiskt.
         </p>
 
         <h2>Flera lagerplatser och lagerstrukturer</h2>
         <p>
-          Oavsett om ni har ett centrallager, flera regionala lager eller ett komplext lagerupplägg med zoner och hyllplatser – Business Central hanterar det. Ni kan konfigurera lagerstrukturen exakt som ert fysiska lager ser ut och styra plockordning efter era egna regler.
+          Oavsett om du har ett centrallager, flera regionala lager eller ett komplext lagerupplägg med zoner och hyllplatser – Business Central hanterar det. Du kan konfigurera lagerstrukturen exakt som ditt fysiska lager ser ut och styra plockordning efter dina egna regler.
         </p>
 
         <h2>Integration med transportlösningar</h2>
@@ -180,9 +180,9 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
         </p>
 
         <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
-          <h3 className="text-xl font-bold text-foreground mb-2">Optimera ert lager med Business Central</h3>
+          <h3 className="text-xl font-bold text-foreground mb-2">Optimera ditt lager med Business Central</h3>
           <p className="text-muted-foreground mb-4">
-            Vi hjälper er att sätta upp en lösning som passar era flöden – från dag ett.
+            Vi hjälper dig att sätta upp en lösning som passar dina flöden – från dag ett.
           </p>
           <p>
             <Link to="/kontakt/" className="font-semibold text-primary hover:underline">
@@ -235,13 +235,13 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Skalbar CRM-funktionalitet</h2>
         <p>
-          Behöver ni mer avancerad CRM – leadhantering, pipeline-styrning eller marknadsautomatisering – kan Business Central kombineras med Dynamics 365 Sales för ett komplett säljstödsystem.
+          Behöver du mer avancerad CRM – leadhantering, pipeline-styrning eller marknadsautomatisering – kan Business Central kombineras med Dynamics 365 Sales för ett komplett säljstödsystem.
         </p>
 
         <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
           <h3 className="text-xl font-bold text-foreground mb-2">Stärk er säljprocess</h3>
           <p className="text-muted-foreground mb-4">
-            Se hur Business Central kan hjälpa ert säljteam att arbeta smartare och stänga fler affärer.
+            Se hur Business Central kan hjälpa ditt säljteam att arbeta smartare och stänga fler affärer.
           </p>
           <p>
             <Link to="/kontakt/" className="font-semibold text-primary hover:underline">
@@ -269,12 +269,12 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Produktstruktur och stycklistor</h2>
         <p>
-          Grundstenen i produktionsmodulen är stycklistorna (BOM – Bill of Materials). Här definierar ni exakt vilka material och komponenter som ingår i varje produkt, i vilka mängder och i vilken ordning. Business Central stöder flera nivåer av stycklistor – perfekt för komplexa sammansatta produkter.
+          Grundstenen i produktionsmodulen är stycklistorna (BOM – Bill of Materials). Här definierar du exakt vilka material och komponenter som ingår i varje produkt, i vilka mängder och i vilken ordning. Business Central stöder flera nivåer av stycklistor – perfekt för komplexa sammansatta produkter.
         </p>
 
         <h2>Produktionsplanering och kapacitetsstyrning</h2>
         <p>
-          Med inbyggda planeringsverktyg kan ni schemalägga produktionsordrar baserat på tillgänglig maskin- och personalkapacitet. Systemet tar hänsyn till ledtider, kapacitetsbegränsningar och befintliga ordrar för att optimera produktionsflödet.
+          Med inbyggda planeringsverktyg kan du schemalägga produktionsordrar baserat på tillgänglig maskin- och personalkapacitet. Systemet tar hänsyn till ledtider, kapacitetsbegränsningar och befintliga ordrar för att optimera produktionsflödet.
         </p>
 
         <h2>Produktionsordrar och utförande</h2>
@@ -284,7 +284,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Kostnadskalkylering</h2>
         <p>
-          Business Central beräknar produktionskostnaden baserat på materialåtgång, maskintid och direkt lön. Ni kan jämföra faktisk kostnad mot standardkostnad och analysera avvikelser – ett viktigt verktyg för att förbättra lönsamheten.
+          Business Central beräknar produktionskostnaden baserat på materialåtgång, maskintid och direkt lön. Du kan jämföra faktisk kostnad mot standardkostnad och analysera avvikelser – ett viktigt verktyg för att förbättra lönsamheten.
         </p>
 
         <h2>Montering vid beställning</h2>
@@ -294,13 +294,13 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Spårbarhet och kvalitet</h2>
         <p>
-          Med stöd för serie- och partinummer kan ni spåra enskilda artiklar och råvarupartier genom hela tillverkningskedjan – viktigt för kvalitetskontroll, återkallelser och spårbarhetskrav i reglerade branscher.
+          Med stöd för serie- och partinummer kan du spåra enskilda artiklar och råvarupartier genom hela tillverkningskedjan – viktigt för kvalitetskontroll, återkallelser och spårbarhetskrav i reglerade branscher.
         </p>
 
         <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
-          <h3 className="text-xl font-bold text-foreground mb-2">Effektivisera er produktion</h3>
+          <h3 className="text-xl font-bold text-foreground mb-2">Effektivisera din produktion</h3>
           <p className="text-muted-foreground mb-4">
-            Låt oss visa hur Business Central passar ert tillverkningsflöde.
+            Låt oss visa hur Business Central passar ditt tillverkningsflöde.
           </p>
           <p>
             <Link to="/kontakt/" className="font-semibold text-primary hover:underline">
@@ -328,7 +328,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Leverantörsregister och avtalshantering</h2>
         <p>
-          I Business Central samlar ni all leverantörsinformation på ett ställe – kontaktuppgifter, betalningsvillkor, valuta, prisavtal och köphistorik. Ni kan sätta upp leverantörsspecifika priser och rabatter som tillämpas automatiskt vid beställning.
+          I Business Central samlar du all leverantörsinformation på ett ställe – kontaktuppgifter, betalningsvillkor, valuta, prisavtal och köphistorik. Du kan sätta upp leverantörsspecifika priser och rabatter som tillämpas automatiskt vid beställning.
         </p>
 
         <h2>Inköpsförslag och behovsstyrning</h2>
@@ -348,7 +348,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Återkommande inköp</h2>
         <p>
-          För artiklar som köps regelbundet kan ni sätta upp återkommande inköpsrader, vilket förenklar processen för inköp av förbrukningsmaterial, tjänster och abonnemang.
+          För artiklar som köps regelbundet kan du sätta upp återkommande inköpsrader, vilket förenklar processen för inköp av förbrukningsmaterial, tjänster och abonnemang.
         </p>
 
         <h2>Inköpsanalys och leverantörsutvärdering</h2>
@@ -357,9 +357,9 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
         </p>
 
         <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
-          <h3 className="text-xl font-bold text-foreground mb-2">Effektivisera ert inköp</h3>
+          <h3 className="text-xl font-bold text-foreground mb-2">Effektivisera ditt inköp</h3>
           <p className="text-muted-foreground mb-4">
-            Se hur Business Central kan automatisera er inköpsprocess från behov till betalning.
+            Se hur Business Central kan automatisera din inköpsprocess från behov till betalning.
           </p>
           <p>
             <Link to="/kontakt/" className="font-semibold text-primary hover:underline">
@@ -387,7 +387,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Projektstruktur och budgetering</h2>
         <p>
-          Varje projekt i Business Central har sin egen struktur med faser, aktiviteter och resurser. Ni sätter upp budget för tid och material redan i planeringsfasen, vilket skapar en tydlig basplan att följa upp mot under projektets gång.
+          Varje projekt i Business Central har sin egen struktur med faser, aktiviteter och resurser. Du sätter upp budget för tid och material redan i planeringsfasen, vilket skapar en tydlig basplan att följa upp mot under projektets gång.
         </p>
 
         <h2>Tidrapportering och resursplanering</h2>
@@ -416,9 +416,9 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
         </p>
 
         <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
-          <h3 className="text-xl font-bold text-foreground mb-2">Driv era projekt mer lönsamt</h3>
+          <h3 className="text-xl font-bold text-foreground mb-2">Driv dina projekt mer lönsamt</h3>
           <p className="text-muted-foreground mb-4">
-            Vi hjälper er att konfigurera Business Central för era unika projektflöden.
+            Vi hjälper dig att konfigurera Business Central för dina unika projektflöden.
           </p>
           <p>
             <Link to="/kontakt/" className="font-semibold text-primary hover:underline">
@@ -471,13 +471,13 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Kontinuerlig AI-utveckling</h2>
         <p>
-          Microsoft investerar kraftigt i att utöka Copilots kapabilitet i Business Central. Varje halvår lanseras nya AI-funktioner, och eftersom systemet är molnbaserat får ni tillgång till dem automatiskt utan uppgradering. Er investering i Business Central är alltid framåtblickande.
+          Microsoft investerar kraftigt i att utöka Copilots kapabilitet i Business Central. Varje halvår lanseras nya AI-funktioner, och eftersom systemet är molnbaserat får du tillgång till dem automatiskt utan uppgradering. Din investering i Business Central är alltid framåtblickande.
         </p>
 
         <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
-          <h3 className="text-xl font-bold text-foreground mb-2">Utnyttja AI i ert affärssystem</h3>
+          <h3 className="text-xl font-bold text-foreground mb-2">Utnyttja AI i ditt affärssystem</h3>
           <p className="text-muted-foreground mb-4">
-            Låt oss visa hur Copilot kan automatisera era vardagsrutiner i Business Central.
+            Låt oss visa hur Copilot kan automatisera dina vardagsrutiner i Business Central.
           </p>
           <p>
             <Link to="/kontakt/" className="font-semibold text-primary hover:underline">
@@ -525,13 +525,13 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Prismodellen</h2>
         <p>
-          Business Central prissätts som en prenumeration per användare och månad. Det innebär inga stora investeringar i licenser upp front, och ni kan enkelt skala upp eller ned i takt med att verksamheten förändras. Era Microsoft-licenser samlas i ett och samma avtal via er Business Central-partner.
+          Business Central prissätts som en prenumeration per användare och månad. Det innebär inga stora investeringar i licenser upp front, och du kan enkelt skala upp eller ned i takt med att verksamheten förändras. Dina Microsoft-licenser samlas i ett och samma avtal via din Business Central-partner.
         </p>
 
         <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
-          <h3 className="text-xl font-bold text-foreground mb-2">Osäker på vilken licens ni behöver?</h3>
+          <h3 className="text-xl font-bold text-foreground mb-2">Osäker på vilken licens du behöver?</h3>
           <p className="text-muted-foreground mb-4">
-            Vi hjälper er att hitta den optimala licensmixen för er organisation.
+            Vi hjälper dig att hitta den optimala licensmixen för din organisation.
           </p>
           <p>
             <Link to="/kontakt/" className="font-semibold text-primary hover:underline">
@@ -558,37 +558,37 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
         </p>
 
         <p>
-          <strong>Rätt partner är lika viktig som rätt system.</strong> Att välja Microsoft Dynamics 365 Business Central som affärssystem är ett klokt beslut för många svenska företag. Men valet av implementeringspartner är minst lika viktigt – kanske viktigare. En erfaren och engagerad partner ser till att implementeringen lyckas, att systemet anpassas efter era unika behov och att ni får värde av er investering långsiktigt.
+          <strong>Rätt partner är lika viktig som rätt system.</strong> Att välja Microsoft Dynamics 365 Business Central som affärssystem är ett klokt beslut för många svenska företag. Men valet av implementeringspartner är minst lika viktigt – kanske viktigare. En erfaren och engagerad partner ser till att implementeringen lyckas, att systemet anpassas efter dina unika behov och att du får värde av din investering långsiktigt.
         </p>
 
         <h2>Vad gör en Business Central-partner?</h2>
         <p>
-          Business Central säljs och implementeras uteslutande via Microsofts partnernätverk. En certifierad partner hjälper er med behovsanalys och kravspecifikation, implementering, konfiguration och datamigration, integration mot befintliga system, utbildning av användare, löpande support och förvaltning samt uppgraderingar och vidareutveckling.
+          Business Central säljs och implementeras uteslutande via Microsofts partnernätverk. En certifierad partner hjälper dig med behovsanalys och kravspecifikation, implementering, konfiguration och datamigration, integration mot befintliga system, utbildning av användare, löpande support och förvaltning samt uppgraderingar och vidareutveckling.
         </p>
 
         <h2>Certifieringar och erfarenhet</h2>
         <p>
-          Välj en partner som är certifierad Microsoft Solutions Partner for Business Applications och som har dokumenterad erfarenhet av Business Central-implementeringar i er bransch. Certifieringen garanterar att partnern uppfyller Microsofts krav på kompetens och kundnöjdhet.
+          Välj en partner som är certifierad Microsoft Solutions Partner for Business Applications och som har dokumenterad erfarenhet av Business Central-implementeringar i din bransch. Certifieringen garanterar att partnern uppfyller Microsofts krav på kompetens och kundnöjdhet.
         </p>
 
         <h2>Branschkunnande</h2>
         <p>
-          En partner som förstår er bransch – handel, tillverkning, tjänster, distribution – kan hjälpa er att identifiera bästa praxis och undvika onödiga anpassningar. Branscherfarenhet innebär kortare projekttid och bättre resultat.
+          En partner som förstår din bransch – handel, tillverkning, tjänster, distribution – kan hjälpa dig att identifiera bästa praxis och undvika onödiga anpassningar. Branscherfarenhet innebär kortare projekttid och bättre resultat.
         </p>
 
         <h2>Leveransmodell</h2>
         <p>
-          Fråga hur partnern genomför implementeringen. Bra partners har en tydlig och beprövad metod – gärna agil – som ger er insyn och kontroll under hela projektet. Fråga om de erbjuder fast pris eller löpande räkning, och vad som händer om projektet drar ut på tiden.
+          Fråga hur partnern genomför implementeringen. Bra partners har en tydlig och beprövad metod – gärna agil – som ger din insyn och kontroll under hela projektet. Fråga om de erbjuder fast pris eller löpande räkning, och vad som händer om projektet drar ut på tiden.
         </p>
 
         <h2>Stöd efter go-live</h2>
         <p>
-          Implementeringen är bara början. Välj en partner som erbjuder förvaltning, support och löpande vidareutveckling av er lösning. Fråga om svarstider, SLA-nivåer och om supporten är lokalt förankrad i Sverige.
+          Implementeringen är bara början. Välj en partner som erbjuder förvaltning, support och löpande vidareutveckling av din lösning. Fråga om svarstider, SLA-nivåer och om supporten är lokalt förankrad i Sverige.
         </p>
 
         <h2>Be om referenser</h2>
         <p>
-          Be om att få prata med befintliga kunder som liknar er verksamhet. Det ger den bästa bilden av vad ni kan förvänta er – hur partnern hanterar utmaningar, håller tidplaner och kommunicerar under projektet.
+          Be om att få prata med befintliga kunder som liknar din verksamhet. Det ger den bästa bilden av vad du kan förvänta dig – hur partnern hanterar utmaningar, håller tidplaner och kommunicerar under projektet.
         </p>
 
         <h2>Svenska partners med stark kompetens</h2>
@@ -598,7 +598,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
         </p>
 
         <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
-          <h3 className="text-xl font-bold text-foreground mb-2">Är vi rätt partner för er?</h3>
+          <h3 className="text-xl font-bold text-foreground mb-2">Är vi rätt partner för din?</h3>
           <p className="text-muted-foreground mb-4">
             Ta ett förutsättningslöst möte med oss och se om vi är rätt match för er verksamhet.
           </p>
@@ -631,7 +631,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
         </p>
         <p className="text-sm text-muted-foreground italic">
           Vi skriver medvetet "offentligt listad av ISV:n som partner" snarare än "auktoriserad återförsäljare". Aktuell
-          partnerstatus, certifieringsnivå, version och svensk lokalisering bör alltid verifieras direkt med ISV:n och er
+          partnerstatus, certifieringsnivå, version och svensk lokalisering bör alltid verifieras direkt med ISV:n och dig
           BC-partner inför en affär.
         </p>
 
@@ -658,9 +658,9 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
         </p>
 
         <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
-          <h3 className="text-xl font-bold text-foreground mb-2">Behöver ni hjälp att välja rätt tilläggsapplikationer?</h3>
+          <h3 className="text-xl font-bold text-foreground mb-2">Behöver du hjälp att välja rätt tilläggsapplikationer?</h3>
           <p className="text-muted-foreground mb-4">
-            Många BC-partners är specialiserade på vissa ISV-lösningar. Vi hjälper er hitta partners som matchar er
+            Många BC-partners är specialiserade på vissa ISV-lösningar. Vi hjälper dig hitta partners som matchar dig
             kombination av bransch, processer och tilläggsbehov.
           </p>
           <p>

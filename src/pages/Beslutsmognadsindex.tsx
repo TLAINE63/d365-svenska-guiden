@@ -117,7 +117,7 @@ export default function Beslutsmognadsindex() {
             className="font-bm-display italic text-bm-ink-soft leading-snug mb-10"
             style={{ fontSize: "clamp(1.125rem, 2vw, 1.5rem)", fontWeight: 320 }}
           >
-            Hur moget är ert beslutsunderlag inför en investering i affärssystem, CRM, marknadsföring eller kundservice?
+            Hur moget är ditt beslutsunderlag inför en investering i affärssystem, CRM, marknadsföring eller kundservice?
           </p>
 
           <p className="font-bm-body uppercase tracking-[0.18em] text-[11px] text-bm-ink-muted mb-6">
@@ -127,7 +127,7 @@ export default function Beslutsmognadsindex() {
             className="font-bm-display italic text-bm-accent-deep mb-4"
             style={{ fontSize: "clamp(1.5rem, 3vw, 2.25rem)", fontWeight: 360 }}
           >
-            Var i systemlivscykeln står ni?
+            Var i systemlivscykeln står du?
           </h2>
         </section>
 
@@ -136,7 +136,7 @@ export default function Beslutsmognadsindex() {
           {hasDraft && (
             <div className="max-w-[560px] mx-auto mb-8 border-t border-b border-bm-rule py-5">
               <p className="font-bm-display italic text-bm-ink-soft text-base mb-4">
-                Ni har en påbörjad diagnostik. Vill ni fortsätta där ni slutade?
+                Du har en påbörjad diagnostik. Vill du fortsätta där du slutade?
               </p>
               <div className="flex items-center justify-center gap-4">
                 <Link
@@ -161,7 +161,7 @@ export default function Beslutsmognadsindex() {
             Starta diagnostiken
           </Link>
           <p className="mt-5 font-bm-display italic text-bm-ink-muted text-sm">
-            Inga svar sparas innan ni väljer att skicka in.
+            Inga svar sparas innan du väljer att skicka in.
           </p>
         </section>
 
@@ -172,7 +172,7 @@ export default function Beslutsmognadsindex() {
               {
                 num: "I",
                 title: "En personlig mognadsprofil",
-                body: "Er position på fem dimensioner: behovsbild, intern samsyn, riskinsikt, partnermarknad, beslutsstruktur.",
+                body: "Din position på fem dimensioner: behovsbild, intern samsyn, riskinsikt, partnermarknad, beslutsstruktur.",
               },
               {
                 num: "II",
@@ -182,7 +182,7 @@ export default function Beslutsmognadsindex() {
               {
                 num: "III",
                 title: "Tre konkreta rekommendationer",
-                body: "Inriktade på där hävstången är störst i ert nuvarande skede – inte på era svagheter.",
+                body: "Inriktade på där hävstången är störst i ditt nuvarande skede – inte på dina svagheter.",
               },
             ].map((c) => (
               <div key={c.num}>

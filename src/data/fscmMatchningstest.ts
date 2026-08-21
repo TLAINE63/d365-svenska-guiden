@@ -37,7 +37,7 @@ export const BLOCKS: Record<1 | 2 | 3 | 4 | 5 | 6, { title: string; description:
   },
   2: {
     title: "Ekonomi och koncernstyrning",
-    description: "Hur ni hanterar ekonomi, intercompany och regulatoriska krav i dag.",
+    description: "Hur du hanterar ekonomi, intercompany och regulatoriska krav i dag.",
   },
   3: {
     title: "Supply chain, lager och inköp",
@@ -45,7 +45,7 @@ export const BLOCKS: Record<1 | 2 | 3 | 4 | 5 | 6, { title: string; description:
   },
   4: {
     title: "Projekt och tjänsteleverans",
-    description: "Hur ni säljer och styr projektbaserade uppdrag.",
+    description: "Hur du säljer och styr projektbaserade uppdrag.",
   },
   5: {
     title: "Handel och kundkontakt",
@@ -53,7 +53,7 @@ export const BLOCKS: Record<1 | 2 | 3 | 4 | 5 | 6, { title: string; description:
   },
   6: {
     title: "Mognad och framtid",
-    description: "Hur väl rustade era nuvarande system är för tillväxt och AI.",
+    description: "Hur väl rustade dina nuvarande system är för tillväxt och AI.",
   },
 };
 
@@ -131,7 +131,7 @@ export const QUESTIONS: Question[] = [
   {
     id: "q6_export",
     block: 1,
-    text: "Säljer ni till kunder i andra länder, oavsett om ni har egen verksamhet där?",
+    text: "Säljer du till kunder i andra länder, oavsett om du har egen verksamhet där?",
     type: "single",
     options: [
       { value: "none", label: "Nej, endast hemmamarknaden", points: 0 },
@@ -144,21 +144,21 @@ export const QUESTIONS: Question[] = [
   {
     id: "q7_consolidation",
     block: 2,
-    text: "Behöver ni konsolidera flera bolag till en koncernredovisning idag?",
+    text: "Behöver du konsolidera flera bolag till en koncernredovisning idag?",
     type: "yesno",
     options: yn(15, 5),
   },
   {
     id: "q8_intercompany",
     block: 2,
-    text: "Sker det regelbundna transaktioner mellan era egna bolag (intercompany) som idag hanteras manuellt?",
+    text: "Sker det regelbundna transaktioner mellan dina egna bolag (intercompany) som idag hanteras manuellt?",
     type: "yesno",
     options: yn(15, 5),
   },
   {
     id: "q9_multicurrency",
     block: 2,
-    text: "Hanterar ni flera valutor inom samma bolag eller mellan bolag i koncernen?",
+    text: "Hanterar du flera valutor inom samma bolag eller mellan bolag i koncernen?",
     type: "yesno",
     options: yn(10, 3),
   },
@@ -176,7 +176,7 @@ export const QUESTIONS: Question[] = [
   {
     id: "q11_reporting_quality",
     block: 2,
-    text: "Hur upplever ni kvaliteten på koncernens samlade finansiella rapportering idag?",
+    text: "Hur upplever du kvaliteten på koncernens samlade finansiella rapportering idag?",
     type: "scale4",
     options: [
       { value: "1", label: "Snabb och tillförlitlig", points: 0 },
@@ -188,7 +188,7 @@ export const QUESTIONS: Question[] = [
   {
     id: "q12_regulatory",
     block: 2,
-    text: "Har ni regulatoriska krav som varierar mellan länder (lokal bokföring, momsregler, skatterapportering) som idag kräver mycket manuellt arbete?",
+    text: "Har du regulatoriska krav som varierar mellan länder (lokal bokföring, momsregler, skatterapportering) som idag kräver mycket manuellt arbete?",
     type: "yesno",
     options: yn(15, 5),
   },
@@ -197,7 +197,7 @@ export const QUESTIONS: Question[] = [
   {
     id: "q13_warehouse",
     block: 3,
-    text: "Bedriver ni egen lagerverksamhet?",
+    text: "Bedriver du egen lagerverksamhet?",
     type: "yesno",
     showIf: (a) => !isServicesOnly(a),
     options: [
@@ -208,7 +208,7 @@ export const QUESTIONS: Question[] = [
   {
     id: "q14_warehouse_complexity",
     block: 3,
-    text: "Hur komplex är er lagerstyrning?",
+    text: "Hur komplex är din lagerstyrning?",
     type: "single",
     showIf: (a) => !isServicesOnly(a) && a.q13_warehouse === "yes",
     options: [
@@ -221,7 +221,7 @@ export const QUESTIONS: Question[] = [
   {
     id: "q15_manufacturing",
     block: 3,
-    text: "Hanterar ni produktion eller tillverkning?",
+    text: "Hanterar du produktion eller tillverkning?",
     type: "single",
     showIf: (a) => !isServicesOnly(a),
     options: [
@@ -234,7 +234,7 @@ export const QUESTIONS: Question[] = [
   {
     id: "q16_purchasing",
     block: 3,
-    text: "Hur sker er inköpsplanering idag?",
+    text: "Hur sker din inköpsplanering idag?",
     type: "single",
     showIf: (a) => !isServicesOnly(a),
     options: [
@@ -247,7 +247,7 @@ export const QUESTIONS: Question[] = [
   {
     id: "q17_forecasting",
     block: 3,
-    text: "Har ni behov av avancerad efterfrågeplanering eller prognostisering baserat på historisk försäljning?",
+    text: "Har du behov av avancerad efterfrågeplanering eller prognostisering baserat på historisk försäljning?",
     type: "yesno",
     showIf: (a) => !isServicesOnly(a),
     options: yn(15, 5),
@@ -270,7 +270,7 @@ export const QUESTIONS: Question[] = [
   {
     id: "q19_project_sales",
     block: 4,
-    text: "Säljer ni projektbaserade tjänster eller uppdrag?",
+    text: "Säljer du projektbaserade tjänster eller uppdrag?",
     type: "yesno",
     options: [
       { value: "yes", label: "Ja", points: 20 },
@@ -280,7 +280,7 @@ export const QUESTIONS: Question[] = [
   {
     id: "q20_project_integration",
     block: 4,
-    text: "Behöver ni tidrapportering, projektfakturering och lönsamhetsuppföljning per projekt integrerat med ekonomisystemet?",
+    text: "Behöver du tidrapportering, projektfakturering och lönsamhetsuppföljning per projekt integrerat med ekonomisystemet?",
     type: "yesno",
     showIf: (a) => a.q19_project_sales === "yes",
     options: [
@@ -292,7 +292,7 @@ export const QUESTIONS: Question[] = [
   {
     id: "q21_resource_planning",
     block: 4,
-    text: "Arbetar ni med flera samtidiga projekt som delar resurser (personal, utrustning) och som behöver resursplanering över projekt?",
+    text: "Arbetar du med flera samtidiga projekt som delar resurser (personal, utrustning) och som behöver resursplanering över projekt?",
     type: "yesno",
     showIf: (a) => a.q19_project_sales === "yes",
     options: [
@@ -306,7 +306,7 @@ export const QUESTIONS: Question[] = [
   {
     id: "q22_ecommerce",
     block: 5,
-    text: "Säljer ni via egen e-handel idag, eller planerar ni det?",
+    text: "Säljer du via egen e-handel idag, eller planerar du det?",
     type: "single",
     options: [
       { value: "yes", label: "Ja, idag", points: 15 },
@@ -329,7 +329,7 @@ export const QUESTIONS: Question[] = [
   {
     id: "q24_omnichannel",
     block: 5,
-    text: "Hanterar ni omnikanalförsäljning (butik, e-handel, grossist) som idag kräver flera separata system?",
+    text: "Hanterar du omnikanalförsäljning (butik, e-handel, grossist) som idag kräver flera separata system?",
     type: "yesno",
     showIf: (a) => !isServicesOnly(a),
     options: [
@@ -343,7 +343,7 @@ export const QUESTIONS: Question[] = [
   {
     id: "q25_growth_capacity",
     block: 6,
-    text: "Hur ser ni på era nuvarande systems förmåga att hantera tillväxt de kommande 3–5 åren?",
+    text: "Hur ser du på dina nuvarande systems förmåga att hantera tillväxt de kommande 3–5 åren?",
     type: "scale4",
     options: [
       { value: "1", label: "Väl rustade", points: 0 },
@@ -355,7 +355,7 @@ export const QUESTIONS: Question[] = [
   {
     id: "q26_ai_importance",
     block: 6,
-    text: "Hur viktigt är det för er att kunna dra nytta av AI-funktioner (automatiserad bokföring, prognoser, Copilot-assisterad analys) i era processer framöver?",
+    text: "Hur viktigt är det för dig att kunna dra nytta av AI-funktioner (automatiserad bokföring, prognoser, Copilot-assisterad analys) i dina processer framöver?",
     type: "scale4",
     options: [
       { value: "1", label: "Inte viktigt", points: 0 },

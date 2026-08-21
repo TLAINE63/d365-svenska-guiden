@@ -145,14 +145,14 @@ export default function IsvProfile() {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Beskriv er ISV-lösning | d365.se</title>
+        <title>Beskriv din ISV-lösning | d365.se</title>
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
       <Navbar />
       <main className="max-w-3xl mx-auto px-4 py-28">
         {loading && (
           <div className="flex items-center gap-2 text-muted-foreground">
-            <Loader2 className="w-4 h-4 animate-spin" /> Hämtar er lösning…
+            <Loader2 className="w-4 h-4 animate-spin" /> Hämtar din lösning…
           </div>
         )}
 
@@ -174,7 +174,7 @@ export default function IsvProfile() {
                 <CheckCircle2 className="w-5 h-5 text-accent" /> Tack!
               </CardTitle>
               <CardDescription>
-                Er beskrivning är inskickad och granskas av redaktionen innan den publiceras i katalogen.
+                Din beskrivning är inskickad och granskas av redaktionen innan den publiceras i katalogen.
               </CardDescription>
             </CardHeader>
           </Card>
@@ -188,7 +188,7 @@ export default function IsvProfile() {
               </h1>
               <p className="text-muted-foreground">
                 d365.se kartlägger tillägg och ISV-lösningar för Microsoft Dynamics 365 på den svenska
-                marknaden. Fyll i era egna ord nedan – redaktionen granskar innan publicering.
+                marknaden. Fyll i dina egna ord nedan – redaktionen granskar innan publicering.
               </p>
             </div>
 

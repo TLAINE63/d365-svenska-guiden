@@ -1,5 +1,5 @@
 /**
- * Verifierar att alla situationskort på startsidan ("Vad stämmer bäst på er just nu?")
+ * Verifierar att alla situationskort på startsidan ("Vad stämmer bäst på dig just nu?")
  * – inklusive ruta 8 ("Vi vet vad vi vill - Nu behöver vi en matchande partner") –
  * renderar både ett <img>-element och en CSS background-image på header-containern,
  * med korrekt fallback (DEFAULT_CARD_IMAGE) om kortets egen bild saknas.

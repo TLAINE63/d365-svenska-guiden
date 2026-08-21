@@ -92,7 +92,7 @@ export default function BeslutsmognadResultat() {
   return (
     <div className="min-h-screen bg-bm-paper text-bm-ink font-bm-display font-light">
       <Helmet>
-        <title>Ert resultat · Beslutsmognadsindex | d365.se</title>
+        <title>Ditt resultat · Beslutsmognadsindex | d365.se</title>
         <meta name="robots" content="noindex,nofollow" />
       </Helmet>
       <TopBar />
@@ -100,7 +100,7 @@ export default function BeslutsmognadResultat() {
       <main className="max-w-[820px] mx-auto px-6 pt-10 pb-24">
         {/* Totalindex */}
         <p className="font-bm-display italic text-bm-ink-muted text-base mb-4 text-center">
-          Ert beslutsmognadsindex
+          Ditt beslutsmognadsindex
         </p>
         <h1
           className="font-bm-display text-bm-ink text-center leading-[1.05] tracking-tight mb-4"
@@ -166,7 +166,7 @@ export default function BeslutsmognadResultat() {
             className="font-bm-display italic text-bm-ink-soft leading-relaxed"
             style={{ fontWeight: 320 }}
           >
-            Jämförelsebasen byggs upp för varje deltagande beslutsgrupp. Ni får
+            Jämförelsebasen byggs upp för varje deltagande beslutsgrupp. Du får
             peer-snittet per dimension i den personliga rapport som mailas ut
             inom 24–48 timmar.
           </p>
@@ -215,9 +215,9 @@ export default function BeslutsmognadResultat() {
             className="font-bm-display text-bm-ink-soft leading-relaxed mb-6"
             style={{ fontWeight: 320, fontSize: "1.0625rem" }}
           >
-            Vi sammanställer er fullständiga rapport manuellt och mailar den
+            Vi sammanställer din fullständiga rapport manuellt och mailar den
             inom 24–48 timmar. Rekommendationerna ovan handlar om gruppens egen
-            beredskap – inte om att välja en specifik partner. När ni känner er
+            beredskap – inte om att välja en specifik partner. När du känner dig
             beslutsklara finns en separat partnerguide att gå vidare till.
           </p>
           <div className="flex flex-wrap gap-4">

@@ -47,7 +47,7 @@ export type CostBreakdownContent = {
 
 
 const SHARED_NOTE =
-  "Intervallen är typiska partnerprojekt på svenska marknaden. Komplex bransch, många integrationer eller dålig datakvalitet flyttar projekt över det övre spannet – och tvärtom. Be alltid om en fast­prisad upptäcktsfas innan ni signerar hela projektet.";
+  "Intervallen är typiska partnerprojekt på svenska marknaden. Komplex bransch, många integrationer eller dålig datakvalitet flyttar projekt över det övre spannet – och tvärtom. Be alltid om en fast­prisad upptäcktsfas innan du signerar hela projektet.";
 
 export const costBreakdowns: Record<string, CostBreakdownContent> = {
   "business-central": {
@@ -410,7 +410,7 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
 
   "project-operations": {
     pricingModel:
-      "Project Operations kostar ~1 290 kr per användare/månad i licens. Implementationen drivs av hur ni säljer och levererar projekt – fastprist, löpande räkning, abonnemang – och hur tätt det ska integreras mot ekonomi och resurs­planering.",
+      "Project Operations kostar ~1 290 kr per användare/månad i licens. Implementationen drivs av hur du säljer och levererar projekt – fastprist, löpande räkning, abonnemang – och hur tätt det ska integreras mot ekonomi och resurs­planering.",
     ranges: [
       {
         size: "S",
@@ -496,7 +496,7 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
 
   "marketing": {
     pricingModel:
-      "Customer Insights – Journeys (det som tidigare hette Marketing) prissätts per tenant (~16 250 kr/månad obegränsade användare), eller som komplettering (~9 560 kr/månad) om ni redan har minst 10 Dynamics 365-licenser. Implementationen drivs av hur många resor, segment och integrationer ni vill ha.",
+      "Customer Insights – Journeys (det som tidigare hette Marketing) prissätts per tenant (~16 250 kr/månad obegränsade användare), eller som komplettering (~9 560 kr/månad) om du redan har minst 10 Dynamics 365-licenser. Implementationen drivs av hur många resor, segment och integrationer du vill ha.",
     ranges: [
       {
         size: "S",

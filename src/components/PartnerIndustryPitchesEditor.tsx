@@ -36,7 +36,7 @@ const MIN_WORDS = 100;
 const wordCount = (s: string) => (s.trim() ? s.trim().split(/\s+/).length : 0);
 
 const PITCH_PLACEHOLDER =
-  "Beskriv hur ni hjälper denna bransch med Dynamics 365.\n\nFokusera på:\n- Typiska problem ni löser\n- Processer ni förbättrar\n- Relevanta lösningar\n\nUndvik generell företagsbeskrivning och upprepning av standardtext.\n\nTips: Skriv som om kunden redan har valt Dynamics 365.";
+  "Beskriv hur du hjälper denna bransch med Dynamics 365.\n\nFokusera på:\n- Typiska problem du löser\n- Processer du förbättrar\n- Relevanta lösningar\n\nUndvik generell företagsbeskrivning och upprepning av standardtext.\n\nTips: Skriv som om kunden redan har valt Dynamics 365.";
 
 export function PartnerIndustryPitchesEditor({
   industries,
@@ -129,7 +129,7 @@ export function PartnerIndustryPitchesEditor({
   if (uniqueIndustries.length === 0) {
     return (
       <p className="text-sm text-muted-foreground text-center py-4">
-        Välj branscher per produkt först, så kan ni skriva en kort branschpitch här.
+        Välj branscher per produkt först, så kan du skriva en kort branschpitch här.
       </p>
     );
   }
@@ -137,9 +137,9 @@ export function PartnerIndustryPitchesEditor({
   return (
     <div className="space-y-5">
       <p className="text-sm text-muted-foreground">
-        Beskriv hur ni hjälper denna bransch med Dynamics 365 (max 100–150 ord). Fokusera på typiska
-        problem ni löser, processer ni förbättrar och relevanta lösningar. Undvik generell
-        företagsbeskrivning och upprepning av standardtext. Behöver ni hjälp – generera ett
+        Beskriv hur du hjälper denna bransch med Dynamics 365 (max 100–150 ord). Fokusera på typiska
+        problem du löser, processer du förbättrar och relevanta lösningar. Undvik generell
+        företagsbeskrivning och upprepning av standardtext. Behöver du hjälp – generera ett
         AI-förslag och redigera fritt. Lägg till en produktvariant om texten bör skilja sig per
         Dynamics 365-applikation. Tips: skriv som om kunden redan har valt Dynamics 365.
       </p>

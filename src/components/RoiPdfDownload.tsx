@@ -110,7 +110,7 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
           <div>
             <h3 className="text-lg sm:text-xl font-bold mb-1">Ladda ned kalkylen som PDF</h3>
             <p className="text-sm text-white/75 max-w-xl">
-              Få en snygg, delningsbar version med era resultat och fullständiga antaganden för {productLabel} som bilaga. Perfekt att skicka vidare i ledningsgruppen.
+              Få en snygg, delningsbar version med dina resultat och fullständiga antaganden för {productLabel} som bilaga. Perfekt att skicka vidare i ledningsgruppen.
             </p>
           </div>
         </div>
@@ -143,7 +143,7 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
           </Button>
         </form>
         <p className="text-[11px] text-white/55 mt-2">
-          Kostnadsfri. Ingen prenumeration. Vi använder adressen för att kunna följa upp om ni vill ha hjälp att tolka resultatet.
+          Kostnadsfri. Ingen prenumeration. Vi använder adressen för att kunna följa upp om du vill ha hjälp att tolka resultatet.
         </p>
       </CardContent>
     </Card>

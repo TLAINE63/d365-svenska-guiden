@@ -67,7 +67,7 @@ const benefits = [
  { icon: Cog, text: "Copilot fungerar bäst när CRM/ERP-data är komplett och strukturerad" },
  { icon: Bot, text: "Agenter kräver tydliga processer och ett namngivet ägarskap" },
  { icon: ShieldAlert, text: "Automatisering utan processkontroll skapar nya problem, inte färre" },
- { icon: TrendingUp, text: "Bedöm er AI-mognad innan ni gör större investeringar" },
+ { icon: TrendingUp, text: "Bedöm din AI-mognad innan du gör större investeringar" },
 ];
 
 const goals = [
@@ -224,7 +224,7 @@ const AIOverview = () => {
   AI i Dynamics 365 kräver mer än Copilot-licenser
   </h1>
   <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
-  Copilot och agenter kräver data, process och ansvar. Utan den grunden uteblir effekten – oavsett hur många licenser ni köper. Den här sidan reder ut vad Copilot och agenter faktiskt kräver – och var partnervalet börjar spela roll.
+  Copilot och agenter kräver data, process och ansvar. Utan den grunden uteblir effekten – oavsett hur många licenser du köper. Den här sidan reder ut vad Copilot och agenter faktiskt kräver – och var partnervalet börjar spela roll.
   </p>
   <div className="flex flex-col sm:flex-row gap-3">
   <Link
@@ -250,7 +250,7 @@ const AIOverview = () => {
   <div className="container mx-auto max-w-5xl">
   <div className="max-w-3xl mb-8">
   <h2 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight mb-2">
-  Det här behöver vara på plats innan ni skalar AI
+  Det här behöver vara på plats innan du skalar AI
   </h2>
   <p className="text-[15px] text-muted-foreground leading-relaxed">
   AI-effekten kommer inte automatiskt med licensen. Här är de fem vanligaste förutsättningarna vi ser hos svenska Dynamics 365-köpare.
@@ -370,11 +370,11 @@ const AIOverview = () => {
  },
  {
  myth: '"Vi måste byta system"',
- reality: "Copilot och agenter byggs in direkt i Dynamics 365. Ni behöver inte byta – ni aktiverar AI i det system ni redan använder.",
+ reality: "Copilot och agenter byggs in direkt i Dynamics 365. Du behöver inte byta – du aktiverar AI i det system du redan använder.",
  },
  {
  myth: '"Det kräver enorma datamängder"',
- reality: "AI i Dynamics 365 arbetar med den data ni redan har. Ju mer strukturerad den är, desto bättre – men ni behöver inte vara perfekta för att börja.",
+ reality: "AI i Dynamics 365 arbetar med den data du redan har. Ju mer strukturerad den är, desto bättre – men du behöver inte vara perfekta för att börja.",
  },
  ].map((item, i) => (
  <Card key={i} className="border bg-card">
@@ -491,7 +491,7 @@ const AIOverview = () => {
  {
  icon: "🔒",
  title: "Dataskydd & GDPR",
- desc: "All data stannar inom er Microsoft-tenant. Copilot använder inte kunddata för att träna AI-modeller. Microsoft följer GDPR och har EU Data Boundary.",
+ desc: "All data stannar inom din Microsoft-tenant. Copilot använder inte kunddata för att träna AI-modeller. Microsoft följer GDPR och har EU Data Boundary.",
  },
  {
  icon: "🛡️",
@@ -719,7 +719,7 @@ const AIOverview = () => {
  </h2>
  </div>
  <p className="text-center text-muted-foreground mb-8">
- Innan ni mäter effekt behöver grunden vara på plats. Det här är förutsättningarna vi ser i de projekt som faktiskt levererar:
+ Innan du mäter effekt behöver grunden vara på plats. Det här är förutsättningarna vi ser i de projekt som faktiskt levererar:
  </p>
  <div className="grid gap-3">
  {practicalEffects.map((effect, i) => (
@@ -730,7 +730,7 @@ const AIOverview = () => {
  ))}
  </div>
  <p className="text-xs text-muted-foreground text-center mt-6 italic">
- Effektsiffror som "20–40% tidsbesparing" varierar kraftigt mellan organisationer och bör behandlas som exempel – inte som löften. Bedöm potentialen i er egen kontext via AI-mognadstestet.
+ Effektsiffror som "20–40% tidsbesparing" varierar kraftigt mellan organisationer och bör behandlas som exempel – inte som löften. Bedöm potentialen i din egen kontext via AI-mognadstestet.
  </p>
  </section>
 
@@ -739,7 +739,7 @@ const AIOverview = () => {
  <div className="flex items-center justify-center gap-3 mb-3">
  <span className="text-3xl">🛠</span>
  <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground">
- Så kommer ni igång
+ Så kommer du igång
  </h2>
  </div>
  <p className="text-center text-muted-foreground mb-10">
@@ -780,17 +780,17 @@ const AIOverview = () => {
  <CardContent className="p-6 sm:p-10 text-center">
  <span className="text-4xl mb-4 block">🧠</span>
  <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
- Innan ni investerar – bedöm er AI-mognad
+ Innan du investerar – bedöm din AI-mognad
  </h2>
  <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
- Större AI-investeringar bör baseras på faktisk mognad i data, processer och ägarskap – inte på licenstillgänglighet. Testa er mognad eller börja med en strukturerad behovsanalys.
+ Större AI-investeringar bör baseras på faktisk mognad i data, processer och ägarskap – inte på licenstillgänglighet. Testa din mognad eller börja med en strukturerad behovsanalys.
  </p>
  <div className="flex flex-col sm:flex-row gap-3 justify-center">
  <Link
  to="/ai-readiness/"
  className="inline-flex items-center justify-center gap-2 bg-[hsl(var(--cta-orange))] text-white px-6 py-3 rounded font-medium text-lg hover:opacity-90 transition-opacity"
  >
- Testa er AI-mognad <ArrowRight className="h-5 w-5" />
+ Testa din AI-mognad <ArrowRight className="h-5 w-5" />
  </Link>
  <Link
  to="/behovsanalys/"

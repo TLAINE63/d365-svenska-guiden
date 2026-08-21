@@ -113,7 +113,7 @@ export default function OwnershipAndInterests() {
             <Mail className="h-5 w-5 text-primary" /> Vill du som partner finnas med?
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            Är ni en Dynamics 365-partner som vill nå köpare tidigt i deras beslutsprocess?
+            Är du en Dynamics 365-partner som vill nå köpare tidigt i deras beslutsprocess?
             Kontakta oss på{" "}
             <a
               href="mailto:info@d365.se"

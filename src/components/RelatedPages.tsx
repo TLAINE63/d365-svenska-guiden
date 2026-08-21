@@ -74,7 +74,7 @@ export const fscRelatedPages: RelatedPage[] = [
 export const erpRelatedPages: RelatedPage[] = [
   { title: "Business Central – pris & funktioner", description: "Produktdetaljer, licensnivåer och paketering för SMB", href: "/businesscentral/" },
   { title: "Finance & Supply Chain", description: "Enterprise-ERP för koncerner med global drift och avancerad produktion", href: "/finance-supply-chain/" },
-  { title: "Behovsanalys", description: "Få en rekommendation om BC vs F&SCM passar er bäst", href: "/ERPbehovsanalys/" },
+  { title: "Behovsanalys", description: "Få en rekommendation om BC vs F&SCM passar dig bäst", href: "/ERPbehovsanalys/" },
   { title: "Branschlösningar", description: "Dynamics 365 per bransch – tillverkning, handel, service", href: "/branscher/" },
   { title: "Hitta partner", description: "Jämför Microsoft-partners specialiserade på BC och F&SCM", href: "/valjdynamics365partner/" },
 ];
@@ -86,7 +86,7 @@ export const affarssystemRelatedPages: RelatedPage[] = [
   { title: "Jämför Business Central och Finance & SCM", description: "Teknisk jämförelse av Microsofts två affärssystem", href: "/erp/" },
   { title: "Business Central – produktsida", description: "ERP för SMB med 10–300 anställda – från 765 kr/mån", href: "/businesscentral/" },
   { title: "Finance & Supply Chain", description: "För större bolag med global koncernstruktur", href: "/finance-supply-chain/" },
-  { title: "Behovsanalys", description: "Få en kostnadsfri rekommendation baserad på era behov", href: "/ERPbehovsanalys/" },
+  { title: "Behovsanalys", description: "Få en kostnadsfri rekommendation baserad på dina behov", href: "/ERPbehovsanalys/" },
   { title: "Branschlösningar", description: "Hur Dynamics 365 anpassas för olika branscher", href: "/branscher/" },
   { title: "Hitta partner", description: "Katalog över certifierade Microsoft-partners – vi står på köparens sida", href: "/valjdynamics365partner/" },
 ];
@@ -241,10 +241,10 @@ export const needsAnalysisCsRelatedPages: RelatedPage[] = [
 export const valjPartnerRelatedPages: RelatedPage[] = [
   { title: "Behovsanalys ERP", description: "Få rekommendation Business Central eller Finance & SCM", href: "/ERPbehovsanalys/" },
   { title: "Behovsanalys CRM", description: "Kartlägg sälj- och marknadsbehov inför partnerval", href: "/CRMbehovsanalys/" },
-  { title: "Kravspecifikation affärssystem", description: "Skapa underlag innan ni begär offert från partner", href: "/kravspecifikation/" },
+  { title: "Kravspecifikation affärssystem", description: "Skapa underlag innan du begär offert från partner", href: "/kravspecifikation/" },
   { title: "Business Central", description: "ERP för SMB – pris, funktioner och svenska partners", href: "/businesscentral/" },
   { title: "Dynamics 365 Sales", description: "B2B-CRM för säljteam – pris och svenska partners", href: "/d365sales/" },
-  { title: "Branschlösningar", description: "Hitta partners med erfarenhet av just er bransch", href: "/branscher/" },
+  { title: "Branschlösningar", description: "Hitta partners med erfarenhet av just din bransch", href: "/branscher/" },
 ];
 
 // Generella artikellänkar – binder ihop Kunskapscenter med produkt/partner.

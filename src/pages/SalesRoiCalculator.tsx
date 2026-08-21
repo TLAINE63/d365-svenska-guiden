@@ -239,7 +239,7 @@ export default function SalesRoiCalculator() {
               Beräkna ROI och TCO för Dynamics 365 Sales
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground max-w-3xl">
-              Få en indikativ uppskattning av investering, årlig nytta, payback och 5-årig TCO baserat på antal säljare, bransch och vilka effektiviseringar ni satsar på.
+              Få en indikativ uppskattning av investering, årlig nytta, payback och 5-årig TCO baserat på antal säljare, bransch och vilka effektiviseringar du satsar på.
             </p>
             <p className="text-xs text-muted-foreground mt-4 max-w-3xl italic">
               Kalkylen är en förenklad uppskattning och bör användas som beslutsstöd – inte som en slutlig offert eller affärskalkyl.
@@ -393,7 +393,7 @@ export default function SalesRoiCalculator() {
                       <div>
                         <Label>Effektiviseringar för {v.industry.toLowerCase()}</Label>
                         <p className="text-xs text-muted-foreground mt-1">
-                          Bocka i de områden där ni ser potential. Estimaten baseras på Microsofts Business Value Assessment och svenska partnerbenchmarks för CRM-införanden.
+                          Bocka i de områden där du ser potential. Estimaten baseras på Microsofts Business Value Assessment och svenska partnerbenchmarks för CRM-införanden.
                         </p>
                       </div>
                       <div className="space-y-2">
@@ -591,7 +591,7 @@ export default function SalesRoiCalculator() {
                       { title: "Licens", body: "Priser hämtas från d365.se centrala prisregister (Microsofts listpriser för Sales Professional, Enterprise och Premium, SEK/mån exkl. moms). Faktiskt pris beror på avtalsform (EA, CSP), volym och förhandling. Sales Ops antas använda Enterprise-licens." },
                       { title: "Implementation", body: "Bas: Låg 150 000 kr, Medel 350 000 kr, Hög 750 000 kr. Skalas mjukt med antal säljare (+1,5 % per säljare över 15) och med en branschfaktor som speglar typisk projekttyngd för CRM-införanden: Tillverkning 1,3× · Finans & försäkring 1,3× · Distribution 1,1× · Tech & SaaS 1,0× · Bygg 1,0× · B2B-tjänster 0,9× · Annan 1,0×. Därtill + 35 000 kr per integration, + engångskostnad per vald effektiviseringsdrivare (60–150 000 kr beroende på område), + 150 000 kr om Premium krävs och + 50 000 kr för Enterprise (anpassning & Power Platform)." },
                       { title: "Förvaltning", body: "CRM-förvaltning ligger normalt lägre än ERP. År 1 antas cirka 10 % av implementationskostnaden, eftersom huvuddelen av insatsen går till själva projektet. Från år 2 antas normal förvaltningsnivå om cirka 15 % per år." },
-                      { title: "Årlig nytta", body: "Nyttan summeras från de drivare ni bockat i för er bransch. Varje drivare är en kombination av per säljare-belopp och en liten andel av omsättning (taklagd). Summan skalas med antal säljare – baseline 10 säljare = 1,0×, sublinjärt så att 5 säljare ger ~0,7× och 50 säljare ~2,5×. Den justeras sedan med andelen säljaradminstid (0,6×–1,8×) och komplexitetsfaktor (0,7 / 1,0 / 1,25). Integrationer ger dessutom 40 000 kr/år vardera. Estimaten är baserade på Microsofts Business Value Assessment och svenska partnerbenchmarks för CRM-införanden." },
+                      { title: "Årlig nytta", body: "Nyttan summeras från de drivare du bockat i för din bransch. Varje drivare är en kombination av per säljare-belopp och en liten andel av omsättning (taklagd). Summan skalas med antal säljare – baseline 10 säljare = 1,0×, sublinjärt så att 5 säljare ger ~0,7× och 50 säljare ~2,5×. Den justeras sedan med andelen säljaradminstid (0,6×–1,8×) och komplexitetsfaktor (0,7 / 1,0 / 1,25). Integrationer ger dessutom 40 000 kr/år vardera. Estimaten är baserade på Microsofts Business Value Assessment och svenska partnerbenchmarks för CRM-införanden." },
                       { title: "Payback & TCO", body: "Payback = implementation / (årlig nettonytta inkl. ersatt IT-kostnad). 5-årig TCO = implementation + 5 × licens + förvaltning år 1 + 4 × förvaltning år 2+. 5-årig ROI = (5 × årlig nytta + 5 × ersatt IT-kostnad − TCO) / implementation." },
                       { title: "Vad ingår inte", body: "Förändringsledning, datakvalitet och datamigrering, säljträning, externa marketing automation-licenser, Power Platform-tillägg utöver standard samt integrationsplattform (iPaaS) hanteras separat." },
                       { title: "Disclaimer", body: "Kalkylen är en förenklad uppskattning och bör användas som beslutsstöd – inte som en slutlig offert eller affärskalkyl. Validera alltid utfall med två–tre relevanta partners." },
@@ -674,7 +674,7 @@ export default function SalesRoiCalculator() {
                   eftersom huvuddelen av insatsen går till själva projektet. Från år 2 antas normal förvaltningsnivå om cirka 15 % per år.
                 </Assumption>
                 <Assumption title="Årlig nytta">
-                  Nyttan summeras från de drivare ni bockat i för er bransch. Varje drivare är en kombination av per säljare-belopp och en
+                  Nyttan summeras från de drivare du bockat i för din bransch. Varje drivare är en kombination av per säljare-belopp och en
                   liten andel av omsättning (taklagd). Summan skalas med <strong>antal säljare</strong> – baseline 10 säljare = 1,0×, sublinjärt
                   så att 5 säljare ger ~0,7× och 50 säljare ~2,5×. Den justeras sedan med andelen säljaradminstid (0,6×–1,8×) och
                   komplexitetsfaktor (0,7 / 1,0 / 1,25). Integrationer ger dessutom 40 000 kr/år vardera. Estimaten är baserade på

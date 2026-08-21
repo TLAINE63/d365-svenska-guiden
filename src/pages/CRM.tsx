@@ -197,7 +197,7 @@ const CRM = () => {
   eyebrow="CRM (Customer Engagement)"
   title="Dynamics 365 CRM."
   titleAccent="6 applikationer – är alla partners specialister på allt?"
-  subhead="Sales, Customer Insights, Customer Service, Field Service, Contact Center och Project Operations. Få partners kan allt. Vi hjälper er hitta dem som faktiskt levererat det ni behöver."
+  subhead="Sales, Customer Insights, Customer Service, Field Service, Contact Center och Project Operations. Få partners kan allt. Vi hjälper dig hitta dem som faktiskt levererat det du behöver."
   primary={{
     label: "Jämför CRM-partners",
     onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
@@ -256,7 +256,7 @@ const CRM = () => {
  <p><strong>CRM och ERP – äntligen i ett</strong></p>
  <p>En annan stor skillnad är möjligheten att kombinera CRM med ERP i en och samma plattform. Genom att koppla ihop Dynamics 365 CE med exempelvis Business Central eller Finance &amp; Supply Chain Management får företaget en komplett affärslösning – från första kundkontakt till faktura och leverans. Det innebär att sälj, service, ekonomi och lager kan dela samma data och samma verklighet, vilket ger en helt ny nivå av transparens och effektivitet.</p>
  <p><strong>Byggt för att växa med dig</strong></p>
- <p>Oavsett om du är ett mindre team som precis kommit igång, eller en global organisation med komplexa behov, är Dynamics 365 CE designat för att skala. Du börjar där du är och bygger ut i den takt som passar din verksamhet – utan att behöva byta system när ni växer.</p>
+ <p>Oavsett om du är ett mindre team som precis kommit igång, eller en global organisation med komplexa behov, är Dynamics 365 CE designat för att skala. Du börjar där du är och bygger ut i den takt som passar din verksamhet – utan att behöva byta system när du växer.</p>
  <p>Sammantaget är det just kombinationen av Microsoft-integration, inbyggd AI, flexibilitet, ERP-koppling och skalbarhet som gör Dynamics 365 CE till något mer än ett traditionellt CRM – det är en plattform för hela affären.</p>
  <p className="text-sm pt-2 border-t border-border">
  <strong className="text-foreground">Se publicerade jämförelser mot etablerade CRM-alternativ:</strong>
@@ -279,12 +279,12 @@ const CRM = () => {
  ❓ Hur mycket kostar Dynamics 365 Customer Engagement – och vad påverkar priset?
  </AccordionTrigger>
  <AccordionContent className="text-muted-foreground pb-6 space-y-4">
- <p>Det finns inget enkelt svar på vad Dynamics 365 CE kostar, eftersom priset formas av just era unika förutsättningar. Vilka applikationer behöver ni? Hur många användare ska ha tillgång? Och hur komplex är er verksamhet? Nedan går vi igenom de viktigaste kostnadskomponenterna.</p>
+ <p>Det finns inget enkelt svar på vad Dynamics 365 CE kostar, eftersom priset formas av just dina unika förutsättningar. Vilka applikationer behöver du? Hur många användare ska ha tillgång? Och hur komplex är din verksamhet? Nedan går vi igenom de viktigaste kostnadskomponenterna.</p>
  <p><strong>Licenskostnad per användare</strong></p>
- <p>Licenserna prissätts per användare och månad, och varierar beroende på vilken applikation och vilken nivå ni väljer. Som en riktlinje kan nämnas att:</p>
+ <p>Licenserna prissätts per användare och månad, och varierar beroende på vilken applikation och vilken nivå du väljer. Som en riktlinje kan nämnas att:</p>
  <p>Customer Service Professional börjar på 478 kr/användare/månad – ett bra alternativ för team som vill komma igång med strukturerad kundservice. Sales Professional ligger på 621 kr/användare/månad.</p>
  <p>Sales Enterprise och Customer Service Enterprise prissätts till 1 004 kr/användare/månad, medan Sales Premium (med fulla AI- och säljverktyg) ligger på 1 434 kr/användare/månad och Customer Service Premium på 1 864 kr/användare/månad. Field Service kostar 1 004 kr/användare/månad och Contact Center 1 051 kr/användare/månad (komplett).</p>
- <p>Customer Insights (marknadsföring &amp; kunddata) prissätts per tenant från 16 250 kr/månad – med ett lägre attach-pris på 9 559 kr/månad om ni redan har minst 10 Dynamics 365-licenser.</p>
+ <p>Customer Insights (marknadsföring &amp; kunddata) prissätts per tenant från 16 250 kr/månad – med ett lägre attach-pris på 9 559 kr/månad om du redan har minst 10 Dynamics 365-licenser.</p>
  <p>Mellan dessa nivåer finns flera kombinationer, vilket gör det möjligt att sätta ihop ett licenspaket som matchar både behov och budget. Priserna är Microsofts listpris i SEK exkl. moms – faktiskt pris kan variera beroende på avtal (EA, CSP), volym och kampanjer. Se vår fullständiga <a href="/priser/" className="text-crm hover:underline font-medium">prislista</a>.</p>
  <p><strong>Implementeringskostnader</strong></p>
  <p>Utöver licenserna tillkommer kostnader för att implementera och konfigurera systemet. Här spelar &quot;scope&quot; en avgörande roll:</p>
@@ -292,10 +292,10 @@ const CRM = () => {
  <p>En komplett lösning med flera integrerade applikationer, ERP-koppling och anpassade flöden kan ligga i intervallet 800 000 kr upp till 2 miljoner kronor.</p>
  <p>Det är viktigt att se implementeringskostnaden som en investering snarare än en utgift – en välgjord implementation lägger grunden för ett system som verkligen används och skapar värde.</p>
  <p><strong>Löpande kostnader</strong></p>
- <p>Efter att systemet är på plats tillkommer vanligtvis kostnader för support, förvaltning och löpande anpassningar. Verksamheter förändras, och ett CRM-system behöver utvecklas i takt med era processer och behov. Många väljer att teckna ett förvaltningsavtal med sin partner för att säkerställa kontinuerlig hjälp och vidareutveckling.</p>
+ <p>Efter att systemet är på plats tillkommer vanligtvis kostnader för support, förvaltning och löpande anpassningar. Verksamheter förändras, och ett CRM-system behöver utvecklas i takt med dina processer och behov. Många väljer att teckna ett förvaltningsavtal med sin partner för att säkerställa kontinuerlig hjälp och vidareutveckling.</p>
  <p><strong>Hitta rätt paket med hjälp av en Dynamics 365-partner</strong></p>
- <p>Prisbilden kan kännas komplex, men det behöver den inte vara. En certifierad Dynamics 365-partner hjälper er att navigera bland licenser och lösningsalternativ – och viktigast av allt, att hitta den kombination som ger mest värde för just er verksamhet och er budget.</p>
- <p>Oavsett var ni befinner er i processen är ett förutsättningslöst samtal med en partner alltid ett bra första steg.</p>
+ <p>Prisbilden kan kännas komplex, men det behöver den inte vara. En certifierad Dynamics 365-partner hjälper dig att navigera bland licenser och lösningsalternativ – och viktigast av allt, att hitta den kombination som ger mest värde för just din verksamhet och din budget.</p>
+ <p>Oavsett var du befinner dig i processen är ett förutsättningslöst samtal med en partner alltid ett bra första steg.</p>
  </AccordionContent>
  </AccordionItem>
 
@@ -304,19 +304,19 @@ const CRM = () => {
  ❓ Hur snabbt kan vi komma igång med Dynamics 365 CE?
  </AccordionTrigger>
  <AccordionContent className="text-muted-foreground pb-6 space-y-4">
- <p>En av de vanligaste frågorna vi får handlar om tid – när kan vi vara igång? Svaret beror på flera faktorer, men det finns tydliga riktmärken att förhålla sig till. Nedan går vi igenom vad som påverkar tidsplanen och vad ni kan förvänta er i olika scenarion.</p>
+ <p>En av de vanligaste frågorna vi får handlar om tid – när kan vi vara igång? Svaret beror på flera faktorer, men det finns tydliga riktmärken att förhålla sig till. Nedan går vi igenom vad som påverkar tidsplanen och vad du kan förvänta dig i olika scenarion.</p>
  <p><strong>Enklare implementeringar – 2 till 3 månader</strong></p>
  <p>För företag som vill börja med en enskild applikation – till exempel Sales eller Customer Service – och där behoven är relativt väldefinierade, är en implementeringstid på 2 till 3 månader en realistisk målsättning.</p>
- <p>Det är tillräckligt med tid för att konfigurera systemet, anpassa det efter era processer, utbilda användarna och säkerställa en trygg driftsstart – utan att projektet drar ut på tiden i onödan.</p>
+ <p>Det är tillräckligt med tid för att konfigurera systemet, anpassa det efter dina processer, utbilda användarna och säkerställa en trygg driftsstart – utan att projektet drar ut på tiden i onödan.</p>
  <p><strong>Större och mer komplexa lösningar – 4 till 6 månader</strong></p>
  <p>När implementeringen omfattar flera applikationer, integrationer mot andra system eller mer omfattande anpassningar av processer och flöden, är en tidsplan på 4 till 6 månader mer realistisk.</p>
  <p>Det handlar inte om att projektet är långsamt – det handlar om att göra det rätt. Ju fler delar av verksamheten som berörs, desto viktigare är det att varje steg genomförs genomtänkt och med tillräcklig förankring hos de som ska använda systemet i vardagen.</p>
  <p><strong>Det börjar alltid med kravanalysen</strong></p>
  <p>Oavsett scope inleds implementeringen nästan alltid med en noggrann kravanalys. Det är ett avgörande steg som ofta underskattas, men som i praktiken lägger grunden för hela projektet.</p>
- <p>Under kravanalysen kartläggs era processer, behov och förväntningar i detalj. Vad ska systemet lösa? Vilka integrationer behövs? Hur arbetar olika team idag – och hur vill ni arbeta imorgon? Svaren på dessa frågor styr hur lösningen utformas och säkerställer att ni inte bygger något som ser bra ut på papper men fungerar dåligt i verkligheten.</p>
+ <p>Under kravanalysen kartläggs dina processer, behov och förväntningar i detalj. Vad ska systemet lösa? Vilka integrationer behövs? Hur arbetar olika team idag – och hur vill du arbeta imorgon? Svaren på dessa frågor styr hur lösningen utformas och säkerställer att du inte bygger något som ser bra ut på papper men fungerar dåligt i verkligheten.</p>
  <p><strong>En investering i tid som lönar sig</strong></p>
  <p>Det kan vara frestande att vilja skynda på ett implementeringsprojekt, men erfarenheten visar att de implementeringar som lyckas bäst är de där man tagit sig tid att göra rätt från början. En välplanerad och välgenomförd implementation ger ett system som faktiskt används – och som skapar värde från dag ett.</p>
- <p>Vill ni få en mer exakt bild av vad som gäller för just er situation? En erfaren Dynamics 365-partner kan snabbt hjälpa er att rama in ett realistiskt och anpassat tidsperspektiv utifrån era specifika förutsättningar.</p>
+ <p>Vill du få en mer exakt bild av vad som gäller för just din situation? En erfaren Dynamics 365-partner kan snabbt hjälpa dig att rama in ett realistiskt och anpassat tidsperspektiv utifrån dina specifika förutsättningar.</p>
  </AccordionContent>
  </AccordionItem>
 
@@ -327,25 +327,25 @@ const CRM = () => {
  <AccordionContent className="text-muted-foreground pb-6 space-y-4">
  <p>En av de mest återkommande frågorna från företag som utvärderar ett nytt CRM-system handlar om flexibilitet – kan systemet verkligen anpassas efter hur vi arbetar, eller tvingas vi anpassa oss efter systemet? Med Dynamics 365 CE är svaret tydligt: systemet formar sig efter er verksamhet, inte tvärtom.</p>
  <p><strong>Flexibilitet som standard</strong></p>
- <p>Dynamics 365 CE är byggt från grunden för att vara anpassningsbart och branschneutralt. Oavsett om ni arbetar med långa och komplexa säljcykler, volymdriven kundservice eller projektbaserade leveranser – systemet kan konfigureras för att spegla just era processer, er terminologi och era flöden.</p>
- <p>Det handlar inte om att välja ett system och sedan leva med dess begränsningar. Det handlar om att ta ett kraftfullt fundament och forma det till något som känns skräddarsytt för er.</p>
+ <p>Dynamics 365 CE är byggt från grunden för att vara anpassningsbart och branschneutralt. Oavsett om du arbetar med långa och komplexa säljcykler, volymdriven kundservice eller projektbaserade leveranser – systemet kan konfigureras för att spegla just dina processer, din terminologi och dina flöden.</p>
+ <p>Det handlar inte om att välja ett system och sedan leva med dess begränsningar. Det handlar om att ta ett kraftfullt fundament och forma det till något som känns skräddarsytt för din.</p>
  <p><strong>Power Platform – anpassning utan programmering</strong></p>
- <p>En av de mest kraftfulla komponenterna i ekosystemet är Microsoft Power Platform, som ger er möjlighet att:</p>
+ <p>En av de mest kraftfulla komponenterna i ekosystemet är Microsoft Power Platform, som ger dig möjlighet att:</p>
  <p>Bygga egna arbetsflöden och automatiseringar med Power Automate – utan att skriva en enda rad kod.</p>
  <p>Skapa skräddarsydda formulär och vyer som matchar hur era team faktiskt arbetar.</p>
- <p>Utveckla rapporter och dashboards i Power BI som ger er precis den insikt ni behöver, presenterad på det sätt som passar er bäst.</p>
- <p>Det innebär att ni inte är beroende av en utvecklare varje gång ni vill justera en process eller lägga till ett nytt fält. Mycket av anpassningen kan hanteras av er egna verksamhet – vilket ger snabbhet, kontroll och lägre kostnader över tid.</p>
+ <p>Utveckla rapporter och dashboards i Power BI som ger dig precis den insikt du behöver, presenterad på det sätt som passar dig bäst.</p>
+ <p>Det innebär att du inte är beroende av en utvecklare varje gång du vill justera en process eller lägga till ett nytt fält. Mycket av anpassningen kan hanteras av din egna verksamhet – vilket ger snabbhet, kontroll och lägre kostnader över tid.</p>
  <p><strong>Branschspecifika lösningar</strong></p>
- <p>Dynamics 365 CE stödjer dessutom ett brett ekosystem av branschspecifika lösningar och tillägg, vilket innebär att ni inte behöver börja från noll oavsett vilken bransch ni verkar i. Det finns färdiga lösningar och ramverk anpassade för bland annat:</p>
+ <p>Dynamics 365 CE stödjer dessutom ett brett ekosystem av branschspecifika lösningar och tillägg, vilket innebär att du inte behöver börja från noll oavsett vilken bransch du verkar i. Det finns färdiga lösningar och ramverk anpassade för bland annat:</p>
  <p>Tillverkning – med stöd för servicehantering, garantiärenden och fältservice.</p>
  <p>Detaljhandel – med fokus på kundlojalitet, köphistorik och personalisering.</p>
  <p>Hälsovård – med lösningar för patientrelationer, compliance och ärendehantering.</p>
  <p>Professionella tjänster – med verktyg för projektuppföljning, resursplanering och kundengagemang.</p>
  <p>Oavsett bransch finns det med andra ord en solid grund att bygga vidare på – snarare än att börja från ett tomt blad.</p>
- <p><strong>Vi hjälper er hitta rätt konfiguration</strong></p>
- <p>Att ett system är flexibelt är en sak – att faktiskt nyttja den flexibiliteten på rätt sätt är en annan. En Dynamics 365-partner hjälper er att kartlägga era processer och behov, och sedan konfigurera systemet så att det passar er verksamhet från dag ett.</p>
- <p>Målet är alltid detsamma: ett system som känns naturligt att använda, som stödjer era medarbetare i deras vardag och som växer med er i takt med att verksamheten utvecklas.</p>
- <p>Vill ni se hur systemet skulle kunna se ut konfigurerat för just er bransch och era processer? Det är alltid ett bra ställe att börja samtalet.</p>
+ <p><strong>Vi hjälper dig hitta rätt konfiguration</strong></p>
+ <p>Att ett system är flexibelt är en sak – att faktiskt nyttja den flexibiliteten på rätt sätt är en annan. En Dynamics 365-partner hjälper dig att kartlägga dina processer och behov, och sedan konfigurera systemet så att det passar din verksamhet från dag ett.</p>
+ <p>Målet är alltid detsamma: ett system som känns naturligt att använda, som stödjer dina medarbetare i deras vardag och som växer med dig i takt med att verksamheten utvecklas.</p>
+ <p>Vill du se hur systemet skulle kunna se ut konfigurerat för just din bransch och dina processer? Det är alltid ett bra ställe att börja samtalet.</p>
  </AccordionContent>
  </AccordionItem>
 
@@ -354,7 +354,7 @@ const CRM = () => {
  ❓ Vilken partner borde passa vår verksamhet bäst?
  </AccordionTrigger>
  <AccordionContent className="text-muted-foreground pb-6">
- Rätt partner beror på er bransch, företagsstorlek och vilka CRM-applikationer ni behöver. Vi rekommenderar att ni väljer en partner med erfarenhet från liknande implementeringar och som har certifieringar för de specifika Dynamics 365-applikationerna ni är intresserade av. På vår <a href="/valjdynamics365partner/" className="text-crm hover:underline font-medium">partnerkatalog</a> kan ni filtrera på bransch, företagsstorlek och applikationer för att hitta partners som matchar era krav. Ni kan också använda vårt verktyg för att få personliga partnerrekommendationer.
+ Rätt partner beror på din bransch, företagsstorlek och vilka CRM-applikationer du behöver. Vi rekommenderar att du väljer en partner med erfarenhet från liknande implementeringar och som har certifieringar för de specifika Dynamics 365-applikationerna du är intresserade av. På vår <a href="/valjdynamics365partner/" className="text-crm hover:underline font-medium">partnerkatalog</a> kan du filtrera på bransch, företagsstorlek och applikationer för att hitta partners som matchar dina krav. Du kan också använda vårt verktyg för att få personliga partnerrekommendationer.
  </AccordionContent>
  </AccordionItem>
  </Accordion>
@@ -398,7 +398,7 @@ const CRM = () => {
 
  {/* Geography Filter */}
  <FilterButtons
- title="Ange var geografiskt ni har er verksamhet"
+ title="Ange var geografiskt du har din verksamhet"
  icon="geography"
  options={geographyFilters.map(g => ({ label: g.label, value: g.value }))}
  selectedValue={selectedGeography}

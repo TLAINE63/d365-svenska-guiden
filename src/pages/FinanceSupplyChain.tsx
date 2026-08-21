@@ -216,7 +216,7 @@ const FinanceSupplyChain = () => {
   eyebrow="Finance & Supply Chain Management"
         title="Finance & Supply Chain Management."
         titleAccent="Byggt för internationell komplexitet – och kräver en partner med motsvarande erfarenhet."
-  subhead="Microsoft levererar en kraftfull Enterpriseplattform. Partnern skapar branschmodellen, integrationerna mot era befintliga system och den förändringsledning som faktiskt ger användarnytta. Det är där F&SCM-projekt blir framgångsrika - eller missar målet. Här jämför ni partners som levererat F&SCM i er bransch."
+  subhead="Microsoft levererar en kraftfull Enterpriseplattform. Partnern skapar branschmodellen, integrationerna mot dina befintliga system och den förändringsledning som faktiskt ger användarnytta. Det är där F&SCM-projekt blir framgångsrika - eller missar målet. Här jämför du partners som levererat F&SCM i din bransch."
   primary={{
     label: "Jämför F&SCM-partners",
     onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
@@ -231,7 +231,7 @@ const FinanceSupplyChain = () => {
   <ShortAnswer title="Vad är Dynamics 365 Finance & Supply Chain">
  <p>Dynamics 365 Finance & Supply Chain Management är Microsofts enterprise-affärssystem för större och internationella organisationer med avancerad ekonomi, supply chain, flera juridiska bolag, flera valutor och hög grad av regelefterlevnad.</p>
  <p>Plattformen täcker hela värdekedjan: global ekonomistyrning och konsolidering, avancerad tillverkning med MRP/MPS, lager- och warehouse management (WMS), inköp, transportplanering samt finansiell rapportering enligt lokala regelverk i fler än 40 länder.</p>
- <p>Genom de tillhörande modulerna kan ni bygga ut lösningen efter verksamhetens behov: <strong>Dynamics 365 Commerce</strong> hanterar omnikanal-handel med integrerad POS, e-handel och clienteling för retail- och B2B-verksamheter. <strong>Dynamics 365 Human Resources</strong> ger stöd för medarbetarregister, kompetens och organisationsstruktur i större bolag. <strong>Dynamics 365 Project Operations</strong> binder ihop projektförsäljning, resursplanering, tidrapportering och projektredovisning i samma plattform.</p>
+ <p>Genom de tillhörande modulerna kan du bygga ut lösningen efter verksamhetens behov: <strong>Dynamics 365 Commerce</strong> hanterar omnikanal-handel med integrerad POS, e-handel och clienteling för retail- och B2B-verksamheter. <strong>Dynamics 365 Human Resources</strong> ger stöd för medarbetarregister, kompetens och organisationsstruktur i större bolag. <strong>Dynamics 365 Project Operations</strong> binder ihop projektförsäljning, resursplanering, tidrapportering och projektredovisning i samma plattform.</p>
  <p>Inbyggd Copilot och autonoma agenter automatiserar repetitiva flöden – från leverantörsavstämning och prognoser till kund- och projektkommunikation – så att medarbetarna kan lägga tiden på analys och beslut i stället för manuellt arbete.</p>
  <p>Hela sviten bygger på Microsofts moln med Power Platform, Fabric och Azure i botten, vilket gör F&SCM till ett tryggt val för organisationer med höga krav på skalbarhet, integration och styrning.</p>
  </ShortAnswer>
@@ -245,11 +245,11 @@ const FinanceSupplyChain = () => {
            Matchningstest
          </p>
          <h2 className="text-xl sm:text-2xl md:text-[28px] font-semibold text-white leading-snug mb-2">
-           Matchar F&amp;SCM era behov?
+           Matchar F&amp;SCM dina behov?
          </h2>
          <p className="text-white/75 text-sm sm:text-base max-w-2xl leading-relaxed">
-           Ett funktionsorienterat test som tittar på vilka konkreta behov ni har – inte ett mognadsbetyg.
-           Testet är ärligt även när svaret är att F&amp;SCM är överdimensionerat för er. Då pekar vi i stället
+           Ett funktionsorienterat test som tittar på vilka konkreta behov du har – inte ett mognadsbetyg.
+           Testet är ärligt även när svaret är att F&amp;SCM är överdimensionerat för dig. Då pekar vi i stället
            på Business Central eller andra alternativ.
          </p>
        </div>
@@ -304,7 +304,7 @@ const FinanceSupplyChain = () => {
  </span>
  </AccordionTrigger>
  <AccordionContent className="text-muted-foreground pb-6 pl-11">
- Licenspriser börjar från 2 007,30 kr/månad för Finance och 2 007,30 kr/månad för Supply Chain Management. Totalkostnaden påverkas av antal användare, vilka applikationer ni behöver, omfattning av anpassningar, integration med befintliga system samt implementeringstid. För stora organisationer kan implementeringskostnader variera från 2-10 miljoner kronor eller mer, beroende på komplexitet.
+ Licenspriser börjar från 2 007,30 kr/månad för Finance och 2 007,30 kr/månad för Supply Chain Management. Totalkostnaden påverkas av antal användare, vilka applikationer du behöver, omfattning av anpassningar, integration med befintliga system samt implementeringstid. För stora organisationer kan implementeringskostnader variera från 2-10 miljoner kronor eller mer, beroende på komplexitet.
  </AccordionContent>
  </AccordionItem>
  
@@ -316,7 +316,7 @@ const FinanceSupplyChain = () => {
  </span>
  </AccordionTrigger>
  <AccordionContent className="text-muted-foreground pb-6 pl-11">
- En typisk F&SCM-implementering tar 9-24 månader beroende på omfattning och komplexitet. Processen följer vanligtvis följande faser: (1) Analys och planering, (2) Design och konfiguration, (3) Datamigrering, (4) Testning och validering, (5) Utbildning, (6) Go-live och (7) Stabilisering. Kan en fasad implementering, där ni rullar ut funktionaliteten stegvis för att minimera risker, vara en variant för er?
+ En typisk F&SCM-implementering tar 9-24 månader beroende på omfattning och komplexitet. Processen följer vanligtvis följande faser: (1) Analys och planering, (2) Design och konfiguration, (3) Datamigrering, (4) Testning och validering, (5) Utbildning, (6) Go-live och (7) Stabilisering. Kan en fasad implementering, där du rullar ut funktionaliteten stegvis för att minimera risker, vara en variant för dig?
  </AccordionContent>
  </AccordionItem>
  
@@ -352,7 +352,7 @@ const FinanceSupplyChain = () => {
  </span>
  </AccordionTrigger>
  <AccordionContent className="text-muted-foreground pb-6 pl-11">
- Rätt partner beror på er bransch, företagsstorlek och specifika behov. För F&SCM-implementeringar rekommenderar vi partners med erfarenhet av komplexa, globala projekt och som har relevant branschexpertis. På vår <a href="/valjdynamics365partner/" className="text-finance-supply hover:underline font-medium">partnerkatalog</a> kan ni filtrera på bransch, företagsstorlek och applikationer för att hitta partners som matchar era krav. Ni kan också använda vårt verktyg för att få personliga partnerrekommendationer.
+ Rätt partner beror på din bransch, företagsstorlek och specifika behov. För F&SCM-implementeringar rekommenderar vi partners med erfarenhet av komplexa, globala projekt och som har relevant branschexpertis. På vår <a href="/valjdynamics365partner/" className="text-finance-supply hover:underline font-medium">partnerkatalog</a> kan du filtrera på bransch, företagsstorlek och applikationer för att hitta partners som matchar dina krav. Du kan också använda vårt verktyg för att få personliga partnerrekommendationer.
  </AccordionContent>
  </AccordionItem>
  </Accordion>
@@ -573,7 +573,7 @@ const FinanceSupplyChain = () => {
 
  {/* Geography Filter */}
  <FilterButtons
- title="Ange var geografiskt ni har er verksamhet och som är relevant för denna lösning (organisation, kontor/personal)"
+ title="Ange var geografiskt du har din verksamhet och som är relevant för denna lösning (organisation, kontor/personal)"
  icon="geography"
  options={geographyFilters.map(g => ({ label: g.label, value: g.value }))}
  selectedValue={selectedGeography}

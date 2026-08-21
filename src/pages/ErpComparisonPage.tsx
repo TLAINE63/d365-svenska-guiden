@@ -144,13 +144,13 @@ const ErpComparisonPage = () => {
             <div className="mt-4 rounded-lg border border-border bg-background p-4 flex gap-3">
               <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
               <p className="text-sm text-muted-foreground">
-                <strong className="text-foreground">Observera:</strong> Priser, licensvillkor och funktionalitet kan ändras över tid. Kontrollera aktuella uppgifter direkt med respektive leverantör eller partner innan ni fattar beslut. Jämförelsen är en köparsidig vägledning, inte en garanti för att enskilda funktioner eller priser är identiska vid ert köptillfälle.
+                <strong className="text-foreground">Observera:</strong> Priser, licensvillkor och funktionalitet kan ändras över tid. Kontrollera aktuella uppgifter direkt med respektive leverantör eller partner innan du fattar beslut. Jämförelsen är en köparsidig vägledning, inte en garanti för att enskilda funktioner eller priser är identiska vid ditt köptillfälle.
               </p>
             </div>
             <div className="mt-3 rounded-lg border border-primary/30 bg-primary/5 p-4 flex gap-3">
               <Sparkles className="h-5 w-5 text-primary shrink-0 mt-0.5" />
               <p className="text-sm text-muted-foreground">
-                <strong className="text-foreground">Tilläggsapplikationer breddar bilden.</strong> Dynamics 365 kompletteras av tusentals certifierade appar via <a href="https://www.microsoft.com/en-us/marketplace" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">Microsoft Marketplace</a> som ger djupare funktionalitet inom specifika områden och branscher (t.ex. tillverkning, handel, fastighet, life science, projektverksamhet). En funktion som saknas i standard finns ofta som en branschbeprövad tilläggsapp. <Link to="/valjdynamics365partner/" className="text-primary hover:underline font-medium">Ta en dialog med en Dynamics 365-partner</Link> för att se vilka tillägg som matchar just era krav.
+                <strong className="text-foreground">Tilläggsapplikationer breddar bilden.</strong> Dynamics 365 kompletteras av tusentals certifierade appar via <a href="https://www.microsoft.com/en-us/marketplace" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">Microsoft Marketplace</a> som ger djupare funktionalitet inom specifika områden och branscher (t.ex. tillverkning, handel, fastighet, life science, projektverksamhet). En funktion som saknas i standard finns ofta som en branschbeprövad tilläggsapp. <Link to="/valjdynamics365partner/" className="text-primary hover:underline font-medium">Ta en dialog med en Dynamics 365-partner</Link> för att se vilka tillägg som matchar just dina krav.
               </p>
             </div>
           </div>
@@ -212,7 +212,7 @@ const ErpComparisonPage = () => {
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
             <div className="rounded-2xl border border-border bg-gradient-to-br from-secondary/60 to-background p-6 sm:p-10 text-center">
               <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
-                Vill ni jämföra {data.productShort} mot ert behov – inte mot {data.competitor}?
+                Vill du jämföra {data.productShort} mot ditt behov – inte mot {data.competitor}?
               </h2>
               <p className="text-sm sm:text-base text-muted-foreground mb-6 max-w-2xl mx-auto">
                 Starta en behovsanalys, räkna fram TCO eller utforska {data.productShort}-sidan med

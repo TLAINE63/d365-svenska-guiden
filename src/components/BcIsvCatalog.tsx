@@ -249,7 +249,7 @@ const SolutionDetail = ({ s, onClose }: { s: IsvSolution | null; onClose: () => 
                 <section className="p-4 rounded-lg bg-primary/5 border border-primary/20">
                   <h4 className="font-semibold text-foreground mb-2">Jämför sida vid sida</h4>
                   <p className="text-xs text-muted-foreground mb-3">
-                    Gå direkt till beslutsunderlaget – samma struktur, samma fält, så ni kan välja.
+                    Gå direkt till beslutsunderlaget – samma struktur, samma fält, så du kan välja.
                   </p>
                   <ul className="space-y-1.5">
                     {matches.map((c) => (
@@ -401,7 +401,7 @@ const BcIsvCatalog = ({
               Förfina urvalet
             </span>
             <p className="text-sm text-muted-foreground max-w-xl leading-relaxed">
-              Filtrera fram lösningar som matchar er kategori, leveransform och bransch.
+              Filtrera fram lösningar som matchar din kategori, leveransform och bransch.
             </p>
           </div>
           <div className="flex items-center gap-3 text-xs shrink-0">

@@ -30,7 +30,7 @@ const copilotFaqs = [
   { question: "I vilka Dynamics 365-applikationer finns Copilot?", answer: "Copilot finns i Business Central (produktbeskrivningar, bankavstämning, inköpsförslag), Dynamics 365 Sales (mötessammanfattningar, e-postförslag, lead-scoring), Customer Service (ärendesammanfattning, svarsgenerering, sentimentanalys), Finance (ekonomiavvikelser, rapportgenerering) och Supply Chain Management (leveransriskvarningar, omplaneringsförslag). Varje applikation har Copilot-funktioner anpassade för sina specifika användningsfall." },
   { question: "Microsoft Copilot för ERP – hur fungerar det i Finance och Supply Chain?", answer: "Copilot i Dynamics 365 Finance identifierar automatiskt avvikelser i ekonomidata, föreslår bankpostmatchning, sammanfattar periodbokslut och varnar för budgetavvikelser. I Supply Chain Management analyserar Copilot leveransrisker, optimerar inköpsplaner, identifierar flaskhalsar i produktionen och föreslår omplanering vid störningar – allt baserat på realtidsdata i ERP-systemet." },
   { question: "Hur skiljer sig Microsoft Copilot från ChatGPT och andra AI-verktyg?", answer: "Microsoft Copilot i Dynamics 365 är integrerad direkt i affärssystemet och arbetar mot din faktiska affärsdata (kunder, order, lager, ekonomi). ChatGPT och liknande generella AI-verktyg har inte tillgång till din interna data. Copilot följer Microsofts säkerhets- och compliance-ramverk, inklusive GDPR, och företagets data lämnar aldrig organisationens kontroll. Det gör det säkert att använda även för känslig affärsinformation." },
-  { question: "Hur kommer jag igång med Microsoft Copilot i Dynamics 365?", answer: "Om du redan har Dynamics 365 är Copilot ofta redan aktiverat – kontrollera med din systemadministratör eller partner. För nya kunder ingår Copilot från dag ett. Vi rekommenderar att börja med en AI-workshop där vi identifierar de tre processer som ger störst produktivitetsvinst i just er verksamhet. Kontakta oss för en kostnadsfri AI-rådgivning." },
+  { question: "Hur kommer jag igång med Microsoft Copilot i Dynamics 365?", answer: "Om du redan har Dynamics 365 är Copilot ofta redan aktiverat – kontrollera med din systemadministratör eller partner. För nya kunder ingår Copilot från dag ett. Vi rekommenderar att börja med en AI-workshop där vi identifierar de tre processer som ger störst produktivitetsvinst i just din verksamhet. Kontakta oss för en kostnadsfri AI-rådgivning." },
 ];
 
 const Copilot = () => {
@@ -107,7 +107,7 @@ const Copilot = () => {
                 Microsoft Copilot för Dynamics 365
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-4 sm:mb-6">
-                Inbäddad AI i affärssystemet – vad som ingår, vad som kräver tillägg och vad ni behöver göra först för att effekten ska bli verklig
+                Inbäddad AI i affärssystemet – vad som ingår, vad som kräver tillägg och vad du behöver göra först för att effekten ska bli verklig
               </p>
               
               <ContactFormDialog>

@@ -136,7 +136,7 @@ export default function StandardProductSections({ productName, data }: Props) {
             {[
               {
                 title: "1. Gör en behovsanalys",
-                body: "Ringa in vad ni faktiskt behöver – innan ni jämför produkter.",
+                body: "Ringa in vad du faktiskt behöver – innan du jämför produkter.",
                 href: "/behovsanalys/",
                 cta: "Skapa en behovsanalys",
               },
@@ -148,7 +148,7 @@ export default function StandardProductSections({ productName, data }: Props) {
               },
               {
                 title: "3. Hitta rätt partner",
-                body: "Utgå från er bransch och era processer – inte från vilken partner som syns mest.",
+                body: "Utgå från din bransch och dina processer – inte från vilken partner som syns mest.",
                 href: "/branscher/",
                 cta: "Hitta partner",
               },
