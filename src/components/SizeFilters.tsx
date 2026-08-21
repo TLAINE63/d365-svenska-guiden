@@ -24,7 +24,7 @@ export function SizeFilters({
   return (
     <>
       <FilterButtons
-        title="Filtrera på din storlek – antal anställda (frivilligt)"
+        title="Hur många anställda har din verksamhet? (frivilligt)"
         icon="employees"
         options={companySizes.map((s) => ({ label: s, value: s }))}
         selectedValue={selectedCompanySize}
@@ -32,7 +32,7 @@ export function SizeFilters({
         colorScheme={colorScheme}
       />
       <FilterButtons
-        title="Filtrera på din omsättning i MSEK (frivilligt)"
+        title="Vilken omsättning har din verksamhet? (MSEK, frivilligt)"
         icon="revenue"
         options={revenueOptions.map((r) => ({ label: r, value: r }))}
         selectedValue={selectedRevenue}

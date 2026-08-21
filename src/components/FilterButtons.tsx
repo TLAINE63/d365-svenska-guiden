@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { X, Building2, Users, AppWindow, DollarSign, Globe } from "lucide-react";
+import { X, Building2, Users, AppWindow, TrendingUp, Globe } from "lucide-react";
 
 // Dynamics 365 icons
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
@@ -57,7 +57,7 @@ const iconMap = {
   industry: Building2,
   employees: Users,
   application: AppWindow,
-  revenue: DollarSign,
+  revenue: TrendingUp,
   geography: Globe,
 };
 

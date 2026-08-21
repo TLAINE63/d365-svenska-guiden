@@ -549,7 +549,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  Filtrera ytterligare – antal anställda, omsättning och geografi
  </div>
  <FilterButtons
- title="Företagsstorlek – antal anställda"
+ title="Hur många anställda har din verksamhet?"
  icon="employees"
  options={companySizes.map((s) => ({ label: s, value: s }))}
  selectedValue={selectedCompanySize}
@@ -557,7 +557,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  colorScheme="primary"
  />
  <FilterButtons
- title="Omsättning i MSEK"
+ title="Vilken omsättning har din verksamhet? (MSEK)"
  icon="revenue"
  options={revenueOptions.map((r) => ({ label: r, value: r }))}
  selectedValue={selectedRevenue}
