@@ -174,7 +174,7 @@ export function PartnerBasicCard({
           {BASIC_COPY.partnerRepBody}
         </p>
         <Link
-          to="/kontakt/?intent=partneranmalan"
+          to="/partnerprogram/"
           className="group mt-2 inline-flex items-center gap-1 text-sm text-muted-foreground underline-offset-2 transition-colors hover:text-foreground hover:underline"
         >
           {BASIC_COPY.cta}
