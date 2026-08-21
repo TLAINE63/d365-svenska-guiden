@@ -149,17 +149,21 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           skiljer dem, en rekommendation om vad hon borde titta närmare på.
         </p>
         <p>
-          Sedan tar projektet vid. Medianen för ERP-projekt ligger enligt
-          Panorama på drygt femton månader. Ett CRM-införande går snabbare, men
-          sällan under tre, och forskningen på området är obarmhärtig – en
-          systematisk översikt anger att omkring 70 procent av
-          CRM-implementeringarna inte når sina förväntade mål.
+          Sedan tar beslutsprocessen vid. Sex månader, ofta tolv, innan gruppen
+          är överens, upphandlingen är klar och avtalet påskrivet. Först
+          därefter startar projektet – och medianen för ERP-projekt ligger
+          enligt Panorama på drygt femton månader.
         </p>
         <p>
-          Det är i glappet mellan de fem sekunderna och de månader som följer
-          som det intressanta händer. Köparen hinner bilda sig en uppfattning,
-          förankra den internt och göra den till gruppens gemensamma
-          utgångspunkt – allt innan någon leverantör vet att frågan ens
+          Tre tidsspann, alltså. Det är det mellersta som är artikelns ärende.
+          AI avgör inte nödvändigtvis vem som vinner affären. Men AI påverkar i
+          allt högre grad vilka namn som över huvud taget får plats i
+          beslutsgruppens interna samtal.
+        </p>
+        <p>
+          Under månaderna som följer hinner den första bilden förankras,
+          ifrågasättas, upprepas och till slut bli gruppens gemensamma
+          utgångspunkt. Allt innan någon leverantör vet att frågan ens
           ställdes.
         </p>
         <p>
@@ -186,10 +190,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           En reservation direkt, eftersom den påverkar hur siffrorna ska läsas.
-          Många av de köpen är självbetjänade – man tecknar ett verktyg, loggar
-          in och börjar använda det. Ingen partner, inget införandeprojekt,
-          ingen förändringsledning. Ett Dynamics-val ser inte ut så, även om
-          leveransmodellen är densamma.
+          Många av köpen är självbetjänade – man tecknar ett verktyg, loggar in
+          och börjar använda det. Ingen partner, inget införandeprojekt, ingen
+          förändringsledning. Ett Dynamics-val ser inte ut så, även om
+          beslutsmönstret delvis är detsamma.
         </p>
         <p>
           Skillnaden gör inte siffrorna irrelevanta. Den gör dem ojämnt
@@ -228,6 +232,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           att mäta förtroende. En språkmodell läser text och bygger sin bild av
           ett bolag utifrån hur andra beskriver det, inte utifrån hur bolaget
           beskriver sig självt.
+        </p>
+        <p>
+          Om detta är mekanismen på söksidan, blir nästa fråga hur den slår i
+          ett partnerlett Dynamics-köp där plattformen ofta är välkänd men
+          leverantörslandskapet är betydligt sämre beskrivet.
         </p>
 
         <h2>Vad som är detsamma, oavsett område och segment</h2>
@@ -283,16 +292,20 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <h3>Riskfrågorna är obesatta</h3>
         <p>
-          "Vad brukar gå fel i ERP-projekt" och "varför misslyckas
-          CRM-införanden" hör till de vanligaste frågorna en beslutsgrupp
-          ställer. Svaren domineras av generisk misslyckandestatistik –
-          budgetöverdrag, förseningar, låg adoption.
+          "Vad brukar gå fel i ERP-projekt?" och "varför misslyckas
+          CRM-införanden?" hör till de vanligaste frågorna en beslutsgrupp
+          ställer. Svaren domineras av generisk misslyckandestatistik:
+          budgetöverdrag, förseningar och låg adoption. På CRM-sidan är
+          underlaget särskilt dystert: en systematisk forskningsöversikt anger
+          att omkring 70 procent av implementeringarna inte når sina förväntade
+          mål.
         </p>
         <p>
           Nästan ingen partner är beskriven i termer av hur de hanterar just de
           riskerna. Det är den yta där köparen är mest orolig och där det finns
-          minst skrivet. För den som vill bli beskriven av tredje part är det
-          den öppnaste dörren som finns.
+          minst skrivet. För den partner som kan visa konkret riskhantering,
+          snarare än bara trygghet i allmänna ordalag, finns därför en ovanligt
+          öppen position.
         </p>
 
         <h2>Var CRM-sidan beter sig annorlunda</h2>
@@ -315,7 +328,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           För det tredje är köparen själv van vid verktygen. Marknadsfunktionen
-          tillhör de yrkesgrupper som snabbast tagit till sig AI-sök. De
+          tillhör de yrkesgrupper som snabbast har tagit till sig AI-sök. De
           utvärderar er i samma verktyg de använder dagligen, och de är bättre
           än de flesta på att se när ett svar bara upprepar en
           marknadsföringstext.
@@ -331,13 +344,12 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           hos vilken typ av kund, med vilket resultat och vilken styrning.
         </p>
         <p>
-          Det som skiljer i en AI-genererad jämförelse är precis det som
-          saknas: har ni agenter i drift hos kunder, hur arbetar ni med
-          datakvalitet som förutsättning snarare än efterhandskorrigering, och
-          hur hjälper ni kunden bestämma vad en agent får och inte får göra.
-          Det är också de frågor en påläst köpare kommer att ställa, eftersom
-          de börjat dyka upp i de svar hon får. Mer om det landskapet finns i{" "}
-          <a href="/aioversikt/">vår översikt över AI, Copilot och agenter</a>.
+          Det som skiljer i en AI-genererad jämförelse är just det som saknas:
+          har ni agenter i drift hos kunder, hur arbetar ni med datakvalitet
+          som förutsättning snarare än efterhandskorrigering, och hur hjälper
+          ni kunden att bestämma vad en agent får och inte får göra? Det är
+          också de frågor en påläst köpare kommer att ställa, eftersom de redan
+          har börjat dyka upp i svaren hon får.
         </p>
         <p>
           Det finns ett andra led här som är värt att förbereda sig på. Köparna
@@ -349,10 +361,18 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           En agent klickar sig inte igenom en snygg webbplats. Den hämtar text,
-          jämför påståenden mot varandra och letar efter något konkret att
-          väga. Är det enda som finns om er ett antal formuleringar om
-          engagemang och lång erfarenhet, blir ni svåra att placera i en
-          jämförelse – inte bortvalda, bara ohanterliga.
+          jämför påståenden och letar efter något konkret att väga. Är det enda
+          som finns om er ett antal formuleringar om engagemang och lång
+          erfarenhet, blir ni svåra att placera i en jämförelse – inte
+          bortvalda, bara ohanterliga.
+        </p>
+        <p>
+          För att bli begriplig i den typen av jämförelse behöver partnern
+          kunna visa: agenter eller Copilot-lösningar som är i drift, vilken
+          kundtyp och process de gäller, hur datakvalitet och behörigheter
+          hanteras, vilka begränsningar som satts för agentens
+          handlingsutrymme och vilket resultat eller vilken lärdom som faktiskt
+          kan beskrivas.
         </p>
 
         <h2>Vad som skiljer mellan segmenten</h2>
@@ -374,13 +394,14 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <h3>Enterprise: AI påverkar karaktäriseringen, inte inbjudan</h3>
         <p>
-          Formell upphandling, ofta en extern rådgivare, etablerade relationer
-          och Microsofts egen säljorganisation. Vilka som kommer med styrs av
-          annat. Men hur ni karaktäriseras under utvärderingen påverkas, och
-          köparen kommer beväpnad med frågor som formulerats någon annanstans.
+          Här finns formell upphandling, ofta extern rådgivning, etablerade
+          relationer och Microsofts egen säljorganisation. Vilka som bjuds in
+          styrs därför av fler faktorer än AI-synlighet. Men hur ni beskrivs
+          under utvärderingen påverkas, och köparen kommer beväpnad med frågor
+          som formulerats någon annanstans.
         </p>
 
-        <h3>Branschdimensionen: där logiken vänds upp och ner</h3>
+        <h2>Branschdimensionen: där logiken vänds upp och ner</h2>
         <p>
           Traditionell sökmotoroptimering belönade bredd. Ju fler termer man
           täckte, desto mer trafik. Därför positionerar sig de flesta partners
@@ -400,11 +421,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Konsekvensen är att nischade partners har ett strukturellt övertag i
           AI-synlighet som de aldrig hade i vanlig sökmotoroptimering. Och att
           bred positionering, som var fullt rationell när köparen var en
-          människa som bläddrade på en webbplats, numera kostar.
+          människa som bläddrade på en webbplats, nu kostar.
         </p>
         <p>
           Det innebär inte att man ska sluta leverera brett. Det innebär att
-          man behöver bli beskriven smalt, på flera ställen, med varje nisch
+          man behöver bli beskriven smalt, på flera ställen och med varje nisch
           för sig. Bredd i leveransen, precision i beskrivningen.
         </p>
 
@@ -473,7 +494,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Och en nyktrande sak: att synas i ett AI-svar ger inträde, inte
           affär. G2 konstaterar att utvärderingsfasen numera är den längsta
-          delen av köpresan för fyra av tio köpare. AI:n kortade vägen till
+          delen av köpresan för fyra av tio köpare. AI kortade vägen till
           listan. Den kortade inte vägen till beslutet – och i ett ERP- eller
           CRM-projekt är det den långa delen som avgör allt.
         </p>
@@ -497,8 +518,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Använd AI för att bredda listan, inte för att fastställa den. Fråga
           vad rekommendationen bygger på. Och lägg märke till om svaret säger
           något konkret om partnern, eller bara upprepar deras egen
-          marknadsföringstext. Det är den typen av fråga jag arbetar med på
-          d365.se – bland annat i{" "}
+          marknadsföringstext – till exempel i{" "}
           <a href="/valjdynamics365partner/">
             översikten över svenska Dynamics 365-partners
           </a>
@@ -516,15 +536,20 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Man kan bara förtjäna den, och det tar tid.
         </p>
         <p>
-          Fem sekunder räcker för att bilda en uppfattning. Femton månader
-          räcker för att ångra den. Det är den första sortens tid som avgör
-          vilka som får chansen att bevisa något under den andra.
+          Fem sekunder räcker för att bilda en uppfattning. Ett år räcker för
+          att göra den till gruppens gemensamma sanning. Femton månader räcker
+          för att ångra den, om den var fel.
+        </p>
+        <p>
+          Det är det mellersta spannet som avgör vilka som ens får chansen att
+          bevisa något under det sista.
         </p>
 
         <aside className="my-10 rounded-md border border-border bg-muted/40 px-7 py-6">
           <p className="!mt-0 !mb-3 !font-semibold">
-            Vill du förstå hur din partnerprofil uppfattas av AI-sök och
-            beslutsfattare?
+            Vill du veta om din partnerprofil är tillräckligt tydlig för att
+            komma med i AI-genererade shortlists – och tillräckligt konkret för
+            att bli rätt beskriven?
           </p>
           <p className="!my-0">
             På d365.se analyserar vi hur Dynamics 365-partners beskrivs,
@@ -552,9 +577,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           </li>
           <li>
             Aggarwal m.fl. – GEO: Generative Engine Optimization (Princeton,
-            Georgia Tech, IIT Delhi).
+            Georgia Tech, IIT Delhi, Allen Institute for AI; ACM KDD 2024).
           </li>
-          <li>Panorama Consulting – ERP Report, projektlängd i median.</li>
+          <li>
+            Panorama Consulting Group – The 2024 ERP Report. Medianprojekttid.
+          </li>
           <li>
             Farhan, Abed &amp; Abd Ellatif (2018) – A systematic review for the
             determination and classification of the CRM critical success
