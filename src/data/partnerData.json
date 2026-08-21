@@ -52,6 +52,17 @@
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "",
+        "deliveryProfile": {
+          "suggestions": {
+            "generatedAt": "2026-08-21T10:19:20.446Z",
+            "aiAutomation": "4PS bidrar till AI och automation främst genom att förbereda kunders system och processer för AI-användning snarare än genom att erbjuda avancerad kundspecifik AI-utveckling. Underlaget nämner att organisationer kan förbereda datagrund, processägarskap och adoption inför AI/Copilot inom ERP- och projektprocesser. AI-underlaget är primärt kopplat till AI-readiness, Copilot och rådgivning. Partnern kan vara relevant när AI-förberedelsen ska kopplas till bygg-/projektflöden, och genom att tillhanda",
+            "deliveryModel": "4PS levererar sin egen vertikala IP/ISV-lösning, 4PS Construct, som är designad, byggd, implementerad och underhålls av partnern själv. Den svenska juridiska enheten är relativt liten, med stöd från den större 4PS Group som har över 400 software engineers och application consultants globalt. Leveransmodellen fokuserar på att tillhandahålla en standardiserad branschlösning, vilket minskar behovet av omfattande specialutveckling. Implementationen strävar efter att kunden ska dra nytta av den färdi",
+            "managedServices": "4PS tillhandahåller förvaltning som en del av sin roll som produkt- och plattformspartner för 4PS Construct. De designar, bygger, implementerar och underhåller programvaran själva, vilket indikerar en egen kapacitet för förvaltning efter go-live. Denna kapacitet bygger på att de är en ISV med en egen vertikal produkt. Detaljer om specifika avtalsformer, supportnivåer och releasehantering för förvaltningstjänster för den svenska marknaden finns inte specificerade i underlaget. Däremot framgår det",
+            "typicalProjects": "Typiska projekt innefattar implementering av branschlösningen 4PS Construct, som är en end-to-end ERP-lösning för bygg, installation och service. Projekten omfattar processer från kalkyl och upphandling till projektstyrning, resursplanering och service. Det kan även röra sig om modernisering från äldre ERP-system till Business Central-baserade branschplattformar, där kunden vill samla fragmenterade processer för ekonomi, projektstyrning och anbud. En stark drivkraft är att få bättre överblick öv",
+            "typicalCustomers": "4PS Construction Software AB riktar sig mot medelstora till större företag inom bygg, entreprenad, installation och service. Kunder kännetecknas av att ha projekt- och serviceorienterade verksamheter, och söker en branschspecifik ERP-lösning byggd på Business Central. De prioriterar kontroll över projektlönsamhet, marginaler, resursplanering och realtidsöversikt. Partnern är relevant för kunder som anser att standard-Business Central kräver för mycket anpassning för bygg- och serviceprocesser oc",
+            "furtherDevelopment": "Vidareutveckling av 4PS Construct sker inom 4PS Group, som designar, bygger och underhåller programvaran. Hilti-ägandet ger en stark internationell produktgrupp bakom den svenska enheten. Detta innebär att 4PS Construction Software AB drar nytta av en kontinuerlig produktutveckling som sker på koncernnivå. Typiska insatser för vidareutveckling är kopplade till att förstärka branschspecifik funktionalitet inom bygg, installation och service, samt att integrera nya teknologier som Power Platform. "
+          }
+        },
         "aiBusinessImpact": "",
         "customerExamples": [
           "Assemblin",
@@ -90,7 +101,7 @@
     "map_url": "https://www.google.com/maps/d/edit?mid=1lqToksFfFiaeIdp1Hgub9PYB6WJk_xs&ll=59.13450631416728%2C16.462738500000004&z=5",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-08-19T13:55:26.359193+00:00",
+    "updated_at": "2026-08-21T10:21:15.363086+00:00",
     "industry_pitches": [
       {
         "text": "4PS Construction Software AB erbjuder en specialiserad lösning baserad på Microsoft Dynamics 365 Business Central, designad för bygg-, entreprenad- och installationbranschen. Partnern adresserar typiska utmaningar såsom komplex projektledning, resursallokering och uppföljning av kostnadskontroll. Genom att implementera 4PS Construct uppnås förbättrad spårbarhet i hela projektcykeln, från kalkyl till efterkalkyl. Detta system stödjer processer som anbudshantering, inköp, materialplanering och personalhantering. Lösningen tillhandahåller även realtidsdata för beslutsfattande, vilket bidrar till optimerad projektgenomförande och ökad lönsamhet. Fokus ligger på en heltäckande branschanpassning inom Dynamics 365 Business Central.",
@@ -239,6 +250,17 @@
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "",
+        "deliveryProfile": {
+          "suggestions": {
+            "generatedAt": "2026-08-21T10:18:25.948Z",
+            "aiAutomation": "Adbriqs AI-kompetens är i första hand kopplad till standardfunktionalitet och rådgivning inom Business Central. Det finns ingen tydlig publik Copilot- eller agentposition identifierad för partnern, vilket innebär att AI-matchning bör begränsas till Business Central/Copilot-standard, datakvalitet, rapportering samt prognos/planering. Partnern har inte presenterat en stark egen berättelse kring fristående AI-utveckling eller avancerad automation utöver vad som är inbyggt i standardlösningar och in",
+            "deliveryModel": "Adbriq har en nischad leveransmodell med fokus på Business Central, TRIMIT Fashion och bisting. Modellen bygger på kombinationen av branschspecifik kunskap och erfarenhet av moderna IT-verktyg. De stöder implementering och vidareutveckling av affärssystem från behovsanalys till genomförande. Internationell projektleverans kan hanteras men Adbriqs organisatoriska skala för globala leveranser är mindre än större europeiska partners, vilket kan kräva verifiering per projekt. Företaget har sitt huvu",
+            "managedServices": "Efter go-live erbjuder Adbriq löpande support och rådgivning för att effektivisera verksamheten. De har en stark förvaltningskapacitet inom den egna BC/TRIMIT/bisting-miljön, vilket säkerställer stöd för systemets funktion och vidareutveckling. Förvaltningen inkluderar hantering av befintliga BC/TRIMIT-kunder som behöver support, förädling, nya integrationer eller vidareutveckling. Avtalsformer och exakta supportnivåer framgår ej, men fokus ligger på långsiktig branschnära förvaltning.",
+            "typicalProjects": "Typiska projekt innefattar implementering av Business Central, ofta i kombination med TRIMIT Fashion och Adbriqs egen plattform bisting. Projekten fokuserar på att digitalisera affärsprocesser och informationsflöden, särskilt inom PDM, inköp, order, lager och logistik för mode-, sport- och textilbranschen. Uppdrag kan inkludera integration med WMS, e-handel och tredjepartssystem. Adbriq erbjuder paketerade, branschspecifika lösningar snarare än helt skräddarsydda ERP-projekt, och målsättningen ä",
+            "typicalCustomers": "Adbriq riktar sig mot mindre till medelstora och växande varumärkes- och handelsbolag. Företagen är typiskt verksamma inom mode, sport, textil och e-handel/lager. De kännetecknas av komplexitet kring varianter, kollektioner, lager och kanaler, snarare än stor koncernskala. Typiska kunder vill modernisera från äldre ERP-system som NAV/Navision till Business Central och värderar djup branschkunskap framför stor konsultvolym eller lägsta pris. Kunderna har ofta internationella kanaler och försäljni",
+            "furtherDevelopment": "Adbriq bistår kunder med vidareutveckling av affärssystem och funktionalitet, med stark förvaltningskapacitet inom sin kärnmiljö av Business Central, TRIMIT Fashion och bisting. Typiska insatser inkluderar att förbättra integrationer, utveckla datalager/datawarehouse, samt stödja framtida planering och prognos. Utveckling kan även gälla anpassningar för varumärkes- och handelsbolag med komplexa produktdata, varianter, kollektioner, storlekar, färger och säsonger, samt e-handel, B2B/B2C, lager oc"
+          }
+        },
         "aiBusinessImpact": "",
         "customerExamples": [
           "Oscar Jacobson - Filippa K - Stenströms - Cellbes - Tranemo Workwear - GalvinGreen - Casall - Kids Brandstore - MnO International - Båstad Gruppen - House of SAKI - Pinewood - Saucony - ASHE - Hellenic Group - Fruit - Holebrook - Cavaliere - Salming"
@@ -281,7 +303,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-05-26T11:20:39.922112+00:00",
-    "updated_at": "2026-08-21T10:08:35.82565+00:00",
+    "updated_at": "2026-08-21T10:21:14.724702+00:00",
     "industry_pitches": [
       {
         "text": "adbriq erbjuder stöd för företag inom mode, sport och textil som använder Microsoft Dynamics 365 Business Central. De fokuserar på att optimera affärsprocesser kopplade till produktlivscykelhantering, lageroptimering och distributionskedjan. Med förståelse för branschens specifika krav, som exempelvis säsongsvariationer, kollektionshantering och flera försäljningskanaler, arbetar adbriq med att anpassa Business Central för en effektiv hantering av dessa flöden. De kan även bistå med integrationer mot externa e-handelsplattformar och logistikpartners för en sammanhållen IT-miljö. adbriq stödjer företag i att hantera data för bland annat artikelvariationer, kundordrar och returer i Business Central.",
@@ -625,6 +647,17 @@
           "Väst",
           "Sydost"
         ],
+        "deliveryProfile": {
+          "suggestions": {
+            "generatedAt": "2026-08-21T10:17:18.691Z",
+            "aiAutomation": "BE-ternas AI-profil på d365.se är omfattande och inkluderar Copilot, Copilot Studio, Power Platform, Azure AI och Microsoft Fabric. De kommunicerar AI, automation och Copilot-nära processer, och mognaden inom detta område bedöms som medel till hög. Partnern är relevant för organisationer som vill koppla ERP till data, BI, Power Platform, AI/automation och förbättrad beslutsförmåga, särskilt när AI ska integreras med Finance- och Supply Chain-processer.",
+            "deliveryModel": "BE-terna tar end-to-end-ansvar för implementation med struktur, governance och metodik på storbolagsnivå. De kombinerar lokal närvaro i Sverige (Halmstad, Helsingborg) med global leveransförmåga via en särskild utrullningsmodell (International Project Organization med lokala partners i över 30 länder). Leveransen fokuserar på långsiktig stabilitet och affärsnytta för att säkerställa framgång i komplexa projekt. De är mindre lämpliga för kunder som prioriterar lägsta pris eller mycket korta imple",
+            "managedServices": "Partnern erbjuder förvaltning och vidareutveckling av Dynamics 365-lösningar. BE-terna har en stark förvaltningskapacitet genom hela livscykeln, med fokus på att stabilisera och förbättra befintliga D365 F&SCM-installationer. De tillhandahåller strukturerad förvaltning, release management, integrationer, rapportering, användarstöd och kontinuerlig processutveckling efter go-live, med avsikt att säkerställa långsiktig stabilitet och affärsnytta för kunderna.",
+            "typicalProjects": "Typiska projekt inkluderar införande eller modernisering av Dynamics 365 Finance & Supply Chain Management för kunder med komplex supply chain, multi-company eller internationella flöden. De hanterar ERP-driven transformation, processstandardisering och governance för att ersätta äldre AX-/ERP-miljöer. Projekt kan också innefatta att koppla ERP till data, BI, Power Platform, AI/automation och förbättrad beslutsförmåga. De arbetar med att skapa globala mallar och stödja internationella utrullning",
+            "typicalCustomers": "BE-terna riktar sig till medelstora till stora grossister, tillverkare och retailaktörer som söker en stabil global Finance-implementation. De passar företag med komplexa processer, flera bolag eller flera länder, som har internationella flöden och behov av ERP, Commerce och integration. Specifika branscher inkluderar retail, fashion/textil, tillverkning, wholesale/distribution, processindustri och professional services. Partnern är relevant för kunder där governance, processstandardisering och ",
+            "furtherDevelopment": "BE-terna arbetar med vidareutveckling av Dynamics 365-lösningar, inklusive modernisering av äldre AX-/ERP-miljöer. De erbjuder egna branschlösningar inom bland annat fashion, professional services och process manufacturing. Fokus ligger på kontinuerlig processutveckling efter go-live, att koppla ERP till data, BI, Power Platform, AI/automation. Insatserna syftar till att stödja kunder som vill förbättra och anpassa sina system över tid med struktur, governance och metodik."
+          }
+        },
         "customerExamples": [
           "BabyBjörn",
           "Nordiska Kompaniet",
@@ -655,7 +688,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-08-19T13:55:26.359193+00:00",
+    "updated_at": "2026-08-21T10:21:13.393279+00:00",
     "industry_pitches": [
       {
         "text": "BE-terna har erfarenhet av leveranser av Microsoft Dynamics 365 till grossist- och distributionsbranschen. Med Dynamics 365 Finance och Supply Chain Management stödjer de företag i att hantera komplexa leveranskedjor och optimera sin distribution. Deras arbete omfattar implementering och förvaltning av dessa system, med fokus på att förbättra finansiell överblick och operativ effektivitet. De har även kompetens inom Dynamics 365 Commerce för företag som vill integrera sina säljkanaler. BE-terna tillämpar en strukturerad metodik för sitt arbete, med syftet att leverera långsiktig affärsnytta. De kombinerar lokal närvaro i tio europeiska länder med global leveransförmåga.",
@@ -837,6 +870,17 @@
           "Väst",
           "Sydost"
         ],
+        "deliveryProfile": {
+          "suggestions": {
+            "generatedAt": "2026-08-21T10:17:13.234Z",
+            "aiAutomation": "Bisqo använder och förmedlar information om AI, automation och Copilot-insikter, primärt genom utnyttjande av Microsofts befintliga funktionalitet. De hjälper kunder att integrera enklare AI- och Copilot-förmågor samt automation nära affärsprocesserna. Kompetensen bedöms vara grundläggande till medel gällande AI, med fokus på rådgivning och implementering av befintliga verktyg snarare än specialiserad AI-utveckling.",
+            "deliveryModel": "Bisqo arbetar med en paketerad och standardiserad leveransmodell som FastTrack och Elevate, med fokus på fast pris och tydligt scope för att begränsa projektrisk. Metodiken syftar till snabba och förutsägbara implementationer som ger affärsvärde. Arbetsättet präglas av senioritet och fokus på kundens affärsbehov. Kundens insats är viktig för att följa den standardiserade processen och bidra till en effektiv start.",
+            "managedServices": "Efter genomförd implementation erbjuds en Managed Services-modell. Denna inkluderar serviceavtal med fast månadspris, fri support, löpande uppdateringar av systemet och hantering av tilläggslösningar. Syftet är att säkerställa långsiktig utveckling och en trygg driftmiljö för kunderna, samt att erbjuda proaktiv rådgivning och utbildningsmaterial.",
+            "typicalProjects": "Typiska projekt innefattar implementation av Dynamics 365 Business Central med fokus på snabb start och tydligt scope. Detta inkluderar byte från äldre ERP-system som C5, Visma, NAV, eller Business Central On-Premise till Business Central Online. Projekten syftar till att effektivisera order-, lager- och ekonomi-processer, ofta med integrationer till e-handel eller andra system. Kunder som vill kombinera BC med CRM på Power Platform är också en typisk målgrupp.",
+            "typicalCustomers": "Bisqo riktar sig primärt till medelstora grossist- och tillverkningsföretag i Norden, med en stark närvaro i Skåne och södra Sverige. Kundsegmentet omfattar företag med cirka 50–999 anställda, inom branscher som grossist och distribution, retail och e-handel, samt tillverkning. De passar företag som vill effektivisera affärsstyrning i Business Central, särskilt de som söker en standardnära och tydligt definierad projektmodell.",
+            "furtherDevelopment": "Vidareutveckling hanteras utifrån ett Land and Expand-tänk, där lösningen byggs vidare i kontrollerade steg efter den initiala implementationen. Detta inkluderar hantering av backlogg och löpande utveckling baserad på kundens växande behov. Exempel på insatser är att anpassa och integrera ytterligare ISV-lösningar eller att expandera användningen av Power Platform och Power BI efter hand."
+          }
+        },
         "customerExamples": [
           "Strands Group AB",
           "Svancare AB"
@@ -858,7 +902,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-08-19T13:55:26.359193+00:00",
+    "updated_at": "2026-08-21T10:21:13.054007+00:00",
     "industry_pitches": [
       {
         "text": "Bisqo AB erbjuder molnbaserade lösningar för grossist- och distributionsbranschen med fokus på Microsoft Dynamics 365 Business Central. Partnern har kompetens inom att effektivisera affärsprocesser som är centrala för branschen, inklusive lagerhantering, orderhantering och logistik. De arbetar med att implementera och optimera dessa system för att möta krav på snabba och precisa leveranser. Bisqo AB levererar även lösningar för kundrelationshantering (CRM) baserade på Power Platform samt analysverktyg med Power BI, vilka bidrar till förbättrad överblick och beslutsfattande i komplexa logistikkedjor. Deras arbetssätt syftar till att leverera snabba och förutsägbara implementationer som ger affärsvärde för distributionsföretag som strävar efter digitalisering och effektivisering av sina processer.",
@@ -1326,6 +1370,17 @@
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/fellowmind-contact-bc.jpg?t=1781010173933",
+        "deliveryProfile": {
+          "suggestions": {
+            "generatedAt": "2026-08-21T10:17:23.506Z",
+            "aiAutomation": "Partnern har kompetens inom Data & AI och hela Microsoft-plattformen, inklusive Copilot. De kan leverera inom områden som Power Platform och Copilot. Med kunskap om AI-lösningar är Fellowmind relevant för kunder som vill utforska och implementera AI- och automationslösningar i sin verksamhet, för att dra nytta av Microsofts inbyggda AI-funktioner och Copilot-studio.",
+            "deliveryModel": "Fellowmind arbetar med ett helhetsansvar som inkluderar licensrådgivning, implementation och förvaltning. Den svenska verksamheten har sina rötter i Orango. Partnern har en paneuropeisk leveranskapacitet kombinerat med lokal svensk närvaro. De har erfarenhet av komplexa, internationella projekt och erbjuder en full-service approach inom Microsoft-ekosystemet.",
+            "managedServices": "Partnern erbjuder förvaltning och managed services som en del av sitt helhetsansvar efter att systemet har tagits i drift. De är en certifierad CSP-partner med licensrådgivning. Denna del av leveransmodellen är utformad för att ge långsiktigt stöd och säkerställa att kundens system fungerar optimalt över tid, vilket ger kontinuitet för verksamheten.",
+            "typicalProjects": "Typiska projekt innefattar implementationer av Dynamics 365 Business Central för mellanstora företag. Partnern hanterar även komplexa, internationella utrullningar i flera länder och bolag. De erbjuder en helhetsansvarsmodell som omfattar allt från licensrådgivning till förvaltning och managed services, vilket tyder på projekt som sträcker sig över hela systemlivscykeln.",
+            "typicalCustomers": "Fellowmind riktar sig mot mellanstora bolag samt större verksamheter. De har dokumenterad erfarenhet av att stödja företag inom branscher som distribution, grossist, retail och tjänstebolag. Partnern har kapacitet för både lokal och internationell utrullning, vilket gör dem lämpliga för kunder som behöver effektivisera sin verksamhet i Sverige eller utomlands. De är ett tryggt val för verksamheter som söker en stabil och stor partner.",
+            "furtherDevelopment": "Fellowmind har en bred kompetens inom hela Microsoft-plattformen, vilket möjliggör vidareutveckling inom närliggande områden som Power Platform, Microsoft 365 och Data & AI. Deras helhetsansvarsmodell innebär att de kan stötta kunder med löpande förbättringar och anpassningar för att möta nya affärsbehov och dra nytta av nya teknologier inom Microsoft-ekosystemet."
+          }
+        },
         "aiBusinessImpact": "",
         "customerExamples": [
           "ViaCon",
@@ -1388,6 +1443,17 @@
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/fellowmind-contact-fsc.jpg?t=1781084585989",
+        "deliveryProfile": {
+          "suggestions": {
+            "generatedAt": "2026-08-21T10:17:28.456Z",
+            "aiAutomation": "Fellowmind har en stark Data & AI-profil och erbjuder kompetens inom molnbaserad teknologi, Data & AI och Copilot. Deras AI-kapaciteter inkluderar Microsofts standard AI inbyggd i Copilot, Copilot Studio-agenter, Power Platform-automation med AI samt AI-driven analys via Power BI Fabric. De kan också assistera med AI-beredskap, datakvalitet, AI-styrning och AI-adoption/utbildning. Typiska AI-användningsfall omfattar AI-beredskap för Copilot, datakvalitet för Copilot, Copilot Studio-agenter, sälj",
+            "deliveryModel": "Fellowmind erbjuder leveranser med en paneuropeisk kapacitet och lokal svensk närvaro. De tar ett helhetsansvar från licensrådgivning till förvaltning och managed services, vilket innebär att de kan hantera en stor del av Microsofts ekosystem. De har en bred kompetens inom Dynamics 365, Power Platform, Microsoft 365 och Copilot. Deras strategi innefattar en full-service approach.",
+            "managedServices": "Partnern erbjuder förvaltning och managed services efter go-live. Denna tjänsteportfölj täcker licensrådgivning och syftar till att ge ett helhetsansvar för kundens Microsoft-ekosystem. Företaget har kapacitet att hantera komplexa, internationella projekt även i förvaltningsfasen.",
+            "typicalProjects": "Fellowmind har dokumenterad erfarenhet av komplexa, internationella utrullningar i många länder och bolag. De erbjuder ett helhetsansvar från licensrådgivning till förvaltning. Projekt omfattar implementering av Dynamics 365 Finance & Supply Chain för större verksamheter, liksom bredden inom Microsoft-plattformen. Företaget hanterar både lokal och internationell utrullning.",
+            "typicalCustomers": "Fellowmind fokuserar på mellanstora till stora företag inom branscher som tillverkning, distribution, energi/utilities, retail och professionella tjänster. Företaget passar för internationella organisationer som kräver utrullning i flera länder, med erfarenhet av komplexa, internationella projekt. De är ett lämpligt val för verksamheter som behöver en stabil och stor partner med både ERP- och CRM-kompetens under samma tak.",
+            "furtherDevelopment": "Partnerns helhetsansvar inkluderar vidareutveckling av systemen efter initial implementering. De erbjuder en omfattande tjänsteportfölj inom Microsofts ekosystem, vilket möjliggör löpande anpassningar och förbättringar. Fokus ligger på långsiktiga partnerskap och att effektivisera kundens verksamhet."
+          }
+        },
         "aiBusinessImpact": "",
         "customerExamples": [
           "Swecon",
@@ -1447,6 +1513,17 @@
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/fellowmind-contact-sales.jpeg?t=1781083909812",
+        "deliveryProfile": {
+          "suggestions": {
+            "generatedAt": "2026-08-21T10:17:34.325Z",
+            "aiAutomation": "Fellowmind har angivit erfarenhet inom Microsofts AI-områden, inklusive Microsoft Standard AI Built-in Copilot, Copilot Studio Agents, Power Platform Automation with AI och Power BI/Fabric AI-driven Analysis. Deras relevanta Microsoft-områden inkluderar bland annat Dynamics 365 Sales, Dynamics 365 Customer Insights och Microsoft 365 Copilot. De kan stödja med AI-redohet för Copilot, data kvalitet för Copilot och implementering av Copilot Studio-agenter i säljprocesser.",
+            "deliveryModel": "Fellowmind levererar Dynamics 365 Sales & Customer Insights med en helhetssyn, från licensrådgivning till förvaltning. Med en paneuropeisk kapacitet och lokal svensk närvaro, har de förmåga att hantera utrullningar i flera länder. Deras team har bredd över både ERP och CRM. Leveransmodellen syftar till att kombinera djup branschkunskap med spets inom Microsoft-plattformen, vilket tyder på en strukturerad metodik.",
+            "managedServices": "Efter go-live erbjuder Fellowmind förvaltning och managed services. Detta inkluderar att säkerställa systemets fortsatta drift och optimering. Specifika avtalsformer eller detaljer kring support och releasehantering beskrivs inte närmare i underlaget, men den breda kompetensen inom Microsoft-plattformen indikerar kapacitet för kontinuerligt stöd och underhåll av lösningarna.",
+            "typicalProjects": "Typiska projekt innefattar implementeringar av Dynamics 365 Sales och Dynamics 365 Customer Insights. Fellowmind har dokumenterad erfarenhet av komplexa, internationella utrullningar. Projekten sträcker sig från licensrådgivning till förvaltning och managed services, ofta med fokus på att effektivisera försäljnings- och kundprocesser inom mellanstora till stora verksamheter i Sverige eller internationellt.",
+            "typicalCustomers": "Fellowmind fokuserar på mellanstora till stora företag inom branscher som distribution, retail och professionella tjänster. De har en etablerad närvaro i flera europeiska länder och är därmed relevanta för organisationer som söker en partner för både lokal och internationell utrullning av CRM-lösningar. Partnern passar verksamheter som önskar en partner med helhetsansvar för Microsofts ekosystem, inklusive både ERP- och CRM-kompetens under samma tak.",
+            "furtherDevelopment": "Vidareutveckling av systemen sker med utgångspunkt i kundens behov, ofta med helhetsansvar från licensrådgivning till förvaltning. Information om specifika beslutsforum eller arbetssätt för att hantera en utvecklingsbacklogg saknas i underlaget. Typiska insatser för vidareutveckling innefattar troligen optimeringar och anpassningar av Sales- och Customer Insights-funktioner för att möta förändrade affärskrav och tekniska möjligheter."
+          }
+        },
         "aiBusinessImpact": "",
         "customerExamples": [
           "Lejonfastigheter",
@@ -1482,7 +1559,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T20:38:52.813808+00:00",
-    "updated_at": "2026-08-19T13:55:26.359193+00:00",
+    "updated_at": "2026-08-21T10:21:13.70485+00:00",
     "industry_pitches": [
       {
         "text": "Fellowmind erbjuder lösningar baserade på Microsoft Dynamics 365 för grossist- och distributionsbranschen. Med inriktning på att optimera leveranskedjor och finansiella processer, implementerar Fellowmind Dynamics 365 Finance och Supply Chain Management. Deras expertis omfattar att stödja företag i att hantera komplexa logistikflöden, förbättra lagereffektiviteten och säkerställa transparenta ekonomiska transaktioner. Fellowmind arbetar med att anpassa Microsoft-plattformen för att möta specifika krav gällande priskonfigurationer, integration med tredjepartslogistik (3PL) och optimering av order-till-leveransprocesser. De strävar efter att leverera hållbara lösningar som bidrar till ökad operativ effektivitet och datadrivna beslutsunderlag.",
@@ -1864,6 +1941,17 @@
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "",
+        "deliveryProfile": {
+          "suggestions": {
+            "generatedAt": "2026-08-21T10:17:40.931Z",
+            "aiAutomation": "InBiz integrerar Power Platform och Copilot i sitt bredare erbjudande. Deras AI-information pekar främst mot rådgivning, AI-readiness och datakvalitet inför användning av Copilot snarare än avancerad AI-utveckling. De kan hjälpa organisationer att förbereda Business Central för AI/Copilot genom att förbättra masterdata, behörigheter, processer och Power Platform-automation. Fokus ligger på att kunder ska kunna använda enklare automation och förbereda sig för Copilot/AI genom att först etablera b",
+            "deliveryModel": "InBiz är en Uppsala-baserad partner som levererar digitalt till kunder över hela Norden. Företaget har 13 anställda och betonar personlig service med direkt tillgång till konsulter, vilket innebär att kunderna har direktkontakt utan stora organisatoriska lager. De har egen utvecklingskompetens för att skapa kundspecifika tilläggslösningar och arbetar med etablerade ISV-partners för branschspecifik funktionalitet. Metodiken präglas av ett långsiktigt förvaltningsperspektiv och en stegvis modernis",
+            "managedServices": "Efter go-live erbjuder InBiz långsiktig förvaltning av Business Central-miljöer. De fokuserar på att stödja kunderna med löpande utveckling och underhåll. Detta inkluderar hantering av befintliga NAV/Business Central-miljöer och att hjälpa kunder att modernisera dem stegvis mot Business Central on-prem eller SaaS. Partnern har ett tydligt långsiktigt förvaltningsperspektiv och lägger vikt vid kontinuerlig vidareutveckling, support och utbildning för att säkerställa att systemet stöder operativa ",
+            "typicalProjects": "Typiska projekt innefattar implementeringar och förvaltning av Microsoft Dynamics 365 Business Central. Detta inkluderar uppdrag för grossister/distributörer för att hantera lager, order och e-handel, samt för tillverkande företag med behov av BoM, MRP/ERP, produktionsplanering och WMS. Projekt kan även omfatta IT- och tjänsteföretag som önskar automatisera avtalshantering, ärenden, projekt och fakturering. Många projekt innebär modernisering av äldre NAV-miljöer till Business Central, både on-p",
+            "typicalCustomers": "InBiz riktar sig främst mot mindre och medelstora svenska verksamheter med 10–200 anställda. De betjänar företag inom tillverkningsindustrin, grossist- och distributionsbranschen samt livsmedels- och processindustrin. Även IT-företag och tjänsteföretag med avtalstunga verksamheter utgör en viktig kundgrupp. Många kunder har en historik med NAV och söker en partner för att modernisera mot Business Central, värderar långsiktiga relationer och en personlig service med praktisk processförståelse. De",
+            "furtherDevelopment": "InBiz stödjer vidareutveckling av Business Central-miljöer genom sin egen utvecklingskompetens för kundspecifika tilläggslösningar. De arbetar med att modernisera och anpassa befintliga NAV/Business Central-miljöer. Typiska insatser inkluderar anpassningar för att förbättra rapportering, datakvalitet och processdisciplin. Partnern samarbetar med etablerade ISV-partners för att tillhandahålla branschspecifik funktionalitet och tillgång till senaste Microsoft-insikter och utbildningar via Compania"
+          }
+        },
         "aiBusinessImpact": "",
         "customerExamples": [],
         "aiCaseDescription": "",
@@ -1887,7 +1975,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-08-19T13:55:26.359193+00:00",
+    "updated_at": "2026-08-21T10:21:14.048646+00:00",
     "industry_pitches": [
       {
         "text": "InBiz har sedan 2005 erfarenhet av att implementera Microsoft Dynamics 365 Business Central för företag inom olika branscher, inklusive grossist- och distributionssektorn. De erbjuder lösningar som stödjer optimering av bland annat lagerhantering, logistik, inköpsprocesser och försäljning, vilket är centralt för grossisters operativa effektivitet. Genom att anpassa Business Central kan InBiz bidra till förbättrad spårbarhet och precision i leveranskedjan. Fokus ligger på att leverera stabila systemlösningar som möter de krav på snabba och precisa flöden som kännetecknar distributionsbranschen. InBiz strävar efter att underlätta för företag att hantera sina verksamhetsprocesser mer effektivt.",
@@ -2043,6 +2131,17 @@
         "aiProjectCount": "",
         "hasBuiltAgents": false,
         "aiOtherAdvanced": "",
+        "deliveryProfile": {
+          "suggestions": {
+            "generatedAt": "2026-08-21T10:17:46.501Z",
+            "aiAutomation": "Knowits erbjudande inom AI och automation omfattar stöd för Microsoft Copilot, prediktiv analys och automatiserade processer som en integrerad del av ERP, data och automation. Kompetens finns för att integrera AI i affärsprocesser kopplade till Dynamics 365. Partnern kan även bistå med att bygga AI-fundament runt ERP med tjänster som Power BI, Microsoft Fabric och AI-drivna beslutsstöd. Knowit ses som relevant när AI ska kopplas till verkliga ERP-processer och datakvalitet.",
+            "deliveryModel": "Knowits leveransmodell kombinerar ERP-strategi, implementation och förvaltning med expertis inom Data & AI, Power Platform, cybersäkerhet, management consulting och förändringsledning. De arbetar med att koppla samman ERP med dataplattformar och andra verksamhetssystem. Teamet har teknisk kompetens inom bland annat Azure Service Bus, Dataverse, Dual Write, Power Automate och Microsoft Fabric, för att säkerställa integration och värdeskapande tvärs över Microsofts ekosystem.",
+            "managedServices": "Efter go-live erbjuder Knowit förvaltning och kontinuerlig förbättring av befintliga Dynamics 365 Finance & Supply Chain-miljöer. Detta innefattar bland annat arbete med SLA-strukturer, roadmap och optimeringsprojekt för att säkerställa systemets långsiktiga värdeuttag. Tjänsterna stödjer kunder med strukturerad releasehantering och proaktiv förvaltning för att systemet ska fortsätta att utvecklas i takt med verksamhetens behov.",
+            "typicalProjects": "Knowit utför projekt som omfattar hela ERP-livscykeln för Dynamics 365 Finance & Supply Chain Management. Detta inkluderar verksamhetsanalys, lösningsdesign, implementation, migrering och integration. Projekten fokuserar på att bygga långsiktiga plattformar och är ofta kopplade till bredare digitaliseringsstrategier. Typiska projekt omfattar även att hantera komplexa B2B-, B2C-, produktions-, distributions- och internationella verksamhetsflöden för koncerner med flera bolag på en gemensam plattf",
+            "typicalCustomers": "Knowits typiska kunder är medelstora till större organisationer (100–4 999 anställda) med komplexa flöden, ofta med flera organisatoriska eller geografiska enheter. De befinner sig inom branscher som tillverkning och grossist/distribution, men även energi, handel och shipping. Kunderna söker modernisering av sin finansiella styrning och har ett behov av att knyta samman ERP, data och intelligenta arbetssätt för att optimera processer och verksamhetsutveckling.",
+            "furtherDevelopment": "Knowit arbetar med vidareutveckling av befintliga Dynamics 365 F&SCM-miljöer genom en strukturerad approach. Detta kan innebära optimeringar, implementering av nya funktioner och strategisk rådgivning. Partnern har kapacitet att hantera kontinuerlig vidareutveckling, inklusive hantering av releasecykler och anpassning till nya affärskrav. Fokus ligger på att säkerställa att systemet stödjer kundens verksamhetsutveckling och att nya möjligheter som Data & AI utnyttjas."
+          }
+        },
         "aiBusinessImpact": "",
         "customerExamples": [
           "ClampON AS"
@@ -2070,7 +2169,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-08-19T13:55:26.359193+00:00",
+    "updated_at": "2026-08-21T10:21:14.223899+00:00",
     "industry_pitches": [
       {
         "text": "Knowit bistår organisationer inom grossist- och distributionsbranschen med att utveckla och modernisera sina affärssystem baserade på Microsoft Dynamics 365. Genom att implementera och optimera applikationer som Dynamics 365 Finance och Supply Chain Management, strävar Knowit efter att förbättra verksamhetsprocesser, datainsamling och automatisering. De fokuserar på att integrera ERP-system med data och intelligenta arbetsflöden för att möjliggöra effektivare beslutsfattande och en mer hållbar verksamhetsutveckling. Knowit har kompetens att anpassa lösningar för att möta branschens krav på optimerade leveranskedjor och finansiell kontroll, vilket kan stödja grossister och distributörer i en konkurrensutsatt marknad.",
@@ -2578,6 +2677,17 @@
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "",
+        "deliveryProfile": {
+          "suggestions": {
+            "generatedAt": "2026-08-21T10:17:54.422Z",
+            "aiAutomation": "Nexer har en AI-profil som ligger främst på praktisk användning av Microsofts Copilot- och AI-funktioner inom affärsprocesserna. De är relevanta när kunden vill använda Power BI/Fabric, AI och Copilot, men först behöver säkra datakvalitet, governance, semantiska modeller, behörigheter och integrationer från ERP/CRM. De beskriver data products, semantic models, sensitivity labels, data protection, quality, lineage och lifecycle, vilket indikerar erfarenhet av att bygga en solid datagrund för AI. ",
+            "deliveryModel": "Nexer tillämpar en ”Solution First”-metodik med fokus på standard och best practice för att minska anpassningar och underlätta uppgraderingar. De har ett agilt och framåtlutat förhållningssätt. Som en stor konsult- och systemintegrationsaktör med dedikerade Enterprise Applications-enheter, har de resursdjup att hantera stora och komplexa projekt samt multi-country-rollouts. De betonar vikten av att hantera både affärsprocesser och teknisk plattformsarkitektur. Nexer har nordisk förankring kombin",
+            "managedServices": "Nexer är starkt positionerade för kunder som behöver långsiktig förvaltning, support och release-/vidareutvecklingskapacitet efter go-live. Deras Care 365-positionering gör dem relevanta för kunder som söker en förvaltningspartner efter projektets genomförande. De erbjuder löpande support, releasehantering, regressionstest, användarstöd och roadmap-arbete. Detta omfattar application management och managed services. De kan hantera långsiktiga managed services för att säkerställa kontinuerlig drif",
+            "typicalProjects": "Typiska projekt för Nexer omfattar modernisering från äldre Dynamics AX till D365 F&SCM, samt att koppla ihop ekonomi, supply chain, sälj, service och kunddata i en gemensam Dynamics 365-plattform. De hanterar uppdrag där kunden har komplexa integrationslandskap, flera affärssystem, datamigrering, BI/Fabric eller Power Platform-behov. Projekt kan även innefatta att etablera en datagrund för rapportering och AI-readiness. Nexer kan även vara relevanta för bolag inom automotive/equipment som kombi",
+            "typicalCustomers": "Nexer riktar sig mot medelstora till stora företag (200–10 000+ anställda) med komplexa behov inom ERP och digital transformation. Specifika branscher inkluderar tillverkande företag, grossister, distributörer och retailbolag som vill ha ett integrerat affärssystem som skalar i Sverige. De passar även nordiska organisationer som söker en bred Microsoft-partner med kapacitet för ERP, CRM och digital transformation. Företag som vill standardisera processer enligt best practice och undvika tunga an",
+            "furtherDevelopment": "Nexer stöder vidareutveckling genom att tillhandahålla support, releasehantering, regressionstest och användarstöd. De arbetar med att etablera en roadmap för kontinuerlig förbättring efter go-live. Partnern har kapacitet för att bygga vidare på befintliga D365-miljöer och stödja kunder med framtida uppgraderingar och utökningar. De kan hantera behov kring komplexa integrationslandskap, datamigrering, BI/Fabric och Power Platform. De har en bredd inom Microsoft-plattformen som tillåter integrera"
+          }
+        },
         "aiBusinessImpact": "",
         "customerExamples": [],
         "aiCaseDescription": "",
@@ -2636,6 +2746,17 @@
         "aiProjectCount": "3–5",
         "hasBuiltAgents": null,
         "aiOtherAdvanced": "",
+        "deliveryProfile": {
+          "suggestions": {
+            "generatedAt": "2026-08-21T10:18:00.607Z",
+            "aiAutomation": "Nexers AI-profil ligger främst på praktisk användning av Microsofts Copilot- och AI-funktioner inom affärsprocesserna. De fokuserar på att säkra datakvalitet, governance, semantiska modeller, behörigheter och integrationer från ERP/CRM som grund för AI-användning. De arbetar med Power BI/Fabric och AI, och kan bidra till att implementera AI och Copilot i kundens Dynamics 365-lösningar. Nexer beskriver sig ha en stark Microsoft-plattformsbredd inklusive Data/AI.",
+            "deliveryModel": "Nexer arbetar med en 'Solution First'-metodik för att minska anpassningar och underlätta uppgraderingar genom att fokusera på standard och best practice. De beskrivs som en större teknikpartner som kan hantera stora komplexa projekt med resursdjup. De har kapacitet för multi-country-rollouts och långsiktig managed services. Deras erbjudande omfattar full bredd inom Dynamics 365 inklusive Sales och Customer Insights, med Power Platform och Azure som centrala komplement. De är en bred Microsoft Bu",
+            "managedServices": "Nexer erbjuder långsiktig förvaltning, support och release-/vidareutvecklingskapacitet efter go-live. Deras Care 365-positionering gör dem relevanta när kunden behöver en förvaltningspartner utöver ett projektteam. De kan erbjuda löpande support, releasehantering, regressionstest, användarstöd och roadmap-arbete. Detta omfattar att hantera en D365-miljö med bibehållen processkontroll och förvaltningsmodell. Nexer är starkt när långsiktigt ansvar och förbättring är centralt.",
+            "typicalProjects": "Typiska projekt för Nexer inom Sales & Customer Insights involverar att koppla ihop sälj, service och kunddata i Dynamics 365, ofta som en del av en större Microsoft-plattform. Projekt kan inkludera implementering av CRM/CE och integration med befintliga affärssystem. Nexer har kapacitet för stora och komplexa projekt, inklusive multi-country rollouts. De arbetar med en 'Solution First'-metodik som fokuserar på standard och best practice för att minska anpassningar och underlätta uppgraderingar.",
+            "typicalCustomers": "Nexer riktar sig till medelstora till stora företag (200–10 000+ anställda) med komplexa behov inom affärssystem och digital transformation. De passar organisationer som vill kombinera ERP och CRM/CE inom Microsoft-plattformen snarare än enbart en isolerad applikation. Deras kundsegment inkluderar tillverkande industri, grossist/distribution, retail/e-handel, transport/logistik och automotive/equipment. Kunderna har ofta ett behov av att koppla ihop sälj, service och kunddata. Geografiskt passar",
+            "furtherDevelopment": "Nexer kan stötta kunder med vidareutveckling och löpande förbättringsarbete för Dynamics 365-lösningar. Detta inkluderar roadmap-arbete och anpassning till nya releaser för att säkerställa att kundens system kontinuerligt utvecklas. De är relevanta när en kund behöver kontinuerlig förbättring och har en befintlig D365-miljö som ska byggas vidare på. Förmågan att hantera releasehantering och regressionstest är en del av deras långsiktiga erbjudande."
+          }
+        },
         "aiBusinessImpact": "",
         "customerExamples": [
           "Kundexempel",
@@ -2703,6 +2824,17 @@
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "",
+        "deliveryProfile": {
+          "suggestions": {
+            "generatedAt": "2026-08-21T10:18:06.694Z",
+            "aiAutomation": "Nexers AI-profil ligger främst på praktisk användning av Microsofts Copilot- och AI-funktioner inom affärsprocesserna. De fokuserar på att säkra datakvalitet, governance, semantiska modeller, behörigheter och integrationer från ERP/CRM som grund för AI och Copilot. Detta innebär att de kan stödja kunder som vill använda Power BI/Fabric, AI och Copilot för att förbättra beslutsfattande och automatisera processer inom bland annat Customer Service, Field Service och Contact Center-lösningar.",
+            "deliveryModel": "Nexer tillämpar en 'Solution First'-metodik med fokus på standardlösningar och best practice för att minska anpassningar och underlätta framtida uppgraderingar. Som en större teknikpartner har de resursdjup för att hantera komplexa projekt med multi-country-rollouts. De arbetar med D365 Customer Service, Field Service och Contact Center som del av den fulla bredden inom Microsoft Dynamics 365, ofta i kombination med Power Platform och Azure, vilket indikerar en integrerad Microsoft-stack. Levera",
+            "managedServices": "Nexer erbjuder långsiktig förvaltning, support och release-/vidareutvecklingskapacitet efter go-live. Deras Care 365-positionering innebär att de är särskilt relevanta när kunden inte bara behöver ett projektteam, utan även en förvaltningspartner. De hanterar löpande support, releasehantering, regressionstest, användarstöd och roadmap-arbete. Detta gör dem till en stark kandidat för kunder som vill bygga vidare på en befintlig D365-miljö med kontinuerlig support och förbättring.",
+            "typicalProjects": "Typiska projekt innefattar implementeringar och modernisering av Dynamics 365 Customer Service, Field Service och Contact Center. Dessa projekt syftar till att koppla ihop sälj, service och kunddata inom Dynamics 365, ofta som en del av en bredare Microsoft-plattform. Nexer hanterar komplexa projekt med fokus på standard och best practice, vilket minskar behovet av tunga anpassningar. Projekt kan också inkludera integrationslandskap, datamigrering, BI/Fabric eller Power Platform-behov. De är int",
+            "typicalCustomers": "Nexer är relevant för medelstora till stora företag (200–10 000+ anställda) med komplexa behov inom CRM och digital transformation. Specifikt för Customer Service, Field Service och Contact Center-relaterade lösningar passar de organisationer som vill koppla ihop sälj, service och kunddata inom Dynamics 365. Passar större svenska och nordiska organisationer som söker en bred Microsoft-partner med kapacitet för ERP, CRM och digital transformation i samma leverans, inklusive behov av långsiktig fö",
+            "furtherDevelopment": "Nexer är starkt när långsiktigt ansvar och förbättring är centralt efter go-live. De arbetar med roadmap-arbete och kontinuerlig vidareutveckling av befintliga Dynamics 365-miljöer, inklusive lösningar för Customer Service, Field Service och Contact Center. Detta kan inkludera att bygga vidare på Power Platform och Azure för att utöka funktionaliteten. De har kapacitet att hantera förbättringar som involverar komplexa integrationslandskap, data, BI/Fabric och AI-readiness, vilket indikerar en br"
+          }
+        },
         "aiBusinessImpact": "",
         "customerExamples": [],
         "aiCaseDescription": "",
@@ -2731,7 +2863,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-08-21T10:08:35.82565+00:00",
+    "updated_at": "2026-08-21T10:21:14.399456+00:00",
     "industry_pitches": [
       {
         "text": "Nexer levererar affärssystemslösningar baserade på Microsoft Dynamics 365 till företag inom grossist- och distributionsbranschen. Med fokus på applikationer som Business Central, Finance och Supply Chain Management stödjer de kunder i att optimera processer som orderhantering, lagerstyrning och logistik. Deras erbjudande omfattar även stöd för kundrelationer genom Dynamics 365 Sales och Customer Service, vilket kan bidra till förbättrad kundkommunikation och service. Nexer har erfarenhet av att implementera system för hantering av globala leveranskedjor och kan bistå med integrationer för att möta krav på spårbarhet och effektivitet i en konkurrensutsatt marknad. De arbetar för att hjälpa företag att hantera marginalpress och möta höga förväntningar på leveransprecision.",
@@ -2893,6 +3025,17 @@
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "",
+        "deliveryProfile": {
+          "suggestions": {
+            "generatedAt": "2026-08-21T10:18:13.548Z",
+            "aiAutomation": "Point Taken har ett uttalat fokus på AI och automation, särskilt kopplat till Copilot och AI-agenter i Microsoft-miljön. De har utvecklat ett Copilot Readiness Kit och en M Agent Governance Platform för att hjälpa organisationer att förbereda sig för och styra AI-agenter. Deras expertis ligger i att hantera data, behörigheter och säkerhet som en grund för AI-implementering. De adresserar kundernas behov av att införa Microsoft 365 Copilot eller AI-agenter, med kontroll över data och governance. ",
+            "deliveryModel": "Point Taken har en nordisk leveransmodell med kontor i Oslo samt svensk närvaro i Stockholm och Malmö efter sammanslagningen med Infunnel. De betonar en integrerad approach där Dynamics 365 ses som en del av en bredare Microsoft-plattform, inklusive Microsoft 365 och Power Platform. Exakta detaljer om teamsammansättning och metodik utöver detta är inte specificerade i underlaget. Det framgår att de arbetar med att möjliggöra adoption och governance, vilket indikerar att kundens medverkan i dessa",
+            "managedServices": "Point Taken erbjuder långsiktig förvaltning, säkerhet och Power Platform-governance, särskilt för offentliga och större organisationer. Deras tjänster omfattar löpande förvaltning av Dynamics 365 CE/CRM, Power Platform och Microsoft 365-miljöer. Detaljer kring specifika avtalsformer, supportnivåer och releasehantering utöver detta är inte explicit beskrivna i underlaget. Företagets fokus på säkerhet och styrning antyder dock ett strukturerat tillvägagångssätt för att upprätthålla systemets funkt",
+            "typicalProjects": "Point Taken driver projekt inom CRM-modernisering där Dynamics 365 Sales och Customer Insights implementeras eller vidareutvecklas. Projekten fokuserar på att integrera CRM som en del av kundens befintliga Microsoft 365-miljö, snarare än som ett isolerat system. De hanterar uppdrag för kunder som vill börja med CRM stegvis och sedan växa mot fler Customer Engagement-processer, automation och AI. Typiska projekt inkluderar även att automatisera manuella processer i Microsoft 365, samt att etabler",
+            "typicalCustomers": "Point Taken vänder sig till organisationer som söker en skalbar CRM-lösning och som har Microsoft 365 som central arbetsplattform. De passar kunder som vill implementera eller vidareutveckla Dynamics 365 Sales och Customer Insights. Fokus ligger på kunder som vill koppla kundprocesser, dokument och automation inom en större Microsoft-miljö, inklusive Teams och SharePoint. Typiska kunder inkluderar offentlig sektor, fastighetsbolag, samt företag inom bostad/bygg/fastighetsutveckling. De betjänar ",
+            "furtherDevelopment": "Point Taken stöder vidareutveckling genom fokus på att kunder ska kunna växa från hanterbara CRM-steg mot fler Customer Engagement-processer, automation och AI. De arbetar med att stärka kopplingen mellan Dynamics 365, Microsoft 365 och Power Platform. Typiska insatser inkluderar att bygga ut funktionalitet inom säljstyrning, kundinsikter och marknadsautomation. Deras erbjudande om Copilot Readiness Kit och M Agent Governance Platform indikerar ett starkt fokus på att möjliggöra en kontinuerlig "
+          }
+        },
         "aiBusinessImpact": "",
         "customerExamples": [],
         "aiCaseDescription": "",
@@ -2930,6 +3073,17 @@
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "",
+        "deliveryProfile": {
+          "suggestions": {
+            "generatedAt": "2026-08-21T10:18:19.421Z",
+            "aiAutomation": "Point Taken visar dokumenterad erfarenhet inom AI och automation, särskilt kopplat till Copilot och AI-agenter. De kommunicerar tydligt kring 'Copilot Readiness Kit' och 'M Agent Governance Platform' för styrning av AI-agenter. Deras AI-mognad är hög, men publika kundcase för AI-agenter kan behöva verifieras. AI-kompetensen kopplas primärt till CRM, Microsoft 365, Power Platform, dokument/processer och governance, med fokus på data, behörigheter och säkerhet.",
+            "deliveryModel": "Point Taken har en nordisk bas med svensk närvaro i Stockholm och Malmö. Leveransen bygger på att positionera Dynamics 365 som en del av en större Microsoft-miljö, som inkluderar Teams, SharePoint, Microsoft 365, Power Platform och Azure. Metodiken fokuserar på att leverera lösningar som förbättrar informationsflöden och automatiserar processer, ofta med en stegvis approach som möjliggör tillväxt mot fler CE-processer, AI och automation.",
+            "managedServices": "Efter go-live erbjuder Point Taken långsiktig förvaltning, säkerhet, molnstyrning och Power Platform-governance. De passar organisationer, särskilt offentliga eller större, som behöver kontinuerlig hantering av sin Microsoft-plattform. Förvaltningstjänsterna säkerställer att lösningarna förblir säkra, uppdaterade och välstyrda, vilket är viktigt för att hantera bland annat datakvalitet och behörigheter i AI-sammanhang.",
+            "typicalProjects": "Typiska projekt innefattar implementering eller vidareutveckling av Dynamics 365 Customer Service och Field Service, inklusive automatisering och förbättrad ärendehantering. Projekten fokuserar på att digitalisera kundprocesser, som fältserviceplanering och kundkommunikation, där Dynamics 365 CE, Power Platform och Microsoft 365 ska samverka. Detta omfattar även modernisering av CRM i en Microsoft-miljö för att göra det till en integrerad del av användarnas dagliga arbetsflöde.",
+            "typicalCustomers": "Point Taken riktar sig till organisationer som söker Dynamics 365 Customer Service eller Field Service och har en stark koppling till Microsoft 365 och Power Platform. Segmentet omfattar SMB, midmarket och större organisationer, inklusive offentlig sektor/fastighet samt bostad/bygg/fastighetsutveckling. De passar kunder som vill integrera CRM tätt med sin befintliga Microsoft-miljö och som har behov av AI- och Copilot-readiness. Nordiska kunder, med närvaro i Norge och Sverige, är också en målgr",
+            "furtherDevelopment": "Vidareutveckling fokuserar på att expandera befintliga CE-processer samt integrera automation och AI. Partnern lämpar sig för kunder som vill börja med CRM i hanterbara steg men har ambition att växa. Detta inkluderar att vidareutveckla befintliga D365 Sales, Customer Insights, Customer Service eller Field Service med stark Microsoft 365-/Power Platform-koppling samt att implementera Copilot och AI-agenter. Beslutsforum drivs sannolikt i nära samarbete med kunden för att styra backlog och priori"
+          }
+        },
         "aiBusinessImpact": "",
         "customerExamples": [],
         "aiCaseDescription": "",
@@ -2949,7 +3103,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-08-21T10:08:35.82565+00:00",
+    "updated_at": "2026-08-21T10:21:14.565917+00:00",
     "industry_pitches": [
       {
         "text": "Point Taken hjälper konsultföretag att effektivisera sin verksamhet med Microsoft Dynamics 365, särskilt genom fokus på projekt- och resurshantering. De adresserar problem som ineffektiva resursallokeringar och bristande överblick över projektlönsamhet. Point Taken implementerar lösningar som samlar kundrelationer, projektplanering och ekonomiska flöden för att skapa en enhetlig plattform.\n\nDe arbetar med att automatisera tidrapportering och fakturering, vilket reducerar administrativ börda och förbättrar kassaflödet. Genom att optimera användningen av Dynamics 365 for Project Operations och Sales, kan Point Taken underlätta för konsultbolag att fatta datadrivna beslut. Detta förbättrar i sin tur resursutnyttjande och bidrar till ökad lönsamhet per projekt.",
@@ -3065,6 +3219,17 @@
         "landingPageUrl": "https://www.sherpas.se/plattformar/business-central/",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "",
+        "deliveryProfile": {
+          "suggestions": {
+            "generatedAt": "2026-08-21T10:19:05.742Z",
+            "aiAutomation": "Sherpas Group AB:s erfarenhet inom AI och automation är primärt kopplad till Microsofts standardfunktionalitet och Copilot, snarare än egen avancerad AI-utveckling. De har förmågor inom Microsoft 365, automation och Power Platform, vilket möjliggör implementering av automatiserade arbetsflöden. Partnern arbetar med Power Automate för att skapa processautomationer. AI-underlaget är framför allt kopplat till Microsofts standardfunktionalitet och Copilot. Konkreta publika Copilot-/Agent-case är beg",
+            "deliveryModel": "Sherpas Group AB arbetar med att konfigurera och anpassa Dynamics 365-applikationer efter kundernas specifika behov. De erbjuder en helhetsleverans där ERP-projektet kopplas till processkartor, styrande dokument, projektadministration, automatiserade arbetsflöden och Power BI-rapportering. Metodiken innefattar en bred Microsoft-plattformskompetens där Business Central kombineras med Microsoft 365, SharePoint och Power Platform. Kundens insats är viktig för att säkerställa att affärssystemet och ",
+            "managedServices": "Efter go-live erbjuder Sherpas Group AB helpdesk, support och löpande förvaltning för Dynamics 365 Business Central. Företaget har kapacitet för att hantera kontinuerlig vidareutveckling av systemet och tillhörande Microsoft 365-miljöer. Tjänsterna syftar till att säkerställa stabil drift, support och förbättringar. Kunderna kan förvänta sig hjälp med integrationer och att systemen förvaltas långsiktigt snarare än att endast projektimplementation sker. Detta inkluderar stöd för Microsoft 365/Sha",
+            "typicalProjects": "Typiska Business Central-projekt hos Sherpas involverar modernisering och implementering av affärssystemet. Projekten syftar till att konsolidera ekonomi, lager, inköp, försäljning och projektledning. Omfattningen inkluderar ofta integration med Microsoft 365, Power BI, Teams och SharePoint. Det kan även handla om att bygga processkartor, styrande dokument, projektportaler och automatisera arbetsflöden. Projektperioden kan variera beroende på komplexitet och kundens integrationsbehov. Sherpas dr",
+            "typicalCustomers": "Sherpas Group AB:s typiska kunder för Dynamics 365 Business Central är svenska små till medelstora organisationer. Dessa kunder söker modernisering av äldre ERP-system, som exempelvis NAV eller Pyramid. Kunderna kan finnas inom branscher som logistik, tillverkning, energi, eller andra processnära verksamheter där ERP, processer och informationsflöden behöver samverka. De efterfrågar ofta integration med Microsoft 365, Power BI, Teams och SharePoint, samt extern systemintegration. Fokus ligger på",
+            "furtherDevelopment": "Vidareutvecklingen hos Sherpas Group AB omfattar att hantera kundens backlogg av förbättringar och nya funktioner för Dynamics 365 Business Central och dess integrationer. Typiska insatser inkluderar anpassningar av systemet, utveckling av integrationer med andra Microsoft-tjänster som Power BI, Power Apps, Power Automate, SharePoint och Teams, samt externa system. Sherpas erbjuder kontinuerlig vidareutveckling snarare än endast isolerade projekt. Detta sker genom en process som innefattar hante"
+          }
+        },
         "aiBusinessImpact": "",
         "customerExamples": [],
         "aiCaseDescription": "",
@@ -3112,6 +3277,17 @@
         "landingPageUrl": "https://www.sherpas.se/plattformar/dynamics-365-f-scm/",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "",
+        "deliveryProfile": {
+          "suggestions": {
+            "generatedAt": "2026-08-21T10:19:12.323Z",
+            "aiAutomation": "Sherpas Group AB arbetar med AI- och automationslösningar främst kopplade till Microsofts standardfunktionalitet och Copilot, snarare än egen avancerad AI-utveckling. Företaget har förmåga inom Microsoft 365, Power Platform (Power BI, Power Apps, Power Automate) och Azure Logic Apps, vilket möjliggör automatisering av processer och dataflöden. Konkreta publika case med Copilot eller avancerade AI-agenter är begränsade. AI-underlaget är framför allt knutet till Microsofts inbyggda AI-kapacitet in",
+            "deliveryModel": "Leveransmodellen bygger på att stötta företag med deras affärssystemslösningar genom konfigurering och anpassning av Dynamics 365 Finance & Supply Chain Management. Företaget har en teamuppsättning som kan hantera komplexa affärssystemsmiljöer och leverera i Sverige. Detaljer om specifik metodik, teamstorlek eller kundens exakta insatsmängd framgår inte explicit i underlaget. Sherpas Group AB arbetar med kundanpassning av D365-applikationer efter specifika behov, vilket indikerar en flexibel ans",
+            "managedServices": "Efter implementering erbjuder Sherpas Group AB förvaltningstjänster för Dynamics 365 Finance & Supply Chain Management. Företaget har kapacitet för att erbjuda hjälpdesk, support och löpande förvaltning. Detta inkluderar kontinuerlig vidareutveckling och förvaltning av affärssystemet. Information om specifika avtalsformer eller detaljer kring releasehantering är inte specificerad i underlaget, men förmågan att tillhandahålla stabil support och vidareutveckling efter go-live är en framlyft styrka",
+            "typicalProjects": "Typiska projekt innefattar utvärdering och implementering av Dynamics 365 Finance & Supply Chain Management. Projekten syftar till att modernisera ERP-stödet, särskilt i miljöer där underhåll, asset management, logistik eller tillverkning är centralt. De kan även inkludera integrationer med Microsoft 365, Power BI, Teams, SharePoint och externa system. Projekt omfattar ofta att säkerställa att processer, dokument och informationsflöden fungerar effektivt. Sherpas arbetar med att konfigurera och ",
+            "typicalCustomers": "Sherpas Group AB:s kunder inom Dynamics 365 Finance & Supply Chain Management inkluderar medelstora och större organisationer. Branschfokus ligger på industri, energi, gruvnära processer, tillverkning, logistik och asset-intensive verksamheter där behov finns av stöd för drift, underhåll, logistik och produktion. Företag som har komplexa flöden eller som behöver hantera specifika utmaningar kopplade till underhåll och asset management är typiska. Geografiskt är fokus på den svenska marknaden med",
+            "furtherDevelopment": "Sherpas Group AB erbjuder tjänster för vidareutveckling av Dynamics 365 Finance & Supply Chain Management-lösningar. Detta innebär att de kan hantera förändrade behov och optimeringar efter den initiala implementeringen. Företaget har också egna IP-lösningar som Sherpas VLS, Provisioning Tool, Project Portal och TnT, vilket kan användas för att skräddarsy och utöka funktionaliteten. Information om specifika processer för backlogg-hantering eller beslutsforum för vidareutveckling framgår inte i d"
+          }
+        },
         "aiBusinessImpact": "",
         "customerExamples": [],
         "aiCaseDescription": "",
@@ -3135,7 +3311,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-08-21T10:08:35.82565+00:00",
+    "updated_at": "2026-08-21T10:21:15.200717+00:00",
     "industry_pitches": [
       {
         "text": "Sherpas Group AB levererar lösningar baserade på Microsoft Dynamics 365, särskilt Business Central, Finance och Supply Chain Management, till företag inom bygg-, entreprenad- och installationbranschen. De bistår med system som kan hantera projektstyrning, resursallokering, ekonomiuppföljning och logistikflöden specifika för branschens behov. Fokus ligger på att optimera processer för tidrapportering, materialhantering och fakturering för att möta krav på effektivitet och lönsamhet.\n\nGenom att integrera funktioner för budgetering, prognostisering och avvikelseanalys i Dynamics 365 Finance kan Sherpas Group AB hjälpa byggföretag att få bättre kontroll över projektkostnader och intäkter. Dessutom kan Supply Chain Management användas för att effektivisera inköpsprocesser och lagerhantering av byggmaterial. Detta bidrar till ökad transparens och bättre beslutsunderlag i komplexa projekt.",
@@ -3548,6 +3724,17 @@
         "aiProjectCount": "3–5",
         "hasBuiltAgents": null,
         "aiOtherAdvanced": "",
+        "deliveryProfile": {
+          "suggestions": {
+            "generatedAt": "2026-08-21T10:18:40.017Z",
+            "aiAutomation": "Vivicta har dokumenterad erfarenhet inom AI och automation. De erbjuder AI-integration och Copilot som en del av Dynamics 365-resan. Deras AI-profil omfattar Copilot Studio, Azure AI/Foundry och AI-driven Power Platform-automation. Partnern är bland de första Microsoft Frontier Firms i Norden, vilket indikerar ledarskap inom AI-first transformation. De har en etablerad AI-mognad och Copilot Ready Tier, vilket gör dem relevanta för organisationer som vill ha AI och automation i sin Dynamics 365 B",
+            "deliveryModel": "Vivicta arbetar med en teamorganisation bestående av över 3 500 Microsoft-experter. De levererar helhetsåtaganden som spänner från rådgivning och lösningsdesign till implementation. Metodiken syftar till att leverera standardnära, skalbara och framtidssäkra lösningar. De använder Power Platform och Azure för att komplettera lösningarna och säkerställa snabb time-to-value. Partnern har kapacitet för global leverans, med närvaro i Sverige och globala leveranscentra, vilket möjliggör kostnadseffekt",
+            "managedServices": "Efter implementering erbjuder Vivicta förvaltning av Dynamics 365 Business Central-lösningar, vilket säkerställer kontinuerlig utveckling under systemets hela livscykel. De hanterar support, releasehantering och integrationer som en del av sina managed services. Långsiktig plattformsutveckling är ett fokusområde, och de strävar efter att förbättra hanteringen av releaser, support och integrationer. Avtalsformer inkluderar långsiktiga åtaganden för kunder som behöver kontinuerligt stöd och expert",
+            "typicalProjects": "Vivicta erbjuder helhetsåtaganden inom Dynamics 365 Business Central, från rådgivning och lösningsdesign till implementering, vidareutveckling och förvaltning. Projekten innefattar standardnära lösningar, kompletterade med Power Platform och Azure-integrationer. Specifika branschlösningar som Transport Ekonomi för transportbranschen och partnerskap med PrintVis för grafisk industri tillämpas. Typiska projekt omfattar att kombinera Business Central med Power Platform och Azure, samt att ersätta ä",
+            "typicalCustomers": "Vivicta riktar sig till medelstora och stora företag inom industri och tillverkning, process- och skogsindustri, recycling och avfall, energi och utilities, offentlig sektor samt handel och service. De arbetar med kunder som söker paketerade Business Central-lösningar, särskilt inom transport, logistik, tillverkning och IT-konsulting. Partnern fokuserar på kunder som behöver standardnära, skalbara och framtidssäkra lösningar med djup verksamhetsförståelse och stark branschkompetens. Mindre lämpl",
+            "furtherDevelopment": "Vivicta arbetar med vidareutveckling av Dynamics 365 Business Central-lösningar baserat på en backlogg och kontinuerliga insatser. De har en etablerad förmåga att integrera Power Platform och AI/Copilot för att optimera processer och driva affärsnytta. Typiska insatser innefattar att förbättra integrationer, utnyttja Power Platform för workflow-optimering och implementera AI-drivna funktioner. De har en process för att säkerställa att kundens system kontinuerligt utvecklas och anpassas till nya "
+          }
+        },
         "aiBusinessImpact": "",
         "customerExamples": [
           "Åtta45",
@@ -3606,6 +3793,17 @@
         "aiProjectCount": "3–5",
         "hasBuiltAgents": null,
         "aiOtherAdvanced": "",
+        "deliveryProfile": {
+          "suggestions": {
+            "generatedAt": "2026-08-21T10:18:44.579Z",
+            "aiAutomation": "Vivicta har en \"AI-first\"-strategi och dokumenterad AI-mognad. De arbetar med AI-integration och Copilot som del av Dynamics 365-resan, inklusive Copilot Studio, Azure AI/Foundry och AI-driven Power Platform-automation. De är bland de första Microsoft Frontier Firms i Norden, vilket innebär att de leder AI-first transformation och kopplar AI-agenter och ERP-nära automation till operativa flöden.",
+            "deliveryModel": "Vivicta erbjuder ett helhetsåtagande från rådgivning och lösningsdesign till implementering och vidareutveckling. De betonar standardiserade arbetssätt och använder globala leveranscentra i Indien, Ukraina och Baltikum för kostnadseffektivitet. De har en stor expertbas med över 3 500 Microsoft-experter och har samtliga Microsoft Solutions Partner-beteckningar samt Inner Circle-status.",
+            "managedServices": "Efter go-live erbjuder Vivicta förvaltning och kontinuerlig utveckling under systemets hela livscykel. Detta inkluderar långsiktig managed services och plattformsutveckling för befintliga Dynamics 365-plattformar. Tjänsterna syftar till att förbättra releasehantering, support, integrationer och datagrund samt att säkra stöd efter implementering.",
+            "typicalProjects": "Typiska projekt innefattar ERP-modernisering från äldre AX/NAV/on-prem eller fragmenterade system till Dynamics 365 Finance & Supply Chain Management. Projekten omfattar processharmonisering, governance, data, integration och förvaltning. Vivicta hanterar även uppdrag som kombinerar ERP med CRM/CE, Contact Center, Field Service och AI, ofta i verksamheter med kritiska systemlandskap och processer.",
+            "typicalCustomers": "Vivicta riktar sig till medelstora till mycket stora företag, särskilt inom tillverkning, transport/logistik, skog/process, energi, handel och offentlig sektor. Dessa organisationer söker ofta strategiska ERP-plattformar och har komplexa processer inom supply chain, produktion, lager, service eller finans. De kan vara nordiska eller internationella verksamheter med behov av lokal svensk/nordisk närhet.",
+            "furtherDevelopment": "Vivicta arbetar med kontinuerlig vidareutveckling, vilket omfattar förbättringar av befintliga Dynamics 365-plattformar samt integration av Power Platform och AI/Copilot. De erbjuder även ISV-lösningar som Transport Ekonomi och partnerskap med PrintVis. Deras approach inkluderar att säkra en långsiktig plattformskapacitet."
+          }
+        },
         "aiBusinessImpact": "Minskad tid lagt internt med cirka 30 000 timmar per år.  Minskat tid lagt på orderhantering med cirka 160 timmar per månad",
         "customerExamples": [
           "KomatsForest",
@@ -3668,6 +3866,17 @@
         "aiProjectCount": "0–2",
         "hasBuiltAgents": null,
         "aiOtherAdvanced": "",
+        "deliveryProfile": {
+          "suggestions": {
+            "generatedAt": "2026-08-21T10:18:51.214Z",
+            "aiAutomation": "Vivicta har dokumenterad erfarenhet inom AI och automation. De är en Microsoft Frontier Firm, vilket innebär att de leder AI-first transformation. Deras AI-profil omfattar Copilot Studio, Azure AI/Foundry och AI-driven Power Platform-automation. De är relevanta när AI, Copilot, agenter eller AI-driven handläggning är en del av målbilden, särskilt för modern kundservice och Contact Center. De kan koppla AI-agenter och ERP-nära automation till verkliga operativa flöden.",
+            "deliveryModel": "Vivicta erbjuder ett helhetsåtagande inom Microsoft Dynamics 365, från rådgivning och lösningsdesign till implementering och vidareutveckling. De levererar standardnära, skalbara och framtidssäkra lösningar baserade på D365 Customer Engagement. Med djup verksamhetsförståelse och stark branschkompetens tillhandahålls lösningar som kompletteras med Power Platform och Azure-integrationer. Arbetet innefattar strategisk ERP-plattformsimplementering för kunder som söker en bred modernisering av affärs",
+            "managedServices": "Vivicta erbjuder förvaltning av Dynamics 365-lösningar. Efter go-live kan de tillhandahålla långsiktig förvaltning (managed services) för befintliga Dynamics 365- eller Microsoft-baserade affärsplattformar. Detta innefattar förbättring av releasehantering, support, integrationer, Power Platform, AI/Copilot, datagrund och kontinuerlig vidareutveckling. De passar kunder som söker långsiktigt ansvar för drift och underhåll av verksamhetskritiska system, med kapacitet för nordisk leverans och global",
+            "typicalProjects": "Typiska projekt innefattar modernisering av kundservice med Dynamics 365 Contact Center, automatisering och AI-driven handläggning. Uppdraget kan omfatta att effektivisera sälj-, kundservice- och fältserviceprocesser med Dynamics 365 Customer Engagement. Projekt kan även syfta till att förena finance, supply chain, sales, service, warranty och claims i en gemensam Dynamics 365-plattform. Vivicta hanterar transformationer där affärssystemet blir en del av en större digital plattform med fokus på ",
+            "typicalCustomers": "Vivicta riktar sig till medelstora till mycket stora företag, inklusive enterprise-verksamheter och offentlig sektor. Kunderna söker ofta en partner som kan kombinera ERP, CRM/CE, Contact Center och AI. De finns inom branscher som industri och tillverkning, transport/logistik, process- och skogsindustri, recycling och avfall, energi och utilities, samt handel och service. Organisationer som behöver en systemintegratör med enterprise-kapacitet och global leveransförmåga är typiska, och de kan ha ",
+            "furtherDevelopment": "Partnern hanterar vidareutveckling av systemet under dess hela livscykel. De kan arbeta med backlogg och kontinuerlig utveckling. Typiska insatser inkluderar att förbättra releasehantering, integrationer, Power Platform, AI/Copilot och datagrund. De fokuserar på att säkerställa snabb time-to-value och hög affärsnytta genom kontinuerlig utveckling. Vivicta passar kunder som söker en partner för att utveckla sin affärsplattform, där ansvaret är långsiktigt och verksamhetskritiskt, med fokus på att"
+          }
+        },
         "aiBusinessImpact": "",
         "customerExamples": [
           "Wibax",
@@ -3726,6 +3935,17 @@
         "aiProjectCount": "0–2",
         "hasBuiltAgents": null,
         "aiOtherAdvanced": "",
+        "deliveryProfile": {
+          "suggestions": {
+            "generatedAt": "2026-08-21T10:18:57.976Z",
+            "aiAutomation": "Vivicta har dokumenterad erfarenhet av AI och automation, särskilt inom ramen för D365 Customer Engagement och Contact Center. Kompetensen omfattar Copilot Studio, Azure AI/Foundry och AI-driven Power Platform-automation. Partnern fokuserar på att integrera AI och Copilot som en del av D365-resan, särskilt i kundservicescenarier för effektivisering, prediktiva insikter och AI-driven handläggning. Deras AI-first approach med etablerad AI-mognad är en tydlig del av erbjudandet.",
+            "deliveryModel": "Vivicta levererar ett helhetsåtagande som sträcker sig från rådgivning och lösningsdesign till implementering, vidareutveckling och förvaltning. Med en organisation som inkluderar över 3 500 Microsoft-experter nyttjas en stor leveranskapacitet. Globala leveranscentra i Indien, Ukraina och Baltikum används för kostnadseffektiv leverans. Kundens insats i projekten innefattar behovsanalys, processöversyn och engagemang i design- och testfaser för att säkerställa relevans och affärsnytta.",
+            "managedServices": "Efter implementering erbjuder Vivicta långsiktig förvaltning och support, inklusive hantering av integrationer, Power Platform och datagrund. Partnern betonar vikten av att säkra stöd även efter go-live. Managed services inkluderar support, releasehantering och kontinuerlig plattformsutveckling för att bibehålla systemets prestanda och relevans. Detta är särskilt anpassat för kunder som söker långsiktigt ansvar och en trygg drift av verksamhetskritiska system.",
+            "typicalProjects": "Typiska projekt innefattar modernisering av kundservice med Dynamics 365 Contact Center, automatisering och AI-driven handläggning, samt integration av CRM/CE med ERP och övriga affärssystem. Uppdragen kan även omfatta kombination av CE/CRM med Field Service, datamigrering, processharmonisering och komplexa integrationer. Projekten fokuserar på att effektivisera kundinteraktioner och serviceprocesser och att koppla dessa till övriga processer, data, säkerhet och drift. Längd och omfattning anpas",
+            "typicalCustomers": "Vivicta riktar sig till medelstora till mycket stora företag, inklusive enterprise- och offentliga verksamheter. Särskilt relevanta branscher inkluderar tillverkning, transport/logistik, utrustning/uthyrning/service, samt energisektorn och offentlig sektor, där kundservice och fältserviceprocesser är komplexa och verksamhetskritiska. Kunder som söker en systemintegratör med nordisk lokal närhet kombinerat med global leveransförmåga och som vill konsolidera affärskritiska processer inom en större",
+            "furtherDevelopment": "Vidareutveckling hanteras kontinuerligt med fokus på att förbättra releasehantering, support, integrationer och Power Platform. Beslutsforum för vidareutveckling etableras för att säkerställa att kundens behov och strategiska mål uppnås. Typiska insatser inkluderar uppgraderingar, optimering av befintliga funktioner, utveckling av nya moduler samt integration av AI och Copilot för att säkerställa hög affärsnytta och kontinuerlig utveckling under systemets hela livscykel."
+          }
+        },
         "aiBusinessImpact": "",
         "customerExamples": [
           "Caljan",
@@ -3780,7 +4000,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-03-19T08:57:20.19097+00:00",
-    "updated_at": "2026-08-21T10:08:35.82565+00:00",
+    "updated_at": "2026-08-21T10:21:15.045812+00:00",
     "industry_pitches": [
       {
         "text": "Vivicta levererar helhetslösningar inom Microsoft Dynamics 365, från rådgivning och design till implementering och förvaltning, med fokus på transport och logistik. De hanterar lösningar baserade på D365 Finance och Supply Chain Management, vilket stöder hantering av ekonomiska flöden och logistikkedjor.\n\nVivicta erbjuder även D365 Business Central för mindre transport- och logistikföretag som behöver ett integrerat affärssystem. För att optimera kundrelationer och serviceärenden använder de D365 Sales, Customer Service och Field Service. Lösningarna kompletteras med Power Platform och Azure, vilket innebär möjligheter till anpassade integrationer och utökad funktionalitet. Deras erfarenhet sträcker sig till branscher som industri, tillverkning, samt handel och service, vilket ger dem insikt i komplexa logistikbehov och distributionskedjor. Vivicta erbjuder kontinuerlig utveckling och licensrådgivning för att stödja kundens affärsnytta över tid.",
@@ -3952,6 +4172,17 @@
         "aiProjectCount": "",
         "hasBuiltAgents": null,
         "aiOtherAdvanced": "",
+        "deliveryProfile": {
+          "suggestions": {
+            "generatedAt": "2026-08-21T10:18:33.021Z",
+            "aiAutomation": "Yellow Solution har begränsat med dokumenterad erfarenhet inom avancerad AI och automation. Underlaget indikerar främst rådgivning och praktisk användning av Microsofts standardiserade AI-funktioner inom Business Central, snarare än avancerad AI-utveckling eller implementering av egna agenter. De kommunicerar deltagande i Business Central-relaterade evenemang, men har ingen tydlig publik profil som AI- eller agentspecialist. Företaget bör inte positioneras starkt inom AI utan ytterligare verifie",
+            "deliveryModel": "Yellow Solution arbetar som ett konsultföretag och kombinerar erfarenhet med personligt engagemang i leveranserna. Modellen omfattar förstudie, implementation och fortsatt utveckling av Business Central. Den fokuserar på att säkerställa att systemet aktivt bidrar till ökad effektivitet och bättre beslutsfattande. Med en profil som lokal, nära specialistpartner, snarare än en stor systemintegratör, prioriteras en trygg och förankrad relation med kunden. Företaget kommunicerar en tydlig leveransmo",
+            "managedServices": "Efter genomförd implementation erbjuder Yellow Solution support och hantering av den installerade Business Central-lösningen. Det framgår att de arbetar med en modell för fortsatt utveckling efter go-live. Denna förvaltningsmodell syftar till att systemet ska fortsätta att stödja och bidra till kundens verksamhet. De säkerställer att effekten av investeringen i affärssystemet maximeras över tid, vilket antyder löpande support och underhåll, men specifika avtalsformer och releasehantering beskriv",
+            "typicalProjects": "Typiska projekt hos Yellow Solution innebär implementation av Dynamics 365 Business Central för att effektivisera affärsprocesser. Projekten kan omfatta områden som ekonomi, lager/logistik (där egenutvecklade Yellow WMS kan vara relevant), produktion samt försäljnings- och orderhantering. Ofta handlar det om att ersätta befintliga system eller manuella processer för att uppnå bättre automatisering och datakontroll. Typiska uppdrag är väl avgränsade Business Central-projekt med fokus på praktisk ",
+            "typicalCustomers": "Yellow Solution riktar sig primärt till svenska, mindre och medelstora företag (SMB och midmarket) som söker en specialiserad Business Central-partner. Kunderna finns ofta inom tillverkande industri, grossist-/distributionsverksamhet samt bygg-/entreprenadsektorn. De är kunder som vill modernisera sina affärsprocesser, ofta från äldre system eller manuella rutiner, och har behov av att digitalisera områden som ekonomi, försäljning/order, lager/logistik, produktion och service. Geografiskt är de ",
+            "furtherDevelopment": "Yellow Solution stödjer kundens Business Central-lösning med fortsatt utveckling och optimering efter implementation. Detta kan inkludera insatser för att förfina befintliga processer, implementera nya funktioner eller integrera ytterligare ISV-lösningar. Företaget har kompetens inom tillägg som Continia, SignUp ExFlow och Aritma, samt den egna lagerlösningen Yellow WMS. Vidareutvecklingen syftar till att Business Central aktivt bidrar till effektivitet, beslut och hållbar utveckling, men specif"
+          }
+        },
         "aiBusinessImpact": "",
         "customerExamples": [],
         "aiCaseDescription": "",
@@ -3975,7 +4206,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-03-25T10:51:24.706444+00:00",
-    "updated_at": "2026-08-21T10:03:59.948588+00:00",
+    "updated_at": "2026-08-21T10:21:14.886345+00:00",
     "industry_pitches": [
       {
         "text": "Yellow Solution AB erbjuder lösningar baserade på Microsoft Dynamics 365 Business Central till företag inom bygg-, entreprenad- och installationbranschen. Partnern fokuserar på att optimera affärsprocesser för ökad effektivitet och tillväxt. De har erfarenhet av att anpassa Business Central för att möta branschens specifika krav, vilket inkluderar hantering av projekt, ekonomi och resursplanering. Genom sitt engagemang syftar Yellow Solution AB till att hjälpa företag att utnyttja affärssystemets fulla potential för bättre beslutsfattande och hållbar utveckling. Deras tjänster bidrar till att säkerställa att investeringar i affärssystemet ger konkret nytta i en komplex bransch.",
