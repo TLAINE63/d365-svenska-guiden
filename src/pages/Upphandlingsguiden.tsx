@@ -194,7 +194,7 @@ const Upphandlingsguiden = () => {
  Vår metodik – från krav till kontrakt
  </h2>
  <p className="text-[15px] text-muted-foreground leading-relaxed">
- Sex steg som tar din tryggt genom upphandlingen av Microsoft Dynamics 365. Varje steg länkar vidare till verktyg och guider på sajten så du kan komma igång direkt.
+ Sex steg som tar dig tryggt genom upphandlingen av Microsoft Dynamics 365. Varje steg länkar vidare till verktyg och guider på sajten så du kan komma igång direkt.
  </p>
  </div>
 

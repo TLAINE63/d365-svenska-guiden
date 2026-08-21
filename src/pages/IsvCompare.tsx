@@ -158,7 +158,7 @@ const IsvCompare = () => {
             Behöver du en BC-partner som faktiskt jobbar med dessa tillägg?
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto mb-5">
-            Vi matchar din mot Business Central-partners som har dokumenterad erfarenhet av rätt
+            Vi matchar dig mot Business Central-partners som har dokumenterad erfarenhet av rätt
             ISV-lösning, bransch och processdjup. Ingen partner betalar för att rankas högre.
           </p>
           <Button asChild>

@@ -34,7 +34,7 @@ const STAGES: Stage[] = [
  {
  id: 1,
  phase: "TIDIGA SIGNALER",
- title: "Allt fungerar, men du vill hålla din orienterade",
+ title: "Allt fungerar, men du vill hålla dig orienterad",
  paragraphs: [
  "Verksamheten rullar. Driften är stabil. Inget tvingar fram en utvärdering just nu. Men du vill förstå hur marknaden för affärssystem och kundnära system (ERP, Sales, Marketing/Customer Insights, Customer Service, Field Service, Contact Center) rör sig, vad andra organisationer ser i ett tidigt skede, och vilka signaler som brukar gå före en faktisk förändring.",
  "Poängen i det här läget är inte att förbereda ett beslut. Det är att inte stå oförberedd den dagen frågan blir aktuell.",

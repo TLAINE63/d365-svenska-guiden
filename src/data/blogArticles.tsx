@@ -1324,7 +1324,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <ul>
           <li>
-            Hur ser en kund hos din ut som faktiskt arbetar i en Frontier
+            Hur ser en kund hos dig ut som faktiskt arbetar i en Frontier
             Firm-modell idag – vad gör agenterna, vad gör människorna?
           </li>
           <li>

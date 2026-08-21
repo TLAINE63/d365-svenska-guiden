@@ -236,7 +236,7 @@ export const PRODUCT_STANDARD_SECTIONS: Record<string, StandardSectionsData> = {
     partnerMatters: {
       processDesign: "Projektmodell, faseringar, godkännandeflöden och faktureringsregler måste designas efter din affär – annars blir systemet ett hinder.",
       integrations: "Sales för offert, ekonomisystem för fakturering och redovisning, HR för resurser, BI för uppföljning.",
-      dataModel: "Projekt-, kund-, kontrakt- och resursstruktur är svår att ändra senare – partnern måste utmana din tidigt.",
+      dataModel: "Projekt-, kund-, kontrakt- och resursstruktur är svår att ändra senare – partnern måste utmana dig tidigt.",
       reporting: "Beläggningsgrad, projektresultat, WIP och prognoser kräver rätt fältdesign från start.",
       changeManagement: "Konsulter och projektledare har låg tolerans för dåligt designade system. Partners utan projektorganisation-erfarenhet missar detta.",
       industryKnowledge: "Konsultverksamhet, bygg, IT-leverans, ingenjörstjänster och kreativa byråer har olika projektlogik och fakturerings­modeller.",
