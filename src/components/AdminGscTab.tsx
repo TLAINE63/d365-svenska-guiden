@@ -22,6 +22,8 @@ interface Sitemap {
 interface Row { keys: string[]; clicks: number; impressions: number; ctr: number; position: number }
 interface GscData {
   site: string;
+  days?: number;
+  visitors?: { unique: number; pageviews: number; daily: { date: string; visitors: number }[] } | null;
   range: { startDate: string; endDate: string };
   sitemaps: Sitemap[];
   sitemapsError: string | null;
@@ -46,8 +48,9 @@ export default function AdminGscTab({ token, onSessionExpired }: Props) {
   const [data, setData] = useState<GscData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [days, setDays] = useState<number>(90);
 
-  const load = async () => {
+  const load = async (period: number = days) => {
     if (!token) return;
     setLoading(true);
     setError(null);
@@ -55,6 +58,7 @@ export default function AdminGscTab({ token, onSessionExpired }: Props) {
       const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/gsc-stats`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ days: period }),
       });
       if (res.status === 401) { onSessionExpired(); return; }
       const body = await res.json();
@@ -70,7 +74,7 @@ export default function AdminGscTab({ token, onSessionExpired }: Props) {
     }
   };
 
-  useEffect(() => { load(); /* eslint-disable-next-line */ }, [token]);
+  useEffect(() => { load(days); /* eslint-disable-next-line */ }, [token, days]);
 
   const totals = useMemo(() => {
     if (!data?.daily) return null;
@@ -109,10 +113,27 @@ export default function AdminGscTab({ token, onSessionExpired }: Props) {
             {data ? `Period: ${fmtDate(data.range.startDate)} – ${fmtDate(data.range.endDate)} · ${data.site}` : "Hämtar data…"}
           </p>
         </div>
-        <Button variant="outline" size="sm" onClick={load} disabled={loading}>
+        <div className="flex items-center gap-2">
+          <div className="inline-flex rounded-md border border-border overflow-hidden">
+            {[7, 28, 90, 180].map((d) => (
+              <button
+                key={d}
+                type="button"
+                onClick={() => setDays(d)}
+                disabled={loading}
+                className={`px-3 py-1.5 text-xs font-medium transition-colors ${
+                  days === d ? "bg-primary text-primary-foreground" : "bg-card text-foreground hover:bg-muted"
+                }`}
+              >
+                {d} d
+              </button>
+            ))}
+          </div>
+          <Button variant="outline" size="sm" onClick={() => load(days)} disabled={loading}>
           <RefreshCw className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`} />
-          Uppdatera
-        </Button>
+            Uppdatera
+          </Button>
+        </div>
       </div>
 
       {error && (
@@ -128,12 +149,18 @@ export default function AdminGscTab({ token, onSessionExpired }: Props) {
       )}
 
       {/* KPI cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <KPI label="Klick (90d)" value={totals ? fmtNum(totals.clicks) : "—"} />
-        <KPI label="Visningar (90d)" value={totals ? fmtNum(totals.impressions) : "—"} />
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <KPI label={`Klick (${days}d)`} value={totals ? fmtNum(totals.clicks) : "—"} />
+        <KPI label={`Visningar (${days}d)`} value={totals ? fmtNum(totals.impressions) : "—"} />
         <KPI label="CTR" value={totals ? `${totals.ctr.toFixed(2)} %` : "—"} />
         <KPI label="Snittposition" value={totals ? totals.position.toFixed(1) : "—"} />
+        <KPI label={`Unika besökare (${days}d)`} value={data?.visitors ? fmtNum(data.visitors.unique) : "—"} />
+        <KPI label={`Sidvisningar (${days}d)`} value={data?.visitors ? fmtNum(data.visitors.pageviews) : "—"} />
       </div>
+      <p className="text-xs text-muted-foreground -mt-2">
+        Unika besökare kommer från sajtens egen mätning (unik anonymiserad besökare per dag), exklusive interna besök.
+        Search Console-siffrorna avser organisk sökning och släpar 3 dagar.
+      </p>
 
       {/* Chart */}
       <Card>
@@ -169,6 +196,38 @@ export default function AdminGscTab({ token, onSessionExpired }: Props) {
                   <Legend wrapperStyle={{ fontSize: 12 }} />
                   <Area yAxisId="right" type="monotone" dataKey="impressions" name="Visningar" stroke="hsl(var(--muted-foreground))" fill="url(#cImpr)" />
                   <Area yAxisId="left" type="monotone" dataKey="clicks" name="Klick" stroke="hsl(var(--primary))" fill="url(#cClicks)" />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Unika besökare */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-base">
+            <TrendingUp className="h-4 w-4" /> Unika besökare per dag
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {!data?.visitors || data.visitors.daily.length === 0 ? (
+            <p className="text-sm text-muted-foreground">Ingen besöksdata för perioden.</p>
+          ) : (
+            <div className="h-64 w-full">
+              <ResponsiveContainer>
+                <AreaChart data={data.visitors.daily}>
+                  <defs>
+                    <linearGradient id="cVisitors" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="hsl(var(--accent))" stopOpacity={0.4} />
+                      <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                  <XAxis dataKey="date" tick={{ fontSize: 11 }} tickFormatter={(d: string) => d.slice(5)} />
+                  <YAxis tick={{ fontSize: 11 }} />
+                  <Tooltip contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", fontSize: 12 }} />
+                  <Area type="monotone" dataKey="visitors" name="Unika besökare" stroke="hsl(var(--accent))" fill="url(#cVisitors)" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
@@ -245,8 +304,8 @@ export default function AdminGscTab({ token, onSessionExpired }: Props) {
 
       {/* Top queries / pages */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <TopTable title="Toppsökord (90d)" rows={data?.queries || []} keyLabel="Sökord" />
-        <TopTable title="Toppsidor (90d)" rows={data?.pages || []} keyLabel="Sida" stripDomain />
+        <TopTable title={`Toppsökord (${days}d)`} rows={data?.queries || []} keyLabel="Sökord" />
+        <TopTable title={`Toppsidor (${days}d)`} rows={data?.pages || []} keyLabel="Sida" stripDomain />
       </div>
     </div>
   );
