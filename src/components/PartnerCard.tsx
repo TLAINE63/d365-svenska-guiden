@@ -273,9 +273,14 @@ const PartnerCard = ({
  const indicators = useMemo(() => getPartnerIndicators(partner, productKey, highlightedIndustry || null), [partner, productKey, highlightedIndustry]);
 
   const assessment = useMemo(() => (resultView ? getResultAssessment(partner) : null), [resultView, partner]);
- const evidence = useMemo(() => (resultView ? getDocumentedEvidence(partner) : null), [resultView, partner]);
+ const evidence = useMemo(
+  () =>
+   resultView
+    ? getDocumentedEvidence(partner, { productKey, focusIndustry: highlightedIndustry || null })
+    : null,
+  [resultView, partner, productKey, highlightedIndustry],
+ );
 
- /** Kontor, branscher och storleksfokus att visa på produktsidornas kort. */
 	const resultMeta = useMemo(() => {
 		if (!resultView || !isDatabasePartner(partner)) return null;
 		const allFilters = Object.values(partner.product_filters || {}).filter(Boolean) as ProductFilterInput[];
@@ -291,9 +296,16 @@ const PartnerCard = ({
 
 		let sizes = (pf?.companySize || []) as string[];
 		if (!sizes.length) sizes = uniq(allFilters.flatMap((f) => (f.companySize || []) as string[]));
+		if (!sizes.length) {
+			// Fallback: observerade storlekssegment (per produkt, annars alla)
+			const observed = (partner as { observed_company_sizes?: Record<string, string[]> }).observed_company_sizes || {};
+			const fromProduct = productKey ? observed[productKey] || [] : [];
+			sizes = uniq(fromProduct.length ? fromProduct : Object.values(observed).flat().filter(Boolean));
+		}
 
 		return { offices, industries, sizes };
 	}, [resultView, partner, productKey]);
+
 
 
 
