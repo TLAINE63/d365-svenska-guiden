@@ -214,8 +214,8 @@ const BusinessCentral = () => {
  return (
  <div className="min-h-screen">
  <SEOHead 
- title="Business Central ERP – pris 2026 och partners"
- description={resolvePriceTokens("Business Central ERP: pris från {{price:bc-essentials:short}}/användare och månad, implementering 150 000–800 000 kr och 3–6 månader. Jämför funktioner mot andra ERP-system och hitta rätt partner i Sverige – kostnadsfritt.")}
+ title="Microsoft Dynamics 365 Business Central – ERP-pris 2026"
+ description={resolvePriceTokens("Microsoft Dynamics 365 Business Central: ERP-pris från {{price:bc-essentials:short}}/användare och månad, implementering 150 000–800 000 kr på 3–6 månader. Jämför Business Central ERP mot andra affärssystem och hitta rätt partner i Sverige – kostnadsfritt.")}
  canonicalPath="/businesscentral"
  keywords="business central erp, business central affärssystem, dynamics 365 business central, erp business central, business central pris, business central licens, business central essentials, business central premium, business central partner sverige, business central implementering"
  ogImage="https://d365.se/og-business-central.png"
@@ -257,7 +257,7 @@ const BusinessCentral = () => {
   <ProductHero
   icon={BusinessCentralIcon}
   eyebrow="Business Central"
-  title="Business Central ERP – pris, funktioner och rätt partner i Sverige"
+  title="Microsoft Dynamics 365 Business Central – ERP-pris, funktioner och rätt partner i Sverige"
   subhead="Microsoft levererar det kraftfulla affärssystemet. Partnern bygger processerna, väljer rätt branschspecifika tillägg och designar integrationerna mot era befintliga system. Det är nyckeln till framgångsrika BC-projekt. Här jämför ni partners som faktiskt levererat Business Central i er bransch."
   primary={{
     label: "Jämför Business Central-partners",
@@ -318,6 +318,19 @@ const BusinessCentral = () => {
     </table>
    </div>
    <p className="text-sm text-muted-foreground mt-4">
+    Vad Microsoft Dynamics 365 Business Central kostar i praktiken avgörs på den svenska marknaden av
+    tre saker: antal användare och licensnivå (Essentials eller Premium), hur mycket verksamhetsanpassning
+    och integration mot exempelvis lön, e-handel, EDI eller Peppol-fakturering som behövs, samt vilken
+    partner som genomför införandet. En mindre implementering hos ett svenskt bolag landar typiskt på
+    100 000–250 000 kr, medan projekt med produktion, flera bolag eller internationella dotterbolag
+    ligger i det övre spannet.
+   </p>
+   <p className="text-sm text-muted-foreground mt-3">
+    Införandet görs alltid av en Microsoft-certifierad partner. På d365.se jämför ni svenska Business
+    Central-partners på dokumenterad branscherfarenhet, kundstorlek och kontorsorter – och ser vilka som
+    har levererat i just er bransch innan ni tar kontakt.
+   </p>
+   <p className="text-sm text-muted-foreground mt-3">
     Vill ni ställa Business Central mot ett större ERP-system? Läs{" "}
     <Link to="/erp/" className="text-primary underline underline-offset-2">
      jämförelsen mellan Business Central och Finance &amp; Supply Chain
@@ -327,6 +340,7 @@ const BusinessCentral = () => {
      vad ett affärssystem kostar
     </Link>.
    </p>
+
   </div>
  </section>
 
