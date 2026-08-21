@@ -275,6 +275,16 @@ const PartnerCard = ({
   const assessment = useMemo(() => (resultView ? getResultAssessment(partner) : null), [resultView, partner]);
  const evidence = useMemo(() => (resultView ? getDocumentedEvidence(partner) : null), [resultView, partner]);
 
+ /** Kontor, branscher och storleksfokus att visa på produktsidornas kort. */
+ const resultMeta = useMemo(() => {
+  if (!resultView || !isDatabasePartner(partner)) return null;
+  const pf = productKey ? partner.product_filters?.[productKey] : undefined;
+  const offices = (partner.office_cities || []) as string[];
+  const industries = (pf?.industries?.length ? pf.industries : partner.industries || []) as string[];
+  const sizes = ((pf?.companySize || []) as string[]);
+  return { offices, industries, sizes };
+ }, [resultView, partner, productKey]);
+
 
 
 
@@ -444,7 +454,7 @@ const PartnerCard = ({
    {isDatabasePartner(partner) && (partner as any).related_party && <RelatedPartyBadge />}
   </div>
 
-  {isDatabasePartner(partner) && partner.is_featured !== false && (() => {
+  {!resultView && isDatabasePartner(partner) && partner.is_featured !== false && (() => {
    const comp = normalizeCompetencies((partner as any).extended_competencies);
    if (!hasAnyCompetency(comp)) return null;
    return (
@@ -499,7 +509,33 @@ const PartnerCard = ({
      <p className="text-[12px] leading-snug text-muted-foreground line-clamp-2">{evidence}</p>
     </div>
    )}
+
+   {resultMeta && (
+    <div className="mb-3 space-y-1.5">
+     {resultMeta.offices.length > 0 && (
+      <p className="text-[12px] leading-snug text-muted-foreground">
+       <span className="font-semibold text-foreground/80">Kontor: </span>
+       {resultMeta.offices.slice(0, 4).join(", ")}
+       {resultMeta.offices.length > 4 ? ` +${resultMeta.offices.length - 4}` : ""}
+      </p>
+     )}
+     {!highlightedIndustry && resultMeta.industries.length > 0 && (
+      <p className="text-[12px] leading-snug text-muted-foreground">
+       <span className="font-semibold text-foreground/80">Branscher: </span>
+       {resultMeta.industries.slice(0, 4).join(", ")}
+       {resultMeta.industries.length > 4 ? ` +${resultMeta.industries.length - 4}` : ""}
+      </p>
+     )}
+     {!highlightedCompanySize && resultMeta.sizes.length > 0 && (
+      <p className="text-[12px] leading-snug text-muted-foreground">
+       <span className="font-semibold text-foreground/80">Kundstorlek: </span>
+       {resultMeta.sizes.join(", ")} anställda
+      </p>
+     )}
+    </div>
+   )}
   </>
+
  ) : (
   <>
  {/* Matchar din sökning – visas när användaren har aktiva filter */}
