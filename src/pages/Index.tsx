@@ -110,6 +110,15 @@ const Index = () => {
   const [heroProduct, setHeroProduct] = useState("");
   const navigate = useNavigate();
 
+  // Dynamisk statistik – speglar vad sajten faktiskt innehåller just nu.
+  const { data: verifiedPartners } = usePartners();
+  const { data: basicPartners } = useBasicPartners();
+  const liveIdentifiedCount =
+    (verifiedPartners?.length || 0) + (basicPartners?.length || 0);
+  const identifiedPartnerCount =
+    liveIdentifiedCount > 0 ? liveIdentifiedCount : IDENTIFIED_PARTNER_COUNT_FALLBACK;
+  const verifiedPartnerCount = verifiedPartners?.length || VERIFIED_PARTNER_COUNT_FALLBACK;
+
   const heroProducts: { value: string; label: string; path: string; hasPartnerFilter?: boolean }[] = [
     { value: "bc", label: "Business Central (ERP SMB)", path: "/businesscentral/", hasPartnerFilter: true },
     { value: "fscm", label: "Finance & Supply Chain (ERP Enterprise)", path: "/finance-supply-chain/", hasPartnerFilter: true },
