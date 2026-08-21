@@ -43,9 +43,12 @@ const APP_BADGES: Array<{ match: (a: string[]) => boolean; label: string }> = [
   { match: (a) => a.includes("Field Service"), label: "Field Service" },
   { match: (a) => a.includes("Contact Center"), label: "Contact Center" },
   { match: (a) => a.includes("Customer Insights (Marketing)"), label: "Customer Insights (Marketing Automation)" },
+  { match: (a) => a.includes("Project Operations"), label: "Project Operations" },
+  { match: (a) => a.includes("Commerce"), label: "Commerce" },
+  { match: (a) => a.includes("Human Resources"), label: "Human Resources" },
 ];
 
-type Quick = "all" | "bc" | "fscm" | "sales" | "marketing" | "customer-service" | "field-service" | "contact-center";
+type Quick = "all" | "bc" | "fscm" | "sales" | "marketing" | "customer-service" | "field-service" | "contact-center" | "project-operations" | "commerce" | "human-resources";
 
 const QUICK_FILTERS: Array<{ id: Quick; label: string }> = [
   { id: "all", label: "Alla" },
@@ -56,6 +59,9 @@ const QUICK_FILTERS: Array<{ id: Quick; label: string }> = [
   { id: "customer-service", label: "Customer Service" },
   { id: "field-service", label: "Field Service" },
   { id: "contact-center", label: "Contact Center" },
+  { id: "project-operations", label: "Project Operations" },
+  { id: "commerce", label: "Commerce" },
+  { id: "human-resources", label: "Human Resources" },
 ];
 
 
@@ -105,6 +111,9 @@ const partnerMatchesQuick = (p: RawPartner, q: Quick) => {
   if (q === "customer-service") return apps.includes("Customer Service");
   if (q === "field-service") return apps.includes("Field Service");
   if (q === "contact-center") return apps.includes("Contact Center");
+  if (q === "project-operations") return apps.includes("Project Operations");
+  if (q === "commerce") return apps.includes("Commerce");
+  if (q === "human-resources") return apps.includes("Human Resources");
   return true;
 };
 

@@ -43,6 +43,9 @@ import MarketingIcon from "@/assets/icons/Marketing.svg";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import FieldServiceIcon from "@/assets/icons/FieldService.svg";
 import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
+import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
+import CommerceIcon from "@/assets/icons/Commerce.svg";
+import HumanResourcesIcon from "@/assets/icons/HumanResources.svg";
 
 // Industry hero images (webp). Falls back to a default gradient if missing.
 import tillverkningImg from "@/assets/industries/tillverkning.webp";
@@ -93,7 +96,7 @@ const INDUSTRY_IMAGES: Record<string, string> = {
 // Visningen är granulär (Sales / Customer Insights / Customer Service / Field Service / Contact Center)
 // men matchningen sker mot de fyra underliggande nycklarna i product_filters.
 type UnderlyingKey = "bc" | "fsc" | "sales" | "service";
-type FilterKey = "bc" | "fsc" | "sales" | "ci" | "cs" | "fs" | "cc";
+type FilterKey = "bc" | "fsc" | "sales" | "ci" | "cs" | "fs" | "cc" | "po" | "commerce" | "hr";
 const FILTER_TO_UNDERLYING: Record<FilterKey, UnderlyingKey> = {
  bc: "bc",
  fsc: "fsc",
@@ -102,6 +105,9 @@ const FILTER_TO_UNDERLYING: Record<FilterKey, UnderlyingKey> = {
  cs: "service",
  fs: "service",
  cc: "service",
+ po: "fsc",
+ commerce: "fsc",
+ hr: "fsc",
 };
 const PRODUCT_FILTERS: { key: FilterKey; label: string; icon: string }[] = [
  { key: "bc", label: "Business Central", icon: BusinessCentralIcon },
@@ -111,6 +117,9 @@ const PRODUCT_FILTERS: { key: FilterKey; label: string; icon: string }[] = [
  { key: "cs", label: "Customer Service", icon: CustomerServiceIcon },
  { key: "fs", label: "Field Service", icon: FieldServiceIcon },
  { key: "cc", label: "Contact Center", icon: ContactCenterIcon },
+ { key: "po", label: "Project Operations", icon: ProjectOperationsIcon },
+ { key: "commerce", label: "Commerce", icon: CommerceIcon },
+ { key: "hr", label: "Human Resources", icon: HumanResourcesIcon },
 ];
 
 // Simple seeded shuffle for stable random order per session+industry
