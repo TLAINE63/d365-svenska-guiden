@@ -322,9 +322,11 @@ to="/valjdynamics365partner/#alla-partners-rubrik"
                           <VerifiedPartnerBadge />
                         </div>
 
-                        <h3 className="text-[15px] font-semibold text-foreground leading-snug mb-1.5">
-                          {p.name}
-                        </h3>
+                        {!p.logo_url && (
+                          <h3 className="text-[15px] font-semibold text-foreground leading-snug mb-1.5">
+                            {p.name}
+                          </h3>
+                        )}
 
                         {(p.ai_summary || p.positioning_statement) && (
                           <p className="text-[11px] text-muted-foreground leading-snug line-clamp-2 mb-2">
