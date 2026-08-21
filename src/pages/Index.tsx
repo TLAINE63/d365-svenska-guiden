@@ -276,11 +276,13 @@ const Index = () => {
                 Upphandlingsguiden för Microsoft Dynamics 365
               </div>
               <h1 className="text-[26px] sm:text-[34px] md:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
-                Har ni valt – eller överväger – Dynamics 365?
+                Microsoft Dynamics 365 i Sverige – guide, kostnader och partnerval
               </h1>
               <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
-                d365.se hjälper er förstå behovet, välja rätt lösning och framför allt hitta rätt partner.
+                Har ni valt – eller överväger – Dynamics 365? d365.se hjälper er förstå behovet,
+                välja rätt lösning och framför allt hitta rätt partner.
               </p>
+
 
               <div className="border-t border-white/10 pt-7 mb-8">
                 <h2 className="text-[22px] sm:text-[28px] font-semibold text-white leading-tight mb-4">
