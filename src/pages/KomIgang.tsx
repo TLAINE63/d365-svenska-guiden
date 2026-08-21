@@ -19,6 +19,8 @@ import csIcon from "@/assets/icons/CustomerService.svg";
 import fsIcon from "@/assets/icons/FieldService.svg";
 import ccIcon from "@/assets/icons/ContactCenter.svg";
 import poIcon from "@/assets/icons/ProjectOperations.svg";
+import commerceIcon from "@/assets/icons/Commerce.svg";
+import hrIcon from "@/assets/icons/HumanResources.svg";
 
 // Industry images
 import tillverkningImg from "@/assets/industries/tillverkning.webp";
@@ -80,6 +82,8 @@ const productOptions = [
   { value: "Field Service", label: "Field Service", desc: "Fältservice och arbetsorder", icon: fsIcon },
   { value: "Contact Center", label: "Contact Center", desc: "Omnikanal-kontaktcenter", icon: ccIcon },
   { value: "Project Operations", label: "Project Operations", desc: "Projekthantering och resursplanering", icon: poIcon },
+  { value: "Commerce", label: "Commerce", desc: "Omnichannel-handel och e-handel", icon: commerceIcon },
+  { value: "Human Resources", label: "Human Resources", desc: "HR, personal och lönehantering", icon: hrIcon },
   { value: "", label: "Vet inte ännu", desc: "Vi hjälper dig hitta rätt", icon: null },
 ];
 
@@ -124,8 +128,9 @@ type ProductKey = 'bc' | 'fsc' | 'sales' | 'service';
 const getProductKey = (app: string): ProductKey | null => {
   if (app === "Business Central") return 'bc';
   if (app === "Finance & SCM") return 'fsc';
+  if (["Commerce", "Human Resources"].includes(app)) return 'fsc';
   if (["Sales", "Customer Insights (Marketing)"].includes(app)) return 'sales';
-  if (["Customer Service", "Field Service", "Contact Center"].includes(app)) return 'service';
+  if (["Customer Service", "Field Service", "Contact Center", "Project Operations"].includes(app)) return 'service';
   return null;
 };
 
