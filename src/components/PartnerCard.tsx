@@ -296,12 +296,8 @@ const PartnerCard = ({
 
 		let sizes = (pf?.companySize || []) as string[];
 		if (!sizes.length) sizes = uniq(allFilters.flatMap((f) => (f.companySize || []) as string[]));
-		if (!sizes.length) {
-			// Fallback: observerade storlekssegment (per produkt, annars alla)
-			const observed = (partner as { observed_company_sizes?: Record<string, string[]> }).observed_company_sizes || {};
-			const fromProduct = productKey ? observed[productKey] || [] : [];
-			sizes = uniq(fromProduct.length ? fromProduct : Object.values(observed).flat().filter(Boolean));
-		}
+		// Ingen fallback till interna storlekssignaler – raden döljs hellre än gissar.
+
 
 		return { offices, industries, sizes };
 	}, [resultView, partner, productKey]);
