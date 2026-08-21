@@ -42,7 +42,7 @@ const APP_BADGES: Array<{ match: (a: string[]) => boolean; label: string }> = [
   { match: (a) => a.includes("Customer Service"), label: "Customer Service" },
   { match: (a) => a.includes("Field Service"), label: "Field Service" },
   { match: (a) => a.includes("Contact Center"), label: "Contact Center" },
-  { match: (a) => a.includes("Customer Insights (Marketing)"), label: "Marketing" },
+  { match: (a) => a.includes("Customer Insights (Marketing)"), label: "Customer Insights (Marketing Automation)" },
 ];
 
 type Quick = "all" | "bc" | "fscm" | "sales" | "marketing" | "customer-service" | "field-service" | "contact-center";
@@ -52,7 +52,7 @@ const QUICK_FILTERS: Array<{ id: Quick; label: string }> = [
   { id: "bc", label: "Business Central" },
   { id: "fscm", label: "Finance & Supply Chain" },
   { id: "sales", label: "Sales" },
-  { id: "marketing", label: "Marketing" },
+  { id: "marketing", label: "Customer Insights (Marketing Automation)" },
   { id: "customer-service", label: "Customer Service" },
   { id: "field-service", label: "Field Service" },
   { id: "contact-center", label: "Contact Center" },
