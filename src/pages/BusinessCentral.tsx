@@ -1,5 +1,6 @@
 import ProductIsvSection from "@/components/ProductIsvSection";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
+import RelevantVideosSection from "@/components/RelevantVideosSection";
 import RelatedPages, { bcRelatedPages } from "@/components/RelatedPages";
 import PageOfferBanner from "@/components/PageOfferBanner";
 import { Button } from "@/components/ui/button";
@@ -547,6 +548,7 @@ const BusinessCentral = () => {
 
 
       <ProductDeepDiveLink product="Business Central" label="Business Central" />
+      <RelevantVideosSection productGroups={["business-central"]} title="Videor om Business Central" />
 
       {/* Videos Section */}
       <section id="videos" className="py-8 sm:py-12 md:py-16 bg-background">

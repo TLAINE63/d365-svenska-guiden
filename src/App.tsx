@@ -86,6 +86,7 @@ const D365TillaggKatalog = lazy(() => import("./pages/D365TillaggKatalog"));
 const Upphandlingsresan = lazy(() => import("./pages/Upphandlingsresan"));
 const Upphandlingsguiden = lazy(() => import("./pages/Upphandlingsguiden"));
 const VideoLanding = lazy(() => import("./pages/VideoLanding"));
+const VideoIndex = lazy(() => import("./pages/VideoIndex"));
 const Branscher = lazy(() => import("./pages/Branscher"));
 const IndustryPage = lazy(() => import("./pages/IndustryPage"));
 const DeepDiveArticle = lazy(() => import("./pages/DeepDiveArticle"));
@@ -274,6 +275,7 @@ const AppShell = () => {
           <Route path="/kostnadskalkylator" element={<Navigate to="/implementationskalkylator" replace />} />
           <Route path="/kunskapscenter/upphandlingsresan" element={<Upphandlingsresan />} />
           <Route path="/upphandlingsguiden" element={<Upphandlingsguiden />} />
+          <Route path="/kunskapscenter/videor" element={<VideoIndex />} />
           <Route path="/kunskapscenter/video/:slug" element={<VideoLanding />} />
           {/* Topical hubs – explicit slugs (registered before the generic 2-segment article route) */}
           <Route path="/kunskapscenter/business-central" element={<KunskapscenterHub slug="business-central" />} />
