@@ -34,6 +34,7 @@ const STATIC_PROFILED = (partnerDataJson as any[])
     name: p.name as string,
     logo_url: (p.logo_url ?? null) as string | null,
     applications: (p.applications ?? []) as string[],
+    description: (p.description ?? "") as string,
   }))
   .sort((a, b) => a.name.localeCompare(b.name, "sv"));
 
@@ -65,6 +66,7 @@ export default function AllD365Partners() {
         name: p.name,
         logo_url: p.logo_url || null,
         applications: p.applications ?? [],
+        description: p.description || "",
       }));
     const source = live.length > 0 ? live : STATIC_PROFILED;
     return [...source].sort((a, b) => a.name.localeCompare(b.name, "sv"));
@@ -271,11 +273,11 @@ export default function AllD365Partners() {
             ) : (
               <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {profiled.map((p) => (
-                  <li key={p.id}>
+                  <li key={p.id} className="h-full">
                     <Link
                       to={`/partner/${p.slug}`}
                       aria-label={p.name}
-                      className="group relative flex items-center justify-between gap-3 p-4 rounded-lg border-2 border-primary/25 bg-card shadow-sm hover:border-primary hover:shadow-md transition-all"
+                      className="group relative flex items-start justify-between gap-3 p-4 h-full rounded-lg border-2 border-primary/25 bg-card shadow-sm hover:border-primary hover:shadow-md transition-all"
                     >
                       <div className="min-w-0 flex-1">
                         {p.logo_url ? (
@@ -289,6 +291,11 @@ export default function AllD365Partners() {
                           <div className="font-semibold text-foreground group-hover:text-primary transition-colors truncate mb-2">
                             {p.name}
                           </div>
+                        )}
+                        {p.description && (
+                          <p className="text-xs text-muted-foreground leading-relaxed mb-2 line-clamp-4">
+                            {p.description}
+                          </p>
                         )}
                         {p.applications.length > 0 && (
                           <div className="flex flex-wrap gap-1">
