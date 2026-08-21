@@ -329,7 +329,7 @@ to="/valjdynamics365partner/#alla-partners-rubrik"
                         )}
 
                         {(p.ai_summary || p.positioning_statement) && (
-                          <p className="text-[11px] text-muted-foreground leading-snug line-clamp-2 mb-2">
+                          <p className="text-[11px] text-muted-foreground leading-snug line-clamp-4 mb-2">
                             {p.ai_summary || p.positioning_statement}
                           </p>
                         )}
