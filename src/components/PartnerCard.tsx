@@ -276,14 +276,25 @@ const PartnerCard = ({
  const evidence = useMemo(() => (resultView ? getDocumentedEvidence(partner) : null), [resultView, partner]);
 
  /** Kontor, branscher och storleksfokus att visa på produktsidornas kort. */
- const resultMeta = useMemo(() => {
-  if (!resultView || !isDatabasePartner(partner)) return null;
-  const pf = productKey ? partner.product_filters?.[productKey] : undefined;
-  const offices = (partner.office_cities || []) as string[];
-  const industries = (pf?.industries?.length ? pf.industries : partner.industries || []) as string[];
-  const sizes = ((pf?.companySize || []) as string[]);
-  return { offices, industries, sizes };
- }, [resultView, partner, productKey]);
+	const resultMeta = useMemo(() => {
+		if (!resultView || !isDatabasePartner(partner)) return null;
+		const allFilters = Object.values(partner.product_filters || {}).filter(Boolean) as ProductFilterInput[];
+		const pf = productKey ? partner.product_filters?.[productKey] : undefined;
+		const offices = (partner.office_cities || []) as string[];
+
+		const uniq = (arr: string[]) => Array.from(new Set(arr.filter(Boolean)));
+
+		let industries = (pf?.industries?.length ? pf.industries : []) as string[];
+		if (!industries.length) industries = uniq((partner.industries || []) as string[]);
+		if (!industries.length) industries = uniq(allFilters.flatMap((f) => (f.industries || []) as string[]));
+		if (!industries.length) industries = uniq((partner.secondary_industries || []) as string[]);
+
+		let sizes = (pf?.companySize || []) as string[];
+		if (!sizes.length) sizes = uniq(allFilters.flatMap((f) => (f.companySize || []) as string[]));
+
+		return { offices, industries, sizes };
+	}, [resultView, partner, productKey]);
+
 
 
 
