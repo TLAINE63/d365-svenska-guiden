@@ -48,7 +48,7 @@ export default function AdminGscTab({ token, onSessionExpired }: Props) {
   const [data, setData] = useState<GscData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [days, setDays] = useState<number>(90);
+  const [days, setDays] = useState<number>(30);
 
   const load = async (period: number = days) => {
     if (!token) return;
