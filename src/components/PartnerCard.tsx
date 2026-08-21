@@ -444,7 +444,7 @@ const PartnerCard = ({
    {isDatabasePartner(partner) && (partner as any).related_party && <RelatedPartyBadge />}
   </div>
 
-  {isDatabasePartner(partner) && partner.is_featured !== false && (() => {
+  {!resultView && isDatabasePartner(partner) && partner.is_featured !== false && (() => {
    const comp = normalizeCompetencies((partner as any).extended_competencies);
    if (!hasAnyCompetency(comp)) return null;
    return (
