@@ -1,6 +1,7 @@
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Info } from "lucide-react";
 import {
@@ -30,6 +31,10 @@ export default function ExtendedCompetencyInputSection({
   onChange,
   maxLength = 800,
 }: Props) {
+  const hasAnySuggestion = COMPETENCY_AREAS.some(
+    (a) => ((value?.[`suggestion_${a.key}`] as string) || "").trim().length > 0,
+  );
+
   const toggleSignal = (area: CompetencyArea, signalId: string, checked: boolean) => {
     const current = readSignals(value as never, area);
     const next = checked
@@ -60,6 +65,7 @@ export default function ExtendedCompetencyInputSection({
         const level = levels?.[area.key];
         const meta = level ? LEVEL_META[level] : null;
         const chosen = readSignals(value as never, area.key);
+        const suggestion = ((value?.[`suggestion_${area.key}`] as string) || "").trim();
         return (
           <div key={area.key} className="space-y-3 rounded-lg border border-border p-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
