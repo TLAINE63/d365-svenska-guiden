@@ -567,6 +567,30 @@ export default function ImplementationCalculator() {
                     onDeliver={handleDownloadPdf}
                   />
 
+                  <div className="rounded-lg border border-border p-3">
+                    <h3 className="text-sm font-semibold text-foreground mb-2">
+                      Nästa steg utifrån dina val
+                    </h3>
+                    <ol className="space-y-1.5 text-sm text-muted-foreground list-decimal pl-4">
+                      <li>
+                        {complexity === "standardnara"
+                          ? "Bekräfta att standardflödena räcker – lista de undantag som ändå måste hanteras."
+                          : complexity === "anpassad"
+                            ? "Prioritera vilka anpassningar som är affärskritiska och vilka som kan vänta till fas 2."
+                            : "Bryt ner det verksamhetsspecifika behovet – här styr kravbilden både pris och tidplan."}
+                      </li>
+                      <li>
+                        {integrations > 0
+                          ? `Kartlägg dina ${integrations} integrationer (system, datamängd, frekvens) innan offert.`
+                          : "Kartlägg vilka system som behöver integreras – det är den vanligaste kostnadsdrivaren."}
+                      </li>
+                      <li>
+                        Gör en kostnadsfri behovsanalys och skicka underlaget till 2–3 matchande partners
+                        så att de offererar mot samma bas.
+                      </li>
+                    </ol>
+                  </div>
+
                   <div className="flex flex-col gap-2">
 
                     <Button asChild size="lg">
@@ -576,9 +600,13 @@ export default function ImplementationCalculator() {
                       </Link>
                     </Button>
                     <Button asChild variant="outline">
+                      <Link to="/valjdynamics365partner/">Hitta matchande partners</Link>
+                    </Button>
+                    <Button asChild variant="outline">
                       <Link to="/kostnad/">Läs mer om vad Dynamics 365 kostar</Link>
                     </Button>
                   </div>
+
 
 
                 </CardContent>
