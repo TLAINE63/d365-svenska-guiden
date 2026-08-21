@@ -1,6 +1,7 @@
 import SearchResultSummary from "@/components/partner/SearchResultSummary";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
+import RelevantVideosSection from "@/components/RelevantVideosSection";
 import { useIndustryDeepLink } from "@/hooks/useIndustryDeepLink";
 import ProductHero from "@/components/ProductHero";
 import PageOfferBanner from "@/components/PageOfferBanner";
@@ -546,6 +547,7 @@ const FinanceSupplyChain = () => {
       <ProductRoiCta productKey="finance-scm" />
 
       <ProductDeepDiveLink product="Finance & Supply Chain" label="Finance & Supply Chain Management" />
+      <RelevantVideosSection productGroups={["finance-scm"]} title="Videor om Finance & Supply Chain" />
 
       <ProductPartnerNewsSection productArea="finance-scm" productLabel="Finance & Supply Chain" />
 

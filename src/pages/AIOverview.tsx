@@ -1,5 +1,6 @@
 import RelatedPages, { aiOverviewRelatedPages } from "@/components/RelatedPages";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
+import RelevantVideosSection from "@/components/RelevantVideosSection";
 import heroAiReadiness from "@/assets/hero-ai-readiness.jpg";
 import { useState } from "react"; // kept for selectedGoal
 import Navbar from "@/components/Navbar";
@@ -811,6 +812,7 @@ const AIOverview = () => {
  <ProductDeepDiveLink product="Microsoft Agents – Dynamics 365" label="AI-agenter" />
 
  <RelatedPages pages={aiOverviewRelatedPages} heading="Utforska vidare" />
+ <RelevantVideosSection productGroups={["microsoft-ai", "power-platform"]} title="Videor om Copilot och AI i Dynamics 365" />
  <Footer />
 
  </div>

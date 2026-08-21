@@ -224,6 +224,16 @@ export const routes: PrerenderRoute[] = [
     changefreq: 'weekly' as const,
     meta: { title: hub.metaTitle, description: hub.metaDescription },
   })),
+  {
+    path: '/kunskapscenter/videor',
+    priority: '0.7',
+    changefreq: 'daily' as const,
+    meta: {
+      title: 'Videobibliotek: Dynamics 365 på YouTube',
+      description:
+        'Kurerat videobibliotek med Microsoft Dynamics 365-videor grupperade per produktområde och frågeställning – demo, priser, implementering, integration och nyheter.',
+    },
+  },
   { path: '/kunskapscenter/upphandlingsresan', priority: '0.7', changefreq: 'monthly' },
   {
     path: '/kunskapscenter/dynamics-365-tillagg',
