@@ -67,6 +67,11 @@ export const DELIVERY_PROFILE_FIELDS: DeliveryProfileField[] = [
   },
 ];
 
+/** AI-genererat utkast per fält. Visas endast i redigeringsläge, aldrig publikt. */
+export interface DeliveryProfileSuggestions extends Partial<Record<DeliveryProfileFieldKey, string>> {
+  generatedAt?: string;
+}
+
 export interface DeliveryProfileValue {
   typicalCustomers?: string;
   typicalProjects?: string;
@@ -76,6 +81,7 @@ export interface DeliveryProfileValue {
   aiAutomation?: string;
   aiSummary?: string;
   aiSummaryGeneratedAt?: string;
+  suggestions?: DeliveryProfileSuggestions;
 }
 
 export const isDeliveryProfileFilled = (v?: DeliveryProfileValue | null): boolean =>
