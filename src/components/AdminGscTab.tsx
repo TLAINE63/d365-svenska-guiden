@@ -115,7 +115,7 @@ export default function AdminGscTab({ token, onSessionExpired }: Props) {
         </div>
         <div className="flex items-center gap-2">
           <div className="inline-flex rounded-md border border-border overflow-hidden">
-            {[7, 28, 90, 180].map((d) => (
+            {[30, 7, 28, 90, 180].map((d) => (
               <button
                 key={d}
                 type="button"
