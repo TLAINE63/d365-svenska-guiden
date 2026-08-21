@@ -66,6 +66,7 @@ export default function AllD365Partners() {
         name: p.name,
         logo_url: p.logo_url || null,
         applications: p.applications ?? [],
+        description: p.description || "",
       }));
     const source = live.length > 0 ? live : STATIC_PROFILED;
     return [...source].sort((a, b) => a.name.localeCompare(b.name, "sv"));
