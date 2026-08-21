@@ -684,7 +684,7 @@ function getPartnerSuggestions(
     suggestions.push({
       icon: "🧭",
       type: "Strategisk rådgivare",
-      description: "Partner som kan hjälpa din kartlägga nuläge och bygga en stabil grund innan AI-satsning",
+      description: "Partner som kan hjälpa dig kartlägga nuläge och bygga en stabil grund innan AI-satsning",
     });
   } else if (profile === "scaling") {
     suggestions.push({
