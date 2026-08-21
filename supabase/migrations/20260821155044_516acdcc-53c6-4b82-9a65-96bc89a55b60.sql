@@ -1,0 +1,1 @@
+GRANT EXECUTE ON FUNCTION public.d365_videos_dispatch() TO postgres;

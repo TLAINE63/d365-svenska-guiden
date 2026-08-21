@@ -126,6 +126,158 @@ export type Database = {
           },
         ]
       }
+      d365_video_ingest_state: {
+        Row: {
+          id: number
+          is_running: boolean
+          last_result: string | null
+          last_run_at: string | null
+          lease_until: string | null
+          paused_at: string | null
+          paused_reason: string | null
+          updated_at: string
+        }
+        Insert: {
+          id?: number
+          is_running?: boolean
+          last_result?: string | null
+          last_run_at?: string | null
+          lease_until?: string | null
+          paused_at?: string | null
+          paused_reason?: string | null
+          updated_at?: string
+        }
+        Update: {
+          id?: number
+          is_running?: boolean
+          last_result?: string | null
+          last_run_at?: string | null
+          lease_until?: string | null
+          paused_at?: string | null
+          paused_reason?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      d365_video_sources: {
+        Row: {
+          channel_id: string
+          channel_name: string
+          channel_url: string | null
+          created_at: string
+          id: string
+          is_active: boolean
+          items_imported: number
+          last_error: string | null
+          last_fetched_at: string | null
+          last_success_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          channel_id: string
+          channel_name: string
+          channel_url?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          items_imported?: number
+          last_error?: string | null
+          last_fetched_at?: string | null
+          last_success_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          channel_id?: string
+          channel_name?: string
+          channel_url?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          items_imported?: number
+          last_error?: string | null
+          last_fetched_at?: string | null
+          last_success_at?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      d365_videos: {
+        Row: {
+          ai_classified_at: string | null
+          channel_id: string | null
+          channel_name: string | null
+          created_at: string
+          description: string | null
+          duration: string | null
+          duration_seconds: number | null
+          id: string
+          language: string | null
+          product_groups: string[]
+          published_at: string | null
+          question_types: string[]
+          relevance_score: number
+          source_id: string | null
+          status: string
+          summary_sv: string | null
+          thumbnail_url: string | null
+          title: string
+          updated_at: string
+          youtube_id: string
+        }
+        Insert: {
+          ai_classified_at?: string | null
+          channel_id?: string | null
+          channel_name?: string | null
+          created_at?: string
+          description?: string | null
+          duration?: string | null
+          duration_seconds?: number | null
+          id?: string
+          language?: string | null
+          product_groups?: string[]
+          published_at?: string | null
+          question_types?: string[]
+          relevance_score?: number
+          source_id?: string | null
+          status?: string
+          summary_sv?: string | null
+          thumbnail_url?: string | null
+          title: string
+          updated_at?: string
+          youtube_id: string
+        }
+        Update: {
+          ai_classified_at?: string | null
+          channel_id?: string | null
+          channel_name?: string | null
+          created_at?: string
+          description?: string | null
+          duration?: string | null
+          duration_seconds?: number | null
+          id?: string
+          language?: string | null
+          product_groups?: string[]
+          published_at?: string | null
+          question_types?: string[]
+          relevance_score?: number
+          source_id?: string | null
+          status?: string
+          summary_sv?: string | null
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string
+          youtube_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "d365_videos_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "d365_video_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       email_send_log: {
         Row: {
           created_at: string
@@ -2645,6 +2797,7 @@ export type Database = {
       }
     }
     Functions: {
+      d365_videos_dispatch: { Args: never; Returns: undefined }
       delete_email: {
         Args: { message_id: number; queue_name: string }
         Returns: boolean
