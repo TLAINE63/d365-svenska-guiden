@@ -93,6 +93,7 @@ import AdminPartnerStatsTab from "@/components/AdminPartnerStatsTab";
 import AdminPartnerAgreementTab from "@/components/AdminPartnerAgreementTab";
 import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminPartnerNewsTab from "@/components/AdminPartnerNewsTab";
+import AdminVideosTab from "@/components/AdminVideosTab";
 import AdminPartnerFeedsTab from "@/components/AdminPartnerFeedsTab";
 import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
 import AdminAllVisitorsTab from "@/components/AdminAllVisitorsTab";
@@ -2356,6 +2357,12 @@ Thomas`,
                 </span>
                 Partnernytt
               </TabsTrigger>
+              <TabsTrigger value="d365-videos" className={`flex items-center gap-2 ${activeGroup === "innehall" ? "" : "hidden"}`}>
+                <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-red-500/20 to-red-600/10 ring-1 ring-red-400/20">
+                  <Megaphone className="h-3.5 w-3.5 text-red-300" strokeWidth={1.75} />
+                </span>
+                Videobibliotek
+              </TabsTrigger>
               <TabsTrigger value="partner-feeds" className={`flex items-center gap-2 ${activeGroup === "innehall" ? "" : "hidden"}`}>
                 <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-orange-500/20 to-orange-600/10 ring-1 ring-orange-400/20">
                   <Megaphone className="h-3.5 w-3.5 text-orange-300" strokeWidth={1.75} />
@@ -3352,6 +3359,10 @@ Thomas`,
                   partners={fullPartners.map(p => ({ id: p.id, name: p.name, slug: p.slug, is_featured: p.is_featured ?? false, logo_url: p.logo_url ?? null }))}
                   onSessionExpired={logout}
                 />
+              </TabsContent>
+
+              <TabsContent value="d365-videos">
+                <AdminVideosTab token={token || ""} onSessionExpired={logout} />
               </TabsContent>
 
               <TabsContent value="partner-feeds">
