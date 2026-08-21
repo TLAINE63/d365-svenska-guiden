@@ -318,6 +318,19 @@ const BusinessCentral = () => {
     </table>
    </div>
    <p className="text-sm text-muted-foreground mt-4">
+    Vad Microsoft Dynamics 365 Business Central kostar i praktiken avgörs på den svenska marknaden av
+    tre saker: antal användare och licensnivå (Essentials eller Premium), hur mycket verksamhetsanpassning
+    och integration mot exempelvis lön, e-handel, EDI eller Peppol-fakturering som behövs, samt vilken
+    partner som genomför införandet. En mindre implementering hos ett svenskt bolag landar typiskt på
+    100 000–250 000 kr, medan projekt med produktion, flera bolag eller internationella dotterbolag
+    ligger i det övre spannet.
+   </p>
+   <p className="text-sm text-muted-foreground mt-3">
+    Införandet görs alltid av en Microsoft-certifierad partner. På d365.se jämför ni svenska Business
+    Central-partners på dokumenterad branscherfarenhet, kundstorlek och kontorsorter – och ser vilka som
+    har levererat i just er bransch innan ni tar kontakt.
+   </p>
+   <p className="text-sm text-muted-foreground mt-3">
     Vill ni ställa Business Central mot ett större ERP-system? Läs{" "}
     <Link to="/erp/" className="text-primary underline underline-offset-2">
      jämförelsen mellan Business Central och Finance &amp; Supply Chain
@@ -327,6 +340,7 @@ const BusinessCentral = () => {
      vad ett affärssystem kostar
     </Link>.
    </p>
+
   </div>
  </section>
 
