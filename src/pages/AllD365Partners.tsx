@@ -159,10 +159,10 @@ export default function AllD365Partners() {
               <Users className="w-3.5 h-3.5" /> Marknadskarta
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Övriga Dynamics 365-partners på den svenska marknaden
+              Microsoft Dynamics 365-partners på den svenska marknaden
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground mb-5">
-              Här hittar ni övriga Dynamics 365-partners på den svenska marknaden – både verifierade leverantörer på d365.se och andra aktörer vi känner till. Vill ni veta mer om någon eller få hjälp att smalna ner kortlistan, hör av er.
+              Här hittar ni en översikt över Dynamics 365-partners på den svenska marknaden – både verifierade leverantörer på d365.se och andra aktörer vi känner till. Vill ni veta mer om någon eller få hjälp att smalna ner kortlistan, hör av er.
             </p>
             {totalMarket > 0 && (
               <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
