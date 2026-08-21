@@ -76,6 +76,18 @@ export const CITY_POINTS: Record<string, [number, number]> = {
     93.4,
     950.3
   ],
+  "Värnamo": [
+    98.0,
+    880.0
+  ],
+  "Eslöv": [
+    79.0,
+    969.0
+  ],
+  "Mariestad": [
+    95.0,
+    792.0
+  ],
   "Jönköping": [
     106.4,
     851.2
