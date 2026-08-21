@@ -638,20 +638,11 @@ const ValjPartner = () => {
  <section id="hitta-partners" className="py-8 sm:py-12 md:py-16 bg-background">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10 mb-8 sm:mb-10 md:mb-12">
- {/* Partner Map */}
- <div className="shrink-0 w-48 md:w-56">
- <div className="rounded overflow-hidden border border-border ">
- <img
- src={partnerMapSweden}
- alt="Karta över Dynamics 365-partners kontor i Sverige"
- className="w-full h-auto"
- loading="lazy"
- />
- </div>
- <p className="text-xs text-muted-foreground text-center mt-2">
- Kontorsplaceringar för partners i Sverige
- </p>
- </div>
+              {/* Partner Map */}
+              <div className="shrink-0 w-56 md:w-72">
+                <SwedenOfficeMap showLegend={false} />
+              </div>
+
 
  <div className="text-center md:text-left flex-1">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
