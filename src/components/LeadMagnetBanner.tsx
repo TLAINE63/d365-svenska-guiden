@@ -159,7 +159,7 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
                 }
                 className="text-primary hover:underline font-medium"
               >
-                låt oss skicka ditt underlag till 2–3 matchande partners
+                låt oss skicka ditt underlag till 2–5 matchande partners
               </a>
             </p>
           </div>

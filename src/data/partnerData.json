@@ -2091,22 +2091,31 @@
     "website": "https://www.knowit.se/vart-erbjudande/solutions/",
     "email": "Johan.Svenungsson@knowit.se",
     "contact_person": "Johan Svenungsson",
-    "contact_photo_url": "",
+    "contact_photo_url": null,
     "phone": "0704105749",
     "applications": [
-      "F&SCM"
+      "Finance",
+      "Supply Chain Management"
     ],
-    "industries": [],
+    "industries": [
+      "Tillverkningsindustri",
+      "Grossist & Distribution"
+    ],
     "secondary_industries": [],
-    "geography": [],
+    "geography": [
+      "Sverige",
+      "Norden"
+    ],
     "product_filters": {
       "fsc": {
         "ranking": 1,
         "revenue": [
+          "100-499 MSEK",
           "500-999 MSEK",
           "1.000-4.999 MSEK"
         ],
         "geography": [
+          "Sverige",
           "Norden"
         ],
         "keyPoints": "ERP, data, AI och automatisering knyts samman för beslutsstöd och effektivitet.\nFokus på tillverknings- och grossistverksamheters specifika behov.\nArbetar genom hela affärssystemets livscykel, med långsiktig förvaltning.\nKombinerar verksamhetsförståelse med djup D365 ERP-kompetens.",
@@ -2123,8 +2132,16 @@
         "contactName": "Johan Svennungsson",
         "contactEmail": "Johan.Svenungsson@knowit.se",
         "contactPhone": "+46 704 105749",
-        "swedenCities": [],
-        "swedenRegions": [],
+        "swedenCities": [
+          "Stockholm",
+          "Göteborg",
+          "Malmö"
+        ],
+        "swedenRegions": [
+          "Storstockholm / Mälardalen",
+          "Väst",
+          "Syd / Sydväst"
+        ],
         "aiCapabilities": [
           "fsc-std-analysis",
           "fsc-std-forecast",
@@ -2176,7 +2193,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=Knowit+Stockholm",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-08-24T11:36:23.61695+00:00",
+    "updated_at": "2026-08-24T11:59:36.102904+00:00",
     "industry_pitches": [
       {
         "text": "Knowit bistår organisationer inom grossist- och distributionsbranschen med att utveckla och modernisera sina affärssystem baserade på Microsoft Dynamics 365. Genom att implementera och optimera applikationer som Dynamics 365 Finance och Supply Chain Management, strävar Knowit efter att förbättra verksamhetsprocesser, datainsamling och automatisering. De fokuserar på att integrera ERP-system med data och intelligenta arbetsflöden för att möjliggöra effektivare beslutsfattande och en mer hållbar verksamhetsutveckling. Knowit har kompetens att anpassa lösningar för att möta branschens krav på optimerade leveranskedjor och finansiell kontroll, vilket kan stödja grossister och distributörer i en konkurrensutsatt marknad.",
@@ -2213,7 +2230,7 @@
     ],
     "implementations_per_app": {},
     "ai_summary": "Knowit arbetar främst med Dynamics 365 Finance & Supply Chain Management för medelstora och större verksamheter med krav på ekonomi, produktion, distribution, logistik och komplexa integrationer.\nTillgängliga kundcase visar erfarenhet från bland annat tillverkningsindustri, grossist/distribution, energi, handel och internationella koncernmiljöer.\nKnowit levererar både nyimplementationer, modernisering från äldre ERP-system, integrations- och dataprojekt samt långsiktig förvaltning och vidareutveckling.",
-    "ai_summary_generated_at": "2026-08-24T11:32:35.232+00:00",
+    "ai_summary_generated_at": "2026-08-24T11:54:59.454+00:00",
     "ai_profile": {
       "use_cases": [],
       "description": null,
@@ -2226,7 +2243,8 @@
         "self-declared"
       ],
       "relevant_areas": [
-        "Dynamics 365 Finance"
+        "Dynamics 365 Finance",
+        "Dynamics 365 Supply Chain Management"
       ],
       "card_ai_summary": "Knowit implementerar D365 Finance & Supply Chain för tillverkare och distributörer, med fokus på AI och processintegration.",
       "experience_level": null,
@@ -2236,7 +2254,7 @@
       "ai_experience_summary_generated_at": "2026-07-03T14:03:38.112Z"
     },
     "extended_content": "Knowit är en bred nordisk digitaliserings- och konsultgrupp, börsnoterad på Nasdaq Stockholm sedan 1997, med en dedikerad D365-satsning i Sverige fokuserad på Finance & Supply Chain Management. Positionen kombinerar ERP-strategi, implementation och förvaltning med Data & AI, Power Platform, cybersäkerhet, management consulting och förändringsledning. Till skillnad från de renodlade ERP-partnerna (BE-terna, Vivicta, Nexer) är Knowit en betydligt bredare konsultgrupp där D365 F&SCM är en dedikerad satsning snarare än hela verksamheten – notera att du själv arbetar som go-to-market-rådgivare för Knowit ERP, så den här profilen är extra relevant för dig att stämma av internt innan publicering.\n\nAktiva produktområden: Primärt Dynamics 365 Finance & Supply Chain Management, med fokus på tillverkning, grossist/distribution och medelstora/stora verksamheter. Sekundärt: Business Central, CE/CRM, Power Platform, Power BI/Fabric, Data & AI, Copilot/Agentic AI, integration, management consulting, cloud, cybersäkerhet och hållbarhets-/ESG-data — dessa ska viktas som kompletterande snarare än huvudfilter om inte partnern bekräftar annat. Viktig avgränsning: Commerce, HR, Project Operations, Contact Center och specifika tredjeparts-ISV-relationer är inte verifierade som aktiva filter.\n\nTydliga styrkor: Bred nordisk konsultgrupp med Microsoft Cloud Partner-status och Microsoft Partner of the Year 2025 inom AI Business Solutions – Process. Stark förmåga att kombinera ERP med Data & AI, cybersäkerhet och förändringsledning, vilket gör Knowit relevant när kunden ser ERP som en verksamhets- och ledningsfråga snarare än enbart ett systembyte. G2 Ocean-caset lyfts som en tydlig förvaltningssignal.\n\nRäckvidd och segment: Huvudkontor på Sveavägen 20, Stockholm. Koncernen omsatte cirka 5,8 miljarder SEK 2025 med omkring 3 700 medarbetare enligt årsredovisningen — men detta ska inte tolkas som operativ D365-storlek i Sverige. Verkar i sju länder enligt årsredovisningen (Sverige, Norge, Danmark, Finland, Polen, Serbien, Tyskland), men d365.se-profilen bör i första hand visa Sverige/Norden med kontor i Stockholm, Göteborg och Malmö. Segment: medelstora och större organisationer (100–4 999 anställda enligt d365.se). Branschfokus: tillverkning och grossist/distribution som primära, med maritim/energi och industri som starka kompletterande signaler.\n\nPassar bäst: Medelstora och större organisationer som moderniserar med F&SCM, tillverkande och grossist-/distributionsverksamheter, kunder som ser ERP som en verksamhets- och ledningsfråga, organisationer som vill kombinera ERP med Data & AI, Power BI/Fabric och Copilot, samt befintliga F&SCM-kunder som behöver förvaltning och kontinuerlig förbättring. Mindre lämplig för mycket små bolag som söker enklaste möjliga BC-implementation, kunder där en specifik BC-ISV-auktorisation är viktigast och Knowit saknar verifierad relation, rena CRM/CE-projekt med CE/CRM som enda kärnfokus, samt projekt där lägsta pris väger tyngre än transformationskapacitet och governance.\n\nTre saker jag skulle flagga innan publik användning:\n\nFörst den juridiska/finansiella avgränsningen: Knowit Aktiebolag (publ) är det börsnoterade moderbolaget med 5,8 miljarder SEK i total koncernomsättning, men avtalspart och operativ storlek för D365-affären i Sverige bör verifieras separat och inte förväxlas med koncernsiffrorna.\n\nSedan geografisk räckvidd: Knowit verkar i sju länder på koncernnivå, men d365.se-profilen bör hålla sig till Sverige/Norden tills specifik global D365-leveranskapacitet är bekräftad.\n\nSlutligen kontaktpersonen: Johan Svenungsson anges som kontaktperson, men kontaktuppgifter bör verifieras före utskick eller publicering.\n\nSammanfattning: En stor, bred nordisk konsultgrupp med en dedikerad, växande D365 F&SCM-satsning i Sverige, starkast när ERP kombineras med Data & AI, cybersäkerhet och förändringsledning. Rätt jämförelsegrupp är Columbus, CGI, Cepheo, BE-terna, Fellowmind, Nexer, Implema, Engage och Avanade/Accenture, med mycket små BC-specialister, renodlade CRM-specialister och lokala redovisnings-/IT-kanaler som lägre relevans i jämförelsen.",
-    "extended_content_updated_at": "2026-08-24T11:32:35.232+00:00",
+    "extended_content_updated_at": "2026-08-24T11:54:59.454+00:00",
     "partner_size_tier": 1,
     "partner_size_tier_needs_review": false,
     "ai_summary_full": "Knowits Dynamics 365-erbjudande är tydligt koncentrerat till Dynamics 365 Finance och Supply Chain Management. Partnern arbetar genom hela ERP-livscykeln, från verksamhetsanalys, lösningsdesign och implementation till migrering, integration, förvaltning och kontinuerlig vidareutveckling.\nTillgängliga kundreferenser pekar framför allt mot verksamheter med relativt komplexa flöden och flera organisatoriska eller geografiska enheter. Det finns exempel på kunder med B2B-, B2C-, produktions-, distributions- och internationella verksamhetsflöden samt koncerner där flera bolag samlas på en gemensam plattform.\nBranschmässigt finns tydligast belägg för tillverkning/industri och grossist/distribution. Kundreferenser visar därutöver erfarenhet från energi, handel, shipping och verksamheter med internationell försäljning och distribution.\nKnowit passar även organisationer som redan använder Dynamics 365 och söker en partner för förvaltning och kontinuerlig förbättring. Tillgängliga referenser visar arbete med bland annat SLA-struktur, roadmap, optimeringsprojekt och vidareutveckling av befintliga Dynamics 365 Finance & Supply Chain-miljöer.\nDen tekniska kompetens som beskrivs omfattar bland annat Azure Service Bus, Dataverse, Dual Write, Power Automate och Microsoft Fabric, vilket är relevant för organisationer där ERP behöver integreras med CRM, dataplattformar och andra verksamhetssystem.\nNär det gäller AI finns stöd för kompetens kring Microsoft Copilot, prediktiv analys, automatiserade processer och AI som en integrerad del av ERP, data och automation. Det tillgängliga underlaget ger däremot inte tillräckligt stöd för att klassificera Knowit som specialist på avancerade fristående AI-agenter eller kundspecifika generativa AI-lösningar.",

@@ -3027,7 +3027,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       const _isBC = recommendation.product === "Business Central";
       const _productKey: ProductKey = _isBC ? "bc" : "fsc";
       const _industry = data.industry || null;
-      const _suggested = pickSuggestedPartners(allPartners, { product: _productKey, industry: _industry, limit: 3 });
+      const _suggested = pickSuggestedPartners(allPartners, { product: _productKey, industry: _industry, limit: 5 });
       const _origin = typeof window !== "undefined" ? window.location.origin : "https://d365.se";
       const _compareUrl = _origin + buildCompareUrl(_suggested.map(p => p.slug));
       appendSuggestedPartnersPage(pdf, _suggested.map(p => ({
