@@ -91,12 +91,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "ai-sok-dynamics-365-partners",
     title: "Fem sekunder till svaret, ett år till beslutet",
-    metaTitle:
-      "AI-sök förändrar hur köpare hittar Dynamics 365-partners",
+    metaTitle: "AI-sök förändrar valet av Dynamics 365-partner",
     metaDescription:
-      "AI-sök påverkar hur företag hittar, jämför och väljer Dynamics 365-partners. Artikeln visar varför tydliga tredjepartsbeskrivningar, nischad positionering och konkret erfarenhet av Copilot och agenter blir avgörande.",
+      "AI-sök förändrar hur köpare hittar och jämför Dynamics 365-partners. Därför blir tydlig nisch, tredjepartsbeskrivningar och konkreta kundbevis viktigare.",
     summary:
-      "AI-sök gör att köpare formar sin bild av Dynamics 365-partners långt innan första mötet. Här är varför nischad positionering, tredjepartsbeskrivningar och konkret Copilot-erfarenhet blir viktigare än traditionell SEO.",
+      "AI-sök gör att köpare formar sin bild av Dynamics 365-partners långt innan första mötet. Här är varför nischad positionering, oberoende tredjepartsbeskrivningar och konkret Copilot-erfarenhet får ökad tyngd – utan att grunden i SEO försvinner.",
     category: "Partnerurval / AI och Dynamics 365",
     tags: [
       "ai-sök",
@@ -134,13 +133,20 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           <p className="!text-[1.05rem] !font-bold !text-[#1F4E79] !mb-2 !mt-0">
             AI-sammanfattning
           </p>
-          <p className="!my-0 !text-foreground/90">
-            AI-sök förändrar hur köpare hittar, jämför och förstår Dynamics
-            365-partners. Den här artikeln visar varför
-            tredjepartsbeskrivningar, nischad positionering och konkret
-            Copilot- och agentkompetens blir viktigare än traditionell SEO när
-            beslutsgrupper bygger sina shortlists.
-          </p>
+          <ul className="!my-0 !text-foreground/90">
+            <li>
+              AI påverkar vilka partners som kommer med i köparens första
+              urval.
+            </li>
+            <li>
+              Oberoende och specifika beskrivningar gör partnern lättare att
+              jämföra.
+            </li>
+            <li>
+              AI-synlighet är ett inträde i beslutsprocessen – inte ett bevis
+              på leveransförmåga.
+            </li>
+          </ul>
         </aside>
 
         <p>
@@ -152,7 +158,15 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Sedan tar beslutsprocessen vid. Sex månader, ofta tolv, innan gruppen
           är överens, upphandlingen är klar och avtalet påskrivet. Först
           därefter startar projektet – och medianen för ERP-projekt ligger
-          enligt Panorama på drygt femton månader.
+          enligt{" "}
+          <a
+            href="https://www.panorama-consulting.com/resource-center/erp-report/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Panorama
+          </a>{" "}
+          på drygt femton månader.
         </p>
         <p>
           Tre tidsspann, alltså. Det är det mellersta som är artikelns ärende.
@@ -175,10 +189,16 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <h2>Vad som faktiskt hänt i köpprocessen</h2>
         <p>
-          G2 frågade 1 076 B2B-köpare i mars 2026 hur de gör sin research. 51
-          procent inleder numera oftare i en AI-chatt än i Google. Ett år
-          tidigare var siffran 29 procent. 71 procent använder en AI-chatt
-          någonstans i processen.
+          <a
+            href="https://www.g2.com/research"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            G2 frågade 1 076 B2B-köpare
+          </a>{" "}
+          i mars 2026 hur de gör sin research. 51 procent inleder numera oftare
+          i en AI-chatt än i Google. Ett år tidigare var siffran 29 procent. 71
+          procent använder en AI-chatt någonstans i processen.
         </p>
         <p>
           Sedan kommer siffran som brukar få det tyst i rummet:{" "}
@@ -212,8 +232,29 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           in i ett AI-svar. Men bara delvis.
         </p>
         <p>
-          Ahrefs analyserade 75 000 varumärken för att se vilka signaler som
-          hänger ihop med synlighet i AI-genererade svar:
+          <a
+            href="https://developers.google.com/search/docs/appearance/ai-features"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Google
+          </a>{" "}
+          betraktar inte AIO eller GEO som en ersättning för SEO. Den tekniska
+          och innehållsmässiga grunden är densamma: innehållet ska vara
+          indexerbart, värdefullt, trovärdigt och expertlett. Skillnaden är att
+          oberoende tredjepartsbeskrivningar kan ge AI-tjänster mer underlag
+          för att förstå, särskilja och jämföra en partner.
+        </p>
+        <p>
+          <a
+            href="https://ahrefs.com/blog/ai-overviews-brand-visibility/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Ahrefs analyserade 75 000 varumärken
+          </a>{" "}
+          för att se vilka signaler som hänger ihop med synlighet i
+          AI-genererade svar:
         </p>
         <ul>
           <li>Omnämnanden av varumärket på andra sajter: 0,664</li>
@@ -296,9 +337,16 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           CRM-införanden?" hör till de vanligaste frågorna en beslutsgrupp
           ställer. Svaren domineras av generisk misslyckandestatistik:
           budgetöverdrag, förseningar och låg adoption. På CRM-sidan är
-          underlaget särskilt dystert: en systematisk forskningsöversikt anger
-          att omkring 70 procent av implementeringarna inte når sina förväntade
-          mål.
+          underlaget särskilt dystert:{" "}
+          <a
+            href="https://doi.org/10.1016/j.fcij.2018.11.003"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            en systematisk forskningsöversikt
+          </a>{" "}
+          anger att omkring 70 procent av implementeringarna inte når sina
+          förväntade mål.
         </p>
         <p>
           Nästan ingen partner är beskriven i termer av hur de hanterar just de
@@ -360,11 +408,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           agent genomföra själva köpet.
         </p>
         <p>
-          En agent klickar sig inte igenom en snygg webbplats. Den hämtar text,
-          jämför påståenden och letar efter något konkret att väga. Är det enda
-          som finns om din ett antal formuleringar om engagemang och lång
-          erfarenhet, blir du svåra att placera i en jämförelse – inte
-          bortvalda, bara ohanterliga.
+          En agent bedömer inte en webbplats som en människa. Den läser sidans
+          struktur, tillgänglig text och konkreta uppgifter – och kan navigera
+          vidare för att jämföra information. Är det enda som finns om er ett
+          antal formuleringar om engagemang och lång erfarenhet, blir ni svåra
+          att placera i en jämförelse – inte bortvalda, bara ohanterliga.
         </p>
         <p>
           För att bli begriplig i den typen av jämförelse behöver partnern
@@ -376,6 +424,43 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
 
         <h2>Vad som skiljer mellan segmenten</h2>
+
+        <div className="my-6 overflow-x-auto">
+          <table className="w-full border-collapse text-left text-[0.95rem]">
+            <thead>
+              <tr className="border-b border-border">
+                <th className="py-2 pr-4 font-semibold">Segment</th>
+                <th className="py-2 font-semibold">
+                  AI-sökens huvudsakliga påverkan
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-border/60">
+                <td className="py-2 pr-4 align-top font-medium">
+                  Mindre företag
+                </td>
+                <td className="py-2 align-top">
+                  Vilka partners som över huvud taget upptäcks
+                </td>
+              </tr>
+              <tr className="border-b border-border/60">
+                <td className="py-2 pr-4 align-top font-medium">
+                  Mellansegment
+                </td>
+                <td className="py-2 align-top">
+                  Vilka partners som bjuds in att svara
+                </td>
+              </tr>
+              <tr>
+                <td className="py-2 pr-4 align-top font-medium">Enterprise</td>
+                <td className="py-2 align-top">
+                  Hur redan kända partners karaktäriseras
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         <h3>Mindre bolag: störst exponering, kortast väg</h3>
         <p>
@@ -396,7 +481,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Här finns formell upphandling, ofta extern rådgivning, etablerade
           relationer och Microsofts egen säljorganisation. Vilka som bjuds in
-          styrs därför av fler faktorer än AI-synlighet. Men hur du beskrivs
+          styrs därför av fler faktorer än AI-synlighet. Men hur ni beskrivs
           under utvärderingen påverkas, och köparen kommer beväpnad med frågor
           som formulerats någon annanstans.
         </p>
@@ -407,7 +492,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           täckte, desto mer trafik. Därför positionerar sig de flesta partners
           brett: alla branscher, alla storlekar, hela produktportföljen.
         </p>
-        <p>AI inverterar det.</p>
+        <p>AI-sök förstärker värdet av precision.</p>
         <p>
           En modell matchar en specifik fråga mot specifika beskrivningar. "Vi
           levererar Dynamics 365 till alla typer av verksamheter" matchar
@@ -458,10 +543,17 @@ export const BLOG_ARTICLES: BlogArticle[] = [
             inte vad som är möjligt.
           </li>
           <li>
-            Låt siffror och källor finnas i själva texten. Den akademiska
-            GEO-studien från Princeton, Georgia Tech och IIT Delhi fann att
-            tillägg av statistik och källhänvisningar hörde till de metoder som
-            höjde synligheten mest.
+            Låt siffror och källor finnas i själva texten. Den akademiska{" "}
+            <a
+              href="https://arxiv.org/abs/2311.09735"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GEO-studien
+            </a>{" "}
+            från Princeton, Georgia Tech och IIT Delhi fann att tillägg av
+            statistik och källhänvisningar hörde till de metoder som höjde
+            synligheten mest.
           </li>
           <li>
             Håll tredjepartsprofilerna levande. G2:s köpare uppger att
@@ -473,8 +565,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
             upprepning. Fem olika självbeskrivningar blir till slut ingen alls.
           </li>
           <li>
-            Räkna med fördröjning. Modeller tränas i cykler och omnämnanden
-            behöver tid att ackumuleras.
+            Räkna med fördröjning. Indexering, hämtning och modelluppdateringar
+            sker med fördröjning, och omnämnanden behöver tid att ackumuleras.
           </li>
         </ul>
 
@@ -546,46 +638,106 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
 
         <aside className="my-10 rounded-md border border-border bg-muted/40 px-7 py-6">
-          <p className="!mt-0 !mb-3 !font-semibold">
-            Vill du veta om din partnerprofil är tillräckligt tydlig för att
-            komma med i AI-genererade shortlists – och tillräckligt konkret för
-            att bli rätt beskriven?
-          </p>
-          <p className="!my-0">
+          <p className="!mt-0 !mb-4">
             På d365.se analyserar vi hur Dynamics 365-partners beskrivs,
             jämförs och matchas mot verkliga kundbehov – från affärssystem och
-            CRM till Power Platform, Copilot och agenter. Läs mer om{" "}
-            <a href="/partnerprogram/">partnerprogrammet</a>.
+            CRM till Power Platform, Copilot och agenter. Två vägar vidare:
+          </p>
+          <p className="!my-2">
+            <strong>För partners:</strong>{" "}
+            <a href="/partnerprogram/">
+              Granska och utveckla er partnerprofil
+            </a>{" "}
+            – så att beskrivningen är tillräckligt tydlig och konkret för att
+            gå att jämföra.
+          </p>
+          <p className="!my-0">
+            <strong>För köpare:</strong>{" "}
+            <a href="/valjdynamics365partner/">
+              Hitta och jämför relevanta partners
+            </a>{" "}
+            – utifrån produktområde, bransch och storlek.
           </p>
         </aside>
 
         <h2>Källor</h2>
         <ul>
           <li>
-            G2 – The Answer Economy: How AI Search Is Rewiring B2B Software
-            Buying (mars 2026, 1 076 B2B-köpare).
+            <a
+              href="https://www.g2.com/research"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              G2 – The Answer Economy: How AI Search Is Rewiring B2B Software
+              Buying
+            </a>{" "}
+            (mars 2026, 1 076 B2B-köpare).
           </li>
           <li>
-            G2 – 2026 Buyer Behavior Report: The Evaluation Maze.
-            Utvärderingsfasen samt agenternas användningsområden i
+            <a
+              href="https://www.g2.com/research"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              G2 – 2026 Buyer Behavior Report: The Evaluation Maze
+            </a>
+            . Utvärderingsfasen samt agenternas användningsområden i
             köpprocessen.
           </li>
           <li>
-            Ahrefs – An Analysis of AI Overview Brand Visibility Factors (75
-            000 varumärken) samt uppföljningen Top Brand Visibility Factors in
-            ChatGPT, AI Mode, and AI Overviews.
+            <a
+              href="https://ahrefs.com/blog/ai-overviews-brand-visibility/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ahrefs – An Analysis of AI Overview Brand Visibility Factors
+            </a>{" "}
+            (75 000 varumärken) samt uppföljningen Top Brand Visibility Factors
+            in ChatGPT, AI Mode, and AI Overviews.
           </li>
           <li>
-            Aggarwal m.fl. – GEO: Generative Engine Optimization (Princeton,
-            Georgia Tech, IIT Delhi, Allen Institute for AI; ACM KDD 2024).
+            <a
+              href="https://arxiv.org/abs/2311.09735"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Aggarwal m.fl. – GEO: Generative Engine Optimization
+            </a>{" "}
+            (Princeton, Georgia Tech, IIT Delhi, Allen Institute for AI; ACM
+            KDD 2024).
           </li>
           <li>
-            Panorama Consulting Group – The 2024 ERP Report. Medianprojekttid.
+            <a
+              href="https://www.panorama-consulting.com/resource-center/erp-report/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Panorama Consulting Group – The ERP Report
+            </a>
+            . Medianprojekttid.
           </li>
           <li>
-            Farhan, Abed &amp; Abd Ellatif (2018) – A systematic review for the
-            determination and classification of the CRM critical success
-            factors. Future Computing and Informatics Journal.
+            <a
+              href="https://doi.org/10.1016/j.fcij.2018.11.003"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Farhan, Abed &amp; Abd Ellatif (2018) – A systematic review for
+              the determination and classification of the CRM critical success
+              factors
+            </a>
+            . Future Computing and Informatics Journal.
+          </li>
+          <li>
+            <a
+              href="https://developers.google.com/search/docs/appearance/ai-features"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Google Search Central – Top ways to ensure your content performs
+              well in Google's AI experiences
+            </a>
+            .
           </li>
         </ul>
         <p className="text-sm text-muted-foreground">
