@@ -78,10 +78,45 @@ export const DELIVERY_PROFILE_FIELDS: DeliveryProfileField[] = [
   },
 ];
 
-/** AI-genererat utkast per fält. Visas endast i redigeringsläge, aldrig publikt. */
-export interface DeliveryProfileSuggestions extends Partial<Record<DeliveryProfileFieldKey, string>> {
-  generatedAt?: string;
-}
+export const DELIVERY_FIELDS = DELIVERY_PROFILE_FIELDS.filter((f) => f.group === "delivery");
+export const SUPPORT_FIELDS = DELIVERY_PROFILE_FIELDS.filter((f) => f.group === "support");
+
+/**
+ * Bedömd nivå för Support, Förvaltning & Vidareutveckling.
+ * Sätts alltid av d365.se – aldrig av partnern själv.
+ */
+export const SUPPORT_LEVELS = ["project_focus", "managed_offering", "lifecycle_partner"] as const;
+export type SupportLevel = (typeof SUPPORT_LEVELS)[number];
+
+export const SUPPORT_LEVEL_META: Record<
+  SupportLevel,
+  { label: string; description: string; className: string; dot: string }
+> = {
+  project_focus: {
+    label: "Projektfokus",
+    description:
+      "Partnern levererar främst projekt. Förvaltning efter go-live förekommer i begränsad form.",
+    className: "bg-muted text-muted-foreground border-border",
+    dot: "bg-muted-foreground",
+  },
+  managed_offering: {
+    label: "Förvaltningserbjudande",
+    description:
+      "Etablerat förvaltningsavtal med definierade supportnivåer och löpande uppföljning efter go-live.",
+    className: "bg-accent/10 text-accent border-accent/30",
+    dot: "bg-accent",
+  },
+  lifecycle_partner: {
+    label: "Livscykelpartner",
+    description:
+      "Dokumenterad löpande förvaltning och strukturerad vidareutveckling av lösningen över tid.",
+    className: "bg-primary/10 text-primary border-primary/30",
+    dot: "bg-primary",
+  },
+};
+
+export const SUPPORT_DISCLAIMER =
+  "Beskrivningarna kommer från partnern. Nivån är d365.se:s bedömning utifrån tillgängligt underlag.";
 
 export interface DeliveryProfileValue {
   typicalCustomers?: string;
@@ -92,8 +127,16 @@ export interface DeliveryProfileValue {
   aiAutomation?: string;
   aiSummary?: string;
   aiSummaryGeneratedAt?: string;
+  /** Bedömd nivå för support/förvaltning – sätts av d365.se i admin. */
+  supportLevel?: SupportLevel | null;
   suggestions?: DeliveryProfileSuggestions;
 }
+
+export const isSupportProfileFilled = (v?: DeliveryProfileValue | null): boolean =>
+  !!v &&
+  (SUPPORT_FIELDS.some((f) => (v[f.key] || "").trim().length > 0) ||
+    !!v.supportLevel);
+
 
 export const isDeliveryProfileFilled = (v?: DeliveryProfileValue | null): boolean =>
   !!v && DELIVERY_PROFILE_FIELDS.some((f) => (v[f.key] || "").trim().length > 0);
