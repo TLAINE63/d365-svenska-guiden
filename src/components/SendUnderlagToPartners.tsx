@@ -79,7 +79,7 @@ export const SendUnderlagToPartners = ({
         product: products,
         industry,
         companySize: toCompanySizeBucket(companySize),
-        limit: 3,
+        limit: 5,
       }),
     [allPartners, products, industry, companySize],
   );

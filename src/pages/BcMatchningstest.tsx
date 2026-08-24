@@ -130,7 +130,7 @@ const BcMatchningstest = () => {
     if (!result) return;
     try {
       const { generateBcResultPdf } = await import("@/utils/generateBcResultPdf");
-      const sugg = pickSuggestedPartners(partners, { product: "bc", limit: 3 });
+      const sugg = pickSuggestedPartners(partners, { product: "bc", limit: 5 });
       const origin = typeof window !== "undefined" ? window.location.origin : "https://d365.se";
       await generateBcResultPdf(result, answers, sugg.length > 0 ? {
         suggestedPartners: sugg.map((p) => ({

@@ -29,7 +29,7 @@ export const pickSuggestedPartners = (
     limit?: number;
   },
 ): DatabasePartner[] => {
-  const limit = opts.limit ?? 3;
+  const limit = opts.limit ?? 5;
   const productKeys: ProductKey[] = Array.isArray(opts.product)
     ? opts.product
     : [opts.product];

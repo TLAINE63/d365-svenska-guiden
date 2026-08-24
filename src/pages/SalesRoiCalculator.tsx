@@ -597,7 +597,7 @@ export default function SalesRoiCalculator() {
                       { title: "Disclaimer", body: "Kalkylen är en förenklad uppskattning och bör användas som beslutsstöd – inte som en slutlig offert eller affärskalkyl. Validera alltid utfall med två–tre relevanta partners." },
                     ],
                     ...(() => {
-                      const sugg = pickSuggestedPartners(partners, { product: "sales", industry: v.industry, limit: 3 });
+                      const sugg = pickSuggestedPartners(partners, { product: "sales", industry: v.industry, limit: 5 });
                       if (sugg.length === 0) return {};
                       const origin = typeof window !== "undefined" ? window.location.origin : "https://d365.se";
                       return {

@@ -1439,7 +1439,7 @@ const CustomerServiceNeedsAnalysis = () => {
  // Föreslagna partners – avslutande sida
  try {
  const _industry = data.industry === "Annat" ? data.industryOther : data.industry;
- const _suggested = pickSuggestedPartners(allPartners, { product: "service", industry: _industry, limit: 3 });
+ const _suggested = pickSuggestedPartners(allPartners, { product: "service", industry: _industry, limit: 5 });
  const _origin = typeof window !== "undefined" ? window.location.origin : "https://d365.se";
  const _compareUrl = _origin + buildCompareUrl(_suggested.map(p => p.slug));
  appendSuggestedPartnersPage(pdf, _suggested.map(p => ({

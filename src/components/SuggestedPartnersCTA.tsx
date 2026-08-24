@@ -38,7 +38,7 @@ const SuggestedPartnersCTA = ({
   const { data: partners = [], isLoading } = usePartners();
 
   const suggested = useMemo(
-    () => pickSuggestedPartners(partners, { product, industry, companySize, revenue, limit: 3 }),
+    () => pickSuggestedPartners(partners, { product, industry, companySize, revenue, limit: 5 }),
     [partners, product, industry, companySize, revenue],
   );
 
