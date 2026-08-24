@@ -174,10 +174,16 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <h2>Vad som faktiskt hänt i köpprocessen</h2>
         <p>
-          G2 frågade 1 076 B2B-köpare i mars 2026 hur de gör sin research. 51
-          procent inleder numera oftare i en AI-chatt än i Google. Ett år
-          tidigare var siffran 29 procent. 71 procent använder en AI-chatt
-          någonstans i processen.
+          <a
+            href="https://www.g2.com/research"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            G2 frågade 1 076 B2B-köpare
+          </a>{" "}
+          i mars 2026 hur de gör sin research. 51 procent inleder numera oftare
+          i en AI-chatt än i Google. Ett år tidigare var siffran 29 procent. 71
+          procent använder en AI-chatt någonstans i processen.
         </p>
         <p>
           Sedan kommer siffran som brukar få det tyst i rummet:{" "}
