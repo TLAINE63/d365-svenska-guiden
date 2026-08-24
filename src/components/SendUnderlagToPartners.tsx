@@ -67,7 +67,7 @@ export const SendUnderlagToPartners = ({
   resultUrl,
   pdfBlob,
   pdfFileName,
-  heading = "Skicka underlaget till 2–3 matchande partners",
+  heading = "Skicka underlaget till 2–5 matchande partners",
   description = "Vi har valt ut de partners som passar bäst utifrån dina svar. Du kan avmarkera eller lägga till fler nedan – därefter skickar vi ditt underlag och rådgivningsteamet följer upp.",
 }: Props) => {
   const { toast } = useToast();
