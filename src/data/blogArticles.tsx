@@ -95,7 +95,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     metaDescription:
       "AI-sök förändrar hur köpare hittar och jämför Dynamics 365-partners. Därför blir tydlig nisch, tredjepartsbeskrivningar och konkreta kundbevis viktigare.",
     summary:
-      "AI-sök gör att köpare formar sin bild av Dynamics 365-partners långt innan första mötet. Här är varför nischad positionering, tredjepartsbeskrivningar och konkret Copilot-erfarenhet blir viktigare än traditionell SEO.",
+      "AI-sök gör att köpare formar sin bild av Dynamics 365-partners långt innan första mötet. Här är varför nischad positionering, oberoende tredjepartsbeskrivningar och konkret Copilot-erfarenhet får ökad tyngd – utan att grunden i SEO försvinner.",
     category: "Partnerurval / AI och Dynamics 365",
     tags: [
       "ai-sök",
