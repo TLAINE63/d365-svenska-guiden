@@ -4830,6 +4830,7 @@ Thomas`,
     <DeliveryProfileEditor
       productLabel={section.label}
       value={(filter as any).deliveryProfile}
+      allowLevelEdit
       onChange={(next) => updateProductFilter(section.key, { deliveryProfile: next } as any)}
     />
     <Button
