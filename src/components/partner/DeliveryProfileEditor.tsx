@@ -63,46 +63,49 @@ const DeliveryProfileEditor = ({ productLabel, value, onChange, allowLevelEdit =
         </div>
       )}
 
-      {DELIVERY_PROFILE_FIELDS.map((field) => {
-        const text = v[field.key] || "";
-        const len = text.trim().length;
-        const tooShort = len > 0 && len < DELIVERY_PROFILE_MIN;
-        const suggestion = (suggestions[field.key] || "").trim();
-        return (
-          <div key={field.key}>
-            <Label className="text-sm">{field.label}</Label>
-            <p className="text-xs text-muted-foreground mt-1 mb-2">{field.help}</p>
-            <Textarea
-              value={text}
-              maxLength={DELIVERY_PROFILE_MAX}
-              placeholder={field.placeholder}
-              onChange={(e) => setField(field.key, e.target.value)}
-              className="min-h-[110px]"
-            />
-            <p className={`text-xs mt-1 ${tooShort ? "text-amber-600" : "text-muted-foreground"}`}>
-              {len} / {DELIVERY_PROFILE_MAX} tecken
-              {tooShort ? ` – minst ${DELIVERY_PROFILE_MIN} tecken rekommenderas` : ""}
-            </p>
-            {suggestion && (
-              <div className="mt-2 rounded-md border border-dashed border-primary/40 bg-muted/40 p-3">
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1 inline-flex items-center gap-1">
-                  <Sparkles className="w-3 h-3 text-primary" /> AI-förslag
-                </p>
-                <p className="text-sm text-foreground leading-relaxed">{suggestion}</p>
-                <Button
-                  type="button"
-                  size="sm"
-                  variant="ghost"
-                  className="mt-2 h-7 px-2 text-xs"
-                  onClick={() => setField(field.key, suggestion)}
-                >
-                  Använd förslaget
-                </Button>
-              </div>
-            )}
+      {renderFields(DELIVERY_PROFILE_FIELDS.filter((f) => f.group === "delivery"))}
+
+      <div className="pt-2 border-t border-border">
+        <Label className="text-sm font-semibold">Support, Förvaltning &amp; Vidareutveckling</Label>
+        <p className="text-xs text-muted-foreground mt-1">
+          Beskriv hur lösningen stöttas och utvecklas vidare efter go-live. Visas som en egen sektion
+          på partnerprofilen.
+        </p>
+      </div>
+
+      {renderFields(DELIVERY_PROFILE_FIELDS.filter((f) => f.group === "support"))}
+
+      {allowLevelEdit && (
+        <div className="rounded-lg border border-border bg-muted/30 p-3">
+          <Label className="text-sm">Bedömd nivå (sätts av d365.se)</Label>
+          <p className="text-xs text-muted-foreground mt-1 mb-2">
+            Visas som badge i sektionen. Lämna tom om ingen bedömning gjorts.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            <Button
+              type="button"
+              size="sm"
+              variant={!v.supportLevel ? "default" : "outline"}
+              onClick={() => onChange({ ...v, supportLevel: null })}
+            >
+              Ingen nivå
+            </Button>
+            {SUPPORT_LEVELS.map((lvl: SupportLevel) => (
+              <Button
+                key={lvl}
+                type="button"
+                size="sm"
+                variant={v.supportLevel === lvl ? "default" : "outline"}
+                title={SUPPORT_LEVEL_META[lvl].description}
+                onClick={() => onChange({ ...v, supportLevel: lvl })}
+              >
+                {SUPPORT_LEVEL_META[lvl].label}
+              </Button>
+            ))}
           </div>
-        );
-      })}
+        </div>
+      )}
+
 
       {v.aiSummary && (
         <div className="rounded-lg border border-border bg-muted/40 p-4">
