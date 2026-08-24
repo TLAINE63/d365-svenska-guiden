@@ -561,30 +561,81 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h2>Källor</h2>
         <ul>
           <li>
-            G2 – The Answer Economy: How AI Search Is Rewiring B2B Software
-            Buying (mars 2026, 1 076 B2B-köpare).
+            <a
+              href="https://www.g2.com/research"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              G2 – The Answer Economy: How AI Search Is Rewiring B2B Software
+              Buying
+            </a>{" "}
+            (mars 2026, 1 076 B2B-köpare).
           </li>
           <li>
-            G2 – 2026 Buyer Behavior Report: The Evaluation Maze.
-            Utvärderingsfasen samt agenternas användningsområden i
+            <a
+              href="https://www.g2.com/research"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              G2 – 2026 Buyer Behavior Report: The Evaluation Maze
+            </a>
+            . Utvärderingsfasen samt agenternas användningsområden i
             köpprocessen.
           </li>
           <li>
-            Ahrefs – An Analysis of AI Overview Brand Visibility Factors (75
-            000 varumärken) samt uppföljningen Top Brand Visibility Factors in
-            ChatGPT, AI Mode, and AI Overviews.
+            <a
+              href="https://ahrefs.com/blog/ai-overviews-brand-visibility/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ahrefs – An Analysis of AI Overview Brand Visibility Factors
+            </a>{" "}
+            (75 000 varumärken) samt uppföljningen Top Brand Visibility Factors
+            in ChatGPT, AI Mode, and AI Overviews.
           </li>
           <li>
-            Aggarwal m.fl. – GEO: Generative Engine Optimization (Princeton,
-            Georgia Tech, IIT Delhi, Allen Institute for AI; ACM KDD 2024).
+            <a
+              href="https://arxiv.org/abs/2311.09735"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Aggarwal m.fl. – GEO: Generative Engine Optimization
+            </a>{" "}
+            (Princeton, Georgia Tech, IIT Delhi, Allen Institute for AI; ACM
+            KDD 2024).
           </li>
           <li>
-            Panorama Consulting Group – The 2024 ERP Report. Medianprojekttid.
+            <a
+              href="https://www.panorama-consulting.com/resource-center/erp-report/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Panorama Consulting Group – The ERP Report
+            </a>
+            . Medianprojekttid.
           </li>
           <li>
-            Farhan, Abed &amp; Abd Ellatif (2018) – A systematic review for the
-            determination and classification of the CRM critical success
-            factors. Future Computing and Informatics Journal.
+            <a
+              href="https://doi.org/10.1016/j.fcij.2018.11.003"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Farhan, Abed &amp; Abd Ellatif (2018) – A systematic review for
+              the determination and classification of the CRM critical success
+              factors
+            </a>
+            . Future Computing and Informatics Journal.
+          </li>
+          <li>
+            <a
+              href="https://developers.google.com/search/docs/appearance/ai-features"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Google Search Central – Top ways to ensure your content performs
+              well in Google's AI experiences
+            </a>
+            .
           </li>
         </ul>
         <p className="text-sm text-muted-foreground">
