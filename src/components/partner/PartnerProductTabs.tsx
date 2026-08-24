@@ -29,6 +29,7 @@ import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 import { appToProductFilterKey, type ProductFilterKey } from "@/lib/productFilterGroup";
 import ProductDeliveryProfile from "@/components/partner/ProductDeliveryProfile";
+import ProductSupportProfile from "@/components/partner/ProductSupportProfile";
 import { isDeliveryProfileFilled, type DeliveryProfileValue } from "@/data/deliveryProfileFields";
 
 const BusinessCentralIcon = "/d365-icons/BusinessCentral-new.webp";
