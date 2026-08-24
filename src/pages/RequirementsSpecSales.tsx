@@ -22,6 +22,7 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import SelectionCard from "@/components/SelectionCard";
 import { supabase } from "@/integrations/supabase/client";
+import { invokeWithRetry } from "@/utils/invokeWithRetry";
 import { useToast } from "@/hooks/use-toast";
 import { generateRequirementsSpec, type RequirementsData } from "@/utils/generateRequirementsSpec";
 import { allIndustries } from "@/data/partners";
@@ -99,11 +100,7 @@ const RequirementsSpecSales = () => {
   const handleGenerate = async () => {
     setIsGenerating(true);
     try {
-      const { data, error } = await supabase.functions.invoke("generate-requirements", {
-        body: { product: "sales", industry, companySize, areas: selectedAreas },
-      });
-      if (error) throw error;
-      if (data?.error) throw new Error(data.error);
+      const data = await invokeWithRetry("generate-requirements", { product: "sales", industry, companySize, areas: selectedAreas });
       setResult(data);
       setStep(4);
     } catch (err: any) {
