@@ -11,6 +11,7 @@ import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
 import SendUnderlagToPartners from "@/components/SendUnderlagToPartners";
 import { usePartners } from "@/hooks/usePartners";
 import { pickSuggestedPartners } from "@/lib/suggestPartners";
+import { toCompanySizeBucket } from "@/lib/companySizeBucket";
 import { buildCompareUrl } from "@/lib/compareUrl";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
