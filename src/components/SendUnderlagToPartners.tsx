@@ -73,8 +73,14 @@ export const SendUnderlagToPartners = ({
   const { data: allPartners = [] } = usePartners();
 
   const suggested = useMemo(
-    () => pickSuggestedPartners(allPartners, { product: products, industry, limit: 3 }),
-    [allPartners, products, industry],
+    () =>
+      pickSuggestedPartners(allPartners, {
+        product: products,
+        industry,
+        companySize: toCompanySizeBucket(companySize),
+        limit: 3,
+      }),
+    [allPartners, products, industry, companySize],
   );
 
   const [selectedSlugs, setSelectedSlugs] = useState<string[]>(() => suggested.map((p) => p.slug));
