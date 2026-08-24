@@ -406,7 +406,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           täckte, desto mer trafik. Därför positionerar sig de flesta partners
           brett: alla branscher, alla storlekar, hela produktportföljen.
         </p>
-        <p>AI inverterar det.</p>
+        <p>AI-sök förstärker värdet av precision.</p>
         <p>
           En modell matchar en specifik fråga mot specifika beskrivningar. "Vi
           levererar Dynamics 365 till alla typer av verksamheter" matchar
