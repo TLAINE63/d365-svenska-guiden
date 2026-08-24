@@ -40,6 +40,48 @@ const DeliveryProfileEditor = ({ productLabel, value, onChange, allowLevelEdit =
     onChange(next);
   };
 
+  const renderFields = (fields: DeliveryProfileField[]) =>
+    fields.map((field) => {
+      const text = v[field.key] || "";
+      const len = text.trim().length;
+      const tooShort = len > 0 && len < DELIVERY_PROFILE_MIN;
+      const suggestion = (suggestions[field.key] || "").trim();
+      return (
+        <div key={field.key}>
+          <Label className="text-sm">{field.label}</Label>
+          <p className="text-xs text-muted-foreground mt-1 mb-2">{field.help}</p>
+          <Textarea
+            value={text}
+            maxLength={DELIVERY_PROFILE_MAX}
+            placeholder={field.placeholder}
+            onChange={(e) => setField(field.key, e.target.value)}
+            className="min-h-[110px]"
+          />
+          <p className={`text-xs mt-1 ${tooShort ? "text-amber-600" : "text-muted-foreground"}`}>
+            {len} / {DELIVERY_PROFILE_MAX} tecken
+            {tooShort ? ` – minst ${DELIVERY_PROFILE_MIN} tecken rekommenderas` : ""}
+          </p>
+          {suggestion && (
+            <div className="mt-2 rounded-md border border-dashed border-primary/40 bg-muted/40 p-3">
+              <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1 inline-flex items-center gap-1">
+                <Sparkles className="w-3 h-3 text-primary" /> AI-förslag
+              </p>
+              <p className="text-sm text-foreground leading-relaxed">{suggestion}</p>
+              <Button
+                type="button"
+                size="sm"
+                variant="ghost"
+                className="mt-2 h-7 px-2 text-xs"
+                onClick={() => setField(field.key, suggestion)}
+              >
+                Använd förslaget
+              </Button>
+            </div>
+          )}
+        </div>
+      );
+    });
+
   return (
     <div className="space-y-5">
       <div>
