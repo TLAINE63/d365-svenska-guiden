@@ -510,7 +510,7 @@ ${
         </div>
       </main>
       <RelatedPages heading="Nästa steg i CRM-köpresan" pages={requirementsCrmRelatedPages} />
-      {result && <SuggestedPartnersCTA product="sales" industry={result.industry || industry} />}
+      {result && <SuggestedPartnersCTA product="sales" industry={result.industry || industry} companySize={toCompanySizeBucket(companySize)} />}
       <Footer />
     </>
   );

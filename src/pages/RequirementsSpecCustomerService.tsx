@@ -513,7 +513,7 @@ ${
         </div>
       </main>
       <RelatedPages heading="Nästa steg i Customer Service-köpresan" pages={requirementsCsRelatedPages} />
-      {result && <SuggestedPartnersCTA product="service" industry={result.industry || industry} />}
+      {result && <SuggestedPartnersCTA product="service" industry={result.industry || industry} companySize={toCompanySizeBucket(companySize)} />}
       <Footer />
     </>
   );
