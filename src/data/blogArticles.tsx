@@ -359,11 +359,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           agent genomföra själva köpet.
         </p>
         <p>
-          En agent klickar sig inte igenom en snygg webbplats. Den hämtar text,
-          jämför påståenden och letar efter något konkret att väga. Är det enda
-          som finns om din ett antal formuleringar om engagemang och lång
-          erfarenhet, blir du svåra att placera i en jämförelse – inte
-          bortvalda, bara ohanterliga.
+          En agent bedömer inte en webbplats som en människa. Den läser sidans
+          struktur, tillgänglig text och konkreta uppgifter – och kan navigera
+          vidare för att jämföra information. Är det enda som finns om er ett
+          antal formuleringar om engagemang och lång erfarenhet, blir ni svåra
+          att placera i en jämförelse – inte bortvalda, bara ohanterliga.
         </p>
         <p>
           För att bli begriplig i den typen av jämförelse behöver partnern
@@ -375,6 +375,43 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
 
         <h2>Vad som skiljer mellan segmenten</h2>
+
+        <div className="my-6 overflow-x-auto">
+          <table className="w-full border-collapse text-left text-[0.95rem]">
+            <thead>
+              <tr className="border-b border-border">
+                <th className="py-2 pr-4 font-semibold">Segment</th>
+                <th className="py-2 font-semibold">
+                  AI-sökens huvudsakliga påverkan
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-border/60">
+                <td className="py-2 pr-4 align-top font-medium">
+                  Mindre företag
+                </td>
+                <td className="py-2 align-top">
+                  Vilka partners som över huvud taget upptäcks
+                </td>
+              </tr>
+              <tr className="border-b border-border/60">
+                <td className="py-2 pr-4 align-top font-medium">
+                  Mellansegment
+                </td>
+                <td className="py-2 align-top">
+                  Vilka partners som bjuds in att svara
+                </td>
+              </tr>
+              <tr>
+                <td className="py-2 pr-4 align-top font-medium">Enterprise</td>
+                <td className="py-2 align-top">
+                  Hur redan kända partners karaktäriseras
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         <h3>Mindre bolag: störst exponering, kortast väg</h3>
         <p>
@@ -395,7 +432,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Här finns formell upphandling, ofta extern rådgivning, etablerade
           relationer och Microsofts egen säljorganisation. Vilka som bjuds in
-          styrs därför av fler faktorer än AI-synlighet. Men hur du beskrivs
+          styrs därför av fler faktorer än AI-synlighet. Men hur ni beskrivs
           under utvärderingen påverkas, och köparen kommer beväpnad med frågor
           som formulerats någon annanstans.
         </p>
