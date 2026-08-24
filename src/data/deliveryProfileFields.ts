@@ -78,6 +78,11 @@ export const DELIVERY_PROFILE_FIELDS: DeliveryProfileField[] = [
   },
 ];
 
+/** AI-genererat utkast per fält. Visas endast i redigeringsläge, aldrig publikt. */
+export interface DeliveryProfileSuggestions extends Partial<Record<DeliveryProfileFieldKey, string>> {
+  generatedAt?: string;
+}
+
 export const DELIVERY_FIELDS = DELIVERY_PROFILE_FIELDS.filter((f) => f.group === "delivery");
 export const SUPPORT_FIELDS = DELIVERY_PROFILE_FIELDS.filter((f) => f.group === "support");
 
