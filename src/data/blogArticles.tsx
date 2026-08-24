@@ -133,13 +133,20 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           <p className="!text-[1.05rem] !font-bold !text-[#1F4E79] !mb-2 !mt-0">
             AI-sammanfattning
           </p>
-          <p className="!my-0 !text-foreground/90">
-            AI-sök förändrar hur köpare hittar, jämför och förstår Dynamics
-            365-partners. Den här artikeln visar varför
-            tredjepartsbeskrivningar, nischad positionering och konkret
-            Copilot- och agentkompetens blir viktigare än traditionell SEO när
-            beslutsgrupper bygger sina shortlists.
-          </p>
+          <ul className="!my-0 !text-foreground/90">
+            <li>
+              AI påverkar vilka partners som kommer med i köparens första
+              urval.
+            </li>
+            <li>
+              Oberoende och specifika beskrivningar gör partnern lättare att
+              jämföra.
+            </li>
+            <li>
+              AI-synlighet är ett inträde i beslutsprocessen – inte ett bevis
+              på leveransförmåga.
+            </li>
+          </ul>
         </aside>
 
         <p>
@@ -151,7 +158,15 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Sedan tar beslutsprocessen vid. Sex månader, ofta tolv, innan gruppen
           är överens, upphandlingen är klar och avtalet påskrivet. Först
           därefter startar projektet – och medianen för ERP-projekt ligger
-          enligt Panorama på drygt femton månader.
+          enligt{" "}
+          <a
+            href="https://www.panorama-consulting.com/resource-center/erp-report/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Panorama
+          </a>{" "}
+          på drygt femton månader.
         </p>
         <p>
           Tre tidsspann, alltså. Det är det mellersta som är artikelns ärende.
