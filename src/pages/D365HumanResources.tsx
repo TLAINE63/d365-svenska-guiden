@@ -53,7 +53,7 @@ const D365HumanResources = () => {
           label: "Jämför HR-partners",
           onClick: () => document.getElementById("partners")?.scrollIntoView({ behavior: "smooth" }),
         }}
-        secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation/", icon: FileText }}
+        secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation/?produkt=fsc", icon: FileText }}
       />
 
       <ShortAnswer title="Vad är Dynamics 365 Human Resources">

@@ -266,7 +266,7 @@ const BusinessCentral = () => {
   }}
   secondary={{
   label: "Generera en kravspecifikation",
-  to: "/kravspecifikation/",
+  to: "/kravspecifikation/?produkt=bc",
   icon: FileText,
   }}
   tertiary={{
