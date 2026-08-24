@@ -215,8 +215,8 @@ const BusinessCentral = () => {
  return (
  <div className="min-h-screen">
  <SEOHead 
- title="Microsoft Dynamics 365 Business Central – ERP-pris 2026"
- description={resolvePriceTokens("Microsoft Dynamics 365 Business Central: ERP-pris från {{price:bc-essentials:short}}/användare och månad, implementering 150 000–800 000 kr på 3–6 månader. Jämför Business Central ERP mot andra affärssystem och hitta rätt partner i Sverige – kostnadsfritt.")}
+ title="Business Central – pris & partners i Sverige 2026"
+ description={resolvePriceTokens("Business Central: ERP-pris från {{price:bc-essentials:short}}/användare och månad, implementering 150 000–800 000 kr. Jämför Business Central-partners i Sverige – kostnadsfritt och köparsidigt.")}
  canonicalPath="/businesscentral"
  keywords="business central erp, business central affärssystem, dynamics 365 business central, erp business central, business central pris, business central licens, business central essentials, business central premium, business central partner sverige, business central implementering"
  ogImage="https://d365.se/og-business-central.png"
@@ -342,8 +342,72 @@ const BusinessCentral = () => {
     </Link>.
    </p>
 
+   <h3 className="text-xl sm:text-2xl font-bold text-foreground mt-10 mb-3">
+    Business Central jämfört med andra affärssystem
+   </h3>
+   <p className="text-muted-foreground mb-4 text-sm sm:text-base">
+    De alternativ som svenska köpare oftast ställer mot Business Central – och vad som skiljer dem åt
+    i praktiken.
+   </p>
+   <div className="overflow-x-auto rounded-lg border border-border">
+    <table className="w-full text-sm">
+     <thead>
+      <tr className="bg-muted/40">
+       <th scope="col" className="text-left font-medium text-foreground py-3 px-4">System</th>
+       <th scope="col" className="text-left font-medium text-foreground py-3 px-4">Passar typiskt</th>
+       <th scope="col" className="text-left font-medium text-foreground py-3 px-4">Skillnad mot Business Central</th>
+      </tr>
+     </thead>
+     <tbody>
+      {[
+       [
+        "Fortnox",
+        "1–20 användare, redovisning och fakturering",
+        "Standardiserat ekonomisystem snarare än ERP – saknar djup lager-, produktions- och projektstyrning samt tyngre integrationsmöjligheter.",
+       ],
+       [
+        "Visma.net / Visma Business",
+        "10–150 användare, ekonomi och distribution",
+        "Starkt på svensk ekonomi och lön, men mindre integrerat med Microsoft 365, Power Platform och Copilot än Business Central.",
+       ],
+       [
+        "Monitor ERP",
+        "Tillverkande bolag, 20–200 användare",
+        "Djup verkstadsfunktionalitet i standard; Business Central täcker bredare verksamhet (ekonomi, handel, projekt) och byggs ut via appar från Microsoft Marketplace.",
+       ],
+       [
+        "Dynamics 365 Finance & Supply Chain",
+        "Från ca 300 användare, koncern och global drift",
+        "Samma Microsoft-plattform men tyngre: fler legala enheter, avancerad supply chain – och högre licens- och införandekostnad.",
+       ],
+       [
+        "SAP Business One / S/4HANA",
+        "Internationella koncerner och komplexa flöden",
+        "Bredare global processtandard, men dyrare införande och svagare koppling till Microsoft 365-verktygen många svenska bolag redan använder.",
+       ],
+      ].map(([system, fit, diff]) => (
+       <tr key={system} className="border-b border-border last:border-0 align-top">
+        <th scope="row" className="text-left font-medium text-foreground py-3 px-4 w-[22%] bg-muted/20">
+         {system}
+        </th>
+        <td className="py-3 px-4 text-muted-foreground w-[26%]">{fit}</td>
+        <td className="py-3 px-4 text-muted-foreground">{diff}</td>
+       </tr>
+      ))}
+     </tbody>
+    </table>
+   </div>
+   <p className="text-sm text-muted-foreground mt-4">
+    Valet av system avgör ramarna – valet av partner avgör resultatet. Se{" "}
+    <Link to="/jamfor-partners/" className="text-primary underline underline-offset-2">
+     jämförelsen av Business Central-partners
+    </Link>{" "}
+    innan du går vidare.
+   </p>
+
   </div>
  </section>
+
 
 
 
