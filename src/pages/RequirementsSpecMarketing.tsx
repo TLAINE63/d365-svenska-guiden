@@ -139,7 +139,7 @@ const RequirementsSpecMarketing = () => {
         },
       });
 
-      const sugg = pickSuggestedPartners(partnersList, { product: "sales", industry: result.industry, limit: 3 });
+      const sugg = pickSuggestedPartners(partnersList, { product: "sales", industry: result.industry, companySize: toCompanySizeBucket(companySize), limit: 3 });
       const origin = typeof window !== "undefined" ? window.location.origin : "https://d365.se";
       await generateRequirementsSpec(result, false, sugg.length > 0 ? {
         suggestedPartners: sugg.map((p) => ({ name: p.name, slug: p.slug, positioning: (p as any).positioning_statement || p.description || "" })),

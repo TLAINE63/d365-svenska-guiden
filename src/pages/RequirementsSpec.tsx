@@ -143,7 +143,7 @@ const RequirementsSpec = () => {
         },
       });
 
-      const sugg = pickSuggestedPartners(partnersList, { product: ["bc", "fsc"], industry: result.industry, limit: 3 });
+      const sugg = pickSuggestedPartners(partnersList, { product: ["bc", "fsc"], industry: result.industry, companySize: toCompanySizeBucket(companySize), limit: 3 });
       const origin = typeof window !== "undefined" ? window.location.origin : "https://d365.se";
       await generateRequirementsSpec(result, false, sugg.length > 0 ? {
         suggestedPartners: sugg.map((p) => ({ name: p.name, slug: p.slug, positioning: (p as any).positioning_statement || p.description || "" })),
@@ -520,7 +520,7 @@ const RequirementsSpec = () => {
         </div>
       </main>
       <RelatedPages heading="Nästa steg i ERP-köpresan" pages={requirementsErpRelatedPages} />
-      {result && <SuggestedPartnersCTA product={["bc", "fsc"]} industry={result.industry || industry} />}
+      {result && <SuggestedPartnersCTA product={["bc", "fsc"]} industry={result.industry || industry} companySize={toCompanySizeBucket(companySize)} />}
       <Footer />
     </>
   );
