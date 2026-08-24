@@ -1,6 +1,6 @@
 import { Sparkles, Users, Briefcase, Workflow, LifeBuoy, TrendingUp, Bot } from "lucide-react";
 import {
-  DELIVERY_PROFILE_FIELDS,
+  DELIVERY_FIELDS,
   type DeliveryProfileFieldKey,
   type DeliveryProfileValue,
 } from "@/data/deliveryProfileFields";
@@ -22,12 +22,13 @@ interface Props {
 
 /** Publik visning av partnerns leveransprofil för ett produktområde. */
 const ProductDeliveryProfile = ({ value, productLabel, partnerName }: Props) => {
-  const items = DELIVERY_PROFILE_FIELDS.map((f) => ({
+  const items = DELIVERY_FIELDS.map((f) => ({
     ...f,
     text: (value[f.key] || "").trim(),
   })).filter((f) => f.text.length > 0);
 
-  if (items.length === 0) return null;
+  if (items.length === 0 && !value.aiSummary) return null;
+
 
   return (
     <section aria-labelledby="leveransprofil-rubrik">
