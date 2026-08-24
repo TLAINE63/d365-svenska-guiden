@@ -14,13 +14,18 @@ export type DeliveryProfileFieldKey =
   | "furtherDevelopment"
   | "aiAutomation";
 
+/** Vilken publik sektion fältet hör hemma i. */
+export type DeliveryProfileGroup = "delivery" | "support";
+
 export interface DeliveryProfileField {
   key: DeliveryProfileFieldKey;
   label: string;
+  group: DeliveryProfileGroup;
   /** Kort hjälptext som styr partnern mot faktabeskrivning. */
   help: string;
   placeholder: string;
 }
+
 
 export const DELIVERY_PROFILE_FIELDS: DeliveryProfileField[] = [
   {
