@@ -211,8 +211,29 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           in i ett AI-svar. Men bara delvis.
         </p>
         <p>
-          Ahrefs analyserade 75 000 varumärken för att se vilka signaler som
-          hänger ihop med synlighet i AI-genererade svar:
+          <a
+            href="https://developers.google.com/search/docs/appearance/ai-features"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Google
+          </a>{" "}
+          betraktar inte AIO eller GEO som en ersättning för SEO. Den tekniska
+          och innehållsmässiga grunden är densamma: innehållet ska vara
+          indexerbart, värdefullt, trovärdigt och expertlett. Skillnaden är att
+          oberoende tredjepartsbeskrivningar kan ge AI-tjänster mer underlag
+          för att förstå, särskilja och jämföra en partner.
+        </p>
+        <p>
+          <a
+            href="https://ahrefs.com/blog/ai-overviews-brand-visibility/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Ahrefs analyserade 75 000 varumärken
+          </a>{" "}
+          för att se vilka signaler som hänger ihop med synlighet i
+          AI-genererade svar:
         </p>
         <ul>
           <li>Omnämnanden av varumärket på andra sajter: 0,664</li>
