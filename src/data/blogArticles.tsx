@@ -545,16 +545,25 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
 
         <aside className="my-10 rounded-md border border-border bg-muted/40 px-7 py-6">
-          <p className="!mt-0 !mb-3 !font-semibold">
-            Vill du veta om din partnerprofil är tillräckligt tydlig för att
-            komma med i AI-genererade shortlists – och tillräckligt konkret för
-            att bli rätt beskriven?
-          </p>
-          <p className="!my-0">
+          <p className="!mt-0 !mb-4">
             På d365.se analyserar vi hur Dynamics 365-partners beskrivs,
             jämförs och matchas mot verkliga kundbehov – från affärssystem och
-            CRM till Power Platform, Copilot och agenter. Läs mer om{" "}
-            <a href="/partnerprogram/">partnerprogrammet</a>.
+            CRM till Power Platform, Copilot och agenter. Två vägar vidare:
+          </p>
+          <p className="!my-2">
+            <strong>För partners:</strong>{" "}
+            <a href="/partnerprogram/">
+              Granska och utveckla er partnerprofil
+            </a>{" "}
+            – så att beskrivningen är tillräckligt tydlig och konkret för att
+            gå att jämföra.
+          </p>
+          <p className="!my-0">
+            <strong>För köpare:</strong>{" "}
+            <a href="/valjdynamics365partner/">
+              Hitta och jämför relevanta partners
+            </a>{" "}
+            – utifrån produktområde, bransch och storlek.
           </p>
         </aside>
 
