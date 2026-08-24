@@ -11,6 +11,7 @@ import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
 import SendUnderlagToPartners from "@/components/SendUnderlagToPartners";
 import { usePartners } from "@/hooks/usePartners";
 import { pickSuggestedPartners } from "@/lib/suggestPartners";
+import { toCompanySizeBucket } from "@/lib/companySizeBucket";
 import { buildCompareUrl } from "@/lib/compareUrl";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
@@ -140,7 +141,7 @@ const RequirementsSpecSales = () => {
         },
       });
 
-      const sugg = pickSuggestedPartners(partnersList, { product: "sales", industry: result.industry, limit: 3 });
+      const sugg = pickSuggestedPartners(partnersList, { product: "sales", industry: result.industry, companySize: toCompanySizeBucket(companySize), limit: 3 });
       const origin = typeof window !== "undefined" ? window.location.origin : "https://d365.se";
       await generateRequirementsSpec(result, false, sugg.length > 0 ? {
         suggestedPartners: sugg.map((p) => ({ name: p.name, slug: p.slug, positioning: (p as any).positioning_statement || p.description || "" })),
@@ -509,7 +510,7 @@ ${
         </div>
       </main>
       <RelatedPages heading="Nästa steg i CRM-köpresan" pages={requirementsCrmRelatedPages} />
-      {result && <SuggestedPartnersCTA product="sales" industry={result.industry || industry} />}
+      {result && <SuggestedPartnersCTA product="sales" industry={result.industry || industry} companySize={toCompanySizeBucket(companySize)} />}
       <Footer />
     </>
   );

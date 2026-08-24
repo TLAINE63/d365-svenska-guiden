@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import heroKravspecErp from "@/assets/hero-kravspec-erp.jpg";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
@@ -24,6 +24,8 @@ import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
 import SendUnderlagToPartners from "@/components/SendUnderlagToPartners";
 import { usePartners } from "@/hooks/usePartners";
 import { pickSuggestedPartners } from "@/lib/suggestPartners";
+import { toCompanySizeBucket } from "@/lib/companySizeBucket";
+import type { ProductKey } from "@/hooks/usePartnerFilters";
 import { buildCompareUrl } from "@/lib/compareUrl";
 import {
   ArrowLeft, ArrowRight, FileText, Download,
@@ -56,6 +58,12 @@ const RequirementsSpec = () => {
   const { toast } = useToast();
   const { data: partnersList = [] } = usePartners();
   const location = useLocation();
+  const [searchParams] = useSearchParams();
+  // Produktsidorna kan skicka med vilken ERP-app besökaren tittar på (?produkt=bc|fsc)
+  // så att partnerförslagen begränsas till rätt produkt.
+  const produktParam = searchParams.get("produkt");
+  const productKeys: ProductKey[] =
+    produktParam === "bc" ? ["bc"] : produktParam === "fsc" ? ["fsc"] : ["bc", "fsc"];
   const prefilledIndustry = (location.state as { industry?: string } | null)?.industry;
   const isValidPrefill = !!prefilledIndustry && allIndustries.includes(prefilledIndustry);
   const [step, setStep] = useState(isValidPrefill ? 2 : 1);
@@ -142,7 +150,7 @@ const RequirementsSpec = () => {
         },
       });
 
-      const sugg = pickSuggestedPartners(partnersList, { product: ["bc", "fsc"], industry: result.industry, limit: 3 });
+      const sugg = pickSuggestedPartners(partnersList, { product: productKeys, industry: result.industry, companySize: toCompanySizeBucket(companySize), limit: 3 });
       const origin = typeof window !== "undefined" ? window.location.origin : "https://d365.se";
       await generateRequirementsSpec(result, false, sugg.length > 0 ? {
         suggestedPartners: sugg.map((p) => ({ name: p.name, slug: p.slug, positioning: (p as any).positioning_statement || p.description || "" })),
@@ -471,7 +479,7 @@ const RequirementsSpec = () => {
               <SendUnderlagToPartners
                 sourcePage="/kravspecifikation"
                 assessmentType="kravspec_erp"
-                products={["bc", "fsc"]}
+                products={productKeys}
                 industry={result.industry || industry}
                 companySize={companySize}
                 underlagSummary={`Kravspecifikation ERP – ${result.industry}\n\nFöretagsstorlek: ${companySize}\nValda områden: ${selectedAreas.join(", ")}\n\n${
@@ -519,7 +527,7 @@ const RequirementsSpec = () => {
         </div>
       </main>
       <RelatedPages heading="Nästa steg i ERP-köpresan" pages={requirementsErpRelatedPages} />
-      {result && <SuggestedPartnersCTA product={["bc", "fsc"]} industry={result.industry || industry} />}
+      {result && <SuggestedPartnersCTA product={productKeys} industry={result.industry || industry} companySize={toCompanySizeBucket(companySize)} />}
       <Footer />
     </>
   );

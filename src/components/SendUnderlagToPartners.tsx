@@ -24,6 +24,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { usePartners, type DatabasePartner } from "@/hooks/usePartners";
 import { pickSuggestedPartners } from "@/lib/suggestPartners";
+import { toCompanySizeBucket } from "@/lib/companySizeBucket";
 import { hasProduct, type ProductKey } from "@/hooks/usePartnerFilters";
 import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
 import { trackFunnelEvent } from "@/lib/funnelTracking";
@@ -73,8 +74,14 @@ export const SendUnderlagToPartners = ({
   const { data: allPartners = [] } = usePartners();
 
   const suggested = useMemo(
-    () => pickSuggestedPartners(allPartners, { product: products, industry, limit: 3 }),
-    [allPartners, products, industry],
+    () =>
+      pickSuggestedPartners(allPartners, {
+        product: products,
+        industry,
+        companySize: toCompanySizeBucket(companySize),
+        limit: 3,
+      }),
+    [allPartners, products, industry, companySize],
   );
 
   const [selectedSlugs, setSelectedSlugs] = useState<string[]>(() => suggested.map((p) => p.slug));

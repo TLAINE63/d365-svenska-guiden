@@ -10,6 +10,10 @@ import { Button } from "@/components/ui/button";
 interface Props {
   product: ProductKey | ProductKey[];
   industry?: string | null;
+  /** Kundstorleks-bucket (companySizes) – mjuk rankingfaktor. */
+  companySize?: string | null;
+  /** Omsättnings-bucket (revenueOptions) – mjuk rankingfaktor. */
+  revenue?: string | null;
   /** Rubrik. Default: "Föreslagna partners att kontakta". */
   heading?: string;
   /** Ingress under rubriken. */
@@ -25,6 +29,8 @@ interface Props {
 const SuggestedPartnersCTA = ({
   product,
   industry,
+  companySize,
+  revenue,
   heading = "Föreslagna partners att kontakta",
   intro,
   className = "",
@@ -32,8 +38,8 @@ const SuggestedPartnersCTA = ({
   const { data: partners = [], isLoading } = usePartners();
 
   const suggested = useMemo(
-    () => pickSuggestedPartners(partners, { product, industry, limit: 3 }),
-    [partners, product, industry],
+    () => pickSuggestedPartners(partners, { product, industry, companySize, revenue, limit: 3 }),
+    [partners, product, industry, companySize, revenue],
   );
 
   if (isLoading || suggested.length === 0) return null;
