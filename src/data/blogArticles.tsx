@@ -295,9 +295,16 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           CRM-införanden?" hör till de vanligaste frågorna en beslutsgrupp
           ställer. Svaren domineras av generisk misslyckandestatistik:
           budgetöverdrag, förseningar och låg adoption. På CRM-sidan är
-          underlaget särskilt dystert: en systematisk forskningsöversikt anger
-          att omkring 70 procent av implementeringarna inte når sina förväntade
-          mål.
+          underlaget särskilt dystert:{" "}
+          <a
+            href="https://doi.org/10.1016/j.fcij.2018.11.003"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            en systematisk forskningsöversikt
+          </a>{" "}
+          anger att omkring 70 procent av implementeringarna inte når sina
+          förväntade mål.
         </p>
         <p>
           Nästan ingen partner är beskriven i termer av hur de hanterar just de
