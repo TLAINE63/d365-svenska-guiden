@@ -30,6 +30,7 @@ export interface DeliveryProfileField {
 export const DELIVERY_PROFILE_FIELDS: DeliveryProfileField[] = [
   {
     key: "typicalCustomers",
+    group: "delivery",
     label: "Typiska kunder",
     help: "Beskriv kundtyper: bransch, storlek, organisationsmognad och geografisk spridning. Inga påståenden om att du är bäst.",
     placeholder:
@@ -37,6 +38,7 @@ export const DELIVERY_PROFILE_FIELDS: DeliveryProfileField[] = [
   },
   {
     key: "typicalProjects",
+    group: "delivery",
     label: "Typiska projekt",
     help: "Beskriv uppdragstyper: nyimplementation, uppgradering, rollout, integration, dataflytt. Ange typisk omfattning och längd.",
     placeholder:
@@ -44,6 +46,7 @@ export const DELIVERY_PROFILE_FIELDS: DeliveryProfileField[] = [
   },
   {
     key: "deliveryModel",
+    group: "delivery",
     label: "Leveransprofil",
     help: "Beskriv arbetsformer: teamsammansättning, metodik, sprintlängd, andel på plats/distans, kundens egna insats.",
     placeholder:
@@ -51,6 +54,7 @@ export const DELIVERY_PROFILE_FIELDS: DeliveryProfileField[] = [
   },
   {
     key: "managedServices",
+    group: "support",
     label: "Förvaltning",
     help: "Beskriv hur förvaltning efter go-live fungerar: avtalsformer, supportnivåer, uppföljning, releasehantering.",
     placeholder:
@@ -58,6 +62,7 @@ export const DELIVERY_PROFILE_FIELDS: DeliveryProfileField[] = [
   },
   {
     key: "furtherDevelopment",
+    group: "support",
     label: "Vidareutveckling",
     help: "Beskriv hur lösningen utvecklas vidare över tid: backlogg, budgetform, beslutsforum, typiska utvecklingsinsatser.",
     placeholder:
@@ -65,6 +70,7 @@ export const DELIVERY_PROFILE_FIELDS: DeliveryProfileField[] = [
   },
   {
     key: "aiAutomation",
+    group: "delivery",
     label: "AI och automation",
     help: "Beskriv dokumenterad erfarenhet av Copilot, agenter och automation i levererade lösningar – inte planer.",
     placeholder:
