@@ -472,8 +472,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
             upprepning. Fem olika självbeskrivningar blir till slut ingen alls.
           </li>
           <li>
-            Räkna med fördröjning. Modeller tränas i cykler och omnämnanden
-            behöver tid att ackumuleras.
+            Räkna med fördröjning. Indexering, hämtning och modelluppdateringar
+            sker med fördröjning, och omnämnanden behöver tid att ackumuleras.
           </li>
         </ul>
 
