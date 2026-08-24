@@ -641,6 +641,17 @@ export default function PartnerProductTabs({
               />
             )}
 
+            {/* 1c. Support, Förvaltning & Vidareutveckling */}
+            {data.deliveryProfile && (
+              <ProductSupportProfile
+                value={data.deliveryProfile}
+                productLabel={tabMeta.label}
+                partnerName={partner.name}
+              />
+            )}
+
+
+
 
 
             {/* 2. Branscherfarenhet – storlek/omsättning ligger i Partnerfakta */}
