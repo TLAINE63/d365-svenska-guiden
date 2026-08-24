@@ -6,17 +6,23 @@ import {
   DELIVERY_PROFILE_FIELDS,
   DELIVERY_PROFILE_MAX,
   DELIVERY_PROFILE_MIN,
+  SUPPORT_LEVELS,
+  SUPPORT_LEVEL_META,
+  type DeliveryProfileField,
   type DeliveryProfileValue,
+  type SupportLevel,
 } from "@/data/deliveryProfileFields";
 
 interface Props {
   productLabel: string;
   value?: DeliveryProfileValue | null;
   onChange: (next: DeliveryProfileValue) => void;
+  /** Visar nivåväljaren för Support/Förvaltning – endast i admin (d365.se sätter nivån). */
+  allowLevelEdit?: boolean;
 }
 
 /** Redigering av leveransprofil för ett produktområde. Används i både admin och partnerformulär. */
-const DeliveryProfileEditor = ({ productLabel, value, onChange }: Props) => {
+const DeliveryProfileEditor = ({ productLabel, value, onChange, allowLevelEdit = false }: Props) => {
   const v = value || {};
   const suggestions = v.suggestions || {};
   const hasSuggestions = DELIVERY_PROFILE_FIELDS.some((f) => (suggestions[f.key] || "").trim());
