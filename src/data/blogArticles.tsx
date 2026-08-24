@@ -457,10 +457,17 @@ export const BLOG_ARTICLES: BlogArticle[] = [
             inte vad som är möjligt.
           </li>
           <li>
-            Låt siffror och källor finnas i själva texten. Den akademiska
-            GEO-studien från Princeton, Georgia Tech och IIT Delhi fann att
-            tillägg av statistik och källhänvisningar hörde till de metoder som
-            höjde synligheten mest.
+            Låt siffror och källor finnas i själva texten. Den akademiska{" "}
+            <a
+              href="https://arxiv.org/abs/2311.09735"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GEO-studien
+            </a>{" "}
+            från Princeton, Georgia Tech och IIT Delhi fann att tillägg av
+            statistik och källhänvisningar hörde till de metoder som höjde
+            synligheten mest.
           </li>
           <li>
             Håll tredjepartsprofilerna levande. G2:s köpare uppger att
