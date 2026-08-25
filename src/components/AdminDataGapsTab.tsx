@@ -32,6 +32,8 @@ interface Props {
 interface Gap {
   label: string;
   severity: "hög" | "medel";
+  /** Branschrelaterade brister är partnerns ansvar – inte fixbara av admin. */
+  partnerOwned?: boolean;
 }
 
 /**
