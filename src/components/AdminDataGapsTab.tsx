@@ -102,11 +102,11 @@ const buildSuggestion = (p: DatabasePartner): Draft => {
   };
 };
 
-/** Lista de faktiska bristerna för en partner. */
+/** Lista de faktiska bristerna för en partner. Bransch-brister markeras partnerOwned. */
 const findGaps = (p: DatabasePartner): Gap[] => {
   const gaps: Gap[] = [];
   const pf = p.product_filters || {};
-  if ((p.industries || []).length === 0) gaps.push({ label: "Tomt branschfält på toppnivå", severity: "medel" });
+  if ((p.industries || []).length === 0) gaps.push({ label: "Tomt branschfält på toppnivå", severity: "medel", partnerOwned: true });
   if ((p.geography || []).length === 0) gaps.push({ label: "Tom geografi på toppnivå", severity: "medel" });
   for (const k of PRODUCT_KEYS) {
     const f = pf[k];
@@ -115,7 +115,7 @@ const findGaps = (p: DatabasePartner): Gap[] => {
     if ((f.geography || []).length === 0) gaps.push({ label: `${l}: tom geografi`, severity: "hög" });
     if ((f.revenue || []).length === 0) gaps.push({ label: `${l}: saknar omsättning`, severity: "hög" });
     if ((f.companySize || []).length === 0) gaps.push({ label: `${l}: saknar kundstorlek`, severity: "hög" });
-    if ((f.industries || []).length < 3) gaps.push({ label: `${l}: ${(f.industries || []).length} av 3 branscher`, severity: "medel" });
+    if ((f.industries || []).length < 3) gaps.push({ label: `${l}: ${(f.industries || []).length} av 3 branscher`, severity: "medel", partnerOwned: true });
   }
   return gaps;
 };
