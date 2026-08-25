@@ -305,9 +305,24 @@ export default function AdminContentGapsTab({ token, onSessionExpired }: Props) 
               endast tomma fält fylls, befintlig text från partnern rörs aldrig.
             </CardDescription>
           </div>
-          <Button variant="outline" size="sm" onClick={() => setOnlyGaps((v) => !v)}>
-            {onlyGaps ? "Visa alla partners" : "Visa bara med brister"}
-          </Button>
+          <div className="flex flex-wrap gap-2">
+            <Button
+              size="sm"
+              disabled={bulkRunning || levelCandidates.length === 0}
+              onClick={autoFillLevels}
+            >
+              {bulkRunning ? (
+                <Loader2 className="mr-1 h-4 w-4 animate-spin" />
+              ) : (
+                <Sparkles className="mr-1 h-4 w-4" />
+              )}
+              Sätt supportnivå automatiskt ({levelCandidates.length})
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => setOnlyGaps((v) => !v)}>
+              {onlyGaps ? "Visa alla partners" : "Visa bara med brister"}
+            </Button>
+          </div>
+
         </div>
       </CardHeader>
       <CardContent className="space-y-3">
