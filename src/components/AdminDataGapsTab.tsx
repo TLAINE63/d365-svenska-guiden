@@ -349,15 +349,22 @@ export default function AdminDataGapsTab({ token, onSessionExpired }: Props) {
             <div className="space-y-6">
               <div className="space-y-2">
                 <Label className="text-xs text-muted-foreground">
-                  Branscher på toppnivå ({editing.draft.industries.length})
+                  Branscher på toppnivå (partnerns beslut – ej redigerbara)
                 </Label>
-                <ChipGroup
-                  options={allIndustries}
-                  selected={editing.draft.industries}
-                  onToggle={(v) =>
-                    updateDraft((d) => ({ ...d, industries: toggleIn(d.industries, v) }))
-                  }
-                />
+                {editing.draft.industries.length > 0 ? (
+                  <div className="flex flex-wrap gap-1.5">
+                    {editing.draft.industries.map((ind) => (
+                      <span
+                        key={ind}
+                        className="rounded-full border border-muted bg-muted/40 px-2.5 py-1 text-xs text-muted-foreground"
+                      >
+                        {ind}
+                      </span>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-xs italic text-muted-foreground">Partnern har inte valt några branscher ännu.</p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -384,15 +391,24 @@ export default function AdminDataGapsTab({ token, onSessionExpired }: Props) {
 
                     <div className="space-y-1.5">
                       <Label className="text-xs text-muted-foreground">
-                        Fokusbranscher ({d.industries.length}/3)
+                        Fokusbranscher (partnerns beslut – ej redigerbara)
                       </Label>
-                      <ChipGroup
-                        options={allIndustries}
-                        selected={d.industries}
-                        max={3}
-                        onToggle={(v) => setProduct({ industries: toggleIn(d.industries, v, 3) })}
-                      />
+                      {d.industries.length > 0 ? (
+                        <div className="flex flex-wrap gap-1.5">
+                          {d.industries.map((ind) => (
+                            <span
+                              key={ind}
+                              className="rounded-full border border-muted bg-muted/40 px-2.5 py-1 text-xs text-muted-foreground"
+                            >
+                              {ind}
+                            </span>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-xs italic text-muted-foreground">Inga branscher valda för denna produkt.</p>
+                      )}
                     </div>
+
 
                     <div className="space-y-1.5">
                       <Label className="text-xs text-muted-foreground">Geografi</Label>
