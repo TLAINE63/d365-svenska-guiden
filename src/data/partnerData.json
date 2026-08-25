@@ -1266,7 +1266,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=CRMK+(CRM-Konsulterna)+Stockholm",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-08-25T08:59:09.143337+00:00",
+    "updated_at": "2026-08-25T19:26:00.628184+00:00",
     "industry_pitches": [
       {
         "text": "CRM Konsulterna bistår konsultbolag med att optimera sin kundresa och interna processer med Dynamics 365. De adresserar typiska utmaningar som fragmenterad kundkommunikation och ineffektiv projektförsäljning. Genom att implementera Dynamics 365 Sales förbättrar de säljprocesser från prospektering till affärsavslut, vilket möjliggör bättre uppföljning och pipelinesynlighet. Med Dynamics 365 Customer Insights (Marketing) kan konsultbolag segmentera kunder och leverera relevanta budskap, vilket stärker varumärket och genererar nya affärsmöjligheter. De hjälper också med Dynamics 365 Customer Service för att hantera kundförfrågningar effektivt och säkerställa hög kundnöjdhet. Fokus ligger på att skapa en enhetlig kundbild och förbättra samarbetet internt, vilket frigör tid för konsultens kärnverksamhet.",
@@ -1372,7 +1372,9 @@
         "Kundserviceprocesser"
       ],
       "experience_level": "multiple",
-      "project_count_range": null
+      "project_count_range": null,
+      "ai_experience_summary": "Partnern arbetar med AI i CRM- och kundserviceprocesser genom Copilot Studio, kundanpassade agenter, Power Platform och AI-readiness, kopplat till Dynamics 365 Sales, Customer Service och Customer Insights. Passar organisationer som vill komplettera etablerade kundprocesser med AI-stöd och successivt bygga upp intern AI-mognad.",
+      "ai_experience_summary_generated_at": "2026-08-25T19:26:00.628184+00:00"
     },
     "extended_content": "CRM Konsulterna (CRMK) är ett svenskt CRM-specialistbolag grundat 2010, med huvudkontor i Stockholm. Bolaget har cirka 40 medarbetare och fokuserar uteslutande på Microsoft Dynamics 365 Customer Engagement, Power Platform och AI. CRMK profilerar sig som expert på kundcentrerad digitalisering.\n\nAktiva produktområden: Microsoft Dynamics 365 Customer Engagement – Sales, Customer Service, Customer Insights (Marketing). Power Platform med stark profil inom Power Apps, Power Automate och Power BI. Microsoft Fabric för dataanalys. AI och Copilot för intelligent automation och agentbyggande.\n\nTydliga styrkor: Renodlad CRM-specialist – gör ingenting annat vilket ger djup expertis. Stark AI- och automationskompetens med fokus på Microsoft Copilot och intelligenta agenter. Kombination av implementation, förvaltning och utbildning. Grundare Gustaf Westerlund är välkänd profil i Microsoft-communityn.\n\nRäckvidd och segment: Sverige med fokus på Stockholm. Segment: mellanstora företag (100-1000 anställda) med fokuserat CRM-behov. Branscher: bred exponering men ofta B2B-företag med försäljnings- och servicefokus.\n\nPassar bäst: Företag som prioriterar CRM och kundhantering högt och söker en specialistpartner. Organisationer som vill dra nytta av AI i sin kundhantering. Kunder som behöver CRM-transformation oberoende av ERP. Mindre lämplig för ERP-behov (BC/F&SCM) eller kunder som söker generell IT-partner.\n\nSammanfattning: Ledande svensk CRM-specialist med stark AI-profil. Jämförbar med Nemely och Sundet CRM som CRM-nischpartners.",
     "extended_content_updated_at": "2026-08-20T12:16:09.96+00:00",
@@ -3378,7 +3380,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=Point+Taken+Stockholm",
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-08-25T08:56:57.302521+00:00",
+    "updated_at": "2026-08-25T19:27:10.069108+00:00",
     "industry_pitches": [
       {
         "text": "Point Taken hjälper konsultföretag att effektivisera sin verksamhet med Microsoft Dynamics 365, särskilt genom fokus på projekt- och resurshantering. De adresserar problem som ineffektiva resursallokeringar och bristande överblick över projektlönsamhet. Point Taken implementerar lösningar som samlar kundrelationer, projektplanering och ekonomiska flöden för att skapa en enhetlig plattform.\n\nDe arbetar med att automatisera tidrapportering och fakturering, vilket reducerar administrativ börda och förbättrar kassaflödet. Genom att optimera användningen av Dynamics 365 for Project Operations och Sales, kan Point Taken underlätta för konsultbolag att fatta datadrivna beslut. Detta förbättrar i sin tur resursutnyttjande och bidrar till ökad lönsamhet per projekt.",
@@ -3404,7 +3406,48 @@
     "implementations_per_app": {},
     "ai_summary": "Point Taken är inriktat på Dynamics 365 Customer Engagement med tyngdpunkt på Sales och Customer Service samt kompetens inom Customer Insights, Field Service och Contact Center. d365.se visar konsulttjänsteföretag och medelstora organisationer som tydligaste målgrupp.",
     "ai_summary_generated_at": null,
-    "ai_profile": {},
+    "ai_profile": {
+      "draft": true,
+      "use_cases": [
+        "readiness",
+        "data-quality",
+        "copilot-studio-agent",
+        "sales-automation",
+        "service-ai",
+        "governance",
+        "training"
+      ],
+      "description": "Point Taken arbetar med AI och automation i Microsoft-miljön, med tyngdpunkt på Copilot och AI-agenter kopplade till Dynamics 365 Customer Engagement, Power Platform och Microsoft 365. Erbjudandet omfattar bland annat ett Copilot Readiness Kit och en plattform för styrning av AI-agenter, där data, behörigheter och säkerhet utgör grunden. Arbetet sker ofta stegvis: först readiness och governance, därefter automation av kund- och serviceprocesser samt adoption hos användarna.",
+      "migrated_at": "2026-08-25T19:27:10.069108+00:00",
+      "capabilities": [
+        "standard-copilot",
+        "copilot-studio",
+        "power-platform",
+        "ai-readiness",
+        "ai-governance",
+        "ai-adoption"
+      ],
+      "draft_source": "d365.se-utkast baserat på leveransprofil och publika uppgifter",
+      "delivery_model": "",
+      "evidence_level": [
+        "self-declared",
+        "packaged"
+      ],
+      "relevant_areas": [
+        "Dynamics 365 Sales",
+        "Dynamics 365 Customer Service",
+        "Dynamics 365 Field Service",
+        "Dynamics 365 Customer Insights",
+        "Power Platform",
+        "Microsoft 365 Copilot",
+        "CRM-processer",
+        "Kundserviceprocesser"
+      ],
+      "experience_level": "packaged",
+      "project_count_range": "",
+      "ai_experience_summary": "Partnern arbetar med Copilot och AI-agenter i Microsoft-miljön, med fokus på readiness, datakvalitet, behörigheter och governance som grund för automation i CRM- och kundserviceprocesser. Passar organisationer som vill införa Copilot eller agenter stegvis med tydlig styrning av data och säkerhet.",
+      "ai_experience_summary_generated_at": "2026-08-25T19:27:10.069108+00:00"
+    },
     "extended_content": "Point Taken är en nordisk Microsoft-partner med tyngdpunkt på Dynamics 365 CRM/Customer Engagement, Power Platform, Microsoft 365, Copilot/AI, Azure och säkerhet, snarare än ERP/Business Central. Norsk bas med svensk expansion efter sammanslagningen med Infunnel 2026. Till skillnad från de fyra tidigare analyserade partnerna (Fellowmind, Bisqo, BE-terna, Vivicta) är Point Taken den renodlade CE/CRM- och modern work-specialisten i gruppen: inte en ERP-spelare alls.\n\nAktiva produktområden: Sales, Customer Insights, Customer Service, Field Service och Contact Center (det sistnämnda med scope som bör verifieras). Starka kompletterande områden: Power Platform, Microsoft 365, Copilot/AI-agenter och Azure. Viktig avgränsning: Business Central och Finance & Supply Chain Management är inte aktiva och ska inte visas som partnerns områden.\n\nTydliga styrkor: CE/CRM, kunddata, säljprocess och marknadsautomation, serviceprocesser, Power Platform, Microsoft 365-adoption, AI-agenter och Copilot-readiness (bland annat via en egen Copilot Readiness Kit och M Agent Governance Platform), samt säkerhet/governance och löpande förvaltning. Ingen smal branschvertikal som kärna, men starkast signal inom offentlig sektor/fastighet samt bostad/bygg/fastighetsutveckling.\n\nRäckvidd och segment: Huvudkontor i Oslo, med svensk närvaro i Stockholm/Malmö efter Infunnel-sammanslagningen. Cirka 81 anställda enligt bolagsdata, men efter sammanslagningen kommuniceras cirka 90 medarbetare i Sverige och Norge. Omsättning: Point Taken AS 146,5 MNOK driftsintäkter 2025. Ingår i NOVA Consulting Group. Segment: SMB, midmarket och större organisationer.\n\nPassar bäst: Organisationer som söker Sales, Customer Insights, Customer Service eller Field Service med stark Microsoft 365-/Power Platform-koppling, kunder som vill börja med CRM stegvis men växa mot fler CE-processer, AI och automation, samt offentliga eller större organisationer som behöver förvaltning, säkerhet och Power Platform-governance. Mindre lämplig för kunder vars huvudbehov är Business Central eller F&SCM, större ERP-transformationer, eller projekt där en specifik ISV-auktorisation krävs som Point Taken saknar verifierad relation till.\n\nTre saker jag skulle flagga innan publik användning:\n\nFörst den juridiska strukturen: Point Taken AS (Oslo, org.nr 912 721 825) är den verifierade norska enheten, medan svensk närvaro via Point Taken AB efter Infunnel-sammanslagningen bör verifieras separat innan svensk publicering.\n\nSedan kontaktvägen: Tomas Holseth anges för Dynamics 365 Sales/Power Platform, men svensk kontaktväg efter sammanslagningen bör bekräftas.\n\nSlutligen ISV- och produktscope: Contact Center-omfattningen bör verifieras, och ISV-relationer (till exempel Nintex, som är ett publikt partnersignal men inte D365-specifikt) ska inte visas under ISV-filter utan bekräftelse.\n\nKort sagt: en nordisk CE/CRM-, Power Platform- och AI/Copilot-specialist med stark Microsoft 365-koppling, tydligt avgränsad från ERP. Rätt jämförelsegrupp är B3 Elevate, CRM-Konsulterna, Releye, Sirocco, Sundet CRM och Accigo, med BC-specialister och F&SCM-enterprisepartners som lägre relevans i jämförelsen.",
     "extended_content_updated_at": "2026-08-18T18:05:38.247+00:00",
     "partner_size_tier": 2,
