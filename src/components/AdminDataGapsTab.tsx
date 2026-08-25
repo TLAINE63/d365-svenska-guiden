@@ -270,6 +270,8 @@ export default function AdminDataGapsTab({ token, onSessionExpired }: Props) {
         )}
         {rows.map(({ partner, gaps }) => {
           const suggestion = buildSuggestion(partner);
+          const fixableGaps = gaps.filter((g) => !g.partnerOwned);
+          const partnerGaps = gaps.filter((g) => g.partnerOwned);
           return (
             <div
               key={partner.id}
@@ -278,16 +280,16 @@ export default function AdminDataGapsTab({ token, onSessionExpired }: Props) {
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
                   <span className="font-semibold">{partner.name}</span>
-                  {gaps.length === 0 ? (
+                  {fixableGaps.length === 0 ? (
                     <Badge variant="secondary" className="gap-1">
                       <CheckCircle2 className="h-3 w-3" /> Komplett
                     </Badge>
                   ) : (
-                    <Badge variant="outline">{gaps.length} brister</Badge>
+                    <Badge variant="outline">{fixableGaps.length} brister</Badge>
                   )}
                 </div>
                 <div className="mt-2 flex flex-wrap gap-1.5">
-                  {gaps.map((g) => (
+                  {fixableGaps.map((g) => (
                     <Badge
                       key={g.label}
                       variant={g.severity === "hög" ? "destructive" : "secondary"}
@@ -296,12 +298,21 @@ export default function AdminDataGapsTab({ token, onSessionExpired }: Props) {
                       {g.label}
                     </Badge>
                   ))}
+                  {partnerGaps.map((g) => (
+                    <Badge
+                      key={g.label}
+                      variant="outline"
+                      className="border-muted bg-muted/40 font-normal text-muted-foreground"
+                    >
+                      {g.label} · Partnerns ansvar
+                    </Badge>
+                  ))}
                 </div>
               </div>
               <div className="flex shrink-0 gap-2">
                 <Button
                   size="sm"
-                  disabled={savingId === partner.id || gaps.length === 0}
+                  disabled={savingId === partner.id || fixableGaps.length === 0}
                   onClick={() => save(partner, suggestion)}
                 >
                   {savingId === partner.id ? (
