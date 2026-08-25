@@ -103,7 +103,7 @@ const buildRow = (p: DatabasePartner): Row => {
     if (!pr.value.supportLevel) gaps.push(`${l}: supportnivå ej satt`);
   }
   if (!(p.positioning_statement || "").trim()) gaps.push("Positionering saknas");
-  if (!(p.ai_summary || "").trim()) gaps.push("AI-sammanfattning saknas");
+  if (!(p.ai_summary_full || "").trim()) gaps.push("AI-sammanfattning saknas");
 
   return {
     partner: p,
