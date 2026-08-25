@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { CheckCircle2, Pencil, ShieldCheck, Loader2 } from "lucide-react";
-import { allIndustries, geographyOptions, companySizes, revenueOptions } from "@/data/partners";
+import { geographyOptions, companySizes, revenueOptions } from "@/data/partners";
 import { toggleContiguousRange } from "@/lib/segmentRange";
 
 type ProductKey = "bc" | "fsc" | "sales" | "service";
