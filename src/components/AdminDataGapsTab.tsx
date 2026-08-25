@@ -11,6 +11,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogD
 import { useToast } from "@/hooks/use-toast";
 import { CheckCircle2, Pencil, ShieldCheck, Loader2 } from "lucide-react";
 import { allIndustries, geographyOptions, companySizes, revenueOptions } from "@/data/partners";
+import { toggleContiguousRange } from "@/lib/segmentRange";
 
 type ProductKey = "bc" | "fsc" | "sales" | "service";
 
@@ -33,12 +34,33 @@ interface Gap {
   severity: "hög" | "medel";
 }
 
+/**
+ * Segmentval (antal anställda / omsättning) måste ligga i rad – max 3 steg.
+ * Klipper ett urval till det första sammanhängande spannet om max 3 val.
+ */
+const contiguousRun = (options: string[], values: string[]): string[] => {
+  const idx = values
+    .map((v) => options.indexOf(v))
+    .filter((i) => i >= 0)
+    .sort((a, b) => a - b);
+  if (idx.length === 0) return [];
+  const run: number[] = [idx[0]];
+  for (const i of idx.slice(1)) {
+    if (i === run[run.length - 1] + 1 && run.length < 3) run.push(i);
+    else break;
+  }
+  return run.map((i) => options[i]);
+};
+
 /** Föreslagna omsättningsintervall härleds från vald kundstorlek (samma index-skala). */
 const suggestRevenue = (sizes: string[]): string[] => {
-  const idx = sizes.map((s) => companySizes.indexOf(s)).filter((i) => i >= 0);
+  const idx = sizes.map((s) => companySizes.indexOf(s)).filter((i) => i >= 0).sort((a, b) => a - b);
   if (idx.length === 0) return ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"];
-  return idx.slice(0, 3).map((i) => revenueOptions[i]).filter(Boolean);
+  const start = idx[0];
+  const count = Math.min(3, idx.length);
+  return Array.from({ length: count }, (_, n) => revenueOptions[start + n]).filter(Boolean);
 };
+
 
 const uniq = (arr: string[]) => Array.from(new Set(arr.filter(Boolean)));
 
@@ -58,13 +80,18 @@ const buildSuggestion = (p: DatabasePartner): Draft => {
   for (const k of PRODUCT_KEYS) {
     const f = pf[k];
     if (!f) continue;
-    const size = (f.companySize || []).length > 0 ? f.companySize : ["50-99", "100-249", "250-999"];
+    const rawSize =
+      (f.companySize || []).length > 0 ? (f.companySize as string[]) : ["50-99", "100-249", "250-999"];
+    const size = contiguousRun(companySizes, rawSize);
+    const rawRevenue =
+      (f.revenue || []).length > 0 ? (f.revenue as string[]) : suggestRevenue(size);
     products[k] = {
       industries: f.industries || [],
       geography: (f.geography || []).length > 0 ? f.geography : ["Sverige"],
       companySize: size,
-      revenue: (f.revenue || []).length > 0 ? (f.revenue as string[]) : suggestRevenue(size),
+      revenue: contiguousRun(revenueOptions, rawRevenue),
     };
+
   }
 
   return {
@@ -205,6 +232,16 @@ export default function AdminDataGapsTab({ token, onSessionExpired }: Props) {
       : max && list.length >= max
         ? list
         : [...list, value];
+
+  /** Segmentval måste ligga i rad – visar felmeddelande vid ogiltigt val. */
+  const toggleRange = (options: string[], current: string[], value: string): string[] | null => {
+    const res = toggleContiguousRange(options, current, value);
+    if ("error" in res) {
+      toast({ title: "Ogiltigt val", description: res.error, variant: "destructive" });
+      return null;
+    }
+    return res.next;
+  };
 
   return (
     <Card>
@@ -357,25 +394,25 @@ export default function AdminDataGapsTab({ token, onSessionExpired }: Props) {
 
                     <div className="space-y-1.5">
                       <Label className="text-xs text-muted-foreground">
-                        Passande kundstorlek ({d.companySize.length}/3)
+                        Passande kundstorlek ({d.companySize.length}/3 – i rad)
                       </Label>
                       <ChipGroup
                         options={companySizes}
                         selected={d.companySize}
                         max={3}
-                        onToggle={(v) => setProduct({ companySize: toggleIn(d.companySize, v, 3) })}
+                        onToggle={(v) => setProduct({ companySize: toggleRange(companySizes, d.companySize, v) ?? d.companySize })}
                       />
                     </div>
 
                     <div className="space-y-1.5">
                       <Label className="text-xs text-muted-foreground">
-                        Omsättning MSEK ({d.revenue.length}/3)
+                        Omsättning MSEK ({d.revenue.length}/3 – i rad)
                       </Label>
                       <ChipGroup
                         options={revenueOptions}
                         selected={d.revenue}
                         max={3}
-                        onToggle={(v) => setProduct({ revenue: toggleIn(d.revenue, v, 3) })}
+                        onToggle={(v) => setProduct({ revenue: toggleRange(revenueOptions, d.revenue, v) ?? d.revenue })}
                       />
                     </div>
                   </div>
