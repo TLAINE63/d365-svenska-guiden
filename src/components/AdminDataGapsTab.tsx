@@ -182,9 +182,9 @@ export default function AdminDataGapsTab({ token, onSessionExpired }: Props) {
       for (const k of PRODUCT_KEYS) {
         const d = draft.products[k];
         if (!d || !product_filters[k]) continue;
+        // Branscher (industries) skrivs aldrig av admin – partnerns beslut.
         product_filters[k] = {
           ...product_filters[k],
-          industries: d.industries,
           geography: d.geography,
           companySize: d.companySize,
           revenue: d.revenue,
