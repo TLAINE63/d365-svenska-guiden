@@ -11,6 +11,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogD
 import { useToast } from "@/hooks/use-toast";
 import { CheckCircle2, Pencil, ShieldCheck, Loader2 } from "lucide-react";
 import { allIndustries, geographyOptions, companySizes, revenueOptions } from "@/data/partners";
+import { toggleContiguousRange } from "@/lib/segmentRange";
 
 type ProductKey = "bc" | "fsc" | "sales" | "service";
 
@@ -232,6 +233,16 @@ export default function AdminDataGapsTab({ token, onSessionExpired }: Props) {
         ? list
         : [...list, value];
 
+  /** Segmentval måste ligga i rad – visar felmeddelande vid ogiltigt val. */
+  const toggleRange = (options: string[], current: string[], value: string): string[] | null => {
+    const res = toggleContiguousRange(options, current, value);
+    if ("error" in res) {
+      toast({ title: "Ogiltigt val", description: res.error, variant: "destructive" });
+      return null;
+    }
+    return res.next;
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -383,25 +394,25 @@ export default function AdminDataGapsTab({ token, onSessionExpired }: Props) {
 
                     <div className="space-y-1.5">
                       <Label className="text-xs text-muted-foreground">
-                        Passande kundstorlek ({d.companySize.length}/3)
+                        Passande kundstorlek ({d.companySize.length}/3 – i rad)
                       </Label>
                       <ChipGroup
                         options={companySizes}
                         selected={d.companySize}
                         max={3}
-                        onToggle={(v) => setProduct({ companySize: toggleIn(d.companySize, v, 3) })}
+                        onToggle={(v) => setProduct({ companySize: toggleRange(companySizes, d.companySize, v) ?? d.companySize })}
                       />
                     </div>
 
                     <div className="space-y-1.5">
                       <Label className="text-xs text-muted-foreground">
-                        Omsättning MSEK ({d.revenue.length}/3)
+                        Omsättning MSEK ({d.revenue.length}/3 – i rad)
                       </Label>
                       <ChipGroup
                         options={revenueOptions}
                         selected={d.revenue}
                         max={3}
-                        onToggle={(v) => setProduct({ revenue: toggleIn(d.revenue, v, 3) })}
+                        onToggle={(v) => setProduct({ revenue: toggleRange(revenueOptions, d.revenue, v) ?? d.revenue })}
                       />
                     </div>
                   </div>
