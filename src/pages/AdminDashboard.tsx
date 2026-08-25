@@ -117,6 +117,7 @@ import AdminProductPricesTab from "@/components/AdminProductPricesTab";
 import AdminMarketReportTab from "@/components/AdminMarketReportTab";
 import AdminIsvCatalogTab from "@/components/AdminIsvCatalogTab";
 import AdminUnprofiledPartnersTab from "@/components/AdminUnprofiledPartnersTab";
+import AdminDataGapsTab from "@/components/AdminDataGapsTab";
 import AdminBasicPartnersTab from "@/components/AdminBasicPartnersTab";
 import AdminIndustryPagesTab from "@/components/AdminIndustryPagesTab";
 import AdminSeoRankingsTab from "@/components/AdminSeoRankingsTab";
