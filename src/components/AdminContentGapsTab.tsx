@@ -209,6 +209,62 @@ export default function AdminContentGapsTab({ token, onSessionExpired }: Props) 
     save(row.partner, draft);
   };
 
+  /** Partners där minst ett produktområde har text men saknar supportnivå. */
+  const levelCandidates = useMemo(
+    () =>
+      partners
+        .filter((p) => p.is_featured)
+        .map(buildRow)
+        .map((row) => {
+          const draft: Draft = {};
+          for (const pr of row.products) {
+            if (pr.value.supportLevel) continue;
+            const lvl = inferSupportLevel(pr.value);
+            if (lvl) draft[pr.key] = { ...pr.value, supportLevel: lvl };
+          }
+          return { partner: row.partner, draft };
+        })
+        .filter((c) => Object.keys(c.draft).length > 0),
+    [partners],
+  );
+
+  const autoFillLevels = async () => {
+    setBulkRunning(true);
+    let ok = 0;
+    let failed = 0;
+    try {
+      for (const c of levelCandidates) {
+        const product_filters: Record<string, ProductFilterInput> = {
+          ...((c.partner.product_filters || {}) as Record<string, ProductFilterInput>),
+        };
+        for (const [k, value] of Object.entries(c.draft)) {
+          if (!product_filters[k]) continue;
+          product_filters[k] = { ...product_filters[k], deliveryProfile: value } as ProductFilterInput;
+        }
+        const { data, error } = await supabase.functions.invoke("manage-partners", {
+          body: { action: "update", token, id: c.partner.id, partner: { product_filters } },
+        });
+        if (error || data?.error) {
+          failed++;
+          if (String(data?.error || "").toLowerCase().includes("token")) onSessionExpired?.();
+        } else {
+          ok++;
+        }
+      }
+      queryClient.invalidateQueries({ queryKey: ["admin-partners"] });
+      queryClient.invalidateQueries({ queryKey: ["partners"] });
+      toast({
+        title: "Supportnivåer satta",
+        description: `${ok} partners uppdaterade${failed ? `, ${failed} misslyckades` : ""}.`,
+        variant: failed && !ok ? "destructive" : "default",
+      });
+    } finally {
+      setBulkRunning(false);
+    }
+  };
+
+
+
   const openEditor = (row: Row) => {
     const draft: Draft = {};
     for (const pr of row.products) draft[pr.key] = { ...pr.value };
