@@ -625,12 +625,26 @@
       "Supply Chain Management",
       "Commerce"
     ],
-    "industries": [],
+    "industries": [
+      "Grossist & Distribution",
+      "Tillverkningsindustri",
+      "Retail & E-handel"
+    ],
     "secondary_industries": [],
-    "geography": [],
+    "geography": [
+      "Europa",
+      "Globalt",
+      "Norden",
+      "Sverige"
+    ],
     "product_filters": {
       "fsc": {
         "ranking": 1,
+        "revenue": [
+          "100-499 MSEK",
+          "500-999 MSEK",
+          "1.000-4.999 MSEK"
+        ],
         "geography": [
           "Europa",
           "Globalt",
@@ -697,7 +711,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=BE-terna+Halmstad",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-08-21T11:19:13.214666+00:00",
+    "updated_at": "2026-08-25T07:29:01.210551+00:00",
     "industry_pitches": [
       {
         "text": "BE-terna har erfarenhet av leveranser av Microsoft Dynamics 365 till grossist- och distributionsbranschen. Med Dynamics 365 Finance och Supply Chain Management stödjer de företag i att hantera komplexa leveranskedjor och optimera sin distribution. Deras arbete omfattar implementering och förvaltning av dessa system, med fokus på att förbättra finansiell överblick och operativ effektivitet. De har även kompetens inom Dynamics 365 Commerce för företag som vill integrera sina säljkanaler. BE-terna tillämpar en strukturerad metodik för sitt arbete, med syftet att leverera långsiktig affärsnytta. De kombinerar lokal närvaro i tio europeiska länder med global leveransförmåga.",
@@ -856,6 +870,11 @@
     "product_filters": {
       "bc": {
         "ranking": 1,
+        "revenue": [
+          "25-99 MSEK",
+          "100-499 MSEK",
+          "500-999 MSEK"
+        ],
         "geography": [
           "Globalt",
           "Sverige",
@@ -911,7 +930,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=Bisqo+AB+Malmö",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-08-21T11:19:13.214666+00:00",
+    "updated_at": "2026-08-25T07:29:13.536837+00:00",
     "industry_pitches": [
       {
         "text": "Bisqo AB erbjuder molnbaserade lösningar för grossist- och distributionsbranschen med fokus på Microsoft Dynamics 365 Business Central. Partnern har kompetens inom att effektivisera affärsprocesser som är centrala för branschen, inklusive lagerhantering, orderhantering och logistik. De arbetar med att implementera och optimera dessa system för att möta krav på snabba och precisa leveranser. Bisqo AB levererar även lösningar för kundrelationshantering (CRM) baserade på Power Platform samt analysverktyg med Power BI, vilka bidrar till förbättrad överblick och beslutsfattande i komplexa logistikkedjor. Deras arbetssätt syftar till att leverera snabba och förutsägbara implementationer som ger affärsvärde för distributionsföretag som strävar efter digitalisering och effektivisering av sina processer.",
@@ -1029,7 +1048,12 @@
       "Field Service",
       "Contact Center"
     ],
-    "industries": [],
+    "industries": [
+      "Finans & Försäkring",
+      "Medlemsorganisationer",
+      "Life Science / Medtech",
+      "Non-profit / Organisationer"
+    ],
     "secondary_industries": [],
     "geography": [
       "Sverige",
@@ -1173,7 +1197,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=CRMK+(CRM-Konsulterna)+Stockholm",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-08-21T11:19:13.214666+00:00",
+    "updated_at": "2026-08-25T07:29:52.250357+00:00",
     "industry_pitches": [
       {
         "text": "CRM Konsulterna bistår konsultbolag med att optimera sin kundresa och interna processer med Dynamics 365. De adresserar typiska utmaningar som fragmenterad kundkommunikation och ineffektiv projektförsäljning. Genom att implementera Dynamics 365 Sales förbättrar de säljprocesser från prospektering till affärsavslut, vilket möjliggör bättre uppföljning och pipelinesynlighet. Med Dynamics 365 Customer Insights (Marketing) kan konsultbolag segmentera kunder och leverera relevanta budskap, vilket stärker varumärket och genererar nya affärsmöjligheter. De hjälper också med Dynamics 365 Customer Service för att hantera kundförfrågningar effektivt och säkerställa hög kundnöjdhet. Fokus ligger på att skapa en enhetlig kundbild och förbättra samarbetet internt, vilket frigör tid för konsultens kärnverksamhet.",
@@ -1720,13 +1744,24 @@
     "applications": [
       "Business Central"
     ],
-    "industries": [],
+    "industries": [
+      "Grossist & Distribution",
+      "Konsulttjänster",
+      "Retail & E-handel"
+    ],
     "secondary_industries": [],
-    "geography": [],
+    "geography": [
+      "Sverige",
+      "Norden"
+    ],
     "product_filters": {
       "bc": {
         "ranking": 999,
-        "revenue": [],
+        "revenue": [
+          "1-24 MSEK",
+          "25-99 MSEK",
+          "100-499 MSEK"
+        ],
         "geography": [
           "Sverige",
           "Norden"
@@ -1792,7 +1827,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=Goodfellows+Göteborg",
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-08-21T11:19:13.214666+00:00",
+    "updated_at": "2026-08-25T07:29:06.07878+00:00",
     "industry_pitches": [
       {
         "text": "Goodfellows levererar affärssystemlösningar med fokus på Microsoft Dynamics 365 Business Central. Partnern har erfarenhet av att arbeta med företag inom handel och distribution. De strävar efter att leverera lösningar som fungerar i praktiken och bidrar med affärsförståelse för att säkerställa relevanta vägval. Goodfellows kan erbjuda stöd för processer som rör omnikanalstrategier, kundresor, logistik och lagerhantering, vilka är centrala för aktörer inom retail och e-handel. De arbetar nära sina kunder för att implementera lösningar som skapar affärsnytta, med målet att systemet ska fungera utan oväntade utmaningar.",
@@ -1923,6 +1958,10 @@
     "product_filters": {
       "bc": {
         "ranking": 2,
+        "revenue": [
+          "1-24 MSEK",
+          "25-99 MSEK"
+        ],
         "geography": [
           "Sverige"
         ],
@@ -1935,8 +1974,7 @@
         ],
         "companySize": [
           "1-49",
-          "50-99",
-          "250-999"
+          "50-99"
         ],
         "contactName": "",
         "contactEmail": "",
@@ -1984,7 +2022,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=InBiz+Uppsala",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-08-21T11:19:13.214666+00:00",
+    "updated_at": "2026-08-25T07:29:48.57244+00:00",
     "industry_pitches": [
       {
         "text": "InBiz har sedan 2005 erfarenhet av att implementera Microsoft Dynamics 365 Business Central för företag inom olika branscher, inklusive grossist- och distributionssektorn. De erbjuder lösningar som stödjer optimering av bland annat lagerhantering, logistik, inköpsprocesser och försäljning, vilket är centralt för grossisters operativa effektivitet. Genom att anpassa Business Central kan InBiz bidra till förbättrad spårbarhet och precision i leveranskedjan. Fokus ligger på att leverera stabila systemlösningar som möter de krav på snabba och precisa flöden som kännetecknar distributionsbranschen. InBiz strävar efter att underlätta för företag att hantera sina verksamhetsprocesser mer effektivt.",
@@ -2349,6 +2387,10 @@
     "product_filters": {
       "bc": {
         "ranking": 1,
+        "revenue": [
+          "1-24 MSEK",
+          "25-99 MSEK"
+        ],
         "geography": [
           "Globalt",
           "Sverige",
@@ -2364,8 +2406,7 @@
         ],
         "companySize": [
           "1-49",
-          "50-99",
-          "250-999"
+          "50-99"
         ],
         "contactName": "",
         "contactEmail": "",
@@ -2408,6 +2449,11 @@
       },
       "sales": {
         "ranking": 1,
+        "revenue": [
+          "25-99 MSEK",
+          "100-499 MSEK",
+          "500-999 MSEK"
+        ],
         "geography": [
           "Sverige",
           "Norden",
@@ -2469,6 +2515,11 @@
       },
       "service": {
         "ranking": 1,
+        "revenue": [
+          "25-99 MSEK",
+          "100-499 MSEK",
+          "500-999 MSEK"
+        ],
         "geography": [
           "Sverige",
           "Norden",
@@ -2523,7 +2574,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=NAB+Solutions+Växjö",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-08-21T11:19:13.214666+00:00",
+    "updated_at": "2026-08-25T07:28:41.717774+00:00",
     "industry_pitches": [
       {
         "text": "NAB Solutions erbjuder lösningar baserade på Microsoft Dynamics 365 för den svenska finans- och försäkringsbranschen. Partnern levererar systemstöd som adresserar branschens krav på digitalisering, effektivisering av processer och hantering av höga kundförväntningar. Med erfarenhet av Dynamics 365 Business Central kan de bidra till modernisering av kärnsystem för finansiell styrning.\n\nFör att möta behovet av förbättrade kundrelationer och personaliserade upplevelser implementerar NAB Solutions applikationer som Dynamics 365 Sales, Customer Service och Customer Insights (Marketing). Dessa lösningar kan stödja försäljningsprocesser, kundsupport och datadriven marknadsföring, vilket är relevant för företag som vill förstärka sin position i en konkurrensutsatt marknad. De arbetar även med Contact Center-lösningar för att effektivisera kundkommunikationen. Partnern har sedan 2001 fokuserat på Microsofts produkter och bistår företag med digitalisering.",
@@ -2672,9 +2723,18 @@
       "Contact Center",
       "Project Operations"
     ],
-    "industries": [],
+    "industries": [
+      "Tillverkningsindustri",
+      "Grossist & Distribution",
+      "Retail & E-handel"
+    ],
     "secondary_industries": [],
-    "geography": [],
+    "geography": [
+      "Sverige",
+      "Norden",
+      "Europa",
+      "Globalt"
+    ],
     "product_filters": {
       "bc": {
         "ranking": 999,
@@ -2743,6 +2803,11 @@
       },
       "sales": {
         "ranking": 3,
+        "revenue": [
+          "100-499 MSEK",
+          "500-999 MSEK",
+          "1.000-4.999 MSEK"
+        ],
         "geography": [
           "Norden",
           "Europa",
@@ -2820,6 +2885,11 @@
       },
       "service": {
         "ranking": 3,
+        "revenue": [
+          "100-499 MSEK",
+          "500-999 MSEK",
+          "1.000-4.999 MSEK"
+        ],
         "geography": [
           "Norden",
           "Sverige",
@@ -2901,7 +2971,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=Nexer+Stockholm",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-08-21T11:19:13.214666+00:00",
+    "updated_at": "2026-08-25T07:28:50.532836+00:00",
     "industry_pitches": [
       {
         "text": "Nexer levererar affärssystemslösningar baserade på Microsoft Dynamics 365 till företag inom grossist- och distributionsbranschen. Med fokus på applikationer som Business Central, Finance och Supply Chain Management stödjer de kunder i att optimera processer som orderhantering, lagerstyrning och logistik. Deras erbjudande omfattar även stöd för kundrelationer genom Dynamics 365 Sales och Customer Service, vilket kan bidra till förbättrad kundkommunikation och service. Nexer har erfarenhet av att implementera system för hantering av globala leveranskedjor och kan bistå med integrationer för att möta krav på spårbarhet och effektivitet i en konkurrensutsatt marknad. De arbetar för att hjälpa företag att hantera marginalpress och möta höga förväntningar på leveransprecision.",
@@ -3031,7 +3101,9 @@
       "Field Service",
       "Contact Center"
     ],
-    "industries": [],
+    "industries": [
+      "Konsulttjänster"
+    ],
     "secondary_industries": [],
     "geography": [
       "Sverige"
@@ -3043,7 +3115,9 @@
           "25-99 MSEK",
           "100-499 MSEK"
         ],
-        "geography": [],
+        "geography": [
+          "Sverige"
+        ],
         "industries": [
           "Konsulttjänster"
         ],
@@ -3141,7 +3215,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=Point+Taken+Stockholm",
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-08-21T11:19:13.214666+00:00",
+    "updated_at": "2026-08-25T07:28:55.402713+00:00",
     "industry_pitches": [
       {
         "text": "Point Taken hjälper konsultföretag att effektivisera sin verksamhet med Microsoft Dynamics 365, särskilt genom fokus på projekt- och resurshantering. De adresserar problem som ineffektiva resursallokeringar och bristande överblick över projektlönsamhet. Point Taken implementerar lösningar som samlar kundrelationer, projektplanering och ekonomiska flöden för att skapa en enhetlig plattform.\n\nDe arbetar med att automatisera tidrapportering och fakturering, vilket reducerar administrativ börda och förbättrar kassaflödet. Genom att optimera användningen av Dynamics 365 for Project Operations och Sales, kan Point Taken underlätta för konsultbolag att fatta datadrivna beslut. Detta förbättrar i sin tur resursutnyttjande och bidrar till ökad lönsamhet per projekt.",
