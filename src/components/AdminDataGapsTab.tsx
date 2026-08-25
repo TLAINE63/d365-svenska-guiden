@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { CheckCircle2, Pencil, ShieldCheck, Loader2 } from "lucide-react";
-import { allIndustries, geographyOptions, companySizes, revenueOptions } from "@/data/partners";
+import { geographyOptions, companySizes, revenueOptions } from "@/data/partners";
 import { toggleContiguousRange } from "@/lib/segmentRange";
 
 type ProductKey = "bc" | "fsc" | "sales" | "service";
@@ -32,6 +32,8 @@ interface Props {
 interface Gap {
   label: string;
   severity: "hög" | "medel";
+  /** Branschrelaterade brister är partnerns ansvar – inte fixbara av admin. */
+  partnerOwned?: boolean;
 }
 
 /**
@@ -70,10 +72,10 @@ interface Draft {
   products: Partial<Record<ProductKey, { industries: string[]; geography: string[]; companySize: string[]; revenue: string[] }>>;
 }
 
-/** Bygger ett förslag (draft) för en partner utifrån befintlig data. */
+/** Bygger ett förslag (draft) för en partner utifrån befintlig data.
+ *  Branscher föreslås/aldrig ändras av admin – det är partnerns beslut. */
 const buildSuggestion = (p: DatabasePartner): Draft => {
   const pf = p.product_filters || {};
-  const productIndustries = uniq(PRODUCT_KEYS.flatMap((k) => pf[k]?.industries || []));
   const productGeos = uniq(PRODUCT_KEYS.flatMap((k) => pf[k]?.geography || []));
 
   const products: Draft["products"] = {};
@@ -91,21 +93,20 @@ const buildSuggestion = (p: DatabasePartner): Draft => {
       companySize: size,
       revenue: contiguousRun(revenueOptions, rawRevenue),
     };
-
   }
 
   return {
-    industries: (p.industries || []).length > 0 ? p.industries : productIndustries.slice(0, 5),
+    industries: p.industries || [],
     geography: (p.geography || []).length > 0 ? p.geography : (productGeos.length > 0 ? productGeos : ["Sverige"]),
     products,
   };
 };
 
-/** Lista de faktiska bristerna för en partner. */
+/** Lista de faktiska bristerna för en partner. Bransch-brister markeras partnerOwned. */
 const findGaps = (p: DatabasePartner): Gap[] => {
   const gaps: Gap[] = [];
   const pf = p.product_filters || {};
-  if ((p.industries || []).length === 0) gaps.push({ label: "Tomt branschfält på toppnivå", severity: "medel" });
+  if ((p.industries || []).length === 0) gaps.push({ label: "Tomt branschfält på toppnivå", severity: "medel", partnerOwned: true });
   if ((p.geography || []).length === 0) gaps.push({ label: "Tom geografi på toppnivå", severity: "medel" });
   for (const k of PRODUCT_KEYS) {
     const f = pf[k];
@@ -114,7 +115,7 @@ const findGaps = (p: DatabasePartner): Gap[] => {
     if ((f.geography || []).length === 0) gaps.push({ label: `${l}: tom geografi`, severity: "hög" });
     if ((f.revenue || []).length === 0) gaps.push({ label: `${l}: saknar omsättning`, severity: "hög" });
     if ((f.companySize || []).length === 0) gaps.push({ label: `${l}: saknar kundstorlek`, severity: "hög" });
-    if ((f.industries || []).length < 3) gaps.push({ label: `${l}: ${(f.industries || []).length} av 3 branscher`, severity: "medel" });
+    if ((f.industries || []).length < 3) gaps.push({ label: `${l}: ${(f.industries || []).length} av 3 branscher`, severity: "medel", partnerOwned: true });
   }
   return gaps;
 };
@@ -181,9 +182,9 @@ export default function AdminDataGapsTab({ token, onSessionExpired }: Props) {
       for (const k of PRODUCT_KEYS) {
         const d = draft.products[k];
         if (!d || !product_filters[k]) continue;
+        // Branscher (industries) skrivs aldrig av admin – partnerns beslut.
         product_filters[k] = {
           ...product_filters[k],
-          industries: d.industries,
           geography: d.geography,
           companySize: d.companySize,
           revenue: d.revenue,
@@ -196,7 +197,6 @@ export default function AdminDataGapsTab({ token, onSessionExpired }: Props) {
           token,
           id: partner.id,
           partner: {
-            industries: draft.industries,
             geography: draft.geography,
             product_filters,
           },
@@ -270,6 +270,8 @@ export default function AdminDataGapsTab({ token, onSessionExpired }: Props) {
         )}
         {rows.map(({ partner, gaps }) => {
           const suggestion = buildSuggestion(partner);
+          const fixableGaps = gaps.filter((g) => !g.partnerOwned);
+          const partnerGaps = gaps.filter((g) => g.partnerOwned);
           return (
             <div
               key={partner.id}
@@ -278,16 +280,16 @@ export default function AdminDataGapsTab({ token, onSessionExpired }: Props) {
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
                   <span className="font-semibold">{partner.name}</span>
-                  {gaps.length === 0 ? (
+                  {fixableGaps.length === 0 ? (
                     <Badge variant="secondary" className="gap-1">
                       <CheckCircle2 className="h-3 w-3" /> Komplett
                     </Badge>
                   ) : (
-                    <Badge variant="outline">{gaps.length} brister</Badge>
+                    <Badge variant="outline">{fixableGaps.length} brister</Badge>
                   )}
                 </div>
                 <div className="mt-2 flex flex-wrap gap-1.5">
-                  {gaps.map((g) => (
+                  {fixableGaps.map((g) => (
                     <Badge
                       key={g.label}
                       variant={g.severity === "hög" ? "destructive" : "secondary"}
@@ -296,12 +298,21 @@ export default function AdminDataGapsTab({ token, onSessionExpired }: Props) {
                       {g.label}
                     </Badge>
                   ))}
+                  {partnerGaps.map((g) => (
+                    <Badge
+                      key={g.label}
+                      variant="outline"
+                      className="border-muted bg-muted/40 font-normal text-muted-foreground"
+                    >
+                      {g.label} · Partnerns ansvar
+                    </Badge>
+                  ))}
                 </div>
               </div>
               <div className="flex shrink-0 gap-2">
                 <Button
                   size="sm"
-                  disabled={savingId === partner.id || gaps.length === 0}
+                  disabled={savingId === partner.id || fixableGaps.length === 0}
                   onClick={() => save(partner, suggestion)}
                 >
                   {savingId === partner.id ? (
@@ -338,15 +349,22 @@ export default function AdminDataGapsTab({ token, onSessionExpired }: Props) {
             <div className="space-y-6">
               <div className="space-y-2">
                 <Label className="text-xs text-muted-foreground">
-                  Branscher på toppnivå ({editing.draft.industries.length})
+                  Branscher på toppnivå (partnerns beslut – ej redigerbara)
                 </Label>
-                <ChipGroup
-                  options={allIndustries}
-                  selected={editing.draft.industries}
-                  onToggle={(v) =>
-                    updateDraft((d) => ({ ...d, industries: toggleIn(d.industries, v) }))
-                  }
-                />
+                {editing.draft.industries.length > 0 ? (
+                  <div className="flex flex-wrap gap-1.5">
+                    {editing.draft.industries.map((ind) => (
+                      <span
+                        key={ind}
+                        className="rounded-full border border-muted bg-muted/40 px-2.5 py-1 text-xs text-muted-foreground"
+                      >
+                        {ind}
+                      </span>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-xs italic text-muted-foreground">Partnern har inte valt några branscher ännu.</p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -373,15 +391,24 @@ export default function AdminDataGapsTab({ token, onSessionExpired }: Props) {
 
                     <div className="space-y-1.5">
                       <Label className="text-xs text-muted-foreground">
-                        Fokusbranscher ({d.industries.length}/3)
+                        Fokusbranscher (partnerns beslut – ej redigerbara)
                       </Label>
-                      <ChipGroup
-                        options={allIndustries}
-                        selected={d.industries}
-                        max={3}
-                        onToggle={(v) => setProduct({ industries: toggleIn(d.industries, v, 3) })}
-                      />
+                      {d.industries.length > 0 ? (
+                        <div className="flex flex-wrap gap-1.5">
+                          {d.industries.map((ind) => (
+                            <span
+                              key={ind}
+                              className="rounded-full border border-muted bg-muted/40 px-2.5 py-1 text-xs text-muted-foreground"
+                            >
+                              {ind}
+                            </span>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-xs italic text-muted-foreground">Inga branscher valda för denna produkt.</p>
+                      )}
                     </div>
+
 
                     <div className="space-y-1.5">
                       <Label className="text-xs text-muted-foreground">Geografi</Label>
