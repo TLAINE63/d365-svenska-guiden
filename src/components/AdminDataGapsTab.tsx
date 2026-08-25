@@ -70,10 +70,10 @@ interface Draft {
   products: Partial<Record<ProductKey, { industries: string[]; geography: string[]; companySize: string[]; revenue: string[] }>>;
 }
 
-/** Bygger ett förslag (draft) för en partner utifrån befintlig data. */
+/** Bygger ett förslag (draft) för en partner utifrån befintlig data.
+ *  Branscher föreslås/aldrig ändras av admin – det är partnerns beslut. */
 const buildSuggestion = (p: DatabasePartner): Draft => {
   const pf = p.product_filters || {};
-  const productIndustries = uniq(PRODUCT_KEYS.flatMap((k) => pf[k]?.industries || []));
   const productGeos = uniq(PRODUCT_KEYS.flatMap((k) => pf[k]?.geography || []));
 
   const products: Draft["products"] = {};
@@ -91,11 +91,10 @@ const buildSuggestion = (p: DatabasePartner): Draft => {
       companySize: size,
       revenue: contiguousRun(revenueOptions, rawRevenue),
     };
-
   }
 
   return {
-    industries: (p.industries || []).length > 0 ? p.industries : productIndustries.slice(0, 5),
+    industries: p.industries || [],
     geography: (p.geography || []).length > 0 ? p.geography : (productGeos.length > 0 ? productGeos : ["Sverige"]),
     products,
   };
