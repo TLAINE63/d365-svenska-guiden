@@ -3338,7 +3338,14 @@ Thomas`,
  {/* ==================== BASIC PARTNERS TAB ==================== */}
  <TabsContent value="basic-partners">
    <AdminBasicPartnersTab />
- </TabsContent>
+  </TabsContent>
+
+  {/* ==================== DATA GAPS TAB ==================== */}
+  <TabsContent value="data-gaps">
+    <AdminDataGapsTab token={token} onSessionExpired={handleSessionExpired} />
+  </TabsContent>
+
+
 
  {/* ==================== INVITATIONS TAB ==================== */}
  <TabsContent value="invitations">
