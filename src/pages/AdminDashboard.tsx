@@ -3341,8 +3341,9 @@ Thomas`,
   </TabsContent>
 
   {/* ==================== DATA GAPS TAB ==================== */}
-  <TabsContent value="data-gaps">
+  <TabsContent value="data-gaps" className="space-y-6">
     <AdminDataGapsTab token={token || null} onSessionExpired={logout} />
+    <AdminContentGapsTab token={token || null} onSessionExpired={logout} />
   </TabsContent>
 
 
