@@ -117,6 +117,7 @@ import AdminProductPricesTab from "@/components/AdminProductPricesTab";
 import AdminMarketReportTab from "@/components/AdminMarketReportTab";
 import AdminIsvCatalogTab from "@/components/AdminIsvCatalogTab";
 import AdminUnprofiledPartnersTab from "@/components/AdminUnprofiledPartnersTab";
+import AdminDataGapsTab from "@/components/AdminDataGapsTab";
 import AdminBasicPartnersTab from "@/components/AdminBasicPartnersTab";
 import AdminIndustryPagesTab from "@/components/AdminIndustryPagesTab";
 import AdminSeoRankingsTab from "@/components/AdminSeoRankingsTab";
@@ -274,7 +275,7 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
  id: "leads-partners",
  label: "Leads & Partners",
  icon: Building2,
- tabs: ["leads", "partner-requests", "partners", "unprofiled-partners", "basic-partners", "invitations", "agreement", "isv-catalog"],
+ tabs: ["leads", "partner-requests", "partners", "unprofiled-partners", "basic-partners", "data-gaps", "invitations", "agreement", "isv-catalog"],
  },
  {
  id: "innehall",
@@ -2338,7 +2339,13 @@ Thomas`,
  <Building2 className="h-3.5 w-3.5 text-slate-300" strokeWidth={1.75} />
  </span>
  Basickort
- </TabsTrigger>
+  </TabsTrigger>
+  <TabsTrigger value="data-gaps" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
+  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 ring-1 ring-emerald-400/20">
+  <Building2 className="h-3.5 w-3.5 text-emerald-300" strokeWidth={1.75} />
+  </span>
+  Datakvalitet
+  </TabsTrigger>
  <TabsTrigger value="invitations" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-violet-500/20 to-violet-600/10 ring-1 ring-violet-400/20">
  <MailPlus className="h-3.5 w-3.5 text-violet-300" strokeWidth={1.75} />
@@ -3331,7 +3338,14 @@ Thomas`,
  {/* ==================== BASIC PARTNERS TAB ==================== */}
  <TabsContent value="basic-partners">
    <AdminBasicPartnersTab />
- </TabsContent>
+  </TabsContent>
+
+  {/* ==================== DATA GAPS TAB ==================== */}
+  <TabsContent value="data-gaps">
+    <AdminDataGapsTab token={token || null} onSessionExpired={logout} />
+  </TabsContent>
+
+
 
  {/* ==================== INVITATIONS TAB ==================== */}
  <TabsContent value="invitations">
