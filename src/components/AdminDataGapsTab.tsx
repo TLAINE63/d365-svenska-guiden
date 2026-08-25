@@ -197,7 +197,6 @@ export default function AdminDataGapsTab({ token, onSessionExpired }: Props) {
           token,
           id: partner.id,
           partner: {
-            industries: draft.industries,
             geography: draft.geography,
             product_filters,
           },
