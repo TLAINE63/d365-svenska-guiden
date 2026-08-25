@@ -3342,7 +3342,7 @@ Thomas`,
 
   {/* ==================== DATA GAPS TAB ==================== */}
   <TabsContent value="data-gaps">
-    <AdminDataGapsTab token={token} onSessionExpired={handleSessionExpired} />
+    <AdminDataGapsTab token={token || null} onSessionExpired={logout} />
   </TabsContent>
 
 
