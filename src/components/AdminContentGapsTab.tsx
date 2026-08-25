@@ -126,6 +126,26 @@ const applySuggestions = (v: DeliveryProfileValue): DeliveryProfileValue => {
   return next;
 };
 
+/**
+ * Härleder supportnivå ur partnerns egna texter.
+ * Både förvaltning och vidareutveckling beskrivna → livscykelpartner.
+ * Endast förvaltning → förvaltningserbjudande.
+ * Endast leveranstext (ingen förvaltning) → projektfokus.
+ * Returnerar null när underlag saknas.
+ */
+const inferSupportLevel = (v: DeliveryProfileValue): SupportLevel | null => {
+  const managed = (v.managedServices || "").trim().length >= 40;
+  const further = (v.furtherDevelopment || "").trim().length >= 40;
+  if (managed && further) return "lifecycle_partner";
+  if (managed || further) return "managed_offering";
+  const hasDelivery = (["typicalCustomers", "typicalProjects", "deliveryModel"] as const).some(
+    (k) => (v[k] || "").trim().length >= 40,
+  );
+  return hasDelivery ? "project_focus" : null;
+};
+
+
+
 export default function AdminContentGapsTab({ token, onSessionExpired }: Props) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
