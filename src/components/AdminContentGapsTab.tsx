@@ -153,6 +153,8 @@ export default function AdminContentGapsTab({ token, onSessionExpired }: Props) 
   const [editing, setEditing] = useState<{ partner: DatabasePartner; draft: Draft } | null>(null);
   const [savingId, setSavingId] = useState<string | null>(null);
   const [onlyGaps, setOnlyGaps] = useState(true);
+  const [bulkRunning, setBulkRunning] = useState(false);
+
 
   const rows = useMemo(
     () =>
