@@ -126,6 +126,26 @@ const applySuggestions = (v: DeliveryProfileValue): DeliveryProfileValue => {
   return next;
 };
 
+/**
+ * Härleder supportnivå ur partnerns egna texter.
+ * Både förvaltning och vidareutveckling beskrivna → livscykelpartner.
+ * Endast förvaltning → förvaltningserbjudande.
+ * Endast leveranstext (ingen förvaltning) → projektfokus.
+ * Returnerar null när underlag saknas.
+ */
+const inferSupportLevel = (v: DeliveryProfileValue): SupportLevel | null => {
+  const managed = (v.managedServices || "").trim().length >= 40;
+  const further = (v.furtherDevelopment || "").trim().length >= 40;
+  if (managed && further) return "lifecycle_partner";
+  if (managed || further) return "managed_offering";
+  const hasDelivery = (["typicalCustomers", "typicalProjects", "deliveryModel"] as const).some(
+    (k) => (v[k] || "").trim().length >= 40,
+  );
+  return hasDelivery ? "project_focus" : null;
+};
+
+
+
 export default function AdminContentGapsTab({ token, onSessionExpired }: Props) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -133,6 +153,8 @@ export default function AdminContentGapsTab({ token, onSessionExpired }: Props) 
   const [editing, setEditing] = useState<{ partner: DatabasePartner; draft: Draft } | null>(null);
   const [savingId, setSavingId] = useState<string | null>(null);
   const [onlyGaps, setOnlyGaps] = useState(true);
+  const [bulkRunning, setBulkRunning] = useState(false);
+
 
   const rows = useMemo(
     () =>
@@ -189,6 +211,62 @@ export default function AdminContentGapsTab({ token, onSessionExpired }: Props) 
     save(row.partner, draft);
   };
 
+  /** Partners där minst ett produktområde har text men saknar supportnivå. */
+  const levelCandidates = useMemo(
+    () =>
+      partners
+        .filter((p) => p.is_featured)
+        .map(buildRow)
+        .map((row) => {
+          const draft: Draft = {};
+          for (const pr of row.products) {
+            if (pr.value.supportLevel) continue;
+            const lvl = inferSupportLevel(pr.value);
+            if (lvl) draft[pr.key] = { ...pr.value, supportLevel: lvl };
+          }
+          return { partner: row.partner, draft };
+        })
+        .filter((c) => Object.keys(c.draft).length > 0),
+    [partners],
+  );
+
+  const autoFillLevels = async () => {
+    setBulkRunning(true);
+    let ok = 0;
+    let failed = 0;
+    try {
+      for (const c of levelCandidates) {
+        const product_filters: Record<string, ProductFilterInput> = {
+          ...((c.partner.product_filters || {}) as Record<string, ProductFilterInput>),
+        };
+        for (const [k, value] of Object.entries(c.draft)) {
+          if (!product_filters[k]) continue;
+          product_filters[k] = { ...product_filters[k], deliveryProfile: value } as ProductFilterInput;
+        }
+        const { data, error } = await supabase.functions.invoke("manage-partners", {
+          body: { action: "update", token, id: c.partner.id, partner: { product_filters } },
+        });
+        if (error || data?.error) {
+          failed++;
+          if (String(data?.error || "").toLowerCase().includes("token")) onSessionExpired?.();
+        } else {
+          ok++;
+        }
+      }
+      queryClient.invalidateQueries({ queryKey: ["admin-partners"] });
+      queryClient.invalidateQueries({ queryKey: ["partners"] });
+      toast({
+        title: "Supportnivåer satta",
+        description: `${ok} partners uppdaterade${failed ? `, ${failed} misslyckades` : ""}.`,
+        variant: failed && !ok ? "destructive" : "default",
+      });
+    } finally {
+      setBulkRunning(false);
+    }
+  };
+
+
+
   const openEditor = (row: Row) => {
     const draft: Draft = {};
     for (const pr of row.products) draft[pr.key] = { ...pr.value };
@@ -227,9 +305,24 @@ export default function AdminContentGapsTab({ token, onSessionExpired }: Props) 
               endast tomma fält fylls, befintlig text från partnern rörs aldrig.
             </CardDescription>
           </div>
-          <Button variant="outline" size="sm" onClick={() => setOnlyGaps((v) => !v)}>
-            {onlyGaps ? "Visa alla partners" : "Visa bara med brister"}
-          </Button>
+          <div className="flex flex-wrap gap-2">
+            <Button
+              size="sm"
+              disabled={bulkRunning || levelCandidates.length === 0}
+              onClick={autoFillLevels}
+            >
+              {bulkRunning ? (
+                <Loader2 className="mr-1 h-4 w-4 animate-spin" />
+              ) : (
+                <Sparkles className="mr-1 h-4 w-4" />
+              )}
+              Sätt supportnivå automatiskt ({levelCandidates.length})
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => setOnlyGaps((v) => !v)}>
+              {onlyGaps ? "Visa alla partners" : "Visa bara med brister"}
+            </Button>
+          </div>
+
         </div>
       </CardHeader>
       <CardContent className="space-y-3">
