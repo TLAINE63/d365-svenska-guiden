@@ -79,13 +79,18 @@ const buildSuggestion = (p: DatabasePartner): Draft => {
   for (const k of PRODUCT_KEYS) {
     const f = pf[k];
     if (!f) continue;
-    const size = (f.companySize || []).length > 0 ? f.companySize : ["50-99", "100-249", "250-999"];
+    const rawSize =
+      (f.companySize || []).length > 0 ? (f.companySize as string[]) : ["50-99", "100-249", "250-999"];
+    const size = contiguousRun(companySizes, rawSize);
+    const rawRevenue =
+      (f.revenue || []).length > 0 ? (f.revenue as string[]) : suggestRevenue(size);
     products[k] = {
       industries: f.industries || [],
       geography: (f.geography || []).length > 0 ? f.geography : ["Sverige"],
       companySize: size,
-      revenue: (f.revenue || []).length > 0 ? (f.revenue as string[]) : suggestRevenue(size),
+      revenue: contiguousRun(revenueOptions, rawRevenue),
     };
+
   }
 
   return {
