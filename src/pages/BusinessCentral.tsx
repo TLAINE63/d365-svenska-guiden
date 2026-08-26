@@ -517,9 +517,55 @@ const BusinessCentral = () => {
    </div>
  </section>
 
- <StandardProductSections productName="Business Central" data={PRODUCT_STANDARD_SECTIONS["business-central"]} />
+  <StandardProductSections productName="Business Central" data={PRODUCT_STANDARD_SECTIONS["business-central"]} />
 
-  {/* FAQ Section – rendered from bcFaqs so visible content matches FAQSchema JSON-LD exactly */}
+  {/* Bransch- och användningsfall – svarar på vanliga sökintentioner (e-handel, bygg) */}
+  <section className="py-10 sm:py-12 bg-background">
+   <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+    <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+     Business Central i din verksamhet
+    </h2>
+    <p className="text-muted-foreground mb-8 text-sm sm:text-base">
+     Två av de vanligaste användningsområdena på den svenska marknaden – och vad som krävs utöver standard.
+    </p>
+
+    <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
+     Business Central och e-handel
+    </h3>
+    <p className="text-muted-foreground mb-3 text-sm sm:text-base leading-relaxed">
+     Business Central har en inbyggd koppling till Shopify från Microsoft som synkar artiklar, priser,
+     lagerstatus, kunder och order mellan webbshoppen och affärssystemet. Säljer du via en annan
+     e-handelsplattform – till exempel Norce, Litium eller Centra – byggs integrationen via ISV-tillägg
+     från Microsoft Marketplace eller av partnern. Det vanliga mönstret är att e-handeln sköter
+     kundupplevelsen medan Business Central hanterar orderflöde, lager, prissättning och bokföring, så
+     att du slipper manuell orderregistrering och dubbla artikelregister.
+    </p>
+    <p className="text-muted-foreground mb-8 text-sm sm:text-base leading-relaxed">
+     För bolag med både e-handel och fysisk försäljning blir lager- och prissynkroniseringen avgörande –
+     fråga partnern om dokumenterad erfarenhet av just din plattform innan du bestämmer dig.
+    </p>
+
+    <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
+     Business Central för bygg, entreprenad och installation
+    </h3>
+    <p className="text-muted-foreground mb-3 text-sm sm:text-base leading-relaxed">
+     Business Central är ett av de mest använda Microsoft-baserade affärssystemen i svensk byggbransch.
+     Projektmodulen i standard täcker projektbudget, tidrapportering, inköp mot projekt och uppföljning
+     per projekt. För entreprenadspecifika behov – kalkyl, ändrings- och tilläggsarbeten (ÄTA),
+     serviceärenden och anläggningshantering – finns branschbyggda tillägg, till exempel 4PS Construct
+     som är byggt direkt på Business Central.
+    </p>
+    <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+     Branschkännedomen hos partnern avgör hur väl systemet speglar dina processer. Se{" "}
+     <Link to="/branscher/bygg-entreprenad/" className="text-primary underline underline-offset-2">
+      Dynamics 365-partners inom bygg, entreprenad och installation
+     </Link>{" "}
+     och jämför deras kundexempel innan du tar kontakt.
+    </p>
+   </div>
+  </section>
+
+   {/* FAQ Section – rendered from bcFaqs so visible content matches FAQSchema JSON-LD exactly */}
   <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
   <div className="container mx-auto px-4 sm:px-6">
   <div className="max-w-4xl mx-auto">
