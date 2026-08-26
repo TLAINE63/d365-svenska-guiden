@@ -88,7 +88,24 @@
       .bg-secondary\/30{background-color:hsl(0 0% 96%/.3)}
       .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border-width:0;white-space:nowrap}
       /* Navbar reserve space + fixed positioning only — visuals handled by Tailwind to avoid stale overrides */
-      nav[data-site-nav]{position:fixed;top:0;left:0;right:0;z-index:50}
+      nav[data-site-nav]{position:fixed;top:0;left:0;right:0;z-index:50;background:hsl(40 17% 7%);border-bottom:3px solid hsl(14 82% 38%)}
+      /* Critical navbar layout: matchar Tailwind så att asynkron CSS inte orsakar layoutskift (CLS).
+         :where() nollar specificiteten så Tailwind alltid vinner när stilmallen väl laddats. */
+      :where(nav[data-site-nav]) .hidden{display:none}
+      :where(nav[data-site-nav]) .flex{display:flex}
+      :where(nav[data-site-nav]) .items-center{align-items:center}
+      :where(nav[data-site-nav]) .justify-between{justify-content:space-between}
+      :where(nav[data-site-nav]) .justify-end{justify-content:flex-end}
+      :where(nav[data-site-nav]) .h-9{height:2.25rem}
+      :where(nav[data-site-nav]) .h-16{height:4rem}
+      :where(nav[data-site-nav]) .h-10{height:2.5rem}
+      :where(nav[data-site-nav]) img{width:auto;object-fit:contain}
+      @media(min-width:1024px){
+        :where(nav[data-site-nav]) .lg\:block{display:block}
+        :where(nav[data-site-nav]) .lg\:flex{display:flex}
+        :where(nav[data-site-nav]) .lg\:hidden{display:none}
+        :where(nav[data-site-nav]) .lg\:h-12{height:3rem}
+      }
       /* Hero section */
       section{display:block}
       .container{max-width:80rem;margin:0 auto;padding-left:1rem;padding-right:1rem}

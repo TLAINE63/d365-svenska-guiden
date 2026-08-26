@@ -329,8 +329,11 @@ to="/valjdynamics365partner/#alla-partners-rubrik"
                               src={p.logo_url}
                               alt={`${p.name} logotyp`}
                               loading="lazy"
-                              className="max-h-10 max-w-full object-contain"
+                              width={160}
+                              height={40}
+                              className="max-h-10 max-w-full w-auto h-auto object-contain"
                             />
+
                           ) : (
                             <span className="text-sm font-semibold text-foreground">{p.name}</span>
                           )}
