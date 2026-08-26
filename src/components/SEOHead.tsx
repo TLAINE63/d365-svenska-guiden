@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { ORGANIZATION } from "@/data/organization";
 import { buildSeoTitle } from "@/lib/seoTitle";
 
 interface SEOHeadProps {
@@ -66,7 +67,9 @@ const SEOHead = ({
         primaryImageOfPage: { "@type": "ImageObject", url: resolvedOgImage },
         publisher: {
           "@type": "Organization",
-          name: "Dynamic Factory",
+          "@id": `${baseUrl}/#organization`,
+          name: ORGANIZATION.name,
+          legalName: ORGANIZATION.legalName,
           url: baseUrl,
           logo: { "@type": "ImageObject", url: `${baseUrl}/d365guide-logo.png` },
         },

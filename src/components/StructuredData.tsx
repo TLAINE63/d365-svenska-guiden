@@ -177,7 +177,7 @@ interface ServiceSchemaProps {
   provider?: string;
 }
 
-export const ServiceSchema = ({ name, description, provider = "Dynamic Factory" }: ServiceSchemaProps) => {
+export const ServiceSchema = ({ name, description, provider = ORGANIZATION.name }: ServiceSchemaProps) => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -277,8 +277,10 @@ export const PersonSchema = ({
     "image": image.startsWith("http") ? image : `https://d365.se${image}`,
     "worksFor": {
       "@type": "Organization",
-      "name": "D365 Guiden",
-      "url": "https://d365.se"
+      "@id": `${ORGANIZATION.url}/#organization`,
+      "name": ORGANIZATION.name,
+      "legalName": ORGANIZATION.legalName,
+      "url": ORGANIZATION.url
     },
     "nationality": "Swedish",
     "knowsLanguage": ["sv-SE", "en"],
@@ -328,13 +330,15 @@ export const WebPageSchema = ({
     inLanguage,
     isPartOf: {
       "@type": "WebSite",
-      name: "D365 Guiden",
-      url: "https://d365.se",
+      name: ORGANIZATION.name,
+      url: ORGANIZATION.url,
     },
     publisher: {
       "@type": "Organization",
-      name: "Dynamic Factory",
-      url: "https://d365.se",
+      "@id": `${ORGANIZATION.url}/#organization`,
+      name: ORGANIZATION.name,
+      legalName: ORGANIZATION.legalName,
+      url: ORGANIZATION.url,
       logo: {
         "@type": "ImageObject",
         url: "https://d365.se/d365guide-logo.png",
@@ -602,7 +606,7 @@ export const AdvisorsSchema = () => {
         description="Senior rådgivare med över 30 år i Microsoft Dynamics-ekosystemet – ERP, CRM, partnerlandskap och affärssystemsbeslut i Sverige."
         image="/src/assets/thomas-laine-real.jpg"
         email="thomas.laine@dynamicfactory.se"
-        telephone="+46-72-232-40-60"
+        telephone={ORGANIZATION.advisors[0].telephoneE164}
         sameAs={["https://linkedin.com/in/thomaslaine"]}
         knowsAbout={knowsAbout}
       />
