@@ -372,6 +372,55 @@ export default function PartnerMarketReport2026() {
               </ul>
             </div>
 
+            <div id="citera" className="rounded-xl border border-border bg-card p-6">
+              <h2 className="text-2xl font-bold text-foreground mb-3">
+                Metod och så här citerar du rapporten
+              </h2>
+              <dl className="space-y-3 text-sm">
+                <div>
+                  <dt className="font-semibold text-foreground">Utgivare</dt>
+                  <dd className="text-muted-foreground">d365.se (Dynamic Factory AB), Sverige</dd>
+                </div>
+                <div>
+                  <dt className="font-semibold text-foreground">Publicerad</dt>
+                  <dd className="text-muted-foreground">2026</dd>
+                </div>
+                <div>
+                  <dt className="font-semibold text-foreground">Metod</dt>
+                  <dd className="text-muted-foreground">
+                    Siffrorna bygger på d365.se:s egen kartläggning av Microsoft
+                    Dynamics 365-partners med verksamhet i Sverige. Varje partner
+                    klassificeras utifrån produktområden, fokusbranscher, kontorsorter
+                    och storlek. Underlaget uppdateras löpande när partners
+                    tillkommer eller uppdaterar sina uppgifter, vilket innebär att
+                    enskilda siffror kan förändras över tid.
+                  </dd>
+                </div>
+                <div>
+                  <dt className="font-semibold text-foreground">Källhänvisning</dt>
+                  <dd className="text-muted-foreground">
+                    d365.se (2026).{" "}
+                    <em>Svenska Dynamics 365-partnermarknaden 2026.</em>{" "}
+                    https://d365.se{CANONICAL}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="font-semibold text-foreground">Öppna data</dt>
+                  <dd className="text-muted-foreground">
+                    Underliggande partnerdata finns maskinläsbar på{" "}
+                    <a
+                      href="/partner-data.json"
+                      className="text-primary underline underline-offset-2"
+                    >
+                      /partner-data.json
+                    </a>
+                    .
+                  </dd>
+                </div>
+              </dl>
+            </div>
+
+
             <div className="rounded-xl border border-border bg-secondary/40 p-6 text-center">
               <h2 className="text-xl font-bold text-foreground mb-2">
                 Vill du hitta rätt partner i den här marknaden?
