@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_citation_checks: {
+        Row: {
+          check_month: string
+          created_at: string
+          engine: string
+          id: string
+          mentioned: boolean
+          notes: string | null
+          position_note: string | null
+          query_text: string
+          source_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          check_month: string
+          created_at?: string
+          engine: string
+          id?: string
+          mentioned?: boolean
+          notes?: string | null
+          position_note?: string | null
+          query_text: string
+          source_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          check_month?: string
+          created_at?: string
+          engine?: string
+          id?: string
+          mentioned?: boolean
+          notes?: string | null
+          position_note?: string | null
+          query_text?: string
+          source_url?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       ai_usage_log: {
         Row: {
           created_at: string
