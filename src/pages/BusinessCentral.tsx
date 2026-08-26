@@ -252,6 +252,7 @@ const BusinessCentral = () => {
    }}
  />
  <Navbar />
+ <main>
 
  
  {/* Hero */}
@@ -869,6 +870,7 @@ const BusinessCentral = () => {
  </section>
  <ProductIsvSection product="Business Central" />
 
+ </main>
  <Footer />
  </div>
  );

@@ -114,6 +114,7 @@ const ERPOverview = () => {
  <FAQSchema faqs={erpFaqs} />
  <BreadcrumbSchema items={erpBreadcrumbs} />
  <Navbar />
+ <main>
  
  {/* Header */}
  <ProductHero
@@ -442,6 +443,7 @@ const ERPOverview = () => {
      <PageOfferBanner />
    </div>
  </section>
+ </main>
  <Footer />
  </div>
  );

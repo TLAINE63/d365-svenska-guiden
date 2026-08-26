@@ -334,6 +334,7 @@ const Branschlosningar = () => {
  <FAQSchema faqs={branschFaqs} />
  <BreadcrumbSchema items={branschBreadcrumbs} />
  <Navbar />
+ <main>
  
  {/* Hero Section */}
  <section className="pt-24 pb-6 px-4 bg-gradient-to-b from-muted/50 to-background">
@@ -680,6 +681,7 @@ const Branschlosningar = () => {
      <PageOfferBanner />
    </div>
  </section>
+ </main>
  <Footer />
 
  {/* No Partner Dialog */}

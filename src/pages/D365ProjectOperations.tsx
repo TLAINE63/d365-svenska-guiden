@@ -44,6 +44,7 @@ const D365ProjectOperations = () => {
       />
       <BreadcrumbSchema items={breadcrumbs} />
       <Navbar />
+      <main>
 
       <ProductHero
         icon={ProjectOperationsIcon}
@@ -113,6 +114,7 @@ const D365ProjectOperations = () => {
       <RelatedPages pages={fscRelatedPages} heading="Utforska vidare" />
       <ProductIsvSection product="Project Operations" />
 
+      </main>
       <Footer />
     </div>
   );

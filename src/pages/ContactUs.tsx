@@ -33,6 +33,7 @@ const ContactUs = () => {
       <AdvisorsSchema />
       <BreadcrumbSchema items={contactBreadcrumbs} />
       <Navbar />
+      <main>
       
       {/* Header */}
       <header className="relative overflow-hidden mt-16 h-[340px] sm:h-[420px] md:h-[480px]">
@@ -294,6 +295,7 @@ const ContactUs = () => {
         </div>
       </section>
 
+      </main>
       <Footer />
     </div>
   );

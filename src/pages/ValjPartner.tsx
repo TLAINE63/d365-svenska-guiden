@@ -494,6 +494,7 @@ const ValjPartner = () => {
  }))}
  />
  <Navbar />
+ <main>
  {/* Partner Guide Dialog */}
  <PartnerGuideDialog 
  open={guideOpen} 
@@ -1048,6 +1049,7 @@ const ValjPartner = () => {
  </section>
 
  <RelatedPages heading="Skapa underlag innan du kontaktar partners" pages={valjPartnerRelatedPages} />
+ </main>
  <Footer />
  </div>
  );

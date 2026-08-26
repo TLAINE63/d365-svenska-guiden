@@ -82,6 +82,7 @@ const Agents = () => {
       />
       <BreadcrumbSchema items={agentsBreadcrumbs} />
       <Navbar />
+      <main>
       
       {/* Hero Section */}
       <header className="relative overflow-hidden mt-16 min-h-[560px] sm:h-[500px] md:h-[600px]">
@@ -555,6 +556,7 @@ const Agents = () => {
       </section>
 
       <ProductPartnerNewsSection productArea="microsoft-ai" productLabel="AI-agent" />
+      </main>
       <Footer />
     </div>
   );

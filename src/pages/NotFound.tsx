@@ -52,6 +52,7 @@ const NotFound = () => {
         noIndex={true}
       />
       <Navbar />
+      <main>
       <div className="flex min-h-[60vh] items-center justify-center bg-background">
         <div className="text-center max-w-md mx-auto px-4">
           <h1 className="mb-4 text-6xl font-bold text-primary">404</h1>
@@ -75,6 +76,7 @@ const NotFound = () => {
           </div>
         </div>
       </div>
+      </main>
       <Footer />
     </>
   );

@@ -191,6 +191,7 @@ const CRM = () => {
  />
  <BreadcrumbSchema items={crmBreadcrumbs} />
  <Navbar />
+ <main>
  
  {/* Header */}
   <ProductHero
@@ -579,6 +580,7 @@ const CRM = () => {
    </div>
  </section>
  <RelevantVideosSection productGroups={["crm-sales", "crm-service", "customer-insights"]} title="Videor om Dynamics 365 CRM" />
+ </main>
  <Footer />
  </div>
  );

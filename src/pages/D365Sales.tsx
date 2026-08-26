@@ -111,6 +111,7 @@ const D365Sales = () => {
       />
       <BreadcrumbSchema items={salesBreadcrumbs} />
       <Navbar />
+      <main>
       
       {/* Header */}
       <ProductHero
@@ -333,6 +334,7 @@ const D365Sales = () => {
       <RelatedPages pages={salesRelatedPages} heading="Utforska vidare" />
       <ProductIsvSection product="Sales" />
 
+      </main>
       <Footer />
     </div>
   );
