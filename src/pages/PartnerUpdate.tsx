@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from "react";
+import { INDUSTRY_NAMES } from "@/data/standardIndustries";
 import { useParams, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
@@ -67,29 +68,7 @@ const specialtyProductIcons: Record<string, string> = {
  "Human Resources": HumanResourcesIcon,
 };
 
-const INDUSTRY_OPTIONS = [
- "Tillverkningsindustri",
- "Livsmedel & Processindustri",
- "Grossist & Distribution",
- "Retail & E-handel",
- "Mode, Sport & Textil",
- "Konsulttjänster",
- "Bygg, Entreprenad & Installation",
- "Fastighet & Förvaltning",
- "Energi & Utilities",
- "Finans & Försäkring",
- "Life Science / Medtech",
- "Telekom & IT-tjänster",
- "Transport & Logistik",
- "Media & Publishing",
- "Jordbruk & Skogsbruk",
- "Hälsa- & sjukvård",
- "Non-profit / Organisationer",
- "Medlemsorganisationer",
- "Utbildning",
- "Offentlig sektor",
- "Uthyrningsverksamhet",
-];
+const INDUSTRY_OPTIONS = INDUSTRY_NAMES;
 
 const GEOGRAPHY_OPTIONS = [
  "Sverige",

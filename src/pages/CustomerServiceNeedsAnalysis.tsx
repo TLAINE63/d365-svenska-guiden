@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { INDUSTRY_NAMES } from "@/data/standardIndustries";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { Link } from "react-router-dom";
 import heroBehovsanalysKundservice from "@/assets/hero-behovsanalys-kundservice.jpg";
@@ -185,29 +186,7 @@ const employeeOptions = [
  "Mer än 5.000 anställda",
 ];
 
-const industryOptions = [
- "Tillverkningsindustri",
- "Livsmedel & Processindustri",
- "Grossist & Distribution",
- "Retail & E-handel",
- "Mode, Sport & Textil",
- "Konsulttjänster",
- "Bygg, Entreprenad & Installation",
- "Fastighet & Förvaltning",
- "Energi & Utilities",
- "Finans & Försäkring",
- "Life Science / Medtech",
- "Telekom & IT-tjänster",
- "Transport & Logistik",
- "Media & Publishing",
- "Jordbruk & Skogsbruk",
- "Hälsa- & sjukvård",
- "Non-profit / Organisationer",
- "Medlemsorganisationer",
- "Utbildning",
- "Offentlig sektor",
- "Uthyrningsverksamhet",
-];
+const industryOptions = INDUSTRY_NAMES;
 
 const teamSizeOptions = [
  "1-5",
