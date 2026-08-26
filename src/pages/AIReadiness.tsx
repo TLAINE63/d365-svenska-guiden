@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
+import { INDUSTRY_NAMES } from "@/data/standardIndustries";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import heroAiReadiness from "@/assets/hero-ai-readiness.jpg";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -146,29 +147,7 @@ const systemTrackData: Record<SystemTrack, { label: string; emoji: string; color
 
 // ─── INDUSTRY OPTIONS ────────────────────────────────────
 
-const industryOptions = [
-  "Tillverkningsindustri",
-  "Livsmedel & Processindustri",
-  "Grossist & Distribution",
-  "Retail & E-handel",
-  "Mode, Sport & Textil",
-  "Konsulttjänster",
-  "Bygg, Entreprenad & Installation",
-  "Fastighet & Förvaltning",
-  "Energi & Utilities",
-  "Finans & Försäkring",
-  "Life Science / Medtech",
-  "Telekom & IT-tjänster",
-  "Transport & Logistik",
-  "Media & Publishing",
-  "Jordbruk & Skogsbruk",
-  "Hälsa- & sjukvård",
-  "Non-profit / Organisationer",
-  "Medlemsorganisationer",
-  "Utbildning",
-  "Offentlig sektor",
-  "Uthyrningsverksamhet",
-];
+const industryOptions = INDUSTRY_NAMES;
 
 const headcountOptions = [
   { label: "1–49 anställda", score: 1 },

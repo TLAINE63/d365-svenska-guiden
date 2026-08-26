@@ -1,3 +1,4 @@
+import { INDUSTRY_NAMES } from "./standardIndustries";
 // ==================== TYPES ====================
 
 export interface IndustryExpertise {
@@ -42,29 +43,7 @@ export interface Partner {
 
 // ==================== CONSTANTS ====================
 
-export const allIndustries = [
-  "Tillverkningsindustri",
-  "Livsmedel & Processindustri",
-  "Grossist & Distribution",
-  "Retail & E-handel",
-  "Mode, Sport & Textil",
-  "Konsulttjänster",
-  "Bygg, Entreprenad & Installation",
-  "Fastighet & Förvaltning",
-  "Energi & Utilities",
-  "Finans & Försäkring",
-  "Life Science / Medtech",
-  "Telekom & IT-tjänster",
-  "Transport & Logistik",
-  "Media & Publishing",
-  "Jordbruk & Skogsbruk",
-  "Hälsa- & sjukvård",
-  "Non-profit / Organisationer",
-  "Medlemsorganisationer",
-  "Utbildning",
-  "Offentlig sektor",
-  "Uthyrningsverksamhet",
-];
+export const allIndustries = INDUSTRY_NAMES;
 
 // CRM applications for filtering
 export const crmApplications = [

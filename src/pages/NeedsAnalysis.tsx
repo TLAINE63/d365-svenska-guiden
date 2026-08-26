@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { INDUSTRY_NAMES } from "@/data/standardIndustries";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import heroBehovsanalysErp from "@/assets/hero-behovsanalys-erp.jpg";
 import { z } from "zod";
@@ -441,29 +442,7 @@ const erpUsersOptions = [
   "Mer än 200 användare",
 ];
 
-const industryOptions = [
-  "Tillverkningsindustri",
-  "Livsmedel & Processindustri",
-  "Grossist & Distribution",
-  "Retail & E-handel",
-  "Mode, Sport & Textil",
-  "Konsulttjänster",
-  "Bygg, Entreprenad & Installation",
-  "Fastighet & Förvaltning",
-  "Energi & Utilities",
-  "Finans & Försäkring",
-  "Life Science / Medtech",
-  "Telekom & IT-tjänster",
-  "Transport & Logistik",
-  "Media & Publishing",
-  "Jordbruk & Skogsbruk",
-  "Hälsa- & sjukvård",
-  "Non-profit / Organisationer",
-  "Medlemsorganisationer",
-  "Utbildning",
-  "Offentlig sektor",
-  "Uthyrningsverksamhet",
-];
+const industryOptions = INDUSTRY_NAMES;
 
 const geographyOptions = [
   "Endast Sverige",
