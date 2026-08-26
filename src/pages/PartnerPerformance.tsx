@@ -347,7 +347,11 @@ export default function PartnerPerformance() {
                     ))}
                   </div>
                 </div>
-                <div className="grid gap-4 sm:grid-cols-4">
+                <div
+                  className="grid gap-4 transition-opacity sm:grid-cols-4"
+                  style={{ opacity: gscLoading ? 0.5 : 1 }}
+                  aria-busy={gscLoading}
+                >
                   {[
                     { label: "Visningar", value: data.searchConsole.current.impressions.toLocaleString("sv-SE") },
                     { label: "Klick", value: data.searchConsole.current.clicks.toLocaleString("sv-SE") },
