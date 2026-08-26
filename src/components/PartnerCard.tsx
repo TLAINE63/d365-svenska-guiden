@@ -736,8 +736,15 @@ const PartnerCard = ({
   >
    <ArrowLeftRight className="h-3.5 w-3.5" />
    {compareActive ? 'Vald för jämförelse' : 'Jämför partners (välj upp till 3)'}
-  </button>
- )}
+   </button>
+  )}
+  {compareSlug && (
+   <ShortlistButton
+    className="mt-2"
+    entry={{ slug: compareSlug, name: partner.name || 'Partner', url: cleanProfileUrl, verified: true }}
+   />
+  )}
+
   </>
  )}
 
