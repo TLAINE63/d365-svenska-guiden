@@ -222,6 +222,26 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
             {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
             Uppdatera
           </Button>
+          {selectedPartner && (
+            <>
+              <Button
+                variant="default"
+                onClick={handleSendReportLink}
+                disabled={sendingLink || generatingLink}
+              >
+                {sendingLink ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
+                Skicka rapportlänk
+              </Button>
+              <Button
+                variant="outline"
+                onClick={handleCopyReportLink}
+                disabled={sendingLink || generatingLink}
+              >
+                {generatingLink ? <Loader2 className="h-4 w-4 animate-spin" /> : <Copy className="h-4 w-4" />}
+                Kopiera länk
+              </Button>
+            </>
+          )}
         </CardContent>
       </Card>
 
