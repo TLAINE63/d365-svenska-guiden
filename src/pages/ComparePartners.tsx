@@ -1920,7 +1920,7 @@ const ComparePartners = () => {
                       count={verifiedEligibleCount}
                     />
                     <span className="text-xs text-[hsl(var(--muted-foreground))]">
-                      Verifierade partners har en komplett, granskad profil. Övriga är identifierade partners med
+                      Verifierade partners har en komplett, granskad profil. Övriga är partners med
                       begränsad information.
                     </span>
                   </div>

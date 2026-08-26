@@ -133,7 +133,7 @@ export default function PartnerMarketReport2026() {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Svenska Dynamics 365-partnermarknaden 2026 – rapport"
-        description="Rapport om Dynamics 365-partners i Sverige 2026: 84 identifierade partners fördelat på Business Central, F&SCM, CRM, Power Platform/AI, bransch och bolagsstorlek."
+        description="Rapport om Dynamics 365-partners i Sverige 2026: 84 övriga partners fördelat på Business Central, F&SCM, CRM, Power Platform/AI, bransch och bolagsstorlek."
         canonicalPath={CANONICAL}
         ogType="article"
         keywords="Dynamics 365 partners Sverige, partnermarknad 2026, Business Central partner, F&SCM partner, CRM partner"
@@ -321,8 +321,9 @@ export default function PartnerMarketReport2026() {
                   fokusbranscher plus sekundära branscher.
                 </p>
                 <p>
-                  Skillnaden mellan identifierade och verifierade partners är
-                  viktig: identifierade partners är kartlagda utifrån publika
+                  Skillnaden mellan övriga och verifierade partners är
+                  viktig: övriga partners är kartlagda utifrån publika
+
                   källor, medan verifierade partners själva har granskat och
                   godkänt sina uppgifter, inklusive referenser, leveransprofil
                   och AI-erfarenhet.
@@ -363,7 +364,7 @@ export default function PartnerMarketReport2026() {
               <ul className="grid sm:grid-cols-2 gap-3">
                 {[
                   { to: "/valjdynamics365partner/", label: "Jämför Dynamics 365-partners" },
-                  { to: "/alla-d365-partners/", label: "Alla identifierade partners i Sverige" },
+                  { to: "/alla-d365-partners/", label: "Alla övriga partners i Sverige" },
                   { to: "/business-central-partners-sverige/", label: "Business Central-partners i Sverige" },
                   { to: "/dynamics-365-ai-copilot-partners-sverige/", label: "AI- och Copilot-partners i Sverige" },
                 ].map((l) => (

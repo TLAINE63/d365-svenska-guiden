@@ -248,7 +248,7 @@ const Branscher = () => {
                       </span>
                       {basicCount > 0 && (
                         <span className="text-xs text-muted-foreground">
-                          {basicCount} {basicCount === 1 ? "identifierad partner" : "identifierade partners"}
+                          {basicCount} {basicCount === 1 ? "övrig partner" : "övriga partners"}
                         </span>
                       )}
                     </div>

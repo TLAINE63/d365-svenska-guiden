@@ -318,7 +318,7 @@ export const routes: PrerenderRoute[] = [
     meta: {
       title: 'Svenska Dynamics 365-partnermarknaden 2026 – rapport',
       description:
-        'Rapport om Dynamics 365-partners i Sverige 2026: 84 identifierade partners fördelat på Business Central, F&SCM, CRM, Power Platform/AI, bransch och bolagsstorlek.',
+        'Rapport om Dynamics 365-partners i Sverige 2026: 84 övriga partners fördelat på Business Central, F&SCM, CRM, Power Platform/AI, bransch och bolagsstorlek.',
     },
   },
   // Deep-dive article routes (generated from data)
