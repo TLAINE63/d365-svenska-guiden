@@ -45,7 +45,7 @@ const BuyerGuide2026 = ({ variant }: Props) => {
       <Navbar />
 
       <main className="min-h-screen">
-        <section className="bg-[hsl(var(--hero-dark))] py-16 sm:py-20">
+        <section className="bg-[hsl(var(--hero-dark))] pt-28 pb-16 sm:pt-32 sm:pb-20">
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
             <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/60 mb-4">
               Tidig köpfas · Köparguide
