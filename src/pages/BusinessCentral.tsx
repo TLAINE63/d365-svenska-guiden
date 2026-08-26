@@ -415,16 +415,78 @@ const BusinessCentral = () => {
      </tbody>
     </table>
    </div>
-   <p className="text-sm text-muted-foreground mt-4">
-    Valet av system avgör ramarna – valet av partner avgör resultatet. Se{" "}
-    <Link to="/jamfor-partners/" className="text-primary underline underline-offset-2">
-     jämförelsen av Business Central-partners
-    </Link>{" "}
-    innan du går vidare.
-   </p>
+    <p className="text-sm text-muted-foreground mt-4">
+     Valet av system avgör ramarna – valet av partner avgör resultatet. Se{" "}
+     <Link to="/jamfor-partners/" className="text-primary underline underline-offset-2">
+      jämförelsen av Business Central-partners
+     </Link>{" "}
+     innan du går vidare.
+    </p>
 
-  </div>
- </section>
+    <h3 className="text-xl sm:text-2xl font-bold text-foreground mt-10 mb-3">
+     Business Central-licenser: Essentials, Premium och Team Member
+    </h3>
+    <p className="text-muted-foreground mb-4 text-sm sm:text-base">
+     Tre licensnivåer, pris per användare och månad (Microsofts listpris exkl. moms). Du väljer
+     Essentials <em>eller</em> Premium för hela bolaget – nivåerna kan inte blandas i samma miljö –
+     men Team Member kan kombineras med båda.
+    </p>
+    <div className="overflow-x-auto rounded-lg border border-border">
+     <table className="w-full text-sm">
+      <thead>
+       <tr className="bg-muted/40">
+        <th scope="col" className="text-left font-medium text-foreground py-3 px-4">Licens</th>
+        <th scope="col" className="text-left font-medium text-foreground py-3 px-4">Pris per användare/månad</th>
+        <th scope="col" className="text-left font-medium text-foreground py-3 px-4">Passar</th>
+        <th scope="col" className="text-left font-medium text-foreground py-3 px-4">Ingår</th>
+       </tr>
+      </thead>
+      <tbody>
+       {[
+        [
+         "Team Member",
+         resolvePriceTokens("{{price:bc-team-members:exact}}"),
+         "Användare med begränsade behov",
+         "Läsåtkomst i alla moduler, godkännanden, tidrapportering och enkla registreringar.",
+        ],
+        [
+         "Essentials",
+         resolvePriceTokens("{{price:bc-essentials:exact}}"),
+         "De flesta små och medelstora bolag",
+         "Ekonomi och redovisning, försäljning, inköp, lager, projekt och kund-/leverantörsreskontra.",
+        ],
+        [
+         "Premium",
+         resolvePriceTokens("{{price:bc-premium:exact}}"),
+         "Tillverkande och serviceintensiva bolag",
+         "Allt i Essentials plus tillverkning (produktionsorder, MRP, kapacitetsplanering) och servicehantering (serviceorder, servicekontrakt).",
+        ],
+       ].map(([license, price, fit, includes]) => (
+        <tr key={license} className="border-b border-border last:border-0 align-top">
+         <th scope="row" className="text-left font-medium text-foreground py-3 px-4 bg-muted/20">
+          {license}
+         </th>
+         <td className="py-3 px-4 text-foreground font-medium whitespace-nowrap">{price}</td>
+         <td className="py-3 px-4 text-muted-foreground">{fit}</td>
+         <td className="py-3 px-4 text-muted-foreground">{includes}</td>
+        </tr>
+       ))}
+      </tbody>
+     </table>
+    </div>
+    <p className="text-sm text-muted-foreground mt-4">
+     Räkna på hela kostnaden – licenser, implementering och förvaltning – i{" "}
+     <Link to="/implementationskalkylator/" className="text-primary underline underline-offset-2">
+      implementationskalkylatorn
+     </Link>{" "}
+     eller se den samlade{" "}
+     <Link to="/kostnad/" className="text-primary underline underline-offset-2">
+      pris- och kostnadsguiden för Dynamics 365
+     </Link>.
+    </p>
+
+   </div>
+  </section>
 
 
 
