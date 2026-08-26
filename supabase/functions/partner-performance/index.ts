@@ -414,6 +414,7 @@ Deno.serve(async (req) => {
         visibilitySeries,
         buyingSignals,
         benchmark,
+        searchConsole,
         recommendations,
         cta,
         generatedAt: new Date().toISOString(),
