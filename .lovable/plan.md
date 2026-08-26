@@ -1,49 +1,50 @@
-# Svara på riktiga frågor – benchmark av d365.se
+# Insikt om vilka AI-bottar som besöker sajten
 
-## Så klarar sajten de fyra punkterna idag
+## Kort svar på frågan
 
-**1. Matcha inte exakta prompts (query fan-out) – delvis**
-25 sidor har FAQ-block med `FAQPage`-schema, och `/kostnad/`, `/priser/`, `/erp/`, `/businesscentral/`, `/crm/`, `/copilot/`, `/d365sales/` och `/d365fieldservice/` fick nyligen frågeformulerade poster. Men frågorna är i huvudsak "första frågan" – följdfrågorna som en AI ställer vidare (jämförelser, "passar det oss?", "vad krävs av oss?", "hur lång tid tar det?") saknas i de flesta block.
+Sajten ligger på statisk hosting, och där finns ingen åtkomlig webbserverlogg. Dagens besöksmätning körs i webbläsaren (`track-visitor`), och AI-crawlers kör normalt ingen JavaScript – därför syns GPTBot, ClaudeBot, PerplexityBot m.fl. i princip aldrig i statistiken idag. Admin-fliken AI-synlighet visar därför i praktiken bara *hänvisningstrafik från människor* som kommer via ChatGPT/Perplexity/Copilot, inte botarna själva.
 
-**2. Relaterade frågor från Google – svag**
-Inget arbete utgår idag från Googles relaterade frågor/People Also Ask. FAQ-innehållet är skrivet utifrån vår egen bild av köparens frågor.
-
-**3. Lyssna på kundernas faktiska frågor – svagast**
-Sajten har `/fraga-ai` och AI-sök, men edge-funktionen `ai-chat` sparar ingenting. Varje verklig besökarfråga försvinner. Samma sak gäller frågor som kommer in via leadformulär (fritextfältet) – de läses men återanvänds inte i innehållet.
-
-**4. Google Search Console + REGEX – god grund**
-GSC är kopplat och `gsc-stats` hämtar frågor och sidor. Senaste 28 dagarna: 78 klick, 25 659 visningar, CTR 0,3 %, snittposition 31,8. En regex-genomgång av frågeformade queries gjordes manuellt en gång, men den är inte återkommande och finns inte i admin.
-
-Sammanfattning: teknik och FAQ-grund finns, men sajten saknar en **loop** som fångar riktiga frågor och omvandlar dem till innehåll.
+Det går att lösa – men det kräver att vi skapar en egen serverlogg för de anrop botarna faktiskt gör.
 
 ## Vad som byggs
 
-### A. Fånga riktiga frågor (punkt 3)
-- Ny tabell `visitor_questions`: frågetext, källa (`ai-chat`, `lead-form`, `sökfält`), sida, tidsstämpel, om AI kunde svara, samt admin-fält för status (`ny`, `besvarad`, `ignorerad`) och koppling till målsida.
-- Ingen personinformation sparas – bara frågetexten. RLS stänger anon/authenticated; endast service role skriver, admin läser via edge-funktion.
-- `ai-chat` loggar frågan (inte svaret) efter varje anrop.
+### 1. Egen crawler-logg (serverside)
+En ny publik backend-funktion `crawler-log` som:
+- tar emot ett anrop, läser `User-Agent`, sökväg, referrer och anonymiserad IP
+- klassificerar botten (GPTBot, OAI-SearchBot, ChatGPT-User, PerplexityBot, ClaudeBot, Google-Extended, Applebot-Extended, CCBot, Meta AI, Bytespider, Amazonbot, samt Googlebot/Bingbot för jämförelse)
+- skriver en rad i ny tabell `crawler_hits`
+- svarar med rätt innehåll (302 till den riktiga filen, eller filens innehåll direkt)
 
-### B. Frågeinsikter i admin (punkt 2 + 4)
-- Ny adminflik **Frågor** som samlar:
-  - Besökarfrågor från `visitor_questions`, grupperade och sorterade efter frekvens.
-  - Frågeformade GSC-queries via regex (`vad|hur|varför|vilken|kostar|skillnad|bäst|kan man|när`), med visningar, klick och position – utökar `gsc-stats` med ett query-uttag på 1 000 rader.
-  - Markering av vilka frågor som redan besvaras av ett FAQ-block på sajten (matchning mot befintliga FAQ-poster) så att luckorna syns direkt.
-- Varje rad får åtgärderna "besvarad" och "ignorerad" så listan blir en arbetslista, inte en rapport.
+### 2. Botarnas faktiska ingångar dirigeras via loggen
+Botar hämtar nästan alltid dessa tre saker – de blir våra sensorer:
+- `Sitemap:`-raden i `robots.txt` pekar på funktionens sitemap-URL, som loggar och skickar vidare till riktiga sitemapen
+- `llms.txt` refereras via funktionens URL (den statiska filen ligger kvar oförändrad)
+- en logg-URL läggs som `<link rel="alternate">` i head, som AI-crawlers följer
 
-### C. Fan-out-frågor i innehållet (punkt 1)
-- Utöka FAQ-blocken på de sex mest visade sidorna (`/businesscentral/`, `/erp/`, `/kostnad/`, `/crm/`, `/d365sales/`, `/copilot/`) med följdfrågor i tre kategorier: jämförelse, förutsättningar hos kunden, och tid/insats.
-- Svaren skrivs i klarspråk, med källa eller villkor där en siffra nämns (SourceNote-regeln).
+Det ger verklig, serverside-mätning av vilka AI-botar som hämtar sajten och hur ofta.
 
-### D. Relaterade frågor från Google (punkt 2)
-- Adminfliken får ett fält där du klistrar in relaterade frågor från en Google-sökning per produktområde. De hamnar i samma arbetslista som GSC- och besökarfrågorna, så allt hanteras på ett ställe.
+### 3. Ny vy i admin
+AI-synlighet-fliken utökas med sektionen "AI-crawlers (serverlogg)":
+- antal hämtningar per bot senaste 7/30/90 dagar
+- trend per månad
+- senaste hämtningstidpunkt per bot
+- vilka sökvägar som hämtas mest
+- tydlig notering om vad mätningen täcker (sensor-URL:er, inte varje enskild sidhämtning)
 
-## Teknisk sammanfattning
-- Migration: `visitor_questions` med GRANT till `service_role`, RLS på, ingen anon/authenticated-åtkomst.
-- `supabase/functions/ai-chat/index.ts`: fire-and-forget-insert av frågetext.
-- `supabase/functions/gsc-stats/index.ts`: nytt query-uttag med `rowLimit: 1000` för regexfiltrering.
-- Ny edge-funktion `manage-visitor-questions` (adminautentiserad, list/uppdatera status/lägg till manuell fråga).
-- Ny komponent `src/components/AdminQuestionsTab.tsx`, kopplad i `src/pages/AdminDashboard.tsx`.
-- FAQ-tillägg i respektive produktsida; befintlig `FAQSchema` återanvänds så schemat följer med automatiskt.
+### 4. Kompletterande källor som redan finns
+- Search Console visar Googlebots crawl-statistik – länkas in som referens.
+- Befintlig referrer-mätning (ChatGPT/Perplexity/Claude → besök) behålls oförändrad och visas bredvid crawler-loggen så att skillnaden mellan "bot hämtar" och "människa kommer via AI" blir tydlig.
 
-## Utanför omfattningen
-Ingen ändring av besöksstatistiken eller dess sekretessregler; inga nya spårningsskript.
+All besöksstatistik fortsätter exkludera dina egna besök/IP-adresser.
+
+## Begränsningar (viktigt att veta i förväg)
+- Vi kan bara logga de anrop som går via våra sensor-URL:er. En bot som bara hämtar en vanlig HTML-sida direkt från den statiska hostingen syns inte.
+- Det ger ändå en pålitlig bild av *vilka* AI-botar som är aktiva mot sajten och hur aktiviteten utvecklas över tid, vilket är det frågan gäller.
+- Full loggning av varje sidhämtning skulle kräva en CDN/proxy framför sajten (t.ex. Cloudflare) – kan tas som separat steg om du vill ha 100 % täckning.
+
+## Tekniska detaljer
+- Ny tabell `public.crawler_hits`: `id`, `bot_id`, `bot_label`, `user_agent`, `path`, `referrer`, `ip_prefix` (anonymiserad), `hit_at`, index på `hit_at` och `bot_id`. RLS på, inga anon/authenticated-policys; endast `service_role` skriver/läser (via edge-funktionerna).
+- `supabase/functions/crawler-log/index.ts` – publik (ingen JWT), skriver med service role, rate-limit-tolerant, sanerar UA till 500 tecken.
+- `ai-visibility-stats` utökas med aggregat från `crawler_hits` (admin-JWT som idag).
+- `AdminAiVisibilityTab.tsx` får ny sektion för crawler-data.
+- `public/robots.txt` och head-referenser uppdateras med sensor-URL:er; statisk `llms.txt` och sitemap-filer lämnas intakta.
