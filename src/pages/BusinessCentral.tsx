@@ -99,6 +99,14 @@ const bcFaqsRaw = [
  question: "Kan Business Central hantera tillverkning och produktion?",
  answer: "Ja, med Premium-licensen ({{price:bc-premium}}) ingår tillverkning med produktionsorder, MRP (Material Requirements Planning), kapacitetsplanering, versionskontroll och kvalitetsstyrning. Det finns dessutom ett rikt ekosystem av ISV-tillägg i Marketplace för avancerad WMS, batchhantering, maskinintegration (MES) och spårbarhet – vilket gör Business Central konkurrenskraftigt mot specialiserade tillverknings-ERP."
  },
+ {
+ question: "Passar Business Central för e-handel?",
+ answer: "Ja. Business Central har en inbyggd Shopify-koppling från Microsoft som synkar artiklar, priser, lagerstatus, kunder och order mellan webbshoppen och affärssystemet. För andra e-handelsplattformar – till exempel Norce, Litium eller Centra – byggs integrationen via ISV-tillägg eller av partnern. Det vanliga mönstret är att e-handeln sköter kundupplevelsen medan Business Central hanterar orderflöde, lager, priser och bokföring, så att du slipper manuell orderregistrering och dubbla artikelregister."
+ },
+ {
+ question: "Passar Business Central för bygg, entreprenad och installation?",
+ answer: "Ja, Business Central används brett i byggbranschen. Grunden i projektmodulen – projektbudget, tidrapportering, inköp mot projekt och periodiserad resultaträkning – täcker mycket av det ett entreprenadbolag behöver. Ovanpå det finns branschspecifika tillägg, till exempel 4PS Construct som är byggt direkt på Business Central, för entreprenadkalkyl, ändrings- och tilläggsarbeten (ÄTA) och serviceärenden. Välj en partner med dokumenterad byggerfarenhet – se vår översikt över partners inom bygg, entreprenad och installation."
+ },
 ];
 const bcFaqs = bcFaqsRaw.map((f) => ({ ...f, answer: resolvePriceTokens(f.answer) }));
 
