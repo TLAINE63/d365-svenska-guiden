@@ -336,11 +336,13 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  return (
  <div className="min-h-screen bg-background">
  <Navbar />
+ <main>
  <div className="container mx-auto px-4 py-10 mt-16">
  <div className="animate-pulse text-center text-muted-foreground">
  Laddar partnerinformation...
  </div>
  </div>
+ </main>
  <Footer />
  </div>
  );
@@ -397,6 +399,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
 
  <Navbar />
+ <main>
 
  {/* Premium Hero Header - Light theme */}
   <header className="relative overflow-hidden mt-16 text-slate-900">
@@ -627,6 +630,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  <TrustBanner variant="compact" />
 
 
+ </main>
   <Footer />
 
   <StickyContactCTA

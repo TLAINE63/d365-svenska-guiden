@@ -175,6 +175,7 @@ const Events = () => {
  />
  <BreadcrumbSchema items={eventsBreadcrumbs} />
  <Navbar />
+ <main>
  <div className="container mx-auto px-4 py-10 mt-16">
  <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
  Dynamics 365 webinars och seminarier
@@ -184,6 +185,7 @@ const Events = () => {
  </p>
  <Loader2 className="w-8 h-8 animate-spin text-primary" />
  </div>
+ </main>
  <Footer />
  </div>
  );
@@ -223,6 +225,7 @@ const Events = () => {
  />
 
  <Navbar />
+ <main>
 
  {/* Hero Section */}
  <section className="relative overflow-hidden mt-16 py-12 md:py-24">
@@ -487,6 +490,7 @@ const Events = () => {
  </div>
  </section>
 
+ </main>
  <Footer />
  </div>
  );

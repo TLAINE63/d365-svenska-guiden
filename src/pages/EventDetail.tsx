@@ -152,6 +152,7 @@ const EventDetail = () => {
           ]}
         />
         <Navbar />
+        <main>
         <div className="container mx-auto px-4 py-10 mt-16">
           <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
             Dynamics 365-event
@@ -162,6 +163,7 @@ const EventDetail = () => {
           </p>
           <Loader2 className="w-8 h-8 animate-spin text-primary" />
         </div>
+        </main>
         <Footer />
       </div>
     );
@@ -171,6 +173,7 @@ const EventDetail = () => {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
+        <main>
         <div className="container mx-auto px-4 py-10 mt-16">
           <Card className="max-w-lg mx-auto">
             <CardContent className="py-12 text-center">
@@ -188,6 +191,7 @@ const EventDetail = () => {
             </CardContent>
           </Card>
         </div>
+        </main>
         <Footer />
       </div>
     );
@@ -299,6 +303,7 @@ const EventDetail = () => {
       </Helmet>
 
       <Navbar />
+      <main>
 
       {/* Hero Section */}
       <section className="relative overflow-hidden mt-16 py-12 md:py-12 bg-gradient-to-br from-violet-600 via-purple-600 to-violet-700">
@@ -478,6 +483,7 @@ const EventDetail = () => {
         </div>
       </section>
 
+      </main>
       <Footer />
     </div>
   );
