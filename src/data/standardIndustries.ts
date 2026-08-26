@@ -33,5 +33,8 @@ export const STANDARD_INDUSTRIES: StandardIndustry[] = [
   { slug: "medlemsorganisationer", name: "Medlemsorganisationer", short: "Medlemsorg", sniCode: "94m" },
 ];
 
+/** Kanonisk lista med branschnamn – används av ALLA branschfilter i appen. */
+export const INDUSTRY_NAMES: string[] = STANDARD_INDUSTRIES.map((i) => i.name);
+
 export const findIndustryBySlug = (slug: string) =>
   STANDARD_INDUSTRIES.find((i) => i.slug === slug);
