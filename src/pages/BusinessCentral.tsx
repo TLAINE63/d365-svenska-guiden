@@ -99,6 +99,14 @@ const bcFaqsRaw = [
  question: "Kan Business Central hantera tillverkning och produktion?",
  answer: "Ja, med Premium-licensen ({{price:bc-premium}}) ingår tillverkning med produktionsorder, MRP (Material Requirements Planning), kapacitetsplanering, versionskontroll och kvalitetsstyrning. Det finns dessutom ett rikt ekosystem av ISV-tillägg i Marketplace för avancerad WMS, batchhantering, maskinintegration (MES) och spårbarhet – vilket gör Business Central konkurrenskraftigt mot specialiserade tillverknings-ERP."
  },
+ {
+ question: "Passar Business Central för e-handel?",
+ answer: "Ja. Business Central har en inbyggd Shopify-koppling från Microsoft som synkar artiklar, priser, lagerstatus, kunder och order mellan webbshoppen och affärssystemet. För andra e-handelsplattformar – till exempel Norce, Litium eller Centra – byggs integrationen via ISV-tillägg eller av partnern. Det vanliga mönstret är att e-handeln sköter kundupplevelsen medan Business Central hanterar orderflöde, lager, priser och bokföring, så att du slipper manuell orderregistrering och dubbla artikelregister."
+ },
+ {
+ question: "Passar Business Central för bygg, entreprenad och installation?",
+ answer: "Ja, Business Central används brett i byggbranschen. Grunden i projektmodulen – projektbudget, tidrapportering, inköp mot projekt och periodiserad resultaträkning – täcker mycket av det ett entreprenadbolag behöver. Ovanpå det finns branschspecifika tillägg, till exempel 4PS Construct som är byggt direkt på Business Central, för entreprenadkalkyl, ändrings- och tilläggsarbeten (ÄTA) och serviceärenden. Välj en partner med dokumenterad byggerfarenhet – se vår översikt över partners inom bygg, entreprenad och installation."
+ },
 ];
 const bcFaqs = bcFaqsRaw.map((f) => ({ ...f, answer: resolvePriceTokens(f.answer) }));
 
@@ -407,16 +415,78 @@ const BusinessCentral = () => {
      </tbody>
     </table>
    </div>
-   <p className="text-sm text-muted-foreground mt-4">
-    Valet av system avgör ramarna – valet av partner avgör resultatet. Se{" "}
-    <Link to="/jamfor-partners/" className="text-primary underline underline-offset-2">
-     jämförelsen av Business Central-partners
-    </Link>{" "}
-    innan du går vidare.
-   </p>
+    <p className="text-sm text-muted-foreground mt-4">
+     Valet av system avgör ramarna – valet av partner avgör resultatet. Se{" "}
+     <Link to="/jamfor-partners/" className="text-primary underline underline-offset-2">
+      jämförelsen av Business Central-partners
+     </Link>{" "}
+     innan du går vidare.
+    </p>
 
-  </div>
- </section>
+    <h3 className="text-xl sm:text-2xl font-bold text-foreground mt-10 mb-3">
+     Business Central-licenser: Essentials, Premium och Team Member
+    </h3>
+    <p className="text-muted-foreground mb-4 text-sm sm:text-base">
+     Tre licensnivåer, pris per användare och månad (Microsofts listpris exkl. moms). Du väljer
+     Essentials <em>eller</em> Premium för hela bolaget – nivåerna kan inte blandas i samma miljö –
+     men Team Member kan kombineras med båda.
+    </p>
+    <div className="overflow-x-auto rounded-lg border border-border">
+     <table className="w-full text-sm">
+      <thead>
+       <tr className="bg-muted/40">
+        <th scope="col" className="text-left font-medium text-foreground py-3 px-4">Licens</th>
+        <th scope="col" className="text-left font-medium text-foreground py-3 px-4">Pris per användare/månad</th>
+        <th scope="col" className="text-left font-medium text-foreground py-3 px-4">Passar</th>
+        <th scope="col" className="text-left font-medium text-foreground py-3 px-4">Ingår</th>
+       </tr>
+      </thead>
+      <tbody>
+       {[
+        [
+         "Team Member",
+         resolvePriceTokens("{{price:bc-team-members:exact}}"),
+         "Användare med begränsade behov",
+         "Läsåtkomst i alla moduler, godkännanden, tidrapportering och enkla registreringar.",
+        ],
+        [
+         "Essentials",
+         resolvePriceTokens("{{price:bc-essentials:exact}}"),
+         "De flesta små och medelstora bolag",
+         "Ekonomi och redovisning, försäljning, inköp, lager, projekt och kund-/leverantörsreskontra.",
+        ],
+        [
+         "Premium",
+         resolvePriceTokens("{{price:bc-premium:exact}}"),
+         "Tillverkande och serviceintensiva bolag",
+         "Allt i Essentials plus tillverkning (produktionsorder, MRP, kapacitetsplanering) och servicehantering (serviceorder, servicekontrakt).",
+        ],
+       ].map(([license, price, fit, includes]) => (
+        <tr key={license} className="border-b border-border last:border-0 align-top">
+         <th scope="row" className="text-left font-medium text-foreground py-3 px-4 bg-muted/20">
+          {license}
+         </th>
+         <td className="py-3 px-4 text-foreground font-medium whitespace-nowrap">{price}</td>
+         <td className="py-3 px-4 text-muted-foreground">{fit}</td>
+         <td className="py-3 px-4 text-muted-foreground">{includes}</td>
+        </tr>
+       ))}
+      </tbody>
+     </table>
+    </div>
+    <p className="text-sm text-muted-foreground mt-4">
+     Räkna på hela kostnaden – licenser, implementering och förvaltning – i{" "}
+     <Link to="/implementationskalkylator/" className="text-primary underline underline-offset-2">
+      implementationskalkylatorn
+     </Link>{" "}
+     eller se den samlade{" "}
+     <Link to="/kostnad/" className="text-primary underline underline-offset-2">
+      pris- och kostnadsguiden för Dynamics 365
+     </Link>.
+    </p>
+
+   </div>
+  </section>
 
 
 
@@ -447,9 +517,55 @@ const BusinessCentral = () => {
    </div>
  </section>
 
- <StandardProductSections productName="Business Central" data={PRODUCT_STANDARD_SECTIONS["business-central"]} />
+  <StandardProductSections productName="Business Central" data={PRODUCT_STANDARD_SECTIONS["business-central"]} />
 
-  {/* FAQ Section – rendered from bcFaqs so visible content matches FAQSchema JSON-LD exactly */}
+  {/* Bransch- och användningsfall – svarar på vanliga sökintentioner (e-handel, bygg) */}
+  <section className="py-10 sm:py-12 bg-background">
+   <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+    <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+     Business Central i din verksamhet
+    </h2>
+    <p className="text-muted-foreground mb-8 text-sm sm:text-base">
+     Två av de vanligaste användningsområdena på den svenska marknaden – och vad som krävs utöver standard.
+    </p>
+
+    <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
+     Business Central och e-handel
+    </h3>
+    <p className="text-muted-foreground mb-3 text-sm sm:text-base leading-relaxed">
+     Business Central har en inbyggd koppling till Shopify från Microsoft som synkar artiklar, priser,
+     lagerstatus, kunder och order mellan webbshoppen och affärssystemet. Säljer du via en annan
+     e-handelsplattform – till exempel Norce, Litium eller Centra – byggs integrationen via ISV-tillägg
+     från Microsoft Marketplace eller av partnern. Det vanliga mönstret är att e-handeln sköter
+     kundupplevelsen medan Business Central hanterar orderflöde, lager, prissättning och bokföring, så
+     att du slipper manuell orderregistrering och dubbla artikelregister.
+    </p>
+    <p className="text-muted-foreground mb-8 text-sm sm:text-base leading-relaxed">
+     För bolag med både e-handel och fysisk försäljning blir lager- och prissynkroniseringen avgörande –
+     fråga partnern om dokumenterad erfarenhet av just din plattform innan du bestämmer dig.
+    </p>
+
+    <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
+     Business Central för bygg, entreprenad och installation
+    </h3>
+    <p className="text-muted-foreground mb-3 text-sm sm:text-base leading-relaxed">
+     Business Central är ett av de mest använda Microsoft-baserade affärssystemen i svensk byggbransch.
+     Projektmodulen i standard täcker projektbudget, tidrapportering, inköp mot projekt och uppföljning
+     per projekt. För entreprenadspecifika behov – kalkyl, ändrings- och tilläggsarbeten (ÄTA),
+     serviceärenden och anläggningshantering – finns branschbyggda tillägg, till exempel 4PS Construct
+     som är byggt direkt på Business Central.
+    </p>
+    <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+     Branschkännedomen hos partnern avgör hur väl systemet speglar dina processer. Se{" "}
+     <Link to="/branscher/bygg-entreprenad/" className="text-primary underline underline-offset-2">
+      Dynamics 365-partners inom bygg, entreprenad och installation
+     </Link>{" "}
+     och jämför deras kundexempel innan du tar kontakt.
+    </p>
+   </div>
+  </section>
+
+   {/* FAQ Section – rendered from bcFaqs so visible content matches FAQSchema JSON-LD exactly */}
   <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
   <div className="container mx-auto px-4 sm:px-6">
   <div className="max-w-4xl mx-auto">
