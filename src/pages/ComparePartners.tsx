@@ -252,7 +252,7 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
           </span>
         )}
         <ShortlistButton
-          entry={{ slug: partner.slug, name: partner.name }}
+          entry={{ slug: partner.slug, name: partner.name, url: `/partner/${partner.slug}` }}
           variant="full"
           className="mt-2"
         />
