@@ -184,7 +184,11 @@ const AppShell = () => {
           <Route path="/om-michael-uhman" element={<OmMichaelUhman />} />
           
           <Route path="/valjdynamics365partner" element={<ValjPartner />} />
+          <Route path="/erp-koparguiden-2026" element={<BuyerGuide2026 variant="erp" />} />
+          <Route path="/crm-koparguiden-2026" element={<BuyerGuide2026 variant="crm" />} />
+          <Route path="/shortlist" element={<Shortlist />} />
           <Route path="/valj-partner" element={<Navigate to="/valjdynamics365partner" replace />} />
+
           <Route path="/valj-partner/*" element={<Navigate to="/valjdynamics365partner" replace />} />
           <Route path="/alla-d365-partners" element={<AllD365Partners />} />
           <Route path="/partners-per-bransch" element={<PartnersPerBransch />} />
