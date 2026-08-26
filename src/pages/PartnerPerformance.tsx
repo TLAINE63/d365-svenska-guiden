@@ -13,6 +13,8 @@ import {
   Sparkles,
   Target,
   Users,
+  Search,
+  MousePointerClick,
 } from "lucide-react";
 import {
   Bar,
@@ -65,6 +67,21 @@ interface Counts {
   contactRequests: number;
   introRequests: number;
 }
+interface GscTotals {
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  position: number;
+}
+interface SearchConsoleData {
+  available: boolean;
+  property: string;
+  period: { start: string; end: string };
+  current: GscTotals;
+  previous: GscTotals;
+  topQueries: { query: string; clicks: number; impressions: number; position: number }[];
+  topPages: { page: string; clicks: number; impressions: number; position: number }[];
+}
 interface Data {
   partner: { name: string; slug: string; logo_url: string | null };
   kpis: Kpi[];
@@ -72,6 +89,7 @@ interface Data {
   visibilitySeries: SeriesRow[];
   buyingSignals: { profileVisitors: number; erp: number; crm: number; ai: number };
   benchmark: { label: string; value: number; average: number; percentile: number }[];
+  searchConsole?: SearchConsoleData | null;
   recommendations: { title: string; body: string }[];
   cta: { level: "low" | "normal" | "high"; title: string; button: string };
   generatedAt: string;
@@ -82,6 +100,8 @@ const KPI_ICONS: Record<string, typeof Eye> = {
   profileViews: Users,
   comparisons: GitCompare,
   leads: Target,
+  gscImpressions: Search,
+  gscClicks: MousePointerClick,
 };
 
 const Card = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
@@ -241,6 +261,64 @@ export default function PartnerPerformance() {
                 );
               })}
             </div>
+
+            {/* Google Search Console */}
+            {data.searchConsole?.available && (
+              <Card>
+                <SectionTitle
+                  icon={Search}
+                  title="Google-synlighet för din partnersida"
+                  sub={`Search Console, ${data.searchConsole.period.start} – ${data.searchConsole.period.end} (28 dagar).`}
+                />
+                <div className="grid gap-4 sm:grid-cols-4">
+                  {[
+                    { label: "Visningar", value: data.searchConsole.current.impressions.toLocaleString("sv-SE") },
+                    { label: "Klick", value: data.searchConsole.current.clicks.toLocaleString("sv-SE") },
+                    { label: "CTR", value: `${data.searchConsole.current.ctr.toLocaleString("sv-SE")} %` },
+                    {
+                      label: "Snittposition",
+                      value: data.searchConsole.current.position
+                        ? data.searchConsole.current.position.toLocaleString("sv-SE")
+                        : "–",
+                    },
+                  ].map((m) => (
+                    <div key={m.label} className="rounded-xl p-4" style={{ backgroundColor: `${NAVY}08` }}>
+                      <div className="text-xs font-medium" style={{ color: `${TEXT}b3` }}>{m.label}</div>
+                      <div className="mt-1 text-2xl font-bold" style={{ color: NAVY }}>{m.value}</div>
+                    </div>
+                  ))}
+                </div>
+                {data.searchConsole.topQueries.length > 0 && (
+                  <div className="mt-6">
+                    <h3 className="mb-2 text-sm font-bold" style={{ color: NAVY }}>
+                      Sökfrågor som leder till din profil
+                    </h3>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr style={{ color: `${TEXT}b3` }}>
+                            <th className="py-2 text-left font-medium">Sökfråga</th>
+                            <th className="py-2 text-right font-medium">Visningar</th>
+                            <th className="py-2 text-right font-medium">Klick</th>
+                            <th className="py-2 text-right font-medium">Position</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {data.searchConsole.topQueries.map((q) => (
+                            <tr key={q.query} className="border-t border-slate-100">
+                              <td className="py-2 pr-3" style={{ color: TEXT }}>{q.query}</td>
+                              <td className="py-2 text-right" style={{ color: TEXT }}>{q.impressions.toLocaleString("sv-SE")}</td>
+                              <td className="py-2 text-right" style={{ color: TEXT }}>{q.clicks.toLocaleString("sv-SE")}</td>
+                              <td className="py-2 text-right" style={{ color: TEXT }}>{q.position.toLocaleString("sv-SE")}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+              </Card>
+            )}
 
             {/* Sektion 1 – Synlighet */}
             <Card>

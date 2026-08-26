@@ -89,6 +89,101 @@ const pctChange = (now: number, prev: number): number | null => {
   return Math.round(((now - prev) / prev) * 1000) / 10;
 };
 
+// ── Google Search Console per partner ────────────────────────────────
+const GSC_GATEWAY = "https://connector-gateway.lovable.dev/google_search_console";
+const GSC_PROPERTY = "sc-domain:d365.se";
+
+type GscTotals = { clicks: number; impressions: number; ctr: number; position: number };
+type GscData = {
+  available: boolean;
+  property: string;
+  period: { start: string; end: string };
+  current: GscTotals;
+  previous: GscTotals;
+  topQueries: { query: string; clicks: number; impressions: number; position: number }[];
+  topPages: { page: string; clicks: number; impressions: number; position: number }[];
+};
+
+const ymd = (d: Date) => d.toISOString().slice(0, 10);
+
+async function gscQuery(body: Record<string, unknown>, headers: Record<string, string>) {
+  const res = await fetch(
+    `${GSC_GATEWAY}/webmasters/v3/sites/${encodeURIComponent(GSC_PROPERTY)}/searchAnalytics/query`,
+    { method: "POST", headers: { ...headers, "Content-Type": "application/json" }, body: JSON.stringify(body) },
+  );
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Search Console [${res.status}]: ${text}`);
+  }
+  return (await res.json()) as { rows?: { keys?: string[]; clicks: number; impressions: number; ctr: number; position: number }[] };
+}
+
+function totalsFrom(rows: { clicks: number; impressions: number; ctr: number; position: number }[] | undefined): GscTotals {
+  const r = rows?.[0];
+  if (!r) return { clicks: 0, impressions: 0, ctr: 0, position: 0 };
+  return {
+    clicks: r.clicks ?? 0,
+    impressions: r.impressions ?? 0,
+    ctr: Math.round((r.ctr ?? 0) * 10000) / 100,
+    position: Math.round((r.position ?? 0) * 10) / 10,
+  };
+}
+
+async function fetchSearchConsole(slug: string): Promise<GscData | null> {
+  const lovableKey = Deno.env.get("LOVABLE_API_KEY");
+  const connectionKey = Deno.env.get("GOOGLE_SEARCH_CONSOLE_API_KEY");
+  if (!lovableKey || !connectionKey) return null;
+  const headers = {
+    Authorization: `Bearer ${lovableKey}`,
+    "X-Connection-Api-Key": connectionKey,
+  };
+
+  // Search Console släpar ~3 dagar
+  const end = new Date(Date.now() - 3 * 86400000);
+  const start = new Date(end.getTime() - 27 * 86400000);
+  const prevEnd = new Date(start.getTime() - 86400000);
+  const prevStart = new Date(prevEnd.getTime() - 27 * 86400000);
+
+  const pageFilter = {
+    dimensionFilterGroups: [
+      { filters: [{ dimension: "page", operator: "contains", expression: `/partner/${slug}` }] },
+    ],
+  };
+
+  try {
+    const [cur, prev, queries, pages] = await Promise.all([
+      gscQuery({ startDate: ymd(start), endDate: ymd(end), ...pageFilter }, headers),
+      gscQuery({ startDate: ymd(prevStart), endDate: ymd(prevEnd), ...pageFilter }, headers),
+      gscQuery({ startDate: ymd(start), endDate: ymd(end), dimensions: ["query"], rowLimit: 10, ...pageFilter }, headers),
+      gscQuery({ startDate: ymd(start), endDate: ymd(end), dimensions: ["page"], rowLimit: 10, ...pageFilter }, headers),
+    ]);
+
+    return {
+      available: true,
+      property: GSC_PROPERTY,
+      period: { start: ymd(start), end: ymd(end) },
+      current: totalsFrom(cur.rows),
+      previous: totalsFrom(prev.rows),
+      topQueries: (queries.rows ?? []).map((r) => ({
+        query: r.keys?.[0] ?? "",
+        clicks: r.clicks ?? 0,
+        impressions: r.impressions ?? 0,
+        position: Math.round((r.position ?? 0) * 10) / 10,
+      })),
+      topPages: (pages.rows ?? []).map((r) => ({
+        page: r.keys?.[0] ?? "",
+        clicks: r.clicks ?? 0,
+        impressions: r.impressions ?? 0,
+        position: Math.round((r.position ?? 0) * 10) / 10,
+      })),
+    };
+  } catch (e) {
+    console.error("Search Console fetch failed:", e);
+    return null;
+  }
+}
+
+
 Deno.serve(async (req) => {
   const cors = getCorsHeaders(req);
   if (req.method === "OPTIONS") return new Response(null, { headers: cors });
@@ -152,6 +247,26 @@ Deno.serve(async (req) => {
       { key: "comparisons", label: "Partnerjämförelser", value: current.addedToComparison, change: pctChange(current.addedToComparison, previous.addedToComparison) },
       { key: "leads", label: "Leads", value: current.leads, change: pctChange(current.leads, previous.leads) },
     ];
+
+    // ── Google Search Console (organisk synlighet för partnersidan) ────
+    const searchConsole = await fetchSearchConsole(partner.slug);
+    if (searchConsole) {
+      kpis.push(
+        {
+          key: "gscImpressions",
+          label: "Google-visningar",
+          value: searchConsole.current.impressions,
+          change: pctChange(searchConsole.current.impressions, searchConsole.previous.impressions),
+        },
+        {
+          key: "gscClicks",
+          label: "Google-klick",
+          value: searchConsole.current.clicks,
+          change: pctChange(searchConsole.current.clicks, searchConsole.previous.clicks),
+        },
+      );
+    }
+
 
     // ── 12 månaders historik ────────────────────────────────────────────
     const months: string[] = [];
@@ -299,6 +414,7 @@ Deno.serve(async (req) => {
         visibilitySeries,
         buyingSignals,
         benchmark,
+        searchConsole,
         recommendations,
         cta,
         generatedAt: new Date().toISOString(),
