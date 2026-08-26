@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import PageOfferBanner from "@/components/PageOfferBanner";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import { BreadcrumbSchema } from "@/components/StructuredData";
+import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 import { Link } from "react-router-dom";
 import CostBreakdown from "@/components/CostBreakdown";
 import CostProjectExamples from "@/components/CostProjectExamples";
@@ -13,6 +13,39 @@ import SourceNote from "@/components/SourceNote";
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
   { name: "Kostnad", url: "https://d365.se/kostnad/" },
+];
+
+const kostnadFaqs = [
+  {
+    question: "Vad kostar Dynamics 365 per användare och månad?",
+    answer:
+      "Business Central Essentials kostar 70 USD per användare och månad, Premium 100 USD, Dynamics 365 Sales Enterprise 105 USD och Finance 210 USD (Microsofts listpriser, faktureras normalt i SEK via partner eller CSP). Team Members-licenser för läsande användare ligger klart lägre. Se hela listan på prissidan.",
+  },
+  {
+    question: "Vad kostar det att implementera Business Central i Sverige?",
+    answer:
+      "Ett litet införande med standardprocesser och få integrationer ligger normalt på 100 000–250 000 kr. Ett medelstort projekt med flera bolag, integrationer och anpassningar landar oftast på 400 000–1 200 000 kr. Stora koncerninföranden går över 1,5 miljoner kr. Intervallen är offertspann från svenska partners, inte snittpriser.",
+  },
+  {
+    question: "Vad kostar Finance & Supply Chain Management jämfört med Business Central?",
+    answer:
+      "Finance & Supply Chain Management har både högre licenskostnad per användare och ett större implementationsprojekt, eftersom lösningen är byggd för komplexa processer, flera legala enheter och avancerad lagerstyrning. Räkna med en implementationsbudget som är två till fyra gånger så stor som ett jämförbart Business Central-projekt.",
+  },
+  {
+    question: "Vilka kostnader tillkommer efter go-live?",
+    answer:
+      "Löpande kostnader består av licenser, förvaltningsavtal eller supporttimmar, vidareutveckling vid förändrade processer, integrationsdrift samt konsumtionsbaserade kostnader för Copilot, AI-agenter och Azure-tjänster. Budgetera 15–25 procent av implementationskostnaden per år för förvaltning och vidareutveckling.",
+  },
+  {
+    question: "Hur vet jag om en offert är rimlig?",
+    answer:
+      "Jämför offerten mot intervallen på den här sidan, be om timpris och estimerat antal timmar per roll, och kontrollera att integrationer, datamigrering, utbildning och test finns med som egna poster. Begär också en treårig totalkostnad – inte bara första årets pris. Saknas poster i offerten dyker de upp som tilläggsbeställningar senare.",
+  },
+  {
+    question: "Går det att införa Dynamics 365 stegvis för att sprida kostnaden?",
+    answer:
+      "Ja. Ett vanligt upplägg är att först driftsätta ekonomi och order, därefter lager, produktion eller CRM i nästa fas. Det sänker den initiala kostnaden och risken, men kräver att partnern har en tydlig faslplan så att grunddata och integrationer inte behöver göras om.",
+  },
 ];
 
 const productOrder: { key: keyof typeof costBreakdowns; label: string; path: string }[] = [
@@ -42,6 +75,7 @@ export default function Kostnad() {
         canonicalPath="/kostnad/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
+      <FAQSchema faqs={kostnadFaqs} />
       <Navbar />
 
       <main className="pt-10">
@@ -162,6 +196,22 @@ export default function Kostnad() {
               >
                 Hitta 2–4 matchande partners
               </Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-8 sm:py-12 bg-secondary/30 border-t border-border">
+          <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
+              Vanliga frågor om vad Dynamics 365 kostar
+            </h2>
+            <div className="space-y-5">
+              {kostnadFaqs.map((faq) => (
+                <div key={faq.question} className="bg-card border border-border rounded-lg p-5">
+                  <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">{faq.question}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{faq.answer}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
