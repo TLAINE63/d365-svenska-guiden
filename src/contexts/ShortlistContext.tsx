@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, ReactNode } from "react";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { trackPartnerEvent } from "@/utils/trackPartnerEvent";
 
 export type ShortlistEntry = {
   slug: string;
