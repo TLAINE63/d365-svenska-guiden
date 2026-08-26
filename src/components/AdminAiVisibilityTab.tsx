@@ -19,11 +19,29 @@ import { useToast } from "@/hooks/use-toast";
 import { Bot, Loader2, Plus, RefreshCw, Sparkles, Trash2 } from "lucide-react";
 
 interface AiVisibilityData {
-  totals: { aiVisits365: number; aiVisits30: number; crawlerHits365: number };
+  totals: {
+    aiVisits365: number;
+    aiVisits30: number;
+    crawlerHits365: number;
+    serverCrawlerHits30?: number;
+    serverCrawlerHits365?: number;
+    serverCrawlerBots30?: number;
+  };
   byMonth: { month: string; total: number; bySource: Record<string, number> }[];
   bySource: { id: string; label: string; visits: number; uniqueVisitors: number }[];
   landingPages: { path: string; views: number }[];
   crawlers: { id: string; label: string; hits: number; lastSeen: string }[];
+  serverCrawlers?: {
+    id: string;
+    label: string;
+    hits7: number;
+    hits30: number;
+    hits90: number;
+    hits365: number;
+    lastSeen: string;
+  }[];
+  serverCrawlerMonths?: { month: string; hits: number }[];
+  serverCrawlerPaths?: { path: string; hits: number }[];
   citations: CitationRow[];
   citationTrend: { month: string; checks: number; mentions: number }[];
 }
