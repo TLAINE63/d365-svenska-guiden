@@ -121,6 +121,74 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
     ? { ...data, admin_comment: comment, recommendations: recs }
     : null;
 
+  const selectedPartner = partners.find((p) => p.slug === slug) || null;
+
+  const handleSendReportLink = async () => {
+    if (!token || !selectedPartner) return;
+    setSendingLink(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-events?action=send-performance-link-email`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ partner_id: selectedPartner.id }),
+        }
+      );
+      const res = await response.json();
+      if (!response.ok) {
+        if (res.error?.includes("gått ut") || res.error?.includes("session")) {
+          toast({ title: "Sessionen har gått ut", description: "Logga in igen.", variant: "destructive" });
+          setTimeout(() => window.location.reload(), 800);
+          return;
+        }
+        throw new Error(res.error || "Kunde inte skicka e-post");
+      }
+      toast({ title: "Rapportlänk skickad!", description: `Prestanda-rapporten har skickats till ${res.email}` });
+    } catch (error: any) {
+      toast({ title: "Fel", description: error.message, variant: "destructive" });
+    } finally {
+      setSendingLink(false);
+    }
+  };
+
+  const handleCopyReportLink = async () => {
+    if (!token || !selectedPartner) return;
+    setGeneratingLink(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-events?action=create-token`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ partner_id: selectedPartner.id }),
+        }
+      );
+      const res = await response.json();
+      if (!response.ok) {
+        if (res.error?.includes("gått ut") || res.error?.includes("session")) {
+          toast({ title: "Sessionen har gått ut", description: "Logga in igen.", variant: "destructive" });
+          setTimeout(() => window.location.reload(), 800);
+          return;
+        }
+        throw new Error(res.error || "Kunde inte generera länk");
+      }
+      const link = `https://d365.se/partner-performance/${res.token}`;
+      await navigator.clipboard.writeText(link);
+      toast({ title: "Länk kopierad!", description: `Prestanda-rapportlänk kopierad för ${selectedPartner.name}` });
+    } catch (error: any) {
+      toast({ title: "Fel", description: error.message, variant: "destructive" });
+    } finally {
+      setGeneratingLink(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <Card>
