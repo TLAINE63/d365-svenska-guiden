@@ -121,6 +121,10 @@ export default {
           DEFAULT: "hsl(var(--success))",
           foreground: "hsl(var(--success-foreground))",
         },
+        positive: {
+          DEFAULT: "hsl(var(--positive))",
+          foreground: "hsl(var(--positive-foreground))",
+        },
         warning: {
           DEFAULT: "hsl(var(--warning))",
           foreground: "hsl(var(--warning-foreground))",

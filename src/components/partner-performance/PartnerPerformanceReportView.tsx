@@ -76,8 +76,8 @@ function Delta({ current, previous }: { current: number; previous: number }) {
   const Icon = up ? TrendingUp : TrendingDown;
   return (
     <span
-      className={`inline-flex items-center gap-1 text-xs font-medium ${
-        up ? "text-accent" : "text-destructive"
+      className={`inline-flex items-center gap-1 text-xs font-bold ${
+        up ? "text-positive" : "text-destructive"
       }`}
     >
       <Icon className="h-3 w-3" />
