@@ -169,6 +169,9 @@ export const routes: PrerenderRoute[] = [
   // so Google re-crawls the updated titles/H1/meta after the cannibalization fix.
   { path: '/', priority: '1.0', changefreq: 'weekly', lastmod: '2026-05-19' },
   { path: '/valjdynamics365partner', priority: '1.0', changefreq: 'weekly' },
+  { path: '/erp-koparguiden-2026', priority: '0.9', changefreq: 'monthly' },
+  { path: '/crm-koparguiden-2026', priority: '0.9', changefreq: 'monthly' },
+
   { path: '/erp', priority: '0.9', changefreq: 'weekly', lastmod: '2026-06-26' },
   // /affarssystem är konsoliderad in i /erp (301-redirect via Affarssystem.tsx)
 
