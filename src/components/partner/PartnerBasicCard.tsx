@@ -158,7 +158,17 @@ export function PartnerBasicCard({
           <Mail className="mr-1.5 h-3.5 w-3.5" aria-hidden />
           {BASIC_COPY.buyerGuidanceCta}
         </Button>
+        <ShortlistButton
+          className="mt-3"
+          entry={{
+            slug: partner.slug,
+            name: partner.name,
+            url: `/basic/${partner.slug}/`,
+            verified: false,
+          }}
+        />
       </div>
+
 
       <BasicPartnerInquiryDialog
         open={inquiryOpen}
