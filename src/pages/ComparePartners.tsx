@@ -1355,6 +1355,24 @@ const ComparePartners = () => {
     enabled: !isLoading && comparedPartners.length >= 2,
   });
 
+  // Nivå 1 – exponering: partnern visas i en aktiv partnerjämförelse.
+  useEffect(() => {
+    if (isLoading || comparedPartners.length < 2) return;
+    comparedPartners.forEach((p, i) => {
+      trackPartnerEvent({
+        event: "partner_comparison_impression",
+        partnerSlug: p.slug,
+        partnerId: p.id,
+        metadata: {
+          position: i + 1,
+          compared_count: comparedPartners.length,
+          product: productFilters.join(",") || null,
+          industry: industryFilter || null,
+        },
+      });
+    });
+  }, [isLoading, comparedPartners, productFilters, industryFilter]);
+
 
   
 
