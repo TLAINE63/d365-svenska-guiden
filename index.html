@@ -181,18 +181,24 @@
         });
       });
 
-      // 5) Ladda själva gtag.js-skriptet först efter LCP
+      // 5) Ladda gtag.js vid första interaktion, annars efter 5s (håller huvudtråden fri → lägre TBT)
+      var __gtmLoaded = false;
       function loadGTM() {
+        if (__gtmLoaded) return;
+        __gtmLoaded = true;
+        ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+          window.removeEventListener(e, loadGTM);
+        });
         var s = document.createElement('script');
         s.async = true;
         s.src = 'https://www.googletagmanager.com/gtag/js?id=G-BBC4N0F9W9';
         document.head.appendChild(s);
       }
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(loadGTM, { timeout: 8000 });
-      } else {
-        setTimeout(loadGTM, 7000);
-      }
+      ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+        window.addEventListener(e, loadGTM, { once: true, passive: true });
+      });
+      setTimeout(loadGTM, 5000);
+
     </script>
   </body>
 </html>
