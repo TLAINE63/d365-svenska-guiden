@@ -26,6 +26,8 @@ import AIOverview from './pages/AIOverview';
 import AIReadiness from './pages/AIReadiness';
 import ContactUs from './pages/ContactUs';
 import ValjPartner from './pages/ValjPartner';
+import BuyerGuide2026 from './pages/BuyerGuide2026';
+
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import NeedsAnalysis from './pages/NeedsAnalysis';
 import SalesMarketingNeedsAnalysis from './pages/SalesMarketingNeedsAnalysis';
