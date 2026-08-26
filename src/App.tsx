@@ -49,6 +49,9 @@ const ContactUs = lazy(() => import("./pages/ContactUs"));
 const OmThomasLaine = lazy(() => import("./pages/OmThomasLaine"));
 const OmMichaelUhman = lazy(() => import("./pages/OmMichaelUhman"));
 const ValjPartner = lazy(() => import("./pages/ValjPartner"));
+const BuyerGuide2026 = lazy(() => import("./pages/BuyerGuide2026"));
+const Shortlist = lazy(() => import("./pages/Shortlist"));
+
 const AllD365Partners = lazy(() => import("./pages/AllD365Partners"));
 const PartnersPerBransch = lazy(() => import("./pages/PartnersPerBransch"));
 const ProductPartnersSverige = lazy(() => import("./pages/ProductPartnersSverige"));
