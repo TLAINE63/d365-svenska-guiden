@@ -3380,7 +3380,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=Point+Taken+Stockholm",
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-08-25T19:27:10.069108+00:00",
+    "updated_at": "2026-08-25T20:50:42.668338+00:00",
     "industry_pitches": [
       {
         "text": "Point Taken hjälper konsultföretag att effektivisera sin verksamhet med Microsoft Dynamics 365, särskilt genom fokus på projekt- och resurshantering. De adresserar problem som ineffektiva resursallokeringar och bristande överblick över projektlönsamhet. Point Taken implementerar lösningar som samlar kundrelationer, projektplanering och ekonomiska flöden för att skapa en enhetlig plattform.\n\nDe arbetar med att automatisera tidrapportering och fakturering, vilket reducerar administrativ börda och förbättrar kassaflödet. Genom att optimera användningen av Dynamics 365 for Project Operations och Sales, kan Point Taken underlätta för konsultbolag att fatta datadrivna beslut. Detta förbättrar i sin tur resursutnyttjande och bidrar till ökad lönsamhet per projekt.",
@@ -3428,7 +3428,7 @@
         "ai-adoption"
       ],
       "draft_source": "d365.se-utkast baserat på leveransprofil och publika uppgifter",
-      "delivery_model": "",
+      "delivery_model": "product-teams",
       "evidence_level": [
         "self-declared",
         "packaged"
@@ -3444,7 +3444,7 @@
         "Kundserviceprocesser"
       ],
       "experience_level": "packaged",
-      "project_count_range": "",
+      "project_count_range": "3-5",
       "ai_experience_summary": "Partnern arbetar med Copilot och AI-agenter i Microsoft-miljön, med fokus på readiness, datakvalitet, behörigheter och governance som grund för automation i CRM- och kundserviceprocesser. Passar organisationer som vill införa Copilot eller agenter stegvis med tydlig styrning av data och säkerhet.",
       "ai_experience_summary_generated_at": "2026-08-25T19:27:10.069108+00:00"
     },
