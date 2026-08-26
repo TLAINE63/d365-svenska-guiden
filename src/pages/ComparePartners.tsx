@@ -250,6 +250,12 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
             Verifierad partner
           </span>
         )}
+        <ShortlistButton
+          entry={{ slug: partner.slug, name: partner.name }}
+          variant="full"
+          className="mt-2"
+        />
+
         <button
           onClick={onClear}
           className="absolute top-0 right-0 text-slate-600 hover:text-slate-900 shrink-0 p-1"
