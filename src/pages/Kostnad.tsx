@@ -8,6 +8,7 @@ import CostBreakdown from "@/components/CostBreakdown";
 import CostProjectExamples from "@/components/CostProjectExamples";
 import CostContactForm from "@/components/CostContactForm";
 import { costBreakdowns } from "@/data/costBreakdown";
+import SourceNote from "@/components/SourceNote";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
@@ -65,6 +66,12 @@ export default function Kostnad() {
               svenska införanden – använd dem som sanity-check mot partner­offerterna, inte
               som facit.
             </p>
+            <SourceNote
+              className="mb-6"
+              source="Microsofts officiella listpriser samt d365.se:s sammanställning av offert- och projektintervall från svenska Dynamics 365-partners"
+              updated="2026-06-11"
+              method="Intervallen är spann, inte snittpriser: de visar vad partners normalt offererar för respektive omfattning och kan avvika i enskilda projekt."
+            />
             <div className="flex flex-wrap gap-3 text-sm">
               <Link
                 to="/implementationskalkylator/"
