@@ -65,6 +65,21 @@ interface Counts {
   contactRequests: number;
   introRequests: number;
 }
+interface GscTotals {
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  position: number;
+}
+interface SearchConsoleData {
+  available: boolean;
+  property: string;
+  period: { start: string; end: string };
+  current: GscTotals;
+  previous: GscTotals;
+  topQueries: { query: string; clicks: number; impressions: number; position: number }[];
+  topPages: { page: string; clicks: number; impressions: number; position: number }[];
+}
 interface Data {
   partner: { name: string; slug: string; logo_url: string | null };
   kpis: Kpi[];
@@ -72,6 +87,7 @@ interface Data {
   visibilitySeries: SeriesRow[];
   buyingSignals: { profileVisitors: number; erp: number; crm: number; ai: number };
   benchmark: { label: string; value: number; average: number; percentile: number }[];
+  searchConsole?: SearchConsoleData | null;
   recommendations: { title: string; body: string }[];
   cta: { level: "low" | "normal" | "high"; title: string; button: string };
   generatedAt: string;
@@ -82,6 +98,8 @@ const KPI_ICONS: Record<string, typeof Eye> = {
   profileViews: Users,
   comparisons: GitCompare,
   leads: Target,
+  gscImpressions: Search,
+  gscClicks: MousePointerClick,
 };
 
 const Card = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
