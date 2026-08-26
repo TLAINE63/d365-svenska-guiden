@@ -445,7 +445,47 @@ const ValjPartner = () => {
  geography: selectedGeography,
  },
  enabled: !isLoading,
- });
+  });
+
+  // Partner Performance – matchningsexponering (nivå 1) och rekommendation (nivå 3)
+  const matchIntent: "erp" | "crm" | null = useMemo(() => {
+    const keys = appsToProductFilterKeys(selectedApplications);
+    if (keys.some((k) => k === "bc" || k === "fsc")) return "erp";
+    if (keys.some((k) => k === "sales" || k === "service")) return "crm";
+    return null;
+  }, [selectedApplications]);
+
+  useEffect(() => {
+    if (isLoading || filteredPartners.length === 0) return;
+    const ctx = {
+      product: selectedApplications.join(", ") || null,
+      industry: selectedIndustry,
+      size: selectedCompanySize,
+      geography: selectedGeography,
+    };
+    trackPartnerImpression(
+      "partner_match_impression",
+      filteredPartners.map((p) => ({ slug: p.slug, id: p.id })),
+      ctx,
+    );
+    filteredPartners.slice(0, 5).forEach((p, i) => {
+      trackPartnerEvent({
+        event: "partner_match_recommended",
+        partnerSlug: p.slug,
+        partnerId: p.id,
+        intentTrack: matchIntent,
+        metadata: { ...ctx, position: i + 1, total: filteredPartners.length },
+      });
+    });
+  }, [
+    isLoading,
+    filteredPartners,
+    matchIntent,
+    selectedApplications,
+    selectedIndustry,
+    selectedCompanySize,
+    selectedGeography,
+  ]);
 
  // Basic-partners (observerad data) som matchar samma filter
  const filteredBasicPartners = useMemo(
