@@ -305,12 +305,68 @@ Deno.serve(async (req) => {
       citationTrend.set(mk, t);
     }
 
+    // ── Serverlogg: AI-crawlers som hämtar sensor-URL:erna (robots.txt-sitemap + llms.txt) ──
+    const serverHits: { bot_id: string; bot_label: string; path: string | null; hit_at: string; user_agent: string | null }[] = [];
+    for (let from = 0; from < 100000; from += pageSize) {
+      const { data, error } = await supabase
+        .from("crawler_hits")
+        .select("bot_id, bot_label, path, hit_at, user_agent")
+        .gte("hit_at", since)
+        .order("hit_at", { ascending: false })
+        .range(from, from + pageSize - 1);
+      if (error) {
+        console.error("crawler_hits query error", error);
+        break;
+      }
+      if (!data || data.length === 0) break;
+      serverHits.push(...data);
+      if (data.length < pageSize) break;
+    }
+
+    const now = Date.now();
+    const d7 = new Date(now - 7 * 86400000).toISOString();
+    const d30 = new Date(now - 30 * 86400000).toISOString();
+    const d90 = new Date(now - 90 * 86400000).toISOString();
+
+    const serverBots = new Map<
+      string,
+      { id: string; label: string; hits7: number; hits30: number; hits90: number; hits365: number; lastSeen: string }
+    >();
+    const serverMonths = new Map<string, { month: string; hits: number }>();
+    const serverPaths = new Map<string, number>();
+
+    for (const h of serverHits) {
+      if (h.bot_id === "human-or-other") continue;
+      const b =
+        serverBots.get(h.bot_id) ||
+        { id: h.bot_id, label: h.bot_label, hits7: 0, hits30: 0, hits90: 0, hits365: 0, lastSeen: h.hit_at };
+      b.hits365++;
+      if (h.hit_at >= d90) b.hits90++;
+      if (h.hit_at >= d30) b.hits30++;
+      if (h.hit_at >= d7) b.hits7++;
+      if (h.hit_at > b.lastSeen) b.lastSeen = h.hit_at;
+      serverBots.set(h.bot_id, b);
+
+      const mk = monthKey(h.hit_at);
+      const m = serverMonths.get(mk) || { month: mk, hits: 0 };
+      m.hits++;
+      serverMonths.set(mk, m);
+
+      const p = h.path || "(okänd)";
+      serverPaths.set(p, (serverPaths.get(p) || 0) + 1);
+    }
+
+    const serverBotList = Array.from(serverBots.values()).sort((a, b) => b.hits365 - a.hits365);
+
     return new Response(
       JSON.stringify({
         totals: {
           aiVisits365: aiVisitsTotal,
           aiVisits30: aiVisits30,
           crawlerHits365: Array.from(crawlerHits.values()).reduce((a, c) => a + c.hits, 0),
+          serverCrawlerHits30: serverBotList.reduce((a, b) => a + b.hits30, 0),
+          serverCrawlerHits365: serverBotList.reduce((a, b) => a + b.hits365, 0),
+          serverCrawlerBots30: serverBotList.filter((b) => b.hits30 > 0).length,
         },
         byMonth: Array.from(byMonth.values()).sort((a, b) => b.month.localeCompare(a.month)).slice(0, 13),
         bySource: Array.from(bySourceTotal.values())
@@ -321,6 +377,13 @@ Deno.serve(async (req) => {
           .sort((a, b) => b.views - a.views)
           .slice(0, 20),
         crawlers: Array.from(crawlerHits.values()).sort((a, b) => b.hits - a.hits),
+        serverCrawlers: serverBotList,
+        serverCrawlerMonths: Array.from(serverMonths.values()).sort((a, b) => b.month.localeCompare(a.month)).slice(0, 13),
+        serverCrawlerPaths: Array.from(serverPaths.entries())
+          .map(([path, hits]) => ({ path, hits }))
+          .sort((a, b) => b.hits - a.hits)
+          .slice(0, 10),
+
         citations: citations || [],
         citationTrend: Array.from(citationTrend.values()).sort((a, b) => b.month.localeCompare(a.month)).slice(0, 13),
       }),
