@@ -161,6 +161,15 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   const openRequest = (mode: "contact" | "demo" | "quote") => {
     setRequestMode(mode);
     setRequestOpen(true);
+    if (slug) {
+      // Nivå 4 – lead: besökaren begär kontakt/offert via profilen
+      trackPartnerEvent({
+        event: mode === "contact" ? "partner_contact_request" : "partner_intro_request",
+        partnerSlug: slug,
+        partnerId: (dbPartner as DatabasePartner | undefined)?.id || null,
+        metadata: { mode },
+      });
+    }
   };
 
  // Track profile visit (one per slug per mount)
