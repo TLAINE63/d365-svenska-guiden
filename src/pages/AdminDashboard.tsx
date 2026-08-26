@@ -97,6 +97,7 @@ import AdminVideosTab from "@/components/AdminVideosTab";
 import AdminPartnerFeedsTab from "@/components/AdminPartnerFeedsTab";
 import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
 import AdminAllVisitorsTab from "@/components/AdminAllVisitorsTab";
+import AdminAiVisibilityTab from "@/components/AdminAiVisibilityTab";
 import AdminPartnerProfileVisitsTab from "@/components/AdminPartnerProfileVisitsTab";
 import AdminPartnerEngagementTab from "@/components/AdminPartnerEngagementTab";
 import AdminFunnelTab from "@/components/AdminFunnelTab";
