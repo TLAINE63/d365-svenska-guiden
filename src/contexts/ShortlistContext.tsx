@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, ReactNode } from "react";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { trackPartnerEvent } from "@/utils/trackPartnerEvent";
 
 export type ShortlistEntry = {
   slug: string;
@@ -75,6 +76,13 @@ export const ShortlistProvider = ({ children }: { children: ReactNode }) => {
           event_name: exists ? "shortlist_remove" : "shortlist_add",
           metadata: { partner: entry.slug, size: next.length },
         });
+        if (!exists) {
+          trackPartnerEvent({
+            event: "partner_saved",
+            partnerSlug: entry.slug,
+            metadata: { verified: entry.verified ?? false, size: next.length },
+          });
+        }
         return next;
       });
     },

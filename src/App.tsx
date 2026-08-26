@@ -99,6 +99,7 @@ const BlogArticle = lazy(() => import("./pages/BlogArticle"));
 const KomIgang = lazy(() => import("./pages/KomIgang"));
 const Partnerprogram = lazy(() => import("./pages/Partnerprogram"));
 const PartnerStats = lazy(() => import("./pages/PartnerStats"));
+const PartnerPerformance = lazy(() => import("./pages/PartnerPerformance"));
 const PartnerAgreement = lazy(() => import("./pages/PartnerAgreement"));
 const SmartSearch = lazy(() => import("./pages/SmartSearch"));
 const AskAi = lazy(() => import("./pages/AskAi"));
@@ -315,6 +316,7 @@ const AppShell = () => {
           {/* Hidden partner pages – not in nav, not in sitemap, noindex */}
           <Route path="/partnerstatistik" element={<PartnerStats />} />
           <Route path="/partner-statistik" element={<PartnerStats />} />
+          <Route path="/partner-performance/:token" element={<PartnerPerformance />} />
           <Route path="/avtalssida" element={<PartnerAgreement />} />
           <Route path="/partner-avtal" element={<PartnerAgreement />} />
           {/* Beslutsmognad – editorial publication (kortad från /beslutsmognadsindex) */}

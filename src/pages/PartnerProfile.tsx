@@ -51,6 +51,9 @@ import { PartnerOrganizationSchema, BreadcrumbSchema } from "@/components/Struct
 import { buildMetaTitle } from "@/lib/metaTitle";
 import { buildMetaDescription } from "@/lib/metaDescription";
 import { trackPartnerView } from "@/utils/trackPartnerView";
+import { trackPartnerEvent, isReturningVisitorForPartner } from "@/utils/trackPartnerEvent";
+import ShortlistButton from "@/components/ShortlistButton";
+import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 
 
 // Map application names to product categories
@@ -154,12 +157,22 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   const [videoOpen, setVideoOpen] = useState(false);
   const [activeTabProduct, setActiveTabProduct] = useState<string | null>(null);
   const [activeTabKey, setActiveTabKey] = useState<TabKey>(initialTabKey);
+  const { toggle: compareToggle, isSelected: compareSelected } = usePartnerCompare();
   const [requestOpen, setRequestOpen] = useState(false);
   const [requestMode, setRequestMode] = useState<"contact" | "demo" | "quote">("quote");
 
   const openRequest = (mode: "contact" | "demo" | "quote") => {
     setRequestMode(mode);
     setRequestOpen(true);
+    if (slug) {
+      // Nivå 4 – lead: besökaren begär kontakt/offert via profilen
+      trackPartnerEvent({
+        event: mode === "contact" ? "partner_contact_request" : "partner_intro_request",
+        partnerSlug: slug,
+        partnerId: (dbPartner as DatabasePartner | undefined)?.id || null,
+        metadata: { mode },
+      });
+    }
   };
 
  // Track profile visit (one per slug per mount)
@@ -167,8 +180,30 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  if (!slug) return;
  const partnerId = (dbPartner as DatabasePartner | undefined)?.id || null;
  void trackPartnerView(slug, "profile_visit", `/partner/${slug}`, partnerId);
+ // Nivå 2 – engagemang: profilbesök och återbesök
+ const returning = isReturningVisitorForPartner(slug);
+ trackPartnerEvent({
+  event: returning ? "partner_profile_return" : "partner_profile_view",
+  partnerSlug: slug,
+  partnerId,
+ });
  // eslint-disable-next-line react-hooks/exhaustive-deps
  }, [slug]);
+
+ // Nivå 2 – engagemang: klick på kundcase och kompetensområden (delegerat)
+ const handleProfileEngagementClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  if (!slug) return;
+  const target = (e.target as HTMLElement)?.closest?.("[data-engagement]") as HTMLElement | null;
+  if (!target) return;
+  const kind = target.getAttribute("data-engagement");
+  if (kind !== "case" && kind !== "competency") return;
+  trackPartnerEvent({
+   event: kind === "case" ? "partner_case_click" : "partner_competency_click",
+   partnerSlug: slug,
+   partnerId: (dbPartner as DatabasePartner | undefined)?.id || null,
+   metadata: { label: (target.getAttribute("data-engagement-label") || target.textContent || "").slice(0, 120) },
+  });
+ };
 
  // Get product categories this partner supports
  // Get product categories this partner supports - check both applications array AND product_filters
@@ -583,10 +618,39 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
  {/* <DecisionProfile partner={partner} /> tillfälligt dold */}
 
+ {slug && partner?.name && (
+  <section className="pt-4">
+   <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+    <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
+     <ShortlistButton
+      variant="compact"
+      entry={{ slug, name: partner.name, url: `/partner/${slug}/`, verified: true }}
+     />
+     <button
+      type="button"
+      onClick={() => compareToggle({ slug, name: partner.name })}
+      aria-pressed={compareSelected(slug)}
+      className={`flex-1 flex items-center justify-center gap-1.5 rounded-md border px-2 py-1.5 text-xs font-semibold transition-all ${
+       compareSelected(slug)
+        ? "bg-primary/10 text-primary border-primary"
+        : "bg-transparent text-muted-foreground border-border hover:text-foreground hover:border-foreground/30"
+      }`}
+     >
+      {compareSelected(slug) ? "Tillagd i jämförelse" : "Lägg till i jämförelse"}
+     </button>
+    </div>
+   </div>
+  </section>
+ )}
+
  <PartnerAiInsights partner={partner as any} />
 
  <section className="py-6">
-  <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+  <div
+   className="container mx-auto px-4 sm:px-6 max-w-4xl"
+   data-engagement="competency"
+   onClickCapture={handleProfileEngagementClick}
+  >
    <ExtendedCompetenciesSection
     competencies={(partner as any)?.extended_competencies}
     partnerName={partner?.name}
@@ -611,6 +675,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
 
   {/* Tabbed product profile */}
+  <div data-engagement="case" onClickCapture={handleProfileEngagementClick}>
   <PartnerProductTabs
    partner={partner}
    initialTab={resolveInitialTab(productFromPath, selectedProduct)}
@@ -624,6 +689,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
     }}
    onRequest={openRequest}
     />
+  </div>
 
 
 

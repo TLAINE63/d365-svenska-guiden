@@ -1114,6 +1114,76 @@ export type Database = {
         }
         Relationships: []
       }
+      partner_engagement_events: {
+        Row: {
+          event_level: number
+          event_name: string
+          id: string
+          intent_track: string | null
+          ip_anonymized: string | null
+          metadata: Json
+          occurred_at: string
+          page_path: string | null
+          partner_id: string | null
+          partner_slug: string
+          session_id: string | null
+          user_agent: string | null
+          visitor_id: string | null
+        }
+        Insert: {
+          event_level?: number
+          event_name: string
+          id?: string
+          intent_track?: string | null
+          ip_anonymized?: string | null
+          metadata?: Json
+          occurred_at?: string
+          page_path?: string | null
+          partner_id?: string | null
+          partner_slug: string
+          session_id?: string | null
+          user_agent?: string | null
+          visitor_id?: string | null
+        }
+        Update: {
+          event_level?: number
+          event_name?: string
+          id?: string
+          intent_track?: string | null
+          ip_anonymized?: string | null
+          metadata?: Json
+          occurred_at?: string
+          page_path?: string | null
+          partner_id?: string | null
+          partner_slug?: string
+          session_id?: string | null
+          user_agent?: string | null
+          visitor_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_engagement_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_engagement_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_basic_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_engagement_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       partner_event_tokens: {
         Row: {
           created_at: string

@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, ReactNode } from "react";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { trackPartnerEvent } from "@/utils/trackPartnerEvent";
 
 type CompareEntry = { slug: string; name: string };
 
@@ -29,7 +30,7 @@ interface PartnerCompareContextValue {
 
 const STORAGE_KEY = "partner-compare-selection";
 const FILTER_STORAGE_KEY = "partner-compare-filters";
-const MAX = 3;
+const MAX = 4;
 
 
 const PartnerCompareContext = createContext<PartnerCompareContextValue | null>(null);
@@ -72,6 +73,11 @@ export const PartnerCompareProvider = ({ children }: { children: ReactNode }) =>
         event_type: "cta_click",
         event_name: "partner_compare_add",
         metadata: { partner_slug: entry.slug },
+      });
+      trackPartnerEvent({
+        event: "partner_added_to_comparison",
+        partnerSlug: entry.slug,
+        metadata: { position: prev.length + 1 },
       });
       if (prev.length >= MAX) {
         // Replace oldest (FIFO) so user can keep switching
