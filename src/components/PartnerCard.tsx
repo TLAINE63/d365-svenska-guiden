@@ -309,6 +309,19 @@ const PartnerCard = ({
 
 
 
+ // Nivå 1 – exponering: partnern visas i lista eller filtrerat sökresultat.
+ useEffect(() => {
+  const slug = isDatabasePartner(partner) ? partner.slug : (partner as any).id;
+  if (!slug) return;
+  const filtered = Boolean(productKey || highlightedIndustry || resultView);
+  trackPartnerImpression(
+   filtered ? "partner_filter_impression" : "partner_list_impression",
+   [{ slug, id: isDatabasePartner(partner) ? partner.id : null }],
+   { product: productKey ?? null, industry: highlightedIndustry ?? null },
+  );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+ }, [partner, productKey, highlightedIndustry, resultView]);
+
 
  // Track click into partner profile (card click)
  const handleCardClick = () => {
