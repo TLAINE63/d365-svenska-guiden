@@ -615,6 +615,31 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
  {/* <DecisionProfile partner={partner} /> tillfälligt dold */}
 
+ {slug && partner?.name && (
+  <section className="pt-4">
+   <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+    <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
+     <ShortlistButton
+      variant="compact"
+      entry={{ slug, name: partner.name, url: `/partner/${slug}/`, verified: true }}
+     />
+     <button
+      type="button"
+      onClick={() => compareToggle({ slug, name: partner.name })}
+      aria-pressed={compareSelected(slug)}
+      className={`flex-1 flex items-center justify-center gap-1.5 rounded-md border px-2 py-1.5 text-xs font-semibold transition-all ${
+       compareSelected(slug)
+        ? "bg-primary/10 text-primary border-primary"
+        : "bg-transparent text-muted-foreground border-border hover:text-foreground hover:border-foreground/30"
+      }`}
+     >
+      {compareSelected(slug) ? "Tillagd i jämförelse" : "Lägg till i jämförelse"}
+     </button>
+    </div>
+   </div>
+  </section>
+ )}
+
  <PartnerAiInsights partner={partner as any} />
 
  <section className="py-6">
