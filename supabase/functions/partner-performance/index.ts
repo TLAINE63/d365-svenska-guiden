@@ -252,7 +252,7 @@ Deno.serve(async (req) => {
     ];
 
     // ── Google Search Console (organisk synlighet för partnersidan) ────
-    const searchConsole = await fetchSearchConsole(partner.slug);
+    const searchConsole = await fetchSearchConsole(partner.slug, gscDays);
     if (searchConsole) {
       kpis.push(
         {
