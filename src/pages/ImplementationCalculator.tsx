@@ -120,14 +120,9 @@ export default function ImplementationCalculator() {
     ],
   );
 
-  const toggleSolution = (key: SolutionKey) => {
-    setSolutions((prev) =>
-      prev.includes(key)
-        ? prev.length === 1
-          ? prev
-          : prev.filter((k) => k !== key)
-        : [...prev, key],
-    );
+  // Endast en produkt åt gången kan väljas
+  const selectSolution = (key: SolutionKey) => {
+    setSolutions([key]);
   };
 
   const partnerProducts = useMemo(
