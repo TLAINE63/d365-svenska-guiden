@@ -598,6 +598,29 @@ const Copilot = () => {
         </div>
       </section>
 
+      {/* FAQ – synligt innehåll matchar FAQSchema JSON-LD exakt */}
+      <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-8 sm:mb-10 text-center">
+              Vanliga frågor om Microsoft Copilot
+            </h2>
+            <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
+              {copilotFaqs.map((faq, idx) => (
+                <AccordionItem key={idx} value={`copilot-faq-${idx}`} className="bg-card rounded-lg px-4 sm:px-6 border border-border">
+                  <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground pb-6">
+                    <p className="leading-relaxed">{faq.answer}</p>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </div>
+      </section>
+
       <RelatedPages pages={copilotRelatedPages} heading="Utforska vidare" />
       </main>
       <Footer />
