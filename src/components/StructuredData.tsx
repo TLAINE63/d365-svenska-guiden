@@ -1,26 +1,40 @@
 import { Helmet } from "react-helmet-async";
+import { ORGANIZATION } from "@/data/organization";
+
 
 // Organization Schema
 export const OrganizationSchema = () => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "D365 Guiden",
-    "alternateName": ["d365.se", "Dynamic Factory"],
-    "url": "https://d365.se",
+    "@id": `${ORGANIZATION.url}/#organization`,
+    "name": ORGANIZATION.name,
+    "legalName": ORGANIZATION.legalName,
+    "alternateName": ["D365 Guiden", ORGANIZATION.legalName],
+    "url": ORGANIZATION.url,
     "logo": {
       "@type": "ImageObject",
-      "url": "https://d365.se/d365guide-logo.png",
+      "url": ORGANIZATION.logoUrl,
       "width": 2000,
       "height": 1620,
       "caption": "d365.se – köparsidig guide till Microsoft Dynamics 365"
     },
-    "image": "https://d365.se/d365guide-logo.png",
-    "description": "Hjälper svenska företag hitta rätt Microsoft Dynamics 365-partner utifrån behov, bransch och storlek.",
-    "foundingDate": "2020",
+    "image": ORGANIZATION.logoUrl,
+    "description": ORGANIZATION.description,
+    "foundingDate": ORGANIZATION.foundingDate,
+    "email": ORGANIZATION.email,
+    "telephone": ORGANIZATION.telephoneE164,
+    "parentOrganization": {
+      "@type": "Organization",
+      "name": ORGANIZATION.parentName
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": ORGANIZATION.countryCode
+    },
     "areaServed": {
       "@type": "Country",
-      "name": "Sweden"
+      "name": ORGANIZATION.countryName
     },
     "knowsAbout": [
       "Microsoft Dynamics 365",
@@ -32,16 +46,17 @@ export const OrganizationSchema = () => {
       "ERP-system",
       "CRM-system"
     ],
-    "sameAs": [
-      "https://dynamicfactory.se"
-    ],
-    "contactPoint": {
+    "sameAs": [...ORGANIZATION.sameAs],
+    "contactPoint": ORGANIZATION.advisors.map((a) => ({
       "@type": "ContactPoint",
-      "telephone": "+46-72-232-40-60",
+      "name": a.name,
+      "email": a.email,
+      "telephone": a.telephoneE164,
       "contactType": "customer service",
-      "areaServed": "SE",
+      "areaServed": ORGANIZATION.countryCode,
       "availableLanguage": "Swedish"
-    }
+    }))
+
   };
 
   return (
@@ -58,19 +73,21 @@ export const LocalBusinessSchema = () => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "name": "D365 Guiden",
-    "description": "Senior rådgivare inom Microsoft affärslösningar Dynamics 365, Power Platform och Copilot",
-    "url": "https://d365.se",
-    "telephone": "+46-72-232-40-60",
-    "email": "info@d365.se",
+    "name": ORGANIZATION.name,
+    "legalName": ORGANIZATION.legalName,
+    "description": ORGANIZATION.description,
+    "url": ORGANIZATION.url,
+    "telephone": ORGANIZATION.telephoneE164,
+    "email": ORGANIZATION.email,
     "address": {
       "@type": "PostalAddress",
-      "addressCountry": "SE"
+      "addressCountry": ORGANIZATION.countryCode
     },
     "areaServed": {
       "@type": "Country",
-      "name": "Sweden"
+      "name": ORGANIZATION.countryName
     },
+
     "priceRange": "$$",
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
@@ -160,7 +177,7 @@ interface ServiceSchemaProps {
   provider?: string;
 }
 
-export const ServiceSchema = ({ name, description, provider = "Dynamic Factory" }: ServiceSchemaProps) => {
+export const ServiceSchema = ({ name, description, provider = ORGANIZATION.name }: ServiceSchemaProps) => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -191,21 +208,24 @@ export const WebSiteSchema = () => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "D365 Guiden",
-    "alternateName": ["d365.se", "Dynamics 365 Guiden Sverige"],
-    "url": "https://d365.se",
-    "description": "Hjälper svenska företag hitta rätt Microsoft Dynamics 365-partner utifrån behov, bransch och storlek.",
+    "name": ORGANIZATION.name,
+    "alternateName": ["D365 Guiden", "Dynamics 365 Guiden Sverige"],
+    "url": ORGANIZATION.url,
+    "description": ORGANIZATION.description,
     "inLanguage": "sv-SE",
     "publisher": {
       "@type": "Organization",
-      "name": "Dynamic Factory",
-      "url": "https://d365.se",
+      "@id": `${ORGANIZATION.url}/#organization`,
+      "name": ORGANIZATION.name,
+      "legalName": ORGANIZATION.legalName,
+      "url": ORGANIZATION.url,
       "logo": {
         "@type": "ImageObject",
-        "url": "https://d365.se/d365guide-logo.png",
+        "url": ORGANIZATION.logoUrl,
         "width": 2000,
         "height": 1620
       }
+
     },
     "potentialAction": {
       "@type": "SearchAction",
@@ -257,8 +277,10 @@ export const PersonSchema = ({
     "image": image.startsWith("http") ? image : `https://d365.se${image}`,
     "worksFor": {
       "@type": "Organization",
-      "name": "D365 Guiden",
-      "url": "https://d365.se"
+      "@id": `${ORGANIZATION.url}/#organization`,
+      "name": ORGANIZATION.name,
+      "legalName": ORGANIZATION.legalName,
+      "url": ORGANIZATION.url
     },
     "nationality": "Swedish",
     "knowsLanguage": ["sv-SE", "en"],
@@ -308,13 +330,15 @@ export const WebPageSchema = ({
     inLanguage,
     isPartOf: {
       "@type": "WebSite",
-      name: "D365 Guiden",
-      url: "https://d365.se",
+      name: ORGANIZATION.name,
+      url: ORGANIZATION.url,
     },
     publisher: {
       "@type": "Organization",
-      name: "Dynamic Factory",
-      url: "https://d365.se",
+      "@id": `${ORGANIZATION.url}/#organization`,
+      name: ORGANIZATION.name,
+      legalName: ORGANIZATION.legalName,
+      url: ORGANIZATION.url,
       logo: {
         "@type": "ImageObject",
         url: "https://d365.se/d365guide-logo.png",
@@ -582,7 +606,7 @@ export const AdvisorsSchema = () => {
         description="Senior rådgivare med över 30 år i Microsoft Dynamics-ekosystemet – ERP, CRM, partnerlandskap och affärssystemsbeslut i Sverige."
         image="/src/assets/thomas-laine-real.jpg"
         email="thomas.laine@dynamicfactory.se"
-        telephone="+46-72-232-40-60"
+        telephone={ORGANIZATION.advisors[0].telephoneE164}
         sameAs={["https://linkedin.com/in/thomaslaine"]}
         knowsAbout={knowsAbout}
       />

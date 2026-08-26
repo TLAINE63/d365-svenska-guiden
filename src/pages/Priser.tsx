@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import SourceNote from "@/components/SourceNote";
 import PageOfferBanner from "@/components/PageOfferBanner";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -92,8 +93,14 @@ export default function Priser() {
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
             <Section title="ERP – Business Central, Finance & Supply Chain" rows={erp} />
             <Section title="CRM – Sales, Service, Customer Insights m.fl." rows={crm} />
-            <p className="text-xs text-muted-foreground mt-6">
-              Källa: Microsofts officiella prislista. Snapshot uppdaterad 2026-06-11.
+            <SourceNote
+              className="mt-6"
+              source="Microsofts officiella prislista för Dynamics 365"
+              href="https://www.microsoft.com/sv-se/dynamics-365/pricing"
+              updated="2026-06-11"
+              method="Priserna är listpriser i SEK exkl. moms. Faktiskt pris sätts av avtalsform, volym och förhandling."
+            />
+            <p className="text-xs text-muted-foreground mt-3">
               Se även produktsidorna för{" "}
               <Link to="/businesscentral/" className="underline">Business Central</Link>,{" "}
               <Link to="/finance-supply-chain/" className="underline">Finance &amp; Supply Chain</Link>{" "}

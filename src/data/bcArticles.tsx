@@ -558,7 +558,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
         </p>
 
         <p>
-          <strong>Rätt partner är lika viktig som rätt system.</strong> Att välja Microsoft Dynamics 365 Business Central som affärssystem är ett klokt beslut för många svenska företag. Men valet av implementeringspartner är minst lika viktigt – kanske viktigare. En erfaren och engagerad partner ser till att implementeringen lyckas, att systemet anpassas efter dina unika behov och att du får värde av din investering långsiktigt.
+          <strong>Rätt partner är lika viktig som rätt system.</strong> Att välja Microsoft Dynamics 365 Business Central som affärssystem är ett klokt beslut för många svenska företag. Men valet av implementeringspartner är minst lika viktigt: partnern avgör hur väl systemet anpassas till din verksamhet. En erfaren och engagerad partner ser till att implementeringen lyckas, att systemet anpassas efter dina unika behov och att du får värde av din investering långsiktigt.
         </p>
 
         <h2>Vad gör en Business Central-partner?</h2>
