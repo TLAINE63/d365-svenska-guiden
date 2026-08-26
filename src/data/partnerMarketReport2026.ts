@@ -14,7 +14,7 @@ export interface ReportStat {
 
 export const REPORT_STATS: ReportStat[] = [
   {
-    label: "Identifierade partners",
+    label: "Övriga partners",
     value: 84,
     note: "Företag som aktivt levererar Dynamics 365 på den svenska marknaden.",
     group: "overblick",
