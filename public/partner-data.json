@@ -1,0 +1,437 @@
+{
+  "name": "Verifierade Microsoft Dynamics 365-partners i Sverige",
+  "description": "Öppet, maskinläsbart dataset över de Dynamics 365-partners som är verifierade och publicerade på d365.se. Endast publika uppgifter ingår.",
+  "publisher": "d365.se (Dynamic Factory AB)",
+  "url": "https://d365.se/partner-data.json",
+  "license": "https://d365.se/friskrivning",
+  "citation": "d365.se – Verifierade Microsoft Dynamics 365-partners i Sverige, https://d365.se/valjdynamics365partner",
+  "updated": "2026-08-26",
+  "count": 17,
+  "partners": [
+    {
+      "name": "4PS Construction Software AB",
+      "slug": "4ps-sweden",
+      "url": "https://d365.se/partner/4ps-sweden/",
+      "website": "https://www.4ps.se/",
+      "description": "4PS är en ledande leverantör av branschspecifik ERP-programvara för bygg-, installations- och serviceföretag. Deras lösning 4PS Construct är byggd på Microsoft Dynamics 365 Business Central och erbjuder end-to-end-funktionalitet med 100% realtidsvisibilitet på projekt.",
+      "products": [
+        "Business Central"
+      ],
+      "industries": [
+        "Bygg, Entreprenad & Installation"
+      ],
+      "offices": null,
+      "company_size": null,
+      "geography": [
+        "Globalt"
+      ],
+      "related_party": false
+    },
+    {
+      "name": "adbriq",
+      "slug": "adbriq",
+      "url": "https://d365.se/partner/adbriq/",
+      "website": "https://www.adbriq.com/",
+      "description": "adbriq är en Microsoft Dynamics 365-partner med fokus på Business Central. Företaget bistår kunder med digitalisering av affärsprocesser och informationsflöden, och arbetar särskilt med organisationer inom mode-, sport- och textilbranscherna. adbriq kombinerar branschspecifik kunskap med erfarenhet av moderna IT-verktyg för att stödja både implementering och vidareutveckling av affärssystem. De erbjuder löpande support och rådgivning till kunder som vill effektivisera sin verksamhet.",
+      "products": [
+        "Business Central"
+      ],
+      "industries": [
+        "Mode, Sport & Textil",
+        "Retail & E-handel"
+      ],
+      "offices": null,
+      "company_size": null,
+      "geography": [
+        "Sverige"
+      ],
+      "related_party": false
+    },
+    {
+      "name": "B3 Elevate",
+      "slug": "b3-consulting-group",
+      "url": "https://d365.se/partner/b3-consulting-group/",
+      "website": "https://b3.se/elevate",
+      "description": "B3 Elevate är ett specialistföretag inom B3 Consulting Group som lyfter kundupplevelser till nya höjder genom kraftfulla AI-baserade molnlösningar byggda på Dynamics 365 och Power BI.\nTack vare ett nära samarbete mellan teknik- och affärsexperter levererar B3 Elevate kundlösningar - från strategi, via systemutveckling, till förvaltade tjänster. \nVi är ett konsultföretag med hög kompetens och moderna arbetssätt.\nSom långvarig Microsoftpartner förstärker vi organisationers förmåga att hantera digital transformation med stöd av Microsoft Dynamics 365.",
+      "products": [
+        "Sales",
+        "Customer Insights (Marketing)",
+        "Customer Service",
+        "Field Service",
+        "Contact Center"
+      ],
+      "industries": [
+        "Medlemsorganisationer"
+      ],
+      "offices": null,
+      "company_size": null,
+      "geography": [
+        "Sverige"
+      ],
+      "related_party": false
+    },
+    {
+      "name": "BE-terna",
+      "slug": "be-terna",
+      "url": "https://d365.se/partner/be-terna/",
+      "website": "https://www.be-terna.com/sv",
+      "description": "BE-terna SE är en Microsoft Dynamics-partner med Dynamics 365 Finance & Supply Chain Management som kärnkompetens och leverans över hela Dynamics 365-plattformen. Vi verkar inom retail, manufacturing och professional services och kombinerar stark lokal närvaro i 10 länder i Europa med global leveransförmåga.\n\nVi tar end-to-end-ansvar för implementation, förvaltning och vidareutveckling med struktur, governance och metodik på storbolagsnivå – för långsiktig stabilitet och affärsnytta.",
+      "products": [
+        "Finance",
+        "Supply Chain Management",
+        "Commerce"
+      ],
+      "industries": [
+        "Grossist & Distribution",
+        "Tillverkningsindustri",
+        "Retail & E-handel"
+      ],
+      "offices": null,
+      "company_size": null,
+      "geography": [
+        "Europa",
+        "Globalt",
+        "Norden",
+        "Sverige"
+      ],
+      "related_party": false
+    },
+    {
+      "name": "Bisqo AB",
+      "slug": "bisqo",
+      "url": "https://d365.se/partner/bisqo/",
+      "website": "https://www.bisqo.se/",
+      "description": "Vi är experter på en kraftfull kombination av Dynamics 365 Business Central och CRM på Power Platform samt Power BI, där vi skapar smarta, skalbara och framtidssäkra lösningar. Vi hjälper företag att effektivisera sina affärsprocesser med Microsofts lösningar. Genom standardiserade system, paketlösningar och serviceavtal får våra kunder snabb start, enkel användning och långsiktig utveckling i en digital värld.\nBisqo skiljer sig genom att kombinera djup affärsförståelse med ett tydligt paketerat Business Central-erbjudande. Med beprövade arbetssätt, hög senioritet och fullt fokus på kundens affär skapar Bisqo snabba, förutsägbara implementationer som ger verkligt affärsvärde – inte bara ett nytt affärssystem.",
+      "products": [
+        "Business Central"
+      ],
+      "industries": [
+        "Grossist & Distribution",
+        "Retail & E-handel"
+      ],
+      "offices": null,
+      "company_size": null,
+      "geography": [
+        "Sverige",
+        "Norden",
+        "Globalt",
+        "Europa"
+      ],
+      "related_party": false
+    },
+    {
+      "name": "CRMK (CRM-Konsulterna)",
+      "slug": "crm-konsulterna",
+      "url": "https://d365.se/partner/crm-konsulterna/",
+      "website": "https://www.crmk.se",
+      "description": "CRMK (CRM-Konsulterna) är Microsoft Solutions Partner med djup expertis inom Dynamics 365 Customer Engagement, Power Platform, Microsoft Fabric och AI. Med teknisk spetskompetens, stor verksamhetsförståelse och ett helhetsperspektiv hjälper CRMK organisationer från strategi och implementation till vidareutveckling, support och kompetensutveckling. CRMK utmanar och utvecklar både teknik och människor för att skapa hållbara kundrelationer och verkligt affärsvärde. Bolaget grundades 2010 och 7 medarbetare har fått utmärkelsen MVP av Microsoft.",
+      "products": [
+        "Sales",
+        "Customer Insights (Marketing)",
+        "Customer Service",
+        "Field Service",
+        "Contact Center"
+      ],
+      "industries": [
+        "Finans & Försäkring",
+        "Medlemsorganisationer",
+        "Life Science / Medtech",
+        "Non-profit / Organisationer"
+      ],
+      "offices": null,
+      "company_size": null,
+      "geography": [
+        "Sverige",
+        "Norden",
+        "Europa"
+      ],
+      "related_party": false
+    },
+    {
+      "name": "Fellowmind",
+      "slug": "fellowmind",
+      "url": "https://d365.se/partner/fellowmind/",
+      "website": "https://fellowmind.se",
+      "description": "Fellowmind är en ledande europeisk Microsoft-partner som verkar i fem länder och stödjer över 2 500 kunder. Vi kombinerar djup branschkunskap med spets inom molnbaserad teknologi, Data & AI och hela Microsoft‑plattformen – alltid med människor och långsiktiga partnerskap i centrum.",
+      "products": [
+        "Business Central",
+        "Finance",
+        "Supply Chain Management",
+        "Sales",
+        "Customer Insights (Marketing)"
+      ],
+      "industries": [
+        "Fastighet & Förvaltning",
+        "Grossist & Distribution",
+        "Konsulttjänster",
+        "Life Science / Medtech",
+        "Retail & E-handel",
+        "Tillverkningsindustri"
+      ],
+      "offices": null,
+      "company_size": null,
+      "geography": [
+        "Sverige",
+        "Norden",
+        "Europa",
+        "Globalt"
+      ],
+      "related_party": false
+    },
+    {
+      "name": "Goodfellows",
+      "slug": "goodfellows",
+      "url": "https://d365.se/partner/goodfellows/",
+      "website": "https://goodfellows.se",
+      "description": "Full kontroll och trygg leverans av affärssystem – utan överraskningar längs vägen.\nGoodfellows arbetar nära ditt team och du behåller dina Goodfellows konsulter, som lär känna dig väl, från förstudie, genom projekt till support och förvaltning. Med lång erfarenhet från branscher som handel, produktion, distribution och konsult bidrar vi med djup affärsförståelse och säkerställer rätt vägval, smidigt samarbete och en lösning som skapar verklig affärsnytta – till ett förutsägbart pris.",
+      "products": [
+        "Business Central"
+      ],
+      "industries": [
+        "Grossist & Distribution",
+        "Konsulttjänster",
+        "Retail & E-handel"
+      ],
+      "offices": null,
+      "company_size": null,
+      "geography": [
+        "Sverige",
+        "Norden"
+      ],
+      "related_party": false
+    },
+    {
+      "name": "InBiz",
+      "slug": "inbiz",
+      "url": "https://d365.se/partner/inbiz/",
+      "website": "https://www.inbiz.se/microsoft-partner/",
+      "description": "InBiz erbjuder tjänster inom Microsoft Dynamics 365 Business Central och har sedan 2005 fokuserat på systemimplementering och förvaltning. Företaget riktar sig främst mot verksamheter inom tillverkningsindustri, grossist- och distributionsbranschen samt livsmedels- och processindustrin, och arbetar även med konsultbolag. InBiz har sin verksamhet i Uppsala och stödjer kunder med löpande utveckling och förvaltning av sin Business Central-miljö.",
+      "products": [
+        "Business Central"
+      ],
+      "industries": [
+        "Livsmedel & Processindustri",
+        "Grossist & Distribution",
+        "Tillverkningsindustri"
+      ],
+      "offices": null,
+      "company_size": null,
+      "geography": [
+        "Sverige"
+      ],
+      "related_party": false
+    },
+    {
+      "name": "Knowit",
+      "slug": "knowit",
+      "url": "https://d365.se/partner/knowit/",
+      "website": "https://www.knowit.se/vart-erbjudande/solutions/",
+      "description": "Våra experter hjälper organisationer att utveckla och modernisera sina affärssystem med ERP som nav för verksamhetens processer, data, AI och automatisering – byggt på Microsofts plattform. Genom att knyta samman ERP, data och intelligenta arbetssätt skapar vi förutsättningar för bättre beslut, effektivare processer och hållbar verksamhetsutveckling.",
+      "products": [
+        "Finance",
+        "Supply Chain Management"
+      ],
+      "industries": [
+        "Tillverkningsindustri",
+        "Grossist & Distribution"
+      ],
+      "offices": null,
+      "company_size": null,
+      "geography": [
+        "Sverige",
+        "Norden"
+      ],
+      "related_party": false
+    },
+    {
+      "name": "NAB Solutions",
+      "slug": "nab-solutions",
+      "url": "https://d365.se/partner/nab-solutions/",
+      "website": "https://nabsolutions.com/",
+      "description": "Vi är stolta nördar som brinner för hjärtat i din verksamhet! Vi har nördat ner oss i Microsofts produkter sedan 2001. I över 20 år har vi digitaliserat företag så att de kan ta klivet närmre sina drömmar. Vi ser hur våra lösningar är hjärtat i kundens verksamhet och hur rätt affärslösning är en stor del i deras framgång. Våra lösningar gör att företag växer.",
+      "products": [
+        "Business Central",
+        "Sales",
+        "Customer Insights (Marketing)",
+        "Customer Service",
+        "Field Service",
+        "Contact Center"
+      ],
+      "industries": [
+        "Grossist & Distribution",
+        "Tillverkningsindustri"
+      ],
+      "offices": null,
+      "company_size": null,
+      "geography": [
+        "Sverige",
+        "Norden",
+        "Globalt",
+        "Globalt",
+        "Europa"
+      ],
+      "related_party": false
+    },
+    {
+      "name": "Nexer",
+      "slug": "nexer",
+      "url": "https://d365.se/partner/nexer/",
+      "website": "https://nexergroup.com/sv/tjanster/erp/affarssystem/",
+      "description": "Nexer är ett globalt techbolag med rötter i svensk entreprenörsanda och innovationskraft. Vi är stolta över att leda den digitala revolutionen och vara i teknikens framkant, alltid med ett agilt och framåtlutat förhållningssätt.",
+      "products": [
+        "Business Central",
+        "Sales",
+        "Customer Insights (Marketing)",
+        "Customer Service",
+        "Field Service",
+        "Contact Center",
+        "Project Operations"
+      ],
+      "industries": [
+        "Tillverkningsindustri",
+        "Grossist & Distribution",
+        "Retail & E-handel"
+      ],
+      "offices": null,
+      "company_size": null,
+      "geography": [
+        "Sverige",
+        "Norden",
+        "Europa",
+        "Globalt"
+      ],
+      "related_party": false
+    },
+    {
+      "name": "Point Taken",
+      "slug": "point-taken",
+      "url": "https://d365.se/partner/point-taken/",
+      "website": "https://pointtaken.se",
+      "description": "Point Taken arbetar med Dynamics 365 Customer Engagement med tyngdpunkt på Sales och Customer Service, kompletterat av Customer Insights, Field Service och Contact Center. Fokus ligger på CRM- och kundserviceprojekt snarare än ERP. Enligt uppgifterna på d365.se är konsult- och tjänsteföretag samt medelstora organisationer (cirka 50–249 anställda) den tydligaste målgruppen.",
+      "products": [
+        "Sales",
+        "Customer Insights (Marketing)",
+        "Customer Service",
+        "Field Service",
+        "Contact Center"
+      ],
+      "industries": [
+        "Konsulttjänster"
+      ],
+      "offices": null,
+      "company_size": null,
+      "geography": [
+        "Sverige"
+      ],
+      "related_party": false
+    },
+    {
+      "name": "Sherpas Group AB",
+      "slug": "sherpas-group-ab",
+      "url": "https://d365.se/partner/sherpas-group-ab/",
+      "website": "https://sherpas.se",
+      "description": "Sherpas Group AB erbjuder implementering och rådgivning kring Microsoft Dynamics 365 Business Central, Finance och Supply Chain Management. Företaget har kontor i Skellefteå, Stockholm, Malmö, Göteborg och Västerås, vilket ger en geografisk närvaro över delar av Sverige. De fokuserar på att stötta företag med deras affärssystemslösningar. Sherpas Group AB arbetar med att konfigurera och anpassa Dynamics 365-applikationer efter kundernas specifika behov.",
+      "products": [
+        "F&SCM",
+        "Business Central"
+      ],
+      "industries": [
+        "Bygg, Entreprenad & Installation",
+        "Energi & Utilities",
+        "Tillverkningsindustri"
+      ],
+      "offices": null,
+      "company_size": null,
+      "geography": [
+        "Sverige",
+        "Norden",
+        "Europa"
+      ],
+      "related_party": false
+    },
+    {
+      "name": "Sirocco Group",
+      "slug": "sirocco-group",
+      "url": "https://d365.se/partner/sirocco-group/",
+      "website": "https://www.siroccogroup.com/microsoft-dynamics-365/",
+      "description": "Sirocco Group är en konsult- och utvecklingsbyrå med verksamhet i Stockholm. Företaget arbetar med Microsoft Dynamics 365-applikationer inom Sales, Customer Insights (Marketing), Customer Service, Field Service, Contact Center och Project Operations. Sirocco Group fokuserar på implementering och utveckling av CRM-lösningar och stödjer organisationer i deras digitala transformation. De erbjuder även tjänster för att anpassa och vidareutveckla Dynamics 365-plattformen efter olika kundbehov.",
+      "products": [
+        "Sales",
+        "Customer Insights (Marketing)",
+        "Customer Service",
+        "Field Service",
+        "Contact Center",
+        "Project Operations"
+      ],
+      "industries": [
+        "Livsmedel & Processindustri",
+        "Tillverkningsindustri"
+      ],
+      "offices": null,
+      "company_size": null,
+      "geography": [
+        "Sverige",
+        "Norden",
+        "Europa",
+        "Globalt"
+      ],
+      "related_party": false
+    },
+    {
+      "name": "Vivicta",
+      "slug": "vivicta",
+      "url": "https://d365.se/partner/vivicta/",
+      "website": "https://www.vivicta.com/en/services/enterprise-applications/microsoft-dynamics-365/",
+      "description": "Vårt Dynamics 365‑erbjudande\nVi erbjuder ett helhetsåtagande inom Microsoft Dynamics 365 – från rådgivning och lösningsdesign till implementering, vidareutveckling och förvaltning. Med djup verksamhetsförståelse och stark branschkompetens levererar vi standardnära, skalbara och framtidssäkra ERP‑ och CRM‑lösningar baserade på D365 Finance, Supply Chain Management, Customer Engagement och Business Central.\nVårt erbjudande riktar sig särskilt till industri och tillverkning, process‑ och skogsindustri, recycling och avfall, energi och utilities, offentlig sektor samt handel och service. Lösningarna kompletteras med Power Platform, Azure‑integrationer och licensrådgivning för att säkerställa snabb time‑to‑value, hög affärsnytta och kontinuerlig utveckling under systemets hela livscykel.",
+      "products": [
+        "Business Central",
+        "Finance",
+        "Supply Chain Management",
+        "Sales",
+        "Customer Insights (Marketing)",
+        "Customer Service",
+        "Field Service",
+        "Contact Center",
+        "Project Operations",
+        "Human Resources"
+      ],
+      "industries": [
+        "Jordbruk & Skogsbruk",
+        "Offentlig sektor",
+        "Telekom & IT-tjänster",
+        "Tillverkningsindustri",
+        "Transport & Logistik"
+      ],
+      "offices": null,
+      "company_size": null,
+      "geography": [
+        "Sverige",
+        "Norden"
+      ],
+      "related_party": false
+    },
+    {
+      "name": "Yellow Solution AB",
+      "slug": "yellow-solution",
+      "url": "https://d365.se/partner/yellow-solution/",
+      "website": "https://yellowsolution.se/",
+      "description": "Dynamics 365 Business Central är kärnan i hur vi på Yellow hjälper framgångsrika företag att skapa konkurrenskraft och driva tillväxt. Som konsultföretag kombinerar vi lång erfarenhet med ett starkt personligt engagemang för att maximera effekten av era investeringar i affärssystemet. Vi säkerställer att Business Central inte bara stödjer er verksamhet – utan aktivt bidrar till ökad effektivitet, bättre beslut och hållbar utveckling.",
+      "products": [
+        "Business Central"
+      ],
+      "industries": [
+        "Bygg, Entreprenad & Installation",
+        "Grossist & Distribution",
+        "Tillverkningsindustri"
+      ],
+      "offices": null,
+      "company_size": null,
+      "geography": [
+        "Sverige",
+        "Norden",
+        "Europa"
+      ],
+      "related_party": false
+    }
+  ]
+}
