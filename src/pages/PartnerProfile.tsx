@@ -167,8 +167,30 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  if (!slug) return;
  const partnerId = (dbPartner as DatabasePartner | undefined)?.id || null;
  void trackPartnerView(slug, "profile_visit", `/partner/${slug}`, partnerId);
+ // Nivå 2 – engagemang: profilbesök och återbesök
+ const returning = isReturningVisitorForPartner(slug);
+ trackPartnerEvent({
+  event: returning ? "partner_profile_return" : "partner_profile_view",
+  partnerSlug: slug,
+  partnerId,
+ });
  // eslint-disable-next-line react-hooks/exhaustive-deps
  }, [slug]);
+
+ // Nivå 2 – engagemang: klick på kundcase och kompetensområden (delegerat)
+ const handleProfileEngagementClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  if (!slug) return;
+  const target = (e.target as HTMLElement)?.closest?.("[data-engagement]") as HTMLElement | null;
+  if (!target) return;
+  const kind = target.getAttribute("data-engagement");
+  if (kind !== "case" && kind !== "competency") return;
+  trackPartnerEvent({
+   event: kind === "case" ? "partner_case_click" : "partner_competency_click",
+   partnerSlug: slug,
+   partnerId: (dbPartner as DatabasePartner | undefined)?.id || null,
+   metadata: { label: (target.getAttribute("data-engagement-label") || target.textContent || "").slice(0, 120) },
+  });
+ };
 
  // Get product categories this partner supports
  // Get product categories this partner supports - check both applications array AND product_filters
