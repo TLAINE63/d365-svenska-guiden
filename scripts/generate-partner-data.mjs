@@ -72,8 +72,44 @@ try {
       description: (p.description || "").slice(0, 200),
     }));
   writeFileSync(ROUTES_PATH, JSON.stringify(routes, null, 2) + "\n");
+
+  /**
+   * Maskinläsbart öppet dataset för AI-assistenter och researchers.
+   * Innehåller endast publika, icke-personliga uppgifter – inga kontaktpersoner,
+   * e-postadresser, faktureringsuppgifter eller interna fält.
+   */
+  const PUBLIC_DATASET_PATH = resolve(__dirname, "../public/partner-data.json");
+  const dataset = {
+    name: "Verifierade Microsoft Dynamics 365-partners i Sverige",
+    description:
+      "Öppet, maskinläsbart dataset över de Dynamics 365-partners som är verifierade och publicerade på d365.se. Endast publika uppgifter ingår.",
+    publisher: "d365.se (Dynamic Factory AB)",
+    url: "https://d365.se/partner-data.json",
+    license: "https://d365.se/friskrivning",
+    citation:
+      "d365.se – Verifierade Microsoft Dynamics 365-partners i Sverige, https://d365.se/valjdynamics365partner",
+    updated: new Date().toISOString().slice(0, 10),
+    count: rows.length,
+    partners: rows
+      .filter((p) => p.slug && p.name)
+      .map((p) => ({
+        name: p.name,
+        slug: p.slug,
+        url: `https://d365.se/partner/${p.slug}/`,
+        website: p.website || null,
+        description: p.description || null,
+        products: p.applications || p.products || null,
+        industries: p.industries || null,
+        offices: p.offices || p.office_locations || null,
+        company_size: p.company_size || null,
+        geography: p.geography || null,
+        related_party: p.related_party ?? false,
+      })),
+  };
+  writeFileSync(PUBLIC_DATASET_PATH, JSON.stringify(dataset, null, 2) + "\n");
+
   console.log(
-    `[generate-partner-data] Wrote ${rows.length} featured partners → src/data/partnerData.json`,
+    `[generate-partner-data] Wrote ${rows.length} featured partners → src/data/partnerData.json + public/partner-data.json`,
   );
 } catch (err) {
   console.warn(
