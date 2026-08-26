@@ -172,6 +172,33 @@ export default function AdminAiVisibilityTab({ token, onSessionExpired }: Props)
         </Button>
       </div>
 
+      {/* Manuell indexeringskontroll */}
+      <Card>
+        <CardHeader className="pb-3">
+          <CardTitle className="text-base">Kontrollera indexering (Brave, Bing, DuckDuckGo)</CardTitle>
+          <CardDescription>
+            Brave Search har ingen submission-tjänst och ingen egen user-agent – deras robot följer
+            Googlebots regler i robots.txt. Brave är dessutom det index Claude söker i. Stickprova
+            indexeringen med länkarna nedan.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex flex-wrap gap-2">
+          {[
+            { label: "Brave Search", url: "https://search.brave.com/search?q=site%3Ad365.se" },
+            { label: "Bing", url: "https://www.bing.com/search?q=site%3Ad365.se" },
+            { label: "DuckDuckGo", url: "https://duckduckgo.com/?q=site%3Ad365.se" },
+            { label: "Google", url: "https://www.google.com/search?q=site%3Ad365.se" },
+          ].map((s) => (
+            <Button key={s.label} variant="outline" size="sm" asChild>
+              <a href={s.url} target="_blank" rel="noopener noreferrer">
+                {s.label}
+              </a>
+            </Button>
+          ))}
+        </CardContent>
+      </Card>
+
+
       {/* KPI:er */}
       <div className="grid gap-4 sm:grid-cols-3">
         <Card>

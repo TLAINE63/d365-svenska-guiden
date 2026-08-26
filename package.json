@@ -8,7 +8,7 @@
     "dev": "vite",
     "prebuild": "node scripts/check-logo-usage.mjs && node scripts/generate-partner-data.mjs && node scripts/generate-sitemap.mjs && node scripts/generate-industry-pages.mjs",
     "build": "vite build",
-    "postbuild": "node scripts/check-prerender-seo.mjs",
+    "postbuild": "node scripts/check-prerender-seo.mjs && node scripts/ping-indexnow.mjs",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",

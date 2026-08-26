@@ -56,8 +56,11 @@ async function main() {
   }
   urls = [...new Set(urls)];
 
+  // Skicka bara produktions-URL:er. Preview-byggen ska aldrig pinga sökmotorerna.
+  urls = urls.filter((u) => u.startsWith(`https://${HOST}/`) || u === `https://${HOST}`);
+
   if (urls.length === 0) {
-    console.warn('⚠️  No URLs found in sitemap — nothing to ping.');
+    console.warn('⚠️  No production URLs (https://d365.se) in sitemap — skipping IndexNow ping.');
     return;
   }
 

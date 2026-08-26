@@ -119,6 +119,32 @@ Allow: /
 User-agent: Bytespider
 Allow: /
 
+# Brave Search – crawlern använder normalt ingen egen user-agent och följer
+# Googlebot-reglerna ovan. Blocken nedan är framtidssäkring om Brave deklarerar UA.
+User-agent: Bravebot
+Allow: /
+Disallow: /admin
+Disallow: /partner-admin
+Disallow: /lead-admin
+Disallow: /partner-update/
+Disallow: /partner-events/
+Disallow: /partnerstatistik
+Disallow: /partner-statistik
+Disallow: /avtalssida
+Disallow: /partner-avtal
+
+User-agent: Brave-Search
+Allow: /
+Disallow: /admin
+Disallow: /partner-admin
+Disallow: /lead-admin
+Disallow: /partner-update/
+Disallow: /partner-events/
+Disallow: /partnerstatistik
+Disallow: /partner-statistik
+Disallow: /avtalssida
+Disallow: /partner-avtal
+
 User-agent: *
 Allow: /
 Disallow: /admin
