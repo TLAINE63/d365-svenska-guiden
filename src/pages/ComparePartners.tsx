@@ -39,7 +39,7 @@ import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 
 import { useTrackFilterExposure } from "@/hooks/useTrackFilterExposure";
-import { trackPartnerEvent } from "@/utils/trackPartnerEvent";
+import { trackPartnerImpression } from "@/utils/trackPartnerEvent";
 import ShortlistButton from "@/components/ShortlistButton";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import {
@@ -1173,16 +1173,21 @@ const ComparePartners = () => {
     const fromApp = appToGroupKey(raw);
     return fromApp || raw;
   };
-  const productFilters = productFilterRaw
-    ? (Array.from(
-        new Set(
-          productFilterRaw
-            .split(",")
-            .map((s) => normalizeProductFilterKey(s))
-            .filter((s) => s in PRODUCT_FILTER_GROUP)
-        )
-      ) as ProductFilterKey[])
-    : [];
+  const productFilters = useMemo(
+    () =>
+      productFilterRaw
+        ? (Array.from(
+            new Set(
+              productFilterRaw
+                .split(",")
+                .map((s) => normalizeProductFilterKey(s))
+                .filter((s) => s in PRODUCT_FILTER_GROUP)
+            )
+          ) as ProductFilterKey[])
+        : [],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [productFilterRaw]
+  );
 
   const setFilter = (key: "industry" | "product", val: string) => {
     const next = new URLSearchParams(params);
@@ -1364,22 +1369,23 @@ const ComparePartners = () => {
   });
 
   // Nivå 1 – exponering: partnern visas i en aktiv partnerjämförelse.
+  // Dedupas per session/kontext så antalet inte blåses upp av omrenderingar.
+  const comparisonSlugKey = comparedPartners.map((p) => p.slug).join("|");
+  const comparisonProductKey = productFilters.join(",");
   useEffect(() => {
     if (isLoading || comparedPartners.length < 2) return;
-    comparedPartners.forEach((p, i) => {
-      trackPartnerEvent({
-        event: "partner_comparison_impression",
-        partnerSlug: p.slug,
-        partnerId: p.id,
-        metadata: {
-          position: i + 1,
-          compared_count: comparedPartners.length,
-          product: productFilters.join(",") || null,
-          industry: industryFilter || null,
-        },
-      });
-    });
-  }, [isLoading, comparedPartners, productFilters, industryFilter]);
+    trackPartnerImpression(
+      "partner_comparison_impression",
+      comparedPartners.map((p) => ({ slug: p.slug, id: p.id })),
+      {
+        compared_count: comparedPartners.length,
+        compared_slugs: comparisonSlugKey,
+        product: comparisonProductKey || null,
+        industry: industryFilter || null,
+      },
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading, comparisonSlugKey, comparisonProductKey, industryFilter]);
 
 
   
