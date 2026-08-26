@@ -24,6 +24,7 @@ import { FAQSchema, ServiceSchema, BreadcrumbSchema, ItemListSchema } from "@/co
 import { resolvePriceTokens } from "@/lib/productPriceFormat";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 import { appsToProductFilterKeys } from "@/lib/productFilterGroup";
+import { trackPartnerEvent, trackPartnerImpression } from "@/utils/trackPartnerEvent";
 
 // Breadcrumb items
 const partnerBreadcrumbs = [
