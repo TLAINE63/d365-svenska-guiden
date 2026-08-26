@@ -295,7 +295,7 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
  id: "statistik",
  label: "Statistik",
  icon: BarChart3,
- tabs: ["clicks", "stats", "visitors", "all-visitors", "partner-profile-visits", "funnel", "summary", "email-log"],
+ tabs: ["clicks", "stats", "visitors", "all-visitors", "ai-visibility", "partner-profile-visits", "funnel", "summary", "email-log"],
  },
  {
  id: "seo",
