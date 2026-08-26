@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
+import { BreadcrumbSchema, DatasetSchema, FAQSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Search, Download, FileSpreadsheet } from "lucide-react";
@@ -153,6 +153,14 @@ export default function PartnerMarketReport2026() {
         ]}
       />
       <FAQSchema faqs={REPORT_FAQ.map((f) => ({ question: f.q, answer: f.a }))} />
+      <DatasetSchema
+        name="Verifierade Microsoft Dynamics 365-partners i Sverige"
+        description="Öppet, maskinläsbart dataset över de Dynamics 365-partners som är verifierade och publicerade på d365.se. Endast publika uppgifter ingår."
+        url={`https://d365.se${CANONICAL}`}
+        distributionUrl="https://d365.se/partner-data.json"
+        keywords={["Dynamics 365", "partners", "Sverige", "Business Central", "ERP", "CRM"]}
+        datePublished="2026-01-01"
+      />
       <Navbar />
 
       <main className="pt-24 sm:pt-28">
