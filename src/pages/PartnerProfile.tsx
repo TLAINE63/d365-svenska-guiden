@@ -638,6 +638,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
 
   {/* Tabbed product profile */}
+  <div data-engagement="case" onClickCapture={handleProfileEngagementClick}>
   <PartnerProductTabs
    partner={partner}
    initialTab={resolveInitialTab(productFromPath, selectedProduct)}
@@ -651,6 +652,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
     }}
    onRequest={openRequest}
     />
+  </div>
 
 
 
