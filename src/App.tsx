@@ -354,10 +354,12 @@ const App = () => (
       </Suspense>
       <BrowserRouter>
         <PartnerCompareProvider>
-          <AppShell />
-          <PartnerCompareBar />
-          
+          <ShortlistProvider>
+            <AppShell />
+            <PartnerCompareBar />
+          </ShortlistProvider>
         </PartnerCompareProvider>
+
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
