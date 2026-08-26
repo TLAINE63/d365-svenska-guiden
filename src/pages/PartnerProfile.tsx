@@ -52,6 +52,8 @@ import { buildMetaTitle } from "@/lib/metaTitle";
 import { buildMetaDescription } from "@/lib/metaDescription";
 import { trackPartnerView } from "@/utils/trackPartnerView";
 import { trackPartnerEvent, isReturningVisitorForPartner } from "@/utils/trackPartnerEvent";
+import ShortlistButton from "@/components/ShortlistButton";
+import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 
 
 // Map application names to product categories
