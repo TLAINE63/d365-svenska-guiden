@@ -76,6 +76,13 @@ export const ShortlistProvider = ({ children }: { children: ReactNode }) => {
           event_name: exists ? "shortlist_remove" : "shortlist_add",
           metadata: { partner: entry.slug, size: next.length },
         });
+        if (!exists) {
+          trackPartnerEvent({
+            event: "partner_saved",
+            partnerSlug: entry.slug,
+            metadata: { verified: entry.verified ?? false, size: next.length },
+          });
+        }
         return next;
       });
     },
