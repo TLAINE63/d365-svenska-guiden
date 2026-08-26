@@ -162,6 +162,7 @@ async function fetchSearchConsole(slug: string, days = 28): Promise<GscData | nu
     return {
       available: true,
       property: GSC_PROPERTY,
+      days,
       period: { start: ymd(start), end: ymd(end) },
       current: totalsFrom(cur.rows),
       previous: totalsFrom(prev.rows),
@@ -192,6 +193,7 @@ Deno.serve(async (req) => {
   try {
     const body = await req.json().catch(() => ({}));
     const token: string = String(body?.token || "");
+    const gscDays = [7, 28, 90].includes(Number(body?.gscDays)) ? Number(body.gscDays) : 28;
     if (!token || token.length < 8) {
       return new Response(JSON.stringify({ error: "Ogiltig länk" }), {
         status: 401,
