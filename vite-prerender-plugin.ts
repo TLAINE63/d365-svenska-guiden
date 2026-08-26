@@ -486,7 +486,7 @@ export default function prerenderPlugin(): Plugin {
         console.log(`\n✅ Prerendering complete – ${successCount}/${allRoutes.length} routes\n`);
 
       } catch (err: any) {
-        console.error('❌ Prerender failed:', err.message || err);
+        console.error('❌ Prerender failed:', err?.stack || err);
         // Don't throw - let the build succeed even if prerendering fails
       } finally {
         delete process.env.__VITE_PRERENDER;
