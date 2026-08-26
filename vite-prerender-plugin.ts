@@ -120,12 +120,6 @@ export default function prerenderPlugin(): Plugin {
         }
         let template = readFileSync(templatePath, 'utf-8');
 
-        // Convert Vite's render-blocking CSS links to non-blocking preloads
-        template = template.replace(
-          /<link\s+rel="stylesheet"\s+crossorigin\s+href="([^"]+\.css)"\s*\/?>/g,
-          '<link rel="preload" href="$1" as="style" onload="this.onload=null;this.rel=\'stylesheet\'" />\n    <noscript><link rel="stylesheet" href="$1" /></noscript>'
-        );
-
         // ── 5. Discover CSS files from the build output ──────────────────
         const assetsDir = resolve(root, outDir, 'assets');
         let cssFiles: string[] = [];
@@ -182,7 +176,7 @@ export default function prerenderPlugin(): Plugin {
               if (!page.includes(cssFile)) {
                 page = page.replace(
                   '</head>',
-                  `    <link rel="preload" href="${cssFile}" as="style" onload="this.onload=null;this.rel='stylesheet'" />\n    <noscript><link rel="stylesheet" href="${cssFile}" /></noscript>\n  </head>`
+                  `    <link rel="stylesheet" href="${cssFile}" />\n  </head>`
                 );
               }
             }
@@ -393,7 +387,7 @@ export default function prerenderPlugin(): Plugin {
             if (!page.includes(cssFile)) {
               page = page.replace(
                 '</head>',
-                `    <link rel="preload" href="${cssFile}" as="style" onload="this.onload=null;this.rel='stylesheet'" />\n    <noscript><link rel="stylesheet" href="${cssFile}" /></noscript>\n  </head>`
+                `    <link rel="stylesheet" href="${cssFile}" />\n  </head>`
               );
             }
           }
