@@ -21,6 +21,17 @@ const breadcrumbs = [
 
 const kostnadFaqs = [
   {
+    question: "Vad ingår i totalkostnaden för Dynamics 365?",
+    answer:
+      "Totalkostnaden består av tre delar. Licensen betalas löpande per användare och månad. Implementationen är en engångskostnad hos partnern och omfattar förstudie, konfiguration, integrationer, datamigrering, test och utbildning. Efter go-live tillkommer löpande kostnader för förvaltning, vidareutveckling, integrationsdrift och konsumtionsbaserade AI-tjänster. Räkna med alla tre delarna över tre år när du jämför offerter.",
+  },
+  {
+    question: "Vad är skillnaden mellan licenspris och implementationskostnad?",
+    answer:
+      "Licenspriset är Microsofts abonnemang och beror på vilken applikation och nivå du väljer samt hur många som ska använda systemet. Implementationskostnaden är partnerns arbete med att sätta upp lösningen efter din verksamhet och beror på antal användare, hur nära standard du kan arbeta, antal integrationer och om data ska migreras. Licensen är alltså förutsägbar; implementationen är det som varierar mest mellan offerter.",
+  },
+
+  {
     question: "Vad kostar Dynamics 365 per användare och månad?",
     answer:
       "Business Central Essentials kostar 70 USD per användare och månad, Premium 100 USD, Dynamics 365 Sales Enterprise 105 USD och Finance 210 USD (Microsofts listpriser, faktureras normalt i SEK via partner eller CSP). Team Members-licenser för läsande användare ligger klart lägre. Se hela listan på prissidan.",
