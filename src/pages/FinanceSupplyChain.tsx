@@ -210,6 +210,7 @@ const FinanceSupplyChain = () => {
  />
  <BreadcrumbSchema items={fscBreadcrumbs} />
  <Navbar />
+ <main>
  
   {/* Header */}
   <ProductHero
@@ -778,6 +779,7 @@ const FinanceSupplyChain = () => {
  </section>
  <ProductIsvSection product="Finance & Supply Chain Management" />
 
+ </main>
  <Footer />
  </div>
  );

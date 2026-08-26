@@ -85,6 +85,7 @@ const Copilot = () => {
       <FAQSchema faqs={copilotFaqs} />
       <BreadcrumbSchema items={copilotBreadcrumbs} />
       <Navbar />
+      <main>
       
       {/* Header */}
       <header className="relative overflow-hidden mt-16 min-h-[560px] sm:h-[450px] md:h-[550px]">
@@ -595,6 +596,7 @@ const Copilot = () => {
       </section>
 
       <RelatedPages pages={copilotRelatedPages} heading="Utforska vidare" />
+      </main>
       <Footer />
     </div>
   );

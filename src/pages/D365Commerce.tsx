@@ -42,6 +42,7 @@ const D365Commerce = () => {
       />
       <BreadcrumbSchema items={breadcrumbs} />
       <Navbar />
+      <main>
 
       <ProductHero
         icon={CommerceIcon}
@@ -109,6 +110,7 @@ const D365Commerce = () => {
       <RelatedPages pages={fscRelatedPages} heading="Utforska vidare" />
       <ProductIsvSection product="Commerce" />
 
+      </main>
       <Footer />
     </div>
   );

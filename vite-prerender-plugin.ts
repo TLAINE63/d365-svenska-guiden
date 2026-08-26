@@ -36,13 +36,11 @@ export default function prerenderPlugin(): Plugin {
       isSsr = !!config.build.ssr;
     },
 
-    // Make CSS non-render-blocking in the generated index.html
-    transformIndexHtml(html) {
-      return html.replace(
-        /<link\s+rel="stylesheet"\s+crossorigin\s+href="([^"]+\.css)"\s*\/?>/g,
-        '<link rel="preload" href="$1" as="style" onload="this.onload=null;this.rel=\'stylesheet\'" />\n    <noscript><link rel="stylesheet" href="$1" /></noscript>'
-      );
-    },
+    // CSS lämnas render-blockerande med avsikt. Tidigare laddades den asynkront
+    // (preload + onload) vilket gav en osminkad första rendering (FOUC) och var
+    // grundorsaken till layouthoppen (CLS ~0,35). Stilmallen är kritisk för hela
+    // ovan-vikten-ytan, så den ska vara på plats innan första målningen.
+
 
     async closeBundle() {
       // Guard: skip if this IS the SSR build or if env flag is set (prevents loops)
@@ -122,12 +120,6 @@ export default function prerenderPlugin(): Plugin {
         }
         let template = readFileSync(templatePath, 'utf-8');
 
-        // Convert Vite's render-blocking CSS links to non-blocking preloads
-        template = template.replace(
-          /<link\s+rel="stylesheet"\s+crossorigin\s+href="([^"]+\.css)"\s*\/?>/g,
-          '<link rel="preload" href="$1" as="style" onload="this.onload=null;this.rel=\'stylesheet\'" />\n    <noscript><link rel="stylesheet" href="$1" /></noscript>'
-        );
-
         // ── 5. Discover CSS files from the build output ──────────────────
         const assetsDir = resolve(root, outDir, 'assets');
         let cssFiles: string[] = [];
@@ -184,7 +176,7 @@ export default function prerenderPlugin(): Plugin {
               if (!page.includes(cssFile)) {
                 page = page.replace(
                   '</head>',
-                  `    <link rel="preload" href="${cssFile}" as="style" onload="this.onload=null;this.rel='stylesheet'" />\n    <noscript><link rel="stylesheet" href="${cssFile}" /></noscript>\n  </head>`
+                  `    <link rel="stylesheet" href="${cssFile}" />\n  </head>`
                 );
               }
             }
@@ -395,7 +387,7 @@ export default function prerenderPlugin(): Plugin {
             if (!page.includes(cssFile)) {
               page = page.replace(
                 '</head>',
-                `    <link rel="preload" href="${cssFile}" as="style" onload="this.onload=null;this.rel='stylesheet'" />\n    <noscript><link rel="stylesheet" href="${cssFile}" /></noscript>\n  </head>`
+                `    <link rel="stylesheet" href="${cssFile}" />\n  </head>`
               );
             }
           }

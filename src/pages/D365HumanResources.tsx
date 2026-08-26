@@ -42,6 +42,7 @@ const D365HumanResources = () => {
       />
       <BreadcrumbSchema items={breadcrumbs} />
       <Navbar />
+      <main>
 
       <ProductHero
         icon={HumanResourcesIcon}
@@ -109,6 +110,7 @@ const D365HumanResources = () => {
       <RelatedPages pages={fscRelatedPages} heading="Utforska vidare" />
       <ProductIsvSection product="Human Resources" />
 
+      </main>
       <Footer />
     </div>
   );

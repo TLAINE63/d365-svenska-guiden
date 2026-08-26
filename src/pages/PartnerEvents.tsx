@@ -198,6 +198,7 @@ const PartnerEvents = () => {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
+        <main>
         <div className="container mx-auto px-4 py-12">
           <Card className="max-w-lg mx-auto">
             <CardContent className="pt-6">
@@ -209,6 +210,7 @@ const PartnerEvents = () => {
             </CardContent>
           </Card>
         </div>
+        </main>
         <Footer />
       </div>
     );
@@ -224,6 +226,7 @@ const PartnerEvents = () => {
       />
 
       <Navbar />
+      <main>
       
       <div className="container mx-auto px-4 py-8 mt-16">
         <div className="max-w-4xl mx-auto">
@@ -374,6 +377,7 @@ const PartnerEvents = () => {
         </div>
       </div>
       
+      </main>
       <Footer />
     </div>
   );

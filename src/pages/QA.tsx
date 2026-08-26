@@ -147,6 +147,7 @@ const QA = () => {
         { name: "Vanliga frågor", url: "https://d365.se/qa" },
       ]} />
       <Navbar />
+      <main>
       
       {/* Header */}
       <header className="relative overflow-hidden mt-16 h-[300px] sm:h-[400px] md:h-[450px]">
@@ -248,6 +249,7 @@ const QA = () => {
         </div>
       </section>
 
+      </main>
       <Footer />
     </div>
   );

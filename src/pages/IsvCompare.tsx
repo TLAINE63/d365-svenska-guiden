@@ -50,6 +50,7 @@ const IsvCompare = () => {
         canonicalPath={`/compare/${comparison.slug}/`}
       />
       <Navbar />
+      <main>
 
       {/* Hero */}
       <section className="bg-[hsl(var(--hero-dark))] text-white border-b border-[hsl(var(--line-dark))]">
@@ -187,6 +188,7 @@ const IsvCompare = () => {
         </div>
       </section>
 
+      </main>
       <Footer />
     </div>
   );

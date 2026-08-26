@@ -99,6 +99,7 @@ const D365CustomerService = () => {
       />
       <BreadcrumbSchema items={customerServiceBreadcrumbs} />
       <Navbar />
+      <main>
       
       {/* Header */}
       <ProductHero
@@ -365,6 +366,7 @@ const D365CustomerService = () => {
       <RelatedPages pages={customerServiceRelatedPages} heading="Utforska vidare" />
       <ProductIsvSection product="Customer Service" />
 
+      </main>
       <Footer />
     </div>
   );

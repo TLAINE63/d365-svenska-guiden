@@ -294,6 +294,23 @@ export const routes: PrerenderRoute[] = [
     changefreq: 'weekly' as const,
     meta: { title: c.metaTitle, description: c.metaDescription },
   })),
+  // Kunskapscenter-hubbar per produktområde (annars enbart klientrenderade)
+  ...[
+    'business-central',
+    'business-central-tillagg',
+    'finance-supply-chain',
+    'sales',
+    'customer-service',
+    'copilot',
+    'upphandling',
+    'partners',
+  ].map((slug) => ({
+    path: `/kunskapscenter/${slug}`,
+    priority: '0.7',
+    changefreq: 'monthly' as const,
+  })),
+  { path: '/fraga-ai', priority: '0.5', changefreq: 'monthly' },
+
   {
     path: '/rapporter/dynamics-365-partnersverige-2026',
     priority: '0.8',

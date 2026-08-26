@@ -87,6 +87,7 @@ const D365FieldService = () => {
       />
       <BreadcrumbSchema items={fieldServiceBreadcrumbs} />
       <Navbar />
+      <main>
       
       {/* Header */}
       <ProductHero
@@ -310,6 +311,7 @@ const D365FieldService = () => {
       <RelatedPages pages={fieldServiceRelatedPages} heading="Utforska vidare" />
       <ProductIsvSection product="Field Service" />
 
+      </main>
       <Footer />
     </div>
   );

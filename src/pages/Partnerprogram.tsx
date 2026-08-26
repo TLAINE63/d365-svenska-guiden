@@ -237,6 +237,7 @@ const Partnerprogram = () => {
       <BreadcrumbSchema items={breadcrumbs} />
       <FAQSchema faqs={faqs} />
       <Navbar />
+      <main>
 
       {/* 1. HERO */}
       <header className="pt-28 pb-14 md:pt-32 md:pb-20 bg-gradient-to-b from-secondary/40 to-background border-b border-border">
@@ -761,6 +762,7 @@ const Partnerprogram = () => {
         </>
       )}
 
+      </main>
       <Footer />
     </div>
   );

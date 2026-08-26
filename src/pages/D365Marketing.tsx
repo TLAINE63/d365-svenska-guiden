@@ -97,6 +97,7 @@ const D365Marketing = () => {
       />
       <BreadcrumbSchema items={marketingBreadcrumbs} />
       <Navbar />
+      <main>
       
       {/* Header */}
       <ProductHero
@@ -315,6 +316,7 @@ const D365Marketing = () => {
       <RelatedPages pages={marketingRelatedPages} heading="Utforska vidare" />
       <ProductIsvSection product="Customer Insights (Marketing)" />
 
+      </main>
       <Footer />
     </div>
   );

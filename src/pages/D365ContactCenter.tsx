@@ -85,6 +85,7 @@ const D365ContactCenter = () => {
       />
       <BreadcrumbSchema items={contactCenterBreadcrumbs} />
       <Navbar />
+      <main>
       
       {/* Header */}
       <ProductHero
@@ -312,6 +313,7 @@ const D365ContactCenter = () => {
       <RelatedPages pages={contactCenterRelatedPages} heading="Utforska vidare" />
       <ProductIsvSection product="Contact Center" />
 
+      </main>
       <Footer />
     </div>
   );
