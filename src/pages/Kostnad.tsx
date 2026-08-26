@@ -146,15 +146,42 @@ export default function Kostnad() {
                 Generera en kravspecifikation →
               </Link>
             </div>
+
+            <nav aria-label="Innehåll i guiden" className="mt-8 border-t border-border pt-5">
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+                Innehåll i guiden
+              </h2>
+              <ol className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm list-decimal pl-5">
+                <li><a href="#licenskostnad" className="underline hover:text-foreground">Licenskostnad – vad abonnemanget kostar</a></li>
+                <li><a href="#snabb-offertfraga" className="underline hover:text-foreground">Snabb offertfråga – ditt kostnadsspann direkt</a></li>
+                <li><a href="#per-applikation" className="underline hover:text-foreground">Implementationskostnad per applikation</a></li>
+                <li><a href="#vanliga-fragor" className="underline hover:text-foreground">Vanliga frågor om kostnad</a></li>
+              </ol>
+            </nav>
           </div>
         </section>
 
+        <LicenseCostTable />
+
+        <QuickQuoteEstimator />
+
         {/* Genvägar */}
-        <section className="py-8 bg-secondary/30 border-y border-border">
+        <section className="py-8 bg-secondary/30 border-y border-border" id="per-applikation">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-              Hoppa till applikation
+            <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">
+              Del 2 av 3
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+              Implementationskostnad per applikation
             </h2>
+            <p className="text-base text-muted-foreground mb-5 max-w-3xl">
+              Implementationen är en engångskostnad hos partnern. Nedan finns typiska
+              spann per applikation, vad som driver kostnaden och vad som blir löpande
+              efter go-live – plus länk till ROI-kalkylatorn där nyttan räknas hem.
+            </p>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+              Hoppa till applikation
+            </h3>
             <ul className="flex flex-wrap gap-2 text-sm">
               {productOrder.map((p) => (
                 <li key={p.key}>
@@ -173,19 +200,37 @@ export default function Kostnad() {
         {productOrder.map((p) => (
           <div key={p.key} id={p.key} className="scroll-mt-24">
             <div className="container mx-auto px-4 sm:px-6 pt-10">
-              <div className="max-w-5xl flex flex-wrap items-baseline justify-between gap-2">
-                <h2 className="text-xl sm:text-2xl font-bold text-foreground">
-                  {p.label}
-                </h2>
-                <Link to={p.path} className="text-sm text-primary underline">
-                  Läs mer om {p.label} →
-                </Link>
+              <div className="max-w-5xl">
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <h2 className="text-xl sm:text-2xl font-bold text-foreground">
+                    {p.label}
+                  </h2>
+                  <Link to={p.path} className="text-sm text-primary underline">
+                    Läs mer om {p.label} →
+                  </Link>
+                </div>
+                <p className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
+                  {p.licenseKey && (
+                    <span>
+                      Licens från{" "}
+                      <strong className="text-foreground">
+                        <Price productKey={p.licenseKey} mode="short" />
+                      </strong>
+                    </span>
+                  )}
+                  {p.roiPath && (
+                    <Link to={p.roiPath} className="text-primary underline">
+                      Räkna hem nyttan i ROI-kalkylatorn →
+                    </Link>
+                  )}
+                </p>
               </div>
             </div>
             <CostBreakdown product={p.key} hideOverviewLink />
             <CostProjectExamples product={p.key} />
           </div>
         ))}
+
 
         <section className="py-8 sm:py-12">
           <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
