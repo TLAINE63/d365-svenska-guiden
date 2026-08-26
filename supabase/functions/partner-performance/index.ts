@@ -248,6 +248,26 @@ Deno.serve(async (req) => {
       { key: "leads", label: "Leads", value: current.leads, change: pctChange(current.leads, previous.leads) },
     ];
 
+    // ── Google Search Console (organisk synlighet för partnersidan) ────
+    const searchConsole = await fetchSearchConsole(partner.slug);
+    if (searchConsole) {
+      kpis.push(
+        {
+          key: "gscImpressions",
+          label: "Google-visningar",
+          value: searchConsole.current.impressions,
+          change: pctChange(searchConsole.current.impressions, searchConsole.previous.impressions),
+        },
+        {
+          key: "gscClicks",
+          label: "Google-klick",
+          value: searchConsole.current.clicks,
+          change: pctChange(searchConsole.current.clicks, searchConsole.previous.clicks),
+        },
+      );
+    }
+
+
     // ── 12 månaders historik ────────────────────────────────────────────
     const months: string[] = [];
     const d = new Date();
