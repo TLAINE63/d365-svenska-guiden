@@ -208,21 +208,24 @@ export const WebSiteSchema = () => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "D365 Guiden",
-    "alternateName": ["d365.se", "Dynamics 365 Guiden Sverige"],
-    "url": "https://d365.se",
-    "description": "Hjälper svenska företag hitta rätt Microsoft Dynamics 365-partner utifrån behov, bransch och storlek.",
+    "name": ORGANIZATION.name,
+    "alternateName": ["D365 Guiden", "Dynamics 365 Guiden Sverige"],
+    "url": ORGANIZATION.url,
+    "description": ORGANIZATION.description,
     "inLanguage": "sv-SE",
     "publisher": {
       "@type": "Organization",
-      "name": "Dynamic Factory",
-      "url": "https://d365.se",
+      "@id": `${ORGANIZATION.url}/#organization`,
+      "name": ORGANIZATION.name,
+      "legalName": ORGANIZATION.legalName,
+      "url": ORGANIZATION.url,
       "logo": {
         "@type": "ImageObject",
-        "url": "https://d365.se/d365guide-logo.png",
+        "url": ORGANIZATION.logoUrl,
         "width": 2000,
         "height": 1620
       }
+
     },
     "potentialAction": {
       "@type": "SearchAction",
