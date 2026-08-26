@@ -1,4 +1,4 @@
-import { jsPDF } from "jspdf";
+import type { jsPDF as JsPdfType } from "jspdf";
 import { PDF_BRAND } from "./pdfBrand";
 import {
   PDF_MARGIN,
@@ -9,8 +9,9 @@ import {
 import type { BuyerGuide } from "@/data/buyerGuides2026";
 
 /** Genererar och laddar ner köparguiden som brandad PDF. */
-export function generateBuyerGuidePdf(guide: BuyerGuide): void {
-  const doc = new jsPDF({ unit: "mm", format: "a4" });
+export async function generateBuyerGuidePdf(guide: BuyerGuide): Promise<void> {
+  const { jsPDF } = await import("jspdf");
+  const doc: JsPdfType = new jsPDF({ unit: "mm", format: "a4" });
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
   const contentW = pageW - PDF_MARGIN * 2;
