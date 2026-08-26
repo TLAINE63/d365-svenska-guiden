@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { ORGANIZATION } from "@/data/organization";
 
 const siteLogo = "/d365-logo.svg";
 
@@ -107,9 +108,16 @@ const Footer = () => {
 
         <div className="border-t border-[hsl(var(--line-dark))] pt-8 text-center text-[hsl(var(--muted-dark))]">
           <img src={siteLogo} alt="d365.se logotyp" width="194" height="40" loading="lazy" decoding="async" className="h-10 w-auto mx-auto mb-4 brightness-0 invert" />
-          <p className="mb-2 text-white">© {new Date().getFullYear()} Dynamic Factory</p>
-          <p className="text-sm mb-3">
+          <p className="mb-2 text-white">
+            © {new Date().getFullYear()} {ORGANIZATION.name} – drivs av {ORGANIZATION.legalName} (ägare {ORGANIZATION.parentName})
+          </p>
+          <p className="text-sm mb-1">
             Microsoft Business Applications Evangelister
+          </p>
+          <p className="text-sm mb-3">
+            <a href={`mailto:${ORGANIZATION.email}`} className="hover:text-white transition-colors">{ORGANIZATION.email}</a>
+            <span className="mx-2 text-[hsl(var(--line-dark))]">|</span>
+            <a href={`tel:${ORGANIZATION.telephoneE164}`} className="hover:text-white transition-colors">{ORGANIZATION.telephoneDisplay}</a>
           </p>
           <div className="flex justify-center gap-4 text-sm mb-4 flex-wrap">
             <Link to="/dataskydd/" className="hover:text-white transition-colors">
