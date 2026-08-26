@@ -1817,7 +1817,7 @@ const CC_COMPARISONS: ProductComparison[] = [
       },
       {
         q: "Kan vi börja med Genesys och migrera till D365 senare?",
-        a: "Ja, det är ett vanligt mönster för bolag som vill vänta tills D365 Contact Center är mer moget i svenska partnernätet (förmodligen 2026–2027).",
+        a: "Ja, det är ett vanligt mönster för bolag som vill vänta tills D365 Contact Center har fler svenska referensinföranden – i praktiken när partnernätet byggt upp dokumenterad leveranskapacitet, vilket enligt nuvarande roadmap-läge ligger 2026–2027.",
       },
     ],
   }),
