@@ -31,6 +31,7 @@ const SEO_ALLOWLIST = new Set([
   "src/components/StructuredData.tsx",
   "src/pages/BlogArticle.tsx",
   "src/data/knowledgeVideos.ts",
+  "src/data/organization.ts",
 ]);
 
 // Mönster som indikerar fel logotyp i visuell kontext.

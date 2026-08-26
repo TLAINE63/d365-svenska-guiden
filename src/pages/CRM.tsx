@@ -44,6 +44,14 @@ import {
 // CRM FAQs for schema
 const crmFaqs = [
  {
+ question: "CRM-system – vad är det?",
+ answer: "Ett CRM-system (Customer Relationship Management) är ett system där företaget samlar allt som rör kunder och prospekt: kontakter, affärer i pipeline, offerter, aktiviteter, ärenden och kundhistorik. Syftet är att sälj, marknad och kundservice arbetar mot samma kunddata i stället för egna listor och inkorgar. Microsofts CRM heter Dynamics 365 Customer Engagement och består av Sales, Customer Service, Customer Insights (Marketing Automation), Field Service och Contact Center."
+ },
+ {
+ question: "Vad gör en CRM-konsult?",
+ answer: "En CRM-konsult kartlägger sälj- och serviceprocesser, konfigurerar CRM-systemet efter dem, sätter upp behörigheter, dashboards och automatiseringar, migrerar kunddata från gamla system, bygger integrationer mot ERP och e-post samt utbildar användarna. Rollen delas ofta upp i funktionskonsult (process och konfiguration), teknisk konsult (integration och kod) och lösningsarkitekt (helhet och dataarkitektur). Efter driftsättning är det oftast samma konsultteam som sköter förvaltning och vidareutveckling."
+ },
+ {
  question: "Vad kostar CRM system i Sverige – Dynamics 365 jämförelse?",
  answer: "CRM system pris Sverige 2026 (Microsofts listpris, exkl. moms): Dynamics 365 Sales Professional 621 kr/användare/mån, Sales Enterprise 1 004 kr/mån, Sales Premium 1 434 kr/mån. Customer Service Professional 478 kr/mån, Customer Service Enterprise 1 004 kr/mån, Customer Service Premium 1 864 kr/mån. Field Service 1 004 kr/mån. Contact Center (komplett) 1 051 kr/mån. Customer Insights prissätts per tenant från 16 250 kr/mån (attach-pris 9 559 kr/mån för bolag med minst 10 befintliga D365-licenser). Implementeringskostnad: standardimplementering Sales/Customer Service från 100 000–250 000 kr, större projekt 4–6 månader och 500 000–2 MSEK."
  },

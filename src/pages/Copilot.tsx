@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import CopilotLogo from "@/assets/icons/Copilot.png";
 import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, FAQSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 // Breadcrumb items
 const copilotBreadcrumbs = [
@@ -23,6 +24,9 @@ const copilotBreadcrumbs = [
 
 // FAQ items for schema
 const copilotFaqs = [
+  { question: "Vad gör Copilot?", answer: "Copilot läser din affärsdata och utför uppgifter på uppmaning: sammanfattar en kund, ett ärende eller ett möte, föreslår svar och e-post, genererar produktbeskrivningar, matchar bankposter, förklarar avvikelser i ekonomidata och svarar på frågor i naturligt språk. Copilot föreslår – du godkänner. Den agerar inte självständigt; det gör däremot en agent." },
+  { question: "Vad är Microsoft 365 Copilot?", answer: "Microsoft 365 Copilot är AI-assistenten i Word, Excel, PowerPoint, Outlook och Teams, med tillgång till din e-post, dina dokument och mötesinnehåll via Microsoft Graph. Den är en separat produkt från Copilot i Dynamics 365 och kräver en egen licens på cirka 365 kr per användare och månad. Copilot i Dynamics 365 arbetar i stället mot affärsdata i ERP och CRM och ingår i respektive applikationslicens." },
+  { question: "Vad är en agent i Copilot?", answer: "En agent är en AI som utför ett arbetsflöde självständigt, till skillnad från Copilot som svarar när du frågar. Agenten har ett definierat uppdrag, tillgång till bestämda datakällor och verktyg samt regler för när den får agera och när den ska eskalera till en människa. Agenter byggs i Copilot Studio och kan till exempel besvara vanliga kundärenden, bevaka orderflöden eller kvalificera inkommande leads. De kräver styrning: vem äger agenten, vilken data den når och hur svaren följs upp." },
   { question: "Vad är Microsoft Copilot i Dynamics 365?", answer: "Microsoft Copilot är en AI-driven assistent inbyggd direkt i Dynamics 365 som hjälper användare automatisera rutinuppgifter, få intelligenta insikter och fatta snabbare beslut baserade på affärsdata. Copilot är inkluderat utan extra licensavgift i Dynamics 365 Business Central, Finance, Supply Chain Management, Sales och Customer Service." },
   { question: "Kostar Microsoft Copilot i Dynamics 365 extra?", answer: "Nej – Copilot-funktionerna i Dynamics 365 (Business Central, Finance, SCM, Sales, Customer Service) ingår i respektive applikationslicens utan tillägg. Microsoft 365 Copilot (för Word, Excel, Outlook, Teams) kräver en separat licens på cirka 365 kr/användare/mån. Det är viktigt att skilja på Dynamics 365 Copilot och Microsoft 365 Copilot – de är olika produkter." },
   { question: "Vilken ROI kan man förvänta sig av Microsoft Copilot?", answer: "Enligt Forresters TEI-studie från oktober 2024 kan företag uppnå 353% potentiell ROI över 3 år med Microsoft Copilot. Studien visar även 20% reducerade driftskostnader och 18% ökad medarbetarnöjdhet. I praktiken ser vi att produktivitetsvinster varierar kraftigt beroende på vilka processer som automatiseras och hur vältränade användarna är." },
@@ -591,6 +595,29 @@ const Copilot = () => {
                 Boka in en kostnadsfri rådgivning
               </Button>
             </ContactFormDialog>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ – synligt innehåll matchar FAQSchema JSON-LD exakt */}
+      <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-8 sm:mb-10 text-center">
+              Vanliga frågor om Microsoft Copilot
+            </h2>
+            <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
+              {copilotFaqs.map((faq, idx) => (
+                <AccordionItem key={idx} value={`copilot-faq-${idx}`} className="bg-card rounded-lg px-4 sm:px-6 border border-border">
+                  <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground pb-6">
+                    <p className="leading-relaxed">{faq.answer}</p>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </div>
       </section>
