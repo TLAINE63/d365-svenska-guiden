@@ -1,4 +1,5 @@
 import ProductHero from "@/components/ProductHero";
+import FunnelCTA from "@/components/FunnelCTA";
 import PageOfferBanner from "@/components/PageOfferBanner";
 import RelatedPages, { erpRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
@@ -475,7 +476,9 @@ const ERPOverview = () => {
      <PageOfferBanner />
    </div>
  </section>
- </main>
+ 
+<FunnelCTA stage="early" guide="erp" source="/erpoverview/" />
+</main>
  <Footer />
  </div>
  );

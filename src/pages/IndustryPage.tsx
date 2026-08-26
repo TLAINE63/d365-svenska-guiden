@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import FunnelCTA from "@/components/FunnelCTA";
 import { Link, useParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
@@ -770,7 +771,9 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  </div>
  </div>
  </section>
- </main>
+ 
+<FunnelCTA stage="evaluation" guide="erp" source="/industrypage/" />
+</main>
  <Footer />
  </>
  );

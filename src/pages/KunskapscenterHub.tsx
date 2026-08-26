@@ -1,4 +1,5 @@
 import { Link, Navigate } from "react-router-dom";
+import FunnelCTA from "@/components/FunnelCTA";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import Navbar from "@/components/Navbar";
@@ -241,7 +242,9 @@ const KunskapscenterHub = ({ slug }: Props) => {
             </Link>
           </div>
         </div>
-      </main>
+      
+<FunnelCTA stage="early" guide="erp" source="/kunskapscenterhub/" />
+</main>
       <Footer />
     </>
   );

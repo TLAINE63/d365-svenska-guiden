@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import FunnelCTA from "@/components/FunnelCTA";
 import PageOfferBanner from "@/components/PageOfferBanner";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -287,7 +288,9 @@ export default function Kostnad() {
         </section>
 
         <CostContactForm />
-      </main>
+      
+<FunnelCTA stage="early" guide="erp" source="/kostnad/" />
+</main>
 
       <section className="py-8">
         <div className="container mx-auto px-4 max-w-6xl">
