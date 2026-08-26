@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { trackPartnerImpression, trackPartnerEvent } from "@/utils/trackPartnerEvent";
 import { swedishPossessive } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
