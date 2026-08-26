@@ -39,6 +39,8 @@ import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 
 import { useTrackFilterExposure } from "@/hooks/useTrackFilterExposure";
+import { trackPartnerEvent } from "@/utils/trackPartnerEvent";
+import ShortlistButton from "@/components/ShortlistButton";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import {
   AiProfile,
@@ -249,6 +251,12 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
             Verifierad partner
           </span>
         )}
+        <ShortlistButton
+          entry={{ slug: partner.slug, name: partner.name, url: `/partner/${partner.slug}` }}
+          variant="full"
+          className="mt-2"
+        />
+
         <button
           onClick={onClear}
           className="absolute top-0 right-0 text-slate-600 hover:text-slate-900 shrink-0 p-1"
@@ -1354,6 +1362,24 @@ const ComparePartners = () => {
     },
     enabled: !isLoading && comparedPartners.length >= 2,
   });
+
+  // Nivå 1 – exponering: partnern visas i en aktiv partnerjämförelse.
+  useEffect(() => {
+    if (isLoading || comparedPartners.length < 2) return;
+    comparedPartners.forEach((p, i) => {
+      trackPartnerEvent({
+        event: "partner_comparison_impression",
+        partnerSlug: p.slug,
+        partnerId: p.id,
+        metadata: {
+          position: i + 1,
+          compared_count: comparedPartners.length,
+          product: productFilters.join(",") || null,
+          industry: industryFilter || null,
+        },
+      });
+    });
+  }, [isLoading, comparedPartners, productFilters, industryFilter]);
 
 
   
