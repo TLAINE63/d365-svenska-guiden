@@ -19,11 +19,29 @@ import { useToast } from "@/hooks/use-toast";
 import { Bot, Loader2, Plus, RefreshCw, Sparkles, Trash2 } from "lucide-react";
 
 interface AiVisibilityData {
-  totals: { aiVisits365: number; aiVisits30: number; crawlerHits365: number };
+  totals: {
+    aiVisits365: number;
+    aiVisits30: number;
+    crawlerHits365: number;
+    serverCrawlerHits30?: number;
+    serverCrawlerHits365?: number;
+    serverCrawlerBots30?: number;
+  };
   byMonth: { month: string; total: number; bySource: Record<string, number> }[];
   bySource: { id: string; label: string; visits: number; uniqueVisitors: number }[];
   landingPages: { path: string; views: number }[];
   crawlers: { id: string; label: string; hits: number; lastSeen: string }[];
+  serverCrawlers?: {
+    id: string;
+    label: string;
+    hits7: number;
+    hits30: number;
+    hits90: number;
+    hits365: number;
+    lastSeen: string;
+  }[];
+  serverCrawlerMonths?: { month: string; hits: number }[];
+  serverCrawlerPaths?: { path: string; hits: number }[];
   citations: CitationRow[];
   citationTrend: { month: string; checks: number; mentions: number }[];
 }
@@ -192,6 +210,98 @@ export default function AdminAiVisibilityTab({ token, onSessionExpired }: Props)
           </CardContent>
         </Card>
       </div>
+
+      {/* Serverlogg: AI-crawlers */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base flex items-center gap-2">
+            <Bot className="h-4 w-4 text-primary" /> AI-crawlers (serverlogg)
+          </CardTitle>
+          <CardDescription>
+            Serverside-mätning av vilka AI-robotar som hämtar sajten. Mäts via våra sensor-URL:er
+            (sitemap-index i robots.txt och den maskinläsbara llms.txt-ingången) – robotar kör ingen
+            JavaScript och syns därför inte i vanlig besöksstatistik. Enskilda sidhämtningar direkt
+            från hostingen ingår inte.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid gap-4 sm:grid-cols-3">
+            <div className="rounded-lg border p-3">
+              <div className="text-xs text-muted-foreground">Hämtningar (30 dagar)</div>
+              <div className="text-2xl font-bold">{data?.totals.serverCrawlerHits30 ?? 0}</div>
+            </div>
+            <div className="rounded-lg border p-3">
+              <div className="text-xs text-muted-foreground">Aktiva robotar (30 dagar)</div>
+              <div className="text-2xl font-bold">{data?.totals.serverCrawlerBots30 ?? 0}</div>
+            </div>
+            <div className="rounded-lg border p-3">
+              <div className="text-xs text-muted-foreground">Hämtningar (12 månader)</div>
+              <div className="text-2xl font-bold">{data?.totals.serverCrawlerHits365 ?? 0}</div>
+            </div>
+          </div>
+
+          {data?.serverCrawlers?.length ? (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Robot</TableHead>
+                  <TableHead className="text-right">7 dgr</TableHead>
+                  <TableHead className="text-right">30 dgr</TableHead>
+                  <TableHead className="text-right">90 dgr</TableHead>
+                  <TableHead className="text-right">Senast</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.serverCrawlers.map((b) => (
+                  <TableRow key={b.id}>
+                    <TableCell className="font-medium">{b.label}</TableCell>
+                    <TableCell className="text-right">{b.hits7}</TableCell>
+                    <TableCell className="text-right">{b.hits30}</TableCell>
+                    <TableCell className="text-right">{b.hits90}</TableCell>
+                    <TableCell className="text-right text-xs text-muted-foreground">
+                      {b.lastSeen ? b.lastSeen.slice(0, 10).replace(/-/g, "/") : "–"}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ) : (
+            <p className="text-sm text-muted-foreground">
+              Inga robothämtningar loggade ännu. Mätningen startar när ändringen är publicerad och
+              robotarna hämtar robots.txt nästa gång (vanligtvis inom några dygn).
+            </p>
+          )}
+
+          {data?.serverCrawlerMonths?.length ? (
+            <div>
+              <h4 className="text-sm font-semibold mb-2">Trend per månad</h4>
+              <div className="flex flex-wrap gap-2">
+                {data.serverCrawlerMonths.map((m) => (
+                  <Badge key={m.month} variant="secondary">
+                    {m.month}: {m.hits}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {data?.serverCrawlerPaths?.length ? (
+            <div>
+              <h4 className="text-sm font-semibold mb-2">Mest hämtade sensor-URL:er</h4>
+              <ul className="text-sm text-muted-foreground space-y-1">
+                {data.serverCrawlerPaths.map((p) => (
+                  <li key={p.path} className="flex justify-between gap-4">
+                    <span className="truncate">{p.path}</span>
+                    <span className="font-medium text-foreground">{p.hits}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+        </CardContent>
+      </Card>
+
+
 
       {/* Källor */}
       <div className="grid gap-4 lg:grid-cols-2">

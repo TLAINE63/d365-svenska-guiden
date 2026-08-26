@@ -88,3 +88,6 @@ verify_jwt = false
 
 [functions.manage-404-log]
 verify_jwt = false
+
+[functions.crawler-log]
+verify_jwt = false

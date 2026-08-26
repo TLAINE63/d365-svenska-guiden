@@ -133,3 +133,7 @@ Disallow: /partner-avtal
 
 # Sitemap (canonical non-www host – matches sitemap entries and what GSC actually fetches without redirect)
 Sitemap: https://d365.se/sitemap.xml
+
+# Sitemap-index (samma innehåll, serveras dynamiskt – används för att mäta robotaktivitet)
+Sitemap: https://vnvphfrrmoaskiwlspeo.supabase.co/functions/v1/crawler-log?r=sitemap
+

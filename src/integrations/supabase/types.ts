@@ -165,6 +165,39 @@ export type Database = {
           },
         ]
       }
+      crawler_hits: {
+        Row: {
+          bot_id: string
+          bot_label: string
+          hit_at: string
+          id: string
+          ip_prefix: string | null
+          path: string | null
+          referrer: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          bot_id: string
+          bot_label: string
+          hit_at?: string
+          id?: string
+          ip_prefix?: string | null
+          path?: string | null
+          referrer?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          bot_id?: string
+          bot_label?: string
+          hit_at?: string
+          id?: string
+          ip_prefix?: string | null
+          path?: string | null
+          referrer?: string | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       d365_video_ingest_state: {
         Row: {
           id: number
