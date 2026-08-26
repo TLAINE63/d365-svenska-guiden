@@ -1,4 +1,5 @@
 import { lazy, Suspense, useState } from "react";
+import FunnelCTA from "@/components/FunnelCTA";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -860,7 +861,9 @@ const Index = () => {
         </section>
 
         {/* Transparensblocket ligger som SECTION 5 högre upp – undvik dubblering här. */}
-      </main>
+      
+<FunnelCTA stage="early" guide="erp" source="/index/" />
+</main>
       <Suspense fallback={null}><ScrollCTA /></Suspense>
       
       <Footer />

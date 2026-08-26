@@ -1,4 +1,5 @@
 import ProductIsvSection from "@/components/ProductIsvSection";
+import FunnelCTA from "@/components/FunnelCTA";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
 import RelevantVideosSection from "@/components/RelevantVideosSection";
 import RelatedPages, { bcRelatedPages } from "@/components/RelatedPages";
@@ -878,7 +879,9 @@ const BusinessCentral = () => {
  </section>
  <ProductIsvSection product="Business Central" />
 
- </main>
+ 
+<FunnelCTA stage="early" guide="erp" source="/businesscentral/" />
+</main>
  <Footer />
  </div>
  );

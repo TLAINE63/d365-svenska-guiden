@@ -4,6 +4,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { PartnerCompareProvider } from "@/contexts/PartnerCompareContext";
+import { ShortlistProvider } from "@/contexts/ShortlistContext";
+
 import PartnerCompareBar from "@/components/PartnerCompareBar";
 import ScrollToTop from "@/components/ScrollToTop";
 import TrailingSlashRedirect from "@/components/TrailingSlashRedirect";
@@ -47,6 +49,9 @@ const ContactUs = lazy(() => import("./pages/ContactUs"));
 const OmThomasLaine = lazy(() => import("./pages/OmThomasLaine"));
 const OmMichaelUhman = lazy(() => import("./pages/OmMichaelUhman"));
 const ValjPartner = lazy(() => import("./pages/ValjPartner"));
+const BuyerGuide2026 = lazy(() => import("./pages/BuyerGuide2026"));
+const Shortlist = lazy(() => import("./pages/Shortlist"));
+
 const AllD365Partners = lazy(() => import("./pages/AllD365Partners"));
 const PartnersPerBransch = lazy(() => import("./pages/PartnersPerBransch"));
 const ProductPartnersSverige = lazy(() => import("./pages/ProductPartnersSverige"));
@@ -182,7 +187,11 @@ const AppShell = () => {
           <Route path="/om-michael-uhman" element={<OmMichaelUhman />} />
           
           <Route path="/valjdynamics365partner" element={<ValjPartner />} />
+          <Route path="/erp-koparguiden-2026" element={<BuyerGuide2026 variant="erp" />} />
+          <Route path="/crm-koparguiden-2026" element={<BuyerGuide2026 variant="crm" />} />
+          <Route path="/shortlist" element={<Shortlist />} />
           <Route path="/valj-partner" element={<Navigate to="/valjdynamics365partner" replace />} />
+
           <Route path="/valj-partner/*" element={<Navigate to="/valjdynamics365partner" replace />} />
           <Route path="/alla-d365-partners" element={<AllD365Partners />} />
           <Route path="/partners-per-bransch" element={<PartnersPerBransch />} />
@@ -354,10 +363,12 @@ const App = () => (
       </Suspense>
       <BrowserRouter>
         <PartnerCompareProvider>
-          <AppShell />
-          <PartnerCompareBar />
-          
+          <ShortlistProvider>
+            <AppShell />
+            <PartnerCompareBar />
+          </ShortlistProvider>
         </PartnerCompareProvider>
+
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

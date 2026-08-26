@@ -1,4 +1,5 @@
 import { useIndustryDeepLink } from "@/hooks/useIndustryDeepLink";
+import FunnelCTA from "@/components/FunnelCTA";
 import ProductHero from "@/components/ProductHero";
 import PageOfferBanner from "@/components/PageOfferBanner";
 import ShortAnswer from "@/components/ShortAnswer";
@@ -588,7 +589,9 @@ const CRM = () => {
    </div>
  </section>
  <RelevantVideosSection productGroups={["crm-sales", "crm-service", "customer-insights"]} title="Videor om Dynamics 365 CRM" />
- </main>
+ 
+<FunnelCTA stage="early" guide="crm" source="/crm/" />
+</main>
  <Footer />
  </div>
  );

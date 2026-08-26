@@ -26,6 +26,8 @@ import AIOverview from './pages/AIOverview';
 import AIReadiness from './pages/AIReadiness';
 import ContactUs from './pages/ContactUs';
 import ValjPartner from './pages/ValjPartner';
+import BuyerGuide2026 from './pages/BuyerGuide2026';
+
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import NeedsAnalysis from './pages/NeedsAnalysis';
 import SalesMarketingNeedsAnalysis from './pages/SalesMarketingNeedsAnalysis';
@@ -167,6 +169,9 @@ export const routes: PrerenderRoute[] = [
   // so Google re-crawls the updated titles/H1/meta after the cannibalization fix.
   { path: '/', priority: '1.0', changefreq: 'weekly', lastmod: '2026-05-19' },
   { path: '/valjdynamics365partner', priority: '1.0', changefreq: 'weekly' },
+  { path: '/erp-koparguiden-2026', priority: '0.9', changefreq: 'monthly' },
+  { path: '/crm-koparguiden-2026', priority: '0.9', changefreq: 'monthly' },
+
   { path: '/erp', priority: '0.9', changefreq: 'weekly', lastmod: '2026-06-26' },
   // /affarssystem är konsoliderad in i /erp (301-redirect via Affarssystem.tsx)
 
@@ -469,6 +474,9 @@ export function render(url: string) {
               <Route path="/ai-readiness" element={<AIReadiness />} />
               <Route path="/kontakt" element={<ContactUs />} />
               <Route path="/valjdynamics365partner" element={<ValjPartner />} />
+              <Route path="/erp-koparguiden-2026" element={<BuyerGuide2026 variant="erp" />} />
+              <Route path="/crm-koparguiden-2026" element={<BuyerGuide2026 variant="crm" />} />
+
               <Route path="/valj-partner" element={<Navigate to="/valjdynamics365partner" replace />} />
               <Route path="/AI-sok" element={<SmartSearch />} />
               <Route path="/AIsok" element={<Navigate to="/AI-sok" replace />} />

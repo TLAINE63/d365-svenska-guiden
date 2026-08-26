@@ -11,6 +11,8 @@ import {
 import { BASIC_PROFILE_DISCLAIMER } from "@/components/BasicPartnerBadge";
 import BasicPartnerInquiryDialog from "@/components/BasicPartnerInquiryDialog";
 import { Button } from "@/components/ui/button";
+import ShortlistButton from "@/components/ShortlistButton";
+
 
 interface PartnerBasicCardProps {
   partner: BasicPartner;
@@ -156,7 +158,17 @@ export function PartnerBasicCard({
           <Mail className="mr-1.5 h-3.5 w-3.5" aria-hidden />
           {BASIC_COPY.buyerGuidanceCta}
         </Button>
+        <ShortlistButton
+          className="mt-3"
+          entry={{
+            slug: partner.slug,
+            name: partner.name,
+            url: `/basic/${partner.slug}/`,
+            verified: false,
+          }}
+        />
       </div>
+
 
       <BasicPartnerInquiryDialog
         open={inquiryOpen}

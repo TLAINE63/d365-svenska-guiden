@@ -1,4 +1,5 @@
 import ProductIsvSection from "@/components/ProductIsvSection";
+import FunnelCTA from "@/components/FunnelCTA";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
 import ProductHero from "@/components/ProductHero";
 import StandardProductSections from "@/components/product/StandardProductSections";
@@ -335,7 +336,9 @@ const D365Sales = () => {
       <RelatedPages pages={salesRelatedPages} heading="Utforska vidare" />
       <ProductIsvSection product="Sales" />
 
-      </main>
+      
+<FunnelCTA stage="early" guide="crm" source="/d365sales/" />
+</main>
       <Footer />
     </div>
   );
