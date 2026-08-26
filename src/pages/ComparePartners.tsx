@@ -39,6 +39,7 @@ import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 
 import { useTrackFilterExposure } from "@/hooks/useTrackFilterExposure";
+import { trackPartnerEvent } from "@/utils/trackPartnerEvent";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import {
   AiProfile,
