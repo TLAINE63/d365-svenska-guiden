@@ -14,7 +14,7 @@ export interface ReportStat {
 
 export const REPORT_STATS: ReportStat[] = [
   {
-    label: "Identifierade partners",
+    label: "Övriga partners",
     value: 84,
     note: "Företag som aktivt levererar Dynamics 365 på den svenska marknaden.",
     group: "overblick",
@@ -100,11 +100,12 @@ export const REPORT_FAQ = [
   },
   {
     q: "Vilka datakällor används i kartläggningen?",
-    a: "Kartläggningen bygger på tre typer av källor: (1) Microsofts officiella partnerkatalog och lösningsregister, (2) publika källor som företagssajter, årsredovisningar, pressmeddelanden och LinkedIn, samt (3) uppgifter som partners själva lämnar när de verifierar sin profil på d365.se. För verifierade partners väger vi självrapporterad information högst eftersom den är granskad och godkänd av partnern. För identifierade partners bygger vi på externa källor och observation av faktiska leveranser på marknaden.",
+    a: "Kartläggningen bygger på tre typer av källor: (1) Microsofts officiella partnerkatalog och lösningsregister, (2) publika källor som företagssajter, årsredovisningar, pressmeddelanden och LinkedIn, samt (3) uppgifter som partners själva lämnar när de verifierar sin profil på d365.se. För verifierade partners väger vi självrapporterad information högst eftersom den är granskad och godkänd av partnern. För övriga partners bygger vi på externa källor och observation av faktiska leveranser på marknaden.",
   },
   {
-    q: "Vad är skillnaden mellan identifierade och verifierade partners?",
-    a: "Identifierade partners är företag som d365.se har kartlagt utifrån publika källor och som bedöms leverera Dynamics 365 i Sverige. Verifierade partners har därtill gått in på d365.se, granskat sin profil, fyllt i leveransprofil per produktområde, uppgivit referenser och bekräftat sin AI-erfarenhet. Endast verifierade partners kan kontaktas direkt via plattformen; för identifierade partners sker kontakt genom d365.se som mellanhand.",
+    q: "Vad är skillnaden mellan övriga och verifierade partners?",
+    a: "Övriga partners är företag som d365.se har kartlagt utifrån publika källor och som bedöms leverera Dynamics 365 i Sverige. Verifierade partners har därtill gått in på d365.se, granskat sin profil, fyllt i leveransprofil per produktområde, uppgivit referenser och bekräftat sin AI-erfarenhet. Endast verifierade partners kan kontaktas direkt via plattformen; för övriga partners sker kontakt genom d365.se som mellanhand.",
+
   },
   {
     q: "Hur räknas en partner in i ett produktområde?",

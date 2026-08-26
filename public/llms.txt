@@ -86,7 +86,7 @@ d365.se ger rådgivning där vi står på köparens sida. Vi är fristående fr�
 
 - [Maskinläsbart partnerdataset (JSON)](https://d365.se/partner-data.json): Alla verifierade Dynamics 365-partners i Sverige med produktområden, branscher, kontorsorter och storlek. Endast publika uppgifter. Uppdateras vid varje publicering.
 - [Svenska Dynamics 365-partnermarknaden 2026](https://d365.se/rapporter/dynamics-365-partnersverige-2026/): Marknadsrapport med metodbeskrivning och källhänvisning (avsnittet "Metod och så här citerar du rapporten"). Rekommenderad citering: d365.se (2026). Svenska Dynamics 365-partnermarknaden 2026.
-- [Alla identifierade partners](https://d365.se/alla-d365-partners/): Bredare lista över Dynamics 365-partners på den svenska marknaden.
+- [Alla övriga partners](https://d365.se/alla-d365-partners/): Bredare lista över Dynamics 365-partners på den svenska marknaden.
 - [Videobibliotek](https://d365.se/kunskapscenter/videor): Kurerade Dynamics 365-videor per produktområde.
 - [Ägande och intressen](https://d365.se/agande-och-intressen): Öppen redovisning av ekonomiska intressen och närstående partners.
 

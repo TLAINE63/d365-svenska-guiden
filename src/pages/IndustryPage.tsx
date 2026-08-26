@@ -686,8 +686,9 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
   <div className="mt-10 border-t border-dashed border-border pt-8">
    <h3 className="text-lg md:text-xl font-bold text-foreground mb-2">
     {matchingBasicPartners.length === 1
-     ? "1 identifierad partner"
-     : `${matchingBasicPartners.length} identifierade partners`}{" "}
+     ? "1 övrig partner"
+     : `${matchingBasicPartners.length} övriga partners`}{" "}
+
     inom {industryName}
    </h3>
    <p className="text-sm text-muted-foreground mb-5 max-w-3xl">
