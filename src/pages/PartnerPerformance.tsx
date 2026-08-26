@@ -76,6 +76,7 @@ interface GscTotals {
 interface SearchConsoleData {
   available: boolean;
   property: string;
+  days: number;
   period: { start: string; end: string };
   current: GscTotals;
   previous: GscTotals;
@@ -141,6 +142,8 @@ export default function PartnerPerformance() {
   const [data, setData] = useState<Data | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [gscDays, setGscDays] = useState<7 | 28 | 90>(28);
+  const [gscLoading, setGscLoading] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -152,7 +155,7 @@ export default function PartnerPerformance() {
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ token }),
+            body: JSON.stringify({ token, gscDays }),
           },
         );
         const json = await res.json();
@@ -172,7 +175,53 @@ export default function PartnerPerformance() {
     return () => {
       cancelled = true;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
+
+  // Hämta bara om Search Console-delen när tidsintervallet ändras
+  useEffect(() => {
+    if (!token || !data) return;
+    if (data.searchConsole?.days === gscDays) return;
+    let cancelled = false;
+    const loadGsc = async () => {
+      setGscLoading(true);
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-performance`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token, gscDays }),
+          },
+        );
+        const json = await res.json();
+        if (cancelled || !res.ok) return;
+        setData((prev) => {
+          if (!prev) return prev;
+          const gscKpis = ((json as Data).kpis ?? []).filter((k) =>
+            k.key.startsWith("gsc"),
+          );
+          return {
+            ...prev,
+            searchConsole: (json as Data).searchConsole ?? null,
+            kpis: [
+              ...prev.kpis.filter((k) => !k.key.startsWith("gsc")),
+              ...gscKpis,
+            ],
+          };
+        });
+      } catch {
+        /* behåll befintlig data vid fel */
+      } finally {
+        if (!cancelled) setGscLoading(false);
+      }
+    };
+    void loadGsc();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gscDays, token]);
 
   const chartData = useMemo(
     () =>
