@@ -23,12 +23,16 @@ const BOTS: { id: string; label: string; match: string[] }[] = [
   { id: "youbot", label: "YouBot (You.com)", match: ["youbot"] },
   { id: "petalbot", label: "PetalBot (Huawei)", match: ["petalbot"] },
   { id: "timpibot", label: "Timpibot", match: ["timpibot"] },
+  // Brave Search – deklarerar normalt ingen egen UA men matchas om den gör det
+  { id: "bravebot", label: "Brave Search", match: ["bravebot", "brave-search", "bravesearch"] },
   // Klassiska sökrobotar – med som jämförelse
   { id: "googlebot", label: "Googlebot", match: ["googlebot"] },
   { id: "bingbot", label: "Bingbot", match: ["bingbot", "adidxbot"] },
   { id: "duckduckbot", label: "DuckDuckBot", match: ["duckduckbot", "duckassistbot"] },
   { id: "yandexbot", label: "YandexBot", match: ["yandexbot"] },
+  { id: "seznambot", label: "SeznamBot", match: ["seznambot"] },
 ];
+
 
 function classifyBot(ua: string): { id: string; label: string } {
   const u = (ua || "").toLowerCase();
