@@ -44,6 +44,38 @@ const honestFacts = [
 // ERP FAQs for schema – priser hämtas från product_prices via resolvePriceTokens
 const erpFaqsRaw = [
  {
+ question: "Vad står ERP för?",
+ answer: "ERP står för Enterprise Resource Planning, på svenska affärssystem eller verksamhetssystem. Begreppet betyder att företagets resurser – ekonomi, lager, inköp, försäljning, produktion och personal – planeras och följs upp i ett och samma system med en gemensam databas."
+ },
+ {
+ question: "Vad är ett ERP-system?",
+ answer: "Ett ERP-system är den programvara som håller ihop företagets kärnprocesser i en gemensam databas: kundorder, inköp, lagersaldon, tillverkning, projekt och redovisning uppdateras i samma flöde. Microsofts ERP-system heter Dynamics 365 Business Central (mindre och medelstora bolag) samt Dynamics 365 Finance & Supply Chain Management (större koncerner)."
+ },
+ {
+ question: "Vad är skillnaden mellan ERP och affärssystem?",
+ answer: "Ingen – det är samma sak. ERP är den engelska förkortningen (Enterprise Resource Planning) och affärssystem är den svenska termen. I svenska upphandlingar används orden omväxlande. Skillnaden du behöver bry dig om är i stället mellan ett ekonomisystem (bokföring och fakturering) och ett fullt affärssystem som även täcker lager, produktion, projekt och service."
+ },
+ {
+ question: "Hur väljer man affärssystem?",
+ answer: "I fyra steg: 1) Kartlägg dina processer och vilka av dem som verkligen skiljer dig från konkurrenterna. 2) Skriv en kravspecifikation där kraven är rangordnade – måste, bör, trevligt. 3) Utvärdera 2–3 system mot kraven med demo på din egen data, inte på leverantörens standardexempel. 4) Utvärdera partnern lika hårt som systemet: branscherfarenhet, teamstorlek, förvaltningsmodell och referenser du får ringa upp. På d365.se kan du göra en kostnadsfri behovsanalys och sedan jämföra partners utan att bli kontaktad av säljare i onödan."
+ },
+ {
+ question: "Vilket affärssystem är bäst?",
+ answer: "Det finns inget affärssystem som är bäst för alla – frågan är vilket som passar din processprofil, storlek och bransch. Villkoren avgör: har du 5–300 användare och behöver ekonomi, lager, projekt och enklare tillverkning är Business Central oftast rätt nivå. Har du flera juridiska enheter, global supply chain och avancerad tillverkning är Finance & Supply Chain Management rätt nivå. Har du huvudsakligen bokföring och fakturering räcker ofta ett ekonomisystem. Vi rankar inte leverantörer generellt, eftersom ett sådant påstående inte går att belägga."
+ },
+ {
+ question: "Vad ska ett affärssystem innehålla?",
+ answer: "Grundmodulerna är redovisning och reskontror, kund- och leverantörshantering, order och fakturering, lager och inköp samt rapportering. Beroende på verksamhet tillkommer produktion (MRP och kapacitetsplanering), projektredovisning, service och fältservice, e-handelsintegration, EDI och e-faktura samt behörighets- och attestflöden. Ta också med tekniska krav: integration mot befintliga system, dataexport, spårbarhet och stöd för svenska regelverk."
+ },
+ {
+ question: "Vad kostar ett affärssystem?",
+ answer: "Kostnaden består av tre delar: licens per användare och månad, ett engångspris för implementering och en löpande förvaltningskostnad. För Microsofts ERP är licensen {{price:bc-essentials:short}} för Business Central Essentials, {{price:bc-premium:short}} för Premium och ca {{price:finance:short}} för Dynamics 365 Finance. Implementeringen ligger typiskt på 100 000–250 000 kr för ett litet Business Central-projekt, 250 000–800 000 kr för ett normalstort och 1–5 MSEK för ett Finance & Supply Chain-projekt. Räkna dessutom med 10–20 % av projektkostnaden per år för förvaltning och vidareutveckling."
+ },
+ {
+ question: "Vilket ERP-system passar för entreprenadföretag?",
+ answer: "Entreprenad- och byggföretag behöver projektredovisning med successiv vinstavräkning, ÄTA-hantering, tidrapportering per projekt, maskin- och materialhantering samt uppföljning per arbetsorder. Business Central täcker detta med projektmodulen och ett branschtillägg – i Sverige används bland annat lösningar byggda på Business Central för bygg och installation. Större entreprenadkoncerner med många juridiska enheter hamnar oftare i Finance & Supply Chain Management. Vilket som passar dig avgörs av antal samtidiga projekt, hur mycket egen produktion du har och om du behöver konsolidera flera bolag."
+ },
+ {
  question: "Vilket ERP system passar bäst i Sverige – jämförelse Business Central vs Finance & SCM?",
  answer: "ERP system jämförelse Sverige: Business Central är bäst för företag med 5–300 användare och omsättning under 1–2 miljarder – det täcker ekonomi, lager, försäljning och produktion i ett kostnadseffektivt molnsystem. Dynamics 365 Finance & Supply Chain Management (F&SCM) passar stora internationella koncerner med komplexa regulatoriska krav, multinationell ekonomistyrning och avancerad supply chain. Huvudskillnad: BC kostar {{price:bc-essentials:short}} vs F&SCM ca {{price:finance:short}} per användare."
  },
