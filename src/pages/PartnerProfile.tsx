@@ -157,6 +157,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   const [videoOpen, setVideoOpen] = useState(false);
   const [activeTabProduct, setActiveTabProduct] = useState<string | null>(null);
   const [activeTabKey, setActiveTabKey] = useState<TabKey>(initialTabKey);
+  const { toggle: compareToggle, isSelected: compareSelected } = usePartnerCompare();
   const [requestOpen, setRequestOpen] = useState(false);
   const [requestMode, setRequestMode] = useState<"contact" | "demo" | "quote">("quote");
 
