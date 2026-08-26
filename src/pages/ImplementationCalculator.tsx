@@ -120,14 +120,9 @@ export default function ImplementationCalculator() {
     ],
   );
 
-  const toggleSolution = (key: SolutionKey) => {
-    setSolutions((prev) =>
-      prev.includes(key)
-        ? prev.length === 1
-          ? prev
-          : prev.filter((k) => k !== key)
-        : [...prev, key],
-    );
+  // Endast en produkt åt gången kan väljas
+  const selectSolution = (key: SolutionKey) => {
+    setSolutions([key]);
   };
 
   const partnerProducts = useMemo(
@@ -241,10 +236,10 @@ export default function ImplementationCalculator() {
                   <div>
                     <h2 className="text-lg font-semibold text-foreground mb-1 flex items-center gap-2">
                       <Layers className="h-5 w-5 text-accent" aria-hidden="true" />
-                      Vilka lösningar ska införas?
+                      Vilken lösning ska införas?
                     </h2>
                     <p className="text-sm text-muted-foreground mb-3">
-                      Välj en eller flera. Fler lösningar samtidigt ger viss stordriftsfördel.
+                      Välj en Dynamics 365-produkt för att få en skärpt prisuppskattning.
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {SOLUTIONS.map((s) => {
@@ -253,7 +248,7 @@ export default function ImplementationCalculator() {
                           <button
                             key={s.key}
                             type="button"
-                            onClick={() => toggleSolution(s.key)}
+                            onClick={() => selectSolution(s.key)}
                             aria-pressed={active}
                             className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                               active
@@ -634,7 +629,7 @@ export default function ImplementationCalculator() {
                   threeYearTotal: result.threeYearTotal,
                 }}
                 onLoad={(i) => {
-                  setSolutions(i.solutions);
+                  setSolutions(i.solutions.length ? [i.solutions[0]] : ["bc"]);
                   setUsers(i.users);
                   setPremiumLicense(i.premiumLicense);
                   setComplexity(i.complexity);
