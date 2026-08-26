@@ -51,6 +51,7 @@ import { PartnerOrganizationSchema, BreadcrumbSchema } from "@/components/Struct
 import { buildMetaTitle } from "@/lib/metaTitle";
 import { buildMetaDescription } from "@/lib/metaDescription";
 import { trackPartnerView } from "@/utils/trackPartnerView";
+import { trackPartnerEvent, isReturningVisitorForPartner } from "@/utils/trackPartnerEvent";
 
 
 // Map application names to product categories
