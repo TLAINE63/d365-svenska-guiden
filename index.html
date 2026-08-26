@@ -48,11 +48,16 @@
             "profileId": "sisWjf3iiU"
           });
           }
-          if (document.readyState === 'complete') {
-            setTimeout(startSnitcher, 1200);
-          } else {
-            window.addEventListener('load', function () { setTimeout(startSnitcher, 1200); });
+          // Starta först vid användarinteraktion (eller efter 6s) så att
+          // huvudtråden är fri under första renderingen – minskar Total Blocking Time.
+          var evts = ['pointerdown', 'keydown', 'scroll', 'touchstart'];
+          function kick() {
+            evts.forEach(function (e) { window.removeEventListener(e, kick); });
+            startSnitcher();
           }
+          evts.forEach(function (e) { window.addEventListener(e, kick, { once: true, passive: true }); });
+          setTimeout(kick, 6000);
+
         } catch (e) {}
       })();
     </script>
