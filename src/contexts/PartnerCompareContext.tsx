@@ -73,6 +73,11 @@ export const PartnerCompareProvider = ({ children }: { children: ReactNode }) =>
         event_name: "partner_compare_add",
         metadata: { partner_slug: entry.slug },
       });
+      trackPartnerEvent({
+        event: "partner_added_to_comparison",
+        partnerSlug: entry.slug,
+        metadata: { position: prev.length + 1 },
+      });
       if (prev.length >= MAX) {
         // Replace oldest (FIFO) so user can keep switching
         return [...prev.slice(1), entry];
