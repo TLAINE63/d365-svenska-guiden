@@ -11,6 +11,7 @@ export default function AskAi() {
         <title>Fråga AI om Dynamics 365 – d365.se</title>
         <meta name="description" content="Ställ en fri fråga om Microsoft Dynamics 365, Copilot, AI-agenter eller hur du hittar rätt partner. Neutral AI-assistent som står på köparens sida." />
         <meta name="robots" content="noindex, follow" />
+        <link rel="canonical" href="https://d365.se/fraga-ai/" />
       </Helmet>
       <Navbar />
       <main className="flex-1 container mx-auto px-4 pt-28 pb-12 max-w-3xl w-full flex flex-col">

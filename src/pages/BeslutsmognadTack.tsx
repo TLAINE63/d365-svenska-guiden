@@ -20,6 +20,7 @@ export default function BeslutsmognadTack() {
       <Helmet>
         <title>Tack · Beslutsmognadsindex | d365.se</title>
         <meta name="robots" content="noindex,nofollow" />
+        <link rel="canonical" href="https://d365.se/beslutsmognad/tack/" />
       </Helmet>
       <TopBar />
 

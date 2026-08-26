@@ -77,6 +77,7 @@ export default function TackNedladdning() {
       <Helmet>
         <title>Tack – ditt underlag är på väg | d365.se</title>
         <meta name="robots" content="noindex,nofollow" />
+        <link rel="canonical" href="https://d365.se/tack-nedladdning/" />
       </Helmet>
       <Navbar />
 

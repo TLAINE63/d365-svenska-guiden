@@ -54,6 +54,7 @@ export default function SmartSearch() {
         <title>AI-sök – hitta rätt på d365.se</title>
         <meta name="description" content="Beskriv ditt behov i naturligt språk så hjälper vår AI dig att hitta rätt sida, produkt eller partner inom Microsoft Dynamics 365." />
         <meta name="robots" content="noindex, follow" />
+        <link rel="canonical" href="https://d365.se/AI-sok/" />
       </Helmet>
       <Navbar />
       <main className="container mx-auto px-4 pt-28 pb-12 max-w-3xl">

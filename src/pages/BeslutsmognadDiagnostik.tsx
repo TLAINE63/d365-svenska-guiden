@@ -487,6 +487,7 @@ export default function BeslutsmognadDiagnostik() {
       <Helmet>
         <title>Diagnostik · Beslutsmognadsindex | d365.se</title>
         <meta name="robots" content="noindex,nofollow" />
+        <link rel="canonical" href="https://d365.se/beslutsmognad/diagnostik/" />
       </Helmet>
 
       <TopStrip

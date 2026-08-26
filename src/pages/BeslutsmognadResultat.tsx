@@ -94,6 +94,7 @@ export default function BeslutsmognadResultat() {
       <Helmet>
         <title>Ditt resultat · Beslutsmognadsindex | d365.se</title>
         <meta name="robots" content="noindex,nofollow" />
+        <link rel="canonical" href="https://d365.se/beslutsmognad/resultat/" />
       </Helmet>
       <TopBar />
 
