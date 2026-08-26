@@ -7,8 +7,12 @@ import { Link } from "react-router-dom";
 import CostBreakdown from "@/components/CostBreakdown";
 import CostProjectExamples from "@/components/CostProjectExamples";
 import CostContactForm from "@/components/CostContactForm";
+import LicenseCostTable from "@/components/LicenseCostTable";
+import QuickQuoteEstimator from "@/components/QuickQuoteEstimator";
+import { Price } from "@/components/Price";
 import { costBreakdowns } from "@/data/costBreakdown";
 import SourceNote from "@/components/SourceNote";
+
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
