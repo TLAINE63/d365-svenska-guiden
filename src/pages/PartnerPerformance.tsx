@@ -76,6 +76,7 @@ interface GscTotals {
 interface SearchConsoleData {
   available: boolean;
   property: string;
+  days: number;
   period: { start: string; end: string };
   current: GscTotals;
   previous: GscTotals;
@@ -141,6 +142,8 @@ export default function PartnerPerformance() {
   const [data, setData] = useState<Data | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [gscDays, setGscDays] = useState<7 | 28 | 90>(28);
+  const [gscLoading, setGscLoading] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -152,7 +155,7 @@ export default function PartnerPerformance() {
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ token }),
+            body: JSON.stringify({ token, gscDays }),
           },
         );
         const json = await res.json();
@@ -172,7 +175,53 @@ export default function PartnerPerformance() {
     return () => {
       cancelled = true;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
+
+  // Hämta bara om Search Console-delen när tidsintervallet ändras
+  useEffect(() => {
+    if (!token || !data) return;
+    if (data.searchConsole?.days === gscDays) return;
+    let cancelled = false;
+    const loadGsc = async () => {
+      setGscLoading(true);
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-performance`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token, gscDays }),
+          },
+        );
+        const json = await res.json();
+        if (cancelled || !res.ok) return;
+        setData((prev) => {
+          if (!prev) return prev;
+          const gscKpis = ((json as Data).kpis ?? []).filter((k) =>
+            k.key.startsWith("gsc"),
+          );
+          return {
+            ...prev,
+            searchConsole: (json as Data).searchConsole ?? null,
+            kpis: [
+              ...prev.kpis.filter((k) => !k.key.startsWith("gsc")),
+              ...gscKpis,
+            ],
+          };
+        });
+      } catch {
+        /* behåll befintlig data vid fel */
+      } finally {
+        if (!cancelled) setGscLoading(false);
+      }
+    };
+    void loadGsc();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gscDays, token]);
 
   const chartData = useMemo(
     () =>
@@ -252,7 +301,10 @@ export default function PartnerPerformance() {
                           )}
                           <span style={{ color: positive ? CTA : "#64748b" }}>
                             {positive ? "+" : ""}
-                            {kpi.change}% mot föregående månad
+                            {kpi.change}%{" "}
+                            {kpi.key.startsWith("gsc")
+                              ? `mot föregående ${gscDays} dagar`
+                              : "mot föregående månad"}
                           </span>
                         </>
                       )}
@@ -265,12 +317,41 @@ export default function PartnerPerformance() {
             {/* Google Search Console */}
             {data.searchConsole?.available && (
               <Card>
-                <SectionTitle
-                  icon={Search}
-                  title="Google-synlighet för din partnersida"
-                  sub={`Search Console, ${data.searchConsole.period.start} – ${data.searchConsole.period.end} (28 dagar).`}
-                />
-                <div className="grid gap-4 sm:grid-cols-4">
+                <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+                  <SectionTitle
+                    icon={Search}
+                    title="Google-synlighet för din partnersida"
+                    sub={`Search Console, ${data.searchConsole.period.start} – ${data.searchConsole.period.end} (${data.searchConsole.days} dagar).`}
+                  />
+                  <div
+                    className="flex items-center gap-1 rounded-full p-1"
+                    style={{ backgroundColor: `${NAVY}0d` }}
+                    role="group"
+                    aria-label="Tidsintervall för Google-statistik"
+                  >
+                    {([7, 28, 90] as const).map((d) => (
+                      <button
+                        key={d}
+                        type="button"
+                        disabled={gscLoading}
+                        onClick={() => setGscDays(d)}
+                        className="rounded-full px-3 py-1 text-xs font-semibold transition-colors disabled:opacity-50"
+                        style={
+                          gscDays === d
+                            ? { backgroundColor: NAVY, color: "#fff" }
+                            : { color: TEXT }
+                        }
+                      >
+                        {d} dagar
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div
+                  className="grid gap-4 transition-opacity sm:grid-cols-4"
+                  style={{ opacity: gscLoading ? 0.5 : 1 }}
+                  aria-busy={gscLoading}
+                >
                   {[
                     { label: "Visningar", value: data.searchConsole.current.impressions.toLocaleString("sv-SE") },
                     { label: "Klick", value: data.searchConsole.current.clicks.toLocaleString("sv-SE") },

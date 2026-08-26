@@ -97,6 +97,7 @@ type GscTotals = { clicks: number; impressions: number; ctr: number; position: n
 type GscData = {
   available: boolean;
   property: string;
+  days: number;
   period: { start: string; end: string };
   current: GscTotals;
   previous: GscTotals;
@@ -129,7 +130,7 @@ function totalsFrom(rows: { clicks: number; impressions: number; ctr: number; po
   };
 }
 
-async function fetchSearchConsole(slug: string): Promise<GscData | null> {
+async function fetchSearchConsole(slug: string, days = 28): Promise<GscData | null> {
   const lovableKey = Deno.env.get("LOVABLE_API_KEY");
   const connectionKey = Deno.env.get("GOOGLE_SEARCH_CONSOLE_API_KEY");
   if (!lovableKey || !connectionKey) return null;
@@ -140,9 +141,9 @@ async function fetchSearchConsole(slug: string): Promise<GscData | null> {
 
   // Search Console släpar ~3 dagar
   const end = new Date(Date.now() - 3 * 86400000);
-  const start = new Date(end.getTime() - 27 * 86400000);
+  const start = new Date(end.getTime() - (days - 1) * 86400000);
   const prevEnd = new Date(start.getTime() - 86400000);
-  const prevStart = new Date(prevEnd.getTime() - 27 * 86400000);
+  const prevStart = new Date(prevEnd.getTime() - (days - 1) * 86400000);
 
   const pageFilter = {
     dimensionFilterGroups: [
@@ -161,6 +162,7 @@ async function fetchSearchConsole(slug: string): Promise<GscData | null> {
     return {
       available: true,
       property: GSC_PROPERTY,
+      days,
       period: { start: ymd(start), end: ymd(end) },
       current: totalsFrom(cur.rows),
       previous: totalsFrom(prev.rows),
@@ -191,6 +193,7 @@ Deno.serve(async (req) => {
   try {
     const body = await req.json().catch(() => ({}));
     const token: string = String(body?.token || "");
+    const gscDays = [7, 28, 90].includes(Number(body?.gscDays)) ? Number(body.gscDays) : 28;
     if (!token || token.length < 8) {
       return new Response(JSON.stringify({ error: "Ogiltig länk" }), {
         status: 401,
@@ -249,7 +252,7 @@ Deno.serve(async (req) => {
     ];
 
     // ── Google Search Console (organisk synlighet för partnersidan) ────
-    const searchConsole = await fetchSearchConsole(partner.slug);
+    const searchConsole = await fetchSearchConsole(partner.slug, gscDays);
     if (searchConsole) {
       kpis.push(
         {
