@@ -7,8 +7,12 @@ import { Link } from "react-router-dom";
 import CostBreakdown from "@/components/CostBreakdown";
 import CostProjectExamples from "@/components/CostProjectExamples";
 import CostContactForm from "@/components/CostContactForm";
+import LicenseCostTable from "@/components/LicenseCostTable";
+import QuickQuoteEstimator from "@/components/QuickQuoteEstimator";
+import { Price } from "@/components/Price";
 import { costBreakdowns } from "@/data/costBreakdown";
 import SourceNote from "@/components/SourceNote";
+
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
@@ -16,6 +20,17 @@ const breadcrumbs = [
 ];
 
 const kostnadFaqs = [
+  {
+    question: "Vad ingår i totalkostnaden för Dynamics 365?",
+    answer:
+      "Totalkostnaden består av tre delar. Licensen betalas löpande per användare och månad. Implementationen är en engångskostnad hos partnern och omfattar förstudie, konfiguration, integrationer, datamigrering, test och utbildning. Efter go-live tillkommer löpande kostnader för förvaltning, vidareutveckling, integrationsdrift och konsumtionsbaserade AI-tjänster. Räkna med alla tre delarna över tre år när du jämför offerter.",
+  },
+  {
+    question: "Vad är skillnaden mellan licenspris och implementationskostnad?",
+    answer:
+      "Licenspriset är Microsofts abonnemang och beror på vilken applikation och nivå du väljer samt hur många som ska använda systemet. Implementationskostnaden är partnerns arbete med att sätta upp lösningen efter din verksamhet och beror på antal användare, hur nära standard du kan arbeta, antal integrationer och om data ska migreras. Licensen är alltså förutsägbar; implementationen är det som varierar mest mellan offerter.",
+  },
+
   {
     question: "Vad kostar Dynamics 365 per användare och månad?",
     answer:
@@ -48,19 +63,28 @@ const kostnadFaqs = [
   },
 ];
 
-const productOrder: { key: keyof typeof costBreakdowns; label: string; path: string }[] = [
-  { key: "business-central", label: "Business Central", path: "/businesscentral/" },
-  { key: "finance-scm", label: "Finance & Supply Chain", path: "/finance-supply-chain/" },
-  { key: "sales", label: "Sales", path: "/d365sales/" },
-  { key: "customer-service", label: "Customer Service", path: "/d365customerservice/" },
-  { key: "contact-center", label: "Contact Center", path: "/d365contactcenter/" },
-  { key: "field-service", label: "Field Service", path: "/d365fieldservice/" },
-  { key: "commerce", label: "Commerce", path: "/d365commerce/" },
-  { key: "project-operations", label: "Project Operations", path: "/d365projectoperations/" },
-  { key: "human-resources", label: "Human Resources", path: "/d365humanresources/" },
-  { key: "marketing", label: "Customer Insights – Journeys", path: "/d365marketing/" },
+const productOrder: {
+  key: keyof typeof costBreakdowns;
+  label: string;
+  path: string;
+  /** Nyckel i prisregistret för instegslicensen. */
+  licenseKey?: string;
+  /** ROI-kalkylator för produkten, när en sådan finns. */
+  roiPath?: string;
+}[] = [
+  { key: "business-central", label: "Business Central", path: "/businesscentral/", licenseKey: "bc-essentials", roiPath: "/businesscentral/roi-kalkylator/" },
+  { key: "finance-scm", label: "Finance & Supply Chain", path: "/finance-supply-chain/", licenseKey: "finance", roiPath: "/finance-supply-chain/roi-kalkylator/" },
+  { key: "sales", label: "Sales", path: "/d365sales/", licenseKey: "sales-professional", roiPath: "/d365sales/roi-kalkylator/" },
+  { key: "customer-service", label: "Customer Service", path: "/d365customerservice/", licenseKey: "customer-service-pro", roiPath: "/d365customerservice/roi-kalkylator/" },
+  { key: "contact-center", label: "Contact Center", path: "/d365contactcenter/", licenseKey: "contact-center-komplett", roiPath: "/d365contactcenter/roi-kalkylator/" },
+  { key: "field-service", label: "Field Service", path: "/d365fieldservice/", licenseKey: "field-service", roiPath: "/d365fieldservice/roi-kalkylator/" },
+  { key: "commerce", label: "Commerce", path: "/d365commerce/", licenseKey: "commerce" },
+  { key: "project-operations", label: "Project Operations", path: "/d365projectoperations/", licenseKey: "project-operations" },
+  { key: "human-resources", label: "Human Resources", path: "/d365humanresources/", licenseKey: "human-resources" },
+  { key: "marketing", label: "Customer Insights – Journeys", path: "/d365marketing/", licenseKey: "customer-insights", roiPath: "/d365marketing/roi-kalkylator/" },
   { key: "copilot", label: "Copilot & agenter", path: "/copilot/" },
 ];
+
 
 /**
  * Samlad köparvänlig kostnadsguide för Dynamics 365.
@@ -70,10 +94,11 @@ export default function Kostnad() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Vad kostar Microsoft Dynamics 365? – prismodell"
-        description="Köparvänlig guide till vad Microsoft Dynamics 365 faktiskt kostar: abonnemang per användare/månad, engångskostnad för implementation (S/M/L-intervall i SEK), vanliga kostnadsdrivare och löpande kostnader efter go-live."
+        title="Vad kostar Dynamics 365? Licens + implementation"
+        description="Komplett pris- och kostnadsguide för Microsoft Dynamics 365: licenspris per användare och månad, engångskostnad för implementation (S/M/L-intervall i SEK), löpande kostnader efter go-live och en snabb offertfråga som ger ditt kostnadsspann direkt."
         canonicalPath="/kostnad/"
       />
+
       <BreadcrumbSchema items={breadcrumbs} />
       <FAQSchema faqs={kostnadFaqs} />
       <Navbar />
@@ -132,15 +157,42 @@ export default function Kostnad() {
                 Generera en kravspecifikation →
               </Link>
             </div>
+
+            <nav aria-label="Innehåll i guiden" className="mt-8 border-t border-border pt-5">
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+                Innehåll i guiden
+              </h2>
+              <ol className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm list-decimal pl-5">
+                <li><a href="#licenskostnad" className="underline hover:text-foreground">Licenskostnad – vad abonnemanget kostar</a></li>
+                <li><a href="#snabb-offertfraga" className="underline hover:text-foreground">Snabb offertfråga – ditt kostnadsspann direkt</a></li>
+                <li><a href="#per-applikation" className="underline hover:text-foreground">Implementationskostnad per applikation</a></li>
+                <li><a href="#vanliga-fragor" className="underline hover:text-foreground">Vanliga frågor om kostnad</a></li>
+              </ol>
+            </nav>
           </div>
         </section>
 
+        <LicenseCostTable />
+
+        <QuickQuoteEstimator />
+
         {/* Genvägar */}
-        <section className="py-8 bg-secondary/30 border-y border-border">
+        <section className="py-8 bg-secondary/30 border-y border-border" id="per-applikation">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-              Hoppa till applikation
+            <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">
+              Del 2 av 3
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+              Implementationskostnad per applikation
             </h2>
+            <p className="text-base text-muted-foreground mb-5 max-w-3xl">
+              Implementationen är en engångskostnad hos partnern. Nedan finns typiska
+              spann per applikation, vad som driver kostnaden och vad som blir löpande
+              efter go-live – plus länk till ROI-kalkylatorn där nyttan räknas hem.
+            </p>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+              Hoppa till applikation
+            </h3>
             <ul className="flex flex-wrap gap-2 text-sm">
               {productOrder.map((p) => (
                 <li key={p.key}>
@@ -159,19 +211,37 @@ export default function Kostnad() {
         {productOrder.map((p) => (
           <div key={p.key} id={p.key} className="scroll-mt-24">
             <div className="container mx-auto px-4 sm:px-6 pt-10">
-              <div className="max-w-5xl flex flex-wrap items-baseline justify-between gap-2">
-                <h2 className="text-xl sm:text-2xl font-bold text-foreground">
-                  {p.label}
-                </h2>
-                <Link to={p.path} className="text-sm text-primary underline">
-                  Läs mer om {p.label} →
-                </Link>
+              <div className="max-w-5xl">
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <h2 className="text-xl sm:text-2xl font-bold text-foreground">
+                    {p.label}
+                  </h2>
+                  <Link to={p.path} className="text-sm text-primary underline">
+                    Läs mer om {p.label} →
+                  </Link>
+                </div>
+                <p className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
+                  {p.licenseKey && (
+                    <span>
+                      Licens från{" "}
+                      <strong className="text-foreground">
+                        <Price productKey={p.licenseKey} mode="short" />
+                      </strong>
+                    </span>
+                  )}
+                  {p.roiPath && (
+                    <Link to={p.roiPath} className="text-primary underline">
+                      Räkna hem nyttan i ROI-kalkylatorn →
+                    </Link>
+                  )}
+                </p>
               </div>
             </div>
             <CostBreakdown product={p.key} hideOverviewLink />
             <CostProjectExamples product={p.key} />
           </div>
         ))}
+
 
         <section className="py-8 sm:py-12">
           <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
@@ -200,7 +270,7 @@ export default function Kostnad() {
           </div>
         </section>
 
-        <section className="py-8 sm:py-12 bg-secondary/30 border-t border-border">
+        <section className="py-8 sm:py-12 bg-secondary/30 border-t border-border" id="vanliga-fragor">
           <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
               Vanliga frågor om vad Dynamics 365 kostar
