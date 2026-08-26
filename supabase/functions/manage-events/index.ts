@@ -1134,6 +1134,171 @@ D365.se`;
       }
     }
 
+    // Admin: Send partner performance report link via email
+    if (action === "send-performance-link-email" && req.method === "POST") {
+      const body = await req.json();
+      const { partner_id } = body;
+
+      if (!partner_id) {
+        return new Response(
+          JSON.stringify({ error: "partner_id krävs" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const { data: partner, error: partnerError } = await supabase
+        .from("partners")
+        .select("id, name, email, admin_contact_email, contact_person, is_featured")
+        .eq("id", partner_id)
+        .single();
+
+      if (partnerError || !partner) {
+        return new Response(
+          JSON.stringify({ error: "Partner hittades inte" }),
+          { status: 404, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      if (!partner.is_featured) {
+        return new Response(
+          JSON.stringify({ error: "Endast utvalda partners kan få rapportlänk" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const recipientEmail = partner.admin_contact_email || partner.email;
+      if (!recipientEmail) {
+        return new Response(
+          JSON.stringify({ error: "Partnern saknar e-postadress. Lägg till en e-post i partnerinställningarna först." }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      // Upsert token (create or return existing)
+      const { data: tokenData, error: tokenError } = await supabase
+        .from("partner_event_tokens")
+        .upsert({ partner_id }, { onConflict: "partner_id" })
+        .select()
+        .single();
+
+      if (tokenError) {
+        console.error("Error creating token:", tokenError);
+        return new Response(
+          JSON.stringify({ error: "Kunde inte skapa token" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const reportUrl = `https://d365.se/partner-performance/${tokenData.token}`;
+
+      const resendApiKey = Deno.env.get("RESEND_API_KEY");
+      if (!resendApiKey) {
+        return new Response(
+          JSON.stringify({ error: "E-posttjänsten är inte konfigurerad" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      try {
+        const resend = new Resend(resendApiKey);
+
+        const { data: templateSetting } = await supabase
+          .from("site_settings")
+          .select("value")
+          .eq("key", "performance_link_email_body")
+          .single();
+
+        const contactName = partner.contact_person || '';
+
+        const rawTemplate = templateSetting?.value || `Hej {{contact_name}},
+
+Nu kan ni följa er synlighet och prestation på D365.se i realtid. Via er dedikerade prestanda-rapport ser ni hur köpare interagerar med er profil – från exponeringar och profilvisningar till partnerjämförelser och leads.
+
+VAD NI FÖLJER I RAPPORTEN
+- Exponeringar: hur ofta er profil visas i sökningar och listor
+- Profilvisningar: hur många som öppnar er profilsida
+- Partnerjämförelser: hur ofta ni jämförs med andra partners
+- Köpsignaler: sparade shortlist-tillägg och matchningar
+- Google-synlighet: visningar, klick och CTR för er profilsida (valbar period 7/28/90 dagar)
+- Benchmark: hur ni presterar jämfört med genomsnittet av verifierade partners
+- Rekommendationer: månatliga råd från Thomas för att öka er synlighet
+
+{{PORTAL_LINK}}
+
+Spara gärna länken – den är unik för {{partner_name}} och ger tillgång till rapporten när som helst.
+
+Med vänliga hälsningar,
+Thomas Laine
+Senior Rådgivare inom Microsoft CRM- och Affärssystem
+D365.se`;
+
+        let processedTemplate = rawTemplate
+          .replace(/\{\{contact_name\}\}/g, contactName)
+          .replace(/\{\{partner_name\}\}/g, partner.name)
+          .replace(/\{\{custom_message\}\}/g, '');
+
+        const portalButton = `<div style="text-align: center; margin: 30px 0;">
+          <a href="${reportUrl}" style="display: inline-block; background-color: #D64A1F; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px;">Öppna er prestanda-rapport</a>
+        </div>
+        <p style="color: #6b7280; font-size: 14px;">Om knappen inte fungerar, kopiera och klistra in denna länk i din webbläsare:</p>
+        <p style="color: #D64A1F; font-size: 14px; word-break: break-all;">${reportUrl}</p>`;
+
+        const htmlBody = processedTemplate
+          .split("{{PORTAL_LINK}}")
+          .map((part: string) => {
+            return part
+              .split("\n\n")
+              .map((paragraph: string) => {
+                const trimmed = paragraph.trim();
+                if (!trimmed) return "";
+                const withBr = trimmed.replace(/\n/g, "<br>");
+                const withLinks = withBr.replace(/(https?:\/\/[^\s<,]+)/g, '<a href="$1" style="color: #2563eb;">$1</a>');
+                return `<p>${withLinks}</p>`;
+              })
+              .filter(Boolean)
+              .join("\n");
+          })
+          .join(portalButton);
+
+        const emailHtml = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;"><div style="text-align: center; margin-bottom: 30px;"><h1 style="color: #1e40af; margin: 0;">D365.se</h1><p style="color: #6b7280; margin: 5px 0 0 0;">Partner Performance-rapport</p></div>${htmlBody}</body></html>`;
+
+        await resend.emails.send({
+          from: "D365.se <info@d365.se>",
+          to: [recipientEmail],
+          subject: `Er prestanda-rapport på D365.se – se hur köpare hittar er`,
+          html: emailHtml,
+        });
+
+        console.log("Performance report link emailed to:", recipientEmail, "for partner:", partner.name);
+        await supabase.from("email_send_log").insert({
+          recipient_email: recipientEmail,
+          template_name: "partner_performance_link",
+          subject: "Er prestanda-rapport på D365.se – se hur köpare hittar er",
+          status: "sent",
+          metadata: { partner_name: partner.name },
+        });
+
+        return new Response(
+          JSON.stringify({ success: true, email: recipientEmail }),
+          { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      } catch (emailError: any) {
+        console.error("Failed to send performance report email:", emailError);
+        await supabase.from("email_send_log").insert({
+          recipient_email: recipientEmail,
+          template_name: "partner_performance_link",
+          subject: "Er prestanda-rapport på D365.se",
+          status: "failed",
+          error_message: emailError?.message || "Unknown error",
+          metadata: { partner_name: partner.name },
+        });
+        return new Response(
+          JSON.stringify({ error: "Kunde inte skicka e-post" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+    }
+
     // Admin: Send event invitation email to ALL featured partners
     if (action === "bulk-send-event-email" && req.method === "POST") {
       const body = await req.json();
