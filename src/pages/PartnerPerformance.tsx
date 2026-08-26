@@ -13,6 +13,8 @@ import {
   Sparkles,
   Target,
   Users,
+  Search,
+  MousePointerClick,
 } from "lucide-react";
 import {
   Bar,
