@@ -1,4 +1,6 @@
 import { Helmet } from "react-helmet-async";
+import { ORGANIZATION } from "@/data/organization";
+
 
 // Organization Schema
 export const OrganizationSchema = () => {
