@@ -467,6 +467,58 @@ export const ItemListSchema = ({ name, description, items }: ItemListSchemaProps
   );
 };
 
+// Dataset Schema – för öppna, maskinläsbara dataset (AI-synlighet/citerbarhet)
+interface DatasetSchemaProps {
+  name: string;
+  description: string;
+  url: string;
+  distributionUrl: string;
+  license?: string;
+  keywords?: string[];
+  datePublished?: string;
+}
+
+export const DatasetSchema = ({
+  name,
+  description,
+  url,
+  distributionUrl,
+  license = "https://d365.se/friskrivning",
+  keywords,
+  datePublished,
+}: DatasetSchemaProps) => {
+  const schema: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    name,
+    description,
+    url,
+    license,
+    isAccessibleForFree: true,
+    creator: {
+      "@type": "Organization",
+      name: "d365.se",
+      url: "https://d365.se",
+    },
+    distribution: [
+      {
+        "@type": "DataDownload",
+        encodingFormat: "application/json",
+        contentUrl: distributionUrl,
+      },
+    ],
+  };
+  if (keywords?.length) schema.keywords = keywords;
+  if (datePublished) schema.datePublished = datePublished;
+
+  return (
+    <Helmet>
+      <script type="application/ld+json">{JSON.stringify(schema)}</script>
+    </Helmet>
+  );
+};
+
+
 // Partner Organization Schema – for partner profile pages
 interface PartnerOrganizationSchemaProps {
   name: string;
