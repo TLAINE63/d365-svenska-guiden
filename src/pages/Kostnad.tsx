@@ -52,19 +52,28 @@ const kostnadFaqs = [
   },
 ];
 
-const productOrder: { key: keyof typeof costBreakdowns; label: string; path: string }[] = [
-  { key: "business-central", label: "Business Central", path: "/businesscentral/" },
-  { key: "finance-scm", label: "Finance & Supply Chain", path: "/finance-supply-chain/" },
-  { key: "sales", label: "Sales", path: "/d365sales/" },
-  { key: "customer-service", label: "Customer Service", path: "/d365customerservice/" },
-  { key: "contact-center", label: "Contact Center", path: "/d365contactcenter/" },
-  { key: "field-service", label: "Field Service", path: "/d365fieldservice/" },
-  { key: "commerce", label: "Commerce", path: "/d365commerce/" },
-  { key: "project-operations", label: "Project Operations", path: "/d365projectoperations/" },
-  { key: "human-resources", label: "Human Resources", path: "/d365humanresources/" },
-  { key: "marketing", label: "Customer Insights – Journeys", path: "/d365marketing/" },
+const productOrder: {
+  key: keyof typeof costBreakdowns;
+  label: string;
+  path: string;
+  /** Nyckel i prisregistret för instegslicensen. */
+  licenseKey?: string;
+  /** ROI-kalkylator för produkten, när en sådan finns. */
+  roiPath?: string;
+}[] = [
+  { key: "business-central", label: "Business Central", path: "/businesscentral/", licenseKey: "bc-essentials", roiPath: "/businesscentral/roi-kalkylator/" },
+  { key: "finance-scm", label: "Finance & Supply Chain", path: "/finance-supply-chain/", licenseKey: "finance", roiPath: "/finance-supply-chain/roi-kalkylator/" },
+  { key: "sales", label: "Sales", path: "/d365sales/", licenseKey: "sales-professional", roiPath: "/d365sales/roi-kalkylator/" },
+  { key: "customer-service", label: "Customer Service", path: "/d365customerservice/", licenseKey: "customer-service-pro", roiPath: "/d365customerservice/roi-kalkylator/" },
+  { key: "contact-center", label: "Contact Center", path: "/d365contactcenter/", licenseKey: "contact-center-komplett", roiPath: "/d365contactcenter/roi-kalkylator/" },
+  { key: "field-service", label: "Field Service", path: "/d365fieldservice/", licenseKey: "field-service", roiPath: "/d365fieldservice/roi-kalkylator/" },
+  { key: "commerce", label: "Commerce", path: "/d365commerce/", licenseKey: "commerce" },
+  { key: "project-operations", label: "Project Operations", path: "/d365projectoperations/", licenseKey: "project-operations" },
+  { key: "human-resources", label: "Human Resources", path: "/d365humanresources/", licenseKey: "human-resources" },
+  { key: "marketing", label: "Customer Insights – Journeys", path: "/d365marketing/", licenseKey: "customer-insights", roiPath: "/d365marketing/roi-kalkylator/" },
   { key: "copilot", label: "Copilot & agenter", path: "/copilot/" },
 ];
+
 
 /**
  * Samlad köparvänlig kostnadsguide för Dynamics 365.
