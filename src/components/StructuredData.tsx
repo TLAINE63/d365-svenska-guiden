@@ -7,22 +7,34 @@ export const OrganizationSchema = () => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "D365 Guiden",
-    "alternateName": ["d365.se", "Dynamic Factory"],
-    "url": "https://d365.se",
+    "@id": `${ORGANIZATION.url}/#organization`,
+    "name": ORGANIZATION.name,
+    "legalName": ORGANIZATION.legalName,
+    "alternateName": ["D365 Guiden", ORGANIZATION.legalName],
+    "url": ORGANIZATION.url,
     "logo": {
       "@type": "ImageObject",
-      "url": "https://d365.se/d365guide-logo.png",
+      "url": ORGANIZATION.logoUrl,
       "width": 2000,
       "height": 1620,
       "caption": "d365.se – köparsidig guide till Microsoft Dynamics 365"
     },
-    "image": "https://d365.se/d365guide-logo.png",
-    "description": "Hjälper svenska företag hitta rätt Microsoft Dynamics 365-partner utifrån behov, bransch och storlek.",
-    "foundingDate": "2020",
+    "image": ORGANIZATION.logoUrl,
+    "description": ORGANIZATION.description,
+    "foundingDate": ORGANIZATION.foundingDate,
+    "email": ORGANIZATION.email,
+    "telephone": ORGANIZATION.telephoneE164,
+    "parentOrganization": {
+      "@type": "Organization",
+      "name": ORGANIZATION.parentName
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": ORGANIZATION.countryCode
+    },
     "areaServed": {
       "@type": "Country",
-      "name": "Sweden"
+      "name": ORGANIZATION.countryName
     },
     "knowsAbout": [
       "Microsoft Dynamics 365",
@@ -34,16 +46,17 @@ export const OrganizationSchema = () => {
       "ERP-system",
       "CRM-system"
     ],
-    "sameAs": [
-      "https://dynamicfactory.se"
-    ],
-    "contactPoint": {
+    "sameAs": [...ORGANIZATION.sameAs],
+    "contactPoint": ORGANIZATION.advisors.map((a) => ({
       "@type": "ContactPoint",
-      "telephone": "+46-72-232-40-60",
+      "name": a.name,
+      "email": a.email,
+      "telephone": a.telephoneE164,
       "contactType": "customer service",
-      "areaServed": "SE",
+      "areaServed": ORGANIZATION.countryCode,
       "availableLanguage": "Swedish"
-    }
+    }))
+
   };
 
   return (
