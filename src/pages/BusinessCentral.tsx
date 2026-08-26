@@ -59,6 +59,14 @@ import {
 // Business Central FAQs for schema – priser resolvas från product_prices via resolvePriceTokens
 const bcFaqsRaw = [
  {
+ question: "Vad är Business Central?",
+ answer: "Microsoft Dynamics 365 Business Central är Microsofts molnbaserade affärssystem (ERP) för mindre och medelstora företag. Det samlar redovisning, kund- och leverantörsreskontra, order och fakturering, lager, inköp, projekt och – med Premium – tillverkning och service i en gemensam databas. Business Central är efterföljaren till Dynamics NAV (Navision) och integreras direkt med Outlook, Excel, Teams och Power BI. Copilot ingår i licensen."
+ },
+ {
+ question: "Vad kostar Business Central?",
+ answer: "Business Central kostar {{price:bc-essentials:exact}} för Essentials, {{price:bc-premium:exact}} för Premium och {{price:bc-team-members:exact}} för Team Member (Microsofts listpris exkl. moms). Till licensen kommer implementering: 100 000–250 000 kr för ett litet projekt med standardprocesser, 250 000–800 000 kr för ett normalstort projekt med integrationer och anpassningar. Räkna även med löpande förvaltning på 10–20 % av projektkostnaden per år."
+ },
+ {
  question: "Vad kostar Microsoft Dynamics 365 Business Central i Sverige?",
  answer: "Business Central pris Sverige 2026: Team Member {{price:bc-team-members:exact}}, Essentials {{price:bc-essentials:exact}} och Premium {{price:bc-premium:exact}} (Microsofts officiella listpris exkl. moms). Utöver licensen tillkommer implementeringskostnader som typiskt ligger på 150 000–800 000 kr beroende på projektets omfattning, antal användare och grad av anpassning. Kostnaden påverkas också av vald partner och supportavtal."
  },
