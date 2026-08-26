@@ -314,11 +314,36 @@ export default function PartnerPerformance() {
             {/* Google Search Console */}
             {data.searchConsole?.available && (
               <Card>
-                <SectionTitle
-                  icon={Search}
-                  title="Google-synlighet för din partnersida"
-                  sub={`Search Console, ${data.searchConsole.period.start} – ${data.searchConsole.period.end} (28 dagar).`}
-                />
+                <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+                  <SectionTitle
+                    icon={Search}
+                    title="Google-synlighet för din partnersida"
+                    sub={`Search Console, ${data.searchConsole.period.start} – ${data.searchConsole.period.end} (${data.searchConsole.days} dagar).`}
+                  />
+                  <div
+                    className="flex items-center gap-1 rounded-full p-1"
+                    style={{ backgroundColor: `${NAVY}0d` }}
+                    role="group"
+                    aria-label="Tidsintervall för Google-statistik"
+                  >
+                    {([7, 28, 90] as const).map((d) => (
+                      <button
+                        key={d}
+                        type="button"
+                        disabled={gscLoading}
+                        onClick={() => setGscDays(d)}
+                        className="rounded-full px-3 py-1 text-xs font-semibold transition-colors disabled:opacity-50"
+                        style={
+                          gscDays === d
+                            ? { backgroundColor: NAVY, color: "#fff" }
+                            : { color: TEXT }
+                        }
+                      >
+                        {d} dagar
+                      </button>
+                    ))}
+                  </div>
+                </div>
                 <div className="grid gap-4 sm:grid-cols-4">
                   {[
                     { label: "Visningar", value: data.searchConsole.current.impressions.toLocaleString("sv-SE") },
