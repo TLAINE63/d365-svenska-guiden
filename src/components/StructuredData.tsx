@@ -73,19 +73,21 @@ export const LocalBusinessSchema = () => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "name": "D365 Guiden",
-    "description": "Senior rådgivare inom Microsoft affärslösningar Dynamics 365, Power Platform och Copilot",
-    "url": "https://d365.se",
-    "telephone": "+46-72-232-40-60",
-    "email": "info@d365.se",
+    "name": ORGANIZATION.name,
+    "legalName": ORGANIZATION.legalName,
+    "description": ORGANIZATION.description,
+    "url": ORGANIZATION.url,
+    "telephone": ORGANIZATION.telephoneE164,
+    "email": ORGANIZATION.email,
     "address": {
       "@type": "PostalAddress",
-      "addressCountry": "SE"
+      "addressCountry": ORGANIZATION.countryCode
     },
     "areaServed": {
       "@type": "Country",
-      "name": "Sweden"
+      "name": ORGANIZATION.countryName
     },
+
     "priceRange": "$$",
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
