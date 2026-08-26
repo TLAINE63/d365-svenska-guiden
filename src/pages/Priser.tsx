@@ -3,10 +3,38 @@ import SourceNote from "@/components/SourceNote";
 import PageOfferBanner from "@/components/PageOfferBanner";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import { BreadcrumbSchema } from "@/components/StructuredData";
+import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 import { Link } from "react-router-dom";
 import { FALLBACK_PRICES } from "@/data/productPricesFallback";
 import { useProductPrices, formatPrice } from "@/hooks/useProductPrices";
+
+const priserFaqs = [
+  {
+    question: "Är priserna på den här sidan vad jag faktiskt betalar?",
+    answer:
+      "Nej. Tabellen visar Microsofts listpriser exklusive moms. Ditt faktiska pris sätts av avtalsform (CSP eller Enterprise Agreement), antal licenser och förhandling med partnern. Listpriset är taket du utgår från, inte slutpriset.",
+  },
+  {
+    question: "Vad är skillnaden mellan Business Central Essentials och Premium?",
+    answer:
+      "Essentials täcker ekonomi, försäljning, inköp, lager och projekt. Premium lägger till tillverkning och serviceorderhantering. Alla användare i samma miljö måste ha samma nivå, så behöver produktionen Premium får hela företaget Premium-licenser.",
+  },
+  {
+    question: "När räcker en Team Members-licens?",
+    answer:
+      "Team Members passar användare som främst läser data, rapporterar tid och utlägg, godkänner i flöden och registrerar enklare poster. Så snart användaren skapar order, bokför eller arbetar operativt i ekonomi- eller lagerprocessen krävs en full licens.",
+  },
+  {
+    question: "Ingår Copilot och AI-agenter i licenspriset?",
+    answer:
+      "Grundläggande Copilot-funktioner ingår i flera Dynamics 365-licenser, medan agenter och utökad AI-användning debiteras per konsumtion via Copilot Studio-krediter. Räkna därför AI som en separat, rörlig post i budgeten.",
+  },
+  {
+    question: "Hur ofta uppdateras prislistan här?",
+    answer:
+      "Snapshotet stäms av mot Microsofts publicerade prislista och datumet står under tabellen. Microsoft prissätter i USD, vilket innebär att beloppet i SEK varierar med valutakurs och avtalsform.",
+  },
+];
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
@@ -68,6 +96,7 @@ export default function Priser() {
         canonicalPath="/priser/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
+      <FAQSchema faqs={priserFaqs} />
       <Navbar />
 
       <main className="pt-10">
@@ -106,6 +135,21 @@ export default function Priser() {
               <Link to="/finance-supply-chain/" className="underline">Finance &amp; Supply Chain</Link>{" "}
               och <Link to="/crm/" className="underline">CRM</Link>.
             </p>
+          </div>
+        </section>
+        <section className="py-10 border-t border-border bg-secondary/30">
+          <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
+              Vanliga frågor om Dynamics 365-priser
+            </h2>
+            <div className="space-y-5">
+              {priserFaqs.map((faq) => (
+                <div key={faq.question} className="bg-card border border-border rounded-lg p-5">
+                  <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">{faq.question}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{faq.answer}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       </main>
