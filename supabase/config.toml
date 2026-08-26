@@ -91,3 +91,9 @@ verify_jwt = false
 
 [functions.crawler-log]
 verify_jwt = false
+
+[functions.track-partner-event]
+verify_jwt = false
+
+[functions.partner-performance]
+verify_jwt = false
