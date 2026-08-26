@@ -1173,16 +1173,21 @@ const ComparePartners = () => {
     const fromApp = appToGroupKey(raw);
     return fromApp || raw;
   };
-  const productFilters = productFilterRaw
-    ? (Array.from(
-        new Set(
-          productFilterRaw
-            .split(",")
-            .map((s) => normalizeProductFilterKey(s))
-            .filter((s) => s in PRODUCT_FILTER_GROUP)
-        )
-      ) as ProductFilterKey[])
-    : [];
+  const productFilters = useMemo(
+    () =>
+      productFilterRaw
+        ? (Array.from(
+            new Set(
+              productFilterRaw
+                .split(",")
+                .map((s) => normalizeProductFilterKey(s))
+                .filter((s) => s in PRODUCT_FILTER_GROUP)
+            )
+          ) as ProductFilterKey[])
+        : [],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [productFilterRaw]
+  );
 
   const setFilter = (key: "industry" | "product", val: string) => {
     const next = new URLSearchParams(params);
