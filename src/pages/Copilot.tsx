@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import CopilotLogo from "@/assets/icons/Copilot.png";
 import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, FAQSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 // Breadcrumb items
 const copilotBreadcrumbs = [
