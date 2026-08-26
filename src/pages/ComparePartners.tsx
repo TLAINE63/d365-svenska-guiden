@@ -39,7 +39,7 @@ import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 
 import { useTrackFilterExposure } from "@/hooks/useTrackFilterExposure";
-import { trackPartnerEvent } from "@/utils/trackPartnerEvent";
+import { trackPartnerEvent, trackPartnerImpression } from "@/utils/trackPartnerEvent";
 import ShortlistButton from "@/components/ShortlistButton";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import {
