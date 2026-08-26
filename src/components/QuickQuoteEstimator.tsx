@@ -224,7 +224,7 @@ export default function QuickQuoteEstimator() {
           {showEstimate && (
             <div className="mt-6 border-t border-border pt-5">
               <h3 className="text-lg font-semibold text-card-foreground mb-4">
-                Uppskattning för {solutionLabel.toLowerCase()}, {bucket.label.toLowerCase()}
+                Uppskattning för {solutionLabel}, {bucket.label.toLowerCase()}
               </h3>
               <dl className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="rounded border border-border p-4">
