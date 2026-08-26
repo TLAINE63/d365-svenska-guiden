@@ -11,6 +11,8 @@ import {
 import { BASIC_PROFILE_DISCLAIMER } from "@/components/BasicPartnerBadge";
 import BasicPartnerInquiryDialog from "@/components/BasicPartnerInquiryDialog";
 import { Button } from "@/components/ui/button";
+import ShortlistButton from "@/components/ShortlistButton";
+
 
 interface PartnerBasicCardProps {
   partner: BasicPartner;
