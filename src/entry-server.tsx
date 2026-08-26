@@ -469,6 +469,9 @@ export function render(url: string) {
               <Route path="/ai-readiness" element={<AIReadiness />} />
               <Route path="/kontakt" element={<ContactUs />} />
               <Route path="/valjdynamics365partner" element={<ValjPartner />} />
+              <Route path="/erp-koparguiden-2026" element={<BuyerGuide2026 variant="erp" />} />
+              <Route path="/crm-koparguiden-2026" element={<BuyerGuide2026 variant="crm" />} />
+
               <Route path="/valj-partner" element={<Navigate to="/valjdynamics365partner" replace />} />
               <Route path="/AI-sok" element={<SmartSearch />} />
               <Route path="/AIsok" element={<Navigate to="/AI-sok" replace />} />
