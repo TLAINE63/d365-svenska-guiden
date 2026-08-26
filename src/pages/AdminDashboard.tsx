@@ -3621,6 +3621,11 @@ Thomas`,
  <AdminAllVisitorsTab token={token || null} />
  </TabsContent>
 
+ {/* ==================== AI VISIBILITY TAB ==================== */}
+ <TabsContent value="ai-visibility">
+ <AdminAiVisibilityTab token={token || null} onSessionExpired={logout} />
+ </TabsContent>
+
  {/* ==================== PARTNER PROFILE VISITS TAB ==================== */}
  <TabsContent value="partner-profile-visits">
  <AdminPartnerProfileVisitsTab token={token || null} />
