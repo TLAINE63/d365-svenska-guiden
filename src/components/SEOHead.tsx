@@ -30,7 +30,7 @@ interface SEOHeadProps {
 const SEOHead = ({
   title,
   description,
-  canonicalPath = "",
+  canonicalPath,
   keywords,
   ogImage = "https://d365.se/og-erp.png",
   ogImageAlt,
