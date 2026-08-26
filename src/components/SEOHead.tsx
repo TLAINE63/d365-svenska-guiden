@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
 import { ORGANIZATION } from "@/data/organization";
 import { buildSeoTitle } from "@/lib/seoTitle";
 
