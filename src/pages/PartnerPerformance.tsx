@@ -301,7 +301,10 @@ export default function PartnerPerformance() {
                           )}
                           <span style={{ color: positive ? CTA : "#64748b" }}>
                             {positive ? "+" : ""}
-                            {kpi.change}% mot föregående månad
+                            {kpi.change}%{" "}
+                            {kpi.key.startsWith("gsc")
+                              ? `mot föregående ${gscDays} dagar`
+                              : "mot föregående månad"}
                           </span>
                         </>
                       )}
