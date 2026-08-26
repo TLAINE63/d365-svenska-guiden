@@ -48,8 +48,12 @@ const SEOHead = ({
   breadcrumbs,
 }: SEOHeadProps) => {
   const baseUrl = "https://d365.se";
+  const { pathname } = useLocation();
 
-  const trailingPath = canonicalPath.endsWith("/") ? canonicalPath : `${canonicalPath}/`;
+  // Faller tillbaka på aktuell route så varje sida självrefererar
+  // istället för att peka på startsidan.
+  const resolvedPath = canonicalPath ?? pathname ?? "/";
+  const trailingPath = resolvedPath.endsWith("/") ? resolvedPath : `${resolvedPath}/`;
   const canonicalUrl = `${baseUrl}${trailingPath}`;
   const fullTitle = buildSeoTitle(title);
 
