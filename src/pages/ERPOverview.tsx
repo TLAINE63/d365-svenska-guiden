@@ -282,6 +282,7 @@ const ERPOverview = () => {
  Perfekt för mindre och medelstora företag som behöver ett komplett, 
  kraftfullt och användarvänligt affärssystem.
  </p>
+  <p className="text-sm text-muted-foreground mb-4">Se <Link to="/businesscentral/" className="text-primary hover:underline font-medium">Business Central pris</Link> för licensnivåer och implementationsintervall.</p>
  
  <ul className="space-y-3 text-muted-foreground mb-6">
  <li className="flex items-start gap-2">
