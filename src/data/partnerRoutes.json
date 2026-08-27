@@ -35,11 +35,6 @@
     "description": "Fellowmind är en ledande europeisk Microsoft-partner som verkar i fem länder och stödjer över 2 500 kunder. Vi kombinerar djup branschkunskap med spets inom molnbaserad teknologi, Data & AI och hela M"
   },
   {
-    "slug": "goodfellows",
-    "name": "Goodfellows",
-    "description": "Full kontroll och trygg leverans av affärssystem – utan överraskningar längs vägen.\nGoodfellows arbetar nära ditt team och du behåller dina Goodfellows konsulter, som lär känna dig väl, från förstudie"
-  },
-  {
     "slug": "inbiz",
     "name": "InBiz",
     "description": "InBiz erbjuder tjänster inom Microsoft Dynamics 365 Business Central och har sedan 2005 fokuserat på systemimplementering och förvaltning. Företaget riktar sig främst mot verksamheter inom tillverknin"
@@ -48,6 +43,11 @@
     "slug": "knowit",
     "name": "Knowit",
     "description": "Våra experter hjälper organisationer att utveckla och modernisera sina affärssystem med ERP som nav för verksamhetens processer, data, AI och automatisering – byggt på Microsofts plattform. Genom att "
+  },
+  {
+    "slug": "goodfellows",
+    "name": "Modia",
+    "description": "Full kontroll och trygg leverans av affärssystem – utan överraskningar längs vägen.\nModia arbetar nära ditt team och du behåller dina Modia konsulter, som lär känna dig väl, från förstudie, genom proj"
   },
   {
     "slug": "nab-solutions",

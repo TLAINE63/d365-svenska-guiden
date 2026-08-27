@@ -1846,205 +1846,6 @@
     }
   },
   {
-    "id": "731f9c05-c293-4842-ac40-19fb610eaeac",
-    "slug": "goodfellows",
-    "name": "Goodfellows",
-    "description": "Full kontroll och trygg leverans av affärssystem – utan överraskningar längs vägen.\nGoodfellows arbetar nära ditt team och du behåller dina Goodfellows konsulter, som lär känna dig väl, från förstudie, genom projekt till support och förvaltning. Med lång erfarenhet från branscher som handel, produktion, distribution och konsult bidrar vi med djup affärsförståelse och säkerställer rätt vägval, smidigt samarbete och en lösning som skapar verklig affärsnytta – till ett förutsägbart pris.",
-    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/goodfellows.png",
-    "logo_dark_bg": false,
-    "website": "https://goodfellows.se",
-    "email": "sebastian.birgersson@goodfellows.se",
-    "contact_person": "Sebastian Birgersson",
-    "contact_photo_url": null,
-    "phone": "+46 705091444",
-    "applications": [
-      "Business Central"
-    ],
-    "industries": [
-      "Grossist & Distribution",
-      "Konsulttjänster",
-      "Retail & E-handel"
-    ],
-    "secondary_industries": [],
-    "geography": [
-      "Sverige",
-      "Norden"
-    ],
-    "product_filters": {
-      "bc": {
-        "ranking": 999,
-        "revenue": [
-          "1-24 MSEK",
-          "25-99 MSEK",
-          "100-499 MSEK"
-        ],
-        "geography": [
-          "Sverige",
-          "Norden"
-        ],
-        "keyPoints": "Samma konsulter följer hela projektet, från start till löpande förvaltning.\nDjup branschkunskap inom grossist, distribution, konsulttjänster och retail.\nAnalysbaserad implementationsprocess med fokus på affärskritiska behov.",
-        "whyChoose": "Vi erbjuder kontinuitet i våra kundrelationer, där samma konsulter följer dig från start till mål. Detta säkerställer en djup förståelse för era processer och ger ett förutsägbart resultat för er Business Central-lösning.",
-        "industries": [
-          "Grossist & Distribution",
-          "Konsulttjänster",
-          "Retail & E-handel"
-        ],
-        "companySize": [
-          "1-49",
-          "50-99",
-          "100-249"
-        ],
-        "contactName": "Sebastian Birgersson",
-        "contactEmail": "sebastian.birgersson@goodfellows.se",
-        "contactPhone": "+46 705091444",
-        "swedenCities": [],
-        "swedenRegions": [],
-        "aiCapabilities": [
-          "ai-standard",
-          "ai-partner"
-        ],
-        "aiOtherPartner": "",
-        "aiProjectCount": "3–5",
-        "hasBuiltAgents": null,
-        "landingPageUrl": "https://goodfellows.se/tjanster/affarssystem/",
-        "aiOtherAdvanced": "",
-        "contactPhotoUrl": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/goodfellows-contact-bc.png?t=1780299930525",
-        "deliveryProfile": {
-          "aiAutomation": "Underlaget beskriver inte något särskilt erbjudande inom AI. Automation kan främst kopplas till de affärsflöden som hanteras i Business Central och dess integrationer, exempelvis order, lager, EDI, frakt och leverantörsreskontra. Behov av Copilot, AI-baserade funktioner eller mer avancerad automation behöver därför avgränsas och bedömas i dialog med Goodfellows.",
-          "deliveryModel": "Leveransen inleds normalt med analys och förstudie för att avgränsa behov, processer, integrationer och projektupplägg. Därefter följer genomförande, driftsättning och framtidssäkring. Goodfellows betonar en kundnära arbetsform där samma konsulter kan följa verksamheten från projektstart till support och förvaltning.",
-          "managedServices": "Efter driftsättning erbjuder Goodfellows support och löpande förvaltning av Business Central. Arbetet kan omfatta hantering av frågor och fel, anpassningar, integrationer samt stöd i den dagliga användningen. Kontinuiteten i konsultteamet ger förvaltningen kännedom om kundens processer, tidigare vägval och tekniska lösning.",
-          "typicalProjects": "Typiska projekt omfattar förstudie, processkartläggning och införande av Business Central för ekonomi, order, inköp, lager och rapportering. Projekten kan även innehålla integrationer mot e-handel, WMS, frakt- och transportsystem, EDI eller leverantörsreskontra. Goodfellows arbetar också med uppgraderingar och utveckling av befintliga miljöer.",
-          "typicalCustomers": "Typiska kunder är små och medelstora företag inom grossist, distribution, handel, e-handel, produktion och konsulttjänster. De söker ofta ett sammanhållet stöd för ekonomi, order, lager, logistik, projekt och rapportering. Goodfellows passar särskilt när kunden värdesätter kontinuitet i konsultteamet och löpande stöd efter införandet.",
-          "furtherDevelopment": "Vidareutveckling sker utifrån förändrade verksamhetsbehov och kan omfatta nya funktioner, processförbättringar, rapportering och kompletterande integrationer. Business Central kan successivt byggas ut med stöd för exempelvis WMS, EDI, frakt, e-handel och leverantörsreskontra. Arbetet hanteras inom den löpande förvaltningen eller som avgränsade projekt."
-        },
-        "aiBusinessImpact": "",
-        "customerExamples": [
-          "Kundexempel kan ges på förfrågan"
-        ],
-        "aiCaseDescription": "AI-exempel kan ges på förfrågan",
-        "customerCaseLinks": [
-          "https://goodfellows.se/cases/"
-        ],
-        "productDescription": "Goodfellows tillhandahåller expertis inom Dynamics 365 Business Central, med en etablerad erfarenhet av implementeringar och förvaltning inom sektorer som handel, produktion och distribution. De erbjuder lösningar som anpassas för att stödja kundernas affärsprocesser, från finansiell styrning till lagerhantering och logistik. Företaget fokuserar på att leverera både nya implementationer och kontinuerlig support för befintliga system, med syfte att optimera klienternas dagliga verksamhet. Klientfeedback indikerar en hög nöjdhet med den support och förvaltning som tillhandahålls.",
-        "aiPredictiveDetails": [],
-        "aiSegmentationDetails": [],
-        "ai_generated_why_keypoints": true,
-        "ai_generated_why_keypoints_at": "2026-07-02T10:47:53.593Z",
-        "productDescriptionAiGenerated": true,
-        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
-      }
-    },
-    "industry_apps": [],
-    "is_featured": true,
-    "customer_examples": [],
-    "office_cities": [
-      "Göteborg"
-    ],
-    "map_url": "https://www.google.com/maps/search/?api=1&query=Goodfellows+Göteborg",
-    "youtube_video_id": null,
-    "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-08-25T07:29:06.07878+00:00",
-    "industry_pitches": [
-      {
-        "text": "Goodfellows levererar affärssystemlösningar med fokus på Microsoft Dynamics 365 Business Central. Partnern har erfarenhet av att arbeta med företag inom handel och distribution. De strävar efter att leverera lösningar som fungerar i praktiken och bidrar med affärsförståelse för att säkerställa relevanta vägval. Goodfellows kan erbjuda stöd för processer som rör omnikanalstrategier, kundresor, logistik och lagerhantering, vilka är centrala för aktörer inom retail och e-handel. De arbetar nära sina kunder för att implementera lösningar som skapar affärsnytta, med målet att systemet ska fungera utan oväntade utmaningar.",
-        "product": null,
-        "industry": "Retail & E-handel",
-        "edited_by": "admin-bulk",
-        "generated_at": "2026-05-17T08:34:17Z"
-      },
-      {
-        "text": "Goodfellows hjälper grossist- och distributionsbolag att få kontroll över hela flödet med Microsoft Dynamics 365 Business Central som grund. Vi implementerar en beprövad standardlösning som anpassas efter hur verksamheten faktiskt arbetar.\nMed erfarenhet från bolag som hanterar stora artikelregister, flera lager, avancerad prissättning och komplexa leveransflöden, sätter vi struktur i processerna från inköp till leverans och fakturering. Fokus ligger på att få order, lager och ekonomi att hänga ihop utan manuella mellanled.\n\nVi arbetar nära verksamheten för att förstå nuläget och säkerställa att systemet stödjer rätt arbetssätt från start. Oavsett om fokus ligger på effektiv plock och pack, spårbarhet, leveransprecision eller marginalkontroll, ser vi till att lösningen används på ett sätt som ger effekt i vardagen.\n\nFör många av våra kunder är tillgången till korrekt lagerdata avgörande. Därför lägger vi stor vikt vid att lagersaldo, inköp och försäljning speglar verkligheten i realtid. Resultatet blir bättre beslutsunderlag, minskat svinn och högre leveranssäkerhet.\n\nVår leverans är tydlig och förutsägbar. Ni vet vad som ska göras, när det ska göras och vad det kostar. Målet är ett affärssystem som inte bara hanterar transaktioner, utan skapar struktur och effektivitet i hela distributionskedjan.",
-        "product": null,
-        "industry": "Grossist & Distribution",
-        "edited_by": "partner",
-        "updated_at": "2026-06-08T14:48:36.113Z",
-        "generated_at": "2026-05-17T08:34:15Z"
-      },
-      {
-        "text": "Goodfellows hjälper konsult- och projektbolag att få bättre kontroll i hela affären med Microsoft Dynamics 365 Business Central i grunden, förstärkt med Advanced Project från Progressus, en integrerad tredjepartslösning från Pryme.\n\nVi kombinerar systemstöd och arbetssätt för att skapa struktur i projekt, resurser och ekonomi. Det handlar inte bara om teknik, utan om att få tidrapportering, planering, uppföljning och fakturering att hänga ihop i praktiken. Resultatet blir bättre beslutsunderlag, högre utnyttjandegrad och färre manuella moment.\n\nVår erfarenhet sträcker sig över flera branscher, vilket gör att vi snabbt kan anpassa lösningen efter era behov. Oavsett om fokus ligger på komplex projektekonomi, resursplanering eller kunddialog, ser vi till att systemet stödjer processen fullt ut.\nMed Advanced Project får ni ett kraftfullt lager ovanpå Business Central, anpassat för verksamheter där projekt är kärnan. Vi säkerställer att implementationen inte drar iväg, vare sig i tid eller kostnad, genom en tydlig och förutsägbar leveransmodell.\n\nFör er innebär det ett affärssystem som inte bara speglar verksamheten, utan driver den framåt.",
-        "product": null,
-        "industry": "Konsulttjänster",
-        "edited_by": "partner",
-        "updated_at": "2026-06-08T14:48:48.718Z",
-        "generated_at": "2026-06-08T14:42:38.875Z"
-      },
-      {
-        "text": "Goodfellows hjälper tillverkningsbolag att få kontroll över hela flödet med Microsoft Dynamics 365 Business Central som grund. Vi implementerar en beprövad standardlösning som anpassas efter hur produktionen faktiskt fungerar i vardagen.\nMed erfarenhet från verksamheter med krav på planering, kapacitetsutnyttjande och komplexa materialflöden skapar vi struktur i processerna från inköp och produktion till lager, leverans och efterkalkyl. Fokus ligger på att få produktion, lager och ekonomi att hänga ihop utan manuella mellanled.\n\nVi arbetar nära verksamheten för att säkerställa att systemet stödjer rätt arbetssätt redan från start. Oavsett om det handlar om produktionsplanering, stycklistor, spårbarhet eller hantering av förändringar i produktionen, ser vi till att lösningen används på ett sätt som ger effekt i praktiken.\n\nFör många av våra kunder är insyn i produktionen avgörande. Därför lägger vi stor vikt vid att skapa transparens i orderstatus, materialbehov och kostnadsuppföljning i realtid. Det ger bättre kontroll, minskar avvikelser och stärker beslutsfattandet.\n\nVår leverans är tydlig och förutsägbar. Ni vet vad som ska göras, när det ska göras och vad det kostar. Målet är ett affärssystem som inte bara hanterar produktionen, utan skapar struktur och effektivitet genom hela värdekedjan, från planering till leverans.",
-        "product": null,
-        "industry": "Tillverkningsindustri",
-        "edited_by": "partner",
-        "updated_at": "2026-06-08T14:50:04.542Z",
-        "generated_at": "2026-05-17T08:34:20Z"
-      }
-    ],
-    "agreement_signed": true,
-    "related_party": false,
-    "positioning_statement": "Passar särskilt medelstora företag inom distribution, handel och konsulttjänster som behöver kontinuerligt stöd i Business Central.",
-    "delivery_profile": {},
-    "team_size_sweden": null,
-    "implementations_done": null,
-    "not_a_fit": [
-      "Dynamics 365 Finance & Supply Chain Management",
-      "Mycket stora internationella ERP-program",
-      "Projekt där omfattande specialutveckling eller avancerad AI är huvudbehovet"
-    ],
-    "implementations_per_app": {},
-    "ai_summary": "Goodfellows är en svensk Business Central-specialist med erfarenhet från grossist/distribution, handel, e-handel, produktion och konsultverksamhet. Partnern betonar kontinuitet genom att samma konsulter kan följa kunden från förstudie till implementation, support och förvaltning.",
-    "ai_summary_generated_at": "2026-06-29T16:19:08.748+00:00",
-    "ai_profile": {
-      "use_cases": [],
-      "description": null,
-      "migrated_at": "2026-06-30T09:25:49.082462+00:00",
-      "capabilities": [
-        "copilot-studio",
-        "standard-copilot"
-      ],
-      "delivery_model": null,
-      "evidence_level": [
-        "self-declared"
-      ],
-      "relevant_areas": [
-        "Business Central"
-      ],
-      "card_ai_summary": "Goodfellows implementerar och förvaltar Business Central för grossister, distributörer och konsultföretag i SMB-segmentet genom anpassade lösningar.",
-      "experience_level": null,
-      "project_count_range": null,
-      "ai_experience_summary": "Goodfellows implementerar Copilot Studio och standardiserade AI-funktioner i Business Central. Partnern passar organisationer som vill förstärka processer med Microsofts färdiga AI och anpassade agenter.",
-      "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
-      "ai_experience_summary_generated_at": "2026-07-03T14:03:26.482Z"
-    },
-    "extended_content": "Goodfellows är en svensk Business Central-partner med tydlig tyngdpunkt på små och medelstora företag som vill få bättre kontroll över sina affärsflöden. Partnern passar särskilt väl när kunden söker ett affärssystem som knyter ihop ekonomi, order, lager, logistik, e-handel och rapportering, men där projektet inte ska bli större eller tyngre än nödvändigt.\n\nEn central del av Goodfellows position är den nära projektmodellen. d365.se-profilen lyfter att samma konsulter följer kunden från start till löpande förvaltning, och Goodfellows egen webb beskriver en process med analys, genomförande och framtidssäkring. För kunder som vill ha en tydlig förstudie, ett realistiskt projektupplägg och en partner som tar ansvar efter go-live är detta en viktig matchningssignal.\n\nGoodfellows är också relevant när Business Central behöver kompletteras med praktiska lösningar för lager, frakt, WMS, EDI, leverantörsreskontra, e-handel eller projekt-/resurshantering. Partnerns egna partnersida nämner flera BC-nära lösningar som Golden EDI, ExFlow, LogTrade, Tasklet Factory, EazyStock och Progressus, och kundcase visar hur Business Central kombineras med WMS, transportadministration och e-handels-/lagersystem.\n\nPartnern bör däremot inte övermatchas i situationer där kunden söker stor internationell leveranskapacitet, Dynamics 365 Finance & Supply Chain Management, avancerad CE/CRM, Contact Center eller ett brett Microsoft-transformationsprogram. I sådana lägen är andra partnerkategorier normalt mer relevanta. Goodfellows starkaste roll på d365.se är därför som en kundnära Business Central-partner för SMB/midmarket, med tydlig förvaltnings- och integrationsprofil.\n\nGoodfellows är en svensk Business Central-partner med starkast matchning för små och medelstora företag som söker ett kundnära affärssystemsprojekt med förstudie, implementation, integrationer och långsiktig förvaltning. Partnern passar särskilt väl för grossist/distribution, retail/e-handel, konsult-/tjänsteföretag och lager-/logistiknära verksamheter där Business Central behöver kopplas till WMS, frakt, EDI, e-handel, Power BI eller andra BC-tillägg.",
-    "extended_content_updated_at": "2026-07-07T17:46:56.361216+00:00",
-    "partner_size_tier": 3,
-    "partner_size_tier_needs_review": false,
-    "ai_summary_full": "Goodfellows passar framför allt mindre och medelstora företag som vill ha en relativt nära Business Central-partner och värdesätter kontinuitet i konsultteamet. d365.se anger 1–249 anställda och Sverige/Norden som huvudsaklig profil.\nPartnerns arbetssätt är inriktat på standardfunktionalitet, processoptimering och långsiktig förvaltning snarare än mycket stora F&SCM-miljöer. AI-underlaget beskriver främst Microsofts standard-AI och Copilot Studio i anslutning till Business Central.",
-    "best_fit_for": [
-      "Mindre och medelstora Business Central-kunder",
-      "Grossist och distribution",
-      "Retail och e-handel",
-      "Konsult- och tjänstebolag",
-      "Företag som värdesätter kontinuitet mellan projekt och förvaltning"
-    ],
-    "ai_tags": [
-      "Business Central",
-      "Grossist",
-      "Distribution",
-      "Retail",
-      "E-handel",
-      "Konsulttjänster",
-      "ERP-implementation",
-      "ERP-förvaltning",
-      "Support",
-      "Processoptimering",
-      "Copilot Studio"
-    ],
-    "extended_competencies": {
-      "copilot_ai": "unverified",
-      "power_platform": null,
-      "copilot_studio_agents": "unverified"
-    }
-  },
-  {
     "id": "47db240f-0e3c-4ef7-8532-ddd914a990de",
     "slug": "inbiz",
     "name": "InBiz",
@@ -2477,6 +2278,205 @@
     ],
     "extended_competencies": {
       "copilot_ai": "unverified"
+    }
+  },
+  {
+    "id": "731f9c05-c293-4842-ac40-19fb610eaeac",
+    "slug": "goodfellows",
+    "name": "Modia",
+    "description": "Full kontroll och trygg leverans av affärssystem – utan överraskningar längs vägen.\nModia arbetar nära ditt team och du behåller dina Modia konsulter, som lär känna dig väl, från förstudie, genom projekt till support och förvaltning. Med lång erfarenhet från branscher som handel, produktion, distribution och konsult bidrar vi med djup affärsförståelse och säkerställer rätt vägval, smidigt samarbete och en lösning som skapar verklig affärsnytta – till ett förutsägbart pris.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/goodfellows.png",
+    "logo_dark_bg": false,
+    "website": "https://modia.se",
+    "email": "sebastian.birgersson@modia.se",
+    "contact_person": "Sebastian Birgersson",
+    "contact_photo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/goodfellows-contact-main.png?t=1787817347076",
+    "phone": "+46 705091444",
+    "applications": [
+      "Business Central"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 999,
+        "revenue": [
+          "1-24 MSEK",
+          "25-99 MSEK",
+          "100-499 MSEK"
+        ],
+        "geography": [
+          "Sverige",
+          "Norden"
+        ],
+        "keyPoints": "Samma konsulter följer hela projektet, från start till löpande förvaltning.\nDjup branschkunskap inom grossist, distribution, konsulttjänster och retail.\nAnalysbaserad implementationsprocess med fokus på affärskritiska behov.",
+        "whyChoose": "Modia erbjuder kontinuitet i våra kundrelationer, där samma konsulter följer dig från start till mål. Detta säkerställer en djup förståelse för era processer och ger ett förutsägbart resultat för er Business Central-lösning.",
+        "industries": [
+          "Grossist & Distribution",
+          "Konsulttjänster",
+          "Retail & E-handel"
+        ],
+        "companySize": [
+          "1-49",
+          "50-99",
+          "100-249"
+        ],
+        "contactName": "Sebastian Birgersson",
+        "contactEmail": "sebastian.birgersson@modia.se",
+        "contactPhone": "+46 705091444",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [
+          "ai-standard",
+          "ai-partner"
+        ],
+        "aiOtherPartner": "",
+        "aiProjectCount": "3–5",
+        "hasBuiltAgents": null,
+        "landingPageUrl": "https://modia.se/tjanster",
+        "aiOtherAdvanced": "",
+        "contactPhotoUrl": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/goodfellows-contact-bc.png?t=1780299930525",
+        "deliveryProfile": {
+          "aiAutomation": "Underlaget beskriver inte något särskilt erbjudande inom AI. Automation kan främst kopplas till de affärsflöden som hanteras i Business Central och dess integrationer, exempelvis order, lager, EDI, frakt och leverantörsreskontra. Behov av Copilot, AI-baserade funktioner eller mer avancerad automation behöver därför avgränsas och bedömas i dialog med Modia.",
+          "deliveryModel": "Leveransen inleds normalt med analys och förstudie för att avgränsa behov, processer, integrationer och projektupplägg. Därefter följer genomförande, driftsättning och framtidssäkring. Modia betonar en kundnära arbetsform där samma konsulter kan följa verksamheten från projektstart till support och förvaltning.",
+          "managedServices": "Efter driftsättning erbjuder Modia support och löpande förvaltning av Business Central. Arbetet kan omfatta hantering av frågor och fel, anpassningar, integrationer samt stöd i den dagliga användningen. Kontinuiteten i konsultteamet ger förvaltningen kännedom om kundens processer, tidigare vägval och tekniska lösning.",
+          "typicalProjects": "Typiska projekt omfattar förstudie, processkartläggning och införande av Business Central för ekonomi, order, inköp, lager och rapportering. Projekten kan även innehålla integrationer mot e-handel, WMS, frakt- och transportsystem, EDI eller leverantörsreskontra. Modia arbetar också med uppgraderingar och utveckling av befintliga miljöer.",
+          "typicalCustomers": "Typiska kunder är små och medelstora företag inom grossist, distribution, handel, e-handel, produktion och konsulttjänster. De söker ofta ett sammanhållet stöd för ekonomi, order, lager, logistik, projekt och rapportering. Modia passar särskilt när kunden värdesätter kontinuitet i konsultteamet och löpande stöd efter införandet.",
+          "furtherDevelopment": "Vidareutveckling sker utifrån förändrade verksamhetsbehov och kan omfatta nya funktioner, processförbättringar, rapportering och kompletterande integrationer. Business Central kan successivt byggas ut med stöd för exempelvis WMS, EDI, frakt, e-handel och leverantörsreskontra. Arbetet hanteras inom den löpande förvaltningen eller som avgränsade projekt."
+        },
+        "aiBusinessImpact": "",
+        "customerExamples": [
+          "Kundexempel kan ges på förfrågan"
+        ],
+        "aiCaseDescription": "AI-exempel kan ges på förfrågan",
+        "customerCaseLinks": [
+          "https://modia.se/case"
+        ],
+        "productDescription": "Modia tillhandahåller expertis inom Dynamics 365 Business Central, med en etablerad erfarenhet av implementeringar och förvaltning inom sektorer som handel, produktion och distribution. De erbjuder lösningar som anpassas för att stödja kundernas affärsprocesser, från finansiell styrning till lagerhantering och logistik. Företaget fokuserar på att leverera både nya implementationer och kontinuerlig support för befintliga system, med syfte att optimera klienternas dagliga verksamhet. Klientfeedback indikerar en hög nöjdhet med den support och förvaltning som tillhandahålls.",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": [],
+        "ai_generated_why_keypoints": true,
+        "ai_generated_why_keypoints_at": "2026-07-02T10:47:53.593Z",
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16 08:35:11.148498+00"
+      }
+    },
+    "industry_apps": [],
+    "is_featured": true,
+    "customer_examples": [],
+    "office_cities": [
+      "Göteborg"
+    ],
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Goodfellows+Göteborg",
+    "youtube_video_id": null,
+    "created_at": "2026-01-27T22:40:23.207254+00:00",
+    "updated_at": "2026-08-27T08:01:02.42902+00:00",
+    "industry_pitches": [
+      {
+        "text": "Goodfellows hjälper tillverkningsbolag att få kontroll över hela flödet med Microsoft Dynamics 365 Business Central som grund. Vi implementerar en beprövad standardlösning som anpassas efter hur produktionen faktiskt fungerar i vardagen.\nMed erfarenhet från verksamheter med krav på planering, kapacitetsutnyttjande och komplexa materialflöden skapar vi struktur i processerna från inköp och produktion till lager, leverans och efterkalkyl. Fokus ligger på att få produktion, lager och ekonomi att hänga ihop utan manuella mellanled.\n\nVi arbetar nära verksamheten för att säkerställa att systemet stödjer rätt arbetssätt redan från start. Oavsett om det handlar om produktionsplanering, stycklistor, spårbarhet eller hantering av förändringar i produktionen, ser vi till att lösningen används på ett sätt som ger effekt i praktiken.\n\nFör många av våra kunder är insyn i produktionen avgörande. Därför lägger vi stor vikt vid att skapa transparens i orderstatus, materialbehov och kostnadsuppföljning i realtid. Det ger bättre kontroll, minskar avvikelser och stärker beslutsfattandet.\n\nVår leverans är tydlig och förutsägbar. Ni vet vad som ska göras, när det ska göras och vad det kostar. Målet är ett affärssystem som inte bara hanterar produktionen, utan skapar struktur och effektivitet genom hela värdekedjan, från planering till leverans.",
+        "product": null,
+        "industry": "Tillverkningsindustri",
+        "edited_by": "partner",
+        "updated_at": "2026-06-08T14:50:04.542Z",
+        "generated_at": "2026-05-17T08:34:20Z"
+      },
+      {
+        "text": "Modia hjälper grossist- och distributionsbolag att få kontroll över hela flödet med Microsoft Dynamics 365 Business Central som grund. Vi implementerar en beprövad standardlösning som anpassas efter hur verksamheten faktiskt arbetar.\nMed erfarenhet från bolag som hanterar stora artikelregister, flera lager, avancerad prissättning och komplexa leveransflöden, sätter vi struktur i processerna från inköp till leverans och fakturering. Fokus ligger på att få order, lager och ekonomi att hänga ihop utan manuella mellanled.\n\nVi arbetar nära verksamheten för att förstå nuläget och säkerställa att systemet stödjer rätt arbetssätt från start. Oavsett om fokus ligger på effektiv plock och pack, spårbarhet, leveransprecision eller marginalkontroll, ser vi till att lösningen används på ett sätt som ger effekt i vardagen.\n\nFör många av våra kunder är tillgången till korrekt lagerdata avgörande. Därför lägger vi stor vikt vid att lagersaldo, inköp och försäljning speglar verkligheten i realtid. Resultatet blir bättre beslutsunderlag, minskat svinn och högre leveranssäkerhet.\n\nVår leverans är tydlig och förutsägbar. Ni vet vad som ska göras, när det ska göras och vad det kostar. Målet är ett affärssystem som inte bara hanterar transaktioner, utan skapar struktur och effektivitet i hela distributionskedjan.",
+        "product": null,
+        "industry": "Grossist & Distribution",
+        "edited_by": "partner",
+        "updated_at": "2026-08-27T08:00:10.385Z",
+        "generated_at": "2026-05-17T08:34:15Z"
+      },
+      {
+        "text": "Modia hjälper konsult- och projektbolag att få bättre kontroll i hela affären med Microsoft Dynamics 365 Business Central i grunden, förstärkt med Advanced Project från Progressus, en integrerad tredjepartslösning från Pryme.\n\nVi kombinerar systemstöd och arbetssätt för att skapa struktur i projekt, resurser och ekonomi. Det handlar inte bara om teknik, utan om att få tidrapportering, planering, uppföljning och fakturering att hänga ihop i praktiken. Resultatet blir bättre beslutsunderlag, högre utnyttjandegrad och färre manuella moment.\n\nVår erfarenhet sträcker sig över flera branscher, vilket gör att vi snabbt kan anpassa lösningen efter era behov. Oavsett om fokus ligger på komplex projektekonomi, resursplanering eller kunddialog, ser vi till att systemet stödjer processen fullt ut.\nMed Advanced Project får ni ett kraftfullt lager ovanpå Business Central, anpassat för verksamheter där projekt är kärnan. Vi säkerställer att implementationen inte drar iväg, vare sig i tid eller kostnad, genom en tydlig och förutsägbar leveransmodell.\n\nFör er innebär det ett affärssystem som inte bara speglar verksamheten, utan driver den framåt.",
+        "product": null,
+        "industry": "Konsulttjänster",
+        "edited_by": "partner",
+        "updated_at": "2026-08-27T08:00:27.519Z",
+        "generated_at": "2026-06-08T14:42:38.875Z"
+      },
+      {
+        "text": "Modia levererar affärssystemlösningar med fokus på Microsoft Dynamics 365 Business Central. Partnern har erfarenhet av att arbeta med företag inom handel och distribution. De strävar efter att leverera lösningar som fungerar i praktiken och bidrar med affärsförståelse för att säkerställa relevanta vägval. Modia kan erbjuda stöd för processer som rör omnikanalstrategier, kundresor, logistik och lagerhantering, vilka är centrala för aktörer inom retail och e-handel. De arbetar nära sina kunder för att implementera lösningar som skapar affärsnytta, med målet att systemet ska fungera utan oväntade utmaningar.",
+        "product": null,
+        "industry": "Retail & E-handel",
+        "edited_by": "partner",
+        "updated_at": "2026-08-27T08:00:45.202Z",
+        "generated_at": "2026-05-17T08:34:17Z"
+      }
+    ],
+    "agreement_signed": true,
+    "related_party": false,
+    "positioning_statement": "Vi är valet när ditt medelstora företag inom distribution, handel eller konsulttjänster behöver kontinuerlig stöd i Business Central.",
+    "delivery_profile": {
+      "methodology": "",
+      "typical_length": "",
+      "bc_project_cost_band": null,
+      "bc_project_weeks_max": null,
+      "bc_project_weeks_min": null
+    },
+    "team_size_sweden": null,
+    "implementations_done": null,
+    "not_a_fit": [
+      "Dynamics 365 Finance & Supply Chain Management",
+      "Mycket stora internationella ERP-program",
+      "Projekt där omfattande specialutveckling eller avancerad AI är huvudbehovet"
+    ],
+    "implementations_per_app": {},
+    "ai_summary": "Goodfellows är en svensk Business Central-specialist med erfarenhet från grossist/distribution, handel, e-handel, produktion och konsultverksamhet. Partnern betonar kontinuitet genom att samma konsulter kan följa kunden från förstudie till implementation, support och förvaltning.",
+    "ai_summary_generated_at": "2026-06-29T16:19:08.748+00:00",
+    "ai_profile": {
+      "use_cases": [],
+      "description": null,
+      "migrated_at": "2026-06-30T09:25:49.082462+00:00",
+      "capabilities": [
+        "copilot-studio",
+        "standard-copilot"
+      ],
+      "delivery_model": null,
+      "evidence_level": [
+        "self-declared"
+      ],
+      "relevant_areas": [
+        "Business Central"
+      ],
+      "card_ai_summary": "Goodfellows implementerar och förvaltar Business Central för grossister, distributörer och konsultföretag i SMB-segmentet genom anpassade lösningar.",
+      "experience_level": null,
+      "project_count_range": null,
+      "ai_experience_summary": "Goodfellows implementerar Copilot Studio och standardiserade AI-funktioner i Business Central. Partnern passar organisationer som vill förstärka processer med Microsofts färdiga AI och anpassade agenter.",
+      "card_ai_summary_generated_at": "2026-07-03T11:51:55.287887+00:00",
+      "ai_experience_summary_generated_at": "2026-07-03T14:03:26.482Z"
+    },
+    "extended_content": "Goodfellows är en svensk Business Central-partner med tydlig tyngdpunkt på små och medelstora företag som vill få bättre kontroll över sina affärsflöden. Partnern passar särskilt väl när kunden söker ett affärssystem som knyter ihop ekonomi, order, lager, logistik, e-handel och rapportering, men där projektet inte ska bli större eller tyngre än nödvändigt.\n\nEn central del av Goodfellows position är den nära projektmodellen. d365.se-profilen lyfter att samma konsulter följer kunden från start till löpande förvaltning, och Goodfellows egen webb beskriver en process med analys, genomförande och framtidssäkring. För kunder som vill ha en tydlig förstudie, ett realistiskt projektupplägg och en partner som tar ansvar efter go-live är detta en viktig matchningssignal.\n\nGoodfellows är också relevant när Business Central behöver kompletteras med praktiska lösningar för lager, frakt, WMS, EDI, leverantörsreskontra, e-handel eller projekt-/resurshantering. Partnerns egna partnersida nämner flera BC-nära lösningar som Golden EDI, ExFlow, LogTrade, Tasklet Factory, EazyStock och Progressus, och kundcase visar hur Business Central kombineras med WMS, transportadministration och e-handels-/lagersystem.\n\nPartnern bör däremot inte övermatchas i situationer där kunden söker stor internationell leveranskapacitet, Dynamics 365 Finance & Supply Chain Management, avancerad CE/CRM, Contact Center eller ett brett Microsoft-transformationsprogram. I sådana lägen är andra partnerkategorier normalt mer relevanta. Goodfellows starkaste roll på d365.se är därför som en kundnära Business Central-partner för SMB/midmarket, med tydlig förvaltnings- och integrationsprofil.\n\nGoodfellows är en svensk Business Central-partner med starkast matchning för små och medelstora företag som söker ett kundnära affärssystemsprojekt med förstudie, implementation, integrationer och långsiktig förvaltning. Partnern passar särskilt väl för grossist/distribution, retail/e-handel, konsult-/tjänsteföretag och lager-/logistiknära verksamheter där Business Central behöver kopplas till WMS, frakt, EDI, e-handel, Power BI eller andra BC-tillägg.",
+    "extended_content_updated_at": "2026-07-07T17:46:56.361216+00:00",
+    "partner_size_tier": 3,
+    "partner_size_tier_needs_review": false,
+    "ai_summary_full": "Goodfellows passar framför allt mindre och medelstora företag som vill ha en relativt nära Business Central-partner och värdesätter kontinuitet i konsultteamet. d365.se anger 1–249 anställda och Sverige/Norden som huvudsaklig profil.\nPartnerns arbetssätt är inriktat på standardfunktionalitet, processoptimering och långsiktig förvaltning snarare än mycket stora F&SCM-miljöer. AI-underlaget beskriver främst Microsofts standard-AI och Copilot Studio i anslutning till Business Central.",
+    "best_fit_for": [
+      "Mindre och medelstora Business Central-kunder",
+      "Grossist och distribution",
+      "Retail och e-handel",
+      "Konsult- och tjänstebolag",
+      "Företag som värdesätter kontinuitet mellan projekt och förvaltning"
+    ],
+    "ai_tags": [
+      "Business Central",
+      "Grossist",
+      "Distribution",
+      "Retail",
+      "E-handel",
+      "Konsulttjänster",
+      "ERP-implementation",
+      "ERP-förvaltning",
+      "Support",
+      "Processoptimering",
+      "Copilot Studio"
+    ],
+    "extended_competencies": {
+      "copilot_ai": "unverified",
+      "power_platform": null,
+      "copilot_studio_agents": "unverified"
     }
   },
   {

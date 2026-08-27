@@ -179,28 +179,6 @@
       "related_party": false
     },
     {
-      "name": "Goodfellows",
-      "slug": "goodfellows",
-      "url": "https://d365.se/partner/goodfellows/",
-      "website": "https://goodfellows.se",
-      "description": "Full kontroll och trygg leverans av affärssystem – utan överraskningar längs vägen.\nGoodfellows arbetar nära ditt team och du behåller dina Goodfellows konsulter, som lär känna dig väl, från förstudie, genom projekt till support och förvaltning. Med lång erfarenhet från branscher som handel, produktion, distribution och konsult bidrar vi med djup affärsförståelse och säkerställer rätt vägval, smidigt samarbete och en lösning som skapar verklig affärsnytta – till ett förutsägbart pris.",
-      "products": [
-        "Business Central"
-      ],
-      "industries": [
-        "Grossist & Distribution",
-        "Konsulttjänster",
-        "Retail & E-handel"
-      ],
-      "offices": null,
-      "company_size": null,
-      "geography": [
-        "Sverige",
-        "Norden"
-      ],
-      "related_party": false
-    },
-    {
       "name": "InBiz",
       "slug": "inbiz",
       "url": "https://d365.se/partner/inbiz/",
@@ -241,6 +219,21 @@
         "Sverige",
         "Norden"
       ],
+      "related_party": false
+    },
+    {
+      "name": "Modia",
+      "slug": "goodfellows",
+      "url": "https://d365.se/partner/goodfellows/",
+      "website": "https://modia.se",
+      "description": "Full kontroll och trygg leverans av affärssystem – utan överraskningar längs vägen.\nModia arbetar nära ditt team och du behåller dina Modia konsulter, som lär känna dig väl, från förstudie, genom projekt till support och förvaltning. Med lång erfarenhet från branscher som handel, produktion, distribution och konsult bidrar vi med djup affärsförståelse och säkerställer rätt vägval, smidigt samarbete och en lösning som skapar verklig affärsnytta – till ett förutsägbart pris.",
+      "products": [
+        "Business Central"
+      ],
+      "industries": [],
+      "offices": null,
+      "company_size": null,
+      "geography": [],
       "related_party": false
     },
     {
