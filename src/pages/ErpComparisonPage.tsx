@@ -73,6 +73,11 @@ const ErpComparisonPage = () => {
                   När {data.productShort} är rätt val
                 </h2>
                 <p className="text-sm text-muted-foreground mb-4">{data.productSummary}</p>
+                {data.productKey === "bc" && (
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Mer om <Link to="/businesscentral/" className="text-primary hover:underline font-medium">Business Central ERP</Link> – pris, licensnivåer och partners.
+                  </p>
+                )}
                 <ul className="space-y-2">
                   {data.bestFor.product.map((b) => (
                     <li key={b} className="flex gap-2 text-sm text-foreground">

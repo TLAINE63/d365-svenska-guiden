@@ -111,6 +111,7 @@ const steps: Step[] = [
  "Innan du skriver på avtalet är det värt att ha koll på produktskillnaderna, vad marknaden faktiskt erbjuder och vad liknande verksamheter har lärt sig på vägen. Här hittar du produktjämförelser, guider, videos och ett kunskapscenter – utan säljfilter.",
  links: [
  { label: "Kunskapscenter", to: "/kunskapscenter" },
+  { label: "Business Central ERP – pris & partners", to: "/businesscentral/" },
  ],
  },
 ];

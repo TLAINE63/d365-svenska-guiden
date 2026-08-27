@@ -40,7 +40,7 @@ const kostnadFaqs = [
   {
     question: "Vad kostar det att implementera Business Central i Sverige?",
     answer:
-      "Ett litet införande med standardprocesser och få integrationer ligger normalt på 100 000–250 000 kr. Ett medelstort projekt med flera bolag, integrationer och anpassningar landar oftast på 400 000–1 200 000 kr. Stora koncerninföranden går över 1,5 miljoner kr. Intervallen är offertspann från svenska partners, inte snittpriser.",
+      "Ett litet införande med standardprocesser och få integrationer ligger normalt på 100 000–250 000 kr. Ett medelstort projekt med flera bolag, integrationer och anpassningar landar oftast på 400 000–1 200 000 kr. Stora koncerninföranden går över 1,5 miljoner kr. Intervallen är offertspann från svenska partners, inte snittpriser. Se även Business Central pris för licensnivåer och paketering.",
   },
   {
     question: "Vad kostar Finance & Supply Chain Management jämfört med Business Central?",
