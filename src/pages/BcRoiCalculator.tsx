@@ -251,7 +251,7 @@ export default function BcRoiCalculator() {
             <nav aria-label="Brödsmulor" className="text-xs text-muted-foreground mb-4">
               <Link to="/" className="hover:text-foreground">Hem</Link>
               <span className="mx-2">/</span>
-              <Link to="/businesscentral/" className="hover:text-foreground">Business Central</Link>
+              <Link to="/businesscentral/" className="hover:text-foreground">Business Central ERP</Link>
               <span className="mx-2">/</span>
               <span aria-current="page">ROI/TCO-kalkylator</span>
             </nav>

@@ -448,7 +448,7 @@ const ResultView = ({ score, onRestart, onBack }: ResultViewProps) => {
  normalt motsvarande behov till en bråkdel av kostnaden och med kortare implementationstid.
  </p>
  <Button asChild variant="outline">
- <Link to="/businesscentral/">Läs om Business Central</Link>
+ <Link to="/businesscentral/">Business Central ERP</Link>
  </Button>
  </CardContent>
  </Card>

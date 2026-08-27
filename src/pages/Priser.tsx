@@ -131,7 +131,7 @@ export default function Priser() {
             />
             <p className="text-xs text-muted-foreground mt-3">
               Se även produktsidorna för{" "}
-              <Link to="/businesscentral/" className="underline">Business Central</Link>,{" "}
+              <Link to="/businesscentral/" className="underline">Business Central pris</Link>,{" "}
               <Link to="/finance-supply-chain/" className="underline">Finance &amp; Supply Chain</Link>{" "}
               och <Link to="/crm/" className="underline">CRM</Link>.
             </p>
