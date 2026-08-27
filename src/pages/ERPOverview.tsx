@@ -180,8 +180,8 @@ const ERPOverview = () => {
  </p>
  <p className="text-lg text-muted-foreground">
  Microsoft erbjuder två affärssystem inom Dynamics 365-familjen:&nbsp;
- <Link to="/businesscentral/" className="text-primary font-medium hover:underline">Business Central</Link> för mindre och medelstora bolag, och&nbsp;
- <Link to="/finance-supply-chain/" className="text-primary font-medium hover:underline">Finance &amp; Supply Chain Management</Link> för stora, internationella organisationer. Jämförelsen längre ned visar var skillnaderna får praktisk betydelse – i ekonomi, supply chain, internationell drift och i hur mycket som kan konfigureras kontra utvecklas.
+ <Link to="/businesscentral/" className="text-primary font-medium hover:underline">Business Central ERP</Link> för mindre och medelstora bolag, och&nbsp;
+ <Link to="/finance-supply-chain/" className="text-primary font-medium hover:underline">Finance &amp; Supply Chain Management</Link> för stora, internationella organisationer. Jämförelsen längre ned visar var skillnaderna får praktisk betydelse – i ekonomi, supply chain, internationell drift och i hur mycket som kan konfigureras kontra utvecklas. Se även <Link to="/businesscentral/" className="text-primary font-medium hover:underline">Business Central pris</Link> för aktuella licensintervall och implementationskostnader.
  </p>
  </div>
  </div>
