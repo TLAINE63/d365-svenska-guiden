@@ -25,18 +25,18 @@ import thomasLaine from "@/assets/thomas-laine.jpeg";
 import michaelUhman from "@/assets/michael-uhman.jpg";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
-const Accordion = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.Accordion })));
-const AccordionContent = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.AccordionContent })));
-const AccordionItem = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.AccordionItem })));
-const AccordionTrigger = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.AccordionTrigger })));
+const Accordion = lazyWithRetry(() => import("@/components/ui/accordion").then(m => ({ default: m.Accordion })));
+const AccordionContent = lazyWithRetry(() => import("@/components/ui/accordion").then(m => ({ default: m.AccordionContent })));
+const AccordionItem = lazyWithRetry(() => import("@/components/ui/accordion").then(m => ({ default: m.AccordionItem })));
+const AccordionTrigger = lazyWithRetry(() => import("@/components/ui/accordion").then(m => ({ default: m.AccordionTrigger })));
 
-// Lazy load below-fold components
-const ContactFormDialog = lazy(() => import("@/components/ContactFormDialog"));
+// Lazy load below-fold components (lazyWithRetry: reload once if a stale chunk 404s after rebuild)
+const ContactFormDialog = lazyWithRetry(() => import("@/components/ContactFormDialog"));
 
-const EbookBanner = lazy(() => import("@/components/EbookBanner"));
-const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
-const HomePartnerNewsSection = lazy(() => import("@/components/HomePartnerNewsSection"));
-const HomeVerifiedPartnersGrid = lazy(() => import("@/components/HomeVerifiedPartnersGrid"));
+const EbookBanner = lazyWithRetry(() => import("@/components/EbookBanner"));
+const ScrollCTA = lazyWithRetry(() => import("@/components/ScrollCTA"));
+const HomePartnerNewsSection = lazyWithRetry(() => import("@/components/HomePartnerNewsSection"));
+const HomeVerifiedPartnersGrid = lazyWithRetry(() => import("@/components/HomeVerifiedPartnersGrid"));
 
 const VideoComingSoon = () => (
   <figure className="space-y-1.5">
