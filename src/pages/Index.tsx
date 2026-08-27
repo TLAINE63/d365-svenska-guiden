@@ -759,7 +759,7 @@ const Index = () => {
                       <div className="grid gap-6 lg:grid-cols-[1fr,minmax(0,340px)] lg:items-start">
                         <div className="space-y-3 text-muted-foreground">
                           <p>Det beror på om du primärt behöver ett <strong>affärssystem (ERP)</strong> eller ett <strong>CRM-system</strong> – eller båda.</p>
-                          <p>• <Link to="/businesscentral/" className="text-primary hover:underline font-semibold">Dynamics 365 Business Central</Link> – Microsofts ERP-system för mindre och medelstora företag (ca 10–300 anställda). Se pris, funktioner och partners.</p>
+                          <p>• <Link to="/businesscentral/" className="text-primary hover:underline font-semibold">Business Central ERP</Link> – Microsofts ERP-system för mindre och medelstora företag (ca 10–300 anställda). Se pris, funktioner och partners.</p>
                           <p>• <strong>Finance & Supply Chain Management</strong> för större koncerner med komplexa globala flöden.</p>
                           <p>• <strong>Sales / Customer Service / Field Service</strong> för säljorganisation respektive ärende- och fälthantering.</p>
                           <p className="pt-1">
