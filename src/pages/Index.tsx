@@ -1,4 +1,5 @@
-import { lazy, Suspense, useState } from "react";
+import { Suspense, useState } from "react";
+import { lazyWithRetry } from "@/lib/lazyWithRetry";
 import FunnelCTA from "@/components/FunnelCTA";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
