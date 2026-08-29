@@ -45,7 +45,7 @@ export function usePublishedPartnerNews(opts: UsePublishedPartnerNewsOpts = {}) 
     queryFn: async (): Promise<PartnerNewsItem[]> => {
       let query = supabase
         .from("partner_news")
-        .select("*, partners:partner_id(id, name, slug, logo_url)")
+        .select("*")
         .eq("status", "published");
       if (opts.partnerId) query = query.eq("partner_id", opts.partnerId);
       if (opts.productArea) query = query.contains("product_areas", [opts.productArea]);
@@ -58,10 +58,9 @@ export function usePublishedPartnerNews(opts: UsePublishedPartnerNewsOpts = {}) 
       const { data, error } = await query;
       if (error) throw error;
       const rows = (data ?? []).map((row: Record<string, unknown>) => {
-        const partner = (row.partners ?? null) as PartnerNewsItem["partner"];
-        const { partners: _p, ...rest } = row as Record<string, unknown>;
-        return { ...(rest as unknown as PartnerNewsItem), partner };
+        return { ...(row as unknown as PartnerNewsItem), partner: null };
       });
+
 
       // Backfill partner name/slug for rows where the RLS-protected join returned null
       // (partners that are not is_featured). Uses SECURITY DEFINER RPC that exposes
@@ -98,16 +97,15 @@ export function usePartnerNewsItem(id: string | undefined) {
       if (!id) return null;
       const { data, error } = await supabase
         .from("partner_news")
-        .select("*, partners:partner_id(id, name, slug, logo_url)")
+        .select("*")
         .eq("id", id)
         .eq("status", "published")
         .maybeSingle();
       if (error) throw error;
       if (!data) return null;
       const row = data as Record<string, unknown>;
-      const partner = (row.partners ?? null) as PartnerNewsItem["partner"];
-      const { partners: _p, ...rest } = row;
-      const item = { ...(rest as unknown as PartnerNewsItem), partner };
+      const item = { ...(row as unknown as PartnerNewsItem), partner: null };
+
 
       // Backfill partner name/slug for non-featured partners via SECURITY DEFINER RPC
       if (!item.partner?.slug && item.partner_id) {
