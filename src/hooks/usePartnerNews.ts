@@ -97,16 +97,15 @@ export function usePartnerNewsItem(id: string | undefined) {
       if (!id) return null;
       const { data, error } = await supabase
         .from("partner_news")
-        .select("*, partners:partner_id(id, name, slug, logo_url)")
+        .select("*")
         .eq("id", id)
         .eq("status", "published")
         .maybeSingle();
       if (error) throw error;
       if (!data) return null;
       const row = data as Record<string, unknown>;
-      const partner = (row.partners ?? null) as PartnerNewsItem["partner"];
-      const { partners: _p, ...rest } = row;
-      const item = { ...(rest as unknown as PartnerNewsItem), partner };
+      const item = { ...(row as unknown as PartnerNewsItem), partner: null };
+
 
       // Backfill partner name/slug for non-featured partners via SECURITY DEFINER RPC
       if (!item.partner?.slug && item.partner_id) {
