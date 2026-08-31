@@ -165,6 +165,7 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
       headers: monthlyReportAuth(),
       body: JSON.stringify({
         adminToken: token,
+        token,
         partnerSlug: selectedPartner.slug,
         periodStart: start,
         periodEnd: end,
