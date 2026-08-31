@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import { filterBasicPartners } from "@/lib/basicPartnerMatch";
 import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { usePartners } from "@/hooks/usePartners";
 import { collectPartnerIndustries } from "@/lib/partnerIndustries";
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 
 interface Props {
   industry: string;

@@ -15,6 +15,7 @@ import WhyTheseResults from "@/components/WhyTheseResults";
 import RelatedPages, { branschRelatedPages } from "@/components/RelatedPages";
 import { useIndustryPage } from "@/hooks/useIndustryPage";
 import { usePartners } from "@/hooks/usePartners";
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import { findIndustryBySlug, STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { getIndustrySEO } from "@/data/industrySEO";
 import { INDUSTRY_TO_ARTICLE_SLUG } from "@/data/branschguideIndustryMap";

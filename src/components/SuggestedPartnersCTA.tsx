@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, GitCompare, Sparkles } from "lucide-react";
 import { usePartners } from "@/hooks/usePartners";
 import { pickSuggestedPartners } from "@/lib/suggestPartners";
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import { buildCompareUrl } from "@/lib/compareUrl";
 import type { ProductKey } from "@/hooks/usePartnerFilters";
 import { Button } from "@/components/ui/button";
