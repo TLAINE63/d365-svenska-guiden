@@ -71,6 +71,7 @@ import TrustBanner from "@/components/TrustBanner";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import partnerData from "@/data/partnerData.json";
 import { FREE_TOOL_COUNT } from "@/data/freeTools";
+import { KNOWLEDGE_CONTENT_COUNT } from "@/data/knowledgeContentCount";
 import { usePartners } from "@/hooks/usePartners";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 
