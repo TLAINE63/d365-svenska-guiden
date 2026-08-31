@@ -44,6 +44,18 @@ export default function ProductBasicPartnersSection({
     [basicPartners, applications, industry, companySize, revenue, geography],
   );
 
+  // Nivå 1 – exponering: övriga (ej verifierade) profiler på produktsidan.
+  usePartnerImpressions(
+    "partner_filter_impression",
+    filtered,
+    {
+      surface: "product_page_basic",
+      products: applications.join(","),
+      industry: industry ?? null,
+    },
+    !verifiedOnly,
+  );
+
   return (
     <div className="mt-12 border-t border-dashed border-border pt-8">
       <div className="flex justify-center mb-8">

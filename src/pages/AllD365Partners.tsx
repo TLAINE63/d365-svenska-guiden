@@ -131,6 +131,18 @@ export default function AllD365Partners() {
     profiledAll.length + (basicPartners?.length ?? 0);
 
   const filteredTotal = profiled.length + basicFiltered.length + others.length;
+
+  // Nivå 1 – exponering: partnerlistan på /alla-d365-partners/.
+  usePartnerImpressions("partner_list_impression", profiled, {
+    surface: "all_partners",
+    product: productFilter,
+    search: q ? "yes" : "no",
+  });
+  usePartnerImpressions("partner_list_impression", basicSorted, {
+    surface: "all_partners_basic",
+    product: productFilter,
+    search: q ? "yes" : "no",
+  });
   const isFiltering = q.length > 0 || productFilter !== "all" || verifiedOnly;
 
 

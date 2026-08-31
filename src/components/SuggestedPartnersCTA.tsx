@@ -43,6 +43,18 @@ const SuggestedPartnersCTA = ({
     [partners, product, industry, companySize, revenue],
   );
 
+  // Nivå 1 – exponering: partners som föreslås efter behovsanalys/kravspecifikation.
+  usePartnerImpressions(
+    "partner_match_impression",
+    suggested,
+    {
+      surface: "suggested_partners",
+      product: Array.isArray(product) ? product.join(",") : product ?? null,
+      industry: industry ?? null,
+    },
+    !isLoading,
+  );
+
   if (isLoading || suggested.length === 0) return null;
 
   const compareUrl = buildCompareUrl(suggested.map((p) => p.slug));
