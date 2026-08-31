@@ -361,7 +361,7 @@ const Index = () => {
               <div className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 auto-rows-fr">
                 {[
                   { n: `${identifiedPartnerCount}`, t: "Identifierade Dynamics 365-partners i Sverige", path: "/alla-d365-partners/" },
-                  { n: `${verifiedPartnerCount}`, t: "Verifierade partnerprofiler", path: "/valjdynamics365partner/" },
+                  { n: `${KNOWLEDGE_CONTENT_COUNT}`, t: "Guider, artiklar och branschinsikter", path: "/kunskapscenter/" },
                   { n: `${HERO_INDUSTRIES.length}`, t: "Branscher med verifierade partners", path: "/branscher/" },
                   { n: `${FREE_TOOL_COUNT}`, t: "Kostnadsfria beslutsverktyg", path: "/kunskapscenter/" },
                   
