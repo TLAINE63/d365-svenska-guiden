@@ -611,7 +611,8 @@ serve(async (req) => {
     const body = await req.json().catch(() => ({}));
     const {
       adminPassword,
-      token: adminToken,
+      token: tokenField,
+      adminToken: adminTokenField,
       cronSecret,
       partnerSlug,
       dryRun = false,
