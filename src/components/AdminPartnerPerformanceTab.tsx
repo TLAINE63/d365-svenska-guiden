@@ -77,13 +77,18 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
 
   useEffect(() => {
     if (!token) return;
-    supabase
-      .from("site_settings")
-      .select("value")
-      .eq("key", "monthly_report_auto_send_enabled")
-      .maybeSingle()
-      .then(({ data }) => setAutoSendEnabled(data?.value === "true"))
-      .catch(() => setAutoSendEnabled(false));
+    (async () => {
+      try {
+        const { data } = await supabase
+          .from("site_settings")
+          .select("value")
+          .eq("key", "monthly_report_auto_send_enabled")
+          .maybeSingle();
+        setAutoSendEnabled(data?.value === "true");
+      } catch {
+        setAutoSendEnabled(false);
+      }
+    })();
   }, [token]);
 
   const monthBounds = (m: string) => {
