@@ -739,6 +739,18 @@ function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: str
           </p>
           ${marketHtml}
 
+          <!-- d365guide.com -->
+          <table style="width:100%;border-collapse:collapse;margin:28px 0 0">
+            <tr><td style="padding:16px 18px;background:#0f1f3d;border-radius:10px">
+              <div style="color:#ffffff;font-size:15px;font-weight:700;margin-bottom:6px">Internationell räckvidd – d365guide.com</div>
+              <div style="color:#cbd5e1;font-size:13px;line-height:1.6">
+                Systersajten <strong style="color:#ffffff">d365guide.com</strong> riktar sig till köpare utanför Sverige
+                (engelska och norska). Som verifierad partner på d365.se kommer er profil att synas där också –
+                utan extra kostnad. Vi återkommer med mer information när sajten är på plats.
+              </div>
+            </td></tr>
+          </table>
+
           <!-- Var ni syntes -->
           <h2 style="margin:28px 0 8px;font-size:18px;color:#0f172a">Var ni syntes</h2>
           ${visibilityHtml}
