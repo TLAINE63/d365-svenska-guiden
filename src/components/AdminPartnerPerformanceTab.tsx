@@ -53,6 +53,11 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
   const [recs, setRecs] = useState<{ title: string; body: string }[]>([]);
   const [sendingLink, setSendingLink] = useState(false);
   const [generatingLink, setGeneratingLink] = useState(false);
+  const [autoSendEnabled, setAutoSendEnabled] = useState<boolean | null>(null);
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewHtml, setPreviewHtml] = useState<string | null>(null);
+  const [previewLoading, setPreviewLoading] = useState(false);
+  const [sendingReport, setSendingReport] = useState(false);
 
   const months = useMemo(() => monthOptions(), []);
 
