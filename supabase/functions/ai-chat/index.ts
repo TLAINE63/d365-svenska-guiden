@@ -3,6 +3,7 @@ import { checkAndLogQuota } from '../_shared/ai-quota.ts';
 import { D365_MARKET_CONTEXT_SV } from '../_shared/market-context.ts';
 import { getCorsHeaders } from '../_shared/cors.ts';
 import { buildIsvContextBlock } from '../_shared/isv-context.ts';
+import { PROMPT_CONFIDENTIALITY_SV, sanitizeChatMessages } from '../_shared/prompt-guard.ts';
 
 const DAILY_LIMIT = 50;
 
@@ -43,8 +44,15 @@ Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response(null, { headers: corsHeaders });
 
   try {
-    const { messages } = await req.json();
-    if (!Array.isArray(messages) || messages.length === 0 || messages.length > 30) {
+    const body = await req.json();
+    if (!Array.isArray(body?.messages) || body.messages.length === 0 || body.messages.length > 30) {
+      return new Response(JSON.stringify({ error: 'Ogiltig konversation' }), {
+        status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+    // Endast user/assistant släpps igenom – besökare kan inte skicka egna systeminstruktioner.
+    const messages = sanitizeChatMessages(body.messages);
+    if (messages.length === 0) {
       return new Response(JSON.stringify({ error: 'Ogiltig konversation' }), {
         status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
@@ -89,7 +97,7 @@ Deno.serve(async (req) => {
 
     const isvBlock = await buildIsvContextBlock();
 
-    const systemPrompt = SYSTEM_PROMPT_BASE + '\n\n' + D365_MARKET_CONTEXT_SV + partnerBlock + isvBlock;
+    const systemPrompt = SYSTEM_PROMPT_BASE + '\n\n' + D365_MARKET_CONTEXT_SV + partnerBlock + isvBlock + PROMPT_CONFIDENTIALITY_SV;
 
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
