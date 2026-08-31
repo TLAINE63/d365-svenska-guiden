@@ -489,7 +489,32 @@ function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: str
 </html>`;
 }
 
-async function sendOne(supabase: any, partner: any, currentStart: string, currentEnd: string, previousStart: string, previousEnd: string, settings: { changelog: string; nextPeriod: string; contact: string }, dryRun: boolean, overrideRecipient?: string, reportLabel = "Månadsrapport", extraRecipients: string[] = []) {
+async function findReport(supabase: any, partnerId: string, currentStart: string, currentEnd: string) {
+  // Match the report by partner + period month derived from currentEnd
+  const month = currentEnd.slice(0, 7) + "-01";
+  const { data } = await supabase
+    .from("partner_performance_reports")
+    .select("id, status, sent_at")
+    .eq("partner_id", partnerId)
+    .eq("period_month", month)
+    .maybeSingle();
+  return data || null;
+}
+
+async function sendOne(
+  supabase: any,
+  partner: any,
+  currentStart: string,
+  currentEnd: string,
+  previousStart: string,
+  previousEnd: string,
+  settings: { changelog: string; nextPeriod: string; contact: string },
+  dryRun: boolean,
+  overrideRecipient?: string,
+  reportLabel = "Månadsrapport",
+  extraRecipients: string[] = [],
+  requireApproved = false,
+) {
   const primary = overrideRecipient || partner.admin_contact_email || partner.email;
   const recipients: string[] = [];
   if (primary) recipients.push(primary);
@@ -519,6 +544,12 @@ async function sendOne(supabase: any, partner: any, currentStart: string, curren
     return { partner: partner.name, status: "preview", recipient, recipients, stats, html };
   }
 
+  // Enforce approval before sending if requested (manual/admin sends).
+  const report = await findReport(supabase, partner.id, currentStart, currentEnd);
+  if (requireApproved && (!report || report.status !== "approved")) {
+    return { partner: partner.name, status: "skipped", reason: "not_approved", reportStatus: report?.status || null };
+  }
+
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
@@ -536,13 +567,21 @@ async function sendOne(supabase: any, partner: any, currentStart: string, curren
   });
 
   const body = await res.json();
+  const ok = res.ok;
+
+  if (ok && report?.id) {
+    await supabase
+      .from("partner_performance_reports")
+      .update({ sent_at: new Date().toISOString(), updated_at: new Date().toISOString() })
+      .eq("id", report.id);
+  }
 
   await supabase.from("email_send_log").insert({
     template_name: "partner-monthly-report",
     recipient_email: recipients.join(", "),
     subject,
-    status: res.ok ? "sent" : "failed",
-    error_message: res.ok ? null : (body?.message || JSON.stringify(body)),
+    status: ok ? "sent" : "failed",
+    error_message: ok ? null : (body?.message || JSON.stringify(body)),
     metadata: {
       partner_slug: partner.slug,
       partner_name: partner.name,
@@ -551,16 +590,17 @@ async function sendOne(supabase: any, partner: any, currentStart: string, curren
       recipients,
       current: stats.current,
       previous: stats.previous,
+      report_status: report?.status || null,
     },
   });
 
   return {
     partner: partner.name,
-    status: res.ok ? "sent" : "failed",
+    status: ok ? "sent" : "failed",
     recipient,
     recipients,
     stats: { current: stats.current, previous: stats.previous },
-    error: res.ok ? undefined : body,
+    error: ok ? undefined : body,
   };
 }
 
