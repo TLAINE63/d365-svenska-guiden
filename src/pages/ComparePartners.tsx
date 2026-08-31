@@ -39,7 +39,7 @@ import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 
 import { useTrackFilterExposure } from "@/hooks/useTrackFilterExposure";
-import { trackPartnerImpression } from "@/utils/trackPartnerEvent";
+import { trackPartnerEvent, trackPartnerImpression } from "@/utils/trackPartnerEvent";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import ShortlistButton from "@/components/ShortlistButton";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
@@ -805,6 +805,23 @@ const ComparePartners = () => {
     if (slug) next.set(key, slug);
     else next.delete(key);
     setParams(next, { replace: true });
+    // Nivå 1 + 3: partnern valdes aktivt in i en jämförelse – logga direkt vid valet,
+    // inte bara när den färdiga jämförelsen renderas.
+    if (slug) {
+      const picked = allPartners.find((p) => p.slug === slug);
+      trackPartnerEvent({
+        event: "partner_comparison_impression",
+        partnerSlug: slug,
+        partnerId: (picked as any)?.id ?? null,
+        metadata: { surface: "compare_select", slot: key },
+      });
+      trackPartnerEvent({
+        event: "partner_added_to_comparison",
+        partnerSlug: slug,
+        partnerId: (picked as any)?.id ?? null,
+        metadata: { slot: key },
+      });
+    }
   };
 
   const ERP_APPS = new Set([
