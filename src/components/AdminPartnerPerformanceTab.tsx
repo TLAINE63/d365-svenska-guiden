@@ -77,11 +77,12 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
 
   useEffect(() => {
     if (!token) return;
-    fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-market-report?action=get_setting&key=monthly_report_auto_send_enabled`, {
-      headers: { Authorization: `Bearer ${token}`, apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "" },
-    })
-      .then((r) => r.json().catch(() => ({})))
-      .then((data) => setAutoSendEnabled(data.value === "true"))
+    supabase
+      .from("site_settings")
+      .select("value")
+      .eq("key", "monthly_report_auto_send_enabled")
+      .maybeSingle()
+      .then(({ data }) => setAutoSendEnabled(data?.value === "true"))
       .catch(() => setAutoSendEnabled(false));
   }, [token]);
 
