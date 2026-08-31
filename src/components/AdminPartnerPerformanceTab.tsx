@@ -11,9 +11,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
-import { Loader2, Save, CheckCircle2, Plus, Trash2, RefreshCw, Mail, Copy } from "lucide-react";
+import { Loader2, Save, CheckCircle2, Plus, Trash2, RefreshCw, Mail, Copy, Eye, Send } from "lucide-react";
 import PartnerPerformanceReportView, {
   formatMonthLabel,
   type PerformanceReportData,
@@ -47,6 +54,11 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
   const [recs, setRecs] = useState<{ title: string; body: string }[]>([]);
   const [sendingLink, setSendingLink] = useState(false);
   const [generatingLink, setGeneratingLink] = useState(false);
+  const [autoSendEnabled, setAutoSendEnabled] = useState<boolean | null>(null);
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewHtml, setPreviewHtml] = useState<string | null>(null);
+  const [previewLoading, setPreviewLoading] = useState(false);
+  const [sendingReport, setSendingReport] = useState(false);
 
   const months = useMemo(() => monthOptions(), []);
 
@@ -62,6 +74,28 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
+
+  useEffect(() => {
+    if (!token) return;
+    (async () => {
+      try {
+        const { data } = await supabase
+          .from("site_settings")
+          .select("value")
+          .eq("key", "monthly_report_auto_send_enabled")
+          .maybeSingle();
+        setAutoSendEnabled(data?.value === "true");
+      } catch {
+        setAutoSendEnabled(false);
+      }
+    })();
+  }, [token]);
+
+  const monthBounds = (m: string) => {
+    const [year, mon] = m.split("-").map(Number);
+    const lastDay = new Date(year, mon, 0).getDate();
+    return { start: `${m}-01`, end: `${m}-${String(lastDay).padStart(2, "0")}` };
+  };
 
   const load = useCallback(async () => {
     if (!token || !slug || !month) return;
@@ -115,6 +149,80 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
       description: `${data.partner.name} – ${formatMonthLabel(data.month)}`,
     });
     load();
+  };
+
+  const monthlyReportBase = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-partner-monthly-report`;
+  const monthlyReportAuth = () => ({
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  });
+
+  const runMonthlyReport = async (dryRun: boolean) => {
+    if (!token || !selectedPartner) return null;
+    const { start, end } = monthBounds(month);
+    const res = await fetch(monthlyReportBase, {
+      method: "POST",
+      headers: monthlyReportAuth(),
+      body: JSON.stringify({
+        adminToken: token,
+        partnerSlug: selectedPartner.slug,
+        periodStart: start,
+        periodEnd: end,
+        dryRun,
+      }),
+    });
+    const json = await res.json().catch(() => ({ error: "Ogiltigt svar" }));
+    if (!res.ok) throw new Error(json.error || "Kunde inte köra rapporten");
+    return json;
+  };
+
+  const handlePreviewMonthlyReport = async () => {
+    if (!token || !selectedPartner) return;
+    setPreviewLoading(true);
+    try {
+      const json = await runMonthlyReport(true);
+      const html = json.results?.[0]?.html || "<p>Ingen förhandsvisning tillgänglig.</p>";
+      setPreviewHtml(html);
+      setPreviewOpen(true);
+    } catch (e: any) {
+      toast({ title: "Fel", description: e.message, variant: "destructive" });
+    } finally {
+      setPreviewLoading(false);
+    }
+  };
+
+  const handleSendMonthlyReport = async () => {
+    if (!token || !selectedPartner || !data) return;
+    if (data.status !== "approved") {
+      toast({
+        title: "Rapporten är inte godkänd",
+        description: "Markera rapporten som godkänd innan du skickar den.",
+        variant: "destructive",
+      });
+      return;
+    }
+    if (!window.confirm(`Skicka månadsrapporten för ${selectedPartner.name} – ${formatMonthLabel(month)}?`)) return;
+    setSendingReport(true);
+    try {
+      const json = await runMonthlyReport(false);
+      const result = json.results?.[0];
+      if (result?.status === "sent") {
+        toast({
+          title: "Månadsrapport skickad",
+          description: `Till ${result.recipients?.join(", ") || selectedPartner.name}`,
+        });
+      } else {
+        toast({
+          title: "Rapporten skickades inte",
+          description: result?.reason || result?.status || "Okänt fel",
+          variant: "destructive",
+        });
+      }
+    } catch (e: any) {
+      toast({ title: "Fel", description: e.message, variant: "destructive" });
+    } finally {
+      setSendingReport(false);
+    }
   };
 
   const previewData: PerformanceReportData | null = data
@@ -194,6 +302,13 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
       <Card>
         <CardHeader>
           <CardTitle className="text-base">Partner Performance – välj rapport</CardTitle>
+          <div className="text-sm text-muted-foreground">
+            {autoSendEnabled === null
+              ? "Kollar automatiska utskick…"
+              : autoSendEnabled
+              ? "Automatisk månadsrapport är påslagen."
+              : "Automatisk månadsrapport är för närvarande avstängd. Du skickar rapporter manuellt härifrån."}
+          </div>
         </CardHeader>
         <CardContent className="flex flex-wrap items-end gap-3">
           <div className="space-y-1">
@@ -225,9 +340,25 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
           {selectedPartner && (
             <>
               <Button
+                variant="outline"
+                onClick={handlePreviewMonthlyReport}
+                disabled={previewLoading || sendingReport}
+              >
+                {previewLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Eye className="h-4 w-4" />}
+                Förhandsgranska månadsrapport
+              </Button>
+              <Button
+                variant="default"
+                onClick={handleSendMonthlyReport}
+                disabled={sendingReport || previewLoading || data?.status !== "approved"}
+              >
+                {sendingReport ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+                Skicka månadsrapport nu
+              </Button>
+              <Button
                 variant="default"
                 onClick={handleSendReportLink}
-                disabled={sendingLink || generatingLink}
+                disabled={sendingLink || generatingLink || sendingReport || previewLoading}
               >
                 {sendingLink ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
                 Skicka rapportlänk
@@ -235,7 +366,7 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
               <Button
                 variant="outline"
                 onClick={handleCopyReportLink}
-                disabled={sendingLink || generatingLink}
+                disabled={sendingLink || generatingLink || sendingReport || previewLoading}
               >
                 {generatingLink ? <Loader2 className="h-4 w-4 animate-spin" /> : <Copy className="h-4 w-4" />}
                 Kopiera länk
@@ -323,6 +454,24 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
           </CardContent>
         </Card>
       )}
+
+      <Dialog open={previewOpen} onOpenChange={setPreviewOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
+          <DialogHeader>
+            <DialogTitle>Förhandsgranskning av e-post</DialogTitle>
+          </DialogHeader>
+          <div className="flex-1 overflow-auto rounded border bg-white">
+            {previewHtml && (
+              <iframe
+                title="Månadsrapport förhandsvisning"
+                srcDoc={previewHtml}
+                className="w-full min-h-[60vh]"
+                sandbox=""
+              />
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
