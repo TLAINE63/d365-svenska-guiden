@@ -702,6 +702,7 @@ serve(async (req) => {
           overrideRecipient,
           reportLabel,
           Array.isArray(extraRecipients) ? extraRecipients : [],
+          true, // require approved report before actual send
         ));
       } catch (e: any) {
         console.error("Partner failed:", p.slug, e);
