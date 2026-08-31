@@ -585,6 +585,57 @@ function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: str
       ${surfacesHtml}
       ${intentHtml}`;
 
+  // Marknadskontext + marknadsandel
+  const sharePct = market.totalExposures > 0
+    ? Math.round((engagement.exposures / market.totalExposures) * 1000) / 10
+    : null;
+  const marketHtml = `
+      <table style="width:100%;border-collapse:collapse">
+        <tr>
+          <td style="width:33%;padding:14px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-align:center">
+            <div style="font-size:22px;font-weight:800;color:#0f172a">${market.siteVisitors.toLocaleString("sv-SE")}</div>
+            <div style="font-size:12px;color:#64748b;margin-top:4px">besökare på d365.se</div>
+          </td>
+          <td style="width:8px"></td>
+          <td style="width:33%;padding:14px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-align:center">
+            <div style="font-size:22px;font-weight:800;color:#0f172a">${market.sitePageViews.toLocaleString("sv-SE")}</div>
+            <div style="font-size:12px;color:#64748b;margin-top:4px">sidvisningar</div>
+          </td>
+          <td style="width:8px"></td>
+          <td style="width:33%;padding:14px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-align:center">
+            <div style="font-size:22px;font-weight:800;color:#0f172a">${market.assessments.toLocaleString("sv-SE")}</div>
+            <div style="font-size:12px;color:#64748b;margin-top:4px">genomförda behovsanalyser</div>
+          </td>
+        </tr>
+      </table>
+      ${sharePct !== null && engagement.exposures > 0 ? `
+      <p style="margin:12px 0 0;padding:12px 14px;background:#ecfdf5;border-left:3px solid #16a34a;border-radius:4px;color:#14532d;font-size:14px;line-height:1.55">
+        Ert kort stod för <strong>${sharePct} %</strong> av alla partnerexponeringar på sajten under perioden
+        (${engagement.exposures.toLocaleString("sv-SE")} av ${market.totalExposures.toLocaleString("sv-SE")}).
+      </p>` : ""}`;
+
+  // Rullande 3-månaderstrend
+  const trendMax = Math.max(1, ...trend.map((t) => t.exposures));
+  const trendRows = trend
+    .map((t) => {
+      const w = Math.round((t.exposures / trendMax) * 100);
+      return `
+      <tr>
+        <td style="padding:8px 10px;font-size:13px;color:#0f172a;white-space:nowrap">${esc(t.label)}</td>
+        <td style="padding:8px 10px;width:100%">
+          <div style="background:#e2e8f0;border-radius:4px;height:10px">
+            <div style="background:#ea580c;width:${w}%;height:10px;border-radius:4px;font-size:0">&nbsp;</div>
+          </div>
+        </td>
+        <td style="padding:8px 10px;font-size:13px;color:#0f172a;text-align:right;white-space:nowrap"><strong>${t.exposures}</strong> exp.</td>
+        <td style="padding:8px 10px;font-size:13px;color:#64748b;text-align:right;white-space:nowrap">${t.engagements} eng. / ${t.buyingSignals} köpsign.</td>
+      </tr>`;
+    })
+    .join("");
+  const trendHtml = trend.some((t) => t.exposures + t.engagements + t.buyingSignals > 0)
+    ? `<table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px">${trendRows}</table>`
+    : `<p style="margin:6px 0 0;color:#64748b;font-size:14px">Trenden byggs upp allt eftersom mätdata samlas in.</p>`;
+
   const nextPeriodHtml = settings.nextPeriod
     ? renderRichText(settings.nextPeriod)
     : `<p style="margin:6px 0;color:#64748b;font-size:14px">Inga aviserade publiceringar just nu.</p>`;
@@ -673,6 +724,20 @@ function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: str
             Köpresan i fyra nivåer – från att ert kort syns till att någon ber om kontakt. Ju längre ner i tabellen aktiviteten sker, desto närmare ett faktiskt affärstillfälle.
           </p>
           ${performanceHtml}
+
+          <!-- Rullande trend -->
+          <h2 style="margin:28px 0 8px;font-size:18px;color:#0f172a">Utveckling senaste tre månaderna</h2>
+          <p style="margin:0 0 10px;color:#64748b;font-size:13px;line-height:1.55">
+            Enskilda månader svänger. Trenden ger en stabilare bild av hur ofta ert kort möter köpare.
+          </p>
+          ${trendHtml}
+
+          <!-- Marknadskontext -->
+          <h2 style="margin:28px 0 8px;font-size:18px;color:#0f172a">Marknadskontext</h2>
+          <p style="margin:0 0 10px;color:#64748b;font-size:13px;line-height:1.55">
+            Så här stor var köparaktiviteten på d365.se under perioden – och hur stor del av partnerexponeringarna som var er.
+          </p>
+          ${marketHtml}
 
           <!-- Var ni syntes -->
           <h2 style="margin:28px 0 8px;font-size:18px;color:#0f172a">Var ni syntes</h2>
