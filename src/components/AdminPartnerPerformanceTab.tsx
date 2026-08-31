@@ -302,6 +302,13 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
       <Card>
         <CardHeader>
           <CardTitle className="text-base">Partner Performance – välj rapport</CardTitle>
+          <div className="text-sm text-muted-foreground">
+            {autoSendEnabled === null
+              ? "Kollar automatiska utskick…"
+              : autoSendEnabled
+              ? "Automatisk månadsrapport är påslagen."
+              : "Automatisk månadsrapport är för närvarande avstängd. Du skickar rapporter manuellt härifrån."}
+          </div>
         </CardHeader>
         <CardContent className="flex flex-wrap items-end gap-3">
           <div className="space-y-1">
@@ -333,9 +340,25 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
           {selectedPartner && (
             <>
               <Button
+                variant="outline"
+                onClick={handlePreviewMonthlyReport}
+                disabled={previewLoading || sendingReport}
+              >
+                {previewLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Eye className="h-4 w-4" />}
+                Förhandsgranska månadsrapport
+              </Button>
+              <Button
+                variant="default"
+                onClick={handleSendMonthlyReport}
+                disabled={sendingReport || previewLoading || data?.status !== "approved"}
+              >
+                {sendingReport ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+                Skicka månadsrapport nu
+              </Button>
+              <Button
                 variant="default"
                 onClick={handleSendReportLink}
-                disabled={sendingLink || generatingLink}
+                disabled={sendingLink || generatingLink || sendingReport || previewLoading}
               >
                 {sendingLink ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
                 Skicka rapportlänk
@@ -343,7 +366,7 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
               <Button
                 variant="outline"
                 onClick={handleCopyReportLink}
-                disabled={sendingLink || generatingLink}
+                disabled={sendingLink || generatingLink || sendingReport || previewLoading}
               >
                 {generatingLink ? <Loader2 className="h-4 w-4 animate-spin" /> : <Copy className="h-4 w-4" />}
                 Kopiera länk
