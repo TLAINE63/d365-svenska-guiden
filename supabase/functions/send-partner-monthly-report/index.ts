@@ -624,10 +624,14 @@ serve(async (req) => {
       extraRecipients,
     } = body || {};
 
+    const bearer = (req.headers.get("Authorization") || "").replace(/^Bearer\s+/i, "");
+    const adminToken = tokenField || adminTokenField || bearer || "";
+
     const supabase = createClient(SUPABASE_URL, SERVICE_ROLE);
 
     let isAdmin = !!(ADMIN_PASSWORD && adminPassword === ADMIN_PASSWORD);
     if (!isAdmin && adminToken) isAdmin = await verifyAdminJWT(adminToken);
+
     let isCron = false;
     if (!isAdmin && cronSecret) {
       const { data: secretRow } = await supabase
