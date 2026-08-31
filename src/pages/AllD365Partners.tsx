@@ -11,6 +11,7 @@ import TrustBanner from "@/components/TrustBanner";
 import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
 import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
 import { useMemo, useState } from "react";
@@ -130,6 +131,18 @@ export default function AllD365Partners() {
     profiledAll.length + (basicPartners?.length ?? 0);
 
   const filteredTotal = profiled.length + basicFiltered.length + others.length;
+
+  // Nivå 1 – exponering: partnerlistan på /alla-d365-partners/.
+  usePartnerImpressions("partner_list_impression", profiled, {
+    surface: "all_partners",
+    product: productFilter,
+    search: q ? "yes" : "no",
+  });
+  usePartnerImpressions("partner_list_impression", basicSorted, {
+    surface: "all_partners_basic",
+    product: productFilter,
+    search: q ? "yes" : "no",
+  });
   const isFiltering = q.length > 0 || productFilter !== "all" || verifiedOnly;
 
 

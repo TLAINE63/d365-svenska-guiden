@@ -15,6 +15,7 @@ import WhyTheseResults from "@/components/WhyTheseResults";
 import RelatedPages, { branschRelatedPages } from "@/components/RelatedPages";
 import { useIndustryPage } from "@/hooks/useIndustryPage";
 import { usePartners } from "@/hooks/usePartners";
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import { findIndustryBySlug, STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { getIndustrySEO } from "@/data/industrySEO";
 import { INDUSTRY_TO_ARTICLE_SLUG } from "@/data/branschguideIndustryMap";
@@ -239,6 +240,21 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
    geography: selectedGeography,
   });
  }, [basicPartners, meta, selected, selectedGeography, selectedCompanySize, selectedRevenue]);
+
+ // Nivå 1 – exponering: partners som visas på branschsidan räknas i månadsrapporten.
+ usePartnerImpressions(
+  "partner_filter_impression",
+  matchingPartners as any[],
+  { industry: meta?.name ?? slug ?? null, surface: "industry_page", products: selected.join(",") || null },
+  Boolean(meta),
+ );
+ usePartnerImpressions(
+  "partner_filter_impression",
+  matchingBasicPartners as any[],
+  { industry: meta?.name ?? slug ?? null, surface: "industry_page_basic", products: selected.join(",") || null },
+  Boolean(meta),
+ );
+
 
  if (!loading && !page) {
  return (

@@ -10,3 +10,9 @@
 
 ## Klart
 - [x] Startsida: ersätt "17 verifierade partnerprofiler" med antal publicerade kunskapsartiklar (inkl. branschrapporter, produktfördjupningar m.m.)
+
+## Pågår
+- [x] Exponeringsspårning på branschsidor, partnerkatalog, produktsidors basickort, kunskapscenterlistor och föreslagna partners
+- [x] Logga exponering vid val av partner i jämförelsevyn
+- [x] Partner Performance-sektion (fyra nivåer) i månadsrapporten
+- [ ] Manuell granskning, godkännande och utskick av månadsrapport (görs av admin i dashboarden)

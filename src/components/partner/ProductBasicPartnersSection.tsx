@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import { filterBasicPartners } from "@/lib/basicPartnerMatch";
 import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
@@ -41,6 +42,18 @@ export default function ProductBasicPartnersSection({
         geography,
       }),
     [basicPartners, applications, industry, companySize, revenue, geography],
+  );
+
+  // Nivå 1 – exponering: övriga (ej verifierade) profiler på produktsidan.
+  usePartnerImpressions(
+    "partner_filter_impression",
+    filtered,
+    {
+      surface: "product_page_basic",
+      products: applications.join(","),
+      industry: industry ?? null,
+    },
+    !verifiedOnly,
   );
 
   return (

@@ -124,6 +124,87 @@ interface PartnerStats {
   topEntryPath: string | null;
   industryPagesListed: { slug: string; name: string; views: number }[];
   partnerNews: { title: string; date: string; url: string | null }[];
+  engagement: EngagementStats;
+  previousEngagement: EngagementStats;
+}
+
+/** Partner Performance – aggregerade nivåer från partner_engagement_events. */
+interface EngagementStats {
+  exposures: number;
+  engagements: number;
+  buyingSignals: number;
+  leads: number;
+  uniqueVisitors: number;
+  topSurfaces: { label: string; count: number }[];
+  intentTracks: { label: string; count: number }[];
+}
+
+const SURFACE_LABELS: { test: RegExp; label: string }[] = [
+  { test: /^\/branscher\//, label: "Branschsidor" },
+  { test: /^\/branscher/, label: "Branschöversikt" },
+  { test: /^\/jamfor-partners/, label: "Jämförelsevyn" },
+  { test: /^\/alla-d365-partners/, label: "Partnerkatalogen" },
+  { test: /^\/partner\//, label: "Partnerprofilen" },
+  { test: /^\/(behovsanalys|erpbehovsanalys|crmbehovsanalys)/, label: "Behovsanalys" },
+  { test: /^\/kravspecifikation/, label: "Kravspecifikation" },
+  { test: /^\/(businesscentral|erp|affarssystem|crm|finance|copilot)/, label: "Produktsidor" },
+  { test: /^\/$/, label: "Startsidan" },
+];
+
+function labelForPath(path: string | null): string {
+  const p = (path || "").toLowerCase();
+  if (!p) return "Övrigt";
+  for (const s of SURFACE_LABELS) if (s.test.test(p)) return s.label;
+  return "Övriga sidor";
+}
+
+const INTENT_LABELS: Record<string, string> = { erp: "ERP", crm: "CRM", ai: "AI & Copilot" };
+
+async function fetchEngagement(supabase: any, partner: any, startIso: string, endIso: string): Promise<EngagementStats> {
+  const { data } = await supabase
+    .from("partner_engagement_events")
+    .select("event_level, page_path, visitor_id, intent_track")
+    .eq("partner_slug", partner.slug)
+    .gte("occurred_at", startIso)
+    .lt("occurred_at", endIso)
+    .limit(20000);
+
+  const rows = data || [];
+  const visitors = new Set<string>();
+  const surfaces = new Map<string, number>();
+  const intents = new Map<string, number>();
+  let exposures = 0, engagements = 0, buyingSignals = 0, leads = 0;
+
+  for (const r of rows) {
+    const lvl = Number(r.event_level || 0);
+    if (lvl === 1) exposures++;
+    else if (lvl === 2) engagements++;
+    else if (lvl === 3) buyingSignals++;
+    else if (lvl >= 4) leads++;
+    if (r.visitor_id) visitors.add(r.visitor_id);
+    const label = labelForPath(r.page_path);
+    surfaces.set(label, (surfaces.get(label) || 0) + 1);
+    if (r.intent_track) {
+      const il = INTENT_LABELS[r.intent_track] || r.intent_track;
+      intents.set(il, (intents.get(il) || 0) + 1);
+    }
+  }
+
+  return {
+    exposures,
+    engagements,
+    buyingSignals,
+    leads,
+    uniqueVisitors: visitors.size,
+    topSurfaces: Array.from(surfaces.entries())
+      .map(([label, count]) => ({ label, count }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 5),
+    intentTracks: Array.from(intents.entries())
+      .map(([label, count]) => ({ label, count }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 3),
+  };
 }
 
 async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso: string): Promise<PeriodStats> {
@@ -294,13 +375,15 @@ async function fetchSiteSettings(supabase: any) {
 }
 
 async function buildStats(supabase: any, partner: any, currentStart: string, currentEnd: string, previousStart: string, previousEnd: string): Promise<PartnerStats> {
-  const [current, previous, ident, entryPath, industryPagesListed, partnerNews] = await Promise.all([
+  const [current, previous, ident, entryPath, industryPagesListed, partnerNews, engagement, previousEngagement] = await Promise.all([
     fetchPeriod(supabase, partner, currentStart, currentEnd),
     fetchPeriod(supabase, partner, previousStart, previousEnd),
     fetchIdentifiedCompanies(supabase, partner, currentStart, currentEnd),
     fetchTopEntryPath(supabase, partner, currentStart, currentEnd),
     fetchIndustryPagesListed(supabase, partner, currentStart, currentEnd),
     fetchPartnerNews(supabase, partner, currentStart, currentEnd),
+    fetchEngagement(supabase, partner, currentStart, currentEnd),
+    fetchEngagement(supabase, partner, previousStart, previousEnd),
   ]);
   return {
     partner,
@@ -312,6 +395,8 @@ async function buildStats(supabase: any, partner: any, currentStart: string, cur
     topEntryPath: entryPath,
     industryPagesListed,
     partnerNews,
+    engagement,
+    previousEngagement,
   };
 }
 
@@ -327,7 +412,7 @@ function delta(current: number, previous: number): string {
 }
 
 function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: string, settings: { changelog: string; nextPeriod: string; contact: string }, reportLabel = "Månadsrapport"): string {
-  const { partner, current, previous, identifiedCompanies, industryBreakdown, activeEvaluators, topEntryPath, industryPagesListed, partnerNews } = stats;
+  const { partner, current, previous, identifiedCompanies, industryBreakdown, activeEvaluators, topEntryPath, industryPagesListed, partnerNews, engagement, previousEngagement } = stats;
   const profileUrl = `https://www.d365.se/partner/${partner.slug}`;
 
   const statRow = (label: string, cur: number, prev: number) => `
@@ -367,6 +452,55 @@ function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: str
   const visibilityHtml = (industryRows || newsRows)
     ? `<ul style="margin:6px 0 0 0;padding-left:20px;color:#334155;font-size:14px">${industryRows}${newsRows}</ul>`
     : `<p style="margin:6px 0 0 0;color:#64748b;font-size:14px">Inga redaktionella exponeringar under perioden.</p>`;
+
+  // Partner Performance – nivåerna från engagemangsspårningen.
+  const perfRow = (label: string, help: string, cur: number, prev: number) => `
+    <tr>
+      <td style="padding:12px 14px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:14px">
+        <strong>${esc(label)}</strong><br>
+        <span style="color:#64748b;font-size:12px">${esc(help)}</span>
+      </td>
+      <td style="padding:12px 14px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:15px;text-align:right;font-weight:700">${cur}</td>
+      <td style="padding:12px 14px;border-bottom:1px solid #eef0f3;color:#64748b;font-size:14px;text-align:right">${prev}</td>
+      <td style="padding:12px 14px;border-bottom:1px solid #eef0f3;font-size:13px;text-align:right;white-space:nowrap">${delta(cur, prev)}</td>
+    </tr>`;
+
+  const perfTotal = engagement.exposures + engagement.engagements + engagement.buyingSignals + engagement.leads;
+  const surfacesHtml = engagement.topSurfaces.length
+    ? `<ul style="margin:10px 0 0 0;padding-left:20px;color:#334155;font-size:14px">${engagement.topSurfaces
+        .map((s) => `<li style="margin:4px 0;line-height:1.55">${esc(s.label)} – ${s.count} registrerade visningar/interaktioner</li>`)
+        .join("")}</ul>`
+    : "";
+  const intentHtml = engagement.intentTracks.length
+    ? `<p style="margin:10px 0 0;color:#334155;font-size:14px;line-height:1.55">Vanligaste köpspår bland besökarna: ${engagement.intentTracks
+        .map((i) => `<strong>${esc(i.label)}</strong> (${i.count})`)
+        .join(", ")}.</p>`
+    : "";
+
+  const performanceHtml = perfTotal === 0
+    ? `<p style="margin:6px 0 0;color:#64748b;font-size:14px;line-height:1.55">Inga registrerade exponeringar eller interaktioner under perioden.</p>`
+    : `
+      <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
+        <thead>
+          <tr style="background:#f8fafc">
+            <th style="padding:10px 14px;text-align:left;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Nivå</th>
+            <th style="padding:10px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Denna period</th>
+            <th style="padding:10px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Föregående</th>
+            <th style="padding:10px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Utveckling</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${perfRow("Exponeringar", "Ert kort visades i listor, filter, branschsidor och jämförelser", engagement.exposures, previousEngagement.exposures)}
+          ${perfRow("Engagemang", "Besökaren öppnade profilen eller klickade vidare i den", engagement.engagements, previousEngagement.engagements)}
+          ${perfRow("Köpsignaler", "Besökaren sparade, jämförde eller matchade er i en pågående utvärdering", engagement.buyingSignals, previousEngagement.buyingSignals)}
+          ${perfRow("Kontaktförfrågningar", "Besökaren lämnade uppgifter eller bad om kontakt", engagement.leads, previousEngagement.leads)}
+        </tbody>
+      </table>
+      <p style="margin:10px 2px 0;color:#64748b;font-size:12px;line-height:1.5">
+        ${engagement.uniqueVisitors} unika besökare stod bakom aktiviteten. Alla mätpunkter är anonyma och kan inte kopplas till enskilda personer.
+      </p>
+      ${surfacesHtml}
+      ${intentHtml}`;
 
   const nextPeriodHtml = settings.nextPeriod
     ? renderRichText(settings.nextPeriod)
@@ -450,6 +584,13 @@ function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: str
             Vill ni ha en aggregerad genomgång av branscher och storlekar bland besökarna? Svara på detta mejl.
           </p>` : ""}
 
+          <!-- Partner Performance -->
+          <h2 style="margin:28px 0 8px;font-size:18px;color:#0f172a">Partner Performance</h2>
+          <p style="margin:0 0 10px;color:#64748b;font-size:13px;line-height:1.55">
+            Köpresan i fyra nivåer – från att ert kort syns till att någon ber om kontakt. Ju längre ner i tabellen aktiviteten sker, desto närmare ett faktiskt affärstillfälle.
+          </p>
+          ${performanceHtml}
+
           <!-- Var ni syntes -->
           <h2 style="margin:28px 0 8px;font-size:18px;color:#0f172a">Var ni syntes</h2>
           ${visibilityHtml}
@@ -532,7 +673,8 @@ async function sendOne(
 
   const stats = await buildStats(supabase, partner, currentStart, currentEnd, previousStart, previousEnd);
 
-  const totalActivity = stats.current.profileVisits + stats.current.compareViews + stats.current.websiteClicks + stats.current.industryListingViews;
+  const totalActivity = stats.current.profileVisits + stats.current.compareViews + stats.current.websiteClicks + stats.current.industryListingViews
+    + stats.engagement.exposures + stats.engagement.engagements + stats.engagement.buyingSignals + stats.engagement.leads;
   if (!dryRun && totalActivity === 0) {
     return { partner: partner.name, status: "skipped", reason: "no_activity" };
   }

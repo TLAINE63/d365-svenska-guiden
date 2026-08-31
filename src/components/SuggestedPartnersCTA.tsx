@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, GitCompare, Sparkles } from "lucide-react";
 import { usePartners } from "@/hooks/usePartners";
 import { pickSuggestedPartners } from "@/lib/suggestPartners";
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import { buildCompareUrl } from "@/lib/compareUrl";
 import type { ProductKey } from "@/hooks/usePartnerFilters";
 import { Button } from "@/components/ui/button";
@@ -40,6 +41,18 @@ const SuggestedPartnersCTA = ({
   const suggested = useMemo(
     () => pickSuggestedPartners(partners, { product, industry, companySize, revenue, limit: 5 }),
     [partners, product, industry, companySize, revenue],
+  );
+
+  // Nivå 1 – exponering: partners som föreslås efter behovsanalys/kravspecifikation.
+  usePartnerImpressions(
+    "partner_match_impression",
+    suggested,
+    {
+      surface: "suggested_partners",
+      product: Array.isArray(product) ? product.join(",") : product ?? null,
+      industry: industry ?? null,
+    },
+    !isLoading,
   );
 
   if (isLoading || suggested.length === 0) return null;

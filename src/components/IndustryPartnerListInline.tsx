@@ -1,6 +1,8 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { usePartners } from "@/hooks/usePartners";
 import { collectPartnerIndustries } from "@/lib/partnerIndustries";
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 
 interface Props {
   industry: string;
@@ -15,13 +17,24 @@ interface Props {
 const IndustryPartnerListInline = ({ industry }: Props) => {
   const { data: partners, isLoading } = usePartners();
 
+  const matching = useMemo(
+    () =>
+      (partners || [])
+        .filter((p) => p.is_featured === true)
+        .filter((p) => collectPartnerIndustries(p).has(industry))
+        .sort((a, b) => a.name.localeCompare(b.name, "sv")),
+    [partners, industry],
+  );
+
+  // Nivå 1 – exponering: partners som listas i branschguiden i Kunskapscentret.
+  usePartnerImpressions(
+    "partner_filter_impression",
+    matching,
+    { industry, surface: "knowledge_industry_guide" },
+    !isLoading,
+  );
+
   if (isLoading) return null;
-
-  const matching = (partners || [])
-    .filter((p) => p.is_featured === true)
-    .filter((p) => collectPartnerIndustries(p).has(industry))
-    .sort((a, b) => a.name.localeCompare(b.name, "sv"));
-
   if (matching.length === 0) return null;
 
   return (
