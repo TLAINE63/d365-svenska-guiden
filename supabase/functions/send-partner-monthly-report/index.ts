@@ -642,6 +642,20 @@ serve(async (req) => {
       });
     }
 
+    // Fail-safe: cron runs only when explicitly enabled
+    if (isCron) {
+      const { data: gate } = await supabase
+        .from("site_settings")
+        .select("value")
+        .eq("key", "monthly_report_auto_send_enabled")
+        .maybeSingle();
+      if (!gate || gate.value !== "true") {
+        return new Response(JSON.stringify({ error: "Automatisk utskick är avstängt" }), {
+          status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+    }
+
     // Compute period windows
     const now = new Date();
     let currentEndDate: Date;
