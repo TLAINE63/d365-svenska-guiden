@@ -454,6 +454,24 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
           </CardContent>
         </Card>
       )}
+
+      <Dialog open={previewOpen} onOpenChange={setPreviewOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
+          <DialogHeader>
+            <DialogTitle>Förhandsgranskning av e-post</DialogTitle>
+          </DialogHeader>
+          <div className="flex-1 overflow-auto rounded border bg-white">
+            {previewHtml && (
+              <iframe
+                title="Månadsrapport förhandsvisning"
+                srcDoc={previewHtml}
+                className="w-full min-h-[60vh]"
+                sandbox=""
+              />
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
