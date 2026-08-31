@@ -74,6 +74,22 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
+  useEffect(() => {
+    if (!token) return;
+    fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-market-report?action=get_setting&key=monthly_report_auto_send_enabled`, {
+      headers: { Authorization: `Bearer ${token}`, apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "" },
+    })
+      .then((r) => r.json().catch(() => ({})))
+      .then((data) => setAutoSendEnabled(data.value === "true"))
+      .catch(() => setAutoSendEnabled(false));
+  }, [token]);
+
+  const monthBounds = (m: string) => {
+    const [year, mon] = m.split("-").map(Number);
+    const lastDay = new Date(year, mon, 0).getDate();
+    return { start: `${m}-01`, end: `${m}-${String(lastDay).padStart(2, "0")}` };
+  };
+
   const load = useCallback(async () => {
     if (!token || !slug || !month) return;
     setLoading(true);
