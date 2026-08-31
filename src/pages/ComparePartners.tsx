@@ -40,6 +40,7 @@ import { useBasicPartners } from "@/hooks/useBasicPartners";
 
 import { useTrackFilterExposure } from "@/hooks/useTrackFilterExposure";
 import { trackPartnerImpression } from "@/utils/trackPartnerEvent";
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import ShortlistButton from "@/components/ShortlistButton";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import {
@@ -787,6 +788,12 @@ const ComparePartners = () => {
     () => [...allPartners].sort((x, y) => x.name.localeCompare(y.name, "sv")),
     [allPartners]
   );
+
+  // Nivå 1 – exponering: partners som visas som valbara i jämförelsevyn,
+  // inte bara de som faktiskt jämförs.
+  usePartnerImpressions("partner_list_impression", sortedPartners, {
+    surface: "compare_selector",
+  });
 
 
   const a = allPartners.find((p) => p.slug === aSlug);
