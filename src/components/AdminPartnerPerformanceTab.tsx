@@ -11,9 +11,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
-import { Loader2, Save, CheckCircle2, Plus, Trash2, RefreshCw, Mail, Copy } from "lucide-react";
+import { Loader2, Save, CheckCircle2, Plus, Trash2, RefreshCw, Mail, Copy, Eye, Send } from "lucide-react";
 import PartnerPerformanceReportView, {
   formatMonthLabel,
   type PerformanceReportData,
