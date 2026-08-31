@@ -18,6 +18,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
 import { Loader2, Save, CheckCircle2, Plus, Trash2, RefreshCw, Mail, Copy, Eye, Send } from "lucide-react";
 import PartnerPerformanceReportView, {
