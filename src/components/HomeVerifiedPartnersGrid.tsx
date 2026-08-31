@@ -160,6 +160,18 @@ export default function HomeVerifiedPartnersGrid() {
     [allPartners, product, industry]
   );
 
+  // Nivå 1 – exponering: verifierade partners visas i startsidans grid.
+  useEffect(() => {
+    if (filtered.length === 0) return;
+    trackPartnerImpression(
+      product !== "all" || industry ? "partner_filter_impression" : "partner_list_impression",
+      filtered.map((p) => ({ slug: p.slug, id: (p as { id?: string }).id ?? null })),
+      { product: product !== "all" ? product : null, industry: industry || null, surface: "home_grid" },
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filtered, product, industry]);
+
+
   /** Behåll filtrering + partnerval hela vägen till jämförelsesidan. */
   const COMPARE_PRODUCT_KEY: Partial<Record<ProductId, string>> = {
     bc: "bc",
