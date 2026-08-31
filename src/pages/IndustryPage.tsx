@@ -240,6 +240,21 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
   });
  }, [basicPartners, meta, selected, selectedGeography, selectedCompanySize, selectedRevenue]);
 
+ // Nivå 1 – exponering: partners som visas på branschsidan räknas i månadsrapporten.
+ usePartnerImpressions(
+  "partner_filter_impression",
+  matchingPartners as any[],
+  { industry: meta?.name ?? slug ?? null, surface: "industry_page", products: selected.join(",") || null },
+  Boolean(meta),
+ );
+ usePartnerImpressions(
+  "partner_filter_impression",
+  matchingBasicPartners as any[],
+  { industry: meta?.name ?? slug ?? null, surface: "industry_page_basic", products: selected.join(",") || null },
+  Boolean(meta),
+ );
+
+
  if (!loading && !page) {
  return (
  <>
