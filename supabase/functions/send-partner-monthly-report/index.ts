@@ -362,6 +362,83 @@ async function fetchPartnerNews(supabase: any, partner: any, startIso: string, e
   }));
 }
 
+/** Marknadskontext – sajtens totala aktivitet under perioden (samma för alla partners). */
+interface MarketContext {
+  siteVisitors: number;
+  sitePageViews: number;
+  assessments: number;
+  totalExposures: number;
+}
+
+const marketCache = new Map<string, MarketContext>();
+
+async function fetchMarketContext(supabase: any, startIso: string, endIso: string): Promise<MarketContext> {
+  const key = `${startIso}|${endIso}`;
+  const cached = marketCache.get(key);
+  if (cached) return cached;
+
+  const [visitsRes, assessRes, expRes] = await Promise.all([
+    supabase
+      .from("visitor_analytics")
+      .select("session_id")
+      .gte("visited_at", startIso)
+      .lt("visited_at", endIso)
+      .limit(50000),
+    supabase
+      .from("assessments")
+      .select("id", { count: "exact", head: true })
+      .gte("created_at", startIso)
+      .lt("created_at", endIso),
+    supabase
+      .from("partner_engagement_events")
+      .select("partner_slug")
+      .eq("event_level", 1)
+      .gte("occurred_at", startIso)
+      .lt("occurred_at", endIso)
+      .limit(100000),
+  ]);
+
+  const visits = visitsRes.data || [];
+  const sessions = new Set<string>();
+  for (const v of visits) if (v.session_id) sessions.add(v.session_id);
+
+  const ctx: MarketContext = {
+    siteVisitors: sessions.size,
+    sitePageViews: visits.length,
+    assessments: assessRes.count || 0,
+    totalExposures: (expRes.data || []).length,
+  };
+  marketCache.set(key, ctx);
+  return ctx;
+}
+
+/** Rullande 3-månaderstrend på exponeringar och engagemang. */
+interface TrendPoint {
+  label: string;
+  exposures: number;
+  engagements: number;
+  buyingSignals: number;
+}
+
+const MONTH_NAMES = ["jan", "feb", "mar", "apr", "maj", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
+
+async function fetchTrend(supabase: any, partner: any, currentEnd: string): Promise<TrendPoint[]> {
+  const end = new Date(currentEnd);
+  const points: TrendPoint[] = [];
+  for (let i = 2; i >= 0; i--) {
+    const monthEnd = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth() - i, 1));
+    const monthStart = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth() - i - 1, 1));
+    const e = await fetchEngagement(supabase, partner, monthStart.toISOString(), monthEnd.toISOString());
+    points.push({
+      label: `${MONTH_NAMES[monthStart.getUTCMonth()]} ${monthStart.getUTCFullYear()}`,
+      exposures: e.exposures,
+      engagements: e.engagements,
+      buyingSignals: e.buyingSignals,
+    });
+  }
+  return points;
+}
+
 async function fetchSiteSettings(supabase: any) {
   const keys = ["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact"];
   const { data } = await supabase.from("site_settings").select("key, value").in("key", keys);
