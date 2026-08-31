@@ -151,6 +151,80 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
     load();
   };
 
+  const monthlyReportBase = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-partner-monthly-report`;
+  const monthlyReportAuth = () => ({
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  });
+
+  const runMonthlyReport = async (dryRun: boolean) => {
+    if (!token || !selectedPartner) return null;
+    const { start, end } = monthBounds(month);
+    const res = await fetch(monthlyReportBase, {
+      method: "POST",
+      headers: monthlyReportAuth(),
+      body: JSON.stringify({
+        adminToken: token,
+        partnerSlug: selectedPartner.slug,
+        periodStart: start,
+        periodEnd: end,
+        dryRun,
+      }),
+    });
+    const json = await res.json().catch(() => ({ error: "Ogiltigt svar" }));
+    if (!res.ok) throw new Error(json.error || "Kunde inte köra rapporten");
+    return json;
+  };
+
+  const handlePreviewMonthlyReport = async () => {
+    if (!token || !selectedPartner) return;
+    setPreviewLoading(true);
+    try {
+      const json = await runMonthlyReport(true);
+      const html = json.results?.[0]?.html || "<p>Ingen förhandsvisning tillgänglig.</p>";
+      setPreviewHtml(html);
+      setPreviewOpen(true);
+    } catch (e: any) {
+      toast({ title: "Fel", description: e.message, variant: "destructive" });
+    } finally {
+      setPreviewLoading(false);
+    }
+  };
+
+  const handleSendMonthlyReport = async () => {
+    if (!token || !selectedPartner || !data) return;
+    if (data.status !== "approved") {
+      toast({
+        title: "Rapporten är inte godkänd",
+        description: "Markera rapporten som godkänd innan du skickar den.",
+        variant: "destructive",
+      });
+      return;
+    }
+    if (!window.confirm(`Skicka månadsrapporten för ${selectedPartner.name} – ${formatMonthLabel(month)}?`)) return;
+    setSendingReport(true);
+    try {
+      const json = await runMonthlyReport(false);
+      const result = json.results?.[0];
+      if (result?.status === "sent") {
+        toast({
+          title: "Månadsrapport skickad",
+          description: `Till ${result.recipients?.join(", ") || selectedPartner.name}`,
+        });
+      } else {
+        toast({
+          title: "Rapporten skickades inte",
+          description: result?.reason || result?.status || "Okänt fel",
+          variant: "destructive",
+        });
+      }
+    } catch (e: any) {
+      toast({ title: "Fel", description: e.message, variant: "destructive" });
+    } finally {
+      setSendingReport(false);
+    }
+  };
+
   const previewData: PerformanceReportData | null = data
     ? { ...data, admin_comment: comment, recommendations: recs }
     : null;
