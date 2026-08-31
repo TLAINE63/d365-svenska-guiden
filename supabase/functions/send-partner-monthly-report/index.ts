@@ -126,6 +126,8 @@ interface PartnerStats {
   partnerNews: { title: string; date: string; url: string | null }[];
   engagement: EngagementStats;
   previousEngagement: EngagementStats;
+  market: MarketContext;
+  trend: TrendPoint[];
 }
 
 /** Partner Performance – aggregerade nivåer från partner_engagement_events. */
@@ -452,7 +454,7 @@ async function fetchSiteSettings(supabase: any) {
 }
 
 async function buildStats(supabase: any, partner: any, currentStart: string, currentEnd: string, previousStart: string, previousEnd: string): Promise<PartnerStats> {
-  const [current, previous, ident, entryPath, industryPagesListed, partnerNews, engagement, previousEngagement] = await Promise.all([
+  const [current, previous, ident, entryPath, industryPagesListed, partnerNews, engagement, previousEngagement, market, trend] = await Promise.all([
     fetchPeriod(supabase, partner, currentStart, currentEnd),
     fetchPeriod(supabase, partner, previousStart, previousEnd),
     fetchIdentifiedCompanies(supabase, partner, currentStart, currentEnd),
@@ -461,6 +463,8 @@ async function buildStats(supabase: any, partner: any, currentStart: string, cur
     fetchPartnerNews(supabase, partner, currentStart, currentEnd),
     fetchEngagement(supabase, partner, currentStart, currentEnd),
     fetchEngagement(supabase, partner, previousStart, previousEnd),
+    fetchMarketContext(supabase, currentStart, currentEnd),
+    fetchTrend(supabase, partner, currentEnd),
   ]);
   return {
     partner,
@@ -474,6 +478,8 @@ async function buildStats(supabase: any, partner: any, currentStart: string, cur
     partnerNews,
     engagement,
     previousEngagement,
+    market,
+    trend,
   };
 }
 
@@ -489,7 +495,7 @@ function delta(current: number, previous: number): string {
 }
 
 function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: string, settings: { changelog: string; nextPeriod: string; contact: string }, reportLabel = "Månadsrapport"): string {
-  const { partner, current, previous, identifiedCompanies, industryBreakdown, activeEvaluators, topEntryPath, industryPagesListed, partnerNews, engagement, previousEngagement } = stats;
+  const { partner, current, previous, identifiedCompanies, industryBreakdown, activeEvaluators, topEntryPath, industryPagesListed, partnerNews, engagement, previousEngagement, market, trend } = stats;
   const profileUrl = `https://www.d365.se/partner/${partner.slug}`;
 
   const statRow = (label: string, cur: number, prev: number) => `
