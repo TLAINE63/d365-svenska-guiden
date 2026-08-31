@@ -1,4 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { trackPartnerImpression } from "@/utils/trackPartnerEvent";
+
 import { Link } from "react-router-dom";
 import { ArrowRight, ArrowLeftRight, Check } from "lucide-react";
 import partnerDataJson from "@/data/partnerData.json";
