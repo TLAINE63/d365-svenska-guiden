@@ -152,7 +152,7 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
 
 /** Summan för samtliga partners under samma period (utan partnerfilter). */
 async function fetchAllPartnersPeriod(supabase: any, startIso: string, endIso: string): Promise<PeriodStats> {
-  const [viewsRes, clicksRes, exposureRes, newsClicksRes] = await Promise.all([
+  const [viewsRes, clicksRes, exposureRes, newsClicksRes, surfaces] = await Promise.all([
     supabase.from("partner_profile_views").select("view_type")
       .gte("viewed_at", startIso).lt("viewed_at", endIso).limit(100000),
     supabase.from("partner_clicks").select("id", { count: "exact", head: true })
@@ -162,19 +162,19 @@ async function fetchAllPartnersPeriod(supabase: any, startIso: string, endIso: s
     supabase.from("funnel_events").select("id", { count: "exact", head: true })
       .eq("event_name", "partner_news_card_click")
       .gte("occurred_at", startIso).lt("occurred_at", endIso),
+    fetchImpressionSurfaces(supabase, null, startIso, endIso),
   ]);
 
 
   const views = viewsRes.data || [];
   let compareViews = 0;
-  let industryListingViews = 0;
+  let industryListingViews = surfaces.industry;
   let guideListingViews = 0;
   for (const e of exposureRes.data || []) {
     const p = (e.page_path || "").toLowerCase();
     if (p.startsWith("/jamfor-partners")) compareViews++;
     else if (p.startsWith("/valjdynamics365partner") || p.startsWith("/valj")) guideListingViews++;
-    if (p.startsWith("/branscher")) industryListingViews++;
-    else if (e.filter_context && (e.filter_context as any).industry) industryListingViews++;
+    else if (p.startsWith("/branscher")) industryListingViews++;
   }
 
   return {
@@ -182,10 +182,10 @@ async function fetchAllPartnersPeriod(supabase: any, startIso: string, endIso: s
     cardClicks: views.filter((v: any) => v.view_type === "card_click").length,
     compareViews,
     guideListingViews,
+    otherListingViews: surfaces.other,
     newsClicks: newsClicksRes?.count || 0,
     websiteClicks: clicksRes.count || 0,
     industryListingViews,
-
   };
 }
 
