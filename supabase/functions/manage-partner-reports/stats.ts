@@ -95,7 +95,7 @@ function bucketReferrer(ref: string | null, firstUrl?: string | null): string | 
 }
 
 async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso: string): Promise<PeriodStats> {
-  const [viewsRes, clicksRes, exposureRes, sitePvRes, sessionsRes, newsClicksRes] = await Promise.all([
+  const [viewsRes, clicksRes, exposureRes, sitePvRes, sessionsRes, newsClicksRes, surfaces] = await Promise.all([
     supabase.from("partner_profile_views").select("view_type")
       .eq("partner_slug", partner.slug).gte("viewed_at", startIso).lt("viewed_at", endIso),
     supabase.from("partner_clicks").select("id", { count: "exact", head: true })
@@ -110,6 +110,7 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
       .eq("event_name", "partner_news_card_click")
       .eq("metadata->>partner_slug", partner.slug)
       .gte("occurred_at", startIso).lt("occurred_at", endIso),
+    fetchImpressionSurfaces(supabase, partner.slug, startIso, endIso),
   ]);
 
   const views = viewsRes.data || [];
@@ -117,14 +118,13 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
   const cardClicks = views.filter((v: any) => v.view_type === "card_click").length;
 
   let compareViews = 0;
-  let industryListingViews = 0;
+  let industryListingViews = surfaces.industry;
   let guideListingViews = 0;
   for (const e of exposureRes.data || []) {
     const p = (e.page_path || "").toLowerCase();
     if (p.startsWith("/jamfor-partners")) compareViews++;
     else if (p.startsWith("/valjdynamics365partner") || p.startsWith("/valj")) guideListingViews++;
-    if (p.startsWith("/branscher")) industryListingViews++;
-    else if (e.filter_context && (e.filter_context as any).industry) industryListingViews++;
+    else if (p.startsWith("/branscher")) industryListingViews++;
   }
 
   const uniqueKeys = new Set<string>();
@@ -140,6 +140,7 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
     compareViews,
     cardClicks,
     guideListingViews,
+    otherListingViews: surfaces.other,
     newsClicks: newsClicksRes?.count || 0,
     websiteClicks: clicksRes.count || 0,
     industryListingViews,
