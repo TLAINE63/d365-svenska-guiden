@@ -415,16 +415,25 @@ interface MarketContext {
   sitePageViews: number;
   assessments: number;
   totalExposures: number;
+  aiSearches: number;
+  aiChatSessions: number;
+  aiUsers: number;
+  aiBotHits: number;
+  aiBotNames: string[];
 }
 
 const marketCache = new Map<string, MarketContext>();
+
+/** AI-drivna sökvägar: interna AI-verktyg (chatbot, smart sök, AI-jämförelse) samt externa AI-botars crawl. */
+const AI_SEARCH_ENDPOINTS = ["smart-search", "ai-chat", "compare-partners-insights", "match-partners", "generate-requirements"];
+const AI_BOT_MATCH = ["gptbot", "claude", "perplexity", "meta ai", "gemini", "applebot", "amazonbot", "bytespider", "youbot", "ccbot"];
 
 async function fetchMarketContext(supabase: any, startIso: string, endIso: string): Promise<MarketContext> {
   const key = `${startIso}|${endIso}`;
   const cached = marketCache.get(key);
   if (cached) return cached;
 
-  const [visitsRes, assessRes, expRes] = await Promise.all([
+  const [visitsRes, assessRes, expRes, aiRes, botRes] = await Promise.all([
     supabase
       .from("visitor_analytics")
       .select("session_id")
@@ -443,17 +452,43 @@ async function fetchMarketContext(supabase: any, startIso: string, endIso: strin
       .gte("occurred_at", startIso)
       .lt("occurred_at", endIso)
       .limit(100000),
+    supabase
+      .from("ai_usage_log")
+      .select("endpoint, ip_hash")
+      .gte("created_at", startIso)
+      .lt("created_at", endIso)
+      .limit(50000),
+    supabase
+      .from("crawler_hits")
+      .select("bot_label")
+      .gte("hit_at", startIso)
+      .lt("hit_at", endIso)
+      .limit(50000),
   ]);
 
   const visits = visitsRes.data || [];
   const sessions = new Set<string>();
   for (const v of visits) if (v.session_id) sessions.add(v.session_id);
 
+  const aiRows = (aiRes.data || []).filter((r: any) => AI_SEARCH_ENDPOINTS.includes(r.endpoint));
+  const aiUsers = new Set<string>();
+  for (const r of aiRows) if (r.ip_hash) aiUsers.add(r.ip_hash);
+
+  const botRows = (botRes.data || []).filter((r: any) =>
+    AI_BOT_MATCH.some((m) => String(r.bot_label || "").toLowerCase().includes(m)),
+  );
+  const botNames = Array.from(new Set(botRows.map((r: any) => String(r.bot_label))));
+
   const ctx: MarketContext = {
     siteVisitors: sessions.size,
     sitePageViews: visits.length,
     assessments: assessRes.count || 0,
     totalExposures: (expRes.data || []).length,
+    aiSearches: aiRows.length,
+    aiChatSessions: aiRows.filter((r: any) => r.endpoint === "ai-chat").length,
+    aiUsers: aiUsers.size,
+    aiBotHits: botRows.length,
+    aiBotNames: botNames.slice(0, 6),
   };
   marketCache.set(key, ctx);
   return ctx;
