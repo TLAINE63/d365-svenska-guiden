@@ -178,7 +178,7 @@ const KomIgang = () => {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [showResults, setShowResults] = useState(false);
   const [matchedPartners, setMatchedPartners] = useState<DatabasePartner[]>([]);
-  usePartnerImpressions("partner_recommended", matchedPartners, { surface: "kom-igang-wizard" });
+  usePartnerImpressions("partner_match_impression", matchedPartners, { surface: "kom-igang-wizard" });
   const [aiMatches, setAiMatches] = useState<AiMatchResult[]>([]);
   const [isAiLoading, setIsAiLoading] = useState(false);
 
