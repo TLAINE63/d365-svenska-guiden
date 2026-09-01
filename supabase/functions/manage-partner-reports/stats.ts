@@ -204,9 +204,12 @@ async function fetchTopEntryPath(supabase: any, partner: any, startIso: string, 
 }
 
 async function fetchIndustryPagesListed(supabase: any, partner: any, startIso: string, endIso: string) {
-  const { data: exposures } = await supabase.from("partner_filter_exposures").select("page_path")
-    .eq("partner_slug", partner.slug).gte("viewed_at", startIso).lt("viewed_at", endIso);
-  const bySlug = new Map<string, number>();
+  const [{ data: exposures }, surfaces] = await Promise.all([
+    supabase.from("partner_filter_exposures").select("page_path")
+      .eq("partner_slug", partner.slug).gte("viewed_at", startIso).lt("viewed_at", endIso),
+    fetchImpressionSurfaces(supabase, partner.slug, startIso, endIso),
+  ]);
+  const bySlug = new Map<string, number>(surfaces.industryBySlug);
   for (const e of exposures || []) {
     const p: string = e.page_path || "";
     if (!p.startsWith("/branscher/")) continue;
@@ -214,6 +217,7 @@ async function fetchIndustryPagesListed(supabase: any, partner: any, startIso: s
     if (slug) bySlug.set(slug, (bySlug.get(slug) || 0) + 1);
   }
   if (bySlug.size === 0) return [];
+
   const slugs = Array.from(bySlug.keys());
   const { data: pages } = await supabase.from("industry_pages").select("slug, name").in("slug", slugs);
   const nameMap = new Map<string, string>((pages || []).map((p: any) => [p.slug, p.name]));
