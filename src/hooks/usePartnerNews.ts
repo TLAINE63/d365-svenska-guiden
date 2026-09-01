@@ -105,6 +105,14 @@ export function usePublishedPartnerNews(opts: UsePublishedPartnerNewsOpts = {}) 
           console.warn("partner name backfill failed", e);
         }
       }
+
+      const logos = await fetchPartnerLogos(
+        Array.from(new Set(rows.map((r) => r.partner_id).filter(Boolean))),
+      );
+      for (const r of rows) {
+        const logo = logos.get(r.partner_id) ?? null;
+        if (logo && r.partner) r.partner = { ...r.partner, logo_url: logo };
+      }
       return rows;
     },
     staleTime: 5 * 60_000,
