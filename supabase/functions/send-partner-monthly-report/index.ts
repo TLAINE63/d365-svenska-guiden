@@ -415,16 +415,25 @@ interface MarketContext {
   sitePageViews: number;
   assessments: number;
   totalExposures: number;
+  aiSearches: number;
+  aiChatSessions: number;
+  aiUsers: number;
+  aiBotHits: number;
+  aiBotNames: string[];
 }
 
 const marketCache = new Map<string, MarketContext>();
+
+/** AI-drivna sökvägar: interna AI-verktyg (chatbot, smart sök, AI-jämförelse) samt externa AI-botars crawl. */
+const AI_SEARCH_ENDPOINTS = ["smart-search", "ai-chat", "compare-partners-insights", "match-partners", "generate-requirements"];
+const AI_BOT_MATCH = ["gptbot", "claude", "perplexity", "meta ai", "gemini", "applebot", "amazonbot", "bytespider", "youbot", "ccbot"];
 
 async function fetchMarketContext(supabase: any, startIso: string, endIso: string): Promise<MarketContext> {
   const key = `${startIso}|${endIso}`;
   const cached = marketCache.get(key);
   if (cached) return cached;
 
-  const [visitsRes, assessRes, expRes] = await Promise.all([
+  const [visitsRes, assessRes, expRes, aiRes, botRes] = await Promise.all([
     supabase
       .from("visitor_analytics")
       .select("session_id")
@@ -443,17 +452,43 @@ async function fetchMarketContext(supabase: any, startIso: string, endIso: strin
       .gte("occurred_at", startIso)
       .lt("occurred_at", endIso)
       .limit(100000),
+    supabase
+      .from("ai_usage_log")
+      .select("endpoint, ip_hash")
+      .gte("created_at", startIso)
+      .lt("created_at", endIso)
+      .limit(50000),
+    supabase
+      .from("crawler_hits")
+      .select("bot_label")
+      .gte("hit_at", startIso)
+      .lt("hit_at", endIso)
+      .limit(50000),
   ]);
 
   const visits = visitsRes.data || [];
   const sessions = new Set<string>();
   for (const v of visits) if (v.session_id) sessions.add(v.session_id);
 
+  const aiRows = (aiRes.data || []).filter((r: any) => AI_SEARCH_ENDPOINTS.includes(r.endpoint));
+  const aiUsers = new Set<string>();
+  for (const r of aiRows) if (r.ip_hash) aiUsers.add(r.ip_hash);
+
+  const botRows = (botRes.data || []).filter((r: any) =>
+    AI_BOT_MATCH.some((m) => String(r.bot_label || "").toLowerCase().includes(m)),
+  );
+  const botNames = Array.from(new Set(botRows.map((r: any) => String(r.bot_label))));
+
   const ctx: MarketContext = {
     siteVisitors: sessions.size,
     sitePageViews: visits.length,
     assessments: assessRes.count || 0,
     totalExposures: (expRes.data || []).length,
+    aiSearches: aiRows.length,
+    aiChatSessions: aiRows.filter((r: any) => r.endpoint === "ai-chat").length,
+    aiUsers: aiUsers.size,
+    aiBotHits: botRows.length,
+    aiBotNames: botNames.slice(0, 6),
   };
   marketCache.set(key, ctx);
   return ctx;
@@ -791,6 +826,45 @@ function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: str
              Så här stor var den registrerade köparaktiviteten på d365.se under perioden.${coverage.complete ? " Här visas även er andel av partnerexponeringarna." : " Andelen av partnerexponeringar visas inte när mättäckningen är ofullständig."}
           </p>
           ${marketHtml}
+
+          <!-- AI-sök och chatbot -->
+          <h2 style="margin:28px 0 8px;font-size:18px;color:#0f172a">AI-sök och chatbot</h2>
+          <p style="margin:0 0 10px;color:#64748b;font-size:13px;line-height:1.55">
+            Allt fler köpare inleder sin research i en AI-tjänst i stället för i en sökmotor. Det här mäter vi:
+            dels hur ofta besökare använder sajtens egna AI-verktyg (chatbot, smart sök och AI-jämförelse),
+            dels hur ofta externa AI-tjänster hämtar innehåll från d365.se för att kunna svara på frågor om
+            Dynamics 365-partners i Sverige.
+          </p>
+          <table style="width:100%;border-collapse:collapse">
+            <tr>
+              <td style="width:33%;padding:14px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-align:center">
+                <div style="font-size:22px;font-weight:800;color:#0f172a">${market.aiSearches.toLocaleString("sv-SE")}</div>
+                <div style="font-size:12px;color:#64748b;margin-top:4px">AI-sökningar på sajten</div>
+              </td>
+              <td style="width:8px"></td>
+              <td style="width:33%;padding:14px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-align:center">
+                <div style="font-size:22px;font-weight:800;color:#0f172a">${market.aiChatSessions.toLocaleString("sv-SE")}</div>
+                <div style="font-size:12px;color:#64748b;margin-top:4px">frågor till chatboten</div>
+              </td>
+              <td style="width:8px"></td>
+              <td style="width:33%;padding:14px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-align:center">
+                <div style="font-size:22px;font-weight:800;color:#0f172a">${market.aiBotHits.toLocaleString("sv-SE")}</div>
+                <div style="font-size:12px;color:#64748b;margin-top:4px">hämtningar av AI-tjänster</div>
+              </td>
+            </tr>
+          </table>
+          ${market.aiBotNames.length > 0 ? `
+          <p style="margin:10px 2px 0;color:#64748b;font-size:12px;line-height:1.5">
+            AI-tjänster som hämtat innehåll under perioden: ${market.aiBotNames.join(", ")}.
+            Ju mer komplett er profil är, desto större chans att ni nämns när en köpare frågar en AI-tjänst
+            om lämpliga Dynamics 365-partners.
+          </p>` : ""}
+          <p style="margin:8px 2px 0;color:#94a3b8;font-size:12px;line-height:1.5">
+            Siffrorna gäller hela d365.se och är inte partnerspecifika. AI-verktygen använder er publicerade
+            profiltext, era produktområden, branscher och leveransprofil som underlag.
+          </p>
+
+
 
           <!-- d365guide.com -->
           <table style="width:100%;border-collapse:collapse;margin:28px 0 0">
