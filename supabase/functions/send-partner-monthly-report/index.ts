@@ -785,7 +785,6 @@ function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: str
             <tbody>
               ${statRow("Profilvisningar", current.profileVisits, previous.profileVisits)}
               ${statRow("Visningar i jämförelsevyn", current.compareViews, previous.compareViews)}
-              ${statRow("Klick till er webbplats", current.websiteClicks, previous.websiteClicks)}
               ${statRow("Visningar av er i branschlistor", current.industryListingViews, previous.industryListingViews)}
             </tbody>
           </table>
