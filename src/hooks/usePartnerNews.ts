@@ -149,6 +149,12 @@ export function usePartnerNewsItem(id: string | undefined) {
           console.warn("partner name backfill failed", e);
         }
       }
+
+      if (item.partner_id) {
+        const logos = await fetchPartnerLogos([item.partner_id]);
+        const logo = logos.get(item.partner_id) ?? null;
+        if (logo && item.partner) item.partner = { ...item.partner, logo_url: logo };
+      }
       return item;
     },
     enabled: !!id,
