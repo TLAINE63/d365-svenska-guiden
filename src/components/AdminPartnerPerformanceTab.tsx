@@ -68,6 +68,7 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
   const [coverageConfirmed, setCoverageConfirmed] = useState(false);
 
   const months = useMemo(() => monthOptions(), []);
+  const currentMonth = monthOptions(1)[0];
 
   useEffect(() => {
     if (!token) return;
@@ -343,7 +344,7 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
               <SelectTrigger className="w-48"><SelectValue /></SelectTrigger>
               <SelectContent className="bg-popover max-h-72">
                 {months.map((m) => (
-                  <SelectItem key={m} value={m}>{formatMonthLabel(m)}</SelectItem>
+                  <SelectItem key={m} value={m}>{formatMonthLabel(m)}{m === currentMonth ? " (preliminär)" : ""}</SelectItem>
                 ))}
               </SelectContent>
             </Select>

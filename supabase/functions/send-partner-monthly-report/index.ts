@@ -79,7 +79,20 @@ function renderRichText(raw: string): string {
 }
 
 function fmtIso(iso: string) {
-  return iso.slice(0, 10).replace(/-/g, "/");
+  return new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Stockholm", year: "numeric", month: "2-digit", day: "2-digit" })
+    .format(new Date(iso)).replace(/-/g, "/");
+}
+
+function stockholmDateStart(date: string): Date {
+  const [year, month, day] = date.split("-").map(Number);
+  const probe = new Date(Date.UTC(year, month - 1, day, 12));
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Stockholm", year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23",
+  }).formatToParts(probe);
+  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  const representedUtc = Date.UTC(Number(values.year), Number(values.month) - 1, Number(values.day), Number(values.hour), Number(values.minute), Number(values.second));
+  return new Date(Date.UTC(year, month - 1, day) - (representedUtc - probe.getTime()));
 }
 
 function bucketReferrer(ref: string | null, firstUrl?: string | null): string | null {
@@ -1001,8 +1014,8 @@ serve(async (req) => {
     let currentEndDate: Date;
     let currentStartDate: Date;
     if (periodStart && periodEnd) {
-      currentStartDate = new Date(`${periodStart}T00:00:00Z`);
-      currentEndDate = new Date(`${periodEnd}T00:00:00Z`);
+      currentStartDate = stockholmDateStart(periodStart);
+      currentEndDate = stockholmDateStart(periodEnd);
     } else {
       currentEndDate = now;
       currentStartDate = new Date(now.getTime() - days * 86400000);

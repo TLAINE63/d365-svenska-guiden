@@ -46,11 +46,27 @@ const COMPARE_PAGES = ["/jamfor-partners"];
 const FULL_SURFACE_TRACKING_START = "2026-08-27T00:00:00.000Z";
 
 function monthRange(month: string): { start: string; end: string } {
-  // month = "YYYY-MM"
   const [y, m] = month.split("-").map(Number);
-  const start = new Date(Date.UTC(y, m - 1, 1));
-  const end = new Date(Date.UTC(y, m, 1));
-  return { start: start.toISOString(), end: end.toISOString() };
+  return {
+    start: stockholmMidnightIso(y, m, 1),
+    end: stockholmMidnightIso(y, m + 1, 1),
+  };
+}
+
+function stockholmMidnightIso(year: number, month: number, day: number): string {
+  const normalized = new Date(Date.UTC(year, month - 1, day));
+  const targetYear = normalized.getUTCFullYear();
+  const targetMonth = normalized.getUTCMonth() + 1;
+  const targetDay = normalized.getUTCDate();
+  const probe = new Date(Date.UTC(targetYear, targetMonth - 1, targetDay, 12));
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Stockholm", year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23",
+  }).formatToParts(probe);
+  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  const representedUtc = Date.UTC(Number(values.year), Number(values.month) - 1, Number(values.day), Number(values.hour), Number(values.minute), Number(values.second));
+  const offsetMs = representedUtc - probe.getTime();
+  return new Date(Date.UTC(targetYear, targetMonth - 1, targetDay) - offsetMs).toISOString();
 }
 function prevMonth(month: string): string {
   const [y, m] = month.split("-").map(Number);
