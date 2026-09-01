@@ -36,12 +36,12 @@ const crmBreadcrumbs = [
  { name: "Customer Engagement (CRM)", url: "https://d365.se/crm" },
 ];
 import {
-import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
  Accordion,
  AccordionContent,
  AccordionItem,
  AccordionTrigger,
 } from "@/components/ui/accordion";
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 
 // CRM FAQs for schema
 const crmFaqs = [

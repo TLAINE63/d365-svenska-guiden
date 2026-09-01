@@ -48,12 +48,12 @@ const fscBreadcrumbs = [
  { name: "Finance & Supply Chain", url: "https://d365.se/finance-supply-chain" },
 ];
 import {
-import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
  Accordion,
  AccordionContent,
  AccordionItem,
  AccordionTrigger,
 } from "@/components/ui/accordion";
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 
 // Finance & Supply Chain FAQs for schema
 const fscFaqs = [
