@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
+import { isExcludedFromTracking } from "@/hooks/useVisitorTracking";
 
 /**
  * Partner Performance – event tracking.
@@ -158,6 +159,7 @@ if (typeof window !== "undefined") {
 /** Loggar ett partner-event. Fire-and-forget – blockerar aldrig UI. */
 export const trackPartnerEvent = (input: PartnerEventInput): void => {
   if (typeof window === "undefined") return;
+  if (isExcludedFromTracking()) return;
   if (!input?.partnerSlug || !input?.event) return;
   enqueue({
     event_name: input.event,

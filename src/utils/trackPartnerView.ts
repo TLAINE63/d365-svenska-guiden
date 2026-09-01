@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
+import { isExcludedFromTracking } from "@/hooks/useVisitorTracking";
 
 export type PartnerViewType = "card_click" | "profile_visit";
 
@@ -12,6 +13,7 @@ export const trackPartnerView = async (
   pageSource: string,
   partnerId?: string | null
 ) => {
+  if (typeof window !== "undefined" && isExcludedFromTracking()) return;
   try {
     await supabase.functions.invoke("track-partner-view", {
       body: {

@@ -20,7 +20,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
-import { Loader2, Save, CheckCircle2, Plus, Trash2, RefreshCw, Mail, Copy, Eye, Send } from "lucide-react";
+import { Loader2, Save, CheckCircle2, Plus, Trash2, RefreshCw, Mail, Copy, Eye, Send, AlertTriangle } from "lucide-react";
 import PartnerPerformanceReportView, {
   formatMonthLabel,
   type PerformanceReportData,
@@ -42,11 +42,17 @@ function monthOptions(count = 18): string[] {
   return out;
 }
 
+function previousClosedMonth(): string {
+  const now = new Date();
+  const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1));
+  return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}`;
+}
+
 export default function AdminPartnerPerformanceTab({ token }: { token: string | null }) {
   const { toast } = useToast();
   const [partners, setPartners] = useState<PartnerOption[]>([]);
   const [slug, setSlug] = useState<string>("");
-  const [month, setMonth] = useState<string>(monthOptions(1)[0]);
+  const [month, setMonth] = useState<string>(previousClosedMonth());
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [data, setData] = useState<PerformanceReportData | null>(null);
@@ -59,6 +65,7 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
   const [previewHtml, setPreviewHtml] = useState<string | null>(null);
   const [previewLoading, setPreviewLoading] = useState(false);
   const [sendingReport, setSendingReport] = useState(false);
+  const [coverageConfirmed, setCoverageConfirmed] = useState(false);
 
   const months = useMemo(() => monthOptions(), []);
 
@@ -114,6 +121,7 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
       return;
     }
     setData(res);
+    setCoverageConfirmed(false);
     setComment(res.admin_comment || "");
     setRecs(res.recommendations || []);
   }, [token, slug, month, toast]);
@@ -125,6 +133,10 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
 
   const save = async (status: "draft" | "approved") => {
     if (!token || !data) return;
+    if (status === "approved" && data.coverage && !data.coverage.complete && !coverageConfirmed) {
+      toast({ title: "Bekräfta mätluckan", description: "Läs kvalitetsvarningen och bekräfta den innan rapporten godkänns.", variant: "destructive" });
+      return;
+    }
     setSaving(true);
     const { data: res, error } = await invokeAdminEdgeWithRetry<{ success?: boolean; error?: string }>(
       "partner-performance-report",
@@ -383,6 +395,31 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
             <CardTitle className="text-base">Månadens kommentar och rekommendationer</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
+            {data.coverage && (
+              <div className={`rounded-md border p-4 ${data.coverage.complete ? "border-border bg-muted/30" : "border-warning/40 bg-warning/10"}`}>
+                <div className="flex items-start gap-2">
+                  {!data.coverage.complete && <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-warning" />}
+                  <div className="space-y-2 text-sm">
+                    <p className="font-semibold">Datakvalitet och täckning</p>
+                    {data.coverage.warnings.map((warning) => <p key={warning} className="text-muted-foreground">{warning}</p>)}
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-xs">
+                        <thead><tr className="border-b"><th className="py-2 text-left">Mätpunkt</th><th className="text-left">Källa</th><th className="text-right">Rader</th><th className="text-right">Sessioner</th></tr></thead>
+                        <tbody>{data.coverage.sources.map((source) => (
+                          <tr key={source.label} className="border-b last:border-0"><td className="py-2">{source.label}</td><td>{source.source}</td><td className="text-right">{source.rows}</td><td className="text-right">{source.sessions ?? "–"}</td></tr>
+                        ))}</tbody>
+                      </table>
+                    </div>
+                    {!data.coverage.complete && (
+                      <label className="flex items-start gap-2 pt-1">
+                        <input type="checkbox" checked={coverageConfirmed} onChange={(event) => setCoverageConfirmed(event.target.checked)} className="mt-0.5" />
+                        <span>Jag bekräftar att rapporten innehåller delvis uppmätta värden och har granskat hur de presenteras.</span>
+                      </label>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
             <div className="space-y-1">
               <Label className="text-xs">Månadens kommentar (visas högst upp i rapporten)</Label>
               <Textarea
@@ -437,7 +474,7 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
                 {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
                 Spara utkast
               </Button>
-              <Button onClick={() => save("approved")} disabled={saving}>
+              <Button onClick={() => save("approved")} disabled={saving || Boolean(data.coverage && !data.coverage.complete && !coverageConfirmed)}>
                 <CheckCircle2 className="h-4 w-4" /> Markera som godkänd
               </Button>
             </div>

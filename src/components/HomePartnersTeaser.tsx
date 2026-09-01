@@ -8,6 +8,7 @@ import PartnerCard from "@/components/PartnerCard";
 import FilteredListActions from "@/components/FilteredListActions";
 import type { DatabasePartner } from "@/hooks/usePartners";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 
 
 type RawPartner = {
@@ -177,6 +178,12 @@ export default function HomePartnersTeaser() {
     );
     return seededShuffle(matched, seed).slice(0, 3);
   }, [allPartners, quick, industry, size, revenue, seed]);
+
+  usePartnerImpressions(
+    quick !== "all" || industry || size || revenue ? "partner_filter_impression" : "partner_list_impression",
+    filtered,
+    { surface: "home_teaser", product: quick, industry: industry || null, companySize: size || null, revenue: revenue || null },
+  );
 
   const baseChip =
     "px-4 py-2 rounded text-[13px] font-semibold border transition-all whitespace-nowrap";

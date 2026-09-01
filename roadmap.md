@@ -15,4 +15,8 @@
 - [x] Exponeringsspårning på branschsidor, partnerkatalog, produktsidors basickort, kunskapscenterlistor och föreslagna partners
 - [x] Logga exponering vid val av partner i jämförelsevyn
 - [x] Partner Performance-sektion (fyra nivåer) i månadsrapporten
+- [x] Kvalitetsgranskning av augustidata och identifiering av historiska mätluckor
+- [ ] Gemensamma periodgränser, täckningsvarningar och administrativ bekräftelse
+- [ ] Kompletterad spårning på återstående publika partnerytor
+- [ ] Verifiering av augusti per partner före manuellt godkännande
 - [ ] Manuell granskning, godkännande och utskick av månadsrapport (görs av admin i dashboarden)

@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
+import { isExcludedFromTracking } from "@/hooks/useVisitorTracking";
 
 interface UTMParams {
   application?: string;
@@ -58,6 +59,7 @@ export const trackPartnerClick = async (
   pageSource: string,
   filterContext?: FilterContext
 ) => {
+  if (typeof window !== "undefined" && isExcludedFromTracking()) return;
   try {
     const response = await supabase.functions.invoke("track-partner-click", {
       body: {

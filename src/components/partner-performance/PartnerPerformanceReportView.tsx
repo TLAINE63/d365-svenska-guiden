@@ -56,6 +56,12 @@ export interface PerformanceReportData {
   admin_comment: string;
   status: string;
   data_start: string | null;
+  coverage?: {
+    complete: boolean;
+    isCurrentMonth: boolean;
+    warnings: string[];
+    sources: { label: string; source: string; start: string | null; rows: number; sessions: number | null }[];
+  };
 }
 
 const MONTHS = [
@@ -174,6 +180,17 @@ export default function PartnerPerformanceReportView({
           {data.partner.name} på d365.se – {formatMonthLabel(data.month)}
         </h2>
       </header>
+
+      {data.coverage && (!data.coverage.complete || data.coverage.isCurrentMonth) && (
+        <div className="rounded-md border border-warning/40 bg-warning/10 p-4 text-sm">
+          <p className="font-semibold text-foreground">
+            {data.coverage.isCurrentMonth ? "Preliminär pågående månad" : "Delvis uppmätt period"}
+          </p>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-muted-foreground">
+            {data.coverage.warnings.map((warning) => <li key={warning}>{warning}</li>)}
+          </ul>
+        </div>
+      )}
 
       {data.admin_comment && (
         <Card className="border-accent/40 bg-accent/5">
