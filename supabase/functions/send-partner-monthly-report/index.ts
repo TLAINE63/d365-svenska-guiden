@@ -273,12 +273,24 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
   for (const e of exposures) {
     const p = (e.page_path || "").toLowerCase();
     if (p.startsWith("/jamfor-partners")) compareViews++;
-    if (p.startsWith("/branscher")) {
-      industryListingViews++;
-    } else if (e.filter_context && (e.filter_context as any).industry) {
-      industryListingViews++;
-    }
+    else if (p.startsWith("/branscher")) industryListingViews++;
   }
+
+  // Branschsidor loggar exponeringar i partner_engagement_events, inte i
+  // partner_filter_exposures – räkna med dem också.
+  const { data: impressionRows } = await supabase
+    .from("partner_engagement_events")
+    .select("page_path")
+    .eq("partner_slug", partner.slug)
+    .eq("event_level", 1)
+    .gte("occurred_at", startIso)
+    .lt("occurred_at", endIso)
+    .limit(50000);
+  for (const r of impressionRows || []) {
+    const p = String(r.page_path || "").toLowerCase();
+    if (p.startsWith("/branscher")) industryListingViews++;
+  }
+
 
   return {
     profileVisits,
