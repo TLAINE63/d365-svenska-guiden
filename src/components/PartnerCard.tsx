@@ -29,7 +29,6 @@ import {
 import { Partner } from "@/data/partners";
 import { DatabasePartner, type ProductFilterInput, type ProductFilters } from "@/hooks/usePartners";
 
-import { trackPartnerView } from "@/utils/trackPartnerView";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
@@ -324,13 +323,11 @@ const PartnerCard = ({
  }, [partner, productKey, highlightedIndustry, resultView]);
 
 
- // Track click into partner profile (card click)
+ // Kortklick loggas globalt i trackPartnerLinkClicks (täcker alla ytor).
  const handleCardClick = () => {
  const slug = isDatabasePartner(partner) ? partner.slug : (partner as any).id;
  if (!slug) return;
- const partnerId = isDatabasePartner(partner) ? partner.id : null;
- const pageSource = typeof window !== "undefined" ? window.location.pathname : "unknown";
- void trackPartnerView(slug, "card_click", pageSource, partnerId);
+
  // Stash filter context in sessionStorage so URL stays clean
  if (typeof window !== "undefined") {
  const qIdx = profileUrl.indexOf("?");

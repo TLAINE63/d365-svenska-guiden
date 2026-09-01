@@ -13,6 +13,7 @@ import { useState } from "react";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
 import PartnerCard from "@/components/PartnerCard";
 import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 
 
 // Static featured-partner snapshot bundled at build time. Used as the
@@ -68,6 +69,10 @@ const PartnersPerBransch = () => {
       return a.name.localeCompare(b.name, "sv");
     });
   });
+
+  // Nivå 1 – exponering: alla partners som listas på sidan.
+  usePartnerImpressions("partner_list_impression", partners as any[], { surface: "partners-per-bransch" });
+  usePartnerImpressions("partner_list_impression", basicPartners as any[], { surface: "partners-per-bransch-basic" });
 
   return (
     <>
