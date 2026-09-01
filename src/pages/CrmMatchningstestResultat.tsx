@@ -30,6 +30,7 @@ import PartnerCard from "@/components/PartnerCard";
 import { trackFunnelEvent, trackFunnelEventOnce } from "@/lib/funnelTracking";
 import SendUnderlagToPartners from "@/components/SendUnderlagToPartners";
 import type { ProductKey } from "@/hooks/usePartnerFilters";
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 
 interface Props {
   productKey: ProductConfig["key"];
@@ -155,6 +156,7 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
     () => (score ? recommendCrmPartners(allPartners, config, score, 3) : []),
     [allPartners, config, score],
   );
+  usePartnerImpressions("partner_recommended", recommendations.map((r) => r.partner), { surface: "crm-matchningstest-resultat" });
   const partnerSlug = CRM_TEST_TO_PARTNER_SLUG[config.key];
 
   return (

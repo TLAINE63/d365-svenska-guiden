@@ -72,6 +72,7 @@ import utbildningImg from "@/assets/industries/utbildning.webp";
 import offentligSektorImg from "@/assets/industries/offentlig-sektor.webp";
 import uthyrningImg from "@/assets/industries/uthyrning.webp";
 import { productNameToSlug } from "@/lib/partnerProductSlug";
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 
 const industryImages: Record<string, string> = {
   "Tillverkningsindustri": tillverkningImg,
@@ -300,6 +301,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
   const [selectedAdditionalApps, setSelectedAdditionalApps] = useState<string[]>([]);
   const [customCountries, setCustomCountries] = useState<string>("");
   const [suggestedPartners, setSuggestedPartners] = useState<PartnerData[]>([]);
+  usePartnerImpressions("partner_recommended", suggestedPartners, { surface: "partnerguide-dialog" });
   const [aiMatches, setAiMatches] = useState<AiMatchResult[]>([]);
   const [isAiLoading, setIsAiLoading] = useState(false);
 

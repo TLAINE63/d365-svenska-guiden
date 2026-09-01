@@ -48,6 +48,7 @@ const fscBreadcrumbs = [
  { name: "Finance & Supply Chain", url: "https://d365.se/finance-supply-chain" },
 ];
 import {
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
  Accordion,
  AccordionContent,
  AccordionItem,
@@ -115,6 +116,7 @@ const FinanceSupplyChain = () => {
  selectedRevenue
  );
  }, [partners, selectedIndustry, selectedGeography, selectedCompanySize, selectedRevenue]);
+  usePartnerImpressions("partner_list_impression", fscPartners, { surface: "product-finance-scm" });
 
  // Get available industries for FSC partners
  const fscIndustries = useMemo(() => {
