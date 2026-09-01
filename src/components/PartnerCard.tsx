@@ -29,7 +29,6 @@ import {
 import { Partner } from "@/data/partners";
 import { DatabasePartner, type ProductFilterInput, type ProductFilters } from "@/hooks/usePartners";
 
-import { trackPartnerView } from "@/utils/trackPartnerView";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
