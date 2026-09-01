@@ -230,10 +230,17 @@
       "products": [
         "Business Central"
       ],
-      "industries": [],
+      "industries": [
+        "Grossist & Distribution",
+        "Konsulttjänster",
+        "Retail & E-handel"
+      ],
       "offices": null,
       "company_size": null,
-      "geography": [],
+      "geography": [
+        "Sverige",
+        "Norden"
+      ],
       "related_party": false
     },
     {
