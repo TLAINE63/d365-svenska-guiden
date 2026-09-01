@@ -15,6 +15,7 @@ import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 import { appToProductFilterKey } from "@/lib/productFilterGroup";
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 
 // Geography filter options
 const geographyFilters = [
@@ -130,6 +131,22 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
 
  // Show all 18 industries in the filter
  const availableIndustries = allIndustries;
+
+ usePartnerImpressions(
+  selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue
+   ? "partner_filter_impression"
+   : "partner_list_impression",
+  filteredPartners,
+  {
+   surface: "product_page",
+   product: applicationFilter,
+   industry: selectedIndustry,
+   geography: selectedGeography,
+   companySize: selectedCompanySize,
+   revenue: selectedRevenue,
+  },
+  !isLoading,
+ );
 
  if (isLoading) {
  return (

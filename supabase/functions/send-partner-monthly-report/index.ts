@@ -79,7 +79,20 @@ function renderRichText(raw: string): string {
 }
 
 function fmtIso(iso: string) {
-  return iso.slice(0, 10).replace(/-/g, "/");
+  return new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Stockholm", year: "numeric", month: "2-digit", day: "2-digit" })
+    .format(new Date(iso)).replace(/-/g, "/");
+}
+
+function stockholmDateStart(date: string): Date {
+  const [year, month, day] = date.split("-").map(Number);
+  const probe = new Date(Date.UTC(year, month - 1, day, 12));
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Stockholm", year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23",
+  }).formatToParts(probe);
+  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  const representedUtc = Date.UTC(Number(values.year), Number(values.month) - 1, Number(values.day), Number(values.hour), Number(values.minute), Number(values.second));
+  return new Date(Date.UTC(year, month - 1, day) - (representedUtc - probe.getTime()));
 }
 
 function bucketReferrer(ref: string | null, firstUrl?: string | null): string | null {
@@ -128,7 +141,16 @@ interface PartnerStats {
   previousEngagement: EngagementStats;
   market: MarketContext;
   trend: TrendPoint[];
+  coverage: CoverageInfo;
 }
+
+interface CoverageInfo {
+  complete: boolean;
+  warnings: string[];
+  performanceStart: string | null;
+}
+
+const FULL_SURFACE_TRACKING_START = "2026-08-27T00:00:00.000Z";
 
 /** Partner Performance – aggregerade nivåer från partner_engagement_events. */
 interface EngagementStats {
@@ -207,6 +229,17 @@ async function fetchEngagement(supabase: any, partner: any, startIso: string, en
       .sort((a, b) => b.count - a.count)
       .slice(0, 3),
   };
+}
+
+async function fetchCoverage(supabase: any, partner: any, startIso: string, endIso: string): Promise<CoverageInfo> {
+  const { data } = await supabase.from("partner_engagement_events").select("occurred_at")
+    .eq("partner_slug", partner.slug).gte("occurred_at", startIso).lt("occurred_at", endIso)
+    .order("occurred_at", { ascending: true }).limit(1);
+  const complete = startIso >= FULL_SURFACE_TRACKING_START;
+  const warnings = complete ? [] : [
+    "Exponeringar på alla publika partnerytor blev fullt instrumenterade först 2026/08/27. Profilvisningar, klick och äldre filterexponeringar gäller hela den valda perioden, medan Partner Performance-exponeringar bara avser den uppmätta delen. Saknade historiska kortvisningar har inte uppskattats.",
+  ];
+  return { complete, warnings, performanceStart: data?.[0]?.occurred_at ?? null };
 }
 
 async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso: string): Promise<PeriodStats> {
@@ -454,7 +487,7 @@ async function fetchSiteSettings(supabase: any) {
 }
 
 async function buildStats(supabase: any, partner: any, currentStart: string, currentEnd: string, previousStart: string, previousEnd: string): Promise<PartnerStats> {
-  const [current, previous, ident, entryPath, industryPagesListed, partnerNews, engagement, previousEngagement, market, trend] = await Promise.all([
+  const [current, previous, ident, entryPath, industryPagesListed, partnerNews, engagement, previousEngagement, market, trend, coverage] = await Promise.all([
     fetchPeriod(supabase, partner, currentStart, currentEnd),
     fetchPeriod(supabase, partner, previousStart, previousEnd),
     fetchIdentifiedCompanies(supabase, partner, currentStart, currentEnd),
@@ -465,6 +498,7 @@ async function buildStats(supabase: any, partner: any, currentStart: string, cur
     fetchEngagement(supabase, partner, previousStart, previousEnd),
     fetchMarketContext(supabase, currentStart, currentEnd),
     fetchTrend(supabase, partner, currentEnd),
+    fetchCoverage(supabase, partner, currentStart, currentEnd),
   ]);
   return {
     partner,
@@ -480,6 +514,7 @@ async function buildStats(supabase: any, partner: any, currentStart: string, cur
     previousEngagement,
     market,
     trend,
+    coverage,
   };
 }
 
@@ -495,7 +530,7 @@ function delta(current: number, previous: number): string {
 }
 
 function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: string, settings: { changelog: string; nextPeriod: string; contact: string }, reportLabel = "Månadsrapport"): string {
-  const { partner, current, previous, identifiedCompanies, industryBreakdown, activeEvaluators, topEntryPath, industryPagesListed, partnerNews, engagement, previousEngagement, market, trend } = stats;
+  const { partner, current, previous, identifiedCompanies, industryBreakdown, activeEvaluators, topEntryPath, industryPagesListed, partnerNews, engagement, previousEngagement, market, trend, coverage } = stats;
   const profileUrl = `https://www.d365.se/partner/${partner.slug}`;
 
   const statRow = (label: string, cur: number, prev: number) => `
@@ -586,7 +621,7 @@ function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: str
       ${intentHtml}`;
 
   // Marknadskontext + marknadsandel
-  const sharePct = market.totalExposures > 0
+  const sharePct = coverage.complete && market.totalExposures > 0
     ? Math.round((engagement.exposures / market.totalExposures) * 1000) / 10
     : null;
   const marketHtml = `
@@ -647,6 +682,10 @@ function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: str
   const contactLine = settings.contact
     ? esc(settings.contact)
     : "Thomas Laine, thomas.laine@dynamicfactory.se";
+  const coverageHtml = coverage.warnings.length ? `
+    <table role="presentation" width="100%" style="margin:0 0 22px;border-collapse:collapse"><tr><td style="padding:14px 16px;background:#fff7ed;border-left:4px solid #d97706;color:#78350f;font-size:13px;line-height:1.55">
+      <strong>Delvis uppmätt period</strong><br>${coverage.warnings.map(esc).join("<br>")}
+    </td></tr></table>` : "";
 
   return `<!DOCTYPE html>
 <html lang="sv">
@@ -683,6 +722,8 @@ function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: str
 
         <tr><td style="padding:28px">
 
+          ${coverageHtml}
+
           <!-- Siffror -->
           <h2 style="margin:0 0 12px;font-size:18px;color:#0f172a">Siffror</h2>
           <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
@@ -708,7 +749,7 @@ function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: str
           <!-- Vilka tittade -->
           <h2 style="margin:28px 0 8px;font-size:18px;color:#0f172a">Vilka tittade</h2>
           <p style="margin:0 0 10px;color:#64748b;font-size:13px;line-height:1.55">
-            Aggregerad bild av identifierade företagsbesökare på er profil under perioden. Vi lämnar aldrig ut enskilda företagsnamn: köpare ska kunna researcha ostört, och det är den tryggheten som gör att de befinner sig här överhuvudtaget.
+             Aggregerad bild av samtyckta och senast synkroniserade företagsbesökare på er profil under perioden. Vi lämnar aldrig ut enskilda företagsnamn: köpare ska kunna researcha ostört.
           </p>
           <ul style="margin:6px 0 0 0;padding-left:20px;color:#334155;font-size:14px">
             ${bulletsHtml}
@@ -725,17 +766,17 @@ function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: str
           </p>
           ${performanceHtml}
 
-          <!-- Rullande trend -->
+          ${coverage.complete ? `<!-- Rullande trend -->
           <h2 style="margin:28px 0 8px;font-size:18px;color:#0f172a">Utveckling senaste tre månaderna</h2>
           <p style="margin:0 0 10px;color:#64748b;font-size:13px;line-height:1.55">
             Enskilda månader svänger. Trenden ger en stabilare bild av hur ofta ert kort möter köpare.
           </p>
-          ${trendHtml}
+          ${trendHtml}` : ""}
 
           <!-- Marknadskontext -->
           <h2 style="margin:28px 0 8px;font-size:18px;color:#0f172a">Marknadskontext</h2>
           <p style="margin:0 0 10px;color:#64748b;font-size:13px;line-height:1.55">
-            Så här stor var köparaktiviteten på d365.se under perioden – och hur stor del av partnerexponeringarna som var er.
+             Så här stor var den registrerade köparaktiviteten på d365.se under perioden.${coverage.complete ? " Här visas även er andel av partnerexponeringarna." : " Andelen av partnerexponeringar visas inte när mättäckningen är ofullständig."}
           </p>
           ${marketHtml}
 
@@ -790,12 +831,12 @@ function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: str
 </html>`;
 }
 
-async function findReport(supabase: any, partnerId: string, currentStart: string, currentEnd: string) {
-  // Match the report by partner + period month derived from currentEnd
-  const month = currentEnd.slice(0, 7) + "-01";
+async function findReport(supabase: any, partnerId: string, currentStart: string) {
+  // Match the report by partner + period month derived from the inclusive start.
+  const month = currentStart.slice(0, 7) + "-01";
   const { data } = await supabase
     .from("partner_performance_reports")
-    .select("id, status, sent_at")
+    .select("id, status, sent_at, metrics")
     .eq("partner_id", partnerId)
     .eq("period_month", month)
     .maybeSingle();
@@ -828,8 +869,10 @@ async function sendOne(
   }
   const recipient = recipients[0];
 
-  const currentLabel = `${fmtIso(currentStart)} – ${fmtIso(currentEnd)}`;
-  const previousLabel = `${fmtIso(previousStart)} – ${fmtIso(previousEnd)}`;
+  const inclusiveEnd = new Date(new Date(currentEnd).getTime() - 1).toISOString();
+  const inclusivePreviousEnd = new Date(new Date(previousEnd).getTime() - 1).toISOString();
+  const currentLabel = `${fmtIso(currentStart)} – ${fmtIso(inclusiveEnd)}`;
+  const previousLabel = `${fmtIso(previousStart)} – ${fmtIso(inclusivePreviousEnd)}`;
 
   const stats = await buildStats(supabase, partner, currentStart, currentEnd, previousStart, previousEnd);
 
@@ -847,9 +890,12 @@ async function sendOne(
   }
 
   // Enforce approval before sending if requested (manual/admin sends).
-  const report = await findReport(supabase, partner.id, currentStart, currentEnd);
+  const report = await findReport(supabase, partner.id, currentStart);
   if (requireApproved && (!report || report.status !== "approved")) {
     return { partner: partner.name, status: "skipped", reason: "not_approved", reportStatus: report?.status || null };
+  }
+  if (requireApproved && !stats.coverage.complete && report?.metrics?.coverage_confirmed !== true) {
+    return { partner: partner.name, status: "skipped", reason: "coverage_not_confirmed" };
   }
 
   const res = await fetch("https://api.resend.com/emails", {
@@ -968,8 +1014,8 @@ serve(async (req) => {
     let currentEndDate: Date;
     let currentStartDate: Date;
     if (periodStart && periodEnd) {
-      currentStartDate = new Date(`${periodStart}T00:00:00Z`);
-      currentEndDate = new Date(`${periodEnd}T23:59:59Z`);
+      currentStartDate = stockholmDateStart(periodStart);
+      currentEndDate = stockholmDateStart(periodEnd);
     } else {
       currentEndDate = now;
       currentStartDate = new Date(now.getTime() - days * 86400000);
