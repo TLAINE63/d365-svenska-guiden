@@ -4,9 +4,12 @@ import { useLocation } from "react-router-dom";
 const EXCLUDE_TRACKING_KEY = "d365_exclude_from_tracking";
 const COOKIE_CONSENT_KEY = "cookie-consent-accepted";
 
-// Check if current visitor should be excluded from tracking
+// Check if current visitor should be excluded from tracking.
+// Beslut 2026-09-01: ingen exkludering – alla besökare (även interna)
+// räknas i statistik och rapporter. Funktionen behålls för bakåt-
+// kompatibilitet men returnerar alltid false.
 export function isExcludedFromTracking(): boolean {
-  return localStorage.getItem(EXCLUDE_TRACKING_KEY) === "true";
+  return false;
 }
 
 // Set exclusion status

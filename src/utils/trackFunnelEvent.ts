@@ -7,19 +7,14 @@
  * falls back to fetch() with keepalive.
  */
 
-const EXCLUDE_TRACKING_KEY = "d365_exclude_from_tracking";
-
 /**
  * Anonymous measurement – no cookies, no personal data.
  * Only the internal exclusion flag stops tracking.
  */
 function isTrackingAllowed(): boolean {
-  try {
-    if (typeof window === "undefined") return false;
-    return localStorage.getItem(EXCLUDE_TRACKING_KEY) !== "true";
-  } catch {
-    return true;
-  }
+  // Beslut 2026-09-01: ingen exkludering – alla besökare räknas.
+  if (typeof window === "undefined") return false;
+  return true;
 }
 
 function getSessionId(): string | null {
