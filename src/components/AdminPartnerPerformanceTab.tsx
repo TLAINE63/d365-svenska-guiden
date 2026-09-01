@@ -100,8 +100,9 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
 
   const monthBounds = (m: string) => {
     const [year, mon] = m.split("-").map(Number);
-    const lastDay = new Date(year, mon, 0).getDate();
-    return { start: `${m}-01`, end: `${m}-${String(lastDay).padStart(2, "0")}` };
+    const next = new Date(Date.UTC(year, mon, 1));
+    const nextMonth = `${next.getUTCFullYear()}-${String(next.getUTCMonth() + 1).padStart(2, "0")}-01`;
+    return { start: `${m}-01`, end: nextMonth };
   };
 
   const load = useCallback(async () => {
@@ -149,6 +150,7 @@ export default function AdminPartnerPerformanceTab({ token }: { token: string | 
         recommendations: recs,
         metrics: data.current.metrics,
         status,
+        coverage_confirmed: coverageConfirmed,
       },
     );
     setSaving(false);

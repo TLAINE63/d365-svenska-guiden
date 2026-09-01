@@ -43,6 +43,7 @@ async function verifyAdminJWT(token: string, secret: string): Promise<boolean> {
 
 // ─────────────────────────── Helpers ───────────────────────────
 const COMPARE_PAGES = ["/jamfor-partners"];
+const FULL_SURFACE_TRACKING_START = "2026-08-27T00:00:00.000Z";
 
 function monthRange(month: string): { start: string; end: string } {
   // month = "YYYY-MM"
@@ -230,6 +231,41 @@ async function collectMetrics(
   };
 }
 
+async function collectCoverage(supabase: any, partnerSlug: string, month: string) {
+  const { start, end } = monthRange(month);
+  const [exposures, views, events] = await Promise.all([
+    supabase.from("partner_filter_exposures").select("session_id, viewed_at")
+      .eq("partner_slug", partnerSlug).gte("viewed_at", start).lt("viewed_at", end).limit(20000),
+    supabase.from("partner_profile_views").select("viewed_at")
+      .eq("partner_slug", partnerSlug).gte("viewed_at", start).lt("viewed_at", end).limit(20000),
+    supabase.from("partner_engagement_events").select("session_id, occurred_at")
+      .eq("partner_slug", partnerSlug).gte("occurred_at", start).lt("occurred_at", end).limit(20000),
+  ]);
+  const exposureRows = exposures.data || [];
+  const eventRows = events.data || [];
+  const earliest = (rows: any[], key: string) => rows.reduce<string | null>((min, row) => {
+    const value = typeof row[key] === "string" ? row[key] : null;
+    return value && (!min || value < min) ? value : min;
+  }, null);
+  const isCurrentMonth = month === new Date().toISOString().slice(0, 7);
+  const complete = start >= FULL_SURFACE_TRACKING_START && !isCurrentMonth;
+  const warnings: string[] = [];
+  if (start < FULL_SURFACE_TRACKING_START && end > "2026-08-01T00:00:00.000Z") {
+    warnings.push("Exponeringar på alla publika partnerytor blev fullt instrumenterade först 2026/08/27. Äldre profilvisningar, klick och filterexponeringar redovisas, men saknade kortvisningar har inte uppskattats.");
+  }
+  if (isCurrentMonth) warnings.push("Månaden pågår och siffrorna är preliminära.");
+  return {
+    complete,
+    isCurrentMonth,
+    warnings,
+    sources: [
+      { label: "Filter- och jämförelseexponeringar", source: "partner_filter_exposures", start: earliest(exposureRows, "viewed_at"), rows: exposureRows.length, sessions: new Set(exposureRows.map((r: any) => r.session_id).filter(Boolean)).size },
+      { label: "Profilvisningar och kortklick", source: "partner_profile_views", start: earliest(views.data || [], "viewed_at"), rows: (views.data || []).length, sessions: null },
+      { label: "Partner Performance-event", source: "partner_engagement_events", start: earliest(eventRows, "occurred_at"), rows: eventRows.length, sessions: new Set(eventRows.map((r: any) => r.session_id).filter(Boolean)).size },
+    ],
+  };
+}
+
 // ─────────────────────────── Profile strength ───────────────────────────
 function profileStrength(p: any) {
   const checks: { label: string; ok: boolean; weight: number }[] = [
@@ -347,6 +383,7 @@ Deno.serve(async (req) => {
       const current = await collectMetrics(supabase, partner, month);
       const previous = await collectMetrics(supabase, partner, prevMonth(month));
       const strength = profileStrength(partner);
+      const coverage = await collectCoverage(supabase, partner.slug, month);
 
       const { data: saved } = await supabase
         .from("partner_performance_reports")
@@ -379,11 +416,12 @@ Deno.serve(async (req) => {
         approved_at: saved?.approved_at ?? null,
         sent_at: saved?.sent_at ?? null,
         data_start: firstExp?.[0]?.viewed_at ?? null,
+        coverage,
       });
     }
 
     if (action === "save") {
-      const { partner_slug, month, admin_comment, recommendations, status, metrics } = body as any;
+      const { partner_slug, month, admin_comment, recommendations, status, metrics, coverage_confirmed } = body as any;
       if (!partner_slug || !month) return json({ error: "month och partner_slug krävs" }, 400);
       const { data: partner } = await supabase
         .from("partners")
@@ -391,6 +429,10 @@ Deno.serve(async (req) => {
         .eq("slug", partner_slug)
         .maybeSingle();
       if (!partner) return json({ error: "Partner hittades inte" }, 404);
+      const coverage = await collectCoverage(supabase, partner.slug, month);
+      if (status === "approved" && !coverage.complete && coverage_confirmed !== true) {
+        return json({ error: "Ofullständig mättäckning måste bekräftas före godkännande" }, 400);
+      }
 
       const row: Record<string, unknown> = {
         partner_id: partner.id,
@@ -399,7 +441,7 @@ Deno.serve(async (req) => {
         period_month: `${month}-01`,
         admin_comment: admin_comment ?? null,
         recommendations: recommendations ?? [],
-        metrics: metrics ?? {},
+        metrics: { ...(metrics ?? {}), coverage, coverage_confirmed: coverage_confirmed === true },
         status: status ?? "draft",
         approved_at: status === "approved" ? new Date().toISOString() : null,
       };
