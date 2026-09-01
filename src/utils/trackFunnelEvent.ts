@@ -7,8 +7,6 @@
  * falls back to fetch() with keepalive.
  */
 
-const EXCLUDE_TRACKING_KEY = "d365_exclude_from_tracking";
-
 /**
  * Anonymous measurement – no cookies, no personal data.
  * Only the internal exclusion flag stops tracking.
