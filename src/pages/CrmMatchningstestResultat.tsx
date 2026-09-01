@@ -156,7 +156,7 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
     () => (score ? recommendCrmPartners(allPartners, config, score, 3) : []),
     [allPartners, config, score],
   );
-  usePartnerImpressions("partner_recommended", recommendations.map((r) => r.partner), { surface: "crm-matchningstest-resultat" });
+  usePartnerImpressions("partner_match_impression", recommendations.map((r) => r.partner), { surface: "crm-matchningstest-resultat" });
   const partnerSlug = CRM_TEST_TO_PARTNER_SLUG[config.key];
 
   return (
