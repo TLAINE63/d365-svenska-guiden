@@ -339,8 +339,6 @@ export function renderStatsHtml(stats: DraftStats | null): string {
   if (current.sitePageViews != null) rows.push(row("Totalt antal sidvisningar på d365.se", current.sitePageViews, null));
   if (current.siteUniqueVisitors != null) rows.push(row("Unika besökare på d365.se", current.siteUniqueVisitors, null));
 
-  const hiddenCount = 8 - rows.filter(r => !r.includes("d365.se")).length; // ungefärlig indikation, används ej i UI
-
   return `
       <h2 style="margin:0 0 8px;font-size:17px;color:#0f172a">Nyckeltal</h2>
       ${stats.currentLabel ? `<p style="margin:0 0 10px;color:#64748b;font-size:12px">Perioden ${esc(stats.currentLabel)}${cmp ? ", jämfört med summan för samtliga partners på d365.se under samma period." : "."}</p>` : ""}
