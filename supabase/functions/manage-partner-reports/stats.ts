@@ -313,6 +313,31 @@ export function renderStatsHtml(stats: DraftStats | null): string {
       ${cmp ? `<td class="cell" style="padding:11px 14px;border-bottom:1px solid #eef0f3;font-size:13px;text-align:right;white-space:nowrap">${total == null ? `<span style="color:#94a3b8">–</span>` : share(cur, total)}</td>` : ""}
     </tr>`;
 
+  // Dölj rader där den totala siffran (alla partners) är under 10 – då riskerar
+  // raden mest att väcka frågor snarare än ge en meningsfull bild.
+  const show = (total: number | null) => total == null || total >= 10;
+
+  const rows: string[] = [];
+  if (show(benchmark?.profileVisits ?? null)) rows.push(row("Profilvisningar", current.profileVisits, benchmark?.profileVisits ?? null));
+  if ((current.cardClicks ?? 0) + (benchmark?.cardClicks ?? 0) > 0 && show(benchmark?.cardClicks ?? null)) {
+    rows.push(row("Klick på ert partnerkort", current.cardClicks ?? 0, benchmark?.cardClicks ?? null));
+  }
+  if ((current.guideListingViews ?? 0) + (benchmark?.guideListingViews ?? 0) > 0 && show(benchmark?.guideListingViews ?? null)) {
+    rows.push(row("Visningar i partnerguiden", current.guideListingViews ?? 0, benchmark?.guideListingViews ?? null));
+  }
+  if (show(benchmark?.compareViews ?? null)) rows.push(row("Visningar i jämförelsevyn", current.compareViews, benchmark?.compareViews ?? null));
+  if (current.websiteClicks + (benchmark?.websiteClicks ?? 0) > 0 && show(benchmark?.websiteClicks ?? null)) {
+    rows.push(row("Klick till er webbplats", current.websiteClicks, benchmark?.websiteClicks ?? null));
+  }
+  if (show(benchmark?.industryListingViews ?? null)) rows.push(row("Visningar av er i branschlistor", current.industryListingViews, benchmark?.industryListingViews ?? null));
+  if ((current.otherListingViews ?? 0) + (benchmark?.otherListingViews ?? 0) > 0 && show(benchmark?.otherListingViews ?? null)) {
+    rows.push(row("Visningar i övriga partnerlistor (start-, produkt- och katalogsidor)", current.otherListingViews ?? 0, benchmark?.otherListingViews ?? null));
+  }
+  if ((current.newsClicks ?? 0) + (benchmark?.newsClicks ?? 0) > 0 && show(benchmark?.newsClicks ?? null)) {
+    rows.push(row("Klick på era nyhetsartiklar", current.newsClicks ?? 0, benchmark?.newsClicks ?? null));
+  }
+  if (current.sitePageViews != null) rows.push(row("Totalt antal sidvisningar på d365.se", current.sitePageViews, null));
+  if (current.siteUniqueVisitors != null) rows.push(row("Unika besökare på d365.se", current.siteUniqueVisitors, null));
 
   return `
       <h2 style="margin:0 0 8px;font-size:17px;color:#0f172a">Nyckeltal</h2>
@@ -326,20 +351,11 @@ export function renderStatsHtml(stats: DraftStats | null): string {
           </tr>
         </thead>
         <tbody>
-          ${row("Profilvisningar", current.profileVisits, benchmark?.profileVisits ?? null)}
-          ${(current.cardClicks ?? 0) + (benchmark?.cardClicks ?? 0) > 0 ? row("Klick på ert partnerkort", current.cardClicks ?? 0, benchmark?.cardClicks ?? null) : ""}
-          ${(current.guideListingViews ?? 0) + (benchmark?.guideListingViews ?? 0) > 0 ? row("Visningar i partnerguiden", current.guideListingViews ?? 0, benchmark?.guideListingViews ?? null) : ""}
-          ${row("Visningar i jämförelsevyn", current.compareViews, benchmark?.compareViews ?? null)}
-          ${current.websiteClicks + (benchmark?.websiteClicks ?? 0) > 0 ? row("Klick till er webbplats", current.websiteClicks, benchmark?.websiteClicks ?? null) : ""}
-          ${row("Visningar av er i branschlistor", current.industryListingViews, benchmark?.industryListingViews ?? null)}
-          ${(current.otherListingViews ?? 0) + (benchmark?.otherListingViews ?? 0) > 0 ? row("Visningar i övriga partnerlistor (start-, produkt- och katalogsidor)", current.otherListingViews ?? 0, benchmark?.otherListingViews ?? null) : ""}
-          ${(current.newsClicks ?? 0) + (benchmark?.newsClicks ?? 0) > 0 ? row("Klick på era nyhetsartiklar", current.newsClicks ?? 0, benchmark?.newsClicks ?? null) : ""}
-          ${current.sitePageViews != null ? row("Totalt antal sidvisningar på d365.se", current.sitePageViews, null) : ""}
-          ${current.siteUniqueVisitors != null ? row("Unika besökare på d365.se", current.siteUniqueVisitors, null) : ""}
+          ${rows.join("")}
         </tbody>
       </table>
       <p style="margin:10px 2px 22px;color:#64748b;font-size:12px;line-height:1.5">
-        Kontaktförfrågningar skickas till er i realtid via e-post. Siffrorna ovan är summan för perioden.
+        Kontaktförfrågningar skickas till er i realtid via e-post. Siffrorna ovan är summan för perioden. Mätpunkter där den totala volymen för alla partners är under 10 visas inte, eftersom de inte ger någon meningsfull jämförelse.
       </p>`;
 }
 
