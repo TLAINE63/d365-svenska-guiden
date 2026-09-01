@@ -39,6 +39,27 @@ interface UsePublishedPartnerNewsOpts {
   limit?: number;
 }
 
+/** Logotyper hämtas separat från partners_public (publik vy) eftersom partner_news
+ *  inte längre joinar mot partners. Utan detta blir logo_url alltid null. */
+async function fetchPartnerLogos(ids: string[]): Promise<Map<string, string | null>> {
+  const map = new Map<string, string | null>();
+  if (ids.length === 0) return map;
+  try {
+    const { data } = await (supabase as unknown as {
+      from: (t: string) => {
+        select: (c: string) => { in: (c: string, v: string[]) => Promise<{ data: Array<{ id: string; logo_url: string | null }> | null }> };
+      };
+    })
+      .from("partners_public")
+      .select("id, logo_url")
+      .in("id", ids);
+    for (const p of data ?? []) map.set(p.id, p.logo_url ?? null);
+  } catch (e) {
+    console.warn("partner logo lookup failed", e);
+  }
+  return map;
+}
+
 export function usePublishedPartnerNews(opts: UsePublishedPartnerNewsOpts = {}) {
   return useQuery({
     queryKey: ["partner-news-public", opts],
