@@ -77,6 +77,11 @@ const faqs = [
     answer:
       "En redaktionell intervju med en eller flera av partnerns experter som kan publiceras på d365.se och YouTube och användas som innehåll på partnerprofilen.",
   },
+  {
+    question: "Vad kostar en verifierad partnerprofil?",
+    answer:
+      "Månadsavgiften är 995 kr för 1 produktområde, 1 595 kr för 2 produktområden och 1 995 kr för 3 produktområden (Sales och Customer Service buntas som en CRM-enhet). Avgiften faktureras månadsvis i efterskott, exklusive moms. Betalning påverkar aldrig ranking eller rekommendationer.",
+  },
 ];
 
 const journeySteps = [
