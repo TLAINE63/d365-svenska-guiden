@@ -250,7 +250,7 @@ async function collectCoverage(supabase: any, partnerSlug: string, month: string
   const isCurrentMonth = month === new Date().toISOString().slice(0, 7);
   const complete = start >= FULL_SURFACE_TRACKING_START && !isCurrentMonth;
   const warnings: string[] = [];
-  if (start < FULL_SURFACE_TRACKING_START && end > "2026-08-01T00:00:00.000Z") {
+  if (start < FULL_SURFACE_TRACKING_START) {
     warnings.push("Exponeringar på alla publika partnerytor blev fullt instrumenterade först 2026/08/27. Äldre profilvisningar, klick och filterexponeringar redovisas, men saknade kortvisningar har inte uppskattats.");
   }
   if (isCurrentMonth) warnings.push("Månaden pågår och siffrorna är preliminära.");

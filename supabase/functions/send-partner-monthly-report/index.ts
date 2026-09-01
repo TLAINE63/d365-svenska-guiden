@@ -818,7 +818,7 @@ function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: str
 </html>`;
 }
 
-async function findReport(supabase: any, partnerId: string, currentStart: string, currentEnd: string) {
+async function findReport(supabase: any, partnerId: string, currentStart: string) {
   // Match the report by partner + period month derived from the inclusive start.
   const month = currentStart.slice(0, 7) + "-01";
   const { data } = await supabase
@@ -877,7 +877,7 @@ async function sendOne(
   }
 
   // Enforce approval before sending if requested (manual/admin sends).
-  const report = await findReport(supabase, partner.id, currentStart, currentEnd);
+  const report = await findReport(supabase, partner.id, currentStart);
   if (requireApproved && (!report || report.status !== "approved")) {
     return { partner: partner.name, status: "skipped", reason: "not_approved", reportStatus: report?.status || null };
   }
