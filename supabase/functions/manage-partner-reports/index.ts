@@ -371,7 +371,7 @@ function buildEmailHtml(opts: {
                alt="Besökarstatistik d365.se senaste 90 dagar"
                width="600"
                style="display:block;width:100%;max-width:600px;height:auto;margin:0 auto;border:1px solid #e2e8f0;border-radius:10px" />
-          <a href="${esc(siteOrigin)}/partnerstatistik" style="display:inline-block;margin-top:10px;color:#1e3a5f;font-size:12px;text-decoration:none">
+          <a href="${esc(siteOrigin)}/partnerstatistik/?kod=${encodeURIComponent(Deno.env.get("PARTNER_STATS_ACCESS_CODE") ?? "")}" style="display:inline-block;margin-top:10px;color:#1e3a5f;font-size:12px;text-decoration:none">
             Se aktuell statistik på d365.se/partnerstatistik →
           </a>
         </div>
