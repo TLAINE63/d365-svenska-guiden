@@ -332,6 +332,7 @@ export function renderStatsHtml(stats: DraftStats | null): string {
           ${row("Visningar i jämförelsevyn", current.compareViews, benchmark?.compareViews ?? null)}
           ${current.websiteClicks + (benchmark?.websiteClicks ?? 0) > 0 ? row("Klick till er webbplats", current.websiteClicks, benchmark?.websiteClicks ?? null) : ""}
           ${row("Visningar av er i branschlistor", current.industryListingViews, benchmark?.industryListingViews ?? null)}
+          ${(current.otherListingViews ?? 0) + (benchmark?.otherListingViews ?? 0) > 0 ? row("Visningar i övriga partnerlistor (start-, produkt- och katalogsidor)", current.otherListingViews ?? 0, benchmark?.otherListingViews ?? null) : ""}
           ${(current.newsClicks ?? 0) + (benchmark?.newsClicks ?? 0) > 0 ? row("Klick på era nyhetsartiklar", current.newsClicks ?? 0, benchmark?.newsClicks ?? null) : ""}
           ${current.sitePageViews != null ? row("Totalt antal sidvisningar på d365.se", current.sitePageViews, null) : ""}
           ${current.siteUniqueVisitors != null ? row("Unika besökare på d365.se", current.siteUniqueVisitors, null) : ""}
