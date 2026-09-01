@@ -36,6 +36,7 @@ const crmBreadcrumbs = [
  { name: "Customer Engagement (CRM)", url: "https://d365.se/crm" },
 ];
 import {
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
  Accordion,
  AccordionContent,
  AccordionItem,
@@ -174,6 +175,7 @@ const CRM = () => {
  
  return filtered.sort((a, b) => a.name.localeCompare(b.name, 'sv'));
  }, [partners, selectedIndustry, selectedGeography, selectedCompanySize, selectedRevenue]);
+  usePartnerImpressions("partner_list_impression", crmPartners, { surface: "product-crm" });
 
  // Get available industries for CRM partners
  const crmIndustries = useMemo(() => {

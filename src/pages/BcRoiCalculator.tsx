@@ -32,6 +32,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { INDUSTRY_DRIVERS, defaultEnabledDrivers, type Industry } from "@/data/bcRoiDrivers";
 import RoiPdfDownload from "@/components/RoiPdfDownload";
 import type { RoiPdfData } from "@/utils/generateRoiPdf";
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
@@ -227,6 +228,7 @@ export default function BcRoiCalculator() {
   const bcPartners = useMemo(
     () => filterAndSortPartners(partners, "bc", null, null, null, null, true).slice(0, 6),
     [partners]
+  usePartnerImpressions("partner_list_impression", bcPartners, { surface: "roi-kalkylator-bc" });
   );
 
   return (

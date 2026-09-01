@@ -78,6 +78,7 @@ import detaljhandelImg from "@/assets/industries/detaljhandel.webp";
 import modeSportTextilImg from "@/assets/industries/mode-sport-textil.webp";
 import konsultforetagImg from "@/assets/industries/konsultforetag.webp";
 import byggEntreprenadImg from "@/assets/industries/bygg-entreprenad.webp";
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import fastigheterImg from "@/assets/industries/fastigheter.webp";
 import energiImg from "@/assets/industries/energi.webp";
 import finansForsakringImg from "@/assets/industries/finans-forsakring.webp";
@@ -279,6 +280,7 @@ const Branschlosningar = () => {
  return (a.name || '').localeCompare(b.name || '', 'sv');
  });
  }, [selectedFilters, selectedIndustry, partners, hasFilter]);
+  usePartnerImpressions("partner_list_impression", filteredPartners, { surface: "branschlosningar" });
 
  const handleIndustryClick = (industry: Industry) => {
  if (!hasFilter) {

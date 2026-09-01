@@ -71,6 +71,7 @@ const industryImages: Record<string, string> = {
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { supabase } from "@/integrations/supabase/client";
 import WhyTheseResults from "@/components/WhyTheseResults";
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 
 // Step 2: Product options
 const productOptions = [
@@ -177,6 +178,7 @@ const KomIgang = () => {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [showResults, setShowResults] = useState(false);
   const [matchedPartners, setMatchedPartners] = useState<DatabasePartner[]>([]);
+  usePartnerImpressions("partner_recommended", matchedPartners, { surface: "kom-igang-wizard" });
   const [aiMatches, setAiMatches] = useState<AiMatchResult[]>([]);
   const [isAiLoading, setIsAiLoading] = useState(false);
 
