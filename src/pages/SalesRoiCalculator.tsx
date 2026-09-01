@@ -205,8 +205,8 @@ export default function SalesRoiCalculator() {
   const salesPartners = useMemo(
     () => filterAndSortPartners(partners, "sales", null, null, null, null, true).slice(0, 6),
     [partners]
-  usePartnerImpressions("partner_list_impression", salesPartners, { surface: "roi-kalkylator-sales" });
   );
+  usePartnerImpressions("partner_list_impression", salesPartners, { surface: "roi-kalkylator-sales" });
 
   return (
     <div className="min-h-screen bg-background">

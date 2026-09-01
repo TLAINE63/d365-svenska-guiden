@@ -51,12 +51,12 @@ import { useIndustryDeepLink } from "@/hooks/useIndustryDeepLink";
 import { filterAndSortPartners, getProductIndustries } from "@/hooks/usePartnerFilters";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 import {
-import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
  Accordion,
  AccordionContent,
  AccordionItem,
  AccordionTrigger,
 } from "@/components/ui/accordion";
+import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 
 // Business Central FAQs for schema – priser resolvas från product_prices via resolvePriceTokens
 const bcFaqsRaw = [

@@ -228,8 +228,8 @@ export default function BcRoiCalculator() {
   const bcPartners = useMemo(
     () => filterAndSortPartners(partners, "bc", null, null, null, null, true).slice(0, 6),
     [partners]
-  usePartnerImpressions("partner_list_impression", bcPartners, { surface: "roi-kalkylator-bc" });
   );
+  usePartnerImpressions("partner_list_impression", bcPartners, { surface: "roi-kalkylator-bc" });
 
   return (
     <div className="min-h-screen bg-background">
