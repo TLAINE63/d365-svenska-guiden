@@ -8,10 +8,49 @@ export interface PeriodStats {
   industryListingViews: number;
   cardClicks?: number;
   guideListingViews?: number;
+  otherListingViews?: number;
   newsClicks?: number;
   sitePageViews?: number;
   siteUniqueVisitors?: number;
 }
+
+/**
+ * Ytor som redan mäts via partner_filter_exposures. Exponeringar från
+ * partner_engagement_events på dessa sidor räknas därför inte igen.
+ */
+const EXPOSURE_COVERED_PATHS = ["/jamfor-partners", "/valjdynamics365partner", "/valj", "/ai-chat"];
+
+/**
+ * Exponeringar (nivå 1) från partner_engagement_events – täcker branschsidor,
+ * startsidan, produktsidor och partnerkatalogen som saknas i filter_exposures.
+ */
+async function fetchImpressionSurfaces(
+  supabase: any,
+  slug: string | null,
+  startIso: string,
+  endIso: string,
+): Promise<{ industry: number; other: number; industryBySlug: Map<string, number> }> {
+  let q = supabase.from("partner_engagement_events").select("page_path")
+    .eq("event_level", 1).gte("occurred_at", startIso).lt("occurred_at", endIso).limit(100000);
+  if (slug) q = q.eq("partner_slug", slug);
+  const { data } = await q;
+  let industry = 0;
+  let other = 0;
+  const industryBySlug = new Map<string, number>();
+  for (const r of data || []) {
+    const p = String(r.page_path || "").toLowerCase();
+    if (EXPOSURE_COVERED_PATHS.some((c) => p.startsWith(c))) continue;
+    if (p.startsWith("/branscher")) {
+      industry++;
+      const s = p.replace(/^\/branscher\/?/, "").replace(/\/.*$/, "").replace(/[?#].*$/, "");
+      if (s) industryBySlug.set(s, (industryBySlug.get(s) || 0) + 1);
+    } else {
+      other++;
+    }
+  }
+  return { industry, other, industryBySlug };
+}
+
 
 export interface DraftStats {
   current: PeriodStats;
@@ -56,7 +95,7 @@ function bucketReferrer(ref: string | null, firstUrl?: string | null): string | 
 }
 
 async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso: string): Promise<PeriodStats> {
-  const [viewsRes, clicksRes, exposureRes, sitePvRes, sessionsRes, newsClicksRes] = await Promise.all([
+  const [viewsRes, clicksRes, exposureRes, sitePvRes, sessionsRes, newsClicksRes, surfaces] = await Promise.all([
     supabase.from("partner_profile_views").select("view_type")
       .eq("partner_slug", partner.slug).gte("viewed_at", startIso).lt("viewed_at", endIso),
     supabase.from("partner_clicks").select("id", { count: "exact", head: true })
@@ -71,6 +110,7 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
       .eq("event_name", "partner_news_card_click")
       .eq("metadata->>partner_slug", partner.slug)
       .gte("occurred_at", startIso).lt("occurred_at", endIso),
+    fetchImpressionSurfaces(supabase, partner.slug, startIso, endIso),
   ]);
 
   const views = viewsRes.data || [];
@@ -78,14 +118,13 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
   const cardClicks = views.filter((v: any) => v.view_type === "card_click").length;
 
   let compareViews = 0;
-  let industryListingViews = 0;
+  let industryListingViews = surfaces.industry;
   let guideListingViews = 0;
   for (const e of exposureRes.data || []) {
     const p = (e.page_path || "").toLowerCase();
     if (p.startsWith("/jamfor-partners")) compareViews++;
     else if (p.startsWith("/valjdynamics365partner") || p.startsWith("/valj")) guideListingViews++;
-    if (p.startsWith("/branscher")) industryListingViews++;
-    else if (e.filter_context && (e.filter_context as any).industry) industryListingViews++;
+    else if (p.startsWith("/branscher")) industryListingViews++;
   }
 
   const uniqueKeys = new Set<string>();
@@ -101,6 +140,7 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
     compareViews,
     cardClicks,
     guideListingViews,
+    otherListingViews: surfaces.other,
     newsClicks: newsClicksRes?.count || 0,
     websiteClicks: clicksRes.count || 0,
     industryListingViews,
@@ -112,7 +152,7 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
 
 /** Summan för samtliga partners under samma period (utan partnerfilter). */
 async function fetchAllPartnersPeriod(supabase: any, startIso: string, endIso: string): Promise<PeriodStats> {
-  const [viewsRes, clicksRes, exposureRes, newsClicksRes] = await Promise.all([
+  const [viewsRes, clicksRes, exposureRes, newsClicksRes, surfaces] = await Promise.all([
     supabase.from("partner_profile_views").select("view_type")
       .gte("viewed_at", startIso).lt("viewed_at", endIso).limit(100000),
     supabase.from("partner_clicks").select("id", { count: "exact", head: true })
@@ -122,19 +162,19 @@ async function fetchAllPartnersPeriod(supabase: any, startIso: string, endIso: s
     supabase.from("funnel_events").select("id", { count: "exact", head: true })
       .eq("event_name", "partner_news_card_click")
       .gte("occurred_at", startIso).lt("occurred_at", endIso),
+    fetchImpressionSurfaces(supabase, null, startIso, endIso),
   ]);
 
 
   const views = viewsRes.data || [];
   let compareViews = 0;
-  let industryListingViews = 0;
+  let industryListingViews = surfaces.industry;
   let guideListingViews = 0;
   for (const e of exposureRes.data || []) {
     const p = (e.page_path || "").toLowerCase();
     if (p.startsWith("/jamfor-partners")) compareViews++;
     else if (p.startsWith("/valjdynamics365partner") || p.startsWith("/valj")) guideListingViews++;
-    if (p.startsWith("/branscher")) industryListingViews++;
-    else if (e.filter_context && (e.filter_context as any).industry) industryListingViews++;
+    else if (p.startsWith("/branscher")) industryListingViews++;
   }
 
   return {
@@ -142,10 +182,10 @@ async function fetchAllPartnersPeriod(supabase: any, startIso: string, endIso: s
     cardClicks: views.filter((v: any) => v.view_type === "card_click").length,
     compareViews,
     guideListingViews,
+    otherListingViews: surfaces.other,
     newsClicks: newsClicksRes?.count || 0,
     websiteClicks: clicksRes.count || 0,
     industryListingViews,
-
   };
 }
 
@@ -164,9 +204,12 @@ async function fetchTopEntryPath(supabase: any, partner: any, startIso: string, 
 }
 
 async function fetchIndustryPagesListed(supabase: any, partner: any, startIso: string, endIso: string) {
-  const { data: exposures } = await supabase.from("partner_filter_exposures").select("page_path")
-    .eq("partner_slug", partner.slug).gte("viewed_at", startIso).lt("viewed_at", endIso);
-  const bySlug = new Map<string, number>();
+  const [{ data: exposures }, surfaces] = await Promise.all([
+    supabase.from("partner_filter_exposures").select("page_path")
+      .eq("partner_slug", partner.slug).gte("viewed_at", startIso).lt("viewed_at", endIso),
+    fetchImpressionSurfaces(supabase, partner.slug, startIso, endIso),
+  ]);
+  const bySlug = new Map<string, number>(surfaces.industryBySlug);
   for (const e of exposures || []) {
     const p: string = e.page_path || "";
     if (!p.startsWith("/branscher/")) continue;
@@ -174,6 +217,7 @@ async function fetchIndustryPagesListed(supabase: any, partner: any, startIso: s
     if (slug) bySlug.set(slug, (bySlug.get(slug) || 0) + 1);
   }
   if (bySlug.size === 0) return [];
+
   const slugs = Array.from(bySlug.keys());
   const { data: pages } = await supabase.from("industry_pages").select("slug, name").in("slug", slugs);
   const nameMap = new Map<string, string>((pages || []).map((p: any) => [p.slug, p.name]));
@@ -288,6 +332,7 @@ export function renderStatsHtml(stats: DraftStats | null): string {
           ${row("Visningar i jämförelsevyn", current.compareViews, benchmark?.compareViews ?? null)}
           ${current.websiteClicks + (benchmark?.websiteClicks ?? 0) > 0 ? row("Klick till er webbplats", current.websiteClicks, benchmark?.websiteClicks ?? null) : ""}
           ${row("Visningar av er i branschlistor", current.industryListingViews, benchmark?.industryListingViews ?? null)}
+          ${(current.otherListingViews ?? 0) + (benchmark?.otherListingViews ?? 0) > 0 ? row("Visningar i övriga partnerlistor (start-, produkt- och katalogsidor)", current.otherListingViews ?? 0, benchmark?.otherListingViews ?? null) : ""}
           ${(current.newsClicks ?? 0) + (benchmark?.newsClicks ?? 0) > 0 ? row("Klick på era nyhetsartiklar", current.newsClicks ?? 0, benchmark?.newsClicks ?? null) : ""}
           ${current.sitePageViews != null ? row("Totalt antal sidvisningar på d365.se", current.sitePageViews, null) : ""}
           ${current.siteUniqueVisitors != null ? row("Unika besökare på d365.se", current.siteUniqueVisitors, null) : ""}
