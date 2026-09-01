@@ -301,7 +301,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
   const [selectedAdditionalApps, setSelectedAdditionalApps] = useState<string[]>([]);
   const [customCountries, setCustomCountries] = useState<string>("");
   const [suggestedPartners, setSuggestedPartners] = useState<PartnerData[]>([]);
-  usePartnerImpressions("partner_match_impression", suggestedPartners.map((p) => ({ slug: p.slug, id: p.id })), { surface: "partnerguide-dialog" });
+  usePartnerImpressions("partner_match_impression", suggestedPartners.map((p) => ({ slug: (p as { slug?: string }).slug, id: (p as { id?: string }).id })), { surface: "partnerguide-dialog" });
   const [aiMatches, setAiMatches] = useState<AiMatchResult[]>([]);
   const [isAiLoading, setIsAiLoading] = useState(false);
 
