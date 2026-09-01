@@ -77,6 +77,11 @@ const faqs = [
     answer:
       "En redaktionell intervju med en eller flera av partnerns experter som kan publiceras på d365.se och YouTube och användas som innehåll på partnerprofilen.",
   },
+  {
+    question: "Vad kostar en verifierad partnerprofil?",
+    answer:
+      "Månadsavgiften är 995 kr för 1 produktområde, 1 595 kr för 2 produktområden och 1 995 kr för 3 produktområden (Sales och Customer Service buntas som en CRM-enhet). Avgiften faktureras månadsvis i efterskott, exklusive moms. Betalning påverkar aldrig ranking eller rekommendationer.",
+  },
 ];
 
 const journeySteps = [
@@ -577,6 +582,51 @@ const Partnerprogram = () => {
         </div>
       </section>
 
+
+      {/* 8b. PRISER */}
+      <section className="py-14 md:py-20">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+            Vad kostar en verifierad partnerprofil?
+          </h2>
+          <p className="text-muted-foreground mb-8 max-w-3xl">
+            Priset baseras på hur många produktområden ni profilerar er inom. Alla profilerade
+            partners betalar samma månadsavgift och kan inte köpa sig bättre ranking eller påverka
+            redaktionella rekommendationer.
+          </p>
+          <div className="grid gap-5 md:grid-cols-3 max-w-4xl">
+            {[
+              {
+                tier: "1 produktområde",
+                price: "995 kr/månad",
+                d: "T.ex. enbart Business Central, eller Finance & Supply Chain Management, eller CRM.",
+              },
+              {
+                tier: "2 produktområden",
+                price: "1 595 kr/månad",
+                d: "T.ex. Business Central plus CRM, eller F&SCM plus Business Central.",
+              },
+              {
+                tier: "3 produktområden",
+                price: "1 995 kr/månad",
+                d: "Full profilering över ERP och CRM. Sales och Customer Service buntas som en CRM-enhet.",
+              },
+            ].map((t) => (
+              <div key={t.tier} className="rounded-xl border border-border bg-card p-6">
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-2">
+                  {t.tier}
+                </h3>
+                <p className="text-3xl font-bold text-foreground mb-3">{t.price}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">{t.d}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-6 text-sm text-muted-foreground max-w-3xl">
+            Avgiften faktureras månadsvis i efterskott och priserna anges exklusive moms.
+            Uppsägningstiden är 3 månader och ska meddelas i god tid före varje kvartals början.
+          </p>
+        </div>
+      </section>
 
       {/* 9. SÅ FUNGERAR DET */}
       <section className="py-14 md:py-20 bg-secondary/30 border-y border-border">
