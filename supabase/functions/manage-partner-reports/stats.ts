@@ -8,10 +8,49 @@ export interface PeriodStats {
   industryListingViews: number;
   cardClicks?: number;
   guideListingViews?: number;
+  otherListingViews?: number;
   newsClicks?: number;
   sitePageViews?: number;
   siteUniqueVisitors?: number;
 }
+
+/**
+ * Ytor som redan mäts via partner_filter_exposures. Exponeringar från
+ * partner_engagement_events på dessa sidor räknas därför inte igen.
+ */
+const EXPOSURE_COVERED_PATHS = ["/jamfor-partners", "/valjdynamics365partner", "/valj", "/ai-chat"];
+
+/**
+ * Exponeringar (nivå 1) från partner_engagement_events – täcker branschsidor,
+ * startsidan, produktsidor och partnerkatalogen som saknas i filter_exposures.
+ */
+async function fetchImpressionSurfaces(
+  supabase: any,
+  slug: string | null,
+  startIso: string,
+  endIso: string,
+): Promise<{ industry: number; other: number; industryBySlug: Map<string, number> }> {
+  let q = supabase.from("partner_engagement_events").select("page_path")
+    .eq("event_level", 1).gte("occurred_at", startIso).lt("occurred_at", endIso).limit(100000);
+  if (slug) q = q.eq("partner_slug", slug);
+  const { data } = await q;
+  let industry = 0;
+  let other = 0;
+  const industryBySlug = new Map<string, number>();
+  for (const r of data || []) {
+    const p = String(r.page_path || "").toLowerCase();
+    if (EXPOSURE_COVERED_PATHS.some((c) => p.startsWith(c))) continue;
+    if (p.startsWith("/branscher")) {
+      industry++;
+      const s = p.replace(/^\/branscher\/?/, "").replace(/\/.*$/, "").replace(/[?#].*$/, "");
+      if (s) industryBySlug.set(s, (industryBySlug.get(s) || 0) + 1);
+    } else {
+      other++;
+    }
+  }
+  return { industry, other, industryBySlug };
+}
+
 
 export interface DraftStats {
   current: PeriodStats;
