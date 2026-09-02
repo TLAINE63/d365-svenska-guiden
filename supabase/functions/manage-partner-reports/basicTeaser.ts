@@ -72,7 +72,7 @@ export async function buildBasicTeaserStats(
   const start90 = new Date(endDate.getTime() - 89 * 24 * 3600 * 1000);
   const start90Iso = `${start90.toISOString().slice(0, 10)}T00:00:00Z`;
 
-  const [engagement, exposures, marketStatsRes, exposureCountsRes, verified] = await Promise.all([
+  const [engagement, exposures, marketStatsRes, engagementStatsRes, partnersCountRes, resourcesRes, verified] = await Promise.all([
     supabase.from("partner_engagement_events")
       .select("page_path, event_level")
       .eq("partner_slug", partnerSlug)
@@ -84,11 +84,20 @@ export async function buildBasicTeaserStats(
     // Marknadssiffror aggregeras i databasen (API:t returnerar max 1000 rader per anrop,
     // vilket tidigare gav avkortade och missvisande 30/90-dagarsvärden).
     supabase.rpc("teaser_market_stats", { start30: startIso, start90: start90Iso, end_ts: endIso }),
-    supabase.rpc("teaser_exposure_counts", { start_ts: start90Iso, end_ts: endIso }),
+    supabase.rpc("teaser_engagement_stats", { start_ts: start90Iso, end_ts: endIso }),
+    supabase.from("partners").select("id", { count: "exact", head: true }),
+    // Kunskapsresurser: videoguider + partnernyheter + publicerade branschsidor
+    Promise.all([
+      supabase.from("d365_videos").select("id", { count: "exact", head: true }).eq("status", "published"),
+      supabase.from("partner_news").select("id", { count: "exact", head: true }).eq("status", "published"),
+      supabase.from("industry_pages").select("id", { count: "exact", head: true }).eq("is_published", true),
+      supabase.from("knowledge_articles").select("id", { count: "exact", head: true }).eq("is_published", true),
+    ]),
     buildVerifiedAverage(supabase, startIso, endIso),
   ]);
   const marketStats = (marketStatsRes.data || [])[0] || {};
-  const exposureCounts = (exposureCountsRes.data || [])[0] || {};
+  const engagementStats = (engagementStatsRes.data || [])[0] || {};
+  const resourcesCount = (resourcesRes || []).reduce((sum: number, r: any) => sum + (r?.count || 0), 0);
 
   // Egna siffror
   const engRows = engagement.data || [];
