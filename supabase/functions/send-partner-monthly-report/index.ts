@@ -577,7 +577,7 @@ function delta(current: number, previous: number): string {
   return `<span style="color:${color};font-weight:600">${arrow} ${pct > 0 ? "+" : ""}${pct}%</span>`;
 }
 
-function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: string, settings: { changelog: string; nextPeriod: string; contact: string }, reportLabel = "Månadsrapport"): string {
+function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: string, settings: { changelog: string; nextPeriod: string; contact: string; videoInterviewCta: string }, reportLabel = "Månadsrapport"): string {
   const { partner, current, previous, identifiedCompanies, industryBreakdown, activeEvaluators, topEntryPath, industryPagesListed, partnerNews, engagement, previousEngagement, market, trend, coverage } = stats;
   const profileUrl = `https://www.d365.se/partner/${partner.slug}`;
 
