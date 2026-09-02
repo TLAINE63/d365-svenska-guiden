@@ -1331,7 +1331,7 @@ serve(async (req) => {
       }
 
       case "get_monthly_report_settings": {
-        const keys = ["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact"];
+        const keys = ["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact", "monthly_report_video_interview_cta"];
         const { data: rows } = await supabase.from("site_settings").select("key, value").in("key", keys);
         const map: Record<string, string> = {};
         for (const r of rows || []) map[r.key] = r.value || "";
@@ -1340,7 +1340,7 @@ serve(async (req) => {
 
       case "save_monthly_report_setting": {
         const { key, value } = data as { key?: string; value?: string };
-        const allowed = new Set(["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact"]);
+        const allowed = new Set(["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact", "monthly_report_video_interview_cta"]);
         if (!key || !allowed.has(key)) {
           return new Response(JSON.stringify({ error: "Ogiltig nyckel" }), {
             status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" }
