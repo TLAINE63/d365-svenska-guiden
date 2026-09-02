@@ -682,7 +682,25 @@ serve(async (req) => {
         return new Response(JSON.stringify({ html }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
 
+      case "basic_teaser_send_test_oneoff": {
+        const { id, emails } = data as { id: string; emails: string[] };
+        const { data: d, error } = await supabase.from("partner_report_drafts").select("*").eq("id", id).single();
+        if (error || !d) throw error || new Error("Hittades ej");
+        const html = await renderTeaserFromDraft(supabase, d);
+        const resend = new Resend(Deno.env.get("RESEND_API_KEY")!);
+        const out: any[] = [];
+        for (const to of emails) {
+          const { error: sendErr } = await resend.emails.send({
+            from: "D365.se Rapporter <noreply@d365.se>",
+            to: [to], subject: `[TEST] ${d.subject}`, html,
+          });
+          out.push({ to, ok: !sendErr, error: sendErr?.message });
+        }
+        return new Response(JSON.stringify({ success: true, out }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
       case "basic_teaser_send_test": {
+
         const { id, test_email } = data as { id: string; test_email: string };
         if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(test_email || "")) {
           return new Response(JSON.stringify({ error: "Ogiltig e-postadress" }), {
