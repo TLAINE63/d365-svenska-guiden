@@ -218,14 +218,17 @@ export default function AdminBasicTeaserTab({ token }: { token: string | null })
               </div>
               <Button onClick={sendSelected} disabled={selected.size === 0 || busy === "send"}>
                 {busy === "send" ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Send className="h-4 w-4 mr-2" />}
-                Godkänn &amp; skicka ({selected.size})
+                Godkänn &amp; skicka ({selected.size} partners / {totalEmails} mejl)
               </Button>
             </div>
           </div>
 
           <div className="text-xs text-muted-foreground">
-            {drafts.length} utkast · {sendable.length} har mottagaradress
+            {drafts.length} utkast · {sendable.length} har mottagaradress ·{" "}
+            {drafts.reduce((s, d) => s + recipientsOf(d).length, 0)} adresser totalt. Flera adresser per partner
+            anges separerade med komma – varje adress får ett eget mejl.
           </div>
+
 
           <div className="overflow-x-auto rounded-lg border">
             <table className="w-full text-sm">
