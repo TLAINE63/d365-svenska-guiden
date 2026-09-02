@@ -896,6 +896,8 @@ function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: str
           <h2 style="margin:28px 0 8px;font-size:18px;color:#0f172a">Nästa period</h2>
           ${nextPeriodHtml}
 
+          ${videoInterviewHtml}
+
           ${changelogHtml ? `
           <!-- Nytt på sajten -->
           <h2 style="margin:28px 0 8px;font-size:18px;color:#0f172a">Nytt på sajten</h2>
