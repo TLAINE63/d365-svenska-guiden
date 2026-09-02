@@ -71,7 +71,7 @@ export async function buildBasicTeaserStats(
   const start90 = new Date(endDate.getTime() - 89 * 24 * 3600 * 1000);
   const start90Iso = `${start90.toISOString().slice(0, 10)}T00:00:00Z`;
 
-  const [engagement, exposures, visitors90, exposures90, verified] = await Promise.all([
+  const [engagement, exposures, marketStatsRes, exposureCountsRes, verified] = await Promise.all([
     supabase.from("partner_engagement_events")
       .select("page_path, event_level")
       .eq("partner_slug", partnerSlug)
@@ -80,14 +80,14 @@ export async function buildBasicTeaserStats(
       .select("page_path")
       .eq("partner_slug", partnerSlug)
       .gte("viewed_at", startIso).lte("viewed_at", endIso).limit(50000),
-    supabase.from("visitor_analytics")
-      .select("session_id, time_on_page_seconds, visited_at")
-      .gte("visited_at", start90Iso).lte("visited_at", endIso).limit(200000),
-    supabase.from("partner_filter_exposures")
-      .select("partner_slug, page_path")
-      .gte("viewed_at", start90Iso).lte("viewed_at", endIso).limit(200000),
+    // Marknadssiffror aggregeras i databasen (API:t returnerar max 1000 rader per anrop,
+    // vilket tidigare gav avkortade och missvisande 30/90-dagarsvärden).
+    supabase.rpc("teaser_market_stats", { start30: startIso, start90: start90Iso, end_ts: endIso }),
+    supabase.rpc("teaser_exposure_counts", { start_ts: start90Iso, end_ts: endIso }),
     buildVerifiedAverage(supabase, startIso, endIso),
   ]);
+  const marketStats = (marketStatsRes.data || [])[0] || {};
+  const exposureCounts = (exposureCountsRes.data || [])[0] || {};
 
   // Egna siffror
   const engRows = engagement.data || [];
