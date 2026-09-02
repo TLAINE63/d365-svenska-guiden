@@ -252,20 +252,25 @@ export default function AdminBasicTeaserTab({ token }: { token: string | null })
                     </td>
                     <td className="p-2 font-medium">{d.partner_name}</td>
                     <td className="p-2">
-                      <div className="flex items-center gap-1">
-                        <Input
-                          value={emailEdits[d.id] ?? d.recipient_email ?? ""}
-                          onChange={(e) => setEmailEdits({ ...emailEdits, [d.id]: e.target.value })}
-                          placeholder="saknas – fyll i"
-                          className="h-8 w-56"
-                        />
+                      <div className="flex items-start gap-1">
+                        <div className="flex-1">
+                          <Textarea
+                            rows={2}
+                            value={emailEdits[d.id] ?? d.recipient_email ?? ""}
+                            onChange={(e) => setEmailEdits({ ...emailEdits, [d.id]: e.target.value })}
+                            placeholder="saknas – fyll i (flera adresser separeras med komma)"
+                            className="w-72 text-xs"
+                          />
+                          <div className="text-[11px] text-muted-foreground mt-0.5">
+                            {recipientsOf(d).length} mottagare
+                          </div>
+                        </div>
                         <Button size="sm" variant="ghost" onClick={() => saveEmail(d)} disabled={busy === d.id}>
                           <Save className="h-3.5 w-3.5" />
                         </Button>
                       </div>
                     </td>
-                    <td className="p-2 text-right tabular-nums">{d.stats?.own?.cardViews ?? 0}</td>
-                    <td className="p-2 text-right tabular-nums">{d.stats?.own?.filterMatches ?? 0}</td>
+
                     <td className="p-2">
                       <Badge variant={statusVariant[d.status] || "secondary"}>{d.status}</Badge>
                       {d.error_message && (
