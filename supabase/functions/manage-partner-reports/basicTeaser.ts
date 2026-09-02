@@ -11,10 +11,14 @@ export interface BasicTeaserStats {
     industryPages: number;
   };
   market: {
-    visitors: number;
-    analyses: number;
-    comparisons: number;
-    leads: number;
+    visitors30: number;
+    visitors90: number;
+    avgTimeOnSiteSec: number;
+    pagesVisited30: number;
+    pagesVisited90: number;
+    partnersInComparisons: number;
+    partnersOnIndustryPages: number;
+    partnersInFilters: number;
   };
   verifiedAverage: {
     exposures: number;
@@ -44,17 +48,12 @@ function nf(n: number): string {
   return new Intl.NumberFormat("sv-SE").format(Math.round(n));
 }
 
-async function countRows(
-  supabase: any,
-  table: string,
-  build: (q: any) => any,
-): Promise<number> {
-  try {
-    const { count } = await build(supabase.from(table).select("id", { count: "exact", head: true }));
-    return count || 0;
-  } catch {
-    return 0;
-  }
+function formatDuration(sec: number): string {
+  if (!sec || sec <= 0) return "–";
+  const m = Math.floor(sec / 60);
+  const s = Math.round(sec % 60);
+  if (m === 0) return `${s} sek`;
+  return `${m} min ${String(s).padStart(2, "0")} sek`;
 }
 
 /** Bygger statistiken för en Basic-partner för en given period (YYYY-MM-DD). */
@@ -67,8 +66,12 @@ export async function buildBasicTeaserStats(
 ): Promise<BasicTeaserStats> {
   const startIso = `${start}T00:00:00Z`;
   const endIso = `${end}T23:59:59Z`;
+  // 90-dagarsfönster som slutar samma dag som perioden
+  const endDate = new Date(`${end}T00:00:00Z`);
+  const start90 = new Date(endDate.getTime() - 89 * 24 * 3600 * 1000);
+  const start90Iso = `${start90.toISOString().slice(0, 10)}T00:00:00Z`;
 
-  const [engagement, exposures, visitors, analyses, comparisons, leads, verified] = await Promise.all([
+  const [engagement, exposures, visitors90, exposures90, verified] = await Promise.all([
     supabase.from("partner_engagement_events")
       .select("page_path, event_level")
       .eq("partner_slug", partnerSlug)
@@ -78,17 +81,15 @@ export async function buildBasicTeaserStats(
       .eq("partner_slug", partnerSlug)
       .gte("viewed_at", startIso).lte("viewed_at", endIso).limit(50000),
     supabase.from("visitor_analytics")
-      .select("session_id")
-      .gte("visited_at", startIso).lte("visited_at", endIso).limit(100000),
-    countRows(supabase, "assessments", (q: any) =>
-      q.gte("created_at", startIso).lte("created_at", endIso)),
-    countRows(supabase, "funnel_events", (q: any) =>
-      q.eq("event_name", "partner_compare_add").gte("occurred_at", startIso).lte("occurred_at", endIso)),
-    countRows(supabase, "leads", (q: any) =>
-      q.gte("created_at", startIso).lte("created_at", endIso)),
+      .select("session_id, time_on_page_seconds, visited_at")
+      .gte("visited_at", start90Iso).lte("visited_at", endIso).limit(200000),
+    supabase.from("partner_filter_exposures")
+      .select("partner_slug, page_path")
+      .gte("viewed_at", start90Iso).lte("viewed_at", endIso).limit(200000),
     buildVerifiedAverage(supabase, startIso, endIso),
   ]);
 
+  // Egna siffror
   const engRows = engagement.data || [];
   const industrySlugs = new Set<string>();
   let cardViews = 0;
@@ -101,8 +102,41 @@ export async function buildBasicTeaserStats(
     }
   }
 
-  const sessions = new Set<string>();
-  for (const v of visitors.data || []) if (v.session_id) sessions.add(v.session_id);
+  // Marknadssiffror: besökare, sidvisningar och snittid (30/90 dagar)
+  const startMs = new Date(startIso).getTime();
+  const sessions30 = new Set<string>();
+  const sessions90 = new Set<string>();
+  let pages30 = 0;
+  let pages90 = 0;
+  let timeSum = 0;
+  let timeCount = 0;
+  for (const v of visitors90.data || []) {
+    pages90++;
+    if (v.session_id) sessions90.add(v.session_id);
+    const t = Number(v.time_on_page_seconds);
+    if (Number.isFinite(t) && t > 0) { timeSum += t; timeCount++; }
+    if (v.visited_at && new Date(v.visited_at).getTime() >= startMs) {
+      pages30++;
+      if (v.session_id) sessions30.add(v.session_id);
+    }
+  }
+
+  // Antal partners som visas i jämförelser, på branschsidor och i övriga filter (t.ex. produktsidor)
+  const cmpSlugs = new Set<string>();
+  const indSlugs = new Set<string>();
+  const filterSlugs = new Set<string>();
+  for (const e of exposures90.data || []) {
+    const slug = String(e.partner_slug || "");
+    if (!slug) continue;
+    const p = String(e.page_path || "").toLowerCase();
+    if (p.includes("jamfor") || p.includes("compare")) {
+      cmpSlugs.add(slug);
+    } else if (p.startsWith("/branscher")) {
+      indSlugs.add(slug);
+    } else {
+      filterSlugs.add(slug);
+    }
+  }
 
   return {
     kind: "basic_teaser",
@@ -113,10 +147,14 @@ export async function buildBasicTeaserStats(
       industryPages: industrySlugs.size,
     },
     market: {
-      visitors: sessions.size,
-      analyses,
-      comparisons,
-      leads,
+      visitors30: sessions30.size,
+      visitors90: sessions90.size,
+      avgTimeOnSiteSec: timeCount > 0 ? timeSum / timeCount : 0,
+      pagesVisited30: pages30,
+      pagesVisited90: pages90,
+      partnersInComparisons: cmpSlugs.size,
+      partnersOnIndustryPages: indSlugs.size,
+      partnersInFilters: filterSlugs.size,
     },
     verifiedAverage: verified,
   };
@@ -154,8 +192,8 @@ async function buildVerifiedAverage(supabase: any, startIso: string, endIso: str
 
 // ─────────────────────────── HTML ───────────────────────────
 
-function statRow(label: string, value: number, hint?: string): string {
-  const shown = value > 0 ? nf(value) : "–";
+function statRow(label: string, value: number | string, hint?: string): string {
+  const shown = typeof value === "string" ? value : (value > 0 ? nf(value) : "–");
   return `
   <tr>
     <td class="cell" style="padding:11px 14px;border-bottom:1px solid #eef2f7;font-size:14px;color:#334155">
@@ -171,15 +209,18 @@ function sectionTitle(text: string): string {
 
 export function renderBasicTeaserHtml(opts: {
   partnerName: string;
+  partnerSlug: string;
   intro: string;
   benefits: string[];
   stats: BasicTeaserStats;
   contactEmail: string;
   contactName: string;
 }): string {
-  const { partnerName, intro, benefits, stats, contactEmail, contactName } = opts;
+  const { partnerName, partnerSlug, intro, benefits, stats, contactEmail, contactName } = opts;
   const s = stats;
+  const m = s.market || ({} as BasicTeaserStats["market"]);
   const noExposure = s.own.cardViews === 0 && s.own.filterMatches === 0;
+  const profileUrl = `${SITE_ORIGIN}/basic/${encodeURIComponent(partnerSlug)}${UTM}`;
 
   const benefitList = benefits.filter(Boolean).map((b) => `
     <li style="margin:7px 0;font-size:14px;color:#334155;line-height:1.55">${esc(b)}</li>`).join("");
@@ -230,10 +271,14 @@ export function renderBasicTeaserHtml(opts: {
 
       ${sectionTitle("Så ser marknaden ut på d365.se")}
       <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden">
-        ${statRow("Besökare på d365.se", s.market.visitors)}
-        ${statRow("Genomförda behovsanalyser", s.market.analyses)}
-        ${statRow("Partners tillagda i jämförelser", s.market.comparisons)}
-        ${statRow("Förmedlade förfrågningar till partners", s.market.leads)}
+        ${statRow("Besökare senaste 30 dagarna", m.visitors30 || 0)}
+        ${statRow("Besökare senaste 90 dagarna", m.visitors90 || 0)}
+        ${statRow("Besökta sidor senaste 30 dagarna", m.pagesVisited30 || 0)}
+        ${statRow("Besökta sidor senaste 90 dagarna", m.pagesVisited90 || 0)}
+        ${statRow("Snittid på sajten", formatDuration(m.avgTimeOnSiteSec || 0), "Genomsnittlig tid per sidvisning")}
+        ${statRow("Partners i partnerjämförelsen", m.partnersInComparisons || 0, "Visas sida vid sida för besökare som jämför")}
+        ${statRow("Partners på branschsidorna", m.partnersOnIndustryPages || 0)}
+        ${statRow("Partners i övriga filtreringar", m.partnersInFilters || 0, "T.ex. produkt- och katalogsidor")}
       </table>
 
       ${sectionTitle("Det här missar ni i dag")}
@@ -249,12 +294,14 @@ export function renderBasicTeaserHtml(opts: {
       </div>
 
       <div style="text-align:center;margin:26px 0 6px">
-        <a class="btn" href="${SITE_ORIGIN}/partnerprogram${UTM}" style="display:inline-block;background:#B23D19;color:#ffffff;text-decoration:none;padding:13px 28px;border-radius:8px;font-weight:600;font-size:14px">
-          Se partnerprogrammet och priser →
+        <a class="btn" href="${profileUrl}" style="display:inline-block;background:#B23D19;color:#ffffff;text-decoration:none;padding:13px 28px;border-radius:8px;font-weight:600;font-size:14px">
+          Se er profil här – i jämförelse med andra partners →
         </a>
       </div>
       <p style="margin:8px 0 0;text-align:center;font-size:12px;color:#94a3b8">
-        <a href="${SITE_ORIGIN}/partnerprogram${UTM}" style="color:#94a3b8">d365.se/partnerprogram</a>
+        <a href="${profileUrl}" style="color:#94a3b8">d365.se/basic/${esc(partnerSlug)}</a>
+        &nbsp;·&nbsp;
+        <a href="${SITE_ORIGIN}/partnerprogram${UTM}" style="color:#94a3b8">Partnerprogrammet och priser</a>
       </p>
 
       <div style="margin:26px 0 0;padding:16px 18px;background:#f8fafc;border-left:4px solid #B23D19;border-radius:6px">
