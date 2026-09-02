@@ -129,9 +129,10 @@ export async function buildBasicTeaserStats(
       avgTimeOnSiteSec: num(marketStats.avg_time_sec),
       pagesVisited30: num(marketStats.pages30),
       pagesVisited90: num(marketStats.pages90),
-      partnersInComparisons: num(exposureCounts.partners_in_comparisons),
-      partnersOnIndustryPages: num(exposureCounts.partners_on_industry_pages),
-      partnersInFilters: num(exposureCounts.partners_in_filters),
+      profileViews90: num(engagementStats.profile_views),
+      engagedSharePct: num(engagementStats.engaged_share_pct),
+      partnersListed: partnersCountRes?.count || 0,
+      resourcesCount,
     },
     verifiedAverage: verified,
   };
