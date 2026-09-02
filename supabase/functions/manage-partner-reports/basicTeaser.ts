@@ -254,9 +254,10 @@ export function renderBasicTeaserHtml(opts: {
         ${statRow("Besökta sidor senaste 30 dagarna", m.pagesVisited30 || 0)}
         ${statRow("Besökta sidor senaste 90 dagarna", m.pagesVisited90 || 0)}
         ${statRow("Snittid på sajten", formatDuration(m.avgTimeOnSiteSec || 0), "Genomsnittlig tid per sidvisning")}
-        ${statRow("Partners i partnerjämförelsen", m.partnersInComparisons || 0, "Visas sida vid sida för besökare som jämför")}
-        ${statRow("Partners på branschsidorna", m.partnersOnIndustryPages || 0)}
-        ${statRow("Partners i övriga filtreringar", m.partnersInFilters || 0, "T.ex. produkt- och katalogsidor")}
+        ${statRow("Partnerprofiler visade senaste 90 dagarna", m.profileViews90 || 0, "Besökare som öppnat en partners profilsida")}
+        ${statRow("Besökare som läser vidare", m.engagedSharePct > 0 ? `${String(m.engagedSharePct).replace(".", ",")} %` : "–", "Andel sidvisningar där besökaren stannar och engagerar sig")}
+        ${statRow("Profilerade Dynamics 365-partners", m.partnersListed || 0)}
+        ${statRow("Guider, videos & nyheter i arkivet", m.resourcesCount || 0)}
       </table>
 
       ${sectionTitle("Det här missar ni i dag")}
