@@ -192,6 +192,25 @@ async function fetchTeaserSettings(supabase: any): Promise<{ intro: string; bene
   }
 }
 
+/** Delar upp ett mottagarfält (komma/semikolon/radbrytning) i unika, giltiga adresser. */
+function parseRecipients(value: string | null | undefined): string[] {
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const raw of String(value || "").split(/[,;\s]+/)) {
+    const e = raw.trim().toLowerCase();
+    if (!e || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)) continue;
+    if (seen.has(e)) continue;
+    seen.add(e);
+    out.push(e);
+  }
+  return out;
+}
+
+function normalizeKey(s: string): string {
+  return String(s || "").toLowerCase().replace(/[^a-z0-9åäö]+/g, "");
+}
+
+
 async function renderTeaserFromDraft(supabase: any, d: any): Promise<string> {
   const settings = await fetchTeaserSettings(supabase);
   const benefits = settings.benefits.split("\n").map((l: string) => l.replace(/^[-*•]\s*/, "").trim()).filter(Boolean);
