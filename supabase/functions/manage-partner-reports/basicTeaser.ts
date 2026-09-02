@@ -16,9 +16,10 @@ export interface BasicTeaserStats {
     avgTimeOnSiteSec: number;
     pagesVisited30: number;
     pagesVisited90: number;
-    partnersInComparisons: number;
-    partnersOnIndustryPages: number;
-    partnersInFilters: number;
+    profileViews90: number;
+    engagedSharePct: number;
+    partnersListed: number;
+    resourcesCount: number;
   };
   verifiedAverage: {
     exposures: number;
