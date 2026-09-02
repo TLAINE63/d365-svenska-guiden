@@ -133,6 +133,7 @@ import AdminPillarFollowupTab from "@/components/AdminPillarFollowupTab";
 import AdminPartnerDashboardTab from "@/components/AdminPartnerDashboardTab";
 import AdminPartnerPerformanceTab from "@/components/AdminPartnerPerformanceTab";
 import AdminPartnerReportsTab from "@/components/AdminPartnerReportsTab";
+import AdminBasicTeaserTab from "@/components/AdminBasicTeaserTab";
 import PartnerStatsMatrix from "@/components/PartnerStatsMatrix";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
 import SiteTrafficStatsCard from "@/components/SiteTrafficStatsCard";
