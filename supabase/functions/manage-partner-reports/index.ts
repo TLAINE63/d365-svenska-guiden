@@ -594,7 +594,7 @@ serve(async (req) => {
         const { data: partners, error: pErr } = await supabase
           .from("partners")
           .select("id, slug, name, email, admin_contact_email")
-          .eq("profile_level", "basic")
+          .eq("is_featured", false)
           .order("name");
         if (pErr) throw pErr;
 
