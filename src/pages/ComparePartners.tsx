@@ -789,16 +789,20 @@ const ComparePartners = () => {
     [allPartners]
   );
 
-  // Nivå 1 – exponering: partners som visas som valbara i jämförelsevyn,
-  // inte bara de som faktiskt jämförs.
-  usePartnerImpressions("partner_list_impression", sortedPartners, {
-    surface: "compare_selector",
-  });
-
-
   const a = allPartners.find((p) => p.slug === aSlug);
   const b = allPartners.find((p) => p.slug === bSlug);
   const c = allPartners.find((p) => p.slug === cSlug);
+
+  // Nivå 1 – exponering: bara de partners som faktiskt jämförs, inte hela väljarlistan.
+  const comparedPartners = useMemo(
+    () => [a, b, c].filter(Boolean) as typeof allPartners,
+    [a, b, c],
+  );
+
+  usePartnerImpressions("partner_list_impression", comparedPartners, {
+    surface: "compare_view",
+  });
+
 
   const setSlot = (key: "a" | "b" | "c", slug: string) => {
     const next = new URLSearchParams(params);
