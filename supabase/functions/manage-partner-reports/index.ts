@@ -216,6 +216,7 @@ async function renderTeaserFromDraft(supabase: any, d: any): Promise<string> {
   const benefits = settings.benefits.split("\n").map((l: string) => l.replace(/^[-*•]\s*/, "").trim()).filter(Boolean);
   return renderBasicTeaserHtml({
     partnerName: d.partner_name,
+    partnerSlug: d.partner_slug,
     intro: d.intro_text || settings.intro.replace(/\{partner\}/g, d.partner_name),
     benefits,
     stats: d.stats as BasicTeaserStats,
