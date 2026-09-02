@@ -123,7 +123,6 @@ function bucketReferrer(ref: string | null, firstUrl?: string | null): string | 
 interface PeriodStats {
   profileVisits: number;
   compareViews: number;
-  websiteClicks: number;
   industryListingViews: number;
 }
 
@@ -243,19 +242,13 @@ async function fetchCoverage(supabase: any, partner: any, startIso: string, endI
 }
 
 async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso: string): Promise<PeriodStats> {
-  const [viewsRes, clicksRes, exposureRes] = await Promise.all([
+  const [viewsRes, exposureRes] = await Promise.all([
     supabase
       .from("partner_profile_views")
       .select("view_type")
       .eq("partner_slug", partner.slug)
       .gte("viewed_at", startIso)
       .lt("viewed_at", endIso),
-    supabase
-      .from("partner_clicks")
-      .select("id", { count: "exact", head: true })
-      .eq("partner_name", partner.name)
-      .gte("clicked_at", startIso)
-      .lt("clicked_at", endIso),
     supabase
       .from("partner_filter_exposures")
       .select("page_path, filter_context")
@@ -295,7 +288,6 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
   return {
     profileVisits,
     compareViews,
-    websiteClicks: clicksRes.count || 0,
     industryListingViews,
   };
 }
@@ -980,7 +972,7 @@ async function sendOne(
 
   const stats = await buildStats(supabase, partner, currentStart, currentEnd, previousStart, previousEnd);
 
-  const totalActivity = stats.current.profileVisits + stats.current.compareViews + stats.current.websiteClicks + stats.current.industryListingViews
+  const totalActivity = stats.current.profileVisits + stats.current.compareViews + stats.current.industryListingViews
     + stats.engagement.exposures + stats.engagement.engagements + stats.engagement.buyingSignals + stats.engagement.leads;
   if (!dryRun && totalActivity === 0) {
     return { partner: partner.name, status: "skipped", reason: "no_activity" };
