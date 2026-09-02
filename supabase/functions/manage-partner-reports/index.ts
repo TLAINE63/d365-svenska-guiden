@@ -2,6 +2,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { Resend } from "https://esm.sh/resend@2.0.0";
 import { buildDraftStats, renderStatsHtml, renderVisibilityHtml, type DraftStats } from "./stats.ts";
+import { buildBasicTeaserStats, renderBasicTeaserHtml, DEFAULT_TEASER_BENEFITS, type BasicTeaserStats } from "./basicTeaser.ts";
 
 function isAllowedOrigin(origin: string): boolean {
   if (!origin) return false;
@@ -172,8 +173,42 @@ async function fetchReportSettings(supabase: any): Promise<{ changelog: string; 
   }
 }
 
+const DEFAULT_TEASER_INTRO =
+  "Här kommer en kort översikt över hur er profil syntes på d365.se under perioden, " +
+  "och hur den svenska Dynamics 365-marknaden rörde sig på sajten i stort.";
+
+async function fetchTeaserSettings(supabase: any): Promise<{ intro: string; benefits: string }> {
+  try {
+    const { data } = await supabase.from("site_settings").select("key, value")
+      .in("key", ["basic_teaser_intro", "basic_teaser_benefits"]);
+    const map = new Map<string, string>();
+    for (const r of data || []) map.set(r.key, r.value || "");
+    return {
+      intro: map.get("basic_teaser_intro") || DEFAULT_TEASER_INTRO,
+      benefits: map.get("basic_teaser_benefits") || DEFAULT_TEASER_BENEFITS,
+    };
+  } catch {
+    return { intro: DEFAULT_TEASER_INTRO, benefits: DEFAULT_TEASER_BENEFITS };
+  }
+}
+
+async function renderTeaserFromDraft(supabase: any, d: any): Promise<string> {
+  const settings = await fetchTeaserSettings(supabase);
+  const benefits = settings.benefits.split("\n").map((l: string) => l.replace(/^[-*•]\s*/, "").trim()).filter(Boolean);
+  return renderBasicTeaserHtml({
+    partnerName: d.partner_name,
+    intro: d.intro_text || settings.intro.replace(/\{partner\}/g, d.partner_name),
+    benefits,
+    stats: d.stats as BasicTeaserStats,
+    contactName: "Thomas Laine",
+    contactEmail: "thomas.laine@dynamicfactory.se",
+  });
+}
+
+
 async function renderDraftEmail(supabase: any, opts: {
   partnerName: string;
+
   partnerSlug: string;
   intro: string;
   companies: CompanyEntry[];
@@ -532,10 +567,185 @@ serve(async (req) => {
         const { period_start } = data;
         let query = supabase.from("partner_report_drafts").select("*").order("created_at", { ascending: false });
         if (period_start) query = query.eq("period_start", period_start);
+        query = query.or("stats->>kind.is.null,stats->>kind.neq.basic_teaser");
         const { data: drafts, error } = await query;
         if (error) throw error;
         return new Response(JSON.stringify({ drafts }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
+
+      // ───────── Basic-teaser (månadsöversikt till ej verifierade partners) ─────────
+      case "basic_teaser_list": {
+        const { period_start } = data as { period_start?: string };
+        let query = supabase.from("partner_report_drafts").select("*")
+          .eq("stats->>kind", "basic_teaser")
+          .order("partner_name", { ascending: true });
+        if (period_start) query = query.eq("period_start", period_start);
+        const { data: drafts, error } = await query;
+        if (error) throw error;
+        return new Response(JSON.stringify({ drafts }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
+      case "basic_teaser_generate": {
+        const range = previousMonthRange();
+        const { period_start = range.start, period_end = range.end } = data as { period_start?: string; period_end?: string };
+        const periodLabel = monthLabel(new Date(`${period_start}T00:00:00Z`));
+        const settings = await fetchTeaserSettings(supabase);
+
+        const { data: partners, error: pErr } = await supabase
+          .from("partners")
+          .select("id, slug, name, email, admin_contact_email")
+          .eq("profile_level", "basic")
+          .order("name");
+        if (pErr) throw pErr;
+
+        const created: string[] = [];
+        for (const p of partners || []) {
+          const stats = await buildBasicTeaserStats(supabase, p.slug, period_start, period_end, periodLabel);
+          const row = {
+            partner_id: p.id,
+            partner_slug: p.slug,
+            partner_name: p.name,
+            recipient_email: p.admin_contact_email || p.email || null,
+            period_start,
+            period_end,
+            subject: `Så syntes ${p.name} på d365.se i ${periodLabel}`,
+            intro_text: settings.intro.replace(/\{partner\}/g, p.name),
+            companies: [],
+            excluded_organisation_uuids: [],
+            status: "pending_review",
+            stats,
+          };
+          const { data: existing } = await supabase.from("partner_report_drafts")
+            .select("id, status").eq("partner_slug", p.slug).eq("period_start", period_start)
+            .eq("stats->>kind", "basic_teaser").maybeSingle();
+          if (existing) {
+            if (existing.status === "sent") continue;
+            await supabase.from("partner_report_drafts").update(row).eq("id", existing.id);
+          } else {
+            await supabase.from("partner_report_drafts").insert(row);
+          }
+          created.push(p.slug);
+        }
+        return new Response(JSON.stringify({ success: true, count: created.length, period_start, period_end }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
+      case "basic_teaser_update": {
+        const { id, subject, intro_text, recipient_email, status } = data as any;
+        const update: Record<string, unknown> = {};
+        if (subject !== undefined) update.subject = subject;
+        if (intro_text !== undefined) update.intro_text = intro_text;
+        if (recipient_email !== undefined) update.recipient_email = recipient_email;
+        if (status !== undefined) update.status = status;
+        const { error } = await supabase.from("partner_report_drafts").update(update).eq("id", id);
+        if (error) throw error;
+        return new Response(JSON.stringify({ success: true }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
+      case "basic_teaser_preview": {
+        const { id } = data as { id: string };
+        const { data: d, error } = await supabase.from("partner_report_drafts").select("*").eq("id", id).single();
+        if (error || !d) throw error || new Error("Hittades ej");
+        const html = await renderTeaserFromDraft(supabase, d);
+        return new Response(JSON.stringify({ html }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
+      case "basic_teaser_send_test": {
+        const { id, test_email } = data as { id: string; test_email: string };
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(test_email || "")) {
+          return new Response(JSON.stringify({ error: "Ogiltig e-postadress" }), {
+            status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
+        const { data: d, error } = await supabase.from("partner_report_drafts").select("*").eq("id", id).single();
+        if (error || !d) throw error || new Error("Hittades ej");
+        const html = await renderTeaserFromDraft(supabase, d);
+        const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+        if (!RESEND_API_KEY) throw new Error("RESEND_API_KEY saknas");
+        const resend = new Resend(RESEND_API_KEY);
+        const { error: sendErr } = await resend.emails.send({
+          from: "D365.se Rapporter <noreply@d365.se>",
+          to: [test_email],
+          subject: `[TEST] ${d.subject}`,
+          html,
+        });
+        if (sendErr) throw new Error(sendErr.message || JSON.stringify(sendErr));
+        return new Response(JSON.stringify({ success: true }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
+      case "basic_teaser_send": {
+        const { ids } = data as { ids: string[] };
+        if (!Array.isArray(ids) || ids.length === 0) {
+          return new Response(JSON.stringify({ error: "Inga utkast valda" }), {
+            status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
+        const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+        if (!RESEND_API_KEY) throw new Error("RESEND_API_KEY saknas");
+        const resend = new Resend(RESEND_API_KEY);
+
+        const { data: drafts, error: dErr } = await supabase
+          .from("partner_report_drafts").select("*").in("id", ids)
+          .eq("stats->>kind", "basic_teaser");
+        if (dErr) throw dErr;
+
+        const results: any[] = [];
+        for (const d of drafts || []) {
+          if (!d.recipient_email) {
+            await supabase.from("partner_report_drafts")
+              .update({ status: "failed", error_message: "Saknar mottagaradress" }).eq("id", d.id);
+            results.push({ id: d.id, ok: false, error: "no_recipient" });
+            continue;
+          }
+          try {
+            const html = await renderTeaserFromDraft(supabase, d);
+            const { error: sendErr } = await resend.emails.send({
+              from: "D365.se Rapporter <noreply@d365.se>",
+              to: [d.recipient_email],
+              subject: d.subject,
+              html,
+            });
+            if (sendErr) throw new Error(sendErr.message || JSON.stringify(sendErr));
+            await supabase.from("partner_report_drafts").update({
+              status: "sent", sent_at: new Date().toISOString(), error_message: null,
+            }).eq("id", d.id);
+            await supabase.from("email_send_log").insert({
+              recipient_email: d.recipient_email,
+              template_name: "partner-basic-teaser",
+              subject: d.subject,
+              status: "sent",
+              metadata: { partner_slug: d.partner_slug, period_start: d.period_start },
+            });
+            results.push({ id: d.id, ok: true });
+          } catch (e: any) {
+            await supabase.from("partner_report_drafts").update({
+              status: "failed", error_message: e.message || String(e),
+            }).eq("id", d.id);
+            results.push({ id: d.id, ok: false, error: e.message });
+          }
+        }
+        return new Response(JSON.stringify({ success: true, results }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
+      case "get_basic_teaser_settings": {
+        const s = await fetchTeaserSettings(supabase);
+        return new Response(JSON.stringify({ settings: s }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
+      case "save_basic_teaser_setting": {
+        const { key, value } = data as { key?: string; value?: string };
+        const allowed = new Set(["basic_teaser_intro", "basic_teaser_benefits"]);
+        if (!key || !allowed.has(key)) {
+          return new Response(JSON.stringify({ error: "Ogiltig nyckel" }), {
+            status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
+        const { error } = await supabase.from("site_settings")
+          .upsert({ key, value: value || "", updated_at: new Date().toISOString() }, { onConflict: "key" });
+        if (error) throw error;
+        return new Response(JSON.stringify({ success: true }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
+
 
       case "partner_engagement": {
         // Aggregates: partners compared in /jamfor-partners, listed in filters, and card-clicked.
