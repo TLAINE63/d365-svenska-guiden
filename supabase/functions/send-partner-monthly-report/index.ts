@@ -522,7 +522,7 @@ async function fetchTrend(supabase: any, partner: any, currentEnd: string): Prom
 }
 
 async function fetchSiteSettings(supabase: any) {
-  const keys = ["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact"];
+  const keys = ["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact", "monthly_report_video_interview_cta"];
   const { data } = await supabase.from("site_settings").select("key, value").in("key", keys);
   const map = new Map<string, string>();
   for (const r of data || []) map.set(r.key, r.value || "");
@@ -530,6 +530,7 @@ async function fetchSiteSettings(supabase: any) {
     changelog: map.get("monthly_report_changelog") || "",
     nextPeriod: map.get("monthly_report_next_period") || "",
     contact: map.get("monthly_report_contact") || "",
+    videoInterviewCta: map.get("monthly_report_video_interview_cta") || "",
   };
 }
 
@@ -576,7 +577,7 @@ function delta(current: number, previous: number): string {
   return `<span style="color:${color};font-weight:600">${arrow} ${pct > 0 ? "+" : ""}${pct}%</span>`;
 }
 
-function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: string, settings: { changelog: string; nextPeriod: string; contact: string }, reportLabel = "Månadsrapport"): string {
+function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: string, settings: { changelog: string; nextPeriod: string; contact: string; videoInterviewCta: string }, reportLabel = "Månadsrapport"): string {
   const { partner, current, previous, identifiedCompanies, industryBreakdown, activeEvaluators, topEntryPath, industryPagesListed, partnerNews, engagement, previousEngagement, market, trend, coverage } = stats;
   const profileUrl = `https://www.d365.se/partner/${partner.slug}`;
 
@@ -729,6 +730,22 @@ function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: str
   const contactLine = settings.contact
     ? esc(settings.contact)
     : "Thomas Laine, thomas.laine@dynamicfactory.se";
+
+  const videoInterviewHtml = `
+    <table style="width:100%;border-collapse:collapse;margin:28px 0 0">
+      <tr><td style="padding:16px 18px;background:#f0f9ff;border-radius:10px;border-left:4px solid #0284c7">
+        <div style="color:#0c4a6e;font-size:15px;font-weight:700;margin-bottom:8px">Videointervju för er partnerprofil?</div>
+        <div style="color:#334155;font-size:13px;line-height:1.6;margin-bottom:14px">
+          ${settings.videoInterviewCta ? renderRichText(settings.videoInterviewCta) : `
+          <p style="margin:6px 0">Jag vill gärna prata med er om er verksamhet och vad ni gör för kunder. En kort videointervju hjälper köpare att förstå er bättre och ger er en mer personlig profil.</p>
+          <p style="margin:6px 0"><strong>Kontakta mig för att bestämma tid och vem hos partnern som kan delta.</strong></p>
+          `}
+        </div>
+        <a href="mailto:thomas.laine@dynamicfactory.se?subject=Videointervju%20f%C3%B6r%20${encodeURIComponent(partner.name)}" style="display:inline-block;background:#0284c7;color:#ffffff;text-decoration:none;padding:10px 18px;border-radius:6px;font-weight:600;font-size:13px">Mejla Thomas och boka tid</a>
+      </td></tr>
+    </table>
+  `;
+
   const coverageHtml = coverage.warnings.length ? `
     <table role="presentation" width="100%" style="margin:0 0 22px;border-collapse:collapse"><tr><td style="padding:14px 16px;background:#fff7ed;border-left:4px solid #d97706;color:#78350f;font-size:13px;line-height:1.55">
       <strong>Delvis uppmätt period</strong><br>${coverage.warnings.map(esc).join("<br>")}
@@ -880,6 +897,8 @@ function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: str
           <!-- Var ni syntes -->
           <h2 style="margin:28px 0 8px;font-size:18px;color:#0f172a">Var ni syntes</h2>
           ${visibilityHtml}
+
+          ${videoInterviewHtml}
 
           <!-- Nästa period -->
           <h2 style="margin:28px 0 8px;font-size:18px;color:#0f172a">Nästa period</h2>
