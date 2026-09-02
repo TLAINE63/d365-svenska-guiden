@@ -175,6 +175,7 @@ async function fetchReportSettings(supabase: any): Promise<{ changelog: string; 
 
 async function renderDraftEmail(supabase: any, opts: {
   partnerName: string;
+
   partnerSlug: string;
   intro: string;
   companies: CompanyEntry[];
