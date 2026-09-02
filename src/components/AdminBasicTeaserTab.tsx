@@ -150,7 +150,36 @@ export default function AdminBasicTeaserTab({ token }: { token: string | null })
     setSelected(next);
   };
 
-  const sendable = drafts.filter((d) => d.status !== "sent" && (emailEdits[d.id] ?? d.recipient_email));
+  const parseEmails = (v: string | null | undefined) =>
+    String(v || "").split(/[,;\s]+/).map((e) => e.trim()).filter((e) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e));
+
+  const recipientsOf = (d: TeaserDraft) => parseEmails(emailEdits[d.id] ?? d.recipient_email);
+  const sendable = drafts.filter((d) => d.status !== "sent" && recipientsOf(d).length > 0);
+  const totalEmails = drafts
+    .filter((d) => selected.has(d.id))
+    .reduce((sum, d) => sum + recipientsOf(d).length, 0);
+
+  const importList = async () => {
+    const rows = importText.split("\n").map((line) => {
+      const parts = line.split(/[\t;,]/);
+      const emails = parts.filter((p) => p.includes("@")).join(",");
+      const match = parts.find((p) => !p.includes("@"))?.trim() || "";
+      return { match, emails };
+    }).filter((r) => r.match && r.emails);
+    if (rows.length === 0) { toast({ title: "Hittade inga rader", variant: "destructive" }); return; }
+    setBusy("import");
+    const data = await call("basic_teaser_import_recipients", { period_start: periodStart, rows, mode: importMode });
+    setBusy(null);
+    if (data) {
+      toast({
+        title: `${data.updated} partners uppdaterade`,
+        description: data.unmatched?.length ? `Matchade inte: ${data.unmatched.slice(0, 8).join(", ")}` : undefined,
+      });
+      setEmailEdits({});
+      load();
+    }
+  };
+
 
   return (
     <div className="space-y-6">
