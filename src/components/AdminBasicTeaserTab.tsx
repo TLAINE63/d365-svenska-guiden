@@ -53,6 +53,9 @@ export default function AdminBasicTeaserTab({ token }: { token: string | null })
   const [intro, setIntro] = useState("");
   const [benefits, setBenefits] = useState("");
   const [emailEdits, setEmailEdits] = useState<Record<string, string>>({});
+  const [importText, setImportText] = useState("");
+  const [importMode, setImportMode] = useState<"append" | "replace">("append");
+
 
   const call = async (action: string, body: any = {}) => {
     const { data, error } = await supabase.functions.invoke("manage-partner-reports", {
@@ -150,7 +153,36 @@ export default function AdminBasicTeaserTab({ token }: { token: string | null })
     setSelected(next);
   };
 
-  const sendable = drafts.filter((d) => d.status !== "sent" && (emailEdits[d.id] ?? d.recipient_email));
+  const parseEmails = (v: string | null | undefined) =>
+    String(v || "").split(/[,;\s]+/).map((e) => e.trim()).filter((e) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e));
+
+  const recipientsOf = (d: TeaserDraft) => parseEmails(emailEdits[d.id] ?? d.recipient_email);
+  const sendable = drafts.filter((d) => d.status !== "sent" && recipientsOf(d).length > 0);
+  const totalEmails = drafts
+    .filter((d) => selected.has(d.id))
+    .reduce((sum, d) => sum + recipientsOf(d).length, 0);
+
+  const importList = async () => {
+    const rows = importText.split("\n").map((line) => {
+      const parts = line.split(/[\t;,]/);
+      const emails = parts.filter((p) => p.includes("@")).join(",");
+      const match = parts.find((p) => !p.includes("@"))?.trim() || "";
+      return { match, emails };
+    }).filter((r) => r.match && r.emails);
+    if (rows.length === 0) { toast({ title: "Hittade inga rader", variant: "destructive" }); return; }
+    setBusy("import");
+    const data = await call("basic_teaser_import_recipients", { period_start: periodStart, rows, mode: importMode });
+    setBusy(null);
+    if (data) {
+      toast({
+        title: `${data.updated} partners uppdaterade`,
+        description: data.unmatched?.length ? `Matchade inte: ${data.unmatched.slice(0, 8).join(", ")}` : undefined,
+      });
+      setEmailEdits({});
+      load();
+    }
+  };
+
 
   return (
     <div className="space-y-6">
@@ -186,14 +218,17 @@ export default function AdminBasicTeaserTab({ token }: { token: string | null })
               </div>
               <Button onClick={sendSelected} disabled={selected.size === 0 || busy === "send"}>
                 {busy === "send" ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Send className="h-4 w-4 mr-2" />}
-                Godkänn &amp; skicka ({selected.size})
+                Godkänn &amp; skicka ({selected.size} partners / {totalEmails} mejl)
               </Button>
             </div>
           </div>
 
           <div className="text-xs text-muted-foreground">
-            {drafts.length} utkast · {sendable.length} har mottagaradress
+            {drafts.length} utkast · {sendable.length} har mottagaradress ·{" "}
+            {drafts.reduce((s, d) => s + recipientsOf(d).length, 0)} adresser totalt. Flera adresser per partner
+            anges separerade med komma – varje adress får ett eget mejl.
           </div>
+
 
           <div className="overflow-x-auto rounded-lg border">
             <table className="w-full text-sm">
@@ -217,13 +252,19 @@ export default function AdminBasicTeaserTab({ token }: { token: string | null })
                     </td>
                     <td className="p-2 font-medium">{d.partner_name}</td>
                     <td className="p-2">
-                      <div className="flex items-center gap-1">
-                        <Input
-                          value={emailEdits[d.id] ?? d.recipient_email ?? ""}
-                          onChange={(e) => setEmailEdits({ ...emailEdits, [d.id]: e.target.value })}
-                          placeholder="saknas – fyll i"
-                          className="h-8 w-56"
-                        />
+                      <div className="flex items-start gap-1">
+                        <div className="flex-1">
+                          <Textarea
+                            rows={2}
+                            value={emailEdits[d.id] ?? d.recipient_email ?? ""}
+                            onChange={(e) => setEmailEdits({ ...emailEdits, [d.id]: e.target.value })}
+                            placeholder="saknas – fyll i (flera adresser separeras med komma)"
+                            className="w-72 text-xs"
+                          />
+                          <div className="text-[11px] text-muted-foreground mt-0.5">
+                            {recipientsOf(d).length} mottagare
+                          </div>
+                        </div>
                         <Button size="sm" variant="ghost" onClick={() => saveEmail(d)} disabled={busy === d.id}>
                           <Save className="h-3.5 w-3.5" />
                         </Button>
@@ -231,6 +272,7 @@ export default function AdminBasicTeaserTab({ token }: { token: string | null })
                     </td>
                     <td className="p-2 text-right tabular-nums">{d.stats?.own?.cardViews ?? 0}</td>
                     <td className="p-2 text-right tabular-nums">{d.stats?.own?.filterMatches ?? 0}</td>
+
                     <td className="p-2">
                       <Badge variant={statusVariant[d.status] || "secondary"}>{d.status}</Badge>
                       {d.error_message && (
@@ -257,6 +299,39 @@ export default function AdminBasicTeaserTab({ token }: { token: string | null })
           </div>
         </CardContent>
       </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Importera sändlista</CardTitle>
+          <CardDescription>
+            Klistra in en rad per partner från Excel (kopiera cellerna direkt). Formatet är
+            partnernamn följt av en eller flera e-postadresser, separerade med tabb, komma eller semikolon.
+            Varje adress får ett eget mejl med samma innehåll.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <Textarea
+            rows={8}
+            value={importText}
+            onChange={(e) => setImportText(e.target.value)}
+            placeholder={"Exempelpartner AB\tanna@exempel.se\tkalle@exempel.se\nAnnan Partner; info@annan.se"}
+            className="font-mono text-xs"
+          />
+          <div className="flex flex-wrap items-center gap-3">
+            <label className="flex items-center gap-2 text-sm">
+              <Checkbox checked={importMode === "replace"}
+                onCheckedChange={(v) => setImportMode(v ? "replace" : "append")} />
+              Ersätt befintliga adresser (annars läggs de till)
+            </label>
+            <Button onClick={importList} disabled={busy === "import" || !importText.trim()}>
+              {busy === "import" ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+              Importera till perioden {periodStart.slice(0, 7)}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+
 
       <Card>
         <CardHeader>
