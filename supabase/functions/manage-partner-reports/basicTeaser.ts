@@ -71,7 +71,7 @@ export async function buildBasicTeaserStats(
   const start90 = new Date(endDate.getTime() - 89 * 24 * 3600 * 1000);
   const start90Iso = `${start90.toISOString().slice(0, 10)}T00:00:00Z`;
 
-  const [engagement, exposures, visitors90, exposures90, verified] = await Promise.all([
+  const [engagement, exposures, marketStatsRes, exposureCountsRes, verified] = await Promise.all([
     supabase.from("partner_engagement_events")
       .select("page_path, event_level")
       .eq("partner_slug", partnerSlug)
@@ -80,14 +80,14 @@ export async function buildBasicTeaserStats(
       .select("page_path")
       .eq("partner_slug", partnerSlug)
       .gte("viewed_at", startIso).lte("viewed_at", endIso).limit(50000),
-    supabase.from("visitor_analytics")
-      .select("session_id, time_on_page_seconds, visited_at")
-      .gte("visited_at", start90Iso).lte("visited_at", endIso).limit(200000),
-    supabase.from("partner_filter_exposures")
-      .select("partner_slug, page_path")
-      .gte("viewed_at", start90Iso).lte("viewed_at", endIso).limit(200000),
+    // Marknadssiffror aggregeras i databasen (API:t returnerar max 1000 rader per anrop,
+    // vilket tidigare gav avkortade och missvisande 30/90-dagarsvärden).
+    supabase.rpc("teaser_market_stats", { start30: startIso, start90: start90Iso, end_ts: endIso }),
+    supabase.rpc("teaser_exposure_counts", { start_ts: start90Iso, end_ts: endIso }),
     buildVerifiedAverage(supabase, startIso, endIso),
   ]);
+  const marketStats = (marketStatsRes.data || [])[0] || {};
+  const exposureCounts = (exposureCountsRes.data || [])[0] || {};
 
   // Egna siffror
   const engRows = engagement.data || [];
@@ -102,41 +102,8 @@ export async function buildBasicTeaserStats(
     }
   }
 
-  // Marknadssiffror: besökare, sidvisningar och snittid (30/90 dagar)
-  const startMs = new Date(startIso).getTime();
-  const sessions30 = new Set<string>();
-  const sessions90 = new Set<string>();
-  let pages30 = 0;
-  let pages90 = 0;
-  let timeSum = 0;
-  let timeCount = 0;
-  for (const v of visitors90.data || []) {
-    pages90++;
-    if (v.session_id) sessions90.add(v.session_id);
-    const t = Number(v.time_on_page_seconds);
-    if (Number.isFinite(t) && t > 0) { timeSum += t; timeCount++; }
-    if (v.visited_at && new Date(v.visited_at).getTime() >= startMs) {
-      pages30++;
-      if (v.session_id) sessions30.add(v.session_id);
-    }
-  }
-
-  // Antal partners som visas i jämförelser, på branschsidor och i övriga filter (t.ex. produktsidor)
-  const cmpSlugs = new Set<string>();
-  const indSlugs = new Set<string>();
-  const filterSlugs = new Set<string>();
-  for (const e of exposures90.data || []) {
-    const slug = String(e.partner_slug || "");
-    if (!slug) continue;
-    const p = String(e.page_path || "").toLowerCase();
-    if (p.includes("jamfor") || p.includes("compare")) {
-      cmpSlugs.add(slug);
-    } else if (p.startsWith("/branscher")) {
-      indSlugs.add(slug);
-    } else {
-      filterSlugs.add(slug);
-    }
-  }
+  // Marknadssiffror hämtas färdigaggregerade från databasfunktionerna ovan
+  const num = (v: unknown): number => (Number.isFinite(Number(v)) ? Number(v) : 0);
 
   return {
     kind: "basic_teaser",
@@ -147,14 +114,14 @@ export async function buildBasicTeaserStats(
       industryPages: industrySlugs.size,
     },
     market: {
-      visitors30: sessions30.size,
-      visitors90: sessions90.size,
-      avgTimeOnSiteSec: timeCount > 0 ? timeSum / timeCount : 0,
-      pagesVisited30: pages30,
-      pagesVisited90: pages90,
-      partnersInComparisons: cmpSlugs.size,
-      partnersOnIndustryPages: indSlugs.size,
-      partnersInFilters: filterSlugs.size,
+      visitors30: num(marketStats.visitors30),
+      visitors90: num(marketStats.visitors90),
+      avgTimeOnSiteSec: num(marketStats.avg_time_sec),
+      pagesVisited30: num(marketStats.pages30),
+      pagesVisited90: num(marketStats.pages90),
+      partnersInComparisons: num(exposureCounts.partners_in_comparisons),
+      partnersOnIndustryPages: num(exposureCounts.partners_on_industry_pages),
+      partnersInFilters: num(exposureCounts.partners_in_filters),
     },
     verifiedAverage: verified,
   };

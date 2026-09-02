@@ -2977,6 +2977,24 @@ export type Database = {
           read_ct: number
         }[]
       }
+      teaser_exposure_counts: {
+        Args: { end_ts: string; start_ts: string }
+        Returns: {
+          partners_in_comparisons: number
+          partners_in_filters: number
+          partners_on_industry_pages: number
+        }[]
+      }
+      teaser_market_stats: {
+        Args: { end_ts: string; start30: string; start90: string }
+        Returns: {
+          avg_time_sec: number
+          pages30: number
+          pages90: number
+          visitors30: number
+          visitors90: number
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
