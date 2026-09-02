@@ -730,6 +730,22 @@ function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: str
   const contactLine = settings.contact
     ? esc(settings.contact)
     : "Thomas Laine, thomas.laine@dynamicfactory.se";
+
+  const videoInterviewHtml = `
+    <table style="width:100%;border-collapse:collapse;margin:28px 0 0">
+      <tr><td style="padding:16px 18px;background:#f0f9ff;border-radius:10px;border-left:4px solid #0284c7">
+        <div style="color:#0c4a6e;font-size:15px;font-weight:700;margin-bottom:8px">Videointervju för er partnerprofil?</div>
+        <div style="color:#334155;font-size:13px;line-height:1.6;margin-bottom:14px">
+          ${settings.videoInterviewCta ? renderRichText(settings.videoInterviewCta) : `
+          <p style="margin:6px 0">Jag vill gärna prata med er om er verksamhet och vad ni gör för kunder. En kort videointervju hjälper köpare att förstå er bättre och ger er en mer personlig profil.</p>
+          <p style="margin:6px 0"><strong>Kontakta mig för att bestämma tid och vem hos partnern som kan delta.</strong></p>
+          `}
+        </div>
+        <a href="mailto:thomas.laine@dynamicfactory.se?subject=Videointervju%20f%C3%B6r%20${encodeURIComponent(partner.name)}" style="display:inline-block;background:#0284c7;color:#ffffff;text-decoration:none;padding:10px 18px;border-radius:6px;font-weight:600;font-size:13px">Mejla Thomas och boka tid</a>
+      </td></tr>
+    </table>
+  `;
+
   const coverageHtml = coverage.warnings.length ? `
     <table role="presentation" width="100%" style="margin:0 0 22px;border-collapse:collapse"><tr><td style="padding:14px 16px;background:#fff7ed;border-left:4px solid #d97706;color:#78350f;font-size:13px;line-height:1.55">
       <strong>Delvis uppmätt period</strong><br>${coverage.warnings.map(esc).join("<br>")}
