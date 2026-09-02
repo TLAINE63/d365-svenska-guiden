@@ -270,6 +270,8 @@ export default function AdminBasicTeaserTab({ token }: { token: string | null })
                         </Button>
                       </div>
                     </td>
+                    <td className="p-2 text-right tabular-nums">{d.stats?.own?.cardViews ?? 0}</td>
+                    <td className="p-2 text-right tabular-nums">{d.stats?.own?.filterMatches ?? 0}</td>
 
                     <td className="p-2">
                       <Badge variant={statusVariant[d.status] || "secondary"}>{d.status}</Badge>
