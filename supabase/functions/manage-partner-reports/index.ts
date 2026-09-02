@@ -173,6 +173,39 @@ async function fetchReportSettings(supabase: any): Promise<{ changelog: string; 
   }
 }
 
+const DEFAULT_TEASER_INTRO =
+  "Här kommer en kort översikt över hur er profil syntes på d365.se under perioden, " +
+  "och hur den svenska Dynamics 365-marknaden rörde sig på sajten i stort.";
+
+async function fetchTeaserSettings(supabase: any): Promise<{ intro: string; benefits: string }> {
+  try {
+    const { data } = await supabase.from("site_settings").select("key, value")
+      .in("key", ["basic_teaser_intro", "basic_teaser_benefits"]);
+    const map = new Map<string, string>();
+    for (const r of data || []) map.set(r.key, r.value || "");
+    return {
+      intro: map.get("basic_teaser_intro") || DEFAULT_TEASER_INTRO,
+      benefits: map.get("basic_teaser_benefits") || DEFAULT_TEASER_BENEFITS,
+    };
+  } catch {
+    return { intro: DEFAULT_TEASER_INTRO, benefits: DEFAULT_TEASER_BENEFITS };
+  }
+}
+
+async function renderTeaserFromDraft(supabase: any, d: any): Promise<string> {
+  const settings = await fetchTeaserSettings(supabase);
+  const benefits = settings.benefits.split("\n").map((l: string) => l.replace(/^[-*•]\s*/, "").trim()).filter(Boolean);
+  return renderBasicTeaserHtml({
+    partnerName: d.partner_name,
+    intro: d.intro_text || settings.intro.replace(/\{partner\}/g, d.partner_name),
+    benefits,
+    stats: d.stats as BasicTeaserStats,
+    contactName: "Thomas Laine",
+    contactEmail: "thomas.laine@dynamicfactory.se",
+  });
+}
+
+
 async function renderDraftEmail(supabase: any, opts: {
   partnerName: string;
 
