@@ -101,7 +101,7 @@ export default function PartnerStats() {
         noIndex
       />
       <Navbar />
-      <main className="min-h-screen bg-background py-12">
+      <main className="min-h-screen bg-background pt-24 lg:pt-28 pb-12">
         <div className="container max-w-5xl mx-auto px-4 space-y-6">
           <header className="space-y-2">
             <h1 className="text-3xl font-bold tracking-tight">Partnerstatistik – d365.se</h1>
