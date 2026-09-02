@@ -153,21 +153,22 @@ function renderRichText(raw: string): string {
   return out.join("");
 }
 
-async function fetchReportSettings(supabase: any): Promise<{ changelog: string; nextPeriod: string; contact: string }> {
+async function fetchReportSettings(supabase: any): Promise<{ changelog: string; nextPeriod: string; contact: string; videoInterviewCta: string }> {
   try {
     const { data } = await supabase
       .from("site_settings")
       .select("key, value")
-      .in("key", ["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact"]);
+      .in("key", ["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact", "monthly_report_video_interview_cta"]);
     const map = new Map<string, string>();
     for (const r of data || []) map.set(r.key, r.value || "");
     return {
       changelog: map.get("monthly_report_changelog") || "",
       nextPeriod: map.get("monthly_report_next_period") || "",
       contact: map.get("monthly_report_contact") || "",
+      videoInterviewCta: map.get("monthly_report_video_interview_cta") || "",
     };
   } catch {
-    return { changelog: "", nextPeriod: "", contact: "" };
+    return { changelog: "", nextPeriod: "", contact: "", videoInterviewCta: "" };
   }
 }
 
@@ -192,10 +193,10 @@ function buildEmailHtml(opts: {
   periodLabel: string;
   siteOrigin: string;
   stats?: DraftStats | null;
-  settings?: { changelog: string; nextPeriod: string; contact: string };
+  settings?: { changelog: string; nextPeriod: string; contact: string; videoInterviewCta: string };
 }): string {
   const { partnerName, partnerSlug, intro, companies, periodLabel, siteOrigin } = opts;
-  const settings = opts.settings || { changelog: "", nextPeriod: "", contact: "" };
+  const settings = opts.settings || { changelog: "", nextPeriod: "", contact: "", videoInterviewCta: "" };
   const stats = opts.stats || null;
 
   const profileUrl = `${siteOrigin}/partner/${partnerSlug}`;
@@ -349,6 +350,19 @@ function buildEmailHtml(opts: {
         <h3 style="margin:0 0 8px;font-size:16px;color:#0f172a">Nästa period</h3>
         ${renderRichText(settings.nextPeriod)}
       </div>` : ""}
+
+      <table style="width:100%;border-collapse:collapse;margin:22px 0 0">
+        <tr><td style="padding:16px 18px;background:#f0f9ff;border-radius:10px;border-left:4px solid #0284c7">
+          <div style="color:#0c4a6e;font-size:15px;font-weight:700;margin-bottom:8px">Videointervju för er partnerprofil?</div>
+          <div style="color:#334155;font-size:13px;line-height:1.6;margin-bottom:14px">
+            ${settings.videoInterviewCta ? renderRichText(settings.videoInterviewCta) : `
+            <p style="margin:6px 0">Jag vill gärna prata med er om er verksamhet och vad ni gör för kunder. En kort videointervju hjälper köpare att förstå er bättre och ger er en mer personlig profil.</p>
+            <p style="margin:6px 0"><strong>Kontakta mig för att bestämma tid och vem hos partnern som kan delta.</strong></p>
+            `}
+          </div>
+          <a href="mailto:thomas.laine@dynamicfactory.se?subject=Videointervju%20f%C3%B6r%20${encodeURIComponent(partnerName)}" style="display:inline-block;background:#0284c7;color:#ffffff;text-decoration:none;padding:10px 18px;border-radius:6px;font-weight:600;font-size:13px">Mejla Thomas och boka tid</a>
+        </td></tr>
+      </table>
 
       ${settings.contact ? `
       <p style="margin:18px 0 0;color:#475569;font-size:13px;line-height:1.6">
@@ -1318,7 +1332,7 @@ serve(async (req) => {
       }
 
       case "get_monthly_report_settings": {
-        const keys = ["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact"];
+        const keys = ["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact", "monthly_report_video_interview_cta"];
         const { data: rows } = await supabase.from("site_settings").select("key, value").in("key", keys);
         const map: Record<string, string> = {};
         for (const r of rows || []) map[r.key] = r.value || "";
@@ -1327,7 +1341,7 @@ serve(async (req) => {
 
       case "save_monthly_report_setting": {
         const { key, value } = data as { key?: string; value?: string };
-        const allowed = new Set(["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact"]);
+        const allowed = new Set(["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact", "monthly_report_video_interview_cta"]);
         if (!key || !allowed.has(key)) {
           return new Response(JSON.stringify({ error: "Ogiltig nyckel" }), {
             status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" }
