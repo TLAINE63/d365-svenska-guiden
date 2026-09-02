@@ -898,6 +898,8 @@ function buildHtml(stats: PartnerStats, currentLabel: string, previousLabel: str
           <h2 style="margin:28px 0 8px;font-size:18px;color:#0f172a">Var ni syntes</h2>
           ${visibilityHtml}
 
+          ${videoInterviewHtml}
+
           <!-- Nästa period -->
           <h2 style="margin:28px 0 8px;font-size:18px;color:#0f172a">Nästa period</h2>
           ${nextPeriodHtml}
