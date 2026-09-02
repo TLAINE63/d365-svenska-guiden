@@ -2977,6 +2977,13 @@ export type Database = {
           read_ct: number
         }[]
       }
+      teaser_engagement_stats: {
+        Args: { end_ts: string; start_ts: string }
+        Returns: {
+          engaged_share_pct: number
+          profile_views: number
+        }[]
+      }
       teaser_exposure_counts: {
         Args: { end_ts: string; start_ts: string }
         Returns: {
