@@ -193,10 +193,9 @@ function buildEmailHtml(opts: {
   periodLabel: string;
   siteOrigin: string;
   stats?: DraftStats | null;
-  settings?: { changelog: string; nextPeriod: string; contact: string };
-}): string {
-  const { partnerName, partnerSlug, intro, companies, periodLabel, siteOrigin } = opts;
-  const settings = opts.settings || { changelog: "", nextPeriod: "", contact: "" };
+  settings?: { changelog: string; nextPeriod: string; contact: string; videoInterviewCta: string };
+...
+  const settings = opts.settings || { changelog: "", nextPeriod: "", contact: "", videoInterviewCta: "" };
   const stats = opts.stats || null;
 
   const profileUrl = `${siteOrigin}/partner/${partnerSlug}`;
