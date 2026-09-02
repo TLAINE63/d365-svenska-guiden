@@ -16,9 +16,10 @@ export interface BasicTeaserStats {
     avgTimeOnSiteSec: number;
     pagesVisited30: number;
     pagesVisited90: number;
-    partnersInComparisons: number;
-    partnersOnIndustryPages: number;
-    partnersInFilters: number;
+    profileViews90: number;
+    engagedSharePct: number;
+    partnersListed: number;
+    resourcesCount: number;
   };
   verifiedAverage: {
     exposures: number;
@@ -71,7 +72,7 @@ export async function buildBasicTeaserStats(
   const start90 = new Date(endDate.getTime() - 89 * 24 * 3600 * 1000);
   const start90Iso = `${start90.toISOString().slice(0, 10)}T00:00:00Z`;
 
-  const [engagement, exposures, marketStatsRes, exposureCountsRes, verified] = await Promise.all([
+  const [engagement, exposures, marketStatsRes, engagementStatsRes, partnersCountRes, resourcesRes, verified] = await Promise.all([
     supabase.from("partner_engagement_events")
       .select("page_path, event_level")
       .eq("partner_slug", partnerSlug)
@@ -83,11 +84,20 @@ export async function buildBasicTeaserStats(
     // Marknadssiffror aggregeras i databasen (API:t returnerar max 1000 rader per anrop,
     // vilket tidigare gav avkortade och missvisande 30/90-dagarsvärden).
     supabase.rpc("teaser_market_stats", { start30: startIso, start90: start90Iso, end_ts: endIso }),
-    supabase.rpc("teaser_exposure_counts", { start_ts: start90Iso, end_ts: endIso }),
+    supabase.rpc("teaser_engagement_stats", { start_ts: start90Iso, end_ts: endIso }),
+    supabase.from("partners").select("id", { count: "exact", head: true }),
+    // Kunskapsresurser: videoguider + partnernyheter + publicerade branschsidor
+    Promise.all([
+      supabase.from("d365_videos").select("id", { count: "exact", head: true }).eq("status", "published"),
+      supabase.from("partner_news").select("id", { count: "exact", head: true }).eq("status", "published"),
+      supabase.from("industry_pages").select("id", { count: "exact", head: true }).eq("is_published", true),
+      supabase.from("knowledge_articles").select("id", { count: "exact", head: true }).eq("is_published", true),
+    ]),
     buildVerifiedAverage(supabase, startIso, endIso),
   ]);
   const marketStats = (marketStatsRes.data || [])[0] || {};
-  const exposureCounts = (exposureCountsRes.data || [])[0] || {};
+  const engagementStats = (engagementStatsRes.data || [])[0] || {};
+  const resourcesCount = (resourcesRes || []).reduce((sum: number, r: any) => sum + (r?.count || 0), 0);
 
   // Egna siffror
   const engRows = engagement.data || [];
@@ -119,9 +129,10 @@ export async function buildBasicTeaserStats(
       avgTimeOnSiteSec: num(marketStats.avg_time_sec),
       pagesVisited30: num(marketStats.pages30),
       pagesVisited90: num(marketStats.pages90),
-      partnersInComparisons: num(exposureCounts.partners_in_comparisons),
-      partnersOnIndustryPages: num(exposureCounts.partners_on_industry_pages),
-      partnersInFilters: num(exposureCounts.partners_in_filters),
+      profileViews90: num(engagementStats.profile_views),
+      engagedSharePct: num(engagementStats.engaged_share_pct),
+      partnersListed: partnersCountRes?.count || 0,
+      resourcesCount,
     },
     verifiedAverage: verified,
   };
@@ -243,9 +254,10 @@ export function renderBasicTeaserHtml(opts: {
         ${statRow("Besökta sidor senaste 30 dagarna", m.pagesVisited30 || 0)}
         ${statRow("Besökta sidor senaste 90 dagarna", m.pagesVisited90 || 0)}
         ${statRow("Snittid på sajten", formatDuration(m.avgTimeOnSiteSec || 0), "Genomsnittlig tid per sidvisning")}
-        ${statRow("Partners i partnerjämförelsen", m.partnersInComparisons || 0, "Visas sida vid sida för besökare som jämför")}
-        ${statRow("Partners på branschsidorna", m.partnersOnIndustryPages || 0)}
-        ${statRow("Partners i övriga filtreringar", m.partnersInFilters || 0, "T.ex. produkt- och katalogsidor")}
+        ${statRow("Partnerprofiler visade senaste 90 dagarna", m.profileViews90 || 0, "Besökare som öppnat en partners profilsida")}
+        ${statRow("Besökare som läser vidare", m.engagedSharePct > 0 ? `${String(m.engagedSharePct).replace(".", ",")} %` : "–", "Andel sidvisningar där besökaren stannar och engagerar sig")}
+        ${statRow("Profilerade Dynamics 365-partners", m.partnersListed || 0)}
+        ${statRow("Guider, videos & nyheter i arkivet", m.resourcesCount || 0)}
       </table>
 
       ${sectionTitle("Det här missar ni i dag")}
