@@ -3760,6 +3760,11 @@ Thomas`,
  <AdminPartnerReportsTab token={token || null} />
                 </TabsContent>
 
+                {/* ==================== BASIC TEASER TAB ==================== */}
+                <TabsContent value="basic-teaser">
+                  <AdminBasicTeaserTab token={token || null} />
+                </TabsContent>
+
                 {/* ==================== PARTNER PERFORMANCE TAB ==================== */}
                 <TabsContent value="partner-performance">
                   <AdminPartnerPerformanceTab token={token || null} />
