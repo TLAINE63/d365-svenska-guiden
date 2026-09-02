@@ -302,6 +302,39 @@ export default function AdminBasicTeaserTab({ token }: { token: string | null })
 
       <Card>
         <CardHeader>
+          <CardTitle>Importera sändlista</CardTitle>
+          <CardDescription>
+            Klistra in en rad per partner från Excel (kopiera cellerna direkt). Formatet är
+            partnernamn följt av en eller flera e-postadresser, separerade med tabb, komma eller semikolon.
+            Varje adress får ett eget mejl med samma innehåll.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <Textarea
+            rows={8}
+            value={importText}
+            onChange={(e) => setImportText(e.target.value)}
+            placeholder={"Exempelpartner AB\tanna@exempel.se\tkalle@exempel.se\nAnnan Partner; info@annan.se"}
+            className="font-mono text-xs"
+          />
+          <div className="flex flex-wrap items-center gap-3">
+            <label className="flex items-center gap-2 text-sm">
+              <Checkbox checked={importMode === "replace"}
+                onCheckedChange={(v) => setImportMode(v ? "replace" : "append")} />
+              Ersätt befintliga adresser (annars läggs de till)
+            </label>
+            <Button onClick={importList} disabled={busy === "import" || !importText.trim()}>
+              {busy === "import" ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+              Importera till perioden {periodStart.slice(0, 7)}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+
+
+      <Card>
+        <CardHeader>
           <CardTitle>Innehåll i teasern</CardTitle>
           <CardDescription>Används för nya utkast. Skriv <code>{"{partner}"}</code> för partnerns namn.</CardDescription>
         </CardHeader>
