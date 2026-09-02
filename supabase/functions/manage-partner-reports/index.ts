@@ -636,11 +636,21 @@ serve(async (req) => {
             stats,
           };
           const { data: existing } = await supabase.from("partner_report_drafts")
-            .select("id, status").eq("partner_slug", p.slug).eq("period_start", period_start)
+            .select("id, status, recipient_email, subject, intro_text").eq("partner_slug", p.slug).eq("period_start", period_start)
             .eq("stats->>kind", "basic_teaser").maybeSingle();
           if (existing) {
             if (existing.status === "sent") continue;
-            await supabase.from("partner_report_drafts").update(row).eq("id", existing.id);
+            // Behåll manuella redigeringar (mottagare, ämne, intro, godkänd-status) – uppdatera bara statistiken.
+            const patch: Record<string, unknown> = {
+              partner_id: row.partner_id,
+              partner_name: row.partner_name,
+              period_end,
+              stats,
+            };
+            if (!existing.recipient_email) patch.recipient_email = row.recipient_email;
+            if (!existing.subject) patch.subject = row.subject;
+            if (!existing.intro_text) patch.intro_text = row.intro_text;
+            await supabase.from("partner_report_drafts").update(patch).eq("id", existing.id);
           } else {
             await supabase.from("partner_report_drafts").insert(row);
           }
