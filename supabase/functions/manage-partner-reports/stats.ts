@@ -319,9 +319,6 @@ export function renderStatsHtml(stats: DraftStats | null): string {
 
   const rows: string[] = [];
   if (show(benchmark?.profileVisits ?? null)) rows.push(row("Profilvisningar", current.profileVisits, benchmark?.profileVisits ?? null));
-  if ((current.cardClicks ?? 0) + (benchmark?.cardClicks ?? 0) > 0 && show(benchmark?.cardClicks ?? null)) {
-    rows.push(row("Klick på ert partnerkort", current.cardClicks ?? 0, benchmark?.cardClicks ?? null));
-  }
   if ((current.guideListingViews ?? 0) + (benchmark?.guideListingViews ?? 0) > 0 && show(benchmark?.guideListingViews ?? null)) {
     rows.push(row("Visningar i partnerguiden", current.guideListingViews ?? 0, benchmark?.guideListingViews ?? null));
   }
