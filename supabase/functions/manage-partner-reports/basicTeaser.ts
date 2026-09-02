@@ -102,41 +102,8 @@ export async function buildBasicTeaserStats(
     }
   }
 
-  // Marknadssiffror: besökare, sidvisningar och snittid (30/90 dagar)
-  const startMs = new Date(startIso).getTime();
-  const sessions30 = new Set<string>();
-  const sessions90 = new Set<string>();
-  let pages30 = 0;
-  let pages90 = 0;
-  let timeSum = 0;
-  let timeCount = 0;
-  for (const v of visitors90.data || []) {
-    pages90++;
-    if (v.session_id) sessions90.add(v.session_id);
-    const t = Number(v.time_on_page_seconds);
-    if (Number.isFinite(t) && t > 0) { timeSum += t; timeCount++; }
-    if (v.visited_at && new Date(v.visited_at).getTime() >= startMs) {
-      pages30++;
-      if (v.session_id) sessions30.add(v.session_id);
-    }
-  }
-
-  // Antal partners som visas i jämförelser, på branschsidor och i övriga filter (t.ex. produktsidor)
-  const cmpSlugs = new Set<string>();
-  const indSlugs = new Set<string>();
-  const filterSlugs = new Set<string>();
-  for (const e of exposures90.data || []) {
-    const slug = String(e.partner_slug || "");
-    if (!slug) continue;
-    const p = String(e.page_path || "").toLowerCase();
-    if (p.includes("jamfor") || p.includes("compare")) {
-      cmpSlugs.add(slug);
-    } else if (p.startsWith("/branscher")) {
-      indSlugs.add(slug);
-    } else {
-      filterSlugs.add(slug);
-    }
-  }
+  // Marknadssiffror hämtas färdigaggregerade från databasfunktionerna ovan
+  const num = (v: unknown): number => (Number.isFinite(Number(v)) ? Number(v) : 0);
 
   return {
     kind: "basic_teaser",
