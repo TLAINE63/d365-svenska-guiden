@@ -571,9 +571,7 @@ serve(async (req) => {
   try {
     const { action, token, ...data } = await req.json();
     const JWT_SECRET = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    const ONEOFF_PASS = "k7Qm2xV9pLzR4tYw8sNb3jHd";
-    const isOneOff = action === "basic_teaser_send_test_oneoff" && (data as any).pass === ONEOFF_PASS;
-    if (!isOneOff && !(await verifyJWT(token || "", JWT_SECRET))) {
+    if (!(await verifyJWT(token || "", JWT_SECRET))) {
       return new Response(JSON.stringify({ error: "Ogiltig session" }), {
         status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" }
       });
@@ -680,23 +678,6 @@ serve(async (req) => {
         if (error || !d) throw error || new Error("Hittades ej");
         const html = await renderTeaserFromDraft(supabase, d);
         return new Response(JSON.stringify({ html }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
-      }
-
-      case "basic_teaser_send_test_oneoff": {
-        const { id, emails } = data as { id: string; emails: string[] };
-        const { data: d, error } = await supabase.from("partner_report_drafts").select("*").eq("id", id).single();
-        if (error || !d) throw error || new Error("Hittades ej");
-        const html = await renderTeaserFromDraft(supabase, d);
-        const resend = new Resend(Deno.env.get("RESEND_API_KEY")!);
-        const out: any[] = [];
-        for (const to of emails) {
-          const { error: sendErr } = await resend.emails.send({
-            from: "D365.se Rapporter <noreply@d365.se>",
-            to: [to], subject: `[TEST] ${d.subject}`, html,
-          });
-          out.push({ to, ok: !sendErr, error: sendErr?.message });
-        }
-        return new Response(JSON.stringify({ success: true, out }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
 
       case "basic_teaser_send_test": {
