@@ -708,42 +708,112 @@ serve(async (req) => {
         if (dErr) throw dErr;
 
         const results: any[] = [];
+        let totalEmails = 0;
         for (const d of drafts || []) {
-          if (!d.recipient_email) {
+          const recipients = parseRecipients(d.recipient_email);
+          if (recipients.length === 0) {
             await supabase.from("partner_report_drafts")
               .update({ status: "failed", error_message: "Saknar mottagaradress" }).eq("id", d.id);
-            results.push({ id: d.id, ok: false, error: "no_recipient" });
+            results.push({ id: d.id, ok: false, error: "no_recipient", sent: 0 });
             continue;
           }
+          let html = "";
           try {
-            const html = await renderTeaserFromDraft(supabase, d);
-            const { error: sendErr } = await resend.emails.send({
-              from: "D365.se Rapporter <noreply@d365.se>",
-              to: [d.recipient_email],
-              subject: d.subject,
-              html,
-            });
-            if (sendErr) throw new Error(sendErr.message || JSON.stringify(sendErr));
-            await supabase.from("partner_report_drafts").update({
-              status: "sent", sent_at: new Date().toISOString(), error_message: null,
-            }).eq("id", d.id);
-            await supabase.from("email_send_log").insert({
-              recipient_email: d.recipient_email,
-              template_name: "partner-basic-teaser",
-              subject: d.subject,
-              status: "sent",
-              metadata: { partner_slug: d.partner_slug, period_start: d.period_start },
-            });
-            results.push({ id: d.id, ok: true });
+            html = await renderTeaserFromDraft(supabase, d);
           } catch (e: any) {
-            await supabase.from("partner_report_drafts").update({
-              status: "failed", error_message: e.message || String(e),
-            }).eq("id", d.id);
-            results.push({ id: d.id, ok: false, error: e.message });
+            await supabase.from("partner_report_drafts")
+              .update({ status: "failed", error_message: e.message || String(e) }).eq("id", d.id);
+            results.push({ id: d.id, ok: false, error: e.message, sent: 0 });
+            continue;
           }
+
+          const failures: string[] = [];
+          let sentCount = 0;
+          // Ett separat mejl per adress – samma innehåll, ingen mottagare ser de andra.
+          for (const to of recipients) {
+            try {
+              const { error: sendErr } = await resend.emails.send({
+                from: "D365.se Rapporter <noreply@d365.se>",
+                to: [to],
+                subject: d.subject,
+                html,
+              });
+              if (sendErr) throw new Error(sendErr.message || JSON.stringify(sendErr));
+              sentCount++;
+              totalEmails++;
+              await supabase.from("email_send_log").insert({
+                recipient_email: to,
+                template_name: "partner-basic-teaser",
+                subject: d.subject,
+                status: "sent",
+                metadata: { partner_slug: d.partner_slug, period_start: d.period_start },
+              });
+            } catch (e: any) {
+              failures.push(`${to}: ${e.message || String(e)}`);
+              await supabase.from("email_send_log").insert({
+                recipient_email: to,
+                template_name: "partner-basic-teaser",
+                subject: d.subject,
+                status: "failed",
+                error_message: e.message || String(e),
+                metadata: { partner_slug: d.partner_slug, period_start: d.period_start },
+              });
+            }
+            await new Promise((r) => setTimeout(r, 350));
+          }
+
+          await supabase.from("partner_report_drafts").update({
+            status: sentCount > 0 ? "sent" : "failed",
+            sent_at: sentCount > 0 ? new Date().toISOString() : null,
+            error_message: failures.length ? failures.join(" | ") : null,
+          }).eq("id", d.id);
+          results.push({ id: d.id, ok: sentCount > 0, sent: sentCount, failed: failures.length });
         }
-        return new Response(JSON.stringify({ success: true, results }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+        return new Response(JSON.stringify({ success: true, results, total_emails: totalEmails }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
+
+      /** Importerar sändlista: rader med partnernamn/slug/domän + en eller flera adresser. */
+      case "basic_teaser_import_recipients": {
+        const { period_start, rows, mode = "append" } = data as {
+          period_start?: string; rows?: { match?: string; emails?: string }[]; mode?: "append" | "replace";
+        };
+        if (!Array.isArray(rows) || rows.length === 0) {
+          return new Response(JSON.stringify({ error: "Inga rader att importera" }), {
+            status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
+        let q = supabase.from("partner_report_drafts").select("id, partner_name, partner_slug, recipient_email, status")
+          .eq("stats->>kind", "basic_teaser");
+        if (period_start) q = q.eq("period_start", period_start);
+        const { data: drafts, error: dErr } = await q;
+        if (dErr) throw dErr;
+
+        const byKey = new Map<string, any>();
+        for (const d of drafts || []) {
+          byKey.set(normalizeKey(d.partner_name), d);
+          byKey.set(normalizeKey(d.partner_slug), d);
+        }
+
+        let updated = 0;
+        const unmatched: string[] = [];
+        const pending = new Map<string, string[]>();
+        for (const row of rows) {
+          const key = normalizeKey(row.match || "");
+          const d = byKey.get(key);
+          const emails = parseRecipients(row.emails);
+          if (!d || emails.length === 0) { if (!d) unmatched.push(row.match || ""); continue; }
+          const existing = pending.get(d.id) ?? (mode === "replace" ? [] : parseRecipients(d.recipient_email));
+          for (const e of emails) if (!existing.includes(e)) existing.push(e);
+          pending.set(d.id, existing);
+        }
+        for (const [id, emails] of pending) {
+          const { error } = await supabase.from("partner_report_drafts")
+            .update({ recipient_email: emails.join(", ") }).eq("id", id);
+          if (!error) updated++;
+        }
+        return new Response(JSON.stringify({ success: true, updated, unmatched }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
 
       case "get_basic_teaser_settings": {
         const s = await fetchTeaserSettings(supabase);
