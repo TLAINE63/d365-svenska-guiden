@@ -577,6 +577,7 @@ serve(async (req) => {
       });
     }
 
+
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
@@ -680,6 +681,7 @@ serve(async (req) => {
       }
 
       case "basic_teaser_send_test": {
+
         const { id, test_email } = data as { id: string; test_email: string };
         if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(test_email || "")) {
           return new Response(JSON.stringify({ error: "Ogiltig e-postadress" }), {
