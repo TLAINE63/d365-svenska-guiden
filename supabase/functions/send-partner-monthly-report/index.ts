@@ -522,7 +522,7 @@ async function fetchTrend(supabase: any, partner: any, currentEnd: string): Prom
 }
 
 async function fetchSiteSettings(supabase: any) {
-  const keys = ["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact"];
+  const keys = ["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact", "monthly_report_video_interview_cta"];
   const { data } = await supabase.from("site_settings").select("key, value").in("key", keys);
   const map = new Map<string, string>();
   for (const r of data || []) map.set(r.key, r.value || "");
@@ -530,6 +530,7 @@ async function fetchSiteSettings(supabase: any) {
     changelog: map.get("monthly_report_changelog") || "",
     nextPeriod: map.get("monthly_report_next_period") || "",
     contact: map.get("monthly_report_contact") || "",
+    videoInterviewCta: map.get("monthly_report_video_interview_cta") || "",
   };
 }
 
