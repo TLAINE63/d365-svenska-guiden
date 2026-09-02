@@ -153,21 +153,22 @@ function renderRichText(raw: string): string {
   return out.join("");
 }
 
-async function fetchReportSettings(supabase: any): Promise<{ changelog: string; nextPeriod: string; contact: string }> {
+async function fetchReportSettings(supabase: any): Promise<{ changelog: string; nextPeriod: string; contact: string; videoInterviewCta: string }> {
   try {
     const { data } = await supabase
       .from("site_settings")
       .select("key, value")
-      .in("key", ["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact"]);
+      .in("key", ["monthly_report_changelog", "monthly_report_next_period", "monthly_report_contact", "monthly_report_video_interview_cta"]);
     const map = new Map<string, string>();
     for (const r of data || []) map.set(r.key, r.value || "");
     return {
       changelog: map.get("monthly_report_changelog") || "",
       nextPeriod: map.get("monthly_report_next_period") || "",
       contact: map.get("monthly_report_contact") || "",
+      videoInterviewCta: map.get("monthly_report_video_interview_cta") || "",
     };
   } catch {
-    return { changelog: "", nextPeriod: "", contact: "" };
+    return { changelog: "", nextPeriod: "", contact: "", videoInterviewCta: "" };
   }
 }
 
