@@ -53,6 +53,9 @@ export default function AdminBasicTeaserTab({ token }: { token: string | null })
   const [intro, setIntro] = useState("");
   const [benefits, setBenefits] = useState("");
   const [emailEdits, setEmailEdits] = useState<Record<string, string>>({});
+  const [importText, setImportText] = useState("");
+  const [importMode, setImportMode] = useState<"append" | "replace">("append");
+
 
   const call = async (action: string, body: any = {}) => {
     const { data, error } = await supabase.functions.invoke("manage-partner-reports", {
