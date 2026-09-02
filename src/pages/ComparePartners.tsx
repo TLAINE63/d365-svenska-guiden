@@ -794,14 +794,15 @@ const ComparePartners = () => {
   const c = allPartners.find((p) => p.slug === cSlug);
 
   // Nivå 1 – exponering: bara de partners som faktiskt jämförs, inte hela väljarlistan.
-  const comparedPartners = useMemo(
+  const comparedForImpressions = useMemo(
     () => [a, b, c].filter(Boolean) as typeof allPartners,
     [a, b, c],
   );
 
-  usePartnerImpressions("partner_list_impression", comparedPartners, {
+  usePartnerImpressions("partner_list_impression", comparedForImpressions, {
     surface: "compare_view",
   });
+
 
 
   const setSlot = (key: "a" | "b" | "c", slug: string) => {
