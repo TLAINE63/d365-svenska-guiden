@@ -9,8 +9,8 @@ interface VerifiedOnlyToggleProps {
 }
 
 /**
- * Gemensam filterknapp för listvyer: visa endast verifierade partners
- * (dvs. publicerade partners med komplett, verifierad profil).
+ * Gemensam filterknapp för listvyer: visa endast partnerverifierade profiler
+ * (dvs. profiler som partnern själv har granskat och kompletterat).
  */
 export default function VerifiedOnlyToggle({
   checked,
@@ -31,7 +31,7 @@ export default function VerifiedOnlyToggle({
       } ${className}`}
     >
       <BadgeCheck className="h-4 w-4" aria-hidden="true" />
-      <span>Endast verifierade partners</span>
+      <span>Endast partnerverifierade</span>
       {typeof count === "number" && (
         <span className={checked ? "opacity-80" : "text-muted-foreground"}>({count})</span>
       )}
