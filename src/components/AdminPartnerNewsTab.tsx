@@ -702,6 +702,23 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
               <p className="text-xs text-muted-foreground mt-1">{form.summary.length}/600</p>
             </div>
 
+            {importFullText && (
+              <div className="sm:col-span-2 rounded-md border border-border bg-muted/40 p-3">
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <Label className="text-xs">Hela originaltexten (förkortad i sammanfattningen)</Label>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => navigator.clipboard.writeText(importFullText)}
+                  >
+                    <Copy className="w-3.5 h-3.5 mr-1" /> Kopiera
+                  </Button>
+                </div>
+                <p className="max-h-40 overflow-y-auto whitespace-pre-wrap text-xs text-muted-foreground">{importFullText}</p>
+              </div>
+            )}
+
             <div className="sm:col-span-2">
               <Label>Länk till originalkälla</Label>
               <Input type="url" value={form.source_url} onChange={(e) => setForm({ ...form, source_url: e.target.value })} placeholder="https://linkedin.com/posts/..." />
