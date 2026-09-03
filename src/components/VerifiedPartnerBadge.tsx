@@ -15,8 +15,8 @@ interface VerifiedPartnerBadgeProps {
 }
 
 /**
- * "Verifierad" – visas för publicerade partners med aktiv publicering på d365.se.
- * Signalerar att profilen är granskad och att partnern går att kontakta via plattformen.
+ * "Partnerverifierad" – visas för publicerade partners på d365.se.
+ * Signalerar att partnern själv har granskat och kompletterat informationen.
  */
 export default function VerifiedPartnerBadge({
   size = "sm",
@@ -34,7 +34,7 @@ export default function VerifiedPartnerBadge({
       <Tooltip>
         <TooltipTrigger asChild>
           <span
-            aria-label="Verifierad partner"
+            aria-label="Partnerverifierad profil"
             className={`group/vb relative inline-flex items-center overflow-hidden rounded-full border border-accent/60 bg-accent text-accent-foreground font-bold uppercase tracking-[0.1em] shadow-[0_2px_10px_-2px_hsl(var(--accent)/0.55)] ring-1 ring-inset ring-white/20 ${
               iconOnly ? "p-1.5" : sizing
             } ${className}`}
@@ -44,12 +44,12 @@ export default function VerifiedPartnerBadge({
               className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-white/35 to-transparent -translate-x-full group-hover/vb:translate-x-full transition-transform duration-[1200ms] ease-out"
             />
             <BadgeCheck className={`${iconSize} relative shrink-0`} aria-hidden="true" />
-            {!iconOnly && <span className="relative">Verifierad</span>}
+            {!iconOnly && <span className="relative">Partnerverifierad</span>}
           </span>
         </TooltipTrigger>
         <TooltipContent side="top" className="max-w-[260px] text-xs">
-          Verifierad partner: profilen är granskad och publicerad på d365.se, med
-          uppgifter om produktområden, branscherfarenhet och kontaktväg via plattformen.
+          Partnerverifierad profil: informationen i profilen har granskats och
+          kompletterats av partnern.
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

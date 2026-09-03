@@ -271,7 +271,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
             </p>
             <h3 className="mt-1 text-xl font-semibold text-foreground">{ownLabel}</h3>
             <p className="mt-1 text-xs text-muted-foreground">
-              Ej verifierad profil – informationen är sammanställd av d365.se från publika källor.
+              Grundprofil – ej partnerverifierad. Informationen är sammanställd av d365.se från publika källor.
             </p>
 
             <div className="mt-5 space-y-4 text-sm">

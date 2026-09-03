@@ -91,6 +91,7 @@ Svara ENDAST med giltig JSON i exakt detta format:
 
 REGLER:
 - Skriv i tredje person, faktabaserat, utan superlativ ("bäst", "ledande", "marknadsledande") och utan säljjargong.
+- Nämn ALDRIG andra partners/konkurrenter vid namn och gör inga jämförelser med namngivna företag. Påstå inget om certifieringsnivå, designations eller antal certifierade konsulter som inte uttryckligen framgår av underlaget.
 - Nämn inte pris, konkurrenter eller exakt antal anställda.
 - "best_fit_for" ska beskriva kundtyper/situationer där partnern passar (bransch, storlek, produktområde, projekttyp).
 - "ai_tags" ska vara sökbara nyckelord (produktområden, branscher, kompetenser).

@@ -1,4 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
+import {
+  BASIC_PROFILE_ALLOWED,
+  BASIC_PROFILE_FORBIDDEN,
+  checkBasicProfileText,
+} from "@/lib/basicProfileEditorial";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -179,6 +184,17 @@ export default function AdminBasicPartnersTab() {
   const sorted = useMemo(
     () => [...rows].sort((a, b) => a.name.localeCompare(b.name, "sv")),
     [rows],
+  );
+
+  /** Mjuk redaktionell kontroll av sammanfattningstexten. */
+  const editorialWarnings = useMemo(
+    () =>
+      checkBasicProfileText(
+        editing?.extended_summary || "",
+        editing?.name || "",
+        rows.map((r) => r.name),
+      ),
+    [editing?.extended_summary, editing?.name, rows],
   );
 
   const openNew = () => setEditing(emptyDraft());
@@ -583,6 +599,43 @@ export default function AdminBasicPartnersTab() {
                 <p className="mt-1 text-xs text-muted-foreground">
                   Redigerbart utdrag från fördjupningstexten. Visas som egen sektion ovanför fördjupningen.
                 </p>
+
+                {editorialWarnings.length > 0 && (
+                  <div className="mt-2 rounded-md border border-amber-500/50 bg-amber-500/10 p-3">
+                    <p className="text-xs font-semibold text-amber-700 dark:text-amber-400">
+                      Kontrollera formuleringen
+                    </p>
+                    <ul className="mt-1 list-disc space-y-0.5 pl-4 text-xs text-amber-700 dark:text-amber-300">
+                      {editorialWarnings.map((w) => (
+                        <li key={w.message}>{w.message}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                <div className="mt-3 rounded-md border border-border bg-muted/30 p-3">
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                    Redaktionell regel för grundprofiler
+                  </p>
+                  <div className="mt-1.5 grid gap-3 sm:grid-cols-2">
+                    <div>
+                      <p className="text-xs font-medium text-foreground">Tillåtet</p>
+                      <ul className="mt-0.5 list-disc space-y-0.5 pl-4 text-xs text-muted-foreground">
+                        {BASIC_PROFILE_ALLOWED.map((t) => (
+                          <li key={t}>{t}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="text-xs font-medium text-foreground">Ej tillåtet</p>
+                      <ul className="mt-0.5 list-disc space-y-0.5 pl-4 text-xs text-muted-foreground">
+                        {BASIC_PROFILE_FORBIDDEN.map((t) => (
+                          <li key={t}>{t}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
                 {editing.extended_summary?.trim() && (
                   <div className="mt-3">
                     <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">

@@ -59,7 +59,7 @@ const Shortlist = () => {
                         {item.name}
                       </Link>
                       <p className="text-xs text-muted-foreground mt-0.5">
-                        {item.verified ? "Verifierad partner" : "Övrig partner"}
+                        {item.verified ? "Partnerverifierad profil" : "Grundprofil"}
                       </p>
                     </div>
                     <button

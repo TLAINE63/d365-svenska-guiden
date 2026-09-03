@@ -200,6 +200,7 @@ REGLER för description (ai_profile.description):
 - 2–4 meningar, max 500 tecken, svenska.
 - Beskriv HUR partnern jobbar med AI/Copilot/automation inom D365.
 - Ingen säljjargong ("bäst", "ledande", "experter"), inga superlativ, inte ordet "oberoende".
+- Nämn ALDRIG andra partners/konkurrenter vid namn och gör inga jämförelser med namngivna företag. Påstå inget om certifieringsnivå, designations eller antal certifierade konsulter som inte uttryckligen framgår av underlaget.
 - Om underlag saknas: skriv en kort, generell beskrivning utifrån deras D365-appar och rådgivningsprofil.
 
 REGLER för not_a_fit:

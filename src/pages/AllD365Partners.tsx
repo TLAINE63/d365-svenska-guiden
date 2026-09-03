@@ -181,7 +181,7 @@ export default function AllD365Partners() {
               <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
                 <Badge className="bg-primary/10 text-primary border-primary/30 hover:bg-primary/10">
                   <CheckCircle2 className="w-3 h-3 mr-1" />
-                  {profiledAll.length} verifierade partners
+                  {profiledAll.length} partnerverifierade profiler
                 </Badge>
                 <Badge variant="outline" className="text-muted-foreground">
                   {(basicPartners?.length ?? 0)} basickort · {profiledAll.length + (basicPartners?.length ?? 0)} i marknadskartan
@@ -273,7 +273,7 @@ export default function AllD365Partners() {
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
             <div className="mb-8">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
-                Verifierade partners på d365.se
+                Partnerverifierade profiler på d365.se
               </h2>
               <p className="text-sm text-muted-foreground">
                 d365.se kartlägger den svenska Dynamics 365-partnermarknaden. Alla relevanta partners finns med, medan partners vi samarbetar med kan komplettera sin profil med mer information. Vilka partners som matchar ett företag avgörs av relevans och behov.
@@ -282,7 +282,7 @@ export default function AllD365Partners() {
             {profiledAll.length === 0 ? (
               <p className="text-sm text-muted-foreground">Laddar…</p>
             ) : profiled.length === 0 ? (
-              <p className="text-sm text-muted-foreground">Inga verifierade partners matchar filtret.</p>
+              <p className="text-sm text-muted-foreground">Inga partnerverifierade profiler matchar filtret.</p>
             ) : (
               <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {profiled.map((p) => (

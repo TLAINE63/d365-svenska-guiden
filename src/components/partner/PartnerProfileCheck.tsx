@@ -99,7 +99,7 @@ function verifiedRows(p: RawPartner): CheckRow[] {
   const industries: string[] = Array.isArray(p.industries) ? p.industries : [];
   const dp = p.delivery_profile || {};
   return [
-    { label: "Verifierad partnerprofil", present: true, weight: 5 },
+    { label: "Partnerverifierad profil", present: true, weight: 5 },
     {
       label: "Produktområden",
       present: products.length > 0,
@@ -159,7 +159,7 @@ function verifiedSummary(p: RawPartner) {
   return (
     p.ai_summary ||
     p.positioning_statement ||
-    `${p.name} har en verifierad partnerprofil på d365.se med granskad information om kompetens, branscher och kundcase.`
+    `${p.name} har en partnerverifierad profil på d365.se med granskad information om kompetens, branscher och kundcase.`
   );
 }
 
@@ -329,7 +329,7 @@ const PartnerProfileCheck = ({ initialSlug }: { initialSlug?: string | null }) =
                   >
                     <span className="text-foreground">{s.name}</span>
                     <span className="text-xs text-muted-foreground">
-                      {s.verified ? "Verifierad profil" : "Basic-profil"}
+                      {s.verified ? "Partnerverifierad profil" : "Grundprofil"}
                     </span>
                   </button>
                 </li>
@@ -353,7 +353,7 @@ const PartnerProfileCheck = ({ initialSlug }: { initialSlug?: string | null }) =
                   {result.verified ? (
                     <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent">
                       <BadgeCheck className="w-4 h-4" aria-hidden="true" />
-                      Verifierad partnerprofil
+                      Partnerverifierad profil
                     </span>
                   ) : (
                     <Badge variant="secondary" className="text-xs">
@@ -389,7 +389,7 @@ const PartnerProfileCheck = ({ initialSlug }: { initialSlug?: string | null }) =
                 <Progress value={result.score} className="h-2" aria-label="Informationspoäng" />
                 {referenceScore > result.score && (
                   <p className="text-xs text-muted-foreground mt-2">
-                    Den mest kompletta verifierade profilen på d365.se ligger på {referenceScore}/100.
+                    Den mest kompletta partnerverifierade profilen på d365.se ligger på {referenceScore}/100.
                   </p>
                 )}
               </div>
@@ -448,10 +448,10 @@ const PartnerProfileCheck = ({ initialSlug }: { initialSlug?: string | null }) =
             {reference && (
               <div className="rounded-xl border border-border bg-card p-6">
                 <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
-                  Så ser en verifierad profil ut
+                  Så ser en partnerverifierad profil ut
                 </p>
                 <p className="text-sm text-muted-foreground mb-4">
-                  {reference.p.name} är ett exempel på en komplett verifierad profil
+                  {reference.p.name} är ett exempel på en komplett partnerverifierad profil
                   {referenceProducts.length
                     ? ` inom ${referenceProducts.join(", ")} – samma produktområde som du arbetar med`
                     : ""}

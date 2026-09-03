@@ -81,6 +81,7 @@ Skriv en neutral sammanfattning av partnerns leveransprofil inom detta produktom
 Regler:
 - Exakt en till två meningar, max 45 ord totalt.
 - Neutral, beskrivande ton. Inga superlativ, inga säljord, inget "ledande", "bäst" eller "oberoende".
+- Nämn ALDRIG andra partners/konkurrenter vid namn och gör inga jämförelser med namngivna företag. Påstå inget om certifieringsnivå, designations eller antal certifierade konsulter som inte uttryckligen framgår av underlaget.
 - Beskriv hur partnern engageras: uppdragstyper, kundtyper och roll före/efter go-live.
 - Utgå enbart från texten ovan. Hitta inte på siffror eller referenser.
 - Skriv på svenska i tredje person och inled med "Profilen indikerar att partnern".

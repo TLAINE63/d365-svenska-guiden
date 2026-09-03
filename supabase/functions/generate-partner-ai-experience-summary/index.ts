@@ -124,6 +124,7 @@ function buildPrompt(p: any): string {
 REGLER:
 - Max 2 meningar, totalt 40–55 ord.
 - Neutral rådgivande ton – ingen säljjargong, inga superlativ ("bäst", "ledande", "experter"), inget om certifieringar eller antal medarbetare.
+- Nämn ALDRIG andra partners/konkurrenter vid namn och gör inga jämförelser med namngivna företag. Påstå inget om certifieringsnivå, designations eller antal certifierade konsulter som inte uttryckligen framgår av underlaget.
 - Använd inte ordet "oberoende".
 - Fokusera på VAD partnern gör inom AI (t.ex. "praktisk erfarenhet av att införa AI i affärsprocesser" vs "bygger egna AI-modeller") och VILKEN typ av organisation den passar.
 - Nämn Microsofts AI-plattform, Copilot, Power Platform, Azure AI eller agenter endast om det speglar partnerns faktiska förmågor nedan.

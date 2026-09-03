@@ -11,8 +11,11 @@ interface BasicPartnerBadgeProps {
   className?: string;
 }
 
+/** Kort statusetikett för grundprofiler (Basic). */
+export const BASIC_PROFILE_LABEL = "Grundprofil – ej partnerverifierad";
+
 export const BASIC_PROFILE_DISCLAIMER =
-  "Grundläggande information om partnern baserad på publikt tillgängliga uppgifter. Informationen har ännu inte verifierats tillsammans med partnern.";
+  "Profilen är sammanställd av d365.se utifrån publikt tillgängliga uppgifter. Informationen har inte granskats eller bekräftats av partnern.";
 
 /**
  * Neutral markering för partners utan verifierad profil.
@@ -33,7 +36,7 @@ export default function BasicPartnerBadge({
       <Tooltip>
         <TooltipTrigger asChild>
           <span
-            aria-label="Ej verifierad profil"
+            aria-label={BASIC_PROFILE_LABEL}
             className={`inline-flex items-center rounded-full border border-border bg-muted font-semibold uppercase tracking-wide text-muted-foreground ${sizing} ${className}`}
           >
             <Info className={iconSize} aria-hidden="true" />

@@ -8,7 +8,7 @@ import {
   PRODUCT_ORDER,
   ProductKey,
 } from "@/hooks/useBasicPartners";
-import { BASIC_PROFILE_DISCLAIMER } from "@/components/BasicPartnerBadge";
+import { BASIC_PROFILE_DISCLAIMER, BASIC_PROFILE_LABEL } from "@/components/BasicPartnerBadge";
 import BasicPartnerInquiryDialog from "@/components/BasicPartnerInquiryDialog";
 import { Button } from "@/components/ui/button";
 import ShortlistButton from "@/components/ShortlistButton";
@@ -69,7 +69,7 @@ export function PartnerBasicCard({
           </Link>
         </h3>
         <p className="mt-1 text-[11px] uppercase tracking-wide text-muted-foreground">
-          Ej verifierad profil
+          {BASIC_PROFILE_LABEL}
         </p>
 
         <div className="mt-3 flex-1">
@@ -103,7 +103,7 @@ export function PartnerBasicCard({
     <article
       className="relative overflow-hidden rounded-2xl border border-border bg-card p-6 sm:p-8"
       data-basic-partner
-      aria-label={`${partner.name} – ej verifierad partnerprofil`}
+      aria-label={`${partner.name} – grundprofil, ej partnerverifierad`}
     >
       <header className="mb-4">
         <h1 className="text-2xl font-bold text-foreground sm:text-3xl">{partner.name}</h1>
@@ -117,7 +117,7 @@ export function PartnerBasicCard({
 
       <div className="mb-6 rounded-lg border border-border bg-muted/30 p-4">
         <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-          Ej verifierad profil
+          {BASIC_PROFILE_LABEL}
         </p>
         <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
           {BASIC_PROFILE_DISCLAIMER}
@@ -136,8 +136,8 @@ export function PartnerBasicCard({
       )}
 
       {publicInfo && (
-        <section className="mb-6" aria-label="Publik information">
-          <h2 className="mb-2 text-sm font-semibold text-foreground">Publik information</h2>
+        <section className="mb-6" aria-label={`Om ${partner.name}`}>
+          <h2 className="mb-2 text-sm font-semibold text-foreground">Om {partner.name}</h2>
           <p className="text-sm leading-relaxed text-muted-foreground">{publicInfo}</p>
         </section>
       )}
