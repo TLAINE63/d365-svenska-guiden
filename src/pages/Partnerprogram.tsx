@@ -80,7 +80,7 @@ const faqs = [
   {
     question: "Vad kostar en partnerverifierad profil?",
     answer:
-      "Månadsavgiften är 995 kr för 1 produktområde, 1 595 kr för 2 produktområden och 1 995 kr för 3 produktområden (Sales och Customer Service buntas som en CRM-enhet). Avgiften faktureras månadsvis i efterskott, exklusive moms. Betalning påverkar aldrig ranking eller rekommendationer.",
+      "Månadsavgiften är 995 kr för 1 produktområde, 1 595 kr för 2 produktområden och 1 995 kr för 3 produktområden (Sales och Customer Service buntas som en CRM-enhet). Avgiften faktureras månadsvis i efterskott, exklusive moms. Betalning ger ingen rankingvikt, bonuspoäng eller köpt placering.",
   },
 ];
 
