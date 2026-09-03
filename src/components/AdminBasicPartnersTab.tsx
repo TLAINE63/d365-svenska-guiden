@@ -186,6 +186,17 @@ export default function AdminBasicPartnersTab() {
     [rows],
   );
 
+  /** Mjuk redaktionell kontroll av sammanfattningstexten. */
+  const editorialWarnings = useMemo(
+    () =>
+      checkBasicProfileText(
+        editing?.extended_summary || "",
+        editing?.name || "",
+        rows.map((r) => r.name),
+      ),
+    [editing?.extended_summary, editing?.name, rows],
+  );
+
   const openNew = () => setEditing(emptyDraft());
   const openEdit = (row: BasicRow) => {
     const summary = row.extended_summary?.trim() ? row.extended_summary : extractSummaryFromExtended(row.extended_content);
