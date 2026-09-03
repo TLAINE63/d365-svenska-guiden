@@ -1,5 +1,9 @@
 import { BadgeCheck } from "lucide-react";
 import {
+  PROFILE_EXPLAINER_VERIFIED,
+  PROFILE_LABEL_VERIFIED,
+} from "@/data/profileModel";
+import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
@@ -47,9 +51,9 @@ export default function VerifiedPartnerBadge({
             {!iconOnly && <span className="relative">Partnerverifierad</span>}
           </span>
         </TooltipTrigger>
-        <TooltipContent side="top" className="max-w-[260px] text-xs">
-          Partnerverifierad profil: informationen i profilen har granskats och
-          kompletterats av partnern.
+        <TooltipContent side="top" className="max-w-[280px] text-xs">
+          <span className="font-semibold">{PROFILE_LABEL_VERIFIED}.</span>{" "}
+          {PROFILE_EXPLAINER_VERIFIED}
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

@@ -154,8 +154,8 @@ export default function PartnerMarketReport2026() {
       />
       <FAQSchema faqs={REPORT_FAQ.map((f) => ({ question: f.q, answer: f.a }))} />
       <DatasetSchema
-        name="Verifierade Microsoft Dynamics 365-partners i Sverige"
-        description="Öppet, maskinläsbart dataset över de Dynamics 365-partners som är verifierade och publicerade på d365.se. Endast publika uppgifter ingår."
+        name="Partnerverifierade Dynamics 365-profiler i Sverige"
+        description="Öppet, maskinläsbart dataset över de Dynamics 365-partners som har en partnerverifierad profil på d365.se. Endast publika uppgifter ingår."
         url={`https://d365.se${CANONICAL}`}
         distributionUrl="https://d365.se/partner-data.json"
         keywords={["Dynamics 365", "partners", "Sverige", "Business Central", "ERP", "CRM"]}
@@ -321,10 +321,10 @@ export default function PartnerMarketReport2026() {
                   fokusbranscher plus sekundära branscher.
                 </p>
                 <p>
-                  Skillnaden mellan övriga och verifierade partners är
+                  Skillnaden mellan grundprofiler och partnerverifierade profiler är
                   viktig: övriga partners är kartlagda utifrån publika
 
-                  källor, medan verifierade partners själva har granskat och
+                  källor, medan partnerverifierade profiler har granskats och
                   godkänt sina uppgifter, inklusive referenser, leveransprofil
                   och AI-erfarenhet.
                 </p>

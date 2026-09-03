@@ -26,7 +26,7 @@ export const PRODUCT_PARTNERS_SVERIGE: ProductPartnersSverigeConfig[] = [
     metaDescription:
       "Microsoft Dynamics 365 Business Central-partners i Sverige. Jämför inriktning, branscher och referenser. Köparsidig vägledning utan provisionsmodell.",
     intro:
-      "Här hittar du Microsoft-partners i Sverige som implementerar och förvaltar Dynamics 365 Business Central. Listan visar verifierade partners på d365.se, sorterade efter namn. Klicka på en partner för att läsa om kompetens, branscher, referenser och hur de tar betalt.",
+      "Här hittar du Microsoft-partners i Sverige som implementerar och förvaltar Dynamics 365 Business Central. Listan visar partnerverifierade profiler på d365.se, sorterade efter namn. Klicka på en partner för att läsa om kompetens, branscher, referenser och hur de tar betalt.",
     faq: [
       {
         q: "Hur väljer jag rätt Business Central-partner?",

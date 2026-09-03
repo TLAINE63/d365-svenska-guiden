@@ -105,7 +105,7 @@ function deriveCategory(basic: BasicPartner | null | undefined): BenchmarkCatego
 }
 
 const benchmarkRows: { label: string; basic: string; profiled: string }[] = [
-  { label: "Produktkompetens", basic: "Grundläggande", profiled: "Detaljerad och verifierad" },
+  { label: "Produktkompetens", basic: "Grundläggande", profiled: "Detaljerad och partnerbekräftad" },
   { label: "Branscher", basic: "Grundläggande information", profiled: "Tydlig prioritering och beskrivning" },
   { label: "Kundtyper / företagsstorlek", basic: "Begränsat", profiled: "Tydligt definierat" },
   { label: "Passar bäst för", basic: "–", profiled: "Ja" },
@@ -227,7 +227,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
           Hur står sig din profil när kunden jämför?
         </h2>
         <p className="max-w-3xl text-base text-muted-foreground">
-          Alla relevanta Dynamics 365-partners finns redan på d365.se. Med en Basic-profil visas
+          d365.se kartlägger löpande relevanta Dynamics 365-partners på den svenska marknaden. Med en Basic-profil visas
           grundläggande information. En profilerad partner kan ge köparen ett betydligt rikare
           beslutsunderlag om kompetens, specialisering, kundcase och kontaktvägar.
         </p>

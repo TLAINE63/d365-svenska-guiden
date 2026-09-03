@@ -51,7 +51,7 @@ export function appendSuggestedPartnersPage(
   doc.setFontSize(10.5);
   const intro = `Baserat på ${
     opts.industry ? `er bransch (${opts.industry}) och ` : ""
-  }${opts.productLabel ? `produktvalet ${opts.productLabel}` : "er valda produktinriktning"} har vi valt ut ${partners.length} verifierade partners som matchar det ni behöver. Ta gärna kontakt med 2–3 av dem parallellt – det ger bäst underlag att pressa både pris och funktion.`;
+  }${opts.productLabel ? `produktvalet ${opts.productLabel}` : "er valda produktinriktning"} har vi valt ut ${partners.length} partnerverifierade profiler som matchar det ni behöver. Ta gärna kontakt med 2–3 av dem parallellt – det ger bäst underlag att pressa både pris och funktion.`;
   const introLines = doc.splitTextToSize(intro, contentW);
   doc.text(introLines, margin, y);
   y += introLines.length * 5 + 6;

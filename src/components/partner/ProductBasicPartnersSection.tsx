@@ -12,7 +12,7 @@ interface ProductBasicPartnersSectionProps {
   geography?: string | null;
   companySize?: string | null;
   revenue?: string | null;
-  /** Antal verifierade partners som visas ovanför */
+  /** Antal partnerverifierade profiler som visas ovanför */
   verifiedCount: number;
 }
 

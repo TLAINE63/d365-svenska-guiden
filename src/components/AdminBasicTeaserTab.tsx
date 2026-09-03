@@ -193,7 +193,7 @@ export default function AdminBasicTeaserTab({ token }: { token: string | null })
           </CardTitle>
           <CardDescription>
             Månadsöversikt till partners med grundprofil (Basic). Visar deras egna siffror, marknadssiffror
-            för d365.se och vad en verifierad profil ger – med länk till /partnerprogram. Skickas alltid manuellt.
+            för d365.se och vad en partnerverifierad profil ger – med länk till /partnerprogram. Skickas alltid manuellt.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">

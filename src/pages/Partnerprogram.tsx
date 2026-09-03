@@ -55,7 +55,7 @@ const faqs = [
   {
     question: "Påverkar profilering vår ranking?",
     answer:
-      "Nej. Matchning baseras på relevans och köparens kriterier, inte på betalning.",
+      "Nej. Betalning ger ingen rankingvikt, bonuspoäng eller köpt placering. Mer komplett och partnerverifierad information kan däremot göra det möjligt för d365.se att bedöma er relevans mer precist.",
   },
   {
     question: "Kan vi själva påverka innehållet?",
@@ -78,9 +78,9 @@ const faqs = [
       "En redaktionell intervju med en eller flera av partnerns experter som kan publiceras på d365.se och YouTube och användas som innehåll på partnerprofilen.",
   },
   {
-    question: "Vad kostar en verifierad partnerprofil?",
+    question: "Vad kostar en partnerverifierad profil?",
     answer:
-      "Månadsavgiften är 995 kr för 1 produktområde, 1 595 kr för 2 produktområden och 1 995 kr för 3 produktområden (Sales och Customer Service buntas som en CRM-enhet). Avgiften faktureras månadsvis i efterskott, exklusive moms. Betalning påverkar aldrig ranking eller rekommendationer.",
+      "Månadsavgiften är 995 kr för 1 produktområde, 1 595 kr för 2 produktområden och 1 995 kr för 3 produktområden (Sales och Customer Service buntas som en CRM-enhet). Avgiften faktureras månadsvis i efterskott, exklusive moms. Betalning ger ingen rankingvikt, bonuspoäng eller köpt placering.",
   },
 ];
 
@@ -263,26 +263,27 @@ const Partnerprogram = () => {
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground mb-7">
               d365.se hjälper företag att hitta och jämföra Dynamics 365-partners i Sverige. Med en
-              verifierad partnerprofil kan ni säkerställa att er kompetens, specialiseringar,
+              partnerverifierad profil kan ni säkerställa att er kompetens, specialiseringar,
               kundreferenser och erbjudanden presenteras korrekt, aktuellt och tydligt.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <CheckButton placement="hero" />
               <Button asChild variant="outline" size="lg" onClick={() => profileClick("hero")}>
                 <Link to={profileExampleUrl}>
-                  Jämför med en verifierad partner
+                  Jämför med en partnerverifierad profil
                   <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
                 </Link>
               </Button>
             </div>
             <p className="text-sm text-muted-foreground mt-5 max-w-2xl">
-              Alla relevanta partners finns med i kartläggningen. Rekommendationer baseras på köparens
-              behov och relevans – verifierade partners kan komplettera sin profil med mer information,
-              men betalning påverkar inte rankingen.
+              d365.se kartlägger löpande relevanta Dynamics 365-partners på den svenska marknaden –
+              ett profileringsavtal krävs inte för att finnas med. Betalning ger ingen rankingvikt,
+              bonuspoäng eller köpt placering. Mer komplett och partnerverifierad information kan
+              däremot göra det möjligt för d365.se att bedöma er relevans mer precist.
             </p>
             <div className="mt-5 flex flex-col gap-2 max-w-2xl">
               <p className="text-sm font-medium text-foreground border-l-4 border-primary pl-3">
-                För att inkluderas i årets Partneröversikt behöver profilen vara verifierad senast
+                För att inkluderas i årets Partneröversikt behöver profilen vara partnerverifierad senast
                 14 november.
               </p>
               <p className="text-sm text-muted-foreground border-l-4 border-border pl-3">
@@ -329,7 +330,7 @@ const Partnerprogram = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Varför profilera er?</h2>
           <p className="text-base text-muted-foreground mb-8 max-w-3xl leading-relaxed">
-            En verifierad partnerprofil hjälper företag, sökmotorer och AI-tjänster att förstå er
+            En partnerverifierad profil hjälper företag, sökmotorer och AI-tjänster att förstå er
             verksamhet, era specialistområden, er branscherfarenhet, era kundsegment och vilka Dynamics
             365-lösningar ni arbetar med – Business Central, Finance, Supply Chain Management, Customer
             Engagement (Sales, Customer Service), Power Platform och Copilot.
@@ -490,7 +491,7 @@ const Partnerprogram = () => {
               specialistområden och kundsegment.
             </p>
             <p>
-              En verifierad partnerprofil ger mer strukturerad information om produkter, branscher,
+              En partnerverifierad profil ger mer strukturerad information om produkter, branscher,
               kundtyper, erbjudanden och kundcase, vilket kan göra det enklare för AI-system att förstå
               när er verksamhet är relevant.
             </p>
@@ -525,7 +526,7 @@ const Partnerprogram = () => {
           </div>
           <p className="mt-6 text-sm text-muted-foreground max-w-3xl">
             d365.se kan inte lova att en profil citeras av en AI-tjänst. Men strukturerad, faktabaserad
-            och verifierad information är en förutsättning för att bli korrekt förstådd.
+            och partnerverifierad information är en förutsättning för att bli korrekt förstådd.
           </p>
         </div>
       </section>
@@ -587,12 +588,12 @@ const Partnerprogram = () => {
       <section className="py-14 md:py-20">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-            Vad kostar en verifierad partnerprofil?
+            Vad kostar en partnerverifierad profil?
           </h2>
           <p className="text-muted-foreground mb-8 max-w-3xl">
             Priset baseras på hur många produktområden ni profilerar er inom. Alla profilerade
-            partners betalar samma månadsavgift och kan inte köpa sig bättre ranking eller påverka
-            redaktionella rekommendationer.
+            partners betalar samma månadsavgift. Betalning ger ingen rankingvikt, bonuspoäng eller
+            köpt placering, och påverkar inte redaktionella rekommendationer.
           </p>
           <div className="grid gap-5 md:grid-cols-3 max-w-4xl">
             {[
@@ -685,10 +686,10 @@ const Partnerprogram = () => {
       <section className="py-14 md:py-20">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
-            Partners med verifierad profil på d365.se
+            Partners med partnerverifierad profil på d365.se
           </h2>
           <p className="text-muted-foreground mb-8 max-w-3xl">
-            {VERIFIED_PARTNERS.length} Dynamics 365-partners har idag en verifierad profil där
+            {VERIFIED_PARTNERS.length} Dynamics 365-partners har idag en partnerverifierad profil där
             kompetens, branscherfarenhet och kundcase är granskade och publicerade.
           </p>
           <ul className="grid gap-3 grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
@@ -724,11 +725,19 @@ const Partnerprogram = () => {
                 d365.se säljer inte Dynamics 365 och representerar inte en enskild systemleverantör
                 eller konsultpartner.
               </p>
-              <p>Alla relevanta svenska Dynamics 365-partners finns med på plattformen.</p>
-              <p>Partners vi samarbetar med kan presentera sin verksamhet betydligt mer utförligt.</p>
               <p>
-                Matchning och rekommendationer baseras på relevans för köparens behov – inte på köpt
-                ranking.
+                d365.se kartlägger löpande relevanta Dynamics 365-partners på den svenska marknaden.
+                En partner behöver inte ha ett profileringsavtal för att finnas med – utan avtal
+                visas en grundprofil sammanställd från publika källor.
+              </p>
+              <p>
+                Partners med profileringsavtal kan själva granska, korrigera och komplettera sin
+                profil med kundcase, kontaktpersoner, bilder och mer detaljerad information.
+              </p>
+              <p>
+                Betalning ger ingen rankingvikt, bonuspoäng eller köpt placering. Mer komplett och
+                partnerverifierad information kan däremot göra det möjligt för d365.se att bedöma en
+                partners relevans mer precist.
               </p>
             </div>
           </div>

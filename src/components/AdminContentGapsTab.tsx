@@ -300,7 +300,7 @@ export default function AdminContentGapsTab({ token, onSessionExpired }: Props) 
               Innehållskvalitet – leveransprofil, support &amp; AI
             </CardTitle>
             <CardDescription>
-              Visar vilka verifierade partners som har tunt innehåll i Leveransprofil, Support &amp;
+              Visar vilka partnerverifierade profiler som har tunt innehåll i Leveransprofil, Support &amp;
               Förvaltning och AI. Där ett AI-utkast redan finns sparat kan du publicera det direkt –
               endast tomma fält fylls, befintlig text från partnern rörs aldrig.
             </CardDescription>

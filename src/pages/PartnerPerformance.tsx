@@ -497,7 +497,7 @@ export default function PartnerPerformance() {
             <Card>
               <SectionTitle
                 icon={GitCompare}
-                title="Benchmark mot jämförbara verifierade partner"
+                title="Benchmark mot jämförbara partnerverifierade profiler"
                 sub="Senaste 30 dagarna."
               />
               <div className="overflow-x-auto">

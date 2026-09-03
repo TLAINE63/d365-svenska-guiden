@@ -23,7 +23,10 @@ export default function OwnershipAndInterests() {
             Så fungerar partnersamarbetet på d365.se
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            d365.se kartlägger den svenska Dynamics 365-partnermarknaden. Alla relevanta partners finns med, medan partners vi samarbetar med kan komplettera sin profil med mer information. Vilka partners som matchar ett företag avgörs av relevans och behov.
+            d365.se kartlägger löpande Dynamics 365-partners som bedöms vara aktiva på den
+            svenska marknaden. En partner behöver inte ha ett kommersiellt samarbete med
+            d365.se för att finnas med. Vilka partners som matchar ett företag avgörs av
+            relevans och behov.
           </p>
         </div>
 
@@ -32,21 +35,33 @@ export default function OwnershipAndInterests() {
             <Users className="h-6 w-6 text-primary" /> Vilka partners som finns med
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            På d365.se finns alla relevanta Dynamics 365-partners som är aktiva på den svenska
-            marknaden. Det innebär att du kan se både partners vi samarbetar med
-            (och därmed presenteras mer utförligt) och övriga identifierade aktörer.
-            För partners vi samarbetar med gäller samma villkor: avgiften är densamma oavsett
-            storlek, och ingen kan köpa bättre placering.
+            d365.se kartlägger löpande Dynamics 365-partners som bedöms vara aktiva på den
+            svenska marknaden. En partner behöver inte ha ett kommersiellt samarbete med
+            d365.se för att finnas med.
+          </p>
+          <p className="text-muted-foreground leading-relaxed mt-3">
+            Partners utan profileringsavtal visas med en grundprofil som d365.se sammanställer
+            utifrån publikt tillgängliga uppgifter. Partners med profileringsavtal kan själva
+            granska och komplettera sin profil med mer detaljerad information, kundcase,
+            kontaktpersoner, bilder och andra uppgifter.
           </p>
         </section>
 
         <section className="mb-10">
           <h2 className="text-2xl font-bold mb-3 text-foreground flex items-center gap-2">
-            <CheckCircle2 className="h-6 w-6 text-primary" /> Hur en partner kommer med
+            <CheckCircle2 className="h-6 w-6 text-primary" /> Grundprofil och partnerverifierad profil
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            En partner finns med genom att betala en fast deltagaravgift. Avgiften är densamma
-            för alla partners, oavsett storlek.
+            <strong className="text-foreground">Grundprofil – ej partnerverifierad:</strong>{" "}
+            profilen är sammanställd av d365.se utifrån publikt tillgängliga uppgifter.
+            Informationen har inte granskats eller bekräftats av partnern.
+          </p>
+          <p className="text-muted-foreground leading-relaxed mt-3">
+            <strong className="text-foreground">Partnerverifierad profil:</strong> partnern har
+            ett profileringsavtal med d365.se och har granskat och kompletterat informationen i
+            profilen. Partnerverifiering innebär inte kvalitetscertifiering och ger ingen köpt
+            fördel i d365.se:s ranking eller rekommendationer. Verifieringen gäller uppgifterna
+            i profilen – inte partnerföretaget som sådant.
           </p>
         </section>
 
@@ -55,15 +70,16 @@ export default function OwnershipAndInterests() {
             <Scale className="h-6 w-6 text-primary" /> Hur partners presenteras och jämförs
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            Ingen partner kan betala sig till en bättre placering, ett starkare omdöme eller
-            en plats högre upp i en matchning.
+            Ett profileringsavtal ger inte högre vikt, bonuspoäng eller köpt placering i
+            d365.se:s ranking eller rekommendationer. Mer komplett och partnerverifierad
+            information kan däremot göra det möjligt för d365.se att bedöma en partners
+            relevans mer precist.
           </p>
           <p className="text-muted-foreground leading-relaxed mt-3">
             När vi visar eller föreslår partners utgår vi från hur väl de passar dina krav
-            och ditt behov – inte från vem som betalar mest, eftersom alla betalar lika.
-            Profilkort, jämförelser och prisindikationer är indikativa underlag som hjälper dig
-            att kvalificera dina alternativ. Det slutliga valet, och kontakten, ligger alltid
-            hos dig.
+            och ditt behov. Profilkort, jämförelser och prisindikationer är indikativa underlag
+            som hjälper dig att kvalificera dina alternativ. Det slutliga valet, och kontakten,
+            ligger alltid hos dig.
           </p>
           <p className="text-muted-foreground leading-relaxed mt-3">
             AI används inte för att välja bort partners. AI kan användas för att tolka

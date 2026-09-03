@@ -20,7 +20,7 @@ export const REPORT_STATS: ReportStat[] = [
     group: "overblick",
   },
   {
-    label: "Verifierade profiler",
+    label: "Partnerverifierade profiler",
     value: 17,
     note: "Partners som själva granskat och godkänt sin profil på d365.se.",
     group: "overblick",
@@ -84,7 +84,7 @@ export const REPORT_STATS: ReportStat[] = [
 export const REPORT_FAQ = [
   {
     q: "Hur många Dynamics 365-partners finns det i Sverige 2026?",
-    a: "d365.se har identifierat 84 partners som aktivt levererar Dynamics 365 på den svenska marknaden. 17 av dem har en verifierad profil där de själva granskat uppgifterna.",
+    a: "d365.se har identifierat 84 partners som aktivt levererar Dynamics 365 på den svenska marknaden. 17 av dem har en partnerverifierad profil där de själva granskat uppgifterna.",
   },
   {
     q: "Vilket produktområde har flest partners?",
@@ -100,16 +100,16 @@ export const REPORT_FAQ = [
   },
   {
     q: "Vilka datakällor används i kartläggningen?",
-    a: "Kartläggningen bygger på tre typer av källor: (1) Microsofts officiella partnerkatalog och lösningsregister, (2) publika källor som företagssajter, årsredovisningar, pressmeddelanden och LinkedIn, samt (3) uppgifter som partners själva lämnar när de verifierar sin profil på d365.se. För verifierade partners väger vi självrapporterad information högst eftersom den är granskad och godkänd av partnern. För övriga partners bygger vi på externa källor och observation av faktiska leveranser på marknaden.",
+    a: "Kartläggningen bygger på tre typer av källor: (1) Microsofts officiella partnerkatalog och lösningsregister, (2) publika källor som företagssajter, årsredovisningar, pressmeddelanden och LinkedIn, samt (3) uppgifter som partners själva lämnar när de verifierar sin profil på d365.se. För partnerverifierade profiler väger vi självrapporterad information högst eftersom den är granskad och godkänd av partnern. För övriga partners bygger vi på externa källor och observation av faktiska leveranser på marknaden.",
   },
   {
-    q: "Vad är skillnaden mellan övriga och verifierade partners?",
-    a: "Övriga partners är företag som d365.se har kartlagt utifrån publika källor och som bedöms leverera Dynamics 365 i Sverige. Verifierade partners har därtill gått in på d365.se, granskat sin profil, fyllt i leveransprofil per produktområde, uppgivit referenser och bekräftat sin AI-erfarenhet. Endast verifierade partners kan kontaktas direkt via plattformen; för övriga partners sker kontakt genom d365.se som mellanhand.",
+    q: "Vad är skillnaden mellan grundprofiler och partnerverifierade profiler?",
+    a: "Övriga partners är företag som d365.se har kartlagt utifrån publika källor och som bedöms leverera Dynamics 365 i Sverige. Partners med partnerverifierad profil har därtill gått in på d365.se, granskat sin profil, fyllt i leveransprofil per produktområde, uppgivit referenser och bekräftat sin AI-erfarenhet. Endast partners med partnerverifierad profil kan kontaktas direkt via plattformen; för övriga partners sker kontakt genom d365.se som mellanhand.",
 
   },
   {
     q: "Hur räknas en partner in i ett produktområde?",
-    a: "En partner räknas in i ett produktområde (t.ex. Business Central eller CRM) om de har dokumenterad leverans av den produkten i Sverige – antingen genom uppgifter i Microsofts partnerkatalog, referenser på den egna sajten eller genom att partnern själv har markerat produkten i sin verifierade profil. Detta betyder att en partner kan räknas i flera produktområden samtidigt, vilket är varför summan av produktkategorierna överstiger det totala antalet partners.",
+    a: "En partner räknas in i ett produktområde (t.ex. Business Central eller CRM) om de har dokumenterad leverans av den produkten i Sverige – antingen genom uppgifter i Microsofts partnerkatalog, referenser på den egna sajten eller genom att partnern själv har markerat produkten i sin partnerverifierade profil. Detta betyder att en partner kan räknas i flera produktområden samtidigt, vilket är varför summan av produktkategorierna överstiger det totala antalet partners.",
   },
   {
     q: "Hur mäts branschtillhörighet?",

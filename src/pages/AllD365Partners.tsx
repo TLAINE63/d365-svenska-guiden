@@ -158,7 +158,7 @@ export default function AllD365Partners() {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Övriga Dynamics 365-partners i Sverige"
-        description="Hitta Dynamics 365-partners i Sverige. Verifierade leverantörer och övriga aktörer på d365.se – köparsidig vägledning."
+        description="Hitta Dynamics 365-partners i Sverige. Partnerverifierade profiler och övriga aktörer på d365.se – köparsidig vägledning."
         canonicalPath="/alla-d365-partners/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
@@ -175,7 +175,7 @@ export default function AllD365Partners() {
               Microsoft Dynamics 365-partners på den svenska marknaden
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground mb-5">
-              Här hittar du en översikt över Dynamics 365-partners på den svenska marknaden – både verifierade leverantörer på d365.se och andra aktörer vi känner till. Vill du veta mer om någon eller få hjälp att smalna ner kortlistan, hör av dig.
+              Här hittar du en översikt över Dynamics 365-partners på den svenska marknaden – både partnerverifierade profiler på d365.se och andra aktörer vi känner till. Vill du veta mer om någon eller få hjälp att smalna ner kortlistan, hör av dig.
             </p>
             {totalMarket > 0 && (
               <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
@@ -276,7 +276,7 @@ export default function AllD365Partners() {
                 Partnerverifierade profiler på d365.se
               </h2>
               <p className="text-sm text-muted-foreground">
-                d365.se kartlägger den svenska Dynamics 365-partnermarknaden. Alla relevanta partners finns med, medan partners vi samarbetar med kan komplettera sin profil med mer information. Vilka partners som matchar ett företag avgörs av relevans och behov.
+                d365.se kartlägger löpande relevanta Dynamics 365-partners på den svenska marknaden. Partners utan profileringsavtal visas med en grundprofil sammanställd från publika källor, medan partners med profileringsavtal själva kan granska och komplettera sin profil. Vilka partners som matchar ett företag avgörs av relevans och behov.
               </p>
             </div>
             {profiledAll.length === 0 ? (

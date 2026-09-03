@@ -57,14 +57,9 @@ export const pickSuggestedPartners = (
     }
   }
 
-  // Sortera: avtalspartner först, sedan storleks-/omsättningsbonus, behåll
-  // filterAndSortPartners inre ordning för lika bonus.
-  scored.sort((a, b) => {
-    const agA = a.partner.agreement_signed ? 1 : 0;
-    const agB = b.partner.agreement_signed ? 1 : 0;
-    if (agA !== agB) return agB - agA;
-    return b.bonus - a.bonus;
-  });
+  // Sortera enbart på relevans (storleks-/omsättningsmatchning). Kommersiell
+  // status (profileringsavtal/betalning) ger ingen rankingvikt.
+  scored.sort((a, b) => b.bonus - a.bonus);
 
   return scored.slice(0, limit).map((s) => s.partner);
 };

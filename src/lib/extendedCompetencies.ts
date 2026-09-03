@@ -57,8 +57,8 @@ export const LEVEL_META: Record<
   { label: string; shortLabel: string; rank: number; description: string; className: string; dot: string }
 > = {
   unverified: {
-    label: "Ej verifierad",
-    shortLabel: "Ej verifierad",
+    label: "Ej bekräftad",
+    shortLabel: "Ej bekräftad",
     rank: 1,
     description: "Partnern uppger kompetens men d365.se har inte kunnat verifiera den.",
     className: "bg-muted text-muted-foreground border-border",
@@ -149,7 +149,7 @@ export function competencyRankBonus(
 const AREA_PHRASE: Record<CompetencyArea, Record<CompetencyLevel, string>> = {
   power_platform: {
     unverified:
-      "uppger kompetens inom Power Platform, men den är ännu inte verifierad av d365.se",
+      "uppger kompetens inom Power Platform, men uppgiften är ännu inte bekräftad av d365.se",
     documented_competence:
       "har dokumenterad kompetens inom Power Platform med appar, automation och Dataverse som del av Dynamics 365-lösningen",
     documented_delivery:
@@ -159,7 +159,7 @@ const AREA_PHRASE: Record<CompetencyArea, Record<CompetencyLevel, string>> = {
   },
   copilot_ai: {
     unverified:
-      "uppger erfarenhet av Copilot och AI i Dynamics 365, men den är ännu inte verifierad av d365.se",
+      "uppger erfarenhet av Copilot och AI i Dynamics 365, men uppgiften är ännu inte bekräftad av d365.se",
     documented_competence:
       "har dokumenterad kompetens inom Microsofts inbyggda Copilot- och AI-funktioner i Dynamics 365",
     documented_delivery:
@@ -169,7 +169,7 @@ const AREA_PHRASE: Record<CompetencyArea, Record<CompetencyLevel, string>> = {
   },
   copilot_studio_agents: {
     unverified:
-      "uppger erfarenhet av Copilot Studio och AI-agenter, men den är ännu inte verifierad av d365.se",
+      "uppger erfarenhet av Copilot Studio och AI-agenter, men uppgiften är ännu inte bekräftad av d365.se",
     documented_competence:
       "har dokumenterad kompetens inom Copilot Studio och agentlösningar kopplade till Dynamics 365",
     documented_delivery:

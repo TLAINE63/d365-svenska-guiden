@@ -115,7 +115,7 @@ export default function IsvPartnerPicker({ value, onChange }: Props) {
             <span className="flex-1">{p.name}</span>
             {p.is_featured && (
               <Badge variant="outline" className="text-[10px]">
-                Verifierad
+                Partnerverifierad
               </Badge>
             )}
           </label>
