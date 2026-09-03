@@ -28,6 +28,10 @@ export const ORGANIZATION = {
   /** Läsbart format i synlig text. Samma nummer, ett enda skrivsätt. */
   telephoneDisplay: "+46 72 232 40 60",
   contactPath: "/kontakt",
+  /** Företagsinformation i footern. Lämna tomt tills verifierat värde finns. */
+  organizationNumber: "",
+  vatNumber: "",
+  postalAddress: "",
   /** Endast verifierade profiler – inga gissade URL:er. */
   sameAs: ["https://dynamicfactory.se"],
   advisors: [

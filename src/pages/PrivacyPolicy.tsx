@@ -318,7 +318,35 @@ const PrivacyPolicy = () => {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-foreground mb-4">12. Kontakta oss</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-4">
+                12. Kontaktpersoner och experter hos partners
+              </h2>
+              <p className="leading-relaxed mb-4">
+                d365.se kan behandla och publicera namn, befattning, företags-e-postadress,
+                företagets telefonnummer och eventuell profilbild för kontaktpersoner och experter
+                hos partners. Uppgifterna behandlas när de lämnas av personen själv eller av det
+                partnerföretag som personen representerar.
+              </p>
+              <p className="leading-relaxed mb-4">
+                Ändamålet är att presentera partnern, möjliggöra kontaktförmedling mellan köpare och
+                partner samt ge köpare relevant information om kompetens och ansvariga personer.
+                Rättslig grund är berättigat intresse av att förmedla affärskontakter i ett
+                B2B-sammanhang, alternativt samtycke när sådant har lämnats.
+              </p>
+              <p className="leading-relaxed mb-4">
+                Uppgifterna blir offentligt tillgängliga på webbplatsen och kan därmed indexeras av
+                sökmotorer, AI-tjänster och andra digitala tjänster. Kontaktpersoner kan när som
+                helst begära rättelse eller borttagning via {ORGANIZATION_EMAIL}.
+              </p>
+              <p className="leading-relaxed">
+                Partnern ansvarar enligt partneravtalet för att ha rätt att lämna och publicera de
+                personuppgifter, bilder, kundreferenser och annat material som partnern laddar upp
+                eller ber d365.se publicera.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-bold text-foreground mb-4">13. Kontakta oss</h2>
               <div className="bg-card p-6 rounded-lg border border-border">
                 <p className="font-semibold text-foreground mb-2">Dynamic Factory</p>
                 <p>E-post: thomas.laine@dynamicfactory.se</p>

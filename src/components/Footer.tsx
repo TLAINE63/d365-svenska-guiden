@@ -98,6 +98,24 @@ const Footer = () => {
 
         {/* Juridiska förbehåll & disclaimers – "Om d365.se"-rubriken ligger redan högst upp i footern. */}
         <div className="border-t border-[hsl(var(--line-dark))] pt-6 mb-8">
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-white mb-2">
+            Företagsinformation
+          </h2>
+          <p className="text-xs text-[hsl(var(--muted-dark))] max-w-4xl mb-4 leading-relaxed">
+            {ORGANIZATION.name} drivs av {ORGANIZATION.legalName}
+            {ORGANIZATION.organizationNumber ? `, org.nr ${ORGANIZATION.organizationNumber}` : ""}
+            {ORGANIZATION.vatNumber ? `, momsreg.nr ${ORGANIZATION.vatNumber}` : ""}
+            {ORGANIZATION.postalAddress ? `. Postadress: ${ORGANIZATION.postalAddress}` : ""}.
+            {" "}E-post:{" "}
+            <a href={`mailto:${ORGANIZATION.email}`} className="hover:text-white transition-colors">
+              {ORGANIZATION.email}
+            </a>
+            . Telefon:{" "}
+            <a href={`tel:${ORGANIZATION.telephoneE164}`} className="hover:text-white transition-colors">
+              {ORGANIZATION.telephoneDisplay}
+            </a>
+            .
+          </p>
           <p className="text-xs text-[hsl(var(--muted-dark))] italic max-w-4xl mb-2">
             d365.se är fristående från Microsoft Corporation. Vi är inte anslutna till, sponsrade av eller godkända av Microsoft. Dynamics 365, Business Central och andra Microsoft-produktnamn är varumärken som tillhör Microsoft.
           </p>
