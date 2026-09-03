@@ -921,6 +921,49 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
         </DialogContent>
       </Dialog>
 
+      {/* Import från länk */}
+      <Dialog open={importOpen} onOpenChange={setImportOpen}>
+        <DialogContent className="max-w-xl">
+          <DialogHeader><DialogTitle>Importera från länk</DialogTitle></DialogHeader>
+          <p className="text-xs text-muted-foreground">
+            Klistra in en länk till partnerns LinkedIn-inlägg, nyhet eller blogginlägg. Texten hämtas ordagrant – AI används endast för att föreslå produktområde, nyhetstyp och bransch. Allt landar som utkast för manuell granskning.
+          </p>
+          <div className="space-y-3">
+            <div>
+              <Label>Partner (endast partnerverifierade)</Label>
+              <Select value={importPartnerId} onValueChange={setImportPartnerId}>
+                <SelectTrigger><SelectValue placeholder="Välj partner" /></SelectTrigger>
+                <SelectContent>
+                  {publishedPartners.map((p) => (
+                    <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label>Länk</Label>
+              <Input value={importUrl} onChange={(e) => setImportUrl(e.target.value)} placeholder="https://www.linkedin.com/posts/..." />
+            </div>
+            {importNeedsPaste && (
+              <div className="rounded-md border-l-4 border-amber-500 bg-amber-50 p-3 text-xs text-amber-900">
+                Källan blockerar automatisk hämtning (vanligt för LinkedIn). Kopiera inläggets text och klistra in den nedan – den sparas ordagrant.
+              </div>
+            )}
+            <div>
+              <Label>Inklistrad text (valfritt / krävs för LinkedIn)</Label>
+              <Textarea value={importText} onChange={(e) => setImportText(e.target.value)} rows={8} placeholder="Klistra in partnerns text exakt som den är…" />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="ghost" onClick={() => setImportOpen(false)}>Avbryt</Button>
+            <Button onClick={runImport} disabled={importing} className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white">
+              {importing ? <><Loader2 className="w-4 h-4 mr-1 animate-spin" /> Hämtar…</> : <>Hämta och skapa utkast</>}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+
       {/* Preview dialog */}
       <Dialog open={!!previewItem} onOpenChange={(open) => !open && setPreviewItem(null)}>
         <DialogContent className="max-w-md">
