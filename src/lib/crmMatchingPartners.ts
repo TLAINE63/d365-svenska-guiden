@@ -61,8 +61,8 @@ export interface CrmPartnerRecommendation {
 /**
  * Rangordna partners givet ett testresultat.
  * - Filtrerar först på att partnern täcker produktområdet (sales/service).
- * - Skiktar därefter agreement_signed före övriga och lyfter partners med
- *   uttalad AI-leverans om användaren har hög AI-profil.
+ * - Rangordnar enbart på relevans (AI-erfarenhet, referenser, underlag).
+ *   Kommersiell status ger ingen rankingvikt.
  * - Returnerar topp N med korta motiveringar.
  */
 export function recommendCrmPartners(
@@ -81,11 +81,6 @@ export function recommendCrmPartners(
   const scored = base.map((p) => {
     let bonus = 0;
     const reasons: string[] = [];
-
-    if (p.agreement_signed) {
-      bonus += 2;
-      reasons.push("Avtalspartner på d365.se");
-    }
 
     if (aiHeavy && partnerHasAiCapability(p, productKey)) {
       bonus += 3;
