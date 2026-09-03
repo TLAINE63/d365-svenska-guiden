@@ -336,7 +336,7 @@ const PrivacyPolicy = () => {
               <p className="leading-relaxed mb-4">
                 Uppgifterna blir offentligt tillgängliga på webbplatsen och kan därmed indexeras av
                 sökmotorer, AI-tjänster och andra digitala tjänster. Kontaktpersoner kan när som
-                helst begära rättelse eller borttagning via {ORGANIZATION_EMAIL}.
+                helst begära rättelse eller borttagning via thomas.laine@dynamicfactory.se.
               </p>
               <p className="leading-relaxed">
                 Partnern ansvarar enligt partneravtalet för att ha rätt att lämna och publicera de
