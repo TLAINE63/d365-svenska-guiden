@@ -58,7 +58,22 @@ const EVENT_LEVELS: Record<string, number> = {
   partner_match_selected: 3,
   partner_contact_request: 4,
   partner_intro_request: 4,
+  // Kortspecifika handlingar (instruktion: händelsemått på partnerkort)
+  spara_shortlist: 2,
+  lagg_till_jamforelse: 2,
+  klick_kundcase: 2,
+  visa_fordjupad_analys: 2,
+  klick_komplettera_partnerprofil: 2,
+  klick_utgaende_partnersajt: 3,
+  klick_uppskattning_kostnad: 3,
+  formular_paborjat: 3,
+  klick_stall_fraga: 4,
+  klick_boka_demo: 4,
+  klick_kontakta_vagledning: 4,
+  formular_skickat: 4,
 };
+
+const CARD_TYPES = new Set(["verifierad", "basic"]);
 
 const INTENT_TRACKS = new Set(["erp", "crm", "ai"]);
 
@@ -74,6 +89,8 @@ type IncomingEvent = {
   session_id?: string;
   page_path?: string;
   intent_track?: string;
+  card_type?: string;
+  product_area?: string;
   metadata?: Record<string, unknown>;
 };
 
@@ -144,6 +161,8 @@ Deno.serve(async (req) => {
           session_id: e.session_id ? String(e.session_id).slice(0, 64) : null,
           page_path: e.page_path ? String(e.page_path).slice(0, 300) : null,
           intent_track: intent,
+          card_type: e.card_type && CARD_TYPES.has(String(e.card_type)) ? String(e.card_type) : null,
+          product_area: e.product_area ? String(e.product_area).slice(0, 80) : null,
           metadata,
           ip_anonymized: anonIp,
           user_agent: userAgent?.slice(0, 500) || null,
