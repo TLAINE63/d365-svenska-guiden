@@ -161,12 +161,19 @@ export const BASIC_COPY = {
   partnerRepHeading: "Representerar du denna partner?",
   partnerRepBody:
     "Granska, korrigera och komplettera profilen så att kunder får ett så korrekt beslutsunderlag som möjligt.",
+  /** Saklig upplysning om vidarebefordran – ligger i variabel så den kan ändras om policyn ändras. */
+  partnerRepNoForwarding:
+    "Förfrågningar som kommer in via grundprofilen kan inte vidarebefordras till partnern, eftersom det saknas avtal och bekräftad kontaktperson.",
+  /** Rad under Partnerfakta-sektionen på grundprofilen. */
+  partnerFactsNote:
+    "Uppgifterna finns inte publikt tillgängliga och kan därför inte ingå i matchning mot köparens urvalskriterier.",
+  missingValue: "Uppgift saknas",
   cta: "Komplettera partnerprofilen",
   standaloneNoContact:
     "Kontaktväg via d365.se är inte aktiverad för denna profil.",
   buyerGuidanceCta: "Kontakta d365.se för vägledning",
   buyerGuidanceBody:
-    "d365.se har ingen partnerbekräftad direktkontakt kopplad till denna profil, men vi kan hjälpa dig att bedöma alternativen och komma vidare.",
+    "Profilen kan inte matchas mot dina urvalskriterier eftersom uppgifterna ovan inte är bekräftade av partnern. d365.se kan i stället hjälpa dig att bedöma alternativ som motsvarar det du söker.",
   matchingLimited: "Begränsad data: partnern kan inte bedömas fullt ut.",
   compareMissing: "data saknas",
 } as const;
