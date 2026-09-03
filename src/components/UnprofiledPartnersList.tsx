@@ -94,7 +94,7 @@ const UnprofiledPartnersList = ({
     ? `Fler partners som arbetar med ${productLabel}`
     : "Fler Dynamics 365-partners på den svenska marknaden";
   const areaText = productKey && productLabel ? productLabel : "Dynamics 365";
-  const intro = `d365.se listar även partners som enligt tillgänglig information arbetar med ${areaText} men som ännu inte har en verifierad partnerprofil. Informationen bygger på publikt tillgängliga uppgifter och kan därför vara mindre komplett än för verifierade profiler.`;
+  const intro = `d365.se listar även partners som enligt tillgänglig information arbetar med ${areaText} men som ännu inte har en partnerverifierad profil. Informationen är sammanställd av d365.se utifrån publikt tillgängliga uppgifter och har inte granskats eller bekräftats av partnern.`;
 
   return (
     <section className="py-8 sm:py-12 bg-background border-t border-border">
@@ -120,7 +120,7 @@ const UnprofiledPartnersList = ({
                     {p.name}
                   </h3>
                   <p className="mt-1 text-[11px] uppercase tracking-wide text-muted-foreground">
-                    Ej verifierad profil
+                    Grundprofil – ej partnerverifierad
                   </p>
                   {additional.length > 0 ? (
                     <div className="mt-2">

@@ -183,7 +183,7 @@ const EMPTY = <span className="text-slate-600 italic">—</span>;
 
 /** Basic-profiler saknar partnerbekräftade uppgifter – visas neutralt, aldrig som brist. */
 const BASIC_MISSING_LABEL = "Uppgift saknas";
-const BASIC_UNVERIFIED_LABEL = "Inte verifierad uppgift";
+const BASIC_UNVERIFIED_LABEL = "Ej partnerverifierad uppgift";
 
 const BasicMissing = ({ label = BASIC_MISSING_LABEL }: { label?: string }) => (
   <span className="inline-flex items-start gap-2 text-xs text-slate-500">
@@ -249,7 +249,7 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
         {!basic && (
           <span className="mt-1 inline-flex items-center gap-1.5 rounded-full border border-[hsl(var(--accent))]/30 bg-[hsl(var(--accent))]/10 px-2.5 py-0.5 text-[11px] font-medium text-[hsl(var(--accent))]">
             <BadgeCheck className="w-3 h-3" />
-            Verifierad partner
+            Partnerverifierad profil
           </span>
         )}
         <ShortlistButton
@@ -313,7 +313,7 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
                 {!isBasicPartner(p) && (
                   <span className="inline-flex items-center gap-1 rounded-full border border-[hsl(var(--accent))]/30 bg-[hsl(var(--accent))]/10 px-1.5 py-0.5 text-[10px] font-medium text-[hsl(var(--accent))] group-data-[state=checked]:border-white/40 group-data-[state=checked]:bg-white/15 group-data-[state=checked]:text-white">
                     <BadgeCheck className="w-2.5 h-2.5" />
-                    Verifierad
+                    Partnerverifierad
                   </span>
                 )}
               </span>
@@ -324,7 +324,7 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
       {partner && basic && (
         <>
           <p className="text-[11px] leading-relaxed text-slate-500">
-            Kontaktväg via d365.se är inte aktiverad för denna ej verifierade profil. Uppgifterna nedan är
+            Kontaktväg via d365.se är inte aktiverad för denna grundprofil. Uppgifterna nedan är
             sammanställda av d365.se från publika källor.
           </p>
           {onBasicInquiry && (
@@ -1981,7 +1981,7 @@ const ComparePartners = () => {
                       count={verifiedEligibleCount}
                     />
                     <span className="text-xs text-[hsl(var(--muted-foreground))]">
-                      Verifierade partners har en komplett, granskad profil. Övriga är partners med
+                      Partnerverifierade profiler har granskats och kompletterats av partnern. Övriga är partners med
                       begränsad information.
                     </span>
                   </div>
@@ -2092,14 +2092,14 @@ const ComparePartners = () => {
                       <section className="mb-6 rounded-lg border border-slate-200 bg-slate-50 p-5">
                         <h2 className="text-base font-semibold text-slate-800 mb-1.5 flex items-center gap-2">
                           <Info className="w-4 h-4 text-slate-500" />
-                          Verifierade och ej verifierade profiler visas olika
+                          Partnerverifierade profiler och grundprofiler visas olika
                         </h2>
                         <p className="text-sm text-slate-600 leading-relaxed">
                           {[a, b, c].filter(isBasicPartner).map((p) => p!.name).join(", ")} har en
-                          ej verifierad profil. Där visas endast uppgifter som d365.se sammanställt från
+                          grundprofil (ej partnerverifierad). Där visas endast uppgifter som d365.se sammanställt från
                           publika källor – de är inte bekräftade av partnern, och fält som
                           positionering, kundcase, projektlängd, kostnadsspann och AI-kompetens
-                          finns inte att jämföra. För verifierade partners är uppgifterna lämnade
+                          finns inte att jämföra. För partnerverifierade profiler är uppgifterna lämnade
                           och godkända av partnern själv, med kontaktväg via d365.se.
                         </p>
                       </section>
@@ -2113,7 +2113,7 @@ const ComparePartners = () => {
                       {diffPoints.length === 0 ? (
                         <p className="text-sm text-muted-foreground">
                           {anyBasicSelected
-                            ? "Skillnadsanalysen bygger på partnerbekräftade uppgifter och kräver minst två verifierade partners. Ej verifierade profiler visas i tabellen nedan med de uppgifter som finns."
+                            ? "Skillnadsanalysen bygger på partnerbekräftade uppgifter och kräver minst två partnerverifierade profiler. Grundprofiler visas i tabellen nedan med de uppgifter som finns."
                             : "Partnerna liknar varandra mycket på nyckelattributen ovan. Se fullständig jämförelse nedan för fler detaljer."}
                         </p>
                       ) : (
@@ -2488,7 +2488,7 @@ const ComparePartners = () => {
                         return (
                           <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-5 text-sm text-slate-600 space-y-3">
                             <p>
-                              Välj minst två verifierade partners ovan för att skicka samma förfrågan till alla och få jämförbara svar. Ej verifierade profiler kan inte kontaktas direkt via d365.se.
+                              Välj minst två partnerverifierade profiler ovan för att skicka samma förfrågan till alla och få jämförbara svar. Grundprofiler kan inte kontaktas direkt via d365.se.
                             </p>
                             {anyBasicSelected && (
                               <Button
@@ -2527,7 +2527,7 @@ const ComparePartners = () => {
                                 {basic ? (
                                   <div className="space-y-2">
                                     <p className="text-[11px] text-slate-500 leading-relaxed">
-                                      Kontaktväg via d365.se är inte aktiverad för denna ej verifierade profil. d365.se kan hjälpa dig vidare.
+                                      Kontaktväg via d365.se är inte aktiverad för denna grundprofil. d365.se kan hjälpa dig vidare.
                                     </p>
                                     <Button
                                       type="button"
