@@ -11,8 +11,11 @@ interface BasicPartnerBadgeProps {
   className?: string;
 }
 
+/** Kort statusetikett för grundprofiler (Basic). */
+export const BASIC_PROFILE_LABEL = "Grundprofil – ej partnerverifierad";
+
 export const BASIC_PROFILE_DISCLAIMER =
-  "Grundläggande information om partnern baserad på publikt tillgängliga uppgifter. Informationen har ännu inte verifierats tillsammans med partnern.";
+  "Profilen är sammanställd av d365.se utifrån publikt tillgängliga uppgifter. Informationen har inte granskats eller bekräftats av partnern.";
 
 /**
  * Neutral markering för partners utan verifierad profil.
