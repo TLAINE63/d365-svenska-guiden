@@ -113,7 +113,7 @@ const PROSPECT_DEFAULT_BODY = `Hej,
 
 Vi har tidigare varit i kontakt kring möjligheten att profilera er på d365.se, och vi ville nu återkomma när plattformen går in i nästa fas.
 
-Under pilotperioden har d365.se vuxit till en levande plattform för organisationer som utvärderar Microsoft Dynamics 365 och söker rätt partner. Idag är 28 partners verifierade på sajten.
+Under pilotperioden har d365.se vuxit till en levande plattform för organisationer som utvärderar Microsoft Dynamics 365 och söker rätt partner. Idag har 28 partners en partnerverifierad profil på sajten.
 
 Vi har också sett ett tydligt intresse från marknaden. d365.se har hittills haft cirka 3 000 unika besökare och 7 000 sidvisningar, med 56 genomförda analyser/kravspecifikationer, nästan 200 partnerprofilbesök och 25 klick vidare till partner. De mest besökta delarna har varit Välj partner och Branschlösningar.
 
@@ -152,7 +152,7 @@ const COLD_PITCH_DEFAULT_BODY = `Hej,
 
 Jag ville bara höra av mig kring d365.se.
 
-d365.se har fått ett väldigt positivt bemötande och utvecklats till en växande kundguide för organisationer som utvärderar Microsoft Dynamics 365 och söker rätt partner. Idag är 28 partners redan verifierade på sajten.
+d365.se har fått ett väldigt positivt bemötande och utvecklats till en växande kundguide för organisationer som utvärderar Microsoft Dynamics 365 och söker rätt partner. Idag har 28 partners redan en partnerverifierad profil på sajten.
 
 Vi ser också ett tydligt intresse från marknaden. Hittills har d365.se haft cirka 3 000 unika besökare och 7 000 sidvisningar, med många genomförda analyser och kravspecifikationer samt redan hundratals partnerprofilbesök. De mest besökta delarna har varit Välj partner och Branschlösningar.
 
@@ -172,7 +172,7 @@ Från och med **1 maj 2026** gäller ordinarie prismodell för partnerprofilerin
 
 Det finns även möjlighet till årsvis betalning – 12 månader till priset av 10.
 
-Som verifierad partner kan ni synas inom:
+Med en partnerverifierad profil kan ni synas inom:
 
 Dynamics 365 Finance & Supply Chain Management
 

@@ -362,7 +362,7 @@ const Index = () => {
                 {[
                   { n: `${identifiedPartnerCount}`, t: "Identifierade Dynamics 365-partners i Sverige", path: "/alla-d365-partners/" },
                   { n: `${KNOWLEDGE_CONTENT_COUNT}`, t: "Guider, artiklar och branschinsikter", path: "/kunskapscenter/" },
-                  { n: `${HERO_INDUSTRIES.length}`, t: "Branscher med verifierade partners", path: "/branscher/" },
+                  { n: `${HERO_INDUSTRIES.length}`, t: "Branscher med partnerverifierade profiler", path: "/branscher/" },
                   { n: `${FREE_TOOL_COUNT}`, t: "Kostnadsfria beslutsverktyg", path: "/kunskapscenter/" },
                   
                 ].map((s) => (

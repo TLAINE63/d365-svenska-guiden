@@ -243,7 +243,7 @@ const Branscher = () => {
                       )}
                       <span className="text-xs font-medium text-primary/80 mt-0.5">
                         {count > 0
-                          ? `${count} ${count === 1 ? "verifierad partner" : "verifierade partners"}`
+                          ? `${count} ${count === 1 ? "partnerverifierad profil" : "partnerverifierade profiler"}`
                           : "Kommer snart"}
                       </span>
                       {basicCount > 0 && (

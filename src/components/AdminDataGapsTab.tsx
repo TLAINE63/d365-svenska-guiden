@@ -253,7 +253,7 @@ export default function AdminDataGapsTab({ token, onSessionExpired }: Props) {
               Datakvalitet – partner för partner
             </CardTitle>
             <CardDescription>
-              Går igenom verifierade partners och visar vad som saknas för att de ska kunna
+              Går igenom partnerverifierade profiler och visar vad som saknas för att de ska kunna
               filtreras fram på bransch, produkt, geografi och storlek. Godkänn förslaget rakt av
               eller justera fält för fält.
             </CardDescription>

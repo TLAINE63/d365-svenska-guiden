@@ -699,7 +699,7 @@ function MonthlyStatsReportCard({ token }: { token: string | null }) {
           <label className="text-xs font-medium block mb-1">Nästa period (kommande publiceringar, uppmaningar)</label>
           <Textarea
             rows={5}
-            placeholder={"- Kostnadsartikeln om ... publiceras i ...\n- Partneröversikten publiceras i november: verifierade profiler får utökad plats."}
+            placeholder={"- Kostnadsartikeln om ... publiceras i ...\n- Partneröversikten publiceras i november: partnerverifierade profiler får utökad plats."}
             value={nextPeriod}
             onChange={(e) => setNextPeriod(e.target.value)}
             disabled={!settingsLoaded}
