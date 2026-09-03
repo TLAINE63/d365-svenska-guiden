@@ -55,7 +55,7 @@ import { PartnerOrganizationSchema, BreadcrumbSchema } from "@/components/Struct
 import { buildMetaTitle } from "@/lib/metaTitle";
 import { buildMetaDescription } from "@/lib/metaDescription";
 import { trackPartnerView } from "@/utils/trackPartnerView";
-import { trackPartnerEvent, isReturningVisitorForPartner } from "@/utils/trackPartnerEvent";
+import { trackPartnerCardEvent, trackPartnerEvent, isReturningVisitorForPartner } from "@/utils/trackPartnerEvent";
 import ShortlistButton from "@/components/ShortlistButton";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 
@@ -169,6 +169,15 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
     setRequestMode(mode);
     setRequestOpen(true);
     if (slug) {
+      // Kortspecifik handling: vilken CTA på partnerkortet som klickades
+      trackPartnerCardEvent(
+        mode === "contact" ? "klick_stall_fraga" : mode === "demo" ? "klick_boka_demo" : "klick_uppskattning_kostnad",
+        { slug, id: (dbPartner as DatabasePartner | undefined)?.id || null },
+        "verifierad",
+        activeTabProduct || selectedProduct || null,
+      );
+    }
+    if (slug) {
       // Nivå 4 – lead: besökaren begär kontakt/offert via profilen
       trackPartnerEvent({
         event: mode === "contact" ? "partner_contact_request" : "partner_intro_request",
@@ -207,6 +216,14 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
    partnerId: (dbPartner as DatabasePartner | undefined)?.id || null,
    metadata: { label: (target.getAttribute("data-engagement-label") || target.textContent || "").slice(0, 120) },
   });
+  if (kind === "case") {
+   trackPartnerCardEvent(
+    "klick_kundcase",
+    { slug, id: (dbPartner as DatabasePartner | undefined)?.id || null },
+    "verifierad",
+    activeTabProduct || selectedProduct || null,
+   );
+  }
  };
 
  // Get product categories this partner supports
@@ -632,11 +649,23 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
     <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
      <ShortlistButton
       variant="compact"
+      cardType="verifierad"
+      productArea={activeTabProduct || selectedProduct || null}
       entry={{ slug, name: partner.name, url: `/partner/${slug}/`, verified: true }}
      />
      <button
       type="button"
-      onClick={() => compareToggle({ slug, name: partner.name })}
+      onClick={() => {
+       if (!compareSelected(slug)) {
+        trackPartnerCardEvent(
+         "lagg_till_jamforelse",
+         { slug, id: (dbPartner as DatabasePartner | undefined)?.id || null },
+         "verifierad",
+         activeTabProduct || selectedProduct || null,
+        );
+       }
+       compareToggle({ slug, name: partner.name });
+      }}
       aria-pressed={compareSelected(slug)}
       className={`flex-1 flex items-center justify-center gap-1.5 rounded-md border px-2 py-1.5 text-xs font-semibold transition-all ${
        compareSelected(slug)
