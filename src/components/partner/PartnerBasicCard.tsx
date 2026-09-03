@@ -50,13 +50,9 @@ export function PartnerBasicCard({
   const additional = documented.filter((k) => k !== excludeProductKey);
 
   // Partnerfakta (grundprofil): värde eller "Uppgift saknas" per fält.
+  // Huvudbranscher och Företagsstorlek visas alltid som "Uppgift saknas" tills
+  // uppgifterna är partnerbekräftade (observationsdata ska inte exponeras).
   const uniq = (arr: string[]) => Array.from(new Set(arr));
-  const factIndustries = uniq(
-    PRODUCT_ORDER.flatMap((k) => partner.observed_industries?.[k] || []),
-  );
-  const factSizes = uniq(
-    PRODUCT_ORDER.flatMap((k) => partner.observed_company_sizes?.[k] || []),
-  );
   const factGeo = uniq(
     PRODUCT_ORDER.flatMap((k) => partner.observed_delivery_geo?.[k] || []),
   );
@@ -65,8 +61,8 @@ export function PartnerBasicCard({
       label: "Primärt Dynamics 365-område",
       value: documented.length ? documented.map((k) => PRODUCT_LABEL[k]).join(", ") : null,
     },
-    { label: "Huvudbranscher", value: factIndustries.length ? factIndustries.join(", ") : null },
-    { label: "Företagsstorlek", value: factSizes.length ? factSizes.join(", ") : null },
+    { label: "Huvudbranscher", value: null },
+    { label: "Företagsstorlek", value: null },
     {
       label: "Geografi",
       value: factGeo.length ? factGeo.join(", ") : locations.length ? locations.join(", ") : null,
