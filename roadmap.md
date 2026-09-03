@@ -25,3 +25,11 @@
 - [x] Dataskyddspolicy: nytt avsnitt om kontaktpersoner/experter
 - [x] Footer: Företagsinformation (org.nr/VAT/postadress renderas när värden fylls i organization.ts)
 - [ ] Saknas: faktiskt organisationsnummer, momsregistreringsnummer och postadress för Dynamic Factory AB
+
+## Månadsrapport v2 (partner) – 2026-09-03
+- [ ] Steg 0: inventering av rapportkod (redovisad, inväntar godkännande)
+- [ ] Steg 1: nya beräkningar (aktiva profiler, median/snitt/placering/andel, 6 mån historik, förändring, besökande företag SE/övriga, företagsantal från tabellen)
+- [ ] Steg 1b ANONYMITET: inga företagsnamn/domän/IP/ort i JSON eller HTML; grova storleksintervall (1-50/51-200/201-1000/1000+); undertryck rader med <2 företag → "Övriga branscher"; ta bort senaste besöksdatum; bransch från fast kodlista; fast integritetstext ovanför blocket
+- [ ] Steg 2: ny layout A–H (ingress, huvudsiffra, urvalstratt, utveckling, jämförelsetabell utan "Alla profiler (summa)", företagsblock, synlighetsråd, "Det här hände på d365.se")
+- [ ] Steg 3: dölj sektioner utan data (aldrig synliga nollor)
+- [ ] Steg 4: server-side verifiering med curl/jq/grep + PDF-format
