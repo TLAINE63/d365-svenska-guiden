@@ -479,12 +479,16 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   )}
   </div>
 
-  <div className="mb-4">
+  <div className="mb-4 max-w-3xl">
     <VerifiedPartnerBadge size="md" />
+    <p className="mt-2 text-xs leading-relaxed text-slate-600">
+      {PROFILE_EXPLAINER_VERIFIED_SHORT}{" "}
+      <span className="text-slate-500">{PROFILE_EXPLAINER_VERIFIED_MORE}</span>
+    </p>
   </div>
 
 
-  {/* Partnerns egen övergripande text – kort intro, analysen ligger nedanför */}
+  {/* Partnerns information – partnerns egen övergripande text. d365.se:s analys ligger nedanför */}
   {partner.description && (
     <p className="max-w-5xl w-full mb-4 whitespace-pre-line break-words text-base sm:text-lg text-slate-700 leading-relaxed [overflow-wrap:anywhere]">
       {partner.description}
