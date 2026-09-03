@@ -1116,6 +1116,7 @@ export type Database = {
       }
       partner_engagement_events: {
         Row: {
+          card_type: string | null
           event_level: number
           event_name: string
           id: string
@@ -1126,11 +1127,13 @@ export type Database = {
           page_path: string | null
           partner_id: string | null
           partner_slug: string
+          product_area: string | null
           session_id: string | null
           user_agent: string | null
           visitor_id: string | null
         }
         Insert: {
+          card_type?: string | null
           event_level?: number
           event_name: string
           id?: string
@@ -1141,11 +1144,13 @@ export type Database = {
           page_path?: string | null
           partner_id?: string | null
           partner_slug: string
+          product_area?: string | null
           session_id?: string | null
           user_agent?: string | null
           visitor_id?: string | null
         }
         Update: {
+          card_type?: string | null
           event_level?: number
           event_name?: string
           id?: string
@@ -1156,6 +1161,7 @@ export type Database = {
           page_path?: string | null
           partner_id?: string | null
           partner_slug?: string
+          product_area?: string | null
           session_id?: string | null
           user_agent?: string | null
           visitor_id?: string | null
@@ -2656,6 +2662,74 @@ export type Database = {
           when_fits?: string | null
         }
         Relationships: []
+      }
+      partner_card_event_monthly: {
+        Row: {
+          card_type: string | null
+          event_count: number | null
+          event_name: string | null
+          partner_id: string | null
+          partner_slug: string | null
+          period_month: string | null
+          product_area: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_engagement_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_engagement_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_basic_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_engagement_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partner_card_form_conversion_monthly: {
+        Row: {
+          card_type: string | null
+          conversion_pct: number | null
+          forms_started: number | null
+          forms_submitted: number | null
+          partner_id: string | null
+          partner_slug: string | null
+          period_month: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_engagement_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_engagement_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_basic_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_engagement_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       partner_events_public: {
         Row: {
