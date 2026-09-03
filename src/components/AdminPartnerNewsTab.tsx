@@ -22,7 +22,7 @@ import type {
   PartnerNewsStatus,
   PartnerNewsType,
 } from "@/hooks/usePartnerNews";
-import { Plus, Pencil, Trash2, Eye, Send, Archive, CheckCircle2, XCircle, Circle, ExternalLink, RefreshCw, Inbox, Tag, Info, Upload, X, Loader2, Crop } from "lucide-react";
+import { Plus, Pencil, Trash2, Eye, Send, Archive, CheckCircle2, XCircle, Circle, ExternalLink, RefreshCw, Inbox, Tag, Info, Upload, X, Loader2, Crop, Link as LinkIcon, Copy } from "lucide-react";
 import ImageCropDialog from "@/components/ImageCropDialog";
 
 interface Props {
@@ -71,6 +71,8 @@ type FormState = {
   show_on_partner_profile: boolean;
   show_on_product_page: boolean;
   status: PartnerNewsStatus;
+  ingest_method?: "manual" | "url" | "feed";
+  verbatim?: boolean;
 };
 
 const emptyForm = (partnerId: string): FormState => ({
@@ -89,7 +91,10 @@ const emptyForm = (partnerId: string): FormState => ({
   show_on_partner_profile: true,
   show_on_product_page: true,
   status: "draft",
+  ingest_method: "manual",
+  verbatim: false,
 });
+
 
 export default function AdminPartnerNewsTab({ token, partners, onSessionExpired }: Props) {
   const { toast } = useToast();
@@ -101,6 +106,16 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [form, setForm] = useState<FormState>(emptyForm(publishedPartners[0]?.id ?? ""));
   const [previewItem, setPreviewItem] = useState<PartnerNewsItem | null>(null);
+  const [importOpen, setImportOpen] = useState(false);
+  const [importPartnerId, setImportPartnerId] = useState<string>("");
+  const [importUrl, setImportUrl] = useState("");
+  const [importText, setImportText] = useState("");
+  const [importNeedsPaste, setImportNeedsPaste] = useState(false);
+  const [importing, setImporting] = useState(false);
+  const [importFullText, setImportFullText] = useState<string | null>(null);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [bulkBusy, setBulkBusy] = useState(false);
+
   const [saving, setSaving] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [cropSrc, setCropSrc] = useState<string | null>(null);
@@ -178,10 +193,109 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
     }
   };
 
+  const openImport = () => {
+    setImportPartnerId(publishedPartners[0]?.id ?? "");
+    setImportUrl("");
+    setImportText("");
+    setImportNeedsPaste(false);
+    setImportFullText(null);
+    setImportOpen(true);
+  };
+
+  const runImport = async () => {
+    if (!importPartnerId) {
+      toast({ title: "Välj partner först", variant: "destructive" });
+      return;
+    }
+    if (!importUrl.trim() && !importText.trim()) {
+      toast({ title: "Ange en länk eller klistra in texten", variant: "destructive" });
+      return;
+    }
+    setImporting(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("import-partner-news-url", {
+        body: { token, url: importUrl.trim(), pasted_text: importText.trim() || undefined },
+      });
+      if (error) throw error;
+      if (data?.error) {
+        if (String(data.error).includes("gått ut") || String(data.error).includes("Ogiltig")) onSessionExpired();
+        throw new Error(data.error);
+      }
+      if (data?.needs_paste) {
+        setImportNeedsPaste(true);
+        toast({ title: "Sidan kunde inte läsas", description: data.message });
+        return;
+      }
+      const d = data.draft as {
+        editorial_title: string;
+        summary: string;
+        full_text: string;
+        truncated: boolean;
+        source_url: string;
+        source_type: PartnerNewsSourceType;
+        image_url: string | null;
+        news_date: string;
+        product_areas: PartnerNewsProductArea[];
+        news_type: PartnerNewsType;
+        industry: string | null;
+        ai_categorised: boolean;
+      };
+      setForm({
+        ...emptyForm(importPartnerId),
+        editorial_title: d.editorial_title,
+        summary: d.summary,
+        source_url: d.source_url || importUrl.trim(),
+        source_type: d.source_type,
+        product_areas: d.product_areas.length ? d.product_areas : ["ovrigt"],
+        news_type: d.news_type,
+        industry: d.industry ?? "",
+        image_url: d.image_url ?? "",
+        news_date: d.news_date,
+        status: "draft",
+        ingest_method: "url",
+        verbatim: true,
+      });
+      setImportFullText(d.truncated ? d.full_text : null);
+      setImportOpen(false);
+      setDialogOpen(true);
+      toast({
+        title: "Importerad som utkast",
+        description: d.ai_categorised
+          ? "Texten är ordagrann från källan. Kategoriseringen är ett förslag – granska innan publicering."
+          : "Texten är ordagrann från källan. Kategorisera manuellt innan publicering.",
+      });
+    } catch (err) {
+      toast({ title: "Kunde inte importera", description: (err as Error).message, variant: "destructive" });
+    } finally {
+      setImporting(false);
+    }
+  };
+
+  const toggleSelected = (id: string) => {
+    setSelectedIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+  };
+
+  const bulkSetStatus = async (status: PartnerNewsStatus) => {
+    if (selectedIds.length === 0) return;
+    setBulkBusy(true);
+    try {
+      await invoke("bulk-set-status", { ids: selectedIds, status });
+      toast({ title: `${selectedIds.length} nyheter uppdaterade` });
+      setSelectedIds([]);
+      await refresh();
+    } catch (err) {
+      toast({ title: "Kunde inte uppdatera", description: (err as Error).message, variant: "destructive" });
+    } finally {
+      setBulkBusy(false);
+    }
+  };
+
   const openNew = () => {
     setForm(emptyForm(publishedPartners[0]?.id ?? ""));
+    setImportFullText(null);
     setDialogOpen(true);
   };
+
 
   const openEdit = (item: PartnerNewsItem) => {
     setForm({
@@ -379,9 +493,13 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
               <Button variant="outline" size="sm" onClick={refresh} disabled={loading}>
                 <RefreshCw className={`w-4 h-4 mr-1 ${loading ? "animate-spin" : ""}`} /> Uppdatera
               </Button>
+              <Button variant="outline" size="sm" onClick={openImport}>
+                <LinkIcon className="w-4 h-4 mr-1" /> Importera från länk
+              </Button>
               <Button onClick={openNew} className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white">
                 <Plus className="w-4 h-4 mr-1" /> Ny partnernytt
               </Button>
+
             </div>
           </div>
         </CardHeader>
@@ -442,6 +560,19 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
             </div>
           </div>
 
+          {selectedIds.length > 0 && (
+            <div className="mb-4 flex flex-wrap items-center gap-2 rounded-md border border-amber-300 bg-amber-50 p-3">
+              <span className="text-sm font-medium text-amber-900">{selectedIds.length} markerade</span>
+              <Button size="sm" disabled={bulkBusy} onClick={() => bulkSetStatus("published")} className="bg-emerald-600 hover:bg-emerald-700 text-white">
+                <CheckCircle2 className="w-4 h-4 mr-1" /> Godkänn och publicera
+              </Button>
+              <Button size="sm" variant="outline" disabled={bulkBusy} onClick={() => bulkSetStatus("archived")} className="text-destructive border-destructive/40">
+                <XCircle className="w-4 h-4 mr-1" /> Avvisa
+              </Button>
+              <Button size="sm" variant="ghost" onClick={() => setSelectedIds([])}>Avmarkera alla</Button>
+            </div>
+          )}
+
           {loading ? (
             <p className="text-sm text-muted-foreground">Laddar…</p>
           ) : filtered.length === 0 ? (
@@ -450,18 +581,34 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
             <div className="divide-y divide-border rounded-md border">
               {filtered.map((item) => (
                 <div key={item.id} className="flex flex-wrap items-start justify-between gap-3 p-4">
-                  <div className="min-w-0 flex-1">
+                  <div className="min-w-0 flex-1 flex gap-3">
+                    <input
+                      type="checkbox"
+                      className="mt-1 h-4 w-4 shrink-0"
+                      checked={selectedIds.includes(item.id)}
+                      onChange={() => toggleSelected(item.id)}
+                      aria-label={`Markera ${item.editorial_title}`}
+                    />
+                    <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <Badge className={STATUS_STYLE[item.status]}>{STATUS_LABEL[item.status]}</Badge>
+                      {(item as unknown as { ingest_method?: string }).ingest_method === "url" && (
+                        <Badge variant="outline" className="text-[11px]">Importerad från länk</Badge>
+                      )}
+                      {(item as unknown as { ingest_method?: string }).ingest_method === "feed" && (
+                        <Badge variant="outline" className="text-[11px]">Automatiskt inhämtad</Badge>
+                      )}
                       <span className="text-xs text-muted-foreground">
                         {item.partner?.name ?? "—"} · {item.news_date} · {partnerNewsTypeLabel(item.news_type)} · {partnerNewsProductLabel(item.product_area)} · {partnerNewsSourceLabel(item.source_type)}
                       </span>
                     </div>
+
                     <p className="font-medium truncate">{item.editorial_title}</p>
                     <p className="text-sm text-muted-foreground line-clamp-2">{item.summary}</p>
                     <a href={item.source_url} target="_blank" rel="noopener nofollow" className="text-xs text-[hsl(var(--cta-orange))] inline-flex items-center gap-1 mt-1">
                       Originalkälla <ExternalLink className="w-3 h-3" />
                     </a>
+                    </div>
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
                     <Select value={item.news_type} onValueChange={(v) => setType(item, v as PartnerNewsType)}>

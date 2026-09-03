@@ -1504,6 +1504,7 @@ export type Database = {
           id: string
           image_url: string | null
           industry: string | null
+          ingest_method: string
           is_featured: boolean
           news_date: string
           news_type: string
@@ -1521,6 +1522,7 @@ export type Database = {
           status: string
           summary: string
           updated_at: string
+          verbatim: boolean
         }
         Insert: {
           created_at?: string
@@ -1528,6 +1530,7 @@ export type Database = {
           id?: string
           image_url?: string | null
           industry?: string | null
+          ingest_method?: string
           is_featured?: boolean
           news_date?: string
           news_type?: string
@@ -1545,6 +1548,7 @@ export type Database = {
           status?: string
           summary: string
           updated_at?: string
+          verbatim?: boolean
         }
         Update: {
           created_at?: string
@@ -1552,6 +1556,7 @@ export type Database = {
           id?: string
           image_url?: string | null
           industry?: string | null
+          ingest_method?: string
           is_featured?: boolean
           news_date?: string
           news_type?: string
@@ -1569,6 +1574,7 @@ export type Database = {
           status?: string
           summary?: string
           updated_at?: string
+          verbatim?: boolean
         }
         Relationships: [
           {

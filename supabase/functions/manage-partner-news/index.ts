@@ -76,6 +76,9 @@ const NewsSchema = z.object({
   show_on_partner_profile: z.boolean().default(true),
   show_on_product_page: z.boolean().default(false),
   status: z.enum(["draft", "review", "approved", "published", "unpublished", "archived"]).default("draft"),
+  ingest_method: z.enum(["manual", "url", "feed"]).optional(),
+  verbatim: z.boolean().optional(),
+
 }).refine((v) => (v.product_areas && v.product_areas.length > 0) || !!v.product_area, {
   message: "Minst ett produktområde krävs",
   path: ["product_areas"],
@@ -155,7 +158,30 @@ serve(async (req) => {
         if (error) throw error;
         return new Response(JSON.stringify({ success: true, item: data }), { status: 200, headers: { "Content-Type": "application/json", ...cors } });
       }
+      case "bulk-set-status": {
+        const ids = z.array(z.string().uuid()).min(1).max(200).parse(body.ids);
+        const status = z.enum(["draft","review","approved","published","unpublished","archived"]).parse(body.status);
+        const patch: Record<string, unknown> = { status };
+        if (status === "published") patch.published_at = new Date().toISOString();
+        // Bevara ursprungligt publiceringsdatum för poster som redan varit publicerade
+        const { data: existing } = await supabase
+          .from("partner_news")
+          .select("id, published_at")
+          .in("id", ids);
+        const alreadyPublished = (existing ?? []).filter((r: { published_at: string | null }) => r.published_at).map((r: { id: string }) => r.id);
+        const fresh = ids.filter((id) => !alreadyPublished.includes(id));
+        if (fresh.length > 0) {
+          const { error } = await supabase.from("partner_news").update(patch).in("id", fresh);
+          if (error) throw error;
+        }
+        if (alreadyPublished.length > 0) {
+          const { error } = await supabase.from("partner_news").update({ status }).in("id", alreadyPublished);
+          if (error) throw error;
+        }
+        return new Response(JSON.stringify({ success: true, updated: ids.length }), { status: 200, headers: { "Content-Type": "application/json", ...cors } });
+      }
       case "delete": {
+
         const id = z.string().uuid().parse(body.id);
         const { error } = await supabase.from("partner_news").delete().eq("id", id);
         if (error) throw error;
