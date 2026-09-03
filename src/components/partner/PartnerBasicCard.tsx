@@ -136,8 +136,8 @@ export function PartnerBasicCard({
       )}
 
       {publicInfo && (
-        <section className="mb-6" aria-label="Publik information">
-          <h2 className="mb-2 text-sm font-semibold text-foreground">Publik information</h2>
+        <section className="mb-6" aria-label={`Om ${partner.name}`}>
+          <h2 className="mb-2 text-sm font-semibold text-foreground">Om {partner.name}</h2>
           <p className="text-sm leading-relaxed text-muted-foreground">{publicInfo}</p>
         </section>
       )}
