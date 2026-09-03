@@ -36,7 +36,7 @@ export default function BasicPartnerBadge({
       <Tooltip>
         <TooltipTrigger asChild>
           <span
-            aria-label="Ej verifierad profil"
+            aria-label={BASIC_PROFILE_LABEL}
             className={`inline-flex items-center rounded-full border border-border bg-muted font-semibold uppercase tracking-wide text-muted-foreground ${sizing} ${className}`}
           >
             <Info className={iconSize} aria-hidden="true" />
