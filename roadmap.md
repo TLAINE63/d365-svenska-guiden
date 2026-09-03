@@ -1,22 +1,17 @@
-# Roadmap
+# Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
-## Klart
-- [x] Pausa automatisk månadsrapport tills granskad
-  - [x] Pausa cron-jobb
-  - [x] Fail-safe-gate i edge-funktion
-  - [x] Godkännandekontroll före utskick
-  - [x] Admin UI: förhandsgranska + skicka manuellt
-  - [x] Build & deploy verifierat
+- [x] Basickort: rubrik "GRUNDPROFIL – EJ PARTNERVERIFIERAD" + ny förklaring
+- [x] Basickort: ny text för partner-CTA ("Granska, korrigera och komplettera profilen…")
+- [x] Partnerverifierad profil: rubrik + förklaring om profileringsavtal, ingen kvalitetscertifiering, ingen köpt fördel
+- [x] Partnerprofil: tydlig avsändare – "Partnerns information" vs "d365.se:s analys"
+- [x] Basic-profiler: redaktionella regler i AI-prompter + adminvarning (superlativ, namngivna konkurrenter)
+- [x] /agande-och-intressen: ta bort "valt att delta"/"deltagaravgift", ny modelltext
+- [x] /partnerprogram: konsekvent terminologi + rankingformulering
+- [x] Rankinglogik: ingen dold vikt för verified/paid/profiled
+- [x] "Alla relevanta partners" → säkrare formuleringar
+- [x] Dataskyddspolicy: avsnitt om kontaktpersoner/experter hos partners
+- [x] Footer: Företagsinformation (bolag, org.nr, moms, adress, e-post, telefon)
+- [x] Microsoft-disclaimer bevarad/förstärkt
+- [x] Global sökning efter gamla formuleringar
 
-## Klart
-- [x] Startsida: ersätt "17 verifierade partnerprofiler" med antal publicerade kunskapsartiklar (inkl. branschrapporter, produktfördjupningar m.m.)
-
-## Pågår
-- [x] Exponeringsspårning på branschsidor, partnerkatalog, produktsidors basickort, kunskapscenterlistor och föreslagna partners
-- [x] Logga exponering vid val av partner i jämförelsevyn
-- [x] Partner Performance-sektion (fyra nivåer) i månadsrapporten
-- [x] Kvalitetsgranskning av augustidata och identifiering av historiska mätluckor
-- [x] Gemensamma periodgränser, täckningsvarningar och administrativ bekräftelse
-- [x] Kompletterad spårning på produktlistor och startsidans alternativa partneryta
-- [ ] Verifiering av augusti per partner före manuellt godkännande
-- [ ] Manuell granskning, godkännande och utskick av månadsrapport (görs av admin i dashboarden)
+Öppet: org.nr, momsreg.nr och postadress för Dynamic Factory AB saknas i koden – behöver fyllas i.
