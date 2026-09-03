@@ -133,6 +133,9 @@ async function processFeed(supabase: ReturnType<typeof createClient>, feed: Feed
         status: "draft",
         source_feed_id: feed.id,
         source_guid: guid,
+        ingest_method: "feed",
+        verbatim: true,
+
       };
       const { error: insErr } = await supabase.from("partner_news").insert(payload);
       if (insErr) {
@@ -195,11 +198,29 @@ serve(async (req) => {
     return new Response(JSON.stringify({ error: error.message }), { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } });
   }
 
+  // Endast partnerverifierade profiler (profileringsavtal) får automatiskt inhämtat innehåll.
+  const partnerIds = Array.from(new Set(((feeds ?? []) as FeedRow[]).map((f) => f.partner_id)));
+  const verifiedIds = new Set<string>();
+  if (partnerIds.length > 0) {
+    const { data: partnerRows } = await supabase
+      .from("partners")
+      .select("id, is_featured")
+      .in("id", partnerIds);
+    for (const p of (partnerRows ?? []) as Array<{ id: string; is_featured: boolean }>) {
+      if (p.is_featured) verifiedIds.add(p.id);
+    }
+  }
+
   const results: Array<{ feed_id: string; partner_id: string; imported: number; skipped: number; error?: string }> = [];
   for (const f of (feeds ?? []) as FeedRow[]) {
+    if (!verifiedIds.has(f.partner_id)) {
+      results.push({ feed_id: f.id, partner_id: f.partner_id, imported: 0, skipped: 0, error: "Partnern är inte partnerverifierad – flödet hoppas över." });
+      continue;
+    }
     const r = await processFeed(supabase, f);
     results.push({ feed_id: f.id, partner_id: f.partner_id, ...r });
   }
+
   const totalImported = results.reduce((s, r) => s + r.imported, 0);
   console.log(`ingest-partner-feeds: processed ${results.length} feeds, imported ${totalImported}`);
   return new Response(JSON.stringify({ success: true, processed: results.length, imported: totalImported, results }), {
