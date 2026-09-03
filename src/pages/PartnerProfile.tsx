@@ -1,6 +1,10 @@
 
 import { useState, useEffect, useMemo } from "react";
 import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
+import {
+  PROFILE_EXPLAINER_VERIFIED_MORE,
+  PROFILE_EXPLAINER_VERIFIED_SHORT,
+} from "@/data/profileModel";
 
 import { useParams, Link, useSearchParams, useNavigate, Navigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
