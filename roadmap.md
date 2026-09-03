@@ -33,3 +33,11 @@
 - [ ] Steg 2: ny layout A–H (ingress, huvudsiffra, urvalstratt, utveckling, jämförelsetabell utan "Alla profiler (summa)", företagsblock, synlighetsråd, "Det här hände på d365.se")
 - [ ] Steg 3: dölj sektioner utan data (aldrig synliga nollor)
 - [ ] Steg 4: server-side verifiering med curl/jq/grep + PDF-format
+
+## Basicutskick v2 (2026-09-03)
+- [x] Steg 0: inventering av basicutskick (redovisad, väntar godkännande)
+- [ ] Steg 1: nya beräkningar (missade matchningar, basickortstrafik, referensvärden, nisch, profiltext, nedräkning)
+- [ ] Steg 2: ny layout A-I
+- [ ] Steg 3: felsäkring/skipped-status
+- [ ] Steg 4: curl-verifiering + json/html/pdf-format
+- [x] PDF av partnerkort Fellowmind + Accigo
