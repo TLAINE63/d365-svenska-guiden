@@ -131,7 +131,9 @@ const PartnerAiInsights = ({ partner }: Props) => {
             )}
 
             <p className="text-[11px] leading-snug text-muted-foreground">
-              AI-assisterad analys baserad på partnerdata, publika källor och dokumenterade referenser.
+              d365.se:s egen, AI-assisterade bedömning baserad på partnerdata, publika källor och
+              dokumenterade referenser. Det är en bedömning – inte verifierade fakta – och den är
+              inte granskad eller godkänd av partnern.
             </p>
 
             {hasDeepDive && (
