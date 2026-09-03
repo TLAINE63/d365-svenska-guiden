@@ -664,9 +664,15 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
             <DialogTitle>{form.id ? "Redigera partnernytt" : "Ny partnernytt"}</DialogTitle>
           </DialogHeader>
 
-          <div className="rounded-md border-l-4 border-[hsl(var(--cta-orange))] bg-orange-50 p-3 text-xs text-orange-900">
-            Partnernytt är ett urval för köpare av Dynamics 365. Publicera bara innehåll som hjälper en köpare att förstå partnerns erbjudande, erfarenhet, branschfokus eller marknadsaktivitet. Kopiera aldrig hela LinkedIn-inlägg eller externa artiklar – skriv en kort redaktionell sammanfattning och länka till originalkällan.
-          </div>
+          {form.verbatim ? (
+            <div className="rounded-md border-l-4 border-emerald-500 bg-emerald-50 p-3 text-xs text-emerald-900">
+              Texten är hämtad ordagrant från partnerns källa – den har inte skrivits om av AI. Kategoriseringen nedan är ett AI-förslag som du bör granska. Länken till originalkällan måste alltid finnas kvar.
+            </div>
+          ) : (
+            <div className="rounded-md border-l-4 border-[hsl(var(--cta-orange))] bg-orange-50 p-3 text-xs text-orange-900">
+              Partnernytt är ett urval för köpare av Dynamics 365. Publicera bara innehåll som hjälper en köpare att förstå partnerns erbjudande, erfarenhet, branschfokus eller marknadsaktivitet. Länka alltid till originalkällan.
+            </div>
+          )}
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
