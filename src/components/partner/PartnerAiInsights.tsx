@@ -1,5 +1,6 @@
 import { Check, Minus } from "lucide-react";
 import { DatabasePartner } from "@/hooks/usePartners";
+import { trackPartnerCardEvent } from "@/utils/trackPartnerEvent";
 
 interface Props {
   partner: DatabasePartner & {
@@ -137,7 +138,18 @@ const PartnerAiInsights = ({ partner }: Props) => {
             </p>
 
             {hasDeepDive && (
-              <details className="group border-t border-border pt-4">
+              <details
+                className="group border-t border-border pt-4"
+                onToggle={(e) => {
+                  if ((e.currentTarget as HTMLDetailsElement).open) {
+                    trackPartnerCardEvent(
+                      "visa_fordjupad_analys",
+                      { slug: partner.slug, id: partner.id },
+                      "verifierad",
+                    );
+                  }
+                }}
+              >
                 <summary className="cursor-pointer list-none text-sm font-semibold text-foreground marker:hidden">
                   <span className="group-open:hidden">Visa fördjupad analys</span>
                   <span className="hidden group-open:inline">Dölj fördjupad analys</span>
