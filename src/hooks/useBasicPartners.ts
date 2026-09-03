@@ -155,18 +155,18 @@ export const BASIC_COPY = {
   productsLabel:
     "Observerade produktområden baserade på partnerns publika information.",
   extendedLabel:
-    "Publik information sammanställd av d365.se från publikt tillgängliga källor.",
+    "Sammanställd av d365.se utifrån publikt tillgängliga uppgifter – inte granskad av partnern.",
   footer:
     "Den här översikten är sammanställd av d365.se utifrån publika källor.",
   partnerRepHeading: "Representerar du denna partner?",
   partnerRepBody:
-    "Verifiera och komplettera informationen så att kunder får ett korrekt underlag när de jämför Dynamics 365-partners.",
+    "Granska, korrigera och komplettera profilen så att kunder får ett så korrekt beslutsunderlag som möjligt.",
   cta: "Komplettera partnerprofilen",
   standaloneNoContact:
     "Kontaktväg via d365.se är inte aktiverad för denna profil.",
   buyerGuidanceCta: "Kontakta d365.se för vägledning",
   buyerGuidanceBody:
-    "d365.se har inte en verifierad direktkontakt kopplad till denna profil, men vi kan hjälpa dig att bedöma alternativen och komma vidare.",
+    "d365.se har ingen partnerbekräftad direktkontakt kopplad till denna profil, men vi kan hjälpa dig att bedöma alternativen och komma vidare.",
   matchingLimited: "Begränsad data: partnern kan inte bedömas fullt ut.",
   compareMissing: "data saknas",
 } as const;
