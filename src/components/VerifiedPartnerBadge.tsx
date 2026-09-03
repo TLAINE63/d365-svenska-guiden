@@ -1,5 +1,9 @@
 import { BadgeCheck } from "lucide-react";
 import {
+  PROFILE_EXPLAINER_VERIFIED,
+  PROFILE_LABEL_VERIFIED,
+} from "@/data/profileModel";
+import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
