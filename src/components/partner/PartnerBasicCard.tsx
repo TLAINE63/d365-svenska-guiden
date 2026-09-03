@@ -49,6 +49,36 @@ export function PartnerBasicCard({
   const documented = documentedProductKeys(partner);
   const additional = documented.filter((k) => k !== excludeProductKey);
 
+  // Partnerfakta (grundprofil): värde eller "Uppgift saknas" per fält.
+  const uniq = (arr: string[]) => Array.from(new Set(arr));
+  const factIndustries = uniq(
+    PRODUCT_ORDER.flatMap((k) => partner.observed_industries?.[k] || []),
+  );
+  const factSizes = uniq(
+    PRODUCT_ORDER.flatMap((k) => partner.observed_company_sizes?.[k] || []),
+  );
+  const factGeo = uniq(
+    PRODUCT_ORDER.flatMap((k) => partner.observed_delivery_geo?.[k] || []),
+  );
+  const factRows: { label: string; value: string | null }[] = [
+    {
+      label: "Primärt Dynamics 365-område",
+      value: documented.length ? documented.map((k) => PRODUCT_LABEL[k]).join(", ") : null,
+    },
+    { label: "Huvudbranscher", value: factIndustries.length ? factIndustries.join(", ") : null },
+    { label: "Företagsstorlek", value: factSizes.length ? factSizes.join(", ") : null },
+    {
+      label: "Geografi",
+      value: factGeo.length ? factGeo.join(", ") : locations.length ? locations.join(", ") : null,
+    },
+    { label: "Kontaktperson", value: null },
+    // Sekundära fält grupperas till en rad för att undvika upprepade "Uppgift saknas" i rad.
+    {
+      label: "Kundcase, referenser och kompetensnivåer inom Power Platform, Copilot och Copilot Studio",
+      value: null,
+    },
+  ];
+
   const publicInfo =
     partner.extended_summary?.trim() ||
     (partner.extended_content
