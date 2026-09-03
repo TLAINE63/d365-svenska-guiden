@@ -15,3 +15,13 @@
 - [x] Global sökning efter gamla formuleringar
 
 Öppet: org.nr, momsreg.nr och postadress för Dynamic Factory AB saknas i koden – behöver fyllas i.
+
+## Uppdatering 2026-09-03 (transparenspaket)
+- [x] Basic-CTA/body till "Granska, korrigera och komplettera profilen ..."
+- [x] Partnerverifierad-förklaring på partnerprofil + källmärkning av d365.se:s analys
+- [x] Partnerprogram: terminologi, ranking-formulering, kartläggningstext
+- [x] Global textsökning verifierad/alla relevanta – ersatt
+- [x] Rankinglogik: agreement_signed-bonus borttagen i suggestPartners.ts och crmMatchingPartners.ts
+- [x] Dataskyddspolicy: nytt avsnitt om kontaktpersoner/experter
+- [x] Footer: Företagsinformation (org.nr/VAT/postadress renderas när värden fylls i organization.ts)
+- [ ] Saknas: faktiskt organisationsnummer, momsregistreringsnummer och postadress för Dynamic Factory AB
