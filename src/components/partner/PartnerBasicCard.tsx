@@ -12,6 +12,7 @@ import { BASIC_PROFILE_DISCLAIMER, BASIC_PROFILE_LABEL } from "@/components/Basi
 import BasicPartnerInquiryDialog from "@/components/BasicPartnerInquiryDialog";
 import { Button } from "@/components/ui/button";
 import ShortlistButton from "@/components/ShortlistButton";
+import { trackPartnerCardEvent } from "@/utils/trackPartnerEvent";
 
 
 interface PartnerBasicCardProps {
@@ -152,7 +153,10 @@ export function PartnerBasicCard({
         <Button
           type="button"
           size="sm"
-          onClick={() => setInquiryOpen(true)}
+          onClick={() => {
+            trackPartnerCardEvent("klick_kontakta_vagledning", { slug: partner.slug }, "basic");
+            setInquiryOpen(true);
+          }}
           className="mt-3 bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
         >
           <Mail className="mr-1.5 h-3.5 w-3.5" aria-hidden />
@@ -160,6 +164,7 @@ export function PartnerBasicCard({
         </Button>
         <ShortlistButton
           className="mt-3"
+          cardType="basic"
           entry={{
             slug: partner.slug,
             name: partner.name,
@@ -187,6 +192,9 @@ export function PartnerBasicCard({
         </p>
         <Link
           to="/partnerprogram/"
+          onClick={() =>
+            trackPartnerCardEvent("klick_komplettera_partnerprofil", { slug: partner.slug }, "basic")
+          }
           className="group mt-2 inline-flex items-center gap-1 text-sm text-muted-foreground underline-offset-2 transition-colors hover:text-foreground hover:underline"
         >
           {BASIC_COPY.cta}
