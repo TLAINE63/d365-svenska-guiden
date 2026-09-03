@@ -110,7 +110,7 @@ export const BasicPartnerInquiryDialog = ({
         <DialogHeader>
           <DialogTitle>Kontakta d365.se om {partnerName}</DialogTitle>
           <DialogDescription>
-            Denna partner har en ej verifierad profil och kontaktvägen via d365.se är inte aktiverad. Fyll i dina uppgifter så hjälper d365.se dig att hitta rätt kontakt.
+            Denna partner har en grundprofil (ej partnerverifierad) och kontaktvägen via d365.se är inte aktiverad. Fyll i dina uppgifter så hjälper d365.se dig att hitta rätt kontakt.
           </DialogDescription>
         </DialogHeader>
 

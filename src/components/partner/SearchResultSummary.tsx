@@ -7,7 +7,7 @@ export interface SearchCriterion {
 interface SearchResultSummaryProps {
   /** Aktiva sökkriterier – visas en gång ovanför resultatlistan */
   criteria: (string | null | undefined)[];
-  /** Antal verifierade partners som matchar */
+  /** Antal partnerverifierade profiler som matchar */
   count: number;
   /** Länk/åtgärd för att ändra filter (scrollar till filtren) */
   onChangeFilters?: () => void;
@@ -30,8 +30,8 @@ export default function SearchResultSummary({
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <h3 className="text-base sm:text-lg font-bold text-foreground">
           {count === 1
-            ? "1 verifierad partner matchar dina kriterier"
-            : `${count} verifierade partners matchar dina kriterier`}
+            ? "1 partnerverifierad profil matchar dina kriterier"
+            : `${count} partnerverifierade profiler matchar dina kriterier`}
         </h3>
         {onChangeFilters && (
           <button

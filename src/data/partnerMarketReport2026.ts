@@ -20,7 +20,7 @@ export const REPORT_STATS: ReportStat[] = [
     group: "overblick",
   },
   {
-    label: "Verifierade profiler",
+    label: "Partnerverifierade profiler",
     value: 17,
     note: "Partners som själva granskat och godkänt sin profil på d365.se.",
     group: "overblick",

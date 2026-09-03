@@ -13,7 +13,7 @@ const breadcrumbs = [
 ];
 
 /**
- * Ren HTML-sitemap över alla verifierade partners.
+ * Ren HTML-sitemap över alla partnerverifierade profiler.
  * Använder partnerData.json direkt så att SSG-prerendret innehåller
  * fullständiga <a href>-länkar utan beroende av klient-fetch.
  */
@@ -37,7 +37,7 @@ export default function PartnersSitemap() {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Partners-sitemap – alla Dynamics 365-partners | d365.se"
-        description="HTML-sitemap över alla verifierade Microsoft Dynamics 365-partners på d365.se – sorterade A–Ö, per produktområde och per bransch."
+        description="HTML-sitemap över alla partnerverifierade Dynamics 365-profiler på d365.se – sorterade A–Ö, per produktområde och per bransch."
         canonicalPath="/partners-sitemap/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
@@ -55,7 +55,7 @@ export default function PartnersSitemap() {
               Partners-sitemap
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground">
-              En ren HTML-översikt över alla {featured.length} verifierade
+              En ren HTML-översikt över alla {featured.length} partnerverifierade
               Microsoft Dynamics 365-partners på d365.se. Sidan finns för att
               både sökmotorer och AI-assistenter ska hitta alla partners som
               vanliga länkar.

@@ -14,7 +14,7 @@ import partnerData from "@/data/partnerData.json";
 /**
  * "Se din profil idag" – kostnadsfri profilkoll. Partnern anger företagsnamn och ser
  * direkt en sammanfattning av nuvarande profil, en informationspoäng, vilka fält som
- * saknas och hur en verifierad profil ser ut. Endast redan publik information visas.
+ * saknas och hur en partnerverifierad profil ser ut. Endast redan publik information visas.
  */
 
 type RawPartner = Record<string, any>;
@@ -83,7 +83,7 @@ function basicRows(p: BasicPartner): CheckRow[] {
       weight: 5,
       detail: locations.length ? locations.slice(0, 5).join(", ") : undefined,
     },
-    { label: "Verifierad beskrivning av din specialisering", present: false, weight: 12 },
+    { label: "Partnerbekräftad beskrivning av din specialisering", present: false, weight: 12 },
     { label: "Kundcase och referenser", present: false, weight: 12 },
     { label: "Passar bäst för / mindre lämplig för", present: false, weight: 10 },
     { label: "Typiska kunder, projekt och leveransprofil", present: false, weight: 10 },
@@ -300,7 +300,7 @@ const PartnerProfileCheck = ({ initialSlug }: { initialSlug?: string | null }) =
           </h2>
           <p className="text-muted-foreground mb-6">
             Skriv in ditt företagsnamn så visar vi direkt en sammanfattning av din nuvarande profil,
-            en informationspoäng, vilka fält som saknas och hur en verifierad profil ser ut.
+            en informationspoäng, vilka fält som saknas och hur en partnerverifierad profil ser ut.
           </p>
         </div>
 
