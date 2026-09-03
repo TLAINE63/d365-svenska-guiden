@@ -71,6 +71,7 @@ REGLER:
   * Relevanta lösningar (moduler, branschappar, integrationer)
 - Undvik generell företagsbeskrivning och upprepning av standardtext – ingen "om oss"-text.
 - Neutral och rådgivande ton. Inga superlativ ("bäst", "ledande", "premium", "marknadsledande").
+- Nämn ALDRIG andra partners/konkurrenter vid namn och gör inga jämförelser med namngivna företag. Påstå inget om certifieringsnivå, designations eller antal certifierade konsulter som inte uttryckligen framgår av underlaget.
 - Anta att läsaren kan sin egen bransch – förklara inte branschen i sig.
 - Skriv som om kunden redan har valt Dynamics 365.
 - Skriv i tredje person ("Partnern levererar...", "De har...") eller med partnernamnet.

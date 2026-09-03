@@ -85,6 +85,7 @@ REGLER:
 - Varje punkt ska inledas med "- " (bindestreck + mellanslag).
 - Lyft fram: vilka D365-applikationer/typ av partner de är (t.ex. "Svensk specialist på Business Central"), branschfokus, typ av kund de passar för, geografi, och särskilda styrkor/nischkompetenser.
 - Skriv i tredje person, neutralt och rådgivande. Ingen säljjargong, inga superlativ ("bäst", "ledande", "premium", "marknadsledande").
+- Nämn ALDRIG andra partners/konkurrenter vid namn och gör inga jämförelser med namngivna företag. Påstå inget om certifieringsnivå, designations eller antal certifierade konsulter som inte uttryckligen framgår av underlaget.
 - Nämn EJ pris, antal anställda, eller konkurrenter.
 - Skriv ALDRIG ut "AI-genererad", "Sammanfattning:" eller liknande meta-text.
 - Ingen inledande eller avslutande mening. Endast de 5 punkterna.

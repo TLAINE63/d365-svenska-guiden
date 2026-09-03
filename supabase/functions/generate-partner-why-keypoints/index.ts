@@ -123,6 +123,7 @@ REGLER för whyChoose:
 - Konkret om HUR partnern jobbar med ${section.label}: leveransmodell, branschstyrka, projekttyp, effekter.
 - Första person plural (vi/oss/vår).
 - Ingen säljjargong ("bäst", "ledande", "marknadsledande", "premium", "experter"), inga superlativ.
+- Nämn ALDRIG andra partners/konkurrenter vid namn och gör inga jämförelser med namngivna företag. Påstå inget om certifieringsnivå, designations eller antal certifierade konsulter som inte uttryckligen framgår av underlaget.
 - Använd inte ordet "oberoende".
 - Nämn inte pris, konkurrenter eller antal anställda.
 

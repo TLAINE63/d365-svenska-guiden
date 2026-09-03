@@ -135,6 +135,7 @@ REGLER (mycket viktigt):
 - Konkret: nämn bransch(er), företagsstorlek/segment ELLER en specifik utmaning där partnern är starka för ${app}.
 - Skriv i första person plural (vi/oss).
 - Ingen säljjargong, inga superlativ ("bäst", "ledande", "marknadsledande", "premium", "experter").
+- Nämn ALDRIG andra partners/konkurrenter vid namn och gör inga jämförelser med namngivna företag. Påstå inget om certifieringsnivå, designations eller antal certifierade konsulter som inte uttryckligen framgår av underlaget.
 - Nämn inte pris, antal anställda eller konkurrenter.
 - Använd inte ordet "oberoende".
 - Skriv inte ut "Vi är valet när vi …" – meningen ska beskriva KUNDENS situation, inte er aktivitet.
