@@ -9,7 +9,7 @@ interface Props {
 }
 
 const POINTS = [
-  "d365.se kartlägger den svenska Dynamics 365-partnermarknaden. Alla relevanta partners finns med, medan partners vi samarbetar med kan komplettera sin profil med mer information. Vilka partners som matchar ett företag avgörs av relevans och behov.",
+  "d365.se kartlägger löpande relevanta Dynamics 365-partners på den svenska marknaden. Partners utan profileringsavtal visas med en grundprofil sammanställd från publika källor, medan partners med profileringsavtal själva kan granska och komplettera sin profil. Vilka partners som matchar ett företag avgörs av relevans och behov.",
 ];
 
 /**
@@ -30,7 +30,7 @@ export default function TrustBanner({ variant = "full", className = "" }: Props)
               Så fungerar d365.se:
             </span>
             <span className="flex-1">
-              d365.se kartlägger den svenska Dynamics 365-partnermarknaden. Alla relevanta partners finns med, medan partners vi samarbetar med kan komplettera sin profil med mer information. Vilka partners som matchar ett företag avgörs av relevans och behov.
+              d365.se kartlägger löpande relevanta Dynamics 365-partners på den svenska marknaden. Partners utan profileringsavtal visas med en grundprofil sammanställd från publika källor, medan partners med profileringsavtal själva kan granska och komplettera sin profil. Vilka partners som matchar ett företag avgörs av relevans och behov.
             </span>
             <Link
               to="/agande-och-intressen/"
