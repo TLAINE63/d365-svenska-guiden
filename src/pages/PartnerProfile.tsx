@@ -481,17 +481,39 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   {partner.logo_url ? (
   <>
     <h1 className="sr-only">{partner.name}</h1>
-    <Link
-      to={slug ? `/partner/${slug}/` : "/"}
+    {partner.website ? (
+    <a
+      href={partner.website}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={() =>
+        trackPartnerEvent({
+          event: "klick_utgaende_partnersajt",
+          partnerSlug: partner.slug,
+          partnerId: partner.id ?? null,
+          cardType: "verifierad",
+          productArea: activeTabProduct || selectedProduct || null,
+          metadata: { via: "logo", target: partner.website },
+        })
+      }
       className="w-48 h-28 sm:w-64 sm:h-32 flex items-center justify-center overflow-hidden rounded hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-      aria-label={`Till ${partner.name}s landningssida`}
+      aria-label={`Till ${partner.name}s webbplats (öppnas i ny flik)`}
     >
       <img
       src={partner.logo_url}
       alt={`${partner.name} logotyp`}
       className="max-w-full max-h-full object-contain"
       />
-    </Link>
+    </a>
+    ) : (
+    <div className="w-48 h-28 sm:w-64 sm:h-32 flex items-center justify-center overflow-hidden rounded">
+      <img
+      src={partner.logo_url}
+      alt={`${partner.name} logotyp`}
+      className="max-w-full max-h-full object-contain"
+      />
+    </div>
+    )}
   </>
   ) : (
   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight">
