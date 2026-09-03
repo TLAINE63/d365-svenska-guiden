@@ -155,16 +155,22 @@ export function PartnerBasicCard({
         </p>
       </div>
 
-      {documented.length > 0 && (
-        <section className="mb-6" aria-label="Dynamics 365-områden">
-          <h2 className="mb-2 text-sm font-semibold text-foreground">Dynamics 365-områden</h2>
-          <ul className="space-y-1 text-sm text-muted-foreground">
-            {documented.map((k) => (
-              <li key={k}>{PRODUCT_LABEL[k]}</li>
-            ))}
-          </ul>
-        </section>
-      )}
+      <section className="mb-6" aria-label="Partnerfakta">
+        <h2 className="mb-2 text-sm font-semibold text-foreground">Partnerfakta</h2>
+        <dl className="divide-y divide-border rounded-lg border border-border">
+          {factRows.map((row) => (
+            <div key={row.label} className="flex flex-col gap-0.5 px-4 py-2.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+              <dt className="text-sm text-muted-foreground">{row.label}</dt>
+              <dd className={`text-sm sm:text-right ${row.value ? "font-medium text-foreground" : "text-muted-foreground"}`}>
+                {row.value ?? BASIC_COPY.missingValue}
+              </dd>
+            </div>
+          ))}
+        </dl>
+        <p className="mt-2 text-xs leading-snug text-muted-foreground">
+          {BASIC_COPY.partnerFactsNote}
+        </p>
+      </section>
 
       {publicInfo && (
         <section className="mb-6" aria-label={`Om ${partner.name}`}>
@@ -219,6 +225,9 @@ export function PartnerBasicCard({
         </h2>
         <p className="mt-1 text-xs leading-snug text-muted-foreground">
           {BASIC_COPY.partnerRepBody}
+        </p>
+        <p className="mt-1 text-xs leading-snug text-muted-foreground">
+          {BASIC_COPY.partnerRepNoForwarding}
         </p>
         <Link
           to="/partnerprogram/"
