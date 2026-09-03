@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
 import { AlertCircle, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { trackFormStarted, trackFormSubmitted } from "@/utils/trackPartnerEvent";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
 
 interface PartnerRequestDialogProps {
@@ -212,6 +213,10 @@ const PartnerRequestDialog = ({
     onOpenChange(next);
   };
 
+  const formId = `partner_request_${mode}`;
+  const handleFormStart = () =>
+    trackFormStarted({ slug: partnerSlug }, "verifierad", formId, selectedProduct ?? null);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setAttemptedSubmit(true);
@@ -302,6 +307,7 @@ const PartnerRequestDialog = ({
             ? `Skickad till ${targets.length - failed.length} av ${targets.length} partners. Vi följer upp de övriga manuellt.`
             : config.toastDescription(displayName),
       });
+      trackFormSubmitted({ slug: partnerSlug }, "verifierad", formId, selectedProduct ?? null);
       reset();
       onOpenChange(false);
     } catch (err) {
@@ -401,7 +407,7 @@ const PartnerRequestDialog = ({
           </div>
         )}
 
-        <form onSubmit={handleSubmit} noValidate className="space-y-3">
+        <form onSubmit={handleSubmit} onInputCapture={handleFormStart} noValidate className="space-y-3">
           {/* Honeypot */}
           <input
             type="text"

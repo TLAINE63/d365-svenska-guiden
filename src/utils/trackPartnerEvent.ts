@@ -27,7 +27,23 @@ export type PartnerEventName =
   | "partner_match_recommended"
   | "partner_match_selected"
   | "partner_contact_request"
-  | "partner_intro_request";
+  | "partner_intro_request"
+  // Kortspecifika handlingar (närmare köp än en profilvisning)
+  | "spara_shortlist"
+  | "lagg_till_jamforelse"
+  | "klick_stall_fraga"
+  | "klick_boka_demo"
+  | "klick_uppskattning_kostnad"
+  | "klick_utgaende_partnersajt"
+  | "klick_kundcase"
+  | "formular_paborjat"
+  | "formular_skickat"
+  | "visa_fordjupad_analys"
+  | "klick_kontakta_vagledning"
+  | "klick_komplettera_partnerprofil";
+
+/** Korttyp: partnerverifierad profil eller grundprofil. */
+export type PartnerCardType = "verifierad" | "basic";
 
 export type PartnerIntentTrack = "erp" | "crm" | "ai";
 
@@ -36,6 +52,9 @@ export interface PartnerEventInput {
   partnerSlug: string;
   partnerId?: string | null;
   intentTrack?: PartnerIntentTrack | null;
+  cardType?: PartnerCardType | null;
+  /** Valt produktområde när händelsen inträffade (t.ex. business_central). */
+  productArea?: string | null;
   metadata?: Record<string, unknown>;
 }
 
@@ -119,6 +138,8 @@ type QueuedEvent = {
   session_id: string;
   page_path: string;
   intent_track: string | null;
+  card_type: string | null;
+  product_area: string | null;
   metadata: Record<string, unknown>;
   client_ts: string;
 };
@@ -169,6 +190,8 @@ export const trackPartnerEvent = (input: PartnerEventInput): void => {
     session_id: getSessionId(),
     page_path: window.location.pathname,
     intent_track: input.intentTrack ?? null,
+    card_type: input.cardType ?? null,
+    product_area: input.productArea ?? null,
     metadata: input.metadata ?? {},
     client_ts: new Date().toISOString(),
   });
@@ -193,4 +216,61 @@ export const trackPartnerImpression = (
     if (seenImpression(`${ctx}:${p.slug}`)) continue;
     trackPartnerEvent({ event, partnerSlug: p.slug, partnerId: p.id ?? null, metadata });
   }
+};
+
+/**
+ * Loggar en kortspecifik handling (shortlist, jämförelse, formulär, utgående klick m.m.).
+ */
+export const trackPartnerCardEvent = (
+  event: PartnerEventName,
+  partner: { slug: string; id?: string | null },
+  cardType: PartnerCardType,
+  productArea?: string | null,
+  metadata: Record<string, unknown> = {},
+): void => {
+  if (!partner?.slug) return;
+  trackPartnerEvent({
+    event,
+    partnerSlug: partner.slug,
+    partnerId: partner.id ?? null,
+    cardType,
+    productArea: productArea ?? null,
+    metadata,
+  });
+};
+
+const FORM_STARTED_KEY = "d365-form-started";
+
+/**
+ * formular_paborjat loggas en gång per session, partner och formulär.
+ * Fältinnehåll loggas aldrig.
+ */
+export const trackFormStarted = (
+  partner: { slug: string; id?: string | null },
+  cardType: PartnerCardType,
+  formId: string,
+  productArea?: string | null,
+): void => {
+  if (typeof window === "undefined" || !partner?.slug) return;
+  const key = `${partner.slug}:${formId}`;
+  try {
+    const raw = sessionStorage.getItem(FORM_STARTED_KEY);
+    const set: string[] = raw ? JSON.parse(raw) : [];
+    if (set.includes(key)) return;
+    set.push(key);
+    sessionStorage.setItem(FORM_STARTED_KEY, JSON.stringify(set.slice(-200)));
+  } catch {
+    /* ignore */
+  }
+  trackPartnerCardEvent("formular_paborjat", partner, cardType, productArea, { form_id: formId });
+};
+
+/** Skickat formulär (nivå 4). */
+export const trackFormSubmitted = (
+  partner: { slug: string; id?: string | null },
+  cardType: PartnerCardType,
+  formId: string,
+  productArea?: string | null,
+): void => {
+  trackPartnerCardEvent("formular_skickat", partner, cardType, productArea, { form_id: formId });
 };

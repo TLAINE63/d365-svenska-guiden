@@ -13,6 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
+import { trackFormStarted, trackFormSubmitted } from "@/utils/trackPartnerEvent";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
 import { Send } from "lucide-react";
 
@@ -53,6 +54,9 @@ export const BasicPartnerInquiryDialog = ({
     }
   }, [open]);
 
+  const handleFormStart = () =>
+    trackFormStarted({ slug: partnerSlug }, "basic", "basic_partner_inquiry", selectedProduct ?? null);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.company_name || !form.contact_name || !form.email) {
@@ -88,6 +92,7 @@ export const BasicPartnerInquiryDialog = ({
       });
       if (error) throw error;
       setSubmitted(true);
+      trackFormSubmitted({ slug: partnerSlug }, "basic", "basic_partner_inquiry", selectedProduct ?? null);
       toast({
         title: "Tack!",
         description: `d365.se återkommer med vägledning kring ${partnerName}.`,
@@ -125,7 +130,7 @@ export const BasicPartnerInquiryDialog = ({
             </Button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-3">
+          <form onSubmit={handleSubmit} onInputCapture={handleFormStart} className="space-y-3">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div className="space-y-1">
                 <Label htmlFor="basic-company">Företag *</Label>
