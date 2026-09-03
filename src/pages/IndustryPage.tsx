@@ -709,9 +709,10 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
     inom {industryName}
    </h3>
    <p className="text-sm text-muted-foreground mb-5 max-w-3xl">
-    Grundläggande information sammanställd av d365.se från publika källor. Profilerna är
-    ännu inte verifierade av partnern och saknar därför kontaktuppgifter och detaljerade
-    kompetenser. Hör av dig till oss så hjälper vi dig vidare.
+     Grundprofiler sammanställda av d365.se utifrån publikt tillgängliga uppgifter.
+     Informationen har inte granskats eller bekräftats av partnern och profilerna saknar
+     därför kontaktuppgifter och detaljerade kompetenser. Hör av dig till oss så hjälper
+     vi dig vidare.
    </p>
    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
     {matchingBasicPartners.map((bp) => (
