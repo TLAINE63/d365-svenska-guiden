@@ -1383,7 +1383,7 @@ serve(async (req) => {
         }
         const companies = Array.from(byOrg.values()).sort((a, b) => b.visit_count - a.visit_count);
 
-        const stats = await buildDraftStats(supabase, partner, start, end, companies, { skipPrevious: true });
+        const stats = await buildDraftStats(supabase, partner, start, end, companies, { skipPrevious: true, partnerRow: partner });
         const c = stats.current;
         const exposure = (c.guideListingViews ?? 0) + c.compareViews + c.industryListingViews;
         const periodLabel = `${start} – ${end}`;
