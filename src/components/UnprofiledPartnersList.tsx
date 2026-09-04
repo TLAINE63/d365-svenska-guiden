@@ -99,7 +99,7 @@ const UnprofiledPartnersList = ({
     });
     deduped.sort((a, b) => a.name.localeCompare(b.name, "sv"));
     return deduped;
-  }, [unprofiled, allNames, basicPartners, productKey]);
+  }, [unprofiled, allNames, basicPartners, productKey, industry]);
 
   if (l1 || l2 || l3) return null;
   if (combined.length === 0) return null;
