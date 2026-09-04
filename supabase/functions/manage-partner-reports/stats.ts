@@ -313,36 +313,169 @@ function shiftDays(dateIso: string, days: number): string {
   return d.toISOString().slice(0, 10);
 }
 
+function median(values: number[]): number {
+  if (!values.length) return 0;
+  const s = [...values].sort((a, b) => a - b);
+  const mid = Math.floor(s.length / 2);
+  return s.length % 2 ? s[mid] : Math.round((s[mid - 1] + s[mid]) / 2);
+}
+
+/** Medianer och placering bland jämförbara partnerverifierade profiler. */
+async function fetchPeerMedians(
+  supabase: any,
+  slug: string,
+  startIso: string,
+  endIso: string,
+): Promise<PeerMedians | undefined> {
+  const { data: peers } = await supabase.from("partners").select("slug").eq("is_featured", true);
+  const slugs = (peers || []).map((p: any) => p.slug).filter(Boolean);
+  if (slugs.length < 3) return undefined;
+
+  const [viewsRes, exposureRes, eventsRes] = await Promise.all([
+    supabase.from("partner_profile_views").select("partner_slug, view_type")
+      .gte("viewed_at", startIso).lt("viewed_at", endIso).limit(100000),
+    supabase.from("partner_filter_exposures").select("partner_slug")
+      .gte("viewed_at", startIso).lt("viewed_at", endIso).limit(100000),
+    supabase.from("partner_engagement_events").select("partner_slug, event_level")
+      .gte("occurred_at", startIso).lt("occurred_at", endIso).limit(100000),
+  ]);
+
+  const visits = new Map<string, number>();
+  const exposures = new Map<string, number>();
+  const contacts = new Map<string, number>();
+  const bump = (m: Map<string, number>, k: string) => m.set(k, (m.get(k) || 0) + 1);
+  for (const r of viewsRes.data || []) if (r.view_type === "profile_visit") bump(visits, r.partner_slug);
+  for (const r of exposureRes.data || []) bump(exposures, r.partner_slug);
+  for (const r of eventsRes.data || []) {
+    if (Number(r.event_level) === 1) bump(exposures, r.partner_slug);
+    if (Number(r.event_level) === 4) bump(contacts, r.partner_slug);
+  }
+
+  const visitSeries = slugs.map((s: string) => visits.get(s) || 0);
+  const exposureSeries = slugs.map((s: string) => exposures.get(s) || 0);
+  const contactSeries = slugs.map((s: string) => contacts.get(s) || 0);
+
+  const rank = (m: Map<string, number>) => {
+    const own = m.get(slug) || 0;
+    const higher = slugs.filter((s: string) => (m.get(s) || 0) > own).length;
+    return higher + 1;
+  };
+
+  return {
+    partnerCount: slugs.length,
+    profileVisits: median(visitSeries),
+    exposures: median(exposureSeries),
+    contactRequests: median(contactSeries),
+    rankProfileVisits: rank(visits),
+    rankExposures: rank(exposures),
+  };
+}
+
+/** Grovhugget storleksintervall utan att exponera exakt företagsstorlek. */
+export function sizeBucket(raw: string | null | undefined): string {
+  const m = String(raw || "").match(/\d+/);
+  if (!m) return "Okänd storlek";
+  const n = parseInt(m[0], 10);
+  if (n <= 50) return "1–50 anställda";
+  if (n <= 200) return "51–200 anställda";
+  if (n <= 1000) return "201–1000 anställda";
+  return "1000+ anställda";
+}
+
+/**
+ * Aggregerar besökande företag till bransch + grov storlek.
+ * Rader med färre än två företag slås ihop till "Övriga branscher".
+ */
+export function buildCompanyBlock(companies: any[]): { rows: CompanyBlockRow[]; suppressed: number } {
+  const map = new Map<string, CompanyBlockRow>();
+  for (const c of companies || []) {
+    const industry = String(c.company_industry || "").trim() || "Bransch ej angiven";
+    const bucket = sizeBucket(c.company_size);
+    const key = `${industry}|${bucket}`;
+    const row = map.get(key) || { industry, sizeBucket: bucket, companies: 0, visits: 0 };
+    row.companies += 1;
+    row.visits += Number(c.visit_count || 0);
+    map.set(key, row);
+  }
+  const rows: CompanyBlockRow[] = [];
+  const other: CompanyBlockRow = { industry: "Övriga branscher", sizeBucket: "Blandat", companies: 0, visits: 0 };
+  for (const r of map.values()) {
+    if (r.companies >= 2) rows.push(r);
+    else { other.companies += r.companies; other.visits += r.visits; }
+  }
+  rows.sort((a, b) => b.visits - a.visits);
+  if (other.companies > 0) rows.push(other);
+  return { rows, suppressed: other.companies };
+}
+
+/** Vilka delar av profilen som är ifyllda – underlag för komplettering. */
+export function buildProfileCompletion(partner: any): ProfileCompletionItem[] {
+  const filled = (v: any) => Array.isArray(v) ? v.length > 0 : !!(v && String(v).trim());
+  return [
+    { label: "Beskrivning av verksamheten", done: filled(partner?.description) },
+    { label: "Logotyp", done: filled(partner?.logo_url) },
+    { label: "Kontaktperson med bild", done: filled(partner?.contact_person) && filled(partner?.contact_photo_url) },
+    { label: "Kundexempel", done: filled(partner?.customer_examples) },
+    { label: "Branschinriktning", done: filled(partner?.industries) },
+    { label: "Kontorsorter", done: filled(partner?.office_cities) },
+    { label: "Positionering", done: filled(partner?.positioning_statement) },
+    { label: "Videopresentation", done: filled(partner?.youtube_video_id) },
+  ];
+}
+
 export async function buildDraftStats(
   supabase: any,
   partner: { id: string; slug: string; name: string },
   start: string,
   end: string,
   companies: any[],
-  opts: { skipPrevious?: boolean } = {},
+  opts: { skipPrevious?: boolean; partnerRow?: any } = {},
 ): Promise<DraftStats> {
   const currentStart = `${start}T00:00:00Z`;
   const currentEnd = `${shiftDays(end, 1)}T00:00:00Z`;
 
+  // Föregående period med samma längd samt rullande 90 dagar fram till periodslutet.
+  const days = Math.max(
+    1,
+    Math.round((Date.parse(currentEnd) - Date.parse(currentStart)) / 86400000),
+  );
+  const prevStartDate = shiftDays(start, -days);
+  const previousStart = `${prevStartDate}T00:00:00Z`;
+  const previousEnd = currentStart;
+  const rolling90Start = `${shiftDays(end, -89)}T00:00:00Z`;
 
+  const [current, benchmark, topEntryPath, industryPagesListed, partnerNews, previous, rolling90, peers] =
+    await Promise.all([
+      fetchPeriod(supabase, partner, currentStart, currentEnd),
+      fetchAllPartnersPeriod(supabase, currentStart, currentEnd),
+      fetchTopEntryPath(supabase, partner, currentStart, currentEnd),
+      fetchIndustryPagesListed(supabase, partner, currentStart, currentEnd),
+      fetchPartnerNews(supabase, partner, currentStart, currentEnd),
+      opts.skipPrevious ? Promise.resolve(undefined) : fetchPeriod(supabase, partner, previousStart, previousEnd),
+      opts.skipPrevious ? Promise.resolve(undefined) : fetchPeriod(supabase, partner, rolling90Start, currentEnd),
+      fetchPeerMedians(supabase, partner.slug, currentStart, currentEnd),
+    ]);
 
-  const [current, benchmark, topEntryPath, industryPagesListed, partnerNews] = await Promise.all([
-    fetchPeriod(supabase, partner, currentStart, currentEnd),
-    fetchAllPartnersPeriod(supabase, currentStart, currentEnd),
-    fetchTopEntryPath(supabase, partner, currentStart, currentEnd),
-    fetchIndustryPagesListed(supabase, partner, currentStart, currentEnd),
-    fetchPartnerNews(supabase, partner, currentStart, currentEnd),
-  ]);
+  const block = buildCompanyBlock(companies);
 
   return {
     current,
     benchmark,
+    previous,
+    rolling90,
+    peers,
+    companyBlock: block.rows,
+    companyBlockSuppressed: block.suppressed,
+    profileCompletion: opts.partnerRow ? buildProfileCompletion(opts.partnerRow) : undefined,
     topEntryPath,
     activeEvaluators: countActiveEvaluators(companies),
     industryPagesListed,
     partnerNews,
     currentLabel: `${start} – ${end}`,
+    previousLabel: `${prevStartDate} – ${shiftDays(start, -1)}`,
+    rolling90Label: `${shiftDays(end, -89)} – ${end}`,
   };
+
 }
 
 function share(cur: number, total: number): string {
