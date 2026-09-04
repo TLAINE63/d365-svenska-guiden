@@ -50,18 +50,25 @@ export function PartnerBasicCard({
   const additional = documented.filter((k) => k !== excludeProductKey);
 
   // Partnerfakta (grundprofil): värde eller "Uppgift saknas" per fält.
-  // Huvudbranscher och Företagsstorlek visas alltid som "Uppgift saknas" tills
-  // uppgifterna är partnerbekräftade (observationsdata ska inte exponeras).
+  // Företagsstorlek visas som "Uppgift saknas" tills uppgifterna är
+  // partnerbekräftade. Huvudbranscher visas upp till tre observerade rader med
+  // en förklarande notis om att observationsdata inte är verifierade.
   const uniq = (arr: string[]) => Array.from(new Set(arr));
   const factGeo = uniq(
     PRODUCT_ORDER.flatMap((k) => partner.observed_delivery_geo?.[k] || []),
   );
+  const factIndustries = uniq(
+    PRODUCT_ORDER.flatMap((k) => partner.observed_industries?.[k] || []),
+  ).slice(0, 3);
   const factRows: { label: string; value: string | null }[] = [
     {
       label: "Primärt Dynamics 365-område",
       value: documented.length ? documented.map((k) => PRODUCT_LABEL[k]).join(", ") : null,
     },
-    { label: "Huvudbranscher", value: null },
+    {
+      label: "Huvudbranscher",
+      value: factIndustries.length ? factIndustries.join(", ") : null,
+    },
     { label: "Företagsstorlek", value: null },
     {
       label: "Geografi",
@@ -164,6 +171,11 @@ export function PartnerBasicCard({
                   {isMissing && (
                     <span className="block text-xs text-muted-foreground/80 mt-0.5">
                       {BASIC_COPY.missingValueHint}
+                    </span>
+                  )}
+                  {row.label === "Huvudbranscher" && !isMissing && (
+                    <span className="block text-xs text-muted-foreground/80 mt-0.5">
+                      {BASIC_COPY.industriesLabel}
                     </span>
                   )}
                 </dd>
