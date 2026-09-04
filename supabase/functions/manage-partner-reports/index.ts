@@ -348,7 +348,8 @@ async function generateDrafts(supabase: any, opts: { period_start?: string; peri
 
   const { data: partners, error: pErr } = await supabase
     .from("partners")
-    .select("id, slug, name, email, admin_contact_email")
+    .select("id, slug, name, email, admin_contact_email, description, logo_url, contact_person, contact_photo_url, customer_examples, industries, office_cities, positioning_statement, youtube_video_id")
+
     .eq("is_featured", true);
   if (pErr) throw pErr;
 
