@@ -2857,6 +2857,26 @@ export type Database = {
           },
         ]
       }
+      partner_exposure_monthly: {
+        Row: {
+          added_to_comparison: number | null
+          click_through_pct: number | null
+          comparison_impressions: number | null
+          comparison_page_exposures: number | null
+          filter_exposures: number | null
+          filter_impressions: number | null
+          industry_page_exposures: number | null
+          list_impressions: number | null
+          match_impressions: number | null
+          other_page_exposures: number | null
+          partner_id: string | null
+          partner_slug: string | null
+          period_month: string | null
+          total_exposures: number | null
+          unique_sessions: number | null
+        }
+        Relationships: []
+      }
       partners_basic_public: {
         Row: {
           created_at: string | null
