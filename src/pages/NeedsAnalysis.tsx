@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { INDUSTRY_NAMES } from "@/data/standardIndustries";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { trackBuyerToolEvent, startBuyerToolRun } from "@/utils/trackBuyerToolEvent";
 import heroBehovsanalysErp from "@/assets/hero-behovsanalys-erp.jpg";
 import { z } from "zod";
 import Navbar from "@/components/Navbar";

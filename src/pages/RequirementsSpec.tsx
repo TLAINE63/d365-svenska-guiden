@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { trackBuyerToolEvent, startBuyerToolRun } from "@/utils/trackBuyerToolEvent";
 import { useLocation, useSearchParams } from "react-router-dom";
 import heroKravspecErp from "@/assets/hero-kravspec-erp.jpg";
 import Navbar from "@/components/Navbar";
