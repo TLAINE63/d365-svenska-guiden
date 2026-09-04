@@ -140,6 +140,17 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
     if (base) uniqueKeys.add(`${base}|${day}`);
   }
 
+  const { data: engagement } = await supabase.from("partner_engagement_events")
+    .select("event_name, event_level")
+    .eq("partner_slug", partner.slug)
+    .gte("occurred_at", startIso).lt("occurred_at", endIso).limit(100000);
+  let contactRequests = 0;
+  let formStarts = 0;
+  for (const e of engagement || []) {
+    if (Number(e.event_level) === 4) contactRequests++;
+    if (e.event_name === "formular_paborjat") formStarts++;
+  }
+
   return {
     profileVisits,
     compareViews,
@@ -151,8 +162,11 @@ async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso
     industryListingViews,
     sitePageViews: sitePvRes.count || 0,
     siteUniqueVisitors: uniqueKeys.size,
+    contactRequests,
+    formStarts,
   };
 }
+
 
 
 /** Summan för samtliga partners under samma period (utan partnerfilter). */
