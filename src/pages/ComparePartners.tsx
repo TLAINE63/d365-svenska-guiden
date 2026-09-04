@@ -36,6 +36,7 @@ import AiCompareInsights from "@/components/AiCompareInsights";
 import { describeAiCapabilities } from "@/utils/aiScoring";
 import { getResultAssessment, getDocumentedEvidence } from "@/lib/partnerResultCard";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
+import { getBasicPartnerIndustries } from "@/lib/basicPartnerMatch";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 
 import { useTrackFilterExposure } from "@/hooks/useTrackFilterExposure";
@@ -758,7 +759,7 @@ const ComparePartners = () => {
                 .filter(Boolean),
             ),
           );
-        const industries = flattenObserved(bp.observed_industries);
+        const industries = getBasicPartnerIndustries(bp);
         const geography = flattenObserved(bp.observed_delivery_geo);
 
         return {

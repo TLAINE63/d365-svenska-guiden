@@ -23,8 +23,12 @@ export function getBasicPartnerIndustries(
 ): string[] {
   const truncated = normalizeObservedIndustries(partner.observed_industries);
   const useKeys = keys && keys.length ? keys : (Object.keys(truncated) as ProductKey[]);
-  const merged = useKeys.flatMap((k) => truncated[k] || []);
-  return Array.from(new Set(merged));
+  const merged = Array.from(new Set(useKeys.flatMap((k) => truncated[k] || [])));
+  // display_industries = max 3 utvalda (ovanligast först). Filtrera mot den så
+  // att kort, listor och filter alltid använder exakt samma branscher.
+  const allowed = partner.display_industries;
+  if (allowed && allowed.length) return merged.filter((i) => allowed.includes(i));
+  return merged.slice(0, 3);
 }
 
 /** Produkter som inte finns i observed_* och därför inte kan matchas för Basic. */
