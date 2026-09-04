@@ -888,6 +888,7 @@ const BusinessCentral = () => {
   showSeeAllLink
   productKey="bc"
   productLabel="Business Central"
+  industry={selectedIndustry || null}
   />
 
 

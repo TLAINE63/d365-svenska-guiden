@@ -365,6 +365,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
       showSeeAllLink
       productKey={productKey}
       productLabel={applicationFilter}
+      industry={selectedIndustry || null}
     />
   )}
  </section>

@@ -678,6 +678,7 @@ const FinanceSupplyChain = () => {
   showSeeAllLink
   productKey="fsc"
   productLabel="Finance & SCM"
+  industry={selectedIndustry || null}
   />
 
 
