@@ -456,22 +456,28 @@ serve(async (req) => {
   try {
     const { action, token, ...data } = await req.json();
     const JWT_SECRET = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    // Schemalagda jobb (pg_cron) autentiserar med service role-nyckeln i Authorization
-    // i stället för admin-sessionens HMAC-token. Endast historikjobbet tillåts så.
-    const bearer = (req.headers.get("authorization") || "").replace(/^Bearer\s+/i, "").trim();
-    const isCronJob = action === "monthly_snapshot" && bearer.length > 0 && bearer === JWT_SECRET;
+
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+    );
+
+    // Schemalagda jobb (pg_cron) autentiserar med en delad nyckel ur vault i stället
+    // för admin-sessionens HMAC-token. Endast historikjobbet tillåts på det sättet.
+    let isCronJob = false;
+    if (action === "monthly_snapshot") {
+      const provided = (req.headers.get("x-report-cron-secret") || "").trim();
+      if (provided) {
+        const { data: secret } = await supabase.rpc("report_cron_secret");
+        isCronJob = typeof secret === "string" && secret.length > 0 && secret === provided;
+      }
+    }
     if (!isCronJob && !(await verifyJWT(token || "", JWT_SECRET))) {
       return new Response(JSON.stringify({ error: "Ogiltig session" }), {
         status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" }
       });
     }
 
-
-
-    const supabase = createClient(
-      Deno.env.get("SUPABASE_URL")!,
-      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
-    );
 
     switch (action) {
       case "list": {
