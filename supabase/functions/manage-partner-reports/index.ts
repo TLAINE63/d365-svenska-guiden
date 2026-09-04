@@ -411,7 +411,7 @@ async function generateDrafts(supabase: any, opts: { period_start?: string; peri
     const companies = Array.from(byOrg.values()).sort((a,b) => b.visit_count - a.visit_count);
 
     // Trafikstatistik (sammanslagen rapport: statistik + identifierade företag)
-    const stats = await buildDraftStats(supabase, partner, start, end, companies);
+    const stats = await buildDraftStats(supabase, partner, start, end, companies, { partnerRow: partner });
     const c = stats.current;
     const hasTraffic = c.profileVisits + c.compareViews + c.websiteClicks + c.industryListingViews
       + (c.cardClicks ?? 0) + (c.guideListingViews ?? 0) > 0;
@@ -420,11 +420,12 @@ async function generateDrafts(supabase: any, opts: { period_start?: string; peri
     const recipient = partner.admin_contact_email || partner.email;
 
     const subject = `Månadsrapport ${periodLabel} – d365.se`;
-    const exposure = (c.guideListingViews ?? 0) + c.compareViews + c.industryListingViews;
-    const intro = `Här kommer din månadsrapport för ${periodLabel}. Under perioden hade din profil på d365.se ${c.profileVisits} visningar och ni visades ${exposure} gånger i partnerguiden, jämförelsevyn och branschlistor.` +
+    const exposure = (c.guideListingViews ?? 0) + c.compareViews + c.industryListingViews + (c.otherListingViews ?? 0);
+    const intro = `Här är er månadsrapport för ${periodLabel}. Under perioden hade er profil på d365.se ${c.profileVisits} visningar, ni syntes ${exposure} gånger i listor, filter och jämförelser och ${c.contactRequests ?? 0} kontaktförfrågningar förmedlades till er.` +
       (companies.length > 0
-        ? ` Vi identifierade dessutom ${companies.length} företag som besökt din profil – redovisade anonymiserat med bransch och storlek.`
+        ? ` Besökande företag redovisas anonymiserat med bransch och grovt storleksintervall.`
         : ``);
+
 
     const { error: upErr } = await supabase
       .from("partner_report_drafts")
