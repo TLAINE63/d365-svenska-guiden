@@ -173,6 +173,11 @@ export function PartnerBasicCard({
                       {BASIC_COPY.missingValueHint}
                     </span>
                   )}
+                  {row.label === "Huvudbranscher" && !isMissing && (
+                    <span className="block text-xs text-muted-foreground/80 mt-0.5">
+                      {BASIC_COPY.industriesLabel}
+                    </span>
+                  )}
                 </dd>
               </div>
             );
