@@ -97,3 +97,6 @@ verify_jwt = false
 
 [functions.partner-performance]
 verify_jwt = false
+
+[functions.track-buyer-tool-event]
+verify_jwt = false
