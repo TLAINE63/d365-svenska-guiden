@@ -742,6 +742,7 @@ export function renderStatsHtml(stats: DraftStats | null): string {
       </p>
       ${renderExposureChart(stats)}
       ${renderHistoryHtml(stats)}
+      ${renderDemandHtml(stats)}
       ${renderInsightsHtml(stats)}`;
 }
 
