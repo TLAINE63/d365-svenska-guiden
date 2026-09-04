@@ -89,6 +89,16 @@ export interface MonthlyHistoryRow {
   contactRequests: number;
 }
 
+/** Aggregerad efterfrågan från köparverktygen. Endast summor – aldrig fritext eller person-/företagsdata. */
+export interface DemandStats {
+  runs: number;
+  completed: number;
+  aborted: number;
+  products: { label: string; count: number }[];
+  industries: { label: string; count: number }[];
+  sizes: { label: string; count: number }[];
+}
+
 export interface DraftStats {
   current: PeriodStats;
   /** Summan för samtliga partners under samma period (jämförelsebas). */
@@ -97,6 +107,7 @@ export interface DraftStats {
   rolling90?: PeriodStats;
   peers?: PeerMedians;
   history?: MonthlyHistoryRow[];
+  demand?: DemandStats;
   companyBlock?: CompanyBlockRow[];
   companyBlockSuppressed?: number;
   profileCompletion?: ProfileCompletionItem[];
@@ -108,6 +119,7 @@ export interface DraftStats {
   previousLabel?: string;
   rolling90Label?: string;
 }
+
 
 
 
@@ -511,6 +523,94 @@ export function renderHistoryHtml(stats: DraftStats | null): string {
       <p style="margin:0 0 18px;font-size:12px;color:#64748b">Historiken bygger på avslutade kalendermånader.</p>`;
 }
 
+/**
+ * Efterfrågeavsnittet: aggregat ur buyer_tool_events.
+ * Aktiveras först när loggningen täcker hela den redovisade perioden
+ * (första händelsen ligger senast vid periodstart) och volymen är tillräcklig.
+ */
+export async function fetchDemand(
+  supabase: any,
+  startIso: string,
+  endIso: string,
+): Promise<DemandStats | undefined> {
+  const firstRes = await supabase
+    .from("buyer_tool_events")
+    .select("occurred_at")
+    .order("occurred_at", { ascending: true })
+    .limit(1);
+  const firstAt = firstRes.data?.[0]?.occurred_at;
+  if (!firstAt || Date.parse(firstAt) > Date.parse(startIso)) return undefined;
+
+  const { data, error } = await supabase
+    .from("buyer_tool_events")
+    .select("status, product_key, industry, company_size")
+    .gte("occurred_at", startIso)
+    .lt("occurred_at", endIso)
+    .limit(20000);
+  if (error || !data?.length) return undefined;
+
+  const runs = data.length;
+  if (runs < 10) return undefined; // för litet underlag för att redovisa
+
+  const tally = (key: string) => {
+    const m = new Map<string, number>();
+    for (const r of data) {
+      const v = (r as any)[key];
+      if (!v) continue;
+      m.set(String(v), (m.get(String(v)) || 0) + 1);
+    }
+    return [...m.entries()]
+      .filter(([, c]) => c >= 3) // undertryck små grupper
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5)
+      .map(([label, count]) => ({ label, count }));
+  };
+
+  return {
+    runs,
+    completed: data.filter((r: any) => r.status === "completed").length,
+    aborted: data.filter((r: any) => r.status === "aborted").length,
+    products: tally("product_key"),
+    industries: tally("industry"),
+    sizes: tally("company_size"),
+  };
+}
+
+/** Tabellbaserat efterfrågeavsnitt. Renderas bara när aggregat finns. */
+export function renderDemandHtml(stats: DraftStats | null): string {
+  const d = stats?.demand;
+  if (!d || !d.runs) return "";
+  const list = (title: string, items: { label: string; count: number }[]) => {
+    if (!items.length) return "";
+    const rows = items.map(i => `
+        <tr>
+          <td style="padding:6px 10px 6px 0;font-size:13px;color:#334155">${esc(i.label)}</td>
+          <td style="padding:6px 0;font-size:13px;color:#0f172a;font-weight:600;text-align:right">${i.count}</td>
+        </tr>`).join("");
+    return `
+      <td valign="top" style="padding:0 12px 0 0">
+        <p style="margin:0 0 4px;font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">${esc(title)}</p>
+        <table width="100%" style="width:100%;border-collapse:collapse">${rows}</table>
+      </td>`;
+  };
+  const cols = [
+    list("Produktområde", d.products),
+    list("Bransch", d.industries),
+    list("Storlek", d.sizes),
+  ].filter(Boolean).join("");
+
+  return `
+      <h3 style="margin:18px 0 6px;font-size:15px;color:#0f172a">Efterfrågan på d365.se</h3>
+      <p style="margin:0 0 8px;font-size:13px;color:#334155;line-height:1.6">
+        Under perioden startades ${d.runs} körningar i behovsanalys, kravspecifikation och jämförelsevy,
+        varav ${d.completed} slutfördes och ${d.aborted} avbröts.
+      </p>
+      ${cols ? `<table width="100%" style="width:100%;border-collapse:collapse"><tr>${cols}</tr></table>` : ""}
+      <p style="margin:8px 0 18px;font-size:12px;color:#64748b">
+        Uppgifterna är aggregerade för hela marknadsplatsen. Kombinationer med färre än tre körningar redovisas inte.
+      </p>`;
+}
+
 
 export async function buildDraftStats(
   supabase: any,
@@ -535,7 +635,7 @@ export async function buildDraftStats(
 
   const historyAnchor = `${start.slice(0, 7)}-01`;
 
-  const [current, benchmark, topEntryPath, industryPagesListed, partnerNews, previous, rolling90, peers, history] =
+  const [current, benchmark, topEntryPath, industryPagesListed, partnerNews, previous, rolling90, peers, history, demand] =
     await Promise.all([
       fetchPeriod(supabase, partner, currentStart, currentEnd),
       fetchAllPartnersPeriod(supabase, currentStart, currentEnd),
@@ -546,6 +646,7 @@ export async function buildDraftStats(
       opts.skipPrevious ? Promise.resolve(undefined) : fetchPeriod(supabase, partner, rolling90Start, currentEnd),
       fetchPeerMedians(supabase, partner.slug, currentStart, currentEnd),
       fetchHistory(supabase, partner.slug, historyAnchor),
+      fetchDemand(supabase, currentStart, currentEnd),
     ]);
 
   const block = buildCompanyBlock(companies);
@@ -557,6 +658,8 @@ export async function buildDraftStats(
     rolling90,
     peers,
     history,
+    demand,
+
     companyBlock: block.rows,
     companyBlockSuppressed: block.suppressed,
     profileCompletion: opts.partnerRow ? buildProfileCompletion(opts.partnerRow) : undefined,
@@ -639,6 +742,7 @@ export function renderStatsHtml(stats: DraftStats | null): string {
       </p>
       ${renderExposureChart(stats)}
       ${renderHistoryHtml(stats)}
+      ${renderDemandHtml(stats)}
       ${renderInsightsHtml(stats)}`;
 }
 
