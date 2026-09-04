@@ -1047,6 +1047,26 @@ const NeedsAnalysis = () => {
     }
   }, [currentStep, totalSteps]);
 
+  const buyerRun = useRef<ReturnType<typeof startBuyerToolRun> | null>(null);
+  useEffect(() => {
+    buyerRun.current = startBuyerToolRun("behovsanalys", { product_key: "erp" });
+    return () => buyerRun.current?.cleanup();
+  }, []);
+
+  useEffect(() => {
+    if (currentStep === totalSteps) {
+      buyerRun.current?.markCompleted();
+      trackBuyerToolEvent({
+        tool: "behovsanalys",
+        status: "slutford",
+        product_key: "erp",
+        industry: data.industry || null,
+        company_size: data.employees || null,
+      });
+    }
+  }, [currentStep, totalSteps]);
+
+
   const stepIcons = [
     BarChart3, Building2, Globe, Layers, Globe, Server, AlertTriangle, Boxes, Sparkles, FileText
   ];

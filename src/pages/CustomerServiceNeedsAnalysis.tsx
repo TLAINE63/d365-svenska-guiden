@@ -521,6 +521,26 @@ const CustomerServiceNeedsAnalysis = () => {
  }
  }, [currentStep]);
 
+  const buyerRun = useRef<ReturnType<typeof startBuyerToolRun> | null>(null);
+  useEffect(() => {
+    buyerRun.current = startBuyerToolRun("behovsanalys", { product_key: "customer_service" });
+    return () => buyerRun.current?.cleanup();
+  }, []);
+
+  useEffect(() => {
+    if (currentStep === totalSteps) {
+      buyerRun.current?.markCompleted();
+      trackBuyerToolEvent({
+        tool: "behovsanalys",
+        status: "slutford",
+        product_key: "customer_service",
+        industry: data.industry || null,
+        company_size: null,
+      });
+    }
+  }, [currentStep, totalSteps]);
+
+
  const focusKeyCurrent = getFocusKey(data);
  const needsFieldServiceStep = focusKeyCurrent === "field_service" || focusKeyCurrent === "multi";
  const progress = (currentStep / totalSteps) * 100;
