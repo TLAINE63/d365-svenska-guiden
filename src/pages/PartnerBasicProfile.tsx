@@ -6,7 +6,7 @@ import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import { useBasicPartner, PRODUCT_LABEL, PRODUCT_ORDER, type BasicPartner } from "@/hooks/useBasicPartners";
+import { useBasicPartner, useBasicPartners, PRODUCT_LABEL, PRODUCT_ORDER, type BasicPartner } from "@/hooks/useBasicPartners";
 import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
 
 function excerpt(text: string | null | undefined, max = 155): string {
@@ -24,7 +24,11 @@ export default function PartnerBasicProfile({
 }) {
   const { slug } = useParams<{ slug: string }>();
   const { data, isLoading: queryLoading } = useBasicPartner(slug);
-  const partner = data ?? initialData;
+  // Hela listan behövs för att välja ut de 3 mest ovanliga branscherna på
+  // samma sätt som i listor och filter.
+  const { data: allBasic } = useBasicPartners();
+  const ranked = allBasic?.find((p) => p.slug === slug);
+  const partner = ranked ?? data ?? initialData;
   const isLoading = queryLoading && !initialData;
 
   const observedApps = partner
