@@ -635,7 +635,7 @@ export async function buildDraftStats(
 
   const historyAnchor = `${start.slice(0, 7)}-01`;
 
-  const [current, benchmark, topEntryPath, industryPagesListed, partnerNews, previous, rolling90, peers, history] =
+  const [current, benchmark, topEntryPath, industryPagesListed, partnerNews, previous, rolling90, peers, history, demand] =
     await Promise.all([
       fetchPeriod(supabase, partner, currentStart, currentEnd),
       fetchAllPartnersPeriod(supabase, currentStart, currentEnd),
@@ -646,6 +646,7 @@ export async function buildDraftStats(
       opts.skipPrevious ? Promise.resolve(undefined) : fetchPeriod(supabase, partner, rolling90Start, currentEnd),
       fetchPeerMedians(supabase, partner.slug, currentStart, currentEnd),
       fetchHistory(supabase, partner.slug, historyAnchor),
+      fetchDemand(supabase, currentStart, currentEnd),
     ]);
 
   const block = buildCompanyBlock(companies);
@@ -657,6 +658,8 @@ export async function buildDraftStats(
     rolling90,
     peers,
     history,
+    demand,
+
     companyBlock: block.rows,
     companyBlockSuppressed: block.suppressed,
     profileCompletion: opts.partnerRow ? buildProfileCompletion(opts.partnerRow) : undefined,
