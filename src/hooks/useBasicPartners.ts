@@ -144,6 +144,34 @@ export function useBasicPartner(slug: string | undefined) {
   });
 }
 
+/**
+ * Väljer max 3 branscher per Basic-partner för visning och filtrering.
+ * Urvalet görs utifrån hur ovanlig branschen är i hela Basic-populationen –
+ * ovanliga branscher väljs först, vilket ger bättre spridning och färre
+ * partners i breda branscher som Tillverkningsindustri.
+ */
+export function assignDisplayIndustries(partners: BasicPartner[]): BasicPartner[] {
+  const uniqueFor = (p: BasicPartner) => {
+    const t = normalizeObservedIndustries(p.observed_industries);
+    return Array.from(
+      new Set((["bc", "fsc", "sales", "service"] as ProductKey[]).flatMap((k) => t[k] || [])),
+    );
+  };
+  const counts = new Map<string, number>();
+  partners.forEach((p) =>
+    uniqueFor(p).forEach((i) => counts.set(i, (counts.get(i) || 0) + 1)),
+  );
+  return partners.map((p) => ({
+    ...p,
+    display_industries: uniqueFor(p)
+      .sort((a, b) => {
+        const d = (counts.get(a) || 0) - (counts.get(b) || 0);
+        return d !== 0 ? d : a.localeCompare(b, "sv");
+      })
+      .slice(0, 3),
+  }));
+}
+
 /** Truncate observed industries to max 3 per product area (defensive – DB is source-of-truth). */
 export function normalizeObservedIndustries(
   raw: Partial<Record<ProductKey, string[]>> | null | undefined,
