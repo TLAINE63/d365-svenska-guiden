@@ -4,7 +4,7 @@ import { MessageSquare, ArrowRight } from "lucide-react";
 import { useMemo } from "react";
 import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
-import { useBasicPartners, PRODUCT_LABEL, PRODUCT_ORDER } from "@/hooks/useBasicPartners";
+import { useBasicPartners, BASIC_COPY, PRODUCT_LABEL, PRODUCT_ORDER } from "@/hooks/useBasicPartners";
 import { getBasicPartnerIndustries } from "@/lib/basicPartnerMatch";
 
 interface Props {
