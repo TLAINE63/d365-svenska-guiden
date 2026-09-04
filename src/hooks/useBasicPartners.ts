@@ -32,6 +32,13 @@ export interface BasicPartner {
   extended_content: string | null;
   extended_content_updated_at: string | null;
   extended_summary: string | null;
+  /**
+   * Max 3 branscher som valts ut för visning/filtrering. Urvalet prioriterar
+   * de mest ovanliga branscherna i hela Basic-populationen, så att spridningen
+   * blir bättre och breda branscher (t.ex. Tillverkningsindustri) inte
+   * dominerar listorna. Sätts av `assignDisplayIndustries`.
+   */
+  display_industries?: string[];
   profile_level: "basic";
   created_at: string;
   updated_at: string;
