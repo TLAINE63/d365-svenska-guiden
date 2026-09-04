@@ -1,7 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { Resend } from "https://esm.sh/resend@2.0.0";
-import { buildDraftStats, renderStatsHtml, renderVisibilityHtml, type DraftStats } from "./stats.ts";
+import { buildDraftStats, renderStatsHtml, renderVisibilityHtml, renderCompanyBlockHtml, renderProfileCompletionHtml, chooseCta, type DraftStats } from "./stats.ts";
 import { buildBasicTeaserStats, renderBasicTeaserHtml, DEFAULT_TEASER_BENEFITS, type BasicTeaserStats } from "./basicTeaser.ts";
 
 function isAllowedOrigin(origin: string): boolean {
@@ -250,83 +250,12 @@ function buildEmailHtml(opts: {
   stats?: DraftStats | null;
   settings?: { changelog: string; nextPeriod: string; contact: string; videoInterviewCta: string };
 }): string {
-  const { partnerName, partnerSlug, intro, companies, periodLabel, siteOrigin } = opts;
+  const { partnerName, partnerSlug, intro, periodLabel, siteOrigin } = opts;
   const settings = opts.settings || { changelog: "", nextPeriod: "", contact: "", videoInterviewCta: "" };
   const stats = opts.stats || null;
 
   const profileUrl = `${siteOrigin}/partner/${partnerSlug}`;
-  const totalVisits = companies.reduce((s, c) => s + c.visit_count, 0);
-  const withIndustry = companies.filter(c => c.company_industry).length;
-
-  // Anonymiserat: aldrig företagsnamn eller domän i mejlet till partner.
-  const meta = (c: CompanyEntry) =>
-    [c.company_size]
-      .filter(Boolean)
-      .map(v => `<span style="display:inline-block;background:#f1f5f9;color:#475569;font-size:11px;padding:3px 8px;border-radius:999px;margin:2px 4px 0 0">${esc(v as string)}</span>`)
-      .join("");
-
-
-  const rows = companies.map((c, idx) => {
-    const allOther = new Set<string>();
-    const allProfile = new Set<string>();
-    c.sessions.forEach(s => {
-      s.other_urls.forEach(u => allOther.add(u));
-      s.profile_urls.forEach(u => allProfile.add(u));
-    });
-    const otherList = Array.from(allOther).slice(0, 6).map(u => {
-      try {
-        const url = new URL(u);
-        const label = url.pathname === "/" ? "Startsidan" : labelForPath(url.pathname);
-        return `<li style="margin:3px 0;font-size:13px;color:#475569"><a href="${esc(u)}" style="color:#1e3a5f;text-decoration:none">${esc(label)}</a></li>`;
-      } catch { return ""; }
-    }).join("");
-
-    const matchedList = Array.from(allProfile).slice(0, 10).map(u => {
-      let pathOnly = u;
-      try { pathOnly = new URL(u).pathname; } catch {}
-      return `<li style="margin:3px 0;font-size:12px;color:#475569;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"><a href="${esc(u)}" style="color:#15803d;text-decoration:none">${esc(pathOnly)}</a></li>`;
-    }).join("");
-
-    const anonTitle = (c.company_industry || "").trim() || "Identifierat företag";
-
-    return `
-      <tr><td style="padding:0 0 14px">
-        <table width="100%" style="width:100%;border-collapse:separate;background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden">
-          <tr>
-            <td class="card-pad" style="padding:18px 20px;vertical-align:top">
-              <table style="width:100%;border-collapse:collapse"><tr>
-                <td class="avatar-cell" style="vertical-align:top;width:48px;padding-right:14px">
-                  <div style="width:44px;height:44px;border-radius:10px;background:#15130F;color:#fff;font-weight:700;font-size:18px;text-align:center;line-height:44px;font-family:-apple-system,'Segoe UI',sans-serif">&#9679;</div>
-                </td>
-                <td class="title-cell" style="vertical-align:top">
-                  <div style="font-weight:700;font-size:16px;color:#0f172a;line-height:1.3">${esc(anonTitle)}</div>
-                  <div style="margin-top:8px">${meta(c)}</div>
-                </td>
-
-                <td class="visits-cell" style="vertical-align:top;text-align:right;white-space:nowrap;padding-left:12px">
-                  <div style="display:inline-block;background:#fff7ed;color:#9a3412;border-radius:999px;padding:4px 12px;font-weight:600;font-size:12px">${c.visit_count} besök</div>
-                </td>
-              </tr></table>
-              <div style="margin-top:14px;padding:10px 12px;border:1px solid #d1fae5;background:#f0fdf4;border-radius:8px">
-                <div style="font-size:11px;color:#15803d;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:4px;font-weight:600">✓ Matchade profil-URL:er (${allProfile.size})</div>
-                ${matchedList ? `<ul style="margin:0;padding-left:18px">${matchedList}</ul>` : `<div style="font-size:12px;color:#64748b">Inga URL:er sparade (äldre data).</div>`}
-              </div>
-              ${otherList ? `
-                <div style="margin-top:10px;padding-top:12px;border-top:1px dashed #e2e8f0">
-                  <div style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:4px">Andra sidor de tittade på</div>
-                  <ul style="margin:0;padding-left:18px">${otherList}</ul>
-                </div>` : ""}
-            </td>
-          </tr>
-        </table>
-      </td></tr>`;
-  }).join("");
-
-  const stat = (label: string, value: string | number, color: string) => `
-    <td style="padding:16px 12px;text-align:center;background:#f8fafc;border-radius:10px;width:33%">
-      <div style="font-size:28px;font-weight:700;color:${color};line-height:1">${value}</div>
-      <div style="font-size:11px;color:#64748b;margin-top:6px;text-transform:uppercase;letter-spacing:0.5px">${label}</div>
-    </td>`;
+  const cta = chooseCta(stats, profileUrl);
 
   return `<!DOCTYPE html>
 <html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="x-apple-disable-message-reformatting"><title>Månadsrapport ${esc(partnerName)}</title>
@@ -339,10 +268,6 @@ function buildEmailHtml(opts: {
     .hd{padding:22px 18px 18px !important}
     .hd h1{font-size:21px !important}
     .pad{padding:20px 18px !important}
-    .card-pad{padding:14px 14px !important}
-    .avatar-cell{display:none !important}
-    .visits-cell{display:block !important;width:100% !important;text-align:left !important;padding:8px 0 0 0 !important}
-    .title-cell{display:block !important;width:100% !important}
     .stats-tbl .col-prev{display:none !important}
     .stats-tbl .cell{padding:10px 10px !important;font-size:13px !important}
     .btn{display:block !important;width:100% !important;box-sizing:border-box;text-align:center}
@@ -360,7 +285,6 @@ function buildEmailHtml(opts: {
     </div>
     <div style="height:4px;background:#B23D19;line-height:4px;font-size:0">&nbsp;</div>
 
-
     <div class="pad" style="background:#ffffff;padding:28px;border-radius:0 0 14px 14px;box-shadow:0 1px 3px rgba(15,23,42,0.06)">
 
       <p style="margin:0 0 22px;color:#2A2724;font-size:16px;line-height:1.65">${esc(intro)}</p>
@@ -369,34 +293,21 @@ function buildEmailHtml(opts: {
 
       ${renderVisibilityHtml(stats)}
 
-      <h2 style="margin:26px 0 8px;font-size:17px;color:#0f172a">Företag som besökt er profil</h2>
-      <div style="margin:0 0 16px;padding:10px 14px;background:#F4FAF8;border:1px solid #BFE0D8;border-radius:8px;font-size:13px;line-height:1.55;color:#0F4F44">
-        <strong>Så här redovisar vi:</strong> vi lämnar aldrig ut enskilda företagsnamn eller domäner. Varje kort nedan visar bara
-        bransch och storlek. Urvalet är företag vars session innehåller en URL som matchar
-        <code style="background:#DCEFEA;padding:1px 6px;border-radius:4px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">d365.se/partner/${esc(partnerSlug)}</code>.
-      </div>
+      ${renderCompanyBlockHtml(stats)}
 
+      ${renderProfileCompletionHtml(stats)}
 
-      <table style="width:100%;border-collapse:collapse">
-        ${rows || `<tr><td style="padding:24px;color:#94a3b8;text-align:center;background:#f8fafc;border-radius:10px">Inga identifierade besök denna period.</td></tr>`}
+      <table style="width:100%;border-collapse:collapse;margin:26px 0 0">
+        <tr><td style="padding:18px;background:#f8fafc;border-radius:10px;text-align:center">
+          <div style="color:#334155;font-size:14px;line-height:1.6;margin-bottom:14px">${esc(cta.text)}</div>
+          <a class="btn" href="${esc(cta.url)}" style="display:inline-block;background:#B23D19;color:#ffffff;text-decoration:none;padding:13px 28px;border-radius:8px;font-weight:600;font-size:14px">${esc(cta.label)}</a>
+        </td></tr>
       </table>
-
-      <div style="margin:22px 0 0;padding:16px 18px;background:#f8fafc;border-left:4px solid #B23D19;border-radius:6px">
-        <div style="color:#475569;font-size:13px;line-height:1.55">
-          <strong style="color:#0f172a">Hur tolkar vi datan?</strong> Listan visar anonymiserade företag som har besökt <em>just er partnerprofil</em> (<code style="background:#e2e8f0;padding:1px 5px;border-radius:4px;font-size:12px">/partner/${esc(partnerSlug)}</code>) på d365.se. Av integritetsskäl redovisas endast bransch och storlek – aldrig företagsnamn eller domän. "Andra sidor" visar vilka produktområden samma besökare tittade på i samma session – ofta en signal om vad de undersöker.
-        </div>
-      </div>
-
-      <div style="text-align:center;margin:26px 0 8px">
-        <a class="btn" href="${esc(profileUrl)}" style="display:inline-block;background:#B23D19;color:#ffffff;text-decoration:none;padding:13px 28px;border-radius:8px;font-weight:600;font-size:14px">
-          Öppna er partnerprofil →
-        </a>
-      </div>
 
       ${settings.changelog ? `
       <div style="margin:28px 0 0;padding-top:20px;border-top:1px solid #e2e8f0">
         <h3 style="margin:0 0 8px;font-size:16px;color:#0f172a">Nytt på sajten</h3>
-        <p style="margin:0 0 8px;color:#64748b;font-size:12px;line-height:1.5">Förbättringar vi genomfört på d365.se som påverkar er synlighet.</p>
+        <p style="margin:0 0 8px;color:#64748b;font-size:12px;line-height:1.5">Förändringar på d365.se som påverkar hur er profil syns.</p>
         ${renderRichText(settings.changelog)}
       </div>` : ""}
 
@@ -406,48 +317,19 @@ function buildEmailHtml(opts: {
         ${renderRichText(settings.nextPeriod)}
       </div>` : ""}
 
-      <table style="width:100%;border-collapse:collapse;margin:22px 0 0">
-        <tr><td style="padding:16px 18px;background:#f0f9ff;border-radius:10px;border-left:4px solid #0284c7">
-          <div style="color:#0c4a6e;font-size:15px;font-weight:700;margin-bottom:8px">Videointervju för er partnerprofil?</div>
-          <div style="color:#334155;font-size:13px;line-height:1.6;margin-bottom:14px">
-            ${settings.videoInterviewCta ? renderRichText(settings.videoInterviewCta) : `
-            <p style="margin:6px 0">Jag vill gärna prata med er om er verksamhet och vad ni gör för kunder. En kort videointervju hjälper köpare att förstå er bättre och ger er en mer personlig profil.</p>
-            <p style="margin:6px 0"><strong>Kontakta mig för att bestämma tid och vem hos er som kan delta.</strong></p>
-            `}
-          </div>
-          <a href="mailto:thomas.laine@dynamicfactory.se?subject=Videointervju%20f%C3%B6r%20${encodeURIComponent(partnerName)}" style="display:inline-block;background:#0284c7;color:#ffffff;text-decoration:none;padding:10px 18px;border-radius:6px;font-weight:600;font-size:13px">Mejla Thomas och boka tid</a>
-        </td></tr>
-      </table>
-
       ${settings.contact ? `
-      <p style="margin:18px 0 0;color:#475569;font-size:13px;line-height:1.6">
-        Frågor eller önskemål om innehåll? Kontakta ${esc(settings.contact)}.
+      <p style="margin:22px 0 0;color:#475569;font-size:13px;line-height:1.6">
+        Frågor om rapporten eller innehållet på er profil: ${esc(settings.contact)}.
       </p>` : ""}
 
-      <p style="color:#475569;font-size:13px;line-height:1.6;margin:28px 0 6px">
+      <p style="color:#475569;font-size:13px;line-height:1.6;margin:24px 0 6px">
         Vänliga hälsningar,<br/>
         <strong style="color:#0f172a">Thomas Laine &amp; Michael Uhman</strong><br/>
         d365.se · Den köparsidiga guiden till Microsoft Dynamics 365
       </p>
 
-      <div style="margin:28px 0 8px;padding-top:20px;border-top:1px solid #e2e8f0">
-        <h3 style="margin:0 0 6px;font-size:15px;color:#0f172a">Besökarstatistik – d365.se senaste 90 dagar</h3>
-        <p style="margin:0 0 14px;color:#64748b;font-size:12px;line-height:1.5">
-          Översikt över sajten d365.se så ni ser i vilket sammanhang er profil syns.
-        </p>
-        <div style="text-align:center">
-          <img src="https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/email-assets/besokarstatistik.png"
-               alt="Besökarstatistik d365.se senaste 90 dagar"
-               width="600"
-               style="display:block;width:100%;max-width:600px;height:auto;margin:0 auto;border:1px solid #e2e8f0;border-radius:10px" />
-          <a href="${esc(siteOrigin)}/partnerstatistik/?kod=${encodeURIComponent(Deno.env.get("PARTNER_STATS_ACCESS_CODE") ?? "")}" style="display:inline-block;margin-top:10px;color:#1e3a5f;font-size:12px;text-decoration:none">
-            Se aktuell statistik på d365.se/partnerstatistik →
-          </a>
-        </div>
-      </div>
-
-      <p style="color:#94a3b8;font-size:11px;line-height:1.55;margin:26px 0 0;text-align:center">
-        Identifieringen sker via IP-baserad reverse lookup (Snitcher) och är inte 100 % exakt, men ger en god indikation om vilka företag som varit aktiva. Rapporten skickas månadsvis till partners på d365.se.
+      <p style="color:#94a3b8;font-size:11px;line-height:1.55;margin:26px 0 0">
+        Om underlaget: siffrorna bygger på mätning av visningar, listningar och händelser på d365.se under perioden. Företagsidentifiering sker via IP-baserad uppslagning och är inte exakt. Inga företagsnamn, domäner, orter eller besöksdatum redovisas.
       </p>
     </div>
 
@@ -458,6 +340,7 @@ function buildEmailHtml(opts: {
 </body></html>`;
 }
 
+
 async function generateDrafts(supabase: any, opts: { period_start?: string; period_end?: string }) {
   const { start, end } = opts.period_start && opts.period_end
     ? { start: opts.period_start, end: opts.period_end }
@@ -465,7 +348,8 @@ async function generateDrafts(supabase: any, opts: { period_start?: string; peri
 
   const { data: partners, error: pErr } = await supabase
     .from("partners")
-    .select("id, slug, name, email, admin_contact_email")
+    .select("id, slug, name, email, admin_contact_email, description, logo_url, contact_person, contact_photo_url, customer_examples, industries, office_cities, positioning_statement, youtube_video_id")
+
     .eq("is_featured", true);
   if (pErr) throw pErr;
 
@@ -527,7 +411,7 @@ async function generateDrafts(supabase: any, opts: { period_start?: string; peri
     const companies = Array.from(byOrg.values()).sort((a,b) => b.visit_count - a.visit_count);
 
     // Trafikstatistik (sammanslagen rapport: statistik + identifierade företag)
-    const stats = await buildDraftStats(supabase, partner, start, end, companies);
+    const stats = await buildDraftStats(supabase, partner, start, end, companies, { partnerRow: partner });
     const c = stats.current;
     const hasTraffic = c.profileVisits + c.compareViews + c.websiteClicks + c.industryListingViews
       + (c.cardClicks ?? 0) + (c.guideListingViews ?? 0) > 0;
@@ -536,11 +420,12 @@ async function generateDrafts(supabase: any, opts: { period_start?: string; peri
     const recipient = partner.admin_contact_email || partner.email;
 
     const subject = `Månadsrapport ${periodLabel} – d365.se`;
-    const exposure = (c.guideListingViews ?? 0) + c.compareViews + c.industryListingViews;
-    const intro = `Här kommer din månadsrapport för ${periodLabel}. Under perioden hade din profil på d365.se ${c.profileVisits} visningar och ni visades ${exposure} gånger i partnerguiden, jämförelsevyn och branschlistor.` +
+    const exposure = (c.guideListingViews ?? 0) + c.compareViews + c.industryListingViews + (c.otherListingViews ?? 0);
+    const intro = `Här är er månadsrapport för ${periodLabel}. Under perioden hade er profil på d365.se ${c.profileVisits} visningar, ni syntes ${exposure} gånger i listor, filter och jämförelser och ${c.contactRequests ?? 0} kontaktförfrågningar förmedlades till er.` +
       (companies.length > 0
-        ? ` Vi identifierade dessutom ${companies.length} företag som besökt din profil – redovisade anonymiserat med bransch och storlek.`
+        ? ` Besökande företag redovisas anonymiserat med bransch och grovt storleksintervall.`
         : ``);
+
 
     const { error: upErr } = await supabase
       .from("partner_report_drafts")
@@ -1458,7 +1343,7 @@ serve(async (req) => {
         const { partner_slug, test_email } = data as { partner_slug: string; test_email?: string };
         const { data: partner, error: pErr } = await supabase
           .from("partners")
-          .select("id, slug, name, email, admin_contact_email, published_at, created_at")
+          .select("id, slug, name, email, admin_contact_email, published_at, created_at, description, logo_url, contact_person, contact_photo_url, customer_examples, industries, office_cities, positioning_statement, youtube_video_id")
           .eq("slug", partner_slug).single();
         if (pErr || !partner) throw pErr || new Error("Partner hittades ej");
 
@@ -1498,7 +1383,7 @@ serve(async (req) => {
         }
         const companies = Array.from(byOrg.values()).sort((a, b) => b.visit_count - a.visit_count);
 
-        const stats = await buildDraftStats(supabase, partner, start, end, companies, { skipPrevious: true });
+        const stats = await buildDraftStats(supabase, partner, start, end, companies, { skipPrevious: true, partnerRow: partner });
         const c = stats.current;
         const exposure = (c.guideListingViews ?? 0) + c.compareViews + c.industryListingViews;
         const periodLabel = `${start} – ${end}`;
