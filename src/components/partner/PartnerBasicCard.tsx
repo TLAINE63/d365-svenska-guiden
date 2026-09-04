@@ -154,14 +154,22 @@ export function PartnerBasicCard({
       <section className="mb-6" aria-label="Partnerfakta">
         <h2 className="mb-2 text-sm font-semibold text-foreground">Partnerfakta</h2>
         <dl className="divide-y divide-border rounded-lg border border-border">
-          {factRows.map((row) => (
-            <div key={row.label} className="flex flex-col gap-0.5 px-4 py-2.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-              <dt className="text-sm text-muted-foreground">{row.label}</dt>
-              <dd className={`text-sm sm:text-right ${row.value ? "font-medium text-foreground" : "text-muted-foreground"}`}>
-                {row.value ?? BASIC_COPY.missingValue}
-              </dd>
-            </div>
-          ))}
+          {factRows.map((row) => {
+            const isMissing = row.value == null;
+            return (
+              <div key={row.label} className="flex flex-col gap-0.5 px-4 py-2.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+                <dt className="text-sm text-muted-foreground">{row.label}</dt>
+                <dd className={`text-sm sm:text-right ${isMissing ? "text-muted-foreground" : "font-medium text-foreground"}`}>
+                  {row.value ?? BASIC_COPY.missingValue}
+                  {isMissing && (
+                    <span className="block text-xs text-muted-foreground/80 mt-0.5">
+                      {BASIC_COPY.missingValueHint}
+                    </span>
+                  )}
+                </dd>
+              </div>
+            );
+          })}
         </dl>
         <p className="mt-2 text-xs leading-snug text-muted-foreground">
           {BASIC_COPY.partnerFactsNote}

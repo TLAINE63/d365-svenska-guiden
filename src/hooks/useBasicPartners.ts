@@ -168,6 +168,8 @@ export const BASIC_COPY = {
   partnerFactsNote:
     "Uppgifterna finns inte publikt tillgängliga och kan därför inte ingå i matchning mot köparens urvalskriterier.",
   missingValue: "Uppgift saknas",
+  missingValueHint:
+    "Endast partnerverifierade uppgifter visas i grundprofilen.",
   cta: "Komplettera partnerprofilen",
   standaloneNoContact:
     "Kontaktväg via d365.se är inte aktiverad för denna profil.",
