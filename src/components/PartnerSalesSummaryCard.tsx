@@ -184,10 +184,10 @@ export default function PartnerSalesSummaryCard({ token, partnerSlug, partnerNam
                 Partnerns exponering (30d / 90d)
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
-                <Stat label="Filtervisningar" v={`${summary.partner30.filterExposures} / ${summary.partner90.filterExposures}`} />
-                <Stat label="Kortklick" v={`${summary.partner30.cardClicks} / ${summary.partner90.cardClicks}`} />
-                <Stat label="Profilbesök" v={`${summary.partner30.profileVisits} / ${summary.partner90.profileVisits}`} />
-                <Stat label="Hemsidesklick" v={`${summary.partner30.websiteClicks} / ${summary.partner90.websiteClicks}`} />
+                <Stat label="Filtervisningar" v={`${summary.partner30?.filterExposures ?? "–"} / ${summary.partner90?.filterExposures ?? "–"}`} />
+                <Stat label="Kortklick" v={`${summary.partner30?.cardClicks ?? "–"} / ${summary.partner90?.cardClicks ?? "–"}`} />
+                <Stat label="Profilbesök" v={`${summary.partner30?.profileVisits ?? "–"} / ${summary.partner90?.profileVisits ?? "–"}`} />
+                <Stat label="Hemsidesklick" v={`${summary.partner30?.websiteClicks ?? "–"} / ${summary.partner90?.websiteClicks ?? "–"}`} />
               </div>
             </div>
 
