@@ -478,66 +478,226 @@ export async function buildDraftStats(
 
 }
 
-function share(cur: number, total: number): string {
-  if (!total || total <= 0) return `<span style="color:#94a3b8">–</span>`;
-  const pct = Math.round((cur / total) * 100);
-  return `<span style="color:#334155;font-weight:600">${pct}%</span>`;
+function delta(cur: number, prev: number | null | undefined): string {
+  if (prev == null) return `<span style="color:#94a3b8">–</span>`;
+  const diff = cur - prev;
+  if (diff === 0) return `<span style="color:#64748b">${prev} (oförändrat)</span>`;
+  const color = diff > 0 ? "#15803d" : "#b45309";
+  const sign = diff > 0 ? "+" : "";
+  return `<span style="color:#334155">${prev}</span> <span style="color:${color};font-weight:600">(${sign}${diff})</span>`;
 }
 
-/** Tabell med nyckeltal + jämförelse mot samtliga partners under samma period. */
+/** Nyckeltal med föregående period, rullande 90 dagar och median för jämförbara partners. */
 export function renderStatsHtml(stats: DraftStats | null): string {
   if (!stats?.current) return "";
-  const { current, benchmark } = stats;
-  const cmp = !!benchmark;
-  const row = (label: string, cur: number, total: number | null) => `
+  const { current, previous, rolling90, peers } = stats;
+  const hasPrev = !!previous;
+  const has90 = !!rolling90;
+  const hasPeers = !!peers;
+
+  const row = (label: string, cur: number, prev: number | null, r90: number | null, med: number | null) => `
     <tr>
       <td class="cell" style="padding:11px 14px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:14px;font-weight:600">${esc(label)}</td>
-      <td class="cell" style="padding:11px 14px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:14px;text-align:right;font-weight:700;white-space:nowrap">${cur}${total == null ? "" : ` <span style="color:#64748b;font-weight:500;font-size:13px">(av ${total})</span>`}</td>
-      ${cmp ? `<td class="cell" style="padding:11px 14px;border-bottom:1px solid #eef0f3;font-size:13px;text-align:right;white-space:nowrap">${total == null ? `<span style="color:#94a3b8">–</span>` : share(cur, total)}</td>` : ""}
+      <td class="cell" style="padding:11px 14px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:14px;text-align:right;font-weight:700;white-space:nowrap">${cur}</td>
+      ${hasPrev ? `<td class="cell col-prev" style="padding:11px 14px;border-bottom:1px solid #eef0f3;font-size:13px;text-align:right;white-space:nowrap">${delta(cur, prev)}</td>` : ""}
+      ${has90 ? `<td class="cell col-prev" style="padding:11px 14px;border-bottom:1px solid #eef0f3;font-size:13px;text-align:right;white-space:nowrap;color:#334155">${r90 == null ? "–" : r90}</td>` : ""}
+      ${hasPeers ? `<td class="cell" style="padding:11px 14px;border-bottom:1px solid #eef0f3;font-size:13px;text-align:right;white-space:nowrap;color:#334155">${med == null ? "–" : med}</td>` : ""}
     </tr>`;
 
-  // Dölj rader där den totala siffran (alla partners) är under 10 – då riskerar
-  // raden mest att väcka frågor snarare än ge en meningsfull bild.
-  const show = (total: number | null) => total == null || total >= 10;
+  const exposureOf = (p?: PeriodStats | null) => p
+    ? (p.guideListingViews ?? 0) + p.compareViews + p.industryListingViews + (p.otherListingViews ?? 0)
+    : null;
 
   const rows: string[] = [];
-  if (show(benchmark?.profileVisits ?? null)) rows.push(row("Profilvisningar", current.profileVisits, benchmark?.profileVisits ?? null));
-  if ((current.guideListingViews ?? 0) + (benchmark?.guideListingViews ?? 0) > 0 && show(benchmark?.guideListingViews ?? null)) {
-    rows.push(row("Visningar i partnerguiden", current.guideListingViews ?? 0, benchmark?.guideListingViews ?? null));
+  rows.push(row("Profilvisningar", current.profileVisits, previous?.profileVisits ?? null, rolling90?.profileVisits ?? null, peers?.profileVisits ?? null));
+  rows.push(row("Visningar i listor, filter och jämförelser", exposureOf(current) ?? 0, exposureOf(previous), exposureOf(rolling90), peers?.exposures ?? null));
+  // Kontaktförfrågningar visas alltid, även när värdet är noll.
+  rows.push(row("Kontaktförfrågningar via d365.se", current.contactRequests ?? 0, previous?.contactRequests ?? null, rolling90?.contactRequests ?? null, peers?.contactRequests ?? null));
+  if ((current.formStarts ?? 0) + (previous?.formStarts ?? 0) > 0) {
+    rows.push(row("Påbörjade formulär på er profil", current.formStarts ?? 0, previous?.formStarts ?? null, rolling90?.formStarts ?? null, null));
   }
-  if (show(benchmark?.compareViews ?? null)) rows.push(row("Visningar i jämförelsevyn", current.compareViews, benchmark?.compareViews ?? null));
-  if (current.websiteClicks + (benchmark?.websiteClicks ?? 0) > 0 && show(benchmark?.websiteClicks ?? null)) {
-    rows.push(row("Klick till er webbplats", current.websiteClicks, benchmark?.websiteClicks ?? null));
+  if ((current.newsClicks ?? 0) + (previous?.newsClicks ?? 0) > 0) {
+    rows.push(row("Klick på era nyhetsartiklar", current.newsClicks ?? 0, previous?.newsClicks ?? null, rolling90?.newsClicks ?? null, null));
   }
-  if (show(benchmark?.industryListingViews ?? null)) rows.push(row("Visningar av er i branschlistor", current.industryListingViews, benchmark?.industryListingViews ?? null));
-  if ((current.otherListingViews ?? 0) + (benchmark?.otherListingViews ?? 0) > 0 && show(benchmark?.otherListingViews ?? null)) {
-    rows.push(row("Visningar i övriga partnerlistor (start-, produkt- och katalogsidor)", current.otherListingViews ?? 0, benchmark?.otherListingViews ?? null));
-  }
-  if ((current.newsClicks ?? 0) + (benchmark?.newsClicks ?? 0) > 0 && show(benchmark?.newsClicks ?? null)) {
-    rows.push(row("Klick på era nyhetsartiklar", current.newsClicks ?? 0, benchmark?.newsClicks ?? null));
-  }
-  if (current.sitePageViews != null) rows.push(row("Totalt antal sidvisningar på d365.se", current.sitePageViews, null));
-  if (current.siteUniqueVisitors != null) rows.push(row("Unika besökare på d365.se", current.siteUniqueVisitors, null));
+
+  const th = (t: string, align = "right") =>
+    `<th style="padding:9px 14px;text-align:${align};font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">${esc(t)}</th>`;
 
   return `
       <h2 style="margin:0 0 8px;font-size:17px;color:#0f172a">Nyckeltal</h2>
-      ${stats.currentLabel ? `<p style="margin:0 0 10px;color:#64748b;font-size:12px">Perioden ${esc(stats.currentLabel)}${cmp ? ", jämfört med summan för samtliga partners på d365.se under samma period." : "."}</p>` : ""}
+      <p style="margin:0 0 10px;color:#64748b;font-size:12px;line-height:1.5">
+        Perioden ${esc(stats.currentLabel || "")}${hasPeers ? `. Medianen avser ${peers!.partnerCount} partnerverifierade profiler under samma period.` : "."}
+      </p>
       <table class="stats-tbl" width="100%" style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
         <thead>
           <tr style="background:#f8fafc">
-            <th style="padding:9px 14px;text-align:left;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px" class="cell">Mätpunkt</th>
-            <th style="padding:9px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Er siffra (alla partners)</th>
-            ${cmp ? `<th style="padding:9px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Er andel</th>` : ""}
+            ${th("Mätpunkt", "left")}
+            ${th("Er siffra")}
+            ${hasPrev ? th("Föregående period") : ""}
+            ${has90 ? th("Rullande 90 dagar") : ""}
+            ${hasPeers ? th("Median partners") : ""}
           </tr>
         </thead>
-        <tbody>
-          ${rows.join("")}
-        </tbody>
+        <tbody>${rows.join("")}</tbody>
       </table>
-      <p style="margin:10px 2px 22px;color:#64748b;font-size:12px;line-height:1.5">
-        Kontaktförfrågningar skickas till er i realtid via e-post. Siffrorna ovan är summan för perioden. Mätpunkter där den totala volymen för alla partners är under 10 visas inte, eftersom de inte ger någon meningsfull jämförelse.
-      </p>`;
+      <p style="margin:10px 2px 20px;color:#64748b;font-size:12px;line-height:1.5">
+        Kontaktförfrågningar redovisas alltid, även när de är noll. Föregående period avser ${esc(stats.previousLabel || "motsvarande föregående intervall")}${has90 ? `, rullande 90 dagar avser ${esc(stats.rolling90Label || "")}` : ""}.
+      </p>
+      ${renderExposureChart(stats)}
+      ${renderInsightsHtml(stats)}`;
 }
+
+/** Tabellbaserat stapeldiagram över var ni syntes (inga bilder, ingen SVG). */
+export function renderExposureChart(stats: DraftStats | null): string {
+  const c = stats?.current;
+  if (!c) return "";
+  const parts = [
+    { label: "Partnerguiden", value: c.guideListingViews ?? 0 },
+    { label: "Jämförelsevyn", value: c.compareViews },
+    { label: "Branschlistor", value: c.industryListingViews },
+    { label: "Start-, produkt- och katalogsidor", value: c.otherListingViews ?? 0 },
+  ].filter(p => p.value > 0);
+  const total = parts.reduce((s, p) => s + p.value, 0);
+  if (!total) return "";
+  const max = Math.max(...parts.map(p => p.value));
+
+  const rows = parts.map(p => {
+    const pct = Math.max(2, Math.round((p.value / max) * 100));
+    return `
+      <tr>
+        <td style="padding:6px 10px 6px 0;font-size:13px;color:#334155;width:45%">${esc(p.label)}</td>
+        <td style="padding:6px 0">
+          <table width="100%" style="width:100%;border-collapse:collapse"><tr>
+            <td style="background:#B23D19;height:12px;line-height:12px;font-size:0;border-radius:6px;width:${pct}%">&nbsp;</td>
+            <td style="width:${100 - pct}%">&nbsp;</td>
+          </tr></table>
+        </td>
+        <td style="padding:6px 0 6px 10px;font-size:13px;color:#0f172a;font-weight:600;text-align:right;white-space:nowrap">${p.value}</td>
+      </tr>`;
+  }).join("");
+
+  return `
+      <h3 style="margin:18px 0 6px;font-size:15px;color:#0f172a">Fördelning av era visningar</h3>
+      <table width="100%" style="width:100%;border-collapse:collapse;margin:0 0 18px">${rows}</table>`;
+}
+
+/** Regelgenererade tolkningsrader – ingen fritext, inga påhittade slutsatser. */
+export function renderInsightsHtml(stats: DraftStats | null): string {
+  if (!stats?.current) return "";
+  const c = stats.current;
+  const prev = stats.previous;
+  const peers = stats.peers;
+  const lines: string[] = [];
+
+  if (prev && prev.profileVisits > 0) {
+    const diff = c.profileVisits - prev.profileVisits;
+    const pct = Math.round((diff / prev.profileVisits) * 100);
+    if (Math.abs(pct) >= 10) {
+      lines.push(`Profilvisningarna ${diff > 0 ? "ökade" : "minskade"} med ${Math.abs(pct)} procent jämfört med föregående period.`);
+    } else {
+      lines.push("Profilvisningarna ligger på ungefär samma nivå som föregående period.");
+    }
+  }
+  if (peers) {
+    if (c.profileVisits > peers.profileVisits) lines.push(`Er profil hade fler visningar än medianen bland jämförbara partnerverifierade profiler (${peers.profileVisits}).`);
+    else if (c.profileVisits < peers.profileVisits) lines.push(`Er profil hade färre visningar än medianen bland jämförbara partnerverifierade profiler (${peers.profileVisits}).`);
+    if (peers.rankProfileVisits) lines.push(`Placering på profilvisningar: ${peers.rankProfileVisits} av ${peers.partnerCount}.`);
+  }
+  const contacts = c.contactRequests ?? 0;
+  if (contacts === 0 && c.profileVisits > 0) {
+    lines.push("Inga kontaktförfrågningar registrerades under perioden trots att profilen visades – en mer komplett profil brukar öka andelen som tar kontakt.");
+  } else if (contacts > 0) {
+    lines.push(`${contacts} kontaktförfrågning${contacts === 1 ? "" : "ar"} förmedlades via d365.se under perioden.`);
+  }
+  const missing = (stats.profileCompletion || []).filter(i => !i.done).length;
+  if (missing > 0) lines.push(`${missing} fält i er profil är ännu inte ifyllda.`);
+
+  if (!lines.length) return "";
+  return `
+      <div style="margin:0 0 22px;padding:14px 16px;background:#f8fafc;border-left:4px solid #B23D19;border-radius:6px">
+        <div style="font-size:13px;color:#0f172a;font-weight:700;margin-bottom:6px">Så läser ni siffrorna</div>
+        <ul style="margin:0;padding-left:18px;color:#334155;font-size:13px;line-height:1.6">
+          ${lines.map(l => `<li style="margin:3px 0">${esc(l)}</li>`).join("")}
+        </ul>
+      </div>`;
+}
+
+/** Anonymiserat företagsblock: bransch + grov storlek, minst två företag per rad. */
+export function renderCompanyBlockHtml(stats: DraftStats | null): string {
+  const rows = stats?.companyBlock || [];
+  if (!rows.length) {
+    return `
+      <h2 style="margin:26px 0 8px;font-size:17px;color:#0f172a">Vilka typer av företag som besökt er profil</h2>
+      <p style="margin:0;color:#64748b;font-size:13px">Inga identifierade företagsbesök under perioden.</p>`;
+  }
+  const body = rows.map(r => `
+    <tr>
+      <td style="padding:10px 14px;border-bottom:1px solid #eef0f3;font-size:14px;color:#0f172a">${esc(r.industry)}</td>
+      <td style="padding:10px 14px;border-bottom:1px solid #eef0f3;font-size:13px;color:#475569">${esc(r.sizeBucket)}</td>
+      <td style="padding:10px 14px;border-bottom:1px solid #eef0f3;font-size:14px;color:#0f172a;text-align:right;font-weight:600">${r.companies}</td>
+      <td style="padding:10px 14px;border-bottom:1px solid #eef0f3;font-size:14px;color:#0f172a;text-align:right;font-weight:600">${r.visits}</td>
+    </tr>`).join("");
+
+  return `
+      <h2 style="margin:26px 0 8px;font-size:17px;color:#0f172a">Vilka typer av företag som besökt er profil</h2>
+      <p style="margin:0 0 12px;color:#64748b;font-size:12px;line-height:1.55">
+        Redovisningen är anonymiserad. Vi lämnar aldrig ut företagsnamn, domän, ort eller besöksdatum – endast bransch, grovt storleksintervall och antal besök. Kombinationer med färre än två företag redovisas som "Övriga branscher".
+      </p>
+      <table width="100%" style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
+        <thead><tr style="background:#f8fafc">
+          <th style="padding:9px 14px;text-align:left;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Bransch</th>
+          <th style="padding:9px 14px;text-align:left;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Storlek</th>
+          <th style="padding:9px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Företag</th>
+          <th style="padding:9px 14px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Besök</th>
+        </tr></thead>
+        <tbody>${body}</tbody>
+      </table>`;
+}
+
+/** Profilkomplettering: vad som är ifyllt och vad som saknas. */
+export function renderProfileCompletionHtml(stats: DraftStats | null): string {
+  const items = stats?.profileCompletion || [];
+  if (!items.length) return "";
+  const done = items.filter(i => i.done).length;
+  const missing = items.filter(i => !i.done);
+  return `
+      <h2 style="margin:26px 0 8px;font-size:17px;color:#0f172a">Er profil</h2>
+      <p style="margin:0 0 10px;color:#334155;font-size:14px;line-height:1.6">
+        ${done} av ${items.length} delar av profilen är ifyllda.
+      </p>
+      ${missing.length ? `
+      <table width="100%" style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
+        <tbody>${missing.map(i => `
+          <tr><td style="padding:9px 14px;border-bottom:1px solid #eef0f3;font-size:13px;color:#475569">Saknas: ${esc(i.label)}</td></tr>`).join("")}
+        </tbody>
+      </table>` : `<p style="margin:0;color:#15803d;font-size:13px">Profilen är komplett.</p>`}`;
+}
+
+/** Ett enda CTA, valt utifrån data. */
+export function chooseCta(stats: DraftStats | null, profileUrl: string): { label: string; url: string; text: string } {
+  const c = stats?.current;
+  const missing = (stats?.profileCompletion || []).filter(i => !i.done);
+  if (missing.length >= 3) {
+    return {
+      label: "Komplettera er profil",
+      url: profileUrl,
+      text: `Flera fält saknas i er profil. Kompletta profiler ger köpare mer att gå på i jämförelser.`,
+    };
+  }
+  if ((c?.contactRequests ?? 0) === 0 && (c?.profileVisits ?? 0) > 0) {
+    return {
+      label: "Se er profil som köparen ser den",
+      url: profileUrl,
+      text: "Profilen visades under perioden men gav inga kontaktförfrågningar. Gå igenom hur erbjudandet presenteras.",
+    };
+  }
+  return {
+    label: "Öppna er partnerprofil",
+    url: profileUrl,
+    text: "Här ser ni samma vy som köpare möter på d365.se.",
+  };
+}
+
 
 /** "Var ni syntes": vägen in, branschsidor och partnernyheter. */
 export function renderVisibilityHtml(stats: DraftStats | null): string {
