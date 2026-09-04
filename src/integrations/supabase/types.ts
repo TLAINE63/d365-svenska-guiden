@@ -2731,6 +2731,47 @@ export type Database = {
           },
         ]
       }
+      partner_card_metrics_monthly: {
+        Row: {
+          card_type: string | null
+          case_clicks: number | null
+          comparison_events: number | null
+          competency_clicks: number | null
+          form_conversion_pct: number | null
+          forms_started: number | null
+          forms_submitted: number | null
+          other_events: number | null
+          outbound_clicks: number | null
+          partner_id: string | null
+          partner_slug: string | null
+          period_month: string | null
+          profile_views: number | null
+          shortlist_saves: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_engagement_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_engagement_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_basic_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_engagement_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       partner_events_public: {
         Row: {
           created_at: string | null
