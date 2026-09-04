@@ -1343,7 +1343,7 @@ serve(async (req) => {
         const { partner_slug, test_email } = data as { partner_slug: string; test_email?: string };
         const { data: partner, error: pErr } = await supabase
           .from("partners")
-          .select("id, slug, name, email, admin_contact_email, published_at, created_at")
+          .select("id, slug, name, email, admin_contact_email, published_at, created_at, description, logo_url, contact_person, contact_photo_url, customer_examples, industries, office_cities, positioning_statement, youtube_video_id")
           .eq("slug", partner_slug).single();
         if (pErr || !partner) throw pErr || new Error("Partner hittades ej");
 
