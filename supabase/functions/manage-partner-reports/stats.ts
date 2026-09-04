@@ -713,7 +713,7 @@ export function renderVisibilityHtml(stats: DraftStats | null): string {
     items.push(`Branschguiden för <strong>${esc(p.name)}</strong> – ${p.views} visningar med ert kort under perioden.`);
   }
   for (const n of stats.partnerNews || []) {
-    items.push(`Partnernytt ${esc(n.date)}: <a href="${esc(n.url)}" style="color:#1e3a5f">${esc(n.title)}</a>`);
+    items.push(`Partnernytt publicerat ${esc(n.date)}: <strong>${esc(n.title)}</strong>`);
   }
   if (items.length === 0) return "";
 
