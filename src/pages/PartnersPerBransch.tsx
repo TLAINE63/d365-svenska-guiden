@@ -8,6 +8,7 @@ import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { collectPartnerIndustries } from "@/lib/partnerIndustries";
 import { ArrowRight, Building2 } from "lucide-react";
 import partnerDataJson from "@/data/partnerData.json";
+import { getBasicPartnerIndustries } from "@/lib/basicPartnerMatch";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 import { useState } from "react";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
@@ -35,14 +36,8 @@ const PartnersPerBransch = () => {
   const basicByIndustry = new Map<string, typeof basicPartners>();
   STANDARD_INDUSTRIES.forEach((i) => basicByIndustry.set(i.name, []));
   basicPartners.forEach((p) => {
-    const seen = new Set<string>();
-    (["bc", "fsc", "sales", "service"] as const).forEach((k) => {
-      (p.observed_industries?.[k] || []).forEach((ind) => {
-        if (basicByIndustry.has(ind) && !seen.has(ind)) {
-          seen.add(ind);
-          basicByIndustry.get(ind)!.push(p);
-        }
-      });
+    getBasicPartnerIndustries(p).forEach((ind) => {
+      if (basicByIndustry.has(ind)) basicByIndustry.get(ind)!.push(p);
     });
   });
   basicByIndustry.forEach((list) =>

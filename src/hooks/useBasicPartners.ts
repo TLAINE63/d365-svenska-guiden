@@ -32,6 +32,13 @@ export interface BasicPartner {
   extended_content: string | null;
   extended_content_updated_at: string | null;
   extended_summary: string | null;
+  /**
+   * Max 3 branscher som valts ut för visning/filtrering. Urvalet prioriterar
+   * de mest ovanliga branscherna i hela Basic-populationen, så att spridningen
+   * blir bättre och breda branscher (t.ex. Tillverkningsindustri) inte
+   * dominerar listorna. Sätts av `assignDisplayIndustries`.
+   */
+  display_industries?: string[];
   profile_level: "basic";
   created_at: string;
   updated_at: string;
@@ -107,10 +114,11 @@ export function useBasicPartners() {
         .select("*")
         .order("name");
       if (error) throw error;
-      return (data || [])
-        .map(normalizeRaw)
-        .filter((p) => !isPartnerExcluded(p.name, p.slug));
-
+      return assignDisplayIndustries(
+        (data || [])
+          .map(normalizeRaw)
+          .filter((p: BasicPartner) => !isPartnerExcluded(p.name, p.slug)),
+      );
     },
     staleTime: 5 * 60 * 1000,
   });
@@ -134,6 +142,34 @@ export function useBasicPartner(slug: string | undefined) {
     enabled: !!slug,
     staleTime: 5 * 60 * 1000,
   });
+}
+
+/**
+ * Väljer max 3 branscher per Basic-partner för visning och filtrering.
+ * Urvalet görs utifrån hur ovanlig branschen är i hela Basic-populationen –
+ * ovanliga branscher väljs först, vilket ger bättre spridning och färre
+ * partners i breda branscher som Tillverkningsindustri.
+ */
+export function assignDisplayIndustries(partners: BasicPartner[]): BasicPartner[] {
+  const uniqueFor = (p: BasicPartner) => {
+    const t = normalizeObservedIndustries(p.observed_industries);
+    return Array.from(
+      new Set((["bc", "fsc", "sales", "service"] as ProductKey[]).flatMap((k) => t[k] || [])),
+    );
+  };
+  const counts = new Map<string, number>();
+  partners.forEach((p) =>
+    uniqueFor(p).forEach((i) => counts.set(i, (counts.get(i) || 0) + 1)),
+  );
+  return partners.map((p) => ({
+    ...p,
+    display_industries: uniqueFor(p)
+      .sort((a, b) => {
+        const d = (counts.get(a) || 0) - (counts.get(b) || 0);
+        return d !== 0 ? d : a.localeCompare(b, "sv");
+      })
+      .slice(0, 3),
+  }));
 }
 
 /** Truncate observed industries to max 3 per product area (defensive – DB is source-of-truth). */
