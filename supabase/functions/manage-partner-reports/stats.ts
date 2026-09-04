@@ -57,18 +57,49 @@ async function fetchImpressionSurfaces(
 }
 
 
+export interface PeerMedians {
+  /** Antal jämförbara partnerverifierade profiler som medianen bygger på. */
+  partnerCount: number;
+  profileVisits: number;
+  exposures: number;
+  contactRequests: number;
+  /** Er placering (1 = högst) bland jämförbara partners. */
+  rankProfileVisits: number | null;
+  rankExposures: number | null;
+}
+
+/** Anonymiserat företagsblock: bransch + grov storlek, minst två företag per rad. */
+export interface CompanyBlockRow {
+  industry: string;
+  sizeBucket: string;
+  companies: number;
+  visits: number;
+}
+
+export interface ProfileCompletionItem {
+  label: string;
+  done: boolean;
+}
+
 export interface DraftStats {
   current: PeriodStats;
   /** Summan för samtliga partners under samma period (jämförelsebas). */
   benchmark?: PeriodStats;
   previous?: PeriodStats;
+  rolling90?: PeriodStats;
+  peers?: PeerMedians;
+  companyBlock?: CompanyBlockRow[];
+  companyBlockSuppressed?: number;
+  profileCompletion?: ProfileCompletionItem[];
   topEntryPath: string | null;
   activeEvaluators: number;
   industryPagesListed: { slug: string; name: string; views: number }[];
   partnerNews: { title: string; date: string; url: string }[];
   currentLabel?: string;
   previousLabel?: string;
+  rolling90Label?: string;
 }
+
 
 function esc(s: any): string {
   return String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
