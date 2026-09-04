@@ -1,4 +1,5 @@
 import type { BasicPartner, ProductKey } from "@/hooks/useBasicPartners";
+import { normalizeObservedIndustries } from "@/hooks/useBasicPartners";
 
 /**
  * Matchning av Basic-partners (observerad data från publika källor) mot samma
@@ -9,6 +10,22 @@ import type { BasicPartner, ProductKey } from "@/hooks/useBasicPartners";
  */
 
 const GEO_HIERARCHY = ["Sverige", "Norden", "Europa", "Globalt"];
+
+/**
+ * Samma branschinsikt som visas på Basickorten: trunkerad till max 3 per
+ * produktområde (via normalizeObservedIndustries), deduplicerad och sammanslagen
+ * över de angivna produktnycklarna. Filtrering och visning delar denna källa,
+ * så en partner aldrig matchar på en bransch som inte syns på kortet.
+ */
+export function getBasicPartnerIndustries(
+  partner: BasicPartner,
+  keys?: ProductKey[],
+): string[] {
+  const truncated = normalizeObservedIndustries(partner.observed_industries);
+  const useKeys = keys && keys.length ? keys : (Object.keys(truncated) as ProductKey[]);
+  const merged = useKeys.flatMap((k) => truncated[k] || []);
+  return Array.from(new Set(merged));
+}
 
 /** Produkter som inte finns i observed_* och därför inte kan matchas för Basic. */
 export const SPECIALTY_APPS = ["Project Operations", "Commerce", "Human Resources"];
@@ -90,10 +107,10 @@ export function filterBasicPartners(
     .filter((p) =>
       relevantKeys.some((k) => {
         if (!hasObservedProduct(p, k)) return false;
-        // Bransch är hårt filter när det valts – kräver observerad branschdata.
+        // Bransch är hårt filter när det valts – matchar mot samma trunkerade
+        // branschlista som visas på Basickortet (max 3 per produktområde).
         if (industry) {
-          const inds = p.observed_industries?.[k] || [];
-          if (!inds.includes(industry)) return false;
+          if (!getBasicPartnerIndustries(p, [k]).includes(industry)) return false;
         }
         if (!matchesSoftList(p.observed_company_sizes?.[k], companySize)) return false;
         if (!matchesSoftList(p.observed_revenue?.[k], revenue)) return false;
