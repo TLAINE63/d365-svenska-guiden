@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { useBasicPartners, PRODUCT_LABEL, PRODUCT_ORDER } from "@/hooks/useBasicPartners";
+import { getBasicPartnerIndustries } from "@/lib/basicPartnerMatch";
 
 interface Props {
   /** Show a compact teaser (Välj Partner) vs. full page list */
@@ -18,6 +19,12 @@ interface Props {
    */
   productKey?: "bc" | "fsc" | "sales" | "service";
   productLabel?: string;
+  /**
+   * Om en bransch är vald på sidan filtreras Basic-partners mot samma
+   * branschinsikt som visas på basickorten (max 3 per produktområde,
+   * ej partnerverifierad).
+   */
+  industry?: string | null;
 }
 
 type ListItem = { id: string; name: string; slug?: string; products?: string[] };
