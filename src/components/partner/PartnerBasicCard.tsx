@@ -8,6 +8,7 @@ import {
   PRODUCT_ORDER,
   ProductKey,
 } from "@/hooks/useBasicPartners";
+import { getBasicPartnerIndustries } from "@/lib/basicPartnerMatch";
 import { BASIC_PROFILE_DISCLAIMER, BASIC_PROFILE_LABEL } from "@/components/BasicPartnerBadge";
 import BasicPartnerInquiryDialog from "@/components/BasicPartnerInquiryDialog";
 import { Button } from "@/components/ui/button";
@@ -57,9 +58,9 @@ export function PartnerBasicCard({
   const factGeo = uniq(
     PRODUCT_ORDER.flatMap((k) => partner.observed_delivery_geo?.[k] || []),
   );
-  const factIndustries = uniq(
-    PRODUCT_ORDER.flatMap((k) => partner.observed_industries?.[k] || []),
-  ).slice(0, 3);
+  // Samma branschinsikt som används i filtreringen (max 3 per produktområde,
+  // deduplicerad) – totalt max 3 rader visas på kortet.
+  const factIndustries = getBasicPartnerIndustries(partner, PRODUCT_ORDER).slice(0, 3);
   const factRows: { label: string; value: string | null }[] = [
     {
       label: "Primärt Dynamics 365-område",

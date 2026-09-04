@@ -488,6 +488,7 @@ const CRM = () => {
   <UnprofiledPartnersList
   variant="teaser"
   showSeeAllLink
+  industry={selectedIndustry || null}
   />
 
 

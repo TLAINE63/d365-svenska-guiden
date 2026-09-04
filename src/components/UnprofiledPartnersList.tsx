@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { useBasicPartners, PRODUCT_LABEL, PRODUCT_ORDER } from "@/hooks/useBasicPartners";
+import { getBasicPartnerIndustries } from "@/lib/basicPartnerMatch";
 
 interface Props {
   /** Show a compact teaser (Välj Partner) vs. full page list */
@@ -18,6 +19,12 @@ interface Props {
    */
   productKey?: "bc" | "fsc" | "sales" | "service";
   productLabel?: string;
+  /**
+   * Om en bransch är vald på sidan filtreras Basic-partners mot samma
+   * branschinsikt som visas på basickorten (max 3 per produktområde,
+   * ej partnerverifierad).
+   */
+  industry?: string | null;
 }
 
 type ListItem = { id: string; name: string; slug?: string; products?: string[] };
@@ -27,6 +34,7 @@ const UnprofiledPartnersList = ({
   showSeeAllLink = true,
   productKey,
   productLabel,
+  industry = null,
 }: Props) => {
   const { data: unprofiled, isLoading: l1 } = useUnprofiledPartners();
   const { data: allNames, isLoading: l2 } = useAllPartnerNames();
@@ -38,6 +46,12 @@ const UnprofiledPartnersList = ({
     // dedupe over name-only entries and can be linked.
     (basicPartners || [])
       .filter((p) => {
+        // Samma branschinsikt som på basickorten: max 3 observerade branscher
+        // per produktområde, trunkerad och deduplicerad.
+        if (industry) {
+          const inds = getBasicPartnerIndustries(p, productKey ? [productKey] : undefined);
+          if (!inds.includes(industry)) return false;
+        }
         if (!productKey) return true;
         // Include if the product is either explicitly observed OR has any
         // observed data (industries/sizes/revenue/geo) for that product key.
@@ -85,7 +99,7 @@ const UnprofiledPartnersList = ({
     });
     deduped.sort((a, b) => a.name.localeCompare(b.name, "sv"));
     return deduped;
-  }, [unprofiled, allNames, basicPartners, productKey]);
+  }, [unprofiled, allNames, basicPartners, productKey, industry]);
 
   if (l1 || l2 || l3) return null;
   if (combined.length === 0) return null;
