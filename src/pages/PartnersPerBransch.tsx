@@ -9,7 +9,8 @@ import { collectPartnerIndustries } from "@/lib/partnerIndustries";
 import { ArrowRight, Building2 } from "lucide-react";
 import partnerDataJson from "@/data/partnerData.json";
 import { getBasicPartnerIndustries } from "@/lib/basicPartnerMatch";
-import { useBasicPartners, BASIC_COPY } from "@/hooks/useBasicPartners";
+import { useBasicPartners } from "@/hooks/useBasicPartners";
+import BasicIndustryFootnote from "@/components/BasicIndustryFootnote";
 import { useState } from "react";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
 import PartnerCard from "@/components/PartnerCard";
@@ -178,19 +179,20 @@ const PartnersPerBransch = () => {
 
         {/* Basic partners per bransch – observed data, same layout as /alla-d365-partners/ */}
         {!verifiedOnly && basicPartners.length > 0 && (
-          <section className="py-10 bg-secondary/40 border-t border-border">
-            <div className="container mx-auto px-4 max-w-5xl">
-              <div className="mb-8">
-                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-                  Fler partners som arbetar med Dynamics 365
-                </h2>
-                <p className="text-sm text-muted-foreground max-w-3xl">
-                  Profilerna bygger på publikt tillgängliga uppgifter och har ännu inte
-                  verifierats tillsammans med partnern. De innehåller därför varken
-                  kontaktperson, kundcase eller detaljerade kompetenser – här visas de
-                  grupperade per bransch. {BASIC_COPY.industriesLabel}
-                </p>
-              </div>
+        <section className="py-10 bg-secondary/40 border-t border-border">
+          <div className="container mx-auto px-4 max-w-5xl">
+            <div className="mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+                Fler partners som arbetar med Dynamics 365
+              </h2>
+              <p className="text-sm text-muted-foreground max-w-3xl">
+                Profilerna bygger på publikt tillgängliga uppgifter och har ännu inte
+                verifierats tillsammans med partnern. De innehåller därför varken
+                kontaktperson, kundcase eller detaljerade kompetenser – här visas de
+                grupperade per bransch.
+              </p>
+              <BasicIndustryFootnote />
+            </div>
 
               <div className="space-y-10">
                 {[...STANDARD_INDUSTRIES]
