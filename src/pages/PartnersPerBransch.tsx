@@ -9,7 +9,7 @@ import { collectPartnerIndustries } from "@/lib/partnerIndustries";
 import { ArrowRight, Building2 } from "lucide-react";
 import partnerDataJson from "@/data/partnerData.json";
 import { getBasicPartnerIndustries } from "@/lib/basicPartnerMatch";
-import { useBasicPartners } from "@/hooks/useBasicPartners";
+import { useBasicPartners, BASIC_COPY } from "@/hooks/useBasicPartners";
 import { useState } from "react";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
 import PartnerCard from "@/components/PartnerCard";
@@ -188,7 +188,7 @@ const PartnersPerBransch = () => {
                   Profilerna bygger på publikt tillgängliga uppgifter och har ännu inte
                   verifierats tillsammans med partnern. De innehåller därför varken
                   kontaktperson, kundcase eller detaljerade kompetenser – här visas de
-                  grupperade per bransch.
+                  grupperade per bransch. {BASIC_COPY.industriesLabel}
                 </p>
               </div>
 
