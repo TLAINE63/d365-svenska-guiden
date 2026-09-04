@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { trackBuyerToolEvent } from "@/utils/trackBuyerToolEvent";
 import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
