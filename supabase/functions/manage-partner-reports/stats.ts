@@ -12,7 +12,12 @@ export interface PeriodStats {
   newsClicks?: number;
   sitePageViews?: number;
   siteUniqueVisitors?: number;
+  /** Nivå 4-händelser: kontakt-, intro- och formulärförfrågningar. */
+  contactRequests?: number;
+  /** Nivå 3: påbörjade formulär på partnerkortet. */
+  formStarts?: number;
 }
+
 
 /**
  * Ytor som redan mäts via partner_filter_exposures. Exponeringar från
