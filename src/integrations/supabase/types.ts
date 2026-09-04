@@ -122,6 +122,42 @@ export type Database = {
         }
         Relationships: []
       }
+      buyer_tool_events: {
+        Row: {
+          company_size: string | null
+          id: string
+          industry: string | null
+          matched_partner_ids: string[]
+          occurred_at: string
+          product_key: string | null
+          session_hash: string | null
+          status: string
+          tool: string
+        }
+        Insert: {
+          company_size?: string | null
+          id?: string
+          industry?: string | null
+          matched_partner_ids?: string[]
+          occurred_at?: string
+          product_key?: string | null
+          session_hash?: string | null
+          status: string
+          tool: string
+        }
+        Update: {
+          company_size?: string | null
+          id?: string
+          industry?: string | null
+          matched_partner_ids?: string[]
+          occurred_at?: string
+          product_key?: string | null
+          session_hash?: string | null
+          status?: string
+          tool?: string
+        }
+        Relationships: []
+      }
       contact_attempt_blocked: {
         Row: {
           created_at: string

@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { INDUSTRY_NAMES } from "@/data/standardIndustries";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { trackBuyerToolEvent, startBuyerToolRun } from "@/utils/trackBuyerToolEvent";
 import { Link } from "react-router-dom";
 import heroBehovsanalysKundservice from "@/assets/hero-behovsanalys-kundservice.jpg";
 import { z } from "zod";
@@ -519,6 +520,26 @@ const CustomerServiceNeedsAnalysis = () => {
  trackFunnelEvent({ event_type: "analysis_complete", event_name: "needs_analysis_customer_service" });
  }
  }, [currentStep]);
+
+  const buyerRun = useRef<ReturnType<typeof startBuyerToolRun> | null>(null);
+  useEffect(() => {
+    buyerRun.current = startBuyerToolRun("behovsanalys", { product_key: "customer_service" });
+    return () => buyerRun.current?.cleanup();
+  }, []);
+
+  useEffect(() => {
+    if (currentStep === totalSteps) {
+      buyerRun.current?.markCompleted();
+      trackBuyerToolEvent({
+        tool: "behovsanalys",
+        status: "slutford",
+        product_key: "customer_service",
+        industry: data.industry || null,
+        company_size: null,
+      });
+    }
+  }, [currentStep, totalSteps]);
+
 
  const focusKeyCurrent = getFocusKey(data);
  const needsFieldServiceStep = focusKeyCurrent === "field_service" || focusKeyCurrent === "multi";

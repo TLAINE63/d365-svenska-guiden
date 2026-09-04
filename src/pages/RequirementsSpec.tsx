@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { trackBuyerToolEvent, startBuyerToolRun } from "@/utils/trackBuyerToolEvent";
 import { useLocation, useSearchParams } from "react-router-dom";
 import heroKravspecErp from "@/assets/hero-kravspec-erp.jpg";
 import Navbar from "@/components/Navbar";
@@ -84,6 +85,26 @@ const RequirementsSpec = () => {
   const [industry, setIndustry] = useState<string>(isValidPrefill ? prefilledIndustry! : "");
   const [companySize, setCompanySize] = useState<string>("");
   const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
+
+  const buyerRun = useRef<ReturnType<typeof startBuyerToolRun> | null>(null);
+  useEffect(() => {
+    buyerRun.current = startBuyerToolRun("kravspecifikation", { product_key: "erp" });
+    return () => buyerRun.current?.cleanup();
+  }, []);
+
+  useEffect(() => {
+    if (step === totalSteps) {
+      buyerRun.current?.markCompleted();
+      trackBuyerToolEvent({
+        tool: "kravspecifikation",
+        status: "slutford",
+        product_key: "erp",
+        industry: industry || null,
+        company_size: companySize || null,
+      });
+    }
+  }, [step, totalSteps]);
+
 
   const [isGenerating, setIsGenerating] = useState(false);
   const [result, setResult] = useState<RequirementsData | null>(null);

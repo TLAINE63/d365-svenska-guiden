@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { INDUSTRY_NAMES } from "@/data/standardIndustries";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { trackBuyerToolEvent, startBuyerToolRun } from "@/utils/trackBuyerToolEvent";
 import heroBehovsanalysErp from "@/assets/hero-behovsanalys-erp.jpg";
 import { z } from "zod";
 import Navbar from "@/components/Navbar";
@@ -1045,6 +1046,26 @@ const NeedsAnalysis = () => {
       trackFunnelEvent({ event_type: "analysis_complete", event_name: "needs_analysis_erp" });
     }
   }, [currentStep, totalSteps]);
+
+  const buyerRun = useRef<ReturnType<typeof startBuyerToolRun> | null>(null);
+  useEffect(() => {
+    buyerRun.current = startBuyerToolRun("behovsanalys", { product_key: "erp" });
+    return () => buyerRun.current?.cleanup();
+  }, []);
+
+  useEffect(() => {
+    if (currentStep === totalSteps) {
+      buyerRun.current?.markCompleted();
+      trackBuyerToolEvent({
+        tool: "behovsanalys",
+        status: "slutford",
+        product_key: "erp",
+        industry: data.industry || null,
+        company_size: data.employees || null,
+      });
+    }
+  }, [currentStep, totalSteps]);
+
 
   const stepIcons = [
     BarChart3, Building2, Globe, Layers, Globe, Server, AlertTriangle, Boxes, Sparkles, FileText
