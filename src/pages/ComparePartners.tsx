@@ -1417,6 +1417,23 @@ const ComparePartners = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, comparisonSlugKey, comparisonProductKey, industryFilter]);
 
+  // Anonym mätning av jämförelsevyn: en körning räknas som slutförd när
+  // minst två partners jämförs samtidigt. Inga företagsnamn eller persondata.
+  const comparedIdKey = comparedPartners.map((p) => p.id).join("|");
+  useEffect(() => {
+    if (isLoading || comparedPartners.length < 2) return;
+    trackBuyerToolEvent({
+      tool: "jamforelse",
+      status: "slutford",
+      product_key: comparisonProductKey || null,
+      industry: industryFilter || null,
+      matched_partner_ids: comparedPartners.map((p) => p.id),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading, comparedIdKey, comparisonProductKey, industryFilter]);
+
+
+
 
   
 
