@@ -34,6 +34,7 @@ const UnprofiledPartnersList = ({
   showSeeAllLink = true,
   productKey,
   productLabel,
+  industry = null,
 }: Props) => {
   const { data: unprofiled, isLoading: l1 } = useUnprofiledPartners();
   const { data: allNames, isLoading: l2 } = useAllPartnerNames();
@@ -45,6 +46,12 @@ const UnprofiledPartnersList = ({
     // dedupe over name-only entries and can be linked.
     (basicPartners || [])
       .filter((p) => {
+        // Samma branschinsikt som på basickorten: max 3 observerade branscher
+        // per produktområde, trunkerad och deduplicerad.
+        if (industry) {
+          const inds = getBasicPartnerIndustries(p, productKey ? [productKey] : undefined);
+          if (!inds.includes(industry)) return false;
+        }
         if (!productKey) return true;
         // Include if the product is either explicitly observed OR has any
         // observed data (industries/sizes/revenue/geo) for that product key.
