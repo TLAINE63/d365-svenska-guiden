@@ -114,10 +114,11 @@ export function useBasicPartners() {
         .select("*")
         .order("name");
       if (error) throw error;
-      return (data || [])
-        .map(normalizeRaw)
-        .filter((p) => !isPartnerExcluded(p.name, p.slug));
-
+      return assignDisplayIndustries(
+        (data || [])
+          .map(normalizeRaw)
+          .filter((p: BasicPartner) => !isPartnerExcluded(p.name, p.slug)),
+      );
     },
     staleTime: 5 * 60 * 1000,
   });
