@@ -188,7 +188,7 @@ const PartnersPerBransch = () => {
                   Profilerna bygger på publikt tillgängliga uppgifter och har ännu inte
                   verifierats tillsammans med partnern. De innehåller därför varken
                   kontaktperson, kundcase eller detaljerade kompetenser – här visas de
-                  grupperade per bransch.
+                  grupperade per bransch. {BASIC_COPY.industriesLabel}
                 </p>
               </div>
 

@@ -120,6 +120,11 @@ const UnprofiledPartnersList = ({
           <p className="text-sm sm:text-base text-muted-foreground max-w-3xl mx-auto">
             {intro}
           </p>
+          {industry && (
+            <p className="mt-2 text-xs text-muted-foreground/80 max-w-3xl mx-auto">
+              {BASIC_COPY.industriesLabel}
+            </p>
+          )}
         </div>
 
         <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
