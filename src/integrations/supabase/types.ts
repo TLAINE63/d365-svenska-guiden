@@ -1840,6 +1840,58 @@ export type Database = {
         }
         Relationships: []
       }
+      partner_report_monthly: {
+        Row: {
+          computed_at: string
+          id: string
+          metrics: Json
+          partner_id: string | null
+          partner_name: string
+          partner_slug: string
+          period_month: string
+        }
+        Insert: {
+          computed_at?: string
+          id?: string
+          metrics?: Json
+          partner_id?: string | null
+          partner_name?: string
+          partner_slug: string
+          period_month: string
+        }
+        Update: {
+          computed_at?: string
+          id?: string
+          metrics?: Json
+          partner_id?: string | null
+          partner_name?: string
+          partner_slug?: string
+          period_month?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_report_monthly_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_report_monthly_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_basic_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_report_monthly_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       partner_submissions: {
         Row: {
           address: string | null
@@ -3145,6 +3197,10 @@ export type Database = {
           source_queue: string
         }
         Returns: number
+      }
+      partner_report_monthly_dispatch: {
+        Args: { target_month?: string }
+        Returns: undefined
       }
       read_email_batch: {
         Args: { batch_size: number; queue_name: string; vt: number }

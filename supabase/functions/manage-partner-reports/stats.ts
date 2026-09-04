@@ -81,6 +81,14 @@ export interface ProfileCompletionItem {
   done: boolean;
 }
 
+/** En rad ur historiktabellen partner_report_monthly. */
+export interface MonthlyHistoryRow {
+  month: string;          // YYYY-MM
+  profileVisits: number;
+  exposures: number;
+  contactRequests: number;
+}
+
 export interface DraftStats {
   current: PeriodStats;
   /** Summan för samtliga partners under samma period (jämförelsebas). */
@@ -88,6 +96,7 @@ export interface DraftStats {
   previous?: PeriodStats;
   rolling90?: PeriodStats;
   peers?: PeerMedians;
+  history?: MonthlyHistoryRow[];
   companyBlock?: CompanyBlockRow[];
   companyBlockSuppressed?: number;
   profileCompletion?: ProfileCompletionItem[];
@@ -99,6 +108,7 @@ export interface DraftStats {
   previousLabel?: string;
   rolling90Label?: string;
 }
+
 
 
 function esc(s: any): string {
@@ -130,7 +140,7 @@ function bucketReferrer(ref: string | null, firstUrl?: string | null): string | 
   return "Direktlänk / okänt";
 }
 
-async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso: string): Promise<PeriodStats> {
+export async function fetchPeriod(supabase: any, partner: any, startIso: string, endIso: string): Promise<PeriodStats> {
   const [viewsRes, clicksRes, exposureRes, sitePvRes, sessionsRes, newsClicksRes, surfaces] = await Promise.all([
     supabase.from("partner_profile_views").select("view_type")
       .eq("partner_slug", partner.slug).gte("viewed_at", startIso).lt("viewed_at", endIso),
@@ -423,6 +433,85 @@ export function buildProfileCompletion(partner: any): ProfileCompletionItem[] {
   ];
 }
 
+/** Total exponering (visningar i listor, filter och jämförelser) för en period. */
+export function exposuresOf(p: PeriodStats | null | undefined): number {
+  if (!p) return 0;
+  return p.compareViews + p.industryListingViews + (p.guideListingViews ?? 0) + (p.otherListingViews ?? 0);
+}
+
+/** Beräknar en hel kalendermånad för en partner – används av historikjobbet. */
+export async function computeMonthlyMetrics(
+  supabase: any,
+  partner: { id: string; slug: string; name: string },
+  monthStart: string, // YYYY-MM-01
+): Promise<PeriodStats> {
+  const d = new Date(`${monthStart}T00:00:00Z`);
+  const nextMonth = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1));
+  return await fetchPeriod(supabase, partner, `${monthStart}T00:00:00Z`, nextMonth.toISOString());
+}
+
+/** Hämtar upp till sex avslutade månader ur partner_report_monthly. */
+export async function fetchHistory(
+  supabase: any,
+  slug: string,
+  beforeMonth: string, // YYYY-MM-01 (månaden rapporten avser, inkluderas)
+  limit = 6,
+): Promise<MonthlyHistoryRow[]> {
+  const { data, error } = await supabase
+    .from("partner_report_monthly")
+    .select("period_month, metrics")
+    .eq("partner_slug", slug)
+    .lte("period_month", beforeMonth)
+    .order("period_month", { ascending: false })
+    .limit(limit);
+  if (error || !data?.length) return [];
+  return data
+    .map((r: any) => ({
+      month: String(r.period_month).slice(0, 7),
+      profileVisits: Number(r.metrics?.profileVisits || 0),
+      exposures: Number(r.metrics?.exposures ?? exposuresOf(r.metrics)),
+      contactRequests: Number(r.metrics?.contactRequests || 0),
+    }))
+    .reverse();
+}
+
+/** Sex månaders utveckling som tabell med stapel – inga bilder, ingen SVG. */
+export function renderHistoryHtml(stats: DraftStats | null): string {
+  const hist = stats?.history || [];
+  if (hist.length < 2) return "";
+  const max = Math.max(...hist.map(h => h.profileVisits), 1);
+  const rows = hist.map(h => {
+    const pct = Math.max(2, Math.round((h.profileVisits / max) * 100));
+    return `
+      <tr>
+        <td style="padding:6px 10px 6px 0;font-size:13px;color:#334155;white-space:nowrap">${esc(h.month)}</td>
+        <td style="padding:6px 0">
+          <table width="100%" style="width:100%;border-collapse:collapse"><tr>
+            <td style="background:#0f172a;height:10px;line-height:10px;font-size:0;border-radius:5px;width:${pct}%">&nbsp;</td>
+            <td style="width:${100 - pct}%">&nbsp;</td>
+          </tr></table>
+        </td>
+        <td style="padding:6px 0 6px 10px;font-size:13px;color:#0f172a;font-weight:600;text-align:right;white-space:nowrap">${h.profileVisits}</td>
+        <td style="padding:6px 0 6px 12px;font-size:13px;color:#475569;text-align:right;white-space:nowrap">${h.exposures}</td>
+        <td style="padding:6px 0 6px 12px;font-size:13px;color:#475569;text-align:right;white-space:nowrap">${h.contactRequests}</td>
+      </tr>`;
+  }).join("");
+  return `
+      <h3 style="margin:18px 0 6px;font-size:15px;color:#0f172a">Utveckling per månad</h3>
+      <table width="100%" style="width:100%;border-collapse:collapse;margin:0 0 6px">
+        <tr>
+          <td style="font-size:12px;color:#64748b;padding:0 10px 4px 0">Månad</td>
+          <td style="font-size:12px;color:#64748b;padding:0 0 4px">Profilvisningar</td>
+          <td style="font-size:12px;color:#64748b;padding:0 0 4px 10px;text-align:right">Antal</td>
+          <td style="font-size:12px;color:#64748b;padding:0 0 4px 12px;text-align:right">Visningar</td>
+          <td style="font-size:12px;color:#64748b;padding:0 0 4px 12px;text-align:right">Kontakter</td>
+        </tr>
+        ${rows}
+      </table>
+      <p style="margin:0 0 18px;font-size:12px;color:#64748b">Historiken bygger på avslutade kalendermånader.</p>`;
+}
+
+
 export async function buildDraftStats(
   supabase: any,
   partner: { id: string; slug: string; name: string },
@@ -444,7 +533,9 @@ export async function buildDraftStats(
   const previousEnd = currentStart;
   const rolling90Start = `${shiftDays(end, -89)}T00:00:00Z`;
 
-  const [current, benchmark, topEntryPath, industryPagesListed, partnerNews, previous, rolling90, peers] =
+  const historyAnchor = `${start.slice(0, 7)}-01`;
+
+  const [current, benchmark, topEntryPath, industryPagesListed, partnerNews, previous, rolling90, peers, history] =
     await Promise.all([
       fetchPeriod(supabase, partner, currentStart, currentEnd),
       fetchAllPartnersPeriod(supabase, currentStart, currentEnd),
@@ -454,6 +545,7 @@ export async function buildDraftStats(
       opts.skipPrevious ? Promise.resolve(undefined) : fetchPeriod(supabase, partner, previousStart, previousEnd),
       opts.skipPrevious ? Promise.resolve(undefined) : fetchPeriod(supabase, partner, rolling90Start, currentEnd),
       fetchPeerMedians(supabase, partner.slug, currentStart, currentEnd),
+      fetchHistory(supabase, partner.slug, historyAnchor),
     ]);
 
   const block = buildCompanyBlock(companies);
@@ -464,6 +556,7 @@ export async function buildDraftStats(
     previous,
     rolling90,
     peers,
+    history,
     companyBlock: block.rows,
     companyBlockSuppressed: block.suppressed,
     profileCompletion: opts.partnerRow ? buildProfileCompletion(opts.partnerRow) : undefined,
@@ -475,6 +568,7 @@ export async function buildDraftStats(
     previousLabel: `${prevStartDate} – ${shiftDays(start, -1)}`,
     rolling90Label: `${shiftDays(end, -89)} – ${end}`,
   };
+
 
 }
 
@@ -544,6 +638,7 @@ export function renderStatsHtml(stats: DraftStats | null): string {
         Kontaktförfrågningar redovisas alltid, även när de är noll. Föregående period avser ${esc(stats.previousLabel || "motsvarande föregående intervall")}${has90 ? `, rullande 90 dagar avser ${esc(stats.rolling90Label || "")}` : ""}.
       </p>
       ${renderExposureChart(stats)}
+      ${renderHistoryHtml(stats)}
       ${renderInsightsHtml(stats)}`;
 }
 

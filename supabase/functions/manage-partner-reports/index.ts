@@ -1,7 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { Resend } from "https://esm.sh/resend@2.0.0";
-import { buildDraftStats, renderStatsHtml, renderVisibilityHtml, renderCompanyBlockHtml, renderProfileCompletionHtml, chooseCta, type DraftStats } from "./stats.ts";
+import { buildDraftStats, renderStatsHtml, renderVisibilityHtml, renderCompanyBlockHtml, renderProfileCompletionHtml, chooseCta, computeMonthlyMetrics, exposuresOf, type DraftStats } from "./stats.ts";
 import { buildBasicTeaserStats, renderBasicTeaserHtml, DEFAULT_TEASER_BENEFITS, type BasicTeaserStats } from "./basicTeaser.ts";
 
 function isAllowedOrigin(origin: string): boolean {
@@ -456,11 +456,16 @@ serve(async (req) => {
   try {
     const { action, token, ...data } = await req.json();
     const JWT_SECRET = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    if (!(await verifyJWT(token || "", JWT_SECRET))) {
+    // Schemalagda jobb (pg_cron) autentiserar med service role-nyckeln i Authorization
+    // i stället för admin-sessionens HMAC-token. Endast historikjobbet tillåts så.
+    const bearer = (req.headers.get("authorization") || "").replace(/^Bearer\s+/i, "").trim();
+    const isCronJob = action === "monthly_snapshot" && bearer.length > 0 && bearer === JWT_SECRET;
+    if (!isCronJob && !(await verifyJWT(token || "", JWT_SECRET))) {
       return new Response(JSON.stringify({ error: "Ogiltig session" }), {
         status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" }
       });
     }
+
 
 
     const supabase = createClient(
@@ -1551,7 +1556,60 @@ serve(async (req) => {
         return new Response(JSON.stringify({ success: true }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
 
+      // ───────── Historik: skriver avslutade kalendermånader till partner_report_monthly ─────────
+      case "monthly_snapshot": {
+        const { month, months = 1 } = data as { month?: string; months?: number };
+        const now = new Date();
+        const baseMonth = month
+          ? new Date(`${String(month).slice(0, 7)}-01T00:00:00Z`)
+          : new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1));
+        const count = Math.min(Math.max(Number(months) || 1, 1), 12);
+
+        const { data: partners, error: pErr } = await supabase
+          .from("partners")
+          .select("id, slug, name")
+          .eq("is_featured", true);
+        if (pErr) throw pErr;
+
+        let written = 0;
+        const monthsWritten: string[] = [];
+        for (let i = 0; i < count; i++) {
+          const d = new Date(Date.UTC(baseMonth.getUTCFullYear(), baseMonth.getUTCMonth() - i, 1));
+          const monthStart = d.toISOString().slice(0, 10);
+          monthsWritten.push(monthStart.slice(0, 7));
+          for (const p of partners || []) {
+            const m = await computeMonthlyMetrics(supabase, p, monthStart);
+            const { error: upErr } = await supabase.from("partner_report_monthly").upsert({
+              partner_id: p.id,
+              partner_slug: p.slug,
+              partner_name: p.name,
+              period_month: monthStart,
+              // Endast aggregerade tal – inga företagsnamn, domäner, IP eller orter.
+              metrics: {
+                profileVisits: m.profileVisits,
+                exposures: exposuresOf(m),
+                compareViews: m.compareViews,
+                industryListingViews: m.industryListingViews,
+                guideListingViews: m.guideListingViews ?? 0,
+                otherListingViews: m.otherListingViews ?? 0,
+                websiteClicks: m.websiteClicks,
+                cardClicks: m.cardClicks ?? 0,
+                newsClicks: m.newsClicks ?? 0,
+                contactRequests: m.contactRequests ?? 0,
+                formStarts: m.formStarts ?? 0,
+              },
+              computed_at: new Date().toISOString(),
+            }, { onConflict: "partner_slug,period_month" });
+            if (upErr) console.error("monthly_snapshot upsert error", p.slug, monthStart, upErr.message);
+            else written++;
+          }
+        }
+        return new Response(JSON.stringify({ success: true, written, months: monthsWritten, partners: partners?.length || 0 }),
+          { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
       default:
+
         return new Response(JSON.stringify({ error: "Okänd action" }), {
           status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" }
         });
