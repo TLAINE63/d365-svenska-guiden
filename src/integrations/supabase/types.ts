@@ -3210,6 +3210,7 @@ export type Database = {
           read_ct: number
         }[]
       }
+      report_cron_secret: { Args: never; Returns: string }
       teaser_engagement_stats: {
         Args: { end_ts: string; start_ts: string }
         Returns: {
