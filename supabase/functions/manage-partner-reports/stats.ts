@@ -89,6 +89,16 @@ export interface MonthlyHistoryRow {
   contactRequests: number;
 }
 
+/** Aggregerad efterfrågan från köparverktygen. Endast summor – aldrig fritext eller person-/företagsdata. */
+export interface DemandStats {
+  runs: number;
+  completed: number;
+  aborted: number;
+  products: { label: string; count: number }[];
+  industries: { label: string; count: number }[];
+  sizes: { label: string; count: number }[];
+}
+
 export interface DraftStats {
   current: PeriodStats;
   /** Summan för samtliga partners under samma period (jämförelsebas). */
@@ -97,6 +107,7 @@ export interface DraftStats {
   rolling90?: PeriodStats;
   peers?: PeerMedians;
   history?: MonthlyHistoryRow[];
+  demand?: DemandStats;
   companyBlock?: CompanyBlockRow[];
   companyBlockSuppressed?: number;
   profileCompletion?: ProfileCompletionItem[];
@@ -108,6 +119,7 @@ export interface DraftStats {
   previousLabel?: string;
   rolling90Label?: string;
 }
+
 
 
 
