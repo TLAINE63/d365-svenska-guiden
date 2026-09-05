@@ -259,8 +259,12 @@ export function renderBasicTeaserHtml(opts: {
   const { partnerName, partnerSlug, intro, benefits, stats, contactEmail, contactName } = opts;
   const s = stats;
   const m = s.market || ({} as BasicTeaserStats["market"]);
+  // Bakåtkompatibilitet: äldre sparade utkast har fältet verifiedAverage.
+  const peer = s.verifiedMedian || (s as any).verifiedAverage || { exposures: 0, profileVisits: 0, partners: 0 };
+  const growth = typeof m.growthPct === "number" ? m.growthPct : null;
   const noExposure = s.own.cardViews === 0 && s.own.filterMatches === 0;
   const profileUrl = `${SITE_ORIGIN}/basic/${encodeURIComponent(partnerSlug)}${UTM}`;
+
 
   const benefitList = benefits.filter(Boolean).map((b) => `
     <li style="margin:7px 0;font-size:14px;color:#334155;line-height:1.55">${esc(b)}</li>`).join("");
