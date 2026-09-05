@@ -311,9 +311,14 @@ const Partnerprogram = () => {
               däremot göra det möjligt för d365.se att bedöma er relevans mer precist.
             </p>
             <div className="mt-5 flex flex-col gap-2 max-w-2xl">
+              {overviewDates.published && (
+                <p className="text-sm font-medium text-foreground border-l-4 border-primary pl-3">
+                  Partneröversikt {new Date().getFullYear()} publiceras {overviewDates.published}.
+                </p>
+              )}
               <p className="text-sm font-medium text-foreground border-l-4 border-primary pl-3">
-                För att inkluderas i årets Partneröversikt behöver profilen vara partnerverifierad senast
-                14 november.
+                För att inkluderas i årets Partneröversikt behöver profilen vara partnerverifierad senast{" "}
+                {overviewDates.deadline ?? "14 november"}.
               </p>
               <p className="text-sm text-muted-foreground border-l-4 border-border pl-3">
                 Partnerprofiler kommer även att kunna exponeras på den norska versionen av
