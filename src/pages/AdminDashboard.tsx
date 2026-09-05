@@ -309,7 +309,7 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
  id: "partnerportal",
  label: "Partnerportal",
  icon: LayoutDashboard,
- tabs: ["partner-stats-page", "partner-agreement-page", "partner-dashboard", "partner-reports", "partner-performance"],
+ tabs: ["partner-stats-page", "partner-agreement-page", "partner-dashboard", "partner-reports", "utskick", "partner-performance"],
  },
 ];
 
