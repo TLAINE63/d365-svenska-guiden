@@ -34,6 +34,7 @@ import { trackFunnelEvent, type FunnelEventType } from "@/utils/trackFunnelEvent
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 import PartnerProgramBenchmark from "@/components/partner/PartnerProgramBenchmark";
 import PartnerProfileCheck from "@/components/partner/PartnerProfileCheck";
+import { supabase } from "@/integrations/supabase/client";
 
 import partnerData from "@/data/partnerData.json";
 
