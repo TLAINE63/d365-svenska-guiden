@@ -98,8 +98,12 @@ export async function buildBasicTeaserStats(
   const endDate = new Date(`${end}T00:00:00Z`);
   const start90 = new Date(endDate.getTime() - 89 * 24 * 3600 * 1000);
   const start90Iso = `${start90.toISOString().slice(0, 10)}T00:00:00Z`;
+  // Föregående 30-dagarsfönster (perioden före den redovisade perioden)
+  const startDate = new Date(`${start}T00:00:00Z`);
+  const prev30 = new Date(startDate.getTime() - 30 * 24 * 3600 * 1000);
+  const prev30Iso = `${prev30.toISOString().slice(0, 10)}T00:00:00Z`;
 
-  const [engagement, exposures, marketStatsRes, engagementStatsRes, partnersCountRes, resourcesRes, verified] = await Promise.all([
+  const [engagement, exposures, marketStatsRes, engagementStatsRes, partnersCountRes, resourcesRes, verified, demand] = await Promise.all([
     supabase.from("partner_engagement_events")
       .select("page_path, event_level")
       .eq("partner_slug", partnerSlug)
@@ -110,7 +114,10 @@ export async function buildBasicTeaserStats(
       .gte("viewed_at", startIso).lte("viewed_at", endIso).limit(50000),
     // Marknadssiffror aggregeras i databasen (API:t returnerar max 1000 rader per anrop,
     // vilket tidigare gav avkortade och missvisande 30/90-dagarsvärden).
-    supabase.rpc("teaser_market_stats", { start30: startIso, start90: start90Iso, end_ts: endIso }),
+    // v2 räknar unika besökare som distinkta anonymiserade IP-adresser.
+    supabase.rpc("teaser_market_stats_v2", {
+      prev30_start: prev30Iso, start30: startIso, start90: start90Iso, end_ts: endIso,
+    }),
     supabase.rpc("teaser_engagement_stats", { start_ts: start90Iso, end_ts: endIso }),
     supabase.from("partners").select("id", { count: "exact", head: true }),
     // Kunskapsresurser: videoguider + partnernyheter + publicerade branschsidor
@@ -120,7 +127,8 @@ export async function buildBasicTeaserStats(
       supabase.from("industry_pages").select("id", { count: "exact", head: true }).eq("is_published", true),
       supabase.from("knowledge_articles").select("id", { count: "exact", head: true }).eq("is_published", true),
     ]),
-    buildVerifiedAverage(supabase, startIso, endIso),
+    buildVerifiedMedian(supabase, startIso, endIso),
+    fetchDemand(supabase, startIso, endIso),
   ]);
   const marketStats = (marketStatsRes.data || [])[0] || {};
   const engagementStats = (engagementStatsRes.data || [])[0] || {};
@@ -142,6 +150,13 @@ export async function buildBasicTeaserStats(
   // Marknadssiffror hämtas färdigaggregerade från databasfunktionerna ovan
   const num = (v: unknown): number => (Number.isFinite(Number(v)) ? Number(v) : 0);
 
+  const visitors30 = num(marketStats.visitors30);
+  const visitorsPrev30 = num(marketStats.visitors_prev30);
+  const growthPct =
+    visitors30 >= GROWTH_MIN_VISITORS && visitorsPrev30 >= GROWTH_MIN_VISITORS
+      ? Math.round(((visitors30 - visitorsPrev30) / visitorsPrev30) * 100)
+      : null;
+
   return {
     kind: "basic_teaser",
     periodLabel,
@@ -151,8 +166,11 @@ export async function buildBasicTeaserStats(
       industryPages: industrySlugs.size,
     },
     market: {
-      visitors30: num(marketStats.visitors30),
+      visitors30,
+      visitorsPrev30,
       visitors90: num(marketStats.visitors90),
+      sessions30: num(marketStats.sessions30),
+      growthPct,
       avgTimeOnSiteSec: num(marketStats.avg_time_sec),
       pagesVisited30: num(marketStats.pages30),
       pagesVisited90: num(marketStats.pages90),
@@ -161,11 +179,22 @@ export async function buildBasicTeaserStats(
       partnersListed: partnersCountRes?.count || 0,
       resourcesCount,
     },
-    verifiedAverage: verified,
+    verifiedMedian: verified,
+    demand,
   };
 }
 
-async function buildVerifiedAverage(supabase: any, startIso: string, endIso: string) {
+function median(values: number[]): number {
+  if (!values.length) return 0;
+  const sorted = [...values].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 === 1
+    ? sorted[mid]
+    : Math.round((sorted[mid - 1] + sorted[mid]) / 2);
+}
+
+/** Median (inte medelvärde) bland partnerverifierade profiler. */
+async function buildVerifiedMedian(supabase: any, startIso: string, endIso: string) {
   const { data: verifiedPartners } = await supabase
     .from("partners")
     .select("slug")
@@ -181,18 +210,24 @@ async function buildVerifiedAverage(supabase: any, startIso: string, endIso: str
       .gte("viewed_at", startIso).lte("viewed_at", endIso).limit(100000),
   ]);
 
-  let exposures = 0;
-  for (const r of exp.data || []) if (slugs.has(r.partner_slug)) exposures++;
-  let profileVisits = 0;
+  const expBySlug = new Map<string, number>();
+  const viewsBySlug = new Map<string, number>();
+  for (const s of slugs) { expBySlug.set(s, 0); viewsBySlug.set(s, 0); }
+  for (const r of exp.data || []) {
+    if (slugs.has(r.partner_slug)) expBySlug.set(r.partner_slug, (expBySlug.get(r.partner_slug) || 0) + 1);
+  }
   for (const r of views.data || []) {
-    if (r.view_type === "profile_visit" && slugs.has(r.partner_slug)) profileVisits++;
+    if (r.view_type === "profile_visit" && slugs.has(r.partner_slug)) {
+      viewsBySlug.set(r.partner_slug, (viewsBySlug.get(r.partner_slug) || 0) + 1);
+    }
   }
 
   return {
-    exposures: Math.round(exposures / slugs.size),
-    profileVisits: Math.round(profileVisits / slugs.size),
+    exposures: median([...expBySlug.values()]),
+    profileVisits: median([...viewsBySlug.values()]),
     partners: slugs.size,
   };
+
 }
 
 // ─────────────────────────── HTML ───────────────────────────
