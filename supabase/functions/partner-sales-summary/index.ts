@@ -256,7 +256,7 @@ async function buildSummary(
 
   // ── Sajttotaler all-time (unika sessioner + sidvisningar + nyckelsidor) ──
   const [vAllSessions, vAllPv, valjPartnerRes, komIgangRes, analysesAllRes, pvAllRes, clicksAllGRes] = await Promise.all([
-    supabase.from("visitor_analytics").select("session_id, page_path, time_on_page").limit(200000),
+    supabase.from("visitor_analytics").select("session_id, page_path, time_on_page_seconds").limit(200000),
     supabase.from("visitor_analytics").select("*", { count: "exact", head: true }),
     supabase.from("visitor_analytics").select("*", { count: "exact", head: true }).like("page_path", "%/valjdynamics365partner%"),
     supabase.from("visitor_analytics").select("*", { count: "exact", head: true }).like("page_path", "%/kom-igang%"),
@@ -268,8 +268,8 @@ async function buildSummary(
   let timeSum = 0, timeCount = 0;
   for (const r of vAllSessions.data || []) {
     if (r.session_id) sessionsAll.add(r.session_id);
-    if (typeof r.time_on_page === "number" && r.time_on_page > 0 && r.time_on_page < 3600) {
-      timeSum += r.time_on_page; timeCount++;
+    if (typeof r.time_on_page_seconds === "number" && r.time_on_page_seconds > 0 && r.time_on_page_seconds < 3600) {
+      timeSum += r.time_on_page_seconds; timeCount++;
     }
   }
   const avgTimeOnPageSec = timeCount > 0 ? Math.round(timeSum / timeCount) : 0;
