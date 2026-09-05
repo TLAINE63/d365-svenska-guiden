@@ -315,8 +315,11 @@ export function renderBasicTeaserHtml(opts: {
 
       ${sectionTitle("Så ser marknaden ut på d365.se")}
       <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden">
-        ${statRow("Besökare senaste 30 dagarna", m.visitors30 || 0)}
-        ${statRow("Besökare senaste 90 dagarna", m.visitors90 || 0)}
+        ${statRow("Unika besökare senaste 30 dagarna", m.visitors30 || 0, "Distinkta anonymiserade IP-adresser")}
+        ${statRow("Unika besökare föregående 30 dagar", m.visitorsPrev30 || 0, "Jämförelseperiod")}
+        ${growth !== null ? statRow("Förändring mot föregående period", `${growth > 0 ? "+" : ""}${String(growth).replace(".", ",")} %`) : ""}
+        ${statRow("Unika besökare senaste 90 dagarna", m.visitors90 || 0)}
+        ${statRow("Besök (sessioner) senaste 30 dagarna", m.sessions30 || 0, "En besökare kan göra flera besök")}
         ${statRow("Besökta sidor senaste 30 dagarna", m.pagesVisited30 || 0)}
         ${statRow("Besökta sidor senaste 90 dagarna", m.pagesVisited90 || 0)}
         ${statRow("Snittid på sajten", formatDuration(m.avgTimeOnSiteSec || 0), "Genomsnittlig tid per sidvisning")}
@@ -325,18 +328,25 @@ export function renderBasicTeaserHtml(opts: {
         ${statRow("Profilerade Dynamics 365-partners", m.partnersListed || 0)}
         ${statRow("Guider, videos & nyheter i arkivet", m.resourcesCount || 0)}
       </table>
+      <p style="margin:10px 0 0;font-size:12px;color:#94a3b8;line-height:1.6">
+        Unika besökare räknas som distinkta anonymiserade IP-adresser, inte som sessioner eller sidvisningar.
+        ${growth === null ? "Förändring mot föregående period redovisas inte den här månaden eftersom underlaget är för litet för en rättvisande jämförelse." : ""}
+      </p>
+
+      ${renderDemandHtml({ demand: s.demand } as any)}
 
       ${sectionTitle("Det här missar ni i dag")}
       <div style="background:#F4FAF8;border:1px solid #BFE0D8;border-radius:10px;padding:16px 18px">
         <ul style="margin:0;padding-left:20px">${benefitList}</ul>
-        ${s.verifiedAverage.partners > 0 ? `
+        ${peer.partners > 0 ? `
         <div style="margin-top:14px;padding-top:12px;border-top:1px dashed #BFE0D8;font-size:13px;color:#0F4F44;line-height:1.6">
-          <strong>Jämförelse:</strong> en verifierad partner hade i snitt
-          <strong>${nf(s.verifiedAverage.exposures)}</strong> exponeringar och
-          <strong>${nf(s.verifiedAverage.profileVisits)}</strong> profilbesök under perioden
-          (snitt av ${s.verifiedAverage.partners} verifierade partners).
+          <strong>Jämförelse:</strong> medianen bland ${peer.partners} partnerverifierade profiler var
+          <strong>${nf(peer.exposures)}</strong> exponeringar och
+          <strong>${nf(peer.profileVisits)}</strong> profilbesök under perioden.
+          Medianen används i stället för medelvärde så att enstaka stora partners inte drar upp siffran.
         </div>` : ""}
       </div>
+
 
       <div style="text-align:center;margin:26px 0 6px">
         <a class="btn" href="${profileUrl}" style="display:inline-block;background:#B23D19;color:#ffffff;text-decoration:none;padding:13px 28px;border-radius:8px;font-weight:600;font-size:14px">
