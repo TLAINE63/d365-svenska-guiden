@@ -134,6 +134,7 @@ import AdminPartnerDashboardTab from "@/components/AdminPartnerDashboardTab";
 import AdminPartnerPerformanceTab from "@/components/AdminPartnerPerformanceTab";
 import AdminPartnerReportsTab from "@/components/AdminPartnerReportsTab";
 import AdminBasicTeaserTab from "@/components/AdminBasicTeaserTab";
+import AdminUtskickTab from "@/components/AdminUtskickTab";
 import PartnerStatsMatrix from "@/components/PartnerStatsMatrix";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
 import SiteTrafficStatsCard from "@/components/SiteTrafficStatsCard";
@@ -308,7 +309,7 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
  id: "partnerportal",
  label: "Partnerportal",
  icon: LayoutDashboard,
- tabs: ["partner-stats-page", "partner-agreement-page", "partner-dashboard", "partner-reports", "partner-performance"],
+ tabs: ["partner-stats-page", "partner-agreement-page", "partner-dashboard", "partner-reports", "utskick", "partner-performance"],
  },
 ];
 
@@ -2536,12 +2537,19 @@ Thomas`,
  </span>
  Månadsrapporter
                </TabsTrigger>
-               <TabsTrigger value="basic-teaser" className={`flex items-center gap-2 ${activeGroup === "partnerportal" ? "" : "hidden"}`}>
-                 <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-orange-500/20 to-orange-600/10 ring-1 ring-orange-400/20">
-                   <Mail className="h-3.5 w-3.5 text-orange-300" strokeWidth={1.75} />
-                 </span>
-                 Basic-teaser
-               </TabsTrigger>
+                <TabsTrigger value="basic-teaser" className={`flex items-center gap-2 ${activeGroup === "partnerportal" ? "" : "hidden"}`}>
+                  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-orange-500/20 to-orange-600/10 ring-1 ring-orange-400/20">
+                    <Mail className="h-3.5 w-3.5 text-orange-300" strokeWidth={1.75} />
+                  </span>
+                  Basic-teaser
+                </TabsTrigger>
+                <TabsTrigger value="utskick" className={`flex items-center gap-2 ${activeGroup === "partnerportal" ? "" : "hidden"}`}>
+                  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-sky-500/20 to-sky-600/10 ring-1 ring-sky-400/20">
+                    <Mail className="h-3.5 w-3.5 text-sky-300" strokeWidth={1.75} />
+                  </span>
+                  Utskick
+                </TabsTrigger>
+
               <TabsTrigger value="partner-performance" className={`flex items-center gap-2 ${activeGroup === "partnerportal" ? "" : "hidden"}`}>
                 <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-amber-500/20 to-amber-600/10 ring-1 ring-amber-400/20">
                   <LineChart className="h-3.5 w-3.5 text-amber-300" strokeWidth={1.75} />
@@ -3764,6 +3772,12 @@ Thomas`,
                 <TabsContent value="basic-teaser">
                   <AdminBasicTeaserTab token={token || null} />
                 </TabsContent>
+
+                {/* ==================== UTSKICK (GEMENSAM) TAB ==================== */}
+                <TabsContent value="utskick">
+                  <AdminUtskickTab token={token || null} />
+                </TabsContent>
+
 
                 {/* ==================== PARTNER PERFORMANCE TAB ==================== */}
                 <TabsContent value="partner-performance">

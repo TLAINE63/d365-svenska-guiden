@@ -2311,6 +2311,64 @@ export type Database = {
         }
         Relationships: []
       }
+      report_recipients: {
+        Row: {
+          contact_name: string | null
+          created_at: string
+          email: string
+          id: string
+          is_active: boolean
+          partner_id: string | null
+          partner_slug: string
+          report_kind: string
+          updated_at: string
+        }
+        Insert: {
+          contact_name?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          is_active?: boolean
+          partner_id?: string | null
+          partner_slug: string
+          report_kind: string
+          updated_at?: string
+        }
+        Update: {
+          contact_name?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          is_active?: boolean
+          partner_id?: string | null
+          partner_slug?: string
+          report_kind?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "report_recipients_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "report_recipients_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_basic_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "report_recipients_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       semrush_monthly_stats: {
         Row: {
           authority_score: number | null
@@ -3198,6 +3256,7 @@ export type Database = {
         }
         Returns: number
       }
+      partner_report_autogen_dispatch: { Args: never; Returns: undefined }
       partner_report_monthly_dispatch: {
         Args: { target_month?: string }
         Returns: undefined
