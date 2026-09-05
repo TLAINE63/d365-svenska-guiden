@@ -1,6 +1,27 @@
-// Teaser-månadsrapport till Basic-partners (ej verifierade profiler).
+// Teaser-månadsrapport till Basic-partners (ej partnerverifierade profiler).
 // Visar partnerns egna (ofta blygsamma) siffror, marknadssiffror för d365.se
-// och vad en verifierad partner får – med länk till /partnerprogram.
+// och vad en partnerverifierad profil får – med länk till /partnerprogram.
+//
+// ─────────────── KANONISKA MÄTPUNKTER (gäller alla rapporter) ───────────────
+// unika besökare  = antal DISTINKTA anonymiserade IP-adresser i
+//                   visitor_analytics under perioden. Aldrig sessioner,
+//                   aldrig sidvisningar.
+// sessioner       = distinkta session_id. Redovisas separat, aldrig som
+//                   "besökare".
+// sidvisningar    = antal rader i visitor_analytics.
+// snittid         = medel av time_on_page_seconds > 0 (per sidvisning).
+// tillväxt        = (unika besökare 30 d) / (unika besökare föregående 30 d) - 1.
+//                   Redovisas endast när båda perioderna har >= 50 besökare,
+//                   annars utelämnas siffran (spårningsluckor juni–juli 2026).
+// jämförelsetal   = MEDIAN bland partnerverifierade profiler, aldrig medelvärde.
+// efterfrågan     = aggregat ur buyer_tool_events, aldrig per besökare.
+// Alla besökare räknas, inklusive intern trafik och partners egen trafik.
+// ────────────────────────────────────────────────────────────────────────────
+
+import { fetchDemand, renderDemandHtml, type DemandStats } from "./stats.ts";
+
+/** Minsta underlag per period för att våga visa en tillväxtsiffra. */
+const GROWTH_MIN_VISITORS = 50;
 
 export interface BasicTeaserStats {
   kind: "basic_teaser";
@@ -12,7 +33,10 @@ export interface BasicTeaserStats {
   };
   market: {
     visitors30: number;
+    visitorsPrev30: number;
     visitors90: number;
+    sessions30: number;
+    growthPct: number | null;
     avgTimeOnSiteSec: number;
     pagesVisited30: number;
     pagesVisited90: number;
@@ -21,12 +45,15 @@ export interface BasicTeaserStats {
     partnersListed: number;
     resourcesCount: number;
   };
-  verifiedAverage: {
+  /** Median bland partnerverifierade profiler (tidigare medelvärde). */
+  verifiedMedian: {
     exposures: number;
     profileVisits: number;
     partners: number;
   };
+  demand?: DemandStats;
 }
+
 
 const SITE_ORIGIN = "https://www.d365.se";
 const UTM = "?utm_source=basic-teaser&utm_medium=email&utm_campaign=partnerprogram";
@@ -71,8 +98,12 @@ export async function buildBasicTeaserStats(
   const endDate = new Date(`${end}T00:00:00Z`);
   const start90 = new Date(endDate.getTime() - 89 * 24 * 3600 * 1000);
   const start90Iso = `${start90.toISOString().slice(0, 10)}T00:00:00Z`;
+  // Föregående 30-dagarsfönster (perioden före den redovisade perioden)
+  const startDate = new Date(`${start}T00:00:00Z`);
+  const prev30 = new Date(startDate.getTime() - 30 * 24 * 3600 * 1000);
+  const prev30Iso = `${prev30.toISOString().slice(0, 10)}T00:00:00Z`;
 
-  const [engagement, exposures, marketStatsRes, engagementStatsRes, partnersCountRes, resourcesRes, verified] = await Promise.all([
+  const [engagement, exposures, marketStatsRes, engagementStatsRes, partnersCountRes, resourcesRes, verified, demand] = await Promise.all([
     supabase.from("partner_engagement_events")
       .select("page_path, event_level")
       .eq("partner_slug", partnerSlug)
@@ -83,7 +114,10 @@ export async function buildBasicTeaserStats(
       .gte("viewed_at", startIso).lte("viewed_at", endIso).limit(50000),
     // Marknadssiffror aggregeras i databasen (API:t returnerar max 1000 rader per anrop,
     // vilket tidigare gav avkortade och missvisande 30/90-dagarsvärden).
-    supabase.rpc("teaser_market_stats", { start30: startIso, start90: start90Iso, end_ts: endIso }),
+    // v2 räknar unika besökare som distinkta anonymiserade IP-adresser.
+    supabase.rpc("teaser_market_stats_v2", {
+      prev30_start: prev30Iso, start30: startIso, start90: start90Iso, end_ts: endIso,
+    }),
     supabase.rpc("teaser_engagement_stats", { start_ts: start90Iso, end_ts: endIso }),
     supabase.from("partners").select("id", { count: "exact", head: true }),
     // Kunskapsresurser: videoguider + partnernyheter + publicerade branschsidor
@@ -93,7 +127,8 @@ export async function buildBasicTeaserStats(
       supabase.from("industry_pages").select("id", { count: "exact", head: true }).eq("is_published", true),
       supabase.from("knowledge_articles").select("id", { count: "exact", head: true }).eq("is_published", true),
     ]),
-    buildVerifiedAverage(supabase, startIso, endIso),
+    buildVerifiedMedian(supabase, startIso, endIso),
+    fetchDemand(supabase, startIso, endIso),
   ]);
   const marketStats = (marketStatsRes.data || [])[0] || {};
   const engagementStats = (engagementStatsRes.data || [])[0] || {};
@@ -115,6 +150,13 @@ export async function buildBasicTeaserStats(
   // Marknadssiffror hämtas färdigaggregerade från databasfunktionerna ovan
   const num = (v: unknown): number => (Number.isFinite(Number(v)) ? Number(v) : 0);
 
+  const visitors30 = num(marketStats.visitors30);
+  const visitorsPrev30 = num(marketStats.visitors_prev30);
+  const growthPct =
+    visitors30 >= GROWTH_MIN_VISITORS && visitorsPrev30 >= GROWTH_MIN_VISITORS
+      ? Math.round(((visitors30 - visitorsPrev30) / visitorsPrev30) * 100)
+      : null;
+
   return {
     kind: "basic_teaser",
     periodLabel,
@@ -124,8 +166,11 @@ export async function buildBasicTeaserStats(
       industryPages: industrySlugs.size,
     },
     market: {
-      visitors30: num(marketStats.visitors30),
+      visitors30,
+      visitorsPrev30,
       visitors90: num(marketStats.visitors90),
+      sessions30: num(marketStats.sessions30),
+      growthPct,
       avgTimeOnSiteSec: num(marketStats.avg_time_sec),
       pagesVisited30: num(marketStats.pages30),
       pagesVisited90: num(marketStats.pages90),
@@ -134,11 +179,22 @@ export async function buildBasicTeaserStats(
       partnersListed: partnersCountRes?.count || 0,
       resourcesCount,
     },
-    verifiedAverage: verified,
+    verifiedMedian: verified,
+    demand,
   };
 }
 
-async function buildVerifiedAverage(supabase: any, startIso: string, endIso: string) {
+function median(values: number[]): number {
+  if (!values.length) return 0;
+  const sorted = [...values].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 === 1
+    ? sorted[mid]
+    : Math.round((sorted[mid - 1] + sorted[mid]) / 2);
+}
+
+/** Median (inte medelvärde) bland partnerverifierade profiler. */
+async function buildVerifiedMedian(supabase: any, startIso: string, endIso: string) {
   const { data: verifiedPartners } = await supabase
     .from("partners")
     .select("slug")
@@ -154,18 +210,24 @@ async function buildVerifiedAverage(supabase: any, startIso: string, endIso: str
       .gte("viewed_at", startIso).lte("viewed_at", endIso).limit(100000),
   ]);
 
-  let exposures = 0;
-  for (const r of exp.data || []) if (slugs.has(r.partner_slug)) exposures++;
-  let profileVisits = 0;
+  const expBySlug = new Map<string, number>();
+  const viewsBySlug = new Map<string, number>();
+  for (const s of slugs) { expBySlug.set(s, 0); viewsBySlug.set(s, 0); }
+  for (const r of exp.data || []) {
+    if (slugs.has(r.partner_slug)) expBySlug.set(r.partner_slug, (expBySlug.get(r.partner_slug) || 0) + 1);
+  }
   for (const r of views.data || []) {
-    if (r.view_type === "profile_visit" && slugs.has(r.partner_slug)) profileVisits++;
+    if (r.view_type === "profile_visit" && slugs.has(r.partner_slug)) {
+      viewsBySlug.set(r.partner_slug, (viewsBySlug.get(r.partner_slug) || 0) + 1);
+    }
   }
 
   return {
-    exposures: Math.round(exposures / slugs.size),
-    profileVisits: Math.round(profileVisits / slugs.size),
+    exposures: median([...expBySlug.values()]),
+    profileVisits: median([...viewsBySlug.values()]),
     partners: slugs.size,
   };
+
 }
 
 // ─────────────────────────── HTML ───────────────────────────
@@ -197,8 +259,12 @@ export function renderBasicTeaserHtml(opts: {
   const { partnerName, partnerSlug, intro, benefits, stats, contactEmail, contactName } = opts;
   const s = stats;
   const m = s.market || ({} as BasicTeaserStats["market"]);
+  // Bakåtkompatibilitet: äldre sparade utkast har fältet verifiedAverage.
+  const peer = s.verifiedMedian || (s as any).verifiedAverage || { exposures: 0, profileVisits: 0, partners: 0 };
+  const growth = typeof m.growthPct === "number" ? m.growthPct : null;
   const noExposure = s.own.cardViews === 0 && s.own.filterMatches === 0;
   const profileUrl = `${SITE_ORIGIN}/basic/${encodeURIComponent(partnerSlug)}${UTM}`;
+
 
   const benefitList = benefits.filter(Boolean).map((b) => `
     <li style="margin:7px 0;font-size:14px;color:#334155;line-height:1.55">${esc(b)}</li>`).join("");
@@ -249,8 +315,11 @@ export function renderBasicTeaserHtml(opts: {
 
       ${sectionTitle("Så ser marknaden ut på d365.se")}
       <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden">
-        ${statRow("Besökare senaste 30 dagarna", m.visitors30 || 0)}
-        ${statRow("Besökare senaste 90 dagarna", m.visitors90 || 0)}
+        ${statRow("Unika besökare senaste 30 dagarna", m.visitors30 || 0, "Distinkta anonymiserade IP-adresser")}
+        ${statRow("Unika besökare föregående 30 dagar", m.visitorsPrev30 || 0, "Jämförelseperiod")}
+        ${growth !== null ? statRow("Förändring mot föregående period", `${growth > 0 ? "+" : ""}${String(growth).replace(".", ",")} %`) : ""}
+        ${statRow("Unika besökare senaste 90 dagarna", m.visitors90 || 0)}
+        ${statRow("Besök (sessioner) senaste 30 dagarna", m.sessions30 || 0, "En besökare kan göra flera besök")}
         ${statRow("Besökta sidor senaste 30 dagarna", m.pagesVisited30 || 0)}
         ${statRow("Besökta sidor senaste 90 dagarna", m.pagesVisited90 || 0)}
         ${statRow("Snittid på sajten", formatDuration(m.avgTimeOnSiteSec || 0), "Genomsnittlig tid per sidvisning")}
@@ -259,18 +328,25 @@ export function renderBasicTeaserHtml(opts: {
         ${statRow("Profilerade Dynamics 365-partners", m.partnersListed || 0)}
         ${statRow("Guider, videos & nyheter i arkivet", m.resourcesCount || 0)}
       </table>
+      <p style="margin:10px 0 0;font-size:12px;color:#94a3b8;line-height:1.6">
+        Unika besökare räknas som distinkta anonymiserade IP-adresser, inte som sessioner eller sidvisningar.
+        ${growth === null ? "Förändring mot föregående period redovisas inte den här månaden eftersom underlaget är för litet för en rättvisande jämförelse." : ""}
+      </p>
+
+      ${renderDemandHtml({ demand: s.demand } as any)}
 
       ${sectionTitle("Det här missar ni i dag")}
       <div style="background:#F4FAF8;border:1px solid #BFE0D8;border-radius:10px;padding:16px 18px">
         <ul style="margin:0;padding-left:20px">${benefitList}</ul>
-        ${s.verifiedAverage.partners > 0 ? `
+        ${peer.partners > 0 ? `
         <div style="margin-top:14px;padding-top:12px;border-top:1px dashed #BFE0D8;font-size:13px;color:#0F4F44;line-height:1.6">
-          <strong>Jämförelse:</strong> en verifierad partner hade i snitt
-          <strong>${nf(s.verifiedAverage.exposures)}</strong> exponeringar och
-          <strong>${nf(s.verifiedAverage.profileVisits)}</strong> profilbesök under perioden
-          (snitt av ${s.verifiedAverage.partners} verifierade partners).
+          <strong>Jämförelse:</strong> medianen bland ${peer.partners} partnerverifierade profiler var
+          <strong>${nf(peer.exposures)}</strong> exponeringar och
+          <strong>${nf(peer.profileVisits)}</strong> profilbesök under perioden.
+          Medianen används i stället för medelvärde så att enstaka stora partners inte drar upp siffran.
         </div>` : ""}
       </div>
+
 
       <div style="text-align:center;margin:26px 0 6px">
         <a class="btn" href="${profileUrl}" style="display:inline-block;background:#B23D19;color:#ffffff;text-decoration:none;padding:13px 28px;border-radius:8px;font-weight:600;font-size:14px">

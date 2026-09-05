@@ -1,0 +1,2 @@
+revoke execute on function public.teaser_market_stats_v2(timestamptz, timestamptz, timestamptz, timestamptz) from public, anon, authenticated;
+grant execute on function public.teaser_market_stats_v2(timestamptz, timestamptz, timestamptz, timestamptz) to service_role;
