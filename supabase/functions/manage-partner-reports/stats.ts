@@ -568,8 +568,8 @@ export async function fetchDemand(
 
   return {
     runs,
-    completed: data.filter((r: any) => r.status === "completed").length,
-    aborted: data.filter((r: any) => r.status === "aborted").length,
+    completed: data.filter((r: any) => r.status === "slutford").length,
+    aborted: data.filter((r: any) => r.status === "avbruten").length,
     products: tally("product_key"),
     industries: tally("industry"),
     sizes: tally("company_size"),
