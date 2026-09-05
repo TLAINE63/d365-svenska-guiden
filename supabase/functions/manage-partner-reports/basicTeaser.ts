@@ -1,6 +1,27 @@
-// Teaser-månadsrapport till Basic-partners (ej verifierade profiler).
+// Teaser-månadsrapport till Basic-partners (ej partnerverifierade profiler).
 // Visar partnerns egna (ofta blygsamma) siffror, marknadssiffror för d365.se
-// och vad en verifierad partner får – med länk till /partnerprogram.
+// och vad en partnerverifierad profil får – med länk till /partnerprogram.
+//
+// ─────────────── KANONISKA MÄTPUNKTER (gäller alla rapporter) ───────────────
+// unika besökare  = antal DISTINKTA anonymiserade IP-adresser i
+//                   visitor_analytics under perioden. Aldrig sessioner,
+//                   aldrig sidvisningar.
+// sessioner       = distinkta session_id. Redovisas separat, aldrig som
+//                   "besökare".
+// sidvisningar    = antal rader i visitor_analytics.
+// snittid         = medel av time_on_page_seconds > 0 (per sidvisning).
+// tillväxt        = (unika besökare 30 d) / (unika besökare föregående 30 d) - 1.
+//                   Redovisas endast när båda perioderna har >= 50 besökare,
+//                   annars utelämnas siffran (spårningsluckor juni–juli 2026).
+// jämförelsetal   = MEDIAN bland partnerverifierade profiler, aldrig medelvärde.
+// efterfrågan     = aggregat ur buyer_tool_events, aldrig per besökare.
+// Alla besökare räknas, inklusive intern trafik och partners egen trafik.
+// ────────────────────────────────────────────────────────────────────────────
+
+import { fetchDemand, renderDemandHtml, type DemandStats } from "./stats.ts";
+
+/** Minsta underlag per period för att våga visa en tillväxtsiffra. */
+const GROWTH_MIN_VISITORS = 50;
 
 export interface BasicTeaserStats {
   kind: "basic_teaser";
@@ -12,7 +33,10 @@ export interface BasicTeaserStats {
   };
   market: {
     visitors30: number;
+    visitorsPrev30: number;
     visitors90: number;
+    sessions30: number;
+    growthPct: number | null;
     avgTimeOnSiteSec: number;
     pagesVisited30: number;
     pagesVisited90: number;
@@ -21,12 +45,15 @@ export interface BasicTeaserStats {
     partnersListed: number;
     resourcesCount: number;
   };
-  verifiedAverage: {
+  /** Median bland partnerverifierade profiler (tidigare medelvärde). */
+  verifiedMedian: {
     exposures: number;
     profileVisits: number;
     partners: number;
   };
+  demand?: DemandStats;
 }
+
 
 const SITE_ORIGIN = "https://www.d365.se";
 const UTM = "?utm_source=basic-teaser&utm_medium=email&utm_campaign=partnerprogram";
