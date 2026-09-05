@@ -3765,6 +3765,12 @@ Thomas`,
                   <AdminBasicTeaserTab token={token || null} />
                 </TabsContent>
 
+                {/* ==================== UTSKICK (GEMENSAM) TAB ==================== */}
+                <TabsContent value="utskick">
+                  <AdminUtskickTab token={token || null} />
+                </TabsContent>
+
+
                 {/* ==================== PARTNER PERFORMANCE TAB ==================== */}
                 <TabsContent value="partner-performance">
                   <AdminPartnerPerformanceTab token={token || null} />

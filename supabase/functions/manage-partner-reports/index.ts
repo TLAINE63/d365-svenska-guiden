@@ -225,6 +225,100 @@ async function renderTeaserFromDraft(supabase: any, d: any): Promise<string> {
   });
 }
 
+/** Genererar/uppdaterar basicutkast för perioden. Delas av manuell och schemalagd körning. */
+async function generateBasicTeaserDrafts(supabase: any, period_start: string, period_end: string) {
+  const periodLabel = monthLabel(new Date(`${period_start}T00:00:00Z`));
+  const settings = await fetchTeaserSettings(supabase);
+
+  const { data: partners, error: pErr } = await supabase
+    .from("partners")
+    .select("id, slug, name, email, admin_contact_email")
+    .eq("is_featured", false)
+    .order("name");
+  if (pErr) throw pErr;
+
+  const created: string[] = [];
+  for (const p of partners || []) {
+    const stats = await buildBasicTeaserStats(supabase, p.slug, period_start, period_end, periodLabel);
+    const row = {
+      partner_id: p.id,
+      partner_slug: p.slug,
+      partner_name: p.name,
+      recipient_email: p.admin_contact_email || p.email || null,
+      period_start,
+      period_end,
+      subject: `Så syntes ${p.name} på d365.se i ${periodLabel}`,
+      intro_text: settings.intro.replace(/\{partner\}/g, p.name),
+      companies: [],
+      excluded_organisation_uuids: [],
+      status: "pending_review",
+      stats,
+    };
+    const { data: existing } = await supabase.from("partner_report_drafts")
+      .select("id, status, recipient_email, subject, intro_text").eq("partner_slug", p.slug).eq("period_start", period_start)
+      .eq("stats->>kind", "basic_teaser").maybeSingle();
+    if (existing) {
+      if (existing.status === "sent") continue;
+      const patch: Record<string, unknown> = {
+        partner_id: row.partner_id,
+        partner_name: row.partner_name,
+        period_end,
+        stats,
+      };
+      if (!existing.recipient_email) patch.recipient_email = row.recipient_email;
+      if (!existing.subject) patch.subject = row.subject;
+      if (!existing.intro_text) patch.intro_text = row.intro_text;
+      await supabase.from("partner_report_drafts").update(patch).eq("id", existing.id);
+    } else {
+      await supabase.from("partner_report_drafts").insert(row);
+    }
+    created.push(p.slug);
+  }
+  return { count: created.length, period_start, period_end };
+}
+
+/**
+ * Skriver de fasta mottagarlistorna (report_recipients) till periodens utkast.
+ * Utkast som redan skickats lämnas orörda.
+ */
+async function applyRecipientList(supabase: any, kind: "verified" | "basic", period_start: string) {
+  const { data: recipients, error: rErr } = await supabase
+    .from("report_recipients")
+    .select("partner_slug, email, is_active")
+    .eq("report_kind", kind)
+    .eq("is_active", true);
+  if (rErr) throw rErr;
+
+  const bySlug = new Map<string, string[]>();
+  for (const r of recipients || []) {
+    const list = bySlug.get(r.partner_slug) || [];
+    const email = String(r.email || "").trim().toLowerCase();
+    if (email && !list.includes(email)) list.push(email);
+    bySlug.set(r.partner_slug, list);
+  }
+  if (bySlug.size === 0) return { updated: 0 };
+
+  let q = supabase.from("partner_report_drafts").select("id, partner_slug, status").eq("period_start", period_start);
+  q = kind === "basic"
+    ? q.eq("stats->>kind", "basic_teaser")
+    : q.or("stats->>kind.is.null,stats->>kind.neq.basic_teaser");
+  const { data: drafts, error: dErr } = await q;
+  if (dErr) throw dErr;
+
+  let updated = 0;
+  for (const d of drafts || []) {
+    if (d.status === "sent") continue;
+    const emails = bySlug.get(d.partner_slug);
+    if (!emails || emails.length === 0) continue;
+    const { error } = await supabase.from("partner_report_drafts")
+      .update({ recipient_email: emails.join(", ") }).eq("id", d.id);
+    if (!error) updated++;
+  }
+  return { updated };
+}
+
+
+
 
 async function renderDraftEmail(supabase: any, opts: {
   partnerName: string;
@@ -465,7 +559,7 @@ serve(async (req) => {
     // Schemalagda jobb (pg_cron) autentiserar med en delad nyckel ur vault i stället
     // för admin-sessionens HMAC-token. Endast historikjobbet tillåts på det sättet.
     let isCronJob = false;
-    if (action === "monthly_snapshot") {
+    if (action === "monthly_snapshot" || action === "auto_generate") {
       const provided = (req.headers.get("x-report-cron-secret") || "").trim();
       if (provided) {
         const { data: secret } = await supabase.rpc("report_cron_secret");
@@ -505,55 +599,9 @@ serve(async (req) => {
       case "basic_teaser_generate": {
         const range = previousMonthRange();
         const { period_start = range.start, period_end = range.end } = data as { period_start?: string; period_end?: string };
-        const periodLabel = monthLabel(new Date(`${period_start}T00:00:00Z`));
-        const settings = await fetchTeaserSettings(supabase);
-
-        const { data: partners, error: pErr } = await supabase
-          .from("partners")
-          .select("id, slug, name, email, admin_contact_email")
-          .eq("is_featured", false)
-          .order("name");
-        if (pErr) throw pErr;
-
-        const created: string[] = [];
-        for (const p of partners || []) {
-          const stats = await buildBasicTeaserStats(supabase, p.slug, period_start, period_end, periodLabel);
-          const row = {
-            partner_id: p.id,
-            partner_slug: p.slug,
-            partner_name: p.name,
-            recipient_email: p.admin_contact_email || p.email || null,
-            period_start,
-            period_end,
-            subject: `Så syntes ${p.name} på d365.se i ${periodLabel}`,
-            intro_text: settings.intro.replace(/\{partner\}/g, p.name),
-            companies: [],
-            excluded_organisation_uuids: [],
-            status: "pending_review",
-            stats,
-          };
-          const { data: existing } = await supabase.from("partner_report_drafts")
-            .select("id, status, recipient_email, subject, intro_text").eq("partner_slug", p.slug).eq("period_start", period_start)
-            .eq("stats->>kind", "basic_teaser").maybeSingle();
-          if (existing) {
-            if (existing.status === "sent") continue;
-            // Behåll manuella redigeringar (mottagare, ämne, intro, godkänd-status) – uppdatera bara statistiken.
-            const patch: Record<string, unknown> = {
-              partner_id: row.partner_id,
-              partner_name: row.partner_name,
-              period_end,
-              stats,
-            };
-            if (!existing.recipient_email) patch.recipient_email = row.recipient_email;
-            if (!existing.subject) patch.subject = row.subject;
-            if (!existing.intro_text) patch.intro_text = row.intro_text;
-            await supabase.from("partner_report_drafts").update(patch).eq("id", existing.id);
-          } else {
-            await supabase.from("partner_report_drafts").insert(row);
-          }
-          created.push(p.slug);
-        }
-        return new Response(JSON.stringify({ success: true, count: created.length, period_start, period_end }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+        const res = await generateBasicTeaserDrafts(supabase, period_start, period_end);
+        await applyRecipientList(supabase, "basic", period_start);
+        return new Response(JSON.stringify({ success: true, ...res }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
 
       case "basic_teaser_update": {
@@ -611,9 +659,12 @@ serve(async (req) => {
         if (!RESEND_API_KEY) throw new Error("RESEND_API_KEY saknas");
         const resend = new Resend(RESEND_API_KEY);
 
-        const { data: drafts, error: dErr } = await supabase
+        let dq = supabase
           .from("partner_report_drafts").select("*").in("id", ids)
           .eq("stats->>kind", "basic_teaser");
+        // Godkännandeläge: bara utkast du har godkänt får skickas.
+        if ((data as any).require_approved) dq = dq.eq("status", "approved");
+        const { data: drafts, error: dErr } = await dq;
         if (dErr) throw dErr;
 
         const results: any[] = [];
@@ -743,6 +794,110 @@ serve(async (req) => {
         return new Response(JSON.stringify({ success: true }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
 
+      // ───────── Fasta mottagarlistor (report_recipients) ─────────
+      case "recipients_list": {
+        const { report_kind } = data as { report_kind?: string };
+        let q = supabase.from("report_recipients").select("*").order("partner_slug").order("email");
+        if (report_kind === "verified" || report_kind === "basic") q = q.eq("report_kind", report_kind);
+        const { data: rows, error } = await q;
+        if (error) throw error;
+        return new Response(JSON.stringify({ recipients: rows || [] }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
+      case "recipients_save": {
+        const { report_kind, partner_slug, partner_id, emails, contact_name, mode = "append" } = data as {
+          report_kind?: string; partner_slug?: string; partner_id?: string | null;
+          emails?: string; contact_name?: string | null; mode?: "append" | "replace";
+        };
+        if ((report_kind !== "verified" && report_kind !== "basic") || !partner_slug) {
+          return new Response(JSON.stringify({ error: "Ogiltiga uppgifter" }), {
+            status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
+        const list = parseRecipients(emails);
+        if (mode === "replace") {
+          await supabase.from("report_recipients").delete()
+            .eq("report_kind", report_kind).eq("partner_slug", partner_slug);
+        }
+        if (list.length === 0 && mode !== "replace") {
+          return new Response(JSON.stringify({ error: "Ingen giltig e-postadress" }), {
+            status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
+        for (const email of list) {
+          const { data: existing } = await supabase.from("report_recipients")
+            .select("id").eq("report_kind", report_kind).eq("partner_slug", partner_slug)
+            .ilike("email", email).maybeSingle();
+          if (existing) {
+            await supabase.from("report_recipients")
+              .update({ is_active: true, contact_name: contact_name ?? null }).eq("id", existing.id);
+          } else {
+            await supabase.from("report_recipients").insert({
+              report_kind, partner_slug, partner_id: partner_id || null,
+              email, contact_name: contact_name || null,
+            });
+          }
+        }
+        return new Response(JSON.stringify({ success: true, saved: list.length }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
+      case "recipients_toggle": {
+        const { id, is_active } = data as { id?: string; is_active?: boolean };
+        if (!id) return new Response(JSON.stringify({ error: "Saknar id" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+        const { error } = await supabase.from("report_recipients").update({ is_active: !!is_active }).eq("id", id);
+        if (error) throw error;
+        return new Response(JSON.stringify({ success: true }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
+      case "recipients_delete": {
+        const { id } = data as { id?: string };
+        if (!id) return new Response(JSON.stringify({ error: "Saknar id" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+        const { error } = await supabase.from("report_recipients").delete().eq("id", id);
+        if (error) throw error;
+        return new Response(JSON.stringify({ success: true }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
+      /** Skriver mottagarlistan till periodens utkast. */
+      case "recipients_apply": {
+        const { report_kind, period_start } = data as { report_kind?: string; period_start?: string };
+        if ((report_kind !== "verified" && report_kind !== "basic") || !period_start) {
+          return new Response(JSON.stringify({ error: "Ogiltiga uppgifter" }), {
+            status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
+        const res = await applyRecipientList(supabase, report_kind, period_start);
+        return new Response(JSON.stringify({ success: true, ...res }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
+      /** Godkänner utkast inför utskick. Endast godkända utkast bör skickas. */
+      case "approve_drafts": {
+        const { ids, approved = true } = data as { ids?: string[]; approved?: boolean };
+        if (!Array.isArray(ids) || ids.length === 0) {
+          return new Response(JSON.stringify({ error: "Inga utkast valda" }), {
+            status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
+        const { data: rows, error } = await supabase.from("partner_report_drafts")
+          .update({ status: approved ? "approved" : "pending_review", error_message: null })
+          .in("id", ids).neq("status", "sent").select("id");
+        if (error) throw error;
+        return new Response(JSON.stringify({ success: true, count: (rows || []).length }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
+      /** Schemalagd (1:a varje månad) eller manuell körning: skapar utkast för föregående månad. */
+      case "auto_generate": {
+        const range = previousMonthRange();
+        const { period_start = range.start, period_end = range.end } = data as { period_start?: string; period_end?: string };
+        const verified = await generateDrafts(supabase, { period_start, period_end });
+        const basic = await generateBasicTeaserDrafts(supabase, period_start, period_end);
+        const appliedVerified = await applyRecipientList(supabase, "verified", period_start);
+        const appliedBasic = await applyRecipientList(supabase, "basic", period_start);
+        return new Response(JSON.stringify({
+          success: true, period_start, period_end,
+          verified: { created: verified.created, recipients_applied: appliedVerified.updated },
+          basic: { created: basic.count, recipients_applied: appliedBasic.updated },
+        }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
 
 
       case "partner_engagement": {
@@ -1264,8 +1419,9 @@ serve(async (req) => {
           });
         }
 
-        const { data: drafts, error: dErr } = await supabase
-          .from("partner_report_drafts").select("*").in("id", ids);
+        let sq = supabase.from("partner_report_drafts").select("*").in("id", ids);
+        if ((data as any).require_approved) sq = sq.eq("status", "approved");
+        const { data: drafts, error: dErr } = await sq;
         if (dErr) throw dErr;
 
         const results: any[] = [];
