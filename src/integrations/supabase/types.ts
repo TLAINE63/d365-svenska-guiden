@@ -3236,6 +3236,23 @@ export type Database = {
           visitors90: number
         }[]
       }
+      teaser_market_stats_v2: {
+        Args: {
+          end_ts: string
+          prev30_start: string
+          start30: string
+          start90: string
+        }
+        Returns: {
+          avg_time_sec: number
+          pages30: number
+          pages90: number
+          sessions30: number
+          visitors_prev30: number
+          visitors30: number
+          visitors90: number
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
