@@ -106,6 +106,7 @@ const priorityLabels: Record<string, string> = {
 export interface RequirementsPdfExtras {
   suggestedPartners?: import("./pdfSuggestedPartners").PdfSuggestedPartner[];
   suggestedCompareUrl?: string;
+  isvAddons?: import("./pdfIsvAddons").PdfIsvAddon[];
 }
 
 export const generateRequirementsSpec = async (
@@ -429,6 +430,12 @@ export const generateRequirementsSpec = async (
     for (const sug of data.aiEnrichment.integrationSuggestions) {
       addBulletItem(sug);
     }
+  }
+
+  // === VALDA TILLÄGGSLÖSNINGAR (ISV) ===
+  if (extras?.isvAddons?.length) {
+    const { appendIsvAddonsPage } = await import("./pdfIsvAddons");
+    appendIsvAddonsPage(doc, extras.isvAddons, { productLabel: data.product });
   }
 
   // === SUGGESTED PARTNERS (endast vid nedladdning, ej email base64) ===
