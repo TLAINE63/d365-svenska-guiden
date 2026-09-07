@@ -57,6 +57,12 @@ const emptyForm = {
   verified_at: "",
   finance_relevance: "",
   supply_chain_relevance: "",
+  sales_relevance: "",
+  customer_insights_relevance: "",
+  customer_service_relevance: "",
+  field_service_relevance: "",
+  contact_center_relevance: "",
+  source_status: "",
   editorial_tier: "",
   nordic_relevance: "",
   publication_wave: "",
@@ -133,6 +139,12 @@ export default function AdminIsvNewSolutions({ token, onSessionExpired, onChange
       verified_at: (r.verified_at || "").slice(0, 10),
       finance_relevance: r.finance_relevance || "",
       supply_chain_relevance: r.supply_chain_relevance || "",
+      sales_relevance: r.sales_relevance || "",
+      customer_insights_relevance: r.customer_insights_relevance || "",
+      customer_service_relevance: r.customer_service_relevance || "",
+      field_service_relevance: r.field_service_relevance || "",
+      contact_center_relevance: r.contact_center_relevance || "",
+      source_status: r.source_status || "",
       editorial_tier: r.editorial_tier || "",
       nordic_relevance: r.nordic_relevance || "",
       publication_wave: r.publication_wave || "",
@@ -371,6 +383,74 @@ export default function AdminIsvNewSolutions({ token, onSessionExpired, onChange
                       <option key={o.value} value={o.value}>{o.label}</option>
                     ))}
                   </select>
+                </div>
+                <div>
+                  <Label>Relevans Sales</Label>
+                  <select
+                    className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
+                    value={form.sales_relevance}
+                    onChange={(e) => setForm({ ...form, sales_relevance: e.target.value })}
+                  >
+                    {RELEVANCE_OPTIONS.map((o) => (
+                      <option key={o.value} value={o.value}>{o.label}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <Label>Relevans Customer Insights</Label>
+                  <select
+                    className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
+                    value={form.customer_insights_relevance}
+                    onChange={(e) => setForm({ ...form, customer_insights_relevance: e.target.value })}
+                  >
+                    {RELEVANCE_OPTIONS.map((o) => (
+                      <option key={o.value} value={o.value}>{o.label}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <Label>Relevans Customer Service</Label>
+                  <select
+                    className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
+                    value={form.customer_service_relevance}
+                    onChange={(e) => setForm({ ...form, customer_service_relevance: e.target.value })}
+                  >
+                    {RELEVANCE_OPTIONS.map((o) => (
+                      <option key={o.value} value={o.value}>{o.label}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <Label>Relevans Field Service</Label>
+                  <select
+                    className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
+                    value={form.field_service_relevance}
+                    onChange={(e) => setForm({ ...form, field_service_relevance: e.target.value })}
+                  >
+                    {RELEVANCE_OPTIONS.map((o) => (
+                      <option key={o.value} value={o.value}>{o.label}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <Label>Relevans Contact Center</Label>
+                  <select
+                    className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
+                    value={form.contact_center_relevance}
+                    onChange={(e) => setForm({ ...form, contact_center_relevance: e.target.value })}
+                  >
+                    {RELEVANCE_OPTIONS.map((o) => (
+                      <option key={o.value} value={o.value}>{o.label}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <Label>Källstatus (intern)</Label>
+                  <Input
+                    value={form.source_status}
+                    onChange={(e) => setForm({ ...form, source_status: e.target.value })}
+                    placeholder="Verifierad / Verifiera före publicering"
+                  />
                 </div>
                 <div>
                   <Label>Källa (URL)</Label>
