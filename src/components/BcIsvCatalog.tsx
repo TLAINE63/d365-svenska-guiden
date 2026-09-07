@@ -6,12 +6,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { X, ArrowRight, Search } from "lucide-react";
 import {
   CATEGORIES,
-  TYPES,
-  INDUSTRIES,
+  DELIVERY_MODELS,
+  RELEVANCE_LABEL,
+  deliveryLabel,
+  deliveryModelFromType,
+  type DeliveryModel,
   type IsvSolution,
-  type SolutionCategory,
-  type SolutionType,
-  type SolutionIndustry,
 } from "@/data/bcIsvSolutions";
 import { useIsvSolutions } from "@/hooks/useIsvSolutions";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
@@ -22,17 +22,32 @@ import { ISV_PRODUCTS } from "@/data/isvProfileOptions";
 const solutionProducts = (s: IsvSolution): string[] =>
   s.products?.length ? s.products : ["Business Central"];
 
-const TYPE_BADGE: Record<SolutionType, string> = {
-  "BC-native (ISV)": "bg-primary/10 text-primary border-primary/30",
-  "External system": "bg-amber-100 text-amber-900 border-amber-300",
-  "Integration layer": "bg-slate-100 text-slate-800 border-slate-300",
+const model = (s: IsvSolution): DeliveryModel => s.deliveryModel || deliveryModelFromType(s.type);
+
+/** Presentationstext för leveransform, anpassad efter lösningens produkter. */
+const deliveryText = (s: IsvSolution) => deliveryLabel(model(s), solutionProducts(s));
+
+const DELIVERY_BADGE: Record<DeliveryModel, string> = {
+  native_isv: "bg-primary/10 text-primary border-primary/30",
+  external_saas: "bg-amber-100 text-amber-900 border-amber-300",
+  integration_layer: "bg-slate-100 text-slate-800 border-slate-300",
+  industry_solution: "bg-violet-50 text-violet-900 border-violet-200",
 };
 
-const TIER_BADGE: Record<string, string> = {
-  "Tier 1": "bg-[hsl(var(--cta-orange))]/10 text-[hsl(var(--cta-orange))] border-[hsl(var(--cta-orange))]/30",
-  "Tier 2": "bg-stone-100 text-stone-700 border-stone-200",
-  Vertikal: "bg-violet-50 text-violet-900 border-violet-200",
+/** Etikett för leveransform i filterraden (produktneutral). */
+const DELIVERY_FILTER_LABEL: Record<DeliveryModel, string> = {
+  native_isv: "Native (ISV)",
+  external_saas: "Externt system (SaaS)",
+  integration_layer: "Integrationslager",
+  industry_solution: "Branschlösning",
 };
+
+type FocusFilter = "finance" | "supply";
+const FOCUS_LABEL: Record<FocusFilter, string> = {
+  finance: "Finance",
+  supply: "Supply Chain",
+};
+
 
 function FilterRow<T extends string>({
   label,
@@ -40,13 +55,17 @@ function FilterRow<T extends string>({
   selected,
   onToggle,
   onClear,
+  labelFor,
 }: {
   label: string;
-  options: T[];
+  options: readonly T[];
   selected: Set<T>;
   onToggle: (v: T) => void;
   onClear: () => void;
+  /** Visningstext när värdet är internt (t.ex. leveransform). */
+  labelFor?: (v: T) => string;
 }) {
+
   const allActive = selected.size === 0;
   return (
     <div className="flex flex-col md:flex-row md:items-start gap-3 md:gap-5">
@@ -80,7 +99,8 @@ function FilterRow<T extends string>({
                   : "bg-background text-foreground border-border hover:border-primary/40 hover:bg-muted/50"
               }`}
             >
-              {opt}
+              {labelFor ? labelFor(opt) : opt}
+
             </button>
           );
         })}
@@ -98,25 +118,18 @@ const SolutionCard = ({ s, onOpen }: { s: IsvSolution; onOpen: () => void }) => 
     {/* Top accent bar */}
     <div className="absolute top-0 left-0 right-0 h-[3px] bg-primary opacity-80 group-hover:opacity-100 transition-opacity" />
 
-    <div className="flex justify-between items-start gap-3 mb-5">
-      <div className="min-w-0">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground/80 mb-1.5 truncate">
-          {s.vendor}
-        </p>
-        <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-foreground leading-tight group-hover:text-primary transition-colors">
-          {s.name}
-        </h3>
-      </div>
-      <span
-        className={`shrink-0 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.1em] border rounded-sm ${TIER_BADGE[s.tier]}`}
-      >
-        {s.tier}
-      </span>
+    <div className="mb-5 min-w-0">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground/80 mb-1.5 truncate">
+        {s.vendor}
+      </p>
+      <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-foreground leading-tight group-hover:text-primary transition-colors">
+        {s.name}
+      </h3>
     </div>
 
     <div className="flex flex-wrap gap-1.5 mb-5">
-      <span className={`px-2 py-0.5 text-[11px] font-medium rounded border ${TYPE_BADGE[s.type]}`}>
-        {s.type}
+      <span className={`px-2 py-0.5 text-[11px] font-medium rounded border ${DELIVERY_BADGE[model(s)]}`}>
+        {deliveryText(s)}
       </span>
       <span className="px-2 py-0.5 text-[11px] font-medium bg-muted/60 text-foreground border border-border rounded">
         {s.category}
@@ -129,7 +142,7 @@ const SolutionCard = ({ s, onOpen }: { s: IsvSolution; onOpen: () => void }) => 
 
     <div className="mt-auto border-t border-border/60 pt-4">
       <div className="flex flex-wrap gap-1.5 mb-4 min-h-[18px]">
-        {s.tags.slice(0, 3).map((t) => (
+        {s.tags.slice(0, 4).map((t) => (
           <span
             key={t}
             className="text-[10px] text-muted-foreground bg-muted/40 px-1.5 py-0.5 border border-border/60 rounded-sm"
@@ -138,6 +151,7 @@ const SolutionCard = ({ s, onOpen }: { s: IsvSolution; onOpen: () => void }) => 
           </span>
         ))}
       </div>
+
       <span className="inline-flex items-center text-[11px] font-bold uppercase tracking-[0.15em] text-primary">
         Visa lösningen
         <ArrowRight className="ml-1.5 w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -173,59 +187,94 @@ const SolutionDetail = ({ s, onClose }: { s: IsvSolution | null; onClose: () => 
         <>
           <DialogHeader>
             <div className="flex items-center gap-2 mb-2 flex-wrap">
-              <Badge variant="outline" className={`text-[10px] ${TYPE_BADGE[s.type]}`}>{s.type}</Badge>
-              <Badge variant="outline" className={`text-[10px] ${TIER_BADGE[s.tier]}`}>{s.tier}</Badge>
+              <Badge variant="outline" className={`text-[10px] ${DELIVERY_BADGE[model(s)]}`}>
+                {deliveryText(s)}
+              </Badge>
               <Badge variant="outline" className="text-[10px] bg-muted/50 text-foreground border-border">
                 {s.category}
               </Badge>
+              {s.subcategory && (
+                <Badge variant="outline" className="text-[10px] bg-muted/30 text-muted-foreground border-border">
+                  {s.subcategory}
+                </Badge>
+              )}
             </div>
             <DialogTitle className="text-2xl font-['Playfair_Display'] font-semibold">{s.name}</DialogTitle>
             <DialogDescription className="text-sm">{s.vendor}</DialogDescription>
           </DialogHeader>
 
           <div className="space-y-5 mt-2 text-sm leading-relaxed">
-            {Boolean(s.products?.length || s.industryFocus?.length) && (
-              <section className="space-y-3">
-                {s.products?.length ? (
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-1">Byggd för</h4>
-                    <div className="flex flex-wrap gap-1.5">
-                      {s.products.map((p) => (
-                        <Badge key={p} variant="outline" className="text-[11px] border-primary/40 text-primary">
-                          {p}
-                        </Badge>
-                      ))}
-                    </div>
+            <section className="space-y-3">
+              <div>
+                <h4 className="font-semibold text-foreground mb-1">Byggd för</h4>
+                <div className="flex flex-wrap gap-1.5">
+                  {solutionProducts(s).map((p) => (
+                    <Badge key={p} variant="outline" className="text-[11px] border-primary/40 text-primary">
+                      {p}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+              {(s.financeRelevance || s.supplyChainRelevance) && (
+                <div className="flex flex-wrap gap-4">
+                  {s.financeRelevance && (
+                    <p className="text-xs text-muted-foreground">
+                      <span className="font-semibold text-foreground">Finance:</span>{" "}
+                      {RELEVANCE_LABEL[s.financeRelevance]}
+                    </p>
+                  )}
+                  {s.supplyChainRelevance && (
+                    <p className="text-xs text-muted-foreground">
+                      <span className="font-semibold text-foreground">Supply Chain:</span>{" "}
+                      {RELEVANCE_LABEL[s.supplyChainRelevance]}
+                    </p>
+                  )}
+                </div>
+              )}
+              {(s.industryFocus?.length || s.industries?.length) ? (
+                <div>
+                  <h4 className="font-semibold text-foreground mb-1">Branscher</h4>
+                  <div className="flex flex-wrap gap-1.5">
+                    {[...new Set([...(s.industryFocus || []), ...(s.industries || [])])].map((i) => (
+                      <Badge key={i} variant="outline" className="text-[11px]">
+                        {i}
+                      </Badge>
+                    ))}
                   </div>
-                ) : null}
-                {s.industryFocus?.length ? (
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-1">Branschinriktning</h4>
-                    <div className="flex flex-wrap gap-1.5">
-                      {s.industryFocus.map((i) => (
-                        <Badge key={i} variant="outline" className="text-[11px]">
-                          {i}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                ) : null}
+                </div>
+              ) : null}
+            </section>
+            <section>
+              <h4 className="font-semibold text-foreground mb-1">Kort beskrivning</h4>
+              <p className="text-foreground/80">{s.what || s.shortDescription}</p>
+            </section>
+            {s.bestFor && (
+              <section className="p-4 rounded bg-primary/5 border border-primary/20">
+                <h4 className="font-semibold text-foreground mb-1">Passar bäst för</h4>
+                <p className="text-foreground/80">{s.bestFor}</p>
               </section>
             )}
-            <section>
-              <h4 className="font-semibold text-foreground mb-1">Vad lösningen är</h4>
-              <p className="text-foreground/80">{s.what}</p>
-            </section>
-            <section>
-              <h4 className="font-semibold text-foreground mb-1">Vad den används till</h4>
-              <ul className="list-disc pl-5 space-y-1 text-foreground/80">
-                {s.useCases.map((u) => <li key={u}>{u}</li>)}
-              </ul>
-            </section>
-            <section>
-              <h4 className="font-semibold text-foreground mb-1">När den passar</h4>
-              <p className="text-foreground/80">{s.whenFits}</p>
-            </section>
+            {s.considerations && (
+              <section className="p-4 rounded bg-muted/40 border border-border">
+                <h4 className="font-semibold text-foreground mb-1">Tänk på</h4>
+                <p className="text-foreground/80">{s.considerations}</p>
+              </section>
+            )}
+            {s.useCases.length > 0 && (
+              <section>
+                <h4 className="font-semibold text-foreground mb-1">Vad den används till</h4>
+                <ul className="list-disc pl-5 space-y-1 text-foreground/80">
+                  {s.useCases.map((u) => <li key={u}>{u}</li>)}
+                </ul>
+              </section>
+            )}
+            {s.whenFits && (
+              <section>
+                <h4 className="font-semibold text-foreground mb-1">När den passar</h4>
+                <p className="text-foreground/80">{s.whenFits}</p>
+              </section>
+            )}
+
             {s.combos.length > 0 && (
               <section className="p-4 rounded bg-muted/40 border border-border">
                 <h4 className="font-semibold text-foreground mb-2">Vanliga kombinationer</h4>
@@ -297,9 +346,10 @@ const BcIsvCatalog = ({
   openSolutionId,
   defaultQuery = "",
 }: BcIsvCatalogProps = {}) => {
-  const [cats, setCats] = useState<Set<SolutionCategory>>(new Set());
-  const [types, setTypes] = useState<Set<SolutionType>>(new Set());
-  const [industries, setIndustries] = useState<Set<SolutionIndustry>>(new Set());
+  const [cats, setCats] = useState<Set<string>>(new Set());
+  const [deliveries, setDeliveries] = useState<Set<DeliveryModel>>(new Set());
+  const [industries, setIndustries] = useState<Set<string>>(new Set());
+  const [focus, setFocus] = useState<Set<FocusFilter>>(new Set());
   const [products, setProducts] = useState<Set<string>>(new Set(defaultProducts));
   const [query, setQuery] = useState(defaultQuery);
   const [groupByVendor, setGroupByVendor] = useState(true);
@@ -322,25 +372,63 @@ const BcIsvCatalog = ({
     );
   }, [BC_ISV_SOLUTIONS, defaultProducts, showProductFilter]);
 
+  // Filteralternativ byggs från det som faktiskt finns i katalogen.
+  const options = useMemo(() => {
+    const catSet = new Set<string>();
+    const indSet = new Set<string>();
+    const delSet = new Set<DeliveryModel>();
+    for (const s of scoped) {
+      if (s.category) catSet.add(s.category);
+      for (const i of [...(s.industries || []), ...(s.industryFocus || [])]) {
+        // "Alla"/"Generell" är inte egna branscher och krockar med Alla-knappen.
+        if (i && !/^(alla|generell)$/i.test(i.trim())) indSet.add(i.trim());
+      }
+
+      delSet.add(model(s));
+    }
+    const catOrder = (c: string) => {
+      const i = (CATEGORIES as readonly string[]).indexOf(c);
+      return i === -1 ? 999 : i;
+    };
+    return {
+      categories: [...catSet].sort((a, b) => catOrder(a) - catOrder(b) || a.localeCompare(b, "sv")),
+      industries: [...indSet].sort((a, b) => a.localeCompare(b, "sv")),
+      deliveries: DELIVERY_MODELS.filter((d) => delSet.has(d)),
+    };
+  }, [scoped]);
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return scoped.filter((s) => {
       if (cats.size && !cats.has(s.category)) return false;
-      if (types.size && !types.has(s.type)) return false;
-      if (industries.size && !s.industries.some((i) => industries.has(i))) return false;
+      if (deliveries.size && !deliveries.has(model(s))) return false;
+      if (industries.size) {
+        const all = [...(s.industries || []), ...(s.industryFocus || [])];
+        if (!all.some((i) => industries.has(i))) return false;
+      }
+      if (focus.size) {
+        const ok =
+          (focus.has("finance") && s.financeRelevance && s.financeRelevance !== "no") ||
+          (focus.has("supply") && s.supplyChainRelevance && s.supplyChainRelevance !== "no");
+        if (!ok) return false;
+      }
       if (products.size && !solutionProducts(s).some((p) => products.has(p))) return false;
       if (q) {
         const hay = [
           s.name,
           s.vendor,
           s.category,
-          s.type,
+          s.subcategory || "",
+          deliveryText(s),
           s.shortDescription,
           s.what,
           s.whenFits,
+          s.bestFor || "",
+          s.considerations || "",
           ...(s.tags || []),
           ...(s.useCases || []),
           ...(s.industries || []),
+          ...(s.industryFocus || []),
           ...solutionProducts(s),
         ]
           .join(" ")
@@ -349,7 +437,8 @@ const BcIsvCatalog = ({
       }
       return true;
     });
-  }, [scoped, cats, types, industries, products, query]);
+  }, [scoped, cats, deliveries, industries, focus, products, query]);
+
 
   // Djuplänk: öppna en specifik lösning direkt (t.ex. från AI-sök)
   useEffect(() => {
@@ -381,15 +470,22 @@ const BcIsvCatalog = ({
   }, [filtered]);
 
   const activeCount =
-    cats.size + types.size + industries.size + (showProductFilter ? products.size : 0) + (query.trim() ? 1 : 0);
+    cats.size +
+    deliveries.size +
+    industries.size +
+    focus.size +
+    (showProductFilter ? products.size : 0) +
+    (query.trim() ? 1 : 0);
 
   const clearAll = () => {
     setCats(new Set());
-    setTypes(new Set());
+    setDeliveries(new Set());
     setIndustries(new Set());
+    setFocus(new Set());
     setQuery("");
     if (showProductFilter) setProducts(new Set());
   };
+
 
   return (
     <div>
@@ -457,27 +553,38 @@ const BcIsvCatalog = ({
           )}
           <FilterRow
             label="Kategori"
-            options={CATEGORIES}
+            options={options.categories}
             selected={cats}
             onToggle={toggle(cats, setCats)}
             onClear={() => setCats(new Set())}
           />
           <div className="h-px bg-border/60" />
           <FilterRow
-            label="Typ"
-            options={TYPES}
-            selected={types}
-            onToggle={toggle(types, setTypes)}
-            onClear={() => setTypes(new Set())}
+            label="Leveransform"
+            options={options.deliveries}
+            selected={deliveries}
+            onToggle={toggle(deliveries, setDeliveries)}
+            onClear={() => setDeliveries(new Set())}
+            labelFor={(d) => DELIVERY_FILTER_LABEL[d]}
+          />
+          <div className="h-px bg-border/60" />
+          <FilterRow
+            label="Område"
+            options={["finance", "supply"] as FocusFilter[]}
+            selected={focus}
+            onToggle={toggle(focus, setFocus)}
+            onClear={() => setFocus(new Set())}
+            labelFor={(f) => FOCUS_LABEL[f]}
           />
           <div className="h-px bg-border/60" />
           <FilterRow
             label="Bransch"
-            options={INDUSTRIES}
+            options={options.industries}
             selected={industries}
             onToggle={toggle(industries, setIndustries)}
             onClear={() => setIndustries(new Set())}
           />
+
         </div>
 
         {vendorGroups.length > 0 && (

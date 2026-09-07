@@ -13,6 +13,7 @@ import { Plus, Pencil, Trash2, PackagePlus } from "lucide-react";
 import { ISV_PRODUCTS, ISV_INDUSTRIES } from "@/data/isvProfileOptions";
 import IsvPartnerPicker from "@/components/IsvPartnerPicker";
 import type { IsvSolutionRow } from "@/hooks/useIsvSolutions";
+import { CATEGORIES as CATALOG_CATEGORIES, DELIVERY_MODELS } from "@/data/bcIsvSolutions";
 
 interface Props {
   token: string | null;
@@ -20,17 +21,21 @@ interface Props {
   onChanged?: () => void;
 }
 
-const CATEGORIES = [
-  "Fakturahantering / AP",
-  "Lager & WMS",
-  "EDI & integration",
-  "Integration / iPaaS",
-  "Lokalisering & compliance",
-  "Produktion & planering",
-  "Rapportering & BI",
-  "Bransch / vertikal",
-  "Dokument & utskrift",
-  "Övrigt",
+const CATEGORIES = [...CATALOG_CATEGORIES];
+
+/** Leveransform – produktneutral, ersätter tidigare fritextfältet "typ". */
+const DELIVERY_LABELS: Record<string, string> = {
+  native_isv: "Native (ISV) – byggd i Dynamics 365",
+  external_saas: "Externt system (SaaS) med integration",
+  integration_layer: "Integrationslager / iPaaS",
+  industry_solution: "Branschlösning",
+};
+
+const RELEVANCE_OPTIONS = [
+  { value: "", label: "– ej angivet –" },
+  { value: "yes", label: "Ja" },
+  { value: "partial", label: "Delvis" },
+  { value: "no", label: "Nej" },
 ];
 
 const emptyForm = {
@@ -39,11 +44,23 @@ const emptyForm = {
   vendor: "",
   vendor_website: "",
   short_description: "",
-  category: CATEGORIES[0],
+  category: CATEGORIES[0] as string,
+  subcategory: "",
+  delivery_model: "native_isv",
   type: "BC-native (ISV)",
   tier: "Tier 2",
   what: "",
   when_fits: "",
+  best_for: "",
+  considerations: "",
+  source_url: "",
+  verified_at: "",
+  finance_relevance: "",
+  supply_chain_relevance: "",
+  editorial_tier: "",
+  nordic_relevance: "",
+  publication_wave: "",
+  tags: "",
   use_cases: "",
   combos: "",
   products: [] as string[],
@@ -54,6 +71,7 @@ const emptyForm = {
 };
 
 type Form = typeof emptyForm;
+
 
 const slugify = (v: string) =>
   v.toLowerCase().replace(/[åä]/g, "a").replace(/ö/g, "o").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
@@ -103,10 +121,22 @@ export default function AdminIsvNewSolutions({ token, onSessionExpired, onChange
       vendor_website: r.vendor_website || "",
       short_description: r.short_description || "",
       category: r.category,
+      subcategory: r.subcategory || "",
+      delivery_model: r.delivery_model || "native_isv",
       type: r.type,
       tier: r.tier,
       what: r.what || "",
       when_fits: r.when_fits || "",
+      best_for: r.best_for || "",
+      considerations: r.considerations || "",
+      source_url: r.source_url || "",
+      verified_at: (r.verified_at || "").slice(0, 10),
+      finance_relevance: r.finance_relevance || "",
+      supply_chain_relevance: r.supply_chain_relevance || "",
+      editorial_tier: r.editorial_tier || "",
+      nordic_relevance: r.nordic_relevance || "",
+      publication_wave: r.publication_wave || "",
+      tags: (r.tags || []).join(", "),
       use_cases: (r.use_cases || []).join("\n"),
       combos: (r.combos || []).join("\n"),
       products: r.products || [],
@@ -115,6 +145,7 @@ export default function AdminIsvNewSolutions({ token, onSessionExpired, onChange
       is_published: r.is_published !== false,
       sort_order: r.sort_order ?? 0,
     });
+
   };
 
   const toggleList = (key: "products" | "industry_focus", value: string) =>
@@ -138,10 +169,13 @@ export default function AdminIsvNewSolutions({ token, onSessionExpired, onChange
         body: JSON.stringify({
           ...form,
           solution_id: form.solution_id.trim() || slugify(`${form.vendor}-${form.name}`),
+          tags: form.tags.split(",").map((s) => s.trim()).filter(Boolean),
           use_cases: form.use_cases.split("\n").map((s) => s.trim()).filter(Boolean),
           combos: form.combos.split("\n").map((s) => s.trim()).filter(Boolean),
+          verified_at: form.verified_at || null,
         }),
       });
+
       if (res.status === 401) return onSessionExpired();
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error || "Kunde inte spara");
@@ -295,9 +329,66 @@ export default function AdminIsvNewSolutions({ token, onSessionExpired, onChange
                   </select>
                 </div>
                 <div>
-                  <Label>Teknisk typ</Label>
-                  <Input value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })} />
+                  <Label>Underkategori</Label>
+                  <Input
+                    value={form.subcategory}
+                    onChange={(e) => setForm({ ...form, subcategory: e.target.value })}
+                    placeholder="t.ex. Anläggningsunderhåll"
+                  />
                 </div>
+                <div>
+                  <Label>Leveransform</Label>
+                  <select
+                    className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
+                    value={form.delivery_model}
+                    onChange={(e) => setForm({ ...form, delivery_model: e.target.value })}
+                  >
+                    {DELIVERY_MODELS.map((d) => (
+                      <option key={d} value={d}>{DELIVERY_LABELS[d]}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <Label>Relevans Finance</Label>
+                  <select
+                    className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
+                    value={form.finance_relevance}
+                    onChange={(e) => setForm({ ...form, finance_relevance: e.target.value })}
+                  >
+                    {RELEVANCE_OPTIONS.map((o) => (
+                      <option key={o.value} value={o.value}>{o.label}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <Label>Relevans Supply Chain</Label>
+                  <select
+                    className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
+                    value={form.supply_chain_relevance}
+                    onChange={(e) => setForm({ ...form, supply_chain_relevance: e.target.value })}
+                  >
+                    {RELEVANCE_OPTIONS.map((o) => (
+                      <option key={o.value} value={o.value}>{o.label}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <Label>Källa (URL)</Label>
+                  <Input
+                    value={form.source_url}
+                    onChange={(e) => setForm({ ...form, source_url: e.target.value })}
+                    placeholder="https://…"
+                  />
+                </div>
+                <div>
+                  <Label>Kontrollerad datum</Label>
+                  <Input
+                    type="date"
+                    value={form.verified_at}
+                    onChange={(e) => setForm({ ...form, verified_at: e.target.value })}
+                  />
+                </div>
+
                 <div>
                   <Label>ID (lämna tomt för automatiskt)</Label>
                   <Input
@@ -325,6 +416,40 @@ export default function AdminIsvNewSolutions({ token, onSessionExpired, onChange
                 <Label>När den passar</Label>
                 <Textarea rows={2} value={form.when_fits} onChange={(e) => setForm({ ...form, when_fits: e.target.value })} />
               </div>
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <Label>Passar bäst för</Label>
+                  <Textarea rows={2} value={form.best_for} onChange={(e) => setForm({ ...form, best_for: e.target.value })} />
+                </div>
+                <div>
+                  <Label>Tänk på</Label>
+                  <Textarea rows={2} value={form.considerations} onChange={(e) => setForm({ ...form, considerations: e.target.value })} />
+                </div>
+              </div>
+              <div>
+                <Label>Taggar (kommaseparerade)</Label>
+                <Input value={form.tags} onChange={(e) => setForm({ ...form, tags: e.target.value })} />
+              </div>
+              <div className="rounded-md border border-dashed border-border p-4 space-y-3">
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Endast redaktionellt – visas aldrig för besökare
+                </p>
+                <div className="grid sm:grid-cols-3 gap-3">
+                  <div>
+                    <Label>Redaktionell nivå</Label>
+                    <Input value={form.editorial_tier} onChange={(e) => setForm({ ...form, editorial_tier: e.target.value })} />
+                  </div>
+                  <div>
+                    <Label>Nordisk relevans</Label>
+                    <Input value={form.nordic_relevance} onChange={(e) => setForm({ ...form, nordic_relevance: e.target.value })} />
+                  </div>
+                  <div>
+                    <Label>Publiceringsvåg</Label>
+                    <Input value={form.publication_wave} onChange={(e) => setForm({ ...form, publication_wave: e.target.value })} />
+                  </div>
+                </div>
+              </div>
+
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <Label>Användningsfall (ett per rad)</Label>

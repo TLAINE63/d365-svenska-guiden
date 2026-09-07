@@ -19,6 +19,44 @@ interface ProductIsvSectionProps {
   className?: string;
 }
 
+/** Intern prioritering – exponeras aldrig som kvalitetsmärkning i gränssnittet. */
+const priority = (s: IsvSolution): number => {
+  const tier = (s.editorialTier || s.tier || "").toLowerCase();
+  let score = tier.includes("1") ? 3 : tier.includes("2") ? 2 : 1;
+  if (s.nordicRelevance === "high") score += 2;
+  if (s.verifiedAt) score += 1;
+  return score;
+};
+
+/**
+ * Väljer ett brett urval: högst två lösningar per leverantör och spridning
+ * över kategorier, så att en enskild leverantör inte dominerar sektionen.
+ */
+const diversify = (list: IsvSolution[], limit: number): IsvSolution[] => {
+  const byCategory = new Map<string, IsvSolution[]>();
+  for (const s of [...list].sort((a, b) => priority(b) - priority(a) || a.name.localeCompare(b.name, "sv"))) {
+    const key = s.category || "Övrigt";
+    byCategory.set(key, [...(byCategory.get(key) || []), s]);
+  }
+  const queues = [...byCategory.values()];
+  const picked: IsvSolution[] = [];
+  const vendorCount = new Map<string, number>();
+  let progress = true;
+  while (picked.length < limit && progress) {
+    progress = false;
+    for (const q of queues) {
+      if (picked.length >= limit) break;
+      const idx = q.findIndex((s) => (vendorCount.get(s.vendor) || 0) < 2);
+      if (idx === -1) continue;
+      const [s] = q.splice(idx, 1);
+      vendorCount.set(s.vendor, (vendorCount.get(s.vendor) || 0) + 1);
+      picked.push(s);
+      progress = true;
+    }
+  }
+  return picked;
+};
+
 const ProductIsvSection = ({
   product,
   title,
@@ -34,8 +72,9 @@ const ProductIsvSection = ({
   );
 
   const catalogUrl = `/kunskapscenter/dynamics-365-tillagg/?produkt=${encodeURIComponent(product)}`;
-  const shown = solutions.slice(0, limit);
+  const shown = useMemo(() => diversify(solutions, limit), [solutions, limit]);
   const hasSolutions = solutions.length > 0;
+
 
   // Visa bara sektionen om det finns minst en ISV-lösning för produkten
   if (!hasSolutions) return null;

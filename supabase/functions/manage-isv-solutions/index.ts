@@ -161,14 +161,36 @@ serve(async (req) => {
         return json({ error: "solution_id, namn och leverantör krävs" }, 400, corsHeaders);
       }
 
+      const DELIVERY = ["native_isv", "external_saas", "integration_layer", "industry_solution"];
+      const RELEVANCE = ["yes", "partial", "no"];
+      const pick = (v: unknown, allowed: string[]): string | null => {
+        const t = clean(v, 40);
+        return t && allowed.includes(t) ? t : null;
+      };
+
       const payload: Record<string, unknown> = {
         solution_id,
         name,
         vendor,
+        vendor_slug: clean(body?.vendor_slug, 120)
+          ?.toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "") || null,
         short_description: clean(body?.short_description, 400),
         category: clean(body?.category, 100) || "Integration / iPaaS",
+        subcategory: clean(body?.subcategory, 120),
+        delivery_model: pick(body?.delivery_model, DELIVERY) || "native_isv",
         type: clean(body?.type, 100) || "BC-native (ISV)",
         tier: clean(body?.tier, 40) || "Tier 2",
+        finance_relevance: pick(body?.finance_relevance, RELEVANCE),
+        supply_chain_relevance: pick(body?.supply_chain_relevance, RELEVANCE),
+        best_for: clean(body?.best_for, 1000),
+        considerations: clean(body?.considerations, 1000),
+        source_url: clean(body?.source_url, 500),
+        verified_at: clean(body?.verified_at, 40),
+        editorial_tier: clean(body?.editorial_tier, 40),
+        nordic_relevance: clean(body?.nordic_relevance, 40),
+        publication_wave: clean(body?.publication_wave, 40),
         tags: cleanList(body?.tags, 15) || [],
         industries: cleanList(body?.industries, 15) || [],
         geo: cleanList(body?.geo, 5) || [],
@@ -184,6 +206,7 @@ serve(async (req) => {
         sort_order: Number.isFinite(body?.sort_order) ? Number(body.sort_order) : 0,
         updated_at: new Date().toISOString(),
       };
+
 
       const { data, error } = await supabase
         .from("isv_solutions")

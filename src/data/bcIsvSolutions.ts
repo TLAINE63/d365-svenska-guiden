@@ -1,8 +1,61 @@
-// Strukturerad katalog över ISV-lösningar för Business Central.
+// Strukturerad katalog över tilläggs-/ISV-lösningar för Dynamics 365.
+// Ursprungligen BC-fokuserad, nu gemensam för hela Dynamics 365-ekosystemet
+// (Business Central, Finance & Supply Chain Management m.fl.).
 // All data är offentlig information från respektive ISV. Partnerstatus, version
-// och svensk lokalisering bör verifieras direkt med ISV:n och din BC-partner.
+// och svensk lokalisering bör verifieras direkt med ISV:n och din partner.
 
-export type SolutionType = "BC-native (ISV)" | "External system" | "Integration layer";
+/** Äldre, BC-specifikt typfält. Behålls för bakåtkompatibilitet – använd deliveryModel. */
+export type SolutionType = "BC-native (ISV)" | "External system" | "Integration layer" | (string & {});
+
+/** Neutral leveransform som fungerar för alla Dynamics 365-produkter. */
+export type DeliveryModel = "native_isv" | "external_saas" | "integration_layer" | "industry_solution";
+
+export const DELIVERY_MODELS: DeliveryModel[] = [
+  "native_isv",
+  "external_saas",
+  "integration_layer",
+  "industry_solution",
+];
+
+/** Kort produktnamn som används i leveransformens etikett. */
+const PRODUCT_SHORT: Record<string, string> = {
+  "Business Central": "BC",
+  "Finance & Supply Chain Management": "F&SCM",
+};
+
+/**
+ * Presentationstext för leveransform, anpassad efter vilka Dynamics-produkter
+ * lösningen stödjer. native_isv + F&SCM → "F&SCM-native (ISV)".
+ */
+export function deliveryLabel(model: DeliveryModel | undefined, products: string[] = []): string {
+  switch (model) {
+    case "external_saas":
+      return "Externt system (SaaS)";
+    case "integration_layer":
+      return "Integrationslager";
+    case "industry_solution":
+      return "Branschlösning";
+    case "native_isv":
+    default: {
+      if (products.length === 1) {
+        const short = PRODUCT_SHORT[products[0]] || products[0];
+        return `${short}-native (ISV)`;
+      }
+      if (products.length > 1) return "Dynamics-native (ISV)";
+      return "Native (ISV)";
+    }
+  }
+}
+
+/** Härleder leveransform ur det äldre typfältet (för kodkatalogens BC-poster). */
+export function deliveryModelFromType(type?: string): DeliveryModel {
+  const t = (type || "").toLowerCase();
+  if (t.includes("external")) return "external_saas";
+  if (t.includes("integration")) return "integration_layer";
+  if (t.includes("industry") || t.includes("bransch")) return "industry_solution";
+  return "native_isv";
+}
+
 export type SolutionCategory =
   | "AP automation"
   | "Lokalisering"
@@ -18,8 +71,22 @@ export type SolutionCategory =
   | "Integration / iPaaS"
   | "Projekt"
   | "Planering & produktion"
-  | "CPQ";
-export type SolutionTier = "Tier 1" | "Tier 2" | "Vertikal";
+  | "CPQ"
+  | "Treasury & bank"
+  | "Tax & compliance"
+  | "PLM / Engineering"
+  | "Asset Management / EAM"
+  | "Security / GRC"
+  | "MDM & datakvalitet"
+  | "Rental / equipment"
+  | "Supply chain collaboration"
+  | "Subscription billing"
+  | "HR"
+  | "Mobility"
+  | "AI / automation"
+  | "Process & implementation"
+  | (string & {});
+export type SolutionTier = "Tier 1" | "Tier 2" | "Tier 3" | "Vertikal" | (string & {});
 export type SolutionIndustry =
   | "Generell"
   | "Retail"
@@ -31,8 +98,18 @@ export type SolutionIndustry =
   | "3PL"
   | "Hospitality"
   | "Print"
-  | "Services";
-export type SolutionGeo = "Sverige" | "Norden" | "Global";
+  | "Services"
+  | (string & {});
+export type SolutionGeo = "Sverige" | "Norden" | "Global" | (string & {});
+
+/** Relevans för Finance respektive Supply Chain. */
+export type Relevance = "yes" | "partial" | "no";
+
+export const RELEVANCE_LABEL: Record<Relevance, string> = {
+  yes: "Ja",
+  partial: "Delvis",
+  no: "Nej",
+};
 
 export interface IsvSolution {
   id: string;
@@ -51,12 +128,28 @@ export interface IsvSolution {
   combos: string[];               // Vanliga kombinationer
   partnersSE: string[];           // Partners i Sverige (max 5)
   partnerSource?: string;         // Vem listar partnerskapet offentligt
-  products?: string[];            // Dynamics 365-produkter lösningen är byggd för (angivet av ISV:n)
-  industryFocus?: string[];       // Svenska branscher lösningen är inriktad mot (angivet av ISV:n)
+  products?: string[];            // Dynamics 365-produkter lösningen är byggd för
+  industryFocus?: string[];       // Svenska branscher lösningen är inriktad mot
   partnerSlugs?: string[];        // Återförsäljare/partners (slugs) angivna av ISV:n
   vendorWebsite?: string;         // Länk angiven av ISV:n
   vendorUpdatedAt?: string;       // När ISV:n senast uppdaterade texten
+  // ── Utökad, produktneutral modell ────────────────────────────────
+  slug?: string;                  // URL-slug (= id för databasposter)
+  vendorSlug?: string;            // Koppling till leverantörsentiteten
+  subcategory?: string;
+  deliveryModel?: DeliveryModel;
+  financeRelevance?: Relevance;
+  supplyChainRelevance?: Relevance;
+  bestFor?: string;               // "Passar bäst för"
+  considerations?: string;        // "Tänk på"
+  sourceUrl?: string;             // Källa (visas för redaktionen)
+  verifiedAt?: string;            // Datum för senaste verifiering
+  // Interna redaktionella fält – visas aldrig för besökare
+  editorialTier?: string;
+  nordicRelevance?: string;       // high | medium | low
+  publicationWave?: string;       // now | wave_2
 }
+
 
 export const BC_ISV_SOLUTIONS: IsvSolution[] = [
   {
@@ -84,10 +177,12 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
   },
   {
     id: "exflow",
-    name: "ExFlow",
+    name: "ExFlow för Business Central",
     vendor: "Truvio",
-    shortDescription: "Svensk ISV för AP Automation, Data Capture och Travel & Expense i BC.",
+    shortDescription: "Svensk ISV för AP Automation, Data Capture och Travel & Expense i Business Central.",
     type: "BC-native (ISV)",
+    products: ["Business Central"],
+
     category: "AP automation",
     tier: "Tier 1",
     tags: ["AP automation", "E-invoicing", "Travel & Expense", "Svensk ISV"],
@@ -927,9 +1022,23 @@ export const CATEGORIES: SolutionCategory[] = [
   "Projekt",
   "Planering & produktion",
   "CPQ",
+  "Treasury & bank",
+  "Tax & compliance",
+  "PLM / Engineering",
+  "Asset Management / EAM",
+  "Security / GRC",
+  "MDM & datakvalitet",
+  "Rental / equipment",
+  "Supply chain collaboration",
+  "Subscription billing",
+  "HR",
+  "Mobility",
+  "AI / automation",
+  "Process & implementation",
 ];
 
 export const TYPES: SolutionType[] = ["BC-native (ISV)", "External system", "Integration layer"];
+
 
 export const INDUSTRIES: SolutionIndustry[] = [
   "Retail",
