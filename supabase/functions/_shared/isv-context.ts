@@ -37,7 +37,7 @@ export async function buildIsvContextBlock(): Promise<string> {
     if (res.ok) {
       const rows = await res.json();
       if (Array.isArray(rows) && rows.length > 0) {
-        solutions = rows.map((r: any) => ({
+        const dbSolutions: IsvEntry[] = rows.map((r: any) => ({
           id: r.solution_id,
           name: r.name,
           vendor: r.vendor || '',
@@ -49,7 +49,11 @@ export async function buildIsvContextBlock(): Promise<string> {
           tags: r.tags || [],
           geo: r.geo || [],
         }));
+        const dbIds = new Set(dbSolutions.map((s) => s.id));
+        // DB är primärkälla; behåll statiska poster som ännu inte finns i DB.
+        solutions = [...dbSolutions, ...solutions.filter((s) => !dbIds.has(s.id))];
       }
+
     }
   } catch (e) {
     console.error('buildIsvContextBlock: kunde inte hämta isv_solutions', e);
