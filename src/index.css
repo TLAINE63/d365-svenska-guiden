@@ -485,6 +485,20 @@ All colors MUST be HSL.
     display: none !important;
   }
 
+  /* Mörka hero-ytor blir vita så texten syns vid utskrift */
+  [class*="hero-dark"],
+  [class*="bg-slate-9"],
+  [class*="bg-slate-8"],
+  [class*="bg-neutral-9"],
+  [class*="bg-zinc-9"],
+  [class*="bg-gray-9"],
+  [class*="bg-black"] {
+    background-color: #fff !important;
+    background-image: none !important;
+    border-color: #ddd !important;
+  }
+
+
   [class*="text-white"],
   [class*="text-white"] * {
     color: #000 !important;
