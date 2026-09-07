@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { Badge } from "@/components/ui/badge";
 import { BC_ISV_SOLUTIONS, type IsvSolution, type SolutionCategory, type SolutionIndustry } from "@/data/bcIsvSolutions";
 import { useIsvSolutions } from "@/hooks/useIsvSolutions";
+import { COMMON_QUESTIONS, SECTOR_QUESTIONS, defaultAnswers, scoreFit, type FitQuestion } from "@/data/erpFitScoring";
 
 // ── Types ──
 interface Side {
@@ -186,9 +187,16 @@ const IndustryComparisonWidget = () => {
   const [sz, setSz] = useState("smb");
   const [geo, setGeo] = useState("loc");
   const [le, setLe] = useState("1");
+  const [answers, setAnswers] = useState<Record<string, string>>(() => defaultAnswers("dis"));
   const [showApps, setShowApps] = useState(false);
   const [showFscmApps, setShowFscmApps] = useState(false);
   const catalog = useIsvSolutions();
+
+  const changeSector = (v: string) => {
+    setSec(v);
+    setAnswers(prev => ({ ...defaultAnswers(v), ...prev }));
+  };
+
 
   const entry = useMemo(() => {
     return D[sec]?.[sz]?.[geo] ?? null;
@@ -206,15 +214,20 @@ const IndustryComparisonWidget = () => {
   const relevantIsvs = useMemo(() => getRelevantIsvs(bcPool, sec, geo), [bcPool, sec, geo]);
   const relevantFscmIsvs = useMemo(() => getRelevantIsvs(fscmPool, sec, geo), [fscmPool, sec, geo]);
 
+  const sectorQuestion = SECTOR_QUESTIONS[sec];
+  const fit = useMemo(() => scoreFit({ sec, sz, geo, le, answers }), [sec, sz, geo, le, answers]);
 
   const note = useMemo(() => {
-    if (!entry) return null;
-    return leNote(entry.rec, le);
-  }, [entry, le]);
+    return leNote(fit.rec, le);
+  }, [fit.rec, le]);
 
+  const setAnswer = (key: string, v: string) => setAnswers(prev => ({ ...prev, [key]: v }));
 
-  const recLabel = entry?.rec === "bc" ? "Rekommendation: Business Central" : entry?.rec === "fscm" ? "Rekommendation: Finance & SCM" : "Utvärdera båda";
-  const recColor = entry?.rec === "bc" ? "bg-[hsl(210_60%_90%)] text-[hsl(210_60%_30%)]" : entry?.rec === "fscm" ? "bg-[hsl(250_50%_92%)] text-[hsl(250_50%_30%)]" : "bg-secondary text-foreground";
+  const recLabel = fit.rec === "bc" ? "Rekommendation: Business Central" : fit.rec === "fscm" ? "Rekommendation: Finance & SCM" : "Utvärdera båda";
+  const recColor = fit.rec === "bc" ? "bg-[hsl(210_60%_90%)] text-[hsl(210_60%_30%)]" : fit.rec === "fscm" ? "bg-[hsl(250_50%_92%)] text-[hsl(250_50%_30%)]" : "bg-secondary text-foreground";
+  const forFscm = fit.drivers.filter(d => d.points > 0).sort((a, b) => b.points - a.points);
+  const forBc = fit.drivers.filter(d => d.points < 0).sort((a, b) => a.points - b.points);
+
 
   return (
     <div className="space-y-6">
@@ -223,7 +236,7 @@ const IndustryComparisonWidget = () => {
         <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Välj bransch</label>
         <select
           value={sec}
-          onChange={e => setSec(e.target.value)}
+          onChange={e => changeSector(e.target.value)}
           className="h-11 w-full px-4 text-sm border-2 border-border rounded bg-card text-card-foreground cursor-pointer font-medium focus:border-primary focus:outline-none transition-colors"
         >
           {SECTORS.map(g => (
@@ -252,6 +265,40 @@ const IndustryComparisonWidget = () => {
         </div>
         <ToggleButtons options={LE_OPTS} value={le} onChange={setLe} />
       </div>
+
+      {/* Sector-specific + common questions */}
+      {sectorQuestion && (
+        <div className="bg-primary/5 rounded p-5 border-2 border-primary/20 space-y-3">
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-wider text-primary">Branschspecifik fråga</div>
+            <div className="text-sm font-semibold text-card-foreground mt-1">{sectorQuestion.label}</div>
+            {sectorQuestion.help && <div className="text-xs text-muted-foreground mt-0.5">{sectorQuestion.help}</div>}
+          </div>
+          <ToggleButtons
+            options={sectorQuestion.options.map(o => ({ v: o.v, l: o.l }))}
+            value={answers[sectorQuestion.key] ?? sectorQuestion.options[0].v}
+            onChange={v => setAnswer(sectorQuestion.key, v)}
+          />
+        </div>
+      )}
+
+      <div className="grid gap-5">
+        {COMMON_QUESTIONS.map((q: FitQuestion) => (
+          <div key={q.key} className="bg-secondary/30 rounded p-5 border border-border space-y-3">
+            <div>
+              <div className="text-sm font-semibold text-card-foreground">{q.label}</div>
+              {q.help && <div className="text-xs text-muted-foreground mt-0.5">{q.help}</div>}
+            </div>
+            <ToggleButtons
+              options={q.options.map(o => ({ v: o.v, l: o.l }))}
+              value={answers[q.key] ?? q.options[0].v}
+              onChange={v => setAnswer(q.key, v)}
+            />
+          </div>
+        ))}
+      </div>
+
+
 
       {/* BC apps toggle */}
       <div className="flex items-center gap-3 p-4 bg-[hsl(210_60%_97%)] dark:bg-[hsl(210_30%_15%)] border-2 border-[hsl(210_60%_85%)] dark:border-[hsl(210_30%_30%)] rounded flex-wrap">
@@ -296,6 +343,61 @@ const IndustryComparisonWidget = () => {
               {recLabel}
             </span>
           </div>
+
+          {/* Tilt meter + drivers */}
+          <div className="bg-card border-2 border-border rounded p-5 space-y-4">
+            <div>
+              <div className="flex justify-between text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+                <span>Business Central</span>
+                <span>Finance & SCM</span>
+              </div>
+              <div className="h-2.5 rounded bg-secondary relative overflow-hidden">
+                <div
+                  className="absolute inset-y-0 left-0 bg-gradient-to-r from-[hsl(210_60%_55%)] to-[hsl(250_50%_55%)] rounded"
+                  style={{ width: `${fit.tilt}%` }}
+                />
+              </div>
+              <div className="text-xs text-muted-foreground mt-2 leading-relaxed">
+                Dina svar väger {fit.tilt}% åt Finance & SCM-hållet. Rekommendationen bygger på bransch, storlek,
+                geografi, bolagsstruktur, volym, regelkrav, integrationer, egna resurser och tidplan – inte enbart antal anställda.
+              </div>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-wider text-[hsl(250_50%_40%)] dark:text-[hsl(250_50%_70%)] mb-2">Talar för Finance & SCM</div>
+                {forFscm.length ? (
+                  <ul className="space-y-1.5">
+                    {forFscm.map(d => (
+                      <li key={d.label} className="text-xs bg-secondary/40 border border-border rounded p-2 leading-snug">
+                        <div className="font-semibold text-card-foreground">{d.label}: {d.choice}</div>
+                        <div className="text-muted-foreground mt-0.5">{d.why}</div>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className="text-xs text-muted-foreground">Inget i dina svar driver mot Finance & SCM.</div>
+                )}
+              </div>
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-wider text-[hsl(210_60%_35%)] dark:text-[hsl(210_60%_70%)] mb-2">Talar för Business Central</div>
+                {forBc.length ? (
+                  <ul className="space-y-1.5">
+                    {forBc.map(d => (
+                      <li key={d.label} className="text-xs bg-secondary/40 border border-border rounded p-2 leading-snug">
+                        <div className="font-semibold text-card-foreground">{d.label}: {d.choice}</div>
+                        <div className="text-muted-foreground mt-0.5">{d.why}</div>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className="text-xs text-muted-foreground">Inget i dina svar driver mot Business Central.</div>
+                )}
+              </div>
+            </div>
+          </div>
+
+
 
           {/* Comparison columns */}
           <div className="grid md:grid-cols-2 gap-4">
