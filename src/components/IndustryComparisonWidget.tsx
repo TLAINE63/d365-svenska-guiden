@@ -266,6 +266,40 @@ const IndustryComparisonWidget = () => {
         <ToggleButtons options={LE_OPTS} value={le} onChange={setLe} />
       </div>
 
+      {/* Sector-specific + common questions */}
+      {sectorQuestion && (
+        <div className="bg-primary/5 rounded p-5 border-2 border-primary/20 space-y-3">
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-wider text-primary">Branschspecifik fråga</div>
+            <div className="text-sm font-semibold text-card-foreground mt-1">{sectorQuestion.label}</div>
+            {sectorQuestion.help && <div className="text-xs text-muted-foreground mt-0.5">{sectorQuestion.help}</div>}
+          </div>
+          <ToggleButtons
+            options={sectorQuestion.options.map(o => ({ v: o.v, l: o.l }))}
+            value={answers[sectorQuestion.key] ?? sectorQuestion.options[0].v}
+            onChange={v => setAnswer(sectorQuestion.key, v)}
+          />
+        </div>
+      )}
+
+      <div className="grid gap-5">
+        {COMMON_QUESTIONS.map((q: FitQuestion) => (
+          <div key={q.key} className="bg-secondary/30 rounded p-5 border border-border space-y-3">
+            <div>
+              <div className="text-sm font-semibold text-card-foreground">{q.label}</div>
+              {q.help && <div className="text-xs text-muted-foreground mt-0.5">{q.help}</div>}
+            </div>
+            <ToggleButtons
+              options={q.options.map(o => ({ v: o.v, l: o.l }))}
+              value={answers[q.key] ?? q.options[0].v}
+              onChange={v => setAnswer(q.key, v)}
+            />
+          </div>
+        ))}
+      </div>
+
+
+
       {/* BC apps toggle */}
       <div className="flex items-center gap-3 p-4 bg-[hsl(210_60%_97%)] dark:bg-[hsl(210_30%_15%)] border-2 border-[hsl(210_60%_85%)] dark:border-[hsl(210_30%_30%)] rounded flex-wrap">
         <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">BC-tillägg:</span>
