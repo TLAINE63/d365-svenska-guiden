@@ -92,6 +92,8 @@ export interface IsvSolutionRow {
   contact_center_relevance?: string | null;
   source_status?: string | null;
   lifecycle_status?: string | null;
+  lifecycle_note?: string | null;
+  successor_solution_id?: string | null;
   best_for?: string | null;
   considerations?: string | null;
   source_url?: string | null;
