@@ -187,9 +187,16 @@ const IndustryComparisonWidget = () => {
   const [sz, setSz] = useState("smb");
   const [geo, setGeo] = useState("loc");
   const [le, setLe] = useState("1");
+  const [answers, setAnswers] = useState<Record<string, string>>(() => defaultAnswers("dis"));
   const [showApps, setShowApps] = useState(false);
   const [showFscmApps, setShowFscmApps] = useState(false);
   const catalog = useIsvSolutions();
+
+  const changeSector = (v: string) => {
+    setSec(v);
+    setAnswers(prev => ({ ...defaultAnswers(v), ...prev }));
+  };
+
 
   const entry = useMemo(() => {
     return D[sec]?.[sz]?.[geo] ?? null;
