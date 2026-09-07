@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { FAQSchema } from "@/components/StructuredData";
 import { useIsvSolutions } from "@/hooks/useIsvSolutions";
-import { DELIVERY_MODEL_LABEL } from "@/data/bcIsvSolutions";
+import { deliveryLabel } from "@/data/bcIsvSolutions";
 import { findBcCategoryPage } from "@/data/bcIsvCategoryPages";
 
 /** Indexerbar landningssida för en utvald tilläggskategori inom Business Central. */
@@ -88,7 +88,7 @@ const BcIsvCategoryPage = () => {
                       </span>
                       {s.deliveryModel && (
                         <span className="text-[11px] font-medium px-2 py-0.5 rounded border border-border bg-muted/50 text-muted-foreground">
-                          {DELIVERY_MODEL_LABEL[s.deliveryModel]}
+                          {deliveryLabel(s.deliveryModel, s.products || [])}
                         </span>
                       )}
                     </div>
