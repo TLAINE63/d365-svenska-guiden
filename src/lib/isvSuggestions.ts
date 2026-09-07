@@ -169,3 +169,11 @@ export const SCOPE_LABEL: Record<IsvScope, string> = {
   "field-service": "Field Service",
   "contact-center": "Contact Center",
 };
+
+/** Härleder funktionsområden ur fritext (utmaningar, KPI:er, integrationer). */
+export function deriveAreasFromText(texts: (string | undefined | null)[]): string[] {
+  const blob = texts.filter(Boolean).join(" ").toLowerCase();
+  return Object.entries(AREA_KEYWORDS)
+    .filter(([, kws]) => kws.some((k) => blob.includes(k)))
+    .map(([id]) => id);
+}
