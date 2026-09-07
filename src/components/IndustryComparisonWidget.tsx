@@ -206,15 +206,20 @@ const IndustryComparisonWidget = () => {
   const relevantIsvs = useMemo(() => getRelevantIsvs(bcPool, sec, geo), [bcPool, sec, geo]);
   const relevantFscmIsvs = useMemo(() => getRelevantIsvs(fscmPool, sec, geo), [fscmPool, sec, geo]);
 
+  const sectorQuestion = SECTOR_QUESTIONS[sec];
+  const fit = useMemo(() => scoreFit({ sec, sz, geo, le, answers }), [sec, sz, geo, le, answers]);
 
   const note = useMemo(() => {
-    if (!entry) return null;
-    return leNote(entry.rec, le);
-  }, [entry, le]);
+    return leNote(fit.rec, le);
+  }, [fit.rec, le]);
 
+  const setAnswer = (key: string, v: string) => setAnswers(prev => ({ ...prev, [key]: v }));
 
-  const recLabel = entry?.rec === "bc" ? "Rekommendation: Business Central" : entry?.rec === "fscm" ? "Rekommendation: Finance & SCM" : "Utvärdera båda";
-  const recColor = entry?.rec === "bc" ? "bg-[hsl(210_60%_90%)] text-[hsl(210_60%_30%)]" : entry?.rec === "fscm" ? "bg-[hsl(250_50%_92%)] text-[hsl(250_50%_30%)]" : "bg-secondary text-foreground";
+  const recLabel = fit.rec === "bc" ? "Rekommendation: Business Central" : fit.rec === "fscm" ? "Rekommendation: Finance & SCM" : "Utvärdera båda";
+  const recColor = fit.rec === "bc" ? "bg-[hsl(210_60%_90%)] text-[hsl(210_60%_30%)]" : fit.rec === "fscm" ? "bg-[hsl(250_50%_92%)] text-[hsl(250_50%_30%)]" : "bg-secondary text-foreground";
+  const forFscm = fit.drivers.filter(d => d.points > 0).sort((a, b) => b.points - a.points);
+  const forBc = fit.drivers.filter(d => d.points < 0).sort((a, b) => a.points - b.points);
+
 
   return (
     <div className="space-y-6">
