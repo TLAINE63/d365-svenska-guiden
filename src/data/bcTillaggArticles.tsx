@@ -125,7 +125,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
             "Flank Speed",
             "dizparc Värnamo ERP",
             "Navet / Aderian",
-            "Programekonomi",
+            "Aritma",
           ]}
         />
 
@@ -255,7 +255,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
             "COSMO CONSULT Sweden",
             "THINKNINE",
             "TietoEVRY Sweden",
-            "Programekonomi",
+            "Aritma",
             "twoday",
           ]}
         />
