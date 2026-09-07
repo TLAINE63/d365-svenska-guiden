@@ -344,6 +344,61 @@ const IndustryComparisonWidget = () => {
             </span>
           </div>
 
+          {/* Tilt meter + drivers */}
+          <div className="bg-card border-2 border-border rounded p-5 space-y-4">
+            <div>
+              <div className="flex justify-between text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+                <span>Business Central</span>
+                <span>Finance & SCM</span>
+              </div>
+              <div className="h-2.5 rounded bg-secondary relative overflow-hidden">
+                <div
+                  className="absolute inset-y-0 left-0 bg-gradient-to-r from-[hsl(210_60%_55%)] to-[hsl(250_50%_55%)] rounded"
+                  style={{ width: `${fit.tilt}%` }}
+                />
+              </div>
+              <div className="text-xs text-muted-foreground mt-2 leading-relaxed">
+                Dina svar väger {fit.tilt}% åt Finance & SCM-hållet. Rekommendationen bygger på bransch, storlek,
+                geografi, bolagsstruktur, volym, regelkrav, integrationer, egna resurser och tidplan – inte enbart antal anställda.
+              </div>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-wider text-[hsl(250_50%_40%)] dark:text-[hsl(250_50%_70%)] mb-2">Talar för Finance & SCM</div>
+                {forFscm.length ? (
+                  <ul className="space-y-1.5">
+                    {forFscm.map(d => (
+                      <li key={d.label} className="text-xs bg-secondary/40 border border-border rounded p-2 leading-snug">
+                        <div className="font-semibold text-card-foreground">{d.label}: {d.choice}</div>
+                        <div className="text-muted-foreground mt-0.5">{d.why}</div>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className="text-xs text-muted-foreground">Inget i dina svar driver mot Finance & SCM.</div>
+                )}
+              </div>
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-wider text-[hsl(210_60%_35%)] dark:text-[hsl(210_60%_70%)] mb-2">Talar för Business Central</div>
+                {forBc.length ? (
+                  <ul className="space-y-1.5">
+                    {forBc.map(d => (
+                      <li key={d.label} className="text-xs bg-secondary/40 border border-border rounded p-2 leading-snug">
+                        <div className="font-semibold text-card-foreground">{d.label}: {d.choice}</div>
+                        <div className="text-muted-foreground mt-0.5">{d.why}</div>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className="text-xs text-muted-foreground">Inget i dina svar driver mot Business Central.</div>
+                )}
+              </div>
+            </div>
+          </div>
+
+
+
           {/* Comparison columns */}
           <div className="grid md:grid-cols-2 gap-4">
             {/* BC column */}
