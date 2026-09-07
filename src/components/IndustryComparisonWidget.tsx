@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { Badge } from "@/components/ui/badge";
-import { BC_ISV_SOLUTIONS, type SolutionCategory, type SolutionIndustry } from "@/data/bcIsvSolutions";
+import { BC_ISV_SOLUTIONS, type IsvSolution, type SolutionCategory, type SolutionIndustry } from "@/data/bcIsvSolutions";
+import { useIsvSolutions } from "@/hooks/useIsvSolutions";
 
 // ── Types ──
 interface Side {
