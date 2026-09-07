@@ -41,3 +41,9 @@
 - [ ] Steg 3: felsäkring/skipped-status
 - [ ] Steg 4: curl-verifiering + json/html/pdf-format
 - [x] PDF av partnerkort Fellowmind + Accigo
+
+## ISV-tillägg i verktygen (2026-09-07) – väntar på CE-underlag
+- [ ] Inväntar Thomas underlag/instruktioner för CRM/CE-tilläggsprodukter
+- [ ] Sedan: ISV-tillägg som valbara steg i kravspecifikation och behovsanalys (följer med i PDF/underlag)
+- [ ] Sedan: AI-förslag på relevanta tillägg i resultatet, baserat på produkt/bransch/behov
+- [ ] Sedan: ISV-tillägg med i jämförelsen BC vs F&SCM
