@@ -780,7 +780,12 @@ const FinanceSupplyChain = () => {
      <PageOfferBanner />
    </div>
  </section>
- <ProductIsvSection product="Finance & Supply Chain Management" />
+      <ProductIsvSection
+        product="Finance & Supply Chain Management"
+        limit={9}
+        description="Ekosystemet runt Finance & Supply Chain Management är stort – från leverantörsfakturor och anläggningsunderhåll till EDI, frakt och branschpaket. Här är ett brett urval; hela katalogen med filter för kategori, leveransform och bransch finns i Kunskapscentret."
+      />
+
 
  </main>
  <Footer />

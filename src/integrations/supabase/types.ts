@@ -697,81 +697,125 @@ export type Database = {
       }
       isv_solutions: {
         Row: {
+          best_for: string | null
           category: string
           combos: string[]
+          considerations: string | null
           created_at: string
+          delivery_model: string
+          editorial_tier: string | null
+          finance_relevance: string
           geo: string[]
           id: string
           industries: string[]
           industry_focus: string[]
           is_published: boolean
           name: string
+          nordic_relevance: string | null
           partner_slugs: string[]
           products: string[]
+          publication_wave: string | null
           short_description: string | null
           solution_id: string
           sort_order: number
+          source_url: string | null
+          subcategory: string | null
+          supply_chain_relevance: string
           tags: string[]
           tier: string
           type: string
           updated_at: string
           use_cases: string[]
           vendor: string
+          vendor_slug: string | null
           vendor_website: string | null
+          verified_at: string | null
           what: string | null
           when_fits: string | null
         }
         Insert: {
+          best_for?: string | null
           category?: string
           combos?: string[]
+          considerations?: string | null
           created_at?: string
+          delivery_model?: string
+          editorial_tier?: string | null
+          finance_relevance?: string
           geo?: string[]
           id?: string
           industries?: string[]
           industry_focus?: string[]
           is_published?: boolean
           name: string
+          nordic_relevance?: string | null
           partner_slugs?: string[]
           products?: string[]
+          publication_wave?: string | null
           short_description?: string | null
           solution_id: string
           sort_order?: number
+          source_url?: string | null
+          subcategory?: string | null
+          supply_chain_relevance?: string
           tags?: string[]
           tier?: string
           type?: string
           updated_at?: string
           use_cases?: string[]
           vendor: string
+          vendor_slug?: string | null
           vendor_website?: string | null
+          verified_at?: string | null
           what?: string | null
           when_fits?: string | null
         }
         Update: {
+          best_for?: string | null
           category?: string
           combos?: string[]
+          considerations?: string | null
           created_at?: string
+          delivery_model?: string
+          editorial_tier?: string | null
+          finance_relevance?: string
           geo?: string[]
           id?: string
           industries?: string[]
           industry_focus?: string[]
           is_published?: boolean
           name?: string
+          nordic_relevance?: string | null
           partner_slugs?: string[]
           products?: string[]
+          publication_wave?: string | null
           short_description?: string | null
           solution_id?: string
           sort_order?: number
+          source_url?: string | null
+          subcategory?: string | null
+          supply_chain_relevance?: string
           tags?: string[]
           tier?: string
           type?: string
           updated_at?: string
           use_cases?: string[]
           vendor?: string
+          vendor_slug?: string | null
           vendor_website?: string | null
+          verified_at?: string | null
           what?: string | null
           when_fits?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "isv_solutions_vendor_slug_fkey"
+            columns: ["vendor_slug"]
+            isOneToOne: false
+            referencedRelation: "isv_vendors"
+            referencedColumns: ["slug"]
+          },
+        ]
       }
       isv_submissions: {
         Row: {
@@ -843,6 +887,36 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      isv_vendors: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          slug: string
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          slug: string
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          slug?: string
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: []
       }
       knowledge_articles: {
         Row: {

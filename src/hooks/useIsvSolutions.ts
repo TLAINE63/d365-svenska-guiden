@@ -1,6 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { BC_ISV_SOLUTIONS, type IsvSolution } from "@/data/bcIsvSolutions";
+import {
+  BC_ISV_SOLUTIONS,
+  deliveryModelFromType,
+  type DeliveryModel,
+  type IsvSolution,
+  type Relevance,
+} from "@/data/bcIsvSolutions";
+
 
 export interface IsvOverride {
   solution_id: string;
@@ -72,17 +79,43 @@ export interface IsvSolutionRow {
   vendor_website: string | null;
   is_published?: boolean;
   sort_order?: number;
+  // Utökad modell
+  vendor_slug?: string | null;
+  subcategory?: string | null;
+  delivery_model?: string | null;
+  finance_relevance?: string | null;
+  supply_chain_relevance?: string | null;
+  best_for?: string | null;
+  considerations?: string | null;
+  source_url?: string | null;
+  verified_at?: string | null;
+  editorial_tier?: string | null;
+  nordic_relevance?: string | null;
+  publication_wave?: string | null;
 }
 
 /** Konverterar en databasrad till katalogens IsvSolution-format. */
 export function rowToSolution(r: IsvSolutionRow): IsvSolution {
   return {
     id: r.solution_id,
+    slug: r.solution_id,
     name: r.name,
     vendor: r.vendor,
+    vendorSlug: r.vendor_slug || undefined,
     shortDescription: r.short_description || "",
     type: r.type as IsvSolution["type"],
     category: r.category as IsvSolution["category"],
+    subcategory: r.subcategory || undefined,
+    deliveryModel: (r.delivery_model as DeliveryModel) || deliveryModelFromType(r.type),
+    financeRelevance: (r.finance_relevance as Relevance) || undefined,
+    supplyChainRelevance: (r.supply_chain_relevance as Relevance) || undefined,
+    bestFor: r.best_for || undefined,
+    considerations: r.considerations || undefined,
+    sourceUrl: r.source_url || undefined,
+    verifiedAt: r.verified_at || undefined,
+    editorialTier: r.editorial_tier || r.tier || undefined,
+    nordicRelevance: r.nordic_relevance || undefined,
+    publicationWave: r.publication_wave || undefined,
     tier: r.tier as IsvSolution["tier"],
     tags: r.tags || [],
     industries: (r.industries || []) as IsvSolution["industries"],
@@ -92,12 +125,13 @@ export function rowToSolution(r: IsvSolutionRow): IsvSolution {
     whenFits: r.when_fits || "",
     combos: r.combos || [],
     partnersSE: [],
-    products: r.products || undefined,
+    products: r.products?.length ? r.products : undefined,
     industryFocus: r.industry_focus || undefined,
     partnerSlugs: r.partner_slugs || undefined,
     vendorWebsite: r.vendor_website || undefined,
   };
 }
+
 
 /**
  * Returnerar ISV-katalogen: statisk kodkatalog + lösningar skapade i admin,
@@ -140,7 +174,15 @@ export function useIsvSolutions(): IsvSolution[] {
 
   return useMemo(() => {
     const staticIds = new Set(BC_ISV_SOLUTIONS.map((s) => s.id));
-    const merged = [...BC_ISV_SOLUTIONS, ...dbSolutions.filter((s) => !staticIds.has(s.id))];
+    // Kodkatalogens poster får en härledd leveransform så att gamla BC-poster
+    // fungerar i den nya, produktneutrala modellen.
+    const staticWithModel = BC_ISV_SOLUTIONS.map((s) => ({
+      ...s,
+      slug: s.slug || s.id,
+      deliveryModel: s.deliveryModel || deliveryModelFromType(s.type),
+    }));
+    const merged = [...staticWithModel, ...dbSolutions.filter((s) => !staticIds.has(s.id))];
     return applyIsvOverrides(merged, overrides);
+
   }, [overrides, dbSolutions]);
 }
