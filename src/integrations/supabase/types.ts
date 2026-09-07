@@ -701,9 +701,13 @@ export type Database = {
           category: string
           combos: string[]
           considerations: string | null
+          contact_center_relevance: string | null
           created_at: string
+          customer_insights_relevance: string | null
+          customer_service_relevance: string | null
           delivery_model: string
           editorial_tier: string | null
+          field_service_relevance: string | null
           finance_relevance: string
           geo: string[]
           id: string
@@ -715,9 +719,11 @@ export type Database = {
           partner_slugs: string[]
           products: string[]
           publication_wave: string | null
+          sales_relevance: string | null
           short_description: string | null
           solution_id: string
           sort_order: number
+          source_status: string | null
           source_url: string | null
           subcategory: string | null
           supply_chain_relevance: string
@@ -738,9 +744,13 @@ export type Database = {
           category?: string
           combos?: string[]
           considerations?: string | null
+          contact_center_relevance?: string | null
           created_at?: string
+          customer_insights_relevance?: string | null
+          customer_service_relevance?: string | null
           delivery_model?: string
           editorial_tier?: string | null
+          field_service_relevance?: string | null
           finance_relevance?: string
           geo?: string[]
           id?: string
@@ -752,9 +762,11 @@ export type Database = {
           partner_slugs?: string[]
           products?: string[]
           publication_wave?: string | null
+          sales_relevance?: string | null
           short_description?: string | null
           solution_id: string
           sort_order?: number
+          source_status?: string | null
           source_url?: string | null
           subcategory?: string | null
           supply_chain_relevance?: string
@@ -775,9 +787,13 @@ export type Database = {
           category?: string
           combos?: string[]
           considerations?: string | null
+          contact_center_relevance?: string | null
           created_at?: string
+          customer_insights_relevance?: string | null
+          customer_service_relevance?: string | null
           delivery_model?: string
           editorial_tier?: string | null
+          field_service_relevance?: string | null
           finance_relevance?: string
           geo?: string[]
           id?: string
@@ -789,9 +805,11 @@ export type Database = {
           partner_slugs?: string[]
           products?: string[]
           publication_wave?: string | null
+          sales_relevance?: string | null
           short_description?: string | null
           solution_id?: string
           sort_order?: number
+          source_status?: string | null
           source_url?: string | null
           subcategory?: string | null
           supply_chain_relevance?: string
