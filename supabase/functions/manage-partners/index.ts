@@ -360,6 +360,7 @@ serve(async (req: Request): Promise<Response> => {
             ai_profile: (partner as any).ai_profile || {},
             product_profiles: (partner as any).product_profiles || {},
             implementations_per_app: (partner as any).implementations_per_app || {},
+            team_size_per_app: (partner as any).team_size_per_app || {},
             extended_content: (partner as any).extended_content?.trim() || null,
             extended_content_updated_at: (partner as any).extended_content?.trim() ? new Date().toISOString() : null,
             extended_summary: (partner as any).extended_summary?.trim() || null,
@@ -445,6 +446,7 @@ serve(async (req: Request): Promise<Response> => {
         if ((partner as any)?.ai_profile !== undefined) updateData.ai_profile = (partner as any).ai_profile || {};
         if ((partner as any)?.product_profiles !== undefined) updateData.product_profiles = (partner as any).product_profiles || {};
         if ((partner as any)?.implementations_per_app !== undefined) updateData.implementations_per_app = (partner as any).implementations_per_app || {};
+        if ((partner as any)?.team_size_per_app !== undefined) updateData.team_size_per_app = (partner as any).team_size_per_app || {};
         if ((partner as any)?.extended_content !== undefined) {
           const trimmed = (partner as any).extended_content?.trim() || null;
           updateData.extended_content = trimmed;

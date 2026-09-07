@@ -125,6 +125,8 @@ export interface DatabasePartner {
   team_size_sweden?: string | null;
   implementations_done?: string | null;
   implementations_per_app?: Record<string, string> | null;
+  /** Lokal teamstorlek i Sverige per Dynamics 365-applikation. */
+  team_size_per_app?: Record<string, string> | null;
   not_a_fit?: string[] | null;
   /** Fördjupad AI-sammanfattning (flera stycken, radbrytningsseparerade). */
   ai_summary_full?: string | null;
@@ -229,6 +231,7 @@ export function usePartners() {
               team_size_sweden: (p as any).team_size_sweden ?? null,
               implementations_done: (p as any).implementations_done ?? null,
               implementations_per_app: ((p as any).implementations_per_app ?? {}) as Record<string, string>,
+              team_size_per_app: ((p as any).team_size_per_app ?? {}) as Record<string, string>,
               not_a_fit: ((p as any).not_a_fit ?? []) as string[],
               ai_summary_full: (p as any).ai_summary_full ?? null,
               best_fit_for: ((p as any).best_fit_for ?? []) as string[],
@@ -295,6 +298,7 @@ export function usePartner(slug: string | undefined) {
         team_size_sweden: (data as any).team_size_sweden ?? null,
         implementations_done: (data as any).implementations_done ?? null,
         implementations_per_app: ((data as any).implementations_per_app ?? {}) as Record<string, string>,
+        team_size_per_app: ((data as any).team_size_per_app ?? {}) as Record<string, string>,
         not_a_fit: ((data as any).not_a_fit ?? []) as string[],
         ai_summary_full: (data as any).ai_summary_full ?? null,
         best_fit_for: ((data as any).best_fit_for ?? []) as string[],

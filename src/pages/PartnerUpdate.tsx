@@ -259,6 +259,7 @@ const PartnerUpdate = () => {
   const [teamSizeSweden, setTeamSizeSweden] = useState("");
   const [implementationsDone, setImplementationsDone] = useState("");
   const [implementationsPerApp, setImplementationsPerApp] = useState<Record<string, string>>({});
+  const [teamSizePerApp, setTeamSizePerApp] = useState<Record<string, string>>({});
   const [notAFitInput, setNotAFitInput] = useState("");
   const [aiProfile, setAiProfile] = useState<import("@/lib/aiProfile").AiProfile>({});
   const [competencyLevels, setCompetencyLevels] = useState<ExtendedCompetencies>({});
@@ -558,6 +559,9 @@ const PartnerUpdate = () => {
   if (typeof ed.implementations_done === "string") setImplementationsDone(ed.implementations_done);
   if (ed.implementations_per_app && typeof ed.implementations_per_app === "object") {
     setImplementationsPerApp(ed.implementations_per_app as Record<string, string>);
+  }
+  if (ed.team_size_per_app && typeof ed.team_size_per_app === "object") {
+    setTeamSizePerApp(ed.team_size_per_app as Record<string, string>);
   }
   if (Array.isArray(ed.not_a_fit)) setNotAFitInput(ed.not_a_fit.join("\n"));
   if (ed.ai_profile && typeof ed.ai_profile === "object") setAiProfile(ed.ai_profile);
@@ -1066,6 +1070,9 @@ const PartnerUpdate = () => {
  implementations_done: implementationsDone || null,
  implementations_per_app: Object.fromEntries(
    Object.entries(implementationsPerApp).filter(([app, v]) => applications.includes(app) && (v || "").trim())
+ ),
+ team_size_per_app: Object.fromEntries(
+   Object.entries(teamSizePerApp).filter(([app, v]) => applications.includes(app) && (v || "").trim())
  ),
   not_a_fit: notAFitInput.split("\n").map(s => s.trim()).filter(Boolean),
   ai_profile: aiProfile,
@@ -2876,6 +2883,48 @@ const PartnerUpdate = () => {
                  <option value="10–25">10–25</option>
                  <option value="25–100">25–100</option>
                  <option value="100+">100+</option>
+               </select>
+             </div>
+           ))}
+         </div>
+       </div>
+     );
+   })()}
+
+   {(() => {
+     const apps = [
+       ...activeProducts.flatMap((k) => productSections.find((s) => s.key === k)?.apps || []),
+       ...selectedSpecialtyProducts,
+     ];
+     if (apps.length === 0) return null;
+     return (
+       <div className="space-y-2 sm:col-span-2 border-t border-border pt-4">
+         <Label>Lokal teamstorlek (Sverige) per applikation</Label>
+         <p className="text-[11px] text-muted-foreground -mt-1">
+           Antal konsulter i Sverige som arbetar med respektive Dynamics 365-applikation. Kompletterar den totala teamstorleken ovan.
+         </p>
+         <div className="grid sm:grid-cols-2 gap-2">
+           {apps.map((app) => (
+             <div key={app} className="flex items-center gap-2">
+               <span className="text-sm flex-1 truncate" title={app}>{app}</span>
+               <select
+                 className="flex h-9 w-32 rounded-md border border-input bg-background px-2 py-1 text-sm"
+                 value={teamSizePerApp[app] || ""}
+                 onChange={(e) =>
+                   setTeamSizePerApp((prev) => {
+                     const next = { ...prev };
+                     if (e.target.value) next[app] = e.target.value;
+                     else delete next[app];
+                     return next;
+                   })
+                 }
+               >
+                 <option value="">Välj…</option>
+                 <option value="1–5">1–5</option>
+                 <option value="6–10">6–10</option>
+                 <option value="11–25">11–25</option>
+                 <option value="26–50">26–50</option>
+                 <option value="50+">50+</option>
                </select>
              </div>
            ))}
