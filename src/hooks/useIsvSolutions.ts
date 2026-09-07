@@ -91,6 +91,7 @@ export interface IsvSolutionRow {
   field_service_relevance?: string | null;
   contact_center_relevance?: string | null;
   source_status?: string | null;
+  lifecycle_status?: string | null;
   best_for?: string | null;
   considerations?: string | null;
   source_url?: string | null;
@@ -121,6 +122,7 @@ export function rowToSolution(r: IsvSolutionRow): IsvSolution {
     fieldServiceRelevance: (r.field_service_relevance as Relevance) || undefined,
     contactCenterRelevance: (r.contact_center_relevance as Relevance) || undefined,
     sourceStatus: r.source_status || undefined,
+    lifecycleStatus: r.lifecycle_status || undefined,
     bestFor: r.best_for || undefined,
     considerations: r.considerations || undefined,
     sourceUrl: r.source_url || undefined,
@@ -185,15 +187,18 @@ export function useIsvSolutions(): IsvSolution[] {
   }, []);
 
   return useMemo(() => {
-    const staticIds = new Set(BC_ISV_SOLUTIONS.map((s) => s.id));
-    // Kodkatalogens poster får en härledd leveransform så att gamla BC-poster
-    // fungerar i den nya, produktneutrala modellen.
+    // Kodkatalogen är en statisk ögonblicksbild (används vid SSG/prerender).
+    // Databasen är källa till sanning: när en post finns i båda vinner databasen,
+    // så att redaktionella ändringar i admin slår igenom direkt.
     const staticWithModel = BC_ISV_SOLUTIONS.map((s) => ({
       ...s,
       slug: s.slug || s.id,
       deliveryModel: s.deliveryModel || deliveryModelFromType(s.type),
     }));
-    const merged = [...staticWithModel, ...dbSolutions.filter((s) => !staticIds.has(s.id))];
+    const dbIds = new Set(dbSolutions.map((s) => s.id));
+    const merged = dbSolutions.length
+      ? [...dbSolutions, ...staticWithModel.filter((s) => !dbIds.has(s.id))]
+      : staticWithModel;
     return applyIsvOverrides(merged, overrides);
 
   }, [overrides, dbSolutions]);

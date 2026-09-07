@@ -16,7 +16,7 @@ export const ISV_COMPARISONS: IsvComparison[] = [
     title: "Continia vs ExFlow (Truvio)",
     intro:
       "De två ledande AP automation-sviterna för Business Central i Sverige. Skillnaden ligger i bredd, attestmodell och hur djupt processen styrs i BC.",
-    solutionIds: ["continia", "exflow"],
+    solutionIds: ["continia-document-capture", "exflow"],
     category: "AP automation",
     parentArticleSlug: "tillagg-fakturahantering",
   },
