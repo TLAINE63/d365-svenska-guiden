@@ -269,6 +269,23 @@ const IndustryComparisonWidget = () => {
         <span className="text-[11px] text-muted-foreground/70">Etablerade ISV-lösningar på Microsoft Marketplace</span>
       </div>
 
+      {/* F&SCM apps toggle */}
+      <div className="flex items-center gap-3 p-4 bg-[hsl(250_50%_97%)] dark:bg-[hsl(250_30%_15%)] border-2 border-[hsl(250_50%_85%)] dark:border-[hsl(250_30%_30%)] rounded flex-wrap">
+        <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">F&SCM-tillägg:</span>
+        <button
+          onClick={() => setShowFscmApps(!showFscmApps)}
+          className={`px-4 py-2 text-xs rounded border-2 font-semibold transition-all ${
+            showFscmApps
+              ? "bg-[hsl(250_50%_50%)] text-white border-[hsl(250_50%_45%)] "
+              : "bg-card text-muted-foreground border-border hover:border-[hsl(250_50%_60%)]"
+          }`}
+        >
+          {showFscmApps ? "✓ " : ""}Inkludera etablerade tilläggsappar till F&SCM
+        </button>
+        <span className="text-[11px] text-muted-foreground/70">Etablerade ISV-lösningar för Finance & Supply Chain Management</span>
+      </div>
+
+
       {/* Result */}
       {entry && (
         <div className="space-y-4 pt-2">
