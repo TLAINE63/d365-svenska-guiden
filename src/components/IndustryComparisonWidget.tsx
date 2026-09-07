@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { Badge } from "@/components/ui/badge";
-import { BC_ISV_SOLUTIONS, type SolutionCategory, type SolutionIndustry } from "@/data/bcIsvSolutions";
+import { BC_ISV_SOLUTIONS, type IsvSolution, type SolutionCategory, type SolutionIndustry } from "@/data/bcIsvSolutions";
+import { useIsvSolutions } from "@/hooks/useIsvSolutions";
 
 // ── Types ──
 interface Side {
@@ -33,7 +34,11 @@ const SECTOR_ISV_MAP: Record<string, { industries: SolutionIndustry[]; categorie
   tra: { industries: ["3PL", "Wholesale", "Generell"], categories: ["WMS", "Frakt & TA", "EDI / e-faktura"] },
 };
 
-function getRelevantIsvs(sec: string, geo: string) {
+const FSCM_PRODUCT = "Finance & Supply Chain Management";
+
+const tierRank = (t: string) => (t === "Tier 1" ? 0 : t === "Vertikal" ? 1 : t === "Tier 2" ? 2 : 3);
+
+function getRelevantIsvs(pool: IsvSolution[], sec: string, geo: string) {
   const map = SECTOR_ISV_MAP[sec];
   if (!map) return [];
   const cats = new Set<SolutionCategory>(map.categories);
@@ -46,15 +51,15 @@ function getRelevantIsvs(sec: string, geo: string) {
     cats.add("Integration / iPaaS");
   }
   const indSet = new Set<SolutionIndustry>(map.industries);
-  const filtered = BC_ISV_SOLUTIONS.filter(s => {
-    if (!cats.has(s.category)) return false;
-    // Industrimatch: Generell träffar alltid, annars måste minst en industri överlappa.
-    return s.industries.some(i => i === "Generell" || indSet.has(i));
-  });
+  const industryMatch = (s: IsvSolution) =>
+    !s.industries?.length || s.industries.some(i => i === "Generell" || indSet.has(i as SolutionIndustry));
+  let filtered = pool.filter(s => cats.has(s.category) && industryMatch(s));
+  // Fallback: om kategorikartan inte träffar (vanligare för F&SCM-poster) – matcha på bransch.
+  if (!filtered.length) filtered = pool.filter(industryMatch);
   // Prioritera Tier 1, sedan Vertikal, sedan Tier 2. Cap till 8 för läsbarhet.
-  const tierRank = { "Tier 1": 0, Vertikal: 1, "Tier 2": 2 } as const;
-  return filtered.sort((a, b) => tierRank[a.tier] - tierRank[b.tier]).slice(0, 8);
+  return filtered.sort((a, b) => tierRank(a.tier) - tierRank(b.tier)).slice(0, 8);
 }
+
 
 
 // ── Data ──
@@ -182,12 +187,25 @@ const IndustryComparisonWidget = () => {
   const [geo, setGeo] = useState("loc");
   const [le, setLe] = useState("1");
   const [showApps, setShowApps] = useState(false);
+  const [showFscmApps, setShowFscmApps] = useState(false);
+  const catalog = useIsvSolutions();
 
   const entry = useMemo(() => {
     return D[sec]?.[sz]?.[geo] ?? null;
   }, [sec, sz, geo]);
 
-  const relevantIsvs = useMemo(() => getRelevantIsvs(sec, geo), [sec, geo]);
+  const bcPool = useMemo(
+    () => catalog.filter(s => !s.products?.length || s.products.includes("Business Central")),
+    [catalog]
+  );
+  const fscmPool = useMemo(
+    () => catalog.filter(s => s.products?.includes(FSCM_PRODUCT)),
+    [catalog]
+  );
+
+  const relevantIsvs = useMemo(() => getRelevantIsvs(bcPool, sec, geo), [bcPool, sec, geo]);
+  const relevantFscmIsvs = useMemo(() => getRelevantIsvs(fscmPool, sec, geo), [fscmPool, sec, geo]);
+
 
   const note = useMemo(() => {
     if (!entry) return null;
@@ -251,6 +269,23 @@ const IndustryComparisonWidget = () => {
         <span className="text-[11px] text-muted-foreground/70">Etablerade ISV-lösningar på Microsoft Marketplace</span>
       </div>
 
+      {/* F&SCM apps toggle */}
+      <div className="flex items-center gap-3 p-4 bg-[hsl(250_50%_97%)] dark:bg-[hsl(250_30%_15%)] border-2 border-[hsl(250_50%_85%)] dark:border-[hsl(250_30%_30%)] rounded flex-wrap">
+        <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">F&SCM-tillägg:</span>
+        <button
+          onClick={() => setShowFscmApps(!showFscmApps)}
+          className={`px-4 py-2 text-xs rounded border-2 font-semibold transition-all ${
+            showFscmApps
+              ? "bg-[hsl(250_50%_50%)] text-white border-[hsl(250_50%_45%)] "
+              : "bg-card text-muted-foreground border-border hover:border-[hsl(250_50%_60%)]"
+          }`}
+        >
+          {showFscmApps ? "✓ " : ""}Inkludera etablerade tilläggsappar till F&SCM
+        </button>
+        <span className="text-[11px] text-muted-foreground/70">Etablerade ISV-lösningar för Finance & Supply Chain Management</span>
+      </div>
+
+
       {/* Result */}
       {entry && (
         <div className="space-y-4 pt-2">
@@ -299,12 +334,31 @@ const IndustryComparisonWidget = () => {
             <div className="rounded border-2 border-[hsl(250_50%_85%)] dark:border-[hsl(250_30%_35%)] overflow-hidden">
               <div className="p-4 bg-gradient-to-br from-[hsl(250_50%_95%)] to-[hsl(250_50%_90%)] dark:from-[hsl(250_30%_18%)] dark:to-[hsl(250_30%_14%)]">
                 <div className="text-base font-bold text-[hsl(250_50%_25%)] dark:text-[hsl(250_50%_80%)]">Finance & SCM</div>
-                <div className="text-xs mt-0.5 text-[hsl(250_50%_40%)] dark:text-[hsl(250_50%_60%)]">Dynamics 365 Finance & Supply Chain</div>
+                <div className="text-xs mt-0.5 text-[hsl(250_50%_40%)] dark:text-[hsl(250_50%_60%)]">Dynamics 365 Finance & Supply Chain{showFscmApps ? " + etablerade tilläggsappar" : ""}</div>
               </div>
               <div className="p-3 space-y-2">
                 {entry.fscm.p.map((p, i) => <CardItem key={`fp${i}`} title={p.t} desc={p.d} type="strength" />)}
                 {entry.fscm.c.map((c, i) => <CardItem key={`fc${i}`} title={c.t} desc={c.d} type="limitation" />)}
+                {showFscmApps && relevantFscmIsvs.length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-border space-y-2">
+                    <div className="text-xs text-muted-foreground leading-relaxed">
+                      <span className="font-semibold text-[hsl(250_50%_35%)] dark:text-[hsl(250_50%_75%)]">{relevantFscmIsvs.length} etablerade tilläggsappar</span> från d365.se:s ISV-katalog matchar detta segment och kompletterar F&SCM:
+                    </div>
+                    <ul className="space-y-1.5">
+                      {relevantFscmIsvs.map(s => (
+                        <li key={s.id} className="text-xs leading-snug bg-card border border-border rounded p-2">
+                          <div className="font-semibold text-card-foreground">{s.name} <span className="font-normal text-muted-foreground">· {s.vendor}</span></div>
+                          <div className="text-muted-foreground mt-0.5">{s.category} · {s.shortDescription}</div>
+                        </li>
+                      ))}
+                    </ul>
+                    <a href="/kunskapscenter/dynamics-365-tillagg/?produkt=Finance%20%26%20Supply%20Chain%20Management" className="inline-block text-xs font-semibold text-[hsl(250_50%_35%)] dark:text-[hsl(250_50%_75%)] hover:underline mt-1">
+                      Öppna hela ISV-katalogen ↗
+                    </a>
+                  </div>
+                )}
               </div>
+
             </div>
           </div>
 
