@@ -220,7 +220,7 @@ serve(async (req: Request): Promise<Response> => {
             is_featured, office_cities, map_url, customer_examples,
             industry_pitches,
             positioning_statement, delivery_profile, team_size_sweden,
-            implementations_done, implementations_per_app, not_a_fit, ai_profile, product_profiles,
+            implementations_done, implementations_per_app, team_size_per_app, not_a_fit, ai_profile, product_profiles,
             extended_competencies, extended_competency_input,
             created_at, updated_at
           `)
@@ -325,6 +325,8 @@ serve(async (req: Request): Promise<Response> => {
           ai_profile: submissionData.ai_profile || {},
           product_profiles: submissionData.product_profiles || {},
           implementations_per_app: submissionData.implementations_per_app || {},
+        team_size_per_app: submissionData.team_size_per_app || {},
+          team_size_per_app: submissionData.team_size_per_app || {},
           extended_competency_input: competencyInput,
         });
 

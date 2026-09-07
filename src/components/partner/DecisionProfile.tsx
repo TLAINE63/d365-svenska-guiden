@@ -53,10 +53,14 @@ const DecisionProfile = ({ partner }: Props) => {
     team_size_sweden?: string | null;
     implementations_done?: string | null;
     implementations_per_app?: Record<string, string> | null;
+    team_size_per_app?: Record<string, string> | null;
     not_a_fit?: string[] | null;
   };
 
   const positioning = (p.positioning_statement || "").trim();
+  const teamPerApp = Object.entries(p.team_size_per_app || {})
+    .filter(([, v]) => typeof v === "string" && v.trim())
+    .map(([app, count]) => ({ app, count: count.trim() }));
   const implPerApp = Object.entries(p.implementations_per_app || {})
     .filter(([, v]) => typeof v === "string" && v.trim())
     .map(([app, count]) => ({ app, count: count.trim() }));
@@ -120,7 +124,26 @@ const DecisionProfile = ({ partner }: Props) => {
             </div>
             <dl className="divide-y divide-slate-100 text-sm">
               {[
-              { label: "Lokal teamstorlek (Sverige)", value: p.team_size_sweden, help: TEAM_SIZE_HELP },
+              {
+                label: "Lokal teamstorlek (Sverige)",
+                value:
+                  teamPerApp.length > 0 ? (
+                    <div className="flex flex-col items-end gap-0.5">
+                      {p.team_size_sweden && (
+                        <div className="text-slate-900 font-medium">Totalt: {p.team_size_sweden}</div>
+                      )}
+                      {teamPerApp.map(({ app, count }) => (
+                        <div key={app} className="text-slate-900">
+                          <span className="text-slate-500 font-normal">{app}:</span>{" "}
+                          <span className="font-medium">{count}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    p.team_size_sweden || null
+                  ),
+                help: TEAM_SIZE_HELP,
+              },
               {
                 label: "Genomförda implementationer",
                 value:
