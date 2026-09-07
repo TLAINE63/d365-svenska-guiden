@@ -26,6 +26,9 @@ import { usePartners } from "@/hooks/usePartners";
 import { pickSuggestedPartners } from "@/lib/suggestPartners";
 import { buildCompareUrl } from "@/lib/compareUrl";
 import { appendSuggestedPartnersPage } from "@/utils/pdfSuggestedPartners";
+import { appendIsvAddonsPage } from "@/utils/pdfIsvAddons";
+import IsvAddonSuggestions, { type SelectedIsvAddon } from "@/components/IsvAddonSuggestions";
+import { deriveAreasFromText } from "@/lib/isvSuggestions";
 import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
 import type { ProductKey } from "@/hooks/usePartnerFilters";
 
@@ -1030,6 +1033,7 @@ const NeedsAnalysis = () => {
   const { data: allPartners = [] } = usePartners();
   const [data, setData] = useState<AnalysisData>(initialData);
   const [isComplete, setIsComplete] = useState(false);
+  const [isvAddons, setIsvAddons] = useState<SelectedIsvAddon[]>([]);
   const [contactErrors, setContactErrors] = useState<ContactFormErrors>({});
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
@@ -3022,6 +3026,15 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
     pdf.text("d365.se", pageWidth - margin - 55, yPos + 26);
 
+    // Valda tilläggslösningar – egen sida
+    try {
+      if (isvAddons.length) {
+        appendIsvAddonsPage(pdf, isvAddons.map((a) => ({
+          name: a.name, vendor: a.vendor, category: a.category, shortDescription: a.shortDescription,
+        })), { productLabel: recommendation.product });
+      }
+    } catch (e) { console.warn("ISV addons append failed", e); }
+
     // Föreslagna partners – avslutande sida
     try {
       const _isBC = recommendation.product === "Business Central";
@@ -4535,6 +4548,23 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 </div>
               </CardContent>
             </Card>
+
+            {/* TILLÄGGSLÖSNINGAR */}
+            <div className="mb-8">
+              <IsvAddonSuggestions
+                scope={isBC ? "bc" : "fscm"}
+                industry={data.industry === "Annat" ? data.industryOther : data.industry}
+                areas={deriveAreasFromText([
+                  ...data.challenges,
+                  data.challengesOther,
+                  ...data.kpis,
+                  data.wishlist,
+                  ...data.integrationSystems.map((i) => i.system),
+                ])}
+                selected={isvAddons}
+                onChange={setIsvAddons}
+              />
+            </div>
 
             {/* FÖRESLAGNA PARTNERS */}
             <SuggestedPartnersCTA
