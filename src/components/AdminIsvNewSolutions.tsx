@@ -66,6 +66,9 @@ const emptyForm = {
   editorial_tier: "",
   nordic_relevance: "",
   publication_wave: "",
+  lifecycle_status: "active",
+  lifecycle_note: "",
+  successor_solution_id: "",
   tags: "",
   use_cases: "",
   combos: "",
@@ -148,6 +151,9 @@ export default function AdminIsvNewSolutions({ token, onSessionExpired, onChange
       editorial_tier: r.editorial_tier || "",
       nordic_relevance: r.nordic_relevance || "",
       publication_wave: r.publication_wave || "",
+      lifecycle_status: r.lifecycle_status || "active",
+      lifecycle_note: r.lifecycle_note || "",
+      successor_solution_id: r.successor_solution_id || "",
       tags: (r.tags || []).join(", "),
       use_cases: (r.use_cases || []).join("\n"),
       combos: (r.combos || []).join("\n"),
@@ -526,6 +532,27 @@ export default function AdminIsvNewSolutions({ token, onSessionExpired, onChange
                   <div>
                     <Label>Publiceringsvåg</Label>
                     <Input value={form.publication_wave} onChange={(e) => setForm({ ...form, publication_wave: e.target.value })} />
+                  </div>
+                  <div>
+                    <Label>Livscykel</Label>
+                    <select
+                      className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
+                      value={form.lifecycle_status}
+                      onChange={(e) => setForm({ ...form, lifecycle_status: e.target.value })}
+                    >
+                      <option value="active">Aktiv</option>
+                      <option value="end_of_sale">Ingen nyförsäljning</option>
+                      <option value="legacy">Legacy / övergång</option>
+                      <option value="discontinued">Avvecklad</option>
+                    </select>
+                  </div>
+                  <div>
+                    <Label>Livscykelnotis (intern)</Label>
+                    <Input value={form.lifecycle_note} onChange={(e) => setForm({ ...form, lifecycle_note: e.target.value })} />
+                  </div>
+                  <div>
+                    <Label>Efterföljare (solution_id)</Label>
+                    <Input value={form.successor_solution_id} onChange={(e) => setForm({ ...form, successor_solution_id: e.target.value })} />
                   </div>
                 </div>
               </div>
