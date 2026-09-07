@@ -187,12 +187,25 @@ const IndustryComparisonWidget = () => {
   const [geo, setGeo] = useState("loc");
   const [le, setLe] = useState("1");
   const [showApps, setShowApps] = useState(false);
+  const [showFscmApps, setShowFscmApps] = useState(false);
+  const catalog = useIsvSolutions();
 
   const entry = useMemo(() => {
     return D[sec]?.[sz]?.[geo] ?? null;
   }, [sec, sz, geo]);
 
-  const relevantIsvs = useMemo(() => getRelevantIsvs(sec, geo), [sec, geo]);
+  const bcPool = useMemo(
+    () => catalog.filter(s => !s.products?.length || s.products.includes("Business Central")),
+    [catalog]
+  );
+  const fscmPool = useMemo(
+    () => catalog.filter(s => s.products?.includes(FSCM_PRODUCT)),
+    [catalog]
+  );
+
+  const relevantIsvs = useMemo(() => getRelevantIsvs(bcPool, sec, geo), [bcPool, sec, geo]);
+  const relevantFscmIsvs = useMemo(() => getRelevantIsvs(fscmPool, sec, geo), [fscmPool, sec, geo]);
+
 
   const note = useMemo(() => {
     if (!entry) return null;
