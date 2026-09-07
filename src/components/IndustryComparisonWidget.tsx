@@ -34,7 +34,11 @@ const SECTOR_ISV_MAP: Record<string, { industries: SolutionIndustry[]; categorie
   tra: { industries: ["3PL", "Wholesale", "Generell"], categories: ["WMS", "Frakt & TA", "EDI / e-faktura"] },
 };
 
-function getRelevantIsvs(sec: string, geo: string) {
+const FSCM_PRODUCT = "Finance & Supply Chain Management";
+
+const tierRank = (t: string) => (t === "Tier 1" ? 0 : t === "Vertikal" ? 1 : t === "Tier 2" ? 2 : 3);
+
+function getRelevantIsvs(pool: IsvSolution[], sec: string, geo: string) {
   const map = SECTOR_ISV_MAP[sec];
   if (!map) return [];
   const cats = new Set<SolutionCategory>(map.categories);
@@ -47,15 +51,15 @@ function getRelevantIsvs(sec: string, geo: string) {
     cats.add("Integration / iPaaS");
   }
   const indSet = new Set<SolutionIndustry>(map.industries);
-  const filtered = BC_ISV_SOLUTIONS.filter(s => {
-    if (!cats.has(s.category)) return false;
-    // Industrimatch: Generell träffar alltid, annars måste minst en industri överlappa.
-    return s.industries.some(i => i === "Generell" || indSet.has(i));
-  });
+  const industryMatch = (s: IsvSolution) =>
+    !s.industries?.length || s.industries.some(i => i === "Generell" || indSet.has(i as SolutionIndustry));
+  let filtered = pool.filter(s => cats.has(s.category) && industryMatch(s));
+  // Fallback: om kategorikartan inte träffar (vanligare för F&SCM-poster) – matcha på bransch.
+  if (!filtered.length) filtered = pool.filter(industryMatch);
   // Prioritera Tier 1, sedan Vertikal, sedan Tier 2. Cap till 8 för läsbarhet.
-  const tierRank = { "Tier 1": 0, Vertikal: 1, "Tier 2": 2 } as const;
-  return filtered.sort((a, b) => tierRank[a.tier] - tierRank[b.tier]).slice(0, 8);
+  return filtered.sort((a, b) => tierRank(a.tier) - tierRank(b.tier)).slice(0, 8);
 }
+
 
 
 // ── Data ──
