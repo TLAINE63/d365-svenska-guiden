@@ -334,12 +334,31 @@ const IndustryComparisonWidget = () => {
             <div className="rounded border-2 border-[hsl(250_50%_85%)] dark:border-[hsl(250_30%_35%)] overflow-hidden">
               <div className="p-4 bg-gradient-to-br from-[hsl(250_50%_95%)] to-[hsl(250_50%_90%)] dark:from-[hsl(250_30%_18%)] dark:to-[hsl(250_30%_14%)]">
                 <div className="text-base font-bold text-[hsl(250_50%_25%)] dark:text-[hsl(250_50%_80%)]">Finance & SCM</div>
-                <div className="text-xs mt-0.5 text-[hsl(250_50%_40%)] dark:text-[hsl(250_50%_60%)]">Dynamics 365 Finance & Supply Chain</div>
+                <div className="text-xs mt-0.5 text-[hsl(250_50%_40%)] dark:text-[hsl(250_50%_60%)]">Dynamics 365 Finance & Supply Chain{showFscmApps ? " + etablerade tilläggsappar" : ""}</div>
               </div>
               <div className="p-3 space-y-2">
                 {entry.fscm.p.map((p, i) => <CardItem key={`fp${i}`} title={p.t} desc={p.d} type="strength" />)}
                 {entry.fscm.c.map((c, i) => <CardItem key={`fc${i}`} title={c.t} desc={c.d} type="limitation" />)}
+                {showFscmApps && relevantFscmIsvs.length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-border space-y-2">
+                    <div className="text-xs text-muted-foreground leading-relaxed">
+                      <span className="font-semibold text-[hsl(250_50%_35%)] dark:text-[hsl(250_50%_75%)]">{relevantFscmIsvs.length} etablerade tilläggsappar</span> från d365.se:s ISV-katalog matchar detta segment och kompletterar F&SCM:
+                    </div>
+                    <ul className="space-y-1.5">
+                      {relevantFscmIsvs.map(s => (
+                        <li key={s.id} className="text-xs leading-snug bg-card border border-border rounded p-2">
+                          <div className="font-semibold text-card-foreground">{s.name} <span className="font-normal text-muted-foreground">· {s.vendor}</span></div>
+                          <div className="text-muted-foreground mt-0.5">{s.category} · {s.shortDescription}</div>
+                        </li>
+                      ))}
+                    </ul>
+                    <a href="/kunskapscenter/dynamics-365-tillagg/?produkt=Finance%20%26%20Supply%20Chain%20Management" className="inline-block text-xs font-semibold text-[hsl(250_50%_35%)] dark:text-[hsl(250_50%_75%)] hover:underline mt-1">
+                      Öppna hela ISV-katalogen ↗
+                    </a>
+                  </div>
+                )}
               </div>
+
             </div>
           </div>
 
