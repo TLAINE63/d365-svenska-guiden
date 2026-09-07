@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import RelatedPages, { requirementsCrmRelatedPages } from "@/components/RelatedPages";
 import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
 import SendUnderlagToPartners from "@/components/SendUnderlagToPartners";
+import IsvAddonSuggestions, { type SelectedIsvAddon } from "@/components/IsvAddonSuggestions";
 import { usePartners } from "@/hooks/usePartners";
 import { pickSuggestedPartners } from "@/lib/suggestPartners";
 import { toCompanySizeBucket } from "@/lib/companySizeBucket";
@@ -77,6 +78,10 @@ const RequirementsSpecMarketing = () => {
 
   const [isGenerating, setIsGenerating] = useState(false);
   const [result, setResult] = useState<RequirementsData | null>(null);
+  const [isvAddons, setIsvAddons] = useState<SelectedIsvAddon[]>([]);
+  const isvAddonText = isvAddons.length
+    ? `Valda tilläggslösningar att offerera: ${isvAddons.map((a) => `${a.name} (${a.vendor})`).join(", ")}\n\n`
+    : "";
   const [email, setEmail] = useState("");
   const [isDownloading, setIsDownloading] = useState(false);
 
@@ -138,10 +143,17 @@ const RequirementsSpecMarketing = () => {
 
       const sugg = pickSuggestedPartners(partnersList, { product: "sales", industry: result.industry, companySize: toCompanySizeBucket(companySize), limit: 5 });
       const origin = typeof window !== "undefined" ? window.location.origin : "https://d365.se";
-      await generateRequirementsSpec(result, false, sugg.length > 0 ? {
-        suggestedPartners: sugg.map((p) => ({ name: p.name, slug: p.slug, positioning: (p as any).positioning_statement || p.description || "" })),
-        suggestedCompareUrl: origin + buildCompareUrl(sugg.map((p) => p.slug)),
-      } : undefined);
+      await generateRequirementsSpec(result, false, {
+        ...(sugg.length > 0
+          ? {
+              suggestedPartners: sugg.map((p) => ({ name: p.name, slug: p.slug, positioning: (p as any).positioning_statement || p.description || "" })),
+              suggestedCompareUrl: origin + buildCompareUrl(sugg.map((p) => p.slug)),
+            }
+          : {}),
+        isvAddons: isvAddons.length
+          ? isvAddons.map((a) => ({ name: a.name, vendor: a.vendor, category: a.category, shortDescription: a.shortDescription }))
+          : undefined,
+      });
       toast({ title: "Kravspecifikationen har laddats ner!" });
     } catch (err: any) {
       console.error("Download error:", err);
@@ -446,13 +458,21 @@ const RequirementsSpecMarketing = () => {
                 </CardContent>
               </Card>
 
+              <IsvAddonSuggestions
+                scope="customer-insights"
+                industry={result.industry || industry}
+                areas={selectedAreas}
+                selected={isvAddons}
+                onChange={setIsvAddons}
+              />
+
               <SendUnderlagToPartners
                 sourcePage="/kravspecifikation-marketing"
                 assessmentType={"kravspec_marketing"}
                 products={["sales"]}
                 industry={result.industry || industry}
                 companySize={companySize}
-                underlagSummary={`Kravspecifikation – ${result.industry}
+                underlagSummary={isvAddonText + `Kravspecifikation – ${result.industry}
 
 Företagsstorlek: ${companySize}
 Valda områden: ${selectedAreas.join(", ")}

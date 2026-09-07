@@ -42,8 +42,9 @@
 - [ ] Steg 4: curl-verifiering + json/html/pdf-format
 - [x] PDF av partnerkort Fellowmind + Accigo
 
-## ISV-tillägg i verktygen (2026-09-07) – väntar på CE-underlag
-- [ ] Inväntar Thomas underlag/instruktioner för CRM/CE-tilläggsprodukter
-- [ ] Sedan: ISV-tillägg som valbara steg i kravspecifikation och behovsanalys (följer med i PDF/underlag)
-- [ ] Sedan: AI-förslag på relevanta tillägg i resultatet, baserat på produkt/bransch/behov
-- [ ] Sedan: ISV-tillägg med i jämförelsen BC vs F&SCM
+## ISV-tillägg i verktygen (2026-09-07)
+- [x] CE-underlag importerat i den gemensamma katalogen
+- [x] ISV-tillägg valbara i kravspecifikation (ERP, Sales, Customer Service, Customer Insights) – följer med i PDF och underlag till partners
+- [x] ISV-tillägg valbara i behovsanalysen – egen sida i PDF
+- [x] Förslag baserat på produkt, bransch och valda funktionsområden (src/lib/isvSuggestions.ts)
+- [x] ISV-tillägg med i jämförelsen BC vs F&SCM

@@ -24,6 +24,7 @@ import { isServicesIndustry } from "@/lib/industryFilters";
 import RelatedPages, { requirementsErpRelatedPages } from "@/components/RelatedPages";
 import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
 import SendUnderlagToPartners from "@/components/SendUnderlagToPartners";
+import IsvAddonSuggestions, { type SelectedIsvAddon } from "@/components/IsvAddonSuggestions";
 import { usePartners } from "@/hooks/usePartners";
 import { pickSuggestedPartners } from "@/lib/suggestPartners";
 import { toCompanySizeBucket } from "@/lib/companySizeBucket";
@@ -108,6 +109,10 @@ const RequirementsSpec = () => {
 
   const [isGenerating, setIsGenerating] = useState(false);
   const [result, setResult] = useState<RequirementsData | null>(null);
+  const [isvAddons, setIsvAddons] = useState<SelectedIsvAddon[]>([]);
+  const isvAddonText = isvAddons.length
+    ? `Valda tilläggslösningar att offerera: ${isvAddons.map((a) => `${a.name} (${a.vendor})`).join(", ")}\n\n`
+    : "";
 
   const [email, setEmail] = useState("");
   const [isDownloading, setIsDownloading] = useState(false);
@@ -170,10 +175,17 @@ const RequirementsSpec = () => {
 
       const sugg = pickSuggestedPartners(partnersList, { product: productKeys, industry: result.industry, companySize: toCompanySizeBucket(companySize), limit: 5 });
       const origin = typeof window !== "undefined" ? window.location.origin : "https://d365.se";
-      await generateRequirementsSpec(result, false, sugg.length > 0 ? {
-        suggestedPartners: sugg.map((p) => ({ name: p.name, slug: p.slug, positioning: (p as any).positioning_statement || p.description || "" })),
-        suggestedCompareUrl: origin + buildCompareUrl(sugg.map((p) => p.slug)),
-      } : undefined);
+      await generateRequirementsSpec(result, false, {
+        ...(sugg.length > 0
+          ? {
+              suggestedPartners: sugg.map((p) => ({ name: p.name, slug: p.slug, positioning: (p as any).positioning_statement || p.description || "" })),
+              suggestedCompareUrl: origin + buildCompareUrl(sugg.map((p) => p.slug)),
+            }
+          : {}),
+        isvAddons: isvAddons.length
+          ? isvAddons.map((a) => ({ name: a.name, vendor: a.vendor, category: a.category, shortDescription: a.shortDescription }))
+          : undefined,
+      });
       toast({ title: "Kravspecifikationen har laddats ner!" });
     } catch (err: any) {
       console.error("Download error:", err);
@@ -494,13 +506,21 @@ const RequirementsSpec = () => {
                 </CardContent>
               </Card>
 
+              <IsvAddonSuggestions
+                scope="erp"
+                industry={result.industry || industry}
+                areas={selectedAreas}
+                selected={isvAddons}
+                onChange={setIsvAddons}
+              />
+
               <SendUnderlagToPartners
                 sourcePage="/kravspecifikation"
                 assessmentType="kravspec_erp"
                 products={productKeys}
                 industry={result.industry || industry}
                 companySize={companySize}
-                underlagSummary={`Kravspecifikation ERP – ${result.industry}\n\nFöretagsstorlek: ${companySize}\nValda områden: ${selectedAreas.join(", ")}\n\n${
+                underlagSummary={isvAddonText + `Kravspecifikation ERP – ${result.industry}\n\nFöretagsstorlek: ${companySize}\nValda områden: ${selectedAreas.join(", ")}\n\n${
                   result.aiEnrichment?.industryRequirements
                     ?.map((r) => `• ${r.area} (${r.priority}): ${r.items.slice(0, 3).join("; ")}`)
                     .join("\n") || ""
