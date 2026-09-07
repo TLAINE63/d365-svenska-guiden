@@ -403,6 +403,54 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://d365.se/customer-engagement/tillagg/cpq/</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/customer-engagement/tillagg/marketing-automation/</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/customer-engagement/tillagg/contact-center/</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/customer-engagement/tillagg/telephony-cti/</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/customer-engagement/tillagg/field-service/</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/customer-engagement/tillagg/territory-maps/</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/customer-engagement/tillagg/crm-datakvalitet/</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/customer-engagement/tillagg/e-signatur-avtal/</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://d365.se/upphandlingsguiden/</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
