@@ -714,6 +714,8 @@ export type Database = {
           industries: string[]
           industry_focus: string[]
           is_published: boolean
+          lifecycle_note: string | null
+          lifecycle_status: string
           name: string
           nordic_relevance: string | null
           partner_slugs: string[]
@@ -726,6 +728,7 @@ export type Database = {
           source_status: string | null
           source_url: string | null
           subcategory: string | null
+          successor_solution_id: string | null
           supply_chain_relevance: string
           tags: string[]
           tier: string
@@ -757,6 +760,8 @@ export type Database = {
           industries?: string[]
           industry_focus?: string[]
           is_published?: boolean
+          lifecycle_note?: string | null
+          lifecycle_status?: string
           name: string
           nordic_relevance?: string | null
           partner_slugs?: string[]
@@ -769,6 +774,7 @@ export type Database = {
           source_status?: string | null
           source_url?: string | null
           subcategory?: string | null
+          successor_solution_id?: string | null
           supply_chain_relevance?: string
           tags?: string[]
           tier?: string
@@ -800,6 +806,8 @@ export type Database = {
           industries?: string[]
           industry_focus?: string[]
           is_published?: boolean
+          lifecycle_note?: string | null
+          lifecycle_status?: string
           name?: string
           nordic_relevance?: string | null
           partner_slugs?: string[]
@@ -812,6 +820,7 @@ export type Database = {
           source_status?: string | null
           source_url?: string | null
           subcategory?: string | null
+          successor_solution_id?: string | null
           supply_chain_relevance?: string
           tags?: string[]
           tier?: string

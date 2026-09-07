@@ -99,7 +99,7 @@ const ProductIsvSection = ({
             to={catalogUrl}
             className="inline-flex items-center gap-2 shrink-0 px-5 py-2.5 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition"
           >
-            {`Se alla ${solutions.length} tillägg`}
+            {`Se alla tillägg för ${product}`}
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
