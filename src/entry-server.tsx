@@ -81,6 +81,8 @@ import SalesRoiCalculator from './pages/SalesRoiCalculator';
 import ProductRoiPage from './pages/ProductRoiPage';
 import Beslutsmognadsindex from './pages/Beslutsmognadsindex';
 import D365TillaggKatalog from './pages/D365TillaggKatalog';
+import CeIsvCategoryPage from './pages/CeIsvCategoryPage';
+import { CE_CATEGORY_PAGES } from './data/ceIsvCategoryPages';
 import Partnernytt from './pages/Partnernytt';
 import Friskrivning from './pages/Friskrivning';
 import ComparePartners from './pages/ComparePartners';
@@ -250,6 +252,12 @@ export const routes: PrerenderRoute[] = [
         'Katalog över ISV- och tilläggslösningar för Dynamics 365 – Business Central, Finance & Supply Chain, Sales, Customer Service med flera. Filtrera på produkt, kategori och bransch.',
     },
   },
+  ...CE_CATEGORY_PAGES.map((p) => ({
+    path: `/customer-engagement/tillagg/${p.slug}`,
+    priority: '0.6',
+    changefreq: 'monthly' as const,
+    meta: { title: p.metaTitle, description: p.metaDescription },
+  })),
   { path: '/upphandlingsguiden', priority: '0.8', changefreq: 'monthly' },
   { path: '/kravspecifikation', priority: '0.7', changefreq: 'monthly' },
   { path: '/kravspecifikation-sales', priority: '0.7', changefreq: 'monthly' },
@@ -565,6 +573,7 @@ export function render(url: string) {
               <Route path="/d365contactcenter/roi-kalkylator" element={<ProductRoiPage productKey="contact-center" />} />
               <Route path="/beslutsmognad" element={<Beslutsmognadsindex />} />
               <Route path="/kunskapscenter/dynamics-365-tillagg" element={<D365TillaggKatalog />} />
+              <Route path="/customer-engagement/tillagg/:kategori" element={<CeIsvCategoryPage />} />
               <Route path="/partnernytt" element={<Partnernytt />} />
               <Route path="/friskrivning" element={<Friskrivning />} />
               <Route path="/jamfor-partners" element={<ComparePartners />} />

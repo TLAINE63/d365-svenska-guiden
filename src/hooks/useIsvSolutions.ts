@@ -85,6 +85,12 @@ export interface IsvSolutionRow {
   delivery_model?: string | null;
   finance_relevance?: string | null;
   supply_chain_relevance?: string | null;
+  sales_relevance?: string | null;
+  customer_insights_relevance?: string | null;
+  customer_service_relevance?: string | null;
+  field_service_relevance?: string | null;
+  contact_center_relevance?: string | null;
+  source_status?: string | null;
   best_for?: string | null;
   considerations?: string | null;
   source_url?: string | null;
@@ -109,6 +115,12 @@ export function rowToSolution(r: IsvSolutionRow): IsvSolution {
     deliveryModel: (r.delivery_model as DeliveryModel) || deliveryModelFromType(r.type),
     financeRelevance: (r.finance_relevance as Relevance) || undefined,
     supplyChainRelevance: (r.supply_chain_relevance as Relevance) || undefined,
+    salesRelevance: (r.sales_relevance as Relevance) || undefined,
+    customerInsightsRelevance: (r.customer_insights_relevance as Relevance) || undefined,
+    customerServiceRelevance: (r.customer_service_relevance as Relevance) || undefined,
+    fieldServiceRelevance: (r.field_service_relevance as Relevance) || undefined,
+    contactCenterRelevance: (r.contact_center_relevance as Relevance) || undefined,
+    sourceStatus: r.source_status || undefined,
     bestFor: r.best_for || undefined,
     considerations: r.considerations || undefined,
     sourceUrl: r.source_url || undefined,

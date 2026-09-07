@@ -10,6 +10,11 @@ import {
   RELEVANCE_LABEL,
   deliveryLabel,
   deliveryModelFromType,
+  CE_APPS,
+  CE_APP_LABEL,
+  ceApps,
+  ceRelevance,
+  type CeApp,
   type DeliveryModel,
   type IsvSolution,
 } from "@/data/bcIsvSolutions";
@@ -134,6 +139,14 @@ const SolutionCard = ({ s, onOpen }: { s: IsvSolution; onOpen: () => void }) => 
       <span className="px-2 py-0.5 text-[11px] font-medium bg-muted/60 text-foreground border border-border rounded">
         {s.category}
       </span>
+      {ceApps(s).slice(0, 3).map((a) => (
+        <span
+          key={a}
+          className="px-2 py-0.5 text-[11px] font-medium bg-accent/10 text-accent border border-accent/30 rounded"
+        >
+          {CE_APP_LABEL[a]}
+        </span>
+      ))}
     </div>
 
     <p className="text-sm text-muted-foreground leading-relaxed mb-6 line-clamp-3 flex-1">
@@ -229,6 +242,22 @@ const SolutionDetail = ({ s, onClose }: { s: IsvSolution | null; onClose: () => 
                       {RELEVANCE_LABEL[s.supplyChainRelevance]}
                     </p>
                   )}
+                </div>
+              )}
+              {ceApps(s).length > 0 && (
+                <div>
+                  <h4 className="font-semibold text-foreground mb-1">Relevanta CE-applikationer</h4>
+                  <div className="flex flex-wrap gap-1.5">
+                    {ceApps(s).map((a) => {
+                      const r = ceRelevance(s, a);
+                      return (
+                        <Badge key={a} variant="outline" className="text-[11px] border-accent/40 text-accent">
+                          {CE_APP_LABEL[a]}
+                          {r === "partial" ? " (delvis)" : ""}
+                        </Badge>
+                      );
+                    })}
+                  </div>
                 </div>
               )}
               {(s.industryFocus?.length || s.industries?.length) ? (
@@ -335,6 +364,10 @@ interface BcIsvCatalogProps {
   openSolutionId?: string;
   /** Förifylld fritextsökning. */
   defaultQuery?: string;
+  /** Förvalda kategorier (t.ex. från en kategorilandningssida). */
+  defaultCategories?: string[];
+  /** Förvalda Customer Engagement-applikationer. */
+  defaultCeApps?: string[];
 }
 
 const slugify = (v: string) =>
@@ -345,8 +378,13 @@ const BcIsvCatalog = ({
   showProductFilter = false,
   openSolutionId,
   defaultQuery = "",
+  defaultCategories = [],
+  defaultCeApps = [],
 }: BcIsvCatalogProps = {}) => {
-  const [cats, setCats] = useState<Set<string>>(new Set());
+  const [cats, setCats] = useState<Set<string>>(new Set(defaultCategories));
+  const [ceSel, setCeSel] = useState<Set<CeApp>>(
+    new Set(defaultCeApps.filter((a): a is CeApp => (CE_APPS as readonly string[]).includes(a)))
+  );
   const [deliveries, setDeliveries] = useState<Set<DeliveryModel>>(new Set());
   const [industries, setIndustries] = useState<Set<string>>(new Set());
   const [focus, setFocus] = useState<Set<FocusFilter>>(new Set());
@@ -377,7 +415,9 @@ const BcIsvCatalog = ({
     const catSet = new Set<string>();
     const indSet = new Set<string>();
     const delSet = new Set<DeliveryModel>();
+    const ceSet = new Set<CeApp>();
     for (const s of scoped) {
+      for (const a of ceApps(s)) ceSet.add(a);
       if (s.category) catSet.add(s.category);
       for (const i of [...(s.industries || []), ...(s.industryFocus || [])]) {
         // "Alla"/"Generell" är inte egna branscher och krockar med Alla-knappen.
@@ -394,6 +434,7 @@ const BcIsvCatalog = ({
       categories: [...catSet].sort((a, b) => catOrder(a) - catOrder(b) || a.localeCompare(b, "sv")),
       industries: [...indSet].sort((a, b) => a.localeCompare(b, "sv")),
       deliveries: DELIVERY_MODELS.filter((d) => delSet.has(d)),
+      ceApps: CE_APPS.filter((a) => ceSet.has(a)),
     };
   }, [scoped]);
 
@@ -411,6 +452,10 @@ const BcIsvCatalog = ({
           (focus.has("finance") && s.financeRelevance && s.financeRelevance !== "no") ||
           (focus.has("supply") && s.supplyChainRelevance && s.supplyChainRelevance !== "no");
         if (!ok) return false;
+      }
+      if (ceSel.size) {
+        const apps = ceApps(s);
+        if (!apps.some((a) => ceSel.has(a))) return false;
       }
       if (products.size && !solutionProducts(s).some((p) => products.has(p))) return false;
       if (q) {
@@ -430,6 +475,7 @@ const BcIsvCatalog = ({
           ...(s.industries || []),
           ...(s.industryFocus || []),
           ...solutionProducts(s),
+          ...ceApps(s).map((a) => CE_APP_LABEL[a]),
         ]
           .join(" ")
           .toLowerCase();
@@ -437,7 +483,7 @@ const BcIsvCatalog = ({
       }
       return true;
     });
-  }, [scoped, cats, deliveries, industries, focus, products, query]);
+  }, [scoped, cats, deliveries, industries, focus, products, ceSel, query]);
 
 
   // Djuplänk: öppna en specifik lösning direkt (t.ex. från AI-sök)
@@ -474,6 +520,7 @@ const BcIsvCatalog = ({
     deliveries.size +
     industries.size +
     focus.size +
+    ceSel.size +
     (showProductFilter ? products.size : 0) +
     (query.trim() ? 1 : 0);
 
@@ -482,6 +529,7 @@ const BcIsvCatalog = ({
     setDeliveries(new Set());
     setIndustries(new Set());
     setFocus(new Set());
+    setCeSel(new Set());
     setQuery("");
     if (showProductFilter) setProducts(new Set());
   };
@@ -576,6 +624,19 @@ const BcIsvCatalog = ({
             onClear={() => setFocus(new Set())}
             labelFor={(f) => FOCUS_LABEL[f]}
           />
+          {options.ceApps.length > 0 && (
+            <>
+              <div className="h-px bg-border/60" />
+              <FilterRow
+                label="CE-applikation"
+                options={options.ceApps}
+                selected={ceSel}
+                onToggle={toggle(ceSel, setCeSel)}
+                onClear={() => setCeSel(new Set())}
+                labelFor={(a) => CE_APP_LABEL[a]}
+              />
+            </>
+          )}
           <div className="h-px bg-border/60" />
           <FilterRow
             label="Bransch"

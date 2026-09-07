@@ -18,6 +18,16 @@ const D365TillaggKatalog = () => {
     .filter((p): p is string => Boolean(p));
   const solutionId = params.get("losning") || params.get("solution") || undefined;
   const defaultQuery = params.get("q") || params.get("sok") || "";
+  const defaultCategories = params
+    .getAll("kategori")
+    .flatMap((c) => c.split(","))
+    .map((c) => c.trim())
+    .filter(Boolean);
+  const defaultCeApps = params
+    .getAll("ce")
+    .flatMap((c) => c.split(","))
+    .map((c) => c.trim())
+    .filter(Boolean);
 
   return (
     <div className="min-h-screen bg-background">
@@ -56,6 +66,8 @@ const D365TillaggKatalog = () => {
             defaultProducts={preselected}
             openSolutionId={solutionId}
             defaultQuery={defaultQuery}
+            defaultCategories={defaultCategories}
+            defaultCeApps={defaultCeApps}
           />
         </div>
       </main>

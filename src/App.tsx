@@ -88,6 +88,7 @@ const RequirementsSpecCustomerService = lazy(() => import("./pages/RequirementsS
 const Kunskapscenter = lazy(() => import("./pages/Kunskapscenter"));
 const KunskapscenterHub = lazy(() => import("./pages/KunskapscenterHub"));
 const D365TillaggKatalog = lazy(() => import("./pages/D365TillaggKatalog"));
+const CeIsvCategoryPage = lazy(() => import("./pages/CeIsvCategoryPage"));
 const Upphandlingsresan = lazy(() => import("./pages/Upphandlingsresan"));
 const Upphandlingsguiden = lazy(() => import("./pages/Upphandlingsguiden"));
 const VideoLanding = lazy(() => import("./pages/VideoLanding"));
@@ -292,6 +293,7 @@ const AppShell = () => {
           <Route path="/kunskapscenter/business-central-tillagg" element={<KunskapscenterHub slug="business-central-tillagg" />} />
           <Route path="/kunskapscenter/business-central-tillagg/katalog" element={<Navigate to="/kunskapscenter/dynamics-365-tillagg/?produkt=Business%20Central" replace />} />
           <Route path="/kunskapscenter/dynamics-365-tillagg" element={<D365TillaggKatalog />} />
+          <Route path="/customer-engagement/tillagg/:kategori" element={<CeIsvCategoryPage />} />
           <Route path="/kunskapscenter/finance-supply-chain" element={<KunskapscenterHub slug="finance-supply-chain" />} />
           <Route path="/kunskapscenter/sales" element={<KunskapscenterHub slug="sales" />} />
           <Route path="/kunskapscenter/customer-service" element={<KunskapscenterHub slug="customer-service" />} />

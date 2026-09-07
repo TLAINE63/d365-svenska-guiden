@@ -23,6 +23,26 @@ const PRODUCT_SHORT: Record<string, string> = {
   "Finance & Supply Chain Management": "F&SCM",
 };
 
+/** Applikationer inom Dynamics 365 Customer Engagement. */
+export const CE_APPS = [
+  "Sales",
+  "Customer Insights (Marketing)",
+  "Customer Service",
+  "Field Service",
+  "Contact Center",
+] as const;
+
+export type CeApp = (typeof CE_APPS)[number];
+
+/** Kortare etiketter i filter och på kort. */
+export const CE_APP_LABEL: Record<CeApp, string> = {
+  "Sales": "Sales",
+  "Customer Insights (Marketing)": "Customer Insights / Journeys",
+  "Customer Service": "Customer Service",
+  "Field Service": "Field Service",
+  "Contact Center": "Contact Center",
+};
+
 /**
  * Presentationstext för leveransform, anpassad efter vilka Dynamics-produkter
  * lösningen stödjer. native_isv + F&SCM → "F&SCM-native (ISV)".
@@ -37,6 +57,9 @@ export function deliveryLabel(model: DeliveryModel | undefined, products: string
       return "Branschlösning";
     case "native_isv":
     default: {
+      if (products.length && products.every((p) => (CE_APPS as readonly string[]).includes(p))) {
+        return "CE-native (ISV)";
+      }
       if (products.length === 1) {
         const short = PRODUCT_SHORT[products[0]] || products[0];
         return `${short}-native (ISV)`;
@@ -140,6 +163,12 @@ export interface IsvSolution {
   deliveryModel?: DeliveryModel;
   financeRelevance?: Relevance;
   supplyChainRelevance?: Relevance;
+  // Relevans per Customer Engagement-applikation
+  salesRelevance?: Relevance;
+  customerInsightsRelevance?: Relevance;
+  customerServiceRelevance?: Relevance;
+  fieldServiceRelevance?: Relevance;
+  contactCenterRelevance?: Relevance;
   bestFor?: string;               // "Passar bäst för"
   considerations?: string;        // "Tänk på"
   sourceUrl?: string;             // Källa (visas för redaktionen)
@@ -148,6 +177,27 @@ export interface IsvSolution {
   editorialTier?: string;
   nordicRelevance?: string;       // high | medium | low
   publicationWave?: string;       // now | wave_2
+  sourceStatus?: string;          // Intern källstatus (Verifierad, Verifiera före publicering …)
+}
+
+/** Relevansvärdet för en enskild CE-applikation. */
+export function ceRelevance(s: IsvSolution, app: CeApp): Relevance | undefined {
+  switch (app) {
+    case "Sales": return s.salesRelevance;
+    case "Customer Insights (Marketing)": return s.customerInsightsRelevance;
+    case "Customer Service": return s.customerServiceRelevance;
+    case "Field Service": return s.fieldServiceRelevance;
+    case "Contact Center": return s.contactCenterRelevance;
+    default: return undefined;
+  }
+}
+
+/** CE-applikationer där lösningen är relevant (ja eller delvis). */
+export function ceApps(s: IsvSolution): CeApp[] {
+  return CE_APPS.filter((a) => {
+    const r = ceRelevance(s, a);
+    return r === "yes" || r === "partial";
+  });
 }
 
 
@@ -1035,6 +1085,30 @@ export const CATEGORIES: SolutionCategory[] = [
   "Mobility",
   "AI / automation",
   "Process & implementation",
+  // Customer Engagement
+  "Dokumentautomation",
+  "E-signatur & avtal",
+  "Sales engagement",
+  "Sales enablement",
+  "B2B intelligence",
+  "CRM-produktivitet",
+  "Relationship intelligence",
+  "Marketing automation",
+  "Marketing integration",
+  "SMS & messaging",
+  "Digital engagement / chat",
+  "CX / Voice of Customer",
+  "Contact Center / CCaaS",
+  "Telephony / CTI",
+  "Field Service mobility",
+  "Field Service extensions",
+  "Inspections",
+  "Territory & Maps",
+  "CRM datakvalitet",
+  "Dokument & lagring",
+  "Backup / restore",
+  "Digital adoption",
+  "Subscription management",
 ];
 
 export const TYPES: SolutionType[] = ["BC-native (ISV)", "External system", "Integration layer"];
