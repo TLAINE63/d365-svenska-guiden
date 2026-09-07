@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { FAQSchema } from "@/components/StructuredData";
 import { useIsvSolutions } from "@/hooks/useIsvSolutions";
 import { CE_APP_LABEL, ceApps } from "@/data/bcIsvSolutions";
 import { findCeCategoryPage } from "@/data/ceIsvCategoryPages";
@@ -39,8 +40,8 @@ const CeIsvCategoryPage = () => {
           { name: "Customer Engagement", url: "/crm/" },
           { name: page.h1, url: `/customer-engagement/tillagg/${page.slug}/` },
         ]}
-        faqItems={page.faq.map((f) => ({ question: f.q, answer: f.a }))}
       />
+      <FAQSchema faqs={page.faq.map((f) => ({ question: f.q, answer: f.a }))} />
       <Navbar />
 
       <main className="pt-24 pb-16">
