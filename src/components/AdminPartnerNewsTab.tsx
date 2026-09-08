@@ -470,6 +470,7 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
       industry: form.industry || null,
       image_url: form.image_url || null,
       news_date: form.news_date,
+      event_date: form.event_date || null,
       is_featured: form.is_featured,
       show_on_home: form.show_on_home,
       show_on_partner_profile: form.show_on_partner_profile,
