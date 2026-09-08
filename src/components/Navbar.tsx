@@ -399,6 +399,14 @@ const Navbar = () => {
                     </Link>
                   )
                 ))}
+                <Button
+                  asChild
+                  variant="default"
+                  size="sm"
+                  className="w-full justify-start rounded-lg bg-[hsl(var(--cta-orange))]/90 hover:bg-[hsl(var(--cta-orange))] text-white text-base font-medium px-4 py-2.5 h-auto border-0 shadow-none"
+                >
+                  <Link to="/kontakt/">Få hjälp att välja partner</Link>
+                </Button>
               </div>
             </SheetContent>
           </Sheet>
