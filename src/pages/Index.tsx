@@ -18,6 +18,8 @@ import {
   ClipboardCheck,
   Search,
   FileText,
+  MessageCircle,
+  Check,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import thomasLaine from "@/assets/thomas-laine.jpeg";
@@ -204,7 +206,7 @@ const Index = () => {
       icon: ClipboardCheck,
       title: "Vi behöver ringa in behovet",
       desc: "Börja med att klargöra vad verksamheten faktiskt behöver – innan du jämför system och partners.",
-      cta: "Starta behovsanalys",
+      cta: "Få en rekommendation på några minuter",
       onClick: () => setDirectionPicker("behovsanalys"),
     },
     {
@@ -223,24 +225,28 @@ const Index = () => {
       icon: ClipboardCheck,
       title: "Behovsanalys",
       desc: "Få en rekommendation baserad på er verksamhet.",
+      cta: "Få en rekommendation",
       onClick: () => setDirectionPicker("behovsanalys"),
     },
     {
       icon: FileText,
       title: "Kravspecifikation",
       desc: "Generera ett underlag inför partnerdialog.",
+      cta: "Skapa ert underlag",
       onClick: () => setDirectionPicker("kravspec"),
     },
     {
       icon: BarChart3,
       title: "Hur redo är du?",
       desc: "Diagnostik som visar var du står i beslutsprocessen.",
+      cta: "Se er beslutsmognad",
       to: "/beslutsmognad/",
     },
     {
       icon: Sparkles,
       title: "AI-sök",
       desc: "Ställ frågor om Dynamics 365 och få direkta svar.",
+      cta: "Få svar direkt",
       to: "/AI-sok/",
     },
   ];
@@ -281,8 +287,8 @@ const Index = () => {
                 Hitta rätt Dynamics 365-partner på några minuter
               </h1>
               <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
-                Jämför svenska Dynamics 365-partners utifrån bransch, behov, erfarenhet och
-                specialistkompetens. Kostnadsfritt och köparorienterat.
+                Jämför svenska Dynamics 365-partners utifrån bransch, lösning, erfarenhet och
+                specialistkompetens innan du tar kontakt.
               </p>
 
 
@@ -334,6 +340,18 @@ const Index = () => {
                     Hitta rätt partner
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
+                  <ul className="grid gap-2 pt-4 sm:grid-cols-3" aria-label="Fakta om d365.se">
+                    {[
+                      `${identifiedPartnerCount} kartlagda Dynamics 365-partners`,
+                      `${HERO_INDUSTRIES.length} branscher`,
+                      "40+ års erfarenhet av ERP- och Dynamics-val",
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
+                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
@@ -354,31 +372,7 @@ const Index = () => {
                     jämför upp till 3 partners sida vid sida
                   </Link>
                 </div>
-                <p className="text-[13px] text-white/55 leading-relaxed mt-4 italic">
-                  Byggt på 40+ års erfarenhet av Dynamics 365 och affärssystem.
-                </p>
               </div>
-
-              {/* Trust / stats strip – unified grid with equal height and rhythm */}
-              <div className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 auto-rows-fr">
-                {[
-                  { n: `${identifiedPartnerCount}`, t: "Identifierade Dynamics 365-partners i Sverige", path: "/alla-d365-partners/" },
-                  { n: `${KNOWLEDGE_CONTENT_COUNT}`, t: "Guider, artiklar och branschinsikter", path: "/kunskapscenter/" },
-                  { n: `${HERO_INDUSTRIES.length}`, t: "Branscher med partnerverifierade profiler", path: "/branscher/" },
-                  { n: `${FREE_TOOL_COUNT}`, t: "Kostnadsfria beslutsverktyg", path: "/kunskapscenter/" },
-                  
-                ].map((s) => (
-                  <Link
-                    key={s.t}
-                    to={s.path}
-                    className="bg-white/[0.04] border border-white/10 rounded px-3 sm:px-4 py-2.5 sm:py-3 min-h-[72px] flex flex-col justify-center hover:bg-white/[0.08] hover:border-white/20 transition-colors"
-                  >
-                    <div className="text-[15px] sm:text-[17px] font-bold text-white leading-tight">{s.n}</div>
-                    <div className="text-[11px] sm:text-[12px] text-white/60 leading-tight">{s.t}</div>
-                  </Link>
-                ))}
-              </div>
-
             </div>
           </div>
         </section>
@@ -386,20 +380,28 @@ const Index = () => {
         {/* SÅ FUNGERAR DET – processen i fyra steg */}
         <section className="section-divider py-12 sm:py-16 bg-background border-b border-border">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight mb-8">
-              Så fungerar det
-            </h2>
+            <div className="max-w-3xl mb-9">
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight mb-3">
+                Så hjälper d365.se dig hitta rätt Dynamics 365-partner
+              </h2>
+              <p className="text-[15px] text-muted-foreground leading-relaxed">
+                Att välja Dynamics 365-partner handlar inte bara om att hitta en leverantör. Det handlar om att hitta rätt kompetens för just er verksamhet.
+              </p>
+            </div>
             <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
-                { t: "Beskriv ert behov", d: "Bransch, storlek och vilket område ni vill lösa." },
-                { t: "Få relevanta partnerförslag", d: "Partners som faktiskt arbetar med er typ av verksamhet." },
-                { t: "Jämför partner sida vid sida", d: "Produktområden, branscher, geografi och erfarenhet." },
-                { t: "Kontakta endast de partner du själv väljer", d: "Du styr helt vem som får höra av sig." },
+                { icon: ClipboardCheck, t: "Beskriv ert behov eller välj bransch", d: "Börja med det du redan vet – resten kan du komplettera senare." },
+                { icon: Search, t: "Hitta relevanta Dynamics 365-partners", d: "Se kompetens och erfarenhet som passar er verksamhet." },
+                { icon: ArrowLeftRight, t: "Jämför upp till tre partner sida vid sida", d: "Skapa en tydlig kortlista innan du bestämmer dig." },
+                { icon: MessageCircle, t: "Kontakta endast de partner du själv väljer", d: "Du styr vilka som får ta del av din förfrågan." },
               ].map((s, i) => (
                 <li key={s.t} className="bg-card border border-border rounded p-5">
-                  <span className="inline-flex items-center justify-center w-8 h-8 rounded bg-[hsl(var(--cta-orange))]/10 text-[hsl(var(--cta-orange))] font-bold text-sm mb-3">
-                    {i + 1}
-                  </span>
+                  <div className="mb-4 flex items-center justify-between">
+                    <span className="inline-flex h-10 w-10 items-center justify-center rounded bg-accent/10 text-accent">
+                      <s.icon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <span className="text-xs font-bold text-muted-foreground">0{i + 1}</span>
+                  </div>
                   <h3 className="text-[15px] font-semibold text-foreground mb-1.5 leading-snug">{s.t}</h3>
                   <p className="text-[13.5px] text-muted-foreground leading-relaxed">{s.d}</p>
                 </li>
@@ -408,6 +410,23 @@ const Index = () => {
             <p className="mt-6 text-[14px] text-muted-foreground">
               Ingen partner ser dina uppgifter innan du själv väljer att ta kontakt.
             </p>
+          </div>
+        </section>
+
+        {/* Översiktsstatistik – efter processen */}
+        <section className="border-b border-border bg-secondary/40 py-7 sm:py-9">
+          <div className="container mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-5 px-4 sm:px-6 md:grid-cols-4">
+            {[
+              { n: `${identifiedPartnerCount}`, t: "Kartlagda Dynamics 365-partners", path: "/alla-d365-partners/" },
+              { n: `${KNOWLEDGE_CONTENT_COUNT}`, t: "Guider, artiklar och branschinsikter", path: "/kunskapscenter/" },
+              { n: `${HERO_INDUSTRIES.length}`, t: "Branscher", path: "/branscher/" },
+              { n: `${FREE_TOOL_COUNT}`, t: "Kostnadsfria beslutsverktyg", path: "/kunskapscenter/" },
+            ].map((s) => (
+              <Link key={s.t} to={s.path} className="border-l-2 border-accent pl-4 transition-colors hover:border-[hsl(var(--cta-orange))]">
+                <div className="text-xl font-bold text-foreground">{s.n}</div>
+                <div className="text-xs leading-snug text-muted-foreground">{s.t}</div>
+              </Link>
+            ))}
           </div>
         </section>
 
@@ -478,38 +497,8 @@ const Index = () => {
 
         {/* Verifierade partners – alla publicerade profiler */}
         <Suspense fallback={<div className="py-16" />}>
-          <HomeVerifiedPartnersGrid />
+          <HomeVerifiedPartnersGrid onStartNeedsAnalysis={() => setDirectionPicker("behovsanalys")} />
         </Suspense>
-
-        {/* Compare partners CTA section – black background */}
-        <section className="relative py-12 sm:py-16 md:py-20 bg-[hsl(var(--hero-dark))] overflow-hidden border-b border-border">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent opacity-60" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/15 via-transparent to-transparent opacity-40" />
-          <div className="relative container mx-auto px-4 sm:px-6 max-w-4xl text-center">
-            <div className="inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/90 text-sm font-medium mb-5">
-              <ArrowLeftRight className="h-4 w-4" />
-              Sida vid sida
-            </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
-              Jämför upp till tre partners innan du kontaktar dem
-            </h2>
-            <p className="text-base sm:text-lg text-white/70 mb-8 max-w-2xl mx-auto">
-              Välj två till tre partners i listan och få en jämförelsevy över produktområden, branscher, geografisk närvaro, storlek och AI-mognad – så att du kan gå vidare med rätt kortlista.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button
-                asChild
-                size="lg"
-                className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white h-14 text-base sm:text-lg px-8 font-semibold transition-all rounded"
-              >
-                <Link to="/jamfor-partners/">
-                  <ArrowLeftRight className="w-5 h-5 mr-2" />
-                  Jämför partners
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </section>
 
         {/* SECTION 4 – TOOLS */}
         <section className="section-divider py-14 sm:py-20 bg-secondary/40 border-b border-border">
@@ -536,7 +525,7 @@ const Index = () => {
                     <h3 className="text-base font-semibold text-foreground mb-1.5">{t.title}</h3>
                     <p className="text-[13px] text-muted-foreground leading-relaxed mb-4 flex-1">{t.desc}</p>
                     <span className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[hsl(var(--signature))] group-hover:gap-2 transition-all">
-                      Starta
+                      {t.cta}
                       <ArrowRight className="w-3.5 h-3.5" />
                     </span>
                   </>
