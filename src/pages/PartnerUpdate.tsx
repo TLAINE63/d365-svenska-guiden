@@ -3045,6 +3045,26 @@ const PartnerUpdate = () => {
      );
    })()}
 
+    <div className="border-t border-border pt-4">
+      <Label htmlFor="key_differentiators">
+        Varför företag väljer er (en punkt per rad, max 5)
+      </Label>
+      <p className="text-xs text-muted-foreground mb-2">
+        Konkreta och särskiljande punkter – ingen marknadsföringstext. Dessa visas högst upp på er profil
+        och märks tydligt som information från er.
+      </p>
+      <Textarea
+        id="key_differentiators"
+        rows={5}
+        placeholder={"Business Central-specialist sedan 2001\nPaketerade fastprismodeller för snabb start\nStark kompetens inom grossist och uthyrning\nLokal svensk närvaro med flera kontor"}
+        value={keyDifferentiatorsInput}
+        onChange={(e) => setKeyDifferentiatorsInput(e.target.value)}
+      />
+      <p className="text-[11px] text-muted-foreground mt-1.5">
+        Texten AI-genereras aldrig – den kommer bara från er.
+      </p>
+    </div>
+
 
     <div className="border-t border-border pt-4">
       <div className="rounded-lg border border-amber-300/60 bg-amber-50 dark:bg-amber-950/20 p-3 mb-3">
