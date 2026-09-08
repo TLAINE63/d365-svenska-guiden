@@ -16,7 +16,7 @@ const MAX_WAIT_MS = 6000;
 const STABLE_FRAMES = 3;
 
 function headerOffset(): number {
-  const header = document.querySelector("header");
+  const header = document.querySelector("[data-site-nav], header");
   const height = header instanceof HTMLElement ? header.offsetHeight : 0;
   return (height || HEADER_FALLBACK_HEIGHT) + EXTRA_GAP;
 }
