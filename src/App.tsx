@@ -2,7 +2,7 @@ import { lazy, Suspense } from "react";
 import ChunkErrorBoundary from "@/components/ChunkErrorBoundary";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { PartnerCompareProvider } from "@/contexts/PartnerCompareContext";
 import { ShortlistProvider } from "@/contexts/ShortlistContext";
 
