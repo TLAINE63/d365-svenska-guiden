@@ -71,6 +71,7 @@ const NewsSchema = z.object({
   industry: z.string().trim().max(120).optional().nullable(),
   image_url: z.string().trim().url().max(1000).optional().nullable().or(z.literal("")),
   news_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  event_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().nullable(),
   is_featured: z.boolean().default(false),
   show_on_home: z.boolean().default(false),
   show_on_partner_profile: z.boolean().default(true),
@@ -101,7 +102,7 @@ const EVENT_TYPES = ["event", "webinar"];
 async function syncEventFromNews(supabase: any, newsId: string) {
   const { data: news } = await supabase
     .from("partner_news")
-    .select("id, partner_id, editorial_title, summary, source_url, image_url, news_date, news_type, status")
+    .select("id, partner_id, editorial_title, summary, source_url, image_url, news_date, event_date, news_type, status")
     .eq("id", newsId)
     .maybeSingle();
   if (!news) return;
@@ -126,7 +127,7 @@ async function syncEventFromNews(supabase: any, newsId: string) {
     partner_id: news.partner_id,
     title: news.editorial_title,
     description: news.summary,
-    event_date: news.news_date,
+    event_date: news.event_date || news.news_date,
     is_online: news.news_type === "webinar",
     event_link: news.source_url || null,
     registration_link: news.source_url || null,
