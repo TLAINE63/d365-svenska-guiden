@@ -1,0 +1,1 @@
+ALTER TABLE public.partner_news ADD COLUMN IF NOT EXISTS event_date date;
