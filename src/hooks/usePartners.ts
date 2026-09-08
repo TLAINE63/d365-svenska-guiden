@@ -130,6 +130,8 @@ export interface DatabasePartner {
   not_a_fit?: string[] | null;
   /** Partnerns egna särskiljande punkter ("Varför företag väljer oss"). */
   key_differentiators?: string[] | null;
+  /** 'partner' = partnerns egna ord, 'd365' = sammanställt av d365.se. */
+  key_differentiators_source?: string | null;
   /** Fördjupad AI-sammanfattning (flera stycken, radbrytningsseparerade). */
   ai_summary_full?: string | null;
   /** Punktlista: vilka kunder partnern passar bäst för. */
@@ -236,6 +238,7 @@ export function usePartners() {
               team_size_per_app: ((p as any).team_size_per_app ?? {}) as Record<string, string>,
               not_a_fit: ((p as any).not_a_fit ?? []) as string[],
               key_differentiators: ((p as any).key_differentiators ?? []) as string[],
+              key_differentiators_source: (p as any).key_differentiators_source ?? "partner",
               ai_summary_full: (p as any).ai_summary_full ?? null,
               best_fit_for: ((p as any).best_fit_for ?? []) as string[],
               ai_tags: ((p as any).ai_tags ?? []) as string[],
@@ -304,6 +307,7 @@ export function usePartner(slug: string | undefined) {
         team_size_per_app: ((data as any).team_size_per_app ?? {}) as Record<string, string>,
         not_a_fit: ((data as any).not_a_fit ?? []) as string[],
         key_differentiators: ((data as any).key_differentiators ?? []) as string[],
+        key_differentiators_source: (data as any).key_differentiators_source ?? "partner",
         ai_summary_full: (data as any).ai_summary_full ?? null,
         best_fit_for: ((data as any).best_fit_for ?? []) as string[],
         ai_tags: ((data as any).ai_tags ?? []) as string[],

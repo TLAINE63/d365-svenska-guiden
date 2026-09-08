@@ -338,7 +338,7 @@ function applySuggestion(p: PartnerLike, s: Suggestion) {
   const existingKd = Array.isArray(p.key_differentiators) ? p.key_differentiators.filter((x) => str(x)) : [];
   if (existingKd.length === 0 && Array.isArray(s.key_differentiators)) {
     const kd = s.key_differentiators.map((x) => str(x)).filter(Boolean).slice(0, 5);
-    if (kd.length) { patch.key_differentiators = kd; filledCount++; }
+    if (kd.length) { patch.key_differentiators = kd; patch.key_differentiators_source = "d365"; filledCount++; }
   }
 
   const pf = JSON.parse(JSON.stringify(p.product_filters || {})) as Record<string, any>;
