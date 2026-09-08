@@ -169,45 +169,8 @@ const PartnerAiInsights = ({ partner }: Props) => {
                     </div>
                   )}
 
-                  {(bestFit.length > 0 || notFit.length > 0) && (
-                    <div className="grid gap-5 md:grid-cols-2">
-                      {bestFit.length > 0 && (
-                        <article>
-                          <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                            Passar bäst för
-                          </h3>
-                          <ul className="space-y-2">
-                            {bestFit.map((item, i) => (
-                              <li key={i} className="flex items-start gap-2.5 text-sm leading-relaxed text-foreground">
-                                <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent))]" aria-hidden="true" />
-                                <span>{item}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </article>
-                      )}
-
-                      {notFit.length > 0 && (
-                        <article>
-                          <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                            Mindre lämplig för
-                          </h3>
-                          <ul className="space-y-2">
-                            {notFit.map((item, i) => (
-                              <li key={i} className="flex items-start gap-2.5 text-sm leading-relaxed text-foreground">
-                                <Minus className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
-                                <span>{item}</span>
-                              </li>
-                            ))}
-                          </ul>
-                          <p className="mt-3 text-[11px] leading-snug text-muted-foreground">
-                            Betyder inte att partnern saknar kompetens inom området, utan att tillgänglig
-                            data ger mindre stöd för att rekommendera dem för just dessa behov.
-                          </p>
-                        </article>
-                      )}
-                    </div>
-                  )}
+                  {/* "Passar bäst för" och "Mindre lämplig för" visas nu i
+                      beslutsblocket "d365.se:s rekommendation" högre upp. */}
                 </div>
               </details>
             )}
