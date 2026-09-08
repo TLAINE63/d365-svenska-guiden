@@ -42,7 +42,6 @@ const Navbar = () => {
 
   const menuItems = [
     { label: "Kunskapscenter", path: "/kunskapscenter", external: false },
-    { label: "Få hjälp att välja partner", path: "/kontakt", external: false },
   ];
 
   return (
