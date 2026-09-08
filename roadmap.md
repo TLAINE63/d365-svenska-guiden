@@ -48,3 +48,11 @@
 - [x] ISV-tillägg valbara i behovsanalysen – egen sida i PDF
 - [x] Förslag baserat på produkt, bransch och valda funktionsområden (src/lib/isvSuggestions.ts)
 - [x] ISV-tillägg med i jämförelsen BC vs F&SCM
+
+## Köpresa och partnerjämförelse på startsidan (2026-09-08)
+- [ ] Förbättra hero med resultatinriktad ingress och dynamiska förtroendepunkter
+- [ ] Bygg om befintligt processblock med ikoner och placera det före statistiken
+- [ ] Förtydliga partnergridet som kortlistebyggare
+- [ ] Förfina sticky jämförelsepanel för 1–3 valda partners
+- [ ] Lägg avslutningsblock direkt efter partnerlistan
+- [ ] Uppdatera relevant mikrocopy på startsidan och verifiera mobil/desktop
