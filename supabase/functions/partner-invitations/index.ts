@@ -428,6 +428,7 @@ serve(async (req: Request): Promise<Response> => {
         implementations_done: submissionData.implementations_done ?? null,
         not_a_fit: submissionData.not_a_fit || [],
         key_differentiators: submissionData.key_differentiators || [],
+        key_differentiators_source: (submissionData.key_differentiators || []).length ? "partner" : "d365",
         extended_competency_input: competencyInput,
         updated_at: new Date().toISOString(),
       };
