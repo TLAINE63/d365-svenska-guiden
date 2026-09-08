@@ -483,7 +483,7 @@ const Index = () => {
                   ) : (
                     <Button
                       onClick={c.onClick}
-                      className="bg-foreground hover:bg-foreground/90 text-background h-11 rounded font-semibold w-full justify-center"
+                      className="bg-foreground hover:bg-foreground/90 text-background min-h-11 h-auto rounded px-4 py-2.5 font-semibold w-full justify-center whitespace-normal text-center leading-snug"
                     >
                       {c.cta}
                       <ArrowRight className="w-4 h-4 ml-1.5" />
