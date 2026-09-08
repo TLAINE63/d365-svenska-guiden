@@ -539,7 +539,7 @@ const Index = () => {
               onSubmit={(e) => { e.preventDefault(); submitAiSearch(aiQuery); }}
               className="mt-8 bg-card border border-border rounded p-4 sm:p-5"
               role="search"
-              aria-label="AI-sök"
+              aria-label="Fråga d365.se"
             >
               <label htmlFor="home-ai-search" className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[hsl(var(--signature))] mb-3">
                 <Sparkles className="w-3.5 h-3.5" />
