@@ -8,6 +8,7 @@ import { ShortlistProvider } from "@/contexts/ShortlistContext";
 
 import PartnerCompareBar from "@/components/PartnerCompareBar";
 import ScrollToTop from "@/components/ScrollToTop";
+import RedirectTo from "@/components/RedirectTo";
 import TrailingSlashRedirect from "@/components/TrailingSlashRedirect";
 import { useDeferredLoad } from "@/hooks/useDeferredLoad";
 
@@ -146,14 +147,14 @@ const AppShell = () => {
           <Route path="/" element={<Index />} />
           <Route path="/crm" element={<CRM />} />
           <Route path="/businesscentral" element={<BusinessCentral />} />
-          <Route path="/business-central" element={<Navigate to="/businesscentral" replace />} />
+          <Route path="/business-central" element={<RedirectTo to="/businesscentral" />} />
           <Route path="/businesscentral/matchningstest" element={<BcMatchningstest />} />
-          <Route path="/business-central/matchningstest" element={<Navigate to="/businesscentral/matchningstest" replace />} />
+          <Route path="/business-central/matchningstest" element={<RedirectTo to="/businesscentral/matchningstest" />} />
           <Route path="/businesscentral/roi-kalkylator" element={<BcRoiCalculator />} />
-          <Route path="/business-central/roi-kalkylator" element={<Navigate to="/businesscentral/roi-kalkylator" replace />} />
+          <Route path="/business-central/roi-kalkylator" element={<RedirectTo to="/businesscentral/roi-kalkylator" />} />
           <Route path="/d365sales/roi-kalkylator" element={<SalesRoiCalculator />} />
           <Route path="/finance-supply-chain/roi-kalkylator" element={<ProductRoiPage productKey="finance-scm" />} />
-          <Route path="/finance-supply-chain-management/roi-kalkylator" element={<Navigate to="/finance-supply-chain/roi-kalkylator" replace />} />
+          <Route path="/finance-supply-chain-management/roi-kalkylator" element={<RedirectTo to="/finance-supply-chain/roi-kalkylator" />} />
           <Route path="/d365customerservice/roi-kalkylator" element={<ProductRoiPage productKey="customer-service" />} />
           <Route path="/d365marketing/roi-kalkylator" element={<ProductRoiPage productKey="customer-insights" />} />
           <Route path="/d365contactcenter/roi-kalkylator" element={<ProductRoiPage productKey="contact-center" />} />
@@ -162,7 +163,7 @@ const AppShell = () => {
           <Route path="/jamfor/:slug" element={<ErpComparisonPage />} />
           <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
           <Route path="/finance-supply-chain-management/matchningstest" element={<FscmMatchningstest />} />
-          <Route path="/finance-supply-chain/matchningstest" element={<Navigate to="/finance-supply-chain-management/matchningstest" replace />} />
+          <Route path="/finance-supply-chain/matchningstest" element={<RedirectTo to="/finance-supply-chain-management/matchningstest" />} />
           <Route path="/d365sales/matchningstest" element={<CrmMatchningstest productKey="sales" />} />
           <Route path="/d365sales/matchningstest/resultat" element={<CrmMatchningstestResultat productKey="sales" />} />
           <Route path="/d365customerservice/matchningstest" element={<CrmMatchningstest productKey="customer-service" />} />
@@ -178,11 +179,11 @@ const AppShell = () => {
           <Route path="/d365commerce" element={<D365Commerce />} />
           <Route path="/d365humanresources" element={<D365HumanResources />} />
           <Route path="/affarssystem" element={<Affarssystem />} />
-          <Route path="/affarssystem/partners" element={<Navigate to="/business-central-partners-sverige/" replace />} />
+          <Route path="/affarssystem/partners" element={<RedirectTo to="/business-central-partners-sverige/" />} />
           <Route path="/copilot" element={<Copilot />} />
           <Route path="/agents" element={<Agents />} />
           <Route path="/aioversikt" element={<AIOverview />} />
-          <Route path="/ai-oversikt" element={<Navigate to="/aioversikt" replace />} />
+          <Route path="/ai-oversikt" element={<RedirectTo to="/aioversikt" />} />
           <Route path="/ai-readiness" element={<AIReadiness />} />
           <Route path="/qa" element={<QA />} />
           <Route path="/kontakt" element={<ContactUs />} />
@@ -193,9 +194,9 @@ const AppShell = () => {
           <Route path="/erp-koparguiden-2026" element={<BuyerGuide2026 variant="erp" />} />
           <Route path="/crm-koparguiden-2026" element={<BuyerGuide2026 variant="crm" />} />
           <Route path="/shortlist" element={<Shortlist />} />
-          <Route path="/valj-partner" element={<Navigate to="/valjdynamics365partner" replace />} />
+          <Route path="/valj-partner" element={<RedirectTo to="/valjdynamics365partner" />} />
 
-          <Route path="/valj-partner/*" element={<Navigate to="/valjdynamics365partner" replace />} />
+          <Route path="/valj-partner/*" element={<RedirectTo to="/valjdynamics365partner" />} />
           <Route path="/alla-d365-partners" element={<AllD365Partners />} />
           <Route path="/partners-per-bransch" element={<PartnersPerBransch />} />
           <Route path="/partners-sitemap" element={<PartnersSitemap />} />
@@ -210,37 +211,37 @@ const AppShell = () => {
           <Route path="/rapporter/dynamics-365-partnersverige-2026" element={<PartnerMarketReport2026 />} />
           <Route path="/dataskydd" element={<PrivacyPolicy />} />
           <Route path="/ERPbehovsanalys" element={<NeedsAnalysis />} />
-          <Route path="/behovsanalys" element={<Navigate to="/ERPbehovsanalys" replace />} />
+          <Route path="/behovsanalys" element={<RedirectTo to="/ERPbehovsanalys" />} />
           <Route path="/kom-igang" element={<KomIgang />} />
           <Route path="/partnerprogram" element={<Partnerprogram />} />
           
           <Route path="/CRMbehovsanalys" element={<SalesMarketingNeedsAnalysis />} />
-          <Route path="/salj-marknad-behovsanalys" element={<Navigate to="/CRMbehovsanalys" replace />} />
+          <Route path="/salj-marknad-behovsanalys" element={<RedirectTo to="/CRMbehovsanalys" />} />
           <Route path="/kundservice-behovsanalys" element={<CustomerServiceNeedsAnalysis />} />
-          <Route path="/branschlosningar" element={<Navigate to="/branscher" replace />} />
-          <Route path="/branschlosningar/*" element={<Navigate to="/branscher" replace />} />
+          <Route path="/branschlosningar" element={<RedirectTo to="/branscher" />} />
+          <Route path="/branschlosningar/*" element={<RedirectTo to="/branscher" />} />
           <Route path="/branscher" element={<Branscher />} />
           <Route path="/branscher/:slug" element={<IndustryPage />} />
           <Route path="/d365sales" element={<D365Sales />} />
-          <Route path="/d365-sales" element={<Navigate to="/d365sales" replace />} />
+          <Route path="/d365-sales" element={<RedirectTo to="/d365sales" />} />
           <Route path="/d365marketing" element={<D365Marketing />} />
-          <Route path="/d365-marketing" element={<Navigate to="/d365marketing" replace />} />
+          <Route path="/d365-marketing" element={<RedirectTo to="/d365marketing" />} />
           <Route path="/d365customerservice" element={<D365CustomerService />} />
-          <Route path="/d365-customer-service" element={<Navigate to="/d365customerservice" replace />} />
+          <Route path="/d365-customer-service" element={<RedirectTo to="/d365customerservice" />} />
           <Route path="/d365fieldservice" element={<D365FieldService />} />
-          <Route path="/d365-field-service" element={<Navigate to="/d365fieldservice" replace />} />
+          <Route path="/d365-field-service" element={<RedirectTo to="/d365fieldservice" />} />
           <Route path="/d365contactcenter" element={<D365ContactCenter />} />
-          <Route path="/d365-contact-center" element={<Navigate to="/d365contactcenter" replace />} />
-          <Route path="/customer-service" element={<Navigate to="/d365customerservice" replace />} />
-          <Route path="/field-service" element={<Navigate to="/d365fieldservice" replace />} />
-          <Route path="/customer-insights" element={<Navigate to="/d365marketing" replace />} />
-          <Route path="/ai-mognadsanalys" element={<Navigate to="/ai-readiness" replace />} />
-          <Route path="/dynamics365-sales" element={<Navigate to="/d365sales" replace />} />
-          <Route path="/dynamics365-customer-service" element={<Navigate to="/d365customerservice" replace />} />
-          <Route path="/dynamics365-customer-insights" element={<Navigate to="/d365marketing" replace />} />
-          <Route path="/dynamics365-contact-center" element={<Navigate to="/d365contactcenter" replace />} />
-          <Route path="/dynamics365-field-service" element={<Navigate to="/d365fieldservice" replace />} />
-          <Route path="/kravspecifikation-customer-service" element={<Navigate to="/kravspecifikation-kundservice" replace />} />
+          <Route path="/d365-contact-center" element={<RedirectTo to="/d365contactcenter" />} />
+          <Route path="/customer-service" element={<RedirectTo to="/d365customerservice" />} />
+          <Route path="/field-service" element={<RedirectTo to="/d365fieldservice" />} />
+          <Route path="/customer-insights" element={<RedirectTo to="/d365marketing" />} />
+          <Route path="/ai-mognadsanalys" element={<RedirectTo to="/ai-readiness" />} />
+          <Route path="/dynamics365-sales" element={<RedirectTo to="/d365sales" />} />
+          <Route path="/dynamics365-customer-service" element={<RedirectTo to="/d365customerservice" />} />
+          <Route path="/dynamics365-customer-insights" element={<RedirectTo to="/d365marketing" />} />
+          <Route path="/dynamics365-contact-center" element={<RedirectTo to="/d365contactcenter" />} />
+          <Route path="/dynamics365-field-service" element={<RedirectTo to="/d365fieldservice" />} />
+          <Route path="/kravspecifikation-customer-service" element={<RedirectTo to="/kravspecifikation-kundservice" />} />
           <Route path="/partner/:slug" element={<PartnerProfile />} />
           <Route path="/partner/:slug/fordjupning" element={<PartnerExtendedContent />} />
           <Route path="/partner/:slug/fordjupning/" element={<PartnerExtendedContent />} />
@@ -250,41 +251,41 @@ const AppShell = () => {
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/mcp-test" element={<AdminMcpTest />} />
           <Route path="/admin/relevans-test" element={<AdminRelevanceTest />} />
-          <Route path="/partner-admin" element={<Navigate to="/admin" replace />} />
-          <Route path="/lead-admin" element={<Navigate to="/admin" replace />} />
+          <Route path="/partner-admin" element={<RedirectTo to="/admin" />} />
+          <Route path="/lead-admin" element={<RedirectTo to="/admin" />} />
           <Route path="/partner-update/:token" element={<PartnerUpdate />} />
           {/* Redirects for old/legacy URLs (44 st 404 i GSC) */}
-          <Route path="/kontakta-oss" element={<Navigate to="/kontakt/" replace />} />
-          <Route path="/om-oss" element={<Navigate to="/" replace />} />
-          <Route path="/våra-tjänster" element={<Navigate to="/" replace />} />
-          <Route path="/vara-tjanster" element={<Navigate to="/" replace />} />
-          <Route path="/nyheter" element={<Navigate to="/events/" replace />} />
-          <Route path="/nyheter/f/*" element={<Navigate to="/events/" replace />} />
-          <Route path="/start/f/*" element={<Navigate to="/events/" replace />} />
-          <Route path="/f/*" element={<Navigate to="/events/" replace />} />
-          <Route path="/dynamics-365-introduktion" element={<Navigate to="/" replace />} />
-          <Route path="/dynamics-365-demos" element={<Navigate to="/" replace />} />
-          <Route path="/partner" element={<Navigate to="/valjdynamics365partner/" replace />} />
-          <Route path="/konfigurator" element={<Navigate to="/" replace />} />
-          <Route path="/sekretesspolicy" element={<Navigate to="/dataskydd/" replace />} />
-          <Route path="/start" element={<Navigate to="/" replace />} />
-          <Route path="/evenemang" element={<Navigate to="/events/" replace />} />
-          <Route path="/dynamics-365-customer-engagement-crm" element={<Navigate to="/crm/" replace />} />
-          <Route path="/dynamics-365-erp-business-central" element={<Navigate to="/businesscentral/" replace />} />
-          <Route path="/aktuellt" element={<Navigate to="/events/" replace />} />
-          <Route path="/aktuellt/*" element={<Navigate to="/events/" replace />} />
-          <Route path="/projektpaket" element={<Navigate to="/" replace />} />
+          <Route path="/kontakta-oss" element={<RedirectTo to="/kontakt/" />} />
+          <Route path="/om-oss" element={<RedirectTo to="/" />} />
+          <Route path="/våra-tjänster" element={<RedirectTo to="/" />} />
+          <Route path="/vara-tjanster" element={<RedirectTo to="/" />} />
+          <Route path="/nyheter" element={<RedirectTo to="/events/" />} />
+          <Route path="/nyheter/f/*" element={<RedirectTo to="/events/" />} />
+          <Route path="/start/f/*" element={<RedirectTo to="/events/" />} />
+          <Route path="/f/*" element={<RedirectTo to="/events/" />} />
+          <Route path="/dynamics-365-introduktion" element={<RedirectTo to="/" />} />
+          <Route path="/dynamics-365-demos" element={<RedirectTo to="/" />} />
+          <Route path="/partner" element={<RedirectTo to="/valjdynamics365partner/" />} />
+          <Route path="/konfigurator" element={<RedirectTo to="/" />} />
+          <Route path="/sekretesspolicy" element={<RedirectTo to="/dataskydd/" />} />
+          <Route path="/start" element={<RedirectTo to="/" />} />
+          <Route path="/evenemang" element={<RedirectTo to="/events/" />} />
+          <Route path="/dynamics-365-customer-engagement-crm" element={<RedirectTo to="/crm/" />} />
+          <Route path="/dynamics-365-erp-business-central" element={<RedirectTo to="/businesscentral/" />} />
+          <Route path="/aktuellt" element={<RedirectTo to="/events/" />} />
+          <Route path="/aktuellt/*" element={<RedirectTo to="/events/" />} />
+          <Route path="/projektpaket" element={<RedirectTo to="/" />} />
           <Route path="/AI-sok" element={<SmartSearch />} />
-          <Route path="/AIsok" element={<Navigate to="/AI-sok" replace />} />
-          <Route path="/sok" element={<Navigate to="/AI-sok" replace />} />
+          <Route path="/AIsok" element={<RedirectTo to="/AI-sok" />} />
+          <Route path="/sok" element={<RedirectTo to="/AI-sok" />} />
           <Route path="/fraga-ai" element={<AskAi />} />
-          <Route path="/search" element={<Navigate to="/AI-sok" replace />} />
-          <Route path="/våratjänster" element={<Navigate to="/" replace />} />
+          <Route path="/search" element={<RedirectTo to="/AI-sok" />} />
+          <Route path="/våratjänster" element={<RedirectTo to="/" />} />
           <Route path="/kunskapscenter" element={<Kunskapscenter />} />
           <Route path="/priser" element={<Priser />} />
           <Route path="/kostnad" element={<Kostnad />} />
           <Route path="/implementationskalkylator" element={<ImplementationCalculator />} />
-          <Route path="/kostnadskalkylator" element={<Navigate to="/implementationskalkylator" replace />} />
+          <Route path="/kostnadskalkylator" element={<RedirectTo to="/implementationskalkylator" />} />
           <Route path="/kunskapscenter/upphandlingsresan" element={<Upphandlingsresan />} />
           <Route path="/upphandlingsguiden" element={<Upphandlingsguiden />} />
           <Route path="/kunskapscenter/videor" element={<VideoIndex />} />
@@ -292,11 +293,11 @@ const AppShell = () => {
           {/* Topical hubs – explicit slugs (registered before the generic 2-segment article route) */}
           <Route path="/kunskapscenter/business-central" element={<KunskapscenterHub slug="business-central" />} />
           <Route path="/kunskapscenter/business-central-tillagg" element={<KunskapscenterHub slug="business-central-tillagg" />} />
-          <Route path="/kunskapscenter/business-central-tillagg/katalog" element={<Navigate to="/kunskapscenter/dynamics-365-tillagg/?produkt=Business%20Central" replace />} />
+          <Route path="/kunskapscenter/business-central-tillagg/katalog" element={<RedirectTo to="/kunskapscenter/dynamics-365-tillagg/?produkt=Business%20Central" />} />
           <Route path="/kunskapscenter/dynamics-365-tillagg" element={<D365TillaggKatalog />} />
-          <Route path="/customer-engagement/tillagg" element={<Navigate to="/kunskapscenter/dynamics-365-tillagg/?ce=Sales" replace />} />
+          <Route path="/customer-engagement/tillagg" element={<RedirectTo to="/kunskapscenter/dynamics-365-tillagg/?ce=Sales" />} />
           <Route path="/customer-engagement/tillagg/:kategori" element={<CeIsvCategoryPage />} />
-          <Route path="/business-central/tillagg" element={<Navigate to="/kunskapscenter/dynamics-365-tillagg/?produkt=Business%20Central" replace />} />
+          <Route path="/business-central/tillagg" element={<RedirectTo to="/kunskapscenter/dynamics-365-tillagg/?produkt=Business%20Central" />} />
           <Route path="/business-central/tillagg/:kategori" element={<BcIsvCategoryPage />} />
 
           <Route path="/kunskapscenter/finance-supply-chain" element={<KunskapscenterHub slug="finance-supply-chain" />} />
@@ -305,12 +306,12 @@ const AppShell = () => {
           <Route path="/kunskapscenter/copilot" element={<KunskapscenterHub slug="copilot" />} />
           <Route path="/kunskapscenter/upphandling" element={<KunskapscenterHub slug="upphandling" />} />
           <Route path="/kunskapscenter/partners" element={<KunskapscenterHub slug="partners" />} />
-          <Route path="/bc-ap-automation" element={<Navigate to="/kunskapscenter/business-central/tillagg-fakturahantering/" replace />} />
-          <Route path="/bc-svensk-lokalisering" element={<Navigate to="/kunskapscenter/business-central/tillagg-svensk-lokalisering/" replace />} />
-          <Route path="/bc-ehandel" element={<Navigate to="/kunskapscenter/business-central/tillagg-ehandel/" replace />} />
-          <Route path="/bc-retail-pos" element={<Navigate to="/kunskapscenter/business-central/tillagg-retail-pos/" replace />} />
-          <Route path="/bc-branschlosningar" element={<Navigate to="/kunskapscenter/business-central/tillagg-branschpaket/" replace />} />
-          <Route path="/business-central-tillagg" element={<Navigate to="/kunskapscenter/business-central-tillagg/" replace />} />
+          <Route path="/bc-ap-automation" element={<RedirectTo to="/kunskapscenter/business-central/tillagg-fakturahantering/" />} />
+          <Route path="/bc-svensk-lokalisering" element={<RedirectTo to="/kunskapscenter/business-central/tillagg-svensk-lokalisering/" />} />
+          <Route path="/bc-ehandel" element={<RedirectTo to="/kunskapscenter/business-central/tillagg-ehandel/" />} />
+          <Route path="/bc-retail-pos" element={<RedirectTo to="/kunskapscenter/business-central/tillagg-retail-pos/" />} />
+          <Route path="/bc-branschlosningar" element={<RedirectTo to="/kunskapscenter/business-central/tillagg-branschpaket/" />} />
+          <Route path="/business-central-tillagg" element={<RedirectTo to="/kunskapscenter/business-central-tillagg/" />} />
           <Route path="/kunskapscenter/:productSlug/:articleSlug" element={<DeepDiveArticle />} />
           <Route path="/artiklar/:slug" element={<BlogArticle />} />
           <Route path="/events" element={<Events />} />
@@ -332,9 +333,9 @@ const AppShell = () => {
           <Route path="/beslutsmognad/tack" element={<BeslutsmognadTack />} />
           <Route path="/beslutsmognad/resultat" element={<BeslutsmognadResultat />} />
           <Route path="/tack-nedladdning" element={<TackNedladdning />} />
-          <Route path="/beslutsmognadsindex" element={<Navigate to="/beslutsmognad" replace />} />
-          <Route path="/beslutsmognadsindex/diagnostik" element={<Navigate to="/beslutsmognad/diagnostik" replace />} />
-          <Route path="/beslutsmognadsindex/tack" element={<Navigate to="/beslutsmognad/tack" replace />} />
+          <Route path="/beslutsmognadsindex" element={<RedirectTo to="/beslutsmognad" />} />
+          <Route path="/beslutsmognadsindex/diagnostik" element={<RedirectTo to="/beslutsmognad/diagnostik" />} />
+          <Route path="/beslutsmognadsindex/tack" element={<RedirectTo to="/beslutsmognad/tack" />} />
           {/* Ägande- och intresseredovisning – transparenssida */}
           <Route path="/agande-och-intressen" element={<OwnershipAndInterests />} />
           <Route path="/friskrivning" element={<Friskrivning />} />
