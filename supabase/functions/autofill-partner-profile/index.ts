@@ -150,7 +150,7 @@ const SCHEMA = {
       required: ["power_platform", "copilot_ai", "copilot_studio_agents"],
     },
   },
-  required: ["description", "positioning_statement", "products", "competency_input"],
+  required: ["description", "positioning_statement", "key_differentiators", "products", "competency_input"],
 };
 
 async function callAI(prompt: string, apiKey: string): Promise<Suggestion> {
