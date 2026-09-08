@@ -182,6 +182,7 @@ serve(async (req) => {
         }
         const { data, error } = await supabase.from("partner_news").insert(item).select("*").maybeSingle();
         if (error) throw error;
+        if (data?.id) await syncEventFromNews(supabase, data.id);
         return new Response(JSON.stringify({ success: true, item: data }), { status: 200, headers: { "Content-Type": "application/json", ...cors } });
       }
       case "update": {
@@ -196,6 +197,7 @@ serve(async (req) => {
         }
         const { data, error } = await supabase.from("partner_news").update(patch).eq("id", id).select("*").maybeSingle();
         if (error) throw error;
+        await syncEventFromNews(supabase, id);
         return new Response(JSON.stringify({ success: true, item: data }), { status: 200, headers: { "Content-Type": "application/json", ...cors } });
       }
       case "set-status": {
@@ -208,6 +210,7 @@ serve(async (req) => {
         }
         const { data, error } = await supabase.from("partner_news").update(patch).eq("id", id).select("*").maybeSingle();
         if (error) throw error;
+        await syncEventFromNews(supabase, id);
         return new Response(JSON.stringify({ success: true, item: data }), { status: 200, headers: { "Content-Type": "application/json", ...cors } });
       }
       case "bulk-set-status": {
@@ -230,11 +233,13 @@ serve(async (req) => {
           const { error } = await supabase.from("partner_news").update({ status }).in("id", alreadyPublished);
           if (error) throw error;
         }
+        for (const id of ids) await syncEventFromNews(supabase, id);
         return new Response(JSON.stringify({ success: true, updated: ids.length }), { status: 200, headers: { "Content-Type": "application/json", ...cors } });
       }
       case "delete": {
 
         const id = z.string().uuid().parse(body.id);
+        await supabase.from("partner_events").delete().eq("admin_notes", `auto:partnernytt:${id}`);
         const { error } = await supabase.from("partner_news").delete().eq("id", id);
         if (error) throw error;
         return new Response(JSON.stringify({ success: true }), { status: 200, headers: { "Content-Type": "application/json", ...cors } });
