@@ -247,6 +247,10 @@ function buildPrompt(p: PartnerLike): { prompt: string; missing: string[] } | nu
     missing.push("positioning_statement");
     asks.push('- "positioning_statement": en mening som inleds med "Passar särskilt företag som …".');
   }
+  if (!Array.isArray(p.key_differentiators) || p.key_differentiators.filter((x) => str(x)).length === 0) {
+    missing.push("key_differentiators");
+    asks.push('- "key_differentiators": 3–5 korta punkter (max 120 tecken vardera) om varför företag väljer partnern. Konkreta och verifierbara utifrån underlaget: applikationer, branscher, kontorsorter, arbetssätt, förvaltning. Inga superlativ, inga påhittade siffror eller kundnamn.');
+  }
 
   const pf = (p.product_filters || {}) as Record<string, any>;
   const productAsks: string[] = [];
