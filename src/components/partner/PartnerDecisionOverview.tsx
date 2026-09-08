@@ -342,18 +342,35 @@ const PartnerDecisionOverview = ({ partner }: { partner: DatabasePartner }) => {
           )}
 
           {/* PRIORITET 2 – Varför företag väljer denna partner */}
-          {differentiators.length > 0 && (
+          {(partnerStated.length > 0 || differentiators.length > 0) && (
             <div className="rounded-xl border border-border bg-card p-5 sm:p-6">
               <h2 className="mb-1 text-lg font-bold tracking-tight text-foreground sm:text-xl">
                 Varför företag väljer denna partner
               </h2>
               <p className="mb-4 text-xs text-muted-foreground">
-                Faktabaserade punkter ur partnerns profil och d365.se:s bedömning – inga
-                marknadsföringspåståenden.
+                Faktabaserade punkter – inga marknadsföringspåståenden.
               </p>
-              <CheckList items={differentiators} />
+              {partnerStated.length > 0 && (
+                <div className="mb-4">
+                  <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                    Enligt partnern
+                  </h3>
+                  <CheckList items={partnerStated} />
+                </div>
+              )}
+              {differentiators.length > 0 && (
+                <div>
+                  {partnerStated.length > 0 && (
+                    <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                      Ur profildata och d365.se:s bedömning
+                    </h3>
+                  )}
+                  <CheckList items={differentiators} />
+                </div>
+              )}
             </div>
           )}
+
 
           {/* PRIORITET 3 – Typiska kunder och projekt */}
           {hasTypical && (
