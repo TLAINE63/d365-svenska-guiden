@@ -91,6 +91,58 @@ function normalizeAreas<T extends { product_area?: string; product_areas?: strin
   return { ...data, product_areas: areas, product_area: areas[0] } as T & { product_area: string; product_areas: string[] };
 }
 
+const EVENT_TYPES = ["event", "webinar"];
+
+/**
+ * Speglar en publicerad Partnernytt-post av typen event/webinar till partner_events
+ * så att den syns i eventkalendern. Dedupliceras via admin_notes-markören.
+ */
+// deno-lint-ignore no-explicit-any
+async function syncEventFromNews(supabase: any, newsId: string) {
+  const { data: news } = await supabase
+    .from("partner_news")
+    .select("id, partner_id, editorial_title, summary, source_url, image_url, news_date, news_type, status")
+    .eq("id", newsId)
+    .maybeSingle();
+  if (!news) return;
+
+  const marker = `auto:partnernytt:${news.id}`;
+  const { data: existing } = await supabase
+    .from("partner_events")
+    .select("id, status")
+    .eq("admin_notes", marker)
+    .maybeSingle();
+
+  const shouldPublish = news.status === "published" && EVENT_TYPES.includes(news.news_type);
+
+  if (!shouldPublish) {
+    if (existing && existing.status === "approved") {
+      await supabase.from("partner_events").update({ status: "pending" }).eq("id", existing.id);
+    }
+    return;
+  }
+
+  const payload = {
+    partner_id: news.partner_id,
+    title: news.editorial_title,
+    description: news.summary,
+    event_date: news.news_date,
+    is_online: news.news_type === "webinar",
+    event_link: news.source_url || null,
+    registration_link: news.source_url || null,
+    image_url: news.image_url || null,
+    status: "approved",
+    admin_notes: marker,
+    updated_at: new Date().toISOString(),
+  };
+
+  if (existing) {
+    await supabase.from("partner_events").update(payload).eq("id", existing.id);
+  } else {
+    await supabase.from("partner_events").insert(payload);
+  }
+}
+
 serve(async (req) => {
   const cors = corsHeadersFor(req);
   if (req.method === "OPTIONS") return new Response(null, { headers: cors });
