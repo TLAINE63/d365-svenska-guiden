@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useSearchParams, useLocation } from "react-router-dom";
+import { scrollToAnchorWhenReady } from "@/lib/anchorScroll";
 
 /**
  * Tar emot val gjorda tidigare i flödet (t.ex. hero-väljaren på startsidan):
  * ?industry=<branschnamn> förvaljer branschfiltret och #partners scrollar
- * direkt till partnersektionen på produktsidan.
+ * till partnersektionen när sidans innehåll ovanför den har laddats.
  */
 export function useIndustryDeepLink(setIndustry: (value: string | null) => void) {
   const [params] = useSearchParams();
@@ -19,10 +20,7 @@ export function useIndustryDeepLink(setIndustry: (value: string | null) => void)
 
   useEffect(() => {
     if (!wantsPartners) return;
-    const t = window.setTimeout(() => {
-      document.getElementById("partners")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 350);
-    return () => window.clearTimeout(t);
+    return scrollToAnchorWhenReady("partners");
   }, [wantsPartners]);
 
   return { deepLinkIndustry: industry, skipTopScroll: wantsPartners };
