@@ -308,6 +308,9 @@ const PartnerUpdate = () => {
       if (patch.extended_competency_input && typeof patch.extended_competency_input === "object") {
         setCompetencyInput(patch.extended_competency_input);
       }
+      if (Array.isArray(patch.key_differentiators) && patch.key_differentiators.length) {
+        setKeyDifferentiatorsInput(patch.key_differentiators.join("\n"));
+      }
 
       const filled = (data as any)?.filledCount ?? 0;
       toast[filled > 0 ? "success" : "info"](
