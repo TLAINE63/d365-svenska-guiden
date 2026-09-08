@@ -219,6 +219,7 @@ interface PartnerLike {
   website?: string | null;
   description?: string | null;
   positioning_statement?: string | null;
+  key_differentiators?: string[] | null;
   applications?: string[] | null;
   industries?: string[] | null;
   secondary_industries?: string[] | null;
