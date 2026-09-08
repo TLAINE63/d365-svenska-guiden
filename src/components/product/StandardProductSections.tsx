@@ -150,7 +150,7 @@ export default function StandardProductSections({ productName, data }: Props) {
                 title: "3. Hitta rätt partner",
                 body: "Utgå från din bransch och dina processer – inte från vilken partner som syns mest.",
                 href: "/branscher/",
-                cta: "Hitta partner",
+                cta: "Hitta rätt partner",
               },
             ].map((step) => (
               <div

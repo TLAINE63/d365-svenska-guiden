@@ -68,7 +68,7 @@ const steps: Step[] = [
  "Få en strukturerad överblick över vilka partners som matchar din bransch, dina produktområden, din geografi och din storlek. Vi står på köparens sida – inga direktlänkar till leverantörer, all kontakt går via plattformens mediarade matchning.",
     links: [
       { label: "Hitta Dynamics 365-partner", to: "/valjdynamics365partner/" },
-      { label: "Hitta partner för din bransch", to: "/branscher/" },
+      { label: "Hitta rätt partner", to: "/branscher/" },
       { label: "Utforska branscher", to: "/branscher/" },
     ],
 

@@ -71,7 +71,7 @@ const Footer = () => {
               <li><Link to="/kravspecifikation/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Kravspecifikationer</Link></li>
               <li><Link to="/qa/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Vanliga frågor</Link></li>
               <li><Link to="/branscher/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Hitta din bransch</Link></li>
-              <li><Link to="/valjdynamics365partner/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Hitta din partner</Link></li>
+              <li><Link to="/valjdynamics365partner/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Hitta rätt partner</Link></li>
               <li><Link to="/alla-d365-partners/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Alla D365-partners</Link></li>
               <li><Link to="/partners-per-bransch/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Partners per bransch</Link></li>
               <li><Link to="/partners-sitemap/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Partners-sitemap</Link></li>
@@ -86,7 +86,7 @@ const Footer = () => {
               <li><Link to="/agents/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Microsoft Agenter</Link></li>
               <li><Link to="/aioversikt/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">AI Översikt</Link></li>
               <li><Link to="/ai-readiness/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">AI Readiness Assessment</Link></li>
-              <li><Link to="/valjdynamics365partner/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Välj Partner</Link></li>
+              <li><Link to="/valjdynamics365partner/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Hitta rätt partner</Link></li>
               <li><Link to="/jamfor-partners/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Jämför Partners</Link></li>
               <li><Link to="/dynamics-365-ai-copilot-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 AI- & Copilot-partners</Link></li>
               <li><Link to="/partnernytt/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Partnernytt</Link></li>

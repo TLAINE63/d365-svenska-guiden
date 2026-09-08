@@ -71,7 +71,7 @@ const NotFound = () => {
               to="/valjdynamics365partner/"
               className="inline-flex items-center justify-center rounded-md border border-border px-6 py-3 text-foreground hover:bg-accent transition-colors"
             >
-              Hitta partner
+              Hitta rätt partner
             </Link>
           </div>
         </div>

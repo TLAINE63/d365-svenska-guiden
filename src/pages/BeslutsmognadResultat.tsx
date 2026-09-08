@@ -1,3 +1,4 @@
+import PartnerCtaBlock from "@/components/PartnerCtaBlock";
 import { useEffect, useMemo } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -236,6 +237,7 @@ export default function BeslutsmognadResultat() {
             </Link>
           </div>
         </section>
+        <PartnerCtaBlock variant="tool" source="/beslutsmognad/resultat" />
       </main>
 
       <footer className="py-10 text-center font-bm-body uppercase tracking-[0.18em] text-[10px] text-bm-ink-muted border-t border-bm-rule">

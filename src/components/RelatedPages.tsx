@@ -56,7 +56,7 @@ export const bcRelatedPages: RelatedPage[] = [
   { title: "Behovsanalys ERP", description: "Kostnadsfri behovsanalys – få en personlig rekommendation", href: "/ERPbehovsanalys/" },
   { title: "Copilot AI", description: "Så fungerar Microsoft Copilot i Business Central", href: "/copilot/" },
   { title: "Branschlösningar", description: "Dynamics 365 per bransch – tillverkning, handel, service", href: "/branscher/" },
-  { title: "Hitta partner", description: "Filtrera och jämför Business Central-partners i Sverige", href: "/valjdynamics365partner/" },
+  { title: "Hitta rätt partner", description: "Filtrera och jämför Business Central-partners i Sverige", href: "/valjdynamics365partner/" },
 ];
 
 export const fscRelatedPages: RelatedPage[] = [
@@ -65,7 +65,7 @@ export const fscRelatedPages: RelatedPage[] = [
   { title: "Behovsanalys ERP", description: "Kostnadsfri behovsanalys – få en personlig rekommendation", href: "/ERPbehovsanalys/" },
   { title: "Copilot AI", description: "Så fungerar Microsoft Copilot i Finance & Supply Chain", href: "/copilot/" },
   { title: "Branschlösningar", description: "Dynamics 365 per bransch – tillverkning, handel, service", href: "/branscher/" },
-  { title: "Hitta partner", description: "Filtrera och jämför Finance & SCM-partners i Sverige", href: "/valjdynamics365partner/" },
+  { title: "Hitta rätt partner", description: "Filtrera och jämför Finance & SCM-partners i Sverige", href: "/valjdynamics365partner/" },
 ];
 
 // MOFU – teknisk jämförelse Business Central vs Finance & SCM.
@@ -76,7 +76,7 @@ export const erpRelatedPages: RelatedPage[] = [
   { title: "Finance & Supply Chain", description: "Enterprise-ERP för koncerner med global drift och avancerad produktion", href: "/finance-supply-chain/" },
   { title: "Behovsanalys", description: "Få en rekommendation om BC vs F&SCM passar dig bäst", href: "/ERPbehovsanalys/" },
   { title: "Branschlösningar", description: "Dynamics 365 per bransch – tillverkning, handel, service", href: "/branscher/" },
-  { title: "Hitta partner", description: "Jämför Microsoft-partners specialiserade på BC och F&SCM", href: "/valjdynamics365partner/" },
+  { title: "Hitta rätt partner", description: "Jämför Microsoft-partners specialiserade på BC och F&SCM", href: "/valjdynamics365partner/" },
 ];
 
 // TOFU – allmän utbildning "vad är ett affärssystem".
@@ -88,7 +88,7 @@ export const affarssystemRelatedPages: RelatedPage[] = [
   { title: "Finance & Supply Chain", description: "För större bolag med global koncernstruktur", href: "/finance-supply-chain/" },
   { title: "Behovsanalys", description: "Få en kostnadsfri rekommendation baserad på dina behov", href: "/ERPbehovsanalys/" },
   { title: "Branschlösningar", description: "Hur Dynamics 365 anpassas för olika branscher", href: "/branscher/" },
-  { title: "Hitta partner", description: "Katalog över certifierade Microsoft-partners – vi står på köparens sida", href: "/valjdynamics365partner/" },
+  { title: "Hitta rätt partner", description: "Katalog över certifierade Microsoft-partners – vi står på köparens sida", href: "/valjdynamics365partner/" },
 ];
 
 export const crmRelatedPages: RelatedPage[] = [
@@ -107,7 +107,7 @@ export const salesRelatedPages: RelatedPage[] = [
   { title: "Customer Service", description: "Helpdesk och ärendehantering", href: "/d365customerservice/" },
   { title: "Copilot AI", description: "Hur Copilot hjälper säljare i Dynamics 365 Sales", href: "/copilot/" },
   { title: "Behovsanalys Sälj", description: "Kostnadsfri behovsanalys för sälj och marknad", href: "/CRMbehovsanalys/" },
-  { title: "Hitta partner", description: "Jämför Dynamics 365 Sales-partners i Sverige", href: "/valjdynamics365partner/" },
+  { title: "Hitta rätt partner", description: "Jämför Dynamics 365 Sales-partners i Sverige", href: "/valjdynamics365partner/" },
 ];
 
 export const customerServiceRelatedPages: RelatedPage[] = [
@@ -116,7 +116,7 @@ export const customerServiceRelatedPages: RelatedPage[] = [
   { title: "Field Service", description: "Fältservicehantering och schemaläggning", href: "/d365fieldservice/" },
   { title: "Copilot AI", description: "Hur Copilot hjälper kundservicemedarbetare", href: "/copilot/" },
   { title: "Behovsanalys Kundservice", description: "Kostnadsfri behovsanalys för kundservice", href: "/kundservice-behovsanalys/" },
-  { title: "Hitta partner", description: "Jämför kundservice-partners i Sverige", href: "/valjdynamics365partner/" },
+  { title: "Hitta rätt partner", description: "Jämför kundservice-partners i Sverige", href: "/valjdynamics365partner/" },
 ];
 
 export const fieldServiceRelatedPages: RelatedPage[] = [
@@ -124,7 +124,7 @@ export const fieldServiceRelatedPages: RelatedPage[] = [
   { title: "Customer Service", description: "Helpdesk och ärendehantering", href: "/d365customerservice/" },
   { title: "Contact Center", description: "Omnikanal-kontaktcenter", href: "/d365contactcenter/" },
   { title: "Behovsanalys Kundservice", description: "Kostnadsfri behovsanalys", href: "/kundservice-behovsanalys/" },
-  { title: "Hitta partner", description: "Jämför Field Service-partners i Sverige", href: "/valjdynamics365partner/" },
+  { title: "Hitta rätt partner", description: "Jämför Field Service-partners i Sverige", href: "/valjdynamics365partner/" },
 ];
 
 export const marketingRelatedPages: RelatedPage[] = [
@@ -133,7 +133,7 @@ export const marketingRelatedPages: RelatedPage[] = [
   { title: "Customer Service", description: "Helpdesk och ärendehantering", href: "/d365customerservice/" },
   { title: "Copilot AI", description: "AI-driven marketing automation med Copilot", href: "/copilot/" },
   { title: "Behovsanalys Sälj & Marknad", description: "Kostnadsfri behovsanalys", href: "/CRMbehovsanalys/" },
-  { title: "Hitta partner", description: "Jämför Marketing-partners i Sverige", href: "/valjdynamics365partner/" },
+  { title: "Hitta rätt partner", description: "Jämför Marketing-partners i Sverige", href: "/valjdynamics365partner/" },
 ];
 
 export const contactCenterRelatedPages: RelatedPage[] = [
@@ -142,7 +142,7 @@ export const contactCenterRelatedPages: RelatedPage[] = [
   { title: "Field Service", description: "Fältservicehantering", href: "/d365fieldservice/" },
   { title: "Copilot AI", description: "AI i kontaktcentret med Copilot", href: "/copilot/" },
   { title: "Behovsanalys Kundservice", description: "Kostnadsfri behovsanalys", href: "/kundservice-behovsanalys/" },
-  { title: "Hitta partner", description: "Jämför Contact Center-partners i Sverige", href: "/valjdynamics365partner/" },
+  { title: "Hitta rätt partner", description: "Jämför Contact Center-partners i Sverige", href: "/valjdynamics365partner/" },
 ];
 
 export const copilotRelatedPages: RelatedPage[] = [
@@ -159,7 +159,7 @@ export const branschRelatedPages: RelatedPage[] = [
   { title: "Finance & Supply Chain", description: "Enterprise ERP med branschfunktionalitet", href: "/finance-supply-chain/" },
   { title: "CRM-översikt", description: "CRM-applikationer per bransch", href: "/crm/" },
   { title: "Behovsanalys ERP", description: "Kostnadsfri behovsanalys anpassad efter din bransch", href: "/ERPbehovsanalys/" },
-  { title: "Hitta partner", description: "Filtrera partners per bransch", href: "/valjdynamics365partner/" },
+  { title: "Hitta rätt partner", description: "Filtrera partners per bransch", href: "/valjdynamics365partner/" },
 ];
 
 export const aiOverviewRelatedPages: RelatedPage[] = [
@@ -190,7 +190,7 @@ export const requirementsErpRelatedPages: RelatedPage[] = [
   { title: "Business Central", description: "ERP för SMB – funktioner, pris och paketering", href: "/businesscentral/" },
   { title: "Finance & Supply Chain", description: "Enterprise-ERP för koncerner med global drift", href: "/finance-supply-chain/" },
   { title: "Jämför BC och F&SCM", description: "Teknisk jämförelse av Microsofts två affärssystem", href: "/erp/" },
-  { title: "Hitta partner", description: "Matcha kravspecifikationen mot Microsoft-partners i Sverige", href: "/valjdynamics365partner/" },
+  { title: "Hitta rätt partner", description: "Matcha kravspecifikationen mot Microsoft-partners i Sverige", href: "/valjdynamics365partner/" },
   { title: "Branschlösningar", description: "Branschspecifika krav för Dynamics 365", href: "/branscher/" },
 ];
 
@@ -207,7 +207,7 @@ export const requirementsCsRelatedPages: RelatedPage[] = [
   { title: "Customer Service", description: "Helpdesk och ärendehantering med omnikanal", href: "/d365customerservice/" },
   { title: "Contact Center", description: "AI-drivet omnikanal-kontaktcenter", href: "/d365contactcenter/" },
   { title: "Field Service", description: "Fältservicehantering med schemaläggning och IoT", href: "/d365fieldservice/" },
-  { title: "Hitta partner", description: "Matcha kravspecifikationen mot kundservice-partners", href: "/valjdynamics365partner/" },
+  { title: "Hitta rätt partner", description: "Matcha kravspecifikationen mot kundservice-partners", href: "/valjdynamics365partner/" },
 ];
 
 export const needsAnalysisErpRelatedPages: RelatedPage[] = [
@@ -216,7 +216,7 @@ export const needsAnalysisErpRelatedPages: RelatedPage[] = [
   { title: "Finance & Supply Chain", description: "Produktdetaljer, pris och funktioner för enterprise", href: "/finance-supply-chain/" },
   { title: "Jämför BC och F&SCM", description: "Teknisk MOFU-jämförelse av Microsofts ERP-system", href: "/erp/" },
   { title: "Branschlösningar", description: "Branschpaketering av Dynamics 365 ERP", href: "/branscher/" },
-  { title: "Hitta partner", description: "Få offerter från Microsoft-partners i Sverige", href: "/valjdynamics365partner/" },
+  { title: "Hitta rätt partner", description: "Få offerter från Microsoft-partners i Sverige", href: "/valjdynamics365partner/" },
 ];
 
 export const needsAnalysisCrmRelatedPages: RelatedPage[] = [
@@ -233,7 +233,7 @@ export const needsAnalysisCsRelatedPages: RelatedPage[] = [
   { title: "Customer Service", description: "Helpdesk och ärendehantering – pris och funktioner", href: "/d365customerservice/" },
   { title: "Contact Center", description: "AI-drivet omnikanal-kontaktcenter", href: "/d365contactcenter/" },
   { title: "Field Service", description: "Fältservicehantering med schemaläggning och IoT", href: "/d365fieldservice/" },
-  { title: "Hitta partner", description: "Matcha behovsbilden mot kundservice-partners", href: "/valjdynamics365partner/" },
+  { title: "Hitta rätt partner", description: "Matcha behovsbilden mot kundservice-partners", href: "/valjdynamics365partner/" },
 ];
 
 // Hitta partner-sidan – BOFU/konvertering. Stötta med behovsanalys + kravspec
@@ -254,6 +254,6 @@ export const articleRelatedPages: RelatedPage[] = [
   { title: "Dynamics 365 Sales", description: "B2B-CRM för säljteam – pipeline och Copilot", href: "/d365sales/" },
   { title: "Customer Service", description: "Helpdesk och ärendehantering med omnikanal", href: "/d365customerservice/" },
   { title: "Branschlösningar", description: "Dynamics 365 per bransch", href: "/branscher/" },
-  { title: "Hitta partner", description: "Jämför Microsoft-partners i Sverige", href: "/valjdynamics365partner/" },
+  { title: "Hitta rätt partner", description: "Jämför Microsoft-partners i Sverige", href: "/valjdynamics365partner/" },
 ];
 

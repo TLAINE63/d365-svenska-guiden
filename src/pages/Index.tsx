@@ -1,6 +1,5 @@
 import { Suspense, useState } from "react";
 import { lazyWithRetry } from "@/lib/lazyWithRetry";
-import FunnelCTA from "@/components/FunnelCTA";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -205,7 +204,7 @@ const Index = () => {
       icon: ClipboardCheck,
       title: "Vi behöver ringa in behovet",
       desc: "Börja med att klargöra vad verksamheten faktiskt behöver – innan du jämför system och partners.",
-      cta: "Starta en behovsanalys",
+      cta: "Starta behovsanalys",
       onClick: () => setDirectionPicker("behovsanalys"),
     },
     {
@@ -279,18 +278,21 @@ const Index = () => {
                 Upphandlingsguiden för Microsoft Dynamics 365
               </div>
               <h1 className="text-[26px] sm:text-[34px] md:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
-                Microsoft Dynamics 365 i Sverige – guide, kostnader och partnerval
+                Hitta rätt Dynamics 365-partner på några minuter
               </h1>
               <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
-                Har du valt – eller överväger – Dynamics 365? d365.se hjälper dig förstå behovet,
-                välja rätt lösning och framför allt hitta rätt partner.
+                Jämför svenska Dynamics 365-partners utifrån bransch, behov, erfarenhet och
+                specialistkompetens. Kostnadsfritt och köparorienterat.
               </p>
 
 
               <div className="border-t border-white/10 pt-7 mb-8">
-                <h2 className="text-[22px] sm:text-[28px] font-semibold text-white leading-tight mb-4">
+                <h2 className="text-[22px] sm:text-[28px] font-semibold text-white leading-tight mb-2">
                   Välj rätt Dynamics 365-partner
                 </h2>
+                <p className="text-[13.5px] text-white/60 mb-4">
+                  Valen är frivilliga – du kan gå vidare direkt.
+                </p>
 
                 {/* Hero finder: bransch + produkt → direktnavigering */}
                 <div className="bg-white/[0.04] border border-white/10 rounded p-3 sm:p-4 mb-5">
@@ -329,7 +331,7 @@ const Index = () => {
                     size="lg"
                     className="w-full sm:w-auto bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white text-base h-12 px-6 rounded font-bold hover:-translate-y-0.5 transition-all"
                   >
-                    Visa matchande partners
+                    Hitta rätt partner
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </div>
@@ -340,7 +342,7 @@ const Index = () => {
                     onClick={() => setDirectionPicker("behovsanalys")}
                     className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-white/80 hover:text-white transition-colors"
                   >
-                    eller starta en kostnadsfri behovsanalys
+                    Vet du inte vilken lösning du behöver? Starta behovsanalysen
                     <ArrowRight className="w-4 h-4" />
                   </button>
                   <span className="hidden sm:inline text-white/25">·</span>
@@ -378,6 +380,34 @@ const Index = () => {
               </div>
 
             </div>
+          </div>
+        </section>
+
+        {/* SÅ FUNGERAR DET – processen i fyra steg */}
+        <section className="section-divider py-12 sm:py-16 bg-background border-b border-border">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight mb-8">
+              Så fungerar det
+            </h2>
+            <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[
+                { t: "Beskriv ert behov", d: "Bransch, storlek och vilket område ni vill lösa." },
+                { t: "Få relevanta partnerförslag", d: "Partners som faktiskt arbetar med er typ av verksamhet." },
+                { t: "Jämför partner sida vid sida", d: "Produktområden, branscher, geografi och erfarenhet." },
+                { t: "Kontakta endast de partner du själv väljer", d: "Du styr helt vem som får höra av sig." },
+              ].map((s, i) => (
+                <li key={s.t} className="bg-card border border-border rounded p-5">
+                  <span className="inline-flex items-center justify-center w-8 h-8 rounded bg-[hsl(var(--cta-orange))]/10 text-[hsl(var(--cta-orange))] font-bold text-sm mb-3">
+                    {i + 1}
+                  </span>
+                  <h3 className="text-[15px] font-semibold text-foreground mb-1.5 leading-snug">{s.t}</h3>
+                  <p className="text-[13.5px] text-muted-foreground leading-relaxed">{s.d}</p>
+                </li>
+              ))}
+            </ol>
+            <p className="mt-6 text-[14px] text-muted-foreground">
+              Ingen partner ser dina uppgifter innan du själv väljer att ta kontakt.
+            </p>
           </div>
         </section>
 
@@ -863,8 +893,6 @@ const Index = () => {
         </section>
 
         {/* Transparensblocket ligger som SECTION 5 högre upp – undvik dubblering här. */}
-      
-<FunnelCTA stage="early" guide="erp" source="/index/" />
 </main>
       <Suspense fallback={null}><ScrollCTA /></Suspense>
       
