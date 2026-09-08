@@ -166,7 +166,7 @@ const Index = () => {
   const submitAiSearch = (q: string) => {
     const trimmed = q.trim();
     if (!trimmed) return;
-    navigate(`/AI-sok?q=${encodeURIComponent(trimmed)}`);
+    navigate(`/fraga?q=${encodeURIComponent(trimmed)}`);
   };
 
   const directionOptions = {
@@ -245,10 +245,10 @@ const Index = () => {
     },
     {
       icon: Sparkles,
-      title: "AI-sök",
+      title: "Fråga d365.se",
       desc: "Ställ frågor om Dynamics 365 och få direkta svar.",
-      cta: "Få svar direkt",
-      to: "/AI-sok/",
+      cta: "Få svar",
+      to: "/fraga/",
     },
   ];
 
@@ -539,7 +539,7 @@ const Index = () => {
               onSubmit={(e) => { e.preventDefault(); submitAiSearch(aiQuery); }}
               className="mt-8 bg-card border border-border rounded p-4 sm:p-5"
               role="search"
-              aria-label="AI-sök"
+              aria-label="Fråga d365.se"
             >
               <label htmlFor="home-ai-search" className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[hsl(var(--signature))] mb-3">
                 <Sparkles className="w-3.5 h-3.5" />
@@ -561,7 +561,7 @@ const Index = () => {
                   type="submit"
                   className="inline-flex items-center justify-center gap-2 bg-foreground hover:bg-foreground/90 text-background font-semibold text-[14px] px-5 py-3 rounded transition-colors"
                 >
-                  Sök med AI
+                  Få svar
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>

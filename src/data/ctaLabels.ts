@@ -15,8 +15,8 @@ export const CTA = {
   /** Övriga sekundära vägar. */
   compare: "Jämför partners",
   compareTo: "/jamfor-partners/",
-  aiSearch: "AI-sök",
-  aiSearchTo: "/AI-sok/",
+  aiSearch: "Fråga d365.se",
+  aiSearchTo: "/fraga/",
 
   /** Rådgivning – aldrig ordet "oberoende" i kommersiell copy. */
   advisoryHeading: "Kostnadsfri köparrådgivning",

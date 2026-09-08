@@ -56,11 +56,11 @@ const Navbar = () => {
         <div className="container mx-auto px-4">
           <div className="flex h-9 items-center justify-end gap-5 text-sm">
             <Link
-              to="/AI-sok/"
+              to="/fraga/"
               className="inline-flex items-center gap-1.5 font-medium text-white/70 hover:text-[hsl(var(--signature))] transition-colors"
             >
               <Sparkles className="h-3.5 w-3.5" />
-              AI-sök
+              Fråga d365.se
             </Link>
             <Link
               to="/kunskapscenter"
@@ -267,8 +267,8 @@ const Navbar = () => {
                   <RegionLanguageSwitcher />
                 </div>
                 <div className="h-px bg-border" />
-                <Link to="/AI-sok/" className="inline-flex items-center gap-2 text-lg font-medium text-primary hover:text-[hsl(var(--signature))] transition-colors">
-                  <Sparkles className="h-4 w-4" /> AI-sök
+                <Link to="/fraga/" className="inline-flex items-center gap-2 text-lg font-medium text-primary hover:text-[hsl(var(--signature))] transition-colors">
+                  <Sparkles className="h-4 w-4" /> Fråga d365.se
                 </Link>
                 <Link
                   to="/partnernytt/"

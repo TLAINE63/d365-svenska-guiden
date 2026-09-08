@@ -2,7 +2,7 @@ import PartnerCtaBlock from "@/components/PartnerCtaBlock";
 import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { Sparkles, Search, ArrowRight, Loader2 } from "lucide-react";
+import { Sparkles, MessageCircleQuestion, ArrowRight, Loader2, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -11,15 +11,58 @@ import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 
+type SourceType = "redaktionellt" | "bedomning" | "partner" | "publikt";
+
+interface AnswerSource {
+  path: string;
+  label: string;
+  type: SourceType;
+}
+
 interface SearchResult {
   primary: { path: string; label: string; reason: string };
   alternatives: { path: string; label: string }[];
   answer: string;
+  sources?: AnswerSource[];
+  questionType?: "partner" | "produkt" | "pris" | "komplex";
 }
 
+const SOURCE_LABEL: Record<SourceType, string> = {
+  redaktionellt: "d365.se:s redaktionella innehåll",
+  bedomning: "d365.se:s bedömning (AI-assisterad)",
+  partner: "Uppgift från partnern själv",
+  publikt: "Publikt identifierad information",
+};
+
+const NEXT_STEP: Record<
+  NonNullable<SearchResult["questionType"]>,
+  { title: string; label: string; to: string }
+> = {
+  partner: {
+    title: "Nästa steg",
+    label: "Jämför föreslagna partners",
+    to: "/jamfor-partners/",
+  },
+  produkt: {
+    title: "Nästa steg",
+    label: "Gör behovsanalysen",
+    to: "/ERPbehovsanalys/",
+  },
+  pris: {
+    title: "Nästa steg",
+    label: "Skapa en kostnadsuppskattning",
+    to: "/kostnad/",
+  },
+  komplex: {
+    title: "Nästa steg",
+    label: "Boka köparsidig rådgivning",
+    to: "/kontakt/",
+  },
+};
+
 const EXAMPLES = [
-  "Vilken CRM passar för 30 säljare?",
-  "Hur kommer jag igång med Copilot?",
+  "Vilka Finance & Supply Chain-partners passar ett svenskt tillverkningsföretag?",
+  "Vad kostar en Business Central-implementation?",
   "Skillnad mellan Business Central och Finance & SCM",
 ];
 
@@ -38,7 +81,7 @@ export default function SmartSearch() {
     const { data, error } = await supabase.functions.invoke("smart-search", { body: { query: q } });
     setLoading(false);
     if (error || (data as any)?.error) {
-      toast({ title: "Sökfel", description: (data as any)?.error || error?.message || "Försök igen", variant: "destructive" });
+      toast({ title: "Kunde inte svara", description: (data as any)?.error || error?.message || "Försök igen", variant: "destructive" });
       return;
     }
     setResult(data as SearchResult);
@@ -49,22 +92,27 @@ export default function SmartSearch() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const nextStep = NEXT_STEP[result?.questionType || "komplex"];
+
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>AI-sök – hitta rätt på d365.se</title>
-        <meta name="description" content="Beskriv ditt behov i naturligt språk så hjälper vår AI dig att hitta rätt sida, produkt eller partner inom Microsoft Dynamics 365." />
+        <title>Fråga d365.se – få svar om Dynamics 365</title>
+        <meta name="description" content="Ställ frågor om Dynamics 365-lösningar, kostnader, partnerval och implementering. Du får ett köparsidigt svar baserat på innehållet och partnerinformationen på d365.se." />
         <meta name="robots" content="noindex, follow" />
-        <link rel="canonical" href="https://d365.se/AI-sok/" />
+        <link rel="canonical" href="https://d365.se/fraga/" />
       </Helmet>
       <Navbar />
       <main className="container mx-auto px-4 pt-28 pb-12 max-w-3xl">
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-primary/10 text-primary text-sm font-medium mb-4">
-            <Sparkles className="h-4 w-4" /> AI-driven sökning
+            <Sparkles className="h-4 w-4" /> Fråga d365.se
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-3 text-foreground">Ställ frågan du egentligen vill ha svar på</h1>
-          <p className="text-muted-foreground">Beskriv ditt behov i fri text – så guidar AI-sökningen dig till rätt guide, behovsanalys, produktområde eller partnerfilter.</p>
+          <h1 className="text-3xl md:text-4xl font-bold mb-3 text-foreground">Få svar om Dynamics 365</h1>
+          <p className="text-muted-foreground">
+            Ställ frågor om lösningar, kostnader, partnerval och implementering. Du får ett köparsidigt svar
+            baserat på innehållet och partnerinformationen på d365.se.
+          </p>
         </div>
 
         <form
@@ -72,17 +120,17 @@ export default function SmartSearch() {
           className="flex gap-2 mb-6"
         >
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <MessageCircleQuestion className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="T.ex. Vi behöver hjälp med vår kundservice..."
+              placeholder="Exempel: Vilka Finance & Supply Chain-partners passar ett svenskt tillverkningsföretag?"
               className="pl-10 h-12"
               autoFocus
             />
           </div>
           <Button type="submit" disabled={loading} className="h-12 px-6">
-            {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Sök"}
+            {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Få svar"}
           </Button>
         </form>
 
@@ -94,7 +142,7 @@ export default function SmartSearch() {
                 <button
                   key={ex}
                   onClick={() => { setQuery(ex); runSearch(ex); }}
-                  className="text-sm px-3 py-1.5 rounded border border-border hover:bg-accent hover:border-primary/40 transition"
+                  className="text-sm px-3 py-1.5 rounded border border-border hover:bg-accent hover:border-primary/40 transition text-left"
                 >
                   {ex}
                 </button>
@@ -106,7 +154,7 @@ export default function SmartSearch() {
         {loading && (
           <Card className="p-8 text-center">
             <Loader2 className="h-6 w-6 animate-spin mx-auto mb-2 text-primary" />
-            <p className="text-sm text-muted-foreground">AI:n analyserar din fråga...</p>
+            <p className="text-sm text-muted-foreground">Vi tar fram ett svar...</p>
           </Card>
         )}
 
@@ -127,6 +175,38 @@ export default function SmartSearch() {
               {result.primary.reason && (
                 <p className="text-xs text-muted-foreground mt-2">{result.primary.reason}</p>
               )}
+              <p className="flex items-start gap-1.5 text-xs text-muted-foreground mt-4 pt-3 border-t border-border">
+                <Info className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+                AI-assisterat svar baserat på d365.se:s innehåll. Kontrollera alltid affärskritiska uppgifter inför beslut.
+              </p>
+            </Card>
+
+            {result.sources && result.sources.length > 0 && (
+              <Card className="p-5">
+                <p className="text-sm font-semibold text-foreground mb-3">Svaret bygger på</p>
+                <ul className="space-y-2">
+                  {result.sources.map((s) => (
+                    <li key={`${s.path}-${s.label}`} className="flex flex-wrap items-center gap-2 text-sm">
+                      <Link to={s.path} className="font-medium text-primary hover:underline">
+                        {s.label}
+                      </Link>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+                        {SOURCE_LABEL[s.type] || SOURCE_LABEL.redaktionellt}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            )}
+
+            <Card className="p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <p className="text-sm font-semibold text-foreground">{nextStep.title}</p>
+              <Button asChild>
+                <Link to={nextStep.to} className="inline-flex items-center gap-2">
+                  {nextStep.label}
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
             </Card>
 
             {result.alternatives?.length > 0 && (
@@ -149,7 +229,7 @@ export default function SmartSearch() {
           </div>
         )}
       </main>
-      <PartnerCtaBlock variant="tool" source="/AI-sok/" />
+      <PartnerCtaBlock variant="tool" source="/fraga/" />
       <Footer />
     </div>
   );
