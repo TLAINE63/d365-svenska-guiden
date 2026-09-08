@@ -1,121 +1,29 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeftRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
-
-// Persist across remounts so the prompt doesn't re-appear when navigating
-// (the bar unmounts on /jamfor-partners and remounts on the next page).
-let promptedPairKey = "";
-const DISMISSED_PROMPTS_STORAGE_KEY = "partner-compare-dismissed-prompts";
-const AUTO_PROMPT_DISMISSED_STORAGE_KEY = "partner-compare-auto-prompt-dismissed";
-
-const getPairKey = (items: { slug: string }[]) => items.map((s) => s.slug).sort().join("|");
-
-const readDismissedPromptKeys = () => {
-  if (typeof window === "undefined") return new Set<string>();
-  try {
-    const raw = sessionStorage.getItem(DISMISSED_PROMPTS_STORAGE_KEY);
-    const parsed = raw ? JSON.parse(raw) : [];
-    return new Set(Array.isArray(parsed) ? parsed.filter((key) => typeof key === "string") : []);
-  } catch {
-    return new Set<string>();
-  }
-};
-
-const isPromptDismissed = (key: string) => readDismissedPromptKeys().has(key);
-
-const isAutoPromptDismissed = () => {
-  if (typeof window === "undefined") return false;
-  try {
-    return sessionStorage.getItem(AUTO_PROMPT_DISMISSED_STORAGE_KEY) === "true";
-  } catch {
-    return false;
-  }
-};
-
-const dismissAutoPrompt = () => {
-  if (typeof window === "undefined") return;
-  try {
-    sessionStorage.setItem(AUTO_PROMPT_DISMISSED_STORAGE_KEY, "true");
-  } catch {}
-};
-
-const dismissPromptForPair = (key: string) => {
-  if (!key || typeof window === "undefined") return;
-  try {
-    const dismissed = readDismissedPromptKeys();
-    dismissed.add(key);
-    sessionStorage.setItem(DISMISSED_PROMPTS_STORAGE_KEY, JSON.stringify([...dismissed]));
-  } catch {}
-};
-
-const dismissPrompt = (key: string) => {
-  dismissAutoPrompt();
-  dismissPromptForPair(key);
-};
 
 const PartnerCompareBar = () => {
   const { selected, remove, clear, filterContext } = usePartnerCompare();
   const navigate = useNavigate();
   const location = useLocation();
-  const [askOpen, setAskOpen] = useState(false);
 
   const onComparePage = location.pathname.startsWith("/jamfor-partners");
-  const currentPairKey = useMemo(
-    () => (selected.length >= 2 ? getPairKey(selected) : ""),
-    [selected]
-  );
 
   // Auto-clear the selection once the user has visited the compare page,
   // so the floating bar & prompt don't keep reappearing on later navigation.
   useEffect(() => {
     if (onComparePage && selected.length > 0) {
-      setAskOpen(false);
       clear();
     }
   }, [onComparePage, selected.length, clear]);
-
-  // Auto-open the prompt when the user reaches 2–3 selections (only once per selection, per session)
-  useEffect(() => {
-    if (onComparePage) return;
-    if (currentPairKey) {
-      if (
-        promptedPairKey !== currentPairKey &&
-        !isAutoPromptDismissed() &&
-        !isPromptDismissed(currentPairKey)
-      ) {
-        promptedPairKey = currentPairKey;
-        setAskOpen(true);
-      }
-    } else if (selected.length === 0) {
-      promptedPairKey = "";
-    }
-  }, [currentPairKey, selected.length, onComparePage]);
-
-  const handleAskOpenChange = (open: boolean) => {
-    if (!open && askOpen && currentPairKey) {
-      dismissPrompt(currentPairKey);
-    }
-    setAskOpen(open);
-  };
 
   if (onComparePage) return null;
   if (selected.length === 0) return null;
 
   const goCompare = () => {
     if (selected.length < 2) return;
-    setAskOpen(false);
     const qs = new URLSearchParams();
     qs.set("a", selected[0].slug);
     qs.set("b", selected[1].slug);
@@ -128,14 +36,14 @@ const PartnerCompareBar = () => {
     navigate(`/jamfor-partners?${qs.toString()}`);
   };
 
+  const countLabel = `${selected.length} ${selected.length === 1 ? "partner vald" : "partner valda"}`;
+
   return (
-    <>
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[60] w-[calc(100%-1rem)] max-w-2xl">
-        <div className="rounded-xl border border-border bg-card/95 backdrop-blur shadow-2xl px-4 py-3 flex flex-wrap items-center gap-3">
+      <div className="fixed bottom-3 left-1/2 z-[60] w-[calc(100%-1rem)] max-w-3xl -translate-x-1/2 sm:bottom-5">
+        <div className="flex flex-wrap items-center gap-3 rounded border border-border bg-card/95 px-3 py-3 shadow-xl backdrop-blur sm:px-4">
           <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
             <ArrowLeftRight className="h-4 w-4 text-primary" />
-            Jämför partners
-            <span className="text-muted-foreground font-normal">({selected.length}/3)</span>
+            {countLabel}
           </div>
 
           <div className="flex flex-wrap items-center gap-2 flex-1 min-w-0">
@@ -170,37 +78,18 @@ const PartnerCompareBar = () => {
               size="sm"
               onClick={goCompare}
               disabled={selected.length < 2}
-              className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
+              className="font-semibold"
             >
-              Visa jämförelse
+              Jämför valda partner
             </Button>
           </div>
+          {selected.length === 1 && (
+            <p className="basis-full text-xs text-muted-foreground sm:pl-6">
+              Välj minst en partner till för att jämföra sida vid sida.
+            </p>
+          )}
         </div>
       </div>
-
-      <AlertDialog open={askOpen} onOpenChange={handleAskOpenChange}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Visa jämförelse sida vid sida?</AlertDialogTitle>
-            <AlertDialogDescription>
-              Du har valt {selected.length === 3 ? "tre" : "två"} partners att jämföra:
-              <span className="block mt-2 font-semibold text-foreground">
-                {selected.map((partner) => partner.name).join(" · ")}
-              </span>
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => dismissPrompt(currentPairKey)}>Inte nu</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={goCompare}
-              className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
-            >
-              Visa jämförelse
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </>
   );
 };
 

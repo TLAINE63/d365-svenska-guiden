@@ -7,6 +7,7 @@ import partnerDataJson from "@/data/partnerData.json";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
+import { Button } from "@/components/ui/button";
 
 
 type RawPartner = {
@@ -133,7 +134,11 @@ const partnerIndustries = (p: RawPartner) => {
   return [...set];
 };
 
-export default function HomeVerifiedPartnersGrid() {
+interface HomeVerifiedPartnersGridProps {
+  onStartNeedsAnalysis?: () => void;
+}
+
+export default function HomeVerifiedPartnersGrid({ onStartNeedsAnalysis }: HomeVerifiedPartnersGridProps) {
   const { selected, isSelected, toggle, clear, max } = usePartnerCompare();
   const [product, setProduct] = useState<ProductId>("all");
   const [industry, setIndustry] = useState<string>("");
@@ -207,10 +212,10 @@ export default function HomeVerifiedPartnersGrid() {
         <div className="flex items-end justify-between gap-6 mb-8 flex-wrap">
           <div>
             <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-foreground tracking-tight leading-tight max-w-3xl">
-              Sök fram rätt partnerverifierad profil för din bransch
+              Bygg din kortlista
             </h2>
             <p className="text-[15px] text-muted-foreground mt-2 max-w-2xl">
-              Partnerverifierade profiler med produktområden, branscherfarenhet och fördjupning – markera upp till {max} partners och jämför dem sida vid sida.
+              Markera upp till tre partners som verkar relevanta för er verksamhet. När du är klar kan du jämföra dem sida vid sida innan du bestämmer vilka du vill kontakta.
             </p>
           </div>
 
@@ -309,7 +314,7 @@ to="/valjdynamics365partner/#alla-partners-rubrik"
                   }`}
                 >
                   <ArrowLeftRight className="w-4 h-4" />
-                  Jämför sida vid sida
+                  Jämför valda partner
                 </Link>
               </div>
             </div>
@@ -454,12 +459,42 @@ to="/valjdynamics365partner/#alla-partners-rubrik"
                         }`}
                       >
                         {active ? <Check className="w-3.5 h-3.5" /> : <ArrowLeftRight className="w-3.5 h-3.5" />}
-                        {active ? "Vald" : "Jämför"}
+                        {active ? "Vald för jämförelse" : "Lägg till i jämförelse"}
                       </button>
                     </li>
                   );
                 })}
               </ul>
+            )}
+          </div>
+        </div>
+
+        <div className="mt-10 border-t border-border pt-8 sm:flex sm:items-center sm:justify-between sm:gap-8">
+          <div className="max-w-2xl">
+            <h3 className="text-xl font-bold text-foreground sm:text-2xl">Redo att gå vidare?</h3>
+            <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">
+              Jämför de partners du valt sida vid sida och skapa en kortlista innan du tar kontakt.
+            </p>
+          </div>
+          <div className="mt-5 flex flex-col gap-2 sm:mt-0 sm:min-w-[230px]">
+            <Button asChild={selected.length >= 2} disabled={selected.length < 2} className="font-semibold">
+              {selected.length >= 2 ? (
+                <Link to={compareHref}>
+                  <ArrowLeftRight className="mr-2 h-4 w-4" />
+                  Jämför valda partner
+                </Link>
+              ) : (
+                <span>
+                  <ArrowLeftRight className="mr-2 h-4 w-4" />
+                  Jämför valda partner
+                </span>
+              )}
+            </Button>
+            <Button type="button" variant="outline" onClick={onStartNeedsAnalysis}>
+              Starta behovsanalys
+            </Button>
+            {selected.length === 1 && (
+              <p className="text-center text-xs text-muted-foreground">Välj minst en partner till för att jämföra.</p>
             )}
           </div>
         </div>
