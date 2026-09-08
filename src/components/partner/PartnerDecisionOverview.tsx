@@ -258,7 +258,9 @@ const PartnerDecisionOverview = ({ partner }: { partner: DatabasePartner }) => {
   const projects = projectTypes(partner);
   const notFit = uniq(partner.not_a_fit || []);
   const bestFit = uniq(partner.best_fit_for || []);
-  const differentiators = buildDifferentiators(partner);
+  const partnerStated = uniq(((partner as any).key_differentiators || []) as string[]).slice(0, 5);
+  const derivedDifferentiators = buildDifferentiators(partner).filter((d) => !partnerStated.includes(d));
+  const differentiators = derivedDifferentiators;
 
   const sizeLabel = sizeSegmentLabel(sizes);
   const sizeRange = formatSizeRange(sizes);
