@@ -365,7 +365,11 @@ const PartnerDecisionOverview = ({ partner }: { partner: DatabasePartner }) => {
                 <OverviewItem label="Typiska uppdrag" items={projects} />
                 <OverviewItem
                   label="Projektstorlek"
-                  items={products.length > 0 && sizeLabel ? [`${sizeLabel} inom ${products[0]}`] : []}
+                  items={
+                    products.length > 0 && sizeRange
+                      ? [`Projekt inom ${products[0]} hos företag med ${sizeRange}`]
+                      : []
+                  }
                 />
               </div>
               {(typicalCustomers || typicalProjects) && (
