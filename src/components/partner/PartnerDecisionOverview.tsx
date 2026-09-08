@@ -306,12 +306,35 @@ const PartnerDecisionOverview = ({ partner }: { partner: DatabasePartner }) => {
                 Snabböversikt
               </h2>
               <div className="grid gap-x-8 gap-y-5 sm:grid-cols-2">
-                <OverviewItem label="Passar bäst för" items={[sizeLabel, sizeRange].filter(Boolean) as string[]} />
+                <OverviewItem
+                  label="Passar bäst för"
+                  items={uniq([sizeLabel, sizeRange])}
+                />
                 <OverviewItem label="Primärt fokus" items={products.slice(0, 3)} />
                 <OverviewItem label="Starkaste branscher" items={industries.slice(0, 3)} />
                 <OverviewItem label="Geografi" items={geoLabel ? [geoLabel] : []} />
                 <OverviewItem label="Typiska projekt" items={projects} />
-                <OverviewItem label="Mindre lämplig för" items={notFit.slice(0, 2)} />
+                {notFit.length > 0 && (
+                  <div className="min-w-0">
+                    <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                      Mindre lämplig för
+                    </h3>
+                    <ul className="space-y-1.5">
+                      {notFit.slice(0, 2).map((item, i) => (
+                        <li
+                          key={i}
+                          className="flex items-start gap-2 text-sm leading-relaxed text-foreground"
+                        >
+                          <Minus
+                            className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground"
+                            aria-hidden="true"
+                          />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
           )}
