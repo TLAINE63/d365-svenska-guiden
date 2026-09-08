@@ -702,6 +702,8 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   </section>
  )}
 
+ <PartnerDecisionOverview partner={partner as any} />
+
  <PartnerAiInsights partner={partner as any} />
 
  <section className="py-6">
