@@ -114,6 +114,7 @@ const SCHEMA = {
   properties: {
     description: nullableString,
     positioning_statement: nullableString,
+    key_differentiators: { type: ["array", "null"], items: { type: "string" } },
     products: {
       type: "array",
       items: {
