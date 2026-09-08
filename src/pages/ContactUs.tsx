@@ -237,8 +237,8 @@ const ContactUs = () => {
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-foreground mb-1">Kostnadsfri rådgivning</h4>
-                      <p className="text-sm text-muted-foreground">Boka ett kostnadsfritt samtal med en senior rådgivare som hjälper dig förstå vilken lösning och Microsoftpartner som borde passa din verksamhet</p>
+                      <h4 className="font-semibold text-foreground mb-1">Kostnadsfri köparrådgivning</h4>
+                      <p className="text-sm text-muted-foreground">30 minuter med en rådgivare på köparens sida. Ingen partner deltar, ingen försäljning – fokus på dina behov och alternativ.</p>
                     </div>
                   </div>
 
@@ -287,7 +287,7 @@ const ContactUs = () => {
                   size="lg"
                   className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white h-14 sm:h-16 rounded"
                 >
-                  Boka in en kostnadsfri rådgivning
+                  Boka kostnadsfri rådgivning
                 </Button>
               </ContactFormDialog>
             </div>
