@@ -19,6 +19,7 @@ export interface PartnerNewsItem {
   industry: string | null;
   image_url: string | null;
   news_date: string;
+  event_date: string | null;
   is_featured: boolean;
   show_on_home: boolean;
   show_on_partner_profile: boolean;

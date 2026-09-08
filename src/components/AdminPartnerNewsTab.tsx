@@ -66,6 +66,7 @@ type FormState = {
   industry: string;
   image_url: string;
   news_date: string;
+  event_date: string;
   is_featured: boolean;
   show_on_home: boolean;
   show_on_partner_profile: boolean;
@@ -86,6 +87,7 @@ const emptyForm = (partnerId: string): FormState => ({
   industry: "",
   image_url: "",
   news_date: new Date().toISOString().slice(0, 10),
+  event_date: "",
   is_featured: true,
   show_on_home: true,
   show_on_partner_profile: true,
@@ -310,6 +312,7 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
       industry: item.industry ?? "",
       image_url: item.image_url ?? "",
       news_date: item.news_date,
+      event_date: item.event_date ?? "",
       is_featured: item.is_featured,
       show_on_home: item.show_on_home,
       show_on_partner_profile: item.show_on_partner_profile,
@@ -332,6 +335,7 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
         status: statusOverride ?? form.status,
         industry: form.industry.trim() || undefined,
         image_url: form.image_url.trim() || undefined,
+        event_date: form.event_date || undefined,
       };
       await invoke(form.id ? "update" : "create", { news: payload });
       toast({ title: form.id ? "Uppdaterad" : "Skapad" });
@@ -687,9 +691,16 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
               </Select>
             </div>
             <div>
-              <Label>Datum</Label>
+              <Label>Publiceringsdatum</Label>
               <Input type="date" value={form.news_date} onChange={(e) => setForm({ ...form, news_date: e.target.value })} />
             </div>
+            {(form.news_type === "event" || form.news_type === "webinar") && (
+              <div>
+                <Label>Datum för event/webinar</Label>
+                <Input type="date" value={form.event_date} onChange={(e) => setForm({ ...form, event_date: e.target.value })} />
+                <p className="text-xs text-muted-foreground mt-1">Detta datum används i eventkalendern. Lämnas det tomt används publiceringsdatumet.</p>
+              </div>
+            )}
 
             <div className="sm:col-span-2">
               <Label>Redaktionell rubrik</Label>
