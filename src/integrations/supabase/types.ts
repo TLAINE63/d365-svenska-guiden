@@ -2015,6 +2015,7 @@ export type Database = {
           industry_apps: Json | null
           invitation_id: string
           key_differentiators: string[]
+          key_differentiators_source: string
           logo_url: string | null
           name: string
           not_a_fit: string[] | null
@@ -2050,6 +2051,7 @@ export type Database = {
           industry_apps?: Json | null
           invitation_id: string
           key_differentiators?: string[]
+          key_differentiators_source?: string
           logo_url?: string | null
           name: string
           not_a_fit?: string[] | null
@@ -2085,6 +2087,7 @@ export type Database = {
           industry_apps?: Json | null
           invitation_id?: string
           key_differentiators?: string[]
+          key_differentiators_source?: string
           logo_url?: string | null
           name?: string
           not_a_fit?: string[] | null
@@ -2178,6 +2181,7 @@ export type Database = {
           invoice_email: string | null
           is_featured: boolean | null
           key_differentiators: string[]
+          key_differentiators_source: string
           legal_name: string | null
           logo_dark_bg: boolean
           logo_url: string | null
@@ -2261,6 +2265,7 @@ export type Database = {
           invoice_email?: string | null
           is_featured?: boolean | null
           key_differentiators?: string[]
+          key_differentiators_source?: string
           legal_name?: string | null
           logo_dark_bg?: boolean
           logo_url?: string | null
@@ -2344,6 +2349,7 @@ export type Database = {
           invoice_email?: string | null
           is_featured?: boolean | null
           key_differentiators?: string[]
+          key_differentiators_source?: string
           legal_name?: string | null
           logo_dark_bg?: boolean
           logo_url?: string | null
@@ -3228,6 +3234,7 @@ export type Database = {
           industry_pitches: Json | null
           is_featured: boolean | null
           key_differentiators: string[] | null
+          key_differentiators_source: string | null
           logo_dark_bg: boolean | null
           logo_url: string | null
           map_url: string | null
@@ -3276,6 +3283,7 @@ export type Database = {
           industry_pitches?: Json | null
           is_featured?: boolean | null
           key_differentiators?: string[] | null
+          key_differentiators_source?: string | null
           logo_dark_bg?: boolean | null
           logo_url?: string | null
           map_url?: string | null
@@ -3324,6 +3332,7 @@ export type Database = {
           industry_pitches?: Json | null
           is_featured?: boolean | null
           key_differentiators?: string[] | null
+          key_differentiators_source?: string | null
           logo_dark_bg?: boolean | null
           logo_url?: string | null
           map_url?: string | null

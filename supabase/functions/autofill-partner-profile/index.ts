@@ -86,6 +86,7 @@ Regler:
 type Suggestion = {
   description: string | null;
   positioning_statement: string | null;
+  key_differentiators: string[] | null;
   products: Array<{
     key: string;
     productDescription: string | null;
@@ -113,6 +114,7 @@ const SCHEMA = {
   properties: {
     description: nullableString,
     positioning_statement: nullableString,
+    key_differentiators: { type: ["array", "null"], items: { type: "string" } },
     products: {
       type: "array",
       items: {
@@ -148,7 +150,7 @@ const SCHEMA = {
       required: ["power_platform", "copilot_ai", "copilot_studio_agents"],
     },
   },
-  required: ["description", "positioning_statement", "products", "competency_input"],
+  required: ["description", "positioning_statement", "key_differentiators", "products", "competency_input"],
 };
 
 async function callAI(prompt: string, apiKey: string): Promise<Suggestion> {
@@ -217,6 +219,7 @@ interface PartnerLike {
   website?: string | null;
   description?: string | null;
   positioning_statement?: string | null;
+  key_differentiators?: string[] | null;
   applications?: string[] | null;
   industries?: string[] | null;
   secondary_industries?: string[] | null;
@@ -243,6 +246,10 @@ function buildPrompt(p: PartnerLike): { prompt: string; missing: string[] } | nu
   if (isEmpty(p.positioning_statement)) {
     missing.push("positioning_statement");
     asks.push('- "positioning_statement": en mening som inleds med "Passar särskilt företag som …".');
+  }
+  if (!Array.isArray(p.key_differentiators) || p.key_differentiators.filter((x) => str(x)).length === 0) {
+    missing.push("key_differentiators");
+    asks.push('- "key_differentiators": 3–5 korta punkter (max 120 tecken vardera) om varför företag väljer partnern. Konkreta och verifierbara utifrån underlaget: applikationer, branscher, kontorsorter, arbetssätt, förvaltning. Inga superlativ, inga påhittade siffror eller kundnamn.');
   }
 
   const pf = (p.product_filters || {}) as Record<string, any>;
@@ -328,6 +335,12 @@ function applySuggestion(p: PartnerLike, s: Suggestion) {
     filledCount++;
   }
 
+  const existingKd = Array.isArray(p.key_differentiators) ? p.key_differentiators.filter((x) => str(x)) : [];
+  if (existingKd.length === 0 && Array.isArray(s.key_differentiators)) {
+    const kd = s.key_differentiators.map((x) => str(x)).filter(Boolean).slice(0, 5);
+    if (kd.length) { patch.key_differentiators = kd; patch.key_differentiators_source = "d365"; filledCount++; }
+  }
+
   const pf = JSON.parse(JSON.stringify(p.product_filters || {})) as Record<string, any>;
   let pfChanged = false;
   for (const sp of s.products || []) {
@@ -401,6 +414,7 @@ serve(async (req: Request): Promise<Response> => {
         website: d.website || base.website,
         description: d.description,
         positioning_statement: d.positioning_statement,
+        key_differentiators: d.key_differentiators,
         applications: d.applications?.length ? d.applications : base.applications,
         industries: d.industries?.length ? d.industries : base.industries,
         product_filters: d.product_filters || {},
@@ -419,7 +433,7 @@ serve(async (req: Request): Promise<Response> => {
     if (!v.valid) return json({ error: "Ogiltig session" }, 401);
 
     const columns =
-      "id, name, website, description, positioning_statement, applications, industries, secondary_industries, office_cities, team_size_sweden, implementations_done, implementations_per_app, extended_content, extended_summary, ai_summary, product_filters, extended_competency_input";
+      "id, name, website, description, positioning_statement, key_differentiators, applications, industries, secondary_industries, office_cities, team_size_sweden, implementations_done, implementations_per_app, extended_content, extended_summary, ai_summary, product_filters, extended_competency_input";
     let query = supabase.from("partners").select(columns);
     query = partnerId && !all ? query.eq("id", partnerId) : query.eq("is_featured", true);
     const { data: partners, error } = await query;

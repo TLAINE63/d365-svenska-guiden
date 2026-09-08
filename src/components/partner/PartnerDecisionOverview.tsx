@@ -295,6 +295,10 @@ const PartnerDecisionOverview = ({ partner }: { partner: DatabasePartner }) => {
   const notFit = uniq(partner.not_a_fit || []);
   const bestFit = uniq(partner.best_fit_for || []);
   const partnerStated = uniq(((partner as any).key_differentiators || []) as string[]).slice(0, 5);
+  const statedByPartner = ((partner as any).key_differentiators_source ?? "partner") === "partner";
+  const statedHeading = statedByPartner
+    ? "Enligt partnern"
+    : "Sammanställt av d365.se ur partnerns profildata";
   const derivedDifferentiators = buildDifferentiators(partner).filter((d) => !partnerStated.includes(d));
   const differentiators = derivedDifferentiators;
 
@@ -389,7 +393,7 @@ const PartnerDecisionOverview = ({ partner }: { partner: DatabasePartner }) => {
               {partnerStated.length > 0 && (
                 <div className="mb-4">
                   <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                    Enligt partnern
+                    {statedHeading}
                   </h3>
                   <CheckList items={partnerStated} />
                 </div>

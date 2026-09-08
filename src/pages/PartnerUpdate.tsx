@@ -285,6 +285,10 @@ const PartnerUpdate = () => {
             ),
             product_filters: productFilters,
             extended_competency_input: competencyInput,
+            key_differentiators: keyDifferentiatorsInput
+              .split("\n")
+              .map((s) => s.trim())
+              .filter(Boolean),
           },
         },
       });
@@ -303,6 +307,9 @@ const PartnerUpdate = () => {
       }
       if (patch.extended_competency_input && typeof patch.extended_competency_input === "object") {
         setCompetencyInput(patch.extended_competency_input);
+      }
+      if (Array.isArray(patch.key_differentiators) && patch.key_differentiators.length) {
+        setKeyDifferentiatorsInput(patch.key_differentiators.join("\n"));
       }
 
       const filled = (data as any)?.filledCount ?? 0;
@@ -1078,6 +1085,7 @@ const PartnerUpdate = () => {
  ),
    not_a_fit: notAFitInput.split("\n").map(s => s.trim()).filter(Boolean),
    key_differentiators: keyDifferentiatorsInput.split("\n").map(s => s.trim()).filter(Boolean).slice(0, 5),
+   key_differentiators_source: "partner",
   ai_profile: aiProfile,
   extended_competency_input: Object.fromEntries(
     COMPETENCY_AREAS.map((a) => [a.key, (competencyInput[a.key] || "").trim().slice(0, 800)]).filter(([, v]) => v)
