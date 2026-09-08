@@ -2424,8 +2424,8 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     combos: [],
     partnersSE: [],
     products: ["Business Central"],
-    sourceUrl: "https://www.programekonomi.se/",
-    vendorWebsite: "https://www.programekonomi.se/",
+    sourceUrl: "https://www.aritma.com/se",
+    vendorWebsite: "https://www.aritma.com/se",
     verifiedAt: "2026-09-07",
   },
   {
