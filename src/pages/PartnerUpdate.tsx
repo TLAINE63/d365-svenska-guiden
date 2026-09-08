@@ -261,6 +261,7 @@ const PartnerUpdate = () => {
   const [implementationsPerApp, setImplementationsPerApp] = useState<Record<string, string>>({});
   const [teamSizePerApp, setTeamSizePerApp] = useState<Record<string, string>>({});
   const [notAFitInput, setNotAFitInput] = useState("");
+  const [keyDifferentiatorsInput, setKeyDifferentiatorsInput] = useState("");
   const [aiProfile, setAiProfile] = useState<import("@/lib/aiProfile").AiProfile>({});
   const [competencyLevels, setCompetencyLevels] = useState<ExtendedCompetencies>({});
   const [competencyInput, setCompetencyInput] = useState<Record<string, string>>({});
@@ -564,6 +565,7 @@ const PartnerUpdate = () => {
     setTeamSizePerApp(ed.team_size_per_app as Record<string, string>);
   }
   if (Array.isArray(ed.not_a_fit)) setNotAFitInput(ed.not_a_fit.join("\n"));
+  if (Array.isArray((ed as any).key_differentiators)) setKeyDifferentiatorsInput(((ed as any).key_differentiators as string[]).join("\n"));
   if (ed.ai_profile && typeof ed.ai_profile === "object") setAiProfile(ed.ai_profile);
   setCompetencyLevels(normalizeCompetencies(ed.extended_competencies));
   if (ed.extended_competency_input && typeof ed.extended_competency_input === "object") {
@@ -1074,7 +1076,8 @@ const PartnerUpdate = () => {
  team_size_per_app: Object.fromEntries(
    Object.entries(teamSizePerApp).filter(([app, v]) => applications.includes(app) && (v || "").trim())
  ),
-  not_a_fit: notAFitInput.split("\n").map(s => s.trim()).filter(Boolean),
+   not_a_fit: notAFitInput.split("\n").map(s => s.trim()).filter(Boolean),
+   key_differentiators: keyDifferentiatorsInput.split("\n").map(s => s.trim()).filter(Boolean).slice(0, 5),
   ai_profile: aiProfile,
   extended_competency_input: Object.fromEntries(
     COMPETENCY_AREAS.map((a) => [a.key, (competencyInput[a.key] || "").trim().slice(0, 800)]).filter(([, v]) => v)
@@ -3041,6 +3044,26 @@ const PartnerUpdate = () => {
        </div>
      );
    })()}
+
+    <div className="border-t border-border pt-4">
+      <Label htmlFor="key_differentiators">
+        Varför företag väljer er (en punkt per rad, max 5)
+      </Label>
+      <p className="text-xs text-muted-foreground mb-2">
+        Konkreta och särskiljande punkter – ingen marknadsföringstext. Dessa visas högst upp på er profil
+        och märks tydligt som information från er.
+      </p>
+      <Textarea
+        id="key_differentiators"
+        rows={5}
+        placeholder={"Business Central-specialist sedan 2001\nPaketerade fastprismodeller för snabb start\nStark kompetens inom grossist och uthyrning\nLokal svensk närvaro med flera kontor"}
+        value={keyDifferentiatorsInput}
+        onChange={(e) => setKeyDifferentiatorsInput(e.target.value)}
+      />
+      <p className="text-[11px] text-muted-foreground mt-1.5">
+        Texten AI-genereras aldrig – den kommer bara från er.
+      </p>
+    </div>
 
 
     <div className="border-t border-border pt-4">
