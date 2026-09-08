@@ -158,7 +158,8 @@ const Index = () => {
       navigate(`/branscher/${heroIndustry}/`);
       return;
     }
-    navigate("/valjdynamics365partner/");
+    // Inget val → direkt till hela partnerlistan (inget mellanled).
+    navigate("/alla-d365-partners/");
   };
 
 
@@ -294,7 +295,7 @@ const Index = () => {
 
               <div className="border-t border-white/10 pt-7 mb-8">
                 <h2 className="text-[22px] sm:text-[28px] font-semibold text-white leading-tight mb-2">
-                  Välj rätt Dynamics 365-partner
+                  Matcha er med rätt partner
                 </h2>
                 <p className="text-[13.5px] text-white/60 mb-4">
                   Valen är frivilliga – du kan gå vidare direkt.
@@ -337,7 +338,7 @@ const Index = () => {
                     size="lg"
                     className="w-full sm:w-auto bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white text-base h-12 px-6 rounded font-bold hover:-translate-y-0.5 transition-all"
                   >
-                    Hitta rätt partner
+                    Visa matchande partners
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                   <ul className="grid gap-2 pt-4 sm:grid-cols-3" aria-label="Fakta om d365.se">
