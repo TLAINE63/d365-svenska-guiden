@@ -561,7 +561,7 @@ const Index = () => {
                   type="submit"
                   className="inline-flex items-center justify-center gap-2 bg-foreground hover:bg-foreground/90 text-background font-semibold text-[14px] px-5 py-3 rounded transition-colors"
                 >
-                  Sök med AI
+                  Få svar
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
