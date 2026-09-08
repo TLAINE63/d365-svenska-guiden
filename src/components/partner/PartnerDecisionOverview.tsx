@@ -393,7 +393,7 @@ const PartnerDecisionOverview = ({ partner }: { partner: DatabasePartner }) => {
               {partnerStated.length > 0 && (
                 <div className="mb-4">
                   <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                    Enligt partnern
+                    {statedHeading}
                   </h3>
                   <CheckList items={partnerStated} />
                 </div>
