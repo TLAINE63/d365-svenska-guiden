@@ -128,6 +128,8 @@ export interface DatabasePartner {
   /** Lokal teamstorlek i Sverige per Dynamics 365-applikation. */
   team_size_per_app?: Record<string, string> | null;
   not_a_fit?: string[] | null;
+  /** Partnerns egna särskiljande punkter ("Varför företag väljer oss"). */
+  key_differentiators?: string[] | null;
   /** Fördjupad AI-sammanfattning (flera stycken, radbrytningsseparerade). */
   ai_summary_full?: string | null;
   /** Punktlista: vilka kunder partnern passar bäst för. */
