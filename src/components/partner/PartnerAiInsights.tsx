@@ -97,13 +97,11 @@ function buildMatchFacts(partner: DatabasePartner): string[] {
 const PartnerAiInsights = ({ partner }: Props) => {
   const shortText = shortenToSentences(toParagraphs(partner.ai_summary));
   const full = toParagraphs(partner.ai_summary_full);
-  const bestFit = (partner.best_fit_for || []).filter((s) => s && s.trim());
-  const notFit = (partner.not_a_fit || []).filter((s) => s && s.trim());
   const matchFacts = buildMatchFacts(partner);
 
-  if (!shortText && full.length === 0 && bestFit.length === 0 && notFit.length === 0) return null;
+  if (!shortText && full.length === 0) return null;
 
-  const hasDeepDive = full.length > 0 || bestFit.length > 0 || notFit.length > 0;
+  const hasDeepDive = full.length > 0;
 
   return (
     <section className="py-8 sm:py-10 bg-muted/40 border-y border-border">
