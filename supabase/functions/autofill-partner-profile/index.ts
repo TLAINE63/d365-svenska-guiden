@@ -414,6 +414,7 @@ serve(async (req: Request): Promise<Response> => {
         website: d.website || base.website,
         description: d.description,
         positioning_statement: d.positioning_statement,
+        key_differentiators: d.key_differentiators,
         applications: d.applications?.length ? d.applications : base.applications,
         industries: d.industries?.length ? d.industries : base.industries,
         product_filters: d.product_filters || {},
@@ -432,7 +433,7 @@ serve(async (req: Request): Promise<Response> => {
     if (!v.valid) return json({ error: "Ogiltig session" }, 401);
 
     const columns =
-      "id, name, website, description, positioning_statement, applications, industries, secondary_industries, office_cities, team_size_sweden, implementations_done, implementations_per_app, extended_content, extended_summary, ai_summary, product_filters, extended_competency_input";
+      "id, name, website, description, positioning_statement, key_differentiators, applications, industries, secondary_industries, office_cities, team_size_sweden, implementations_done, implementations_per_app, extended_content, extended_summary, ai_summary, product_filters, extended_competency_input";
     let query = supabase.from("partners").select(columns);
     query = partnerId && !all ? query.eq("id", partnerId) : query.eq("is_featured", true);
     const { data: partners, error } = await query;
