@@ -414,8 +414,6 @@ const Index = () => {
         </section>
 
 
-        {/* Transparency strip – svar på "säljer du något?" */}
-        <TrustBanner variant="compact" />
 
         {/* SECTION 3 – WHERE ARE YOU */}
         <section className="section-divider py-14 sm:py-20 bg-secondary/40 border-b border-border">
@@ -500,6 +498,9 @@ const Index = () => {
             ))}
           </div>
         </section>
+
+        {/* Transparency strip – svar på "säljer du något?" */}
+        <TrustBanner variant="compact" />
 
         {/* SECTION 4 – TOOLS */}
         <section className="section-divider py-14 sm:py-20 bg-secondary/40 border-b border-border">
