@@ -108,7 +108,19 @@ VIKTIGA REGLER OM ISV-/TILLÄGGSLÖSNINGAR:
 - Om frågan handlar om tillägg, appar, add-ons, ISV, integrationer eller funktionalitet som saknas i standard – använd listan ISV-LÖSNINGAR nedan och nämn relevanta lösningar vid namn i "answer".
 - Om EN specifik lösning i listan tydligt matchar frågan: sätt primary.path till ${ISV_CATALOG_PATH}?losning=<id> där <id> är lösningens id exakt som det står i listan (fältet id:). Då öppnas lösningen direkt i katalogen.
 - Om ingen enskild lösning matchar: sätt primary.path till ${ISV_CATALOG_PATH}.
-- Hitta ALDRIG på ISV-lösningar som inte finns i listan.` + PROMPT_CONFIDENTIALITY_SV;
+- Hitta ALDRIG på ISV-lösningar som inte finns i listan.
+
+KÄLLPRIORITERING (viktigt):
+- Prioritera i denna ordning: 1) redaktionellt granskade guider, produktsidor och frågor/svar, 2) strukturerad partnerdata (produkter, branscher, storlek, geografi, kompetens), 3) partnerverifierade profiler, 4) d365.se:s AI-assisterade partnerbedömningar (märk dem alltid som bedömning), 5) artiklar, partnernytt, events och videor när aktualitet är relevant.
+- Nedprioritera eller ignorera: sidhuvud/menyer/sidfot, integritetspolicy och upprepade standardtexter, duplicerat innehåll, äldre nyheter när frågan gäller aktuell funktionalitet.
+- Återge ALDRIG partnerns egna påståenden som oberoende fakta. Skriv "enligt partnern" när uppgiften kommer från partnern själv.
+
+KÄLLREDOVISNING:
+- Fyll alltid fältet "sources" med de sidor svaret bygger på (max 4).
+- Varje källa har "type": "redaktionellt" (d365.se:s redaktionella innehåll), "bedomning" (d365.se:s AI-assisterade bedömning), "partner" (uppgift som partnern själv lämnat) eller "publikt" (publikt identifierad information).
+
+FRÅGETYP:
+- Sätt "questionType" till en av: "partner", "produkt", "pris", "komplex" – beroende på vad frågan i huvudsak handlar om.` + PROMPT_CONFIDENTIALITY_SV;
 
 
     const safeQuery = query.replace(/[`\u0000-\u001f]/g, ' ').trim();
@@ -128,7 +140,9 @@ Returnera JSON:
   "alternatives": [
     { "path": "/...", "label": "..." }
   ],
-  "answer": "Kort, hjälpsam svensk text (2-3 meningar) som direkt besvarar frågan eller förklarar vart användaren bör gå."
+  "answer": "Kort, hjälpsam svensk text (2-4 meningar) som direkt besvarar frågan.",
+  "sources": [ { "path": "/...", "label": "...", "type": "redaktionellt|bedomning|partner|publikt" } ],
+  "questionType": "partner|produkt|pris|komplex"
 }`;
 
     const aiRes = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
@@ -198,6 +212,26 @@ Returnera JSON:
         })
         .filter(Boolean);
     }
+
+    if (Array.isArray(parsed.sources)) {
+      const allowedTypes = new Set(['redaktionellt', 'bedomning', 'partner', 'publikt']);
+      parsed.sources = parsed.sources
+        .map((sMeta: any) => {
+          const f = fixPath(sMeta?.path, sMeta?.label);
+          if (!f) return null;
+          return {
+            path: f,
+            label: sMeta.label || f,
+            type: allowedTypes.has(sMeta?.type) ? sMeta.type : 'redaktionellt',
+          };
+        })
+        .filter(Boolean)
+        .slice(0, 4);
+    } else {
+      parsed.sources = [];
+    }
+    const allowedQ = new Set(['partner', 'produkt', 'pris', 'komplex']);
+    if (!allowedQ.has(parsed.questionType)) parsed.questionType = 'komplex';
 
     return new Response(JSON.stringify(parsed), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
