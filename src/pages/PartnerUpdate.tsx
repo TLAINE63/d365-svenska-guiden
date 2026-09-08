@@ -285,6 +285,10 @@ const PartnerUpdate = () => {
             ),
             product_filters: productFilters,
             extended_competency_input: competencyInput,
+            key_differentiators: keyDifferentiatorsInput
+              .split("\n")
+              .map((s) => s.trim())
+              .filter(Boolean),
           },
         },
       });
