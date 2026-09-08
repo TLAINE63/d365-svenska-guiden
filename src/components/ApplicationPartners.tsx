@@ -159,7 +159,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  }
 
  return (
- <section id="partners" className="py-8 sm:py-12 md:py-16 bg-secondary/50">
+ <section id="partners" className="scroll-mt-24 py-8 sm:py-12 md:py-16 bg-secondary/50">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="text-center mb-8 sm:mb-10 md:mb-12">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
