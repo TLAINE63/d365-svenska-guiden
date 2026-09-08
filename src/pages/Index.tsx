@@ -408,7 +408,7 @@ const Index = () => {
               ))}
             </ol>
             <p className="mt-6 text-[14px] text-muted-foreground">
-              Ingen partner ser dina uppgifter innan du själv väljer att ta kontakt.
+              Inga partner får tillgång till dina uppgifter innan du själv väljer att ta kontakt.
             </p>
           </div>
         </section>
@@ -481,26 +481,6 @@ const Index = () => {
         <Suspense fallback={<div className="py-16" />}>
           <HomeVerifiedPartnersGrid onStartNeedsAnalysis={() => setDirectionPicker("behovsanalys")} />
         </Suspense>
-
-        {/* Översiktsstatistik – inför verktygen */}
-        <section className="border-b border-border bg-secondary/40 py-7 sm:py-9">
-          <div className="container mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-5 px-4 sm:px-6 md:grid-cols-4">
-            {[
-              { n: `${identifiedPartnerCount}`, t: "Kartlagda Dynamics 365-partners", path: "/alla-d365-partners/" },
-              { n: `${KNOWLEDGE_CONTENT_COUNT}`, t: "Guider, artiklar och branschinsikter", path: "/kunskapscenter/" },
-              { n: `${HERO_INDUSTRIES.length}`, t: "Branscher", path: "/branscher/" },
-              { n: `${FREE_TOOL_COUNT}`, t: "Kostnadsfria beslutsverktyg", path: "/kunskapscenter/" },
-            ].map((s) => (
-              <Link key={s.t} to={s.path} className="border-l-2 border-accent pl-4 transition-colors hover:border-[hsl(var(--cta-orange))]">
-                <div className="text-xl font-bold text-foreground">{s.n}</div>
-                <div className="text-xs leading-snug text-muted-foreground">{s.t}</div>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        {/* Transparency strip – svar på "säljer du något?" */}
-        <TrustBanner variant="compact" />
 
         {/* SECTION 4 – TOOLS */}
         <section className="section-divider py-14 sm:py-20 bg-secondary/40 border-b border-border">
