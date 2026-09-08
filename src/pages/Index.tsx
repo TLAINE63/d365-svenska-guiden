@@ -413,22 +413,6 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Översiktsstatistik – efter processen */}
-        <section className="border-b border-border bg-secondary/40 py-7 sm:py-9">
-          <div className="container mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-5 px-4 sm:px-6 md:grid-cols-4">
-            {[
-              { n: `${identifiedPartnerCount}`, t: "Kartlagda Dynamics 365-partners", path: "/alla-d365-partners/" },
-              { n: `${KNOWLEDGE_CONTENT_COUNT}`, t: "Guider, artiklar och branschinsikter", path: "/kunskapscenter/" },
-              { n: `${HERO_INDUSTRIES.length}`, t: "Branscher", path: "/branscher/" },
-              { n: `${FREE_TOOL_COUNT}`, t: "Kostnadsfria beslutsverktyg", path: "/kunskapscenter/" },
-            ].map((s) => (
-              <Link key={s.t} to={s.path} className="border-l-2 border-accent pl-4 transition-colors hover:border-[hsl(var(--cta-orange))]">
-                <div className="text-xl font-bold text-foreground">{s.n}</div>
-                <div className="text-xs leading-snug text-muted-foreground">{s.t}</div>
-              </Link>
-            ))}
-          </div>
-        </section>
 
         {/* Transparency strip – svar på "säljer du något?" */}
         <TrustBanner variant="compact" />
