@@ -466,7 +466,21 @@ const IndustryComparisonWidget = () => {
 
           {/* Summary */}
           <div className="bg-gradient-to-br from-secondary/60 to-secondary/30 border-2 border-border rounded p-5">
-            <div className="text-sm font-bold text-card-foreground mb-1.5">{entry.h}</div>
+            <div className="text-sm font-bold text-card-foreground mb-1.5">
+              {entry.rec === fit.rec
+                ? entry.h
+                : fit.rec === "bc"
+                  ? "Business Central – dina svar pekar mot det enklare alternativet"
+                  : fit.rec === "fscm"
+                    ? "Finance & Supply Chain Management – dina svar pekar mot den mer avancerade plattformen"
+                    : "Utvärdera båda – dina svar ger ingen tydlig vinnare"}
+            </div>
+            {entry.rec !== fit.rec && (
+              <div className="text-xs text-muted-foreground leading-relaxed mb-2">
+                Dina svar om volym, regelkrav, integrationer och tidplan väger tyngre än enbart storlek
+                och geografi. Bakgrunden för din bransch och storlek ser ut så här:
+              </div>
+            )}
             <div className="text-xs text-muted-foreground leading-relaxed">{entry.s}</div>
             <div className="flex flex-wrap gap-1.5 mt-4">
               {entry.pills.map(p => (
