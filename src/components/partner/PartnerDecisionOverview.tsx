@@ -165,21 +165,36 @@ function buildDifferentiators(partner: DatabasePartner): string[] {
   const implPerApp = partner.implementations_per_app || {};
   const teamPerApp = partner.team_size_per_app || {};
 
-  // Produktfokus + dokumenterade implementationer
-  for (const key of erp.concat(crm).slice(0, 2)) {
+  // Dokumenterade implementationer (endast när partnern angett siffror)
+  for (const key of erp.concat(crm)) {
     const label = PRODUCT_KEY_LABEL[key];
-    if (!label) continue;
     const impl = (implPerApp as Record<string, string>)[key];
-    if (impl) {
+    if (label && impl) {
       out.push(`${label}: ${impl} genomförda implementationer i Sverige enligt partnern`);
-    } else {
-      out.push(`Levererar ${label}`);
     }
   }
 
+  // Produktbredd – konkret, jämförbar uppgift
   if (erp.length > 0 && crm.length > 0) {
     out.push("Levererar både ERP och CRM inom samma organisation");
+  } else if (erp.length === 1 && crm.length === 0) {
+    out.push(`Renodlat ERP-fokus: ${PRODUCT_KEY_LABEL[erp[0]]}`);
+  } else if (crm.length > 0 && erp.length === 0) {
+    out.push(
+      `Renodlat CRM-fokus: ${crm.map((k) => PRODUCT_KEY_LABEL[k]).filter(Boolean).join(", ")}`,
+    );
   }
+
+  // Kundsegment i omsättning
+  const revenues = uniq(filters.flatMap(([, f]) => f.revenue || []));
+  if (revenues.length > 0) {
+    out.push(
+      revenues.length === 1
+        ? `Kunder med omsättning ${revenues[0]}`
+        : `Kunder med omsättning ${revenues[0]} till ${revenues[revenues.length - 1]}`,
+    );
+  }
+
 
   // Lokalt team
   const teamValues = uniq(Object.values(teamPerApp as Record<string, string>));
