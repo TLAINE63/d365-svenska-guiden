@@ -75,12 +75,14 @@ const Navbar = () => {
             >
               Partnernytt
             </Link>
-            <Link
-              to="/kontakt/"
-              className="font-medium text-white/70 hover:text-[hsl(var(--signature))] transition-colors"
+            <Button
+              asChild
+              variant="default"
+              size="sm"
+              className="rounded-full bg-[hsl(var(--cta-orange))]/90 hover:bg-[hsl(var(--cta-orange))] text-white text-xs px-3 py-1 h-auto border-0 shadow-none"
             >
-              Kontakt
-            </Link>
+              <Link to="/kontakt/">Få hjälp att välja partner</Link>
+            </Button>
             <RegionLanguageSwitcher />
           </div>
         </div>
