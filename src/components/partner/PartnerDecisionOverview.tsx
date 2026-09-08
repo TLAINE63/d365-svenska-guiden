@@ -125,11 +125,32 @@ function firstSentences(text?: string | null, maxSentences = 2): string | null {
   return sentences.slice(0, maxSentences).join("").trim();
 }
 
+/** Uppdragstyper som faktiskt nämns i partnerns egna leveranstexter eller taggar. */
+const PROJECT_TYPE_LABELS: Array<{ label: string; match: RegExp }> = [
+  { label: "Nyimplementation", match: /(nyimplementation|implementering|implementation|införande)/i },
+  { label: "Migrering från äldre system", match: /(migrering|migration|nav-|ax-|uppgradering)/i },
+  { label: "Integrationer", match: /(integration|integrera)/i },
+  { label: "Förvaltning efter go-live", match: /(förvaltning|managed service|support efter)/i },
+  { label: "Vidareutveckling", match: /(vidareutveckling|löpande utveckling|releasehantering)/i },
+  { label: "Internationell rollout", match: /(rollout|utrullning|internationell utrullning)/i },
+];
+
 function projectTypes(partner: DatabasePartner): string[] {
   const tags = ((partner as { ai_tags?: string[] }).ai_tags || []).filter(Boolean);
-  return uniq(
-    tags.filter((t) => PROJECT_TYPE_KEYWORDS.some((k) => t.toLowerCase().includes(k))),
-  ).slice(0, 4);
+  const fromTags = tags.filter((t) => PROJECT_TYPE_KEYWORDS.some((k) => t.toLowerCase().includes(k)));
+
+  const corpus = activeFilters(partner)
+    .map(([, f]) => f.deliveryProfile)
+    .filter(Boolean)
+    .flatMap((dp) => SUPPORT_FIELDS.map((field) => dp?.[field.key] || ""))
+    .concat(
+      activeFilters(partner).map(([, f]) => f.deliveryProfile?.typicalProjects || ""),
+    )
+    .join(" ");
+
+  const fromText = PROJECT_TYPE_LABELS.filter((t) => t.match.test(corpus)).map((t) => t.label);
+
+  return uniq([...fromText, ...fromTags]).slice(0, 4);
 }
 
 /** Konkreta, faktabaserade punkter som går att jämföra mellan partners. */
@@ -144,21 +165,36 @@ function buildDifferentiators(partner: DatabasePartner): string[] {
   const implPerApp = partner.implementations_per_app || {};
   const teamPerApp = partner.team_size_per_app || {};
 
-  // Produktfokus + dokumenterade implementationer
-  for (const key of erp.concat(crm).slice(0, 2)) {
+  // Dokumenterade implementationer (endast när partnern angett siffror)
+  for (const key of erp.concat(crm)) {
     const label = PRODUCT_KEY_LABEL[key];
-    if (!label) continue;
     const impl = (implPerApp as Record<string, string>)[key];
-    if (impl) {
+    if (label && impl) {
       out.push(`${label}: ${impl} genomförda implementationer i Sverige enligt partnern`);
-    } else {
-      out.push(`Levererar ${label}`);
     }
   }
 
+  // Produktbredd – konkret, jämförbar uppgift
   if (erp.length > 0 && crm.length > 0) {
     out.push("Levererar både ERP och CRM inom samma organisation");
+  } else if (erp.length === 1 && crm.length === 0) {
+    out.push(`Renodlat ERP-fokus: ${PRODUCT_KEY_LABEL[erp[0]]}`);
+  } else if (crm.length > 0 && erp.length === 0) {
+    out.push(
+      `Renodlat CRM-fokus: ${crm.map((k) => PRODUCT_KEY_LABEL[k]).filter(Boolean).join(", ")}`,
+    );
   }
+
+  // Kundsegment i omsättning
+  const revenues = uniq(filters.flatMap(([, f]) => f.revenue || []));
+  if (revenues.length > 0) {
+    out.push(
+      revenues.length === 1
+        ? `Kunder med omsättning ${revenues[0]}`
+        : `Kunder med omsättning ${revenues[0]} till ${revenues[revenues.length - 1]}`,
+    );
+  }
+
 
   // Lokalt team
   const teamValues = uniq(Object.values(teamPerApp as Record<string, string>));
