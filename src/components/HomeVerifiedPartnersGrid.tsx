@@ -212,7 +212,7 @@ export default function HomeVerifiedPartnersGrid({ onStartNeedsAnalysis }: HomeV
         <div className="flex items-end justify-between gap-6 mb-8 flex-wrap">
           <div>
             <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-foreground tracking-tight leading-tight max-w-3xl">
-              Bygg din kortlista
+              Skapa din kortlista
             </h2>
             <p className="text-[15px] text-muted-foreground mt-2 max-w-2xl">
               Markera upp till tre partners som verkar relevanta för er verksamhet. När du är klar kan du jämföra dem sida vid sida innan du bestämmer vilka du vill kontakta.
