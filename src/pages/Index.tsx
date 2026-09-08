@@ -166,7 +166,7 @@ const Index = () => {
   const submitAiSearch = (q: string) => {
     const trimmed = q.trim();
     if (!trimmed) return;
-    navigate(`/AI-sok?q=${encodeURIComponent(trimmed)}`);
+    navigate(`/fraga?q=${encodeURIComponent(trimmed)}`);
   };
 
   const directionOptions = {
@@ -245,10 +245,10 @@ const Index = () => {
     },
     {
       icon: Sparkles,
-      title: "AI-sök",
+      title: "Fråga d365.se",
       desc: "Ställ frågor om Dynamics 365 och få direkta svar.",
-      cta: "Få svar direkt",
-      to: "/AI-sok/",
+      cta: "Få svar",
+      to: "/fraga/",
     },
   ];
 

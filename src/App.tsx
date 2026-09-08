@@ -275,11 +275,12 @@ const AppShell = () => {
           <Route path="/aktuellt" element={<RedirectTo to="/events/" />} />
           <Route path="/aktuellt/*" element={<RedirectTo to="/events/" />} />
           <Route path="/projektpaket" element={<RedirectTo to="/" />} />
-          <Route path="/AI-sok" element={<SmartSearch />} />
-          <Route path="/AIsok" element={<RedirectTo to="/AI-sok" />} />
-          <Route path="/sok" element={<RedirectTo to="/AI-sok" />} />
+          <Route path="/fraga" element={<SmartSearch />} />
+          <Route path="/AI-sok" element={<RedirectTo to="/fraga" />} />
+          <Route path="/AIsok" element={<RedirectTo to="/fraga" />} />
+          <Route path="/sok" element={<RedirectTo to="/fraga" />} />
           <Route path="/fraga-ai" element={<AskAi />} />
-          <Route path="/search" element={<RedirectTo to="/AI-sok" />} />
+          <Route path="/search" element={<RedirectTo to="/fraga" />} />
           <Route path="/våratjänster" element={<RedirectTo to="/" />} />
           <Route path="/kunskapscenter" element={<Kunskapscenter />} />
           <Route path="/priser" element={<Priser />} />

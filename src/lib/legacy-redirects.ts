@@ -74,9 +74,10 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   { from: "/sekretesspolicy",           to: "/dataskydd",           intendedStatus: 301 },
 
   // Sök
-  { from: "/AIsok",                     to: "/AI-sok",              intendedStatus: 301 },
-  { from: "/sok",                       to: "/AI-sok",              intendedStatus: 301 },
-  { from: "/search",                    to: "/AI-sok",              intendedStatus: 301 },
+  { from: "/AIsok",                     to: "/fraga",               intendedStatus: 301 },
+  { from: "/AI-sok",                    to: "/fraga",               intendedStatus: 301 },
+  { from: "/sok",                       to: "/fraga",               intendedStatus: 301 },
+  { from: "/search",                    to: "/fraga",               intendedStatus: 301 },
 
   // Events / nyheter
   { from: "/nyheter",                   to: "/events",              intendedStatus: 301 },

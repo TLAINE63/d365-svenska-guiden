@@ -308,7 +308,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/partners-sitemap', priority: '0.6', changefreq: 'weekly' },
   { path: '/alla-d365-partners', priority: '0.6', changefreq: 'monthly' },
   { path: '/partners-per-bransch', priority: '0.7', changefreq: 'weekly' },
-  { path: '/AI-sok', priority: '0.3', changefreq: 'monthly', sitemap: false },
+  { path: '/fraga', priority: '0.3', changefreq: 'monthly', sitemap: false },
   ...PRODUCT_PARTNERS_SVERIGE.map((c) => ({
     path: `/${c.slug}`,
     priority: '0.8',
@@ -494,9 +494,10 @@ export function render(url: string) {
               <Route path="/crm-koparguiden-2026" element={<BuyerGuide2026 variant="crm" />} />
 
               <Route path="/valj-partner" element={<Navigate to="/valjdynamics365partner" replace />} />
-              <Route path="/AI-sok" element={<SmartSearch />} />
-              <Route path="/AIsok" element={<Navigate to="/AI-sok" replace />} />
-              <Route path="/sok" element={<Navigate to="/AI-sok" replace />} />
+              <Route path="/fraga" element={<SmartSearch />} />
+              <Route path="/AI-sok" element={<Navigate to="/fraga" replace />} />
+              <Route path="/AIsok" element={<Navigate to="/fraga" replace />} />
+              <Route path="/sok" element={<Navigate to="/fraga" replace />} />
               <Route path="/dataskydd" element={<PrivacyPolicy />} />
               <Route path="/ERPbehovsanalys" element={<NeedsAnalysis />} />
               <Route path="/behovsanalys" element={<Navigate to="/ERPbehovsanalys" replace />} />
