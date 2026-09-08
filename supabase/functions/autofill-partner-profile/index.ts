@@ -86,6 +86,7 @@ Regler:
 type Suggestion = {
   description: string | null;
   positioning_statement: string | null;
+  key_differentiators: string[] | null;
   products: Array<{
     key: string;
     productDescription: string | null;
