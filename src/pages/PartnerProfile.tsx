@@ -37,6 +37,7 @@ import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
 import DecisionProfile from "@/components/partner/DecisionProfile";
 import PartnerAiInsights from "@/components/partner/PartnerAiInsights";
+import PartnerDecisionOverview from "@/components/partner/PartnerDecisionOverview";
 import ExtendedCompetenciesSection from "@/components/partner/ExtendedCompetenciesSection";
 import PartnerProductTabs, { resolveInitialTab } from "@/components/partner/PartnerProductTabs";
 import { RadialGlow } from "@/components/RadialGlow";
@@ -701,6 +702,8 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
    </div>
   </section>
  )}
+
+ <PartnerDecisionOverview partner={partner as any} />
 
  <PartnerAiInsights partner={partner as any} />
 
