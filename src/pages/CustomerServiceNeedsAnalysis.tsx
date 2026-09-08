@@ -1,3 +1,4 @@
+import PartnerCtaBlock from "@/components/PartnerCtaBlock";
 import { useState, useEffect, useRef } from "react";
 import { INDUSTRY_NAMES } from "@/data/standardIndustries";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
@@ -2400,6 +2401,7 @@ const CustomerServiceNeedsAnalysis = () => {
  </div>
  </div>
  </main>
+ <PartnerCtaBlock variant="tool" source="/kundservice-behovsanalys/" />
  <RelatedPages heading="Fortsätt utvärdera din kundservice" pages={needsAnalysisCsRelatedPages} />
  <Footer />
  </div>

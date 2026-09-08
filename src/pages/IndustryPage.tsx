@@ -273,7 +273,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  Innehållet för denna bransch är på väg. Under tiden kan du hitta partners eller göra en behovsanalys.
  </p>
  <div className="flex flex-wrap gap-3 justify-center">
- <Link to="/valjdynamics365partner" className="text-primary hover:underline">Hitta partner →</Link>
+ <Link to="/valjdynamics365partner" className="text-primary hover:underline">Hitta rätt partner →</Link>
  <Link to="/ERPbehovsanalys" className="text-primary hover:underline">Gör en behovsanalys →</Link>
  <Link to="/branscher" className="text-primary hover:underline">Alla branscher →</Link>
  </div>
@@ -782,7 +782,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  to="/valjdynamics365partner"
  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md border border-border text-sm font-medium hover:border-primary/50"
  >
- Hitta partner
+ Hitta rätt partner
  </Link>
  </div>
  </div>

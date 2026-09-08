@@ -1,3 +1,4 @@
+import PartnerCtaBlock from "@/components/PartnerCtaBlock";
 import { useState, useEffect, useRef } from "react";
 import { INDUSTRY_NAMES } from "@/data/standardIndustries";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
@@ -4589,6 +4590,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               </Button>
             </div>
           </div>
+          <PartnerCtaBlock variant="tool" source="/ERPbehovsanalys/" industry={data.industry || undefined} />
         </main>
         <Footer />
       </div>

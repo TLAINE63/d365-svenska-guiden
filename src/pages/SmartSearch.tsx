@@ -1,3 +1,4 @@
+import PartnerCtaBlock from "@/components/PartnerCtaBlock";
 import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
@@ -148,6 +149,7 @@ export default function SmartSearch() {
           </div>
         )}
       </main>
+      <PartnerCtaBlock variant="tool" source="/AI-sok/" />
       <Footer />
     </div>
   );

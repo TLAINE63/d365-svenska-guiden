@@ -112,7 +112,7 @@ const Navbar = () => {
               to="/branscher/"
               className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] transition-colors"
             >
-              Hitta bransch & partner
+              Branscher
             </Link>
             {/* Branschlösningar – dold tills vidare */}
             <DropdownMenu>
@@ -125,7 +125,7 @@ const Navbar = () => {
               <DropdownMenuContent className="bg-background border border-border z-50 w-64">
                 <DropdownMenuItem asChild>
                   <Link to="/valjdynamics365partner/" className="cursor-pointer font-medium text-primary">
-                    🔍 Hitta Dynamics&nbsp;365-partner
+                    🔍 Hitta rätt partner
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
@@ -279,14 +279,14 @@ const Navbar = () => {
                   to="/branscher/"
                   className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
                 >
-                  Hitta bransch & partner
+                  Branscher
                 </Link>
                 {/* Branschlösningar – dold tills vidare */}
                 <Link
                   to="/valjdynamics365partner/"
                   className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
                 >
-                  Hitta Dynamics&nbsp;365-partner
+                  Hitta rätt partner
                 </Link>
                 <Link
                   to="/partners-per-bransch/"

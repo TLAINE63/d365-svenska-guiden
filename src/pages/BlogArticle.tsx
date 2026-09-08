@@ -1,3 +1,4 @@
+import PartnerCtaBlock from "@/components/PartnerCtaBlock";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import SEOHead from "@/components/SEOHead";
@@ -529,6 +530,7 @@ const BlogArticle = () => {
           </section>
         )}
       </main>
+      <PartnerCtaBlock variant="article" source="/kunskapscenter/artikel" />
       <RelatedPages heading="Utforska Dynamics 365" pages={articleRelatedPages} />
       <Footer />
     </>

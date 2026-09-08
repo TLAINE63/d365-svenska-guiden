@@ -1,3 +1,4 @@
+import PartnerCtaBlock from "@/components/PartnerCtaBlock";
 import { useState, useEffect } from "react";
 import { INDUSTRY_NAMES } from "@/data/standardIndustries";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
@@ -3531,6 +3532,7 @@ const SalesMarketingNeedsAnalysis = () => {
  className="!py-8 mt-8 border rounded overflow-hidden !bg-secondary/40"
  />
  </div>
+ <PartnerCtaBlock variant="tool" source="/CRMbehovsanalys/" industry={data.industry || undefined} />
  </main>
  <Footer />
  </div>

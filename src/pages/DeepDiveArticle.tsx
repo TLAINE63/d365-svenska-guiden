@@ -1,3 +1,4 @@
+import PartnerCtaBlock from "@/components/PartnerCtaBlock";
 import { useParams, Link, Navigate } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, ArticleSchema } from "@/components/StructuredData";
@@ -329,6 +330,7 @@ const DeepDiveArticle = () => {
           </div>
         </section>
       </main>
+      <PartnerCtaBlock variant="article" source="/kunskapscenter/fordjupning" />
       <RelatedPages heading="Utforska Dynamics 365" pages={articleRelatedPages} />
       <Footer />
     </>
