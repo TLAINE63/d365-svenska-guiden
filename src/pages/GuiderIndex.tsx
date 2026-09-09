@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import GuideBreadcrumb from "@/components/guides/GuideBreadcrumb";
 import GuideCTA from "@/components/guides/GuideCTA";
+import GuideSearch from "@/components/guides/GuideSearch";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { PARTNER_GUIDES, guidePath } from "@/data/partnerGuides";
@@ -31,6 +32,8 @@ const GuiderIndex = () => (
           Huvudguiden täcker urvalsprocessen oavsett applikation. Produktguiderna går
           djupare in på det som skiljer respektive upphandling åt.
         </p>
+
+        <GuideSearch className="mb-8 max-w-xl" />
 
         <div className="grid gap-4 sm:grid-cols-2">
           {PARTNER_GUIDES.map((g) => (

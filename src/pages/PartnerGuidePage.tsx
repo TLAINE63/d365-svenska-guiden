@@ -10,6 +10,7 @@ import RelatedGuides from "@/components/guides/RelatedGuides";
 import NextGuideRecommendation from "@/components/guides/NextGuideRecommendation";
 import StickyPartnerCTA from "@/components/guides/StickyPartnerCTA";
 import GuidePartnerSpotlight from "@/components/guides/GuidePartnerSpotlight";
+import GuideSearch from "@/components/guides/GuideSearch";
 import {
   PARTNER_GUIDES,
   PartnerGuideKey,
@@ -174,6 +175,8 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
         <article className="container mx-auto max-w-3xl px-4 sm:px-6">
           <GuideBreadcrumb items={breadcrumbs} className="mb-5" />
           <GuideSeriesNavigation current={guide.key} className="mb-6" />
+
+          <GuideSearch className="mb-6 max-w-xl" />
 
           <h1 className="text-3xl sm:text-4xl font-bold leading-tight tracking-tight mb-6">
             {content.h1}

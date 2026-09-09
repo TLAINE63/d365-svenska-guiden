@@ -38,6 +38,7 @@ const EbookBanner = lazyWithRetry(() => import("@/components/EbookBanner"));
 const ScrollCTA = lazyWithRetry(() => import("@/components/ScrollCTA"));
 const HomePartnerNewsSection = lazyWithRetry(() => import("@/components/HomePartnerNewsSection"));
 const HomeVerifiedPartnersGrid = lazyWithRetry(() => import("@/components/HomeVerifiedPartnersGrid"));
+const HomeGuidesSection = lazyWithRetry(() => import("@/components/HomeGuidesSection"));
 
 const VideoComingSoon = () => (
   <figure className="space-y-1.5">
@@ -483,6 +484,11 @@ const Index = () => {
         {/* Verifierade partners – alla publicerade profiler */}
         <Suspense fallback={<div className="py-16" />}>
           <HomeVerifiedPartnersGrid onStartNeedsAnalysis={() => setDirectionPicker("behovsanalys")} />
+        </Suspense>
+
+        {/* Guideserien – välja Dynamics 365-partner */}
+        <Suspense fallback={<div className="py-16" />}>
+          <HomeGuidesSection />
         </Suspense>
 
         {/* SECTION 4 – TOOLS */}

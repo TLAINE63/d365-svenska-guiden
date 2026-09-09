@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link, useSearchParams } from "react-router-dom";
-import { Users, ArrowRight, ArrowLeftRight, Calendar, MessageSquare, Mail, Award, Shield, ExternalLink, Star, Loader2, List } from "lucide-react";
+import { Users, ArrowRight, ArrowLeftRight, Calendar, MessageSquare, Mail, Award, Shield, ExternalLink, Star, Loader2, List, Search } from "lucide-react";
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import { SizeFilters } from "@/components/SizeFilters";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
@@ -237,6 +237,7 @@ const ValjPartner = () => {
  const [selectedRevenue, setSelectedRevenue] = useState<string | null>(null);
  const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
  const [verifiedOnly, setVerifiedOnly] = useState(false);
+ const [nameQuery, setNameQuery] = useState("");
 
  // Publish current filters to the partner-compare context so a "Jämför"
  // navigation carries product/industry/geo/size into the compare page.
@@ -438,10 +439,12 @@ const ValjPartner = () => {
  }
  return s;
  };
- const signed = result.filter(p => p.agreement_signed);
- const unsigned = result.filter(p => !p.agreement_signed);
- return [...shuffleArr(signed), ...shuffleArr(unsigned)];
- }, [partners, selectedApplications, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography]);
+  const q = nameQuery.trim().toLowerCase();
+  if (q) result = result.filter(p => p.name.toLowerCase().includes(q));
+  const signed = result.filter(p => p.agreement_signed);
+  const unsigned = result.filter(p => !p.agreement_signed);
+  return [...shuffleArr(signed), ...shuffleArr(unsigned)];
+  }, [partners, selectedApplications, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography, nameQuery]);
 
  // Track which partners get shown in filter results (admin sales summary)
  // MUST be called before any early return to preserve hook order
@@ -498,17 +501,20 @@ const ValjPartner = () => {
   ]);
 
  // Basic-partners (observerad data) som matchar samma filter
- const filteredBasicPartners = useMemo(
-  () =>
-   filterBasicPartners(basicPartners || [], {
-    applications: selectedApplications,
-    industry: selectedIndustry,
-    companySize: selectedCompanySize,
-    revenue: selectedRevenue,
-    geography: selectedGeography,
-   }),
-  [basicPartners, selectedApplications, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography],
- );
+  const filteredBasicPartners = useMemo(
+   () => {
+    const list = filterBasicPartners(basicPartners || [], {
+     applications: selectedApplications,
+     industry: selectedIndustry,
+     companySize: selectedCompanySize,
+     revenue: selectedRevenue,
+     geography: selectedGeography,
+    });
+    const q = nameQuery.trim().toLowerCase();
+    return q ? list.filter((p) => (p.name || "").toLowerCase().includes(q)) : list;
+   },
+   [basicPartners, selectedApplications, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography, nameQuery],
+  );
 
 
 
@@ -705,6 +711,22 @@ const ValjPartner = () => {
  </div>
  </div>
 
+
+ {/* Fritextsökning på partnernamn */}
+ <div className="mx-auto mb-8 max-w-xl">
+  <label htmlFor="partner-name-search" className="sr-only">Sök partner på namn</label>
+  <div className="relative">
+   <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+   <input
+    id="partner-name-search"
+    type="search"
+    value={nameQuery}
+    onChange={(e) => setNameQuery(e.target.value)}
+    placeholder="Sök partner på namn…"
+    className="w-full rounded-lg border border-border bg-background py-2.5 pl-10 pr-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+   />
+  </div>
+ </div>
 
  {/* Industry Filter */}
  <FilterButtons
