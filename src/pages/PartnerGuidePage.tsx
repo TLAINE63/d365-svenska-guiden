@@ -10,6 +10,7 @@ import RelatedGuides from "@/components/guides/RelatedGuides";
 import NextGuideRecommendation from "@/components/guides/NextGuideRecommendation";
 import StickyPartnerCTA from "@/components/guides/StickyPartnerCTA";
 import GuidePartnerSpotlight from "@/components/guides/GuidePartnerSpotlight";
+import GuideSearch from "@/components/guides/GuideSearch";
 import {
   PARTNER_GUIDES,
   PartnerGuideKey,
