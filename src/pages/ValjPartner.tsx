@@ -709,6 +709,22 @@ const ValjPartner = () => {
  </div>
 
 
+ {/* Fritextsökning på partnernamn */}
+ <div className="mx-auto mb-8 max-w-xl">
+  <label htmlFor="partner-name-search" className="sr-only">Sök partner på namn</label>
+  <div className="relative">
+   <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+   <input
+    id="partner-name-search"
+    type="search"
+    value={nameQuery}
+    onChange={(e) => setNameQuery(e.target.value)}
+    placeholder="Sök partner på namn…"
+    className="w-full rounded-lg border border-border bg-background py-2.5 pl-10 pr-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+   />
+  </div>
+ </div>
+
  {/* Industry Filter */}
  <FilterButtons
  title="Filtrera på bransch (rekommenderat)"
