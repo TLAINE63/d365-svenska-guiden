@@ -141,7 +141,7 @@ export default function BcRoiCalculator() {
     const licenseMonthly = fullCost + teamCost + deviceCost;
     const licenseYearly = licenseMonthly * 12;
 
-    const complexityImpl: Record<Complexity, number> = { Låg: 250_000, Medel: 500_000, Hög: 1_000_000 };
+    const complexityImpl: Record<Complexity, number> = { Låg: 100_000, Medel: 250_000, Hög: 800_000 };
     // Branschfaktor på basimplementation: tillverkning/distribution drar tyngre projekt,
     // tjänster lättare, handel/annan i mitten.
     const industryImplFactor: Record<Industry, number> = {
