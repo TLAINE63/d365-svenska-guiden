@@ -67,27 +67,27 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
         "rows": [
           [
             "Business Central",
-            "Från cirka 300 tkr",
+            "100 000–800 000 kr (mindre projekt 100 000–250 000 kr)",
             "Cirka 500"
           ],
           [
             "Sales",
-            "Ungefär samma nivå som Business Central, ofta lägre",
+            "100 000–1 200 000 kr",
             "Cirka 500"
           ],
           [
             "Customer Insights (marknad)",
-            "Varierar kraftigt med datamognad",
+            "100 000–1 200 000 kr, varierar med datamognad",
             "Cirka 300"
           ],
           [
             "Customer Service, Field Service, Contact Center",
-            "Stor variation; kompletta lösningar ligger ofta över 500 tkr",
+            "Customer Service 150 000–1 200 000 kr, Field Service 200 000–1 800 000 kr, Contact Center 250 000–2 000 000 kr",
             "Cirka 200 vardera"
           ],
           [
             "Finance & Supply Chain Management",
-            "Enterprise. Startar normalt kring 5 MSEK",
+            "Enterprise. 1,5–10 miljoner kr",
             "Cirka 50"
           ]
         ]
@@ -485,7 +485,7 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
       },
       {
         "type": "p",
-        "text": "Business Central är Microsofts affärssystem för små och medelstora bolag, med rötter i Navision. d365.se bedömer att det tillkommer i storleksordningen femhundra nya affärer per år i Sverige och att projekten ofta börjar kring trehundratusen kronor. Det gör det till det vanligaste Dynamics-införandet i landet. Siffrorna är d365.se:s marknadsbedömning, uppdaterad i september 2026, inte officiell Microsoft-statistik."
+        "text": "Business Central är Microsofts affärssystem för små och medelstora bolag, med rötter i Navision. d365.se bedömer att det tillkommer i storleksordningen femhundra nya affärer per år i Sverige. Ett mindre, avgränsat införande ligger typiskt på 100 000–250 000 kr, medan ett normalstort projekt hamnar på 250 000–800 000 kr. Det gör det till det vanligaste Dynamics-införandet i landet. Siffrorna är d365.se:s marknadsbedömning, uppdaterad i september 2026, inte officiell Microsoft-statistik."
       },
       {
         "type": "p",
@@ -906,7 +906,7 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
       },
       {
         "type": "p",
-        "text": "Ett par storleksordningar som ram, och som är d365.se:s bedömning av den svenska marknaden. Projekten börjar normalt kring fem miljoner kronor och löper över flera år räknat från förstudie till stabil drift. Vi bedömer att det finns i storleksordningen hundra kundkoncerner i Sverige som kör systemet eller dess föregångare, och att det tillkommer i storleksordningen femtio nya affärer per år. d365.se har identifierat fler aktörer med F&SCM-kompetens, men för större svenska flerbolags- eller internationella end-to-end-program bedömer vi att gruppen med tillräcklig kapacitet är ungefär ett tiotal. Siffrorna är vår marknadsbedömning, uppdaterad i september 2026, inte officiell Microsoft-statistik."
+        "text": "Ett par storleksordningar som ram, och som är d365.se:s bedömning av den svenska marknaden. Projekten ligger normalt på 1,5–10 miljoner kronor och löper över flera år räknat från förstudie till stabil drift. Vi bedömer att det finns i storleksordningen hundra kundkoncerner i Sverige som kör systemet eller dess föregångare, och att det tillkommer i storleksordningen femtio nya affärer per år. d365.se har identifierat fler aktörer med F&SCM-kompetens, men för större svenska flerbolags- eller internationella end-to-end-program bedömer vi att gruppen med tillräcklig kapacitet är ungefär ett tiotal. Siffrorna är vår marknadsbedömning, uppdaterad i september 2026, inte officiell Microsoft-statistik."
       },
       {
         "type": "p",
@@ -1828,7 +1828,7 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
       },
       {
         "type": "p",
-        "text": "Customer Service och Field Service behandlas ibland som mindre tillägg till ett Sales- eller CRM-projekt. Det är ofta ett misstag: de har egna processer, integrationer och driftskrav. En avgränsad första implementation utan tunga integrationer kan börja under en halv miljon kronor, medan kompletta produktionslösningar med SLA-modell, migrering, integrationer och/eller Field Service och Contact Center ofta hamnar över den nivån. d365.se uppskattar antalet nya affärer i Sverige till ett par hundra per applikationsområde och år. Det är vår marknadsbedömning, uppdaterad i september 2026, inte officiell Microsoft-statistik."
+        "text": "Customer Service och Field Service behandlas ibland som mindre tillägg till ett Sales- eller CRM-projekt. Det är ofta ett misstag: de har egna processer, integrationer och driftskrav. Customer Service ligger typiskt på 150 000–1 200 000 kr, Field Service på 200 000–1 800 000 kr och Contact Center på 250 000–2 000 000 kr, beroende på integrationer, SLA-modell och migrering. d365.se uppskattar antalet nya affärer i Sverige till ett par hundra per applikationsområde och år. Det är vår marknadsbedömning, uppdaterad i september 2026, inte officiell Microsoft-statistik."
       },
       {
         "type": "p",
