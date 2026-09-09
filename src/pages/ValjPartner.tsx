@@ -237,6 +237,7 @@ const ValjPartner = () => {
  const [selectedRevenue, setSelectedRevenue] = useState<string | null>(null);
  const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
  const [verifiedOnly, setVerifiedOnly] = useState(false);
+ const [nameQuery, setNameQuery] = useState("");
 
  // Publish current filters to the partner-compare context so a "Jämför"
  // navigation carries product/industry/geo/size into the compare page.
