@@ -93,6 +93,8 @@ const CeIsvCategoryPage = lazy(() => import("./pages/CeIsvCategoryPage"));
 const BcIsvCategoryPage = lazy(() => import("./pages/BcIsvCategoryPage"));
 const Upphandlingsresan = lazy(() => import("./pages/Upphandlingsresan"));
 const Upphandlingsguiden = lazy(() => import("./pages/Upphandlingsguiden"));
+const PartnerGuidePage = lazy(() => import("./pages/PartnerGuidePage"));
+const GuiderIndex = lazy(() => import("./pages/GuiderIndex"));
 const VideoLanding = lazy(() => import("./pages/VideoLanding"));
 const VideoIndex = lazy(() => import("./pages/VideoIndex"));
 const Branscher = lazy(() => import("./pages/Branscher"));
@@ -191,6 +193,12 @@ const AppShell = () => {
           <Route path="/om-michael-uhman" element={<OmMichaelUhman />} />
           
           <Route path="/valjdynamics365partner" element={<ValjPartner />} />
+          <Route path="/guider" element={<GuiderIndex />} />
+          <Route path="/guider/valja-dynamics-365-partner" element={<PartnerGuidePage guideKey="hub" />} />
+          <Route path="/guider/valja-business-central-partner" element={<PartnerGuidePage guideKey="bc" />} />
+          <Route path="/guider/valja-finance-supply-chain-partner" element={<PartnerGuidePage guideKey="fscm" />} />
+          <Route path="/guider/valja-dynamics-365-sales-partner" element={<PartnerGuidePage guideKey="sales" />} />
+          <Route path="/guider/valja-customer-service-field-service-partner" element={<PartnerGuidePage guideKey="service" />} />
           <Route path="/erp-koparguiden-2026" element={<BuyerGuide2026 variant="erp" />} />
           <Route path="/crm-koparguiden-2026" element={<BuyerGuide2026 variant="crm" />} />
           <Route path="/shortlist" element={<Shortlist />} />
