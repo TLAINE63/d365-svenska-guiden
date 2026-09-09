@@ -501,17 +501,20 @@ const ValjPartner = () => {
   ]);
 
  // Basic-partners (observerad data) som matchar samma filter
- const filteredBasicPartners = useMemo(
-  () =>
-   filterBasicPartners(basicPartners || [], {
-    applications: selectedApplications,
-    industry: selectedIndustry,
-    companySize: selectedCompanySize,
-    revenue: selectedRevenue,
-    geography: selectedGeography,
-   }),
-  [basicPartners, selectedApplications, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography],
- );
+  const filteredBasicPartners = useMemo(
+   () => {
+    const list = filterBasicPartners(basicPartners || [], {
+     applications: selectedApplications,
+     industry: selectedIndustry,
+     companySize: selectedCompanySize,
+     revenue: selectedRevenue,
+     geography: selectedGeography,
+    });
+    const q = nameQuery.trim().toLowerCase();
+    return q ? list.filter((p) => (p.name || "").toLowerCase().includes(q)) : list;
+   },
+   [basicPartners, selectedApplications, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography, nameQuery],
+  );
 
 
 
