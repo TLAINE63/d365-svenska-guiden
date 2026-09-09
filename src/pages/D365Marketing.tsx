@@ -40,7 +40,7 @@ import {
 
 // Customer Insights FAQs for schema – priser hämtas från product_prices via resolvePriceTokens
 const customerInsightsFaqsRaw = [
-  { question: "Vad kostar Dynamics 365 Customer Insights (Marketing)?", answer: "Dynamics 365 Customer Insights kostar {{price:customer-insights:exact}} för grundlicensen (baserat på kontaktvolym, inte per användare). För företag med minst 10 befintliga Dynamics 365-licenser finns Attach-licensen för {{price:customer-insights-attach:exact}}. Implementationskostnaden varierar från 150 000 kr för en grundläggande setup upp till 1 200 000 kr för en komplett lösning med integrationer." },
+  { question: "Vad kostar Dynamics 365 Customer Insights (Marketing)?", answer: "Dynamics 365 Customer Insights kostar {{price:customer-insights:exact}} för grundlicensen (baserat på kontaktvolym, inte per användare). För företag med minst 10 befintliga Dynamics 365-licenser finns Attach-licensen för {{price:customer-insights-attach:exact}}. Implementationskostnaden varierar från 100 000 kr för en grundläggande setup upp till 1 200 000 kr för en komplett lösning med integrationer." },
   { question: "Vad är skillnaden mellan Customer Insights och det gamla Dynamics 365 Marketing?", answer: "Dynamics 365 Customer Insights är nästa generation av Dynamics 365 Marketing och ersätter det helt. Customer Insights kombinerar marknadsföringsautomation (tidigare 'Journeys'-modulen) med avancerad kunddata-analys och AI-drivna insikter. Namnbytet skedde 2023. Befintliga Marketing-kunder migreras automatiskt till Customer Insights." },
   { question: "Dynamics 365 Customer Insights vs HubSpot – vilket ska jag välja?", answer: "Dynamics 365 Customer Insights är optimalt för företag som redan använder Microsoft 365 och Dynamics 365 Sales/Customer Service, eftersom det ger djup inbyggd integration och en gemensam dataplattform. HubSpot är starkare för SMB-marknaden och har en snabbare onboarding. Customer Insights utmärker sig på AI-driven personalisering, komplex segmentering och integration med ERP-data. För Microsoftmiljöer ger Customer Insights lägre total ägandekostnad." },
   { question: "Hur fungerar kundresor i Customer Insights?", answer: "Kundresor (Customer Journeys) i Customer Insights är visuella flöden som definierar hur och när du kommunicerar med kunder baserat på deras beteende och attribut. Du kan skapa triggers som startar resan (t.ex. webbformulär, e-postöppning, köphändelse), definiera villkor och grenar, och automatiskt skicka e-post, SMS eller push-notiser vid rätt tidpunkt. Copilot AI kan föreslå optimal timing och kanalval." },
@@ -267,7 +267,7 @@ const D365Marketing = () => {
                     Implementationskostnaden beror på antalet datakällor, segmenteringsbehov och kampanjkomplexitet.
                   </p>
                   <ul className="space-y-2 text-muted-foreground">
-                    <li>• <strong>Grundläggande:</strong> 150 000 - 300 000 kr</li>
+                    <li>• <strong>Grundläggande:</strong> 100 000 - 300 000 kr</li>
                     <li>• <strong>Med automatisering:</strong> 300 000 - 600 000 kr</li>
                     <li>• <strong>Komplett med integrationer:</strong> 600 000 - 1 200 000 kr</li>
                   </ul>
