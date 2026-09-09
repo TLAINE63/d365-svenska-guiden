@@ -70,7 +70,7 @@ const bcFaqsRaw = [
  },
  {
  question: "Vad kostar Microsoft Dynamics 365 Business Central i Sverige?",
- answer: "Business Central pris Sverige 2026: Team Member {{price:bc-team-members:exact}}, Essentials {{price:bc-essentials:exact}} och Premium {{price:bc-premium:exact}} (Microsofts officiella listpris exkl. moms). Utöver licensen tillkommer implementeringskostnader som typiskt ligger på 150 000–800 000 kr beroende på projektets omfattning, antal användare och grad av anpassning. Kostnaden påverkas också av vald partner och supportavtal."
+ answer: "Business Central pris Sverige 2026: Team Member {{price:bc-team-members:exact}}, Essentials {{price:bc-essentials:exact}} och Premium {{price:bc-premium:exact}} (Microsofts officiella listpris exkl. moms). Utöver licensen tillkommer implementeringskostnader som typiskt ligger på 100 000–800 000 kr beroende på projektets omfattning, antal användare och grad av anpassning. Kostnaden påverkas också av vald partner och supportavtal."
  },
  {
  question: "Hur lång tid tar Business Central implementering i Sverige?",
@@ -235,7 +235,7 @@ const BusinessCentral = () => {
  <div className="min-h-screen">
  <SEOHead 
  title="Business Central ERP – pris & partners 2026"
- description={resolvePriceTokens("Business Central ERP: licenspris från {{price:bc-essentials:short}}, implementering 150 000–800 000 kr. Jämför partnerverifierade profiler i Sverige – köparsidig vägledning.")}
+ description={resolvePriceTokens("Business Central ERP: licenspris från {{price:bc-essentials:short}}, implementering 100 000–800 000 kr. Jämför partnerverifierade profiler i Sverige – köparsidig vägledning.")}
  canonicalPath="/businesscentral"
  keywords="business central erp, business central partners, business central affärssystem, dynamics 365 business central, erp business central, business central pris, business central licens, business central essentials, business central premium, business central partner sverige, business central implementering"
  ogImage="https://d365.se/og-business-central.png"
@@ -321,7 +321,7 @@ const BusinessCentral = () => {
        ["Typ av system", "Molnbaserat ERP (affärssystem) från Microsoft"],
        ["Passar", "5–300 användare, små och medelstora bolag"],
        ["Licenspris", resolvePriceTokens("Essentials {{price:bc-essentials:exact}}, Premium {{price:bc-premium:exact}}, Team Member {{price:bc-team-members:exact}} per användare/månad exkl. moms")],
-       ["Implementeringskostnad", "Typiskt 150 000–800 000 kr beroende på omfattning"],
+       ["Implementeringskostnad", "Typiskt 100 000–800 000 kr beroende på omfattning"],
        ["Införandetid", "3–6 månader (2–3 månader med startpaket)"],
        ["Ingår i Premium", "Tillverkning (MRP, kapacitetsplanering) och servicehantering"],
        ["AI", "Microsoft Copilot ingår utan extra licensavgift"],

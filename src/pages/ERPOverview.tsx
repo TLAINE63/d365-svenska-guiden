@@ -82,7 +82,7 @@ const erpFaqsRaw = [
  },
  {
  question: "Vad kostar Microsoft ERP system i Sverige?",
- answer: "Microsoft ERP pris Sverige: Business Central Essentials {{price:bc-essentials:short}}, Business Central Premium {{price:bc-premium:short}}, Dynamics 365 Finance ca {{price:finance:short}} och Supply Chain Management ca {{price:supply-chain-management:short}}. Implementeringskostnaden varierar: Business Central startpaket från 150 000 kr, F&SCM Enterprise-projekt från 1–5 MSEK. Välj rätt licens utifrån antal användare och funktionsbehov."
+ answer: "Microsoft ERP pris Sverige: Business Central Essentials {{price:bc-essentials:short}}, Business Central Premium {{price:bc-premium:short}}, Dynamics 365 Finance ca {{price:finance:short}} och Supply Chain Management ca {{price:supply-chain-management:short}}. Implementeringskostnaden varierar: Business Central startpaket från 100 000 kr, F&SCM Enterprise-projekt från 1–5 MSEK. Välj rätt licens utifrån antal användare och funktionsbehov."
  },
  {
  question: "Vad är skillnaden mellan Business Central och Finance & Supply Chain?",
