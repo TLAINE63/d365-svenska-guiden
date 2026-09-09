@@ -27,6 +27,8 @@ import AIReadiness from './pages/AIReadiness';
 import ContactUs from './pages/ContactUs';
 import ValjPartner from './pages/ValjPartner';
 import BuyerGuide2026 from './pages/BuyerGuide2026';
+import PartnerGuidePage from './pages/PartnerGuidePage';
+import GuiderIndex from './pages/GuiderIndex';
 
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import NeedsAnalysis from './pages/NeedsAnalysis';
@@ -173,6 +175,12 @@ export const routes: PrerenderRoute[] = [
   // so Google re-crawls the updated titles/H1/meta after the cannibalization fix.
   { path: '/', priority: '1.0', changefreq: 'weekly', lastmod: '2026-05-19' },
   { path: '/valjdynamics365partner', priority: '1.0', changefreq: 'weekly' },
+  { path: '/guider', priority: '0.7', changefreq: 'monthly' },
+  { path: '/guider/valja-dynamics-365-partner', priority: '0.9', changefreq: 'monthly' },
+  { path: '/guider/valja-business-central-partner', priority: '0.9', changefreq: 'monthly' },
+  { path: '/guider/valja-finance-supply-chain-partner', priority: '0.9', changefreq: 'monthly' },
+  { path: '/guider/valja-dynamics-365-sales-partner', priority: '0.9', changefreq: 'monthly' },
+  { path: '/guider/valja-customer-service-field-service-partner', priority: '0.9', changefreq: 'monthly' },
   { path: '/erp-koparguiden-2026', priority: '0.9', changefreq: 'monthly' },
   { path: '/crm-koparguiden-2026', priority: '0.9', changefreq: 'monthly' },
 
@@ -490,6 +498,12 @@ export function render(url: string) {
               <Route path="/ai-readiness" element={<AIReadiness />} />
               <Route path="/kontakt" element={<ContactUs />} />
               <Route path="/valjdynamics365partner" element={<ValjPartner />} />
+              <Route path="/guider" element={<GuiderIndex />} />
+              <Route path="/guider/valja-dynamics-365-partner" element={<PartnerGuidePage guideKey="hub" />} />
+              <Route path="/guider/valja-business-central-partner" element={<PartnerGuidePage guideKey="bc" />} />
+              <Route path="/guider/valja-finance-supply-chain-partner" element={<PartnerGuidePage guideKey="fscm" />} />
+              <Route path="/guider/valja-dynamics-365-sales-partner" element={<PartnerGuidePage guideKey="sales" />} />
+              <Route path="/guider/valja-customer-service-field-service-partner" element={<PartnerGuidePage guideKey="service" />} />
               <Route path="/erp-koparguiden-2026" element={<BuyerGuide2026 variant="erp" />} />
               <Route path="/crm-koparguiden-2026" element={<BuyerGuide2026 variant="crm" />} />
 
