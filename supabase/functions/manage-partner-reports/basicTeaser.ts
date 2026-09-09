@@ -119,7 +119,10 @@ export async function buildBasicTeaserStats(
       prev30_start: prev30Iso, start30: startIso, start90: start90Iso, end_ts: endIso,
     }),
     supabase.rpc("teaser_engagement_stats", { start_ts: start90Iso, end_ts: endIso }),
-    supabase.from("partners").select("id", { count: "exact", head: true }),
+    // Samma definition som publikt på sajten: partnerverifierade profiler + synliga
+    // grundprofiler. Dolda/uteslutna poster (hide_basic_card) räknas inte.
+    supabase.from("partners").select("id", { count: "exact", head: true })
+      .eq("hide_basic_card", false),
     // Kunskapsresurser: videoguider + partnernyheter + publicerade branschsidor
     Promise.all([
       supabase.from("d365_videos").select("id", { count: "exact", head: true }).eq("status", "published"),

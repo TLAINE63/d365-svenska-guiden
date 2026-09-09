@@ -100,7 +100,9 @@ const HERO_INDUSTRIES = STANDARD_INDUSTRIES.filter((i) => publishedIndustryNames
 
 // Fallback som används vid SSG/innan data laddats – ersätts av live-siffror i klienten.
 const VERIFIED_PARTNER_COUNT_FALLBACK = publishedPartners.length;
-const IDENTIFIED_PARTNER_COUNT_FALLBACK = 83; // Totalt övriga partners i Sverige (exkl. operatören)
+// Totalt kartlagda partners (partnerverifierade + grundprofiler). Håll i synk med
+// market_report_stats "Identifierade partners" – live-siffran används när data finns.
+const IDENTIFIED_PARTNER_COUNT_FALLBACK = 84;
 
 
 const homeFaqs = [
