@@ -485,6 +485,11 @@ const Index = () => {
           <HomeVerifiedPartnersGrid onStartNeedsAnalysis={() => setDirectionPicker("behovsanalys")} />
         </Suspense>
 
+        {/* Guideserien – välja Dynamics 365-partner */}
+        <Suspense fallback={<div className="py-16" />}>
+          <HomeGuidesSection />
+        </Suspense>
+
         {/* SECTION 4 – TOOLS */}
         <section className="section-divider py-14 sm:py-20 bg-secondary/40 border-b border-border">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
