@@ -347,7 +347,7 @@ const Navbar = () => {
                       to={guidePath(guide)}
                       className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors"
                     >
-                      {guide.cardTitle}
+                      {guide.shortLabel}
                     </Link>
                   ))}
                   <Link to="/kunskapscenter/upphandlingsresan" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
