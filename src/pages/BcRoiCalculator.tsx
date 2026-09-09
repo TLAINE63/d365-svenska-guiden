@@ -710,7 +710,7 @@ export default function BcRoiCalculator() {
                   Device-licens använder fallback {fmtSek(DEVICE_FALLBACK)}/mån om SKU saknas.
                 </Assumption>
                 <Assumption title="Implementation">
-                  Bas: Låg 250 000 kr, Medel 500 000 kr, Hög 1 000 000 kr. Skalas mjukt med antal användare (+1,2 % per användare över 25)
+                  Bas: Låg 100 000 kr, Medel 250 000 kr, Hög 800 000 kr. Skalas mjukt med antal användare (+1,2 % per användare över 25)
                   och med en <strong>branschfaktor</strong> som speglar typisk projekttyngd:
                   Tillverkning 1,4× · Distribution 1,2× · Handel 1,0× · Annan 1,0× · Tjänster 0,8×.
                   Därtill + 30 000 kr per integration, + en engångskostnad per vald effektiviseringsdrivare (50–200 000 kr beroende på område),
