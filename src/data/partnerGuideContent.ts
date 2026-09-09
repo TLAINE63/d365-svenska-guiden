@@ -67,27 +67,27 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
         "rows": [
           [
             "Business Central",
-            "Från cirka 300 tkr",
+            "100 000–800 000 kr (mindre projekt 100 000–250 000 kr)",
             "Cirka 500"
           ],
           [
             "Sales",
-            "Ungefär samma nivå som Business Central, ofta lägre",
+            "100 000–1 200 000 kr",
             "Cirka 500"
           ],
           [
             "Customer Insights (marknad)",
-            "Varierar kraftigt med datamognad",
+            "100 000–1 200 000 kr, varierar med datamognad",
             "Cirka 300"
           ],
           [
             "Customer Service, Field Service, Contact Center",
-            "Stor variation; kompletta lösningar ligger ofta över 500 tkr",
+            "Customer Service 150 000–1 200 000 kr, Field Service 200 000–1 800 000 kr, Contact Center 250 000–2 000 000 kr",
             "Cirka 200 vardera"
           ],
           [
             "Finance & Supply Chain Management",
-            "Enterprise. Startar normalt kring 5 MSEK",
+            "Enterprise. 1,5–10 miljoner kr",
             "Cirka 50"
           ]
         ]
