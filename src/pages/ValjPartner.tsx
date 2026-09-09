@@ -438,10 +438,12 @@ const ValjPartner = () => {
  }
  return s;
  };
- const signed = result.filter(p => p.agreement_signed);
- const unsigned = result.filter(p => !p.agreement_signed);
- return [...shuffleArr(signed), ...shuffleArr(unsigned)];
- }, [partners, selectedApplications, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography]);
+  const q = nameQuery.trim().toLowerCase();
+  if (q) result = result.filter(p => p.name.toLowerCase().includes(q));
+  const signed = result.filter(p => p.agreement_signed);
+  const unsigned = result.filter(p => !p.agreement_signed);
+  return [...shuffleArr(signed), ...shuffleArr(unsigned)];
+  }, [partners, selectedApplications, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography, nameQuery]);
 
  // Track which partners get shown in filter results (admin sales summary)
  // MUST be called before any early return to preserve hook order
