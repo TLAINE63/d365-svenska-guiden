@@ -338,11 +338,20 @@ const Navbar = () => {
                     Pris- och omfattningskalkylator
                   </Link>
                   <span className="text-xs text-foreground font-bold uppercase tracking-wide mt-2">Guider</span>
+                  <Link to="/guider/" className="text-base font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors">
+                    Översikt – alla guider
+                  </Link>
+                  {PARTNER_GUIDES.map((guide) => (
+                    <Link
+                      key={guide.slug}
+                      to={guidePath(guide)}
+                      className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors"
+                    >
+                      {guide.cardTitle}
+                    </Link>
+                  ))}
                   <Link to="/kunskapscenter/upphandlingsresan" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     Upphandlingsresan
-                  </Link>
-                  <Link to="/valjdynamics365partner/?ai=1" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    Så väljer du rätt Dynamics&nbsp;365-partner
                   </Link>
                 </div>
                 <div className="flex flex-col gap-2">
