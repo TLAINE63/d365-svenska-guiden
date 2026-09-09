@@ -196,7 +196,7 @@ const Navbar = () => {
                 {PARTNER_GUIDES.map((guide) => (
                   <DropdownMenuItem key={guide.slug} asChild>
                     <Link to={guidePath(guide)} className="cursor-pointer">
-                      {guide.cardTitle}
+                      {guide.shortLabel}
                     </Link>
                   </DropdownMenuItem>
                 ))}
