@@ -9,6 +9,7 @@ import GuideCTA from "@/components/guides/GuideCTA";
 import RelatedGuides from "@/components/guides/RelatedGuides";
 import NextGuideRecommendation from "@/components/guides/NextGuideRecommendation";
 import StickyPartnerCTA from "@/components/guides/StickyPartnerCTA";
+import GuidePartnerSpotlight from "@/components/guides/GuidePartnerSpotlight";
 import {
   PARTNER_GUIDES,
   PartnerGuideKey,
@@ -213,6 +214,8 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
             to={partnerListUrl}
             source={`${path}#cta-final`}
           />
+
+          <GuidePartnerSpotlight guide={guide} className="mb-10" />
 
           <NextGuideRecommendation current={guide.key} />
 
