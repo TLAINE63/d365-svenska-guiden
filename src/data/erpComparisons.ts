@@ -327,7 +327,7 @@ const SALES_ROWS = (c: SalesRowInput): ComparisonRow[] => [
   },
   {
     area: "Typisk implementationskostnad",
-    product: "150 000–1 200 000 kr beroende på antal användare och integrationer.",
+    product: "100 000–1 200 000 kr beroende på antal användare och integrationer.",
     competitor: c.implKostnad,
   },
   {
